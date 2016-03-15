@@ -5,7 +5,9 @@ import {
 import HealthStatus from '../constants/HealthStatus';
 import Item from './Item';
 
-module.exports = class Service extends Item {
+const RID_PREFIX = 'dcos:adminrouter:service:';
+
+module.exports = class Framework extends Item {
   getHealth() {
     let meta = this.get('_meta');
     if (!meta || !meta.marathon) {
