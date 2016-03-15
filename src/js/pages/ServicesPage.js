@@ -8,8 +8,6 @@ import AlertPanel from '../components/AlertPanel';
 import CompositeState from '../structs/CompositeState';
 import Config from '../config/Config';
 import DCOSStore from '../stores/DCOSStore';
-import EventTypes from '../constants/EventTypes';
-import FilterHealth from '../components/FilterHealth';
 import FilterHeadline from '../components/FilterHeadline';
 import FilterInputText from '../components/FilterInputText';
 import InternalStorageMixin from '../mixins/InternalStorageMixin';
