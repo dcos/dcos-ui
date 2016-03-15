@@ -2,7 +2,7 @@ var _ = require('underscore');
 var React = require('react');
 
 var Dropdown = require('reactjs-components').Dropdown;
-var Service = require('../structs/Service');
+var Framework = require('../structs/Framework');
 
 var defaultId = 'default';
 
@@ -44,7 +44,9 @@ var FilterByService = React.createClass({
   },
 
   getDropdownItems: function () {
-    let defaultItem = new Service({
+    // TODO (mlunoe, orlandohohmeier): Refactor after introducing new unified
+    // service struct featuring frameworks and apps.
+    let defaultItem = new Framework({
       id: defaultId,
       name: 'All Services',
       // This is literally the worst way of doing this.
