@@ -1,18 +1,18 @@
 import List from './List';
 import MesosSummaryUtil from '../utils/MesosSummaryUtil';
-import Service from './Service';
+import Framework from './Framework';
 import StringUtil from '../utils/StringUtil';
 
 module.exports = class ServicesList extends List {
   constructor() {
     super(...arguments);
 
-    // Replace list items instances of Service
+    // Replace list items instances of Framework
     this.list = this.list.map(function (item) {
-      if (item instanceof Service) {
+      if (item instanceof Framework) {
         return item;
       } else {
-        return new Service(item);
+        return new Framework(item);
       }
     });
   }
