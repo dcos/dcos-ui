@@ -94,7 +94,7 @@ class SidebarHealthFilter extends mixin(QueryParamsMixin) {
     if (stringify(selectedNodes) !== stringify(state.selectedNodes)) {
       this.setState({
         selectedNodes: selectedNodes
-      });
+      }, this.props.handleFilterChange.bind(null, selectedNodes));
     }
   }
 
@@ -162,7 +162,8 @@ class SidebarHealthFilter extends mixin(QueryParamsMixin) {
 }
 
 SidebarHealthFilter.propTypes = {
-  countByHealth: React.PropTypes.object.isRequired
+  countByHealth: React.PropTypes.object.isRequired,
+  handleFilterChange: React.PropTypes.func.isRequired
 };
 
 SidebarHealthFilter.defaultProps = {
