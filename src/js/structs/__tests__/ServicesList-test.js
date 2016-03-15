@@ -59,7 +59,7 @@ describe('ServicesList', function () {
       ];
 
       let list = new ServicesList({items});
-      let filteredList = list.filter({health: 0}).getItems();
+      let filteredList = list.filter({health: [0]}).getItems();
       expect(filteredList.length).toEqual(1);
       expect(filteredList[0].get('name')).toEqual('chronos');
     });

@@ -1,0 +1,20 @@
+.side-list {
+  margin-bottom: @base-spacing-unit;
+  margin-right: @base-spacing-unit;
+  width: 100%;
+
+  .side-list-item {
+    padding-bottom: @base-spacing-unit / 4;
+  }
+}
+
+& when (@screen-mini-enabled) {
+
+  @media (min-width: @screen-mini) {
+
+    .side-list {
+      width: 225px;
+    }
+
+  }
+}
