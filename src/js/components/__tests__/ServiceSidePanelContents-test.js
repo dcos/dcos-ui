@@ -18,7 +18,7 @@ var MarathonStore = require('../../stores/MarathonStore');
 var MesosSummaryActions = require('../../events/MesosSummaryActions');
 var MesosSummaryStore = require('../../stores/MesosSummaryStore');
 var MesosStateStore = require('../../stores/MesosStateStore');
-var Service = require('../../structs/Service');
+var Framework = require('../../structs/Framework');
 var ServiceSidePanelContents = require('../ServiceSidePanelContents');
 
 MesosSummaryActions.fetchSummary = function () {};
@@ -35,7 +35,7 @@ describe('ServiceSidePanelContents', function () {
 
     function fakeFn(name) {
       if (name === 'service_that_exists') {
-        return new Service({
+        return new Framework({
           name: 'foo',
           registered_time: 1000,
           tasks: [],
