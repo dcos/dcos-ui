@@ -1,22 +1,25 @@
-import _ from 'underscore';
 import React from 'react';
 import {RouteHandler} from 'react-router';
+
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
+import AlertPanel from '../components/AlertPanel';
 import Config from '../config/Config';
 import DCOSStore from '../stores/DCOSStore';
-import AlertPanel from '../components/AlertPanel';
+import FilterHeadline from '../components/FilterHeadline';
 import InternalStorageMixin from '../mixins/InternalStorageMixin';
 import Page from '../components/Page';
 import Service from '../structs/Service';
 import ServiceDetail from '../components/ServiceDetail';
+import ServiceFilterTypes from '../constants/ServiceFilterTypes';
+import ServiceSidebarFilters from '../components/ServiceSidebarFilters';
 import ServicesTable from '../components/ServicesTable';
 import ServiceTree from '../structs/ServiceTree';
 import SidebarActions from '../events/SidebarActions';
 import SidePanels from '../components/SidePanels';
 
 var DEFAULT_FILTER_OPTIONS = {
-  healthFilter: null,
+  filterHealth: null,
   searchString: ''
 };
 
@@ -47,7 +50,8 @@ var ServicesPage = React.createClass({
   },
 
   getInitialState: function () {
-    return _.extend({selectedResource: 'cpus'}, DEFAULT_FILTER_OPTIONS);
+    return Object.assign({}, {selectedResource: 'cpus'},
+      DEFAULT_FILTER_OPTIONS);
   },
 
   componentWillMount: function () {
@@ -73,16 +77,27 @@ var ServicesPage = React.createClass({
     });
   },
 
-  getServices: function (serviceTreeId) {
-    let serviceTree = DCOSStore.serviceTree.findItem(function (item) {
-      return item instanceof ServiceTree && item.getId() === serviceTreeId;
+  handleFilterChange: function (filterValues, filterType) {
+    var stateChanges = Object.assign({}, DEFAULT_FILTER_OPTIONS);
+    stateChanges[filterType] = filterValues;
+
+    this.setState(stateChanges);
+  },
+
+  resetFilterQueryParams: function () {
+    let router = this.context.router;
+    let queryParams = router.getCurrentQuery();
+
+    Object.values(ServiceFilterTypes).forEach(function (filterKey) {
+      delete queryParams[filterKey];
     });
 
-    if (serviceTree) {
-      return serviceTree.getItems();
-    }
+    router.transitionTo(router.getCurrentPathname(), {}, queryParams);
+  },
 
-    return DCOSStore.serviceTree.getItems();
+  resetFilter: function () {
+    var state = Object.assign({}, this.state, DEFAULT_FILTER_OPTIONS);
+    this.setState(state, this.resetFilterQueryParams);
   },
 
   getContents: function (id) {
@@ -105,7 +120,33 @@ var ServicesPage = React.createClass({
 
     // Render service table
     if (item instanceof ServiceTree && item.getItems().length > 0) {
-      return (<ServicesTable services={item.getItems()}/>);
+      let {state} = this;
+      let services = item.getItems();
+      let filteredServices = item.filterItemsByFilter({
+        health: state.filterHealth,
+        name: state.searchString
+      }).getItems();
+
+      return (
+        <div className="flex-box flush flex-mobile-column">
+          <ServiceSidebarFilters
+            handleFilterChange={this.handleFilterChange}
+            services={services} />
+          <div className="flex-grow">
+            <FilterHeadline
+              inverseStyle={true}
+              onReset={this.resetFilter}
+              name="Services"
+              currentLength={filteredServices.length}
+              totalLength={services.length} />
+            <ServicesTable
+              services={filteredServices} />
+          </div>
+          <SidePanels
+            params={this.props.params}
+            openedPage="services"/>
+        </div>
+      );
     }
 
     // Render service detail
