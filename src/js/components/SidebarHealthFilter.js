@@ -98,6 +98,32 @@ class SidebarHealthFilter extends mixin(QueryParamsMixin) {
     }
   }
 
+  getCountByHealth(key) {
+    var count = this.props.countByHealth[HealthTypes[key]];
+
+    if (count == null) {
+      return 0;
+    }
+
+    return count;
+  }
+
+  getFormLabel(healthLabel, healthType) {
+    let badge = null;
+    let count = this.getCountByHealth(healthType);
+
+    if (count) {
+      badge = <span className="badge">{count}</span>;
+    }
+
+    return (
+      <span className="row row-flex flush">
+        <span className="label flex-grow">{healthLabel}</span>
+        {badge}
+      </span>
+    );
+  }
+
   getHealthNodes() {
     let state = this.state;
     return Object.keys(HealthTypes).map((healthType, index) => {
@@ -108,8 +134,8 @@ class SidebarHealthFilter extends mixin(QueryParamsMixin) {
         value: checked,
         fieldType: 'checkbox',
         name: healthType,
-        label: HealthLabels[healthType],
-        labelClass: 'inverse'
+        label: this.getFormLabel(HealthLabels[healthType], healthType),
+        labelClass: 'inverse row row-flex flush our-special-class'
       }];
 
       return (
@@ -136,6 +162,7 @@ class SidebarHealthFilter extends mixin(QueryParamsMixin) {
 }
 
 SidebarHealthFilter.propTypes = {
+  countByHealth: React.PropTypes.object.isRequired
 };
 
 SidebarHealthFilter.defaultProps = {

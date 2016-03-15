@@ -8,13 +8,14 @@ class ServiceSidebarFilter extends React.Component {
   render() {
     return (
       <div>
-        <SidebarHealthFilter />
+        <SidebarHealthFilter countByHealth={this.props.countByHealth} />
       </div>
     );
   }
 }
 
 ServiceSidebarFilter.propTypes = {
+  countByHealth: React.PropTypes.object.isRequired
 };
 
 ServiceSidebarFilter.defaultProps = {
