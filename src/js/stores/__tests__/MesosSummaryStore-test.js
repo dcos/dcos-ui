@@ -9,7 +9,7 @@ jest.dontMock('../../utils/StringUtil');
 jest.dontMock('../../utils/Util');
 
 var MesosSummaryStore = require('../MesosSummaryStore');
-var Service = require('../../structs/Service');
+var Framework = require('../../structs/Framework');
 
 MesosSummaryStore.init();
 
@@ -38,13 +38,13 @@ describe('Mesos State Store', function () {
       this.getServiceFromName = MesosSummaryStore.getServiceFromName;
       MesosSummaryStore.getServiceFromName = function (hasUrl) {
         if (hasUrl === 'name_of_service_with_url') {
-          return new Service({
+          return new Framework({
             name: 'fake_service',
             webui_url: 'http://google.com'
           });
         }
 
-        return new Service({
+        return new Framework({
           name: 'fake_service'
         });
       };
