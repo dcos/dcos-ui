@@ -65,7 +65,7 @@ describe('StateSummary', function () {
       expect(services instanceof ServicesList).toBeTruthy();
     });
 
-    it('ServicesList contains instances of Service', function () {
+    it('ServicesList contains instances of Framework', function () {
       let frameworks = [{a: 1}];
       let instance = new StateSummary({snapshot: {frameworks}});
       let services = instance.getServiceList();

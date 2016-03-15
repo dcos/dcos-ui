@@ -10,7 +10,7 @@ var ReactDOM = require('react-dom');
 var FilterByService = require('../FilterByService');
 var MockFrameworks = require('./fixtures/MockFrameworks.json');
 var ServicesList = require('../../structs/ServicesList');
-var Service = require('../../structs/Service');
+var Framework = require('../../structs/Framework');
 
 describe('FilterByService', function () {
 
@@ -36,7 +36,7 @@ describe('FilterByService', function () {
     ReactDOM.unmountComponentAtNode(this.container);
   });
 
-  it('should display \'Filter by Service\' as default item', function () {
+  it('should display \'Filter by Framework\' as default item', function () {
     var node = ReactDOM.findDOMNode(this.instance);
     var buttonNode = node.querySelector('.dropdown-toggle');
 
@@ -50,9 +50,9 @@ describe('FilterByService', function () {
   describe('#getItemHtml', function () {
 
     it('should display the badge correctly', function () {
-      let service = new Service(MockFrameworks.frameworks[4]);
+      let framework = new Framework(MockFrameworks.frameworks[4]);
       var item = ReactDOM.render(
-        this.instance.getItemHtml(service),
+        this.instance.getItemHtml(framework),
         this.container
       );
 
