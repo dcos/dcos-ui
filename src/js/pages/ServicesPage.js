@@ -1,15 +1,23 @@
 import _ from 'underscore';
 import React from 'react';
 import {RouteHandler} from 'react-router';
+
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
+import AlertPanel from '../components/AlertPanel';
+import CompositeState from '../structs/CompositeState';
 import Config from '../config/Config';
 import DCOSStore from '../stores/DCOSStore';
-import AlertPanel from '../components/AlertPanel';
+import EventTypes from '../constants/EventTypes';
+import FilterHealth from '../components/FilterHealth';
+import FilterHeadline from '../components/FilterHeadline';
+import FilterInputText from '../components/FilterInputText';
 import InternalStorageMixin from '../mixins/InternalStorageMixin';
 import Page from '../components/Page';
 import Service from '../structs/Service';
 import ServiceDetail from '../components/ServiceDetail';
+import MarathonStore from '../stores/MarathonStore';
+import ServiceSiderbarFilter from '../components/ServiceSiderbarFilter';
 import ServicesTable from '../components/ServicesTable';
 import ServiceTree from '../structs/ServiceTree';
 import SidebarActions from '../events/SidebarActions';
@@ -85,45 +93,60 @@ var ServicesPage = React.createClass({
     return DCOSStore.serviceTree.getItems();
   },
 
-  getContents: function (id) {
-    // Render loading screen
-    if (!DCOSStore.dataProcessed) {
-      return (
-        <div className="container container-fluid container-pod text-align-center
-            vertical-center inverse">
-          <div className="row">
-            <div className="ball-scale">
-              <div />
-            </div>
-          </div>
+  getServicesPageContent: function () {
+    let serviceTreeId =
+      decodeURIComponent(this.context.router.getCurrentParams().serviceTreeId);
+
+    let state = this.state;
+    let serviceTree = this.getServiceTree(serviceTreeId);
+
+    let services = serviceTree.getItems();
+    let filteredServices = serviceTree.filterItemsByFilter({
+      health: state.filterHealth,
+      name: state.searchString
+    }).getItems();
+
+    return (
+      <div className="flex-box flush flex-mobile-column">
+        <ServiceSidebarFilters
+          handleFilterChange={this.handleFilterChange}
+          services={services} />
+        <div className="flex-grow">
+          <FilterHeadline
+            inverseStyle={true}
+            onReset={this.resetFilter}
+            name="Services"
+            currentLength={filteredServices.length}
+            totalLength={services.length} />
+          <ServicesTable
+            services={filteredServices} />
         </div>
-      );
-    }
+        <SidePanels
+          params={this.props.params}
+          openedPage="services"/>
+      </div>
+    );
+  },
 
-    // Find item in root tree and default to root tree if there is no match
-    let item = DCOSStore.serviceTree.findItemById(id) || DCOSStore.serviceTree;
-
-    // Render service table
-    if (item instanceof ServiceTree && item.getItems().length > 0) {
-      return (<ServicesTable services={item.getItems()}/>);
-    }
-
-    // Render service detail
-    if (item instanceof Service) {
-      return (<ServiceDetail service={item}/>);
-    }
-
-    // Render empty panel
+  getEmptyServicesPageContent: function () {
     return (
       <AlertPanel
         title="No Services Installed"
         iconClassName="icon icon-sprite icon-sprite-jumbo
-                icon-sprite-jumbo-white icon-services flush-top">
+          icon-sprite-jumbo-white icon-services flush-top">
         <p className="flush">
-          Use the {Config.productName} command line tools to find and install services.
+          Use the DCOS command line tools to find and install services.
         </p>
       </AlertPanel>
     );
+  },
+
+  getContents: function (isEmpty) {
+    if (isEmpty) {
+      return this.getEmptyServicesPageContent();
+    } else {
+      return this.getServicesPageContent();
+    }
   },
 
   render: function () {
