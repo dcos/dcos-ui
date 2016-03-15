@@ -1,18 +1,19 @@
-var _ = require('underscore');
-var React = require('react');
+import _ from 'underscore';
+import React from 'react';
 import {RouteHandler} from 'react-router';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
-var AlertPanel = require('../components/AlertPanel');
 import Config from '../config/Config';
 import DCOSStore from '../stores/DCOSStore';
-var InternalStorageMixin = require('../mixins/InternalStorageMixin');
+import AlertPanel from '../components/AlertPanel';
+import InternalStorageMixin from '../mixins/InternalStorageMixin';
 import Page from '../components/Page';
 import Service from '../structs/Service';
 import ServiceDetail from '../components/ServiceDetail';
 import ServicesTable from '../components/ServicesTable';
 import ServiceTree from '../structs/ServiceTree';
 import SidebarActions from '../events/SidebarActions';
+import SidePanels from '../components/SidePanels';
 
 var DEFAULT_FILTER_OPTIONS = {
   healthFilter: null,
