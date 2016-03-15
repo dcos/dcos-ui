@@ -31,9 +31,11 @@ module.exports = class ServicesList extends List {
         services = StringUtil.filterByString(services, 'name', filters.name);
       }
 
-      if (filters.health != null) {
+      if (filters.health != null && filters.health.length !== 0) {
         services = services.filter(function (service) {
-          return service.getHealth().value === filters.health;
+          return filters.health.some(function (healthValue) {
+            return service.getHealth().value === parseInt(healthValue, 10);
+          });
         });
       }
     }

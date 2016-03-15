@@ -1,6 +1,8 @@
 var classNames = require('classnames');
 var React = require('react');
 
+import ServiceFilterTypes from '../constants/ServiceFilterTypes';
+
 var FilterInputText = React.createClass({
 
   displayName: 'FilterInputText',
@@ -35,11 +37,12 @@ var FilterInputText = React.createClass({
 
   handleChange: function (e) {
     e.preventDefault();
-    this.props.handleFilterChange(this.refs.filterInput.value);
+    this.props.handleFilterChange(this.refs.filterInput.value,
+      ServiceFilterTypes.TEXT);
   },
 
   handleClearInput: function () {
-    this.props.handleFilterChange('');
+    this.props.handleFilterChange('', ServiceFilterTypes.TEXT);
   },
 
   handleBlur: function () {
