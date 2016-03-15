@@ -69,7 +69,6 @@ class SidebarHealthFilter extends mixin(QueryParamsMixin) {
           $splice: [[index, 1]]
         });
       }
-      console.log("index", index, selectedNodes);
     }
 
     this.setQueryParam(FilterTypes.HEALTH, selectedNodes);
@@ -101,13 +100,12 @@ class SidebarHealthFilter extends mixin(QueryParamsMixin) {
 
   getHealthNodes() {
     let state = this.state;
-    console.log(state);
     return Object.keys(HealthTypes).map((healthType, index) => {
-      console.log(state.selectedNodes.indexOf(HealthTypes[healthType]) > -1,
-        HealthTypes[healthType], healthType);
       let health = HealthTypes[healthType].toString();
+      let checked = state.selectedNodes.indexOf(health) > -1;
       let definition = [{
-        checked: state.selectedNodes.indexOf(health) > -1,
+        checked: checked,
+        value: checked,
         fieldType: 'checkbox',
         name: healthType,
         label: HealthLabels[healthType],
@@ -126,8 +124,11 @@ class SidebarHealthFilter extends mixin(QueryParamsMixin) {
 
   render() {
     return (
-      <div className="container container-fluid flush-top flush-left">
-        <h6 className="inverse flush">HEALTH</h6>
+      <div style={{width: '165px'}} className="container container-fluid flush-top flush-left">
+        <div style={{justifyContent: 'flex-end'}} className="row row-flex flush">
+          <h6 className="inverse flush flex-grow">HEALTH</h6>
+          {this.getClearLinkForFilter(FilterTypes.HEALTH)}
+        </div>
         {this.getHealthNodes()}
       </div>
     );
