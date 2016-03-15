@@ -29,10 +29,17 @@ Badge
   padding: 0 @body-text-font-size * 0.5;
   background-color: @button-default-active-background-color;
   border-radius: 1000px !important;
+  width: @base-spacing-unit;
 
   &:empty {
 
     display: none;
+
+  }
+
+  &.inverse {
+
+    background-color: rgba(255, 255, 255, 0.05);
 
   }
 

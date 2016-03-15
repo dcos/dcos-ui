@@ -117,6 +117,35 @@ module.exports = class Tree extends List {
     );
   }
 
+  filterItemsByFilter(filter) {
+    let services = this.getItems();
+
+    if (filter) {
+      if (filter.ids) {
+        services = services.filter(function (service) {
+          return this.ids.indexOf(service.id) !== -1;
+        }, {ids: filter.ids});
+      }
+
+      if (filter.name) {
+        let tree =
+          new this.constructor(Object.assign({},
+            this, {items: services, filterProperties: 'name'}));
+        services = tree.filterItems(filter.name).getItems();
+      }
+
+      if (filter.health != null && filter.health.length !== 0) {
+        services = services.filter(function (service) {
+          return filter.health.some(function (healthValue) {
+            return service.getHealth().value === parseInt(healthValue, 10);
+          });
+        });
+      }
+    }
+
+    return new this.constructor(Object.assign({}, this, {items: services}));
+  }
+
   /**
    * @param {function} callback Function to execute on each value in the array,
    * taking one argument: item
