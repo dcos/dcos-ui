@@ -1,6 +1,7 @@
 .sidebar-filters {
-  width: 165px;
+  width: 100%;
   margin-right: @base-spacing-unit * 2.0;
+  margin-bottom: @base-spacing-unit;
 
   .column-12 {
     padding: 0;
@@ -15,5 +16,16 @@
       width: @base-spacing-unit;
       background-color: rgba(255, 255, 255, 0.05);
     }
+  }
+}
+
+& when (@screen-mini-enabled) {
+
+  @media (min-width: @screen-mini) {
+
+    .sidebar-filters {
+      width: 165px;
+    }
+
   }
 }
