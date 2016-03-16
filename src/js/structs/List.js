@@ -19,10 +19,10 @@ module.exports = class List {
       if (!Util.isArray(options.items)) {
         throw new Error('Expected an array.');
       }
-
       this.list = options.items;
-      this.filterProperties = options.filterProperties || [];
     }
+
+    this.filterProperties = options.filterProperties || [];
   }
 
   add(item) {
