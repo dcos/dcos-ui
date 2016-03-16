@@ -35,7 +35,7 @@ module.exports = class ServicesList extends List {
 
       if (filters.health != null && filters.health.length !== 0) {
         services = _.filter(services, function (service) {
-          return filters.health.some(function (healthValue) {
+          return _.some(filters.health, function (healthValue) {
             return service.getHealth().value === parseInt(healthValue, 10);
           });
         });
