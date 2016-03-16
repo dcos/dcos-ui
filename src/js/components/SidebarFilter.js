@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import {Form} from 'reactjs-components';
 import mixin from 'reactjs-mixin';
 import React from 'react';
@@ -85,11 +86,15 @@ class SidebarFilter extends mixin(QueryParamsMixin) {
     let count = this.getCountByValue(filterValue);
 
     if (count) {
-      badge = <span className="badge">{count}</span>;
+      badge = (
+        <span className="badge text-color-8 inverse text-align-center">
+          {count}
+        </span>
+      );
     }
 
     return (
-      <span className="row row-flex flush">
+      <span className="row row-flex flush flex-align-items-center">
         <span className="label flex-grow">{filterLabel}</span>
         {badge}
       </span>
@@ -103,18 +108,21 @@ class SidebarFilter extends mixin(QueryParamsMixin) {
     return Object.keys(filterValues).map((filterValue, index) => {
       let value = filterValues[filterValue].toString();
       let checked = state.selectedNodes.indexOf(value) > -1;
+
       let definition = [{
         checked: checked,
         value: checked,
         fieldType: 'checkbox',
         name: filterValue,
-        label: this.getFormLabel(filterLabels[filterValue], filterValue),
-        labelClass: 'inverse row row-flex flush our-special-class'
+        label:
+          this.getFormLabel(filterLabels[filterValue], filterValue),
+        labelClass: 'inverse row row-flex flush filter-label'
       }];
 
       return (
         <Form
           formGroupClass="form-group flush"
+          formRowClass=""
           key={index}
           definition={definition}
           onChange={this.handleFormChange.bind(this)} />
@@ -130,7 +138,7 @@ class SidebarFilter extends mixin(QueryParamsMixin) {
     }
 
     return (
-      <h6 className="inverse flush flex-grow">{title}</h6>
+      <h6 className="flush-top flex-grow">{title}</h6>
     );
   }
 
@@ -138,8 +146,8 @@ class SidebarFilter extends mixin(QueryParamsMixin) {
     let props = this.props;
 
     return (
-      <div style={{width: '165px'}} className="container container-fluid flush-top flush-left">
-        <div style={{justifyContent: 'flex-end'}} className="row row-flex flush">
+      <div className="sidebar-filters">
+        <div className="row row-flex flex-align-right flush">
           {this.getTitle()}
           {this.getClearLinkForFilter(props.filterType)}
         </div>
