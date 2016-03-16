@@ -1,4 +1,3 @@
-import classNames from 'classnames';
 import {Form} from 'reactjs-components';
 import mixin from 'reactjs-mixin';
 import React from 'react';
@@ -64,9 +63,8 @@ class SidebarFilter extends mixin(QueryParamsMixin) {
     }
 
     if (stringify(selectedNodes) !== stringify(state.selectedNodes)) {
-      this.setState({
-        selectedNodes: selectedNodes
-      }, this.props.handleFilterChange.bind(null, selectedNodes));
+      this.setState({selectedNodes},
+        this.props.handleFilterChange.bind(null, selectedNodes));
     }
   }
 
@@ -164,9 +162,6 @@ SidebarFilter.propTypes = {
   filterValues: React.PropTypes.object.isRequired,
   handleFilterChange: React.PropTypes.func.isRequired,
   title: React.PropTypes.string
-};
-
-SidebarFilter.defaultProps = {
 };
 
 module.exports = SidebarFilter;

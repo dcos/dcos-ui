@@ -28,7 +28,4 @@ ServiceSidebarFilter.propTypes = {
   handleFilterChange: PropTypes.func.isRequired
 };
 
-ServiceSidebarFilter.defaultProps = {
-};
-
 module.exports = ServiceSidebarFilter;

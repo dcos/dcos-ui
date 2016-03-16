@@ -1,5 +1,5 @@
 const FilterTypes = {
-  HEALTH: "filterHealth"
+  HEALTH: 'filterHealth'
 };
 
-export default Object.freeze(FilterTypes);
+module.exports = FilterTypes;
