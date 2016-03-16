@@ -30,7 +30,7 @@ var QueryParamsMixin = {
   },
 
   getClearLinkForFilter: function (filterQueryParamKey,
-      caption = 'Clear',
+      caption = '(Clear)',
       className = null) {
 
     let router = this.context.router;
