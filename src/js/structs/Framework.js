@@ -3,11 +3,9 @@ import {
   SERVICE_ID_VALID_CHARACTERS
 } from '../constants/ServiceConstants';
 import HealthStatus from '../constants/HealthStatus';
-import Item from './Item';
+import Service from './Service';
 
-const RID_PREFIX = 'dcos:adminrouter:service:';
-
-module.exports = class Framework extends Item {
+module.exports = class Framework extends Service {
   getHealth() {
     let meta = this.get('_meta');
     if (!meta || !meta.marathon) {
