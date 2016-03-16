@@ -3,6 +3,15 @@ import StringUtil from '../utils/StringUtil';
 import Util from '../utils/Util';
 
 module.exports = class List {
+  /**
+   * List
+   * @param {{
+   *          items:array,
+   *          filterProperties:{propertyName:(null|string|function)}
+   *        }} options
+   * @constructor
+   * @struct
+   */
   constructor(options = {}) {
     this.list = [];
 
@@ -36,7 +45,7 @@ module.exports = class List {
    * Filters items in list and returns a new instance of the list used, even if
    * it just extends List
    * @param  {string} filterText string to search in properties of the list
-   * @return {Object}            List (or child class) containing filtered items
+   * @return {List} List (or child class) containing filtered items
    */
   filterItems(filterText) {
     let items = this.getItems();
