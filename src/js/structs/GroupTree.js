@@ -1,9 +1,9 @@
 import _ from 'underscore';
 
 import Application from './Application';
-import Util from '../utils/Util';
-import Tree from './Tree';
 import Framework from './Framework';
+import Tree from './Tree';
+import Util from '../utils/Util';
 
 module.exports = class GroupTree extends Tree {
   /**
