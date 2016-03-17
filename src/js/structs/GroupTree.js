@@ -1,14 +1,10 @@
-import StringUtil from '../utils/StringUtil';
+import Util from '../utils/Util';
 import Tree from './Tree';
-import Item from './Item';
 import Service from './Service';
 
 module.exports = class GroupTree extends Tree {
   /**
    * (Marathon) GroupTree
-   *
-   * todo (orlandohohmeier): overwrite filter to make it actually work. :)
-   *
    * @param {{
    *          id:string,
    *          items:array<({id:string, items:array|*)>,
@@ -22,43 +18,65 @@ module.exports = class GroupTree extends Tree {
   constructor(options = {}) {
     super(options);
 
-    this.id = '/';
+    this._id = '/';
     if (options.id || typeof options.id == 'string') {
-      this.id = options.id;
+      this._id = options.id;
     }
 
-    if (!options.apps || !options.groups) {
-      throw new Error(`Expected an array. ${JSON.stringify(options)}`);
+    // Replace groups with instances of (Marathon) GroupTree and append them
+    // to item list/tree
+    if (options.groups) {
+      this.list = this.list.concat(options.groups.map((item) => {
+        if (!(item instanceof GroupTree)) {
+          return new this.constructor(
+            Object.assign({filterProperties: this.getFilterProperties()}, item)
+          );
+        }
+
+        return item;
+      }));
+
     }
 
-    // Replace groups with instances of (Marathon) GroupTree
-    this.list = options.groups.map((item) => {
-      if (!(item instanceof GroupTree)) {
+    // Append apps to item list/tree
+    if (options.apps) {
+      this.list = this.list.concat(options.apps);
+    }
+
+    // Replace group tree like items instances of GroupTree and replace items
+    // with instance of Service
+    this.list = this.list.map((item) => {
+      if (GroupTree.isGroupTree(item)) {
+        return item;
+      }
+
+      if (GroupTree.isLikeGroupTree(item)) {
         return new this.constructor(
           Object.assign({filterProperties: this.getFilterProperties()}, item)
         );
       }
 
-      return item;
-    });
-
-    // Replace items instances of Services
-    this.list = this.list.concat(options.apps.map((item) => {
-      if (item instanceof Service) {
-        return item;
-      }
-
+      // todo (orlandohohmeier): create different types of services
       return new Service(item);
-    }));
+    });
   }
 
-  getId() {
-    return this.id;
+  get id() {
+    return this._id;
   }
 
-  getName() {
-    var tokens = this.getId().split('/');
+  get name() {
+    var tokens = this.id.split('/');
     return tokens[tokens.length - 1];
   }
 
+  static isGroupTree(item) {
+    return item instanceof GroupTree;
+  }
+
+  static isLikeGroupTree(item) {
+    return Tree.isLikeTree(item) ||
+      (item.groups != null && Util.isArray(item.groups) &&
+      item.apps != null && Util.isArray(item.apps));
+  }
 };
