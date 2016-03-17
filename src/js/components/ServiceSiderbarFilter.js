@@ -1,6 +1,6 @@
 import React from 'react';
 
-import FilterTypes from '../constants/FilterTypes';
+import ServiceFilterTypes from '../constants/ServiceFilterTypes';
 import HealthTypes from '../constants/HealthTypes';
 import HealthLabels from '../constants/HealthLabels';
 import SidebarFilter from './SidebarFilter';
@@ -13,7 +13,7 @@ class ServiceSidebarFilter extends React.Component {
       <div>
         <SidebarFilter
           countByValue={this.props.countByHealth}
-          filterType={FilterTypes.HEALTH}
+          filterType={ServiceFilterTypes.HEALTH}
           filterValues={HealthTypes}
           filterLabels={HealthLabels}
           handleFilterChange={this.props.handleFilterChange}
