@@ -62,8 +62,7 @@ module.exports = class GroupTree extends Tree {
       }
 
       // Check the label DCOS_PACKAGE_IS_FRAMEWORK which contains a string.
-      if (item.labels.DCOS_PACKAGE_IS_FRAMEWORK != null
-        && item.labels.DCOS_PACKAGE_IS_FRAMEWORK === 'true') {
+      if (item.labels && item.labels.DCOS_PACKAGE_IS_FRAMEWORK === 'true') {
         return new Framework(item);
       } else {
         return new Application(item);
