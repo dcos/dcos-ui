@@ -16,12 +16,12 @@ describe('GroupTree', function () {
 
     it('defaults id to default root group id ("/")', function () {
       let group = new GroupTree({apps: [], groups: []});
-      expect(group.id).toEqual('/');
+      expect(group.getId()).toEqual('/');
     });
 
     it('accepts id', function () {
       let group = new GroupTree(groupsTestData);
-      expect(group.id).toEqual('/group/id');
+      expect(group.getId()).toEqual('/group/id');
     });
 
     it('accepts nested groups', function () {
