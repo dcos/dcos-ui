@@ -52,7 +52,7 @@ module.exports = class Service extends Item {
   }
 
   get lastConfigChange() {
-    return this.versionInfo.lastScalingAt;
+    return this.versionInfo.lastConfigChangeAt;
   }
 
   get lastScaled() {
