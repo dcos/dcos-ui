@@ -60,8 +60,7 @@ module.exports = class Service extends Item {
   }
 
   get name() {
-    let tokens = this.id.split('/');
-    return tokens[tokens.length - 1];
+    return this.id.split('/').pop();
   }
 
   get ports() {
