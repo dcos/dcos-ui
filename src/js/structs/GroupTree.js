@@ -46,11 +46,13 @@ module.exports = class GroupTree extends Tree {
     // Replace group tree like items instances of GroupTree and replace items
     // with instance of Service
     this.list = this.list.map((item) => {
-      if (GroupTree.isGroupTree(item)) {
+      if (item instanceof GroupTree) {
         return item;
       }
 
-      if (GroupTree.isLikeGroupTree(item)) {
+      if ((item.items != null && Util.isArray(item.items)) ||
+          (item.groups != null && Util.isArray(item.groups) &&
+          item.apps != null && Util.isArray(item.apps))) {
         return new this.constructor(
           Object.assign({filterProperties: this.getFilterProperties()}, item)
         );
@@ -68,15 +70,5 @@ module.exports = class GroupTree extends Tree {
   get name() {
     var tokens = this.id.split('/');
     return tokens[tokens.length - 1];
-  }
-
-  static isGroupTree(item) {
-    return item instanceof GroupTree;
-  }
-
-  static isLikeGroupTree(item) {
-    return Tree.isLikeTree(item) ||
-      (item.groups != null && Util.isArray(item.groups) &&
-      item.apps != null && Util.isArray(item.apps));
   }
 };
