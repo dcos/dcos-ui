@@ -1,6 +1,9 @@
+import _ from 'underscore';
+
+import Application from './Application';
 import Util from '../utils/Util';
 import Tree from './Tree';
-import Service from './Service';
+import Framework from './Framework';
 
 module.exports = class GroupTree extends Tree {
   /**
@@ -29,7 +32,7 @@ module.exports = class GroupTree extends Tree {
       this.list = this.list.concat(options.groups.map((item) => {
         if (!(item instanceof GroupTree)) {
           return new this.constructor(
-            Object.assign({filterProperties: this.getFilterProperties()}, item)
+            _.extend({filterProperties: this.getFilterProperties()}, item)
           );
         }
 
@@ -54,12 +57,17 @@ module.exports = class GroupTree extends Tree {
           (item.groups != null && Util.isArray(item.groups) &&
           item.apps != null && Util.isArray(item.apps))) {
         return new this.constructor(
-          Object.assign({filterProperties: this.getFilterProperties()}, item)
+          _.extend({filterProperties: this.getFilterProperties()}, item)
         );
       }
 
-      // todo (orlandohohmeier): create different types of services
-      return new Service(item);
+      // Check the label DCOS_PACKAGE_IS_FRAMEWORK which contains a string.
+      if (item.labels.DCOS_PACKAGE_IS_FRAMEWORK != null
+        && item.labels.DCOS_PACKAGE_IS_FRAMEWORK === 'true') {
+        return new Framework(item);
+      } else {
+        return new Application(item);
+      }
     });
   }
 
