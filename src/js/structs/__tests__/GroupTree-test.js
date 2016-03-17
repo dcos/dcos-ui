@@ -6,32 +6,27 @@ describe('GroupTree', function () {
   var groupsTestData = {
     id: '/group/id',
     apps: [{id: 'alpha'}, {id: 'beta'}],
-    groups: [{id: '/test', apps: [{id: 'foo'}, {id: 'bar'}], groups: []}]
+    groups: [{id: '/test', apps: [{id: 'foo'}, {id: 'bar'}], groups: []}],
+    filterProperties: {
+      id: null
+    }
   };
 
   describe('#constructor', function () {
 
     it('defaults id to default root group id ("/")', function () {
       let group = new GroupTree({apps: [], groups: []});
-      expect(group.getId()).toEqual('/');
+      expect(group.id).toEqual('/');
     });
 
     it('accepts id', function () {
       let group = new GroupTree(groupsTestData);
-      expect(group.getId()).toEqual('/group/id');
+      expect(group.id).toEqual('/group/id');
     });
 
     it('accepts nested groups', function () {
       let group = new GroupTree(groupsTestData);
       expect(group.getItems()[0] instanceof GroupTree).toEqual(true);
-    });
-
-    it('throws when initialized without apps or groups arguments', function () {
-      let fn = function () {
-        return new GroupTree({id: '/group/id'});
-      };
-
-      expect(fn).toThrow();
     });
 
   });
@@ -107,32 +102,21 @@ describe('GroupTree', function () {
 
   });
 
-  xdescribe('#filterItems', function () {
+  describe('#filterItems', function () {
 
     beforeEach(function () {
-
-      this.instance = new GroupTree({
-        id: '/group/id',
-        apps: [{id: 'alpha'}, {id: 'beta'}],
-        groups: [{id: '/test', apps: [{id: 'foo'}, {id: 'bar'}], groups: []}],
-        filterProperties: {
-          id: null
-        }
-      });
+      this.instance = new GroupTree(groupsTestData);
     });
 
     it('should return an instance of GroupTree', function () {
       let filteredGroup = this.instance.filterItems('alpha');
-
-      console.log("filteredGroup", filteredGroup);
-
       expect(filteredGroup instanceof GroupTree).toBeTruthy();
     });
 
     it('should filter sub groups', function () {
       let filteredSubgroup = this.instance.filterItems('bar').getItems()[0];
       expect(filteredSubgroup instanceof GroupTree).toBeTruthy();
-      expect(filteredSubgroup.getItems()[0].name).toEqual('bar');
+      expect(filteredSubgroup.getItems()[0].get('id')).toEqual('bar');
     });
 
   });
