@@ -63,11 +63,11 @@ module.exports = class GroupTree extends Tree {
     });
   }
 
-  get id() {
+  getId() {
     return this._id;
   }
 
-  get name() {
+  getName() {
     var tokens = this.id.split('/');
     return tokens[tokens.length - 1];
   }
