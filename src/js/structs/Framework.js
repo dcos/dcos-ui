@@ -2,6 +2,7 @@ import {
   ROUTE_ACCESS_PREFIX,
   SERVICE_ID_VALID_CHARACTERS
 } from '../constants/ServiceConstants';
+import HealthStatus from '../constants/HealthStatus';
 import Service from './Service';
 
 module.exports = class Framework extends Service {
