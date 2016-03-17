@@ -7,9 +7,9 @@ module.exports = class GroupTree extends Tree {
    * (Marathon) GroupTree
    * @param {{
    *          id:string,
-   *          items:array<({id:string, items:array|*)>,
+   *          items:array<({id:string, items:array}|*)>,
    *          groups:array<({id:string, groups:array, apps:array}|*)>,
-   *          apps:array
+   *          apps:array,
    *          filterProperties:{propertyName:(null|string|function)}
    *        }} options
    * @constructor
