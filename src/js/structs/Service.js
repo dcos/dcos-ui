@@ -24,11 +24,11 @@ module.exports = class Service extends Item {
     }
 
     let health = HealthStatus.IDLE;
-    let {healthyTasks, runningTasks} = this.tasksSummary;
+    let {tasksHealthy, tasksRunning} = this.tasksSummary;
 
-    if (healthyTasks > 0) {
+    if (tasksHealthy > 0) {
       health = HealthStatus.UNHEALTHY;
-    } else if (runningTasks > 0 && healthyTasks === runningTasks) {
+    } else if (tasksRunning > 0 && tasksHealthy === tasksRunning) {
       health = HealthStatus.HEALTHY;
     }
 
@@ -77,10 +77,10 @@ module.exports = class Service extends Item {
 
   get tasksSummary() {
     return {
-      healthyTasks: this.get('tasksHealthy'),
-      runningTasks: this.get('tasksRunning'),
-      stagedTasks: this.get('tasksStaged'),
-      unhealthyTasks: this.get('tasksUnhealthy')
+      tasksHealthy: this.get('tasksHealthy'),
+      tasksRunning: this.get('tasksRunning'),
+      tasksStaged: this.get('tasksStaged'),
+      tasksUnhealthy: this.get('tasksUnhealthy')
     };
   }
 
