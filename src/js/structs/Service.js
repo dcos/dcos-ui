@@ -2,31 +2,31 @@ import HealthStatus from '../constants/HealthStatus';
 import Item from './Item';
 
 module.exports = class Service extends Item {
-  get arguments() {
+  getArguments() {
     return this.get('args');
   }
 
-  get command() {
+  getCommand() {
     return this.get('cmd');
   }
 
-  get container() {
+  getContainer() {
     return this.get('container');
   }
 
-  get executer() {
+  getExecuter() {
     return this.get('executor');
   }
 
-  get health() {
-    if (this.healthChecks == null || this.healthChecks.length === 0) {
+  getHealth() {
+    if (this.getHealthChecks() == null || this.getHealthChecks().length === 0) {
       return HealthStatus.NA;
     }
 
     let health = HealthStatus.IDLE;
-    let {tasksHealthy, tasksRunning} = this.tasksSummary;
+    let {tasksHealthy, taskUnhealthy, tasksRunning} = this.getTasksSummary();
 
-    if (tasksHealthy > 0) {
+    if (taskUnhealthy > 0) {
       health = HealthStatus.UNHEALTHY;
     } else if (tasksRunning > 0 && tasksHealthy === tasksRunning) {
       health = HealthStatus.HEALTHY;
@@ -35,39 +35,39 @@ module.exports = class Service extends Item {
     return health;
   }
 
-  get healthChecks() {
+  getHealthChecks() {
     return this.get('healthChecks');
   }
 
-  get id() {
+  getId() {
     return this.get('id');
   }
 
-  get instances() {
+  getInstances() {
     return this.get('instances');
   }
 
-  get labels() {
+  getLabels() {
     return this.get('labels');
   }
 
-  get lastConfigChange() {
-    return this.versionInfo.lastConfigChangeAt;
+  getLastConfigChange() {
+    return this.getVersionInfo().lastConfigChangeAt;
   }
 
-  get lastScaled() {
-    return this.versionInfo.lastScalingAt;
+  getLastScaled() {
+    return this.getVersionInfo().lastScalingAt;
   }
 
-  get name() {
+  getName() {
     return this.id.split('/').pop();
   }
 
-  get ports() {
+  getPorts() {
     return this.get('ports');
   }
 
-  get resources() {
+  getResources() {
     return {
       cpus: this.get('cpus'),
       mem: this.get('mem'),
@@ -75,7 +75,7 @@ module.exports = class Service extends Item {
     };
   }
 
-  get tasksSummary() {
+  getTasksSummary() {
     return {
       tasksHealthy: this.get('tasksHealthy'),
       tasksRunning: this.get('tasksRunning'),
@@ -84,15 +84,15 @@ module.exports = class Service extends Item {
     };
   }
 
-  get uris() {
+  getUris() {
     return this.get('uris');
   }
 
-  get user() {
+  getUser() {
     return this.get('user');
   }
 
-  get versionInfo() {
+  getVersionInfo() {
     return this.get('versionInfo');
   }
 };
