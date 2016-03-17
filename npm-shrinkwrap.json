@@ -25942,6 +25942,11 @@
       "from": "https://registry.npmjs.org/react-addons-test-utils/-/react-addons-test-utils-0.14.7.tgz",
       "resolved": "https://registry.npmjs.org/react-addons-test-utils/-/react-addons-test-utils-0.14.7.tgz"
     },
+    "react-addons-update": {
+      "version": "0.14.7",
+      "from": "react-addons-update@latest",
+      "resolved": "https://registry.npmjs.org/react-addons-update/-/react-addons-update-0.14.7.tgz"
+    },
     "react-dom": {
       "version": "0.14.7",
       "from": "https://registry.npmjs.org/react-dom/-/react-dom-0.14.7.tgz",
