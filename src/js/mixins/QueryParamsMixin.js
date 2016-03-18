@@ -1,5 +1,4 @@
-import {Link} from 'react-router';
-import React from 'react/addons';
+import React from 'react';
 
 import Util from '../utils/Util';
 
@@ -27,34 +26,6 @@ var QueryParamsMixin = {
     return router
       ? router.getCurrentPathname()
       : {};
-  },
-
-  getClearLinkForFilter: function (filterQueryParamKey,
-      caption = '(Clear)',
-      className = null) {
-
-    let router = this.context.router;
-    let currentPathname = router.getCurrentPathname();
-    let query = Object.assign({}, router.getCurrentQuery());
-    let params = router.getCurrentParams();
-
-    if (query[filterQueryParamKey] == null ||
-        query[filterQueryParamKey].length === 0) {
-      return null;
-    }
-
-    if (query[filterQueryParamKey] != null) {
-      delete query[filterQueryParamKey];
-    }
-
-    return (
-      <Link className={className}
-          to={currentPathname}
-          query={query}
-          params={params}>
-        {caption}
-      </Link>
-    );
   },
 
   getQueryParamObject: function () {

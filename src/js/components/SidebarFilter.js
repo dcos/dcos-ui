@@ -1,4 +1,5 @@
 import {Form} from 'reactjs-components';
+import {Link} from 'react-router';
 import mixin from 'reactjs-mixin';
 import React from 'react';
 import update from 'react-addons-update';
@@ -32,8 +33,9 @@ class SidebarFilter extends mixin(QueryParamsMixin) {
         $push: [filterValues[eventObj.fieldName]]
       });
     } else {
-      let index =
-        state.selectedNodes.indexOf(filterValues[eventObj.fieldName].toString());
+      let index = state.selectedNodes
+        .indexOf(filterValues[eventObj.fieldName].toString());
+
       if (index !== -1) {
         selectedNodes = update(state.selectedNodes, {
           $splice: [[index, 1]]
@@ -77,6 +79,31 @@ class SidebarFilter extends mixin(QueryParamsMixin) {
     }
 
     return count;
+  }
+
+  getClearLinkForFilter(filterQueryParamKey) {
+    let router = this.context.router;
+    let currentPathname = router.getCurrentPathname();
+    let query = Object.assign({}, router.getCurrentQuery());
+    let params = router.getCurrentParams();
+
+    if (query[filterQueryParamKey] == null ||
+        query[filterQueryParamKey].length === 0) {
+      return null;
+    }
+
+    if (query[filterQueryParamKey] != null) {
+      delete query[filterQueryParamKey];
+    }
+
+    return (
+      <Link
+          to={currentPathname}
+          query={query}
+          params={params}>
+        (Clear)
+      </Link>
+    );
   }
 
   getFormLabel(filterLabel, filterValue) {
