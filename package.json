@@ -20,6 +20,7 @@
     "npm": "2.x.x"
   },
   "dependencies": {
+    "babel-polyfill": "6.7.2",
     "browser-info": "0.4.0",
     "canvas-ui": "0.2.1",
     "classnames": "2.2.3",
