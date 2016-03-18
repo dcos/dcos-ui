@@ -11,10 +11,11 @@ import DCOSStore from '../stores/DCOSStore';
 import FilterHeadline from '../components/FilterHeadline';
 import FilterInputText from '../components/FilterInputText';
 import InternalStorageMixin from '../mixins/InternalStorageMixin';
+import MarathonStore from '../stores/MarathonStore';
 import Page from '../components/Page';
 import Service from '../structs/Service';
 import ServiceDetail from '../components/ServiceDetail';
-import MarathonStore from '../stores/MarathonStore';
+import ServiceFilterTypes from '../constants/ServiceFilterTypes';
 import ServiceSiderbarFilter from '../components/ServiceSiderbarFilter';
 import ServicesTable from '../components/ServicesTable';
 import ServiceTree from '../structs/ServiceTree';
@@ -89,6 +90,23 @@ var ServicesPage = React.createClass({
     }
 
     return DCOSStore.serviceTree.getItems();
+  },
+
+  resetFilterQueryParams: function () {
+    let router = this.context.router;
+    let queryParams = router.getCurrentQuery();
+
+    Object.values(ServiceFilterTypes).forEach(function (filterKey) {
+      delete queryParams[filterKey];
+    });
+
+    router.transitionTo(router.getCurrentPathname(), {}, queryParams);
+  },
+
+  resetFilter: function () {
+    var state = _.clone(DEFAULT_FILTER_OPTIONS);
+    this.internalStorage_update(getMesosServices(state));
+    this.setState(state, this.resetFilterQueryParams);
   },
 
   getServicesPageContent: function () {
