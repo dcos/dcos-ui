@@ -98,4 +98,13 @@ module.exports = class Tree extends List {
 
     return new this.constructor(_.extend({}, this, {items}));
   }
+
+  /**
+   * @param {function} callback Function to execute on each value in the array,
+   * taking one argument: item
+   * @return {object} matching item
+   */
+  findItem(callback) {
+    return this.flattenItems().findItem(callback);
+  }
 };
