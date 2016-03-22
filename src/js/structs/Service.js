@@ -1,5 +1,6 @@
 import HealthStatus from '../constants/HealthStatus';
 import Item from './Item';
+import ServiceImages from '../constants/ServiceImages';
 
 module.exports = class Service extends Item {
   getArguments() {
@@ -43,6 +44,10 @@ module.exports = class Service extends Item {
     return this.get('id');
   }
 
+  getImages() {
+    return this.get('images') || ServiceImages.NA_IMAGES;
+  }
+
   getInstances() {
     return this.get('instances');
   }
@@ -60,7 +65,7 @@ module.exports = class Service extends Item {
   }
 
   getName() {
-    return this.id.split('/').pop();
+    return this.getId().split('/').pop();
   }
 
   getPorts() {
