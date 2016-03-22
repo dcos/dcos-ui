@@ -1,4 +1,5 @@
 let Item = require('../Item');
+let List = require('../List');
 let Tree = require('../Tree');
 
 describe('Tree', function () {
@@ -80,6 +81,29 @@ describe('Tree', function () {
     it('returns the last item in the list', function () {
       let tree = new Tree({items: [0, 1, 2, 3]});
       expect(tree.last()).toEqual(3);
+    });
+
+  });
+
+  describe('#flattenItems', function () {
+
+    beforeEach(function () {
+      this.instance = new Tree({items: [
+        {name: 'foo'}, {name: 'bar'}, {items: [{name: 'alpha'}, {name: 'beta'}]}
+      ]});
+    });
+
+    it('returns an instance of List', function () {
+      expect(this.instance.flattenItems() instanceof List).toBeTruthy();
+    });
+
+    it('returns correct list of items', function () {
+      expect(this.instance.flattenItems().getItems()).toEqual([
+        {name: 'foo'},
+        {name: 'bar'},
+        {name: 'alpha'},
+        {name: 'beta'}
+      ]);
     });
 
   });
