@@ -221,4 +221,26 @@ describe('Tree', function () {
 
   });
 
+  describe('#findItem', function () {
+
+    beforeEach(function () {
+      this.instance = new Tree({items: [
+        {name: 'foo'}, {name: 'bar'}, {items: [{name: 'alpha'}, {name: 'beta'}]}
+      ]});
+    });
+
+    it('should return null if no matching item was found', function () {
+      expect(this.instance.findItem(function () {
+        return false;
+      })).toEqual(null);
+    });
+
+    it('should return matchin item', function () {
+      expect(this.instance.findItem(function (item) {
+        return item.name === 'beta';
+      })).toEqual({name: 'beta'});
+    });
+
+  });
+
 });
