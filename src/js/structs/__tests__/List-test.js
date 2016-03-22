@@ -172,4 +172,24 @@ describe('List', function () {
 
   });
 
+  describe('#findItem', function () {
+
+    beforeEach(function () {
+      this.instance = new List({items: [{name: 'foo'}, {name: 'bar'}]});
+    });
+
+    it('should return null if no matching item was found', function () {
+      expect(this.instance.findItem(function () {
+        return false;
+      })).toEqual(null);
+    });
+
+    it('should return matchin item', function () {
+      expect(this.instance.findItem(function (item) {
+        return item.name === 'foo';
+      })).toEqual({name: 'foo'});
+    });
+
+  });
+
 });
