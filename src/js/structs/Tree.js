@@ -28,7 +28,19 @@ module.exports = class Tree extends List {
 
       return item;
     });
+  }
 
+  flattenItems() {
+    let items = this.getItems().reduce(function (current, item) {
+      if (item instanceof Tree) {
+        return current.concat(item.flattenItems().getItems());
+      }
+      current.push(item);
+
+      return current;
+    }, []);
+
+    return new List({items});
   }
 
   /**
