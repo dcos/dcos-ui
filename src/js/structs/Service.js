@@ -89,8 +89,8 @@ module.exports = class Service extends Item {
     };
   }
 
-  getUris() {
-    return this.get('uris');
+  getFetch() {
+    return this.get('fetch');
   }
 
   getUser() {
