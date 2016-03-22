@@ -73,9 +73,9 @@ describe('Tree', function () {
 
   describe('#last', function () {
 
-    it('returns nil when there\'s no last item', function () {
+    it('returns undefined when there\'s no last item', function () {
       let tree = new Tree();
-      expect(tree.last()).toEqual(null);
+      expect(tree.last()).toEqual(undefined);
     });
 
     it('returns the last item in the list', function () {
@@ -217,6 +217,28 @@ describe('Tree', function () {
       };
       var list = new Tree({items, filterProperties});
       expect(list.filterItems.bind(list, 'foo')).not.toThrow();
+    });
+
+  });
+
+  describe('#findItem', function () {
+
+    beforeEach(function () {
+      this.instance = new Tree({items: [
+        {name: 'foo'}, {name: 'bar'}, {items: [{name: 'alpha'}, {name: 'beta'}]}
+      ]});
+    });
+
+    it('should return undefined if no matching item was found', function () {
+      expect(this.instance.findItem(function () {
+        return false;
+      })).toEqual(undefined);
+    });
+
+    it('should return matchin item', function () {
+      expect(this.instance.findItem(function (item) {
+        return item.name === 'beta';
+      })).toEqual({name: 'beta'});
     });
 
   });
