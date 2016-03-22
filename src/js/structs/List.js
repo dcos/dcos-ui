@@ -1,3 +1,4 @@
+import _ from 'underscore';
 import Item from './Item';
 import StringUtil from '../utils/StringUtil';
 import Util from '../utils/Util';
@@ -81,5 +82,14 @@ module.exports = class List {
     }
 
     return new this.constructor({items});
+  }
+
+  /**
+   * @param {function} callback Function to execute on each value in the array,
+   * taking one argument: item
+   * @return {object} matching item
+   */
+  findItem(callback) {
+    return _.find(this.getItems(), callback);
   }
 };
