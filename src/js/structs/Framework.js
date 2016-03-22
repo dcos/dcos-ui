@@ -36,6 +36,25 @@ module.exports = class Framework extends Service {
     return ROUTE_ACCESS_PREFIX + (this.get('name') || '').replace(regexp, '');
   }
 
+  getMetadata() {
+    let labels = this.getLabels();
+    if (Util.findNestedPropertyInObject(labels, 'DCOS_PACKAGE_METADATA.length') == null) {
+      return {};
+    }
+
+    // extract content of the DCOS_PACKAGE_METADATA label
+    try {
+      var dataAsJsonString = global.atob(labels.DCOS_PACKAGE_METADATA);
+      return JSON.parse(dataAsJsonString);
+    } catch (error) {
+      return {};
+    }
+  }
+
+  getImages() {
+    return ServiceUtil.getServiceImages(this.getMetadata().images);
+  }
+
   getUsageStats(resource) {
     let value = this.get('used_resources')[resource];
 
