@@ -20,7 +20,7 @@ module.exports = class Framework extends Service {
 
   getResourceID() {
     let regexp = new RegExp(`[^${FRAMEWORK_ID_VALID_CHARACTERS}]`, 'g');
-    // strip non-alphanumeric chars from name for safety
+    // Strip non-alphanumeric chars from name for safety
     return ROUTE_ACCESS_PREFIX + (this.get('name') || '').replace(regexp, '');
   }
 
