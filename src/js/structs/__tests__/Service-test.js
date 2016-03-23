@@ -81,7 +81,7 @@ describe('Service', function () {
         executor: '//cmd'
       });
 
-      expect(service.getExecuter()).toEqual('//cmd');
+      expect(service.getExecutor()).toEqual('//cmd');
     });
 
   });
