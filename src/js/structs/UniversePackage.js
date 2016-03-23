@@ -1,5 +1,5 @@
 import Item from './Item';
-import ServiceUtil from '../utils/ServiceUtil';
+import FrameworkUtil from '../utils/FrameworkUtil';
 import Util from '../utils/Util';
 
 // TODO (John): Remove all randomized data.
@@ -34,7 +34,7 @@ class UniversePackage extends Item {
   }
 
   getIcons() {
-    return ServiceUtil.getServiceImages(
+    return FrameworkUtil.getServiceImages(
       this.get('images') ||
       Util.findNestedPropertyInObject(
         this.get('resourceDefinition'), 'images'

@@ -3,12 +3,12 @@ import {
   FRAMEWORK_ID_VALID_CHARACTERS
 } from '../constants/FrameworkConstants';
 import Service from './Service';
-import ServiceUtil from '../utils/ServiceUtil';
+import FrameworkUtil from '../utils/FrameworkUtil';
 import Util from '../utils/Util';
 
 module.exports = class Framework extends Service {
   getImages() {
-    return ServiceUtil.getServiceImages(this.getMetadata().images);
+    return FrameworkUtil.getServiceImages(this.getMetadata().images);
   }
 
   getMetadata() {
@@ -52,7 +52,7 @@ module.exports = class Framework extends Service {
   }
 
   getImages() {
-    return ServiceUtil.getServiceImages(this.getMetadata().images);
+    return FrameworkUtil.getServiceImages(this.getMetadata().images);
   }
 
   getUsageStats(resource) {
