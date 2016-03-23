@@ -1,5 +1,5 @@
 import ServiceImages from '../constants/ServiceImages';
-
+import Util from '../utils/Util';
 
 const FrameworkUtil = {
   getImageSizeFromImagesObject(images, size) {
@@ -10,6 +10,25 @@ const FrameworkUtil = {
     }
 
     return images[`icon-${size}`];
+  },
+
+  /**
+   * Get meta data from framework labels
+   * @param {{DCOS_PACKAGE_METADATA:string}} labels
+   * @returns {object} metadata
+   */
+  getMetadataFromLabels: function (labels) {
+    if (Util.findNestedPropertyInObject(labels, 'DCOS_PACKAGE_METADATA.length') == null) {
+      return {};
+    }
+
+    // Extract content of the DCOS_PACKAGE_METADATA label
+    try {
+      let dataAsJsonString = global.atob(labels.DCOS_PACKAGE_METADATA);
+      return JSON.parse(dataAsJsonString);
+    } catch (error) {
+      return {};
+    }
   },
 
   /**

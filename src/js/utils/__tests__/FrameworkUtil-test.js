@@ -1,4 +1,4 @@
-jest.dontMock('../ServiceUtil');
+jest.dontMock('../FrameworkUtil');
 jest.dontMock('../../constants/ServiceImages');
 
 var ServiceImages = require('../../constants/ServiceImages');
@@ -70,6 +70,35 @@ describe('FrameworkUtil', function () {
     it('should return default images when images is null', function () {
       var images = FrameworkUtil.getServiceImages(null);
       expect(images).toEqual(ServiceImages.NA_IMAGES);
+    });
+
+  });
+
+  describe('#getMetadataFromLabels', function () {
+
+    beforeEach(function () {
+      this.labels = {
+        DCOS_PACKAGE_METADATA: 'eyJuYW1lIjoic2VydmljZSIsImltYWdlcyI6eyJpY29' +
+        'uLXNtYWxsIjoiaWNvbi1zZXJ2aWNlLXNtYWxsLnBuZyIsImljb24tbWVkaXVtIjoia' +
+        'WNvbi1zZXJ2aWNlLW1lZGl1bS5wbmciLCJpY29uLWxhcmdlIjoiaWNvbi1zZXJ2aWN' +
+        'lLWxhcmdlLnBuZyJ9fQ=='
+      };
+    });
+
+    it('defaults to empty object', function () {
+      expect(FrameworkUtil.getMetadataFromLabels({DCOS_PACKAGE_METADATA: ''}))
+        .toEqual({});
+    });
+
+    it('returns correct metadata', function () {
+      expect(FrameworkUtil.getMetadataFromLabels(this.labels)).toEqual({
+        name: 'service',
+        images: {
+          'icon-small': 'icon-service-small.png',
+          'icon-medium': 'icon-service-medium.png',
+          'icon-large': 'icon-service-large.png'
+        }
+      });
     });
 
   });

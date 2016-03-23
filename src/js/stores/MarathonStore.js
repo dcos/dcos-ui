@@ -143,15 +143,9 @@ var MarathonStore = Store.createStore({
   },
 
   getFrameworkImages: function (app) {
-    if (app.labels == null ||
-      app.labels.DCOS_PACKAGE_METADATA == null ||
-      app.labels.DCOS_PACKAGE_METADATA.length === 0) {
-      return null;
-    }
-
-    var metadata = this.parseMetadata(app.labels.DCOS_PACKAGE_METADATA);
-
-    return FrameworkUtil.getServiceImages(metadata.images);
+    return FrameworkUtil.getServiceImages(
+      FrameworkUtil.getMetadataFromLabels(app.labels).images
+    );
   },
 
   getVersion: function (app) {
@@ -213,16 +207,6 @@ var MarathonStore = Store.createStore({
 
   processMarathonAppsError: function () {
     this.emit(MARATHON_APPS_ERROR);
-  },
-
-  parseMetadata: function (b64Data) {
-    // extract content of the DCOS_PACKAGE_METADATA label
-    try {
-      var dataAsJsonString = global.atob(b64Data);
-      return JSON.parse(dataAsJsonString);
-    } catch (error) {
-      return {};
-    }
   },
 
   processOngoingRequest: function () {
