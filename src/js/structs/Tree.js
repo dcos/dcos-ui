@@ -82,7 +82,7 @@ module.exports = class Tree extends List {
           // This is used if property is nested or type is different than string
           let valueGetter = filterProperties[prop];
           if (typeof valueGetter === 'function') {
-            return searchPattern.test(valueGetter(item, prop));
+            return searchPattern.test(valueGetter(item, prop) || '');
           }
 
           // Use default getter if item is an instanceof Item.
