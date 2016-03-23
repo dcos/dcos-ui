@@ -1,55 +1,6 @@
 let Framework = require('../Framework');
-let ServiceImages = require('../../constants/ServiceImages');
 
 describe('Framework', function () {
-
-  beforeEach(function () {
-    this.instance = new Framework({
-      labels: {
-        DCOS_PACKAGE_METADATA: 'eyJuYW1lIjoic2VydmljZSIsImltYWdlcyI6eyJpY29' +
-        'uLXNtYWxsIjoiaWNvbi1zZXJ2aWNlLXNtYWxsLnBuZyIsImljb24tbWVkaXVtIjoia' +
-        'WNvbi1zZXJ2aWNlLW1lZGl1bS5wbmciLCJpY29uLWxhcmdlIjoiaWNvbi1zZXJ2aWN' +
-        'lLWxhcmdlLnBuZyJ9fQ=='
-      }
-    });
-  });
-
-  describe('#getImages', function () {
-
-    it('defaults to NA images', function () {
-      let framework = new Framework({});
-      expect(framework.getImages()).toEqual(ServiceImages.NA_IMAGES);
-    });
-
-    it('get corrects images', function () {
-      expect(this.instance.getImages()).toEqual({
-        'icon-small': 'icon-service-small.png',
-        'icon-medium': 'icon-service-medium.png',
-        'icon-large': 'icon-service-large.png'
-      });
-    });
-
-  });
-
-  describe('#getMetadata', function () {
-
-    it('defaults to empty object', function () {
-      let framework = new Framework();
-      expect(framework.getMetadata()).toEqual({});
-    });
-
-    it('returns correct metadata', function () {
-      expect(this.instance.getMetadata()).toEqual({
-        name: 'service',
-        images: {
-          'icon-small': 'icon-service-small.png',
-          'icon-medium': 'icon-service-medium.png',
-          'icon-large': 'icon-service-large.png'
-        }
-      });
-    });
-
-  });
 
   describe('#getNodeIDs', function () {
 
