@@ -30,6 +30,9 @@ module.exports = class Tree extends List {
     });
   }
 
+  /**
+   * @return {List} flat List of all items
+   */
   flattenItems() {
     let items = this.getItems().reduce(function (current, item) {
       if (item instanceof Tree) {
