@@ -1,4 +1,5 @@
 import _ from 'underscore';
+
 import Item from './Item';
 import StringUtil from '../utils/StringUtil';
 import Util from '../utils/Util';
