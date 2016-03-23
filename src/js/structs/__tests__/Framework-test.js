@@ -6,10 +6,10 @@ describe('Framework', function () {
   beforeEach(function () {
     this.instance = new Framework({
       labels: {
-        DCOS_PACKAGE_METADATA: 'eyJuYW1lIjoic2VydmljZSIsImltYWdlcyI6eyJpY29u' +
-        'LXNtYWxsIjoiaWNvbi1zZXJ2aWNlLXNtYWxsLnBuZyIsImljb24tbWVkaXVtIjoiaWN' +
-        'vbi1zZXJ2aWNlLW1lZGl1bS5wbmciLCJpY29uLWxhcmdlIjoiaWNvbi1zZXJ2aWNlLW' +
-        'xhcmdlLnBuZyJ9fQ=='
+        DCOS_PACKAGE_METADATA: 'eyJuYW1lIjoic2VydmljZSIsImltYWdlcyI6eyJpY29' +
+        'uLXNtYWxsIjoiaWNvbi1zZXJ2aWNlLXNtYWxsLnBuZyIsImljb24tbWVkaXVtIjoia' +
+        'WNvbi1zZXJ2aWNlLW1lZGl1bS5wbmciLCJpY29uLWxhcmdlIjoiaWNvbi1zZXJ2aWN' +
+        'lLWxhcmdlLnBuZyJ9fQ=='
       }
     });
   });
