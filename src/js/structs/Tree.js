@@ -58,8 +58,8 @@ module.exports = class Tree extends List {
     let filterProperties = this.getFilterProperties();
 
     if (filterText) {
-      var regex = StringUtil.escapeForRegExp(filterText);
-      var searchPattern = new RegExp(regex, 'i');
+      let regex = StringUtil.escapeForRegExp(filterText);
+      let searchPattern = new RegExp(regex, 'i');
 
       items = items.map(function (item) {
         // Filter subtrees
@@ -76,7 +76,7 @@ module.exports = class Tree extends List {
         // Filter items by property values
         return Object.keys(filterProperties).some(function (prop) {
           // We need different handlers for item getters since the property
-          // since there can be different ways of getting the value needed
+          // there can be different ways of getting the value needed
 
           // Use getter function if specified in filterProperties.
           // This is used if property is nested or type is different than string
