@@ -2,7 +2,7 @@ var _ = require('underscore');
 var React = require('react');
 
 var Dropdown = require('reactjs-components').Dropdown;
-var Framework = require('../structs/Framework');
+import Framework from '../structs/Framework';
 
 var defaultId = 'default';
 
