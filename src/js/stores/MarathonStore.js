@@ -14,7 +14,7 @@ var GetSetMixin = require('../mixins/GetSetMixin');
 var HealthStatus = require('../constants/HealthStatus');
 var MarathonActions = require('../events/MarathonActions');
 var ServiceImages = require('../constants/ServiceImages');
-import ServiceUtil from '../utils/ServiceUtil';
+import FrameworkUtil from '../utils/FrameworkUtil';
 import VisibilityStore from './VisibilityStore';
 
 var requestInterval = null;
@@ -151,7 +151,7 @@ var MarathonStore = Store.createStore({
 
     var metadata = this.parseMetadata(app.labels.DCOS_PACKAGE_METADATA);
 
-    return ServiceUtil.getServiceImages(metadata.images);
+    return FrameworkUtil.getServiceImages(metadata.images);
   },
 
   getVersion: function (app) {

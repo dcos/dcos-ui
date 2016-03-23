@@ -1,7 +1,7 @@
 import ServiceImages from '../constants/ServiceImages';
 
 
-const ServiceUtil = {
+const FrameworkUtil = {
   getImageSizeFromImagesObject(images, size) {
     if (images == null ||
       images[`icon-${size}`] == null ||
@@ -29,4 +29,4 @@ const ServiceUtil = {
   }
 };
 
-module.exports = ServiceUtil;
+module.exports = FrameworkUtil;
