@@ -3,14 +3,12 @@ jest.dontMock('../../mixins/GetSetMixin');
 jest.dontMock('../MarathonStore');
 jest.dontMock('./fixtures/MockAppMetadata');
 jest.dontMock('./fixtures/MockMarathonResponse.json');
-jest.dontMock('./fixtures/MockParsedAppMetadata.json');
 
 var HealthLabels = require('../../constants/HealthLabels');
 var HealthTypes = require('../../constants/HealthTypes');
 var MarathonStore = require('../MarathonStore');
 var MockAppMetadata = require('./fixtures/MockAppMetadata');
 var MockMarathonResponse = require('./fixtures/MockMarathonResponse.json');
-var MockParsedAppMetadata = require('./fixtures/MockParsedAppMetadata.json');
 
 // mock global string decoder
 global.atob = function () {
@@ -61,39 +59,6 @@ describe('MarathonStore', function () {
           MockMarathonResponse.hasHealth.apps[0]
         );
         expect(health.key).toEqual('HEALTHY');
-      }
-    );
-
-  });
-
-  describe('#parseMetadata', function () {
-
-    it('should parse metadata correctly', function () {
-      var result = MarathonStore.parseMetadata(
-        MockAppMetadata.encodedString
-      );
-      expect(result).toEqual(MockParsedAppMetadata);
-    });
-
-  });
-
-  describe('#getFrameworkImages', function () {
-
-    it('should return parsed images when app has metadata with images',
-      function () {
-        var images = MarathonStore.getFrameworkImages(
-          MockMarathonResponse.hasMetadata.apps[0]
-        );
-        expect(images).toEqual(MockParsedAppMetadata.images);
-      }
-    );
-
-    it('should return default images when app has metadata with images',
-      function () {
-        var images = MarathonStore.getFrameworkImages(
-          MockMarathonResponse.hasHealth.apps[0]
-        );
-        expect(images).toEqual(MarathonStore.NA_IMAGES);
       }
     );
 

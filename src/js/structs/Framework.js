@@ -4,7 +4,6 @@ import {
 } from '../constants/FrameworkConstants';
 import Service from './Service';
 import FrameworkUtil from '../utils/FrameworkUtil';
-import Util from '../utils/Util';
 
 module.exports = class Framework extends Service {
   getImages() {
@@ -12,18 +11,7 @@ module.exports = class Framework extends Service {
   }
 
   getMetadata() {
-    let labels = this.getLabels();
-    if (Util.findNestedPropertyInObject(labels, 'DCOS_PACKAGE_METADATA.length') == null) {
-      return {};
-    }
-
-    // extract content of the DCOS_PACKAGE_METADATA label
-    try {
-      var dataAsJsonString = global.atob(labels.DCOS_PACKAGE_METADATA);
-      return JSON.parse(dataAsJsonString);
-    } catch (error) {
-      return {};
-    }
+    return FrameworkUtil.getMetadataFromLabels(this.getLabels());
   }
 
   getNodeIDs() {
