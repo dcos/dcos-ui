@@ -1,7 +1,7 @@
 import {
   ROUTE_ACCESS_PREFIX,
-  SERVICE_ID_VALID_CHARACTERS
-} from '../constants/ServiceConstants';
+  FRAMEWORK_ID_VALID_CHARACTERS
+} from '../constants/FrameworkConstants';
 import Service from './Service';
 import ServiceUtil from '../utils/ServiceUtil';
 import Util from '../utils/Util';
@@ -31,7 +31,7 @@ module.exports = class Framework extends Service {
   }
 
   getResourceID() {
-    let regexp = new RegExp(`[^${SERVICE_ID_VALID_CHARACTERS}]`, 'g');
+    let regexp = new RegExp(`[^${FRAMEWORK_ID_VALID_CHARACTERS}]`, 'g');
     // strip non-alphanumeric chars from name for safety
     return ROUTE_ACCESS_PREFIX + (this.get('name') || '').replace(regexp, '');
   }
