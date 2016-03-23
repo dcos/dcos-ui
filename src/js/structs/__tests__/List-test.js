@@ -184,7 +184,7 @@ describe('List', function () {
       })).toEqual(undefined);
     });
 
-    it('should return matchin item', function () {
+    it('should return matching item', function () {
       expect(this.instance.findItem(function (item) {
         return item.name === 'foo';
       })).toEqual({name: 'foo'});
