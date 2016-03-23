@@ -71,20 +71,6 @@ describe('Tree', function () {
 
   });
 
-  describe('#last', function () {
-
-    it('returns nil when there\'s no last item', function () {
-      let tree = new Tree();
-      expect(tree.last()).toEqual(null);
-    });
-
-    it('returns the last item in the list', function () {
-      let tree = new Tree({items: [0, 1, 2, 3]});
-      expect(tree.last()).toEqual(3);
-    });
-
-  });
-
   describe('#flattenItems', function () {
 
     beforeEach(function () {
