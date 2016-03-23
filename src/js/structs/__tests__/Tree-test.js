@@ -227,7 +227,7 @@ describe('Tree', function () {
       })).toEqual(null);
     });
 
-    it('should return matchin item', function () {
+    it('should return matching item', function () {
       expect(this.instance.findItem(function (item) {
         return item.name === 'beta';
       })).toEqual({name: 'beta'});
