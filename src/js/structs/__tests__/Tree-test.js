@@ -53,6 +53,12 @@ describe('Tree', function () {
       expect(tree.getItems()).toEqual([0, 1, 2]);
     });
 
+    it('adds a Tree', function () {
+      let tree = new Tree();
+      tree.add(new Tree());
+      expect(tree.getItems()[0] instanceof Tree).toBeTruthy();
+    });
+
   });
 
   describe('#getItems', function () {
