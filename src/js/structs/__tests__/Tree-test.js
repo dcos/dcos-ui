@@ -104,19 +104,19 @@ describe('Tree', function () {
 
     beforeEach(function () {
       var items = [
-        {name: 'foo', description: {value: 'qux'}, subItems: ['one', 'two']},
-        {name: 'bar', description: {value: 'quux'}, subItems: ['two', 'three']},
+        {name: 'foo', description: {value: 'qux'}, tags: ['one', 'two']},
+        {name: 'bar', description: {value: 'quux'}, tags: ['two', 'three']},
         {
           items: [
             {
               name: 'alpha',
               description: {value: 'gamma'},
-              subItems: ['one', 'two']
+              tags: ['one', 'two']
             },
             {
               name: 'beta',
               description: {value: 'delta'},
-              subItems: ['one', 'two']
+              tags: ['one', 'two']
             }
           ]
         }
@@ -126,7 +126,7 @@ describe('Tree', function () {
         description: function (item, prop) {
           return item[prop] && item[prop].value;
         },
-        subItems: function (item, prop) {
+        tags: function (item, prop) {
           return item[prop] && item[prop].join(' ');
         }
       };
@@ -150,12 +150,12 @@ describe('Tree', function () {
         new Item({
           name: 'foo',
           description: {value: 'qux'},
-          subItems: ['one', 'two']
+          tags: ['one', 'two']
         }),
         new Item({
           name: 'bar',
           description: {value: 'quux'},
-          subItems: ['two', 'three']}
+          tags: ['two', 'three']}
         )
       ];
       var filterProperties = {
@@ -163,7 +163,7 @@ describe('Tree', function () {
         description: function (item, prop) {
           return item[prop] && item[prop].value;
         },
-        subItems: function (item, prop) {
+        tags: function (item, prop) {
           return item[prop] && item[prop].join(' ');
         }
       };
@@ -186,24 +186,24 @@ describe('Tree', function () {
       expect(filteredItems[0].description.value).toEqual('qux');
     });
 
-    it('should filter by subItems', function () {
+    it('should filter by tags', function () {
       var filteredItems = this.instance.filterItems('two').getItems();
       expect(filteredItems.length).toEqual(3);
-      expect(filteredItems[0].subItems).toEqual(['one', 'two']);
-      expect(filteredItems[1].subItems).toEqual(['two', 'three']);
+      expect(filteredItems[0].tags).toEqual(['one', 'two']);
+      expect(filteredItems[1].tags).toEqual(['two', 'three']);
     });
 
     it('should handle filter by with null elements', function () {
       var items = [
-        {name: null, description: {value: null}, subItems: [null, 'three']},
-        {description: null, subItems: null}
+        {name: null, description: {value: null}, tags: [null, 'three']},
+        {description: null, tags: null}
       ];
       var filterProperties = {
         name: null,
         description: function (item, prop) {
           return item[prop] && item[prop].value;
         },
-        subItems: function (item, prop) {
+        tags: function (item, prop) {
           return item[prop] && item[prop].join(' ');
         }
       };
