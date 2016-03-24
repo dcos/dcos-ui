@@ -90,12 +90,13 @@ describe('Tree', function () {
     });
 
     it('returns correct list of items', function () {
-      expect(this.instance.flattenItems().getItems()).toEqual([
-        {name: 'foo'},
-        {name: 'bar'},
-        {name: 'alpha'},
-        {name: 'beta'}
-      ]);
+      let items = this.instance.flattenItems().getItems();
+
+      expect(items[0].name).toEqual('foo');
+      expect(items[1].name).toEqual('bar');
+      expect(items[2] instanceof Tree).toBeTruthy();
+      expect(items[3].name).toEqual('alpha');
+      expect(items[4].name).toEqual('beta');
     });
 
   });
