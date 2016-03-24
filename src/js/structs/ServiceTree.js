@@ -53,7 +53,7 @@ module.exports = class ServiceTree extends Tree {
 
       // Check the DCOS_PACKAGE_FRAMEWORK_NAME label to determine if the item
       // should be converted to an Application or Framework instance.
-      if (item.labels && item.labels.DCOS_PACKAGE_FRAMEWORK_NAME != null) {
+      if (item.labels && item.labels.DCOS_PACKAGE_FRAMEWORK_NAME) {
         return new Framework(item);
       } else {
         return new Application(item);
