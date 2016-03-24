@@ -19,9 +19,9 @@ module.exports = class ServiceTree extends Tree {
   constructor(options = {}) {
     super(options);
 
-    this._id = '/';
+    this.id = '/';
     if (options.id || typeof options.id == 'string') {
-      this._id = options.id;
+      this.id = options.id;
     }
 
     // Replace groups with instances of (Marathon) ServiceTree and append them
@@ -69,7 +69,7 @@ module.exports = class ServiceTree extends Tree {
   }
 
   getId() {
-    return this._id;
+    return this.id;
   }
 
   getName() {

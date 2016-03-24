@@ -67,9 +67,9 @@ module.exports = class Tree extends List {
         }
         return item;
       }).filter(function (item) {
-        // Remove empty subtrees
-        if (item instanceof Tree) {
-          return item.getItems().length > 0;
+        // Don't filter subtrees with matching items
+        if (item instanceof Tree && item.getItems().length > 0) {
+          return true;
         }
 
         // Filter items by property values
