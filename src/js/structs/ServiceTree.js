@@ -5,9 +5,9 @@ import Framework from './Framework';
 import Tree from './Tree';
 import Util from '../utils/Util';
 
-module.exports = class GroupTree extends Tree {
+module.exports = class ServiceTree extends Tree {
   /**
-   * (Marathon) GroupTree
+   * (Marathon) ServiceTree
    * @param {{
    *          id:string,
    *          items:array<({id:string, items:array}|*)>,
@@ -26,11 +26,11 @@ module.exports = class GroupTree extends Tree {
       this._id = options.id;
     }
 
-    // Replace groups with instances of (Marathon) GroupTree and append them
+    // Replace groups with instances of (Marathon) ServiceTree and append them
     // to item list/tree
     if (options.groups) {
       this.list = this.list.concat(options.groups.map((item) => {
-        if (!(item instanceof GroupTree)) {
+        if (!(item instanceof ServiceTree)) {
           return new this.constructor(
             _.extend({filterProperties: this.getFilterProperties()}, item)
           );
@@ -46,10 +46,10 @@ module.exports = class GroupTree extends Tree {
       this.list = this.list.concat(options.apps);
     }
 
-    // Replace group tree like items instances of GroupTree and replace items
+    // Replace group tree like items instances of ServiceTree and replace items
     // with instance of Service
     this.list = this.list.map((item) => {
-      if (item instanceof GroupTree) {
+      if (item instanceof ServiceTree) {
         return item;
       }
 
