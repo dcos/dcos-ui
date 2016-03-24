@@ -66,7 +66,6 @@ module.exports = class ServiceTree extends Tree {
   }
 
   getName() {
-    var tokens = this.id.split('/');
-    return tokens[tokens.length - 1];
+    return this.getId().split('/').pop();
   }
 };
