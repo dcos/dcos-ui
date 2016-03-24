@@ -5,9 +5,14 @@ import Util from '../utils/Util';
 function encodeValuesToURIComponents(values) {
   if (Util.isArray(values)) {
     return values.map((param) => {
-      var uriComponent = Util.isArray(param)
-        ? param.map(segment => encodeURIComponent(segment)).join(':')
-        : param.toString();
+      var uriComponent;
+
+      if (Util.isArray(param)) {
+        uriComponent =
+          param.map(segment => encodeURIComponent(segment)).join(':');
+      } else {
+        uriComponent = param.toString();
+      }
 
       return encodeURIComponent(uriComponent);
     });
@@ -23,23 +28,35 @@ var QueryParamsMixin = {
 
   getCurrentPathname: function () {
     var router = this.context.router;
-    return router
-      ? router.getCurrentPathname()
-      : {};
+    var pathName = {};
+
+    if (router) {
+      pathName = router.getCurrentPathname();
+    }
+
+    return pathName;
   },
 
   getQueryParamObject: function () {
     var router = this.context.router;
-    return router
-      ? router.getCurrentQuery()
-      : {};
+    var queryParamObject = {};
+
+    if (router) {
+      queryParamObject = router.getCurrentQuery();
+    }
+
+    return queryParamObject;
   },
 
   getQueryParamValue: function (paramKey) {
     var router = this.context.router;
-    return router
-      ? router.getCurrentQuery()[paramKey]
-      : null;
+    var queryParamValue = null;
+
+    if (router) {
+      queryParamValue = router.getCurrentQuery()[paramKey];
+    }
+
+    return queryParamValue;
   },
 
   setQueryParam: function (paramKey, paramValue) {
