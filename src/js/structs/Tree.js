@@ -40,6 +40,7 @@ module.exports = class Tree extends List {
       if (item instanceof Tree) {
         return current.concat(item.flattenItems().getItems());
       }
+
       return current;
     }, []);
 
@@ -61,42 +62,44 @@ module.exports = class Tree extends List {
       let searchPattern = new RegExp(regex, 'i');
 
       items = items.map(function (item) {
-        // Filter subtrees
-        if (item instanceof Tree) {
-          return item.filterItems(filterText);
-        }
-        return item;
-      }).filter(function (item) {
-        // Don't filter subtrees with matching items
-        if (item instanceof Tree && item.getItems().length > 0) {
-          return true;
-        }
-
-        // Filter items by property values
-        return Object.keys(filterProperties).some(function (prop) {
-          // We need different handlers for item getters since the property
-          // there can be different ways of getting the value needed
-
-          // Use getter function if specified in filterProperties.
-          // This is used if property is nested or type is different than string
-          let valueGetter = filterProperties[prop];
-          if (typeof valueGetter === 'function') {
-            return searchPattern.test(valueGetter(item, prop) || '');
+          // Filter subtrees
+          if (item instanceof Tree) {
+            return item.filterItems(filterText);
           }
 
-          // Use default getter if item is an instanceof Item.
-          // This is the regular way of getting a property on an item
-          if (item instanceof Item) {
-            return searchPattern.test(item.get(prop) || '');
+          return item;
+        })
+        .filter(function (item) {
+          // Don't filter subtrees with matching items
+          if (item instanceof Tree && item.getItems().length > 0) {
+            return true;
           }
 
-          // Last resort is to get property on object.
-          // Some of the items in lists are not always of instance Item and
-          // therefore we might need to get it directly on the object
-          return searchPattern.test(item[prop] || '');
+          // Filter items by property values
+          return Object.keys(filterProperties).some(function (prop) {
+            // We need different handlers for item getters since the property
+            // there can be different ways of getting the value needed
+
+            // Use getter function if specified in filterProperties.
+            // This is used if property is nested or type is different than string
+            let valueGetter = filterProperties[prop];
+            if (typeof valueGetter === 'function') {
+              return searchPattern.test(valueGetter(item, prop) || '');
+            }
+
+            // Use default getter if item is an instanceof Item.
+            // This is the regular way of getting a property on an item
+            if (item instanceof Item) {
+              return searchPattern.test(item.get(prop) || '');
+            }
+
+            // Last resort is to get property on object.
+            // Some of the items in lists are not always of instance Item and
+            // therefore we might need to get it directly on the object
+            return searchPattern.test(item[prop] || '');
+          });
+
         });
-
-      });
     }
 
     return new this.constructor(_.extend({}, this, {items}));
