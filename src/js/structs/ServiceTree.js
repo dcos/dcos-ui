@@ -1,5 +1,3 @@
-import _ from 'underscore';
-
 import Application from './Application';
 import Framework from './Framework';
 import Tree from './Tree';
@@ -32,7 +30,7 @@ module.exports = class ServiceTree extends Tree {
       this.list = this.list.concat(options.groups.map((item) => {
         if (!(item instanceof ServiceTree)) {
           return new this.constructor(
-            _.extend({filterProperties: this.getFilterProperties()}, item)
+            Object.assign({filterProperties: this.getFilterProperties()}, item)
           );
         }
 
@@ -57,7 +55,7 @@ module.exports = class ServiceTree extends Tree {
           (item.groups != null && Util.isArray(item.groups) &&
           item.apps != null && Util.isArray(item.apps))) {
         return new this.constructor(
-          _.extend({filterProperties: this.getFilterProperties()}, item)
+          Object.assign({filterProperties: this.getFilterProperties()}, item)
         );
       }
 
