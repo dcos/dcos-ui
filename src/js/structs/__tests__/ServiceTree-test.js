@@ -87,4 +87,37 @@ describe('ServiceTree', function () {
 
   });
 
+  describe('#filterItems', function () {
+
+    it('should return an instance of ServiceTree', function () {
+      let filteredTree = this.instance.filterItems('alpha');
+      expect(filteredTree instanceof ServiceTree).toBeTruthy();
+    });
+
+    it('should include matching trees', function () {
+      let filteredItems = this.instance.filterItems('test').getItems();
+      expect(filteredItems[0] instanceof ServiceTree).toBeTruthy();
+    });
+
+    it('should not include empty trees', function () {
+      let filteredItems = this.instance.filterItems('beta').getItems();
+      expect(filteredItems[0] instanceof Framework).toBeTruthy();
+    });
+
+    it('should no include matching subtrees', function () {
+      let filteredItems = this.instance.filterItems('foo').getItems();
+      expect(filteredItems[0] instanceof ServiceTree).toBeTruthy();
+    });
+  });
+
+  describe('#findItem', function () {
+
+    it('should find matching subtree', function () {
+      expect(this.instance.findItem(function (item) {
+        return item.getId() === '/test';
+      }).getId()).toEqual('/test');
+    });
+
+  });
+
 });
