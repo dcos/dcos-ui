@@ -1,7 +1,7 @@
-let GroupTree = require('../GroupTree');
+let ServiceTree = require('../ServiceTree');
 let Service = require('../Service');
 
-describe('GroupTree', function () {
+describe('ServiceTree', function () {
 
   var groupsTestData = {
     id: '/group/id',
@@ -15,18 +15,18 @@ describe('GroupTree', function () {
   describe('#constructor', function () {
 
     it('defaults id to default root group id ("/")', function () {
-      let group = new GroupTree({apps: [], groups: []});
+      let group = new ServiceTree({apps: [], groups: []});
       expect(group.getId()).toEqual('/');
     });
 
     it('accepts id', function () {
-      let group = new GroupTree(groupsTestData);
+      let group = new ServiceTree(groupsTestData);
       expect(group.getId()).toEqual('/group/id');
     });
 
     it('accepts nested groups', function () {
-      let group = new GroupTree(groupsTestData);
-      expect(group.getItems()[0] instanceof GroupTree).toEqual(true);
+      let group = new ServiceTree(groupsTestData);
+      expect(group.getItems()[0] instanceof ServiceTree).toEqual(true);
     });
 
   });
@@ -34,19 +34,19 @@ describe('GroupTree', function () {
   describe('#add', function () {
 
     it('adds a service', function () {
-      let group = new GroupTree({id: '/test', apps: [], groups: []});
+      let group = new ServiceTree({id: '/test', apps: [], groups: []});
       group.add(new Service({id: 'a'}));
       expect(group.getItems()[0].get('id')).toEqual('a');
     });
 
     it('adds service like items', function () {
-      let group = new GroupTree({id: '/test', apps: [], groups: []});
+      let group = new ServiceTree({id: '/test', apps: [], groups: []});
       group.add({id: 'a'});
       expect(group.getItems()[0].id).toEqual('a');
     });
 
     it('adds two items', function () {
-      let group = new GroupTree({id: '/test', apps: [], groups: []});
+      let group = new ServiceTree({id: '/test', apps: [], groups: []});
       group.add(new Service({id: 'a'}));
       group.add(new Service({id: 'b'}));
       expect(group.getItems()[0].get('id')).toEqual('a');
@@ -54,7 +54,7 @@ describe('GroupTree', function () {
     });
 
     it('adds items to current Group', function () {
-      let group = new GroupTree({
+      let group = new ServiceTree({
         id: '/test',
         apps: [new Service({id: 'a'})],
         groups: []
@@ -72,12 +72,12 @@ describe('GroupTree', function () {
   describe('#getItems', function () {
 
     it('returns a list of items', function () {
-      let group = new GroupTree({id: '/test', apps: [], groups: []});
+      let group = new ServiceTree({id: '/test', apps: [], groups: []});
       expect(group.getItems()).toEqual([]);
     });
 
     it('returns added items in a list', function () {
-      let group = new GroupTree({id: '/test', apps: [], groups: []});
+      let group = new ServiceTree({id: '/test', apps: [], groups: []});
       group.add(new Service({id: 'a'}));
       group.add(new Service({id: 'b'}));
       expect(group.getItems()[0].get('id')).toEqual('a');
@@ -89,12 +89,12 @@ describe('GroupTree', function () {
   describe('#last', function () {
 
     it('returns nil when there\'s no last item', function () {
-      let group = new GroupTree({id: '/test', apps: [], groups: []});
+      let group = new ServiceTree({id: '/test', apps: [], groups: []});
       expect(group.last()).toEqual(null);
     });
 
     it('returns the last item in the list', function () {
-      let group = new GroupTree({id: '/test', apps: [], groups: []});
+      let group = new ServiceTree({id: '/test', apps: [], groups: []});
       group.add(new Service({id: 'a'}));
       group.add(new Service({id: 'b'}));
       expect(group.last().get('id')).toEqual('b');
@@ -105,17 +105,17 @@ describe('GroupTree', function () {
   describe('#filterItems', function () {
 
     beforeEach(function () {
-      this.instance = new GroupTree(groupsTestData);
+      this.instance = new ServiceTree(groupsTestData);
     });
 
-    it('should return an instance of GroupTree', function () {
+    it('should return an instance of ServiceTree', function () {
       let filteredGroup = this.instance.filterItems('alpha');
-      expect(filteredGroup instanceof GroupTree).toBeTruthy();
+      expect(filteredGroup instanceof ServiceTree).toBeTruthy();
     });
 
     it('should filter sub groups', function () {
       let filteredSubgroup = this.instance.filterItems('bar').getItems()[0];
-      expect(filteredSubgroup instanceof GroupTree).toBeTruthy();
+      expect(filteredSubgroup instanceof ServiceTree).toBeTruthy();
       expect(filteredSubgroup.getItems()[0].get('id')).toEqual('bar');
     });
 
