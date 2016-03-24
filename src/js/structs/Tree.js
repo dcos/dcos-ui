@@ -36,11 +36,10 @@ module.exports = class Tree extends List {
    */
   flattenItems() {
     let items = this.getItems().reduce(function (current, item) {
+      current.push(item);
       if (item instanceof Tree) {
         return current.concat(item.flattenItems().getItems());
       }
-      current.push(item);
-
       return current;
     }, []);
 
