@@ -23,16 +23,31 @@ components/buttons.less
   }
 
   .button {
+
     &-enter, &-appear {
       opacity: 0.01;
       transform: translate(-50%, -100%);
       transition: transform 350ms ease-in, opacity 350ms ease-in;
 
       &.button {
+
         &-enter-active, &-appear-active {
           opacity: 1;
           transform: translate(-50%, 0);
         }
+      }
+    }
+
+    &.button-short {
+      height: auto;
+      padding-bottom: 4px;
+      padding-top: 4px;
+    }
+
+    &.button-fixed-width {
+
+      &.button-fixed-width-small {
+        width: @base-spacing-unit * 3;
       }
     }
   }
