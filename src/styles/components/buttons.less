@@ -63,6 +63,20 @@ components/buttons.less
     }
   }
 
+  .button-collection {
+
+    &.button-collection-stacked {
+
+      .button,
+      .button-collection-spacing {
+        margin-bottom: @base-spacing-unit * 1/2;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
 
   /* -----------------------------------------------------------------------------
   --------------------------------------------------------------------------------

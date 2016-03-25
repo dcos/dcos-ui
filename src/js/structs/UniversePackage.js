@@ -43,6 +43,10 @@ class UniversePackage extends Item {
     );
   }
 
+  getName() {
+    return this.get('packageDefinition').name;
+  }
+
   getScreenshots() {
     return Util.findNestedPropertyInObject(
       this.get('resource'),
@@ -68,6 +72,14 @@ class UniversePackage extends Item {
   }
 
   // TODO (John): Use actual data.
+  getUpgradeVersions() {
+    return ['0.1.0', '0.1.5', '0.2.0', '0.2.5'];
+  }
+
+  getVersion() {
+    return this.get('packageDefinition').version;
+  }
+
   isDecisionPointActive() {
     return this._isDecisionPointActive;
   }

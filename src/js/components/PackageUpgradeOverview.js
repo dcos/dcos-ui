@@ -32,7 +32,9 @@ class PackageUpgradeOverview extends React.Component {
   }
 
   handleUpgradeButtonClick() {
-    console.log(this.props.cosmosPackage);
+    if (this.props.onUpgradeClick) {
+      this.props.onUpgradeClick(this.props.cosmosPackage);
+    }
   }
 
   handleViewProgressClick() {
