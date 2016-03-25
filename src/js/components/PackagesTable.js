@@ -235,13 +235,17 @@ class PackagesTable extends mixin(StoreMixin) {
   }
 
   render() {
-    let isUpgradeModalOpen = !!this.state.packageToUpgrade;
+    let {state} = this;
     let packageName;
+    let packageToUpgrade = state.packageToUpgrade;
     let packageVersion;
 
+    let isUpgradeModalOpen = !!packageToUpgrade;
+    let isUninstallModalOpen = !!state.packageToUninstall;
+
     if (isUpgradeModalOpen) {
-      packageName = this.state.packageToUpgrade.get('name');
-      packageVersion = this.state.packageToUpgrade.get('currentVersion');
+      packageName = packageToUpgrade.getName();
+      packageVersion = packageToUpgrade.getCurrentVersion();
     }
 
     return (
@@ -253,17 +257,17 @@ class PackagesTable extends mixin(StoreMixin) {
           data={this.props.packages.getItems().slice()}
           sortBy={{prop: 'name', order: 'desc'}} />
         <UpgradePackageModal
-          cosmosPackage={this.state.packageToUpgrade}
+          cosmosPackage={packageToUpgrade}
           onClose={this.handleUpgradeCancel}
           open={isUpgradeModalOpen}
           packageName={packageName}
           packageVersion={packageVersion} />
         <Confirm
           closeByBackdropClick={true}
-          disabled={this.state.pendingUninstallRequest}
+          disabled={state.pendingUninstallRequest}
           footerContainerClass="container container-pod container-pod-short
             container-pod-fluid flush-top flush-bottom"
-          open={!!this.state.packageToUninstall}
+          open={isUninstallModalOpen}
           onClose={this.handleUninstallCancel}
           leftButtonCallback={this.handleUninstallCancel}
           rightButtonCallback={this.handleUninstallPackage}

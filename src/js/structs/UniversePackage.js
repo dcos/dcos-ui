@@ -76,7 +76,7 @@ class UniversePackage extends Item {
     return ['0.1.0', '0.1.5', '0.2.0', '0.2.5'];
   }
 
-  getVersion() {
+  getCurrentVersion() {
     return this.get('packageDefinition').version;
   }
 
