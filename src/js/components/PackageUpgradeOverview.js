@@ -85,17 +85,17 @@ class PackageUpgradeOverview extends React.Component {
       <a className="clickable" onClick={this.handleViewProgressClick}>View</a>
     );
     let progress = 50;
-    let state = 'ongoing';
+    let progressState = 'ongoing';
 
     if (cosmosPackage.isDecisionPointActive()) {
-      state = 'waiting';
+      progressState = 'waiting';
     } else if (cosmosPackage.isUpgradePaused()) {
-      state = 'paused';
+      progressState = 'paused';
     }
 
     return (
       <UpgradeProgressBar label={label} labelAction={labelAction}
-        progress={progress} state={state} />
+        progress={progress} progressState={progressState} />
     );
   }
 
@@ -129,14 +129,11 @@ class PackageUpgradeOverview extends React.Component {
     let packageAction;
     let upgradeProgress;
 
-    if (cosmosPackage.isUpgrading()
-      && cosmosPackage.isDecisionPointActive()) {
+    if (cosmosPackage.isDecisionPointActive()) {
       packageAction = this.getAnswerButton(cosmosPackage);
-    } else if (cosmosPackage.isUpgrading()
-      && cosmosPackage.isUpgradePaused()) {
+    } else if (cosmosPackage.isUpgradePaused()) {
       packageAction = this.getResumeButton(cosmosPackage);
-    } else if (cosmosPackage.isUpgrading()
-      && cosmosPackage.isUpgrading()) {
+    } else if (cosmosPackage.isUpgrading()) {
       packageAction = this.getPauseButton(cosmosPackage);
     } else if (cosmosPackage.isUpgradeAvailable()) {
       packageAction = this.getUpgradeButton(cosmosPackage);
