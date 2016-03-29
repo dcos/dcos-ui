@@ -147,7 +147,7 @@ class SidebarFilter extends mixin(QueryParamsMixin) {
       return (
         <Form
           formGroupClass="form-group flush"
-          formRowClass=""
+          formRowClass="row"
           key={index}
           definition={definition}
           onChange={this.handleFormChange.bind(this)} />
