@@ -135,7 +135,7 @@ class SidebarFilter extends mixin(QueryParamsMixin) {
       let checked = state.selectedNodes.indexOf(value) > -1;
 
       let definition = [{
-        checked: checked,
+        checked,
         value: checked,
         fieldType: 'checkbox',
         name: filterValue,
@@ -156,7 +156,7 @@ class SidebarFilter extends mixin(QueryParamsMixin) {
   }
 
   getTitle() {
-    let title = this.props.title;
+    let {title} = this.props;
 
     if (title == null) {
       return null;
@@ -168,7 +168,7 @@ class SidebarFilter extends mixin(QueryParamsMixin) {
   }
 
   render() {
-    let props = this.props;
+    let {props} = this;
 
     return (
       <div className="sidebar-filters">
