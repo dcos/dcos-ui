@@ -16,7 +16,7 @@ import Page from '../components/Page';
 import Service from '../structs/Service';
 import ServiceDetail from '../components/ServiceDetail';
 import ServiceFilterTypes from '../constants/ServiceFilterTypes';
-import ServiceSiderbarFilter from '../components/ServiceSiderbarFilter';
+import ServiceSidebarFilters from '../components/ServiceSidebarFilters';
 import ServicesTable from '../components/ServicesTable';
 import ServiceTree from '../structs/ServiceTree';
 import SidebarActions from '../events/SidebarActions';

@@ -7,7 +7,7 @@ import SidebarFilter from './SidebarFilter';
 
 const PropTypes = React.PropTypes;
 
-class ServiceSidebarFilter extends React.Component {
+class ServiceSidebarFilters extends React.Component {
   render() {
     return (
       <div>
@@ -23,9 +23,9 @@ class ServiceSidebarFilter extends React.Component {
   }
 }
 
-ServiceSidebarFilter.propTypes = {
+ServiceSidebarFilters.propTypes = {
   countByHealth: PropTypes.object.isRequired,
   handleFilterChange: PropTypes.func.isRequired
 };
 
-module.exports = ServiceSidebarFilter;
+module.exports = ServiceSidebarFilters;
