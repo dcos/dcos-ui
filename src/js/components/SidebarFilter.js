@@ -2,7 +2,6 @@ import {Form} from 'reactjs-components';
 import {Link} from 'react-router';
 import mixin from 'reactjs-mixin';
 import React from 'react';
-import update from 'react-addons-update';
 
 import QueryParamsMixin from '../mixins/QueryParamsMixin';
 
@@ -25,21 +24,19 @@ class SidebarFilter extends mixin(QueryParamsMixin) {
 
   handleFormChange(model, eventObj) {
     let selectedNodes = [];
-    let state = this.state;
+    let {state} = this;
     let {filterType, filterValues} = this.props;
 
     if (eventObj.fieldValue) {
-      selectedNodes = update(state.selectedNodes, {
-        $push: [filterValues[eventObj.fieldName]]
-      });
+      selectedNodes = state.selectedNodes.slice(0);
+      selectedNodes.push(filterValues[eventObj.fieldName]);
     } else {
       let index = state.selectedNodes
         .indexOf(filterValues[eventObj.fieldName].toString());
 
       if (index !== -1) {
-        selectedNodes = update(state.selectedNodes, {
-          $splice: [[index, 1]]
-        });
+        selectedNodes = state.selectedNodes.slice(0);
+        selectedNodes.splice(index, 1);
       }
     }
 
