@@ -119,7 +119,7 @@ class SidebarFilter extends mixin(QueryParamsMixin) {
     }
 
     return (
-      <span className="row row-flex flush flex-align-items-center">
+      <span className="flex-box flush flex-align-items-center">
         <span className="label flex-grow">{filterLabel}</span>
         {badge}
       </span>
@@ -172,7 +172,7 @@ class SidebarFilter extends mixin(QueryParamsMixin) {
 
     return (
       <div className="sidebar-filters">
-        <div className="row row-flex flex-align-right flush">
+        <div className="flex-box flex-align-right flush">
           {this.getTitle()}
           {this.getClearLinkForFilter(props.filterType)}
         </div>
