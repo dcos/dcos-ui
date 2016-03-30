@@ -95,7 +95,7 @@ describe('DashboardPage', function () {
     });
 
     it('should sort by health', function () {
-      MarathonStore.processMarathonApps(MockMarathonResponse);
+      MarathonStore.processMarathonGroups(MockMarathonResponse);
 
       let services = new ServicesList({items: [
         {name: 'IdleFramework'},
