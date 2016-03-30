@@ -21,9 +21,9 @@ var requestInterval = null;
 
 function startPolling() {
   if (requestInterval == null) {
-    MarathonActions.fetchApps();
+    MarathonActions.fetchGroups();
     requestInterval = global.setInterval(
-      MarathonActions.fetchApps, Config.getRefreshRate()
+      MarathonActions.fetchGroups, Config.getRefreshRate()
     );
   }
 }
@@ -221,13 +221,13 @@ var MarathonStore = Store.createStore({
 
     var action = payload.action;
     switch (action.type) {
-      case ActionTypes.REQUEST_MARATHON_APPS_SUCCESS:
+      case ActionTypes.REQUEST_MARATHON_GROUPS_SUCCESS:
         MarathonStore.processMarathonGroups(action.data);
         break;
-      case ActionTypes.REQUEST_MARATHON_APPS_ERROR:
+      case ActionTypes.REQUEST_MARATHON_GROUPS_ERROR:
         MarathonStore.processMarathonGroupsError();
         break;
-      case ActionTypes.REQUEST_MARATHON_APPS_ONGOING:
+      case ActionTypes.REQUEST_MARATHON_GROUPS_ONGOING:
         MarathonStore.processOngoingRequest();
         break;
     }
