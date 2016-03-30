@@ -9,7 +9,9 @@ module.exports = {
     Config.getRefreshRate(),
     function (resolve, reject) {
       return function () {
-        var url = Config.rootUrl + '/marathon/v2/apps';
+        const embed = 'embed=group.groups&embed=group.apps&' +
+          'embed=group.apps.deployments&embed=group.apps.counts';
+        let url = `${Config.rootUrl}/marathon/v2/groups?${embed}`;
 
         RequestUtil.json({
           url: url,
