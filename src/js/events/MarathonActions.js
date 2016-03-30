@@ -1,11 +1,15 @@
-import ActionTypes from '../constants/ActionTypes';
+import {
+  REQUEST_MARATHON_GROUPS_SUCCESS,
+  REQUEST_MARATHON_GROUPS_ERROR,
+  REQUEST_MARATHON_GROUPS_ONGOING
+} from '../constants/ActionTypes';
 var AppDispatcher = require('./AppDispatcher');
 var Config = require('../config/Config');
 var RequestUtil = require('../utils/RequestUtil');
 
 module.exports = {
 
-  fetchApps: RequestUtil.debounceOnError(
+  fetchGroups: RequestUtil.debounceOnError(
     Config.getRefreshRate(),
     function (resolve, reject) {
       return function () {
@@ -17,21 +21,21 @@ module.exports = {
           url: url,
           success: function (response) {
             AppDispatcher.handleServerAction({
-              type: ActionTypes.REQUEST_MARATHON_APPS_SUCCESS,
+              type: REQUEST_MARATHON_GROUPS_SUCCESS,
               data: response
             });
             resolve();
           },
           error: function (e) {
             AppDispatcher.handleServerAction({
-              type: ActionTypes.REQUEST_MARATHON_APPS_ERROR,
+              type: REQUEST_MARATHON_GROUPS_ERROR,
               data: e.message
             });
             reject();
           },
           hangingRequestCallback: function () {
             AppDispatcher.handleServerAction({
-              type: ActionTypes.REQUEST_MARATHON_APPS_ONGOING
+              type: REQUEST_MARATHON_GROUPS_ONGOING
             });
           }
         });
