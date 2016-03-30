@@ -135,7 +135,7 @@ class DCOSStore extends EventEmitter {
     let serviceTree = new ServiceTree(marathon);
 
     // Merge Mesos and Marathon data
-    if (mesos.frameworks.length !== 0) {
+    if (mesos.frameworks.length > 0) {
       // Create framework dict from Mesos data
       let frameworks = mesos.frameworks
         .reduce(function (map, framework) {
