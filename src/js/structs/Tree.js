@@ -113,4 +113,21 @@ module.exports = class Tree extends List {
   findItem(callback) {
     return this.flattenItems().findItem(callback);
   }
+
+  /**
+   * @param {function} callback Function that produces an item of the new
+   * Tree, taking three arguments: item, index, tree
+   * @return {Tree} Tree (or child class) containing mapped items
+   */
+  mapItems(callback) {
+    let items = this.getItems().map((item, index) => {
+      if (item instanceof Tree) {
+        return callback(item.mapItems(callback), index, this);
+      }
+
+      return callback(item, index, this);
+    });
+
+    return new this.constructor({items});
+  }
 };
