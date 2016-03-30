@@ -45,7 +45,6 @@ class DCOSStore extends EventEmitter {
         store: MesosSummaryStore
       }
     ];
-
   }
 
   /**
@@ -87,20 +86,44 @@ class DCOSStore extends EventEmitter {
   }
 
   addChangeListener(eventName, callback) {
-    // Only add listeners if not already listening
-    if (!this.listeners(DCOS_CHANGE).length) {
-      this.addProxyListeners();
-    }
-
     this.on(eventName, callback);
   }
 
   removeChangeListener(eventName, callback) {
     this.removeListener(eventName, callback);
-    // Remove listeners if no one is listening
-    if (this.listeners(DCOS_CHANGE).length) {
+  }
+
+  /**
+   * Adds the listener for the specified event
+   * @param {string} eventName
+   * @param {Function} callback
+   * @return {DCOSStore} DCOSStore instance
+   * @override
+   */
+  on(eventName, callback) {
+    // Only add proxy listeners if not already listening
+    if (this.listenerCount(DCOS_CHANGE) === 0) {
+      this.addProxyListeners();
+    }
+
+    return super.on(eventName, callback);
+  }
+
+  /**
+   * Remove the specified listener for the specified event
+   * @param {string} eventName
+   * @param {Function} callback
+   * @return {DCOSStore} DCOSStore instance
+   * @override
+   */
+  removeListener(eventName, callback) {
+    super.removeListener(eventName, callback);
+    // Remove proxy listeners if no one is listening
+    if (this.listenerCount(DCOS_CHANGE) === 0) {
       this.removeProxyListeners();
     }
+
+    return this;
   }
 
   /**
