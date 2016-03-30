@@ -93,4 +93,17 @@ module.exports = class List {
   findItem(callback) {
     return _.find(this.getItems(), callback);
   }
+
+  /**
+   * @param {function} callback Function that produces an item of the new
+   * List, taking three arguments: item, index, list
+   * @return {List} List (or child class) containing mapped items
+   */
+  mapItems(callback) {
+    let items = this.getItems().map((item, index) => {
+      return callback(item, index, this);
+    });
+
+    return new this.constructor({items});
+  }
 };
