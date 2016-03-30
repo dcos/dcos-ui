@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import {Form} from 'reactjs-components';
 import {Link} from 'react-router';
 import mixin from 'reactjs-mixin';
@@ -141,15 +142,32 @@ class SidebarFilter extends mixin(QueryParamsMixin) {
       let value = filterValues[filterValue].toString();
       let checked = this.state.selectedNodes.indexOf(value) > -1;
 
-      return {
+      let labelClassSet = classNames(
+        'side-list-item form-row-element form-element-checkbox inverse row row-flex flush clickable',
+        {
+          'filter-active': this.getCountByValue(filterValue) > 0,
+          'filter-checked': checked
+        }
+      );
+
+      let definition = [{
         checked,
         value: checked,
         fieldType: 'checkbox',
+        formElementClass: 'form-row-element checkbox flush',
         name: filterValue,
         label:
           this.getFormLabel(filterLabels[filterValue], filterValue),
-        labelClass: 'inverse row row-flex flush filter-label'
-      };
+        labelClass: labelClassSet
+      }];
+
+      return (
+        <Form
+          formGroupClass="form-group flush"
+          key={filterValue}
+          definition={definition}
+          onChange={this.handleFormChange.bind(this)} />
+      );
     });
   }
 
@@ -186,7 +204,7 @@ class SidebarFilter extends mixin(QueryParamsMixin) {
     let {props} = this;
 
     return (
-      <div className="sidebar-filters">
+      <div className="side-list sidebar-filters">
         <div className="flex-box flex-align-right flush">
           {this.getTitle()}
           {this.getClearLinkForFilter(props.filterType)}
