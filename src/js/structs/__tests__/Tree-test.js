@@ -236,4 +236,39 @@ describe('Tree', function () {
 
   });
 
+  describe('#mapItems', function () {
+
+    beforeEach(function () {
+      this.instance = new Tree({
+        items: [
+          {name: 'foo'}, {name: 'bar'}, {items: [{name: 'alpha'}, {name: 'beta'}]}
+        ]
+      });
+    });
+
+    it('should return an instance of Tree', function () {
+      var tree = this.instance.mapItems(function (item) {
+        return item;
+      });
+      expect(tree instanceof Tree).toBeTruthy();
+    });
+
+    it('should apply callback to all items', function () {
+      var items = this.instance.mapItems(function (item) {
+        if (item instanceof Tree) {
+          return item;
+        }
+
+        return {name: item.name.toUpperCase()};
+      }).flattenItems().getItems();
+
+      expect(items[0].name).toEqual('FOO');
+      expect(items[1].name).toEqual('BAR');
+      expect(items[2] instanceof Tree).toBeTruthy();
+      expect(items[3].name).toEqual('ALPHA');
+      expect(items[4].name).toEqual('BETA');
+    });
+
+  });
+
 });
