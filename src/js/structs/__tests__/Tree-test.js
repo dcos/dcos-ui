@@ -156,8 +156,8 @@ describe('Tree', function () {
         new Item({
           name: 'bar',
           description: {value: 'quux'},
-          tags: ['two', 'three']}
-        )
+          tags: ['two', 'three']
+        })
       ];
       var filterProperties = {
         name: null,
