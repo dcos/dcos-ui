@@ -4,12 +4,14 @@ import Util from '../utils/Util';
 
 function encodeValuesToURIComponents(values) {
   if (Util.isArray(values)) {
-    return values.map((param) => {
+    return values.map(function (param) {
       var uriComponent;
 
       if (Util.isArray(param)) {
         uriComponent =
-          param.map(segment => encodeURIComponent(segment)).join(':');
+          param.map(function (segment) {
+            return encodeURIComponent(segment)).join(':');
+          });
       } else {
         uriComponent = param.toString();
       }
@@ -27,8 +29,8 @@ var QueryParamsMixin = {
   },
 
   getCurrentPathname: function () {
-    var router = this.context.router;
-    var pathName = {};
+    let {router} = this.context;
+    let pathName = {};
 
     if (router) {
       pathName = router.getCurrentPathname();
@@ -38,8 +40,8 @@ var QueryParamsMixin = {
   },
 
   getQueryParamObject: function () {
-    var router = this.context.router;
-    var queryParamObject = {};
+    let {router} = this.context;
+    let queryParamObject = {};
 
     if (router) {
       queryParamObject = router.getCurrentQuery();
@@ -49,8 +51,8 @@ var QueryParamsMixin = {
   },
 
   getQueryParamValue: function (paramKey) {
-    var router = this.context.router;
-    var queryParamValue = null;
+    let {router} = this.context;
+    let queryParamValue = null;
 
     if (router) {
       queryParamValue = router.getCurrentQuery()[paramKey];
@@ -60,8 +62,8 @@ var QueryParamsMixin = {
   },
 
   setQueryParam: function (paramKey, paramValue) {
-    var router = this.context.router;
-    var queryParams = router.getCurrentQuery();
+    let {router} = this.context;
+    let queryParams = router.getCurrentQuery();
 
     if (paramValue != null && paramValue.length !== 0) {
       let encodedFilter = encodeValuesToURIComponents(paramValue);
@@ -77,8 +79,10 @@ var QueryParamsMixin = {
   },
 
   decodeQueryParamArray: function (array) {
-    return array.split(':').map(segment => decodeURIComponent(segment));
+    return array.split(':').map(function (segment) {
+      return decodeURIComponent(segment);
+    });
   }
 };
 
-export default QueryParamsMixin;
+module.exports = QueryParamsMixin;

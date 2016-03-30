@@ -68,7 +68,7 @@ class SidebarFilter extends mixin(QueryParamsMixin) {
   }
 
   getCountByValue(filterValue) {
-    let props = this.props;
+    let {props} = this;
     let count = props.countByValue[props.filterValues[filterValue]];
 
     if (count == null) {
@@ -79,13 +79,13 @@ class SidebarFilter extends mixin(QueryParamsMixin) {
   }
 
   getClearLinkForFilter(filterQueryParamKey) {
-    let router = this.context.router;
+    let {router} = this.context;
     let currentPathname = router.getCurrentPathname();
     let query = Object.assign({}, router.getCurrentQuery());
     let params = router.getCurrentParams();
 
     if (query[filterQueryParamKey] == null ||
-        query[filterQueryParamKey].length === 0) {
+      query[filterQueryParamKey].length === 0) {
       return null;
     }
 
@@ -95,9 +95,9 @@ class SidebarFilter extends mixin(QueryParamsMixin) {
 
     return (
       <Link
-          to={currentPathname}
-          query={query}
-          params={params}>
+        to={currentPathname}
+        query={query}
+        params={params}>
         (Clear)
       </Link>
     );
