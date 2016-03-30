@@ -34,7 +34,7 @@ describe('CompositeState', function () {
 
   });
 
-  describe('#addMarathon', function () {
+  describe('#addMarathonGroups', function () {
 
     it('adds marathon metadata to an existing framework, matching by id',
       function () {
@@ -46,7 +46,7 @@ describe('CompositeState', function () {
           }]
         });
 
-        CompositeState.addMarathon({
+        CompositeState.addMarathonGroups({
           foo: {
             qux: 'quux',
             corge: 'grault'
@@ -71,14 +71,14 @@ describe('CompositeState', function () {
         }]
       });
 
-      CompositeState.addMarathon({
+      CompositeState.addMarathonGroups({
         foo: {
           qux: 'quux',
           corge: 'grault'
         }
       });
 
-      CompositeState.addMarathon({
+      CompositeState.addMarathonGroups({
         foo: {
           grault: 'garply'
         }
@@ -101,7 +101,7 @@ describe('CompositeState', function () {
           }]
         });
 
-        CompositeState.addMarathon({
+        CompositeState.addMarathonGroups({
           bar: {
             qux: 'quux',
             corge: 'grault'
@@ -109,8 +109,8 @@ describe('CompositeState', function () {
         });
 
         expect(CompositeState.data.frameworks[0]._meta).toBeUndefined();
-      });
-
+      }
+    );
   });
 
   describe('#addNodeHealth', function () {
@@ -314,7 +314,7 @@ describe('CompositeState', function () {
         }]
       });
 
-      CompositeState.addMarathon({
+      CompositeState.addMarathonGroups({
         foo: {
           qux: 'quux',
           corge: 'grault'
