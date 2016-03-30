@@ -48,14 +48,14 @@ class CompositeState {
     this.data = data;
   }
 
-  addMarathon(data) {
+  addMarathonGroups(data) {
     if (Object.keys(this.data).length === 0) {
       return;
     }
 
     this.data.frameworks.forEach(function (service) {
       // Marathon data merged by service name because Marathon doesn't know id.
-      // See MarathonStore.processMarathonApps
+      // See MarathonStore.processMarathonGroups
       if (data[service.name]) {
         service._meta = _.extend({}, service._meta, {
           marathon: data[service.name]

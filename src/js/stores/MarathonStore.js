@@ -98,22 +98,22 @@ var MarathonStore = Store.createStore({
 
   getServiceHealth: function (name) {
     let appName = name.toLowerCase();
-    let marathonApps = this.get('apps');
+    let marathonGroups = this.get('apps');
 
-    if (!marathonApps[appName]) {
+    if (!marathonGroups[appName]) {
       return HealthStatus.NA;
     }
 
-    return marathonApps[appName].health;
+    return marathonGroups[appName].health;
   },
 
   getServiceImages: function (name) {
     let appName = name.toLowerCase();
     let appImages = null;
-    let marathonApps = this.get('apps');
+    let marathonGroups = this.get('apps');
 
-    if (marathonApps[appName]) {
-      appImages = marathonApps[appName].images;
+    if (marathonGroups[appName]) {
+      appImages = marathonGroups[appName].images;
     }
 
     return appImages;
@@ -122,10 +122,10 @@ var MarathonStore = Store.createStore({
   getServiceInstalledTime: function (name) {
     let appName = name.toLowerCase();
     let appInstalledTime = null;
-    let marathonApps = this.get('apps');
+    let marathonGroups = this.get('apps');
 
-    if (marathonApps[appName]) {
-      appInstalledTime = marathonApps[appName].snapshot.version;
+    if (marathonGroups[appName]) {
+      appInstalledTime = marathonGroups[appName].snapshot.version;
     }
 
     return appInstalledTime;
@@ -133,10 +133,10 @@ var MarathonStore = Store.createStore({
 
   getServiceVersion: function (name) {
     let appName = name.toLowerCase();
-    let marathonApps = this.get('apps');
+    let marathonGroups = this.get('apps');
 
-    if (marathonApps[appName]) {
-      return this.getVersion(marathonApps[appName].snapshot);
+    if (marathonGroups[appName]) {
+      return this.getVersion(marathonGroups[appName].snapshot);
     }
 
     return null;
@@ -162,10 +162,11 @@ var MarathonStore = Store.createStore({
     return this.get('apps')[name];
   },
 
-  processMarathonApps: function (data) {
+  processMarathonGroups: function (data) {
     var apps = {};
+
     _.each(data.apps, function (app) {
-      if (app.labels.DCOS_PACKAGE_FRAMEWORK_NAME == null) {
+      if (app.labels == null || app.labels.DCOS_PACKAGE_FRAMEWORK_NAME == null) {
         return;
       }
 
@@ -200,12 +201,12 @@ var MarathonStore = Store.createStore({
 
     this.set({apps});
 
-    CompositeState.addMarathon(apps);
+    CompositeState.addMarathonGroups(apps);
 
     this.emit(MARATHON_APPS_CHANGE, this.get('apps'));
   },
 
-  processMarathonAppsError: function () {
+  processMarathonGroupsError: function () {
     this.emit(MARATHON_APPS_ERROR);
   },
 
@@ -221,10 +222,10 @@ var MarathonStore = Store.createStore({
     var action = payload.action;
     switch (action.type) {
       case ActionTypes.REQUEST_MARATHON_APPS_SUCCESS:
-        MarathonStore.processMarathonApps(action.data);
+        MarathonStore.processMarathonGroups(action.data);
         break;
       case ActionTypes.REQUEST_MARATHON_APPS_ERROR:
-        MarathonStore.processMarathonAppsError();
+        MarathonStore.processMarathonGroupsError();
         break;
       case ActionTypes.REQUEST_MARATHON_APPS_ONGOING:
         MarathonStore.processOngoingRequest();
