@@ -58,7 +58,6 @@ class DCOSStore extends EventEmitter {
 
     this.data.marathon = data;
     this.emit(DCOS_CHANGE);
-
   }
 
   /**
