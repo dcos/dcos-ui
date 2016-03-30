@@ -192,4 +192,27 @@ describe('List', function () {
 
   });
 
+  describe('#mapItems', function () {
+
+    beforeEach(function () {
+      this.instance = new List({items: [{name: 'foo'}, {name: 'bar'}]});
+    });
+
+    it('should return an instance of List', function () {
+      var list = this.instance.mapItems(function (item) {
+        return item;
+      });
+      expect(list instanceof List).toEqual(true);
+    });
+
+    it('should apply callback to all items', function () {
+      var items = this.instance.mapItems(function (item) {
+        return {name: item.name.toUpperCase()};
+      }).getItems();
+      expect(items[0].name).toEqual('FOO');
+      expect(items[1].name).toEqual('BAR');
+    });
+
+  });
+
 });
