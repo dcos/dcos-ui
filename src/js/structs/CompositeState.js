@@ -48,7 +48,7 @@ class CompositeState {
     this.data = data;
   }
 
-  addMarathonGroups(data) {
+  addMarathonApps(data) {
     if (Object.keys(this.data).length === 0) {
       return;
     }
