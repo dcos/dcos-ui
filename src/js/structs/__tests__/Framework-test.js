@@ -42,4 +42,27 @@ describe('Framework', function () {
 
   });
 
+  describe('#getName', function () {
+
+    it('returns correct name', function () {
+      let service = new Framework({
+        id: '/test/framework',
+        labels: {
+          DCOS_PACKAGE_FRAMEWORK_NAME: 'Framework'
+        }
+      });
+
+      expect(service.getName()).toEqual('Framework');
+    });
+
+    it('returns basename if framework name is undefined', function () {
+      let service = new Framework({
+        id: '/test/framework'
+      });
+
+      expect(service.getName()).toEqual('framework');
+    });
+
+  });
+
 });
