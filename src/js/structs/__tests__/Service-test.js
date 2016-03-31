@@ -94,7 +94,7 @@ describe('Service', function () {
       expect(service.getHealth()).toEqual(HealthStatus.NA);
     });
 
-    it('returns correct health status', function () {
+    it('returns correct health status for healthy services', function () {
       let service = new Service({
         healthChecks: [{path: '', protocol: 'HTTP'}],
         tasksStaged: 0,
@@ -106,9 +106,57 @@ describe('Service', function () {
       expect(service.getHealth()).toEqual(HealthStatus.HEALTHY);
     });
 
+    it('returns correct health status for unhealthy services', function () {
+      let service = new Service({
+        healthChecks: [{path: '', protocol: 'HTTP'}],
+        tasksStaged: 0,
+        tasksRunning: 1,
+        tasksHealthy: 0,
+        tasksUnhealthy: 1
+      });
+
+      expect(service.getHealth()).toEqual(HealthStatus.UNHEALTHY);
+    });
+
+    it('returns correct health status for idle services', function () {
+      let service = new Service({
+        healthChecks: [{path: '', protocol: 'HTTP'}],
+        tasksStaged: 0,
+        tasksRunning: 0,
+        tasksHealthy: 0,
+        tasksUnhealthy: 0
+      });
+
+      expect(service.getHealth()).toEqual(HealthStatus.IDLE);
+    });
+
+    it('returns correct health status for NA services', function () {
+      let service = new Service({
+        healthChecks: [],
+        tasksStaged: 0,
+        tasksRunning: 1,
+        tasksHealthy: 0,
+        tasksUnhealthy: 0
+      });
+
+      expect(service.getHealth()).toEqual(HealthStatus.NA);
+    });
+
+    it('returns correct health status for NA services with health checks',
+      function () {
+        let service = new Service({
+          healthChecks: [{path: '', protocol: 'HTTP'}],
+          tasksStaged: 0,
+          tasksRunning: 1,
+          tasksHealthy: 0,
+          tasksUnhealthy: 0
+        });
+
+        expect(service.getHealth()).toEqual(HealthStatus.NA);
+      });
   });
 
-  describe('#getHealth', function () {
+  describe('#getHealthChecks', function () {
 
     it('returns correct health check data', function () {
       let service = new Service({
