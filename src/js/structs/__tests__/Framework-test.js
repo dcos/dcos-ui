@@ -41,20 +41,43 @@ describe('Framework', function () {
 
   });
 
+  describe('#getName', function () {
+
+    it('returns correct name', function () {
+      let service = new Framework({
+        id: '/test/framework',
+        labels: {
+          DCOS_PACKAGE_FRAMEWORK_NAME: 'Framework'
+        }
+      });
+
+      expect(service.getName()).toEqual('Framework');
+    });
+
+    it('returns basename if framework name is undefined', function () {
+      let service = new Framework({
+        id: '/test/framework'
+      });
+
+      expect(service.getName()).toEqual('framework');
+    });
+
+  });
+
   describe('#getWebURL', function () {
 
     it('returns the URL if it is present', function () {
-      let service = new Service({webui_url: 'foo'});
+      let service = new Framework({webui_url: 'foo'});
       expect(service.getWebURL()).toEqual('foo');
     });
 
     it('returns null if the URL is not present', function () {
-      let service = new Service({foo: 'bar'});
+      let service = new Framework({foo: 'bar'});
       expect(service.getWebURL()).toEqual(null);
     });
 
     it('returns null if the URL is an empty string', function () {
-      let service = new Service({webui_url: ''});
+      let service = new Framework({webui_url: ''});
       expect(service.getWebURL()).toEqual(null);
     });
 
