@@ -20,20 +20,21 @@ module.exports = class Service extends Item {
   }
 
   getHealth() {
-    if (this.getHealthChecks() == null || this.getHealthChecks().length === 0) {
-      return HealthStatus.NA;
+    let {tasksHealthy, tasksUnhealthy, tasksRunning} = this.getTasksSummary();
+
+    if (tasksUnhealthy > 0) {
+      return HealthStatus.UNHEALTHY;
     }
 
-    let health = HealthStatus.IDLE;
-    let {tasksHealthy, taskUnhealthy, tasksRunning} = this.getTasksSummary();
-
-    if (taskUnhealthy > 0) {
-      health = HealthStatus.UNHEALTHY;
-    } else if (tasksRunning > 0 && tasksHealthy === tasksRunning) {
-      health = HealthStatus.HEALTHY;
+    if (tasksRunning > 0 && tasksHealthy === tasksRunning) {
+      return HealthStatus.HEALTHY;
     }
 
-    return health;
+    if (this.getHealthChecks() && tasksRunning === 0) {
+      return HealthStatus.IDLE;
+    }
+
+    return HealthStatus.NA;
   }
 
   getHealthChecks() {
