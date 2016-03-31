@@ -24,24 +24,36 @@ class SidebarFilter extends mixin(QueryParamsMixin) {
   }
 
   handleFormChange(model, eventObj) {
-    let selectedNodes = [];
-    let {state} = this;
-    let {filterType, filterValues} = this.props;
+    let filterValue = this.props.filterValues[eventObj.fieldName];
 
     if (eventObj.fieldValue) {
-      selectedNodes = state.selectedNodes.slice(0);
-      selectedNodes.push(filterValues[eventObj.fieldName]);
+      this.setFilterNode(filterValue);
     } else {
-      let index = state.selectedNodes
-        .indexOf(filterValues[eventObj.fieldName].toString());
+      this.unsetFilterNode(filterValue);
+    }
+  }
 
-      if (index !== -1) {
-        selectedNodes = state.selectedNodes.slice(0);
-        selectedNodes.splice(index, 1);
-      }
+  setFilterNode(filterValue) {
+    let selectedNodes = this.state.selectedNodes.slice(0);
+
+    selectedNodes.push(filterValue);
+
+    this.setQueryParam(this.props.filterType, selectedNodes);
+  }
+
+  unsetFilterNode(filterValue) {
+    let {state} = this;
+    let selectedNodes = [];
+
+    let index = state.selectedNodes
+      .indexOf(filterValue.toString());
+
+    if (index !== -1) {
+      selectedNodes = state.selectedNodes.slice(0);
+      selectedNodes.splice(index, 1);
     }
 
-    this.setQueryParam(filterType, selectedNodes);
+    this.setQueryParam(this.props.filterType, selectedNodes);
   }
 
   updateFilterStatus() {
