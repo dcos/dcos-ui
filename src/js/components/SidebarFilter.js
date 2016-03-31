@@ -150,8 +150,9 @@ class SidebarFilter extends mixin(QueryParamsMixin) {
         }
       );
 
-      let definition = [{
+      return {
         checked,
+        checkboxLabelClass: 'form-element-checkbox-label flex-grow',
         value: checked,
         fieldType: 'checkbox',
         formElementClass: 'form-row-element checkbox flush',
@@ -159,15 +160,7 @@ class SidebarFilter extends mixin(QueryParamsMixin) {
         label:
           this.getFormLabel(filterLabels[filterValue], filterValue),
         labelClass: labelClassSet
-      }];
-
-      return (
-        <Form
-          formGroupClass="form-group flush"
-          key={filterValue}
-          definition={definition}
-          onChange={this.handleFormChange.bind(this)} />
-      );
+      };
     });
   }
 
