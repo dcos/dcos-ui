@@ -215,4 +215,20 @@ describe('List', function () {
 
   });
 
+  describe('#reduceItems', function () {
+
+    beforeEach(function () {
+      this.instance = new List({items: [{name: 'foo'}, {name: 'bar'}]});
+    });
+
+    it('should reduce all items to a value', function () {
+      var expectedValue = this.instance.reduceItems(
+        function (previousValue, currentValue) {
+          return previousValue + currentValue.name;
+        }, '');
+      expect(expectedValue).toEqual('foobar');
+    });
+
+  });
+
 });

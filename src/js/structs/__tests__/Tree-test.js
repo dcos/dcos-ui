@@ -271,4 +271,74 @@ describe('Tree', function () {
 
   });
 
+  describe('#reduceItems', function () {
+
+    beforeEach(function () {
+      this.instance = new Tree({
+        items: [
+          {
+            name: 'foo',
+            value: 7
+          }, {
+            name: 'bar',
+            value: 13
+          }, {
+            items: [
+              {
+                name: 'alpha',
+                value: 5
+              }, {
+                name: 'beta',
+                value: 3
+              }, {
+                items: [
+                  {
+                    name: 'one',
+                    value: 2
+                  }, {
+                    name: 'two',
+                    value: 1
+                  }
+                ]
+              }
+            ]
+          }, {
+            name: 'qux',
+            value: 11
+          }
+        ]
+      });
+    });
+
+    it('should reduce tree to a single number', function () {
+      var value = this.instance.reduceItems(
+        function (previousValue, currentValue) {
+          if (currentValue instanceof Tree) {
+            return previousValue;
+          }
+
+          return previousValue + currentValue.value;
+        }, 0);
+
+      expect(value).toEqual(42);
+    });
+
+    it('should reduce tree to an array', function () {
+      var value = this.instance.reduceItems(
+        function (previousValue, currentValue) {
+          if (currentValue instanceof Tree) {
+            previousValue.push(currentValue.getItems().length);
+            return previousValue;
+          }
+          previousValue.push(currentValue.name);
+
+          return previousValue;
+        }, []);
+
+      expect(value)
+        .toEqual(['foo', 'bar', 3, 'alpha', 'beta', 2, 'one', 'two', 'qux']);
+    });
+
+  });
+
 });
