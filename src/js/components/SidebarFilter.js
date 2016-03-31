@@ -24,9 +24,9 @@ class SidebarFilter extends mixin(QueryParamsMixin) {
   }
 
   handleFormChange(model, eventObj) {
-    let filterValue = this.props.filterValues[eventObj.fieldName];
+    let filterValue = this.props.filterValues[eventObj.fieldValue.name];
 
-    if (eventObj.fieldValue) {
+    if (eventObj.fieldValue.checked) {
       this.setFilterNode(filterValue);
     } else {
       this.unsetFilterNode(filterValue);
@@ -134,15 +134,14 @@ class SidebarFilter extends mixin(QueryParamsMixin) {
     );
   }
 
-  getHealthNodes() {
-    let {props, state} = this;
-    let {filterLabels, filterValues} = props;
+  getHealthCheckboxes() {
+    let {filterLabels, filterValues} = this.props;
 
-    return Object.keys(filterValues).map((filterValue, index) => {
+    return Object.keys(filterValues).map(filterValue => {
       let value = filterValues[filterValue].toString();
-      let checked = state.selectedNodes.indexOf(value) > -1;
+      let checked = this.state.selectedNodes.indexOf(value) > -1;
 
-      let definition = [{
+      return {
         checked,
         value: checked,
         fieldType: 'checkbox',
@@ -150,17 +149,25 @@ class SidebarFilter extends mixin(QueryParamsMixin) {
         label:
           this.getFormLabel(filterLabels[filterValue], filterValue),
         labelClass: 'inverse row row-flex flush filter-label'
-      }];
-
-      return (
-        <Form
-          formGroupClass="form-group flush"
-          formRowClass="row"
-          key={index}
-          definition={definition}
-          onChange={this.handleFormChange.bind(this)} />
-      );
+      };
     });
+  }
+
+  getHealthNodes() {
+    let definition = [{
+      fieldType: 'checkboxMultiple',
+      name: 'healthNodes',
+      value: this.getHealthCheckboxes(),
+      writeType: 'input'
+    }];
+
+    return (
+      <Form
+        formGroupClass="form-group flush"
+        formRowClass="row"
+        definition={definition}
+        onChange={this.handleFormChange.bind(this)} />
+    );
   }
 
   getTitle() {
