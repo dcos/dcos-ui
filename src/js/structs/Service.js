@@ -42,7 +42,7 @@ module.exports = class Service extends Item {
   }
 
   getId() {
-    return this.get('id');
+    return this.get('id') || '';
   }
 
   getImages() {

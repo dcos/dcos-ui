@@ -30,6 +30,14 @@ module.exports = class Framework extends Service {
     return {value};
   }
 
+  getName() {
+    let labels = this.getLabels();
+    if (labels && labels.DCOS_PACKAGE_FRAMEWORK_NAME) {
+      return labels.DCOS_PACKAGE_FRAMEWORK_NAME;
+    }
+    return super.getName();
+  }
+
   getWebURL() {
     let url = this.get('webui_url');
 
