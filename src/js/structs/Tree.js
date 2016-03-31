@@ -130,4 +130,20 @@ module.exports = class Tree extends List {
 
     return new this.constructor({items});
   }
+
+  /**
+   * @param {function} callback Function to execute on each value in the
+   * array, taking four arguments: previousValue, currentValue, index, list
+   * @param {*} initialValue
+   * @returns {*} returnValue
+   */
+  reduceItems(callback, initialValue) {
+    return this.getItems().reduce((previousValue, currentValue, index) => {
+      let returnValue = callback(previousValue, currentValue, index, this);
+      if (currentValue instanceof Tree) {
+        returnValue = currentValue.reduceItems(callback, returnValue);
+      }
+      return returnValue;
+    }, initialValue);
+  }
 };
