@@ -10,7 +10,7 @@ function encodeValuesToURIComponents(values) {
       if (Util.isArray(param)) {
         uriComponent =
           param.map(function (segment) {
-            return encodeURIComponent(segment)).join(':');
+            return encodeURIComponent(segment).join(':');
           });
       } else {
         uriComponent = param.toString();

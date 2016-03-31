@@ -4,6 +4,7 @@ import mixin from 'reactjs-mixin';
 import React from 'react';
 
 import QueryParamsMixin from '../mixins/QueryParamsMixin';
+import Util from '../utils/Util';
 
 class SidebarFilter extends mixin(QueryParamsMixin) {
   constructor() {
@@ -46,12 +47,10 @@ class SidebarFilter extends mixin(QueryParamsMixin) {
   updateFilterStatus() {
     let {props, state} = this;
     let {filterType, filterValues} = props;
-    let selectedNodes = this.getQueryParamValue(filterType);
+    let selectedNodes = this.getQueryParamValue(filterType) || [];
     let stringify = JSON.stringify;
 
-    if (selectedNodes == null) {
-      selectedNodes = [];
-    } else {
+    if (!Util.isArray(selectedNodes)) {
       selectedNodes = decodeURIComponent(selectedNodes)
         .split(',')
         .filter(function (filterValue) {
