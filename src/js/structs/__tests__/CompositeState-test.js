@@ -34,7 +34,7 @@ describe('CompositeState', function () {
 
   });
 
-  describe('#addMarathonGroups', function () {
+  describe('#addMarathonApps', function () {
 
     it('adds marathon metadata to an existing framework, matching by id',
       function () {
@@ -46,7 +46,7 @@ describe('CompositeState', function () {
           }]
         });
 
-        CompositeState.addMarathonGroups({
+        CompositeState.addMarathonApps({
           foo: {
             qux: 'quux',
             corge: 'grault'
@@ -71,14 +71,14 @@ describe('CompositeState', function () {
         }]
       });
 
-      CompositeState.addMarathonGroups({
+      CompositeState.addMarathonApps({
         foo: {
           qux: 'quux',
           corge: 'grault'
         }
       });
 
-      CompositeState.addMarathonGroups({
+      CompositeState.addMarathonApps({
         foo: {
           grault: 'garply'
         }
@@ -101,7 +101,7 @@ describe('CompositeState', function () {
           }]
         });
 
-        CompositeState.addMarathonGroups({
+        CompositeState.addMarathonApps({
           bar: {
             qux: 'quux',
             corge: 'grault'
@@ -296,7 +296,8 @@ describe('CompositeState', function () {
             bar: 'baz'
           }]
         });
-      });
+      }
+    );
   });
 
   describe('#getServiceList', function () {
@@ -314,7 +315,7 @@ describe('CompositeState', function () {
         }]
       });
 
-      CompositeState.addMarathonGroups({
+      CompositeState.addMarathonApps({
         foo: {
           qux: 'quux',
           corge: 'grault'

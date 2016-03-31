@@ -98,22 +98,22 @@ var MarathonStore = Store.createStore({
 
   getServiceHealth: function (name) {
     let appName = name.toLowerCase();
-    let marathonGroups = this.get('apps');
+    let marathonApps = this.get('apps');
 
-    if (!marathonGroups[appName]) {
+    if (!marathonApps[appName]) {
       return HealthStatus.NA;
     }
 
-    return marathonGroups[appName].health;
+    return marathonApps[appName].health;
   },
 
   getServiceImages: function (name) {
     let appName = name.toLowerCase();
     let appImages = null;
-    let marathonGroups = this.get('apps');
+    let marathonApps = this.get('apps');
 
-    if (marathonGroups[appName]) {
-      appImages = marathonGroups[appName].images;
+    if (marathonApps[appName]) {
+      appImages = marathonApps[appName].images;
     }
 
     return appImages;
@@ -122,10 +122,10 @@ var MarathonStore = Store.createStore({
   getServiceInstalledTime: function (name) {
     let appName = name.toLowerCase();
     let appInstalledTime = null;
-    let marathonGroups = this.get('apps');
+    let marathonApps = this.get('apps');
 
-    if (marathonGroups[appName]) {
-      appInstalledTime = marathonGroups[appName].snapshot.version;
+    if (marathonApps[appName]) {
+      appInstalledTime = marathonApps[appName].snapshot.version;
     }
 
     return appInstalledTime;
@@ -133,10 +133,10 @@ var MarathonStore = Store.createStore({
 
   getServiceVersion: function (name) {
     let appName = name.toLowerCase();
-    let marathonGroups = this.get('apps');
+    let marathonApps = this.get('apps');
 
-    if (marathonGroups[appName]) {
-      return this.getVersion(marathonGroups[appName].snapshot);
+    if (marathonApps[appName]) {
+      return this.getVersion(marathonApps[appName].snapshot);
     }
 
     return null;
@@ -201,7 +201,7 @@ var MarathonStore = Store.createStore({
 
     this.set({apps});
 
-    CompositeState.addMarathonGroups(apps);
+    CompositeState.addMarathonApps(apps);
 
     this.emit(MARATHON_APPS_CHANGE, this.get('apps'));
   },
