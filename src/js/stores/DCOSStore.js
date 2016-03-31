@@ -3,7 +3,7 @@ import {EventEmitter} from 'events';
 import {
   DCOS_CHANGE,
   MESOS_SUMMARY_CHANGE,
-  MARATHON_APPS_CHANGE
+  MARATHON_GROUPS_CHANGE
 } from '../constants/EventTypes';
 import Framework from '../structs/Framework';
 import MarathonStore from './MarathonStore';
@@ -25,9 +25,7 @@ class DCOSStore extends EventEmitter {
     });
 
     this.data = {
-      marathon: {
-        apps: []
-      },
+      marathon: new ServiceTree(),
       mesos: {
         frameworks: []
       }
@@ -35,7 +33,7 @@ class DCOSStore extends EventEmitter {
 
     this.proxyListeners = [
       {
-        event: MARATHON_APPS_CHANGE,
+        event: MARATHON_GROUPS_CHANGE,
         handler: this.processMarathonData,
         store: MarathonStore
       },
@@ -49,10 +47,10 @@ class DCOSStore extends EventEmitter {
 
   /**
    * Process Marathon data
-   * @param {{apps:array}} data
+   * @param {ServiceTree} data
    */
   processMarathonData(data) {
-    if (data == null || !Array.isArray(data.apps)) {
+    if (!(data instanceof ServiceTree)) {
       return;
     }
 
@@ -131,8 +129,6 @@ class DCOSStore extends EventEmitter {
   get serviceTree() {
     let {marathon, mesos} = this.data;
 
-    let serviceTree = new ServiceTree(marathon);
-
     // Merge Mesos and Marathon data
     if (mesos.frameworks.length > 0) {
       // Create framework dict from Mesos data
@@ -144,7 +140,7 @@ class DCOSStore extends EventEmitter {
         }, {});
 
       // Merge data by framework name, as  Marathon doesn't know framework ids.
-      serviceTree = serviceTree.mapItems(function (item) {
+      return marathon.mapItems(function (item) {
         if (item instanceof Framework) {
           return new Framework(
             Object.assign({}, frameworks[item.getName()], item)
@@ -155,7 +151,7 @@ class DCOSStore extends EventEmitter {
       });
     }
 
-    return serviceTree;
+    return marathon;
   }
 
   static get storeID() {
