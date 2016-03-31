@@ -4,17 +4,19 @@ import {Store} from 'mesosphere-shared-reactjs';
 var AppDispatcher = require('../events/AppDispatcher');
 import ActionTypes from '../constants/ActionTypes';
 import CompositeState from '../structs/CompositeState';
+import ServiceTree from '../structs/ServiceTree';
+import Service from '../structs/Service';
 var Config = require('../config/Config');
 import {
   MARATHON_APPS_CHANGE,
   MARATHON_APPS_ERROR,
+  MARATHON_GROUPS_CHANGE,
   VISIBILITY_CHANGE
 } from '../constants/EventTypes';
 var GetSetMixin = require('../mixins/GetSetMixin');
 var HealthStatus = require('../constants/HealthStatus');
 var MarathonActions = require('../events/MarathonActions');
 var ServiceImages = require('../constants/ServiceImages');
-import FrameworkUtil from '../utils/FrameworkUtil';
 import VisibilityStore from './VisibilityStore';
 
 var requestInterval = null;
@@ -142,12 +144,6 @@ var MarathonStore = Store.createStore({
     return null;
   },
 
-  getFrameworkImages: function (app) {
-    return FrameworkUtil.getServiceImages(
-      FrameworkUtil.getMetadataFromLabels(app.labels).images
-    );
-  },
-
   getVersion: function (app) {
     if (app == null ||
       app.labels == null ||
@@ -163,26 +159,19 @@ var MarathonStore = Store.createStore({
   },
 
   processMarathonGroups: function (data) {
-    var apps = {};
+    let groups = new ServiceTree(data);
 
-    _.each(data.apps, function (app) {
-      if (app.labels == null || app.labels.DCOS_PACKAGE_FRAMEWORK_NAME == null) {
-        return;
+    let apps = groups.reduceItems(function (map, item) {
+      if (item instanceof Service) {
+        map[item.getName().toLowerCase()] = {
+          health: item.getHealth(),
+          images: item.getImages(),
+          snapshot: item.get()
+        };
       }
 
-      var packageName = app.labels.DCOS_PACKAGE_FRAMEWORK_NAME;
-
-      // Use insensitive check
-      if (packageName.length) {
-        packageName = packageName.toLowerCase();
-      }
-
-      apps[packageName] = {
-        health: this.getFrameworkHealth(app),
-        images: this.getFrameworkImages(app),
-        snapshot: app
-      };
-    }, this);
+      return map;
+    }, {});
 
     // Specific health check for Marathon
     // We are setting the 'marathon' key here, since we can safely assume,
@@ -200,10 +189,12 @@ var MarathonStore = Store.createStore({
     };
 
     this.set({apps});
+    this.set({groups});
 
     CompositeState.addMarathonApps(apps);
 
-    this.emit(MARATHON_APPS_CHANGE, this.get('apps'));
+    this.emit(MARATHON_APPS_CHANGE, apps);
+    this.emit(MARATHON_GROUPS_CHANGE, groups);
   },
 
   processMarathonGroupsError: function () {
