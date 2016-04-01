@@ -85,4 +85,17 @@ module.exports = class ServiceTree extends Tree {
     return this.getId().split('/').pop();
   }
 
+  getResources() {
+    return this.reduceItems(function (resources, item) {
+      if (item instanceof Service) {
+        let {cpus = 0, mem = 0, disk = 0} = item.getResources();
+
+        resources.cpus += cpus;
+        resources.mem += mem;
+        resources.disk += disk;
+      }
+
+      return resources;
+    }, {cpus: 0, mem: 0, disk: 0});
+  }
 };
