@@ -290,7 +290,7 @@ describe('Service', function () {
 
   describe('#getResources', function () {
 
-    it('returns correct port data', function () {
+    it('returns correct resource data', function () {
       let service = new Service({
         cpus: 1,
         mem: 2048,
