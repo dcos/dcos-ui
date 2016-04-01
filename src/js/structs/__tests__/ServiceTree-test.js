@@ -1,32 +1,40 @@
 let Application = require('../Application');
-let ServiceTree = require('../ServiceTree');
 let Framework = require('../Framework');
+let HealthStatus = require('../../constants/HealthStatus');
+let Service = require('../Service');
+let ServiceTree = require('../ServiceTree');
 
 describe('ServiceTree', function () {
 
-  beforeEach(function () {
-    this.instance = new ServiceTree({
-      id: '/group/id',
-      apps: [
-        {id: 'alpha', cmd: 'cmd'},
-        {id: 'beta', cmd: 'cmd', labels: {DCOS_PACKAGE_FRAMEWORK_NAME: 'beta'}},
-        {id: 'gamma', cmd: 'cmd', labels: {RANDOM_LABEL: 'random'}}
-      ],
-      groups: [
-        {id: '/test', apps: [
-          {id: 'foo', cmd: 'cmd'},
-          {id: 'bar', cmd: 'cmd'}
-        ], groups: []}
-      ],
-      filterProperties: {
-        id: function (item) {
-          return item.getId();
-        }
-      }
-    });
-  });
-
   describe('#constructor', function () {
+
+    beforeEach(function () {
+      this.instance = new ServiceTree({
+        id: '/group/id',
+        apps: [
+          {id: 'alpha', cmd: 'cmd'},
+          {
+            id: 'beta',
+            cmd: 'cmd',
+            labels: {DCOS_PACKAGE_FRAMEWORK_NAME: 'beta'}
+          },
+          {id: 'gamma', cmd: 'cmd', labels: {RANDOM_LABEL: 'random'}}
+        ],
+        groups: [
+          {
+            id: '/test', apps: [
+            {id: 'foo', cmd: 'cmd'},
+            {id: 'bar', cmd: 'cmd'}
+          ], groups: []
+          }
+        ],
+        filterProperties: {
+          id: function (item) {
+            return item.getId();
+          }
+        }
+      });
+    });
 
     it('defaults id to root tree (groups) id', function () {
       let tree = new ServiceTree({apps: [], groups: []});
@@ -89,6 +97,34 @@ describe('ServiceTree', function () {
 
   describe('#filterItems', function () {
 
+    beforeEach(function () {
+      this.instance = new ServiceTree({
+        id: '/group/id',
+        apps: [
+          {id: 'alpha', cmd: 'cmd'},
+          {
+            id: 'beta',
+            cmd: 'cmd',
+            labels: {DCOS_PACKAGE_FRAMEWORK_NAME: 'beta'}
+          },
+          {id: 'gamma', cmd: 'cmd', labels: {RANDOM_LABEL: 'random'}}
+        ],
+        groups: [
+          {
+            id: '/test', apps: [
+            {id: 'foo', cmd: 'cmd'},
+            {id: 'bar', cmd: 'cmd'}
+          ], groups: []
+          }
+        ],
+        filterProperties: {
+          id: function (item) {
+            return item.getId();
+          }
+        }
+      });
+    });
+
     it('should return an instance of ServiceTree', function () {
       let filteredTree = this.instance.filterItems('alpha');
       expect(filteredTree instanceof ServiceTree).toBeTruthy();
@@ -112,10 +148,160 @@ describe('ServiceTree', function () {
 
   describe('#findItem', function () {
 
+    beforeEach(function () {
+      this.instance = new ServiceTree({
+        id: '/group/id',
+        apps: [
+          {id: 'alpha', cmd: 'cmd'},
+          {
+            id: 'beta',
+            cmd: 'cmd',
+            labels: {DCOS_PACKAGE_FRAMEWORK_NAME: 'beta'}
+          },
+          {id: 'gamma', cmd: 'cmd', labels: {RANDOM_LABEL: 'random'}}
+        ],
+        groups: [
+          {
+            id: '/test', apps: [
+            {id: 'foo', cmd: 'cmd'},
+            {id: 'bar', cmd: 'cmd'}
+          ], groups: []
+          }
+        ],
+        filterProperties: {
+          id: function (item) {
+            return item.getId();
+          }
+        }
+      });
+    });
+
     it('should find matching subtree', function () {
       expect(this.instance.findItem(function (item) {
         return item.getId() === '/test';
       }).getId()).toEqual('/test');
+    });
+
+  });
+
+  describe('#getHealth', function () {
+
+    const healthyService = new Service({
+      healthChecks: [{path: '', protocol: 'HTTP'}],
+      tasksStaged: 0,
+      tasksRunning: 1,
+      tasksHealthy: 1,
+      tasksUnhealthy: 0
+    });
+    const unhealthyService = new Service({
+      healthChecks: [{path: '', protocol: 'HTTP'}],
+      tasksStaged: 0,
+      tasksRunning: 1,
+      tasksHealthy: 0,
+      tasksUnhealthy: 1
+    });
+    const idleService = new Service({
+      healthChecks: [{path: '', protocol: 'HTTP'}],
+      tasksStaged: 0,
+      tasksRunning: 0,
+      tasksHealthy: 0,
+      tasksUnhealthy: 0
+    });
+    const naService = new Service({
+      healthChecks: [],
+      tasksStaged: 0,
+      tasksRunning: 1,
+      tasksHealthy: 0,
+      tasksUnhealthy: 0
+    });
+
+    beforeEach(function () {
+      this.instance = new ServiceTree();
+
+    });
+
+    it('returns NA health for empty tree', function () {
+      expect(this.instance.getHealth()).toEqual(HealthStatus.NA);
+    });
+
+    it('returns correct health for a tree with healthy services', function () {
+      this.instance.add(healthyService);
+
+      expect(this.instance.getHealth()).toEqual(HealthStatus.HEALTHY);
+    });
+
+    it('returns correct health for a tree with healthy and idle services',
+      function () {
+        this.instance.add(healthyService);
+        this.instance.add(idleService);
+
+        expect(this.instance.getHealth()).toEqual(HealthStatus.HEALTHY);
+      }
+    );
+
+    it('returns correct health for a tree with healthy and na  services',
+      function () {
+        this.instance.add(healthyService);
+        this.instance.add(naService);
+
+        expect(this.instance.getHealth()).toEqual(HealthStatus.HEALTHY);
+      }
+    );
+
+    it('returns correct health for a tree with unhealthy services',
+      function () {
+        this.instance.add(unhealthyService);
+
+        expect(this.instance.getHealth()).toEqual(HealthStatus.UNHEALTHY);
+      }
+    );
+
+    it('returns correct health for a tree with unhealthy and healthy services',
+      function () {
+        this.instance.add(unhealthyService);
+        this.instance.add(healthyService);
+
+        expect(this.instance.getHealth()).toEqual(HealthStatus.UNHEALTHY);
+      }
+    );
+
+    it('returns correct health for a tree with unhealthy and idle services',
+      function () {
+        this.instance.add(unhealthyService);
+        this.instance.add(idleService);
+
+        expect(this.instance.getHealth()).toEqual(HealthStatus.UNHEALTHY);
+      }
+    );
+
+    it('returns correct health for a tree with unhealthy and NA services',
+      function () {
+        this.instance.add(unhealthyService);
+        this.instance.add(naService);
+
+        expect(this.instance.getHealth()).toEqual(HealthStatus.UNHEALTHY);
+      }
+    );
+
+    it('returns correct health for a tree with idle services', function () {
+      this.instance.add(idleService);
+
+      expect(this.instance.getHealth()).toEqual(HealthStatus.IDLE);
+    });
+
+    it('returns correct health for a tree with idle and NA services',
+      function () {
+        this.instance.add(idleService);
+        this.instance.add(naService);
+
+        expect(this.instance.getHealth()).toEqual(HealthStatus.IDLE);
+      }
+    );
+
+    it('returns correct health for a tree with NA services', function () {
+      this.instance.add(naService);
+
+      expect(this.instance.getHealth()).toEqual(HealthStatus.NA);
     });
 
   });
