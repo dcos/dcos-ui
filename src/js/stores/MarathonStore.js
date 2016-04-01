@@ -4,8 +4,8 @@ import {Store} from 'mesosphere-shared-reactjs';
 var AppDispatcher = require('../events/AppDispatcher');
 import ActionTypes from '../constants/ActionTypes';
 import CompositeState from '../structs/CompositeState';
-import ServiceTree from '../structs/ServiceTree';
 import Service from '../structs/Service';
+import ServiceTree from '../structs/ServiceTree';
 var Config = require('../config/Config');
 import {
   MARATHON_APPS_CHANGE,
