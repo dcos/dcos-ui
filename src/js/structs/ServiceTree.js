@@ -1,5 +1,8 @@
 import Application from './Application';
 import Framework from './Framework';
+import HealthSorting from '../constants/HealthSorting';
+import HealthStatus from '../constants/HealthStatus';
+import Service from './Service';
 import Tree from './Tree';
 import Util from '../utils/Util';
 
@@ -61,6 +64,19 @@ module.exports = class ServiceTree extends Tree {
     });
   }
 
+  getHealth() {
+    return this.reduceItems(function (aggregatedHealth, item) {
+      if (item instanceof Service) {
+        let health = item.getHealth();
+        if (HealthSorting[aggregatedHealth.key] > HealthSorting[health.key]) {
+          aggregatedHealth = health;
+        }
+      }
+
+      return aggregatedHealth;
+    }, HealthStatus.NA);
+  }
+
   getId() {
     return this.id;
   }
@@ -68,4 +84,5 @@ module.exports = class ServiceTree extends Tree {
   getName() {
     return this.getId().split('/').pop();
   }
+
 };
