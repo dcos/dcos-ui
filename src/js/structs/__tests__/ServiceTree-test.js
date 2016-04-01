@@ -333,4 +333,34 @@ describe('ServiceTree', function () {
 
   });
 
+  describe('#getTasksSummary', function () {
+
+    beforeEach(function () {
+      this.instance = new ServiceTree();
+    });
+
+    it('returns correct task summary', function () {
+      this.instance.add(new Service({
+        tasksStaged: 0,
+        tasksRunning: 1,
+        tasksHealthy: 1,
+        tasksUnhealthy: 0
+      }));
+      this.instance.add(new Service({
+        tasksStaged: 1,
+        tasksRunning: 3,
+        tasksHealthy: 15,
+        tasksUnhealthy: 1
+      }));
+
+      expect(this.instance.getTasksSummary()).toEqual({
+        tasksStaged: 1,
+        tasksRunning: 4,
+        tasksHealthy: 16,
+        tasksUnhealthy: 1
+      });
+    });
+
+  });
+
 });
