@@ -13,12 +13,17 @@ module.exports = {
     Config.getRefreshRate(),
     function (resolve, reject) {
       return function () {
-        const embed = 'embed=group.groups&embed=group.apps&' +
-          'embed=group.apps.deployments&embed=group.apps.counts';
-        let url = `${Config.rootUrl}/marathon/v2/groups?${embed}`;
+        const url = `${Config.rootUrl}/marathon/v2/groups`;
+        const embed = [
+          {name: 'embed', value: 'group.groups'},
+          {name: 'embed', value: 'group.apps'},
+          {name: 'embed', value: 'group.apps.deployments'},
+          {name: 'embed', value: 'group.apps.counts'}
+        ];
 
         RequestUtil.json({
           url: url,
+          data: embed,
           success: function (response) {
             AppDispatcher.handleServerAction({
               type: REQUEST_MARATHON_GROUPS_SUCCESS,
