@@ -98,4 +98,24 @@ module.exports = class ServiceTree extends Tree {
       return resources;
     }, {cpus: 0, mem: 0, disk: 0});
   }
+
+  getTasksSummary() {
+    return this.reduceItems(function (taskSummary, item) {
+      if (item instanceof Service) {
+        let {
+          tasksHealthy = 0,
+          tasksRunning = 0,
+          tasksStaged = 0,
+          tasksUnhealthy = 0
+        } = item.getTasksSummary();
+
+        taskSummary.tasksHealthy += tasksHealthy;
+        taskSummary.tasksRunning += tasksRunning;
+        taskSummary.tasksStaged += tasksStaged;
+        taskSummary.tasksUnhealthy += tasksUnhealthy;
+      }
+
+      return taskSummary;
+    }, {tasksHealthy: 0, tasksRunning: 0, tasksStaged: 0, tasksUnhealthy: 0});
+  }
 };
