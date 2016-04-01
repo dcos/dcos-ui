@@ -306,4 +306,31 @@ describe('ServiceTree', function () {
 
   });
 
+  describe('#getResources', function () {
+
+    beforeEach(function () {
+      this.instance = new ServiceTree();
+    });
+
+    it('returns correct resource data', function () {
+      this.instance.add(new Service({
+        cpus: 1,
+        mem: 2048,
+        disk: 0
+      }));
+      this.instance.add(new Service({
+        cpus: 6,
+        mem: 1024,
+        disk: 6
+      }));
+
+      expect(this.instance.getResources()).toEqual({
+        cpus: 7,
+        mem: 3072,
+        disk: 6
+      });
+    });
+
+  });
+
 });
