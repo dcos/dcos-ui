@@ -263,6 +263,7 @@ class MesosLogView extends mixin(StoreMixin) {
         <Highlight
           matchClass="highlight"
           matchElement="span"
+          onCountChange={props.onCountChange}
           search={props.highlightText}>
           {fullLog}
         </Highlight>

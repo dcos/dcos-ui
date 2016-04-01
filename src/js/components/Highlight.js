@@ -25,6 +25,10 @@ class Highlight extends React.Component {
   constructor() {
     super(...arguments);
 
+    this.state = {
+      watching: 1
+    };
+
     this.count = 0;
   }
 
@@ -108,10 +112,12 @@ class Highlight extends React.Component {
     let children = [];
     let matchElement = this.props.matchElement;
     let remaining = subject;
+    let highlightCount = 0;
 
     while (remaining) {
       if (!search.test(remaining)) {
         children.push(this.renderPlain(remaining));
+        this.props.onCountChange(this.state.watching, highlightCount);
         return children;
       }
 
@@ -127,13 +133,13 @@ class Highlight extends React.Component {
       let match = remaining.slice(boundaries.first, boundaries.last);
       if (match) {
         children.push(this.renderHighlight(match, matchElement));
+        highlightCount++;
       }
 
       // And if there's anything left over, recursively run this method again.
       remaining = remaining.slice(boundaries.last);
 
     }
-
     return children;
   }
 

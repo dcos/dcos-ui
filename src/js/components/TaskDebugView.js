@@ -7,13 +7,20 @@ import IconDownload from './icons/IconDownload';
 import MesosLogView from './MesosLogView';
 import TaskDirectoryActions from '../events/TaskDirectoryActions';
 
-const METHODS_TO_BIND = ['handleSearchStringChange'];
+const METHODS_TO_BIND = [
+  'handleSearchStringChange',
+  'handleCountChange'
+];
 
 class TaskDebugView extends React.Component {
   constructor() {
     super();
 
-    this.state = {currentFile: null};
+    this.state = {
+      currentFile: null,
+      watching: 1,
+      totalFound: 0
+    };
 
     METHODS_TO_BIND.forEach((method) => {
       this[method] = this[method].bind(this);
@@ -50,6 +57,10 @@ class TaskDebugView extends React.Component {
     this.setState({currentFile});
   }
 
+  handleCountChange(watching, totalFound) {
+    this.setState({watching, totalFound});
+  }
+
   getLogView(logName, filePath, task) {
     let {state} = this;
 
@@ -57,6 +68,7 @@ class TaskDebugView extends React.Component {
       <MesosLogView
         filePath={filePath}
         highlightText={state.searchString}
+        onCountChange={this.handleCountChange}
         task={task}
         logName={logName} />
     );
@@ -178,6 +190,7 @@ class TaskDebugView extends React.Component {
             searchString={this.state.searchString}
             handleFilterChange={this.handleSearchStringChange}
             inverseStyle={false} />
+          <span>{`${this.state.watching} out of ${this.state.totalFound}`}</span>
             {this.getSelectionComponent(selectedLogFile)}
           <a
             className="button button-stroke"
