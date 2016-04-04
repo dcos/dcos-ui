@@ -12,6 +12,11 @@ let servicesRoutes = {
   children: [
     {
       type: Route,
+      name: 'services-tree',
+      path: ':serviceTreeId'
+    },
+    {
+      type: Route,
       name: 'service-ui',
       path: 'ui/:serviceName/?',
       handler: ServiceOverlay
