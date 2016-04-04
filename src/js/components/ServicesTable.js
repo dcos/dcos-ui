@@ -45,7 +45,7 @@ var ServicesTable = React.createClass({
   },
 
   getOpenInNewWindowLink(service) {
-    if (!service.getWebURL()) {
+    if (!(service instanceof Framework) || !service.getWebURL()) {
       return null;
     }
 
