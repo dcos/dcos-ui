@@ -7,6 +7,7 @@ import Config from '../config/Config';
 import DCOSStore from '../stores/DCOSStore';
 import Page from '../components/Page';
 var ServicesTable = require('../components/ServicesTable');
+var ServiceTree = require('../structs/ServiceTree');
 var SidebarActions = require('../events/SidebarActions');
 import SidePanels from '../components/SidePanels';
 
@@ -40,8 +41,22 @@ var ServicesPage = React.createClass({
     this.store_listeners = [{name: 'dcos', events: ['change']}];
   },
 
+  getServices: function (serviceTreeId) {
+    let serviceTree = DCOSStore.serviceTree.findItem(function (item) {
+      return item instanceof ServiceTree && item.getId() === serviceTreeId;
+    });
+
+    if (serviceTree) {
+      return serviceTree.getItems();
+    }
+
+    return DCOSStore.serviceTree.getItems();
+  },
+
   getContents: function () {
-    let services = DCOSStore.serviceTree.getItems();
+    let serviceTreeId =
+      decodeURIComponent(this.context.router.getCurrentParams().serviceTreeId);
+    let services = this.getServices(serviceTreeId);
 
     if (services.length > 0) {
       return (

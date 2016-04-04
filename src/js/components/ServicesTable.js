@@ -11,6 +11,7 @@ import IconNewWindow from './icons/IconNewWindow';
 var MarathonStore = require('../stores/MarathonStore');
 var ResourceTableUtil = require('../utils/ResourceTableUtil');
 var ServiceTableHeaderLabels = require('../constants/ServiceTableHeaderLabels');
+import ServiceTree from '../structs/ServiceTree';
 import ServiceTableUtil from '../utils/ServiceTableUtil';
 import {Table} from 'reactjs-components';
 import TableUtil from '../utils/TableUtil';
@@ -63,17 +64,35 @@ var ServicesTable = React.createClass({
     this.forceUpdate();
   },
 
-  renderHeadline: function (prop, service) {
-    let serviceImage = null;
+  renderServiceTreeHeadline: function (service) {
+    const serviceTreeId = encodeURIComponent(service.getId());
+    return (
+      <div className="service-table-heading flex-box flex-box-align-vertical-center table-cell-flex-box">
+        <Link to="services-tree"
+          className="table-cell-icon"
+          params={{serviceTreeId: serviceTreeId}}>
+          <span
+            className="icon icon-small icon-image-container icon-app-container">
+            <i className="icon icon-sprite icon-sprite-mini icon-directory "/>
+          </span>
+        </Link>
+        <Link to="services-tree"
+          className="headline table-cell-value flex-box flex-box-col"
+          params={{serviceTreeId: serviceTreeId}}>
+          <span className="text-overflow">
+            {service.getName()}
+          </span>
+        </Link>
+      </div>
+    );
+  },
 
+  renderHeadline: function (prop, service) {
     if (service instanceof ServiceTree) {
-      serviceImage = (
-        <span
-          className="icon icon-small icon-image-container icon-app-container">
-          <i className="icon icon-sprite icon-sprite-mini icon-directory "/>
-        </span>
-      );
+      return this.renderServiceTreeHeadline(service);
     }
+
+    let serviceImage = null;
 
     if (service instanceof Framework) {
       serviceImage = (
