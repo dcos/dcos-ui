@@ -9,6 +9,7 @@ import DCOSStore from '../stores/DCOSStore';
 var InternalStorageMixin = require('../mixins/InternalStorageMixin');
 import Page from '../components/Page';
 var ServicesTable = require('../components/ServicesTable');
+var ServiceTree = require('../structs/ServiceTree');
 var SidebarActions = require('../events/SidebarActions');
 import SidePanels from '../components/SidePanels';
 
@@ -70,16 +71,29 @@ var ServicesPage = React.createClass({
     });
   },
 
+  getServices: function (serviceTreeId) {
+    let serviceTree = DCOSStore.serviceTree.findItem(function (item) {
+      return item instanceof ServiceTree && item.getId() === serviceTreeId;
+    });
+
+    if (serviceTree) {
+      return serviceTree.getItems();
+    }
+
+    return DCOSStore.serviceTree.getItems();
+  },
+
   getServicesPageContent: function () {
-    let services = DCOSStore.serviceTree.getItems();
+    let serviceTreeId =
+      decodeURIComponent(this.context.router.getCurrentParams().serviceTreeId);
 
     return (
       <div>
         <ServicesTable
-          services={services}/>
+          services={this.getServices(serviceTreeId)}/>
         <SidePanels
           params={this.props.params}
-          openedPage="services" />
+          openedPage="services"/>
       </div>
     );
   },
