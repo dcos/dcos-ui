@@ -6,6 +6,7 @@ import Cluster from '../utils/Cluster';
 var EventTypes = require('../constants/EventTypes');
 var HealthLabels = require('../constants/HealthLabels');
 var HealthTypesDescription = require('../constants/HealthTypesDescription');
+import HealthSorting from '../constants/HealthSorting';
 import IconNewWindow from './icons/IconNewWindow';
 var MarathonStore = require('../stores/MarathonStore');
 var ResourceTableUtil = require('../utils/ResourceTableUtil');
@@ -19,8 +20,7 @@ var ServicesTable = React.createClass({
   displayName: 'ServicesTable',
 
   propTypes: {
-    services: React.PropTypes.array.isRequired,
-    healthProcessed: React.PropTypes.bool.isRequired
+    services: React.PropTypes.array.isRequired
   },
 
   componentDidMount: function () {
@@ -48,35 +48,33 @@ var ServicesTable = React.createClass({
   },
 
   renderHeadline: function (prop, service) {
-    let appImages = MarathonStore.getServiceImages(service.name);
     let imageTag = null;
 
-    if (appImages) {
-      imageTag = (
-        <span className="icon icon-small icon-image-container icon-app-container">
-          <img src={appImages['icon-small']} />
+    // TODO (poltergeist, orlandohohmeier): get images from service structs
+    imageTag = (
+      <span className="icon icon-small icon-image-container icon-app-container">
+          <i className="icon icon-sprite icon-sprite-mini" />
         </span>
-      );
-    }
+    );
 
     return (
       <div className="service-table-heading flex-box flex-box-align-vertical-center
         table-cell-flex-box">
         <Link to="services-panel"
           className="table-cell-icon"
-          params={{serviceName: service.name}}>
+          params={{serviceName: service.getName()}}>
           {imageTag}
         </Link>
         <Link to="services-panel"
           className="headline table-cell-value flex-box flex-box-col"
-          params={{serviceName: service.name}}>
+          params={{serviceName: service.getName()}}>
           <span className="text-overflow">
-            {service[prop]}
+            {service.getName()}
           </span>
         </Link>
         <a
           className="table-display-on-row-hover"
-          href={Cluster.getServiceLink(service.name)}
+          href={Cluster.getServiceLink(service.getName())}
           target="_blank"
           title="Open in a new window"
           >
@@ -90,16 +88,6 @@ var ServicesTable = React.createClass({
   renderHealth: function (prop, service) {
     let appHealth = service.getHealth();
 
-    if (!this.props.healthProcessed) {
-      return (
-        <div className="loader-small ball-beat">
-          <div></div>
-          <div></div>
-          <div></div>
-        </div>
-      );
-    }
-
     return (
       <Tooltip content={HealthTypesDescription[appHealth.key]}>
         <span className={appHealth.classNames}>
@@ -112,7 +100,16 @@ var ServicesTable = React.createClass({
   renderStats: function (prop, service) {
     return (
       <span>
-        {Units.formatResource(prop, service.used_resources[prop])}
+        {Units.formatResource(prop, service.getResources()[prop])}
+      </span>
+    );
+  },
+
+  renderTask: function (prop, service) {
+    return (
+      <span>
+        {service.getTasksSummary().tasksRunning}
+        <span className="visible-mini-inline"> Tasks</span>
       </span>
     );
   },
@@ -120,7 +117,34 @@ var ServicesTable = React.createClass({
   getColumns: function () {
     let className = ResourceTableUtil.getClassName;
     let heading = ResourceTableUtil.renderHeading(ServiceTableHeaderLabels);
-    let sortFunction = ResourceTableUtil.getSortFunction('id');
+
+    function nameSortFunction() {
+      return function (a, b) {
+        return a.getName().localeCompare(b.getName());
+      };
+    }
+
+    function taskSortSortFunction() {
+      return function (a, b) {
+        let delta = a.getTasksSummary().tasksRunning - b.getTasksSummary().tasksRunning;
+        return (delta) / Math.abs(delta || 1);
+      };
+    }
+
+    function healthSortFunction() {
+      return function (a, b) {
+        let delta =
+          HealthSorting[a.getHealth().key] - HealthSorting[b.getHealth().key];
+        return (delta) / Math.abs(delta || 1);
+      };
+    }
+
+    function resourceSortFunction(resource) {
+      return function (a, b) {
+        let delta = a.getResources()[resource] - b.getResources()[resource];
+        return (delta) / Math.abs(delta || 1);
+      };
+    }
 
     return [
       {
@@ -129,7 +153,7 @@ var ServicesTable = React.createClass({
         prop: 'name',
         render: this.renderHeadline,
         sortable: true,
-        sortFunction,
+        sortFunction: nameSortFunction,
         heading
       },
       {
@@ -138,16 +162,16 @@ var ServicesTable = React.createClass({
         prop: 'health',
         render: this.renderHealth,
         sortable: true,
-        sortFunction,
+        sortFunction: healthSortFunction,
         heading
       },
       {
         className,
         headerClassName: className,
-        prop: 'TASK_RUNNING',
-        render: ResourceTableUtil.renderTask,
+        prop: 'tasks',
+        render: this.renderTask,
         sortable: true,
-        sortFunction,
+        sortFunction: taskSortSortFunction,
         heading
       },
       {
@@ -156,7 +180,7 @@ var ServicesTable = React.createClass({
         prop: 'cpus',
         render: this.renderStats,
         sortable: true,
-        sortFunction,
+        sortFunction: resourceSortFunction,
         heading
       },
       {
@@ -165,7 +189,7 @@ var ServicesTable = React.createClass({
         prop: 'mem',
         render: this.renderStats,
         sortable: true,
-        sortFunction,
+        sortFunction: resourceSortFunction,
         heading
       },
       {
@@ -174,7 +198,7 @@ var ServicesTable = React.createClass({
         prop: 'disk',
         render: this.renderStats,
         sortable: true,
-        sortFunction,
+        sortFunction: resourceSortFunction,
         heading
       }
     ];
