@@ -6,11 +6,11 @@ import Cluster from '../utils/Cluster';
 var EventTypes = require('../constants/EventTypes');
 var HealthLabels = require('../constants/HealthLabels');
 var HealthTypesDescription = require('../constants/HealthTypesDescription');
-import HealthSorting from '../constants/HealthSorting';
 import IconNewWindow from './icons/IconNewWindow';
 var MarathonStore = require('../stores/MarathonStore');
 var ResourceTableUtil = require('../utils/ResourceTableUtil');
 var ServiceTableHeaderLabels = require('../constants/ServiceTableHeaderLabels');
+import ServiceTableUtil from '../utils/ServiceTableUtil';
 import {Table} from 'reactjs-components';
 import TableUtil from '../utils/TableUtil';
 var Units = require('../utils/Units');
@@ -125,34 +125,6 @@ var ServicesTable = React.createClass({
     let className = ResourceTableUtil.getClassName;
     let heading = ResourceTableUtil.renderHeading(ServiceTableHeaderLabels);
 
-    function nameSortFunction() {
-      return function (a, b) {
-        return a.getName().localeCompare(b.getName());
-      };
-    }
-
-    function taskSortSortFunction() {
-      return function (a, b) {
-        let delta = a.getTasksSummary().tasksRunning - b.getTasksSummary().tasksRunning;
-        return (delta) / Math.abs(delta || 1);
-      };
-    }
-
-    function healthSortFunction() {
-      return function (a, b) {
-        let delta =
-          HealthSorting[a.getHealth().key] - HealthSorting[b.getHealth().key];
-        return (delta) / Math.abs(delta || 1);
-      };
-    }
-
-    function resourceSortFunction(resource) {
-      return function (a, b) {
-        let delta = a.getResources()[resource] - b.getResources()[resource];
-        return (delta) / Math.abs(delta || 1);
-      };
-    }
-
     return [
       {
         className,
@@ -160,7 +132,7 @@ var ServicesTable = React.createClass({
         prop: 'name',
         render: this.renderHeadline,
         sortable: true,
-        sortFunction: nameSortFunction,
+        sortFunction: ServiceTableUtil.propCompareFunctionFactory,
         heading
       },
       {
@@ -169,7 +141,7 @@ var ServicesTable = React.createClass({
         prop: 'health',
         render: this.renderHealth,
         sortable: true,
-        sortFunction: healthSortFunction,
+        sortFunction: ServiceTableUtil.propCompareFunctionFactory,
         heading
       },
       {
@@ -178,7 +150,7 @@ var ServicesTable = React.createClass({
         prop: 'tasks',
         render: this.renderTask,
         sortable: true,
-        sortFunction: taskSortSortFunction,
+        sortFunction: ServiceTableUtil.propCompareFunctionFactory,
         heading
       },
       {
@@ -187,7 +159,7 @@ var ServicesTable = React.createClass({
         prop: 'cpus',
         render: this.renderStats,
         sortable: true,
-        sortFunction: resourceSortFunction,
+        sortFunction: ServiceTableUtil.propCompareFunctionFactory,
         heading
       },
       {
@@ -196,7 +168,7 @@ var ServicesTable = React.createClass({
         prop: 'mem',
         render: this.renderStats,
         sortable: true,
-        sortFunction: resourceSortFunction,
+        sortFunction: ServiceTableUtil.propCompareFunctionFactory,
         heading
       },
       {
@@ -205,7 +177,7 @@ var ServicesTable = React.createClass({
         prop: 'disk',
         render: this.renderStats,
         sortable: true,
-        sortFunction: resourceSortFunction,
+        sortFunction: ServiceTableUtil.propCompareFunctionFactory,
         heading
       }
     ];
