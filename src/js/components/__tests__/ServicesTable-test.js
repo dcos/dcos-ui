@@ -1,78 +1,162 @@
-jest.dontMock('../ServiceOverlay');
-jest.dontMock('../ServicesTable');
 jest.dontMock('../../constants/HealthStatus');
 jest.dontMock('../../mixins/GetSetMixin');
-jest.dontMock('../../stores/MesosSummaryStore');
-jest.dontMock('../../utils/MesosSummaryUtil');
-jest.dontMock('../../utils/RequestUtil');
-jest.dontMock('../../utils/ResourceTableUtil');
-jest.dontMock('../../utils/StringUtil');
-jest.dontMock('../../stores/__tests__/fixtures/state.json');
-jest.dontMock('../../utils/Util');
+jest.dontMock('../ServicesTable');
+
 /* eslint-disable no-unused-vars */
 var React = require('react');
 /* eslint-enable no-unused-vars */
 var ReactDOM = require('react-dom');
-
-var CompositeState = require('../../structs/CompositeState');
 var HealthLabels = require('../../constants/HealthLabels');
-var MesosSummaryStore = require('../../stores/MesosSummaryStore');
 var ServicesTable = require('../ServicesTable');
-
-// That is a single snapshot from
-// http://dcos.mesosphere.com/dcos-history-service/history/last
-var stateJSON = require('../../stores/__tests__/fixtures/state.json');
-
-CompositeState.addSummary(stateJSON);
-
-function getTable(isAppsProcessed, container) {
-  return ReactDOM.render(
-    <ServicesTable services={[]}
-      healthProcessed={isAppsProcessed} />,
-    container
-  );
-}
+var Service = require('../../structs/Service');
 
 describe('ServicesTable', function () {
 
+  const healthyService = new Service({
+    healthChecks: [{path: '', protocol: 'HTTP'}],
+    cpus: 1,
+    mem: 2048,
+    disk: 0,
+    tasksStaged: 0,
+    tasksRunning: 2,
+    tasksHealthy: 2,
+    tasksUnhealthy: 0
+  });
+  const unhealthyService = new Service({
+    healthChecks: [{path: '', protocol: 'HTTP'}],
+    cpus: 1,
+    mem: 2048,
+    disk: 0,
+    tasksStaged: 0,
+    tasksRunning: 1,
+    tasksHealthy: 0,
+    tasksUnhealthy: 1
+  });
+  const idleService = new Service({
+    healthChecks: [{path: '', protocol: 'HTTP'}],
+    cpus: 1,
+    mem: 2048,
+    disk: 0,
+    tasksStaged: 0,
+    tasksRunning: 0,
+    tasksHealthy: 0,
+    tasksUnhealthy: 0
+  });
+  const naService = new Service({
+    healthChecks: [],
+    cpus: 1,
+    mem: 2048,
+    disk: 0,
+    tasksStaged: 0,
+    tasksRunning: 1,
+    tasksHealthy: 0,
+    tasksUnhealthy: 0
+  });
+
+  beforeEach(function () {
+    this.container = document.createElement('div');
+    this.instance = ReactDOM.render(
+      <ServicesTable />,
+      this.container
+    );
+  });
+
+  afterEach(function () {
+    ReactDOM.unmountComponentAtNode(this.container);
+  });
+
   describe('#renderHealth', function () {
 
-    beforeEach(function () {
-      this.services = CompositeState.getServiceList().getItems();
-      this.container = document.createElement('div');
+    it('should render healthy health status for healthy services',
+      function () {
+        var healthCell = ReactDOM.render(
+          this.instance.renderHealth('health', healthyService),
+          this.container
+        );
+        expect(ReactDOM.findDOMNode(healthCell).textContent)
+          .toEqual(HealthLabels.HEALTHY);
+
+      }
+    );
+
+    it('should render unhealthy health status for unhealthy services',
+      function () {
+        var healthCell = ReactDOM.render(
+          this.instance.renderHealth('health', unhealthyService),
+          this.container
+        );
+        expect(ReactDOM.findDOMNode(healthCell).textContent)
+          .toEqual(HealthLabels.UNHEALTHY);
+
+      }
+    );
+
+    it('should render idle health status for idle services', function () {
+      var healthCell = ReactDOM.render(
+        this.instance.renderHealth('health', idleService),
+        this.container
+      );
+      expect(ReactDOM.findDOMNode(healthCell).textContent)
+        .toEqual(HealthLabels.IDLE);
+
     });
 
-    afterEach(function () {
-      MesosSummaryStore.removeAllListeners();
-      ReactDOM.unmountComponentAtNode(this.container);
-    });
-
-    it('should have loaders on all services', function () {
-      var table = getTable(false, this.container);
-
-      this.services.slice(0).forEach(function (row) {
-        var healthlabel = ReactDOM.render(
-          table.renderHealth(null, row),
+    it('should render N/A health status for services with unknown health',
+      function () {
+        var healthCell = ReactDOM.render(
+          this.instance.renderHealth('health', naService),
           this.container
         );
 
-        var node = ReactDOM.findDOMNode(healthlabel);
-        expect(node.classList.contains('loader-small')).toBeTruthy();
-      }, this);
+        expect(ReactDOM.findDOMNode(healthCell).textContent)
+          .toEqual(HealthLabels.NA);
+
+      }
+    );
+
+  });
+
+  describe('#renderStats', function () {
+
+    it('should render resources/stats cpus property', function () {
+      var cpusCell = ReactDOM.render(
+        this.instance.renderStats('cpus', healthyService),
+        this.container
+      );
+
+      expect(ReactDOM.findDOMNode(cpusCell).textContent).toEqual('1');
     });
 
-    it('should have N/A health status on all services', function () {
-      var table = getTable(true, this.container);
+    it('should render resources/stats mem property', function () {
+      var memCell = ReactDOM.render(
+        this.instance.renderStats('mem', healthyService),
+        this.container
+      );
 
-      this.services.slice(0).forEach(function (row) {
-        var healthlabel = ReactDOM.render(
-          table.renderHealth(null, row),
-          this.container
-        );
-        // because we get health from MarathonStore and MarathonStore hasn't
-        // been added to CompositeState, health will return as NA
-        expect(ReactDOM.findDOMNode(healthlabel).children[0].textContent).toEqual(HealthLabels.NA);
-      }, this);
+      expect(ReactDOM.findDOMNode(memCell).textContent).toEqual('2 GiB');
+
+    });
+
+    it('should render resources/stats disk property', function () {
+      var disksCell = ReactDOM.render(
+        this.instance.renderStats('disk', healthyService),
+        this.container
+      );
+
+      expect(ReactDOM.findDOMNode(disksCell).textContent).toEqual('0 B');
+    });
+
+  });
+
+  describe('#renderTask', function () {
+
+    it('should render correct number of running tasks', function () {
+      var tasksCell = ReactDOM.render(
+        this.instance.renderTask('tasks', healthyService),
+        this.container
+      );
+
+      expect(ReactDOM.findDOMNode(tasksCell).textContent).toEqual('2 Tasks');
     });
 
   });
