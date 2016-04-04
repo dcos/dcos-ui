@@ -100,7 +100,9 @@
     "testing": "NODE_ENV='testing' ./node_modules/.bin/gulp serve",
     "livereload": "NODE_ENV='development' ./node_modules/.bin/gulp livereload",
     "livereload-notify": "export NOTIFY=true && npm run livereload",
-    "test": "./node_modules/.bin/gulp copy:external-plugins && ./node_modules/.bin/eslint src/js/**/*.js* --quiet && jest"
+    "test": "./node_modules/.bin/gulp copy:external-plugins && ./node_modules/.bin/eslint src/js/**/*.js* --quiet && jest",
+    "test:watch": "jest --onlyChanged --watch",
+    "test:coverage": "jest --coverage"
   },
   "jest-webpack-alias": {
     "configFile": ".webpack.config.js"
