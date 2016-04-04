@@ -4,6 +4,7 @@ import {Tooltip} from 'reactjs-components';
 
 import Cluster from '../utils/Cluster';
 var EventTypes = require('../constants/EventTypes');
+import Framework from '../structs/Framework';
 var HealthLabels = require('../constants/HealthLabels');
 var HealthTypesDescription = require('../constants/HealthTypesDescription');
 import IconNewWindow from './icons/IconNewWindow';
@@ -63,14 +64,15 @@ var ServicesTable = React.createClass({
   },
 
   renderHeadline: function (prop, service) {
-    let imageTag = null;
+    let serviceImage = null;
 
-    // TODO (poltergeist, orlandohohmeier): get images from service structs
-    imageTag = (
-      <span className="icon icon-small icon-image-container icon-app-container">
-        <i className="icon icon-sprite icon-sprite-mini" />
-      </span>
-    );
+    if (service instanceof Framework) {
+      serviceImage = (
+        <span
+          className="icon icon-small icon-image-container icon-app-container">
+          <img src={service.getImages()['icon-small']}/>
+        </span>);
+    }
 
     return (
       <div className="service-table-heading flex-box
@@ -78,7 +80,7 @@ var ServicesTable = React.createClass({
         <Link to="services-panel"
           className="table-cell-icon"
           params={{serviceName: service.getName()}}>
-          {imageTag}
+          {serviceImage}
         </Link>
         <Link to="services-panel"
           className="headline table-cell-value flex-box flex-box-col"
