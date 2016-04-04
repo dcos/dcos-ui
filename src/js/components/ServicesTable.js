@@ -52,6 +52,15 @@ var ServicesTable = React.createClass({
   renderHeadline: function (prop, service) {
     let serviceImage = null;
 
+    if (service instanceof ServiceTree) {
+      serviceImage = (
+        <span
+          className="icon icon-small icon-image-container icon-app-container">
+          <i className="icon icon-sprite icon-sprite-mini icon-directory "/>
+        </span>
+      );
+    }
+
     if (service instanceof Framework) {
       serviceImage = (
         <span
