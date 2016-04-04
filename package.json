@@ -101,7 +101,9 @@
     "lint": "./node_modules/.bin/eslint '**/*.js' --quiet",
     "livereload": "NODE_ENV='development' ./node_modules/.bin/gulp livereload",
     "livereload-notify": "export NOTIFY=true && npm run livereload",
-    "test": "./node_modules/.bin/gulp copy:external-plugins && npm run lint && jest --no-cache"
+    "test": "./node_modules/.bin/gulp copy:external-plugins && npm run lint && jest --no-cache",
+    "test:watch": "jest --onlyChanged --watch",
+    "test:coverage": "jest --coverage"
   },
   "jest-webpack-alias": {
     "configFile": ".webpack.config.js"
