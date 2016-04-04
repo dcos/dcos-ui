@@ -153,6 +153,8 @@
       "src/js/utils",
       "plugins",
       "react",
+      "react-addons-test-utils",
+      "react-dom",
       "reactjs-components",
       "reactjs-mixin",
       "react-router",
