@@ -4,7 +4,7 @@ var ServiceTableHeaderLabels = {
   health: 'HEALTH',
   mem: 'MEM',
   name: 'SERVICE NAME',
-  'TASK_RUNNING': 'TASKS'
+  tasks: 'TASKS'
 };
 
 module.exports = ServiceTableHeaderLabels;
