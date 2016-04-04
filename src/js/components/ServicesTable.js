@@ -51,6 +51,7 @@ var ServicesTable = React.createClass({
 
   renderHeadline: function (prop, service) {
     let serviceImage = null;
+    let frameworkLink = null;
 
     if (service instanceof ServiceTree) {
       serviceImage = (
@@ -62,11 +63,23 @@ var ServicesTable = React.createClass({
     }
 
     if (service instanceof Framework) {
+      // Get framework image/icon
       serviceImage = (
         <span
           className="icon icon-small icon-image-container icon-app-container">
           <img src={service.getImages()['icon-small']}/>
         </span>);
+      // Get framework cluster link
+      frameworkLink = (
+        <a 
+          className="table-display-on-row-hover"
+          href={Cluster.getServiceLink(service.getName())}
+          target="_blank"
+          title="Open in a new window">
+          <IconNewWindow className="icon icon-new-window icon-align-right
+            icon-margin-wide" />
+        </a>
+      );
     }
 
     return (
@@ -84,15 +97,7 @@ var ServicesTable = React.createClass({
             {service.getName()}
           </span>
         </Link>
-        <a
-          className="table-display-on-row-hover"
-          href={Cluster.getServiceLink(service.getName())}
-          target="_blank"
-          title="Open in a new window"
-          >
-          <IconNewWindow className="icon icon-new-window icon-align-right
-            icon-margin-wide" />
-        </a>
+        {frameworkLink}
       </div>
     );
   },
