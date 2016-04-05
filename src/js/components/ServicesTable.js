@@ -11,8 +11,8 @@ import IconNewWindow from './icons/IconNewWindow';
 var MarathonStore = require('../stores/MarathonStore');
 var ResourceTableUtil = require('../utils/ResourceTableUtil');
 var ServiceTableHeaderLabels = require('../constants/ServiceTableHeaderLabels');
-import ServiceTree from '../structs/ServiceTree';
 import ServiceTableUtil from '../utils/ServiceTableUtil';
+import ServiceTree from '../structs/ServiceTree';
 import {Table} from 'reactjs-components';
 import TableUtil from '../utils/TableUtil';
 var Units = require('../utils/Units');
@@ -70,7 +70,7 @@ var ServicesTable = React.createClass({
       <div className="service-table-heading flex-box flex-box-align-vertical-center table-cell-flex-box">
         <Link to="services-tree"
           className="table-cell-icon"
-          params={{serviceTreeId: serviceTreeId}}>
+          params={{serviceTreeId}}>
           <span
             className="icon icon-small icon-image-container icon-app-container">
             <i className="icon icon-sprite icon-sprite-mini icon-directory "/>
@@ -78,7 +78,7 @@ var ServicesTable = React.createClass({
         </Link>
         <Link to="services-tree"
           className="headline table-cell-value flex-box flex-box-col"
-          params={{serviceTreeId: serviceTreeId}}>
+          params={{serviceTreeId}}>
           <span className="text-overflow">
             {service.getName()}
           </span>
