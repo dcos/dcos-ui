@@ -1,6 +1,5 @@
 import PluginSDK from 'PluginSDK';
 
-import _ from 'underscore';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Router from 'react-router';
@@ -15,6 +14,7 @@ import appRoutes from './routes/index';
 import Config from './config/Config';
 import ConfigStore from './stores/ConfigStore';
 import RequestUtil from './utils/RequestUtil';
+import Util from './utils/Util';
 
 let domElement = document.getElementById('application');
 
@@ -38,7 +38,7 @@ RequestUtil.json = function (options = {}) {
 
 function createRoutes(routes) {
   return routes.map(function (route) {
-    let args = [route.type, _.omit(route, 'type', 'children')];
+    let args = [route.type, Util.omit(route, ['type', 'children'])];
 
     if (route.children) {
       let children = createRoutes(route.children);

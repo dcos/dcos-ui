@@ -1,4 +1,3 @@
-import _ from 'underscore';
 import mixin from 'reactjs-mixin';
 import React from 'react';
 import {SidePanel} from 'reactjs-components';
@@ -12,6 +11,7 @@ import StringUtil from '../utils/StringUtil';
 import TaskSidePanelContents from './TaskSidePanelContents';
 import UnitHealthSidePanelContents from './UnitHealthSidePanelContents';
 import UnitNodeSidePanelContents from './UnitNodeSidePanelContents';
+import Util from '../utils/Util';
 
 const METHODS_TO_BIND = [
   'handlePanelClose',
@@ -80,7 +80,7 @@ class SidePanels extends mixin(StoreMixin) {
 
     if (prevPage) {
       let matchedRoutes = this.context.router.match(prevPage).routes;
-      prevPage = _.last(matchedRoutes).name;
+      prevPage = Util.last(matchedRoutes).name;
 
       if (this.props.openedPage === prevPage) {
         text = 'close';

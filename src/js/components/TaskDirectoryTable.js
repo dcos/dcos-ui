@@ -1,4 +1,3 @@
-import _ from 'underscore';
 import classNames from 'classnames';
 import React from 'react';
 import {Table} from 'reactjs-components';
@@ -95,7 +94,7 @@ class TaskDirectoryTable extends React.Component {
     let propsToRight = ['uid', 'size', 'mtime'];
 
     return classNames({
-      'text-align-right': _.contains(propsToRight, prop),
+      'text-align-right': propsToRight.includes(prop),
       'highlight': prop === sortBy.prop && isHeader,
       'clickable': isHeader
     });
@@ -171,7 +170,7 @@ class TaskDirectoryTable extends React.Component {
         sortFunction
       }
     ].map(function (columnSetting) {
-      return _.extend({}, defaultColumnSettings, columnSetting);
+      return Object.assign({}, defaultColumnSettings, columnSetting);
     });
   }
 

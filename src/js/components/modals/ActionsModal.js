@@ -1,4 +1,3 @@
-import _ from 'underscore';
 import {Confirm, Dropdown} from 'reactjs-components';
 import mixin from 'reactjs-mixin';
 /* eslint-disable no-unused-vars */
@@ -7,6 +6,7 @@ import React from 'react';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import StringUtil from '../../utils/StringUtil';
+import Util from '../../utils/Util';
 
 const METHODS_TO_BIND = [
   'handleButtonCancel',
@@ -108,18 +108,20 @@ class ActionsModal extends mixin(StoreMixin) {
       selectedItemsString = selectedItems[0].description;
     } else {
       // Truncate list of selected user/groups for ease of reading
-      let selectedItemsShown = _.first(selectedItems, ITEMS_DISPLAYED + 1);
+      let selectedItemsShown = selectedItems.slice(0, ITEMS_DISPLAYED);
 
       // Create a string concatenating n-1 items
-      let selectedItemsShownMinusOne = _.initial(selectedItemsShown);
-      let descriptionArray = _.pluck(selectedItemsShownMinusOne, 'description');
-      descriptionArray.forEach(function (itemDescription) {
-        selectedItemsString += `${itemDescription}, `;
+      let selectedItemsShownMinusOne = selectedItemsShown.slice(0, -1);
+      let descriptions = selectedItemsShownMinusOne.map(function (item) {
+        return item.description;
+      });
+      descriptions.forEach(function (description) {
+        selectedItemsString += `${description}, `;
       });
 
       // Handle grammar for nth element and concatenate to list
       if (selectedItems.length <= ITEMS_DISPLAYED) {
-        selectedItemsString += `and ${_.last(selectedItems).description} `;
+        selectedItemsString += `and ${Util.last(selectedItems).description} `;
       } else if (selectedItems.length === ITEMS_DISPLAYED + 1) {
         selectedItemsString += 'and 1 other ';
       } else {

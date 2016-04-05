@@ -1,4 +1,3 @@
-import _ from 'underscore';
 import {Dropdown} from 'reactjs-components';
 import React from 'react';
 
@@ -66,7 +65,7 @@ FilterByFormTab.propTypes = {
 
 FilterByFormTab.defaultProps = {
   currentTab: '',
-  handleFilterChange: _.noop,
+  handleFilterChange: function () {},
   tabs: []
 };
 

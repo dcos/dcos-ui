@@ -1,4 +1,3 @@
-import _ from 'underscore';
 import classNames from 'classnames';
 import {Form, Tooltip} from 'reactjs-components';
 import GeminiScrollbar from 'react-gemini-scrollbar';
@@ -228,7 +227,7 @@ class SchemaForm extends React.Component {
     let currentTab = this.state.currentTab;
     let {handleTabClick} = this;
     let isMobileWidth = this.props.isMobileWidth;
-    let tabValues = _.values(multipleDefinition);
+    let tabValues = Object.values(multipleDefinition);
 
     let content = (
       <SideTabs

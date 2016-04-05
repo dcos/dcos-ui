@@ -1,5 +1,3 @@
-import _ from 'underscore';
-
 import DirectoryItem from './DirectoryItem';
 import List from './List';
 
@@ -18,7 +16,7 @@ class TaskDirectory extends List {
   }
 
   findFile(name) {
-    return _.find(this.getItems(), function (file) {
+    return this.getItems().find(function (file) {
       return file.getName() === name;
     });
   }

@@ -1,5 +1,29 @@
-
 const Util = {
+
+  /**
+   * Copies an object, omitting blacklisted keys.
+   * @param  {Object} object        Object to copy
+   * @param  {Array} blacklistKeys  Keys to not copy over
+   * @return {Object}               Copy of object without blacklisted keys
+   */
+  omit: function (object, blacklistKeys) {
+    return Object.keys(object).reduce(function (newObject, key) {
+      if (blacklistKeys.indexOf(key) === -1) {
+        newObject[key] = object[key];
+      }
+      return newObject;
+    }, {});
+  },
+
+  /**
+   * Returns the last element
+   * @param  {Array} array        Array to act on
+   * @return {Anything}           Value in last position of Array
+   */
+  last: function (array) {
+    return array[array.length - 1] || null;
+  },
+
   /**
    * Finds last index where condition returns true
    * @param  {Array} array         Array to search

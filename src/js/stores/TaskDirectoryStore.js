@@ -1,4 +1,3 @@
-import _ from 'underscore';
 import {Store} from 'mesosphere-shared-reactjs';
 
 import ActionTypes from '../constants/ActionTypes';
@@ -46,7 +45,7 @@ var TaskDirectoryStore = Store.createStore({
   removeChangeListener: function (eventName, callback) {
     this.removeListener(eventName, callback);
 
-    if (_.isEmpty(this.listeners(EventTypes.TASK_DIRECTORY_CHANGE))) {
+    if (this.listeners(EventTypes.TASK_DIRECTORY_CHANGE).length === 0) {
       this.resetRequests();
       this.set({innerPath: '', directory: null});
     }

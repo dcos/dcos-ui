@@ -1,4 +1,3 @@
-import _ from 'underscore';
 import Maths from './Maths';
 
 const Units = {
@@ -55,9 +54,7 @@ const Units = {
       return amount;
     }
 
-    options = _.extend({
-      decimalPlaces: 2
-    }, options);
+    options = Object.assign({decimalPlaces: 2}, options || {});
 
     if (amount > 1) {
       let precision = Math.pow(10, options.decimalPlaces);

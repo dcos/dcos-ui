@@ -1,4 +1,3 @@
-import _ from 'underscore';
 import mixin from 'reactjs-mixin';
 import React from 'react';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
@@ -11,6 +10,7 @@ import MesosSummaryStore from '../stores/MesosSummaryStore';
 import ResourceTypes from '../constants/ResourceTypes';
 import TabsMixin from '../mixins/TabsMixin';
 import Units from '../utils/Units';
+import Util from '../utils/Util';
 
 // number to fit design of width vs. height ratio
 const WIDTH_HEIGHT_RATIO = 4.5;
@@ -63,7 +63,7 @@ class SidePanelContents
       values: totalResources[resource]
     }];
     let resourceValue = Units.formatResource(
-      resource, _.last(totalResources[resource]).value
+      resource, Util.last(totalResources[resource]).value
     );
     let resourceIconClasses = `icon icon-sprite icon-sprite-medium
       icon-sprite-medium-color icon-resources-${resourceLabel.toLowerCase()}`;
