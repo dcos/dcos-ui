@@ -1,4 +1,3 @@
-import _ from 'underscore';
 import mixin from 'reactjs-mixin';
 import React from 'react';
 
@@ -70,8 +69,8 @@ class TaskView extends mixin(SaveStateMixin) {
       return tasks;
     }
 
-    return _.filter(tasks, function (task) {
-      return _.contains(TaskStates[task.state].stateTypes, status);
+    return tasks.filter(function (task) {
+      return TaskStates[task.state].stateTypes.contains(status);
     });
   }
 
@@ -83,11 +82,11 @@ class TaskView extends mixin(SaveStateMixin) {
     let statusCount = {active: 0, completed: 0};
 
     tasks.forEach(function (task) {
-      if (_.contains(TaskStates[task.state].stateTypes, 'active')) {
+      if (TaskStates[task.state].stateTypes.includes('active')) {
         statusCount.active += 1;
       }
 
-      if (_.contains(TaskStates[task.state].stateTypes, 'completed')) {
+      if (TaskStates[task.state].stateTypes.includes('completed')) {
         statusCount.completed += 1;
       }
     });

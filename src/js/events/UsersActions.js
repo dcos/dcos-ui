@@ -1,4 +1,4 @@
-import _ from 'underscore';
+import Util from '../utils/Util';
 
 import {
   REQUEST_USERS_SUCCESS,
@@ -34,7 +34,7 @@ const UsersActions = {
 
   addUser: function (data) {
     let userID = data.uid;
-    data = _.omit(data, 'uid');
+    data = Util.omit(data, ['uid']);
 
     if (!userID && data.description) {
       userID = data.description.replace(/\s+/g, '').toLowerCase();

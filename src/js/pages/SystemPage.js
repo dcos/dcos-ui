@@ -1,4 +1,3 @@
-import _ from 'underscore';
 import {Link, RouteHandler} from 'react-router';
 import mixin from 'reactjs-mixin';
 /* eslint-disable no-unused-vars */
@@ -52,11 +51,11 @@ class SystemPage extends mixin(TabsMixin) {
     );
     // Add filter to register default tab for Overview Tab
     Hooks.addFilter('system-overview-tabs', function (tabs) {
-      return _.extend(tabs, DEFAULT_OVERVIEW_TABS);
+      return Object.assign(tabs, DEFAULT_OVERVIEW_TABS);
     });
     // Add filter to register default tab for Organization Tab
     Hooks.addFilter('system-organization-tabs', function (tabs) {
-      return _.extend(tabs, DEFAULT_ORGANIZATION_TABS);
+      return Object.assign(tabs, DEFAULT_ORGANIZATION_TABS);
     });
 
     this.tabs_tabs = {};

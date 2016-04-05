@@ -1,5 +1,3 @@
-import _ from 'underscore';
-
 import MesosSummaryUtil from '../utils/MesosSummaryUtil';
 import ServicesList from './ServicesList';
 import NodesList from './NodesList';
@@ -30,17 +28,27 @@ module.exports = class StateSummary {
       this.metadata.successfulSnapshot = options.successful;
     }
     this.metadata.date = options.date || Date.now();
+
+    let slaves = this.snapshot.slaves || [];
     // Store computed data – this is something we may not need to store
     this.metadata.slaveTotalResources = MesosSummaryUtil.sumResources(
       // We may only want to get the active slaves...
-      _.pluck(this.snapshot.slaves, 'resources')
+      slaves.map(function (slave) {
+        return slave.resources || null;
+      })
     );
     this.metadata.slaveUsedResources = MesosSummaryUtil.sumResources(
       // We may only want to get the active slaves...
-      _.pluck(this.snapshot.slaves, 'used_resources')
+      slaves.map(function (slave) {
+        return slave.used_resources || null;
+      })
     );
+
+    let frameworks = this.snapshot.frameworks || [];
     this.metadata.serviceUsedResources = MesosSummaryUtil.sumResources(
-      _.pluck(this.snapshot.frameworks, 'used_resources')
+      frameworks.map(function (framework) {
+        return framework.used_resources || null;
+      })
     );
   }
 
@@ -53,7 +61,9 @@ module.exports = class StateSummary {
   }
 
   getActiveSlaves() {
-    return _.where(this.snapshot.slaves, {active: true});
+    return this.snapshot.slaves.filter(function (slave) {
+      return slave.active;
+    });
   }
 
   getServiceList() {

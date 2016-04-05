@@ -1,4 +1,3 @@
-import _ from 'underscore';
 import {Store} from 'mesosphere-shared-reactjs';
 
 import {
@@ -94,7 +93,7 @@ const NodeHealthStore = Store.createStore({
   },
 
   shouldPoll: function () {
-    return !_.isEmpty(this.listeners(HEALTH_NODES_CHANGE));
+    return (this.listeners(HEALTH_NODES_CHANGE).length === 0);
   },
 
   getNodes: function () {

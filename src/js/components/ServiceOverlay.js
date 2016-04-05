@@ -1,7 +1,6 @@
 import mixin from 'reactjs-mixin';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import _ from 'underscore';
 
 import Cluster from '../utils/Cluster';
 import EventTypes from '../constants/EventTypes';
@@ -136,8 +135,7 @@ class ServiceOverlay extends mixin(InternalStorageMixin) {
     let appHealth = MarathonStore.getServiceHealth(service.name);
     let serviceHealth = HealthLabels[appHealth.key];
     let taskCount = '';
-
-    if (_.isNumber(service.TASK_RUNNING)) {
+    if (typeof (service.TASK_RUNNING) === 'number') {
       let pluralized = StringUtil.pluralize('task', service.TASK_RUNNING);
       taskCount = ` (${service.TASK_RUNNING} ${pluralized})`;
     }

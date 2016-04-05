@@ -1,4 +1,3 @@
-import _ from 'underscore';
 import Clipboard from 'clipboard';
 import browserInfo from 'browser-info';
 import React from 'react';
@@ -81,7 +80,7 @@ var ClusterHeader = React.createClass({
   getPublicIP() {
     let metadata = MetadataStore.get('metadata');
 
-    if (!_.isObject(metadata) ||
+    if ((typeof metadata !== 'object') ||
       metadata.PUBLIC_IPV4 == null ||
       metadata.PUBLIC_IPV4.length === 0) {
       return null;

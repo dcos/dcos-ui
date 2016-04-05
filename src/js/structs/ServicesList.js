@@ -1,5 +1,3 @@
-import _ from 'underscore';
-
 import List from './List';
 import MesosSummaryUtil from '../utils/MesosSummaryUtil';
 import Service from './Service';
@@ -24,7 +22,7 @@ module.exports = class ServicesList extends List {
 
     if (filters) {
       if (filters.ids) {
-        services = _.filter(services, function (service) {
+        services = services.filter(function (service) {
           return this.ids.indexOf(service.id) !== -1;
         }, {ids: filters.ids});
       }
@@ -34,7 +32,7 @@ module.exports = class ServicesList extends List {
       }
 
       if (filters.health != null) {
-        services = _.filter(services, function (service) {
+        services = services.filter(function (service) {
           return service.getHealth().value === filters.health;
         });
       }
@@ -45,7 +43,9 @@ module.exports = class ServicesList extends List {
 
   sumUsedResources() {
     let services = this.getItems();
-    let resourcesList = _.pluck(services, 'used_resources');
+    let resourcesList = services.map(function (service) {
+      return service.used_resources || null;
+    });
     return MesosSummaryUtil.sumResources(resourcesList);
   }
 

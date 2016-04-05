@@ -1,4 +1,3 @@
-import _ from 'underscore';
 /* eslint-disable no-unused-vars */
 import React from 'react';
 /* eslint-enable no-unused-vars */
@@ -30,7 +29,9 @@ class UsersActionsModal extends ActionsModal {
 
   handleButtonConfirm() {
     let {itemID, selectedItems} = this.props;
-    let itemsByID = _.pluck(selectedItems, itemID);
+    let itemsByID = selectedItems.map(function (item) {
+      return item[itemID];
+    });
 
     itemsByID.forEach(function (userID) {
       UserStore.deleteUser(userID);

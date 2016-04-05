@@ -1,4 +1,3 @@
-import _ from 'underscore';
 import React from 'react';
 import {Dropdown} from 'reactjs-components';
 
@@ -85,7 +84,7 @@ FilterByTaskState.propTypes = {
 
 FilterByTaskState.defaultProps = {
   currentStatus: defaultID,
-  handleFilterChange: _.noop,
+  handleFilterChange: function () {},
   statuses: [],
   totalHostsCount: 0
 };
