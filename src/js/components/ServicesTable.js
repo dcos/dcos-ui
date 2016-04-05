@@ -13,6 +13,7 @@ var ResourceTableUtil = require('../utils/ResourceTableUtil');
 var ServiceTableHeaderLabels = require('../constants/ServiceTableHeaderLabels');
 import ServiceTableUtil from '../utils/ServiceTableUtil';
 import ServiceTree from '../structs/ServiceTree';
+import StringUtil from '../utils/StringUtil';
 import {Table} from 'reactjs-components';
 import TableUtil from '../utils/TableUtil';
 var Units = require('../utils/Units');
@@ -143,10 +144,13 @@ var ServicesTable = React.createClass({
   },
 
   renderTask: function (prop, service) {
+    let tasksRunning = service.getTasksSummary().tasksRunning;
     return (
       <span>
-        {service.getTasksSummary().tasksRunning}
-        <span className="visible-mini-inline"> Tasks</span>
+        {tasksRunning}
+        <span className="visible-mini-inline">
+          {StringUtil.pluralize(' Task', tasksRunning)}
+        </span>
       </span>
     );
   },
