@@ -14,6 +14,7 @@ var Page = require('../components/Page');
 var MarathonStore = require('../stores/MarathonStore');
 var MesosSummaryStore = require('../stores/MesosSummaryStore');
 var ResourceBarChart = require('../components/charts/ResourceBarChart');
+import SaveStateMixin from '../mixins/SaveStateMixin';
 var ServicesTable = require('../components/ServicesTable');
 var SidebarActions = require('../events/SidebarActions');
 import SidePanels from '../components/SidePanels';
@@ -60,7 +61,9 @@ var ServicesPage = React.createClass({
 
   displayName: 'ServicesPage',
 
-  mixins: [InternalStorageMixin],
+  saveState_key: 'servicesPage',
+
+  mixins: [InternalStorageMixin, SaveStateMixin],
 
   statics: {
     routeConfig: {
