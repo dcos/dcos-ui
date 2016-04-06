@@ -99,7 +99,7 @@ class DCOSStore extends EventEmitter {
    */
   on(eventName, callback) {
     // Only add proxy listeners if not already listening
-    if (this.listenerCount(DCOS_CHANGE) === 0) {
+    if (this.listeners().length === 0) {
       this.addProxyListeners();
     }
 
@@ -116,7 +116,7 @@ class DCOSStore extends EventEmitter {
   removeListener(eventName, callback) {
     super.removeListener(eventName, callback);
     // Remove proxy listeners if no one is listening
-    if (this.listenerCount(DCOS_CHANGE) === 0) {
+    if (this.listeners().length === 0) {
       this.removeProxyListeners();
     }
 
