@@ -1,5 +1,3 @@
-import _ from 'underscore';
-
 import Item from './Item';
 import List from './List';
 import StringUtil from '../utils/StringUtil';
@@ -23,7 +21,7 @@ module.exports = class Tree extends List {
       if ((item.items != null && Util.isArray(item.items)) &&
           !(item instanceof Tree)) {
         return new this.constructor(
-          _.extend({filterProperties: this.getFilterProperties()}, item)
+          Object.assign({filterProperties: this.getFilterProperties()}, item)
         );
       }
 
@@ -102,7 +100,7 @@ module.exports = class Tree extends List {
         });
     }
 
-    return new this.constructor(_.extend({}, this, {items}));
+    return new this.constructor(Object.assign({}, this, {items}));
   }
 
   /**
