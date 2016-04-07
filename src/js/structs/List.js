@@ -1,5 +1,3 @@
-import _ from 'underscore';
-
 import Item from './Item';
 import StringUtil from '../utils/StringUtil';
 import Util from '../utils/Util';
@@ -91,7 +89,7 @@ module.exports = class List {
    * @return {object} matching item
    */
   findItem(callback) {
-    return _.find(this.getItems(), callback);
+    return this.getItems().find(callback);
   }
 
   /**
