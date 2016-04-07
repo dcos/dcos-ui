@@ -90,7 +90,6 @@ var ServicesPage = React.createClass({
   },
 
   componentWillMount: function () {
-    this.internalStorage_set(getMesosServices(this.state));
     this.internalStorage_update({
       openServicePanel: false,
       openTaskPanel: false
@@ -134,7 +133,6 @@ var ServicesPage = React.createClass({
   },
 
   onMesosStateChange: function () {
-    this.internalStorage_update(getMesosServices(this.state));
     this.forceUpdate();
   },
 
@@ -241,6 +239,7 @@ var ServicesPage = React.createClass({
   },
 
   render: function () {
+    this.internalStorage_set(getMesosServices(this.state));
     var data = this.internalStorage_get();
     var isEmpty = data.statesProcessed && data.totalServices === 0;
 
