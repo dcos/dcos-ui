@@ -10,6 +10,7 @@ import {
   MARATHON_APPS_CHANGE,
   MARATHON_APPS_ERROR,
   MARATHON_GROUPS_CHANGE,
+  MARATHON_GROUPS_ERROR,
   VISIBILITY_CHANGE
 } from '../constants/EventTypes';
 var GetSetMixin = require('../mixins/GetSetMixin');
@@ -199,6 +200,7 @@ var MarathonStore = Store.createStore({
 
   processMarathonGroupsError: function () {
     this.emit(MARATHON_APPS_ERROR);
+    this.emit(MARATHON_GROUPS_ERROR);
   },
 
   processOngoingRequest: function () {
