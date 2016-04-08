@@ -1,4 +1,3 @@
-var _ = require('underscore');
 import {Store} from 'mesosphere-shared-reactjs';
 
 var AppDispatcher = require('../events/AppDispatcher');
@@ -76,7 +75,8 @@ var MarathonStore = Store.createStore({
   },
 
   shouldPoll: function () {
-    return !_.isEmpty(this.listeners(MARATHON_APPS_CHANGE));
+    return this.listenerCount(MARATHON_GROUPS_CHANGE) > 0 ||
+      this.listenerCount(MARATHON_APPS_CHANGE) > 0;
   },
 
   hasProcessedApps: function () {
