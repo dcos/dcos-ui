@@ -184,6 +184,46 @@ describe('ServiceTree', function () {
 
   });
 
+  describe('#findItemById', function () {
+
+    beforeEach(function () {
+      this.instance = new ServiceTree({
+        id: '/group/id',
+        apps: [
+          {id: '/alpha', cmd: 'cmd'},
+          {
+            id: '/beta',
+            cmd: 'cmd',
+            labels: {DCOS_PACKAGE_FRAMEWORK_NAME: 'beta'}
+          },
+          {id: '/gamma', cmd: 'cmd', labels: {RANDOM_LABEL: 'random'}}
+        ],
+        groups: [
+          {
+            id: '/test', apps: [
+            {id: '/foo', cmd: 'cmd'},
+            {id: '/bar', cmd: 'cmd'}
+          ], groups: []
+          }
+        ]
+      });
+    });
+
+
+    it('should find matching item', function () {
+      expect(this.instance.findItemById('/beta').getId()).toEqual('/beta');
+    });
+
+    it('should find matching subtree item', function () {
+      expect(this.instance.findItemById('/foo').getId()).toEqual('/foo');
+    });
+
+    it('should find matching subtree', function () {
+      expect(this.instance.findItemById('/test').getId()).toEqual('/test');
+    });
+
+  });
+
   describe('#getHealth', function () {
 
     const healthyService = new Service({
