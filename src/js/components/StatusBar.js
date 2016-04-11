@@ -30,14 +30,17 @@ class StatusBar extends React.Component {
 
   getBars(total) {
     let offset = 0;
-    return function (status) {
-      let {value, key, className} = status;
+    return function (status, index) {
+      let {value, className} = status;
+      if (!className) {
+        className = `element-${index}`;
+      }
       let width = value / total * 100;
       let bar = (
         <rect
           x={offset}
           y="0"
-          key={key}
+          key={index}
           height="100%"
           width={width}
           className={className} />
@@ -62,7 +65,8 @@ class StatusBar extends React.Component {
       <svg
         className={className}
         preserveAspectRatio="none"
-        viewBox={`0 0 100 ${height}`} >
+        viewBox={`0 0 100 10`}
+        height={height} >
         {data}
       </svg>
     );
@@ -73,8 +77,7 @@ StatusBar.propTypes = {
   className: React.PropTypes.string,
   data: React.PropTypes.arrayOf(
     React.PropTypes.shape({
-      className: React.PropTypes.number.isRequired.isRequired,
-      key: React.PropTypes.string.isRequired,
+      className: React.PropTypes.string,
       value: React.PropTypes.number.isRequired
     })
   ).isRequired,
