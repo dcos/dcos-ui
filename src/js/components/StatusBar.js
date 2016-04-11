@@ -21,6 +21,13 @@ class StatusBar extends React.Component {
     super(...arguments);
   }
 
+  static get defaultProps() {
+    return {
+      className: 'status-bar',
+      height: 10
+    };
+  }
+
   getBars(total) {
     let offset = 0;
     return function (status) {
@@ -61,11 +68,6 @@ class StatusBar extends React.Component {
     );
   }
 }
-
-StatusBar.defaultProps = {
-  className: 'status-bar',
-  height: 10
-};
 
 StatusBar.propTypes = {
   className: React.PropTypes.string,
