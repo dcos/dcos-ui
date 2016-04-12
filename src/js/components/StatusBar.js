@@ -1,16 +1,14 @@
 import React from 'react';
 
 /**
- * Usage:
+ * Status bar component creates a segmented bar based on the data input
+ * @example
  * <StatusBar
- *   height={20}
  *   data={[
  *    {
- *      key: '#FFF',
  *      value: 20,
  *      className: 'status'
  *    }, {
- *      key: '#000',
  *      value: 30,
  *      className: 'failed'
  *    }
@@ -28,7 +26,7 @@ class StatusBar extends React.Component {
     };
   }
 
-  getBars(total) {
+  getBarsFunction(total) {
     let offset = 0;
     return function (status, index) {
       let {value, className} = status;
@@ -38,11 +36,11 @@ class StatusBar extends React.Component {
       let width = value / total * 100;
       let bar = (
         <rect
-          x={offset}
+          x={`${offset}%`}
           y="0"
           key={index}
           height="100%"
-          width={width}
+          width={`${width}%`}
           className={className} />
       );
       offset += width;
@@ -51,7 +49,7 @@ class StatusBar extends React.Component {
   }
 
   render() {
-    let {height, data, className} = this.props;
+    let {data, className} = this.props;
     if (!data) {
       return null;
     }
@@ -59,15 +57,11 @@ class StatusBar extends React.Component {
       return sum + item.value;
     }, 0);
 
-    data = data.map(this.getBars(total));
-
     return (
       <svg
         className={className}
-        preserveAspectRatio="none"
-        viewBox={`0 0 100 10`}
-        height={height} >
-        {data}
+        preserveAspectRatio="none">
+        {data.map(this.getBarsFunction(total))}
       </svg>
     );
   }
@@ -80,8 +74,7 @@ StatusBar.propTypes = {
       className: React.PropTypes.string,
       value: React.PropTypes.number.isRequired
     })
-  ).isRequired,
-  height: React.PropTypes.number
+  ).isRequired
 };
 
 module.exports = StatusBar;
