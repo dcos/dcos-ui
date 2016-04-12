@@ -50,49 +50,33 @@ var ServicesTable = React.createClass({
     this.forceUpdate();
   },
 
-  renderServiceTreeHeadline: function (service) {
-    const serviceTreeId = encodeURIComponent(service.getId());
-    return (
-      <div className="service-table-heading flex-box flex-box-align-vertical-center table-cell-flex-box">
-        <Link to="services-tree"
-          className="table-cell-icon"
-          params={{serviceTreeId}}>
-          <span
-            className="icon icon-small icon-image-container icon-app-container">
-            <i className="icon icon-sprite icon-sprite-mini icon-directory "/>
-          </span>
-        </Link>
-        <Link to="services-tree"
-          className="headline table-cell-value flex-box flex-box-col"
-          params={{serviceTreeId}}>
-          <span className="text-overflow">
-            {service.getName()}
-          </span>
-        </Link>
-      </div>
-    );
-  },
-
   renderHeadline: function (prop, service) {
-    if (service instanceof ServiceTree) {
-      return this.renderServiceTreeHeadline(service);
-    }
-
-    let serviceImage = null;
+    const id = encodeURIComponent(service.getId());
+    let itemImage = null;
     let frameworkLink = null;
+
+    if (service instanceof ServiceTree) {
+      // Get serviceTree image/icon
+      itemImage = (
+      <span
+        className="icon icon-small icon-image-container icon-app-container">
+          <i className="icon icon-sprite icon-sprite-mini icon-directory "/>
+        </span>
+      );
+    }
 
     if (service instanceof Framework) {
       // Get framework image/icon
-      serviceImage = (
+      itemImage = (
         <span
           className="icon icon-small icon-image-container icon-app-container">
           <img src={service.getImages()['icon-small']}/>
         </span>
       );
+
       // Get framework cluster link
       frameworkLink = (
-        <a 
-          className="table-display-on-row-hover"
+        <a className="table-display-on-row-hover"
           href={Cluster.getServiceLink(service.getName())}
           target="_blank"
           title="Open in a new window">
@@ -105,14 +89,14 @@ var ServicesTable = React.createClass({
     return (
       <div className="service-table-heading flex-box flex-box-align-vertical-center
         table-cell-flex-box">
-        <Link to="services-panel"
+        <Link to="services-detail"
           className="table-cell-icon"
-          params={{serviceName: service.getName()}}>
-          {serviceImage}
+          params={{id}}>
+          {itemImage}
         </Link>
-        <Link to="services-panel"
+        <Link to="services-detail"
           className="headline table-cell-value flex-box flex-box-col"
-          params={{serviceName: service.getName()}}>
+          params={{id}}>
           <span className="text-overflow">
             {service.getName()}
           </span>
