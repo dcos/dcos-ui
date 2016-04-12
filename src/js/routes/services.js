@@ -12,8 +12,8 @@ let servicesRoutes = {
   children: [
     {
       type: Route,
-      name: 'services-tree',
-      path: ':serviceTreeId'
+      name: 'services-detail',
+      path: ':id'
     },
     {
       type: Route,
