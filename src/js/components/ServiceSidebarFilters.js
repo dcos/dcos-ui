@@ -7,16 +7,30 @@ import SidebarFilter from './SidebarFilter';
 
 const PropTypes = React.PropTypes;
 
+function getCountByHealth(services) {
+  return services.reduce(function (acc, service) {
+    let serviceHealth = service.getHealth();
+    if (acc[serviceHealth.value] === undefined) {
+      acc[serviceHealth.value] = 1;
+    } else {
+      acc[serviceHealth.value]++;
+    }
+    return acc;
+  }, {});
+}
+
 class ServiceSidebarFilters extends React.Component {
   render() {
+    let {props} = this;
+
     return (
       <div>
         <SidebarFilter
-          countByValue={this.props.countByHealth}
+          countByValue={getCountByHealth(props.services)}
           filterType={ServiceFilterTypes.HEALTH}
           filterValues={HealthTypes}
           filterLabels={HealthLabels}
-          handleFilterChange={this.props.handleFilterChange}
+          handleFilterChange={props.handleFilterChange}
           title="HEALTH" />
       </div>
     );
@@ -24,8 +38,8 @@ class ServiceSidebarFilters extends React.Component {
 }
 
 ServiceSidebarFilters.propTypes = {
-  countByHealth: PropTypes.object.isRequired,
-  handleFilterChange: PropTypes.func.isRequired
+  handleFilterChange: PropTypes.func.isRequired,
+  services: PropTypes.array.isRequired
 };
 
 module.exports = ServiceSidebarFilters;
