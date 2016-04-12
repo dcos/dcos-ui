@@ -47,7 +47,7 @@ module.exports = class List {
    * @param  {string} filterText string to search in properties of the list
    * @return {List} List (or child class) containing filtered items
    */
-  filterItems(filterText) {
+  filterItemsByText(filterText) {
     let items = this.getItems();
     let filterProperties = this.getFilterProperties();
 
