@@ -28,7 +28,8 @@ class DCOSStore extends EventEmitter {
       marathon: new ServiceTree(),
       mesos: {
         frameworks: []
-      }
+      },
+      dataProcessed: false
     };
 
     this.proxyListeners = [
@@ -55,6 +56,7 @@ class DCOSStore extends EventEmitter {
     }
 
     this.data.marathon = data;
+    this.data.dataProcessed = true;
     this.emit(DCOS_CHANGE);
   }
 
@@ -67,6 +69,7 @@ class DCOSStore extends EventEmitter {
       return;
     }
     this.data.mesos = data;
+    this.data.dataProcessed = true;
     this.emit(DCOS_CHANGE);
   }
 
@@ -152,6 +155,10 @@ class DCOSStore extends EventEmitter {
     }
 
     return marathon;
+  }
+
+  get dataProcessed() {
+    return this.data.dataProcessed;
   }
 
   static get storeID() {
