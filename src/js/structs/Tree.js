@@ -51,7 +51,7 @@ module.exports = class Tree extends List {
    * @param  {string} filterText string to search in properties of the list
    * @return {Tree} Tree (or child class) containing filtered items
    */
-  filterItems(filterText) {
+  filterItemsByText(filterText) {
     let items = this.getItems();
     let filterProperties = this.getFilterProperties();
 
@@ -62,7 +62,7 @@ module.exports = class Tree extends List {
       items = items.map(function (item) {
           // Filter subtrees
           if (item instanceof Tree) {
-            return item.filterItems(filterText);
+            return item.filterItemsByText(filterText);
           }
 
           return item;
