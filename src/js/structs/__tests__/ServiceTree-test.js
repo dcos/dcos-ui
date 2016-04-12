@@ -95,7 +95,7 @@ describe('ServiceTree', function () {
 
   });
 
-  describe('#filterItems', function () {
+  describe('#filterItemsByText', function () {
 
     beforeEach(function () {
       this.instance = new ServiceTree({
@@ -126,22 +126,22 @@ describe('ServiceTree', function () {
     });
 
     it('should return an instance of ServiceTree', function () {
-      let filteredTree = this.instance.filterItems('alpha');
+      let filteredTree = this.instance.filterItemsByText('alpha');
       expect(filteredTree instanceof ServiceTree).toBeTruthy();
     });
 
     it('should include matching trees', function () {
-      let filteredItems = this.instance.filterItems('test').getItems();
+      let filteredItems = this.instance.filterItemsByText('test').getItems();
       expect(filteredItems[0] instanceof ServiceTree).toBeTruthy();
     });
 
     it('should not include empty trees', function () {
-      let filteredItems = this.instance.filterItems('beta').getItems();
+      let filteredItems = this.instance.filterItemsByText('beta').getItems();
       expect(filteredItems[0] instanceof Framework).toBeTruthy();
     });
 
     it('should no include matching subtrees', function () {
-      let filteredItems = this.instance.filterItems('foo').getItems();
+      let filteredItems = this.instance.filterItemsByText('foo').getItems();
       expect(filteredItems[0] instanceof ServiceTree).toBeTruthy();
     });
   });

@@ -79,7 +79,7 @@ describe('List', function () {
 
   });
 
-  describe('#filterItems', function () {
+  describe('#filterItemsByText', function () {
 
     beforeEach(function () {
       var items = [
@@ -100,7 +100,7 @@ describe('List', function () {
     });
 
     it('should return an instance of List', function () {
-      var items = this.instance.filterItems('bar');
+      var items = this.instance.filterItemsByText('bar');
       expect(items instanceof List).toEqual(true);
     });
 
@@ -128,25 +128,25 @@ describe('List', function () {
       };
 
       this.instance = new List({items, filterProperties});
-      var filteredItems = this.instance.filterItems('bar').getItems();
+      var filteredItems = this.instance.filterItemsByText('bar').getItems();
       expect(filteredItems.length).toEqual(1);
       expect(filteredItems[0] instanceof Item).toEqual(true);
     });
 
     it('should filter by default getter', function () {
-      var filteredItems = this.instance.filterItems('bar').getItems();
+      var filteredItems = this.instance.filterItemsByText('bar').getItems();
       expect(filteredItems.length).toEqual(1);
       expect(filteredItems[0].name).toEqual('bar');
     });
 
     it('should filter by description', function () {
-      var filteredItems = this.instance.filterItems('qux').getItems();
+      var filteredItems = this.instance.filterItemsByText('qux').getItems();
       expect(filteredItems.length).toEqual(1);
       expect(filteredItems[0].description.value).toEqual('qux');
     });
 
     it('should filter by subItems', function () {
-      var filteredItems = this.instance.filterItems('two').getItems();
+      var filteredItems = this.instance.filterItemsByText('two').getItems();
       expect(filteredItems.length).toEqual(2);
       expect(filteredItems[0].subItems).toEqual(['one', 'two']);
       expect(filteredItems[1].subItems).toEqual(['two', 'three']);
@@ -167,7 +167,7 @@ describe('List', function () {
         }
       };
       var list = new List({items, filterProperties});
-      expect(list.filterItems.bind(list, 'foo')).not.toThrow();
+      expect(list.filterItemsByText.bind(list, 'foo')).not.toThrow();
     });
 
   });

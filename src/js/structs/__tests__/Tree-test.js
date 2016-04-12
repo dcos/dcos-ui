@@ -101,7 +101,7 @@ describe('Tree', function () {
 
   });
 
-  describe('#filterItems', function () {
+  describe('#filterItemsByText', function () {
 
     beforeEach(function () {
       var items = [
@@ -136,12 +136,12 @@ describe('Tree', function () {
     });
 
     it('should return an instance of Tree', function () {
-      let filteredTree = this.instance.filterItems('bar');
+      let filteredTree = this.instance.filterItemsByText('bar');
       expect(filteredTree instanceof Tree).toEqual(true);
     });
 
     it('should filter sub trees', function () {
-      let filteredSubtree = this.instance.filterItems('alpha').getItems()[0];
+      let filteredSubtree = this.instance.filterItemsByText('alpha').getItems()[0];
       expect(filteredSubtree instanceof Tree).toEqual(true);
       expect(filteredSubtree.getItems()[0].name).toEqual('alpha');
     });
@@ -170,25 +170,25 @@ describe('Tree', function () {
       };
 
       this.instance = new Tree({items, filterProperties});
-      var filteredItems = this.instance.filterItems('bar').getItems();
+      var filteredItems = this.instance.filterItemsByText('bar').getItems();
       expect(filteredItems.length).toEqual(1);
       expect(filteredItems[0] instanceof Item).toEqual(true);
     });
 
     it('should filter by default getter', function () {
-      var filteredItems = this.instance.filterItems('bar').getItems();
+      var filteredItems = this.instance.filterItemsByText('bar').getItems();
       expect(filteredItems.length).toEqual(1);
       expect(filteredItems[0].name).toEqual('bar');
     });
 
     it('should filter by description', function () {
-      var filteredItems = this.instance.filterItems('qux').getItems();
+      var filteredItems = this.instance.filterItemsByText('qux').getItems();
       expect(filteredItems.length).toEqual(1);
       expect(filteredItems[0].description.value).toEqual('qux');
     });
 
     it('should filter by tags', function () {
-      var filteredItems = this.instance.filterItems('two').getItems();
+      var filteredItems = this.instance.filterItemsByText('two').getItems();
       expect(filteredItems.length).toEqual(3);
       expect(filteredItems[0].tags).toEqual(['one', 'two']);
       expect(filteredItems[1].tags).toEqual(['two', 'three']);
@@ -209,7 +209,7 @@ describe('Tree', function () {
         }
       };
       var list = new Tree({items, filterProperties});
-      expect(list.filterItems.bind(list, 'foo')).not.toThrow();
+      expect(list.filterItemsByText.bind(list, 'foo')).not.toThrow();
     });
 
   });

@@ -8,7 +8,7 @@ import Config from '../config/Config';
 import DCOSStore from '../stores/DCOSStore';
 var InternalStorageMixin = require('../mixins/InternalStorageMixin');
 import Page from '../components/Page';
-import Service from'../structs/Service';
+import Service from '../structs/Service';
 import ServiceDetail from '../components/ServiceDetail';
 import ServicesTable from '../components/ServicesTable';
 import ServiceTree from '../structs/ServiceTree';
