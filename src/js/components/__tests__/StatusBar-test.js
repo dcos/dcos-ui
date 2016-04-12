@@ -116,51 +116,6 @@ describe('#StatusBar', function () {
     });
   });
 
-  describe('viewBox', function () {
-    it('should have a viewBox of `0 0 100 10`', function () {
-      expect(
-        this.container.querySelector('svg')
-          .getAttribute('viewBox')
-      ).toEqual('0 0 100 10');
-    });
-
-    it('should be `0 0 100 10` if a height is provided',
-      function () {
-        this.instance = ReactDOM.render(
-          <StatusBar
-            data={testData}
-            height={20}/>,
-          this.container
-        );
-        expect(
-          this.container.querySelector('svg')
-            .getAttribute('viewBox')
-        ).toEqual('0 0 100 10');
-      });
-  });
-
-  describe('height', function () {
-    it('should be 10 (default)', function () {
-      expect(
-        this.container.querySelector('svg')
-          .getAttribute('height')
-      ).toEqual('10');
-    });
-
-    it('should be 20 if 20 is provided', function () {
-      this.instance = ReactDOM.render(
-        <StatusBar
-          data={testData}
-          height={20}/>,
-        this.container
-      );
-      expect(
-        this.container.querySelector('svg')
-          .getAttribute('height')
-      ).toEqual('20');
-    });
-  });
-
   describe('rectangles', function () {
     it('should contain 2 rectangles', function () {
       expect(this.container.querySelectorAll('rect').length)
@@ -179,7 +134,7 @@ describe('#StatusBar', function () {
         expect(
           this.container.querySelector('rect:first-child')
             .getAttribute('x')
-        ).toEqual('0');
+        ).toEqual('0%');
       });
 
       it('should have the class element-{index} if no classname is provided',
@@ -210,7 +165,7 @@ describe('#StatusBar', function () {
         expect(
           this.container.querySelector('rect:nth-child(2)')
             .getAttribute('x')
-        ).toEqual('40');
+        ).toEqual('40%');
       });
 
       it('should have an offset of 60', function () {
@@ -233,7 +188,7 @@ describe('#StatusBar', function () {
         expect(
           this.container.querySelector('rect:nth-child(2)')
             .getAttribute('x')
-        ).toEqual('60');
+        ).toEqual('60%');
       });
     });
   });
