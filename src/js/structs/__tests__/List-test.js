@@ -79,6 +79,36 @@ describe('List', function () {
 
   });
 
+  describe('#filterItems', function () {
+
+    beforeEach(function () {
+      var items = [
+        {name: 'foo'},
+        {name: 'bar'},
+        {name: 'qux'},
+        {name: 'quux'}
+      ];
+
+      this.instance = new List({items});
+    });
+
+    it('should return an instance of List', function () {
+      var items = this.instance.filterItems(function (item) {
+        return true;
+      });
+      expect(items instanceof List).toEqual(true);
+    });
+
+    it('should filter items', function () {
+      var items = this.instance.filterItems(function (item) {
+        return item.name === "bar";
+      });
+      expect(items.getItems().length).toEqual(1);
+      expect(items.getItems()[0]).toEqual({name: 'bar'});
+    });
+
+  });
+
   describe('#filterItemsByText', function () {
 
     beforeEach(function () {
