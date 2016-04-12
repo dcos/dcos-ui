@@ -1,5 +1,6 @@
 const ServiceFilterTypes = {
-  HEALTH: 'filterHealth'
+  HEALTH: 'filterHealth',
+  TEXT: 'searchString'
 };
 
 module.exports = ServiceFilterTypes;

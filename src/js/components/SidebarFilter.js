@@ -75,7 +75,7 @@ class SidebarFilter extends mixin(QueryParamsMixin) {
 
     if (stringify(selectedNodes) !== stringify(state.selectedNodes)) {
       this.setState({selectedNodes},
-        this.props.handleFilterChange.bind(null, selectedNodes));
+        this.props.handleFilterChange.bind(null, selectedNodes, filterType));
     }
   }
 
