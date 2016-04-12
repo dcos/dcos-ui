@@ -42,8 +42,21 @@ module.exports = class List {
   }
 
   /**
-   * Filters items in list and returns a new instance of the list used, even if
-   * it just extends List
+   * @param {function} callback Function to test each element of the array,
+   * taking three arguments: item, index, list. Return true to keep the item,
+   * false otherwise.
+   * @return {List} List (or child class) containing mapped items
+   */
+  filterItems(callback) {
+    let items = this.getItems().filter((item, index) => {
+      return callback(item, index, this);
+    });
+
+    return new this.constructor({items});
+  }
+
+  /**
+   * Filters items in list and returns a new instance of the list used.
    * @param  {string} filterText string to search in properties of the list
    * @return {List} List (or child class) containing filtered items
    */

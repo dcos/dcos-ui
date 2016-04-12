@@ -46,61 +46,75 @@ module.exports = class Tree extends List {
   }
 
   /**
-   * Filters items in tree and returns a new instance of the tree used, even if
-   * it just extends List
+   * @param {function} callback Function to test each element of the array,
+   * taking three arguments: item, index, list. Return true to keep the item,
+   * false otherwise.
+   * @return {Tree} List (or child class) containing mapped items
+   */
+  filterItems(callback) {
+    let items = this.getItems().map(function (item) {
+      // Filter subtrees
+      if (item instanceof Tree) {
+        return item.filterItems(callback);
+      }
+
+      return item;
+    })
+      .filter((item, index) => {
+        // Don't filter subtrees with matching items
+        if (item instanceof Tree && item.getItems().length > 0) {
+          return true;
+        }
+
+        return callback(item, index, this);
+      });
+
+    return new this.constructor(Object.assign({}, this, {items}));
+  }
+
+  /**
+   * Filters items in tree and returns a new instance of the tree used.
    * @param  {string} filterText string to search in properties of the list
    * @return {Tree} Tree (or child class) containing filtered items
    */
   filterItemsByText(filterText) {
-    let items = this.getItems();
     let filterProperties = this.getFilterProperties();
 
     if (filterText) {
       let regex = StringUtil.escapeForRegExp(filterText);
       let searchPattern = new RegExp(regex, 'i');
 
-      items = items.map(function (item) {
-          // Filter subtrees
-          if (item instanceof Tree) {
-            return item.filterItemsByText(filterText);
+      return this.filterItems(function (item) {
+        // Filter items by property values
+        return Object.keys(filterProperties).some(function (prop) {
+          // We need different handlers for item getters since the property
+          // there can be different ways of getting the value needed
+
+          // Use getter function if specified in filterProperties.
+          // This is used if property is nested or type is different than string
+          let valueGetter = filterProperties[prop];
+          if (typeof valueGetter === 'function') {
+            return searchPattern.test(valueGetter(item, prop) || '');
           }
 
-          return item;
-        })
-        .filter(function (item) {
-          // Don't filter subtrees with matching items
-          if (item instanceof Tree && item.getItems().length > 0) {
-            return true;
+          // Use default getter if item is an instanceof Item.
+          // This is the regular way of getting a property on an item
+          if (item instanceof Item) {
+            return searchPattern.test(item.get(prop) || '');
           }
 
-          // Filter items by property values
-          return Object.keys(filterProperties).some(function (prop) {
-            // We need different handlers for item getters since the property
-            // there can be different ways of getting the value needed
-
-            // Use getter function if specified in filterProperties.
-            // This is used if property is nested or type is different than string
-            let valueGetter = filterProperties[prop];
-            if (typeof valueGetter === 'function') {
-              return searchPattern.test(valueGetter(item, prop) || '');
-            }
-
-            // Use default getter if item is an instanceof Item.
-            // This is the regular way of getting a property on an item
-            if (item instanceof Item) {
-              return searchPattern.test(item.get(prop) || '');
-            }
-
-            // Last resort is to get property on object.
-            // Some of the items in lists are not always of instance Item and
-            // therefore we might need to get it directly on the object
-            return searchPattern.test(item[prop] || '');
-          });
-
+          // Last resort is to get property on object.
+          // Some of the items in lists are not always of instance Item and
+          // therefore we might need to get it directly on the object
+          return searchPattern.test(item[prop] || '');
         });
+
+      });
     }
 
-    return new this.constructor(Object.assign({}, this, {items}));
+    return new this.constructor(
+      Object.assign({}, this, {items: this.getItems()})
+    );
   }
 
   /**
@@ -126,7 +140,7 @@ module.exports = class Tree extends List {
       return callback(item, index, this);
     });
 
-    return new this.constructor({items});
+    return new this.constructor(Object.assign({}, this, {items}));
   }
 
   /**
