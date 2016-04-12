@@ -6,10 +6,11 @@ var AlertPanel = require('../components/AlertPanel');
 import Config from '../config/Config';
 import DCOSStore from '../stores/DCOSStore';
 import Page from '../components/Page';
-var ServicesTable = require('../components/ServicesTable');
-var ServiceTree = require('../structs/ServiceTree');
-var SidebarActions = require('../events/SidebarActions');
-import SidePanels from '../components/SidePanels';
+import Service from '../structs/Service';
+import ServiceDetail from '../components/ServiceDetail';
+import ServicesTable from '../components/ServicesTable';
+import ServiceTree from '../structs/ServiceTree';
+import SidebarActions from '../events/SidebarActions';
 
 var ServicesPage = React.createClass({
 
@@ -53,23 +54,35 @@ var ServicesPage = React.createClass({
     return DCOSStore.serviceTree.getItems();
   },
 
-  getContents: function () {
-    let serviceTreeId =
-      decodeURIComponent(this.context.router.getCurrentParams().serviceTreeId);
-    let services = this.getServices(serviceTreeId);
-
-    if (services.length > 0) {
+  getContents: function (id) {
+    // Render loading screen
+    if (!DCOSStore.dataProcessed) {
       return (
-        <div>
-          <ServicesTable
-            services={services} />
-          <SidePanels
-            params={this.props.params}
-            openedPage="services" />
+        <div className="container container-fluid container-pod text-align-center
+            vertical-center inverse">
+          <div className="row">
+            <div className="ball-scale">
+              <div />
+            </div>
+          </div>
         </div>
       );
     }
 
+    // Find item in root tree and default to root tree if there is no match
+    let item = DCOSStore.serviceTree.findItemById(id) || DCOSStore.serviceTree;
+
+    // Render service table
+    if (item instanceof ServiceTree && item.getItems().length > 0) {
+      return (<ServicesTable services={item.getItems()}/>);
+    }
+
+    // Render service detail
+    if (item instanceof Service) {
+      return (<ServiceDetail service={item}/>);
+    }
+
+    // Render empty panel
     return (
       <AlertPanel
         title="No Services Installed"
@@ -84,9 +97,11 @@ var ServicesPage = React.createClass({
   },
 
   render: function () {
+    let {id} = this.props.params;
+
     return (
       <Page title="Services">
-        {this.getContents()}
+        {this.getContents(decodeURIComponent(id))}
         <RouteHandler />
       </Page>
     );
