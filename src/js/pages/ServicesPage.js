@@ -1,12 +1,9 @@
-import _ from 'underscore';
 import React from 'react';
 import {RouteHandler} from 'react-router';
 
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import AlertPanel from '../components/AlertPanel';
-import CompositeState from '../structs/CompositeState';
-import Config from '../config/Config';
 import DCOSStore from '../stores/DCOSStore';
 import FilterHeadline from '../components/FilterHeadline';
 import FilterInputText from '../components/FilterInputText';
@@ -23,7 +20,7 @@ import SidebarActions from '../events/SidebarActions';
 import SidePanels from '../components/SidePanels';
 
 var DEFAULT_FILTER_OPTIONS = {
-  healthFilter: null,
+  filterHealth: null,
   searchString: ''
 };
 
@@ -54,7 +51,8 @@ var ServicesPage = React.createClass({
   },
 
   getInitialState: function () {
-    return _.extend({selectedResource: 'cpus'}, DEFAULT_FILTER_OPTIONS);
+    return Object.assign({}, {selectedResource: 'cpus'},
+      DEFAULT_FILTER_OPTIONS);
   },
 
   componentWillMount: function () {
@@ -80,16 +78,23 @@ var ServicesPage = React.createClass({
     });
   },
 
-  getServices: function (serviceTreeId) {
+  handleFilterChange: function (filterValues, filterType) {
+    var stateChanges = Object.assign({}, DEFAULT_FILTER_OPTIONS);
+    stateChanges[filterType] = filterValues;
+
+    this.setState(stateChanges);
+  },
+
+  getServices: function (serviceTreeId, filter) {
     let serviceTree = DCOSStore.serviceTree.findItem(function (item) {
       return item instanceof ServiceTree && item.getId() === serviceTreeId;
     });
 
-    if (serviceTree) {
-      return serviceTree.getItems();
+    if (serviceTree == null) {
+      serviceTree = DCOSStore.serviceTree;
     }
 
-    return DCOSStore.serviceTree.getItems();
+    return serviceTree.filterItemsByFilter(filter).getItems();
   },
 
   resetFilterQueryParams: function () {
@@ -104,8 +109,7 @@ var ServicesPage = React.createClass({
   },
 
   resetFilter: function () {
-    var state = _.clone(DEFAULT_FILTER_OPTIONS);
-    this.internalStorage_update(getMesosServices(state));
+    var state = Object.assign({}, this.state, DEFAULT_FILTER_OPTIONS);
     this.setState(state, this.resetFilterQueryParams);
   },
 
