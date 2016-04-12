@@ -101,6 +101,65 @@ describe('Tree', function () {
 
   });
 
+  describe('#filterItems', function () {
+
+    beforeEach(function () {
+      var items = [
+        {name: 'foo'},
+        {name: 'bar'},
+        {
+          items: [
+            {
+              name: 'alpha'
+            },
+            {
+              name: 'beta'
+            },
+            {
+              items: [
+                {
+                  name: 'one'
+                },
+                {
+                  name: 'two'
+                }
+              ]
+            }
+          ]
+        }
+      ];
+
+      this.instance = new Tree({items});
+    });
+
+    it('should return an instance of Tree', function () {
+      var filteredTree = this.instance.filterItems(function (item){
+        return true;
+      })
+        ;
+      expect(filteredTree instanceof Tree).toEqual(true);
+    });
+
+    it('should filter items', function () {
+      var filteredTree = this.instance.filterItems(function (item){
+        return item.name === "bar";
+      });
+
+      expect(filteredTree.getItems().length).toEqual(1);
+      expect(filteredTree.getItems()[0]).toEqual({name: 'bar'});
+    });
+
+    it('should filter sub items', function () {
+      var filteredTree = this.instance.filterItems(function (item){
+        return item.name === "one";
+      });
+
+      expect(filteredTree.getItems()[0].getItems()[0].getItems()[0])
+        .toEqual({name: 'one'});
+    });
+
+  });
+
   describe('#filterItemsByText', function () {
 
     beforeEach(function () {
