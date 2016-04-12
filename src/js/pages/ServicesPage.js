@@ -8,10 +8,11 @@ import Config from '../config/Config';
 import DCOSStore from '../stores/DCOSStore';
 var InternalStorageMixin = require('../mixins/InternalStorageMixin');
 import Page from '../components/Page';
-var ServicesTable = require('../components/ServicesTable');
-var ServiceTree = require('../structs/ServiceTree');
-var SidebarActions = require('../events/SidebarActions');
-import SidePanels from '../components/SidePanels';
+import Service from '../structs/Service';
+import ServiceDetail from '../components/ServiceDetail';
+import ServicesTable from '../components/ServicesTable';
+import ServiceTree from '../structs/ServiceTree';
+import SidebarActions from '../events/SidebarActions';
 
 var DEFAULT_FILTER_OPTIONS = {
   healthFilter: null,
@@ -83,22 +84,35 @@ var ServicesPage = React.createClass({
     return DCOSStore.serviceTree.getItems();
   },
 
-  getServicesPageContent: function () {
-    let serviceTreeId =
-      decodeURIComponent(this.context.router.getCurrentParams().serviceTreeId);
+  getContents: function (id) {
+    // Render loading screen
+    if (!DCOSStore.dataProcessed) {
+      return (
+        <div className="container container-fluid container-pod text-align-center
+            vertical-center inverse">
+          <div className="row">
+            <div className="ball-scale">
+              <div />
+            </div>
+          </div>
+        </div>
+      );
+    }
 
-    return (
-      <div>
-        <ServicesTable
-          services={this.getServices(serviceTreeId)}/>
-        <SidePanels
-          params={this.props.params}
-          openedPage="services"/>
-      </div>
-    );
-  },
+    // Find item in root tree and default to root tree if there is no match
+    let item = DCOSStore.serviceTree.findItemById(id) || DCOSStore.serviceTree;
 
-  getEmptyServicesPageContent: function () {
+    // Render service table
+    if (item instanceof ServiceTree && item.getItems().length > 0) {
+      return (<ServicesTable services={item.getItems()}/>);
+    }
+
+    // Render service detail
+    if (item instanceof Service) {
+      return (<ServiceDetail service={item}/>);
+    }
+
+    // Render empty panel
     return (
       <AlertPanel
         title="No Services Installed"
@@ -111,21 +125,12 @@ var ServicesPage = React.createClass({
     );
   },
 
-  getContents: function (isEmpty) {
-    if (isEmpty) {
-      return this.getEmptyServicesPageContent();
-    } else {
-      return this.getServicesPageContent();
-    }
-  },
-
   render: function () {
-    let data = this.internalStorage_get();
-    let isEmpty = DCOSStore.statesProcessed && data.totalServices === 0;
+    let {id} = this.props.params;
 
     return (
       <Page title="Services">
-        {this.getContents(isEmpty)}
+        {this.getContents(decodeURIComponent(id))}
         <RouteHandler />
       </Page>
     );
