@@ -18,7 +18,7 @@ describe('UniversePackagesList', function () {
 
   });
 
-  describe('#filterItems', function () {
+  describe('#filterItemsByText', function () {
 
     it('should filter by name', function () {
       var items = [
@@ -26,7 +26,7 @@ describe('UniversePackagesList', function () {
         {name: 'bar'}
       ];
       var list = new UniversePackagesList({items});
-      items = list.filterItems('bar').getItems();
+      items = list.filterItemsByText('bar').getItems();
       expect(items.length).toEqual(1);
       expect(items[0].get('name')).toEqual('bar');
     });
@@ -37,7 +37,7 @@ describe('UniversePackagesList', function () {
         {description: 'bar'}
       ];
       var list = new UniversePackagesList({items});
-      items = list.filterItems('foo').getItems();
+      items = list.filterItemsByText('foo').getItems();
       expect(items.length).toEqual(1);
       expect(items[0].get('description')).toEqual('foo');
     });
@@ -49,7 +49,7 @@ describe('UniversePackagesList', function () {
         {tags: []}
       ];
       var list = new UniversePackagesList({items});
-      items = list.filterItems('foo').getItems();
+      items = list.filterItemsByText('foo').getItems();
       expect(items.length).toEqual(2);
       expect(items[0].get('tags')).toEqual(['foo', 'bar']);
       expect(items[1].get('tags')).toEqual(['foo']);
@@ -62,7 +62,7 @@ describe('UniversePackagesList', function () {
         {tags: null}
       ];
       var list = new UniversePackagesList({items});
-      expect(list.filterItems.bind(list, 'foo')).not.toThrow();
+      expect(list.filterItemsByText.bind(list, 'foo')).not.toThrow();
     });
 
   });

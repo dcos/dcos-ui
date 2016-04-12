@@ -28,7 +28,7 @@ describe('UniverseInstalledPackagesList', function () {
 
   });
 
-  describe('#filterItems', function () {
+  describe('#filterItemsByText', function () {
 
     it('should filter by name', function () {
       var items = [
@@ -36,7 +36,7 @@ describe('UniverseInstalledPackagesList', function () {
         {packageInformation: {appId: 'baz', packageDefinition: {name: 'bar'}}}
       ];
       var list = new UniverseInstalledPackagesList({items});
-      items = list.filterItems('bar').getItems();
+      items = list.filterItemsByText('bar').getItems();
       expect(items.length).toEqual(1);
       expect(items[0].get('packageDefinition').name).toEqual('bar');
     });
@@ -57,7 +57,7 @@ describe('UniverseInstalledPackagesList', function () {
         }
       ];
       var list = new UniverseInstalledPackagesList({items});
-      items = list.filterItems('foo').getItems();
+      items = list.filterItemsByText('foo').getItems();
       expect(items.length).toEqual(1);
       expect(items[0].get('packageDefinition').description).toEqual('foo');
     });
@@ -79,7 +79,7 @@ describe('UniverseInstalledPackagesList', function () {
         {packageInformation: {appId: 'baz', packageDefinition: {tags: []}}}
       ];
       var list = new UniverseInstalledPackagesList({items});
-      items = list.filterItems('foo').getItems();
+      items = list.filterItemsByText('foo').getItems();
       expect(items.length).toEqual(2);
       expect(items[0].get('packageDefinition').tags).toEqual(['foo', 'bar']);
       expect(items[1].get('packageDefinition').tags).toEqual(['foo']);
@@ -102,7 +102,7 @@ describe('UniverseInstalledPackagesList', function () {
         {packageInformation: {appId: 'baz', packageDefinition: {tags: null}}}
       ];
       var list = new UniverseInstalledPackagesList({items});
-      expect(list.filterItems.bind(list, 'foo')).not.toThrow();
+      expect(list.filterItemsByText.bind(list, 'foo')).not.toThrow();
     });
 
   });
