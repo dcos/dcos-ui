@@ -100,7 +100,7 @@ class RepositoriesTab extends mixin(StoreMixin) {
     }
 
     let repositories = CosmosPackagesStore.getRepositories()
-      .filterItems(searchString);
+      .filterItemsByText(searchString);
 
     return (
       <div>
