@@ -42,7 +42,7 @@ describe('QueryParamsMixin', function () {
   });
 
   it('returns a specific value from the query params object', function () {
-    expect(this.instance.getQueryParamObject['stringValue'])
+    expect(this.instance.getQueryParamObject()['stringValue'])
       .toEqual('string');
   });
 
@@ -73,5 +73,32 @@ describe('QueryParamsMixin', function () {
   it('decodes an arrayString given in the query params', function () {
     let decodedArrayString = this.instance.decodeQueryParamArray('a:b:c');
     expect(decodedArrayString).toEqual(['a', 'b', 'c']);
+  });
+
+  it('should encode nested arrays in query params',
+  function () {
+    let queryObject = {
+      arrayValue: [
+        'value1',
+        'value2'
+      ],
+      nestedArray: [
+        '1%3A2%3A3',
+        '4%3A5%3A6'
+      ],
+      stringValue: 'string'
+    };
+
+    this.instance.setQueryParam('nestedArray', [[1, 2, 3], [4, 5, 6]]);
+
+    let transitionTo = this.instance.context.router.transitionTo;
+
+    expect(transitionTo.calls.length).toEqual(1);
+
+    let [pathname, route, queryParams] = transitionTo.calls[0].args;
+
+    expect(pathname).toEqual('/pathname');
+    expect(route).toEqual({});
+    expect(queryParams).toEqual(queryObject);
   });
 });
