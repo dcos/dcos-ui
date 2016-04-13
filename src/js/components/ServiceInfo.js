@@ -7,21 +7,15 @@ import StringUtil from '../utils/StringUtil';
 
 class ServiceInfo extends React.Component {
 
-  static get propTypes() {
-    return {
-      service: React.PropTypes.instanceOf(Service).isRequired
-    };
-  }
-
   getSubHeader(service) {
-    let frameworkHealth = service.getHealth();
+    let serviceHealth = service.getHealth();
     let runningTasksCount = service.getTasksSummary().tasksRunning;
     let runningTasksSubHeader = StringUtil.pluralize('Task', runningTasksCount);
     let subHeaderItems = [
       {
-        classes: `media-object-item ${HealthStatus[frameworkHealth.key].classNames}`,
-        label: HealthLabels[HealthStatus[frameworkHealth.key].key],
-        shouldShow: frameworkHealth.key != null
+        classes: `media-object-item ${HealthStatus[serviceHealth.key].classNames}`,
+        label: HealthLabels[HealthStatus[serviceHealth.key].key],
+        shouldShow: serviceHealth.key != null
       },
       {
         classes: 'media-object-item',
@@ -49,7 +43,8 @@ class ServiceInfo extends React.Component {
     let serviceImages = service.getImages();
     if (serviceImages && serviceImages['icon-large']) {
       imageTag = (
-        <div className="icon icon-large icon-image-container icon-app-container">
+        <div
+          className="icon icon-large icon-image-container icon-app-container">
           <img src={serviceImages['icon-large']} />
         </div>
       );
@@ -73,5 +68,9 @@ class ServiceInfo extends React.Component {
     );
   }
 }
+
+ServiceInfo.propTypes = {
+  service: React.PropTypes.instanceOf(Service).isRequired
+};
 
 module.exports = ServiceInfo;
