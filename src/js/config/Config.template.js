@@ -1,35 +1,19 @@
 // Configuration overrides
 
-var enterprise = true;
-
 var ConfigDev = {
   analyticsKey: '39uhSEOoRHMw6cMR6st9tYXDbAL3JSaP',
-  rootUrl: 'http://dcos.local',
-  historyServer: 'http://dcos.local',
+  rootUrl: '',
+  historyServer: '',
+  // Override cluster's uiConfiguration for development
   uiConfigurationFixture: {
     uiConfiguration: {
       plugins: {
-        authentication: {
-          enabled: enterprise
-        },
         banner: {
           enabled: false
-        },
-        branding: {
-          enabled: enterprise
-        },
-        'external-links': {
-          enabled: enterprise
-        },
-        networking: {
-          enabled: enterprise
         },
         oauth: {
           enabled: false,
           authHost: 'https://dcos.auth0.com'
-        },
-        organization: {
-          enabled: enterprise
         },
         'overview-detail': {
           enabled: true
@@ -44,8 +28,10 @@ var ConfigDev = {
       id: 'ui-fixture-cluster-id'
     }
   },
+  // Use fixtures to mock API requests
   useFixtures: false,
-  useUIConfigFixtures: false
+  // Use uiConfigurationFixture defined above
+  useUIConfigFixtures: true
 };
 
 module.exports = ConfigDev;
