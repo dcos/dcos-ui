@@ -1,22 +1,6 @@
 
 const Util = {
   /**
-   * Returns the results of applying the iteratee to each element of the object.
-   * @param  {Object} obj
-   * @param  {Function} iteratee
-   * @return {Object} resulting mapped object
-   */
-  mapObject: function (obj, iteratee) {
-    var keys = Object.keys(obj),
-      length = keys.length,
-      results = {};
-    for (var index = 0; index < length; index++) {
-      var currentKey = keys[index];
-      results[currentKey] = iteratee(obj[currentKey], currentKey, obj);
-    }
-    return results;
-  },
-  /**
    * Finds last index where condition returns true
    * @param  {Array} array         Array to search
    * @param  {Function} condition  Condition to find

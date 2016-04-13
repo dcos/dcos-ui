@@ -296,7 +296,7 @@ var NodesPage = React.createClass({
         </div>
 
         <RouteHandler
-          selectedResource={this.state.selectedResource}
+          selectedResource={state.selectedResource}
           hosts={nodesList}
           services={data.services} />
         <SidePanels

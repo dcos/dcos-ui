@@ -18,7 +18,6 @@ var NodesGridView = React.createClass({
   propTypes: {
     hosts: React.PropTypes.array.isRequired,
     selectedResource: React.PropTypes.string.isRequired,
-    serviceFilter: React.PropTypes.string,
     services: React.PropTypes.array.isRequired
   },
 
@@ -207,19 +206,6 @@ var NodesGridView = React.createClass({
     );
   },
 
-  getFilteredResourcesByFramework: function () {
-    var resourcesByFramework = this.internalStorage_get().resourcesByFramework;
-    var serviceFilter = this.props.serviceFilter;
-
-    return Util.mapObject(resourcesByFramework, function (host) {
-      if (serviceFilter == null) {
-        return host;
-      } else {
-        return _.pick(host, serviceFilter);
-      }
-    });
-  },
-
   getNodesGrid: function () {
     var data = this.internalStorage_get();
     var props = this.props;
@@ -249,7 +235,7 @@ var NodesGridView = React.createClass({
           hosts={props.hosts}
           selectedResource={props.selectedResource}
           serviceColors={data.serviceColors}
-          resourcesByFramework={this.getFilteredResourcesByFramework()}
+          resourcesByFramework={data.resourcesByFramework}
           showServices={state.showServices} />
       </div>
     );

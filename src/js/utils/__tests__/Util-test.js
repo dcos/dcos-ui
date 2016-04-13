@@ -5,26 +5,6 @@ var Util = require('../Util');
 
 describe('Util', function () {
 
-  describe('#mapObject', function () {
-
-    var obj = {a: 1, b: 2};
-
-    it('should map objects', function () {
-      var newObj = Util.mapObject(obj, function (val) {
-        return val * 2;
-      });
-      expect(_.isEqual(newObj, {a: 2, b: 4})).toBeTruthy();
-    });
-
-    it('should work on empty Objects', function () {
-      var newObj = Util.mapObject({}, function (val) {
-        return val + 2;
-      });
-      expect(_.isEqual(newObj, {})).toBeTruthy();
-    });
-
-  });
-
   describe('#findLastIndex', function () {
 
     it('should return -1 if empty array', function () {
