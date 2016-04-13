@@ -47,13 +47,13 @@ var TasksChart = React.createClass({
         task = { value: 0 };
       }
       var classes = {
-        'text-align-center': true
+        'unit-bordered-horizontal-mini text-align-center column-12': true
       };
       // equalize columns for units
       if (numberOfTasks > tasksPerRow) {
-        classes['column-small-4'] = true;
+        classes['column-mini-4'] = true;
       } else {
-        classes['column-small-' + 12 / numberOfTasks] = true;
+        classes['column-mini-' + 12 / numberOfTasks] = true;
       }
       var classSet = classNames(classes);
       return (
@@ -61,7 +61,7 @@ var TasksChart = React.createClass({
           <p className="h1 unit inverse flush-top">
             {task.value}
           </p>
-          <p className={'unit-label short-top tall-bottom path-color-' + info.colorIndex}>
+          <p className={'unit-label short-top flush-bottom path-color-' + info.colorIndex}>
             {info.label}
           </p>
         </div>
@@ -104,7 +104,7 @@ var TasksChart = React.createClass({
     return (
       <div className="description">
         <span className="h1 h1-large inverse flush flush-top unit">{total}</span>
-        <span className="h4 unit-label short-top flush-bottom text-muted">{'Total Tasks'}</span>
+        <span className="h4 unit-label flush-top flush-bottom text-muted">{'Total Tasks'}</span>
       </div>
     );
   },

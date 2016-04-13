@@ -1,564 +1,641 @@
+@panel-base-padding-horizontal: @base-spacing-unit;
+@panel-base-padding-vertical: @base-spacing-unit * 1.25;
+
+@panel-margin-vertical: @base-spacing-unit;
+@panel-screen-mini-margin-vertical: @base-spacing-unit * 11/16;
+@panel-screen-small-margin-vertical: @base-spacing-unit * 2/3;
+@panel-screen-medium-margin-vertical: @base-spacing-unit;
+@panel-screen-large-margin-vertical: @base-spacing-unit * 4/3;
+@panel-screen-x-large-margin-vertical: @base-spacing-unit * 2;
+
+@panel-padding-scale: 0.25;
+@panel-padding-scale-mini: 0.5;
+@panel-padding-scale-small: 0.75;
+@panel-padding-scale-medium: 1;
+@panel-padding-scale-large: 1.2;
+@panel-padding-scale-x-large: 1.3;
+
+@panel-header-padding-horizontal: @panel-base-padding-horizontal * @panel-padding-scale;
+@panel-header-padding-vertical: @panel-base-padding-vertical * @panel-padding-scale;
+@panel-header-screen-mini-padding-horizontal: @panel-base-padding-horizontal * @panel-padding-scale-mini;
+@panel-header-screen-mini-padding-vertical: @panel-base-padding-vertical * @panel-padding-scale-mini;
+@panel-header-screen-small-padding-horizontal: @panel-base-padding-horizontal * @panel-padding-scale-small;
+@panel-header-screen-small-padding-vertical: @panel-base-padding-vertical * @panel-padding-scale-small;
+@panel-header-screen-medium-padding-horizontal: @panel-base-padding-horizontal * @panel-padding-scale-medium;
+@panel-header-screen-medium-padding-vertical: @panel-base-padding-vertical * @panel-padding-scale-medium;
+@panel-header-screen-large-padding-horizontal: @panel-base-padding-horizontal * @panel-padding-scale-large;
+@panel-header-screen-large-padding-vertical: @panel-base-padding-vertical * @panel-padding-scale-large;
+@panel-header-screen-x-large-padding-horizontal: @panel-base-padding-horizontal * @panel-padding-scale-x-large;
+@panel-header-screen-x-large-padding-vertical: @panel-base-padding-vertical * @panel-padding-scale-x-large;
+
+@panel-content-padding-horizontal: @panel-base-padding-horizontal * @panel-padding-scale;
+@panel-content-padding-vertical: @panel-base-padding-vertical * @panel-padding-scale;
+@panel-content-screen-mini-padding-horizontal: @panel-base-padding-horizontal * @panel-padding-scale-mini;
+@panel-content-screen-mini-padding-vertical: @panel-base-padding-vertical * @panel-padding-scale-mini;
+@panel-content-screen-small-padding-horizontal: @panel-base-padding-horizontal * @panel-padding-scale-small;
+@panel-content-screen-small-padding-vertical: @panel-base-padding-vertical * @panel-padding-scale-small;
+@panel-content-screen-medium-padding-horizontal: @panel-base-padding-horizontal * @panel-padding-scale-medium;
+@panel-content-screen-medium-padding-vertical: @panel-base-padding-vertical * @panel-padding-scale-medium;
+@panel-content-screen-large-padding-horizontal: @panel-base-padding-horizontal * @panel-padding-scale-large;
+@panel-content-screen-large-padding-vertical: @panel-base-padding-vertical * @panel-padding-scale-large;
+@panel-content-screen-x-large-padding-horizontal: @panel-base-padding-horizontal * @panel-padding-scale-x-large;
+@panel-content-screen-x-large-padding-vertical: @panel-base-padding-vertical * @panel-padding-scale-x-large;
+
+@panel-footer-padding-horizontal: @panel-base-padding-horizontal * @panel-padding-scale;
+@panel-footer-padding-vertical: @panel-base-padding-vertical * @panel-padding-scale;
+@panel-footer-screen-mini-padding-horizontal: @panel-base-padding-horizontal * @panel-padding-scale-mini;
+@panel-footer-screen-mini-padding-vertical: @panel-base-padding-vertical * @panel-padding-scale-mini;
+@panel-footer-screen-small-padding-horizontal: @panel-base-padding-horizontal * @panel-padding-scale-small;
+@panel-footer-screen-small-padding-vertical: @panel-base-padding-vertical * @panel-padding-scale-small;
+@panel-footer-screen-medium-padding-horizontal: @panel-base-padding-horizontal * @panel-padding-scale-medium;
+@panel-footer-screen-medium-padding-vertical: @panel-base-padding-vertical * @panel-padding-scale-medium;
+@panel-footer-screen-large-padding-horizontal: @panel-base-padding-horizontal * @panel-padding-scale-large;
+@panel-footer-screen-large-padding-vertical: @panel-base-padding-vertical * @panel-padding-scale-large;
+@panel-footer-screen-x-large-padding-horizontal: @panel-base-padding-horizontal * @panel-padding-scale-x-large;
+@panel-footer-screen-x-large-padding-vertical: @panel-base-padding-vertical * @panel-padding-scale-x-large;
+
+@panel-short-scale: 0.5;
+@panel-tall-scale: 1.5;
+
+@alert-panel-height: 400px;
+@alert-panel-width: 300px;
+
+@dashboard-panel-height: 350px;
+@dashboard-panel-screen-small-height: 400px;
+@dashboard-panel-screen-large-height: 450px;
+
+@dashboard-resource-panel-y-axis-padding-scale: 0.5;
+
 .panel {
-  background-color: @panel-background-color;
-  margin-bottom: @grid-gutter-width;
+  margin-bottom: @panel-margin-vertical;
 
-  .panel-header {
-    display: flex;
+  &.panel-inverse {
+    background-color: @panel-background-color;
 
-    .panel-title {
-      text-align: center;
-      flex: 1;
-      .flush-top();
-      .flush-bottom();
-    }
+    &.clickable {
 
-    .panel-options-left {
-      .flush-top();
-      .flush-bottom();
-    }
-
-    .panel-options-right {
-      margin-left: auto;
-      .flush-top();
-      .flush-bottom();
-
-      /* Hacky - please remove after panel-options-right is filled with content */
-      &.fixed-width {
-        display: none;
+      &:hover {
+        background-color: color-lighten(@panel-background-color, 5);
       }
     }
 
-    &.panel-header-bottom-border {
-      border-bottom: 1px solid @border-color;
-
-      &.inverse {
-        border-bottom: 1px solid @border-color-inverse;
-      }
-    }
-
-
-    &.panel-header-large {
-      padding: @base-spacing-unit @base-spacing-unit 0;
-      border: 0;
+    .panel-header {
+      border-color: @border-color-inverse;
     }
   }
 
-  .panel-footer {
-    &.panel-footer-no-top-border {
-      border-top: none;
-    }
-
-    &.inverse {
-      border-top: 1px solid @border-color-inverse;
-    }
-  }
-
+  .panel-header,
   .panel-content,
-  .panel-footer,
-  .panel-header {
+  .panel-footer {
 
     &.flush {
-
-      padding-bottom: 0;
-      padding-top: 0;
-
+      padding: 0;
     }
 
     &.flush-top {
-
       padding-top: 0;
-
     }
 
     &.flush-bottom {
-
       padding-bottom: 0;
+    }
 
+    &.no-border {
+      border: none;
+    }
+
+    &.no-border-top {
+      border-top: none;
+    }
+
+    &.no-border-bottom {
+      border-bottom: none;
     }
   }
 
-  .panel-content {
+  .panel-header {
+    border-bottom: 1px solid @border-color;
+    padding: @panel-header-padding-vertical @panel-header-padding-horizontal;
+    position: relative;
+    text-align: center;
 
-    max-width: 100%;
+    &.short-top {
+      padding-top: @panel-header-padding-vertical * @panel-short-scale;
+    }
 
-  }
+    &.short-bottom {
+      padding-bottom: @panel-header-padding-vertical * @panel-short-scale;
+    }
 
-  &.clickable:hover {
-    background-color: color-lighten(@panel-background-color, 5);
-  }
+    &.tall-top {
+      padding-top: @panel-header-padding-vertical * @panel-tall-scale;
+    }
 
-  &.dashboard-panel {
+    &.tall-bottom {
+      padding-bottom: @panel-header-padding-vertical * @panel-tall-scale;
+    }
 
-    &.dashboard-panel-list {
+    .panel-options {
 
-      .panel-content {
-        padding-top: (@base-spacing-unit * .5);
-        padding-bottom: (@base-spacing-unit * .5);
+      &.button-group {
+        justify-content: center;
+        display: flex;
+
+        .button {
+          flex: 1 0 auto;
+        }
       }
-
     }
-
-    .panel-content {
-      height: (@base-spacing-unit * 14) - @heading-h4-text-font-size;
-    }
-    // Fixes a Safari flex issue where panels overflow the column on resize
-    width: 100%;
   }
 
   .panel-content {
-    &.panel-content-short-bottom {
-      padding-bottom: @base-spacing-unit * 2/3;
+    padding: @panel-content-padding-vertical @panel-content-padding-horizontal;
+
+    &.short-top {
+      padding-top: @panel-content-padding-vertical * @panel-short-scale;
     }
 
-    &.panel-content-tall-top {
-      padding-top: @base-spacing-unit * 5/3;
+    &.short-bottom {
+      padding-bottom: @panel-content-padding-vertical * @panel-short-scale;
+    }
+
+    &.tall-top {
+      padding-top: @panel-content-padding-vertical * @panel-tall-scale;
+    }
+
+    &.tall-bottom {
+      padding-bottom: @panel-content-padding-vertical * @panel-tall-scale;
     }
   }
 
   .panel-footer {
-    &.panel-footer-tall-bottom {
-      padding-bottom: @base-spacing-unit * 5/3;
+    padding: @panel-footer-padding-vertical @panel-footer-padding-horizontal;
+
+    &.short-top {
+      padding-top: @panel-footer-padding-vertical * @panel-short-scale;
+    }
+
+    &.short-bottom {
+      padding-bottom: @panel-footer-padding-vertical * @panel-short-scale;
+    }
+
+    &.tall-top {
+      padding-top: @panel-footer-padding-vertical * @panel-tall-scale;
+    }
+
+    &.tall-bottom {
+      padding-bottom: @panel-footer-padding-vertical * @panel-tall-scale;
     }
   }
 }
 
-& when (@screen-mini-enabled) {
-  @media (min-width: @screen-mini) {
-    .panel {
-      margin-bottom: @grid-gutter-width;
+.dashboard-panel {
+  min-height: @dashboard-panel-height;
 
-      .panel-header {
-        .panel-options-right {
-          /* Hacky - please remove after panel-options-right is filled with content */
-          &.fixed-width {
-            display: block;
-            width: @base-spacing-unit * 3.5;
-          }
-        }
-      }
+  &.dashboard-panel-resource-chart {
 
-      &.dashboard-panel {
-        .panel-content {
-          height: (@base-spacing-unit-screen-mini * 17) - @heading-h4-text-font-size-scale-screen-mini;
-        }
-      }
-    }
-
-    .alert-panel {
-      min-height: 300px;
-      min-width: 260px;
+    .panel-content {
+      padding-left: @panel-content-padding-horizontal * @dashboard-resource-panel-y-axis-padding-scale;
     }
   }
 }
 
-& when (@screen-small-enabled) {
-  @media (min-width: @screen-small) {
-    .panel {
-      margin-bottom: @grid-gutter-width-screen-small;
-
-      .panel-header {
-        .panel-options-right {
-          /* Hacky - please remove after panel-options-right is filled with content */
-          &.fixed-width {
-            display: block;
-            width: @base-spacing-unit-screen-small * 3.5;
-          }
-        }
-      }
-
-      &.dashboard-panel {
-        .panel-content {
-          height: (@base-spacing-unit-screen-small * 10) - @heading-h4-text-font-size-scale-screen-small;
-        }
-      }
-    }
-
-    .alert-panel {
-      min-height: 350px;
-      min-width: 350px;
-    }
-  }
+.alert-panel {
+  min-height: @alert-panel-height;
+  min-width: @alert-panel-width;
 }
-
-& when (@screen-medium-enabled) {
-  @media (min-width: @screen-medium) {
-    .panel {
-      margin-bottom: @grid-gutter-width-screen-medium;
-
-      .panel-header {
-        .panel-options-right {
-          /* Hacky - please remove after panel-options-right is filled with content */
-          &.fixed-width {
-            display: block;
-            width: @base-spacing-unit-screen-medium * 3.5;
-          }
-        }
-      }
-
-      &.dashboard-panel {
-        .panel-content {
-          height: (@base-spacing-unit-screen-medium * 7.5) - @heading-h4-text-font-size-scale-screen-medium;
-        }
-      }
-    }
-  }
-}
-
-& when (@screen-large-enabled) {
-  @media (min-width: @screen-large) {
-    .panel {
-      margin-bottom: @grid-gutter-width-screen-large;
-
-      .panel-header {
-        .panel-options-right {
-          /* Hacky - please remove after panel-options-right is filled with content */
-          &.fixed-width {
-            display: block;
-            width: @base-spacing-unit-screen-large * 3.5;
-          }
-        }
-      }
-
-      &.dashboard-panel {
-        .panel-content {
-          height: (@base-spacing-unit-screen-large * 5.5) - @heading-h4-text-font-size-scale-screen-large;
-        }
-      }
-    }
-  }
-}
-
-& when (@screen-x-large-enabled) {
-  @media (min-width: @screen-x-large) {
-    .panel {
-      margin-bottom: @grid-gutter-width-screen-x-large;
-
-      .panel-header {
-        .panel-options-right {
-          /* Hacky - please remove after panel-options-right is filled with content */
-          &.fixed-width {
-            display: block;
-            width: @base-spacing-unit-screen-x-large * 3.5;
-          }
-        }
-      }
-
-      &.dashboard-panel {
-        .panel-content {
-          height: (@base-spacing-unit-screen-x-large * 5) - @heading-h4-text-font-size-scale-screen-large;
-        }
-      }
-    }
-  }
-}
-
-
-/* -----------------------------------------------------------------------------
---------------------------------------------------------------------------------
---------------------------------------------------------------------------------
-
-components/panels.less
-
---------------------------------------------------------------------------------
---------------------------------------------------------------------------------
------------------------------------------------------------------------------ */
-
-
-
-
-
-
-& when (@panel-enabled) {
-
-  /* -----------------------------------------------------------------------------
-  --------------------------------------------------------------------------------
-
-  Panel
-
-  --------------------------------------------------------------------------------
-  ----------------------------------------------------------------------------- */
-
-  .panel {
-
-    /* -----------------------------------------------------------------------------
-    Panel (Flex)
-    ----------------------------------------------------------------------------- */
-
-    &.panel-flex {
-
-      display: flex;
-      flex: 1;
-      flex-direction: column;
-
-      .panel-content {
-
-        flex-grow: 1;
-
-      }
-
-      .panel-footer {
-
-      }
-
-    }
-
-
-
-    /* -----------------------------------------------------------------------------
-    Panel (Flex)
-    ----------------------------------------------------------------------------- */
-
-    &.panel-simple {
-
-      .panel-content + .panel-footer {
-
-        padding-top: 0px;
-        border-width: 0px;
-
-      }
-
-    }
-
-
-
-    /* -----------------------------------------------------------------------------
-    Panel (Light)
-    ----------------------------------------------------------------------------- */
-
-    &.panel-light {
-
-      background: @white;
-
-
-
-      /* -----------------------------------------------------------------------------
-      Panel Header (Inverse)
-      ----------------------------------------------------------------------------- */
-
-      .panel-header {
-
-      }
-
-
-
-      /* -----------------------------------------------------------------------------
-      Panel Content (Inverse)
-      ----------------------------------------------------------------------------- */
-
-      .panel-content {
-
-      }
-
-
-
-      /* -----------------------------------------------------------------------------
-      Panel Footer (Inverse)
-      ----------------------------------------------------------------------------- */
-
-      .panel-footer {
-
-      }
-
-    }
-
-    /* -----------------------------------------------------------------------------
-    Panel (Info)
-    ----------------------------------------------------------------------------- */
-
-    &.panel-info {
-
-      background: color-lighten(@blue, 90);
-      color: color-lighten(@blue, -20);
-
-      strong {
-
-        color: color-lighten(@blue, -20);
-
-      }
-
-      a {
-
-        color: color-lighten(@blue, 0) !important;
-        text-decoration: underline;
-
-      }
-
-    }
-
-    /* -----------------------------------------------------------------------------
-    Panel (Warning)
-    ----------------------------------------------------------------------------- */
-
-    &.panel-warning {
-
-      background: color-lighten(@orange, 90);
-      color: color-lighten(@orange, -20);
-
-      strong {
-
-        color: color-lighten(@orange, -20);
-
-      }
-
-      a {
-
-        color: color-lighten(@orange, 0) !important;
-        text-decoration: underline;
-
-      }
-
-    }
-
-    /* -----------------------------------------------------------------------------
-    Panel (Danger)
-    ----------------------------------------------------------------------------- */
-
-    &.panel-danger {
-
-      background: color-lighten(@red, 90);
-      color: color-lighten(@red, -20);
-
-      strong {
-
-        color: color-lighten(@red, -20);
-
-      }
-
-      a {
-
-        color: color-lighten(@red, 0) !important;
-        text-decoration: underline;
-
-      }
-
-    }
-
-  }
-
-}
-
-
-
-
-
 
 & when (@panel-enabled) and (@screen-mini-enabled) {
 
-  /* -----------------------------------------------------------------------------
-  --------------------------------------------------------------------------------
-
-  Screen Size: Mini (@screen-mini) and above
-
-  --------------------------------------------------------------------------------
-  ----------------------------------------------------------------------------- */
-
   @media (min-width: @screen-mini) {
 
-  }
+    .panel {
+      margin-bottom: @panel-screen-mini-margin-vertical;
 
+      .panel-header {
+        padding: @panel-header-screen-mini-padding-vertical @panel-header-screen-mini-padding-horizontal;
+
+        &.short-top {
+          padding-top: @panel-header-screen-mini-padding-vertical * @panel-short-scale;
+        }
+
+        &.short-bottom {
+          padding-bottom: @panel-header-screen-mini-padding-vertical * @panel-short-scale;
+        }
+
+        &.tall-top {
+          padding-top: @panel-header-screen-mini-padding-vertical * @panel-tall-scale;
+        }
+
+        &.tall-bottom {
+          padding-bottom: @panel-header-screen-mini-padding-vertical * @panel-tall-scale;
+        }
+
+        .panel-options {
+
+          &.button-group {
+            justify-content: center;
+            display: flex;
+
+            .button {
+              flex: 0 0 auto;
+            }
+          }
+        }
+      }
+
+      .panel-content {
+        padding: @panel-content-screen-mini-padding-vertical @panel-content-screen-mini-padding-horizontal;
+
+        &.short-top {
+          padding-top: @panel-content-screen-mini-padding-vertical * @panel-short-scale;
+        }
+
+        &.short-bottom {
+          padding-bottom: @panel-content-screen-mini-padding-vertical * @panel-short-scale;
+        }
+
+        &.tall-top {
+          padding-top: @panel-content-screen-mini-padding-vertical * @panel-tall-scale;
+        }
+
+        &.tall-bottom {
+          padding-bottom: @panel-content-screen-mini-padding-vertical * @panel-tall-scale;
+        }
+      }
+
+      .panel-footer {
+        padding: @panel-footer-screen-mini-padding-vertical @panel-footer-screen-mini-padding-horizontal;
+
+        &.short-top {
+          padding-top: @panel-footer-screen-mini-padding-vertical * @panel-short-scale;
+        }
+
+        &.short-bottom {
+          padding-bottom: @panel-footer-screen-mini-padding-vertical * @panel-short-scale;
+        }
+
+        &.tall-top {
+          padding-top: @panel-footer-screen-mini-padding-vertical * @panel-tall-scale;
+        }
+
+        &.tall-bottom {
+          padding-bottom: @panel-footer-screen-mini-padding-vertical * @panel-tall-scale;
+        }
+      }
+    }
+
+    .dashboard-panel {
+
+      &.dashboard-panel-resource-chart {
+
+        .panel-content {
+          padding-left: @panel-content-screen-mini-padding-horizontal * @dashboard-resource-panel-y-axis-padding-scale;
+        }
+      }
+    }
+  }
 }
 
-
-
-
-
-
-& when (@screen-small-enabled) {
-
-  /* -----------------------------------------------------------------------------
-  --------------------------------------------------------------------------------
-
-  Screen Size: Small (@screen-small) and above
-
-  --------------------------------------------------------------------------------
-  ----------------------------------------------------------------------------- */
+& when (@panel-enabled) and (@screen-small-enabled) {
 
   @media (min-width: @screen-small) {
 
-  }
+    .panel {
+      margin-bottom: @panel-screen-small-margin-vertical;
 
+      .panel-header {
+        padding: @panel-header-screen-small-padding-vertical @panel-header-screen-small-padding-horizontal;
+
+        &.short-top {
+          padding-top: @panel-header-screen-small-padding-vertical * @panel-short-scale;
+        }
+
+        &.short-bottom {
+          padding-bottom: @panel-header-screen-small-padding-vertical * @panel-short-scale;
+        }
+
+        &.tall-top {
+          padding-top: @panel-header-screen-small-padding-vertical * @panel-tall-scale;
+        }
+
+        &.tall-bottom {
+          padding-bottom: @panel-header-screen-small-padding-vertical * @panel-tall-scale;
+        }
+
+        .panel-options {
+          left: @panel-header-screen-small-padding-horizontal;
+          position: absolute;
+          top: @panel-header-screen-small-padding-vertical;
+        }
+      }
+
+      .panel-content {
+        padding: @panel-content-screen-small-padding-vertical @panel-content-screen-small-padding-horizontal;
+
+        &.short-top {
+          padding-top: @panel-content-screen-small-padding-vertical * @panel-short-scale;
+        }
+
+        &.short-bottom {
+          padding-bottom: @panel-content-screen-small-padding-vertical * @panel-short-scale;
+        }
+  
+        &.tall-top {
+          padding-top: @panel-content-screen-small-padding-vertical * @panel-tall-scale;
+        }
+
+        &.tall-bottom {
+          padding-bottom: @panel-content-screen-small-padding-vertical * @panel-tall-scale;
+        }
+      }
+
+      .panel-footer {
+        padding: @panel-footer-screen-small-padding-vertical @panel-footer-screen-small-padding-horizontal;
+
+        &.short-top {
+          padding-top: @panel-footer-screen-small-padding-vertical * @panel-short-scale;
+        }
+
+        &.short-bottom {
+          padding-bottom: @panel-footer-screen-small-padding-vertical * @panel-short-scale;
+        }
+   
+        &.tall-top {
+          padding-top: @panel-footer-screen-small-padding-vertical * @panel-tall-scale;
+        }
+
+        &.tall-bottom {
+          padding-bottom: @panel-footer-screen-small-padding-vertical * @panel-tall-scale;
+        }
+      }
+    }
+
+    .dashboard-panel {
+      min-height: @dashboard-panel-screen-small-height;
+
+      &.dashboard-panel-resource-chart {
+
+        .panel-content {
+          padding-left: @panel-content-screen-small-padding-horizontal * @dashboard-resource-panel-y-axis-padding-scale;
+        }
+      }
+    }
+  }
 }
 
-
-
-
-
-
-& when (@screen-medium-enabled) {
-
-  /* -----------------------------------------------------------------------------
-  --------------------------------------------------------------------------------
-
-  Screen Size: Medium (@screen-medium) and above
-
-  --------------------------------------------------------------------------------
-  ----------------------------------------------------------------------------- */
+& when (@panel-enabled) and (@screen-medium-enabled) {
 
   @media (min-width: @screen-medium) {
 
-  }
+    .panel {
+      margin-bottom: @panel-screen-medium-margin-vertical;
 
+      .panel-header {
+        padding: @panel-header-screen-medium-padding-vertical @panel-header-screen-medium-padding-horizontal;
+
+        &.short-top {
+          padding-top: @panel-header-screen-medium-padding-vertical * @panel-short-scale;
+        }
+
+        &.short-bottom {
+          padding-bottom: @panel-header-screen-medium-padding-vertical * @panel-short-scale;
+        }
+
+        &.tall-top {
+          padding-top: @panel-header-screen-medium-padding-vertical * @panel-tall-scale;
+        }
+
+        &.tall-bottom {
+          padding-bottom: @panel-header-screen-medium-padding-vertical * @panel-tall-scale;
+        }
+
+        .panel-options {
+          left: @panel-header-screen-medium-padding-horizontal;
+          top: @panel-header-screen-medium-padding-vertical;
+        }
+      }
+
+      .panel-content {
+        padding: @panel-content-screen-medium-padding-vertical @panel-content-screen-medium-padding-horizontal;
+
+        &.short-top {
+          padding-top: @panel-content-screen-medium-padding-vertical * @panel-short-scale;
+        }
+
+        &.short-bottom {
+          padding-bottom: @panel-content-screen-medium-padding-vertical * @panel-short-scale;
+        }
+ 
+        &.tall-top {
+          padding-top: @panel-content-screen-medium-padding-vertical * @panel-tall-scale;
+        }
+
+        &.tall-bottom {
+          padding-bottom: @panel-content-screen-medium-padding-vertical * @panel-tall-scale;
+        }
+      }
+
+      .panel-footer {
+        padding: @panel-footer-screen-medium-padding-vertical @panel-footer-screen-medium-padding-horizontal;
+
+        &.short-top {
+          padding-top: @panel-footer-screen-medium-padding-vertical * @panel-short-scale;
+        }
+
+        &.short-bottom {
+          padding-bottom: @panel-footer-screen-medium-padding-vertical * @panel-short-scale;
+        }
+  
+        &.tall-top {
+          padding-top: @panel-footer-screen-medium-padding-vertical * @panel-tall-scale;
+        }
+
+        &.tall-bottom {
+          padding-bottom: @panel-footer-screen-medium-padding-vertical * @panel-tall-scale;
+        }
+      }
+    }
+
+    .dashboard-panel {
+
+      &.dashboard-panel-resource-chart {
+
+        .panel-content {
+          padding-left: @panel-content-screen-medium-padding-horizontal * @dashboard-resource-panel-y-axis-padding-scale;
+        }
+      }
+    }
+  }
 }
 
-
-
-
-
-
-& when (@screen-large-enabled) {
-
-  /* -----------------------------------------------------------------------------
-  --------------------------------------------------------------------------------
-
-  Screen Size: Large (@screen-large) and above
-
-  --------------------------------------------------------------------------------
-  ----------------------------------------------------------------------------- */
+& when (@panel-enabled) and (@screen-large-enabled) {
 
   @media (min-width: @screen-large) {
 
-  }
+    .panel {
+      margin-bottom: @panel-screen-large-margin-vertical;
 
+      .panel-header {
+        padding: @panel-header-screen-large-padding-vertical @panel-header-screen-large-padding-horizontal;
+
+        &.short-top {
+          padding-top: @panel-header-screen-large-padding-vertical * @panel-short-scale;
+        }
+
+        &.short-bottom {
+          padding-bottom: @panel-header-screen-large-padding-vertical * @panel-short-scale;
+        }
+
+        &.tall-top {
+          padding-top: @panel-header-screen-large-padding-vertical * @panel-tall-scale;
+        }
+
+        &.tall-bottom {
+          padding-bottom: @panel-header-screen-large-padding-vertical * @panel-tall-scale;
+        }
+
+        .panel-options {
+          left: @panel-header-screen-large-padding-horizontal;
+          top: @panel-header-screen-large-padding-vertical;
+        }
+      }
+
+      .panel-content {
+        padding: @panel-content-screen-large-padding-vertical @panel-content-screen-large-padding-horizontal;
+
+        &.short-top {
+          padding-top: @panel-content-screen-large-padding-vertical * @panel-short-scale;
+        }
+
+        &.short-bottom {
+          padding-bottom: @panel-content-screen-large-padding-vertical * @panel-short-scale;
+        }
+   
+        &.tall-top {
+          padding-top: @panel-content-screen-large-padding-vertical * @panel-tall-scale;
+        }
+
+        &.tall-bottom {
+          padding-bottom: @panel-content-screen-large-padding-vertical * @panel-tall-scale;
+        }
+      }
+
+      .panel-footer {
+        padding: @panel-footer-screen-large-padding-vertical @panel-footer-screen-large-padding-horizontal;
+
+        &.short-top {
+          padding-top: @panel-footer-screen-large-padding-vertical * @panel-short-scale;
+        }
+
+        &.short-bottom {
+          padding-bottom: @panel-footer-screen-large-padding-vertical * @panel-short-scale;
+        }
+ 
+        &.tall-top {
+          padding-top: @panel-footer-screen-large-padding-vertical * @panel-tall-scale;
+        }
+
+        &.tall-bottom {
+          padding-bottom: @panel-footer-screen-large-padding-vertical * @panel-tall-scale;
+        }
+      }
+    }
+
+    .dashboard-panel {
+      min-height: @dashboard-panel-screen-large-height;
+
+      &.dashboard-panel-resource-chart {
+
+        .panel-content {
+          padding-left: @panel-content-screen-large-padding-horizontal * @dashboard-resource-panel-y-axis-padding-scale;
+        }
+      }
+    }
+  }
 }
 
+& when (@panel-enabled) and (@screen-x-large-enabled) {
 
+  @media (min-width: @screen-x-large) {
 
+    .panel {
 
+      .panel-header {
+        padding: @panel-header-screen-x-large-padding-vertical @panel-header-screen-x-large-padding-horizontal;
 
+        &.short-top {
+          padding-top: @panel-header-screen-x-large-padding-vertical * @panel-short-scale;
+        }
 
-& when (@screen-resolution-2x-enabled) {
+        &.short-bottom {
+          padding-bottom: @panel-header-screen-x-large-padding-vertical * @panel-short-scale;
+        }
 
-  /* -----------------------------------------------------------------------------
-  --------------------------------------------------------------------------------
+        &.tall-top {
+          padding-top: @panel-header-screen-x-large-padding-vertical * @panel-tall-scale;
+        }
 
-  Screen Resolution: 2x
+        &.tall-bottom {
+          padding-bottom: @panel-header-screen-x-large-padding-vertical * @panel-tall-scale;
+        }
 
-  --------------------------------------------------------------------------------
-  ----------------------------------------------------------------------------- */
+        .panel-options {
+          left: @panel-header-screen-x-large-padding-horizontal;
+          top: @panel-header-screen-x-large-padding-vertical;
+        }
+      }
 
-  @media only screen and (-webkit-min-device-pixel-ratio: 2) {
+      .panel-content {
+        padding: @panel-content-screen-x-large-padding-vertical @panel-content-screen-x-large-padding-horizontal;
 
+        &.short-top {
+          padding-top: @panel-content-screen-x-large-padding-vertical * @panel-short-scale;
+        }
+
+        &.short-bottom {
+          padding-bottom: @panel-content-screen-x-large-padding-vertical * @panel-short-scale;
+        }
+    
+        &.tall-top {
+          padding-top: @panel-content-screen-x-large-padding-vertical * @panel-tall-scale;
+        }
+
+        &.tall-bottom {
+          padding-bottom: @panel-content-screen-x-large-padding-vertical * @panel-tall-scale;
+        }
+      }
+
+      .panel-footer {
+        padding: @panel-footer-screen-x-large-padding-vertical @panel-footer-screen-x-large-padding-horizontal;
+
+        &.short-top {
+          padding-top: @panel-footer-screen-x-large-padding-vertical * @panel-short-scale;
+        }
+
+        &.short-bottom {
+          padding-bottom: @panel-footer-screen-x-large-padding-vertical * @panel-short-scale;
+        }
+   
+        &.tall-top {
+          padding-top: @panel-footer-screen-x-large-padding-vertical * @panel-tall-scale;
+        }
+
+        &.tall-bottom {
+          padding-bottom: @panel-footer-screen-x-large-padding-vertical * @panel-tall-scale;
+        }
+      }
+    }
+
+    .dashboard-panel {
+      margin-bottom: @panel-screen-x-large-margin-vertical;
+
+      &.dashboard-panel-resource-chart {
+
+        .panel-content {
+          padding-left: @panel-content-screen-x-large-padding-horizontal * @dashboard-resource-panel-y-axis-padding-scale;
+        }
+      }
+    }
   }
-
-}
-
-
-
-
-
-
-& when (@screen-resolution-3x-enabled) {
-
-  /* -----------------------------------------------------------------------------
-  --------------------------------------------------------------------------------
-
-  Screen Resolution: 3x
-
-  --------------------------------------------------------------------------------
-  ----------------------------------------------------------------------------- */
-
-  @media only screen and (-webkit-min-device-pixel-ratio: 3) {
-
-  }
-
 }

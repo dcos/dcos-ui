@@ -189,9 +189,38 @@
     }
   }
 
+  .timeseries-chart,
+  .barchart {
+
+    .axis {
+
+      &.x,
+      &.y {
+        font-size: @small-text-font-size;
+
+        .domain {
+          display: none;
+        }
+      }
+    }
+  }
+
+  .unit-bordered-horizontal {
+    border-right: 1px solid @border-color;
+
+    &:last-child {
+      border-right: none;
+    }
+
+    .panel-inverse & {
+      border-color: @border-color-inverse;
+    }
+  }
+
   & when (@typography-enabled) {
     .unit {
       fill: @white;
+      line-height: 1;
     }
 
     .unit-label {
@@ -374,4 +403,26 @@
 
   }
 
+}
+
+& when (@panel-enabled) and (@screen-mini-enabled) {
+
+  @media (min-width: @screen-mini) {
+
+    .chart {
+
+      .unit-bordered-horizontal-mini {
+        border-right: 1px solid @border-color;
+        margin-top: @base-spacing-unit * 1/4;
+
+        &:last-child {
+          border-right: none;
+        }
+
+        .panel-inverse & {
+          border-color: @border-color-inverse;
+        }
+      }
+    }
+  }
 }
