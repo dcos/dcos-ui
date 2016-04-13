@@ -30,13 +30,13 @@ var QueryParamsMixin = {
 
   getCurrentPathname: function () {
     let {router} = this.context;
-    let pathName = {};
+    let pathname = {};
 
     if (router) {
-      pathName = router.getCurrentPathname();
+      pathname = router.getCurrentPathname();
     }
 
-    return pathName;
+    return pathname;
   },
 
   getQueryParamObject: function () {
