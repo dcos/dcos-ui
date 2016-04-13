@@ -1,19 +1,5 @@
 import React from 'react';
 
-/**
- * Status bar component creates a segmented bar based on the data input
- * @example
- * <StatusBar
- *   data={[
- *    {
- *      value: 20,
- *      className: 'status'
- *    }, {
- *      value: 30,
- *      className: 'failed'
- *    }
- *  ]} />
- */
 class StatusBar extends React.Component {
   constructor() {
     super(...arguments);
