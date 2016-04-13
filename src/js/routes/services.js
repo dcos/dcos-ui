@@ -13,7 +13,7 @@ let servicesRoutes = {
     {
       type: Route,
       name: 'services-detail',
-      path: ':id'
+      path: ':id/?'
     },
     {
       type: Route,
