@@ -1,4 +1,5 @@
 import HealthSorting from '../constants/HealthSorting';
+import ServiceTree from '../structs/ServiceTree';
 
 /**
  * Compare number values
@@ -14,8 +15,8 @@ function numberCompareFunction(a, b) {
 
 /**
  * Compare service names
- * @param {Service} a
- * @param {Service} b
+ * @param {Service|ServiceTree} a
+ * @param {Service|ServiceTree} b
  * @returns {number} a number indicating whether "a" comes before or after or
  * is the same as "b" in sort order.
  */
@@ -25,8 +26,8 @@ function nameCompareFunction(a, b) {
 
 /**
  * Compare number of running tasks
- * @param {Service} a
- * @param {Service} b
+ * @param {Service|ServiceTree} a
+ * @param {Service|ServiceTree} b
  * @returns {number} a number indicating whether "a" comes before or after or
  * is the same as "b" in sort order.
  */
@@ -39,8 +40,8 @@ function taskCompareFunction(a, b) {
 
 /**
  * Compare service health
- * @param {Service} a
- * @param {Service} b
+ * @param {Service|ServiceTree} a
+ * @param {Service|ServiceTree} b
  * @returns {number} a number indicating whether "a" comes before or after or
  * is the same as "b" in sort order.
  */
@@ -53,8 +54,8 @@ function healthCompareFunction(a, b) {
 
 /**
  * Compare service cpus
- * @param {Service} a
- * @param {Service} b
+ * @param {Service|ServiceTree} a
+ * @param {Service|ServiceTree} b
  * @returns {number} a number indicating whether "a" comes before or after or
  * is the same as "b" in sort order.
  */
@@ -67,8 +68,8 @@ function cpusCompareFunction(a, b) {
 
 /**
  * Compare service memory
- * @param {Service} a
- * @param {Service} b
+ * @param {Service|ServiceTree} a
+ * @param {Service|ServiceTree} b
  * @returns {number} a number indicating whether "a" comes before or after or
  * is the same as "b" in sort order.
  */
@@ -81,8 +82,8 @@ function memCompareFunction(a, b) {
 
 /**
  * Compare service disk
- * @param {Service} a
- * @param {Service} b
+ * @param {Service|ServiceTree} a
+ * @param {Service|ServiceTree} b
  * @returns {number} a number indicating whether "a" comes before or after or
  * is the same as "b" in sort order.
  */
@@ -93,31 +94,59 @@ function diskCompareFunction(a, b) {
   );
 }
 
+/**
+ * Get service table prop compare functions
+ * @param {string} prop
+ * @returns {function} prop compare function
+ */
+function getCompareFunctionByProp(prop) {
+  switch (prop) {
+    case 'name':
+      return nameCompareFunction;
+    case 'tasks':
+      return taskCompareFunction;
+    case 'health':
+      return healthCompareFunction;
+    case 'cpus':
+      return cpusCompareFunction;
+    case 'mem':
+      return memCompareFunction;
+    case 'disk':
+      return diskCompareFunction;
+    default:
+      return function () {
+        return 0;
+      };
+  }
+}
+
 const ServiceTableUtil = {
   /**
    * Create service table prop compare functions
    * @param {string} prop
+   * @param {string} [direction]
    * @returns {function} prop compare function
    */
-   propCompareFunctionFactory(prop) {
-    switch (prop) {
-      case 'name':
-        return nameCompareFunction;
-      case 'tasks':
-        return taskCompareFunction;
-      case 'health':
-        return healthCompareFunction;
-      case 'cpus':
-        return cpusCompareFunction;
-      case 'mem':
-        return memCompareFunction;
-      case 'disk':
-        return diskCompareFunction;
-      default:
-        return function () {
-          return 0;
-        };
+  propCompareFunctionFactory(prop, direction) {
+
+    let compareFunction = getCompareFunctionByProp(prop);
+    let score = 1;
+
+    if (direction === 'desc') {
+      score = -1;
     }
+
+    return function (a, b) {
+      // Hoist service trees to the top
+      if ((a instanceof ServiceTree) && !(b instanceof ServiceTree)) {
+        return score * -1;
+      } else if ((b instanceof ServiceTree) && !(a instanceof ServiceTree)) {
+        return score;
+      }
+
+      return compareFunction(a, b);
+    };
+
   }
 };
 

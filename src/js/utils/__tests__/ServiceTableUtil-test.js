@@ -3,6 +3,7 @@ jest.dontMock('../../structs/Service');
 
 var Service = require('../../structs/Service');
 var ServiceTableUtil = require('../ServiceTableUtil');
+var ServiceTree = require('../../structs/ServiceTree');
 
 describe('ServiceTableUtil', function () {
 
@@ -30,176 +31,243 @@ describe('ServiceTableUtil', function () {
     tasksUnhealthy: 1
   });
 
-
-  describe('#propCompareFunctionFactory:name', function () {
-
-    beforeEach(function () {
-      this.compareFunction =
-        ServiceTableUtil.propCompareFunctionFactory('name');
-    });
-
-    it('should return 1 if name a comes beforeEach name b', function () {
-      expect(
-        this.compareFunction(healthyService, unhealthyService)
-      ).toEqual(-1);
-    });
-
-    it('should return 0 if name a is equal to name b', function () {
-      expect(
-        this.compareFunction(healthyService, healthyService)
-      ).toEqual(0);
-    });
-
-    it('should return -1 if name a comes after name b', function () {
-      expect(
-        this.compareFunction(unhealthyService, healthyService)
-      ).toEqual(1);
-    });
-
+  const serviceTree = new ServiceTree({
+    id: '/tree',
+    items: []
   });
 
-  describe('#propCompareFunctionFactory:tasks', function () {
+  describe('#propCompareFunctionFactory', function () {
 
-    beforeEach(function () {
-      this.compareFunction =
-        ServiceTableUtil.propCompareFunctionFactory('tasks');
+    describe('compare item types', function () {
+
+      describe('sort ascending', function () {
+
+        beforeEach(function () {
+          this.compareFunction =
+            ServiceTableUtil.propCompareFunctionFactory('name', 'asc');
+        });
+
+        it('should return -1 if type a comes beforeEach type b', function () {
+          expect(
+            this.compareFunction(serviceTree, healthyService)
+          ).toEqual(-1);
+        });
+
+        it('should return 0 if type a is equal to type b', function () {
+          expect(
+            this.compareFunction(serviceTree, serviceTree)
+          ).toEqual(0);
+        });
+
+        it('should return 1 if type a comes after type b', function () {
+          expect(
+            this.compareFunction(healthyService, serviceTree)
+          ).toEqual(1);
+        });
+
+      });
+
+      describe('sort descending', function () {
+
+        beforeEach(function () {
+          this.compareFunction =
+            ServiceTableUtil.propCompareFunctionFactory('name', 'desc');
+        });
+
+        it('should return 1 if type a comes beforeEach type b', function () {
+          expect(
+            this.compareFunction(serviceTree, healthyService)
+          ).toEqual(1);
+        });
+
+        it('should return 0 if type a is equal to type b', function () {
+          expect(
+            this.compareFunction(serviceTree, serviceTree)
+          ).toEqual(0);
+        });
+
+        it('should return -1 if type a comes after type b', function () {
+          expect(
+            this.compareFunction(healthyService, serviceTree)
+          ).toEqual(-1);
+        });
+
+      });
+
     });
 
+    describe('compare item name', function () {
 
-    it('should return 1 if a has more running tasks than b', function () {
-      expect(
-        this.compareFunction(healthyService, unhealthyService)
-      ).toEqual(1);
-    });
+      beforeEach(function () {
+        this.compareFunction =
+          ServiceTableUtil.propCompareFunctionFactory('name', 'asc');
+      });
 
-    it('should return 0 if a has same number of running tasks as b',
-      function () {
+      it('should return 1 if type a comes beforeEach type b', function () {
         expect(
-          this.compareFunction(healthyService, healthyService)
+          this.compareFunction(serviceTree, healthyService)
+        ).toEqual(-1);
+      });
+
+      it('should return 0 if type a is equal to type b', function () {
+        expect(
+          this.compareFunction(serviceTree, serviceTree)
         ).toEqual(0);
-      }
-    );
+      });
 
-    it('should return -1 if a has less running tasks than b', function () {
-      expect(
-        this.compareFunction(unhealthyService, healthyService)
-      ).toEqual(-1);
+      it('should return -1 if type a comes after type b', function () {
+        expect(
+          this.compareFunction(healthyService, serviceTree)
+        ).toEqual(1);
+      });
+
     });
 
-  });
+    describe('compare item tasks', function () {
 
-  describe('#propCompareFunctionFactory:health', function () {
+      beforeEach(function () {
+        this.compareFunction =
+          ServiceTableUtil.propCompareFunctionFactory('tasks', 'asc');
+      });
 
-    beforeEach(function () {
-      this.compareFunction =
-        ServiceTableUtil.propCompareFunctionFactory('health');
-    });
+      it('should return 1 if a has more running tasks than b', function () {
+        expect(
+          this.compareFunction(healthyService, unhealthyService)
+        ).toEqual(1);
+      });
 
-    it('should return 1 if a comes after b in the health sorting', function () {
-      expect(
-        this.compareFunction(healthyService, unhealthyService)
-      ).toEqual(1);
-    });
+      it('should return 0 if a has same number of running tasks as b',
+        function () {
+          expect(
+            this.compareFunction(healthyService, healthyService)
+          ).toEqual(0);
+        }
+      );
 
-    it('should return 0 if a has the same health as b', function () {
-      expect(
-        this.compareFunction(healthyService, healthyService)
-      ).toEqual(0);
-    });
-
-    it('should return -1 if a comes beforeEach b in the health sorting',
-      function () {
+      it('should return -1 if a has less running tasks than b', function () {
         expect(
           this.compareFunction(unhealthyService, healthyService)
         ).toEqual(-1);
-      }
-    );
+      });
 
-  });
-
-  describe('#propCompareFunctionFactory:cpus', function () {
-
-    beforeEach(function () {
-      this.compareFunction =
-        ServiceTableUtil.propCompareFunctionFactory('cpus');
     });
 
-    it('should return 1 if a has more cpus than b', function () {
-      expect(
-        this.compareFunction(healthyService, unhealthyService)
-      ).toEqual(1);
-    });
+    describe('compare item health', function () {
 
-    it('should return 0 if a has same number of cpus as b',
-      function () {
+      beforeEach(function () {
+        this.compareFunction =
+          ServiceTableUtil.propCompareFunctionFactory('health', 'asc');
+      });
+
+      it('should return 1 if a comes after b in the health sorting',
+        function () {
+          expect(
+            this.compareFunction(healthyService, unhealthyService)
+          ).toEqual(1);
+        }
+      );
+
+      it('should return 0 if a has the same health as b', function () {
         expect(
           this.compareFunction(healthyService, healthyService)
         ).toEqual(0);
-      }
-    );
+      });
 
-    it('should return -1 if a has less cpus than b', function () {
-      expect(
-        this.compareFunction(unhealthyService, healthyService)
-      ).toEqual(-1);
+      it('should return -1 if a comes beforeEach b in the health sorting',
+        function () {
+          expect(
+            this.compareFunction(unhealthyService, healthyService)
+          ).toEqual(-1);
+        }
+      );
+
     });
 
-  });
+    describe('compare item cpus', function () {
 
-  describe('#propCompareFunctionFactory:mem', function () {
+      beforeEach(function () {
+        this.compareFunction =
+          ServiceTableUtil.propCompareFunctionFactory('cpus');
+      });
 
-    beforeEach(function () {
-      this.compareFunction =
-        ServiceTableUtil.propCompareFunctionFactory('mem');
-    });
-
-    it('should return 1 if a has more mem than b', function () {
-      expect(
-        this.compareFunction(healthyService, unhealthyService)
-      ).toEqual(1);
-    });
-
-    it('should return 0 if a has same number of mem as b',
-      function () {
+      it('should return 1 if a has more cpus than b', function () {
         expect(
-          this.compareFunction(healthyService, healthyService)
-        ).toEqual(0);
-      }
-    );
+          this.compareFunction(healthyService, unhealthyService)
+        ).toEqual(1);
+      });
 
-    it('should return -1 if a has less mem than b', function () {
-      expect(
-        this.compareFunction(unhealthyService, healthyService)
-      ).toEqual(-1);
-    });
+      it('should return 0 if a has same number of cpus as b',
+        function () {
+          expect(
+            this.compareFunction(healthyService, healthyService)
+          ).toEqual(0);
+        }
+      );
 
-  });
-
-  describe('#propCompareFunctionFactory:disk', function () {
-
-    beforeEach(function () {
-      this.compareFunction =
-        ServiceTableUtil.propCompareFunctionFactory('disk');
-    });
-
-    it('should return 1 if a has more disk than b', function () {
-      expect(
-        this.compareFunction(healthyService, unhealthyService)
-      ).toEqual(1);
-    });
-
-    it('should return 0 if a has same number of disk as b',
-      function () {
+      it('should return -1 if a has less cpus than b', function () {
         expect(
-          this.compareFunction(healthyService, healthyService)
-        ).toEqual(0);
-      }
-    );
+          this.compareFunction(unhealthyService, healthyService)
+        ).toEqual(-1);
+      });
 
-    it('should return -1 if a has less disk than b', function () {
-      expect(
-        this.compareFunction(unhealthyService, healthyService)
-      ).toEqual(-1);
+    });
+
+    describe('compare item mem', function () {
+
+      beforeEach(function () {
+        this.compareFunction =
+          ServiceTableUtil.propCompareFunctionFactory('mem');
+      });
+
+      it('should return 1 if a has more mem than b', function () {
+        expect(
+          this.compareFunction(healthyService, unhealthyService)
+        ).toEqual(1);
+      });
+
+      it('should return 0 if a has same number of mem as b',
+        function () {
+          expect(
+            this.compareFunction(healthyService, healthyService)
+          ).toEqual(0);
+        }
+      );
+
+      it('should return -1 if a has less mem than b', function () {
+        expect(
+          this.compareFunction(unhealthyService, healthyService)
+        ).toEqual(-1);
+      });
+
+    });
+
+    describe('compare item disk', function () {
+
+      beforeEach(function () {
+        this.compareFunction =
+          ServiceTableUtil.propCompareFunctionFactory('disk');
+      });
+
+      it('should return 1 if a has more disk than b', function () {
+        expect(
+          this.compareFunction(healthyService, unhealthyService)
+        ).toEqual(1);
+      });
+
+      it('should return 0 if a has same number of disk as b',
+        function () {
+          expect(
+            this.compareFunction(healthyService, healthyService)
+          ).toEqual(0);
+        }
+      );
+
+      it('should return -1 if a has less disk than b', function () {
+        expect(
+          this.compareFunction(unhealthyService, healthyService)
+        ).toEqual(-1);
+      });
+
     });
 
   });
