@@ -117,7 +117,7 @@ let ResourceBarChart = React.createClass({
           <div className="panel-options button-group">
             {this.getModeButtons()}
           </div>
-          <div className="panel-title inverse">
+          <div className="inverse">
             {this.getHeadline(info)}
           </div>
         </div>
