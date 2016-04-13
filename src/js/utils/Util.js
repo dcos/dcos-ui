@@ -8,8 +8,8 @@ const Util = {
    */
   mapObject: function (obj, iteratee) {
     var keys = Object.keys(obj),
-        length = keys.length,
-        results = {};
+      length = keys.length,
+      results = {};
     for (var index = 0; index < length; index++) {
       var currentKey = keys[index];
       results[currentKey] = iteratee(obj[currentKey], currentKey, obj);

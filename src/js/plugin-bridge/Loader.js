@@ -21,7 +21,7 @@ let externalPluginsList;
 // Try loading the list of plugins.
 try {
   pluginsList = requirePlugin('./index');
-} catch(err) {
+} catch (err) {
   // No plugins
   pluginsList = {};
 }

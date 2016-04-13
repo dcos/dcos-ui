@@ -7,7 +7,7 @@ const UnitHealthStatus = {
   UNHEALTHY: {
     title: 'Unhealthy',
     value: 1,
-  classNames: 'text-danger'
+    classNames: 'text-danger'
   },
   WARN: {
     title: 'Warning',

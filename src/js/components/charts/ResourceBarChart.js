@@ -42,10 +42,10 @@ let ResourceBarChart = React.createClass({
 
     let selectedResource = props.selectedResource;
     return [{
-        id: 'used_resources',
-        name: selectedResource + ' allocated',
-        colorIndex: ResourceTypes[selectedResource].colorIndex,
-        values: props.resources[selectedResource]
+      id: 'used_resources',
+      name: selectedResource + ' allocated',
+      colorIndex: ResourceTypes[selectedResource].colorIndex,
+      values: props.resources[selectedResource]
     }];
   },
 

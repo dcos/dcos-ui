@@ -51,7 +51,7 @@ let AuthStore = Store.createStore({
 
     try {
       return JSON.parse(atob(userCode));
-    } catch(err) {
+    } catch (err) {
       return null;
     }
   },

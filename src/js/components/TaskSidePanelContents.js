@@ -1,8 +1,8 @@
 import _ from 'underscore';
 import classNames from 'classnames';
-/*eslint-disable no-unused-vars*/
+/* eslint-disable no-unused-vars */
 import React from 'react';
-/*eslint-enable no-unused-vars*/
+/* eslint-enable no-unused-vars */
 
 import DescriptionList from './DescriptionList';
 import MesosStateStore from '../stores/MesosStateStore';

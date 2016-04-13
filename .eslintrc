@@ -1,7 +1,8 @@
 {
   "ecmaFeatures": {
     "jsx": true,
-    "modules": true
+    "modules": true,
+    "sourceType": "module"
   },
 
   "env": {
@@ -9,6 +10,14 @@
     "jasmine": true,
     "node": true,
     "es6": true
+  },
+
+  "parserOptions": {
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true,
+      "experimentalObjectRestSpread": true
+    }
   },
 
   "plugins": [
@@ -24,7 +33,7 @@
   "rules": {
     "eqeqeq": [2, "smart"],
     "quotes": [2, "single"],
-    "indent": [2, 2],
+    "indent": [2, 2, {"SwitchCase": 1}],
     "camelcase": [0, {"properties": "never"}],
     // "camelcase": [2, {"properties": "always"}], This causes errors with mixin properties
     "strict": [2, "never"], // <-- fix
@@ -34,12 +43,12 @@
     "no-unused-vars": [2, {"args": "after-used", "argsIgnorePattern": "PluginSDK"}],
     "no-use-before-define": 0,
     "no-multiple-empty-lines": [2, {"max": 1}],
-    "space-after-keywords": [2, "always"],
+    "keyword-spacing": [2],
     "space-before-blocks": [2, "always"],
     "space-before-function-paren": [2, {
       "anonymous": "always", "named": "never"
     }],
-    "spaced-line-comment": [2, "always"],
+    "spaced-comment": [2, "always"],
     // "max-len": [2, 80, 4], TODO: DCOS-914
     "valid-jsdoc": [2, {
       "requireReturn": false,
@@ -49,7 +58,7 @@
     // React plugin
     "react/jsx-quotes": [2, "double"],
     "react/jsx-no-undef": 2,
-    "react/jsx-uses-vars": [2, {"vars": "all", "args": "after-used"}],
+    "react/jsx-uses-vars": 2,
     "react/jsx-sort-props": 0,
     "react/jsx-sort-prop-types": [0, {"ignoreCase": true}],
     "react/no-did-mount-set-state": 2,

@@ -114,22 +114,19 @@ var Sidebar = React.createClass({
   },
 
   getFooter() {
-    let defaultButtonSet = [
-      (
-        <Tooltip content="Documentation" key="button-docs" elementTag="a"
-          href={`${Config.documentationURI}/`} target="_blank"
-          wrapperClassName="button button-link tooltip-wrapper">
-          <i className="icon icon-sprite icon-documents icon-sprite-medium clickable"></i>
-        </Tooltip>
-      ),
-      (
-        <Tooltip content="Install CLI"
-          key="button-cli" elementTag="a" onClick={this.handleInstallCLI}
-          wrapperClassName="button button-link tooltip-wrapper">
-          <i className="icon icon-sprite icon-cli icon-sprite-medium clickable"></i>
-        </Tooltip>
-      )
-    ];
+    let defaultButtonSet = [(
+      <Tooltip content="Documentation" key="button-docs" elementTag="a"
+        href={`${Config.documentationURI}/`} target="_blank"
+        wrapperClassName="button button-link tooltip-wrapper">
+        <i className="icon icon-sprite icon-documents icon-sprite-medium clickable"></i>
+      </Tooltip>
+    ), (
+      <Tooltip content="Install CLI"
+        key="button-cli" elementTag="a" onClick={this.handleInstallCLI}
+        wrapperClassName="button button-link tooltip-wrapper">
+        <i className="icon icon-sprite icon-cli icon-sprite-medium clickable"></i>
+      </Tooltip>
+    )];
 
     let buttonSet = Hooks.applyFilter(
       'sidebarFooterButtonSet', defaultButtonSet

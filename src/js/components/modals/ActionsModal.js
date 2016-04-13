@@ -121,7 +121,7 @@ class ActionsModal extends mixin(StoreMixin) {
       if (selectedItems.length <= ITEMS_DISPLAYED) {
         selectedItemsString += `and ${_.last(selectedItems).description} `;
       } else if (selectedItems.length === ITEMS_DISPLAYED + 1) {
-        selectedItemsString += `and 1 other `;
+        selectedItemsString += 'and 1 other ';
       } else {
         let overflow = selectedItems.length - ITEMS_DISPLAYED;
         selectedItemsString += `and ${overflow} others `;

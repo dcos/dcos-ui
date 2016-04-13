@@ -112,8 +112,9 @@ var NodesGridView = React.createClass({
   computeShownServices: function (services) {
     var hidden = _.map(services.slice(MAX_SERVICES_TO_SHOW),
       function (service) {
-      return service.id;
-    });
+        return service.id;
+      }
+    );
 
     this.internalStorage_update({hiddenServices: hidden});
   },
@@ -170,22 +171,22 @@ var NodesGridView = React.createClass({
 
     // Filter out inactive services
     var items = _.filter(props.services, function (service) {
-        return activeServiceIds.indexOf(service.id) !== -1;
-      })
-      // Limit to max amount
-      .slice(0, MAX_SERVICES_TO_SHOW)
-      // Return view definition
-      .map(function (service) {
-        var color = data.serviceColors[service.id];
-        var className = `service-legend-color service-color-${color}`;
+      return activeServiceIds.indexOf(service.id) !== -1;
+    })
+    // Limit to max amount
+    .slice(0, MAX_SERVICES_TO_SHOW)
+    // Return view definition
+    .map(function (service) {
+      var color = data.serviceColors[service.id];
+      var className = `service-legend-color service-color-${color}`;
 
-        return (
-          <li key={service.id}>
-            <span className={className}></span>
-            <span>{service.name}</span>
-          </li>
-        );
-      });
+      return (
+        <li key={service.id}>
+          <span className={className}></span>
+          <span>{service.name}</span>
+        </li>
+      );
+    });
 
     // Add 'Others' node to the list
     if (activeServiceIds.length > MAX_SERVICES_TO_SHOW) {

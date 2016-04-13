@@ -1,9 +1,9 @@
 jest.dontMock('../hooks');
 
 var _ = require('underscore');
-/*eslint-disable no-unused-vars*/
+/* eslint-disable no-unused-vars */
 import React from 'react';
-/*eslint-enable no-unused-vars*/
+/* eslint-enable no-unused-vars */
 var ReactDOM = require('react-dom');
 var TestUtils = require('react-addons-test-utils');
 

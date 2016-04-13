@@ -208,7 +208,7 @@ const createPluginStore = function (definition) {
 
   if (definition.mixinEvents) {
     if (!definition.storeID) {
-      throw new Error(`Must define a valid storeID to expose events`);
+      throw new Error('Must define a valid storeID to expose events');
     }
     if (definition.storeID in EXISTING_FLUX_STORES) {
       throw new Error(`Store with ID ${definition.storeID} already exists.`);

@@ -9,13 +9,13 @@ let externalPluginsList;
 
 try {
   pluginsList = require('../../../../plugins/index');
-} catch(err) {
+} catch (err) {
   pluginsList = {};
 }
 
 try {
   externalPluginsList = require('../../../../.external_plugins/index');
-} catch(err) {
+} catch (err) {
   externalPluginsList = {};
 }
 

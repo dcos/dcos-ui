@@ -1,9 +1,9 @@
 import _ from 'underscore';
 import {Link, RouteHandler} from 'react-router';
 import mixin from 'reactjs-mixin';
-/*eslint-disable no-unused-vars*/
+/* eslint-disable no-unused-vars */
 import React from 'react';
-/*eslint-enable no-unused-vars*/
+/* eslint-enable no-unused-vars */
 import {Hooks} from 'PluginSDK';
 import Page from '../components/Page';
 import SidebarActions from '../events/SidebarActions';

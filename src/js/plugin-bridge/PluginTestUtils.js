@@ -55,6 +55,7 @@ function loadPluginsByName(plugins) {
  * Finds and returns the SDK for a specific plugin
  * @param  {String} pluginID - ID of plugin
  * @param  {Object} config   - configuration
+ * @param  {Boolean} loadPlugin
  * @return {PluginSDK}          - SDK for plugin with pluginID
  */
 function getSDK(pluginID, config, loadPlugin = false) {

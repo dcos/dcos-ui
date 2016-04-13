@@ -84,11 +84,11 @@ let RouteFactory = {
     };
 
     let organizationRoute = {
-        type: Route,
-        name: 'system-organization',
-        path: 'organization/?',
-        // Get children for Overview
-        children: RouteFactory.getOrganizationRoutes()
+      type: Route,
+      name: 'system-organization',
+      path: 'organization/?',
+      // Get children for Overview
+      children: RouteFactory.getOrganizationRoutes()
     };
 
     // Return filtered Routes

@@ -16,10 +16,10 @@ var TaskFailureTimeSeriesChart = React.createClass({
 
   getData: function (props) {
     return [{
-        name: 'Failure',
-        colorIndex: 2,
-        values: props.data
-      }];
+      name: 'Failure',
+      colorIndex: 2,
+      values: props.data
+    }];
   },
 
   getLatestPercent: function (data) {

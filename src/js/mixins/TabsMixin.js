@@ -1,8 +1,8 @@
 import classNames from 'classnames';
 import {Link} from 'react-router';
-/*eslint-disable no-unused-vars*/
+/* eslint-disable no-unused-vars */
 import React from 'react';
-/*eslint-enable no-unused-vars*/
+/* eslint-enable no-unused-vars */
 
 import TabsUtil from '../utils/TabsUtil';
 

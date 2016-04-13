@@ -1,6 +1,6 @@
-/*eslint-disable no-unused-vars*/
+/* eslint-disable no-unused-vars */
 const React = require('react');
-/*eslint-enable no-unused-vars*/
+/* eslint-enable no-unused-vars */
 
 import DateUtil from '../utils/DateUtil';
 import DescriptionList from './DescriptionList';
