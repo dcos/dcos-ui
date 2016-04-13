@@ -41,24 +41,12 @@ var QueryParamsMixin = {
 
   getQueryParamObject: function () {
     let {router} = this.context;
-    let queryParamObject = {};
 
-    if (router) {
-      queryParamObject = router.getCurrentQuery();
+    if (!router) {
+      return {};
     }
 
-    return queryParamObject;
-  },
-
-  getQueryParamValue: function (paramKey) {
-    let {router} = this.context;
-    let queryParamValue = null;
-
-    if (router) {
-      queryParamValue = router.getCurrentQuery()[paramKey];
-    }
-
-    return queryParamValue;
+    return router.getCurrentQuery();
   },
 
   setQueryParam: function (paramKey, paramValue) {
