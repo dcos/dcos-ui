@@ -9,74 +9,73 @@ import TabsMixin from '../mixins/TabsMixin';
 
 const METHODS_TO_BIND = [];
 
-class ServiceDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
+class ServiceDetail
+  extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
 
-  constructor() {
-    super(...arguments);
+    constructor() {
+      super(...arguments);
 
-    this.tabs_tabs = {
-      tasks: 'Tasks',
-      configuration: 'Configuration',
-      debug: 'Debug',
-      logs: 'Logs'
-    };
+      this.tabs_tabs = {
+        tasks: 'Tasks',
+        configuration: 'Configuration',
+        debug: 'Debug',
+        logs: 'Logs'
+      };
 
-    this.state = {
-      currentTab: Object.keys(this.tabs_tabs).shift()
-    };
+      this.state = {
+        currentTab: Object.keys(this.tabs_tabs).shift()
+      };
 
-    this.store_listeners = [
-      {name: 'state', events: ['success']}
-    ];
+      this.store_listeners = [
+        {name: 'state', events: ['success']}
+      ];
 
-    METHODS_TO_BIND.forEach((method) => {
-      this[method] = this[method].bind(this);
-    });
-  }
+      METHODS_TO_BIND.forEach((method) => {
+        this[method] = this[method].bind(this);
+      });
+    }
 
-  static get propTypes() {
-    return {
-      service: React.PropTypes.instanceOf(Service)
-    };
-  }
+    renderConfigurationTabView() {
+      return (<span>Configuration Placeholder</span>);
+    }
 
-  renderConfigurationTabView() {
-    return (<span>Configuration Placeholder</span>);
-  }
+    renderDebugTabView() {
+      return (<span>Debug Placeholder</span>);
+    }
 
-  renderDebugTabView() {
-    return (<span>Debug Placeholder</span>);
-  }
+    renderLogsTabView() {
+      return (<span>Logs Placeholder</span>);
+    }
 
-  renderLogsTabView() {
-    return (<span>Logs Placeholder</span>);
-  }
+    renderTasksTabView() {
+      return (<span>Tasks Placeholder</span>);
+    }
 
-  renderTasksTabView() {
-    return (<span>Tasks Placeholder</span>);
-  }
+    render() {
+      let {service} = this.props;
 
-  render() {
-    let {service} = this.props;
-
-    return (
-      <div className="flex-container-col">
-        <div className="container-pod container-pod-divider-bottom
-          container-pod-divider-bottom-align-right
-          container-pod-short-top flush-bottom flush-top
-          service-detail-header media-object-spacing-wrapper
-          media-object-spacing-narrow container-pod-divider-inverse">
-          <ServiceInfo service={service} />
-          <ul className="tabs list-inline flush-bottom container-pod
-            container-pod-short-top inverse">
-            {this.tabs_getUnroutedTabs()}
-          </ul>
+      return (
+        <div className="flex-container-col">
+          <div className="container-pod container-pod-divider-bottom
+            container-pod-divider-bottom-align-right
+            container-pod-short-top flush-bottom flush-top
+            service-detail-header media-object-spacing-wrapper
+            media-object-spacing-narrow container-pod-divider-inverse">
+            <ServiceInfo service={service} />
+            <ul className="tabs list-inline flush-bottom container-pod
+              container-pod-short-top inverse">
+              {this.tabs_getUnroutedTabs()}
+            </ul>
+          </div>
+          {this.tabs_getTabView()}
         </div>
-        {this.tabs_getTabView()}
-      </div>
 
-    );
-  }
+      );
+    }
 }
+
+ServiceDetail.propTypes = {
+  service: React.PropTypes.instanceOf(Service)
+};
 
 module.exports = ServiceDetail;
