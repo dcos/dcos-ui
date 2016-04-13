@@ -26,9 +26,13 @@ class StatusBar extends React.Component {
     };
   }
 
-  getBarsFunction(total) {
+  getBars(data) {
+    let total = data.reduce(function (sum, item) {
+      return sum + item.value;
+    }, 0);
     let offset = 0;
-    return function (status, index) {
+
+    return data.map(function (status, index) {
       let {value, className} = status;
       if (!className) {
         className = `element-${index}`;
@@ -45,7 +49,7 @@ class StatusBar extends React.Component {
       );
       offset += width;
       return bar;
-    };
+    });
   }
 
   render() {
@@ -53,15 +57,12 @@ class StatusBar extends React.Component {
     if (!data) {
       return null;
     }
-    let total = data.reduce(function (sum, item) {
-      return sum + item.value;
-    }, 0);
 
     return (
       <svg
         className={className}
         preserveAspectRatio="none">
-        {data.map(this.getBarsFunction(total))}
+        {this.getBars(data)}
       </svg>
     );
   }
