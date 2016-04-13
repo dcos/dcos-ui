@@ -42,7 +42,7 @@ describe('QueryParamsMixin', function () {
   });
 
   it('returns a specific value from the query params object', function () {
-    expect(this.instance.getQueryParamValue('stringValue'))
+    expect(this.instance.getQueryParamObject['stringValue'])
       .toEqual('string');
   });
 

@@ -1,17 +1,15 @@
 import React from 'react';
 
-import Util from '../utils/Util';
-
 function encodeValuesToURIComponents(values) {
-  if (Util.isArray(values)) {
+  if (Array.isArray(values)) {
     return values.map(function (param) {
       var uriComponent;
 
-      if (Util.isArray(param)) {
         uriComponent =
           param.map(function (segment) {
             return encodeURIComponent(segment).join(':');
           });
+      if (Array.isArray(param)) {
       } else {
         uriComponent = param.toString();
       }

@@ -60,7 +60,7 @@ class SidebarFilter extends mixin(QueryParamsMixin) {
   updateFilterStatus() {
     let {props, state} = this;
     let {filterType, filterValues} = props;
-    let selectedNodes = this.getQueryParamValue(filterType) || [];
+    let selectedNodes = this.getQueryParamObject[filterType] || [];
     let stringify = JSON.stringify;
 
     if (!Util.isArray(selectedNodes)) {
