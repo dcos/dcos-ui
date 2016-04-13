@@ -5,11 +5,12 @@ function encodeValuesToURIComponents(values) {
     return values.map(function (param) {
       var uriComponent;
 
-        uriComponent =
-          param.map(function (segment) {
-            return encodeURIComponent(segment).join(':');
-          });
       if (Array.isArray(param)) {
+        uriComponent = param
+          .map(function (segment) {
+            return encodeURIComponent(segment);
+          })
+          .join(':');
       } else {
         uriComponent = param.toString();
       }
