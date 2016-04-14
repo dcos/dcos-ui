@@ -76,7 +76,7 @@ describe('QueryParamsMixin', function () {
   });
 
   it('should encode nested arrays in query params',
-  function () {
+    function () {
     let queryObject = {
       arrayValue: [
         'value1',
