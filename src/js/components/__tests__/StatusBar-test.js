@@ -97,7 +97,7 @@ describe('#StatusBar', function () {
   describe('className', function () {
     it('should contain status-bar (default)', function () {
       expect(
-        this.container.querySelector('svg')
+        this.container.querySelector('div')
           .classList.contains('status-bar')
       ).toBeTruthy();
     });
@@ -110,31 +110,24 @@ describe('#StatusBar', function () {
         this.container
       );
       expect(
-        this.container.querySelector('svg')
+        this.container.querySelector('div')
           .classList.contains('test-bar')
       ).toBeTruthy();
     });
   });
 
   describe('rectangles', function () {
-    it('should contain 2 rectangles', function () {
-      expect(this.container.querySelectorAll('rect').length)
+    it('should contain 2 divs', function () {
+      expect(this.container.querySelectorAll('.status-bar div').length)
         .toEqual(testData.length);
     });
 
-    describe('First rect', function () {
+    describe('First div', function () {
       it('should contain class name status', function () {
         expect(
-          this.container.querySelector('rect:first-child')
+          this.container.querySelector('.status-bar div:first-child')
             .classList.contains('status')
         ).toBeTruthy();
-      });
-
-      it('should have an offset of 0', function () {
-        expect(
-          this.container.querySelector('rect:first-child')
-            .getAttribute('x')
-        ).toEqual('0%');
       });
 
       it('should have the class element-{index} if no classname is provided',
@@ -145,49 +138,32 @@ describe('#StatusBar', function () {
           }]}/>,
             this.container
           );
-          expect(this.container.querySelector('rect')
+          expect(this.container.querySelector('.status-bar div')
             .classList.contains('element-0')
           ).toBeTruthy();
         });
 
+      it('should have a width of 40', function () {
+        expect(
+          this.container.querySelector('.status-bar div:first-child')
+            .style.width
+        ).toEqual('40%');
+      });
     });
 
-    describe('Second rect', function () {
+    describe('Second div', function () {
 
       it('should contain class name failed', function () {
         expect(
-          this.container.querySelector('rect:nth-child(2)')
+          this.container.querySelector('.status-bar div:nth-child(2)')
             .classList.contains('failed')
         ).toBeTruthy();
       });
 
-      it('should have an offset of 30', function () {
+      it('should have a width of 60', function () {
         expect(
-          this.container.querySelector('rect:nth-child(2)')
-            .getAttribute('x')
-        ).toEqual('40%');
-      });
-
-      it('should have an offset of 60', function () {
-        let data = [
-          {
-            key: '#FFF',
-            value: 3,
-            className: 'status'
-          }, {
-            key: '#000',
-            value: 2,
-            className: 'failed'
-          }
-        ];
-        this.instance = ReactDOM.render(
-          <StatusBar
-            data={data}/>,
-          this.container
-        );
-        expect(
-          this.container.querySelector('rect:nth-child(2)')
-            .getAttribute('x')
+          this.container.querySelector('.status-bar div:nth-child(2)')
+            .style.width
         ).toEqual('60%');
       });
     });
