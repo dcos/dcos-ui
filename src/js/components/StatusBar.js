@@ -1,5 +1,7 @@
 import React from 'react';
 
+import classNames from 'classnames';
+
 class StatusBar extends React.Component {
   constructor() {
     super(...arguments);
@@ -24,14 +26,15 @@ class StatusBar extends React.Component {
         className = `element-${index}`;
       }
       let width = value / total * 100;
+      let style = {
+        width: `${width}%`,
+        height: '100%'
+      };
       let bar = (
-        <rect
-          x={`${offset}%`}
-          y="0"
+        <div
+          style={style}
           key={index}
-          height="100%"
-          width={`${width}%`}
-          className={className} />
+          className={className}></div>
       );
       offset += width;
       return bar;
@@ -43,13 +46,12 @@ class StatusBar extends React.Component {
     if (!data) {
       return null;
     }
-
+    className = classNames(className, 'flex-box');
     return (
-      <svg
-        className={className}
-        preserveAspectRatio="none">
+      <div
+        className={className}>
         {this.getBars(data)}
-      </svg>
+      </div>
     );
   }
 }

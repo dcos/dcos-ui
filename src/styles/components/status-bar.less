@@ -4,8 +4,15 @@
 
 .status-bar {
   border-radius: 10rem;
-  rect {
-    fill: currentColor;
+  overflow: hidden;
+  height: 1em;
+  div {
+    background: currentColor;
     transition: all .3s;
+    border-right: 1px solid @black;
   }
+  div:last-child {
+    border-right: none;
+  }
+
 }
