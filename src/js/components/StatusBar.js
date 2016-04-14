@@ -9,7 +9,7 @@ class StatusBar extends React.Component {
 
   static get defaultProps() {
     return {
-      className: 'status-bar',
+      className: 'progress-bar',
       height: 10
     };
   }

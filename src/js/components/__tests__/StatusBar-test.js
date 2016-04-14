@@ -96,10 +96,10 @@ describe('#StatusBar', function () {
   });
 
   describe('className', function () {
-    it('should contain status-bar (default)', function () {
+    it('should contain progress-bar (default)', function () {
       expect(
         this.container.querySelector('div')
-          .classList.contains('status-bar')
+          .classList.contains('progress-bar')
       ).toBeTruthy();
     });
 
@@ -119,14 +119,14 @@ describe('#StatusBar', function () {
 
   describe('rectangles', function () {
     it('should contain 2 divs', function () {
-      expect(this.container.querySelectorAll('.status-bar div').length)
+      expect(this.container.querySelectorAll('.progress-bar div').length)
         .toEqual(testData.length);
     });
 
     describe('First div', function () {
       it('should contain class name status', function () {
         expect(
-          this.container.querySelector('.status-bar div:first-child')
+          this.container.querySelector('.progress-bar div:first-child')
             .classList.contains('status')
         ).toBeTruthy();
       });
@@ -139,14 +139,14 @@ describe('#StatusBar', function () {
             }]}/>,
             this.container
           );
-          expect(this.container.querySelector('.status-bar div')
+          expect(this.container.querySelector('.progress-bar div')
             .classList.contains('element-0')
           ).toBeTruthy();
         });
 
       it('should have a width of 40', function () {
         expect(
-          this.container.querySelector('.status-bar div:first-child')
+          this.container.querySelector('.progress-bar div:first-child')
             .style.width
         ).toEqual('40%');
       });
@@ -156,14 +156,14 @@ describe('#StatusBar', function () {
 
       it('should contain class name failed', function () {
         expect(
-          this.container.querySelector('.status-bar div:nth-child(2)')
+          this.container.querySelector('.progress-bar div:nth-child(2)')
             .classList.contains('failed')
         ).toBeTruthy();
       });
 
       it('should have a width of 60', function () {
         expect(
-          this.container.querySelector('.status-bar div:nth-child(2)')
+          this.container.querySelector('.progress-bar div:nth-child(2)')
             .style.width
         ).toEqual('60%');
       });
