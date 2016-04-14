@@ -25,6 +25,7 @@ class StatusBar extends React.Component {
       if (!className) {
         className = `element-${index}`;
       }
+      className = classNames(className, 'bar');
       let width = value / total * 100;
       let style = {
         width: `${width}%`,
