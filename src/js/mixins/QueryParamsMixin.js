@@ -1,25 +1,14 @@
 import React from 'react';
 
 function encodeValuesToURIComponents(values) {
-  if (Array.isArray(values)) {
-    return values.map(function (param) {
-      var uriComponent;
-
-      if (Array.isArray(param)) {
-        uriComponent = param
-          .map(function (segment) {
-            return encodeURIComponent(segment);
-          })
-          .join(':');
-      } else {
-        uriComponent = param.toString();
-      }
-
-      return encodeURIComponent(uriComponent);
-    });
+  if (!Array.isArray(values)) {
+    return encodeURIComponent(values);
   }
 
-  return encodeURIComponent(values);
+  return values.map(function (param) {
+    // Replace commas for nested arrays with semi-colon
+    return encodeURIComponent(param).replace(/%2C/g, ';');
+  });
 }
 
 var QueryParamsMixin = {
@@ -66,7 +55,7 @@ var QueryParamsMixin = {
   },
 
   decodeQueryParamArray: function (array) {
-    return array.split(':').map(function (segment) {
+    return array.split(';').map(function (segment) {
       return decodeURIComponent(segment);
     });
   }

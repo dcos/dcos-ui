@@ -71,7 +71,7 @@ describe('QueryParamsMixin', function () {
   });
 
   it('decodes an arrayString given in the query params', function () {
-    let decodedArrayString = this.instance.decodeQueryParamArray('a:b:c');
+    let decodedArrayString = this.instance.decodeQueryParamArray('a;b;c');
     expect(decodedArrayString).toEqual(['a', 'b', 'c']);
   });
 
@@ -83,13 +83,22 @@ describe('QueryParamsMixin', function () {
         'value2'
       ],
       nestedArray: [
-        '1%3A2%3A3',
-        '4%3A5%3A6'
+        '1;2;3',
+        '4;5;6',
+        '',
+        '7;;8',
+        'non-array'
       ],
       stringValue: 'string'
     };
 
-    this.instance.setQueryParam('nestedArray', [[1, 2, 3], [4, 5, 6]]);
+    this.instance.setQueryParam('nestedArray', [
+      [1, 2, 3],
+      [4, 5, 6],
+      [],
+      ['7', null, '8'],
+      'non-array'
+    ]);
 
     let transitionTo = this.instance.context.router.transitionTo;
 
