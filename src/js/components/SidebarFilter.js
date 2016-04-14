@@ -121,7 +121,7 @@ class SidebarFilter extends mixin(QueryParamsMixin) {
 
     if (count) {
       badge = (
-        <span className="badge text-color-8 inverse text-align-center">
+        <span className="badge text-muted inverse text-align-center">
           {count}
         </span>
       );
