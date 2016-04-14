@@ -206,9 +206,9 @@ var DashboardPage = React.createClass({
 
   getHeading: function (title) {
     return (
-      <h4 className="flush inverse">
+      <h5 className="flush inverse">
         {title}
-      </h4>
+      </h5>
     );
   },
 
@@ -219,11 +219,11 @@ var DashboardPage = React.createClass({
     return (
       <Page title="Dashboard">
         <div className="grid row">
-          <div className="grid-item column-small-6 column-large-4 column-x-large-3">
+          <div className="grid-item column-mini-6 column-large-4 column-x-large-3">
             <Panel
               className="panel panel-inverse dashboard-panel dashboard-panel-resource-chart"
               heading={this.getHeading('CPU Allocation')}
-              headingClass="panel-header panel-header-bottom-border inverse short">
+              headingClass="panel-header panel-header-bottom-border inverse short-top short-bottom">
               <ResourceTimeSeriesChart
                 colorIndex={0}
                 usedResourcesStates={data.usedResourcesStates}
@@ -233,11 +233,11 @@ var DashboardPage = React.createClass({
                 refreshRate={data.refreshRate} />
             </Panel>
           </div>
-          <div className="grid-item column-small-6 column-large-4 column-x-large-3">
+          <div className="grid-item column-mini-6 column-large-4 column-x-large-3">
             <Panel
               className="panel panel-inverse dashboard-panel dashboard-panel-resource-chart"
               heading={this.getHeading('Memory Allocation')}
-              headingClass="panel-header panel-header-bottom-border inverse short">
+              headingClass="panel-header panel-header-bottom-border inverse short-top short-bottom">
               <ResourceTimeSeriesChart
                 colorIndex={6}
                 usedResourcesStates={data.usedResourcesStates}
@@ -247,51 +247,51 @@ var DashboardPage = React.createClass({
                 refreshRate={data.refreshRate} />
             </Panel>
           </div>
-          <div className="grid-item column-small-6 column-large-4 column-x-large-3">
+          <div className="grid-item column-mini-6 column-large-4 column-x-large-3">
             <Panel
               className="panel panel-inverse dashboard-panel dashboard-panel-resource-chart"
               heading={this.getHeading('Task Failure Rate')}
-              headingClass="panel-header panel-header-bottom-border inverse short">
+              headingClass="panel-header panel-header-bottom-border inverse short-top short-bottom">
               <TaskFailureTimeSeriesChart
                 data={data.taskFailureRate}
                 refreshRate={data.refreshRate} />
             </Panel>
           </div>
-          <div className="grid-item column-small-6 column-large-4 column-x-large-3">
+          <div className="grid-item column-mini-6 column-large-4 column-x-large-3">
             <Panel
               className="panel panel-inverse dashboard-panel dashboard-panel-list allow-overflow"
               heading={this.getHeading('Services Health')}
-              headingClass="panel-header panel-header-bottom-border inverse short">
+              headingClass="panel-header panel-header-bottom-border inverse short-top short-bottom">
               <ServiceList
                 healthProcessed={appsProcessed}
                 services={this.getServicesList(data.services.getItems())} />
               {this.getViewAllServicesBtn()}
             </Panel>
           </div>
-          <div className="grid-item column-small-6 column-large-4 column-x-large-3">
+          <div className="grid-item column-mini-6 column-large-4 column-x-large-3">
             <Panel
               className="panel panel-inverse dashboard-panel"
               heading={this.getHeading('Tasks')}
-              headingClass="panel-header panel-header-bottom-border inverse short">
+              headingClass="panel-header panel-header-bottom-border inverse short-top short-bottom">
               <TasksChart tasks={data.services.sumTaskStates()} />
             </Panel>
           </div>
-          <div className="grid-item column-small-6 column-large-4 column-x-large-3">
+          <div className="grid-item column-mini-6 column-large-4 column-x-large-3">
             <Panel
               className="panel panel-inverse dashboard-panel dashboard-panel-list"
               heading={this.getHeading('Component Health')}
-              headingClass="panel-header panel-header-bottom-border inverse short">
+              headingClass="panel-header panel-header-bottom-border inverse short-top short-bottom">
               <ComponentList
                 displayCount={this.props.componentsListLength}
                 units={this.getUnits()} />
               {this.getViewAllComponentsButton()}
             </Panel>
           </div>
-          <div className="grid-item column-small-6 column-large-4 column-x-large-3">
+          <div className="grid-item column-mini-6 column-large-4 column-x-large-3">
             <Panel
               className="panel panel-inverse dashboard-panel dashboard-panel-resource-chart"
               heading={this.getHeading('Nodes')}
-              headingClass="panel-header panel-header-bottom-border inverse short">
+              headingClass="panel-header panel-header-bottom-border inverse short-top short-bottom">
               <HostTimeSeriesChart
                 data={data.hostsCount}
                 currentValue={data.activeSlaves.length}
