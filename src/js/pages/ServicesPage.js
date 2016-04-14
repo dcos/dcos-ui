@@ -6,7 +6,6 @@ import {StoreMixin} from 'mesosphere-shared-reactjs';
 import AlertPanel from '../components/AlertPanel';
 import DCOSStore from '../stores/DCOSStore';
 import FilterHeadline from '../components/FilterHeadline';
-import FilterInputText from '../components/FilterInputText';
 import InternalStorageMixin from '../mixins/InternalStorageMixin';
 import MarathonStore from '../stores/MarathonStore';
 import Page from '../components/Page';
@@ -85,7 +84,7 @@ var ServicesPage = React.createClass({
     this.setState(stateChanges);
   },
 
-  getServices: function (serviceTreeId, filter) {
+  getServiceTree: function (serviceTreeId) {
     let serviceTree = DCOSStore.serviceTree.findItem(function (item) {
       return item instanceof ServiceTree && item.getId() === serviceTreeId;
     });
@@ -94,7 +93,7 @@ var ServicesPage = React.createClass({
       serviceTree = DCOSStore.serviceTree;
     }
 
-    return serviceTree.filterItemsByFilter(filter).getItems();
+    return serviceTree;
   },
 
   resetFilterQueryParams: function () {
