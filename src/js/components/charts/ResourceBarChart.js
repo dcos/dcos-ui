@@ -65,8 +65,7 @@ let ResourceBarChart = React.createClass({
     let selectedResource = this.props.selectedResource;
 
     return _.map(ResourceTypes, function (info, key) {
-      let classSet = classNames({
-        'button button-stroke button-inverse': true,
+      let classSet = classNames('button button-stroke button-inverse', {
         'active': selectedResource === key
       });
 
