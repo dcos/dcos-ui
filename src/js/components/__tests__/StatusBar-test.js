@@ -117,15 +117,15 @@ describe('#StatusBar', function () {
   });
 
   describe('rectangles', function () {
-    it('should contain 2 divs', function () {
-      expect(this.container.querySelectorAll('.progress-bar div').length)
+    it('should contain 2 .bars', function () {
+      expect(this.container.querySelectorAll('.bar').length)
         .toEqual(testData.length);
     });
 
-    describe('First div', function () {
+    describe('First .bar', function () {
       it('should contain class name status', function () {
         expect(
-          this.container.querySelector('.progress-bar div:first-child')
+          this.container.querySelector('.bar:first-child')
             .classList.contains('status')
         ).toBeTruthy();
       });
@@ -138,31 +138,31 @@ describe('#StatusBar', function () {
           }]}/>,
             this.container
           );
-          expect(this.container.querySelector('.progress-bar div')
+          expect(this.container.querySelector('.bar')
             .classList.contains('element-0')
           ).toBeTruthy();
         });
 
       it('should have a width of 40', function () {
         expect(
-          this.container.querySelector('.progress-bar div:first-child')
+          this.container.querySelector('.bar:first-child')
             .style.width
         ).toEqual('40%');
       });
     });
 
-    describe('Second div', function () {
+    describe('Second .bar', function () {
 
       it('should contain class name failed', function () {
         expect(
-          this.container.querySelector('.progress-bar div:nth-child(2)')
+          this.container.querySelector('.bar:nth-child(2)')
             .classList.contains('failed')
         ).toBeTruthy();
       });
 
       it('should have a width of 60', function () {
         expect(
-          this.container.querySelector('.progress-bar div:nth-child(2)')
+          this.container.querySelector('.bar:nth-child(2)')
             .style.width
         ).toEqual('60%');
       });
