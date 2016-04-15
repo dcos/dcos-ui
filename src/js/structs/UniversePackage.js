@@ -29,12 +29,17 @@ class UniversePackage extends Item {
   }
 
   getMaintainer() {
-    if (this.get('package')
-      && this.get('package').hasOwnProperty('maintainer')) {
-      return this.get('package').maintainer;
-    }
+    return Util.findNestedPropertyInObject(
+      this.get('package'),
+      'maintainer'
+    );
+  }
 
-    return null;
+  getPreinstallNotes() {
+    return Util.findNestedPropertyInObject(
+      this.get('package'),
+      'preInstallNotes'
+    );
   }
 }
 

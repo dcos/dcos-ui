@@ -52,7 +52,7 @@ describe('InstallPackageModal', function () {
         this.instance.getModalContents(),
         this.container
       ));
-      var result = node.querySelector('p.flush-bottom');
+      var result = node.querySelector('p.package-name-version');
       expect(result.textContent).toEqual('marathon 0.11.1');
     });
 
