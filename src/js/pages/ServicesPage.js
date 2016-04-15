@@ -4,10 +4,10 @@ import {RouteHandler} from 'react-router';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import AlertPanel from '../components/AlertPanel';
+import Config from '../config/Config';
 import DCOSStore from '../stores/DCOSStore';
 import FilterHeadline from '../components/FilterHeadline';
 import InternalStorageMixin from '../mixins/InternalStorageMixin';
-import MarathonStore from '../stores/MarathonStore';
 import Page from '../components/Page';
 import Service from '../structs/Service';
 import ServiceDetail from '../components/ServiceDetail';
@@ -112,12 +112,8 @@ var ServicesPage = React.createClass({
     this.setState(state, this.resetFilterQueryParams);
   },
 
-  getServicesPageContent: function () {
-    let serviceTreeId =
-      decodeURIComponent(this.context.router.getCurrentParams().serviceTreeId);
-
+  getServicesPageContent: function (serviceTree) {
     let state = this.state;
-    let serviceTree = this.getServiceTree(serviceTreeId);
 
     let services = serviceTree.getItems();
     let filteredServices = serviceTree.filterItemsByFilter({
@@ -152,20 +148,44 @@ var ServicesPage = React.createClass({
       <AlertPanel
         title="No Services Installed"
         iconClassName="icon icon-sprite icon-sprite-jumbo
-          icon-sprite-jumbo-white icon-services flush-top">
+                icon-sprite-jumbo-white icon-services flush-top">
         <p className="flush">
-          Use the DCOS command line tools to find and install services.
+          Use the {Config.productName} command line tools to find and install services.
         </p>
       </AlertPanel>
     );
   },
 
-  getContents: function (isEmpty) {
-    if (isEmpty) {
-      return this.getEmptyServicesPageContent();
-    } else {
-      return this.getServicesPageContent();
+  getContents: function (id) {
+    // Render loading screen
+    if (!DCOSStore.dataProcessed) {
+      return (
+        <div className="container container-fluid container-pod text-align-center
+            vertical-center inverse">
+          <div className="row">
+            <div className="ball-scale">
+              <div />
+            </div>
+          </div>
+        </div>
+      );
     }
+
+    // Find item in root tree and default to root tree if there is no match
+    let item = DCOSStore.serviceTree.findItemById(id) || DCOSStore.serviceTree;
+
+    // Render service table
+    if (item instanceof ServiceTree && item.getItems().length > 0) {
+      return this.getServicesPageContent(item);
+    }
+
+    // Render service detail
+    if (item instanceof Service) {
+      return (<ServiceDetail service={item}/>);
+    }
+
+    // Render empty panel
+    return this.getEmptyServicesPageContent();
   },
 
   render: function () {
