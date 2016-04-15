@@ -261,40 +261,36 @@ var NodesPage = React.createClass({
           name="Nodes"
           currentLength={nodesList.length}
           totalLength={data.totalNodes} />
-
-        <div className="media-object-spacing-wrapper media-object-spacing-narrow media-object-offset">
-          <div className="media-object media-object-wrap-reverse">
-            <div className="media-object media-object-item media-object-inline media-object-wrap">
-              <div className="media-object-item media-object-align-top">
-                <FilterButtons
-                  renderButtonContent={this.getButtonContent}
-                  filters={HEALTH_FILTER_BUTTONS}
-                  filterByKey="title"
-                  onFilterChange={this.handleHealthFilterChange}
-                  itemList={nodesHealth}
-                  selectedFilter={state.healthFilter} />
-              </div>
-              <div className="media-object-item media-object-align-top">
-                <div className="form-group flush-bottom">
-                  <FilterByService
-                    byServiceFilter={state.byServiceFilter}
-                    services={data.services}
-                    totalHostsCount={data.totalNodes}
-                    handleFilterChange={this.handleByServiceFilterChange} />
-                </div>
-              </div>
-              <div className="media-object-item media-object-align-top">
-                {this.getFilterInputText()}
+        <div className="filter-bar">
+          <div className="filter-bar-left">
+            <div className="filter-bar-item">
+              <FilterButtons
+                renderButtonContent={this.getButtonContent}
+                filters={HEALTH_FILTER_BUTTONS}
+                filterByKey="title"
+                onFilterChange={this.handleHealthFilterChange}
+                itemList={nodesHealth}
+                selectedFilter={state.healthFilter} />
+            </div>
+            <div className="filter-bar-item">
+              <div className="form-group flush-bottom">
+                <FilterByService
+                  byServiceFilter={state.byServiceFilter}
+                  services={data.services}
+                  totalHostsCount={data.totalNodes}
+                  handleFilterChange={this.handleByServiceFilterChange} />
               </div>
             </div>
-            <div className="media-object media-object-item media-object-inline media-object-item-align-right media-object-offset">
-              <div className="media-object-item">
-                {this.getViewTypeRadioButtons(this.resetFilter)}
-              </div>
+            <div className="filter-bar-item">
+              {this.getFilterInputText()}
+            </div>
+          </div>
+          <div className="filter-bar-right">
+            <div className="filter-bar-item">
+              {this.getViewTypeRadioButtons(this.resetFilter)}
             </div>
           </div>
         </div>
-
         <RouteHandler
           selectedResource={state.selectedResource}
           hosts={nodesList}

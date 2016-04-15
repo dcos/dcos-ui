@@ -83,7 +83,7 @@ var FilterHealth = React.createClass({
 
   render: function () {
     return (
-      <div className="button-group">
+      <div className="button-group flush-bottom">
         {this.getFilterButtons()}
       </div>
     );
