@@ -7,7 +7,6 @@ var InternalStorageMixin = require('../mixins/InternalStorageMixin');
 var MesosStateStore = require('../stores/MesosStateStore');
 var NodesGridDials = require('./NodesGridDials');
 var RequestErrorMsg = require('./RequestErrorMsg');
-var Util = require('../utils/Util');
 var MAX_SERVICES_TO_SHOW = 8;
 var OTHER_SERVICES_COLOR = 8;
 
