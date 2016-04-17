@@ -105,7 +105,7 @@ let ServiceList = React.createClass({
 
   getNoServicesMessage: function () {
     return (
-      <div className="container container-pod-fluid">
+      <div>
         <h3 className="flush-top inverse text-align-center">No Services Running</h3>
         <p className="inverse flush text-align-center">Use the {Config.productName} command line tools to find and install services.</p>
       </div>
