@@ -1,6 +1,7 @@
 import HealthStatus from '../constants/HealthStatus';
 import Item from './Item';
 import ServiceImages from '../constants/ServiceImages';
+import StatusLabels from '../constants/StatusLabels';
 
 module.exports = class Service extends Item {
   getArguments() {
@@ -83,6 +84,24 @@ module.exports = class Service extends Item {
       mem: this.get('mem'),
       disk: this.get('disk')
     };
+  }
+
+  getStatus() {
+    let {tasksRunning} = this.getTasksSummary();
+    let deployments = this.getDeployments();
+
+    if (deployments.length > 0) {
+      return StatusLabels.DEPLOYING;
+    }
+
+    if (tasksRunning > 0) {
+      return StatusLabels.RUNNING;
+    }
+
+    let instances = this.getInstances();
+    if (instances === 0) {
+      return StatusLabels.SUSPENDED;
+    }
   }
 
   getTasksSummary() {
