@@ -45,7 +45,7 @@
   padding-left: 37%;
   position: absolute;
   width: 100%;
-  z-index: @z-index-modal + 1;
+  z-index: @z-index-user-dropdown-menu;
 
   .dropdown-menu {
     border-radius: 0;
@@ -127,9 +127,7 @@
 .sidebar-footer-user-dropdown {
   display: none;
   position: relative;
-  // z-index has to be at least 10000 becase it will render underneath gemini
-  // otherwise.
-  z-index: 10000;
+  z-index: @z-index-sidebar-footer-user-dropdown;
 
   .dropdown-menu {
     left: 8px;

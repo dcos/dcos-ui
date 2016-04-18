@@ -9,8 +9,6 @@ components/side-panel-detail.less
 ----------------------------------------------------------------------------- */
 
 
-@side-panel-detail-flex-container-col: 2004;
-
 
 
 
@@ -52,7 +50,7 @@ Side Panel Detail
     padding: 1px 7px 5px 5px;
     position: absolute;
     top: 50%;
-    z-index: 2010;
+    z-index: @z-index-side-panel-expand-button;
 
     &:after {
     	border-top: 5px solid transparent;
@@ -108,7 +106,7 @@ Side Panel Detail
 
     .flex-container-col {
       max-width: 100%;
-      z-index: @side-panel-detail-flex-container-col;
+      z-index: @z-index-side-panel-container;
     }
 
     // We need to force the Gemini scrollbar view to fill its parent.

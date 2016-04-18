@@ -15,8 +15,6 @@ components/dropdown-menus.less
 
 & when (@dropdown-menu-enabled) {
 
-  @dropdown-container-z-index: @side-panel-detail-flex-container-col + 1;
-
   /* -----------------------------------------------------------------------------
   --------------------------------------------------------------------------------
 
@@ -42,7 +40,7 @@ components/dropdown-menus.less
 
       .dropdown-menu {
 
-        z-index: @dropdown-container-z-index;
+        z-index: @z-index-dropdown;
 
       }
 
@@ -115,12 +113,12 @@ components/dropdown-menus.less
 
 
   .dropdown-menu-down-leave {
-    z-index: @dropdown-container-z-index;
+    z-index: @z-index-dropdown;
   }
 
 
   .dropdown-menu-up-leave {
-    z-index: @dropdown-container-z-index;
+    z-index: @z-index-dropdown;
   }
 
 

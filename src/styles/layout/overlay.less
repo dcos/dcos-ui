@@ -28,7 +28,7 @@ Overlay
   position: absolute;
   top: 0;
   width: 100%;
-  z-index: @z-index-side-panel + 10;
+  z-index: @z-index-overlay;
 
   > .overlay-container {
 
@@ -59,7 +59,7 @@ Overlay
 
     display: block;
     position: relative;
-    z-index: @z-index-side-panel + 2;
+    z-index: @z-index-overlay-header;
     background-color: @side-panel-header-background-color;
     #gradient > .vertical(@side-panel-header-background-gradient-color-top, @side-panel-header-background-gradient-color-bottom);
     border-width: @side-panel-header-border-width;
