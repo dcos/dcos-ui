@@ -3,6 +3,7 @@ let Framework = require('../Framework');
 let HealthStatus = require('../../constants/HealthStatus');
 let Service = require('../Service');
 let ServiceTree = require('../ServiceTree');
+let StatusLabels = require('../../constants/StatusLabels');
 
 describe('ServiceTree', function () {
 
@@ -462,10 +463,57 @@ describe('ServiceTree', function () {
       }));
 
       this.instance.add(new Service({
-        instances: 5
+        instances: 2
       }));
 
       expect(this.instance.getInstances()).toEqual(5);
+    });
+
+  });
+
+  describe('#getStatus', function () {
+
+    beforeEach(function () {
+      this.instance = new ServiceTree();
+    });
+
+    it('returns correct status for running tree', function () {
+      this.instance.add(new Service({
+        tasksStaged: 0,
+        tasksRunning: 1,
+        tasksHealthy: 0,
+        tasksUnhealthy: 0,
+        instances: 1,
+        deployments: []
+      }));
+
+      expect(this.instance.getStatus()).toEqual(StatusLabels.RUNNING);
+    });
+
+    it('returns correct status for suspended tree', function () {
+      this.instance.add(new Service({
+        tasksStaged: 0,
+        tasksRunning: 0,
+        tasksHealthy: 0,
+        tasksUnhealthy: 0,
+        instances: 0,
+        deployments: []
+      }));
+
+      expect(this.instance.getStatus()).toEqual(StatusLabels.SUSPENDED);
+    });
+
+    it('returns correct status for deploying tree', function () {
+      this.instance.add(new Service({
+        tasksStaged: 0,
+        tasksRunning: 15,
+        tasksHealthy: 0,
+        tasksUnhealthy: 0,
+        instances: 0,
+        deployments: [{id: "4d08fc0d-d450-4a3e-9c85-464ffd7565f1"}]
+      }));
+
+      expect(this.instance.getStatus()).toEqual(StatusLabels.DEPLOYING);
     });
 
   });

@@ -1,6 +1,7 @@
 let HealthStatus = require('../../constants/HealthStatus');
 let Service = require('../Service');
 let ServiceImages = require('../../constants/ServiceImages');
+let StatusLabels = require('../../constants/StatusLabels');
 
 describe('Service', function () {
 
@@ -325,6 +326,49 @@ describe('Service', function () {
         mem: 2048,
         disk: 0
       });
+    });
+
+  });
+
+  describe('#getStatus', function () {
+
+    it('returns correct status for running app', function () {
+      let service = new Service({
+        tasksStaged: 0,
+        tasksRunning: 1,
+        tasksHealthy: 0,
+        tasksUnhealthy: 0,
+        instances: 1,
+        deployments: []
+      });
+
+      expect(service.getStatus()).toEqual(StatusLabels.RUNNING);
+    });
+
+    it('returns correct status for suspended app', function () {
+      let service = new Service({
+        tasksStaged: 0,
+        tasksRunning: 0,
+        tasksHealthy: 0,
+        tasksUnhealthy: 0,
+        instances: 0,
+        deployments: []
+      });
+
+      expect(service.getStatus()).toEqual(StatusLabels.SUSPENDED);
+    });
+
+    it('returns correct status for deploying app', function () {
+      let service = new Service({
+        tasksStaged: 0,
+        tasksRunning: 15,
+        tasksHealthy: 0,
+        tasksUnhealthy: 0,
+        instances: 0,
+        deployments: [{id: "4d08fc0d-d450-4a3e-9c85-464ffd7565f1"}]
+      });
+
+      expect(service.getStatus()).toEqual(StatusLabels.DEPLOYING);
     });
 
   });
