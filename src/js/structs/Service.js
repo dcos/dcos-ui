@@ -90,7 +90,9 @@ module.exports = class Service extends Item {
       tasksHealthy: this.get('tasksHealthy'),
       tasksRunning: this.get('tasksRunning'),
       tasksStaged: this.get('tasksStaged'),
-      tasksUnhealthy: this.get('tasksUnhealthy')
+      tasksUnhealthy: this.get('tasksUnhealthy'),
+      tasksUnknown: this.get('tasksRunning') -
+        this.get('tasksHealthy') - this.get('tasksUnhealthy'),
     };
   }
 

@@ -133,9 +133,12 @@ module.exports = class ServiceTree extends Tree {
         taskSummary.tasksRunning += tasksRunning;
         taskSummary.tasksStaged += tasksStaged;
         taskSummary.tasksUnhealthy += tasksUnhealthy;
+        taskSummary.tasksUnknown += tasksRunning -
+          tasksHealthy - tasksUnhealthy;
       }
 
       return taskSummary;
-    }, {tasksHealthy: 0, tasksRunning: 0, tasksStaged: 0, tasksUnhealthy: 0});
+    }, {tasksHealthy: 0, tasksRunning: 0, tasksStaged: 0, tasksUnhealthy: 0,
+      tasksUnknown: 0});
   }
 };
