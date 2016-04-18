@@ -74,6 +74,29 @@ describe('Service', function () {
 
   });
 
+  describe('#getDeployments', function () {
+    it('should return an empty array', function () {
+      let service = new Service({
+        deployments: []
+      });
+
+      expect(service.getDeployments()).toEqual([]);
+    });
+
+    it('should return an array with one deployment', function () {
+      let service = new Service({
+        deployments: [
+          {id: "4d08fc0d-d450-4a3e-9c85-464ffd7565f7"}
+        ]
+      });
+
+      expect(service.getDeployments()).toEqual([
+        {id: "4d08fc0d-d450-4a3e-9c85-464ffd7565f7"}
+      ]);
+    });
+  });
+
+
   describe('#getExecuter', function () {
 
     it('returns correct command', function () {
