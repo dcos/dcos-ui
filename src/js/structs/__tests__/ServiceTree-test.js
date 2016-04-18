@@ -458,7 +458,8 @@ describe('ServiceTree', function () {
         tasksStaged: 1,
         tasksRunning: 4,
         tasksHealthy: 16,
-        tasksUnhealthy: 1
+        tasksUnhealthy: 1,
+        tasksUnknown: -13
       });
     });
 
