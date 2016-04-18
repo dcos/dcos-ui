@@ -343,7 +343,8 @@ describe('Service', function () {
         tasksStaged: 0,
         tasksRunning: 1,
         tasksHealthy: 1,
-        tasksUnhealthy: 0
+        tasksUnhealthy: 0,
+        tasksUnknown: 0
       });
     });
 
