@@ -10,7 +10,7 @@ class StatusBar extends React.Component {
   static get defaultProps() {
     return {
       className: 'progress-bar',
-      height: 10
+      total: 0
     };
   }
 
@@ -19,14 +19,24 @@ class StatusBar extends React.Component {
       return sum + item.value;
     }, 0);
     let offset = 0;
+    total = Math.max(this.props.total, total);
+    if (total === 0) {
+      return null;
+    }
 
     return data.map(function (status, index) {
       let {value, className} = status;
-      if (!className) {
+      if (className == null) {
+
         className = `element-${index}`;
       }
       className = classNames(className, 'bar');
+      if (value === 0) {
+        return null;
+      }
+
       let width = value / total * 100;
+
       let style = {
         width: `${width}%`,
         height: '100%'
@@ -47,7 +57,8 @@ class StatusBar extends React.Component {
     if (!data) {
       return null;
     }
-    className = classNames(className, 'flex-box');
+    className = classNames(className, 'flex-box upgrade-progress-bar' +
+      ' status-bar');
     return (
       <div
         className={className}>
@@ -59,6 +70,7 @@ class StatusBar extends React.Component {
 
 StatusBar.propTypes = {
   className: React.PropTypes.string,
+  total: React.PropTypes.number,
   data: React.PropTypes.arrayOf(
     React.PropTypes.shape({
       className: React.PropTypes.string,
