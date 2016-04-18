@@ -1,0 +1,10 @@
+[
+  {
+    "name": "Foo repository",
+    "url": "http://foo.repo"
+  },
+  {
+    "name": "Bar repository",
+    "url": "http://bar.repo"
+  }
+]

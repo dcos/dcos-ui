@@ -1,0 +1,24 @@
+{
+  "nodes": [
+    {
+      "host_ip": "167.114.218.155",
+      "role:": "agent",
+      "health": 0
+    },
+    {
+      "host_ip": "167.114.218.156",
+      "role:": "agent",
+      "health": 1
+    },
+    {
+      "host_ip": "167.114.218.157",
+      "role:": "agent",
+      "health": 0
+    },
+    {
+      "host_ip": "167.114.218.158",
+      "role:": "agent",
+      "health": 0
+    }
+  ]
+}

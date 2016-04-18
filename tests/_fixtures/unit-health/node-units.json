@@ -1,0 +1,99 @@
+{
+  "units": [
+    {
+      "id": "dcos-setup.service",
+      "health": 0,
+      "description": "Prep the Pkgpanda working directories for this host."
+    },
+    {
+      "id": "dcos-link-env.service",
+      "health": 0,
+      "description": "dcos-link-env.service"
+    },
+    {
+      "id": "dcos-download.service",
+      "health": 0,
+      "description": "Download the DCOS"
+    },
+    {
+      "id": "dcos-exhibitor.service",
+      "health": 0,
+      "description": "Exhibitor Zookeeper Supervisor"
+    },
+    {
+      "id": "dcos-gen-resolvconf.service",
+      "health": 0,
+      "description": "Update systemd-resolved for mesos-dns"
+    },
+    {
+      "id": "dcos-gen-resolvconf.timer",
+      "health": 0,
+      "description": "Periodically update systemd-resolved for mesos-dns"
+    },
+    {
+      "id": "dcos-gunicorn-bouncer.service",
+      "health": 0,
+      "description": "Bouncer (DCOS Access Control Service API provider)"
+    },
+    {
+      "id": "dcos-history-service.service",
+      "health": 0,
+      "description": "DCOS History Service"
+    },
+    {
+      "id": "dcos-keepalived.service",
+      "health": 0,
+      "description": "LVS and VRRP High Availability Monitor"
+    },
+    {
+      "id": "dcos-logrotate.service",
+      "health": 0,
+      "description": "Rotate various logs on the system"
+    },
+    {
+      "id": "dcos-logrotate.timer",
+      "health": 0,
+      "description": "Rotate logs every 2 minutes"
+    },
+    {
+      "id": "dcos-marathon.service",
+      "health": 0,
+      "description": "Marathon"
+    },
+    {
+      "id": "dcos-mesos-dns.service",
+      "health": 0,
+      "description": "Mesos DNS"
+    },
+    {
+      "id": "dcos-mesos-master.service",
+      "health": 0,
+      "description": "Mesos Master"
+    },
+    {
+      "id": "dcos-nginx-reload.service",
+      "health": 0,
+      "description": "Reload nginx"
+    },
+    {
+      "id": "dcos-nginx-reload.timer",
+      "health": 0,
+      "description": "Periodically reload nginx config to pickup new dns"
+    },
+    {
+      "id": "dcos-nginx.service",
+      "health": 0,
+      "description": "A high performance web server and a reverse proxy server"
+    },
+    {
+      "id": "dcos-signal.service",
+      "health": 1,
+      "description": "DCOS Tracking"
+    },
+    {
+      "id": "dcos-signal.timer",
+      "health": 0,
+      "description": "Tracking every interval"
+    }
+  ]
+}

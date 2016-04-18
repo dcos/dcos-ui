@@ -1,0 +1,157 @@
+{
+  "attributes": {
+    
+  },
+  "build_date": "2016-02-10 01:46:43",
+  "build_time": 1455068803.0,
+  "build_user": "",
+  "completed_frameworks": [
+    
+  ],
+  "flags": {
+    "appc_store_dir": "/tmp/mesos/store/appc",
+    "authenticatee": "crammd5",
+    "cgroups_cpu_enable_pids_and_tids_count": "false",
+    "cgroups_enable_cfs": "true",
+    "cgroups_hierarchy": "/sys/fs/cgroup",
+    "cgroups_limit_swap": "false",
+    "cgroups_root": "mesos",
+    "container_disk_watch_interval": "15secs",
+    "container_logger": "org_apache_mesos_LogrotateContainerLogger",
+    "containerizers": "docker,mesos",
+    "default_role": "*",
+    "disk_watch_interval": "1mins",
+    "docker": "docker",
+    "docker_auth_server": "https://auth.docker.io",
+    "docker_kill_orphans": "true",
+    "docker_puller_timeout": "60",
+    "docker_registry": "https://registry-1.docker.io",
+    "docker_remove_delay": "1hrs",
+    "docker_socket": "/var/run/docker.sock",
+    "docker_stop_timeout": "0ns",
+    "docker_store_dir": "/tmp/mesos/store/docker",
+    "enforce_container_disk_quota": "false",
+    "executor_environment_variables": "{\"LD_LIBRARY_PATH\":\"\\/opt\\/mesosphere\\/lib\",\"PATH\":\"\\/usr\\/bin:\\/bin\",\"SASL_PATH\":\"\\/opt\\/mesosphere\\/lib\\/sasl2\",\"SHELL\":\"\\/usr\\/bin\\/bash\"}",
+    "executor_registration_timeout": "10mins",
+    "executor_shutdown_grace_period": "5secs",
+    "fetcher_cache_dir": "/tmp/mesos/fetch",
+    "fetcher_cache_size": "2GB",
+    "frameworks_home": "",
+    "gc_delay": "2days",
+    "gc_disk_headroom": "0.1",
+    "hadoop_home": "",
+    "help": "false",
+    "hostname_lookup": "false",
+    "image_provisioner_backend": "copy",
+    "initialize_driver_logging": "true",
+    "ip_discovery_command": "/opt/mesosphere/bin/detect_ip",
+    "isolation": "cgroups/cpu,cgroups/mem,posix/disk",
+    "launcher_dir": "/opt/mesosphere/packages/mesos--be838ff64133ce38545b7d06f43c6348e5963188/libexec/mesos",
+    "log_dir": "/var/log/mesos",
+    "logbufsecs": "0",
+    "logging_level": "INFO",
+    "master": "zk://leader.mesos:2181/mesos",
+    "modules": "libraries {\n  file: \"/opt/mesosphere/lib/liblogrotate_container_logger.so\"\n  modules {\n    name: \"org_apache_mesos_LogrotateContainerLogger\"\n    parameters {\n      key: \"launcher_dir\"\n      value: \"/opt/mesosphere/active/mesos/libexec/mesos/\"\n    }\n    parameters {\n      key: \"max_stdout_size\"\n      value: \"2MB\"\n    }\n    parameters {\n      key: \"logrotate_stdout_options\"\n      value: \"rotate 9\"\n    }\n    parameters {\n      key: \"max_stderr_size\"\n      value: \"2MB\"\n    }\n    parameters {\n      key: \"logrotate_stderr_options\"\n      value: \"rotate 9\"\n    }\n  }\n}\n",
+    "oversubscribed_resources_interval": "15secs",
+    "perf_duration": "10secs",
+    "perf_interval": "1mins",
+    "port": "5051",
+    "qos_correction_interval_min": "0ns",
+    "quiet": "false",
+    "recover": "reconnect",
+    "recovery_timeout": "15mins",
+    "registration_backoff_factor": "1secs",
+    "resources": "ports:[1025-2180,2182-3887,3889-5049,5052-8079,8082-8180,8182-32000]",
+    "revocable_cpu_low_priority": "true",
+    "sandbox_directory": "/mnt/mesos/sandbox",
+    "slave_subsystems": "cpu,memory",
+    "strict": "true",
+    "switch_user": "true",
+    "systemd_runtime_directory": "/run/systemd/system",
+    "version": "false",
+    "work_dir": "/var/lib/mesos/slave"
+  },
+  "frameworks": [
+    {
+      "checkpoint": true,
+      "completed_executors": [
+        
+      ],
+      "executors": [
+        {
+          "completed_tasks": [
+            
+          ],
+          "container": "6ce1f063-3838-49b9-b6aa-428127094507",
+          "directory": "/var/lib/mesos/slave/slaves/b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S2/frameworks/b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001/executors/server-0_10ab666b-cf9b-44eb-bc53-b6dba1b7c737_executor/runs/6ce1f063-3838-49b9-b6aa-428127094507",
+          "id": "server-0_10ab666b-cf9b-44eb-bc53-b6dba1b7c737_executor",
+          "name": "server-0_10ab666b-cf9b-44eb-bc53-b6dba1b7c737_executor",
+          "queued_tasks": [
+            
+          ],
+          "resources": {
+            "cpus": 1.0,
+            "disk": 9216.0,
+            "mem": 4864.0,
+            "ports": "[7000-7001, 7199-7199, 9000-9001, 9042-9042, 9160-9160]"
+          },
+          "source": "",
+          "tasks": [
+            {
+              "executor_id": "server-0_10ab666b-cf9b-44eb-bc53-b6dba1b7c737_executor",
+              "framework_id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001",
+              "id": "server-0_10ab666b-cf9b-44eb-bc53-b6dba1b7c737",
+              "name": "server-0",
+              "resources": {
+                "cpus": 0.5,
+                "disk": 9216.0,
+                "mem": 4096.0,
+                "ports": "[7000-7001, 7199-7199, 9000-9001, 9042-9042, 9160-9160]"
+              },
+              "slave_id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S2",
+              "state": "TASK_RUNNING",
+              "statuses": [
+                {
+                  "container_status": {
+                    "network_infos": [
+                      {
+                        "ip_address": "10.0.1.109",
+                        "ip_addresses": [
+                          {
+                            "ip_address": "10.0.1.109"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "state": "TASK_RUNNING",
+                  "timestamp": 1456239578.6323
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "failover_timeout": 604800.0,
+      "hostname": "ip-10-0-1-110.us-west-2.compute.internal",
+      "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001",
+      "name": "cassandra",
+      "role": "cassandra_role",
+      "user": "root"
+    }
+  ],
+  "git_sha": "e209d7eb9ce4ef7efa7712a8c230053b083530d6",
+  "hostname": "10.0.1.109",
+  "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S2",
+  "log_dir": "/var/log/mesos",
+  "master_hostname": "ip-10-0-7-122.us-west-2.compute.internal",
+  "pid": "slave(1)@10.0.1.109:5051",
+  "resources": {
+    "cpus": 4.0,
+    "disk": 32541.0,
+    "mem": 14019.0,
+    "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-8079, 8082-8180, 8182-32000]"
+  },
+  "start_time": 1456203119.43809,
+  "version": "0.27.0"
+}

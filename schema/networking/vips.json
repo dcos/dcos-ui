@@ -1,0 +1,18 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "id": "http://schema.dcos/networking/vips",
+  "description": "A list of VIPs.",
+  "title": "VIPs",
+  "type": "object",
+  "properties": {
+    "array": {
+      "description": "Array of VIPs.",
+      "title": "Array",
+      "type": "array",
+      "items": {
+        "$ref": "vip"
+      }
+    }
+  },
+  "required": ["array"]
+}

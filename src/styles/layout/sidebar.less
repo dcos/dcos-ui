@@ -1,0 +1,1178 @@
+/* -----------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+layout/sidebar.less
+
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+----------------------------------------------------------------------------- */
+
+
+
+
+
+
+/* -----------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+Sidebar Variables
+
+--------------------------------------------------------------------------------
+----------------------------------------------------------------------------- */
+
+@sidebar-footer-image-source-height:                                            75px;
+@sidebar-footer-image-source-width:                                             60px;
+@sidebar-footer-image-scale:                                                    1.0;
+@sidebar-footer-image-scale-screen-small:                                       1.0;
+@sidebar-footer-image-scale-screen-medium:                                      1.0;
+@sidebar-footer-image-scale-screen-large:                                       1.0;
+
+
+
+
+
+/* -----------------------------------------------------------------------------
+Sidebar Header Image
+----------------------------------------------------------------------------- */
+
+.sidebar-header-image {
+
+  border: 1px solid fade(@black, 5%);
+  padding: 3px;
+  margin: 0 auto;
+  display: block;
+  width: 64px + (3 * 2) + 2;
+  height: 64px + (3 * 2) + 2;
+  background: @white;
+  .border-radius(50%);
+  overflow: hidden;
+  margin-bottom: (@base-spacing-unit * 0.25);
+
+  .sidebar-header-image-inner {
+
+    display: block;
+    width: 64px;
+    height: 64px;
+    background: color-lighten(@neutral, 80);
+    .border-radius(50%);
+    overflow: hidden;
+    margin-right: auto;
+    margin-left: auto;
+
+  }
+
+}
+
+/* -----------------------------------------------------------------------------
+Sidebar Header Label
+----------------------------------------------------------------------------- */
+
+.sidebar-header-label {
+
+  color: @black;
+
+}
+
+/* -----------------------------------------------------------------------------
+Sidebar Header Sub Label
+----------------------------------------------------------------------------- */
+
+.sidebar-header-sublabel {
+
+  display: flex;
+  justify-content: center;
+  margin-top: @base-spacing-unit * 0.25;
+
+  &:hover {
+
+    .icon-clipboard {
+
+      visibility: visible;
+
+    }
+
+  }
+
+  .icon-clipboard {
+
+    visibility: hidden;
+    opacity: 0.5;
+
+  }
+
+  .hostname {
+
+    margin-left: @icon-mini-width + (@base-spacing-unit * 0.25);
+    color: @purple;
+
+  }
+
+  .sidebar-header-sublabel-action {
+
+    margin-left: @base-spacing-unit * 0.25;
+    vertical-align: center;
+
+    .icon {
+
+      vertical-align: text-bottom;
+
+    }
+
+  }
+
+  .zeroclipboard-is-hover {
+
+    .icon-clipboard {
+
+      visibility: visible;
+      opacity: 1;
+      cursor: pointer;
+
+    }
+
+  }
+
+}
+
+
+
+
+/* -----------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+Sidebar
+
+--------------------------------------------------------------------------------
+----------------------------------------------------------------------------- */
+
+.sidebar {
+
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  top: 0px;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  margin-left: -((2 * (@grid-gutter-width * 1.0)) + @icon-medium-width);
+  padding-left: ((2 * (@grid-gutter-width * 1.0)) + @icon-medium-width);
+  background: @white;
+  z-index: @z-index-header;
+  .transition(left 0.3s ease);
+
+
+
+  /* -----------------------------------------------------------------------------
+  Sidebar Header
+  ----------------------------------------------------------------------------- */
+
+  .sidebar-header {
+
+  }
+
+
+
+  /* -----------------------------------------------------------------------------
+  Sidebar Content
+  ----------------------------------------------------------------------------- */
+
+  .sidebar-content {
+
+    > nav {
+
+      width: 100%;
+
+    }
+
+
+
+    /* -----------------------------------------------------------------------------
+    Sidebar Menu
+    ----------------------------------------------------------------------------- */
+
+    .sidebar-menu {
+
+      padding: 0px;
+      margin: 0px -(@grid-container-fluid-narrow-gutter-width * 1.0);
+
+
+
+      /* -----------------------------------------------------------------------------
+      Sidebar Menu Item
+      ----------------------------------------------------------------------------- */
+
+      .sidebar-menu-item {
+
+        color: color-lighten(@neutral, 50);
+        margin: 0px;
+        position: relative;
+
+        &:after {
+
+          content: '';
+          height: 1px;
+          background: rgba(255, 255, 255, 0.05);
+          position: absolute;
+          bottom: 0px;
+          left: (@grid-container-fluid-narrow-gutter-width * 1.0);
+          right: (@grid-container-fluid-narrow-gutter-width * 1.0);
+
+        }
+
+        &:last-child {
+
+          &:after {
+
+            display: none;
+
+          }
+
+        }
+
+        .sidebar-menu-item-label {
+
+          vertical-align: middle;
+          display: inline-block;
+
+        }
+
+        .sidebar-menu-item-icon {
+
+          margin-right: (@base-spacing-unit * 0.5);
+          .opacity(0.60);
+
+        }
+
+        a {
+
+          color: color-lighten(@neutral, 50);
+          display: block;
+          padding: (@base-spacing-unit * 0.5) (@grid-container-fluid-narrow-gutter-width * 1.0);
+
+          .sidebar-menu-item-label {
+
+            color: color-lighten(@neutral, 50);
+
+          }
+
+          &:hover {
+
+            text-decoration: none;
+            color: color-lighten(@neutral, 30);
+
+            .sidebar-menu-item-label {
+
+              color: color-lighten(@neutral, 30);
+
+            }
+
+            .sidebar-menu-item-icon {
+
+              .opacity(0.80);
+
+            }
+
+          }
+
+          &:active {
+
+            text-decoration: none;
+            color: color-lighten(@neutral, 50);
+
+            .sidebar-menu-item-label {
+
+              color: color-lighten(@neutral, 50);
+
+            }
+
+            .sidebar-menu-item-icon {
+
+              .opacity(0.60);
+
+            }
+
+          }
+
+        }
+
+        &.selected {
+
+          .box-shadow(inset 2px 0px 0px 0px @purple);
+          background-color: fade(@purple, 10%);
+
+          .sidebar-menu-item-icon {
+
+            .opacity(1);
+
+          }
+
+          a {
+
+            color: @purple;
+
+            .sidebar-menu-item-label {
+
+              color: @purple;
+
+            }
+
+            &:hover .sidebar-menu-item-icon {
+
+              .opacity(1);
+
+            }
+
+          }
+
+        }
+
+      }
+
+    }
+
+  }
+
+
+
+  /* -----------------------------------------------------------------------------
+  Sidebar Footer
+  ----------------------------------------------------------------------------- */
+
+  .sidebar-footer {
+
+    width: 100%;
+    bottom: 0px;
+
+
+
+    /* -----------------------------------------------------------------------------
+    Sidebar Footer Image
+    ----------------------------------------------------------------------------- */
+
+    .sidebar-footer-image {
+      margin: 0 auto @base-spacing-unit * 1/4 auto;
+      opacity: 0.1;
+      text-align: center;
+      height: @sidebar-footer-image-source-height;
+      width: @sidebar-footer-image-source-width;
+
+      svg {
+        height: @sidebar-footer-image-source-height;
+        width: @sidebar-footer-image-source-width;
+      }
+
+      a {
+        color: @body-text-color;
+        display: block;
+      }
+
+    }
+
+    p {
+      opacity: 0.5;
+    }
+
+    /* -----------------------------------------------------------------------------
+    Sidebar Footer Icon Buttons
+    ----------------------------------------------------------------------------- */
+
+    .icon-buttons {
+
+      display: flex;
+      flex-direction: row;
+
+      .button {
+
+        background-color: transparent;
+        border-top: 1px solid color-lighten(@black, 90);
+        border-right: 1px solid color-lighten(@black, 90);
+        border-bottom-width: 0;
+        border-left-width: 0;
+        border-radius: 0;
+        flex-grow: 1;
+        height: auto;
+
+        .icon {
+
+          opacity: 0.7;
+          transition: opacity 5s;
+
+          &:hover {
+
+            opacity: 1;
+
+          }
+
+        }
+
+        &:last-child {
+
+          border-right-width: 0;
+
+        }
+
+      }
+
+      .user-dropdown {
+        align-items: center;
+
+        .icon {
+          margin-right: (@base-spacing-unit * 0.25);
+        }
+
+        .user-description {
+          flex: 1;
+          text-align: left;
+          display: block;
+        }
+
+      }
+
+    }
+
+  }
+
+}
+
+
+
+/* -----------------------------------------------------------------------------
+Sidebar Open
+----------------------------------------------------------------------------- */
+
+.canvas-sidebar-open {
+
+  .sidebar {
+
+    left: 0px;
+
+  }
+
+  .page {
+
+    left: 100%;
+    margin-left: -((2 * (@grid-gutter-width * 1.0)) + @icon-medium-width);
+    position: fixed;
+
+  }
+
+}
+
+
+
+
+
+
+& when (@screen-mini-enabled) {
+
+  /* -----------------------------------------------------------------------------
+  --------------------------------------------------------------------------------
+
+  Screen Size: Mini (@screen-mini) and above
+
+  --------------------------------------------------------------------------------
+  ----------------------------------------------------------------------------- */
+
+  @media (min-width: @screen-mini) {
+
+    /* -----------------------------------------------------------------------------
+    --------------------------------------------------------------------------------
+
+    Sidebar
+
+    --------------------------------------------------------------------------------
+    ----------------------------------------------------------------------------- */
+
+    .sidebar {
+
+      margin-left: -((2 * (@grid-gutter-width-screen-mini * 1.0)) + @icon-medium-width);
+      padding-left: ((2 * (@grid-gutter-width-screen-mini * 1.0)) + @icon-medium-width);
+
+
+
+      /* -----------------------------------------------------------------------------
+      Sidebar Header
+      ----------------------------------------------------------------------------- */
+
+      .sidebar-header {
+
+        /* -----------------------------------------------------------------------------
+        Sidebar Header Image
+        ----------------------------------------------------------------------------- */
+
+        .sidebar-header-image {
+
+          width: 64px + (3 * 2) + 1;
+          height: 64px + (3 * 2) + 1;
+          margin-bottom: (@base-spacing-unit-screen-mini * 0.25);
+
+          .sidebar-header-image-inner {
+
+            width: 64px;
+            height: 64px;
+
+          }
+
+        }
+
+
+
+        /* -----------------------------------------------------------------------------
+        Sidebar Header Label
+        ----------------------------------------------------------------------------- */
+
+        .sidebar-header-label {
+
+          display: none;
+
+        }
+
+
+
+        /* -----------------------------------------------------------------------------
+        Sidebar Header Sublabel
+        ----------------------------------------------------------------------------- */
+
+        .sidebar-header-sublabel {
+
+          display: none;
+
+        }
+
+      }
+
+
+
+      /* -----------------------------------------------------------------------------
+      Sidebar Content
+      ----------------------------------------------------------------------------- */
+      .sidebar-content {
+
+        /* -----------------------------------------------------------------------------
+        Sidebar Menu
+        ----------------------------------------------------------------------------- */
+
+        .sidebar-menu {
+
+          margin: 0px -(@grid-container-fluid-narrow-gutter-width * 1.0);
+
+          .sidebar-menu-item {
+
+            &:after {
+
+              left: (@grid-container-fluid-narrow-gutter-width * 0.5);
+              right: (@grid-container-fluid-narrow-gutter-width * 0.5);
+
+            }
+
+            .sidebar-menu-item-icon {
+
+              margin-right: (@base-spacing-unit-screen-mini * 0.5);
+
+            }
+
+            a {
+
+              padding: (@base-spacing-unit-screen-mini * 0.5) (@grid-container-fluid-narrow-gutter-width * 1.0);
+
+            }
+
+          }
+
+        }
+
+      }
+
+    }
+
+
+
+    /* -----------------------------------------------------------------------------
+    Sidebar Open
+    ----------------------------------------------------------------------------- */
+
+    .canvas-sidebar-open {
+
+      .page {
+
+        left: 100%;
+        margin-left: -((2 * (@grid-gutter-width-screen-mini * 1.0)) + @icon-medium-width);
+        position: fixed;
+
+      }
+
+    }
+
+  }
+
+}
+
+
+
+
+
+
+& when (@screen-small-enabled) {
+
+  /* -----------------------------------------------------------------------------
+  --------------------------------------------------------------------------------
+
+  Screen Size: Small (@screen-small) and above
+
+  --------------------------------------------------------------------------------
+  ----------------------------------------------------------------------------- */
+
+  @media (min-width: @screen-small) {
+
+    /* -----------------------------------------------------------------------------
+    --------------------------------------------------------------------------------
+
+    Sidebar
+
+    --------------------------------------------------------------------------------
+    ----------------------------------------------------------------------------- */
+
+    .sidebar {
+
+      float: left;
+      position: absolute;
+      top: auto;
+      left: auto;
+      width: (2 * (@base-spacing-unit-screen-small * 0.5)) + @icon-medium-width;
+      margin-left: auto;
+      padding-left: 0px;
+      .box-shadow(0px 0px 0px 1px rgba(255, 255, 255, 0.05));
+      .transition(none);
+
+
+
+      /* -----------------------------------------------------------------------------
+      Sidebar Header
+      ----------------------------------------------------------------------------- */
+
+      .sidebar-header {
+
+        /* -----------------------------------------------------------------------------
+        Sidebar Header Image
+        ----------------------------------------------------------------------------- */
+
+        .sidebar-header-image {
+
+          width: @icon-medium-width + (3 * 2) + 2;
+          height: @icon-medium-height + (3 * 2) + 2;
+          margin-bottom: 0px;
+
+          .sidebar-header-image-inner {
+
+            width: @icon-medium-width;
+            height: @icon-medium-height;
+
+          }
+
+        }
+
+        .sidebar-header-label {
+
+          display: none;
+
+        }
+
+        .sidebar-header-sublabel {
+
+        }
+
+      }
+
+
+
+      /* -----------------------------------------------------------------------------
+      Sidebar Content
+      ----------------------------------------------------------------------------- */
+
+      .sidebar-content {
+
+        .sidebar-menu {
+
+          margin: 0px -(@base-spacing-unit-screen-small * 0.375);
+
+          .sidebar-menu-item {
+
+            &:after {
+
+              left: (@base-spacing-unit-screen-small * 0.5);
+              right: (@base-spacing-unit-screen-small * 0.5);
+
+            }
+
+            .sidebar-menu-item-icon {
+
+              margin-right: 0;
+
+            }
+
+            .sidebar-menu-item-label {
+
+              display: none;
+
+            }
+
+            a {
+
+              padding: (@base-spacing-unit-screen-small * 0.25) (@base-spacing-unit-screen-small * 0.5);
+
+            }
+
+          }
+
+        }
+
+      }
+
+
+
+      /* -----------------------------------------------------------------------------
+      Sidebar Footer
+      ----------------------------------------------------------------------------- */
+
+      .sidebar-footer {
+
+        .logo-container {
+
+          display: none;
+
+        }
+
+        .company-name {
+
+          display: none;
+
+        }
+
+        .sidebar-footer-image {
+
+          margin-bottom: @base-spacing-unit-screen-small * 0.15;
+
+        }
+
+        .icon-buttons {
+
+          flex-direction: column;
+
+          .button {
+
+            padding-left: 15px;
+            padding-right: 15px;
+            border-top-width: 0;
+            border-bottom: 1px solid color-lighten(@black, 90);
+            border-left-width: 0;
+
+            &:last-child {
+
+              border-bottom-width: 0;
+
+            }
+
+          }
+
+          .user-dropdown .user-description {
+            display: none;
+          }
+
+        }
+
+      }
+
+    }
+
+  }
+
+}
+
+
+
+
+
+
+& when (@screen-medium-enabled) {
+
+  /* -----------------------------------------------------------------------------
+  --------------------------------------------------------------------------------
+
+  Screen Size: Medium (@screen-medium) and above
+
+  --------------------------------------------------------------------------------
+  ----------------------------------------------------------------------------- */
+
+  @media (min-width: @screen-medium) {
+
+    /* -----------------------------------------------------------------------------
+    --------------------------------------------------------------------------------
+
+    Sidebar
+
+    --------------------------------------------------------------------------------
+    ----------------------------------------------------------------------------- */
+
+    .sidebar {
+
+      width: 250px;
+
+
+
+      /* -----------------------------------------------------------------------------
+      Sidebar Header
+      ----------------------------------------------------------------------------- */
+
+      .sidebar-header {
+
+        /* -----------------------------------------------------------------------------
+        Sidebar Header Image
+        ----------------------------------------------------------------------------- */
+
+        .sidebar-header-image {
+
+          width: 64px + (3 * 2) + 2;
+          height: 64px + (3 * 2) + 2;
+          margin-bottom: (@base-spacing-unit-screen-medium * 0.25);
+          margin-left: auto;
+
+          .sidebar-header-image-inner {
+
+            width: 64px;
+            height: 64px;
+
+          }
+
+        }
+
+
+
+        /* -----------------------------------------------------------------------------
+        Sidebar Header Label
+        ----------------------------------------------------------------------------- */
+
+        .sidebar-header-label {
+
+          display: block;
+
+        }
+
+
+
+        /* -----------------------------------------------------------------------------
+        Sidebar Header Sub Label
+        ----------------------------------------------------------------------------- */
+
+        .sidebar-header-sublabel {
+
+          display: flex;
+          margin-top: @base-spacing-unit-screen-medium * 0.1;
+
+          .hostname {
+
+            margin-left: @icon-mini-width + (@base-spacing-unit-screen-medium * 0.1);
+
+          }
+
+          .sidebar-header-sublabel-action {
+
+            margin-left: @base-spacing-unit-screen-medium * 0.1;
+
+          }
+
+        }
+
+      }
+
+
+
+      /* -----------------------------------------------------------------------------
+      Sidebar Content
+      ----------------------------------------------------------------------------- */
+
+      .sidebar-content {
+
+        /* -----------------------------------------------------------------------------
+        Sidebar Menu
+        ----------------------------------------------------------------------------- */
+
+        .sidebar-menu {
+
+          margin: 0px -(@grid-container-fluid-narrow-gutter-width-screen-medium * 1.0);
+
+          .sidebar-menu-item {
+
+            &:after {
+
+              left: (@grid-container-fluid-narrow-gutter-width-screen-medium * 1.0);
+              right: (@grid-container-fluid-narrow-gutter-width-screen-medium * 1.0);
+
+            }
+
+            .sidebar-menu-item-icon {
+
+              margin-right: (@base-spacing-unit-screen-medium * 0.25);
+
+            }
+
+            .sidebar-menu-item-label {
+
+              display: inline-block;
+
+            }
+
+            a {
+
+              padding: (@base-spacing-unit-screen-medium * 0.25) (@grid-container-fluid-narrow-gutter-width-screen-medium * 1.0);
+
+            }
+
+          }
+
+        }
+
+      }
+
+
+
+      /* -----------------------------------------------------------------------------
+      Sidebar Footer
+      ----------------------------------------------------------------------------- */
+
+      .sidebar-footer {
+
+        .logo-container {
+
+          display: block;
+
+        }
+
+        .company-name {
+
+          display: inline;
+
+        }
+
+        .sidebar-footer-image {
+
+          margin-bottom: @base-spacing-unit-screen-medium * 0.15;
+
+        }
+
+        .icon-buttons {
+
+          flex-direction: row;
+
+          .button {
+
+            border-top-width: 1px;
+            border-right-width: 1px;
+            border-bottom-width: 0;
+            border-left-width: 0;
+
+            &:last-child {
+
+              border-right-width: 0;
+
+            }
+
+          }
+
+          .user-dropdown {
+
+            .icon {
+              margin-right: (@base-spacing-unit-screen-medium * 0.25);
+            }
+
+            .user-description {
+              display: block;
+            }
+
+            &.dropdown-toggle:after {
+              display: block;
+            }
+
+          }
+
+        }
+
+      }
+
+    }
+
+  }
+
+}
+
+
+
+
+
+
+& when (@screen-large-enabled) {
+
+  /* -----------------------------------------------------------------------------
+  --------------------------------------------------------------------------------
+
+  Screen Size: Large (@screen-large) and above
+
+  --------------------------------------------------------------------------------
+  ----------------------------------------------------------------------------- */
+
+  @media (min-width: @screen-large) {
+
+    /* -----------------------------------------------------------------------------
+    --------------------------------------------------------------------------------
+
+    Sidebar
+
+    --------------------------------------------------------------------------------
+    ----------------------------------------------------------------------------- */
+
+    .sidebar {
+
+      width: 300px;
+
+
+
+      /* -----------------------------------------------------------------------------
+      Sidebar Header
+      ----------------------------------------------------------------------------- */
+
+      .sidebar-header {
+
+        /* -----------------------------------------------------------------------------
+        Sidebar Header Image
+        ----------------------------------------------------------------------------- */
+
+        .sidebar-header-image {
+
+          width: 64px + (3 * 2) + 2;
+          height: 64px + (3 * 2) + 2;
+          margin-bottom: (@base-spacing-unit-screen-large * 0.25);
+
+          .sidebar-header-image-inner {
+
+            width: 64px;
+            height: 64px;
+
+          }
+
+        }
+
+
+
+        /* -----------------------------------------------------------------------------
+        Sidebar Header Sub Label
+        ----------------------------------------------------------------------------- */
+
+        .sidebar-header-sublabel {
+
+          margin-top: @base-spacing-unit-screen-large * 0.1;
+
+          .hostname {
+
+            margin-left: @icon-mini-width + (@base-spacing-unit-screen-large * 0.1);
+
+          }
+
+          .sidebar-header-sublabel-action {
+
+            margin-left: @base-spacing-unit-screen-large * 0.1;
+
+          }
+
+        }
+
+      }
+
+
+
+      /* -----------------------------------------------------------------------------
+      Sidebar Content
+      ----------------------------------------------------------------------------- */
+
+      .sidebar-content {
+
+        /* -----------------------------------------------------------------------------
+        Sidebar Menu
+        ----------------------------------------------------------------------------- */
+
+        .sidebar-menu {
+
+          margin: 0px -(@grid-container-fluid-narrow-gutter-width-screen-large * 1.0);
+
+          .sidebar-menu-item {
+
+            &:after {
+
+              left: (@grid-container-fluid-narrow-gutter-width-screen-large * 1.0);
+              right: (@grid-container-fluid-narrow-gutter-width-screen-large * 1.0);
+
+            }
+
+            .sidebar-menu-item-icon {
+
+              margin-right: (@base-spacing-unit-screen-large * 0.25);
+
+            }
+
+            a {
+
+              padding: (@base-spacing-unit-screen-large * 0.25) (@grid-container-fluid-narrow-gutter-width-screen-large * 1.0);
+
+            }
+
+          }
+
+        }
+
+      }
+
+
+
+      /* -----------------------------------------------------------------------------
+      Sidebar Footer
+      ----------------------------------------------------------------------------- */
+
+      .sidebar-footer {
+
+        .sidebar-footer-image {
+
+          margin-bottom: @base-spacing-unit-screen-large * 0.15;
+
+        }
+
+        .icon-buttons .user-dropdown .icon {
+          margin-right: (@base-spacing-unit-screen-large * 0.25);
+        }
+
+      }
+
+    }
+
+  }
+
+}
+
+
+
+
+
+
+& when (@screen-resolution-2x-enabled) {
+
+  /* -----------------------------------------------------------------------------
+  --------------------------------------------------------------------------------
+
+  Screen Resolution: 2x
+
+  --------------------------------------------------------------------------------
+  ----------------------------------------------------------------------------- */
+
+  @media only screen and (-webkit-min-device-pixel-ratio: 2) {
+
+  }
+
+}

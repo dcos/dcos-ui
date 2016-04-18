@@ -1,0 +1,564 @@
+.panel {
+  background-color: @panel-background-color;
+  margin-bottom: @grid-gutter-width;
+
+  .panel-header {
+    display: flex;
+
+    .panel-title {
+      text-align: center;
+      flex: 1;
+      .flush-top();
+      .flush-bottom();
+    }
+
+    .panel-options-left {
+      .flush-top();
+      .flush-bottom();
+    }
+
+    .panel-options-right {
+      margin-left: auto;
+      .flush-top();
+      .flush-bottom();
+
+      /* Hacky - please remove after panel-options-right is filled with content */
+      &.fixed-width {
+        display: none;
+      }
+    }
+
+    &.panel-header-bottom-border {
+      border-bottom: 1px solid @border-color;
+
+      &.inverse {
+        border-bottom: 1px solid @border-color-inverse;
+      }
+    }
+
+
+    &.panel-header-large {
+      padding: @base-spacing-unit @base-spacing-unit 0;
+      border: 0;
+    }
+  }
+
+  .panel-footer {
+    &.panel-footer-no-top-border {
+      border-top: none;
+    }
+
+    &.inverse {
+      border-top: 1px solid @border-color-inverse;
+    }
+  }
+
+  .panel-content,
+  .panel-footer,
+  .panel-header {
+
+    &.flush {
+
+      padding-bottom: 0;
+      padding-top: 0;
+
+    }
+
+    &.flush-top {
+
+      padding-top: 0;
+
+    }
+
+    &.flush-bottom {
+
+      padding-bottom: 0;
+
+    }
+  }
+
+  .panel-content {
+
+    max-width: 100%;
+
+  }
+
+  &.clickable:hover {
+    background-color: color-lighten(@panel-background-color, 5);
+  }
+
+  &.dashboard-panel {
+
+    &.dashboard-panel-list {
+
+      .panel-content {
+        padding-top: (@base-spacing-unit * .5);
+        padding-bottom: (@base-spacing-unit * .5);
+      }
+
+    }
+
+    .panel-content {
+      height: (@base-spacing-unit * 14) - @heading-h4-text-font-size;
+    }
+    // Fixes a Safari flex issue where panels overflow the column on resize
+    width: 100%;
+  }
+
+  .panel-content {
+    &.panel-content-short-bottom {
+      padding-bottom: @base-spacing-unit * 2/3;
+    }
+
+    &.panel-content-tall-top {
+      padding-top: @base-spacing-unit * 5/3;
+    }
+  }
+
+  .panel-footer {
+    &.panel-footer-tall-bottom {
+      padding-bottom: @base-spacing-unit * 5/3;
+    }
+  }
+}
+
+& when (@screen-mini-enabled) {
+  @media (min-width: @screen-mini) {
+    .panel {
+      margin-bottom: @grid-gutter-width;
+
+      .panel-header {
+        .panel-options-right {
+          /* Hacky - please remove after panel-options-right is filled with content */
+          &.fixed-width {
+            display: block;
+            width: @base-spacing-unit * 3.5;
+          }
+        }
+      }
+
+      &.dashboard-panel {
+        .panel-content {
+          height: (@base-spacing-unit-screen-mini * 17) - @heading-h4-text-font-size-scale-screen-mini;
+        }
+      }
+    }
+
+    .alert-panel {
+      min-height: 300px;
+      min-width: 260px;
+    }
+  }
+}
+
+& when (@screen-small-enabled) {
+  @media (min-width: @screen-small) {
+    .panel {
+      margin-bottom: @grid-gutter-width-screen-small;
+
+      .panel-header {
+        .panel-options-right {
+          /* Hacky - please remove after panel-options-right is filled with content */
+          &.fixed-width {
+            display: block;
+            width: @base-spacing-unit-screen-small * 3.5;
+          }
+        }
+      }
+
+      &.dashboard-panel {
+        .panel-content {
+          height: (@base-spacing-unit-screen-small * 10) - @heading-h4-text-font-size-scale-screen-small;
+        }
+      }
+    }
+
+    .alert-panel {
+      min-height: 350px;
+      min-width: 350px;
+    }
+  }
+}
+
+& when (@screen-medium-enabled) {
+  @media (min-width: @screen-medium) {
+    .panel {
+      margin-bottom: @grid-gutter-width-screen-medium;
+
+      .panel-header {
+        .panel-options-right {
+          /* Hacky - please remove after panel-options-right is filled with content */
+          &.fixed-width {
+            display: block;
+            width: @base-spacing-unit-screen-medium * 3.5;
+          }
+        }
+      }
+
+      &.dashboard-panel {
+        .panel-content {
+          height: (@base-spacing-unit-screen-medium * 7.5) - @heading-h4-text-font-size-scale-screen-medium;
+        }
+      }
+    }
+  }
+}
+
+& when (@screen-large-enabled) {
+  @media (min-width: @screen-large) {
+    .panel {
+      margin-bottom: @grid-gutter-width-screen-large;
+
+      .panel-header {
+        .panel-options-right {
+          /* Hacky - please remove after panel-options-right is filled with content */
+          &.fixed-width {
+            display: block;
+            width: @base-spacing-unit-screen-large * 3.5;
+          }
+        }
+      }
+
+      &.dashboard-panel {
+        .panel-content {
+          height: (@base-spacing-unit-screen-large * 5.5) - @heading-h4-text-font-size-scale-screen-large;
+        }
+      }
+    }
+  }
+}
+
+& when (@screen-x-large-enabled) {
+  @media (min-width: @screen-x-large) {
+    .panel {
+      margin-bottom: @grid-gutter-width-screen-x-large;
+
+      .panel-header {
+        .panel-options-right {
+          /* Hacky - please remove after panel-options-right is filled with content */
+          &.fixed-width {
+            display: block;
+            width: @base-spacing-unit-screen-x-large * 3.5;
+          }
+        }
+      }
+
+      &.dashboard-panel {
+        .panel-content {
+          height: (@base-spacing-unit-screen-x-large * 5) - @heading-h4-text-font-size-scale-screen-large;
+        }
+      }
+    }
+  }
+}
+
+
+/* -----------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+components/panels.less
+
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+----------------------------------------------------------------------------- */
+
+
+
+
+
+
+& when (@panel-enabled) {
+
+  /* -----------------------------------------------------------------------------
+  --------------------------------------------------------------------------------
+
+  Panel
+
+  --------------------------------------------------------------------------------
+  ----------------------------------------------------------------------------- */
+
+  .panel {
+
+    /* -----------------------------------------------------------------------------
+    Panel (Flex)
+    ----------------------------------------------------------------------------- */
+
+    &.panel-flex {
+
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+
+      .panel-content {
+
+        flex-grow: 1;
+
+      }
+
+      .panel-footer {
+
+      }
+
+    }
+
+
+
+    /* -----------------------------------------------------------------------------
+    Panel (Flex)
+    ----------------------------------------------------------------------------- */
+
+    &.panel-simple {
+
+      .panel-content + .panel-footer {
+
+        padding-top: 0px;
+        border-width: 0px;
+
+      }
+
+    }
+
+
+
+    /* -----------------------------------------------------------------------------
+    Panel (Light)
+    ----------------------------------------------------------------------------- */
+
+    &.panel-light {
+
+      background: @white;
+
+
+
+      /* -----------------------------------------------------------------------------
+      Panel Header (Inverse)
+      ----------------------------------------------------------------------------- */
+
+      .panel-header {
+
+      }
+
+
+
+      /* -----------------------------------------------------------------------------
+      Panel Content (Inverse)
+      ----------------------------------------------------------------------------- */
+
+      .panel-content {
+
+      }
+
+
+
+      /* -----------------------------------------------------------------------------
+      Panel Footer (Inverse)
+      ----------------------------------------------------------------------------- */
+
+      .panel-footer {
+
+      }
+
+    }
+
+    /* -----------------------------------------------------------------------------
+    Panel (Info)
+    ----------------------------------------------------------------------------- */
+
+    &.panel-info {
+
+      background: color-lighten(@blue, 90);
+      color: color-lighten(@blue, -20);
+
+      strong {
+
+        color: color-lighten(@blue, -20);
+
+      }
+
+      a {
+
+        color: color-lighten(@blue, 0) !important;
+        text-decoration: underline;
+
+      }
+
+    }
+
+    /* -----------------------------------------------------------------------------
+    Panel (Warning)
+    ----------------------------------------------------------------------------- */
+
+    &.panel-warning {
+
+      background: color-lighten(@orange, 90);
+      color: color-lighten(@orange, -20);
+
+      strong {
+
+        color: color-lighten(@orange, -20);
+
+      }
+
+      a {
+
+        color: color-lighten(@orange, 0) !important;
+        text-decoration: underline;
+
+      }
+
+    }
+
+    /* -----------------------------------------------------------------------------
+    Panel (Danger)
+    ----------------------------------------------------------------------------- */
+
+    &.panel-danger {
+
+      background: color-lighten(@red, 90);
+      color: color-lighten(@red, -20);
+
+      strong {
+
+        color: color-lighten(@red, -20);
+
+      }
+
+      a {
+
+        color: color-lighten(@red, 0) !important;
+        text-decoration: underline;
+
+      }
+
+    }
+
+  }
+
+}
+
+
+
+
+
+
+& when (@panel-enabled) and (@screen-mini-enabled) {
+
+  /* -----------------------------------------------------------------------------
+  --------------------------------------------------------------------------------
+
+  Screen Size: Mini (@screen-mini) and above
+
+  --------------------------------------------------------------------------------
+  ----------------------------------------------------------------------------- */
+
+  @media (min-width: @screen-mini) {
+
+  }
+
+}
+
+
+
+
+
+
+& when (@screen-small-enabled) {
+
+  /* -----------------------------------------------------------------------------
+  --------------------------------------------------------------------------------
+
+  Screen Size: Small (@screen-small) and above
+
+  --------------------------------------------------------------------------------
+  ----------------------------------------------------------------------------- */
+
+  @media (min-width: @screen-small) {
+
+  }
+
+}
+
+
+
+
+
+
+& when (@screen-medium-enabled) {
+
+  /* -----------------------------------------------------------------------------
+  --------------------------------------------------------------------------------
+
+  Screen Size: Medium (@screen-medium) and above
+
+  --------------------------------------------------------------------------------
+  ----------------------------------------------------------------------------- */
+
+  @media (min-width: @screen-medium) {
+
+  }
+
+}
+
+
+
+
+
+
+& when (@screen-large-enabled) {
+
+  /* -----------------------------------------------------------------------------
+  --------------------------------------------------------------------------------
+
+  Screen Size: Large (@screen-large) and above
+
+  --------------------------------------------------------------------------------
+  ----------------------------------------------------------------------------- */
+
+  @media (min-width: @screen-large) {
+
+  }
+
+}
+
+
+
+
+
+
+& when (@screen-resolution-2x-enabled) {
+
+  /* -----------------------------------------------------------------------------
+  --------------------------------------------------------------------------------
+
+  Screen Resolution: 2x
+
+  --------------------------------------------------------------------------------
+  ----------------------------------------------------------------------------- */
+
+  @media only screen and (-webkit-min-device-pixel-ratio: 2) {
+
+  }
+
+}
+
+
+
+
+
+
+& when (@screen-resolution-3x-enabled) {
+
+  /* -----------------------------------------------------------------------------
+  --------------------------------------------------------------------------------
+
+  Screen Resolution: 3x
+
+  --------------------------------------------------------------------------------
+  ----------------------------------------------------------------------------- */
+
+  @media only screen and (-webkit-min-device-pixel-ratio: 3) {
+
+  }
+
+}

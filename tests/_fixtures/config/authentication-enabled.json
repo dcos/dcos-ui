@@ -1,0 +1,9 @@
+{
+  "uiConfiguration": {
+    "plugins": {
+      "authentication": {
+        "enabled": true
+      }
+    }
+  }
+}

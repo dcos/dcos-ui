@@ -1,0 +1,338 @@
+#%RAML 0.8
+title: Minuteman API Spec
+version: v1
+baseUri: /networking/api/{version}
+mediaType: application/json
+schemas:
+  - vips: !include ../../schema/networking/vips.json
+  - vipSummaries: !include ../../schema/networking/vip-summaries.json
+  - vipDetail: !include ../../schema/networking/vip-detail.json
+  - nodeMembership: !include ../../schema/networking/node-membership.json
+  - backendConnections: !include ../../schema/networking/backend-connections.json
+
+/vips:
+  displayName: VIPs
+  get:
+    description: Get a list of VIPs.
+    responses:
+      200:
+        description: Successful response.
+        body:
+          application/json:
+            schema: vips
+            example: |
+              {
+                "array": [
+                  {
+                    "ip": "1.2.3.4",
+                    "port": 5,
+                    "protocol": "tcp"
+                  }
+                ]
+              }
+/summary:
+  displayName: VIPs' Summaries
+  get:
+    description: Get a list of VIP Summaries.
+    responses:
+      200:
+        description: Successful response.
+        body:
+          application/json:
+            schema: vipSummaries
+            example: |
+              {
+                "array": [
+                  {
+                    "vip": {
+                      "ip": "1.2.3.4",
+                      "port": 5,
+                      "protocol": "tcp"
+                    },
+                    "success_last_minute": 3234,
+                    "fail_last_minute": 12,
+                    "backends": 17,
+                    "application_reachability_pct": 92,
+                    "machine_reachability_pct": 98,
+                    "p99_latency_ms": 14
+                  }
+                ]
+              }
+/{vip}/{protocol}/{port}:
+  displayName: VIP Detail
+  uriParameters:
+    vip:
+      description: Requested VIP.
+      type: string
+    protocol:
+      description: Protocol of the requested VIP.
+      type: string
+    port:
+      description: Port of ther requested VIP.
+      type: integer
+  get:
+    description: Get a VIP's detail.
+    responses:
+      200:
+        description: Successful response.
+        body:
+          application/json:
+            schema: vipDetail
+            example: |
+              {
+                "details": [
+                  {
+                    "name": "some section name",
+                    "labels": {
+                      "some label": "some value"
+                    }
+                  },
+                  {
+                    "name": "some other name",
+                    "labels": {
+                      "another label": "another value"
+                    }
+                  }
+                ],
+                "application_reachability_50": {
+                  "1454007720": 32,
+                  "1454007660": 33
+                },
+                "application_reachability_75": {
+                  "1454007720": 32,
+                  "1454007660": 33
+                },
+                "application_reachability_90": {
+                  "1454007720": 32,
+                  "1454007660": 33
+                },
+                "application_reachability_95": {
+                  "1454007720": 32,
+                  "1454007660": 33
+                },
+                "application_reachability_99": {
+                  "1454007720": 32,
+                  "1454007660": 33
+                },
+                "machine_reachability_50": {
+                  "1454007720": 32,
+                  "1454007660": 33
+                },
+                "machine_reachability_75": {
+                  "1454007720": 32,
+                  "1454007660": 33
+                },
+                "machine_reachability_90": {
+                  "1454007720": 32,
+                  "1454007660": 33
+                },
+                "machine_reachability_95": {
+                  "1454007720": 32,
+                  "1454007660": 33
+                },
+                "machine_reachability_99": {
+                  "1454007720": 32,
+                  "1454007660": 33
+                },
+                "connection_latency_50": {
+                  "1454007720": 32,
+                  "1454007660": 33
+                },
+                "connection_latency_75": {
+                  "1454007720": 32,
+                  "1454007660": 33
+                },
+                "connection_latency_90": {
+                  "1454007720": 32,
+                  "1454007660": 33
+                },
+                "connection_latency_95": {
+                  "1454007720": 32,
+                  "1454007660": 33
+                },
+                "connection_latency_99": {
+                  "1454007720": 32,
+                  "1454007660": 33
+                },
+                "request_success": {
+                  "1454007720": 32,
+                  "1454007660": 33
+                },
+                "request_fail": {
+                  "1454007720": 32,
+                  "1454007660": 33
+                },
+                "backends": [
+                  {
+                    "ip": "10.10.11.12",
+                    "port": 52342,
+                    "machine_reachability_pct": 98,
+                    "application_reachability_pct": 95,
+                    "framework_id": "afe04867ec7a3845145579a95f72eca7",
+                    "task_id": "b4b9b02e6f09a9bd760f388b67351e2b",
+                    "p99_latency_ms": 30,
+                    "success_last_minute": 481,
+                    "fail_last_minute": 3
+                  }
+                ],
+                "backend_count": 127
+              }
+      404:
+        description: Not found.
+/backend-connections/{vip}/{protocol}/{port}:
+  displayName: Backend Connections
+  uriParameters:
+    vip:
+      description: Requested VIP.
+      type: string
+    protocol:
+      description: Protocol of the requested VIP.
+      type: string
+    port:
+      description: Port of ther requested VIP.
+      type: integer
+  get:
+    description: Get a backend connection.
+    responses:
+      200:
+        description: Successful response.
+        body:
+          application/json:
+            schema: backendConnections
+            example: |
+              {
+                "details": [
+                  {
+                    "name": "some section name",
+                    "labels": {
+                      "some label": "some value"
+                    }
+                  },
+                  {
+                    "name": "some other name",
+                    "labels": {
+                      "another label": "another value"
+                    }
+                  }
+                ],
+                "application_reachability_50": {
+                  "1454007720": 32,
+                  "1454007660": 33
+                },
+                "application_reachability_75": {
+                  "1454007720": 32,
+                  "1454007660": 33
+                },
+                "application_reachability_90": {
+                  "1454007720": 32,
+                  "1454007660": 33
+                },
+                "application_reachability_95": {
+                  "1454007720": 32,
+                  "1454007660": 33
+                },
+                "application_reachability_99": {
+                  "1454007720": 32,
+                  "1454007660": 33
+                },
+                "machine_reachability_50": {
+                  "1454007720": 32,
+                  "1454007660": 33
+                },
+                "machine_reachability_75": {
+                  "1454007720": 32,
+                  "1454007660": 33
+                },
+                "machine_reachability_90": {
+                  "1454007720": 32,
+                  "1454007660": 33
+                },
+                "machine_reachability_95": {
+                  "1454007720": 32,
+                  "1454007660": 33
+                },
+                "machine_reachability_99": {
+                  "1454007720": 32,
+                  "1454007660": 33
+                },
+                "connection_latency_50": {
+                  "1454007720": 32,
+                  "1454007660": 33
+                },
+                "connection_latency_75": {
+                  "1454007720": 32,
+                  "1454007660": 33
+                },
+                "connection_latency_90": {
+                  "1454007720": 32,
+                  "1454007660": 33
+                },
+                "connection_latency_95": {
+                  "1454007720": 32,
+                  "1454007660": 33
+                },
+                "connection_latency_99": {
+                  "1454007720": 32,
+                  "1454007660": 33
+                },
+                "request_success": {
+                  "1454007720": 32,
+                  "1454007660": 33
+                },
+                "request_fail": {
+                  "1454007720": 32,
+                  "1454007660": 33
+                },
+                "clients": [
+                  {
+                    "machine_reachability": true,
+                    "application_reachability": true,
+                    "ip": "10.10.11.13",
+                    "p99_latency_ms": 30,
+                    "success_last_minute": 481,
+                    "fail_last_minute": 3
+                  }
+                ]
+              }
+      404:
+        description: Not found.
+/membership:
+  displayName: Node Membership
+  get:
+    description: Get node memberships.
+    responses:
+      200:
+        description: Successful response.
+        body:
+          application/json:
+            schema: nodeMembership
+            example: |
+              {
+                "array": [
+                  {
+                    "node": "minuteman@10.2.3.4",
+                    "metadata": {},
+                    "ip": "10.2.3.4",
+                    "active_view": [
+                      "cat@10.3.4.5",
+                      "dog@10.5.6.7"
+                    ],
+                    "passive_view": [
+                      "zat@10.3.4.6",
+                      "zog@10.5.6.8"
+                    ],
+                    "strongly_connected_components": [
+                      [
+                        "zog@10.5.6.8",
+                        "minuteman@4.3.2.1",
+                        "cat@10.3.4.5",
+                        "dog@10.5.6.7"
+                      ],
+                      [
+                        "zat@10.3.4.6",
+                        "zog@10.5.6.8"
+                      ]
+                    ]
+                  }
+                ]
+              }

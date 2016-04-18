@@ -1,0 +1,69 @@
+{
+  "packages": [
+    {
+      "currentVersion": "0.2.1",
+      "description": "A distributed free and open-source database with a flexible data model for documents, graphs, and key-values. Build high performance applications using a convenient SQL-like query language or JavaScript extensions.",
+      "framework": true,
+      "name": "arangodb",
+      "resource": {
+        "images": {
+          "icon-small": "https://downloads.dcos.io/marathon/assets/icon-service-marathon-small.png",
+          "icon-medium": "https://downloads.dcos.io/marathon/assets/icon-service-marathon-medium.png",
+          "icon-large": "https://downloads.dcos.io/marathon/assets/icon-service-marathon-large.png"
+        }
+      },
+      "selected": true,
+      "tags": [
+        "arangodb",
+        "NoSQL",
+        "database",
+        "framework"
+      ],
+      "versions": {
+        "0.2.1": "0"
+      }
+    },
+    {
+      "currentVersion": "0.2.0-1",
+      "description": "Apache Cassandra running on Apache Mesos",
+      "framework": true,
+      "name": "cassandra",
+      "tags": [
+        "data",
+        "database",
+        "nosql"
+      ],
+      "versions": {
+        "0.2.0-1": "0"
+      }
+    },
+    {
+      "currentVersion": "2.4.0",
+      "description": "A fault tolerant job scheduler for Mesos which handles dependencies and ISO8601 based schedules.",
+      "framework": true,
+      "name": "chronos",
+      "tags": [
+        "cron",
+        "analytics",
+        "batch"
+      ],
+      "versions": {
+        "2.4.0": "0"
+      }
+    },
+    {
+      "currentVersion": "0.1.7",
+      "description": "Hadoop Distributed File System (HDFS), Highly Available",
+      "framework": true,
+      "name": "hdfs",
+      "tags": [
+        "filesystem",
+        "hadoop",
+        "analytics"
+      ],
+      "versions": {
+        "0.1.7": "0"
+      }
+    }
+  ]
+}

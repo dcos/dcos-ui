@@ -1,0 +1,15 @@
+@tooltip-background-color: #3a3c47;
+
+.tooltip {
+
+  .tooltip-content {
+    background: @tooltip-background-color;
+    border-radius: 2px;
+    color: @white;
+    padding: .8em 1em;
+
+    &:after {
+      border-color: @tooltip-background-color;
+    }
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "id": "http://schema.dcos/health/unit",
+  "type": "object",
+  "properties": {
+    "id": {
+      "title": "Unit ID",
+      "type": "string",
+      "pattern": "^[\\w]+$"
+    },
+    "description": {
+      "title": "Unit Name",
+      "type": "string"
+    },
+    "health": {
+      "title": "Node Health Status",
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 3
+    },
+    "output": {
+      "title": "Unit Output",
+      "description": "Log output.",
+      "type": "string"
+    },
+    "help": {
+      "title": "Help Information",
+      "description": "Steps a user can take if more information than the unit output is needed.",
+      "type": "string"
+    }
+  },
+  "required": [
+    "id",
+    "description",
+    "health"
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "id": "http://schema.dcos/acl/groups/group/permissions",
+  "title": "DCOS ACL: Permissions for a group",
+  "definitions": {
+    "acl-resource": {
+      "type": "object",
+      "properties": {
+        "rid": {
+          "title": "ACL's ID",
+          "type": "string"
+        },
+        "description": {
+          "title": "ACL's description",
+          "type": "string"
+        },
+        "aclurl": {
+          "title": "ACL's URL",
+          "type": "string"
+        }
+      }
+    }
+  },
+  "type": "object",
+  "properties": {
+    "array": {
+      "type": "array",
+      "items": {
+        "allOf": [
+          {"$ref": "#/definitions/acl-resource"},
+          {
+            "properties": {
+              "actions": {
+                "type": "array",
+                "items": {
+                  "allOf": [
+                    {"$ref": "http://schema.dcos/acl/action"}
+                  ]
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+  },
+  "required": ["array"]
+}

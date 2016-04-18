@@ -1,0 +1,26 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "description": "A Virtual IP",
+  "title": "VIP",
+  "id": "http://schema.dcos/networking/vip",
+  "type": "object",
+  "properties": {
+    "ip": {
+      "description": "Virtual IP address.",
+      "title": "IP",
+      "type": "string",
+      "pattern": "^[\\w-\\.:@]+$"
+    },
+    "port": {
+      "description": "Port of the VIP.",
+      "title": "Port",
+      "type": "integer"
+    },
+    "protocol": {
+      "description": "Protocol of the VIP.",
+      "title": "Protocol",
+      "type": "string"
+    }
+  },
+  "required": ["ip", "port", "protocol"]
+}

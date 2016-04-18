@@ -1,0 +1,176 @@
+//
+// Responsive: Utility classes
+// --------------------------------------------------
+
+
+// IE10 in Windows (Phone) 8
+//
+// Support for responsive views via media queries is kind of borked in IE10, for
+// Surface/desktop in split view and for Windows Phone 8. This particular fix
+// must be accompanied by a snippet of JavaScript to sniff the user agent and
+// apply some conditional CSS to *only* the Surface/desktop Windows 8. Look at
+// our Getting Started page for more information on this bug.
+//
+// For more information, see the following:
+//
+// Issue: https://github.com/twbs/bootstrap/issues/10497
+// Docs: http://getbootstrap.com/getting-started/#support-ie10-width
+// Source: http://timkadlec.com/2013/01/windows-phone-8-and-device-width/
+// Source: http://timkadlec.com/2012/10/ie10-snap-mode-and-responsive-design/
+
+//
+// More easily include all the states for responsive-utilities.less.
+.responsive-visibility() {
+  display: block !important;
+  table&  { display: table; }
+  tr&     { display: table-row !important; }
+  th&,
+  td&     { display: table-cell !important; }
+}
+
+.responsive-invisibility() {
+  display: none !important;
+}
+// Visibility utilities
+// Note: Deprecated .visible-mini, .visible-small, .visible-medium, and .visible-large as of v3.2.0
+.visible-mini,
+.visible-small,
+.visible-medium,
+.visible-large {
+  .responsive-invisibility();
+}
+
+.visible-mini-block,
+.visible-mini-inline,
+.visible-mini-inline-block,
+.visible-small-block,
+.visible-small-inline,
+.visible-small-inline-block,
+.visible-medium-block,
+.visible-medium-inline,
+.visible-medium-inline-block,
+.visible-large-block,
+.visible-large-inline,
+.visible-large-inline-block {
+  display: none !important;
+}
+
+
+.visible-inline {
+  display: inline;
+  -ms-display: inline;
+  -moz-display: inline;
+  -webkit-display: inline;
+}
+
+.visible-block {
+  display: block;
+  -ms-display: block;
+  -moz-display: block;
+  -webkit-display: block;
+}
+
+.visible-mini {
+  @media (max-width: @screen-mini-max) {
+    .responsive-visibility();
+  }
+}
+.visible-mini-block {
+  @media (max-width: @screen-mini-max) {
+    display: block !important;
+  }
+}
+.visible-mini-inline {
+  @media (max-width: @screen-mini-max) {
+    display: inline !important;
+  }
+}
+.visible-mini-inline-block {
+  @media (max-width: @screen-mini-max) {
+    display: inline-block !important;
+  }
+}
+
+.visible-small {
+  @media (min-width: @screen-small) and (max-width: @screen-small-max) {
+    .responsive-visibility();
+  }
+}
+.visible-small-block {
+  @media (min-width: @screen-small) and (max-width: @screen-small-max) {
+    display: block !important;
+  }
+}
+.visible-small-inline {
+  @media (min-width: @screen-small) and (max-width: @screen-small-max) {
+    display: inline !important;
+  }
+}
+.visible-small-inline-block {
+  @media (min-width: @screen-small) and (max-width: @screen-small-max) {
+    display: inline-block !important;
+  }
+}
+
+.visible-medium {
+  @media (min-width: @screen-medium) and (max-width: @screen-medium-max) {
+    .responsive-visibility();
+  }
+}
+.visible-medium-block {
+  @media (min-width: @screen-medium) and (max-width: @screen-medium-max) {
+    display: block !important;
+  }
+}
+.visible-medium-inline {
+  @media (min-width: @screen-medium) and (max-width: @screen-medium-max) {
+    display: inline !important;
+  }
+}
+.visible-medium-inline-block {
+  @media (min-width: @screen-medium) and (max-width: @screen-medium-max) {
+    display: inline-block !important;
+  }
+}
+
+.visible-large {
+  @media (min-width: @screen-large) {
+    .responsive-visibility();
+  }
+}
+.visible-large-block {
+  @media (min-width: @screen-large) {
+    display: block !important;
+  }
+}
+.visible-large-inline {
+  @media (min-width: @screen-large) {
+    display: inline !important;
+  }
+}
+.visible-large-inline-block {
+  @media (min-width: @screen-large) {
+    display: inline-block !important;
+  }
+}
+
+.hidden-mini {
+  @media (max-width: @screen-mini-max) {
+    .responsive-invisibility();
+  }
+}
+.hidden-small {
+  @media (min-width: @screen-small) and (max-width: @screen-small-max) {
+    .responsive-invisibility();
+  }
+}
+.hidden-medium {
+  @media (min-width: @screen-medium) and (max-width: @screen-medium-max) {
+    .responsive-invisibility();
+  }
+}
+.hidden-large {
+  @media (min-width: @screen-large) {
+    .responsive-invisibility();
+  }
+}

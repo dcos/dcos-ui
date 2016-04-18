@@ -1,0 +1,123 @@
+{
+  "apps": [
+    {
+      "healthChecks": [
+        {
+          "path": "/health/cluster",
+          "protocol": "HTTP",
+          "portIndex": 0,
+          "gracePeriodSeconds": 120,
+          "intervalSeconds": 30,
+          "timeoutSeconds": 5,
+          "maxConsecutiveFailures": 0,
+          "ignoreHttp1xx": false
+        },
+        {
+          "path": "/health/process",
+          "protocol": "HTTP",
+          "portIndex": 0,
+          "gracePeriodSeconds": 120,
+          "intervalSeconds": 30,
+          "timeoutSeconds": 5,
+          "maxConsecutiveFailures": 3,
+          "ignoreHttp1xx": false
+        }
+      ],
+      "labels": {
+        "DCOS_PACKAGE_SOURCE": "https://github.com/mesosphere/universe/archive/master.zip",
+        "DCOS_PACKAGE_REGISTRY_VERSION": "0.1.0-alpha",
+        "DCOS_PACKAGE_VERSION": "0.1.0-SNAPSHOT-424-master-5c6e140d5b",
+        "DCOS_PACKAGE_NAME": "IdleFramework",
+        "DCOS_PACKAGE_FRAMEWORK_NAME": "IdleFramework"
+      },
+      "tasksStaged": 0,
+      "tasksRunning": 0,
+      "tasksHealthy": 0,
+      "tasksUnhealthy": 0
+    },
+    {
+      "healthChecks": [
+        {
+          "path": "/health/cluster",
+          "protocol": "HTTP",
+          "portIndex": 0,
+          "gracePeriodSeconds": 120,
+          "intervalSeconds": 30,
+          "timeoutSeconds": 5,
+          "maxConsecutiveFailures": 0,
+          "ignoreHttp1xx": false
+        },
+        {
+          "path": "/health/process",
+          "protocol": "HTTP",
+          "portIndex": 0,
+          "gracePeriodSeconds": 120,
+          "intervalSeconds": 30,
+          "timeoutSeconds": 5,
+          "maxConsecutiveFailures": 3,
+          "ignoreHttp1xx": false
+        }
+      ],
+      "labels": {
+        "DCOS_PACKAGE_SOURCE": "https://github.com/mesosphere/universe/archive/master.zip",
+        "DCOS_PACKAGE_REGISTRY_VERSION": "0.1.0-alpha",
+        "DCOS_PACKAGE_VERSION": "0.1.0-SNAPSHOT-424-master-5c6e140d5b",
+        "DCOS_PACKAGE_NAME": "UnhealthyFramework",
+        "DCOS_PACKAGE_FRAMEWORK_NAME": "UnhealthyFramework"
+      },
+      "tasksStaged": 0,
+      "tasksRunning": 1,
+      "tasksHealthy": 0,
+      "tasksUnhealthy": 1
+    },
+    {
+      "healthChecks": [
+        {
+          "path": "/health/cluster",
+          "protocol": "HTTP",
+          "portIndex": 0,
+          "gracePeriodSeconds": 120,
+          "intervalSeconds": 30,
+          "timeoutSeconds": 5,
+          "maxConsecutiveFailures": 0,
+          "ignoreHttp1xx": false
+        },
+        {
+          "path": "/health/process",
+          "protocol": "HTTP",
+          "portIndex": 0,
+          "gracePeriodSeconds": 120,
+          "intervalSeconds": 30,
+          "timeoutSeconds": 5,
+          "maxConsecutiveFailures": 3,
+          "ignoreHttp1xx": false
+        }
+      ],
+      "labels": {
+        "DCOS_PACKAGE_SOURCE": "https://github.com/mesosphere/universe/archive/master.zip",
+        "DCOS_PACKAGE_REGISTRY_VERSION": "0.1.0-alpha",
+        "DCOS_PACKAGE_VERSION": "0.1.0-SNAPSHOT-424-master-5c6e140d5b",
+        "DCOS_PACKAGE_NAME": "HealthyFramework",
+        "DCOS_PACKAGE_FRAMEWORK_NAME": "HealthyFramework"
+      },
+      "tasksStaged": 0,
+      "tasksRunning": 1,
+      "tasksHealthy": 1,
+      "tasksUnhealthy": 0
+    },
+    {
+      "healthChecks": [],
+      "labels": {
+        "DCOS_PACKAGE_SOURCE": "https://github.com/mesosphere/universe/archive/master.zip",
+        "DCOS_PACKAGE_REGISTRY_VERSION": "0.1.0-alpha",
+        "DCOS_PACKAGE_VERSION": "0.1.0-SNAPSHOT-424-master-5c6e140d5b",
+        "DCOS_PACKAGE_NAME": "NAFramework",
+        "DCOS_PACKAGE_FRAMEWORK_NAME": "NAFramework"
+      },
+      "tasksStaged": 0,
+      "tasksRunning": 1,
+      "tasksHealthy": 0,
+      "tasksUnhealthy": 0
+    }
+  ]
+}

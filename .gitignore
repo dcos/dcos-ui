@@ -1,0 +1,13 @@
+.DS_Store
+*.iml
+.idea/*
+!dist/
+dist/*
+npm-debug.log
+node_modules/
+src/js/config/Config.dev.js
+serve
+tmp/
+*.orig
+.plugins/
+.external_plugins/

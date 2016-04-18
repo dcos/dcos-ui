@@ -1,0 +1,72 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema",
+    "id": "http://schema.mesos/dcos/config",
+    "title": "DCOS Config API Endpoint",
+    "type": "object",
+    "properties" : {
+        "uiConfiguration": {
+            "type": "object",
+            "properties": {
+                "plugins": {
+                    "type": "object",
+                    "properties": {
+                        "banner": {
+                            "title": "A banner plugin",
+                            "description": "Adds a custom header/footer banner to the UI",
+                            "type": "object",
+                            "properties": {
+                                "backgroundColor": {
+                                    "title": "Background color for banners",
+                                    "description": "Color should be a valid CSS color (hex, color name)",
+                                    "type": "string"
+                                },
+                                "foregroundColor": {
+                                    "title": "Text color for banners",
+                                    "description": "Color should be a valid CSS color (hex, color name)",
+                                    "type": "string"
+                                },
+                                "headerTitle": {
+                                    "title": "Title for banner header",
+                                    "type": "string"
+                                },
+                                "headerContent": {
+                                    "title": "Content to show in banner header",
+                                    "description": "This content is shown to the right of the banner",
+                                    "type": "string"
+                                },
+                                "footerContent": {
+                                    "title": "Content to show in banner footer",
+                                    "type": "string"
+                                },
+                                "imagePath": {
+                                    "title": "Optional. A path to an image",
+                                    "description": "Image size should be 32x32 pixels",
+                                    "type": "string"
+                                },
+                                "dismissible": {
+                                    "title": "Dismiss banners",
+                                    "type": "boolean"
+                                }
+                            },
+                            "required": ["headerTitle", "headerContent", "footerContent"]
+                        },
+                        "tracking": {
+                            "title": "A Tracking plugin",
+                            "description": "Adds tracking to the UI",
+                            "type": "object",
+                            "properties": {
+                                "enabled": {
+                                    "title": "Enables/Disables the plugin",
+                                    "type": "boolean"
+                                }
+                            },
+                            "required": ["enabled"]
+                        }
+                    }
+                }
+            },
+            "required": ["plugins"]
+        }
+    },
+    "required": ["uiConfiguration"]
+}

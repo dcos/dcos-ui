@@ -1,0 +1,160 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "id": "http://schema.dcos/networking/backend-connections",
+  "description": "A list of backend connections.",
+  "title": "Backend Connections",
+  "type": "object",
+  "properties": {
+    "details": {
+      "description": "Details for the given VIP.",
+      "title": "VIP Details",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "patternProperties": {
+          "description": "An unlimited number of deatils.",
+          ".+": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "app_reachability_90": {
+      "description": "90th percentile application reachability.",
+      "title": "90th Percentile",
+      "type": "object",
+      "$ref": "timeseries-integers"
+    },
+    "app_reachability_75": {
+      "description": "75th percentile application reachability.",
+      "title": "75th Percentile",
+      "type": "object",
+      "$ref": "timeseries-integers"
+    },
+    "app_reachability_90": {
+      "description": "90th percentile application reachability.",
+      "title": "90th Percentile",
+      "type": "object",
+      "$ref": "timeseries-integers"
+    },
+    "app_reachability_95": {
+      "description": "95th percentile application reachability.",
+      "title": "95th Percentile",
+      "type": "object",
+      "$ref": "timeseries-integers"
+    },
+    "app_reachability_99": {
+      "description": "99th percentile application reachability.",
+      "title": "99th Percentile",
+      "type": "object",
+      "$ref": "timeseries-integers"
+    },
+    "machine_reachability_50": {
+      "description": "50th percentile machine reachability.",
+      "title": "50th Percentile",
+      "type": "object",
+      "$ref": "timeseries-integers"
+    },
+    "machine_reachability_75": {
+      "description": "75th percentile machine reachability.",
+      "title": "75th Percentile",
+      "type": "object",
+      "$ref": "timeseries-integers"
+    },
+    "machine_reachability_90": {
+      "description": "90th percentile machine reachability.",
+      "title": "90th Percentile",
+      "type": "object",
+      "$ref": "timeseries-integers"
+    },
+    "machine_reachability_95": {
+      "description": "95th percentile machine reachability.",
+      "title": "95th Percentile",
+      "type": "object",
+      "$ref": "timeseries-integers"
+    },
+    "machine_reachability_99": {
+      "description": "99th percentile machine reachability.",
+      "title": "99th Percentile",
+      "type": "object",
+      "$ref": "timeseries-integers"
+    },
+    "connection_latency_50": {
+      "description": "50th percentile connection latency.",
+      "title": "50th Percentile",
+      "type": "object",
+      "$ref": "timeseries-integers"
+    },
+    "connection_latency_75": {
+      "description": "50th percentile connection latency.",
+      "title": "50th Percentile",
+      "type": "object",
+      "$ref": "timeseries-integers"
+    },
+    "connection_latency_90": {
+      "description": "50th percentile connection latency.",
+      "title": "50th Percentile",
+      "type": "object",
+      "$ref": "timeseries-integers"
+    },
+    "connection_latency_95": {
+      "description": "50th percentile connection latency.",
+      "title": "50th Percentile",
+      "type": "object",
+      "$ref": "timeseries-integers"
+    },
+    "connection_latency_99": {
+      "description": "50th percentile connection latency.",
+      "title": "50th Percentile",
+      "type": "object",
+      "$ref": "timeseries-integers"
+    },
+    "request_success": {
+      "description": "Successful requests on this client.",
+      "title": "Successful Requests",
+      "type": "object",
+      "$ref": "timeseries-integers"
+    },
+    "request_fail": {
+      "description": "Failed requests on this client.",
+      "title": "Failed Requests",
+      "type": "object",
+      "$ref": "timeseries-integers"
+    },
+    "clients": {
+      "description": "A list of client connnections.",
+      "title": "Clients",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "machine_reachability": {
+            "title": "Machine Reachable",
+            "type": "boolean"
+          },
+          "app_reachability": {
+            "title": "Application Reachable",
+            "type": "boolean"
+          },
+          "ip": {
+            "title": "Client IP",
+            "type": "string"
+          },
+          "p99_latency_ms": {
+            "title": "99th Percentile Latency in Milliseconds",
+            "type": "integer"
+          },
+          "success_last_minute": {
+            "title": "Successful Connections",
+            "type": "integer"
+          },
+          "fail_last_minute": {
+            "title": "Failed Connections",
+            "type": "integer"
+          }
+        }
+      }
+    }
+  },
+  "required": ["clients"]
+}

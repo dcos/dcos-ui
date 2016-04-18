@@ -1,0 +1,231 @@
+#%RAML 0.8
+title: Unit Health Checks API Spec
+version: v1
+baseUri: /api/{version}/system/health
+mediaType: application/json
+schemas:
+  - units: !include ../../schema/unit-health/units.json
+  - unit: !include ../../schema/unit-health/unit.json
+  - nodes: !include ../../schema/unit-health/nodes.json
+  - node: !include ../../schema/unit-health/node.json
+
+/units:
+  displayName: Units Health
+  get:
+    description: Get a list of units and their health status.
+    responses:
+      200:
+        description: Successful response.
+        body:
+          application/json:
+            schema: units
+            example: |
+              {
+                "units": [
+                  {
+                    "id": "dcos-marathon.service",
+                    "description": "A Long Running Jobs Scheduler",
+                    "health": 0,
+                  },
+                  {
+                    "id": "dcos-mesos-dns.service",
+                    "description": "Mesos DNS",
+                    "health": 1,
+                  },
+                  {
+                    "id": "dcos-mesos-master.service",
+                    "description": "The Mesos master service",
+                    "health": 0,
+                  },
+                  {
+                    "id": "dcos-nginx.service",
+                    "description": "A High performance web proxy",
+                    "health": 0,
+                  }
+                ]
+              }
+  /{unit-id}:
+    uriParameters:
+      unit-id:
+        description: Requested unit.
+        type: string
+    displayName: Unit Health
+    get:
+      description: Get the unit health summaries by node_id.
+      responses:
+        200:
+          description: Successful response.
+          body:
+            application/json:
+              schema: unit
+              example: |
+                # Example query for nginx_service in a 3-master cluster would return the unit
+                # health on the 3 masters on which that unit runs.
+                {
+                  "id": "dcos-nginx.service",
+                  "description": "nginx service",
+                  "health": 0,
+                }
+    /nodes:
+      displayName: Unit Nodes Health
+      get:
+        description: Get a list of the units node health summaries.
+        responses:
+          200:
+            description: Successful response.
+            body:
+              application/json:
+                schema: nodes
+                example: |
+                  # Example response from a 2-node cluster where one node has units with health > 0
+                  {
+                    "nodes": [
+                      {
+                        "host_ip": "10.10.0.235",
+                        "role": "master",
+                        "health": 0,
+                      },
+                      {
+                        "host_ip": "10.10.0.235",
+                        "role": "agent",
+                        "health": 1
+                      }
+                    ]
+                  }
+      # Must ensure all hostname's contain are hyphened and not "." separated. Only matters if we go
+      # through a proxy of some sort, but generally not great to "." separate in our URL requested.
+      /{node-id}:
+        uriParameters:
+          node-id:
+            description: Requested node.
+            type: string
+        displayName: Node Health
+        get:
+          description: Get node health status.
+          responses:
+            200:
+              description: Successful response.
+              body:
+                application/json:
+                  schema: node
+                  example: |
+                    # Example response from a healthy node with all units == 0
+                    {
+                      "host_ip": "10.10.0.236",
+                      "role": "agent",
+                      "health": 1,
+                      "output" "... journald..."
+                      "help": "Please try `dcos node ssh ..."
+                    }
+
+/nodes:
+  displayName: Nodes
+  get:
+    description: Get a list of nodes with their accumulated healths.
+    responses:
+      200:
+        description: Successful response.
+        body:
+          application/json:
+            schema: nodes
+            example: |
+              {
+                "nodes": [
+                  {
+                    "host_ip: "10.10.0.235",
+                    "role": "master",
+                    "health": 1
+                  },
+                  {
+                    "host_ip: "10.10.0.236",
+                    "role": "agent",
+                    "health": 1
+                  }
+                ]
+              }
+  /{node-id}:
+    uriParameters:
+      node-id:
+        description: Node ID
+        type: string
+    displayName: Node
+    get:
+      description: Requested node.
+      responses:
+        200:
+          description: Successful response.
+          body:
+            application/json:
+              schema: node
+              example: |
+                {
+                  "host_ip: "10.10.0.236",
+                  "role": "agent",
+                  "health": 1
+                }
+    /units:
+      displayName: Units Health
+      get:
+        description: Units residing on requested node.
+        responses:
+          200:
+            description: Successful response.
+            body:
+              application/json:
+                schema: units
+                example: |
+                  {
+                    "units": [
+                      {
+                        "id": "dcos-marathon.service",
+                        "description": "marathon service",
+                        "health": 0,
+                        "output": "OK",
+                        "help": "NA"
+                      },
+                      {
+                        "id": "mesos_dns_service",
+                        "description": "mesos dns service",
+                        "health": 1,
+                        "output": "Here are some journald logs, log log log.",
+                        "help": "Mesos Dns Service failed to start on host ip-10.0.0.1. Please see `systemctl -u mesos-dns.service` for more information"
+                      }
+                    ]
+                  }
+      /{unit-id}:
+        uriParameters:
+          unit-id:
+            description: Requested unit.
+            type: string
+        displayName: Unit Health
+        get:
+          description: Get the unit health summaries by node_id.
+          responses:
+            200:
+              description: Successful response.
+              body:
+                application/json:
+                  schema: unit
+                  example: |
+                    {
+                      "id": "dcos-mesos-dns.service"
+                      "description": "mesos dns service",
+                      "health": 1,
+                      "output": "Here are some journald logs, log log log.",
+                      "help": "Mesos Dns Service failed to start on host ip-10.0.0.1. Please see `systemctl -u mesos-dns.service` for more information"
+                    }
+
+/report:
+  displayName: Health Report
+  get:
+    description: Get a full report of units health and nodes health.
+    responses:
+      200:
+        description: Successful response.
+        body:
+          application/json:
+            example: |
+              {
+                "nodes": {},
+                "units": {}
+              }

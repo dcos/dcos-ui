@@ -1,0 +1,14 @@
+{
+  "nodes": [
+    {
+      "host_ip": "10.10.0.235",
+      "role": "master",
+      "health": 0
+    },
+    {
+      "host_ip": "10.10.0.236",
+      "role": "agent",
+      "health": 1
+    }
+  ]
+}

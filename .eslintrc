@@ -1,0 +1,64 @@
+{
+  "ecmaFeatures": {
+    "jsx": true,
+    "modules": true
+  },
+
+  "env": {
+    "browser": true,
+    "jasmine": true,
+    "node": true,
+    "es6": true
+  },
+
+  "plugins": [
+    "react"
+  ],
+
+  "globals": {
+    "jest": true,
+    "ActiveXObject": true,
+    "Dygraph": true
+  },
+
+  "rules": {
+    "eqeqeq": [2, "smart"],
+    "quotes": [2, "single"],
+    "indent": [2, 2],
+    "camelcase": [0, {"properties": "never"}],
+    // "camelcase": [2, {"properties": "always"}], This causes errors with mixin properties
+    "strict": [2, "never"], // <-- fix
+    "no-mixed-spaces-and-tabs": 2,
+    "no-trailing-spaces": [2, { "skipBlankLines": false }],
+    "no-underscore-dangle": 0,
+    "no-unused-vars": [2, {"args": "after-used", "argsIgnorePattern": "PluginSDK"}],
+    "no-use-before-define": 0,
+    "no-multiple-empty-lines": [2, {"max": 1}],
+    "space-after-keywords": [2, "always"],
+    "space-before-blocks": [2, "always"],
+    "space-before-function-paren": [2, {
+      "anonymous": "always", "named": "never"
+    }],
+    "spaced-line-comment": [2, "always"],
+    // "max-len": [2, 80, 4], TODO: DCOS-914
+    "valid-jsdoc": [2, {
+      "requireReturn": false,
+      "requireParamDescription": false
+    }],
+
+    // React plugin
+    "react/jsx-quotes": [2, "double"],
+    "react/jsx-no-undef": 2,
+    "react/jsx-uses-vars": [2, {"vars": "all", "args": "after-used"}],
+    "react/jsx-sort-props": 0,
+    "react/jsx-sort-prop-types": [0, {"ignoreCase": true}],
+    "react/no-did-mount-set-state": 2,
+    "react/no-did-update-set-state": 2,
+    "react/no-multi-comp": 2,
+    "react/prop-types": 0,
+    // "react/prop-types": 2, This causes errors with many
+    "react/react-in-jsx-scope": 2,
+    "react/self-closing-comp": 2,
+    "react/wrap-multilines": 2
+  }
+}

@@ -1,0 +1,355 @@
+/*
+ * Original styles
+ */
+
+.modal-body {
+  padding: 1px;
+}
+
+.modal-container {
+  z-index: @z-index-modal;
+}
+
+.modal-generic-error {
+  .modal-backdrop {
+    z-index: @z-index-modal + 1;
+  }
+  .modal-container {
+    z-index: @z-index-modal + 2;
+  }
+}
+
+.modal {
+  background-color: @modal-background-color;
+  border-radius: @modal-border-radius;
+
+  .modal-close {
+    border-radius: 30px;
+  }
+
+  &.modal-narrow {
+    width: @modal-width-narrow;
+  }
+
+  &.modal-image-viewer {
+    background: transparent;
+    width: 100%;
+
+    .modal-content {
+      background: transparent;
+      border-radius: 0;
+      overflow: hidden;
+    }
+
+    .modal-header {
+      background: transparent;
+      border-radius: 0;
+      padding: 0;
+    }
+
+    .modal-footer {
+      border-radius: 0;
+      padding: 0;
+    }
+
+    .fill-image {
+      display: block;
+      height: auto;
+      width: 100%;
+    }
+
+    .arrow-container {
+      background: linear-gradient(to right, rgba(0,0,0,1), rgba(0,0,0,0) 75%);
+      color: rgba(255, 255, 255, 0.6);
+      display: block;
+      height: 100%;
+      left: -25%;
+      position: absolute;
+      top: 0;
+      width: 50%;
+
+      &:hover {
+        color: rgba(255, 255, 255, 1.0);
+      }
+
+      .arrow {
+        left: 50%;
+        position: absolute;
+        top: 50%;
+      }
+
+      &.forward {
+        background: linear-gradient(to left, rgba(0,0,0,1), rgba(0,0,0,0) 75%);
+        left: auto;
+        right: -25%;
+
+        .arrow {
+          left: auto;
+          right: 50%;
+        }
+      }
+    }
+
+  }
+
+  .modal-header {
+    border-radius: @modal-border-radius @modal-border-radius 0px 0px;
+
+    &.modal-header-white {
+      background-color: @modal-content-background-color;
+    }
+
+    &.modal-header-bottom-border {
+      border-bottom: 1px solid @border-color;
+
+      &.inverse {
+        border-bottom: 1px solid @border-color-inverse;
+      }
+    }
+
+    &.modal-header-padding-narrow {
+      padding: @base-spacing-unit;
+    }
+  }
+
+  .modal-content {
+    background-color: @modal-content-background-color;
+    border-radius: @modal-border-radius;
+
+    &:before {
+      background-image: none;
+    }
+
+    .modal-content-inner {
+      padding-top: @base-spacing-unit;
+
+      &.modal-content-inner-tall {
+        padding-top: @modal-content-inner-tall-padding-top;
+        padding-bottom: @modal-content-inner-tall-padding-bottom;
+      }
+    }
+  }
+
+  .modal-footer {
+    background-color: @modal-footer-background-color;
+    border-radius: 0px 0px @modal-border-radius @modal-border-radius;
+  }
+
+  .sub-footer {
+    bottom: @base-spacing-unit * -2;
+    font-size: @body-text-font-size * 9/10;
+    left: 50%;
+    position: absolute;
+    transform: translateX(-50%);
+    width: 100%;
+  }
+
+  .form-row-element {
+    &:first-child {
+      padding-left: 0;
+    }
+
+    &:last-child {
+      padding-right: 0;
+    }
+  }
+
+  .row {
+    margin-left: 0;
+    margin-right: 0;
+
+    [class*="column-"] {
+      padding: 0;
+    }
+
+    &:last-child .form-group {
+      margin-bottom: 0;
+    }
+  }
+
+  .allow-overflow {
+    overflow: visible;
+  }
+
+  &.login-modal {
+
+    .modal-content {
+      height: auto;
+      overflow: visible;
+      position: relative;
+
+      .container {
+        width: 100%;
+      }
+    }
+
+    .modal-header {
+      background: transparent;
+      height: 144px;
+      padding: 0;
+
+      .container {
+        padding: 0;
+      }
+    }
+
+    .dcos-logo {
+      left: 50%;
+      position: absolute;
+      top: -55px;
+      transform: translateX(-50%);
+    }
+
+    .modal-body {
+      padding-top: @base-spacing-unit * 2/3;
+    }
+
+    .login-modal-heading {
+      color: @neutral;
+    }
+  }
+}
+
+// Modal specific styles
+.install-cli-modal-content {
+  h4 {
+    color: @black;
+  }
+
+  .snippet-wrapper {
+    border: 1px solid color-lighten(@gray, 80);
+    border-radius: 5px;
+    overflow: hidden;
+
+    pre {
+      background-color: @modal-header-background-color;
+      border-radius: 5px;
+      color: color-lighten(@black, 40);
+      padding: 10px;
+      overflow-x: auto;
+    }
+  }
+}
+
+.versions-modal-content {
+  // This is necessary because Gemini scrollbars break with pre
+  // if the user has 'Show scroll bars' set to 'When scrolling' on Mac.
+  pre {
+    overflow: visible;
+  }
+}
+
+.modal .modal-content .hostname {
+  margin-left: 0;
+}
+
+
+& when (@screen-mini-enabled) {
+  @media (max-width: @screen-small) {
+    // Use max-width so we don't need to reset to default styles
+    .modal {
+     &.modal-image-viewer {
+        right: 0;
+        left: 0;
+      }
+
+      .modal-close {
+        display: none;
+      }
+    }
+  }
+}
+
+
+& when (@screen-mini-enabled) {
+  @media (min-width: @screen-mini) {
+    .modal.modal-large {
+      width: 500px;
+
+      .modal-content {
+        pre {
+          max-height: 500px;
+        }
+      }
+    }
+  }
+}
+
+& when (@screen-small-enabled) {
+  @media (min-width: @screen-small) {
+    .modal {
+      .modal-content.modal-content-inner {
+        padding-top: @base-spacing-unit-screen-small;
+      }
+
+      &.modal.modal-large {
+        width: 700px;
+
+        .modal-content {
+          pre {
+            max-height: 500px;
+          }
+        }
+      }
+
+      &.modal-image-viewer {
+        max-height: 80%;
+        max-width: 80%;
+        min-width: @modal-width-screen-small;
+        width: auto;
+
+        .arrow-container {
+          background: none;
+
+          .arrow {
+            left: auto;
+            right: calc(~"50% + 2 * @{base-spacing-unit-screen-small}");
+          }
+
+          &.forward {
+            background: none;
+
+            .arrow {
+              left: calc(~"50% + 2 * @{base-spacing-unit-screen-small}");
+              right: auto;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+& when (@screen-medium-enabled) {
+  @media (min-width: @screen-medium) {
+    .modal {
+      .modal-content.modal-content-inner {
+        padding-top: @base-spacing-unit-screen-medium;
+      }
+
+      &.modal-large {
+        width: 800px;
+
+        .modal-content {
+          pre {
+            max-height: 600px;
+          }
+        }
+      }
+    }
+  }
+}
+
+& when (@screen-large-enabled) {
+  @media (min-width: @screen-large) {
+    .modal {
+      .modal-content.modal-content-inner {
+        padding-top: @base-spacing-unit-screen-small;
+      }
+
+      &.modal-large {
+        width: 1000px;
+      }
+    }
+  }
+}

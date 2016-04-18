@@ -1,0 +1,64 @@
+.grid {
+  .visible-block;
+  box-lines: multiple;
+  flex-flow: row wrap;
+
+  // this is useful when we want a grid to also behave as a .row
+  // this removes the clearfix that gets created from adding .row
+  // removing the clearfix allows flexbox to work the way it should
+  &::before, &::after {
+    display: none;
+  }
+
+  .grid-item {
+    .visible-block;
+    flex-flow: column wrap;
+    .panel {
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+
+      .panel-content {
+        display: flex;
+        flex-grow: 1;
+        flex-direction: column;
+
+        > :first-child {
+          flex-grow: 1;
+        }
+      }
+    }
+  }
+}
+
+.row-flex {
+
+  &.row-flex-align-vertical-bottom {
+    align-items: flex-end;
+  }
+}
+
+/* Screen Size: Small (@screen-small) and above */
+
+& when (@screen-small-enabled) {
+	@media (min-width: @screen-small) {
+
+    .grid {
+      display: flex;
+
+      .grid-item {
+        display: flex;
+      }
+    }
+
+	}
+}
+
+
+& when (@screen-x-large-enabled) {
+  @media (min-width: @screen-x-large) {
+
+    .make-grid(x-large);
+
+  }
+}

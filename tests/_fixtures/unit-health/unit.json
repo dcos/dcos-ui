@@ -1,0 +1,5 @@
+{
+  "id": "dcos-mesos-dns.service",
+  "health": 1,
+  "name": "Mesos DNS"
+}

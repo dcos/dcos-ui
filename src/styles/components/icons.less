@@ -1,0 +1,1336 @@
+/* -----------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+components/icons.less
+
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+----------------------------------------------------------------------------- */
+
+
+
+
+
+
+/* -----------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+Variables
+
+--------------------------------------------------------------------------------
+----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+Icon (Mini)
+----------------------------------------------------------------------------- */
+
+@icon-sprite-mini-count-horizontal:                                             3;
+@icon-sprite-mini-count-vertical:                                               16;
+
+@icon-sprite-mini-variant-black-offset-horizontal:                              0 * @icon-mini-width;
+@icon-sprite-mini-variant-white-offset-horizontal:                              1 * @icon-mini-width;
+@icon-sprite-mini-variant-color-offset-horizontal:                              2 * @icon-mini-width;
+
+/* -----------------------------------------------------------------------------
+Icon (Small)
+----------------------------------------------------------------------------- */
+
+@icon-sprite-small-count-horizontal:                                            3;
+@icon-sprite-small-count-vertical:                                              4;
+@icon-sprite-small-border-radius:                                               4px;
+
+@icon-sprite-small-variant-black-offset-horizontal:                             0 * @icon-small-width;
+@icon-sprite-small-variant-white-offset-horizontal:                             1 * @icon-small-width;
+@icon-sprite-small-variant-color-offset-horizontal:                             2 * @icon-small-width;
+
+/* -----------------------------------------------------------------------------
+Icon (Medium)
+----------------------------------------------------------------------------- */
+
+@icon-sprite-medium-count-horizontal:                                           3;
+@icon-sprite-medium-count-vertical:                                             17;
+@icon-sprite-medium-border-radius:                                              5px;
+
+@icon-sprite-medium-variant-black-offset-horizontal:                            0 * @icon-medium-width;
+@icon-sprite-medium-variant-white-offset-horizontal:                            1 * @icon-medium-width;
+@icon-sprite-medium-variant-color-offset-horizontal:                            2 * @icon-medium-width;
+
+/* -----------------------------------------------------------------------------
+Icon (Large)
+----------------------------------------------------------------------------- */
+
+@icon-sprite-large-count-horizontal:                                            3;
+@icon-sprite-large-count-vertical:                                              1;
+@icon-sprite-large-border-radius:                                               6px;
+
+@icon-sprite-large-variant-black-offset-horizontal:                             0 * @icon-large-width;
+@icon-sprite-large-variant-white-offset-horizontal:                             1 * @icon-large-width;
+@icon-sprite-large-variant-color-offset-horizontal:                             2 * @icon-large-width;
+
+/* -----------------------------------------------------------------------------
+Icon (jumbo)
+----------------------------------------------------------------------------- */
+
+@icon-jumbo-width:                                                              90px;
+@icon-jumbo-height:                                                             90px;
+
+@icon-sprite-jumbo-count-horizontal:                                            3;
+@icon-sprite-jumbo-count-vertical:                                              4;
+@icon-sprite-jumbo-border-radius:                                               7px;
+
+@icon-sprite-jumbo-variant-black-offset-horizontal:                             0 * @icon-jumbo-width;
+@icon-sprite-jumbo-variant-white-offset-horizontal:                             1 * @icon-jumbo-width;
+@icon-sprite-jumbo-variant-color-offset-horizontal:                             2 * @icon-jumbo-width;
+
+/* -----------------------------------------------------------------------------
+Icon (huge)
+----------------------------------------------------------------------------- */
+
+@icon-huge-enabled:                                                             true;
+
+@icon-huge-width:                                                               112px;
+@icon-huge-height:                                                              112px;
+
+
+
+
+
+
+& when (@icon-enabled) {
+
+  /* -----------------------------------------------------------------------------
+  --------------------------------------------------------------------------------
+
+  Icon
+
+  --------------------------------------------------------------------------------
+  ----------------------------------------------------------------------------- */
+
+  .icon {
+
+    &.icon-image-container {
+
+      overflow: hidden;
+
+      img {
+
+        width: 100%;
+        height: auto;
+        display: block;
+        margin: 0px;
+        padding: 0px;
+
+      }
+
+    }
+
+    &.icon-app-container {
+
+      border-radius: 20%;
+      position: relative;
+
+      &:after {
+
+        border-radius: 20%;
+        box-shadow:
+          inset 0px 0px 0px 1px rgba(0, 0, 0, 0.1),
+          0px 0px 0px 1px rgba(0, 0, 0, 0.1);
+        content: '';
+        display: block;
+        height: 100%;
+        left: 0px;
+        position: absolute;
+        top: 0px;
+        width: 100%;
+
+      }
+
+    }
+
+    &.icon-user-container, &.icon-group-container {
+
+      position: relative;
+      border-radius: 100%;
+
+        &:after {
+
+          box-shadow:
+            inset 0px 0px 0px 1px rgba(0, 0, 0, 0.3),
+            0px 0px 0px 1px rgba(0, 0, 0, 0.1);
+          border-radius: 100%;
+          content: '';
+          display: block;
+          height: 100%;
+          left: 0px;
+          position: absolute;
+          top: 0px;
+          width: 100%;
+
+        }
+
+    }
+
+    &-default-gray {
+
+      background-color: @body-text-inverse-color;
+
+    }
+
+  }
+
+
+
+  & when (@icon-mini-enabled) {
+
+    /* ----------------------------------------------------------------------------------------------------
+    -------------------------------------------------------------------------------------------------------
+
+    Icon (Mini)
+
+    -------------------------------------------------------------------------------------------------------
+    ---------------------------------------------------------------------------------------------------- */
+
+    .icon.icon-mini {
+
+    }
+
+
+
+    /* ----------------------------------------------------------------------------------------------------
+    -------------------------------------------------------------------------------------------------------
+
+    Icon Sprite (Mini)
+
+    -------------------------------------------------------------------------------------------------------
+    ---------------------------------------------------------------------------------------------------- */
+
+    .icon.icon-sprite.icon-sprite-mini {
+
+      background-image: url("@{path-images}components/icons/icons-mini.png?@{cache-buster}");
+      line-height: @icon-mini-height;
+      width: @icon-mini-width;
+      height: @icon-mini-height;
+      .background-size(floor(@icon-sprite-mini-count-horizontal * @icon-mini-width) floor(@icon-sprite-mini-count-vertical * @icon-mini-height));
+      background-position: floor(-@icon-sprite-mini-variant-black-offset-horizontal) -(floor(@icon-mini-height) * 0);
+
+      &.icon-sprite-mini-white {
+
+        background-position: floor(-@icon-sprite-mini-variant-white-offset-horizontal) -(floor(@icon-mini-height) * 0);
+
+      }
+
+      &.icon-sprite-mini-color {
+
+        background-position: floor(-@icon-sprite-mini-variant-color-offset-horizontal) -(floor(@icon-mini-height) * 0);
+
+      }
+
+      /* Icon: List */
+
+      &.icon-list {
+
+        background-position: floor(-@icon-sprite-mini-variant-black-offset-horizontal) -(floor(@icon-mini-height) * 1);
+
+        &.icon-sprite-mini-white {
+
+          background-position: floor(-@icon-sprite-mini-variant-white-offset-horizontal) -(floor(@icon-mini-height) * 1);
+
+        }
+
+        &.icon-sprite-mini-color {
+
+          background-position: floor(-@icon-sprite-mini-variant-color-offset-horizontal) -(floor(@icon-mini-height) * 1);
+
+        }
+
+      }
+
+      /* Icon: Grid */
+
+      &.icon-grid {
+
+        background-position: floor(-@icon-sprite-mini-variant-black-offset-horizontal) -(floor(@icon-mini-height) * 2);
+
+        &.icon-sprite-mini-white {
+
+          background-position: floor(-@icon-sprite-mini-variant-white-offset-horizontal) -(floor(@icon-mini-height) * 2);
+
+        }
+
+        &.icon-sprite-mini-color {
+
+          background-position: floor(-@icon-sprite-mini-variant-color-offset-horizontal) -(floor(@icon-mini-height) * 2);
+
+        }
+
+      }
+
+      /* Icon: Search */
+
+      &.icon-search {
+
+        background-position: floor(-@icon-sprite-mini-variant-black-offset-horizontal) -(floor(@icon-mini-height) * 3);
+
+        &.icon-sprite-mini-white {
+
+          background-position: floor(-@icon-sprite-mini-variant-white-offset-horizontal) -(floor(@icon-mini-height) * 3);
+
+        }
+
+        &.icon-sprite-mini-color {
+
+          background-position: floor(-@icon-sprite-mini-variant-color-offset-horizontal) -(floor(@icon-mini-height) * 3);
+
+        }
+
+      }
+
+      /* Icon: Close */
+
+      &.icon-close {
+
+        background-position: floor(-@icon-sprite-mini-variant-black-offset-horizontal) -(floor(@icon-mini-height) * 4);
+
+        &.icon-sprite-mini-white {
+
+          background-position: floor(-@icon-sprite-mini-variant-white-offset-horizontal) -(floor(@icon-mini-height) * 4);
+
+        }
+
+        &.icon-sprite-mini-color {
+
+          background-position: floor(-@icon-sprite-mini-variant-color-offset-horizontal) -(floor(@icon-mini-height) * 4);
+
+        }
+
+      }
+
+      /* Icon: Alert */
+
+      &.icon-alert {
+
+        background-position: floor(-@icon-sprite-mini-variant-black-offset-horizontal) -(floor(@icon-mini-height) * 5);
+
+        &.icon-sprite-mini-white {
+
+          background-position: floor(-@icon-sprite-mini-variant-white-offset-horizontal) -(floor(@icon-mini-height) * 5);
+
+        }
+
+        &.icon-sprite-mini-color {
+
+          background-position: floor(-@icon-sprite-mini-variant-color-offset-horizontal) -(floor(@icon-mini-height) * 5);
+
+        }
+
+      }
+
+      /* Icon: Clipboard */
+
+      &.icon-clipboard {
+
+        background-position: floor(-@icon-sprite-mini-variant-black-offset-horizontal) -(floor(@icon-mini-height) * 6);
+
+        &.icon-sprite-mini-white {
+
+          background-position: floor(-@icon-sprite-mini-variant-white-offset-horizontal) -(floor(@icon-mini-height) * 6);
+
+        }
+
+        &.icon-sprite-mini-color {
+
+          background-position: floor(-@icon-sprite-mini-variant-color-offset-horizontal) -(floor(@icon-mini-height) * 6);
+
+        }
+
+      }
+
+      /* Icon: Check Mark */
+
+      &.icon-check-mark {
+
+        background-position: floor(-@icon-sprite-mini-variant-black-offset-horizontal) -(floor(@icon-mini-height) * 7);
+
+        &.icon-sprite-mini-white {
+
+          background-position: floor(-@icon-sprite-mini-variant-white-offset-horizontal) -(floor(@icon-mini-height) * 7);
+
+        }
+
+        &.icon-sprite-mini-color {
+
+          background-position: floor(-@icon-sprite-mini-variant-color-offset-horizontal) -(floor(@icon-mini-height) * 7);
+
+        }
+
+      }
+
+      /* Icon: Finished */
+
+      &.icon-finished {
+
+        background-position: floor(-@icon-sprite-mini-variant-black-offset-horizontal) -(floor(@icon-mini-height) * 8);
+
+        &.icon-sprite-mini-white {
+
+          background-position: floor(-@icon-sprite-mini-variant-white-offset-horizontal) -(floor(@icon-mini-height) * 8);
+
+        }
+
+        &.icon-sprite-mini-color {
+
+          background-position: floor(-@icon-sprite-mini-variant-color-offset-horizontal) -(floor(@icon-mini-height) * 8);
+
+        }
+
+      }
+
+      /* Icon: Killed */
+
+      &.icon-killed {
+
+        background-position: floor(-@icon-sprite-mini-variant-black-offset-horizontal) -(floor(@icon-mini-height) * 9);
+
+        &.icon-sprite-mini-white {
+
+          background-position: floor(-@icon-sprite-mini-variant-white-offset-horizontal) -(floor(@icon-mini-height) * 9);
+
+        }
+
+        &.icon-sprite-mini-color {
+
+          background-position: floor(-@icon-sprite-mini-variant-color-offset-horizontal) -(floor(@icon-mini-height) * 9);
+
+        }
+
+      }
+
+      /* Icon: Error */
+
+      &.icon-error {
+
+        background-position: floor(-@icon-sprite-mini-variant-black-offset-horizontal) -(floor(@icon-mini-height) * 10);
+
+        &.icon-sprite-mini-white {
+
+          background-position: floor(-@icon-sprite-mini-variant-white-offset-horizontal) -(floor(@icon-mini-height) * 10);
+
+        }
+
+        &.icon-sprite-mini-color {
+
+          background-position: floor(-@icon-sprite-mini-variant-color-offset-horizontal) -(floor(@icon-mini-height) * 10);
+
+        }
+
+      }
+
+      /* Icon: Failed */
+
+      &.icon-failed {
+
+        background-position: floor(-@icon-sprite-mini-variant-black-offset-horizontal) -(floor(@icon-mini-height) * 10);
+
+        &.icon-sprite-mini-white {
+
+          background-position: floor(-@icon-sprite-mini-variant-white-offset-horizontal) -(floor(@icon-mini-height) * 10);
+
+        }
+
+        &.icon-sprite-mini-color {
+
+          background-position: floor(-@icon-sprite-mini-variant-color-offset-horizontal) -(floor(@icon-mini-height) * 10);
+
+        }
+
+      }
+
+      /* Icon: Failed */
+
+      &.icon-information {
+
+        background-position: floor(-@icon-sprite-mini-variant-black-offset-horizontal) -(floor(@icon-mini-height) * 10);
+        transform: rotate(180deg);
+
+        &.icon-sprite-mini-white {
+
+          background-position: floor(-@icon-sprite-mini-variant-white-offset-horizontal) -(floor(@icon-mini-height) * 10);
+
+        }
+
+        &.icon-sprite-mini-color {
+
+          background-position: floor(-@icon-sprite-mini-variant-color-offset-horizontal) -(floor(@icon-mini-height) * 10);
+
+        }
+
+      }
+
+      /* Icon: Lost */
+
+      &.icon-lost {
+
+        background-position: floor(-@icon-sprite-mini-variant-black-offset-horizontal) -(floor(@icon-mini-height) * 10);
+
+        &.icon-sprite-mini-white {
+
+          background-position: floor(-@icon-sprite-mini-variant-white-offset-horizontal) -(floor(@icon-mini-height) * 10);
+
+        }
+
+        &.icon-sprite-mini-color {
+
+          background-position: floor(-@icon-sprite-mini-variant-color-offset-horizontal) -(floor(@icon-mini-height) * 10);
+
+        }
+
+      }
+
+      /* Icon: Running */
+
+      &.icon-running {
+
+        background-position: floor(-@icon-sprite-mini-variant-black-offset-horizontal) -(floor(@icon-mini-height) * 11);
+
+        &.icon-sprite-mini-white {
+
+          background-position: floor(-@icon-sprite-mini-variant-white-offset-horizontal) -(floor(@icon-mini-height) * 11);
+
+        }
+
+        &.icon-sprite-mini-color {
+
+          background-position: floor(-@icon-sprite-mini-variant-color-offset-horizontal) -(floor(@icon-mini-height) * 11);
+
+        }
+
+      }
+
+      /* Icon: Staging */
+
+      &.icon-staging {
+
+        background-position: floor(-@icon-sprite-mini-variant-black-offset-horizontal) -(floor(@icon-mini-height) * 12);
+
+        &.icon-sprite-mini-white {
+
+          background-position: floor(-@icon-sprite-mini-variant-white-offset-horizontal) -(floor(@icon-mini-height) * 12);
+
+        }
+
+        &.icon-sprite-mini-color {
+
+          background-position: floor(-@icon-sprite-mini-variant-color-offset-horizontal) -(floor(@icon-mini-height) * 12);
+
+        }
+
+      }
+
+      /* Icon: Starting */
+
+      &.icon-starting {
+
+        background-position: floor(-@icon-sprite-mini-variant-black-offset-horizontal) -(floor(@icon-mini-height) * 12);
+
+        &.icon-sprite-mini-white {
+
+          background-position: floor(-@icon-sprite-mini-variant-white-offset-horizontal) -(floor(@icon-mini-height) * 12);
+
+        }
+
+        &.icon-sprite-mini-color {
+
+          background-position: floor(-@icon-sprite-mini-variant-color-offset-horizontal) -(floor(@icon-mini-height) * 12);
+
+        }
+
+      }
+
+      /* Icon: Directory */
+
+      &.icon-directory {
+
+        background-position: floor(-@icon-sprite-mini-variant-black-offset-horizontal) -(floor(@icon-mini-height) * 13);
+
+        &.icon-sprite-mini-white {
+
+          background-position: floor(-@icon-sprite-mini-variant-white-offset-horizontal) -(floor(@icon-mini-height) * 13);
+
+        }
+
+        &.icon-sprite-mini-color {
+
+          background-position: floor(-@icon-sprite-mini-variant-color-offset-horizontal) -(floor(@icon-mini-height) * 13);
+
+        }
+
+      }
+
+      /* Icon: File */
+
+      &.icon-file {
+
+        background-position: floor(-@icon-sprite-mini-variant-black-offset-horizontal) -(floor(@icon-mini-height) * 14);
+
+        &.icon-sprite-mini-white {
+
+          background-position: floor(-@icon-sprite-mini-variant-white-offset-horizontal) -(floor(@icon-mini-height) * 14);
+
+        }
+
+        &.icon-sprite-mini-color {
+
+          background-position: floor(-@icon-sprite-mini-variant-color-offset-horizontal) -(floor(@icon-mini-height) * 14);
+
+        }
+
+      }
+
+      /* Icon: Chevron */
+
+      &.icon-chevron {
+
+        background-position: floor(-@icon-sprite-mini-variant-black-offset-horizontal) -(floor(@icon-mini-height) * 15);
+
+        &.icon-sprite-mini-white {
+
+          background-position: floor(-@icon-sprite-mini-variant-white-offset-horizontal) -(floor(@icon-mini-height) * 15);
+
+        }
+
+        &.icon-sprite-mini-color {
+
+          background-position: floor(-@icon-sprite-mini-variant-color-offset-horizontal) -(floor(@icon-mini-height) * 15);
+
+        }
+
+      }
+
+    }
+
+  }
+
+
+
+  & when (@icon-small-enabled) {
+
+    /* ----------------------------------------------------------------------------------------------------
+    -------------------------------------------------------------------------------------------------------
+
+    Icon (small)
+
+    -------------------------------------------------------------------------------------------------------
+    ---------------------------------------------------------------------------------------------------- */
+
+    .icon.icon-small {
+      max-height: @icon-small-height;
+      max-width: @icon-small-width;
+    }
+
+
+
+    /* ----------------------------------------------------------------------------------------------------
+    -------------------------------------------------------------------------------------------------------
+
+    Icon Sprite (small)
+
+    -------------------------------------------------------------------------------------------------------
+    ---------------------------------------------------------------------------------------------------- */
+
+    .icon.icon-sprite.icon-sprite-small {
+
+      background-image: url("@{path-images}components/icons/icons-small.png?@{cache-buster}");
+      line-height: @icon-small-height;
+      width: @icon-small-width;
+      height: @icon-small-height;
+      .background-size(floor(@icon-sprite-small-count-horizontal * @icon-small-width) floor(@icon-sprite-small-count-vertical * @icon-small-height));
+      background-position: floor(-@icon-sprite-small-variant-black-offset-horizontal) -(floor(@icon-small-height) * 0);
+
+      &.icon-sprite-small-white {
+
+        background-position: floor(-@icon-sprite-small-variant-white-offset-horizontal) -(floor(@icon-small-height) * 0);
+
+      }
+
+      &.icon-sprite-small-color {
+
+        background-position: floor(-@icon-sprite-small-variant-color-offset-horizontal) -(floor(@icon-small-height) * 0);
+
+      }
+
+      /* Icon: Back */
+
+      &.icon-back {
+
+        &.forward {
+
+          transform: rotate(180deg);
+
+        }
+
+        background-position: floor(-@icon-sprite-small-variant-black-offset-horizontal) -(floor(@icon-small-height) * 1);
+
+        &.icon-sprite-small-white {
+
+          background-position: floor(-@icon-sprite-small-variant-white-offset-horizontal) -(floor(@icon-small-height) * 1);
+
+        }
+
+        &.icon-sprite-small-color {
+
+          background-position: floor(-@icon-sprite-small-variant-color-offset-horizontal) -(floor(@icon-small-height) * 1);
+
+        }
+
+      }
+
+      /* Icon: New Window */
+
+      &.icon-new-window {
+
+        background-position: floor(-@icon-sprite-small-variant-black-offset-horizontal) -(floor(@icon-small-height) * 2);
+
+        &.icon-sprite-small-white {
+
+          background-position: floor(-@icon-sprite-small-variant-white-offset-horizontal) -(floor(@icon-small-height) * 2);
+
+        }
+
+        &.icon-sprite-small-color {
+
+          background-position: floor(-@icon-sprite-small-variant-color-offset-horizontal) -(floor(@icon-small-height) * 2);
+
+        }
+
+      }
+
+      /* Icon: Close */
+
+      &.icon-close {
+
+        background-position: floor(-@icon-sprite-small-variant-black-offset-horizontal) -(floor(@icon-small-height) * 3);
+
+        &.icon-sprite-small-white {
+
+          background-position: floor(-@icon-sprite-small-variant-white-offset-horizontal) -(floor(@icon-small-height) * 3);
+
+        }
+
+        &.icon-sprite-small-color {
+
+          background-position: floor(-@icon-sprite-small-variant-color-offset-horizontal) -(floor(@icon-small-height) * 3);
+
+        }
+
+      }
+
+    }
+
+  }
+
+
+
+  & when (@icon-medium-enabled) {
+
+    /* ----------------------------------------------------------------------------------------------------
+    -------------------------------------------------------------------------------------------------------
+
+    Icon (medium)
+
+    -------------------------------------------------------------------------------------------------------
+    ---------------------------------------------------------------------------------------------------- */
+
+    .icon.icon-medium {
+      max-height: @icon-medium-height;
+      max-width: @icon-medium-width;
+    }
+
+
+
+    /* ----------------------------------------------------------------------------------------------------
+    -------------------------------------------------------------------------------------------------------
+
+    Icon Sprite (Medium)
+
+    -------------------------------------------------------------------------------------------------------
+    ---------------------------------------------------------------------------------------------------- */
+
+    .icon.icon-sprite.icon-sprite-medium {
+
+      background-image: url("@{path-images}components/icons/icons-medium.png?@{cache-buster}");
+      line-height: @icon-medium-height;
+      width: @icon-medium-width;
+      height: @icon-medium-height;
+      .background-size(floor(@icon-sprite-medium-count-horizontal * @icon-medium-width) floor(@icon-sprite-medium-count-vertical * @icon-medium-height));
+      background-position: floor(-@icon-sprite-medium-variant-black-offset-horizontal) -(floor(@icon-medium-height) * 0);
+
+      &.icon-sprite-medium-white {
+
+        background-position: floor(-@icon-sprite-medium-variant-white-offset-horizontal) -(floor(@icon-medium-height) * 0);
+
+      }
+
+      &.icon-sprite-medium-color {
+
+        background-position: floor(-@icon-sprite-medium-variant-color-offset-horizontal) -(floor(@icon-medium-height) * 0);
+
+      }
+
+      /* Icon: Services */
+
+      &.icon-services {
+
+        background-position: floor(-@icon-sprite-medium-variant-black-offset-horizontal) -(floor(@icon-medium-height) * 1);
+
+        &.icon-sprite-medium-white {
+
+          background-position: floor(-@icon-sprite-medium-variant-white-offset-horizontal) -(floor(@icon-medium-height) * 1);
+
+        }
+
+        &.icon-sprite-medium-color {
+
+          background-position: floor(-@icon-sprite-medium-variant-color-offset-horizontal) -(floor(@icon-medium-height) * 1);
+
+        }
+
+      }
+
+      /* Icon: Dashboard */
+
+      &.icon-dashboard {
+
+        background-position: floor(-@icon-sprite-medium-variant-black-offset-horizontal) -(floor(@icon-medium-height) * 2);
+
+        &.icon-sprite-medium-white {
+
+          background-position: floor(-@icon-sprite-medium-variant-white-offset-horizontal) -(floor(@icon-medium-height) * 2);
+
+        }
+
+        &.icon-sprite-medium-color {
+
+          background-position: floor(-@icon-sprite-medium-variant-color-offset-horizontal) -(floor(@icon-medium-height) * 2);
+
+        }
+
+      }
+
+      /* Icon: Datacenter */
+
+      &.icon-datacenter {
+
+        background-position: floor(-@icon-sprite-medium-variant-black-offset-horizontal) -(floor(@icon-medium-height) * 3);
+
+        &.icon-sprite-medium-white {
+
+          background-position: floor(-@icon-sprite-medium-variant-white-offset-horizontal) -(floor(@icon-medium-height) * 3);
+
+        }
+
+        &.icon-sprite-medium-color {
+
+          background-position: floor(-@icon-sprite-medium-variant-color-offset-horizontal) -(floor(@icon-medium-height) * 3);
+
+        }
+
+      }
+
+      /* Icon: CLI */
+
+      &.icon-cli {
+
+        background-position: floor(-@icon-sprite-medium-variant-black-offset-horizontal) -(floor(@icon-medium-height) * 4);
+
+        &.icon-sprite-medium-white {
+
+          background-position: floor(-@icon-sprite-medium-variant-white-offset-horizontal) -(floor(@icon-medium-height) * 4);
+
+        }
+
+        &.icon-sprite-medium-color {
+
+          background-position: floor(-@icon-sprite-medium-variant-color-offset-horizontal) -(floor(@icon-medium-height) * 4);
+
+        }
+
+      }
+
+      /* Icon: Chat */
+
+      &.icon-chat {
+
+        background-position: floor(-@icon-sprite-medium-variant-black-offset-horizontal) -(floor(@icon-medium-height) * 5);
+
+        &.icon-sprite-medium-white {
+
+          background-position: floor(-@icon-sprite-medium-variant-white-offset-horizontal) -(floor(@icon-medium-height) * 5);
+
+        }
+
+        &.icon-sprite-medium-color {
+
+          background-position: floor(-@icon-sprite-medium-variant-color-offset-horizontal) -(floor(@icon-medium-height) * 5);
+
+        }
+
+      }
+
+      /* Icon: Menu */
+
+      &.icon-menu {
+
+        background-position: floor(-@icon-sprite-medium-variant-black-offset-horizontal) -(floor(@icon-medium-height) * 7);
+
+        &.icon-sprite-medium-white {
+
+          background-position: floor(-@icon-sprite-medium-variant-white-offset-horizontal) -(floor(@icon-medium-height) * 7);
+
+        }
+
+        &.icon-sprite-medium-color {
+
+          background-position: floor(-@icon-sprite-medium-variant-color-offset-horizontal) -(floor(@icon-medium-height) * 7);
+
+        }
+
+      }
+
+      /* Icon: Alert */
+
+      &.icon-alert {
+
+        background-position: floor(-@icon-sprite-medium-variant-black-offset-horizontal) -(floor(@icon-medium-height) * 8);
+
+        &.icon-sprite-medium-white {
+
+          background-position: floor(-@icon-sprite-medium-variant-white-offset-horizontal) -(floor(@icon-medium-height) * 8);
+
+        }
+
+        &.icon-sprite-medium-color {
+
+          background-position: floor(-@icon-sprite-medium-variant-color-offset-horizontal) -(floor(@icon-medium-height) * 8);
+
+        }
+
+      }
+
+      /* Icon: Documents */
+
+      &.icon-documents {
+
+        background-position: floor(-@icon-sprite-medium-variant-black-offset-horizontal) -(floor(@icon-medium-height) * 9);
+
+        &.icon-sprite-medium-white {
+
+          background-position: floor(-@icon-sprite-medium-variant-white-offset-horizontal) -(floor(@icon-medium-height) * 9);
+
+        }
+
+        &.icon-sprite-medium-color {
+
+          background-position: floor(-@icon-sprite-medium-variant-color-offset-horizontal) -(floor(@icon-medium-height) * 9);
+
+        }
+
+      }
+
+      /* Icon: Life Raft */
+
+      &.icon-life-raft {
+
+        background-position: floor(-@icon-sprite-medium-variant-black-offset-horizontal) -(floor(@icon-medium-height) * 10);
+
+        &.icon-sprite-medium-white {
+
+          background-position: floor(-@icon-sprite-medium-variant-white-offset-horizontal) -(floor(@icon-medium-height) * 10);
+
+        }
+
+        &.icon-sprite-medium-color {
+
+          background-position: floor(-@icon-sprite-medium-variant-color-offset-horizontal) -(floor(@icon-medium-height) * 10);
+
+        }
+
+      }
+
+      /* Icon: Universe */
+
+      &.icon-universe {
+
+        background-position: floor(-@icon-sprite-medium-variant-black-offset-horizontal) -(floor(@icon-medium-height) * 11);
+
+        &.icon-sprite-medium-white {
+
+          background-position: floor(-@icon-sprite-medium-variant-white-offset-horizontal) -(floor(@icon-medium-height) * 11);
+
+        }
+
+        &.icon-sprite-medium-color {
+
+          background-position: floor(-@icon-sprite-medium-variant-color-offset-horizontal) -(floor(@icon-medium-height) * 11);
+
+        }
+
+      }
+
+      /* Icon: Resources: CPU */
+
+      &.icon-resources-cpu {
+
+        background-position: floor(-@icon-sprite-medium-variant-black-offset-horizontal) -(floor(@icon-medium-height) * 12);
+
+        &.icon-sprite-medium-white {
+
+          background-position: floor(-@icon-sprite-medium-variant-white-offset-horizontal) -(floor(@icon-medium-height) * 12);
+
+        }
+
+        &.icon-sprite-medium-color {
+
+          background-position: floor(-@icon-sprite-medium-variant-color-offset-horizontal) -(floor(@icon-medium-height) * 12);
+
+        }
+
+      }
+
+      /* Icon: Resources: Memory */
+
+      &.icon-resources-memory {
+
+        background-position: floor(-@icon-sprite-medium-variant-black-offset-horizontal) -(floor(@icon-medium-height) * 13);
+
+        &.icon-sprite-medium-white {
+
+          background-position: floor(-@icon-sprite-medium-variant-white-offset-horizontal) -(floor(@icon-medium-height) * 13);
+
+        }
+
+        &.icon-sprite-medium-color {
+
+          background-position: floor(-@icon-sprite-medium-variant-color-offset-horizontal) -(floor(@icon-medium-height) * 13);
+
+        }
+
+      }
+
+      /* Icon: Resources: Disk */
+
+      &.icon-resources-disk {
+
+        background-position: floor(-@icon-sprite-medium-variant-black-offset-horizontal) -(floor(@icon-medium-height) * 14);
+
+        &.icon-sprite-medium-white {
+
+          background-position: floor(-@icon-sprite-medium-variant-white-offset-horizontal) -(floor(@icon-medium-height) * 14);
+
+        }
+
+        &.icon-sprite-medium-color {
+
+          background-position: floor(-@icon-sprite-medium-variant-color-offset-horizontal) -(floor(@icon-medium-height) * 14);
+
+        }
+
+      }
+
+      /* Icon: System */
+
+      &.icon-system {
+
+        background-position: floor(-@icon-sprite-medium-variant-black-offset-horizontal) -(floor(@icon-medium-height) * 15);
+
+        &.icon-sprite-medium-white {
+
+          background-position: floor(-@icon-sprite-medium-variant-white-offset-horizontal) -(floor(@icon-medium-height) * 15);
+
+        }
+
+        &.icon-sprite-medium-color {
+
+          background-position: floor(-@icon-sprite-medium-variant-color-offset-horizontal) -(floor(@icon-medium-height) * 15);
+
+        }
+
+      }
+
+      /* Icon: Network */
+
+      &.icon-network {
+
+        background-position: floor(-@icon-sprite-medium-variant-black-offset-horizontal) -(floor(@icon-medium-height) * 16);
+
+        &.icon-sprite-medium-white {
+
+          background-position: floor(-@icon-sprite-medium-variant-white-offset-horizontal) -(floor(@icon-medium-height) * 16);
+
+        }
+
+        &.icon-sprite-medium-color {
+
+          background-position: floor(-@icon-sprite-medium-variant-color-offset-horizontal) -(floor(@icon-medium-height) * 16);
+
+        }
+
+      }
+
+    }
+
+  }
+
+
+
+  & when (@icon-large-enabled) {
+
+    /* ----------------------------------------------------------------------------------------------------
+    -------------------------------------------------------------------------------------------------------
+
+    Icon (large)
+
+    -------------------------------------------------------------------------------------------------------
+    ---------------------------------------------------------------------------------------------------- */
+
+    .icon.icon-large {
+      max-height: @icon-large-height;
+      max-width: @icon-large-width;
+    }
+
+  }
+
+
+
+  & when (@icon-jumbo-enabled) {
+
+    /* ----------------------------------------------------------------------------------------------------
+    -------------------------------------------------------------------------------------------------------
+
+    Icon (jumbo)
+
+    -------------------------------------------------------------------------------------------------------
+    ---------------------------------------------------------------------------------------------------- */
+
+    .icon.icon-jumbo {
+      max-height: @icon-jumbo-height;
+      max-width: @icon-jumbo-width;
+    }
+
+
+    /* ----------------------------------------------------------------------------------------------------
+    -------------------------------------------------------------------------------------------------------
+
+    Icon Sprite (jumbo)
+
+    -------------------------------------------------------------------------------------------------------
+    ---------------------------------------------------------------------------------------------------- */
+
+    .icon.icon-sprite.icon-sprite-jumbo {
+
+      background-image: url("@{path-images}components/icons/icons-jumbo.png?@{cache-buster}");
+      line-height: @icon-jumbo-height;
+      width: @icon-jumbo-width;
+      height: @icon-jumbo-height;
+      .background-size(floor(@icon-sprite-jumbo-count-horizontal * @icon-jumbo-width) floor(@icon-sprite-jumbo-count-vertical * @icon-jumbo-height));
+      background-position: floor(-@icon-sprite-jumbo-variant-black-offset-horizontal) -(floor(@icon-jumbo-height) * 0);
+
+      &.icon-sprite-jumbo-white {
+
+        background-position: floor(-@icon-sprite-jumbo-variant-white-offset-horizontal) -(floor(@icon-jumbo-height) * 0);
+
+      }
+
+      &.icon-sprite-jumbo-color {
+
+        background-position: floor(-@icon-sprite-jumbo-variant-color-offset-horizontal) -(floor(@icon-jumbo-height) * 0);
+
+      }
+
+      /* Icon: Services */
+
+      &.icon-services {
+
+        background-position: floor(-@icon-sprite-jumbo-variant-black-offset-horizontal) -(floor(@icon-jumbo-height) * 1);
+
+        &.icon-sprite-jumbo-white {
+
+          background-position: floor(-@icon-sprite-jumbo-variant-white-offset-horizontal) -(floor(@icon-jumbo-height) * 1);
+
+        }
+
+        &.icon-sprite-jumbo-color {
+
+          background-position: floor(-@icon-sprite-jumbo-variant-color-offset-horizontal) -(floor(@icon-jumbo-height) * 1);
+
+        }
+
+      }
+
+      /* Icon: Datacenter */
+
+      &.icon-datacenter {
+
+        background-position: floor(-@icon-sprite-jumbo-variant-black-offset-horizontal) -(floor(@icon-jumbo-height) * 2);
+
+        &.icon-sprite-jumbo-white {
+
+          background-position: floor(-@icon-sprite-jumbo-variant-white-offset-horizontal) -(floor(@icon-jumbo-height) * 2);
+
+        }
+
+        &.icon-sprite-jumbo-color {
+
+          background-position: floor(-@icon-sprite-jumbo-variant-color-offset-horizontal) -(floor(@icon-jumbo-height) * 2);
+
+        }
+
+      }
+
+      /* Icon: Lost Planet */
+
+      &.icon-lost-planet {
+
+        background-position: floor(-@icon-sprite-jumbo-variant-black-offset-horizontal) -(floor(@icon-jumbo-height) * 3);
+
+        &.icon-sprite-jumbo-white {
+
+          background-position: floor(-@icon-sprite-jumbo-variant-white-offset-horizontal) -(floor(@icon-jumbo-height) * 3);
+          opacity: 0.4;
+
+        }
+
+        &.icon-sprite-jumbo-color {
+
+          background-position: floor(-@icon-sprite-jumbo-variant-color-offset-horizontal) -(floor(@icon-jumbo-height) * 3);
+
+        }
+
+      }
+
+    }
+
+  }
+
+}
+
+
+
+& when (@icon-huge-enabled) {
+
+  /* ----------------------------------------------------------------------------------------------------
+  -------------------------------------------------------------------------------------------------------
+
+  Icon (Huge)
+
+  -------------------------------------------------------------------------------------------------------
+  ---------------------------------------------------------------------------------------------------- */
+
+  .icon.icon-huge {
+    width: @icon-huge-width;
+    height: @icon-huge-height;
+  }
+
+}
+
+
+
+
+
+
+& when (@screen-resolution-2x-enabled) {
+
+  /* -----------------------------------------------------------------------------
+  --------------------------------------------------------------------------------
+
+  Screen Resolution: 2x
+
+  --------------------------------------------------------------------------------
+  ----------------------------------------------------------------------------- */
+
+  @media only screen and (-webkit-min-device-pixel-ratio: 2) {
+
+    /* Icons (Mini) */
+
+    & when (@icon-mini-enabled) {
+
+      .icon.icon-sprite.icon-sprite-mini {
+
+        background-image: url("@{path-images}components/icons/icons-mini@2x.png?@{cache-buster}");
+
+      }
+
+    }
+
+    /* Icons (small) */
+
+    & when (@icon-small-enabled) {
+
+      .icon.icon-sprite.icon-sprite-small  {
+
+        background-image: url("@{path-images}components/icons/icons-small@2x.png?@{cache-buster}");
+
+      }
+
+    }
+
+    /* Icons (medium) */
+
+    & when (@icon-medium-enabled) {
+
+      .icon.icon-sprite.icon-sprite-medium  {
+
+        background-image: url("@{path-images}components/icons/icons-medium@2x.png?@{cache-buster}");
+
+      }
+
+    }
+
+    /* Icons (large) */
+
+    & when (@icon-large-enabled) {
+
+      .icon.icon-sprite.icon-sprite-large  {
+
+        background-image: url("@{path-images}components/icons/icons-large@2x.png?@{cache-buster}");
+
+      }
+
+    }
+
+    /* Icons (jumbo) */
+
+    & when (@icon-jumbo-enabled) {
+
+      .icon.icon-sprite.icon-sprite-jumbo  {
+
+        background-image: url("@{path-images}components/icons/icons-jumbo@2x.png?@{cache-buster}");
+
+      }
+
+    }
+
+  }
+
+}
+
+
+
+
+
+
+& when (@screen-resolution-3x-enabled) {
+
+  /* -----------------------------------------------------------------------------
+  --------------------------------------------------------------------------------
+
+  Screen Resolution: 3x
+
+  --------------------------------------------------------------------------------
+  ----------------------------------------------------------------------------- */
+
+  @media only screen and (-webkit-min-device-pixel-ratio: 3) {
+
+  }
+
+}

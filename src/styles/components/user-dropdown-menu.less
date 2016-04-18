@@ -1,0 +1,238 @@
+@keyframes user-dropdown-menu-enter {
+  0% {
+    transform: translateY(100%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes user-dropdown-menu-leave {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(100%);
+  }
+}
+
+@keyframes user-dropdown-menu-fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes user-dropdown-menu-fade-out {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.user-dropdown {
+  display: flex;
+}
+
+.user-dropdown-menu.dropdown {
+  bottom: 0;
+  display: block;
+  margin-left: -37%;
+  padding-left: 37%;
+  position: absolute;
+  width: 100%;
+  z-index: @z-index-modal + 1;
+
+  .dropdown-menu {
+    border-radius: 0;
+    // Make sure that this element is not floated, so it has a height
+    float: none;
+    padding-left: 0;
+    padding-right: 0;
+    position: static;
+    transform-origin: bottom center;
+    width: 100%;
+
+    .dropdown-menu-list {
+      // Override dropdown menu margins
+      margin-left: 0;
+      margin-right: 0;
+      margin-top: 5px;
+    }
+
+    .icon-buttons {
+      display: flex;
+      flex-direction: row;
+
+      .button {
+        background-color: transparent;
+        border-bottom: 1px solid color-lighten(@black, 90);
+        border-top-width: 0;
+        border-left-width: 0;
+        border-radius: 0;
+        flex-grow: 1;
+        height: auto;
+
+        .icon {
+          opacity: 0.7;
+          transition: opacity 5s;
+
+          &:hover {
+            opacity: 1;
+          }
+
+        }
+
+        &:last-child {
+          border-right-width: 0;
+        }
+
+      }
+
+      .user-dropdown {
+        align-items: center;
+        display: flex;
+
+        .icon {
+          margin-right: (@base-spacing-unit * 0.25);
+        }
+
+        .user-description {
+          flex: 1;
+          text-align: left;
+          display: block;
+        }
+      }
+    }
+  }
+}
+
+.user-dropdown-menu-enter {
+  animation: user-dropdown-menu-fade-in 0.25s linear both, user-dropdown-menu-enter 0.25s linear both;
+}
+
+.user-dropdown-menu-leave {
+  animation: user-dropdown-menu-fade-out 0.25s linear both, user-dropdown-menu-leave 0.25s linear both;
+}
+
+.sidebar-footer-user-dropdown,
+.sidebar-footer-user-dropdown-button {
+  width: 100%;
+}
+
+.sidebar-footer-user-dropdown {
+  display: none;
+  position: relative;
+  // z-index has to be at least 10000 becase it will render underneath gemini
+  // otherwise.
+  z-index: 10000;
+
+  .dropdown-menu {
+    left: 8px;
+    margin-bottom: 8px;
+  }
+
+}
+
+.sidebar-footer-user-dropdown-button {
+  appearance: none;
+  background: none;
+  border: none;
+  border-top: 1px solid color-lighten(@neutral, 90%);
+  outline: none;
+  padding: 0;
+}
+
+.user-dropdown-menu,
+.sidebar-footer-user-dropdown {
+
+  .tooltip-wrapper {
+    font-size: inherit;
+    height: auto;
+    text-align: left;
+  }
+}
+
+& when (@screen-small-enabled) {
+  @media (min-width: @screen-small) {
+    .user-dropdown {
+      display: none;
+    }
+
+    .user-dropdown-menu.dropdown {
+      display: none;
+      margin-left: 0;
+      padding-left: 0;
+      width: auto;
+
+      .dropdown-menu {
+
+        .icon-buttons .user-dropdown .user-description {
+          display: none;
+        }
+      }
+    }
+
+    .sidebar-footer-user-dropdown {
+      display: block;
+
+      .user-dropdown {
+        display: block;
+
+        &:after {
+          display: none;
+        }
+      }
+    }
+  }
+}
+
+& when (@screen-medium-enabled) {
+  @media (min-width: @screen-medium) {
+    .user-dropdown {
+      display: flex;
+    }
+
+    .user-dropdown-menu.dropdown {
+      display: block;
+
+      .dropdown-menu {
+        width: 250px;
+
+        .icon-buttons .user-dropdown {
+          .icon {
+            margin-right: (@base-spacing-unit-screen-medium * 0.25);
+          }
+
+          .user-description {
+            display: block;
+          }
+        }
+      }
+    }
+
+    .sidebar-footer-user-dropdown {
+      display: none;
+    }
+  }
+}
+
+& when (@screen-large-enabled) {
+  @media (min-width: @screen-large) {
+    .user-dropdown-menu.dropdown {
+      display: block;
+
+      .dropdown-menu {
+        width: 300px;
+
+        .icon-buttons .user-dropdown .icon {
+          margin-right: (@base-spacing-unit-screen-large * 0.25);
+        }
+      }
+    }
+  }
+}

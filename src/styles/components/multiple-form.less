@@ -1,0 +1,190 @@
+/* -----------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+base/forms.less
+
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+----------------------------------------------------------------------------- */
+
+
+
+
+
+
+& when (@form-enabled) {
+
+  /* -----------------------------------------------------------------------------
+  --------------------------------------------------------------------------------
+
+  Inline Form Elements
+
+  --------------------------------------------------------------------------------
+  ----------------------------------------------------------------------------- */
+  .horizontal-center {
+
+    .form-element-inline {
+      border-radius: 0;
+      display: inline-block;
+
+      .form-element-inline-text {
+        flex: none;
+      }
+
+      .form-element-inline-icon {
+        flex: none;
+      }
+
+    }
+
+    .form-row-read {
+
+      .form-element-inline-text {
+        // The 16px offsets the width of the inline edit icon
+        margin-left: @base-spacing-unit * 1/2 + 16px;
+      }
+
+    }
+
+  }
+
+  .review-config,
+  .multiple-form {
+    height: 462px;
+  }
+
+  .multiple-form-modal {
+    .button-collection {
+      display: flex;
+      justify-content: space-between;
+
+      .button {
+        &:first-child {
+          align-self: flex-start;
+        }
+
+        &:last-child {
+          align-self: flex-end;
+        }
+      }
+
+      &:after, &:before {
+        display: none;
+      }
+    }
+
+    dt {
+      padding-left: 0;
+    }
+
+    .form-header {
+      margin: 0;
+    }
+
+    .form {
+      margin-bottom: @base-spacing-unit;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+
+      .icon.icon-error {
+        transform: rotate(180deg);
+        opacity: 0.5;
+
+        &:hover {
+          opacity: 1;
+        }
+      }
+
+      .checkbox .form-group label {
+        padding-left: 0;
+      }
+    }
+
+    .multiple-form-left-column-container {
+      border-right: 1px solid color-lighten(@neutral, 80);
+      height: 100%;
+      padding: 0;
+      width: 33%;
+    }
+
+    dl {
+      margin: 0;
+      margin-bottom: @base-spacing-unit * 0.4;
+    }
+
+    .multiple-form {
+      &.mobile-width {
+        flex-direction: column;
+
+        .mobile-column {
+          flex-shrink: 0;
+          padding-left: @base-spacing-unit * 4/3;
+          padding-top: @base-spacing-unit;
+
+          &:first-child {
+            border-bottom: 1px solid color-lighten(@neutral, 80);
+          }
+
+          &:last-child {
+            flex-shrink: 1;
+            overflow: auto;
+          }
+
+          .sidebar-tabs .sidebar-menu-item.selected {
+            border: 0;
+          }
+        }
+      }
+
+      .multiple-form-left-column-container {
+        border-right: 1px solid color-lighten(@neutral, 80);
+        height: 100%;
+        padding: 0;
+        width: 33%;
+      }
+
+      .multiple-form-right-column {
+        height: 100%;
+        overflow: auto;
+        padding-bottom: @base-spacing-unit;
+        padding-right: 0;
+        padding-top: @base-spacing-unit;
+        width: 67%;
+      }
+
+      .column-12.form-row-element {
+        padding-bottom: @base-spacing-unit * 2/3;
+        padding-left: @base-spacing-unit;
+        padding-right: @base-spacing-unit;
+      }
+
+      &-left-column {
+        padding: @base-spacing-unit 0 0 @base-spacing-unit;
+      }
+
+      .media-object-item {
+        padding-bottom: 0;
+      }
+    }
+
+    .form-panel {
+      padding-right: @base-spacing-unit;
+
+      > .form > *:last-child {
+        padding-bottom: @base-spacing-unit;
+      }
+    }
+
+  }
+}
+
+& when (@screen-mini-enabled) {
+  @media (max-width: @screen-mini) {
+    .multiple-form-modal .multiple-form .column-12.form-row-element {
+      padding-left: @base-spacing-unit * 4/3;
+    }
+  }
+}

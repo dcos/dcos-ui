@@ -1,0 +1,36 @@
+.progress-bar {
+  background-color: @neutral;
+  .border-radius(@table-header-border-radius);
+  display: inline-block;
+  overflow: hidden;
+  line-height: @body-text-line-height;
+  width: @progress-bar-width;
+  height: @progress-bar-height;
+
+  .bar {
+    height: 100%;
+
+    transition: width 600ms;
+
+    box-shadow: 1px 0px 0px 0px @body-background-color;
+
+    &.color-1 {
+      background-color: @purple;
+    }
+
+    &.color-2 {
+      background-color: @pink;
+    }
+
+    &.color-3 {
+      background-color: @blue;
+    }
+  }
+}
+
+.spread-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: @base-spacing-unit * 0.5;
+}

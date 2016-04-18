@@ -1,0 +1,7 @@
+{
+  "host_ip": "10.10.0.235",
+  "role": "master",
+  "health": 0,
+  "output": "... journald ...",
+  "help": "Mesos Dns Service failed to start on host ip-10.0.0.1. Please see `systemctl -u mesos-dns.service` for more information"
+}

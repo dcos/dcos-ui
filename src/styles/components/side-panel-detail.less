@@ -1,0 +1,249 @@
+/* -----------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+components/side-panel-detail.less
+
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+----------------------------------------------------------------------------- */
+
+
+@side-panel-detail-flex-container-col: 2004;
+
+
+
+
+
+/* -----------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+Side Panel Detail
+
+--------------------------------------------------------------------------------
+----------------------------------------------------------------------------- */
+
+.side-panel {
+
+  &.side-panel-xlarge {
+    max-width: 1200px;
+    width: 100%;
+
+    .button-expand {
+
+      &:after {
+      	border-top: 5px solid transparent;
+        border-right: 0;
+      	border-bottom: 5px solid transparent;
+        border-left: 5px solid color-lighten(@neutral, 50);
+        content: '';
+        font-size: 0;
+      }
+    }
+  }
+
+  .button-expand {
+
+    color: #666;
+    font-size: 10px;
+    height: auto;
+    line-height: 10px;
+    left: 8px;
+    padding: 1px 7px 5px 5px;
+    position: absolute;
+    top: 50%;
+    z-index: 2010;
+
+    &:after {
+    	border-top: 5px solid transparent;
+      border-right: 5px solid color-lighten(@neutral, 50);
+    	border-bottom: 5px solid transparent;
+      border-left: 0;
+      content: '';
+      font-size: 0;
+    }
+  }
+}
+
+.side-panel-detail {
+
+  /* -----------------------------------------------------------------------------
+  --------------------------------------------------------------------------------
+
+  Side Panel Content Header
+
+  --------------------------------------------------------------------------------
+  ----------------------------------------------------------------------------- */
+
+  .side-panel-header {
+
+    .side-panel-header-container {
+
+      align-items: center;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+
+      .side-panel-header-actions {
+
+        flex-grow: 1;
+        flex-basis: 0;
+
+        &.side-panel-header-actions-primary {
+
+        }
+
+        &.side-panel-header-actions-secondary {
+
+        }
+      }
+    }
+  }
+
+  .side-panel-content {
+    border: 0;
+    display: flex;
+    flex: 3 3 100%;
+    width: 100%;
+
+    .flex-container-col {
+      max-width: 100%;
+      z-index: @side-panel-detail-flex-container-col;
+    }
+
+    // We need to force the Gemini scrollbar view to fill its parent.
+    > .gm-scroll-view {
+      align-self: stretch;
+      display: flex;
+      flex: 1;
+
+      > div {
+        width: 100%;
+      }
+    }
+
+    .side-panel-section {
+      flex-shrink: 0;
+    }
+
+    .side-panel-tab-content {
+      min-height: 400px;
+    }
+
+    .side-panel-content-header {
+
+      .side-panel-content-header-details {
+
+        .side-panel-icon {
+          margin-right: @base-spacing-unit * 0.5;
+        }
+
+      }
+
+      .side-panel-content-header-label {
+        min-width: 0;
+        width: 100%;
+      }
+
+    }
+
+  }
+
+
+  /* -----------------------------------------------------------------------------
+  --------------------------------------------------------------------------------
+
+  Side Panel Resource Container
+
+  --------------------------------------------------------------------------------
+  ----------------------------------------------------------------------------- */
+
+  .side-panel-resource-container {
+    display: inline-block;
+    margin-right: @base-spacing-unit;
+
+    &:last-child {
+      margin-right: 0;
+    }
+
+  }
+
+  .side-panel-resource-label {
+
+    font-size: 12px;
+    font-weight: 500;
+
+  }
+
+  .side-panel-icon {
+
+    flex-shrink: 0;
+    height: 64px;
+    width: 64px;
+
+    .icon-image {
+
+      height: 64px;
+      width: 64px;
+
+    }
+
+  }
+
+  .side-panel-subheader {
+
+    font-size: 15px;
+    margin-right: @base-spacing-unit * 0.75;
+    margin-top: @base-spacing-unit * 0.25;
+
+    &:last-child {
+
+      margin-right: 0;
+
+    }
+
+    &.side-panel-subheader-emphasize {
+      color: @neutral;
+    }
+
+  }
+
+  .control-group > * {
+
+    margin-right: @base-spacing-unit * 0.5;
+
+    &:last-child {
+      margin-right: 0;
+    }
+
+  }
+
+  .filter-input-text {
+
+    width: @base-spacing-unit * 3;
+
+  }
+
+  .filter-input-text-group {
+
+    width: @base-spacing-unit * 7;
+
+  }
+
+  dd, dt {
+
+    word-break: break-all;
+
+  }
+
+}
+
+.side-panel-content {
+
+  &.no-overflow-horizontal {
+
+    & > .gm-scroll-view {
+      overflow-x: hidden;
+    }
+  }
+}

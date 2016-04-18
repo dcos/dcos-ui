@@ -1,0 +1,45 @@
+{
+  "tasks": [
+    {
+      "id": "task 1",
+      "name": "zkfc",
+      "resources": {
+        "cpus": 0.1,
+        "disk": 0,
+        "mem": 691.2
+      },
+      "state": "TASK_RUNNING",
+      "statuses": [
+        {
+          "state": "TASK_STAGING",
+          "timestamp": 1441903384.07029
+        },
+        {
+          "state": "TASK_RUNNING",
+          "timestamp": 1441903385.07029
+        }
+      ]
+    },
+
+    {
+      "id": "task 2",
+      "name": "marathon",
+      "resources": {
+        "cpus": 0.1,
+        "disk": 0,
+        "mem": 691.2
+      },
+      "state": "TASK_RUNNING",
+      "statuses": [
+        {
+          "state": "TASK_STAGING",
+          "timestamp": 1441903384.07029
+        },
+        {
+          "state": "TASK_RUNNING",
+          "timestamp": 1441903385.07029
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "id": "http://schema.dcos/acl/groups",
+  "title": "DCOS ACL: All groups endpoint response",
+  "type": "array",
+  "items": {
+    "allOf": [
+      {"$ref": "http://schema.dcos/acl/groups/group"}
+    ]
+  }
+}

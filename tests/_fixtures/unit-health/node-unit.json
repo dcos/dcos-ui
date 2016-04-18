@@ -1,0 +1,7 @@
+{
+  "id": "dcos-signal.service",
+  "health": 1,
+  "output": "dcos-signal.service state is not one of the possible states [active inactive]. Current state is [ failed ]. Please check `systemctl show all dcos-signal.service` to check current unit state. ",
+  "description": "DCOS Tracking",
+  "help": "Node available at `dcos node ssh --slave-ip=10.10.0.210`. Try, `journalctl -xv` to diagnose further."
+}

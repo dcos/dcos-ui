@@ -1,0 +1,30 @@
+{
+  "direct": [
+    {
+      "rid": "dcos:adminrouter:service:marathon",
+      "description": "Marathon",
+      "aclurl": "/acls/dcos:adminrouter:service:marathon",
+      "actions": [
+        {
+          "name": "full",
+          "url": "/acls/dcos:adminrouter:service:marathon/users/quis/full"
+        }
+      ]
+    }
+  ],
+  "groups": [
+    {
+      "rid": "dcos:adminrouter:service:marathon",
+      "description": "Marathon",
+      "aclurl": "/acls/dcos:adminrouter:service:marathon",
+      "gid": "ölis",
+      "membershipurl": "/groups/quis/users/quis",
+      "actions": [
+        {
+          "name": "full",
+          "url": "/acls/dcos:adminrouter:service:marathon/groups/quis/full"
+        }
+      ]
+    }
+  ]
+}

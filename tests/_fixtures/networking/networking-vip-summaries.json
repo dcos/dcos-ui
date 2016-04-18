@@ -1,0 +1,43 @@
+{
+  "array": [
+    {
+      "vip": {
+        "ip": "1.2.3.4",
+        "port": 5,
+        "protocol": "tcp"
+      },
+      "success_last_minute": 1523,
+      "fail_last_minute": 8,
+      "backends": 813,
+      "application_reachability_pct": 98,
+      "machine_reachability_pct": 99,
+      "p99_latency_ms": 2
+    },
+    {
+      "vip": {
+        "ip": "1.2.4.4",
+        "port": 10,
+        "protocol": "udp"
+      },
+      "success_last_minute": 810,
+      "fail_last_minute": 216,
+      "backends": 875,
+      "application_reachability_pct": 100,
+      "machine_reachability_pct": 95,
+      "p99_latency_ms": 14
+    },
+    {
+      "vip": {
+        "ip": "10.8.3.9",
+        "port": 20,
+        "protocol": "tcp"
+      },
+      "success_last_minute": 3234,
+      "fail_last_minute": 1,
+      "backends": 576,
+      "application_reachability_pct": 97,
+      "machine_reachability_pct": 93,
+      "p99_latency_ms": 4
+    }
+  ]
+}

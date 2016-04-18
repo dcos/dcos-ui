@@ -1,0 +1,224 @@
+/* grid */
+@grid-container-width-screen-mini: 480px;
+
+/* -----------------------------------------------------------------------------
+Screen Sizes
+----------------------------------------------------------------------------- */
+
+// Large Screen (Desktop)
+
+@screen-large:                                                                  1270px;
+@screen-large-max:                                                              (@screen-x-large - 1);
+
+// Extra-Large Screen (Wide-Screen Desktop)
+
+@screen-x-large-enabled:                                                         true;
+@screen-x-large:                                                                 1860px;
+
+/* -----------------------------------------------------------------------------
+Grid
+----------------------------------------------------------------------------- */
+
+@grid-columns-count:                                                            12;
+
+@grid-gutter-width:                                                             12px;
+
+// Mini Screen (Phone)
+
+@grid-gutter-width-screen-mini:                                                 2.5%;
+@grid-column-width-screen-mini:                                                 (@grid-container-width-screen-mini - ((@grid-columns-count - 1) * @grid-gutter-width-screen-mini)) / @grid-columns-count;
+@grid-container-width-screen-mini:                                              100%;
+
+// Small Screen (Tablet)
+
+@grid-gutter-width-screen-small:                                                16px;
+@grid-column-width-screen-small:                                                (@grid-container-width-screen-small - ((@grid-columns-count - 1) * @grid-gutter-width-screen-small)) / @grid-columns-count;
+@grid-container-width-screen-small:                                             730px;
+
+// Medium Screen (Laptop)
+
+@grid-gutter-width-screen-medium:                                               24px;
+@grid-column-width-screen-medium:                                               (@grid-container-width-screen-medium - ((@grid-columns-count - 1) * @grid-gutter-width-screen-medium)) / @grid-columns-count;
+@grid-container-width-screen-medium:                                            920px;
+
+// Large Screen (Desktop)
+
+@grid-gutter-width-screen-large:                                                32px;
+@grid-column-width-screen-large:                                                (@grid-container-width-screen-large - ((@grid-columns-count - 1) * @grid-gutter-width-screen-large)) / @grid-columns-count;
+@grid-container-width-screen-large:                                             1100px;
+
+// Extra-Large Screen (Wide-Screen Desktop)
+
+@grid-gutter-width-screen-x-large:                                              48px;
+@grid-column-width-screen-x-large:                                              (@grid-container-width-screen-x-large - ((@grid-columns-count - 1) * @grid-gutter-width-screen-x-large)) / @grid-columns-count;
+@grid-container-width-screen-x-large:                                           1600px;
+
+
+/* -----------------------------------------------------------------------------
+Fluid Container
+----------------------------------------------------------------------------- */
+
+@grid-container-fluid-gutter-width:                                             @grid-gutter-width * 1.0;
+@grid-container-fluid-gutter-width-screen-mini:                                 @grid-gutter-width * 1.0;
+@grid-container-fluid-gutter-width-screen-small:                                @grid-gutter-width-screen-small * 1.5;
+@grid-container-fluid-gutter-width-screen-medium:                               @grid-gutter-width-screen-medium * 1.5;
+@grid-container-fluid-gutter-width-screen-large:                                @grid-gutter-width-screen-large * 1.5;
+@grid-container-fluid-gutter-width-screen-x-large:                              @grid-gutter-width-screen-x-large * 1.5;
+
+// Narrow Fluid Container
+
+@grid-container-fluid-narrow-gutter-width:                                      @grid-container-fluid-gutter-width * 1.0;
+@grid-container-fluid-narrow-gutter-width-screen-mini:                          @grid-container-fluid-gutter-width-screen-mini * 1.0;
+@grid-container-fluid-narrow-gutter-width-screen-small:                         @grid-container-fluid-gutter-width-screen-small * 0.5;
+@grid-container-fluid-narrow-gutter-width-screen-medium:                        @grid-container-fluid-gutter-width-screen-medium * 0.5;
+@grid-container-fluid-narrow-gutter-width-screen-large:                         @grid-container-fluid-gutter-width-screen-large * 0.5;
+@grid-container-fluid-narrow-gutter-width-screen-x-large:                       @grid-container-fluid-gutter-width-screen-x-large * 0.5;
+
+// Wide Fluid Container
+
+@grid-container-fluid-wide-gutter-width:                                        @grid-container-fluid-gutter-width * 2.0;
+@grid-container-fluid-wide-gutter-width-screen-mini:                            @grid-container-fluid-gutter-width-screen-mini * 2.0;
+@grid-container-fluid-wide-gutter-width-screen-small:                           @grid-container-fluid-gutter-width-screen-small * 2.0;
+@grid-container-fluid-wide-gutter-width-screen-medium:                          @grid-container-fluid-gutter-width-screen-medium * 2.0;
+@grid-container-fluid-wide-gutter-width-screen-large:                           @grid-container-fluid-gutter-width-screen-large * 2.0;
+@grid-container-fluid-wide-gutter-width-screen-x-large:                         @grid-container-fluid-gutter-width-screen-x-large * 2.0;
+
+
+
+/* -----------------------------------------------------------------------------
+Spacing Unit
+----------------------------------------------------------------------------- */
+
+@base-spacing-unit:                                                             @grid-gutter-width * 2.0;
+@base-spacing-unit-screen-mini:                                                 @grid-gutter-width * 2.0;
+@base-spacing-unit-screen-small:                                                @grid-gutter-width-screen-small * 2.0;
+@base-spacing-unit-screen-medium:                                               @grid-gutter-width-screen-medium * 2.0;
+@base-spacing-unit-screen-large:                                                @grid-gutter-width-screen-large * 2.0;
+@base-spacing-unit-screen-x-large:                                              @grid-gutter-width-screen-x-large * 2.0;
+
+
+
+/* -----------------------------------------------------------------------------
+Z-Index Depths
+----------------------------------------------------------------------------- */
+
+@z-index-header:                                                                1000;
+@z-index-side-panel:                                                            2000;
+
+
+
+
+
+
+/* -----------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+Foundation
+
+--------------------------------------------------------------------------------
+----------------------------------------------------------------------------- */
+
+
+
+/* -----------------------------------------------------------------------------
+Body
+----------------------------------------------------------------------------- */
+
+@body-background-color:                                                         color-lighten(@neutral, -30);
+
+
+
+/* -----------------------------------------------------------------------------
+Page
+----------------------------------------------------------------------------- */
+
+@page-header-background-color:                                                  color-lighten(@neutral, -50);
+
+
+
+/* -----------------------------------------------------------------------------
+Canvas
+----------------------------------------------------------------------------- */
+
+@canvas-background-color:                                                       color-lighten(@neutral, -30);
+
+
+
+/* -----------------------------------------------------------------------------
+Canvas Pod
+----------------------------------------------------------------------------- */
+
+@canvas-pod-light-background-color:                                             color-lighten(@neutral, 90);
+@canvas-pod-dark-background-color:                                              color-lighten(@neutral, -30);
+
+
+
+/* -----------------------------------------------------------------------------
+Container Pod
+----------------------------------------------------------------------------- */
+
+@container-pod-padding-vertical:                                                @base-spacing-unit * 1.0;
+@container-pod-padding-vertical-screen-mini:                                    @base-spacing-unit-screen-mini * 1.0;
+@container-pod-padding-vertical-screen-small:                                   @base-spacing-unit-screen-small * 1.0;
+@container-pod-padding-vertical-screen-medium:                                  @base-spacing-unit-screen-medium * 1.0;
+@container-pod-padding-vertical-screen-large:                                   @base-spacing-unit-screen-large * 1.0;
+
+// Short Container Pod
+
+@container-pod-super-short-padding-vertical:                                    @base-spacing-unit * 0.5;
+@container-pod-super-short-padding-vertical-screen-mini:                        @base-spacing-unit-screen-mini * 0.5;
+@container-pod-super-short-padding-vertical-screen-small:                       @base-spacing-unit-screen-small * 0.25;
+@container-pod-super-short-padding-vertical-screen-medium:                      @base-spacing-unit-screen-medium * 0.25;
+@container-pod-super-short-padding-vertical-screen-large:                       @base-spacing-unit-screen-large * 0.25;
+
+// Short Container Pod
+
+@container-pod-short-padding-vertical:                                          @base-spacing-unit * 0.75;
+@container-pod-short-padding-vertical-screen-mini:                              @base-spacing-unit-screen-mini * 0.5;
+@container-pod-short-padding-vertical-screen-small:                             @base-spacing-unit-screen-small * 0.5;
+@container-pod-short-padding-vertical-screen-medium:                            @base-spacing-unit-screen-medium * 0.5;
+@container-pod-short-padding-vertical-screen-large:                             @base-spacing-unit-screen-large * 0.5;
+
+// Tall Container Pod
+
+@container-pod-tall-padding-vertical:                                           @base-spacing-unit * 1.5;
+@container-pod-tall-padding-vertical-screen-mini:                               @base-spacing-unit-screen-mini * 1.5;
+@container-pod-tall-padding-vertical-screen-small:                              @base-spacing-unit-screen-small * 1.5;
+@container-pod-tall-padding-vertical-screen-medium:                             @base-spacing-unit-screen-medium * 1.5;
+@container-pod-tall-padding-vertical-screen-large:                              @base-spacing-unit-screen-large * 1.5;
+
+
+
+/* -----------------------------------------------------------------------------
+Borders
+----------------------------------------------------------------------------- */
+
+@border-color:                                                                  color-lighten(@neutral, 90);
+@border-color-inverse:                                                          color-lighten(@neutral, 5);
+
+
+
+/* -----------------------------------------------------------------------------
+Collection
+----------------------------------------------------------------------------- */
+
+@table-row-height:                                                              @icon-small-height + @base-spacing-unit;
+@table-row-height-small:                                                        @icon-small-height + @base-spacing-unit;
+@table-header-border-radius:                                                    @button-large-border-radius;
+
+
+
+/* -----------------------------------------------------------------------------
+Dropdown
+----------------------------------------------------------------------------- */
+
+@caret-width-base:                                                              4px;
+
+
+
+/* -----------------------------------------------------------------------------
+Progress Bar
+----------------------------------------------------------------------------- */
+
+@progress-bar-height:                                                           4px;
+@progress-bar-width:                                                            @base-spacing-unit * 2;

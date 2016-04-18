@@ -1,0 +1,7 @@
+{
+  "port": 636,
+  "enforce-starttls": false,
+  "host": "ipa.demo1.freeipa.org",
+  "dntemplate": "uid=%(username)s,cn=users,cn=accounts,dc=demo1,dc=freeipa,dc=org",
+  "use-ldaps": true
+}

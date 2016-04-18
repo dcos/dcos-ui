@@ -1,0 +1,16 @@
+{
+  "repositories": [
+    {
+      "name": "Universe",
+      "uri": "https://universe.mesosphere.com/repo"
+    },
+    {
+      "name": "Mat The Great!",
+      "uri": "http://facebook.com"
+    },
+    {
+      "name": "Go Team",
+      "uri": "http://go.team"
+    }
+  ]
+}

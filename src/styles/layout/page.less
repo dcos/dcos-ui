@@ -1,0 +1,223 @@
+@page-header-font-size: @body-text-font-size * 1.4;
+
+.page {
+  display: flex;
+  flex: 1;
+  height: 100%;
+  left: 0px;
+  overflow: hidden;
+  position: relative;
+  top: 0px;
+  transition: left 0.3s ease-in-out, margin-left 0.3s ease-in-out;
+  width: 100%;
+
+  .page-header {
+    .clearfix();
+    background-color: @page-header-background-color;
+
+    .page-header-navigation {
+
+      font-size: @page-header-font-size;
+
+      .tab-item {
+        padding-bottom: @container-pod-short-padding-vertical-screen-mini;
+
+        &:after {
+          bottom: 0;
+        }
+      }
+    }
+
+    .page-header-context {
+      width: 100%;
+
+      .tabs {
+
+        li {
+
+          &.active {
+
+            &:after {
+              .opacity(0.0);
+            }
+
+            .page-header-title {
+              color: @white;
+            }
+          }
+
+          &:not(.active) {
+            .page-header-title {
+              color: color-lighten(@neutral, 40);
+            }
+          }
+        }
+      }
+
+      /* Page Header Sidebar Toggle */
+      .page-header-sidebar-toggle {
+        position: relative;
+        float: left;
+        cursor: pointer;
+        z-index: 100;
+
+        .page-header-sidebar-toggle-icon {
+          margin-right: (@base-spacing-unit * 1.0);
+          .opacity(0.40);
+        }
+
+        .page-header-sidebar-toggle-label {
+          display: none;
+        }
+
+        &:hover {
+           .page-header-sidebar-toggle-icon {
+            .opacity(0.80);
+          }
+        }
+
+        &:active {
+           .page-header-sidebar-toggle-icon {
+            .opacity(0.40);
+          }
+        }
+      }
+    }
+
+    /* Page Header Actions */
+    .page-header-actions {
+      float: right;
+    }
+
+    /* Page Header Navigation */
+    .page-header-navigation {
+      clear: both;
+    }
+  }
+}
+
+.page-content {
+
+  // When the content of pages need to fill the height of the page (and not
+  // exceed that height), the page content wrapper height needs to be explicitly
+  // 100%. We also want to set a sane minimum size.
+  .page-content-fit-height {
+    height: 100%;
+    min-height: 300px;
+
+    .page-content-fill {
+
+      // This targets the direct descendent of the element that is meant to fill
+      // the page's content. Specifically, this is necessary to target the
+      // generic div that wraps our table component.
+      > div {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+      }
+
+      .gm-scrollbar-container {
+        flex-grow: 1;
+      }
+    }
+  }
+}
+
+/* Screen Size: Mini (@screen-mini) and above */
+& when (@screen-mini-enabled) {
+  @media (max-width: @screen-mini-max) {
+    .page {
+
+      .page-header {
+
+        .page-header-navigation {
+
+          .container-pod {
+            padding-top: 0;
+          }
+        }
+      }
+    }
+  }
+
+  @media (min-width: @screen-mini) {
+
+    .page {
+
+      .page-header {
+
+        .page-header-navigation {
+
+          .tab-item {
+            padding-bottom: @container-pod-short-padding-vertical-screen-mini;
+          }
+        }
+      }
+    }
+  }
+}
+
+/* Screen Size: Small (@screen-small) and above */
+& when (@screen-small-enabled) {
+  @media (min-width: @screen-small) {
+
+    .page {
+      height: 100%;
+      margin-left: (2 * (@base-spacing-unit-screen-small * 0.5)) + @icon-medium-width;
+      position: relative;
+      transition: none;
+      width: auto;
+
+      .page-header {
+
+        .page-header-context {
+          display: none;
+        }
+
+        .page-header-navigation {
+
+          padding-top: @base-spacing-unit-screen-small * 0.2;
+
+        }
+      }
+    }
+  }
+}
+
+/* Screen Size: Medium (@screen-medium) and above */
+& when (@screen-medium-enabled) {
+  @media (min-width: @screen-medium) {
+
+    .page {
+      margin-left: 250px;
+
+      .page-header {
+
+        .page-header-navigation {
+
+          padding-top: @base-spacing-unit-screen-medium * 0.2;
+
+        }
+      }
+    }
+  }
+}
+
+/* Screen Size: Large (@screen-large) and above */
+& when (@screen-large-enabled) {
+  @media (min-width: @screen-large) {
+
+    .page {
+      margin-left: 300px;
+
+      .page-header {
+
+        .page-header-navigation {
+
+          padding-top: @base-spacing-unit-screen-large * 0.2;
+
+        }
+      }
+    }
+  }
+}

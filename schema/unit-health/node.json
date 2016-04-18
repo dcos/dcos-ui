@@ -1,0 +1,32 @@
+{
+  "$schema": "http://json-schema.org/draft-03/schema",
+  "id": "http://schema.dcos/system/health/node",
+  "type": "object",
+  "properties": {
+    "host_ip": {
+      "title": "Host IP from ip-detect script",
+      "type": "string",
+      "pattern": "^[\\w\\.]+$"
+    },
+    "role": {
+      "title": "Node Type",
+      "type": "string",
+      "enum": ["master", "agent", "unknown"]
+    },
+    "health": {
+      "title": "Node health status",
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 3
+    },
+    "help": {
+      "title": "Node health check output",
+      "type": "string"
+    }
+  },
+  "required": [
+    "host_ip",
+    "role",
+    "health"
+  ]
+}

@@ -1,0 +1,94 @@
+{
+  "packages": [
+    {
+      "appId": "/marathon-user",
+      "packageInformation": {
+        "packageDefinition": {
+          "packagingVersion": "2.0",
+          "name": "marathon",
+          "version": "0.11.1",
+          "maintainer": "help@dcos.io",
+          "description": "A cluster-wide init and control system for services in cgroups or Docker containers.",
+          "tags": [
+            "init",
+            "long-running"
+          ],
+          "scm": "https://github.com/mesosphere/marathon.git",
+          "website": null,
+          "framework": true,
+          "preInstallNotes": "We recommend a minimum of one node with at least 2 CPU's and 1GB of RAM available for the Marathon Service.",
+          "postInstallNotes": "Marathon DCOS Service has been successfully installed!\n\n\tDocumentation: https://mesosphere.github.io/marathon\n\tIssues: https:/github.com/mesosphere/marathon/issues\n",
+          "postUninstallNotes": "The Marathon DCOS Service has been uninstalled and will no longer run.\nPlease follow the instructions at http://docs.mesosphere.com/services/marathon/#uninstall to clean up any persisted state",
+          "licenses": [
+            {
+              "name": "Apache License Version 2.0",
+              "url": "https://github.com/mesosphere/marathon/blob/master/LICENSE"
+            }
+          ]
+        },
+        "resourceDefinition": {
+          "assets": {
+            "uris": null,
+            "container": {
+              "docker": {
+                "5e187be16235": "docker.io/mesosphere/marathon:v0.11.1"
+              }
+            }
+          },
+          "images": {
+            "icon-small": "https://downloads.dcos.io/marathon/assets/icon-service-marathon-small.png",
+            "icon-medium": "https://downloads.dcos.io/marathon/assets/icon-service-marathon-medium.png",
+            "icon-large": "https://downloads.dcos.io/marathon/assets/icon-service-marathon-large.png",
+            "screenshots": null
+          }
+        }
+      }
+    },
+    {
+      "appId": "/arangodb",
+      "packageInformation": {
+        "packageDefinition": {
+          "packagingVersion": "2.0",
+          "name": "arangodb",
+          "version": "0.3.5",
+          "maintainer": "help@dcos.io",
+          "description": "A distributed free and open-source database with a flexible data model for documents, graphs, and key-values. Build high performance applications using a convenient SQL-like query language or JavaScript extensions.",
+          "tags": [
+            "arangodb",
+            "NoSQL",
+            "database",
+            "framework"
+          ],
+          "scm": "https://github.com/mesosphere/marathon.git",
+          "website": null,
+          "framework": true,
+          "preInstallNotes": "We recommend a minimum of one node with at least 2 CPU's and 1GB of RAM available for the Marathon Service.",
+          "postInstallNotes": "Marathon DCOS Service has been successfully installed!\n\n\tDocumentation: https://mesosphere.github.io/marathon\n\tIssues: https:/github.com/mesosphere/marathon/issues\n",
+          "postUninstallNotes": "The Marathon DCOS Service has been uninstalled and will no longer run.\nPlease follow the instructions at http://docs.mesosphere.com/services/marathon/#uninstall to clean up any persisted state",
+          "licenses": [
+            {
+              "name": "Apache License Version 2.0",
+              "url": "https://github.com/mesosphere/marathon/blob/master/LICENSE"
+            }
+          ]
+        },
+        "resourceDefinition": {
+          "assets": {
+            "uris": null,
+            "container": {
+              "docker": {
+                "5e187be16235": "docker.io/mesosphere/marathon:v0.11.1"
+              }
+            }
+          },
+          "images": {
+            "icon-small": null,
+            "icon-medium": null,
+            "icon-large": null,
+            "screenshots": null
+          }
+        }
+      }
+    }
+  ]
+}

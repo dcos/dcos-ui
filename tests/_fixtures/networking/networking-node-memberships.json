@@ -1,0 +1,29 @@
+{
+  "array": [
+    {
+      "node": "minuteman@10.2.3.4",
+      "metadata": {},
+      "ip": "10.2.3.4",
+      "active_view": [
+        "cat@10.3.4.5",
+        "dog@10.5.6.7"
+      ],
+      "passive_view": [
+        "zat@10.3.4.6",
+        "zog@10.5.6.8"
+      ],
+      "strongly_connected_components": [
+        [
+          "zog@10.5.6.8",
+          "minuteman@4.3.2.1",
+          "cat@10.3.4.5",
+          "dog@10.5.6.7"
+        ],
+        [
+          "zat@10.3.4.6",
+          "zog@10.5.6.8"
+        ]
+      ]
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "array": [
+    {
+      "membershipurl": "/groups/olis/users/velit",
+      "user": {
+        "uid": "velit",
+        "url": "/users/velit",
+        "description": "Velit Doe",
+        "is_remote": true
+      }
+    },
+    {
+      "membershipurl": "/groups/olis/users/quis",
+      "user": {
+        "uid": "qüis",
+        "url": "/users/quis",
+        "description": "藍-Schüler Zimmer verfügt über einen Schreibtisch, Telefon, Safe in Notebook-Größe",
+        "is_remote": false
+      }
+    }
+  ]
+}

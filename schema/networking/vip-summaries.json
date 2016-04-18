@@ -1,0 +1,53 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "description": "A list of VIPs' summaries.",
+  "title": "VIPs' Summaries",
+  "id": "http://schema.dcos/networking/vip-summaries",
+  "type": "object",
+  "properties": {
+    "array": {
+      "description": "Array of VIPs' summaries.",
+      "title": "Array",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "vip": {
+            "$ref": "vip"
+          },
+          "success_last_minute": {
+            "description": "Number of successful requests in the last minute on this VIP.",
+            "title": "Success Last Minute",
+            "type": "integer"
+          },
+          "fail_last_minute": {
+            "description": "Number of failed requests in the last minute on this VIP.",
+            "title": "Failed Last Minute",
+            "type": "integer"
+          },
+          "backends": {
+            "description": "Number of backends on this VIP.",
+            "title": "Backends",
+            "type": "integer"
+          },
+          "machine_reachability_pct": {
+            "description": "Percentage of clients that can reach this machine.",
+            "title": "Machine Reachable Percentage",
+            "type": "integer"
+          },
+          "application_reachability_pct": {
+            "description": "Percentage of clients that can reach this application.",
+            "title": "Application Reachable Percentage",
+            "type": "integer"
+          },
+          "p99_latency_ms": {
+            "description": "99th percentile latency.",
+            "title": "P99 Latency",
+            "type": "integer"
+          }
+        }
+      }
+    }
+  },
+  "required": ["array"]
+}
