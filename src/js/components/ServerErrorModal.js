@@ -1,5 +1,6 @@
-import {Modal} from 'reactjs-components';
+import classNames from 'classnames';
 import mixin from 'reactjs-mixin';
+import {Modal} from 'reactjs-components';
 /* eslint-disable no-unused-vars */
 import React from 'react';
 /* eslint-enable no-unused-vars */
@@ -62,10 +63,26 @@ module.exports = class ServerErrorModal extends mixin(StoreMixin) {
     });
   }
 
+  getFooter() {
+    return (
+      <div className="button-collection text-align-center flush-bottom">
+        <div className="button" onClick={this.handleModalClose}>
+          Close
+        </div>
+      </div>
+    );
+  }
+
   getContent() {
-    let errors = this.state.errors.map(function (error, i) {
+    let {errors} = this.state;
+    let errorMessages = this.state.errors.map(function (error, i) {
+      let errorMessageClass = classNames('text-align-center', {
+        // Last error message doesn't have margin bottom.
+        'flush-bottom': i === errors.length - 1
+      });
+
       return (
-        <p className="text-align-center" key={i}>
+        <p className={errorMessageClass} key={i}>
           {error}
         </p>
       );
@@ -73,7 +90,7 @@ module.exports = class ServerErrorModal extends mixin(StoreMixin) {
 
     return (
       <div className="container container-pod container-pod-short">
-        {errors}
+        {errorMessages}
       </div>
     );
   }
@@ -88,7 +105,8 @@ module.exports = class ServerErrorModal extends mixin(StoreMixin) {
         open={this.state.isOpen}
         showCloseButton={false}
         showHeader={true}
-        showFooter={false}
+        showFooter={true}
+        footer={this.getFooter()}
         titleClass="modal-header-title text-align-center flush"
         titleText="An error has occurred">
         {this.getContent()}
