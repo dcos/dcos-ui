@@ -101,6 +101,16 @@ module.exports = class ServiceTree extends Tree {
     });
   }
 
+  getInstances() {
+    return this.reduceItems(function(instances, item) {
+      if (item instanceof Service) {
+        instances += item.getInstances();
+      }
+
+      return instances;
+    }, 0);
+  }
+
   getName() {
     return this.getId().split('/').pop();
   }
