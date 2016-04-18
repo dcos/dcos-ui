@@ -1,4 +1,4 @@
-# DCOS UI [![Velocity](http://velocity.mesosphere.com/service/velocity/buildStatus/icon?job=dcos-ui-master)](http://velocity.mesosphere.com/service/velocity/view/DCOS%20UI/job/dcos-ui-master/)
+# DC/OS UI [![Velocity](http://velocity.mesosphere.com/service/velocity/buildStatus/icon?job=dcos-ui-master)](http://velocity.mesosphere.com/service/velocity/view/DCOS%20UI/job/dcos-ui-master/)
 
 ## Requirements
 
@@ -29,9 +29,9 @@ Node 4.x (and above) is **required**. We suggest using [nvm](https://github.com/
 
 **NOTE:** http://dcos.local will only resolve if both your DC/OS UI Server and DC/OS Cluster are operational and running.
 
-## DCOS UI
+## DC/OS UI
 
-This repository contains the DCOS UI application. The application gathers data from endpoints located on the DCOS Image.
+This repository contains the DC/OS UI application.
 
 ##### Installation Instructions:
 
@@ -55,7 +55,7 @@ This repository contains the DCOS UI application. The application gathers data f
   npm run serve
   ```
 
-After installing all development dependencies and configuring your local environment (steps 1-4 above), you can run test by running `npm test`.  You can build assets, without actually running the DCOS UI server by running `npm run dist`.  If you are actively developing, you may want to run `npm run livereload` to avoid having to refresh your browser with every change.
+After installing all development dependencies and configuring your local environment (steps 1-4 above), you can run test by running `npm test`.  You can build assets, without actually running the DC/OS UI server by running `npm run dist`.  If you are actively developing, you may want to run `npm run livereload` to avoid having to refresh your browser with every change.
 
 ## Adding npm Package Dependencies
 
@@ -135,7 +135,7 @@ Think of a `sum` function. When called as `sum(1)` we may expect a return value 
 
 ### Integration tests
 
-We want to guarantee that our project DCOS UI works as it should within DCOS as a product. To do this we want our integration tests to run against a DCOS cluster. For example we want to test that when an slave fails in a cluster, the UI visually shows this slave failure. A different example is validating that when a new service is installed on a cluster it will show up in the services page.
+We want to guarantee that our project DC/OS UI works as it should within DC/OS as a product. To do this we want our integration tests to run against a DC/OS cluster. For example we want to test that when an slave fails in a cluster, the UI visually shows this slave failure. A different example is validating that when a new service is installed on a cluster it will show up in the services page.
 
 ##### Setup Instructions:
 
