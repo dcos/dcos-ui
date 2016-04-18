@@ -1,4 +1,4 @@
-# DCOS UI
+# DCOS UI [![Velocity](http://velocity.mesosphere.com/service/velocity/buildStatus/icon?job=dcos-ui-master)](http://velocity.mesosphere.com/service/velocity/view/DCOS%20UI/job/dcos-ui-master/)
 
 ## Requirements
 
