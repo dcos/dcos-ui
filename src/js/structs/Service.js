@@ -15,6 +15,10 @@ module.exports = class Service extends Item {
     return this.get('container');
   }
 
+  getDeployments() {
+    return this.get('deployments');
+  }
+
   getExecutor() {
     return this.get('executor');
   }
