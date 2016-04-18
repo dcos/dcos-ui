@@ -89,11 +89,11 @@ var ServicesPage = React.createClass({
       return item instanceof ServiceTree && item.getId() === serviceTreeId;
     });
 
-    if (serviceTree == null) {
-      serviceTree = DCOSStore.serviceTree;
+    if (serviceTree != null) {
+      return serviceTree;
     }
 
-    return serviceTree;
+    return DCOSStore.serviceTree;
   },
 
   resetFilterQueryParams: function () {

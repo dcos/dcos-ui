@@ -136,13 +136,15 @@ class SidebarFilter extends mixin(QueryParamsMixin) {
 
   getHealthCheckboxes() {
     let {filterLabels, filterValues} = this.props;
+    let {selectedNodes} = this.state;
 
     return Object.keys(filterValues).map(filterValue => {
       let value = filterValues[filterValue].toString();
-      let checked = this.state.selectedNodes.indexOf(value) > -1;
+      let checked = selectedNodes.indexOf(value) > -1;
 
       let labelClassSet = classNames(
-        'side-list-item form-row-element form-element-checkbox inverse row row-flex flush clickable',
+        'side-list-item form-row-element form-element-checkbox ' +
+        'inverse row row-flex flush clickable',
         {
           'filter-active': this.getCountByValue(filterValue) > 0,
           'filter-checked': checked
