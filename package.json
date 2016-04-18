@@ -59,13 +59,13 @@
     "del": "2.2.0",
     "envify": "3.4.0",
     "eslint": "2.0.0",
+    "eslint-loader": "^1.3.0",
     "eslint-plugin-react": "2.6.4",
     "gulp": "3.9.1",
     "gulp-autoprefixer": "3.1.0",
     "gulp-changed": "1.3.0",
     "gulp-connect": "3.2.2",
     "gulp-csso": "2.0.0",
-    "gulp-eslint": "2.0.0",
     "gulp-if": "2.0.0",
     "gulp-imagemin": "2.4.0",
     "gulp-less": "3.0.5",
@@ -99,7 +99,7 @@
     "testing": "NODE_ENV='testing' ./node_modules/.bin/gulp serve",
     "livereload": "NODE_ENV='development' ./node_modules/.bin/gulp livereload",
     "livereload-notify": "export NOTIFY=true && npm run livereload",
-    "test": "./node_modules/.bin/gulp copy:external-plugins && ./node_modules/.bin/gulp eslint && jest"
+    "test": "./node_modules/.bin/gulp copy:external-plugins && ./node_modules/.bin/eslint src/js/**/*.js* --quiet && jest"
   },
   "jest-webpack-alias": {
     "configFile": ".webpack.config.js"

@@ -11,7 +11,6 @@ var colorLighten = require('less-color-lighten');
 var changed = require('gulp-changed');
 var connect = require('gulp-connect');
 var del = require('del');
-var eslint = require('gulp-eslint');
 var gulp = require('gulp');
 var gulpif = require('gulp-if');
 var gutil = require('gulp-util');
@@ -107,18 +106,6 @@ gulp.task('connect:server', function () {
     root: config.dirs.dist
   });
 });
-
-// Create a function so we can use it inside of webpack's watch function.
-function eslintFn() {
-  return gulp.src([
-      config.dirs.pluginsTmp + '/**/*.?(js|jsx)',
-      config.dirs.srcJS + '/**/*.?(js|jsx)',
-      '!**/__tests__/**/*'
-    ])
-    .pipe(eslint())
-    .pipe(eslint.formatEach('stylish', process.stderr));
-}
-gulp.task('eslint', eslintFn);
 
 gulp.task('images', function () {
   return gulp.src([
@@ -234,7 +221,6 @@ function webpackFn(callback) {
       // This runs after webpack's internal watch rebuild.
       replaceJsStringsFn();
     }
-    eslintFn();
   });
 }
 gulp.task('default', function (callback) {
@@ -243,7 +229,6 @@ gulp.task('default', function (callback) {
     ['global-js', 'less', 'images', 'html'],
     'webpack',
     'replace-js-strings',
-    'eslint',
     callback);
 });
 

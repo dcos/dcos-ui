@@ -62,11 +62,17 @@ module.exports = {
       test: /\.js$/
     },
     { test: /\.json$/, loader: 'json-loader' }],
-    preLoaders: [{
-      test: /\.js$/,
-      loader: 'source-map-loader',
-      exclude: /node_modules/
-    }],
+    preLoaders: [
+      {
+        test: /\.(js)$/,
+        loader: "eslint-loader",
+        exclude: /node_modules/
+      },
+      {
+        test: /\.js$/,
+        loader: 'source-map-loader',
+        exclude: /node_modules/
+      }],
     postLoaders: [{
       loader: 'transform/cacheable?envify'
     }]
