@@ -64,6 +64,16 @@ module.exports = class ServiceTree extends Tree {
     });
   }
 
+  getDeployments() {
+    return this.reduceItems(function (deployments, item) {
+      if (item instanceof Service && item.getDeployments() != null) {
+        deployments = deployments.concat(item.getDeployments());
+      }
+
+      return deployments;
+    }, []);
+  }
+
   getHealth() {
     return this.reduceItems(function (aggregatedHealth, item) {
       if (item instanceof Service) {
