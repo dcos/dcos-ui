@@ -7,20 +7,21 @@ Node 4.x (and above) is **required**. We suggest using [nvm](https://github.com/
 
 ## DC/OS Installation Instructions:
 - Follow the instructions [here](https://github.com/dcos/dcos-vagrant) to install a local cluster.
-- In your dcos-vagrant repo from th previous step, run `vagrant ssh m1`.
+- In your dcos-vagrant repo from the previous step, run `vagrant ssh m1`.
 - Open `nginx.conf` for adminrouter with `sudo vi /opt/mesosphere/active/adminrouter/nginx/conf/nginx.conf`
-- Comment out `root /opt/mesosphere/active/dcos-ui/usr;` by changing the line to `# root /opt/mesosphere/active/dcos-ui/usr;`
+- Comment out `root /opt/mesosphere/active/dcos-ui/usr;` by changing the line to
+  `# root /opt/mesosphere/active/dcos-ui/usr;`
 
 - Right below the commented out line, add
-```
-location ~ ^/(?!service|mesos).*\.(js|css|html|png|jpg|gif|jpeg|swf|map)$ {
-  expires -1;
-  add_header Cache-Control "no-store";
-  proxy_pass http://10.0.2.2:4200;
-  proxy_http_version 1.1;
-  proxy_set_header Connection "";
-}
-```
+  ```
+  location ~ ^/(?!service|mesos).*\.(js|css|html|png|jpg|gif|jpeg|swf|map)$ {
+    expires -1;
+    add_header Cache-Control "no-store";
+    proxy_pass http://10.0.2.2:4200;
+    proxy_http_version 1.1;
+    proxy_set_header Connection "";
+  }
+  ```
 - Save and quit vi
 - Restart adminrouter with `sudo service dcos-adminrouter restart`. Your cluster is now prepped for local development.
 - [Start](#user-content-dcos-ui-1) your local development server for DC/OS.
