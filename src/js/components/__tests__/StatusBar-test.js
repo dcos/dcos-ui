@@ -116,7 +116,7 @@ describe('#StatusBar', function () {
     });
   });
 
-  describe('rectangles', function () {
+  describe('bars', function () {
     it('should contain 2 .bars', function () {
       expect(this.container.querySelectorAll('.bar').length)
         .toEqual(testData.length);
