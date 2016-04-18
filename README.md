@@ -4,24 +4,14 @@
 
 Node 4.x (and above) is **required**. We suggest using [nvm](https://github.com/creationix/nvm) or [n](https://github.com/tj/n) to keep multiple Node versions on your system.
 
-## Local Setup
 
-To install, run, and contribute to DCOS-UI on your local machine you will need to setup 2 environments.
-1. The DC/OS UI running as a standalone server for development.
-2. A local install of DC/OS.
+## DC/OS Installation Instructions:
+- Follow the instructions [here](https://github.com/dcos/dcos-vagrant) to install a local cluster.
+- In your dcos-vagrant repo from th previous step, run `vagrant ssh m1`.
+- Open `nginx.conf` for adminrouter with `sudo vi /opt/mesosphere/active/adminrouter/nginx/conf/nginx.conf`
+- Comment out `root /opt/mesosphere/active/dcos-ui/usr;` by changing the line to `# root /opt/mesosphere/active/dcos-ui/usr;`
 
-* [DC/OS](#dcos-image)
-* [DC/OS UI](#user-content-dcos-ui-1)
-
-
-
-##### DC/OS Installation Instructions:
-1. Follow the instructions [here](https://github.com/dcos/dcos-vagrant) to install a local cluster.
-2. In your dcos-vagrant repo from th previous step, run `vagrant ssh m1`.
-3. Open `nginx.conf` for adminrouter with `sudo vi /opt/mesosphere/active/adminrouter/nginx/conf/nginx.conf`
-4. Comment out `root /opt/mesosphere/active/dcos-ui/usr;` by changing the line to `# root /opt/mesosphere/active/dcos-ui/usr;`
-
-5. Right below the commented out line, add
+- Right below the commented out line, add
 ```
 location ~ ^/(?!service|mesos).*\.(js|css|html|png|jpg|gif|jpeg|swf|map)$ {
   expires -1;
@@ -31,14 +21,14 @@ location ~ ^/(?!service|mesos).*\.(js|css|html|png|jpg|gif|jpeg|swf|map)$ {
   proxy_set_header Connection "";
 }
 ```
-6. Save and quit vi
-7. Restart adminrouter with `sudo service dcos-adminrouter restart`. Your cluster is now prepped for local development.
-8. Start your local development server for [DC/OS UI](#user-content-dcos-ui-1).
-9. Navigate to `http://dcos.local`.
+- Save and quit vi
+- Restart adminrouter with `sudo service dcos-adminrouter restart`. Your cluster is now prepped for local development.
+- [Start](#user-content-dcos-ui-1) your local development server for DC/OS.
+- Navigate to http://dcos.local.
 
-**NOTE:** `http://dcos.local` will only resolve if both your DC/OS UI Server and DC/OS Cluster are operational and running.
+**NOTE:** http://dcos.local will only resolve if both your DC/OS UI Server and DC/OS Cluster are operational and running.
 
-### DCOS UI
+## DCOS UI
 
 This repository contains the DCOS UI application. The application gathers data from endpoints located on the DCOS Image.
 
