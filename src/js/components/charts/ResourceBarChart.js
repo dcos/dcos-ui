@@ -113,15 +113,13 @@ let ResourceBarChart = React.createClass({
     let info = ResourceTypes[this.props.selectedResource];
 
     return (
-      <div className="chart panel">
-        <div className="panel-header panel-header-large">
-          <div className="panel-options-left button-group">
+      <div className="chart panel panel-inverse">
+        <div className="panel-header panel-header-large no-border flush-bottom">
+          <div className="panel-options button-group flush-bottom">
             {this.getModeButtons()}
           </div>
-          <div className="panel-title inverse">
+          <div className="inverse">
             {this.getHeadline(info)}
-          </div>
-          <div className="panel-options-right fixed-width">
           </div>
         </div>
         <div className="panel-content" ref="panelContent">
