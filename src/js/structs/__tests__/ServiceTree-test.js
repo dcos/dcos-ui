@@ -434,6 +434,42 @@ describe('ServiceTree', function () {
 
   });
 
+  describe('#getInstances', function () {
+
+    beforeEach(function () {
+      this.instance = new ServiceTree();
+    });
+
+    it('returns correct number for instances for 0 instances', function () {
+      this.instance.add(new Service({
+        instances: 0
+      }));
+
+      expect(this.instance.getInstances()).toEqual(0);
+    });
+
+    it('returns correct number for instances for 1 instance', function () {
+      this.instance.add(new Service({
+        instances: 1
+      }));
+
+      expect(this.instance.getInstances()).toEqual(1);
+    });
+
+    it('returns correct number for instances for 5 instances', function () {
+      this.instance.add(new Service({
+        instances: 3
+      }));
+
+      this.instance.add(new Service({
+        instances: 5
+      }));
+
+      expect(this.instance.getInstances()).toEqual(5);
+    });
+
+  });
+
   describe('#getTasksSummary', function () {
 
     beforeEach(function () {
