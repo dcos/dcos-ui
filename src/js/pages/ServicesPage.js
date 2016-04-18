@@ -84,18 +84,6 @@ var ServicesPage = React.createClass({
     this.setState(stateChanges);
   },
 
-  getServiceTree: function (serviceTreeId) {
-    let serviceTree = DCOSStore.serviceTree.findItem(function (item) {
-      return item instanceof ServiceTree && item.getId() === serviceTreeId;
-    });
-
-    if (serviceTree != null) {
-      return serviceTree;
-    }
-
-    return DCOSStore.serviceTree;
-  },
-
   resetFilterQueryParams: function () {
     let router = this.context.router;
     let queryParams = router.getCurrentQuery();
