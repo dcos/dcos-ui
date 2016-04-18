@@ -106,6 +106,7 @@ class SidebarFilter extends mixin(QueryParamsMixin) {
 
     return (
       <Link
+        className="small"
         to={currentPathname}
         query={query}
         params={params}>
