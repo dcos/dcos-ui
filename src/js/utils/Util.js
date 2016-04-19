@@ -21,7 +21,11 @@ const Util = {
    * @return {Anything}           Value in last position of Array
    */
   last: function (array) {
-    return array[array.length - 1] || null;
+    if (array.length === 0) {
+      return null;
+    }
+
+    return array[array.length - 1];
   },
 
   /**
