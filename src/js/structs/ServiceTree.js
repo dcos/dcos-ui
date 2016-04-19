@@ -3,7 +3,7 @@ import Framework from './Framework';
 import HealthSorting from '../constants/HealthSorting';
 import HealthStatus from '../constants/HealthStatus';
 import Service from './Service';
-import StatusLabels from '../constants/StatusLabels';
+import ServiceStatus from '../constants/ServiceStatus';
 import Tree from './Tree';
 import Util from '../utils/Util';
 
@@ -135,16 +135,16 @@ module.exports = class ServiceTree extends Tree {
     let deployments = this.getDeployments();
 
     if (deployments.length > 0) {
-      return StatusLabels.DEPLOYING;
+      return ServiceStatus.DEPLOYING.displayName;
     }
 
     if (tasksRunning > 0) {
-      return StatusLabels.RUNNING;
+      return ServiceStatus.RUNNING.displayName;
     }
 
     let instances = this.getInstances();
     if (instances === 0) {
-      return StatusLabels.SUSPENDED;
+      return ServiceStatus.SUSPENDED.displayName;
     }
 
   }
