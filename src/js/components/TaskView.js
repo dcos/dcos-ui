@@ -27,6 +27,7 @@ class TaskView extends mixin(SaveStateMixin) {
       searchString: '',
       filterByStatus: 'all'
     };
+    this.saveState_properties = ['filterByStatus'];
 
     METHODS_TO_BIND.forEach(function (method) {
       this[method] = this[method].bind(this);
