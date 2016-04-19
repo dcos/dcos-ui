@@ -42,7 +42,7 @@ class ImageViewerModal extends React.Component {
     let {images} = this.props;
     // Should do nothing if the key event was already consumed, or there is only
     // one or no images
-    if (event.defaultPrevented || images || images.length < 1) {
+    if (event.defaultPrevented || !images || images.length < 2) {
       return;
     }
 
