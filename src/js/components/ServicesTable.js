@@ -43,6 +43,21 @@ var ServicesTable = React.createClass({
     };
   },
 
+  getOpenInNewWindowLink(service) {
+    if (!service.getWebURL()) {
+      return null;
+    }
+
+    return (
+      <a className="table-display-on-row-hover"
+        href={Cluster.getServiceLink(service.name)} target="_blank"
+        title="Open in a new window">
+        <IconNewWindow className="icon icon-new-window icon-align-right
+          icon-margin-wide" />
+      </a>
+    );
+  },
+
   onMarathonAppsChange: function () {
     this.forceUpdate();
   },
@@ -50,6 +65,7 @@ var ServicesTable = React.createClass({
   renderHeadline: function (prop, service) {
     let appImages = MarathonStore.getServiceImages(service.name);
     let imageTag = null;
+    let openInNewWindowLink = this.getOpenInNewWindowLink(service);
 
     if (appImages) {
       imageTag = (
@@ -74,15 +90,7 @@ var ServicesTable = React.createClass({
             {service[prop]}
           </span>
         </Link>
-        <a
-          className="table-display-on-row-hover"
-          href={Cluster.getServiceLink(service.name)}
-          target="_blank"
-          title="Open in a new window"
-          >
-          <IconNewWindow className="icon icon-new-window icon-align-right
-            icon-margin-wide" />
-        </a>
+        {openInNewWindowLink}
       </div>
     );
   },
