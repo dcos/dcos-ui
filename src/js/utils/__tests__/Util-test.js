@@ -5,6 +5,69 @@ var Util = require('../Util');
 
 describe('Util', function () {
 
+  describe('#omit', function () {
+
+    it('should return a copy of the object', function () {
+      var obj = {'foo': 'bar'};
+      var newObject = Util.omit(obj, []);
+
+      newObject.foo = 'modified';
+
+      expect(obj.foo).toEqual('bar');
+    });
+
+    it('should omit key given', function () {
+      var obj = {
+        'foo': 'bar',
+        'qq': 'zzz'
+      };
+      var newObject = Util.omit(obj, ['qq']);
+
+      expect(Object.keys(newObject).length).toEqual(1);
+      expect(newObject.foo).toEqual('bar');
+      expect(newObject.qq).toEqual(undefined);
+    });
+
+    it('should omit multiple keys', function () {
+      var obj = {
+        'foo': 'bar',
+        'qq': 'zzz',
+        'three': 'pie'
+      };
+      var newObject = Util.omit(obj, ['foo', 'three']);
+
+      expect(Object.keys(newObject).length).toEqual(1);
+      expect(newObject.qq).toEqual('zzz');
+      expect(newObject.three).toEqual(undefined);
+    });
+  });
+
+  describe('#last', function () {
+
+    it('should return the last element in an array', function () {
+      var array = [0, 1, 2, 3];
+      var last = Util.last(array);
+
+      expect(last).toEqual(3);
+    });
+
+    it('should return the last element for an array of size 1', function () {
+      var array = [0];
+      var last = Util.last(array);
+
+      expect(last).toEqual(0);
+    });
+
+    it('should return null when given empty array', function () {
+      var array = [];
+      var last = Util.last(array);
+
+      expect(last).toEqual(null);
+    });
+
+
+  });
+
   describe('#findLastIndex', function () {
 
     it('should return -1 if empty array', function () {
