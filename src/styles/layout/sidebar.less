@@ -179,9 +179,54 @@ Sidebar
 
   .sidebar-content {
 
-    > nav {
+    > .sidebar-navigation {
 
       width: 100%;
+
+    }
+
+    .sidebar-content-wrapper {
+
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      width: 100%;
+
+      .sidebar-navigation {
+
+        flex: 1 0 auto;
+
+      }
+
+      .sidebar-logo-container {
+
+        flex: 0 0 auto;
+
+      }
+
+    }
+
+    // This applies flex properties to Gemini's DOM elements when the scrollbar
+    // is not rendered.
+    &.gm-prevented {
+
+      display: flex;
+
+      & > .gm-scroll-view {
+
+        align-items: stretch;
+        display: flex;
+        flex: 1;
+
+        .sidebar-content-wrapper {
+
+          flex: 1;
+          height: auto;
+          width: auto;
+
+        }
+
+      }
 
     }
 
@@ -331,21 +376,6 @@ Sidebar
 
     }
 
-  }
-
-
-
-  /* -----------------------------------------------------------------------------
-  Sidebar Footer
-  ----------------------------------------------------------------------------- */
-
-  .sidebar-footer {
-
-    width: 100%;
-    bottom: 0px;
-
-
-
     /* -----------------------------------------------------------------------------
     Sidebar Footer Image
     ----------------------------------------------------------------------------- */
@@ -368,6 +398,19 @@ Sidebar
       }
 
     }
+
+  }
+
+
+
+  /* -----------------------------------------------------------------------------
+  Sidebar Footer
+  ----------------------------------------------------------------------------- */
+
+  .sidebar-footer {
+
+    width: 100%;
+    bottom: 0px;
 
     p {
       opacity: 0.5;
@@ -727,17 +770,7 @@ Sidebar Open
 
         }
 
-      }
-
-
-
-      /* -----------------------------------------------------------------------------
-      Sidebar Footer
-      ----------------------------------------------------------------------------- */
-
-      .sidebar-footer {
-
-        .logo-container {
+        .sidebar-logo-container {
 
           display: none;
 
@@ -754,6 +787,16 @@ Sidebar Open
           margin-bottom: @base-spacing-unit-screen-small * 0.15;
 
         }
+
+      }
+
+
+
+      /* -----------------------------------------------------------------------------
+      Sidebar Footer
+      ----------------------------------------------------------------------------- */
+
+      .sidebar-footer {
 
         .icon-buttons {
 
@@ -932,17 +975,7 @@ Sidebar Open
 
         }
 
-      }
-
-
-
-      /* -----------------------------------------------------------------------------
-      Sidebar Footer
-      ----------------------------------------------------------------------------- */
-
-      .sidebar-footer {
-
-        .logo-container {
+        .sidebar-logo-container {
 
           display: block;
 
@@ -959,6 +992,16 @@ Sidebar Open
           margin-bottom: @base-spacing-unit-screen-medium * 0.15;
 
         }
+
+      }
+
+
+
+      /* -----------------------------------------------------------------------------
+      Sidebar Footer
+      ----------------------------------------------------------------------------- */
+
+      .sidebar-footer {
 
         .icon-buttons {
 
@@ -1128,6 +1171,12 @@ Sidebar Open
 
         }
 
+        .sidebar-footer-image {
+
+          margin-bottom: @base-spacing-unit-screen-large * 0.15;
+
+        }
+
       }
 
 
@@ -1137,12 +1186,6 @@ Sidebar Open
       ----------------------------------------------------------------------------- */
 
       .sidebar-footer {
-
-        .sidebar-footer-image {
-
-          margin-bottom: @base-spacing-unit-screen-large * 0.15;
-
-        }
 
         .icon-buttons .user-dropdown .icon {
           margin-right: (@base-spacing-unit-screen-large * 0.25);

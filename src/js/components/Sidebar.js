@@ -147,28 +147,30 @@ var Sidebar = React.createClass({
           <ClusterHeader />
         </div>
         <GeminiScrollbar autoshow={true} className="sidebar-content container-scrollable">
-          <nav>
-            <div className="container container-fluid container-fluid-narrow">
-              <ul className="sidebar-menu list-unstyled">
-                {this.getMenuItems()}
-              </ul>
+          <div className="sidebar-content-wrapper">
+            <nav className="sidebar-navigation">
+              <div className="container container-fluid container-fluid-narrow">
+                <ul className="sidebar-menu list-unstyled">
+                  {this.getMenuItems()}
+                </ul>
+              </div>
+            </nav>
+            <div className="container container-fluid container-pod container-pod-short sidebar-logo-container">
+              <div className="sidebar-footer-image">
+                <a href={Config.productHomepageURI} target="_blank">
+                  <IconDCOSLogoMark />
+                </a>
+              </div>
+              <p className="text-align-center flush-top flush-bottom mute small">
+                <span className="clickable" onClick={this.handleVersionClick}>
+                  <span className="company-name small">{Config.productName} </span>
+                  <span className="app-name small">{this.getVersion()}</span>
+                </span>
+              </p>
             </div>
-          </nav>
+          </div>
         </GeminiScrollbar>
         <div className="sidebar-footer">
-          <div className="container container-fluid container-pod container-pod-short logo-container">
-            <div className="sidebar-footer-image">
-              <a href={Config.productHomepageURI} target="_blank">
-                <IconDCOSLogoMark />
-              </a>
-            </div>
-            <p className="text-align-center flush-top flush-bottom mute small">
-              <span className="clickable" onClick={this.handleVersionClick}>
-                <span className="company-name small">{Config.productName} </span>
-                <span className="app-name small">{this.getVersion()}</span>
-              </span>
-            </p>
-          </div>
           {this.getFooter()}
         </div>
       </div>
