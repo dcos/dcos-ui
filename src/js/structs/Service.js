@@ -1,7 +1,7 @@
 import HealthStatus from '../constants/HealthStatus';
 import Item from './Item';
 import ServiceImages from '../constants/ServiceImages';
-import StatusLabels from '../constants/StatusLabels';
+import ServiceStatus from '../constants/ServiceStatus';
 
 module.exports = class Service extends Item {
   getArguments() {
@@ -91,16 +91,16 @@ module.exports = class Service extends Item {
     let deployments = this.getDeployments();
 
     if (deployments.length > 0) {
-      return StatusLabels.DEPLOYING;
+      return ServiceStatus.DEPLOYING.displayName;
     }
 
     if (tasksRunning > 0) {
-      return StatusLabels.RUNNING;
+      return ServiceStatus.RUNNING.displayName;
     }
 
     let instances = this.getInstances();
     if (instances === 0) {
-      return StatusLabels.SUSPENDED;
+      return ServiceStatus.SUSPENDED.displayName;
     }
   }
 
