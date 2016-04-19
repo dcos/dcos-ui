@@ -134,7 +134,7 @@ class RepositoriesTable extends mixin(StoreMixin) {
   getUri(prop, repository) {
     return (
       <div className="flex-box table-cell-flex-box">
-        <span className="text-overflow" title={repository.get('uri')}>
+        <span className="text-overflow-break-word" title={repository.get('uri')}>
           {repository.get('uri')}
         </span>
       </div>
