@@ -122,7 +122,7 @@ class InstallPackageModal
     let config = cosmosPackage.get('config');
     let appId = Util.findNestedPropertyInObject(
       config, 'properties.service.properties.name.default'
-    ) || `${name}-default`;
+    ) || name;
 
     // Store appId from package
     this.internalStorage_update({
