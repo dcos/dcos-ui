@@ -55,7 +55,7 @@ This repository contains the DC/OS UI application.
 
 ##### Installation Instructions:
 
-1. Clone this repository (https://github.com/mesosphere/dcos-ui)
+1. Clone this repository (https://github.com/dcos/dcos-ui)
 2. Install [NPM](https://npmjs.org/)
 3. Install development dependencies
 
