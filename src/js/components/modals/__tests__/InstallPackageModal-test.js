@@ -114,7 +114,7 @@ describe('InstallPackageModal', function () {
         this.container
       ));
       var result = node.querySelector('form .form-element-inline-text');
-      expect(result.textContent).toEqual('marathon-default');
+      expect(result.textContent).toEqual('marathon');
     });
 
     it('should display loader', function () {
