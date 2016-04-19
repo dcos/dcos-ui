@@ -6,7 +6,6 @@ var ReactDOM = require('react-dom');
 var AnimationCircle = require('./AnimationCircle');
 var ChartMixin = require('../../mixins/ChartMixin');
 var ChartStripes = require('./ChartStripes');
-import DOMUtils from '../../utils/DOMUtils';
 var InternalStorageMixin = require('../../mixins/InternalStorageMixin');
 var Maths = require('../../utils/Maths');
 var TimeSeriesArea = require('./TimeSeriesArea');
@@ -95,8 +94,7 @@ var TimeSeriesChart = React.createClass({
     var prevY = _.pluck(prevVal, props.y);
     var nextY = _.pluck(nextVal, props.y);
 
-    return !_.isEqual(prevY, nextY) &&
-      DOMUtils.isElementOnTop(ReactDOM.findDOMNode(this));
+    return !_.isEqual(prevY, nextY);
   },
 
   componentDidUpdate: function () {
