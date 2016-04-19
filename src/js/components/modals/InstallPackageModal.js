@@ -306,7 +306,11 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
   }
 
   getPreinstallNotes(notes, truncated) {
-    if (truncated && notes) {
+    if (!notes) {
+      return null;
+    }
+
+    if (truncated) {
       notes = notes.slice(0, PREINSTALL_NOTES_CHAR_LIMIT);
     }
 
@@ -320,7 +324,7 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
   }
 
   getPreinstallNotesToggle(truncated, notes) {
-    if (!notes || (notes.length < PREINSTALL_NOTES_CHAR_LIMIT)) {
+    if (notes.length < PREINSTALL_NOTES_CHAR_LIMIT) {
       return null;
     }
 
