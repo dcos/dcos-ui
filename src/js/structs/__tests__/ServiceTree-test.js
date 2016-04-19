@@ -3,7 +3,7 @@ let Framework = require('../Framework');
 let HealthStatus = require('../../constants/HealthStatus');
 let Service = require('../Service');
 let ServiceTree = require('../ServiceTree');
-let StatusLabels = require('../../constants/StatusLabels');
+let ServiceStatus = require('../../constants/ServiceStatus');
 
 describe('ServiceTree', function () {
 
@@ -487,7 +487,8 @@ describe('ServiceTree', function () {
         deployments: []
       }));
 
-      expect(this.instance.getStatus()).toEqual(StatusLabels.RUNNING);
+      expect(this.instance.getStatus())
+        .toEqual(ServiceStatus.RUNNING.displayName);
     });
 
     it('returns correct status for suspended tree', function () {
@@ -500,7 +501,8 @@ describe('ServiceTree', function () {
         deployments: []
       }));
 
-      expect(this.instance.getStatus()).toEqual(StatusLabels.SUSPENDED);
+      expect(this.instance.getStatus())
+        .toEqual(ServiceStatus.SUSPENDED.displayName);
     });
 
     it('returns correct status for deploying tree', function () {
@@ -513,7 +515,8 @@ describe('ServiceTree', function () {
         deployments: [{id: "4d08fc0d-d450-4a3e-9c85-464ffd7565f1"}]
       }));
 
-      expect(this.instance.getStatus()).toEqual(StatusLabels.DEPLOYING);
+      expect(this.instance.getStatus())
+        .toEqual(ServiceStatus.DEPLOYING.displayName);
     });
 
   });
