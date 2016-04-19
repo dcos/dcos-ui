@@ -41,42 +41,11 @@ class PackageUpgradeOverview extends React.Component {
     console.log(this.props.cosmosPackage);
   }
 
-  getAnswerButton() {
+  getButtonAction(handler, label, buttonClassName) {
     return (
-      <button className="button button-success button-small button-short
-        button-fixed-width button-fixed-width-small flush"
-        onClick={this.handleAnswerButtonClick}>
-        Answer
-      </button>
-    );
-  }
-
-  getPauseButton() {
-    return (
-      <button className="button button-inverse button-small button-short
-        button-fixed-width button-fixed-width-small flush"
-        onClick={this.handlePauseButtonClick}>
-        Pause
-      </button>
-    );
-  }
-
-  getResumeButton() {
-    return (
-      <button className="button button-success button-small button-short
-        button-fixed-width button-fixed-width-small flush"
-        onClick={this.handleResumeButtonClick}>
-        Resume
-      </button>
-    );
-  }
-
-  getUpgradeButton() {
-    return (
-      <button className="button button-primary button-small button-short
-        button-fixed-width button-fixed-width-small flush"
-        onClick={this.handleUpgradeButtonClick}>
-        Upgrade
+      <button className={`${buttonClassName} button button-small button-short` +
+        ' button-fixed-width button-fixed-width-small flush'} onClick={handler}>
+        {label}
       </button>
     );
   }
@@ -132,13 +101,13 @@ class PackageUpgradeOverview extends React.Component {
     let upgradeProgress;
 
     if (cosmosPackage.isDecisionPointActive()) {
-      packageAction = this.getAnswerButton(cosmosPackage);
+      packageAction = this.getButtonAction(this.handleAnswerButtonClick, 'Answer', 'button-success');
     } else if (cosmosPackage.isUpgradePaused()) {
-      packageAction = this.getResumeButton(cosmosPackage);
+      packageAction = this.getButtonAction(this.handleResumeButtonClick, 'Resume', 'button-success');
     } else if (cosmosPackage.isUpgrading()) {
-      packageAction = this.getPauseButton(cosmosPackage);
+      packageAction = this.getButtonAction(this.handlePauseButtonClick, 'Pause', 'button-inverse');
     } else if (cosmosPackage.isUpgradeAvailable()) {
-      packageAction = this.getUpgradeButton(cosmosPackage);
+      packageAction = this.getButtonAction(this.handleUpgradeButtonClick, 'Upgrade', 'button-primary');
     }
 
     if (cosmosPackage.isUpgrading()) {
