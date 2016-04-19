@@ -19,6 +19,24 @@ MesosSummaryStore.init();
 
 describe('Mesos State Store', function () {
 
+  describe('#processSummary', function () {
+    beforeEach(function () {
+      this.processSummaryError = MesosSummaryStore.processSummaryError;
+      MesosSummaryStore.processSummaryError = jest.genMockFunction();
+      MesosSummaryStore.processSummary({});
+    });
+
+    afterEach(function () {
+      MesosSummaryStore.processSummaryError = this.processSummaryError;
+    });
+
+    it('calls processSummaryError with no arguments when summary is empty Object',
+      function () {
+        expect(MesosSummaryStore.processSummaryError.mock.calls.length).toEqual(1);
+        expect(MesosSummaryStore.processSummaryError.mock.calls[0].length).toEqual(0);
+      });
+  });
+
   describe('#getTaskFailureRate', function () {
 
     beforeEach(function () {
