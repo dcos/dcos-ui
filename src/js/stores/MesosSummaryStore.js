@@ -174,6 +174,11 @@ var MesosSummaryStore = Store.createStore({
   },
 
   processSummary: function (data, options = {}) {
+    // If request to Mesos times out we get an empty Object
+    if (!Object.keys(data).length) {
+      return this.processSummaryError();
+    }
+
     let states = this.get('states');
     let prevState = states.last();
 
