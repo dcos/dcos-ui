@@ -50,6 +50,31 @@ class PackageUpgradeOverview extends React.Component {
     );
   }
 
+  getPackageAction(cosmosPackage) {
+    if (cosmosPackage.isDecisionPointActive()) {
+      return this.getButtonAction(this.handleAnswerButtonClick, 'Answer', 'button-success');
+    }
+    if (cosmosPackage.isUpgradePaused()) {
+      return this.getButtonAction(this.handleResumeButtonClick, 'Resume', 'button-success');
+    }
+    if (cosmosPackage.isUpgrading()) {
+      return this.getButtonAction(this.handlePauseButtonClick, 'Pause', 'button-inverse');
+    }
+    if (cosmosPackage.isUpgradeAvailable()) {
+      return this.getButtonAction(this.handleUpgradeButtonClick, 'Upgrade', 'button-primary');
+    }
+
+    return null;
+  }
+
+  getUpgradeProgress(cosmosPackage) {
+    if (cosmosPackage.isUpgrading()) {
+      return this.getUpgradeProgressBar(cosmosPackage);
+    }
+
+    return null;
+  }
+
   getUpgradeProgressBar(cosmosPackage) {
     let label = this.getUpgradeProgressBarLabel(cosmosPackage);
     let labelAction = (
@@ -97,22 +122,8 @@ class PackageUpgradeOverview extends React.Component {
 
   render() {
     let cosmosPackage = this.props.cosmosPackage;
-    let packageAction;
-    let upgradeProgress;
-
-    if (cosmosPackage.isDecisionPointActive()) {
-      packageAction = this.getButtonAction(this.handleAnswerButtonClick, 'Answer', 'button-success');
-    } else if (cosmosPackage.isUpgradePaused()) {
-      packageAction = this.getButtonAction(this.handleResumeButtonClick, 'Resume', 'button-success');
-    } else if (cosmosPackage.isUpgrading()) {
-      packageAction = this.getButtonAction(this.handlePauseButtonClick, 'Pause', 'button-inverse');
-    } else if (cosmosPackage.isUpgradeAvailable()) {
-      packageAction = this.getButtonAction(this.handleUpgradeButtonClick, 'Upgrade', 'button-primary');
-    }
-
-    if (cosmosPackage.isUpgrading()) {
-      upgradeProgress = this.getUpgradeProgressBar(cosmosPackage);
-    }
+    let packageAction = this.getPackageAction(cosmosPackage);
+    let upgradeProgress = this.getUpgradeProgress(cosmosPackage);
 
     return (
       <div className="button-collection flush flex-align-right">

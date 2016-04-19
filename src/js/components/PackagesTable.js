@@ -176,11 +176,7 @@ class PackagesTable extends mixin(StoreMixin) {
   }
 
   getUpgradeCell(prop, cosmosPackage) {
-    let uninstallButton = null;
-
-    if (!cosmosPackage.isUpgrading()) {
-      uninstallButton = this.getUninstallButton(cosmosPackage);
-    }
+    let uninstallButton = this.getUninstallButton(cosmosPackage);
 
     return (
       <div className="button-collection flush flex-align-right">
@@ -206,11 +202,15 @@ class PackagesTable extends mixin(StoreMixin) {
     );
   }
 
-  getUninstallButton(packageToUninstall) {
+  getUninstallButton(cosmosPackage) {
+    if (cosmosPackage.isUpgrading()) {
+      return null;
+    }
+
     return (
       <a className="button button-link button-danger flush-bottom
         table-display-on-row-hover"
-        onClick={this.handleOpenConfirm.bind(this, packageToUninstall)}>
+        onClick={this.handleOpenConfirm.bind(this, cosmosPackage)}>
         Uninstall
       </a>
     );
