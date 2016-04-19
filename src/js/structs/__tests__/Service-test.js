@@ -1,7 +1,7 @@
 let HealthStatus = require('../../constants/HealthStatus');
 let Service = require('../Service');
 let ServiceImages = require('../../constants/ServiceImages');
-let StatusLabels = require('../../constants/StatusLabels');
+let ServiceStatus = require('../../constants/ServiceStatus');
 
 describe('Service', function () {
 
@@ -342,7 +342,7 @@ describe('Service', function () {
         deployments: []
       });
 
-      expect(service.getStatus()).toEqual(StatusLabels.RUNNING);
+      expect(service.getStatus()).toEqual(ServiceStatus.RUNNING.displayName);
     });
 
     it('returns correct status for suspended app', function () {
@@ -355,7 +355,7 @@ describe('Service', function () {
         deployments: []
       });
 
-      expect(service.getStatus()).toEqual(StatusLabels.SUSPENDED);
+      expect(service.getStatus()).toEqual(ServiceStatus.SUSPENDED.displayName);
     });
 
     it('returns correct status for deploying app', function () {
@@ -368,7 +368,7 @@ describe('Service', function () {
         deployments: [{id: "4d08fc0d-d450-4a3e-9c85-464ffd7565f1"}]
       });
 
-      expect(service.getStatus()).toEqual(StatusLabels.DEPLOYING);
+      expect(service.getStatus()).toEqual(ServiceStatus.DEPLOYING.displayName);
     });
 
   });
