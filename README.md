@@ -6,13 +6,33 @@ Node 4.x (and above) is **required**. We suggest using [nvm](https://github.com/
 
 
 ## DC/OS Installation Instructions:
-- Follow the instructions [here](https://github.com/dcos/dcos-vagrant) to install a local cluster.
-- In your dcos-vagrant repo from the previous step, run `vagrant ssh m1`.
-- Open `nginx.conf` for adminrouter with `sudo vi /opt/mesosphere/active/adminrouter/nginx/conf/nginx.conf`
-- Comment out `root /opt/mesosphere/active/dcos-ui/usr;`
-  by changing the line to `# root /opt/mesosphere/active/dcos-ui/usr;`
+1. Follow the instructions [here](https://github.com/dcos/dcos-vagrant) to install a local cluster.
+2. In your dcos-vagrant repo from the previous step, run:
 
-- Right below the commented out line, add
+  ```
+  vagrant ssh m1
+  ```
+
+3. Open `nginx.conf` for adminrouter with:
+
+  ```
+  sudo vi /opt/mesosphere/active/adminrouter/nginx/conf/nginx.conf
+  ```
+
+4. Find the line:
+
+  ```
+  root /opt/mesosphere/active/dcos-ui/usr;
+  ```
+
+  and comment out by changing the line to:
+
+  ```
+  # root /opt/mesosphere/active/dcos-ui/usr;
+  ```
+
+5. Right below the commented out line, add
+
   ```
   location ~ ^/(?!service|mesos).*\.(js|css|html|png|jpg|gif|jpeg|swf|map)$ {
     expires -1;
@@ -22,10 +42,10 @@ Node 4.x (and above) is **required**. We suggest using [nvm](https://github.com/
     proxy_set_header Connection "";
   }
   ```
-- Save and quit vi
-- Restart adminrouter with `sudo service dcos-adminrouter restart`. Your cluster is now prepped for local development.
-- [Start](#user-content-dcos-ui-1) your local development server for DC/OS.
-- Navigate to http://dcos.local.
+6. Save and quit vi
+7. Restart adminrouter with `sudo service dcos-adminrouter restart`. Your cluster is now prepped for local development.
+8. [Start](#user-content-dcos-ui-1) your local development server for DC/OS.
+9. Navigate to http://dcos.local.
 
 **NOTE:** http://dcos.local will only resolve if both your DC/OS UI Server and DC/OS Cluster are operational and running.
 
@@ -77,7 +97,7 @@ If you want to add a new npm package to 'node_modules':
 2. Create a synced npm-shrinkwrap.json with devDependencies included by running
 
     ```
-    npm run shrinkwrap
+    npm shrinkwrap --dev
     ```
 
 3. Commit to repository
@@ -126,55 +146,22 @@ If you want to add a new npm package to 'node_modules':
 
 ## Testing
 
-**Why is testing important?** Many of us like to sleep at night. So to give us peace of mind when we release a new version of our software, we want to guarantee that the application works as it should, always. To accomplish this we write two kinds of tests that will ensure that our applications behaves as it should even as we add new features.
+See more info on testing [here.](./Authors.md)
 
-### Unit tests
 
-These tests ensure that individual units of code (functions/methods) return the expected results with different inputs.
-Think of a `sum` function. When called as `sum(1)` we may expect a return value of `1`. When called as `sum(1, 2)` we may expect a return value of `3`. And when called with no arguments, we may expect an error to be thrown.
+## License and Author
 
-### Integration tests
+Copyright 2016 Mesosphere, Inc.
 
-We want to guarantee that our project DC/OS UI works as it should within DC/OS as a product. To do this we want our integration tests to run against a DC/OS cluster. For example we want to test that when an slave fails in a cluster, the UI visually shows this slave failure. A different example is validating that when a new service is installed on a cluster it will show up in the services page.
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this repository except in compliance with the License.
 
-##### Setup Instructions:
+The contents of this repository are solely licensed under the terms described in the [LICENSE file](./LICENSE) included in this repository.
 
-1. Install Cypress CLI
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
 
-  ```sh
-  npm install -g cypress
-  ```
-
-2. Install Cypress desktop app
-
-  ```sh
-  cypress install
-  ```
-
-3. Open Cypress
-
-  ```sh
-  cypress open
-  ```
-
-  This should show a new icon on your desktop menu bar.
-
-  ![img](../../../../../../../mesosphere/dcos-ui/blob/master/docs/images/cypress-desktop-icon.png?raw=true)
-
-4. Login with Github. Click on the icon on your desktop menu bar and login.
-
-  ![img](../../../../../../../mesosphere/dcos-ui/blob/master/docs/images/cypress-login.png?raw=true)
-
-5. Add project to Cypress app
-
-  Once you've logged in click on the plus button and add the `dcos-ui` folder.
-
-  ![img](../../../../../../../mesosphere/dcos-ui/blob/master/docs/images/cypress-no-projects.png?raw=true)
-
-6. Once the project is added click on it to start the server
-
-  ![img](../../../../../../../mesosphere/dcos-ui/blob/master/docs/images/cypress-project.png?raw=true)
-
-  ![img](../../../../../../../mesosphere/dcos-ui/blob/master/docs/images/cypress-server-running.png?raw=true)
-
-7. Ask someone on the team to teach all about writing integration tests.
+Authors are listed in [Authors.md file](./Authors.md).
