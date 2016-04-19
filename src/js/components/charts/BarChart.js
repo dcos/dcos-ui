@@ -6,6 +6,7 @@ var ReactDOM = require('react-dom');
 
 var Bar = require('./Bar');
 var ChartMixin = require('../../mixins/ChartMixin');
+import DOMUtils from '../../utils/DOMUtils';
 var InternalStorageMixin = require('../../mixins/InternalStorageMixin');
 
 var BarChart = React.createClass({
@@ -55,9 +56,10 @@ var BarChart = React.createClass({
   },
 
   shouldComponentUpdate: function (nextProps) {
-    return this.props.height !== nextProps.height ||
+    return (this.props.height !== nextProps.height ||
       this.props.width !== nextProps.width ||
-      !_.isEqual(this.props.data, nextProps.data);
+      !_.isEqual(this.props.data, nextProps.data)) &&
+      DOMUtils.isElementOnTop(ReactDOM.findDOMNode(this));
   },
 
   componentWillMount: function () {
