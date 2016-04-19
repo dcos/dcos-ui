@@ -133,4 +133,45 @@ describe('DOMUtils', function () {
       expect(callCount).toEqual(1500 / 15);
     });
   });
+
+  describe('#isElementOnTop', function () {
+    beforeEach(function () {
+      this.element = {
+        getBoundingClientRect: function () {
+          return {
+            top: 100,
+            left: 200,
+            height: 20,
+            width: 40
+          };
+        },
+        contains: function (el) {
+          return this === el;
+        }
+      }
+      this.prevElementFromPoint = global.document.elementFromPoint;
+    });
+
+    afterEach(function () {
+      global.document.elementFromPoint = this.prevElementFromPoint;
+    });
+
+    it('should return false if element is not at coord', function () {
+      global.document.elementFromPoint = function () {
+        return 'hi';
+      };
+
+      let result = DOMUtils.isElementOnTop(this.element);
+      expect(result).toEqual(false);
+    });
+
+    it('should return true if element is at coord', function () {
+      global.document.elementFromPoint = () => {
+        return this.element;
+      };
+
+      let result = DOMUtils.isElementOnTop(this.element);
+      expect(result).toEqual(true);
+    });
+  });
 });
