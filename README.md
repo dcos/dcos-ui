@@ -1,4 +1,4 @@
-# DC/OS UI [![Velocity](http://velocity.mesosphere.com/service/velocity/buildStatus/icon?job=dcos-ui-master)](http://velocity.mesosphere.com/service/velocity/view/DCOS%20UI/job/dcos-ui-master/)
+# DC/OS UI [![Velocity](http://velocity.mesosphere.com/service/velocity/buildStatus/icon?job=public-dcos-ui-master)](http://velocity.mesosphere.com/service/velocity/view/DCOS%20UI/job/public-dcos-ui-master/)
 
 ## Requirements
 
