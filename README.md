@@ -146,7 +146,7 @@ If you want to add a new npm package to 'node_modules':
 
 ## Testing
 
-See more info on testing [here.](./Authors.md)
+See more info on testing [here.](./TESTING.md)
 
 
 ## License and Author
