@@ -124,8 +124,8 @@ class RepositoriesTable extends mixin(StoreMixin) {
   getColGroup() {
     return (
       <colgroup>
+        <col style={{width: '30%'}} />
         <col />
-        <col style={{width: '320px'}} />
         <col style={{width: '120px'}} />
       </colgroup>
     );
