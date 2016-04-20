@@ -176,11 +176,9 @@ class PackagesTable extends mixin(StoreMixin) {
   }
 
   getUpgradeCell(prop, cosmosPackage) {
-    let uninstallButton = this.getUninstallButton(cosmosPackage);
-
     return (
       <div className="button-collection flush flex-align-right">
-        {uninstallButton}
+        {this.getUninstallButton(cosmosPackage)}
         <PackageUpgradeOverview cosmosPackage={cosmosPackage}
           onUpgradeClick={this.handleUpgradeClick} />
       </div>
