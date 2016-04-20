@@ -423,14 +423,27 @@ Sidebar
 
         .user-description {
           flex: 1;
-          text-align: left;
           display: block;
+          text-align: left;
         }
 
       }
 
     }
 
+  }
+
+}
+
+.user-dropdown {
+
+  &.button {
+    overflow: hidden;
+  }
+
+  .user-description {
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
 }
