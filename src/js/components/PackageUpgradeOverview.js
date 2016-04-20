@@ -122,13 +122,11 @@ class PackageUpgradeOverview extends React.Component {
 
   render() {
     let cosmosPackage = this.props.cosmosPackage;
-    let packageAction = this.getPackageAction(cosmosPackage);
-    let upgradeProgress = this.getUpgradeProgress(cosmosPackage);
 
     return (
       <div className="button-collection flush flex-align-right">
-        {upgradeProgress}
-        {packageAction}
+        {this.getUpgradeProgress(cosmosPackage)}
+        {this.getPackageAction(cosmosPackage)}
       </div>
     );
   }
