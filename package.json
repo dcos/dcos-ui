@@ -81,11 +81,11 @@
     "localStorage": "1.0.3",
     "marked": "0.3.5",
     "mkdirp": "0.5.1",
-    "node-libs-browser": "0.5.3",
+    "node-libs-browser": "1.0.0",
     "run-sequence": "1.1.5",
-    "source-map-loader": "0.1.3",
+    "source-map-loader": "0.1.5",
     "transform-loader": "0.2.3",
-    "webpack": "1.10.1",
+    "webpack": "1.13.0",
     "webpack-notifier": "1.3.0"
   },
   "scripts": {
