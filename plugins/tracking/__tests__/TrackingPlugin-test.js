@@ -1,6 +1,13 @@
 jest.dontMock('../index');
 jest.dontMock('../hooks');
 
+jest.setMock('react-router', {
+  HashLocation: {
+    getCurrentPath: function () { return '/foo'; },
+    addChangeListener: function () {}
+  }
+});
+
 import PluginTestUtils from 'PluginTestUtils';
 
 let SDK = PluginTestUtils.getSDK('tracking', {enabled: true});
@@ -22,7 +29,7 @@ describe('TrackingHooks', function () {
       it('appends scripts to the document head if plugin enabled', function () {
         TrackingHooks.initialize();
         SDK.Hooks.doAction('pluginsConfigured');
-        expect(DOMUtils.appendScript.callCount).toEqual(1);
+        expect(DOMUtils.appendScript.calls.count()).toEqual(1);
       });
 
     });

@@ -97,7 +97,7 @@ describe('ServiceSidePanelContents', function () {
       it('should return an element if task exists', function () {
         MesosStateStore.getSchedulerTaskFromServiceName =
         jasmine.createSpy('MesosStateStore#getSchedulerTaskFromServiceName')
-          .andReturn({id: 'foo', resources: {cpus: 0, mem: 0, disk: 0}});
+          .and.returnValue({id: 'foo', resources: {cpus: 0, mem: 0, disk: 0}});
         var instance = ReactDOM.render(
           <ServiceSidePanelContents
             open={false}

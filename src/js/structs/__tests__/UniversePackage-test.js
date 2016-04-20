@@ -79,7 +79,7 @@ describe('UniversePackage', function () {
 
     it('returns null if there is no maintainer info', function () {
       var pkg = new UniversePackage({package: {}});
-      expect(pkg.getMaintainer()).toEqual(null);
+      expect(pkg.getMaintainer()).toEqual(undefined);
     });
 
     it('does not error even if there is no package property', function () {

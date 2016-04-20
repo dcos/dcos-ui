@@ -7,6 +7,13 @@ jest.dontMock('../MesosSummaryActions');
 jest.dontMock('../../utils/RequestUtil');
 jest.dontMock('../../constants/TimeScales');
 
+jest.setMock('react-router', {
+  HashLocation: {
+    getCurrentPath: function () { return '/foo'; },
+    addChangeListener: function () {}
+  }
+});
+
 import {Hooks} from 'PluginSDK';
 import PluginTestUtils from 'PluginTestUtils';
 
@@ -39,39 +46,39 @@ describe('Mesos State Actions', function () {
     it('fetches the most recent state by default', function () {
       MesosSummaryActions.fetchSummary();
       expect(RequestUtil.json).toHaveBeenCalled();
-      expect(RequestUtil.json.mostRecentCall.args[0].url).toEqual('http://historyserver/dcos-history-service/history/last');
+      expect(RequestUtil.json.calls.mostRecent().args[0].url).toEqual('http://historyserver/dcos-history-service/history/last');
     });
 
     it('fetches a whole minute when instructed', function () {
       MesosSummaryActions.fetchSummary(TimeScales.MINUTE);
       expect(RequestUtil.json).toHaveBeenCalled();
-      expect(RequestUtil.json.mostRecentCall.args[0].url).toEqual('http://historyserver/dcos-history-service/history/minute');
+      expect(RequestUtil.json.calls.mostRecent().args[0].url).toEqual('http://historyserver/dcos-history-service/history/minute');
     });
 
     it('fetches a whole hour when instructed', function () {
       MesosSummaryActions.fetchSummary(TimeScales.HOUR);
       expect(RequestUtil.json).toHaveBeenCalled();
-      expect(RequestUtil.json.mostRecentCall.args[0].url).toEqual('http://historyserver/dcos-history-service/history/hour');
+      expect(RequestUtil.json.calls.mostRecent().args[0].url).toEqual('http://historyserver/dcos-history-service/history/hour');
     });
 
     it('fetches a whole day when instructed', function () {
       MesosSummaryActions.fetchSummary(TimeScales.DAY);
       expect(RequestUtil.json).toHaveBeenCalled();
-      expect(RequestUtil.json.mostRecentCall.args[0].url).toEqual('http://historyserver/dcos-history-service/history/day');
+      expect(RequestUtil.json.calls.mostRecent().args[0].url).toEqual('http://historyserver/dcos-history-service/history/day');
     });
 
     describe('When the history server is offline', function () {
 
       beforeEach(function () {
         spyOn(AppDispatcher, 'handleServerAction');
-        RequestUtil.json.andCallFake(function (req) {
+        RequestUtil.json.and.callFake(function (req) {
           req.error({ message: 'Guru Meditation' });
         });
       });
 
       afterEach(function () {
         // Clean up debouncing
-        RequestUtil.json.andCallFake(function (req) {
+        RequestUtil.json.and.callFake(function (req) {
           req.success();
         });
         MesosSummaryActions.fetchSummary();
@@ -80,20 +87,20 @@ describe('Mesos State Actions', function () {
       it('detects errors on the history server', function () {
         MesosSummaryActions.fetchSummary(TimeScales.MINUTE);
         expect(AppDispatcher.handleServerAction).toHaveBeenCalled();
-        expect(AppDispatcher.handleServerAction.mostRecentCall.args[0].type)
+        expect(AppDispatcher.handleServerAction.calls.mostRecent().args[0].type)
           .toEqual(ActionTypes.REQUEST_MESOS_HISTORY_ERROR);
       });
 
       it('falls back to the Mesos endpoint if the history service is offline on initial fetch', function () {
         MesosSummaryActions.fetchSummary(TimeScales.MINUTE);
         expect(RequestUtil.json).toHaveBeenCalled();
-        expect(RequestUtil.json.mostRecentCall.args[0].url).toContain('http://mesosserver/mesos/master/state-summary');
+        expect(RequestUtil.json.calls.mostRecent().args[0].url).toContain('http://mesosserver/mesos/master/state-summary');
       });
 
       it('falls back to the Mesos endpoint if the history service goes offline', function () {
         MesosSummaryActions.fetchSummary();
         expect(RequestUtil.json).toHaveBeenCalled();
-        expect(RequestUtil.json.mostRecentCall.args[0].url).toContain('http://mesosserver/mesos/master/state-summary');
+        expect(RequestUtil.json.calls.mostRecent().args[0].url).toContain('http://mesosserver/mesos/master/state-summary');
       });
 
     });

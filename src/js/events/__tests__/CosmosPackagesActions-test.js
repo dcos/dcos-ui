@@ -33,7 +33,7 @@ describe('CosmosPackagesActions', function () {
     beforeEach(function () {
       spyOn(RequestUtil, 'json');
       CosmosPackagesActions.fetchAvailablePackages('foo');
-      this.configuration = RequestUtil.json.mostRecentCall.args[0];
+      this.configuration = RequestUtil.json.calls.mostRecent().args[0];
     });
 
     it('dispatches the correct action when successful', function () {
@@ -91,7 +91,7 @@ describe('CosmosPackagesActions', function () {
 
     it('sends query in request body, even if it is undefined', function () {
       CosmosPackagesActions.fetchAvailablePackages();
-      this.configuration = RequestUtil.json.mostRecentCall.args[0];
+      this.configuration = RequestUtil.json.calls.mostRecent().args[0];
       expect(JSON.parse(this.configuration.data))
         .toEqual({query: undefined});
     });
@@ -107,7 +107,7 @@ describe('CosmosPackagesActions', function () {
     beforeEach(function () {
       spyOn(RequestUtil, 'json');
       CosmosPackagesActions.fetchInstalledPackages('foo', 'bar');
-      this.configuration = RequestUtil.json.mostRecentCall.args[0];
+      this.configuration = RequestUtil.json.calls.mostRecent().args[0];
     });
 
     it('dispatches the correct action when successful', function () {
@@ -166,7 +166,7 @@ describe('CosmosPackagesActions', function () {
 
     it('sends query in request body, even if it is undefined', function () {
       CosmosPackagesActions.fetchInstalledPackages();
-      this.configuration = RequestUtil.json.mostRecentCall.args[0];
+      this.configuration = RequestUtil.json.calls.mostRecent().args[0];
       expect(JSON.parse(this.configuration.data))
         .toEqual({packageName: undefined, appId: undefined});
     });
@@ -182,7 +182,7 @@ describe('CosmosPackagesActions', function () {
     beforeEach(function () {
       spyOn(RequestUtil, 'json');
       CosmosPackagesActions.fetchPackageDescription('foo', 'bar');
-      this.configuration = RequestUtil.json.mostRecentCall.args[0];
+      this.configuration = RequestUtil.json.calls.mostRecent().args[0];
     });
 
     it('dispatches the correct action when successful', function () {
@@ -241,7 +241,7 @@ describe('CosmosPackagesActions', function () {
 
     it('sends query in request body, even if it is undefined', function () {
       CosmosPackagesActions.fetchPackageDescription();
-      this.configuration = RequestUtil.json.mostRecentCall.args[0];
+      this.configuration = RequestUtil.json.calls.mostRecent().args[0];
       expect(JSON.parse(this.configuration.data))
         .toEqual({
           packageName: undefined,
@@ -260,7 +260,7 @@ describe('CosmosPackagesActions', function () {
     beforeEach(function () {
       spyOn(RequestUtil, 'json');
       CosmosPackagesActions.installPackage('foo', 'bar', 'quux', {baz: 'qux'});
-      this.configuration = RequestUtil.json.mostRecentCall.args[0];
+      this.configuration = RequestUtil.json.calls.mostRecent().args[0];
     });
 
     it('dispatches the correct action when successful', function () {
@@ -328,7 +328,7 @@ describe('CosmosPackagesActions', function () {
 
     it('sends query in request body, even if it is undefined', function () {
       CosmosPackagesActions.installPackage();
-      this.configuration = RequestUtil.json.mostRecentCall.args[0];
+      this.configuration = RequestUtil.json.calls.mostRecent().args[0];
       expect(JSON.parse(this.configuration.data)).toEqual({options: {}});
     });
 
@@ -343,7 +343,7 @@ describe('CosmosPackagesActions', function () {
     beforeEach(function () {
       spyOn(RequestUtil, 'json');
       CosmosPackagesActions.uninstallPackage('foo', 'bar', 'baz', true);
-      this.configuration = RequestUtil.json.mostRecentCall.args[0];
+      this.configuration = RequestUtil.json.calls.mostRecent().args[0];
     });
 
     it('dispatches the correct action when successful', function () {
@@ -409,7 +409,7 @@ describe('CosmosPackagesActions', function () {
 
     it('sends query in request body, even if it is undefined', function () {
       CosmosPackagesActions.uninstallPackage();
-      this.configuration = RequestUtil.json.mostRecentCall.args[0];
+      this.configuration = RequestUtil.json.calls.mostRecent().args[0];
       expect(JSON.parse(this.configuration.data)).toEqual({all: false});
     });
 
@@ -424,7 +424,7 @@ describe('CosmosPackagesActions', function () {
     beforeEach(function () {
       spyOn(RequestUtil, 'json');
       CosmosPackagesActions.fetchRepositories({foo: 'bar'});
-      this.configuration = RequestUtil.json.mostRecentCall.args[0];
+      this.configuration = RequestUtil.json.calls.mostRecent().args[0];
     });
 
     it('dispatches the correct action when successful', function () {
@@ -487,7 +487,7 @@ describe('CosmosPackagesActions', function () {
     beforeEach(function () {
       spyOn(RequestUtil, 'json');
       CosmosPackagesActions.addRepository('foo', 'bar');
-      this.configuration = RequestUtil.json.mostRecentCall.args[0];
+      this.configuration = RequestUtil.json.calls.mostRecent().args[0];
     });
 
     it('dispatches the correct action when successful', function () {
@@ -560,7 +560,7 @@ describe('CosmosPackagesActions', function () {
     beforeEach(function () {
       spyOn(RequestUtil, 'json');
       CosmosPackagesActions.deleteRepository('foo', 'bar');
-      this.configuration = RequestUtil.json.mostRecentCall.args[0];
+      this.configuration = RequestUtil.json.calls.mostRecent().args[0];
     });
 
     it('dispatches the correct action when successful', function () {

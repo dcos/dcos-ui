@@ -25,7 +25,7 @@ describe('MarathonStore', function () {
       var health = MarathonStore.getFrameworkHealth(
         MockMarathonResponse.hasNoHealthy.apps[0]
       );
-      expect(health).toNotEqual(null);
+      expect(health).not.toEqual(null);
       expect(health.key).toEqual('NA');
       expect(health.value).toEqual(HealthTypes.NA);
     });
@@ -93,7 +93,7 @@ describe('MarathonStore', function () {
         var images = MarathonStore.getFrameworkImages(
           MockMarathonResponse.hasHealth.apps[0]
         );
-        expect(images).toEqual(MarathonStore.NA_IMAGES);
+        expect(images).toEqual(null);
       }
     );
 

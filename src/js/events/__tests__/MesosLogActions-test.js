@@ -15,7 +15,7 @@ describe('MesosLogActions', function () {
     beforeEach(function () {
       spyOn(RequestUtil, 'json');
       MesosLogActions.requestOffset('foo', 'bar');
-      this.configuration = RequestUtil.json.mostRecentCall.args[0];
+      this.configuration = RequestUtil.json.calls.mostRecent().args[0];
     });
 
     it('calls #json from the RequestUtil', function () {
@@ -78,7 +78,7 @@ describe('MesosLogActions', function () {
     beforeEach(function () {
       spyOn(RequestUtil, 'json');
       MesosLogActions.fetchLog('foo', 'bar', 0, 2000);
-      this.configuration = RequestUtil.json.mostRecentCall.args[0];
+      this.configuration = RequestUtil.json.calls.mostRecent().args[0];
     });
 
     it('calls #json from the RequestUtil', function () {
@@ -139,7 +139,7 @@ describe('MesosLogActions', function () {
     beforeEach(function () {
       spyOn(RequestUtil, 'json');
       MesosLogActions.fetchPreviousLog('foo', 'bar', 0, 2000);
-      this.configuration = RequestUtil.json.mostRecentCall.args[0];
+      this.configuration = RequestUtil.json.calls.mostRecent().args[0];
     });
 
     it('calls #json from the RequestUtil', function () {

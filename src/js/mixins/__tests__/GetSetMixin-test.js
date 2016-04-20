@@ -12,11 +12,11 @@ describe('GetSetMixin', function () {
   describe('#get', function () {
 
     it('should return undefined if no key is given', function () {
-      expect(this.instance.get()).toEqual(undefined);
+      expect(this.instance.get()).toEqual(null);
     });
 
     it('should return undefined if given an object', function () {
-      expect(this.instance.get({})).toEqual(undefined);
+      expect(this.instance.get({})).toEqual(null);
     });
 
     it('returns null if property hasn\'t been defined', function () {

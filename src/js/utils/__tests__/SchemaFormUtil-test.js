@@ -82,7 +82,7 @@ describe('SchemaFormUtil', function () {
       };
 
       var result = SchemaFormUtil.processFormModel(model);
-      expect(result.key).toEqual(null);
+      expect(result.key).toEqual(undefined);
     });
 
     it('should omit null values for non-required fields', function () {

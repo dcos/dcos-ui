@@ -22,7 +22,7 @@ describe('TabsUtil', function () {
     it('should return equal length array to what is given', function () {
       var result = TabsUtil.getTabs(this.tabs, 'baz', this.getElement);
 
-      expect(this.getElement.callCount).toEqual(3);
+      expect(this.getElement.calls.count()).toEqual(3);
       expect(result.length).toEqual(3);
     });
 
@@ -45,7 +45,7 @@ describe('TabsUtil', function () {
     it('should call getElement with appropriate arguments', function () {
       TabsUtil.getTabs(this.tabs, 'baz', this.getElement);
 
-      expect(this.getElement.argsForCall).toEqual([
+      expect(this.getElement.calls.allArgs()).toEqual([
         ['foo', 0],
         ['baz', 1],
         ['corge', 2]
@@ -67,7 +67,7 @@ describe('TabsUtil', function () {
     it('should not have an active route when it doesn\'t exist', function () {
       TabsUtil.getTabs(this.tabs, 'notHere', this.getElement);
 
-      expect(this.getElement.argsForCall).toEqual([
+      expect(this.getElement.calls.allArgs()).toEqual([
         ['foo', 0],
         ['baz', 1],
         ['corge', 2]

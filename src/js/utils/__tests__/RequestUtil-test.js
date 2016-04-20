@@ -13,7 +13,7 @@ describe('RequestUtil', function () {
       successFn = jest.genMockFunction();
       errorFn = jest.genMockFunction();
 
-      spyOn(RequestUtil, 'json').andCallFake(
+      spyOn(RequestUtil, 'json').and.callFake(
         function (options) {
           // Trigger error for url 'failRequest'
           if (/failRequest/.test(options.url)) {

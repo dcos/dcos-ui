@@ -15,7 +15,7 @@ describe('NodeHealthActions', function () {
     beforeEach(function () {
       spyOn(RequestUtil, 'json');
       NodeHealthActions.fetchNodes();
-      this.configuration = RequestUtil.json.mostRecentCall.args[0];
+      this.configuration = RequestUtil.json.calls.mostRecent().args[0];
     });
 
     it('calls #json from the RequestUtil', function () {
@@ -54,7 +54,7 @@ describe('NodeHealthActions', function () {
     beforeEach(function () {
       spyOn(RequestUtil, 'json');
       NodeHealthActions.fetchNode('foo');
-      this.configuration = RequestUtil.json.mostRecentCall.args[0];
+      this.configuration = RequestUtil.json.calls.mostRecent().args[0];
     });
 
     it('calls #json from the RequestUtil', function () {
@@ -95,7 +95,7 @@ describe('NodeHealthActions', function () {
     beforeEach(function () {
       spyOn(RequestUtil, 'json');
       NodeHealthActions.fetchNodeUnits('foo');
-      this.configuration = RequestUtil.json.mostRecentCall.args[0];
+      this.configuration = RequestUtil.json.calls.mostRecent().args[0];
     });
 
     it('calls #json from the RequestUtil', function () {
@@ -138,7 +138,7 @@ describe('NodeHealthActions', function () {
     beforeEach(function () {
       spyOn(RequestUtil, 'json');
       NodeHealthActions.fetchNodeUnit('foo', 'bar');
-      this.configuration = RequestUtil.json.mostRecentCall.args[0];
+      this.configuration = RequestUtil.json.calls.mostRecent().args[0];
     });
 
     it('calls #json from the RequestUtil', function () {

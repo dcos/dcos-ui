@@ -60,14 +60,14 @@ describe('AuthStore', function () {
     });
 
     it('should set the cookie to an empty string', function () {
-      var args = cookie.serialize.mostRecentCall.args;
+      var args = cookie.serialize.calls.mostRecent().args;
 
       expect(args[0]).toEqual(USER_COOKIE_KEY);
       expect(args[1]).toEqual('');
     });
 
     it('should emit a logout event', function () {
-      var args = AuthStore.emit.mostRecentCall.args;
+      var args = AuthStore.emit.calls.mostRecent().args;
 
       expect(args[0]).toEqual(EventTypes.AUTH_USER_LOGOUT_SUCCESS);
     });
@@ -140,7 +140,7 @@ describe('AuthStore', function () {
           type: ActionTypes.REQUEST_LOGOUT_SUCCESS
         });
 
-        expect(mockedFn.calls.length).toEqual(1);
+        expect(mockedFn.calls.count()).toEqual(1);
       });
 
       it('dispatches the correct event upon error', function () {

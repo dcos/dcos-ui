@@ -56,7 +56,7 @@ describe('MesosStateStore', function () {
 
     it('should return null if node not found', function () {
       var result = MesosStateStore.getNodeFromID('nonExistentNode');
-      expect(result).toEqual(null);
+      expect(result).toEqual(undefined);
     });
   });
 
