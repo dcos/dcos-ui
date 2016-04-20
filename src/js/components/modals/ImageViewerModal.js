@@ -38,18 +38,6 @@ class ImageViewerModal extends React.Component {
     }
   }
 
-  componentWillUpdate(nextProps, {isLoadingImage}) {
-    let {images, selectedImage} = this.props;
-    let nextImages = nextProps.images;
-    let nextSelectedImage = nextProps.selectedImage;
-    // Two images in a row are the same, img.onLoad will never be called, so
-    // here we are updating manually
-    if (isLoadingImage &&
-        images[selectedImage] === nextImages[nextSelectedImage]) {
-      this.handleLoadingImageChange(false);
-    }
-  }
-
   handleKeyPress(event) {
     let {images} = this.props;
     // Should do nothing if the key event was already consumed, or there is only
@@ -94,6 +82,7 @@ class ImageViewerModal extends React.Component {
         <img
           className="fill-image"
           onLoad={this.handleLoadingImageChange.bind(this, false)}
+           key={props.selectedImage}
           src={props.images[props.selectedImage]} />
       </div>
     );
