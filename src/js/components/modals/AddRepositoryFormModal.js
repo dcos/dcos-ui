@@ -11,7 +11,8 @@ import FormModal from '../FormModal';
 const METHODS_TO_BIND = [
   'handleAddRepository',
   'onCosmosPackagesStoreRepositoryAddError',
-  'onCosmosPackagesStoreRepositoryAddSuccess'
+  'onCosmosPackagesStoreRepositoryAddSuccess',
+  'resetState'
 ];
 
 class AddRepositoryFormModal extends mixin(StoreMixin) {
@@ -20,7 +21,7 @@ class AddRepositoryFormModal extends mixin(StoreMixin) {
 
     this.state = {
       disableButtons: false,
-      errorMsg: false
+      errorMsg: null
     };
 
     this.store_listeners = [
@@ -35,11 +36,16 @@ class AddRepositoryFormModal extends mixin(StoreMixin) {
     });
   }
 
+  componentWillReceiveProps(nextProps) {
+    let {props} = this;
+    if (props.open && !nextProps.open) {
+      // Closes, reset state
+      this.resetState();
+    }
+  }
+
   onCosmosPackagesStoreRepositoryAddError(errorMsg) {
-    this.setState({
-      disableButtons: false,
-      errorMsg
-    });
+    this.setState({disableButtons: false, errorMsg});
   }
 
   onCosmosPackagesStoreRepositoryAddSuccess() {
@@ -49,7 +55,7 @@ class AddRepositoryFormModal extends mixin(StoreMixin) {
 
   handleAddRepository(model) {
     CosmosPackagesStore.addRepository(model.name, model.uri);
-    this.setState({disableButtons: true});
+    this.resetState();
   }
 
   getAddRepositoryFormDefinition() {
@@ -104,6 +110,10 @@ class AddRepositoryFormModal extends mixin(StoreMixin) {
     );
   }
 
+  resetState() {
+    this.setState({errorMsg: null, disableButtons: false});
+  }
+
   render() {
     let {props, state} = this;
 
@@ -117,6 +127,7 @@ class AddRepositoryFormModal extends mixin(StoreMixin) {
         definition={this.getAddRepositoryFormDefinition()}
         disabled={state.disableButtons}
         buttonDefinition={this.getButtonDefinition()}
+        onChange={this.resetState}
         onClose={props.onClose}
         onSubmit={this.handleAddRepository}
         open={props.open}
