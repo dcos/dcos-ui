@@ -65,7 +65,6 @@ var ServicesTable = React.createClass({
   renderHeadline: function (prop, service) {
     let appImages = MarathonStore.getServiceImages(service.name);
     let imageTag = null;
-    let openInNewWindowLink = this.getOpenInNewWindowLink(service);
 
     if (appImages) {
       imageTag = (
@@ -90,7 +89,7 @@ var ServicesTable = React.createClass({
             {service[prop]}
           </span>
         </Link>
-        {openInNewWindowLink}
+        {this.getOpenInNewWindowLink(service)}
       </div>
     );
   },
