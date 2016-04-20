@@ -41,10 +41,6 @@ class UpgradePackageModal extends React.Component {
   }
 
   getModalContents() {
-    if (!this.props.open) {
-      return null;
-    }
-
     let {cosmosPackage, packageName, packageVersion} = this.props;
 
     return (
@@ -62,32 +58,35 @@ class UpgradePackageModal extends React.Component {
             </p>
           </div>
         </div>
-        <div className="modal-footer">
-          <div className="container">
-            <div className="button-collection button-collection-stacked">
-              <Dropdown
-                buttonClassName="button button-wide dropdown-toggle
-                  text-align-center flush"
-                dropdownMenuClassName="dropdown-menu"
-                dropdownMenuListClassName="dropdown-menu-list"
-                initialID={this.getLatestVersion(cosmosPackage)}
-                items={this.getVersionDropdownItems(
-                  cosmosPackage.getUpgradeVersions()
-                )}
-                onItemSelection={this.handleVersionSelection}
-                transition={true}
-                transitionName="dropdown-menu"
-                wrapperClassName="dropdown dropdown-wide
-                  button-collection-spacing" />
-              <button
-                disabled={this.props.pendingRequest}
-                className="button button-success button-wide"
-                onClick={this.handleUpgradeStart}>
-                Start Upgrade
-              </button>
-            </div>
-          </div>
-        </div>
+      </div>
+    );
+  }
+
+  getModalFooter() {
+    let cosmosPackage = this.props.cosmosPackage;
+
+    return (
+      <div className="button-collection button-collection-stacked">
+        <Dropdown
+          buttonClassName="button button-wide dropdown-toggle
+            text-align-center flush"
+          dropdownMenuClassName="dropdown-menu"
+          dropdownMenuListClassName="dropdown-menu-list"
+          initialID={this.getLatestVersion(cosmosPackage)}
+          items={this.getVersionDropdownItems(
+            cosmosPackage.getUpgradeVersions()
+          )}
+          onItemSelection={this.handleVersionSelection}
+          transition={true}
+          transitionName="dropdown-menu"
+          wrapperClassName="dropdown dropdown-wide
+            button-collection-spacing" />
+        <button
+          disabled={this.props.pendingRequest}
+          className="button button-success button-wide"
+          onClick={this.handleUpgradeStart}>
+          Start Upgrade
+        </button>
       </div>
     );
   }
@@ -95,15 +94,21 @@ class UpgradePackageModal extends React.Component {
   render() {
     let {props} = this;
 
+    if (!props.open) {
+      return null;
+    }
+
     return (
       <Modal
         bodyClass="modal-content allow-overflow"
+        footer={this.getModalFooter()}
         innerBodyClass="flush-top flush-bottom"
         maxHeightPercentage={1}
         modalClass="modal modal-narrow"
         onClose={props.onClose}
         open={props.open}
         showCloseButton={false}
+        showFooter={true}
         useGemini={false}>
         {this.getModalContents()}
       </Modal>
