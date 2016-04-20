@@ -29,4 +29,14 @@ module.exports = class Service extends Item {
 
     return {value};
   }
+
+  getWebURL() {
+    let url = this.get('webui_url');
+
+    if (url != null && url !== '') {
+      return url;
+    }
+
+    return null;
+  }
 };

@@ -58,4 +58,23 @@ describe('Service', function () {
 
   });
 
+  describe('#getWebURL', function () {
+
+    it('returns the URL if it is present', function () {
+      let service = new Service({webui_url: 'foo'});
+      expect(service.getWebURL()).toEqual('foo');
+    });
+
+    it('returns null if the URL is not present', function () {
+      let service = new Service({foo: 'bar'});
+      expect(service.getWebURL()).toEqual(null);
+    });
+
+    it('returns null if the URL is an empty string', function () {
+      let service = new Service({webui_url: ''});
+      expect(service.getWebURL()).toEqual(null);
+    });
+
+  });
+
 });
