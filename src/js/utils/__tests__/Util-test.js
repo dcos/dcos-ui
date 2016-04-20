@@ -104,43 +104,43 @@ describe('Util', function () {
       this.searchString = 'hello.is.it.me.you.are.looking.for';
     });
 
-    it('', function () {
+    it('should find a nested defined property', function () {
       expect(
         Util.findNestedPropertyInObject(this.searchObject, this.searchString)
       ).toEqual('?');
     });
 
-    it('', function () {
+    it('should handle nested empty string definitions gracefully', function () {
       expect(Util.findNestedPropertyInObject(this.searchObject, 'hello.'))
         .toEqual(undefined);
     });
 
-    it('', function () {
+    it('should handle null search object gracefully', function () {
       expect(Util.findNestedPropertyInObject(null, this.searchString))
         .toEqual(null);
     });
 
-    it('', function () {
+    it('should handle undefined gracefully', function () {
       expect(Util.findNestedPropertyInObject(undefined, this.searchString))
         .toEqual(null);
     });
 
-    it('', function () {
+    it('should handle nested empty strings gracefully', function () {
       expect(Util.findNestedPropertyInObject(this.searchObject, '.'))
         .toEqual(undefined);
     });
 
-    it('', function () {
+    it('should handle nested empty string definition gracefully', function () {
       expect(Util.findNestedPropertyInObject(this.searchObject, ''))
         .toEqual(null);
     });
 
-    it('', function () {
+    it('should handle null definition gracefully', function () {
       expect(Util.findNestedPropertyInObject(this.searchObject, null))
         .toEqual(null);
     });
 
-    it('', function () {
+    it('should handle undefined definition gracefully', function () {
       expect(Util.findNestedPropertyInObject(this.searchObject, undefined))
         .toEqual(null);
     });
