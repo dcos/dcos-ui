@@ -101,7 +101,7 @@ describe('CosmosPackagesStore', function () {
     it('should pass though query parameters', function () {
       RequestUtil.json = jasmine.createSpy('RequestUtil#json');
       CosmosPackagesStore.fetchAvailablePackages('foo');
-      expect(JSON.parse(RequestUtil.json.mostRecentCall.args[0].data))
+      expect(JSON.parse(RequestUtil.json.calls.mostRecent().args[0].data))
         .toEqual({query: 'foo'});
     });
 
@@ -147,8 +147,8 @@ describe('CosmosPackagesStore', function () {
           query: 'foo'
         });
 
-        expect(mockedFn.calls.length).toEqual(1);
-        expect(mockedFn.calls[0].args).toEqual(['error', 'foo']);
+        expect(mockedFn.calls.count()).toEqual(1);
+        expect(mockedFn.calls.mostRecent().args).toEqual(['error', 'foo']);
       });
 
     });
@@ -187,7 +187,7 @@ describe('CosmosPackagesStore', function () {
     it('should pass though query parameters', function () {
       RequestUtil.json = jasmine.createSpy('RequestUtil#json');
       CosmosPackagesStore.fetchPackageDescription('foo', 'bar');
-      expect(JSON.parse(RequestUtil.json.mostRecentCall.args[0].data))
+      expect(JSON.parse(RequestUtil.json.calls.mostRecent().args[0].data))
         .toEqual({packageName: 'foo', packageVersion: 'bar'});
     });
 
@@ -235,8 +235,8 @@ describe('CosmosPackagesStore', function () {
           packageVersion: 'bar'
         });
 
-        expect(mockedFn.calls.length).toEqual(1);
-        expect(mockedFn.calls[0].args).toEqual(['error', 'foo', 'bar']);
+        expect(mockedFn.calls.count()).toEqual(1);
+        expect(mockedFn.calls.mostRecent().args).toEqual(['error', 'foo', 'bar']);
       });
 
     });
@@ -284,7 +284,7 @@ describe('CosmosPackagesStore', function () {
     it('should pass though query parameters', function () {
       RequestUtil.json = jasmine.createSpy('RequestUtil#json');
       CosmosPackagesStore.fetchInstalledPackages('foo', 'bar');
-      expect(JSON.parse(RequestUtil.json.mostRecentCall.args[0].data))
+      expect(JSON.parse(RequestUtil.json.calls.mostRecent().args[0].data))
         .toEqual({packageName: 'foo', appId: 'bar'});
     });
 
@@ -334,8 +334,8 @@ describe('CosmosPackagesStore', function () {
           appId: 'bar'
         });
 
-        expect(mockedFn.calls.length).toEqual(1);
-        expect(mockedFn.calls[0].args).toEqual(['error', 'foo', 'bar']);
+        expect(mockedFn.calls.count()).toEqual(1);
+        expect(mockedFn.calls.mostRecent().args).toEqual(['error', 'foo', 'bar']);
       });
 
     });
@@ -375,8 +375,8 @@ describe('CosmosPackagesStore', function () {
           packageVersion: 'bar'
         });
 
-        expect(mockedFn.calls.length).toEqual(1);
-        expect(mockedFn.calls[0].args).toEqual(['error', 'foo', 'bar']);
+        expect(mockedFn.calls.count()).toEqual(1);
+        expect(mockedFn.calls.mostRecent().args).toEqual(['error', 'foo', 'bar']);
       });
 
     });
@@ -418,8 +418,8 @@ describe('CosmosPackagesStore', function () {
           appId: 'baz'
         });
 
-        expect(mockedFn.calls.length).toEqual(1);
-        expect(mockedFn.calls[0].args).toEqual(['error', 'foo', 'bar', 'baz']);
+        expect(mockedFn.calls.count()).toEqual(1);
+        expect(mockedFn.calls.mostRecent().args).toEqual(['error', 'foo', 'bar', 'baz']);
       });
 
     });

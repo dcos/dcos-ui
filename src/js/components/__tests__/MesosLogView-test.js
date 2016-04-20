@@ -37,7 +37,7 @@ describe('MesosLogView', function () {
 
     this.instance.setState = jasmine.createSpy('setState');
 
-    MesosLogStore.get = jasmine.createSpy('MesosLogStore#get').andReturn({
+    MesosLogStore.get = jasmine.createSpy('MesosLogStore#get').and.returnValue({
       getFullLog: function () {
         return 'foo';
       }
@@ -70,7 +70,7 @@ describe('MesosLogView', function () {
           task: {slave_id: 'foo'}
         }
       );
-      expect(MesosLogStore.startTailing.callCount).toEqual(2);
+      expect(MesosLogStore.startTailing.calls.count()).toEqual(2);
     });
 
     it('should call stopTailing when new path is provided', function () {
@@ -80,7 +80,7 @@ describe('MesosLogView', function () {
           task: {slave_id: 'foo'}
         }
       );
-      expect(MesosLogStore.stopTailing.callCount).toEqual(1);
+      expect(MesosLogStore.stopTailing.calls.count()).toEqual(1);
     });
 
     it('shouldn\'t call startTailing when same path is provided', function () {
@@ -90,7 +90,7 @@ describe('MesosLogView', function () {
           task: {slave_id: 'foo'}
         }
       );
-      expect(MesosLogStore.startTailing.callCount).toEqual(1);
+      expect(MesosLogStore.startTailing.calls.count()).toEqual(1);
     });
 
     it('shouldn\'t call stopTailing when same path is provided', function () {
@@ -100,7 +100,7 @@ describe('MesosLogView', function () {
           task: {slave_id: 'foo'}
         }
       );
-      expect(MesosLogStore.stopTailing.callCount).toEqual(0);
+      expect(MesosLogStore.stopTailing.calls.count()).toEqual(0);
     });
 
   });

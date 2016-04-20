@@ -86,8 +86,8 @@ describe('NodeHealthStore', function () {
         data: 'foo'
       });
 
-      expect(mockedFn.calls.length).toEqual(1);
-      expect(mockedFn.calls[0].args).toEqual(['foo']);
+      expect(mockedFn.calls.count()).toEqual(1);
+      expect(mockedFn.calls.mostRecent().args).toEqual(['foo']);
     });
 
   });

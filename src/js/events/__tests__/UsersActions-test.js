@@ -17,7 +17,7 @@ describe('UsersActions', function () {
     beforeEach(function () {
       spyOn(RequestUtil, 'json');
       UsersActions.fetch();
-      this.configuration = RequestUtil.json.mostRecentCall.args[0];
+      this.configuration = RequestUtil.json.calls.mostRecent().args[0];
     });
 
     it('dispatches the correct action when successful', function () {
@@ -55,7 +55,7 @@ describe('UsersActions', function () {
     beforeEach(function () {
       spyOn(RequestUtil, 'json');
       UsersActions.addUser({uid: 'foo'});
-      this.configuration = RequestUtil.json.mostRecentCall.args[0];
+      this.configuration = RequestUtil.json.calls.mostRecent().args[0];
     });
 
     it('calls #json from the RequestUtil', function () {
@@ -68,7 +68,7 @@ describe('UsersActions', function () {
 
     it('encodes characters for URL', function () {
       UsersActions.addUser({uid: 'foo@email.com'});
-      this.configuration = RequestUtil.json.mostRecentCall.args[0];
+      this.configuration = RequestUtil.json.calls.mostRecent().args[0];
       expect(this.configuration.url).toEqual(Config.acsAPIPrefix + '/users/foo%40email.com');
     });
 
@@ -151,7 +151,7 @@ describe('UsersActions', function () {
     beforeEach(function () {
       spyOn(RequestUtil, 'json');
       UsersActions.deleteUser('foo');
-      this.configuration = RequestUtil.json.mostRecentCall.args[0];
+      this.configuration = RequestUtil.json.calls.mostRecent().args[0];
     });
 
     it('calls #json from the RequestUtil', function () {
@@ -164,7 +164,7 @@ describe('UsersActions', function () {
 
     it('encodes characters for URL', function () {
       UsersActions.deleteUser('foo@email.com');
-      this.configuration = RequestUtil.json.mostRecentCall.args[0];
+      this.configuration = RequestUtil.json.calls.mostRecent().args[0];
       expect(this.configuration.url).toEqual(Config.acsAPIPrefix + '/users/foo%40email.com');
     });
 

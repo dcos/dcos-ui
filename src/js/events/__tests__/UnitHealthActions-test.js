@@ -16,7 +16,7 @@ describe('UnitHealthActions', function () {
     beforeEach(function () {
       spyOn(RequestUtil, 'json');
       UnitHealthActions.fetchUnits();
-      this.configuration = RequestUtil.json.mostRecentCall.args[0];
+      this.configuration = RequestUtil.json.calls.mostRecent().args[0];
     });
 
     it('calls #json from the RequestUtil', function () {
@@ -55,7 +55,7 @@ describe('UnitHealthActions', function () {
     beforeEach(function () {
       spyOn(RequestUtil, 'json');
       UnitHealthActions.fetchUnit('foo');
-      this.configuration = RequestUtil.json.mostRecentCall.args[0];
+      this.configuration = RequestUtil.json.calls.mostRecent().args[0];
     });
 
     it('calls #json from the RequestUtil', function () {
@@ -96,7 +96,7 @@ describe('UnitHealthActions', function () {
     beforeEach(function () {
       spyOn(RequestUtil, 'json');
       UnitHealthActions.fetchUnitNodes('foo');
-      this.configuration = RequestUtil.json.mostRecentCall.args[0];
+      this.configuration = RequestUtil.json.calls.mostRecent().args[0];
     });
 
     it('calls #json from the RequestUtil', function () {
@@ -139,7 +139,7 @@ describe('UnitHealthActions', function () {
     beforeEach(function () {
       spyOn(RequestUtil, 'json');
       UnitHealthActions.fetchUnitNode('foo', 'bar');
-      this.configuration = RequestUtil.json.mostRecentCall.args[0];
+      this.configuration = RequestUtil.json.calls.mostRecent().args[0];
     });
 
     it('calls #json from the RequestUtil', function () {

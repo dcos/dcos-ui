@@ -13,7 +13,7 @@ describe('AuthActions', function () {
     beforeEach(function () {
       spyOn(RequestUtil, 'json');
       AuthActions.login();
-      this.configuration = RequestUtil.json.mostRecentCall.args[0];
+      this.configuration = RequestUtil.json.calls.mostRecent().args[0];
     });
 
     it('calls #json from the RequestUtil', function () {
@@ -78,7 +78,7 @@ describe('AuthActions', function () {
     beforeEach(function () {
       spyOn(RequestUtil, 'json');
       AuthActions.logout();
-      this.configuration = RequestUtil.json.mostRecentCall.args[0];
+      this.configuration = RequestUtil.json.calls.mostRecent().args[0];
     });
 
     it('calls #json from the RequestUtil', function () {

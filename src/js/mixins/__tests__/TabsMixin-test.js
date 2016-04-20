@@ -63,18 +63,16 @@ describe('TabsMixin', function () {
       spyOn(TabsUtil, 'getTabs');
       TabsMixin.tabs_getUnroutedTabs(null);
 
-      expect(TabsUtil.getTabs).toHaveBeenCalledWith(
-        {foo: 'bar', baz: 'qux', corge: 'Grault'},
-        'baz',
-        _.noop
-      );
+      expect(TabsUtil.getTabs.calls.mostRecent().args[0])
+        .toEqual({foo: 'bar', baz: 'qux', corge: 'Grault'});
+      expect(TabsUtil.getTabs.calls.mostRecent().args[1]).toEqual('baz');
     });
 
     it('should call tabs_getUnroutedItem with appropriate arguments', function () {
       spyOn(TabsMixin, 'tabs_getUnroutedItem');
       TabsMixin.tabs_getUnroutedTabs('quix');
 
-      expect(TabsMixin.tabs_getUnroutedItem.argsForCall).toEqual([
+      expect(TabsMixin.tabs_getUnroutedItem.calls.allArgs()).toEqual([
         ['quix', 'foo', 0],
         ['quix', 'baz', 1],
         ['quix', 'corge', 2]
@@ -91,18 +89,16 @@ describe('TabsMixin', function () {
       spyOn(TabsUtil, 'getTabs');
       TabsMixin.tabs_getRoutedTabs(null);
 
-      expect(TabsUtil.getTabs).toHaveBeenCalledWith(
-        {foo: 'bar', baz: 'qux', corge: 'Grault'},
-        'foo',
-        _.noop
-      );
+      expect(TabsUtil.getTabs.calls.mostRecent().args[0])
+        .toEqual({foo: 'bar', baz: 'qux', corge: 'Grault'});
+      expect(TabsUtil.getTabs.calls.mostRecent().args[1]).toEqual('foo');
     });
 
     it('should call tabs_getRoutedItem with appropriate arguments', function () {
       spyOn(TabsMixin, 'tabs_getRoutedItem');
       TabsMixin.tabs_getRoutedTabs('quilt');
 
-      expect(TabsMixin.tabs_getRoutedItem.argsForCall).toEqual([
+      expect(TabsMixin.tabs_getRoutedItem.calls.allArgs()).toEqual([
         ['quilt', 'foo', 0],
         ['quilt', 'baz', 1],
         ['quilt', 'corge', 2]

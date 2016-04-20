@@ -69,7 +69,7 @@ describe('List', function () {
 
     it('returns nil when there\'s no last item', function () {
       let list = new List();
-      expect(list.last()).toEqual(null);
+      expect(list.last()).toEqual(undefined);
     });
 
     it('returns the last item in the list', function () {

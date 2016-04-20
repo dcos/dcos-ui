@@ -49,15 +49,12 @@ describe('BannerPlugin', function () {
     });
 
     it('should add one action and two filters', function () {
-      expect(SDK.Hooks.addAction.mock.calls[0]).toEqual(
-        ['applicationRendered', BannerPlugin.applicationRendered]
-      );
-      expect(SDK.Hooks.addFilter.mock.calls[0]).toEqual(
-        ['applicationContents', BannerPlugin.applicationContents]
-      );
-      expect(SDK.Hooks.addFilter.mock.calls[1]).toEqual(
-        ['overlayNewWindowButton', BannerPlugin.overlayNewWindowButton]
-      );
+      expect(SDK.Hooks.addAction.mock.calls[0][0])
+        .toEqual('applicationRendered');
+      expect(SDK.Hooks.addFilter.mock.calls[0][0])
+        .toEqual('applicationContents');
+      expect(SDK.Hooks.addFilter.mock.calls[1][0])
+        .toEqual('overlayNewWindowButton');
     });
   });
 
@@ -141,7 +138,7 @@ describe('BannerPlugin', function () {
       var el = node.querySelector('.banner-plugin-info-icon');
 
       TestUtils.Simulate.click(el);
-      expect(BannerPlugin.toggleFullContent.callCount).toEqual(1);
+      expect(BannerPlugin.toggleFullContent.calls.count()).toEqual(1);
     });
 
     it('should call n times with n clicks', function () {
@@ -152,7 +149,7 @@ describe('BannerPlugin', function () {
       TestUtils.Simulate.click(el);
       TestUtils.Simulate.click(el);
       TestUtils.Simulate.click(el);
-      expect(BannerPlugin.toggleFullContent.callCount).toEqual(4);
+      expect(BannerPlugin.toggleFullContent.calls.count()).toEqual(4);
     });
 
   });
@@ -166,7 +163,7 @@ describe('BannerPlugin', function () {
           return {addEventListener: mockFn};
         });
       document.getElementById = jasmine.createSpy('HTML Element')
-        .andReturn(this.iframe);
+        .and.returnValue(this.iframe);
 
     });
 

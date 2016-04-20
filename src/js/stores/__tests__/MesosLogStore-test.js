@@ -123,11 +123,9 @@ describe('MesosLogStore', function () {
       expect(this.logBuffer.getFullLog()).toEqual('foobar');
     });
 
-    it('should call the fetch log 4 times', function (done) {
-      setTimeout(function () {
-        expect(RequestUtil.json.callCount).toEqual(4);
-        done();
-      }, Config.tailRefresh);
+    it('should call the fetch log 4 times', function () {
+      jest.runAllTimers();
+      expect(RequestUtil.json.calls.count()).toEqual(4);
     });
 
   });
@@ -159,11 +157,9 @@ describe('MesosLogStore', function () {
       expect(this.logBuffer.getFullLog()).toEqual('barfoo');
     });
 
-    it('should call the fetch log 4 times', function (done) {
-      setTimeout(function () {
-        expect(RequestUtil.json.callCount).toEqual(4);
-        done();
-      }, Config.tailRefresh);
+    it('should call the fetch log 2 times', function () {
+      jest.runAllTimers();
+      expect(RequestUtil.json.calls.count()).toEqual(2);
     });
 
     it('should call emit with the correct event', function () {
@@ -185,12 +181,10 @@ describe('MesosLogStore', function () {
       this.logBuffer = MesosLogStore.get('/bar');
     });
 
-    it('should try to restart the tailing after error', function (done) {
+    it('should try to restart the tailing after error', function () {
       MesosLogStore.processLogError('foo', '/bar');
-      setTimeout(function () {
-        expect(RequestUtil.json.callCount).toEqual(2);
-        done();
-      }, Config.tailRefresh);
+      jest.runAllTimers();
+      expect(RequestUtil.json.calls.count()).toEqual(2);
     });
 
   });
@@ -210,12 +204,10 @@ describe('MesosLogStore', function () {
       MesosLogStore.emit = this.previousEmit;
     });
 
-    it('should try to restart the tailing after error', function (done) {
+    it('should try to restart the tailing after error', function () {
       MesosLogStore.processLogPrependError('foo', '/bar');
-      setTimeout(function () {
-        expect(RequestUtil.json.callCount).toEqual(2);
-        done();
-      }, Config.tailRefresh);
+      jest.runAllTimers();
+      expect(RequestUtil.json.calls.count()).toEqual(3);
     });
 
     it('should call emit with the correct event', function () {

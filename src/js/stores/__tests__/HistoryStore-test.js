@@ -1,6 +1,17 @@
 jest.dontMock('../../mixins/GetSetMixin');
 jest.dontMock('../HistoryStore');
 
+jest.setMock('react-router', {
+  HashLocation: {
+    getCurrentPath: function () {
+      '/#/foo'
+    },
+    addChangeListener: function () {
+
+    }
+  }
+});
+
 var HistoryStore = require('../HistoryStore');
 
 describe('HistoryStore', function () {

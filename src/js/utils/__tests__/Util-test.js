@@ -132,7 +132,7 @@ describe('Util', function () {
 
     it('', function () {
       expect(Util.findNestedPropertyInObject(this.searchObject, ''))
-        .toEqual(null);
+        .toEqual(undefined);
     });
 
     it('', function () {

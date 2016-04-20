@@ -30,7 +30,7 @@ describe('SchemaUtil', function () {
       });
 
       it('creates a field for the property', function () {
-        expect(this.result.application).toNotEqual(undefined);
+        expect(this.result.application).not.toEqual(undefined);
       });
 
       it('sets the title correctly', function () {
@@ -78,7 +78,7 @@ describe('SchemaUtil', function () {
 
       it('creates a nested definition correctly', function () {
         expect(this.result.application.definition[0].definition)
-          .toNotEqual(undefined);
+          .not.toEqual(undefined);
       });
 
       it('creates render property with a render function', function () {

@@ -1,13 +1,18 @@
 jest.dontMock('../Actions');
 
+jest.setMock('react-router', {
+  HashLocation: {
+    getCurrentPath: function () { return '/foo'; },
+    addChangeListener: function () {}
+  }
+});
+
 import PluginTestUtils from 'PluginTestUtils';
 
 let SDK = PluginTestUtils.getSDK('tracking', {enabled: true});
 require('../../SDK').setSDK(SDK);
 
-PluginTestUtils.dontMock([
-  'Util'
-]);
+PluginTestUtils.dontMock(['Util']);
 
 var _ = require('underscore');
 var Actions = require('../Actions');
@@ -52,14 +57,14 @@ describe('Actions', function () {
       Actions.setDcosMetadata(DCOS_METADATA);
       Actions.setApplicationRouter(router);
       Actions.log('foo');
-      expect(global.analytics.track.calls.length).toEqual(1);
+      expect(global.analytics.track.calls.count()).toEqual(1);
     });
 
     it('calls analytics#track with correct eventID', function () {
       Actions.setDcosMetadata(DCOS_METADATA);
       Actions.setApplicationRouter(router);
       Actions.log('baz');
-      expect(global.analytics.track.calls[0].args[0]).toEqual('baz');
+      expect(global.analytics.track.calls.mostRecent().args[0]).toEqual('baz');
     });
 
     it('calls analytics#track with correct log', function () {
@@ -67,7 +72,7 @@ describe('Actions', function () {
       Actions.setApplicationRouter(router);
       Actions.log('foo');
 
-      var args = global.analytics.track.calls[0].args[1];
+      var args = global.analytics.track.calls.mostRecent().args[1];
       expect(args.appVersion).toBeDefined();
       expect(args.version).toBeDefined();
       expect(args.clusterId).toBeDefined();
@@ -102,9 +107,10 @@ describe('Actions', function () {
       spyOn(Actions, 'log');
       Actions.setDcosMetadata(DCOS_METADATA);
       Actions.setApplicationRouter(router);
-      expect(Actions.log.calls.length).toEqual(3);
+      expect(Actions.log.calls.count()).toEqual(3);
+      var calls = Actions.log.calls.all();
       ['foo', 'bar', 'baz'].forEach(function (log, i) {
-        expect(Actions.log.calls[i].args[0]).toEqual(log);
+        expect(calls[i].args[0]).toEqual(log);
       });
     });
 
@@ -138,9 +144,10 @@ describe('Actions', function () {
       spyOn(Actions, 'log');
       Actions.setDcosMetadata(DCOS_METADATA);
       Actions.setApplicationRouter(router);
-      expect(Actions.log.calls.length).toEqual(3);
+      expect(Actions.log.calls.count()).toEqual(3);
+      var calls = Actions.log.calls.all();
       ['foo', 'bar', 'baz'].forEach(function (log, i) {
-        expect(Actions.log.calls[i].args[0]).toEqual(log);
+        expect(calls[i].args[0]).toEqual(log);
       });
     });
 

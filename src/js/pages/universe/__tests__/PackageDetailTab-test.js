@@ -50,7 +50,7 @@ describe('PackageDetailTab', function () {
       TestUtils.Simulate.click(installButton);
 
       expect(this.instance.handleInstallModalOpen
-          .mostRecentCall.args[0].get('package').name).toEqual('marathon');
+          .calls.mostRecent().args[0].get('package').name).toEqual('marathon');
     });
 
   });

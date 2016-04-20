@@ -48,7 +48,7 @@ describe('PackagesTab', function () {
         .querySelector('.panel.clickable');
       TestUtils.Simulate.click(panel);
 
-      expect(this.instance.handleDetailOpen.mostRecentCall.args[0].get('name'))
+      expect(this.instance.handleDetailOpen.calls.mostRecent().args[0].get('name'))
         .toEqual('arangodb');
     });
 
@@ -80,7 +80,7 @@ describe('PackagesTab', function () {
         .querySelector('.panel .button');
       TestUtils.Simulate.click(panelButton);
       expect(
-        this.instance.handleInstallModalOpen.mostRecentCall.args[0].get('name')
+        this.instance.handleInstallModalOpen.calls.mostRecent().args[0].get('name')
       ).toEqual('arangodb');
     });
 

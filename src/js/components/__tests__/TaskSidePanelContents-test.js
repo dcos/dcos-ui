@@ -95,7 +95,7 @@ describe('TaskSidePanelContents', function () {
       var directory = new TaskDirectory({items: [{nlink: 1, path: '/stdout'}]});
       // Let directory return something
       TaskDirectoryStore.get = jasmine.createSpy('TaskDirectoryStore#get')
-        .andReturn(directory);
+        .and.returnValue(directory);
 
       this.instance.onTaskDirectoryStoreSuccess();
       expect(this.instance.setState)
