@@ -213,7 +213,7 @@ class PackageDetailTab extends mixin(StoreMixin) {
           <div className="media-object-spacing-wrapper">
             <div className="media-object media-object-align-middle">
               <div className="media-object-item">
-                <div className="icon icon-huge icon-image-container icon-app-container icon-default-gray">
+                <div className="icon icon-huge icon-image-container icon-app-container icon-default-white">
                   <img src={cosmosPackage.getIcons()['icon-large']} />
                 </div>
               </div>

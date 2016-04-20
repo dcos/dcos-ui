@@ -38,7 +38,7 @@ class ReviewConfig extends React.Component {
             <div className="media-object-spacing-wrapper media-object-spacing-narrow media-object-offset">
               <div className="media-object media-object-align-middle">
                 <div className="media-object-item">
-                  <div className="icon icon-sprite icon-sprite-medium icon-sprite-medium-color icon-image-container icon-app-container icon-default-gray">
+                  <div className="icon icon-sprite icon-sprite-medium icon-sprite-medium-color icon-image-container icon-app-container icon-default-white">
                     <img src={packageIcon} />
                   </div>
                 </div>
