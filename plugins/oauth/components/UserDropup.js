@@ -105,7 +105,7 @@ class UserDropup extends React.Component {
 
     if (userLabel != null) {
       description = (
-        <span className="user-description">
+        <span className="user-description" title={userLabel}>
           {userLabel}
         </span>
       );
