@@ -14,17 +14,19 @@ import StringUtil from '../../utils/StringUtil';
 import TabsMixin from '../../mixins/TabsMixin';
 import Util from '../../utils/Util';
 
+const PREINSTALL_NOTES_CHAR_LIMIT = 140;
+
 const METHODS_TO_BIND = [
   'getAdvancedSubmit',
   'handleChangeAppId',
   'handleChangeTab',
   'handleInstallPackage',
   'handleAdvancedFormChange',
-  'handleModalClose'
+  'handleModalClose',
+  'handlePreinstallNotesToggle'
 ];
 
-class InstallPackageModal
-  extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
+class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
   constructor() {
     super(...arguments);
 
@@ -43,9 +45,11 @@ class InstallPackageModal
       isLoading: true,
       pendingRequest: false
     });
+
     this.state = {
       currentTab: 'defaultInstall',
-      schemaIncorrect: false
+      schemaIncorrect: false,
+      truncatedPreinstallNotes: true
     };
 
     this.store_listeners = [{
@@ -87,7 +91,10 @@ class InstallPackageModal
       });
       // Reset our trigger submit for advanced install
       this.triggerAdvancedSubmit = undefined;
-      this.setState({currentTab: 'defaultInstall'});
+      this.setState({
+        currentTab: 'defaultInstall',
+        truncatedPreinstallNotes: true
+      });
     }
 
     if (!props.open && nextProps.open) {
@@ -195,6 +202,11 @@ class InstallPackageModal
     this.props.onClose();
   }
 
+  handlePreinstallNotesToggle() {
+    let truncatedPreinstallNotes = !this.state.truncatedPreinstallNotes;
+    this.setState({truncatedPreinstallNotes});
+  }
+
   getAdvancedSubmit(triggerSubmit) {
     this.triggerAdvancedSubmit = triggerSubmit;
   }
@@ -293,6 +305,50 @@ class InstallPackageModal
     );
   }
 
+  getPreinstallNotes(notes, truncated) {
+    if (!notes) {
+      return null;
+    }
+
+    if (truncated) {
+      notes = notes.slice(0, PREINSTALL_NOTES_CHAR_LIMIT);
+    }
+
+    return (
+      <p className="small flush-bottom">
+        <span className="mute">
+          {notes}{this.getPreinstallNotesToggle(truncated, notes)}
+        </span>
+      </p>
+    );
+  }
+
+  getPreinstallNotesToggle(truncated, notes) {
+    if (notes.length < PREINSTALL_NOTES_CHAR_LIMIT) {
+      return null;
+    }
+
+    let ellipses = '';
+    let textTruncationToggleWord = 'collapse';
+
+    if (truncated) {
+      ellipses = '...';
+      textTruncationToggleWord = 'expand';
+    }
+
+    return (
+      <span>
+        {ellipses} (
+          <span
+            className="clickable"
+            onClick={this.handlePreinstallNotesToggle}>
+            <u>{textTruncationToggleWord}</u>
+          </span>
+        )
+      </span>
+    );
+  }
+
   renderDefaultInstallTabView() {
     let {
       descriptionError,
@@ -300,7 +356,13 @@ class InstallPackageModal
       installError
     } = this.internalStorage_get();
     let cosmosPackage = CosmosPackagesStore.getPackageDetails();
+    let preinstallNotes = cosmosPackage.getPreinstallNotes();
     let {name, version} = cosmosPackage.get('package');
+    let truncated = this.state.truncatedPreinstallNotes;
+    let packageVersionClasses = classNames({
+      'package-name-version': true,
+      'flush-bottom': !preinstallNotes
+    });
 
     let error;
     if (descriptionError) {
@@ -330,7 +392,8 @@ class InstallPackageModal
             </div>
             <Form definition={this.getAppIdFormDefinition()}
               onSubmit={this.handleChangeAppId} />
-            <p className="flush-bottom">{`${name} ${version}`}</p>
+            <p className={packageVersionClasses}>{`${name} ${version}`}</p>
+            {this.getPreinstallNotes(preinstallNotes, truncated)}
             {error}
           </div>
         </div>
