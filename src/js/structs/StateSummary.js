@@ -34,20 +34,20 @@ module.exports = class StateSummary {
     this.metadata.slaveTotalResources = MesosSummaryUtil.sumResources(
       // We may only want to get the active slaves...
       slaves.map(function (slave) {
-        return slave.resources || null;
+        return slave.resources;
       })
     );
     this.metadata.slaveUsedResources = MesosSummaryUtil.sumResources(
       // We may only want to get the active slaves...
       slaves.map(function (slave) {
-        return slave.used_resources || null;
+        return slave.used_resources;
       })
     );
 
     let frameworks = this.snapshot.frameworks || [];
     this.metadata.serviceUsedResources = MesosSummaryUtil.sumResources(
       frameworks.map(function (framework) {
-        return framework.used_resources || null;
+        return framework.used_resources;
       })
     );
   }

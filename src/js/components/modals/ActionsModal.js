@@ -108,7 +108,7 @@ class ActionsModal extends mixin(StoreMixin) {
       selectedItemsString = selectedItems[0].description;
     } else {
       // Truncate list of selected user/groups for ease of reading
-      let selectedItemsShown = selectedItems.slice(0, ITEMS_DISPLAYED);
+      let selectedItemsShown = selectedItems.slice(0, ITEMS_DISPLAYED + 1);
 
       // Create a string concatenating n-1 items
       let selectedItemsShownMinusOne = selectedItemsShown.slice(0, -1);

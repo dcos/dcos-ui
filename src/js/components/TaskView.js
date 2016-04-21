@@ -70,7 +70,7 @@ class TaskView extends mixin(SaveStateMixin) {
     }
 
     return tasks.filter(function (task) {
-      return TaskStates[task.state].stateTypes.contains(status);
+      return TaskStates[task.state].stateTypes.includes(status);
     });
   }
 
