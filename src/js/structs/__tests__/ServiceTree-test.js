@@ -540,17 +540,17 @@ describe('ServiceTree', function () {
       }));
       this.instance.add(new Service({
         tasksStaged: 1,
-        tasksRunning: 3,
+        tasksRunning: 18,
         tasksHealthy: 15,
         tasksUnhealthy: 1
       }));
 
       expect(this.instance.getTasksSummary()).toEqual({
         tasksStaged: 1,
-        tasksRunning: 4,
+        tasksRunning: 19,
         tasksHealthy: 16,
         tasksUnhealthy: 1,
-        tasksUnknown: -13
+        tasksUnknown: 2
       });
     });
 
