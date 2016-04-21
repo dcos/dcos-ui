@@ -82,6 +82,11 @@ class MesosLogView extends mixin(StoreMixin) {
       return;
     }
 
+    if (prevProps.watching !== this.props.watching ||
+      prevProps.highlightText !== this.props.highlightText) {
+      this.goToNewHighlightedSearch();
+    }
+
     this.checkIfAwayFromBottom(logContainerNode);
   }
 
@@ -105,7 +110,9 @@ class MesosLogView extends mixin(StoreMixin) {
       // Check fullLog
       (state.fullLog !== nextState.fullLog) ||
       // Check isAtBottom
-      (state.isAtBottom !== nextState.isAtBottom)
+      (state.isAtBottom !== nextState.isAtBottom) ||
+      // Check isAtBottom
+      (props.watching !== nextProps.watching)
     );
   }
 
@@ -197,6 +204,16 @@ class MesosLogView extends mixin(StoreMixin) {
     }
   }
 
+  goToNewHighlightedSearch() {
+    let node = ReactDOM.findDOMNode(this.refs.logContainer)
+      .querySelector('.watching-this');
+    if (!node) {
+      return;
+    }
+
+    ReactDOM.findDOMNode(this.refs.logContainer).scrollTop = node.offsetTop;
+  }
+
   getLogContainerNode() {
     let logContainer = this.refs.logContainer;
     if (!logContainer) {
@@ -264,7 +281,9 @@ class MesosLogView extends mixin(StoreMixin) {
           matchClass="highlight"
           matchElement="span"
           onCountChange={props.onCountChange}
-          search={props.highlightText}>
+          search={props.highlightText}
+          watching={props.watching}
+          watchingClass="watching-this">
           {fullLog}
         </Highlight>
       </pre>
@@ -335,7 +354,8 @@ MesosLogView.propTypes = {
   filePath: React.PropTypes.string,
   highlightText: React.PropTypes.string,
   logName: React.PropTypes.string,
-  task: React.PropTypes.object.isRequired
+  task: React.PropTypes.object.isRequired,
+  watching: React.PropTypes.number
 };
 
 module.exports = MesosLogView;

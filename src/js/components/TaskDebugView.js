@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import {Dropdown} from 'reactjs-components';
 import React from 'react';
+import ReactDOM from 'react-dom';
 
 import FilterInputText from './FilterInputText';
 import IconDownload from './icons/IconDownload';
@@ -9,7 +10,8 @@ import TaskDirectoryActions from '../events/TaskDirectoryActions';
 
 const METHODS_TO_BIND = [
   'handleSearchStringChange',
-  'handleCountChange'
+  'handleCountChange',
+  'handleKeyDown'
 ];
 
 class TaskDebugView extends React.Component {
@@ -18,14 +20,30 @@ class TaskDebugView extends React.Component {
 
     this.state = {
       currentFile: null,
-      watching: 1,
+      watching: 0,
       totalFound: 0
     };
 
     METHODS_TO_BIND.forEach((method) => {
       this[method] = this[method].bind(this);
     });
+  }
 
+  componentDidMount() {
+    ReactDOM.findDOMNode(this.refs.filterInput)
+      .addEventListener('keydown', this.handleKeyDown);
+  }
+
+  componentWillUnmount() {
+    ReactDOM.findDOMNode(this.refs.filterInput)
+      .removeEventListener('keydown', this.handleKeyDown);
+  }
+
+  handleKeyDown(event) {
+    let {keyCode} = event;
+    if (keyCode === 13) {
+      this.changeWatching('next');
+    }
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -45,7 +63,9 @@ class TaskDebugView extends React.Component {
       (state.searchString !== nextState.searchString) ||
       // Check directory
       (directory !== nextDirectory) || (directory && nextDirectory &&
-        directory.getItems().length !== nextDirectory.getItems().length)
+        directory.getItems().length !== nextDirectory.getItems().length) ||
+      // Check watching
+      (state.watching !== nextState.watching)
     );
   }
 
@@ -57,8 +77,36 @@ class TaskDebugView extends React.Component {
     this.setState({currentFile});
   }
 
-  handleCountChange(watching, totalFound) {
-    this.setState({watching, totalFound});
+  handleCountChange(totalFound) {
+    let prevTotalFound = this.state.totalFound;
+
+    let nextState = {totalFound};
+    if (totalFound === 0) {
+      nextState.watching = 0;
+    } else if (this.state.watching === 0 || prevTotalFound !== totalFound) {
+      nextState.watching = 1;
+    }
+
+    this.setState(nextState);
+  }
+
+  changeWatching(direction) {
+    let {totalFound, watching} = this.state;
+    if (direction === 'next') {
+      watching += 1;
+      if (watching > totalFound) {
+        watching = 1;
+      }
+    }
+
+    if (direction === 'previous') {
+      watching -= 1;
+      if (watching < 1) {
+        watching = totalFound;
+      }
+    }
+
+    this.setState({watching});
   }
 
   getLogView(logName, filePath, task) {
@@ -70,7 +118,8 @@ class TaskDebugView extends React.Component {
         highlightText={state.searchString}
         onCountChange={this.handleCountChange}
         task={task}
-        logName={logName} />
+        logName={logName}
+        watching={state.watching} />
     );
   }
 
@@ -173,6 +222,37 @@ class TaskDebugView extends React.Component {
       );
   }
 
+  getSearchCount() {
+    let {totalFound, watching} = this.state;
+
+    if (totalFound === 0) {
+      return null;
+    }
+
+    return (
+      <span>{`${watching} out of ${totalFound}`}</span>
+    );
+  }
+
+  getSearchButtons() {
+    if (this.state.totalFound === 0) {
+      return null;
+    }
+
+    return (
+      <div className="button-group">
+        <div onClick={this.changeWatching.bind(this, 'previous')}
+          className="button button-default">
+          Prev
+        </div>
+        <div onClick={this.changeWatching.bind(this, 'next')}
+          className="button button-default">
+          Next
+        </div>
+      </div>
+    );
+  }
+
   render() {
     let task = this.props.task;
 
@@ -185,13 +265,16 @@ class TaskDebugView extends React.Component {
       <div className="flex-container-col flex-grow flex-shrink">
         <div className="control-group form-group flex-no-shrink flex-align-right flush-bottom">
           <FilterInputText
+            ref="filterInput"
             className="flex-grow"
             placeholder="Search"
             searchString={this.state.searchString}
+            sideText={this.getSearchCount()}
             handleFilterChange={this.handleSearchStringChange}
-            inverseStyle={false} />
-          <span>{`${this.state.watching} out of ${this.state.totalFound}`}</span>
-            {this.getSelectionComponent(selectedLogFile)}
+            inverseStyle={false}
+            inputContainerClass="filter-input-text-group-wide" />
+          {this.getSearchButtons()}
+          {this.getSelectionComponent(selectedLogFile)}
           <a
             className="button button-stroke"
             disabled={!filePath}

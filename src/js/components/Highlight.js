@@ -24,12 +24,18 @@ function escapeStringRegexp(str) {
 class Highlight extends React.Component {
   constructor() {
     super(...arguments);
-
-    this.state = {
-      watching: 1
-    };
-
     this.count = 0;
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.search !== this.props.search) {
+      let highlightCount = this.highlightCount;
+      if (!this.props.search) {
+        highlightCount = 0;
+      }
+
+      this.props.onCountChange(highlightCount);
+    }
   }
 
   /**
@@ -110,14 +116,14 @@ class Highlight extends React.Component {
    */
   highlightChildren(subject, search) {
     let children = [];
-    let matchElement = this.props.matchElement;
+    let {matchElement, watching} = this.props;
     let remaining = subject;
     let highlightCount = 0;
 
     while (remaining) {
       if (!search.test(remaining)) {
         children.push(this.renderPlain(remaining));
-        this.props.onCountChange(this.state.watching, highlightCount);
+        this.highlightCount = highlightCount;
         return children;
       }
 
@@ -132,8 +138,13 @@ class Highlight extends React.Component {
       // Now, capture the matching string...
       let match = remaining.slice(boundaries.first, boundaries.last);
       if (match) {
-        children.push(this.renderHighlight(match, matchElement));
         highlightCount++;
+
+        if (highlightCount === watching) {
+          children.push(this.renderWatchingHighlight(match, matchElement));
+        } else {
+          children.push(this.renderHighlight(match, matchElement));
+        }
       }
 
       // And if there's anything left over, recursively run this method again.
@@ -198,6 +209,19 @@ class Highlight extends React.Component {
     );
   }
 
+  renderWatchingHighlight(string, matchElement) {
+    this.count++;
+
+    return (
+      <this.props.matchElement
+        className={this.props.watchingClass}
+        key={this.count}
+        style={{background: 'red'}}>
+        {string}
+      </this.props.matchElement>
+    );
+  }
+
   render() {
     return (
       <div {...this.props}>
@@ -222,7 +246,8 @@ Highlight.propTypes = {
   ]).isRequired,
   caseSensitive: React.PropTypes.bool,
   matchElement: React.PropTypes.string,
-  matchClass: React.PropTypes.string
+  matchClass: React.PropTypes.string,
+  watching: React.PropTypes.number
 };
 
 module.exports = Highlight;
