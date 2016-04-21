@@ -14,10 +14,12 @@ describe('SaveStateMixin', function () {
       },
       SaveStateMixin
     );
+
     this.instance.constructor.displayName = 'FakeInstance';
   });
 
   describe('#componentWillMount', function () {
+
     beforeEach(function () {
       this.prevGetKey = UserSettingsStore.getKey;
       UserSettingsStore.getKey = function () {
@@ -37,9 +39,11 @@ describe('SaveStateMixin', function () {
       this.instance.componentWillMount();
       expect(this.instance.setState).toHaveBeenCalledWith({open: false});
     });
+
   });
 
   describe('#componentWillUnmount', function () {
+
     beforeEach(function () {
       this.prevGetKey = UserSettingsStore.getKey;
       this.prevSetKey = UserSettingsStore.setKey;
@@ -59,12 +63,30 @@ describe('SaveStateMixin', function () {
       UserSettingsStore.setKey = this.prevSetKey;
     });
 
+    it('should not save any state', function () {
+      this.instance.state = {open: false, errorCount: 9001};
+      this.instance.componentWillUnmount();
+      expect(UserSettingsStore.setKey).not.toHaveBeenCalled();
+    });
+
     it('should set the previous state', function () {
+      this.instance.saveState_properties = ['open', 'errorCount'];
       this.instance.state = {open: false, errorCount: 9001};
       this.instance.componentWillUnmount();
       expect(UserSettingsStore.setKey).toHaveBeenCalledWith(
         'savedStates', {fakeInstance: {open: false, errorCount: 9001}}
       );
     });
+
+    it('should save specified keys', function () {
+      this.instance.saveState_properties = ['errorCount'];
+      this.instance.state = {open: false, errorCount: 9001};
+      this.instance.componentWillUnmount();
+      expect(UserSettingsStore.setKey).toHaveBeenCalledWith(
+        'savedStates', {fakeInstance: {errorCount: 9001}}
+      );
+    });
+
   });
+
 });
