@@ -84,13 +84,6 @@ describe('Mesos State Actions', function () {
         MesosSummaryActions.fetchSummary();
       });
 
-      it('detects errors on the history server', function () {
-        MesosSummaryActions.fetchSummary(TimeScales.MINUTE);
-        expect(AppDispatcher.handleServerAction).toHaveBeenCalled();
-        expect(AppDispatcher.handleServerAction.calls.mostRecent().args[0].type)
-          .toEqual(ActionTypes.REQUEST_MESOS_HISTORY_ERROR);
-      });
-
       it('falls back to the Mesos endpoint if the history service is offline on initial fetch', function () {
         MesosSummaryActions.fetchSummary(TimeScales.MINUTE);
         expect(RequestUtil.json).toHaveBeenCalled();
