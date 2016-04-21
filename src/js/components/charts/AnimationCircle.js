@@ -15,6 +15,11 @@ var AnitmationCircle = React.createClass({
     cy: React.PropTypes.number
   },
 
+  getInitialState: function () {
+    return {
+      didRenderBefore: false
+    };
+  },
   getDefaultProps: function () {
     return {
       radius: 4,
@@ -28,12 +33,25 @@ var AnitmationCircle = React.createClass({
       .attr('transform', 'translate(' + this.props.position + ')');
   },
 
-  componentWillReceiveProps: function (props) {
-    d3.select(ReactDOM.findDOMNode(this))
+  componentWillReceiveProps: function (nextProps) {
+    let node = ReactDOM.findDOMNode(this);
+
+    // Handle first position to not animate into position
+    // We need this because we get 0-data for graphs on the first render
+    if (!this.state.didRenderBefore) {
+      d3.select(node)
+        .attr('transform', 'translate(' + nextProps.position + ')');
+
+      this.setState({didRenderBefore: true});
+
+      return;
+    }
+
+    d3.select(node)
       .transition()
-      .duration(props.transitionTime)
+      .duration(nextProps.transitionTime)
       .ease('linear')
-      .attr('transform', 'translate(' + props.position + ')');
+      .attr('transform', 'translate(' + nextProps.position + ')');
   },
 
   render: function () {
