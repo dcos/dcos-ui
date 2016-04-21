@@ -439,7 +439,7 @@ describe('ServiceTree', function () {
 
   });
 
-  describe('#getInstances', function () {
+  describe('#getInstancesCount', function () {
 
     beforeEach(function () {
       this.instance = new ServiceTree();
@@ -450,7 +450,7 @@ describe('ServiceTree', function () {
         instances: 0
       }));
 
-      expect(this.instance.getInstances()).toEqual(0);
+      expect(this.instance.getInstancesCount()).toEqual(0);
     });
 
     it('returns correct number for instances for 1 instance', function () {
@@ -458,7 +458,7 @@ describe('ServiceTree', function () {
         instances: 1
       }));
 
-      expect(this.instance.getInstances()).toEqual(1);
+      expect(this.instance.getInstancesCount()).toEqual(1);
     });
 
     it('returns correct number for instances for 5 instances', function () {
@@ -470,7 +470,7 @@ describe('ServiceTree', function () {
         instances: 2
       }));
 
-      expect(this.instance.getInstances()).toEqual(5);
+      expect(this.instance.getInstancesCount()).toEqual(5);
     });
 
   });
