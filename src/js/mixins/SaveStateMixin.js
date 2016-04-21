@@ -1,3 +1,4 @@
+import Config from '../config/Config';
 import UserSettingsStore from '../stores/UserSettingsStore';
 
 const SAVED_STATE_KEY = 'savedStates';
@@ -35,6 +36,8 @@ const SaveStateMixin = {
     if (Object.keys(stateToSave).length) {
       savedStates[saveState_key] = stateToSave;
       UserSettingsStore.setKey(SAVED_STATE_KEY, savedStates);
+    } else if (Config.environment === 'development') {
+      console.warn('No state saved. Please set saveState_properties.');
     }
   }
 };
