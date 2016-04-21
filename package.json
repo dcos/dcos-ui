@@ -74,7 +74,7 @@
     "gulp-sourcemaps": "1.6.0",
     "gulp-uglify": "1.5.3",
     "gulp-util": "3.0.7",
-    "jasmine-reporters": "1.0.1",
+    "jasmine-reporters": "2.1.1",
     "jest-cli": "11.0.2",
     "jest-webpack-alias": "2.2.0",
     "json-loader": "0.5.4",
