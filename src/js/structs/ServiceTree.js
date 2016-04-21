@@ -3,6 +3,7 @@ import Framework from './Framework';
 import HealthSorting from '../constants/HealthSorting';
 import HealthStatus from '../constants/HealthStatus';
 import Service from './Service';
+import ServiceStatus from '../constants/ServiceStatus';
 import Tree from './Tree';
 import Util from '../utils/Util';
 
@@ -64,6 +65,16 @@ module.exports = class ServiceTree extends Tree {
     });
   }
 
+  getDeployments() {
+    return this.reduceItems(function (deployments, item) {
+      if (item instanceof Service && item.getDeployments() != null) {
+        deployments = deployments.concat(item.getDeployments());
+      }
+
+      return deployments;
+    }, []);
+  }
+
   getHealth() {
     return this.reduceItems(function (aggregatedHealth, item) {
       if (item instanceof Service) {
@@ -91,6 +102,16 @@ module.exports = class ServiceTree extends Tree {
     });
   }
 
+  getInstances() {
+    return this.reduceItems(function (instances, item) {
+      if (item instanceof Service) {
+        instances += item.getInstances();
+      }
+
+      return instances;
+    }, 0);
+  }
+
   getName() {
     return this.getId().split('/').pop();
   }
@@ -109,6 +130,25 @@ module.exports = class ServiceTree extends Tree {
     }, {cpus: 0, mem: 0, disk: 0});
   }
 
+  getStatus() {
+    let {tasksRunning} = this.getTasksSummary();
+    let deployments = this.getDeployments();
+
+    if (deployments.length > 0) {
+      return ServiceStatus.DEPLOYING.displayName;
+    }
+
+    if (tasksRunning > 0) {
+      return ServiceStatus.RUNNING.displayName;
+    }
+
+    let instances = this.getInstances();
+    if (instances === 0) {
+      return ServiceStatus.SUSPENDED.displayName;
+    }
+
+  }
+
   getTasksSummary() {
     return this.reduceItems(function (taskSummary, item) {
       if (item instanceof Service) {
@@ -123,9 +163,12 @@ module.exports = class ServiceTree extends Tree {
         taskSummary.tasksRunning += tasksRunning;
         taskSummary.tasksStaged += tasksStaged;
         taskSummary.tasksUnhealthy += tasksUnhealthy;
+        taskSummary.tasksUnknown += tasksRunning -
+          tasksHealthy - tasksUnhealthy;
       }
 
       return taskSummary;
-    }, {tasksHealthy: 0, tasksRunning: 0, tasksStaged: 0, tasksUnhealthy: 0});
+    }, {tasksHealthy: 0, tasksRunning: 0, tasksStaged: 0, tasksUnhealthy: 0,
+      tasksUnknown: 0});
   }
 };

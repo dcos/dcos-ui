@@ -1,6 +1,7 @@
 import HealthStatus from '../constants/HealthStatus';
 import Item from './Item';
 import ServiceImages from '../constants/ServiceImages';
+import ServiceStatus from '../constants/ServiceStatus';
 
 module.exports = class Service extends Item {
   getArguments() {
@@ -13,6 +14,10 @@ module.exports = class Service extends Item {
 
   getContainer() {
     return this.get('container');
+  }
+
+  getDeployments() {
+    return this.get('deployments');
   }
 
   getExecutor() {
@@ -81,12 +86,32 @@ module.exports = class Service extends Item {
     };
   }
 
+  getStatus() {
+    let {tasksRunning} = this.getTasksSummary();
+    let deployments = this.getDeployments();
+
+    if (deployments.length > 0) {
+      return ServiceStatus.DEPLOYING.displayName;
+    }
+
+    if (tasksRunning > 0) {
+      return ServiceStatus.RUNNING.displayName;
+    }
+
+    let instances = this.getInstances();
+    if (instances === 0) {
+      return ServiceStatus.SUSPENDED.displayName;
+    }
+  }
+
   getTasksSummary() {
     return {
       tasksHealthy: this.get('tasksHealthy'),
       tasksRunning: this.get('tasksRunning'),
       tasksStaged: this.get('tasksStaged'),
-      tasksUnhealthy: this.get('tasksUnhealthy')
+      tasksUnhealthy: this.get('tasksUnhealthy'),
+      tasksUnknown: this.get('tasksRunning') -
+        this.get('tasksHealthy') - this.get('tasksUnhealthy'),
     };
   }
 

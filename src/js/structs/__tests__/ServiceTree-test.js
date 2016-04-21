@@ -3,6 +3,7 @@ let Framework = require('../Framework');
 let HealthStatus = require('../../constants/HealthStatus');
 let Service = require('../Service');
 let ServiceTree = require('../ServiceTree');
+let ServiceStatus = require('../../constants/ServiceStatus');
 
 describe('ServiceTree', function () {
 
@@ -23,9 +24,9 @@ describe('ServiceTree', function () {
         groups: [
           {
             id: '/test', apps: [
-            {id: 'foo', cmd: 'cmd'},
-            {id: 'bar', cmd: 'cmd'}
-          ], groups: []
+              {id: 'foo', cmd: 'cmd'},
+              {id: 'bar', cmd: 'cmd'}
+            ], groups: []
           }
         ],
         filterProperties: {
@@ -112,9 +113,9 @@ describe('ServiceTree', function () {
         groups: [
           {
             id: '/test', apps: [
-            {id: 'foo', cmd: 'cmd'},
-            {id: 'bar', cmd: 'cmd'}
-          ], groups: []
+              {id: 'foo', cmd: 'cmd'},
+              {id: 'bar', cmd: 'cmd'}
+            ], groups: []
           }
         ],
         filterProperties: {
@@ -163,9 +164,9 @@ describe('ServiceTree', function () {
         groups: [
           {
             id: '/test', apps: [
-            {id: 'foo', cmd: 'cmd'},
-            {id: 'bar', cmd: 'cmd'}
-          ], groups: []
+              {id: 'foo', cmd: 'cmd'},
+              {id: 'bar', cmd: 'cmd'}
+            ], groups: []
           }
         ],
         filterProperties: {
@@ -201,14 +202,13 @@ describe('ServiceTree', function () {
         groups: [
           {
             id: '/test', apps: [
-            {id: '/foo', cmd: 'cmd'},
-            {id: '/bar', cmd: 'cmd'}
-          ], groups: []
+              {id: '/foo', cmd: 'cmd'},
+              {id: '/bar', cmd: 'cmd'}
+            ], groups: []
           }
         ]
       });
     });
-
 
     it('should find matching item', function () {
       expect(this.instance.findItemById('/beta').getId()).toEqual('/beta');
@@ -222,6 +222,72 @@ describe('ServiceTree', function () {
       expect(this.instance.findItemById('/test').getId()).toEqual('/test');
     });
 
+  });
+
+  describe('#getDeployments', function () {
+    it('should return an empty array', function () {
+      let serviceTree = new ServiceTree({
+        id: '/group/id',
+        apps: [
+          {id: '/alpha', cmd: 'cmd', deployments: []},
+          {
+            id: '/beta',
+            cmd: 'cmd',
+            deployments: [],
+            labels: {DCOS_PACKAGE_FRAMEWORK_NAME: 'beta'}
+          },
+          {id: '/gamma', cmd: 'cmd', labels: {RANDOM_LABEL: 'random'}}
+        ],
+        groups: [
+          {
+            id: '/test', apps: [
+              {id: '/foo', cmd: 'cmd', deployments: []},
+              {id: '/bar', cmd: 'cmd'}
+            ], groups: []
+          }
+        ]
+      });
+
+      expect(serviceTree.getDeployments()).toEqual([]);
+    });
+
+    it('should return an array with three deployments', function () {
+      let serviceTree = new ServiceTree({
+        id: '/group/id',
+        apps: [
+          {
+            id: '/alpha',
+            cmd: 'cmd',
+            deployments: [{id: '4d08fc0d-d450-4a3e-9c85-464ffd7565f2'}]
+          },
+          {
+            id: '/beta',
+            cmd: 'cmd',
+            deployments: [{id: '4d08fc0d-d450-4a3e-9c85-464ffd7565f3'}],
+            labels: {DCOS_PACKAGE_FRAMEWORK_NAME: 'beta'}
+          },
+          {id: '/gamma', cmd: 'cmd', labels: {RANDOM_LABEL: 'random'}}
+        ],
+        groups: [
+          {
+            id: '/test', apps: [
+              {
+                id: '/foo',
+                cmd: 'cmd',
+                deployments: [{id: '4d08fc0d-d450-4a3e-9c85-464ffd7565f1'}]
+              },
+              {id: '/bar', cmd: 'cmd'}
+            ], groups: []
+          }
+        ]
+      });
+
+      expect(serviceTree.getDeployments()).toEqual([
+        {id: '4d08fc0d-d450-4a3e-9c85-464ffd7565f1'},
+        {id: '4d08fc0d-d450-4a3e-9c85-464ffd7565f2'},
+        {id: '4d08fc0d-d450-4a3e-9c85-464ffd7565f3'}
+      ]);
+    });
   });
 
   describe('#getHealth', function () {
@@ -373,6 +439,92 @@ describe('ServiceTree', function () {
 
   });
 
+  describe('#getInstances', function () {
+
+    beforeEach(function () {
+      this.instance = new ServiceTree();
+    });
+
+    it('returns correct number for instances for 0 instances', function () {
+      this.instance.add(new Service({
+        instances: 0
+      }));
+
+      expect(this.instance.getInstances()).toEqual(0);
+    });
+
+    it('returns correct number for instances for 1 instance', function () {
+      this.instance.add(new Service({
+        instances: 1
+      }));
+
+      expect(this.instance.getInstances()).toEqual(1);
+    });
+
+    it('returns correct number for instances for 5 instances', function () {
+      this.instance.add(new Service({
+        instances: 3
+      }));
+
+      this.instance.add(new Service({
+        instances: 2
+      }));
+
+      expect(this.instance.getInstances()).toEqual(5);
+    });
+
+  });
+
+  describe('#getStatus', function () {
+
+    beforeEach(function () {
+      this.instance = new ServiceTree();
+    });
+
+    it('returns correct status for running tree', function () {
+      this.instance.add(new Service({
+        tasksStaged: 0,
+        tasksRunning: 1,
+        tasksHealthy: 0,
+        tasksUnhealthy: 0,
+        instances: 1,
+        deployments: []
+      }));
+
+      expect(this.instance.getStatus())
+        .toEqual(ServiceStatus.RUNNING.displayName);
+    });
+
+    it('returns correct status for suspended tree', function () {
+      this.instance.add(new Service({
+        tasksStaged: 0,
+        tasksRunning: 0,
+        tasksHealthy: 0,
+        tasksUnhealthy: 0,
+        instances: 0,
+        deployments: []
+      }));
+
+      expect(this.instance.getStatus())
+        .toEqual(ServiceStatus.SUSPENDED.displayName);
+    });
+
+    it('returns correct status for deploying tree', function () {
+      this.instance.add(new Service({
+        tasksStaged: 0,
+        tasksRunning: 15,
+        tasksHealthy: 0,
+        tasksUnhealthy: 0,
+        instances: 0,
+        deployments: [{id: '4d08fc0d-d450-4a3e-9c85-464ffd7565f1'}]
+      }));
+
+      expect(this.instance.getStatus())
+        .toEqual(ServiceStatus.DEPLOYING.displayName);
+    });
+
+  });
+
   describe('#getTasksSummary', function () {
 
     beforeEach(function () {
@@ -388,16 +540,17 @@ describe('ServiceTree', function () {
       }));
       this.instance.add(new Service({
         tasksStaged: 1,
-        tasksRunning: 3,
+        tasksRunning: 18,
         tasksHealthy: 15,
         tasksUnhealthy: 1
       }));
 
       expect(this.instance.getTasksSummary()).toEqual({
         tasksStaged: 1,
-        tasksRunning: 4,
+        tasksRunning: 19,
         tasksHealthy: 16,
-        tasksUnhealthy: 1
+        tasksUnhealthy: 1,
+        tasksUnknown: 2
       });
     });
 

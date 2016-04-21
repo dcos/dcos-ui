@@ -1,6 +1,7 @@
 let HealthStatus = require('../../constants/HealthStatus');
 let Service = require('../Service');
 let ServiceImages = require('../../constants/ServiceImages');
+let ServiceStatus = require('../../constants/ServiceStatus');
 
 describe('Service', function () {
 
@@ -73,6 +74,29 @@ describe('Service', function () {
     });
 
   });
+
+  describe('#getDeployments', function () {
+    it('should return an empty array', function () {
+      let service = new Service({
+        deployments: []
+      });
+
+      expect(service.getDeployments()).toEqual([]);
+    });
+
+    it('should return an array with one deployment', function () {
+      let service = new Service({
+        deployments: [
+          {id: '4d08fc0d-d450-4a3e-9c85-464ffd7565f7'}
+        ]
+      });
+
+      expect(service.getDeployments()).toEqual([
+        {id: '4d08fc0d-d450-4a3e-9c85-464ffd7565f7'}
+      ]);
+    });
+  });
+
 
   describe('#getExecuter', function () {
 
@@ -306,6 +330,49 @@ describe('Service', function () {
 
   });
 
+  describe('#getStatus', function () {
+
+    it('returns correct status for running app', function () {
+      let service = new Service({
+        tasksStaged: 0,
+        tasksRunning: 1,
+        tasksHealthy: 0,
+        tasksUnhealthy: 0,
+        instances: 1,
+        deployments: []
+      });
+
+      expect(service.getStatus()).toEqual(ServiceStatus.RUNNING.displayName);
+    });
+
+    it('returns correct status for suspended app', function () {
+      let service = new Service({
+        tasksStaged: 0,
+        tasksRunning: 0,
+        tasksHealthy: 0,
+        tasksUnhealthy: 0,
+        instances: 0,
+        deployments: []
+      });
+
+      expect(service.getStatus()).toEqual(ServiceStatus.SUSPENDED.displayName);
+    });
+
+    it('returns correct status for deploying app', function () {
+      let service = new Service({
+        tasksStaged: 0,
+        tasksRunning: 15,
+        tasksHealthy: 0,
+        tasksUnhealthy: 0,
+        instances: 0,
+        deployments: [{id: '4d08fc0d-d450-4a3e-9c85-464ffd7565f1'}]
+      });
+
+      expect(service.getStatus()).toEqual(ServiceStatus.DEPLOYING.displayName);
+    });
+
+  });
+
   describe('#getTasksSummary', function () {
 
     it('returns correct task summary', function () {
@@ -320,7 +387,8 @@ describe('Service', function () {
         tasksStaged: 0,
         tasksRunning: 1,
         tasksHealthy: 1,
-        tasksUnhealthy: 0
+        tasksUnhealthy: 0,
+        tasksUnknown: 0
       });
     });
 
