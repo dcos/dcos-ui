@@ -124,9 +124,9 @@ class RepositoriesTable extends mixin(StoreMixin) {
   getColGroup() {
     return (
       <colgroup>
+        <col style={{width: '30%'}} />
         <col />
-        <col style={{width: '320px'}} />
-        <col style={{width: '120px'}} />
+        <col style={{width: '85px'}} />
       </colgroup>
     );
   }
@@ -134,7 +134,7 @@ class RepositoriesTable extends mixin(StoreMixin) {
   getUri(prop, repository) {
     return (
       <div className="flex-box table-cell-flex-box">
-        <span className="text-overflow" title={repository.get('uri')}>
+        <span className="text-overflow-break-word" title={repository.get('uri')}>
           {repository.get('uri')}
         </span>
       </div>

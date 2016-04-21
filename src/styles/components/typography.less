@@ -71,7 +71,7 @@ components/typography.less
   .text-super-muted {
 
     &.inverse {
-      color: color-lighten(@neutral, 10);  
+      color: color-lighten(@neutral, 10);
     }
   }
 
@@ -196,6 +196,14 @@ components/typography.less
 
   }
 
+  .text-overflow-break-word {
+
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
+    hyphens: auto;
+
+  }
 
 
   & when (@heading-h1-large-text-enabled) {
