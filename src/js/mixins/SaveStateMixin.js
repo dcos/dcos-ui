@@ -24,7 +24,7 @@ const SaveStateMixin = {
       savedStates = {};
     }
 
-    let stateToSave = state;
+    let stateToSave = {};
     if (saveState_properties) {
       stateToSave = saveState_properties.reduce(function (newState, property) {
         newState[property] = state[property];
@@ -32,8 +32,10 @@ const SaveStateMixin = {
       }, {});
     }
 
-    savedStates[saveState_key] = stateToSave;
-    UserSettingsStore.setKey(SAVED_STATE_KEY, savedStates);
+    if (Object.keys(stateToSave).length) {
+      savedStates[saveState_key] = stateToSave;
+      UserSettingsStore.setKey(SAVED_STATE_KEY, savedStates);
+    }
   }
 };
 
