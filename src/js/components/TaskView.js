@@ -27,6 +27,7 @@ class TaskView extends mixin(SaveStateMixin) {
       searchString: '',
       filterByStatus: 'all'
     };
+    this.saveState_properties = ['filterByStatus'];
 
     METHODS_TO_BIND.forEach(function (method) {
       this[method] = this[method].bind(this);
@@ -34,7 +35,7 @@ class TaskView extends mixin(SaveStateMixin) {
   }
 
   componentWillMount() {
-    this.saveState_key = `taskView${global.window.location.hash}`;
+    this.saveState_key = `taskView#${this.props.itemID}`;
     super.componentWillMount();
 
     MesosStateStore.addChangeListener(
@@ -201,7 +202,8 @@ class TaskView extends mixin(SaveStateMixin) {
 }
 
 TaskView.propTypes = {
-  tasks: React.PropTypes.array
+  tasks: React.PropTypes.array,
+  itemID: React.PropTypes.string
 };
 
 module.exports = TaskView;
