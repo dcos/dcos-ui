@@ -102,7 +102,12 @@ class NodeSidePanelContents extends SidePanelContents {
 
     let timeSinceMount = (Date.now() - this.mountedAt) / 1000;
     if (timeSinceMount >= SidePanelContents.animationLengthSeconds) {
-      contents = <TaskView tasks={tasks} parentRouter={this.props.parentRouter} />;
+      contents = (
+        <TaskView
+          tasks={tasks}
+          parentRouter={this.props.parentRouter}
+          itemID={this.props.nodeID} />
+      );
     }
 
     return (
