@@ -210,7 +210,6 @@ describe('ServiceTree', function () {
       });
     });
 
-
     it('should find matching item', function () {
       expect(this.instance.findItemById('/beta').getId()).toEqual('/beta');
     });
@@ -247,41 +246,46 @@ describe('ServiceTree', function () {
           ], groups: []
           }
         ]
-
       });
 
       expect(serviceTree.getDeployments()).toEqual([]);
     });
 
     it('should return an array with three deployments', function () {
-      let serviceTree = new ServiceTree(
-        {
-          id: '/group/id',
-          apps: [
-            {id: '/alpha', cmd: 'cmd', deployments: [{id: "4d08fc0d-d450-4a3e-9c85-464ffd7565f2"}]},
+      let serviceTree = new ServiceTree({
+        id: '/group/id',
+        apps: [
+          {
+            id: '/alpha',
+            cmd: 'cmd',
+            deployments: [{id: '4d08fc0d-d450-4a3e-9c85-464ffd7565f2'}]
+          },
+          {
+            id: '/beta',
+            cmd: 'cmd',
+            deployments: [{id: '4d08fc0d-d450-4a3e-9c85-464ffd7565f3'}],
+            labels: {DCOS_PACKAGE_FRAMEWORK_NAME: 'beta'}
+          },
+          {id: '/gamma', cmd: 'cmd', labels: {RANDOM_LABEL: 'random'}}
+        ],
+        groups: [
+          {
+            id: '/test', apps: [
             {
-              id: '/beta',
+              id: '/foo',
               cmd: 'cmd',
-              deployments: [{id: "4d08fc0d-d450-4a3e-9c85-464ffd7565f3"}],
-              labels: {DCOS_PACKAGE_FRAMEWORK_NAME: 'beta'}
+              deployments: [{id: '4d08fc0d-d450-4a3e-9c85-464ffd7565f1'}]
             },
-            {id: '/gamma', cmd: 'cmd', labels: {RANDOM_LABEL: 'random'}}
-          ],
-          groups: [
-            {
-              id: '/test', apps: [
-              {id: '/foo', cmd: 'cmd', deployments: [{id: "4d08fc0d-d450-4a3e-9c85-464ffd7565f1"}]},
-              {id: '/bar', cmd: 'cmd'}
-            ], groups: []
-            }
-          ]
-
-        });
+            {id: '/bar', cmd: 'cmd'}
+          ], groups: []
+          }
+        ]
+      });
 
       expect(serviceTree.getDeployments()).toEqual([
-        {id: "4d08fc0d-d450-4a3e-9c85-464ffd7565f1"},
-        {id: "4d08fc0d-d450-4a3e-9c85-464ffd7565f2"},
-        {id: "4d08fc0d-d450-4a3e-9c85-464ffd7565f3"}
+        {id: '4d08fc0d-d450-4a3e-9c85-464ffd7565f1'},
+        {id: '4d08fc0d-d450-4a3e-9c85-464ffd7565f2'},
+        {id: '4d08fc0d-d450-4a3e-9c85-464ffd7565f3'}
       ]);
     });
   });
