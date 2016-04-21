@@ -54,7 +54,7 @@ module.exports = class Service extends Item {
     return this.get('images') || ServiceImages.NA_IMAGES;
   }
 
-  getInstances() {
+  getInstancesCount() {
     return this.get('instances');
   }
 
@@ -98,7 +98,7 @@ module.exports = class Service extends Item {
       return ServiceStatus.RUNNING.displayName;
     }
 
-    let instances = this.getInstances();
+    let instances = this.getInstancesCount();
     if (instances === 0) {
       return ServiceStatus.SUSPENDED.displayName;
     }

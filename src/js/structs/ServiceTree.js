@@ -102,10 +102,10 @@ module.exports = class ServiceTree extends Tree {
     });
   }
 
-  getInstances() {
+  getInstancesCount() {
     return this.reduceItems(function (instances, item) {
       if (item instanceof Service) {
-        instances += item.getInstances();
+        instances += item.getInstancesCount();
       }
 
       return instances;
@@ -142,7 +142,7 @@ module.exports = class ServiceTree extends Tree {
       return ServiceStatus.RUNNING.displayName;
     }
 
-    let instances = this.getInstances();
+    let instances = this.getInstancesCount();
     if (instances === 0) {
       return ServiceStatus.SUSPENDED.displayName;
     }
