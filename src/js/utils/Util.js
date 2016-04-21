@@ -11,6 +11,7 @@ const Util = {
       if (blacklistKeys.indexOf(key) === -1) {
         newObject[key] = object[key];
       }
+
       return newObject;
     }, {});
   },
