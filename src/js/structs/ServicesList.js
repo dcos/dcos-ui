@@ -44,7 +44,7 @@ module.exports = class ServicesList extends List {
   sumUsedResources() {
     let services = this.getItems();
     let resourcesList = services.map(function (service) {
-      return service.used_resources || null;
+      return service.used_resources;
     });
     return MesosSummaryUtil.sumResources(resourcesList);
   }
