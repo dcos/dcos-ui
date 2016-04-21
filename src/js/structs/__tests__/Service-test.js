@@ -87,12 +87,12 @@ describe('Service', function () {
     it('should return an array with one deployment', function () {
       let service = new Service({
         deployments: [
-          {id: "4d08fc0d-d450-4a3e-9c85-464ffd7565f7"}
+          {id: '4d08fc0d-d450-4a3e-9c85-464ffd7565f7'}
         ]
       });
 
       expect(service.getDeployments()).toEqual([
-        {id: "4d08fc0d-d450-4a3e-9c85-464ffd7565f7"}
+        {id: '4d08fc0d-d450-4a3e-9c85-464ffd7565f7'}
       ]);
     });
   });
@@ -365,7 +365,7 @@ describe('Service', function () {
         tasksHealthy: 0,
         tasksUnhealthy: 0,
         instances: 0,
-        deployments: [{id: "4d08fc0d-d450-4a3e-9c85-464ffd7565f1"}]
+        deployments: [{id: '4d08fc0d-d450-4a3e-9c85-464ffd7565f1'}]
       });
 
       expect(service.getStatus()).toEqual(ServiceStatus.DEPLOYING.displayName);
