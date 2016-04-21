@@ -5,7 +5,7 @@ class StatusBar extends React.Component {
   static get defaultProps() {
     return {
       className: 'progress-bar flex-box upgrade-progress-bar status-bar',
-      max: 0
+      scale: null
     };
   }
 
@@ -13,7 +13,7 @@ class StatusBar extends React.Component {
     let max = data.reduce(function (sum, item) {
       return sum + item.value;
     }, 0);
-    max = Math.max(this.props.max, max);
+    max = Math.max(this.props.scale, max);
 
     if (max === 0) {
       return null;
@@ -60,7 +60,7 @@ class StatusBar extends React.Component {
 
 StatusBar.propTypes = {
   className: React.PropTypes.string,
-  max: React.PropTypes.number,
+  scale: React.PropTypes.number,
   data: React.PropTypes.arrayOf(
     React.PropTypes.shape({
       className: React.PropTypes.string,
