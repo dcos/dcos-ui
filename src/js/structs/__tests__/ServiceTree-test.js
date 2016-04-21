@@ -24,9 +24,9 @@ describe('ServiceTree', function () {
         groups: [
           {
             id: '/test', apps: [
-            {id: 'foo', cmd: 'cmd'},
-            {id: 'bar', cmd: 'cmd'}
-          ], groups: []
+              {id: 'foo', cmd: 'cmd'},
+              {id: 'bar', cmd: 'cmd'}
+            ], groups: []
           }
         ],
         filterProperties: {
@@ -113,9 +113,9 @@ describe('ServiceTree', function () {
         groups: [
           {
             id: '/test', apps: [
-            {id: 'foo', cmd: 'cmd'},
-            {id: 'bar', cmd: 'cmd'}
-          ], groups: []
+              {id: 'foo', cmd: 'cmd'},
+              {id: 'bar', cmd: 'cmd'}
+            ], groups: []
           }
         ],
         filterProperties: {
@@ -164,9 +164,9 @@ describe('ServiceTree', function () {
         groups: [
           {
             id: '/test', apps: [
-            {id: 'foo', cmd: 'cmd'},
-            {id: 'bar', cmd: 'cmd'}
-          ], groups: []
+              {id: 'foo', cmd: 'cmd'},
+              {id: 'bar', cmd: 'cmd'}
+            ], groups: []
           }
         ],
         filterProperties: {
@@ -202,9 +202,9 @@ describe('ServiceTree', function () {
         groups: [
           {
             id: '/test', apps: [
-            {id: '/foo', cmd: 'cmd'},
-            {id: '/bar', cmd: 'cmd'}
-          ], groups: []
+              {id: '/foo', cmd: 'cmd'},
+              {id: '/bar', cmd: 'cmd'}
+            ], groups: []
           }
         ]
       });
@@ -241,9 +241,9 @@ describe('ServiceTree', function () {
         groups: [
           {
             id: '/test', apps: [
-            {id: '/foo', cmd: 'cmd', deployments: []},
-            {id: '/bar', cmd: 'cmd'}
-          ], groups: []
+              {id: '/foo', cmd: 'cmd', deployments: []},
+              {id: '/bar', cmd: 'cmd'}
+            ], groups: []
           }
         ]
       });
@@ -271,13 +271,13 @@ describe('ServiceTree', function () {
         groups: [
           {
             id: '/test', apps: [
-            {
-              id: '/foo',
-              cmd: 'cmd',
-              deployments: [{id: '4d08fc0d-d450-4a3e-9c85-464ffd7565f1'}]
-            },
-            {id: '/bar', cmd: 'cmd'}
-          ], groups: []
+              {
+                id: '/foo',
+                cmd: 'cmd',
+                deployments: [{id: '4d08fc0d-d450-4a3e-9c85-464ffd7565f1'}]
+              },
+              {id: '/bar', cmd: 'cmd'}
+            ], groups: []
           }
         ]
       });
@@ -516,7 +516,7 @@ describe('ServiceTree', function () {
         tasksHealthy: 0,
         tasksUnhealthy: 0,
         instances: 0,
-        deployments: [{id: "4d08fc0d-d450-4a3e-9c85-464ffd7565f1"}]
+        deployments: [{id: '4d08fc0d-d450-4a3e-9c85-464ffd7565f1'}]
       }));
 
       expect(this.instance.getStatus())
