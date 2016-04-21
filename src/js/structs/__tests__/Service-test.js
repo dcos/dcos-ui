@@ -230,14 +230,14 @@ describe('Service', function () {
 
   });
 
-  describe('#getInstances', function () {
+  describe('#getInstancesCount', function () {
 
     it('returns correct instances', function () {
       let service = new Service({
         instances: 1
       });
 
-      expect(service.getInstances()).toEqual(1);
+      expect(service.getInstancesCount()).toEqual(1);
     });
 
   });
