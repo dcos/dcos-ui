@@ -205,13 +205,13 @@ class MesosLogView extends mixin(StoreMixin) {
   }
 
   goToNewHighlightedSearch() {
-    let node = ReactDOM.findDOMNode(this.refs.logContainer)
-      .querySelector('.watching-this');
+    let logContainer = this.getLogContainerNode();
+    let node = logContainer.querySelector('.watching-this');
     if (!node) {
       return;
     }
 
-    ReactDOM.findDOMNode(this.refs.logContainer).scrollTop = node.offsetTop;
+    logContainer.scrollTop = node.offsetTop;
   }
 
   getLogContainerNode() {
