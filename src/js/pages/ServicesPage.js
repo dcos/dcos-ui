@@ -186,22 +186,26 @@ var ServicesPage = React.createClass({
           name="Services"
           currentLength={data.services.length}
           totalLength={data.totalServices} />
-        <ul className="list list-unstyled list-inline flush-bottom">
-          <li>
-            <FilterHealth
-              countByHealth={data.countByHealth}
-              healthFilter={state.healthFilter}
-              handleFilterChange={this.handleHealthFilterChange}
-              servicesLength={data.totalServices} />
-          </li>
-          <li>
-            <FilterInputText
-              className="flush-bottom"
-              searchString={state.searchString}
-              handleFilterChange={this.handleSearchStringChange}
-              inverseStyle={true} />
-          </li>
-        </ul>
+        <div className="filter-bar">
+          <div className="filter-bar-left">
+            <div className="filter-bar-item">
+              <FilterHealth
+                countByHealth={data.countByHealth}
+                healthFilter={state.healthFilter}
+                handleFilterChange={this.handleHealthFilterChange}
+                servicesLength={data.totalServices} />
+            </div>
+            <div className="filter-bar-item">
+              <div className="form-group flush-bottom">
+                <FilterInputText
+                  className="flush-bottom"
+                  searchString={state.searchString}
+                  handleFilterChange={this.handleSearchStringChange}
+                  inverseStyle={true} />
+              </div>
+            </div>
+          </div>
+        </div>
         <ServicesTable
           services={data.services}
           healthProcessed={appsProcessed} />
