@@ -47,19 +47,29 @@ describe('FilterButtons', function () {
     });
   });
 
-  describe('#getCountByKey', function () {
+  describe('#getCount', function () {
+
+    beforeEach(function () {
+      this.itemList = [
+        'f0',
+        'f0',
+        'f1'
+      ];
+
+    });
+
     it('adds an "all" key with total item count as value', function () {
-      var counts = this.instance.getCountByKey(this.itemList, this.key);
-      expect(counts.all !== undefined).toEqual(true);
+      var counts = this.instance.getCount(this.itemList);
+      expect(counts.all).toEqual(3);
     });
 
     it('returns a hash map with only key "all" if no items given', function () {
-      var counts = this.instance.getCountByKey([], this.key);
+      var counts = this.instance.getCount([]);
       expect(counts).toEqual({all: 0});
     });
 
     it('creates a hash map of filter counts', function () {
-      var counts = this.instance.getCountByKey(this.itemList, this.key);
+      var counts = this.instance.getCount(this.itemList);
       var expectedCounts = {
         f0: 2,
         f1: 1,
