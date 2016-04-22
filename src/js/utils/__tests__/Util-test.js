@@ -1,4 +1,3 @@
-var _ = require('underscore');
 jest.dontMock('../Util');
 
 var Util = require('../Util');

@@ -1,4 +1,4 @@
-describe('ServicesList', function() {
+describe('ServicesList', function () {
 
   context('Service List Widget', function () {
 
@@ -9,7 +9,7 @@ describe('ServicesList', function() {
       .visitUrl({url: '/dashboard', identify: true, fakeAnalytics: true});
     });
 
-    it('shows an acceptable number of components', function() {
+    it('shows an acceptable number of components', function () {
       cy.get('.service-list-component').within(function () {
         cy.get('li').should(function ($components) {
           expect($components.length)
@@ -19,7 +19,7 @@ describe('ServicesList', function() {
       });
     });
 
-    it('navigates to services page', function() {
+    it('navigates to services page', function () {
       cy.get('.more-button').contains('Services').click();
       cy.hash().should('match', /services/);
     });

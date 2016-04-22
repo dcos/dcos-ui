@@ -1,10 +1,9 @@
 jest.dontMock('../TabsMixin');
 jest.dontMock('../../utils/TabsUtil');
-
-var _ = require('underscore');
+/* eslint-disable no-unused-vars */
 var React = require('react');
+/* eslint-enable no-unused-vars */
 var Link = require('react-router').Link;
-
 var TestUtils = require('react-addons-test-utils');
 
 var TabsMixin = require('../TabsMixin');

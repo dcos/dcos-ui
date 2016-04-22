@@ -83,7 +83,7 @@ describe('SummaryList', function () {
           serviceUsedResources: { cpus: 0, mem: 0, disk: 0 },
           slaveUsedResources: { cpus: 0, mem: 0, disk: 0 },
           slaveTotalResources: { cpus: 0, mem: 0, disk: 0 } }
-        };
+      };
 
       expect(states.lastSuccessful()).toEqual(expectedState);
     });
@@ -107,7 +107,7 @@ describe('SummaryList', function () {
           serviceUsedResources: { cpus: 0, mem: 0, disk: 0 },
           slaveUsedResources: { cpus: 0, mem: 0, disk: 0 },
           slaveTotalResources: { cpus: 0, mem: 0, disk: 0 } }
-        };
+      };
 
       expect(states.lastSuccessful()).toEqual(expectedState);
     });

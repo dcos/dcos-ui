@@ -58,14 +58,14 @@ describe('UserDropup', function () {
 
     it('returns the array it was passed with a default item at the beginning',
       function () {
-      let dropdownMenu = this.instance.getDropdownMenu([
-        <div foo="bar" />,
-        <div bar="baz" />
-      ]);
+        let dropdownMenu = this.instance.getDropdownMenu([
+          <div foo="bar" />,
+          <div bar="baz" />
+        ]);
 
-      expect(dropdownMenu.length).toEqual(3);
-      expect(dropdownMenu[0].id).toEqual('default-item');
-    });
+        expect(dropdownMenu.length).toEqual(3);
+        expect(dropdownMenu[0].id).toEqual('default-item');
+      });
 
   });
 
@@ -95,12 +95,12 @@ describe('UserDropup', function () {
 
     it('should return all of the items passed, in addtion to a signout button',
       function () {
-      let menuItems = this.instance.getUserMenuItems();
-      let signoutButton = menuItems[menuItems.length - 1];
+        let menuItems = this.instance.getUserMenuItems();
+        let signoutButton = menuItems[menuItems.length - 1];
 
-      expect(menuItems.length).toEqual(this.instance.dropdownItems.length + 1);
-      expect(signoutButton.key).toEqual('button-sign-out');
-    });
+        expect(menuItems.length).toEqual(this.instance.dropdownItems.length + 1);
+        expect(signoutButton.key).toEqual('button-sign-out');
+      });
 
   });
 

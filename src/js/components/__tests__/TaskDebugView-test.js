@@ -10,9 +10,10 @@ require('../../utils/StoreMixinConfig');
 
 var DirectoryItem = require('../../structs/DirectoryItem');
 var TaskDirectory = require('../../structs/TaskDirectory');
+/* eslint-disable no-unused-vars */
 var React = require('react');
+/* eslint-enable no-unused-vars */
 var ReactDOM = require('react-dom');
-var TestUtils = require('react-addons-test-utils');
 
 var TaskDirectoryActions = require('../../events/TaskDirectoryActions');
 var TaskDebugView = require('../TaskDebugView');

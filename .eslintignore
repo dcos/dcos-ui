@@ -1,1 +1,5 @@
-**/__tests__/**/*
+/node_modules/**
+/dist/**
+/docs/**
+/jest/**
+/schema/**

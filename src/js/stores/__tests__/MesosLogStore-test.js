@@ -11,7 +11,6 @@ jest.dontMock('../../utils/Util');
 
 var ActionTypes = require('../../constants/ActionTypes');
 var AppDispatcher = require('../../events/AppDispatcher');
-var Config = require('../../config/Config');
 var EventTypes = require('../../constants/EventTypes');
 var LogBuffer = require('../../structs/LogBuffer');
 var MesosLogActions = require('../../events/MesosLogActions');

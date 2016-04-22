@@ -13,8 +13,9 @@ var JestUtil = require('../../utils/JestUtil');
 
 JestUtil.unMockStores(['MesosSummaryStore', 'MesosStateStore']);
 require('../../utils/StoreMixinConfig');
-
+/* eslint-disable no-unused-vars */
 var React = require('react');
+/* eslint-enable no-unused-vars */
 var ReactDOM = require('react-dom');
 var TestUtils = require('react-addons-test-utils');
 

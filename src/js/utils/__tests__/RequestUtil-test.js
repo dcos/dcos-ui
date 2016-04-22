@@ -136,10 +136,10 @@ describe('RequestUtil', function () {
 
     it('should return the default error message when there is no description',
       function () {
-      let json = {responseJSON: {foo: 'bar'}};
-      expect(RequestUtil.getErrorFromXHR(json))
-        .toEqual('An error has occurred.');
-    });
+        let json = {responseJSON: {foo: 'bar'}};
+        expect(RequestUtil.getErrorFromXHR(json))
+          .toEqual('An error has occurred.');
+      });
   });
 
 });

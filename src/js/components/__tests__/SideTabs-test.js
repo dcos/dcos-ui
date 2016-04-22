@@ -1,6 +1,7 @@
 jest.dontMock('../SideTabs');
-
+/* eslint-disable no-unused-vars */
 var React = require('react');
+/* eslint-enable no-unused-vars */
 var ReactDOM = require('react-dom');
 
 var SideTabs = require('../SideTabs');

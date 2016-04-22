@@ -8,14 +8,14 @@ describe('AuthUtil', function () {
 
     it('returns false when the isRemote function returns false', function () {
       let item = {
-        isRemote: function() { return false; }
+        isRemote: function () { return false; }
       };
       expect(AuthUtil.isSubjectRemote(item)).toBeFalsy();
     });
 
     it('returns true when the isRemote function returns true', function () {
       let item = {
-        isRemote: function() { return true; }
+        isRemote: function () { return true; }
       };
       expect(AuthUtil.isSubjectRemote(item)).toBeTruthy();
     });

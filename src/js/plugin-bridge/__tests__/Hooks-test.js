@@ -33,8 +33,8 @@ describe('HooksAPI', function () {
 
     it('should return the filtered content when a filter is applied',
       function () {
-      expect(this.filteredContent).toEqual('foo baz');
-    });
+        expect(this.filteredContent).toEqual('foo baz');
+      });
 
     it('should apply the filters in the order of priority', function () {
       var lowPriorityFilter = jest.genMockFunction();
@@ -77,19 +77,19 @@ describe('HooksAPI', function () {
 
     it('should not receive arguments when arguments are not passed',
       function () {
-      this.noArgumentsAction = jest.genMockFunction();
-      Hooks.addAction('qux', this.noArgumentsAction);
-      Hooks.doAction('qux');
-      expect(this.noArgumentsAction.mock.calls[0].length).toEqual(0);
-    });
+        this.noArgumentsAction = jest.genMockFunction();
+        Hooks.addAction('qux', this.noArgumentsAction);
+        Hooks.doAction('qux');
+        expect(this.noArgumentsAction.mock.calls[0].length).toEqual(0);
+      });
 
     it('should receive two arguments when two arguments are passed',
       function () {
-      this.twoArgumentsAction = jest.genMockFunction();
-      Hooks.addAction('quux', this.twoArgumentsAction);
-      Hooks.doAction('quux', 'baz', 'bar');
-      expect(this.twoArgumentsAction.mock.calls[0].length).toEqual(2);
-    });
+        this.twoArgumentsAction = jest.genMockFunction();
+        Hooks.addAction('quux', this.twoArgumentsAction);
+        Hooks.doAction('quux', 'baz', 'bar');
+        expect(this.twoArgumentsAction.mock.calls[0].length).toEqual(2);
+      });
 
   });
 

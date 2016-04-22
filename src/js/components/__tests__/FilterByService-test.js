@@ -1,10 +1,11 @@
-var React = require('react');
-var ReactDOM = require('react-dom');
-
 jest.dontMock('../FilterByService');
 jest.dontMock('../../mixins/GetSetMixin');
 jest.dontMock('./fixtures/MockFrameworks');
 jest.dontMock('../../utils/Util');
+/* eslint-disable no-unused-vars */
+var React = require('react');
+/* eslint-enable no-unused-vars */
+var ReactDOM = require('react-dom');
 
 var FilterByService = require('../FilterByService');
 var MockFrameworks = require('./fixtures/MockFrameworks.json');

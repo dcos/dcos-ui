@@ -2,7 +2,9 @@ jest.dontMock('../../constants/ResourceTypes');
 jest.dontMock('../NodesGridDials');
 
 var _ = require('underscore');
+/* eslint-disable no-unused-vars */
 var React = require('react');
+/* eslint-enable no-unused-vars */
 var ReactDOM = require('react-dom');
 var TestUtils = require('react-addons-test-utils');
 
