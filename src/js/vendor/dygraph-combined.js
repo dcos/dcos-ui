@@ -1,3 +1,4 @@
+/* eslint-disable */
 /*! @license Copyright 2014 Dan Vanderkam (danvdk@gmail.com) MIT-licensed (http://opensource.org/licenses/MIT) */
 // Console-polyfill. MIT license.
 // https://github.com/paulmillr/console-polyfill
@@ -12170,3 +12171,4 @@ FractionsBarsHandler.prototype.rollingAverage =
 };
 
 })();
+/* eslint-enable */
