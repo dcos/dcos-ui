@@ -1,14 +1,11 @@
 var classNames = require('classnames');
 var React = require('react');
 
-var InternalStorageMixin = require('../mixins/InternalStorageMixin');
 var Panel = require('./Panel');
 
 var AlertPanel = React.createClass({
 
   displayName: 'AlertPanel',
-
-  mixins: [InternalStorageMixin],
 
   propTypes: {
     title: React.PropTypes.string,
