@@ -176,7 +176,7 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
       .getPackageDetails().get('package');
     let configuration = this.getPackageConfiguration();
 
-    CosmosPackagesStore.installPackage(name, version, null, configuration);
+    CosmosPackagesStore.installPackage(name, version, configuration);
     this.internalStorage_update({pendingRequest: true});
     this.forceUpdate();
   }

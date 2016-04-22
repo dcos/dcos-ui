@@ -108,21 +108,20 @@ const CosmosPackagesActions = {
     });
   },
 
-  installPackage: function (packageName, packageVersion, appId, options = {}) {
+  installPackage: function (packageName, packageVersion, options = {}) {
     RequestUtil.json({
       contentType: getContentType('install', 'request'),
       headers: {Accept: getContentType('install', 'response')},
       method: 'POST',
       url: `${Config.rootUrl}${Config.cosmosAPIPrefix}/install`,
-      data: JSON.stringify({packageName, packageVersion, appId, options}),
+      data: JSON.stringify({packageName, packageVersion, options}),
       timeout: REQUEST_TIMEOUT,
       success: function (response) {
         AppDispatcher.handleServerAction({
           type: REQUEST_COSMOS_PACKAGE_INSTALL_SUCCESS,
           data: response,
           packageName,
-          packageVersion,
-          appId
+          packageVersion
         });
       },
       error: function (xhr) {
@@ -130,8 +129,7 @@ const CosmosPackagesActions = {
           type: REQUEST_COSMOS_PACKAGE_INSTALL_ERROR,
           data: RequestUtil.parseResponseBody(xhr),
           packageName,
-          packageVersion,
-          appId
+          packageVersion
         });
       }
     });
