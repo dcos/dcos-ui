@@ -187,13 +187,13 @@ const CosmosPackagesActions = {
     });
   },
 
-  addRepository: function (name, uri) {
+  addRepository: function (name, uri, index) {
     RequestUtil.json({
       contentType: getContentType('repository.add', 'request'),
       headers: {Accept: getContentType('repository.add', 'response')},
       method: 'POST',
       url: `${Config.rootUrl}${Config.cosmosAPIPrefix}/repository/add`,
-      data: JSON.stringify({name, uri}),
+      data: JSON.stringify({name, uri, index}),
       timeout: REQUEST_TIMEOUT,
       success: function (response) {
         AppDispatcher.handleServerAction({

@@ -15,10 +15,11 @@ import TableUtil from '../utils/TableUtil';
 
 const METHODS_TO_BIND = [
   'getHeadline',
+  'getPriority',
   'getRemoveButton',
-  'handleOpenConfirm',
   'handleDeleteCancel',
-  'handleDeleteRepository'
+  'handleDeleteRepository',
+  'handleOpenConfirm'
 ];
 
 class RepositoriesTable extends mixin(StoreMixin) {
@@ -79,15 +80,21 @@ class RepositoriesTable extends mixin(StoreMixin) {
   getClassName(prop, sortBy, row) {
     return classNames({
       'highlight': prop === sortBy.prop,
-      'clickable': row == null // this is a header
+      'clickable': row == null, // this is a header
+      'text-align-right': prop === 'priority'
     });
   }
 
   getColumns() {
+    let {repositories} = this.props;
     let getClassName = this.getClassName;
     let heading = ResourceTableUtil
       .renderHeading(RepositoriesTableHeaderLabels);
     let sortFunction = TableUtil.getSortFunction('uri', function (item, prop) {
+      if (prop === 'priority') {
+        return repositories.getItems().indexOf(item);
+      }
+
       return item.get(prop);
     });
 
@@ -113,6 +120,15 @@ class RepositoriesTable extends mixin(StoreMixin) {
       {
         className: getClassName,
         headerClassName: getClassName,
+        heading,
+        prop: 'priority',
+        render: this.getPriority,
+        sortable: true,
+        sortFunction
+      },
+      {
+        className: getClassName,
+        headerClassName: getClassName,
         heading: function () {},
         prop: 'removed',
         render: this.getRemoveButton,
@@ -126,6 +142,7 @@ class RepositoriesTable extends mixin(StoreMixin) {
       <colgroup>
         <col style={{width: '30%'}} />
         <col />
+        <col style={{width: '112px'}} />
         <col style={{width: '85px'}} />
       </colgroup>
     );
@@ -149,6 +166,10 @@ class RepositoriesTable extends mixin(StoreMixin) {
         </span>
       </div>
     );
+  }
+
+  getPriority(prop, repository) {
+    return this.props.repositories.getItems().indexOf(repository);
   }
 
   getRemoveButton(prop, repositoryToRemove) {
@@ -190,20 +211,22 @@ class RepositoriesTable extends mixin(StoreMixin) {
   }
 
   render() {
+    let {props, state} = this;
+
     return (
       <div>
         <Table
           className="table inverse table-borderless-outer table-borderless-inner-columns flush-bottom"
           columns={this.getColumns()}
           colGroup={this.getColGroup()}
-          data={this.props.repositories.getItems().slice()}
-          sortBy={{prop: 'name', order: 'asc'}} />
+          data={props.repositories.getItems().slice()}
+          sortBy={{prop: 'priority', order: 'asc'}} />
         <Confirm
           closeByBackdropClick={true}
-          disabled={this.state.pendingRequest}
+          disabled={state.pendingRequest}
           footerContainerClass="container container-pod container-pod-short
             container-pod-fluid flush-top flush-bottom"
-          open={!!this.state.repositoryToRemove}
+          open={!!state.repositoryToRemove}
           onClose={this.handleDeleteCancel}
           leftButtonCallback={this.handleDeleteCancel}
           rightButtonCallback={this.handleDeleteRepository}

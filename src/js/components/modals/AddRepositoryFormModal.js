@@ -54,7 +54,7 @@ class AddRepositoryFormModal extends mixin(StoreMixin) {
   }
 
   handleAddRepository(model) {
-    CosmosPackagesStore.addRepository(model.name, model.uri);
+    CosmosPackagesStore.addRepository(model.name, model.uri, model.priority);
     this.resetState();
   }
 
@@ -80,6 +80,17 @@ class AddRepositoryFormModal extends mixin(StoreMixin) {
         showLabel: false,
         writeType: 'input',
         validation: /^https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)$/,
+        value: ''
+      },
+      {
+        fieldType: 'text',
+        name: 'priority',
+        placeholder: 'Priority',
+        required: false,
+        // validationErrorText: 'Must be a valid url with http:// or https://',
+        showLabel: true,
+        writeType: 'input',
+        // validation: /^https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)$/,
         value: ''
       }
     ];
