@@ -131,7 +131,7 @@ class HealthTab extends React.Component {
       <div>
         <FilterHeadline
           currentLength={visibleData.length}
-          inverseStyle={false}
+          inverseStyle={true}
           name={"Health Checks"}
           onReset={this.resetFilter}
           totalLength={units.getItems().length} />
@@ -140,14 +140,15 @@ class HealthTab extends React.Component {
             className="flush-bottom"
             searchString={searchString}
             handleFilterChange={this.handleSearchStringChange}
-            inverseStyle={false} />
+            inverseStyle={true} />
           <UnitHealthDropdown
             initialID="all"
+            inverseStyle={true}
             onHealthSelection={this.handleHealthSelection} />
         </FilterBar>
         <Table
           className="table table-borderless-outer
-            table-borderless-inner-columns flush-bottom"
+            table-borderless-inner-columns flush-bottom inverse"
           columns={this.getColumns()}
           colGroup={this.getColGroup()}
           containerSelector=".gm-scroll-view"

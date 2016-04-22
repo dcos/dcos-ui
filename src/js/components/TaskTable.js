@@ -25,10 +25,10 @@ class TaskTable extends React.Component {
     }, this);
   }
 
-  handleTaskClick(taskID) {
+  handleTaskClick(params) {
     let linkTo = this.getTaskPanelRoute();
 
-    this.props.parentRouter.transitionTo(linkTo, {taskID});
+    this.props.parentRouter.transitionTo(linkTo, params);
   }
 
   getStatValue(task, prop) {
@@ -130,6 +130,8 @@ class TaskTable extends React.Component {
     });
 
     let title = task.name || task.id;
+    let params = this.props.parentRouter.getCurrentParams();
+    let routeParams = Object.assign({taskID: task.id}, params);
 
     return (
       <div className="flex-box flex-box-align-vertical-center
@@ -141,7 +143,7 @@ class TaskTable extends React.Component {
         <div className="table-cell-value flex-box flex-box-col">
           <a
             className="emphasize clickable text-overflow"
-            onClick={this.handleTaskClick.bind(this, task.id)}
+            onClick={this.handleTaskClick.bind(this, routeParams)}
             title={title}>
             {title}
           </a>
@@ -177,12 +179,15 @@ class TaskTable extends React.Component {
   }
 
   render() {
+    let classSet = classNames({
+      'table table-borderless-outer': true,
+      'table-borderless-inner-columns flush-bottom': true,
+      'inverse': this.props.inverseStyle
+    });
+
     return (
       <Table
-        className="table
-          table-borderless-outer
-          table-borderless-inner-columns
-          flush-bottom"
+        className={classSet}
         columns={this.getColumns()}
         colGroup={this.getColGroup()}
         containerSelector=".gm-scroll-view"
@@ -194,10 +199,12 @@ class TaskTable extends React.Component {
 }
 
 TaskTable.propTypes = {
+  inverseStyle: React.PropTypes.bool,
   tasks: React.PropTypes.array.isRequired
 };
 
 TaskTable.defaultProps = {
+  inverseStyle: false,
   tasks: []
 };
 

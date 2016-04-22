@@ -196,6 +196,7 @@ class ServiceSidePanelContents extends SidePanelContents {
     if (timeSinceMount >= SidePanelContents.animationLengthSeconds) {
       contents = (
         <TaskView
+          inverseStyle={false}
           tasks={tasks}
           parentRouter={this.props.parentRouter}
           itemID={serviceName} />

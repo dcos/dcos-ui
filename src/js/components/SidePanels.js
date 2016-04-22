@@ -5,7 +5,6 @@ import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import HistoryStore from '../stores/HistoryStore';
 import MesosSummaryStore from '../stores/MesosSummaryStore';
-import NodeSidePanelContents from './NodeSidePanelContents';
 import ServiceSidePanelContents from './ServiceSidePanelContents';
 import StringUtil from '../utils/StringUtil';
 import TaskSidePanelContents from './TaskSidePanelContents';
@@ -59,11 +58,10 @@ class SidePanels extends mixin(StoreMixin) {
   }
 
   isOpen(itemIDs) {
-    let {unitID, unitNodeID, nodeID, serviceName, taskID} = itemIDs;
+    let {unitID, unitNodeID, serviceName, taskID} = itemIDs;
 
     return (
       (unitNodeID != null && unitID != null) ||
-      nodeID != null ||
       serviceName != null ||
       taskID != null ||
       unitID != null
@@ -107,21 +105,13 @@ class SidePanels extends mixin(StoreMixin) {
       return null;
     }
 
-    let {unitID, unitNodeID, nodeID, serviceName, taskID} = itemIDs;
+    let {unitID, unitNodeID, serviceName, taskID} = itemIDs;
 
     if (unitID != null && unitNodeID != null) {
       return (
         <UnitNodeSidePanelContents
           itemID={unitID}
           params={this.props.params}
-          parentRouter={this.context.router} />
-      );
-    }
-
-    if (nodeID != null) {
-      return (
-        <NodeSidePanelContents
-          itemID={nodeID}
           parentRouter={this.context.router} />
       );
     }
@@ -182,6 +172,7 @@ SidePanels.contextTypes = {
 };
 
 SidePanels.propTypes = {
+  openedPage: React.PropTypes.string,
   params: React.PropTypes.object
 };
 

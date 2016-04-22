@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
 /* eslint-enable no-unused-vars */
+import {RouteHandler} from 'react-router';
 
 import CompositeState from '../structs/CompositeState';
 import DateUtil from '../utils/DateUtil';
@@ -168,7 +169,7 @@ class NodeSidePanelContents extends SidePanelContents {
             {this.tabs_getUnroutedTabs()}
           </ul>
         </div>
-        {this.tabs_getTabView()}
+        <RouteHandler/>
       </div>
     );
   }

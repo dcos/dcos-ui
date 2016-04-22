@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import {Dropdown} from 'reactjs-components';
 import mixin from 'reactjs-mixin';
 import React from 'react';
@@ -34,10 +35,22 @@ class UnitHealthDropdown extends mixin(InternalStorageMixin) {
   }
 
   render() {
+    let {inverseStyle} = this.props;
+
+    let dropdownMenuClassSet = classNames({
+      'dropdown-menu': true,
+      'inverse': inverseStyle
+    });
+
+    let buttonClassSet = classNames({
+      'button dropdown-toggle text-align-left': true,
+      'button-inverse': inverseStyle
+    });
+
     return (
       <Dropdown
-        buttonClassName="button dropdown-toggle"
-        dropdownMenuClassName="dropdown-menu"
+        buttonClassName={buttonClassSet}
+        dropdownMenuClassName={dropdownMenuClassSet}
         dropdownMenuListClassName="dropdown-menu-list"
         initialID={this.props.initialID}
         items={this.internalStorage_get().dropdownItems}
@@ -50,7 +63,12 @@ class UnitHealthDropdown extends mixin(InternalStorageMixin) {
 
 UnitHealthDropdown.propTypes = {
   initialID: React.PropTypes.string,
+  inverseStyle: React.PropTypes.bool,
   onHealthSelection: React.PropTypes.func
+};
+
+UnitHealthDropdown.defaultProps = {
+  inverseStyle: false
 };
 
 module.exports = UnitHealthDropdown;

@@ -73,7 +73,7 @@ var HostTable = React.createClass({
 
     return (
       <Link className="headline emphasize" params={{nodeID: node.get('id')}}
-        to="nodes-list-panel">
+        to="node-detail">
         {headline}
       </Link>
     );
