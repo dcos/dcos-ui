@@ -30,8 +30,11 @@ class TaskDebugView extends React.Component {
   }
 
   componentDidMount() {
-    ReactDOM.findDOMNode(this.refs.filterInput)
-      .addEventListener('keydown', this.handleKeyDown);
+    let filterInput = ReactDOM.findDOMNode(this.refs.filterInput);
+
+    if (filterInput) {
+      filterInput.addEventListener('keydown', this.handleKeyDown);
+    }
   }
 
   componentWillReceiveProps(nextProps, nextState) {
@@ -49,8 +52,11 @@ class TaskDebugView extends React.Component {
   }
 
   componentWillUnmount() {
-    ReactDOM.findDOMNode(this.refs.filterInput)
-      .removeEventListener('keydown', this.handleKeyDown);
+    let filterInput = ReactDOM.findDOMNode(this.refs.filterInput);
+
+    if (filterInput) {
+      filterInput.removeEventListener('keydown', this.handleKeyDown);
+    }
   }
 
   handleKeyDown(event) {
