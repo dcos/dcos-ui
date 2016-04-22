@@ -18,7 +18,6 @@ class ReviewConfig extends React.Component {
       configuration,
       packageIcon,
       packageName,
-      packageType,
       packageVersion
     } = this.props;
     let fileName = 'config.json';
@@ -47,7 +46,7 @@ class ReviewConfig extends React.Component {
                     {packageName}
                   </h4>
                   <span className="side-panel-resource-label">
-                    {`${packageType} ${packageVersion}`}
+                    {packageVersion}
                   </span>
                 </div>
               </div>
@@ -142,7 +141,7 @@ ReviewConfig.propTypes = {
   className: React.PropTypes.string,
   configuration: React.PropTypes.object.isRequired,
   packageIcon: React.PropTypes.string,
-  packageType: React.PropTypes.string,
+  packageName: React.PropTypes.string,
   packageVersion: React.PropTypes.string
 };
 

@@ -259,7 +259,7 @@ describe('CosmosPackagesActions', function () {
 
     beforeEach(function () {
       spyOn(RequestUtil, 'json');
-      CosmosPackagesActions.installPackage('foo', 'bar', 'quux', {baz: 'qux'});
+      CosmosPackagesActions.installPackage('foo', 'bar', {baz: 'qux'});
       this.configuration = RequestUtil.json.mostRecentCall.args[0];
     });
 
@@ -319,7 +319,6 @@ describe('CosmosPackagesActions', function () {
     it('sends query in request body', function () {
       expect(JSON.parse(this.configuration.data))
         .toEqual({
-          appId: 'quux',
           packageName: 'foo',
           packageVersion: 'bar',
           options: {baz: 'qux'}

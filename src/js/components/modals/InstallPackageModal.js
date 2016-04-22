@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import {Form, Modal} from 'reactjs-components';
+import {Modal} from 'reactjs-components';
 import mixin from 'reactjs-mixin';
 import React from 'react';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
@@ -18,7 +18,6 @@ const PREINSTALL_NOTES_CHAR_LIMIT = 140;
 
 const METHODS_TO_BIND = [
   'getAdvancedSubmit',
-  'handleChangeAppId',
   'handleChangeTab',
   'handleInstallPackage',
   'handleAdvancedFormChange',
@@ -39,7 +38,6 @@ class InstallPackageModal extends
     };
 
     this.internalStorage_set({
-      appId: null,
       descriptionError: null,
       hasFormErrors: false,
       installError: null,
@@ -84,7 +82,6 @@ class InstallPackageModal extends
     let {props} = this;
     if (props.open && !nextProps.open) {
       this.internalStorage_set({
-        appId: null,
         descriptionError: null,
         installError: null,
         isLoading: true,
@@ -115,7 +112,7 @@ class InstallPackageModal extends
   }
 
   onCosmosPackagesStoreDescriptionError(descriptionError) {
-    this.internalStorage_update({appId: null, descriptionError});
+    this.internalStorage_update({descriptionError});
     this.forceUpdate();
   }
 
@@ -126,15 +123,7 @@ class InstallPackageModal extends
       return;
     }
 
-    let {name} = cosmosPackage.get('package');
-    let config = cosmosPackage.get('config');
-    let appId = Util.findNestedPropertyInObject(
-      config, 'properties.service.properties.name.default'
-    ) || name;
-
-    // Store appId from package
     this.internalStorage_update({
-      appId: appId,
       hasError: false,
       isLoading: false
     });
@@ -162,11 +151,6 @@ class InstallPackageModal extends
     this.forceUpdate();
   }
 
-  handleChangeAppId(definition) {
-    this.internalStorage_update({installError: null, appId: definition.appId});
-    this.forceUpdate();
-  }
-
   handleChangeTab(currentTab) {
     let newState = {installError: null};
     if (currentTab === 'advancedInstall') {
@@ -191,9 +175,9 @@ class InstallPackageModal extends
   handleInstallPackage() {
     let {name, version} = CosmosPackagesStore
       .getPackageDetails().get('package');
-    let {appId, configuration} = this.getAppIdAndConfiguration();
+    let configuration = this.getPackageConfiguration();
 
-    CosmosPackagesStore.installPackage(name, version, appId, configuration);
+    CosmosPackagesStore.installPackage(name, version, configuration);
     this.internalStorage_update({pendingRequest: true});
     this.forceUpdate();
   }
@@ -212,56 +196,25 @@ class InstallPackageModal extends
     this.triggerAdvancedSubmit = triggerSubmit;
   }
 
-  getAppIdFormDefinition() {
-    return [{
-      fieldType: 'text',
-      name: 'appId',
-      value: this.internalStorage_get().appId,
-      required: true,
-      sharedClass: 'form-element-inline h2 short flush-bottom',
-      inputClass: 'form-control text-align-center',
-      helpBlockClass: 'form-help-block text-align-center',
-      showLabel: false,
-      validation: /^\/?(([a-z0-9]|[a-z0-9][a-z0-9\-]*[a-z0-9])\.)*([a-z0-9]|[a-z0-9][a-z0-9\-]*[a-z0-9])$/g,
-      validationErrorText: (
-        'Names can include lowercase letters, digits, hyphens, "." and ","'
-      ),
-      writeType: 'edit'
-    }];
-  }
-
-  getAppIdAndConfiguration() {
-    let {advancedConfiguration, appId} = this.internalStorage_get();
+  getPackageConfiguration() {
+    let {advancedConfiguration} = this.internalStorage_get();
     let {currentTab} = this.state;
     let cosmosPackage = CosmosPackagesStore.getPackageDetails();
-    let {name} = cosmosPackage.get('package');
 
     let isAdvancedInstall = currentTab === 'advancedInstall' ||
       currentTab === 'reviewAdvancedConfig';
 
-    let configuration = SchemaUtil.definitionToJSONDocument(
-      SchemaUtil.schemaToMultipleDefinition(cosmosPackage.get('config'))
-    );
-
     if (isAdvancedInstall && advancedConfiguration) {
-      configuration = advancedConfiguration;
+      return advancedConfiguration;
     }
 
-    // Copy appId to service name when using default install
-    if (!isAdvancedInstall) {
-      configuration = {[name]: {}, service: {name: appId}};
+    if (isAdvancedInstall && !advancedConfiguration) {
+      return SchemaUtil.definitionToJSONDocument(
+        SchemaUtil.schemaToMultipleDefinition(cosmosPackage.get('config'))
+      );
     }
 
-    let advancedName =
-      Util.findNestedPropertyInObject(configuration, 'service.name');
-
-    // Copy service name to appId when using advanced install and
-    // name is set
-    if (isAdvancedInstall && advancedName) {
-      appId = advancedName;
-    }
-
-    return {appId, configuration};
+    return {};
   }
 
   getLoadingScreen() {
@@ -361,7 +314,6 @@ class InstallPackageModal extends
     let {name, version} = cosmosPackage.get('package');
     let truncated = this.state.truncatedPreinstallNotes;
     let packageVersionClasses = classNames({
-      'package-name-version': true,
       'flush-bottom': !preinstallNotes
     });
 
@@ -391,9 +343,8 @@ class InstallPackageModal extends
             <div className="icon icon-jumbo icon-image-container icon-app-container">
               <img src={cosmosPackage.getIcons()['icon-large']} />
             </div>
-            <Form definition={this.getAppIdFormDefinition()}
-              onSubmit={this.handleChangeAppId} />
-            <p className={packageVersionClasses}>{`${name} ${version}`}</p>
+            <p className="h2 short-top short-bottom">{name}</p>
+            <p className={packageVersionClasses}>{version}</p>
             {this.getPreinstallNotes(preinstallNotes, truncated)}
             {error}
           </div>
@@ -452,7 +403,6 @@ class InstallPackageModal extends
     let {pendingRequest} = this.internalStorage_get();
     let cosmosPackage = CosmosPackagesStore.getPackageDetails();
     let {name, version} = cosmosPackage.get('package');
-    let {appId, configuration} = this.getAppIdAndConfiguration();
     let buttonText = 'Install';
 
     if (pendingRequest) {
@@ -463,10 +413,9 @@ class InstallPackageModal extends
       <div>
         <ReviewConfig
           packageIcon={cosmosPackage.getIcons()['icon-small']}
-          packageType={name}
-          packageName={appId}
+          packageName={name}
           packageVersion={version}
-          configuration={configuration} />
+          configuration={this.getPackageConfiguration()} />
         <div className="modal-footer">
           <div className="container">
             <div className="button-collection flush-bottom">
