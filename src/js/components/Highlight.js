@@ -218,9 +218,8 @@ class Highlight extends mixin(InternalStorageMixin) {
 
     return (
       <this.props.matchElement
-        className={this.props.watchingClass}
-        key={this.count}
-        style={{background: 'red'}}>
+        className={this.props.selectedMatchClass}
+        key={this.count}>
         {string}
       </this.props.matchElement>
     );
@@ -238,7 +237,8 @@ class Highlight extends mixin(InternalStorageMixin) {
 Highlight.defaultProps = {
   caseSensitive: false,
   matchElement: 'strong',
-  matchClass: 'highlight'
+  matchClass: 'highlight',
+  selectedMatchClass: 'highlight selected'
 };
 
 Highlight.propTypes = {
@@ -251,6 +251,7 @@ Highlight.propTypes = {
   caseSensitive: React.PropTypes.bool,
   matchElement: React.PropTypes.string,
   matchClass: React.PropTypes.string,
+  selectedMatchClass: React.PropTypes.string,
   watching: React.PropTypes.number
 };
 

@@ -18,7 +18,6 @@ const METHODS_TO_BIND = [
   'onMesosLogStoreError',
   'onMesosLogStoreSuccess'
 ];
-const WATCHING_CLASS = 'watching-this';
 
 class MesosLogView extends mixin(StoreMixin) {
   constructor() {
@@ -207,7 +206,7 @@ class MesosLogView extends mixin(StoreMixin) {
 
   goToNewHighlightedSearch() {
     let logContainer = this.getLogContainerNode();
-    let node = logContainer.querySelector(`.${WATCHING_CLASS}`);
+    let node = logContainer.querySelector('.highlight.selected');
     if (!node) {
       return;
     }
@@ -289,8 +288,7 @@ class MesosLogView extends mixin(StoreMixin) {
           matchElement="span"
           onCountChange={props.onCountChange}
           search={props.highlightText}
-          watching={props.watching}
-          watchingClass={WATCHING_CLASS}>
+          watching={props.watching}>
           {fullLog}
         </Highlight>
       </pre>
