@@ -3,7 +3,7 @@ import React from 'react';
 class FilterBar extends React.Component {
 
   getFilterBarLeft(filterItems, rightAlignCount) {
-    if (rightAlignCount) {
+    if (rightAlignCount > 0) {
       filterItems = filterItems.slice(0, filterItems.length - rightAlignCount);
     }
 
@@ -15,7 +15,7 @@ class FilterBar extends React.Component {
   }
 
   getFilterBarRight(filterItems, rightAlignCount) {
-    if (!rightAlignCount) {
+    if (rightAlignCount === 0) {
       return null;
     } else {
       filterItems = filterItems.slice(rightAlignCount * -1);
@@ -39,12 +39,8 @@ class FilterBar extends React.Component {
   }
 
   render() {
-    let {rightAlignLastChild, rightAlignLastNChildren} = this.props;
+    let {rightAlignLastNChildren} = this.props;
     let filterItems = React.Children.toArray(this.props.children);
-
-    if (rightAlignLastChild) {
-      rightAlignLastNChildren = 1;
-    }
 
     return (
       <div className="filter-bar">
@@ -56,12 +52,11 @@ class FilterBar extends React.Component {
 }
 
 FilterBar.propTypes = {
-  rightAlignLastChild: React.PropTypes.bool,
   rightAlignLastNChildren: React.PropTypes.number
 };
 
 FilterBar.defaultProps = {
-  rightAlignLastChild: false
+  rightAlignLastNChildren: 0
 };
 
 module.exports = FilterBar;
