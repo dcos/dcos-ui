@@ -16,8 +16,9 @@ jest.dontMock('../UnitNodeSidePanelContents');
 jest.dontMock('../../utils/Util');
 jest.dontMock('../../utils/RequestUtil');
 jest.dontMock('../../structs/SummaryList');
-
+/* eslint-disable no-unused-vars */
 var React = require('react');
+/* eslint-enable no-unused-vars */
 var ReactDOM = require('react-dom');
 
 var MesosSummaryActions = require('../../events/MesosSummaryActions');
@@ -129,31 +130,31 @@ describe('SidePanels', function () {
 
     it('should return ServiceSidePanelContents if serviceName is set',
       function () {
-      this.params.serviceName = 'set';
-      var contents = this.instance.getContents(this.params);
+        this.params.serviceName = 'set';
+        var contents = this.instance.getContents(this.params);
 
-      expect(contents.type === ServiceSidePanelContents).toEqual(true);
-      this.params.serviceName = null;
-    });
+        expect(contents.type === ServiceSidePanelContents).toEqual(true);
+        this.params.serviceName = null;
+      });
 
     it('should return UnitHealthSidePanelContents if unitID is set',
       function () {
-      this.params.unitID = 'set';
-      var contents = this.instance.getContents(this.params);
+        this.params.unitID = 'set';
+        var contents = this.instance.getContents(this.params);
 
-      expect(contents.type === UnitHealthSidePanelContents).toEqual(true);
-      this.params.serviceName = null;
-    });
+        expect(contents.type === UnitHealthSidePanelContents).toEqual(true);
+        this.params.serviceName = null;
+      });
 
     it('should return UnitNodeSidePanelContents if unitID and unitNodeID are set',
       function () {
-      this.params.unitID = 'set';
-      this.params.unitNodeID = 'set';
-      var contents = this.instance.getContents(this.params);
+        this.params.unitID = 'set';
+        this.params.unitNodeID = 'set';
+        var contents = this.instance.getContents(this.params);
 
-      expect(contents.type === UnitNodeSidePanelContents).toEqual(true);
-      this.params.serviceName = null;
-    });
+        expect(contents.type === UnitNodeSidePanelContents).toEqual(true);
+        this.params.serviceName = null;
+      });
 
   });
 });

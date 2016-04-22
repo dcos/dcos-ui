@@ -10,8 +10,9 @@ jest.dontMock('../../constants/HealthSorting');
 var JestUtil = require('../../utils/JestUtil');
 
 JestUtil.unMockStores(['MarathonStore', 'MesosSummaryStore']);
-
+/* eslint-disable no-unused-vars */
 var React = require('react');
+/* eslint-enable no-unused-vars */
 var ReactDOM = require('react-dom');
 
 var DashboardPage = require('../DashboardPage');

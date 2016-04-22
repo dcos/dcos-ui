@@ -9,8 +9,9 @@ jest.dontMock('../../utils/ResourceTableUtil');
 jest.dontMock('../../utils/StringUtil');
 jest.dontMock('../../stores/__tests__/fixtures/state.json');
 jest.dontMock('../../utils/Util');
-
+/* eslint-disable no-unused-vars */
 var React = require('react');
+/* eslint-enable no-unused-vars */
 var ReactDOM = require('react-dom');
 
 var CompositeState = require('../../structs/CompositeState');

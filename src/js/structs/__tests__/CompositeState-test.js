@@ -93,23 +93,23 @@ describe('CompositeState', function () {
 
     it('does not add marathon data if it doesn\'t find a matching id',
       function () {
-      CompositeState.addState({
-        frameworks: [{
-          id: 'foo-id',
-          name: 'foo',
-          bar: 'baz'
-        }]
-      });
+        CompositeState.addState({
+          frameworks: [{
+            id: 'foo-id',
+            name: 'foo',
+            bar: 'baz'
+          }]
+        });
 
-      CompositeState.addMarathon({
-        bar: {
-          qux: 'quux',
-          corge: 'grault'
-        }
-      });
+        CompositeState.addMarathon({
+          bar: {
+            qux: 'quux',
+            corge: 'grault'
+          }
+        });
 
-      expect(CompositeState.data.frameworks[0]._meta).toBeUndefined();
-    });
+        expect(CompositeState.data.frameworks[0]._meta).toBeUndefined();
+      });
 
   });
 
@@ -273,31 +273,30 @@ describe('CompositeState', function () {
 
     it('removes framework IDs that were not received in the new data',
       function () {
-      CompositeState.addState({
-        frameworks: [{
-          id: 'foo-id',
-          name: 'foo',
-          bar: 'baz'
-        }]
-      });
+        CompositeState.addState({
+          frameworks: [{
+            id: 'foo-id',
+            name: 'foo',
+            bar: 'baz'
+          }]
+        });
 
-      CompositeState.addState({
-        frameworks: [{
-          id: 'bar-id',
-          name: 'bar',
-          bar: 'baz'
-        }]
-      });
+        CompositeState.addState({
+          frameworks: [{
+            id: 'bar-id',
+            name: 'bar',
+            bar: 'baz'
+          }]
+        });
 
-      expect(CompositeState.data).toEqual({
-        frameworks: [{
-          id: 'bar-id',
-          name: 'bar',
-          bar: 'baz'
-        }]
+        expect(CompositeState.data).toEqual({
+          frameworks: [{
+            id: 'bar-id',
+            name: 'bar',
+            bar: 'baz'
+          }]
+        });
       });
-    });
-
   });
 
   describe('#getServiceList', function () {

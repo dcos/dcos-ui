@@ -1,8 +1,9 @@
 jest.dontMock('../../../utils/DOMUtils');
 jest.dontMock('../../../utils/JestUtil');
 jest.dontMock('../VersionsModal');
-
+/* eslint-disable no-unused-vars */
 var React = require('react');
+/* eslint-enable no-unused-vars */
 var ReactDOM = require('react-dom');
 
 var VersionsModal = require('../VersionsModal');

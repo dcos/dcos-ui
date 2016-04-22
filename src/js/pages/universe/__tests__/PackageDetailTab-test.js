@@ -15,8 +15,9 @@ var configUseFixtures = Config.useFixtures;
 Config.useFixtures = true;
 require('../../../utils/StoreMixinConfig');
 Config.useFixtures = configUseFixtures;
-
+/* eslint-disable no-unused-vars */
 var React = require('react');
+/* eslint-enable no-unused-vars */
 var ReactDOM = require('react-dom');
 var TestUtils = require('react-addons-test-utils');
 
@@ -69,11 +70,12 @@ describe('PackageDetailTab', function () {
       });
 
       it('returns only entries with defined values', function () {
-        expect(this.instance.getItems([
+        expect(
+          this.instance.getItems([
             {label: 'foo', value: 'baz'},
             {label: 'bar', value: null}
-          ], this.instance.getItem).length)
-          .toEqual(1);
+          ], this.instance.getItem).length
+        ).toEqual(1);
       });
 
       it('should render entries with keys and values', function () {
@@ -104,23 +106,22 @@ describe('PackageDetailTab', function () {
       });
 
       it('returns only entries with defined values', function () {
-        expect(this.instance.getItems([
-              {label: 'foo', value: 'baz'},
-              {label: 'bar', value: null}
-            ],
-            this.instance.getSubItem
-          ).length
+        expect(
+          this.instance.getItems([
+            {label: 'foo', value: 'baz'},
+            {label: 'bar', value: null}
+          ],
+          this.instance.getSubItem).length
         ).toEqual(1);
       });
 
       it('should render entries with keys and values', function () {
         var subItem = ReactDOM.render(
           this.instance.getItems([
-              {label: 'foo', value: 'baz'},
-              {label: 'bar', value: null}
-            ],
-            this.instance.getSubItem
-          )[0],
+            {label: 'foo', value: 'baz'},
+            {label: 'bar', value: null}
+          ],
+          this.instance.getSubItem)[0],
           this.container
         );
 

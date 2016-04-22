@@ -10,14 +10,14 @@ describe('ChartMixin', function () {
     var interval = 2000;
 
     var data = [{
-        id: 'used_resources',
-        values: _.map(new Array(31), function (value, i) {
-          return {
-            date: now + (interval * i),
-            percentage: 0,
-            value: 0
-          };
-        })
+      id: 'used_resources',
+      values: _.map(new Array(31), function (value, i) {
+        return {
+          date: now + (interval * i),
+          percentage: 0,
+          value: 0
+        };
+      })
     }];
 
     this.props = {

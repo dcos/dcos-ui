@@ -44,7 +44,7 @@ describe('MesosSummaryUtil', function () {
           {date: 1, percentage: null, value: null},
           {date: 2, percentage: 100, value: 4}
         ]
-     };
+      };
 
       expect(resources).toEqual(expectedResult);
     });

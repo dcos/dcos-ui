@@ -34,71 +34,71 @@ describe('PluginSDK', function () {
 
       it('should not create a namespace in Store for plugin if no reducer returned',
         function () {
-        // Mock a fake plugin
-        this.mockPlugin = jest.genMockFunction().mockImplementation(
-          function () {
-            // Don't return anything
-          }
-        );
-        PluginTestUtils.loadPlugins({
-          fakePlugin1: {
-            module: this.mockPlugin,
-            config: {
-              enabled: true,
-              foo: 'bar'
+          // Mock a fake plugin
+          this.mockPlugin = jest.genMockFunction().mockImplementation(
+            function () {
+              // Don't return anything
             }
-          }
-        });
-        var state = PluginSDK.Store.getState();
-        expect(state.fakePlugin1).toEqual(undefined);
-      });
-
-      it('should create a namespace in Store for plugin if reducer returned',
-        function () {
-        // Mock a fake plugin
-        this.mockPlugin = jest.genMockFunction().mockImplementation(
-          function () {
-            // Return reducer
-            return function () {
-              // Return an initial state
-              return {foo: 'bar'};
-            };
-          }
-        );
-        PluginTestUtils.loadPlugins({
-          fakePlugin2: {
-            module: this.mockPlugin,
-            config: {
-              enabled: true,
-              foo: 'bar'
-            }
-          }
-        });
-        var state = PluginSDK.Store.getState();
-        expect(_.isEqual(state.fakePlugin2, {foo: 'bar'})).toEqual(true);
-      });
-
-      it('should throw error if reducer is not a function',
-        function () {
-        // Mock a fake plugin
-        var mockPlugin = jest.genMockFunction().mockImplementation(
-          function () {
-            // Return invalid reducer
-            return {};
-          }
-        );
-        expect(function () {
+          );
           PluginTestUtils.loadPlugins({
-            badFakePlugin: {
-              module: mockPlugin,
+            fakePlugin1: {
+              module: this.mockPlugin,
               config: {
                 enabled: true,
                 foo: 'bar'
               }
             }
           });
-        }).toThrow(new Error('Reducer for badFakePlugin must be a function'));
-      });
+          var state = PluginSDK.Store.getState();
+          expect(state.fakePlugin1).toEqual(undefined);
+        });
+
+      it('should create a namespace in Store for plugin if reducer returned',
+        function () {
+          // Mock a fake plugin
+          this.mockPlugin = jest.genMockFunction().mockImplementation(
+            function () {
+              // Return reducer
+              return function () {
+                // Return an initial state
+                return {foo: 'bar'};
+              };
+            }
+          );
+          PluginTestUtils.loadPlugins({
+            fakePlugin2: {
+              module: this.mockPlugin,
+              config: {
+                enabled: true,
+                foo: 'bar'
+              }
+            }
+          });
+          var state = PluginSDK.Store.getState();
+          expect(_.isEqual(state.fakePlugin2, {foo: 'bar'})).toEqual(true);
+        });
+
+      it('should throw error if reducer is not a function',
+        function () {
+          // Mock a fake plugin
+          var mockPlugin = jest.genMockFunction().mockImplementation(
+            function () {
+              // Return invalid reducer
+              return {};
+            }
+          );
+          expect(function () {
+            PluginTestUtils.loadPlugins({
+              badFakePlugin: {
+                module: mockPlugin,
+                config: {
+                  enabled: true,
+                  foo: 'bar'
+                }
+              }
+            });
+          }).toThrow(new Error('Reducer for badFakePlugin must be a function'));
+        });
     });
   });
 
@@ -108,14 +108,14 @@ describe('PluginSDK', function () {
       this.mockPlugin = jest.genMockFunction();
 
       PluginTestUtils.loadPlugins({
-          fakePlugin3: {
-            module: this.mockPlugin,
-            config: {
-              enabled: true,
-              foo: 'bar'
-            }
+        fakePlugin3: {
+          module: this.mockPlugin,
+          config: {
+            enabled: true,
+            foo: 'bar'
           }
-        });
+        }
+      });
     });
 
     it('should call plugin', function () {

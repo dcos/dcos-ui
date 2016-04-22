@@ -160,8 +160,8 @@ describe('BannerPlugin', function () {
       this.iframe = document.createElement('iframe');
       var mockFn = this.mockFn;
       this.iframe.__defineGetter__('contentWindow', function () {
-          return {addEventListener: mockFn};
-        });
+        return {addEventListener: mockFn};
+      });
       document.getElementById = jasmine.createSpy('HTML Element')
         .and.returnValue(this.iframe);
 

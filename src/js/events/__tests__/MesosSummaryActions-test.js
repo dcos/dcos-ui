@@ -14,7 +14,6 @@ jest.setMock('react-router', {
   }
 });
 
-import {Hooks} from 'PluginSDK';
 import PluginTestUtils from 'PluginTestUtils';
 
 PluginTestUtils.loadPluginsByName({

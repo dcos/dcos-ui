@@ -1,7 +1,8 @@
 jest.dontMock('../CliInstallModal');
 jest.dontMock('../../../utils/DOMUtils');
-
+/* eslint-disable no-unused-vars */
 var React = require('react');
+/* eslint-enable no-unused-vars */
 var ReactDOM = require('react-dom');
 
 var JestUtil = require('../../../utils/JestUtil');

@@ -1,11 +1,13 @@
-var React = require('react');
-var ReactDOM = require('react-dom');
-var TestUtils = require('react-addons-test-utils');
-
 jest.dontMock('../DialChart');
 jest.dontMock('../DialSlice');
 jest.dontMock('../../../mixins/InternalStorageMixin');
 jest.dontMock('classnames');
+/* eslint-disable no-unused-vars */
+var React = require('react');
+/* eslint-enable no-unused-vars */
+var ReactDOM = require('react-dom');
+var TestUtils = require('react-addons-test-utils');
+
 var DialChart = require('../DialChart');
 
 var getInstanceWithProps = function (props, container) {
@@ -34,10 +36,9 @@ describe('DialChart', function () {
 
     it('returns a single-member grey set when no data is present', function () {
       var normalizedData = this.instance.getNormalizedData([
-          { name: 'TASK_1', value: 0 },
-          { name: 'TASK_2', value: 0 }
-        ], []
-      );
+        { name: 'TASK_1', value: 0 },
+        { name: 'TASK_2', value: 0 }], []);
+
       expect(normalizedData).toEqual([
         { colorIndex: 7, value: 1 }
       ]);

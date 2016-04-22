@@ -1,9 +1,11 @@
+jest.dontMock('../ChartStripes');
 var _ = require('underscore');
+/* eslint-disable no-unused-vars */
 var React = require('react');
+/* eslint-enable no-unused-vars */
 var ReactDOM = require('react-dom');
 var TestUtils = require('react-addons-test-utils');
 
-jest.dontMock('../ChartStripes');
 var ChartStripes = require('../ChartStripes');
 
 describe('ChartStripes', function () {
