@@ -6,6 +6,7 @@ var AlertPanel = require('../components/AlertPanel');
 import CompositeState from '../structs/CompositeState';
 import Config from '../config/Config';
 import EventTypes from '../constants/EventTypes';
+import FilterBar from '../components/FilterBar';
 var FilterHealth = require('../components/FilterHealth');
 var FilterHeadline = require('../components/FilterHeadline');
 var FilterInputText = require('../components/FilterInputText');
@@ -186,26 +187,20 @@ var ServicesPage = React.createClass({
           name="Services"
           currentLength={data.services.length}
           totalLength={data.totalServices} />
-        <div className="filter-bar">
-          <div className="filter-bar-left">
-            <div className="filter-bar-item">
-              <FilterHealth
-                countByHealth={data.countByHealth}
-                healthFilter={state.healthFilter}
-                handleFilterChange={this.handleHealthFilterChange}
-                servicesLength={data.totalServices} />
-            </div>
-            <div className="filter-bar-item">
-              <div className="form-group flush-bottom">
-                <FilterInputText
-                  className="flush-bottom"
-                  searchString={state.searchString}
-                  handleFilterChange={this.handleSearchStringChange}
-                  inverseStyle={true} />
-              </div>
-            </div>
+        <FilterBar>
+          <FilterHealth
+            countByHealth={data.countByHealth}
+            healthFilter={state.healthFilter}
+            handleFilterChange={this.handleHealthFilterChange}
+            servicesLength={data.totalServices} />
+          <div className="form-group flush-bottom">
+            <FilterInputText
+              className="flush-bottom"
+              searchString={state.searchString}
+              handleFilterChange={this.handleSearchStringChange}
+              inverseStyle={true} />
           </div>
-        </div>
+        </FilterBar>
         <ServicesTable
           services={data.services}
           healthProcessed={appsProcessed} />

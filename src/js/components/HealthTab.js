@@ -2,6 +2,7 @@ import _ from 'underscore';
 import React from 'react';
 import {Table} from 'reactjs-components';
 
+import FilterBar from '../components/FilterBar';
 import FilterHeadline from '../components/FilterHeadline';
 import FilterInputText from '../components/FilterInputText';
 import ResourceTableUtil from '../utils/ResourceTableUtil';
@@ -134,19 +135,16 @@ class HealthTab extends React.Component {
           name={"Health Checks"}
           onReset={this.resetFilter}
           totalLength={units.getItems().length} />
-        <ul className="list list-unstyled list-inline flush-bottom">
-          <li>
-            <FilterInputText
-              searchString={searchString}
-              handleFilterChange={this.handleSearchStringChange}
-              inverseStyle={false} />
-          </li>
-          <li>
-            <UnitHealthDropdown
-              initialID="all"
-              onHealthSelection={this.handleHealthSelection} />
-          </li>
-        </ul>
+        <FilterBar>
+          <FilterInputText
+            className="flush-bottom"
+            searchString={searchString}
+            handleFilterChange={this.handleSearchStringChange}
+            inverseStyle={false} />
+          <UnitHealthDropdown
+            initialID="all"
+            onHealthSelection={this.handleHealthSelection} />
+        </FilterBar>
         <Table
           className="table table-borderless-outer
             table-borderless-inner-columns flush-bottom"

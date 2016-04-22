@@ -7,6 +7,7 @@ import React from 'react';
 /* eslint-enable no-unused-vars */
 
 import BulkOptions from '../../constants/BulkOptions';
+import FilterBar from '../../components/FilterBar';
 import FilterHeadline from '../../components/FilterHeadline';
 import FilterInputText from '../../components/FilterInputText';
 import InternalStorageMixin from '../../mixins/InternalStorageMixin';
@@ -245,13 +246,11 @@ class OrganizationTab extends mixin(InternalStorageMixin) {
     let dropdownItems = this.getActionsDropdownItems(actionPhrases);
     if (dropdownItems.length === 1) {
       return (
-        <li>
-          <button
-            className="button button-inverse"
-            onClick={this.handleActionSelection.bind(this, dropdownItems[0])}>
-            {dropdownItems[0].html}
-          </button>
-        </li>
+        <button
+          className="button button-inverse"
+          onClick={this.handleActionSelection.bind(this, dropdownItems[0])}>
+          {dropdownItems[0].html}
+        </button>
       );
     }
 
@@ -338,17 +337,6 @@ class OrganizationTab extends mixin(InternalStorageMixin) {
     );
   }
 
-  getStringFilter() {
-    return (
-      <li>
-        <FilterInputText
-          searchString={this.state.searchString}
-          handleFilterChange={this.handleSearchStringChange}
-          inverseStyle={true} />
-      </li>
-    );
-  }
-
   getTableRowOptions(row) {
     let selectedIDSet = this.internalStorage_get().selectedIDSet;
     if (selectedIDSet[row[this.props.itemID]]) {
@@ -404,7 +392,6 @@ class OrganizationTab extends mixin(InternalStorageMixin) {
     let action = state.selectedAction;
     let capitalizedItemName = StringUtil.capitalize(itemName);
     let visibleItems = this.getVisibleItems(items);
-    let filterInputText = this.getStringFilter();
     let actionDropdown = this.getActionDropdown(itemName);
     let actionsModal = this.getActionsModal(action, items, itemID, itemName);
     let sortProp = itemID;
@@ -418,18 +405,20 @@ class OrganizationTab extends mixin(InternalStorageMixin) {
             name={`${StringUtil.pluralize(capitalizedItemName)}`}
             currentLength={visibleItems.length}
             totalLength={items.length} />
-          <ul className="list list-unstyled list-inline flush-bottom">
-            {filterInputText}
+          <FilterBar rightAlignLastNChildren={1}>
+            <FilterInputText
+              className="flush-bottom"
+              searchString={this.state.searchString}
+              handleFilterChange={this.handleSearchStringChange}
+              inverseStyle={true} />
             {actionDropdown}
             {actionsModal}
-            <li className="button-collection list-item-aligned-right">
-              <a
-                className="button button-success"
-                onClick={handleNewItemClick}>
-                {`+ New ${capitalizedItemName}`}
-              </a>
-            </li>
-          </ul>
+            <a
+              className="button button-success"
+              onClick={handleNewItemClick}>
+              {`+ New ${capitalizedItemName}`}
+            </a>
+          </FilterBar>
         </div>
         <div className="page-content-fill flex-grow flex-container-col">
           <Table
