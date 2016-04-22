@@ -45,7 +45,7 @@ module.exports = class AccessDeniedPage extends React.Component {
                 You do not have access to this service. <br />
                 Please contact your {Config.productName} administrator.
               </p>
-              <p>
+              <p className="flush-bottom">
                 See the <a href={`${Config.documentationURI}/administration/security-and-authentication/`} target="_blank">Security and Authentication</a> documentation for more information.
               </p>
             </AlertPanel>

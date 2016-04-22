@@ -57,8 +57,12 @@
 @panel-short-scale: 0.25;
 @panel-tall-scale: 1.25;
 
-@alert-panel-height: 400px;
-@alert-panel-width: 300px;
+@alert-panel-dimensions: @base-spacing-unit * 12;
+@alert-panel-screen-mini-dimensions: @base-spacing-unit-screen-mini * 12;
+@alert-panel-screen-small-dimensions: @base-spacing-unit-screen-small * 12;
+@alert-panel-screen-medium-dimensions: @base-spacing-unit-screen-medium * 9;
+@alert-panel-screen-large-dimensions: @base-spacing-unit-screen-large * 7;
+@alert-panel-screen-x-large-dimensions: @base-spacing-unit-screen-x-large * 5;
 
 @dashboard-panel-height: 280px;
 @dashboard-panel-screen-small-height: 315px;
@@ -189,6 +193,10 @@
   }
 }
 
+.alert-panel {
+  min-height: @alert-panel-dimensions;
+}
+
 .dashboard-panel {
   min-height: @dashboard-panel-height;
 
@@ -198,11 +206,6 @@
       padding-left: @panel-content-padding-horizontal * @dashboard-resource-panel-y-axis-padding-scale;
     }
   }
-}
-
-.alert-panel {
-  min-height: @alert-panel-height;
-  min-width: @alert-panel-width;
 }
 
 & when (@panel-enabled) and (@screen-mini-enabled) {
@@ -283,6 +286,12 @@
           padding-bottom: @panel-footer-screen-mini-padding-vertical * @panel-tall-scale;
         }
       }
+    }
+
+    .alert-panel {
+      margin: 0 auto;
+      max-width: @alert-panel-screen-mini-dimensions;
+      min-height: @alert-panel-screen-mini-dimensions;
     }
 
     .dashboard-panel {
@@ -371,6 +380,11 @@
       }
     }
 
+    .alert-panel {
+      max-width: @alert-panel-screen-small-dimensions;
+      min-height: @alert-panel-screen-small-dimensions;
+    }
+
     .dashboard-panel {
       min-height: @dashboard-panel-screen-small-height;
 
@@ -455,6 +469,11 @@
           padding-bottom: @panel-footer-screen-medium-padding-vertical * @panel-tall-scale;
         }
       }
+    }
+
+    .alert-panel {
+      max-width: @alert-panel-screen-medium-dimensions;
+      min-height: @alert-panel-screen-medium-dimensions;
     }
 
     .dashboard-panel {
@@ -542,6 +561,11 @@
       }
     }
 
+    .alert-panel {
+      max-width: @alert-panel-screen-large-dimensions;
+      min-height: @alert-panel-screen-large-dimensions;
+    }
+
     .dashboard-panel {
       min-height: @dashboard-panel-screen-large-height;
 
@@ -625,6 +649,11 @@
           padding-bottom: @panel-footer-screen-x-large-padding-vertical * @panel-tall-scale;
         }
       }
+    }
+
+    .alert-panel {
+      max-width: @alert-panel-screen-x-large-dimensions;
+      min-height: @alert-panel-screen-x-large-dimensions;
     }
 
     .dashboard-panel {

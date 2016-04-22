@@ -222,7 +222,7 @@ var ServicesPage = React.createClass({
         title="No Services Installed"
         iconClassName="icon icon-sprite icon-sprite-jumbo
           icon-sprite-jumbo-white icon-services flush-top">
-        <p className="flush">
+        <p className="flush-bottom">
           Use the {Config.productName} command line tools to find and install services.
         </p>
       </AlertPanel>

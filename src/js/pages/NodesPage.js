@@ -308,7 +308,7 @@ var NodesPage = React.createClass({
         title="Empty Datacenter"
         iconClassName="icon icon-sprite icon-sprite-jumbo
           icon-sprite-jumbo-white icon-datacenter flush-top">
-        <p className="flush">
+        <p className="flush-bottom">
           Your datacenter is looking pretty empty. We don't see any nodes other than your master.
         </p>
       </AlertPanel>
