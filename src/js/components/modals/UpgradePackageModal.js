@@ -44,19 +44,17 @@ class UpgradePackageModal extends React.Component {
     let {cosmosPackage, packageName, packageVersion} = this.props;
 
     return (
-      <div>
-        <div className="modal-content">
-          <div className="modal-content-inner container container-pod
-            container-pod-short horizontal-center">
-            <div className="icon icon-jumbo icon-image-container
-              icon-app-container">
-              <img src={cosmosPackage.getIcons()['icon-large']} />
-            </div>
-            <h2 className="short">{packageName}</h2>
-            <p className="flush">
-              {packageName} {packageVersion}
-            </p>
+      <div className="modal-content">
+        <div className="modal-content-inner container container-pod
+          container-pod-short horizontal-center">
+          <div className="icon icon-jumbo icon-image-container
+            icon-app-container">
+            <img src={cosmosPackage.getIcons()['icon-large']} />
           </div>
+          <h2 className="short">{packageName}</h2>
+          <p className="flush">
+            {packageName} {packageVersion}
+          </p>
         </div>
       </div>
     );
