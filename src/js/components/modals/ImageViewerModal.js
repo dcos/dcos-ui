@@ -39,8 +39,11 @@ class ImageViewerModal extends React.Component {
   }
 
   handleKeyPress(event) {
-    if (event.defaultPrevented) {
-      return; // Should do nothing if the key event was already consumed.
+    let {images} = this.props;
+    // Should do nothing if the key event was already consumed, or there is only
+    // one or no images
+    if (event.defaultPrevented || !images || images.length < 2) {
+      return;
     }
 
     if (event.keyCode === keyCodes.leftArrow) {
@@ -79,6 +82,7 @@ class ImageViewerModal extends React.Component {
         <img
           className="fill-image"
           onLoad={this.handleLoadingImageChange.bind(this, false)}
+           key={props.selectedImage}
           src={props.images[props.selectedImage]} />
       </div>
     );
