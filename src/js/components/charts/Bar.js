@@ -53,6 +53,8 @@ var Bar = React.createClass({
   render: function () {
     var props = this.props;
     var posY = props.posY || 0;
+    // Show 1px height when value is 0, to not confuse user with an empty graph
+    var rectHeight = props.rectHeight || 1;
     var rectWidth = props.rectWidth || 0;
 
     return (
@@ -68,7 +70,7 @@ var Bar = React.createClass({
             shape-rendering={props.shapeRendering}
             className={props.colorClass}
             y={posY}
-            height={props.rectHeight || 0}
+            height={rectHeight}
             width={rectWidth - props.margin} />
       </g>
     );
