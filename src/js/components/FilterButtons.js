@@ -3,12 +3,10 @@ import React from 'react';
 
 class FilterButtons extends React.Component {
 
-  getCountByKey(items, key) {
+  getCount(items) {
     let counts = {};
-    key = key.toLowerCase();
 
-    items.forEach(function (item) {
-      let value = item[key];
+    items.forEach(function (value) {
       if (typeof value === 'string') {
         value = value.toLowerCase();
       }
@@ -28,7 +26,14 @@ class FilterButtons extends React.Component {
 
   getFilterButtons() {
     let {filterByKey, filters, itemList, selectedFilter} = this.props;
-    let filterCount = this.getCountByKey(itemList, filterByKey);
+
+    if (filterByKey) {
+      itemList = itemList.map(function (item) {
+        return item[filterByKey];
+      });
+    }
+
+    let filterCount = this.getCount(itemList);
 
     return filters.map((filter) => {
       let classSet = classNames({
@@ -66,7 +71,7 @@ FilterButtons.propTypes = {
   renderButtonContent: React.PropTypes.func,
   filters: React.PropTypes.array,
   // The key in itemList that is being filtered
-  filterByKey: React.PropTypes.string.isRequired,
+  filterByKey: React.PropTypes.string,
   // A function that returns the onClick for a filter button given the filter.
   onFilterChange: React.PropTypes.func,
   itemList: React.PropTypes.array.isRequired,
