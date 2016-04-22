@@ -64,9 +64,9 @@ var FilterInputText = React.createClass({
       });
 
       return (
-        <span className="form-control-group-add-on form-control-group-add-on-append" onClick={this.handleClearInput}>
+        <span className="form-control-group-add-on form-control-group-add-on-append">
           {props.sideText}
-          <a>
+          <a onClick={this.handleClearInput}>
             <i className={clearIconClasses}></i>
           </a>
         </span>

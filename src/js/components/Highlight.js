@@ -31,7 +31,8 @@ class Highlight extends mixin(InternalStorageMixin) {
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.search !== this.props.search) {
+    if (prevProps.search !== this.props.search ||
+      this.props.children.length !== prevProps.children.length) {
       let {highlightCount} = this.internalStorage_get();
       if (!this.props.search) {
         highlightCount = 0;
