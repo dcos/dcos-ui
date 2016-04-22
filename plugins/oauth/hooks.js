@@ -1,12 +1,9 @@
+import _ from 'underscore';
 /* eslint-disable no-unused-vars */
 import React from 'react';
 /* eslint-enable no-unused-vars */
 import {Route} from 'react-router';
-
-import {
-  CONFIG_ERROR,
-  CONFIG_LOADED
-} from './constants/EventTypes';
+import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import LoginPage from './components/LoginPage';
 import UserDropup from './components/UserDropup';
@@ -16,26 +13,9 @@ let SDK = require('./SDK').getSDK();
 let {AccessDeniedPage, Authenticated, ConfigStore, CookieUtils} = SDK.get([
   'AccessDeniedPage', 'Authenticated', 'ConfigStore', 'CookieUtils']);
 
-// DCOS-5935 Build mixin for non-react components to listen to store events
-const CONFIG_STORE_LISTENERS = [CONFIG_LOADED, CONFIG_ERROR];
+let configResponseCallback = null;
 
-function reloadConfigStore(callback) {
-  let handler = function () {
-    CONFIG_STORE_LISTENERS.forEach(event => {
-      ConfigStore.removeChangeListener(event, handler);
-    });
-
-    callback();
-  };
-
-  CONFIG_STORE_LISTENERS.forEach(event => {
-    ConfigStore.addChangeListener(event, handler);
-  });
-
-  ConfigStore.fetchConfig();
-}
-
-module.exports = {
+module.exports = _.extend({
   actions: [
     'AJAXRequestError',
     'userLogoutSuccess',
@@ -55,6 +35,10 @@ module.exports = {
     this.actions.forEach(action => {
       SDK.Hooks.addAction(action, this[action].bind(this));
     });
+    this.store_initializeListeners([{
+      name: 'config',
+      events: ['success', 'error']
+    }]);
   },
 
   redirectToLogin(transition) {
@@ -128,13 +112,28 @@ module.exports = {
     return routes;
   },
 
+  onConfigStoreSuccess() {
+    if (configResponseCallback) {
+      configResponseCallback();
+      configResponseCallback = null;
+    }
+  },
+
+  onConfigStoreError() {
+    if (configResponseCallback) {
+      configResponseCallback();
+      configResponseCallback = null;
+    }
+  },
+
   userLogoutSuccess() {
     // Reload configuration because we need to get 'firstUser' which is
     // dynamically set based on number of users
-    reloadConfigStore(this.navigateToLoginPage);
+    configResponseCallback = this.navigateToLoginPage;
+    ConfigStore.fetchConfig();
   },
 
   navigateToLoginPage() {
     window.location.href = '#/login';
   }
-};
+}, StoreMixin);
