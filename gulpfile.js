@@ -109,14 +109,14 @@ gulp.task('connect:server', function () {
 
 gulp.task('images', function () {
   return gulp.src([
-      config.dirs.srcImg + '/**/*.*',
-      '!' + config.dirs.srcImg + '/**/_exports/**/*.*'
-    ])
-    .pipe(imagemin({
-      progressive: true,
-      svgoPlugins: [{removeViewBox: false}]
-    }))
-    .pipe(gulp.dest(config.dirs.distImg));
+    config.dirs.srcImg + '/**/*.*',
+    '!' + config.dirs.srcImg + '/**/_exports/**/*.*'
+  ])
+  .pipe(imagemin({
+    progressive: true,
+    svgoPlugins: [{removeViewBox: false}]
+  }))
+  .pipe(gulp.dest(config.dirs.distImg));
 });
 
 gulp.task('html', function () {

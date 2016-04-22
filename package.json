@@ -98,9 +98,10 @@
     "serve": "NODE_ENV='development' ./node_modules/.bin/gulp serve",
     "serve-notify": "export NOTIFY=true && npm run serve",
     "testing": "NODE_ENV='testing' ./node_modules/.bin/gulp serve",
+    "lint": "./node_modules/.bin/eslint '**/*.js' --quiet",
     "livereload": "NODE_ENV='development' ./node_modules/.bin/gulp livereload",
     "livereload-notify": "export NOTIFY=true && npm run livereload",
-    "test": "./node_modules/.bin/gulp copy:external-plugins && ./node_modules/.bin/eslint src/js/**/*.js* --quiet && jest"
+    "test": "./node_modules/.bin/gulp copy:external-plugins && npm run lint && jest"
   },
   "jest-webpack-alias": {
     "configFile": ".webpack.config.js"
