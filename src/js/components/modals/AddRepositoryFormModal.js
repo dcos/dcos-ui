@@ -58,7 +58,15 @@ class AddRepositoryFormModal extends mixin(StoreMixin) {
     this.resetState();
   }
 
+  getIsWithinRange(min, max) {
+    return function (number) {
+      return number >= min && number <= max;
+    };
+  }
+
   getAddRepositoryFormDefinition() {
+    let {numberOfRepositories} = this.props;
+
     return [
       {
         fieldType: 'text',
@@ -83,14 +91,17 @@ class AddRepositoryFormModal extends mixin(StoreMixin) {
         value: ''
       },
       {
-        fieldType: 'text',
+        fieldType: 'number',
         name: 'priority',
         placeholder: 'Priority',
         required: false,
-        // validationErrorText: 'Must be a valid url with http:// or https://',
-        showLabel: true,
+        min: '0',
+        max: `${numberOfRepositories}`,
+        step: '1',
+        validationErrorText: `Must be a positive integer between 0 and ${numberOfRepositories} representing its priority. 0 is the highest and ${numberOfRepositories} denotes the lowest priority.`,
+        showLabel: false,
         writeType: 'input',
-        // validation: /^https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)$/,
+        validation: this.getIsWithinRange(0, numberOfRepositories),
         value: ''
       }
     ];
@@ -153,6 +164,7 @@ class AddRepositoryFormModal extends mixin(StoreMixin) {
 }
 
 AddRepositoryFormModal.propTypes = {
+  numberOfRepositories: React.PropTypes.number.isRequired,
   open: React.PropTypes.bool
 };
 

@@ -120,6 +120,7 @@ class RepositoriesTab extends mixin(StoreMixin) {
         </FilterBar>
         <RepositoriesTable repositories={repositories} filter={searchString} />
         <AddRepositoryFormModal
+          numberOfRepositories={repositories.getItems().length}
           open={addRepositoryModalOpen}
           onClose={this.handleCloseAddRepository} />
       </div>
