@@ -5,11 +5,11 @@ describe('Units Tab [0e2]', function () {
     beforeEach(function () {
 
       cy.configureCluster({
-          mesos: '1-task-healthy',
-          plugins: 'organization-enabled',
-          componentHealth: true
-        })
-        .visitUrl({url: '/system/overview/units', identify: true});
+        mesos: '1-task-healthy',
+        plugins: 'organization-enabled',
+        componentHealth: true
+      })
+      .visitUrl({url: '/system/overview/units', identify: true});
 
       cy.get('.units-health-table-header').within(function () {
         cy.get('.form-control input[type=\'text\']').as('filterTextbox');
@@ -65,11 +65,11 @@ describe('Units Tab [0e2]', function () {
 
     beforeEach(function () {
       cy.configureCluster({
-          mesos: '1-task-healthy',
-          plugins: 'organization-enabled',
-          componentHealth: true
-        })
-        .visitUrl(
+        mesos: '1-task-healthy',
+        plugins: 'organization-enabled',
+        componentHealth: true
+      })
+      .visitUrl(
           {url: '/system/overview/components/mesos_dns_service/', identify: true}
         );
     });
@@ -106,13 +106,13 @@ describe('Units Tab [0e2]', function () {
 
     beforeEach(function () {
       cy.configureCluster({
-          mesos: '1-task-healthy',
-          plugins: 'organization-enabled',
-          componentHealth: true
-        })
-        .visitUrl(
-          {url: '/system/overview/components/mesos_dns_service/nodes/ip-10-10-0-236', identify: true}
-        );
+        mesos: '1-task-healthy',
+        plugins: 'organization-enabled',
+        componentHealth: true
+      })
+      .visitUrl(
+        {url: '/system/overview/components/mesos_dns_service/nodes/ip-10-10-0-236', identify: true}
+      );
     });
 
     it('renders health check title [0ei]', function () {

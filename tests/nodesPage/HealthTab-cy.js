@@ -1,4 +1,4 @@
-describe('Node Health Tab [0fa]', function() {
+describe('Node Health Tab [0fa]', function () {
 
   beforeEach(function () {
     cy.configureCluster({
@@ -9,7 +9,7 @@ describe('Node Health Tab [0fa]', function() {
 
   context('Navigate to tab [0fb]', function () {
 
-    it('navigates to health tab [0fc]', function() {
+    it('navigates to health tab [0fc]', function () {
       cy.visitUrl({url: '/nodes', identify: true, fakeAnalytics: true});
       cy.get('tr a').contains('dcos-01').click();
       cy.get('.tab-item').contains('Health').click();

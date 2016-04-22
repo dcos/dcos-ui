@@ -101,7 +101,7 @@ describe('LoginModal [01i]', function () {
     });
 
     it('redirects after successful login [02j]', function () {
-      cy.visit("http://localhost:4200/?redirect=%2Ffoo%2Fbar#/login");
+      cy.visit('http://localhost:4200/?redirect=%2Ffoo%2Fbar#/login');
       cy.get('.modal-container input[type=\'text\']').type('kennyt');
       cy.get('.modal-container input[type=\'password\']').type('1234');
 
@@ -112,7 +112,7 @@ describe('LoginModal [01i]', function () {
     });
 
     it('redirects after successful login [0d9]', function () {
-      cy.visit("http://localhost:4200/#/login?redirect=%2Fmesos");
+      cy.visit('http://localhost:4200/#/login?redirect=%2Fmesos');
       cy.get('.modal-container input[type=\'text\']').type('kennyt');
       cy.get('.modal-container input[type=\'password\']').type('1234');
 
@@ -123,7 +123,7 @@ describe('LoginModal [01i]', function () {
     });
 
     it('redirects after successful login [0da]', function () {
-      cy.visit("http://localhost:4200/?redirect=%2Fmesos#/login");
+      cy.visit('http://localhost:4200/?redirect=%2Fmesos#/login');
       cy.get('.modal-container input[type=\'text\']').type('kennyt');
       cy.get('.modal-container input[type=\'password\']').type('1234');
 

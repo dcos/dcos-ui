@@ -56,7 +56,7 @@ describe('ServerErrorModal [01n]', function () {
     cy.get('.dropdown-toggle').click();
 
     cy.get('.dropdown-menu-list .is-selectable')
-      .contains("藍-Schüler Zimmer verfügt über einen Schreibtisch, Telefon, Safe in Notebook-Größe")
+      .contains('藍-Schüler Zimmer verfügt über einen Schreibtisch, Telefon, Safe in Notebook-Größe')
       .click();
 
     cy.get('.modal-header-title').should('contain', 'An error has occurred');

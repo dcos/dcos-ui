@@ -19,7 +19,7 @@ describe('User Details Sidepanel [02k]', function () {
         });
     });
 
-    it('has LDAP in subheader when user is external [056]', function() {
+    it('has LDAP in subheader when user is external [056]', function () {
       cy
         .get('.side-panel .side-panel-content-header-label div')
         .should(function ($subheader) {
@@ -135,15 +135,15 @@ describe('User Details Sidepanel [02k]', function () {
 
       it('switches the password label into a password input element [066]',
         function () {
-        cy.get('.side-panel-content-user-details form .form-element-inline-text')
-          .click();
+          cy.get('.side-panel-content-user-details form .form-element-inline-text')
+            .click();
 
-        cy.get('form input')
-          .should(function ($input) {
-            expect($input.length).to.equal(1);
-            expect($input[0].type).to.equal('password');
-          });
-      });
+          cy.get('form input')
+            .should(function ($input) {
+              expect($input.length).to.equal(1);
+              expect($input[0].type).to.equal('password');
+            });
+        });
 
     });
 

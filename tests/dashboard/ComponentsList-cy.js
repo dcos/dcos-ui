@@ -1,8 +1,8 @@
-describe('ComponentsList [10b]', function() {
+describe('ComponentsList [10b]', function () {
 
   context('No Components Found [10f]', function () {
 
-    it('shows error when components not found [10d]', function() {
+    it('shows error when components not found [10d]', function () {
 
       cy.configureCluster({
         mesos: '1-task-healthy',
@@ -27,7 +27,7 @@ describe('ComponentsList [10b]', function() {
       .visitUrl({url: '/dashboard', identify: true, fakeAnalytics: true});
     });
 
-    it('shows an acceptable number of components [10f]', function() {
+    it('shows an acceptable number of components [10f]', function () {
       cy.get('.component-list-component').within(function () {
         cy.get('li').should(function ($components) {
           expect($components.length)
@@ -37,7 +37,7 @@ describe('ComponentsList [10b]', function() {
       });
     });
 
-    it('navigates to unit health page [10c]', function() {
+    it('navigates to unit health page [10c]', function () {
       cy.get('.more-button').contains('Components').click();
       cy.hash().should('match', /system\/components/);
     });

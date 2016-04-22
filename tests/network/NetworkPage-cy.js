@@ -71,7 +71,7 @@ describe('Network Page [0hy]', function () {
           .get('.table tbody .text-danger').should(function ($textSuccess) {
             expect($textSuccess.length).to.equal(3);
           });
-    });
+      });
 
   });
 
@@ -79,14 +79,14 @@ describe('Network Page [0hy]', function () {
 
     it('opens the side panel when users click on the ip address [0i7]',
       function () {
-      cy
-        .get('.table tbody a').first().click();
+        cy
+          .get('.table tbody a').first().click();
 
-      cy
-        .get('.side-panel-large').should(function ($sidePanel) {
-          expect($sidePanel.length).to.equal(1);
-        });
-    });
+        cy
+          .get('.side-panel-large').should(function ($sidePanel) {
+            expect($sidePanel.length).to.equal(1);
+          });
+      });
 
     describe('VIPDetailSidePanelContents [0if]', function () {
 
@@ -115,7 +115,7 @@ describe('Network Page [0hy]', function () {
               expect($secondaryLabel[0].textContent).to.equal('3 Total Backends');
             });
         });
-        
+
         // it('updates the y-axis when changing the dataset', function () {
         //   cy
         //     .get('@chart')
@@ -217,7 +217,7 @@ describe('Network Page [0hy]', function () {
               .should(function ($textSuccess) {
                 expect($textSuccess.length).to.equal(3);
               });
-        });
+          });
 
       });
 
@@ -235,7 +235,7 @@ describe('Network Page [0hy]', function () {
               .should(function ($activeTab) {
                 expect($activeTab).to.contain('Details');
               });
-        });
+          });
 
       });
 
@@ -254,7 +254,7 @@ describe('Network Page [0hy]', function () {
                 console.log($networkItemDetails.children());
                 expect($networkItemDetails.children().length).to.equal(2);
               });
-        });
+          });
 
       });
 
@@ -315,7 +315,7 @@ describe('Network Page [0hy]', function () {
               .should(function ($textSuccess) {
                 expect($textSuccess.length).to.equal(1);
               });
-        });
+          });
 
       });
 
@@ -333,7 +333,7 @@ describe('Network Page [0hy]', function () {
               .should(function ($activeTab) {
                 expect($activeTab).to.contain('Details');
               });
-        });
+          });
 
       });
 
@@ -352,7 +352,7 @@ describe('Network Page [0hy]', function () {
                 console.log($networkItemDetails.children());
                 expect($networkItemDetails.children().length).to.equal(2);
               });
-        });
+          });
 
       });
 
