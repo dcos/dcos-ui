@@ -73,7 +73,8 @@ var CliInstructionsModal = React.createClass({
       let cliInstallOutputScript = Hooks.applyFilter(
         'installCLIModalCLIInstallScript', './install-optout.sh'
       );
-      cliSnippet = `mkdir -p dcos && cd dcos && \n  curl -O ${cliInstallScriptUrl} && \n  bash ${cliInstallOutputScript} . https://${hostname} && \n  source ./bin/env-setup`;
+      let protocol = global.location.protocol.replace(/[^\w]/g, '');
+      cliSnippet = `mkdir -p dcos && cd dcos && \n  curl -O ${cliInstallScriptUrl} && \n  bash ${cliInstallOutputScript} . ${protocol}://${hostname} && \n  source ./bin/env-setup`;
     }
 
     if (cliSnippet) {
