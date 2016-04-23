@@ -186,6 +186,10 @@ gulp.task('global-js', function () {
   return gulp.src([
     config.dirs.src + '/js/vendor/dygraph-combined.js'
   ])
+  .pipe(uglify({
+    mangle: true,
+    compress: true
+  }))
   .pipe(gulp.dest(config.dirs.dist));
 });
 
