@@ -3,6 +3,10 @@ import React from 'react';
 class FilterBar extends React.Component {
 
   getFilterBarLeft(filterItems, rightAlignCount) {
+    if (filterItems.length === rightAlignCount) {
+      return null;
+    }
+
     if (rightAlignCount > 0) {
       filterItems = filterItems.slice(0, filterItems.length - rightAlignCount);
     }
