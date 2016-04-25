@@ -3,6 +3,7 @@ import {Dropdown} from 'reactjs-components';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import FilterBar from './FilterBar';
 import FilterInputText from './FilterInputText';
 import IconDownload from './icons/IconDownload';
 import MesosLogView from './MesosLogView';
@@ -285,37 +286,27 @@ class TaskDebugView extends React.Component {
 
     return (
       <div className="flex-container-col flex-grow flex-shrink">
-        <div className="filter-bar control-group form-group flex-no-shrink flex-align-right flush-bottom">
-          <div className="filter-bar-left">
-            <div className="filter-bar-item">
-              <FilterInputText
-                ref="filterInput"
-                className="flex-grow flex-box"
-                placeholder="Search"
-                searchString={this.state.searchString}
-                sideText={this.getSearchCount()}
-                handleFilterChange={this.handleSearchStringChange}
-                inverseStyle={false}
-                inputContainerClass={inputContainerClassSet} />
-            </div>
-            <div className="filter-bar-item">
-              {this.getSearchButtons()}
-            </div>
-          </div>
-          <div className="filter-bar-right">
-            <div className="filter-bar-item">
-              {this.getSelectionComponent(selectedLogFile)}
-            </div>
-            <div className="filter-bar-item">
-              <a
-                className="button button-stroke"
-                disabled={!filePath}
-                href={TaskDirectoryActions.getDownloadURL(task.slave_id, filePath)}>
-                <IconDownload />
-              </a>
-            </div>
-          </div>
-        </div>
+        <FilterBar
+          className="filter-bar control-group form-group flex-no-shrink flex-align-right flush-bottom"
+          rightAlignLastNChildren={2}>
+          <FilterInputText
+            ref="filterInput"
+            className="flex-grow flex-box"
+            placeholder="Search"
+            searchString={this.state.searchString}
+            sideText={this.getSearchCount()}
+            handleFilterChange={this.handleSearchStringChange}
+            inverseStyle={false}
+            inputContainerClass={inputContainerClassSet} />
+          {this.getSearchButtons()}
+          {this.getSelectionComponent(selectedLogFile)}
+          <a
+            className="button button-stroke"
+            disabled={!filePath}
+            href={TaskDirectoryActions.getDownloadURL(task.slave_id, filePath)}>
+            <IconDownload />
+          </a>
+        </FilterBar>
         {this.getLogView(selectedName, filePath, task)}
       </div>
     );
