@@ -1,6 +1,7 @@
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var StringReplacePlugin = require('string-replace-webpack-plugin');
+
 var proxy;
 
 try {
@@ -32,9 +33,6 @@ module.exports = require('./make-webpack-config')({
       template: './src/index.html',
     }),
 
-    new ExtractTextPlugin('[name].css'),
-
-    new webpack.HotModuleReplacementPlugin()
-  ],
-  hot: true
+    new ExtractTextPlugin('[name].css')
+  ]
 });
