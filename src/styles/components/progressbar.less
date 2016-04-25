@@ -1,18 +1,26 @@
+@keyframes candy-stripe {
+  0% {
+    background-position: 0 0;
+  }
+
+  100% {
+    background-position: 16px 0;
+  }
+}
+
 .progress-bar {
   background-color: @neutral;
-  .border-radius(@table-header-border-radius);
+  border-radius: @table-header-border-radius;
   display: inline-block;
-  overflow: hidden;
-  line-height: @body-text-line-height;
-  width: @progress-bar-width;
   height: @progress-bar-height;
+  line-height: @body-text-line-height;
+  overflow: hidden;
+  width: @progress-bar-width;
 
   .bar {
-    height: 100%;
-
-    transition: width 600ms;
-
     box-shadow: 1px 0px 0px 0px @body-background-color;
+    height: 100%;
+    transition: width 600ms;
 
     &.color-1 {
       background-color: @purple;
@@ -33,4 +41,77 @@
   justify-content: space-between;
   align-items: center;
   margin-left: @base-spacing-unit * 0.5;
+}
+
+.upgrade-progress-bar {
+  display: block;
+  margin-right: @base-spacing-unit * 2/3;
+  width: 216px;
+
+  &.is-ongoing,
+  &.is-waiting {
+
+    .progress-bar-fill {
+      animation: candy-stripe 1s linear infinite;
+      background-size: 16px 16px;
+      background-image: linear-gradient(-45deg, color-lighten(@green, 10) 0,
+        color-lighten(@green, 10) 25%, color-lighten(@green, -10) 25%,
+        color-lighten(@green, -10) 50%, color-lighten(@green, 10) 50%,
+        color-lighten(@green, 10) 75%, color-lighten(@green, -10) 75%,
+        color-lighten(@green, -10) 100%);
+    }
+  }
+
+  &.is-waiting {
+
+    .progress-bar-label {
+      color: @white;
+    }
+  }
+
+  &.is-paused {
+
+    .progress-bar-fill {
+      background: color-lighten(@neutral, 40);
+    }
+  }
+
+  .progress-bar-header {
+    display: flex;
+    margin-bottom: @base-spacing-unit * 1/6;
+
+    &,
+    .emphasize {
+      color: currentColor;
+      font-size: @body-text-font-size * 0.95;
+    }
+
+    .progress-bar-label {
+      flex: 1 1 auto;
+    }
+
+    .progress-bar-label-action {
+      flex: 0 0 auto;
+      text-align: right;
+
+      a {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .progress-bar-fill-wrapper,
+  .progress-bar-fill {
+    height: 7px;
+  }
+
+  .progress-bar-fill-wrapper {
+    background: @neutral;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  .progress-bar-fill {
+    transition: width 600ms;
+  }
 }

@@ -10,16 +10,21 @@ import CosmosMessages from '../constants/CosmosMessages';
 import CosmosPackagesStore from '../stores/CosmosPackagesStore';
 import Config from '../config/Config';
 import PackagesTableHeaderLabels from '../constants/PackagesTableHeaderLabels';
+import PackageUpgradeOverview from './PackageUpgradeOverview';
 import ResourceTableUtil from '../utils/ResourceTableUtil';
 import TableUtil from '../utils/TableUtil';
 import UniversePackagesList from '../structs/UniversePackagesList';
+import UpgradePackageModal from './modals/UpgradePackageModal';
 
 const METHODS_TO_BIND = [
   'getHeadline',
+  'getUpgradeCell',
   'getUninstallButton',
   'handleOpenConfirm',
   'handleUninstallCancel',
-  'handleUninstallPackage'
+  'handleUninstallPackage',
+  'handleUpgradeCancel',
+  'handleUpgradeClick'
 ];
 
 class PackagesTable extends mixin(StoreMixin) {
@@ -27,9 +32,11 @@ class PackagesTable extends mixin(StoreMixin) {
     super();
 
     this.state = {
+      packageToUpgrade: null,
       packageToUninstall: null,
       packageUninstallError: null,
-      pendingRequest: false
+      pendingUninstallRequest: false,
+      pendingUpgradeRequest: false
     };
 
     this.store_listeners = [
@@ -49,14 +56,14 @@ class PackagesTable extends mixin(StoreMixin) {
   }
 
   onCosmosPackagesStoreUninstallError(error) {
-    this.setState({packageUninstallError: error, pendingRequest: false});
+    this.setState({packageUninstallError: error, pendingUninstallRequest: false});
   }
 
   onCosmosPackagesStoreUninstallSuccess() {
     this.setState({
       packageToUninstall: null,
       packageUninstallError: null,
-      pendingRequest: false
+      pendingUninstallRequest: false
     });
     CosmosPackagesStore.fetchInstalledPackages();
   }
@@ -78,7 +85,15 @@ class PackagesTable extends mixin(StoreMixin) {
       packageToUninstall.get('appId')
     );
 
-    this.setState({pendingRequest: true});
+    this.setState({pendingUninstallRequest: true});
+  }
+
+  handleUpgradeClick(packageToUpgrade) {
+    this.setState({packageToUpgrade});
+  }
+
+  handleUpgradeCancel() {
+    this.setState({packageToUpgrade: null});
   }
 
   getClassName(prop, sortBy, row) {
@@ -125,7 +140,7 @@ class PackagesTable extends mixin(StoreMixin) {
         headerClassName: getClassName,
         heading: function () {},
         prop: 'uninstall',
-        render: this.getUninstallButton,
+        render: this.getUpgradeCell,
         sortable: false
       }
     ];
@@ -136,7 +151,7 @@ class PackagesTable extends mixin(StoreMixin) {
       <colgroup>
         <col />
         <col style={{width: '120px'}} />
-        <col style={{width: '120px'}} />
+        <col style={{width: '330px'}} />
       </colgroup>
     );
   }
@@ -160,14 +175,12 @@ class PackagesTable extends mixin(StoreMixin) {
     );
   }
 
-  getUninstallButton(prop, packageToUninstall) {
+  getUpgradeCell(prop, cosmosPackage) {
     return (
-      <div className="flex-align-right">
-        <a
-          className="button button-link button-danger table-display-on-row-hover"
-          onClick={this.handleOpenConfirm.bind(this, packageToUninstall)}>
-          Uninstall
-        </a>
+      <div className="button-collection flush flex-align-right">
+        {this.getUninstallButton(cosmosPackage)}
+        <PackageUpgradeOverview cosmosPackage={cosmosPackage}
+          onUpgradeClick={this.handleUpgradeClick} />
       </div>
     );
   }
@@ -184,6 +197,20 @@ class PackagesTable extends mixin(StoreMixin) {
       <p className="text-error-state">
        {error.getMessage(packageUninstallError.name)}
       </p>
+    );
+  }
+
+  getUninstallButton(cosmosPackage) {
+    if (cosmosPackage.isUpgrading()) {
+      return null;
+    }
+
+    return (
+      <a className="button button-link button-danger flush-bottom
+        table-display-on-row-hover"
+        onClick={this.handleOpenConfirm.bind(this, cosmosPackage)}>
+        Uninstall
+      </a>
     );
   }
 
@@ -206,6 +233,19 @@ class PackagesTable extends mixin(StoreMixin) {
   }
 
   render() {
+    let {state} = this;
+    let packageName;
+    let packageToUpgrade = state.packageToUpgrade;
+    let packageVersion;
+
+    let isUpgradeModalOpen = !!packageToUpgrade;
+    let isUninstallModalOpen = !!state.packageToUninstall;
+
+    if (isUpgradeModalOpen) {
+      packageName = packageToUpgrade.getName();
+      packageVersion = packageToUpgrade.getCurrentVersion();
+    }
+
     return (
       <div>
         <Table
@@ -213,13 +253,19 @@ class PackagesTable extends mixin(StoreMixin) {
           columns={this.getColumns()}
           colGroup={this.getColGroup()}
           data={this.props.packages.getItems().slice()}
-          sortBy={{prop: 'appId', order: 'asc'}} />
+          sortBy={{prop: 'name', order: 'desc'}} />
+        <UpgradePackageModal
+          cosmosPackage={packageToUpgrade}
+          onClose={this.handleUpgradeCancel}
+          open={isUpgradeModalOpen}
+          packageName={packageName}
+          packageVersion={packageVersion} />
         <Confirm
           closeByBackdropClick={true}
-          disabled={this.state.pendingRequest}
+          disabled={state.pendingUninstallRequest}
           footerContainerClass="container container-pod container-pod-short
             container-pod-fluid flush-top flush-bottom"
-          open={!!this.state.packageToUninstall}
+          open={isUninstallModalOpen}
           onClose={this.handleUninstallCancel}
           leftButtonCallback={this.handleUninstallCancel}
           rightButtonCallback={this.handleUninstallPackage}
