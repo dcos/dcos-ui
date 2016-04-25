@@ -9,11 +9,11 @@ import EventTypes from '../constants/EventTypes';
 var FilterHealth = require('../components/FilterHealth');
 var FilterHeadline = require('../components/FilterHeadline');
 var FilterInputText = require('../components/FilterInputText');
-var InternalStorageMixin = require('../mixins/InternalStorageMixin');
 var Page = require('../components/Page');
 var MarathonStore = require('../stores/MarathonStore');
 var MesosSummaryStore = require('../stores/MesosSummaryStore');
 var ResourceBarChart = require('../components/charts/ResourceBarChart');
+import SaveStateMixin from '../mixins/SaveStateMixin';
 var ServicesTable = require('../components/ServicesTable');
 var SidebarActions = require('../events/SidebarActions');
 import SidePanels from '../components/SidePanels';
@@ -56,11 +56,18 @@ var DEFAULT_FILTER_OPTIONS = {
   searchString: ''
 };
 
+let saveState_properties = Object.keys(DEFAULT_FILTER_OPTIONS);
+saveState_properties.push('selectedResource');
+
 var ServicesPage = React.createClass({
 
   displayName: 'ServicesPage',
 
-  mixins: [InternalStorageMixin],
+  saveState_key: 'servicesPage',
+
+  saveState_properties,
+
+  mixins: [SaveStateMixin],
 
   statics: {
     routeConfig: {
@@ -85,15 +92,6 @@ var ServicesPage = React.createClass({
   getInitialState: function () {
     return _.extend({selectedResource: 'cpus'}, DEFAULT_FILTER_OPTIONS);
   },
-
-  componentWillMount: function () {
-    this.internalStorage_set(getMesosServices(this.state));
-    this.internalStorage_update({
-      openServicePanel: false,
-      openTaskPanel: false
-    });
-  },
-
   componentDidMount: function () {
     MesosSummaryStore.addChangeListener(
       EventTypes.MESOS_SUMMARY_CHANGE,
@@ -104,18 +102,6 @@ var ServicesPage = React.createClass({
       EventTypes.MESOS_SUMMARY_REQUEST_ERROR,
       this.onMesosStateChange
     );
-
-    this.internalStorage_update({
-      openServicePanel: this.props.params.serviceName != null,
-      openTaskPanel: this.props.params.taskID != null
-    });
-  },
-
-  componentWillReceiveProps: function (nextProps) {
-    this.internalStorage_update({
-      openServicePanel: nextProps.params.serviceName != null,
-      openTaskPanel: nextProps.params.taskID != null
-    });
   },
 
   componentWillUnmount: function () {
@@ -131,15 +117,12 @@ var ServicesPage = React.createClass({
   },
 
   onMesosStateChange: function () {
-    this.internalStorage_update(getMesosServices(this.state));
     this.forceUpdate();
   },
 
   handleHealthFilterChange: function (healthFilter) {
     var stateChanges = _.clone(DEFAULT_FILTER_OPTIONS);
     stateChanges.healthFilter = healthFilter;
-
-    this.internalStorage_update(getMesosServices(stateChanges));
     this.setState(stateChanges);
   },
 
@@ -150,24 +133,16 @@ var ServicesPage = React.createClass({
   },
 
   handleSearchStringChange: function (searchString) {
-    var data = getMesosServices({
-      searchString: searchString,
-      healthFilter: this.state.healthFilter
-    });
-
-    this.internalStorage_update(data);
     this.setState({searchString: searchString});
   },
 
   resetFilter: function () {
     var state = _.clone(DEFAULT_FILTER_OPTIONS);
-    this.internalStorage_update(getMesosServices(state));
     this.setState(state);
   },
 
-  getServicesPageContent: function () {
+  getServicesPageContent: function (data) {
     let state = this.state;
-    let data = this.internalStorage_get();
     let appsProcessed = MarathonStore.hasProcessedApps();
 
     return (
@@ -229,21 +204,21 @@ var ServicesPage = React.createClass({
     );
   },
 
-  getContents: function (isEmpty) {
+  getContents: function (isEmpty, data) {
     if (isEmpty) {
       return this.getEmptyServicesPageContent();
     } else {
-      return this.getServicesPageContent();
+      return this.getServicesPageContent(data);
     }
   },
 
   render: function () {
-    var data = this.internalStorage_get();
+    var data = getMesosServices(this.state);
     var isEmpty = data.statesProcessed && data.totalServices === 0;
 
     return (
       <Page title="Services">
-        {this.getContents(isEmpty)}
+        {this.getContents(isEmpty, data)}
         <RouteHandler />
       </Page>
     );
