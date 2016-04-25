@@ -118,6 +118,18 @@ var DOMUtils = {
         return transitions[t];
       }
     }
+  },
+
+  isElementOnTop: function (el) {
+    let {left, top, height, width} = el.getBoundingClientRect();
+    let elAtPoint = global.document.elementFromPoint(
+      // The coords of the middle of the element.
+      left + width / 2,
+      top + height / 2
+    );
+
+    // We need to also use #contains because the elAtPoint may be a child.
+    return el === elAtPoint || el.contains(elAtPoint);
   }
 };
 
