@@ -58,7 +58,7 @@ describe('NodesGridDials', function () {
     });
 
     it('contains a usedPercentage property which is a number', function () {
-      expect(_.isNumber(this.activeSlices.usedPercentage)).toEqual(true);
+      expect(typeof this.activeSlices.usedPercentage).toEqual('number');
     });
 
     it('contains a slice for the used resource', function () {

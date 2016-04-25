@@ -1,4 +1,3 @@
-var _ = require('underscore');
 var json = require('mesosphere-shared-reactjs').RequestUtil.json;
 
 const DEFAULT_ERROR_MESSAGE = 'An error has occurred.';
@@ -18,7 +17,7 @@ var RequestUtil = {
     var currentInterval = interval;
     options = options || {};
 
-    if (!_.isNumber(options.delayAfterCount)) {
+    if (typeof options.delayAfterCount !== 'number') {
       options.delayAfterCount = 0;
     }
 

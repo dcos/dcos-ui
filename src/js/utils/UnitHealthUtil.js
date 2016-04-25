@@ -1,5 +1,3 @@
-import _ from 'underscore';
-
 import UnitHealthStatus from '../constants/UnitHealthStatus';
 import TableUtil from '../utils/TableUtil';
 import Util from '../utils/Util';
@@ -50,7 +48,7 @@ const UnitHealthUtil = {
       return items;
     }
 
-    return _.filter(items, function (datum) {
+    return items.filter(function (datum) {
       return datum.getHealth().title.toLowerCase() === health;
     });
   }

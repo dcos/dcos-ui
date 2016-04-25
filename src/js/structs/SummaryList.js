@@ -47,7 +47,8 @@ module.exports = class SummaryList extends List {
   }
 
   getResourceStatesForServiceIDs(ids) {
-    let stateResources = this.getItems().map(function (state) {
+    let items = this.getItems() || [];
+    let stateResources = items.map(function (state) {
       let resources = null, totalResources = null;
 
       if (state.isSnapshotSuccessful()) {

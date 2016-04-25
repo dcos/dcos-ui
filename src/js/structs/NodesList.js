@@ -1,5 +1,3 @@
-import _ from 'underscore';
-
 import List from './List';
 import MesosSummaryUtil from '../utils/MesosSummaryUtil';
 import Node from './Node';
@@ -27,9 +25,9 @@ module.exports = class NodesList extends List {
 
       // Marathon API
       if (filters.ids) {
-        hosts = _.filter(hosts, function (host) {
-          return this.ids.indexOf(host.id) !== -1;
-        }, {ids: filters.ids});
+        hosts = hosts.filter(function (host) {
+          return filters.ids.includes(host.id);
+        });
       }
 
       // Marathon API
@@ -58,14 +56,18 @@ module.exports = class NodesList extends List {
 
   sumUsedResources() {
     let services = this.getItems();
-    let resourcesList = _.pluck(services, 'used_resources');
+    let resourcesList = services.map(function (service) {
+      return service.used_resources;
+    });
 
     return MesosSummaryUtil.sumResources(resourcesList);
   }
 
   sumResources() {
     let services = this.getItems();
-    let resourcesList = _.pluck(services, 'resources');
+    let resourcesList = services.map(function (service) {
+      return service.resources;
+    });
 
     return MesosSummaryUtil.sumResources(resourcesList);
   }

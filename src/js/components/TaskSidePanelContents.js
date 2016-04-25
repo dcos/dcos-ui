@@ -1,4 +1,3 @@
-import _ from 'underscore';
 import classNames from 'classnames';
 /* eslint-disable no-unused-vars */
 import React from 'react';
@@ -32,7 +31,7 @@ class TaskSidePanelContents extends SidePanelContents {
   constructor() {
     super(...arguments);
 
-    this.tabs_tabs = _.clone(TABS);
+    this.tabs_tabs = Object.assign({}, TABS);
 
     this.state = {
       currentTab: Object.keys(this.tabs_tabs).shift(),

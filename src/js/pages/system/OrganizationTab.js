@@ -1,4 +1,3 @@
-import _ from 'underscore';
 import classNames from 'classnames';
 import {Dropdown, Form, Table} from 'reactjs-components';
 import mixin from 'reactjs-mixin';
@@ -293,7 +292,7 @@ class OrganizationTab extends mixin(InternalStorageMixin) {
         }
       });
 
-      return _.filter(items, function (item) {
+      return items.filter(function (item) {
         let itemID = item[itemIDName];
         return selectedItems[itemID] || false;
       });
@@ -307,7 +306,7 @@ class OrganizationTab extends mixin(InternalStorageMixin) {
     searchString = searchString.toLowerCase();
 
     if (searchString !== '') {
-      return _.filter(items, (item) => {
+      return items.filter((item) => {
         let description = item.get('description').toLowerCase();
         let id = item.get(this.props.itemID).toLowerCase();
 

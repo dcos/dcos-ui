@@ -1,4 +1,3 @@
-import _ from 'underscore';
 import classNames from 'classnames';
 import React from 'react';
 
@@ -120,9 +119,9 @@ class TaskTable extends React.Component {
   }
 
   renderHeadline(prop, task) {
-    let dangerState = _.contains(TaskStates[task.state].stateTypes, 'failure');
+    let dangerState = TaskStates[task.state].stateTypes.includes('failure');
 
-    let successState = _.contains(TaskStates[task.state].stateTypes, 'success');
+    let successState = TaskStates[task.state].stateTypes.includes('success');
 
     let statusClass = classNames({
       'dot': true,

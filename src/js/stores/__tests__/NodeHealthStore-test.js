@@ -65,14 +65,14 @@ describe('NodeHealthStore', function () {
     });
 
     it('dispatches the correct event upon success', function () {
-      var mockedFn = jest.genMockFunction();
+      var mockedFn = jasmine.createSpy();
       NodeHealthStore.addChangeListener(EventTypes.HEALTH_NODES_CHANGE, mockedFn);
       AppDispatcher.handleServerAction({
         type: ActionTypes.REQUEST_HEALTH_NODES_SUCCESS,
         data: []
       });
 
-      expect(mockedFn.mock.calls.length).toEqual(2);
+      expect(mockedFn.calls.count()).toEqual(2);
     });
 
     it('dispatches the correct event upon error', function () {

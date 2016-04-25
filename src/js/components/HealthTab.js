@@ -1,4 +1,3 @@
-import _ from 'underscore';
 import React from 'react';
 import {Table} from 'reactjs-components';
 
@@ -9,6 +8,7 @@ import StringUtil from '../utils/StringUtil';
 import TableUtil from '../utils/TableUtil';
 import UnitHealthDropdown from '../components/UnitHealthDropdown';
 import UnitHealthUtil from '../utils/UnitHealthUtil';
+import Util from '../utils/Util';
 
 const METHODS_TO_BIND = [
   'handleHealthSelection',
@@ -105,8 +105,8 @@ class HealthTab extends React.Component {
     let router = this.props.parentRouter;
     let healthCheckName = `${unit.getTitle()} Health Check`;
     let currentPath = router.getCurrentRoutes();
-    let path = `${_.last(currentPath).name}-health`;
-    let params = _.clone(router.getCurrentParams());
+    let path = `${Util.last(currentPath).name}-health`;
+    let params = Object.assign({}, router.getCurrentParams());
 
     params.unitNodeID = this.props.node.get('host_ip');
     params.unitID = unit.get('id');
