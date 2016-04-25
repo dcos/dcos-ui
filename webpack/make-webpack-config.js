@@ -53,6 +53,23 @@ module.exports = function (options) {
     return loader;
   }
 
+  function getJsLoader() {
+    var loader = 'babel?' + JSON.stringify({
+      cacheDirectory: true,
+      // Map through resolve to fix preset loading problem
+      presets: [
+        'babel-preset-es2015',
+        'babel-preset-react'
+      ].map(require.resolve),
+    });
+
+    if (options.production) {
+      return loader;
+    }
+
+    return 'react-hot!' + loader;
+  }
+
   return {
     entry: options.entry,
 
@@ -90,15 +107,7 @@ module.exports = function (options) {
         {
           test: /\.js$/,
           exclude: /node_modules/,
-          loaders: ['react-hot', 'babel'],
-          query: {
-            cacheDirectory: true,
-            // Map through resolve to fix preset loading problem
-            presets: [
-              'babel-preset-es2015',
-              'babel-preset-react'
-            ].map(require.resolve),
-          }
+          loader: getJsLoader()
         },
         // Replace @@variables
         {
