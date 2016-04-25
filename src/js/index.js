@@ -1,3 +1,8 @@
+// Load in our CSS.
+// TODO - DCOS-6452 - remove component @imports from index.less and
+// require them in the component.js
+import '../styles/index.less';
+
 import PluginSDK from 'PluginSDK';
 
 import 'babel-polyfill';
