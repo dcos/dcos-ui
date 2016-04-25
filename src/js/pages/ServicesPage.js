@@ -56,11 +56,16 @@ var DEFAULT_FILTER_OPTIONS = {
   searchString: ''
 };
 
+let saveState_properties = Object.keys(DEFAULT_FILTER_OPTIONS);
+saveState_properties.push('selectedResource');
+
 var ServicesPage = React.createClass({
 
   displayName: 'ServicesPage',
 
   saveState_key: 'servicesPage',
+
+  saveState_properties,
 
   mixins: [SaveStateMixin],
 
