@@ -125,6 +125,10 @@
     "start": "webpack-dev-server --config ./webpack/webpack.config.js --hot --progress --colors --content-base ./build",
     "build": "cross-env NODE_ENV=production webpack --config ./webpack/webpack.production.js"
   },
+  "analytics": {
+    "development": "39uhSEOoRHMw6cMR6st9tYXDbAL3JSaP",
+    "production": "51ybGTeFEFU1xo6u10XMDrr6kATFyRyh"
+  },
   "jest-webpack-alias": {
     "configFile": "./webpack/webpack.config.js"
   }
