@@ -75,8 +75,7 @@ describe('QueryParamsMixin', function () {
     expect(decodedArrayString).toEqual(['a', 'b', 'c']);
   });
 
-  it('should encode nested arrays in query params',
-    function () {
+  it('should encode nested arrays in query params', function () {
     let queryObject = {
       arrayValue: [
         'value1',
