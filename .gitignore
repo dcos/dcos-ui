@@ -3,6 +3,7 @@
 .idea/*
 !dist/
 dist/*
+build/
 npm-debug.log
 node_modules/
 src/js/config/Config.dev.js
@@ -11,3 +12,4 @@ tmp/
 *.orig
 .plugins/
 .external_plugins/
+jest/config.json
