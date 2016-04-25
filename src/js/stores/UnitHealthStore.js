@@ -93,7 +93,7 @@ const UnitHealthStore = Store.createStore({
   },
 
   shouldPoll: function () {
-    return (this.listeners(HEALTH_UNITS_CHANGE).length === 0);
+    return !(this.listeners(HEALTH_UNITS_CHANGE).length === 0);
   },
 
   getUnits: function () {

@@ -93,7 +93,7 @@ const NodeHealthStore = Store.createStore({
   },
 
   shouldPoll: function () {
-    return (this.listeners(HEALTH_NODES_CHANGE).length === 0);
+    return !(this.listeners(HEALTH_NODES_CHANGE).length === 0);
   },
 
   getNodes: function () {

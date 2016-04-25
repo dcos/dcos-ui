@@ -73,7 +73,7 @@ describe('UnitHealthStore', function () {
         data: []
       });
 
-      expect(mockedFn.calls.count()).toEqual(1);
+      expect(mockedFn.calls.count()).toEqual(2);
     });
 
     it('dispatches the correct event upon error', function () {
