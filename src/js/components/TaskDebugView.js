@@ -6,6 +6,7 @@ import ReactDOM from 'react-dom';
 import FilterBar from './FilterBar';
 import FilterInputText from './FilterInputText';
 import IconDownload from './icons/IconDownload';
+import KeyboardUtil from '../utils/KeyboardUtil';
 import MesosLogView from './MesosLogView';
 import TaskDirectoryActions from '../events/TaskDirectoryActions';
 
@@ -39,13 +40,15 @@ class TaskDebugView extends React.Component {
   }
 
   componentWillReceiveProps(nextProps, nextState) {
-    let {searchString, totalFound} = nextState;
+    let nextSearchString = nextState.searchString;
+    let nextTotalFound = nextState.totalFound;
     let updatedState = {};
 
-    if (totalFound === 0) {
+    if (nextTotalFound === 0) {
       updatedState.watching = 0;
     } else if (this.state.watching === 0 ||
-      this.state.searchString !== searchString && searchString != null) {
+      nextSearchString != null &&
+      this.state.searchString !== nextSearchString) {
       updatedState.watching = 1;
     }
 
@@ -62,7 +65,7 @@ class TaskDebugView extends React.Component {
 
   handleKeyDown(event) {
     let {keyCode} = event;
-    if (keyCode === 13) {
+    if (keyCode === KeyboardUtil.keyCodes.enter) {
       this.changeWatching('next');
     }
   }
@@ -265,9 +268,9 @@ class TaskDebugView extends React.Component {
     return (
       <div className="button-group button-group-directions">
         <div onClick={this.changeWatching.bind(this, 'previous')}
-          className="button button-default button-up button-stroke" />
+          className="button button-default button-up-arrow button-stroke" />
         <div onClick={this.changeWatching.bind(this, 'next')}
-          className="button button-default button-down button-stroke" />
+          className="button button-default button-down-arrow button-stroke" />
       </div>
     );
   }
@@ -287,7 +290,7 @@ class TaskDebugView extends React.Component {
     return (
       <div className="flex-container-col flex-grow flex-shrink">
         <FilterBar
-          className="filter-bar flex-wrap control-group form-group flex-no-shrink flush-bottom"
+          className="filter-bar flex-box flex-box-wrap control-group form-group flex-no-shrink flush-bottom"
           rightAlignLastNChildren={2}>
           <FilterInputText
             ref="filterInput"

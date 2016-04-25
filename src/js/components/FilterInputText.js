@@ -95,7 +95,7 @@ var FilterInputText = React.createClass({
     let inputContainerClasses = classNames({
       'form-control form-control-group filter-input-text-group': true,
       'form-control-inverse': props.inverseStyle,
-      'focus': focus,
+      'focus': focus
     }, props.inputContainerClass);
 
     let formGroupClasses = classNames(
