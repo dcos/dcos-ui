@@ -8,17 +8,17 @@ if (!fs.existsSync(configFilePath)) {
 var autoprefixer = require('gulp-autoprefixer');
 var browserSync = require('browser-sync');
 var colorLighten = require('less-color-lighten');
-var changed = require('gulp-changed');
+// var changed = require('gulp-changed');
 var connect = require('gulp-connect');
-var del = require('del');
+// var del = require('del');
 var gulp = require('gulp');
 var gulpif = require('gulp-if');
 var gutil = require('gulp-util');
 var imagemin = require('gulp-imagemin');
 var less = require('gulp-less');
 var csso = require('gulp-csso');
-var mkdirp = require('mkdirp');
-var path = require('path');
+// var mkdirp = require('mkdirp');
+// var path = require('path');
 var replace = require('gulp-replace');
 var runSequence = require('run-sequence');
 var sourcemaps = require('gulp-sourcemaps');
@@ -26,65 +26,22 @@ var uglify = require('gulp-uglify');
 var webpack = require('webpack');
 var WebpackNotifierPlugin = require('webpack-notifier');
 
-var config = require('./.build.config');
+var config = require('./webpack/build.config');
 var packageInfo = require('./package');
-var webpackConfig = require('./.webpack.config');
+var webpackConfig = require('./webpack/webpack.config');
 
 var development = process.env.NODE_ENV === 'development';
 var devBuild = development || (process.env.NODE_ENV === 'testing');
-var externalPluginsDirectory = '../dcos-ui-plugins-private';
 
-var pluginsGlob = [
-  externalPluginsDirectory + '/**/*.*'
-];
+if (!devBuild) {
+  webpackConfig = require('./webpack/webpack.production');
+}
 
 function browserSyncReload() {
   if (development) {
     browserSync.reload();
   }
 }
-// Watches for delete in external plugins directory and deletes counterpart in
-// DC/OS-UI directory
-function deletePluginFile(event) {
-  if (event.type === 'deleted') {
-    var filePathFromPlugins = path.relative(
-      path.resolve(externalPluginsDirectory), event.path);
-
-    var destFilePath = path.resolve(
-      config.dirs.pluginsTmp, filePathFromPlugins);
-
-    del.sync(destFilePath);
-    webpackFn(browserSyncReload);
-  }
-}
-
-function ensurePluginDirectoryExists() {
-  // Make temp plugins directory if doesn't exist
-  if (!fs.existsSync(config.dirs.pluginsTmp)) {
-    mkdirp(config.dirs.pluginsTmp, function () {
-      console.log('Created ' + config.dirs.pluginsTmp);
-    });
-  }
-}
-ensurePluginDirectoryExists();
-
-// Clean out plugins in destination folder
-gulp.task('clean:external-plugins', function () {
-  return del([config.dirs.pluginsTmp + '/**/*']);
-});
-
-// Copy over all
-gulp.task('copy:external-plugins', ['clean:external-plugins'], function () {
-  return gulp.src(pluginsGlob)
-    .pipe(gulp.dest(config.dirs.pluginsTmp));
-});
-
-// Copy over changed files
-gulp.task('copy:changed-external-plugins', function () {
-  return gulp.src(pluginsGlob)
-    .pipe(changed(config.dirs.pluginsTmp))
-    .pipe(gulp.dest(config.dirs.pluginsTmp));
-});
 
 gulp.task('browsersync', function () {
   browserSync.init({
@@ -176,8 +133,6 @@ gulp.task('watch', function () {
   gulp.watch(config.files.srcHTML, ['html']);
   gulp.watch(config.dirs.srcCSS + '/**/*.less', ['less']);
   gulp.watch(config.dirs.srcImg + '/**/*.*', ['images']);
-  var watcher = gulp.watch(pluginsGlob, ['copy:changed-external-plugins']);
-  watcher.on('change', deletePluginFile);
   // Why aren't we watching any JS files? Because we use webpack's
   // internal watch, which is faster due to insane caching.
 });
@@ -229,7 +184,6 @@ function webpackFn(callback) {
 }
 gulp.task('default', function (callback) {
   runSequence(
-    'copy:external-plugins',
     ['global-js', 'less', 'images', 'html'],
     'webpack',
     'replace-js-strings',

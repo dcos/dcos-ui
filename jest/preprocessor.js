@@ -1,5 +1,6 @@
-var babelJest = require('babel-jest');
 var webpackAlias = require('jest-webpack-alias');
+var babel = require('babel-core');
+var jestPreset = require('babel-preset-jest');
 
 module.exports = {
   // Gets called by jest during test prep for every module.
@@ -8,7 +9,17 @@ module.exports = {
     // Don't bother doing anything to node_modules
     if (filename.indexOf('node_modules') === -1) {
       // Run our modules through Babel before running tests
-      src = babelJest.process(src, filename);
+      if (babel.util.canCompile(filename)) {
+        src = babel.transform(src, {
+          auxiliaryCommentBefore: ' istanbul ignore next ',
+          filename,
+          presets: [jestPreset].concat([
+            'babel-preset-es2015',
+            'babel-preset-react'
+          ].map(require.resolve)),
+          retainLines: true,
+        }).code;
+      }
       // Run our modules through the jest-webpack-alias plugin so we
       // can use the webpack alias in tests. By default, jest doesn't work
       // with webpack at all. webPackAlias matches filenames against the
