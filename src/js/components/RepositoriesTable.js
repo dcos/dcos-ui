@@ -92,7 +92,7 @@ class RepositoriesTable extends mixin(StoreMixin) {
       .renderHeading(RepositoriesTableHeaderLabels);
     let sortFunction = TableUtil.getSortFunction('uri', function (item, prop) {
       if (prop === 'priority') {
-        return repositories.getItems().indexOf(item);
+        return repositories.getPriority(item);
       }
 
       return item.get(prop);
@@ -169,7 +169,7 @@ class RepositoriesTable extends mixin(StoreMixin) {
   }
 
   getPriority(prop, repository) {
-    return this.props.repositories.getItems().indexOf(repository);
+    return this.props.repositories.getPriority(repository);
   }
 
   getRemoveButton(prop, repositoryToRemove) {
