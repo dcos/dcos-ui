@@ -58,7 +58,7 @@ class AddRepositoryFormModal extends mixin(StoreMixin) {
     this.resetState();
   }
 
-  getIsWithinRange(min, max) {
+  getWithinRangeFunction(min, max) {
     return function (number) {
       return number >= min && number <= max;
     };
@@ -101,7 +101,7 @@ class AddRepositoryFormModal extends mixin(StoreMixin) {
         validationErrorText: `Must be a positive integer between 0 and ${numberOfRepositories} representing its priority. 0 is the highest and ${numberOfRepositories} denotes the lowest priority.`,
         showLabel: false,
         writeType: 'input',
-        validation: this.getIsWithinRange(0, numberOfRepositories),
+        validation: this.getWithinRangeFunction(0, numberOfRepositories),
         value: ''
       }
     ];
