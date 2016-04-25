@@ -1,5 +1,6 @@
 import {Dropdown, Modal} from 'reactjs-components';
 import React from 'react';
+import userURI from '../img/icon-user-default-64x64@2x.png';
 
 let SDK = require('../SDK').getSDK();
 
@@ -120,7 +121,7 @@ class UserDropup extends React.Component {
             icon-user-container">
             <img
               className="clickable"
-              src="./img/layout/icon-user-default-64x64@2x.png" />
+              src={userURI} />
           </span>
           {description}
         </a>
