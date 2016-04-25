@@ -250,7 +250,9 @@ class TaskDebugView extends React.Component {
     }
 
     return (
-      <span className="search-count">{`${watching} out of ${totalFound}`}</span>
+      <span className="search-count mute">
+        {`${watching} out of ${totalFound}`}
+      </span>
     );
   }
 
