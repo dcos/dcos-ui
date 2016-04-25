@@ -13,3 +13,4 @@ tmp/
 .plugins/
 .external_plugins/
 jest/config.json
+webpack/proxy.dev.js

@@ -54,17 +54,9 @@ module.exports = function (options) {
   }
 
   return {
-    entry: options.production ? './src/js/index.js' : [
-      'webpack-dev-server/client?http://localhost:8080',
-      'webpack/hot/only-dev-server',
-      './src/js/index.js',
-    ],
+    entry: options.entry,
 
-    devServer: {
-      proxy: {
-        '*': 'http://mat-vytkb-elasticl-gaugjfo9dd8u-2145658064.us-west-2.elb.amazonaws.com/'
-      }
-    },
+    devServer: options.devServer || {},
 
     debug: !options.production,
 
@@ -98,7 +90,7 @@ module.exports = function (options) {
         {
           test: /\.js$/,
           exclude: /node_modules/,
-          loader: 'babel',
+          loaders: ['react-hot', 'babel'],
           query: {
             cacheDirectory: true,
             // Map through resolve to fix preset loading problem

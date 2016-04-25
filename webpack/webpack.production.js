@@ -4,6 +4,7 @@ var StringReplacePlugin = require('string-replace-webpack-plugin');
 var webpack = require('webpack');
 
 module.exports = require('./make-webpack-config')({
+  entry: './src/js/index.js',
   devtool: '#source-map',
   production: true,
   output: {
