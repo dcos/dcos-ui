@@ -42,6 +42,7 @@ module.exports = {
     IconInfo: 'icons/IconInfo',
     MesosphereLogo: 'icons/MesosphereLogo',
     FormModal: 'FormModal',
+    FilterBar: 'FilterBar',
     FilterHeadline: 'FilterHeadline',
     FilterInputText: 'FilterInputText',
     ActionsModal: 'modals/ActionsModal',
