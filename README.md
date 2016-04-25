@@ -5,6 +5,7 @@
 Node 4.x (and above) is **required**. We suggest using [nvm](https://github.com/creationix/nvm) or [n](https://github.com/tj/n) to keep multiple Node versions on your system.
 
 
+
 ## DC/OS Installation Instructions:
 1. Follow the instructions [here](https://github.com/dcos/dcos-vagrant) to install a local cluster.
 2. In your dcos-vagrant repo from the previous step, run:
