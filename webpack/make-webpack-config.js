@@ -8,13 +8,7 @@ var colorLighten = require('less-color-lighten');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var StringReplacePlugin = require('string-replace-webpack-plugin');
 
-var analyticsKey = '39uhSEOoRHMw6cMR6st9tYXDbAL3JSaP';
-
-var VARS = {
-  VERSION: packageInfo.version,
-  ENV: process.env.NODE_ENV,
-  ANALYTICS_KEY: analyticsKey
-}
+var analyticsKey = packageInfo.analytics.development;
 
 function absPath() {
   var args = [].slice.apply(arguments);
@@ -39,8 +33,14 @@ module.exports = function (options) {
     scssLoaders = extractForProduction(scssLoaders);
     lessLoaders = extractForProduction(lessLoaders);
 
-    analyticsKey = '51ybGTeFEFU1xo6u10XMDrr6kATFyRyh';
+    analyticsKey = packageInfo.analytics.production;
   }
+
+  var VARS = {
+    VERSION: packageInfo.version,
+    ENV: process.env.NODE_ENV,
+    ANALYTICS_KEY: analyticsKey
+  };
 
   function addImageOptimizer(loader) {
     if (options.production) {
