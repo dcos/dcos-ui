@@ -174,4 +174,29 @@ describe('DOMUtils', function () {
       expect(result).toEqual(true);
     });
   });
+
+  describe('#getDistanceFromTopOfParent', function () {
+    beforeEach(function () {
+      this.element = {
+        getBoundingClientRect: function () {
+          return {
+            top: 300
+          };
+        },
+        parentNode: {
+          getBoundingClientRect: function () {
+            return {
+              top: 200
+            };
+          }
+        }
+      }
+    });
+
+    it('gets the correct distance from parent top', function () {
+      var result = DOMUtils.getDistanceFromTopOfParent(this.element);
+
+      expect(result).toEqual(100);
+    });
+  });
 });

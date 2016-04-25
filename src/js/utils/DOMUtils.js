@@ -130,6 +130,13 @@ var DOMUtils = {
 
     // We need to also use #contains because the elAtPoint may be a child.
     return el === elAtPoint || el.contains(elAtPoint);
+  },
+
+  getDistanceFromTopOfParent: function (el) {
+    let elTop = el.getBoundingClientRect().top;
+    let parentTop = el.parentNode.getBoundingClientRect().top;
+
+    return elTop - parentTop;
   }
 };
 
