@@ -75,14 +75,15 @@ module.exports = class ServerErrorModal extends mixin(StoreMixin) {
 
   getContent() {
     let {errors} = this.state;
-    let errorMessages = this.state.errors.map(function (error, i) {
+    let lastErrorIndex = errors.length - 1;
+    let errorMessages = errors.map(function (error, index) {
       let errorMessageClass = classNames('text-align-center', {
         // Last error message doesn't have margin bottom.
-        'flush-bottom': i === errors.length - 1
+        'flush-bottom': index === lastErrorIndex
       });
 
       return (
-        <p className={errorMessageClass} key={i}>
+        <p className={errorMessageClass} key={index}>
           {error}
         </p>
       );
