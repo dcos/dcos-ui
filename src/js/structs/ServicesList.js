@@ -23,7 +23,7 @@ module.exports = class ServicesList extends List {
     if (filters) {
       if (filters.ids) {
         services = services.filter(function (service) {
-          return filters.ids.indexOf(service.id) !== -1;
+          return filters.ids.includes(service.id);
         });
       }
 

@@ -26,8 +26,8 @@ module.exports = class NodesList extends List {
       // Marathon API
       if (filters.ids) {
         hosts = hosts.filter(function (host) {
-          return this.ids.indexOf(host.id) !== -1;
-        }, {ids: filters.ids});
+          return filters.ids.includes(host.id);
+        });
       }
 
       // Marathon API
