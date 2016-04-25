@@ -93,20 +93,6 @@ function addReducer(root, reducer) {
 }
 
 /**
- * Unmocks the plugin entry point for pluginID
- * @param  {Strin} pluginID - ID of plugin
- * @return {Bool}          - true if mocked plugin
- */
-function unMockPlugin(pluginID) {
-  let availablePlugins = Loader.__getAvailablePlugins();
-  if (pluginID in availablePlugins) {
-    jest.dontMock('../../../plugins/' + availablePlugins[pluginID]);
-    return true;
-  }
-  return false;
-}
-
-/**
  * Takes an Array or String representing a module name{s) that need unMocking,
  * finds the directory of the file and calls jest.dontMock on path.
  * @param  {Array|String} moduleNames - Names of modules to dontMock
@@ -121,10 +107,6 @@ function dontMock(moduleNames) {
   var name = moduleNames;
   // Try unmocking store first
   if (JestUtil.dontMockStore(name)) {
-    return;
-  }
-  // Try unmocking plugin
-  if (unMockPlugin(name)) {
     return;
   }
   // Assuming modules have unique names
