@@ -54,7 +54,7 @@ const Units = {
       return amount;
     }
 
-    options = Object.assign({decimalPlaces: 2}, options || {});
+    options = Object.assign({decimalPlaces: 2}, options);
 
     if (amount > 1) {
       let precision = Math.pow(10, options.decimalPlaces);

@@ -65,7 +65,6 @@ describe('Util', function () {
       expect(last).toEqual(null);
     });
 
-
   });
 
   describe('#findLastIndex', function () {
