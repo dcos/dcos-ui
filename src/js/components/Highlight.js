@@ -24,22 +24,41 @@ function escapeStringRegexp(str) {
   return str.replace(MATCH_OPERATOR_RE, '\\$&');
 }
 
+let debounceTimeout = null;
+
 class Highlight extends mixin(InternalStorageMixin) {
   constructor() {
     super(...arguments);
     this.count = 0;
   }
 
-  componentDidUpdate(prevProps) {
-    if (prevProps.search !== this.props.search ||
-      this.props.children.length !== prevProps.children.length) {
-      let {highlightCount} = this.internalStorage_get();
-      if (!this.props.search) {
-        highlightCount = 0;
-      }
+  shouldComponentUpdate(nextProps) {
+    let currentProps = this.props;
 
-      this.props.onCountChange(highlightCount);
+    if (nextProps.search !== currentProps.search) {
+      clearTimeout(debounceTimeout);
+
+      let searchLength = nextProps.search.length;
+      let {searchDebounceThreshold, searchDebounceDelay} = currentProps;
+      if (searchLength <= searchDebounceThreshold && searchLength > 0) {
+        debounceTimeout = setTimeout(() => {
+          this.forceUpdate();
+        }, searchDebounceDelay);
+
+        return false;
+      }
     }
+
+    return true;
+  }
+
+  componentDidUpdate() {
+    let {highlightCount} = this.internalStorage_get();
+    if (!this.props.search) {
+      highlightCount = 0;
+    }
+
+    this.props.onCountChange(highlightCount);
   }
 
   /**
@@ -238,6 +257,8 @@ Highlight.defaultProps = {
   caseSensitive: false,
   matchElement: 'strong',
   matchClass: 'highlight',
+  searchDebounceDelay: 500,
+  searchDebounceThreshold: 2,
   selectedMatchClass: 'highlight selected'
 };
 
@@ -251,6 +272,8 @@ Highlight.propTypes = {
   caseSensitive: React.PropTypes.bool,
   matchElement: React.PropTypes.string,
   matchClass: React.PropTypes.string,
+  searchDebounceDelay: React.PropTypes.number,
+  searchDebounceThreshold: React.PropTypes.number,
   selectedMatchClass: React.PropTypes.string,
   watching: React.PropTypes.number
 };

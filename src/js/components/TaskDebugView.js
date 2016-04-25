@@ -91,7 +91,7 @@ class TaskDebugView extends React.Component {
   }
 
   handleSearchStringChange(searchString) {
-    this.setState({searchString});
+    this.setState({searchString, watching: 1});
   }
 
   handleViewChange(currentFile) {
@@ -287,7 +287,7 @@ class TaskDebugView extends React.Component {
     return (
       <div className="flex-container-col flex-grow flex-shrink">
         <FilterBar
-          className="filter-bar control-group form-group flex-no-shrink flex-align-right flush-bottom"
+          className="filter-bar flex-wrap control-group form-group flex-no-shrink flush-bottom"
           rightAlignLastNChildren={2}>
           <FilterInputText
             ref="filterInput"
