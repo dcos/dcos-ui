@@ -14,14 +14,12 @@ jest.setMock('react-router', {
   }
 });
 
-import {Hooks} from 'PluginSDK';
 import PluginTestUtils from 'PluginTestUtils';
 
 PluginTestUtils.loadPluginsByName({
   tracking: {enabled: true}
 });
 
-var ActionTypes = require('../../constants/ActionTypes');
 var AppDispatcher = require('../AppDispatcher');
 var Config = require('../../config/Config');
 var MesosSummaryActions = require('../MesosSummaryActions');
