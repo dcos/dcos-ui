@@ -129,18 +129,6 @@ var ServicesTable = React.createClass({
     );
   },
 
-  renderTask: function (prop, service) {
-    let tasksRunning = service.getTasksSummary().tasksRunning;
-    return (
-      <span>
-        {tasksRunning}
-        <span className="visible-mini-inline">
-          {StringUtil.pluralize(' Task', tasksRunning)}
-        </span>
-      </span>
-    );
-  },
-
   getColumns: function () {
     let className = ResourceTableUtil.getClassName;
     let heading = ResourceTableUtil.renderHeading(ServiceTableHeaderLabels);
@@ -167,8 +155,8 @@ var ServicesTable = React.createClass({
       {
         className,
         headerClassName: className,
-        prop: 'tasks',
-        render: this.renderTask,
+        prop: 'disk',
+        render: this.renderStats,
         sortable: true,
         sortFunction: ServiceTableUtil.propCompareFunctionFactory,
         heading
@@ -186,15 +174,6 @@ var ServicesTable = React.createClass({
         className,
         headerClassName: className,
         prop: 'mem',
-        render: this.renderStats,
-        sortable: true,
-        sortFunction: ServiceTableUtil.propCompareFunctionFactory,
-        heading
-      },
-      {
-        className,
-        headerClassName: className,
-        prop: 'disk',
         render: this.renderStats,
         sortable: true,
         sortFunction: ServiceTableUtil.propCompareFunctionFactory,
