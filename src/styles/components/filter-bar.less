@@ -4,60 +4,56 @@
   flex-wrap: wrap-reverse;
   width: 100%;
 
-  .filter-bar-left, .filter-bar-right {
+}
 
-    display: inline-flex;
-    flex: 0 0 auto;
-    flex-wrap: wrap;
-    max-width: 100%;
-    width: auto;
+.filter-bar-right {
 
-    .filter-bar-item {
+  margin-left: auto;
 
-      flex: 0 0 auto;
-      max-width: 100%;
+  &:last-child {
 
-    }
+    padding-right: 0;
 
   }
 
-  .filter-bar-right {
+  .filter-bar-item:last-child {
 
-    margin-left: auto;
+    // This overrides all of the specificity applied by the classes
+    // below.
+    padding-right: 0;
 
-    &:last-child {
-
-      padding-right: 0;
-
-    }
-
-    .filter-bar-item:last-child {
-
-      // This overrides all of the specificity applied by the classes
-      // below.
-      padding-right: 0;
-
-    }
-
-  }
-
-  .filter-input-text-group {
-
-    &-wide {
-
-      width: @base-spacing-unit * 12;
-
-      .filter-input-text {
-
-        width: @base-spacing-unit * 6;
-
-      }
-
-    }
   }
 
 }
 
+.filter-bar-left, .filter-bar-right {
+
+  display: inline-flex;
+  flex: 0 0 auto;
+  flex-wrap: wrap;
+  max-width: 100%;
+  width: auto;
+
+  .filter-bar-item {
+
+    flex: 0 0 auto;
+    max-width: 100%;
+
+  }
+
+  &.flex-grow {
+
+    flex-grow: 1;
+
+  }
+
+  &.flex-shrink {
+
+    flex-shrink: 1;
+
+  }
+
+}
 
 .filter-bar-item {
 
@@ -66,31 +62,20 @@
 
 }
 
-
 & when (@media-object-enabled) and (@screen-mini-enabled) {
 
   @media (min-width: @screen-mini) {
+
+    .flex-no-wrap-mini {
+
+      flex-wrap: nowrap;
+
+    }
 
     .filter-bar-item {
 
       padding-bottom: @base-spacing-unit-screen-mini * 1/4;
       padding-right: @base-spacing-unit-screen-mini * 1/4;
-
-    }
-
-    .filter-input-text-group {
-
-      &-wide {
-
-        width: @base-spacing-unit-screen-mini * 12;
-
-        .filter-input-text {
-
-          width: @base-spacing-unit-screen-mini * 6;
-
-        }
-
-      }
 
     }
 
@@ -110,22 +95,6 @@
 
     }
 
-    .filter-input-text-group {
-
-      &-wide {
-
-        width: @base-spacing-unit-screen-small * 12;
-
-        .filter-input-text {
-
-          width: @base-spacing-unit-screen-small * 6;
-
-        }
-
-      }
-
-    }
-
   }
 
 }
@@ -142,22 +111,6 @@
 
     }
 
-    .filter-input-text-group {
-
-      &-wide {
-
-        width: @base-spacing-unit-screen-medium * 12;
-
-        .filter-input-text {
-
-          width: @base-spacing-unit-screen-medium * 6;
-
-        }
-
-      }
-
-    }
-
   }
 
 }
@@ -171,22 +124,6 @@
 
       padding-bottom: @base-spacing-unit-screen-large * 1/4;
       padding-right: @base-spacing-unit-screen-large * 1/4;
-
-    }
-
-    .filter-input-text-group {
-
-      &-wide {
-
-        width: @base-spacing-unit-screen-large * 12;
-
-        .filter-input-text {
-
-          width: @base-spacing-unit-screen-large * 6;
-
-        }
-
-      }
 
     }
 

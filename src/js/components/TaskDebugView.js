@@ -290,7 +290,8 @@ class TaskDebugView extends React.Component {
     return (
       <div className="flex-container-col flex-grow flex-shrink">
         <FilterBar
-          className="filter-bar flex-box flex-box-wrap control-group form-group flex-no-shrink flush-bottom"
+          className="filter-bar flex-no-wrap-mini control-group form-group flex-no-shrink flush-bottom"
+          leftChildrenClass="filter-bar-left filter-bar-search-container flex-no-wrap flex-grow flex-shrink"
           rightAlignLastNChildren={2}>
           <FilterInputText
             ref="filterInput"

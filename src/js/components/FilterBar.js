@@ -12,7 +12,7 @@ class FilterBar extends React.Component {
     }
 
     return (
-      <div className="filter-bar-left">
+      <div className={this.props.leftChildrenClass}>
         {this.getFilterItems(filterItems)}
       </div>
     );
@@ -26,7 +26,7 @@ class FilterBar extends React.Component {
     }
 
     return (
-      <div className="filter-bar-right">
+      <div className={this.props.rightChildrenClass}>
         {this.getFilterItems(filterItems)}
       </div>
     );
@@ -57,12 +57,16 @@ class FilterBar extends React.Component {
 
 FilterBar.propTypes = {
   className: React.PropTypes.string,
-  rightAlignLastNChildren: React.PropTypes.number
+  rightAlignLastNChildren: React.PropTypes.number,
+  leftChildrenClass: React.PropTypes.string,
+  rightChildrenClass: React.PropTypes.string
 };
 
 FilterBar.defaultProps = {
   className: 'filter-bar',
-  rightAlignLastNChildren: 0
+  leftChildrenClass: 'filter-bar-left',
+  rightAlignLastNChildren: 0,
+  rightChildrenClass: 'filter-bar-right'
 };
 
 module.exports = FilterBar;
