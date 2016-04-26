@@ -152,14 +152,14 @@ describe('ServiceTableUtil', function () {
 
     });
 
-    describe('compare item health', function () {
+    describe('compare item status', function () {
 
       beforeEach(function () {
         this.compareFunction =
-          ServiceTableUtil.propCompareFunctionFactory('health', 'asc');
+          ServiceTableUtil.propCompareFunctionFactory('status', 'asc');
       });
 
-      it('should return 1 if a comes after b in the health sorting',
+      it('should return 1 if a comes after b in the status sorting',
         function () {
           expect(
             this.compareFunction(healthyService, unhealthyService)
@@ -167,13 +167,13 @@ describe('ServiceTableUtil', function () {
         }
       );
 
-      it('should return 0 if a has the same health as b', function () {
+      it('should return 0 if a has the same status as b', function () {
         expect(
           this.compareFunction(healthyService, healthyService)
         ).toEqual(0);
       });
 
-      it('should return -1 if a comes beforeEach b in the health sorting',
+      it('should return -1 if a comes beforeEach b in the status sorting',
         function () {
           expect(
             this.compareFunction(unhealthyService, healthyService)

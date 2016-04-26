@@ -6,7 +6,6 @@ jest.dontMock('../ServicesTable');
 var React = require('react');
 /* eslint-enable no-unused-vars */
 var ReactDOM = require('react-dom');
-var HealthLabels = require('../../constants/HealthLabels');
 var ServicesTable = require('../ServicesTable');
 var Service = require('../../structs/Service');
 
@@ -22,36 +21,6 @@ describe('ServicesTable', function () {
     tasksHealthy: 2,
     tasksUnhealthy: 0
   });
-  const unhealthyService = new Service({
-    healthChecks: [{path: '', protocol: 'HTTP'}],
-    cpus: 1,
-    mem: 2048,
-    disk: 0,
-    tasksStaged: 0,
-    tasksRunning: 1,
-    tasksHealthy: 0,
-    tasksUnhealthy: 1
-  });
-  const idleService = new Service({
-    healthChecks: [{path: '', protocol: 'HTTP'}],
-    cpus: 1,
-    mem: 2048,
-    disk: 0,
-    tasksStaged: 0,
-    tasksRunning: 0,
-    tasksHealthy: 0,
-    tasksUnhealthy: 0
-  });
-  const naService = new Service({
-    healthChecks: [],
-    cpus: 1,
-    mem: 2048,
-    disk: 0,
-    tasksStaged: 0,
-    tasksRunning: 1,
-    tasksHealthy: 0,
-    tasksUnhealthy: 0
-  });
 
   beforeEach(function () {
     this.container = document.createElement('div');
@@ -63,57 +32,6 @@ describe('ServicesTable', function () {
 
   afterEach(function () {
     ReactDOM.unmountComponentAtNode(this.container);
-  });
-
-  describe('#renderHealth', function () {
-
-    it('should render healthy health status for healthy services',
-      function () {
-        var healthCell = ReactDOM.render(
-          this.instance.renderHealth('health', healthyService),
-          this.container
-        );
-        expect(ReactDOM.findDOMNode(healthCell).textContent)
-          .toEqual(HealthLabels.HEALTHY);
-
-      }
-    );
-
-    it('should render unhealthy health status for unhealthy services',
-      function () {
-        var healthCell = ReactDOM.render(
-          this.instance.renderHealth('health', unhealthyService),
-          this.container
-        );
-        expect(ReactDOM.findDOMNode(healthCell).textContent)
-          .toEqual(HealthLabels.UNHEALTHY);
-
-      }
-    );
-
-    it('should render idle health status for idle services', function () {
-      var healthCell = ReactDOM.render(
-        this.instance.renderHealth('health', idleService),
-        this.container
-      );
-      expect(ReactDOM.findDOMNode(healthCell).textContent)
-        .toEqual(HealthLabels.IDLE);
-
-    });
-
-    it('should render N/A health status for services with unknown health',
-      function () {
-        var healthCell = ReactDOM.render(
-          this.instance.renderHealth('health', naService),
-          this.container
-        );
-
-        expect(ReactDOM.findDOMNode(healthCell).textContent)
-          .toEqual(HealthLabels.NA);
-
-      }
-    );
-
   });
 
   describe('#renderStats', function () {
