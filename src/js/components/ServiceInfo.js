@@ -1,5 +1,6 @@
 import React from 'react';
 
+import HealthBar from './HealthBar';
 import HealthStatus from '../constants/HealthStatus';
 import HealthLabels from '../constants/HealthLabels';
 import Service from '../structs/Service';
@@ -9,7 +10,9 @@ class ServiceInfo extends React.Component {
 
   getSubHeader(service) {
     let serviceHealth = service.getHealth();
-    let runningTasksCount = service.getTasksSummary().tasksRunning;
+    let tasks = service.getTasksSummary();
+    let runningTasksCount = tasks.tasksRunning;
+    let instancesCount = service.getInstancesCount();
     let runningTasksSubHeader = StringUtil.pluralize('Task', runningTasksCount);
     let subHeaderItems = [
       {
@@ -21,6 +24,14 @@ class ServiceInfo extends React.Component {
         classes: 'media-object-item',
         label: `${runningTasksCount} Running ${runningTasksSubHeader}`,
         shouldShow: runningTasksCount != null && runningTasksSubHeader != null
+      },
+      {
+        label: (
+          <HealthBar
+            tasks={tasks}
+            instancesCount={instancesCount} />
+        ),
+        shouldShow: true
       }
     ];
 
