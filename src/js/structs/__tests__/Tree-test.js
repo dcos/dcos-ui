@@ -133,7 +133,7 @@ describe('Tree', function () {
     });
 
     it('should return an instance of Tree', function () {
-      var filteredTree = this.instance.filterItems(function (item){
+      var filteredTree = this.instance.filterItems(function () {
         return true;
       })
         ;
@@ -141,8 +141,8 @@ describe('Tree', function () {
     });
 
     it('should filter items', function () {
-      var filteredTree = this.instance.filterItems(function (item){
-        return item.name === "bar";
+      var filteredTree = this.instance.filterItems(function (item) {
+        return item.name === 'bar';
       });
 
       expect(filteredTree.getItems().length).toEqual(1);
@@ -150,8 +150,8 @@ describe('Tree', function () {
     });
 
     it('should filter sub items', function () {
-      var filteredTree = this.instance.filterItems(function (item){
-        return item.name === "one";
+      var filteredTree = this.instance.filterItems(function (item) {
+        return item.name === 'one';
       });
 
       expect(filteredTree.getItems()[0].getItems()[0].getItems()[0])
