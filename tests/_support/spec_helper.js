@@ -16,7 +16,7 @@ Cypress.addParentCommand('configureCluster', function (configuration) {
   }
 
   if (configuration.mesos === '1-for-each-health') {
-   cy
+    cy
       .route(/apps/, 'fx:1-app-for-each-health/app')
       .route(/dcos-version/, 'fx:dcos/dcos-version')
       .route(/history\/minute/, 'fx:marathon-1-task/history-minute')
