@@ -64,7 +64,7 @@ class FilterButtons extends React.Component {
 FilterButtons.defaultProps = {
   inverseStyle: false,
   onFilterChange: function () {},
-  renderButtonContent: function (title) {return title; }
+  renderButtonContent: function (title) { return title; }
 };
 
 FilterButtons.propTypes = {

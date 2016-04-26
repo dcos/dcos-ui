@@ -180,7 +180,7 @@ var MesosStateStore = Store.createStore({
       let {tasks=[], completed_tasks={}, name} = framework;
 
       if (name === mesosServiceName) {
-        return  serviceTasks.concat(tasks,completed_tasks);
+        return serviceTasks.concat(tasks, completed_tasks);
       }
 
       // Filter marathon tasks by service name
