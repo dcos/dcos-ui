@@ -3,9 +3,12 @@ import React from 'react';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import InternalStorageMixin from '../mixins/InternalStorageMixin';
+import MesosStateStore from '../stores/MesosStateStore';
 import Service from '../structs/Service';
+import Framework from '../structs/Framework';
 import ServiceInfo from './ServiceInfo';
 import TabsMixin from '../mixins/TabsMixin';
+import TaskView from './TaskView';
 
 const METHODS_TO_BIND = [];
 
@@ -48,7 +51,15 @@ class ServiceDetail
   }
 
   renderTasksTabView() {
-    return (<span>Tasks Placeholder</span>);
+    let {service} = this.props;
+    let tasks = [];
+
+    // TODO (orlandohohmeier): Get application tasks by application id
+    if (service instanceof Framework) {
+      tasks = MesosStateStore.getTasksFromServiceName(service.getName());
+    }
+
+    return (<TaskView tasks={tasks} inverseStyle={true} />);
   }
 
   render() {
@@ -67,7 +78,12 @@ class ServiceDetail
             {this.tabs_getUnroutedTabs()}
           </ul>
         </div>
-        {this.tabs_getTabView()}
+        <div className="
+        side-panel-tab-content side-panel-section container container-pod
+        container-pod-short container-fluid container-fluid-flush
+        flex-container-col flex-grow">
+          {this.tabs_getTabView()}
+        </div>
       </div>
 
     );
