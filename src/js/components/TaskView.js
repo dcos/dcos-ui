@@ -195,6 +195,7 @@ TaskTable.defaultProps = {
 TaskView.propTypes = {
   inverseStyle: React.PropTypes.bool,
   itemID: React.PropTypes.string,
+  parentRouter: React.PropTypes.func.isRequired,
   tasks: React.PropTypes.array
 };
 

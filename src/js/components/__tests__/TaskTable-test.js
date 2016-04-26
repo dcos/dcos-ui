@@ -22,6 +22,7 @@ describe('TaskTable', function () {
         return [{nodeID: 'thing'}];
       }
     };
+
     this.container = document.createElement('div');
     this.instance = ReactDOM.render(
       <TaskTable tasks={Tasks} parentRouter={this.parentRouter} />,
