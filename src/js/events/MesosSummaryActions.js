@@ -1,9 +1,9 @@
 import {
-  REQUEST_MESOS_HISTORY_SUCCESS,
+  REQUEST_SUMMARY_HISTORY_SUCCESS,
   REQUEST_MESOS_HISTORY_ONGOING,
-  REQUEST_MESOS_SUMMARY_SUCCESS,
-  REQUEST_MESOS_SUMMARY_ERROR,
-  REQUEST_MESOS_SUMMARY_ONGOING
+  REQUEST_SUMMARY_SUCCESS,
+  REQUEST_SUMMARY_ERROR,
+  REQUEST_SUMMARY_ONGOING
 } from '../constants/ActionTypes';
 
 var AppDispatcher = require('./AppDispatcher');
@@ -24,12 +24,12 @@ function testHistoryOnline() {
   });
 }
 
-function getHistory(resolve, reject, timeScale = 'last') {
+function requestFromHistoryServer(resolve, reject, timeScale = 'last') {
   let url = `${Config.historyServer}/dcos-history-service/history/${timeScale}`;
-  let successEventType = REQUEST_MESOS_SUMMARY_SUCCESS;
+  let successEventType = REQUEST_SUMMARY_SUCCESS;
 
   if (timeScale === TimeScales.MINUTE) {
-    successEventType = REQUEST_MESOS_HISTORY_SUCCESS;
+    successEventType = REQUEST_SUMMARY_HISTORY_SUCCESS;
   }
 
   RequestUtil.json({
@@ -46,7 +46,7 @@ function getHistory(resolve, reject, timeScale = 'last') {
 
       setTimeout(testHistoryOnline, Config.testHistoryInterval);
       // Immediately fall back on state-summary
-      getStateSummary(resolve, reject);
+      requestFromMesos(resolve, reject);
     },
     hangingRequestCallback: function () {
       AppDispatcher.handleServerAction({type: REQUEST_MESOS_HISTORY_ONGOING});
@@ -54,25 +54,25 @@ function getHistory(resolve, reject, timeScale = 'last') {
   });
 }
 
-function getStateSummary(resolve, reject) {
+function requestFromMesos(resolve, reject) {
   RequestUtil.json({
     url: `${Config.rootUrl}/mesos/master/state-summary`,
     success: function (response) {
       AppDispatcher.handleServerAction({
-        type: REQUEST_MESOS_SUMMARY_SUCCESS,
+        type: REQUEST_SUMMARY_SUCCESS,
         data: response
       });
       resolve();
     },
     error: function (e) {
       AppDispatcher.handleServerAction({
-        type: REQUEST_MESOS_SUMMARY_ERROR,
+        type: REQUEST_SUMMARY_ERROR,
         data: e.message
       });
       reject();
     },
     hangingRequestCallback: function () {
-      AppDispatcher.handleServerAction({type: REQUEST_MESOS_SUMMARY_ONGOING});
+      AppDispatcher.handleServerAction({type: REQUEST_SUMMARY_ONGOING});
     }
   });
 }
@@ -85,9 +85,9 @@ var MesosSummaryActions = {
 
       return function (timeScale) {
         if (!_historyServiceOnline) {
-          getStateSummary(resolve, reject);
+          requestFromMesos(resolve, reject);
         } else {
-          getHistory(resolve, reject, timeScale);
+          requestFromHistoryServer(resolve, reject, timeScale);
         }
       };
     },
