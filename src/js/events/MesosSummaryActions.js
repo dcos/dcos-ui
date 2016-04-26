@@ -9,6 +9,7 @@ import {
 var AppDispatcher = require('./AppDispatcher');
 var Config = require('../config/Config');
 var RequestUtil = require('../utils/RequestUtil');
+var TimeScales = require('../constants/TimeScales');
 var _historyServiceOnline = true;
 
 function testHistoryOnline() {
@@ -27,7 +28,7 @@ function getHistory(resolve, reject, timeScale = 'last') {
   let url = `${Config.historyServer}/dcos-history-service/history/${timeScale}`;
   let successEventType = REQUEST_MESOS_SUMMARY_SUCCESS;
 
-  if (timeScale === 'minute') {
+  if (timeScale === TimeScales.MINUTE) {
     successEventType = REQUEST_MESOS_HISTORY_SUCCESS;
   }
 
@@ -64,8 +65,6 @@ function getStateSummary(resolve, reject) {
       resolve();
     },
     error: function (e) {
-      _historyServiceOnline = false;
-
       AppDispatcher.handleServerAction({
         type: REQUEST_MESOS_SUMMARY_ERROR,
         data: e.message
