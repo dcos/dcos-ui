@@ -1,10 +1,9 @@
 var ServiceTableHeaderLabels = {
   cpus: 'CPU',
   disk: 'DISK',
-  health: 'HEALTH',
   mem: 'MEM',
   name: 'SERVICE NAME',
-  tasks: 'TASKS'
+  status: 'STATUS'
 };
 
 module.exports = ServiceTableHeaderLabels;

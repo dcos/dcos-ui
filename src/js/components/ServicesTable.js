@@ -1,12 +1,10 @@
 import {Link} from 'react-router';
 var React = require('react');
-import {Tooltip} from 'reactjs-components';
 
 import Cluster from '../utils/Cluster';
 var EventTypes = require('../constants/EventTypes');
 import Framework from '../structs/Framework';
-var HealthLabels = require('../constants/HealthLabels');
-var HealthTypesDescription = require('../constants/HealthTypesDescription');
+import HealthBar from './HealthBar';
 import IconNewWindow from './icons/IconNewWindow';
 var MarathonStore = require('../stores/MarathonStore');
 var ResourceTableUtil = require('../utils/ResourceTableUtil');
@@ -17,6 +15,10 @@ import StringUtil from '../utils/StringUtil';
 import {Table} from 'reactjs-components';
 import TableUtil from '../utils/TableUtil';
 var Units = require('../utils/Units');
+
+const StatusMapping = {
+  'Running': 'color-1'
+};
 
 var ServicesTable = React.createClass({
 
@@ -109,15 +111,27 @@ var ServicesTable = React.createClass({
     );
   },
 
-  renderHealth: function (prop, service) {
-    let appHealth = service.getHealth();
+  renderStatus: function (prop, service) {
+    let instances = service.getInstancesCount();
+    let serviceStatus = service.getStatus();
+    let serviceStatusClassSet = StatusMapping[serviceStatus] || '';
+    let tasks = service.getTasksSummary();
+    let {tasksRunning} = tasks;
+
+    let text = ` (${tasksRunning} ${StringUtil.pluralize('Task', tasksRunning)})`;
+    if (tasksRunning !== instances) {
+      text = ` (${tasksRunning} of ${instances} Tasks)`;
+    }
 
     return (
-      <Tooltip content={HealthTypesDescription[appHealth.key]}>
-        <span className={appHealth.classNames}>
-          {HealthLabels[appHealth.key]}
+      <div className="status-bar-wrapper">
+        <HealthBar taskSummary={tasks} instancesCount={instances} />
+        <span className="visible-large-inline-block">
+          <span className={serviceStatusClassSet}>{serviceStatus}</span>
+          {text}
         </span>
-      </Tooltip>
+
+      </div>
     );
   },
 
@@ -146,8 +160,8 @@ var ServicesTable = React.createClass({
       {
         className,
         headerClassName: className,
-        prop: 'health',
-        render: this.renderHealth,
+        prop: 'status',
+        render: this.renderStatus,
         sortable: true,
         sortFunction: ServiceTableUtil.propCompareFunctionFactory,
         heading
@@ -186,7 +200,7 @@ var ServicesTable = React.createClass({
     return (
       <colgroup>
         <col />
-        <col style={{width: '14%'}} />
+        <col className="status-bar-column"/>
         <col style={{width: '100px'}} />
         <col className="hidden-mini" style={{width: '120px'}} />
         <col className="hidden-mini" style={{width: '120px'}} />
