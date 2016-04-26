@@ -3,7 +3,8 @@ import React from 'react';
 
 import EventTypes from '../constants/EventTypes';
 import FilterBar from './FilterBar';
-import FilterByTaskState from './FilterByTaskState';
+import FilterButtons from './FilterButtons';
+import FilterHeadline from './FilterHeadline';
 import FilterInputText from './FilterInputText';
 import MesosStateStore from '../stores/MesosStateStore';
 import RequestErrorMsg from './RequestErrorMsg';
@@ -15,8 +16,11 @@ import TaskTable from './TaskTable';
 const METHODS_TO_BIND = [
   'handleSearchStringChange',
   'handleStatusFilterChange',
-  'onMesosStateRequestError'
+  'onMesosStateRequestError',
+  'resetFilter'
 ];
+
+const STATUS_FILTER_BUTTONS = ['all', 'active', 'completed'];
 
 class TaskView extends mixin(SaveStateMixin) {
   constructor() {
@@ -80,37 +84,6 @@ class TaskView extends mixin(SaveStateMixin) {
     return this.state.mesosStateErrorCount >= 3;
   }
 
-  getStatusCounts(tasks) {
-    let statusCount = {active: 0, completed: 0};
-
-    tasks.forEach(function (task) {
-      if (TaskStates[task.state].stateTypes.includes('active')) {
-        statusCount.active += 1;
-      }
-
-      if (TaskStates[task.state].stateTypes.includes('completed')) {
-        statusCount.completed += 1;
-      }
-    });
-
-    return statusCount;
-  }
-
-  getStatuses(tasks) {
-    let statusCount = this.getStatusCounts(tasks);
-    return [{
-      count: statusCount.active,
-      id: 'active',
-      name: 'Active Tasks',
-      value: 'active'
-    }, {
-      count: statusCount.completed,
-      id: 'completed',
-      name: 'Completed Tasks',
-      value: 'completed'
-    }];
-  }
-
   getLoadingScreen() {
     if (this.hasLoadingError()) {
       return <RequestErrorMsg />;
@@ -140,27 +113,35 @@ class TaskView extends mixin(SaveStateMixin) {
     );
   }
 
-  getHeaderText(tasks) {
-    let currentStatus = this.state.filterByStatus;
-    let tasksLength = tasks.length;
-    if (currentStatus === 'all') {
-      return `${tasksLength} ${StringUtil.pluralize('Task', tasksLength)}`;
-    }
+  resetFilter() {
+    this.setState({
+      searchString: '',
+      filterByStatus: 'all'
+    });
+  }
 
-    const displayNameMap = {
-      active: 'Active',
-      completed: 'Completed'
-    };
-
-    let statusCount = this.getStatusCounts(tasks)[currentStatus];
-    let displayName = displayNameMap[currentStatus];
-    let pluralizedTasks = StringUtil.pluralize('Task', statusCount);
-    return `${statusCount} ${displayName} ${pluralizedTasks}`;
+  getButtonContent(filterName, count) {
+    return (
+      <span className="button-align-content">
+        <span className="label">{StringUtil.capitalize(filterName)}</span>
+        <span className="badge">{count || 0}</span>
+      </span>
+    );
   }
 
   getContent() {
     let {searchString, filterByStatus} = this.state;
     let {tasks, inverseStyle} = this.props;
+    let totalNumberOfTasks = tasks.length;
+
+    // Get task states based on TaskStates types
+    let taskStates = tasks.map(function (task) {
+      let {stateTypes} = TaskStates[task.state];
+
+      return stateTypes.find(function (state) {
+        return state === 'active' || state === 'completed';
+      });
+    });
 
     if (searchString !== '') {
       tasks = StringUtil.filterByString(tasks, 'name', searchString);
@@ -170,21 +151,25 @@ class TaskView extends mixin(SaveStateMixin) {
 
     return (
       <div className="flex-container-col flex-grow">
-        <span className="h4 text-align-left flush-top">
-          {this.getHeaderText(tasks)}
-        </span>
+        <FilterHeadline
+          inverseStyle={inverseStyle}
+          onReset={this.resetFilter}
+          name="Tasks"
+          currentLength={tasks.length}
+          totalLength={totalNumberOfTasks} />
         <FilterBar>
-          <FilterInputText
-            className="flush-bottom"
-            searchString={searchString}
-            handleFilterChange={this.handleSearchStringChange}
-            inverseStyle={inverseStyle} />
+          <FilterButtons
+            renderButtonContent={this.getButtonContent}
+            filters={STATUS_FILTER_BUTTONS}
+            onFilterChange={this.handleStatusFilterChange}
+            inverseStyle={inverseStyle}
+            itemList={taskStates}
+            selectedFilter={filterByStatus} />
           <div className="form-group flush-bottom">
-            <FilterByTaskState
-              statuses={this.getStatuses(tasks)}
-              handleFilterChange={this.handleStatusFilterChange}
-              totalTasksCount={tasks.length}
-              currentStatus={filterByStatus}/>
+            <FilterInputText
+              searchString={searchString}
+              handleFilterChange={this.handleSearchStringChange}
+              inverseStyle={inverseStyle} />
           </div>
         </FilterBar>
         {this.getTaskTable(tasks)}
