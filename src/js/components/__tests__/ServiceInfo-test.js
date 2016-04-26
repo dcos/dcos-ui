@@ -22,7 +22,6 @@ describe('ServiceInfo', function () {
     tasksUnhealthy: 0
   });
 
-
   describe('#render', function () {
     beforeEach(function () {
       this.container = document.createElement('div');
