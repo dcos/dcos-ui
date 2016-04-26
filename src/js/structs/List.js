@@ -22,7 +22,7 @@ module.exports = class List {
       this.list = options.items;
     }
 
-    this.filterProperties = options.filterProperties || [];
+    this.filterProperties = options.filterProperties || {};
   }
 
   add(item) {

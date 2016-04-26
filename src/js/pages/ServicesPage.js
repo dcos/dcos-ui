@@ -11,6 +11,7 @@ import SaveStateMixin from '../mixins/SaveStateMixin';
 import Service from '../structs/Service';
 import ServiceDetail from '../components/ServiceDetail';
 import ServiceFilterTypes from '../constants/ServiceFilterTypes';
+import ServiceSearchFilter from '../components/ServiceSearchFilter';
 import ServiceSidebarFilters from '../components/ServiceSidebarFilters';
 import ServicesTable from '../components/ServicesTable';
 import ServiceTree from '../structs/ServiceTree';
@@ -124,6 +125,8 @@ var ServicesPage = React.createClass({
               name="Services"
               currentLength={filteredServices.length}
               totalLength={services.length} />
+            <ServiceSearchFilter
+              handleFilterChange={this.handleFilterChange} />
             <ServicesTable
               services={filteredServices} />
           </div>

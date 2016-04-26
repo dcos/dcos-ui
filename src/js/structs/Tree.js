@@ -130,8 +130,8 @@ module.exports = class Tree extends List {
       if (filter.name) {
         let tree =
           new this.constructor(Object.assign({},
-            this, {items: services, filterProperties: 'name'}));
-        services = tree.filterItems(filter.name).getItems();
+            this, {items: services, filterProperties: this.getFilterProperties()}));
+        services = tree.filterItemsByText(filter.name).getItems();
       }
 
       if (filter.health != null && filter.health.length !== 0) {
