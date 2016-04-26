@@ -32,6 +32,69 @@ describe('MesosStateStore', function () {
     });
   });
 
+  describe('#getTasksByServiceId', function () {
+    beforeEach(function () {
+      this.get = MesosStateStore.get;
+      MesosStateStore.get = function () {
+        return {
+          frameworks: [
+            {
+              name: 'marathon',
+              tasks: [
+                {name: 'spark', id: 'spark.1'},
+                {name: 'alpha', id: 'alpha.1'},
+                {name: 'alpha', id: 'alpha.2'}
+              ],
+              completed_tasks: [
+                {name: 'alpha', id: 'alpha.3'}
+              ]
+            },
+            {
+              name: 'spark',
+              tasks: [
+                {name: '1'},
+                {name: '2'}
+              ],
+              completed_tasks: [
+                {name: '3'}
+              ]
+            }
+          ]
+        };
+      };
+    });
+
+    afterEach(function () {
+      MesosStateStore.get = this.get;
+    });
+
+    it('should return matching framework tasks including scheduler tasks',
+      function () {
+        var tasks = MesosStateStore.getTasksByServiceId('/spark');
+        expect(tasks).toEqual([
+          {name: 'spark', id: 'spark.1'},
+          {name: '1'},
+          {name: '2'},
+          {name: '3'}
+        ]);
+      }
+    );
+
+    it('should return matching application tasks', function () {
+      var tasks = MesosStateStore.getTasksByServiceId('/alpha');
+      expect(tasks).toEqual([
+        {name: 'alpha', id: 'alpha.1'},
+        {name: 'alpha', id: 'alpha.2'},
+        {name: 'alpha', id: 'alpha.3'}
+      ]);
+    });
+
+    it('should empty task list if no service matches', function () {
+      var tasks = MesosStateStore.getTasksByServiceId('/non-existent');
+      expect(tasks).toEqual([]);
+    });
+  });
+
   describe('#getNodeFromID', function () {
     beforeEach(function () {
       this.get = MesosStateStore.get;
