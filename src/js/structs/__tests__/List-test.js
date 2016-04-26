@@ -93,7 +93,7 @@ describe('List', function () {
     });
 
     it('should return an instance of List', function () {
-      var items = this.instance.filterItems(function (item) {
+      var items = this.instance.filterItems(function () {
         return true;
       });
       expect(items instanceof List).toEqual(true);
@@ -101,7 +101,7 @@ describe('List', function () {
 
     it('should filter items', function () {
       var items = this.instance.filterItems(function (item) {
-        return item.name === "bar";
+        return item.name === 'bar';
       });
       expect(items.getItems().length).toEqual(1);
       expect(items.getItems()[0]).toEqual({name: 'bar'});
