@@ -226,15 +226,16 @@ class TaskView extends mixin(SaveStateMixin) {
   }
 }
 
-TaskView.defaultProps = {
+TaskTable.defaultProps = {
   inverseStyle: false,
-  tasks: [],
+  itemID: '',
+  tasks: []
 };
 
 TaskView.propTypes = {
-  tasks: React.PropTypes.array,
+  inverseStyle: React.PropTypes.bool,
   itemID: React.PropTypes.string,
-  inverseStyle: React.PropTypes.bool
+  tasks: React.PropTypes.array
 };
 
 module.exports = TaskView;
