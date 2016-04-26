@@ -199,6 +199,7 @@ class TaskTable extends React.Component {
 
 TaskTable.propTypes = {
   inverseStyle: React.PropTypes.bool,
+  parentRouter: React.PropTypes.func.isRequired,
   tasks: React.PropTypes.array.isRequired
 };
 

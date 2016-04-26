@@ -53,7 +53,10 @@ class ServiceDetail
     let {service} = this.props;
     let tasks = MesosStateStore.getTasksByServiceId(service.getId());
 
-    return (<TaskView tasks={tasks} inverseStyle={true} />);
+    return (
+      <TaskView tasks={tasks} inverseStyle={true}
+        parentRouter={this.context.router} />
+    );
   }
 
   render() {
@@ -83,6 +86,10 @@ class ServiceDetail
     );
   }
 }
+
+ServiceDetail.contextTypes = {
+  router: React.PropTypes.func
+};
 
 ServiceDetail.propTypes = {
   service: React.PropTypes.instanceOf(Service)
