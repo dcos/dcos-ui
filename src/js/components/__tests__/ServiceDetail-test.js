@@ -44,7 +44,6 @@ describe('ServiceDetail', function () {
 
   });
 
-
   describe('#renderConfigurationTabView', function () {
 
     it('renders placeholder', function () {

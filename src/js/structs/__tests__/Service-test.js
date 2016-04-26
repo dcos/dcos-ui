@@ -97,7 +97,6 @@ describe('Service', function () {
     });
   });
 
-
   describe('#getExecuter', function () {
 
     it('returns correct command', function () {
