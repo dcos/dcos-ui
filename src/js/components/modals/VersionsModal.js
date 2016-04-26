@@ -1,7 +1,7 @@
-var React = require('react');
-
 import {Modal} from 'reactjs-components';
+import React from 'react';
 
+import ClickToSelect from '../ClickToSelect';
 import Config from '../../config/Config';
 
 var VersionsModal = React.createClass({
@@ -39,7 +39,9 @@ var VersionsModal = React.createClass({
         titleClass="modal-header-title text-align-center flush-top
           flush-bottom"
         titleText={`${Config.productName} Info`}>
-        {this.getContent()}
+        <ClickToSelect>
+          {this.getContent()}
+        </ClickToSelect>
       </Modal>
     );
   }
