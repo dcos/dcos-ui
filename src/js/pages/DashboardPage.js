@@ -14,7 +14,6 @@ var MesosSummaryStore = require('../stores/MesosSummaryStore');
 var Page = require('../components/Page');
 var Panel = require('../components/Panel');
 var ResourceTimeSeriesChart = require('../components/charts/ResourceTimeSeriesChart');
-var TaskFailureTimeSeriesChart = require('../components/charts/TaskFailureTimeSeriesChart');
 var ServiceList = require('../components/ServiceList');
 import StringUtil from '../utils/StringUtil';
 var TasksChart = require('../components/charts/TasksChart');
@@ -27,9 +26,6 @@ function getMesosState() {
   let last = states.lastSuccessful();
 
   return {
-    // Need clone, modifying in place will make update components check for
-    // change in the same array, in stead of two different references
-    taskFailureRate: _.clone(MesosSummaryStore.get('taskFailureRate')),
     hostsCount: states.getActiveNodesByState(),
     refreshRate: Config.getRefreshRate(),
     services: last.getServiceList(),
@@ -250,10 +246,14 @@ var DashboardPage = React.createClass({
           <div className="grid-item column-mini-6 column-large-4 column-x-large-3">
             <Panel
               className="panel panel-inverse dashboard-panel dashboard-panel-resource-chart"
-              heading={this.getHeading('Task Failure Rate')}
+              heading={this.getHeading('Disk Allocation')}
               headingClass="panel-header panel-header-bottom-border inverse short-top short-bottom">
-              <TaskFailureTimeSeriesChart
-                data={data.taskFailureRate}
+              <ResourceTimeSeriesChart
+                colorIndex={3}
+                usedResourcesStates={data.usedResourcesStates}
+                usedResources={data.usedResources}
+                totalResources={data.totalResources}
+                mode="disk"
                 refreshRate={data.refreshRate} />
             </Panel>
           </div>
