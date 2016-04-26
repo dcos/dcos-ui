@@ -133,8 +133,10 @@ class TaskView extends mixin(SaveStateMixin) {
   }
 
   getTaskTable(tasks) {
+    let {parentRouter, inverseStyle} = this.props;
     return (
-      <TaskTable tasks={tasks} parentRouter={this.props.parentRouter} />
+      <TaskTable tasks={tasks} parentRouter={parentRouter}
+        inverseStyle={inverseStyle} />
     );
   }
 
@@ -157,11 +159,11 @@ class TaskView extends mixin(SaveStateMixin) {
   }
 
   getContent() {
-    let state = this.state;
-    let tasks = this.props.tasks || [];
+    let {searchString, filterByStatus} = this.state;
+    let {tasks, inverseStyle} = this.props;
 
-    if (state.searchString !== '') {
-      tasks = StringUtil.filterByString(tasks, 'name', state.searchString);
+    if (searchString !== '') {
+      tasks = StringUtil.filterByString(tasks, 'name', searchString);
     }
 
     tasks = this.filterByCurrentStatus(tasks);
@@ -174,15 +176,15 @@ class TaskView extends mixin(SaveStateMixin) {
         <FilterBar>
           <FilterInputText
             className="flush-bottom"
-            searchString={state.searchString}
+            searchString={searchString}
             handleFilterChange={this.handleSearchStringChange}
-            inverseStyle={false} />
+            inverseStyle={inverseStyle} />
           <div className="form-group flush-bottom">
             <FilterByTaskState
               statuses={this.getStatuses(tasks)}
               handleFilterChange={this.handleStatusFilterChange}
               totalTasksCount={tasks.length}
-              currentStatus={state.filterByStatus}/>
+              currentStatus={filterByStatus}/>
           </div>
         </FilterBar>
         {this.getTaskTable(tasks)}
@@ -203,8 +205,15 @@ class TaskView extends mixin(SaveStateMixin) {
 }
 
 TaskView.propTypes = {
-  tasks: React.PropTypes.array,
-  itemID: React.PropTypes.string
+  inverseStyle: React.PropTypes.bool,
+  itemID: React.PropTypes.string,
+  tasks: React.PropTypes.array
+};
+
+TaskTable.defaultProps = {
+  inverseStyle: false,
+  itemID: '',
+  tasks: []
 };
 
 module.exports = TaskView;
