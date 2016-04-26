@@ -223,7 +223,7 @@ class TaskDebugView extends React.Component {
     let selectedLogFile = this.getSelectedFile();
     let selectedName = selectedLogFile && selectedLogFile.getName();
     let logFiles = this.getLogFiles();
-    if (logFiles.length < 4) {
+    if (logFiles.length < 3) {
       return this.getLogSelectionAsButtons(logFiles, selectedName);
     }
 
