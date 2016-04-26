@@ -1,4 +1,3 @@
-import _ from 'underscore';
 /* eslint-disable no-unused-vars */
 import React from 'react';
 /* eslint-enable no-unused-vars */
@@ -15,7 +14,7 @@ let {AccessDeniedPage, Authenticated, ConfigStore, CookieUtils} = SDK.get([
 
 let configResponseCallback = null;
 
-module.exports = _.extend({
+module.exports = Object.assign({}, StoreMixin, {
   actions: [
     'AJAXRequestError',
     'userLogoutSuccess',
@@ -136,4 +135,4 @@ module.exports = _.extend({
   navigateToLoginPage() {
     window.location.href = '#/login';
   }
-}, StoreMixin);
+});
