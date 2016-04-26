@@ -9,6 +9,7 @@ var React = require('react');
 /* eslint-enable no-unused-vars */
 var ReactDOM = require('react-dom');
 var TestUtils = require('react-addons-test-utils');
+var JestUtil = require('../../utils/JestUtil');
 
 var Service = require('../../structs/Service');
 var ServiceDetail = require('../ServiceDetail');
@@ -30,10 +31,12 @@ describe('ServiceDetail', function () {
 
   beforeEach(function () {
     this.container = document.createElement('div');
-    this.instance = ReactDOM.render(
-      <ServiceDetail service={service} />,
+    this.wrapper  = ReactDOM.render(
+      JestUtil.stubRouterContext(ServiceDetail, {service}),
       this.container
     );
+    this.instance =
+      TestUtils.findRenderedComponentWithType(this.wrapper, ServiceDetail);
     this.node = ReactDOM.findDOMNode(this.instance);
   });
 

@@ -14,11 +14,11 @@ const Tasks = require('./fixtures/MockTasks.json').tasks;
 
 describe('TaskTable', function () {
   beforeEach(function () {
-    this.parentRouter = {
-      getCurrentRoutes: function () {
-        return [{name: 'home'}, {name: 'dashboard'}, {name: 'service-detail'}];
-      }
+    this.parentRouter = function () {};
+    this.parentRouter.getCurrentRoutes = function () {
+      return [{name: 'home'}, {name: 'dashboard'}, {name: 'service-detail'}];
     };
+
     this.container = document.createElement('div');
     this.instance = ReactDOM.render(
       <TaskTable tasks={Tasks} parentRouter={this.parentRouter} />,
