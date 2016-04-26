@@ -25,7 +25,7 @@ class FilterButtons extends React.Component {
   }
 
   getFilterButtons() {
-    let {filterByKey, filters, itemList, selectedFilter} = this.props;
+    let {filterByKey, filters, inverseStyle, itemList, selectedFilter} = this.props;
 
     if (filterByKey) {
       itemList = itemList.map(function (item) {
@@ -36,8 +36,8 @@ class FilterButtons extends React.Component {
     let filterCount = this.getCount(itemList);
 
     return filters.map((filter) => {
-      let classSet = classNames({
-        'button button-stroke button-inverse': true,
+      let classSet = classNames('button button-stroke',{
+        'button-inverse': inverseStyle,
         'active': filter.toLowerCase() === selectedFilter.toLowerCase()
       });
 
@@ -62,19 +62,21 @@ class FilterButtons extends React.Component {
 }
 
 FilterButtons.defaultProps = {
-  renderButtonContent: function (title) {return title; },
-  onFilterChange: function () {}
+  inverseStyle: false,
+  onFilterChange: function () {},
+  renderButtonContent: function (title) {return title; }
 };
 
 FilterButtons.propTypes = {
-  // Optional function to generate button text. args: (filter, count)
-  renderButtonContent: React.PropTypes.func,
   filters: React.PropTypes.array,
   // The key in itemList that is being filtered
   filterByKey: React.PropTypes.string,
+  inverseStyle: React.PropTypes.bool,
+  itemList: React.PropTypes.array.isRequired,
   // A function that returns the onClick for a filter button given the filter.
   onFilterChange: React.PropTypes.func,
-  itemList: React.PropTypes.array.isRequired,
+  // Optional function to generate button text. args: (filter, count)
+  renderButtonContent: React.PropTypes.func,
   // The filter in props.filters that is currently selected.
   selectedFilter: React.PropTypes.string
 };
