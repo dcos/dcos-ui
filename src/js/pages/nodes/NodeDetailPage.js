@@ -133,14 +133,14 @@ class NodeDetailPage extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) 
     ).last();
   }
 
-  getNotFound(itemType) {
+  getNotFound() {
     return (
       <div className="container container-fluid container-pod text-align-center">
         <h3 className="flush-top text-align-center">
-          {`Error finding ${itemType}`}
+          Error finding node
         </h3>
         <p className="flush">
-          {`Did not find a ${itemType} by the id "${this.props.params.nodeID}"`}
+          {`Did not find a node by the id "${this.props.params.nodeID}"`}
         </p>
       </div>
     );
@@ -261,7 +261,6 @@ class NodeDetailPage extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) 
     if (timeSinceMount >= SidePanelContents.animationLengthSeconds) {
       contents = (
         <TaskView
-          extraRouterParams={{nodeID}}
           inverseStyle={true}
           tasks={tasks}
           parentRouter={this.context.router}
@@ -309,10 +308,13 @@ class NodeDetailPage extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) 
 
   render() {
     let node = this.internalStorage_get().node;
-    // console.log(node);
 
     if (!node) {
-      return this.getNotFound('node');
+      return (
+        <Page title="Nodes">
+          {this.getNotFound()}
+        </Page>
+      );
     }
 
     return (
