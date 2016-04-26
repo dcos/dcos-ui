@@ -50,8 +50,7 @@ class ServiceDetail
   }
 
   renderTasksTabView() {
-    let {service} = this.props;
-    let tasks = MesosStateStore.getTasksByServiceId(service.getId());
+    let tasks = MesosStateStore.getTasksByServiceId(this.props.service.getId());
 
     return (
       <TaskView tasks={tasks} inverseStyle={true}
@@ -60,8 +59,6 @@ class ServiceDetail
   }
 
   render() {
-    let {service} = this.props;
-
     return (
       <div className="flex-container-col">
         <div className="container-pod container-pod-divider-bottom
@@ -69,16 +66,15 @@ class ServiceDetail
           container-pod-short-top flush-bottom flush-top
           service-detail-header media-object-spacing-wrapper
           media-object-spacing-narrow container-pod-divider-inverse">
-          <ServiceInfo service={service} />
+          <ServiceInfo service={this.props.service} />
           <ul className="tabs list-inline flush-bottom container-pod
             container-pod-short-top inverse">
             {this.tabs_getUnroutedTabs()}
           </ul>
         </div>
-        <div className="
-        side-panel-tab-content side-panel-section container container-pod
-        container-pod-short container-fluid container-fluid-flush
-        flex-container-col flex-grow">
+        <div className="side-panel-tab-content side-panel-section container
+          container-pod container-pod-short container-fluid
+          container-fluid-flush flex-container-col flex-grow">
           {this.tabs_getTabView()}
         </div>
       </div>
