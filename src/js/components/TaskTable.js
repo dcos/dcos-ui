@@ -179,19 +179,19 @@ class TaskTable extends React.Component {
   }
 
   render() {
-    let classSet = classNames({
-      'table table-borderless-outer': true,
-      'table-borderless-inner-columns flush-bottom': true,
-      'inverse': this.props.inverseStyle
-    });
-
+    let {inverseStyle, tasks} = this.props;
+    let classSet = classNames('table',
+      'table-borderless-outer',
+      'table-borderless-inner-columns',
+      'flush-bottom ',
+      {inverse: inverseStyle});
     return (
       <Table
         className={classSet}
         columns={this.getColumns()}
         colGroup={this.getColGroup()}
         containerSelector=".gm-scroll-view"
-        data={this.props.tasks.slice()}
+        data={tasks.slice()}
         itemHeight={TableUtil.getRowHeight()}
         sortBy={{prop: 'updated', order: 'asc'}} />
     );

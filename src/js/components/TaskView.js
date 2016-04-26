@@ -129,10 +129,11 @@ class TaskView extends mixin(SaveStateMixin) {
   }
 
   getTaskTable(tasks) {
+    let {parentRouter, inverseStyle} = this.props;
     return (
       <TaskTable
-        inverseStyle={this.props.inverseStyle}
-        parentRouter={this.props.parentRouter}
+        inverseStyle={inverseStyle}
+        parentRouter={parentRouter}
         tasks={tasks} />
     );
   }
@@ -156,15 +157,15 @@ class TaskView extends mixin(SaveStateMixin) {
   }
 
   getContent() {
-    let state = this.state;
-    let tasks = this.props.tasks || [];
+    let {searchString, filterByStatus} = this.state;
+    let {tasks, inverseStyle} = this.props;
     let headerClassSet = classNames({
       'h4 text-align-left flush-top': true,
-      'inverse': this.props.inverseStyle
+      'inverse': inverseStyle
     });
 
-    if (state.searchString !== '') {
-      tasks = StringUtil.filterByString(tasks, 'name', state.searchString);
+    if (searchString !== '') {
+      tasks = StringUtil.filterByString(tasks, 'name', searchString);
     }
 
     tasks = this.filterByCurrentStatus(tasks);
@@ -177,16 +178,16 @@ class TaskView extends mixin(SaveStateMixin) {
         <FilterBar>
           <FilterInputText
             className="flush-bottom"
-            searchString={state.searchString}
+            searchString={searchString}
             handleFilterChange={this.handleSearchStringChange}
-            inverseStyle={this.props.inverseStyle} />
+            inverseStyle={inverseStyle} />
           <div className="form-group flush-bottom">
             <FilterByTaskState
               inverseStyle={this.props.inverseStyle}
               statuses={this.getStatuses(tasks)}
               handleFilterChange={this.handleStatusFilterChange}
               totalTasksCount={tasks.length}
-              currentStatus={state.filterByStatus}/>
+              currentStatus={filterByStatus}/>
           </div>
         </FilterBar>
         {this.getTaskTable(tasks)}
@@ -206,14 +207,16 @@ class TaskView extends mixin(SaveStateMixin) {
   }
 }
 
-TaskView.defaultProps = {
-  inverseStyle: false
+TaskTable.defaultProps = {
+  inverseStyle: false,
+  itemID: '',
+  tasks: []
 };
 
 TaskView.propTypes = {
-  tasks: React.PropTypes.array,
+  inverseStyle: React.PropTypes.bool,
   itemID: React.PropTypes.string,
-  inverseStyle: React.PropTypes.bool
+  tasks: React.PropTypes.array
 };
 
 module.exports = TaskView;
