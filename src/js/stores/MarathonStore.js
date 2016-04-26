@@ -160,7 +160,11 @@ var MarathonStore = Store.createStore({
   },
 
   processMarathonGroups: function (data) {
-    let groups = new ServiceTree(data);
+    let groups = new ServiceTree({items: data.apps, filterProperties: {
+      name: function (item) {
+        return item.id;
+      }
+    }});
 
     let apps = groups.reduceItems(function (map, item) {
       if (item instanceof Service) {
