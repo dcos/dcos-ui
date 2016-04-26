@@ -1,4 +1,5 @@
 import _ from 'underscore';
+import {Link} from 'react-router';
 import mixin from 'reactjs-mixin';
 /* eslint-disable no-unused-vars */
 import React from 'react';
@@ -86,6 +87,20 @@ class NodeDetailPage extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) 
         </h1>
         {this.getSubHeader(node)}
       </div>
+    );
+  }
+
+  getBreadcrumbs(nodeID) {
+    return (
+      <h5 className="inverse">
+        <Link className="headline emphasize" to="nodes">
+          Nodes
+        </Link>
+        <span style={{'margin': '0 15px'}}>
+          ›
+        </span>
+        {nodeID}
+      </h5>
     );
   }
 
@@ -319,24 +334,29 @@ class NodeDetailPage extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) 
 
     return (
       <Page title="Nodes">
-        <div className="container container-fluid container-pod container-pod-short flush">
-          {this.getBasicInfo(node)}
-          <div className="container-pod container-pod-short">
-            <div className="row">
-              {this.getCharts('Node', node)}
+        <div className="container container-fluid flush">
+          {this.getBreadcrumbs(node.get('hostname'))}
+        </div>
+        <div>
+          <div className="container container-fluid container-pod container-pod-short container-pod-super-short-top flush">
+            {this.getBasicInfo(node)}
+            <div className="container-pod container-pod-short">
+              <div className="row">
+                {this.getCharts('Node', node)}
+              </div>
+            </div>
+            <div className="container-pod container-pod-divider-bottom container-pod-divider-inverse container-pod-divider-bottom-align-right flush-top flush-bottom">
+              <ul className="tabs list-inline flush-bottom inverse">
+                {this.tabs_getUnroutedTabs()}
+              </ul>
             </div>
           </div>
-          <div className="container-pod container-pod-divider-bottom container-pod-divider-inverse container-pod-divider-bottom-align-right flush-top flush-bottom">
-            <ul className="tabs list-inline flush-bottom inverse">
-              {this.tabs_getUnroutedTabs()}
-            </ul>
-          </div>
+          {this.tabs_getTabView()}
+          <SidePanels
+            params={this.props.params}
+            openedPage="nodes" />
+          <RouteHandler />
         </div>
-        {this.tabs_getTabView()}
-        <SidePanels
-          params={this.props.params}
-          openedPage="nodes" />
-        <RouteHandler />
       </Page>
     );
   }
