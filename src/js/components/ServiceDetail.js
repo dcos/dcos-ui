@@ -5,7 +5,6 @@ import {StoreMixin} from 'mesosphere-shared-reactjs';
 import InternalStorageMixin from '../mixins/InternalStorageMixin';
 import MesosStateStore from '../stores/MesosStateStore';
 import Service from '../structs/Service';
-import Framework from '../structs/Framework';
 import ServiceInfo from './ServiceInfo';
 import TabsMixin from '../mixins/TabsMixin';
 import TaskView from './TaskView';
@@ -52,12 +51,7 @@ class ServiceDetail
 
   renderTasksTabView() {
     let {service} = this.props;
-    let tasks = [];
-
-    // TODO (orlandohohmeier): Get application tasks by application id
-    if (service instanceof Framework) {
-      tasks = MesosStateStore.getTasksFromServiceName(service.getName());
-    }
+    let tasks = MesosStateStore.getTasksByServiceId(service.getId());
 
     return (<TaskView tasks={tasks} inverseStyle={true} />);
   }
