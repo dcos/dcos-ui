@@ -1,13 +1,18 @@
 jest.dontMock('../ServiceDetail');
 jest.dontMock('../ServiceInfo');
+jest.dontMock('../TaskView');
+jest.dontMock('../../mixins/GetSetMixin');
+jest.dontMock('../../stores/MesosStateStore');
 
 /* eslint-disable no-unused-vars */
 var React = require('react');
 /* eslint-enable no-unused-vars */
 var ReactDOM = require('react-dom');
+var TestUtils = require('react-addons-test-utils');
 
 var Service = require('../../structs/Service');
 var ServiceDetail = require('../ServiceDetail');
+var TaskView = require('../TaskView');
 
 describe('ServiceDetail', function () {
 
@@ -85,13 +90,16 @@ describe('ServiceDetail', function () {
 
   describe('#renderTasksTabView', function () {
 
-    it('renders placeholder', function () {
+    it('renders task view', function () {
       var tasksTabView = ReactDOM.render(
-        this.instance.renderTasksTabView('disk'),
+        this.instance.renderTasksTabView(),
         this.container
       );
 
-      expect(tasksTabView.textContent).toEqual('Tasks Placeholder');
+      expect(
+        TestUtils.findRenderedComponentWithType(tasksTabView, TaskView)
+      ).toBeDefined();
+
     });
 
   });
