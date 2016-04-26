@@ -148,17 +148,4 @@ describe('ServicesTable', function () {
 
   });
 
-  describe('#renderTask', function () {
-
-    it('should render correct number of running tasks', function () {
-      var tasksCell = ReactDOM.render(
-        this.instance.renderTask('tasks', healthyService),
-        this.container
-      );
-
-      expect(ReactDOM.findDOMNode(tasksCell).textContent).toEqual('2 Tasks');
-    });
-
-  });
-
 });
