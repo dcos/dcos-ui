@@ -54,11 +54,19 @@ class AddRepositoryFormModal extends mixin(StoreMixin) {
   }
 
   handleAddRepository(model) {
-    CosmosPackagesStore.addRepository(model.name, model.uri);
+    CosmosPackagesStore.addRepository(model.name, model.uri, model.priority);
     this.resetState();
   }
 
+  getWithinRangeFunction(min, max) {
+    return function (number) {
+      return number >= min && number <= max;
+    };
+  }
+
   getAddRepositoryFormDefinition() {
+    let {numberOfRepositories} = this.props;
+
     return [
       {
         fieldType: 'text',
@@ -80,6 +88,20 @@ class AddRepositoryFormModal extends mixin(StoreMixin) {
         showLabel: false,
         writeType: 'input',
         validation: /^https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)$/,
+        value: ''
+      },
+      {
+        fieldType: 'number',
+        name: 'priority',
+        placeholder: 'Priority',
+        required: false,
+        min: '0',
+        max: `${numberOfRepositories}`,
+        step: '1',
+        validationErrorText: `Must be a positive integer between 0 and ${numberOfRepositories} representing its priority. 0 is the highest and ${numberOfRepositories} denotes the lowest priority.`,
+        showLabel: false,
+        writeType: 'input',
+        validation: this.getWithinRangeFunction(0, numberOfRepositories),
         value: ''
       }
     ];
@@ -142,6 +164,7 @@ class AddRepositoryFormModal extends mixin(StoreMixin) {
 }
 
 AddRepositoryFormModal.propTypes = {
+  numberOfRepositories: React.PropTypes.number.isRequired,
   open: React.PropTypes.bool
 };
 

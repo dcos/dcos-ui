@@ -11,7 +11,7 @@ import TableUtil from '../utils/TableUtil';
 import Util from '../utils/Util';
 
 function leftAlignCaret(prop) {
-  return _.contains(['cpus', 'mem', 'disk', 'size', 'mtime'], prop);
+  return _.contains(['cpus', 'mem', 'disk', 'size', 'mtime', 'priority'], prop);
 }
 
 function getUpdatedTimestamp(model) {

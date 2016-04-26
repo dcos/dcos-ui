@@ -21,6 +21,10 @@ class RepositoryList extends List {
       }
     });
   }
+
+  getPriority(repository) {
+    return this.getItems().indexOf(repository);
+  }
 }
 
 module.exports = RepositoryList;
