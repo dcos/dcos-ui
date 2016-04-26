@@ -2,6 +2,7 @@ import mixin from 'reactjs-mixin';
 import React from 'react';
 
 import EventTypes from '../constants/EventTypes';
+import FilterBar from './FilterBar';
 import FilterByTaskState from './FilterByTaskState';
 import FilterInputText from './FilterInputText';
 import MesosStateStore from '../stores/MesosStateStore';
@@ -170,19 +171,20 @@ class TaskView extends mixin(SaveStateMixin) {
         <span className="h4 text-align-left flush-top">
           {this.getHeaderText(tasks)}
         </span>
-        <div className="flex-box control-group">
+        <FilterBar>
           <FilterInputText
+            className="flush-bottom"
             searchString={state.searchString}
             handleFilterChange={this.handleSearchStringChange}
             inverseStyle={false} />
-          <div>
+          <div className="form-group flush-bottom">
             <FilterByTaskState
               statuses={this.getStatuses(tasks)}
               handleFilterChange={this.handleStatusFilterChange}
               totalTasksCount={tasks.length}
               currentStatus={state.filterByStatus}/>
           </div>
-        </div>
+        </FilterBar>
         {this.getTaskTable(tasks)}
       </div>
     );

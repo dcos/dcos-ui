@@ -7,6 +7,7 @@ import React from 'react';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 import {Table} from 'reactjs-components';
 
+import FilterBar from '../../components/FilterBar';
 import FilterHeadline from '../../components/FilterHeadline';
 import FilterButtons from '../../components/FilterButtons';
 import FilterInputText from '../../components/FilterInputText';
@@ -165,34 +166,24 @@ class UnitsHealthTab extends mixin(StoreMixin) {
             name={pluralizedItemName}
             currentLength={visibleData.length}
             totalLength={dataItems.length} />
-          <div className="filter-bar">
-            <div className="filter-bar-left">
-              <div className="filter-bar-item">
-                <FilterButtons
-                  renderButtonContent={this.getButtonContent}
-                  filters={['all', 'healthy', 'unhealthy']}
-                  filterByKey={'title'}
-                  onFilterChange={this.handleHealthFilterChange}
-                  itemList={dataHealth}
-                  selectedFilter={healthFilter} />
-              </div>
-              <div className="filter-bar-item">
-                <FilterInputText
-                  className="flush-bottom"
-                  searchString={searchString}
-                  handleFilterChange={this.handleSearchStringChange}
-                  inverseStyle={true} />
-              </div>
-            </div>
-            <div className="filter-bar-right">
-              <div className="filter-bar-item">
-                <a href={UnitHealthStore.getDownloadURL()}
-                  className="button button-primary" target="_blank">
-                  Download Snapshot
-                </a>
-              </div>
-            </div>
-          </div>
+          <FilterBar rightAlignLastNChildren={1}>
+            <FilterButtons
+              renderButtonContent={this.getButtonContent}
+              filters={['all', 'healthy', 'unhealthy']}
+              filterByKey="title"
+              onFilterChange={this.handleHealthFilterChange}
+              itemList={dataHealth}
+              selectedFilter={healthFilter} />
+            <FilterInputText
+              className="flush-bottom"
+              searchString={searchString}
+              handleFilterChange={this.handleSearchStringChange}
+              inverseStyle={true} />
+            <a href={UnitHealthStore.getDownloadURL()}
+              className="button button-primary" target="_blank">
+              Download Snapshot
+            </a>
+          </FilterBar>
         </div>
         <div className="page-content-fill flex-grow flex-container-col">
           <Table

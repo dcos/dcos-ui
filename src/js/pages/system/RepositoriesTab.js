@@ -6,6 +6,7 @@ import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import AddRepositoryFormModal from '../../components/modals/AddRepositoryFormModal';
 import CosmosPackagesStore from '../../stores/CosmosPackagesStore';
+import FilterBar from '../../components/FilterBar';
 import FilterInputText from '../../components/FilterInputText';
 import RepositoriesTable from '../../components/RepositoriesTable';
 import RequestErrorMsg from '../../components/RequestErrorMsg';
@@ -104,9 +105,9 @@ class RepositoriesTab extends mixin(StoreMixin) {
 
     return (
       <div>
-        <div className="control-group form-group flex-no-shrink flex-align-right flush-bottom">
+        <FilterBar rightAlignLastNChildren={1}>
           <FilterInputText
-            className="flex-grow"
+            className="flush-bottom"
             placeholder="Search"
             searchString={searchString}
             handleFilterChange={this.handleSearchStringChange}
@@ -116,7 +117,7 @@ class RepositoriesTab extends mixin(StoreMixin) {
             onClick={this.handleOpenAddRepository}>
             + Add Repository
           </button>
-        </div>
+        </FilterBar>
         <RepositoriesTable repositories={repositories} filter={searchString} />
         <AddRepositoryFormModal
           open={addRepositoryModalOpen}
