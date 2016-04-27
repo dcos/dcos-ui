@@ -1,5 +1,15 @@
 import React from 'react';
 
+const REPOSITORY_ERRORS = [
+  'EmptyPackageImport',
+  'IndexNotFound',
+  'PackageFileMissing',
+  'PackageFileNotJson',
+  'RepositoryNotPresent',
+  'RepositoryUriConnection',
+  'RepositoryUriSyntax'
+];
+
 class CosmosErrorMessage extends React.Component {
   getHeader() {
     let {header, headerClass} = this.props;
@@ -13,41 +23,14 @@ class CosmosErrorMessage extends React.Component {
       </span>
     );
   }
+
   getMessage() {
     let {type, message} = this.props.error;
 
-    switch (type) {
-      // Specific uninstall errors
-      case 'IncompleteUninstall':
-      case 'UninstallNonExistentAppForPackage':
-        if (!message) {
-          message = 'Unable to uninstall package. Please check your connection and try again.';
-        }
-        break;
-
-      // // Specific install errors
-      case 'PackageAlreadyInstalled':
-      case 'PackageNotInstalled':
-      case 'PackageNotFound':
-      case 'VersionNotFound':
-        if (!message) {
-          message = 'Unable to install package. Please check configuration of the package and try again.';
-        }
-        break;
-
-      // Repository related errors that can occur at any request to Cosmos
-      case 'EmptyPackageImport':
-      case 'IndexNotFound':
-      case 'PackageFileMissing':
-      case 'PackageFileNotJson':
-      case 'RepositoryNotPresent':
-      case 'RepositoryUriConnection':
-      case 'RepositoryUriSyntax':
-        if (!message) {
-          message = 'The URL for a repository is not valid, or its host did not resolve. You might need to change the URL of this repository.';
-        }
-        message = this.appendRepositoryLink(message);
-        break;
+    // Append reference to repository page, since repository related errors
+    // can occur at any request to Cosmos
+    if (REPOSITORY_ERRORS.includes(type)) {
+      message = this.appendRepositoryLink(message);
     }
 
     return message;
@@ -56,7 +39,7 @@ class CosmosErrorMessage extends React.Component {
   appendRepositoryLink(message) {
     return (
       <span>
-        {`${message} You can got to the `}
+        {`${message} You can go to the `}
         <a href="/#/system/overview/repositories/">Repositories Settings</a>
         {' page to change installed repositories.'}
       </span>
@@ -77,7 +60,7 @@ class CosmosErrorMessage extends React.Component {
 
 CosmosErrorMessage.defaultProps = {
   className: 'text-overflow-break-word column-small-8 column-small-offset-2 column-medium-6 column-medium-offset-3',
-  error: {message: 'An error occured.'},
+  error: {message: 'Please try again.'},
   header: 'An Error Occured',
   headerClass: 'h3 text-align-center flush-top',
   wrapperClass: 'row'
