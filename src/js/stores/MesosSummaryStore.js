@@ -7,8 +7,7 @@ import CompositeState from '../structs/CompositeState';
 var Config = require('../config/Config');
 import {
   MESOS_SUMMARY_CHANGE,
-  MESOS_SUMMARY_REQUEST_ERROR,
-  VISIBILITY_CHANGE
+  MESOS_SUMMARY_REQUEST_ERROR
 } from '../constants/EventTypes';
 var GetSetMixin = require('../mixins/GetSetMixin');
 var MesosSummaryUtil = require('../utils/MesosSummaryUtil');
@@ -18,15 +17,36 @@ import StateSummary from '../structs/StateSummary';
 var TimeScales = require('../constants/TimeScales');
 import VisibilityStore from './VisibilityStore';
 
-var requestInterval = null;
+let requestInterval = null;
+let isInactive = false;
 
 function startPolling() {
   if (requestInterval == null && MesosSummaryStore.shouldPoll()) {
     // Should always retrieve bulk summary when polling starts
     MesosSummaryActions.fetchSummary(TimeScales.MINUTE);
-    requestInterval = setInterval(
-      MesosSummaryActions.fetchSummary, Config.getRefreshRate()
-    );
+
+    requestInterval = setInterval(function () {
+      let wasInactive = isInactive && !VisibilityStore.get('isInactive');
+      isInactive = VisibilityStore.get('isInactive');
+
+      if (!isInactive) {
+        if (wasInactive) {
+          // Flush history with new data set
+          MesosSummaryActions.fetchSummary(TimeScales.MINUTE);
+        } else {
+          MesosSummaryActions.fetchSummary();
+        }
+      } else {
+        // If not active, push null placeholder. This will ensure we maintain
+        // history when navigating back, for case where history server is down.
+
+        // Use {silent: true} Because we only want to push a summary on the stack without side
+        // effects (like re-rendering etc). The tab is out of focus so we
+        // don't want it to do any work. It only matters that there is
+        // appropriate history when we return focus to the tab.
+        MesosSummaryStore.processSummaryError({silent: true});
+      }
+    }, Config.getRefreshRate());
   }
 }
 
@@ -36,17 +56,6 @@ function stopPolling() {
     requestInterval = null;
   }
 }
-
-function handleInactiveChange() {
-  let isInactive = VisibilityStore.get('isInactive');
-  if (isInactive) {
-    stopPolling();
-  } else {
-    startPolling();
-  }
-}
-
-VisibilityStore.addChangeListener(VISIBILITY_CHANGE, handleInactiveChange);
 
 var MesosSummaryStore = Store.createStore({
   storeID: 'summary',
@@ -74,7 +83,7 @@ var MesosSummaryStore = Store.createStore({
     let initialStates = MesosSummaryUtil.getInitialStates();
     let states = new SummaryList({maxLength: Config.historyLength});
     _.clone(initialStates).forEach(state => {
-      states.addSnapshot(state, state.date);
+      states.addSnapshot(state, state.date, false);
     });
 
     return states;
@@ -224,12 +233,6 @@ var MesosSummaryStore = Store.createStore({
     // Handle ongoing request here.
   },
 
-  processBulkError: function () {
-    for (let i = 0; i < Config.historyLength; i++) {
-      MesosSummaryStore.processSummaryError({silent: true});
-    }
-  },
-
   dispatcherIndex: AppDispatcher.register(function (payload) {
     if (payload.source !== ActionTypes.SERVER_ACTION) {
       return false;
@@ -237,19 +240,16 @@ var MesosSummaryStore = Store.createStore({
 
     var action = payload.action;
     switch (action.type) {
-      case ActionTypes.REQUEST_MESOS_SUMMARY_SUCCESS:
+      case ActionTypes.REQUEST_SUMMARY_SUCCESS:
         MesosSummaryStore.processSummary(action.data);
         break;
-      case ActionTypes.REQUEST_MESOS_HISTORY_SUCCESS:
+      case ActionTypes.REQUEST_SUMMARY_HISTORY_SUCCESS:
         MesosSummaryStore.processBulkState(action.data);
         break;
-      case ActionTypes.REQUEST_MESOS_SUMMARY_ERROR:
+      case ActionTypes.REQUEST_SUMMARY_ERROR:
         MesosSummaryStore.processSummaryError();
         break;
-      case ActionTypes.REQUEST_MESOS_HISTORY_ERROR:
-        MesosSummaryStore.processBulkError();
-        break;
-      case ActionTypes.REQUEST_MESOS_SUMMARY_ONGOING:
+      case ActionTypes.REQUEST_SUMMARY_ONGOING:
       case ActionTypes.REQUEST_MESOS_HISTORY_ONGOING:
         MesosSummaryStore.processSummaryError();
         break;

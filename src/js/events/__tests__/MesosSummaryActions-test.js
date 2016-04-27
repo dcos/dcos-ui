@@ -20,7 +20,6 @@ PluginTestUtils.loadPluginsByName({
   tracking: {enabled: true}
 });
 
-var ActionTypes = require('../../constants/ActionTypes');
 var AppDispatcher = require('../AppDispatcher');
 var Config = require('../../config/Config');
 var MesosSummaryActions = require('../MesosSummaryActions');
@@ -81,13 +80,6 @@ describe('Mesos State Actions', function () {
           req.success();
         });
         MesosSummaryActions.fetchSummary();
-      });
-
-      it('detects errors on the history server', function () {
-        MesosSummaryActions.fetchSummary(TimeScales.MINUTE);
-        expect(AppDispatcher.handleServerAction).toHaveBeenCalled();
-        expect(AppDispatcher.handleServerAction.calls.mostRecent().args[0].type)
-          .toEqual(ActionTypes.REQUEST_MESOS_HISTORY_ERROR);
       });
 
       it('falls back to the Mesos endpoint if the history service is offline on initial fetch', function () {

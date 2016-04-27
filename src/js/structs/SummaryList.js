@@ -16,8 +16,8 @@ module.exports = class SummaryList extends List {
     }
   }
 
-  addSnapshot(snapshot, date) {
-    this.add(new StateSummary({snapshot, date}));
+  addSnapshot(snapshot, date, successful) {
+    this.add(new StateSummary({snapshot, date, successful}));
   }
 
   getActiveNodesByState() {
