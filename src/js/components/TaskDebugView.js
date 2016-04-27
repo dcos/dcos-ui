@@ -1,24 +1,73 @@
 import classNames from 'classnames';
 import {Dropdown} from 'reactjs-components';
 import React from 'react';
+import ReactDOM from 'react-dom';
 
+import FilterBar from './FilterBar';
 import FilterInputText from './FilterInputText';
 import IconDownload from './icons/IconDownload';
+import KeyboardUtil from '../utils/KeyboardUtil';
 import MesosLogView from './MesosLogView';
 import TaskDirectoryActions from '../events/TaskDirectoryActions';
 
-const METHODS_TO_BIND = ['handleSearchStringChange'];
+const METHODS_TO_BIND = [
+  'handleSearchStringChange',
+  'handleCountChange',
+  'handleKeyDown'
+];
 
 class TaskDebugView extends React.Component {
   constructor() {
     super();
 
-    this.state = {currentFile: null};
+    this.state = {
+      currentFile: null,
+      watching: 0,
+      totalFound: 0
+    };
 
     METHODS_TO_BIND.forEach((method) => {
       this[method] = this[method].bind(this);
     });
+  }
 
+  componentDidMount() {
+    let filterInput = ReactDOM.findDOMNode(this.refs.filterInput);
+
+    if (filterInput) {
+      filterInput.addEventListener('keydown', this.handleKeyDown);
+    }
+  }
+
+  componentWillReceiveProps(nextProps, nextState) {
+    let nextSearchString = nextState.searchString;
+    let nextTotalFound = nextState.totalFound;
+    let updatedState = {};
+
+    if (nextTotalFound === 0) {
+      updatedState.watching = 0;
+    } else if (this.state.watching === 0 ||
+      nextSearchString != null &&
+      this.state.searchString !== nextSearchString) {
+      updatedState.watching = 1;
+    }
+
+    this.setState(updatedState);
+  }
+
+  componentWillUnmount() {
+    let filterInput = ReactDOM.findDOMNode(this.refs.filterInput);
+
+    if (filterInput) {
+      filterInput.removeEventListener('keydown', this.handleKeyDown);
+    }
+  }
+
+  handleKeyDown(event) {
+    let {keyCode} = event;
+    if (keyCode === KeyboardUtil.keyCodes.enter) {
+      this.changeWatching('next');
+    }
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -38,16 +87,46 @@ class TaskDebugView extends React.Component {
       (state.searchString !== nextState.searchString) ||
       // Check directory
       (directory !== nextDirectory) || (directory && nextDirectory &&
-        directory.getItems().length !== nextDirectory.getItems().length)
+        directory.getItems().length !== nextDirectory.getItems().length) ||
+      // Check watching
+      (state.watching !== nextState.watching)
     );
   }
 
   handleSearchStringChange(searchString) {
-    this.setState({searchString});
+    this.setState({searchString, watching: 1});
   }
 
   handleViewChange(currentFile) {
-    this.setState({currentFile});
+    this.setState({
+      currentFile,
+      watching: 0,
+      searchString: '',
+      totalFound: 0
+    });
+  }
+
+  handleCountChange(totalFound) {
+    this.setState({totalFound});
+  }
+
+  changeWatching(direction) {
+    let {totalFound, watching} = this.state;
+    if (direction === 'next') {
+      watching += 1;
+      if (watching > totalFound) {
+        watching = 1;
+      }
+    }
+
+    if (direction === 'previous') {
+      watching -= 1;
+      if (watching < 1) {
+        watching = totalFound;
+      }
+    }
+
+    this.setState({watching});
   }
 
   getLogView(logName, filePath, task) {
@@ -57,8 +136,10 @@ class TaskDebugView extends React.Component {
       <MesosLogView
         filePath={filePath}
         highlightText={state.searchString}
+        onCountChange={this.handleCountChange}
         task={task}
-        logName={logName} />
+        logName={logName}
+        watching={state.watching} />
     );
   }
 
@@ -142,7 +223,7 @@ class TaskDebugView extends React.Component {
     let selectedLogFile = this.getSelectedFile();
     let selectedName = selectedLogFile && selectedLogFile.getName();
     let logFiles = this.getLogFiles();
-    if (logFiles.length < 4) {
+    if (logFiles.length < 3) {
       return this.getLogSelectionAsButtons(logFiles, selectedName);
     }
 
@@ -161,6 +242,39 @@ class TaskDebugView extends React.Component {
       );
   }
 
+  getSearchCount() {
+    let {searchString, totalFound, watching} = this.state;
+
+    if (totalFound === 0 && !searchString) {
+      return null;
+    }
+
+    if (totalFound === 0 && searchString) {
+      watching = 0;
+    }
+
+    return (
+      <span className="search-count mute">
+        {`${watching} out of ${totalFound}`}
+      </span>
+    );
+  }
+
+  getSearchButtons() {
+    if (this.state.totalFound === 0) {
+      return null;
+    }
+
+    return (
+      <div className="button-group button-group-directions">
+        <div onClick={this.changeWatching.bind(this, 'previous')}
+          className="button button-default button-up-arrow button-stroke" />
+        <div onClick={this.changeWatching.bind(this, 'next')}
+          className="button button-default button-down-arrow button-stroke" />
+      </div>
+    );
+  }
+
   render() {
     let task = this.props.task;
 
@@ -169,23 +283,34 @@ class TaskDebugView extends React.Component {
     let selectedName = selectedLogFile && selectedLogFile.getName();
     let filePath = selectedLogFile && selectedLogFile.get('path');
 
+    let inputContainerClassSet = classNames({
+      'filter-input-text-group-wide': this.state.searchString
+    });
+
     return (
       <div className="flex-container-col flex-grow flex-shrink">
-        <div className="control-group form-group flex-no-shrink flex-align-right flush-bottom">
+        <FilterBar
+          className="filter-bar flex-no-wrap-mini control-group form-group flex-no-shrink flush-bottom"
+          leftChildrenClass="filter-bar-left filter-bar-search-container flex-no-wrap flex-grow flex-shrink"
+          rightAlignLastNChildren={2}>
           <FilterInputText
-            className="flex-grow"
+            ref="filterInput"
+            className="flex-grow flex-box"
             placeholder="Search"
             searchString={this.state.searchString}
+            sideText={this.getSearchCount()}
             handleFilterChange={this.handleSearchStringChange}
-            inverseStyle={false} />
-            {this.getSelectionComponent(selectedLogFile)}
+            inverseStyle={false}
+            inputContainerClass={inputContainerClassSet} />
+          {this.getSearchButtons()}
+          {this.getSelectionComponent(selectedLogFile)}
           <a
             className="button button-stroke"
             disabled={!filePath}
             href={TaskDirectoryActions.getDownloadURL(task.slave_id, filePath)}>
             <IconDownload />
           </a>
-        </div>
+        </FilterBar>
         {this.getLogView(selectedName, filePath, task)}
       </div>
     );

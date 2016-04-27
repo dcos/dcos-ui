@@ -2,6 +2,7 @@ jest.dontMock('../icons/IconDownload');
 jest.dontMock('../MesosLogView');
 jest.dontMock('../RequestErrorMsg');
 jest.dontMock('../TaskDebugView');
+jest.dontMock('../FilterBar');
 
 var JestUtil = require('../../utils/JestUtil');
 

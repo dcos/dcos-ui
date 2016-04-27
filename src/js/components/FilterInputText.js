@@ -9,7 +9,8 @@ var FilterInputText = React.createClass({
     handleFilterChange: React.PropTypes.func.isRequired,
     inverseStyle: React.PropTypes.bool,
     placeholder: React.PropTypes.string,
-    searchString: React.PropTypes.string.isRequired
+    searchString: React.PropTypes.string.isRequired,
+    sideText: React.PropTypes.node
   },
 
   getDefaultProps: function () {
@@ -63,8 +64,9 @@ var FilterInputText = React.createClass({
       });
 
       return (
-        <span className="form-control-group-add-on form-control-group-add-on-append" onClick={this.handleClearInput}>
-          <a>
+        <span className="form-control-group-add-on form-control-group-add-on-append">
+          {props.sideText}
+          <a onClick={this.handleClearInput}>
             <i className={clearIconClasses}></i>
           </a>
         </span>
@@ -94,7 +96,7 @@ var FilterInputText = React.createClass({
       'form-control form-control-group filter-input-text-group': true,
       'form-control-inverse': props.inverseStyle,
       'focus': focus
-    });
+    }, props.inputContainerClass);
 
     let formGroupClasses = classNames(
       'form-group',

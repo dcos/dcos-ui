@@ -216,15 +216,28 @@ Side Panel Detail
 
   }
 
-  .filter-input-text {
+  .filter-bar-search-container {
 
-    width: @base-spacing-unit * 3;
+    flex-wrap: nowrap;
+    max-width: @base-spacing-unit * 20;
+
+    .filter-bar-item:first-child {
+
+      flex: 1 1 auto;
+
+    }
+
+    .filter-input-text-group {
+
+      width: 100%;
+
+    }
 
   }
 
-  .filter-input-text-group {
+  .search-count {
 
-    width: @base-spacing-unit * 7;
+    margin-right: @base-spacing-unit * 0.25;
 
   }
 

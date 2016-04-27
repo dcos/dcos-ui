@@ -82,6 +82,11 @@ class MesosLogView extends mixin(StoreMixin) {
       return;
     }
 
+    if (prevProps.watching !== this.props.watching ||
+      prevProps.highlightText !== this.props.highlightText) {
+      this.goToNewHighlightedSearch();
+    }
+
     this.checkIfAwayFromBottom(logContainerNode);
   }
 
@@ -105,7 +110,9 @@ class MesosLogView extends mixin(StoreMixin) {
       // Check fullLog
       (state.fullLog !== nextState.fullLog) ||
       // Check isAtBottom
-      (state.isAtBottom !== nextState.isAtBottom)
+      (state.isAtBottom !== nextState.isAtBottom) ||
+      // Check watching
+      (props.watching !== nextProps.watching)
     );
   }
 
@@ -197,6 +204,23 @@ class MesosLogView extends mixin(StoreMixin) {
     }
   }
 
+  goToNewHighlightedSearch() {
+    let logContainer = this.getLogContainerNode();
+    let node = logContainer.querySelector('.highlight.selected');
+    if (!node) {
+      return;
+    }
+
+    let containerHeight = logContainer.clientHeight;
+    let containerScrollTop = logContainer.scrollTop;
+    let nodeDistanceFromTop = DOMUtils.getDistanceFromTopOfParent(node);
+
+    if ((nodeDistanceFromTop > containerHeight + containerScrollTop) ||
+      nodeDistanceFromTop < containerScrollTop) {
+      logContainer.scrollTop = nodeDistanceFromTop - containerHeight / 2;
+    }
+  }
+
   getLogContainerNode() {
     let logContainer = this.refs.logContainer;
     if (!logContainer) {
@@ -263,7 +287,9 @@ class MesosLogView extends mixin(StoreMixin) {
         <Highlight
           matchClass="highlight"
           matchElement="span"
-          search={props.highlightText}>
+          onCountChange={props.onCountChange}
+          search={props.highlightText}
+          watching={props.watching}>
           {fullLog}
         </Highlight>
       </pre>
@@ -334,7 +360,8 @@ MesosLogView.propTypes = {
   filePath: React.PropTypes.string,
   highlightText: React.PropTypes.string,
   logName: React.PropTypes.string,
-  task: React.PropTypes.object.isRequired
+  task: React.PropTypes.object.isRequired,
+  watching: React.PropTypes.number
 };
 
 module.exports = MesosLogView;

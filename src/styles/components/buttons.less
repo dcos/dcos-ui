@@ -50,6 +50,29 @@ components/buttons.less
         width: @base-spacing-unit * 3;
       }
     }
+
+    &-up-arrow,
+    &-down-arrow {
+      &:after {
+        border-left: 5px solid transparent;
+        border-right: 5px solid transparent;
+        content: '';
+        display: inline-block;
+        vertical-align: middle;
+      }
+    }
+
+    &-up-arrow {
+      &:after {
+        border-bottom: 6px solid color-lighten(@neutral, 10);
+      }
+    }
+
+    &-down-arrow {
+      &:after {
+        border-top: 6px solid color-lighten(@neutral, 10);
+      }
+    }
   }
 
   .button-leave {
@@ -99,6 +122,20 @@ components/buttons.less
     .badge {
 
       margin-left: @base-spacing-unit * 0.25;
+
+    }
+
+    &-directions {
+
+      white-space: nowrap;
+
+      .button {
+
+        background: color-lighten(@neutral, 90);
+        display: inline-block;
+        float: none;
+
+      }
 
     }
 

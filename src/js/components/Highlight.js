@@ -1,4 +1,7 @@
+import mixin from 'reactjs-mixin';
 import React from 'react';
+
+import InternalStorageMixin from '../mixins/InternalStorageMixin';
 
 const MATCH_OPERATOR_RE = /[|\\{}()[\]^$+*?.]/g;
 
@@ -21,11 +24,41 @@ function escapeStringRegexp(str) {
   return str.replace(MATCH_OPERATOR_RE, '\\$&');
 }
 
-class Highlight extends React.Component {
+let debounceTimeout = null;
+
+class Highlight extends mixin(InternalStorageMixin) {
   constructor() {
     super(...arguments);
-
     this.count = 0;
+  }
+
+  shouldComponentUpdate(nextProps) {
+    let currentProps = this.props;
+
+    if (nextProps.search !== currentProps.search) {
+      clearTimeout(debounceTimeout);
+
+      let searchLength = nextProps.search.length;
+      let {searchDebounceThreshold, searchDebounceDelay} = currentProps;
+      if (searchLength <= searchDebounceThreshold && searchLength > 0) {
+        debounceTimeout = setTimeout(() => {
+          this.forceUpdate();
+        }, searchDebounceDelay);
+
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  componentDidUpdate() {
+    let {highlightCount} = this.internalStorage_get();
+    if (!this.props.search) {
+      highlightCount = 0;
+    }
+
+    this.props.onCountChange(highlightCount);
   }
 
   /**
@@ -106,12 +139,14 @@ class Highlight extends React.Component {
    */
   highlightChildren(subject, search) {
     let children = [];
-    let matchElement = this.props.matchElement;
+    let {matchElement, watching} = this.props;
     let remaining = subject;
+    let highlightCount = 0;
 
     while (remaining) {
       if (!search.test(remaining)) {
         children.push(this.renderPlain(remaining));
+        this.internalStorage_set({highlightCount});
         return children;
       }
 
@@ -126,14 +161,19 @@ class Highlight extends React.Component {
       // Now, capture the matching string...
       let match = remaining.slice(boundaries.first, boundaries.last);
       if (match) {
-        children.push(this.renderHighlight(match, matchElement));
+        highlightCount++;
+
+        if (highlightCount === watching) {
+          children.push(this.renderWatchingHighlight(match, matchElement));
+        } else {
+          children.push(this.renderHighlight(match, matchElement));
+        }
       }
 
       // And if there's anything left over, recursively run this method again.
       remaining = remaining.slice(boundaries.last);
 
     }
-
     return children;
   }
 
@@ -192,6 +232,18 @@ class Highlight extends React.Component {
     );
   }
 
+  renderWatchingHighlight(string, matchElement) {
+    this.count++;
+
+    return (
+      <this.props.matchElement
+        className={this.props.selectedMatchClass}
+        key={this.count}>
+        {string}
+      </this.props.matchElement>
+    );
+  }
+
   render() {
     return (
       <div {...this.props}>
@@ -204,7 +256,10 @@ class Highlight extends React.Component {
 Highlight.defaultProps = {
   caseSensitive: false,
   matchElement: 'strong',
-  matchClass: 'highlight'
+  matchClass: 'highlight',
+  searchDebounceDelay: 500,
+  searchDebounceThreshold: 2,
+  selectedMatchClass: 'highlight selected'
 };
 
 Highlight.propTypes = {
@@ -216,7 +271,11 @@ Highlight.propTypes = {
   ]).isRequired,
   caseSensitive: React.PropTypes.bool,
   matchElement: React.PropTypes.string,
-  matchClass: React.PropTypes.string
+  matchClass: React.PropTypes.string,
+  searchDebounceDelay: React.PropTypes.number,
+  searchDebounceThreshold: React.PropTypes.number,
+  selectedMatchClass: React.PropTypes.string,
+  watching: React.PropTypes.number
 };
 
 module.exports = Highlight;

@@ -12,7 +12,7 @@ class FilterBar extends React.Component {
     }
 
     return (
-      <div className="filter-bar-left">
+      <div className={this.props.leftChildrenClass}>
         {this.getFilterItems(filterItems)}
       </div>
     );
@@ -26,7 +26,7 @@ class FilterBar extends React.Component {
     }
 
     return (
-      <div className="filter-bar-right">
+      <div className={this.props.rightChildrenClass}>
         {this.getFilterItems(filterItems)}
       </div>
     );
@@ -43,11 +43,11 @@ class FilterBar extends React.Component {
   }
 
   render() {
-    let {rightAlignLastNChildren} = this.props;
+    let {className, rightAlignLastNChildren} = this.props;
     let filterItems = React.Children.toArray(this.props.children);
 
     return (
-      <div className="filter-bar">
+      <div className={className}>
         {this.getFilterBarLeft(filterItems, rightAlignLastNChildren)}
         {this.getFilterBarRight(filterItems, rightAlignLastNChildren)}
       </div>
@@ -56,11 +56,17 @@ class FilterBar extends React.Component {
 }
 
 FilterBar.propTypes = {
-  rightAlignLastNChildren: React.PropTypes.number
+  className: React.PropTypes.string,
+  rightAlignLastNChildren: React.PropTypes.number,
+  leftChildrenClass: React.PropTypes.string,
+  rightChildrenClass: React.PropTypes.string
 };
 
 FilterBar.defaultProps = {
-  rightAlignLastNChildren: 0
+  className: 'filter-bar',
+  leftChildrenClass: 'filter-bar-left',
+  rightAlignLastNChildren: 0,
+  rightChildrenClass: 'filter-bar-right'
 };
 
 module.exports = FilterBar;
