@@ -10,11 +10,6 @@ import ServiceFilterTypes from '../constants/ServiceFilterTypes';
 const METHODS_TO_BIND = ['setSearchString'];
 
 class ServiceSearchFilter extends mixin(QueryParamsMixin) {
-  static get defaultProps() {
-    return {
-    };
-  }
-
   constructor() {
     super();
 
@@ -22,7 +17,7 @@ class ServiceSearchFilter extends mixin(QueryParamsMixin) {
       searchString: ''
     };
 
-    METHODS_TO_BIND.forEach((method) => {
+    METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
   }
