@@ -14,14 +14,24 @@ const TaskStates = {
     displayName: 'Running'
   },
 
-  TASK_FAILED: {
-    stateTypes: ['completed', 'failure'],
-    displayName: 'Failed'
+  TASK_KILLING: {
+    stateTypes: ['active', 'failure'],
+    displayName: 'Killing'
+  },
+
+  TASK_FINISHED: {
+    stateTypes: ['completed', 'success'],
+    displayName: 'Finished'
   },
 
   TASK_KILLED: {
     stateTypes: ['completed', 'failure'],
     displayName: 'Killed'
+  },
+
+  TASK_FAILED: {
+    stateTypes: ['completed', 'failure'],
+    displayName: 'Failed'
   },
 
   TASK_LOST: {
@@ -32,11 +42,6 @@ const TaskStates = {
   TASK_ERROR: {
     stateTypes: ['completed', 'failure'],
     displayName: 'Error'
-  },
-
-  TASK_FINISHED: {
-    stateTypes: ['completed', 'success'],
-    displayName: 'Finished'
   }
 };
 
