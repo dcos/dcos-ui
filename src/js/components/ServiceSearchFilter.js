@@ -52,8 +52,10 @@ class ServiceSearchFilter extends mixin(QueryParamsMixin) {
   render() {
     return (
       <FilterInputText
-        searchString={this.state.searchString}
-        handleFilterChange={this.setSearchString} />
+        handleFilterChange={this.setSearchString}
+        inverseStyle={true}
+        placeholder="Search"
+        searchString={this.state.searchString} />
     );
   }
 };
