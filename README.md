@@ -34,6 +34,8 @@ Node 4.x (and above) is **required**. We suggest using [nvm](https://github.com/
 5. Right below the commented out line, add
 
   ```
+  proxy_buffering off;
+  
   location ~ ^/(?!service|mesos).*\.(js|css|html|png|jpg|gif|jpeg|swf|map)$ {
     expires -1;
     add_header Cache-Control "no-store";
@@ -68,6 +70,9 @@ This repository contains the DC/OS UI application.
 
   * Copy `src/js/config/Config.template.js` to `src/js/config/Config.dev.js`
   * Override variables in `Config.dev.js` to reflect your local development configuration
+
+  💡 **IMPORTANT**: if you want to use the development build against the [DC/OS Vagrant setup](#dcos-installation-instructions) then you'll want to set the `rootUrl` and `historyServer` to `http://m1.dcos`, and disable authentication prompts by setting `uiConfigurationFixture.uiConfiguration.plugins.authentication.enabled = false`.
+
 
 5. Run development environment
 
