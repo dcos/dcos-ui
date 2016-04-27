@@ -44,7 +44,7 @@ Node 4.x (and above) is **required**. We suggest using [nvm](https://github.com/
   ```
 6. Save and quit vi
 7. Restart adminrouter with `sudo service dcos-adminrouter restart`. Your cluster is now prepped for local development.
-8. [Start](#user-content-dcos-ui-1) your local development server for DC/OS.
+8. [Start](#dcos-ui) your local development server for DC/OS.
 9. Navigate to http://m1.dcos.
 
 **NOTE:** http://m1.dcos will only resolve if both your DC/OS UI Server and DC/OS Cluster are operational and running.
