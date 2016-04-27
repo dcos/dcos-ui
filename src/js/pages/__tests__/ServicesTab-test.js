@@ -1,5 +1,4 @@
-jest.dontMock('../ServicesPage');
-jest.dontMock('../../components/Page');
+jest.dontMock('../services/ServicesTab');
 jest.dontMock('../../mixins/InternalStorageMixin');
 
 /* eslint-disable no-unused-vars */
@@ -11,12 +10,12 @@ var JestUtil = require('../../utils/JestUtil');
 
 var AlertPanel = require('../../components/AlertPanel');
 var DCOSStore = require('../../stores/DCOSStore');
-var ServicesPage = require('../ServicesPage');
+var ServicesTab = require('../services/ServicesTab');
 var ServiceTree = require('../../structs/ServiceTree');
 var ServiceDetail = require('../../components/ServiceDetail');
 var ServicesTable = require('../../components/ServicesTable');
 
-describe('ServicesPage', function () {
+describe('ServicesTab', function () {
 
   beforeEach(function () {
     DCOSStore.serviceTree = new ServiceTree({
@@ -37,7 +36,7 @@ describe('ServicesPage', function () {
 
     it('renders the service table', function () {
       var instance = ReactDOM.render(
-        JestUtil.stubRouterContext(ServicesPage, {params: {id: '/'}}),
+        JestUtil.stubRouterContext(ServicesTab, {params: {id: '/'}}),
         this.container
       );
 
@@ -48,7 +47,7 @@ describe('ServicesPage', function () {
 
     it('renders the service detail', function () {
       var instance = ReactDOM.render(
-        JestUtil.stubRouterContext(ServicesPage, {params: {id: '/alpha'}}),
+        JestUtil.stubRouterContext(ServicesTab, {params: {id: '/alpha'}}),
         this.container
       );
 
@@ -60,7 +59,7 @@ describe('ServicesPage', function () {
     it('renders loading screen', function () {
       DCOSStore.dataProcessed = false;
       var instance = ReactDOM.render(
-        JestUtil.stubRouterContext(ServicesPage, {params: {id: '/'}}),
+        JestUtil.stubRouterContext(ServicesTab, {params: {id: '/'}}),
         this.container
       );
 
@@ -73,7 +72,7 @@ describe('ServicesPage', function () {
     it('renders correct empty panel', function () {
       DCOSStore.serviceTree = new ServiceTree({id: '/'});
       var instance = ReactDOM.render(
-        JestUtil.stubRouterContext(ServicesPage, {params: {id: '/'}}),
+        JestUtil.stubRouterContext(ServicesTab, {params: {id: '/'}}),
         this.container
       );
 
