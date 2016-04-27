@@ -1,10 +1,10 @@
 var browserInfo = require('browser-info');
 var classNames = require('classnames');
+import {Hooks} from 'PluginSDK';
 import {Modal} from 'reactjs-components';
 var React = require('react');
 
-import {Hooks} from 'PluginSDK';
-
+import ClickToSelect from '../ClickToSelect';
 import Config from '../../config/Config';
 
 var CliInstructionsModal = React.createClass({
@@ -82,7 +82,9 @@ var CliInstructionsModal = React.createClass({
         <div>
           <h4 className="snippet-description">To install the CLI, copy and paste into your terminal:</h4>
           <div className="flush-top snippet-wrapper">
-            <pre className="mute prettyprint flush-bottom prettyprinted">{cliSnippet}</pre>
+            <ClickToSelect>
+              <pre className="mute prettyprint flush-bottom prettyprinted">{cliSnippet}</pre>
+            </ClickToSelect>
           </div>
         </div>
       );
