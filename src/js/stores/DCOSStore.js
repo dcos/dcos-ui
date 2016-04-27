@@ -24,16 +24,8 @@ class DCOSStore extends EventEmitter {
       this[method] = this[method].bind(this);
     });
 
-    this.serviceTreeOptions = {
-      filterProperties: {
-        name: function (item) {
-          return item.id;
-        }
-      }
-    };
-
     this.data = {
-      marathon: new ServiceTree(this.serviceTreeOptions),
+      marathon: new ServiceTree(),
       mesos: {
         frameworks: []
       },
