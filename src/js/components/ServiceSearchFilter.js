@@ -1,5 +1,7 @@
 import mixin from 'reactjs-mixin';
+/* eslint-disable no-unused-vars */
 import React from 'react';
+/* eslint-enable no-unused-vars */
 
 import FilterInputText from './FilterInputText';
 import QueryParamsMixin from '../mixins/QueryParamsMixin';
