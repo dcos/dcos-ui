@@ -64,7 +64,7 @@ var ServicesPage = React.createClass({
   },
 
   handleFilterChange: function (filterValues, filterType) {
-    var stateChanges = Object.assign({}, DEFAULT_FILTER_OPTIONS);
+    var stateChanges = Object.assign({}, this.state);
     stateChanges[filterType] = filterValues;
 
     this.setState(stateChanges);
