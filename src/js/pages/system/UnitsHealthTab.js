@@ -172,6 +172,7 @@ class UnitsHealthTab extends mixin(StoreMixin) {
               filters={['all', 'healthy', 'unhealthy']}
               filterByKey="title"
               onFilterChange={this.handleHealthFilterChange}
+              inverseStyle={true}
               itemList={dataHealth}
               selectedFilter={healthFilter} />
             <FilterInputText

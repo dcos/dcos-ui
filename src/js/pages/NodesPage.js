@@ -268,6 +268,7 @@ var NodesPage = React.createClass({
             filters={HEALTH_FILTER_BUTTONS}
             filterByKey="title"
             onFilterChange={this.handleHealthFilterChange}
+            inverseStyle={true}
             itemList={nodesHealth}
             selectedFilter={state.healthFilter} />
           <div className="form-group flush-bottom">
