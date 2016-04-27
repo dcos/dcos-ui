@@ -6,12 +6,6 @@ import HealthBarMap from '../constants/HealthBar';
 import StatusBar from './StatusBar';
 
 class HealthBar extends React.Component {
-  static get defaultProps() {
-    return {
-      instancesCount: null
-    };
-  }
-
   renderToolTip() {
     let {tasks, instancesCount} = this.props;
 
@@ -62,9 +56,13 @@ class HealthBar extends React.Component {
   }
 }
 
+HealthBar.defaultProps = {
+    instancesCount: null
+};
+
 HealthBar.propTypes = {
   instancesCount: React.PropTypes.number,
   tasks: React.PropTypes.object.isRequired
-}
+};
 
 module.exports = HealthBar;
