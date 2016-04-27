@@ -5,7 +5,7 @@ import React from 'react';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import AdvancedConfig from '../AdvancedConfig';
-import CosmosMessages from '../../constants/CosmosMessages';
+import CosmosErrorMessage from '../CosmosErrorMessage';
 import CosmosPackagesStore from '../../stores/CosmosPackagesStore';
 import InternalStorageMixin from '../../mixins/InternalStorageMixin';
 import ReviewConfig from '../ReviewConfig';
@@ -231,16 +231,14 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
   getInstallErrorScreen() {
     let cosmosPackage = CosmosPackagesStore.getPackageDetails();
     let {pendingRequest, installError} = this.internalStorage_get();
-    let installErrorMessage = CosmosMessages[installError.type] ||
-        CosmosMessages.default;
 
     return (
       <div className="modal-content">
         <div className="modal-content-inner container container-pod container-pod-short horizontal-center">
-          <h4 className="text-danger">{installErrorMessage.header}</h4>
-          <p className="text-align-center">
-            {installErrorMessage.getMessage(name || 'this package')}
-          </p>
+          <CosmosErrorMessage
+            className="text-error-state text-overflow-break-word"
+            error={installError}
+            wrapperClass="" />
         </div>
         <div className="modal-footer">
           <div className="container">
