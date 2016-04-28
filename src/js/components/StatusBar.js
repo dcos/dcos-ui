@@ -2,13 +2,6 @@ import React from 'react';
 import classNames from 'classnames';
 
 class StatusBar extends React.Component {
-  static get defaultProps() {
-    return {
-      className: 'progress-bar flex-box upgrade-progress-bar status-bar',
-      scale: null
-    };
-  }
-
   getBars(data) {
     let max = data.reduce(function (sum, item) {
       return sum + item.value;
@@ -57,6 +50,11 @@ class StatusBar extends React.Component {
     );
   }
 }
+
+StatusBar.defaultProps = {
+  className: 'progress-bar flex-box upgrade-progress-bar status-bar',
+  scale: null
+};
 
 StatusBar.propTypes = {
   className: React.PropTypes.string,
