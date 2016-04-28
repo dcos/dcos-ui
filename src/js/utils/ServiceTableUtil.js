@@ -105,7 +105,7 @@ function getCompareFunctionByProp(prop) {
       return nameCompareFunction;
     case 'tasks':
       return taskCompareFunction;
-    case 'health':
+    case 'status':
       return healthCompareFunction;
     case 'cpus':
       return cpusCompareFunction;
