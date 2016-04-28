@@ -47,7 +47,6 @@ describe('ServiceDetailTaskTab', function () {
         .findRenderedComponentWithType(this.instance, TaskView);
 
       expect(taskView).toBeDefined();
-
     });
 
   });
