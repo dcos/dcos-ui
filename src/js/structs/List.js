@@ -7,7 +7,7 @@ module.exports = class List {
    * List
    * @param {{
    *          items:array,
-   *          filterProperties:{propertyName:(null|string|function)}
+   *          filterProperties:{propertyName:(null|function)}
    *        }} options
    * @constructor
    * @struct
