@@ -8,7 +8,7 @@ module.exports = class Tree extends List {
    * Tree
    * @param {{
    *          items:array<({items:array}|*)>,
-   *          filterProperties:{propertyName:(null|string|function)}
+   *          filterProperties:{propertyName:(null|function)}
    *        }} options
    * @constructor
    * @struct
