@@ -292,12 +292,13 @@ class NodeDetailPage extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) 
     return (
       <div className="container container-fluid flush">
         <DescriptionList
-          className="container container-fluid flush"
+          className="container container-fluid flush container-pod container-pod-super-short flush-top"
           hash={headerValueMapping} />
         <DescriptionList
-          className="container container-fluid container-pod flush flush-top flush-bottom"
+          className="container container-fluid flush container-pod container-pod-super-short flush-top"
           hash={node.attributes}
-          headline="Attributes" />
+          headline="Attributes"
+          headlineClassName="flush-top inverse" />
       </div>
     );
   }
