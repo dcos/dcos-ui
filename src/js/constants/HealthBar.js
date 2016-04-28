@@ -1,18 +1,18 @@
 const HealthBarMap = {
   tasksUnknown: {
-    cssName: 'unknown',
+    className: 'unknown',
     label: 'Unknown'
   },
   tasksHealthy: {
-    cssName: 'healthy',
+    className: 'healthy',
     label: 'Healthy'
   },
   tasksUnhealthy: {
-    cssName: 'unhealthy',
+    className: 'unhealthy',
     label: 'Unhealthy'
   },
   tasksStaged: {
-    cssName: 'staged',
+    className: 'staged',
     label: 'Staged'
   }
 };
