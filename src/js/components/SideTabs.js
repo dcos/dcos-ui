@@ -11,13 +11,14 @@ class SideTabs extends React.Component {
   }
 
   handleTabClick(title) {
-    let props = this.props;
-    if (props.isMobileWidth && title === props.selectedTab) {
+    let {onTabClick, selectedTab} = this.props;
+    if (title === selectedTab) {
       this.setState({dropdownOpen: !this.state.dropdownOpen});
     } else {
-      props.onTabClick(title);
       this.setState({dropdownOpen: false});
     }
+    // Trigger on both open and close to make sure to trigger gemini update
+    onTabClick(title);
   }
 
   getTabHeader() {

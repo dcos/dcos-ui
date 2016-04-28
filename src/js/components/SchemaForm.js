@@ -271,26 +271,23 @@ class SchemaForm extends React.Component {
   getFormPanels() {
     let currentTab = this.state.currentTab;
     let multipleDefinition = this.multipleDefinition;
-    let formKeys = Object.keys(multipleDefinition);
 
-    let panels = formKeys.map((formKey, i) => {
+    let panels = Object.keys(multipleDefinition).map((formKey, i) => {
       let panelClassSet = classNames('form', {
         'hidden': currentTab !== formKey
       });
 
-      let formPanelDefinition = multipleDefinition[formKey];
-      let definition = [{render: this.getHeader.bind(
-        this,
-        formPanelDefinition.title,
-        formPanelDefinition.description
-      )}].concat(formPanelDefinition.definition);
+      let {definition, description, title} = multipleDefinition[formKey];
+      let formDefinition = [{
+        render: this.getHeader.bind(this, title, description)
+      }].concat(definition);
 
       return (
         <div key={i} className="row form-panel">
           <Form
             className={panelClassSet}
-            definition={definition}
             formGroupClass="form-group flush"
+            definition={formDefinition}
             triggerSubmit={this.getTriggerSubmit.bind(this, formKey)}
             onChange={this.handleFormChange}
             onSubmit={this.handleFormSubmit.bind(this, formKey)} />
