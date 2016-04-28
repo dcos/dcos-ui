@@ -113,8 +113,16 @@ describe('List', function () {
 
     beforeEach(function () {
       var items = [
-        {name: 'foo', description: {value: 'qux'}, subItems: ['one', 'two']},
-        {name: 'bar', description: {value: 'quux'}, subItems: ['two', 'three']}
+        {
+          name: 'foo',
+          description: {value: 'qux', label: 'corge'},
+          subItems: ['one', 'two']
+        },
+        {
+          name: 'bar',
+          description: {value: 'quux', label: 'grault'},
+          subItems: ['two', 'three']
+        }
       ];
       var filterProperties = {
         name: null,
@@ -144,8 +152,8 @@ describe('List', function () {
         new Item({
           name: 'bar',
           description: {value: 'quux'},
-          subItems: ['two', 'three']}
-        )
+          subItems: ['two', 'three']
+        })
       ];
       var filterProperties = {
         name: null,
@@ -198,6 +206,18 @@ describe('List', function () {
       };
       var list = new List({items, filterProperties});
       expect(list.filterItemsByText.bind(list, 'foo')).not.toThrow();
+    });
+
+    it('should use provided filter properties', function () {
+      var filterProperties = {
+        description: function (item, prop) {
+          return item[prop] && item[prop].label;
+        }
+      };
+      var filteredItems = this.instance
+        .filterItemsByText('corge', filterProperties)
+        .getItems();
+      expect(filteredItems[0].name).toEqual('foo');
     });
 
   });
