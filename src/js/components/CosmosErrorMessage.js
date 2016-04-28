@@ -3,6 +3,7 @@ import React from 'react';
 const REPOSITORY_ERRORS = [
   'EmptyPackageImport',
   'IndexNotFound',
+  'InvalidRepositoryUri',
   'PackageFileMissing',
   'PackageFileNotJson',
   'RepositoryNotPresent',
