@@ -20,7 +20,6 @@ import MesosStateStore from '../../stores/MesosStateStore';
 import NodeHealthStore from '../../stores/NodeHealthStore';
 import Page from '../../components/Page';
 import ResourceTypes from '../../constants/ResourceTypes';
-import SidePanelContents from '../../components/SidePanelContents';
 import SidePanels from '../../components/SidePanels';
 import StringUtil from '../../utils/StringUtil';
 import TabsMixin from '../../mixins/TabsMixin';
@@ -29,9 +28,6 @@ import Units from '../../utils/Units';
 
 // number to fit design of width vs. height ratio
 const WIDTH_HEIGHT_RATIO = 4.5;
-
-const METHODS_TO_BIND = [
-];
 
 class NodeDetailPage extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
   constructor() {
@@ -52,16 +48,10 @@ class NodeDetailPage extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) 
     this.state = {
       currentTab: Object.keys(this.tabs_tabs).shift()
     };
-
-    METHODS_TO_BIND.forEach((method) => {
-      this[method] = this[method].bind(this);
-    }, this);
   }
 
   componentDidMount() {
     super.componentDidMount(...arguments);
-
-    this.mountedAt = Date.now();
 
     let node = this.getNode();
     this.internalStorage_update({node});
@@ -270,22 +260,13 @@ class NodeDetailPage extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) 
     let nodeID = this.props.params.nodeID;
     let tasks = MesosStateStore.getTasksFromNodeID(this.props.params.nodeID);
 
-    let contents = this.getLoadingScreen();
-
-    let timeSinceMount = (Date.now() - this.mountedAt) / 1000;
-    if (timeSinceMount >= SidePanelContents.animationLengthSeconds) {
-      contents = (
+    return (
+      <div className="container container-fluid flush">
         <TaskView
           inverseStyle={true}
           tasks={tasks}
           parentRouter={this.context.router}
           nodeID={nodeID} />
-      );
-    }
-
-    return (
-      <div className="container container-fluid flush">
-        {contents}
       </div>
     );
   }
