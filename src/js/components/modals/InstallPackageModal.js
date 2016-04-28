@@ -488,8 +488,8 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
     return (
       <div className="modal-content">
         <div className="modal-content-inner container container-pod container-pod-short horizontal-center">
-          <h4 className="text-danger">Invalid Configuration</h4>
-          <p className="text-align-center">
+          <h3>Invalid Configuration</h3>
+          <p className="text-danger text-align-center">
             {errorText}
           </p>
         </div>
