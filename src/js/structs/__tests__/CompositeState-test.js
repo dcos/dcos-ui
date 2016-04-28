@@ -378,7 +378,7 @@ describe('CompositeState', function () {
             _itemData: { id: 'qq-id', hostname: 'qq' }
           }
         ],
-        filterProperties: []
+        filterProperties: {}
       };
 
       var nodesList = CompositeState.getNodesList();

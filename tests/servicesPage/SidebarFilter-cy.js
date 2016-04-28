@@ -10,7 +10,7 @@ describe('Sidebar Filter', function () {
 
     it('filters correctly on Idle', function () {
       cy.get('.sidebar-filters .label').contains('Idle').click();
-      cy.get('tbody tr').should('to.have.length', 3);
+      cy.get('tbody tr').should('to.have.length', 1);
     });
 
     it('filters correctly on Unhealthy', function () {
@@ -20,7 +20,7 @@ describe('Sidebar Filter', function () {
 
     it('filters correctly on N/A', function () {
       cy.get('.sidebar-filters .label').contains('N/A').click();
-      cy.get('tbody tr').should('to.have.length', 3);
+      cy.get('tbody tr').should('to.have.length', 4);
     });
 
     it('filters correctly on Healthy', function () {
@@ -32,13 +32,6 @@ describe('Sidebar Filter', function () {
       cy.get('.sidebar-filters .label').contains('Healthy').click();
       cy.get('.sidebar-filters .label').contains('Unhealthy').click();
       cy.get('tbody tr').should('to.have.length', 4);
-    });
-
-    it('resets search input on filter change', function () {
-      cy.get('.filter-input-text').as('filterInputText');
-      cy.get('@filterInputText').type('cassandra-healthy');
-      cy.get('.sidebar-filters .label').contains('Healthy').click();
-      cy.get('@filterInputText').should('have.value', '');
     });
 
     it('sets the correct filter query params', function () {
