@@ -124,13 +124,14 @@ var ServicesTable = React.createClass({
     }
 
     return (
-      <div className="status-bar-wrapper">
-        <HealthBar tasksSummary={taskSummary} instancesCount={instanceCount} />
-        <span className="visible-large-inline-block">
+      <div className="status-bar-wrapper media-object media-object-spacing-wrapper media-object-spacing-narrow media-object-offset">
+        <span className="media-object-item flush-bottom">
+          <HealthBar tasksSummary={taskSummary} instancesCount={instanceCount} />
+        </span>
+        <span className="media-object-item flush-bottom visible-large-inline-block">
           <span className={serviceStatusClassSet}>{serviceStatus}</span>
           {text}
         </span>
-
       </div>
     );
   },
