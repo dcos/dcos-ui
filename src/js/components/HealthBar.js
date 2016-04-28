@@ -6,50 +6,58 @@ import HealthBarMap from '../constants/HealthBar';
 import StatusBar from './StatusBar';
 
 class HealthBar extends React.Component {
-  renderToolTip() {
-    let {tasks, instancesCount} = this.props;
 
-    tasks = Object.keys(tasks).filter(function (task) {
-      return tasks[task] !== 0 && task !== 'tasksRunning';
+  getMappedTasksSummary(tasksSummary) {
+    return Object.keys(tasksSummary).filter(function (task) {
+      return task !== 'tasksRunning';
+    }).map(function (taskStatus) {
+      return {
+        className: HealthBarMap[taskStatus].className,
+        value: tasksSummary[taskStatus]
+      };
+    });
+  }
+
+  getTaskList(tasksSummary, instancesCount) {
+    return Object.keys(tasksSummary).filter(function (task) {
+      return tasksSummary[task] !== 0 && task !== 'tasksRunning';
     }).map(function (task, index) {
-      let percentage = parseInt(tasks[task] / instancesCount * 100, 10);
+      let percentage = parseInt(tasksSummary[task] / instancesCount * 100, 10);
 
-      let classSet = classNames(HealthBarMap[task].cssName, 'dot icon');
+      let classSet = classNames(HealthBarMap[task].className, 'dot icon');
 
       return (
         <div key={index}>
           <span className={classSet}></span>
-          {` ${tasks[task]} ${HealthBarMap[task].label} (${percentage} %)`}
+          {` ${tasksSummary[task]} ${HealthBarMap[task].label} (${percentage} %)`}
         </div>
       );
-    }).filter(function (item) {
-      return item != null;
     });
+  }
 
-    if (tasks.length === 0) {
+  renderToolTip() {
+    let {tasksSummary, instancesCount} = this.props;
+
+    tasksSummary = this.getTaskList(tasksSummary, instancesCount)
+
+    if (tasksSummary.length === 0) {
       return 'No Running Tasks';
     }
 
-    return tasks;
+    return tasksSummary;
   }
 
   render() {
-    let {tasks, instancesCount} = this.props;
+    let {tasksSummary, instancesCount} = this.props;
 
-    if (tasks == null) {
+    if (tasksSummary == null) {
       return null;
     }
-
-    tasks = Object.keys(tasks).filter(function (task) {
-      return task !== 'tasksRunning';
-    }).map(function (taskStatus) {
-      return {className: HealthBarMap[taskStatus].cssName, value: tasks[taskStatus]};
-    });
 
     return (
       <Tooltip content={this.renderToolTip()}>
         <StatusBar
-          data={tasks}
+          data={this.getMappedTasksSummary(tasksSummary)}
           scale={instancesCount}/>
       </Tooltip>
     );
@@ -57,12 +65,18 @@ class HealthBar extends React.Component {
 }
 
 HealthBar.defaultProps = {
-    instancesCount: null
+  instancesCount: null
 };
 
 HealthBar.propTypes = {
   instancesCount: React.PropTypes.number,
-  tasks: React.PropTypes.object.isRequired
+  tasksSummary: React.PropTypes.shape({
+    tasksRunning: React.PropTypes.number,
+    tasksHealthy: React.PropTypes.number,
+    tasksStaged: React.PropTypes.number,
+    tasksUnhealthy: React.PropTypes.number,
+    tasksUnknown: React.PropTypes.number
+  }).isRequired
 };
 
 module.exports = HealthBar;
