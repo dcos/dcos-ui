@@ -2,11 +2,13 @@ import React from 'react';
 
 import AlertPanel from '../../components/AlertPanel';
 
-var DeploymentsTab = React.createClass({
+class DeploymentsTab extends React.Component {
 
-  displayName: 'DeploymentsTab',
+  constructor() {
+    super(...arguments);
+  }
 
-  renderEmpty: function () {
+  renderEmpty() {
     return (
       <AlertPanel
         title="No Deployments"
@@ -15,13 +17,13 @@ var DeploymentsTab = React.createClass({
         <p className="flush">Active deployments will be shown here.</p>
       </AlertPanel>
     );
-  },
+  }
 
-  render: function () {
+  render() {
     return this.renderEmpty();
   }
 
-});
+}
 
 module.exports = DeploymentsTab;
 
