@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import React from 'react';
 import {Tooltip} from 'reactjs-components';
 
-import HealthBarMap from '../constants/HealthBar';
+import HealthBarStates from '../constants/HealthBarStates';
 import StatusBar from './StatusBar';
 
 class HealthBar extends React.Component {
@@ -12,7 +12,7 @@ class HealthBar extends React.Component {
       return task !== 'tasksRunning';
     }).map(function (taskStatus) {
       return {
-        className: HealthBarMap[taskStatus].className,
+        className: HealthBarStates[taskStatus].className,
         value: tasksSummary[taskStatus]
       };
     });
@@ -24,12 +24,12 @@ class HealthBar extends React.Component {
     }).map(function (task, index) {
       let percentage = parseInt(tasksSummary[task] / instancesCount * 100, 10);
 
-      let classSet = classNames(HealthBarMap[task].className, 'dot icon');
+      let classSet = classNames(HealthBarStates[task].className, 'dot icon');
 
       return (
         <div key={index}>
-          <span className={classSet}></span>
-          {` ${tasksSummary[task]} ${HealthBarMap[task].label} (${percentage} %)`}
+          <span className={classSet} />
+          {` ${tasksSummary[task]} ${HealthBarStates[task].label} (${percentage} %)`}
         </div>
       );
     });
