@@ -8,7 +8,7 @@ module.exports = class Tree extends List {
    * Tree
    * @param {{
    *          items:array<({items:array}|*)>,
-   *          filterProperties:{propertyName:(null|string|function)}
+   *          filterProperties:{propertyName:(null|function)}
    *        }} options
    * @constructor
    * @struct
@@ -75,11 +75,11 @@ module.exports = class Tree extends List {
   /**
    * Filters items in tree and returns a new instance of the tree used.
    * @param  {string} filterText string to search in properties of the list
+   * @param  {{propertyName:(null|function)}} [filterProperties] object to
+   *     configure filter properties as well as their getters
    * @return {Tree} Tree (or child class) containing filtered items
    */
-  filterItemsByText(filterText) {
-    let filterProperties = this.getFilterProperties();
-
+  filterItemsByText(filterText, filterProperties = this.getFilterProperties()) {
     if (filterText) {
       let regex = StringUtil.escapeForRegExp(filterText);
       let searchPattern = new RegExp(regex, 'i');

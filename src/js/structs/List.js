@@ -7,7 +7,7 @@ module.exports = class List {
    * List
    * @param {{
    *          items:array,
-   *          filterProperties:{propertyName:(null|string|function)}
+   *          filterProperties:{propertyName:(null|function)}
    *        }} options
    * @constructor
    * @struct
@@ -58,11 +58,12 @@ module.exports = class List {
   /**
    * Filters items in list and returns a new instance of the list used.
    * @param  {string} filterText string to search in properties of the list
+   * @param  {{propertyName:(null|function)}} [filterProperties] object
+   *     to configure filter properties as well as their getters
    * @return {List} List (or child class) containing filtered items
    */
-  filterItemsByText(filterText) {
+  filterItemsByText(filterText, filterProperties = this.getFilterProperties()) {
     let items = this.getItems();
-    let filterProperties = this.getFilterProperties();
 
     if (filterText) {
       items = StringUtil.filterByString(items, function (item) {
