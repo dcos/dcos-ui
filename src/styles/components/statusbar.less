@@ -1,59 +1,68 @@
 .status-bar {
+
   display: inline-flex;
   background-color: @gray;
   margin-right: 0;
-  height: @base-spacing-unit * 1/3;
-  width: 114px;
+  height: @status-bar-height;
+  width: @status-bar-width;
   max-width: 100%;
 
   .bar {
+
     background-color: currentColor;
     border-left: 1px solid @black;
 
     &:first-child {
+
       border-left: none;
+
     }
   }
 }
 
-.status-bar-column {
-  width: 138px;
-}
+.status-bar-wrapper {
 
-.status-bar-wrapper{
   display: inline-block;
+
   .running-state {
+
     color: @white;
+
   }
+
   .deploying-state {
+
     color: @yellow;
+
   }
 }
 
-.dot {
-  &.unknown {
-    background-color: lighten(@neutral, 10);
+
+
+& when (@table-enabled) {
+
+  .table {
+
+    .status-bar-column {
+
+      width: 138px;
+
+    }
+
   }
 
-  &.healthy {
-    background-color: @green;
+  @media (min-width: @screen-medium-max) {
+
+    .table {
+
+      .status-bar-column {
+
+        width: 330px;
+
+      }
+
+    }
+
   }
 
-  &.unhealthy {
-    background-color: @red;
-  }
-
-  &.staged {
-    background-color: @yellow;
-  }
-}
-
-@media (min-width: @screen-medium-max) {
-  .status-bar {
-    margin-right: @base-spacing-unit * 2/3;
-  }
-
-  .status-bar-column {
-    width: 330px;
-  }
 }
