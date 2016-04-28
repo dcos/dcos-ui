@@ -9,7 +9,7 @@ var Config = {
   networkingAPIPrefix: '/networking/api/v1',
   cosmosAPIPrefix: '/package',
   delayAfterErrorCount: 5,
-  documentationURI: 'https://dcos.io/docs',
+  documentationURI: 'https://dcos.io/docs/latest',
   downloadsURI: 'https://downloads.dcos.io',
   environment: '@@ENV',
   historyLength: 31,

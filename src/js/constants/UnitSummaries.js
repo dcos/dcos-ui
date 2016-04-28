@@ -23,7 +23,7 @@ const UnitSummaries = {
   },
   'dcos-exhibitor.service': {
     summary: `Manages ${Config.productName} in-cluster Zookeeper, used by Mesos as well as ${Config.productName} Marathon.`,
-    documentation_url: `${Config.documentationURI}/getting-started/overview/`
+    documentation_url: `${Config.documentationURI}/overview/high-availability/`
   },
   'dcos-history-service.service': {
     summary: `Caches recent cluster history in-memory so that the ${Config.productName} web interface can show recent data`,
@@ -83,7 +83,7 @@ const UnitSummaries = {
   },
   'dcos-mesos-slave-public': {
     summary: 'Runs a publicly accessible Mesos agent on the node.',
-    documentation_url: `${Config.documentationURI}/administration/dcosarchitecture/security/#scrollNav-3`
+    documentation_url: `${Config.documentationURI}/overview/security/#public-zone`
   }
 };
 
