@@ -10,8 +10,8 @@ class ServiceInfo extends React.Component {
 
   getSubHeader(service) {
     let serviceHealth = service.getHealth();
-    let tasks = service.getTasksSummary();
-    let runningTasksCount = tasks.tasksRunning;
+    let tasksSummary = service.getTasksSummary();
+    let runningTasksCount = tasksSummary.tasksRunning;
     let instancesCount = service.getInstancesCount();
     let runningTasksSubHeader = StringUtil.pluralize('Task', runningTasksCount);
     let subHeaderItems = [
@@ -28,7 +28,7 @@ class ServiceInfo extends React.Component {
       {
         label: (
           <HealthBar
-            tasks={tasks}
+            tasksSummary={tasksSummary}
             instancesCount={instancesCount} />
         ),
         shouldShow: true
