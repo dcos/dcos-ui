@@ -1,4 +1,4 @@
-const HealthBarMap = {
+const HealthBarStates = {
   tasksUnknown: {
     className: 'unknown',
     label: 'Unknown'
@@ -17,4 +17,4 @@ const HealthBarMap = {
   }
 };
 
-module.exports = HealthBarMap;
+module.exports = HealthBarStates;
