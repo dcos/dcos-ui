@@ -1,6 +1,7 @@
 let Application = require('../Application');
 let Framework = require('../Framework');
 let HealthStatus = require('../../constants/HealthStatus');
+let HealthTypes = require('../../constants/HealthTypes');
 let Service = require('../Service');
 let ServiceTree = require('../ServiceTree');
 let ServiceStatus = require('../../constants/ServiceStatus');
@@ -144,6 +145,79 @@ describe('ServiceTree', function () {
     it('should no include matching subtrees', function () {
       let filteredItems = this.instance.filterItemsByText('foo').getItems();
       expect(filteredItems[0] instanceof ServiceTree).toBeTruthy();
+    });
+  });
+
+  describe('#filterItemsByFilter', function () {
+
+    beforeEach(function () {
+      this.instance = new ServiceTree({
+        id: '/group/id',
+        apps: [
+          {
+            id: 'alpha',
+            cmd: 'cmd'
+          },
+          {
+            id: 'beta',
+            cmd: 'cmd',
+            labels: {DCOS_PACKAGE_FRAMEWORK_NAME: 'beta'},
+            tasksHealthy: 1,
+            tasksRunning: 1
+          },
+          {id: 'gamma', cmd: 'cmd', labels: {RANDOM_LABEL: 'random'}}
+        ],
+        groups: [
+          {
+            id: '/test', apps: [
+              {id: 'foo', cmd: 'cmd'},
+              {id: 'bar', cmd: 'cmd'}
+            ], groups: []
+          }
+        ],
+        filterProperties: {
+          id: function (item) {
+            return item.getId();
+          }
+        }
+      });
+    });
+
+    it('should filter by name', function () {
+      let filteredServices = this.instance.filterItemsByFilter({
+        name: 'alpha'
+      }).getItems();
+
+      expect(filteredServices.length).toEqual(1);
+      expect(filteredServices[0].id).toEqual('alpha');
+    });
+
+    it('should filter by name in groups', function () {
+      let filteredServices = this.instance.filterItemsByFilter({
+        name: 'foo'
+      }).getItems();
+
+      expect(filteredServices.length).toEqual(1);
+      expect(filteredServices[0].id).toEqual('/test');
+    });
+
+    it('should filter by health', function () {
+      let filteredServices = this.instance.filterItemsByFilter({
+        health: [HealthTypes.HEALTHY]
+      }).getItems();
+
+      expect(filteredServices.length).toEqual(1);
+      expect(filteredServices[0].id).toEqual('beta');
+    });
+
+    it('should filter AND-connected', function () {
+      let filteredServices = this.instance.filterItemsByFilter({
+        health: [HealthTypes.NA],
+        name: 'alpha'
+      }).getItems();
+
+      expect(filteredServices.length).toEqual(1);
+      expect(filteredServices[0].id).toEqual('alpha');
     });
   });
 
