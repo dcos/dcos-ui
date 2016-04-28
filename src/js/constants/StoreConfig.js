@@ -5,6 +5,9 @@ import {
   AUTH_USER_LOGOUT_SUCCESS,
   AUTH_USER_LOGOUT_ERROR,
 
+  CONFIG_LOADED,
+  CONFIG_ERROR,
+
   COSMOS_SEARCH_CHANGE,
   COSMOS_SEARCH_ERROR,
   COSMOS_LIST_CHANGE,
@@ -71,6 +74,7 @@ import {
   VISIBILITY_CHANGE
 } from './EventTypes';
 import AuthStore from '../stores/AuthStore';
+import ConfigStore from '../stores/ConfigStore';
 import HistoryStore from '../stores/HistoryStore';
 import MarathonStore from '../stores/MarathonStore';
 import MesosLogStore from '../stores/MesosLogStore';
@@ -92,6 +96,18 @@ const ListenersDescription = {
       error: AUTH_USER_LOGIN_ERROR,
       logoutSuccess: AUTH_USER_LOGOUT_SUCCESS,
       logoutError: AUTH_USER_LOGOUT_ERROR
+    },
+    unmountWhen: function () {
+      return true;
+    },
+    listenAlways: true
+  },
+
+  config: {
+    store: ConfigStore,
+    events: {
+      success: CONFIG_LOADED,
+      error: CONFIG_ERROR
     },
     unmountWhen: function () {
       return true;
