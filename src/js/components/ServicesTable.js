@@ -17,7 +17,7 @@ import TableUtil from '../utils/TableUtil';
 var Units = require('../utils/Units');
 
 const StatusMapping = {
-  'Running': 'color-1'
+  'Running': 'running-state'
 };
 
 var ServicesTable = React.createClass({
@@ -112,20 +112,20 @@ var ServicesTable = React.createClass({
   },
 
   renderStatus: function (prop, service) {
-    let instances = service.getInstancesCount();
+    let instanceCount = service.getInstancesCount();
     let serviceStatus = service.getStatus();
     let serviceStatusClassSet = StatusMapping[serviceStatus] || '';
-    let tasks = service.getTasksSummary();
-    let {tasksRunning} = tasks;
+    let taskSummary = service.getTasksSummary();
+    let {tasksRunning} = taskSummary;
 
     let text = ` (${tasksRunning} ${StringUtil.pluralize('Task', tasksRunning)})`;
-    if (tasksRunning !== instances) {
-      text = ` (${tasksRunning} of ${instances} Tasks)`;
+    if (tasksRunning !== instanceCount) {
+      text = ` (${tasksRunning} of ${instanceCount} Tasks)`;
     }
 
     return (
       <div className="status-bar-wrapper">
-        <HealthBar taskSummary={tasks} instancesCount={instances} />
+        <HealthBar tasksSummary={taskSummary} instancesCount={instanceCount} />
         <span className="visible-large-inline-block">
           <span className={serviceStatusClassSet}>{serviceStatus}</span>
           {text}

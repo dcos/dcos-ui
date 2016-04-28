@@ -1,7 +1,7 @@
 .status-bar {
   display: inline-flex;
   background-color: @gray;
-  margin-right: @base-spacing-unit * 2/3;
+  margin-right: 0;
   height: @base-spacing-unit * 1/3;
   width: 114px;
   max-width: 100%;
@@ -9,6 +9,7 @@
   .bar {
     background-color: currentColor;
     border-left: 1px solid @black;
+
     &:first-child {
       border-left: none;
     }
@@ -16,34 +17,43 @@
 }
 
 .status-bar-column {
-  @media (min-width: @screen-medium-max) {
-    width: 330px;
-  }
   width: 138px;
-
 }
+
 .status-bar-wrapper{
   display: inline-block;
-  .color-1 {
+  .running-state {
     color: @white;
   }
-  .color-2 {
+  .deploying-state {
     color: @yellow;
   }
 }
 
-.unknown {
-  background-color: lighten(@neutral, 10);
+.dot {
+  &.unknown {
+    background-color: lighten(@neutral, 10);
+  }
+
+  &.healthy {
+    background-color: @green;
+  }
+
+  &.unhealthy {
+    background-color: @red;
+  }
+
+  &.staged {
+    background-color: @yellow;
+  }
 }
 
-.healthy {
-  background-color: @green;
-}
+@media (min-width: @screen-medium-max) {
+  .status-bar {
+    margin-right: @base-spacing-unit * 2/3;
+  }
 
-.unhealthy {
-  background-color: @red;
-}
-
-.staged {
-  background-color: @yellow;
+  .status-bar-column {
+    width: 330px;
+  }
 }
