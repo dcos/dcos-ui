@@ -1,8 +1,6 @@
 jest.dontMock('../ServiceDetail');
+jest.dontMock('../ServiceDetailTaskTab');
 jest.dontMock('../ServiceInfo');
-jest.dontMock('../TaskView');
-jest.dontMock('../../mixins/GetSetMixin');
-jest.dontMock('../../stores/MesosStateStore');
 
 /* eslint-disable no-unused-vars */
 var React = require('react');
@@ -13,7 +11,7 @@ var JestUtil = require('../../utils/JestUtil');
 
 var Service = require('../../structs/Service');
 var ServiceDetail = require('../ServiceDetail');
-var TaskView = require('../TaskView');
+var ServiceDetailTaskTab = require('../ServiceDetailTaskTab');
 
 describe('ServiceDetail', function () {
 
@@ -31,7 +29,7 @@ describe('ServiceDetail', function () {
 
   beforeEach(function () {
     this.container = document.createElement('div');
-    this.wrapper  = ReactDOM.render(
+    this.wrapper = ReactDOM.render(
       JestUtil.stubRouterContext(ServiceDetail, {service}),
       this.container
     );
@@ -93,15 +91,15 @@ describe('ServiceDetail', function () {
 
   describe('#renderTasksTabView', function () {
 
-    it('renders task view', function () {
+    it('renders task tab', function () {
       var tasksTabView = ReactDOM.render(
         this.instance.renderTasksTabView(),
         this.container
       );
+      var serviceDetailTaskTab = TestUtils
+        .findRenderedComponentWithType(tasksTabView, ServiceDetailTaskTab);
 
-      expect(
-        TestUtils.findRenderedComponentWithType(tasksTabView, TaskView)
-      ).toBeDefined();
+      expect(serviceDetailTaskTab).toBeDefined();
 
     });
 
