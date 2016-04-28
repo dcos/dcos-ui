@@ -25,10 +25,11 @@ describe('#HealthBar', function () {
     this.container = document.createElement('div');
     this.instance = ReactDOM.render(
       <HealthBar
-        tasks={testData}
+        tasksSummary={testData}
         instancesCount={testInstanceCount} />,
       this.container
     );
+
   });
 
   afterEach(function () {
@@ -42,11 +43,7 @@ describe('#HealthBar', function () {
         <HealthBar />,
         this.container
       );
-      expect(console.error)
-        .toHaveBeenCalledWith(
-          'Warning: Failed propType: Required prop `tasks` was not' +
-          ' specified in `HealthBar`.'
-        );
+      expect(console.error).toHaveBeenCalled();
     });
   });
 
@@ -69,7 +66,7 @@ describe('#HealthBar', function () {
   describe('Empty tooltip', function () {
     it('should have an empty tooltip', function () {
       this.instance = ReactDOM.render(
-        <HealthBar tasks={{}}/>,
+        <HealthBar tasksSummary={{}}/>,
         this.container
       );
 
@@ -77,6 +74,87 @@ describe('#HealthBar', function () {
         ReactTestUtils.findRenderedComponentWithType(this.instance, Tooltip)
           .props.content
       ).toEqual('No Running Tasks');
+    });
+  });
+
+  describe('GetMappedTasksSummary', function () {
+    it('should return a Mapped Array with all tasks', function () {
+      const expectedOutput = [{ className: 'healthy', value: 1 },
+      { className: 'unhealthy', value: 1 },
+      { className: 'unknown', value: 1 },
+      { className: 'staged', value: 1 } ];
+      expect(this.instance.getMappedTasksSummary(testData))
+        .toEqual(expectedOutput);
+    });
+
+    it('should return a Mapped Array all values but some are 0',
+      function () {
+        const input = {
+          tasksRunning: 4,
+          tasksHealthy: 3,
+          tasksUnhealthy: 1,
+          tasksUnknown: 0,
+          tasksStaged: 0
+        };
+
+        const expectedOutput = [{ className: 'healthy', value: 3 },
+          { className: 'unhealthy', value: 1 },
+          { className: 'unknown', value: 0 },
+          { className: 'staged', value: 0 }];
+        expect(this.instance.getMappedTasksSummary(input))
+          .toEqual(expectedOutput);
+      });
+
+    it('should return a mapped array containing 0 values',
+      function () {
+        const input = {
+          tasksRunning: 0,
+          tasksHealthy: 0,
+          tasksUnhealthy: 0,
+          tasksUnknown: 0,
+          tasksStaged: 0
+        };
+
+        const expectedOutput = [{ className: 'healthy', value: 0 },
+          { className: 'unhealthy', value: 0 },
+          { className: 'unknown', value: 0 },
+          { className: 'staged', value: 0 }];
+        expect(this.instance.getMappedTasksSummary(input))
+          .toEqual(expectedOutput);
+      });
+  });
+
+  describe('GetTaskList', function () {
+    it('should return an array with 4 items', function () {
+      expect(this.instance.getTaskList(testData).length)
+        .toEqual(4);
+    });
+
+    it('should return an array containing 2 items',
+      function () {
+        const input = {
+          tasksRunning: 4,
+          tasksHealthy: 3,
+          tasksUnhealthy: 1,
+          tasksUnknown: 0,
+          tasksStaged: 0
+        };
+
+        expect(this.instance.getTaskList(input).length)
+          .toEqual(2);
+      });
+
+    it('should return an empty array', function () {
+      const input = {
+        tasksRunning: 0,
+        tasksHealthy: 0,
+        tasksUnhealthy: 0,
+        tasksUnknown: 0,
+        tasksStaged: 0
+      };
+
+      expect(this.instance.getTaskList(input).length)
+          .toEqual(0);
     });
   });
 });
