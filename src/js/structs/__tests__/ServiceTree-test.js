@@ -14,20 +14,39 @@ describe('ServiceTree', function () {
       this.instance = new ServiceTree({
         id: '/group/id',
         apps: [
-          {id: 'alpha', cmd: 'cmd'},
+          {
+            id: 'alpha',
+            cmd: 'cmd'
+          },
           {
             id: 'beta',
             cmd: 'cmd',
-            labels: {DCOS_PACKAGE_FRAMEWORK_NAME: 'beta'}
+            labels: {
+              DCOS_PACKAGE_FRAMEWORK_NAME: 'beta'
+            }
           },
-          {id: 'gamma', cmd: 'cmd', labels: {RANDOM_LABEL: 'random'}}
+          {
+            id: 'gamma',
+            cmd: 'cmd',
+            labels: {
+              RANDOM_LABEL: 'random'
+            }
+          }
         ],
         groups: [
           {
-            id: '/test', apps: [
-              {id: 'foo', cmd: 'cmd'},
-              {id: 'bar', cmd: 'cmd'}
-            ], groups: []
+            id: '/test',
+            apps: [
+              {
+                id: 'foo',
+                cmd: 'cmd'
+              },
+              {
+                id: 'bar',
+                cmd: 'cmd'
+              }
+            ],
+            groups: []
           }
         ],
         filterProperties: {
@@ -103,20 +122,39 @@ describe('ServiceTree', function () {
       this.instance = new ServiceTree({
         id: '/group/id',
         apps: [
-          {id: 'alpha', cmd: 'cmd'},
+          {
+            id: 'alpha',
+            cmd: 'cmd'
+          },
           {
             id: 'beta',
             cmd: 'cmd',
-            labels: {DCOS_PACKAGE_FRAMEWORK_NAME: 'beta'}
+            labels: {
+              DCOS_PACKAGE_FRAMEWORK_NAME: 'beta'
+            }
           },
-          {id: 'gamma', cmd: 'cmd', labels: {RANDOM_LABEL: 'random'}}
+          {
+            id: 'gamma',
+            cmd: 'cmd',
+            labels: {
+              RANDOM_LABEL: 'random'
+            }
+          }
         ],
         groups: [
           {
-            id: '/test', apps: [
-              {id: 'foo', cmd: 'cmd'},
-              {id: 'bar', cmd: 'cmd'}
-            ], groups: []
+            id: '/test',
+            apps: [
+              {
+                id: 'foo',
+                cmd: 'cmd'
+              },
+              {
+                id: 'bar',
+                cmd: 'cmd'
+              }
+            ],
+            groups: []
           }
         ],
         filterProperties: {
@@ -161,18 +199,35 @@ describe('ServiceTree', function () {
           {
             id: 'beta',
             cmd: 'cmd',
-            labels: {DCOS_PACKAGE_FRAMEWORK_NAME: 'beta'},
+            labels: {
+              DCOS_PACKAGE_FRAMEWORK_NAME: 'beta'
+            },
             tasksHealthy: 1,
             tasksRunning: 1
           },
-          {id: 'gamma', cmd: 'cmd', labels: {RANDOM_LABEL: 'random'}}
+          {
+            id: 'gamma',
+            cmd: 'cmd',
+            labels:
+            {
+              RANDOM_LABEL: 'random'
+            }
+          }
         ],
         groups: [
           {
-            id: '/test', apps: [
-              {id: 'foo', cmd: 'cmd'},
-              {id: 'bar', cmd: 'cmd'}
-            ], groups: []
+            id: '/test',
+            apps: [
+              {
+                id: 'foo',
+                cmd: 'cmd'
+              },
+              {
+                id: 'bar',
+                cmd: 'cmd'
+              }
+            ],
+            groups: []
           }
         ],
         filterProperties: {
@@ -210,7 +265,7 @@ describe('ServiceTree', function () {
       expect(filteredServices[0].id).toEqual('beta');
     });
 
-    it('should filter AND-connected', function () {
+    it('should perform a logical AND with multiple filters', function () {
       let filteredServices = this.instance.filterItemsByFilter({
         health: [HealthTypes.NA],
         name: 'alpha'
@@ -227,20 +282,39 @@ describe('ServiceTree', function () {
       this.instance = new ServiceTree({
         id: '/group/id',
         apps: [
-          {id: 'alpha', cmd: 'cmd'},
+          {
+            id: 'alpha',
+            cmd: 'cmd'
+          },
           {
             id: 'beta',
             cmd: 'cmd',
-            labels: {DCOS_PACKAGE_FRAMEWORK_NAME: 'beta'}
+            labels: {
+              DCOS_PACKAGE_FRAMEWORK_NAME: 'beta'
+            }
           },
-          {id: 'gamma', cmd: 'cmd', labels: {RANDOM_LABEL: 'random'}}
+          {
+            id: 'gamma',
+            cmd: 'cmd',
+            labels: {
+              RANDOM_LABEL: 'random'
+            }
+          }
         ],
         groups: [
           {
-            id: '/test', apps: [
-              {id: 'foo', cmd: 'cmd'},
-              {id: 'bar', cmd: 'cmd'}
-            ], groups: []
+            id: '/test',
+            apps: [
+              {
+                id: 'foo',
+                cmd: 'cmd'
+              },
+              {
+                id: 'bar',
+                cmd: 'cmd'
+              }
+            ],
+            groups: []
           }
         ],
         filterProperties: {
@@ -265,20 +339,39 @@ describe('ServiceTree', function () {
       this.instance = new ServiceTree({
         id: '/group/id',
         apps: [
-          {id: '/alpha', cmd: 'cmd'},
+          {
+            id: '/alpha',
+            cmd: 'cmd'
+          },
           {
             id: '/beta',
             cmd: 'cmd',
-            labels: {DCOS_PACKAGE_FRAMEWORK_NAME: 'beta'}
+            labels: {
+              DCOS_PACKAGE_FRAMEWORK_NAME: 'beta'
+            }
           },
-          {id: '/gamma', cmd: 'cmd', labels: {RANDOM_LABEL: 'random'}}
+          {
+            id: '/gamma',
+            cmd: 'cmd',
+            labels: {
+              RANDOM_LABEL: 'random'
+            }
+          }
         ],
         groups: [
           {
-            id: '/test', apps: [
-              {id: '/foo', cmd: 'cmd'},
-              {id: '/bar', cmd: 'cmd'}
-            ], groups: []
+            id: '/test',
+            apps: [
+              {
+                id: '/foo',
+                cmd: 'cmd'
+              },
+              {
+                id: '/bar',
+                cmd: 'cmd'
+              }
+            ],
+            groups: []
           }
         ]
       });
@@ -303,21 +396,42 @@ describe('ServiceTree', function () {
       let serviceTree = new ServiceTree({
         id: '/group/id',
         apps: [
-          {id: '/alpha', cmd: 'cmd', deployments: []},
+          {
+            id: '/alpha',
+            cmd: 'cmd',
+            deployments: []
+          },
           {
             id: '/beta',
             cmd: 'cmd',
             deployments: [],
-            labels: {DCOS_PACKAGE_FRAMEWORK_NAME: 'beta'}
+            labels: {
+              DCOS_PACKAGE_FRAMEWORK_NAME: 'beta'
+            }
           },
-          {id: '/gamma', cmd: 'cmd', labels: {RANDOM_LABEL: 'random'}}
+          {
+            id: '/gamma',
+            cmd: 'cmd',
+            labels: {
+              RANDOM_LABEL: 'random'
+            }
+          }
         ],
         groups: [
           {
-            id: '/test', apps: [
-              {id: '/foo', cmd: 'cmd', deployments: []},
-              {id: '/bar', cmd: 'cmd'}
-            ], groups: []
+            id: '/test',
+            apps: [
+              {
+                id: '/foo',
+                cmd: 'cmd',
+                deployments: []
+              },
+              {
+                id: '/bar',
+                cmd: 'cmd'
+              }
+            ],
+            groups: []
           }
         ]
       });
@@ -332,26 +446,51 @@ describe('ServiceTree', function () {
           {
             id: '/alpha',
             cmd: 'cmd',
-            deployments: [{id: '4d08fc0d-d450-4a3e-9c85-464ffd7565f2'}]
+            deployments: [
+              {
+                id: '4d08fc0d-d450-4a3e-9c85-464ffd7565f2'
+              }
+            ]
           },
           {
             id: '/beta',
             cmd: 'cmd',
-            deployments: [{id: '4d08fc0d-d450-4a3e-9c85-464ffd7565f3'}],
-            labels: {DCOS_PACKAGE_FRAMEWORK_NAME: 'beta'}
+            deployments: [
+              {
+                id: '4d08fc0d-d450-4a3e-9c85-464ffd7565f3'
+              }
+            ],
+            labels: {
+              DCOS_PACKAGE_FRAMEWORK_NAME: 'beta'
+            }
           },
-          {id: '/gamma', cmd: 'cmd', labels: {RANDOM_LABEL: 'random'}}
+          {
+            id: '/gamma',
+            cmd: 'cmd',
+            labels: {
+              RANDOM_LABEL: 'random'
+            }
+          }
         ],
         groups: [
           {
-            id: '/test', apps: [
+            id: '/test',
+            apps: [
               {
                 id: '/foo',
                 cmd: 'cmd',
-                deployments: [{id: '4d08fc0d-d450-4a3e-9c85-464ffd7565f1'}]
+                deployments: [
+                  {
+                    id: '4d08fc0d-d450-4a3e-9c85-464ffd7565f1'
+                  }
+                ]
               },
-              {id: '/bar', cmd: 'cmd'}
-            ], groups: []
+              {
+                id: '/bar',
+                cmd: 'cmd'
+              }
+            ],
+            groups: []
           }
         ]
       });
