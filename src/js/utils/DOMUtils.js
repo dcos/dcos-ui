@@ -134,8 +134,13 @@ var DOMUtils = {
 
   getDistanceFromTopOfParent: function (el) {
     let elTop = el.getBoundingClientRect().top;
-    let parentTop = el.parentNode.getBoundingClientRect().top;
 
+    let parentNode = el.parentNode;
+    if (!parentNode) {
+      return 0;
+    }
+
+    let parentTop = parentNode.getBoundingClientRect().top;
     return elTop - parentTop;
   }
 };
