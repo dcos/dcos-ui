@@ -164,18 +164,18 @@ describe('Tree', function () {
 
     beforeEach(function () {
       var items = [
-        {name: 'foo', description: {value: 'qux'}, tags: ['one', 'two']},
-        {name: 'bar', description: {value: 'quux'}, tags: ['two', 'three']},
+        {name: 'foo', description: {value: 'qux', label: 'corge' }, tags: ['one', 'two']},
+        {name: 'bar', description: {value: 'quux', label: 'grault'}, tags: ['two', 'three']},
         {
           items: [
             {
               name: 'alpha',
-              description: {value: 'gamma'},
+              description: {value: 'gamma', label: 'epsilon'},
               tags: ['one', 'two']
             },
             {
               name: 'beta',
-              description: {value: 'delta'},
+              description: {value: 'delta', label: 'zeta'},
               tags: ['one', 'two']
             }
           ]
@@ -269,6 +269,17 @@ describe('Tree', function () {
       };
       var list = new Tree({items, filterProperties});
       expect(list.filterItemsByText.bind(list, 'foo')).not.toThrow();
+    });
+
+    it('should use provided filter properties', function () {
+      var filterProperties = {
+        description: function (item, prop) {
+          return item[prop] && item[prop].label;
+        }
+      };
+      var filteredItems =
+        this.instance.filterItemsByText('zeta', filterProperties).getItems();
+      expect(filteredItems[0].getItems()[0].name).toEqual('beta');
     });
 
   });
