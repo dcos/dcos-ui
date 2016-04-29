@@ -1,15 +1,17 @@
+import mixin from 'reactjs-mixin';
 /* eslint-disable no-unused-vars */
 import React from 'react';
 /* eslint-enable no-unused-vars */
+import {StoreMixin} from 'mesosphere-shared-reactjs';
 
-import {documentationURI} from '../config/Config';
+import {documentationURI} from '../../config/Config';
+import PageHeader from '../../components/PageHeader';
+import RequestErrorMsg from '../../components/RequestErrorMsg';
 import serviceDefaultURI from '../../img/services/icon-service-default-medium@2x.png';
-import RequestErrorMsg from './RequestErrorMsg';
-import SidePanelContents from './SidePanelContents';
-import UnitHealthStore from '../stores/UnitHealthStore';
-import UnitSummaries from '../constants/UnitSummaries';
+import UnitHealthStore from '../../stores/UnitHealthStore';
+import UnitSummaries from '../../constants/UnitSummaries';
 
-module.exports = class UnitNodeSidePanelContents extends SidePanelContents {
+class UnitsHealthNodeDetail extends mixin(StoreMixin) {
 
   constructor() {
     super(...arguments);
@@ -31,30 +33,6 @@ module.exports = class UnitNodeSidePanelContents extends SidePanelContents {
     UnitHealthStore.fetchUnitNode(unitID, unitNodeID);
   }
 
-  getHeader(unit, node) {
-    let imageTag = (
-      <div className="side-panel-icon icon icon-large icon-image-container
-        icon-app-container">
-        <img src={serviceDefaultURI} />
-      </div>
-    );
-
-    return (
-      <div className="side-panel-content-header-details flex-box
-        flex-box-align-vertical-center">
-        {imageTag}
-        <div>
-          <h1 className="side-panel-content-header-label flush">
-            {`${unit.getTitle()} Health Check`}
-          </h1>
-          <div>
-            {this.getSubHeader(unit, node)}
-          </div>
-        </div>
-      </div>
-    );
-  }
-
   getErrorNotice() {
     return (
       <div className="container container-pod">
@@ -63,7 +41,7 @@ module.exports = class UnitNodeSidePanelContents extends SidePanelContents {
     );
   }
 
-  getSubHeader(unit, node) {
+  getSubTitle(unit, node) {
     let healthStatus = node.getHealth();
 
     return (
@@ -90,16 +68,16 @@ module.exports = class UnitNodeSidePanelContents extends SidePanelContents {
 
     return (
       <div className="flex-container-col flex-grow">
-        <span className="h4">Summary</span>
-        <p>
+        <span className="h4 inverse flush-top">Summary</span>
+        <p className="inverse">
           {unitSummary.summary}
         </p>
-        <p>
+        <p className="inverse">
           <a href={unitDocsURL} target="_blank">
             View Documentation
           </a>
         </p>
-        <span className="h4">Output</span>
+        <span className="h4 inverse">Output</span>
         <pre className="flex-grow flush-bottom">
           {node.getOutput()}
         </pre>
@@ -111,20 +89,20 @@ module.exports = class UnitNodeSidePanelContents extends SidePanelContents {
     let {unitID, unitNodeID} = this.props.params;
     let node = UnitHealthStore.getNode(unitNodeID);
     let unit = UnitHealthStore.getUnit(unitID);
+    let serviceIcon = <img src={serviceDefaultURI} />;
 
     return (
       <div className="flex-container-col">
-        <div className="side-panel-section side-panel-content-header container container-pod container-fluid container-pod-divider-bottom container-pod-divider-bottom-align-right flush-bottom">
-          <div className="container-pod container-pod-short flush-top">
-            {this.getHeader(unit, node)}
-          </div>
-        </div>
-        <div className="side-panel-tab-content side-panel-section container
-          container-fluid container-pod container-pod-short container-fluid
-          flex-container-col flex-grow">
+        <PageHeader
+          icon={serviceIcon}
+          subTitle={this.getSubTitle(unit, node)}
+          title={`${unit.getTitle()} Health Check`} />
+        <div className="flex-container-col flex-grow no-overflow">
           {this.getNodeInfo(node, unit)}
         </div>
       </div>
     );
   }
 };
+
+module.exports = UnitsHealthNodeDetail;

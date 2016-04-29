@@ -12,7 +12,6 @@ import FilterHeadline from '../../components/FilterHeadline';
 import FilterButtons from '../../components/FilterButtons';
 import FilterInputText from '../../components/FilterInputText';
 import ResourceTableUtil from '../../utils/ResourceTableUtil';
-import SidePanels from '../../components/SidePanels';
 import StringUtil from '../../utils/StringUtil';
 import TableUtil from '../../utils/TableUtil';
 import UnitHealthStore from '../../stores/UnitHealthStore';
@@ -60,7 +59,7 @@ class UnitsHealthTab extends mixin(StoreMixin) {
   renderUnit(prop, unit) {
     return (
       <div className="text-overflow">
-        <Link to="system-overview-units-unit-nodes-panel"
+        <Link to="system-overview-units-unit-nodes-detail"
           params={{unitID: unit.get('id')}}
           className="headline">
           {unit.getTitle()}
@@ -197,9 +196,6 @@ class UnitsHealthTab extends mixin(StoreMixin) {
             sortBy={{prop: 'health', order: 'asc'}}
             />
         </div>
-        <SidePanels
-          params={this.props.params}
-          openedPage="system-overview-units" />
       </div>
     );
   }

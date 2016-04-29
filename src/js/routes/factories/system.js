@@ -3,6 +3,8 @@ import {Route, Redirect} from 'react-router';
 import {Hooks} from 'PluginSDK';
 import RepositoriesTab from '../../pages/system/RepositoriesTab';
 import SystemPage from '../../pages/SystemPage';
+import UnitsHealthDetail from '../../pages/system/UnitsHealthDetail';
+import UnitsHealthNodeDetail from '../../pages/system/UnitsHealthNodeDetail';
 import UnitsHealthTab from '../../pages/system/UnitsHealthTab';
 import UsersTab from '../../pages/system/UsersTab';
 
@@ -17,26 +19,19 @@ let RouteFactory = {
             type: Route,
             name: 'system-overview-units',
             path: 'components/?',
-            handler: UnitsHealthTab,
-            children: [
-              {
-                type: Route,
-                name: 'system-overview-units-unit-nodes-panel',
-                path: ':unitID/?',
-                children: [
-                  {
-                    type: Route,
-                    name: 'system-overview-units-unit-nodes-node-panel',
-                    path: 'nodes/:unitNodeID/?'
-                  }
-                ]
-              },
-              {
-                type: Redirect,
-                from: ':unitID/?',
-                to: 'system-overview-units-unit-nodes-panel'
-              }
-            ]
+            handler: UnitsHealthTab
+          },
+          {
+            type: Route,
+            name: 'system-overview-units-unit-nodes-detail',
+            path: 'components/:unitID/?',
+            handler: UnitsHealthDetail,
+          },
+          {
+            type: Route,
+            name: 'system-overview-units-unit-nodes-node-detail',
+            path: 'components/:unitID/nodes/:unitNodeID/?',
+            handler: UnitsHealthNodeDetail
           },
           {
             type: Route,

@@ -8,8 +8,6 @@ import MesosSummaryStore from '../stores/MesosSummaryStore';
 import ServiceSidePanelContents from './ServiceSidePanelContents';
 import StringUtil from '../utils/StringUtil';
 import TaskSidePanelContents from './TaskSidePanelContents';
-import UnitHealthSidePanelContents from './UnitHealthSidePanelContents';
-import UnitNodeSidePanelContents from './UnitNodeSidePanelContents';
 import Util from '../utils/Util';
 
 const METHODS_TO_BIND = [
@@ -58,13 +56,11 @@ class SidePanels extends mixin(StoreMixin) {
   }
 
   isOpen(itemIDs) {
-    let {unitID, unitNodeID, serviceName, taskID} = itemIDs;
+    let {serviceName, taskID} = itemIDs;
 
     return (
-      (unitNodeID != null && unitID != null) ||
       serviceName != null ||
-      taskID != null ||
-      unitID != null
+      taskID != null
     ) && MesosSummaryStore.get('statesProcessed');
   }
 
@@ -105,16 +101,7 @@ class SidePanels extends mixin(StoreMixin) {
       return null;
     }
 
-    let {unitID, unitNodeID, serviceName, taskID} = itemIDs;
-
-    if (unitID != null && unitNodeID != null) {
-      return (
-        <UnitNodeSidePanelContents
-          itemID={unitID}
-          params={this.props.params}
-          parentRouter={this.context.router} />
-      );
-    }
+    let {serviceName, taskID} = itemIDs;
 
     if (taskID != null) {
       return (
@@ -129,14 +116,6 @@ class SidePanels extends mixin(StoreMixin) {
       return (
         <ServiceSidePanelContents
           itemID={serviceName}
-          parentRouter={this.context.router} />
-      );
-    }
-
-    if (unitID != null) {
-      return (
-        <UnitHealthSidePanelContents
-          itemID={unitID}
           parentRouter={this.context.router} />
       );
     }

@@ -10,8 +10,6 @@ jest.dontMock('../../events/MarathonActions');
 jest.dontMock('../ServiceSidePanelContents');
 jest.dontMock('../SidePanelContents');
 jest.dontMock('../TaskSidePanelContents');
-jest.dontMock('../UnitHealthSidePanelContents');
-jest.dontMock('../UnitNodeSidePanelContents');
 jest.dontMock('../../utils/Util');
 jest.dontMock('../../utils/RequestUtil');
 jest.dontMock('../../structs/SummaryList');
@@ -25,8 +23,6 @@ var MesosSummaryStore = require('../../stores/MesosSummaryStore');
 var ServiceSidePanelContents = require('../ServiceSidePanelContents');
 var SidePanels = require('../SidePanels');
 var TaskSidePanelContents = require('../TaskSidePanelContents');
-var UnitHealthSidePanelContents = require('../UnitHealthSidePanelContents');
-var UnitNodeSidePanelContents = require('../UnitNodeSidePanelContents');
 
 describe('SidePanels', function () {
   beforeEach(function () {
@@ -89,9 +85,7 @@ describe('SidePanels', function () {
       this.params = {
         nodeID: null,
         serviceName: null,
-        taskID: null,
-        unitID: null,
-        unitNodeID: null
+        taskID: null
       };
       this.container = document.createElement('div');
       this.instance = ReactDOM.render(
@@ -125,26 +119,7 @@ describe('SidePanels', function () {
 
         expect(contents.type === ServiceSidePanelContents).toEqual(true);
         this.params.serviceName = null;
-      });
-
-    it('should return UnitHealthSidePanelContents if unitID is set',
-      function () {
-        this.params.unitID = 'set';
-        var contents = this.instance.getContents(this.params);
-
-        expect(contents.type === UnitHealthSidePanelContents).toEqual(true);
-        this.params.serviceName = null;
-      });
-
-    it('should return UnitNodeSidePanelContents if unitID and unitNodeID are set',
-      function () {
-        this.params.unitID = 'set';
-        this.params.unitNodeID = 'set';
-        var contents = this.instance.getContents(this.params);
-
-        expect(contents.type === UnitNodeSidePanelContents).toEqual(true);
-        this.params.serviceName = null;
-      });
-
+      }
+    );
   });
 });

@@ -1,3 +1,4 @@
+import {Link} from 'react-router';
 import React from 'react';
 import {Table} from 'reactjs-components';
 
@@ -82,23 +83,13 @@ class UnitHealthNodesTable extends React.Component {
   }
 
   getNodeLink(node, linkText) {
-    let parentPaths = this.props.parentRouter.getCurrentRoutes();
-    let parentPath = parentPaths[parentPaths.length - 2].name;
-    let path = 'system-overview-units-unit-nodes-node-panel';
-    // Route is available under dashboard root
-    if (parentPath === 'dashboard') {
-      path = 'dashboard-units-unit-nodes-node-panel';
-    }
-
-    let params = {unitID: this.props.itemID, unitNodeID: node.get('host_ip')};
+    let params = Object.assign({}, this.props.params, {unitNodeID: node.get('host_ip')});
 
     return (
-      <a
-        className="emphasize clickable text-overflow"
-        onClick={() => { this.props.parentRouter.transitionTo(path, params); }}
-        title={linkText}>
+      <Link className="emphasize clickable text-overflow" params={params}
+        to="system-overview-units-unit-nodes-node-detail">
         {linkText}
-      </a>
+      </Link>
     );
   }
 
@@ -126,20 +117,20 @@ class UnitHealthNodesTable extends React.Component {
     return (
       <Table
         className="table table-borderless-outer
-          table-borderless-inner-columns flush-bottom"
+          table-borderless-inner-columns flush-bottom inverse"
         columns={this.getColumns()}
         colGroup={this.getColGroup()}
         containerSelector=".gm-scroll-view"
         data={this.props.nodes}
         itemHeight={TableUtil.getRowHeight()}
-        sortBy={{prop: 'health', order: 'asc'}}
-        />
+        sortBy={{prop: 'health', order: 'asc'}} />
     );
   }
 }
 
 UnitHealthNodesTable.propTypes = {
-  nodes: React.PropTypes.array.isRequired
+  nodes: React.PropTypes.array.isRequired,
+  params: React.PropTypes.object
 };
 
 module.exports = UnitHealthNodesTable;
