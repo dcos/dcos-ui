@@ -211,7 +211,7 @@ class PackagesTab extends mixin(StoreMixin) {
     let gridPackages = splitPackages.selectedPackages;
 
     if (state.searchString) {
-      tablePackages = packages.filterItems(state.searchString);
+      tablePackages = packages.filterItemsByText(state.searchString);
     }
 
     return (
