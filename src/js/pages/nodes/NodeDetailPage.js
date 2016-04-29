@@ -43,8 +43,8 @@ class NodeDetailPage extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) 
     };
   }
 
-  componentDidMount() {
-    super.componentDidMount(...arguments);
+  componentWillMount() {
+    super.componentWillMount(...arguments);
 
     let node = this.getNode();
     this.internalStorage_update({node});
@@ -129,14 +129,14 @@ class NodeDetailPage extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) 
     ).last();
   }
 
-  getNotFound() {
+  getNotFound(nodeID) {
     return (
       <div className="container container-fluid container-pod text-align-center">
         <h3 className="flush-top text-align-center">
           Error finding node
         </h3>
         <p className="flush">
-          {`Did not find a node by the id "${this.props.params.nodeID}"`}
+          {`Did not find a node by the id "${nodeID}"`}
         </p>
       </div>
     );
@@ -228,7 +228,7 @@ class NodeDetailPage extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) 
     if (!node) {
       return (
         <Page title="Nodes">
-          {this.getNotFound()}
+          {this.getNotFound(this.props.params.nodeID)}
         </Page>
       );
     }
@@ -263,10 +263,6 @@ class NodeDetailPage extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) 
 
 NodeDetailPage.contextTypes = {
   router: React.PropTypes.func
-};
-
-NodeDetailPage.propTypes = {
-  nodeID: React.PropTypes.string
 };
 
 module.exports = NodeDetailPage;

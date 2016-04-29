@@ -7,7 +7,6 @@ jest.dontMock('../../stores/MarathonStore');
 jest.dontMock('../../utils/MesosSummaryUtil');
 jest.dontMock('../../events/MesosSummaryActions');
 jest.dontMock('../../events/MarathonActions');
-jest.dontMock('../NodeSidePanelContents');
 jest.dontMock('../ServiceSidePanelContents');
 jest.dontMock('../SidePanelContents');
 jest.dontMock('../TaskSidePanelContents');

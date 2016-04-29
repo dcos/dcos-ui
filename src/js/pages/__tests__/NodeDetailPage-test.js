@@ -7,6 +7,7 @@ jest.dontMock('../nodes/NodeDetailPage');
 jest.dontMock('../../components/TaskTable');
 jest.dontMock('../../components/TaskView');
 jest.dontMock('../../components/RequestErrorMsg');
+jest.dontMock('../../structs/CompositeState');
 
 var JestUtil = require('../../utils/JestUtil');
 
@@ -18,10 +19,12 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var TestUtils = require('react-addons-test-utils');
 
+var CompositeState = require('../../structs/CompositeState');
 var MesosStateStore = require('../../stores/MesosStateStore');
 var MesosSummaryActions = require('../../events/MesosSummaryActions');
 var MesosSummaryStore = require('../../stores/MesosSummaryStore');
 var Node = require('../../structs/Node');
+var NodesList = require('../../structs/NodesList');
 var NodeDetailPage = require('../nodes/NodeDetailPage');
 
 describe('NodeDetailPage', function () {
@@ -30,8 +33,13 @@ describe('NodeDetailPage', function () {
     this.getTasksFromNodeID = MesosStateStore.getTasksFromNodeID;
     this.storeGet = MesosStateStore.get;
     this.storeGetNode = MesosStateStore.getNodeFromID;
+    this.getNodesList = CompositeState.getNodesList;
 
     this.container = document.createElement('div');
+
+    CompositeState.getNodesList = function () {
+      return new NodesList({items: [{id: 'existingNode'}]});
+    }
 
     MesosSummaryActions.fetchSummary = function () {
       return null;
@@ -87,13 +95,14 @@ describe('NodeDetailPage', function () {
     MesosStateStore.removeAllListeners();
     MesosSummaryStore.removeAllListeners();
     ReactDOM.unmountComponentAtNode(this.container);
+    CompositeState.getNodesList = this.getNodesList;
   });
 
   describe('#getNode', function () {
 
     it('should store an instance of Node', function () {
       var instance = ReactDOM.render(
-        <NodeDetailPage nodeID="existingNode" />,
+        <NodeDetailPage params={{nodeID: 'existingNode'}} />,
         this.container
       );
 
@@ -108,7 +117,7 @@ describe('NodeDetailPage', function () {
 
     it('should return null if node does not exist', function () {
       var instance = ReactDOM.render(
-        <NodeDetailPage nodeID="nonExistent" />,
+        <NodeDetailPage params={{nodeID: 'nonExistent'}} />,
         this.container
       );
 
@@ -118,7 +127,7 @@ describe('NodeDetailPage', function () {
 
     it('should return a node if node exists', function () {
       var instance = ReactDOM.render(
-        <NodeDetailPage nodeID="existingNode" />,
+        <NodeDetailPage params={{nodeID: 'existingNode'}} />,
         this.container
       );
 
