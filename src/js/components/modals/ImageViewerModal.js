@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import {Modal} from 'reactjs-components';
 import React from 'react';
 
-import IconBack from '../icons/IconBack';
+import IconChevron from '../icons/IconChevron';
 import {keyCodes} from '../../utils/KeyboardUtil';
 
 const METHODS_TO_BIND = [
@@ -94,14 +94,14 @@ class ImageViewerModal extends React.Component {
         <span
           onClick={this.handleClick.bind(this, 'left')}
           className="clickable arrow-container">
-          <IconBack className="icon icon-back icon-small arrow" />
+          <IconChevron className="icon icon-back icon-small arrow"
+            isForward={false} />
         </span>
         <span
           className="clickable arrow-container forward"
           onClick={this.handleClick.bind(this, 'left')}>
-          <IconBack
-            className="icon icon-back icon-small arrow"
-            isForward={true} />
+          <IconChevron
+            className="icon icon-back icon-small arrow" />
         </span>
       </div>
     );

@@ -14,6 +14,7 @@ import Config from '../../config/Config';
 import DateUtil from '../../utils/DateUtil';
 import DescriptionList from '../../components/DescriptionList';
 import HealthTab from '../../components/HealthTab';
+import IconChevron from '../../components/icons/IconChevron';
 import InternalStorageMixin from '../../mixins/InternalStorageMixin';
 import MesosSummaryStore from '../../stores/MesosSummaryStore';
 import MesosStateStore from '../../stores/MesosStateStore';
@@ -86,9 +87,9 @@ class NodeDetailPage extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) 
         <Link className="headline emphasize" to="nodes">
           Nodes
         </Link>
-        <span style={{'margin': '0 15px'}}>
-          ›
-        </span>
+        <IconChevron
+          className="icon icon-micro"
+          isForward={true}/>
         {nodeID}
       </h5>
     );
@@ -316,7 +317,7 @@ class NodeDetailPage extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) 
 
     return (
       <Page title="Nodes">
-        <div className="container container-fluid flush">
+        <div className="container container-fluid flush breadcrumbs">
           {this.getBreadcrumbs(node.get('hostname'))}
         </div>
         <div>
