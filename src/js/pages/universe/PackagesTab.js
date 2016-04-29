@@ -4,13 +4,12 @@ import React from 'react';
 /* eslint-enable no-unused-vars */
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
-import CosmosMessages from '../../constants/CosmosMessages';
+import CosmosErrorMessage from '../../components/CosmosErrorMessage';
 import CosmosPackagesStore from '../../stores/CosmosPackagesStore';
 import FilterInputText from '../../components/FilterInputText';
 import InstallPackageModal from '../../components/modals/InstallPackageModal';
 import DisplayPackagesTable from '../../components/DisplayPackagesTable';
 import Panel from '../../components/Panel';
-import RequestErrorMsg from '../../components/RequestErrorMsg';
 import StringUtil from '../../utils/StringUtil';
 
 const METHODS_TO_BIND = [
@@ -73,18 +72,13 @@ class PackagesTab extends mixin(StoreMixin) {
   }
 
   getErrorScreen() {
-    let header, message;
-    let error = CosmosMessages[this.state.errorMessage.type];
-    if (error) {
-      header = error.header;
-      message = (
-        <p className="inverse text-align-center flush-bottom">
-          {error.getMessage(this.state.errorMessage.name)}
-        </p>
-      );
-    }
+    let {errorMessage} = this.state;
 
-    return <RequestErrorMsg message={message} header={header} />;
+    return (
+      <CosmosErrorMessage
+        error={errorMessage}
+        headerClass="h3 text-align-center flush-top inverse" />
+    );
   }
 
   getButton(cosmosPackage) {

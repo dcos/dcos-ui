@@ -1,4 +1,5 @@
 jest.dontMock('../InstallPackageModal');
+jest.dontMock('../../CosmosErrorMessage');
 jest.dontMock('../../ReviewConfig');
 jest.dontMock('../../../stores/CosmosPackagesStore');
 jest.dontMock('../../../mixins/InternalStorageMixin');
@@ -102,8 +103,9 @@ describe('InstallPackageModal', function () {
         this.instance.getModalContents(),
         this.container
       ));
-      var result = node.querySelector('h4.text-danger');
-      expect(result.textContent).toEqual('Name Already Exists');
+
+      var result = node.querySelector('.h3.text-align-center.flush-top');
+      expect(result.textContent).toEqual('An Error Occured');
     });
 
     it('should display install success', function () {

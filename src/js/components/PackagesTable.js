@@ -6,7 +6,7 @@ import React from 'react';
 /* eslint-enable no-unused-vars */
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
-import CosmosMessages from '../constants/CosmosMessages';
+import CosmosErrorMessage from './CosmosErrorMessage';
 import CosmosPackagesStore from '../stores/CosmosPackagesStore';
 import Config from '../config/Config';
 import PackagesTableHeaderLabels from '../constants/PackagesTableHeaderLabels';
@@ -191,12 +191,11 @@ class PackagesTable extends mixin(StoreMixin) {
       return null;
     }
 
-    let error = CosmosMessages[packageUninstallError.type] ||
-      CosmosMessages.default;
     return (
-      <p className="text-error-state">
-       {error.getMessage(packageUninstallError.name)}
-      </p>
+      <CosmosErrorMessage
+        className="text-error-state text-overflow-break-word"
+        error={packageUninstallError}
+        header="" />
     );
   }
 
