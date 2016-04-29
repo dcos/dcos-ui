@@ -240,7 +240,7 @@ describe('ServiceTree', function () {
 
     it('should filter by name', function () {
       let filteredServices = this.instance.filterItemsByFilter({
-        name: 'alpha'
+        id: 'alpha'
       }).getItems();
 
       expect(filteredServices.length).toEqual(1);
@@ -249,7 +249,7 @@ describe('ServiceTree', function () {
 
     it('should filter by name in groups', function () {
       let filteredServices = this.instance.filterItemsByFilter({
-        name: 'foo'
+        id: 'foo'
       }).getItems();
 
       expect(filteredServices.length).toEqual(1);
@@ -268,7 +268,7 @@ describe('ServiceTree', function () {
     it('should perform a logical AND with multiple filters', function () {
       let filteredServices = this.instance.filterItemsByFilter({
         health: [HealthTypes.NA],
-        name: 'alpha'
+        id: 'alpha'
       }).getItems();
 
       expect(filteredServices.length).toEqual(1);
