@@ -110,19 +110,6 @@ class NodeDetailPage extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) 
     );
   }
 
-  getLoadingScreen() {
-    return (
-      <div className="container container-fluid container-pod text-align-center
-        vertical-center inverse">
-        <div className="row">
-          <div className="ball-scale">
-            <div />
-          </div>
-        </div>
-      </div>
-    );
-  }
-
   getNode() {
     return CompositeState.getNodesList().filter(
       {ids: [this.props.params.nodeID]}
