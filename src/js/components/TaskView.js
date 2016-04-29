@@ -129,9 +129,14 @@ class TaskView extends mixin(SaveStateMixin) {
   }
 
   getTaskTable(tasks) {
+    let classSet = classNames({
+      'table table-borderless-outer table-borderless-inner-columns': true,
+      'flush-bottom': true,
+      'inverse': this.props.inverseStyle
+    });
     return (
       <TaskTable
-        inverseStyle={this.props.inverseStyle}
+        className={classSet}
         parentRouter={this.props.parentRouter}
         tasks={tasks} />
     );
@@ -162,6 +167,14 @@ class TaskView extends mixin(SaveStateMixin) {
       'h4 text-align-left flush-top': true,
       'inverse': this.props.inverseStyle
     });
+    let filterDropdownClassSet = classNames({
+      'button dropdown-toggle text-align-left': true,
+      'button-inverse': this.props.inverseStyle
+    })
+    let filterDropdownMenuClassSet = classNames({
+      'dropdown-menu': true,
+      'inverse': this.props.inverseStyle
+    })
 
     if (state.searchString !== '') {
       tasks = StringUtil.filterByString(tasks, 'name', state.searchString);
@@ -182,7 +195,8 @@ class TaskView extends mixin(SaveStateMixin) {
             inverseStyle={this.props.inverseStyle} />
           <div className="form-group flush-bottom">
             <FilterByTaskState
-              inverseStyle={this.props.inverseStyle}
+              className={filterDropdownClassSet}
+              dropdownMenuClassName={filterDropdownMenuClassSet}
               statuses={this.getStatuses(tasks)}
               handleFilterChange={this.handleStatusFilterChange}
               totalTasksCount={tasks.length}

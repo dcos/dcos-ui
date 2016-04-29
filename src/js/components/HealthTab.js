@@ -143,7 +143,8 @@ class HealthTab extends React.Component {
             inverseStyle={true} />
           <UnitHealthDropdown
             initialID="all"
-            inverseStyle={true}
+            className="button dropdown-toggle text-align-left button-inverse"
+            dropdownMenuClassName="dropdown-menu inverse"
             onHealthSelection={this.handleHealthSelection} />
         </FilterBar>
         <Table
