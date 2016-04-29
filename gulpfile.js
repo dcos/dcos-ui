@@ -257,3 +257,5 @@ gulp.task('dist', function (callback) {
 gulp.task('webpack', webpackFn);
 
 gulp.task('serve', ['default', 'connect:server', 'watch']);
+
+gulp.task('testing', ['default', 'connect:server']);

@@ -14,30 +14,8 @@ describe('Install Package Modal', function () {
 
   it('displays install modal for package', function () {
     cy
-      .get('.modal .form-element-inline-text')
-      .should('contain', 'marathon-user');
-  });
-
-  it('displays config header for package', function () {
-    cy
-      .get('.modal-footer .button')
-      .contains('View Configuration Details')
-      .click();
-    cy
-      .get('.modal-header h4')
+      .get('.modal .modal-content')
       .should('contain', 'marathon');
-  });
-
-  it('displays config values for package', function () {
-    cy
-      .get('.modal-footer .button')
-      .contains('View Configuration Details')
-      .click();
-    cy
-      .get('.modal-content-inner dt.emphasize')
-      .contains('cpus')
-      .next()
-      .should('contain', '2');
   });
 
 });

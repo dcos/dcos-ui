@@ -13,7 +13,7 @@ describe('Packages Tab', function () {
         method: 'POST',
         url: /package\/search/,
         status: 400,
-        response: {type: 'InvalidRepositoryUri', name: 'Invalid'}
+        response: {type: 'RepositoryUriSyntax', name: 'Invalid'}
       })
       .visitUrl({url: '/universe', logIn: true});
 
@@ -78,8 +78,8 @@ describe('Packages Tab', function () {
       .visitUrl({url: '/universe', logIn: true});
 
     cy
-      .get('.page-content p.inverse.text-align-center')
-      .should('contain', 'We have been notified of the issue, but would love to know more. Talk with us using Intercom. You can also join us on our Slack channel or send us an email at help@dcos.io.');
+      .get('.page-content h3')
+      .should('contain', 'Cannot Connect With The Server');
   });
 
   context('searching', function () {
