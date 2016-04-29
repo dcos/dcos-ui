@@ -21,7 +21,7 @@ class ComponentList extends React.Component {
           {
             className: 'dashboard-health-list-item-description',
             content: (
-              <Link to="dashboard-units-unit-nodes-panel"
+              <Link to="system-overview-units-unit-nodes-detail"
                 params={{unitID: unit.get('id')}}
                 className="dashboard-health-list-item-cell h4 inverse flush-top
                   flush-bottom clickable text-overflow">
