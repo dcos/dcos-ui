@@ -23,17 +23,13 @@ class SideTabs extends React.Component {
   }
 
   getTabs() {
-    let {props: {selectedTab, tabs}, state: {dropdownOpen}} = this;
+    let {selectedTab, tabs} = this.props;
 
     return tabs.map((tab, index) => {
       let {title} = tab;
-      let classes = classNames(
-        'sidebar-menu-item clickable visible-block',
-        {
-          'hidden-mini': !dropdownOpen,
-          selected: title === selectedTab
-        }
-      );
+      let classes = classNames('sidebar-menu-item clickable visible-block', {
+        selected: title === selectedTab
+      });
 
       return (
         <li
@@ -47,24 +43,33 @@ class SideTabs extends React.Component {
   }
 
   render() {
-    let {className, selectedTab} = this.props;
+    let {props: {className, selectedTab}, state: {dropdownOpen}} = this;
+
+    let classes = classNames('list-unstyled visible-block', {
+      'hidden-mini': !dropdownOpen
+    });
+    let caretClasses = classNames('caret caret--desc caret--visible', {
+      'dropup': dropdownOpen
+    })
 
     return (
-      <ul className={className}>
-        <li className="h3 sidebar-menu-item selection-header clickable visible-mini">
-          <a onClick={this.handleTabClick.bind(this, selectedTab)}>
+      <div className={className}>
+        <span className="sidebar-menu-item selection-header clickable visible-mini" onClick={this.handleTabClick.bind(this, selectedTab)}>
+          <a>
             {selectedTab}
-            <span className="caret caret--desc caret--visible" />
+            <span className={caretClasses} />
           </a>
-        </li>
-        {this.getTabs()}
-      </ul>
+        </span>
+        <ul className={classes}>
+          {this.getTabs()}
+        </ul>
+      </div>
     );
   }
 }
 
 SideTabs.defaultProps = {
-  className: 'sidebar-tabs list-unstyled',
+  className: 'sidebar-tabs',
   onTabClick: function () {},
   tabs: []
 };
