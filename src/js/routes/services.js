@@ -1,4 +1,4 @@
-import {Route, Redirect} from 'react-router';
+import {Route} from 'react-router';
 
 import DeploymentsTab from '../pages/services/DeploymentsTab';
 import ServiceOverlay from '../components/ServiceOverlay';
@@ -13,8 +13,12 @@ let serviceRoutes = {
   children: [
     {
       type: Route,
-      name: 'services-all',
-      path: 'all/',
+      name: 'services-deployments',
+      path: 'deployments/',
+      handler: DeploymentsTab
+    },
+    {
+      type: Route,
       handler: ServicesTab,
       children: [
         {
@@ -39,17 +43,6 @@ let serviceRoutes = {
           path: 'task-detail/:taskID/?'
         }
       ]
-    },
-    {
-      type: Route,
-      name: 'services-deployments',
-      path: 'deployments/',
-      handler: DeploymentsTab
-    },
-    {
-      type: Redirect,
-      from: '/services/?',
-      to: 'services-all'
     }
   ]
 };
