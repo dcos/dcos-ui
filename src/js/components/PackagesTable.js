@@ -69,12 +69,8 @@ class PackagesTable extends React.Component {
     let getClassName = this.getClassName;
     let heading = ResourceTableUtil.renderHeading(PackagesTableHeaderLabels);
     let sortFunction = TableUtil
-      .getSortFunction('appId', function (cosmosPackage, prop) {
-        if (prop === 'appId') {
-          return cosmosPackage.get('appId');
-        }
-
-        return cosmosPackage.get('packageDefinition')[prop];
+      .getSortFunction('appId', function (cosmosPackage) {
+        return cosmosPackage.getAppId();
       });
 
     return [
@@ -93,7 +89,7 @@ class PackagesTable extends React.Component {
         heading,
         prop: 'version',
         render: function (prop, cosmosPackage) {
-          return cosmosPackage.get('packageDefinition')[prop];
+          return cosmosPackage.getCurrentVersion();
         },
         sortable: false
       },
@@ -120,11 +116,8 @@ class PackagesTable extends React.Component {
 
   getHeadline(prop, cosmosPackage) {
     let packageImages = cosmosPackage.getIcons();
-    let name = cosmosPackage.get('appId');
-    // Remove initial slash if present
-    if (name.charAt(0) === '/') {
-      name = name.slice(1);
-    }
+    let name = cosmosPackage.getAppIdName();
+
     return (
       <div className="package-table-heading flex-box flex-box-align-vertical-center table-cell-flex-box">
         <span className="icon icon-small icon-image-container icon-app-container">
@@ -174,7 +167,7 @@ class PackagesTable extends React.Component {
           columns={this.getColumns()}
           colGroup={this.getColGroup()}
           data={this.props.packages.getItems().slice()}
-          sortBy={{prop: 'name', order: 'desc'}} />
+          sortBy={{prop: 'appId', order: 'desc'}} />
         <UpgradePackageModal
           cosmosPackage={packageToUpgrade}
           onClose={this.handleUpgradeClose}

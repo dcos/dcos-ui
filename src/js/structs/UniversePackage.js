@@ -29,6 +29,16 @@ class UniversePackage extends Item {
     return this.get('appId');
   }
 
+  getAppIdName() {
+    let appId = this.getAppId();
+    // Remove initial slash if present
+    if (appId.charAt(0) === '/') {
+      appId = appId.slice(1);
+    }
+
+    return appId;
+  }
+
   getBlockCount() {
     return this.getActiveBlock() + 10;
   }

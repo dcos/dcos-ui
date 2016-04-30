@@ -10,7 +10,8 @@ import CosmosErrorMessage from '../CosmosErrorMessage';
 import CosmosPackagesStore from '../../stores/CosmosPackagesStore';
 
 const METHODS_TO_BIND = [
-  'handleUninstallPackage',
+  'handleClose',
+  'handleUninstallPackage'
 ];
 
 class UninstallPackageModal extends mixin(StoreMixin) {
@@ -49,6 +50,15 @@ class UninstallPackageModal extends mixin(StoreMixin) {
     );
   }
 
+  handleClose() {
+    this.setState({
+      uninstallSuccess: false,
+      packageUninstallError: null,
+      pendingUninstallRequest: false
+    });
+    this.props.onClose();
+  }
+
   handleUninstallPackage() {
     let {cosmosPackage} = this.props;
     let appId;
@@ -69,6 +79,10 @@ class UninstallPackageModal extends mixin(StoreMixin) {
     this.setState({pendingUninstallRequest: true});
   }
 
+  getEmptyNode() {
+    return <div />;
+  }
+
   getErrorMessage() {
     let {packageUninstallError} = this.state;
     if (!packageUninstallError) {
@@ -84,11 +98,16 @@ class UninstallPackageModal extends mixin(StoreMixin) {
   }
 
   getUninstallModalContent() {
+    let {cosmosPackage} = this.props;
+    if (!cosmosPackage) {
+      return this.getEmptyNode();
+    }
+
     return (
       <div className="container-pod container-pod-short text-align-center">
         <h3 className="flush-top">Are you sure?</h3>
         <p>
-          {`${this.props.cosmosPackage.getName()} will be uninstalled from ${Config.productName}. All tasks belonging to this package will be killed.`}
+          {`${cosmosPackage.getAppIdName()} will be uninstalled from ${Config.productName}. All tasks belonging to this package will be killed.`}
         </p>
         {this.getErrorMessage()}
       </div>
