@@ -1,6 +1,6 @@
-var webpackAlias = require('jest-webpack-alias');
 var babel = require('babel-core');
 var jestPreset = require('babel-preset-jest');
+var webpackAlias = require('jest-webpack-alias');
 
 module.exports = {
   // Gets called by jest during test prep for every module.
