@@ -25,6 +25,10 @@ class UniversePackage extends Item {
     return this.getActiveBlock();
   }
 
+  getAppId() {
+    return this.get('appId');
+  }
+
   getBlockCount() {
     return this.getActiveBlock() + 10;
   }

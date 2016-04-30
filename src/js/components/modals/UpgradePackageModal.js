@@ -41,7 +41,9 @@ class UpgradePackageModal extends React.Component {
   }
 
   getModalContents() {
-    let {cosmosPackage, packageName, packageVersion} = this.props;
+    let {cosmosPackage} = this.props;
+    let packageName = cosmosPackage.getName();
+    let packageVersion = cosmosPackage.getCurrentVersion();
 
     return (
       <div className="modal-content">
@@ -120,10 +122,8 @@ UpgradePackageModal.defaultProps = {
 };
 
 UpgradePackageModal.propTypes = {
-  packageName: React.PropTypes.string,
-  packageVersion: React.PropTypes.string,
-  open: React.PropTypes.bool,
-  onClose: React.PropTypes.func
+  onClose: React.PropTypes.func,
+  open: React.PropTypes.bool
 };
 
 module.exports = UpgradePackageModal;
