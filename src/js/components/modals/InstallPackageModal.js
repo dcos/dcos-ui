@@ -7,6 +7,7 @@ import {StoreMixin} from 'mesosphere-shared-reactjs';
 import AdvancedConfig from '../AdvancedConfig';
 import CosmosErrorMessage from '../CosmosErrorMessage';
 import CosmosPackagesStore from '../../stores/CosmosPackagesStore';
+import IconCircleCheckmark from '../icons/IconCircleCheckmark';
 import InternalStorageMixin from '../../mixins/InternalStorageMixin';
 import ReviewConfig from '../ReviewConfig';
 import SchemaUtil from '../../utils/SchemaUtil';
@@ -438,10 +439,7 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
     let {pendingRequest} = this.internalStorage_get();
     let cosmosPackage = CosmosPackagesStore.getPackageDetails();
 
-    let notes = Util.findNestedPropertyInObject(
-      cosmosPackage.get('package'),
-      'postInstallNotes'
-    );
+    let notes = cosmosPackage.getPostInstallNotes();
 
     let parsedNotes = StringUtil.parseMarkdown(notes);
 
@@ -449,7 +447,10 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
       <div>
         <div className="modal-content">
           <div className="horizontal-center modal-content-inner container container-pod container-pod-short text-align-center">
-            <h2 className="flush-top short-bottom">Success!</h2>
+            <span className="text-success">
+              <IconCircleCheckmark />
+            </span>
+            <h2 className="short-top short-bottom">Success!</h2>
             <div
               style={{width: '100%', overflow: 'auto', wordWrap: 'break-word'}}
               dangerouslySetInnerHTML={parsedNotes} />
@@ -462,7 +463,7 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
                 disabled={!cosmosPackage || pendingRequest}
                 className="button button-success flush-bottom button-wide"
                 onClick={this.props.onClose}>
-                <i className="icon icon-sprite icon-sprite-mini icon-sprite-mini-white icon-check-mark" />
+                OK
               </button>
             </div>
           </div>

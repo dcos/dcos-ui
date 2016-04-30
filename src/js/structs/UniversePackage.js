@@ -90,6 +90,13 @@ class UniversePackage extends Item {
     );
   }
 
+  getPostInstallNotes() {
+    return Util.findNestedPropertyInObject(
+      this.get('package'),
+      'postInstallNotes'
+    )
+  }
+
   getPostUninstallNotes() {
     return Util.findNestedPropertyInObject(
       this.get('packageDefinition'),
