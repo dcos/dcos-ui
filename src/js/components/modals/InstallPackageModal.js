@@ -13,7 +13,6 @@ import ReviewConfig from '../ReviewConfig';
 import SchemaUtil from '../../utils/SchemaUtil';
 import StringUtil from '../../utils/StringUtil';
 import TabsMixin from '../../mixins/TabsMixin';
-import Util from '../../utils/Util';
 
 const PREINSTALL_NOTES_CHAR_LIMIT = 140;
 
