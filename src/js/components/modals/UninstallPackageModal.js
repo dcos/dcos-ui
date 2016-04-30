@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import {Confirm} from 'reactjs-components';
 import mixin from 'reactjs-mixin';
 /* eslint-disable no-unused-vars */
@@ -8,6 +9,7 @@ import {StoreMixin} from 'mesosphere-shared-reactjs';
 import Config from '../../config/Config';
 import CosmosErrorMessage from '../CosmosErrorMessage';
 import CosmosPackagesStore from '../../stores/CosmosPackagesStore';
+import IconCircleCheckmark from '../icons/IconCircleCheckmark';
 
 const METHODS_TO_BIND = [
   'handleClose',
@@ -19,6 +21,7 @@ class UninstallPackageModal extends mixin(StoreMixin) {
     super();
 
     this.state = {
+      uninstallSuccess: false,
       packageUninstallError: null,
       pendingUninstallRequest: false
     };
@@ -44,9 +47,14 @@ class UninstallPackageModal extends mixin(StoreMixin) {
   }
 
   onCosmosPackagesStoreUninstallSuccess() {
+    let {handleUninstallFinish} = this.props;
     this.setState(
-      {packageUninstallError: null, pendingUninstallRequest: false},
-      this.props.handleUninstallFinish
+      {
+        uninstallSuccess: true,
+        packageUninstallError: null,
+        pendingUninstallRequest: false
+      },
+      handleUninstallFinish
     );
   }
 
@@ -97,8 +105,36 @@ class UninstallPackageModal extends mixin(StoreMixin) {
     );
   }
 
-  getUninstallModalContent() {
+  getPostUninstallNotes() {
     let {cosmosPackage} = this.props;
+
+    if (!cosmosPackage) {
+      return this.getEmptyNode();
+    }
+
+    let name = cosmosPackage.getAppIdName();
+    let notes = cosmosPackage.getPostUninstallNotes();
+
+    return (
+      <div className="container-pod container-pod-short text-align-center">
+        <div className="text-success">
+          <IconCircleCheckmark />
+        </div>
+        <h3 className="short-top">{`${name} Uninstalled`}</h3>
+        <p className="small flush-bottom">
+          {notes}
+        </p>
+      </div>
+    );
+  }
+
+  getUninstallModalContent() {
+    let {props: {cosmosPackage}, state: {uninstallSuccess}} = this;
+
+    if (uninstallSuccess) {
+      return this.getPostUninstallNotes();
+    }
+
     if (!cosmosPackage) {
       return this.getEmptyNode();
     }
@@ -115,7 +151,16 @@ class UninstallPackageModal extends mixin(StoreMixin) {
   }
 
   render() {
-    let {props: {onClose, open}, state: {pendingUninstallRequest}} = this;
+    let {
+      handleClose,
+      props: {open},
+      state: {pendingUninstallRequest, uninstallSuccess}
+    } = this;
+
+    let rightButtonClassName = classNames('button button-danger', {
+      'hidden': uninstallSuccess
+    });
+
     return (
       <Confirm
         closeByBackdropClick={true}
@@ -123,10 +168,12 @@ class UninstallPackageModal extends mixin(StoreMixin) {
         footerContainerClass="container container-pod container-pod-short
           container-pod-fluid flush-top flush-bottom"
         open={open}
-        onClose={onClose}
-        leftButtonCallback={onClose}
+        onClose={handleClose}
+        leftButtonCallback={handleClose}
+        leftButtonText="Close"
+        rightButtonClassName={rightButtonClassName}
         rightButtonCallback={this.handleUninstallPackage}
-        rightButtonClassName="button button-danger"
+        rightButtonClassName={rightButtonClassName}
         rightButtonText="Uninstall">
         {this.getUninstallModalContent()}
       </Confirm>

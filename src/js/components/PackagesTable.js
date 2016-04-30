@@ -46,7 +46,6 @@ class PackagesTable extends React.Component {
   }
 
   handleUninstallFinish() {
-    this.setState({packageToUninstall: null});
     CosmosPackagesStore.fetchInstalledPackages();
   }
 
