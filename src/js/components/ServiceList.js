@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import {List, Tooltip} from 'reactjs-components';
 const React = require('react');
 
+import Cluster from '../utils/Cluster';
 import Config from '../config/Config';
 const HealthLabels = require('../constants/HealthLabels');
 const HealthStatus = require('../constants/HealthStatus');
@@ -35,8 +36,19 @@ let ServiceList = React.createClass({
     return !_.isEqual(this.props, nextProps) || changedState;
   },
 
-  handleServiceClick: function (serviceName) {
-    this.context.router.transitionTo('dashboard-panel', {serviceName});
+  handleServiceClick: function (service, event) {
+    // Open service in new window/tab if service has a web URL
+    if (service.webui_url &&
+      (event.ctrlKey || event.shiftKey || event.metaKey)) {
+      return;
+    }
+
+    // Modifier key not pressed or service didn't have a web URL, open detail
+    event.preventDefault();
+    this.context.router.transitionTo(
+      'dashboard-panel',
+      {serviceName: service.name}
+    );
   },
 
   getServices: function (services, healthProcessed) {
@@ -81,7 +93,8 @@ let ServiceList = React.createClass({
             className: 'text-overflow',
             content: (
               <a key="title"
-                onClick={this.handleServiceClick.bind(this, service.name)}
+                href={Cluster.getServiceLink(service.name)}
+                onClick={this.handleServiceClick.bind(this, service)}
                 className="h4 inverse flush-top flush-bottom clickable text-overflow">
                 {service.name}
               </a>
