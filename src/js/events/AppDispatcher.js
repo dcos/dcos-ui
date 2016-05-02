@@ -1,9 +1,8 @@
-var _ = require('underscore');
 var Dispatcher = require('flux').Dispatcher;
 
 import ActionTypes from '../constants/ActionTypes';
 
-var AppDispatcher = _.extend(new Dispatcher(), {
+var AppDispatcher = Object.assign(new Dispatcher(), {
 
   handleServerAction: function (action) {
     if (!action.type) {

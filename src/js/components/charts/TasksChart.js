@@ -1,19 +1,24 @@
-var _ = require('underscore');
+import _ from 'underscore';
 var classNames = require('classnames');
 var React = require('react');
 
 var Chart = require('./Chart');
 var DialChart = require('./DialChart');
 
-var tasksPerRow = 3;
-var taskInfo = {
+const TASKS_PER_ROW = 3;
+const TASK_INFO = {
   'TASK_RUNNING': {label: 'Tasks running', colorIndex: 4},
   'TASK_STAGING': {label: 'Tasks staging', colorIndex: 1}
 };
+const DISPLAYED_TASK_KEYS = ['TASK_RUNNING', 'TASK_STAGING'];
 
 function getEmptyTaskData() {
-  return _.map(taskInfo, function (val, key) {
-    return {name: key, colorIndex: val.colorIndex, value: 0};
+  return DISPLAYED_TASK_KEYS.map(function (key) {
+    return {
+      name: key,
+      colorIndex: TASK_INFO[key].colorIndex,
+      value: 0
+    };
   });
 }
 
@@ -39,10 +44,13 @@ var TasksChart = React.createClass({
       tasks = getEmptyTaskData();
     }
 
-    var numberOfTasks = _.size(taskInfo);
+    var numberOfTasks = DISPLAYED_TASK_KEYS.length;
 
-    return _.map(taskInfo, function (info, key) {
-      var task = _.findWhere(tasks, {name: key});
+    return DISPLAYED_TASK_KEYS.map(function (key) {
+      let info = TASK_INFO[key];
+      var task = tasks.find(function (task) {
+        return task.name === key;
+      });
       if (task === undefined) {
         task = { value: 0 };
       }
@@ -50,7 +58,7 @@ var TasksChart = React.createClass({
         'unit-bordered-horizontal-mini text-align-center column-12': true
       };
       // equalize columns for units
-      if (numberOfTasks > tasksPerRow) {
+      if (numberOfTasks > TASKS_PER_ROW) {
         classes['column-mini-4'] = true;
       } else {
         classes['column-mini-' + 12 / numberOfTasks] = true;
@@ -70,17 +78,18 @@ var TasksChart = React.createClass({
   },
 
   getTotal: function (tasks) {
-    return _.reduce(tasks, function (acc, task) {
+    return tasks.reduce(function (acc, task) {
       return acc + task.value;
     }, 0);
   },
 
-  getTasks: function (_tasks) {
-    var validTasks = Object.keys(taskInfo);
-    var tasks = _.pick(_tasks, validTasks);
-
-    return _.map(tasks, function (value, key) {
-      return {colorIndex: taskInfo[key].colorIndex, name: key, value: value};
+  getTasks: function (tasks = {}) {
+    return DISPLAYED_TASK_KEYS.map(function (key) {
+      return {
+        colorIndex: TASK_INFO[key].colorIndex,
+        name: key,
+        value: tasks[key]
+      };
     });
   },
 

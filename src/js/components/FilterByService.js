@@ -1,4 +1,3 @@
-var _ = require('underscore');
 var React = require('react');
 
 var Dropdown = require('reactjs-components').Dropdown;
@@ -22,7 +21,7 @@ var FilterByService = React.createClass({
       byServiceFilter: defaultId,
       services: [],
       totalHostsCount: 0,
-      handleFilterChange: _.noop
+      handleFilterChange: function () {}
     };
   },
 
@@ -54,7 +53,7 @@ var FilterByService = React.createClass({
     });
     let items = [defaultItem].concat(this.props.services);
 
-    return _.map(items, function (service) {
+    return items.map((service) => {
       var selectedHtml = this.getItemHtml(service);
       var dropdownHtml = (<a>{selectedHtml}</a>);
 
@@ -74,7 +73,7 @@ var FilterByService = React.createClass({
       }
 
       return item;
-    }, this);
+    });
   },
 
   getSelectedId: function (id) {

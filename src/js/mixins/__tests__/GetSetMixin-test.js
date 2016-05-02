@@ -1,12 +1,11 @@
 jest.dontMock('../GetSetMixin');
 
-var _ = require('underscore');
 var GetSetMixin = require('../GetSetMixin');
 
 describe('GetSetMixin', function () {
 
   beforeEach(function () {
-    this.instance = _.extend({}, GetSetMixin);
+    this.instance = Object.assign({}, GetSetMixin);
   });
 
   describe('#get', function () {
@@ -30,7 +29,7 @@ describe('GetSetMixin', function () {
     });
 
     it('should allow for default state values', function () {
-      var instance = _.extend({
+      var instance = Object.assign({
         getSet_data: {
           foo: 'bar'
         }
@@ -44,12 +43,12 @@ describe('GetSetMixin', function () {
   describe('#set', function () {
 
     it('throws an error when called with a non-object', function () {
-      var fn = this.instance.set.bind(this.instance, null);
+      var fn = this.instance.set.bind(this.instance, 'string');
       expect(fn).toThrow();
     });
 
     it('throws an error when called with an array-like object', function () {
-      var fn = this.instance.set.bind(this.instance, null);
+      var fn = this.instance.set.bind(this.instance, []);
       expect(fn).toThrow();
     });
 

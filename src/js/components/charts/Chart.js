@@ -1,4 +1,3 @@
-var _ = require('underscore');
 var React = require('react');
 import ReactDOM from 'react-dom';
 
@@ -70,14 +69,14 @@ var Chart = React.createClass({
     if (width != null) {
       var calcHeight = this.props.calcHeight;
 
-      if (_.isFunction(calcHeight)) {
+      if (typeof calcHeight === 'function') {
         height = calcHeight(width);
       }
 
       var children = this.props.children;
-      if (_.isArray(children)) {
+      if (Array.isArray(children)) {
         height = height / children.length;
-        return _.map(children, function (child) {
+        return children.map(function (child) {
           return React.cloneElement(
             child,
             {width: width, height: height}

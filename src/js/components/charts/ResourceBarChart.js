@@ -1,4 +1,3 @@
-const _ = require('underscore');
 const classNames = require('classnames');
 const React = require('react');
 
@@ -64,10 +63,11 @@ let ResourceBarChart = React.createClass({
   getModeButtons: function () {
     let selectedResource = this.props.selectedResource;
 
-    return _.map(ResourceTypes, function (info, key) {
+    return Object.keys(ResourceTypes).map((key) => {
       let classSet = classNames('button button-stroke button-inverse', {
         'active': selectedResource === key
       });
+      let info = ResourceTypes[key];
 
       return (
         <button
@@ -77,7 +77,7 @@ let ResourceBarChart = React.createClass({
           {info.label}
         </button>
       );
-    }, this);
+    });
   },
 
   getBarChart: function () {

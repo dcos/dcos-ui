@@ -52,7 +52,7 @@ let ServiceList = React.createClass({
   },
 
   getServices: function (services, healthProcessed) {
-    return _.map(services, function (service) {
+    return services.map((service) => {
       let appHealth = MarathonStore.getServiceHealth(service.name);
       let state = HealthStatus.NA;
       let tooltipContent;
@@ -114,7 +114,7 @@ let ServiceList = React.createClass({
           }
         ]
       };
-    }, this);
+    });
   },
 
   getNoServicesMessage: function () {

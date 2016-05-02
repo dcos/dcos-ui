@@ -1,4 +1,4 @@
-var _ = require('underscore');
+const RESOURCE_KEYS = ['cpus', 'disk', 'mem'];
 
 const MesosStateUtil = {
 
@@ -8,25 +8,25 @@ const MesosStateUtil = {
    *   All other frameworks will be put into an 'other' category
    * @returns {Object} A map of frameworks running on host
    */
-  getHostResourcesByFramework: function (state, filter) {
-    return _.foldl(state.frameworks, function (memo, framework) {
-      _.each(framework.tasks, function (task) {
+  getHostResourcesByFramework: function (state, filter = []) {
+    return state.frameworks.reduce(function (memo, framework) {
+      framework.tasks.forEach(function (task) {
         if (memo[task.slave_id] == null) {
           memo[task.slave_id] = {};
         }
 
         var frameworkKey = task.framework_id;
-        if (_.contains(filter, framework.id)) {
+        if (filter.includes(framework.id)) {
           frameworkKey = 'other';
         }
 
-        var resources = _.pick(task.resources, 'cpus', 'disk', 'mem');
+        let resources = task.resources;
         if (memo[task.slave_id][frameworkKey] == null) {
           memo[task.slave_id][frameworkKey] = resources;
         } else {
           // Aggregates used resources from each executor
-          _.each(resources, function (value, key) {
-            memo[task.slave_id][frameworkKey][key] += value;
+          RESOURCE_KEYS.forEach(function (key) {
+            memo[task.slave_id][frameworkKey][key] += resources[key];
           });
         }
       });

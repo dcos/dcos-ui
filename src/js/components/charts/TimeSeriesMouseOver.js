@@ -1,4 +1,3 @@
-var _ = require('underscore');
 var d3 = require('d3');
 var React = require('react');
 
@@ -60,7 +59,7 @@ var TimeSeriesMouseOver = React.createClass({
     var props = this.props;
     var domain = props.xScale.domain();
 
-    var firstDataSet = _.first(props.data);
+    var firstDataSet = props.data[0];
     // how many data points we don't show
     var hiddenDataPoints = 1;
     // find the data point at the given mouse position

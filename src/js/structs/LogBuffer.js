@@ -1,5 +1,3 @@
-import _ from 'underscore';
-
 import List from './List';
 import Item from './Item';
 
@@ -24,10 +22,13 @@ class LogBuffer extends List {
   constructor(options = {}) {
     super(...arguments);
 
-    this.configuration = _.defaults(
-      _.pick(options, ...Object.keys(DEFAULT_OPTIONS)),
-      DEFAULT_OPTIONS
-    );
+    this.configuration = Object.assign({}, DEFAULT_OPTIONS);
+
+    Object.keys(DEFAULT_OPTIONS).forEach((key) => {
+      if (options.hasOwnProperty(key)) {
+        this.configuration[key] = options[key];
+      }
+    });
 
     // Replace list items instances of Item.
     this.list = this.list.map(function (item) {

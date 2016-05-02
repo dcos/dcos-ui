@@ -1,16 +1,19 @@
-var _ = require('underscore');
 var classNames = require('classnames');
 var React = require('react');
 
 var HealthLabels = require('../constants/HealthLabels');
 var HealthTypes = require('../constants/HealthTypes');
 
-var buttonMap = _.pick(
-  HealthLabels,
-  'ALL',
-  'HEALTHY',
-  'UNHEALTHY'
-);
+const SELECTED_HEALTH_STATES = ['ALL', 'HEALTHY', 'UNHEALTHY'];
+let buttonMap = SELECTED_HEALTH_STATES.reduce(function (acc, health) {
+  acc[health] = HealthLabels[health];
+  return acc;
+}, {});
+
+const HEALTH_STATUS_WITH_DOT = [
+  HealthTypes.UNHEALTHY,
+  HealthTypes.HEALTHY
+];
 
 var FilterHealth = React.createClass({
 
@@ -27,7 +30,7 @@ var FilterHealth = React.createClass({
     return {
       countByHealth: {},
       healthFilter: null,
-      handleFilterChange: _.noop,
+      handleFilterChange: function () {},
       servicesLength: 0
     };
   },
@@ -48,7 +51,7 @@ var FilterHealth = React.createClass({
   getFilterButtons: function () {
     var mode = this.props.healthFilter;
 
-    return _.map(buttonMap, function (value, key) {
+    return Object.keys(buttonMap).map((key) => {
       var health = HealthTypes[key];
       if (health === undefined) {
         health = null;
@@ -59,9 +62,7 @@ var FilterHealth = React.createClass({
       });
 
       var dotClassSet = classNames({
-        'dot': _.contains([
-          HealthTypes.UNHEALTHY,
-          HealthTypes.HEALTHY], health),
+        'dot': HEALTH_STATUS_WITH_DOT.includes(health),
         'danger': HealthTypes.UNHEALTHY === health,
         'success': HealthTypes.HEALTHY === health
       });
@@ -73,12 +74,12 @@ var FilterHealth = React.createClass({
             onClick={this.props.handleFilterChange.bind(null, health)}>
           <span className="button-align-content">
             <span className={dotClassSet}></span>
-            <span className="label">{value}</span>
+            <span className="label">{buttonMap[key]}</span>
             <span className="badge">{this.getCountByHealth(key)}</span>
           </span>
         </button>
       );
-    }, this);
+    });
   },
 
   render: function () {

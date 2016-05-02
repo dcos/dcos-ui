@@ -1,3 +1,4 @@
+jest.dontMock('../../utils/Util');
 jest.dontMock('../../constants/ResourceTypes');
 jest.dontMock('../NodesGridDials');
 
@@ -26,7 +27,7 @@ var mockHost = {
 describe('NodesGridDials', function () {
 
   beforeEach(function () {
-    this.hosts = [new Node(_.clone(mockHost))];
+    this.hosts = [new Node(Object.assign({}, mockHost))];
     this.container = document.createElement('div');
     this.instance = ReactDOM.render(
       <NodesGridDials
@@ -54,7 +55,7 @@ describe('NodesGridDials', function () {
     });
 
     it('contains a data property which is an array', function () {
-      expect(_.isArray(this.activeSlices.data)).toEqual(true);
+      expect(Array.isArray(this.activeSlices.data)).toEqual(true);
     });
 
     it('contains a usedPercentage property which is a number', function () {
@@ -62,38 +63,44 @@ describe('NodesGridDials', function () {
     });
 
     it('contains a slice for the used resource', function () {
-      var slice = _.findWhere(this.activeSlices.data, {
-        name: this.resourceType.label
+      var slice = this.activeSlices.data.find((datum) => {
+        return datum.name === this.resourceType.label
       });
       expect(typeof slice).toEqual('object');
     });
 
     it('the used slice uses the correct color', function () {
-      var slice = _.findWhere(this.activeSlices.data, {
-        name: this.resourceType.label
+      var slice = this.activeSlices.data.find((datum) => {
+        return datum.name === this.resourceType.label
       });
       expect(slice.colorIndex).toEqual(this.resourceType.colorIndex);
     });
 
     it('the used slice contains the correct percentage', function () {
-      var slice = _.findWhere(this.activeSlices.data, {
-        name: this.resourceType.label
+      var slice = this.activeSlices.data.find((datum) => {
+        return datum.name === this.resourceType.label
       });
       expect(slice.percentage).toEqual(50);
     });
 
     it('contains an unused resources slice', function () {
-      var slice = _.findWhere(this.activeSlices.data, {name: 'Unused'});
+      var slice = this.activeSlices.data.find(function (datum) {
+        return datum.name === 'Unused';
+      });
       expect(typeof slice).toEqual('object');
     });
 
     it('the color for the unused slice should be gray', function () {
-      var slice = _.findWhere(this.activeSlices.data, {name: 'Unused'});
+      var slice = this.activeSlices.data.find(function (datum) {
+        return datum.name === 'Unused';
+      });
       expect(slice.colorIndex).toEqual('unused');
     });
 
     it('the percentage of the unused slice should be the remaining of the passed percentage', function () {
-      var slice = _.findWhere(this.activeSlices.data, {name: 'Unused'});
+      var slice = this.activeSlices.data.find(function (datum) {
+        return datum.name === 'Unused';
+      });
       expect(slice.percentage).toEqual(50);
     });
 
@@ -120,11 +127,11 @@ describe('NodesGridDials', function () {
     });
 
     it('returns different configurations depending on the active paramter', function () {
-      let host = _.clone(this.hosts[0]);
+      let host = Object.assign({}, this.hosts[0]);
       host.active = true;
       var config1 = this.instance.getDialConfig(new Node(host));
 
-      host = _.clone(this.hosts[0]);
+      host = Object.assign({}, this.hosts[0]);
       host.active = false;
       var config2 = this.instance.getDialConfig(new Node(host));
 
@@ -144,7 +151,7 @@ describe('NodesGridDials', function () {
     });
 
     it('render the correct number of charts', function () {
-      let host = _.clone(this.hosts[0]);
+      let host = Object.assign({}, this.hosts[0]);
       host.id = 'bar';
       this.hosts.push(new Node(host));
       this.instance = ReactDOM.render(

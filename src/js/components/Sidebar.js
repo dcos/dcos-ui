@@ -1,4 +1,3 @@
-var _ = require('underscore');
 var classNames = require('classnames');
 var GeminiScrollbar = require('react-gemini-scrollbar');
 var Link = require('react-router').Link;
@@ -71,7 +70,7 @@ var Sidebar = React.createClass({
       defaultMenuItems
     );
 
-    return _.map(menuItems, function (routeKey) {
+    return menuItems.map((routeKey) => {
       var route = this.context.router.namedRoutes[routeKey];
       // Figure out if current route is active
       var isActive = route.handler.routeConfig.matches.test(currentPath);
@@ -99,7 +98,7 @@ var Sidebar = React.createClass({
         </li>
       );
 
-    }, this);
+    });
   },
 
   getVersion() {

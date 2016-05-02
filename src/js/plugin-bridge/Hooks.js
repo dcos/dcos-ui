@@ -1,4 +1,3 @@
-import _ from 'underscore';
 import Events from 'events';
 
 import {PLUGINS_CONFIGURED} from '../constants/EventTypes';
@@ -19,7 +18,7 @@ function addListener(store, hook, listener, priority = 10) {
   store[hook][priority].push(listener);
 }
 
-module.exports = _.extend({}, Events.EventEmitter.prototype, {
+module.exports = Object.assign({}, Events.EventEmitter.prototype, {
   // Event store for actions
   actions: {},
 
@@ -76,7 +75,7 @@ module.exports = _.extend({}, Events.EventEmitter.prototype, {
       // Call all listeners
       listeners[priority].forEach(function (listener) {
         // Creates new arguments array to call the listener with
-        let groupedArgs = _.clone(args);
+        let groupedArgs = args.slice();
         groupedArgs.unshift(value);
         value = listener.apply(null, groupedArgs);
       });

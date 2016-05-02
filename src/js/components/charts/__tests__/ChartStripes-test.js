@@ -1,5 +1,4 @@
 jest.dontMock('../ChartStripes');
-var _ = require('underscore');
 /* eslint-disable no-unused-vars */
 var React = require('react');
 /* eslint-enable no-unused-vars */
@@ -37,7 +36,7 @@ describe('ChartStripes', function () {
       this.instance, 'background'
     );
 
-    _.each(stripes, function (stripe) {
+    stripes.forEach(function (stripe) {
       expect(parseInt(ReactDOM.findDOMNode(stripe).attributes.width.value, 10))
         .toEqual(25);
     });
@@ -48,7 +47,7 @@ describe('ChartStripes', function () {
       this.instance, 'background'
     );
 
-    _.each(stripes, function (stripe, i) {
+    stripes.forEach(function (stripe, i) {
       expect(parseInt(ReactDOM.findDOMNode(stripe).attributes.x.value, 10))
         .toEqual(25 + i * 50);
     });
@@ -73,12 +72,12 @@ describe('ChartStripes', function () {
     );
     expect(stripes.length).toEqual(5);
 
-    _.each(stripes, function (stripe) {
+    stripes.forEach(function (stripe) {
       expect(parseInt(ReactDOM.findDOMNode(stripe).attributes.width.value, 10))
         .toEqual(30);
     });
 
-    _.each(stripes, function (stripe, i) {
+    stripes.forEach(function (stripe, i) {
       expect(parseInt(ReactDOM.findDOMNode(stripe).attributes.x.value, 10))
         .toEqual(30 + i * 60);
     });

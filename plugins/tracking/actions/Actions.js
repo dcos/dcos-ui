@@ -52,7 +52,7 @@ var Actions = {
   },
 
   mergeMetaData: function () {
-    return _.extend({}, SDK.Store.getAppState().metadata.dcosMetadata,
+    return Object.assign({}, SDK.Store.getAppState().metadata.dcosMetadata,
       {clusterId: SDK.Store.getAppState().metadata.metadata.CLUSTER_ID});
   },
 
@@ -147,7 +147,7 @@ var Actions = {
   },
 
   getLogData: function () {
-    return _.extend({
+    return Object.assign({
       appVersion: Config.version,
       version: '@@VERSION'
     }, this.dcosMetadata);
@@ -167,7 +167,7 @@ var Actions = {
       return;
     }
 
-    let traits = _.extend(this.getLogData(), {email: uid});
+    let traits = Object.assign(this.getLogData(), {email: uid});
     global.analytics.identify(
       uid, traits, this.getAnonymizingKeys()
     );
@@ -202,7 +202,7 @@ var Actions = {
       }
     }
 
-    global.analytics.page(_.extend(
+    global.analytics.page(Object.assign(
       this.getLogData(),
       this.getAnonymizingKeys().page,
       {path}

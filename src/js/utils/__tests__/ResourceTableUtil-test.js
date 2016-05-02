@@ -1,7 +1,6 @@
 jest.dontMock('../../constants/HealthSorting');
 jest.dontMock('../ResourceTableUtil');
 
-var _ = require('underscore');
 var MarathonStore = require('../../stores/MarathonStore');
 var ResourceTableUtil = require('../ResourceTableUtil');
 var Service = require('../../structs/Service');
@@ -62,7 +61,7 @@ describe('ResourceTableUtil', function () {
 
   describe('#getSortFunction for regular items', function () {
     it('should return a function', function () {
-      expect(_.isFunction(this.sortFunction)).toEqual(true);
+      expect(typeof this.sortFunction).toEqual('function');
     });
 
     it('should compare the most recent timestamps when prop is updated',

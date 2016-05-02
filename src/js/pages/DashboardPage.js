@@ -1,4 +1,3 @@
-var _ = require('underscore');
 import {Link} from 'react-router';
 import React from 'react';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
@@ -147,7 +146,7 @@ var DashboardPage = React.createClass({
       };
     });
 
-    let sortedServices = _.sortBy(servicesMap, function (service) {
+    let sortedServices = servicesMap.sort(function (service) {
       let health = MarathonStore.getServiceHealth(service.name);
       if (health && health.key) {
         return HealthSorting[health.key];
@@ -156,7 +155,7 @@ var DashboardPage = React.createClass({
       }
     });
 
-    return _.first(sortedServices, this.props.servicesListLength);
+    return sortedServices.slice(0, this.props.servicesListLength);
   },
 
   getUnits: function () {

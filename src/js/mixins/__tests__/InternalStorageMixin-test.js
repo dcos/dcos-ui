@@ -1,12 +1,11 @@
 jest.dontMock('../InternalStorageMixin');
 
-var _ = require('underscore');
 var InternalStorageMixin = require('../InternalStorageMixin');
 
 describe('InternalStorageMixin', function () {
 
   beforeEach(function () {
-    this.instance = _.extend({}, InternalStorageMixin);
+    this.instance = Object.assign({}, InternalStorageMixin);
     this.instance.constructor.displayName = 'FakeInstance';
   });
 

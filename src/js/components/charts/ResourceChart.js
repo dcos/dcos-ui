@@ -1,4 +1,3 @@
-import _ from 'underscore';
 import React from 'react';
 
 import BarChart from '../../components/charts/BarChart';
@@ -6,6 +5,7 @@ import Chart from '../../components/charts/Chart';
 import Config from '../../config/Config';
 import ResourceTypes from '../../constants/ResourceTypes';
 import Units from '../../utils/Units';
+import Util from '../../utils/Util';
 
 // number to fit design of width vs. height ratio
 const WIDTH_HEIGHT_RATIO = 4.5;
@@ -21,7 +21,7 @@ class ResourceChart extends React.Component {
       values: totalResources[resource]
     }];
     let resourceValue = Units.formatResource(
-      resource, _.last(totalResources[resource]).value
+      resource, Util.last(totalResources[resource]).value
     );
     let resourceIconClasses = `icon icon-sprite icon-sprite-medium
       icon-sprite-medium-color icon-resources-${resourceLabel.toLowerCase()}`;

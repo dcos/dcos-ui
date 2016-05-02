@@ -1,4 +1,3 @@
-var _ = require('underscore');
 import {Store} from 'mesosphere-shared-reactjs';
 
 var AppDispatcher = require('../events/AppDispatcher');
@@ -72,7 +71,7 @@ var MesosStateStore = Store.createStore({
   },
 
   shouldPoll: function () {
-    return !_.isEmpty(this.listeners(MESOS_STATE_CHANGE));
+    return !!this.listeners(MESOS_STATE_CHANGE).length;
   },
 
   getHostResourcesByFramework: function (filter) {
@@ -83,12 +82,26 @@ var MesosStateStore = Store.createStore({
 
   getServiceFromName: function (name) {
     let services = this.get('lastMesosState').frameworks;
-    return _.findWhere(services, {name});
+
+    if (services) {
+      return services.find(function (service) {
+        return service.name === name;
+      });
+    }
+
+    return null;
   },
 
   getNodeFromID: function (id) {
     let nodes = this.get('lastMesosState').slaves;
-    return _.findWhere(nodes, {id});
+
+    if (nodes) {
+      return nodes.find(function () {
+        return node.id === id
+      });
+    }
+
+    return null;
   },
 
   getTasksFromNodeID: function (nodeID) {
@@ -108,39 +121,54 @@ var MesosStateStore = Store.createStore({
       });
     });
 
-    return _.values(memberTasks);
+    return Object.values(memberTasks);
   },
 
   getTaskFromTaskID: function (taskID) {
     let services = this.get('lastMesosState').frameworks;
     let foundTask = null;
 
-    _.some(services, function (service) {
+    for (let serviceIndex in services) {
+      let service = services[serviceIndex];
       let tasks = service.tasks.concat(service.completed_tasks);
 
-      return _.some(tasks, function (task) {
+      for (let taskIndex in tasks) {
+        let task = tasks[taskIndex];
         let equalTask = task.id === taskID;
 
         if (equalTask) {
           foundTask = task;
+          break;
         }
-
-        return equalTask;
-      });
-    });
+      }
+    }
 
     return foundTask;
   },
 
   getSchedulerTaskFromServiceName: function (serviceName) {
     let frameworks = this.get('lastMesosState').frameworks;
-    let framework = _.findWhere(frameworks, {name: 'marathon'});
-    if (!framework) {
+
+    if (!frameworks) {
       return null;
     }
 
-    let result = _.find(framework.tasks, function (task) {
-      let frameworkName = _.find(task.labels, function (label) {
+    let framework = frameworks.find(function (framework) {
+      return framework.name.toLowerCase() === 'marathon';
+    });
+
+    if (!framework || !framework.tasks) {
+      return null;
+    }
+
+    let result = framework.tasks.find(function (task) {
+      let labels = task.labels;
+
+      if (!labels) {
+        return false;
+      }
+
+      let frameworkName = labels.find(function (label) {
         return label.key === 'DCOS_PACKAGE_FRAMEWORK_NAME';
       });
 
@@ -152,7 +180,14 @@ var MesosStateStore = Store.createStore({
 
   getTasksFromServiceName: function (serviceName) {
     let frameworks = this.get('lastMesosState').frameworks;
-    let framework = _.findWhere(frameworks, {name: serviceName});
+
+    if (!frameworks) {
+      return null;
+    }
+
+    let framework = frameworks.find(function (framework) {
+      return framework.name === serviceName;
+    });
 
     if (framework) {
       let activeTasks = framework.tasks || [];

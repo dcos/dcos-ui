@@ -14,13 +14,12 @@ require('../../SDK').setSDK(SDK);
 
 PluginTestUtils.dontMock(['Util']);
 
-var _ = require('underscore');
 var Actions = require('../Actions');
 
 global.analytics = {
   initialized: true,
-  page: _.noop,
-  track: _.noop
+  page: function () {},
+  track: function () {}
 };
 
 var DCOS_METADATA = {
@@ -50,7 +49,7 @@ describe('Actions', function () {
     });
 
     afterEach(function () {
-      global.analytics.track = _.noop;
+      global.analytics.track = function () {};
     });
 
     it('calls analytics#track', function () {
