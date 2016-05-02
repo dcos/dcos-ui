@@ -94,7 +94,7 @@ class UniversePackage extends Item {
     return Util.findNestedPropertyInObject(
       this.get('package'),
       'postInstallNotes'
-    )
+    );
   }
 
   getPostUninstallNotes() {
