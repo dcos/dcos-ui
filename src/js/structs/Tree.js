@@ -134,10 +134,7 @@ module.exports = class Tree extends List {
           }
         });
 
-        let tree = new this.constructor(Object.assign({},
-          this, {items: services, filterProperties: filterProperties}));
-
-        services = tree.filterItemsByText(filter.id).getItems();
+        services = this.filterItemsByText(filter.id, filterProperties).getItems();
       }
 
       if (filter.health != null && filter.health.length !== 0) {
