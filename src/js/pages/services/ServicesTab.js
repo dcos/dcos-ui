@@ -59,7 +59,10 @@ var ServicesTab = React.createClass({
   componentDidMount: function () {
     let {state} = this;
     Object.keys(DEFAULT_FILTER_OPTIONS).forEach((saveStateKey) => {
-      if (state[saveStateKey] !== this.getQueryParamObject()[saveStateKey]) {
+      const queryParams = this.getQueryParamObject();
+      if (queryParams != null &&
+        queryParams[saveStateKey] &&
+        state[saveStateKey] !== queryParams[saveStateKey]) {
         this.setQueryParam(saveStateKey, state[saveStateKey]);
       }
     });
