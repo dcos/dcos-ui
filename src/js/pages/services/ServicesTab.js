@@ -5,6 +5,7 @@ import AlertPanel from '../../components/AlertPanel';
 import Config from '../../config/Config';
 import DCOSStore from '../../stores/DCOSStore';
 import FilterHeadline from '../../components/FilterHeadline';
+import QueryParamsMixin from '../../mixins/QueryParamsMixin';
 import SaveStateMixin from '../../mixins/SaveStateMixin';
 import Service from '../../structs/Service';
 import ServiceDetail from '../../components/ServiceDetail';
@@ -31,7 +32,7 @@ var ServicesTab = React.createClass({
 
   saveState_properties,
 
-  mixins: [SaveStateMixin, StoreMixin],
+  mixins: [SaveStateMixin, StoreMixin, QueryParamsMixin],
 
   statics: {
     // Static life cycle method from react router, that will be called
@@ -53,6 +54,15 @@ var ServicesTab = React.createClass({
 
   componentWillMount: function () {
     this.store_listeners = [{name: 'dcos', events: ['change']}];
+  },
+
+  componentDidMount: function () {
+    let {state} = this;
+    Object.keys(DEFAULT_FILTER_OPTIONS).forEach((saveStateKey) => {
+      if (state[saveStateKey] !== this.getQueryParamObject()[saveStateKey]) {
+        this.setQueryParam(saveStateKey, state[saveStateKey]);
+      }
+    });
   },
 
   handleFilterChange: function (filterValues, filterType) {
