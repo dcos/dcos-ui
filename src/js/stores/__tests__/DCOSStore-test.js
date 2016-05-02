@@ -8,14 +8,14 @@ var ServiceTree = require('../../structs/ServiceTree');
 describe('DCOSStore', function () {
 
   beforeEach(function () {
-    DCOSStore.processMesosData({frameworks: []});
-    DCOSStore.processMarathonData(new ServiceTree({apps: []}));
+    DCOSStore.processMesosStateSummary({frameworks: []});
+    DCOSStore.processMarathonGroups(new ServiceTree({apps: []}));
   });
 
-  describe('#processMarathonData', function () {
+  describe('#processMarathonGroups', function () {
 
     beforeEach(function () {
-      DCOSStore.processMesosData({
+      DCOSStore.processMesosStateSummary({
         frameworks: [{id: 'alpha-id', name: 'alpha', bar: 'baz'}]
       });
     });
@@ -23,7 +23,7 @@ describe('DCOSStore', function () {
     it('should update the service tree', function () {
       expect(DCOSStore.serviceTree.getItems().length).toEqual(0);
 
-      DCOSStore.processMarathonData(new ServiceTree({
+      DCOSStore.processMarathonGroups(new ServiceTree({
         apps: [{
           id: '/alpha',
           labels: {DCOS_PACKAGE_FRAMEWORK_NAME: 'alpha'}
@@ -34,13 +34,13 @@ describe('DCOSStore', function () {
     });
 
     it('should replace old Marathon data', function () {
-      DCOSStore.processMarathonData(new ServiceTree({
+      DCOSStore.processMarathonGroups(new ServiceTree({
         apps: [{
           id: '/alpha',
           labels: {DCOS_PACKAGE_FRAMEWORK_NAME: 'alpha'}
         }]
       }));
-      DCOSStore.processMarathonData(new ServiceTree({
+      DCOSStore.processMarathonGroups(new ServiceTree({
         apps: [{
           id: '/beta',
           labels: {DCOS_PACKAGE_FRAMEWORK_NAME: 'beta'}
@@ -51,7 +51,7 @@ describe('DCOSStore', function () {
     });
 
     it('should merge (matching by id) summary data', function () {
-      DCOSStore.processMarathonData(new ServiceTree({
+      DCOSStore.processMarathonGroups(new ServiceTree({
         apps: [{
           id: '/alpha', labels: {DCOS_PACKAGE_FRAMEWORK_NAME: 'alpha'}
         }]
@@ -63,7 +63,7 @@ describe('DCOSStore', function () {
 
     it('should not merge summary data if it doesn\'t find a matching id',
       function () {
-        DCOSStore.processMarathonData(new ServiceTree({
+        DCOSStore.processMarathonGroups(new ServiceTree({
           apps: [{
             id: '/beta', labels: {DCOS_PACKAGE_FRAMEWORK_NAME: 'beta'}
           }]
@@ -75,10 +75,10 @@ describe('DCOSStore', function () {
 
   });
 
-  describe('#processMesosData', function () {
+  describe('#processMesosStateSummary', function () {
 
     beforeEach(function () {
-      DCOSStore.processMarathonData(new ServiceTree({
+      DCOSStore.processMarathonGroups(new ServiceTree({
         apps: [{
           id: '/alpha',
           labels: {DCOS_PACKAGE_FRAMEWORK_NAME: 'alpha'}
@@ -89,7 +89,7 @@ describe('DCOSStore', function () {
     it('should update the service tree', function () {
       expect(DCOSStore.serviceTree.getItems()[0].get('bar')).toBeUndefined();
 
-      DCOSStore.processMesosData({
+      DCOSStore.processMesosStateSummary({
         frameworks: [{id: 'alpha-id', name: 'alpha', bar: 'baz'}]
       });
 
@@ -97,11 +97,11 @@ describe('DCOSStore', function () {
     });
 
     it('should replace old summary data', function () {
-      DCOSStore.processMesosData({
+      DCOSStore.processMesosStateSummary({
         frameworks: [{id: 'alpha-id', name: 'alpha', bar: 'baz'}]
       });
 
-      DCOSStore.processMesosData({
+      DCOSStore.processMesosStateSummary({
         frameworks: [{id: 'alpha-id', name: 'alpha', bar: 'qux'}]
       });
 
@@ -109,7 +109,7 @@ describe('DCOSStore', function () {
     });
 
     it('should merge (matching by id) Marathon data', function () {
-      DCOSStore.processMesosData({
+      DCOSStore.processMesosStateSummary({
         frameworks: [{id: 'alpha-id', name: 'alpha', bar: 'baz'}]
       });
 
@@ -119,7 +119,7 @@ describe('DCOSStore', function () {
 
     it('should not merge Marathon data if it doesn\'t find a matching id',
       function () {
-        DCOSStore.processMesosData({
+        DCOSStore.processMesosStateSummary({
           frameworks: [{id: 'beta-id', name: 'beta', foo: 'bar'}]
         });
 
