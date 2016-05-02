@@ -39,7 +39,7 @@ let nodesRoutes = {
     {
       type: Route,
       name: 'node-detail',
-      path: 'node/:nodeID/?',
+      path: ':nodeID/?',
       handler: NodeDetailPage,
       children: [
         {
