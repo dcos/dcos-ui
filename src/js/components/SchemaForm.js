@@ -118,9 +118,15 @@ class SchemaForm extends React.Component {
   }
 
   getNewDefinition() {
-    return SchemaUtil.schemaToMultipleDefinition(
+    let definition = SchemaUtil.schemaToMultipleDefinition(
       this.props.schema, this.getSubHeader, this.getLabel
     );
+
+    if (this.props.model) {
+      SchemaFormUtil.mergeModelIntoDefinition(this.props.model, definition);
+    }
+
+    return definition;
   }
 
   buildModel() {
