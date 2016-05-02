@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import mixin from 'reactjs-mixin';
 import React from 'react';
 
@@ -117,12 +118,7 @@ class TaskView extends mixin(SaveStateMixin) {
     }
 
     return (
-      <div className="
-        container
-        container-pod
-        text-align-center
-        vertical-center
-        inverse">
+      <div className="container container-pod text-align-center vertical-center inverse">
         <div className="row">
           <div className="ball-scale">
             <div />
@@ -134,7 +130,10 @@ class TaskView extends mixin(SaveStateMixin) {
 
   getTaskTable(tasks) {
     return (
-      <TaskTable tasks={tasks} parentRouter={this.props.parentRouter} />
+      <TaskTable
+        inverseStyle={this.props.inverseStyle}
+        parentRouter={this.props.parentRouter}
+        tasks={tasks} />
     );
   }
 
@@ -159,6 +158,10 @@ class TaskView extends mixin(SaveStateMixin) {
   getContent() {
     let state = this.state;
     let tasks = this.props.tasks || [];
+    let headerClassSet = classNames({
+      'h4 text-align-left flush-top': true,
+      'inverse': this.props.inverseStyle
+    });
 
     if (state.searchString !== '') {
       tasks = StringUtil.filterByString(tasks, 'name', state.searchString);
@@ -168,7 +171,7 @@ class TaskView extends mixin(SaveStateMixin) {
 
     return (
       <div className="flex-container-col flex-grow">
-        <span className="h4 text-align-left flush-top">
+        <span className={headerClassSet}>
           {this.getHeaderText(tasks)}
         </span>
         <FilterBar>
@@ -176,9 +179,10 @@ class TaskView extends mixin(SaveStateMixin) {
             className="flush-bottom"
             searchString={state.searchString}
             handleFilterChange={this.handleSearchStringChange}
-            inverseStyle={false} />
+            inverseStyle={this.props.inverseStyle} />
           <div className="form-group flush-bottom">
             <FilterByTaskState
+              inverseStyle={this.props.inverseStyle}
               statuses={this.getStatuses(tasks)}
               handleFilterChange={this.handleStatusFilterChange}
               totalTasksCount={tasks.length}
@@ -202,9 +206,14 @@ class TaskView extends mixin(SaveStateMixin) {
   }
 }
 
+TaskView.defaultProps = {
+  inverseStyle: false
+};
+
 TaskView.propTypes = {
   tasks: React.PropTypes.array,
-  itemID: React.PropTypes.string
+  itemID: React.PropTypes.string,
+  inverseStyle: React.PropTypes.bool
 };
 
 module.exports = TaskView;

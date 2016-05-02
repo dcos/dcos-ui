@@ -2,16 +2,16 @@ import React from 'react';
 
 class DescriptionList extends React.Component {
   getHeadline() {
-    let {headline} = this.props;
+    let {headline, headlineClassName} = this.props;
     if (!headline) {
       return null;
     }
 
     // Wrap in headline element and classes
     return (
-      <h6 className="flush-top">
+      <h5 className={headlineClassName}>
         {headline}
-      </h6>
+      </h5>
     );
   }
 
@@ -63,6 +63,7 @@ DescriptionList.defaultProps = {
   className: '',
   ddClassName: 'column-9',
   dtClassName: 'column-3 emphasize',
+  headlineClassName: 'flush-top',
   key: ''
 };
 
@@ -70,6 +71,7 @@ DescriptionList.propTypes = {
   className: React.PropTypes.string,
   ddClassName: React.PropTypes.string,
   dtClassName: React.PropTypes.string,
+  headlineClassName: React.PropTypes.string,
   headline: React.PropTypes.node,
   hash: React.PropTypes.object,
   key: React.PropTypes.string

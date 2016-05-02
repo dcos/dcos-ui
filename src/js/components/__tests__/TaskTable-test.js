@@ -17,6 +17,9 @@ describe('TaskTable', function () {
     this.parentRouter = {
       getCurrentRoutes: function () {
         return [{name: 'home'}, {name: 'dashboard'}, {name: 'service-detail'}];
+      },
+      getCurrentParams: function () {
+        return [{nodeID: 'thing'}];
       }
     };
     this.container = document.createElement('div');

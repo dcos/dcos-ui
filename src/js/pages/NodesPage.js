@@ -21,7 +21,6 @@ var MesosSummaryStore = require('../stores/MesosSummaryStore');
 var Page = require('../components/Page');
 var ResourceBarChart = require('../components/charts/ResourceBarChart');
 var SidebarActions = require('../events/SidebarActions');
-import SidePanels from '../components/SidePanels';
 import StringUtil from '../utils/StringUtil';
 
 const NODES_DISPLAY_LIMIT = 300;
@@ -234,17 +233,11 @@ var NodesPage = React.createClass({
     var data = this.internalStorage_get();
     var state = this.state;
     var nodesList = _.first(data.nodes, NODES_DISPLAY_LIMIT);
-    var currentPage = 'nodes-grid';
-    var onNodesList = /\/nodes\/list\/?/i.test(RouterLocation.getCurrentPath());
     let nodesHealth = CompositeState.getNodesList().getItems().map(
       function (node) {
         return node.getHealth();
       }
     );
-
-    if (onNodesList) {
-      currentPage = 'nodes-list';
-    }
 
     return (
       <div>
@@ -284,9 +277,6 @@ var NodesPage = React.createClass({
           selectedResource={state.selectedResource}
           hosts={nodesList}
           services={data.services} />
-        <SidePanels
-          params={this.props.params}
-          openedPage={currentPage} />
       </div>
     );
   },

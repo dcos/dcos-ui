@@ -71,7 +71,7 @@ describe('DescriptionList', function () {
     );
 
     var node = ReactDOM.findDOMNode(instance);
-    var headline = node.querySelector('h6');
+    var headline = node.querySelector('h5');
 
     expect(headline.textContent).toEqual('baz');
   });

@@ -5,67 +5,59 @@ let Redirect = Router.Redirect;
 import HostTable from '../components/HostTable';
 import NodesPage from '../pages/NodesPage';
 import NodesGridView from '../components/NodesGridView';
+import NodeDetailPage from '../pages/nodes/NodeDetailPage';
 
 let nodesRoutes = {
   type: Route,
   name: 'nodes',
-  path: 'nodes/?',
-  handler: NodesPage,
   children: [
     {
       type: Route,
-      name: 'nodes-list',
-      path: 'list/?',
-      handler: HostTable,
+      name: 'nodes-page',
+      path: '/nodes/?',
+      handler: NodesPage,
       children: [
         {
           type: Route,
-          name: 'nodes-list-panel',
-          path: 'node-detail/:nodeID/?',
-          children: [
-            {
-              type: Route,
-              name: 'nodes-list-panel-health',
-              path: ':unitNodeID/:unitID/?'
-            }
-          ]
+          name: 'nodes-list',
+          path: 'list/?',
+          handler: HostTable
         },
         {
           type: Route,
-          name: 'nodes-list-task-panel',
-          path: 'task-detail/:taskID/?'
+          name: 'nodes-grid',
+          path: 'grid/?',
+          handler: NodesGridView
+        },
+        {
+          type: Redirect,
+          from: '/nodes/?',
+          to: 'nodes-list'
         }
       ]
     },
     {
       type: Route,
-      name: 'nodes-grid',
-      path: 'grid/?',
-      handler: NodesGridView,
+      name: 'node-detail',
+      path: ':nodeID/?',
+      handler: NodeDetailPage,
       children: [
         {
           type: Route,
-          name: 'nodes-grid-panel',
-          path: 'node-detail/:nodeID/?',
-          children: [
-            {
-              type: Route,
-              name: 'nodes-grid-panel-health',
-              path: ':unitNodeID/:unitID/?'
-            }
-          ]
+          name: 'nodes-task-panel',
+          path: 'task-detail/:taskID/?'
         },
         {
           type: Route,
-          name: 'nodes-grid-task-panel',
+          name: 'node-detail-tasks',
           path: 'task-detail/:taskID/?'
-        }
+        },
+        {
+          type: Route,
+          name: 'node-detail-health',
+          path: ':unitNodeID/:unitID/?'
+        },
       ]
-    },
-    {
-      type: Redirect,
-      from: '/nodes/?',
-      to: 'nodes-list'
     }
   ]
 };

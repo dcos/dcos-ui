@@ -1,5 +1,6 @@
-import React from 'react';
+import classNames from 'classnames';
 import {Dropdown} from 'reactjs-components';
+import React from 'react';
 
 const defaultID = 'all';
 
@@ -56,13 +57,22 @@ class FilterByTaskState extends React.Component {
   }
 
   render() {
+    let {inverseStyle} = this.props;
+
+    let dropdownMenuClassSet = classNames({
+      'dropdown-menu': true,
+      'inverse': inverseStyle
+    });
+
+    let buttonClassSet = classNames({
+      'button dropdown-toggle text-align-left': true,
+      'button-inverse': inverseStyle
+    });
+
     return (
       <Dropdown
-        buttonClassName="button dropdown-toggle text-align-left"
-        dropdownMenuClassName="
-          dropdown-menu
-          dropdown-menu-space-bottom
-          dropdown-menu-right-align"
+        buttonClassName={buttonClassSet}
+        dropdownMenuClassName={dropdownMenuClassSet}
         dropdownMenuListClassName="dropdown-menu-list"
         dropdownMenuListItemClassName="clickable"
         wrapperClassName="dropdown"
@@ -78,6 +88,7 @@ class FilterByTaskState extends React.Component {
 FilterByTaskState.propTypes = {
   currentStatus: React.PropTypes.string,
   handleFilterChange: React.PropTypes.func,
+  inverseStyle: React.PropTypes.bool,
   statuses: React.PropTypes.array.isRequired,
   totalTasksCount: React.PropTypes.number.isRequired
 };
@@ -85,6 +96,7 @@ FilterByTaskState.propTypes = {
 FilterByTaskState.defaultProps = {
   currentStatus: defaultID,
   handleFilterChange: function () {},
+  inverseStyle: false,
   statuses: [],
   totalHostsCount: 0
 };

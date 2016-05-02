@@ -1,6 +1,6 @@
 import React from 'react';
 
-class IconBack extends React.Component {
+class IconChevron extends React.Component {
   render() {
     let {props} = this;
     let transform = '';
@@ -12,25 +12,23 @@ class IconBack extends React.Component {
 
     return (
       <svg
-        height="16px"
         viewBox={viewBox}
-        width="16px"
         {...props}>
-        <title>icon-back</title>
+        <title>icon-chevron</title>
         <path transform={transform} d="M11.486.02L13 1.552 6.614 8.01 13 14.468 11.486 16l-7.9-7.99 7.9-7.99z" />
       </svg>
     );
   }
 }
 
-IconBack.defaultProps = {
+IconChevron.defaultProps = {
   className: 'icon icon-back',
-  isForward: false
+  isForward: true
 };
 
-IconBack.propTypes = {
+IconChevron.propTypes = {
   className: React.PropTypes.string,
   isForward: React.PropTypes.bool
 };
 
-module.exports = IconBack;
+module.exports = IconChevron;
