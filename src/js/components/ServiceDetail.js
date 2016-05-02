@@ -1,14 +1,18 @@
 import mixin from 'reactjs-mixin';
 import React from 'react';
+import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import InternalStorageMixin from '../mixins/InternalStorageMixin';
 import Service from '../structs/Service';
-import ServiceDetailTaskTab from './ServiceDetailTaskTab';
+import ServiceActions from './ServiceActions';
 import ServiceInfo from './ServiceInfo';
 import ServicesBreadcrumb from './ServicesBreadcrumb';
 import TabsMixin from '../mixins/TabsMixin';
 
-class ServiceDetail extends mixin(InternalStorageMixin, TabsMixin) {
+const METHODS_TO_BIND = [];
+
+class ServiceDetail
+  extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
 
   constructor() {
     super(...arguments);
@@ -23,6 +27,14 @@ class ServiceDetail extends mixin(InternalStorageMixin, TabsMixin) {
     this.state = {
       currentTab: Object.keys(this.tabs_tabs).shift()
     };
+
+    this.store_listeners = [
+      {name: 'state', events: ['success']}
+    ];
+
+    METHODS_TO_BIND.forEach((method) => {
+      this[method] = this[method].bind(this);
+    });
   }
 
   renderConfigurationTabView() {
@@ -38,9 +50,7 @@ class ServiceDetail extends mixin(InternalStorageMixin, TabsMixin) {
   }
 
   renderTasksTabView() {
-    return (
-      <ServiceDetailTaskTab service={this.props.service}/>
-    );
+    return (<span>Tasks Placeholder</span>);
   }
 
   render() {
@@ -55,25 +65,17 @@ class ServiceDetail extends mixin(InternalStorageMixin, TabsMixin) {
           media-object-spacing-narrow container-pod-divider-inverse">
           <ServicesBreadcrumb serviceTreeItem={service} />
           <ServiceInfo service={service} />
+          <ServiceActions service={service} />
           <ul className="tabs list-inline flush-bottom container-pod
             container-pod-short-top inverse">
             {this.tabs_getUnroutedTabs()}
           </ul>
         </div>
-        <div className="side-panel-tab-content side-panel-section container
-          container-pod container-pod-short container-fluid
-          container-fluid-flush flex-container-col flex-grow">
-          {this.tabs_getTabView()}
-        </div>
+        {this.tabs_getTabView()}
       </div>
-
     );
   }
 }
-
-ServiceDetail.contextTypes = {
-  router: React.PropTypes.func
-};
 
 ServiceDetail.propTypes = {
   service: React.PropTypes.instanceOf(Service)
