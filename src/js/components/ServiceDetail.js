@@ -5,6 +5,8 @@ import InternalStorageMixin from '../mixins/InternalStorageMixin';
 import Service from '../structs/Service';
 import ServiceDetailTaskTab from './ServiceDetailTaskTab';
 import ServiceInfo from './ServiceInfo';
+import ServicesBreadcrumb from './ServicesBreadcrumb';
+import ServicesPathUtil from '../utils/ServicesPathUtil';
 import TabsMixin from '../mixins/TabsMixin';
 
 class ServiceDetail extends mixin(InternalStorageMixin, TabsMixin) {
@@ -43,6 +45,9 @@ class ServiceDetail extends mixin(InternalStorageMixin, TabsMixin) {
   }
 
   render() {
+    const {service} = this.props;
+    var groupId = ServicesPathUtil.getGroupFromAppId(service.id);
+
     return (
       <div className="flex-container-col">
         <div className="container-pod container-pod-divider-bottom
@@ -50,7 +55,8 @@ class ServiceDetail extends mixin(InternalStorageMixin, TabsMixin) {
           container-pod-short-top flush-bottom flush-top
           service-detail-header media-object-spacing-wrapper
           media-object-spacing-narrow container-pod-divider-inverse">
-          <ServiceInfo service={this.props.service} />
+          <ServicesBreadcrumb appId={service.id} groupId={groupId} />
+          <ServiceInfo service={service} />
           <ul className="tabs list-inline flush-bottom container-pod
             container-pod-short-top inverse">
             {this.tabs_getUnroutedTabs()}

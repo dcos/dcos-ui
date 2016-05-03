@@ -12,6 +12,8 @@ import ServiceDetail from '../../components/ServiceDetail';
 import ServiceFilterTypes from '../../constants/ServiceFilterTypes';
 import ServiceSearchFilter from '../../components/ServiceSearchFilter';
 import ServiceSidebarFilters from '../../components/ServiceSidebarFilters';
+import ServicesBreadcrumb from '../../components/ServicesBreadcrumb';
+import ServicesPathUtils from '../../utils/ServicesPathUtil';
 import ServicesTable from '../../components/ServicesTable';
 import ServiceTree from '../../structs/ServiceTree';
 import SidebarActions from '../../events/SidebarActions';
@@ -108,6 +110,15 @@ var ServicesTab = React.createClass({
 
     // Find item in root tree and default to root tree if there is no match
     let item = DCOSStore.serviceTree.findItemById(id) || DCOSStore.serviceTree;
+    let groupId = ServicesPathUtils.getGroupFromAppId(item.id);
+
+    if (item instanceof ServiceTree) {
+      groupId = item.id;
+
+      if (groupId != null && !groupId.endsWith('/')) {
+        groupId += '/';
+      }
+    }
 
     // Render service table
     if (item instanceof ServiceTree && item.getItems().length > 0) {
@@ -124,6 +135,7 @@ var ServicesTab = React.createClass({
             handleFilterChange={this.handleFilterChange}
             services={services} />
           <div className="flex-grow">
+            <ServicesBreadcrumb groupId={groupId} />
             <FilterHeadline
               inverseStyle={true}
               onReset={this.resetFilter}
