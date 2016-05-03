@@ -5,8 +5,10 @@ import {
   REQUEST_MARATHON_DEPLOYMENTS_SUCCESS,
   REQUEST_MARATHON_DEPLOYMENTS_ERROR,
   REQUEST_MARATHON_DEPLOYMENTS_ONGOING,
+  REQUEST_MARATHON_SERVICE_VERSION_SUCCESS,
+  REQUEST_MARATHON_SERVICE_VERSION_ERROR,
   REQUEST_MARATHON_SERVICE_VERSIONS_SUCCESS,
-  REQUEST_MARATHON_SERVICE_VERSIONS_ERROR,
+  REQUEST_MARATHON_SERVICE_VERSIONS_ERROR
 } from '../constants/ActionTypes';
 var AppDispatcher = require('./AppDispatcher');
 var Config = require('../config/Config');
@@ -84,6 +86,24 @@ module.exports = {
     },
     {delayAfterCount: Config.delayAfterErrorCount}
   ),
+
+  fetchServiceVersion: function (serviceID, versionID) {
+    RequestUtil.json({
+      url: `${Config.rootUrl}/marathon/v2/apps/${serviceID}/versions/${versionID}`,
+      success: function (response) {
+        AppDispatcher.handleServerAction({
+          type: REQUEST_MARATHON_SERVICE_VERSION_SUCCESS,
+          data: {serviceID, versionID, version: response}
+        });
+      },
+      error: function (xhr) {
+        AppDispatcher.handleServerAction({
+          type: REQUEST_MARATHON_SERVICE_VERSION_ERROR,
+          data: RequestUtil.getErrorFromXHR(xhr)
+        });
+      }
+    });
+  },
 
   fetchServiceVersions: function (serviceID) {
     RequestUtil.json({

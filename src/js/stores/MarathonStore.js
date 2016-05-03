@@ -14,6 +14,8 @@ import {
   MARATHON_GROUPS_ERROR,
   MARATHON_DEPLOYMENTS_CHANGE,
   MARATHON_DEPLOYMENTS_ERROR,
+  MARATHON_SERVICE_VERSION_CHANGE,
+  MARATHON_SERVICE_VERSION_ERROR,
   MARATHON_SERVICE_VERSIONS_CHANGE,
   MARATHON_SERVICE_VERSIONS_ERROR,
   VISIBILITY_CHANGE
@@ -91,6 +93,8 @@ var MarathonStore = Store.createStore({
       this.listenerCount(MARATHON_DEPLOYMENTS_CHANGE) > 0 ||
       this.listenerCount(MARATHON_APPS_CHANGE) > 0;
   },
+
+  fetchServiceVersion: MarathonActions.fetchServiceVersion,
 
   fetchServiceVersions: MarathonActions.fetchServiceVersions,
 
@@ -243,6 +247,15 @@ var MarathonStore = Store.createStore({
     this.emit(MARATHON_SERVICE_VERSIONS_ERROR);
   },
 
+  processMarathonServiceVersion({serviceID, version, versionID}) {
+    // TODO (orlandohohmeier): Convert version into typed version struct
+    this.emit(MARATHON_SERVICE_VERSION_CHANGE, {serviceID, versionID, version});
+  },
+
+  processMarathonServiceVersionError() {
+    this.emit(MARATHON_SERVICE_VERSION_ERROR);
+  },
+
   dispatcherIndex: AppDispatcher.register(function (payload) {
     if (payload.source !== ActionTypes.SERVER_ACTION) {
       return false;
@@ -264,6 +277,12 @@ var MarathonStore = Store.createStore({
         break;
       case ActionTypes.REQUEST_MARATHON_GROUPS_ONGOING:
         MarathonStore.processOngoingRequest();
+        break;
+      case ActionTypes.REQUEST_MARATHON_SERVICE_VERSION_SUCCESS:
+        MarathonStore.processMarathonServiceVersion(action.data);
+        break;
+      case ActionTypes.REQUEST_MARATHON_SERVICE_VERSION_ERROR:
+        MarathonStore.processMarathonServiceVersionError();
         break;
       case ActionTypes.REQUEST_MARATHON_SERVICE_VERSIONS_SUCCESS:
         MarathonStore.processMarathonServiceVersions(action.data);
