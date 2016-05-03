@@ -6,6 +6,11 @@ describe('Task Side Panel', function () {
         mesos: '1-service-with-executor-task'
       })
       .visitUrl({url: '/services'});
+
+    cy
+      .get('.page-content table.table > tbody > tr')
+      .should('have.length', 4)
+
     cy
       .get('.page-content table.table > tbody > tr')
       .contains('cassandra')

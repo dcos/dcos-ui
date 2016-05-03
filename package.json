@@ -97,7 +97,7 @@
     "build-ce": "npm run clean && npm test && NODE_ENV='production' ./node_modules/.bin/gulp dist",
     "serve": "NODE_ENV='development' ./node_modules/.bin/gulp serve",
     "serve-notify": "export NOTIFY=true && npm run serve",
-    "testing": "NODE_ENV='testing' ./node_modules/.bin/gulp serve",
+    "testing": "NODE_ENV='testing' ./node_modules/.bin/gulp testing",
     "lint": "./node_modules/.bin/eslint '**/*.js' --quiet",
     "livereload": "NODE_ENV='development' ./node_modules/.bin/gulp livereload",
     "livereload-notify": "export NOTIFY=true && npm run livereload",

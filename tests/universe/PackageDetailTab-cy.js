@@ -17,7 +17,7 @@ describe('Package Detail Tab', function () {
 
   it('displays marathon package details', function () {
     cy
-      .get('.container-pod.container-pod-short .container-pod.container-pod-short-bottom.flush-top p')
+      .get('.page-content .gm-scroll-view .container-pod.container-pod-super-short-bottom.flush-top p')
       .as('information');
 
     cy
@@ -72,6 +72,6 @@ describe('Package Detail Tab', function () {
 
     cy
       .get('.modal.modal-image-viewer img')
-      .should('have.attr', 'src', 'https://mesosphere.github.io/presentations/mug-ericsson-2014/assets/marathon-logo.jpg');
+      .should('have.attr', 'src', 'https://mesosphere.com/wp-content/themes/mesosphere/library/images/assets/marathon-0.6.0/mesosphere-marathon-app-list.png');
   });
 });

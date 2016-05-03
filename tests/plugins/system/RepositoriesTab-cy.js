@@ -6,39 +6,39 @@ describe('Installed Packages Tab', function () {
         mesos: '1-task-healthy',
         universePackages: true
       })
-      .visitUrl({url: '/system/system/repositories'});
+      .visitUrl({url: '/system/overview/repositories'});
   });
 
   it('activates the correct tab', function () {
     cy
-      .get('.page-header-navigation .tab-item.active .tab-item-label')
+      .get('.tabs .tab-item.active .tab-item-label')
       .should('contain', 'Repositories');
   });
 
   it('displays a table of repositories', function () {
     cy
-      .get('table.table > tbody > tr .highlight')
+      .get('table.table > tbody > tr td:first-child')
       .as('itemNames');
 
     cy
-      .get('@itemNames').eq(0)
-      .should('contain', 'Universe')
       .get('@itemNames').eq(1)
-      .should('contain', 'Mat The Great!')
+      .should('contain', 'Universe')
       .get('@itemNames').eq(2)
+      .should('contain', 'Mat The Great!')
+      .get('@itemNames').eq(3)
       .should('contain', 'Go Team');
   });
 
   it('allows users to filter repositories', function () {
     cy.get('.page-content input[type="text"]').as('filterTextbox');
     cy
-      .get('table.table > tbody > tr .highlight')
+      .get('table.table > tbody > tr td:first-child')
       .as('itemNames');
 
     cy.get('@filterTextbox').type('universe');
     cy.get('@itemNames').should(function ($itemNames) {
-      expect($itemNames.length).to.equal(1);
-      expect($itemNames.first()).to.contain('Universe');
+      expect($itemNames.length).to.equal(3);
+      expect($itemNames.eq(1)).to.contain('Universe');
     });
   });
 
@@ -55,17 +55,17 @@ describe('Installed Packages Tab', function () {
   });
 
   it('displays uninstall modal when uninstall is clicked', function () {
-    cy.get('.button.button-link.button-danger').eq(0).invoke('show').click();
+    cy.get('.button.button-link.button-danger').eq(0).invoke('show').click({force: true});
     cy
       .get('.modal .modal-footer .button.button-danger')
-      .should('contain', 'Uninstall');
+      .should('contain', 'Remove Repository');
   });
 
   it('closes modal after uninstall is successful', function () {
-    cy.get('.button.button-link.button-danger').eq(0).invoke('show').click();
+    cy.get('.button.button-link.button-danger').eq(0).invoke('show').click({force: true});
     cy
       .get('.modal .modal-footer .button.button-danger')
-      .contains('Uninstall')
+      .contains('Remove Repository')
       .click();
 
     cy.get('modal').should(function ($modal) {
@@ -81,10 +81,10 @@ describe('Installed Packages Tab', function () {
         status: 400,
         response: {message: 'Could not uninstall repository, just because...'}
       })
-      .get('.button.button-link.button-danger').eq(0).invoke('show').click();
+      .get('.button.button-link.button-danger').eq(0).invoke('show').click({force: true});
     cy
       .get('.modal .modal-footer .button.button-danger')
-      .contains('Uninstall')
+      .contains('Remove Repository')
       .click();
 
     cy
@@ -100,10 +100,10 @@ describe('Installed Packages Tab', function () {
         status: 400,
         response: {}
       })
-      .get('.button.button-link.button-danger').eq(0).invoke('show').click();
+      .get('.button.button-link.button-danger').eq(0).invoke('show').click({force: true});
     cy
       .get('.modal .modal-footer .button.button-danger')
-      .contains('Uninstall')
+      .contains('Remove Repository')
       .click();
 
     cy

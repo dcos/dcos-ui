@@ -21,7 +21,7 @@ describe('Add Repository Form Modal', function () {
   it('displays two fields', function () {
     cy
       .get('.modal input')
-      .should('to.have.length', 2);
+      .should('to.have.length', 3);
   });
 
   it('should display error if both fields aren\'t filled out', function () {
