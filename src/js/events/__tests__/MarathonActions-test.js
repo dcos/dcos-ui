@@ -56,6 +56,57 @@ describe('MarathonActions', function () {
 
   });
 
+  describe('#fetchServiceVersion', function () {
+
+    const serviceId = 'test';
+    const versionId = '2016-05-02T16:07:32.583Z';
+
+    beforeEach(function () {
+      spyOn(RequestUtil, 'json');
+      MarathonActions.fetchServiceVersion(serviceId, versionId);
+      this.configuration = RequestUtil.json.calls.mostRecent().args[0];
+    });
+
+    it('calls #json from the RequestUtil', function () {
+      expect(RequestUtil.json).toHaveBeenCalled();
+    });
+
+    it('fetches data from the correct URL', function () {
+      expect(this.configuration.url).toEqual(
+        `${Config.rootUrl}/marathon/v2/apps/${serviceId}/versions/${versionId}`
+      );
+    });
+
+    it('dispatches the correct action when successful', function () {
+      var id = AppDispatcher.register(function (payload) {
+        var action = payload.action;
+        AppDispatcher.unregister(id);
+        expect(action.type).toEqual(
+          ActionTypes.REQUEST_MARATHON_SERVICE_VERSION_SUCCESS
+        );
+      });
+
+      this.configuration.success({
+        serviceId,
+        versionId,
+        versions: ['2016-05-02T16:07:32.583Z']
+      });
+    });
+
+    it('dispatches the correct action when unsucessful', function () {
+      var id = AppDispatcher.register(function (payload) {
+        var action = payload.action;
+        AppDispatcher.unregister(id);
+        expect(action.type).toEqual(
+          ActionTypes.REQUEST_MARATHON_SERVICE_VERSION_ERROR
+        );
+      });
+
+      this.configuration.error({message: 'error'});
+    });
+
+  });
+
   describe('#fetchServiceVersions', function () {
 
     const serviceId = 'test';
