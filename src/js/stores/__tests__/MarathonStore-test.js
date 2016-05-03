@@ -178,6 +178,48 @@ describe('MarathonStore', function () {
 
   });
 
+  describe('#processMarathonServiceVersion', function () {
+
+    it('should emit correct event', function () {
+      let handler = jest.genMockFunction();
+      MarathonStore.once(EventTypes.MARATHON_SERVICE_VERSION_CHANGE, handler);
+      MarathonStore.processMarathonServiceVersion({
+        serviceId: 'service-id',
+        versionId: 'version-id',
+        version: {}
+      });
+
+      expect(handler).toBeCalled();
+    });
+
+    it('should pass correct service id', function () {
+      let handler = jest.genMockFunction();
+      MarathonStore.once(EventTypes.MARATHON_SERVICE_VERSION_CHANGE, handler);
+      MarathonStore.processMarathonServiceVersion({
+        serviceId: 'service-id',
+        versionId: 'version-id',
+        version: {}
+      });
+      let {serviceId} = handler.mock.calls[0][0];
+
+      expect(serviceId).toBe('service-id');
+    });
+
+    it('should pass correct version id', function () {
+      let handler = jest.genMockFunction();
+      MarathonStore.once(EventTypes.MARATHON_SERVICE_VERSION_CHANGE, handler);
+      MarathonStore.processMarathonServiceVersion({
+        serviceId: 'service-id',
+        versionId: 'version-id',
+        version: {}
+      });
+      let {versionId} = handler.mock.calls[0][0];
+
+      expect(versionId).toBe('version-id');
+    });
+
+  });
+
   describe('#processMarathonServiceVersions', function () {
 
     it('should emit correct event', function () {
