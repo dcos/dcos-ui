@@ -118,12 +118,13 @@ class SchemaForm extends React.Component {
   }
 
   getNewDefinition() {
+    let {model, schema} = this.props;
     let definition = SchemaUtil.schemaToMultipleDefinition(
-      this.props.schema, this.getSubHeader, this.getLabel
+      schema, this.getSubHeader, this.getLabel
     );
 
-    if (this.props.model) {
-      SchemaFormUtil.mergeModelIntoDefinition(this.props.model, definition);
+    if (model) {
+      SchemaFormUtil.mergeModelIntoDefinition(model, definition);
     }
 
     return definition;
