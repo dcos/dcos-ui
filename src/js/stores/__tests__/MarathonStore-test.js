@@ -1,9 +1,11 @@
+jest.dontMock('../../constants/EventTypes');
 jest.dontMock('../../constants/HealthLabels');
 jest.dontMock('../../mixins/GetSetMixin');
 jest.dontMock('../MarathonStore');
 jest.dontMock('./fixtures/MockAppMetadata');
 jest.dontMock('./fixtures/MockMarathonResponse.json');
 
+var EventTypes = require('../../constants/EventTypes');
 var HealthLabels = require('../../constants/HealthLabels');
 var HealthTypes = require('../../constants/HealthTypes');
 var MarathonStore = require('../MarathonStore');
@@ -172,6 +174,46 @@ describe('MarathonStore', function () {
           expect(appHealth.value).toEqual(HealthTypes.NA);
         }
       }
+    });
+
+  });
+
+  describe('#processMarathonServiceVersions', function () {
+
+    it('should emit correct event', function () {
+      let handler = jest.genMockFunction();
+      MarathonStore.once(EventTypes.MARATHON_SERVICE_VERSIONS_CHANGE, handler);
+      MarathonStore.processMarathonServiceVersions({
+        serviceId: 'service-id',
+        versions: []
+      });
+
+      expect(handler).toBeCalled();
+    });
+
+    it('should convert versions list to Map', function () {
+      let handler = jest.genMockFunction();
+      MarathonStore.once(EventTypes.MARATHON_SERVICE_VERSIONS_CHANGE, handler);
+      MarathonStore.processMarathonServiceVersions({
+        serviceId: 'service-id',
+        versions: ['2016-05-02T16:07:32.583Z']
+      });
+      let {versions} = handler.mock.calls[0][0];
+
+      expect(versions instanceof Map).toBe(true);
+      expect(versions.has('2016-05-02T16:07:32.583Z')).toBe(true);
+    });
+
+    it('should pass correct service id', function () {
+      let handler = jest.genMockFunction();
+      MarathonStore.once(EventTypes.MARATHON_SERVICE_VERSIONS_CHANGE, handler);
+      MarathonStore.processMarathonServiceVersions({
+        serviceId: 'service-id',
+        versions: ['2016-05-02T16:07:32.583Z']
+      });
+      let {serviceId} = handler.mock.calls[0][0];
+
+      expect(serviceId).toBe('service-id');
     });
 
   });
