@@ -1,7 +1,9 @@
 import {
   REQUEST_MARATHON_GROUPS_SUCCESS,
   REQUEST_MARATHON_GROUPS_ERROR,
-  REQUEST_MARATHON_GROUPS_ONGOING
+  REQUEST_MARATHON_GROUPS_ONGOING ,
+  REQUEST_MARATHON_SERVICE_VERSIONS_SUCCESS,
+  REQUEST_MARATHON_SERVICE_VERSIONS_ERROR,
 } from '../constants/ActionTypes';
 var AppDispatcher = require('./AppDispatcher');
 var Config = require('../config/Config');
@@ -47,6 +49,27 @@ module.exports = {
       };
     },
     {delayAfterCount: Config.delayAfterErrorCount}
-  )
+  ),
+
+  fetchServiceVersions: function (serviceId) {
+    const url = `${Config.rootUrl}/marathon/v2/apps/${serviceId}/versions`;
+
+    RequestUtil.json({
+      url: url,
+      success: function (response) {
+        let {versions} = response;
+        AppDispatcher.handleServerAction({
+          type: REQUEST_MARATHON_SERVICE_VERSIONS_SUCCESS,
+          data: {serviceId, versions}
+        });
+      },
+      error: function (xhr) {
+        AppDispatcher.handleServerAction({
+          type: REQUEST_MARATHON_SERVICE_VERSIONS_ERROR,
+          data: RequestUtil.getErrorFromXHR(xhr)
+        });
+      }
+    });
+  }
 
 };
