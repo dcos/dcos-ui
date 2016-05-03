@@ -56,7 +56,8 @@ var MarathonStore = Store.createStore({
   mixins: [GetSetMixin],
 
   getSet_data: {
-    apps: {}
+    apps: {},
+    groups: new ServiceTree()
   },
 
   addChangeListener: function (eventName, callback) {
