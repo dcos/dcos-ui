@@ -26,6 +26,7 @@ module.exports = {
     ResourceTableUtil: 'ResourceTableUtil',
     TableUtil: 'TableUtil',
     LocalStorageUtil: 'LocalStorageUtil',
+    Maths: 'Maths',
     Units: 'Units',
     Util: 'Util',
     StoreMixinConfig: 'StoreMixinConfig'
