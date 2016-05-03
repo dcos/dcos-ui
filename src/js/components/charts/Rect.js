@@ -14,8 +14,8 @@ class Rect extends React.Component {
 
   transitionRect(props) {
     let {transitionDuration, transform} = props;
-
     let el = ReactDOM.findDOMNode(this);
+
     d3.select(el)
       .transition()
       .duration(transitionDuration)
