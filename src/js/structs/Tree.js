@@ -130,7 +130,7 @@ module.exports = class Tree extends List {
       if (filter.id) {
         let filterProperties = Object.assign({}, this.getFilterProperties(), {
           name: function (item) {
-            return item.id;
+            return item.getId();
           }
         });
 
