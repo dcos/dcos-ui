@@ -25,6 +25,20 @@ class UniversePackage extends Item {
     return this.getActiveBlock();
   }
 
+  getAppId() {
+    return this.get('appId');
+  }
+
+  getAppIdName() {
+    let appId = this.getAppId();
+    // Remove initial slash if present
+    if (appId.charAt(0) === '/') {
+      appId = appId.slice(1);
+    }
+
+    return appId;
+  }
+
   getBlockCount() {
     return this.getActiveBlock() + 10;
   }
@@ -73,6 +87,20 @@ class UniversePackage extends Item {
     return Util.findNestedPropertyInObject(
       this.get('package'),
       'preInstallNotes'
+    );
+  }
+
+  getPostInstallNotes() {
+    return Util.findNestedPropertyInObject(
+      this.get('package'),
+      'postInstallNotes'
+    );
+  }
+
+  getPostUninstallNotes() {
+    return Util.findNestedPropertyInObject(
+      this.get('packageDefinition'),
+      'postUninstallNotes'
     );
   }
 
