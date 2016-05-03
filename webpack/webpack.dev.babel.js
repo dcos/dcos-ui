@@ -9,15 +9,7 @@ import webpackConfig from './webpack.config.babel';
 // Defaults to value in package.json.
 // Can override with npm config set dcos-ui:port 80
 let PORT = process.env.npm_package_config_port;
-let proxy;
-
-try {
-  // If this fails - you should create a proxy.dev.js by copying proxy.template.js
-  // and customizing the proxy as needed.
-  proxy = require('./proxy.dev.js');
-} catch (err) {
-  proxy = require('./proxy.template.js');
-}
+let proxy = require('./proxy.dev.js');
 
 let REPLACEMENT_VARS = {
   VERSION: packageInfo.version,

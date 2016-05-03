@@ -96,19 +96,19 @@
   },
   "scripts": {
     "clean": "rm -rf dist",
-    "prebuild-ee": "./scripts/validate-tests",
-    "build-ee": "npm run clean && npm run lint && npm run lint-plugins && npm test && npm run build",
-    "dist": "npm run build-ee",
-    "prebuild-ce": "./scripts/validate-tests",
-    "build-ce": "npm run clean && npm run lint && npm test && npm run build",
-    "serve": "NODE_ENV='development' npm run build && ./node_modules/.bin/gulp serve",
-    "serve-notify": "export NOTIFY=true && npm run serve",
-    "testing": "NODE_ENV='testing' npm run build && ./node_modules/.bin/gulp serve",
-    "lint-plugins": "PLUGINS=$npm_package_config_external_plugins; ./node_modules/.bin/eslint \"$PLUGINS/**/*.js\" --quiet",
+    "build": "npm run ensure-config && npm run clean && npm run lint && npm test && npm run dist",
+    "build-with-external-plugins": "npm run ensure-config && npm run clean && npm run lint && npm run lint-plugins && npm test && npm run dist",
+    "ensure-config": "./node_modules/.bin/gulp ensureConfig",
+    "ensure-dev-proxy": "./node_modules/.bin/gulp ensureDevProxy",
     "lint": "./node_modules/.bin/eslint '**/*.js' --quiet",
-    "test": "node jest/genConfig.js && NODE_PATH=node_modules jest --config=jest/config.json --no-cache",
-    "start": "PORT=$npm_package_config_port; webpack-dev-server --config ./webpack/webpack.dev.babel.js --hot --progress --colors --content-base ./build --port $PORT",
-    "build": "./node_modules/.bin/gulp ensureConfig && NODE_ENV='production' webpack --config ./webpack/webpack.production.babel.js"
+    "lint-plugins": "PLUGINS=$npm_package_config_external_plugins; ./node_modules/.bin/eslint \"$PLUGINS/**/*.js\" --quiet",
+    "prebuild": "./scripts/validate-tests",
+    "serve": "NODE_ENV='development' npm run dist && ./node_modules/.bin/gulp serve",
+    "serve-notify": "export NOTIFY=true && npm run serve",
+    "start": "PORT=$npm_package_config_port; npm run ensure-dev-proxy && webpack-dev-server --config ./webpack/webpack.dev.babel.js --hot --progress --colors --content-base ./build --port $PORT",
+    "test": "node jest/gen-config.js && NODE_PATH=node_modules jest --config=jest/config.json --no-cache",
+    "testing": "NODE_ENV='testing' npm run dist && ./node_modules/.bin/gulp serve",
+    "dist": "NODE_ENV='production' webpack --config ./webpack/webpack.production.babel.js"
   },
   "jest-webpack-alias": {
     "configFile": "./webpack/webpack.test.js"
