@@ -14,6 +14,8 @@ import {
   MARATHON_GROUPS_ERROR,
   MARATHON_DEPLOYMENTS_CHANGE,
   MARATHON_DEPLOYMENTS_ERROR,
+  MARATHON_SERVICE_VERSIONS_CHANGE,
+  MARATHON_SERVICE_VERSIONS_ERROR,
   VISIBILITY_CHANGE
 } from '../constants/EventTypes';
 var GetSetMixin = require('../mixins/GetSetMixin');
@@ -89,6 +91,8 @@ var MarathonStore = Store.createStore({
       this.listenerCount(MARATHON_DEPLOYMENTS_CHANGE) > 0 ||
       this.listenerCount(MARATHON_APPS_CHANGE) > 0;
   },
+
+  fetchServiceVersions: MarathonActions.fetchServiceVersions,
 
   hasProcessedApps: function () {
     return !!Object.keys(this.get('apps')).length;
@@ -227,6 +231,18 @@ var MarathonStore = Store.createStore({
     // Handle ongoing request here.
   },
 
+  processMarathonServiceVersions({serviceID, versions}) {
+    versions = versions.reduce(function (map, version) {
+      return map.set(version);
+    }, new Map());
+
+    this.emit(MARATHON_SERVICE_VERSIONS_CHANGE, {serviceID, versions});
+  },
+
+  processMarathonServiceVersionsError() {
+    this.emit(MARATHON_SERVICE_VERSIONS_ERROR);
+  },
+
   dispatcherIndex: AppDispatcher.register(function (payload) {
     if (payload.source !== ActionTypes.SERVER_ACTION) {
       return false;
@@ -248,6 +264,12 @@ var MarathonStore = Store.createStore({
         break;
       case ActionTypes.REQUEST_MARATHON_GROUPS_ONGOING:
         MarathonStore.processOngoingRequest();
+        break;
+      case ActionTypes.REQUEST_MARATHON_SERVICE_VERSIONS_SUCCESS:
+        MarathonStore.processMarathonServiceVersions(action.data);
+        break;
+      case ActionTypes.REQUEST_MARATHON_SERVICE_VERSIONS_ERROR:
+        MarathonStore.processMarathonServiceVersionsError();
         break;
     }
 
