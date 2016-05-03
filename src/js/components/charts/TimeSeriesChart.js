@@ -8,6 +8,7 @@ var ChartMixin = require('../../mixins/ChartMixin');
 var ChartStripes = require('./ChartStripes');
 var InternalStorageMixin = require('../../mixins/InternalStorageMixin');
 var Maths = require('../../utils/Maths');
+import Rect from './Rect';
 var TimeSeriesArea = require('./TimeSeriesArea');
 var TimeSeriesMouseOver = require('./TimeSeriesMouseOver');
 var ValueTypes = require('../../constants/ValueTypes');
@@ -101,9 +102,7 @@ var TimeSeriesChart = React.createClass({
     var props = this.props;
     var height = this.getHeight(props);
     var width = this.getWidth(props);
-    var xTimeScale = this.getXTimeScale(props.data, width);
 
-    this.createUnsuccessfulBlocks(_.first(props.data).values, xTimeScale);
     this.updateClipPath(width, height);
   },
 
@@ -126,29 +125,23 @@ var TimeSeriesChart = React.createClass({
     let nextY = this.getNextXPosition(data, xTimeScale, transitionTime);
     let props = this.props;
     let width = props.width / data.length;
-    let maskDef = this.refs.maskDef;
-    let d3MaskDef = d3.select(maskDef);
 
-    // We remove the last batch of masks before we create the new ones.
-    d3MaskDef.selectAll('.unsuccessful-block').remove();
-
-    data.forEach(function (obj) {
+    return data.map(function (obj) {
       if (obj[props.y] == null) {
         let x = xTimeScale(obj.date - props.refreshRate);
-        d3MaskDef
-          .append('rect')
-          .attr({
-            width,
-            height: props.height,
-            x,
-            y: 0,
-            fill: 'black',
-            class: 'unsuccessful-block'
-          })
-          .transition()
-          .duration(props.refreshRate)
-          .ease('linear')
-          .attr('transform', `translate(${-nextY}, 0)`);
+
+        return (
+          <Rect
+            width={width}
+            height={props.height}
+            x={x}
+            y={0}
+            fill="black"
+            className="unsuccessful-block"
+            transitionDuration={props.refreshRate}
+            transform={`translate(${-nextY}, 0)`}
+            key={x} />
+        );
       }
     });
   },
@@ -469,6 +462,7 @@ var TimeSeriesChart = React.createClass({
           <defs>
             <mask ref="maskDef" id={store.maskID}>
               <rect x="0" y="0" width={width} height={height} fill="white" />
+              {this.createUnsuccessfulBlocks(_.first(props.data).values, xTimeScale)}
             </mask>
           </defs>
         </svg>
