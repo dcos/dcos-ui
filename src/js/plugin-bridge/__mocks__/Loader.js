@@ -9,7 +9,9 @@ const Mocks = {};
 let pluginsList;
 let externalPluginsList;
 let pluginsDir = 'plugins';
-let externalPluginsDir = path.resolve(String(process.env.DCOS_UI_PLUGINS));
+let externalPluginsDir = path.resolve(
+  process.env.npm_package_config_external_plugins
+);
 
 try {
   pluginsList = require('PLUGINS');

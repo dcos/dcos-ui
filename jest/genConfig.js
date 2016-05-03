@@ -3,15 +3,10 @@
  */
 var fs = require('fs');
 var path = require('path');
-var pluginsFolder = process.env.DCOS_UI_PLUGINS;
 var testPaths = ['src'];
-if (pluginsFolder) {
-  try {
-    require('../' + pluginsFolder);
-    testPaths.push(pluginsFolder);
-  } catch (err) {
-    // No plugins
-  }
+
+if (process.env.npm_package_config_external_plugins) {
+  testPaths.push(process.env.npm_package_config_external_plugins);
 }
 
 var config = {

@@ -13,6 +13,6 @@ gulp.task('ensureConfig', function () {
 gulp.task('serve', function () {
   connect.server({
     port: 4200,
-    root: config.dirs.dist
+    root: './dist'
   });
 });

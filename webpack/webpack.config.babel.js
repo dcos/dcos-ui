@@ -9,6 +9,9 @@ function absPath() {
   return path.resolve.apply(path.resolve, args);
 }
 
+// Can override this with npm config set dcos-ui:external_plugins ../some/relative/path/to/repo
+let pluginsDir = absPath(process.env.npm_package_config_external_plugins || 'plugins');
+
 module.exports = {
   lessLoader: {
     lessPlugins: [
@@ -51,7 +54,7 @@ module.exports = {
     alias: {
       PluginSDK: absPath('src/js/plugin-bridge/PluginSDK'),
       PluginTestUtils: absPath('src/js/plugin-bridge/PluginTestUtils'),
-      EXTERNAL_PLUGINS: absPath(String(process.env.DCOS_UI_PLUGINS || 'plugins')),
+      EXTERNAL_PLUGINS: pluginsDir,
       PLUGINS: absPath('plugins')
     },
     extensions: ['', '.js', '.less', '.css'],

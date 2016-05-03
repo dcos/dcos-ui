@@ -15,8 +15,7 @@ function addImageOptimizer(loader) {
 
 let REPLACEMENT_VARS = {
   VERSION: packageInfo.version,
-  ENV: process.env.NODE_ENV,
-  ANALYTICS_KEY: packageInfo.analytics.production
+  ENV: process.env.NODE_ENV
 };
 
 module.exports = Object.assign({}, webpackConfig, {

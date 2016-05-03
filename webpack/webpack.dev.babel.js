@@ -6,7 +6,9 @@ import WebpackNotifierPlugin from 'webpack-notifier';
 import packageInfo from '../package';
 import webpackConfig from './webpack.config.babel';
 
-let PORT = process.env.PORT || 8080;
+// Defaults to value in package.json.
+// Can override with npm config set dcos-ui:port 80
+let PORT = process.env.npm_package_config_port;
 let proxy;
 
 try {
@@ -19,8 +21,7 @@ try {
 
 let REPLACEMENT_VARS = {
   VERSION: packageInfo.version,
-  ENV: process.env.NODE_ENV,
-  ANALYTICS_KEY: packageInfo.analytics.development
+  ENV: process.env.NODE_ENV
 };
 
 module.exports = Object.assign({}, webpackConfig, {
