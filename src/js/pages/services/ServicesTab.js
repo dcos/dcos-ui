@@ -119,9 +119,10 @@ var ServicesTab = React.createClass({
         id: state.searchString
       }).getItems();
 
-      let breadcrumbsOrFilterHeadline = (
+      let breadcrumbs = (
         <ServicesBreadcrumb serviceTreeItem={item} />
       );
+      let filterHeadline = null;
 
       const hasFiltersApplied = Object.keys(DEFAULT_FILTER_OPTIONS)
         .some((filterKey) => {
@@ -129,7 +130,8 @@ var ServicesTab = React.createClass({
         });
 
       if (hasFiltersApplied) {
-        breadcrumbsOrFilterHeadline = (
+        breadcrumbs = null;
+        filterHeadline = (
           <FilterHeadline
             inverseStyle={true}
             onReset={this.resetFilter}
@@ -145,7 +147,8 @@ var ServicesTab = React.createClass({
             handleFilterChange={this.handleFilterChange}
             services={services} />
           <div className="flex-grow">
-            {breadcrumbsOrFilterHeadline}
+            {breadcrumbs}
+            {filterHeadline}
             <ServiceSearchFilter
               handleFilterChange={this.handleFilterChange} />
             <ServicesTable

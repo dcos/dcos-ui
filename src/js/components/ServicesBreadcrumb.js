@@ -29,11 +29,11 @@ class ServicesBreadcrumb extends React.Component {
 
     breadcrumbNodes = breadcrumbNodes.concat(
       DCOSStore.serviceTree.reduceItems(function (memo, item) {
-        if (groupId.startsWith(item.getId())) {
-          const id = item.getId();
+        const id = item.getId();
+        if (groupId.startsWith(id)) {
           const name = item.getName();
 
-          let linkOrText = (
+          let breadCrumbNode = (
             <Link
               to="services-detail"
               params={{id: encodeURIComponent(id)}}
@@ -43,7 +43,7 @@ class ServicesBreadcrumb extends React.Component {
           );
 
           if (id === groupId) {
-            linkOrText = (
+            breadCrumbNode = (
               <span>{name}</span>
             );
           }
@@ -51,7 +51,7 @@ class ServicesBreadcrumb extends React.Component {
           memo.push(
             <span className="crumb" key={id}>
               {breadcrumbIcon}
-              {linkOrText}
+              {breadCrumbNode}
             </span>
           );
         }
