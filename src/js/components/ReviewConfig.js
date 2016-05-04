@@ -123,7 +123,7 @@ class ReviewConfig extends React.Component {
     return (
       <div className={this.props.className}>
         {this.getHeader()}
-        <GeminiScrollbar ref="gemini" className="modal-content" autoshow={true}>
+        <GeminiScrollbar ref="gemini" className="review-config modal-content" autoshow={true}>
           <div className="modal-content-inner container container-pod container-pod-short flush-top flush-bottom flex-grow">
             {this.getDefinitionReview()}
           </div>
@@ -134,7 +134,7 @@ class ReviewConfig extends React.Component {
 }
 
 ReviewConfig.defaultProps = {
-  className: 'review-config flex-container-col'
+  className: 'flex-container-col'
 };
 
 ReviewConfig.propTypes = {
