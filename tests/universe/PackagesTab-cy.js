@@ -13,13 +13,13 @@ describe('Packages Tab', function () {
         method: 'POST',
         url: /package\/search/,
         status: 400,
-        response: {type: 'RepositoryUriSyntax', name: 'Invalid'}
+        response: {type: 'RepositoryUriSyntax', name: 'Invalid', message: 'The url for Invalid does not have correct syntax.'}
       })
       .visitUrl({url: '/universe', logIn: true});
 
     cy
-      .get('.page-content p.inverse.text-align-center')
-      .should('contain', 'The URL for Invalid (repository) is not valid, or its host did not resolve. You might need to change the URL of Invalid. You can do that on the Repositories Settings page, uninstall it, and add the correct URL.');
+      .get('.page-content .text-overflow-break-word')
+      .should('contain', 'The url for Invalid does not have correct syntax. You can go to the Repositories Settings page to change installed repositories.');
   });
 
   it('should display correct message for \'no index\' error', function () {
@@ -28,13 +28,13 @@ describe('Packages Tab', function () {
         method: 'POST',
         url: /package\/search/,
         status: 400,
-        response: {type: 'IndexNotFound', name: 'Invalid'}
+        response: {type: 'IndexNotFound', name: 'Invalid', message: 'The index file is missing in Invalid.'}
       })
       .visitUrl({url: '/universe', logIn: true});
 
     cy
-      .get('.page-content p.inverse.text-align-center')
-      .should('contain', 'The index file is missing in Invalid (repository). You might need to change the URL of Invalid. You can do that on the Repositories Settings page, uninstall it, and add the correct URL.');
+      .get('.page-content .text-overflow-break-word')
+      .should('contain', 'The index file is missing in Invalid. You can go to the Repositories Settings page to change installed repositories.');
   });
 
   it('should display correct message for missing package file', function () {
@@ -43,13 +43,13 @@ describe('Packages Tab', function () {
         method: 'POST',
         url: /package\/search/,
         status: 400,
-        response: {type: 'PackageFileMissing', name: 'Invalid'}
+        response: {type: 'PackageFileMissing', name: 'Invalid', message: 'The package file is missing in Invalid.'}
       })
       .visitUrl({url: '/universe', logIn: true});
 
     cy
-      .get('.page-content p.inverse.text-align-center')
-      .should('contain', 'The package file is missing in Invalid (repository). You might need to change the URL of Invalid. You can do that on the Repositories Settings page, uninstall it, and add the correct URL.');
+      .get('.page-content .text-overflow-break-word')
+      .should('contain', 'The package file is missing in Invalid. You can go to the Repositories Settings page to change installed repositories.');
   });
 
   it('should use default repository name if not provided', function () {
@@ -58,13 +58,13 @@ describe('Packages Tab', function () {
         method: 'POST',
         url: /package\/search/,
         status: 400,
-        response: {type: 'PackageFileMissing'}
+        response: {type: 'PackageFileMissing', message: 'The package file is missing in a repository.'}
       })
       .visitUrl({url: '/universe', logIn: true});
 
     cy
-      .get('.page-content p.inverse.text-align-center')
-      .should('contain', 'The package file is missing in a repository (repository). You might need to change the URL of a repository. You can do that on the Repositories Settings page, uninstall it, and add the correct URL.');
+      .get('.page-content .text-overflow-break-word')
+      .should('contain', 'The package file is missing in a repository. You can go to the Repositories Settings page to change installed repositories.');
   });
 
   it('should default error message for missing package file', function () {
@@ -78,8 +78,8 @@ describe('Packages Tab', function () {
       .visitUrl({url: '/universe', logIn: true});
 
     cy
-      .get('.page-content h3')
-      .should('contain', 'Cannot Connect With The Server');
+      .get('.page-content .h3.text-align-center')
+      .should('contain', 'An Error Occured');
   });
 
   context('searching', function () {
