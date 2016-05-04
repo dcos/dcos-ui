@@ -10,7 +10,7 @@ describe('ComponentsList [10b]', function () {
       })
       .visitUrl({url: '/dashboard', identify: true, fakeAnalytics: true});
 
-      cy.get('.component-list-component h3').should(function ($error) {
+      cy.get('.dashboard-panel-list-component-health h3').should(function ($error) {
         expect($error).to.contain('Components Not Found');
       });
     });
@@ -28,7 +28,7 @@ describe('ComponentsList [10b]', function () {
     });
 
     it('shows an acceptable number of components [10f]', function () {
-      cy.get('.component-list-component').within(function () {
+      cy.get('.dashboard-panel-list-component-health').within(function () {
         cy.get('li').should(function ($components) {
           expect($components.length)
             .to.be.at.least(1)

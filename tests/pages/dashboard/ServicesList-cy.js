@@ -10,7 +10,7 @@ describe('ServicesList', function () {
     });
 
     it('shows an acceptable number of components', function () {
-      cy.get('.service-list-component').within(function () {
+      cy.get('.dashboard-panel-list-service-health').within(function () {
         cy.get('li').should(function ($components) {
           expect($components.length)
             .to.be.at.least(1)
