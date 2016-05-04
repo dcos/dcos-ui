@@ -1,4 +1,4 @@
-describe('Dashboard [057]', function () {
+describe('Dashboard Time Series Charts [057]', function () {
 
   beforeEach(function () {
     cy.configureCluster({
