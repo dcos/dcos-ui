@@ -1,4 +1,4 @@
-describe('Nodes Side Panel', function () {
+describe('Nodes Detail Page', function () {
 
   beforeEach(function () {
     cy.configureCluster({
@@ -9,7 +9,7 @@ describe('Nodes Side Panel', function () {
 
   context('Navigate to node detail page', function () {
 
-    it('navigates to node side panel', function () {
+    it('navigates to node detail page', function () {
       cy.visitUrl({url: '/nodes', identify: true, fakeAnalytics: true});
       cy.get('tr a').contains('dcos-01').click();
 
@@ -19,7 +19,7 @@ describe('Nodes Side Panel', function () {
       });
     });
 
-    it('shows error in side panel when node is invalid [10a]', function () {
+    it('shows error in node detail page when node is invalid [10a]', function () {
       cy.visitUrl({url: '/nodes/INVALID_NODE', identify: true, fakeAnalytics: true});
 
       cy.hash().should('match', /nodes\/INVALID_NODE/);
