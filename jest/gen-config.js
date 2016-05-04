@@ -32,6 +32,8 @@ var config = {
     '/node_modules/',
     '/.module-cache/'
   ],
+  // We need this to override jest's default ['/node_modules/']
+  'preprocessorIgnorePatterns' : [],
   'unmockedModulePathPatterns': [
     'babel-polyfill',
     'babel-runtime',
