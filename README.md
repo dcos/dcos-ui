@@ -36,8 +36,6 @@ Node 4.x (and above) is **required**. We suggest using [nvm](https://github.com/
 6. Navigate to http://localhost:4200
 
 
-After installing all development dependencies and configuring your local environment (steps 1-4 above), you can run test by running `npm test`.  You can build production assets by running `npm run dist`.  If you are actively developing, you may want to run `npm start` to avoid having to refresh your browser with every change.
-
 ## Adding npm Package Dependencies
 
 If you want to add a new npm package to 'node_modules':
