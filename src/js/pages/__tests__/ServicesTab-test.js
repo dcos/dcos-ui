@@ -1,5 +1,6 @@
 jest.dontMock('../services/ServicesTab');
 jest.dontMock('../../mixins/InternalStorageMixin');
+jest.dontMock('../../mixins/SaveStateMixin');
 
 /* eslint-disable no-unused-vars */
 var React = require('react');
@@ -10,10 +11,16 @@ var JestUtil = require('../../utils/JestUtil');
 
 var AlertPanel = require('../../components/AlertPanel');
 var DCOSStore = require('../../stores/DCOSStore');
+var QueryParamsMixin = require('../../mixins/QueryParamsMixin');
+QueryParamsMixin.getQueryParamObject = function () {
+  return {};
+};
+QueryParamsMixin.setQueryParam = jasmine.createSpy();
 var ServicesTab = require('../services/ServicesTab');
 var ServiceTree = require('../../structs/ServiceTree');
 var ServiceDetail = require('../../components/ServiceDetail');
 var ServicesTable = require('../../components/ServicesTable');
+var UserSettingsStore = require('../../stores/UserSettingsStore');
 
 describe('ServicesTab', function () {
 
@@ -30,6 +37,22 @@ describe('ServicesTab', function () {
 
   afterEach(function () {
     ReactDOM.unmountComponentAtNode(this.container);
+  });
+
+  it('reinstates the stored query parameters', function () {
+    UserSettingsStore.getKey = function () {
+      return {servicesPage: {filterHealth: ['0'], searchString: 'foo'}};
+    };
+    ReactDOM.render(
+      JestUtil.stubRouterContext(ServicesTab, {params: {id: '/'}}),
+      this.container
+    );
+    expect(QueryParamsMixin.setQueryParam).toHaveBeenCalledWith(
+      'filterHealth', ['0']
+    );
+    expect(QueryParamsMixin.setQueryParam).toHaveBeenCalledWith(
+      'searchString', 'foo'
+    );
   });
 
   describe('#render', function () {
