@@ -1,18 +1,15 @@
 import mixin from 'reactjs-mixin';
 import React from 'react';
-import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import InternalStorageMixin from '../mixins/InternalStorageMixin';
 import Service from '../structs/Service';
 import ServiceActions from './ServiceActions';
+import ServiceDetailTaskTab from './ServiceDetailTaskTab';
 import ServiceInfo from './ServiceInfo';
 import ServicesBreadcrumb from './ServicesBreadcrumb';
 import TabsMixin from '../mixins/TabsMixin';
 
-const METHODS_TO_BIND = [];
-
-class ServiceDetail
-  extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
+class ServiceDetail extends mixin(InternalStorageMixin, TabsMixin) {
 
   constructor() {
     super(...arguments);
@@ -27,14 +24,6 @@ class ServiceDetail
     this.state = {
       currentTab: Object.keys(this.tabs_tabs).shift()
     };
-
-    this.store_listeners = [
-      {name: 'state', events: ['success']}
-    ];
-
-    METHODS_TO_BIND.forEach((method) => {
-      this[method] = this[method].bind(this);
-    });
   }
 
   renderConfigurationTabView() {
@@ -50,7 +39,9 @@ class ServiceDetail
   }
 
   renderTasksTabView() {
-    return (<span>Tasks Placeholder</span>);
+    return (
+      <ServiceDetailTaskTab service={this.props.service}/>
+    );
   }
 
   render() {
@@ -71,11 +62,19 @@ class ServiceDetail
             {this.tabs_getUnroutedTabs()}
           </ul>
         </div>
-        {this.tabs_getTabView()}
+        <div className="side-panel-tab-content side-panel-section container
+          container-pod container-pod-short container-fluid
+          container-fluid-flush flex-container-col flex-grow">
+          {this.tabs_getTabView()}
+        </div>
       </div>
     );
   }
 }
+
+ServiceDetail.contextTypes = {
+  router: React.PropTypes.func
+};
 
 ServiceDetail.propTypes = {
   service: React.PropTypes.instanceOf(Service)
