@@ -129,10 +129,18 @@ class TaskView extends mixin(SaveStateMixin) {
   }
 
   getTaskTable(tasks) {
+    let {inverseStyle, parentRouter} = this.props;
+
+    let classSet = classNames({
+      'table table-borderless-outer table-borderless-inner-columns': true,
+      'flush-bottom': true,
+      'inverse': inverseStyle
+    });
+
     return (
       <TaskTable
-        inverseStyle={this.props.inverseStyle}
-        parentRouter={this.props.parentRouter}
+        className={classSet}
+        parentRouter={parentRouter}
         tasks={tasks} />
     );
   }
@@ -156,11 +164,21 @@ class TaskView extends mixin(SaveStateMixin) {
   }
 
   getContent() {
-    let state = this.state;
-    let tasks = this.props.tasks || [];
+    let {props, state} = this;
+
     let headerClassSet = classNames({
       'h4 text-align-left flush-top': true,
-      'inverse': this.props.inverseStyle
+      'inverse': inverseStyle
+    });
+
+    let filterDropdownClassSet = classNames({
+      'button dropdown-toggle text-align-left': true,
+      'button-inverse': inverseStyle
+    });
+
+    let filterDropdownMenuClassSet = classNames({
+      'dropdown-menu': true,
+      'inverse': inverseStyle
     });
 
     if (state.searchString !== '') {
@@ -179,10 +197,11 @@ class TaskView extends mixin(SaveStateMixin) {
             className="flush-bottom"
             searchString={state.searchString}
             handleFilterChange={this.handleSearchStringChange}
-            inverseStyle={this.props.inverseStyle} />
+            inverseStyle={props.inverseStyle} />
           <div className="form-group flush-bottom">
             <FilterByTaskState
-              inverseStyle={this.props.inverseStyle}
+              className={filterDropdownClassSet}
+              dropdownMenuClassName={filterDropdownMenuClassSet}
               statuses={this.getStatuses(tasks)}
               handleFilterChange={this.handleStatusFilterChange}
               totalTasksCount={tasks.length}
@@ -207,7 +226,8 @@ class TaskView extends mixin(SaveStateMixin) {
 }
 
 TaskView.defaultProps = {
-  inverseStyle: false
+  inverseStyle: false,
+  tasks: [],
 };
 
 TaskView.propTypes = {
