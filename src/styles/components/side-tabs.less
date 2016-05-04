@@ -8,17 +8,6 @@
   ----------------------------------------------------------------------------- */
 
   .sidebar-menu-item {
-
-    .text-styling (
-      @heading-h3-text-color,
-      @heading-h3-text-font-family,
-      @heading-h3-text-font-size,
-      @heading-h3-text-font-style,
-      @heading-h3-text-font-weight,
-      @heading-h3-text-line-height,
-      @heading-h3-text-transform,
-      @heading-h3-text-shadow
-    );
     color: color-lighten(@neutral, 50);
     padding-right: @base-spacing-unit * 0.5;
     margin-bottom: @base-spacing-unit * 0.15;
@@ -72,22 +61,31 @@
 
 }
 
+@media (max-width: @screen-mini-max) {
+
+  .sidebar-tabs {
+
+    .sidebar-menu-item {
+      .text-styling(
+          @heading-h3-text-color,
+          @heading-h3-text-font-family,
+          @heading-h3-text-font-size,
+          @heading-h3-text-font-style,
+          @heading-h3-text-font-weight,
+          @heading-h3-text-line-height,
+          @heading-h3-text-transform,
+          @heading-h3-text-shadow
+        );
+    }
+
+  }
+}
+
 @media (min-width: @screen-small) {
 
   .sidebar-tabs {
 
     .sidebar-menu-item {
-
-      .text-styling (
-        @body-text-color,
-        @body-text-font-family,
-        @body-text-font-size,
-        @body-text-font-style,
-        @body-text-font-weight,
-        @body-text-line-height,
-        @body-text-transform,
-        @body-text-shadow
-      );
 
       &.selected {
         border-right: 3px solid @purple;
