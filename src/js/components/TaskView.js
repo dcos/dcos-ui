@@ -164,7 +164,8 @@ class TaskView extends mixin(SaveStateMixin) {
   }
 
   getContent() {
-    let {props, state} = this;
+    let {inverseStyle, tasks} = this.props;
+    let {filterByStatus, searchString} = this.state;
 
     let headerClassSet = classNames({
       'h4 text-align-left flush-top': true,
@@ -181,8 +182,8 @@ class TaskView extends mixin(SaveStateMixin) {
       'inverse': inverseStyle
     });
 
-    if (state.searchString !== '') {
-      tasks = StringUtil.filterByString(tasks, 'name', state.searchString);
+    if (searchString !== '') {
+      tasks = StringUtil.filterByString(tasks, 'name', searchString);
     }
 
     tasks = this.filterByCurrentStatus(tasks);
@@ -195,9 +196,9 @@ class TaskView extends mixin(SaveStateMixin) {
         <FilterBar>
           <FilterInputText
             className="flush-bottom"
-            searchString={state.searchString}
+            searchString={searchString}
             handleFilterChange={this.handleSearchStringChange}
-            inverseStyle={props.inverseStyle} />
+            inverseStyle={inverseStyle} />
           <div className="form-group flush-bottom">
             <FilterByTaskState
               className={filterDropdownClassSet}
@@ -205,7 +206,7 @@ class TaskView extends mixin(SaveStateMixin) {
               statuses={this.getStatuses(tasks)}
               handleFilterChange={this.handleStatusFilterChange}
               totalTasksCount={tasks.length}
-              currentStatus={state.filterByStatus}/>
+              currentStatus={filterByStatus}/>
           </div>
         </FilterBar>
         {this.getTaskTable(tasks)}
