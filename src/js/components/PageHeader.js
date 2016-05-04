@@ -1,6 +1,6 @@
 import React from 'react';
 
-class Header extends React.Component {
+class PageHeader extends React.Component {
 
   getIcon(icon, className) {
     if (icon == null) {
@@ -57,7 +57,7 @@ class Header extends React.Component {
   }
 }
 
-Header.defaultProps = {
+PageHeader.defaultProps = {
   className: 'container container-fluid container-pod container-pod-short flush flush-top',
   mediaWrapperClassName: 'media-object-spacing-wrapper media-object-spacing-narrow media-object-offset',
   dividerClassName: 'container-pod container-pod-short flush-top container-pod-divider-bottom container-pod-divider-bottom-align-right container-pod-divider-inverse',
@@ -65,7 +65,7 @@ Header.defaultProps = {
   iconClassName: 'icon icon-large icon-image-container icon-app-container',
 };
 
-Header.propTypes = {
+PageHeader.propTypes = {
   icon: React.PropTypes.node,
   subTitle: React.PropTypes.node,
   title: React.PropTypes.string,
@@ -77,4 +77,4 @@ Header.propTypes = {
   iconClassName: React.PropTypes.string
 };
 
-module.exports = Header;
+module.exports = PageHeader;
