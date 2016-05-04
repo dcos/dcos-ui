@@ -1,4 +1,5 @@
-var babelJest = require('babel-jest');
+var babel = require('babel-core');
+var jestPreset = require('babel-preset-jest');
 var webpackAlias = require('jest-webpack-alias');
 
 module.exports = {
@@ -7,8 +8,22 @@ module.exports = {
   process: function (src, filename) {
     // Don't bother doing anything to node_modules
     if (filename.indexOf('node_modules') === -1) {
+      // Don't load image data - it can't be parsed by jest.
+      if (filename.match(/\.(jpe?g|png|gif|bmp|svg)$/i)) {
+        return '';
+      }
       // Run our modules through Babel before running tests
-      src = babelJest.process(src, filename);
+      if (babel.util.canCompile(filename)) {
+        src = babel.transform(src, {
+          auxiliaryCommentBefore: ' istanbul ignore next ',
+          filename,
+          presets: [jestPreset].concat([
+            'babel-preset-es2015',
+            'babel-preset-react'
+          ].map(require.resolve)),
+          retainLines: true,
+        }).code;
+      }
       // Run our modules through the jest-webpack-alias plugin so we
       // can use the webpack alias in tests. By default, jest doesn't work
       // with webpack at all. webPackAlias matches filenames against the

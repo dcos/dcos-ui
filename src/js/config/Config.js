@@ -4,7 +4,7 @@ var ConfigDev = require('./Config.dev.js');
 var ConfigTest = require('./Config.test.js');
 
 var Config = {
-  analyticsKey: '@@ANALYTICS_KEY',
+  analyticsKey: '51ybGTeFEFU1xo6u10XMDrr6kATFyRyh',
   acsAPIPrefix: '/acs/api/v1',
   networkingAPIPrefix: '/networking/api/v1',
   cosmosAPIPrefix: '/package',

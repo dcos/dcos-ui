@@ -1,3 +1,5 @@
+let path = require('path');
+
 let _plugins = {};
 let _externalPlugins = {};
 
@@ -6,15 +8,19 @@ const Mocks = {};
 
 let pluginsList;
 let externalPluginsList;
+let pluginsDir = 'plugins';
+let externalPluginsDir = path.resolve(
+  process.env.npm_package_config_external_plugins
+);
 
 try {
-  pluginsList = require('../../../../plugins/index');
+  pluginsList = require('PLUGINS');
 } catch (err) {
   pluginsList = {};
 }
 
 try {
-  externalPluginsList = require('../../../../.external_plugins/index');
+  externalPluginsList = require(externalPluginsDir);
 } catch (err) {
   externalPluginsList = {};
 }
@@ -48,10 +54,10 @@ function __requireModule(dir, name) {
     return Mocks[name];
   }
   if (dir === 'internalPlugin') {
-    return require('../../../../plugins/' + name);
+    return require(path.resolve(pluginsDir, name));
   }
   if (dir === 'externalPlugin') {
-    return require('../../../../.external_plugins/' + name);
+    return require(path.resolve(externalPluginsDir, name));
   }
   return require(`../../${dir}/${name}`);
 }

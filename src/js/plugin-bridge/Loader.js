@@ -2,7 +2,6 @@
 // webpack will try to be smart and auto create the contexts,
 // doubling the built output
 const requirePlugin = require.context('../../../plugins', true, /index/);
-const requireExternalPlugin = require.context('../../../.external_plugins', true, /index/);
 const requireConfig = require.context('../config', false);
 const requireEvents = require.context('../events', false);
 const requireStores = require.context('../stores', false);
@@ -14,6 +13,12 @@ const requireComponents = require.context('../components', false);
 const requireCharts = require.context('../components/charts', false);
 const requireIcons = require.context('../components/icons', false);
 const requireModals = require.context('../components/modals', false);
+let requireExternalPlugin = function () {
+  return {};
+};
+try {
+  requireExternalPlugin = require.context('EXTERNAL_PLUGINS', true, /index/);
+} catch (err) {}
 
 let pluginsList;
 let externalPluginsList;

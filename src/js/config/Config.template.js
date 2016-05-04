@@ -12,7 +12,7 @@ var ConfigDev = {
           enabled: false
         },
         oauth: {
-          enabled: false,
+          enabled: true,
           authHost: 'https://dcos.auth0.com'
         },
         'overview-detail': {
@@ -31,7 +31,7 @@ var ConfigDev = {
   // Use fixtures to mock API requests
   useFixtures: false,
   // Use uiConfigurationFixture defined above
-  useUIConfigFixtures: true
+  useUIConfigFixtures: false
 };
 
 module.exports = ConfigDev;

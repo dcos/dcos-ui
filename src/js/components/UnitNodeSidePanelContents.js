@@ -3,6 +3,7 @@ import React from 'react';
 /* eslint-enable no-unused-vars */
 
 import {documentationURI} from '../config/Config';
+import serviceDefaultURI from '../../img/services/icon-service-default-medium@2x.png';
 import RequestErrorMsg from './RequestErrorMsg';
 import SidePanelContents from './SidePanelContents';
 import UnitHealthStore from '../stores/UnitHealthStore';
@@ -34,7 +35,7 @@ module.exports = class UnitNodeSidePanelContents extends SidePanelContents {
     let imageTag = (
       <div className="side-panel-icon icon icon-large icon-image-container
         icon-app-container">
-        <img src="./img/services/icon-service-default-medium@2x.png" />
+        <img src={serviceDefaultURI} />
       </div>
     );
 

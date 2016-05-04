@@ -4,6 +4,7 @@ import React from 'react';
 
 import FilterHeadline from '../components/FilterHeadline';
 import FilterInputText from '../components/FilterInputText';
+import serviceDefaultURI from '../../img/services/icon-service-default-medium@2x.png';
 import RequestErrorMsg from './RequestErrorMsg';
 import SidePanelContents from './SidePanelContents';
 import UnitHealthDropdown from '../components/UnitHealthDropdown';
@@ -60,7 +61,7 @@ module.exports = class UnitHealthSidePanelContents extends SidePanelContents {
     let imageTag = (
       <div className="side-panel-icon icon icon-large icon-image-container
         icon-app-container">
-        <img src="./img/services/icon-service-default-medium@2x.png" />
+        <img src={serviceDefaultURI} />
       </div>
     );
 
