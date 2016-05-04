@@ -7,7 +7,7 @@ import {StoreMixin} from 'mesosphere-shared-reactjs';
 import {documentationURI} from '../../config/Config';
 import PageHeader from '../../components/PageHeader';
 import RequestErrorMsg from '../../components/RequestErrorMsg';
-import serviceDefaultURI from '../../img/services/icon-service-default-medium@2x.png';
+import serviceDefaultURI from '../../../img/services/icon-service-default-medium@2x.png';
 import UnitHealthStore from '../../stores/UnitHealthStore';
 import UnitSummaries from '../../constants/UnitSummaries';
 
