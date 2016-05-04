@@ -47,9 +47,8 @@ class NodeDetailPage extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) 
     super.componentWillMount(...arguments);
 
     let node = this.getNode();
-    this.internalStorage_update({node});
-
     if (node) {
+      this.internalStorage_update({node});
       NodeHealthStore.fetchNodeUnits(node.hostname);
     }
   }
@@ -57,8 +56,10 @@ class NodeDetailPage extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) 
   componentWillUpdate() {
     super.componentWillUpdate(...arguments);
 
-    if (!this.internalStorage_get().node) {
-      this.internalStorage_update({node: this.getNode()})
+    let node = this.getNode();
+    if (node && !this.internalStorage_get().node) {
+      this.internalStorage_update({node})
+      NodeHealthStore.fetchNodeUnits(node.hostname);
     }
   }
 
