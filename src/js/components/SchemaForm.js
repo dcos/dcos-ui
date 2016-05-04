@@ -17,10 +17,7 @@ class SchemaForm extends React.Component {
   constructor() {
     super();
 
-    this.state = {
-      currentTab: '',
-      useGemini: false
-    };
+    this.state = {currentTab: ''};
 
     METHODS_TO_BIND.forEach((method) => {
       this[method] = this[method].bind(this);
@@ -52,32 +49,15 @@ class SchemaForm extends React.Component {
     this.props.getTriggerSubmit(this.handleExternalSubmit);
   }
 
-  componentDidMount() {
-    this.setState({useGemini: true});
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.isMobileWidth !== this.props.isMobileWidth) {
-      this.setState({useGemini: false});
-    }
-  }
-
   componentDidUpdate() {
-    if (!this.state.useGemini) {
-      this.setState({useGemini: true});
-    }
-
     // Timeout necessary due to modal content height updates on did mount
     setTimeout(() => {
-      let {geminiTabs, geminiForms} = this.refs;
-
-      GeminiUtil.updateWithRef(geminiTabs);
-      GeminiUtil.updateWithRef(geminiForms);
+      GeminiUtil.updateWithRef(this.refs.geminiForms);
     });
   }
 
-  handleTabClick(tab) {
-    this.setState({currentTab: tab});
+  handleTabClick(currentTab) {
+    this.setState({currentTab});
   }
 
   handleFormChange(formData, eventObj) {
@@ -169,8 +149,8 @@ class SchemaForm extends React.Component {
 
   getSubHeader(name) {
     return (
-      <div key={name} className="row">
-        <div className="h5 column-12 form-row-element flush-bottom flush-top">
+      <div key={name}>
+        <div className="h5 form-row-element flush-bottom flush-top">
           {name}
         </div>
       </div>
@@ -201,20 +181,22 @@ class SchemaForm extends React.Component {
     let {packageIcon, packageName, packageVersion} = this.props;
 
     return (
-      <div className="media-object-spacing-wrapper media-object-spacing-narrow flush">
-        <div className="media-object media-object-align-middle">
-          <div className="media-object-item">
-            <div className="icon icon-sprite icon-sprite-medium icon-sprite-medium-color icon-image-container icon-app-container icon-default-white">
-              <img src={packageIcon} />
+      <div className="modal-header modal-header-padding-narrow modal-header-bottom-border modal-header-white flex-no-shrink">
+        <div className="media-object-spacing-wrapper media-object-spacing-narrow media-object-offset">
+          <div className="media-object media-object-align-middle">
+            <div className="media-object-item">
+              <div className="icon icon-sprite icon-sprite-medium icon-sprite-medium-color icon-image-container icon-app-container icon-default-white">
+                <img src={packageIcon} />
+              </div>
             </div>
-          </div>
-          <div className="media-object-item">
-            <h4 className="flush-top flush-bottom text-color-neutral">
-              {packageName}
-            </h4>
-            <span className="side-panel-resource-label">
-              {packageVersion}
-            </span>
+            <div className="media-object-item">
+              <h4 className="flush-top flush-bottom text-color-neutral">
+                {packageName}
+              </h4>
+              <span className="side-panel-resource-label">
+                {packageVersion}
+              </span>
+            </div>
           </div>
         </div>
       </div>
@@ -223,7 +205,7 @@ class SchemaForm extends React.Component {
 
   getHeader(title, description) {
     return (
-      <div key={title} className="column-12 form-row-element">
+      <div key={title} className="form-row-element">
         <h3 className="form-header flush-bottom">{title}</h3>
         <p className="flush-bottom">{description}</p>
       </div>
@@ -231,39 +213,14 @@ class SchemaForm extends React.Component {
   }
 
   getSideContent(multipleDefinition) {
-    let currentTab = this.state.currentTab;
-    let {handleTabClick} = this;
-    let isMobileWidth = this.props.isMobileWidth;
-    let tabValues = Object.values(multipleDefinition);
-
-    let content = (
-      <SideTabs
-        isMobileWidth={isMobileWidth}
-        onTabClick={handleTabClick}
-        selectedTab={currentTab}
-        tabs={tabValues} />
-    );
-
-    let classSet = classNames({
-      'column-4 multiple-form-left-column-container': !isMobileWidth,
-      'column-12 mobile-column': isMobileWidth
-    });
-
-    if (this.state.useGemini && !isMobileWidth) {
-      return (
-        <GeminiScrollbar ref="geminiTabs" autoshow={true} className={classSet}>
-          <div className="multiple-form-left-column">
-            {this.getServiceHeader()}
-            {content}
-          </div>
-        </GeminiScrollbar>
-      );
-    }
+    let {currentTab} = this.state;
 
     return (
-      <div className={classSet}>
-        {this.getServiceHeader()}
-        {content}
+      <div className="column-mini-12 column-small-4 multiple-form-left-column">
+        <SideTabs
+          onTabClick={this.handleTabClick}
+          selectedTab={currentTab}
+          tabs={Object.values(multipleDefinition)} />
       </div>
     );
   }
@@ -271,26 +228,23 @@ class SchemaForm extends React.Component {
   getFormPanels() {
     let currentTab = this.state.currentTab;
     let multipleDefinition = this.multipleDefinition;
-    let formKeys = Object.keys(multipleDefinition);
 
-    let panels = formKeys.map((formKey, i) => {
+    let panels = Object.keys(multipleDefinition).map((formKey, i) => {
       let panelClassSet = classNames('form', {
         'hidden': currentTab !== formKey
       });
 
-      let formPanelDefinition = multipleDefinition[formKey];
-      let definition = [{render: this.getHeader.bind(
-        this,
-        formPanelDefinition.title,
-        formPanelDefinition.description
-      )}].concat(formPanelDefinition.definition);
+      let {definition, description, title} = multipleDefinition[formKey];
+      let formDefinition = [{
+        render: this.getHeader.bind(this, title, description)
+      }].concat(definition);
 
       return (
-        <div key={i} className="row form-panel">
+        <div key={i} className="form-panel">
           <Form
             className={panelClassSet}
-            definition={definition}
             formGroupClass="form-group flush"
+            definition={formDefinition}
             triggerSubmit={this.getTriggerSubmit.bind(this, formKey)}
             onChange={this.handleFormChange}
             onSubmit={this.handleFormSubmit.bind(this, formKey)} />
@@ -298,54 +252,36 @@ class SchemaForm extends React.Component {
       );
     });
 
-    let isMobileWidth = this.props.isMobileWidth;
-    let classSet = classNames({
-      'column-8 multiple-form-right-column': !isMobileWidth,
-      'column-12': isMobileWidth
-    });
-
-    if (this.state.useGemini) {
-      return (
-        <GeminiScrollbar ref="geminiForms" autoshow={true} className={classSet}>
-          {panels}
-        </GeminiScrollbar>
-      );
-    }
-
     return (
-      <div className={classSet}>
+      <GeminiScrollbar
+        autoshow={true}
+        className="multiple-form-right-column column-mini-12 column-small-8"
+        ref="geminiForms">
         {panels}
-      </div>
+      </GeminiScrollbar>
     );
   }
 
   render() {
-    let multipleDefinition = this.multipleDefinition;
-    let isMobileWidth = this.props.isMobileWidth;
-
-    let classSet = classNames(
-      'row row-flex multiple-form',
-      this.props.className,
-      {'mobile-width': isMobileWidth}
-    );
-
     return (
-      <div className={classSet}>
-        {this.getSideContent(multipleDefinition)}
-        {this.getFormPanels()}
+      <div>
+        {this.getServiceHeader()}
+        <div className={this.props.className}>
+          {this.getSideContent(this.multipleDefinition)}
+          {this.getFormPanels()}
+        </div>
       </div>
     );
   }
 }
 
 SchemaForm.defaultProps = {
-  className: '',
+  className: 'multiple-form row',
   getTriggerSubmit: function () {},
   schema: {}
 };
 
 SchemaForm.propTypes = {
-  isMobileWidth: React.PropTypes.bool,
   getTriggerSubmit: React.PropTypes.func,
   schema: React.PropTypes.object,
   packageIcon: React.PropTypes.string,

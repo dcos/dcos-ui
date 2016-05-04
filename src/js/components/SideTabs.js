@@ -11,82 +11,71 @@ class SideTabs extends React.Component {
   }
 
   handleTabClick(title) {
-    let props = this.props;
-    if (props.isMobileWidth && title === props.selectedTab) {
-      this.setState({dropdownOpen: !this.state.dropdownOpen});
+    let {state: {dropdownOpen}, props: {onTabClick, selectedTab}} = this;
+
+    if (title === selectedTab) {
+      this.setState({dropdownOpen: !dropdownOpen});
     } else {
-      props.onTabClick(title);
       this.setState({dropdownOpen: false});
     }
-  }
-
-  getTabHeader() {
-    let {props} = this;
-    let {isMobileWidth, selectedTab} = props;
-
-    if (!isMobileWidth) {
-      return null;
-    }
-
-    let caret = (
-      <span className="caret caret--desc caret--visible" />
-    );
-
-    return (
-      <li className="h3 sidebar-menu-item selected clickable">
-        <a onClick={this.handleTabClick.bind(this, selectedTab)}>
-          {selectedTab}
-          {caret}
-        </a>
-      </li>
-    );
+    // Trigger on both open and close to make sure to trigger gemini update
+    onTabClick(title);
   }
 
   getTabs() {
-    let {props, state} = this;
-    let {isMobileWidth, selectedTab} = props;
+    let {selectedTab, tabs} = this.props;
 
-    return props.tabs.map((tab, i) => {
-      let title = tab.title;
-      let classes = classNames('sidebar-menu-item', 'clickable', {
-        h3: isMobileWidth,
-        hidden: !state.dropdownOpen && isMobileWidth,
-        selected: title === selectedTab && !isMobileWidth
+    return tabs.map((tab, index) => {
+      let {title} = tab;
+      let classes = classNames('sidebar-menu-item clickable visible-block', {
+        selected: title === selectedTab
       });
 
       return (
         <li
           className={classes}
-          key={i}
+          key={index}
           onClick={this.handleTabClick.bind(this, title)}>
-          <a>
-            {title}
-          </a>
+          <a>{title}</a>
         </li>
       );
     });
   }
 
   render() {
+    let {props: {className, selectedTab}, state: {dropdownOpen}} = this;
+
+    let classes = classNames('list-unstyled visible-block', {
+      'hidden-mini': !dropdownOpen
+    });
+    let caretClasses = classNames('caret caret--desc caret--visible', {
+      'dropup': dropdownOpen
+    })
+
     return (
-      <ul className={this.props.className}>
-        {this.getTabHeader()}
-        {this.getTabs()}
-      </ul>
+      <div className={className}>
+        <span className="sidebar-menu-item selection-header clickable visible-mini" onClick={this.handleTabClick.bind(this, selectedTab)}>
+          <a>
+            {selectedTab}
+            <span className={caretClasses} />
+          </a>
+        </span>
+        <ul className={classes}>
+          {this.getTabs()}
+        </ul>
+      </div>
     );
   }
 }
 
 SideTabs.defaultProps = {
-  className: 'sidebar-tabs list-unstyled',
-  isMobileWidth: false,
+  className: 'sidebar-tabs',
   onTabClick: function () {},
   tabs: []
 };
 
 SideTabs.propTypes = {
   className: React.PropTypes.string,
-  isMobileWidth: React.PropTypes.bool,
   onTabClick: React.PropTypes.func,
   selectedTab: React.PropTypes.string,
   tabs: React.PropTypes.array

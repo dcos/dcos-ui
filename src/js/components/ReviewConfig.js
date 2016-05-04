@@ -54,7 +54,7 @@ class ReviewConfig extends React.Component {
           </div>
           <div className="column-8 text-align-right">
             <a
-              className="button button-stroke button-rounded"
+              className="button button-small button-stroke button-rounded"
               onClick={ieDownloadConfig}
               download={fileName}
               href={`data:attachment/json;content-disposition=attachment;filename=${fileName};charset=utf-8,${encodeURIComponent(configString)}`}>
@@ -123,7 +123,7 @@ class ReviewConfig extends React.Component {
     return (
       <div className={this.props.className}>
         {this.getHeader()}
-        <GeminiScrollbar ref="gemini" className="modal-content" autoshow={true}>
+        <GeminiScrollbar ref="gemini" className="review-config modal-content" autoshow={true}>
           <div className="modal-content-inner container container-pod container-pod-short flush-top flush-bottom flex-grow">
             {this.getDefinitionReview()}
           </div>
@@ -134,7 +134,7 @@ class ReviewConfig extends React.Component {
 }
 
 ReviewConfig.defaultProps = {
-  className: 'review-config flex-container-col'
+  className: 'flex-container-col'
 };
 
 ReviewConfig.propTypes = {

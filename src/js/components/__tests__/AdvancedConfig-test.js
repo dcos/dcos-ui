@@ -18,15 +18,4 @@ describe('AdvancedConfig', function () {
     this.instance.state = {reviewingConfig: false};
   });
 
-  describe('#isMobileWidth', function () {
-    it('returns false if element is above mobile width', function () {
-      var element = {innerWidth: 100000000};
-      expect(this.instance.isMobileWidth(element)).toEqual(false);
-    });
-
-    it('returns true if element is above mobile width', function () {
-      var element = {innerWidth: 10};
-      expect(this.instance.isMobileWidth(element)).toEqual(true);
-    });
-  });
 });

@@ -351,7 +351,7 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
             <div className="button-collection horizontal-center flush-bottom">
               <button
                 disabled={!cosmosPackage || pendingRequest || descriptionError}
-                className="button button-success flush-bottom button-wide flush"
+                className="button button-success flush-bottom button-wide flush-top flush-bottom"
                 onClick={this.handleInstallPackage}>
                 {buttonText}
               </button>
@@ -379,7 +379,7 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
         <div className="container">
           <div className="button-collection flush-bottom">
             <button
-              className="button button-large flush"
+              className="button button-large flush-top flush-bottom"
               onClick={this.handleChangeTab.bind(this, 'defaultInstall')}>
               Back
             </button>
@@ -417,7 +417,7 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
           <div className="container">
             <div className="button-collection flush-bottom">
               <button
-                className="button button-large flush"
+                className="button button-large flush-top flush-bottom"
                 onClick={this.handleChangeTab.bind(this, 'advancedInstall')}>
                 Back
               </button>
@@ -547,7 +547,6 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
 
     let isAdvanced = currentTab === 'advancedInstall' ||
       currentTab === 'reviewAdvancedConfig';
-    let isReviewing = isAdvanced;
 
     let backdropClasses = classNames({
       'modal-backdrop': true,
@@ -555,8 +554,8 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
     });
 
     let modalClasses = classNames('modal', {
-      'modal-large': isReviewing,
-      'modal-narrow': !isReviewing
+      'modal-large': isAdvanced,
+      'modal-narrow': !isAdvanced
     });
 
     let modalWrapperClasses = classNames({
