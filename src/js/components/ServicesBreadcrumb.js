@@ -3,10 +3,6 @@ import {Link} from 'react-router';
 
 import DCOSStore from '../stores/DCOSStore';
 
-const breadcrumbIcon = (
-  <i className="icon icon-sprite icon-sprite-small icon-back forward" />
-);
-
 class ServicesBreadcrumb extends React.Component {
   constructor() {
     super();
@@ -15,6 +11,9 @@ class ServicesBreadcrumb extends React.Component {
   render() {
     const {serviceTreeItem} = this.props;
     const groupId = serviceTreeItem.getId();
+    const breadcrumbIcon = (
+      <i className="icon icon-sprite icon-sprite-small icon-back forward" />
+    );
 
     let breadcrumbNodes = [(
       <span className="crumb" key="/">
