@@ -90,19 +90,20 @@ let ServiceList = React.createClass({
       return {
         content: [
           {
-            className: 'text-overflow',
+            className: 'dashboard-health-list-item-description',
             content: (
               <a key="title"
                 href={Cluster.getServiceLink(service.name)}
                 onClick={this.handleServiceClick.bind(this, service)}
-                className="h4 inverse flush-top flush-bottom clickable text-overflow">
+                className="dashboard-health-list-item-cell h4 inverse flush-top
+                  flush-bottom clickable text-overflow">
                 {service.name}
               </a>
             ),
             tag: 'span'
           },
           {
-            className: 'service-list-component-health-label text-align-right',
+            className: 'dashboard-health-list-health-label',
             content: (
               <Tooltip anchor="end" content={tooltipContent} key="health"
                 wrapperClassName={classSet} wrapText={true} width={200}>
@@ -129,11 +130,12 @@ let ServiceList = React.createClass({
     let props = this.props;
 
     return (
-      <div className="service-list-component">
+      <div className="dashboard-health-list">
         <List
           className="list list-unstyled"
           content={this.getServices(props.services, props.healthProcessed)}
-          transition={false} />
+          transition={false}
+          transitionName="something" />
       </div>
     );
   },
