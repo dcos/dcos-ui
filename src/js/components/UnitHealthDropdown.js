@@ -34,16 +34,16 @@ class UnitHealthDropdown extends mixin(InternalStorageMixin) {
   }
 
   render() {
-    let props = this.props;
+    let {className, dropdownMenuClassName, initialID, onHealthSelection} = this.props;
 
     return (
       <Dropdown
-        buttonClassName={props.className}
-        dropdownMenuClassName={props.dropdownMenuClassName}
+        buttonClassName={className}
+        dropdownMenuClassName={dropdownMenuClassName}
         dropdownMenuListClassName="dropdown-menu-list"
-        initialID={props.initialID}
+        initialID={initialID}
         items={this.internalStorage_get().dropdownItems}
-        onItemSelection={props.onHealthSelection}
+        onItemSelection={onHealthSelection}
         transition={true}
         wrapperClassName="dropdown" />
     );

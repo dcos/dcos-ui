@@ -56,16 +56,18 @@ class FilterByTaskState extends React.Component {
   }
 
   render() {
+    let {className, currentStatus, dropdownMenuClassName} = this.props;
+
     return (
       <Dropdown
-        buttonClassName={this.props.className}
-        dropdownMenuClassName={this.props.dropdownMenuClassName}
+        buttonClassName={className}
+        dropdownMenuClassName={dropdownMenuClassName}
         dropdownMenuListClassName="dropdown-menu-list"
         dropdownMenuListItemClassName="clickable"
         wrapperClassName="dropdown"
         items={this.getDropdownItems()}
         onItemSelection={this.onItemSelection}
-        persistentID={this.props.currentStatus}
+        persistentID={currentStatus}
         transition={true}
         transitionName="dropdown-menu" />
     );
