@@ -4,6 +4,7 @@ import DeploymentsTab from '../pages/services/DeploymentsTab';
 import ServiceOverlay from '../components/ServiceOverlay';
 import ServicesPage from '../pages/ServicesPage';
 import ServicesTab from '../pages/services/ServicesTab';
+import TaskDetail from '../components/TaskDetail';
 
 let serviceRoutes = {
   type: Route,
@@ -40,7 +41,8 @@ let serviceRoutes = {
         {
           type: Route,
           name: 'services-task-panel',
-          path: 'task-detail/:taskID/?'
+          path: 'task-detail/:taskID/?',
+          handler: TaskDetail
         }
       ]
     }
