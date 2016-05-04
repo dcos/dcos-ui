@@ -22,9 +22,9 @@ describe('Installed Packages Tab', function () {
 
     cy
       .get('@itemNames').eq(0)
-      .should('contain', 'marathon-user')
+      .should('contain', 'arangodb')
       .get('@itemNames').eq(1)
-      .should('contain', 'arangodb');
+      .should('contain', 'marathon-user');
   });
 
   it('allows users to filter packages', function () {
