@@ -46,14 +46,14 @@ module.exports = Object.assign({}, webpackConfig, {
     loaders: webpackConfig.module.loaders.concat([
       {
         test: /\.js$/,
-        exclude: /node_modules/,
+        exclude: /(?=\/node_modules\/)(?!\/node_modules\/dcos-dygraphs\/)/,
         loader: 'react-hot!babel?' + JSON.stringify({
           cacheDirectory: true,
           // Map through resolve to fix preset loading problem
           presets: [
             'babel-preset-es2015',
             'babel-preset-react'
-          ].map(require.resolve),
+          ].map(require.resolve)
         })
       },
       {
