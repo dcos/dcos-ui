@@ -27,7 +27,7 @@ class TaskTable extends React.Component {
 
   handleTaskClick(params) {
     let linkTo = this.getTaskPanelRoute();
-
+    console.log(params);
     this.props.parentRouter.transitionTo(linkTo, params);
   }
 

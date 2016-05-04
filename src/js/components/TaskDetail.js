@@ -1,20 +1,27 @@
 import classNames from 'classnames';
+import mixin from 'reactjs-mixin';
 /* eslint-disable no-unused-vars */
 import React from 'react';
 /* eslint-enable no-unused-vars */
+import {StoreMixin} from 'mesosphere-shared-reactjs';
 
+import CompositeState from '../structs/CompositeState';
 import DescriptionList from './DescriptionList';
+import MarathonStore from '../stores/MarathonStore';
 import MesosStateStore from '../stores/MesosStateStore';
 import MesosSummaryStore from '../stores/MesosSummaryStore';
 import ResourceTypes from '../constants/ResourceTypes';
 import RequestErrorMsg from './RequestErrorMsg';
-import SidePanelContents from './SidePanelContents';
+import ServicesBreadcrumb from './ServicesBreadcrumb';
 import TaskDebugView from './TaskDebugView';
 import TaskDirectoryView from './TaskDirectoryView';
 import TaskDirectoryStore from '../stores/TaskDirectoryStore';
 import TaskStates from '../constants/TaskStates';
 import TaskUtil from '../utils/TaskUtil';
 import Units from '../utils/Units';
+
+import InternalStorageMixin from '../mixins/InternalStorageMixin';
+import TabsMixin from '../mixins/TabsMixin';
 
 const TABS = {
   files: 'Files',
@@ -27,14 +34,14 @@ const METHODS_TO_BIND = [
   'onTaskDirectoryStoreSuccess'
 ];
 
-class TaskSidePanelContents extends SidePanelContents {
+class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
   constructor() {
     super(...arguments);
 
     this.tabs_tabs = Object.assign({}, TABS);
 
     this.state = {
-      currentTab: Object.keys(this.tabs_tabs).shift(),
+      currentTab: 'details',
       directory: null,
       expandClass: 'large',
       showExpandButton: false,
@@ -59,7 +66,7 @@ class TaskSidePanelContents extends SidePanelContents {
   }
 
   onStateStoreSuccess() {
-    let task = MesosStateStore.getTaskFromTaskID(this.props.itemID);
+    let task = MesosStateStore.getTaskFromTaskID(this.props.params.taskID);
     TaskDirectoryStore.getDirectory(task);
   }
 
@@ -164,7 +171,7 @@ class TaskSidePanelContents extends SidePanelContents {
       <div>
         <div className="side-panel-content-header container-fluid container-pod flush-top flush-bottom">
           <h1 className="side-panel-content-header-label flush">
-            {task.name}
+            {task.id}
           </h1>
           <div className="media-object-spacing-wrapper media-object-spacing-narrow media-object-offset">
             <div className="media-object media-object-align-middle">
@@ -194,7 +201,7 @@ class TaskSidePanelContents extends SidePanelContents {
   }
 
   renderDetailsTabView() {
-    let task = MesosStateStore.getTaskFromTaskID(this.props.itemID);
+    let task = MesosStateStore.getTaskFromTaskID(this.props.params.taskID);
 
     if (task == null || !MesosSummaryStore.get('statesProcessed')) {
       return null;
@@ -241,7 +248,7 @@ class TaskSidePanelContents extends SidePanelContents {
 
   renderFilesTabView() {
     let {state, props} = this;
-    let task = MesosStateStore.getTaskFromTaskID(props.itemID);
+    let task = MesosStateStore.getTaskFromTaskID(props.params.taskID);
     if (this.hasLoadingError()) {
       this.getErrorScreen();
     }
@@ -261,7 +268,7 @@ class TaskSidePanelContents extends SidePanelContents {
 
   renderLogViewerTabView() {
     let {state, props} = this;
-    let task = MesosStateStore.getTaskFromTaskID(props.itemID);
+    let task = MesosStateStore.getTaskFromTaskID(props.params.taskID);
     if (this.hasLoadingError()) {
       this.getErrorScreen();
     }
@@ -287,16 +294,46 @@ class TaskSidePanelContents extends SidePanelContents {
     super.tabs_handleTabClick(...arguments);
   }
 
+  getNotFound(itemType) {
+    return (
+      <div className="container container-fluid container-pod text-align-center">
+        <h3 className="flush-top text-align-center">
+          {`Error finding ${itemType}`}
+        </h3>
+        <p className="flush">
+          {`Did not find a ${itemType} by the id "${this.props.params.taskID}"`}
+        </p>
+      </div>
+    );
+  }
+
+  getExpandButton() {
+    if (!this.state.showExpandButton) {
+      return null;
+    }
+
+    return (
+      <button
+        className="button button-stroke button-expand"
+        onClick={this.handleExpand}>
+      </button>
+    );
+  }
+
   render() {
     if (MesosStateStore.get('lastMesosState').slaves == null) {
       return null;
     }
 
-    let task = MesosStateStore.getTaskFromTaskID(this.props.itemID);
+    let task = MesosStateStore.getTaskFromTaskID(this.props.params.taskID);
+    let service = MarathonStore.getServiceFromTaskID(this.props.params.taskID);
 
     if (task == null) {
       return this.getNotFound('task');
     }
+    // console.log(task.framework_id, services, service.getId());
+    // console.log(service.getId());
+    console.log(MarathonStore.get('groups'));
 
     let node = MesosStateStore.getNodeFromID(task.slave_id);
     let panelClasses = classNames({
@@ -306,6 +343,7 @@ class TaskSidePanelContents extends SidePanelContents {
 
     return (
       <div className="flex-container-col">
+        <ServicesBreadcrumb serviceTreeItem={service} />
         {this.getExpandButton()}
         <div className={panelClasses}>
           {this.getBasicInfo(task, node)}
@@ -320,4 +358,4 @@ class TaskSidePanelContents extends SidePanelContents {
   }
 }
 
-module.exports = TaskSidePanelContents;
+module.exports = TaskDetail;
