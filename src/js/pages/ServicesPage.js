@@ -6,6 +6,10 @@ import TabsMixin from '../mixins/TabsMixin';
 
 var ServicesPage = React.createClass({
 
+  contextTypes: {
+    router: React.PropTypes.func
+  },
+
   mixins: [TabsMixin],
 
   displayName: 'ServicesPage',
@@ -46,10 +50,6 @@ var ServicesPage = React.createClass({
         {this.tabs_getRoutedTabs()}
       </ul>
     );
-  },
-
-  contextTypes: {
-    router: React.PropTypes.func
   },
 
   render: function () {

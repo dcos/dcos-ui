@@ -116,7 +116,7 @@ var ServicesTab = React.createClass({
       let services = item.getItems();
       let filteredServices = item.filterItemsByFilter({
         health: state.filterHealth,
-        name: state.searchString
+        id: state.searchString
       }).getItems();
 
       let breadcrumbs = (
