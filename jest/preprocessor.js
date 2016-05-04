@@ -7,7 +7,7 @@ module.exports = {
   // src is the raw module content as a String.
   process: function (src, filename) {
     // Don't bother doing anything to node_modules
-    if (filename.indexOf('node_modules') === -1) {
+    if (filename.indexOf('node_modules') === -1 || filename.indexOf('node_modules/dcos-dygraphs') > -1) {
       // Don't load image data - it can't be parsed by jest.
       if (filename.match(/\.(jpe?g|png|gif|bmp|svg)$/i)) {
         return '';
