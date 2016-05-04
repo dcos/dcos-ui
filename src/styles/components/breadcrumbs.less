@@ -8,6 +8,22 @@ Breadcrumbs
 
 .breadcrumbs {
 
+  &.inverse {
+
+    a {
+      color: inherit;
+
+      &:hover {
+        color: color-lighten(@neutral, 20);
+        text-decoration: none;
+      }
+
+      &:active {
+        color: color-lighten(@neutral, 30);
+      }
+    }
+  }
+
   .icon {
     opacity: 0.3;
     margin-right: @base-spacing-unit * 0.5;

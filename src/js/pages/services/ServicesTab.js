@@ -12,6 +12,7 @@ import ServiceDetail from '../../components/ServiceDetail';
 import ServiceFilterTypes from '../../constants/ServiceFilterTypes';
 import ServiceSearchFilter from '../../components/ServiceSearchFilter';
 import ServiceSidebarFilters from '../../components/ServiceSidebarFilters';
+import ServicesBreadcrumb from '../../components/ServicesBreadcrumb';
 import ServicesTable from '../../components/ServicesTable';
 import ServiceTree from '../../structs/ServiceTree';
 import SidebarActions from '../../events/SidebarActions';
@@ -118,18 +119,36 @@ var ServicesTab = React.createClass({
         name: state.searchString
       }).getItems();
 
+      let breadcrumbs = (
+        <ServicesBreadcrumb serviceTreeItem={item} />
+      );
+      let filterHeadline = null;
+
+      const hasFiltersApplied = Object.keys(DEFAULT_FILTER_OPTIONS)
+        .some((filterKey) => {
+          return state[filterKey] != null && state[filterKey].length > 0;
+        });
+
+      if (hasFiltersApplied) {
+        breadcrumbs = null;
+        filterHeadline = (
+          <FilterHeadline
+            inverseStyle={true}
+            onReset={this.resetFilter}
+            name="Services"
+            currentLength={filteredServices.length}
+            totalLength={services.length} />
+        );
+      }
+
       return (
         <div className="flex-box flush flex-mobile-column">
           <ServiceSidebarFilters
             handleFilterChange={this.handleFilterChange}
             services={services} />
           <div className="flex-grow">
-            <FilterHeadline
-              inverseStyle={true}
-              onReset={this.resetFilter}
-              name="Services"
-              currentLength={filteredServices.length}
-              totalLength={services.length} />
+            {breadcrumbs}
+            {filterHeadline}
             <ServiceSearchFilter
               handleFilterChange={this.handleFilterChange} />
             <ServicesTable
