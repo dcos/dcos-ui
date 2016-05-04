@@ -12,7 +12,12 @@ class ServicesBreadcrumb extends React.Component {
     const {serviceTreeItem} = this.props;
     const groupId = serviceTreeItem.getId();
     const breadcrumbIcon = (
-      <i className="icon icon-sprite icon-sprite-small icon-back forward" />
+      <i className="icon
+        icon-sprite
+        icon-sprite-small
+        icon-sprite-small-white
+        icon-back
+        forward" />
     );
 
     let breadcrumbNodes = [(
@@ -62,7 +67,7 @@ class ServicesBreadcrumb extends React.Component {
 
     return (
       <div className="flex-box control-group">
-        <h3 className="breadcrumb flush-top">
+        <h3 className="breadcrumbs flush-top inverse">
           {breadcrumbNodes}
         </h3>
       </div>
