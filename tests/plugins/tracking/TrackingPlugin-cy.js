@@ -65,7 +65,7 @@ describe('Tracking Plugin Disabled [03d]', function () {
 
     context('Email in localStorage [03h]', function () {
       beforeEach(function () {
-        cy.visitUrl({url: '/', identify: true, fakeAnalytics: true});
+        cy.visitUrl({url: '/#/', identify: true, fakeAnalytics: true});
       });
 
       it('should not show modal when \'email\' in localStorage [03i]',
