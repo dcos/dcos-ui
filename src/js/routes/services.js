@@ -25,7 +25,15 @@ let serviceRoutes = {
         {
           type: Route,
           name: 'services-detail',
-          path: ':id/?'
+          path: ':id/?',
+          children: [
+            {
+              type: Route,
+              name: 'services-task-panel',
+              path: 'task-detail/:taskID/?',
+              handler: TaskDetail
+            }
+          ]
         },
         {
           type: Route,
@@ -37,12 +45,6 @@ let serviceRoutes = {
           type: Route,
           name: 'services-panel',
           path: 'service-detail/:serviceName/?'
-        },
-        {
-          type: Route,
-          name: 'services-task-panel',
-          path: 'task-detail/:taskID/?',
-          handler: TaskDetail
         }
       ]
     }

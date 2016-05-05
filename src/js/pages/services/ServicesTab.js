@@ -107,6 +107,12 @@ var ServicesTab = React.createClass({
       );
     }
 
+    if (this.props.params.taskID) {
+      return (
+        <RouteHandler />
+      );
+    }
+
     // Find item in root tree and default to root tree if there is no match
     let item = DCOSStore.serviceTree.findItemById(id) || DCOSStore.serviceTree;
 
@@ -140,10 +146,6 @@ var ServicesTab = React.createClass({
             totalLength={services.length} />
         );
       }
-
-      return (
-        <RouteHandler />
-      );
 
       return (
         <div className="flex-box flush flex-mobile-column">
