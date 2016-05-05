@@ -59,7 +59,8 @@ module.exports = Object.assign({}, webpackConfig, {
     loaders: webpackConfig.module.loaders.concat([
       {
         test: /\.js$/,
-        exclude: /node_modules/,
+        // Exclude all node_modules except dcos-dygraphs
+        exclude: /(?=\/node_modules\/)(?!\/node_modules\/dcos-dygraphs\/)/,
         loader: 'babel?' + JSON.stringify({
           cacheDirectory: true,
           // Map through resolve to fix preset loading problem

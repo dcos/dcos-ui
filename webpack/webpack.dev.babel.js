@@ -46,6 +46,7 @@ module.exports = Object.assign({}, webpackConfig, {
     loaders: webpackConfig.module.loaders.concat([
       {
         test: /\.js$/,
+        // Exclude all node_modules except dcos-dygraphs
         exclude: /(?=\/node_modules\/)(?!\/node_modules\/dcos-dygraphs\/)/,
         loader: 'react-hot!babel?' + JSON.stringify({
           cacheDirectory: true,
