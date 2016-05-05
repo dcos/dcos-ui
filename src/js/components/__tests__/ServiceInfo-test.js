@@ -19,7 +19,10 @@ describe('ServiceInfo', function () {
     tasksStaged: 0,
     tasksRunning: 2,
     tasksHealthy: 2,
-    tasksUnhealthy: 0
+    tasksUnhealthy: 0,
+    images: {
+      'icon-large': 'foo.png'
+    }
   });
 
   describe('#render', function () {
@@ -43,7 +46,7 @@ describe('ServiceInfo', function () {
     it('renders image', function () {
       expect(
         this.node.querySelector('.icon img').src
-      ).toEqual('./img/services/icon-service-default-large@2x.png');
+      ).toEqual('foo.png');
     });
 
     it('renders health state', function () {
