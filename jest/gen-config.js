@@ -3,7 +3,7 @@
  */
 var fs = require('fs');
 var path = require('path');
-var testPaths = ['src'];
+var testPaths = ['src', 'plugins'];
 
 if (process.env.npm_package_config_external_plugins) {
   testPaths.push(process.env.npm_package_config_external_plugins);
