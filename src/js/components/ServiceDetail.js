@@ -3,6 +3,7 @@ import React from 'react';
 
 import InternalStorageMixin from '../mixins/InternalStorageMixin';
 import Service from '../structs/Service';
+import ServiceActions from './ServiceActions';
 import ServiceDetailTaskTab from './ServiceDetailTaskTab';
 import ServiceInfo from './ServiceInfo';
 import ServicesBreadcrumb from './ServicesBreadcrumb';
@@ -55,6 +56,7 @@ class ServiceDetail extends mixin(InternalStorageMixin, TabsMixin) {
           media-object-spacing-narrow container-pod-divider-inverse">
           <ServicesBreadcrumb serviceTreeItem={service} />
           <ServiceInfo service={service} />
+          <ServiceActions service={service} />
           <ul className="tabs list-inline flush-bottom container-pod
             container-pod-short-top inverse">
             {this.tabs_getUnroutedTabs()}
@@ -66,7 +68,6 @@ class ServiceDetail extends mixin(InternalStorageMixin, TabsMixin) {
           {this.tabs_getTabView()}
         </div>
       </div>
-
     );
   }
 }
