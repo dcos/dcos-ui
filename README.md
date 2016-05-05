@@ -39,7 +39,7 @@ Node 4.x (and above) is **required**. We suggest using [nvm](https://github.com/
 
 DC/OS UI comes bundled with some internal plugins within the `/plugins` directory. You can also load more plugins from another directory and they will be loaded into DC/OS UI along with the internal plugins. To set a directory for external plugins run:
 ```sh
-npm config set dcos-ui:externalplugins ../relative/path/to/plugins/folder
+npm config set externalplugins ../relative/path/to/plugins/folder
 ```
 
 ## Adding npm Package Dependencies
