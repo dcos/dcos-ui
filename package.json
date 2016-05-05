@@ -21,7 +21,7 @@
   },
   "config": {
     "port": 4200,
-    "external_plugins": ""
+    "externalplugins": ""
   },
   "dependencies": {
     "babel-polyfill": "6.7.2",
@@ -99,7 +99,7 @@
     "build": "npm run clean && npm run lint && npm test && npm run build-assets",
     "build-with-external-plugins": "npm run clean && npm run lint && npm run lint-plugins && npm test && npm run build-assets",
     "lint": "./node_modules/.bin/eslint '**/*.js' --quiet",
-    "lint-plugins": "PLUGINS=$npm_package_config_external_plugins; ./node_modules/.bin/eslint \"$PLUGINS/**/*.js\" --quiet",
+    "lint-plugins": "PLUGINS=$npm_config_externalplugins; ./node_modules/.bin/eslint \"$PLUGINS/**/*.js\" --quiet",
     "prebuild": "./scripts/validate-tests",
     "serve": "NODE_ENV='development' npm run build-assets && ./node_modules/.bin/gulp serve",
     "serve-notify": "export NOTIFY=true && npm run serve",

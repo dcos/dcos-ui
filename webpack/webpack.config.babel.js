@@ -10,7 +10,7 @@ function absPath() {
 }
 
 // Can override this with npm config set dcos-ui:external_plugins ../some/relative/path/to/repo
-let externalPluginsDir = absPath(process.env.npm_package_config_external_plugins || 'plugins');
+let externalPluginsDir = absPath(process.env.npm_config_externalplugins || 'plugins');
 
 module.exports = {
   lessLoader: {
