@@ -143,6 +143,5 @@ Cypress.addParentCommand('visitUrl', function (options) {
     };
   }
 
-  var url = Cypress.env('CLUSTER_URL') + '/#' + options.url;
-  cy.visit(url, {onBeforeLoad: callback});
+  cy.visit(options.url, {onBeforeLoad: callback});
 });

@@ -15,7 +15,7 @@ describe('Packages Tab', function () {
         status: 400,
         response: {type: 'RepositoryUriSyntax', name: 'Invalid', message: 'The url for Invalid does not have correct syntax.'}
       })
-      .visitUrl({url: '/universe', logIn: true});
+      .visitUrl({url: '/#/universe', logIn: true});
 
     cy
       .get('.page-content .text-overflow-break-word')
@@ -30,7 +30,7 @@ describe('Packages Tab', function () {
         status: 400,
         response: {type: 'IndexNotFound', name: 'Invalid', message: 'The index file is missing in Invalid.'}
       })
-      .visitUrl({url: '/universe', logIn: true});
+      .visitUrl({url: '/#/universe', logIn: true});
 
     cy
       .get('.page-content .text-overflow-break-word')
@@ -45,7 +45,7 @@ describe('Packages Tab', function () {
         status: 400,
         response: {type: 'PackageFileMissing', name: 'Invalid', message: 'The package file is missing in Invalid.'}
       })
-      .visitUrl({url: '/universe', logIn: true});
+      .visitUrl({url: '/#/universe', logIn: true});
 
     cy
       .get('.page-content .text-overflow-break-word')
@@ -60,7 +60,7 @@ describe('Packages Tab', function () {
         status: 400,
         response: {type: 'PackageFileMissing', message: 'The package file is missing in a repository.'}
       })
-      .visitUrl({url: '/universe', logIn: true});
+      .visitUrl({url: '/#/universe', logIn: true});
 
     cy
       .get('.page-content .text-overflow-break-word')
@@ -75,7 +75,7 @@ describe('Packages Tab', function () {
         status: 400,
         response: {message: 'Some other error'}
       })
-      .visitUrl({url: '/universe', logIn: true});
+      .visitUrl({url: '/#/universe', logIn: true});
 
     cy
       .get('.page-content .h3.text-align-center')
@@ -84,7 +84,7 @@ describe('Packages Tab', function () {
 
   context('searching', function () {
     beforeEach(function () {
-      cy.visitUrl({url: '/universe', logIn: true});
+      cy.visitUrl({url: '/#/universe', logIn: true});
       cy.get('input').type('cass');
     });
 
@@ -103,7 +103,7 @@ describe('Packages Tab', function () {
 
   context('selected packages', function () {
     beforeEach(function () {
-      cy.visitUrl({url: '/universe', logIn: true});
+      cy.visitUrl({url: '/#/universe', logIn: true});
       cy.get('.panel').as('panels');
     });
 

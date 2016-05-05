@@ -5,7 +5,7 @@ xdescribe('Service Search Filters', function () {
         mesos: '1-for-each-health',
         nodeHealth: true
       });
-      cy.visitUrl({url: '/services'});
+      cy.visitUrl({url: '/#/services'});
     });
 
     it('filters correctly on search string', function () {

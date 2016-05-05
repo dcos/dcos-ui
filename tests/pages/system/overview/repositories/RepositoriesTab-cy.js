@@ -6,7 +6,7 @@ describe('Installed Packages Tab', function () {
         mesos: '1-task-healthy',
         universePackages: true
       })
-      .visitUrl({url: '/system/overview/repositories'});
+      .visitUrl({url: '/#/system/overview/repositories'});
   });
 
   it('activates the correct tab', function () {
