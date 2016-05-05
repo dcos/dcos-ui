@@ -10,7 +10,7 @@ let pluginsList;
 let externalPluginsList;
 let pluginsDir = 'plugins';
 let externalPluginsDir = path.resolve(
-  process.env.npm_config_externalplugins
+  process.env.npm_config_externalplugins || 'plugins'
 );
 
 try {
