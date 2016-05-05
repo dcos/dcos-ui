@@ -7,7 +7,6 @@ import HistoryStore from '../stores/HistoryStore';
 import MesosSummaryStore from '../stores/MesosSummaryStore';
 import ServiceSidePanelContents from './ServiceSidePanelContents';
 import StringUtil from '../utils/StringUtil';
-import TaskSidePanelContents from './TaskSidePanelContents';
 import UnitHealthSidePanelContents from './UnitHealthSidePanelContents';
 import UnitNodeSidePanelContents from './UnitNodeSidePanelContents';
 import Util from '../utils/Util';
@@ -58,12 +57,11 @@ class SidePanels extends mixin(StoreMixin) {
   }
 
   isOpen(itemIDs) {
-    let {unitID, unitNodeID, serviceName, taskID} = itemIDs;
+    let {unitID, unitNodeID, serviceName} = itemIDs;
 
     return (
       (unitNodeID != null && unitID != null) ||
       serviceName != null ||
-      taskID != null ||
       unitID != null
     ) && MesosSummaryStore.get('statesProcessed');
   }
@@ -116,14 +114,14 @@ class SidePanels extends mixin(StoreMixin) {
       );
     }
 
-    if (taskID != null) {
-      return (
-        <TaskSidePanelContents
-          handlePanelSizeChange={this.handlePanelSizeChange}
-          itemID={taskID}
-          parentRouter={this.context.router} />
-      );
-    }
+    // if (taskID != null) {
+    //   return (
+    //     <TaskSidePanelContents
+    //       handlePanelSizeChange={this.handlePanelSizeChange}
+    //       itemID={taskID}
+    //       parentRouter={this.context.router} />
+    //   );
+    // }
 
     if (serviceName != null) {
       return (

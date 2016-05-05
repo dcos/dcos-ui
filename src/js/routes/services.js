@@ -4,6 +4,7 @@ import DeploymentsTab from '../pages/services/DeploymentsTab';
 import ServiceOverlay from '../components/ServiceOverlay';
 import ServicesPage from '../pages/ServicesPage';
 import ServicesTab from '../pages/services/ServicesTab';
+import TaskDetail from '../components/TaskDetail';
 
 let serviceRoutes = {
   type: Route,
@@ -24,7 +25,15 @@ let serviceRoutes = {
         {
           type: Route,
           name: 'services-detail',
-          path: ':id/?'
+          path: ':id/?',
+          children: [
+            {
+              type: Route,
+              name: 'services-task-panel',
+              path: 'task-detail/:taskID/?',
+              handler: TaskDetail
+            }
+          ]
         },
         {
           type: Route,
@@ -36,11 +45,6 @@ let serviceRoutes = {
           type: Route,
           name: 'services-panel',
           path: 'service-detail/:serviceName/?'
-        },
-        {
-          type: Route,
-          name: 'services-task-panel',
-          path: 'task-detail/:taskID/?'
         }
       ]
     }
