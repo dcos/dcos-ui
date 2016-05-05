@@ -39,7 +39,7 @@ module.exports = Object.assign({}, webpackConfig, {
 
     new ExtractTextPlugin('[name].css'),
 
-    new WebpackNotifierPlugin()
+    new WebpackNotifierPlugin({alwaysNotify: true})
   ],
   module: {
     preLoaders: webpackConfig.module.preLoaders,
