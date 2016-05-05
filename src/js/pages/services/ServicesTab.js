@@ -119,6 +119,12 @@ var ServicesTab = React.createClass({
       );
     }
 
+    if (this.props.params.taskID) {
+      return (
+        <RouteHandler />
+      );
+    }
+
     // Find item in root tree and default to root tree if there is no match
     let item = DCOSStore.serviceTree.findItemById(id) || DCOSStore.serviceTree;
 

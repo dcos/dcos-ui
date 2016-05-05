@@ -169,8 +169,8 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
 
     return (
       <div>
-        <div className="side-panel-content-header container-fluid container-pod flush-top flush-bottom">
-          <h1 className="side-panel-content-header-label flush">
+        <div className="detail-page-header">
+          <h1 className="inverse flush">
             {task.id}
           </h1>
           <div className="media-object-spacing-wrapper media-object-spacing-narrow media-object-offset">
@@ -233,13 +233,13 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
     }
 
     return (
-      <div className="container-fluid container-pod container-pod-short flush-top">
+      <div className="container container-fluid flush">
         <DescriptionList
-          className="container container-fluid container-pod container-pod-short flush-bottom"
+          className="container container-fluid flush container-pod container-pod-super-short flush-top"
           hash={headerValueMapping}
           headline="Configuration" />
         <DescriptionList
-          className="container container-fluid container-pod container-pod-short flush-bottom"
+          className="container container-fluid flush container-pod container-pod-super-short flush-top"
           hash={labelMapping}
           headline="Labels" />
       </div>
@@ -331,13 +331,13 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
     if (task == null) {
       return this.getNotFound('task');
     }
-    // console.log(task.framework_id, services, service.getId());
-    // console.log(service.getId());
-    console.log(MarathonStore.get('groups'));
+    // // console.log(task.framework_id, services, service.getId());
+    // // console.log(service.getId());
+    // console.log(MarathonStore.get('groups'));
 
     let node = MesosStateStore.getNodeFromID(task.slave_id);
     let panelClasses = classNames({
-      'side-panel-section side-panel-content-header container container-pod container-fluid container-pod-divider-bottom container-pod-divider-bottom-align-right flush-bottom': true,
+      'container container-fluid container-pod container-pod-short container-pod-super-short-top flush': true,
       'container-pod-short': this.state.currentTab === 'debug'
     });
 
@@ -347,8 +347,7 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
         {this.getExpandButton()}
         <div className={panelClasses}>
           {this.getBasicInfo(task, node)}
-          <ul className="tabs list-inline container container-fluid container-pod
-            flush flush-bottom flush-top">
+          <ul className="tabs list-inline flush-bottom inverse">
             {this.tabs_getUnroutedTabs()}
           </ul>
         </div>

@@ -26,8 +26,9 @@ class TaskTable extends React.Component {
   }
 
   handleTaskClick(params) {
-    let linkTo = this.getTaskPanelRoute();
-    console.log(params);
+    // let linkTo = this.getTaskPanelRoute();
+    let linkTo = 'services-task-panel';
+
     this.props.parentRouter.transitionTo(linkTo, params);
   }
 
@@ -114,7 +115,7 @@ class TaskTable extends React.Component {
   getTaskPanelRoute() {
     let currentRoutes = this.props.parentRouter.getCurrentRoutes();
     let currentPage = currentRoutes[currentRoutes.length - 2].name;
-
+    console.log(currentRoutes);
     return `${currentPage}-task-panel`;
   }
 

@@ -52,7 +52,7 @@ class CompositeState {
     if (Object.keys(this.data).length === 0) {
       return;
     }
-    console.log(data);
+
     this.data.frameworks.forEach(function (service) {
       // Marathon data merged by service name because Marathon doesn't know id.
       // See MarathonStore.processMarathonGroups
