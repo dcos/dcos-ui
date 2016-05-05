@@ -84,7 +84,7 @@ describe('Packages Tab', function () {
 
   context('searching', function () {
     beforeEach(function () {
-      cy.visitUrl({url: '/universe', logIn: true});
+      cy.visitUrl({url: '/#/universe', logIn: true});
       cy.get('input').type('cass');
     });
 
@@ -103,7 +103,7 @@ describe('Packages Tab', function () {
 
   context('selected packages', function () {
     beforeEach(function () {
-      cy.visitUrl({url: '/universe', logIn: true});
+      cy.visitUrl({url: '/#/universe', logIn: true});
       cy.get('.panel').as('panels');
     });
 

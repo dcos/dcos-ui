@@ -10,7 +10,7 @@ describe('Node Health Tab [0fa]', function () {
   context('Navigate to tab [0fb]', function () {
 
     it('navigates to health tab [0fc]', function () {
-      cy.visitUrl({url: '/nodes', identify: true, fakeAnalytics: true});
+      cy.visitUrl({url: '/#/nodes', identify: true, fakeAnalytics: true});
       cy.get('tr a').contains('dcos-01').click();
       cy.get('.tab-item').contains('Health').click();
 
@@ -24,7 +24,7 @@ describe('Node Health Tab [0fa]', function () {
   context('Health Tab [0fd]', function () {
 
     beforeEach(function () {
-      cy.visitUrl({url: '/nodes/20151002-000353-1695027628-5050-1177-S0', identify: true, fakeAnalytics: true});
+      cy.visitUrl({url: '/#/nodes/20151002-000353-1695027628-5050-1177-S0', identify: true, fakeAnalytics: true});
 
       cy.get('.tab-item').contains('Health').click();
 
