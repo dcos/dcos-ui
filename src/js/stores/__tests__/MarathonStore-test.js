@@ -3,14 +3,12 @@ jest.dontMock('../../mixins/GetSetMixin');
 jest.dontMock('../MarathonStore');
 jest.dontMock('./fixtures/MockAppMetadata');
 jest.dontMock('./fixtures/MockMarathonResponse.json');
-jest.dontMock('./fixtures/MockParsedAppMetadata.json');
 
 var HealthLabels = require('../../constants/HealthLabels');
 var HealthTypes = require('../../constants/HealthTypes');
 var MarathonStore = require('../MarathonStore');
 var MockAppMetadata = require('./fixtures/MockAppMetadata');
 var MockMarathonResponse = require('./fixtures/MockMarathonResponse.json');
-var MockParsedAppMetadata = require('./fixtures/MockParsedAppMetadata.json');
 
 // mock global string decoder
 global.atob = function () {
@@ -66,39 +64,6 @@ describe('MarathonStore', function () {
 
   });
 
-  describe('#parseMetadata', function () {
-
-    it('should parse metadata correctly', function () {
-      var result = MarathonStore.parseMetadata(
-        MockAppMetadata.encodedString
-      );
-      expect(result).toEqual(MockParsedAppMetadata);
-    });
-
-  });
-
-  describe('#getFrameworkImages', function () {
-
-    it('should return parsed images when app has metadata with images',
-      function () {
-        var images = MarathonStore.getFrameworkImages(
-          MockMarathonResponse.hasMetadata.apps[0]
-        );
-        expect(images).toEqual(MockParsedAppMetadata.images);
-      }
-    );
-
-    it('should return default images when app has metadata with images',
-      function () {
-        var images = MarathonStore.getFrameworkImages(
-          MockMarathonResponse.hasHealth.apps[0]
-        );
-        expect(images).toEqual(null);
-      }
-    );
-
-  });
-
   describe('#getServiceHealth', function () {
 
     it('returns NA when health is not available', function () {
@@ -107,7 +72,7 @@ describe('MarathonStore', function () {
     });
 
     it('returns health for service', function () {
-      MarathonStore.processMarathonApps(MockMarathonResponse.hasHealth);
+      MarathonStore.processMarathonGroups(MockMarathonResponse.hasHealth);
       var health = MarathonStore.getServiceHealth('Framework 1');
       expect(HealthLabels[health.key]).toEqual(HealthLabels.HEALTHY);
     });
@@ -117,14 +82,14 @@ describe('MarathonStore', function () {
   describe('#getServiceInstalledTime', function () {
 
     it('returns a dateString', function () {
-      MarathonStore.processMarathonApps(MockMarathonResponse.hasVersion);
+      MarathonStore.processMarathonGroups(MockMarathonResponse.hasVersion);
       let version = MarathonStore.getServiceInstalledTime('Framework 1');
 
       expect(!isNaN(Date.parse(version))).toEqual(true);
     });
 
     it('returns null when no service version', function () {
-      MarathonStore.processMarathonApps(MockMarathonResponse.hasVersion);
+      MarathonStore.processMarathonGroups(MockMarathonResponse.hasVersion);
       let version = MarathonStore.getServiceInstalledTime('bloop');
 
       expect(version).toEqual(null);
@@ -135,14 +100,14 @@ describe('MarathonStore', function () {
   describe('#getServiceVersion', function () {
 
     it('returns a version', function () {
-      MarathonStore.processMarathonApps(MockMarathonResponse.hasVersion);
+      MarathonStore.processMarathonGroups(MockMarathonResponse.hasVersion);
       let version = MarathonStore.getServiceVersion('Framework 1');
 
       expect(version).toEqual('0.1.0');
     });
 
     it('returns null when no service version', function () {
-      MarathonStore.processMarathonApps(MockMarathonResponse.hasNoVersion);
+      MarathonStore.processMarathonGroups(MockMarathonResponse.hasNoVersion);
       let version = MarathonStore.getServiceVersion('Framework 1');
 
       expect(version).toEqual(null);
@@ -158,13 +123,13 @@ describe('MarathonStore', function () {
     });
 
     it('returns an object when services are found', function () {
-      MarathonStore.processMarathonApps(MockMarathonResponse.hasMetadata);
+      MarathonStore.processMarathonGroups(MockMarathonResponse.hasMetadata);
       var images = MarathonStore.getServiceImages('Framework 1');
       expect(images).toEqual(jasmine.any(Object));
     });
 
     it('returns three sizes of images when services are found', function () {
-      MarathonStore.processMarathonApps(MockMarathonResponse.hasMetadata);
+      MarathonStore.processMarathonGroups(MockMarathonResponse.hasMetadata);
       var images = MarathonStore.getServiceImages('Framework 1');
       var keys = Object.keys(images);
       expect(keys).toContain('icon-large');
@@ -174,16 +139,16 @@ describe('MarathonStore', function () {
 
   });
 
-  describe('#processMarathonApps', function () {
+  describe('#processMarathonGroups', function () {
 
     it('should set Marathon health to idle with no apps', function () {
-      MarathonStore.processMarathonApps({apps: {}});
+      MarathonStore.processMarathonGroups({apps: []});
       var marathonApps = MarathonStore.get('apps');
       expect(marathonApps.marathon.health.key).toEqual('IDLE');
     });
 
     it('should set Marathon health to healthy with some apps', function () {
-      MarathonStore.processMarathonApps(
+      MarathonStore.processMarathonGroups(
         MockMarathonResponse.hasOnlyUnhealth
       );
       var marathonApps = MarathonStore.get('apps');
@@ -191,7 +156,7 @@ describe('MarathonStore', function () {
     });
 
     it('should have apps with NA health if apps have no health checks', function () {
-      MarathonStore.processMarathonApps(
+      MarathonStore.processMarathonGroups(
         MockMarathonResponse.hasNoHealthy
       );
       var marathonApps = MarathonStore.get('apps');

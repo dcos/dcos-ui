@@ -1,10 +1,10 @@
-var ServiceConstants = require('../ServiceConstants');
+var FrameworkConstants = require('../FrameworkConstants');
 
-describe('ServiceConstants', function () {
+describe('FrameworkConstants', function () {
 
   describe('regexp', function () {
 
-    var regexp = ServiceConstants.SERVICE_RESOURCE_ID_REGEXP;
+    var regexp = FrameworkConstants.FRAMEWORK_RESOURCE_ID_REGEXP;
 
     it('validates service name', function () {
       expect(regexp.test('dcos:adminrouter:service:marathon')).toBeTruthy();

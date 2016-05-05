@@ -3,6 +3,15 @@ import StringUtil from '../utils/StringUtil';
 import Util from '../utils/Util';
 
 module.exports = class List {
+  /**
+   * List
+   * @param {{
+   *          items:array,
+   *          filterProperties:{propertyName:(null|function)}
+   *        }} options
+   * @constructor
+   * @struct
+   */
   constructor(options = {}) {
     this.list = [];
 
@@ -10,10 +19,10 @@ module.exports = class List {
       if (!Util.isArray(options.items)) {
         throw new Error('Expected an array.');
       }
-
       this.list = options.items;
-      this.filterProperties = options.filterProperties || [];
     }
+
+    this.filterProperties = options.filterProperties || {};
   }
 
   add(item) {
@@ -33,14 +42,28 @@ module.exports = class List {
   }
 
   /**
-   * Filters items in list and returns a new instance of the list used, even if
-   * it just extends List
-   * @param  {string} filterText string to search in properties of the list
-   * @return {Object}            List (or child class) containing filtered items
+   * @param {function} callback Function to test each element of the array,
+   * taking three arguments: item, index, list. Return true to keep the item,
+   * false otherwise.
+   * @return {List} List (or child class) containing mapped items
    */
-  filterItems(filterText) {
+  filterItems(callback) {
+    let items = this.getItems().filter((item, index) => {
+      return callback(item, index, this);
+    });
+
+    return new this.constructor({items});
+  }
+
+  /**
+   * Filters items in list and returns a new instance of the list used.
+   * @param  {string} filterText string to search in properties of the list
+   * @param  {{propertyName:(null|function)}} [filterProperties] object
+   *     to configure filter properties as well as their getters
+   * @return {List} List (or child class) containing filtered items
+   */
+  filterItemsByText(filterText, filterProperties = this.getFilterProperties()) {
     let items = this.getItems();
-    let filterProperties = this.getFilterProperties();
 
     if (filterText) {
       items = StringUtil.filterByString(items, function (item) {
@@ -72,5 +95,39 @@ module.exports = class List {
     }
 
     return new this.constructor({items});
+  }
+
+  /**
+   * @param {function} callback Function to execute on each value in the array,
+   * taking one argument: item
+   * @return {object} matching item
+   */
+  findItem(callback) {
+    return this.getItems().find(callback);
+  }
+
+  /**
+   * @param {function} callback Function that produces an item of the new
+   * List, taking three arguments: item, index, list
+   * @return {List} List (or child class) containing mapped items
+   */
+  mapItems(callback) {
+    let items = this.getItems().map((item, index) => {
+      return callback(item, index, this);
+    });
+
+    return new this.constructor({items});
+  }
+
+  /**
+   * @param {function} callback Function to execute on each value in the
+   * array, taking four arguments: previousValue, currentValue, index, list
+   * @param {*} initialValue
+   * @returns {*} returnValue
+   */
+  reduceItems(callback, initialValue) {
+    return this.getItems().reduce((previousValue, currentValue, index) => {
+      return callback(previousValue, currentValue, index, this);
+    }, initialValue);
   }
 };

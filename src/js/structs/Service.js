@@ -1,42 +1,129 @@
-import {
-  ROUTE_ACCESS_PREFIX,
-  SERVICE_ID_VALID_CHARACTERS
-} from '../constants/ServiceConstants';
 import HealthStatus from '../constants/HealthStatus';
 import Item from './Item';
+import ServiceImages from '../constants/ServiceImages';
+import ServiceStatus from '../constants/ServiceStatus';
 
 module.exports = class Service extends Item {
+  getArguments() {
+    return this.get('args');
+  }
+
+  getCommand() {
+    return this.get('cmd');
+  }
+
+  getContainer() {
+    return this.get('container');
+  }
+
+  getDeployments() {
+    return this.get('deployments');
+  }
+
+  getExecutor() {
+    return this.get('executor');
+  }
+
   getHealth() {
-    let meta = this.get('_meta');
-    if (!meta || !meta.marathon) {
-      return HealthStatus.NA;
-    }
-    return meta.marathon.health;
-  }
+    let {tasksHealthy, tasksUnhealthy, tasksRunning} = this.getTasksSummary();
 
-  getResourceID() {
-    let regexp = new RegExp(`[^${SERVICE_ID_VALID_CHARACTERS}]`, 'g');
-    // strip non-alphanumeric chars from name for safety
-    return ROUTE_ACCESS_PREFIX + (this.get('name') || '').replace(regexp, '');
-  }
-
-  getNodeIDs() {
-    return this.get('slave_ids');
-  }
-
-  getUsageStats(resource) {
-    let value = this.get('used_resources')[resource];
-
-    return {value};
-  }
-
-  getWebURL() {
-    let url = this.get('webui_url');
-
-    if (url != null && url !== '') {
-      return url;
+    if (tasksUnhealthy > 0) {
+      return HealthStatus.UNHEALTHY;
     }
 
-    return null;
+    if (tasksRunning > 0 && tasksHealthy === tasksRunning) {
+      return HealthStatus.HEALTHY;
+    }
+
+    if (this.getHealthChecks() && tasksRunning === 0) {
+      return HealthStatus.IDLE;
+    }
+
+    return HealthStatus.NA;
+  }
+
+  getHealthChecks() {
+    return this.get('healthChecks');
+  }
+
+  getId() {
+    return this.get('id') || '';
+  }
+
+  getImages() {
+    return this.get('images') || ServiceImages.NA_IMAGES;
+  }
+
+  getInstancesCount() {
+    return this.get('instances');
+  }
+
+  getLabels() {
+    return this.get('labels');
+  }
+
+  getLastConfigChange() {
+    return this.getVersionInfo().lastConfigChangeAt;
+  }
+
+  getLastScaled() {
+    return this.getVersionInfo().lastScalingAt;
+  }
+
+  getName() {
+    return this.getId().split('/').pop();
+  }
+
+  getPorts() {
+    return this.get('ports');
+  }
+
+  getResources() {
+    return {
+      cpus: this.get('cpus'),
+      mem: this.get('mem'),
+      disk: this.get('disk')
+    };
+  }
+
+  getStatus() {
+    let {tasksRunning} = this.getTasksSummary();
+    let deployments = this.getDeployments();
+
+    if (deployments.length > 0) {
+      return ServiceStatus.DEPLOYING.displayName;
+    }
+
+    if (tasksRunning > 0) {
+      return ServiceStatus.RUNNING.displayName;
+    }
+
+    let instances = this.getInstancesCount();
+    if (instances === 0) {
+      return ServiceStatus.SUSPENDED.displayName;
+    }
+  }
+
+  getTasksSummary() {
+    return {
+      tasksHealthy: this.get('tasksHealthy'),
+      tasksRunning: this.get('tasksRunning'),
+      tasksStaged: this.get('tasksStaged'),
+      tasksUnhealthy: this.get('tasksUnhealthy'),
+      tasksUnknown: this.get('tasksRunning') -
+        this.get('tasksHealthy') - this.get('tasksUnhealthy'),
+    };
+  }
+
+  getFetch() {
+    return this.get('fetch');
+  }
+
+  getUser() {
+    return this.get('user');
+  }
+
+  getVersionInfo() {
+    return this.get('versionInfo');
   }
 };

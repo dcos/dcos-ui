@@ -1,8 +1,8 @@
 // Modules to paths
 module.exports = {
   constants: {
-    HTTPStatusCodes: 'HTTPStatusCodes',
-    ServiceConstants: 'ServiceConstants'
+    FrameworkConstants: 'FrameworkConstants',
+    HTTPStatusCodes: 'HTTPStatusCodes'
   },
   events: {
     SidebarActions: 'SidebarActions'

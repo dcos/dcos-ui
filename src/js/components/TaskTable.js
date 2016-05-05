@@ -179,13 +179,15 @@ class TaskTable extends React.Component {
   }
 
   render() {
+    let {className, tasks} = this.props;
+
     return (
       <Table
-        className={this.props.className}
+        className={className}
         columns={this.getColumns()}
         colGroup={this.getColGroup()}
         containerSelector=".gm-scroll-view"
-        data={this.props.tasks.slice()}
+        data={tasks.slice()}
         itemHeight={TableUtil.getRowHeight()}
         sortBy={{prop: 'updated', order: 'asc'}} />
     );
@@ -194,6 +196,7 @@ class TaskTable extends React.Component {
 
 TaskTable.propTypes = {
   className: React.PropTypes.string,
+  parentRouter: React.PropTypes.func.isRequired,
   tasks: React.PropTypes.array.isRequired
 };
 

@@ -1,29 +1,31 @@
-var _ = require('underscore');
 import {Store} from 'mesosphere-shared-reactjs';
 
 var AppDispatcher = require('../events/AppDispatcher');
 import ActionTypes from '../constants/ActionTypes';
 import CompositeState from '../structs/CompositeState';
+import Service from '../structs/Service';
+import ServiceTree from '../structs/ServiceTree';
 var Config = require('../config/Config');
 import {
   MARATHON_APPS_CHANGE,
   MARATHON_APPS_ERROR,
+  MARATHON_GROUPS_CHANGE,
+  MARATHON_GROUPS_ERROR,
   VISIBILITY_CHANGE
 } from '../constants/EventTypes';
 var GetSetMixin = require('../mixins/GetSetMixin');
 var HealthStatus = require('../constants/HealthStatus');
 var MarathonActions = require('../events/MarathonActions');
 var ServiceImages = require('../constants/ServiceImages');
-import ServiceUtil from '../utils/ServiceUtil';
 import VisibilityStore from './VisibilityStore';
 
 var requestInterval = null;
 
 function startPolling() {
   if (requestInterval == null) {
-    MarathonActions.fetchApps();
+    MarathonActions.fetchGroups();
     requestInterval = global.setInterval(
-      MarathonActions.fetchApps, Config.getRefreshRate()
+      MarathonActions.fetchGroups, Config.getRefreshRate()
     );
   }
 }
@@ -74,7 +76,8 @@ var MarathonStore = Store.createStore({
   },
 
   shouldPoll: function () {
-    return !_.isEmpty(this.listeners(MARATHON_APPS_CHANGE));
+    return this.listenerCount(MARATHON_GROUPS_CHANGE) > 0 ||
+      this.listenerCount(MARATHON_APPS_CHANGE) > 0;
   },
 
   hasProcessedApps: function () {
@@ -142,18 +145,6 @@ var MarathonStore = Store.createStore({
     return null;
   },
 
-  getFrameworkImages: function (app) {
-    if (app.labels == null ||
-      app.labels.DCOS_PACKAGE_METADATA == null ||
-      app.labels.DCOS_PACKAGE_METADATA.length === 0) {
-      return null;
-    }
-
-    var metadata = this.parseMetadata(app.labels.DCOS_PACKAGE_METADATA);
-
-    return ServiceUtil.getServiceImages(metadata.images);
-  },
-
   getVersion: function (app) {
     if (app == null ||
       app.labels == null ||
@@ -168,26 +159,20 @@ var MarathonStore = Store.createStore({
     return this.get('apps')[name];
   },
 
-  processMarathonApps: function (data) {
-    var apps = {};
-    _.each(data.apps, function (app) {
-      if (app.labels.DCOS_PACKAGE_FRAMEWORK_NAME == null) {
-        return;
+  processMarathonGroups: function (data) {
+    let groups = new ServiceTree(data);
+
+    let apps = groups.reduceItems(function (map, item) {
+      if (item instanceof Service) {
+        map[item.getName().toLowerCase()] = {
+          health: item.getHealth(),
+          images: item.getImages(),
+          snapshot: item.get()
+        };
       }
 
-      var packageName = app.labels.DCOS_PACKAGE_FRAMEWORK_NAME;
-
-      // Use insensitive check
-      if (packageName.length) {
-        packageName = packageName.toLowerCase();
-      }
-
-      apps[packageName] = {
-        health: this.getFrameworkHealth(app),
-        images: this.getFrameworkImages(app),
-        snapshot: app
-      };
-    }, this);
+      return map;
+    }, {});
 
     // Specific health check for Marathon
     // We are setting the 'marathon' key here, since we can safely assume,
@@ -205,24 +190,17 @@ var MarathonStore = Store.createStore({
     };
 
     this.set({apps});
+    this.set({groups});
 
-    CompositeState.addMarathon(apps);
+    CompositeState.addMarathonApps(apps);
 
-    this.emit(MARATHON_APPS_CHANGE, this.get('apps'));
+    this.emit(MARATHON_APPS_CHANGE, apps);
+    this.emit(MARATHON_GROUPS_CHANGE, groups);
   },
 
-  processMarathonAppsError: function () {
+  processMarathonGroupsError: function () {
     this.emit(MARATHON_APPS_ERROR);
-  },
-
-  parseMetadata: function (b64Data) {
-    // extract content of the DCOS_PACKAGE_METADATA label
-    try {
-      var dataAsJsonString = global.atob(b64Data);
-      return JSON.parse(dataAsJsonString);
-    } catch (error) {
-      return {};
-    }
+    this.emit(MARATHON_GROUPS_ERROR);
   },
 
   processOngoingRequest: function () {
@@ -236,13 +214,13 @@ var MarathonStore = Store.createStore({
 
     var action = payload.action;
     switch (action.type) {
-      case ActionTypes.REQUEST_MARATHON_APPS_SUCCESS:
-        MarathonStore.processMarathonApps(action.data);
+      case ActionTypes.REQUEST_MARATHON_GROUPS_SUCCESS:
+        MarathonStore.processMarathonGroups(action.data);
         break;
-      case ActionTypes.REQUEST_MARATHON_APPS_ERROR:
-        MarathonStore.processMarathonAppsError();
+      case ActionTypes.REQUEST_MARATHON_GROUPS_ERROR:
+        MarathonStore.processMarathonGroupsError();
         break;
-      case ActionTypes.REQUEST_MARATHON_APPS_ONGOING:
+      case ActionTypes.REQUEST_MARATHON_GROUPS_ONGOING:
         MarathonStore.processOngoingRequest();
         break;
     }

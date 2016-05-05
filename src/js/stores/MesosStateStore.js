@@ -164,6 +164,37 @@ var MesosStateStore = Store.createStore({
     return [];
   },
 
+  getTasksByServiceId: function (serviceId) {
+    // Convert serviceId to Mesos service name
+    let mesosServiceName = serviceId.split('/').slice(1).reverse().join('.');
+    let frameworks = this.get('lastMesosState').frameworks;
+
+    if (mesosServiceName === '' || !frameworks) {
+      return [];
+    }
+
+    // Combine framework (if matching framework was found) and filtered
+    // Marathon tasks. This will give you a list of framework tasks including
+    // the scheduler tasks or a list of Marathon application tasks.
+    return frameworks.reduce(function (serviceTasks, framework) {
+      let {tasks=[], completed_tasks={}, name} = framework;
+
+      if (name === mesosServiceName) {
+        return serviceTasks.concat(tasks, completed_tasks);
+      }
+
+      // Filter marathon tasks by service name
+      if (name === 'marathon') {
+        return tasks.concat(completed_tasks)
+          .filter(function ({name}) {
+            return name === mesosServiceName;
+          }).concat(serviceTasks);
+      }
+
+      return serviceTasks;
+    }, []);
+  },
+
   processStateSuccess: function (lastMesosState) {
     CompositeState.addState(lastMesosState);
     this.set({lastMesosState});

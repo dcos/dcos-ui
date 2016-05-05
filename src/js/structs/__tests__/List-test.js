@@ -83,8 +83,46 @@ describe('List', function () {
 
     beforeEach(function () {
       var items = [
-        {name: 'foo', description: {value: 'qux'}, subItems: ['one', 'two']},
-        {name: 'bar', description: {value: 'quux'}, subItems: ['two', 'three']}
+        {name: 'foo'},
+        {name: 'bar'},
+        {name: 'qux'},
+        {name: 'quux'}
+      ];
+
+      this.instance = new List({items});
+    });
+
+    it('should return an instance of List', function () {
+      var items = this.instance.filterItems(function () {
+        return true;
+      });
+      expect(items instanceof List).toEqual(true);
+    });
+
+    it('should filter items', function () {
+      var items = this.instance.filterItems(function (item) {
+        return item.name === 'bar';
+      });
+      expect(items.getItems().length).toEqual(1);
+      expect(items.getItems()[0]).toEqual({name: 'bar'});
+    });
+
+  });
+
+  describe('#filterItemsByText', function () {
+
+    beforeEach(function () {
+      var items = [
+        {
+          name: 'foo',
+          description: {value: 'qux', label: 'corge'},
+          subItems: ['one', 'two']
+        },
+        {
+          name: 'bar',
+          description: {value: 'quux', label: 'grault'},
+          subItems: ['two', 'three']
+        }
       ];
       var filterProperties = {
         name: null,
@@ -100,7 +138,7 @@ describe('List', function () {
     });
 
     it('should return an instance of List', function () {
-      var items = this.instance.filterItems('bar');
+      var items = this.instance.filterItemsByText('bar');
       expect(items instanceof List).toEqual(true);
     });
 
@@ -114,8 +152,8 @@ describe('List', function () {
         new Item({
           name: 'bar',
           description: {value: 'quux'},
-          subItems: ['two', 'three']}
-        )
+          subItems: ['two', 'three']
+        })
       ];
       var filterProperties = {
         name: null,
@@ -128,25 +166,25 @@ describe('List', function () {
       };
 
       this.instance = new List({items, filterProperties});
-      var filteredItems = this.instance.filterItems('bar').getItems();
+      var filteredItems = this.instance.filterItemsByText('bar').getItems();
       expect(filteredItems.length).toEqual(1);
       expect(filteredItems[0] instanceof Item).toEqual(true);
     });
 
     it('should filter by default getter', function () {
-      var filteredItems = this.instance.filterItems('bar').getItems();
+      var filteredItems = this.instance.filterItemsByText('bar').getItems();
       expect(filteredItems.length).toEqual(1);
       expect(filteredItems[0].name).toEqual('bar');
     });
 
     it('should filter by description', function () {
-      var filteredItems = this.instance.filterItems('qux').getItems();
+      var filteredItems = this.instance.filterItemsByText('qux').getItems();
       expect(filteredItems.length).toEqual(1);
       expect(filteredItems[0].description.value).toEqual('qux');
     });
 
     it('should filter by subItems', function () {
-      var filteredItems = this.instance.filterItems('two').getItems();
+      var filteredItems = this.instance.filterItemsByText('two').getItems();
       expect(filteredItems.length).toEqual(2);
       expect(filteredItems[0].subItems).toEqual(['one', 'two']);
       expect(filteredItems[1].subItems).toEqual(['two', 'three']);
@@ -167,7 +205,78 @@ describe('List', function () {
         }
       };
       var list = new List({items, filterProperties});
-      expect(list.filterItems.bind(list, 'foo')).not.toThrow();
+      expect(list.filterItemsByText.bind(list, 'foo')).not.toThrow();
+    });
+
+    it('should use provided filter properties', function () {
+      var filterProperties = {
+        description: function (item, prop) {
+          return item[prop] && item[prop].label;
+        }
+      };
+      var filteredItems = this.instance
+        .filterItemsByText('corge', filterProperties)
+        .getItems();
+      expect(filteredItems[0].name).toEqual('foo');
+    });
+
+  });
+
+  describe('#findItem', function () {
+
+    beforeEach(function () {
+      this.instance = new List({items: [{name: 'foo'}, {name: 'bar'}]});
+    });
+
+    it('should return undefined if no matching item was found', function () {
+      expect(this.instance.findItem(function () {
+        return false;
+      })).toEqual(undefined);
+    });
+
+    it('should return matching item', function () {
+      expect(this.instance.findItem(function (item) {
+        return item.name === 'foo';
+      })).toEqual({name: 'foo'});
+    });
+
+  });
+
+  describe('#mapItems', function () {
+
+    beforeEach(function () {
+      this.instance = new List({items: [{name: 'foo'}, {name: 'bar'}]});
+    });
+
+    it('should return an instance of List', function () {
+      var list = this.instance.mapItems(function (item) {
+        return item;
+      });
+      expect(list instanceof List).toEqual(true);
+    });
+
+    it('should apply callback to all items', function () {
+      var items = this.instance.mapItems(function (item) {
+        return {name: item.name.toUpperCase()};
+      }).getItems();
+      expect(items[0].name).toEqual('FOO');
+      expect(items[1].name).toEqual('BAR');
+    });
+
+  });
+
+  describe('#reduceItems', function () {
+
+    beforeEach(function () {
+      this.instance = new List({items: [{name: 'foo'}, {name: 'bar'}]});
+    });
+
+    it('should reduce all items to a value', function () {
+      var expectedValue = this.instance.reduceItems(
+        function (previousValue, currentValue) {
+          return previousValue + currentValue.name;
+        }, '');
+      expect(expectedValue).toEqual('foobar');
     });
 
   });

@@ -211,7 +211,7 @@ var NodesGridView = React.createClass({
     var state = this.state;
 
     var classSet = classNames({
-      'nodes-grid-legend': true,
+      'side-list nodes-grid-legend': true,
       'disabled': !state.showServices
     });
 

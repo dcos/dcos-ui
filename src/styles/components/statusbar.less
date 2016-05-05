@@ -1,0 +1,68 @@
+.status-bar {
+
+  display: inline-flex;
+  background-color: @gray;
+  margin-right: 0;
+  height: @status-bar-height;
+  width: @status-bar-width;
+  max-width: 100%;
+
+  .bar {
+
+    background-color: currentColor;
+    border-left: 1px solid @black;
+
+    &:first-child {
+
+      border-left: none;
+
+    }
+  }
+}
+
+.status-bar-wrapper {
+
+  display: inline-block;
+
+  .running-state {
+
+    color: @white;
+
+  }
+
+  .deploying-state {
+
+    color: @yellow;
+
+  }
+}
+
+
+
+& when (@table-enabled) {
+
+  .table {
+
+    .status-bar-column {
+
+      width: 138px;
+
+    }
+
+  }
+
+  @media (min-width: @screen-medium-max) {
+
+    .table {
+
+      .status-bar-column {
+
+        width: 330px;
+
+      }
+
+    }
+
+  }
+
+}

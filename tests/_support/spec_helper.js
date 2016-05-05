@@ -15,6 +15,16 @@ Cypress.addParentCommand('configureCluster', function (configuration) {
       .route(/state/, 'fx:marathon-1-task/state');
   }
 
+  if (configuration.mesos === '1-for-each-health') {
+    cy
+      .route(/apps/, 'fx:1-app-for-each-health/app')
+      .route(/dcos-version/, 'fx:dcos/dcos-version')
+      .route(/history\/minute/, 'fx:marathon-1-task/history-minute')
+      .route(/history\/last/, 'fx:1-app-for-each-health/summary')
+      .route(/state-summary/, 'fx:1-app-for-each-health/summary')
+      .route(/state/, 'fx:marathon-1-task/state');
+  }
+
   if (configuration.mesos === '1-service-with-executor-task') {
     cy
       .route(/apps/, 'fx:1-service-with-executor-task/app')

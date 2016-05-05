@@ -1,18 +1,18 @@
 jest.dontMock('../../utils/StringUtil');
 jest.dontMock('../../utils/Util');
 
-let Service = require('../Service');
+let Framework = require('../Framework');
 let ServicesList = require('../ServicesList');
 
 describe('ServicesList', function () {
 
   describe('#constructor', function () {
 
-    it('creates instances of Service', function () {
+    it('creates instances of Framework', function () {
       let items = [{foo: 'bar'}];
       let list = new ServicesList({items});
       items = list.getItems();
-      expect(items[0] instanceof Service).toBeTruthy();
+      expect(items[0] instanceof Framework).toBeTruthy();
     });
 
   });
@@ -59,7 +59,7 @@ describe('ServicesList', function () {
       ];
 
       let list = new ServicesList({items});
-      let filteredList = list.filter({health: 0}).getItems();
+      let filteredList = list.filter({health: [0]}).getItems();
       expect(filteredList.length).toEqual(1);
       expect(filteredList[0].get('name')).toEqual('chronos');
     });
