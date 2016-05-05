@@ -128,6 +128,7 @@ class UpdateConfigModal extends mixin(InternalStorageMixin, StoreMixin) {
 
   getMarathonConfigurationModalContents() {
     // TODO: The marathon configuration modal content needs to be returned.
+    // JIRA Task DCOS-6639
     return null;
   }
 
@@ -180,6 +181,7 @@ class UpdateConfigModal extends mixin(InternalStorageMixin, StoreMixin) {
   getPackageConfigurationModalContents(service) {
     // TODO: The currentConfiguration needs to be populated with the package's
     // current configuration.
+    // JIRA Task DCOS-6638
     let currentConfiguration = {};
     let {name, version} = service.get('package');
     let icon = service.getIcons()['icon-small'];
