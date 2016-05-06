@@ -7,7 +7,6 @@ import {StoreMixin} from 'mesosphere-shared-reactjs';
 import AdvancedConfig from '../AdvancedConfig';
 import CosmosErrorMessage from '../CosmosErrorMessage';
 import CosmosPackagesStore from '../../stores/CosmosPackagesStore';
-import InternalStorageMixin from '../../mixins/InternalStorageMixin';
 import Service from '../../structs/Service';
 import StringUtil from '../../utils/StringUtil';
 import UniversePackage from '../../structs/UniversePackage';
@@ -21,16 +20,16 @@ const METHODS_TO_BIND = [
   'getConfigSubmit'
 ];
 
-class UpdateConfigModal extends mixin(InternalStorageMixin, StoreMixin) {
+class UpdateConfigModal extends mixin(StoreMixin) {
   constructor() {
     super(...arguments);
 
-    this.internalStorage_set({
+    this.state = {
       hasFormErrors: false,
       updateError: null,
       pendingRequest: false,
       updateSuccess: false
-    });
+    };
 
     this.store_listeners = [{
       name: 'cosmosPackages',
@@ -46,26 +45,23 @@ class UpdateConfigModal extends mixin(InternalStorageMixin, StoreMixin) {
   }
 
   onCosmosPackagesStoreInstallError(error) {
-    this.internalStorage_update({
+    this.setState({
       updateError: error,
       pendingRequest: false,
       updateSuccess: false
     });
-    this.forceUpdate();
   }
 
   onCosmosPackagesStoreInstallSuccess() {
-    this.internalStorage_update({
+    this.setState({
       updateError: null,
       pendingRequest: false,
       updateSuccess: true
     });
-    this.forceUpdate();
   }
 
   handleAdvancedFormChange(formData) {
-    this.internalStorage_update({hasFormErrors: !formData.isValidated});
-    this.forceUpdate();
+    this.setState({hasFormErrors: !formData.isValidated});
   }
 
   handleConfigSave() {
@@ -76,19 +72,16 @@ class UpdateConfigModal extends mixin(InternalStorageMixin, StoreMixin) {
 
     if (isValidated) {
       CosmosPackagesStore.installPackage(name, version, model);
+      this.setState({pendingRequest: true});
     }
-
-    this.internalStorage_update({pendingRequest: true});
-    this.forceUpdate();
   }
 
   handleErrorConfigEditClick() {
-    this.internalStorage_update({updateError: null});
-    this.forceUpdate();
+    this.setState({updateError: null});
   }
 
   handleModalClose() {
-    this.internalStorage_update({
+    this.setState({
       pendingRequest: false,
       updateError: null,
       updateSuccess: false
@@ -101,7 +94,7 @@ class UpdateConfigModal extends mixin(InternalStorageMixin, StoreMixin) {
   }
 
   getUpdateErrorContent() {
-    let {updateError} = this.internalStorage_get();
+    let {updateError} = this.state;
 
     return (
       <CosmosErrorMessage
@@ -113,7 +106,7 @@ class UpdateConfigModal extends mixin(InternalStorageMixin, StoreMixin) {
   }
 
   getModalContents() {
-    let {updateError, updateSuccess} = this.internalStorage_get();
+    let {updateError, updateSuccess} = this.state;
     let {servicePackage} = this.props;
 
     if (!servicePackage) {
@@ -142,8 +135,8 @@ class UpdateConfigModal extends mixin(InternalStorageMixin, StoreMixin) {
   }
 
   getPackageConfigurationModalFooter() {
-    let {hasFormErrors, pendingRequest,
-      updateError, updateSuccess} = this.internalStorage_get();
+    let {hasFormErrors, pendingRequest, updateError,
+      updateSuccess} = this.state;
 
     if (updateError) {
       return (
@@ -197,8 +190,12 @@ class UpdateConfigModal extends mixin(InternalStorageMixin, StoreMixin) {
     let schema = service.get('config');
 
     return (
-      <AdvancedConfig model={currentConfiguration} packageIcon={icon}
-        packageName={name} packageVersion={version} schema={schema}
+      <AdvancedConfig
+        model={currentConfiguration}
+        packageIcon={icon}
+        packageName={name}
+        packageVersion={version}
+        schema={schema}
         onChange={this.handleAdvancedFormChange}
         getTriggerSubmit={this.getConfigSubmit} />
     );
@@ -208,7 +205,7 @@ class UpdateConfigModal extends mixin(InternalStorageMixin, StoreMixin) {
     let {servicePackage} = this.props;
 
     let notes = Util.findNestedPropertyInObject(
-      servicePackage.get('package'),
+      servicePackage.getPackage(),
       'postInstallNotes'
     );
 
@@ -225,7 +222,7 @@ class UpdateConfigModal extends mixin(InternalStorageMixin, StoreMixin) {
   }
 
   render() {
-    let {updateError, updateSuccess} = this.internalStorage_get();
+    let {updateError, updateSuccess} = this.state;
 
     let modalClasses = classNames('modal', {
       'modal-large': updateError == null && !updateSuccess,
