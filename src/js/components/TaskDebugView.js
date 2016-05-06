@@ -166,7 +166,7 @@ class TaskDebugView extends React.Component {
       let name = item.getName();
 
       let classes = classNames({
-        'button button-stroke': true,
+        'button button-stroke button-inverse': true,
         'active': name === selectedName
       });
 
@@ -229,7 +229,7 @@ class TaskDebugView extends React.Component {
 
     return (
       <Dropdown
-        buttonClassName="button dropdown-toggle"
+        buttonClassName="button button-inverse dropdown-toggle"
         dropdownMenuClassName="dropdown-menu"
         dropdownMenuListClassName="dropdown-menu-list"
         dropdownMenuListItemClassName="clickable"
@@ -266,11 +266,11 @@ class TaskDebugView extends React.Component {
     }
 
     return (
-      <div className="button-group button-group-directions">
+      <div className="button-group button-group-directions button-inverse">
         <div onClick={this.changeWatching.bind(this, 'previous')}
-          className="button button-default button-up-arrow button-stroke" />
+          className="button button-default button-up-arrow button-stroke button-inverse" />
         <div onClick={this.changeWatching.bind(this, 'next')}
-          className="button button-default button-down-arrow button-stroke" />
+          className="button button-default button-down-arrow button-stroke  button-inverse" />
       </div>
     );
   }
@@ -300,12 +300,12 @@ class TaskDebugView extends React.Component {
             searchString={this.state.searchString}
             sideText={this.getSearchCount()}
             handleFilterChange={this.handleSearchStringChange}
-            inverseStyle={false}
+            inverseStyle={true}
             inputContainerClass={inputContainerClassSet} />
           {this.getSearchButtons()}
           {this.getSelectionComponent(selectedLogFile)}
           <a
-            className="button button-stroke"
+            className="button button-stroke button-inverse"
             disabled={!filePath}
             href={TaskDirectoryActions.getDownloadURL(task.slave_id, filePath)}>
             <IconDownload />
