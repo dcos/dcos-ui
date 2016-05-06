@@ -62,9 +62,7 @@ class ServiceOptions extends mixin(StoreMixin) {
     this.setState({editConfigModalOpen: false});
   }
 
-  render() {
-    let {service} = this.props;
-
+  getServiceOptionButtons(service) {
     let editButtonClasses = classNames('button button-inverse button-stroke', {
       'disabled': !this.state.packageFetched
     });
@@ -85,9 +83,15 @@ class ServiceOptions extends mixin(StoreMixin) {
       );
     }
 
+    return buttons;
+  }
+
+  render() {
+    let {service} = this.props;
+
     return (
       <div className="button-collection flush-bottom">
-        {buttons}
+        {this.getServiceOptionButtons(service)}
       </div>
     );
   }
