@@ -73,7 +73,7 @@ describe('Installed Packages Tab', function () {
     });
   });
 
-  it('displays error in modal after uninstall causes an error', function () {
+  xit('displays error in modal after uninstall causes an error', function () {
     cy
       .route({
         method: 'POST',
@@ -92,7 +92,7 @@ describe('Installed Packages Tab', function () {
       .should('contain', 'Could not uninstall repository, just because...');
   });
 
-  it('displays generic error in modal if no message is provided', function () {
+  xit('displays generic error in modal if no message is provided', function () {
     cy
       .route({
         method: 'POST',
