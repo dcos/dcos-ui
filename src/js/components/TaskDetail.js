@@ -132,8 +132,7 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
       );
       return (
         <div key={resource} className="
-          side-panel-resource-container
-          flex-box-align-vertical-center
+          column-mini-2
           container-pod
           container-pod-super-short
           flush-top">
