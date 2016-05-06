@@ -20,6 +20,7 @@ var Config = {
   setInactiveAfter: 30000,
   testHistoryInterval: 10000,
   rootUrl: '',
+  servicePlanAPIPath: '/v1/plan',
   stateLoadDelay: 1000,
   slackChannel: 'https://dcos-community.slack.com/messages/general/',
   stateRefresh: 2000,
