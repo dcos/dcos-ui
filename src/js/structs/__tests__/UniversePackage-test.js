@@ -87,4 +87,13 @@ describe('UniversePackage', function () {
       expect(pkg.getMaintainer()).toEqual(null);
     });
   });
+
+  describe('#getPackage', function () {
+
+    it('returns correct package', function () {
+      let service = new UniversePackage({package: {foo: 'bar', bar: 'baz'}});
+      expect(service.getPackage()).toEqual({foo: 'bar', bar: 'baz'});
+    });
+
+  });
 });
