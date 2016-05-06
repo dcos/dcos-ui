@@ -1,0 +1,48 @@
+{
+  "errors": [],
+  "phases": [
+    {
+      "blocks": [
+        {
+          "has_decision_point": false,
+          "id": "5f0229a6-869c-4e14-ad7e-d6bd862a0af9",
+          "message": "Reconciliation complete",
+          "name": "Reconciliation",
+          "status": "Complete"
+        }
+      ],
+      "id": "996f0818-94ab-4e42-be71-bd4b637e0711",
+      "name": "Reconciliation",
+      "status": "Complete"
+    },
+    {
+      "blocks": [
+        {
+          "has_decision_point": false,
+          "id": "90721c21-5894-4a4c-a0ee-e4fd6ee373f4",
+          "message": "Broker-0 is Complete",
+          "name": "broker-0",
+          "status": "Complete"
+        },
+        {
+          "has_decision_point": false,
+          "id": "0f9bf662-b9b5-468b-a2ad-49957a7ad96d",
+          "message": "Broker-1 is InProgress",
+          "name": "broker-1",
+          "status": "InProgress"
+        },
+        {
+          "has_decision_point": false,
+          "id": "4bd66559-b719-46f1-bc7b-3366a875db29",
+          "message": "Broker-2 is Pending",
+          "name": "broker-2",
+          "status": "Pending"
+        }
+      ],
+      "id": "59a843b3-e4e7-4a2d-b77b-803bb704a52a",
+      "name": "Update to: 0ca3aed4-02f1-4175-8399-61e98676a8d7",
+      "status": "InProgress"
+    }
+  ],
+  "status": "InProgress"
+}
