@@ -6,6 +6,7 @@ import HostTable from '../components/HostTable';
 import NodesPage from '../pages/NodesPage';
 import NodesGridView from '../components/NodesGridView';
 import NodeDetailPage from '../pages/nodes/NodeDetailPage';
+import TaskDetail from '../components/TaskDetail';
 
 let nodesRoutes = {
   type: Route,
@@ -45,12 +46,8 @@ let nodesRoutes = {
         {
           type: Route,
           name: 'nodes-task-panel',
-          path: 'task-detail/:taskID/?'
-        },
-        {
-          type: Route,
-          name: 'node-detail-tasks',
-          path: 'task-detail/:taskID/?'
+          path: 'task-detail/:taskID/?',
+          handler: TaskDetail
         },
         {
           type: Route,

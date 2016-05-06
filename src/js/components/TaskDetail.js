@@ -5,7 +5,6 @@ import React from 'react';
 /* eslint-enable no-unused-vars */
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
-import CompositeState from '../structs/CompositeState';
 import DescriptionList from './DescriptionList';
 import MarathonStore from '../stores/MarathonStore';
 import MesosStateStore from '../stores/MesosStateStore';

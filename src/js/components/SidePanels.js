@@ -100,16 +100,7 @@ class SidePanels extends mixin(StoreMixin) {
       return null;
     }
 
-    let {serviceName, taskID} = itemIDs;
-
-    // if (taskID != null) {
-    //   return (
-    //     <TaskSidePanelContents
-    //       handlePanelSizeChange={this.handlePanelSizeChange}
-    //       itemID={taskID}
-    //       parentRouter={this.context.router} />
-    //   );
-    // }
+    let {serviceName} = itemIDs;
 
     if (serviceName != null) {
       return (

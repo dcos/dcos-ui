@@ -221,6 +221,10 @@ class NodeDetailPage extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) 
       );
     }
 
+    if (this.props.params.taskID) {
+      return <RouteHandler />;
+    }
+
     return (
       <Page title="Nodes">
         <div className="container container-fluid flush breadcrumbs">
@@ -242,7 +246,6 @@ class NodeDetailPage extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) 
           <SidePanels
             params={this.props.params}
             openedPage="nodes" />
-          <RouteHandler />
         </div>
       </Page>
     );
