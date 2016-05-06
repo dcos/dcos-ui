@@ -28,7 +28,16 @@ module.exports = Object.assign({}, webpackConfig, {
     filename: 'index.js'
   },
   devServer: {
-    proxy: proxy
+    proxy: proxy,
+    stats: {
+      assets: false,
+      colors: true,
+      version: false,
+      hash: false,
+      timings: true,
+      chunks: true,
+      chunkModules: false
+    }
   },
   plugins: [
     new StringReplacePlugin(),
