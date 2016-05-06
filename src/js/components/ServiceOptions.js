@@ -6,6 +6,7 @@ import {StoreMixin} from 'mesosphere-shared-reactjs';
 import CosmosPackagesStore from '../stores/CosmosPackagesStore';
 import Framework from '../structs/Framework';
 import Service from '../structs/Service';
+import UpdateConfigModal from './modals/UpdateConfigModal'
 
 const METHODS_TO_BIND = [
   'handleEditConfigClick',
@@ -63,14 +64,19 @@ class ServiceOptions extends mixin(StoreMixin) {
   }
 
   getServiceOptionButtons(service) {
+    let {props, state} = this;
+
     let editButtonClasses = classNames('button button-inverse button-stroke', {
-      'disabled': !this.state.packageFetched
+      'disabled': !state.packageFetched
     });
 
     let buttons = [
       <a className={editButtonClasses} key="edit-config"
         onClick={this.handleEditConfigClick}>
         Edit
+        <UpdateConfigModal open={state.editConfigModalOpen}
+          onClose={this.handleConfigModalClose} service={props.service}
+          servicePackage={CosmosPackagesStore.getPackageDetails()} />
       </a>
     ];
 
