@@ -12,6 +12,7 @@ import MesosSummaryStore from '../stores/MesosSummaryStore';
 import ResourceTypes from '../constants/ResourceTypes';
 import RequestErrorMsg from './RequestErrorMsg';
 import ServicesBreadcrumb from './ServicesBreadcrumb';
+import PageHeader from './PageHeader';
 import TaskDebugView from './TaskDebugView';
 import TaskDirectoryView from './TaskDirectoryView';
 import TaskDirectoryStore from '../stores/TaskDirectoryStore';
@@ -156,40 +157,32 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
     });
   }
 
-  getBasicInfo(task, node) {
+  getBasicInfo(task) {
     // Hide when no task or when we are viewing debug tab
     if (task == null || this.state.currentTab === 'debug') {
       return null;
     }
 
-    let statusIcon = TaskUtil.getTaskStatusIcon(task);
-    let statusClassName = `${TaskUtil.getTaskStatusClassName(task)} side-panel-subheader`;
+    let taskIcon = (
+      <div
+        className="icon icon-large icon-image-container icon-app-container">
+        <img src={task.getImages()['icon-large']} />
+      </div>
+    );
+
+    let tabs = (
+      <ul className="tabs list-inline flush-bottom inverse">
+        {this.tabs_getUnroutedTabs()}
+      </ul>
+    );
 
     return (
-      <div className="detail-page-header">
-        <h1 className="inverse flush">
-          {task.id}
-        </h1>
-        <div className="media-object-spacing-wrapper media-object-spacing-narrow media-object-offset">
-          <div className="media-object media-object-align-middle">
-            <div className="media-object-item">
-              {statusIcon}
-            </div>
-
-            <div className="media-object-item">
-              <span className={statusClassName}>
-                {TaskStates[task.state].displayName}
-              </span>
-            </div>
-
-            <div className="media-object-item">
-              <span className="side-panel-subheader side-panel-subheader-emphasize">
-                {node.hostname}
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
+      <PageHeader
+        icon={taskIcon}
+        subTitle={TaskStates[task.state].displayName}
+        navigationTabs={tabs}
+        mediaWrapperClassName="media-object-spacing-wrapper"
+        title={task.getId()} />
     );
   }
 
