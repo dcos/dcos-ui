@@ -40,11 +40,10 @@ class ServiceOptions extends mixin(InternalStorageMixin, StoreMixin) {
 
   componentDidMount() {
     super.componentDidMount(...arguments);
+    let service = this.props.service;
 
-    if (this.props.service instanceof Framework) {
-      let serviceMetadata = this.props.service.getMetadata();
-      let {name, version} = serviceMetadata;
-
+    if (service instanceof Framework) {
+      let {name, version} = service.getMetadata();
       CosmosPackagesStore.fetchPackageDescription(name, version);
     }
   }
