@@ -3,6 +3,18 @@ let List = require('../List');
 
 describe('List', function () {
 
+  beforeEach(function () {
+    this.Thing = class Thing {
+      constructor(value) {
+        if (value instanceof Thing) {
+          throw Error('Tried to re-instantiate a ThingList item');
+        }
+      }
+    };
+    this.ThingList = class ThingList extends List {};
+    this.ThingList.type = this.Thing;
+  });
+
   describe('#constructor', function () {
 
     it('defaults the list to an empty array', function () {
@@ -21,6 +33,18 @@ describe('List', function () {
       };
 
       expect(fn).toThrow();
+    });
+
+    it('enforces type, if specified', function () {
+      let {Thing, ThingList} = this;
+      let thingList = new ThingList({items: [{}]});
+      expect(thingList.last()).toEqual(jasmine.any(Thing));
+    });
+
+    it('does not re-cast items of the correct type', function () {
+      let {Thing, ThingList} = this;
+      // If re-cast, an error will be thrown
+      new ThingList({items: [new Thing({})]});
     });
 
   });
@@ -45,6 +69,20 @@ describe('List', function () {
       list.add(1);
       list.add(2);
       expect(list.getItems()).toEqual([0, 1, 2]);
+    });
+
+    it('enforces type, if specified', function () {
+      let {Thing, ThingList} = this;
+      let thingList = new ThingList();
+      thingList.add({});
+      expect(thingList.last()).toEqual(jasmine.any(Thing));
+    });
+
+    it('does not re-cast items of the correct type', function () {
+      let {Thing, ThingList} = this;
+      let thingList = new ThingList();
+      // If re-cast, an error will be thrown
+      thingList.add(new Thing());
     });
 
   });
