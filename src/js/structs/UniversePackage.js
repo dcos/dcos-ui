@@ -43,6 +43,10 @@ class UniversePackage extends Item {
     return this.getActiveBlock() + 10;
   }
 
+  getConfig() {
+    return this.get('config');
+  }
+
   getDecisionPointCount() {
     return this.getActiveBlock() + 10;
   }

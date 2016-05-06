@@ -10,7 +10,6 @@ import CosmosPackagesStore from '../../stores/CosmosPackagesStore';
 import Service from '../../structs/Service';
 import StringUtil from '../../utils/StringUtil';
 import UniversePackage from '../../structs/UniversePackage';
-import Util from '../../utils/Util';
 
 const METHODS_TO_BIND = [
   'handleAdvancedFormChange',
@@ -105,29 +104,6 @@ class UpdateConfigModal extends mixin(StoreMixin) {
     );
   }
 
-  getModalContents() {
-    let {updateError, updateSuccess} = this.state;
-    let {servicePackage} = this.props;
-
-    if (!servicePackage) {
-      return null;
-    }
-
-    if (updateError) {
-      return this.getUpdateErrorContent();
-    }
-
-    if (updateSuccess) {
-      return this.getUpdateSuccessContent();
-    }
-
-    if (servicePackage instanceof UniversePackage) {
-      return this.getPackageConfigurationModalContents(servicePackage);
-    }
-
-    return this.getMarathonConfigurationModalContents(servicePackage);
-  }
-
   getMarathonConfigurationModalContents() {
     // TODO: The marathon configuration modal content needs to be returned.
     // JIRA Task DCOS-6639
@@ -185,9 +161,9 @@ class UpdateConfigModal extends mixin(StoreMixin) {
     // current configuration.
     // JIRA Task DCOS-6638
     let currentConfiguration = {};
-    let {name, version} = service.get('package');
+    let {name, version} = service.getPackage();
     let icon = service.getIcons()['icon-small'];
-    let schema = service.get('config');
+    let schema = service.getConfig();
 
     return (
       <AdvancedConfig
@@ -203,12 +179,7 @@ class UpdateConfigModal extends mixin(StoreMixin) {
 
   getUpdateSuccessContent() {
     let {servicePackage} = this.props;
-
-    let notes = Util.findNestedPropertyInObject(
-      servicePackage.getPackage(),
-      'postInstallNotes'
-    );
-
+    let notes = servicePackage.getPostInstallNotes();
     let parsedNotes = StringUtil.parseMarkdown(notes);
 
     return (
@@ -219,6 +190,29 @@ class UpdateConfigModal extends mixin(StoreMixin) {
           dangerouslySetInnerHTML={parsedNotes} />
       </div>
     );
+  }
+
+  getModalContents() {
+    let {updateError, updateSuccess} = this.state;
+    let {servicePackage} = this.props;
+
+    if (!servicePackage) {
+      return null;
+    }
+
+    if (updateError) {
+      return this.getUpdateErrorContent();
+    }
+
+    if (updateSuccess) {
+      return this.getUpdateSuccessContent();
+    }
+
+    if (servicePackage instanceof UniversePackage) {
+      return this.getPackageConfigurationModalContents(servicePackage);
+    }
+
+    return this.getMarathonConfigurationModalContents(servicePackage);
   }
 
   render() {
@@ -248,7 +242,15 @@ class UpdateConfigModal extends mixin(StoreMixin) {
   }
 }
 
+UpdateConfigModal.defaultProps = {
+  onClose: function () {},
+  open: false
+};
+
 UpdateConfigModal.propTypes = {
+  onClose: React.PropTypes.func,
+  open: React.PropTypes.bool,
+  servicePackage: React.PropTypes.instanceOf(UniversePackage),
   service: React.PropTypes.instanceOf(Service).isRequired
 };
 
