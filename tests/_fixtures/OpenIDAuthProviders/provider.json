@@ -1,0 +1,8 @@
+{
+  "description": "Google",
+  "providerID": "google-oidc",
+  "client_id": "google client id",
+  "client_secret": "not a secret",
+  "redirect_uri": "http://cluster.com/callback",
+  "issuer": "the issuer"
+}
