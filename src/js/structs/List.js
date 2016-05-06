@@ -2,6 +2,25 @@ import Item from './Item';
 import StringUtil from '../utils/StringUtil';
 import Util from '../utils/Util';
 
+/**
+ * Cast an item to the List's type, if specified.
+ *
+ * Note that cast must be bound to the List's context in order to access
+ * its `type` property.
+ *
+ * @param {Object} item
+ * @access private
+ * @memberOf List
+ * @return {Object} item, cast if list is typed.
+ */
+function cast(item) {
+  let Type = this.constructor.type;
+  if (Type != null && !(item instanceof Type)) {
+    return new Type(item);
+  }
+  return item;
+}
+
 module.exports = class List {
   /**
    * List
@@ -9,6 +28,7 @@ module.exports = class List {
    *          items:array,
    *          filterProperties:{propertyName:(null|function)}
    *        }} options
+   * @property {Class} type - the type of list items
    * @constructor
    * @struct
    */
@@ -19,14 +39,14 @@ module.exports = class List {
       if (!Util.isArray(options.items)) {
         throw new Error('Expected an array.');
       }
-      this.list = options.items;
+      this.list = options.items.map(cast.bind(this));
     }
 
     this.filterProperties = options.filterProperties || {};
   }
 
   add(item) {
-    this.list.push(item);
+    this.list.push(cast.call(this, item));
   }
 
   getItems() {
