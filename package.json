@@ -96,18 +96,18 @@
   },
   "scripts": {
     "clean": "rm -rf dist",
-    "build": "npm run clean && npm run lint && npm test && npm run build-assets",
-    "build-with-external-plugins": "npm run clean && npm run lint && npm run lint-plugins && npm test && npm run build-assets",
+    "build-assets": "npm run clean && NODE_ENV=production webpack --config ./webpack/webpack.production.babel.js",
+    "build": "npm run lint && npm test && npm run build-assets",
+    "build-with-external-plugins": "npm run lint && npm run lint-plugins && npm test && npm run build-assets",
     "lint": "./node_modules/.bin/eslint '**/*.js' --quiet",
-    "lint-plugins": "PLUGINS=$npm_config_externalplugins; ./node_modules/.bin/eslint \"$PLUGINS/**/*.js\" --quiet",
+    "lint-plugins": "PLUGINS=$npm_config_externalplugins ./node_modules/.bin/eslint \"$PLUGINS/**/*.js\" --quiet",
     "prebuild": "./scripts/validate-tests",
-    "serve": "NODE_ENV='development' npm run build-assets && ./node_modules/.bin/gulp serve",
+    "serve": "npm run build-assets && ./node_modules/.bin/gulp serve",
     "serve-notify": "export NOTIFY=true && npm run serve",
     "scaffold": "./node_modules/.bin/gulp ensureConfig && ./node_modules/.bin/gulp ensureDevProxy",
-    "start": "PORT=$npm_package_config_port; NODE_ENV='development' webpack-dev-server --config ./webpack/webpack.dev.babel.js --hot --progress --colors --content-base ./build --port $PORT",
+    "start": "NODE_ENV=development webpack-dev-server --config ./webpack/webpack.dev.babel.js --hot --progress --colors --content-base ./build --port $npm_package_config_port",
     "test": "node jest/gen-config.js && NODE_PATH=node_modules jest --config=jest/config.json --no-cache",
-    "testing": "NODE_ENV='testing' npm run build-assets && ./node_modules/.bin/gulp serve",
-    "build-assets": "NODE_ENV='production' webpack --config ./webpack/webpack.production.babel.js"
+    "testing": "NODE_ENV=testing webpack-dev-server --config ./webpack/webpack.dev.babel.js --progress --colors --content-base ./build --port $npm_package_config_port"
   },
   "jest-webpack-alias": {
     "configFile": "./webpack/webpack.test.js"
