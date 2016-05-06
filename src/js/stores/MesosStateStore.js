@@ -12,6 +12,7 @@ import {
 var GetSetMixin = require('../mixins/GetSetMixin');
 var MesosStateActions = require('../events/MesosStateActions');
 var MesosStateUtil = require('../utils/MesosStateUtil');
+import Task from '../structs/Task';
 import VisibilityStore from './VisibilityStore';
 
 var requestInterval = null;
@@ -138,7 +139,7 @@ var MesosStateStore = Store.createStore({
       return foundTask;
     });
 
-    return foundTask;
+    return new Task(foundTask);
   },
 
   getSchedulerTaskFromServiceName: function (serviceName) {
