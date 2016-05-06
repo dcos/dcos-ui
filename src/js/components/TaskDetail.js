@@ -131,18 +131,14 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
         resource, task.resources[resource]
       );
       return (
-        <div key={resource} className="
-          column-mini-2
-          container-pod
-          container-pod-super-short
-          flush-top">
+        <div key={resource} className="media-object-item">
           <div className="media-object-spacing-wrapper media-object-spacing-narrow media-object-offset">
             <div className="media-object media-object-align-middle">
               <div className="media-object-item">
                 <i className={resourceIconClasses}></i>
               </div>
               <div className="media-object-item">
-                <h4 className="flush-top flush-bottom text-color-neutral">
+                <h4 className="flush-top flush-bottom inverse">
                   {resourceValue}
                 </h4>
                 <span className={`side-panel-resource-label
@@ -220,8 +216,10 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
 
     return (
       <div className="container container-fluid flush">
-        <div className="container container-fluid flush">
-          {this.getResources(task)}
+        <div className="media-object-spacing-wrapper container-pod container-pod-super-short flush-top">
+          <div className="media-object">
+            {this.getResources(task)}
+          </div>
         </div>
         <DescriptionList
           className="container container-fluid flush container-pod container-pod-super-short flush-top"
@@ -327,6 +325,7 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
       <div className="flex-container-col">
         <ServicesBreadcrumb serviceTreeItem={service} />
         {this.getExpandButton()}
+        {this.getBasicInfo(task, node)}
         {this.tabs_getTabView()}
       </div>
     );
