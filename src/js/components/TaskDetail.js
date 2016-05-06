@@ -166,33 +166,28 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
     let statusClassName = `${TaskUtil.getTaskStatusClassName(task)} side-panel-subheader`;
 
     return (
-      <div>
-        <div className="detail-page-header">
-          <h1 className="inverse flush">
-            {task.id}
-          </h1>
-          <div className="media-object-spacing-wrapper media-object-spacing-narrow media-object-offset">
-            <div className="media-object media-object-align-middle">
-              <div className="media-object-item">
-                {statusIcon}
-              </div>
+      <div className="detail-page-header">
+        <h1 className="inverse flush">
+          {task.id}
+        </h1>
+        <div className="media-object-spacing-wrapper media-object-spacing-narrow media-object-offset">
+          <div className="media-object media-object-align-middle">
+            <div className="media-object-item">
+              {statusIcon}
+            </div>
 
-              <div className="media-object-item">
-                <span className={statusClassName}>
-                  {TaskStates[task.state].displayName}
-                </span>
-              </div>
+            <div className="media-object-item">
+              <span className={statusClassName}>
+                {TaskStates[task.state].displayName}
+              </span>
+            </div>
 
-              <div className="media-object-item">
-                <span className="side-panel-subheader side-panel-subheader-emphasize">
-                  {node.hostname}
-                </span>
-              </div>
+            <div className="media-object-item">
+              <span className="side-panel-subheader side-panel-subheader-emphasize">
+                {node.hostname}
+              </span>
             </div>
           </div>
-        </div>
-        <div className="container container-pod container-pod-short container-fluid flush">
-          {this.getResources(task)}
         </div>
       </div>
     );
@@ -232,6 +227,9 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
 
     return (
       <div className="container container-fluid flush">
+        <div className="container container-fluid flush">
+          {this.getResources(task)}
+        </div>
         <DescriptionList
           className="container container-fluid flush container-pod container-pod-super-short flush-top"
           hash={headerValueMapping}
@@ -329,9 +327,6 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
     if (task == null) {
       return this.getNotFound('task');
     }
-    // // console.log(task.framework_id, services, service.getId());
-    // // console.log(service.getId());
-    // console.log(MarathonStore.get('groups'));
 
     let node = MesosStateStore.getNodeFromID(task.slave_id);
     let panelClasses = classNames({
