@@ -12,7 +12,7 @@ xdescribe('Install Package Modal', function () {
       .click();
   });
 
-  it('displays install modal for package', function () {
+  xit('displays install modal for package', function () {
     cy
       .get('.modal .modal-content')
       .should('contain', 'marathon');
