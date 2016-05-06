@@ -5,7 +5,6 @@ import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import CosmosPackagesStore from '../stores/CosmosPackagesStore';
 import Framework from '../structs/Framework';
-import InternalStorageMixin from '../mixins/InternalStorageMixin';
 import Service from '../structs/Service';
 
 const METHODS_TO_BIND = [
@@ -13,17 +12,14 @@ const METHODS_TO_BIND = [
   'handleConfigModalClose'
 ];
 
-class ServiceOptions extends mixin(InternalStorageMixin, StoreMixin) {
+class ServiceOptions extends mixin(StoreMixin) {
   constructor() {
     super(...arguments);
 
     this.state = {
-      editConfigModalOpen: false
+      editConfigModalOpen: false,
+      packageFetched: false
     };
-
-    this.internalStorage_set({
-      servicePackage: null
-    });
 
     this.store_listeners = [{
       name: 'cosmosPackages',
@@ -49,21 +45,15 @@ class ServiceOptions extends mixin(InternalStorageMixin, StoreMixin) {
   }
 
   onCosmosPackagesStoreDescriptionError() {
-    this.internalStorage_update({servicePackage: null});
-    this.forceUpdate();
+    this.setState({packageFetched: false});
   }
 
   onCosmosPackagesStoreDescriptionSuccess() {
-    this.internalStorage_update({
-      servicePackage: CosmosPackagesStore.getPackageDetails()
-    });
-    this.forceUpdate();
+    this.setState({packageFetched: true});
   }
 
   handleEditConfigClick() {
-    let {servicePackage} = this.internalStorage_get();
-
-    if (servicePackage != null) {
+    if (CosmosPackagesStore.getPackageDetails() != null) {
       this.setState({editConfigModalOpen: true});
     }
   }
@@ -74,10 +64,9 @@ class ServiceOptions extends mixin(InternalStorageMixin, StoreMixin) {
 
   render() {
     let {service} = this.props;
-    let {servicePackage} = this.internalStorage_get();
 
     let editButtonClasses = classNames('button button-inverse button-stroke', {
-      'disabled': servicePackage == null
+      'disabled': !this.state.packageFetched
     });
 
     let buttons = [
