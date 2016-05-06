@@ -5,6 +5,15 @@ var UniversePackage = require('../UniversePackage');
 
 describe('UniversePackage', function () {
 
+  describe('#getConfig', function () {
+
+    it('returns correct config', function () {
+      let service = new UniversePackage({config: {foo: 'bar', bar: 'baz'}});
+      expect(service.getConfig()).toEqual({foo: 'bar', bar: 'baz'});
+    });
+
+  });
+
   describe('#getIcons', function () {
 
     it('returns a hash of icons', function () {
