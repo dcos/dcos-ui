@@ -83,6 +83,10 @@ class UniversePackage extends Item {
     );
   }
 
+  getPackage() {
+    return this.get('package');
+  }
+
   getPreinstallNotes() {
     return Util.findNestedPropertyInObject(
       this.get('package'),
