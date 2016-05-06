@@ -322,21 +322,11 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
     }
 
     let node = MesosStateStore.getNodeFromID(task.slave_id);
-    let panelClasses = classNames({
-      'container container-fluid container-pod container-pod-short container-pod-super-short-top flush': true,
-      'container-pod-short': this.state.currentTab === 'debug'
-    });
 
     return (
       <div className="flex-container-col">
         <ServicesBreadcrumb serviceTreeItem={service} />
         {this.getExpandButton()}
-        <div className={panelClasses}>
-          {this.getBasicInfo(task, node)}
-          <ul className="tabs list-inline flush-bottom inverse">
-            {this.tabs_getUnroutedTabs()}
-          </ul>
-        </div>
         {this.tabs_getTabView()}
       </div>
     );
