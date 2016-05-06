@@ -1,4 +1,4 @@
-describe('Install Package Modal', function () {
+xdescribe('Install Package Modal', function () {
 
   beforeEach(function () {
     cy

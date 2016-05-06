@@ -33,7 +33,7 @@ describe('Package Detail Tab', function () {
       .should('contain', 'Apache License Version 2.0: https://github.com/mesosphere/marathon/blob/master/LICENSE');
   });
 
-  it('displays image in the image viewer', function () {
+  xit('displays image in the image viewer', function () {
     cy
       .get('.media-object-item-fill-image.image-rounded-corners.clickable')
       .eq(4)
@@ -44,7 +44,7 @@ describe('Package Detail Tab', function () {
       .should('have.attr', 'src', 'http://www.clker.com/cliparts/0/f/d/b/12917289761851255679earth-map-huge.jpg');
   });
 
-  it('changes image in the image viewer by clicking left arrow', function () {
+  xit('changes image in the image viewer by clicking left arrow', function () {
     cy
       .get('.media-object-item-fill-image.image-rounded-corners.clickable')
       .eq(4)
@@ -60,7 +60,7 @@ describe('Package Detail Tab', function () {
       .should('have.attr', 'src', 'https://mesosphere.com/wp-content/themes/mesosphere/library/images/assets/marathon-0.6.0/mesosphere-marathon-app-list.png');
   });
 
-  it('changes image in the image viewer by clicking right arrow', function () {
+  xit('changes image in the image viewer by clicking right arrow', function () {
     cy
       .get('.media-object-item-fill-image.image-rounded-corners.clickable')
       .eq(4)
