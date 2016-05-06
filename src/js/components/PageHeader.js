@@ -48,7 +48,7 @@ class PageHeader extends React.Component {
       return null;
     }
 
-    return (<div>{subTitle}</div>);
+    return (<div className={this.props.subTitleClassName}>{subTitle}</div>);
   }
 
   renderActionButtons() {
@@ -66,10 +66,10 @@ class PageHeader extends React.Component {
 
   render() {
     let {
-      children,
       className,
       dividerClassName,
-      mediaWrapperClassName
+      mediaWrapperClassName,
+      navigationTabs
     } = this.props;
 
     let classes = classNames(
@@ -108,7 +108,7 @@ class PageHeader extends React.Component {
               </div>
             </div>
           </div>
-          {children}
+          {navigationTabs}
         </div>
       </div>
     );
@@ -116,12 +116,19 @@ class PageHeader extends React.Component {
 }
 
 PageHeader.defaultProps = {
-  actionButtons: []
+  actionButtons: [],
+  className: 'container container-fluid container-pod container-pod-short flush flush-top',
+  dividerClassName: 'container-pod container-pod-short flush-top flush-bottom container-pod-divider-bottom container-pod-divider-bottom-align-right container-pod-divider-inverse',
+  iconClassName: 'icon icon-large icon-image-container icon-app-container',
+  mediaWrapperClassName: 'media-object-spacing-wrapper media-object-spacing-narrow media-object-offset',
+  subTitleClassName: 'emphasize',
+  titleClassName: 'flush inverse'
 };
 
 PageHeader.propTypes = {
   actionButtons: React.PropTypes.arrayOf(React.PropTypes.element),
   icon: React.PropTypes.node,
+  navigationTabs: React.PropTypes.node,
   subTitle: React.PropTypes.node,
   title: React.PropTypes.string,
 
@@ -144,7 +151,8 @@ PageHeader.propTypes = {
   iconClassName: React.PropTypes.oneOfType([
     React.PropTypes.string,
     React.PropTypes.object,
-  ])
+  ]),
+  subTitleClassName: React.PropTypes.string,
 };
 
 module.exports = PageHeader;
