@@ -450,8 +450,7 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
               <IconCircleCheckmark />
             </span>
             <h2 className="short-top short-bottom">Success!</h2>
-            <div
-              style={{width: '100%', overflow: 'auto', wordWrap: 'break-word'}}
+            <div className="text-overflow-break-word"
               dangerouslySetInnerHTML={parsedNotes} />
           </div>
         </div>
