@@ -186,7 +186,7 @@ class UpdateConfigModal extends mixin(StoreMixin) {
       <div className="horizontal-center modal-content-inner container
         container-pod container-pod-short text-align-center">
         <h2 className="flush-top short-bottom">Success!</h2>
-        <div style={{width: '100%', overflow: 'auto', wordWrap: 'break-word'}}
+        <div className="text-overflow-break-word"
           dangerouslySetInnerHTML={parsedNotes} />
       </div>
     );
