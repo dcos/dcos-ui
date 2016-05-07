@@ -1,4 +1,3 @@
-import classNames from 'classnames';
 import mixin from 'reactjs-mixin';
 /* eslint-disable no-unused-vars */
 import React from 'react';
@@ -17,7 +16,6 @@ import TaskDebugView from './TaskDebugView';
 import TaskDirectoryView from './TaskDirectoryView';
 import TaskDirectoryStore from '../stores/TaskDirectoryStore';
 import TaskStates from '../constants/TaskStates';
-import TaskUtil from '../utils/TaskUtil';
 import Units from '../utils/Units';
 
 import InternalStorageMixin from '../mixins/InternalStorageMixin';
@@ -154,11 +152,6 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
   }
 
   getBasicInfo(task) {
-    // Hide when no task or when we are viewing debug tab
-    if (task == null || this.state.currentTab === 'debug') {
-      return null;
-    }
-
     let taskIcon = (
       <div
         className="icon icon-large icon-image-container icon-app-container">
@@ -244,12 +237,10 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
     }
 
     return (
-      <div className="container container-fluid container-pod container-pod-short flex-container-col flex-grow">
-        <TaskDirectoryView
-          directory={state.directory}
-          task={task}
-          onOpenLogClick={this.handleOpenLogClick.bind(this)} />
-      </div>
+      <TaskDirectoryView
+        directory={state.directory}
+        task={task}
+        onOpenLogClick={this.handleOpenLogClick.bind(this)} />
     );
   }
 
@@ -264,13 +255,12 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
     }
 
     return (
-      <div className="container container-fluid container-pod container-pod-short flex-container-col flex-grow flex-shrink">
-        <TaskDebugView
-          selectedLogFile={state.selectedLogFile}
-          showExpandButton={this.showExpandButton}
-          directory={state.directory}
-          task={task} />
-      </div>
+      <TaskDebugView
+        logViewClassName="inverse"
+        selectedLogFile={state.selectedLogFile}
+        showExpandButton={this.showExpandButton}
+        directory={state.directory}
+        task={task} />
     );
   }
 
