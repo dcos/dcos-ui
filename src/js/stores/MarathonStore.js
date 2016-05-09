@@ -187,6 +187,17 @@ var MarathonStore = Store.createStore({
     return new Service(this.get('apps')[serviceName].snapshot);
   },
 
+  getTaskFromTaskID: function (taskID) {
+    let service = this.getServiceFromTaskID(taskID);
+    if (service == null || service.tasks == null || !service.tasks.length) {
+      return null;
+    }
+
+    return service.tasks.find(function (task) {
+      return task.id === taskID;
+    });
+  },
+
   processMarathonGroups: function (data) {
     let groups = new ServiceTree(data);
 

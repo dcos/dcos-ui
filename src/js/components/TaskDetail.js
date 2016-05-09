@@ -175,6 +175,80 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
     );
   }
 
+  getTaskStatus(task) {
+    if (task == null || task.status == null) {
+      return 'Unknown';
+    }
+    return task.status;
+  }
+
+  getTaskEndpoints(task) {
+    let service = MarathonStore.getServiceFromTaskID(task.id);
+
+    if ((task.ports == null || task.ports.length === 0) &&
+        (task.ipAddresses == null || task.ipAddresses.length === 0)) {
+      return (<dd>None</dd>);
+    }
+
+    if (service != null &&
+        service.ipAddress != null &&
+        service.ipAddress.discovery != null &&
+        service.ipAddress.discovery.ports != null &&
+        task.ipAddresses != null &&
+        task.ipAddresses.length > 0) {
+
+      let ports = service.ipAddress.discovery.ports;
+      let endpoints = task.ipAddresses.reduce(function (memo, address) {
+        ports.forEach(port => {
+          memo.push(`${address.ipAddress}:${port.number}`);
+        });
+        return memo;
+      }, []);
+
+      if (endpoints.length) {
+        return endpoints.map(function (endpoint) {
+          return (
+            <a href={`//${endpoint}`} target="_blank">{endpoint}</a>
+          );
+        });
+      }
+
+      return 'n/a';
+    }
+
+    return task.ports.map(function (port) {
+      let endpoint = `${task.host}:${port}`;
+      return (
+        <a href={`//${endpoint}`} target="_blank">{endpoint}</a>
+      );
+    });
+  }
+
+  getMarathonTaskDetailsDescriptionList() {
+    let task = MarathonStore.getTaskFromTaskID(this.props.params.taskID);
+
+    if (task == null) {
+      return null;
+    }
+
+    let headerValueMapping = {
+      Host: task.host,
+      Ports: task.ports,
+      Endpoints: this.getTaskEndpoints(task),
+      Status: this.getTaskStatus(task),
+      'Staged at': task.stagedAt,
+      'Started at': task.startedAt,
+      Version: task.version
+    };
+
+    return (
+      <DescriptionList
+        className="container container-fluid flush container-pod container-pod-super-short flush-top"
+        hash={headerValueMapping}
+        headline="Marathon Task Configuration" />
+    );
+  }
+
   renderDetailsTabView() {
     let task = MesosStateStore.getTaskFromTaskID(this.props.params.taskID);
 
@@ -222,6 +296,7 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
           className="container container-fluid flush container-pod container-pod-super-short flush-top"
           hash={labelMapping}
           headline="Labels" />
+        {this.getMarathonTaskDetailsDescriptionList()}
       </div>
     );
   }
