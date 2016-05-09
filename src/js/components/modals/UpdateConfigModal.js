@@ -70,6 +70,9 @@ class UpdateConfigModal extends mixin(StoreMixin) {
     let {isValidated, model} = this.triggetConfigSubmit();
 
     if (isValidated) {
+      // TODO: Create the proper action for updating the configuration, as right
+      // install is not the correct option.
+      // https://mesosphere.atlassian.net/browse/DCOS-6729
       CosmosPackagesStore.installPackage(name, version, model);
       this.setState({pendingRequest: true});
     }
