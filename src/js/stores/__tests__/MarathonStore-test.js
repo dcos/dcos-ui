@@ -4,6 +4,7 @@ jest.dontMock('../MarathonStore');
 jest.dontMock('./fixtures/MockAppMetadata');
 jest.dontMock('./fixtures/MockMarathonResponse.json');
 
+import DeploymentsList from '../../structs/DeploymentsList';
 var HealthLabels = require('../../constants/HealthLabels');
 var HealthTypes = require('../../constants/HealthTypes');
 var MarathonStore = require('../MarathonStore');
@@ -174,6 +175,16 @@ describe('MarathonStore', function () {
       }
     });
 
+  });
+
+  describe('#processMarathonDeployments', function () {
+
+    it('should hold the supplied deployments data on the store', function () {
+      MarathonStore.processMarathonDeployments([{id: 'deployment-id'}]);
+      var deployments = MarathonStore.get('deployments');
+      expect(deployments).toEqual(jasmine.any(DeploymentsList));
+      expect(deployments.last().getId()).toEqual('deployment-id');
+    });
   });
 
 });

@@ -1,7 +1,10 @@
 import {
   REQUEST_MARATHON_GROUPS_SUCCESS,
   REQUEST_MARATHON_GROUPS_ERROR,
-  REQUEST_MARATHON_GROUPS_ONGOING
+  REQUEST_MARATHON_GROUPS_ONGOING,
+  REQUEST_MARATHON_DEPLOYMENTS_SUCCESS,
+  REQUEST_MARATHON_DEPLOYMENTS_ERROR,
+  REQUEST_MARATHON_DEPLOYMENTS_ONGOING
 } from '../constants/ActionTypes';
 var AppDispatcher = require('./AppDispatcher');
 var Config = require('../config/Config');
@@ -45,6 +48,37 @@ module.exports = {
           }
         });
       };
+    },
+    {delayAfterCount: Config.delayAfterErrorCount}
+  ),
+
+  fetchDeployments: RequestUtil.debounceOnError(
+    Config.getRefreshRate(),
+    function (resolve, reject) {
+      return function () {
+        RequestUtil.json({
+          url: `${Config.rootUrl}/marathon/v2/deployments`,
+          success: function (response) {
+            AppDispatcher.handleServerAction({
+              type: REQUEST_MARATHON_DEPLOYMENTS_SUCCESS,
+              data: response
+            });
+            resolve();
+          },
+          error: function (e) {
+            AppDispatcher.handleServerAction({
+              type: REQUEST_MARATHON_DEPLOYMENTS_ERROR,
+              data: e.message
+            });
+            reject();
+          },
+          hangingRequestCallback: function () {
+            AppDispatcher.handleServerAction({
+              type: REQUEST_MARATHON_DEPLOYMENTS_ONGOING
+            });
+          }
+        });
+      }
     },
     {delayAfterCount: Config.delayAfterErrorCount}
   )
