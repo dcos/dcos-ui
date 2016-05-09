@@ -17,7 +17,7 @@ class SchemaForm extends React.Component {
   constructor() {
     super();
 
-    this.state = {currentTab: ''};
+    this.state = {currentTab: '', renderGemini: false};
 
     METHODS_TO_BIND.forEach((method) => {
       this[method] = this[method].bind(this);
@@ -47,6 +47,10 @@ class SchemaForm extends React.Component {
     });
 
     this.props.getTriggerSubmit(this.handleExternalSubmit);
+  }
+
+  componentDidMount() {
+    this.setState({renderGemini: true});
   }
 
   componentDidUpdate() {
@@ -228,6 +232,7 @@ class SchemaForm extends React.Component {
   getFormPanels() {
     let currentTab = this.state.currentTab;
     let multipleDefinition = this.multipleDefinition;
+    let multipleDefinitionClasses = 'multiple-form-right-column column-mini-12 column-small-8';
 
     let panels = Object.keys(multipleDefinition).map((formKey, i) => {
       let panelClassSet = classNames('form', {
@@ -252,10 +257,18 @@ class SchemaForm extends React.Component {
       );
     });
 
+    if (!this.state.renderGemini) {
+      return (
+        <div className={multipleDefinitionClasses}>
+          {panels}
+        </div>
+      );
+    }
+
     return (
       <GeminiScrollbar
         autoshow={true}
-        className="multiple-form-right-column column-mini-12 column-small-8"
+        className={multipleDefinitionClasses}
         ref="geminiForms">
         {panels}
       </GeminiScrollbar>
