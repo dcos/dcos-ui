@@ -3,6 +3,28 @@ Cypress.addParentCommand('configureCluster', function (configuration) {
     return;
   }
 
+  if (Cypress.env('FULL_INTEGRATION_TEST')) {
+
+    // Assume login if not explicitly set to false
+    if (configuration.logIn !== false) {
+      cy.request(
+        'POST',
+        '/acs/api/v1/auth/login',
+        {password: 'deleteme', uid: 'bootstrapuser'}
+      )
+      .then(function (response) {
+        let cookies = response.headers['set-cookie'];
+        cy.window().then(function (win) {
+          cookies.forEach(function (cookie) {
+            win.document.cookie = cookie;
+          });
+        });
+      });
+    }
+
+    return;
+  }
+
   cy.chain().server();
 
   if (configuration.mesos === '1-task-healthy') {
@@ -143,5 +165,6 @@ Cypress.addParentCommand('visitUrl', function (options) {
     };
   }
 
-  cy.visit(options.url, {onBeforeLoad: callback});
+  var url = Cypress.env('CLUSTER_URL') + '/#' + options.url;
+  cy.visit(url, {onBeforeLoad: callback});
 });
