@@ -384,8 +384,10 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
       return null;
     }
 
-    let task = MesosStateStore.getTaskFromTaskID(this.props.params.taskID);
-    let service = MarathonStore.getServiceFromTaskID(this.props.params.taskID);
+    let {taskID} = this.props.params;
+
+    let task = MesosStateStore.getTaskFromTaskID(taskID);
+    let service = MarathonStore.getServiceFromTaskID(taskID);
 
     if (task == null) {
       return this.getNotFound('task');
@@ -395,7 +397,7 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
 
     return (
       <div className="flex-container-col">
-        <ServicesBreadcrumb serviceTreeItem={service} />
+        <ServicesBreadcrumb serviceTreeItem={service} taskID={taskID} />
         {this.getExpandButton()}
         {this.getBasicInfo(task, node)}
         {this.tabs_getTabView()}
