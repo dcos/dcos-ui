@@ -144,7 +144,7 @@ class UpdateConfigModal extends mixin(StoreMixin) {
     return (
       <div className="button-collection flush-bottom">
         <button className="button button-large flush"
-          onClick={function () {}}>
+          onClick={this.handleModalClose}>
           Back
         </button>
         <button disabled={hasFormErrors}
