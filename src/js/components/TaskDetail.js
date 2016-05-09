@@ -257,6 +257,13 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
     }
 
     let node = MesosStateStore.getNodeFromID(task.slave_id);
+
+    if (node == null) {
+      return (
+        <p>Cannot find task information.</p>
+      );
+    }
+
     let services = MesosSummaryStore.get('states')
       .lastSuccessful()
       .getServiceList();
