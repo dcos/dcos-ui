@@ -257,6 +257,8 @@ class SchemaForm extends React.Component {
       );
     });
 
+    // On intial render, we don't want to render with Gemini because it will
+    // cancel the parent's animation, due to it measuring the component.
     if (!this.state.renderGemini) {
       return (
         <div className={multipleDefinitionClasses}>
