@@ -22,7 +22,7 @@ describe('ServicePlanActions', function () {
 
     it('fetches data from the correct URL', function () {
       expect(this.configuration.url).toEqual(
-        `${Config.rootUrl}/service/kafka${Config.servicePlanAPIPath}`
+        `${Config.rootUrl}/service/%2Fkafka${Config.servicePlanAPIPath}`
       );
     });
 
@@ -75,7 +75,7 @@ describe('ServicePlanActions', function () {
 
     it('fetches data from the correct URL', function () {
       expect(this.configuration.url).toEqual(
-        `${Config.rootUrl}/service/kafka${Config.servicePlanAPIPath}?cmd=continue`
+        `${Config.rootUrl}/service/%2Fkafka${Config.servicePlanAPIPath}?cmd=continue`
       );
     });
 
