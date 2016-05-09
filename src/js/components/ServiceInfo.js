@@ -4,11 +4,15 @@ import HealthBar from './HealthBar';
 import HealthStatus from '../constants/HealthStatus';
 import HealthLabels from '../constants/HealthLabels';
 import Service from '../structs/Service';
+import ServicePlan from '../structs/ServicePlan';
 import StringUtil from '../utils/StringUtil';
 
 class ServiceInfo extends React.Component {
 
   getSubHeader(service) {
+    if (this.props.servicePlan) {
+      console.log('yep plan');
+    }
     let serviceHealth = service.getHealth();
     let tasksSummary = service.getTasksSummary();
     let runningTasksCount = tasksSummary.tasksRunning;
@@ -81,7 +85,8 @@ class ServiceInfo extends React.Component {
 }
 
 ServiceInfo.propTypes = {
-  service: React.PropTypes.instanceOf(Service).isRequired
+  service: React.PropTypes.instanceOf(Service).isRequired,
+  servicePlan: React.PropTypes.instanceOf(ServicePlan)
 };
 
 module.exports = ServiceInfo;

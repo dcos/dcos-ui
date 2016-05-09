@@ -320,15 +320,11 @@ const ListenersDescription = {
       change: PLAN_CHANGE,
       error: PLAN_ERROR,
       decisionSuccess: PLAN_DECISION_SUCCESS,
-<<<<<<< 1d67873529b41fef3dc814cd6fe4e72098ccdd14
       decisionError: PLAN_DECISION_ERROR,
       forceCompleteBlockSuccess: PLAN_BLOCK_FORCE_COMPLETE_SUCCESS,
       forceCompleteBlockError: PLAN_BLOCK_FORCE_COMPLETE_ERROR,
       restartBlockSuccess: PLAN_BLOCK_RESTART_SUCCESS,
       restartBlockError: PLAN_BLOCK_RESTART_ERROR
-=======
-      decisionError: PLAN_DECISION_ERROR
->>>>>>> Added to storeConfig
     },
     unmountWhen: function () {
       return true;

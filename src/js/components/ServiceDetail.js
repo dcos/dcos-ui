@@ -1,15 +1,17 @@
 import mixin from 'reactjs-mixin';
 import React from 'react';
+import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import InternalStorageMixin from '../mixins/InternalStorageMixin';
 import Service from '../structs/Service';
 import ServiceDetailTaskTab from './ServiceDetailTaskTab';
 import ServiceInfo from './ServiceInfo';
 import ServiceOptions from './ServiceOptions';
+import ServicePlanStore from '../stores/ServicePlanStore';
 import ServicesBreadcrumb from './ServicesBreadcrumb';
 import TabsMixin from '../mixins/TabsMixin';
 
-class ServiceDetail extends mixin(InternalStorageMixin, TabsMixin) {
+class ServiceDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
 
   constructor() {
     super(...arguments);
@@ -22,8 +24,32 @@ class ServiceDetail extends mixin(InternalStorageMixin, TabsMixin) {
     };
 
     this.state = {
-      currentTab: Object.keys(this.tabs_tabs).shift()
+      currentTab: Object.keys(this.tabs_tabs).shift(),
+      servicePlan: null
     };
+
+    this.store_listeners = [{
+      name: 'servicePlan',
+      events: [
+        'change',
+        'error'
+      ]
+    }];
+  }
+
+  componentDidMount() {
+    super.componentDidMount(...arguments);
+    ServicePlanStore.fetchPlan(this.props.service.id);
+  }
+
+  onServicePlanStoreChange() {
+    this.setState({
+      servicePlan: ServicePlanStore.getServicePlan(this.props.service.id)
+    });
+  }
+
+  onServicePlanStoreError() {
+    console.log('service plan store error');
   }
 
   renderConfigurationTabView() {
@@ -46,6 +72,7 @@ class ServiceDetail extends mixin(InternalStorageMixin, TabsMixin) {
 
   render() {
     const {service} = this.props;
+    let {servicePlan} = this.state;
 
     return (
       <div className="flex-container-col">
@@ -55,8 +82,8 @@ class ServiceDetail extends mixin(InternalStorageMixin, TabsMixin) {
           service-detail-header media-object-spacing-wrapper
           media-object-spacing-narrow container-pod-divider-inverse">
           <ServicesBreadcrumb serviceTreeItem={service} />
-          <ServiceInfo service={service} />
-          <ServiceOptions service={service} />
+          <ServiceInfo service={service} servicePlan={servicePlan} />
+          <ServiceOptions service={service} servicePlan={servicePlan} />
           <ul className="tabs list-inline flush-bottom container-pod
             container-pod-short-top inverse">
             {this.tabs_getUnroutedTabs()}
