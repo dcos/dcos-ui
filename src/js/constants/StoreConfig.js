@@ -25,6 +25,9 @@ import {
   COSMOS_REPOSITORY_DELETE_SUCCESS,
   COSMOS_REPOSITORY_DELETE_ERROR,
 
+  DCOS_CHANGE,
+  DCOS_METADATA_CHANGE,
+
   HEALTH_NODE_ERROR,
   HEALTH_NODE_SUCCESS,
   HEALTH_NODE_UNITS_ERROR,
@@ -67,6 +70,14 @@ import {
   MESOS_LOG_CHANGE,
   MESOS_LOG_REQUEST_ERROR,
 
+  MESOS_LOG_CHANGE,
+  MESOS_LOG_REQUEST_ERROR,
+
+  PLAN_CHANGE,
+  PLAN_ERROR,
+  PLAN_DECISION_SUCCESS,
+  PLAN_DECISION_ERROR,
+
   SIDEBAR_WIDTH_CHANGE,
 
   TASK_DIRECTORY_CHANGE,
@@ -93,6 +104,7 @@ import MesosSummaryStore from '../stores/MesosSummaryStore';
 import MetadataStore from '../stores/MetadataStore';
 import NodeHealthStore from '../stores/NodeHealthStore';
 import NotificationStore from '../stores/NotificationStore';
+import ServicePlanStore from '../stores/ServicePlanStore';
 import SidebarStore from '../stores/SidebarStore';
 import TaskDirectoryStore from '../stores/TaskDirectoryStore';
 import UnitHealthStore from '../stores/UnitHealthStore';
@@ -301,6 +313,20 @@ const ListenersDescription = {
     },
     listenAlways: true,
     suppressUpdate: true
+  },
+
+  servicePlan: {
+    store: ServicePlanStore,
+    events: {
+      change: PLAN_CHANGE,
+      error: PLAN_ERROR,
+      decisionSuccess: PLAN_DECISION_SUCCESS,
+      decisionError: PLAN_DECISION_ERROR
+    },
+    unmountWhen: function () {
+      return true;
+    },
+    listenAlways: true,
   },
 
   taskDirectory: {
