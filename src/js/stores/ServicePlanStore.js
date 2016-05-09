@@ -147,7 +147,7 @@ let ServicePlanStore = Store.createStore({
   },
 
   processPlanFetchError: function (error, serviceID) {
-    ServicePlanStore.emit(PLAN_ERROR, error, serviceID);
+    this.emit(PLAN_ERROR, error, serviceID);
   },
 
   processPlanDecisionSuccess(serviceID) {
