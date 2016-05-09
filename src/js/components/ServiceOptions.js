@@ -80,19 +80,26 @@ class ServiceOptions extends mixin(StoreMixin) {
     });
 
     let buttons = [
-      <a className={editButtonClasses} key="edit-config"
+      <a
+        className={editButtonClasses}
+        key="edit-config"
         onClick={this.handleEditConfigClick}>
         Edit
-        <UpdateConfigModal open={state.editConfigModalOpen}
-          onClose={this.handleConfigModalClose} service={props.service}
+        <UpdateConfigModal
+          onClose={this.handleConfigModalClose}
+          open={state.editConfigModalOpen}
+          service={props.service}
           servicePackage={CosmosPackagesStore.getPackageDetails()} />
       </a>
     ];
 
     if (service instanceof Framework && service.getWebURL()) {
       buttons.unshift(
-        <a className="button button-primary" href={service.getWebURL()}
-          target="_blank" key="open-service">
+        <a
+          className="button button-primary"
+          href={service.getWebURL()}
+          key="open-service"
+          target="_blank">
           Open Service
         </a>
       );
