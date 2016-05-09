@@ -379,15 +379,24 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
     );
   }
 
+  getServicesBreadcrumb() {
+    let {id, taskID} = this.props.params;
+
+    if (id == null) {
+      return null;
+    }
+
+    let service = MarathonStore.getServiceFromTaskID(taskID);
+
+    return (<ServicesBreadcrumb serviceTreeItem={service} taskID={taskID} />);
+  }
+
   render() {
     if (MesosStateStore.get('lastMesosState').slaves == null) {
       return null;
     }
 
-    let {taskID} = this.props.params;
-
-    let task = MesosStateStore.getTaskFromTaskID(taskID);
-    let service = MarathonStore.getServiceFromTaskID(taskID);
+    let task = MesosStateStore.getTaskFromTaskID(this.props.params.taskID);
 
     if (task == null) {
       return this.getNotFound('task');
@@ -397,7 +406,7 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
 
     return (
       <div className="flex-container-col">
-        <ServicesBreadcrumb serviceTreeItem={service} taskID={taskID} />
+        {this.getServicesBreadcrumb()}
         {this.getExpandButton()}
         {this.getBasicInfo(task, node)}
         {this.tabs_getTabView()}
