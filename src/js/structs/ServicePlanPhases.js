@@ -13,6 +13,7 @@ class ServicePlanPhases extends List {
       if (!(phase instanceof ServicePlanPhase)) {
         return new ServicePlanPhase(phase);
       }
+
       return phase;
     });
 
