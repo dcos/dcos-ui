@@ -74,7 +74,7 @@ class ServiceOptions extends mixin(StoreMixin) {
       </a>
     ];
 
-    if (service.getWebURL && service.getWebURL()) {
+    if (service instanceof Framework && service.getWebURL()) {
       buttons.unshift(
         <a className="button button-primary" href={service.getWebURL()}
           target="_blank" key="open-service">
