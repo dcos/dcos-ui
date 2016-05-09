@@ -4,7 +4,7 @@ describe('DC/OS UI [00j]', function () {
     cy.configureCluster({
       mesos: '1-task-healthy'
     })
-    .visitUrl({url: '/#/', identify: true, fakeAnalytics: true});
+    .visitUrl({url: '/', identify: true, fakeAnalytics: true});
   });
 
   context('Dashboard [00k]', function () {

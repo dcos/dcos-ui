@@ -10,7 +10,7 @@ describe('Nodes Detail Page', function () {
   context('Navigate to node detail page', function () {
 
     it('navigates to node detail page', function () {
-      cy.visitUrl({url: '/#/nodes', identify: true, fakeAnalytics: true});
+      cy.visitUrl({url: '/nodes', identify: true, fakeAnalytics: true});
       var nodeName;
       cy.get('tr a').eq(0).should(function ($row) {
         nodeName = $row[0].textContent;
@@ -23,7 +23,7 @@ describe('Nodes Detail Page', function () {
     });
 
     it('shows error in node detail page when node is invalid [10a]', function () {
-      cy.visitUrl({url: '/#/nodes/INVALID_NODE', identify: true, fakeAnalytics: true});
+      cy.visitUrl({url: '/nodes/INVALID_NODE', identify: true, fakeAnalytics: true});
 
       cy.hash().should('match', /nodes\/INVALID_NODE/);
       cy.get('.page-content h3').should(function ($title) {

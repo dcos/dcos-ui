@@ -6,7 +6,7 @@ describe('Tracking Plugin Enabled [02w]', function () {
       acl: true,
       plugins: 'tracking-enabled'
     })
-    .visitUrl({url: '/#/', identify: true});
+    .visitUrl({url: '/', identify: true});
   });
 
   context('Sidebar [02x]', function () {
@@ -37,7 +37,7 @@ xdescribe('Tracking Plugin Disabled [03d]', function () {
       plugins: 'tracking-disabled'
     })
     .clearLocalStorage()
-    .visitUrl({url: '/#/'});
+    .visitUrl({url: '/'});
   });
 
   context('Sidebar [03c]', function () {
@@ -65,7 +65,7 @@ xdescribe('Tracking Plugin Disabled [03d]', function () {
 
     context('Email in localStorage [03h]', function () {
       beforeEach(function () {
-        cy.visitUrl({url: '/#/', identify: true, fakeAnalytics: true});
+        cy.visitUrl({url: '/', identify: true, fakeAnalytics: true});
       });
 
       it('should not show modal when \'email\' in localStorage [03i]',

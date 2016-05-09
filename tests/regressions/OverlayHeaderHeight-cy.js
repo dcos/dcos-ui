@@ -4,7 +4,7 @@ describe('Overlay Header Height [00j]', function () {
     cy.configureCluster({
       mesos: '1-task-healthy'
     })
-    .visitUrl({url: '/#/', identify: true, fakeAnalytics: true});
+    .visitUrl({url: '/', identify: true, fakeAnalytics: true});
   });
 
   context('Headers [00n]', function () {

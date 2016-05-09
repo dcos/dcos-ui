@@ -9,7 +9,7 @@ describe('Units Tab [0e2]', function () {
         plugins: 'organization-enabled',
         componentHealth: true
       })
-      .visitUrl({url: '/#/system/overview/components', identify: true});
+      .visitUrl({url: '/system/overview/components', identify: true});
 
       cy.get('.units-health-table-header').within(function () {
         cy.get('.form-control input[type=\'text\']').as('filterTextbox');

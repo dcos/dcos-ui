@@ -11,7 +11,7 @@ describe('Node Health Tab [0fa]', function () {
   context('Navigate to tab [0fb]', function () {
 
     it('navigates to health tab [0fc]', function () {
-      cy.visitUrl({url: '/#/nodes', identify: true, fakeAnalytics: true});
+      cy.visitUrl({url: '/nodes', identify: true, fakeAnalytics: true});
       cy.get('tr a').eq(0).click();
       cy.get('.tab-item').contains('Health').click();
 

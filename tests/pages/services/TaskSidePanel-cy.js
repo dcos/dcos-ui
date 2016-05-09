@@ -5,7 +5,7 @@ describe('Task Side Panel', function () {
       .configureCluster({
         mesos: '1-service-with-executor-task'
       })
-      .visitUrl({url: '/#/services'});
+      .visitUrl({url: '/services'});
 
     cy
       .get('.page-content table.table > tbody > tr')

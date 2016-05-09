@@ -6,7 +6,7 @@ xdescribe('Install Package Modal', function () {
         mesos: '1-task-healthy',
         universePackages: true
       })
-      .visitUrl({url: '/#/universe'})
+      .visitUrl({url: '/universe'})
       .get('.page-content .button.button-success')
       .eq(0)
       .click();
