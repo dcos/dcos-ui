@@ -4,8 +4,10 @@ import React from 'react';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import CosmosPackagesStore from '../stores/CosmosPackagesStore';
+import EventTypes from '../constants/EventTypes';
 import Framework from '../structs/Framework';
 import Service from '../structs/Service';
+import ServicePlanStore from '../stores/ServicePlanStore';
 import UpdateConfigModal from './modals/UpdateConfigModal'
 
 const METHODS_TO_BIND = [
@@ -43,6 +45,9 @@ class ServiceOptions extends mixin(StoreMixin) {
       let {name, version} = service.getMetadata();
       CosmosPackagesStore.fetchPackageDescription(name, version);
     }
+
+    ServicePlanStore.addChangeListener(EventTypes.PLAN_CHANGE, this.handlePlanChange);
+    ServicePlanStore.fetchPlan('/kafka');
   }
 
   onCosmosPackagesStoreDescriptionError() {
@@ -61,6 +66,10 @@ class ServiceOptions extends mixin(StoreMixin) {
 
   handleConfigModalClose() {
     this.setState({editConfigModalOpen: false});
+  }
+
+  handlePlanChange() {
+    console.log(ServicePlanStore.getServicePlan('/kafka'));
   }
 
   getServiceOptionButtons(service) {
