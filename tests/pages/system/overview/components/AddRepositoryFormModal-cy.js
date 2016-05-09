@@ -18,7 +18,7 @@ describe('Add Repository Form Modal', function () {
       .should('contain', 'Add Repository');
   });
 
-  it('displays two fields', function () {
+  it('displays three fields', function () {
     cy
       .get('.modal input')
       .should('to.have.length', 3);
@@ -61,35 +61,47 @@ describe('Add Repository Form Modal', function () {
       .contains('Add')
       .click();
 
-    cy.get('modal').should(function ($modal) {
+    cy.get('.modal').should(function ($modal) {
       expect($modal).to.not.exist;
     });
+
+    // Clean up
+    cy
+      .get('.page-content')
+      .contains('tr', 'Here we go!')
+      .find('.button.button-link.button-danger')
+      .invoke('show')
+      .click({force: true});
+    cy
+      .get('.modal .modal-footer .button.button-danger')
+      .contains('Remove Repository')
+      .click();
   });
 
   it('displays error in modal after add causes an error', function () {
     cy
-      .route({
-        method: 'POST',
-        url: /repository\/add/,
-        status: 400,
-        response: {message: 'Could not add repository, just because...'}
-      })
-      .get('.modal input')
-      .eq(0).type('Here we go!');
-    cy
-      .get('.modal input')
-      .eq(1).type('http://there-is-no-stopping.us');
-    cy
-      .get('.modal .modal-footer .button.button-success')
-      .contains('Add')
-      .click();
+      .get('tr .text-overflow-break-word')
+      .then(function ($urlField) {
+        var url = $urlField[0].textContent;
+        cy
+          .get('.modal input')
+          .eq(0).type('Here we go!')
+          .get('.modal input')
+          .eq(1).type(url);
+        cy
+          .get('.modal .modal-footer .button.button-success')
+          .contains('Add')
+          .click();
 
-    cy
-      .get('.modal h4.text-danger')
-      .should('contain', 'Could not add repository, just because...');
+        cy
+          .get('.modal h4.text-danger')
+          .should('contain', url);
+      })
+
   });
 
-  it('displays generic error in modal if no message is provided', function () {
+  // TODO: Turn into unit test
+  xit('displays generic error in modal if no message is provided', function () {
     cy
       .route({
         method: 'POST',
