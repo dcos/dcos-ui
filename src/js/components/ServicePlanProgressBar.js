@@ -23,7 +23,6 @@ class ServicePlanProgressBar extends React.Component {
 
   getStatusLabel(servicePlan) {
     let status = servicePlan.getStatus();
-
     return labelMap[status] || status;
   }
 
@@ -58,7 +57,7 @@ class ServicePlanProgressBar extends React.Component {
       statusLabelClassName
     );
     let wrapperClasses = classNames(
-      'upgrade-progress-bar',
+      'service-plan-progress-bar',
       serviceStatusWrapperClasses,
       className
     );

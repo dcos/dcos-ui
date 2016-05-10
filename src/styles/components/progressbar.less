@@ -45,18 +45,10 @@
     &.color-6, &.staged {
       background-color: @yellow;
     }
-
   }
 }
 
-.spread-content {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-left: @base-spacing-unit * 0.5;
-}
-
-.upgrade-progress-bar {
+.service-plan-progress-bar {
   display: block;
   margin-right: @base-spacing-unit * 2/3;
 
@@ -76,8 +68,11 @@
 
   &.is-waiting {
 
-    .progress-bar-label {
-      color: @white;
+    &.inverse {
+
+      .progress-bar-label {
+        color: @white;
+      }
     }
   }
 
@@ -103,7 +98,7 @@
     display: inline-block;
     margin: 0 @base-spacing-unit * 1/4;
     overflow: hidden;
-    width: 150px;
+    width: @base-spacing-unit * 8;
   }
 
   .progress-bar-fill {
@@ -116,5 +111,65 @@
       color: @white;
       text-decoration: underline;
     }
+  }
+}
+
+.spread-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: @base-spacing-unit * 0.5;
+}
+
+.segmented-progress-bar {
+
+  .segmented-progress-bar-segments {
+    display: flex;
+
+    .progress-bar-fill-wrapper {
+      background: color-lighten(@neutral, 85);
+      margin: 0;
+      width: 100%;
+    }
+
+    .stacked-progress-bar {
+      flex: 1 0 auto;
+      margin-right: 0;
+      padding-right: @base-spacing-unit * 1/8;
+      width: auto;
+
+      .progress-bar-fill-wrapper,
+      .progress-bar-fill {
+        border-radius: 0;
+      }
+
+      &:first-child {
+
+        .progress-bar-fill-wrapper,
+        .progress-bar-fill {
+          border-radius: 10px 0 0 10px;
+        }
+      }
+
+      &:last-child {
+        padding-right: 0;
+
+        .progress-bar-fill-wrapper,
+        .progress-bar-fill {
+          border-radius: 0 10px 10px 0;
+        }
+      }
+
+      &.is-ongoing {
+
+        .progress-bar-fill {
+          box-shadow: 0 0 5px @green;
+        }
+      }
+    }
+  }
+
+  .segmented-progress-bar-title {
+    margin-bottom: @base-spacing-unit * 1/6;
   }
 }

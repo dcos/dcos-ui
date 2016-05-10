@@ -117,7 +117,8 @@ class ServiceDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
           {this.tabs_getTabView()}
         </div>
         <ServicePlanProgressModal open={this.state.progressDetailModalOpen}
-          onClose={this.handleProgressDetailModalClose} />
+          onClose={this.handleProgressDetailModalClose} service={service}
+          servicePlan={servicePlan} />
       </div>
 
     );
