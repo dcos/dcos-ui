@@ -188,11 +188,11 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
     }
 
     if (service != null &&
-        service.ipAddress != null &&
-        service.ipAddress.discovery != null &&
-        service.ipAddress.discovery.ports != null &&
-        task.ipAddresses != null &&
-        task.ipAddresses.length > 0) {
+      service.ipAddress != null &&
+      service.ipAddress.discovery != null &&
+      service.ipAddress.discovery.ports != null &&
+      task.ipAddresses != null &&
+      task.ipAddresses.length > 0) {
 
       let ports = service.ipAddress.discovery.ports;
       let endpoints = task.ipAddresses.reduce(function (memo, address) {
