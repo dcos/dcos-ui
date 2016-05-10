@@ -153,10 +153,7 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
 
   getBasicInfo(task) {
     let taskIcon = (
-      <div
-        className="icon icon-large icon-image-container icon-app-container">
-        <img src={task.getImages()['icon-large']} />
-      </div>
+      <img src={task.getImages()['icon-large']} />
     );
 
     let tabs = (
