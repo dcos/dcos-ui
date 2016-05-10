@@ -363,19 +363,6 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
     );
   }
 
-  getExpandButton() {
-    if (!this.state.showExpandButton) {
-      return null;
-    }
-
-    return (
-      <button
-        className="button button-stroke button-expand"
-        onClick={this.handleExpand}>
-      </button>
-    );
-  }
-
   getServicesBreadcrumb() {
     let {id, taskID} = this.props.params;
 
@@ -396,7 +383,7 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
     let task = MesosStateStore.getTaskFromTaskID(this.props.params.taskID);
 
     if (task == null) {
-      return this.getNotFound('task');
+      return this.getNotFound('task', this.props.params.taskID);
     }
 
     let node = MesosStateStore.getNodeFromID(task.slave_id);
@@ -404,7 +391,6 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
     return (
       <div className="flex-container-col">
         {this.getServicesBreadcrumb()}
-        {this.getExpandButton()}
         {this.getBasicInfo(task, node)}
         {this.tabs_getTabView()}
       </div>
