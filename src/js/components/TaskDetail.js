@@ -9,9 +9,9 @@ import MarathonStore from '../stores/MarathonStore';
 import MesosStateStore from '../stores/MesosStateStore';
 import MesosSummaryStore from '../stores/MesosSummaryStore';
 import ResourceTypes from '../constants/ResourceTypes';
+import PageHeader from './PageHeader';
 import RequestErrorMsg from './RequestErrorMsg';
 import ServicesBreadcrumb from './ServicesBreadcrumb';
-import PageHeader from './PageHeader';
 import TaskDebugView from './TaskDebugView';
 import TaskDirectoryView from './TaskDirectoryView';
 import TaskDirectoryStore from '../stores/TaskDirectoryStore';
@@ -199,6 +199,7 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
         ports.forEach(port => {
           memo.push(`${address.ipAddress}:${port.number}`);
         });
+
         return memo;
       }, []);
 
