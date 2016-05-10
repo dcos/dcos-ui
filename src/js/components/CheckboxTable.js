@@ -54,7 +54,7 @@ class CheckboxTable extends React.Component {
       data.forEach(function (datum) {
         checkedIDs.push(datum.id);
       });
-      onCheckboxChange(checkedIDs);
+      return onCheckboxChange(checkedIDs);
     }
 
     onCheckboxChange(checkedIDs);
