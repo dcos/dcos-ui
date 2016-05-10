@@ -1,6 +1,8 @@
+import classNames from 'classnames';
 import {Form, Table} from 'reactjs-components';
 import React from 'react';
 
+import ResourceTableUtil from '../utils/ResourceTableUtil';
 import TableUtil from '../utils/TableUtil';
 
 const PropTypes = React.PropTypes;
@@ -23,7 +25,7 @@ class CheckboxTable extends React.Component {
   }
 
   handleCheckboxChange(prevCheckboxState, eventObject) {
-    let {checkedItemsMap, onChecked} = this.props;
+    let {checkedItemsMap, onCheckboxChange} = this.props;
     let isChecked = eventObject.fieldValue;
     let rowID = eventObject.fieldName;
     let checkedIDs;
@@ -36,7 +38,7 @@ class CheckboxTable extends React.Component {
       checkedIDs = Object.keys(checkedItemsMap);
     }
 
-    onChecked(checkedIDs);
+    onCheckboxChange(checkedIDs);
   }
 
   handleHeadingCheckboxChange(prevCheckboxState, eventObject) {
@@ -46,16 +48,23 @@ class CheckboxTable extends React.Component {
 
   bulkCheck(isChecked) {
     let checkedIDs = [];
-    let {data, onChecked} = this.props;
+    let {data, onCheckboxChange} = this.props;
 
     if (isChecked) {
       data.forEach(function (datum) {
         checkedIDs.push(datum.id);
       });
-      onChecked(checkedIDs);
+      onCheckboxChange(checkedIDs);
     }
 
-    onChecked(checkedIDs);
+    onCheckboxChange(checkedIDs);
+  }
+
+  getLabelClass() {
+    return classNames(
+      'form-row-element form-element-checkbox inverse',
+      this.props.labelClass
+    );
   }
 
   renderHeadingCheckbox() {
@@ -83,7 +92,7 @@ class CheckboxTable extends React.Component {
             value: checked,
             fieldType: 'checkbox',
             indeterminate,
-            labelClass: 'form-row-element form-element-checkbox inverse',
+            labelClass: this.getLabelClass(),
             name: 'headingCheckbox',
             showLabel: false
           }
@@ -108,7 +117,7 @@ class CheckboxTable extends React.Component {
           checked,
           value: checked,
           fieldType: 'checkbox',
-          labelClass: 'form-row-element form-element-checkbox inverse',
+          labelClass: this.getLabelClass(),
           name: rowID,
           showLabel: false
         }]}
@@ -117,14 +126,17 @@ class CheckboxTable extends React.Component {
   }
 
   getTableRowOptions(row) {
-    let selectedIDSet = this.internalStorage_get().selectedIDSet;
-    if (selectedIDSet[row[this.props.itemID]]) {
+    let {checkedItemsMap, uniqueProperty} = this.props;
+    if (checkedItemsMap[row[uniqueProperty]]) {
       return {className: 'selected'};
     }
+
     return {};
   }
 
   getColumns() {
+    let {getClassName} = ResourceTableUtil;
+
     return [
       {
         className: getClassName,
@@ -142,10 +154,16 @@ class CheckboxTable extends React.Component {
     let columns = this.getColumns();
     let sortProp = columns[1].prop;
 
+    let tableClassSet = classNames(
+      'table inverse table-borderless-outer table-borderless-inner-columns',
+      'flush-bottom',
+      className
+    );
+
     return (
       <Table
         buildRowOptions={this.getTableRowOptions}
-        className={className}
+        className={tableClassSet}
         columns={columns}
         colGroup={this.getColGroup()}
         containerSelector=".gm-scroll-view"
@@ -158,19 +176,26 @@ class CheckboxTable extends React.Component {
 
 CheckboxTable.propTypes = {
   checkedItemsMap: PropTypes.object,
-  className: PropTypes.string,
+  className: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.object
+  ]),
   columns: PropTypes.array,
   data: PropTypes.array,
-  onChecked: PropTypes.func,
+  labelClass: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.object
+  ]),
+  onCheckboxChange: PropTypes.func,
   uniqueProperty: PropTypes.string
 };
 
 CheckboxTable.defaultProps = {
   checkedItemsMap: {},
-  className: 'table inverse table-borderless-outer table-borderless-inner-columns flush-bottom',
   columns: [],
   data: [],
-  onChecked: function () {}
+  labelClass: {},
+  onCheckboxChange: function () {}
 };
 
 module.exports = CheckboxTable;
