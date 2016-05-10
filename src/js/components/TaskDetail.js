@@ -22,8 +22,8 @@ import InternalStorageMixin from '../mixins/InternalStorageMixin';
 import TabsMixin from '../mixins/TabsMixin';
 
 const TABS = {
-  files: 'Files',
   details: 'Details',
+  files: 'Files',
   debug: 'Log Viewer'
 };
 
