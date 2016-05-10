@@ -7,38 +7,57 @@ import packageInfo from '../package';
 import webpackConfig from './webpack.config.babel';
 
 // Defaults to value in package.json.
-// Can override with npm config set dcos-ui:port 80
-let PORT = process.env.npm_package_config_port;
-let proxy = require('./proxy.dev.js');
+// Can override with npm config set port 80
+let PORT = parseInt(process.env.npm_package_config_port, 10);
+let environment = process.env.NODE_ENV;
+let devtool = null;
+let devServer = {
+  proxy: require('./proxy.dev.js'),
+  stats: {
+    assets: false,
+    colors: true,
+    version: false,
+    hash: false,
+    timings: true,
+    chunks: true,
+    chunkModules: false
+  }
+};
 
 let REPLACEMENT_VARS = {
   VERSION: packageInfo.version,
-  ENV: process.env.NODE_ENV
+  ENV: environment
 };
 
+let entry = [
+  `webpack-dev-server/client?http://localhost:${PORT}`,
+  './src/js/index.js'
+];
+
+if (environment === 'development') {
+  entry.push('webpack/hot/only-dev-server');
+  devtool = '#eval-source-map';
+} else if (environment === 'testing') {
+  // Cypress constantly saves fixture files, which causes webpack to detect
+  // a filechange and rebuild the application. The problem with this is that
+  // when Cypress goes to load the application again, it may not be ready to
+  // be served, which causes the test to fail. This delays rebuilding the
+  // application for a very long time when in a testing environment.
+  let delayTime = 1000 * 60 * 60 * 5;
+  devServer.watchOptions = {
+    aggregateTimeout: delayTime,
+    poll: delayTime
+  };
+}
+
 module.exports = Object.assign({}, webpackConfig, {
-  entry: [
-    'webpack-dev-server/client?http://localhost:' + PORT,
-    'webpack/hot/only-dev-server',
-    './src/js/index.js'
-  ],
-  devtool: '#eval-source-map',
+  entry,
+  devtool,
   output: {
     path: './build',
     filename: 'index.js'
   },
-  devServer: {
-    proxy: proxy,
-    stats: {
-      assets: false,
-      colors: true,
-      version: false,
-      hash: false,
-      timings: true,
-      chunks: true,
-      chunkModules: false
-    }
-  },
+  devServer,
   plugins: [
     new StringReplacePlugin(),
 

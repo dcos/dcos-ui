@@ -1,4 +1,4 @@
-describe('Installed Packages Tab', function () {
+xdescribe('Installed Packages Tab', function () {
 
   beforeEach(function () {
     cy

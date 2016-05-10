@@ -1,5 +1,3 @@
-import cookie from 'cookie';
-
 import {
   REQUEST_LOGIN_SUCCESS,
   REQUEST_LOGIN_ERROR,
@@ -8,7 +6,6 @@ import {
 } from '../constants/ActionTypes';
 
 import AppDispatcher from '../events/AppDispatcher';
-import AuthConstants from '../constants/AuthConstants';
 import Config from '../config/Config';
 import RequestUtil from '../utils/RequestUtil';
 
@@ -19,14 +16,6 @@ const AuthActions = {
       method: 'POST',
       data: credentials,
       success: function () {
-        // Overrides for integration testing
-        if (Config.environment === 'testing') {
-          global.document.cookie =
-            cookie.serialize(AuthConstants.userCookieKey,
-              'eyJ1aWQiOiJqb2UiLCJkZXNjcmlwdGlvbiI6IkpvZSBEb2UifQ=='
-            );
-        }
-
         AppDispatcher.handleServerAction({
           type: REQUEST_LOGIN_SUCCESS
         });

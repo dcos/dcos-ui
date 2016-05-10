@@ -28,7 +28,7 @@ describe('Tracking Plugin Enabled [02w]', function () {
 
 });
 
-describe('Tracking Plugin Disabled [03d]', function () {
+xdescribe('Tracking Plugin Disabled [03d]', function () {
 
   beforeEach(function () {
     cy.configureCluster({
