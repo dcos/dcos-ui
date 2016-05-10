@@ -184,7 +184,7 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
 
     if ((task.ports == null || task.ports.length === 0) &&
         (task.ipAddresses == null || task.ipAddresses.length === 0)) {
-      return (<dd>None</dd>);
+      return 'None';
     }
 
     if (service != null &&
