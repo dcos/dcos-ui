@@ -38,7 +38,12 @@ if (environment === 'development') {
   entry.push('webpack/hot/only-dev-server');
   devtool = '#eval-source-map';
 } else if (environment === 'testing') {
-  let delayTime = 1000 * 60 * 60 * 5; // 5 hours? seems legit
+  // Cypress constantly saves fixture files, which causes webpack to detect
+  // a filechange and rebuild the application. The problem with this is that
+  // when Cypress goes to load the application again, it may not be ready to
+  // be served, which causes the test to fail. This delays rebuilding the
+  // application for a very long time when in a testing environment.
+  let delayTime = 1000 * 60 * 60 * 5;
   devServer.watchOptions = {
     aggregateTimeout: delayTime,
     poll: delayTime
