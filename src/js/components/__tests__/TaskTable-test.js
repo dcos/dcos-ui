@@ -7,6 +7,7 @@ jest.dontMock('moment');
 var React = require('react');
 /* eslint-enable no-unused-vars */
 var ReactDOM = require('react-dom');
+var JestUtil = require('../../utils/JestUtil');
 
 var MesosStateStore = require('../../stores/MesosStateStore');
 var TaskTable = require('../TaskTable');
@@ -24,10 +25,17 @@ describe('TaskTable', function () {
     };
 
     this.container = document.createElement('div');
+
     this.instance = ReactDOM.render(
-      <TaskTable tasks={Tasks} parentRouter={this.parentRouter} />,
+      JestUtil.stubRouterContext(
+        TaskTable,{
+          tasks: Tasks,
+          parentRouter: this.parentRouter
+        }
+      ),
       this.container
     );
+
   });
 
   afterEach(function () {

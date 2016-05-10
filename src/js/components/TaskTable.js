@@ -189,7 +189,10 @@ class TaskTable extends React.Component {
 
 TaskTable.propTypes = {
   className: React.PropTypes.string,
-  parentRouter: React.PropTypes.func.isRequired,
+  parentRouter: React.PropTypes.oneOfType([
+    React.PropTypes.func,
+    React.PropTypes.object
+  ]).isRequired,
   tasks: React.PropTypes.array.isRequired
 };
 
