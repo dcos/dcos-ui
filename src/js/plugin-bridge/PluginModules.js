@@ -38,6 +38,7 @@ module.exports = {
   components: {
     Authenticated: 'Authenticated',
     AccessDeniedPage: 'AccessDeniedPage',
+    CheckboxTable: 'CheckboxTable',
     SidePanelContents: 'SidePanelContents',
     RequestErrorMsg: 'RequestErrorMsg',
     IconInfo: 'icons/IconInfo',
