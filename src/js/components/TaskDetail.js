@@ -350,14 +350,14 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
     super.tabs_handleTabClick(...arguments);
   }
 
-  getNotFound(itemType) {
+  getNotFound(item, itemID) {
     return (
       <div className="container container-fluid container-pod text-align-center">
         <h3 className="flush-top text-align-center">
-          {`Error finding ${itemType}`}
+          {`Error finding ${item}`}
         </h3>
         <p className="flush">
-          {`Did not find a ${itemType} by the id "${this.props.params.taskID}"`}
+          {`Did not find a ${item} by the id "${itemID}"`}
         </p>
       </div>
     );
