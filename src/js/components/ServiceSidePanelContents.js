@@ -27,7 +27,7 @@ class ServiceSidePanelContents extends SidePanelContents {
     };
 
     this.store_listeners = [
-      {name: 'marathon', events: ['success']},
+      {name: 'marathon', events: ['appsSuccess']},
       {name: 'summary', events: ['success']},
       {name: 'state', events: ['success']}
     ];

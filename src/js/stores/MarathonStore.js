@@ -2,6 +2,7 @@ import {Store} from 'mesosphere-shared-reactjs';
 
 var AppDispatcher = require('../events/AppDispatcher');
 import ActionTypes from '../constants/ActionTypes';
+import DeploymentsList from '../structs/DeploymentsList';
 import CompositeState from '../structs/CompositeState';
 import Service from '../structs/Service';
 import ServiceTree from '../structs/ServiceTree';
@@ -11,6 +12,8 @@ import {
   MARATHON_APPS_ERROR,
   MARATHON_GROUPS_CHANGE,
   MARATHON_GROUPS_ERROR,
+  MARATHON_DEPLOYMENTS_CHANGE,
+  MARATHON_DEPLOYMENTS_ERROR,
   VISIBILITY_CHANGE
 } from '../constants/EventTypes';
 var GetSetMixin = require('../mixins/GetSetMixin');
@@ -24,8 +27,12 @@ var requestInterval = null;
 function startPolling() {
   if (requestInterval == null) {
     MarathonActions.fetchGroups();
+    MarathonActions.fetchDeployments();
     requestInterval = global.setInterval(
-      MarathonActions.fetchGroups, Config.getRefreshRate()
+      function () {
+        MarathonActions.fetchGroups();
+        MarathonActions.fetchDeployments();
+      }, Config.getRefreshRate()
     );
   }
 }
@@ -56,7 +63,8 @@ var MarathonStore = Store.createStore({
   mixins: [GetSetMixin],
 
   getSet_data: {
-    apps: {}
+    apps: {},
+    deployments: []
   },
 
   addChangeListener: function (eventName, callback) {
@@ -77,6 +85,7 @@ var MarathonStore = Store.createStore({
 
   shouldPoll: function () {
     return this.listenerCount(MARATHON_GROUPS_CHANGE) > 0 ||
+      this.listenerCount(MARATHON_DEPLOYMENTS_CHANGE) > 0 ||
       this.listenerCount(MARATHON_APPS_CHANGE) > 0;
   },
 
@@ -203,6 +212,16 @@ var MarathonStore = Store.createStore({
     this.emit(MARATHON_GROUPS_ERROR);
   },
 
+  processMarathonDeployments: function (data) {
+    let deployments = new DeploymentsList({items: data});
+    this.set({deployments});
+    this.emit(MARATHON_DEPLOYMENTS_CHANGE, deployments);
+  },
+
+  processMarathonDeploymentsError: function () {
+    this.emit(MARATHON_DEPLOYMENTS_ERROR);
+  },
+
   processOngoingRequest: function () {
     // Handle ongoing request here.
   },
@@ -217,8 +236,14 @@ var MarathonStore = Store.createStore({
       case ActionTypes.REQUEST_MARATHON_GROUPS_SUCCESS:
         MarathonStore.processMarathonGroups(action.data);
         break;
+      case ActionTypes.REQUEST_MARATHON_DEPLOYMENTS_SUCCESS:
+        MarathonStore.processMarathonDeployments(action.data);
+        break;
       case ActionTypes.REQUEST_MARATHON_GROUPS_ERROR:
         MarathonStore.processMarathonGroupsError();
+        break;
+      case ActionTypes.REQUEST_MARATHON_DEPLOYMENTS_ERROR:
+        MarathonStore.processMarathonDeploymentsError();
         break;
       case ActionTypes.REQUEST_MARATHON_GROUPS_ONGOING:
         MarathonStore.processOngoingRequest();
