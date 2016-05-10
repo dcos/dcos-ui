@@ -5,11 +5,21 @@ import HealthStatus from '../constants/HealthStatus';
 import HealthLabels from '../constants/HealthLabels';
 import PageHeader from './PageHeader';
 import Service from '../structs/Service';
+import ServicePlan from '../structs/ServicePlan';
+import ServicePlanProgressBar from './ServicePlanProgressBar';
 import StringUtil from '../utils/StringUtil';
 
 class ServiceInfo extends React.Component {
 
   getSubHeader(service) {
+    let {servicePlan} = this.props;
+
+    if (servicePlan) {
+      return (
+        <ServicePlanProgressBar servicePlan={servicePlan} stacked={false} />
+      );
+    }
+
     let serviceHealth = service.getHealth();
     let tasksSummary = service.getTasksSummary();
     let runningTasksCount = tasksSummary.tasksRunning;
