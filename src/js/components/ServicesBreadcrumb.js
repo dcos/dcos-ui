@@ -65,6 +65,15 @@ class ServicesBreadcrumb extends React.Component {
       }, [])
     );
 
+    if (taskID != null) {
+      breadcrumbNodes.push(
+        <span className="crumb" key={taskID}>
+          {breadcrumbIcon}
+          <span>{taskID}</span>
+        </span>
+      );
+    }
+
     return (
       <div className="flex-box control-group">
         <h4 className="breadcrumbs flush-top inverse">
