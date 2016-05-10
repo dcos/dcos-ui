@@ -7,9 +7,15 @@ import Service from '../structs/Service';
 import ServiceDetailTaskTab from './ServiceDetailTaskTab';
 import ServiceInfo from './ServiceInfo';
 import ServiceOptions from './ServiceOptions';
+import ServicePlanProgressModal from './modals/ServicePlanProgressModal';
 import ServicePlanStore from '../stores/ServicePlanStore';
 import ServicesBreadcrumb from './ServicesBreadcrumb';
 import TabsMixin from '../mixins/TabsMixin';
+
+const METHODS_TO_BIND = [
+  'handleViewProgressDetailsClick',
+  'handleProgressDetailModalClose'
+];
 
 class ServiceDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
 
@@ -25,6 +31,7 @@ class ServiceDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
 
     this.state = {
       currentTab: Object.keys(this.tabs_tabs).shift(),
+      progressDetailModalOpen: false,
       servicePlan: null
     };
 
@@ -35,6 +42,10 @@ class ServiceDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
         'error'
       ]
     }];
+
+    METHODS_TO_BIND.forEach((method) => {
+      this[method] = this[method].bind(this);
+    });
   }
 
   componentDidMount() {
@@ -52,6 +63,14 @@ class ServiceDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
     this.setState({
       servicePlan: null
     });
+  }
+
+  handleProgressDetailModalClose() {
+    this.setState({progressDetailModalOpen: false});
+  }
+
+  handleViewProgressDetailsClick() {
+    this.setState({progressDetailModalOpen: true});
   }
 
   renderConfigurationTabView() {
@@ -84,7 +103,8 @@ class ServiceDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
           service-detail-header media-object-spacing-wrapper
           media-object-spacing-narrow container-pod-divider-inverse">
           <ServicesBreadcrumb serviceTreeItem={service} />
-          <ServiceInfo service={service} servicePlan={servicePlan} />
+          <ServiceInfo service={service} servicePlan={servicePlan}
+            onViewProgressDetailsClick={this.handleViewProgressDetailsClick} />
           <ServiceOptions service={service} servicePlan={servicePlan} />
           <ul className="tabs list-inline flush-bottom container-pod
             container-pod-short-top inverse">
@@ -96,6 +116,8 @@ class ServiceDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
           container-fluid-flush flex-container-col flex-grow">
           {this.tabs_getTabView()}
         </div>
+        <ServicePlanProgressModal open={this.state.progressDetailModalOpen}
+          onClose={this.handleProgressDetailModalClose} />
       </div>
 
     );

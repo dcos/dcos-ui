@@ -15,7 +15,8 @@ class ServiceInfo extends React.Component {
 
     if (servicePlan) {
       return (
-        <ServicePlanProgressBar servicePlan={servicePlan} stacked={false} />
+        <ServicePlanProgressBar servicePlan={servicePlan} stacked={false}
+          onViewDetailsClick={this.props.onViewProgressDetailsClick} />
       );
     }
 
@@ -91,6 +92,7 @@ class ServiceInfo extends React.Component {
 }
 
 ServiceInfo.propTypes = {
+  onViewProgressDetailsClick: React.PropTypes.func,
   service: React.PropTypes.instanceOf(Service).isRequired,
   servicePlan: React.PropTypes.instanceOf(ServicePlan)
 };
