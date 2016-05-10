@@ -61,7 +61,7 @@ class DescriptionList extends React.Component {
 
 DescriptionList.defaultProps = {
   className: '',
-  ddClassName: 'column-9',
+  ddClassName: 'column-9 text-overflow-break-word',
   dtClassName: 'column-3 emphasize',
   headlineClassName: 'flush-top',
   key: ''
