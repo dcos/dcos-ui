@@ -52,6 +52,8 @@ import {
 
   MARATHON_APPS_CHANGE,
   MARATHON_APPS_ERROR,
+  MARATHON_DEPLOYMENTS_CHANGE,
+  MARATHON_DEPLOYMENTS_ERROR,
 
   METADATA_CHANGE,
 
@@ -241,13 +243,16 @@ const ListenersDescription = {
   marathon: {
     store: MarathonStore,
     events: {
-      success: MARATHON_APPS_CHANGE,
-      error: MARATHON_APPS_ERROR
+      appsSuccess: MARATHON_APPS_CHANGE,
+      appsError: MARATHON_APPS_ERROR,
+      deploymentsSuccess: MARATHON_DEPLOYMENTS_CHANGE,
+      deploymentsError: MARATHON_DEPLOYMENTS_ERROR
     },
     unmountWhen: function (store, event) {
-      if (event === 'success') {
+      if (event === 'appsSuccess') {
         return store.hasProcessedApps();
       }
+      return true;
     },
     listenAlways: true
   },
