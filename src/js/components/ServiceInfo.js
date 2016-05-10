@@ -4,21 +4,11 @@ import HealthBar from './HealthBar';
 import HealthStatus from '../constants/HealthStatus';
 import HealthLabels from '../constants/HealthLabels';
 import Service from '../structs/Service';
-import ServicePlan from '../structs/ServicePlan';
-import ServicePlanProgressBar from './ServicePlanProgressBar';
 import StringUtil from '../utils/StringUtil';
 
 class ServiceInfo extends React.Component {
 
   getSubHeader(service) {
-    let {servicePlan} = this.props;
-
-    if (servicePlan) {
-      return (
-        <ServicePlanProgressBar servicePlan={servicePlan} stacked={false} />
-      );
-    }
-
     let serviceHealth = service.getHealth();
     let tasksSummary = service.getTasksSummary();
     let runningTasksCount = tasksSummary.tasksRunning;
@@ -77,7 +67,7 @@ class ServiceInfo extends React.Component {
         <div className="media-object-item">
           {imageTag}
         </div>
-        <div className="media-object-item flex-shrink">
+        <div className="media-object-item">
           <h1 className="flush inverse">
             {service.getName()}
           </h1>
