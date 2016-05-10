@@ -415,4 +415,8 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
   }
 }
 
+TaskDetail.propTypes = {
+  params: React.PropTypes.object
+};
+
 module.exports = TaskDetail;
