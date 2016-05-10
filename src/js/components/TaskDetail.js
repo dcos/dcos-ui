@@ -229,13 +229,13 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
     }
 
     let headerValueMapping = {
-      Host: task.host,
-      Ports: task.ports,
-      Endpoints: this.getTaskEndpoints(task),
-      Status: this.getTaskStatus(task),
+      'Host': task.host,
+      'Ports': task.ports,
+      'Endpoints': this.getTaskEndpoints(task),
+      'Status': this.getTaskStatus(task),
       'Staged at': task.stagedAt,
       'Started at': task.startedAt,
-      Version: task.version
+      'Version': task.version
     };
 
     return (
@@ -267,9 +267,9 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
     let service = services.filter({ids: [task.framework_id]}).last();
 
     let headerValueMapping = {
-      ID: task.id,
-      Service: `${service.name} (${service.id})`,
-      Node: `${node.hostname} (${node.id})`
+      'ID': task.id,
+      'Service': `${service.name} (${service.id})`,
+      'Node': `${node.hostname} (${node.id})`
     };
 
     let sandBoxPath = TaskDirectoryStore.get('sandBoxPath');
