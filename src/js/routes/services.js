@@ -29,7 +29,7 @@ let serviceRoutes = {
           children: [
             {
               type: Route,
-              name: 'services-task-panel',
+              name: 'services-task-details',
               path: 'task-detail/:taskID/?',
               handler: TaskDetail
             }

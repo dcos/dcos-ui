@@ -45,7 +45,7 @@ let nodesRoutes = {
       children: [
         {
           type: Route,
-          name: 'nodes-task-panel',
+          name: 'nodes-task-details',
           path: 'task-detail/:taskID/?',
           handler: TaskDetail
         },

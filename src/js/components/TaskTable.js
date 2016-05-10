@@ -120,9 +120,9 @@ class TaskTable extends React.Component {
     let params = this.props.parentRouter.getCurrentParams();
     let routeParams = Object.assign({taskID: task.id}, params);
 
-    let linkTo = 'services-task-panel';
+    let linkTo = 'services-task-details';
     if (params.nodeID != null) {
-      linkTo = 'nodes-task-panel';
+      linkTo = 'nodes-task-details';
     }
 
     return (
