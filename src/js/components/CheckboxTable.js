@@ -19,9 +19,9 @@ class CheckboxTable extends React.Component {
   constructor() {
     super();
 
-    METHODS_TO_BIND.forEach(function (method) {
+    METHODS_TO_BIND.forEach((method) => {
       this[method] = this[method].bind(this);
-    }, this);
+    });
   }
 
   handleCheckboxChange(prevCheckboxState, eventObject) {
@@ -150,9 +150,8 @@ class CheckboxTable extends React.Component {
   }
 
   render() {
-    let {className, data} = this.props;
+    let {className, data, sortProp} = this.props;
     let columns = this.getColumns();
-    let sortProp = columns[1].prop;
 
     let tableClassSet = classNames(
       'table inverse table-borderless-outer table-borderless-inner-columns',
@@ -187,6 +186,7 @@ CheckboxTable.propTypes = {
     PropTypes.object
   ]),
   onCheckboxChange: PropTypes.func,
+  sortProp: PropTypes.string,
   uniqueProperty: PropTypes.string
 };
 
