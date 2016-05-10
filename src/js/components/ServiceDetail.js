@@ -25,31 +25,6 @@ class ServiceDetail extends mixin(InternalStorageMixin, TabsMixin) {
     this.state = {
       currentTab: Object.keys(this.tabs_tabs).shift()
     };
-
-    this.store_listeners = [{
-      name: 'servicePlan',
-      events: [
-        'change',
-        'error'
-      ]
-    }];
-  }
-
-  componentDidMount() {
-    super.componentDidMount(...arguments);
-    ServicePlanStore.fetchPlan(this.props.service.id);
-  }
-
-  onServicePlanStoreChange() {
-    this.setState({
-      servicePlan: ServicePlanStore.getServicePlan(this.props.service.id)
-    });
-  }
-
-  onServicePlanStoreError() {
-    this.setState({
-      servicePlan: null
-    });
   }
 
   renderConfigurationTabView() {

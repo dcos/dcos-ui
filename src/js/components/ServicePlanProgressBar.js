@@ -7,7 +7,7 @@ const labelMap = {
   'InProgress': 'Updating'
 };
 
-class UpgradeProgressBar extends React.Component {
+class ServicePlanProgressBar extends React.Component {
   getPhaseLabel(servicePlan) {
     let phases = servicePlan.getPhases();
 
@@ -67,12 +67,12 @@ class UpgradeProgressBar extends React.Component {
   }
 }
 
-UpgradeProgressBar.defaultProps = {
+ServicePlanProgressBar.defaultProps = {
   progress: 100,
   stacked: true
 };
 
-UpgradeProgressBar.propTypes = {
+ServicePlanProgressBar.propTypes = {
   className: React.PropTypes.oneOfType([React.PropTypes.object,
     React.PropTypes.string]),
   fillClassName: React.PropTypes.oneOfType([React.PropTypes.object,
@@ -89,4 +89,4 @@ UpgradeProgressBar.propTypes = {
     React.PropTypes.string])
 };
 
-module.exports = UpgradeProgressBar;
+module.exports = ServicePlanProgressBar;
