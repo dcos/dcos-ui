@@ -222,20 +222,21 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
   }
 
   getMarathonTaskDetailsDescriptionList() {
-    let task = MarathonStore.getTaskFromTaskID(this.props.params.taskID);
+    let marathonTask =
+      MarathonStore.getTaskFromTaskID(this.props.params.taskID);
 
-    if (task == null) {
+    if (marathonTask == null) {
       return null;
     }
 
     let headerValueMapping = {
-      'Host': task.host,
-      'Ports': task.ports,
-      'Endpoints': this.getTaskEndpoints(task),
-      'Status': this.getTaskStatus(task),
-      'Staged at': task.stagedAt,
-      'Started at': task.startedAt,
-      'Version': task.version
+      'Host': marathonTask.host,
+      'Ports': marathonTask.ports,
+      'Endpoints': this.getTaskEndpoints(marathonTask),
+      'Status': this.getTaskStatus(marathonTask),
+      'Staged at': marathonTask.stagedAt,
+      'Started at': marathonTask.startedAt,
+      'Version': marathonTask.version
     };
 
     return (
