@@ -1,5 +1,4 @@
-import Router from 'react-router';
-let Route = Router.Route;
+import {Route} from 'react-router';
 
 import DashboardPage from '../pages/DashboardPage';
 
@@ -18,18 +17,6 @@ let dashboardRoutes = {
       type: Route,
       name: 'dashboard-task-panel',
       path: 'task-detail/:taskID/?'
-    },
-    {
-      type: Route,
-      name: 'dashboard-units-unit-nodes-panel',
-      path: 'system/components/:unitID/?',
-      children: [
-        {
-          type: Route,
-          name: 'dashboard-units-unit-nodes-node-panel',
-          path: 'nodes/:unitNodeID/?'
-        }
-      ]
     }
   ]
 };
