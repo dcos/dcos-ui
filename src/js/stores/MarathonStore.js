@@ -181,10 +181,13 @@ var MarathonStore = Store.createStore({
     return this.get('apps')[name];
   },
 
-  getServiceFromTaskID: function (taskID) {
+  getServiceNameFromTaskID: function (taskID) {
     let serviceName = taskID.split('.')[0].split('_');
-    serviceName = serviceName[serviceName.length - 1];
-    let service = this.get('apps')[serviceName];
+    return serviceName[serviceName.length - 1];
+  },
+
+  getServiceFromTaskID: function (taskID) {
+    let service = this.get('apps')[this.getServiceNameFromTaskID(taskID)];
     if (service == null) {
       return new Service();
     }
