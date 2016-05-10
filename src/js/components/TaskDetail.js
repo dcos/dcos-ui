@@ -254,14 +254,6 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
       return null;
     }
 
-    let node = MesosStateStore.getNodeFromID(task.slave_id);
-
-    if (node == null) {
-      return (
-        <p>Cannot find task information.</p>
-      );
-    }
-
     let services = MesosSummaryStore.get('states')
       .lastSuccessful()
       .getServiceList();
@@ -269,9 +261,14 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
 
     let headerValueMapping = {
       'ID': task.id,
-      'Service': `${service.name} (${service.id})`,
-      'Node': `${node.hostname} (${node.id})`
+      'Service': `${service.name} (${service.id})`
     };
+
+    let node = MesosStateStore.getNodeFromID(task.slave_id);
+
+    if (node != null) {
+      headerValueMapping['Node'] = `${node.hostname} (${node.id})`;
+    }
 
     let sandBoxPath = TaskDirectoryStore.get('sandBoxPath');
     if (sandBoxPath) {
