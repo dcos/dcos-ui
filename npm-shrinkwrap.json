@@ -189,6 +189,11 @@
       "from": "async-each-series@>=1.0.0 <2.0.0",
       "resolved": "https://registry.npmjs.org/async-each-series/-/async-each-series-1.1.0.tgz"
     },
+    "atob": {
+      "version": "1.1.3",
+      "from": "atob@>=1.1.0 <1.2.0",
+      "resolved": "https://registry.npmjs.org/atob/-/atob-1.1.3.tgz"
+    },
     "autoprefixer": {
       "version": "6.3.6",
       "from": "autoprefixer@6.3.6",
@@ -1289,6 +1294,18 @@
       "version": "3.0.1",
       "from": "csrf@>=3.0.0 <3.1.0",
       "resolved": "https://registry.npmjs.org/csrf/-/csrf-3.0.1.tgz"
+    },
+    "css": {
+      "version": "2.2.1",
+      "from": "css@>=2.0.0 <3.0.0",
+      "resolved": "https://registry.npmjs.org/css/-/css-2.2.1.tgz",
+      "dependencies": {
+        "source-map": {
+          "version": "0.1.43",
+          "from": "source-map@>=0.1.38 <0.2.0",
+          "resolved": "https://registry.npmjs.org/source-map/-/source-map-0.1.43.tgz"
+        }
+      }
     },
     "css-color-names": {
       "version": "0.0.3",
@@ -4649,6 +4666,40 @@
       "from": "punycode@>=1.2.4 <2.0.0",
       "resolved": "https://registry.npmjs.org/punycode/-/punycode-1.4.1.tgz"
     },
+    "purify-css": {
+      "version": "1.1.9",
+      "from": "purify-css@1.1.9",
+      "resolved": "https://registry.npmjs.org/purify-css/-/purify-css-1.1.9.tgz",
+      "dependencies": {
+        "async": {
+          "version": "0.2.10",
+          "from": "async@>=0.2.6 <0.3.0",
+          "resolved": "https://registry.npmjs.org/async/-/async-0.2.10.tgz"
+        },
+        "glob": {
+          "version": "6.0.4",
+          "from": "glob@>=6.0.4 <7.0.0",
+          "resolved": "https://registry.npmjs.org/glob/-/glob-6.0.4.tgz"
+        },
+        "source-map": {
+          "version": "0.1.34",
+          "from": "source-map@0.1.34",
+          "resolved": "https://registry.npmjs.org/source-map/-/source-map-0.1.34.tgz"
+        },
+        "uglifyjs": {
+          "version": "2.4.10",
+          "from": "uglifyjs@>=2.4.10 <3.0.0",
+          "resolved": "https://registry.npmjs.org/uglifyjs/-/uglifyjs-2.4.10.tgz",
+          "dependencies": {
+            "yargs": {
+              "version": "1.3.3",
+              "from": "yargs@>=1.3.3 <1.4.0",
+              "resolved": "https://registry.npmjs.org/yargs/-/yargs-1.3.3.tgz"
+            }
+          }
+        }
+      }
+    },
     "q": {
       "version": "1.4.1",
       "from": "q@>=1.1.2 <2.0.0",
@@ -5014,6 +5065,11 @@
       "from": "resolve@>=1.1.6 <2.0.0",
       "resolved": "https://registry.npmjs.org/resolve/-/resolve-1.1.7.tgz"
     },
+    "resolve-url": {
+      "version": "0.2.1",
+      "from": "resolve-url@>=0.2.1 <0.3.0",
+      "resolved": "https://registry.npmjs.org/resolve-url/-/resolve-url-0.2.1.tgz"
+    },
     "response-time": {
       "version": "2.3.1",
       "from": "response-time@>=2.3.1 <2.4.0",
@@ -5023,6 +5079,18 @@
       "version": "1.0.1",
       "from": "restore-cursor@>=1.0.1 <2.0.0",
       "resolved": "https://registry.npmjs.org/restore-cursor/-/restore-cursor-1.0.1.tgz"
+    },
+    "rework": {
+      "version": "1.0.1",
+      "from": "rework@>=1.0.1 <2.0.0",
+      "resolved": "https://registry.npmjs.org/rework/-/rework-1.0.1.tgz",
+      "dependencies": {
+        "convert-source-map": {
+          "version": "0.3.5",
+          "from": "convert-source-map@>=0.3.3 <0.4.0",
+          "resolved": "https://registry.npmjs.org/convert-source-map/-/convert-source-map-0.3.5.tgz"
+        }
+      }
     },
     "right-align": {
       "version": "0.1.3",
@@ -5263,6 +5331,11 @@
         }
       }
     },
+    "source-map-resolve": {
+      "version": "0.3.1",
+      "from": "source-map-resolve@>=0.3.0 <0.4.0",
+      "resolved": "https://registry.npmjs.org/source-map-resolve/-/source-map-resolve-0.3.1.tgz"
+    },
     "source-map-support": {
       "version": "0.2.10",
       "from": "source-map-support@>=0.2.10 <0.3.0",
@@ -5274,6 +5347,11 @@
           "resolved": "https://registry.npmjs.org/source-map/-/source-map-0.1.32.tgz"
         }
       }
+    },
+    "source-map-url": {
+      "version": "0.3.0",
+      "from": "source-map-url@>=0.3.0 <0.4.0",
+      "resolved": "https://registry.npmjs.org/source-map-url/-/source-map-url-0.3.0.tgz"
     },
     "sparkles": {
       "version": "1.0.0",
@@ -5831,6 +5909,11 @@
       "version": "1.1.2",
       "from": "upper-case-first@>=1.1.0 <2.0.0",
       "resolved": "https://registry.npmjs.org/upper-case-first/-/upper-case-first-1.1.2.tgz"
+    },
+    "urix": {
+      "version": "0.1.0",
+      "from": "urix@>=0.1.0 <0.2.0",
+      "resolved": "https://registry.npmjs.org/urix/-/urix-0.1.0.tgz"
     },
     "url": {
       "version": "0.11.0",
