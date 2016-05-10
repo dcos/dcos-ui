@@ -7,7 +7,7 @@ import packageInfo from '../package';
 import webpackConfig from './webpack.config.babel';
 
 // Defaults to value in package.json.
-// Can override with npm config set dcos-ui:port 80
+// Can override with npm config set port 80
 let PORT = parseInt(process.env.npm_package_config_port, 10);
 let environment = process.env.NODE_ENV;
 let devtool = null;
