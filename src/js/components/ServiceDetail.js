@@ -49,7 +49,9 @@ class ServiceDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
   }
 
   onServicePlanStoreError() {
-    console.log('service plan store error');
+    this.setState({
+      servicePlan: null
+    });
   }
 
   renderConfigurationTabView() {
