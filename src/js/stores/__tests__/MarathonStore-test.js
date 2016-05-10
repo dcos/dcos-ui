@@ -1,10 +1,13 @@
 jest.dontMock('../../constants/HealthLabels');
 jest.dontMock('../../mixins/GetSetMixin');
 jest.dontMock('../MarathonStore');
+jest.dontMock('../../constants/EventTypes');
 jest.dontMock('./fixtures/MockAppMetadata');
 jest.dontMock('./fixtures/MockMarathonResponse.json');
+jest.dontMock('../../structs/DeploymentsList');
 
 import DeploymentsList from '../../structs/DeploymentsList';
+import EventTypes from '../../constants/EventTypes';
 var HealthLabels = require('../../constants/HealthLabels');
 var HealthTypes = require('../../constants/HealthTypes');
 var MarathonStore = require('../MarathonStore');
@@ -179,12 +182,28 @@ describe('MarathonStore', function () {
 
   describe('#processMarathonDeployments', function () {
 
-    it('should hold the supplied deployments data on the store', function () {
+    beforeEach(function () {
+      this.handler = jest.genMockFunction();
+      MarathonStore.once(EventTypes.MARATHON_DEPLOYMENTS_CHANGE, this.handler);
       MarathonStore.processMarathonDeployments([{id: 'deployment-id'}]);
+    });
+
+    it('should hold the supplied deployments data on the store', function () {
       var deployments = MarathonStore.get('deployments');
       expect(deployments).toEqual(jasmine.any(DeploymentsList));
       expect(deployments.last().getId()).toEqual('deployment-id');
     });
+
+    it('should emit a marathon deployment event', function () {
+      expect(this.handler).toBeCalled();
+    });
+
+    it('should emit a populated DeploymentsList', function () {
+      let deployments = this.handler.mock.calls[0][0];
+      expect(deployments).toEqual(jasmine.any(DeploymentsList));
+      expect(deployments.last().getId()).toEqual('deployment-id');
+    });
+
   });
 
 });
