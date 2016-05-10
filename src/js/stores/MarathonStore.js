@@ -246,7 +246,6 @@ var MarathonStore = Store.createStore({
         MarathonStore.processMarathonDeploymentsError();
         break;
       case ActionTypes.REQUEST_MARATHON_GROUPS_ONGOING:
-      case ActionTypes.REQUEST_MARATHON_DEPLOYMENTS_ONGOING:
         MarathonStore.processOngoingRequest();
         break;
     }
