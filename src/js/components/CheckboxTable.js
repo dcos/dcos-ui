@@ -48,12 +48,13 @@ class CheckboxTable extends React.Component {
 
   bulkCheck(isChecked) {
     let checkedIDs = [];
-    let {data, onCheckboxChange} = this.props;
+    let {data, onCheckboxChange, uniqueProperty} = this.props;
 
     if (isChecked) {
       data.forEach(function (datum) {
-        checkedIDs.push(datum.id);
+        checkedIDs.push(datum[uniqueProperty]);
       });
+
       return onCheckboxChange(checkedIDs);
     }
 
@@ -81,6 +82,7 @@ class CheckboxTable extends React.Component {
 
     if (checkedItemsCount === data.length && checkedItemsCount !== 0) {
       checked = true;
+      indeterminate = false;
     }
 
     return (
@@ -104,7 +106,7 @@ class CheckboxTable extends React.Component {
   renderCheckbox(prop, row) {
     let {checkedItemsMap, uniqueProperty} = this.props;
     let rowID = row[uniqueProperty];
-    let checked = null;
+    let checked = false;
 
     if (checkedItemsMap[rowID]) {
       checked = true;
@@ -150,7 +152,7 @@ class CheckboxTable extends React.Component {
   }
 
   render() {
-    let {className, data, sortProp} = this.props;
+    let {className, data, getColGroup, sortProp} = this.props;
     let columns = this.getColumns();
 
     let tableClassSet = classNames(
@@ -164,7 +166,7 @@ class CheckboxTable extends React.Component {
         buildRowOptions={this.getTableRowOptions}
         className={tableClassSet}
         columns={columns}
-        colGroup={this.getColGroup()}
+        colGroup={getColGroup()}
         containerSelector=".gm-scroll-view"
         data={data}
         itemHeight={TableUtil.getRowHeight()}
