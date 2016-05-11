@@ -1,4 +1,8 @@
 import {
+  REQUEST_PLAN_BLOCK_FORCE_COMPLETE_SUCCESS,
+  REQUEST_PLAN_BLOCK_FORCE_COMPLETE_ERROR,
+  REQUEST_PLAN_BLOCK_RESTART_SUCCESS,
+  REQUEST_PLAN_BLOCK_RESTART_ERROR,
   REQUEST_PLAN_FETCH_SUCCESS,
   REQUEST_PLAN_FETCH_ERROR,
   REQUEST_PLAN_DECISION_SUCCESS,
@@ -27,6 +31,66 @@ const ServicePlanActions = {
           type: REQUEST_PLAN_FETCH_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr),
           serviceID
+        });
+      }
+    });
+  },
+
+  forceCompleteBlock: function (serviceID, phaseID, blockID) {
+    serviceID = encodeURIComponent(serviceID);
+    RequestUtil.json({
+      method: 'POST',
+      url: `${Config.rootUrl}/service/${serviceID}${Config.servicePlanAPIPath}/force_complete`,
+      data: {
+        phase_id: phaseID,
+        block_id: blockID
+      },
+      success: function (response) {
+        AppDispatcher.handleServerAction({
+          type: REQUEST_PLAN_BLOCK_FORCE_COMPLETE_SUCCESS,
+          data: response,
+          serviceID,
+          phaseID,
+          blockID
+        });
+      },
+      error: function (xhr) {
+        AppDispatcher.handleServerAction({
+          type: REQUEST_PLAN_BLOCK_FORCE_COMPLETE_ERROR,
+          data: RequestUtil.getErrorFromXHR(xhr),
+          serviceID,
+          phaseID,
+          blockID
+        });
+      }
+    });
+  },
+
+  restartBlock: function (serviceID, phaseID, blockID) {
+    serviceID = encodeURIComponent(serviceID);
+    RequestUtil.json({
+      method: 'POST',
+      url: `${Config.rootUrl}/service/${serviceID}${Config.servicePlanAPIPath}/restart`,
+      data: {
+        phase_id: phaseID,
+        block_id: blockID
+      },
+      success: function (response) {
+        AppDispatcher.handleServerAction({
+          type: REQUEST_PLAN_BLOCK_RESTART_SUCCESS,
+          data: response,
+          serviceID,
+          phaseID,
+          blockID
+        });
+      },
+      error: function (xhr) {
+        AppDispatcher.handleServerAction({
+          type: REQUEST_PLAN_BLOCK_RESTART_ERROR,
+          data: RequestUtil.getErrorFromXHR(xhr),
+          serviceID,
+          phaseID,
+          blockID
         });
       }
     });
