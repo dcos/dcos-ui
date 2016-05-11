@@ -45,7 +45,8 @@ class PackagesTable extends React.Component {
   getClassName(prop, sortBy, row) {
     return classNames({
       'highlight': prop === sortBy.prop,
-      'clickable': prop === 'appId' && row == null // this is a header
+      'clickable': prop === 'appId' && row == null, // this is a header
+      'text-align-right': prop === 'uninstall'
     });
   }
 
@@ -93,7 +94,7 @@ class PackagesTable extends React.Component {
       <colgroup>
         <col />
         <col style={{width: '120px'}} />
-        <col style={{width: '330px'}} />
+        <col style={{width: '120px'}} />
       </colgroup>
     );
   }
