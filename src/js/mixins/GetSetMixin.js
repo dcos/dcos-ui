@@ -22,6 +22,7 @@ var GetSetMixin = {
   },
 
   set: function (data) {
+    // Throw error if data is an array or is not an object
     if (!(typeof data === 'object' && !Array.isArray(data))) {
       throw new Error('Can only update getSet_data with data of type Object.');
     }

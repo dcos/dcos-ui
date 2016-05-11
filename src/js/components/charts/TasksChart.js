@@ -10,7 +10,7 @@ const TASK_INFO = {
   'TASK_RUNNING': {label: 'Tasks running', colorIndex: 4},
   'TASK_STAGING': {label: 'Tasks staging', colorIndex: 1}
 };
-const DISPLAYED_TASK_KEYS = ['TASK_RUNNING', 'TASK_STAGING'];
+const DISPLAYED_TASK_KEYS = Object.keys(TASK_INFO);
 
 function getEmptyTaskData() {
   return DISPLAYED_TASK_KEYS.map(function (key) {
