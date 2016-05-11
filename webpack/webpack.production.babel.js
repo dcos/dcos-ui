@@ -1,3 +1,4 @@
+import CompressionPlugin from 'compression-webpack-plugin';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import StringReplacePlugin from 'string-replace-webpack-plugin';
@@ -52,7 +53,14 @@ module.exports = Object.assign({}, webpackConfig, {
     }),
 
     // Don't include images in /icons/_exports
-    new webpack.IgnorePlugin(/icons\/_exports\//)
+    new webpack.IgnorePlugin(/icons\/_exports\//),
+
+    new CompressionPlugin({
+      asset: '[path].gz[query]',
+      algorithm: 'gzip',
+      test: /\.js$|\.css|\.html$/,
+      minRatio: 0.9
+    })
   ],
   module: {
     preLoaders: webpackConfig.module.preLoaders,
