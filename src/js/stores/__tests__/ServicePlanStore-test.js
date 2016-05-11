@@ -202,6 +202,73 @@ describe('ServicePlanStore', function () {
 
     });
 
+    describe('forceComplete', function () {
+
+      it('dispatches the correct event upon success', function () {
+        let mockedFn = jest.fn();
+        ServicePlanStore.addChangeListener(
+          EventTypes.PLAN_BLOCK_FORCE_COMPLETE_SUCCESS,
+          mockedFn
+        );
+        AppDispatcher.handleServerAction({
+          type: ActionTypes.REQUEST_PLAN_BLOCK_FORCE_COMPLETE_SUCCESS,
+          serviceID: '/kafka'
+        });
+
+        expect(mockedFn.mock.calls.length).toEqual(1);
+      });
+
+      it('dispatches the correct args with event upon success', function () {
+        let mockedFn = jest.fn();
+        ServicePlanStore.addChangeListener(
+          EventTypes.PLAN_BLOCK_FORCE_COMPLETE_SUCCESS,
+          mockedFn
+        );
+        AppDispatcher.handleServerAction({
+          type: ActionTypes.REQUEST_PLAN_BLOCK_FORCE_COMPLETE_SUCCESS,
+          serviceID: '/kafka',
+          phaseID: 'phase-1',
+          blockID: 'block-1'
+        });
+
+        expect(mockedFn.mock.calls[0]).toEqual(['/kafka', 'phase-1', 'block-1']);
+      });
+
+      it('dispatches the correct event upon error', function () {
+        let mockedFn = jest.fn();
+        ServicePlanStore.addChangeListener(
+          EventTypes.PLAN_BLOCK_FORCE_COMPLETE_ERROR,
+          mockedFn
+        );
+        AppDispatcher.handleServerAction({
+          type: ActionTypes.REQUEST_PLAN_BLOCK_FORCE_COMPLETE_ERROR,
+          serviceID: '/kafka'
+        });
+
+        expect(mockedFn.mock.calls.length).toEqual(1);
+      });
+
+      it('dispatches the correct args with event upon error', function () {
+        let error = {err: 'error'};
+        let mockedFn = jest.fn();
+        ServicePlanStore.addChangeListener(
+          EventTypes.PLAN_BLOCK_FORCE_COMPLETE_ERROR,
+          mockedFn
+        );
+        AppDispatcher.handleServerAction({
+          type: ActionTypes.REQUEST_PLAN_BLOCK_FORCE_COMPLETE_ERROR,
+          data: error,
+          serviceID: '/kafka',
+          phaseID: 'phase-1',
+          blockID: 'block-1'
+        });
+
+        expect(mockedFn.mock.calls[0]).toEqual(
+          [error, '/kafka', 'phase-1', 'block-1']);
+      });
+
+    });
+
     describe('decision', function () {
 
       it('dispatches the correct event upon success', function () {
@@ -261,6 +328,73 @@ describe('ServicePlanStore', function () {
 
         expect(mockedFn.mock.calls[0][0]).toEqual(error);
         expect(mockedFn.mock.calls[0][1]).toEqual('/kafka');
+      });
+
+    });
+
+    describe('restart', function () {
+
+      it('dispatches the correct event upon success', function () {
+        let mockedFn = jest.fn();
+        ServicePlanStore.addChangeListener(
+          EventTypes.PLAN_BLOCK_RESTART_SUCCESS,
+          mockedFn
+        );
+        AppDispatcher.handleServerAction({
+          type: ActionTypes.REQUEST_PLAN_BLOCK_RESTART_SUCCESS,
+          serviceID: '/kafka'
+        });
+
+        expect(mockedFn.mock.calls.length).toEqual(1);
+      });
+
+      it('dispatches the correct args with event upon success', function () {
+        let mockedFn = jest.fn();
+        ServicePlanStore.addChangeListener(
+          EventTypes.PLAN_BLOCK_RESTART_SUCCESS,
+          mockedFn
+        );
+        AppDispatcher.handleServerAction({
+          type: ActionTypes.REQUEST_PLAN_BLOCK_RESTART_SUCCESS,
+          serviceID: '/kafka',
+          phaseID: 'phase-1',
+          blockID: 'block-1'
+        });
+
+        expect(mockedFn.mock.calls[0]).toEqual(['/kafka', 'phase-1', 'block-1']);
+      });
+
+      it('dispatches the correct event upon error', function () {
+        let mockedFn = jest.fn();
+        ServicePlanStore.addChangeListener(
+          EventTypes.PLAN_BLOCK_RESTART_ERROR,
+          mockedFn
+        );
+        AppDispatcher.handleServerAction({
+          type: ActionTypes.REQUEST_PLAN_BLOCK_RESTART_ERROR,
+          serviceID: '/kafka'
+        });
+
+        expect(mockedFn.mock.calls.length).toEqual(1);
+      });
+
+      it('dispatches the correct args with event upon error', function () {
+        let error = {err: 'error'};
+        let mockedFn = jest.fn();
+        ServicePlanStore.addChangeListener(
+          EventTypes.PLAN_BLOCK_RESTART_ERROR,
+          mockedFn
+        );
+        AppDispatcher.handleServerAction({
+          type: ActionTypes.REQUEST_PLAN_BLOCK_RESTART_ERROR,
+          data: error,
+          serviceID: '/kafka',
+          phaseID: 'phase-1',
+          blockID: 'block-1'
+        });
+
+        expect(mockedFn.mock.calls[0]).toEqual(
+          [error, '/kafka', 'phase-1', 'block-1']);
       });
 
     });
