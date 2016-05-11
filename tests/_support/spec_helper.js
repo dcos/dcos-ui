@@ -9,7 +9,7 @@ Cypress.addParentCommand('configureCluster', function (configuration) {
     if (configuration.logIn !== false) {
       cy.request(
         'POST',
-        '/acs/api/v1/auth/login',
+        Cypress.env('CLUSTER_URL') + '/acs/api/v1/auth/login',
         {password: 'deleteme', uid: 'bootstrapuser'}
       )
       .then(function (response) {
