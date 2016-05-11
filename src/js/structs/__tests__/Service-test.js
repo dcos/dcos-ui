@@ -433,6 +433,20 @@ describe('Service', function () {
 
   });
 
+  describe('#getVersions', function () {
+
+    it('returns correct versions map', function () {
+      const versionID = '2016-03-22T10:46:07.354Z';
+      let service = new Service({
+        versions: new Map([[versionID]])
+      });
+
+      expect(service.getVersions())
+        .toEqual(new Map([[versionID]]));
+    });
+
+  });
+
   describe('#getVersionInfo', function () {
 
     it('returns correct version info', function () {
