@@ -2,10 +2,10 @@ jest.dontMock('../StructUtil');
 jest.dontMock('../../structs/List');
 jest.dontMock('../../structs/Item');
 
-var _ = require('underscore');
-var StructUtil = require('../StructUtil');
-var List = require('../../structs/List');
+var deepEqual = require('deep-equal');
 var Item = require('../../structs/Item');
+var List = require('../../structs/List');
+var StructUtil = require('../StructUtil');
 
 describe('StructUtil', function () {
   describe('#copyRawObject', function () {
@@ -22,12 +22,12 @@ describe('StructUtil', function () {
       var fn = function () {};
       var originalObject = [1, 'string', fn, true];
       var newObj = StructUtil.copyRawObject(originalObject);
-      expect(_.isEqual(newObj, originalObject)).toBeTruthy();
+      expect(deepEqual(newObj, originalObject)).toBeTruthy();
     });
 
     it('should return original data from List struct', function () {
       var newObj = StructUtil.copyRawObject(listStruct);
-      expect(_.isEqual(newObj, expectedArrayItems)).toBeTruthy();
+      expect(deepEqual(newObj, expectedArrayItems)).toBeTruthy();
     });
 
     it('should clone Objects', function () {
@@ -59,7 +59,7 @@ describe('StructUtil', function () {
         },
         foobar: fn
       };
-      expect(_.isEqual(newObj, expectedObj)).toBeTruthy();
+      expect(deepEqual(newObj, expectedObj)).toBeTruthy();
     });
 
   });

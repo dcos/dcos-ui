@@ -1,5 +1,5 @@
-import _ from 'underscore';
 var classNames = require('classnames');
+import deepEqual from 'deep-equal';
 var React = require('react');
 
 var Chart = require('./Chart');
@@ -36,7 +36,7 @@ var TasksChart = React.createClass({
     var newTasks = this.getTasks(nextProps.tasks);
 
     // If equal, do not update
-    return !_.isEqual(previousTasks, newTasks);
+    return !deepEqual(previousTasks, newTasks);
   },
 
   getTaskInfo: function (tasks) {

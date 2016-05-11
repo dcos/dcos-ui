@@ -15,6 +15,7 @@ var vendors = [
   'classnames',
   'cookie',
   'd3',
+  'deep-equal',
   'flux',
   'less-color-lighten',
   'md5',

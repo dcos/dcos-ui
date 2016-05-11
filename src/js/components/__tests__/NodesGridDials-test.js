@@ -2,7 +2,7 @@ jest.dontMock('../../utils/Util');
 jest.dontMock('../../constants/ResourceTypes');
 jest.dontMock('../NodesGridDials');
 
-var _ = require('underscore');
+var deepEqual = require('deep-equal');
 /* eslint-disable no-unused-vars */
 var React = require('react');
 /* eslint-enable no-unused-vars */
@@ -135,7 +135,7 @@ describe('NodesGridDials', function () {
       host.active = false;
       var config2 = this.instance.getDialConfig(new Node(host));
 
-      expect(_.isEqual(config1, config2)).toEqual(false);
+      expect(deepEqual(config1, config2)).toEqual(false);
     });
 
   });

@@ -1,4 +1,4 @@
-var _ = require('underscore');
+import deepEqual from 'deep-equal';
 import {Store} from 'mesosphere-shared-reactjs';
 
 var AppDispatcher = require('../events/AppDispatcher');
@@ -45,7 +45,7 @@ var MetadataStore = Store.createStore({
         var metadata = action.data;
 
         // only emitting on change
-        if (!_.isEqual(oldMetadata, metadata)) {
+        if (!deepEqual(oldMetadata, metadata)) {
           MetadataStore.set({metadata});
           MetadataStore.emitChange(EventTypes.METADATA_CHANGE);
         }
@@ -55,7 +55,7 @@ var MetadataStore = Store.createStore({
         var dcosMetadata = action.data;
 
         // only emitting on change
-        if (!_.isEqual(oldDCOSMetadata, dcosMetadata)) {
+        if (!deepEqual(oldDCOSMetadata, dcosMetadata)) {
           MetadataStore.set({dcosMetadata});
           MetadataStore.emitChange(EventTypes.DCOS_METADATA_CHANGE);
         }

@@ -40,6 +40,7 @@ var config = {
     'browser-info',
     'classnames',
     'd3',
+    'deep-equal',
     'events',
     'flux',
     'jasmine-reporters',
