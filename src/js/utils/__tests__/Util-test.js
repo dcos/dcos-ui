@@ -12,9 +12,9 @@ describe('Util', function () {
         ids[index] = Util.uniqueID();
       });
 
-      let result = ids.reduce(function (allUnique, id, index) {
-        return allUnique && !ids.includes(id, index + 1);
-      }, true);
+      let result = ids.every(function (id, index, array) {
+        return !array.includes(id, index + 1);
+      });
 
       expect(result).toBeTruthy();
     });
@@ -22,7 +22,7 @@ describe('Util', function () {
     it('should provide an integer', function () {
       let id = Util.uniqueID();
 
-      expect(Number(id) === id && id % 1 === 0).toBeTruthy();
+      expect(typeof id === 'number' && id % 1 === 0).toBeTruthy();
     });
 
   });
