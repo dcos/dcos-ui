@@ -146,13 +146,11 @@ var DashboardPage = React.createClass({
       };
     });
 
-    let sortedServices = servicesMap.sort(function (service) {
+    let sortedServices = servicesMap.sort(function (service, other) {
       let health = MarathonStore.getServiceHealth(service.name);
-      if (health && health.key) {
-        return HealthSorting[health.key];
-      } else {
-        return HealthSorting.NA;
-      }
+      let otherHealth = MarathonStore.getServiceHealth(other.name);
+
+      return HealthSorting[health.key] - HealthSorting[otherHealth.key];
     });
 
     return sortedServices.slice(0, this.props.servicesListLength);

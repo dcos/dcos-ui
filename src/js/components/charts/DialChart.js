@@ -111,7 +111,8 @@ var DialChart = React.createClass({
   },
 
   getRadius: function (props) {
-    var smallSide = Math.min(props.width, props.height);
+    let smallSide = Math.min(props.width || Infinity, props.height || Infinity);
+
     return smallSide / 2;
   },
 

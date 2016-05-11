@@ -60,12 +60,15 @@ describe('TimeSeriesChart', function () {
           ]
         }
       ];
+
       var props = {data: data};
-      Object.keys(this.instance.props).forEach(function (key) {
-        if (data[key] == null) {
-          data[key] = props[key];
+
+      Object.keys(this.instance.props).forEach((key) => {
+        if (props[key] == null) {
+          props[key] = this.instance.props[key];
         }
       });
+
       var _return = this.instance.shouldComponentUpdate(props);
 
       expect(_return).toEqual(true);

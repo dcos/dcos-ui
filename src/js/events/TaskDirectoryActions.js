@@ -11,16 +11,15 @@ function findWithID(stateObject, listProps, id) {
 
   for (let i = 0; i < length; i++) {
     let array = stateObject[listProps[i]];
-    if (!array) {
-      return null;
-    }
 
-    searchItem = array.find(function (element) {
-      return element.id === id;
-    });
+    if (array) {
+      searchItem = array.find(function (element) {
+        return element.id === id;
+      });
 
-    if (searchItem) {
-      return searchItem;
+      if (searchItem) {
+        return searchItem;
+      }
     }
   }
 

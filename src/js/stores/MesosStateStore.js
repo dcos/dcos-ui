@@ -96,8 +96,8 @@ var MesosStateStore = Store.createStore({
     let nodes = this.get('lastMesosState').slaves;
 
     if (nodes) {
-      return nodes.find(function () {
-        return node.id === id
+      return nodes.find(function (node) {
+        return node.id === id;
       });
     }
 
