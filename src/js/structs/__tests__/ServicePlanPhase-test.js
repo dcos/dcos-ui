@@ -1,4 +1,4 @@
-import List from '../List';
+import ServicePlanBlocks from '../ServicePlanBlocks';
 import ServicePlanPhase from '../ServicePlanPhase';
 import ServicePlanStatusTypes from '../../constants/ServicePlanStatusTypes';
 
@@ -6,12 +6,12 @@ describe('ServicePlanPhase', function () {
 
   describe('#getBlocks', function () {
 
-    it('should return an instance of List', function () {
+    it('should return an instance of ServicePlanBlocks', function () {
       let Phase = new ServicePlanPhase({
         blocks: []
       });
 
-      expect(Phase.getBlocks() instanceof List).toEqual(true);
+      expect(Phase.getBlocks() instanceof ServicePlanBlocks).toEqual(true);
     });
 
     it('should return 1 block', function () {
