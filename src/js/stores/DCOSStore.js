@@ -64,6 +64,23 @@ class DCOSStore extends EventEmitter {
   }
 
   /**
+   * Fetch service version/configuration from Marathon
+   * @param {string} serviceID
+   * @param {string} versionID
+   */
+  fetchServiceVersion(serviceID, versionID) {
+    MarathonStore.fetchServiceVersion(serviceID, versionID);
+  }
+
+  /**
+   * Fetch service versions/configurations from Marathon
+   * @param {string} serviceID
+   */
+  fetchServiceVersions(serviceID) {
+    MarathonStore.fetchServiceVersions(serviceID);
+  }
+
+  /**
    * Process Marathon groups data
    * @param {ServiceTree} data
    */
