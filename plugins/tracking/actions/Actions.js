@@ -1,4 +1,4 @@
-var _ = require('underscore');
+import deepEqual from 'deep-equal';
 var md5 = require('md5');
 var RouterLocation = require('react-router').HashLocation;
 
@@ -121,7 +121,7 @@ var Actions = {
       return;
     }
 
-    if (_.isEqual(this.previousFakePageLog, fakePageLog)) {
+    if (deepEqual(this.previousFakePageLog, fakePageLog)) {
       return;
     }
 

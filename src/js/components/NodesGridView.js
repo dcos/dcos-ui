@@ -1,5 +1,5 @@
-var _ = require('underscore');
 var classNames = require('classnames');
+import deepEqual from 'deep-equal';
 var React = require('react');
 
 import EventTypes from '../constants/EventTypes';
@@ -71,7 +71,7 @@ var NodesGridView = React.createClass({
 
     let serviceColors = this.internalStorage_get().serviceColors;
 
-    if (!_.isEqual(Object.keys(serviceColors), ids)) {
+    if (!deepEqual(Object.keys(serviceColors), ids)) {
       this.computeServiceColors(props.services);
       this.computeShownServices(props.services);
     }
@@ -86,7 +86,7 @@ var NodesGridView = React.createClass({
       data.hiddenServices
     );
 
-    if (!_.isEqual(resourcesByFramework, slaves)) {
+    if (!deepEqual(resourcesByFramework, slaves)) {
       this.internalStorage_update({resourcesByFramework: slaves});
     }
   },

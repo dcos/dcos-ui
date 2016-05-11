@@ -1,6 +1,6 @@
-var _ = require('underscore');
 var classNames = require('classnames');
 var d3 = require('d3');
+import deepEqual from 'deep-equal';
 var React = require('react');
 var ReactDOM = require('react-dom');
 
@@ -58,7 +58,7 @@ var BarChart = React.createClass({
   shouldComponentUpdate: function (nextProps) {
     return this.props.height !== nextProps.height ||
       this.props.width !== nextProps.width ||
-      !_.isEqual(this.props.data, nextProps.data);
+      !deepEqual(this.props.data, nextProps.data);
   },
 
   componentWillMount: function () {

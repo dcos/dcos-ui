@@ -7125,6 +7125,11 @@
       "from": "dcos-dygraphs@1.1.0-beta.3",
       "resolved": "https://registry.npmjs.org/dcos-dygraphs/-/dcos-dygraphs-1.1.0-beta.3.tgz"
     },
+    "deep-equal": {
+      "version": "1.0.1",
+      "from": "deep-equal@latest",
+      "resolved": "https://registry.npmjs.org/deep-equal/-/deep-equal-1.0.1.tgz"
+    },
     "del": {
       "version": "2.2.0",
       "from": "https://registry.npmjs.org/del/-/del-2.2.0.tgz",

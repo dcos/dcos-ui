@@ -3,7 +3,7 @@ jest.dontMock('../../config/Config');
 jest.dontMock('../../mixins/GetSetMixin');
 jest.dontMock('../../stores/ConfigStore');
 
-var _ = require('underscore');
+var deepEqual = require('deep-equal');
 
 var EventTypes = require('../../constants/EventTypes');
 var PluginSDK = require('PluginSDK');
@@ -37,7 +37,7 @@ describe('AppReducer', function () {
 
     var state = getApplicationState();
 
-    expect(_.isEqual(state, expectedState)).toEqual(true);
+    expect(deepEqual(state, expectedState)).toEqual(true);
   });
 
   it('should alter state correctly after plugins loaded', function () {
@@ -72,7 +72,7 @@ describe('AppReducer', function () {
     var state = getApplicationState();
     // lets remove the config stuff just for ease
     delete state.config;
-    expect(_.isEqual(state, expectedState)).toEqual(true);
+    expect(deepEqual(state, expectedState)).toEqual(true);
   });
 
   it('should alter state correctly for storeID', function () {
@@ -90,7 +90,7 @@ describe('AppReducer', function () {
     var state = getApplicationState();
     // lets remove the config stuff just for ease
     delete state.config;
-    expect(_.isEqual(state, expectedState)).toEqual(true);
+    expect(deepEqual(state, expectedState)).toEqual(true);
   });
 
   it('should not alter state if action dispatched from plugin', function () {
@@ -119,7 +119,7 @@ describe('AppReducer', function () {
     var state = getApplicationState();
     // lets remove the config stuff just for ease
     delete state.config;
-    expect(_.isEqual(state, expectedState)).toEqual(true);
+    expect(deepEqual(state, expectedState)).toEqual(true);
   });
 
   it('should clone state', function () {

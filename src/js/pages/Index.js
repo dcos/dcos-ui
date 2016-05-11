@@ -1,5 +1,5 @@
-var _ = require('underscore');
 var classNames = require('classnames');
+import deepEqual from 'deep-equal';
 var React = require('react');
 var RouteHandler = require('react-router').RouteHandler;
 import {StoreMixin} from 'mesosphere-shared-reactjs';
@@ -75,8 +75,8 @@ var Index = React.createClass({
   },
 
   shouldComponentUpdate: function (nextProps, nextState) {
-    return !(_.isEqual(this.props, nextProps) &&
-        _.isEqual(this.state, nextState));
+    return !(deepEqual(this.props, nextProps) &&
+        deepEqual(this.state, nextState));
   },
 
   componentWillUnmount: function () {

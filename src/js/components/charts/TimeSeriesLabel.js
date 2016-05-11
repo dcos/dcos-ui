@@ -1,5 +1,5 @@
-import _ from 'underscore';
 var classNames = require('classnames');
+import deepEqual from 'deep-equal';
 var React = require('react');
 
 var ValueTypes = require('../../constants/ValueTypes');
@@ -30,7 +30,7 @@ var TimeSeriesLabel = React.createClass({
 
   shouldComponentUpdate: function (nextProps) {
     // If equal, do not update
-    return !_.isEqual(this.props, nextProps);
+    return !deepEqual(this.props, nextProps);
   },
 
   render: function () {

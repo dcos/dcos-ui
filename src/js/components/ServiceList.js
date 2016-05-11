@@ -1,5 +1,5 @@
-const _ = require('underscore');
 import classNames from 'classnames';
+import deepEqual from 'deep-equal';
 import {List, Tooltip} from 'reactjs-components';
 const React = require('react');
 
@@ -31,9 +31,9 @@ let ServiceList = React.createClass({
 
   shouldComponentUpdate: function (nextProps, nextState) {
     var changedState =
-      nextState !== undefined && !_.isEqual(this.state, nextState);
+      nextState !== undefined && !deepEqual(this.state, nextState);
 
-    return !_.isEqual(this.props, nextProps) || changedState;
+    return !deepEqual(this.props, nextProps) || changedState;
   },
 
   handleServiceClick: function (service, event) {
