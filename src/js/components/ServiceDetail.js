@@ -3,6 +3,7 @@ import React from 'react';
 
 import InternalStorageMixin from '../mixins/InternalStorageMixin';
 import Service from '../structs/Service';
+import ServiceDetailConfigurationTab from './ServiceDetailConfigurationTab';
 import ServiceDetailTaskTab from './ServiceDetailTaskTab';
 import ServiceInfo from './ServiceInfo';
 import ServicesBreadcrumb from './ServicesBreadcrumb';
@@ -26,7 +27,9 @@ class ServiceDetail extends mixin(InternalStorageMixin, TabsMixin) {
   }
 
   renderConfigurationTabView() {
-    return (<span>Configuration Placeholder</span>);
+    return (
+      <ServiceDetailConfigurationTab service={this.props.service}/>
+    );
   }
 
   renderDebugTabView() {
