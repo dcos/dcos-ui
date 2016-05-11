@@ -42,6 +42,7 @@ describe('Node Health Tab [0fa]', function () {
       cy.get('@filterHealth').click();
       cy.get('.dropdown').find('li').contains('Healthy').click();
       cy.get('.page-content td .text-success').should(function ($row) {
+        // Test that there are at least some healthy systemd units
         expect($row.length).to.be.at.least(5);
       });
     });
@@ -50,6 +51,8 @@ describe('Node Health Tab [0fa]', function () {
       cy.get('@filterTextbox').type('logrotate');
       cy.get('.page-content').within(function () {
         cy.get('td a').should(function ($row) {
+          // Test that there are at least some systemd units
+          // containing this name
           expect($row.length).to.be.at.least(2);
         });
       });
