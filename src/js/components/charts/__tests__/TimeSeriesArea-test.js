@@ -1,4 +1,3 @@
-var _ = require('underscore');
 var d3 = require('d3');
 /* eslint-disable no-unused-vars */
 var React = require('react');
@@ -21,7 +20,7 @@ function checkPath(instance, props) {
 
   var index = 1;
   var points = ReactDOM.findDOMNode(area).attributes.d.value.split(',');
-  _.each(points, function (str, i) {
+  points.forEach(function (str, i) {
     // Disgard values after we've been through data
     // Also parseFloat and check with index (int) to make sure we exactly
     // where we want to be

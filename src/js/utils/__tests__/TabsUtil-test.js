@@ -1,7 +1,5 @@
 jest.dontMock('../TabsUtil');
 
-var _ = require('underscore');
-
 var TabsUtil = require('../TabsUtil');
 
 describe('TabsUtil', function () {
@@ -53,13 +51,13 @@ describe('TabsUtil', function () {
     });
 
     it('should throw an error when tabs is null', function () {
-      var fn = TabsUtil.getTabs.bind(null, null, 'baz', _.noop);
+      var fn = TabsUtil.getTabs.bind(null, null, 'baz', function () {});
 
       expect(fn).toThrow();
     });
 
     it('should throw an error when tabs is undefined', function () {
-      var fn = TabsUtil.getTabs.bind(null, undefined, 'baz', _.noop);
+      var fn = TabsUtil.getTabs.bind(null, undefined, 'baz', function () {});
 
       expect(fn).toThrow();
     });

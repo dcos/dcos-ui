@@ -12,6 +12,7 @@ import Rect from './Rect';
 var TimeSeriesArea = require('./TimeSeriesArea');
 var TimeSeriesMouseOver = require('./TimeSeriesMouseOver');
 var ValueTypes = require('../../constants/ValueTypes');
+import Util from '../../utils/Util';
 
 var TimeSeriesChart = React.createClass({
 
@@ -59,8 +60,8 @@ var TimeSeriesChart = React.createClass({
 
   componentWillMount: function () {
     this.internalStorage_set({
-      clipPathID: _.uniqueId('clip'),
-      maskID: _.uniqueId('mask')
+      clipPathID: `clip-${Util.uniqueID()}`,
+      maskID: `mask-${Util.uniqueID()}`
     });
   },
 
@@ -80,7 +81,7 @@ var TimeSeriesChart = React.createClass({
     // happens after mount and ends up keeping the axis code outside of react
     // unfortunately.
     // If non `data` props change then we need to update the whole graph
-    if (!_.isEqual(_.omit(props, 'data'), _.omit(nextProps, 'data'))) {
+    if (!_.isEqual(Util.omit(props, 'data'), Util.omit(nextProps, 'data'))) {
       var height = this.getHeight(nextProps);
       var width = this.getWidth(nextProps);
 
@@ -89,11 +90,15 @@ var TimeSeriesChart = React.createClass({
     }
 
     // This won't be scalable if we decide to stack graphs
-    var prevVal = _.first(props.data).values;
-    var nextVal = _.first(nextProps.data).values;
+    var prevVal = props.data[0].values;
+    var nextVal = nextProps.data[0].values;
 
-    var prevY = _.pluck(prevVal, props.y);
-    var nextY = _.pluck(nextVal, props.y);
+    var prevY = prevVal.map(function (value) {
+      return value[props.y];
+    });
+    var nextY = nextVal.map(function (value) {
+      return value[props.y];
+    });
 
     return !_.isEqual(prevY, nextY);
   },
@@ -207,14 +212,14 @@ var TimeSeriesChart = React.createClass({
     var date = Date.now();
     var dateDelta = Date.now();
 
-    var firstDataSet = _.first(data);
+    var firstDataSet = data[0];
     if (firstDataSet != null) {
       var hiddenValuesCount = 1;
       var values = firstDataSet.values;
       // [first date, last date - 1]
       // Ristrict x domain to have one extra point outside of graph area,
       // since we are animating the graph in from right
-      date = _.first(values).date;
+      date = values[0].date;
       dateDelta = values[values.length - 1 - hiddenValuesCount].date;
     }
 
@@ -308,7 +313,7 @@ var TimeSeriesChart = React.createClass({
    * Returns the x position of the data point that we are about to animate in
    */
   getNextXPosition: function (values, xTimeScale, transitionTime) {
-    var firstDataSet = _.first(values);
+    var firstDataSet = values[0];
     var date = Date.now();
 
     if (firstDataSet != null) {
@@ -323,14 +328,14 @@ var TimeSeriesChart = React.createClass({
    * Returns the y position of the data point that we are about to animate in
    */
   getNextYPosition: function (obj, y, yScale, height) {
-    var lastestDataPoint = _.last(obj.values);
+    var lastestDataPoint = Util.last(obj.values);
 
     // most recent y - height of chart
     return yScale(lastestDataPoint[y]) - height;
   },
 
   getAreaList: function (props, yScale, xTimeScale) {
-    var firstSuccess = _.find(props.data[0].values, function (stateResource) {
+    var firstSuccess = props.data[0].values.find(function (stateResource) {
       return stateResource[props.y] != null;
     }) || {};
     // We need firstSuccess because if the current value is null,
@@ -339,7 +344,7 @@ var TimeSeriesChart = React.createClass({
     var area = this.getArea(props.y, xTimeScale, yScale, firstSuccess);
     var valueLine = this.getValueLine(xTimeScale, yScale, firstSuccess);
 
-    return _.map(props.data, function (stateResource, i) {
+    return props.data.map((stateResource, i) => {
       var transitionTime = this.getTransitionTime(stateResource.values);
       var nextY = this.getNextXPosition(
         stateResource.values,
@@ -356,13 +361,13 @@ var TimeSeriesChart = React.createClass({
           position={[-nextY, 0]}
           transitionTime={transitionTime} />
       );
-    }, this);
+    });
   },
 
   getCircleList: function (props, yScale, width, height) {
-    return _.map(props.data, function (obj, i) {
+    return props.data.map((obj, i) => {
       var transitionTime = this.getTransitionTime(obj.values);
-      var lastObj = _.last(obj.values);
+      var lastObj = Util.last(obj.values);
 
       if (lastObj[props.y] == null) {
         return null;
@@ -379,7 +384,7 @@ var TimeSeriesChart = React.createClass({
           position={[0, nextX]}
           transitionTime={transitionTime} />
       );
-    }, this);
+    });
   },
 
   getBoundingBox: function (props) {
@@ -462,7 +467,7 @@ var TimeSeriesChart = React.createClass({
           <defs>
             <mask ref="maskDef" id={store.maskID}>
               <rect x="0" y="0" width={width} height={height} fill="white" />
-              {this.createUnsuccessfulBlocks(_.first(props.data).values, xTimeScale)}
+              {this.createUnsuccessfulBlocks(props.data[0].values, xTimeScale)}
             </mask>
           </defs>
         </svg>

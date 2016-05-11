@@ -5,7 +5,6 @@ jest.dontMock('../../../stores/CosmosPackagesStore');
 jest.dontMock('../../../mixins/InternalStorageMixin');
 jest.dontMock('../../../mixins/TabsMixin');
 
-var _ = require('underscore');
 /* eslint-disable no-unused-vars */
 var React = require('react');
 /* eslint-enable no-unused-vars */
@@ -30,7 +29,7 @@ describe('InstallPackageModal', function () {
     RequestUtil.json = function (handlers) {
       handlers.success(packageDescribeFixture);
     };
-    this.packageDescribeFixture = _.clone(packageDescribeFixture);
+    this.packageDescribeFixture = Object.assign({}, packageDescribeFixture);
 
     this.container = document.createElement('div');
     this.instance = ReactDOM.render(

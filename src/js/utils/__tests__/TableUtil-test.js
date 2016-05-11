@@ -1,8 +1,8 @@
 jest.dontMock('../TableUtil');
 
-var _ = require('underscore');
 var MarathonStore = require('../../stores/MarathonStore');
 var TableUtil = require('../TableUtil');
+var Util = require('../Util');
 
 describe('TableUtil', function () {
   beforeEach(function () {
@@ -29,7 +29,7 @@ describe('TableUtil', function () {
     beforeEach(function () {
       this.getProp = function (obj, prop) {
         if (prop === 'timestamp') {
-          return _.last(obj.statuses)[prop];
+          return Util.last(obj.statuses)[prop];
         }
 
         return obj[prop];
@@ -39,7 +39,7 @@ describe('TableUtil', function () {
     });
 
     it('should return a function', function () {
-      expect(_.isFunction(this.sortFunction)).toEqual(true);
+      expect(typeof this.sortFunction).toEqual('function');
     });
 
     it('should compare ids values', function () {

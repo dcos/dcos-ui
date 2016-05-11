@@ -1,4 +1,3 @@
-var _ = require('underscore');
 import {Store} from 'mesosphere-shared-reactjs';
 
 var AppDispatcher = require('../events/AppDispatcher');
@@ -79,9 +78,9 @@ var MesosSummaryStore = Store.createStore({
   },
 
   getInitialStates: function () {
-    let initialStates = MesosSummaryUtil.getInitialStates();
+    let initialStates = MesosSummaryUtil.getInitialStates().slice();
     let states = new SummaryList({maxLength: Config.historyLength});
-    _.clone(initialStates).forEach(state => {
+    initialStates.forEach(state => {
       states.addSnapshot(state, state.date, false);
     });
 
@@ -115,7 +114,7 @@ var MesosSummaryStore = Store.createStore({
   },
 
   shouldPoll: function () {
-    return !_.isEmpty(this.listeners(MESOS_SUMMARY_CHANGE));
+    return !!this.listeners(MESOS_SUMMARY_CHANGE).length;
   },
 
   getActiveServices: function () {
@@ -125,7 +124,7 @@ var MesosSummaryStore = Store.createStore({
   getServiceFromName: function (name) {
     let services = this.getActiveServices();
 
-    return _.find(services, function (service) {
+    return services.find(function (service) {
       return service.get('name') === name;
     });
   },
@@ -193,7 +192,7 @@ var MesosSummaryStore = Store.createStore({
     }
     // Multiply Config.stateRefresh in order to use larger time slices
     data = MesosSummaryUtil.addTimestampsToData(data, Config.getRefreshRate());
-    _.each(data, function (datum) {
+    data.forEach(function (datum) {
       MesosSummaryStore.processSummary(datum, {silent: true});
     });
   },

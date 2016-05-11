@@ -1,4 +1,3 @@
-import _ from 'underscore';
 import {createStore, combineReducers, applyMiddleware, compose} from 'redux';
 import {Store as fluxStore} from 'mesosphere-shared-reactjs';
 
@@ -108,7 +107,7 @@ const createDispatcher = function (pluginID) {
   return function (action) {
     // Inject origin namespace if simple Object
     if (action === Object(action)) {
-      action = _.extend({}, action, {__origin: pluginID});
+      action = Object.assign({}, action, {__origin: pluginID});
     }
     Store.dispatch(action);
   };
@@ -197,7 +196,7 @@ const getActionsAPI = function (SDK) {
  */
 const createPluginStore = function (definition) {
   // Extend with event handling to reduce boilerplate.
-  definition = _.extend({}, {
+  definition = Object.assign({}, {
     addChangeListener: function (eventName, callback) {
       this.on(eventName, callback);
     },
@@ -220,7 +219,7 @@ const createPluginStore = function (definition) {
     // because its presence will degrade test performance.
     getApplicationModuleAPI().get('StoreMixinConfig')
       .add(definition.storeID,
-        _.extend({}, definition.mixinEvents, {store: definition})
+        Object.assign({}, definition.mixinEvents, {store: definition})
       );
   }
 

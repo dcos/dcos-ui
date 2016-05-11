@@ -1,4 +1,3 @@
-import _ from 'underscore';
 import tv4 from 'tv4';
 
 function filteredPaths(combinedPath) {
@@ -77,8 +76,7 @@ let SchemaFormUtil = {
         return;
       }
 
-      let nextDefinition = _.find(
-        definition.definition,
+      let nextDefinition = definition.definition.find(
         function (definitionField) {
           return definitionField.name === path
             || definitionField.title === path;

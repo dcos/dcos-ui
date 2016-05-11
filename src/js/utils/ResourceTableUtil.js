@@ -1,4 +1,3 @@
-const _ = require('underscore');
 const classNames = require('classnames');
 /* eslint-disable no-unused-vars */
 const React = require('react');
@@ -10,12 +9,14 @@ const MarathonStore = require('../stores/MarathonStore');
 import TableUtil from '../utils/TableUtil';
 import Util from '../utils/Util';
 
+const LEFT_ALIGN_PROPS = ['cpus', 'mem', 'disk', 'size', 'mtime', 'priority'];
+
 function leftAlignCaret(prop) {
-  return _.contains(['cpus', 'mem', 'disk', 'size', 'mtime', 'priority'], prop);
+  return LEFT_ALIGN_PROPS.includes(prop);
 }
 
 function getUpdatedTimestamp(model) {
-  let lastStatus = _.last(model.statuses);
+  let lastStatus = Util.last(model.statuses);
   return lastStatus && lastStatus.timestamp || null;
 }
 
@@ -58,7 +59,7 @@ var ResourceTableUtil = {
         }
 
         if (Array.isArray(value)) {
-          return _.last(value).value;
+          return Util.last(value).value;
         }
 
         return value;

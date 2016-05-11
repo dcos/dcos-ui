@@ -1,8 +1,7 @@
-var _ = require('underscore');
-
 var Validator = {
   isEmail: function (email) {
-    return !_.isEmpty(email) &&
+    return email != null &&
+      email.length > 0 &&
       !/\s/.test(email) &&
       /.+@.+\..+/
       .test(email);

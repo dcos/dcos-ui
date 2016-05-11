@@ -1,10 +1,9 @@
-var _ = require('underscore');
 var d3 = require('d3');
 
 var ChartMixin = {
-  getXScale: function (data, width, refreshRate) {
+  getXScale: function (data = [], width, refreshRate) {
     var length = width;
-    var firstDataSet = _.first(data);
+    var firstDataSet = data[0];
     if (firstDataSet != null) {
       length = firstDataSet.values.length;
     }

@@ -3,8 +3,6 @@
  * part of state.
  */
 
-var _ = require('underscore');
-
 var InternalStorageMixin = {
 
   internalStorage_data: {},
@@ -14,11 +12,11 @@ var InternalStorageMixin = {
   },
 
   internalStorage_update: function (diff) {
-    if (!_.isObject(this.internalStorage_data)) {
+    if (typeof this.internalStorage_data !== 'object') {
       throw new Error('Can only update internalStorage_data if that is of type Object or Array.');
     }
 
-    this.internalStorage_data = _.extend(this.internalStorage_get(), diff);
+    this.internalStorage_data = Object.assign(this.internalStorage_get(), diff);
   },
 
   internalStorage_set: function (data) {

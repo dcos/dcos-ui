@@ -1,18 +1,16 @@
-var _ = require('underscore');
-
 var Config = require('../config/Config');
 var Maths = require('../utils/Maths');
 
 const MesosSummaryUtil = {
 
   sumResources: function (resourceList) {
-    return _.foldl(resourceList, function (memo, resource) {
+    return resourceList.reduce(function (memo, resource) {
       if (resource == null) {
         return memo;
       }
 
-      _.each(memo, function (value, key) {
-        memo[key] = value + resource[key];
+      Object.keys(memo).forEach(function (key) {
+        memo[key] = memo[key] + resource[key];
       });
 
       return memo;
@@ -47,15 +45,19 @@ const MesosSummaryUtil = {
   },
 
   filterHostsByService: function (hosts, frameworkId) {
-    return _.filter(hosts, function (host) {
-      return _.contains(host.framework_ids, frameworkId);
+    return hosts.filter(function (host) {
+      return host.framework_ids.includes(frameworkId);
     });
   },
 
   getInitialStates: function () {
     var currentDate = Date.now();
     // reverse date range!!!
-    return _.map(_.range(-Config.historyLength, 0), function (i) {
+    let reverseRange = [];
+    for (let i = Config.historyLength; i > 0; i--) {
+      reverseRange.push(-i);
+    }
+    return reverseRange.map(function (i) {
       return {
         date: currentDate + (i * Config.getRefreshRate()),
         frameworks: [],
@@ -70,7 +72,7 @@ const MesosSummaryUtil = {
     var length = data.length;
     var timeNow = Date.now() - timeStep;
 
-    return _.map(data, function (datum, i) {
+    return data.map(function (datum, i) {
       var timeDelta = (-length + i) * timeStep;
       datum.date = timeNow + timeDelta;
       return datum;

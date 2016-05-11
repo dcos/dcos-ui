@@ -5,7 +5,6 @@ jest.dontMock('../../events/UnitHealthActions');
 jest.dontMock('../../mixins/GetSetMixin');
 jest.dontMock('../../../../tests/_fixtures/unit-health/nodes.json');
 
-var _ = require('underscore');
 var ActionTypes = require('../../constants/ActionTypes');
 var AppDispatcher = require('../../events/AppDispatcher');
 var Config = require('../../config/Config');
@@ -22,7 +21,7 @@ describe('NodeHealthStore', function () {
     RequestUtil.json = function (handlers) {
       handlers.success(nodesFixture);
     };
-    this.nodesFixture = _.clone(nodesFixture);
+    this.nodesFixture = Object.assign({}, nodesFixture);
   });
 
   afterEach(function () {

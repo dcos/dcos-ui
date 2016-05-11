@@ -1,5 +1,3 @@
-var _ = require('underscore');
-
 jest.dontMock('../../constants/ActionTypes');
 jest.dontMock('../AppDispatcher');
 jest.dontMock('../../config/Config');
@@ -28,8 +26,8 @@ var TimeScales = require('../../constants/TimeScales');
 
 global.analytics = {
   initialized: true,
-  track: _.noop,
-  log: _.noop
+  track: function () {},
+  log: function () {}
 };
 
 describe('Mesos State Actions', function () {

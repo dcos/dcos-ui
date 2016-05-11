@@ -1,4 +1,3 @@
-var _ = require('underscore');
 var d3 = require('d3');
 var React = require('react');
 var ReactDOM = require('react-dom');
@@ -35,7 +34,7 @@ var DialChart = React.createClass({
 
   componentWillMount: function () {
     var value = this.props.value;
-    var data = _.extend({
+    var data = Object.assign({
       pie: d3.layout.pie()
         .sort(null)
         .value(function (d) { return d[value]; })
@@ -80,14 +79,25 @@ var DialChart = React.createClass({
     }
 
     // Zero-length defaults are populated with actual data if available
-    var namedSlices = _.indexBy(slices, 'name');
-    var namedData = _.indexBy(data, 'name');
-    var normalizedNamedData = _.extend(namedSlices, namedData);
-    return _.values(normalizedNamedData);
+    var namedSlices = slices.reduce(function (indexByName, slice) {
+      indexByName[slice.name] = slice;
+
+      return indexByName;
+    }, {});
+
+    var namedData = data.reduce(function (indexByName, datum) {
+      indexByName[datum.name] = datum;
+
+      return indexByName;
+    }, {});
+
+    var normalizedNamedData = Object.assign({}, namedSlices, namedData);
+
+    return Object.values(normalizedNamedData);
   },
 
   isEmpty: function (data) {
-    var sumOfData = _.foldl(data, function (memo, datum) {
+    var sumOfData = data.reduce(function (memo, datum) {
       return memo + datum.value;
     }, 0);
     return sumOfData === 0;
@@ -101,7 +111,8 @@ var DialChart = React.createClass({
   },
 
   getRadius: function (props) {
-    var smallSide = _.min([props.width, props.height]);
+    let smallSide = Math.min(props.width || Infinity, props.height || Infinity);
+
     return smallSide / 2;
   },
 
@@ -128,8 +139,9 @@ var DialChart = React.createClass({
     var innerArc = data.innerArc;
     var pie = data.pie;
     var normalizedData = this.getNormalizedData(this.props.slices, this.props.data);
+    var normalizedPie = pie(normalizedData);
 
-    return _.map(pie(normalizedData), function (element, i) {
+    return normalizedPie.map(function (element, i) {
       return (
         <DialSlice
           key={i}

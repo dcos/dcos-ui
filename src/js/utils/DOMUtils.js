@@ -1,4 +1,5 @@
-var _ = require('underscore');
+const WIDTH_ATTRIBUTES = ['paddingLeft', 'paddingRight', 'borderLeftWidth', 'borderRightWidth'];
+const HEIGHT_ATTRIBUTES = ['paddingTop', 'paddingBottom', 'borderTopWidth', 'borderBottomWidth'];
 
 var DOMUtils = {
   appendScript: function (el, code) {
@@ -28,21 +29,19 @@ var DOMUtils = {
 
     var computeInnerBound = function (acc, key) {
       var val = parseInt(compstyle[key], 10);
-      if (_.isNaN(val)) {
+      if (Number.isNaN(val)) {
         return acc;
       } else {
         return acc - val;
       }
     };
 
-    var width = _.foldl(
-      ['paddingLeft', 'paddingRight', 'borderLeftWidth', 'borderRightWidth'],
+    var width = WIDTH_ATTRIBUTES.reduce(
       computeInnerBound,
       obj.offsetWidth
     );
 
-    var height = _.foldl(
-      ['paddingTop', 'paddingBottom', 'borderTopWidth', 'borderBottomWidth'],
+    var height = HEIGHT_ATTRIBUTES.reduce(
       computeInnerBound,
       obj.offsetHeight
     );

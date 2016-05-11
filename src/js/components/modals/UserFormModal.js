@@ -1,4 +1,3 @@
-import _ from 'underscore';
 import mixin from 'reactjs-mixin';
 import {Hooks} from 'PluginSDK';
 /* eslint-disable no-unused-vars */
@@ -60,7 +59,7 @@ class UserFormModal extends mixin(StoreMixin) {
   handleNewUserSubmit(model) {
     this.setState({disableNewUser: true});
 
-    let userModelObject = Hooks.applyFilter('userModelObject', _.extend(
+    let userModelObject = Hooks.applyFilter('userModelObject', Object.assign(
       {}, model, {
         creator_uid: AuthStore.getUser().uid,
         cluster_url: `${window.location.protocol}//${window.location.hostname}`

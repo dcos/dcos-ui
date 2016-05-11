@@ -1,4 +1,15 @@
+let id = 0;
+
 const Util = {
+
+  /**
+   * Give a unique ID for this session.
+   * @return {Integer}               A unique id.
+   */
+  uniqueID: function () {
+    id = id + 1;
+    return id;
+  },
 
   /**
    * Copies an object, omitting blacklisted keys.

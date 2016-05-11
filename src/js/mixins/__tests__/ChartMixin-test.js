@@ -1,5 +1,3 @@
-var _ = require('underscore');
-
 jest.dontMock('../ChartMixin');
 var ChartMixin = require('../ChartMixin');
 
@@ -11,7 +9,7 @@ describe('ChartMixin', function () {
 
     var data = [{
       id: 'used_resources',
-      values: _.map(new Array(31), function (value, i) {
+      values: Array(31).fill(0).map(function (value, i) {
         return {
           date: now + (interval * i),
           percentage: 0,

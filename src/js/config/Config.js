@@ -1,5 +1,4 @@
 /* eslint no-redeclare: 0 */
-var _ = require('underscore');
 var ConfigDev = require('./Config.dev.js');
 var ConfigTest = require('./Config.test.js');
 
@@ -37,10 +36,10 @@ Config.getRefreshRate = function () {
 // @@ENV gets replaced by Broccoli
 if (Config.environment === 'development') {
   Config.analyticsKey = ''; // Safeguard from developers logging to prod
-  Config = _.extend(Config, ConfigDev);
+  Config = Object.assign(Config, ConfigDev);
 } else if (Config.environment === 'testing') {
   Config.analyticsKey = ''; // Safeguard from developers logging to prod
-  Config = _.extend(Config, ConfigTest);
+  Config = Object.assign(Config, ConfigTest);
 } else if (Config.environment === 'production') {
   Config.useFixtures = false;
 }

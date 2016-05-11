@@ -1,4 +1,3 @@
-var _ = require('underscore');
 var classNames = require('classnames');
 var React = require('react');
 var Router = require('react-router');
@@ -37,7 +36,9 @@ function getMesosHosts(state) {
     name: searchString,
     health: healthFilter
   }).getItems();
-  let nodeIDs = _.pluck(filteredNodes, 'id');
+  let nodeIDs = filteredNodes.map(function (node) {
+    return node.id;
+  });
 
   return {
     nodes: filteredNodes,
@@ -78,7 +79,7 @@ var NodesPage = React.createClass({
   },
 
   getInitialState: function () {
-    return _.extend({selectedResource: 'cpus'}, DEFAULT_FILTER_OPTIONS);
+    return Object.assign({selectedResource: 'cpus'}, DEFAULT_FILTER_OPTIONS);
   },
 
   componentWillMount: function () {
@@ -138,13 +139,13 @@ var NodesPage = React.createClass({
   },
 
   resetFilter: function () {
-    var state = _.clone(DEFAULT_FILTER_OPTIONS);
+    var state = Object.assign({}, DEFAULT_FILTER_OPTIONS);
     this.internalStorage_update(getMesosHosts(state));
     this.setState(state);
   },
 
   handleSearchStringChange: function (searchString) {
-    var stateChanges = _.extend({}, this.state, {
+    var stateChanges = Object.assign({}, this.state, {
       searchString: searchString
     });
 
@@ -157,7 +158,7 @@ var NodesPage = React.createClass({
       byServiceFilter = null;
     }
 
-    var stateChanges = _.extend({}, this.state, {
+    var stateChanges = Object.assign({}, this.state, {
       byServiceFilter: byServiceFilter
     });
 
@@ -209,17 +210,15 @@ var NodesPage = React.createClass({
   },
 
   getViewTypeRadioButtons: function (resetFilter) {
-    var buttonClasses = {
+    var listClassSet = classNames({
+      'active': /\/nodes\/list\/?/i.test(RouterLocation.getCurrentPath()),
       'button button-stroke button-inverse': true
-    };
+    });
 
-    var listClassSet = classNames(_.extend({
-      'active': /\/nodes\/list\/?/i.test(RouterLocation.getCurrentPath())
-    }, buttonClasses));
-
-    var gridClassSet = classNames(_.extend({
-      'active': /\/nodes\/grid\/?/i.test(RouterLocation.getCurrentPath())
-    }, buttonClasses));
+    var gridClassSet = classNames({
+      'active': /\/nodes\/grid\/?/i.test(RouterLocation.getCurrentPath()),
+      'button button-stroke button-inverse': true
+    });
 
     return (
       <div className="button-group flush-bottom">
@@ -230,9 +229,10 @@ var NodesPage = React.createClass({
   },
 
   getHostsPageContent: function () {
-    var data = this.internalStorage_get();
     var state = this.state;
-    var nodesList = _.first(data.nodes, NODES_DISPLAY_LIMIT);
+    var data = this.internalStorage_get();
+    let nodes = data.nodes || [];
+    let nodesList = nodes.slice(0, NODES_DISPLAY_LIMIT);
     let nodesHealth = CompositeState.getNodesList().getItems().map(
       function (node) {
         return node.getHealth();

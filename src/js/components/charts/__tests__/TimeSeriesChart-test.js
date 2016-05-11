@@ -2,7 +2,6 @@ jest.dontMock('../TimeSeriesChart');
 jest.dontMock('../../../mixins/ChartMixin');
 jest.dontMock('../../../mixins/InternalStorageMixin');
 
-var _ = require('underscore');
 /* eslint-disable no-unused-vars */
 var React = require('react');
 /* eslint-enable no-unused-vars */
@@ -30,7 +29,7 @@ describe('TimeSeriesChart', function () {
     });
 
     it('should call #renderAxis', function () {
-      var props = _.extend({foo: 'bar'}, this.instance.props);
+      var props = Object.assign({foo: 'bar'}, this.instance.props);
       this.instance.shouldComponentUpdate(props);
 
       expect(this.instance.renderAxis).toHaveBeenCalled();
@@ -45,17 +44,31 @@ describe('TimeSeriesChart', function () {
     });
 
     it('should return truthy', function () {
-      var props = _.extend({foo: 'bar'}, this.instance.props);
+      var props = Object.assign({foo: 'bar'}, this.instance.props);
       var _return = this.instance.shouldComponentUpdate(props);
 
       expect(_return).toEqual(true);
     });
 
     it('should return truthy', function () {
-      var data = [{values:
-        [{date: 0, y: 0}, {date: 1, y: 0}, {date: 2, y: 0}]
-      }];
-      var props = _.defaults({data: data}, this.instance.props);
+      var data = [
+        {
+          values: [
+            {date: 0, y: 0},
+            {date: 1, y: 0},
+            {date: 2, y: 0}
+          ]
+        }
+      ];
+
+      var props = {data: data};
+
+      Object.keys(this.instance.props).forEach((key) => {
+        if (props[key] == null) {
+          props[key] = this.instance.props[key];
+        }
+      });
+
       var _return = this.instance.shouldComponentUpdate(props);
 
       expect(_return).toEqual(true);

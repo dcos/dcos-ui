@@ -2,8 +2,6 @@
  * A mixin to create getter and setter functions for store data
  */
 
-var _ = require('underscore');
-
 var PluginSDK;
 
 // Hack until we fix circular dependency - DCOS-5040
@@ -24,7 +22,7 @@ var GetSetMixin = {
   },
 
   set: function (data) {
-    if (!_.isObject(data) || _.isArray(data)) {
+    if (!(typeof data === 'object' && !Array.isArray(data))) {
       throw new Error('Can only update getSet_data with data of type Object.');
     }
 
@@ -33,7 +31,7 @@ var GetSetMixin = {
       this.getSet_data = {};
     }
 
-    _.extend(this.getSet_data, data);
+    Object.assign(this.getSet_data, data);
 
     if (!global.__DEV__) {
       PluginSDK = require('PluginSDK');

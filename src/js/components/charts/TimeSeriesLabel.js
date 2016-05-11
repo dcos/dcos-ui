@@ -1,4 +1,4 @@
-var _ = require('underscore');
+import _ from 'underscore';
 var classNames = require('classnames');
 var React = require('react');
 
@@ -29,6 +29,7 @@ var TimeSeriesLabel = React.createClass({
   },
 
   shouldComponentUpdate: function (nextProps) {
+    // If equal, do not update
     return !_.isEqual(this.props, nextProps);
   },
 

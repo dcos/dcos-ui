@@ -1,4 +1,3 @@
-var _ = require('underscore');
 var React = require('react');
 
 var Chart = require('./Chart');
@@ -27,10 +26,10 @@ var HostTimeSeriesChart = React.createClass({
   getMaxY: function () {
     var props = this.props;
     var roundUpValue = props.roundUpValue;
-
-    var maxSlavesCount = _.max(props.data, function (slave) {
-      return slave.slavesCount;
-    }).slavesCount;
+    let slavesCounts = props.data.map(function (agent) {
+      return agent.slavesCount;
+    });
+    let maxSlavesCount = Math.max(...slavesCounts);
 
     var maxY = maxSlavesCount +
       (roundUpValue - (maxSlavesCount % roundUpValue));

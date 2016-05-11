@@ -7,6 +7,7 @@ var ReactDOM = require('react-dom');
 var Bar = require('./Bar');
 var ChartMixin = require('../../mixins/ChartMixin');
 var InternalStorageMixin = require('../../mixins/InternalStorageMixin');
+import Util from '../../utils/Util';
 
 var BarChart = React.createClass({
 
@@ -71,7 +72,7 @@ var BarChart = React.createClass({
       stack: this.getStack(),
       xScale,
       yScale,
-      clipPathID: _.uniqueId('clip')
+      clipPathID: `clip-${Util.uniqueID()}`
     };
 
     this.internalStorage_set(data);
@@ -98,7 +99,7 @@ var BarChart = React.createClass({
     // unfortunately.
     this.renderAxis(props, xScale, yScale);
 
-    this.internalStorage_update(_.extend(this.prepareValues(props), {
+    this.internalStorage_update(Object.assign(this.prepareValues(props), {
       xScale: xScale,
       yScale: yScale
     }));
@@ -177,7 +178,7 @@ var BarChart = React.createClass({
 
   renderAxis: function (props, xScale, yScale) {
     var length = props.width;
-    var firstDataSet = _.first(props.data);
+    var firstDataSet = props.data[0];
     if (firstDataSet != null) {
       length = firstDataSet.values.length;
     }
@@ -244,7 +245,7 @@ var BarChart = React.createClass({
     var rectWidth = 0;
 
     if (stackedData.length !== 0) {
-      valuesLength = _.last(stackedData).values.length;
+      valuesLength = Util.last(stackedData).values.length;
       rectWidth = (props.width - props.margin.left - props.margin.right) / valuesLength;
     }
 
@@ -275,9 +276,7 @@ var BarChart = React.createClass({
     var chartWidth = props.width;
     var y = props.y;
     var valuesLength = data.valuesLength;
-    var posY = _.map(_.range(valuesLength), function () {
-      return props.height;
-    });
+    var posY = Array(valuesLength).fill(props.height);
     var peaklineHeight = 2;
     var lineClass;
     if (!props.peakline) {
@@ -285,10 +284,10 @@ var BarChart = React.createClass({
       lineClass = 'hidden ';
     }
 
-    return _.map(data.stackedData, function (service) {
+    return data.stackedData.map(function (service) {
       let rectWidth = (chartWidth - marginLeft - marginRight) / (valuesLength - 1);
 
-      return _.map(service.values, function (val, j) {
+      return service.values.map(function (val, j) {
         let rectHeight, colorClass;
         let barMargin = 0;
         let shapeRendering = 'auto';
