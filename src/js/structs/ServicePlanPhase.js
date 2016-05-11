@@ -1,15 +1,10 @@
 import Item from './Item';
-import List from './List';
-import ServicePlanBlock from './ServicePlanBlock';
+import ServicePlanBlocks from './ServicePlanBlocks';
 import ServicePlanStatusTypes from '../constants/ServicePlanStatusTypes';
 
 class ServicePlanPhase extends Item {
   getBlocks() {
-    let items = this.get('blocks').map(function (block) {
-      return new ServicePlanBlock(block);
-    });
-
-    return new List({items});
+    return new ServicePlanBlocks({items: this.get('blocks')});
   }
 
   getID() {
