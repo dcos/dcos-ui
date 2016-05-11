@@ -4,6 +4,29 @@ var Util = require('../Util');
 
 describe('Util', function () {
 
+  describe('#uniqueID', function () {
+
+    it('should return a unique ID each time it is called', function () {
+      let ids = Array(100).fill(null);
+      ids.forEach(function (value, index) {
+        ids[index] = Util.uniqueID();
+      });
+
+      let result = ids.every(function (id, index, array) {
+        return !array.includes(id, index + 1);
+      });
+
+      expect(result).toBeTruthy();
+    });
+
+    it('should provide an integer', function () {
+      let id = Util.uniqueID();
+
+      expect(typeof id === 'number' && id % 1 === 0).toBeTruthy();
+    });
+
+  });
+
   describe('#omit', function () {
 
     it('should return a copy of the object', function () {
