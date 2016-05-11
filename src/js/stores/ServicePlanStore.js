@@ -1,6 +1,10 @@
 import {Store, StoreMixin} from 'mesosphere-shared-reactjs';
 
 import {
+  REQUEST_PLAN_BLOCK_FORCE_COMPLETE_SUCCESS,
+  REQUEST_PLAN_BLOCK_FORCE_COMPLETE_ERROR,
+  REQUEST_PLAN_BLOCK_RESTART_SUCCESS,
+  REQUEST_PLAN_BLOCK_RESTART_ERROR,
   REQUEST_PLAN_FETCH_SUCCESS,
   REQUEST_PLAN_FETCH_ERROR,
   REQUEST_PLAN_DECISION_SUCCESS,
@@ -9,6 +13,10 @@ import {
 } from '../constants/ActionTypes';
 
 import {
+  PLAN_BLOCK_FORCE_COMPLETE_SUCCESS,
+  PLAN_BLOCK_FORCE_COMPLETE_ERROR,
+  PLAN_BLOCK_RESTART_SUCCESS,
+  PLAN_BLOCK_RESTART_ERROR,
   PLAN_CHANGE,
   PLAN_ERROR,
   PLAN_DECISION_SUCCESS,
@@ -40,11 +48,15 @@ let ServicePlanStore = Store.createStore({
     plans: {}
   },
 
-  fetchPlan: ServicePlanActions.fetchPlan,
-
   continuePlan: bindCommand(ServicePlanCommandTypes.CONTINUE),
 
+  fetchPlan: ServicePlanActions.fetchPlan,
+
+  forceCompleteBlock: ServicePlanActions.forceCompleteBlock,
+
   interruptPlan: bindCommand(ServicePlanCommandTypes.INTERRUPT),
+
+  restartBlock: ServicePlanActions.restartBlock,
 
   addChangeListener: function (eventName, callback) {
     this.on(eventName, callback);
@@ -162,6 +174,24 @@ let ServicePlanStore = Store.createStore({
 
     var action = payload.action;
     switch (action.type) {
+      case REQUEST_PLAN_BLOCK_FORCE_COMPLETE_SUCCESS:
+        ServicePlanStore.fetchPlan(action.serviceID);
+        ServicePlanStore.emit(
+          PLAN_BLOCK_FORCE_COMPLETE_SUCCESS,
+          action.serviceID,
+          action.phaseID,
+          action.blockID
+        );
+        break;
+      case REQUEST_PLAN_BLOCK_FORCE_COMPLETE_ERROR:
+        ServicePlanStore.emit(
+          PLAN_BLOCK_FORCE_COMPLETE_ERROR,
+          action.data,
+          action.serviceID,
+          action.phaseID,
+          action.blockID
+        );
+        break;
       case REQUEST_PLAN_FETCH_SUCCESS:
         ServicePlanStore.processPlanFetchSuccess(
           action.serviceID,
@@ -184,6 +214,24 @@ let ServicePlanStore = Store.createStore({
           PLAN_DECISION_ERROR,
           action.data,
           action.serviceID
+        );
+        break;
+      case REQUEST_PLAN_BLOCK_RESTART_SUCCESS:
+        ServicePlanStore.fetchPlan(action.serviceID);
+        ServicePlanStore.emit(
+          PLAN_BLOCK_RESTART_SUCCESS,
+          action.serviceID,
+          action.phaseID,
+          action.blockID
+        );
+        break;
+      case REQUEST_PLAN_BLOCK_RESTART_ERROR:
+        ServicePlanStore.emit(
+          PLAN_BLOCK_RESTART_ERROR,
+          action.data,
+          action.serviceID,
+          action.phaseID,
+          action.blockID
         );
         break;
     }
