@@ -39,23 +39,31 @@ describe('Node Health Tab [0fa]', function () {
     });
 
     it('filters by health [0fe]', function () {
-      cy.get('@filterHealth').click();
-      cy.get('.dropdown').find('li').contains('Healthy').click();
-      cy.get('.page-content td .text-success').should(function ($row) {
-        // Test that there are at least some healthy systemd units
-        expect($row.length).to.be.at.least(5);
+      cy.get('.page-content td .text-success').should(function ($healthyRows) {
+        cy.get('@filterHealth').click();
+        cy.get('.dropdown').find('li').contains('Healthy').click();
+        // Healthy rows should remain
+        cy.get('.page-content td .text-success').should(function ($row) {
+          expect($row.length).to.equal($healthyRows.length);
+        });
+        // Unhealthy rows should not show
+        cy.get('.page-content td .text-danger').should(function ($row) {
+          expect($row.length).to.equal(0);
+        });
       });
     });
 
     it('filters by health check name [0ff]', function () {
-      cy.get('@filterTextbox').type('logrotate');
-      cy.get('.page-content').within(function () {
-        cy.get('td a').should(function ($row) {
-          // Test that there are at least some systemd units
-          // containing this name
-          expect($row.length).to.be.at.least(2);
+      cy.get('.page-content td a').should(function ($allRows) {
+        var logrotateRows = $allRows.filter(function (i, el) {
+          return el.textContent.toLowerCase().indexOf('logrotate') !== -1;
         });
-      });
+
+        cy.get('@filterTextbox').type('logrotate');
+        cy.get('.page-content td a').should(function ($rows) {
+          expect($rows.length).to.equal(logrotateRows.length);
+        });
+      })
     });
 
   });
