@@ -64,7 +64,7 @@ var MarathonStore = Store.createStore({
 
   getSet_data: {
     apps: {},
-    deployments: []
+    deployments: new DeploymentsList()
   },
 
   addChangeListener: function (eventName, callback) {
