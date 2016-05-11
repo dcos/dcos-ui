@@ -14,8 +14,12 @@ Cypress.addParentCommand('configureCluster', function (configuration) {
       )
       .then(function (response) {
         let cookies = response.headers['set-cookie'];
-        cy.window().then(function (win) {
-          cookies.forEach(function (cookie) {
+        cookies.forEach(function (cookie) {
+          let sessionID = cookie.split('=')[0];
+          // Set cookies for cypress
+          Cypress.Cookies.set(sessionID, response.body.token);
+          // Set cookies for application
+          cy.window().then(function (win) {
             win.document.cookie = cookie;
           });
         });
