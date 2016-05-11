@@ -75,6 +75,80 @@ describe('DCOSStore', function () {
 
   });
 
+  describe('#processMarathonServiceVersion', function () {
+    const versionID = '2016-03-22T10:46:07.354Z';
+
+    beforeEach(function () {
+      DCOSStore.processMarathonGroups(new ServiceTree({
+        apps: [{
+          id: '/alpha'
+        }]
+      }));
+      DCOSStore.processMarathonServiceVersions({
+        serviceID: '/alpha',
+        versions: new Map([[versionID]])
+      });
+    });
+
+    it('should update the service tree', function () {
+      expect(DCOSStore.serviceTree.getItems()[0].getVersions())
+        .toEqual(new Map([[versionID]]));
+
+      DCOSStore.processMarathonServiceVersion({
+        serviceID: '/alpha',
+        versionID,
+        version: {foo: 'bar'}
+      });
+
+      expect(DCOSStore.serviceTree.getItems()[0].getVersions())
+        .toEqual(new Map([[versionID, {foo: 'bar'}]]));
+    });
+
+  });
+
+  describe('#processMarathonServiceVersions', function () {
+    const firstVersionID = '2016-03-22T10:46:07.354Z';
+    const secondVersionID = '2016-04-22T10:46:07.354Z';
+
+    beforeEach(function () {
+      DCOSStore.processMarathonGroups(new ServiceTree({
+        apps: [{
+          id: '/beta'
+        }]
+      }));
+    });
+
+    it('should update the service tree', function () {
+      expect(DCOSStore.serviceTree.getItems()[0].getVersions())
+        .toEqual(new Map());
+
+      DCOSStore.processMarathonServiceVersions({
+        serviceID: '/beta',
+        versions: new Map([[firstVersionID]])
+      });
+
+      expect(DCOSStore.serviceTree.getItems()[0].getVersions())
+        .toEqual(new Map([[firstVersionID]]));
+    });
+
+    it('should merge existing version data', function () {
+      DCOSStore.processMarathonServiceVersion({
+        serviceID: '/beta',
+        versionID: firstVersionID,
+        version: {foo: 'bar'}
+      });
+
+      DCOSStore.processMarathonServiceVersions({
+        serviceID: '/beta',
+        versions: new Map([[firstVersionID], [secondVersionID]])
+      });
+
+      expect(DCOSStore.serviceTree.getItems()[0].getVersions())
+        .toEqual(new Map([[firstVersionID, {foo: 'bar'}], [secondVersionID]]));
+    });
+
+  });
+
   describe('#processMesosStateSummary', function () {
 
     beforeEach(function () {
