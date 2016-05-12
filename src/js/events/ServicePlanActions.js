@@ -37,10 +37,10 @@ const ServicePlanActions = {
   },
 
   forceCompleteBlock: function (serviceID, phaseID, blockID) {
-    serviceID = encodeURIComponent(serviceID);
+    let uriServiceID = encodeURIComponent(serviceID);
     RequestUtil.json({
       method: 'POST',
-      url: `${Config.rootUrl}/service/${serviceID}${Config.servicePlanAPIPath}/force_complete`,
+      url: `${Config.rootUrl}/service/${uriServiceID}${Config.servicePlanAPIPath}/force_complete`,
       data: {
         phase_id: phaseID,
         block_id: blockID
@@ -67,10 +67,10 @@ const ServicePlanActions = {
   },
 
   restartBlock: function (serviceID, phaseID, blockID) {
-    serviceID = encodeURIComponent(serviceID);
+    let uriServiceID = encodeURIComponent(serviceID);
     RequestUtil.json({
       method: 'POST',
-      url: `${Config.rootUrl}/service/${serviceID}${Config.servicePlanAPIPath}/restart`,
+      url: `${Config.rootUrl}/service/${uriServiceID}${Config.servicePlanAPIPath}/restart`,
       data: {
         phase_id: phaseID,
         block_id: blockID
