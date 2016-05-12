@@ -10,6 +10,7 @@ module.exports = {
   stores: {
     AuthStore: 'AuthStore',
     ConfigStore: 'ConfigStore',
+    MetadataStore: 'MetadataStore',
     NotificationStore: 'NotificationStore',
     UsersStore: 'UsersStore',
     UserStore: 'UserStore',
