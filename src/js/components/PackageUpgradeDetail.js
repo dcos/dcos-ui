@@ -148,15 +148,19 @@ class PackageUpgradeDetail extends React.Component {
     });
   }
 
-  getProgressBarLabels(servicePlan) {
+  getProgressBarLabels(servicePlan, viewDetails) {
     let planPhases = servicePlan.getPhases();
     let phaseCount = planPhases.getItems().length;
     let activePhaseIndex = planPhases.getActiveIndex();
 
     return {
       primaryTitle: `Phase ${activePhaseIndex + 1} of ${phaseCount}`,
-      secondaryTitle: planPhases.getActive().getName()
-    }
+      secondaryTitle: (
+        <span>
+          {planPhases.getActive().getName()} {viewDetails}
+        </span>
+      )
+    };
   }
 
   getUpgradeDecisionPoint(servicePlan) {
@@ -175,12 +179,11 @@ class PackageUpgradeDetail extends React.Component {
       'allow-overflow', {
         'is-paused': servicePlan.isPending()
       });
-    let {primaryTitle, secondaryTitle} = this.getProgressBarLabels(servicePlan);
     let serviceHealth = service.getHealth();
-    let showDetailsButtonWrapperClasses = classNames(
-      'upgrade-package-modal-details-button', {
-        'is-expanded': this.state.detailsExpanded
-      });
+    // let showDetailsButtonWrapperClasses = classNames(
+    //   'upgrade-package-modal-details-button', {
+    //     'is-expanded': this.state.detailsExpanded
+    //   });
     let upgradeDetails;
 
     if (this.state.detailsExpanded) {
@@ -191,6 +194,21 @@ class PackageUpgradeDetail extends React.Component {
           servicePlan={servicePlan} />
       );
     }
+
+    let {primaryTitle, secondaryTitle} = this.getProgressBarLabels(servicePlan,
+      (
+        <a className="clickable" onClick={this.handleShowDetails}>
+          {detailsLabel}
+        </a>
+      )
+    );
+
+    secondaryTitle = (
+      <span>
+        {secondaryTitle}
+
+      </span>
+    );
 
     return (
       <div>
@@ -217,15 +235,7 @@ class PackageUpgradeDetail extends React.Component {
                 stackedProgressBarClassName="service-plan-progress-bar stacked-progress-bar"
                 primaryTitle={primaryTitle} secondaryTitle={secondaryTitle} />
             </div>
-            <div className="container container-pod container-pod-super-short
-              flush-bottom upgrade-package-modal-details">
-              <div className={showDetailsButtonWrapperClasses}>
-                <button className="button button-small button-short
-                  button-stroke button-rounded button-extended"
-                  onClick={this.handleShowDetails}>
-                  {detailsLabel}
-                </button>
-              </div>
+            <div className="container upgrade-package-modal-details">
               {upgradeDetails}
             </div>
           </div>

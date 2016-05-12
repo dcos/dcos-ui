@@ -5,16 +5,20 @@ import React from 'react';
 import IconUpgradeBlock from './icons/IconUpgradeBlock';
 import ServicePlanBlock from '../structs/ServicePlanBlock';
 
-const METHODS_TO_BIND = ['handleExternalClick'];
-
-let activeTooltip;
+const METHODS_TO_BIND = [
+  'handleExternalClick',
+  'handleBlockMouseEnter',
+  'handleBlockMouseLeave'
+];
 
 class ServicePlanBlocks extends React.Component {
   constructor() {
     super(...arguments);
 
     this.state = {
-      detailsExpanded: false
+      detailsExpanded: false,
+      hoveredBlock: null,
+      selectedBlock: null
     };
 
     METHODS_TO_BIND.forEach((method) => {
@@ -32,14 +36,14 @@ class ServicePlanBlocks extends React.Component {
     event.stopPropagation();
 
     this.handleExternalClick();
-    activeTooltip = block.getID();
+    this.setState({selectedBlock: block});
     this.refs[block.getID()].triggerOpen();
   }
 
   handleExternalClick() {
-    if (this.refs[activeTooltip]) {
-      this.refs[activeTooltip].triggerClose();
-      activeTooltip = null;
+    if (!!this.state.selectedBlock) {
+      this.refs[this.state.selectedBlock.getID()].triggerClose();
+      this.setState({selectedBlock: null});
     }
   }
 
@@ -49,6 +53,14 @@ class ServicePlanBlocks extends React.Component {
 
   handleBlockForceComplete(block) {
     console.log(block);
+  }
+
+  handleBlockMouseEnter(block) {
+    this.setState({hoveredBlock: block});
+  }
+
+  handleBlockMouseLeave() {
+    this.setState({hoveredBlock: null});
   }
 
   getUpgradeBlocks(phaseBlocks) {
@@ -74,16 +86,18 @@ class ServicePlanBlocks extends React.Component {
 
       blocks.push(
         <div className={blockClassName} key={blockIndex}
-          onClick={this.handleBlockClick.bind(this, block)}>
+          onClick={this.handleBlockClick.bind(this, block)}
+          onMouseEnter={this.handleBlockMouseEnter.bind(this, block)}
+          onMouseLeave={this.handleBlockMouseLeave}>
           <Tooltip
             content={this.getUpgradeBlockTooltipContent({
               block,
               blockIndex
             })}
-            suppress={true}
-            ref={block.getID()}
             interactive={true}
-            stayOpen={true}>
+            ref={block.getID()}
+            stayOpen={true}
+            suppress={true}>
             <div className="upgrade-package-modal-details-block-content">
               <IconUpgradeBlock hasDecisionPoint={hasDecisionPoint} />
             </div>
@@ -142,11 +156,19 @@ class ServicePlanBlocks extends React.Component {
     let phaseBlocks = activePhase.getBlocks();
     let blockCount = phaseBlocks.getItems().length;
 
+    let blocksHeadingContent = `Completed ${phaseBlocks.getComplete().length}
+      of ${blockCount}`;
+
+    if (!!this.state.hoveredBlock || !!this.state.selectedBlock) {
+      let focusedBlock = this.state.selectedBlock || this.state.hoveredBlock;
+      blocksHeadingContent = focusedBlock.getName();
+    }
+
     return (
       <div className="upgrade-package-modal-details-content text-align-left
         container container-pod container-pod-super-short flush-bottom">
         <span className="upgrade-package-modal-details-heading">
-          Updating {phaseBlocks.getActiveBlockCount()} of {blockCount}
+          {blocksHeadingContent}
         </span>
         {this.getUpgradeBlocks(phaseBlocks)}
       </div>
