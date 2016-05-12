@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import {Dropdown} from 'reactjs-components';
+import {Dropdown, Tooltip} from 'reactjs-components';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
@@ -304,12 +304,15 @@ class TaskDebugView extends React.Component {
             inputContainerClass={inputContainerClassSet} />
           {this.getSearchButtons()}
           {this.getSelectionComponent(selectedLogFile)}
-          <a
-            className="button button-stroke button-inverse"
-            disabled={!filePath}
-            href={TaskDirectoryActions.getDownloadURL(task.slave_id, filePath)}>
-            <IconDownload />
-          </a>
+          <Tooltip anchor="end" content={'Download log file'}>
+            <a
+              className="button button-stroke button-inverse"
+              disabled={!filePath}
+              href=
+                {TaskDirectoryActions.getDownloadURL(task.slave_id, filePath)}>
+              <IconDownload />
+            </a>
+          </Tooltip>
         </FilterBar>
         {this.getLogView(selectedName, filePath, task)}
       </div>
