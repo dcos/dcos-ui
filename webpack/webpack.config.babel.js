@@ -21,12 +21,12 @@ function absPath() {
 // Can override this with npm config set dcos-ui:external_plugins ../some/relative/path/to/repo
 let externalPluginsDir = absPath(process.env.npm_config_externalplugins || 'plugins');
 
-let compiledCSSPromise = new Promise(function (resolve, reject) {
+new Promise(function (resolve, reject) {
   let cssEntryPoint = path.join(__dirname, '../src/styles/index.less');
   less.render(fs.readFileSync(cssEntryPoint).toString(), {
     filename: cssEntryPoint,
     plugins: [colorLighten]
-  }, function(e, output) {
+  }, function (e, output) {
     if (e) {
       console.log(e);
       process.exit(1);
@@ -34,9 +34,10 @@ let compiledCSSPromise = new Promise(function (resolve, reject) {
 
     let prefixer = postcss([autoprefixer]);
     prefixer.process(output.css)
-    .then(function(prefixed) {
+    .then(function (prefixed) {
       resolve(prefixed.css);
-    });
+    })
+    .catch(reject);
   });
 }).then(function (css) {
   bootstrap.CSS = css;
@@ -73,7 +74,7 @@ module.exports = {
           replacements: [
             {
               pattern: /<!--\sBOOTSTRAP-HTML\s-->/g,
-              replacement: function (match, key) {
+              replacement: function (match) {
                 return '<div id="canvas">' +
                   '<div class="application-loading-indicator container ' +
                     'container-pod vertical-center">' +
