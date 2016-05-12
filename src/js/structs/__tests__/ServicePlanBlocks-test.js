@@ -5,14 +5,14 @@ describe('ServicePlanBlocks', function () {
 
   describe('#getActive', function () {
 
-    it('should return null when no active blocks', function () {
+    it('should return an empty array when no blocks are active', function () {
       let Blocks = new ServicePlanBlocks({
         items: [{
           status: ServicePlanStatusTypes.COMPLETE
         }]
       });
 
-      expect(Blocks.getActive()).toEqual(null);
+      expect(Blocks.getActive()).toEqual([]);
     });
 
     it('should return an array of blocks that are in progress', function () {
@@ -38,46 +38,37 @@ describe('ServicePlanBlocks', function () {
 
   });
 
-  describe('#getActiveBlockCount', function () {
+  describe('#getComplete', function () {
 
-    it('should return 0 when there are no active blocks', function () {
+    it('should return an empty array when no blocks are complete', function () {
       let Blocks = new ServicePlanBlocks({
-        items: [
-          {
-            status: ServicePlanStatusTypes.COMPLETE
-          },
-          {
-            name: 'waiting',
-            status: ServicePlanStatusTypes.WAITING
-          }
-        ]
+        items: [{
+          status: ServicePlanStatusTypes.IN_PROGRESS
+        }]
       });
 
-      expect(Blocks.getActiveBlockCount()).toEqual(0);
+      expect(Blocks.getComplete()).toEqual([]);
     });
 
-    it('should return the correct number of active blocks', function () {
+    it('should return an array of blocks that are complete', function () {
       let Blocks = new ServicePlanBlocks({
         items: [
           {
-            status: ServicePlanStatusTypes.COMPLETE
-          },
-          {
-            name: 'waiting',
-            status: ServicePlanStatusTypes.WAITING
+            status: ServicePlanStatusTypes.IN_PROGRESS
           },
           {
             name: 'foo',
-            status: ServicePlanStatusTypes.IN_PROGRESS
+            status: ServicePlanStatusTypes.COMPLETE
           },
           {
             name: 'bar',
-            status: ServicePlanStatusTypes.IN_PROGRESS
+            status: ServicePlanStatusTypes.COMPLETE
           }
         ]
       });
 
-      expect(Blocks.getActiveBlockCount()).toEqual(2);
+      expect(Blocks.getComplete()[0].getName()).toEqual('foo');
+      expect(Blocks.getComplete()[1].getName()).toEqual('bar');
     });
 
   });
