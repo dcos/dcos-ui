@@ -4,6 +4,7 @@ import React from 'react';
 
 import IconUpgradeBlock from './icons/IconUpgradeBlock';
 import ServicePlanBlock from '../structs/ServicePlanBlock';
+import ServicePlanStore from '../stores/ServicePlanStore';
 
 const METHODS_TO_BIND = [
   'handleExternalClick',
@@ -47,12 +48,13 @@ class ServicePlanBlocks extends React.Component {
     }
   }
 
-  handleBlockRestart(block) {
-    console.log(block);
+  handleBlockRestart(blockID, phaseID) {
+    ServicePlanStore.restartBlock(this.props.service.id, blockID, phaseID);
   }
 
-  handleBlockForceComplete(block) {
-    console.log(block);
+  handleBlockForceComplete(blockID, phaseID) {
+    ServicePlanStore.forceCompleteBlock(this.props.service.id, blockID,
+      phaseID);
   }
 
   handleBlockMouseEnter(block) {
@@ -63,7 +65,7 @@ class ServicePlanBlocks extends React.Component {
     this.setState({hoveredBlock: null});
   }
 
-  getUpgradeBlocks(phaseBlocks) {
+  getUpgradeBlocks(phaseBlocks, activePhase) {
     let blocks = [];
     let upgradeBlocks = phaseBlocks.getItems();
 
@@ -94,7 +96,8 @@ class ServicePlanBlocks extends React.Component {
           <Tooltip
             content={this.getUpgradeBlockTooltipContent({
               block,
-              blockIndex
+              blockIndex,
+              activePhase
             })}
             interactive={true}
             ref={block.getID()}
@@ -116,7 +119,7 @@ class ServicePlanBlocks extends React.Component {
   }
 
   getUpgradeBlockTooltipContent(blockDetails) {
-    let {block, blockIndex} = blockDetails;
+    let {activePhase, block, blockIndex} = blockDetails;
     let blockOptions = [];
     let blockLabelSeparator = ': ';
 
@@ -125,7 +128,8 @@ class ServicePlanBlocks extends React.Component {
         <a
           className="clickable"
           key="restart"
-          onClick={this.handleBlockRestart.bind(this, block)}>
+          onClick={this.handleBlockRestart.bind(this, block.getID(),
+            activePhase.getID())}>
           Restart
         </a>
       );
@@ -136,7 +140,8 @@ class ServicePlanBlocks extends React.Component {
         <a
           className="clickable"
           key="force-complete"
-          onClick={this.handleBlockForceComplete.bind(this, block)}>
+          onClick={this.handleBlockForceComplete.bind(this, block.getID(),
+            activePhase.getID())}>
           Force Complete
         </a>
       );
@@ -172,7 +177,7 @@ class ServicePlanBlocks extends React.Component {
         <span className="upgrade-package-modal-details-heading">
           {blocksHeadingContent}
         </span>
-        {this.getUpgradeBlocks(phaseBlocks)}
+        {this.getUpgradeBlocks(phaseBlocks, activePhase)}
       </div>
     );
   }
