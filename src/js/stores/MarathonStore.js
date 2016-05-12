@@ -188,9 +188,11 @@ var MarathonStore = Store.createStore({
 
   getServiceFromTaskID: function (taskID) {
     let service = this.get('apps')[this.getServiceNameFromTaskID(taskID)];
+
     if (service == null) {
-      return new Service();
+      return null;
     }
+
     return new Service(service.snapshot);
   },
 

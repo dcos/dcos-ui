@@ -371,6 +371,10 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
 
     let service = MarathonStore.getServiceFromTaskID(taskID);
 
+    if (service == null) {
+      return null;
+    }
+
     return (<ServicesBreadcrumb serviceTreeItem={service} taskID={taskID} />);
   }
 
