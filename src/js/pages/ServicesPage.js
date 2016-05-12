@@ -24,13 +24,13 @@ var ServicesPage = React.createClass({
 
   getInitialState: function () {
     return {
-      currentTab: 'services'
+      currentTab: 'services-page'
     };
   },
 
   componentWillMount: function () {
     this.tabs_tabs = {
-      'services': 'Services',
+      'services-page': 'Services',
       'services-deployments': 'Deployments'
     };
     this.updateCurrentTab();
