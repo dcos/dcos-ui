@@ -301,10 +301,13 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
   }
 
   renderDetailsTabView() {
-    let mesosTask = MesosStateStore.getTaskFromTaskID(this.props.params.taskID);
+    const {taskID} = this.props.params;
 
-    let marathonTask =
-      MarathonStore.getTaskFromTaskID(this.props.params.taskID);
+    const mesosTask =
+      MesosStateStore.getTaskFromTaskID(taskID);
+
+    const marathonTask =
+      MarathonStore.getTaskFromTaskID(taskID);
 
     return (
       <div className="container container-fluid flush">
