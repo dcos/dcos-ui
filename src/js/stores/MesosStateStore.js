@@ -139,6 +139,10 @@ var MesosStateStore = Store.createStore({
       return foundTask;
     });
 
+    if (foundTask == null) {
+      return null;
+    }
+
     return new Task(foundTask);
   },
 
