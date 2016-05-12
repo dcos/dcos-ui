@@ -1,4 +1,5 @@
 import ServicePlanBlock from '../ServicePlanBlock';
+import ServicePlanStatusDisplayText from '../../constants/ServicePlanStatusDisplayText';
 import ServicePlanStatusTypes from '../../constants/ServicePlanStatusTypes';
 
 describe('ServicePlanBlock', function () {
@@ -19,6 +20,30 @@ describe('ServicePlanBlock', function () {
       let Block = new ServicePlanBlock({name: 'block-2'});
 
       expect(Block.getName()).toEqual('block-2');
+    });
+
+  });
+
+  describe('#getStatus', function () {
+
+    it('should return status as defined in ServicePlanStatusDisplayText',
+      function () {
+        let Block = new ServicePlanBlock({
+          status: ServicePlanStatusTypes.IN_PROGRESS
+        });
+
+        expect(Block.getStatus()).toEqual(
+          ServicePlanStatusDisplayText[ServicePlanStatusTypes.IN_PROGRESS]
+        );
+      });
+
+    it('should return unaltered status if undefined in ' +
+      'ServicePlanStatusDisplayText', function () {
+      let Block = new ServicePlanBlock({
+        status: 'foo'
+      });
+
+      expect(Block.getStatus()).toEqual('foo');
     });
 
   });
