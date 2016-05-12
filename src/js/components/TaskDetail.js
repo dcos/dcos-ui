@@ -356,7 +356,7 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
           {`Error finding ${item}`}
         </h3>
         <p className="flush">
-          {`Did not find a ${item} by the id "${itemID}"`}
+          {`Did not find a ${item} with id "${itemID}"`}
         </p>
       </div>
     );

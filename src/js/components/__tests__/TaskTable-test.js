@@ -28,7 +28,7 @@ describe('TaskTable', function () {
 
     this.instance = ReactDOM.render(
       JestUtil.stubRouterContext(
-        TaskTable,{
+        TaskTable, {
           tasks: Tasks,
           parentRouter: this.parentRouter
         }
