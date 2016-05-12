@@ -295,7 +295,7 @@ class TaskDebugView extends React.Component {
           rightAlignLastNChildren={2}>
           <FilterInputText
             ref="filterInput"
-            className="flex-grow flex-box"
+            className="flex-grow flex-box flush-bottom"
             placeholder="Search"
             searchString={this.state.searchString}
             sideText={this.getSearchCount()}

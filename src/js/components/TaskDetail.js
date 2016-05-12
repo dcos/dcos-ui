@@ -308,7 +308,7 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
 
     return (
       <div className="container container-fluid flush">
-        <div className="media-object-spacing-wrapper container-pod container-pod-super-short flush-top">
+        <div className="media-object-spacing-wrapper container-pod container-pod-super-short flush-top flush-bottom">
           <div className="media-object">
             {this.getResources(mesosTask)}
           </div>
