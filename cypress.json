@@ -4,6 +4,7 @@
   "fixturesFolder": "tests/_fixtures",
   "supportFolder": "tests/_support",
   "environmentVariables": {
-    "CLUSTER_URL": "http://localhost:4200"
+    "CLUSTER_URL": "http://localhost:4200",
+    "FULL_INTEGRATION_TEST": false
   }
 }

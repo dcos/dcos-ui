@@ -3,6 +3,32 @@ Cypress.addParentCommand('configureCluster', function (configuration) {
     return;
   }
 
+  if (Cypress.env('FULL_INTEGRATION_TEST')) {
+
+    // Assume login if not explicitly set to false
+    if (configuration.logIn !== false) {
+      cy.request(
+        'POST',
+        Cypress.env('CLUSTER_URL') + '/acs/api/v1/auth/login',
+        {password: 'deleteme', uid: 'bootstrapuser'}
+      )
+      .then(function (response) {
+        let cookies = response.headers['set-cookie'];
+        cookies.forEach(function (cookie) {
+          let sessionID = cookie.split('=')[0];
+          // Set cookies for cypress
+          Cypress.Cookies.set(sessionID, response.body.token);
+          // Set cookies for application
+          cy.window().then(function (win) {
+            win.document.cookie = cookie;
+          });
+        });
+      });
+    }
+
+    return;
+  }
+
   cy.chain().server();
 
   if (configuration.mesos === '1-task-healthy') {

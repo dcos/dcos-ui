@@ -20,7 +20,7 @@ describe('ServicesList', function () {
     });
 
     it('navigates to services page', function () {
-      cy.get('.more-button').contains('Services').click();
+      cy.get('.dashboard-panel-list-service-health .more-button').click();
       cy.hash().should('match', /services/);
     });
 

@@ -11,11 +11,14 @@ describe('Nodes Detail Page', function () {
 
     it('navigates to node detail page', function () {
       cy.visitUrl({url: '/nodes', identify: true, fakeAnalytics: true});
-      cy.get('tr a').contains('dcos-01').click();
+      var nodeName;
+      cy.get('tr a').eq(0).should(function ($row) {
+        nodeName = $row[0].textContent;
+      }).click();
 
       cy.hash().should('match', /nodes\/[a-zA-Z0-9-]+/);
       cy.get('.page-content h1').should(function ($title) {
-        expect($title).to.contain('dcos-01');
+        expect($title).to.contain(nodeName);
       });
     });
 

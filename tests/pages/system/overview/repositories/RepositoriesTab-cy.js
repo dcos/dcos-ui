@@ -62,11 +62,24 @@ describe('Installed Packages Tab', function () {
   });
 
   it('closes modal after uninstall is successful', function () {
-    cy.get('.button.button-link.button-danger').eq(0).invoke('show').click({force: true});
+    // Add test repositoty
     cy
-      .get('.modal .modal-footer .button.button-danger')
-      .contains('Remove Repository')
+      .get('.modal input')
+      .eq(0).type('Here we go!');
+    cy
+      .get('.modal input')
+      .eq(1).type('http://there-is-no-stopping.us');
+    cy
+      .get('.modal .modal-footer .button.button-success')
+      .contains('Add')
       .click();
+
+    cy
+      .get('.page-content')
+      .contains('tr', 'Here we go!')
+      .find('.button.button-link.button-danger')
+      .invoke('show')
+      .click({force: true});
 
     cy.get('modal').should(function ($modal) {
       expect($modal).to.not.exist;
