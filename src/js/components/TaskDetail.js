@@ -180,12 +180,12 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
   }
 
   getTaskEndpoints(task) {
-    let service = MarathonStore.getServiceFromTaskID(task.id);
-
     if ((task.ports == null || task.ports.length === 0) &&
         (task.ipAddresses == null || task.ipAddresses.length === 0)) {
       return 'None';
     }
+
+    let service = MarathonStore.getServiceFromTaskID(task.id);
 
     if (service != null &&
       service.ipAddress != null &&
@@ -222,10 +222,7 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
     });
   }
 
-  getMarathonTaskDetailsDescriptionList() {
-    let marathonTask =
-      MarathonStore.getTaskFromTaskID(this.props.params.taskID);
-
+  getMarathonTaskDetailsDescriptionList(marathonTask) {
     if (marathonTask == null) {
       return null;
     }
@@ -248,24 +245,22 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
     );
   }
 
-  renderDetailsTabView() {
-    let task = MesosStateStore.getTaskFromTaskID(this.props.params.taskID);
-
-    if (task == null || !MesosSummaryStore.get('statesProcessed')) {
+  getMesosTaskDetailsDescriptionList(mesosTask) {
+    if (mesosTask == null || !MesosSummaryStore.get('statesProcessed')) {
       return null;
     }
 
     let services = MesosSummaryStore.get('states')
       .lastSuccessful()
       .getServiceList();
-    let service = services.filter({ids: [task.framework_id]}).last();
+    let service = services.filter({ids: [mesosTask.framework_id]}).last();
 
     let headerValueMapping = {
-      'ID': task.id,
+      'ID': mesosTask.id,
       'Service': `${service.name} (${service.id})`
     };
 
-    let node = MesosStateStore.getNodeFromID(task.slave_id);
+    let node = MesosStateStore.getNodeFromID(mesosTask.slave_id);
 
     if (node != null) {
       headerValueMapping['Node'] = `${node.hostname} (${node.id})`;
@@ -276,30 +271,51 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
       headerValueMapping['Sandbox Path'] = sandBoxPath;
     }
 
+    return (
+      <DescriptionList
+        className="container container-fluid flush container-pod container-pod-super-short flush-top"
+        hash={headerValueMapping}
+        headline="Configuration" />
+    )
+  }
+
+  getMesosTaskLabelDescriptionList(mesosTask) {
+    if (mesosTask == null) {
+      return null;
+    }
+
     let labelMapping = {};
 
-    if (task.labels) {
-      task.labels.forEach(function (label) {
+    if (mesosTask.labels) {
+      mesosTask.labels.forEach(function (label) {
         labelMapping[label.key] = label.value;
       });
     }
 
     return (
+      <DescriptionList
+        className="container container-fluid flush container-pod container-pod-super-short flush-top"
+        hash={labelMapping}
+        headline="Labels" />
+    );
+  }
+
+  renderDetailsTabView() {
+    let mesosTask = MesosStateStore.getTaskFromTaskID(this.props.params.taskID);
+
+    let marathonTask =
+      MarathonStore.getTaskFromTaskID(this.props.params.taskID);
+
+    return (
       <div className="container container-fluid flush">
         <div className="media-object-spacing-wrapper container-pod container-pod-super-short flush-top">
           <div className="media-object">
-            {this.getResources(task)}
+            {this.getResources(mesosTask)}
           </div>
         </div>
-        <DescriptionList
-          className="container container-fluid flush container-pod container-pod-super-short flush-top"
-          hash={headerValueMapping}
-          headline="Configuration" />
-        <DescriptionList
-          className="container container-fluid flush container-pod container-pod-super-short flush-top"
-          hash={labelMapping}
-          headline="Labels" />
-        {this.getMarathonTaskDetailsDescriptionList()}
+        {this.getMesosTaskDetailsDescriptionList(mesosTask)}
+        {this.getMesosTaskLabelDescriptionList(mesosTask)}
+        {this.getMarathonTaskDetailsDescriptionList(marathonTask)}
       </div>
     );
   }
