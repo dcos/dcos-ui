@@ -11,7 +11,8 @@ module.exports = {
     AuthStore: 'AuthStore',
     ConfigStore: 'ConfigStore',
     UsersStore: 'UsersStore',
-    UserStore: 'UserStore'
+    UserStore: 'UserStore',
+    VisibilityStore: 'VisibilityStore'
   },
   structs: {
     List: 'List',
