@@ -4,22 +4,17 @@ import {Table} from 'reactjs-components';
 
 import CosmosPackagesStore from '../stores/CosmosPackagesStore';
 import PackagesTableHeaderLabels from '../constants/PackagesTableHeaderLabels';
-import PackageUpgradeOverview from './PackageUpgradeOverview';
 import ResourceTableUtil from '../utils/ResourceTableUtil';
 import TableUtil from '../utils/TableUtil';
 import UniversePackagesList from '../structs/UniversePackagesList';
 import UninstallPackageModal from './modals/UninstallPackageModal';
-import UpgradePackageModal from './modals/UpgradePackageModal';
 
 const METHODS_TO_BIND = [
   'getHeadline',
   'getUninstallButton',
-  'getUpgradeCell',
   'handleUninstallClick',
   'handleUninstallClose',
-  'handleUninstallFinish',
-  'handleUpgradeClick',
-  'handleUpgradeClose'
+  'handleUninstallFinish'
 ];
 
 class PackagesTable extends React.Component {
@@ -27,9 +22,7 @@ class PackagesTable extends React.Component {
     super();
 
     this.state = {
-      packageToUpgrade: null,
-      packageToUninstall: null,
-      pendingUpgradeRequest: false
+      packageToUninstall: null
     };
 
     METHODS_TO_BIND.forEach((method) => {
@@ -49,18 +42,11 @@ class PackagesTable extends React.Component {
     CosmosPackagesStore.fetchInstalledPackages();
   }
 
-  handleUpgradeClick(packageToUpgrade) {
-    this.setState({packageToUpgrade});
-  }
-
-  handleUpgradeClose() {
-    this.setState({packageToUpgrade: null});
-  }
-
   getClassName(prop, sortBy, row) {
     return classNames({
       'highlight': prop === sortBy.prop,
-      'clickable': prop === 'appId' && row == null // this is a header
+      'clickable': prop === 'appId' && row == null, // this is a header
+      'text-align-right': prop === 'uninstall'
     });
   }
 
@@ -97,7 +83,7 @@ class PackagesTable extends React.Component {
         headerClassName: getClassName,
         heading: function () {},
         prop: 'uninstall',
-        render: this.getUpgradeCell,
+        render: this.getUninstallButton,
         sortable: false
       }
     ];
@@ -108,7 +94,7 @@ class PackagesTable extends React.Component {
       <colgroup>
         <col />
         <col style={{width: '120px'}} />
-        <col style={{width: '330px'}} />
+        <col style={{width: '120px'}} />
       </colgroup>
     );
   }
@@ -129,11 +115,7 @@ class PackagesTable extends React.Component {
     );
   }
 
-  getUninstallButton(cosmosPackage) {
-    if (cosmosPackage.isUpgrading()) {
-      return null;
-    }
-
+  getUninstallButton(prop, cosmosPackage) {
     return (
       <a className="button button-link button-danger flush-bottom
         table-display-on-row-hover"
@@ -143,20 +125,8 @@ class PackagesTable extends React.Component {
     );
   }
 
-  getUpgradeCell(prop, cosmosPackage) {
-    return (
-      <div className="button-collection flush flex-align-right">
-        {this.getUninstallButton(cosmosPackage)}
-        <PackageUpgradeOverview cosmosPackage={cosmosPackage}
-          onUpgradeClick={this.handleUpgradeClick} />
-      </div>
-    );
-  }
-
   render() {
-    let {packageToUpgrade, packageToUninstall} = this.state;
-
-    let isUpgradeModalOpen = !!packageToUpgrade;
+    let {packageToUninstall} = this.state;
     let isUninstallModalOpen = !!packageToUninstall;
 
     return (
@@ -167,10 +137,6 @@ class PackagesTable extends React.Component {
           colGroup={this.getColGroup()}
           data={this.props.packages.getItems().slice()}
           sortBy={{prop: 'appId', order: 'desc'}} />
-        <UpgradePackageModal
-          cosmosPackage={packageToUpgrade}
-          onClose={this.handleUpgradeClose}
-          open={isUpgradeModalOpen} />
         <UninstallPackageModal
           cosmosPackage={packageToUninstall}
           handleUninstallFinish={this.handleUninstallFinish}
