@@ -102,11 +102,26 @@ PageHeader.propTypes = {
   subTitle: React.PropTypes.node,
   title: React.PropTypes.string,
 
-  className: React.PropTypes.string,
-  dividerClassName: React.PropTypes.string,
-  mediaWrapperClassName: React.PropTypes.string,
-  titleClassName: React.PropTypes.string,
-  iconClassName: React.PropTypes.string
+  className: React.PropTypes.oneOfType([
+    React.PropTypes.string,
+    React.PropTypes.object,
+  ]),
+  dividerClassName: React.PropTypes.oneOfType([
+    React.PropTypes.string,
+    React.PropTypes.object,
+  ]),
+  mediaWrapperClassName: React.PropTypes.oneOfType([
+    React.PropTypes.string,
+    React.PropTypes.object,
+  ]),
+  titleClassName: React.PropTypes.oneOfType([
+    React.PropTypes.string,
+    React.PropTypes.object,
+  ]),
+  iconClassName: React.PropTypes.oneOfType([
+    React.PropTypes.string,
+    React.PropTypes.object,
+  ])
 };
 
 module.exports = PageHeader;
