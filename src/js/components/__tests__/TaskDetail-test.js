@@ -1,6 +1,6 @@
 jest.dontMock('../SidePanelContents');
-jest.dontMock('../TaskSidePanelContents');
 jest.dontMock('../TaskDirectoryView');
+jest.dontMock('../TaskDetail');
 jest.dontMock('../../stores/MesosStateStore');
 jest.dontMock('../../mixins/GetSetMixin');
 
@@ -15,15 +15,19 @@ var ReactDOM = require('react-dom');
 var TestUtils = require('react-addons-test-utils');
 
 var MesosStateStore = require('../../stores/MesosStateStore');
+import Task from '../../structs/Task';
 var TaskDirectory = require('../../structs/TaskDirectory');
 var TaskDirectoryStore = require('../../stores/TaskDirectoryStore');
-var TaskSidePanelContents = require('../TaskSidePanelContents');
+var TaskDetail = require('../TaskDetail');
 
-describe('TaskSidePanelContents', function () {
+describe('TaskDetail', function () {
   beforeEach(function () {
     this.container = document.createElement('div');
+    this.params = {
+
+    };
     this.instance = ReactDOM.render(
-      <TaskSidePanelContents open={false} />,
+      <TaskDetail params={this.params} />,
       this.container
     );
     this.instance.setState = jasmine.createSpy('setState');
@@ -42,10 +46,10 @@ describe('TaskSidePanelContents', function () {
 
     MesosStateStore.addChangeListener = function () {};
     MesosStateStore.getTaskFromTaskID = function () {
-      return {
+      return new Task({
         id: 'fake id',
         state: 'TASK_RUNNING'
-      };
+      });
     };
 
     TaskDirectoryStore.getDirectory = jasmine.createSpy('getDirectory');
@@ -141,7 +145,7 @@ describe('TaskSidePanelContents', function () {
 
     it('should return null if there are no nodes', function () {
       var instance = ReactDOM.render(
-        <TaskSidePanelContents open={true} />,
+        <TaskDetail params={this.params} />,
         this.container
       );
       var node = ReactDOM.findDOMNode(instance);
@@ -150,13 +154,13 @@ describe('TaskSidePanelContents', function () {
 
     it('should return an element if there is a node', function () {
       MesosStateStore.get = function () {
-        return {
+        return new Task({
           slaves: {fakeProp: 'faked'}
-        };
+        });
       };
 
       var instance = ReactDOM.render(
-        <TaskSidePanelContents open={true} />,
+        <TaskDetail params={this.params} />,
         this.container
       );
 
@@ -173,10 +177,12 @@ describe('TaskSidePanelContents', function () {
     });
 
     it('should return an element if task is not null', function () {
-      var result = this.instance.getBasicInfo({
+      let task = new Task({
         id: 'fade',
         state: 'TASK_RUNNING'
-      }, {hostname: 'hello'});
+      });
+
+      var result = this.instance.getBasicInfo(task);
 
       expect(TestUtils.isElement(result)).toEqual(true);
     });
