@@ -20,7 +20,7 @@ class ServicePlanProgressModal extends React.Component {
         showCloseButton={false}
         useGemini={false}>
         <PackageUpgradeDetail servicePlan={props.servicePlan}
-          service={props.service} />
+          service={props.service} onClose={props.onClose} />
       </Modal>
     );
   }

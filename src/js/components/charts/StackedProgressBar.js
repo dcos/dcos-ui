@@ -76,8 +76,13 @@ StackedProgressBar.propTypes = {
   labelContentClassName: React.PropTypes.string,
   layoutClassName: React.PropTypes.string,
   progress: React.PropTypes.number,
-  progressState: React.PropTypes
-    .oneOf(['complete', 'error', 'ongoing', 'paused', 'upcoming', 'waiting']).isRequired,
+  progressState: React.PropTypes.oneOf([
+    ServicePlanStatusTypes.COMPLETE,
+    ServicePlanStatusTypes.ERROR,
+    ServicePlanStatusTypes.IN_PROGRESS,
+    ServicePlanStatusTypes.PENDING,
+    ServicePlanStatusTypes.WAITING
+  ]).isRequired,
   secondaryLabel: React.PropTypes.node,
   secondaryLabelClassName: React.PropTypes.string
 };

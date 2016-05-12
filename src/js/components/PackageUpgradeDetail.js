@@ -12,6 +12,7 @@ import ServicePlanStore from '../stores/ServicePlanStore';
 const METHODS_TO_BIND = [
   'handleDecisionConfirm',
   'handleDecisionRollback',
+  'handleHideModal',
   'handleUpgradePause',
   'handleShowDetails'
 ];
@@ -35,6 +36,10 @@ class PackageUpgradeDetail extends React.Component {
 
   handleDecisionRollback() {
     // TODO: Put rollback command here.
+  }
+
+  handleHideModal() {
+    this.props.onClose();
   }
 
   handleShowDetails() {
@@ -181,6 +186,9 @@ class PackageUpgradeDetail extends React.Component {
       hideShowDetails
     );
 
+    let healthClasses = `text-align-center flush
+      ${HealthStatus[serviceHealth.key].classNames}`;
+
     return (
       <div>
         <div className={modalContentClasses}>
@@ -195,7 +203,7 @@ class PackageUpgradeDetail extends React.Component {
               <p className="flush">
                 {service.getName()} {this.getVersionNumber(service)}
               </p>
-              <p className="text-align-center flush">
+              <p className={healthClasses}>
                 {HealthLabels[HealthStatus[serviceHealth.key].key]}
               </p>
             </div>
