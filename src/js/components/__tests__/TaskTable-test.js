@@ -44,20 +44,4 @@ describe('TaskTable', function () {
     ReactDOM.unmountComponentAtNode(this.container);
   });
 
-  describe('#getTaskPanelRoute', function () {
-    it('should be able to get the link to task detail', function () {
-      var result = this.instance.getTaskPanelRoute();
-
-      expect(result).toEqual('dashboard-task-panel');
-    });
-  });
-
-  describe('#handleTaskClick', function () {
-    it('should call transitionTo on parentRouter', function () {
-      this.parentRouter.transitionTo = jasmine.createSpy();
-      this.instance.handleTaskClick();
-
-      expect(this.parentRouter.transitionTo).toHaveBeenCalled();
-    });
-  });
 });

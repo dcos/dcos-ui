@@ -9,7 +9,6 @@ jest.dontMock('../../events/MesosSummaryActions');
 jest.dontMock('../../events/MarathonActions');
 jest.dontMock('../ServiceSidePanelContents');
 jest.dontMock('../SidePanelContents');
-jest.dontMock('../TaskSidePanelContents');
 jest.dontMock('../../utils/Util');
 jest.dontMock('../../utils/RequestUtil');
 jest.dontMock('../../structs/SummaryList');
@@ -22,7 +21,6 @@ var MesosSummaryActions = require('../../events/MesosSummaryActions');
 var MesosSummaryStore = require('../../stores/MesosSummaryStore');
 var ServiceSidePanelContents = require('../ServiceSidePanelContents');
 var SidePanels = require('../SidePanels');
-var TaskSidePanelContents = require('../TaskSidePanelContents');
 
 describe('SidePanels', function () {
   beforeEach(function () {
@@ -102,14 +100,6 @@ describe('SidePanels', function () {
 
     it('should return null if all IDs are null', function () {
       expect(this.instance.getContents(this.params)).toEqual(null);
-    });
-
-    it('should return TaskSidePanelContents if taskID is set', function () {
-      this.params.taskID = 'set';
-      var contents = this.instance.getContents(this.params);
-
-      expect(contents.type === TaskSidePanelContents).toEqual(true);
-      this.params.taskID = null;
     });
 
     it('should return ServiceSidePanelContents if serviceName is set',
