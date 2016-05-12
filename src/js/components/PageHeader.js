@@ -1,34 +1,49 @@
+import classNames from 'classnames';
 import React from 'react';
 
 class PageHeader extends React.Component {
 
-  getIcon(icon, className) {
+  getIcon() {
+    let {icon, iconClassName} = this.props;
+
     if (icon == null) {
       return null;
     }
 
+    let iconClasses = classNames(
+      'icon icon-large icon-image-container',
+      iconClassName
+    );
+
     return (
       <div className="media-object-item">
-        <div className={className}>
+        <div className={iconClasses}>
           {icon}
         </div>
       </div>
     );
   }
 
-  getTitle(title, className) {
+  getTitle() {
+    let {title, titleClassName} = this.props;
+
     if (title == null) {
       return null;
     }
 
+    let titleClasses = classNames(
+      'flush inverse',
+      titleClassName
+    );
+
     return (
-      <h1 className={className}>
-        {title}
-      </h1>
+      <h1 className={titleClasses}>{title}</h1>
     );
   }
 
-  getSubTitle(subTitle) {
+  getSubTitle() {
+    let {subTitle} = this.props;
+
     if (subTitle == null) {
       return null;
     }
@@ -37,33 +52,50 @@ class PageHeader extends React.Component {
   }
 
   render() {
-    let props = this.props;
+    let {
+      children,
+      className,
+      dividerClassName,
+      mediaWrapperClassName
+    } = this.props;
+
+    let classes = classNames(
+      'container container-fluid container-pod container-pod-short',
+      'flush flush-top',
+      className
+    );
+
+    let dividerClasses = classNames(
+      'container-pod container-pod-short flush-top',
+      'container-pod-divider-bottom container-pod-divider-bottom-align-right',
+      'container-pod-divider-inverse',
+      dividerClassName
+    );
+
+    let mediaWrapperClasses = classNames(
+      'media-object-spacing-wrapper media-object-spacing-narrow',
+      'media-object-offset',
+      mediaWrapperClassName
+    );
 
     return (
-      <div className={props.className}>
-        <div className={props.dividerClassName}>
-          <div className={props.mediaWrapperClassName}>
+      <div className={classes}>
+        <div className={dividerClasses}>
+          <div className={mediaWrapperClasses}>
             <div className="media-object flex-box flex-box-align-vertical-center">
-              {this.getIcon(props.icon, props.iconClassName)}
+              {this.getIcon()}
               <div className="media-object-item">
-                {this.getTitle(props.title, props.titleClassName)}
-                {this.getSubTitle(props.subTitle)}
+                {this.getTitle()}
+                {this.getSubTitle()}
               </div>
             </div>
           </div>
+          {children}
         </div>
       </div>
     );
   }
 }
-
-PageHeader.defaultProps = {
-  className: 'container container-fluid container-pod container-pod-short flush flush-top',
-  mediaWrapperClassName: 'media-object-spacing-wrapper media-object-spacing-narrow media-object-offset',
-  dividerClassName: 'container-pod container-pod-short flush-top container-pod-divider-bottom container-pod-divider-bottom-align-right container-pod-divider-inverse',
-  titleClassName: 'flush inverse',
-  iconClassName: 'icon icon-large icon-image-container icon-app-container',
-};
 
 PageHeader.propTypes = {
   icon: React.PropTypes.node,
