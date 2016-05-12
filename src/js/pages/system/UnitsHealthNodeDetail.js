@@ -95,6 +95,7 @@ class UnitsHealthNodeDetail extends mixin(StoreMixin) {
       <div className="flex-container-col">
         <PageHeader
           icon={serviceIcon}
+          iconClassName="icon-app-container"
           subTitle={this.getSubTitle(unit, node)}
           title={`${unit.getTitle()} Health Check`} />
         <div className="flex-container-col flex-grow no-overflow">

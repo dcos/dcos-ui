@@ -111,6 +111,7 @@ class UnitsHealthDetail extends mixin(StoreMixin) {
       <div className="flex-container-col">
         <PageHeader
           icon={<img src="./img/services/icon-service-default-medium@2x.png" />}
+          iconClassName="icon-app-container"
           subTitle={this.getSubTitle(unit)}
           title={unit.getTitle()} />
         <FilterHeadline
