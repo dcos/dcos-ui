@@ -24,7 +24,7 @@ import TabsMixin from '../mixins/TabsMixin';
 const TABS = {
   details: 'Details',
   files: 'Files',
-  debug: 'Log Viewer'
+  debug: 'Logs'
 };
 
 const METHODS_TO_BIND = [
@@ -341,12 +341,14 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
     );
   }
 
-  renderLogViewerTabView() {
+  renderLogsTabView() {
     let {state, props} = this;
     let task = MesosStateStore.getTaskFromTaskID(props.params.taskID);
+
     if (this.hasLoadingError()) {
       this.getErrorScreen();
     }
+
     if (!state.directory || !task) {
       return this.getLoadingScreen();
     }
