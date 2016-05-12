@@ -4,11 +4,17 @@ import React from 'react';
 import HealthLabels from '../constants/HealthLabels';
 import HealthStatus from '../constants/HealthStatus';
 import SegmentedProgressBar from './charts/SegmentedProgressBar';
+import ServicePlan from '../structs/ServicePlan';
+import ServicePlanBlock from '../structs/ServicePlanBlock';
 import ServicePlanBlocks from './ServicePlanBlocks';
-import ServicePlanStatusTypes from '../constants/ServicePlanStatusTypes';
 import ServicePlanStore from '../stores/ServicePlanStore';
 
-const METHODS_TO_BIND = ['handleUpgradePause', 'handleShowDetails'];
+const METHODS_TO_BIND = [
+  'handleDecisionConfirm',
+  'handleDecisionRollback',
+  'handleUpgradePause',
+  'handleShowDetails'
+];
 
 class PackageUpgradeDetail extends React.Component {
   constructor() {
@@ -23,12 +29,12 @@ class PackageUpgradeDetail extends React.Component {
     });
   }
 
-  handleDecisionConfirm(servicePlan) {
-    console.log('confirm', servicePlan);
+  handleDecisionConfirm() {
+    ServicePlanStore.continuePlan(this.props.service.id);
   }
 
-  handleDecisionRollback(servicePlan) {
-    console.log('rollback', servicePlan);
+  handleDecisionRollback() {
+    // TODO: Put rollback command here.
   }
 
   handleShowDetails() {
@@ -39,10 +45,12 @@ class PackageUpgradeDetail extends React.Component {
     ServicePlanStore.interruptPlan(this.props.service.id);
   }
 
-  getActiveDecisionPoint(activePhase) {
+  getActiveDecisionPointBlock(activePhase) {
     let decisionPointBlock = null;
 
     activePhase.getBlocks().getItems().some(function (block) {
+      block = new ServicePlanBlock(block);
+
       if (block.hasDecisionPoint()) {
         decisionPointBlock = block;
       }
@@ -54,35 +62,24 @@ class PackageUpgradeDetail extends React.Component {
   }
 
   getFooter(servicePlan) {
-    let decisionPoint;
+    let decisionPointBlock;
     let footerContent;
 
     if (servicePlan.isWaiting()) {
       let activePhase = servicePlan.getPhases().getActive();
-      let content;
-      decisionPoint = this.getActiveDecisionPoint(activePhase);
-      let heading = phaseLabel;
-      let phaseLabel = activePhase.getName();
-
-      if (!!decisionPoint) {
-        content = 'We deployed the new configuration to block ' +
-          `"${decisionPoint.getID()}" Please check your system health and ` +
-          'press Continue.';
-        heading = `${heading} Configuration Check`;
-      } else {
-        content = (
-          <span>
-            {`${phaseLabel} requires updating ${this.props.service.getName()} `}
-            configuration to {activePhase.getID()}.
-            {' Please press continue to begin.'}
-          </span>
-        );
-      }
+      decisionPointBlock = this.getActiveDecisionPointBlock(activePhase);
 
       footerContent = (
         <div className="container container-pod container-pod-short flush-top">
-          <h3 className="flush-top">{heading}</h3>
-          <p className="short flush-bottom">{content}</p>
+          <h5 className="upgrade-package-modal-footer-heading flush-top">
+            {decisionPointBlock.getName()} Configuration Check
+          </h5>
+          <p className="upgrade-package-modal-footer-content short
+            flush-bottom">
+            We deployed the new configuration to
+            block {decisionPointBlock.getName()}. Please check your system
+            health and press Continue.
+          </p>
         </div>
       )
     }
@@ -91,7 +88,7 @@ class PackageUpgradeDetail extends React.Component {
       <div className="upgrade-package-modal-footer">
         {footerContent}
         <div className="button-collection flush">
-          {this.getFooterActionItems(decisionPoint)}
+          {this.getFooterActionItems(decisionPointBlock)}
         </div>
       </div>
     );
@@ -106,20 +103,16 @@ class PackageUpgradeDetail extends React.Component {
     ];
 
     if (!!decisionPoint) {
-      actionItems.concat[
-        (
-          <button className="button button-danger" key="rollback-upgrade"
-            onClick={this.handleDecisionRollback}>
-            Rollback
-          </button>
-        ),
-        (
-          <button className="button button-success" key="continue-upgrade"
-            onClick={this.handleDecisionConfirm}>
-            Continue
-          </button>
-        )
-      ];
+      actionItems = actionItems.concat([
+        <button className="button button-danger" key="rollback-upgrade"
+          onClick={this.handleDecisionRollback}>
+          Rollback
+        </button>,
+        <button className="button button-success" key="continue-upgrade"
+          onClick={this.handleDecisionConfirm}>
+          Continue
+        </button>
+      ]);
     } else {
       actionItems.push(
         <button className="button" onClick={this.handleUpgradePause}
@@ -133,18 +126,8 @@ class PackageUpgradeDetail extends React.Component {
   }
 
   getPhaseProgress(servicePlan) {
-    const phaseStatusMap = {
-      [ServicePlanStatusTypes.COMPLETE]: 'complete',
-      [ServicePlanStatusTypes.ERROR]: 'error',
-      [ServicePlanStatusTypes.IN_PROGRESS]: 'ongoing',
-      [ServicePlanStatusTypes.PENDING]: 'upcoming',
-      [ServicePlanStatusTypes.WAITING]: 'waiting'
-    };
-
     return servicePlan.getPhases().getItems().map(function (phase) {
-      return {
-        upgradeState: phaseStatusMap[phase.status]
-      };
+      return {upgradeState: phase.status};
     });
   }
 
@@ -163,10 +146,6 @@ class PackageUpgradeDetail extends React.Component {
     };
   }
 
-  getUpgradeDecisionPoint(servicePlan) {
-    console.log('get upgrade decision point', servicePlan);
-  }
-
   getVersionNumber(service) {
     return service.getMetadata().version;
   }
@@ -180,34 +159,26 @@ class PackageUpgradeDetail extends React.Component {
         'is-paused': servicePlan.isPending()
       });
     let serviceHealth = service.getHealth();
-    // let showDetailsButtonWrapperClasses = classNames(
-    //   'upgrade-package-modal-details-button', {
-    //     'is-expanded': this.state.detailsExpanded
-    //   });
     let upgradeDetails;
 
     if (this.state.detailsExpanded) {
       detailsLabel = 'Hide Details';
       upgradeDetails = (
-        <ServicePlanBlocks
-          service={service}
-          servicePlan={servicePlan} />
+        <ServicePlanBlocks service={service} servicePlan={servicePlan} />
       );
     }
 
-    let {primaryTitle, secondaryTitle} = this.getProgressBarLabels(servicePlan,
-      (
-        <a className="clickable" onClick={this.handleShowDetails}>
+    let hideShowDetails = (
+      <span>
+        (<a className="clickable" onClick={this.handleShowDetails}>
           {detailsLabel}
-        </a>
-      )
+        </a>)
+      </span>
     );
 
-    secondaryTitle = (
-      <span>
-        {secondaryTitle}
-
-      </span>
+    let {primaryTitle, secondaryTitle} = this.getProgressBarLabels(
+      servicePlan,
+      hideShowDetails
     );
 
     return (
@@ -250,7 +221,7 @@ class PackageUpgradeDetail extends React.Component {
 
 PackageUpgradeDetail.propTypes = {
   service: React.PropTypes.object,
-  serviceName: React.PropTypes.string
+  servicePlan: React.PropTypes.instanceOf(ServicePlan)
 };
 
 module.exports = PackageUpgradeDetail;

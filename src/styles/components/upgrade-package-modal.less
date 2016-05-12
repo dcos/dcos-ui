@@ -1,14 +1,37 @@
+@keyframes active-upgrade-block-pulse {
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.5;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
 @upgrade-block-heading-color: @neutral;
 @upgrade-block-heading-margin: @base-spacing-unit * 1/4;
 @upgrade-block-heading-font-size: @body-text-font-size;
 @upgrade-block-subheading-color: color-lighten(@neutral, 50);
 @upgrade-block-subheading-margin: @base-spacing-unit * 1/2;
 
-@upgrade-block-active-color: color-lighten(@green, 30);
+@upgrade-block-active-color: color-lighten(@green, 50);
 @upgrade-block-upcoming-color: color-lighten(@neutral, 80);
+@upgrade-block-complete-color: @green;
+
+@upgrade-block-active-color-hover: color-lighten(@green, -20);
+@upgrade-block-upcoming-color-hover: color-lighten(@neutral, 60);
+@upgrade-block-complete-color-hover: color-lighten(@green, -20);
+
+@upgrade-block-active-color-selected: @green;
+@upgrade-block-upcoming-color-selected: @neutral;
+@upgrade-block-complete-color-selected: color-lighten(@green, -50);
 
 @upgrade-block-label-margin: @base-spacing-unit * 1/4;
-@upgrade-block-margin: 2px;
+@upgrade-block-padding: 1px;
 @upgrade-block-tooltip-font-size: @body-text-font-size;
 
 .upgrade-package-modal {
@@ -81,21 +104,35 @@
 
 .upgrade-package-modal-details-blocks {
   line-height: 0;
-  margin: 0 0 @upgrade-block-margin * -1 @upgrade-block-margin * -1;
+  margin: 0;
   text-align: left;
 }
 
 .upgrade-package-modal-details-block {
   cursor: pointer;
   display: inline-block;
-  margin: 0 0 @upgrade-block-margin @upgrade-block-margin;
 
   .upgrade-package-modal-details-block-content {
-    height: 10px;
-    width: 10px;
+    height: 12px;
+    padding: @upgrade-block-padding;
+    width: 12px;
+  }
+
+  .icon {
+    fill: @upgrade-block-upcoming-color;
+  }
+
+  &:hover {
 
     .icon {
-      fill: @upgrade-block-upcoming-color;
+      fill: @upgrade-block-upcoming-color-hover;
+    }
+  }
+
+  &.is-selected {
+
+    .icon {
+      fill: @upgrade-block-upcoming-color-selected;
     }
   }
 
@@ -105,21 +142,43 @@
 
   &.is-complete {
 
-    .upgrade-package-modal-details-block-content {
+    .icon {
+      fill: @green;
+    }
+
+    &:hover {
 
       .icon {
-        fill: @green;
+        fill: @upgrade-block-complete-color-hover;
+      }
+    }
+
+    &.is-selected {
+
+      .icon {
+        fill: @upgrade-block-complete-color-selected;
       }
     }
   }
 
   &.is-active {
 
-    .upgrade-package-modal-details-block-content {
+    .icon {
+      animation: active-upgrade-block-pulse 1.5s linear infinite;
+      fill: @upgrade-block-active-color;
+    }
+
+    &:hover {
 
       .icon {
-        filter: drop-shadow(0 0 3px @upgrade-block-active-color);
-        fill: @upgrade-block-active-color;
+        fill: @upgrade-block-active-color-hover;
+      }
+    }
+
+    &.is-selected {
+
+      .icon {
+        fill: @upgrade-block-active-color-selected;
       }
     }
   }
@@ -155,14 +214,22 @@
 
 .upgrade-package-modal-footer {
 
+  .upgrade-package-modal-footer-heading {
+    color: color-lighten(@neutral, 50);
+    font-size: @body-text-font-size * 0.95;
+    font-weight: 400;
+    text-transform: uppercase;
+  }
+
   .button-collection {
-    align-items: flex-end;
     display: flex;
+    justify-content: flex-end;
 
     .button {
+      flex: 0 0 auto;
 
       &:first-child {
-        align-self: flex-start;
+        margin-right: auto;
       }
     }
   }

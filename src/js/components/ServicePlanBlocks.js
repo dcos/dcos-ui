@@ -68,6 +68,7 @@ class ServicePlanBlocks extends React.Component {
     let upgradeBlocks = phaseBlocks.getItems();
 
     upgradeBlocks.forEach((block, blockIndex) => {
+      let {selectedBlock} = this.state;
       block = new ServicePlanBlock(block);
 
       let hasDecisionPoint = block.hasDecisionPoint();
@@ -81,6 +82,7 @@ class ServicePlanBlocks extends React.Component {
       let blockClassName = classNames('upgrade-package-modal-details-block', {
         'has-decision-point': hasDecisionPoint,
         'is-active': isActive,
+        'is-selected': selectedBlock && selectedBlock.getID() === block.getID(),
         'is-complete': isComplete
       });
 
@@ -161,7 +163,7 @@ class ServicePlanBlocks extends React.Component {
 
     if (!!this.state.hoveredBlock || !!this.state.selectedBlock) {
       let focusedBlock = this.state.selectedBlock || this.state.hoveredBlock;
-      blocksHeadingContent = focusedBlock.getName();
+      blocksHeadingContent = `${focusedBlock.getName()}: ${focusedBlock.getStatus()}`;
     }
 
     return (

@@ -10,6 +10,7 @@ const labelMap = {
 class ServicePlanProgressBar extends React.Component {
   getPhaseLabel(servicePlan) {
     let phases = servicePlan.getPhases();
+    let activePhase = phases.getActiveIndex() + 1;
 
     return (
       <span className="text-overflow-break-word">

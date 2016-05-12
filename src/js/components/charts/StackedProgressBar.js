@@ -1,18 +1,19 @@
 import classNames from 'classnames';
 import React from 'react';
 
+import ServicePlanStatusTypes from '../../constants/ServicePlanStatusTypes';
+
 class StackedProgressBar extends React.Component {
   render() {
     let label;
     let secondaryLabel;
     let props = this.props;
     let classes = classNames(props.className, props.layoutClassName, {
-      'is-erroneous': props.progressState === 'error',
-      'is-complete': props.progressState === 'complete',
-      'is-ongoing': props.progressState === 'ongoing',
-      'is-upcoming': props.progressState === 'upcoming',
-      'is-paused': props.progressState === 'paused',
-      'is-waiting': props.progressState === 'waiting'
+      'is-complete': props.progressState === ServicePlanStatusTypes.COMPLETE,
+      'is-erroneous': props.progressState === ServicePlanStatusTypes.ERROR,
+      'is-ongoing': props.progressState === ServicePlanStatusTypes.IN_PROGRESS,
+      'is-upcoming': props.progressState === ServicePlanStatusTypes.PENDING,
+      'is-waiting': props.progressState === ServicePlanStatusTypes.WAITING
     });
 
     if (props.label) {

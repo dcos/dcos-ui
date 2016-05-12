@@ -32,7 +32,7 @@
           "status": "InProgress"
         },
         {
-          "has_decision_point": false,
+          "has_decision_point": true,
           "id": "4bd66559-b719-46f1-bc7b-3366a875db29",
           "message": "Broker-2 is Pending",
           "name": "broker-2",
@@ -55,8 +55,8 @@
       ],
       "id": "59a843b3-e4e7-4a2d-b77b-803bb704a52a",
       "name": "Updating Configuration",
-      "status": "InProgress"
+      "status": "Waiting"
     }
   ],
-  "status": "InProgress"
+  "status": "Waiting"
 }

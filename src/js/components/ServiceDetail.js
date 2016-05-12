@@ -14,7 +14,8 @@ import TabsMixin from '../mixins/TabsMixin';
 
 const METHODS_TO_BIND = [
   'handleViewProgressDetailsClick',
-  'handleProgressDetailModalClose'
+  'handleProgressDetailModalClose',
+  'onServicePlanStoreChange'
 ];
 
 class ServiceDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
@@ -38,7 +39,6 @@ class ServiceDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
     this.store_listeners = [{
       name: 'servicePlan',
       events: [
-        'change',
         'error'
       ]
     }];
@@ -50,7 +50,7 @@ class ServiceDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
 
   componentDidMount() {
     super.componentDidMount(...arguments);
-    ServicePlanStore.fetchPlan(this.props.service.id);
+    ServicePlanStore.addPlanChangeListener(this.props.service.id, this.onServicePlanStoreChange);
   }
 
   onServicePlanStoreChange() {
