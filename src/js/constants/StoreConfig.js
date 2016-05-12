@@ -65,6 +65,10 @@ import {
   MESOS_LOG_CHANGE,
   MESOS_LOG_REQUEST_ERROR,
 
+  PLAN_BLOCK_FORCE_COMPLETE_SUCCESS,
+  PLAN_BLOCK_FORCE_COMPLETE_ERROR,
+  PLAN_BLOCK_RESTART_SUCCESS,
+  PLAN_BLOCK_RESTART_ERROR,
   PLAN_CHANGE,
   PLAN_ERROR,
   PLAN_DECISION_SUCCESS,
@@ -298,7 +302,11 @@ const ListenersDescription = {
       change: PLAN_CHANGE,
       error: PLAN_ERROR,
       decisionSuccess: PLAN_DECISION_SUCCESS,
-      decisionError: PLAN_DECISION_ERROR
+      decisionError: PLAN_DECISION_ERROR,
+      forceCompleteBlockSuccess: PLAN_BLOCK_FORCE_COMPLETE_SUCCESS,
+      forceCompleteBlockError: PLAN_BLOCK_FORCE_COMPLETE_ERROR,
+      restartBlockSuccess: PLAN_BLOCK_RESTART_SUCCESS,
+      restartBlockError: PLAN_BLOCK_RESTART_ERROR
     },
     unmountWhen: function () {
       return true;
