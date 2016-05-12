@@ -22,7 +22,7 @@ class SegmentedProgressBar extends React.Component {
     return (
       <div className={classes}>
         <div className={props.titleClassName}>
-          <em className="emphasize">{props.primaryTitle}</em> &mdash; {props.secondaryTitle}
+          <em className="emphasize">{props.primaryTitle}</em>: {props.secondaryTitle}
         </div>
         <div className={props.segmentsClassName}>
           {segments}

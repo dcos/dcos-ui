@@ -11,8 +11,6 @@
 @upgrade-block-margin: 2px;
 @upgrade-block-tooltip-font-size: @body-text-font-size;
 
-@upgrade-progress-bar-width: @base-spacing-unit * 15;
-
 .upgrade-package-modal {
 
   .container {
@@ -20,8 +18,6 @@
   }
 
   .segmented-progress-bar {
-    margin: 0 auto;
-    max-width: @upgrade-progress-bar-width;
     text-align: left;
     width: 100%;
   }
@@ -137,6 +133,23 @@
   strong {
     color: @white;
     font-size: inherit;
+  }
+
+  a {
+    display: inline-block;
+    margin-right: @upgrade-block-label-margin;
+  }
+}
+
+.upgrade-package-modal-details-block-tooltip {
+
+  a {
+    display: inline-block;
+    margin-right: @upgrade-block-label-margin;
+
+    &:last-child {
+      margin-right: 0;
+    }
   }
 }
 

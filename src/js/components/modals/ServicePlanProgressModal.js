@@ -1,8 +1,6 @@
-import classNames from 'classnames';
 import {Modal} from 'reactjs-components';
 import React from 'react';
 
-import SegmentedProgressBar from '../charts/SegmentedProgressBar';
 import PackageUpgradeDetail from '../PackageUpgradeDetail';
 import ServicePlan from '../../structs/ServicePlan';
 

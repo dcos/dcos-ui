@@ -1,14 +1,14 @@
 import classNames from 'classnames';
-import {Tooltip} from 'reactjs-components';
 import React from 'react';
 
 import HealthLabels from '../constants/HealthLabels';
 import HealthStatus from '../constants/HealthStatus';
-import IconUpgradeBlock from './icons/IconUpgradeBlock';
 import SegmentedProgressBar from './charts/SegmentedProgressBar';
+import ServicePlanBlocks from './ServicePlanBlocks';
 import ServicePlanStatusTypes from '../constants/ServicePlanStatusTypes';
+import ServicePlanStore from '../stores/ServicePlanStore';
 
-const METHODS_TO_BIND = ['handleShowDetails'];
+const METHODS_TO_BIND = ['handleUpgradePause', 'handleShowDetails'];
 
 class PackageUpgradeDetail extends React.Component {
   constructor() {
@@ -24,11 +24,11 @@ class PackageUpgradeDetail extends React.Component {
   }
 
   handleDecisionConfirm(servicePlan) {
-    console.log('confirm');
+    console.log('confirm', servicePlan);
   }
 
   handleDecisionRollback(servicePlan) {
-    console.log('rollback');
+    console.log('rollback', servicePlan);
   }
 
   handleShowDetails() {
@@ -36,13 +36,13 @@ class PackageUpgradeDetail extends React.Component {
   }
 
   handleUpgradePause() {
-    console.log('pause upgrade');
+    ServicePlanStore.interruptPlan(this.props.service.id);
   }
 
   getActiveDecisionPoint(activePhase) {
     let decisionPointBlock = null;
 
-    activePhase.getBlocks().getItems().some(function (block, index) {
+    activePhase.getBlocks().getItems().some(function (block) {
       if (block.hasDecisionPoint()) {
         decisionPointBlock = block;
       }
@@ -149,7 +149,6 @@ class PackageUpgradeDetail extends React.Component {
   }
 
   getProgressBarLabels(servicePlan) {
-    // TODO: Return the currently active block.
     let planPhases = servicePlan.getPhases();
     let phaseCount = planPhases.getItems().length;
     let activePhaseIndex = planPhases.getActiveIndex();
@@ -160,90 +159,12 @@ class PackageUpgradeDetail extends React.Component {
     }
   }
 
-  getUpgradeBlocks(servicePlan) {
-    let activeBlock = servicePlan.getActiveBlock();
-    let blocks = [];
-    let decisionPoints = servicePlan.getDecisionPointIndices();
-    let numUpgradeBlocks = servicePlan.getBlockCount();
-
-    for (let blockIndex = 0; blockIndex < numUpgradeBlocks; blockIndex++) {
-      let hasDecisionPoint = decisionPoints.indexOf(blockIndex) > -1;
-      let isActive = blockIndex === activeBlock
-      let isComplete = blockIndex < activeBlock;
-
-      if (isComplete && hasDecisionPoint) {
-        hasDecisionPoint = false;
-      }
-
-      let blockClassName = classNames('upgrade-package-modal-details-block', {
-        'has-decision-point': hasDecisionPoint,
-        'is-active': isActive,
-        'is-complete': isComplete
-      });
-
-      blocks.push(
-        <div className={blockClassName} key={blockIndex}>
-          <Tooltip content={this.getUpgradeBlockTooltipContent({activeBlock,
-            blockIndex, servicePlan})} interactive={true}>
-            <div className="upgrade-package-modal-details-block-content">
-              <IconUpgradeBlock hasDecisionPoint={hasDecisionPoint} />
-            </div>
-          </Tooltip>
-        </div>
-      );
-    }
-
-    return (
-      <div className="upgrade-package-modal-details-blocks">
-        {blocks}
-      </div>
-    );
-  }
-
-  getUpgradeBlockTooltipContent(blockDetails) {
-    return (
-      <span>
-        <span className="upgrade-package-modal-details-block-label">
-          <strong>Block {blockDetails.blockIndex}</strong>:
-        </span>
-        <a href="#">Restart</a> <a href="#">Force Complete</a>
-      </span>
-    );
-  }
-
   getUpgradeDecisionPoint(servicePlan) {
-
+    console.log('get upgrade decision point', servicePlan);
   }
 
   getVersionNumber(service) {
     return service.getMetadata().version;
-  }
-
-  getUpgradeDetails(servicePlan) {
-    let upgradePhases = servicePlan.getPhases().getItems();
-    let currentPhaseIndex = -1;
-
-    upgradePhases.some(function (phase, phaseIndex) {
-      if (phase.upgradeState === 'ongoing') {
-        currentPhaseIndex = phaseIndex + 1;
-        return true;
-      }
-    });
-
-    return (
-      <div className="upgrade-package-modal-details-content text-align-left
-        container container-pod container-pod-short flush-bottom">
-        <span className="upgrade-package-modal-details-heading">
-          <strong>Phase {currentPhaseIndex} of {upgradePhases.length}:</strong>
-          {' '}{servicePlan.getCurrentPhase().status}
-        </span>
-        <span className="upgrade-package-modal-details-subheading">
-          {`Upgrading Block ${servicePlan.getActiveBlock()} of
-          ${servicePlan.getBlockCount()} to ${servicePlan.getUpgradeSHA()}`}
-        </span>
-        {this.getUpgradeBlocks(servicePlan)}
-      </div>
-    );
   }
 
   render() {
@@ -264,7 +185,11 @@ class PackageUpgradeDetail extends React.Component {
 
     if (this.state.detailsExpanded) {
       detailsLabel = 'Hide Details';
-      upgradeDetails = this.getUpgradeDetails(servicePlan);
+      upgradeDetails = (
+        <ServicePlanBlocks
+          service={service}
+          servicePlan={servicePlan} />
+      );
     }
 
     return (
@@ -292,8 +217,8 @@ class PackageUpgradeDetail extends React.Component {
                 stackedProgressBarClassName="service-plan-progress-bar stacked-progress-bar"
                 primaryTitle={primaryTitle} secondaryTitle={secondaryTitle} />
             </div>
-            <div className="container container-pod container-pod-short
-              container-pod-super-short upgrade-package-modal-details">
+            <div className="container container-pod container-pod-super-short
+              flush-bottom upgrade-package-modal-details">
               <div className={showDetailsButtonWrapperClasses}>
                 <button className="button button-small button-short
                   button-stroke button-rounded button-extended"
@@ -314,8 +239,8 @@ class PackageUpgradeDetail extends React.Component {
 }
 
 PackageUpgradeDetail.propTypes = {
-  serviceName: React.PropTypes.string,
-  servicePlan: React.PropTypes.object
+  service: React.PropTypes.object,
+  serviceName: React.PropTypes.string
 };
 
 module.exports = PackageUpgradeDetail;
