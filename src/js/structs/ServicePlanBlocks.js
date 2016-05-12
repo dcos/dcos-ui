@@ -6,8 +6,8 @@ class ServicePlanBlocks extends List {
     super(...arguments);
 
     // Cache lookups
-    this._activeBlockCount = 0;
     this._activeBlocks = [];
+    this._completeBlocks = [];
 
     // Find all blocks where status is active
     this.getItems().forEach((block) => {
@@ -18,21 +18,19 @@ class ServicePlanBlocks extends List {
       if (block.isInProgress()) {
         this._activeBlocks.push(block);
       }
-    });
 
-    this._activeBlockCount = this._activeBlocks.length;
+      if (block.isComplete()) {
+        this._completeBlocks.push(block);
+      }
+    });
   }
 
   getActive() {
-    if (this._activeBlockCount === 0) {
-      return null;
-    }
-
     return this._activeBlocks;
   }
 
-  getActiveBlockCount() {
-    return this._activeBlockCount;
+  getComplete() {
+    return this._completeBlocks;
   }
 
 }
