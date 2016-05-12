@@ -21,11 +21,13 @@ class PageHeader extends React.Component {
       return null;
     }
 
-    return (
-      <h1 className={className}>
-        {title}
-      </h1>
-    );
+    if (typeof title === 'string') {
+      return (
+        <h1 className={className}>{title}</h1>
+      );
+    }
+
+    return title;
   }
 
   getSubTitle(subTitle) {
@@ -51,6 +53,7 @@ class PageHeader extends React.Component {
               </div>
             </div>
           </div>
+          {this.props.children}
         </div>
       </div>
     );
@@ -68,7 +71,7 @@ PageHeader.defaultProps = {
 PageHeader.propTypes = {
   icon: React.PropTypes.node,
   subTitle: React.PropTypes.node,
-  title: React.PropTypes.string,
+  title: React.PropTypes.node,
 
   className: React.PropTypes.string,
   dividerClassName: React.PropTypes.string,
