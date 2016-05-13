@@ -83,7 +83,8 @@ let ActionTypes = {};
   'REQUEST_VERSIONS_ERROR',
   'REQUEST_VERSIONS_SUCCESS',
   'SERVER_ACTION',
-  'SIDEBAR_ACTION'
+  'SIDEBAR_ACTION',
+  'TRIGGER_PAGE_UPDATE'
 ].forEach(function (actionType) {
   ActionTypes[actionType] = actionType;
 });

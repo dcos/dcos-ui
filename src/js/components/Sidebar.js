@@ -9,11 +9,11 @@ import ClusterHeader from './ClusterHeader';
 import Config from '../config/Config';
 var EventTypes = require('../constants/EventTypes');
 import IconDCOSLogoMark from './icons/IconDCOSLogoMark';
-import PluginSDK from 'PluginSDK';
-
+import {keyCodes} from '../utils/KeyboardUtil';
 var InternalStorageMixin = require('../mixins/InternalStorageMixin');
 var MesosSummaryStore = require('../stores/MesosSummaryStore');
 var MetadataStore = require('../stores/MetadataStore');
+import PluginSDK from 'PluginSDK';
 var SidebarActions = require('../events/SidebarActions');
 
 let defaultMenuItems = ['dashboard', 'services', 'nodes-list', 'universe', 'system'];
@@ -30,6 +30,10 @@ var Sidebar = React.createClass({
     router: React.PropTypes.func
   },
 
+  getInitialState: function () {
+    return {sidebarExpanded: true};
+  },
+
   componentDidMount: function () {
     this.internalStorage_update({
       mesosInfo: MesosSummaryStore.get('states').lastSuccessful()
@@ -39,6 +43,8 @@ var Sidebar = React.createClass({
       EventTypes.DCOS_METADATA_CHANGE,
       this.onDCOSMetadataChange
     );
+
+    global.window.addEventListener('keydown', this.handleKeyPress, true);
   },
 
   componentWillUnmount: function () {
@@ -46,6 +52,8 @@ var Sidebar = React.createClass({
       EventTypes.DCOS_METADATA_CHANGE,
       this.onDCOSMetadataChange
     );
+
+    global.window.removeEventListener('keydown', this.handleKeyPress, true);
   },
 
   onDCOSMetadataChange: function () {
@@ -55,6 +63,19 @@ var Sidebar = React.createClass({
   handleInstallCLI: function () {
     SidebarActions.close();
     SidebarActions.openCliInstructions();
+  },
+
+  handleKeyPress: function (event) {
+    let nodeName = event.target.nodeName;
+    if (event.keyCode === keyCodes.leftBracket
+      && !(nodeName === 'INPUT' || nodeName === 'TEXTAREA')) {
+      // #triggerPageUpdate is passed as a callback so that the sidebar
+      // has had a chance to update before Gemini re-renders.
+      this.setState(
+        {sidebarExpanded: !this.state.sidebarExpanded},
+        SidebarActions.triggerPageUpdate
+      );
+    }
   },
 
   handleVersionClick: function () {
@@ -140,19 +161,21 @@ var Sidebar = React.createClass({
   },
 
   render: function () {
+    let sidebarClasses = classNames('sidebar flex-container-col', {
+      'is-expanded': this.state.sidebarExpanded
+    });
+
     return (
-      <div className="sidebar flex-container-col">
+      <div className={sidebarClasses}>
         <div className="sidebar-header">
           <ClusterHeader />
         </div>
         <GeminiScrollbar autoshow={true} className="sidebar-content container-scrollable">
           <div className="sidebar-content-wrapper">
             <nav className="sidebar-navigation">
-              <div className="container container-fluid container-fluid-narrow">
-                <ul className="sidebar-menu list-unstyled">
-                  {this.getMenuItems()}
-                </ul>
-              </div>
+              <ul className="sidebar-menu list-unstyled flush-bottom">
+                {this.getMenuItems()}
+              </ul>
             </nav>
             <div className="container container-fluid container-pod container-pod-short sidebar-logo-container">
               <div className="sidebar-footer-image">

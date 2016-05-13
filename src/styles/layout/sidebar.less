@@ -33,38 +33,6 @@ Sidebar Variables
 
 
 /* -----------------------------------------------------------------------------
-Sidebar Header Image
------------------------------------------------------------------------------ */
-
-.sidebar-header-image {
-
-  border: 1px solid fade(@black, 5%);
-  padding: 3px;
-  margin: 0 auto;
-  display: block;
-  width: 64px + (3 * 2) + 2;
-  height: 64px + (3 * 2) + 2;
-  background: @white;
-  .border-radius(50%);
-  overflow: hidden;
-  margin-bottom: (@base-spacing-unit * 0.25);
-
-  .sidebar-header-image-inner {
-
-    display: block;
-    width: 64px;
-    height: 64px;
-    background: color-lighten(@neutral, 80);
-    .border-radius(50%);
-    overflow: hidden;
-    margin-right: auto;
-    margin-left: auto;
-
-  }
-
-}
-
-/* -----------------------------------------------------------------------------
 Sidebar Header Label
 ----------------------------------------------------------------------------- */
 
@@ -133,6 +101,11 @@ Sidebar Header Sub Label
 
   }
 
+}
+
+.sidebar-menu-item-label {
+  display: inline-block;
+  vertical-align: middle;
 }
 
 
@@ -238,11 +211,6 @@ Sidebar
 
     .sidebar-menu {
 
-      padding: 0px;
-      margin: 0px -(@grid-container-fluid-narrow-gutter-width * 1.0);
-
-
-
       /* -----------------------------------------------------------------------------
       Sidebar Menu Item
       ----------------------------------------------------------------------------- */
@@ -252,35 +220,6 @@ Sidebar
         color: color-lighten(@neutral, 50);
         margin: 0px;
         position: relative;
-
-        &:after {
-
-          content: '';
-          height: 1px;
-          background: rgba(255, 255, 255, 0.05);
-          position: absolute;
-          bottom: 0px;
-          left: (@grid-container-fluid-narrow-gutter-width * 1.0);
-          right: (@grid-container-fluid-narrow-gutter-width * 1.0);
-
-        }
-
-        &:last-child {
-
-          &:after {
-
-            display: none;
-
-          }
-
-        }
-
-        .sidebar-menu-item-label {
-
-          vertical-align: middle;
-          display: inline-block;
-
-        }
 
         .sidebar-menu-item-icon {
 
@@ -475,7 +414,6 @@ Sidebar
     }
 
   }
-
 }
 
 .user-dropdown {
@@ -553,25 +491,6 @@ Sidebar Open
 
       .sidebar-header {
 
-        /* -----------------------------------------------------------------------------
-        Sidebar Header Image
-        ----------------------------------------------------------------------------- */
-
-        .sidebar-header-image {
-
-          width: 64px + (3 * 2) + 1;
-          height: 64px + (3 * 2) + 1;
-          margin-bottom: (@base-spacing-unit-screen-mini * 0.25);
-
-          .sidebar-header-image-inner {
-
-            width: 64px;
-            height: 64px;
-
-          }
-
-        }
-
 
 
         /* -----------------------------------------------------------------------------
@@ -611,16 +530,7 @@ Sidebar Open
 
         .sidebar-menu {
 
-          margin: 0px -(@grid-container-fluid-narrow-gutter-width * 1.0);
-
           .sidebar-menu-item {
-
-            &:after {
-
-              left: (@grid-container-fluid-narrow-gutter-width * 0.5);
-              right: (@grid-container-fluid-narrow-gutter-width * 0.5);
-
-            }
 
             .sidebar-menu-item-icon {
 
@@ -630,7 +540,7 @@ Sidebar Open
 
             a {
 
-              padding: (@base-spacing-unit-screen-mini * 0.5) (@grid-container-fluid-narrow-gutter-width * 1.0);
+              padding: (@base-spacing-unit-screen-mini * 0.5) (@grid-container-fluid-narrow-gutter-width-screen-mini * 1.0);
 
             }
 
@@ -713,21 +623,6 @@ Sidebar Open
         Sidebar Header Image
         ----------------------------------------------------------------------------- */
 
-        .sidebar-header-image {
-
-          width: @icon-medium-width + (3 * 2) + 2;
-          height: @icon-medium-height + (3 * 2) + 2;
-          margin-bottom: 0px;
-
-          .sidebar-header-image-inner {
-
-            width: @icon-medium-width;
-            height: @icon-medium-height;
-
-          }
-
-        }
-
         .sidebar-header-label {
 
           display: none;
@@ -750,28 +645,7 @@ Sidebar Open
 
         .sidebar-menu {
 
-          margin: 0px -(@base-spacing-unit-screen-small * 0.375);
-
           .sidebar-menu-item {
-
-            &:after {
-
-              left: (@base-spacing-unit-screen-small * 0.5);
-              right: (@base-spacing-unit-screen-small * 0.5);
-
-            }
-
-            .sidebar-menu-item-icon {
-
-              margin-right: 0;
-
-            }
-
-            .sidebar-menu-item-label {
-
-              display: none;
-
-            }
 
             a {
 
@@ -783,12 +657,8 @@ Sidebar Open
 
         }
 
-        .sidebar-logo-container {
-
-          display: none;
-
-        }
-
+        .sidebar-logo-container,
+        .sidebar-menu-item-label,
         .company-name {
 
           display: none;
@@ -839,6 +709,10 @@ Sidebar Open
 
       }
 
+      & + .page {
+        margin-left: 64px;
+      }
+
     }
 
   }
@@ -872,185 +746,161 @@ Sidebar Open
 
     .sidebar {
 
-      width: 250px;
+      &.is-expanded {
 
 
-
-      /* -----------------------------------------------------------------------------
-      Sidebar Header
-      ----------------------------------------------------------------------------- */
-
-      .sidebar-header {
-
-        /* -----------------------------------------------------------------------------
-        Sidebar Header Image
-        ----------------------------------------------------------------------------- */
-
-        .sidebar-header-image {
-
-          width: 64px + (3 * 2) + 2;
-          height: 64px + (3 * 2) + 2;
-          margin-bottom: (@base-spacing-unit-screen-medium * 0.25);
-          margin-left: auto;
-
-          .sidebar-header-image-inner {
-
-            width: 64px;
-            height: 64px;
-
-          }
-
-        }
+        width: 250px;
 
 
 
         /* -----------------------------------------------------------------------------
-        Sidebar Header Label
+        Sidebar Header
         ----------------------------------------------------------------------------- */
 
-        .sidebar-header-label {
+        .sidebar-header {
 
-          display: block;
+          /* -----------------------------------------------------------------------------
+          Sidebar Header Label
+          ----------------------------------------------------------------------------- */
+
+          .sidebar-header-label {
+
+            display: block;
+
+          }
+
+
+
+          /* -----------------------------------------------------------------------------
+          Sidebar Header Sub Label
+          ----------------------------------------------------------------------------- */
+
+          .sidebar-header-sublabel {
+
+            display: flex;
+            margin-top: @base-spacing-unit-screen-medium * 0.1;
+
+            .hostname {
+
+              margin-left: @icon-mini-width + (@base-spacing-unit-screen-medium * 0.1);
+
+            }
+
+            .sidebar-header-sublabel-action {
+
+              margin-left: @base-spacing-unit-screen-medium * 0.1;
+
+            }
+
+          }
 
         }
 
 
 
         /* -----------------------------------------------------------------------------
-        Sidebar Header Sub Label
+        Sidebar Content
         ----------------------------------------------------------------------------- */
 
-        .sidebar-header-sublabel {
+        .sidebar-content {
 
-          display: flex;
-          margin-top: @base-spacing-unit-screen-medium * 0.1;
+           -----------------------------------------------------------------------------
+          Sidebar Menu
+          -----------------------------------------------------------------------------
 
-          .hostname {
+          .sidebar-menu {
 
-            margin-left: @icon-mini-width + (@base-spacing-unit-screen-medium * 0.1);
+            .sidebar-menu-item {
+
+              .sidebar-menu-item-icon {
+
+                margin-right: (@base-spacing-unit-screen-medium * 0.25);
+
+              }
+
+              a {
+
+                padding: (@base-spacing-unit-screen-medium * 0.25) (@grid-container-fluid-narrow-gutter-width-screen-medium * 1.0);
+
+              }
+
+            }
 
           }
 
-          .sidebar-header-sublabel-action {
+          .sidebar-logo-container {
 
-            margin-left: @base-spacing-unit-screen-medium * 0.1;
+            display: block;
+
+          }
+
+          .sidebar-menu-item-label {
+            display: inline-block;
+          }
+
+          .company-name {
+
+            display: inline;
+
+          }
+
+          .sidebar-footer-image {
+
+            margin-bottom: @base-spacing-unit-screen-medium * 0.15;
 
           }
 
         }
 
-      }
 
-
-
-      /* -----------------------------------------------------------------------------
-      Sidebar Content
-      ----------------------------------------------------------------------------- */
-
-      .sidebar-content {
 
         /* -----------------------------------------------------------------------------
-        Sidebar Menu
+        Sidebar Footer
         ----------------------------------------------------------------------------- */
 
-        .sidebar-menu {
+        .sidebar-footer {
 
-          margin: 0px -(@grid-container-fluid-narrow-gutter-width-screen-medium * 1.0);
+          .icon-buttons {
 
-          .sidebar-menu-item {
+            flex-direction: row;
 
-            &:after {
+            .button {
 
-              left: (@grid-container-fluid-narrow-gutter-width-screen-medium * 1.0);
-              right: (@grid-container-fluid-narrow-gutter-width-screen-medium * 1.0);
+              border-top-width: 1px;
+              border-right-width: 1px;
+              border-bottom-width: 0;
+              border-left-width: 0;
 
-            }
+              &:last-child {
 
-            .sidebar-menu-item-icon {
+                border-right-width: 0;
 
-              margin-right: (@base-spacing-unit-screen-medium * 0.25);
-
-            }
-
-            .sidebar-menu-item-label {
-
-              display: inline-block;
+              }
 
             }
 
-            a {
+            .user-dropdown {
 
-              padding: (@base-spacing-unit-screen-medium * 0.25) (@grid-container-fluid-narrow-gutter-width-screen-medium * 1.0);
+              .icon {
+                margin-right: (@base-spacing-unit-screen-medium * 0.25);
+              }
 
-            }
+              .user-description {
+                display: block;
+              }
 
-          }
-
-        }
-
-        .sidebar-logo-container {
-
-          display: block;
-
-        }
-
-        .company-name {
-
-          display: inline;
-
-        }
-
-        .sidebar-footer-image {
-
-          margin-bottom: @base-spacing-unit-screen-medium * 0.15;
-
-        }
-
-      }
-
-
-
-      /* -----------------------------------------------------------------------------
-      Sidebar Footer
-      ----------------------------------------------------------------------------- */
-
-      .sidebar-footer {
-
-        .icon-buttons {
-
-          flex-direction: row;
-
-          .button {
-
-            border-top-width: 1px;
-            border-right-width: 1px;
-            border-bottom-width: 0;
-            border-left-width: 0;
-
-            &:last-child {
-
-              border-right-width: 0;
+              &.dropdown-toggle:after {
+                display: block;
+              }
 
             }
 
           }
 
-          .user-dropdown {
+        }
 
-            .icon {
-              margin-right: (@base-spacing-unit-screen-medium * 0.25);
-            }
-
-            .user-description {
-              display: block;
-            }
-
-            &.dropdown-toggle:after {
-              display: block;
-            }
-
-          }
-
+        & + .page {
+          margin-left: 250px;
         }
 
       }
@@ -1088,67 +938,6 @@ Sidebar Open
 
     .sidebar {
 
-      width: 300px;
-
-
-
-      /* -----------------------------------------------------------------------------
-      Sidebar Header
-      ----------------------------------------------------------------------------- */
-
-      .sidebar-header {
-
-        /* -----------------------------------------------------------------------------
-        Sidebar Header Image
-        ----------------------------------------------------------------------------- */
-
-        .sidebar-header-image {
-
-          width: 64px + (3 * 2) + 2;
-          height: 64px + (3 * 2) + 2;
-          margin-bottom: (@base-spacing-unit-screen-large * 0.25);
-
-          .sidebar-header-image-inner {
-
-            width: 64px;
-            height: 64px;
-
-          }
-
-        }
-
-
-
-        /* -----------------------------------------------------------------------------
-        Sidebar Header Sub Label
-        ----------------------------------------------------------------------------- */
-
-        .sidebar-header-sublabel {
-
-          margin-top: @base-spacing-unit-screen-large * 0.1;
-
-          .hostname {
-
-            margin-left: @icon-mini-width + (@base-spacing-unit-screen-large * 0.1);
-
-          }
-
-          .sidebar-header-sublabel-action {
-
-            margin-left: @base-spacing-unit-screen-large * 0.1;
-
-          }
-
-        }
-
-      }
-
-
-
-      /* -----------------------------------------------------------------------------
-      Sidebar Content
-      ----------------------------------------------------------------------------- */
-
       .sidebar-content {
 
         /* -----------------------------------------------------------------------------
@@ -1157,26 +946,12 @@ Sidebar Open
 
         .sidebar-menu {
 
-          margin: 0px -(@grid-container-fluid-narrow-gutter-width-screen-large * 1.0);
-
           .sidebar-menu-item {
-
-            &:after {
-
-              left: (@grid-container-fluid-narrow-gutter-width-screen-large * 1.0);
-              right: (@grid-container-fluid-narrow-gutter-width-screen-large * 1.0);
-
-            }
-
-            .sidebar-menu-item-icon {
-
-              margin-right: (@base-spacing-unit-screen-large * 0.25);
-
-            }
 
             a {
 
-              padding: (@base-spacing-unit-screen-large * 0.25) (@grid-container-fluid-narrow-gutter-width-screen-large * 1.0);
+              padding-bottom: @base-spacing-unit-screen-large * 0.25;
+              padding-top: @base-spacing-unit-screen-large * 0.25;
 
             }
 
@@ -1184,24 +959,98 @@ Sidebar Open
 
         }
 
-        .sidebar-footer-image {
+      }
 
-          margin-bottom: @base-spacing-unit-screen-large * 0.15;
+      &.is-expanded {
+
+        width: 300px;
+
+        /* -----------------------------------------------------------------------------
+        Sidebar Header
+        ----------------------------------------------------------------------------- */
+
+        .sidebar-header {
+
+          /* -----------------------------------------------------------------------------
+          Sidebar Header Sub Label
+          ----------------------------------------------------------------------------- */
+
+          .sidebar-header-sublabel {
+
+            margin-top: @base-spacing-unit-screen-large * 0.1;
+
+            .hostname {
+
+              margin-left: @icon-mini-width + (@base-spacing-unit-screen-large * 0.1);
+
+            }
+
+            .sidebar-header-sublabel-action {
+
+              margin-left: @base-spacing-unit-screen-large * 0.1;
+
+            }
+
+          }
 
         }
 
-      }
+
+
+        /* -----------------------------------------------------------------------------
+        Sidebar Content
+        ----------------------------------------------------------------------------- */
+
+        .sidebar-content {
+
+          /* -----------------------------------------------------------------------------
+          Sidebar Menu
+          ----------------------------------------------------------------------------- */
+
+          .sidebar-menu {
+
+            .sidebar-menu-item {
+
+              .sidebar-menu-item-icon {
+
+                margin-right: (@base-spacing-unit-screen-large * 0.25);
+
+              }
+
+              a {
+
+                padding: (@base-spacing-unit-screen-large * 0.25) (@grid-container-fluid-narrow-gutter-width-screen-large * 1.0);
+
+              }
+
+            }
+
+          }
+
+          .sidebar-footer-image {
+
+            margin-bottom: @base-spacing-unit-screen-large * 0.15;
+
+          }
+
+        }
 
 
 
-      /* -----------------------------------------------------------------------------
-      Sidebar Footer
-      ----------------------------------------------------------------------------- */
+        /* -----------------------------------------------------------------------------
+        Sidebar Footer
+        ----------------------------------------------------------------------------- */
 
-      .sidebar-footer {
+        .sidebar-footer {
 
-        .icon-buttons .user-dropdown .icon {
-          margin-right: (@base-spacing-unit-screen-large * 0.25);
+          .icon-buttons .user-dropdown .icon {
+            margin-right: (@base-spacing-unit-screen-large * 0.25);
+          }
+
+        }
+
+        & + .page {
+          margin-left: 300px;
         }
 
       }

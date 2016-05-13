@@ -46,5 +46,11 @@ module.exports = {
         });
       }
     });
+  },
+
+  triggerPageUpdate: function () {
+    AppDispatcher.handleSidebarAction({
+      type: ActionTypes.TRIGGER_PAGE_UPDATE
+    });
   }
 };

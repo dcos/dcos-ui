@@ -1,8 +1,10 @@
 var React = require('react');
 import ReactDOM from 'react-dom';
 
-var InternalStorageMixin = require('../../mixins/InternalStorageMixin');
 var DOMUtils = require('../../utils/DOMUtils');
+import EventTypes from '../../constants/EventTypes';
+var InternalStorageMixin = require('../../mixins/InternalStorageMixin');
+import SidebarStore from '../../stores/SidebarStore';
 
 var Chart = React.createClass({
 
@@ -38,6 +40,7 @@ var Chart = React.createClass({
       this.updateWidth();
     }
     window.addEventListener('resize', this.updateWidth);
+    SidebarStore.addChangeListener(EventTypes.PAGE_UPDATE, this.updateWidth);
   },
 
   shouldComponentUpdate: function () {
@@ -46,6 +49,7 @@ var Chart = React.createClass({
 
   componentWillUnmount: function () {
     window.removeEventListener('resize', this.updateWidth);
+    SidebarStore.removeChangeListener(EventTypes.PAGE_UPDATE, this.updateWidth);
   },
 
   updateWidth: function () {

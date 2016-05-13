@@ -59,6 +59,9 @@ var SidebarStore = Store.createStore({
       case ActionTypes.REQUEST_VERSIONS_ERROR:
         SidebarStore.emitChange(EventTypes.SHOW_VERSIONS_ERROR);
         break;
+      case ActionTypes.TRIGGER_PAGE_UPDATE:
+        SidebarStore.emitChange(EventTypes.PAGE_UPDATE);
+        break;
     }
 
     return true;

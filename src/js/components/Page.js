@@ -2,8 +2,11 @@ var classNames = require('classnames');
 var GeminiScrollbar = require('react-gemini-scrollbar');
 var React = require('react');
 
+import EventTypes from '../constants/EventTypes';
+import GeminiUtil from '../utils/GeminiUtil';
 var InternalStorageMixin = require('../mixins/InternalStorageMixin');
 var SidebarToggle = require('../components/SidebarToggle');
+import SidebarStore from '../stores/SidebarStore';
 
 var Page = React.createClass({
 
@@ -28,6 +31,21 @@ var Page = React.createClass({
       rendered: true
     });
     this.forceUpdate();
+    SidebarStore.addChangeListener(
+      EventTypes.PAGE_UPDATE,
+      this.handlePageUpdate
+    );
+  },
+
+  componentWillUnmount: function () {
+    SidebarStore.removeChangeListener(
+      EventTypes.PAGE_UPDATE,
+      this.handlePageUpdate
+    );
+  },
+
+  handlePageUpdate: function () {
+    GeminiUtil.updateWithRef(this.refs.pageRef);
   },
 
   getChildren: function () {
@@ -35,7 +53,6 @@ var Page = React.createClass({
     if (data.rendered === true) {
       return this.props.children;
     }
-
     return null;
   },
 
@@ -89,7 +106,8 @@ var Page = React.createClass({
     return (
       <div className={classSet}>
         {this.getPageHeader(title, navigation)}
-        <GeminiScrollbar autoshow={true} className="page-content container-scrollable inverse">
+        <GeminiScrollbar autoshow={true} className="page-content
+          container-scrollable inverse" ref="pageRef">
           <div className="flex-container-col container container-fluid container-pod container-pod-short-top">
             {this.getChildren()}
           </div>
