@@ -4,6 +4,7 @@ import {StoreMixin} from 'mesosphere-shared-reactjs';
 import AlertPanel from '../../components/AlertPanel';
 import Config from '../../config/Config';
 import DCOSStore from '../../stores/DCOSStore';
+import FilterBar from '../../components/FilterBar';
 import FilterHeadline from '../../components/FilterHeadline';
 import QueryParamsMixin from '../../mixins/QueryParamsMixin';
 import SaveStateMixin from '../../mixins/SaveStateMixin';
@@ -148,8 +149,22 @@ var ServicesTab = React.createClass({
           <div className="flex-grow">
             {breadcrumbs}
             {filterHeadline}
-            <ServiceSearchFilter
-              handleFilterChange={this.handleFilterChange} />
+            <FilterBar
+              rightAlignLastNChildren={2}>
+              <ServiceSearchFilter
+                handleFilterChange={this.handleFilterChange} />
+              <button className="button button-stroke button-inverse"
+                onClick={()=> {
+                  this.setState({
+                    isServiceGroupFormModalShown: true
+                  });
+                }}>
+                Create Group
+              </button>
+              <button className="button button-success">
+                Deploy Service
+              </button>
+            </FilterBar>
             <ServicesTable
               services={filteredServices} />
           </div>
