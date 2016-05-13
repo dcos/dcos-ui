@@ -73,15 +73,11 @@ var ServicesTab = React.createClass({
   },
 
   handleCloseGroupFormModal: function () {
-    this.setState({
-      isServiceGroupFormModalShown: false
-    });
+    this.setState({isServiceGroupFormModalShown: false});
   },
 
   handleOpenGroupFormModal: function () {
-    this.setState({
-      isServiceGroupFormModalShown: true
-    });
+    this.setState({isServiceGroupFormModalShown: true});
   },
 
   handleFilterChange: function (filterValues, filterType) {
@@ -164,8 +160,7 @@ var ServicesTab = React.createClass({
           <div className="flex-grow">
             {breadcrumbs}
             {filterHeadline}
-            <FilterBar
-              rightAlignLastNChildren={2}>
+            <FilterBar rightAlignLastNChildren={2}>
               <ServiceSearchFilter
                 handleFilterChange={this.handleFilterChange} />
               <button className="button button-stroke button-inverse"

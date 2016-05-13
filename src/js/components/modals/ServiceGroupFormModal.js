@@ -2,11 +2,10 @@ import mixin from 'reactjs-mixin';
 /* eslint-disable no-unused-vars */
 import React from 'react';
 /* eslint-enable no-unused-vars */
-
 import {StoreMixin} from 'mesosphere-shared-reactjs';
+
 import FormModal from '../FormModal';
 import MarathonStore from '../../stores/MarathonStore';
-
 import Validator from '../../utils/Validator';
 
 const METHODS_TO_BIND = [
