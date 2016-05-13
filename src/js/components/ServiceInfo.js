@@ -13,7 +13,7 @@ class ServiceInfo extends React.Component {
   getSubHeader(service) {
     let {servicePlan} = this.props;
 
-    if (servicePlan) {
+    if (servicePlan && !servicePlan.isComplete()) {
       return (
         <ServicePlanProgressBar servicePlan={servicePlan} stacked={false}
           onViewDetailsClick={this.props.onViewProgressDetailsClick} />

@@ -66,10 +66,7 @@ class ServicePlanBlocks extends React.Component {
   }
 
   getUpgradeBlocks(phaseBlocks, activePhase) {
-    let blocks = [];
-    let upgradeBlocks = phaseBlocks.getItems();
-
-    upgradeBlocks.forEach((block, blockIndex) => {
+    let blocks = phaseBlocks.getItems().map((block, blockIndex) => {
       let {selectedBlock} = this.state;
       block = new ServicePlanBlock(block);
 
@@ -88,7 +85,7 @@ class ServicePlanBlocks extends React.Component {
         'is-complete': isComplete
       });
 
-      blocks.push(
+      return (
         <div className={blockClassName} key={blockIndex}
           onClick={this.handleBlockClick.bind(this, block)}
           onMouseEnter={this.handleBlockMouseEnter.bind(this, block)}

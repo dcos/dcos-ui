@@ -1,13 +1,15 @@
 import classNames from 'classnames';
 import React from 'react';
 
-import HealthLabels from '../constants/HealthLabels';
-import HealthStatus from '../constants/HealthStatus';
-import SegmentedProgressBar from './charts/SegmentedProgressBar';
-import ServicePlan from '../structs/ServicePlan';
-import ServicePlanBlock from '../structs/ServicePlanBlock';
-import ServicePlanBlocks from './ServicePlanBlocks';
-import ServicePlanStore from '../stores/ServicePlanStore';
+import HealthLabels from '../../constants/HealthLabels';
+import HealthStatus from '../../constants/HealthStatus';
+import IconWarning from '../icons/IconWarning';
+import IconCircleCheckmark from '../icons/IconCircleCheckmark';
+import SegmentedProgressBar from '../charts/SegmentedProgressBar';
+import ServicePlan from '../../structs/ServicePlan';
+import ServicePlanBlock from '../../structs/ServicePlanBlock';
+import ServicePlanBlocks from '../ServicePlanBlocks';
+import ServicePlanStore from '../../stores/ServicePlanStore';
 
 const METHODS_TO_BIND = [
   'handleDecisionConfirm',
@@ -17,7 +19,7 @@ const METHODS_TO_BIND = [
   'handleShowDetails'
 ];
 
-class PackageUpgradeDetail extends React.Component {
+class ServicePlanProgressModalContents extends React.Component {
   constructor() {
     super(...arguments);
 
@@ -66,6 +68,34 @@ class PackageUpgradeDetail extends React.Component {
     return decisionPointBlock;
   }
 
+  getCompleteMessage(serviceName) {
+    return (
+      <div className="upgrade-package-modal-success
+        upgrade-package-modal-status container-pod text-align-center">
+        <IconCircleCheckmark />
+        <h3 className="upgrade-package-modal-status-title short">
+          Success!
+        </h3>
+        <p className="flush-bottom">
+          {serviceName} was successfully updated.
+        </p>
+      </div>
+    );
+  }
+
+  getErrorMessage() {
+    return (<div className="upgrade-package-modal-error upgrade-package-modal-status
+      container-pod text-align-center">
+      <IconWarning />
+      <h3 className="upgrade-package-modal-status-title short">
+        Invalid Configuration
+      </h3>
+      <p className="flush-bottom">
+        Please review your configuration and try again.
+      </p>
+    </div>);
+  }
+
   getFooter(servicePlan) {
     let decisionPointBlock;
     let footerContent;
@@ -86,13 +116,13 @@ class PackageUpgradeDetail extends React.Component {
             health and press Continue.
           </p>
         </div>
-      )
+      );
     }
 
     return (
       <div className="upgrade-package-modal-footer">
         {footerContent}
-        <div className="button-collection flush">
+        <div className="button-collection flush-bottom">
           {this.getFooterActionItems(decisionPointBlock)}
         </div>
       </div>
@@ -158,6 +188,18 @@ class PackageUpgradeDetail extends React.Component {
   render() {
     let {service, servicePlan} = this.props;
 
+    if (!servicePlan) {
+      return;
+    }
+
+    if (servicePlan.hasError()) {
+      return this.getErrorMessage();
+    }
+
+    if (servicePlan.isComplete()) {
+      return this.getCompleteMessage(service.getMetadata().name);
+    }
+
     let detailsLabel = 'Show Details';
     let modalContentClasses = classNames('upgrade-package-modal modal-content',
       'allow-overflow', {
@@ -211,8 +253,10 @@ class PackageUpgradeDetail extends React.Component {
               container-pod-super-short">
               <SegmentedProgressBar
                 segments={this.getPhaseProgress(servicePlan)}
-                stackedProgressBarClassName="service-plan-progress-bar stacked-progress-bar"
-                primaryTitle={primaryTitle} secondaryTitle={secondaryTitle} />
+                stackedProgressBarClassName="service-plan-progress-bar
+                  stacked-progress-bar"
+                primaryTitle={primaryTitle}
+                secondaryTitle={secondaryTitle} />
             </div>
             <div className="container upgrade-package-modal-details">
               {upgradeDetails}
@@ -227,9 +271,9 @@ class PackageUpgradeDetail extends React.Component {
   }
 }
 
-PackageUpgradeDetail.propTypes = {
+ServicePlanProgressModalContents.propTypes = {
   service: React.PropTypes.object,
   servicePlan: React.PropTypes.instanceOf(ServicePlan)
 };
 
-module.exports = PackageUpgradeDetail;
+module.exports = ServicePlanProgressModalContents;

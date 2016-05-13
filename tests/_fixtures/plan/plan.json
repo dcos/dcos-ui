@@ -32,31 +32,17 @@
           "status": "InProgress"
         },
         {
-          "has_decision_point": true,
+          "has_decision_point": false,
           "id": "4bd66559-b719-46f1-bc7b-3366a875db29",
           "message": "Broker-2 is Pending",
           "name": "broker-2",
           "status": "Pending"
-        },
-        {
-          "has_decision_point": false,
-          "id": "5bd66559-b719-46f1-bc7b-3366a875db29",
-          "message": "Broker-3 is InProgress",
-          "name": "broker-3",
-          "status": "InProgress"
-        },
-        {
-          "has_decision_point": false,
-          "id": "6bd66559-b719-46f1-bc7b-3366a875db29",
-          "message": "Broker-4 is Pending",
-          "name": "broker-4",
-          "status": "Pending"
         }
       ],
       "id": "59a843b3-e4e7-4a2d-b77b-803bb704a52a",
-      "name": "Updating Configuration",
-      "status": "Waiting"
+      "name": "Update to: 0ca3aed4-02f1-4175-8399-61e98676a8d7",
+      "status": "InProgress"
     }
   ],
-  "status": "Waiting"
+  "status": "InProgress"
 }
