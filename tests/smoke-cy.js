@@ -38,8 +38,8 @@ describe('DC/OS UI [00j]', function () {
       cy.get('@tableRows').should('to.have.length', 3);
     });
 
-    it('should list marathon in the table [00q]', function () {
-      cy.get('table tbody tr').contains('marathon');
+    it('should not list marathon in the table [00q]', function () {
+      cy.get('table tbody tr').should('not.contain', 'marathon');
     });
 
   });
