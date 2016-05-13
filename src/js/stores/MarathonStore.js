@@ -10,6 +10,8 @@ var Config = require('../config/Config');
 import {
   MARATHON_APPS_CHANGE,
   MARATHON_APPS_ERROR,
+  MARATHON_GROUP_CREATE_SUCCESS,
+  MARATHON_GROUP_CREATE_ERROR,
   MARATHON_GROUPS_CHANGE,
   MARATHON_GROUPS_ERROR,
   MARATHON_DEPLOYMENTS_CHANGE,
@@ -93,6 +95,8 @@ var MarathonStore = Store.createStore({
       this.listenerCount(MARATHON_DEPLOYMENTS_CHANGE) > 0 ||
       this.listenerCount(MARATHON_APPS_CHANGE) > 0;
   },
+
+  createGroup: MarathonActions.createGroup,
 
   fetchServiceVersion: MarathonActions.fetchServiceVersion,
 
@@ -263,6 +267,12 @@ var MarathonStore = Store.createStore({
 
     var action = payload.action;
     switch (action.type) {
+      case ActionTypes.REQUEST_MARATHON_GROUP_CREATE_ERROR:
+        MarathonStore.emit(MARATHON_GROUP_CREATE_ERROR, action.data);
+        break;
+      case ActionTypes.REQUEST_MARATHON_GROUP_CREATE_SUCCESS:
+        MarathonStore.emit(MARATHON_GROUP_CREATE_SUCCESS);
+        break;
       case ActionTypes.REQUEST_MARATHON_GROUPS_SUCCESS:
         MarathonStore.processMarathonGroups(action.data);
         break;
