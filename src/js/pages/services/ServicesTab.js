@@ -104,6 +104,20 @@ var ServicesTab = React.createClass({
     this.setState(state, this.resetFilterQueryParams);
   },
 
+  getAlertPanelFooter: function () {
+    return (
+      <div className="button-collection flush-bottom">
+        <button className="button button-stroke button-inverse"
+          onClick={this.handleOpenGroupFormModal}>
+          Create Group
+        </button>
+        <button className="button button-success">
+          Deploy Service
+        </button>
+      </div>
+    );
+  },
+
   getContents: function (id) {
     // Render loading screen
     if (!DCOSStore.dataProcessed) {
@@ -141,12 +155,13 @@ var ServicesTab = React.createClass({
     // Render empty panel
     return (
       <AlertPanel
-        title="No Services Installed"
+        title="No Services Deployed"
+        footer={this.getAlertPanelFooter()}
         iconClassName="icon icon-sprite icon-sprite-jumbo
           icon-sprite-jumbo-white icon-services flush-top">
         <p className="flush-bottom">
-          Use the {Config.productName} command line tools to find and install
-          services.
+          Create groups to organize your services or
+          deploy a new service.
         </p>
       </AlertPanel>
     );
