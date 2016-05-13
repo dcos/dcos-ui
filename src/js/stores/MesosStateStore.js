@@ -128,20 +128,15 @@ var MesosStateStore = Store.createStore({
     let services = this.get('lastMesosState').frameworks;
     let foundTask = null;
 
-    for (let serviceIndex in services) {
-      let service = services[serviceIndex];
+    services.some(function (service) {
       let tasks = service.tasks.concat(service.completed_tasks);
 
-      for (let taskIndex in tasks) {
-        let task = tasks[taskIndex];
-        let equalTask = task.id === taskID;
+      foundTask = tasks.find(function (task) {
+        return task.id === taskID;
+      });
 
-        if (equalTask) {
-          foundTask = task;
-          break;
-        }
-      }
-    }
+      return foundTask;
+    });
 
     return foundTask;
   },
