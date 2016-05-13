@@ -6,6 +6,49 @@ import React from 'react';
 
 import TabsUtil from '../utils/TabsUtil';
 
+/**
+ * Adds tabs-specific methods onto a class.
+ *
+ * Note that routes may be cascaded where multiple tab hierarchies are in place
+ * by prefixing one route with another, eg the route 'universe-packages-detail'
+ * will result in the tab 'universe-packages' being highlighted as active.
+ *
+ * @mixin
+ * @see {@link TabsUtil}
+ * @example
+ * class PageWithRoutableTabs extends mixin(TabsMixin) {
+ *   constructor() {
+ *     super(...args);
+ *     // The default selected tab may be defined so:
+ *     this.state = {
+ *       currentTab: 'defined-route-1'
+ *     }
+ *   }
+ *   componentWillMount() {
+ *     // The keys to this object must be defined routes
+ *     this.tabs_tabs = {
+ *      'defined-route-1': 'Tab Title 1',
+ *      'defined-route-2': 'Tab Title 2'
+ *     }
+ *     this.updateCurrentTab();
+ *   }
+ *   getNavigation() {
+ *     return (
+ *       <ul>
+ *         {this.tabs_getRoutedTabs()}
+ *       </ul>
+ *     );
+ *   }
+ *   render() {
+ *     return (
+ *       <Page
+ *         navigation={this.getNavigation()}>
+ *         <RouteHandler />
+ *       </Page>
+ *     );
+ *   }
+ * }
+ */
 const TabsMixin = {
   /**
    * Returns a tab that has a callback when clicked.

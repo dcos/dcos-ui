@@ -6,6 +6,7 @@ describe('TabsUtil', function () {
   describe('#getTabs', function () {
     beforeEach(function () {
       this.tabs = {foo: 'bar', baz: 'qux', corge: 'grault'};
+      this.hierarchicalTabs = {foo: 'bar', foobar: 'foobar', '-foo': 'baz'};
       this.getElement = function () {};
       spyOn(this, 'getElement');
     });
@@ -24,7 +25,7 @@ describe('TabsUtil', function () {
       expect(result.length).toEqual(3);
     });
 
-    it('should return li\'s', function () {
+    it('should return LIs', function () {
       var result = TabsUtil.getTabs(this.tabs, 'baz', this.getElement);
 
       expect(result[0].type).toEqual('li');
@@ -32,13 +33,33 @@ describe('TabsUtil', function () {
       expect(result[2].type).toEqual('li');
     });
 
-    it('should return element\'s with one active class', function () {
+    it('should return elements with one active class', function () {
       var result = TabsUtil.getTabs(this.tabs, 'baz', this.getElement);
 
       expect(result[0].props.className).toEqual('tab-item');
       expect(result[1].props.className).toEqual('tab-item active');
       expect(result[2].props.className).toEqual('tab-item');
     });
+
+    it('should not highlight routes contained within the class name',
+        function () {
+          var tabs = TabsUtil.getTabs(this.hierarchicalTabs, '-foo',
+              this.getElement);
+
+          expect(tabs[0].props.className).toEqual('tab-item');
+          expect(tabs[1].props.className).toEqual('tab-item');
+          expect(tabs[2].props.className).toEqual('tab-item active');
+        });
+
+    it('should highlight all routes which prefix the current tab name',
+        function () {
+          var tabs = TabsUtil.getTabs(this.hierarchicalTabs, 'foobar',
+              this.getElement);
+
+          expect(tabs[0].props.className).toEqual('tab-item active');
+          expect(tabs[1].props.className).toEqual('tab-item active');
+          expect(tabs[2].props.className).toEqual('tab-item');
+        });
 
     it('should call getElement with appropriate arguments', function () {
       TabsUtil.getTabs(this.tabs, 'baz', this.getElement);
