@@ -54,7 +54,7 @@ We want to guarantee that our project DC/OS UI works as it should within DC/OS a
   ![img](../../../../../../../mesosphere/dcos-ui/blob/master/docs/images/cypress-no-projects.png?raw=true)
 
 ### Running Integration Tests
-  
+
 1. Serve the integration test environment:
 
   ```sh
