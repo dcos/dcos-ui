@@ -15,43 +15,44 @@ module.exports = {
     VisibilityStore: 'VisibilityStore'
   },
   structs: {
-    List: 'List',
+    CompositeState: 'CompositeState',
     Item: 'Item',
-    CompositeState: 'CompositeState'
+    List: 'List',
+    Tree: 'Tree'
   },
   utils: {
     CookieUtils: 'CookieUtils',
-    StringUtil: 'StringUtil',
-    RequestUtil: 'RequestUtil',
     DOMUtils: 'DOMUtils',
-    ResourceTableUtil: 'ResourceTableUtil',
-    TableUtil: 'TableUtil',
     LocalStorageUtil: 'LocalStorageUtil',
     Maths: 'Maths',
+    RequestUtil: 'RequestUtil',
+    ResourceTableUtil: 'ResourceTableUtil',
+    StoreMixinConfig: 'StoreMixinConfig',
+    StringUtil: 'StringUtil',
+    TableUtil: 'TableUtil',
     Units: 'Units',
-    Util: 'Util',
-    StoreMixinConfig: 'StoreMixinConfig'
+    Util: 'Util'
   },
   mixins: {
     InternalStorageMixin: 'InternalStorageMixin',
     TabsMixin: 'TabsMixin'
   },
   components: {
+    AccessDeniedPage: 'AccessDeniedPage',
     ActionsModal: 'modals/ActionsModal',
     AlertPanel: 'AlertPanel',
     Authenticated: 'Authenticated',
-    AccessDeniedPage: 'AccessDeniedPage',
     Chart: 'charts/Chart',
     CheckboxTable: 'CheckboxTable',
     ClusterHeader: 'ClusterHeader',
     ClusterName: 'ClusterName',
     DCOSLogo: 'DCOSLogo',
     DescriptionList: 'DescriptionList',
-    FormModal: 'FormModal',
     FilterBar: 'FilterBar',
     FilterButtons: 'FilterButtons',
     FilterHeadline: 'FilterHeadline',
     FilterInputText: 'FilterInputText',
+    FormModal: 'FormModal',
     IconInfo: 'icons/IconInfo',
     MesosphereLogo: 'icons/MesosphereLogo',
     Page: 'Page',
