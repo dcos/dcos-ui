@@ -52,8 +52,7 @@ We want to guarantee that our project DC/OS UI works as it should within DC/OS a
   Once you've logged in click on the plus button and add the `dcos-ui` folder.
 
   ![img](../../../../../../../mesosphere/dcos-ui/blob/master/docs/images/cypress-no-projects.png?raw=true)
-  
-  
+
 ### Running Integration Tests
   
 1. Serve the integration test environment:
