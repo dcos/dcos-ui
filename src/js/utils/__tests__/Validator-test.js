@@ -58,4 +58,72 @@ describe('Validator', function () {
 
   });
 
+  describe('#hasNoWhitespaces', function () {
+
+    it('detects white spaces', function () {
+      expect(Validator.hasNoWhitespaces('has white spaces')).toBe(false);
+    });
+
+    it('does not create false positives', function () {
+      expect(Validator.hasNoWhitespaces('notempty')).toBe(true);
+    });
+
+    it('detects white spaces in any position', function () {
+      expect(Validator.hasNoWhitespaces(' has  spaces ')).toBe(false);
+    });
+
+  });
+
+  describe('#isValidServiceId', function () {
+
+    it('detects valid characters', function () {
+      expect(Validator.hasValidServiceIdChars('./app-1.b')).toBe(true);
+    });
+
+    it('detects disallowed characters', function () {
+      expect(Validator.hasValidServiceIdChars('Uppercase')).toBe(false);
+      expect(Validator.hasValidServiceIdChars('app#1')).toBe(false);
+      expect(Validator.hasValidServiceIdChars('app_1')).toBe(false);
+      expect(Validator.hasValidServiceIdChars('+1')).toBe(false);
+    });
+
+  });
+
+  describe('#isWellFormedServiceIdPath', function () {
+
+    it('has well-formed path', function () {
+      expect(Validator.isWellFormedServiceIdPath('app.1')).toBe(true);
+      expect(Validator.isWellFormedServiceIdPath('/app.1')).toBe(true);
+      expect(Validator.isWellFormedServiceIdPath('/app.1/app-2')).toBe(true);
+      expect(Validator.isWellFormedServiceIdPath('/app.1/app-2/')).toBe(true);
+
+      expect(Validator.isWellFormedServiceIdPath('.')).toBe(true);
+      expect(Validator.isWellFormedServiceIdPath('..')).toBe(true);
+      expect(Validator.isWellFormedServiceIdPath('../')).toBe(true);
+      expect(Validator.isWellFormedServiceIdPath('app-1/..')).toBe(true);
+      expect(Validator.isWellFormedServiceIdPath('app-1/.')).toBe(true);
+      expect(Validator.isWellFormedServiceIdPath('./app-1/../app-1a/'))
+        .toBe(true);
+      expect(Validator.isWellFormedServiceIdPath('../app-1/./app-1a'))
+        .toBe(true);
+      expect(Validator.isWellFormedServiceIdPath('/app-1/.')).toBe(true);
+    });
+
+    it('has non-well-formed path', function () {
+      expect(Validator.isWellFormedServiceIdPath('App1')).toBe(false);
+      expect(Validator.isWellFormedServiceIdPath('-app.1')).toBe(false);
+      expect(Validator.isWellFormedServiceIdPath('app.1-')).toBe(false);
+      expect(Validator.isWellFormedServiceIdPath('/-app.1')).toBe(false);
+      expect(Validator.isWellFormedServiceIdPath('app......1')).toBe(false);
+      expect(Validator.isWellFormedServiceIdPath('/app-1.')).toBe(false);
+      expect(Validator.isWellFormedServiceIdPath('app-1..')).toBe(false);
+      expect(Validator.isWellFormedServiceIdPath('.app-1')).toBe(false);
+      expect(Validator.isWellFormedServiceIdPath('..app-1/')).toBe(false);
+      expect(Validator.isWellFormedServiceIdPath('..../app-1')).toBe(false);
+      expect(Validator.isWellFormedServiceIdPath('./app-1../app-1a/'))
+        .toBe(false);
+      expect(Validator.isWellFormedServiceIdPath('/app-1/........'))
+        .toBe(false);
+    });
+  });
 });
