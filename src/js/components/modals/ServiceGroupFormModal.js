@@ -11,7 +11,8 @@ import Validator from '../../utils/Validator';
 const METHODS_TO_BIND = [
   'handleNewGroupSubmit',
   'onMarathonStoreGroupCreateSuccess',
-  'onMarathonStoreGroupCreateError'
+  'onMarathonStoreGroupCreateError',
+  'resetState'
 ];
 
 class ServiceGroupFormModal extends mixin(StoreMixin) {
@@ -20,7 +21,7 @@ class ServiceGroupFormModal extends mixin(StoreMixin) {
 
     this.state = {
       disableNewGroup: false,
-      errorMsg: false
+      errorMsg: null
     };
 
     this.store_listeners = [
@@ -35,11 +36,15 @@ class ServiceGroupFormModal extends mixin(StoreMixin) {
     });
   }
 
-  onMarathonStoreGroupCreateSuccess() {
+  resetState() {
     this.setState({
       disableNewGroup: false,
-      errorMsg: false
+      errorMsg: null
     });
+  }
+
+  onMarathonStoreGroupCreateSuccess() {
+    this.resetState();
     this.props.onClose();
   }
 
@@ -55,6 +60,16 @@ class ServiceGroupFormModal extends mixin(StoreMixin) {
     MarathonStore.createGroup(model);
   }
 
+  getErrorMessage() {
+    let {errorMsg} = this.state;
+    if (!errorMsg) {
+      return null;
+    }
+    return (
+      <h4 className="text-align-center text-danger flush-top">{errorMsg}</h4>
+    );
+  }
+
   getNewGroupFormDefinition() {
     let {parentGroupId} = this.props;
     if (!parentGroupId.endsWith('/')) {
@@ -67,7 +82,6 @@ class ServiceGroupFormModal extends mixin(StoreMixin) {
         name: 'id',
         placeholder: 'Group name',
         required: true,
-        showError: this.state.errorMsg,
         showLabel: false,
         writeType: 'input',
         validation: function (value) {
@@ -91,11 +105,13 @@ class ServiceGroupFormModal extends mixin(StoreMixin) {
         disabled={this.state.disableNewGroup}
         onClose={this.props.onClose}
         onSubmit={this.handleNewGroupSubmit}
+        onChange={this.resetState}
         open={this.props.open}
         definition={this.getNewGroupFormDefinition()}>
         <h2 className="modal-header-title text-align-center flush-top">
           Create New Group
         </h2>
+        {this.getErrorMessage()}
       </FormModal>
     );
   }
