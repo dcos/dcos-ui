@@ -14,6 +14,7 @@ import ServiceFilterTypes from '../../constants/ServiceFilterTypes';
 import ServiceSearchFilter from '../../components/ServiceSearchFilter';
 import ServiceSidebarFilters from '../../components/ServiceSidebarFilters';
 import ServicesBreadcrumb from '../../components/ServicesBreadcrumb';
+import ServiceGroupFormModal from '../../components/modals/ServiceGroupFormModal';
 import ServicesTable from '../../components/ServicesTable';
 import ServiceTree from '../../structs/ServiceTree';
 import SidebarActions from '../../events/SidebarActions';
@@ -51,7 +52,9 @@ var ServicesTab = React.createClass({
   },
 
   getInitialState: function () {
-    return Object.assign({}, DEFAULT_FILTER_OPTIONS);
+    return Object.assign({}, DEFAULT_FILTER_OPTIONS, {
+      isServiceGroupFormModalShown: false
+    });
   },
 
   componentWillMount: function () {
@@ -66,6 +69,18 @@ var ServicesTab = React.createClass({
       if (saveStateValue !== queryParams[saveStateKey]) {
         this.setQueryParam(saveStateKey, saveStateValue);
       }
+    });
+  },
+
+  handleCloseGroupFormModal: function () {
+    this.setState({
+      isServiceGroupFormModalShown: false
+    });
+  },
+
+  handleOpenGroupFormModal: function () {
+    this.setState({
+      isServiceGroupFormModalShown: true
     });
   },
 
@@ -154,11 +169,7 @@ var ServicesTab = React.createClass({
               <ServiceSearchFilter
                 handleFilterChange={this.handleFilterChange} />
               <button className="button button-stroke button-inverse"
-                onClick={()=> {
-                  this.setState({
-                    isServiceGroupFormModalShown: true
-                  });
-                }}>
+                onClick={this.handleOpenGroupFormModal}>
                 Create Group
               </button>
               <button className="button button-success">
@@ -171,6 +182,10 @@ var ServicesTab = React.createClass({
           <SidePanels
             params={this.props.params}
             openedPage="services"/>
+          <ServiceGroupFormModal
+            open={state.isServiceGroupFormModalShown}
+            parentGroupId={item.getId()}
+            onClose={this.handleCloseGroupFormModal}/>
         </div>
       );
     }
