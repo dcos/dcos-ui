@@ -183,6 +183,7 @@ CheckboxTable.propTypes = {
   ]),
   columns: PropTypes.array,
   data: PropTypes.array,
+  getColGroup: PropTypes.func,
   labelClass: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.object
@@ -196,6 +197,7 @@ CheckboxTable.defaultProps = {
   checkedItemsMap: {},
   columns: [],
   data: [],
+  getColGroup: function () {},
   labelClass: {},
   onCheckboxChange: function () {}
 };
