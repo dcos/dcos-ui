@@ -10,6 +10,7 @@ if (process.env.npm_config_externalplugins) {
 }
 
 var config = {
+  'name': '', // https://github.com/facebook/jest/issues/955
   'testDirectoryName': '__tests__',
   'testPathDirs': testPaths,
   'globals': {
