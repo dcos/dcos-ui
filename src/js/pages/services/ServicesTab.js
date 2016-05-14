@@ -4,6 +4,7 @@ import {StoreMixin} from 'mesosphere-shared-reactjs';
 import AlertPanel from '../../components/AlertPanel';
 import Config from '../../config/Config';
 import DCOSStore from '../../stores/DCOSStore';
+import FilterBar from '../../components/FilterBar';
 import FilterHeadline from '../../components/FilterHeadline';
 import QueryParamsMixin from '../../mixins/QueryParamsMixin';
 import SaveStateMixin from '../../mixins/SaveStateMixin';
@@ -13,6 +14,7 @@ import ServiceFilterTypes from '../../constants/ServiceFilterTypes';
 import ServiceSearchFilter from '../../components/ServiceSearchFilter';
 import ServiceSidebarFilters from '../../components/ServiceSidebarFilters';
 import ServicesBreadcrumb from '../../components/ServicesBreadcrumb';
+import ServiceGroupFormModal from '../../components/modals/ServiceGroupFormModal';
 import ServicesTable from '../../components/ServicesTable';
 import ServiceTree from '../../structs/ServiceTree';
 import SidebarActions from '../../events/SidebarActions';
@@ -50,7 +52,9 @@ var ServicesTab = React.createClass({
   },
 
   getInitialState: function () {
-    return Object.assign({}, DEFAULT_FILTER_OPTIONS);
+    return Object.assign({}, DEFAULT_FILTER_OPTIONS, {
+      isServiceGroupFormModalShown: false
+    });
   },
 
   componentWillMount: function () {
@@ -66,6 +70,14 @@ var ServicesTab = React.createClass({
         this.setQueryParam(saveStateKey, saveStateValue);
       }
     });
+  },
+
+  handleCloseGroupFormModal: function () {
+    this.setState({isServiceGroupFormModalShown: false});
+  },
+
+  handleOpenGroupFormModal: function () {
+    this.setState({isServiceGroupFormModalShown: true});
   },
 
   handleFilterChange: function (filterValues, filterType) {
@@ -111,53 +123,7 @@ var ServicesTab = React.createClass({
 
     // Render service table
     if (item instanceof ServiceTree && item.getItems().length > 0) {
-      let {state} = this;
-      let services = item.getItems();
-      let filteredServices = item.filterItemsByFilter({
-        health: state.filterHealth,
-        id: state.searchString
-      }).getItems();
-
-      let breadcrumbs = (
-        <ServicesBreadcrumb serviceTreeItem={item} />
-      );
-      let filterHeadline = null;
-
-      const hasFiltersApplied = Object.keys(DEFAULT_FILTER_OPTIONS)
-        .some((filterKey) => {
-          return state[filterKey] != null && state[filterKey].length > 0;
-        });
-
-      if (hasFiltersApplied) {
-        breadcrumbs = null;
-        filterHeadline = (
-          <FilterHeadline
-            inverseStyle={true}
-            onReset={this.resetFilter}
-            name="Services"
-            currentLength={filteredServices.length}
-            totalLength={services.length} />
-        );
-      }
-
-      return (
-        <div className="flex-box flush flex-mobile-column">
-          <ServiceSidebarFilters
-            handleFilterChange={this.handleFilterChange}
-            services={services} />
-          <div className="flex-grow">
-            {breadcrumbs}
-            {filterHeadline}
-            <ServiceSearchFilter
-              handleFilterChange={this.handleFilterChange} />
-            <ServicesTable
-              services={filteredServices} />
-          </div>
-          <SidePanels
-            params={this.props.params}
-            openedPage="services"/>
-        </div>
-      );
+      return this.getServiceTreeView(item);
     }
 
     // Render service detail
@@ -176,6 +142,71 @@ var ServicesTab = React.createClass({
           services.
         </p>
       </AlertPanel>
+    );
+  },
+
+  getHeadline: function (item, filteredServices) {
+    let {state} = this;
+    let services = item.getItems();
+
+    const hasFiltersApplied = Object.keys(DEFAULT_FILTER_OPTIONS)
+      .some((filterKey) => {
+        return state[filterKey] != null && state[filterKey].length > 0;
+      });
+
+    if (hasFiltersApplied) {
+      return (
+        <FilterHeadline
+          inverseStyle={true}
+          onReset={this.resetFilter}
+          name="Services"
+          currentLength={filteredServices.length}
+          totalLength={services.length} />
+      );
+    }
+
+    return (
+      <ServicesBreadcrumb serviceTreeItem={item} />
+    );
+  },
+
+  getServiceTreeView(item) {
+    let {state} = this;
+    let services = item.getItems();
+    let filteredServices = item.filterItemsByFilter({
+      health: state.filterHealth,
+      id: state.searchString
+    }).getItems();
+
+    return (
+      <div className="flex-box flush flex-mobile-column">
+        <ServiceSidebarFilters
+          handleFilterChange={this.handleFilterChange}
+          services={services} />
+        <div className="flex-grow">
+          {this.getHeadline(item, filteredServices)}
+          <FilterBar rightAlignLastNChildren={2}>
+            <ServiceSearchFilter
+              handleFilterChange={this.handleFilterChange} />
+            <button className="button button-stroke button-inverse"
+                    onClick={this.handleOpenGroupFormModal}>
+              Create Group
+            </button>
+            <button className="button button-success">
+              Deploy Service
+            </button>
+          </FilterBar>
+          <ServicesTable
+            services={filteredServices} />
+        </div>
+        <SidePanels
+          params={this.props.params}
+          openedPage="services"/>
+        <ServiceGroupFormModal
+          open={state.isServiceGroupFormModalShown}
+          parentGroupId={item.getId()}
+          onClose={this.handleCloseGroupFormModal}/>
+      </div>
     );
   },
 

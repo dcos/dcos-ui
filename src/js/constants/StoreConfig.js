@@ -50,6 +50,8 @@ import {
   MESOS_STATE_CHANGE,
   MESOS_STATE_REQUEST_ERROR,
 
+  MARATHON_GROUP_CREATE_ERROR,
+  MARATHON_GROUP_CREATE_SUCCESS,
   MARATHON_APPS_CHANGE,
   MARATHON_APPS_ERROR,
   MARATHON_DEPLOYMENTS_CHANGE,
@@ -246,7 +248,9 @@ const ListenersDescription = {
       appsSuccess: MARATHON_APPS_CHANGE,
       appsError: MARATHON_APPS_ERROR,
       deploymentsSuccess: MARATHON_DEPLOYMENTS_CHANGE,
-      deploymentsError: MARATHON_DEPLOYMENTS_ERROR
+      deploymentsError: MARATHON_DEPLOYMENTS_ERROR,
+      groupCreateSuccess: MARATHON_GROUP_CREATE_SUCCESS,
+      groupCreateError: MARATHON_GROUP_CREATE_ERROR
     },
     unmountWhen: function (store, event) {
       if (event === 'appsSuccess') {

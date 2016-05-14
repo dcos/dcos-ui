@@ -1,4 +1,6 @@
 import {
+  REQUEST_MARATHON_GROUP_CREATE_ERROR,
+  REQUEST_MARATHON_GROUP_CREATE_SUCCESS,
   REQUEST_MARATHON_GROUPS_SUCCESS,
   REQUEST_MARATHON_GROUPS_ERROR,
   REQUEST_MARATHON_GROUPS_ONGOING,
@@ -15,6 +17,26 @@ var Config = require('../config/Config');
 var RequestUtil = require('../utils/RequestUtil');
 
 module.exports = {
+
+  createGroup: function (data) {
+    RequestUtil.json({
+      url: `${Config.rootUrl}/marathon/v2/groups`,
+      method: 'POST',
+      data,
+      success: function () {
+        AppDispatcher.handleServerAction({
+          type: REQUEST_MARATHON_GROUP_CREATE_SUCCESS
+        });
+      },
+      error: function (xhr) {
+        AppDispatcher.handleServerAction({
+          type: REQUEST_MARATHON_GROUP_CREATE_ERROR,
+          data: RequestUtil.getErrorFromXHR(xhr),
+          xhr
+        });
+      }
+    });
+  },
 
   fetchGroups: RequestUtil.debounceOnError(
     Config.getRefreshRate(),

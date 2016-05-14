@@ -3,7 +3,6 @@ import mixin from 'reactjs-mixin';
 import React from 'react';
 /* eslint-enable no-unused-vars */
 
-import FilterBar from '../components/FilterBar';
 import FilterInputText from './FilterInputText';
 import QueryParamsMixin from '../mixins/QueryParamsMixin';
 import ServiceFilterTypes from '../constants/ServiceFilterTypes';
@@ -49,23 +48,18 @@ class ServiceSearchFilter extends mixin(QueryParamsMixin) {
 
   render() {
     return (
-      <FilterBar
-        rightAlignLastNChildren={2}>
-        <FilterInputText
-          className="flush-bottom"
-          handleFilterChange={this.setSearchString}
-          inverseStyle={true}
-          placeholder="Search"
-          searchString={this.state.searchString} />
-        <button className="button button-stroke button-inverse">
-          Create Group
-        </button>
-        <button className="button button-success">
-          Deploy Service
-        </button>
-      </FilterBar>
+      <FilterInputText
+        className="flush-bottom"
+        handleFilterChange={this.setSearchString}
+        inverseStyle={true}
+        placeholder="Search"
+        searchString={this.state.searchString} />
     );
   }
+};
+
+ServiceSearchFilter.propTypes = {
+  handleFilterChange: React.PropTypes.func.isRequired
 };
 
 module.exports = ServiceSearchFilter;
