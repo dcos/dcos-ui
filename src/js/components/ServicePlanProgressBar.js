@@ -13,8 +13,7 @@ class ServicePlanProgressBar extends React.Component {
 
     return (
       <span className="text-overflow-break-word">
-        {`Phase ${phases.getActiveIndex()} of ${phases.getItems().length}:
-          ${phases.getActive().getName()}`}
+        {`Phase ${phases.getActiveIndex()} of ${phases.getItems().length}: ${phases.getActive().getName()}`}
         <a className="clickable" onClick={this.props.onViewDetailsClick}>
           View Details
         </a>
