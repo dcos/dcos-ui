@@ -3,6 +3,7 @@ import {Tooltip} from 'reactjs-components';
 import React from 'react';
 
 import IconUpgradeBlock from './icons/IconUpgradeBlock';
+import IconUpgradeBlockDecisionPoint from './icons/IconUpgradeBlockDecisionPoint';
 import ServicePlanBlock from '../structs/ServicePlanBlock';
 import ServicePlanStore from '../stores/ServicePlanStore';
 
@@ -85,6 +86,12 @@ class ServicePlanBlocks extends React.Component {
         'is-complete': isComplete
       });
 
+      let blockIcon = <IconUpgradeBlock />
+
+      if (hasDecisionPoint) {
+        blockIcon = <IconUpgradeBlockDecisionPoint />;
+      }
+
       return (
         <div className={blockClassName} key={blockIndex}
           onClick={this.handleBlockClick.bind(this, block)}
@@ -101,7 +108,7 @@ class ServicePlanBlocks extends React.Component {
             stayOpen={true}
             suppress={true}>
             <div className="upgrade-package-modal-details-block-content">
-              <IconUpgradeBlock hasDecisionPoint={hasDecisionPoint} />
+              {blockIcon}
             </div>
           </Tooltip>
         </div>
