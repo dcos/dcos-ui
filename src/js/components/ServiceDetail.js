@@ -38,9 +38,7 @@ class ServiceDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
 
     this.store_listeners = [{
       name: 'servicePlan',
-      events: [
-        'error'
-      ]
+      events: ['error']
     }];
 
     METHODS_TO_BIND.forEach((method) => {
@@ -67,9 +65,7 @@ class ServiceDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
   }
 
   onServicePlanStoreError() {
-    this.setState({
-      servicePlan: null
-    });
+    this.setState({servicePlan: null});
   }
 
   handleProgressDetailModalClose() {
