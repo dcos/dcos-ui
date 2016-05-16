@@ -189,7 +189,7 @@ class ServicePlanProgressModalContents extends React.Component {
     let {service, servicePlan} = this.props;
 
     if (!servicePlan) {
-      return;
+      return null;
     }
 
     if (servicePlan.hasError()) {

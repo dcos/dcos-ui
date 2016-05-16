@@ -82,7 +82,7 @@ class ServiceInfo extends React.Component {
           <h1 className="flush inverse">
             {service.getName()}
           </h1>
-          <div>
+          <div className="service-detail-subheading">
             {this.getSubHeader(service)}
           </div>
         </div>

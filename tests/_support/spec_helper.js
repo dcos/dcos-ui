@@ -127,6 +127,11 @@ Cypress.addParentCommand('configureCluster', function (configuration) {
       .route(/system\/health\/v1\/nodes\/172\.17\.8\.101\/nodes\/REPLACE/, 'fx:unit-health/node-unit');
   }
 
+  if (configuration.servicePlan === '2-phases-in-progress') {
+    cy
+      .route(/service\/(.*)\/v1\/plan/, 'fx:service-plan/2-phases-in-progress');
+  }
+
   // The app won't load until plugins are loaded
   var pluginsFixture = configuration.plugins || 'no-plugins';
   cy.route(/ui-config/, 'fx:config/' + pluginsFixture + '.json');
