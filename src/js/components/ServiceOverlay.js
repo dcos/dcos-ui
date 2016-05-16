@@ -108,7 +108,7 @@ class ServiceOverlay extends mixin(InternalStorageMixin) {
 
     // Did not find a service.
     if (!service) {
-      this.context.router.transitionTo('services');
+      this.context.router.transitionTo('services-page');
       this.context.router.transitionTo('services-panel', {serviceName});
       return;
     }

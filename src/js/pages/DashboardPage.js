@@ -190,7 +190,7 @@ var DashboardPage = React.createClass({
     textContent += 'Services';
 
     return (
-      <Link to="services"
+      <Link to="services-page"
         className="button button-wide button-inverse more-button">
         {textContent}
       </Link>

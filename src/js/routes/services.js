@@ -7,7 +7,7 @@ import ServicesTab from '../pages/services/ServicesTab';
 
 let serviceRoutes = {
   type: Route,
-  name: 'services',
+  name: 'services-page',
   handler: ServicesPage,
   path: '/services/?',
   children: [

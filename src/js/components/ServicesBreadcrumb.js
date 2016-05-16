@@ -22,7 +22,7 @@ class ServicesBreadcrumb extends React.Component {
 
     let breadcrumbNodes = [(
       <span className="crumb" key="/">
-        <Link to="services">Services</Link>
+        <Link to="services-page">Services</Link>
       </span>
     )];
 
