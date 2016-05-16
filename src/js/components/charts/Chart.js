@@ -16,6 +16,13 @@ var Chart = React.createClass({
     delayRender: React.PropTypes.bool
   },
 
+  store_listeners: [
+    {
+      name: 'sidebar',
+      events: ['widthChange']
+    }
+  ],
+
   getDefaultProps: function () {
     return {
       calcHeight: null,
@@ -25,12 +32,6 @@ var Chart = React.createClass({
 
   componentWillMount: function () {
     this.internalStorage_set({width: null});
-    this.store_listeners = [
-      {
-        name: 'sidebar',
-        events: ['widthChange']
-      }
-    ];
   },
 
   componentDidMount: function () {
