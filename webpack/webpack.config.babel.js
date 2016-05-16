@@ -1,6 +1,15 @@
 import autoprefixer from 'autoprefixer';
 import colorLighten from 'less-color-lighten';
+import fs from 'fs';
+import less from 'less';
 import path from 'path';
+import postcss from 'postcss';
+import purifycss from 'purify-css';
+import React from 'react';
+import ReactDOMServer from 'react-dom/server';
+import StringReplacePlugin from 'string-replace-webpack-plugin';
+
+import IconDCOSLogoMark from '../src/js/components/icons/IconDCOSLogoMark.js';
 
 function absPath() {
   let args = [].slice.apply(arguments);
@@ -12,6 +21,42 @@ function absPath() {
 // Can override this with npm config set dcos-ui:external_plugins ../some/relative/path/to/repo
 let externalPluginsDir = absPath(process.env.npm_config_externalplugins || 'plugins');
 
+new Promise(function (resolve, reject) {
+  let cssEntryPoint = path.join(__dirname, '../src/styles/index.less');
+  less.render(fs.readFileSync(cssEntryPoint).toString(), {
+    filename: cssEntryPoint,
+    plugins: [colorLighten]
+  }, function (error, output) {
+    if (error) {
+      console.log(error);
+      process.exit(1);
+    }
+
+    let prefixer = postcss([autoprefixer]);
+    prefixer.process(output.css)
+    .then(function (prefixed) {
+      resolve(prefixed.css);
+    })
+    .catch(reject);
+  });
+}).then(function (css) {
+  bootstrap.CSS = css;
+});
+
+function requireFromString(src, filename) {
+  let Module = module.constructor;
+  let sourceModule = new Module();
+  sourceModule._compile(src, filename);
+  return sourceModule.exports;
+}
+
+let bootstrap = {
+  CSS:'',
+  HTML: ReactDOMServer.renderToStaticMarkup(
+    React.createElement(IconDCOSLogoMark)
+  )
+};
+
 module.exports = {
   lessLoader: {
     lessPlugins: [
@@ -21,6 +66,28 @@ module.exports = {
 
   module: {
     preLoaders: [
+      // Replace HTML comments
+      {
+        test: /\.html$/,
+        exclude: /node_modules/,
+        loader: StringReplacePlugin.replace({
+          replacements: [
+            {
+              pattern: /<!--\sBOOTSTRAP-HTML\s-->/g,
+              replacement: function () {
+                return (
+                  '<div id="canvas">' +
+                    '<div class="application-loading-indicator container ' +
+                      'container-pod vertical-center">' +
+                      bootstrap.HTML +
+                    '</div>' +
+                  '</div>'
+                );
+              }
+            }
+          ]
+        })
+      },
       {
         test: /\.js$/,
         loader: 'eslint-loader',
@@ -44,6 +111,37 @@ module.exports = {
       {
         test: /\.(ico|icns)$/,
         loader: 'file?name=[hash]-[name].[ext]',
+      }
+    ],
+    postLoaders: [
+      {
+        test: /\.html$/,
+        exclude: /node_modules/,
+        loader: StringReplacePlugin.replace({
+          replacements: [
+            {
+              pattern: /<!--\sBOOTSTRAP-CSS\s-->/g,
+              replacement: function (match, id, htmlContents) {
+                // Remove requires() that were injected by webpack
+                htmlContents = htmlContents
+                  .replace(/"\s+\+\s+require\(".*?"\)\s+\+\s+"/g, '');
+                // Load as if it were a module.
+                let compiledHTML = requireFromString(htmlContents);
+
+                let css = purifycss(compiledHTML, bootstrap.CSS, {
+                  minify: true
+                });
+
+                // Webpack doo doo's its pants with some of this CSS for
+                // some stupid reason. So this is why we encode the CSS.
+                let encoded = new Buffer(css).toString('base64');
+                let js = `var css = '${encoded}';css = atob(css);var tag = document.createElement('style');tag.innerHTML = css;document.head.appendChild(tag);`
+
+                return `<script>${js}</script>`;
+              }
+            }
+          ]
+        })
       }
     ]
   },

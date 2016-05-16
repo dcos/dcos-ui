@@ -117,6 +117,7 @@ module.exports = Object.assign({}, webpackConfig, {
           ]
         })
       }
-    ])
+    ]),
+    postLoaders: webpackConfig.module.postLoaders
   }
 });
