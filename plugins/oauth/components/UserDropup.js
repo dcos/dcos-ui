@@ -1,5 +1,7 @@
 import {Dropdown, Modal} from 'reactjs-components';
+import mixin from 'reactjs-mixin';
 import React from 'react';
+import {StoreMixin} from 'mesosphere-shared-reactjs';
 import userURI from '../img/icon-user-default-64x64@2x.png';
 
 let SDK = require('../SDK').getSDK();
@@ -18,7 +20,7 @@ const MENU_ITEMS = {
   'button-sign-out': 'Sign Out'
 };
 
-class UserDropup extends React.Component {
+class UserDropup extends mixin(StoreMixin) {
   constructor() {
     super(...arguments);
 
@@ -26,9 +28,20 @@ class UserDropup extends React.Component {
       open: false
     };
 
+    this.store_listeners = [
+      {
+        name: 'sidebar',
+        events: ['widthChange']
+      }
+    ];
+
     METHODS_TO_BIND.forEach((method) => {
       this[method] = this[method].bind(this);
     });
+  }
+
+  onSidebarStoreWidthChange() {
+    this.handleDropdownClose();
   }
 
   handleDropdownClose() {
