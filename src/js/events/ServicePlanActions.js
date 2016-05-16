@@ -122,7 +122,7 @@ const ServicePlanActions = {
 
 if (Config.useFixtures) {
 
-  let servicePlan = require('../../../tests/_fixtures/plan/plan.json');
+  let servicePlan = require('../../../tests/_fixtures/service-plan/2-phases-in-progress.json');
 
   if (!global.actionTypes) {
     global.actionTypes = {};
