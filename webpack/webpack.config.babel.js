@@ -27,8 +27,8 @@ new Promise(function (resolve, reject) {
     filename: cssEntryPoint,
     plugins: [colorLighten]
   }, function (error, output) {
-    if (e) {
-      console.log(e);
+    if (error) {
+      console.log(error);
       process.exit(1);
     }
 
