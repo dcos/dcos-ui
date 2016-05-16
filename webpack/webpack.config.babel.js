@@ -26,7 +26,7 @@ new Promise(function (resolve, reject) {
   less.render(fs.readFileSync(cssEntryPoint).toString(), {
     filename: cssEntryPoint,
     plugins: [colorLighten]
-  }, function (e, output) {
+  }, function (error, output) {
     if (e) {
       console.log(e);
       process.exit(1);
@@ -44,10 +44,10 @@ new Promise(function (resolve, reject) {
 });
 
 function requireFromString(src, filename) {
-  var Module = module.constructor;
-  var m = new Module();
-  m._compile(src, filename);
-  return m.exports;
+  let Module = module.constructor;
+  let sourceModule = new Module();
+  sourceModule._compile(src, filename);
+  return sourceModule.exports;
 }
 
 let bootstrap = {
@@ -74,13 +74,15 @@ module.exports = {
           replacements: [
             {
               pattern: /<!--\sBOOTSTRAP-HTML\s-->/g,
-              replacement: function (match) {
-                return '<div id="canvas">' +
-                  '<div class="application-loading-indicator container ' +
-                    'container-pod vertical-center">' +
-                    bootstrap.HTML +
-                  '</div>' +
-                '</div>';
+              replacement: function () {
+                return (
+                  '<div id="canvas">' +
+                    '<div class="application-loading-indicator container ' +
+                      'container-pod vertical-center">' +
+                      bootstrap.HTML +
+                    '</div>' +
+                  '</div>'
+                );
               }
             }
           ]
