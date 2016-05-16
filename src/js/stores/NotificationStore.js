@@ -1,27 +1,13 @@
 import {Store} from 'mesosphere-shared-reactjs';
 
-import {NOTIFICATION_CHANGE} from '../constants/EventTypes';
-
 import GetSetMixin from '../mixins/GetSetMixin';
+import {NOTIFICATION_CHANGE} from '../constants/EventTypes';
 
 const NotificationStore = Store.createStore({
   storeID: 'notification',
 
   mixins: [GetSetMixin],
 
-  /* Example:
-    notificationMap: {
-      'settings-tab': {
-        dcosSecretStore: 1,
-      },
-      'security-tab': {
-        dcosSecretStore: 1
-      },
-      'stores-tab': {
-        dcosSecretStore: 1
-      }
-    }
-  */
   getSet_data: {
     notificationMap: {}
   },
