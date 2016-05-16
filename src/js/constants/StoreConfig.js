@@ -203,7 +203,11 @@ const ListenersDescription = {
     store: SidebarStore,
     events: {
       widthChange: SIDEBAR_WIDTH_CHANGE
-    }
+    },
+    unmountWhen: function () {
+      return true;
+    },
+    listenAlways: true
   },
 
   summary: {
