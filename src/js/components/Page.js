@@ -1,18 +1,17 @@
 var classNames = require('classnames');
 var GeminiScrollbar = require('react-gemini-scrollbar');
 var React = require('react');
+import {StoreMixin} from 'mesosphere-shared-reactjs';
 
-import EventTypes from '../constants/EventTypes';
 import GeminiUtil from '../utils/GeminiUtil';
 var InternalStorageMixin = require('../mixins/InternalStorageMixin');
 var SidebarToggle = require('../components/SidebarToggle');
-import SidebarStore from '../stores/SidebarStore';
 
 var Page = React.createClass({
 
   displayName: 'Page',
 
-  mixins: [InternalStorageMixin],
+  mixins: [InternalStorageMixin, StoreMixin],
 
   propTypes: {
     className: React.PropTypes.string,
@@ -26,25 +25,23 @@ var Page = React.createClass({
     ])
   },
 
+  componentWillMount: function () {
+    this.store_listeners = [
+      {
+        name: 'sidebar',
+        events: ['widthChange']
+      }
+    ];
+  },
+
   componentDidMount: function () {
     this.internalStorage_set({
       rendered: true
     });
     this.forceUpdate();
-    SidebarStore.addChangeListener(
-      EventTypes.PAGE_UPDATE,
-      this.handlePageUpdate
-    );
   },
 
-  componentWillUnmount: function () {
-    SidebarStore.removeChangeListener(
-      EventTypes.PAGE_UPDATE,
-      this.handlePageUpdate
-    );
-  },
-
-  handlePageUpdate: function () {
+  onSidebarStoreWidthChange: function () {
     GeminiUtil.updateWithRef(this.refs.pageRef);
   },
 

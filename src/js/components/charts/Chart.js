@@ -1,16 +1,15 @@
 var React = require('react');
 import ReactDOM from 'react-dom';
+import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 var DOMUtils = require('../../utils/DOMUtils');
-import EventTypes from '../../constants/EventTypes';
 var InternalStorageMixin = require('../../mixins/InternalStorageMixin');
-import SidebarStore from '../../stores/SidebarStore';
 
 var Chart = React.createClass({
 
   displayName: 'Chart',
 
-  mixins: [InternalStorageMixin],
+  mixins: [InternalStorageMixin, StoreMixin],
 
   propTypes: {
     calcHeight: React.PropTypes.func,
@@ -26,6 +25,12 @@ var Chart = React.createClass({
 
   componentWillMount: function () {
     this.internalStorage_set({width: null});
+    this.store_listeners = [
+      {
+        name: 'sidebar',
+        events: ['widthChange']
+      }
+    ];
   },
 
   componentDidMount: function () {
@@ -40,7 +45,6 @@ var Chart = React.createClass({
       this.updateWidth();
     }
     window.addEventListener('resize', this.updateWidth);
-    SidebarStore.addChangeListener(EventTypes.PAGE_UPDATE, this.updateWidth);
   },
 
   shouldComponentUpdate: function () {
@@ -49,7 +53,10 @@ var Chart = React.createClass({
 
   componentWillUnmount: function () {
     window.removeEventListener('resize', this.updateWidth);
-    SidebarStore.removeChangeListener(EventTypes.PAGE_UPDATE, this.updateWidth);
+  },
+
+  onSidebarStoreWidthChange: function () {
+    this.updateWidth();
   },
 
   updateWidth: function () {

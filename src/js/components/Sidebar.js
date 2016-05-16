@@ -31,6 +31,8 @@ var Sidebar = React.createClass({
   },
 
   getInitialState: function () {
+    // TODO: Use SaveState mixin to remember the user's preference.
+    // https://mesosphere.atlassian.net/browse/DCOS-6909
     return {sidebarExpanded: true};
   },
 
@@ -69,11 +71,11 @@ var Sidebar = React.createClass({
     let nodeName = event.target.nodeName;
     if (event.keyCode === keyCodes.leftBracket
       && !(nodeName === 'INPUT' || nodeName === 'TEXTAREA')) {
-      // #triggerPageUpdate is passed as a callback so that the sidebar
+      // #sidebarWidthChange is passed as a callback so that the sidebar
       // has had a chance to update before Gemini re-renders.
       this.setState(
         {sidebarExpanded: !this.state.sidebarExpanded},
-        SidebarActions.triggerPageUpdate
+        SidebarActions.sidebarWidthChange
       );
     }
   },

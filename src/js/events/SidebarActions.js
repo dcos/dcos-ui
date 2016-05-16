@@ -48,9 +48,9 @@ module.exports = {
     });
   },
 
-  triggerPageUpdate: function () {
+  sidebarWidthChange: function () {
     AppDispatcher.handleSidebarAction({
-      type: ActionTypes.TRIGGER_PAGE_UPDATE
+      type: ActionTypes.SIDEBAR_WIDTH_CHANGE
     });
   }
 };
