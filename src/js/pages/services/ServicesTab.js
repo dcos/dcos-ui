@@ -117,7 +117,7 @@ var ServicesTab = React.createClass({
     );
   },
 
-  getContents: function (id) {
+  getContents: function (item) {
     // Render loading screen
     if (!DCOSStore.dataProcessed) {
       return (
@@ -137,9 +137,6 @@ var ServicesTab = React.createClass({
         <RouteHandler />
       );
     }
-
-    // Find item in root tree and default to root tree if there is no match
-    let item = DCOSStore.serviceTree.findItemById(id) || DCOSStore.serviceTree;
 
     // Render service table
     if (item instanceof ServiceTree && item.getItems().length > 0) {
@@ -223,18 +220,27 @@ var ServicesTab = React.createClass({
         <SidePanels
           params={this.props.params}
           openedPage="services"/>
-        <ServiceGroupFormModal
-          open={state.isServiceGroupFormModalShown}
-          parentGroupId={item.getId()}
-          onClose={this.handleCloseGroupFormModal}/>
       </div>
     );
   },
 
   render: function () {
     let {id} = this.props.params;
+    id = decodeURIComponent(id);
+    let {state} = this;
 
-    return this.getContents(decodeURIComponent(id));
+    // Find item in root tree and default to root tree if there is no match
+    let item = DCOSStore.serviceTree.findItemById(id) || DCOSStore.serviceTree;
+
+    return (
+      <div>
+        {this.getContents(item)}
+        <ServiceGroupFormModal
+          open={state.isServiceGroupFormModalShown}
+          parentGroupId={item.getId()}
+          onClose={this.handleCloseGroupFormModal}/>
+      </div>
+    )
   }
 
 });
