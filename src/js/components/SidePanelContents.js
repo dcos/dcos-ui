@@ -21,7 +21,7 @@ const METHODS_TO_BIND = [
 ];
 
 class SidePanelContents
-  extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
+extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
   constructor() {
     super(...arguments);
 
