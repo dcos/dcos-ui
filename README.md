@@ -2,7 +2,7 @@
 
 ## Requirements
 
-Node 4.x (and above) is **required**. We suggest using [nvm](https://github.com/creationix/nvm) or [n](https://github.com/tj/n) to keep multiple Node versions on your system.
+Node 4.x and NPM 3.x (and above) are **required**. We suggest using [nvm](https://github.com/creationix/nvm) or [n](https://github.com/tj/n) to keep multiple Node versions on your system.
 
 
 
