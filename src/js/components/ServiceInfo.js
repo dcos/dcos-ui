@@ -4,11 +4,22 @@ import HealthBar from './HealthBar';
 import HealthStatus from '../constants/HealthStatus';
 import HealthLabels from '../constants/HealthLabels';
 import Service from '../structs/Service';
+import ServicePlan from '../structs/ServicePlan';
+import ServicePlanProgressBar from './ServicePlanProgressBar';
 import StringUtil from '../utils/StringUtil';
 
 class ServiceInfo extends React.Component {
 
   getSubHeader(service) {
+    let {servicePlan} = this.props;
+
+    if (servicePlan && !servicePlan.isComplete()) {
+      return (
+        <ServicePlanProgressBar servicePlan={servicePlan} stacked={false}
+          onViewDetailsClick={this.props.onViewProgressDetailsClick} />
+      );
+    }
+
     let serviceHealth = service.getHealth();
     let tasksSummary = service.getTasksSummary();
     let runningTasksCount = tasksSummary.tasksRunning;
@@ -67,11 +78,11 @@ class ServiceInfo extends React.Component {
         <div className="media-object-item">
           {imageTag}
         </div>
-        <div className="media-object-item">
+        <div className="media-object-item flex-shrink">
           <h1 className="flush inverse">
             {service.getName()}
           </h1>
-          <div>
+          <div className="service-detail-subheading">
             {this.getSubHeader(service)}
           </div>
         </div>
@@ -81,7 +92,9 @@ class ServiceInfo extends React.Component {
 }
 
 ServiceInfo.propTypes = {
-  service: React.PropTypes.instanceOf(Service).isRequired
+  onViewProgressDetailsClick: React.PropTypes.func,
+  service: React.PropTypes.instanceOf(Service).isRequired,
+  servicePlan: React.PropTypes.instanceOf(ServicePlan)
 };
 
 module.exports = ServiceInfo;

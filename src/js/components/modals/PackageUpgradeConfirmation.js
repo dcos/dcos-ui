@@ -3,7 +3,7 @@ import React from 'react';
 
 const METHODS_TO_BIND = ['handleUpgradeStart', 'handleVersionSelection'];
 
-class UpgradePackageModal extends React.Component {
+class PackageUpgradeConfirmation extends React.Component {
   constructor() {
     super(...arguments);
 
@@ -19,7 +19,7 @@ class UpgradePackageModal extends React.Component {
   handleUpgradeStart() {
     let upgradeVersion = this.state.upgradeVersion;
     if (!upgradeVersion) {
-      upgradeVersion = this.getLatestVersion(this.props.cosmosPackage);
+      upgradeVersion = this.getLatestVersion(this.props.servicePlan);
     }
 
     console.log(`starting upgrade to ${upgradeVersion}`);
@@ -29,8 +29,8 @@ class UpgradePackageModal extends React.Component {
     this.setState({upgradeVersion: version.id});
   }
 
-  getLatestVersion(cosmosPackage) {
-    let availableVersions = cosmosPackage.getUpgradeVersions();
+  getLatestVersion(servicePlan) {
+    let availableVersions = servicePlan.getUpgradeVersions();
     return availableVersions[availableVersions.length - 1];
   }
 
@@ -41,9 +41,9 @@ class UpgradePackageModal extends React.Component {
   }
 
   getModalContents() {
-    let {cosmosPackage} = this.props;
-    let packageName = cosmosPackage.getName();
-    let packageVersion = cosmosPackage.getCurrentVersion();
+    let {servicePlan} = this.props;
+    let packageName = servicePlan.getName();
+    let packageVersion = servicePlan.getCurrentVersion();
 
     return (
       <div className="modal-content">
@@ -51,7 +51,7 @@ class UpgradePackageModal extends React.Component {
           container-pod-short horizontal-center">
           <div className="icon icon-jumbo icon-image-container
             icon-app-container">
-            <img src={cosmosPackage.getIcons()['icon-large']} />
+            <img src={servicePlan.getIcons()['icon-large']} />
           </div>
           <h2 className="short">{packageName}</h2>
           <p className="flush">
@@ -63,7 +63,7 @@ class UpgradePackageModal extends React.Component {
   }
 
   getModalFooter() {
-    let cosmosPackage = this.props.cosmosPackage;
+    let servicePlan = this.props.servicePlan;
 
     return (
       <div className="button-collection button-collection-stacked">
@@ -72,9 +72,9 @@ class UpgradePackageModal extends React.Component {
             text-align-center flush"
           dropdownMenuClassName="dropdown-menu"
           dropdownMenuListClassName="dropdown-menu-list"
-          initialID={this.getLatestVersion(cosmosPackage)}
+          initialID={this.getLatestVersion(servicePlan)}
           items={this.getVersionDropdownItems(
-            cosmosPackage.getUpgradeVersions()
+            servicePlan.getUpgradeVersions()
           )}
           onItemSelection={this.handleVersionSelection}
           transition={true}
@@ -116,14 +116,14 @@ class UpgradePackageModal extends React.Component {
   }
 }
 
-UpgradePackageModal.defaultProps = {
+PackageUpgradeConfirmation.defaultProps = {
   onClose: function () {},
   open: false
 };
 
-UpgradePackageModal.propTypes = {
+PackageUpgradeConfirmation.propTypes = {
   onClose: React.PropTypes.func,
   open: React.PropTypes.bool
 };
 
-module.exports = UpgradePackageModal;
+module.exports = PackageUpgradeConfirmation;

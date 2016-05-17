@@ -1,4 +1,3 @@
-
 import React from 'react';
 
 module.exports = class IconWarning extends React.Component {
