@@ -1,4 +1,3 @@
-import classNames from 'classnames';
 import React from 'react';
 
 import StackedProgressBar from './StackedProgressBar';
@@ -14,13 +13,12 @@ class SegmentedProgressBar extends React.Component {
 
   render() {
     let props = this.props;
-    let classes = classNames(props.className);
     let segments = props.segments.map(
       (segment, index) => this.getSegment(segment, index)
     );
 
     return (
-      <div className={classes}>
+      <div className={props.className}>
         <div className={props.titleClassName}>
           <em className="emphasize">{props.primaryTitle}</em>: {props.secondaryTitle}
         </div>
