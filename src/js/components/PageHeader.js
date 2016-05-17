@@ -42,13 +42,18 @@ class PageHeader extends React.Component {
   }
 
   getSubTitle() {
-    let {subTitle} = this.props;
+    let {subTitle, subTitleClassName} = this.props;
 
     if (subTitle == null) {
       return null;
     }
 
-    return (<div className={this.props.subTitleClassName}>{subTitle}</div>);
+    let subtitleClasses = classNames(
+      'emphasize',
+      subTitleClassName
+    );
+
+    return (<div className={subtitleClasses}>{subTitle}</div>);
   }
 
   renderActionButtons() {
@@ -79,7 +84,7 @@ class PageHeader extends React.Component {
     );
 
     let dividerClasses = classNames(
-      'container-pod container-pod-short flush-top',
+      'container-pod container-pod-short flush-top flush-bottom',
       'container-pod-divider-bottom container-pod-divider-bottom-align-right',
       'container-pod-divider-inverse',
       dividerClassName
@@ -152,7 +157,10 @@ PageHeader.propTypes = {
     React.PropTypes.string,
     React.PropTypes.object,
   ]),
-  subTitleClassName: React.PropTypes.string,
+  subTitleClassName: React.PropTypes.oneOfType([
+    React.PropTypes.string,
+    React.PropTypes.object,
+  ])
 };
 
 module.exports = PageHeader;
