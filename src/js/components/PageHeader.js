@@ -51,9 +51,21 @@ class PageHeader extends React.Component {
     return (<div>{subTitle}</div>);
   }
 
+  renderActionButtons() {
+    let {actionButtons} = this.props;
+    if (actionButtons.length === 0) {
+      return null;
+    }
+
+    return (
+      <div className="button-collection">
+        {actionButtons}
+      </div>
+    );
+  }
+
   render() {
     let {
-      actionButtons,
       children,
       className,
       dividerClassName,
@@ -92,7 +104,7 @@ class PageHeader extends React.Component {
                 </div>
               </div>
               <div className="page-header-container-right">
-                {actionButtons}
+                {this.renderActionButtons()}
               </div>
             </div>
           </div>
@@ -104,7 +116,7 @@ class PageHeader extends React.Component {
 }
 
 PageHeader.propTypes = {
-  actionButtons: React.PropTypes.element,
+  actionButtons: React.PropTypes.arrayOf(React.PropTypes.element),
   icon: React.PropTypes.node,
   subTitle: React.PropTypes.node,
   title: React.PropTypes.string,
