@@ -59,6 +59,7 @@ module.exports = {
     Page: 'Page',
     PageHeader: 'PageHeader',
     RequestErrorMsg: 'RequestErrorMsg',
+    SecretValue: 'SecretValue',
     SidePanelContents: 'SidePanelContents'
   },
   config: {
