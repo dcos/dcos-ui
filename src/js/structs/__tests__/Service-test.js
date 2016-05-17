@@ -451,4 +451,14 @@ describe('Service', function () {
 
   });
 
+  describe('#getCpus', function () {
+    it('returns the correct cpus', function() {
+      let service = new Service({
+        cpus: 0.5
+      });
+
+      expect(service.getCpus()).toEqual(0.5);
+    })
+  });
+
 });

@@ -12,6 +12,10 @@ module.exports = class Service extends Item {
     return this.get('cmd');
   }
 
+  getCpus() {
+    return this.get('cpus');
+  }
+
   getContainer() {
     return this.get('container');
   }
