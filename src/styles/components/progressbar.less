@@ -20,7 +20,10 @@
   .bar {
     box-shadow: 1px 0px 0px 0px @body-background-color;
     height: 100%;
-    transition: width 600ms;
+    width: 100%;
+    transform: scaleX(0);
+    transform-origin: 0;
+    transition: transform 600ms;
 
     &.color-1 {
       background-color: @purple;

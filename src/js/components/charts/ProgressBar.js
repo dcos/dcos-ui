@@ -45,7 +45,7 @@ var ProgressBar = React.createClass({
       <div className="progress-bar">
         <div key="bar" ref="bar"
           className={'bar color-' + props.colorIndex}
-          style={{width: data.value + '%'}} />
+          style={{transform: `scaleX(${data.value / 100})`}} />
       </div>
     );
   }
