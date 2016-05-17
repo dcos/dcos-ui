@@ -51,6 +51,19 @@ class PageHeader extends React.Component {
     return (<div>{subTitle}</div>);
   }
 
+  renderActionButtons() {
+    let {actionButtons} = this.props;
+    if (actionButtons.length === 0) {
+      return null;
+    }
+
+    return (
+      <div className="button-collection">
+        {actionButtons}
+      </div>
+    );
+  }
+
   render() {
     let {
       children,
@@ -82,11 +95,16 @@ class PageHeader extends React.Component {
       <div className={classes}>
         <div className={dividerClasses}>
           <div className={mediaWrapperClasses}>
-            <div className="media-object flex-box flex-box-align-vertical-center">
-              {this.getIcon()}
-              <div className="media-object-item">
-                {this.getTitle()}
-                {this.getSubTitle()}
+            <div className="media-object flex-box flex-box-align-vertical-center page-header-container">
+              <div className="page-header-container-left">
+                {this.getIcon()}
+                <div className="media-object-item">
+                  {this.getTitle()}
+                  {this.getSubTitle()}
+                </div>
+              </div>
+              <div className="page-header-container-right">
+                {this.renderActionButtons()}
               </div>
             </div>
           </div>
@@ -98,6 +116,7 @@ class PageHeader extends React.Component {
 }
 
 PageHeader.propTypes = {
+  actionButtons: React.PropTypes.arrayOf(React.PropTypes.element),
   icon: React.PropTypes.node,
   subTitle: React.PropTypes.node,
   title: React.PropTypes.string,
