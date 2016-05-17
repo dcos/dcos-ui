@@ -59,6 +59,8 @@ import {
 
   METADATA_CHANGE,
 
+  NOTIFICATION_CHANGE,
+
   DCOS_CHANGE,
   DCOS_METADATA_CHANGE,
 
@@ -90,6 +92,7 @@ import MesosStateStore from '../stores/MesosStateStore';
 import MesosSummaryStore from '../stores/MesosSummaryStore';
 import MetadataStore from '../stores/MetadataStore';
 import NodeHealthStore from '../stores/NodeHealthStore';
+import NotificationStore from '../stores/NotificationStore';
 import SidebarStore from '../stores/SidebarStore';
 import TaskDirectoryStore from '../stores/TaskDirectoryStore';
 import UnitHealthStore from '../stores/UnitHealthStore';
@@ -342,6 +345,17 @@ const ListenersDescription = {
     store: VisibilityStore,
     events: {
       change: VISIBILITY_CHANGE
+    },
+    unmountWhen: function () {
+      return true;
+    },
+    listenAlways: true
+  },
+
+  notification: {
+    store: NotificationStore,
+    events: {
+      change: NOTIFICATION_CHANGE
     },
     unmountWhen: function () {
       return true;
