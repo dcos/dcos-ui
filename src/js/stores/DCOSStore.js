@@ -9,10 +9,11 @@ import Framework from '../structs/Framework';
 import MarathonStore from './MarathonStore';
 import MesosSummaryStore from './MesosSummaryStore';
 import ServiceTree from '../structs/ServiceTree';
+import SummaryList from '../structs/SummaryList';
 
 const METHODS_TO_BIND = [
-  'processMarathonData',
-  'processMesosData'
+  'onMarathonGroupsChange',
+  'onMesosSummaryChange'
 ];
 
 class DCOSStore extends EventEmitter {
@@ -26,50 +27,42 @@ class DCOSStore extends EventEmitter {
 
     this.data = {
       marathon: new ServiceTree(),
-      mesos: {
-        frameworks: []
-      },
+      mesos: new SummaryList(),
       dataProcessed: false
     };
 
     this.proxyListeners = [
       {
         event: MARATHON_GROUPS_CHANGE,
-        handler: this.processMarathonData,
+        handler: this.onMarathonGroupsChange,
         store: MarathonStore
       },
       {
         event: MESOS_SUMMARY_CHANGE,
-        handler: this.processMesosData,
+        handler: this.onMesosSummaryChange,
         store: MesosSummaryStore
       }
     ];
   }
 
-  /**
-   * Process Marathon data
-   * @param {ServiceTree} data
-   */
-  processMarathonData(data) {
-    if (!(data instanceof ServiceTree)) {
+  onMarathonGroupsChange() {
+    let groups = MarathonStore.get('groups');
+    if (!(groups instanceof ServiceTree)) {
       return;
     }
 
-    this.data.marathon = data;
+    this.data.marathon = groups;
     this.data.dataProcessed = true;
     this.emit(DCOS_CHANGE);
   }
 
-  /**
-   * Process Mesos data
-   * @param {{frameworks:array}} data
-   */
-  processMesosData(data) {
-    if (data == null || !Array.isArray(data.frameworks)) {
+  onMesosSummaryChange() {
+    let states = MesosSummaryStore.get('states');
+    if (!(states instanceof SummaryList)) {
       return;
     }
-    this.data.mesos = data;
-    this.data.dataProcessed = true;
+
+    this.data.mesos = states;
     this.emit(DCOS_CHANGE);
   }
 
@@ -132,29 +125,25 @@ class DCOSStore extends EventEmitter {
   get serviceTree() {
     let {marathon, mesos} = this.data;
 
-    // Merge Mesos and Marathon data
-    if (mesos.frameworks.length > 0) {
-      // Create framework dict from Mesos data
-      let frameworks = mesos.frameworks
-        .reduce(function (map, framework) {
-          map[framework.name] = framework;
+    // Create framework dict from Mesos data
+    let frameworks = mesos.lastSuccessful().getServiceList()
+      .reduceItems(function (map, framework) {
+        map[framework.name] = framework;
 
-          return map;
-        }, {});
+        return map;
+      }, {});
 
-      // Merge data by framework name, as  Marathon doesn't know framework ids.
-      return marathon.mapItems(function (item) {
-        if (item instanceof Framework) {
-          return new Framework(
-            Object.assign({}, frameworks[item.getName()], item)
-          );
-        }
+    // Merge data by framework name, as  Marathon doesn't know framework ids.
+    return marathon.mapItems(function (item) {
+      if (item instanceof Framework) {
+        return new Framework(
+          Object.assign({}, frameworks[item.getName()], item)
+        );
+      }
 
-        return item;
-      });
-    }
+      return item;
+    });
 
-    return marathon;
   }
 
   get dataProcessed() {

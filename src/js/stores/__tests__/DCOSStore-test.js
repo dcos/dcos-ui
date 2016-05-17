@@ -1,61 +1,90 @@
-jest.dontMock('../../mixins/GetSetMixin');
+jest.mock('../MarathonStore');
+jest.mock('../MesosSummaryStore');
 jest.dontMock('../DCOSStore');
+jest.dontMock('../../mixins/GetSetMixin');
 jest.dontMock('../../structs/ServiceTree');
+jest.dontMock('../../structs/SummaryList');
+jest.dontMock('../../structs/StateSummary');
 
 var DCOSStore = require('../DCOSStore');
+var MarathonStore = require('../MarathonStore');
+var MesosSummaryStore = require('../MesosSummaryStore');
 var ServiceTree = require('../../structs/ServiceTree');
+var SummaryList = require('../../structs/SummaryList');
+var StateSummary = require('../../structs/StateSummary');
 
 describe('DCOSStore', function () {
 
   beforeEach(function () {
-    DCOSStore.processMesosData({frameworks: []});
-    DCOSStore.processMarathonData(new ServiceTree({apps: []}));
+    // Mock Marathon and  Mesos  data and handle data change
+    MarathonStore.__setKeyResponse('groups', new ServiceTree({apps: []}));
+    MesosSummaryStore.__setKeyResponse('states', new SummaryList({
+      items: [new StateSummary({
+        successful: true
+      })]
+    }));
+
+    DCOSStore.onMarathonGroupsChange();
+    DCOSStore.onMesosSummaryChange();
   });
 
-  describe('#processMarathonData', function () {
+  describe('#onMarathonGroupsChange', function () {
 
     beforeEach(function () {
-      DCOSStore.processMesosData({
-        frameworks: [{id: 'alpha-id', name: 'alpha', bar: 'baz'}]
-      });
+      MesosSummaryStore.__setKeyResponse('states', new SummaryList({
+        items: [new StateSummary({
+          snapshot: {
+            frameworks: [{
+              id: 'alpha-id',
+              name: 'alpha',
+              bar: 'baz'
+            }]
+          },
+          successful: true
+        })]
+      }));
+      DCOSStore.onMesosSummaryChange();
     });
 
     it('should update the service tree', function () {
       expect(DCOSStore.serviceTree.getItems().length).toEqual(0);
 
-      DCOSStore.processMarathonData(new ServiceTree({
+      MarathonStore.__setKeyResponse('groups', new ServiceTree({
         apps: [{
           id: '/alpha',
           labels: {DCOS_PACKAGE_FRAMEWORK_NAME: 'alpha'}
         }]
       }));
+      DCOSStore.onMarathonGroupsChange();
 
       expect(DCOSStore.serviceTree.getItems()[0].getId()).toEqual('/alpha');
     });
 
     it('should replace old Marathon data', function () {
-      DCOSStore.processMarathonData(new ServiceTree({
+      MarathonStore.__setKeyResponse('groups', new ServiceTree({
         apps: [{
           id: '/alpha',
           labels: {DCOS_PACKAGE_FRAMEWORK_NAME: 'alpha'}
         }]
       }));
-      DCOSStore.processMarathonData(new ServiceTree({
+      DCOSStore.onMarathonGroupsChange();
+      MarathonStore.__setKeyResponse('groups', new ServiceTree({
         apps: [{
           id: '/beta',
           labels: {DCOS_PACKAGE_FRAMEWORK_NAME: 'beta'}
         }]
       }));
-
+      DCOSStore.onMarathonGroupsChange();
       expect(DCOSStore.serviceTree.getItems()[0].getId()).toEqual('/beta');
     });
 
     it('should merge (matching by id) summary data', function () {
-      DCOSStore.processMarathonData(new ServiceTree({
+      MarathonStore.__setKeyResponse('groups', new ServiceTree({
         apps: [{
           id: '/alpha', labels: {DCOS_PACKAGE_FRAMEWORK_NAME: 'alpha'}
         }]
       }));
+      DCOSStore.onMarathonGroupsChange();
 
       expect(DCOSStore.serviceTree.getItems()[0].getId()).toEqual('/alpha');
       expect(DCOSStore.serviceTree.getItems()[0].get('bar')).toEqual('baz');
@@ -63,11 +92,12 @@ describe('DCOSStore', function () {
 
     it('should not merge summary data if it doesn\'t find a matching id',
       function () {
-        DCOSStore.processMarathonData(new ServiceTree({
+        MarathonStore.__setKeyResponse('groups', new ServiceTree({
           apps: [{
             id: '/beta', labels: {DCOS_PACKAGE_FRAMEWORK_NAME: 'beta'}
           }]
         }));
+        DCOSStore.onMarathonGroupsChange();
 
         expect(DCOSStore.serviceTree.getItems()[0].get('bar')).toBeUndefined();
       }
@@ -75,53 +105,69 @@ describe('DCOSStore', function () {
 
   });
 
-  describe('#processMesosData', function () {
+  describe('#onMesosSummaryChange', function () {
 
     beforeEach(function () {
-      DCOSStore.processMarathonData(new ServiceTree({
+      MarathonStore.__setKeyResponse('groups', new ServiceTree({
         apps: [{
           id: '/alpha',
           labels: {DCOS_PACKAGE_FRAMEWORK_NAME: 'alpha'}
         }]
       }));
+      DCOSStore.onMarathonGroupsChange();
     });
 
     it('should update the service tree', function () {
       expect(DCOSStore.serviceTree.getItems()[0].get('bar')).toBeUndefined();
 
-      DCOSStore.processMesosData({
-        frameworks: [{id: 'alpha-id', name: 'alpha', bar: 'baz'}]
-      });
+      MesosSummaryStore.__setKeyResponse('states', new SummaryList({
+        items: [new StateSummary({
+          snapshot: {
+            frameworks: [{id: 'alpha-id', name: 'alpha', bar: 'baz'}]
+          },
+          successful: true
+        })]
+      }));
+      DCOSStore.onMesosSummaryChange();
 
       expect(DCOSStore.serviceTree.getItems()[0].get('bar')).toEqual('baz');
     });
 
     it('should replace old summary data', function () {
-      DCOSStore.processMesosData({
-        frameworks: [{id: 'alpha-id', name: 'alpha', bar: 'baz'}]
-      });
+      MesosSummaryStore.__setKeyResponse('states', new SummaryList({
+        items: [new StateSummary({
+          snapshot: {
+            frameworks: [{id: 'alpha-id', name: 'alpha', bar: 'baz'}]
+          },
+          successful: true
+        })]
+      }));
+      DCOSStore.onMesosSummaryChange();
 
-      DCOSStore.processMesosData({
-        frameworks: [{id: 'alpha-id', name: 'alpha', bar: 'qux'}]
-      });
+      MesosSummaryStore.__setKeyResponse('states', new SummaryList({
+        items: [new StateSummary({
+          snapshot: {
+            frameworks: [{id: 'alpha-id', name: 'alpha', bar: 'qux'}]
+          },
+          successful: true
+        })]
+      }));
+      DCOSStore.onMesosSummaryChange();
 
       expect(DCOSStore.serviceTree.getItems()[0].get('bar')).toEqual('qux');
     });
 
-    it('should merge (matching by id) Marathon data', function () {
-      DCOSStore.processMesosData({
-        frameworks: [{id: 'alpha-id', name: 'alpha', bar: 'baz'}]
-      });
-
-      expect(DCOSStore.serviceTree.getItems()[0].getId()).toEqual('/alpha');
-      expect(DCOSStore.serviceTree.getItems()[0].get('bar')).toEqual('baz');
-    });
-
     it('should not merge Marathon data if it doesn\'t find a matching id',
       function () {
-        DCOSStore.processMesosData({
-          frameworks: [{id: 'beta-id', name: 'beta', foo: 'bar'}]
-        });
+        MesosSummaryStore.__setKeyResponse('states', new SummaryList({
+          items: [new StateSummary({
+            snapshot: {
+              frameworks: [{id: 'beta-id', name: 'beta', foo: 'bar'}]
+            },
+            successful: true
+          })]
+        }));
+        DCOSStore.onMesosSummaryChange();
 
         expect(DCOSStore.serviceTree.getItems()[0].get('foo')).toBeUndefined();
       }
