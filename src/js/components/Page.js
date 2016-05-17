@@ -25,12 +25,14 @@ var Page = React.createClass({
     ])
   },
 
-  store_listeners: [
-    {
-      name: 'sidebar',
-      events: ['widthChange']
-    }
-  ],
+  componentWillMount: function () {
+    this.store_listeners = [
+      {
+        name: 'sidebar',
+        events: ['widthChange']
+      }
+    ];
+  },
 
   componentDidMount: function () {
     this.internalStorage_set({
