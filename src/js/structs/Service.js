@@ -78,6 +78,10 @@ module.exports = class Service extends Item {
     return this.getVersionInfo().lastScalingAt;
   }
 
+  getMem() {
+    return this.get('mem');
+  }
+
   getName() {
     return this.getId().split('/').pop();
   }

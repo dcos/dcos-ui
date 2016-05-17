@@ -471,5 +471,13 @@ describe('Service', function () {
     });
   });
 
+  describe('#getMem', function() {
+    it('returns the correct mem', function () {
+      let service = new Service({
+        mem: 49
+      });
 
+      expect(service.getMem()).toEqual(49);
+    })
+  });
 });
