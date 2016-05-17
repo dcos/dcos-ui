@@ -1,4 +1,4 @@
-import classNames from 'classnames';
+import classNames from 'classnames/dedupe';
 import React from 'react';
 
 class PageHeader extends React.Component {
