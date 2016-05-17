@@ -461,4 +461,15 @@ describe('Service', function () {
     })
   });
 
+  describe('#getDisk', function () {
+    it('returns the correct disk', function () {
+      let service = new Service({
+        disk: 125
+      });
+
+      expect(service.getDisk()).toEqual(125);
+    });
+  });
+
+
 });

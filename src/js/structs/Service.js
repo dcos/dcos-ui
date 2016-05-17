@@ -24,6 +24,10 @@ module.exports = class Service extends Item {
     return this.get('deployments');
   }
 
+  getDisk() {
+    return this.get('disk');
+  }
+
   getExecutor() {
     return this.get('executor');
   }
