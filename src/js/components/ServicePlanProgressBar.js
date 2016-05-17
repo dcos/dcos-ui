@@ -10,10 +10,11 @@ const labelMap = {
 class ServicePlanProgressBar extends React.Component {
   getPhaseLabel(servicePlan) {
     let phases = servicePlan.getPhases();
+    let activePhase = phases.getActiveIndex() + 1;
 
     return (
       <span className="text-overflow-break-word">
-        {`Phase ${phases.getActiveIndex()} of ${phases.getItems().length}: ${phases.getActive().getName()}`}
+        {`Phase ${activePhase} of ${phases.getItems().length}: ${phases.getActive().getName()}`}
         <a className="clickable" onClick={this.props.onViewDetailsClick}>
           View Details
         </a>
@@ -23,7 +24,6 @@ class ServicePlanProgressBar extends React.Component {
 
   getStatusLabel(servicePlan) {
     let status = servicePlan.getStatus();
-
     return labelMap[status] || status;
   }
 
@@ -58,7 +58,7 @@ class ServicePlanProgressBar extends React.Component {
       statusLabelClassName
     );
     let wrapperClasses = classNames(
-      'upgrade-progress-bar',
+      'service-plan-progress-bar',
       serviceStatusWrapperClasses,
       className
     );

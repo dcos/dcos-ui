@@ -5,11 +5,24 @@ import HealthStatus from '../constants/HealthStatus';
 import HealthLabels from '../constants/HealthLabels';
 import PageHeader from './PageHeader';
 import Service from '../structs/Service';
+import ServicePlan from '../structs/ServicePlan';
+import ServicePlanProgressBar from './ServicePlanProgressBar';
 import StringUtil from '../utils/StringUtil';
 
 class ServiceInfo extends React.Component {
 
   getSubHeader(service) {
+    let {servicePlan} = this.props;
+
+    if (servicePlan && !servicePlan.isComplete()) {
+      return (
+        <div class="service-detail-subheading">
+          <ServicePlanProgressBar servicePlan={servicePlan} stacked={false}
+            onViewDetailsClick={this.props.onViewProgressDetailsClick} />
+        </div>
+      );
+    }
+
     let serviceHealth = service.getHealth();
     let tasksSummary = service.getTasksSummary();
     let runningTasksCount = tasksSummary.tasksRunning;
@@ -83,7 +96,9 @@ class ServiceInfo extends React.Component {
 }
 
 ServiceInfo.propTypes = {
-  service: React.PropTypes.instanceOf(Service).isRequired
+  onViewProgressDetailsClick: React.PropTypes.func,
+  service: React.PropTypes.instanceOf(Service).isRequired,
+  servicePlan: React.PropTypes.instanceOf(ServicePlan)
 };
 
 module.exports = ServiceInfo;

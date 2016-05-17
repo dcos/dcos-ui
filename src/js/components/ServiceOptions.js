@@ -6,6 +6,7 @@ import {StoreMixin} from 'mesosphere-shared-reactjs';
 import CosmosPackagesStore from '../stores/CosmosPackagesStore';
 import Framework from '../structs/Framework';
 import Service from '../structs/Service';
+import ServicePlan from '../structs/ServicePlan';
 import UpdateConfigModal from './modals/UpdateConfigModal'
 
 const METHODS_TO_BIND = [
@@ -80,6 +81,7 @@ class ServiceOptions extends mixin(StoreMixin) {
           onClose={this.handleConfigModalClose}
           open={state.editConfigModalOpen}
           service={props.service}
+          servicePlan={props.servicePlan}
           servicePackage={CosmosPackagesStore.getPackageDetails()} />
       </a>
     ];
@@ -114,7 +116,8 @@ ServiceOptions.propTypes = {
   service: React.PropTypes.oneOfType([
     React.PropTypes.instanceOf(Framework),
     React.PropTypes.instanceOf(Service)
-  ]).isRequired
+  ]).isRequired,
+  servicePlan: React.PropTypes.instanceOf(ServicePlan)
 };
 
 module.exports = ServiceOptions;
