@@ -1,6 +1,6 @@
 import classNames from 'classnames';
-import {Tooltip} from 'reactjs-components';
 import React from 'react';
+import {Tooltip} from 'reactjs-components';
 
 import IconUpgradeBlock from './icons/IconUpgradeBlock';
 import IconUpgradeBlockDecisionPoint from './icons/IconUpgradeBlockDecisionPoint';
