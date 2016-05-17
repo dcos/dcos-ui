@@ -4,7 +4,6 @@ import {Tooltip} from 'reactjs-components';
 
 import IconUpgradeBlock from './icons/IconUpgradeBlock';
 import IconUpgradeBlockDecisionPoint from './icons/IconUpgradeBlockDecisionPoint';
-import ServicePlanBlock from '../structs/ServicePlanBlock';
 import ServicePlanStore from '../stores/ServicePlanStore';
 
 const METHODS_TO_BIND = [
@@ -69,7 +68,6 @@ class ServicePlanBlocks extends React.Component {
   getUpgradeBlocks(phaseBlocks, activePhase) {
     let blocks = phaseBlocks.getItems().map((block, blockIndex) => {
       let {selectedBlock} = this.state;
-      block = new ServicePlanBlock(block);
 
       let hasDecisionPoint = block.hasDecisionPoint();
       let isActive = block.isInProgress();
