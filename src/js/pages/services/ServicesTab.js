@@ -150,16 +150,19 @@ var ServicesTab = React.createClass({
 
     // Render empty panel
     return (
-      <AlertPanel
-        title="No Services Deployed"
-        footer={this.getAlertPanelFooter()}
-        iconClassName="icon icon-sprite icon-sprite-jumbo
+      <div>
+        <ServicesBreadcrumb serviceTreeItem={item} />
+        <AlertPanel
+          title="No Services Deployed"
+          footer={this.getAlertPanelFooter()}
+          iconClassName="icon icon-sprite icon-sprite-jumbo
           icon-sprite-jumbo-white icon-services flush-top">
-        <p className="flush-bottom">
-          Create groups to organize your services or
-          deploy a new service.
-        </p>
-      </AlertPanel>
+          <p className="flush-bottom">
+            Create groups to organize your services or
+            deploy a new service.
+          </p>
+        </AlertPanel>
+      </div>
     );
   },
 
