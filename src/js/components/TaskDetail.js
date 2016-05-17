@@ -205,7 +205,7 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
 
       let ports = service.ipAddress.discovery.ports;
       let endpoints = task.ipAddresses.reduce(function (memo, address) {
-        ports.forEach(port => {
+        ports.forEach(function (port) {
           memo.push(`${address.ipAddress}:${port.number}`);
         });
 
