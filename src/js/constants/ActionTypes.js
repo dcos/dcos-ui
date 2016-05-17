@@ -83,6 +83,7 @@ let ActionTypes = {};
   'REQUEST_VERSIONS_ERROR',
   'REQUEST_VERSIONS_SUCCESS',
   'SERVER_ACTION',
+  'SIDEBAR_WIDTH_CHANGE',
   'SIDEBAR_ACTION'
 ].forEach(function (actionType) {
   ActionTypes[actionType] = actionType;

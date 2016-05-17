@@ -46,5 +46,11 @@ module.exports = {
         });
       }
     });
+  },
+
+  sidebarWidthChange: function () {
+    AppDispatcher.handleSidebarAction({
+      type: ActionTypes.SIDEBAR_WIDTH_CHANGE
+    });
   }
 };

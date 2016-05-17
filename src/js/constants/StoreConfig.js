@@ -65,6 +65,8 @@ import {
   MESOS_LOG_CHANGE,
   MESOS_LOG_REQUEST_ERROR,
 
+  SIDEBAR_WIDTH_CHANGE,
+
   TASK_DIRECTORY_CHANGE,
   TASK_DIRECTORY_ERROR,
 
@@ -88,6 +90,7 @@ import MesosStateStore from '../stores/MesosStateStore';
 import MesosSummaryStore from '../stores/MesosSummaryStore';
 import MetadataStore from '../stores/MetadataStore';
 import NodeHealthStore from '../stores/NodeHealthStore';
+import SidebarStore from '../stores/SidebarStore';
 import TaskDirectoryStore from '../stores/TaskDirectoryStore';
 import UnitHealthStore from '../stores/UnitHealthStore';
 import UserStore from '../stores/UserStore';
@@ -194,6 +197,17 @@ const ListenersDescription = {
       return true;
     },
     listenAlways: false
+  },
+
+  sidebar: {
+    store: SidebarStore,
+    events: {
+      widthChange: SIDEBAR_WIDTH_CHANGE
+    },
+    unmountWhen: function () {
+      return true;
+    },
+    listenAlways: true
   },
 
   summary: {
