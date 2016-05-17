@@ -1,3 +1,4 @@
+import ServicePlanBlock from '../ServicePlanBlock';
 import ServicePlanBlocks from '../ServicePlanBlocks';
 import ServicePlanStatusTypes from '../../constants/ServicePlanStatusTypes';
 
@@ -69,6 +70,32 @@ describe('ServicePlanBlocks', function () {
 
       expect(Blocks.getComplete()[0].getName()).toEqual('foo');
       expect(Blocks.getComplete()[1].getName()).toEqual('bar');
+    });
+
+  });
+
+  describe('#getItems', function () {
+
+    it('should return instances of ServicePlanBlock', function () {
+      let Blocks = new ServicePlanBlocks({
+        items: [
+          {
+            status: ServicePlanStatusTypes.COMPLETE
+          },
+          {
+            name: 'foo',
+            status: ServicePlanStatusTypes.IN_PROGRESS
+          },
+          {
+            name: 'bar',
+            status: ServicePlanStatusTypes.IN_PROGRESS
+          }
+        ]
+      });
+
+      Blocks.getItems().forEach((function (block) {
+        expect(block instanceof ServicePlanBlock).toBeTruthy();
+      }));
     });
 
   });
