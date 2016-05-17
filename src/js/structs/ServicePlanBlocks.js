@@ -10,7 +10,7 @@ class ServicePlanBlocks extends List {
     this._completeBlocks = [];
 
     // Find all blocks where status is active
-    this.getItems().forEach((block) => {
+    this.list = this.getItems().map((block) => {
       if (!(block instanceof ServicePlanBlock)) {
         block = new ServicePlanBlock(block);
       }
@@ -22,6 +22,8 @@ class ServicePlanBlocks extends List {
       if (block.isComplete()) {
         this._completeBlocks.push(block);
       }
+
+      return block;
     });
   }
 
