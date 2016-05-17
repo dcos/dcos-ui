@@ -1,6 +1,7 @@
 jest.dontMock('../MesosStateStore');
 
 var MesosStateStore = require('../MesosStateStore');
+var Task = require('../../structs/Task');
 
 describe('MesosStateStore', function () {
 
@@ -138,6 +139,11 @@ describe('MesosStateStore', function () {
 
     afterEach(function () {
       MesosStateStore.get = this.get;
+    });
+
+    it('should return an instance of Task', function () {
+      var result = MesosStateStore.getTaskFromTaskID(1);
+      expect(result instanceof Task).toBeTruthy();
     });
 
     it('should find a currently running task', function () {
