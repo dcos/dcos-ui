@@ -10,7 +10,4 @@ module.exports = class Task extends Item {
     return ServiceImages.NA_IMAGES;
   }
 
-  getName() {
-    return this.getId().split('/').pop();
-  }
 };
