@@ -115,6 +115,10 @@ class PageHeader extends React.Component {
   }
 }
 
+PageHeader.defaultProps = {
+  actionButtons: []
+};
+
 PageHeader.propTypes = {
   actionButtons: React.PropTypes.arrayOf(React.PropTypes.element),
   icon: React.PropTypes.node,
