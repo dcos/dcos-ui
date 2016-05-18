@@ -7,12 +7,14 @@ import nodes from './nodes';
 import NotFoundPage from '../pages/NotFoundPage';
 import System from './factories/system';
 import services from './services';
+import jobs from './jobs';
 import universe from './universe';
 
 // Statically defined routes
 let applicationRoutes = [
   dashboard,
   services,
+  jobs,
   nodes,
 
   universe,

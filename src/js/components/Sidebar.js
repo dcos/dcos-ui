@@ -16,7 +16,14 @@ var MetadataStore = require('../stores/MetadataStore');
 import PluginSDK from 'PluginSDK';
 var SidebarActions = require('../events/SidebarActions');
 
-let defaultMenuItems = ['dashboard', 'services-page', 'nodes-list', 'universe', 'system'];
+let defaultMenuItems = [
+  'dashboard',
+  'services-page',
+  'jobs-page',
+  'nodes-list',
+  'universe',
+  'system'
+];
 
 let {Hooks} = PluginSDK;
 
