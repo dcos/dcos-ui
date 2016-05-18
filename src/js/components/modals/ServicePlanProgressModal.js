@@ -27,14 +27,14 @@ class ServicePlanProgressModal extends React.Component {
         maxHeightPercentage={1}
         modalClass={modalClasses}
         onClose={props.onClose}
-        open={props.open}
+        open={props.isOpen}
         showCloseButton={false}
         useGemini={false}
         showFooter={false}>
         <ServicePlanProgressModalContents
-          servicePlan={props.servicePlan}
+          onClose={props.onClose}
           service={props.service}
-          onClose={props.onClose} />
+          servicePlan={props.servicePlan} />
       </Modal>
     );
   }
@@ -42,12 +42,12 @@ class ServicePlanProgressModal extends React.Component {
 
 ServicePlanProgressModal.defaultProps = {
   onClose: function () {},
-  open: false
+  isOpen: false
 };
 
 ServicePlanProgressModal.propTypes = {
   servicePlan: React.PropTypes.instanceOf(ServicePlan),
-  open: React.PropTypes.bool,
+  isOpen: React.PropTypes.bool,
   onClose: React.PropTypes.func
 };
 
