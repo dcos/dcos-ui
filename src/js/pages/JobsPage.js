@@ -8,9 +8,9 @@ import TabsMixin from '../mixins/TabsMixin';
 
 class JobsPage extends mixin(TabsMixin) {
   constructor() {
-    super();
+    super(...arguments);
 
-    this.tabs_tabs = { 'jobs-page': 'Jobs'};
+    this.tabs_tabs = {'jobs-page': 'Jobs'};
     this.state = {currentTab: 'jobs-page'};
   }
 
@@ -19,6 +19,7 @@ class JobsPage extends mixin(TabsMixin) {
   }
 
   componentWillReceiveProps() {
+    super.componentWillReceiveProps(...arguments);
     this.updateCurrentTab();
   }
 

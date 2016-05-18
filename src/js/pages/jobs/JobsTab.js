@@ -9,16 +9,14 @@ import DCOSStore from '../../stores/DCOSStore';
 class JobsTab extends mixin(StoreMixin) {
 
   constructor() {
-    super();
+    super(...arguments);
 
     this.store_listeners = [
       {name: 'dcos', events: ['change']}
     ];
   }
 
-  /* eslint-disable no-unused-vars */
-  getContents(id) {
-  /* eslint-enable-no-unused-vars */
+  getContents() {
     // Render loading screen
     if (!DCOSStore.dataProcessed) {
       return (
