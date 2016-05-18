@@ -8,43 +8,32 @@ class ToggleButton extends React.Component {
       checked,
       children,
       className,
-      id,
       onChange
     } = this.props;
 
     return (
-      <span className={classNames(className)}>
+      <label className={classNames(className)}>
         <input
           className={classNames(checkboxClassName)}
-          id={id}
+          checked={checked}
           name="checkbox"
           onChange={onChange}
           type="checkbox" />
-        <label
-          checked={checked}
-          htmlFor={id}>
-          {children}
-        </label>
-      </span>
+        <span>{children}</span>
+      </label>
     );
   }
 }
 
 ToggleButton.defaultProps = {
   checked: false,
-  id: Date.now(),
   onChange: function () {},
-
   checkboxClassName: 'toggle-button'
 }
 
 ToggleButton.propTypes = {
   checked: React.PropTypes.bool,
   children: React.PropTypes.node,
-  id: React.PropTypes.oneOfType([
-    React.PropTypes.string,
-    React.PropTypes.number
-  ]),
   onChange: React.PropTypes.func,
 
   checkboxClassName: React.PropTypes.oneOfType([

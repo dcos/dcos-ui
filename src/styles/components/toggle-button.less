@@ -1,7 +1,7 @@
 .toggle-button {
   display: none;
 
-  & + label {
+  & + span {
     cursor: pointer;
     padding-right: @toggle-width + @base-spacing-unit / 2;
     position: relative;
@@ -35,7 +35,7 @@
     }
   }
 
-  &:checked + label {
+  &:checked + span {
 
     &:before {
       background-color: @toggle-checked-color;
