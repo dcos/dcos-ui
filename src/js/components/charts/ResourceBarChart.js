@@ -3,7 +3,7 @@ const React = require('react');
 
 const BarChart = require('./BarChart');
 const Chart = require('./Chart');
-const ResourceTypes = require('../../constants/ResourceTypes');
+const ResourcesUtil = require('../../utils/ResourcesUtil');
 
 // number to fit design of width vs. height ratio
 const WIDTH_HEIGHT_RATIO = 4.5;
@@ -43,7 +43,7 @@ let ResourceBarChart = React.createClass({
     return [{
       id: 'used_resources',
       name: selectedResource + ' allocated',
-      colorIndex: ResourceTypes[selectedResource].colorIndex,
+      colorIndex: ResourcesUtil.getResourceColor(selectedResource),
       values: props.resources[selectedResource]
     }];
   },
@@ -63,18 +63,20 @@ let ResourceBarChart = React.createClass({
   getModeButtons: function () {
     let selectedResource = this.props.selectedResource;
 
-    return Object.keys(ResourceTypes).map((key) => {
+    let resourceColors = ResourcesUtil.getResourceColors();
+    let resourceLabels = ResourcesUtil.getResourceLabels();
+
+    return ResourcesUtil.getDefaultResources().map((resource) => {
       let classSet = classNames('button button-stroke button-inverse', {
-        'active': selectedResource === key
+        'active': selectedResource === resource
       });
-      let info = ResourceTypes[key];
 
       return (
         <button
-            key={key}
-            className={classSet + ' path-color-' + info.colorIndex}
-            onClick={this.handleSelectedResourceChange.bind(this, key)}>
-          {info.label}
+            key={resource}
+            className={`${classSet} path-color-${resourceColors[resource]}`}
+            onClick={this.handleSelectedResourceChange.bind(this, resource)}>
+          {resourceLabels[resource]}
         </button>
       );
     });
@@ -93,8 +95,9 @@ let ResourceBarChart = React.createClass({
     );
   },
 
-  getHeadline: function (info) {
-    let headline = info.label + ' Allocation Rate';
+  getHeadline: function (resource) {
+    let label = ResourcesUtil.getResourceLabel(resource);
+    let headline = `${label} Allocation Rate`;
 
     return (
       <div>
@@ -109,8 +112,6 @@ let ResourceBarChart = React.createClass({
   },
 
   render: function () {
-    let info = ResourceTypes[this.props.selectedResource];
-
     return (
       <div className="chart panel panel-inverse">
         <div className="panel-header panel-header-large no-border flush-bottom">
@@ -118,7 +119,7 @@ let ResourceBarChart = React.createClass({
             {this.getModeButtons()}
           </div>
           <div className="inverse">
-            {this.getHeadline(info)}
+            {this.getHeadline(this.props.selectedResource)}
           </div>
         </div>
         <div className="panel-content" ref="panelContent">
