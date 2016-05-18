@@ -39,7 +39,12 @@ module.exports = class List {
       if (!Util.isArray(options.items)) {
         throw new Error('Expected an array.');
       }
-      this.list = options.items.map(cast.bind(this));
+      if (this.constructor.type != null) {
+        this.list = options.items.map(cast.bind(this));
+      } else {
+        this.list = options.items;
+      }
+
     }
 
     this.filterProperties = options.filterProperties || {};
