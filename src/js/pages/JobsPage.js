@@ -1,57 +1,44 @@
+import mixin from 'reactjs-mixin';
 import React from 'react';
 import {RouteHandler} from 'react-router';
 
 import Page from '../components/Page';
+import SidebarActions from '../events/SidebarActions';
 import TabsMixin from '../mixins/TabsMixin';
 
-var JobsPage = React.createClass({
+class JobsPage extends mixin(TabsMixin) {
+  constructor() {
+    super();
 
-  contextTypes: {
-    router: React.PropTypes.func
-  },
+    this.tabs_tabs = { 'jobs-page': 'Jobs'};
+    this.state = {currentTab: 'jobs-page'};
+  }
 
-  mixins: [TabsMixin],
-
-  displayName: 'JobsPage',
-
-  statics: {
-    routeConfig: {
-      label: 'Jobs',
-      icon: 'jobs',
-      matches: /^\/jobs/
-    }
-  },
-
-  getInitialState: function () {
-    return {
-      currentTab: 'jobs-page'
-    };
-  },
-
-  componentWillMount: function () {
-    this.tabs_tabs = {
-      'jobs-page': 'Jobs'
-    };
+  componentWillMount() {
     this.updateCurrentTab();
-  },
+  }
 
-  updateCurrentTab: function () {
+  componentWillReceiveProps() {
+    this.updateCurrentTab();
+  }
+
+  updateCurrentTab() {
     let routes = this.context.router.getCurrentRoutes();
     let currentTab = routes[routes.length - 1].name;
     if (currentTab != null) {
       this.setState({currentTab});
     }
-  },
+  }
 
-  getNavigation: function () {
+  getNavigation() {
     return (
       <ul className="tabs list-inline flush-bottom inverse">
         {this.tabs_getRoutedTabs()}
       </ul>
     );
-  },
+  }
 
-  render: function () {
+  render() {
     return (
       <Page
         navigation={this.getNavigation()}
@@ -60,7 +47,20 @@ var JobsPage = React.createClass({
       </Page>
     );
   }
+}
 
-});
+JobsPage.contextTypes = {
+  router: React.PropTypes.func
+};
+
+JobsPage.routeConfig = {
+  label: 'Jobs',
+  icon: 'jobs',
+  matches: /^\/jobs/
+};
+
+JobsPage.willTransitionTo = function () {
+  SidebarActions.close();
+};
 
 module.exports = JobsPage;

@@ -1,37 +1,24 @@
+import mixin from 'reactjs-mixin';
 import React from 'react';
 import {RouteHandler} from 'react-router';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import AlertPanel from '../../components/AlertPanel';
 import DCOSStore from '../../stores/DCOSStore';
-import QueryParamsMixin from '../../mixins/QueryParamsMixin';
-import SidebarActions from '../../events/SidebarActions';
 
-var JobsTab = React.createClass({
+class JobsTab extends mixin(StoreMixin) {
 
-  displayName: 'JobsTab',
+  constructor() {
+    super();
 
-  mixins: [StoreMixin, QueryParamsMixin],
+    this.store_listeners = [
+      {name: 'dcos', events: ['change']}
+    ];
+  }
 
-  statics: {
-    // Static life cycle method from react router, that will be called
-    // 'when a handler is about to render', i.e. on route change:
-    // https://github.com/rackt/react-router/
-    // blob/master/docs/api/components/RouteHandler.md
-    willTransitionTo: function () {
-      SidebarActions.close();
-    }
-  },
-
-  contextTypes: {
-    router: React.PropTypes.func
-  },
-
-  componentWillMount: function () {
-    this.store_listeners = [{name: 'dcos', events: ['change']}];
-  },
-
-  getContents: function () {
+  /* eslint-disable no-unused-vars */
+  getContents(id) {
+  /* eslint-enable-no-unused-vars */
     // Render loading screen
     if (!DCOSStore.dataProcessed) {
       return (
@@ -63,14 +50,16 @@ var JobsTab = React.createClass({
         </p>
       </AlertPanel>
     );
-  },
-
-  render: function () {
-    let {id} = this.props.params;
-
-    return this.getContents(decodeURIComponent(id));
   }
 
-});
+  render() {
+    let {id} = this.props.params;
+    return this.getContents(decodeURIComponent(id));
+  }
+}
+
+JobsTab.contextTypes = {
+  router: React.PropTypes.func
+};
 
 module.exports = JobsTab;
