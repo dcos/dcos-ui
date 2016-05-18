@@ -3,8 +3,8 @@ import React from 'react';
 
 import HealthLabels from '../../constants/HealthLabels';
 import HealthStatus from '../../constants/HealthStatus';
-import IconWarning from '../icons/IconWarning';
 import IconCircleCheckmark from '../icons/IconCircleCheckmark';
+import IconWarning from '../icons/IconWarning';
 import SegmentedProgressBar from '../charts/SegmentedProgressBar';
 import ServicePlan from '../../structs/ServicePlan';
 import ServicePlanBlock from '../../structs/ServicePlanBlock';
@@ -15,8 +15,8 @@ const METHODS_TO_BIND = [
   'handleDecisionConfirm',
   'handleDecisionRollback',
   'handleHideModal',
-  'handleUpgradePause',
-  'handleShowDetails'
+  'handleShowDetails',
+  'handleUpgradePause'
 ];
 
 class ServicePlanProgressModalContents extends React.Component {
@@ -206,7 +206,7 @@ class ServicePlanProgressModalContents extends React.Component {
         'is-paused': servicePlan.isPending()
       });
     let serviceHealth = service.getHealth();
-    let upgradeDetails;
+    let upgradeDetails = null;
 
     if (this.state.detailsExpanded) {
       detailsLabel = 'Hide Details';
@@ -246,7 +246,7 @@ class ServicePlanProgressModalContents extends React.Component {
                 {service.getName()} {this.getVersionNumber(service)}
               </p>
               <p className={healthClasses}>
-                {HealthLabels[HealthStatus[serviceHealth.key].key]}
+                {HealthLabels[serviceHealth.key]}
               </p>
             </div>
             <div className="container container-pod container-pod-short
