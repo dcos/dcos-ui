@@ -5,6 +5,7 @@ import React from 'react';
 /* eslint-enable no-unused-vars */
 
 import TabsUtil from '../utils/TabsUtil';
+import NotificationStore from '../stores/NotificationStore';
 
 /**
  * Adds tabs-specific methods onto a class.
@@ -93,9 +94,9 @@ const TabsMixin = {
    * @return {Component} React component to render
    */
   tabs_getRoutedItem(customClasses, tab) {
+    let notificationCount = NotificationStore.getNotificationCount(tab);
     let tabLabelClass = classNames(customClasses, {'tab-item-label': true});
-
-    return (
+    let link = (
       <Link
         to={tab}
         className={tabLabelClass}
@@ -103,6 +104,17 @@ const TabsMixin = {
         {this.tabs_tabs[tab]}
       </Link>
     );
+
+    if (notificationCount > 0) {
+      return (
+        <span className="badge-container badge-primary">
+          {link}
+          <span className="badge text-align-center">{notificationCount}</span>
+        </span>
+      );
+    }
+
+    return link;
   },
 
   /**
