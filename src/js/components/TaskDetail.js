@@ -161,7 +161,8 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
     );
 
     let tabs = (
-      <ul className="tabs list-inline flush-bottom inverse">
+      <ul className="tabs list-inline flush-bottom container-pod
+        container-pod-short-top inverse">
         {this.tabs_getUnroutedTabs()}
       </ul>
     );
@@ -423,9 +424,15 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
 
     return (
       <div className="flex-container-col">
-        {this.getServicesBreadcrumb()}
-        {this.getBasicInfo(task, node)}
-        {this.tabs_getTabView()}
+        <div className="container-pod
+          container-pod-divider-bottom-align-right
+          container-pod-short-top flush-bottom flush-top
+          service-detail-header media-object-spacing-wrapper
+          media-object-spacing-narrow">
+          {this.getServicesBreadcrumb()}
+          {this.getBasicInfo(task, node)}
+          {this.tabs_getTabView()}
+        </div>
       </div>
     );
   }

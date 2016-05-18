@@ -3,6 +3,7 @@ import React from 'react';
 import HealthBar from './HealthBar';
 import HealthStatus from '../constants/HealthStatus';
 import HealthLabels from '../constants/HealthLabels';
+import PageHeader from './PageHeader';
 import Service from '../structs/Service';
 import StringUtil from '../utils/StringUtil';
 
@@ -50,32 +51,33 @@ class ServiceInfo extends React.Component {
 
   render() {
     let service = this.props.service;
-    let imageTag = null;
+    let serviceIcon = null;
     let serviceImages = service.getImages();
     if (serviceImages && serviceImages['icon-large']) {
-      imageTag = (
-        <div
-          className="icon icon-large icon-image-container icon-app-container">
-          <img src={serviceImages['icon-large']} />
-        </div>
+      serviceIcon = (
+        <img src={serviceImages['icon-large']} />
       );
     }
 
+    const mediaWrapperClassNames = {
+      'media-object-spacing-narrow': false,
+      'media-object-offset': false
+    };
+
+    const tabs = (
+      <ul className="tabs list-inline flush-bottom container-pod
+        container-pod-short-top inverse">
+        {this.props.tabs}
+      </ul>
+    );
+
     return (
-      <div className="media-object flex-box
-        flex-box-align-vertical-center">
-        <div className="media-object-item">
-          {imageTag}
-        </div>
-        <div className="media-object-item">
-          <h1 className="flush inverse">
-            {service.getName()}
-          </h1>
-          <div>
-            {this.getSubHeader(service)}
-          </div>
-        </div>
-      </div>
+      <PageHeader
+        icon={serviceIcon}
+        subTitle={this.getSubHeader(service)}
+        navigationTabs={tabs}
+        mediaWrapperClassName={mediaWrapperClassNames}
+        title={service.getName()} />
     );
   }
 }

@@ -48,21 +48,13 @@ class ServiceDetail extends mixin(InternalStorageMixin, TabsMixin) {
 
     return (
       <div className="flex-container-col">
-        <div className="container-pod container-pod-divider-bottom
+        <div className="container-pod
           container-pod-divider-bottom-align-right
           container-pod-short-top flush-bottom flush-top
           service-detail-header media-object-spacing-wrapper
-          media-object-spacing-narrow container-pod-divider-inverse">
+          media-object-spacing-narrow">
           <ServicesBreadcrumb serviceTreeItem={service} />
-          <ServiceInfo service={service} />
-          <ul className="tabs list-inline flush-bottom container-pod
-            container-pod-short-top inverse">
-            {this.tabs_getUnroutedTabs()}
-          </ul>
-        </div>
-        <div className="side-panel-tab-content side-panel-section container
-          container-pod container-pod-short container-fluid
-          container-fluid-flush flex-container-col flex-grow">
+          <ServiceInfo service={service} tabs={this.tabs_getUnroutedTabs()} />
           {this.tabs_getTabView()}
         </div>
       </div>
