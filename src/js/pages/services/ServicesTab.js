@@ -256,8 +256,8 @@ var ServicesTab = React.createClass({
         <DeployServiceModal open={state.isDeployServiceModalShown}
           onClose={this.handleCloseDeployServiceModal}/>
       </div>
-    )
-  }
+    );
+  },
 
 });
 
