@@ -173,10 +173,10 @@ FormModal.defaultProps = {
 FormModal.propTypes = {
   buttonDefinition: React.PropTypes.array,
   children: React.PropTypes.node,
-  contentClasses: React.PropTypes.oneOf([
+  contentClasses: React.PropTypes.oneOfType([
     React.PropTypes.array,
-    React.PropTypes.string,
-    React.PropTypes.object
+    React.PropTypes.object,
+    React.PropTypes.string
   ]),
   contentFooter: React.PropTypes.node,
   definition: React.PropTypes.array,
