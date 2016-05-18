@@ -38,6 +38,26 @@ module.exports = {
     });
   },
 
+  createService: function (data) {
+    RequestUtil.json({
+      url: `${Config.rootUrl}/marathon/v2/apps`,
+      method: 'POST',
+      data,
+      success: function () {
+        AppDispatcher.handleServerAction({
+          type: REQUEST_MARATHON_SERVICE_CREATE_SUCCESS
+        });
+      },
+      error: function (xhr) {
+        AppDispatcher.handleServerAction({
+          type: REQUEST_MARATHON_SERVICE_CREATE_ERROR,
+          data: RequestUtil.getErrorFromXHR(xhr),
+          xhr
+        });
+      }
+    });
+  },
+
   fetchGroups: RequestUtil.debounceOnError(
     Config.getRefreshRate(),
     function (resolve, reject) {
