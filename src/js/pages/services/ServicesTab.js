@@ -3,7 +3,6 @@ import {RouteHandler} from 'react-router';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import AlertPanel from '../../components/AlertPanel';
-import Config from '../../config/Config';
 import DCOSStore from '../../stores/DCOSStore';
 import FilterBar from '../../components/FilterBar';
 import FilterHeadline from '../../components/FilterHeadline';
@@ -104,7 +103,21 @@ var ServicesTab = React.createClass({
     this.setState(state, this.resetFilterQueryParams);
   },
 
-  getContents: function (id) {
+  getAlertPanelFooter: function () {
+    return (
+      <div className="button-collection flush-bottom">
+        <button className="button button-stroke button-inverse"
+          onClick={this.handleOpenGroupFormModal}>
+          Create Group
+        </button>
+        <button className="button button-success">
+          Deploy Service
+        </button>
+      </div>
+    );
+  },
+
+  getContents: function (item) {
     // Render loading screen
     if (!DCOSStore.dataProcessed) {
       return (
@@ -125,9 +138,6 @@ var ServicesTab = React.createClass({
       );
     }
 
-    // Find item in root tree and default to root tree if there is no match
-    let item = DCOSStore.serviceTree.findItemById(id) || DCOSStore.serviceTree;
-
     // Render service table
     if (item instanceof ServiceTree && item.getItems().length > 0) {
       return this.getServiceTreeView(item);
@@ -140,15 +150,19 @@ var ServicesTab = React.createClass({
 
     // Render empty panel
     return (
-      <AlertPanel
-        title="No Services Installed"
-        iconClassName="icon icon-sprite icon-sprite-jumbo
+      <div>
+        <ServicesBreadcrumb serviceTreeItem={item} />
+        <AlertPanel
+          title="No Services Deployed"
+          footer={this.getAlertPanelFooter()}
+          iconClassName="icon icon-sprite icon-sprite-jumbo
           icon-sprite-jumbo-white icon-services flush-top">
-        <p className="flush-bottom">
-          Use the {Config.productName} command line tools to find and install
-          services.
-        </p>
-      </AlertPanel>
+          <p className="flush-bottom">
+            Create groups to organize your services or
+            deploy a new service.
+          </p>
+        </AlertPanel>
+      </div>
     );
   },
 
@@ -209,18 +223,27 @@ var ServicesTab = React.createClass({
         <SidePanels
           params={this.props.params}
           openedPage="services"/>
-        <ServiceGroupFormModal
-          open={state.isServiceGroupFormModalShown}
-          parentGroupId={item.getId()}
-          onClose={this.handleCloseGroupFormModal}/>
       </div>
     );
   },
 
   render: function () {
     let {id} = this.props.params;
+    id = decodeURIComponent(id);
+    let {state} = this;
 
-    return this.getContents(decodeURIComponent(id));
+    // Find item in root tree and default to root tree if there is no match
+    let item = DCOSStore.serviceTree.findItemById(id) || DCOSStore.serviceTree;
+
+    return (
+      <div>
+        {this.getContents(item)}
+        <ServiceGroupFormModal
+          open={state.isServiceGroupFormModalShown}
+          parentGroupId={item.getId()}
+          onClose={this.handleCloseGroupFormModal}/>
+      </div>
+    )
   }
 
 });
