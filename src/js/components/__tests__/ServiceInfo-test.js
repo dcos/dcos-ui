@@ -1,3 +1,4 @@
+jest.dontMock('../PageHeader');
 jest.dontMock('../ServiceInfo');
 
 /* eslint-disable no-unused-vars */

@@ -1,3 +1,4 @@
+jest.dontMock('../PageHeader');
 jest.dontMock('../ServiceDetail');
 jest.dontMock('../ServiceDetailTaskTab');
 jest.dontMock('../ServiceInfo');
