@@ -1,0 +1,49 @@
+.toggle-button {
+  display: none;
+
+  & + span {
+    cursor: pointer;
+    padding-right: @toggle-width + @base-spacing-unit / 2;
+    position: relative;
+
+    &:before {
+      border-radius: @toggle-height;
+      border: @toggle-border-width solid rgba(0, 0, 0, 0.2) ;
+      content: '';
+      display: block;
+      height: @toggle-height;
+      position: absolute;
+      right: 0;
+      top: 0;
+      transition: border-color @toggle-transition-speed, background-color @toggle-transition-speed;
+      width: @toggle-width;
+    }
+
+    &:after {
+      background-color: @white;
+      border-radius: @toggle-height;
+      box-shadow: 0 @toggle-border-width @toggle-border-width @toggle-border-width rgba(0, 0, 0, 0.1);
+      content: " ";
+      display: block;
+      height: @toggle-height - @toggle-border-width * 2;
+      position: absolute;
+      right: @toggle-border-width;
+      top: @toggle-border-width;
+      transform: translateX(@toggle-height - @toggle-width);
+      transition: transform @toggle-transition-speed;
+      width: @toggle-height - @toggle-border-width * 2;
+    }
+  }
+
+  &:checked + span {
+
+    &:before {
+      background-color: @toggle-checked-color;
+      border-color: @toggle-checked-color;
+    }
+
+    &:after {
+      transform: translateX(0);
+    }
+  }
+}
