@@ -4,6 +4,46 @@ var StringUtil = require('../StringUtil');
 
 describe('StringUtil', function () {
 
+  describe('#arrayToCommaSeparatedString', function () {
+
+    it('should return comma separated string', function () {
+      var result = StringUtil.arrayToCommaSeparatedString([1, 2]);
+
+      expect(result).toEqual('1, 2');
+    });
+
+    it('should not append comma if array has only one  element', function () {
+      var result = StringUtil.arrayToCommaSeparatedString([1]);
+
+      expect(result).toEqual('1');
+    });
+
+    it('should return empty string if array is null', function () {
+      var result = StringUtil.arrayToCommaSeparatedString(null);
+
+      expect(result).toEqual('');
+    });
+
+    it('should return empty string if array is undefined', function () {
+      var result = StringUtil.arrayToCommaSeparatedString();
+
+      expect(result).toEqual('');
+    });
+
+    it('should return empty string if array is and object', function () {
+      var result = StringUtil.arrayToCommaSeparatedString({});
+
+      expect(result).toEqual('');
+    });
+
+    it('should return empty string if array is empty', function () {
+      var result = StringUtil.arrayToCommaSeparatedString([]);
+
+      expect(result).toEqual('');
+    });
+
+  });
+
   describe('#filterByString', function () {
 
     it('filters using a key as getter', function () {
