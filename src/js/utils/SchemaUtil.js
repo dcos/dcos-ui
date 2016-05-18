@@ -57,6 +57,10 @@ function schemaToFieldDefinition(fieldName, fieldProps, formParent, isRequired, 
     definition.checked = fieldProps.default || false;
   }
 
+  if (fieldProps.multiLine === true) {
+    definition.fieldType = 'textarea';
+  }
+
   return definition;
 }
 
