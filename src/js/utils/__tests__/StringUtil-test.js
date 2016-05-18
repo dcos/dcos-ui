@@ -4,6 +4,52 @@ var StringUtil = require('../StringUtil');
 
 describe('StringUtil', function () {
 
+  describe('#arrayToJoinedString', function () {
+
+    it('should join array with default separator', function () {
+      var result = StringUtil.arrayToJoinedString([1, 2]);
+
+      expect(result).toEqual('1, 2');
+    });
+
+    it('should join array with the given separator', function () {
+      var result = StringUtil.arrayToJoinedString([1, 2], '-');
+
+      expect(result).toEqual('1-2');
+    });
+
+    it('should not append separator if array has only one  element', function () {
+      var result = StringUtil.arrayToJoinedString([1]);
+
+      expect(result).toEqual('1');
+    });
+
+    it('should return empty string if array is null', function () {
+      var result = StringUtil.arrayToJoinedString(null);
+
+      expect(result).toEqual('');
+    });
+
+    it('should return empty string if array is undefined', function () {
+      var result = StringUtil.arrayToJoinedString();
+
+      expect(result).toEqual('');
+    });
+
+    it('should return empty string if array is and object', function () {
+      var result = StringUtil.arrayToJoinedString({});
+
+      expect(result).toEqual('');
+    });
+
+    it('should return empty string if array is empty', function () {
+      var result = StringUtil.arrayToJoinedString([]);
+
+      expect(result).toEqual('');
+    });
+
+  });
+
   describe('#filterByString', function () {
 
     it('filters using a key as getter', function () {

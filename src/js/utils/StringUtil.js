@@ -1,6 +1,14 @@
 import marked from 'marked';
 
 const StringUtil = {
+  arrayToJoinedString: function (array=[], separator = ', ') {
+    if (Array.isArray(array)) {
+      return array.join(separator);
+    }
+
+    return '';
+  },
+
   filterByString: function (objects, getter, searchString) {
     var regex = StringUtil.escapeForRegExp(searchString);
     var searchPattern = new RegExp(regex, 'i');
