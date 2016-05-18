@@ -30,7 +30,7 @@ class DeployServiceModal extends mixin(InternalStorageMixin, StoreMixin) {
     let model =
       ServiceUtil.createFormModelFromSchema(new Service(), ServiceSchema);
     this.state = {
-      service: ServiceUtil.convertFormModelToService(model),
+      service: ServiceUtil.createServiceFromFormModel(model),
       model: model,
       errorMessage: null,
       schema: ServiceSchema
@@ -71,7 +71,7 @@ class DeployServiceModal extends mixin(InternalStorageMixin, StoreMixin) {
   resetState() {
     let model = ServiceUtil.createFormModelFromSchema(new Service(), ServiceSchema)
     this.setState({
-      service: ServiceUtil.convertFormModelToService(model),
+      service: ServiceUtil.createServiceFromFormModel(model),
       model: model,
       errorMessage: null,
       schema: ServiceSchema
@@ -102,7 +102,7 @@ class DeployServiceModal extends mixin(InternalStorageMixin, StoreMixin) {
     if (isValidated) {
       let {schema} = this.state;
       this.setState({
-        service: ServiceUtil.convertFormModelToService(model),
+        service: ServiceUtil.createServiceFromFormModel(model),
         model: model,
         errorMessage: null,
         schema: schema

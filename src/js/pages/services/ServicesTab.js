@@ -5,6 +5,7 @@ import {StoreMixin} from 'mesosphere-shared-reactjs';
 import AlertPanel from '../../components/AlertPanel';
 import DCOSStore from '../../stores/DCOSStore';
 import FilterBar from '../../components/FilterBar';
+import DeployServiceModal from '../../components/modals/DeployServiceModal';
 import FilterHeadline from '../../components/FilterHeadline';
 import QueryParamsMixin from '../../mixins/QueryParamsMixin';
 import SaveStateMixin from '../../mixins/SaveStateMixin';
@@ -53,7 +54,8 @@ var ServicesTab = React.createClass({
 
   getInitialState: function () {
     return Object.assign({}, DEFAULT_FILTER_OPTIONS, {
-      isServiceGroupFormModalShown: false
+      isServiceGroupFormModalShown: false,
+      isDeployServiceModalShown: false
     });
   },
 
@@ -72,8 +74,16 @@ var ServicesTab = React.createClass({
     });
   },
 
+  handleCloseDeployServiceModal: function () {
+    this.setState({isDeployServiceModalShown: false});
+  },
+
   handleCloseGroupFormModal: function () {
     this.setState({isServiceGroupFormModalShown: false});
+  },
+
+  handleOpenDeployServiceModal: function () {
+    this.setState({isDeployServiceModalShown: true});
   },
 
   handleOpenGroupFormModal: function () {
@@ -213,7 +223,8 @@ var ServicesTab = React.createClass({
                     onClick={this.handleOpenGroupFormModal}>
               Create Group
             </button>
-            <button className="button button-success">
+            <button className="button button-success"
+              onClick={this.handleOpenDeployServiceModal}>
               Deploy Service
             </button>
           </FilterBar>
@@ -242,6 +253,8 @@ var ServicesTab = React.createClass({
           open={state.isServiceGroupFormModalShown}
           parentGroupId={item.getId()}
           onClose={this.handleCloseGroupFormModal}/>
+        <DeployServiceModal open={state.isDeployServiceModalShown}
+          onClose={this.handleCloseDeployServiceModal}/>
       </div>
     )
   }
