@@ -22,12 +22,12 @@ describe('ProgressBar', function () {
     ReactDOM.unmountComponentAtNode(this.container);
   });
 
-  it('has same style width as given percentage value', function () {
+  it('has the correct precentage transform', function () {
     var bar = TestUtils.findRenderedDOMComponentWithClass(
       this.progressbar, 'bar'
     );
 
-    expect(ReactDOM.findDOMNode(bar).style.width).toEqual('66%');
+    expect(ReactDOM.findDOMNode(bar).style.transform).toEqual('scaleX(0.66)');
   });
 
   it('will recieve new property for percentage value', function () {
@@ -39,7 +39,7 @@ describe('ProgressBar', function () {
       this.progressbar, 'bar'
     );
 
-    expect(ReactDOM.findDOMNode(bar).style.width).toEqual('88%');
+    expect(ReactDOM.findDOMNode(bar).style.transform).toEqual('scaleX(0.88)');
   });
 
   it('has correct color index', function () {
