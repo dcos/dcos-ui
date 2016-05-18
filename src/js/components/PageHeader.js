@@ -121,13 +121,7 @@ class PageHeader extends React.Component {
 }
 
 PageHeader.defaultProps = {
-  actionButtons: [],
-  className: 'container container-fluid container-pod container-pod-short flush flush-top',
-  dividerClassName: 'container-pod container-pod-short flush-top flush-bottom container-pod-divider-bottom container-pod-divider-bottom-align-right container-pod-divider-inverse',
-  iconClassName: 'icon icon-large icon-image-container icon-app-container',
-  mediaWrapperClassName: 'media-object-spacing-wrapper media-object-spacing-narrow media-object-offset',
-  subTitleClassName: 'emphasize',
-  titleClassName: 'flush inverse'
+  actionButtons: []
 };
 
 PageHeader.propTypes = {
