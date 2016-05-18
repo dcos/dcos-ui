@@ -3,7 +3,7 @@ import {Tooltip} from 'reactjs-components';
 
 var Chart = require('./charts/Chart');
 var DialChart = require('./charts/DialChart');
-var ResourceTypes = require('../constants/ResourceTypes');
+var ResourcesUtil = require('../utils/ResourcesUtil');
 
 var colors = {
   error: 2,
@@ -55,8 +55,9 @@ var NodesGridDials = React.createClass({
   },
 
   getUsedSliceConfig: function (node) {
-    var props = this.props;
-    var resourceConfig = ResourceTypes[props.selectedResource];
+    let {selectedResource} = this.props;
+    let colorIndex = ResourcesUtil.getResourceColor(selectedResource);
+    let label = ResourcesUtil.getResourceLabel(selectedResource);
     var serviceSlices = this.getServiceSlicesConfig(node);
     var percentage;
 
@@ -65,12 +66,12 @@ var NodesGridDials = React.createClass({
         return memo + slice.percentage;
       }, 0);
     } else {
-      percentage = node.getUsageStats(props.selectedResource).percentage;
+      percentage = node.getUsageStats(selectedResource).percentage;
     }
 
     return [{
-      colorIndex: resourceConfig.colorIndex,
-      name: resourceConfig.label,
+      colorIndex: colorIndex,
+      name: label,
       percentage: percentage
     }];
   },
@@ -114,7 +115,8 @@ var NodesGridDials = React.createClass({
   },
 
   getDialConfig: function (node) {
-    var resourceConfig = ResourceTypes[this.props.selectedResource];
+    let {selectedResource} = this.props;
+    let resourceLabel = ResourcesUtil.getResourceLabel(selectedResource);
 
     if (node.isActive()) {
       var sliceData = this.getActiveSliceData(node);
@@ -125,7 +127,7 @@ var NodesGridDials = React.createClass({
             {sliceData.usedPercentage}%
           </span>,
           <span className="unit-label text-muted" key={'unit-label'}>
-            {resourceConfig.label}
+            {resourceLabel}
           </span>
         ]
       };
