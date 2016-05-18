@@ -48,14 +48,14 @@ ToggleButton.propTypes = {
   onChange: React.PropTypes.func,
 
   checkboxClassName: React.PropTypes.oneOfType([
-    React.PropTypes.string,
-    React.PropTypes.number,
-    React.PropTypes.array
+    React.PropTypes.array,
+    React.PropTypes.object,
+    React.PropTypes.string
   ]),
   className: React.PropTypes.oneOfType([
-    React.PropTypes.string,
-    React.PropTypes.number,
-    React.PropTypes.array
+    React.PropTypes.array,
+    React.PropTypes.object,
+    React.PropTypes.string
   ])
 }
 
