@@ -7,7 +7,6 @@ import HistoryStore from '../stores/HistoryStore';
 import MesosSummaryStore from '../stores/MesosSummaryStore';
 import ServiceSidePanelContents from './ServiceSidePanelContents';
 import StringUtil from '../utils/StringUtil';
-import TaskSidePanelContents from './TaskSidePanelContents';
 import Util from '../utils/Util';
 
 const METHODS_TO_BIND = [
@@ -101,16 +100,7 @@ class SidePanels extends mixin(StoreMixin) {
       return null;
     }
 
-    let {serviceName, taskID} = itemIDs;
-
-    if (taskID != null) {
-      return (
-        <TaskSidePanelContents
-          handlePanelSizeChange={this.handlePanelSizeChange}
-          itemID={taskID}
-          parentRouter={this.context.router} />
-      );
-    }
+    let {serviceName} = itemIDs;
 
     if (serviceName != null) {
       return (

@@ -1,4 +1,5 @@
 import React from 'react';
+import {RouteHandler} from 'react-router';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import AlertPanel from '../../components/AlertPanel';
@@ -115,6 +116,12 @@ var ServicesTab = React.createClass({
             </div>
           </div>
         </div>
+      );
+    }
+
+    if (this.props.params.taskID) {
+      return (
+        <RouteHandler />
       );
     }
 

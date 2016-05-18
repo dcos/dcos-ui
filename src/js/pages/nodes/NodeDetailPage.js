@@ -212,11 +212,20 @@ class NodeDetailPage extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) 
 
   render() {
     let node = this.internalStorage_get().node;
+    let {params} = this.props;
 
     if (!node) {
       return (
         <Page title="Nodes">
-          {this.getNotFound(this.props.params.nodeID)}
+          {this.getNotFound(params.nodeID)}
+        </Page>
+      );
+    }
+
+    if (params.taskID) {
+      return (
+        <Page title="Nodes">
+          <RouteHandler />
         </Page>
       );
     }
@@ -240,9 +249,8 @@ class NodeDetailPage extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) 
           </div>
           {this.tabs_getTabView()}
           <SidePanels
-            params={this.props.params}
+            params={params}
             openedPage="nodes" />
-          <RouteHandler />
         </div>
       </Page>
     );

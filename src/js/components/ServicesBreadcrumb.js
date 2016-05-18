@@ -9,7 +9,7 @@ class ServicesBreadcrumb extends React.Component {
   }
 
   render() {
-    const {serviceTreeItem} = this.props;
+    const {serviceTreeItem, taskID} = this.props;
     const groupId = serviceTreeItem.getId();
     const breadcrumbIcon = (
       <i className="icon
@@ -47,7 +47,7 @@ class ServicesBreadcrumb extends React.Component {
             </Link>
           );
 
-          if (id === groupId) {
+          if (id === groupId && taskID == null) {
             breadCrumbNode = (
               <span>{name}</span>
             );
@@ -65,6 +65,15 @@ class ServicesBreadcrumb extends React.Component {
       }, [])
     );
 
+    if (taskID != null) {
+      breadcrumbNodes.push(
+        <span className="crumb" key={taskID}>
+          {breadcrumbIcon}
+          <span>{taskID}</span>
+        </span>
+      );
+    }
+
     return (
       <div className="flex-box control-group">
         <h4 className="breadcrumbs flush-top inverse">
@@ -76,7 +85,8 @@ class ServicesBreadcrumb extends React.Component {
 }
 
 ServicesBreadcrumb.propTypes = {
-  serviceTreeItem: React.PropTypes.object
+  serviceTreeItem: React.PropTypes.object.isRequired,
+  taskID: React.PropTypes.string
 };
 
 module.exports = ServicesBreadcrumb;

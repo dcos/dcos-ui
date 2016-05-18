@@ -181,6 +181,32 @@ var MarathonStore = Store.createStore({
     return this.get('apps')[name];
   },
 
+  getServiceNameFromTaskID: function (taskID) {
+    let serviceName = taskID.split('.')[0].split('_');
+    return serviceName[serviceName.length - 1];
+  },
+
+  getServiceFromTaskID: function (taskID) {
+    let service = this.get('apps')[this.getServiceNameFromTaskID(taskID)];
+
+    if (service == null) {
+      return null;
+    }
+
+    return new Service(service.snapshot);
+  },
+
+  getTaskFromTaskID: function (taskID) {
+    let service = this.getServiceFromTaskID(taskID);
+    if (service == null || service.tasks == null || !service.tasks.length) {
+      return null;
+    }
+
+    return service.tasks.find(function (task) {
+      return task.id === taskID;
+    });
+  },
+
   processMarathonGroups: function (data) {
     let groups = new ServiceTree(data);
 

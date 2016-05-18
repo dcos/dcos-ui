@@ -47,7 +47,8 @@ module.exports = {
           {name: 'embed', value: 'group.groups'},
           {name: 'embed', value: 'group.apps'},
           {name: 'embed', value: 'group.apps.deployments'},
-          {name: 'embed', value: 'group.apps.counts'}
+          {name: 'embed', value: 'group.apps.counts'},
+          {name: 'embed', value: 'group.apps.tasks'}
         ];
 
         RequestUtil.json({
