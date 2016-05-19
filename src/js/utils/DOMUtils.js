@@ -127,8 +127,16 @@ var DOMUtils = {
       top + height / 2
     );
 
+    // If elAtPoint is null, then the element is off the screen. We return true
+    // here.
+    if (elAtPoint == null) {
+      return true;
+    }
+
     // We need to also use #contains because the elAtPoint may be a child.
-    return el === elAtPoint || el.contains(elAtPoint);
+    // We also need to check if elAtPoint contains el because it might select
+    // the parent even if the el is showing.
+    return el === elAtPoint || el.contains(elAtPoint) || elAtPoint.contains(el);
   },
 
   getDistanceFromTopOfParent: function (el) {
