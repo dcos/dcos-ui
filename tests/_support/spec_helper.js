@@ -134,6 +134,12 @@ Cypress.addParentCommand('configureCluster', function (configuration) {
   cy.route(/metadata(\?_timestamp=[0-9]+)?$/, 'fx:dcos/metadata');
 });
 
+Cypress.addParentCommand('clusterCleanup', function (fn) {
+  if (Cypress.env('FULL_INTEGRATION_TEST')) {
+    fn();
+  }
+});
+
 Cypress.addParentCommand('visitUrl', function (options) {
   var callback = function () {};
 

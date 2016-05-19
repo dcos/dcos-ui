@@ -61,7 +61,7 @@ describe('Installed Packages Tab', function () {
       .should('contain', 'Remove Repository');
   });
 
-  it('closes modal after uninstall is successful', function () {
+  xit('closes modal after uninstall is successful', function () {
     // Add test repositoty
     cy
       .get('.modal input')
