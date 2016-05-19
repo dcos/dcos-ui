@@ -3,20 +3,7 @@ import MesosSummaryUtil from '../utils/MesosSummaryUtil';
 import Framework from './Framework';
 import StringUtil from '../utils/StringUtil';
 
-module.exports = class ServicesList extends List {
-  constructor() {
-    super(...arguments);
-
-    // Replace list items instances of Framework
-    this.list = this.list.map(function (item) {
-      if (item instanceof Framework) {
-        return item;
-      } else {
-        return new Framework(item);
-      }
-    });
-  }
-
+class ServicesList extends List {
   filter(filters) {
     let services = this.getItems();
 
@@ -81,3 +68,7 @@ module.exports = class ServicesList extends List {
     return tasks;
   }
 };
+
+ServicesList.type = Framework;
+
+module.exports = ServicesList;

@@ -18,15 +18,6 @@ class UniversePackagesList extends List {
 
     // Pass in overloaded options and the rest of the arguments
     super(options, ...Array.prototype.slice(arguments, 1));
-
-    // Replace list items instances of UniversePackage.
-    this.list = this.list.map(function (item) {
-      if (item instanceof UniversePackage) {
-        return item;
-      } else {
-        return new UniversePackage(item);
-      }
-    });
   }
 
   getSelectedAndNonSelectedPackages() {
@@ -47,5 +38,7 @@ class UniversePackagesList extends List {
     };
   }
 }
+
+UniversePackagesList.type = UniversePackage;
 
 module.exports = UniversePackagesList;

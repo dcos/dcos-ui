@@ -11,9 +11,6 @@ class ServicePlanPhases extends List {
 
     // Find first phase where status is not complete
     this.getItems().some((phase, phaseIndex) => {
-      if (!(phase instanceof ServicePlanPhase)) {
-        phase = new ServicePlanPhase(phase);
-      }
       let complete = phase.isComplete();
 
       if (!complete) {
@@ -34,5 +31,7 @@ class ServicePlanPhases extends List {
   }
 
 }
+
+ServicePlanPhases.type = ServicePlanPhase;
 
 module.exports = ServicePlanPhases;
