@@ -84,9 +84,10 @@ class PageHeader extends React.Component {
     );
 
     let dividerClasses = classNames(
-      'container-pod container-pod-short flush-top flush-bottom',
+      'container-pod container-pod-short flush-top',
       'container-pod-divider-bottom container-pod-divider-bottom-align-right',
       'container-pod-divider-inverse',
+      {'flush-bottom': !!navigationTabs},
       dividerClassName
     );
 
