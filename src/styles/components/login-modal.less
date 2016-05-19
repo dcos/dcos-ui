@@ -32,7 +32,7 @@
     .modal-body {
       padding-bottom: 0;
       padding-right: 0;
-      padding-top: @base-spacing-unit * 2/3;
+      padding-top: @modal-body-padding-vertical;
     }
 
     .login-modal-heading {
@@ -46,23 +46,6 @@
   }
 }
 
-& when (@screen-mini-enabled) {
-
-  @media (min-width: @screen-mini) {
-
-    .modal {
-
-      &.login-modal {
-
-        .modal-body {
-          padding-top: @base-spacing-unit-screen-mini * 2/3;
-        }
-      }
-    }
-  }
-
-}
-
 & when (@screen-small-enabled) {
 
   @media (min-width: @screen-small) {
@@ -72,7 +55,7 @@
       &.login-modal {
 
         .modal-body {
-          padding-top: @base-spacing-unit-screen-small * 2/3;
+          padding-top: @modal-body-padding-vertical-screen-small;
         }
 
         .login-modal-content {
@@ -95,7 +78,7 @@
       &.login-modal {
 
         .modal-body {
-          padding-top: @base-spacing-unit-screen-medium * 2/3;
+          padding-top: @modal-body-padding-vertical-screen-medium;
         }
 
         .login-modal-content {
@@ -118,7 +101,7 @@
       &.login-modal {
 
         .modal-body {
-          padding-top: @base-spacing-unit-screen-large * 2/3;
+          padding-top: @modal-body-padding-vertical-screen-large;
         }
 
         .login-modal-content {
