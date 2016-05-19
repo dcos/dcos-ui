@@ -123,7 +123,14 @@ module.exports = class Service extends Item {
     return this.get('user');
   }
 
+  getVersions() {
+    return this.get('versions') || new Map();
+  }
+
   getVersionInfo() {
-    return this.get('versionInfo');
+    let currentVersionID = this.get('version');
+    let {lastConfigChangeAt, lastScalingAt} =  this.get('versionInfo');
+
+    return {lastConfigChangeAt, lastScalingAt, currentVersionID};
   }
 };

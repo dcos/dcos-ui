@@ -433,10 +433,25 @@ describe('Service', function () {
 
   });
 
+  describe('#getVersions', function () {
+
+    it('returns correct versions map', function () {
+      const versionID = '2016-03-22T10:46:07.354Z';
+      let service = new Service({
+        versions: new Map([[versionID]])
+      });
+
+      expect(service.getVersions())
+        .toEqual(new Map([[versionID]]));
+    });
+
+  });
+
   describe('#getVersionInfo', function () {
 
     it('returns correct version info', function () {
       let service = new Service({
+        version: '2016-03-22T10:46:07.354Z',
         versionInfo: {
           lastConfigChangeAt: '2016-03-22T10:46:07.354Z',
           lastScalingAt: '2016-03-22T10:46:07.354Z'
@@ -444,6 +459,7 @@ describe('Service', function () {
       });
 
       expect(service.getVersionInfo()).toEqual({
+        currentVersionID: '2016-03-22T10:46:07.354Z',
         lastConfigChangeAt: '2016-03-22T10:46:07.354Z',
         lastScalingAt: '2016-03-22T10:46:07.354Z'
       });
