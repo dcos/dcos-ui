@@ -171,16 +171,16 @@ class ServicePlanBlocks extends React.Component {
   }
 
   render() {
+    let {hoveredBlock, selectedBlock} = this.state;
     let {servicePlan} = this.props;
     let activePhase = servicePlan.getPhases().getActive();
     let phaseBlocks = activePhase.getBlocks();
     let blockCount = phaseBlocks.getItems().length;
 
-    let blocksHeadingContent = `Completed ${phaseBlocks.getComplete().length}
-      of ${blockCount}`;
+    let blocksHeadingContent = `Completed ${phaseBlocks.getComplete().length} of ${blockCount}`;
 
-    if (!!this.state.hoveredBlock || !!this.state.selectedBlock) {
-      let focusedBlock = this.state.selectedBlock || this.state.hoveredBlock;
+    if (!!selectedBlock || !!hoveredBlock) {
+      let focusedBlock = selectedBlock || hoveredBlock;
       blocksHeadingContent = `${focusedBlock.getName()}: ${focusedBlock.getStatus()}`;
     }
 
