@@ -1,4 +1,5 @@
 import Item from './Item';
+import ServicePlanStatusDisplayText from '../constants/ServicePlanStatusDisplayText';
 import ServicePlanStatusTypes from '../constants/ServicePlanStatusTypes';
 
 class ServicePlanBlock extends Item {
@@ -8,6 +9,11 @@ class ServicePlanBlock extends Item {
 
   getName() {
     return this.get('name');
+  }
+
+  getStatus() {
+    let status = this.get('status');
+    return ServicePlanStatusDisplayText[status] || status;
   }
 
   hasDecisionPoint() {
