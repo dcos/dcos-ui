@@ -60,6 +60,7 @@ class Breadcrumb extends React.Component {
 
   handleResize() {
     let availableWidth = this.getAvailableWidth();
+
     this.setState({
       availableWidth,
       collapsed: this.shouldCollapse(availableWidth, this.state.expandedWidth)
@@ -95,15 +96,15 @@ class Breadcrumb extends React.Component {
   getExpandedWidth() {
     // array/splat casts NodeList to array
     let listItems = [...ReactDOM.findDOMNode(this).children]
-      .filter(function (_, i) {
+      .filter(function (_, index) {
         // Filter out even nodes containing '>'
-        return i % 2;
+        return index % 2;
       });
 
     return listItems
-      .map((item, n) => {
-        let isFirstItem = n === 0;
-        let isLastItem = n === listItems.length - 1;
+      .map((item, index) => {
+        let isFirstItem = index === 0;
+        let isLastItem = index === listItems.length - 1;
         if (isFirstItem || isLastItem) {
           return this.getWidthFromExpandedItem(item);
         }
@@ -145,6 +146,33 @@ class Breadcrumb extends React.Component {
     });
 
     return namedRoutes;
+  }
+
+  getCurrentRouteParams() {
+    // Isolated for easier testing
+    return this.context.router.getCurrentParams();
+  }
+
+  getCrumb(label, route, params, key) {
+    return (
+      <li key={key}>
+        <Link to={route}
+            params={params}
+            title={label}>
+          {label}
+        </Link>
+      </li>
+    );
+  }
+
+  getCrumbDivider(key) {
+    return (
+      <li key={key} >
+        <IconChevron
+          className="icon icon-small"
+          isForward={true} />
+      </li>
+    );
   }
 
   shouldCollapse(availableWidth, expandedWidth) {
@@ -192,15 +220,10 @@ class Breadcrumb extends React.Component {
     }
     // Can return multiple route objects to get rendered in crumbs.
     // Useful for splitting a route parameter like a file path.
-    return [{
-      label,
-      route,
-      params
-    }];
+    return [{label, route, params}];
   }
 
   renderCrumbsFromRoute() {
-    let {router} = this.context;
     let {buildCrumb, shift} = this.props;
 
     if (buildCrumb == null) {
@@ -209,7 +232,7 @@ class Breadcrumb extends React.Component {
 
     let crumbKey = 1;
     let namedRoutes = this.getCurrentNamedRoutes();
-    let params = router.getCurrentParams();
+    let params = this.getCurrentRouteParams();
     // Remove n items from beginning
     let paths = Object.keys(namedRoutes).slice(shift);
 
@@ -230,26 +253,12 @@ class Breadcrumb extends React.Component {
       crumbObjects.forEach((crumbParams, crumbIndex) => {
         let {label, route, params} = crumbParams;
 
-        crumbs.push(
-          <li key={crumbKey++}>
-            <Link to={route}
-                params={params}
-                title={label}>
-              {label}
-            </Link>
-          </li>
-        );
-        // Push divider ( > )
+        crumbs.push(this.getCrumb(label, route, params, crumbKey++));
+
         if (pathIndex !== paths.length - 1
           || crumbIndex !== crumbObjects.length - 1) {
 
-          crumbs.push(
-            <li key={crumbKey++} >
-              <IconChevron
-                className="icon icon-small"
-                isForward={true} />
-            </li>
-          );
+          crumbs.push(this.getCrumbDivider(crumbKey++));
         }
       });
 
@@ -260,10 +269,8 @@ class Breadcrumb extends React.Component {
   render() {
     let classSet = classNames(
       'list-unstyled breadcrumb',
-      {
-        collapsed: this.state.collapsed,
-        inverse: this.props.inverse
-      }
+      {collapsed: this.state.collapsed},
+      this.props.breadcrumbClasses
     );
 
     return (
@@ -279,7 +286,7 @@ Breadcrumb.contextTypes = {
 };
 
 Breadcrumb.defaultProps = {
-  inverse: true,
+  breadcrumbClasses: 'inverse',
   // Remove root '/' by default
   shift: 1
 }
@@ -287,7 +294,11 @@ Breadcrumb.defaultProps = {
 Breadcrumb.propTypes = {
   // Function to override the processing of each crumb
   buildCrumb: PropTypes.func,
-  inverse: PropTypes.bool,
+  breadcrumbClasses: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.object,
+    PropTypes.string
+  ]),
   // Remove n crumbs from beginning of route crumbs
   shift: PropTypes.number
 }
