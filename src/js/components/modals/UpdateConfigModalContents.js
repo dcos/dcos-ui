@@ -8,9 +8,9 @@ import ServicePlan from '../../structs/ServicePlan';
 import UniversePackage from '../../structs/UniversePackage';
 
 const METHODS_TO_BIND = [
+  'getConfigSubmit',
   'handleAdvancedFormChange',
-  'handleConfigSave',
-  'getConfigSubmit'
+  'handleConfigSave'
 ];
 
 class UpdateConfigModal extends React.Component {
@@ -34,7 +34,7 @@ class UpdateConfigModal extends React.Component {
     let serviceMetadata = this.props.service.getMetadata();
     let {name, version} = serviceMetadata;
 
-    let {isValidated, model} = this.triggetConfigSubmit();
+    let {isValidated, model} = this.triggerConfigSubmit();
 
     if (isValidated) {
       // TODO: Create the proper action for updating the configuration,
@@ -46,7 +46,7 @@ class UpdateConfigModal extends React.Component {
   }
 
   getConfigSubmit(triggerSubmit) {
-    this.triggetConfigSubmit = triggerSubmit;
+    this.triggerConfigSubmit = triggerSubmit;
   }
 
   getUpdateErrorContent() {
@@ -124,13 +124,13 @@ class UpdateConfigModal extends React.Component {
 
     return (
       <AdvancedConfig
+        getTriggerSubmit={this.getConfigSubmit}
         model={currentConfiguration}
+        onChange={this.handleAdvancedFormChange}
         packageIcon={icon}
         packageName={name}
         packageVersion={version}
-        schema={schema}
-        onChange={this.handleAdvancedFormChange}
-        getTriggerSubmit={this.getConfigSubmit} />
+        schema={schema} />
     );
   }
 
