@@ -158,7 +158,9 @@ describe('DOMUtils', function () {
 
     it('should return false if element is not at coord', function () {
       global.document.elementFromPoint = function () {
-        return 'hi';
+        return {
+          contains: function () {return false;}
+        };
       };
 
       let result = DOMUtils.isElementOnTop(this.element);
