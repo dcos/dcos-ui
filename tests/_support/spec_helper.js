@@ -4,7 +4,6 @@ Cypress.addParentCommand('configureCluster', function (configuration) {
   }
 
   if (Cypress.env('FULL_INTEGRATION_TEST')) {
-
     // Assume login if not explicitly set to false
     if (configuration.logIn !== false) {
       cy.request(
@@ -13,9 +12,9 @@ Cypress.addParentCommand('configureCluster', function (configuration) {
         {password: 'deleteme', uid: 'bootstrapuser'}
       )
       .then(function (response) {
-        let cookies = response.headers['set-cookie'];
+        var cookies = response.headers['set-cookie'];
         cookies.forEach(function (cookie) {
-          let sessionID = cookie.split('=')[0];
+          var sessionID = cookie.split('=')[0];
           // Set cookies for cypress
           Cypress.Cookies.set(sessionID, response.body.token);
           // Set cookies for application
