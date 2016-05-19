@@ -1,4 +1,4 @@
-import classNames from 'classnames';
+import classNames from 'classnames/dedupe';
 import {Form, Modal} from 'reactjs-components';
 import React from 'react';
 
@@ -107,9 +107,14 @@ class FormModal extends React.Component {
   }
 
   getContent() {
+    let contentClasses = classNames(
+      'container container-pod flush-top flush-bottom',
+      this.props.contentClasses
+    );
+
     return (
       <div ref="form-wrapper"
-        className="container container-pod flush-top flush-bottom">
+        className={contentClasses}>
         {this.props.children}
         <Form
           className={this.getClassName(!!this.props.contentFooter)}
@@ -168,6 +173,11 @@ FormModal.defaultProps = {
 FormModal.propTypes = {
   buttonDefinition: React.PropTypes.array,
   children: React.PropTypes.node,
+  contentClasses: React.PropTypes.oneOfType([
+    React.PropTypes.array,
+    React.PropTypes.object,
+    React.PropTypes.string
+  ]),
   contentFooter: React.PropTypes.node,
   definition: React.PropTypes.array,
   disabled: React.PropTypes.bool,
