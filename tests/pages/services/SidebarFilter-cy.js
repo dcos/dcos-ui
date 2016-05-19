@@ -1,4 +1,4 @@
-describe('Sidebar Filter', function () {
+xdescribe('Sidebar Filter', function () {
   context('Filters services table', function () {
     beforeEach(function () {
       cy.configureCluster({
