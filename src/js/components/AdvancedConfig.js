@@ -31,6 +31,7 @@ class AdvancedConfig extends React.Component {
   render() {
     let {
       className,
+      headerText,
       model,
       onChange,
       packageIcon,
@@ -43,6 +44,7 @@ class AdvancedConfig extends React.Component {
       <div className={className}>
         <SchemaForm
           getTriggerSubmit={this.getTriggerSubmit}
+          headerText={headerText}
           model={model}
           onChange={onChange}
           schema={schema}
@@ -62,6 +64,7 @@ AdvancedConfig.defaultProps = {
 
 AdvancedConfig.propTypes = {
   getTriggerSubmit: React.PropTypes.func,
+  headerText: React.PropTypes.string,
   model: React.PropTypes.object,
   onChange: React.PropTypes.func,
   schema: React.PropTypes.object,
