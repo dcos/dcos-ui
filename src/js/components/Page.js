@@ -105,7 +105,7 @@ var Page = React.createClass({
         {this.getPageHeader(title, navigation)}
         <GeminiScrollbar autoshow={true} className="page-content
           container-scrollable inverse" ref="pageRef">
-          <div className="flex-container-col flex-shrink flex-grow container container-fluid container-pod container-pod-short-top">
+          <div className="flex-container-col container container-fluid container-pod container-pod-short-top">
             {this.getChildren()}
           </div>
         </GeminiScrollbar>
