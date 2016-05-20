@@ -69,7 +69,13 @@ class UpdateConfigModal extends React.Component {
 
   getPackageConfigurationModalFooter() {
     let {hasFormErrors} = this.state;
-    let {pendingRequest, updateError, updateSuccess} = this.props;
+    let {
+      handleErrorConfigEditClick,
+      onClose,
+      pendingRequest,
+      updateError,
+      updateSuccess
+    } = this.props;
 
     if (updateError) {
       return (
@@ -77,7 +83,7 @@ class UpdateConfigModal extends React.Component {
           <button
             disabled={pendingRequest}
             className="button flush-bottom button-wide"
-            onClick={this.props.handleErrorConfigEditClick}>
+            onClick={handleErrorConfigEditClick}>
             Edit Configuration
           </button>
         </div>
@@ -90,7 +96,7 @@ class UpdateConfigModal extends React.Component {
           <button
             disabled={pendingRequest}
             className="button button-success flush-bottom button-wide"
-            onClick={this.props.onClose}>
+            onClick={onClose}>
             <i className="icon icon-sprite icon-sprite-mini
               icon-sprite-mini-white icon-check-mark" />
           </button>
