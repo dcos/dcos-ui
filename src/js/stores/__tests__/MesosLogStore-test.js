@@ -6,8 +6,9 @@ jest.dontMock('../../mixins/GetSetMixin');
 jest.dontMock('../../structs/LogBuffer');
 jest.dontMock('../../structs/Item');
 jest.dontMock('../../structs/List');
-jest.dontMock('../../utils/RequestUtil');
 jest.dontMock('../../utils/Util');
+
+import {RequestUtil} from 'mesosphere-shared-reactjs';
 
 var ActionTypes = require('../../constants/ActionTypes');
 var AppDispatcher = require('../../events/AppDispatcher');
@@ -15,7 +16,6 @@ var EventTypes = require('../../constants/EventTypes');
 var LogBuffer = require('../../structs/LogBuffer');
 var MesosLogActions = require('../../events/MesosLogActions');
 var MesosLogStore = require('../MesosLogStore');
-var RequestUtil = require('../../utils/RequestUtil');
 
 describe('MesosLogStore', function () {
 

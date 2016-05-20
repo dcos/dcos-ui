@@ -2,7 +2,6 @@ jest.dontMock('../../constants/ActionTypes');
 jest.dontMock('../AppDispatcher');
 jest.dontMock('../../config/Config');
 jest.dontMock('../MesosSummaryActions');
-jest.dontMock('../../utils/RequestUtil');
 jest.dontMock('../../constants/TimeScales');
 
 jest.setMock('react-router', {
@@ -13,6 +12,7 @@ jest.setMock('react-router', {
 });
 
 import PluginTestUtils from 'PluginTestUtils';
+import {RequestUtil} from 'mesosphere-shared-reactjs';
 
 PluginTestUtils.loadPluginsByName({
   tracking: {enabled: true}
@@ -21,7 +21,6 @@ PluginTestUtils.loadPluginsByName({
 var AppDispatcher = require('../AppDispatcher');
 var Config = require('../../config/Config');
 var MesosSummaryActions = require('../MesosSummaryActions');
-var RequestUtil = require('../../utils/RequestUtil');
 var TimeScales = require('../../constants/TimeScales');
 
 global.analytics = {

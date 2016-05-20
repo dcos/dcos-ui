@@ -3,10 +3,11 @@ jest.dontMock('../UnitHealthActions');
 jest.dontMock('../../config/Config');
 jest.dontMock('../../constants/ActionTypes');
 
+import {RequestUtil} from 'mesosphere-shared-reactjs';
+
 var ActionTypes = require('../../constants/ActionTypes');
 var AppDispatcher = require('../AppDispatcher');
 var Config = require('../../config/Config');
-var RequestUtil = require('../../utils/RequestUtil');
 var UnitHealthActions = require('../UnitHealthActions');
 
 describe('UnitHealthActions', function () {

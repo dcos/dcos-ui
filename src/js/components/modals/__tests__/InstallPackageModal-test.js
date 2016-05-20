@@ -9,6 +9,7 @@ jest.dontMock('../../../mixins/TabsMixin');
 var React = require('react');
 /* eslint-enable no-unused-vars */
 var ReactDOM = require('react-dom');
+import {RequestUtil} from 'mesosphere-shared-reactjs';
 var TestUtils = require('react-addons-test-utils');
 
 var InstallPackageModal = require('../InstallPackageModal');
@@ -16,7 +17,6 @@ var JestUtil = require('../../../utils/JestUtil');
 var JestUtil = require('../../../utils/JestUtil');
 var packageDescribeFixture =
   require('../../../../../tests/_fixtures/cosmos/package-describe.json');
-var RequestUtil = require('../../../utils/RequestUtil');
 var UniversePackage = require('../../../structs/UniversePackage');
 
 JestUtil.unMockStores(['CosmosPackagesStore']);

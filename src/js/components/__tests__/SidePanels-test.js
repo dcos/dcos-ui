@@ -10,7 +10,6 @@ jest.dontMock('../../events/MarathonActions');
 jest.dontMock('../ServiceSidePanelContents');
 jest.dontMock('../SidePanelContents');
 jest.dontMock('../../utils/Util');
-jest.dontMock('../../utils/RequestUtil');
 jest.dontMock('../../structs/SummaryList');
 /* eslint-disable no-unused-vars */
 var React = require('react');

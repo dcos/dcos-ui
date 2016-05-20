@@ -7,6 +7,8 @@ jest.dontMock('./fixtures/MockPackageDescribeResponse.json');
 jest.dontMock('./fixtures/MockPackagesListResponse.json');
 jest.dontMock('./fixtures/MockPackagesSearchResponse.json');
 
+import {RequestUtil} from 'mesosphere-shared-reactjs';
+
 var AppDispatcher = require('../../events/AppDispatcher');
 var Config = require('../../config/Config');
 import {
@@ -33,7 +35,6 @@ var packageDescribeFixture =
 var packagesListFixture = require('./fixtures/MockPackagesListResponse.json');
 var packagesSearchFixture =
   require('./fixtures/MockPackagesSearchResponse.json');
-var RequestUtil = require('../../utils/RequestUtil');
 import {
   REQUEST_COSMOS_PACKAGES_LIST_ERROR,
   REQUEST_COSMOS_PACKAGES_LIST_SUCCESS,

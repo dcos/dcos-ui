@@ -1,3 +1,5 @@
+import {RequestUtil} from 'mesosphere-shared-reactjs';
+
 import {
   REQUEST_HEALTH_UNITS_SUCCESS,
   REQUEST_HEALTH_UNITS_ERROR,
@@ -10,7 +12,6 @@ import {
 } from '../constants/ActionTypes';
 import AppDispatcher from './AppDispatcher';
 import Config from '../config/Config';
-import RequestUtil from '../utils/RequestUtil';
 
 const UnitHealthActions = {
 
