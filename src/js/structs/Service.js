@@ -12,12 +12,20 @@ module.exports = class Service extends Item {
     return this.get('cmd');
   }
 
+  getCpus() {
+    return this.get('cpus');
+  }
+
   getContainer() {
     return this.get('container');
   }
 
   getDeployments() {
     return this.get('deployments');
+  }
+
+  getDisk() {
+    return this.get('disk');
   }
 
   getExecutor() {
@@ -68,6 +76,10 @@ module.exports = class Service extends Item {
 
   getLastScaled() {
     return this.getVersionInfo().lastScalingAt;
+  }
+
+  getMem() {
+    return this.get('mem');
   }
 
   getName() {

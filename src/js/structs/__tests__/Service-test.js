@@ -467,4 +467,33 @@ describe('Service', function () {
 
   });
 
+  describe('#getCpus', function () {
+    it('returns the correct cpus', function() {
+      let service = new Service({
+        cpus: 0.5
+      });
+
+      expect(service.getCpus()).toEqual(0.5);
+    })
+  });
+
+  describe('#getDisk', function () {
+    it('returns the correct disk', function () {
+      let service = new Service({
+        disk: 125
+      });
+
+      expect(service.getDisk()).toEqual(125);
+    });
+  });
+
+  describe('#getMem', function() {
+    it('returns the correct mem', function () {
+      let service = new Service({
+        mem: 49
+      });
+
+      expect(service.getMem()).toEqual(49);
+    })
+  });
 });
