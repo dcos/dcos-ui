@@ -66,6 +66,7 @@ const ResourcesUtil = {
     let rest = this.getAvailableResources(this.getDefaultResources());
     // We sort so we get the same color in future calls to this method
     rest.sort();
+
     return rest;
   },
 
