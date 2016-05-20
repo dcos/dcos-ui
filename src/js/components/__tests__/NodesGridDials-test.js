@@ -1,5 +1,5 @@
 jest.dontMock('../../utils/Util');
-jest.dontMock('../../constants/ResourceTypes');
+jest.dontMock('../../utils/ResourcesUtil');
 jest.dontMock('../NodesGridDials');
 
 var deepEqual = require('deep-equal');
@@ -10,7 +10,7 @@ var ReactDOM = require('react-dom');
 var TestUtils = require('react-addons-test-utils');
 
 var NodesGridDials = require('../NodesGridDials');
-var ResourceTypes = require('../../constants/ResourceTypes');
+var ResourcesUtil = require('../../utils/ResourcesUtil');
 var Node = require('../../structs/Node');
 
 var mockHost = {
@@ -46,7 +46,8 @@ describe('NodesGridDials', function () {
   describe('#getActiveSliceData', function () {
 
     beforeEach(function () {
-      this.resourceType = ResourceTypes.cpus;
+      this.resourceColor = ResourcesUtil.getResourceColor('cpus');
+      this.resourceLabel = ResourcesUtil.getResourceLabel('cpus');
       this.activeSlices = this.instance.getActiveSliceData(this.hosts[0]);
     });
 
@@ -64,21 +65,21 @@ describe('NodesGridDials', function () {
 
     it('contains a slice for the used resource', function () {
       var slice = this.activeSlices.data.find((datum) => {
-        return datum.name === this.resourceType.label
+        return datum.name === this.resourceLabel
       });
       expect(typeof slice).toEqual('object');
     });
 
     it('the used slice uses the correct color', function () {
       var slice = this.activeSlices.data.find((datum) => {
-        return datum.name === this.resourceType.label
+        return datum.name === this.resourceLabel
       });
-      expect(slice.colorIndex).toEqual(this.resourceType.colorIndex);
+      expect(slice.colorIndex).toEqual(this.resourceColor);
     });
 
     it('the used slice contains the correct percentage', function () {
       var slice = this.activeSlices.data.find((datum) => {
-        return datum.name === this.resourceType.label
+        return datum.name === this.resourceLabel
       });
       expect(slice.percentage).toEqual(50);
     });
@@ -123,7 +124,7 @@ describe('NodesGridDials', function () {
   describe('#getDialConfig', function () {
 
     beforeEach(function () {
-      this.resourceType = ResourceTypes.cpus;
+      this.resourceType = ResourcesUtil.cpus;
     });
 
     it('returns different configurations depending on the active paramter', function () {

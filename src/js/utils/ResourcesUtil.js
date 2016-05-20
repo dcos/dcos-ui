@@ -8,6 +8,15 @@ const DefaultResourceTypes = {
   disk: {label: 'Disk', colorID: 3}
 };
 
+// Let's create an instance of a Node with our default resources
+let fakeUsedResources = Object.keys(DefaultResourceTypes)
+.reduce(function (memo, resource) {
+  memo[resource] = 0;
+
+  return memo;
+}, {});
+let fakeNode = new Node({used_resources: fakeUsedResources});
+
 const usedColors = Object.keys(DefaultResourceTypes)
 .map(function (resource) {
   return DefaultResourceTypes[resource].colorID;
@@ -20,7 +29,7 @@ const availableColors = Array(9).fill().map(function (value, index) {
 
 function getAvailableColors() {
   let colors = availableColors.slice(0);
-  // Concat the array twice. This is in case there's many resource.
+  // Concat the array twice. In case there's many resources.
   // Unlikely that there will more than 4 anyways.
   return colors.concat(colors);
 }
@@ -37,18 +46,13 @@ const ResourcesUtil = {
       item = CompositeState.getServiceList().getItems()[0];
 
       if (!item) {
-        let fakeUsedResources = this.getDefaultResources()
-        .reduce(function (memo, resource) {
-          memo[resource] = 0;
-          return memo;
-        }, {});
-        item = new Node({used_resources: fakeUsedResources});
+        item = fakeNode;
       }
     }
 
     let resources = Object.keys(item.get('used_resources'));
 
-    if (excludeList.length) {
+    if (excludeList.length > 0) {
       resources = resources.filter(function (resource) {
         // If it's not in the exclude list, we want it
         return excludeList.indexOf(resource) === -1;
@@ -70,6 +74,8 @@ const ResourcesUtil = {
       return DefaultResourceTypes[resource].label;
     }
 
+    // If the resource name is 3 characters or less, let's uppercase it all
+    // otherwise we only capitalize the first letter.
     if (resource.length <= 3) {
       return resource.toUpperCase();
     } else {
@@ -82,6 +88,7 @@ const ResourcesUtil = {
 
     return resources.reduce((memo, resource) => {
       memo[resource] = this.getResourceLabel(resource);
+
       return memo;
     }, {});
   },
