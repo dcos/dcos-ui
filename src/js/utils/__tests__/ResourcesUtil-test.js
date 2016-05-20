@@ -5,7 +5,7 @@ import ResourcesUtil from '../ResourcesUtil';
 
 function createFnWithResources(used_resources) {
   let instance = new Node({used_resources});
-  return function () {return [instance]};
+  return function () {return new NodesList({items: [instance]});};
 }
 
 describe('ResourcesUtil', function () {
@@ -42,7 +42,6 @@ describe('ResourcesUtil', function () {
       CompositeState.getNodesList = createFnWithResources({foo: 0, bar: 0});
 
       let resources = ResourcesUtil.getAvailableResources();
-      // Should at least have cpu, mem, disk
       expect(resources).toEqual(['foo', 'bar']);
     });
 
@@ -50,7 +49,6 @@ describe('ResourcesUtil', function () {
       CompositeState.getServiceList = createFnWithResources({baz: 0, qux: 0});
 
       let resources = ResourcesUtil.getAvailableResources();
-      // Should at least have cpu, mem, disk
       expect(resources).toEqual(['baz', 'qux']);
     });
 
@@ -60,7 +58,6 @@ describe('ResourcesUtil', function () {
       });
 
       let resources = ResourcesUtil.getAvailableResources(['bar', 'qux']);
-      // Should at least have cpu, mem, disk
       expect(resources).toEqual(['foo', 'baz']);
     });
 
@@ -76,7 +73,7 @@ describe('ResourcesUtil', function () {
 
     it('returns resources that are unkown to the application', function () {
       let resources = ResourcesUtil.getAdditionalResources();
-      expect(resources).toEqual(['bananas']);
+      expect(resources).toEqual(['bananas', 'gpu']);
     });
 
     it('returns an empty array if there is no unkown resources', function () {
@@ -161,7 +158,7 @@ describe('ResourcesUtil', function () {
         cpus: 0,
         mem: 6,
         disk: 3,
-        gpu: 5,
+        gpu: 2,
         bananas: 1
       });
     });
