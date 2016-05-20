@@ -3,7 +3,9 @@ import {EventEmitter} from 'events';
 import {
   DCOS_CHANGE,
   MESOS_SUMMARY_CHANGE,
-  MARATHON_GROUPS_CHANGE
+  MARATHON_GROUPS_CHANGE,
+  MARATHON_SERVICE_VERSION_CHANGE,
+  MARATHON_SERVICE_VERSIONS_CHANGE
 } from '../constants/EventTypes';
 import Framework from '../structs/Framework';
 import MarathonStore from './MarathonStore';
@@ -13,6 +15,8 @@ import SummaryList from '../structs/SummaryList';
 
 const METHODS_TO_BIND = [
   'onMarathonGroupsChange',
+  'onMarathonServiceVersionChange',
+  'onMarathonServiceVersionsChange',
   'onMesosSummaryChange'
 ];
 
@@ -27,7 +31,8 @@ class DCOSStore extends EventEmitter {
 
     this.data = {
       marathon: {
-        serviceTree: new ServiceTree()
+        serviceTree: new ServiceTree(),
+        versions: new Map()
       },
       mesos: new SummaryList(),
       dataProcessed: false
@@ -37,6 +42,16 @@ class DCOSStore extends EventEmitter {
       {
         event: MARATHON_GROUPS_CHANGE,
         handler: this.onMarathonGroupsChange,
+        store: MarathonStore
+      },
+      {
+        event: MARATHON_SERVICE_VERSION_CHANGE,
+        handler: this.onMarathonServiceVersionChange,
+        store: MarathonStore
+      },
+      {
+        event: MARATHON_SERVICE_VERSIONS_CHANGE,
+        handler: this.onMarathonServiceVersionsChange,
         store: MarathonStore
       },
       {
@@ -72,6 +87,32 @@ class DCOSStore extends EventEmitter {
 
     this.data.marathon.serviceTree = serviceTree;
     this.data.dataProcessed = true;
+    this.emit(DCOS_CHANGE);
+  }
+
+  onMarathonServiceVersionChange({serviceID, versionID, version}) {
+    let {marathon:{versions}} = this.data;
+    let currentVersions = versions.get(serviceID);
+
+    if (!currentVersions) {
+      currentVersions = new Map();
+      versions.set(serviceID, currentVersions);
+    }
+
+    currentVersions.set(versionID, version);
+
+    this.emit(DCOS_CHANGE);
+  }
+
+  onMarathonServiceVersionsChange({serviceID, versions:nextVersions}) {
+    let {marathon:{versions}} = this.data;
+    let currentVersions = versions.get(serviceID);
+
+    if (currentVersions) {
+      nextVersions = new Map([...nextVersions, ...currentVersions]);
+    }
+
+    versions.set(serviceID, nextVersions);
     this.emit(DCOS_CHANGE);
   }
 
@@ -142,7 +183,7 @@ class DCOSStore extends EventEmitter {
    * @type {ServiceTree}
    */
   get serviceTree() {
-    let {marathon:{serviceTree}, mesos} = this.data;
+    let {marathon:{serviceTree, versions}, mesos} = this.data;
 
     // Create framework dict from Mesos data
     let frameworks = mesos.lastSuccessful().getServiceList()
@@ -154,13 +195,19 @@ class DCOSStore extends EventEmitter {
 
     // Merge data by framework name, as  Marathon doesn't know framework ids.
     return serviceTree.mapItems(function (item) {
-      if (item instanceof Framework) {
-        return new Framework(
-          Object.assign({}, frameworks[item.getName()], item)
-        );
+      if (item instanceof ServiceTree) {
+        return item;
       }
 
-      return item;
+      let options = {versions: versions.get(item.getId())};
+
+      if (item instanceof Framework) {
+        options = Object.assign(options, frameworks[item.getName()]);
+      }
+
+      return new item.constructor(
+        Object.assign(options, item)
+      );
     });
 
   }
