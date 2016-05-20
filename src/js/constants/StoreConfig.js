@@ -56,6 +56,8 @@ import {
   MARATHON_APPS_ERROR,
   MARATHON_DEPLOYMENTS_CHANGE,
   MARATHON_DEPLOYMENTS_ERROR,
+  MARATHON_SERVICE_CREATE_ERROR,
+  MARATHON_SERVICE_CREATE_SUCCESS,
 
   METADATA_CHANGE,
 
@@ -267,7 +269,9 @@ const ListenersDescription = {
       deploymentsSuccess: MARATHON_DEPLOYMENTS_CHANGE,
       deploymentsError: MARATHON_DEPLOYMENTS_ERROR,
       groupCreateSuccess: MARATHON_GROUP_CREATE_SUCCESS,
-      groupCreateError: MARATHON_GROUP_CREATE_ERROR
+      groupCreateError: MARATHON_GROUP_CREATE_ERROR,
+      serviceCreateSuccess: MARATHON_SERVICE_CREATE_SUCCESS,
+      serviceCreateError: MARATHON_SERVICE_CREATE_ERROR
     },
     unmountWhen: function (store, event) {
       if (event === 'appsSuccess') {

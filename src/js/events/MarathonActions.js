@@ -7,6 +7,8 @@ import {
   REQUEST_MARATHON_DEPLOYMENTS_SUCCESS,
   REQUEST_MARATHON_DEPLOYMENTS_ERROR,
   REQUEST_MARATHON_DEPLOYMENTS_ONGOING,
+  REQUEST_MARATHON_SERVICE_CREATE_ERROR,
+  REQUEST_MARATHON_SERVICE_CREATE_SUCCESS,
   REQUEST_MARATHON_SERVICE_VERSION_SUCCESS,
   REQUEST_MARATHON_SERVICE_VERSION_ERROR,
   REQUEST_MARATHON_SERVICE_VERSIONS_SUCCESS,
@@ -31,6 +33,26 @@ module.exports = {
       error: function (xhr) {
         AppDispatcher.handleServerAction({
           type: REQUEST_MARATHON_GROUP_CREATE_ERROR,
+          data: RequestUtil.getErrorFromXHR(xhr),
+          xhr
+        });
+      }
+    });
+  },
+
+  createService: function (data) {
+    RequestUtil.json({
+      url: `${Config.rootUrl}/marathon/v2/apps`,
+      method: 'POST',
+      data,
+      success: function () {
+        AppDispatcher.handleServerAction({
+          type: REQUEST_MARATHON_SERVICE_CREATE_SUCCESS
+        });
+      },
+      error: function (xhr) {
+        AppDispatcher.handleServerAction({
+          type: REQUEST_MARATHON_SERVICE_CREATE_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr),
           xhr
         });
