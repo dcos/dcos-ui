@@ -19,7 +19,7 @@ describe('ServiceUtil', function () {
         cmd: 'sleep 1000;'
       });
 
-      expect(ServiceUtil.convertFormModelToService(model)).toEqual(expectedService);
+      expect(ServiceUtil.createServiceFromFormModel(model)).toEqual(expectedService);
     });
   });
 

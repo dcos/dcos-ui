@@ -1,33 +1,35 @@
 import Service from '../structs/Service';
 
-const getFindPropertiesRecursive = function (service) {
-  let findPropertiesRecursive = function (item) {
-    return Object.keys(item).reduce(function (memo, subItem) {
-      if (item[subItem].type === 'object') {
-        memo[subItem] = findPropertiesRecursive(item[subItem].properties);
-        return memo;
-      }
+const getFindPropertiesRecursive = function (service, item) {
 
-      memo[subItem] = service.get(subItem) || item[subItem].default;
+  return Object.keys(item).reduce(function (memo, subItem) {
+    if (item[subItem].type === 'object') {
+      memo[subItem] = getFindPropertiesRecursive(service, item[subItem].properties);
+
       return memo;
-    }, {});
-  };
-  return findPropertiesRecursive;
+    }
+    memo[subItem] = service.get(subItem) || item[subItem].default;
+
+    return memo;
+  }, {});
 };
 
 const ServiceUtil = {
-  convertFormModelToService: function (formModel) {
-    formModel = Object.keys(formModel).reduce(function (memory, section) {
+  createServiceFromFormModel: function (formModel) {
+    let values = Object.keys(formModel).reduce(function (memo, section) {
       Object.keys(formModel[section]).forEach(function (attribute) {
-        memory[attribute] = formModel[section][attribute];
+        memo[attribute] = formModel[section][attribute];
       });
-      return memory;
+
+      return memo;
     }, {});
-    return new Service(formModel);
+
+    return new Service(values);
   },
 
   createFormModelFromSchema: function (service, schema) {
-    return getFindPropertiesRecursive(service)(schema.properties);
+
+    return getFindPropertiesRecursive(service, schema.properties);
   },
 
   getAppDefinitionFromService: function (service) {
