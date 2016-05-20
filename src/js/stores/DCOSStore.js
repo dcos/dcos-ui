@@ -12,6 +12,7 @@ import ChronosStore from '../stores/ChronosStore';
 import Framework from '../structs/Framework';
 import MarathonStore from './MarathonStore';
 import MesosSummaryStore from './MesosSummaryStore';
+import JobTree from '../structs/JobTree';
 import ServiceTree from '../structs/ServiceTree';
 import SummaryList from '../structs/SummaryList';
 
@@ -37,6 +38,7 @@ class DCOSStore extends EventEmitter {
         serviceTree: new ServiceTree(),
         versions: new Map()
       },
+      chronos: new JobTree(),
       mesos: new SummaryList(),
       dataProcessed: false
     };
@@ -229,6 +231,12 @@ class DCOSStore extends EventEmitter {
       );
     });
 
+  }
+
+  get jobTree() {
+    let {chronos} = this.data;
+
+    return chronos;
   }
 
   get dataProcessed() {
