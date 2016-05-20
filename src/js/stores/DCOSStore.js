@@ -26,7 +26,9 @@ class DCOSStore extends EventEmitter {
     });
 
     this.data = {
-      marathon: new ServiceTree(),
+      marathon: {
+        serviceTree: new ServiceTree()
+      },
       mesos: new SummaryList(),
       dataProcessed: false
     };
@@ -45,13 +47,30 @@ class DCOSStore extends EventEmitter {
     ];
   }
 
+  /**
+   * Fetch service version/configuration from Marathon
+   * @param {string} serviceID
+   * @param {string} versionID
+   */
+  fetchServiceVersion(serviceID, versionID) {
+    MarathonStore.fetchServiceVersion(serviceID, versionID);
+  }
+
+  /**
+   * Fetch service versions/configurations from Marathon
+   * @param {string} serviceID
+   */
+  fetchServiceVersions(serviceID) {
+    MarathonStore.fetchServiceVersions(serviceID);
+  }
+
   onMarathonGroupsChange() {
-    let groups = MarathonStore.get('groups');
-    if (!(groups instanceof ServiceTree)) {
+    let serviceTree = MarathonStore.get('groups');
+    if (!(serviceTree instanceof ServiceTree)) {
       return;
     }
 
-    this.data.marathon = groups;
+    this.data.marathon.serviceTree = serviceTree;
     this.data.dataProcessed = true;
     this.emit(DCOS_CHANGE);
   }
@@ -123,18 +142,18 @@ class DCOSStore extends EventEmitter {
    * @type {ServiceTree}
    */
   get serviceTree() {
-    let {marathon, mesos} = this.data;
+    let {marathon:{serviceTree}, mesos} = this.data;
 
     // Create framework dict from Mesos data
     let frameworks = mesos.lastSuccessful().getServiceList()
-      .reduceItems(function (map, framework) {
-        map[framework.name] = framework;
+      .reduceItems(function (memo, framework) {
+        memo[framework.name] = framework;
 
-        return map;
+        return memo;
       }, {});
 
     // Merge data by framework name, as  Marathon doesn't know framework ids.
-    return marathon.mapItems(function (item) {
+    return serviceTree.mapItems(function (item) {
       if (item instanceof Framework) {
         return new Framework(
           Object.assign({}, frameworks[item.getName()], item)
