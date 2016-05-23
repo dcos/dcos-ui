@@ -32,8 +32,7 @@ class DeployServiceModal extends mixin(InternalStorageMixin, StoreMixin) {
     this.state = {
       service: ServiceUtil.createServiceFromFormModel(model),
       model: model,
-      errorMessage: null,
-      schema: ServiceSchema
+      errorMessage: null
     };
 
     this.store_listeners = [
@@ -73,8 +72,7 @@ class DeployServiceModal extends mixin(InternalStorageMixin, StoreMixin) {
     this.setState({
       service: ServiceUtil.createServiceFromFormModel(model),
       model: model,
-      errorMessage: null,
-      schema: ServiceSchema
+      errorMessage: null
     });
   }
 
@@ -100,12 +98,10 @@ class DeployServiceModal extends mixin(InternalStorageMixin, StoreMixin) {
   handleChange({isValidated, model}) {
     this.internalStorage_update({hasFormErrors: !isValidated});
     if (isValidated) {
-      let {schema} = this.state;
       this.setState({
         service: ServiceUtil.createServiceFromFormModel(model),
         model: model,
-        errorMessage: null,
-        schema: schema
+        errorMessage: null
       });
     }
   }
@@ -164,8 +160,8 @@ class DeployServiceModal extends mixin(InternalStorageMixin, StoreMixin) {
       <div>
         <AdvancedConfig
           headerText="Deploy New Service"
-          schema={this.state.schema}
-          mode={this.state.model}
+          schema={ServiceSchema}
+          model={this.state.model}
           onChange={this.handleChange}
           getTriggerSubmit={this.getAdvancedSubmit} />
         {this.getErrorMessage()}
