@@ -11,7 +11,7 @@ const METHODS_TO_BIND = ['setSearchString'];
 
 class JobSearchFilter extends mixin(QueryParamsMixin) {
   constructor() {
-    super();
+    super(...arguments);
 
     this.state = {
       searchString: ''
