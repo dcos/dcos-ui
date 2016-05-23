@@ -13,31 +13,49 @@ let SERVICE_SCHEMA = {
           default: '/service',
           title: 'ID',
           description: 'The id for the service',
-          type: 'string'
+          type: 'string',
+          getter: function (service) {
+            return service.getId();
+          }
         },
         cpus: {
           title: 'CPUs',
           description: 'The amount of CPUs which are used for the service',
-          type:'number'
+          type:'number',
+          getter: function (service) {
+            return service.getCpus();
+          }
         },
         mem: {
           title: 'Mem (MiB)',
-          type: 'number'
+          type: 'number',
+          getter: function (service) {
+            return service.getMem();
+          }
         },
         disk: {
           title: 'Disk (MiB)',
-          type: 'number'
+          type: 'number',
+          getter: function (service) {
+            return service.getDisk();
+          }
         },
         instances: {
           title: 'Instances',
-          type: 'number'
+          type: 'number',
+          getter: function (service) {
+            return service.getInstancesCount();
+          }
         },
         cmd: {
           title: 'Command',
           default: 'sleep 1000;',
           description: 'The command which is executed by the service',
           type: 'string',
-          multiLine: true
+          multiLine: true,
+          getter: function (service) {
+            return service.getCommand();
+          }
         }
       },
       required: [
@@ -51,7 +69,14 @@ let SERVICE_SCHEMA = {
         image: {
           default: '',
           description: 'name of your docker image',
-          type: 'string'
+          type: 'string',
+          getter: function (service) {
+            let container = service.getContainerSettings();
+            if (container && container.docker && container.docker.image) {
+              return container.docker.image;
+            }
+            return null;
+          }
         }
       },
       required: []
