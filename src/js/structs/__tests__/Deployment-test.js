@@ -1,4 +1,5 @@
-let Deployment = require('../Deployment');
+import Deployment from '../Deployment';
+import ServicesList from '../ServicesList';
 
 describe('Deployment', function () {
 
@@ -25,6 +26,33 @@ describe('Deployment', function () {
       let deployment = new Deployment({version});
       expect(deployment.getStartTime()).toEqual(jasmine.any(Date));
       expect(deployment.getStartTime().toISOString()).toEqual(version);
+    });
+  });
+
+  describe('#getAffectedServices', function () {
+
+    it('returns an empty ServiceList by default', function () {
+      let deployment = new Deployment();
+      let affectedServices = deployment.getAffectedServices();
+      expect(affectedServices).toEqual(jasmine.any(ServicesList));
+      expect(affectedServices.getItems()).toEqual([]);
+    });
+
+    it('throws an error if service IDs are set but services are not', function () {
+      let deployment = new Deployment({affectedApps: ['app1', 'app2']});
+      expect(deployment.getAffectedServices.bind(deployment)).toThrow();
+    });
+
+    it('returns the populated ServiceList if it is up-to-date', function () {
+      let deployment = new Deployment({
+        affectedApps: ['app1', 'app2'],
+        affectedServices: new ServicesList({items: [
+          {id: 'app1'}, {id: 'app2'}
+        ]})
+      });
+      let affectedServices = deployment.getAffectedServices();
+      expect(affectedServices).toEqual(jasmine.any(ServicesList));
+      expect(affectedServices.getItems().length).toEqual(2);
     });
   });
 
