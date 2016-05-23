@@ -1,8 +1,7 @@
 const JobTableHeaderLabels = {
-  cpus: 'CPU',
-  mem: 'MEM',
   name: 'JOB NAME',
-  status: 'STATUS'
+  status: 'STATUS',
+  lastRunStatus: 'LAST RUN'
 };
 
 module.exports = JobTableHeaderLabels;

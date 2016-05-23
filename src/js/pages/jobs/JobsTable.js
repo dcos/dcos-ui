@@ -70,7 +70,7 @@ class JobsTable extends React.Component {
         render: this.renderLastRunStatus,
         sortable: true,
         sortFunction: ServiceTableUtil.propCompareFunctionFactory,
-        heading: 'Last Run'
+        heading
       }
     ];
   }
