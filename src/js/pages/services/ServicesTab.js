@@ -9,6 +9,10 @@ import ServiceFormModal from '../../components/modals/ServiceFormModal';
 import FilterHeadline from '../../components/FilterHeadline';
 import QueryParamsMixin from '../../mixins/QueryParamsMixin';
 import SaveStateMixin from '../../mixins/SaveStateMixin';
+import {
+  SERVICE_FORM_MODAL,
+  SERVICE_GROUP_FORM_MODAL
+} from '../../constants/ModalKeys';
 import Service from '../../structs/Service';
 import ServiceDetail from '../../components/ServiceDetail';
 import ServiceFilterTypes from '../../constants/ServiceFilterTypes';
@@ -82,19 +86,20 @@ var ServicesTab = React.createClass({
     this.setState({isServiceGroupFormModalShown: false});
   },
 
-  handleOpenServiceFormModal: function () {
-    this.setState({isServiceFormModalShown: true});
-  },
-
-  handleOpenGroupFormModal: function () {
-    this.setState({isServiceGroupFormModalShown: true});
-  },
-
   handleFilterChange: function (filterValues, filterType) {
     var stateChanges = Object.assign({}, this.state);
     stateChanges[filterType] = filterValues;
 
     this.setState(stateChanges);
+  },
+
+  handleOpenModal: function (id) {
+    let modalStates = {
+      isServiceFormModalShown: SERVICE_FORM_MODAL === id,
+      isServiceGroupFormModalShown: SERVICE_GROUP_FORM_MODAL === id
+    };
+
+    this.setState(modalStates);
   },
 
   resetFilterQueryParams: function () {
@@ -220,11 +225,12 @@ var ServicesTab = React.createClass({
             <ServiceSearchFilter
               handleFilterChange={this.handleFilterChange} />
             <button className="button button-stroke button-inverse"
-                    onClick={this.handleOpenGroupFormModal}>
+                    onClick={() =>
+                      this.handleOpenModal(SERVICE_GROUP_FORM_MODAL)}>
               Create Group
             </button>
             <button className="button button-success"
-              onClick={this.handleOpenServiceFormModal}>
+              onClick={() => this.handleOpenModal(SERVICE_FORM_MODAL)}>
               Deploy Service
             </button>
           </FilterBar>
