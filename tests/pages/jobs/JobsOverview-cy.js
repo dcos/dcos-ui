@@ -15,7 +15,7 @@ describe('Jobs Overview', function () {
 
     it('displays empty jobs overview page', function () {
       cy.get('.page-content .panel-content h3')
-        .should('to.have.text', 'No Jobs Found');
+        .should('to.have.text', 'No Jobs Created');
     });
   });
 });
