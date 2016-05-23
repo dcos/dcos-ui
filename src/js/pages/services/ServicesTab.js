@@ -5,7 +5,7 @@ import {StoreMixin} from 'mesosphere-shared-reactjs';
 import AlertPanel from '../../components/AlertPanel';
 import DCOSStore from '../../stores/DCOSStore';
 import FilterBar from '../../components/FilterBar';
-import DeployServiceModal from '../../components/modals/DeployServiceModal';
+import ServiceFormModal from '../../components/modals/ServiceFormModal';
 import FilterHeadline from '../../components/FilterHeadline';
 import QueryParamsMixin from '../../mixins/QueryParamsMixin';
 import SaveStateMixin from '../../mixins/SaveStateMixin';
@@ -55,7 +55,7 @@ var ServicesTab = React.createClass({
   getInitialState: function () {
     return Object.assign({}, DEFAULT_FILTER_OPTIONS, {
       isServiceGroupFormModalShown: false,
-      isDeployServiceModalShown: false
+      isServiceFormModalShown: false
     });
   },
 
@@ -74,16 +74,16 @@ var ServicesTab = React.createClass({
     });
   },
 
-  handleCloseDeployServiceModal: function () {
-    this.setState({isDeployServiceModalShown: false});
+  handleCloseServiceFormModal: function () {
+    this.setState({isServiceFormModalShown: false});
   },
 
   handleCloseGroupFormModal: function () {
     this.setState({isServiceGroupFormModalShown: false});
   },
 
-  handleOpenDeployServiceModal: function () {
-    this.setState({isDeployServiceModalShown: true});
+  handleOpenServiceFormModal: function () {
+    this.setState({isServiceFormModalShown: true});
   },
 
   handleOpenGroupFormModal: function () {
@@ -224,7 +224,7 @@ var ServicesTab = React.createClass({
               Create Group
             </button>
             <button className="button button-success"
-              onClick={this.handleOpenDeployServiceModal}>
+              onClick={this.handleOpenServiceFormModal}>
               Deploy Service
             </button>
           </FilterBar>
@@ -253,8 +253,8 @@ var ServicesTab = React.createClass({
           open={state.isServiceGroupFormModalShown}
           parentGroupId={item.getId()}
           onClose={this.handleCloseGroupFormModal}/>
-        <DeployServiceModal open={state.isDeployServiceModalShown}
-          onClose={this.handleCloseDeployServiceModal}/>
+        <ServiceFormModal open={state.isServiceFormModalShown}
+          onClose={this.handleCloseServiceFormModal}/>
       </div>
     );
   },
