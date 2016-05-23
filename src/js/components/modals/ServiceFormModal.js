@@ -11,10 +11,10 @@ import ServiceSchema from '../../constants/ServiceSchema';
 
 const METHODS_TO_BIND = [
   'getAdvancedSubmit',
-  'onMarathonStoreServiceCreateSuccess',
-  'onMarathonStoreServiceCreateError',
   'handleChange',
-  'handleSubmit'
+  'handleSubmit',
+  'onMarathonStoreServiceCreateError',
+  'onMarathonStoreServiceCreateSuccess'
 ];
 
 class ServiceFormModal extends mixin(InternalStorageMixin, StoreMixin) {
@@ -44,10 +44,6 @@ class ServiceFormModal extends mixin(InternalStorageMixin, StoreMixin) {
     METHODS_TO_BIND.forEach((method) => {
       this[method] = this[method].bind(this);
     });
-  }
-
-  componentDidMount() {
-    super.componentDidMount(...arguments);
   }
 
   componentWillReceiveProps(nextProps) {
