@@ -58,6 +58,11 @@ class DCOSStore extends EventEmitter {
         store: ChronosStore
       },
       {
+        event: MARATHON_DEPLOYMENTS_CHANGE,
+        handler: this.onMarathonDeploymentsChange,
+        store: MarathonStore
+      },
+      {
         event: MARATHON_GROUPS_CHANGE,
         handler: this.onMarathonGroupsChange,
         store: MarathonStore
@@ -112,7 +117,6 @@ class DCOSStore extends EventEmitter {
       .mapItems(function (deployment) {
         let ids = deployment.getAffectedServiceIds();
         let services = ids.map(serviceTree.findItemById.bind(serviceTree));
-
         return Object.assign({
           affectedServices: new ServicesList({items: services})
         }, deployment);
@@ -235,6 +239,13 @@ class DCOSStore extends EventEmitter {
    */
   get jobTree() {
     return ChronosStore.jobTree;
+  }
+
+  /**
+   * @type {DeploymentsList}
+   */
+  get deploymentsList() {
+    return this.data.marathon.deploymentsList;
   }
 
   /**
