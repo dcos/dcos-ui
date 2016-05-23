@@ -8,7 +8,7 @@ import IconWarning from '../icons/IconWarning';
 import SegmentedProgressBar from '../charts/SegmentedProgressBar';
 import ServicePlan from '../../structs/ServicePlan';
 import ServicePlanBlock from '../../structs/ServicePlanBlock';
-import ServicePlanBlocks from '../ServicePlanBlocks';
+import ServicePlanBlockDetails from '../ServicePlanBlockDetails';
 import ServicePlanStore from '../../stores/ServicePlanStore';
 
 const METHODS_TO_BIND = [
@@ -211,7 +211,7 @@ class ServicePlanProgressModalContents extends React.Component {
     if (this.state.detailsExpanded) {
       detailsLabel = 'Hide Details';
       upgradeDetails = (
-        <ServicePlanBlocks service={service} servicePlan={servicePlan} />
+        <ServicePlanBlockDetails service={service} servicePlan={servicePlan} />
       );
     }
 
