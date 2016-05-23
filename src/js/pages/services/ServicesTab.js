@@ -257,7 +257,7 @@ var ServicesTab = React.createClass({
           onClose={this.handleCloseServiceFormModal}/>
       </div>
     );
-  },
+  }
 
 });
 
