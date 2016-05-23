@@ -9,7 +9,7 @@ var Config = {
   cosmosAPIPrefix: '/package',
   secretsAPIPrefix: '',
   delayAfterErrorCount: 5,
-  documentationURI: 'https://dcos.io/docs',
+  documentationURI: 'https://dcos.io/docs/latest',
   downloadsURI: 'https://downloads.dcos.io',
   environment: '@@ENV',
   historyLength: 31,
