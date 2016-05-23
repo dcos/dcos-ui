@@ -8,7 +8,7 @@ const getFindPropertiesRecursive = function (service, item) {
 
       return memo;
     }
-    memo[subItem] = service.get(subItem) || item[subItem].default;
+    memo[subItem] = item[subItem].getter(service) || item[subItem].default;
 
     return memo;
   }, {});
