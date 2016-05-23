@@ -5,7 +5,7 @@ var Service = require('../../structs/Service');
 var ServiceUtil = require('../ServiceUtil');
 
 describe('ServiceUtil', function () {
-  describe('#converModelToService', function () {
+  describe('#createServiceFromFormModel', function () {
     it('should convert to the correct Service', function () {
       let model = {
         General: {
@@ -37,14 +37,20 @@ describe('ServiceUtil', function () {
                 default: '/service',
                 title: 'ID',
                 description: 'The id for the service',
-                type: 'string'
+                type: 'string',
+                getter: function(service) {
+                  return service.getId();
+                }
               },
               cmd: {
                 title: 'Command',
                 default: 'sleep 1000;',
                 description: 'The command which is executed by the service',
                 type: 'string',
-                multiLine: true
+                multiLine: true,
+                getter: function(service) {
+                  return service.getCommand();
+                }
               }
             }
           }
