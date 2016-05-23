@@ -4,20 +4,7 @@ import Node from './Node';
 import StringUtil from '../utils/StringUtil';
 import UnitHealthUtil from '../utils/UnitHealthUtil';
 
-module.exports = class NodesList extends List {
-  constructor() {
-    super(...arguments);
-
-    // Replace list items instances of Node
-    this.list = this.list.map(function (item) {
-      if (item instanceof Node) {
-        return item;
-      } else {
-        return new Node(item);
-      }
-    });
-  }
-
+class NodesList extends List {
   filter(filters) {
     let hosts = this.getItems();
 
@@ -72,3 +59,7 @@ module.exports = class NodesList extends List {
     return MesosSummaryUtil.sumResources(resourcesList);
   }
 };
+
+NodesList.type = Node;
+
+module.exports = NodesList;

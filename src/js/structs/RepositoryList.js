@@ -11,20 +11,13 @@ class RepositoryList extends List {
 
     // Pass in overloaded options and the rest of the arguments
     super(options, ...Array.prototype.slice(arguments, 1));
-
-    // Replace list items instances of Item.
-    this.list = this.list.map(function (item) {
-      if (item instanceof Item) {
-        return item;
-      } else {
-        return new Item(item);
-      }
-    });
   }
 
   getPriority(repository) {
     return this.getItems().indexOf(repository);
   }
 }
+
+RepositoryList.type = Item;
 
 module.exports = RepositoryList;
