@@ -67,6 +67,14 @@ class UpdateConfigModal extends React.Component {
     return null;
   }
 
+  getModalContent(servicePackage) {
+    if (servicePackage instanceof UniversePackage) {
+      return this.getPackageConfigurationModalContents(servicePackage);
+    }
+
+    return this.getMarathonConfigurationModalContents(servicePackage);
+  }
+
   getPackageConfigurationModalFooter() {
     let {hasFormErrors} = this.state;
     let {
@@ -150,10 +158,8 @@ class UpdateConfigModal extends React.Component {
 
     if (updateError) {
       modalContent = this.getUpdateErrorContent();
-    } else if (servicePackage instanceof UniversePackage) {
-      modalContent = this.getPackageConfigurationModalContents(servicePackage);
     } else {
-      modalContent = this.getMarathonConfigurationModalContents(servicePackage);
+      modalContent = this.getModalContent(servicePackage);
     }
 
     return (
