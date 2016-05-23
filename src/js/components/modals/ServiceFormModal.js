@@ -156,7 +156,7 @@ class ServiceFormModal extends mixin(InternalStorageMixin, StoreMixin) {
         <AdvancedConfig
           headerText="Deploy New Service"
           schema={ServiceSchema}
-          model={this.state.model}
+          model={this.props.model}
           onChange={this.handleChange}
           getTriggerSubmit={this.getAdvancedSubmit} />
         {this.getErrorMessage()}
