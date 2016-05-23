@@ -6,7 +6,6 @@ import {StoreMixin} from 'mesosphere-shared-reactjs';
 import AdvancedConfig from '../AdvancedConfig';
 import InternalStorageMixin from '../../mixins/InternalStorageMixin';
 import MarathonStore from '../../stores/MarathonStore';
-import Service from '../../structs/Service';
 import ServiceUtil from '../../utils/ServiceUtil';
 import ServiceSchema from '../../constants/ServiceSchema';
 
@@ -28,7 +27,7 @@ class DeployServiceModal extends mixin(InternalStorageMixin, StoreMixin) {
     });
 
     let model =
-      ServiceUtil.createFormModelFromSchema(new Service(), ServiceSchema);
+      ServiceUtil.createFormModelFromSchema(ServiceSchema);
     this.state = {
       service: ServiceUtil.createServiceFromFormModel(model),
       model: model,
@@ -68,7 +67,7 @@ class DeployServiceModal extends mixin(InternalStorageMixin, StoreMixin) {
   }
 
   resetState() {
-    let model = ServiceUtil.createFormModelFromSchema(new Service(), ServiceSchema)
+    let model = ServiceUtil.createFormModelFromSchema(ServiceSchema)
     this.setState({
       service: ServiceUtil.createServiceFromFormModel(model),
       model: model,

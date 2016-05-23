@@ -59,7 +59,7 @@ describe('ServiceUtil', function () {
         cmd: 'sleep 1000;'
       });
 
-      expect(ServiceUtil.createFormModelFromSchema(service, schema)).toEqual({
+      expect(ServiceUtil.createFormModelFromSchema(schema, service)).toEqual({
         General: {
           id: '/test',
           cmd: 'sleep 1000;'
