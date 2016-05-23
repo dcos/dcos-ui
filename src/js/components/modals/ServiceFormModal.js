@@ -17,7 +17,7 @@ const METHODS_TO_BIND = [
   'handleSubmit'
 ];
 
-class DeployServiceModal extends mixin(InternalStorageMixin, StoreMixin) {
+class ServiceFormModal extends mixin(InternalStorageMixin, StoreMixin) {
   constructor() {
     super(...arguments);
 
@@ -187,15 +187,15 @@ class DeployServiceModal extends mixin(InternalStorageMixin, StoreMixin) {
   }
 }
 
-DeployServiceModal.defaultProps = {
+ServiceFormModal.defaultProps = {
   onClose: function () {},
   open: false
 };
 
-DeployServiceModal.propTypes = {
+ServiceFormModal.propTypes = {
   open: React.PropTypes.bool,
   model: React.PropTypes.object,
   onClose: React.PropTypes.func
 };
 
-module.exports = DeployServiceModal;
+module.exports = ServiceFormModal;
