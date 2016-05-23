@@ -3,6 +3,7 @@ import {Store} from 'mesosphere-shared-reactjs';
 
 var AppDispatcher = require('../events/AppDispatcher');
 import ActionTypes from '../constants/ActionTypes';
+import Config from '../config/Config';
 import EventTypes from '../constants/EventTypes';
 var GetSetMixin = require('../mixins/GetSetMixin');
 import MetadataActions from '../events/MetadataActions';
@@ -29,6 +30,13 @@ var MetadataStore = Store.createStore({
 
   removeChangeListener: function (eventName, callback) {
     this.removeListener(eventName, callback);
+  },
+
+  buildDocsURI: function (path) {
+    let metadata = this.get('dcosMetadata');
+    let version = metadata && metadata.version || 'latest';
+    let docsVersion = version.replace(/(.*?)\.(.*?)\..*/, '$1.$2');
+    return `${Config.documentationURI}/${docsVersion}${path}`;
   },
 
   dispatcherIndex: AppDispatcher.register(function (payload) {

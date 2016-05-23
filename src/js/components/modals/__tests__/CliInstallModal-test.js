@@ -7,7 +7,7 @@ var ReactDOM = require('react-dom');
 
 var JestUtil = require('../../../utils/JestUtil');
 
-JestUtil.unMockStores([]);
+JestUtil.unMockStores(['MetadataStore']);
 
 var CliInstallModal = require('../CliInstallModal');
 

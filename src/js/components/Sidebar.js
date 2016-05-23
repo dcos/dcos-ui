@@ -12,7 +12,7 @@ import IconDCOSLogoMark from './icons/IconDCOSLogoMark';
 import {keyCodes} from '../utils/KeyboardUtil';
 var InternalStorageMixin = require('../mixins/InternalStorageMixin');
 var MesosSummaryStore = require('../stores/MesosSummaryStore');
-var MetadataStore = require('../stores/MetadataStore');
+import MetadataStore from '../stores/MetadataStore';
 import PluginSDK from 'PluginSDK';
 var SidebarActions = require('../events/SidebarActions');
 
@@ -145,7 +145,7 @@ var Sidebar = React.createClass({
   getFooter() {
     let defaultButtonSet = [(
       <Tooltip content="Documentation" key="button-docs" elementTag="a"
-        href={`${Config.documentationURI}/`} target="_blank"
+        href={MetadataStore.buildDocsURI('/')} target="_blank"
         wrapperClassName="button button-link tooltip-wrapper">
         <i className="icon icon-sprite icon-documents icon-sprite-medium clickable"></i>
       </Tooltip>
