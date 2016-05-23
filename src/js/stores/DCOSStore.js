@@ -4,6 +4,7 @@ import {
   CHRONOS_JOBS_CHANGE,
   DCOS_CHANGE,
   MESOS_SUMMARY_CHANGE,
+  MARATHON_DEPLOYMENTS_CHANGE,
   MARATHON_GROUPS_CHANGE,
   MARATHON_QUEUE_CHANGE,
   MARATHON_SERVICE_VERSION_CHANGE,
@@ -13,7 +14,9 @@ import ChronosStore from '../stores/ChronosStore';
 import Framework from '../structs/Framework';
 import MarathonStore from './MarathonStore';
 import MesosSummaryStore from './MesosSummaryStore';
+import DeploymentsList from '../structs/DeploymentsList';
 import JobTree from '../structs/JobTree';
+import ServicesList from '../structs/ServicesList';
 import ServiceTree from '../structs/ServiceTree';
 import SummaryList from '../structs/SummaryList';
 
@@ -21,6 +24,7 @@ const METHODS_TO_BIND = [
   'onChronosChange',
   'onMarathonGroupsChange',
   'onMarathonQueueChange',
+  'onMarathonDeploymentsChange',
   'onMarathonServiceVersionChange',
   'onMarathonServiceVersionsChange',
   'onMesosSummaryChange'
@@ -39,6 +43,7 @@ class DCOSStore extends EventEmitter {
       marathon: {
         serviceTree: new ServiceTree(),
         queue: new Map(),
+        deploymentsList: new DeploymentsList(),
         versions: new Map()
       },
       chronos: new JobTree(),
@@ -51,6 +56,10 @@ class DCOSStore extends EventEmitter {
         event: CHRONOS_JOBS_CHANGE,
         handler: this.onChronosChange,
         store: ChronosStore
+      },{
+        event: MARATHON_DEPLOYMENTS_CHANGE,
+        handler: this.onMarathonDeploymentsChange,
+        store: MarathonStore
       },
       {
         event: MARATHON_GROUPS_CHANGE,
@@ -95,6 +104,24 @@ class DCOSStore extends EventEmitter {
    */
   fetchServiceVersions(serviceID) {
     MarathonStore.fetchServiceVersions(serviceID);
+  }
+
+  onMarathonDeploymentsChange() {
+    let deploymentsList = MarathonStore.get('deployments');
+    let serviceTree = MarathonStore.get('groups');
+
+    // Populate deployments wth affected services
+    this.data.marathon.deploymentsList = deploymentsList
+      .mapItems(function (deployment) {
+        let ids = deployment.getAffectedServiceIds();
+        let services = ids.map(function (id) {
+          return serviceTree.findItemById(id);
+        });
+
+        return Object.assign({
+          affectedServices: new ServicesList({items: services})
+        }, deployment);
+      });
   }
 
   onMarathonGroupsChange() {
@@ -221,6 +248,13 @@ class DCOSStore extends EventEmitter {
    */
   get jobTree() {
     return this.data.chronos;
+  }
+
+  /**
+   * @type {DeploymentsList}
+   */
+  get deploymentsList() {
+    return this.data.marathon.deploymentsList;
   }
 
   /**
