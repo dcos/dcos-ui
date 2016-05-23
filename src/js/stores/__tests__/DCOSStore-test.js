@@ -2,6 +2,8 @@ jest.mock('../MarathonStore');
 jest.mock('../MesosSummaryStore');
 jest.dontMock('../DCOSStore');
 jest.dontMock('../../mixins/GetSetMixin');
+jest.dontMock('../../structs/DeploymentsList');
+jest.dontMock('../../structs/ServicesList');
 jest.dontMock('../../structs/ServiceTree');
 jest.dontMock('../../structs/SummaryList');
 jest.dontMock('../../structs/StateSummary');
@@ -9,6 +11,8 @@ jest.dontMock('../../structs/StateSummary');
 var DCOSStore = require('../DCOSStore');
 var MarathonStore = require('../MarathonStore');
 var MesosSummaryStore = require('../MesosSummaryStore');
+var DeploymentsList = require('../../structs/DeploymentsList');
+var ServicesList = require('../../structs/ServicesList');
 var ServiceTree = require('../../structs/ServiceTree');
 var SummaryList = require('../../structs/SummaryList');
 var StateSummary = require('../../structs/StateSummary');
@@ -18,14 +22,57 @@ describe('DCOSStore', function () {
   beforeEach(function () {
     // Mock Marathon and  Mesos  data and handle data change
     MarathonStore.__setKeyResponse('groups', new ServiceTree({apps: []}));
+    MarathonStore.__setKeyResponse('deployments', new DeploymentsList({
+      items: []
+    }));
     MesosSummaryStore.__setKeyResponse('states', new SummaryList({
       items: [new StateSummary({
         successful: true
       })]
     }));
 
+    DCOSStore.onMarathonDeploymentsChange();
     DCOSStore.onMarathonGroupsChange();
     DCOSStore.onMesosSummaryChange();
+  });
+
+  describe('#constructor', function () {
+    it('should expose an empty deployments list', function () {
+      expect(DCOSStore.deploymentsList.getItems().length).toEqual(0);
+    });
+  });
+
+  describe('#onMarathonDeploymentsChange', function () {
+    beforeEach(function () {
+      MarathonStore.__setKeyResponse('groups', new ServiceTree({apps: [
+        {id: '/app1', cmd: 'sleep 1000'},
+        {id: '/app2', cmd: 'sleep 1000'}
+      ]}));
+      MarathonStore.__setKeyResponse('deployments', new DeploymentsList({items: [
+        {
+          id: 'deployment-id',
+          version: '2001-01-01T01:01:01.001Z',
+          affectedApps: ['/app1', '/app2'],
+          currentStep: 2,
+          totalSteps: 3
+        }
+      ]}));
+      DCOSStore.onMarathonGroupsChange();
+      DCOSStore.onMarathonDeploymentsChange();
+    });
+
+    it('should update the deployments list', function () {
+      expect(DCOSStore.deploymentsList.getItems().length).toEqual(1);
+      expect(DCOSStore.deploymentsList.last().id).toEqual('deployment-id')
+    });
+
+    it('should populate the deployments with relevant services', function () {
+      let deployment = DCOSStore.deploymentsList.last();
+      let services = deployment.getAffectedServices();
+      expect(services).toEqual(jasmine.any(ServicesList));
+      expect(services.getItems().length).toEqual(2);
+    });
+
   });
 
   describe('#onMarathonGroupsChange', function () {
