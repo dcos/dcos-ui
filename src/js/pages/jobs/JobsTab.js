@@ -107,21 +107,7 @@ class JobsTab extends mixin(StoreMixin, QueryParamsMixin, SaveStateMixin) {
     );
   }
 
-  getContents(item) {
-    // Render loading screen
-    if (!DCOSStore.dataProcessed) {
-      return (
-        <div className="container container-fluid container-pod text-align-center
-            vertical-center inverse">
-          <div className="row">
-            <div className="ball-scale">
-              <div />
-            </div>
-          </div>
-        </div>
-      );
-    }
-
+  getJobTreeView(item) {
     let {state} = this;
     let filteredJobs = item.filterItemsByFilter({
       id: state.searchString
@@ -139,11 +125,31 @@ class JobsTab extends mixin(StoreMixin, QueryParamsMixin, SaveStateMixin) {
         <JobsTable jobs={filteredJobs} />
       </div>
     );
+  }
+
+  getContents(item) {
+    // Render loading screen
+    if (!DCOSStore.dataProcessed) {
+      return (
+        <div className="container container-fluid container-pod text-align-center
+            vertical-center inverse">
+          <div className="row">
+            <div className="ball-scale">
+              <div />
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    if (item instanceof JobTree && item.getItems().length > 0) {
+      return this.getJobTreeView(item);
+    }
 
     // Render empty panel
     return (
       <AlertPanel
-        title="No Jobs Found"
+        title="No Jobs Created"
         iconClassName="icon icon-sprite icon-sprite-jumbo
           icon-sprite-jumbo-white icon-jobs flush-top">
         <p className="flush-bottom">
