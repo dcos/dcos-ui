@@ -27,7 +27,7 @@ const ServiceUtil = {
     return new Service(values);
   },
 
-  createFormModelFromSchema: function (service, schema) {
+  createFormModelFromSchema: function (schema, service = new Service()) {
 
     return getFindPropertiesRecursive(service, schema.properties);
   },
