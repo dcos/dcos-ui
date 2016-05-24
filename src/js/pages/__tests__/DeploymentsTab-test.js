@@ -3,16 +3,15 @@ jest.unmock('../services/DeploymentsTab');
 jest.unmock('../../structs/DeploymentsList');
 jest.unmock('../../structs/Deployment');
 jest.unmock('../../mixins/GetSetMixin');
-jest.mock('../../stores/MarathonStore');
 
 /* eslint-disable no-unused-vars */
 import React from 'react';
 /* eslint-enable no-unused-vars */
 import ReactDOM from 'react-dom';
 
+import DCOSStore from '../../stores/DCOSStore';
 import DeploymentsTab from '../services/DeploymentsTab';
 import DeploymentsList from '../../structs/DeploymentsList';
-import MarathonStore from '../../stores/MarathonStore';
 
 describe('DeploymentsTab', function () {
 
@@ -28,7 +27,7 @@ describe('DeploymentsTab', function () {
         }
       ]
     });
-    MarathonStore.__setKeyResponse('deployments', deployments);
+    DCOSStore.deploymentsList = deployments;
     this.container = document.createElement('div');
     this.instance = ReactDOM.render(
       <DeploymentsTab />,

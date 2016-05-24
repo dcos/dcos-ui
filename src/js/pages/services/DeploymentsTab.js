@@ -1,10 +1,13 @@
 import moment from 'moment';
+import mixin from 'reactjs-mixin';
+/* eslint-disable no-unused-vars */
 import React from 'react';
+/* eslint-enable no-unused-vars */
+import {StoreMixin} from 'mesosphere-shared-reactjs';
 import {Table} from 'reactjs-components';
 
 import AlertPanel from '../../components/AlertPanel';
-import EventTypes from '../../constants/EventTypes';
-import MarathonStore from '../../stores/MarathonStore';
+import DCOSStore from '../../stores/DCOSStore';
 import ResourceTableUtil from '../../utils/ResourceTableUtil';
 import StringUtil from '../../utils/StringUtil'
 
@@ -41,33 +44,19 @@ const columns = [
   }
 ];
 
-class DeploymentsTab extends React.Component {
+class DeploymentsTab extends mixin(StoreMixin) {
 
   constructor() {
     super(...arguments);
-    this.onDeploymentsChange = this.onDeploymentsChange.bind(this);
 
-    this.state = {
-      deployments: MarathonStore.get('deployments')
-    };
+    this.state = {deployments: DCOSStore.deploymentsList};
+    this.store_listeners = [
+      {name: 'dcos', events: ['change'], suppressUpdate: true}
+    ];
   }
 
-  componentDidMount() {
-    MarathonStore.addChangeListener(
-      EventTypes.MARATHON_DEPLOYMENTS_CHANGE,
-      this.onDeploymentsChange
-    );
-  }
-
-  componentWillUnmount() {
-    MarathonStore.removeChangeListener(
-      EventTypes.MARATHON_DEPLOYMENTS_CHANGE,
-      this.onDeploymentsChange
-    );
-  }
-
-  onDeploymentsChange(deployments) {
-    this.setState({deployments});
+  onDcosStoreChange() {
+    this.setState({deployments: DCOSStore.deploymentsList});
   }
 
   renderEmpty() {
