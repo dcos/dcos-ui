@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import DeepEqual from 'deep-equal';
 import {Link} from 'react-router';
-import React from 'react';
+import React, {PropTypes} from 'react';
 import ReactDOM from 'react-dom';
 
 import IconChevron from './icons/IconChevron';
@@ -11,7 +11,33 @@ const COLLAPSE_BUFFER = 12;
 const LAST_ITEM_OFFSET = 150; // Difference between scrollWidth and outerWidth
 const PADDED_ICON_WIDTH = 38; // Width of icon + padding
 
-const {PropTypes} = React;
+/**
+ * Builds a crumb or multiple crumbs from the label and matching route
+ * @param {String} label Url path part
+ * @param {String} route Matching route name
+ * @param {Object} routeParams Router routeParams Object
+ * @param {Bool}   labelIsParam Boolean indicating if the label represents a
+ * route parameter.
+ * @return {Array} Array of crumbs containing the label and route.
+ * The returned label is the text shown for the crumb. The route is
+ * the route name which will be set on the Link-to attribute.
+ * Each returned crumb will be spliced into the resulting breadcrumb.
+ */
+const buildCrumb = function (label, route, routeParams, labelIsParam) {
+  // Extract param value as label e.g. (:userID -> Foo)
+  if (labelIsParam) {
+    // Decode value
+    label = decodeURIComponent(routeParams[label]);
+  } else {
+    // Split Label on space and - then capitalize each word and join.
+    // /foo-bar/ --> Foo Bar
+    label = StringUtil.idToTitle([label], ['-']);
+  }
+
+  // Can return multiple route objects to get rendered in crumbs.
+  // Useful for splitting a route parameter like a file path.
+  return [{label, route}];
+}
 
 class Breadcrumb extends React.Component {
   constructor() {
@@ -46,6 +72,12 @@ class Breadcrumb extends React.Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
+    let {buildCrumbCustomParams} = this.props;
+
+    if (!DeepEqual(nextProps.buildCrumbCustomParams, buildCrumbCustomParams)) {
+      return true;
+    }
+
     if (nextState.availableWidth == null || nextState.expandedWidth == null) {
       this.updateDimensions();
 
@@ -153,11 +185,11 @@ class Breadcrumb extends React.Component {
     return this.context.router.getCurrentParams();
   }
 
-  getCrumb(label, route, params, key) {
+  getCrumb(label, route, key) {
     return (
       <li key={key}>
         <Link to={route}
-            params={params}
+            params={this.getCurrentRouteParams()}
             title={label}>
           {label}
         </Link>
@@ -183,56 +215,14 @@ class Breadcrumb extends React.Component {
 
     return expandedWidth >= availableWidth + COLLAPSE_BUFFER;
   }
-  /**
-   * Builds a crumb or multiple crumbs from the label and matching route
-   * @param  {String} label Url path part
-   * @param  {String} route Matching route name
-   * @param {Object} routeParams Router routeParams Object
-   * @param {Bool} labelIsParam Boolean indicating if the label represents a
-   * route parameter.
-   * @return {Array} Array of crumbs containing the label, route and route
-   * params. The returned label is the text shown for the crumb. The route is
-   * the route name which will be set on the Link-to attribute. The params will
-   * also be set on the Link tag. Each returned crumb will be spliced into the
-   * resulting breadcrumb.
-   */
-  buildCrumb(label, route, routeParams, labelIsParam) {
-    // Split label on whitespace and -
-    let splitLabelRegex = /[\s-]+/;
-    let joinLabelCharacter = ' ';
-    let params = {};
-
-    if (labelIsParam) {
-      // Extract param value as label e.g. (:userID -> Foo)
-      // and add param to params.
-      //
-      // Remove colon first
-      let paramName = label.slice(1);
-      // Decode value
-      label = decodeURIComponent(routeParams[paramName]);
-      params[paramName] = label;
-    } else {
-      // Split Label on space and - then capitalize each word and join.
-      // /foo-bar/ --> Foo Bar
-      label = label.split(splitLabelRegex).map(function (word) {
-        return StringUtil.capitalize(word);
-      }).join(joinLabelCharacter);
-    }
-    // Can return multiple route objects to get rendered in crumbs.
-    // Useful for splitting a route parameter like a file path.
-    return [{label, route, params}];
-  }
 
   renderCrumbsFromRoute() {
-    let {buildCrumb, shift} = this.props;
-
-    if (buildCrumb == null) {
-      buildCrumb = this.buildCrumb;
-    }
+    let {buildCrumb, buildCrumbCustomParams, shift} = this.props;
 
     let crumbKey = 1;
     let namedRoutes = this.getCurrentNamedRoutes();
     let params = this.getCurrentRouteParams();
+
     // Remove n items from beginning
     let paths = Object.keys(namedRoutes).slice(shift);
 
@@ -242,18 +232,23 @@ class Breadcrumb extends React.Component {
       // Decode Label
       let label = decodeURIComponent(pathParts[pathParts.length - 1]);
       let labelIsParam = label.charAt(0) === ':' && label.slice(1) in params;
+      if (labelIsParam) {
+        // Remove colon
+        label = label.slice(1);
+      }
 
       let crumbObjects = buildCrumb(
         label,
         name,
         params,
-        labelIsParam
+        labelIsParam,
+        buildCrumbCustomParams
       );
 
       crumbObjects.forEach((crumbParams, crumbIndex) => {
-        let {label, route, params} = crumbParams;
+        let {label, route} = crumbParams;
 
-        crumbs.push(this.getCrumb(label, route, params, crumbKey++));
+        crumbs.push(this.getCrumb(label, route, crumbKey++));
 
         if (pathIndex !== paths.length - 1
           || crumbIndex !== crumbObjects.length - 1) {
@@ -287,6 +282,7 @@ Breadcrumb.contextTypes = {
 
 Breadcrumb.defaultProps = {
   breadcrumbClasses: 'inverse',
+  buildCrumb: buildCrumb,
   // Remove root '/' by default
   shift: 1
 }
@@ -294,6 +290,9 @@ Breadcrumb.defaultProps = {
 Breadcrumb.propTypes = {
   // Function to override the processing of each crumb
   buildCrumb: PropTypes.func,
+  // Object of custom params to pass to buildCrumb. For waiting on asynchronous
+  // calls for params, to trigger Breadcrumb's shouldComponentUpdate.
+  buildCrumbCustomParams: PropTypes.object,
   breadcrumbClasses: PropTypes.oneOfType([
     PropTypes.array,
     PropTypes.object,
