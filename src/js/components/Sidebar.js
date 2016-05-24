@@ -13,6 +13,7 @@ import {keyCodes} from '../utils/KeyboardUtil';
 var InternalStorageMixin = require('../mixins/InternalStorageMixin');
 var MesosSummaryStore = require('../stores/MesosSummaryStore');
 import MetadataStore from '../stores/MetadataStore';
+import NotificationStore from '../stores/NotificationStore';
 import PluginSDK from 'PluginSDK';
 var SidebarActions = require('../events/SidebarActions');
 
@@ -101,6 +102,7 @@ var Sidebar = React.createClass({
     );
 
     return menuItems.map((routeKey) => {
+      let notificationCount = NotificationStore.getNotificationCount(routeKey);
       var route = this.context.router.namedRoutes[routeKey];
       // Figure out if current route is active
       var isActive = route.handler.routeConfig.matches.test(currentPath);
@@ -117,13 +119,26 @@ var Sidebar = React.createClass({
         'selected': isActive
       });
 
+      let sidebarText = (
+        <span className="sidebar-menu-item-label h4 flush">
+          {route.handler.routeConfig.label}
+        </span>
+      );
+
+      if (notificationCount > 0) {
+        sidebarText = (
+          <span className="sidebar-menu-item-label h4 flush badge-container badge-primary">
+            {route.handler.routeConfig.label}
+            <span className="badge text-align-center">{notificationCount}</span>
+          </span>
+        );
+      }
+
       return (
         <li className={itemClassSet} key={route.name}>
           <Link to={route.name}>
             <i className={classNames(iconClasses)}></i>
-            <span className="sidebar-menu-item-label h4 flush">
-              {route.handler.routeConfig.label}
-            </span>
+            {sidebarText}
           </Link>
         </li>
       );

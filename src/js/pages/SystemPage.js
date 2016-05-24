@@ -5,6 +5,7 @@ import React from 'react';
 /* eslint-enable no-unused-vars */
 import {Hooks} from 'PluginSDK';
 import Page from '../components/Page';
+import NotificationStore from '../stores/NotificationStore';
 import SidebarActions from '../events/SidebarActions';
 import TabsUtil from '../utils/TabsUtil';
 import TabsMixin from '../mixins/TabsMixin';
@@ -84,13 +85,25 @@ class SystemPage extends mixin(TabsMixin) {
   }
 
   getRoutedItem(tab) {
-    return (
+    let notificationCount = NotificationStore.getNotificationCount(tab);
+    let link = (
       <Link
         to={tab}
         className="tab-item-label inverse flush">
         {SYSTEM_TABS[tab]}
       </Link>
     );
+
+    if (notificationCount > 0) {
+      return (
+        <span className="badge-container badge-primary">
+          {link}
+          <span className="badge text-align-center">{notificationCount}</span>
+        </span>
+      );
+    }
+
+    return link;
   }
 
   getNavigation() {
