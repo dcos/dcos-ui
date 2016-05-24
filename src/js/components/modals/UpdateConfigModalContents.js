@@ -31,10 +31,8 @@ class UpdateConfigModal extends React.Component {
   }
 
   handleConfigSave() {
-    let serviceMetadata = this.props.service.getMetadata();
-    let {name, version} = serviceMetadata;
-
     let {isValidated, model} = this.triggerConfigSubmit();
+    let {name, version} = this.props.service.getMetadata();
 
     if (isValidated) {
       // TODO: Create the proper action for updating the configuration,
