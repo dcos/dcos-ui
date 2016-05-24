@@ -7,7 +7,7 @@ var Config = {
   acsAPIPrefix: '/acs/api/v1',
   networkingAPIPrefix: '/networking/api/v1',
   cosmosAPIPrefix: '/package',
-  secretsAPIPrefix: '',
+  secretsAPIPrefix: '/secrets/v1',
   delayAfterErrorCount: 5,
   documentationURI: 'https://dcos.io/docs',
   downloadsURI: 'https://downloads.dcos.io',
