@@ -168,7 +168,7 @@ class SidebarFilter extends mixin(QueryParamsMixin) {
 
   getHealthNodes() {
     let definition = [{
-      fieldType: 'checkboxMultiple',
+      fieldType: 'checkbox',
       name: 'healthNodes',
       value: this.getHealthCheckboxes(),
       writeType: 'input'
