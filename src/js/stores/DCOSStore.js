@@ -216,7 +216,7 @@ class DCOSStore extends EventEmitter {
     return this.data.dataProcessed;
   }
 
-  static get storeID() {
+  get storeID() {
     return 'dcos';
   }
 }
