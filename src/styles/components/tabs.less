@@ -1,4 +1,6 @@
 ul.tabs {
+  align-items: stretch;
+  display: flex;
   margin-left: 0;
   margin-top: 0;
 
@@ -7,30 +9,33 @@ ul.tabs {
   }
 
   .tab-item {
+    align-items: stretch;
+    display: flex;
     margin: 0px;
     margin-right: @base-spacing-unit * 0.5;
-    padding-bottom: @container-pod-short-padding-vertical * 0.5;
-    position: relative;
-
-    &:after {
-      background: @body-text-link-text-color;
-      bottom: -1px;
-      content: '';
-      display: block;
-      height: 3px;
-      left: 0px;
-      opacity: 0;
-      position: absolute;
-      width: 100%;
-    }
 
     &:last-child {
       margin-right: 0px;
     }
 
+    &.active {
+      .tab-item-label {
+        .tab-label-text {
+          &:after {
+            opacity: 1;
+          }
+        }
+      }
+    }
+
     .tab-item-label {
+      align-items: stretch;
       color: inherit;
       cursor: pointer;
+      display: inline-flex;
+      padding-bottom: @container-pod-short-padding-vertical * 0.5;
+      position: relative;
+      white-space: nowrap;
 
       &:hover {
         color: color-lighten(@neutral, 20);
@@ -40,18 +45,30 @@ ul.tabs {
       &:active {
         color: color-lighten(@neutral, 30);
       }
-    }
 
-    &.active {
-      color: @gray;
-      .tab-item-label {
-        color: inherit;
+      .badge-container,
+      .tab-label-text {
+        display: inline-block;
       }
 
-      &:after {
-        opacity: 1;
+      .tab-label-text {
+        position: relative;
+
+        &:after {
+          background: @body-text-link-text-color;
+          bottom: @container-pod-short-padding-vertical * -0.5 - 1;
+          content: '';
+          display: block;
+          height: 3px;
+          left: 0px;
+          opacity: 0;
+          position: absolute;
+          width: 100%;
+        }
       }
+
     }
+
   }
 
   &.inverse {
@@ -87,7 +104,16 @@ ul.tabs {
     ul.tabs {
       .tab-item {
         margin-right: @base-spacing-unit-screen-small * 0.5;
-        padding-bottom: @container-pod-short-padding-vertical-screen-small * 0.5;
+
+        .tab-item-label {
+          padding-bottom: @container-pod-short-padding-vertical * 0.5;
+
+          .tab-label-text {
+            &:after {
+              bottom: @container-pod-short-padding-vertical * -0.5 - 1;
+            }
+          }
+        }
       }
     }
   }
@@ -100,7 +126,16 @@ ul.tabs {
     ul.tabs {
       .tab-item {
         margin-right: @base-spacing-unit-screen-medium * 0.5;
-        padding-bottom: @container-pod-short-padding-vertical-screen-medium * 0.5;
+
+        .tab-item-label {
+          padding-bottom: @container-pod-short-padding-vertical-screen-medium * 0.5;
+
+          .tab-label-text {
+            &:after {
+              bottom: @container-pod-short-padding-vertical-screen-medium * -0.5 - 1;
+            }
+          }
+        }
       }
     }
   }
@@ -113,7 +148,16 @@ ul.tabs {
     .tabs {
       .tab-item {
         margin-right: @base-spacing-unit-screen-large * 0.5;
-        padding-bottom: @container-pod-short-padding-vertical-screen-large * 0.5;
+
+        .tab-item-label {
+          padding-bottom: @container-pod-short-padding-vertical-screen-large * 0.5;
+
+          .tab-label-text {
+            &:after {
+              bottom: @container-pod-short-padding-vertical-screen-large * -0.5 - 1;
+            }
+          }
+        }
       }
     }
   }

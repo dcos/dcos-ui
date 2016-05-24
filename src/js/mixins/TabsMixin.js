@@ -66,7 +66,9 @@ const TabsMixin = {
       <span
         className={tabLabelClass}
         onClick={this.tabs_handleTabClick.bind(this, tab)}>
-        {this.tabs_tabs[tab]}
+        <span className="tab-label-text">
+          {this.tabs_tabs[tab]}
+        </span>
       </span>
     );
   },
@@ -96,25 +98,33 @@ const TabsMixin = {
   tabs_getRoutedItem(customClasses, tab) {
     let notificationCount = NotificationStore.getNotificationCount(tab);
     let tabLabelClass = classNames(customClasses, {'tab-item-label': true});
-    let link = (
+
+    if (notificationCount > 0) {
+      return (
+        <Link
+          to={tab}
+          className={tabLabelClass}
+          onClick={this.tabs_handleTabClick.bind(this, tab)}>
+          <span className="tab-label-text">
+            {this.tabs_tabs[tab]}
+          </span>
+          <span className="badge-container badge-primary">
+            <span className="badge text-align-center">{notificationCount}</span>
+          </span>
+        </Link>
+      );
+    }
+
+    return (
       <Link
         to={tab}
         className={tabLabelClass}
         onClick={this.tabs_handleTabClick.bind(this, tab)}>
-        {this.tabs_tabs[tab]}
+        <span className="tab-label-text">
+          {this.tabs_tabs[tab]}
+        </span>
       </Link>
     );
-
-    if (notificationCount > 0) {
-      return (
-        <span className="badge-container badge-primary">
-          {link}
-          <span className="badge text-align-center">{notificationCount}</span>
-        </span>
-      );
-    }
-
-    return link;
   },
 
   /**
