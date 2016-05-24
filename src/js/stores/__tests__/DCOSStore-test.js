@@ -11,6 +11,7 @@ jest.dontMock('../../structs/StateSummary');
 var DCOSStore = require('../DCOSStore');
 var MarathonStore = require('../MarathonStore');
 var MesosSummaryStore = require('../MesosSummaryStore');
+var NotificationStore = require('../NotificationStore');
 var DeploymentsList = require('../../structs/DeploymentsList');
 var ServicesList = require('../../structs/ServicesList');
 var ServiceTree = require('../../structs/ServiceTree');
@@ -57,6 +58,7 @@ describe('DCOSStore', function () {
           totalSteps: 3
         }
       ]}));
+      spyOn(NotificationStore, 'addNotification');
       DCOSStore.onMarathonGroupsChange();
       DCOSStore.onMarathonDeploymentsChange();
     });
@@ -71,6 +73,11 @@ describe('DCOSStore', function () {
       let services = deployment.getAffectedServices();
       expect(services).toEqual(jasmine.any(ServicesList));
       expect(services.getItems().length).toEqual(2);
+    });
+
+    it('should update the notification store', function () {
+      expect(NotificationStore.addNotification)
+        .toHaveBeenCalledWith('services-deployments', 'deployment-count', 1);
     });
 
   });
