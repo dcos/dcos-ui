@@ -5,6 +5,8 @@ import {
   AUTH_USER_LOGOUT_SUCCESS,
   AUTH_USER_LOGOUT_ERROR,
 
+  CHRONOS_CHANGE,
+
   CONFIG_LOADED,
   CONFIG_ERROR,
 
@@ -85,6 +87,7 @@ import {
   VISIBILITY_CHANGE
 } from './EventTypes';
 import AuthStore from '../stores/AuthStore';
+import ChronosStore from '../stores/ChronosStore';
 import ConfigStore from '../stores/ConfigStore';
 import DCOSStore from '../stores/DCOSStore';
 import HistoryStore from '../stores/HistoryStore';
@@ -110,6 +113,17 @@ const ListenersDescription = {
       error: AUTH_USER_LOGIN_ERROR,
       logoutSuccess: AUTH_USER_LOGOUT_SUCCESS,
       logoutError: AUTH_USER_LOGOUT_ERROR
+    },
+    unmountWhen: function () {
+      return true;
+    },
+    listenAlways: true
+  },
+
+  chronos: {
+    store: ChronosStore,
+    events: {
+      change: CHRONOS_CHANGE
     },
     unmountWhen: function () {
       return true;
