@@ -2,6 +2,10 @@ import mixin from 'reactjs-mixin';
 import {Modal} from 'reactjs-components';
 import React from 'react';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
+import Ace from 'react-ace';
+
+import 'brace/mode/json';
+import 'brace/theme/monokai';
 
 import AdvancedConfig from '../AdvancedConfig';
 import InternalStorageMixin from '../../mixins/InternalStorageMixin';
@@ -31,6 +35,7 @@ class ServiceFormModal extends mixin(InternalStorageMixin, StoreMixin) {
     this.state = {
       service: ServiceUtil.createServiceFromFormModel(model),
       model: model,
+      json: true,
       errorMessage: null
     };
 
@@ -151,6 +156,21 @@ class ServiceFormModal extends mixin(InternalStorageMixin, StoreMixin) {
   }
 
   getModalContents() {
+    if (this.state.json) {
+      return (
+        <div>
+          <div className="modal-header modal-header-padding-narrow modal-header-bottom-border modal-header-white flex-no-shrink">
+            <div className="media-object-spacing-wrapper media-object-spacing-narrow media-object-offset">
+              <div className="media-object media-object-align-middle">
+                Deploy New Service
+              </div>
+            </div>
+          </div>
+          {this.getJSONEditor()}
+          {this.getFooter()}
+        </div>
+      )
+    }
     return (
       <div>
         <AdvancedConfig
@@ -162,6 +182,21 @@ class ServiceFormModal extends mixin(InternalStorageMixin, StoreMixin) {
         {this.getErrorMessage()}
         {this.getFooter()}
       </div>
+    );
+  }
+
+  getJSONEditor() {
+    return (
+      <Ace editorProps={{$blockScrolling: true}}
+        mode="json"
+        onChange={(app) => {
+          this.setState({app: app})
+        }}
+        showGutter={true}
+        showPrintMargin={false}
+        theme="monokai"
+        value={this.state.app}
+        width="100%"/>
     );
   }
 
