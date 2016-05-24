@@ -128,7 +128,9 @@ var Sidebar = React.createClass({
       if (notificationCount > 0) {
         sidebarText = (
           <span className="sidebar-menu-item-label h4 flush badge-container badge-primary">
-            {route.handler.routeConfig.label}
+            <span className="sidebar-menu-item-label-text">
+              {route.handler.routeConfig.label}
+            </span>
             <span className="badge text-align-center">{notificationCount}</span>
           </span>
         );

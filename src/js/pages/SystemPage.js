@@ -86,24 +86,31 @@ class SystemPage extends mixin(TabsMixin) {
 
   getRoutedItem(tab) {
     let notificationCount = NotificationStore.getNotificationCount(tab);
-    let link = (
-      <Link
-        to={tab}
-        className="tab-item-label inverse flush">
-        {SYSTEM_TABS[tab]}
-      </Link>
-    );
 
     if (notificationCount > 0) {
       return (
-        <span className="badge-container badge-primary">
-          {link}
-          <span className="badge text-align-center">{notificationCount}</span>
-        </span>
+        <Link
+          to={tab}
+          className="tab-item-label inverse flush">
+          <span className="tab-label-text">
+            {SYSTEM_TABS[tab]}
+          </span>
+          <span className="badge-container badge-primary">
+            <span className="badge text-align-center">{notificationCount}</span>
+          </span>
+        </Link>
       );
     }
 
-    return link;
+    return (
+      <Link
+        to={tab}
+        className="tab-item-label inverse flush">
+        <span className="tab-label-text">
+          {SYSTEM_TABS[tab]}
+        </span>
+      </Link>
+    );
   }
 
   getNavigation() {
