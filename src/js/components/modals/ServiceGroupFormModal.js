@@ -15,6 +15,19 @@ const METHODS_TO_BIND = [
   'resetState'
 ];
 
+const buttonDefinition = [
+  {
+    text: 'Cancel',
+    className: 'button button-medium',
+    isClose: true
+  },
+  {
+    text: 'Create Group',
+    className: 'button button-success button-medium',
+    isSubmit: true
+  }
+];
+
 class ServiceGroupFormModal extends mixin(StoreMixin) {
   constructor() {
     super();
@@ -102,6 +115,7 @@ class ServiceGroupFormModal extends mixin(StoreMixin) {
     return (
       <FormModal
         ref="form"
+        buttonDefinition={buttonDefinition}
         disabled={state.disableNewGroup}
         onClose={props.onClose}
         onSubmit={this.handleNewGroupSubmit}
@@ -112,7 +126,7 @@ class ServiceGroupFormModal extends mixin(StoreMixin) {
           Create Group
         </h2>
         <p className="text-align-center flush-top">
-          Enter a path for the new group under&nbsp;
+          {'Enter a path for the new group under '}
           <span className="emphasize">{props.parentGroupId}</span>
         </p>
         {this.getErrorMessage()}
