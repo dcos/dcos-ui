@@ -14,6 +14,8 @@ import ChronosStore from '../stores/ChronosStore';
 import DeploymentsList from '../structs/DeploymentsList';
 import Framework from '../structs/Framework';
 import JobTree from '../structs/JobTree';
+import MarathonStore from './MarathonStore';
+import MesosSummaryStore from './MesosSummaryStore';
 import NotificationStore from './NotificationStore';
 import ServiceTree from '../structs/ServiceTree';
 import SummaryList from '../structs/SummaryList';
