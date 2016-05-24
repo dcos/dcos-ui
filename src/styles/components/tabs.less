@@ -20,10 +20,8 @@ ul.tabs {
 
     &.active {
       .tab-item-label {
-        .tab-label-text {
-          &:after {
-            opacity: 1;
-          }
+        &:after {
+          opacity: 1;
         }
       }
     }
@@ -46,6 +44,18 @@ ul.tabs {
         color: color-lighten(@neutral, 30);
       }
 
+      &:after {
+        background: @body-text-link-text-color;
+        bottom: -1px;
+        content: '';
+        display: block;
+        height: 3px;
+        left: 0px;
+        opacity: 0;
+        position: absolute;
+        width: 100%;
+      }
+
       .badge-container,
       .tab-label-text {
         display: inline-block;
@@ -53,18 +63,6 @@ ul.tabs {
 
       .tab-label-text {
         position: relative;
-
-        &:after {
-          background: @body-text-link-text-color;
-          bottom: @container-pod-short-padding-vertical * -0.5 - 1;
-          content: '';
-          display: block;
-          height: 3px;
-          left: 0px;
-          opacity: 0;
-          position: absolute;
-          width: 100%;
-        }
       }
 
     }
@@ -129,12 +127,6 @@ ul.tabs {
 
         .tab-item-label {
           padding-bottom: @container-pod-short-padding-vertical-screen-medium * 0.5;
-
-          .tab-label-text {
-            &:after {
-              bottom: @container-pod-short-padding-vertical-screen-medium * -0.5 - 1;
-            }
-          }
         }
       }
     }
@@ -151,12 +143,6 @@ ul.tabs {
 
         .tab-item-label {
           padding-bottom: @container-pod-short-padding-vertical-screen-large * 0.5;
-
-          .tab-label-text {
-            &:after {
-              bottom: @container-pod-short-padding-vertical-screen-large * -0.5 - 1;
-            }
-          }
         }
       }
     }
