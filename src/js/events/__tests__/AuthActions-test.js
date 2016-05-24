@@ -1,10 +1,11 @@
 jest.dontMock('../AuthActions');
 
+import {RequestUtil} from 'mesosphere-shared-reactjs';
+
 import ActionTypes from '../../constants/ActionTypes';
 import AppDispatcher from '../../events/AppDispatcher';
 let AuthActions = require('../AuthActions');
 import Config from '../../config/Config';
-import RequestUtil from '../../utils/RequestUtil';
 
 describe('AuthActions', function () {
 

@@ -5,12 +5,13 @@ jest.dontMock('../../events/UnitHealthActions');
 jest.dontMock('../../mixins/GetSetMixin');
 jest.dontMock('../../../../tests/_fixtures/unit-health/units.json');
 
+import {RequestUtil} from 'mesosphere-shared-reactjs';
+
 var ActionTypes = require('../../constants/ActionTypes');
 var AppDispatcher = require('../../events/AppDispatcher');
 var Config = require('../../config/Config');
 var EventTypes = require('../../constants/EventTypes');
 var HealthUnitsList = require('../../structs/HealthUnitsList');
-var RequestUtil = require('../../utils/RequestUtil');
 var UnitHealthStore = require('../UnitHealthStore');
 var unitsFixture = require('../../../../tests/_fixtures/unit-health/units.json');
 

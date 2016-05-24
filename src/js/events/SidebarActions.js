@@ -1,6 +1,7 @@
+import {RequestUtil} from 'mesosphere-shared-reactjs';
+
 import ActionTypes from '../constants/ActionTypes';
 import Config from '../config/Config';
-import RequestUtil from '../utils/RequestUtil';
 
 var AppDispatcher = require('./AppDispatcher');
 

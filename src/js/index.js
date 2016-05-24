@@ -8,6 +8,7 @@ import PluginSDK from 'PluginSDK';
 import 'babel-polyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {RequestUtil} from 'mesosphere-shared-reactjs';
 import Router from 'react-router';
 import {Provider} from 'react-redux';
 
@@ -19,7 +20,6 @@ import ApplicationLoader from './pages/ApplicationLoader';
 import appRoutes from './routes/index';
 import Config from './config/Config';
 import ConfigStore from './stores/ConfigStore';
-import RequestUtil from './utils/RequestUtil';
 import Util from './utils/Util';
 
 let domElement = document.getElementById('application');

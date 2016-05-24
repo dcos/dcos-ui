@@ -1,12 +1,12 @@
 jest.dontMock('../MesosLogActions');
 jest.dontMock('../AppDispatcher');
 jest.dontMock('../../constants/ActionTypes');
-jest.dontMock('../../utils/RequestUtil');
+
+import {RequestUtil} from 'mesosphere-shared-reactjs';
 
 var MesosLogActions = require('../MesosLogActions');
 var ActionTypes = require('../../constants/ActionTypes');
 var AppDispatcher = require('../AppDispatcher');
-var RequestUtil = require('../../utils/RequestUtil');
 
 describe('MesosLogActions', function () {
 

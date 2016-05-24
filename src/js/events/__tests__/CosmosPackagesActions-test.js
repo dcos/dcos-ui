@@ -3,6 +3,8 @@ jest.dontMock('../AppDispatcher');
 jest.dontMock('../../config/Config');
 jest.dontMock('../../constants/ActionTypes');
 
+import {RequestUtil} from 'mesosphere-shared-reactjs';
+
 import {
   REQUEST_COSMOS_PACKAGES_LIST_ERROR,
   REQUEST_COSMOS_PACKAGES_LIST_SUCCESS,
@@ -24,7 +26,6 @@ import {
 var AppDispatcher = require('../AppDispatcher');
 var CosmosPackagesActions = require('../CosmosPackagesActions');
 var Config = require('../../config/Config');
-var RequestUtil = require('../../utils/RequestUtil');
 
 describe('CosmosPackagesActions', function () {
 

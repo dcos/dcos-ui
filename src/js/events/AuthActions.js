@@ -1,13 +1,13 @@
+import {RequestUtil} from 'mesosphere-shared-reactjs';
+
 import {
   REQUEST_LOGIN_SUCCESS,
   REQUEST_LOGIN_ERROR,
   REQUEST_LOGOUT_SUCCESS,
   REQUEST_LOGOUT_ERROR
 } from '../constants/ActionTypes';
-
 import AppDispatcher from '../events/AppDispatcher';
 import Config from '../config/Config';
-import RequestUtil from '../utils/RequestUtil';
 
 const AuthActions = {
   login: function (credentials) {

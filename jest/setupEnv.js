@@ -5,5 +5,5 @@ global.localStorage = require('localStorage');
 
 // Tests should just mock responses for the json API
 // so let's just default to a noop
-var RequestUtil = require('../src/js/utils/RequestUtil');
+var RequestUtil = require('mesosphere-shared-reactjs').RequestUtil;
 RequestUtil.json = function () {};

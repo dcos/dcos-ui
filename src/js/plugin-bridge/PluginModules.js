@@ -27,7 +27,6 @@ module.exports = {
     DOMUtils: 'DOMUtils',
     LocalStorageUtil: 'LocalStorageUtil',
     Maths: 'Maths',
-    RequestUtil: 'RequestUtil',
     ResourceTableUtil: 'ResourceTableUtil',
     StoreMixinConfig: 'StoreMixinConfig',
     StringUtil: 'StringUtil',

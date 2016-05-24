@@ -1,3 +1,4 @@
+import {RequestUtil} from 'mesosphere-shared-reactjs';
 import Util from '../utils/Util';
 
 import {
@@ -8,9 +9,7 @@ import {
   REQUEST_USER_DELETE_SUCCESS,
   REQUEST_USER_DELETE_ERROR
 } from '../constants/ActionTypes';
-
 import AppDispatcher from './AppDispatcher';
-import RequestUtil from '../utils/RequestUtil';
 import Config from '../config/Config';
 
 const UsersActions = {

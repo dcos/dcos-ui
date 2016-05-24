@@ -1,3 +1,5 @@
+import {RequestUtil} from 'mesosphere-shared-reactjs';
+
 import {
   REQUEST_MARATHON_GROUP_CREATE_ERROR,
   REQUEST_MARATHON_GROUP_CREATE_SUCCESS,
@@ -16,7 +18,6 @@ import {
 } from '../constants/ActionTypes';
 var AppDispatcher = require('./AppDispatcher');
 var Config = require('../config/Config');
-var RequestUtil = require('../utils/RequestUtil');
 
 module.exports = {
 

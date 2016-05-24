@@ -1,3 +1,5 @@
+import {RequestUtil} from 'mesosphere-shared-reactjs';
+
 import {
   REQUEST_COSMOS_PACKAGES_LIST_SUCCESS,
   REQUEST_COSMOS_PACKAGES_SEARCH_ERROR,
@@ -19,7 +21,6 @@ import {
 } from '../constants/ActionTypes';
 import AppDispatcher from './AppDispatcher';
 import Config from '../config/Config';
-import RequestUtil from '../utils/RequestUtil';
 
 const REQUEST_TIMEOUT = 10000;
 

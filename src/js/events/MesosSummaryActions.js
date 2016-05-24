@@ -1,3 +1,5 @@
+import {RequestUtil} from 'mesosphere-shared-reactjs';
+
 import {
   REQUEST_SUMMARY_HISTORY_SUCCESS,
   REQUEST_MESOS_HISTORY_ONGOING,
@@ -5,11 +7,10 @@ import {
   REQUEST_SUMMARY_ERROR,
   REQUEST_SUMMARY_ONGOING
 } from '../constants/ActionTypes';
-
 var AppDispatcher = require('./AppDispatcher');
 var Config = require('../config/Config');
-var RequestUtil = require('../utils/RequestUtil');
 var TimeScales = require('../constants/TimeScales');
+
 var _historyServiceOnline = true;
 
 function testHistoryOnline() {
