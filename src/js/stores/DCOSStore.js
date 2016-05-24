@@ -14,10 +14,6 @@ import ChronosStore from '../stores/ChronosStore';
 import DeploymentsList from '../structs/DeploymentsList';
 import Framework from '../structs/Framework';
 import JobTree from '../structs/JobTree';
-import MarathonStore from './MarathonStore';
-import MesosSummaryStore from './MesosSummaryStore';
-import MarathonStore from './MarathonStore';
-import MesosSummaryStore from './MesosSummaryStore';
 import NotificationStore from './NotificationStore';
 import ServiceTree from '../structs/ServiceTree';
 import SummaryList from '../structs/SummaryList';
@@ -111,6 +107,12 @@ class DCOSStore extends EventEmitter {
   onMarathonDeploymentsChange() {
     let deploymentsList = MarathonStore.get('deployments');
     let serviceTree = MarathonStore.get('groups');
+
+    NotificationStore.addNotification(
+      'services-deployments',
+      'deployment-count',
+      deploymentsList.getItems().length
+    );
 
     // Populate deployments with affected services
     this.data.marathon.deploymentsList = deploymentsList
