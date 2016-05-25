@@ -191,8 +191,12 @@ class SchemaForm extends React.Component {
     );
   }
 
-  getServiceHeader() {
+  getFormHeader() {
     let {packageIcon, packageName, packageVersion} = this.props;
+
+    if (!packageName || !packageIcon) {
+      return null;
+    }
 
     return (
       <div className="modal-header modal-header-padding-narrow modal-header-bottom-border modal-header-white flex-no-shrink">
@@ -211,28 +215,6 @@ class SchemaForm extends React.Component {
                 {packageVersion}
               </span>
             </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  getFormHeader() {
-    if (this.props.headerText != null) {
-      return this.getTitleHeader();
-    }
-
-    return this.getServiceHeader();
-  }
-
-  getTitleHeader() {
-    let {headerText}= this.props;
-
-    return (
-      <div className="modal-header modal-header-padding-narrow modal-header-bottom-border modal-header-white flex-no-shrink">
-        <div className="media-object-spacing-wrapper media-object-spacing-narrow media-object-offset">
-          <div className="media-object media-object-align-middle">
-            {headerText}
           </div>
         </div>
       </div>
@@ -330,7 +312,6 @@ SchemaForm.defaultProps = {
 
 SchemaForm.propTypes = {
   getTriggerSubmit: React.PropTypes.func,
-  headerText: React.PropTypes.string,
   schema: React.PropTypes.object,
   packageIcon: React.PropTypes.string,
   packageName: React.PropTypes.string,
