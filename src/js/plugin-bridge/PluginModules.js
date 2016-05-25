@@ -31,6 +31,7 @@ module.exports = {
     StoreMixinConfig: 'StoreMixinConfig',
     StringUtil: 'StringUtil',
     TableUtil: 'TableUtil',
+    TabsUtil: 'TabsUtil',
     Units: 'Units',
     Util: 'Util'
   },
