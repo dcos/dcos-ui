@@ -13,7 +13,7 @@ module.exports = class Job extends Item {
   }
 
   getId() {
-    return this.get('id') || '';
+    return this.get('id') || '/';
   }
 
   getName() {
