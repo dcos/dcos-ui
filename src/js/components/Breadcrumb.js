@@ -18,18 +18,20 @@ const PADDED_ICON_WIDTH = 38; // Width of icon + padding
  * @param {Object} routeParams Router routeParams Object
  * @param {Bool}   labelIsParam Boolean indicating if the label represents a
  * route parameter.
+ * @param {Object} customParams Additional params that force the breadcrumb to
+ * update when changed.
  * @return {Array} Array of crumbs containing the label and route.
  * The returned label is the text shown for the crumb. The route is
  * the route name which will be set on the Link-to attribute.
  * Each returned crumb will be spliced into the resulting breadcrumb.
  */
-const buildCrumb = function (label, route, routeParams, labelIsParam) {
-  // Extract param value as label e.g. (:userID -> Foo)
-  if (labelIsParam) {
-    // Decode value
+const buildCrumb = function (label, route, routeParams, labelIsParam, customParams) {
+  if (customParams[label]) {
+    label = customParams[label];
+  } else if (labelIsParam) {
     label = decodeURIComponent(routeParams[label]);
   } else {
-    // Split Label on space and - then capitalize each word and join.
+    // Split Label on `-`, then capitalize each word and join.
     // /foo-bar/ --> Foo Bar
     label = StringUtil.idToTitle([label], ['-']);
   }
@@ -283,6 +285,7 @@ Breadcrumb.contextTypes = {
 Breadcrumb.defaultProps = {
   breadcrumbClasses: 'inverse',
   buildCrumb: buildCrumb,
+  buildCrumbCustomParams: {},
   // Remove root '/' by default
   shift: 1
 }
