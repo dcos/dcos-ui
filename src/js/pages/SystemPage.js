@@ -92,7 +92,7 @@ class SystemPage extends mixin(TabsMixin) {
         <Link
           to={tab}
           className="tab-item-label inverse flush">
-          <span className="tab-label-text">
+          <span className="tab-item-label-text">
             {SYSTEM_TABS[tab]}
           </span>
           <span className="badge-container badge-primary">
@@ -106,7 +106,7 @@ class SystemPage extends mixin(TabsMixin) {
       <Link
         to={tab}
         className="tab-item-label inverse flush">
-        <span className="tab-label-text">
+        <span className="tab-item-label-text">
           {SYSTEM_TABS[tab]}
         </span>
       </Link>
