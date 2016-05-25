@@ -47,6 +47,7 @@ var config = {
     'jasmine-reporters',
     'localStorage',
     'mesosphere-shared-reactjs',
+    'moment',
     'md5',
     'mixins/index',
     'src/js/config/',

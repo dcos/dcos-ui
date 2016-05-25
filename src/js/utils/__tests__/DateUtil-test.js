@@ -32,4 +32,14 @@ describe('DateUtil', function () {
       expect(result).toEqual('10-19-93 at 11:29 am');
     });
   });
+
+  describe('#dateToRelativeTime', function () {
+    it('returns "in a year" if the date in a year from now', function () {
+      let date = new Date();
+      date.setYear(date.getFullYear() + 1);
+      let result = DateUtil.dateToRelativeTime(date);
+
+      expect(result).toEqual('in a year');
+    });
+  });
 });
