@@ -23,28 +23,29 @@ let SERVICE_SCHEMA = {
           description: 'The amount of CPUs which are used for the service',
           type:'number',
           getter: function (service) {
-            return (service.getCpus() || '') + '';
+            return (service.getCpus() || '');
           }
         },
         mem: {
           title: 'Mem (MiB)',
           type: 'number',
           getter: function (service) {
-            return (service.getMem() || '') + '';
+            return (service.getMem() || '');
           }
         },
         disk: {
           title: 'Disk (MiB)',
           type: 'number',
           getter: function (service) {
-            return (service.getDisk() || '')  + '';
+            return (service.getDisk() || '');
           }
         },
         instances: {
           title: 'Instances',
           type: 'number',
+          default: 1,
           getter: function (service) {
-            return (service.getInstancesCount() || '') + '';
+            return (service.getInstancesCount() || 0);
           }
         },
         cmd: {

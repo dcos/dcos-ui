@@ -5,7 +5,6 @@ import {StoreMixin} from 'mesosphere-shared-reactjs';
 import AlertPanel from '../../components/AlertPanel';
 import DCOSStore from '../../stores/DCOSStore';
 import FilterBar from '../../components/FilterBar';
-import ServiceFormModal from '../../components/modals/ServiceFormModal';
 import FilterHeadline from '../../components/FilterHeadline';
 import QueryParamsMixin from '../../mixins/QueryParamsMixin';
 import SaveStateMixin from '../../mixins/SaveStateMixin';
@@ -16,6 +15,7 @@ import {
 import Service from '../../structs/Service';
 import ServiceDetail from '../../components/ServiceDetail';
 import ServiceFilterTypes from '../../constants/ServiceFilterTypes';
+import ServiceFormModal from '../../components/modals/ServiceFormModal';
 import ServiceSearchFilter from '../../components/ServiceSearchFilter';
 import ServiceSidebarFilters from '../../components/ServiceSidebarFilters';
 import ServicesBreadcrumb from '../../components/ServicesBreadcrumb';
@@ -225,8 +225,7 @@ var ServicesTab = React.createClass({
             <ServiceSearchFilter
               handleFilterChange={this.handleFilterChange} />
             <button className="button button-stroke button-inverse"
-                    onClick={() =>
-                      this.handleOpenModal(SERVICE_GROUP_FORM_MODAL)}>
+              onClick={() => this.handleOpenModal(SERVICE_GROUP_FORM_MODAL)}>
               Create Group
             </button>
             <button className="button button-success"

@@ -54,7 +54,7 @@ module.exports = {
       error: function (xhr) {
         AppDispatcher.handleServerAction({
           type: REQUEST_MARATHON_SERVICE_CREATE_ERROR,
-          data: JSON.parse(xhr.response),
+          data: RequestUtil.parseResponseBody(xhr),
           xhr
         });
       }

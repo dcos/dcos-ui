@@ -28,7 +28,6 @@ const ServiceUtil = {
     }
 
     if (formModel['Container Settings'] != null) {
-
       definition.container = {
         docker: {
           image: formModel['Container Settings'].image
