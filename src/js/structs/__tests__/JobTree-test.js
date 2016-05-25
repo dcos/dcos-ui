@@ -18,12 +18,12 @@ describe('JobTree', function () {
       });
     });
 
-    it('defaults id to root tree (groups) id', function () {
+    it('defaults id to slash (root group id)', function () {
       let tree = new JobTree({items: []});
       expect(tree.getId()).toEqual('/');
     });
 
-    it('sets correct tree (groups) id', function () {
+    it('sets correct tree id', function () {
       expect(this.instance.getId()).toEqual('/group');
     });
 
