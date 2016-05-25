@@ -4,12 +4,12 @@ import mixin from 'reactjs-mixin';
 import React from 'react';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
-import AdvancedConfig from '../AdvancedConfig';
 import CosmosErrorMessage from '../CosmosErrorMessage';
 import CosmosPackagesStore from '../../stores/CosmosPackagesStore';
 import IconCircleCheckmark from '../icons/IconCircleCheckmark';
 import InternalStorageMixin from '../../mixins/InternalStorageMixin';
 import ReviewConfig from '../ReviewConfig';
+import SchemaForm from '../SchemaForm';
 import SchemaUtil from '../../utils/SchemaUtil';
 import StringUtil from '../../utils/StringUtil';
 import TabsMixin from '../../mixins/TabsMixin';
@@ -528,14 +528,15 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
 
     return (
       <div>
-        <AdvancedConfig
-          className={advancedConfigClasses}
-          packageIcon={cosmosPackage.getIcons()['icon-small']}
-          packageName={name}
-          packageVersion={version}
-          schema={cosmosPackage.get('config')}
-          onChange={this.handleAdvancedFormChange}
-          getTriggerSubmit={this.getAdvancedSubmit} />
+        <div className={advancedConfigClasses}>
+          <SchemaForm
+            packageIcon={cosmosPackage.getIcons()['icon-small']}
+            packageName={name}
+            packageVersion={version}
+            schema={cosmosPackage.get('config')}
+            onChange={this.handleAdvancedFormChange}
+            getTriggerSubmit={this.getAdvancedSubmit} />
+        </div>
         {this.tabs_getTabView()}
       </div>
     );
