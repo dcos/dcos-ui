@@ -182,10 +182,10 @@ describe('RouterUtil', function () {
       expect(secondRoute.buildBreadCrumb).toEqual(undefined);
       // Check last route
       let thirdRoute = routes[0].childRoutes[0].childRoutes[0];
-      let secondRouteConfig = routeConfiguration[0].children[0].children[0];
+      let thirdRouteConfig = routeConfiguration[0].children[0].children[0];
       expect(thirdRoute.name).toEqual('baz');
-      expect(thirdRoute.handler).toEqual(.handler);
-      expect(thirdRoute.buildBreadCrumb).toEqual(secondRouteConfig.buildBreadCrumb);
+      expect(thirdRoute.handler).toEqual(thirdRouteConfig.handler);
+      expect(thirdRoute.buildBreadCrumb).toEqual(thirdRouteConfig.buildBreadCrumb);
     });
 
   });
