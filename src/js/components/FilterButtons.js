@@ -29,6 +29,10 @@ class FilterButtons extends React.Component {
 
     if (filterByKey) {
       itemList = itemList.map(function (item) {
+        if (typeof filterByKey === 'function') {
+          return filterByKey(item);
+        }
+
         return item[filterByKey];
       });
     }
@@ -69,8 +73,12 @@ FilterButtons.defaultProps = {
 
 FilterButtons.propTypes = {
   filters: React.PropTypes.array,
-  // The key in itemList that is being filtered
-  filterByKey: React.PropTypes.string,
+  // The key in itemList that is being filtered, or a function that will return
+  // the key.
+  filterByKey: React.PropTypes.oneOfType([
+    React.PropTypes.string,
+    React.PropTypes.func
+  ]),
   inverseStyle: React.PropTypes.bool,
   itemList: React.PropTypes.array.isRequired,
   // A function that returns the onClick for a filter button given the filter.
