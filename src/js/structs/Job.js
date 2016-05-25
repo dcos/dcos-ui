@@ -1,7 +1,7 @@
 import Item from './Item';
 
 module.exports = class Job extends Item {
-  constructor(options = {}) {
+  constructor() {
     super(...arguments);
 
     const id = this.getId();
