@@ -18,7 +18,7 @@ import MarathonStore from './MarathonStore';
 import MesosSummaryStore from './MesosSummaryStore';
 import MarathonStore from './MarathonStore';
 import MesosSummaryStore from './MesosSummaryStore';
-import ServicesList from '../structs/ServicesList';
+import NotificationStore from './NotificationStore';
 import ServiceTree from '../structs/ServiceTree';
 import SummaryList from '../structs/SummaryList';
 
@@ -118,9 +118,7 @@ class DCOSStore extends EventEmitter {
         let ids = deployment.getAffectedServiceIds();
         let services = ids.map(serviceTree.findItemById.bind(serviceTree));
 
-        return Object.assign({
-          affectedServices: new ServicesList({items: services})
-        }, deployment);
+        return Object.assign({affectedServices: services}, deployment);
       });
   }
 
