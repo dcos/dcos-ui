@@ -106,6 +106,7 @@ class DCOSStore extends EventEmitter {
     let deploymentsList = MarathonStore.get('deployments');
     let serviceTree = MarathonStore.get('groups');
 
+<<<<<<< b021b7d207dd60ff03d49d9e2fa7d963cc5165ca
     NotificationStore.addNotification(
       'services-deployments',
       'deployment-count',
@@ -117,6 +118,7 @@ class DCOSStore extends EventEmitter {
       .mapItems(function (deployment) {
         let ids = deployment.getAffectedServiceIds();
         let services = ids.map(serviceTree.findItemById.bind(serviceTree));
+        
         return Object.assign({
           affectedServices: new ServicesList({items: services})
         }, deployment);
