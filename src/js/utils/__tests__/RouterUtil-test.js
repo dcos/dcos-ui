@@ -170,17 +170,22 @@ describe('RouterUtil', function () {
       let routes = RouterUtil.buildRoutes(routeConfiguration);
 
       // Check first route
-      expect(routes[0].name).toEqual('foo');
-      expect(routes[0].handler).toEqual(routeConfiguration[0].handler);
-      expect(routes[0].buildBreadCrumb).toEqual(routeConfiguration[0].buildBreadCrumb);
+      let firstRoute = routes[0];
+      expect(firstRoute.name).toEqual('foo');
+      expect(firstRoute.handler).toEqual(routeConfiguration[0].handler);
+      expect(firstRoute.buildBreadCrumb).toEqual(routeConfiguration[0].buildBreadCrumb);
       // Check middle route
-      expect(routes[0].childRoutes[0].name).toEqual('bar');
-      expect(routes[0].childRoutes[0].handler).toEqual(routeConfiguration[0].children[0].handler);
-      expect(routes[0].childRoutes[0].buildBreadCrumb).toEqual(undefined);
+      let secondRoute = routes[0].childRoutes[0];
+      let secondRouteConfig = routeConfiguration[0].children[0];
+      expect(secondRoute.name).toEqual('bar');
+      expect(secondRoute.handler).toEqual(secondRouteConfig.handler);
+      expect(secondRoute.buildBreadCrumb).toEqual(undefined);
       // Check last route
-      expect(routes[0].childRoutes[0].childRoutes[0].name).toEqual('baz');
-      expect(routes[0].childRoutes[0].childRoutes[0].handler).toEqual(routeConfiguration[0].children[0].children[0].handler);
-      expect(routes[0].childRoutes[0].childRoutes[0].buildBreadCrumb).toEqual(routeConfiguration[0].children[0].children[0].buildBreadCrumb);
+      let thirdRoute = routes[0].childRoutes[0].childRoutes[0];
+      let secondRouteConfig = routeConfiguration[0].children[0].children[0];
+      expect(thirdRoute.name).toEqual('baz');
+      expect(thirdRoute.handler).toEqual(.handler);
+      expect(thirdRoute.buildBreadCrumb).toEqual(secondRouteConfig.buildBreadCrumb);
     });
 
   });
