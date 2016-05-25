@@ -87,8 +87,16 @@ class ServiceFormModal extends mixin(StoreMixin) {
   }
 
   handleToggleJSON() {
-    this.setState({app: JSON.stringify(ServiceUtil
-      .getAppDefinitionFromService(this.state.service), null, 2)});
+    if (!this.state.json) {
+      let model = this.triggerAdvancedSubmit().model;
+      let service = ServiceUtil.createServiceFromFormModel(model)
+      this.setState({
+        app: JSON.stringify(ServiceUtil
+          .getAppDefinitionFromService(service), null, 2),
+        model,
+        service
+      });
+    }
     this.setState({json: !this.state.json});
   }
 
@@ -119,6 +127,10 @@ class ServiceFormModal extends mixin(StoreMixin) {
       return ;
     }
     MarathonStore.createService(ServiceUtil.getAppDefinitionFromService(this.state.service));
+  }
+
+  getAdvancedSubmit(triggerSubmit) {
+    this.triggerAdvancedSubmit = triggerSubmit;
   }
 
   getErrorMessage() {
@@ -188,7 +200,7 @@ class ServiceFormModal extends mixin(StoreMixin) {
           )
         }
         schema={ServiceSchema}
-        onChange={this.handleChange} />
+        getTriggerSubmit={this.getAdvancedSubmit.bind(this)}/>
     );
   }
 
