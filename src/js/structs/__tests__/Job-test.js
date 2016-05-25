@@ -2,13 +2,7 @@ let Job = require('../Job');
 
 describe('Job', function () {
 
-  describe('#getId', function () {
-
-    it('returns correct id', function () {
-      let job = new Job({id: '/test/job'});
-
-      expect(job.getId()).toEqual('/test/job');
-    });
+  describe('#constructor', function () {
 
     it('throws when id doesn\'t start with a slash', function () {
       expect(function () { new Job({id: 'test/job'}); }).toThrow();
@@ -28,6 +22,16 @@ describe('Job', function () {
 
     it('doesn\'t throw when id is slash (\'/\')', function () {
       expect(function () { new Job({id: '/'}); }).toThrow();
+    });
+
+  });
+
+  describe('#getId', function () {
+
+    it('returns correct id', function () {
+      let job = new Job({id: '/test/job'});
+
+      expect(job.getId()).toEqual('/test/job');
     });
 
     it('returns correct id', function () {
