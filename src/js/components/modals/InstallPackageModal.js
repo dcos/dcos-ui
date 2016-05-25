@@ -372,7 +372,7 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
     let {pendingRequest, hasFormErrors} = this.internalStorage_get();
     let cosmosPackage = CosmosPackagesStore.getPackageDetails();
 
-    // Only return footer, we always render AdvancedConfig, but just change
+    // Only return footer, we always render SchemaForm, but just change
     // the hidden class in render
     return (
       <div className="modal-footer">
