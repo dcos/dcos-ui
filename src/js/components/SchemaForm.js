@@ -54,6 +54,7 @@ class SchemaForm extends React.Component {
   }
 
   componentWillUnmount() {
+    // Unschedule all validation if component unmounts.
     if (this.timer) {
       clearTimeout(this.timer);
     }
@@ -84,13 +85,14 @@ class SchemaForm extends React.Component {
       return;
     }
 
+    // The cleartimeout is there to debounce the validation. And to make
+    // sure it is only run once.
     if (this.timer) {
       clearTimeout(this.timer);
     }
     this.timer = setTimeout(() => {
       this.validateForm();
       this.props.onChange(this.getDataTriple());
-      this.timer = null;
     });
   }
 
@@ -307,6 +309,7 @@ class SchemaForm extends React.Component {
 SchemaForm.defaultProps = {
   className: 'multiple-form row',
   getTriggerSubmit: function () {},
+  onChange: function () {},
   schema: {}
 };
 

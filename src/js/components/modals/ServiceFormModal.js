@@ -1,22 +1,26 @@
+import Ace from 'react-ace';
 import mixin from 'reactjs-mixin';
 import {Modal} from 'reactjs-components';
 import React from 'react';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
-import Ace from 'react-ace';
 
 import 'brace/mode/json';
 import 'brace/theme/monokai';
 import 'brace/ext/language_tools';
 
-import AdvancedConfig from '../AdvancedConfig';
 import MarathonStore from '../../stores/MarathonStore';
+import SchemaForm from '../SchemaForm';
 import Service from '../../structs/Service';
 import ServiceUtil from '../../utils/ServiceUtil';
 import ServiceSchema from '../../constants/ServiceSchema';
 import ToggleButton from '../ToggleButton';
 
 const METHODS_TO_BIND = [
-  'handleChange',
+  'getAdvancedSubmit',
+  'handleCancel',
+  'handleClearError',
+  'handleJSONChange',
+  'handleJSONToggle',
   'handleSubmit',
   'onMarathonStoreServiceCreateError',
   'onMarathonStoreServiceCreateSuccess'
@@ -29,11 +33,11 @@ class ServiceFormModal extends mixin(StoreMixin) {
     let model =
       ServiceUtil.createFormModelFromSchema(ServiceSchema);
     this.state = {
-      service: ServiceUtil.createServiceFromFormModel(model),
-      model: model,
-      json: false,
       app: JSON.stringify({id:'', cmd:''}, null, 2),
-      errorMessage: null
+      errorMessage: null,
+      jsonMode: false,
+      model,
+      service: ServiceUtil.createServiceFromFormModel(model)
     };
 
     this.store_listeners = [
@@ -50,8 +54,7 @@ class ServiceFormModal extends mixin(StoreMixin) {
 
   componentWillReceiveProps(nextProps) {
     super.componentWillReceiveProps(...arguments);
-    let {props} = this;
-    if (!props.open && nextProps.open) {
+    if (!this.props.open && nextProps.open) {
       this.resetState();
     }
   }
@@ -59,21 +62,17 @@ class ServiceFormModal extends mixin(StoreMixin) {
   resetState() {
     let model = ServiceUtil.createFormModelFromSchema(ServiceSchema);
     this.setState({
-      service: ServiceUtil.createServiceFromFormModel(model),
-      model: model,
       app: '',
-      errorMessage: null
+      errorMessage: null,
+      model,
+      service: ServiceUtil.createServiceFromFormModel(model)
     });
   }
 
-  handleChange({isValidated, model}) {
-    if (isValidated) {
-      this.setState({
-        service: ServiceUtil.createServiceFromFormModel(model),
-        model: model,
-        errorMessage: null
-      });
-    }
+  handleClearError() {
+    this.setState({
+      errorMessage: null
+    });
   }
 
   handleJSONChange(app) {
@@ -86,24 +85,18 @@ class ServiceFormModal extends mixin(StoreMixin) {
     this.setState({app, service})
   }
 
-  handleToggleJSON() {
-    if (!this.state.json) {
-      let model = this.triggerAdvancedSubmit().model;
-      let service = ServiceUtil.createServiceFromFormModel(model)
-      this.setState({
-        app: JSON.stringify(ServiceUtil
-          .getAppDefinitionFromService(service), null, 2),
-        model,
-        service
-      });
+  handleJSONToggle() {
+    let nextState = {};
+    if (!this.state.jsonMode) {
+      let {model} = this.triggerAdvancedSubmit();
+      let service = ServiceUtil.createServiceFromFormModel(model);
+      nextState.model = model;
+      nextState.service = service;
+      nextState.app = JSON.stringify(ServiceUtil
+        .getAppDefinitionFromService(service), null, 2);
     }
-    this.setState({json: !this.state.json});
-  }
-
-  handleClearError() {
-    this.setState({
-      errorMessage: null
-    });
+    nextState.jsonMode = !this.state.jsonMode;
+    this.setState(nextState);
   }
 
   onMarathonStoreServiceCreateSuccess() {
@@ -122,11 +115,21 @@ class ServiceFormModal extends mixin(StoreMixin) {
   }
 
   handleSubmit() {
-    if (this.state.json) {
+    if (this.state.jsonMode) {
       MarathonStore.createService(JSON.parse(this.state.app));
-      return ;
+      return;
     }
-    MarathonStore.createService(ServiceUtil.getAppDefinitionFromService(this.state.service));
+    if (this.triggerAdvancedSubmit) {
+      let {model} = this.triggerAdvancedSubmit();
+      let service = ServiceUtil.createServiceFromFormModel(model);
+      this.setState({
+        service: service,
+        model: model,
+        errorMessage: null
+      });
+      MarathonStore
+        .createService(ServiceUtil.getAppDefinitionFromService(service));
+    }
   }
 
   getAdvancedSubmit(triggerSubmit) {
@@ -138,6 +141,7 @@ class ServiceFormModal extends mixin(StoreMixin) {
     if (!errorMessage) {
       return null;
     }
+
     return (
       <div>
         <h4 className="text-align-center text-danger flush-top">
@@ -146,8 +150,9 @@ class ServiceFormModal extends mixin(StoreMixin) {
         <pre className="text-danger">
           {JSON.stringify(errorMessage.details, null, 2)}
         </pre>
-        <button onClick={this.handleClearError.bind(this)}
-          className="button button-small button-danger flush-bottom">
+        <button
+          className="button button-small button-danger flush-bottom"
+          onClick={this.handleClearError}>
           clear
         </button>
       </div>
@@ -159,48 +164,43 @@ class ServiceFormModal extends mixin(StoreMixin) {
       <div className="button-collection flush-bottom">
         <button
           className="button button-large flush-top flush-bottom"
-          onClick={this.handleCancel.bind(this)}>
+          onClick={this.handleCancel}>
           Cancel
         </button>
         <ToggleButton
-          checked={this.state.json}
-          onChange={this.handleToggleJSON.bind(this)}>
+          checked={this.state.jsonMode}
+          onChange={this.handleJSONToggle}>
           JSON mode
         </ToggleButton>
         <button
           className="button button-large button-success flush-bottom"
-          onClick={this.handleSubmit.bind(this)}>
+          onClick={this.handleSubmit}>
           Deploy
         </button>
       </div>
     );
-
   }
 
   getModalContents() {
-    if (this.state.json) {
+    let {app, jsonMode, service} = this.state;
+    if (jsonMode) {
       return (
         <Ace editorProps={{$blockScrolling: true}}
           mode="json"
-          onChange={this.handleJSONChange.bind(this)}
+          onChange={this.handleJSONChange}
           showGutter={true}
           showPrintMargin={false}
           theme="monokai"
-          value={this.state.app}
+          value={app}
           width="100%"/>
       );
     }
 
     return (
-      <AdvancedConfig
-        model={
-          ServiceUtil.createFormModelFromSchema(
-            ServiceSchema,
-            this.state.service
-          )
-        }
-        schema={ServiceSchema}
-        getTriggerSubmit={this.getAdvancedSubmit.bind(this)}/>
+      <SchemaForm
+        getTriggerSubmit={this.getAdvancedSubmit}
+        model={ServiceUtil.createFormModelFromSchema(ServiceSchema, service)}
+        schema={ServiceSchema}/>
     );
   }
 
