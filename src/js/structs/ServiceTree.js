@@ -5,7 +5,6 @@ import HealthStatus from '../constants/HealthStatus';
 import Service from './Service';
 import ServiceStatus from '../constants/ServiceStatus';
 import Tree from './Tree';
-import Util from '../utils/Util';
 
 module.exports = class ServiceTree extends Tree {
   /**
@@ -47,9 +46,9 @@ module.exports = class ServiceTree extends Tree {
 
       // Check item properties and convert items with an items array or an apps
       // and groups array (Marathon group structure) into ServiceTree instances.
-      if ((item.items != null && Util.isArray(item.items)) ||
-          (item.groups != null && Util.isArray(item.groups) &&
-          item.apps != null && Util.isArray(item.apps))) {
+      if ((item.items != null && Array.isArray(item.items)) ||
+          (item.groups != null && Array.isArray(item.groups) &&
+          item.apps != null && Array.isArray(item.apps))) {
         return new this.constructor(
           Object.assign({filterProperties: this.getFilterProperties()}, item)
         );

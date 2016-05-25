@@ -1,7 +1,6 @@
 import Item from './Item';
 import List from './List';
 import StringUtil from '../utils/StringUtil';
-import Util from '../utils/Util';
 
 module.exports = class Tree extends List {
   /**
@@ -18,7 +17,7 @@ module.exports = class Tree extends List {
 
     // Replace tree like items instances of Tree
     this.list = this.list.map((item) => {
-      if ((item.items != null && Util.isArray(item.items)) &&
+      if ((item.items != null && Array.isArray(item.items)) &&
           !(item instanceof Tree)) {
         return new this.constructor(
           Object.assign({filterProperties: this.getFilterProperties()}, item)
