@@ -11,11 +11,13 @@ import {
   MARATHON_SERVICE_VERSIONS_CHANGE
 } from '../constants/EventTypes';
 import ChronosStore from '../stores/ChronosStore';
+import DeploymentsList from '../structs/DeploymentsList';
 import Framework from '../structs/Framework';
+import JobTree from '../structs/JobTree';
 import MarathonStore from './MarathonStore';
 import MesosSummaryStore from './MesosSummaryStore';
-import DeploymentsList from '../structs/DeploymentsList';
-import JobTree from '../structs/JobTree';
+import MarathonStore from './MarathonStore';
+import MesosSummaryStore from './MesosSummaryStore';
 import ServicesList from '../structs/ServicesList';
 import ServiceTree from '../structs/ServiceTree';
 import SummaryList from '../structs/SummaryList';
@@ -110,13 +112,11 @@ class DCOSStore extends EventEmitter {
     let deploymentsList = MarathonStore.get('deployments');
     let serviceTree = MarathonStore.get('groups');
 
-    // Populate deployments wth affected services
+    // Populate deployments with affected services
     this.data.marathon.deploymentsList = deploymentsList
       .mapItems(function (deployment) {
         let ids = deployment.getAffectedServiceIds();
-        let services = ids.map(function (id) {
-          return serviceTree.findItemById(id);
-        });
+        let services = ids.map(serviceTree.findItemById.bind(serviceTree));
 
         return Object.assign({
           affectedServices: new ServicesList({items: services})
