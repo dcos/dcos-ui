@@ -66,7 +66,7 @@ const TabsMixin = {
       <span
         className={tabLabelClass}
         onClick={this.tabs_handleTabClick.bind(this, tab)}>
-        <span className="tab-label-text">
+        <span className="tab-item-label-text">
           {this.tabs_tabs[tab]}
         </span>
       </span>
@@ -105,7 +105,7 @@ const TabsMixin = {
           to={tab}
           className={tabLabelClass}
           onClick={this.tabs_handleTabClick.bind(this, tab)}>
-          <span className="tab-label-text">
+          <span className="tab-item-label-text">
             {this.tabs_tabs[tab]}
           </span>
           <span className="badge-container badge-primary">
@@ -120,7 +120,7 @@ const TabsMixin = {
         to={tab}
         className={tabLabelClass}
         onClick={this.tabs_handleTabClick.bind(this, tab)}>
-        <span className="tab-label-text">
+        <span className="tab-item-label-text">
           {this.tabs_tabs[tab]}
         </span>
       </Link>
