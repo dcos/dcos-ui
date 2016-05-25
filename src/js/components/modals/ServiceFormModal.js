@@ -6,36 +6,33 @@ import Ace from 'react-ace';
 
 import 'brace/mode/json';
 import 'brace/theme/monokai';
+import 'brace/ext/language_tools';
 
 import AdvancedConfig from '../AdvancedConfig';
-import InternalStorageMixin from '../../mixins/InternalStorageMixin';
 import MarathonStore from '../../stores/MarathonStore';
+import Service from '../../structs/Service';
 import ServiceUtil from '../../utils/ServiceUtil';
 import ServiceSchema from '../../constants/ServiceSchema';
+import ToggleButton from '../ToggleButton';
 
 const METHODS_TO_BIND = [
-  'getAdvancedSubmit',
   'handleChange',
   'handleSubmit',
   'onMarathonStoreServiceCreateError',
   'onMarathonStoreServiceCreateSuccess'
 ];
 
-class ServiceFormModal extends mixin(InternalStorageMixin, StoreMixin) {
+class ServiceFormModal extends mixin(StoreMixin) {
   constructor() {
     super(...arguments);
-
-    this.internalStorage_set({
-      hasFormErrors: false,
-      pendingRequest: false
-    });
 
     let model =
       ServiceUtil.createFormModelFromSchema(ServiceSchema);
     this.state = {
       service: ServiceUtil.createServiceFromFormModel(model),
       model: model,
-      json: true,
+      json: false,
+      app: JSON.stringify({id:'', cmd:''}, null, 2),
       errorMessage: null
     };
 
@@ -57,31 +54,48 @@ class ServiceFormModal extends mixin(InternalStorageMixin, StoreMixin) {
     if (!props.open && nextProps.open) {
       this.resetState();
     }
-    if (props.open && !nextProps.open) {
-      this.internalStorage_set({
-        hasFormErrors: false,
-        pendingRequest: false
-      });
-      // Reset our trigger submit for advanced install
-      this.triggerAdvancedSubmit = undefined;
-    }
   }
 
   resetState() {
-    let model = ServiceUtil.createFormModelFromSchema(ServiceSchema)
+    let model = ServiceUtil.createFormModelFromSchema(ServiceSchema);
     this.setState({
       service: ServiceUtil.createServiceFromFormModel(model),
       model: model,
+      app: '',
       errorMessage: null
     });
   }
 
-  componentDidUpdate() {
-    if (this.triggerAdvancedSubmit) {
-      // Trigger submit upfront to validate fields and potentially disable buttons
-      let {isValidated} = this.triggerAdvancedSubmit();
-      this.internalStorage_update({hasFormErrors: !isValidated});
+  handleChange({isValidated, model}) {
+    if (isValidated) {
+      this.setState({
+        service: ServiceUtil.createServiceFromFormModel(model),
+        model: model,
+        errorMessage: null
+      });
     }
+  }
+
+  handleJSONChange(app) {
+    let {service} = this.state;
+    try {
+      service = new Service(JSON.parse(app));
+    } catch (e) {
+
+    }
+    this.setState({app, service})
+  }
+
+  handleToggleJSON() {
+    this.setState({app: JSON.stringify(ServiceUtil
+      .getAppDefinitionFromService(this.state.service), null, 2)});
+    this.setState({json: !this.state.json});
+  }
+
+  handleClearError() {
+    this.setState({
+      errorMessage: null
+    });
   }
 
   onMarathonStoreServiceCreateSuccess() {
@@ -95,27 +109,16 @@ class ServiceFormModal extends mixin(InternalStorageMixin, StoreMixin) {
     });
   }
 
-  handleChange({isValidated, model}) {
-    this.internalStorage_update({hasFormErrors: !isValidated});
-    if (isValidated) {
-      this.setState({
-        service: ServiceUtil.createServiceFromFormModel(model),
-        model: model,
-        errorMessage: null
-      });
-    }
-  }
-
   handleCancel() {
     this.props.onClose();
   }
 
   handleSubmit() {
+    if (this.state.json) {
+      MarathonStore.createService(JSON.parse(this.state.app));
+      return ;
+    }
     MarathonStore.createService(ServiceUtil.getAppDefinitionFromService(this.state.service));
-  }
-
-  getAdvancedSubmit(triggerSubmit) {
-    this.triggerAdvancedSubmit = triggerSubmit;
   }
 
   getErrorMessage() {
@@ -124,32 +127,39 @@ class ServiceFormModal extends mixin(InternalStorageMixin, StoreMixin) {
       return null;
     }
     return (
-      <h4 className="text-align-center text-danger flush-top">{errorMessage}</h4>
+      <div>
+        <h4 className="text-align-center text-danger flush-top">
+          {errorMessage.message}
+        </h4>
+        <pre className="text-danger">
+          {JSON.stringify(errorMessage.details, null, 2)}
+        </pre>
+        <button onClick={this.handleClearError.bind(this)}
+          className="button button-small button-danger flush-bottom">
+          clear
+        </button>
+      </div>
     );
   }
 
   getFooter() {
-    let {pendingRequest, hasFormErrors} = this.internalStorage_get();
-    // Only return footer, we always render AdvancedConfig, but just change
-    // the hidden class in render
-
     return (
-      <div className="modal-footer">
-        <div className="container">
-          <div className="button-collection flush-bottom">
-            <button
-              className="button button-large flush-top flush-bottom"
-              onClick={this.handleCancel.bind(this)}>
-              Cancel
-            </button>
-            <button
-              disabled={pendingRequest || hasFormErrors}
-              className="button button-large button-success flush-bottom"
-              onClick={this.handleSubmit.bind(this)}>
-              Deploy
-            </button>
-          </div>
-        </div>
+      <div className="button-collection flush-bottom">
+        <button
+          className="button button-large flush-top flush-bottom"
+          onClick={this.handleCancel.bind(this)}>
+          Cancel
+        </button>
+        <ToggleButton
+          checked={this.state.json}
+          onChange={this.handleToggleJSON.bind(this)}>
+          JSON mode
+        </ToggleButton>
+        <button
+          className="button button-large button-success flush-bottom"
+          onClick={this.handleSubmit.bind(this)}>
+          Deploy
+        </button>
       </div>
     );
 
@@ -158,45 +168,27 @@ class ServiceFormModal extends mixin(InternalStorageMixin, StoreMixin) {
   getModalContents() {
     if (this.state.json) {
       return (
-        <div>
-          <div className="modal-header modal-header-padding-narrow modal-header-bottom-border modal-header-white flex-no-shrink">
-            <div className="media-object-spacing-wrapper media-object-spacing-narrow media-object-offset">
-              <div className="media-object media-object-align-middle">
-                Deploy New Service
-              </div>
-            </div>
-          </div>
-          {this.getJSONEditor()}
-          {this.getFooter()}
-        </div>
-      )
+        <Ace editorProps={{$blockScrolling: true}}
+          mode="json"
+          onChange={this.handleJSONChange.bind(this)}
+          showGutter={true}
+          showPrintMargin={false}
+          theme="monokai"
+          value={this.state.app}
+          width="100%"/>
+      );
     }
-    return (
-      <div>
-        <AdvancedConfig
-          headerText="Deploy New Service"
-          schema={ServiceSchema}
-          model={this.props.model}
-          onChange={this.handleChange}
-          getTriggerSubmit={this.getAdvancedSubmit} />
-        {this.getErrorMessage()}
-        {this.getFooter()}
-      </div>
-    );
-  }
 
-  getJSONEditor() {
     return (
-      <Ace editorProps={{$blockScrolling: true}}
-        mode="json"
-        onChange={(app) => {
-          this.setState({app: app})
-        }}
-        showGutter={true}
-        showPrintMargin={false}
-        theme="monokai"
-        value={this.state.app}
-        width="100%"/>
+      <AdvancedConfig
+        model={
+          ServiceUtil.createFormModelFromSchema(
+            ServiceSchema,
+            this.state.service
+          )
+        }
+        schema={ServiceSchema}
+        onChange={this.handleChange} />
     );
   }
 
@@ -204,14 +196,17 @@ class ServiceFormModal extends mixin(InternalStorageMixin, StoreMixin) {
     return (
       <Modal
         backdropClass="modal-backdrop default-cursor"
+        maxHeightPercentage={.9}
         bodyClass=""
-        innerBodyClass="flush-top flush-bottom"
-        maxHeightPercentage={1}
-        modalClass="modal modal-large"
         modalWrapperClass="multiple-form-modal"
+        innerBodyClass=""
         open={this.props.open}
         showCloseButton={false}
-        showFooter={false}>
+        showHeader={true}
+        footer={this.getFooter()}
+        titleText="Deploy New Service"
+        showFooter={true}>
+        {this.getErrorMessage()}
         {this.getModalContents()}
       </Modal>
     );
