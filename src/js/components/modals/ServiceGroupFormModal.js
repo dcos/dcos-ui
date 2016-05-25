@@ -15,6 +15,19 @@ const METHODS_TO_BIND = [
   'resetState'
 ];
 
+const buttonDefinition = [
+  {
+    text: 'Cancel',
+    className: 'button button-medium',
+    isClose: true
+  },
+  {
+    text: 'Create Group',
+    className: 'button button-success button-medium',
+    isSubmit: true
+  }
+];
+
 class ServiceGroupFormModal extends mixin(StoreMixin) {
   constructor() {
     super();
@@ -56,8 +69,12 @@ class ServiceGroupFormModal extends mixin(StoreMixin) {
   }
 
   handleNewGroupSubmit(model) {
+    let {parentGroupId} = this.props;
+
     this.setState({disableNewGroup: true});
-    MarathonStore.createGroup(model);
+    MarathonStore.createGroup(Object.assign({}, model,
+      {id: `${parentGroupId}/${model.id}`})
+    );
   }
 
   getErrorMessage() {
@@ -71,11 +88,6 @@ class ServiceGroupFormModal extends mixin(StoreMixin) {
   }
 
   getNewGroupFormDefinition() {
-    let {parentGroupId} = this.props;
-    if (!parentGroupId.endsWith('/')) {
-      parentGroupId = `${parentGroupId}/`;
-    }
-
     return [
       {
         fieldType: 'text',
@@ -92,25 +104,31 @@ class ServiceGroupFormModal extends mixin(StoreMixin) {
         validationErrorText: 'Group name must be at least 1 character and ' +
           'may only contain digits (0-9), dashes (-), dots (.), ' +
           'and lowercase letters (a-z). The name may not begin or end ' +
-          'with a dash.',
-        value: parentGroupId
+          'with a dash.'
       }
     ];
   }
 
   render() {
+    let {props, state} = this;
+
     return (
       <FormModal
         ref="form"
-        disabled={this.state.disableNewGroup}
-        onClose={this.props.onClose}
+        buttonDefinition={buttonDefinition}
+        disabled={state.disableNewGroup}
+        onClose={props.onClose}
         onSubmit={this.handleNewGroupSubmit}
         onChange={this.resetState}
-        open={this.props.open}
+        open={props.open}
         definition={this.getNewGroupFormDefinition()}>
         <h2 className="modal-header-title text-align-center flush-top">
-          Create New Group
+          Create Group
         </h2>
+        <p className="text-align-center flush-top">
+          {'Enter a path for the new group under '}
+          <span className="emphasize">{props.parentGroupId}</span>
+        </p>
         {this.getErrorMessage()}
       </FormModal>
     );
