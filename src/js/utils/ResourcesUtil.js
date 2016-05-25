@@ -29,6 +29,7 @@ const availableColors = Array(9).fill().map(function (value, index) {
 
 function getAvailableColors() {
   let colors = availableColors.slice(0);
+
   // Concat the array twice. In case there's many resources.
   // Unlikely that there will more than 4 anyways.
   return colors.concat(colors);
@@ -110,6 +111,7 @@ const ResourcesUtil = {
     }
 
     let index = opts.resourceList.indexOf(resource);
+
     return opts.availableColors[index];
   },
 
@@ -117,6 +119,7 @@ const ResourcesUtil = {
     // Map the default ones first
     let map = this.getDefaultResources().reduce((memo, resource) => {
       memo[resource] = this.getResourceColor(resource);
+
       return memo;
     }, {});
 
@@ -127,6 +130,7 @@ const ResourcesUtil = {
       memo[resource] = this.getResourceColor(resource, {
         resourceList: rest
       });
+
       return memo;
     }, map);
   }
