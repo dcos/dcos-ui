@@ -24,6 +24,7 @@ module.exports = {
   },
   utils: {
     CookieUtils: 'CookieUtils',
+    DateUtil: 'DateUtil',
     DOMUtils: 'DOMUtils',
     LocalStorageUtil: 'LocalStorageUtil',
     Maths: 'Maths',

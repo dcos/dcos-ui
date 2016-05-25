@@ -21,6 +21,10 @@ const DateUtil = {
     return moment.unix(ms).fromNow();
   },
 
+  dateToRelativeTime: function (date) {
+    return moment(date.getTime()).fromNow()
+  },
+
   formatAMPM: function (date) {
     let hours = date.getHours();
     let minutes = date.getMinutes();
