@@ -3,7 +3,6 @@ jest.mock('../MesosSummaryStore');
 jest.dontMock('../DCOSStore');
 jest.dontMock('../../mixins/GetSetMixin');
 jest.dontMock('../../structs/DeploymentsList');
-jest.dontMock('../../structs/ServicesList');
 jest.dontMock('../../structs/ServiceTree');
 jest.dontMock('../../structs/SummaryList');
 jest.dontMock('../../structs/StateSummary');
@@ -12,7 +11,6 @@ var DCOSStore = require('../DCOSStore');
 var MarathonStore = require('../MarathonStore');
 var MesosSummaryStore = require('../MesosSummaryStore');
 var DeploymentsList = require('../../structs/DeploymentsList');
-var ServicesList = require('../../structs/ServicesList');
 var ServiceTree = require('../../structs/ServiceTree');
 var SummaryList = require('../../structs/SummaryList');
 var StateSummary = require('../../structs/StateSummary');
@@ -69,8 +67,7 @@ describe('DCOSStore', function () {
     it('should populate the deployments with relevant services', function () {
       let deployment = DCOSStore.deploymentsList.last();
       let services = deployment.getAffectedServices();
-      expect(services).toEqual(jasmine.any(ServicesList));
-      expect(services.getItems().length).toEqual(2);
+      expect(services.length).toEqual(2);
     });
 
   });
