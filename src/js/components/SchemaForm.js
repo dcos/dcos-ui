@@ -53,6 +53,12 @@ class SchemaForm extends React.Component {
     this.setState({renderGemini: true});
   }
 
+  componentWillUnmount() {
+    if (this.timer) {
+      clearTimeout(this.timer);
+    }
+  }
+
   componentDidUpdate() {
     // Timeout necessary due to modal content height updates on did mount
     setTimeout(() => {
@@ -78,9 +84,13 @@ class SchemaForm extends React.Component {
       return;
     }
 
-    setTimeout(() => {
+    if (this.timer) {
+      clearTimeout(this.timer);
+    }
+    this.timer = setTimeout(() => {
       this.validateForm();
       this.props.onChange(this.getDataTriple());
+      this.timer = null;
     });
   }
 
