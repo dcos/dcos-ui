@@ -9,19 +9,19 @@ describe('Job', function () {
     });
 
     it('throws when id ends with a slash', function () {
-      expect(function () { new Job({id: 'test/job'}); }).toThrow();
+      expect(function () { new Job({id: '/test/job/'}); }).toThrow();
     });
 
     it('doesn\'t throw when no id is provided', function () {
-      expect(function () { new Job({}); }).toThrow();
+      expect(function () { new Job({}); }).not.toThrow();
     });
 
     it('doesn\'t throw when no options are provided', function () {
-      expect(function () { new Job(); }).toThrow();
+      expect(function () { new Job(); }).not.toThrow();
     });
 
     it('doesn\'t throw when id is slash (\'/\')', function () {
-      expect(function () { new Job({id: '/'}); }).toThrow();
+      expect(function () { new Job({id: '/'}); }).not.toThrow();
     });
 
   });
