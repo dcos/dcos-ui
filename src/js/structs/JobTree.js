@@ -30,7 +30,7 @@ module.exports = class JobTree extends Tree {
 
     // Parse and add items to the current tree
     if (Array.isArray(items)) {
-      items.forEach((item)=> {
+      items.forEach((item) => {
         // Create instances of JobTree for tree like items and add them
         if ((item.items != null && Array.isArray(item.items))
           && !(item instanceof JobTree)) {
@@ -63,11 +63,12 @@ module.exports = class JobTree extends Tree {
       throw new TypeError('item is neither an instance of Job nor JobTree');
     }
 
+    const id = this.getId();
     const itemId = item.getId();
 
-    if (!itemId.startsWith(this.getId())) {
+    if (!itemId.startsWith(id)) {
       throw new Error(
-        `item id (${itemId}) doesn't match tree id (${this.getId()})`
+        `item id (${itemId}) doesn't match tree id (${id})`
       );
     }
 
@@ -82,7 +83,7 @@ module.exports = class JobTree extends Tree {
     const [parentId] = itemId.match(/\/.*?(?=\/?[^/]+\/?$)/);
 
     // Add item to the current tree if it's the actual parent tree
-    if (this.getId() === parentId) {
+    if (id === parentId) {
       super.add(item);
       return;
     }
