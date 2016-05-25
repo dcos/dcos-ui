@@ -8,9 +8,9 @@ import DescriptionList from './DescriptionList';
 import MarathonStore from '../stores/MarathonStore';
 import MesosStateStore from '../stores/MesosStateStore';
 import MesosSummaryStore from '../stores/MesosSummaryStore';
-import ResourceTypes from '../constants/ResourceTypes';
 import PageHeader from './PageHeader';
 import RequestErrorMsg from './RequestErrorMsg';
+import ResourcesUtil from '../utils/ResourcesUtil';
 import ServicesBreadcrumb from './ServicesBreadcrumb';
 import TaskDebugView from './TaskDebugView';
 import TaskDirectoryView from './TaskDirectoryView';
@@ -114,15 +114,16 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
       return null;
     }
 
-    let resources = Object.keys(task.resources);
+    let resourceColors = ResourcesUtil.getResourceColors();
+    let resourceLabels = ResourcesUtil.getResourceLabels();
 
-    return resources.map(function (resource) {
+    return ResourcesUtil.getDefaultResources().map(function (resource) {
       if (resource === 'ports') {
         return null;
       }
 
-      let colorIndex = ResourceTypes[resource].colorIndex;
-      let resourceLabel = ResourceTypes[resource].label;
+      let colorIndex = resourceColors[resource];
+      let resourceLabel = resourceLabels[resource];
       let resourceIconClasses = `icon icon-sprite icon-sprite-medium
         icon-sprite-medium-color icon-resources-${resourceLabel.toLowerCase()}`;
       let resourceValue = Units.formatResource(
