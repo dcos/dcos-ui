@@ -27,6 +27,30 @@ describe('JobTree', function () {
       expect(this.instance.getId()).toEqual('/group');
     });
 
+    it('should throw error if the provided id doesn\'t start with a slash',
+      function () {
+        expect(function () {
+          new JobTree({id: 'malformed/id'});
+        }).toThrow();
+      }
+    );
+
+    it('should throw error if the provided id ends with a slash',
+      function () {
+        expect(function () {
+          new JobTree({id: '/malformed/id/'});
+        }).toThrow();
+      }
+    );
+
+    it('should not throw error if the provided id is only a slash (root id)',
+      function () {
+        expect(function () {
+          new JobTree({id: '/'});
+        }).not.toThrow();
+      }
+    );
+
     it('accepts nested trees (groups)', function () {
       expect(this.instance.getItems()[0] instanceof JobTree).toEqual(true);
     });
