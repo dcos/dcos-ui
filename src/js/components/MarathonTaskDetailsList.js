@@ -35,7 +35,9 @@ class MarathonTaskDetailsList extends React.Component {
       if (endpoints.length) {
         return endpoints.map(function (endpoint) {
           return (
-            <a href={`//${endpoint}`} target="_blank">{endpoint}</a>
+            <a className="visible-block" href={`//${endpoint}`} target="_blank">
+              {endpoint}
+            </a>
           );
         });
       }
@@ -46,7 +48,9 @@ class MarathonTaskDetailsList extends React.Component {
     return task.ports.map(function (port) {
       let endpoint = `${task.host}:${port}`;
       return (
-        <a href={`//${endpoint}`} target="_blank">{endpoint}</a>
+        <a className="visible-block" href={`//${endpoint}`} target="_blank">
+          {endpoint}
+        </a>
       );
     });
   }
@@ -65,7 +69,7 @@ class MarathonTaskDetailsList extends React.Component {
 
     let headerValueMapping = {
       'Host': task.host,
-      'Ports': task.ports,
+      'Ports': task.ports.join(', '),
       'Endpoints': this.getTaskEndpoints(task),
       'Status': this.getTaskStatus(task),
       'Staged at': task.stagedAt,
