@@ -5,53 +5,21 @@ import React, {PropTypes} from 'react';
 import ReactDOM from 'react-dom';
 
 import IconChevron from './icons/IconChevron';
-import StringUtil from '../utils/StringUtil';
 
 const COLLAPSE_BUFFER = 12;
 const LAST_ITEM_OFFSET = 150; // Difference between scrollWidth and outerWidth
 const PADDED_ICON_WIDTH = 38; // Width of icon + padding
 
-/**
- * Builds a crumb or multiple crumbs from the label and matching route
- * @param {String} label Url path part
- * @param {String} route Matching route name
- * @param {Object} routeParams Router routeParams Object
- * @param {Bool}   labelIsParam Boolean indicating if the label represents a
- * route parameter.
- * @param {Object} customParams Additional params that force the breadcrumb to
- * update when changed.
- * @return {Array} Array of crumbs containing the label and route.
- * The returned label is the text shown for the crumb. The route is
- * the route name which will be set on the Link-to attribute.
- * Each returned crumb will be spliced into the resulting breadcrumb.
- */
-const buildCrumb = function (label, route, routeParams, labelIsParam, customParams) {
-  if (customParams[label]) {
-    label = customParams[label];
-  } else if (labelIsParam) {
-    label = decodeURIComponent(routeParams[label]);
-  } else {
-    // Split Label on `-`, then capitalize each word and join.
-    // /foo-bar/ --> Foo Bar
-    label = StringUtil.idToTitle([label], ['-']);
-  }
-
-  // Can return multiple route objects to get rendered in crumbs.
-  // Useful for splitting a route parameter like a file path.
-  return [{label, route}];
-}
-
 class Breadcrumb extends React.Component {
   constructor() {
-    super();
-
-    this.displayName = 'Breadcrumb';
+    super(...arguments);
 
     this.state = {
-      collapsed: false,
       availableWidth: null,
+      collapsed: false,
       expandedWidth: null
     };
+
     this.handleResize = this.handleResize.bind(this);
   }
 
@@ -74,12 +42,6 @@ class Breadcrumb extends React.Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    let {buildCrumbCustomParams} = this.props;
-
-    if (!DeepEqual(nextProps.buildCrumbCustomParams, buildCrumbCustomParams)) {
-      return true;
-    }
-
     if (nextState.availableWidth == null || nextState.expandedWidth == null) {
       this.updateDimensions();
 
@@ -158,43 +120,37 @@ class Breadcrumb extends React.Component {
     return lastItemLink.scrollWidth + LAST_ITEM_OFFSET;
   }
 
-  getCurrentNamedRoutes() {
-    let {router} = this.context;
-    let namedRoutes = {};
-    let routes = router.getCurrentRoutes();
-
-    routes.forEach(function (route) {
-      // Strip regex characters from route.path
-      let path = route.path.slice().replace(/\?/g, '').replace(/\/\//g, '/');
-      if (path.charAt(0) === '/') {
-        path = path.slice(1);
-      }
-      if (path.charAt(path.length - 1) === '/') {
-        path = path.slice(0, -1);
-      }
-      // If named path already exists, don't overwrite. Sometimes root path
-      // returns a named route match and an unnamed match.
-      if (!(path in namedRoutes) || (namedRoutes[path] == null)) {
-        namedRoutes[path] = route.name;
-      }
-    });
-
-    return namedRoutes;
-  }
-
   getCurrentRouteParams() {
     // Isolated for easier testing
     return this.context.router.getCurrentParams();
   }
 
-  getCrumb(label, route, key) {
-    return (
-      <li key={key}>
-        <Link to={route}
-            params={this.getCurrentRouteParams()}
+  getCrumb(crumb, key) {
+    let content = crumb;
+    let label = null;
+    let route = null;
+
+    if (crumb.hasOwnProperty('route')) {
+      route = crumb.route;
+    }
+
+    if (crumb.hasOwnProperty('label')) {
+      label = crumb.label;
+    }
+
+    if (route) {
+      content = (
+        <Link to={route.to}
+            params={route.params}
             title={label}>
           {label}
         </Link>
+      );
+    }
+
+    return (
+      <li key={key}>
+        {content}
       </li>
     );
   }
@@ -218,48 +174,42 @@ class Breadcrumb extends React.Component {
     return expandedWidth >= availableWidth + COLLAPSE_BUFFER;
   }
 
+  buildCrumbs(routeName) {
+    let {namedRoutes} = this.context.router;
+    let route = namedRoutes[routeName];
+
+    if (!route || !route.buildBreadCrumb) {
+      return [];
+    }
+
+    let crumbConfiguration = route.buildBreadCrumb();
+    let crumbs = crumbConfiguration.getCrumbs(this.context.router);
+
+    if (crumbConfiguration.parentCrumb) {
+      crumbs = this.buildCrumbs(crumbConfiguration.parentCrumb).concat(crumbs);
+    }
+
+    return crumbs;
+  }
+
   renderCrumbsFromRoute() {
-    let {buildCrumb, buildCrumbCustomParams, shift} = this.props;
+    let {router} = this.context;
+    let routes = router.getCurrentRoutes();
+    let currentRoute = routes[routes.length - 1];
+    let crumbs = this.buildCrumbs(currentRoute.name);
 
-    let crumbKey = 1;
-    let namedRoutes = this.getCurrentNamedRoutes();
-    let params = this.getCurrentRouteParams();
+    crumbs = crumbs.slice(this.props.shift);
 
-    // Remove n items from beginning
-    let paths = Object.keys(namedRoutes).slice(shift);
+    let crumbKey = 0;
 
-    return paths.reduce((crumbs, path, pathIndex) => {
-      let name = namedRoutes[path];
-      let pathParts = path.split('/');
-      // Decode Label
-      let label = decodeURIComponent(pathParts[pathParts.length - 1]);
-      let labelIsParam = label.charAt(0) === ':' && label.slice(1) in params;
-      if (labelIsParam) {
-        // Remove colon
-        label = label.slice(1);
+    return crumbs.reduce((memo, crumb, crumbIndex) => {
+      memo.push(this.getCrumb(crumb, ++crumbKey));
+
+      if (crumbs.length - 1 !== crumbIndex) {
+        memo.push(this.getCrumbDivider(++crumbKey));
       }
 
-      let crumbObjects = buildCrumb(
-        label,
-        name,
-        params,
-        labelIsParam,
-        buildCrumbCustomParams
-      );
-
-      crumbObjects.forEach((crumbParams, crumbIndex) => {
-        let {label, route} = crumbParams;
-
-        crumbs.push(this.getCrumb(label, route, crumbKey++));
-
-        if (pathIndex !== paths.length - 1
-          || crumbIndex !== crumbObjects.length - 1) {
-
-          crumbs.push(this.getCrumbDivider(crumbKey++));
-        }
-      });
-
-      return crumbs;
+      return memo;
     }, []);
   }
 
@@ -284,18 +234,11 @@ Breadcrumb.contextTypes = {
 
 Breadcrumb.defaultProps = {
   breadcrumbClasses: 'inverse',
-  buildCrumb: buildCrumb,
-  buildCrumbCustomParams: {},
   // Remove root '/' by default
-  shift: 1
+  shift: 0
 }
 
 Breadcrumb.propTypes = {
-  // Function to override the processing of each crumb
-  buildCrumb: PropTypes.func,
-  // Object of custom params to pass to buildCrumb. For waiting on asynchronous
-  // calls for params, to trigger Breadcrumb's shouldComponentUpdate.
-  buildCrumbCustomParams: PropTypes.object,
   breadcrumbClasses: PropTypes.oneOfType([
     PropTypes.array,
     PropTypes.object,
