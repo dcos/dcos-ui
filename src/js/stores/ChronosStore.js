@@ -3,7 +3,9 @@ import {EventEmitter} from 'events';
 import AppDispatcher from '../events/AppDispatcher';
 import ChronosActions  from '../events/ChronosActions';
 import {
-  CHRONOS_CHANGE
+  CHRONOS_JOBS_CHANGE,
+  CHRONOS_JOBS_ERROR,
+  VISIBILITY_CHANGE
 } from '../constants/EventTypes';
 import Config from '../config/Config';
 import Job from '../structs/Job';
@@ -15,25 +17,46 @@ import {
   SERVER_ACTION
 } from '../constants/ActionTypes';
 
+import VisibilityStore from './VisibilityStore';
+
 let requestInterval;
 
 function startPolling() {
-  if (requestInterval) {
-    global.clearInterval(requestInterval);
-  }
-
-  requestInterval = global.setInterval(function () {
+  if (!requestInterval) {
     ChronosActions.fetchJobs();
-  }, Config.getRefreshRate());
+    requestInterval = global.setInterval(
+      ChronosActions.fetchJobs,
+      Config.getRefreshRate()
+    );
+  }
 }
 
-class DCOSStore extends EventEmitter {
+function stopPolling() {
+  if (requestInterval) {
+    global.clearInterval(requestInterval);
+    requestInterval = null;
+  }
+}
 
+function handleInactiveChange() {
+  let isInactive = VisibilityStore.get('isInactive');
+  if (isInactive) {
+    stopPolling();
+  }
+
+  if (!isInactive && ChronosStore.shouldPoll()) {
+    startPolling();
+  }
+}
+
+VisibilityStore.addChangeListener(VISIBILITY_CHANGE, handleInactiveChange);
+
+class ChronosStore extends EventEmitter {
   constructor() {
     super(...arguments);
 
     this.data = {
-      jobs: new JobTree()
+      jobs: []
     };
 
     // Handle app actions
@@ -43,16 +66,13 @@ class DCOSStore extends EventEmitter {
       }
       switch (action.type) {
         case REQUEST_CHRONOS_JOBS_SUCCESS:
-          if (Array.isArray(action.data)) {
-            action.data.forEach((job) => {
-              this.data.jobs.add(new Job(job));
-            });
-          }
-          this.emit(CHRONOS_CHANGE);
+          this.data.jobs = action.data;
+          this.emit(CHRONOS_JOBS_CHANGE);
           break;
         case REQUEST_CHRONOS_JOBS_ONGOING:
           break;
         case REQUEST_CHRONOS_JOBS_ERROR:
+          this.emit(CHRONOS_JOBS_ERROR);
           break;
 
       }
@@ -69,18 +89,22 @@ class DCOSStore extends EventEmitter {
     this.removeListener(eventName, callback);
   }
 
+  shouldPoll() {
+    return !!this.listeners(CHRONOS_JOBS_CHANGE).length;
+  }
+
   /**
    * Adds the listener for the specified event
    * @param {string} eventName
    * @param {Function} callback
-   * @return {DCOSStore} DCOSStore instance
+   * @return {ChronosStore} ChronosStore instance
    * @override
    */
   on(eventName, callback) {
     super.on(eventName, callback);
 
     // Start polling if there is at least one listener
-    if (this.listenerCount(CHRONOS_CHANGE) > 0) {
+    if (this.shouldPoll()) {
       startPolling();
     }
 
@@ -91,26 +115,25 @@ class DCOSStore extends EventEmitter {
    * Remove the specified listener for the specified event
    * @param {string} eventName
    * @param {Function} callback
-   * @return {DCOSStore} DCOSStore instance
+   * @return {ChronosStore} ChronosStore instance
    * @override
    */
   removeListener(eventName, callback) {
     super.removeListener(eventName, callback);
 
     // Stop polling if no one is listening
-    if (this.listenerCount(CHRONOS_CHANGE) === 0) {
-      global.clearInterval(this._requestInterval);
-      this._requestInterval = null;
+    if (!this.shouldPoll()) {
+      stopPolling();
     }
 
     return this;
   }
 
   /**
-   * @type {ServiceTree}
+   * @type {JobTree}
    */
   get jobTree() {
-    return this.data.jobs;
+    return new JobTree({items: this.data.jobs});
   }
 
   static get storeID() {
@@ -118,4 +141,4 @@ class DCOSStore extends EventEmitter {
   }
 }
 
-module.exports = new DCOSStore();
+module.exports = new ChronosStore();
