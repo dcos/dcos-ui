@@ -17,9 +17,11 @@ const ChronosActions = {
           url: `${Config.rootUrl}/chronos/jobs`,
           data: [{name: 'embed', value: 'activeJobs'}],
           success: function (response) {
+            let data = ChronosUtil.parseJobs(response);
+
             AppDispatcher.handleServerAction({
               type: REQUEST_CHRONOS_JOBS_SUCCESS,
-              data: response
+              data
             });
             resolve();
           },
