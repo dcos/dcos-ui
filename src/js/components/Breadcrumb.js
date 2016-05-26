@@ -126,7 +126,6 @@ class Breadcrumb extends React.Component {
   }
 
   getCrumb(crumb, key) {
-    let content = crumb;
     let label = null;
     let route = null;
 
@@ -139,7 +138,7 @@ class Breadcrumb extends React.Component {
     }
 
     if (route) {
-      content = (
+      crumb = (
         <Link to={route.to}
             params={route.params}
             title={label}>
@@ -150,7 +149,7 @@ class Breadcrumb extends React.Component {
 
     return (
       <li key={key}>
-        {content}
+        {crumb}
       </li>
     );
   }
@@ -175,7 +174,8 @@ class Breadcrumb extends React.Component {
   }
 
   buildCrumbs(routeName) {
-    let {namedRoutes} = this.context.router;
+    let {router} = this.context;
+    let {namedRoutes} = router;
     let route = namedRoutes[routeName];
 
     if (!route || !route.buildBreadCrumb) {
@@ -183,7 +183,7 @@ class Breadcrumb extends React.Component {
     }
 
     let crumbConfiguration = route.buildBreadCrumb();
-    let crumbs = crumbConfiguration.getCrumbs(this.context.router);
+    let crumbs = crumbConfiguration.getCrumbs(router);
 
     if (crumbConfiguration.parentCrumb) {
       crumbs = this.buildCrumbs(crumbConfiguration.parentCrumb).concat(crumbs);
