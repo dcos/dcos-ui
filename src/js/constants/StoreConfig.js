@@ -5,7 +5,8 @@ import {
   AUTH_USER_LOGOUT_SUCCESS,
   AUTH_USER_LOGOUT_ERROR,
 
-  CHRONOS_CHANGE,
+  CHRONOS_JOBS_CHANGE,
+  CHRONOS_JOBS_ERROR,
 
   CONFIG_LOADED,
   CONFIG_ERROR,
@@ -123,7 +124,8 @@ const ListenersDescription = {
   chronos: {
     store: ChronosStore,
     events: {
-      change: CHRONOS_CHANGE
+      change: CHRONOS_JOBS_CHANGE,
+      error: CHRONOS_JOBS_ERROR
     },
     unmountWhen: function () {
       return true;
