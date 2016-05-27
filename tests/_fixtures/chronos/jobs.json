@@ -167,10 +167,10 @@
     ]
   },
   {
-    "id": "/group/bar",
+    "id": "/group/alpha",
     "description": "Bar Description",
     "labels": {
-      "name": "bar",
+      "name": "alpha",
       "project": "metronome",
       "stage": "test"
     },
@@ -187,7 +187,7 @@
       "disk": 1,
       "artifacts": [
         {
-          "url": "https://bar.com/archive.zip",
+          "url": "https://alpha.com/archive.zip",
           "executable": false,
           "extract": true,
           "cache": true
@@ -202,19 +202,19 @@
           }
         ]
       },
-      "cmd": "/bar",
+      "cmd": "/alpha",
       "args": [],
       "user": "marathon",
       "env": {
-        "ENV_VAR": "bar"
+        "ENV_VAR": "alpha"
       },
       "docker": {
-        "image": "mesosphere/bar"
+        "image": "mesosphere/alpha"
       },
       "volumes": [
         {
           "containerPath": "/logs",
-          "hostPath": "/var/log/mesosphere/bar",
+          "hostPath": "/var/log/mesosphere/alpha",
           "mode": "RW"
         }
       ],
@@ -232,13 +232,13 @@
     },
     "activeRuns": [
       {
-        "id": "/bar/1990-01-03t00:00:00z-1",
-        "jobId": "/bar",
+        "id": "/alpha/1990-01-03t00:00:00z-1",
+        "jobId": "/alpha",
         "status": "active",
         "createdAt": "1990-01-03t00:00:00z-1",
         "tasks": [
           {
-            "id": "bar.1990-01-03t00:00:00z-1.68d65242-1838-11e6-8d2d-5ec97000bce0",
+            "id": "alpha.1990-01-03t00:00:00z-1.68d65242-1838-11e6-8d2d-5ec97000bce0",
             "startedAt": "1990-01-03T00:00:04.919Z",
             "status": "TASK_STARTED"
           }
@@ -247,10 +247,10 @@
     ]
   },
   {
-    "id": "/group/foo",
+    "id": "/group/beta",
     "description": "Foo Description",
     "labels": {
-      "name": "foo",
+      "name": "beta",
       "project": "metronome",
       "stage": "test"
     },
@@ -267,7 +267,7 @@
       "disk": 1,
       "artifacts": [
         {
-          "url": "https://foo.com/archive.zip",
+          "url": "https://beta.com/archive.zip",
           "executable": false,
           "extract": true,
           "cache": true
@@ -282,7 +282,7 @@
           }
         ]
       },
-      "cmd": "/foo",
+      "cmd": "/beta",
       "args": [],
       "user": "marathon",
       "env": {
@@ -290,12 +290,12 @@
         "ZK": "zk://master.mesos:2181/marathon"
       },
       "docker": {
-        "image": "mesosphere/foo"
+        "image": "mesosphere/beta"
       },
       "volumes": [
         {
           "containerPath": "/logs",
-          "hostPath": "/var/log/mesosphere/foo",
+          "hostPath": "/var/log/mesosphere/beta",
           "mode": "RW"
         }
       ],
@@ -313,18 +313,18 @@
     },
     "activeRuns": [
       {
-        "id": "/foo/1990-01-03t00:00:00z-1",
-        "jobId": "/foo",
+        "id": "/beta/1990-01-03t00:00:00z-1",
+        "jobId": "/beta",
         "status": "active",
         "createdAt": "1990-01-03t00:00:00z-1",
         "tasks": [
           {
-            "id": "foo.1990-01-03t00:00:00z-1.68d65242-1838-11e6-8d2d-5ec97000bce0",
+            "id": "beta.1990-01-03t00:00:00z-1.68d65242-1838-11e6-8d2d-5ec97000bce0",
             "startedAt": "1990-01-03T00:00:04.919Z",
             "status": "TASK_STARTED"
           },
           {
-            "id": "dfoo.1990-01-03t00:00:00z-1.68d65242-1838-11e6-8d2d-5ec97000bce0",
+            "id": "dbeta.1990-01-03t00:00:00z-1.68d65242-1838-11e6-8d2d-5ec97000bce0",
             "startedAt": "1990-01-03T00:00:04.919Z",
             "completedAt": "1990-01-03T00:00:09.919Z",
             "status": "TASK_FAILED"
