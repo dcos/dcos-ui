@@ -64,6 +64,7 @@ class ServiceFormModal extends mixin(StoreMixin) {
     this.setState({
       app: '',
       errorMessage: null,
+      jsonMode: false,
       model,
       service: ServiceUtil.createServiceFromFormModel(model)
     });
