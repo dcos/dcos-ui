@@ -30,6 +30,7 @@ module.exports = {
     if (jobsAlreadyAdded[itemId]) {
       // handle merge data for job, not for group
       item = Object.assign(jobsAlreadyAdded[itemId], item);
+
       return;
     }
 
@@ -41,9 +42,18 @@ module.exports = {
       return;
     }
 
+
     // Add item to the current tree if it's the actual parent tree
     if (id === parentId) {
+      // Initialize items, if they don't already exist, before push
+      if (!parent.items) {
+        parent.items = [];
+      }
+
+      // Store child as added
+      jobsAlreadyAdded[item.id] = item;
       parent.items.push(item);
+
       return;
     }
 
@@ -68,7 +78,7 @@ module.exports = {
    * }} jobs and groups in a tree structure
    */
   parseJobs(jobs) {
-    let rootTree = {id: '/', items: []};
+    let rootTree = {id: '/'};
     let jobsAlreadyAdded = {
       [rootTree.id]: rootTree
     };
