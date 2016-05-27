@@ -1,7 +1,7 @@
 import {EventEmitter} from 'events';
 
 import {
-  CHRONOS_CHANGE,
+  CHRONOS_JOBS_CHANGE,
   DCOS_CHANGE,
   MESOS_SUMMARY_CHANGE,
   MARATHON_GROUPS_CHANGE,
@@ -43,7 +43,7 @@ class DCOSStore extends EventEmitter {
 
     this.proxyListeners = [
       {
-        event: CHRONOS_CHANGE,
+        event: CHRONOS_JOBS_CHANGE,
         handler: this.onChronosChange,
         store: ChronosStore
       },
@@ -135,7 +135,6 @@ class DCOSStore extends EventEmitter {
   }
 
   onChronosChange() {
-    this.data.chronos.jobTree = ChronosStore.jobTree;
     this.emit(DCOS_CHANGE);
   }
 
