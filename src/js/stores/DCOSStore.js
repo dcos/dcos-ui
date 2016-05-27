@@ -12,7 +12,6 @@ import {
 import ChronosStore from '../stores/ChronosStore';
 import DeploymentsList from '../structs/DeploymentsList';
 import Framework from '../structs/Framework';
-import JobTree from '../structs/JobTree';
 import MarathonStore from './MarathonStore';
 import MesosSummaryStore from './MesosSummaryStore';
 import NotificationStore from './NotificationStore';
@@ -43,9 +42,6 @@ class DCOSStore extends EventEmitter {
         serviceTree: new ServiceTree(),
         deploymentsList: new DeploymentsList(),
         versions: new Map()
-      },
-      chronos: {
-        jobTree: new JobTree(),
       },
       mesos: new SummaryList(),
       dataProcessed: false
@@ -239,7 +235,7 @@ class DCOSStore extends EventEmitter {
    * @type {JobTree}
    */
   get jobTree() {
-    return this.data.chronos.jobTree;
+    return ChronosStore.jobTree;
   }
 
   /**
