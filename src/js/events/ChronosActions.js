@@ -21,6 +21,11 @@ const ChronosActions = {
             let data;
             try {
               data = ChronosUtil.parseJobs(response);
+              AppDispatcher.handleServerAction({
+                type: REQUEST_CHRONOS_JOBS_SUCCESS,
+                data
+              });
+              resolve();
             } catch (error) {
               AppDispatcher.handleServerAction({
                 type: REQUEST_CHRONOS_JOBS_ERROR,
@@ -28,12 +33,6 @@ const ChronosActions = {
               });
               reject();
             }
-
-            AppDispatcher.handleServerAction({
-              type: REQUEST_CHRONOS_JOBS_SUCCESS,
-              data
-            });
-            resolve();
           },
           error: function (e) {
             AppDispatcher.handleServerAction({
