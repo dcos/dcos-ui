@@ -27,14 +27,11 @@ const ChronosActions = {
               });
               resolve();
             } catch (error) {
-              AppDispatcher.handleServerAction({
-                type: REQUEST_CHRONOS_JOBS_ERROR,
-                data: error
-              });
-              reject();
+              this.error(error);
             }
           },
           error: function (e) {
+            console.log(e.message);
             AppDispatcher.handleServerAction({
               type: REQUEST_CHRONOS_JOBS_ERROR,
               data: e.message
