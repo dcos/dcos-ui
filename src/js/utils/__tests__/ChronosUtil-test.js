@@ -118,6 +118,16 @@ describe('ChronosUtil', function () {
       expect(instance.items[0].items[0].id).toEqual('/group/job');
     });
 
+    it('merges data of items that are defined multiple times', function () {
+      let result = this.instance.items[0].items[3];
+      expect(result).toEqual({
+        id: '/group/beta',
+        cmd: '>beta',
+        label: 'Beta',
+        description: 'Second beta'
+      });
+    });
+
   });
 
 });
