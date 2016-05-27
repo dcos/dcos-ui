@@ -88,6 +88,11 @@ describe('ChronosUtil', function () {
       expect(this.instance.id).toEqual('/');
     });
 
+    it('consolidates jobs into common parent', function () {
+      expect(this.instance.items.length).toEqual(1);
+      expect(this.instance.items[0].id).toEqual('/group');
+    });
+
     it('defaults id to slash (root group id)', function () {
       let tree = ChronosUtil.parseJobs([]);
       expect(tree.id).toEqual('/');
