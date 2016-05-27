@@ -112,7 +112,7 @@ const UnitHealthStore = Store.createStore({
   },
 
   getNode: function (nodeID) {
-    return new Node(this.get('nodesByID')[nodeID] || []);
+    return new Node(this.get('nodesByID')[nodeID] || {});
   },
 
   getDownloadURL: function () {
