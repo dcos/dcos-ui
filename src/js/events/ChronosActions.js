@@ -6,6 +6,7 @@ import {
   REQUEST_CHRONOS_JOBS_SUCCESS
 } from '../constants/ActionTypes';
 import AppDispatcher from './AppDispatcher';
+import ChronosUtil from '../utils/ChronosUtil';
 import Config from '../config/Config';
 
 const ChronosActions = {
