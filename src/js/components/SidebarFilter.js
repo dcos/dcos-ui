@@ -144,8 +144,8 @@ class SidebarFilter extends mixin(QueryParamsMixin) {
       let checked = selectedNodes.indexOf(value) > -1;
 
       let labelClassSet = classNames(
-        'side-list-item form-row-element form-element-checkbox ' +
-        'inverse row row-flex flex-align-items-center vertical-center flush clickable',
+        'side-list-item form-row-element form-element-checkbox inverse',
+        'row row-flex flex-align-items-center vertical-center flush clickable',
         {
           'filter-active': this.getCountByValue(filterValue) > 0,
           'filter-checked': checked
