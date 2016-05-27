@@ -82,50 +82,24 @@ class ChronosStore extends EventEmitter {
 
   addChangeListener(eventName, callback) {
     this.on(eventName, callback);
-  }
-
-  removeChangeListener(eventName, callback) {
-    this.removeListener(eventName, callback);
-  }
-
-  shouldPoll() {
-    return !!this.listeners(CHRONOS_JOBS_CHANGE).length;
-  }
-
-  /**
-   * Adds the listener for the specified event
-   * @param {string} eventName
-   * @param {Function} callback
-   * @return {ChronosStore} ChronosStore instance
-   * @override
-   */
-  on(eventName, callback) {
-    super.on(eventName, callback);
 
     // Start polling if there is at least one listener
     if (this.shouldPoll()) {
       startPolling();
     }
-
-    return this;
   }
 
-  /**
-   * Remove the specified listener for the specified event
-   * @param {string} eventName
-   * @param {Function} callback
-   * @return {ChronosStore} ChronosStore instance
-   * @override
-   */
-  removeListener(eventName, callback) {
-    super.removeListener(eventName, callback);
+  removeChangeListener(eventName, callback) {
+    this.removeListener(eventName, callback);
 
     // Stop polling if no one is listening
     if (!this.shouldPoll()) {
       stopPolling();
     }
+  }
 
-    return this;
+  shouldPoll() {
+    return !!this.listeners(CHRONOS_JOBS_CHANGE).length;
   }
 
   /**
