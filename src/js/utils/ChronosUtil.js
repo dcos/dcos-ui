@@ -78,13 +78,7 @@ module.exports = {
     }
 
     jobs.forEach((job) => {
-      try {
-        this.addJob(rootTree, job, jobsAlreadyAdded);
-      } catch (error) {
-        // Job, is invalid, do nothing
-        console.warn(`Job with id ${job.id} was left out of the jobs, because` +
-          'it contains malformed data.')
-      }
+      this.addJob(rootTree, job, jobsAlreadyAdded);
     });
 
     return rootTree;
