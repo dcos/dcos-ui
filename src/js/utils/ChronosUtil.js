@@ -42,7 +42,6 @@ module.exports = {
       return;
     }
 
-
     // Add item to the current tree if it's the actual parent tree
     if (id === parentId) {
       // Initialize items, if they don't already exist, before push
