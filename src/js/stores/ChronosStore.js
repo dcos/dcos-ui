@@ -77,7 +77,7 @@ class ChronosStore extends EventEmitter {
       }
 
       return true;
-    })
+    });
   }
 
   addChangeListener(eventName, callback) {
