@@ -129,6 +129,17 @@ let SERVICE_SCHEMA = {
                 return item.join(':');
               }).join(',')
           }
+        },
+        acceptedResourceRoles: {
+          title: 'Accepted Resource Roles',
+          type: 'string',
+          description: 'Comma-separated list of resource roles. Marathon ' +
+          'considers only resource offers with roles in this list for ' +
+          'launching tasks of this app.',
+          getter: function (service) {
+            return service.getAcceptedResourceRoles() &&
+              service.getAcceptedResourceRoles().join(', ');
+          }
         }
       }
     }

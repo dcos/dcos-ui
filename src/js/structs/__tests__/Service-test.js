@@ -473,6 +473,20 @@ describe('Service', function () {
 
   });
 
+  describe('#getAcceptedResourceRoles', function () {
+
+    it('returns correct user', function () {
+      let service = new Service({
+        acceptedResourceRoles: [
+          'public_slave'
+        ]
+      });
+
+      expect(service.getAcceptedResourceRoles()).toEqual(['public_slave']);
+    });
+
+  });
+
   describe('#getVersions', function () {
 
     it('returns correct versions map', function () {

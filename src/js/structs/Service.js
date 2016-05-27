@@ -40,6 +40,10 @@ module.exports = class Service extends Item {
     return this.get('executor');
   }
 
+  getAcceptedResourceRoles() {
+    return this.get('acceptedResourceRoles');
+  }
+
   getHealth() {
     let {tasksHealthy, tasksUnhealthy, tasksRunning} = this.getTasksSummary();
 

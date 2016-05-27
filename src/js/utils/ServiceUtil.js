@@ -40,6 +40,12 @@ const ServiceUtil = {
             .map(function (item) {
               return item.split(':')
             });
+        definition.acceptedResourceRoles =
+          formModel.Optional.acceptedResourceRoles &&
+            formModel.Optional.acceptedResourceRoles.split(',')
+              .map(function (item) {
+                return item.trim();
+              });
       }
 
       if (formModel['Container Settings'] != null) {
@@ -75,6 +81,7 @@ const ServiceUtil = {
     appDefinition.executor = service.getExecutor();
     appDefinition.fetch = service.getFetch();
     appDefinition.constraints = service.getConstraints();
+    appDefinition.acceptedResourceRoles = service.getAcceptedResourceRoles();
 
     let containerSettings = service.getContainerSettings();
     if (
