@@ -8,7 +8,6 @@ import {
   VISIBILITY_CHANGE
 } from '../constants/EventTypes';
 import Config from '../config/Config';
-import Job from '../structs/Job';
 import JobTree from '../structs/JobTree';
 import {
   REQUEST_CHRONOS_JOBS_ERROR,

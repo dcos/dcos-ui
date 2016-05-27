@@ -10,7 +10,6 @@ import {
 } from '../constants/EventTypes';
 import ChronosStore from '../stores/ChronosStore';
 import Framework from '../structs/Framework';
-import JobTree from '../structs/JobTree';
 import MarathonStore from './MarathonStore';
 import MesosSummaryStore from './MesosSummaryStore';
 import ServiceTree from '../structs/ServiceTree';
@@ -37,9 +36,6 @@ class DCOSStore extends EventEmitter {
       marathon: {
         serviceTree: new ServiceTree(),
         versions: new Map()
-      },
-      chronos: {
-        jobTree: new JobTree(),
       },
       mesos: new SummaryList(),
       dataProcessed: false
@@ -200,7 +196,7 @@ class DCOSStore extends EventEmitter {
    * @type {JobTree}
    */
   get jobTree() {
-    return this.data.chronos.jobTree;
+    return ChronosStore.jobTree;
   }
 
   /**
