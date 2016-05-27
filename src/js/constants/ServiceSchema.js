@@ -104,6 +104,19 @@ let SERVICE_SCHEMA = {
           getter: function (service) {
             return service.getExecutor();
           }
+        },
+        uris: {
+          title: 'URIs',
+          type: 'string',
+          description: 'Comma-separated list of valid URIs.',
+          getter: function (service) {
+            if (!service.getFetch()) {
+              return null;
+            }
+            return service.getFetch().map(function (item) {
+              return item.uri;
+            }).join(', ');
+          }
         }
       }
     }

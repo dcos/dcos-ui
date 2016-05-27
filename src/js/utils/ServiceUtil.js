@@ -30,6 +30,11 @@ const ServiceUtil = {
 
       if (formModel.Optional != null) {
         definition.executor = formModel.Optional.executor;
+        definition.fetch = formModel.Optional.uris &&
+          formModel.Optional.uris.split(',')
+            .map(function (uri) {
+              return {uri: uri.trim()};
+            });
       }
 
       if (formModel['Container Settings'] != null) {
@@ -63,6 +68,7 @@ const ServiceUtil = {
     appDefinition.cmd = service.getCommand();
 
     appDefinition.executor = service.getExecutor();
+    appDefinition.fetch = service.getFetch();
 
     let containerSettings = service.getContainerSettings();
     if (
