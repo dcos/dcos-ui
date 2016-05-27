@@ -46,6 +46,7 @@ const ServiceUtil = {
               .map(function (item) {
                 return item.trim();
               });
+        definition.user = formModel.Optional.user;
       }
 
       if (formModel['Container Settings'] != null) {
@@ -82,6 +83,7 @@ const ServiceUtil = {
     appDefinition.fetch = service.getFetch();
     appDefinition.constraints = service.getConstraints();
     appDefinition.acceptedResourceRoles = service.getAcceptedResourceRoles();
+    appDefinition.user = service.getUser();
 
     let containerSettings = service.getContainerSettings();
     if (

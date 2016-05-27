@@ -140,6 +140,13 @@ let SERVICE_SCHEMA = {
             return service.getAcceptedResourceRoles() &&
               service.getAcceptedResourceRoles().join(', ');
           }
+        },
+        user: {
+          title: 'user',
+          type: 'string',
+          getter: function (service) {
+            return service.getUser();
+          }
         }
       }
     }
