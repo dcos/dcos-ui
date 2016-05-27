@@ -122,10 +122,11 @@ var ServicesTab = React.createClass({
     return (
       <div className="button-collection flush-bottom">
         <button className="button button-stroke button-inverse"
-          onClick={this.handleOpenGroupFormModal}>
+          onClick={() => this.handleOpenModal(SERVICE_GROUP_FORM_MODAL)}>
           Create Group
         </button>
-        <button className="button button-success">
+        <button className="button button-success"
+          onClick={() => this.handleOpenModal(SERVICE_FORM_MODAL)}>
           Deploy Service
         </button>
       </div>
