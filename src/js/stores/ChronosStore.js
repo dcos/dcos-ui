@@ -55,7 +55,7 @@ class ChronosStore extends EventEmitter {
     super(...arguments);
 
     this.data = {
-      jobs: []
+      jobTree: {id: '/', items: []}
     };
 
     // Handle app actions
@@ -65,7 +65,7 @@ class ChronosStore extends EventEmitter {
       }
       switch (action.type) {
         case REQUEST_CHRONOS_JOBS_SUCCESS:
-          this.data.jobs = action.data;
+          this.data.jobTree = action.data;
           this.emit(CHRONOS_JOBS_CHANGE);
           break;
         case REQUEST_CHRONOS_JOBS_ONGOING:
@@ -132,7 +132,7 @@ class ChronosStore extends EventEmitter {
    * @type {JobTree}
    */
   get jobTree() {
-    return new JobTree({items: this.data.jobs});
+    return new JobTree(this.data.jobTree);
   }
 
   static get storeID() {
