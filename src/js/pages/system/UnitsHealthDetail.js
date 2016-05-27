@@ -4,6 +4,7 @@ import React from 'react';
 /* eslint-enable no-unused-vars */
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
+import Breadcrumbs from '../../components/Breadcrumbs';
 import FilterBar from '../../components/FilterBar';
 import FilterHeadline from '../../components/FilterHeadline';
 import FilterInputText from '../../components/FilterInputText';
@@ -19,6 +20,11 @@ const METHODS_TO_BIND = [
   'resetFilter'
 ];
 
+const FLAGS = {
+  UNIT_LOADED: parseInt('1', 2),
+  NODES_LOADED: parseInt('10', 2)
+};
+
 class UnitsHealthDetail extends mixin(StoreMixin) {
   constructor() {
     super(...arguments);
@@ -31,7 +37,9 @@ class UnitsHealthDetail extends mixin(StoreMixin) {
     ];
 
     this.state = {
+      hasError: false,
       healthFilter: 'all',
+      isLoading: FLAGS.UNIT_LOADED | FLAGS.NODES_LOADED,
       searchString: ''
     };
 
@@ -47,6 +55,24 @@ class UnitsHealthDetail extends mixin(StoreMixin) {
     UnitHealthStore.fetchUnitNodes(this.props.params.unitID);
   }
 
+  onUnitHealthStoreUnitSuccess() {
+    let isLoading = this.state.isLoading & ~FLAGS.UNIT_LOADED;
+    this.setState({isLoading});
+  }
+
+  onUnitHealthStoreUnitError() {
+    this.setState({hasError: true});
+  }
+
+  onUnitHealthStoreNodesSuccess() {
+    let isLoading = this.state.isLoading & ~FLAGS.NODES_LOADED;
+    this.setState({isLoading});
+  }
+
+  onUnitHealthStoreNodeError() {
+    this.setState({hasError: true});
+  }
+
   handleHealthSelection(selectedHealth) {
     this.setState({healthFilter: selectedHealth.id});
   }
@@ -59,6 +85,18 @@ class UnitsHealthDetail extends mixin(StoreMixin) {
     return (
       <div className="container container-pod">
         <RequestErrorMsg />
+      </div>
+    );
+  }
+
+  getLoadingScreen() {
+    return (
+      <div className="container-pod text-align-center vertical-center inverse">
+        <div className="row">
+          <div className="ball-scale">
+            <div />
+          </div>
+        </div>
       </div>
     );
   }
@@ -101,7 +139,15 @@ class UnitsHealthDetail extends mixin(StoreMixin) {
   }
 
   render() {
-    let {healthFilter, searchString} = this.state;
+    let {healthFilter, searchString, hasError, isLoading} = this.state;
+
+    if (hasError) {
+      return this.getErrorNotice();
+    }
+
+    if (isLoading) {
+      return this.getLoadingScreen();
+    }
 
     let unit = this.getUnit();
     let nodes = UnitHealthStore.getNodes(this.props.params.unitID);
@@ -109,6 +155,7 @@ class UnitsHealthDetail extends mixin(StoreMixin) {
 
     return (
       <div className="flex-container-col">
+        <Breadcrumbs />
         <PageHeader
           icon={<img src="./img/services/icon-service-default-medium@2x.png" />}
           iconClassName="icon-app-container"

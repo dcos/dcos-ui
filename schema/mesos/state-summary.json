@@ -92,7 +92,7 @@
                         "type": "integer"
                     },
                     "TASK_ERROR": {
-                        "title": "A sum of erorred tasks.",
+                        "title": "A sum of errored tasks.",
                         "type": "integer"
                     },
                     "webui_url": {
@@ -206,7 +206,7 @@
                         "type": "integer"
                     },
                     "TASK_ERROR": {
-                        "title": "A sum of erorred tasks.",
+                        "title": "A sum of errored tasks.",
                         "type": "integer"
                     }
                 },
