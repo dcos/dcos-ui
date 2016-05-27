@@ -92,6 +92,20 @@ let SERVICE_SCHEMA = {
         }
       },
       required: []
+    },
+    'Optional': {
+      type: 'object',
+      properties: {
+        executor: {
+          title: 'Executor',
+          type: 'string',
+          description: 'Executor must be the string \'//cmd\', a string ' +
+          'containing only single slashes (\'/\'), or blank.',
+          getter: function (service) {
+            return service.getExecutor();
+          }
+        }
+      }
     }
   },
   required: [

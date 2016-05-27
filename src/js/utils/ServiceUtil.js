@@ -28,6 +28,10 @@ const ServiceUtil = {
         definition.instances = formModel.General.instances;
       }
 
+      if (formModel.Optional != null) {
+        definition.executor = formModel.Optional.executor;
+      }
+
       if (formModel['Container Settings'] != null) {
         definition.container = {
           docker: {
@@ -57,6 +61,8 @@ const ServiceUtil = {
     appDefinition.disk = service.getDisk();
     appDefinition.instances = service.getInstancesCount();
     appDefinition.cmd = service.getCommand();
+
+    appDefinition.executor = service.getExecutor();
 
     let containerSettings = service.getContainerSettings();
     if (
