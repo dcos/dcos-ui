@@ -24,6 +24,10 @@ module.exports = class Service extends Item {
     return this.get('container');
   }
 
+  getConstraints() {
+    return this.get('constraints');
+  }
+
   getDeployments() {
     return this.get('deployments');
   }

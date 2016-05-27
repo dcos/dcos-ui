@@ -117,6 +117,18 @@ let SERVICE_SCHEMA = {
               return item.uri;
             }).join(', ');
           }
+        },
+        constraints: {
+          title: 'Constraints',
+          type: 'string',
+          description: 'Comma-separated list of valid constraints. Valid ' +
+          'constraint format is "field:operator[:value]".',
+          getter: function (service) {
+            return service.getConstraints() && service.getConstraints()
+              .map(function (item) {
+                return item.join(':');
+              }).join(',')
+          }
         }
       }
     }

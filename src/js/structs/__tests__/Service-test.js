@@ -421,6 +421,46 @@ describe('Service', function () {
 
   });
 
+  describe('#getConstraints', function () {
+
+    beforeEach(function () {
+      this.instance = new Service({
+        'constraints': [
+          [
+            'hostname',
+            'LIKE',
+            'test'
+          ],
+          [
+            'hostname',
+            'UNLIKE',
+            'no-test'
+          ]
+        ]
+      });
+    });
+
+    it('returns array', function () {
+      expect(Array.isArray(this.instance.getConstraints())).toBeTruthy();
+    });
+
+    it('returns correct constraints', function () {
+      expect(this.instance.getConstraints()).toEqual([
+        [
+          'hostname',
+          'LIKE',
+          'test'
+        ],
+        [
+          'hostname',
+          'UNLIKE',
+          'no-test'
+        ]
+      ]);
+    });
+
+  });
+
   describe('#getUser', function () {
 
     it('returns correct user', function () {
