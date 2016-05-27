@@ -73,16 +73,19 @@ describe('ChronosUtil', function () {
   describe('#parseJobs', function () {
 
     beforeEach(function () {
-      this.instance = ChronosUtil.parseJobs([{
-        id: '/group',
-        items: [
-          {id: '/group/foo', items: []},
-          {id: '/group/bar', items: []},
-          {id: '/group/alpha'},
-          {id: '/group/beta'},
-          {id: '/group/wibble/wobble'}
-        ],
-      }]);
+      this.instance = ChronosUtil.parseJobs([
+        {id: '/group'},
+        {id: '/group/foo'},
+        {id: '/group/bar'},
+        {id: '/group/alpha'},
+        {id: '/group/beta', cmd: '>beta', description: 'First beta'},
+        {id: '/group/beta', label: 'Beta', description: 'Second beta'},
+        {id: '/group/wibble/wobble'}
+      ]);
+    });
+
+    it('nests everything under root', function () {
+      expect(this.instance.id).toEqual('/');
     });
 
     it('defaults id to slash (root group id)', function () {
@@ -95,7 +98,7 @@ describe('ChronosUtil', function () {
     });
 
     it('accepts nested trees (groups)', function () {
-      expect(this.instance.items[0].items[0].items.length).toEqual(0);
+      expect(this.instance.items[0].items[4].items.length).toEqual(1);
     });
 
     it('doesn\'t add items to jobs with no nested items', function () {
