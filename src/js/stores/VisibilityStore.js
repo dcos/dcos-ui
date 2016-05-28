@@ -1,8 +1,5 @@
-import {Store} from 'mesosphere-shared-reactjs';
-
+import BaseStore from './BaseStore';
 import Config from '../config/Config';
-import GetSetMixin from '../mixins/GetSetMixin';
-
 import {VISIBILITY_CHANGE} from '../constants/EventTypes';
 
 // Use visibility API to check if current tab is active or not
@@ -37,16 +34,14 @@ const Visibility = (function () {
   };
 })();
 
-var VisibilityStore = Store.createStore({
-  storeID: 'visibility',
+class VisibilityStore extends BaseStore {
+  constructor() {
+    super(...arguments);
 
-  mixins: [GetSetMixin],
-
-  init() {
-    this.set({
+    this.getSet_data = {
       isTabVisible: true,
       isInactive: false
-    });
+    };
 
     this.timeOut = null;
 
@@ -56,25 +51,23 @@ var VisibilityStore = Store.createStore({
       // context.
       setTimeout(this.onVisibilityChange.bind(this), 0);
     });
-
-    return this;
-  },
+  }
 
   removeChangeListener(eventName, callback) {
     this.removeListener(eventName, callback);
-  },
+  }
 
   addChangeListener(eventName, callback) {
     return this.on(eventName, callback);
-  },
+  }
 
   isTabVisible() {
     return this.get('isTabVisible');
-  },
+  }
 
   isInactive() {
     return this.get('isInactive');
-  },
+  }
 
   onVisibilityChange() {
     let isTabVisible = Visibility.getVisibility();
@@ -100,6 +93,11 @@ var VisibilityStore = Store.createStore({
       this.emit(VISIBILITY_CHANGE);
     }
   }
-});
 
-module.exports = VisibilityStore.init();
+  get storeID() {
+    return 'visibility';
+  }
+
+}
+
+module.exports = new VisibilityStore();
