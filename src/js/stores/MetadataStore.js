@@ -1,78 +1,83 @@
 import deepEqual from 'deep-equal';
-import {Store} from 'mesosphere-shared-reactjs';
+import BaseStore from './BaseStore';
 
 var AppDispatcher = require('../events/AppDispatcher');
 import ActionTypes from '../constants/ActionTypes';
 import Config from '../config/Config';
 import EventTypes from '../constants/EventTypes';
-var GetSetMixin = require('../mixins/GetSetMixin');
 import MetadataActions from '../events/MetadataActions';
 
-var MetadataStore = Store.createStore({
-  storeID: 'metadata',
+class MetadataStore extends BaseStore {
 
-  init: function () {
+  constructor() {
+    super(...arguments);
+
+    this.dispatcherIndex = AppDispatcher.register((payload) => {
+      var source = payload.source;
+      if (source !== ActionTypes.SERVER_ACTION) {
+        return false;
+      }
+
+      var action = payload.action;
+
+      switch (action.type) {
+        case ActionTypes.REQUEST_METADATA:
+          var oldMetadata = this.get('metadata');
+          var metadata = action.data;
+
+          // only emitting on change
+          if (!deepEqual(oldMetadata, metadata)) {
+            this.set({metadata});
+            this.emitChange(EventTypes.METADATA_CHANGE);
+          }
+          break;
+        case ActionTypes.REQUEST_DCOS_METADATA:
+          var oldDCOSMetadata = this.get('dcosMetadata');
+          var dcosMetadata = action.data;
+
+          // only emitting on change
+          if (!deepEqual(oldDCOSMetadata, dcosMetadata)) {
+            this.set({dcosMetadata});
+            this.emitChange(EventTypes.DCOS_METADATA_CHANGE);
+          }
+          break;
+      }
+
+      return true;
+    });
+  }
+
+  init() {
     this.set({
       metadata: {}
     });
     MetadataActions.fetch();
-  },
+  }
 
-  mixins: [GetSetMixin],
-
-  emitChange: function (eventName) {
+  // TODO: DCOS-7430 - Remove emitChange method
+  emitChange(eventName) {
     this.emit(eventName);
-  },
+  }
 
-  addChangeListener: function (eventName, callback) {
+  addChangeListener(eventName, callback) {
     this.on(eventName, callback);
-  },
+  }
 
-  removeChangeListener: function (eventName, callback) {
+  removeChangeListener(eventName, callback) {
     this.removeListener(eventName, callback);
-  },
+  }
 
-  buildDocsURI: function (path) {
+  buildDocsURI(path) {
     let metadata = this.get('dcosMetadata');
     let version = metadata && metadata.version || 'latest';
     let docsVersion = version.replace(/(.*?)\.(.*?)\..*/, '$1.$2');
     return `${Config.documentationURI}/${docsVersion}${path}`;
-  },
+  }
 
-  dispatcherIndex: AppDispatcher.register(function (payload) {
-    var source = payload.source;
-    if (source !== ActionTypes.SERVER_ACTION) {
-      return false;
-    }
+  get storeID() {
+    return 'metadata';
+  }
 
-    var action = payload.action;
+}
 
-    switch (action.type) {
-      case ActionTypes.REQUEST_METADATA:
-        var oldMetadata = MetadataStore.get('metadata');
-        var metadata = action.data;
-
-        // only emitting on change
-        if (!deepEqual(oldMetadata, metadata)) {
-          MetadataStore.set({metadata});
-          MetadataStore.emitChange(EventTypes.METADATA_CHANGE);
-        }
-        break;
-      case ActionTypes.REQUEST_DCOS_METADATA:
-        var oldDCOSMetadata = MetadataStore.get('dcosMetadata');
-        var dcosMetadata = action.data;
-
-        // only emitting on change
-        if (!deepEqual(oldDCOSMetadata, dcosMetadata)) {
-          MetadataStore.set({dcosMetadata});
-          MetadataStore.emitChange(EventTypes.DCOS_METADATA_CHANGE);
-        }
-        break;
-    }
-
-    return true;
-  })
-
-});
-
-module.exports = MetadataStore;
+module.exports = new MetadataStore();
