@@ -1,10 +1,8 @@
-import {Store} from 'mesosphere-shared-reactjs';
-
+import BaseStore from './BaseStore';
 import ActionTypes from '../constants/ActionTypes';
 import AppDispatcher from '../events/AppDispatcher';
 import Config from '../config/Config';
 import EventTypes from '../constants/EventTypes';
-import GetSetMixin from '../mixins/GetSetMixin';
 import TaskDirectory from '../structs/TaskDirectory';
 import TaskDirectoryActions from '../events/TaskDirectoryActions';
 
@@ -28,30 +26,49 @@ function startPolling(task, deeperPath) {
   }
 }
 
-var TaskDirectoryStore = Store.createStore({
-  storeID: 'taskDirectory',
+class TaskDirectoryStore extends BaseStore {
+  constructor() {
+    super(...arguments);
 
-  mixins: [GetSetMixin],
+    this.getSet_data = {
+      directory: null,
+      innerPath: ''
+    };
 
-  getSet_data: {
-    directory: null,
-    innerPath: ''
-  },
+    this.dispatcherIndex = AppDispatcher.register((payload) => {
+      if (payload.source !== ActionTypes.SERVER_ACTION) {
+        return false;
+      }
 
-  addChangeListener: function (eventName, callback) {
+      var action = payload.action;
+      switch (action.type) {
+        case ActionTypes.REQUEST_TASK_DIRECTORY_SUCCESS:
+          this.processStateSuccess(action.data, action.sandBoxPath);
+          break;
+        case ActionTypes.REQUEST_TASK_DIRECTORY_ERROR:
+          this.processStateError();
+          break;
+      }
+
+      return true;
+    });
+
+  }
+
+  addChangeListener(eventName, callback) {
     this.on(eventName, callback);
-  },
+  }
 
-  removeChangeListener: function (eventName, callback) {
+  removeChangeListener(eventName, callback) {
     this.removeListener(eventName, callback);
 
     if (this.listeners(EventTypes.TASK_DIRECTORY_CHANGE).length === 0) {
       this.resetRequests();
       this.set({innerPath: '', directory: null});
     }
-  },
+  }
 
-  resetRequests: function () {
+  resetRequests() {
     if (requestInterval != null) {
       clearInterval(requestInterval);
       requestInterval = null;
@@ -61,52 +78,39 @@ var TaskDirectoryStore = Store.createStore({
       activeXHR.abort();
       activeXHR = null;
     }
-  },
+  }
 
-  getDirectory: function (task, deeperPath) {
+  getDirectory(task, deeperPath) {
     this.resetRequests();
     this.set({directory: null});
     this.emit(EventTypes.TASK_DIRECTORY_CHANGE);
 
     startPolling(task, deeperPath);
-  },
+  }
 
-  addPath: function (task, path) {
+  addPath(task, path) {
     this.set({innerPath: this.get('innerPath') + '/' + path});
     this.getDirectory(task, this.get('innerPath'));
-  },
+  }
 
-  setPath: function (task, path) {
+  setPath(task, path) {
     this.set({innerPath: path});
     this.getDirectory(task, path);
-  },
+  }
 
-  processStateError: function () {
+  processStateError() {
     this.emit(EventTypes.TASK_DIRECTORY_ERROR);
-  },
+  }
 
-  processStateSuccess: function (directory, sandBoxPath) {
+  processStateSuccess(directory, sandBoxPath) {
     this.set({directory: new TaskDirectory({items: directory}), sandBoxPath});
     this.emit(EventTypes.TASK_DIRECTORY_CHANGE);
-  },
+  }
 
-  dispatcherIndex: AppDispatcher.register(function (payload) {
-    if (payload.source !== ActionTypes.SERVER_ACTION) {
-      return false;
-    }
+  get storeID() {
+    return 'taskDirectory';
+  }
 
-    var action = payload.action;
-    switch (action.type) {
-      case ActionTypes.REQUEST_TASK_DIRECTORY_SUCCESS:
-        TaskDirectoryStore.processStateSuccess(action.data, action.sandBoxPath);
-        break;
-      case ActionTypes.REQUEST_TASK_DIRECTORY_ERROR:
-        TaskDirectoryStore.processStateError();
-        break;
-    }
+}
 
-    return true;
-  })
-});
-
-module.exports = TaskDirectoryStore;
+module.exports = new TaskDirectoryStore();
