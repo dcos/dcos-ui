@@ -1,15 +1,10 @@
-import {HISTORY_CHANGE} from '../constants/EventTypes';
+import BaseStore from './BaseStore';
 import {HashLocation} from 'react-router';
-import {Store} from 'mesosphere-shared-reactjs';
 
-import GetSetMixin from '../mixins/GetSetMixin';
+import {HISTORY_CHANGE} from '../constants/EventTypes';
 
-var HistoryStore = Store.createStore({
-  storeID: 'history',
-
-  mixins: [GetSetMixin],
-
-  init: function () {
+class HistoryStore extends BaseStore {
+  init() {
     this.set({
       history: [HashLocation.getCurrentPath()]
     });
@@ -19,17 +14,17 @@ var HistoryStore = Store.createStore({
       // this is why this is here
       this.onHashChange(change);
     });
-  },
+  }
 
-  addChangeListener: function (eventName, callback) {
+  addChangeListener(eventName, callback) {
     this.on(eventName, callback);
-  },
+  }
 
-  removeChangeListener: function (eventName, callback) {
+  removeChangeListener(eventName, callback) {
     this.removeListener(eventName, callback);
-  },
+  }
 
-  onHashChange: function (change) {
+  onHashChange(change) {
     let history = this.get('history');
 
     if (change.type === 'pop') {
@@ -40,7 +35,7 @@ var HistoryStore = Store.createStore({
 
     this.set({history});
     this.emit(HISTORY_CHANGE);
-  },
+  }
 
   /**
    * Returns the history at an offset
@@ -49,28 +44,32 @@ var HistoryStore = Store.createStore({
    * @param  {Number} offset Should always be 0 or a negative number
    * @return {String|undefined} Path in history location if found
    */
-  getHistoryAt: function (offset) {
+  getHistoryAt(offset) {
     let history = this.get('history');
     return history[history.length - 1 + offset];
-  },
+  }
 
-  goBack: function (router) {
-    let prevPath = HistoryStore.getHistoryAt(-1);
+  goBack(router) {
+    let prevPath = this.getHistoryAt(-1);
     if (prevPath) {
       router.transitionTo(prevPath);
-      HistoryStore.get('history').pop();
-      HistoryStore.get('history').pop();
+      this.get('history').pop();
+      this.get('history').pop();
       return;
     }
 
-    HistoryStore.goBackToPage(router);
-  },
+    this.goBackToPage(router);
+  }
 
-  goBackToPage: function (router) {
+  goBackToPage(router) {
     let routes = router.getCurrentRoutes();
     let pageBefore = routes[routes.length - 2];
     router.transitionTo(pageBefore.name, router.getCurrentParams());
   }
-});
 
-module.exports = HistoryStore;
+  get storeID() {
+    return 'history';
+  }
+}
+
+module.exports = new HistoryStore();
