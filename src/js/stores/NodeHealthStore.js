@@ -1,4 +1,4 @@
-import {Store} from 'mesosphere-shared-reactjs';
+import BaseStore from './BaseStore';
 
 import {
   SERVER_ACTION,
@@ -28,7 +28,6 @@ import Config from '../config/Config';
 import NodeHealthActions from '../events/NodeHealthActions';
 import HealthUnit from '../structs/HealthUnit';
 import HealthUnitsList from '../structs/HealthUnitsList';
-import GetSetMixin from '../mixins/GetSetMixin';
 import Node from '../structs/Node';
 import NodesList from '../structs/NodesList';
 import VisibilityStore from './VisibilityStore';
@@ -51,151 +50,163 @@ function stopPolling() {
   }
 }
 
-function handleInactiveChange() {
-  let isInactive = VisibilityStore.get('isInactive');
-  if (isInactive) {
-    stopPolling();
+class NodeHealthStore extends BaseStore {
+  constructor() {
+    super(...arguments);
+
+    this.getSet_data = {
+      nodes: [],
+      nodesByID: {},
+      unitsByNodeID: {},
+      unitsByID: {}
+    };
+
+    this.dispatcherIndex = AppDispatcher.register((payload) => {
+      if (payload.source !== SERVER_ACTION) {
+        return false;
+      }
+
+      let action = payload.action;
+      let data = action.data;
+
+      switch (action.type) {
+        case REQUEST_HEALTH_NODES_SUCCESS:
+          this.processNodes(data);
+          break;
+        case REQUEST_HEALTH_NODES_ERROR:
+          this.emit(HEALTH_NODES_ERROR, data);
+          break;
+        case REQUEST_HEALTH_NODE_SUCCESS:
+          this.processNode(data, action.nodeID);
+          break;
+        case REQUEST_HEALTH_NODE_ERROR:
+          this.emit(HEALTH_NODE_ERROR, data, action.nodeID);
+          break;
+        case REQUEST_HEALTH_NODE_UNITS_SUCCESS:
+          this.processUnits(data, action.nodeID);
+          break;
+        case REQUEST_HEALTH_NODE_UNITS_ERROR:
+          this.emit(HEALTH_NODE_UNITS_ERROR, data, action.nodeID);
+          break;
+        case REQUEST_HEALTH_NODE_UNIT_SUCCESS:
+          this.processNode(data, action.nodeID, action.unitID);
+          break;
+        case REQUEST_HEALTH_NODE_UNIT_ERROR:
+          this.emit(HEALTH_NODE_UNIT_ERROR, data, action.nodeID, action.unitID);
+          break;
+      }
+
+      return true;
+    });
+
+    VisibilityStore.addChangeListener(
+      VISIBILITY_CHANGE,
+      this.onVisibilityStoreChange.bind(this)
+    );
   }
 
-  if (!isInactive && NodeHealthStore.shouldPoll()) {
-    startPolling();
-  }
-}
-
-VisibilityStore.addChangeListener(VISIBILITY_CHANGE, handleInactiveChange);
-
-const NodeHealthStore = Store.createStore({
-
-  storeID: 'nodeHealth',
-
-  mixins: [GetSetMixin],
-
-  getSet_data: {
-    nodes: [],
-    nodesByID: {},
-    unitsByNodeID: {},
-    unitsByID: {}
-  },
-
-  addChangeListener: function (eventName, callback) {
+  addChangeListener(eventName, callback) {
     this.on(eventName, callback);
     if (this.shouldPoll()) {
       startPolling();
     }
-  },
+  }
 
-  removeChangeListener: function (eventName, callback) {
+  removeChangeListener(eventName, callback) {
     this.removeListener(eventName, callback);
 
     if (!this.shouldPoll()) {
       stopPolling();
     }
-  },
+  }
 
-  shouldPoll: function () {
+  onVisibilityStoreChange() {
+    if (!VisibilityStore.isInactive() && this.shouldPoll()) {
+      startPolling();
+      return;
+    }
+
+    stopPolling();
+  }
+
+  shouldPoll() {
     return !(this.listeners(HEALTH_NODES_CHANGE).length === 0);
-  },
+  }
 
-  getNodes: function () {
+  getNodes() {
     return new NodesList({
       items: this.get('nodes')
     });
-  },
+  }
 
-  getNode: function (id) {
+  getNode(id) {
     return new Node(this.get('nodesByID')[id] || {});
-  },
+  }
 
-  getUnits: function (nodeID) {
+  getUnits(nodeID) {
     let units = this.get('unitsByNodeID')[nodeID] || [];
     return new HealthUnitsList({items: units});
-  },
+  }
 
-  getUnit: function (unitID) {
+  getUnit(unitID) {
     return new HealthUnit(this.get('unitsByID')[unitID] || []);
-  },
+  }
 
-  fetchNodes: NodeHealthActions.fetchNodes,
+  fetchNodes() {
+    return NodeHealthActions.fetchNodes(...arguments);
+  }
 
-  fetchNode: NodeHealthActions.fetchNode,
+  fetchNode() {
+    return NodeHealthActions.fetchNode(...arguments);
+  }
 
-  fetchNodeUnits: NodeHealthActions.fetchNodeUnits,
+  fetchNodeUnits() {
+    return NodeHealthActions.fetchNodeUnits(...arguments);
+  }
 
-  fetchNodeUnit: NodeHealthActions.fetchNodeUnit,
+  fetchNodeUnit() {
+    return NodeHealthActions.fetchNodeUnit(...arguments);
+  }
 
-  processNodes: function (nodes) {
+  processNodes(nodes) {
     this.set({nodes});
 
     CompositeState.addNodeHealth(nodes);
 
     this.emit(HEALTH_NODES_CHANGE);
-  },
+  }
 
-  processNode: function (nodeData, nodeID) {
+  processNode(nodeData, nodeID) {
     let nodesByID = this.get('nodesByID');
     nodesByID[nodeID] = nodeData;
 
     this.set({nodesByID});
 
     this.emit(HEALTH_NODE_SUCCESS, nodeID);
-  },
+  }
 
-  processUnits: function (units, nodeID) {
+  processUnits(units, nodeID) {
     let unitsByNodeID = this.get('unitsByNodeID');
     unitsByNodeID[nodeID] = units;
 
     this.set({unitsByNodeID});
 
     this.emit(HEALTH_NODE_UNITS_SUCCESS, nodeID);
-  },
+  }
 
-  processUnit: function (unitData, nodeID, unitID) {
+  processUnit(unitData, nodeID, unitID) {
     let unitsByID = this.get('unitsByID');
     unitsByID[unitID] = unitData;
 
     this.set({unitsByID});
 
     this.emit(HEALTH_NODE_UNIT_SUCCESS, nodeID, unitID);
-  },
+  }
 
-  dispatcherIndex: AppDispatcher.register(function (payload) {
-    if (payload.source !== SERVER_ACTION) {
-      return false;
-    }
+  get storeID() {
+    return 'nodeHealth';
+  }
 
-    let action = payload.action;
-    let data = action.data;
+}
 
-    switch (action.type) {
-      case REQUEST_HEALTH_NODES_SUCCESS:
-        NodeHealthStore.processNodes(data);
-        break;
-      case REQUEST_HEALTH_NODES_ERROR:
-        NodeHealthStore.emit(HEALTH_NODES_ERROR, data);
-        break;
-      case REQUEST_HEALTH_NODE_SUCCESS:
-        NodeHealthStore.processNode(data, action.nodeID);
-        break;
-      case REQUEST_HEALTH_NODE_ERROR:
-        NodeHealthStore.emit(HEALTH_NODE_ERROR, data, action.nodeID);
-        break;
-      case REQUEST_HEALTH_NODE_UNITS_SUCCESS:
-        NodeHealthStore.processUnits(data, action.nodeID);
-        break;
-      case REQUEST_HEALTH_NODE_UNITS_ERROR:
-        NodeHealthStore.emit(HEALTH_NODE_UNITS_ERROR, data, action.nodeID);
-        break;
-      case REQUEST_HEALTH_NODE_UNIT_SUCCESS:
-        NodeHealthStore.processNode(data, action.nodeID, action.unitID);
-        break;
-      case REQUEST_HEALTH_NODE_UNIT_ERROR:
-        NodeHealthStore.emit(HEALTH_NODE_UNIT_ERROR, data, action.nodeID, action.unitID);
-        break;
-    }
-
-    return true;
-  })
-
-});
-
-module.exports = NodeHealthStore;
+module.exports = new NodeHealthStore();
