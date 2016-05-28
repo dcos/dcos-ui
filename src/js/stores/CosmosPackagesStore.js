@@ -1,5 +1,4 @@
-import {GetSetMixin, Store} from 'mesosphere-shared-reactjs';
-
+import BaseStore from './BaseStore';
 import AppDispatcher from '../events/AppDispatcher';
 import CosmosPackagesActions from '../events/CosmosPackagesActions';
 import {
@@ -48,53 +47,182 @@ import UniverseInstalledPackagesList from
 import UniversePackage from '../structs/UniversePackage';
 import UniversePackagesList from '../structs/UniversePackagesList';
 
-const CosmosPackagesStore = Store.createStore({
-  storeID: 'cosmosPackages',
+class CosmosPackagesStore extends BaseStore {
+  constructor() {
+    super(...arguments);
 
-  mixins: [GetSetMixin],
+    this.getSet_data = {
+      availablePackages: [],
+      packageDetails: null,
+      installedPackages: [],
+      repositories: []
+    };
 
-  getSet_data: {
-    availablePackages: [],
-    packageDetails: null,
-    installedPackages: [],
-    repositories: []
-  },
+    this.dispatcherIndex = AppDispatcher.register((payload) => {
+      let source = payload.source;
+      if (source !== SERVER_ACTION) {
+        return false;
+      }
 
-  addChangeListener: function (eventName, callback) {
+      let action = payload.action;
+      let data = action.data;
+
+      switch (action.type) {
+        case REQUEST_COSMOS_PACKAGE_DESCRIBE_SUCCESS:
+          this.processPackageDescriptionSuccess(
+            data,
+            action.packageName,
+            action.packageVersion
+          );
+          break;
+        case REQUEST_COSMOS_PACKAGE_DESCRIBE_ERROR:
+          this.processPackageDescriptionError(
+            data,
+            action.packageName,
+            action.packageVersion
+          );
+          break;
+        case REQUEST_COSMOS_PACKAGES_LIST_SUCCESS:
+          this.processInstalledPackagesSuccess(
+            data,
+            action.packageName,
+            action.appId
+          );
+          break;
+        case REQUEST_COSMOS_PACKAGES_LIST_ERROR:
+          this.processInstalledPackagesError(
+            data,
+            action.packageName,
+            action.appId
+          );
+          break;
+        case REQUEST_COSMOS_PACKAGES_SEARCH_SUCCESS:
+          this.processAvailablePackagesSuccess(
+            data,
+            action.query
+          );
+          break;
+        case REQUEST_COSMOS_PACKAGES_SEARCH_ERROR:
+          this.processAvailablePackagesError(
+            data,
+            action.query
+          );
+          break;
+        case REQUEST_COSMOS_PACKAGE_INSTALL_SUCCESS:
+          this.emit(
+            COSMOS_INSTALL_SUCCESS,
+            action.packageName,
+            action.packageVersion
+          );
+          break;
+        case REQUEST_COSMOS_PACKAGE_INSTALL_ERROR:
+          this.emit(
+            COSMOS_INSTALL_ERROR,
+            data,
+            action.packageName,
+            action.packageVersion
+          );
+          break;
+        case REQUEST_COSMOS_PACKAGE_UNINSTALL_SUCCESS:
+          this.emit(
+            COSMOS_UNINSTALL_SUCCESS,
+            action.packageName,
+            action.packageVersion,
+            action.appId
+          );
+          break;
+        case REQUEST_COSMOS_PACKAGE_UNINSTALL_ERROR:
+          this.emit(
+            COSMOS_UNINSTALL_ERROR,
+            data,
+            action.packageName,
+            action.packageVersion,
+            action.appId
+          );
+          break;
+        case REQUEST_COSMOS_REPOSITORIES_LIST_SUCCESS:
+          this.processRepositoriesSuccess(data);
+          break;
+        case REQUEST_COSMOS_REPOSITORIES_LIST_ERROR:
+          this.emit(COSMOS_REPOSITORIES_ERROR, data);
+          break;
+        case REQUEST_COSMOS_REPOSITORY_ADD_SUCCESS:
+          this.emit(
+            COSMOS_REPOSITORY_ADD_SUCCESS, data, action.name, action.uri
+          );
+          break;
+        case REQUEST_COSMOS_REPOSITORY_ADD_ERROR:
+          this.emit(
+            COSMOS_REPOSITORY_ADD_ERROR, data, action.name, action.uri
+          );
+          break;
+        case REQUEST_COSMOS_REPOSITORY_DELETE_SUCCESS:
+          this.emit(
+            COSMOS_REPOSITORY_DELETE_SUCCESS, data, action.name, action.uri
+          );
+          break;
+        case REQUEST_COSMOS_REPOSITORY_DELETE_ERROR:
+          this.emit(
+            COSMOS_REPOSITORY_DELETE_ERROR, data, action.name, action.uri
+          );
+          break;
+      }
+
+      return true;
+    });
+  }
+
+  addChangeListener(eventName, callback) {
     this.on(eventName, callback);
-  },
+  }
 
-  removeChangeListener: function (eventName, callback) {
+  removeChangeListener(eventName, callback) {
     this.removeListener(eventName, callback);
-  },
+  }
 
   /* API */
-  fetchAvailablePackages: CosmosPackagesActions.fetchAvailablePackages,
+  fetchAvailablePackages() {
+    return CosmosPackagesActions.fetchAvailablePackages(...arguments);
+  }
 
-  fetchInstalledPackages: CosmosPackagesActions.fetchInstalledPackages,
+  fetchInstalledPackages() {
+    return CosmosPackagesActions.fetchInstalledPackages(...arguments);
+  }
 
-  fetchPackageDescription: CosmosPackagesActions.fetchPackageDescription,
+  fetchPackageDescription() {
+    return CosmosPackagesActions.fetchPackageDescription(...arguments);
+  }
 
-  installPackage: CosmosPackagesActions.installPackage,
+  installPackage() {
+    return CosmosPackagesActions.installPackage(...arguments);
+  }
 
-  uninstallPackage: CosmosPackagesActions.uninstallPackage,
+  uninstallPackage() {
+    return CosmosPackagesActions.uninstallPackage(...arguments);
+  }
 
-  fetchRepositories: CosmosPackagesActions.fetchRepositories,
+  fetchRepositories() {
+    return CosmosPackagesActions.fetchRepositories(...arguments);
+  }
 
-  addRepository: CosmosPackagesActions.addRepository,
+  addRepository() {
+    return CosmosPackagesActions.addRepository(...arguments);
+  }
 
-  deleteRepository: CosmosPackagesActions.deleteRepository,
+  deleteRepository() {
+    return CosmosPackagesActions.deleteRepository(...arguments);
+  }
 
   /* Reducers */
   getAvailablePackages() {
     return new UniversePackagesList({items: this.get('availablePackages')});
-  },
+  }
 
   getInstalledPackages() {
     return new UniverseInstalledPackagesList(
       {items: this.get('installedPackages')}
     );
-  },
+  }
 
   getPackageDetails() {
     let packageDetails = this.get('packageDetails');
@@ -103,157 +231,53 @@ const CosmosPackagesStore = Store.createStore({
     }
 
     return null;
-  },
+  }
 
   getRepositories() {
     return new RepositoryList({items: this.get('repositories')});
-  },
+  }
 
-  processAvailablePackagesSuccess: function (packages, query) {
+  processAvailablePackagesSuccess(packages, query) {
     this.set({availablePackages: packages});
 
     this.emit(COSMOS_SEARCH_CHANGE, query);
-  },
+  }
 
-  processAvailablePackagesError: function (error, query) {
+  processAvailablePackagesError(error, query) {
     this.emit(COSMOS_SEARCH_ERROR, error, query);
-  },
+  }
 
-  processInstalledPackagesSuccess: function (packages, name, appId) {
+  processInstalledPackagesSuccess(packages, name, appId) {
     this.set({installedPackages: packages});
 
     this.emit(COSMOS_LIST_CHANGE, name, appId);
-  },
+  }
 
-  processInstalledPackagesError: function (error, name, appId) {
+  processInstalledPackagesError(error, name, appId) {
     this.emit(COSMOS_LIST_ERROR, error, name, appId);
-  },
+  }
 
-  processPackageDescriptionSuccess: function (cosmosPackage, name, version) {
+  processPackageDescriptionSuccess(cosmosPackage, name, version) {
     this.set({packageDetails: cosmosPackage});
 
     this.emit(COSMOS_DESCRIBE_CHANGE, name, version);
-  },
+  }
 
-  processPackageDescriptionError: function (error, name, version) {
+  processPackageDescriptionError(error, name, version) {
     this.set({packageDetails: null});
 
     this.emit(COSMOS_DESCRIBE_ERROR, error, name, version);
-  },
+  }
 
-  processRepositoriesSuccess: function (repositories) {
+  processRepositoriesSuccess(repositories) {
     this.set({repositories});
 
     this.emit(COSMOS_REPOSITORIES_SUCCESS);
-  },
+  }
 
-  dispatcherIndex: AppDispatcher.register(function (payload) {
-    let source = payload.source;
-    if (source !== SERVER_ACTION) {
-      return false;
-    }
+  get storeID() {
+    return 'cosmosPackages';
+  }
+}
 
-    let action = payload.action;
-    let data = action.data;
-
-    switch (action.type) {
-      case REQUEST_COSMOS_PACKAGE_DESCRIBE_SUCCESS:
-        CosmosPackagesStore.processPackageDescriptionSuccess(
-          data,
-          action.packageName,
-          action.packageVersion
-        );
-        break;
-      case REQUEST_COSMOS_PACKAGE_DESCRIBE_ERROR:
-        CosmosPackagesStore.processPackageDescriptionError(
-          data,
-          action.packageName,
-          action.packageVersion
-        );
-        break;
-      case REQUEST_COSMOS_PACKAGES_LIST_SUCCESS:
-        CosmosPackagesStore.processInstalledPackagesSuccess(
-          data,
-          action.packageName,
-          action.appId
-        );
-        break;
-      case REQUEST_COSMOS_PACKAGES_LIST_ERROR:
-        CosmosPackagesStore.processInstalledPackagesError(
-          data,
-          action.packageName,
-          action.appId
-        );
-        break;
-      case REQUEST_COSMOS_PACKAGES_SEARCH_SUCCESS:
-        CosmosPackagesStore.processAvailablePackagesSuccess(data, action.query);
-        break;
-      case REQUEST_COSMOS_PACKAGES_SEARCH_ERROR:
-        CosmosPackagesStore.processAvailablePackagesError(data, action.query);
-        break;
-      case REQUEST_COSMOS_PACKAGE_INSTALL_SUCCESS:
-        CosmosPackagesStore.emit(
-          COSMOS_INSTALL_SUCCESS,
-          action.packageName,
-          action.packageVersion
-        );
-        break;
-      case REQUEST_COSMOS_PACKAGE_INSTALL_ERROR:
-        CosmosPackagesStore.emit(
-          COSMOS_INSTALL_ERROR,
-          data,
-          action.packageName,
-          action.packageVersion
-        );
-        break;
-      case REQUEST_COSMOS_PACKAGE_UNINSTALL_SUCCESS:
-        CosmosPackagesStore.emit(
-          COSMOS_UNINSTALL_SUCCESS,
-          action.packageName,
-          action.packageVersion,
-          action.appId
-        );
-        break;
-      case REQUEST_COSMOS_PACKAGE_UNINSTALL_ERROR:
-        CosmosPackagesStore.emit(
-          COSMOS_UNINSTALL_ERROR,
-          data,
-          action.packageName,
-          action.packageVersion,
-          action.appId
-        );
-        break;
-      case REQUEST_COSMOS_REPOSITORIES_LIST_SUCCESS:
-        CosmosPackagesStore.processRepositoriesSuccess(data);
-        break;
-      case REQUEST_COSMOS_REPOSITORIES_LIST_ERROR:
-        CosmosPackagesStore.emit(COSMOS_REPOSITORIES_ERROR, data);
-        break;
-      case REQUEST_COSMOS_REPOSITORY_ADD_SUCCESS:
-        CosmosPackagesStore.emit(
-          COSMOS_REPOSITORY_ADD_SUCCESS, data, action.name, action.uri
-        );
-        break;
-      case REQUEST_COSMOS_REPOSITORY_ADD_ERROR:
-        CosmosPackagesStore.emit(
-          COSMOS_REPOSITORY_ADD_ERROR, data, action.name, action.uri
-        );
-        break;
-      case REQUEST_COSMOS_REPOSITORY_DELETE_SUCCESS:
-        CosmosPackagesStore.emit(
-          COSMOS_REPOSITORY_DELETE_SUCCESS, data, action.name, action.uri
-        );
-        break;
-      case REQUEST_COSMOS_REPOSITORY_DELETE_ERROR:
-        CosmosPackagesStore.emit(
-          COSMOS_REPOSITORY_DELETE_ERROR, data, action.name, action.uri
-        );
-        break;
-    }
-
-    return true;
-  })
-
-});
-
-module.exports = CosmosPackagesStore;
+module.exports = new CosmosPackagesStore();
