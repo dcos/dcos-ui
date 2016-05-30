@@ -30,7 +30,7 @@ class TaskView extends mixin(SaveStateMixin) {
     this.state = {
       mesosStateErrorCount: 0,
       searchString: '',
-      filterByStatus: 'all'
+      filterByStatus: 'active'
     };
     this.saveState_properties = ['filterByStatus'];
 
