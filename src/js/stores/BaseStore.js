@@ -10,10 +10,6 @@ if (global.__DEV__) {
 import {APP_STORE_CHANGE} from '../constants/EventTypes';
 
 class BaseStore extends EventEmitter {
-  constructor() {
-    super(...arguments);
-  }
-
   get(key) {
     if (typeof this.getSet_data === 'undefined') {
       return null;
