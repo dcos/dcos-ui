@@ -31,7 +31,6 @@ const ChronosActions = {
             }
           },
           error: function (e) {
-            console.log(e.message);
             AppDispatcher.handleServerAction({
               type: REQUEST_CHRONOS_JOBS_ERROR,
               data: e.message
