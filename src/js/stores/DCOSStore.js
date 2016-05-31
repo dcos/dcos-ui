@@ -1,12 +1,14 @@
 import {EventEmitter} from 'events';
 
 import {
+  CHRONOS_JOBS_CHANGE,
   DCOS_CHANGE,
   MESOS_SUMMARY_CHANGE,
   MARATHON_GROUPS_CHANGE,
   MARATHON_SERVICE_VERSION_CHANGE,
   MARATHON_SERVICE_VERSIONS_CHANGE
 } from '../constants/EventTypes';
+import ChronosStore from '../stores/ChronosStore';
 import Framework from '../structs/Framework';
 import MarathonStore from './MarathonStore';
 import MesosSummaryStore from './MesosSummaryStore';
@@ -14,6 +16,7 @@ import ServiceTree from '../structs/ServiceTree';
 import SummaryList from '../structs/SummaryList';
 
 const METHODS_TO_BIND = [
+  'onChronosChange',
   'onMarathonGroupsChange',
   'onMarathonServiceVersionChange',
   'onMarathonServiceVersionsChange',
@@ -39,6 +42,11 @@ class DCOSStore extends EventEmitter {
     };
 
     this.proxyListeners = [
+      {
+        event: CHRONOS_JOBS_CHANGE,
+        handler: this.onChronosChange,
+        store: ChronosStore
+      },
       {
         event: MARATHON_GROUPS_CHANGE,
         handler: this.onMarathonGroupsChange,
@@ -126,6 +134,10 @@ class DCOSStore extends EventEmitter {
     this.emit(DCOS_CHANGE);
   }
 
+  onChronosChange() {
+    this.emit(DCOS_CHANGE);
+  }
+
   addProxyListeners() {
     this.proxyListeners.forEach(function (item) {
       item.store.addChangeListener(item.event, item.handler);
@@ -177,6 +189,13 @@ class DCOSStore extends EventEmitter {
     }
 
     return this;
+  }
+
+  /**
+   * @type {JobTree}
+   */
+  get jobTree() {
+    return ChronosStore.jobTree;
   }
 
   /**
