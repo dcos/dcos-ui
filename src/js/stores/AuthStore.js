@@ -1,4 +1,4 @@
-import {Store} from 'mesosphere-shared-reactjs';
+import BaseStore from './BaseStore';
 
 import {
   REQUEST_LOGIN_SUCCESS,
@@ -18,31 +18,58 @@ import {
 import AppDispatcher from '../events/AppDispatcher';
 import AuthActions from '../events/AuthActions';
 import CookieUtils from '../utils/CookieUtils';
-import GetSetMixin from '../mixins/GetSetMixin';
 import {Hooks} from 'PluginSDK';
 
-let AuthStore = Store.createStore({
-  storeID: 'auth',
+class AuthStore extends BaseStore {
+  constructor() {
+    super(...arguments);
 
-  mixins: [GetSetMixin],
+    this.dispatcherIndex = AppDispatcher.register((payload) =>{
+      if (payload.source !== SERVER_ACTION) {
+        return false;
+      }
 
-  addChangeListener: function (eventName, callback) {
+      var action = payload.action;
+      switch (action.type) {
+        case REQUEST_LOGIN_SUCCESS:
+          this.processLoginSuccess();
+          break;
+        case REQUEST_LOGIN_ERROR:
+          this.emit(AUTH_USER_LOGIN_ERROR, action.data, action.xhr);
+          break;
+        case REQUEST_LOGOUT_SUCCESS:
+          this.processLogoutSuccess();
+          break;
+        case REQUEST_LOGOUT_ERROR:
+          this.emit(AUTH_USER_LOGOUT_ERROR, action.data);
+          break;
+      }
+
+      return true;
+    });
+  }
+
+  addChangeListener(eventName, callback) {
     this.on(eventName, callback);
-  },
+  }
 
-  removeChangeListener: function (eventName, callback) {
+  removeChangeListener(eventName, callback) {
     this.removeListener(eventName, callback);
-  },
+  }
 
-  login: AuthActions.login,
+  login() {
+    AuthActions.login(...arguments);
+  }
 
-  logout: AuthActions.logout,
+  logout() {
+    AuthActions.logout(...arguments);
+  }
 
-  isLoggedIn: function () {
+  isLoggedIn() {
     return !!CookieUtils.getUserMetadata();
-  },
+  }
 
-  getUser: function () {
+  getUser() {
     let userCode = CookieUtils.getUserMetadata();
 
     if (userCode == null) {
@@ -54,45 +81,24 @@ let AuthStore = Store.createStore({
     } catch (err) {
       return null;
     }
-  },
+  }
 
   processLoginSuccess() {
     Hooks.doAction('processLoginSuccess');
     this.emit(AUTH_USER_LOGIN_CHANGED);
-  },
+  }
 
-  processLogoutSuccess: function () {
+  processLogoutSuccess() {
     global.document.cookie = CookieUtils.emptyCookieWithExpiry(new Date(1970));
 
     this.emit(AUTH_USER_LOGOUT_SUCCESS);
 
     Hooks.doAction('userLogoutSuccess');
-  },
+  }
 
-  dispatcherIndex: AppDispatcher.register(function (payload) {
-    if (payload.source !== SERVER_ACTION) {
-      return false;
-    }
+  get storeID() {
+    return 'auth';
+  }
+}
 
-    var action = payload.action;
-    switch (action.type) {
-      case REQUEST_LOGIN_SUCCESS:
-        AuthStore.processLoginSuccess();
-        break;
-      case REQUEST_LOGIN_ERROR:
-        AuthStore.emit(AUTH_USER_LOGIN_ERROR, action.data, action.xhr);
-        break;
-      case REQUEST_LOGOUT_SUCCESS:
-        AuthStore.processLogoutSuccess();
-        break;
-      case REQUEST_LOGOUT_ERROR:
-        AuthStore.emit(AUTH_USER_LOGOUT_ERROR, action.data);
-        break;
-    }
-
-    return true;
-  })
-
-});
-
-module.exports = AuthStore;
+module.exports = new AuthStore();
