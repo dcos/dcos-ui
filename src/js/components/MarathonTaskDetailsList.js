@@ -58,6 +58,14 @@ class MarathonTaskDetailsList extends React.Component {
     return task.status;
   }
 
+  getTimeField(time) {
+    return (
+      <time dateTime={time} title={time}>
+        {new Date(time).toLocaleString()}
+      </time>
+    );
+  }
+
   getMarathonTaskDetailsDescriptionList(task) {
     if (task == null) {
       return null;
@@ -68,8 +76,8 @@ class MarathonTaskDetailsList extends React.Component {
       'Ports': task.ports,
       'Endpoints': this.getTaskEndpoints(task),
       'Status': this.getTaskStatus(task),
-      'Staged at': task.stagedAt,
-      'Started at': task.startedAt,
+      'Staged at': this.getTimeField(task.stagedAt),
+      'Started at': this.getTimeField(task.startedAt),
       'Version': task.version
     };
 
