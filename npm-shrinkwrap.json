@@ -4016,9 +4016,9 @@
       "resolved": "https://registry.npmjs.org/merge-stream/-/merge-stream-1.0.0.tgz"
     },
     "mesosphere-shared-reactjs": {
-      "version": "0.0.14",
-      "from": "mesosphere-shared-reactjs@0.0.14",
-      "resolved": "https://registry.npmjs.org/mesosphere-shared-reactjs/-/mesosphere-shared-reactjs-0.0.14.tgz"
+      "version": "0.0.15",
+      "from": "mesosphere-shared-reactjs@0.0.15",
+      "resolved": "https://registry.npmjs.org/mesosphere-shared-reactjs/-/mesosphere-shared-reactjs-0.0.15.tgz"
     },
     "method-override": {
       "version": "2.3.5",
