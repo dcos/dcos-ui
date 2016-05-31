@@ -4,10 +4,6 @@ import DescriptionList from './DescriptionList';
 import MarathonStore from '../stores/MarathonStore';
 
 class MarathonTaskDetailsList extends React.Component {
-  constructor() {
-    super();
-  }
-
   getTaskEndpoints(task) {
     if ((task.ports == null || task.ports.length === 0) &&
         (task.ipAddresses == null || task.ipAddresses.length === 0)) {
