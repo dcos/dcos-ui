@@ -7,7 +7,6 @@ import Service from '../structs/Service';
 import ServiceDetailConfigurationTab from './ServiceDetailConfigurationTab';
 import ServiceDetailTaskTab from './ServiceDetailTaskTab';
 import ServiceInfo from './ServiceInfo';
-import ServiceOptions from './ServiceOptions';
 import ServicePlanProgressModal from './modals/ServicePlanProgressModal';
 import ServicePlanStore from '../stores/ServicePlanStore';
 import ServicesBreadcrumb from './ServicesBreadcrumb';
@@ -114,22 +113,13 @@ class ServiceDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
             service={service}
             servicePlan={servicePlan}
             tabs={this.tabs_getUnroutedTabs()} />
-          <ServiceOptions service={service} servicePlan={servicePlan} />
-          <ul className="tabs list-inline flush-bottom container-pod
-            container-pod-short-top inverse">
-            {this.tabs_getUnroutedTabs()}
-          </ul>
-        </div>
-        <div className="side-panel-tab-content side-panel-section container
-          container-pod container-pod-short container-fluid
-          container-fluid-flush flex-container-col flex-grow">
           {this.tabs_getTabView()}
+          <ServicePlanProgressModal
+            isOpen={this.state.progressDetailModalOpen}
+            onClose={this.handleProgressDetailModalClose}
+            service={service}
+            servicePlan={servicePlan} />
         </div>
-        <ServicePlanProgressModal
-          isOpen={this.state.progressDetailModalOpen}
-          onClose={this.handleProgressDetailModalClose}
-          service={service}
-          servicePlan={servicePlan} />
       </div>
 
     );

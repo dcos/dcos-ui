@@ -1,3 +1,5 @@
+import {RequestUtil} from 'mesosphere-shared-reactjs';
+
 import {
   REQUEST_PLAN_BLOCK_FORCE_COMPLETE_SUCCESS,
   REQUEST_PLAN_BLOCK_FORCE_COMPLETE_ERROR,
@@ -11,7 +13,6 @@ import {
 
 import AppDispatcher from './AppDispatcher';
 import Config from '../config/Config';
-import RequestUtil from '../utils/RequestUtil';
 
 const ServicePlanActions = {
 

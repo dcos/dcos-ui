@@ -1,9 +1,10 @@
 jest.dontMock('../ServicePlanActions');
 
+import {RequestUtil} from 'mesosphere-shared-reactjs';
+
 import ActionTypes from '../../constants/ActionTypes';
 import AppDispatcher from '../../events/AppDispatcher';
 import Config from '../../config/Config';
-import RequestUtil from '../../utils/RequestUtil';
 import ServicePlanActions from '../ServicePlanActions';
 
 describe('ServicePlanActions', function () {

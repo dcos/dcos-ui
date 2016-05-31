@@ -14,7 +14,7 @@ describe('Service Updates', function () {
     it('displays the service plan progress bar in the service detail subheader',
       function () {
       cy
-        .get('.service-detail-subheading .service-plan-progress-bar')
+        .get('.service-plan-progress-bar')
         .should(function ($progressBar) {
           expect($progressBar.length).to.equal(1);
         });
@@ -31,7 +31,7 @@ describe('Service Updates', function () {
 
     it('displays the phase that is currently active', function () {
       cy
-        .get('.service-plan-progress-bar .progress-bar-label-action')
+        .get('.service-plan-progress-bar .progress-bar-phase-details')
         .should(function ($phaseProgressLabel) {
           expect($phaseProgressLabel[0].textContent.startsWith('Phase 2 of 2'))
             .to.be.true;
@@ -41,7 +41,7 @@ describe('Service Updates', function () {
     it('displays the status of the phase that is currently active',
       function () {
       cy
-        .get('.service-plan-progress-bar .progress-bar-label-action')
+        .get('.service-plan-progress-bar .progress-bar-phase-details')
         .should(function ($phaseProgressLabel) {
           expect($phaseProgressLabel[0].textContent).to.contain('Updating');
         });
@@ -50,7 +50,7 @@ describe('Service Updates', function () {
     it('displays the View Details link',
       function () {
       cy
-        .get('.service-plan-progress-bar .progress-bar-label-action a')
+        .get('.service-plan-progress-bar .progress-bar-phase-details a')
         .should(function ($viewDetails) {
           expect($viewDetails[0].textContent).to.contain('View Details');
         });
@@ -59,10 +59,10 @@ describe('Service Updates', function () {
     it('clicking View Details shows the service plan progress modal',
       function () {
       cy
-        .get('.service-plan-progress-bar .progress-bar-label-action a')
+        .get('.service-plan-progress-bar .progress-bar-phase-details a')
         .click();
 
-      cy.get('.modal .upgrade-package-modal')
+      cy.get('.modal .service-plan-modal')
         .should(function ($modal) {
           expect($modal.length).to.equal(1);
         });
@@ -74,7 +74,7 @@ describe('Service Updates', function () {
 
     beforeEach(function () {
       cy
-        .get('.service-plan-progress-bar .progress-bar-label-action a')
+        .get('.service-plan-progress-bar .progress-bar-phase-details a')
         .click();
     });
 
@@ -116,7 +116,7 @@ describe('Service Updates', function () {
       it('displays the phase details when clicking the Show Details link',
         function () {
         cy
-          .get('.modal .upgrade-package-modal-details-content')
+          .get('.modal .service-plan-modal-details-content')
           .should(function ($phaseDetails) {
             expect($phaseDetails.length).to.equal(1);
           });
@@ -125,7 +125,7 @@ describe('Service Updates', function () {
       it('displays the blocks within the phase',
         function () {
         cy
-          .get('.modal .upgrade-package-modal-details-content .upgrade-package-modal-details-block')
+          .get('.modal .service-plan-modal-details-content .service-plan-modal-details-block')
           .should(function ($blocks) {
             expect($blocks.length).to.equal(3);
           });
@@ -134,31 +134,31 @@ describe('Service Updates', function () {
       it('displays the block name and status when clicking on the blocks',
         function () {
         cy
-          .get('.modal .upgrade-package-modal-details-content .upgrade-package-modal-details-block:nth-child(1)')
+          .get('.modal .service-plan-modal-details-content .service-plan-modal-details-block:nth-child(1)')
           .click();
 
         cy
-          .get('.modal .upgrade-package-modal-details-heading')
+          .get('.modal .service-plan-modal-details-heading')
           .should(function ($detailsHeading) {
             expect($detailsHeading).to.contain('broker-0: Complete');
           });
 
         cy
-          .get('.modal .upgrade-package-modal-details-content .upgrade-package-modal-details-block:nth-child(2)')
+          .get('.modal .service-plan-modal-details-content .service-plan-modal-details-block:nth-child(2)')
           .click();
 
         cy
-          .get('.modal .upgrade-package-modal-details-heading')
+          .get('.modal .service-plan-modal-details-heading')
           .should(function ($detailsHeading) {
             expect($detailsHeading).to.contain('broker-1: In Progress');
           });
 
         cy
-          .get('.modal .upgrade-package-modal-details-content .upgrade-package-modal-details-block:nth-child(3)')
+          .get('.modal .service-plan-modal-details-content .service-plan-modal-details-block:nth-child(3)')
           .click();
 
         cy
-          .get('.modal .upgrade-package-modal-details-heading')
+          .get('.modal .service-plan-modal-details-heading')
           .should(function ($detailsHeading) {
             expect($detailsHeading).to.contain('broker-2: Pending');
           });
