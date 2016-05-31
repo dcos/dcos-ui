@@ -1,0 +1,116 @@
+.modal {
+
+  &.login-modal {
+
+    .modal-content {
+      height: auto;
+      overflow: visible;
+      position: relative;
+
+      .container {
+        width: 100%;
+      }
+    }
+
+    .modal-header {
+      background: transparent;
+      height: 144px;
+      padding: 0;
+
+      .container {
+        padding: 0;
+      }
+    }
+
+    .dcos-logo {
+      left: 50%;
+      position: absolute;
+      top: -55px;
+      transform: translateX(-50%);
+    }
+
+    .modal-body {
+      padding-bottom: 0;
+      padding-right: 0;
+      padding-top: @modal-body-padding-vertical;
+    }
+
+    .login-modal-heading {
+      color: @neutral;
+    }
+
+    .login-modal-content {
+      padding-bottom: @modal-body-padding-vertical;
+      padding-right: @modal-body-padding-horizontal;
+    }
+  }
+}
+
+& when (@screen-small-enabled) {
+
+  @media (min-width: @screen-small) {
+
+    .modal {
+
+      &.login-modal {
+
+        .modal-body {
+          padding-top: @modal-body-padding-vertical-screen-small;
+        }
+
+        .login-modal-content {
+          padding-bottom: @modal-body-padding-vertical-screen-small;
+          padding-right: @modal-body-padding-horizontal-screen-small;
+        }
+      }
+    }
+
+  }
+
+}
+
+& when (@screen-medium-enabled) {
+
+  @media (min-width: @screen-medium) {
+
+    .modal {
+
+      &.login-modal {
+
+        .modal-body {
+          padding-top: @modal-body-padding-vertical-screen-medium;
+        }
+
+        .login-modal-content {
+          padding-bottom: @modal-body-padding-vertical-screen-medium;
+          padding-right: @modal-body-padding-horizontal-screen-medium;
+        }
+      }
+    }
+
+  }
+
+}
+
+& when (@screen-large-enabled) {
+
+  @media (min-width: @screen-large) {
+
+    .modal {
+
+      &.login-modal {
+
+        .modal-body {
+          padding-top: @modal-body-padding-vertical-screen-large;
+        }
+
+        .login-modal-content {
+          padding-bottom: @modal-body-padding-vertical-screen-large;
+          padding-right: @modal-body-padding-horizontal-screen-large;
+        }
+      }
+    }
+
+  }
+
+}
