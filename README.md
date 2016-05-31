@@ -109,6 +109,21 @@ If you want to add a new npm package to 'node_modules':
     }
     ```
 
+## Module examples
+
+Check out these module types that you can use as a blueprint.
+
+* [Table](https://github.com/dcos/dcos-ui/blob/master/src/js/components/ServicesTable.js)
+* [Modal](https://github.com/dcos/dcos-ui/blob/master/src/js/components/modals/AddRepositoryFormModal.js)
+* [Actions](https://github.com/dcos/dcos-ui/blob/master/src/js/events/CosmosPackagesActions.js)
+* [Main navigation page](https://github.com/dcos/dcos-ui/blob/master/src/js/pages/SystemPage.js)
+* [Tab page](https://github.com/dcos/dcos-ui/blob/master/src/js/pages/system/RepositoriesTab.js)
+* [Adding Routes](https://github.com/dcos/dcos-ui/blob/master/src/js/routes/nodes.js)
+* [Store](https://github.com/dcos/dcos-ui/blob/master/src/js/stores/ChronosStore.js)
+* [List Structure](https://github.com/dcos/dcos-ui/blob/master/src/js/structs/NodesList.js)
+* [Item Structure](https://github.com/dcos/dcos-ui/blob/master/src/js/structs/Node.js)
+* [Util](https://github.com/dcos/dcos-ui/blob/master/src/js/utils/Maths.js)
+
 ## Testing
 
 See more info on testing [here.](./TESTING.md)
