@@ -1,5 +1,4 @@
-import {Store} from 'mesosphere-shared-reactjs';
-
+import BaseStore from './BaseStore';
 import UsersActions from '../events/UsersActions';
 import {
   REQUEST_USERS_SUCCESS,
@@ -11,57 +10,62 @@ import {
   USERS_CHANGE,
   USERS_REQUEST_ERROR
 } from '../constants/EventTypes';
-import GetSetMixin from '../mixins/GetSetMixin';
 import UsersList from '../structs/UsersList';
 
-const UsersStore = Store.createStore({
-  storeID: 'users',
+class UsersStore extends BaseStore {
+  constructor() {
+    super(...arguments);
 
-  mixins: [GetSetMixin],
+    this.getSet_data = {
+      users: []
+    };
 
-  getSet_data: {
-    users: []
-  },
+    this.dispatcherIndex = AppDispatcher.register((payload) => {
+      if (payload.source !== SERVER_ACTION) {
+        return false;
+      }
 
-  fetchUsers: UsersActions.fetch,
+      var action = payload.action;
+      switch (action.type) {
+        case REQUEST_USERS_SUCCESS:
+          this.processUsers(action.data);
+          break;
+        case REQUEST_USERS_ERROR:
+          this.processUsersError(action.data);
+          break;
+      }
+    });
+  }
+
+  fetchUsers() {
+    return UsersActions.fetch(...arguments);
+  }
 
   getUsers() {
     return new UsersList({items: this.get('users')});
-  },
+  }
 
-  addChangeListener: function (eventName, callback) {
+  addChangeListener(eventName, callback) {
     this.on(eventName, callback);
-  },
+  }
 
-  removeChangeListener: function (eventName, callback) {
+  removeChangeListener(eventName, callback) {
     this.removeListener(eventName, callback);
-  },
+  }
 
-  processUsers: function (users) {
+  processUsers(users) {
     this.set({users});
     this.emit(USERS_CHANGE);
-  },
+  }
 
-  processUsersError: function (error) {
+  processUsersError(error) {
     this.emit(USERS_REQUEST_ERROR, error);
-  },
+  }
 
-  dispatcherIndex: AppDispatcher.register(function (payload) {
-    if (payload.source !== SERVER_ACTION) {
-      return false;
-    }
+  get storeID() {
+    return 'users';
+  }
 
-    var action = payload.action;
-    switch (action.type) {
-      case REQUEST_USERS_SUCCESS:
-        UsersStore.processUsers(action.data);
-        break;
-      case REQUEST_USERS_ERROR:
-        UsersStore.processUsersError(action.data);
-        break;
-    }
-  })
+}
 
-});
-
-module.exports = UsersStore;
+module.exports = new UsersStore();
