@@ -6,6 +6,7 @@ import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import DescriptionList from './DescriptionList';
 import MarathonStore from '../stores/MarathonStore';
+import MarathonTaskDetailsList from './MarathonTaskDetailsList';
 import MesosStateStore from '../stores/MesosStateStore';
 import MesosSummaryStore from '../stores/MesosSummaryStore';
 import PageHeader from './PageHeader';
@@ -183,79 +184,6 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
     );
   }
 
-  getTaskStatus(task) {
-    if (task == null || task.status == null) {
-      return 'Unknown';
-    }
-    return task.status;
-  }
-
-  getTaskEndpoints(task) {
-    if ((task.ports == null || task.ports.length === 0) &&
-        (task.ipAddresses == null || task.ipAddresses.length === 0)) {
-      return 'None';
-    }
-
-    let service = MarathonStore.getServiceFromTaskID(task.id);
-
-    if (service != null &&
-      service.ipAddress != null &&
-      service.ipAddress.discovery != null &&
-      service.ipAddress.discovery.ports != null &&
-      task.ipAddresses != null &&
-      task.ipAddresses.length > 0) {
-
-      let ports = service.ipAddress.discovery.ports;
-      let endpoints = task.ipAddresses.reduce(function (memo, address) {
-        ports.forEach(function (port) {
-          memo.push(`${address.ipAddress}:${port.number}`);
-        });
-
-        return memo;
-      }, []);
-
-      if (endpoints.length) {
-        return endpoints.map(function (endpoint) {
-          return (
-            <a href={`//${endpoint}`} target="_blank">{endpoint}</a>
-          );
-        });
-      }
-
-      return 'n/a';
-    }
-
-    return task.ports.map(function (port) {
-      let endpoint = `${task.host}:${port}`;
-      return (
-        <a href={`//${endpoint}`} target="_blank">{endpoint}</a>
-      );
-    });
-  }
-
-  getMarathonTaskDetailsDescriptionList(marathonTask) {
-    if (marathonTask == null) {
-      return null;
-    }
-
-    let headerValueMapping = {
-      'Host': marathonTask.host,
-      'Ports': marathonTask.ports,
-      'Endpoints': this.getTaskEndpoints(marathonTask),
-      'Status': this.getTaskStatus(marathonTask),
-      'Staged at': marathonTask.stagedAt,
-      'Started at': marathonTask.startedAt,
-      'Version': marathonTask.version
-    };
-
-    return (
-      <DescriptionList
-        className="container container-fluid flush container-pod container-pod-super-short flush-top"
-        hash={headerValueMapping}
-        headline="Marathon Task Configuration" />
-    );
-  }
-
   getMesosTaskDetailsDescriptionList(mesosTask) {
     if (mesosTask == null || !MesosSummaryStore.get('statesProcessed')) {
       return null;
@@ -317,9 +245,6 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
     const mesosTask =
       MesosStateStore.getTaskFromTaskID(taskID);
 
-    const marathonTask =
-      MarathonStore.getTaskFromTaskID(taskID);
-
     return (
       <div className="container container-fluid flush">
         <div className="media-object-spacing-wrapper container-pod container-pod-super-short flush-top flush-bottom">
@@ -329,7 +254,7 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
         </div>
         {this.getMesosTaskDetailsDescriptionList(mesosTask)}
         {this.getMesosTaskLabelDescriptionList(mesosTask)}
-        {this.getMarathonTaskDetailsDescriptionList(marathonTask)}
+        <MarathonTaskDetailsList taskID={taskID} />
       </div>
     );
   }
