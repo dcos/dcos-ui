@@ -1,4 +1,4 @@
-import {Store} from 'mesosphere-shared-reactjs';
+import EventEmitter from 'events';
 
 import LocalStorageUtil from '../utils/LocalStorageUtil';
 
@@ -13,19 +13,21 @@ function getLocalStorageObject() {
   }
 }
 
-const UserSettingsStore = Store.createStore({
-  storeID: 'userSettings',
+class UserSettingsStore extends EventEmitter {
+  constructor() {
+    super(...arguments);
+  }
 
-  getKey: function (key) {
+  getKey(key) {
     let localStorageObject = getLocalStorageObject();
     if (localStorageObject == null) {
       return null;
     }
 
     return localStorageObject[key];
-  },
+  }
 
-  setKey: function (key, value) {
+  setKey(key, value) {
     let localStorageObject = getLocalStorageObject();
     if (localStorageObject == null) {
       localStorageObject = {};
@@ -34,6 +36,10 @@ const UserSettingsStore = Store.createStore({
     localStorageObject[key] = value;
     LocalStorageUtil.set(LOCAL_STORAGE_KEY, JSON.stringify(localStorageObject));
   }
-});
 
-module.exports = UserSettingsStore;
+  get storeID() {
+    return 'userSettings';
+  }
+}
+
+module.exports = new UserSettingsStore();
