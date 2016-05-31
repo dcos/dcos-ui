@@ -1,5 +1,4 @@
 import {createStore, combineReducers, applyMiddleware, compose} from 'redux';
-import {Store as fluxStore} from 'mesosphere-shared-reactjs';
 
 import {APPLICATION} from '../constants/PluginConstants';
 import {APP_STORE_CHANGE} from '../constants/EventTypes';
@@ -206,9 +205,7 @@ const addStoreConfig = function (definition) {
     // Register events with StoreMixinConfig. Only import this as needed
     // because its presence will degrade test performance.
     getApplicationModuleAPI().get('StoreMixinConfig')
-      .add(definition.storeID,
-        Object.assign({}, definition, {store: definition})
-      );
+      .add(definition.storeID, definition);
   }
 
   return definition;
