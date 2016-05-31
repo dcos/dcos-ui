@@ -3,7 +3,7 @@ import DeepEqual from 'deep-equal';
 import React, {PropTypes} from 'react';
 import ReactDOM from 'react-dom';
 
-import Crumb from './Crumb';
+import BreadcrumbLink from './BreadcrumbLink';
 import IconChevron from './icons/IconChevron';
 
 const COLLAPSE_BUFFER = 12;
@@ -125,27 +125,27 @@ class Breadcrumbs extends React.Component {
     return this.context.router.getCurrentParams();
   }
 
-  wrapListItem(crumb, key) {
+  wrapListItem(breadcrumb, key) {
     return (
       <li key={key}>
-        {crumb}
+        {breadcrumb}
       </li>
     );
   }
 
-  getCrumb(crumb, key) {
-    if (!React.isValidElement(crumb)) {
-      if (typeof crumb === 'string') {
-        crumb = {label: crumb};
+  getBreadcrumb(breadcrumb, key) {
+    if (!React.isValidElement(breadcrumb)) {
+      if (typeof breadcrumb === 'string') {
+        breadcrumb = {label: breadcrumb};
       }
 
-      crumb = (<Crumb {...crumb} />);
+      breadcrumb = (<BreadcrumbLink {...breadcrumb} />);
     }
 
-    return this.wrapListItem(crumb, key);
+    return this.wrapListItem(breadcrumb, key);
   }
 
-  getCrumbDivider(key) {
+  getBreadcrumbDivider(key) {
     return (
       <li key={key} >
         <IconChevron
@@ -194,10 +194,10 @@ class Breadcrumbs extends React.Component {
     let crumbKey = 0;
 
     return crumbs.reduce((memo, crumb, crumbIndex) => {
-      memo.push(this.getCrumb(crumb, ++crumbKey));
+      memo.push(this.getBreadcrumb(crumb, ++crumbKey));
 
       if (crumbs.length - 1 !== crumbIndex) {
-        memo.push(this.getCrumbDivider(++crumbKey));
+        memo.push(this.getBreadcrumbDivider(++crumbKey));
       }
 
       return memo;

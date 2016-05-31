@@ -1,7 +1,7 @@
 import {Link} from 'react-router';
 import React, {PropTypes} from 'react';
 
-class Crumb extends React.Component {
+class Breadcrumb extends React.Component {
   render() {
     let {props} = this;
     let content = props.label;
@@ -9,10 +9,14 @@ class Crumb extends React.Component {
     if (props.route) {
       content = (
         <Link to={props.route.to}
-            params={props.route.params}
-            title={props.label}>
+          params={props.route.params}
+          title={props.label}>
           {props.label}
         </Link>
+      );
+    } else {
+      content = (
+        <span>{content}</span>
       );
     }
 
@@ -20,9 +24,9 @@ class Crumb extends React.Component {
   }
 };
 
-Crumb.propTypes = {
+Breadcrumb.propTypes = {
   label: PropTypes.string.isRequired,
   route: PropTypes.object
 };
 
-module.exports = Crumb;
+module.exports = Breadcrumb;

@@ -4,15 +4,21 @@ import React, {PropTypes} from 'react';
 /* eslint-enable no-unused-vars */
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
-import Crumb from './Crumb';
+import BreadcrumbLink from './BreadcrumbLink';
 
-class Breadcrumb extends mixin(StoreMixin) {
+class BreadcrumbSegment extends mixin(StoreMixin) {
   constructor() {
     super(...arguments);
 
     this.state = {
       isLoadingCrumb: true
     };
+
+    this.store_listeners = [];
+  }
+
+  getCrumbLabel() {
+    return '';
   }
 
   getBackupCrumbLabel() {
@@ -39,14 +45,14 @@ class Breadcrumb extends mixin(StoreMixin) {
     };
 
     return (
-      <Crumb label={label} route={route} />
+      <BreadcrumbLink label={label} route={route} />
     );
   }
 };
 
-Breadcrumb.propTypes = {
+BreadcrumbSegment.propTypes = {
   parentRouter: PropTypes.func.isRequired,
   routeName: PropTypes.string.isRequired
 }
 
-module.exports = Breadcrumb;
+module.exports = BreadcrumbSegment;
