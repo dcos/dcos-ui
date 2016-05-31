@@ -1,30 +1,62 @@
-import {Store} from 'mesosphere-shared-reactjs';
+import BaseStore from './BaseStore';
 
 import ActionTypes from '../constants/ActionTypes';
 import AppDispatcher from '../events/AppDispatcher';
 import Config from '../config/Config';
-import EventTypes from '../constants/EventTypes';
-import GetSetMixin from '../mixins/GetSetMixin';
+import EventTypes from '../constants/EventTypes';;
 import Item from '../structs/Item';
 import LogBuffer from '../structs/LogBuffer';
 import MesosLogActions from '../events/MesosLogActions';
 
 const MAX_FILE_SIZE = 50000;
 
-const MesosLogStore = Store.createStore({
-  storeID: 'mesosLog',
+class MesosLogStore extends BaseStore {
 
-  mixins: [GetSetMixin],
+  constructor() {
+    super(...arguments);
 
-  addChangeListener: function (eventName, callback) {
+    this.dispatcherIndex = AppDispatcher.register((payload) => {
+      let source = payload.source;
+      if (source !== ActionTypes.SERVER_ACTION) {
+        return false;
+      }
+
+      let action = payload.action;
+
+      switch (action.type) {
+        case ActionTypes.REQUEST_MESOS_LOG_SUCCESS:
+          this.processLogEntry(action.slaveID, action.path, action.data);
+          break;
+        case ActionTypes.REQUEST_MESOS_LOG_ERROR:
+          this.processLogError(action.slaveID, action.path);
+          break;
+        case ActionTypes.REQUEST_PREVIOUS_MESOS_LOG_SUCCESS:
+          this.processLogPrepend(action.slaveID, action.path, action.data);
+          break;
+        case ActionTypes.REQUEST_PREVIOUS_MESOS_LOG_ERROR:
+          this.processLogPrependError(action.slaveID, action.path);
+          break;
+        case ActionTypes.REQUEST_MESOS_LOG_OFFSET_SUCCESS:
+          this.processOffset(action.slaveID, action.path, action.data);
+          break;
+        case ActionTypes.REQUEST_MESOS_LOG_OFFSET_ERROR:
+          this.processOffsetError(action.slaveID, action.path);
+          break;
+      }
+
+      return true;
+    });
+  }
+
+  addChangeListener(eventName, callback) {
     this.on(eventName, callback);
-  },
+  }
 
-  removeChangeListener: function (eventName, callback) {
+  removeChangeListener(eventName, callback) {
     this.removeListener(eventName, callback);
-  },
+  }
 
-  getPreviousLogs: function (slaveID, path) {
+  getPreviousLogs(slaveID, path) {
     let logBuffer = this.get(path);
     if (!logBuffer) {
       // Stop tailing immediately if listener decided to call stopTailing
@@ -44,21 +76,21 @@ const MesosLogStore = Store.createStore({
     MesosLogActions.fetchPreviousLog(
       slaveID, path, startOffset, MAX_FILE_SIZE
     );
-  },
+  }
 
-  startTailing: function (slaveID, path) {
+  startTailing(slaveID, path) {
     let logBuffer = new LogBuffer();
     this.set({[path]: logBuffer});
     // Request offset to initialize logBuffer
     MesosLogActions.requestOffset(slaveID, path);
-  },
+  }
 
-  stopTailing: function (path) {
+  stopTailing(path) {
     // As soon as any request responds (success or error) the tailing will stop
     this.set({[path]: undefined});
-  },
+  }
 
-  processOffset: function (slaveID, path, entry) {
+  processOffset(slaveID, path, entry) {
     let logBuffer = this.get(path);
     if (!logBuffer) {
       // Stop tailing immediately if listener decided to call stopTailing
@@ -70,9 +102,9 @@ const MesosLogStore = Store.createStore({
       .fetchLog(slaveID, path, logBuffer.getEnd(), MAX_FILE_SIZE);
 
     this.emit(EventTypes.MESOS_INITIALIZE_LOG_CHANGE, path);
-  },
+  }
 
-  processOffsetError: function (slaveID, path) {
+  processOffsetError(slaveID, path) {
     let logBuffer = this.get(path);
     if (!logBuffer) {
       // Stop tailing immediately if listener decided to call stopTailing
@@ -86,9 +118,9 @@ const MesosLogStore = Store.createStore({
     }, Config.tailRefresh);
 
     this.emit(EventTypes.MESOS_INITIALIZE_LOG_REQUEST_ERROR, path);
-  },
+  }
 
-  processLogEntry: function (slaveID, path, entry) {
+  processLogEntry(slaveID, path, entry) {
     let logBuffer = this.get(path);
     if (!logBuffer) {
       // Stop tailing immediately if listener decided to call stopTailing
@@ -114,9 +146,9 @@ const MesosLogStore = Store.createStore({
         MesosLogActions.fetchLog(slaveID, path, end, MAX_FILE_SIZE);
       }, Config.tailRefresh);
     }
-  },
+  }
 
-  processLogPrepend: function (slaveID, path, entry) {
+  processLogPrepend(slaveID, path, entry) {
     let logBuffer = this.get(path);
     if (!logBuffer) {
       // Stop tailing immediately if listener decided to call stopTailing
@@ -129,7 +161,7 @@ const MesosLogStore = Store.createStore({
     }
 
     this.emit(EventTypes.MESOS_LOG_CHANGE, path, 'prepend');
-  },
+  }
 
   processLogError(slaveID, path) {
     let logBuffer = this.get(path);
@@ -145,7 +177,7 @@ const MesosLogStore = Store.createStore({
     }, Config.tailRefresh);
 
     this.emit(EventTypes.MESOS_LOG_REQUEST_ERROR, path);
-  },
+  }
 
   processLogPrependError(slaveID, path) {
     let logBuffer = this.get(path);
@@ -160,40 +192,12 @@ const MesosLogStore = Store.createStore({
     );
 
     this.emit(EventTypes.MESOS_LOG_REQUEST_ERROR, path);
-  },
+  }
 
-  dispatcherIndex: AppDispatcher.register(function (payload) {
-    let source = payload.source;
-    if (source !== ActionTypes.SERVER_ACTION) {
-      return false;
-    }
+  get storeID() {
+    return 'mesosLog';
+  }
 
-    let action = payload.action;
+}
 
-    switch (action.type) {
-      case ActionTypes.REQUEST_MESOS_LOG_SUCCESS:
-        MesosLogStore.processLogEntry(action.slaveID, action.path, action.data);
-        break;
-      case ActionTypes.REQUEST_MESOS_LOG_ERROR:
-        MesosLogStore.processLogError(action.slaveID, action.path);
-        break;
-      case ActionTypes.REQUEST_PREVIOUS_MESOS_LOG_SUCCESS:
-        MesosLogStore.processLogPrepend(action.slaveID, action.path, action.data);
-        break;
-      case ActionTypes.REQUEST_PREVIOUS_MESOS_LOG_ERROR:
-        MesosLogStore.processLogPrependError(action.slaveID, action.path);
-        break;
-      case ActionTypes.REQUEST_MESOS_LOG_OFFSET_SUCCESS:
-        MesosLogStore.processOffset(action.slaveID, action.path, action.data);
-        break;
-      case ActionTypes.REQUEST_MESOS_LOG_OFFSET_ERROR:
-        MesosLogStore.processOffsetError(action.slaveID, action.path);
-        break;
-    }
-
-    return true;
-  })
-
-});
-
-module.exports = MesosLogStore;
+module.exports = new MesosLogStore();
