@@ -1,4 +1,4 @@
-import {EventEmitter} from 'events';
+import BaseStore from './BaseStore';
 
 let PluginSDK;
 
@@ -9,7 +9,7 @@ if (global.__DEV__) {
 
 import {APP_STORE_CHANGE} from '../constants/EventTypes';
 
-class BaseStore extends EventEmitter {
+class GetSetBaseStore extends BaseStore {
   get(key) {
     if (typeof this.getSet_data === 'undefined') {
       return null;
@@ -45,4 +45,4 @@ class BaseStore extends EventEmitter {
 
 }
 
-module.exports = BaseStore;
+module.exports = GetSetBaseStore;
