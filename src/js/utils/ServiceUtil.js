@@ -18,23 +18,24 @@ const ServiceUtil = {
   createServiceFromFormModel: function (formModel) {
     let definition = {};
 
-    if (formModel.General != null) {
-      definition.id = formModel.General.id;
-      definition.cmd = formModel.General.cmd;
-      definition.cpus = formModel.General.cpus;
-      definition.mem = formModel.General.mem;
-      definition.disk = formModel.General.disk;
-      definition.instances = formModel.General.instances;
-    }
+    if (formModel != null) {
+      if (formModel.General != null) {
+        definition.id = formModel.General.id;
+        definition.cmd = formModel.General.cmd;
+        definition.cpus = formModel.General.cpus;
+        definition.mem = formModel.General.mem;
+        definition.disk = formModel.General.disk;
+        definition.instances = formModel.General.instances;
+      }
 
-    if (formModel['Container Settings'] != null) {
-      definition.container = {
-        docker: {
-          image: formModel['Container Settings'].image
+      if (formModel['Container Settings'] != null) {
+        definition.container = {
+          docker: {
+            image: formModel['Container Settings'].image
+          }
         }
       }
     }
-
     return new Service(definition);
   },
 
@@ -58,7 +59,7 @@ const ServiceUtil = {
       containerSettings && containerSettings.docker &&
       containerSettings.docker.image
     ) {
-      appDefinition.container = service.getContainerSettings();
+      appDefinition.container = containerSettings;
     }
 
     Object.keys(appDefinition).forEach(function (key) {
