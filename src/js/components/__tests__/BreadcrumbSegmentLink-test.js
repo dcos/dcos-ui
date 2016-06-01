@@ -1,4 +1,4 @@
-jest.dontMock('../BreadcrumbLink');
+jest.dontMock('../BreadcrumbSegmentLink');
 
 /* eslint-disable no-unused-vars */
 let React = require('react');
@@ -6,13 +6,13 @@ let React = require('react');
 let Router = require('react-router');
 let TestUtils = require('react-addons-test-utils');
 
-let BreadcrumbLink = require('../BreadcrumbLink');
+let BreadcrumbSegmentLink = require('../BreadcrumbSegmentLink');
 
-describe('BreadcrumbLink', function () {
+describe('BreadcrumbSegmentLink', function () {
 
   it('renders the label', function () {
     let instance = TestUtils.renderIntoDocument(
-      <BreadcrumbLink label="foo" />
+      <BreadcrumbSegmentLink label="foo" />
     );
 
     let node = TestUtils.findRenderedDOMComponentWithTag(instance, 'span');

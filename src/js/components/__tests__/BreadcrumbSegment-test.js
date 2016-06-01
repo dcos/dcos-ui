@@ -6,7 +6,7 @@ let React = require('react');
 let TestUtils = require('react-addons-test-utils');
 
 let BreadcrumbSegment = require('../BreadcrumbSegment');
-let BreadcrumbLink = require('../BreadcrumbLink');
+let BreadcrumbSegmentLink = require('../BreadcrumbSegmentLink');
 
 describe('BreadcrumbSegment', function () {
 
@@ -38,9 +38,9 @@ describe('BreadcrumbSegment', function () {
     );
 
     let node = TestUtils.findRenderedComponentWithType(
-      instance, BreadcrumbLink
+      instance, BreadcrumbSegmentLink
     );
-    expect(TestUtils.isCompositeComponentWithType(node, BreadcrumbLink))
+    expect(TestUtils.isCompositeComponentWithType(node, BreadcrumbSegmentLink))
     .toBeTruthy();
   });
 

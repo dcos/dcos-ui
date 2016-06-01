@@ -4,7 +4,7 @@ import React, {PropTypes} from 'react';
 /* eslint-enable no-unused-vars */
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
-import BreadcrumbLink from './BreadcrumbLink';
+import BreadcrumbSegmentLink from './BreadcrumbSegmentLink';
 
 class BreadcrumbSegment extends mixin(StoreMixin) {
   constructor() {
@@ -45,7 +45,7 @@ class BreadcrumbSegment extends mixin(StoreMixin) {
     };
 
     return (
-      <BreadcrumbLink label={label} route={route} />
+      <BreadcrumbSegmentLink label={label} route={route} />
     );
   }
 };

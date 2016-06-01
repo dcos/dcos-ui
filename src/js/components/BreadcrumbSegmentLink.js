@@ -1,7 +1,7 @@
 import {Link} from 'react-router';
 import React, {PropTypes} from 'react';
 
-class Breadcrumb extends React.Component {
+class BreadcrumbSegmentLink extends React.Component {
   render() {
     let {props} = this;
     let content = props.label;
@@ -24,9 +24,9 @@ class Breadcrumb extends React.Component {
   }
 };
 
-Breadcrumb.propTypes = {
+BreadcrumbSegmentLink.propTypes = {
   label: PropTypes.string.isRequired,
   route: PropTypes.object
 };
 
-module.exports = Breadcrumb;
+module.exports = BreadcrumbSegmentLink;

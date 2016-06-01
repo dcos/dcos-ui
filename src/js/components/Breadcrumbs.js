@@ -3,7 +3,7 @@ import DeepEqual from 'deep-equal';
 import React, {PropTypes} from 'react';
 import ReactDOM from 'react-dom';
 
-import BreadcrumbLink from './BreadcrumbLink';
+import BreadcrumbSegmentLink from './BreadcrumbSegmentLink';
 import IconChevron from './icons/IconChevron';
 
 const COLLAPSE_BUFFER = 12;
@@ -139,7 +139,7 @@ class Breadcrumbs extends React.Component {
         breadcrumb = {label: breadcrumb};
       }
 
-      breadcrumb = (<BreadcrumbLink {...breadcrumb} />);
+      breadcrumb = (<BreadcrumbSegmentLink {...breadcrumb} />);
     }
 
     return this.wrapListItem(breadcrumb, key);
