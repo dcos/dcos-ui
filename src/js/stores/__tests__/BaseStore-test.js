@@ -1,5 +1,3 @@
-var EventEmitter = require('events').EventEmitter;
-
 var BaseStore = require('../BaseStore');
 
 describe('BaseStore', function () {
