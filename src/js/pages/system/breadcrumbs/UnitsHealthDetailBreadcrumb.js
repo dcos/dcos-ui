@@ -1,11 +1,7 @@
-import mixin from 'reactjs-mixin';
-import {StoreMixin} from 'mesosphere-shared-reactjs';
-
 import BreadcrumbSegment from '../../../components/BreadcrumbSegment';
 import UnitHealthStore from '../../../stores/UnitHealthStore';
 
-class UnitsHealthDetailBreadcrumb
-extends mixin(BreadcrumbSegment, StoreMixin) {
+class UnitsHealthDetailBreadcrumb extends BreadcrumbSegment {
   constructor() {
     super(...arguments);
 
