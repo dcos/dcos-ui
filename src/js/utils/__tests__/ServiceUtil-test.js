@@ -22,7 +22,27 @@ describe('ServiceUtil', function () {
       expect(ServiceUtil.createServiceFromFormModel(model))
         .toEqual(expectedService);
     });
+
+    it('should return empty service if null is provided', function () {
+      let model = null;
+
+      let expectedService = new Service({});
+
+      expect(ServiceUtil.createServiceFromFormModel(model))
+        .toEqual(expectedService);
+    });
+
+    it('should return empty service if empty object is provided', function () {
+      let model = {};
+
+      let expectedService = new Service({});
+
+      expect(ServiceUtil.createServiceFromFormModel(model))
+        .toEqual(expectedService);
+    });
   });
+
+
 
   describe('#createFormModelFromSchema', function () {
     it('should create the correct model', function () {
