@@ -1,10 +1,16 @@
+import mixin from 'reactjs-mixin';
+/* eslint-disable no-unused-vars */
 import React, {PropTypes} from 'react';
+/* eslint-enable no-unused-vars */
+import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import BreadcrumbSegmentLink from './BreadcrumbSegmentLink';
 
-class BreadcrumbSegment extends React.Component {
+class BreadcrumbSegment extends mixin(StoreMixin) {
   constructor() {
     super(...arguments);
+
+    this.store_listeners = [];
 
     this.state = {
       isLoadingCrumb: true
