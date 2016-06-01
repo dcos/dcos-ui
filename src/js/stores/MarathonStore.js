@@ -348,6 +348,9 @@ class MarathonStore extends BaseStore {
     this.emit(MARATHON_SERVICE_VERSION_ERROR);
   }
 
+  get storeID() {
+    return 'marathon';
+  }
 }
 
 module.exports = new MarathonStore();
