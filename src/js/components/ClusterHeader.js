@@ -1,9 +1,6 @@
-import Clipboard from 'clipboard';
-import browserInfo from 'browser-info';
 import React from 'react';
-import ReactDOM from 'react-dom';
-import {Tooltip} from 'reactjs-components';
 
+import ClipboardTrigger from '../components/ClipboardTrigger';
 import ClusterName from './ClusterName';
 import MetadataStore from '../stores/MetadataStore';
 
@@ -16,65 +13,12 @@ var ClusterHeader = React.createClass({
     };
   },
 
-  getInitialState: function () {
-    return {
-      hasCopiedToClipboard: false
-    };
-  },
-
-  componentDidMount() {
-    if (this.refs.copyButton) {
-      this.clipboard = new Clipboard(ReactDOM.findDOMNode(this.refs.copyButton),
-        {
-          text: () => {
-            return this.getPublicIP();
-          }
-        }
-      );
-
-      this.clipboard.on('success', this.handleCopy);
-    }
-  },
-
-  componentWillUnmount() {
-    if (this.clipboard) {
-      this.clipboard.destroy();
-    }
-  },
-
-  handleCopy() {
-    this.setState({hasCopiedToClipboard: true});
-  },
-
-  handleCopyIconMouseEnter() {
-    this.setState({hasCopiedToClipboard: false});
-  },
-
   getFlashButton() {
-    let clipboardIcon = null;
-    let tooltipContent = 'Copy to clipboard';
-
-    if (this.props.useClipboard) {
-      clipboardIcon = (
-        <i className="icon icon-sprite icon-sprite-mini icon-clipboard
-          icon-sprite-mini-color clickable"
-          onMouseEnter={this.handleCopyIconMouseEnter} />
-      );
+    if (!this.props.useClipboard) {
+      return null;
     }
 
-    if (this.state.hasCopiedToClipboard) {
-      tooltipContent = 'Copied!';
-    }
-
-    if (!/safari/i.test(browserInfo().name)) {
-      return (
-        <Tooltip position="bottom" content={tooltipContent} ref="copyButton">
-          {clipboardIcon}
-        </Tooltip>
-      );
-    }
-
-    return null;
+    return <ClipboardTrigger copyText={this.getPublicIP()} />;
   },
 
   getPublicIP() {
