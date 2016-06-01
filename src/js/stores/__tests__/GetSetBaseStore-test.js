@@ -1,5 +1,3 @@
-jest.dontMock('../GetSetBaseStore');
-
 var GetSetBaseStore = require('../GetSetBaseStore');
 
 describe('GetSetBaseStore', function () {
