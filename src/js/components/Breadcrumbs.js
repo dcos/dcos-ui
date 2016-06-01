@@ -1,16 +1,16 @@
 import classNames from 'classnames';
 import DeepEqual from 'deep-equal';
-import {Link} from 'react-router';
 import React, {PropTypes} from 'react';
 import ReactDOM from 'react-dom';
 
+import BreadcrumbSegmentLink from './BreadcrumbSegmentLink';
 import IconChevron from './icons/IconChevron';
 
 const COLLAPSE_BUFFER = 12;
 const LAST_ITEM_OFFSET = 150; // Difference between scrollWidth and outerWidth
 const PADDED_ICON_WIDTH = 38; // Width of icon + padding
 
-class Breadcrumb extends React.Component {
+class Breadcrumbs extends React.Component {
   constructor() {
     super(...arguments);
 
@@ -125,36 +125,27 @@ class Breadcrumb extends React.Component {
     return this.context.router.getCurrentParams();
   }
 
-  getCrumb(crumb, key) {
-    let label = null;
-    let route = null;
-
-    if (crumb.hasOwnProperty('route')) {
-      route = crumb.route;
-    }
-
-    if (crumb.hasOwnProperty('label')) {
-      label = crumb.label;
-    }
-
-    if (route) {
-      crumb = (
-        <Link to={route.to}
-            params={route.params}
-            title={label}>
-          {label}
-        </Link>
-      );
-    }
-
+  wrapListItem(breadcrumb, key) {
     return (
       <li key={key}>
-        {crumb}
+        {breadcrumb}
       </li>
     );
   }
 
-  getCrumbDivider(key) {
+  getBreadcrumb(breadcrumb, key) {
+    if (!React.isValidElement(breadcrumb)) {
+      if (typeof breadcrumb === 'string') {
+        breadcrumb = {label: breadcrumb};
+      }
+
+      breadcrumb = (<BreadcrumbSegmentLink {...breadcrumb} />);
+    }
+
+    return this.wrapListItem(breadcrumb, key);
+  }
+
+  getBreadcrumbDivider(key) {
     return (
       <li key={key} >
         <IconChevron
@@ -203,10 +194,10 @@ class Breadcrumb extends React.Component {
     let crumbKey = 0;
 
     return crumbs.reduce((memo, crumb, crumbIndex) => {
-      memo.push(this.getCrumb(crumb, ++crumbKey));
+      memo.push(this.getBreadcrumb(crumb, ++crumbKey));
 
       if (crumbs.length - 1 !== crumbIndex) {
-        memo.push(this.getCrumbDivider(++crumbKey));
+        memo.push(this.getBreadcrumbDivider(++crumbKey));
       }
 
       return memo;
@@ -228,17 +219,17 @@ class Breadcrumb extends React.Component {
   }
 };
 
-Breadcrumb.contextTypes = {
+Breadcrumbs.contextTypes = {
   router: PropTypes.func
 };
 
-Breadcrumb.defaultProps = {
+Breadcrumbs.defaultProps = {
   breadcrumbClasses: 'inverse',
   // Remove root '/' by default
   shift: 0
 }
 
-Breadcrumb.propTypes = {
+Breadcrumbs.propTypes = {
   breadcrumbClasses: PropTypes.oneOfType([
     PropTypes.array,
     PropTypes.object,
@@ -248,4 +239,4 @@ Breadcrumb.propTypes = {
   shift: PropTypes.number
 }
 
-module.exports = Breadcrumb;
+module.exports = Breadcrumbs;
