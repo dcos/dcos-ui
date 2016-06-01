@@ -1,11 +1,11 @@
-import BaseStore from './BaseStore';
+import GetSetBaseStore from './GetSetBaseStore';
 
 import ActionTypes from '../constants/ActionTypes';
 import AppDispatcher from '../events/AppDispatcher';
 import ConfigActions from '../events/ConfigActions';
 import EventTypes from '../constants/EventTypes';
 
-class ConfigStore extends BaseStore {
+class ConfigStore extends GetSetBaseStore {
   constructor() {
     super(...arguments);
 

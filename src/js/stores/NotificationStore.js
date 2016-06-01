@@ -1,8 +1,8 @@
-import BaseStore from './BaseStore';
+import GetSetBaseStore from './GetSetBaseStore';
 
 import {NOTIFICATION_CHANGE} from '../constants/EventTypes';
 
-class NotificationStore extends BaseStore {
+class NotificationStore extends GetSetBaseStore {
 
   constructor() {
     super(...arguments);

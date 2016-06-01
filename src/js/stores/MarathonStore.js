@@ -1,6 +1,6 @@
 import AppDispatcher from '../events/AppDispatcher';
 import ActionTypes from '../constants/ActionTypes';
-import BaseStore from './BaseStore';
+import GetSetBaseStore from './GetSetBaseStore';
 import DeploymentsList from '../structs/DeploymentsList';
 import CompositeState from '../structs/CompositeState';
 import Service from '../structs/Service';
@@ -50,7 +50,7 @@ function stopPolling() {
   }
 }
 
-class MarathonStore extends BaseStore {
+class MarathonStore extends GetSetBaseStore {
   constructor() {
     super(...arguments);
 

@@ -1,4 +1,4 @@
-import BaseStore from './BaseStore';
+import GetSetBaseStore from './GetSetBaseStore';
 
 import {
   REQUEST_LOGIN_SUCCESS,
@@ -20,7 +20,7 @@ import AuthActions from '../events/AuthActions';
 import CookieUtils from '../utils/CookieUtils';
 import {Hooks} from 'PluginSDK';
 
-class AuthStore extends BaseStore {
+class AuthStore extends GetSetBaseStore {
   constructor() {
     super(...arguments);
 

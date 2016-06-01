@@ -1,4 +1,4 @@
-import BaseStore from './BaseStore';
+import GetSetBaseStore from './GetSetBaseStore';
 import UsersActions from '../events/UsersActions';
 import {
   REQUEST_USERS_SUCCESS,
@@ -12,7 +12,7 @@ import {
 } from '../constants/EventTypes';
 import UsersList from '../structs/UsersList';
 
-class UsersStore extends BaseStore {
+class UsersStore extends GetSetBaseStore {
   constructor() {
     super(...arguments);
 

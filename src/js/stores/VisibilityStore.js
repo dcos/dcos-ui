@@ -1,4 +1,4 @@
-import BaseStore from './BaseStore';
+import GetSetBaseStore from './GetSetBaseStore';
 import Config from '../config/Config';
 import {VISIBILITY_CHANGE} from '../constants/EventTypes';
 
@@ -34,7 +34,7 @@ const Visibility = (function () {
   };
 })();
 
-class VisibilityStore extends BaseStore {
+class VisibilityStore extends GetSetBaseStore {
   constructor() {
     super(...arguments);
 

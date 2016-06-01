@@ -1,4 +1,4 @@
-import BaseStore from './BaseStore';
+import GetSetBaseStore from './GetSetBaseStore';
 
 import ActionTypes from '../constants/ActionTypes';
 import AppDispatcher from '../events/AppDispatcher';
@@ -10,7 +10,7 @@ import MesosLogActions from '../events/MesosLogActions';
 
 const MAX_FILE_SIZE = 50000;
 
-class MesosLogStore extends BaseStore {
+class MesosLogStore extends GetSetBaseStore {
 
   constructor() {
     super(...arguments);

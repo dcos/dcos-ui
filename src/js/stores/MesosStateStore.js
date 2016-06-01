@@ -1,4 +1,4 @@
-import BaseStore from './BaseStore';
+import GetSetBaseStore from './GetSetBaseStore';
 
 var AppDispatcher = require('../events/AppDispatcher');
 import ActionTypes from '../constants/ActionTypes';
@@ -32,7 +32,7 @@ function stopPolling() {
   }
 }
 
-class MesosStateStore extends BaseStore {
+class MesosStateStore extends GetSetBaseStore {
   constructor() {
     super(...arguments);
 

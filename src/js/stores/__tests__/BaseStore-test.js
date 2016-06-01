@@ -1,63 +1,37 @@
-jest.dontMock('../BaseStore');
-
 var BaseStore = require('../BaseStore');
 
 describe('BaseStore', function () {
 
   beforeEach(function () {
     this.instance = new BaseStore();
+    this.instance.on = jasmine.createSpy('eventOn');
+    this.instance.removeListener = jasmine.createSpy('eventRemoveListener');
   });
 
-  describe('#get', function () {
+  describe('#addChangeListener', function () {
 
-    it('should return undefined if no key is given', function () {
-      expect(this.instance.get()).toEqual(null);
+    it('should have addChangeListener function', function () {
+      expect(typeof this.instance.addChangeListener).toEqual('function');
     });
 
-    it('should return undefined if given an object', function () {
-      expect(this.instance.get({})).toEqual(null);
-    });
-
-    it('returns null if property hasn\'t been defined', function () {
-      expect(this.instance.get('foo')).toEqual(null);
-    });
-
-    it('should return the correct value given a key', function () {
-      var instance = this.instance;
-      instance.set({someProperty: 'someValue'});
-      expect(this.instance.get('someProperty')).toEqual('someValue');
-    });
-
-    it('should allow for default state values', function () {
-      var instance = new BaseStore();
-      instance.getSet_data = {
-        foo: 'bar'
-      };
-
-      expect(instance.get('foo')).toEqual('bar');
+    it('should call on-function', function () {
+      var handler = function () {};
+      this.instance.addChangeListener('change', handler);
+      expect(this.instance.on).toHaveBeenCalledWith('change', handler);
     });
 
   });
 
-  describe('#set', function () {
+  describe('#removeChangeListener', function () {
 
-    it('throws an error when called with a non-object', function () {
-      var fn = this.instance.set.bind(this.instance, 'string');
-      expect(fn).toThrow();
+    it('should have removeChangeListener function', function () {
+      expect(typeof this.instance.removeChangeListener).toEqual('function');
     });
 
-    it('throws an error when called with an array-like object', function () {
-      var fn = this.instance.set.bind(this.instance, []);
-      expect(fn).toThrow();
-    });
-
-    it('overrides previously set values', function () {
-      this.instance.set({foo: 1, bar: 2, baz: 3});
-      this.instance.set({foo: 'foo', bar: 'bar'});
-
-      expect(this.instance.get('foo')).toEqual('foo');
-      expect(this.instance.get('bar')).toEqual('bar');
-      expect(this.instance.get('baz')).toEqual(3);
+    it('should call removeListener-function', function () {
+      var handler = function () {};
+      this.instance.removeChangeListener('change', handler);
+      expect(this.instance.removeListener).toHaveBeenCalledWith('change', handler);
     });
 
   });

@@ -1,9 +1,9 @@
-import BaseStore from './BaseStore';
+import GetSetBaseStore from './GetSetBaseStore';
 import AppDispatcher from '../events/AppDispatcher';
 import ActionTypes from '../constants/ActionTypes';
 import EventTypes from '../constants/EventTypes';
 
-class SidebarStore extends BaseStore {
+class SidebarStore extends GetSetBaseStore {
   constructor() {
     super(...arguments);
 

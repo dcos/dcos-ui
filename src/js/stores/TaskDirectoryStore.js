@@ -1,4 +1,4 @@
-import BaseStore from './BaseStore';
+import GetSetBaseStore from './GetSetBaseStore';
 import ActionTypes from '../constants/ActionTypes';
 import AppDispatcher from '../events/AppDispatcher';
 import Config from '../config/Config';
@@ -26,7 +26,7 @@ function startPolling(task, deeperPath) {
   }
 }
 
-class TaskDirectoryStore extends BaseStore {
+class TaskDirectoryStore extends GetSetBaseStore {
   constructor() {
     super(...arguments);
 
