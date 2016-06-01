@@ -45,7 +45,7 @@ module.exports = {
     ActionsModal: 'modals/ActionsModal',
     AlertPanel: 'AlertPanel',
     Authenticated: 'Authenticated',
-    Breadcrumb: 'Breadcrumb',
+    Breadcrumbs: 'Breadcrumbs',
     Chart: 'charts/Chart',
     CheckboxTable: 'CheckboxTable',
     ClusterHeader: 'ClusterHeader',
