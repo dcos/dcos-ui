@@ -1,4 +1,4 @@
-import BaseStore from './BaseStore';
+import GetSetBaseStore from './GetSetBaseStore';
 import AppDispatcher from '../events/AppDispatcher';
 import CosmosPackagesActions from '../events/CosmosPackagesActions';
 import {
@@ -47,7 +47,7 @@ import UniverseInstalledPackagesList from
 import UniversePackage from '../structs/UniversePackage';
 import UniversePackagesList from '../structs/UniversePackagesList';
 
-class CosmosPackagesStore extends BaseStore {
+class CosmosPackagesStore extends GetSetBaseStore {
   constructor() {
     super(...arguments);
 

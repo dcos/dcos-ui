@@ -59,6 +59,7 @@ var config = {
     'src/js/plugin-bridge/PluginSDK',
     'src/js/plugin-bridge/PluginTestUtils',
     'src/js/stores/BaseStore',
+    'src/js/stores/GetSetBaseStore',
     'src/js/structs',
     'src/js/utils',
     'plugins',

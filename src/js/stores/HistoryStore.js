@@ -1,9 +1,9 @@
-import BaseStore from './BaseStore';
+import GetSetBaseStore from './GetSetBaseStore';
 import {HashLocation} from 'react-router';
 
 import {HISTORY_CHANGE} from '../constants/EventTypes';
 
-class HistoryStore extends BaseStore {
+class HistoryStore extends GetSetBaseStore {
   init() {
     this.set({
       history: [HashLocation.getCurrentPath()]

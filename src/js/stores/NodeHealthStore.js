@@ -1,4 +1,4 @@
-import BaseStore from './BaseStore';
+import GetSetBaseStore from './GetSetBaseStore';
 
 import {
   SERVER_ACTION,
@@ -50,7 +50,7 @@ function stopPolling() {
   }
 }
 
-class NodeHealthStore extends BaseStore {
+class NodeHealthStore extends GetSetBaseStore {
   constructor() {
     super(...arguments);
 

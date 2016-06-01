@@ -1,11 +1,11 @@
-jest.dontMock('../BaseStore');
+jest.dontMock('../GetSetBaseStore');
 
-var BaseStore = require('../BaseStore');
+var GetSetBaseStore = require('../GetSetBaseStore');
 
-describe('BaseStore', function () {
+describe('GetSetBaseStore', function () {
 
   beforeEach(function () {
-    this.instance = new BaseStore();
+    this.instance = new GetSetBaseStore();
   });
 
   describe('#get', function () {
@@ -29,7 +29,7 @@ describe('BaseStore', function () {
     });
 
     it('should allow for default state values', function () {
-      var instance = new BaseStore();
+      var instance = new GetSetBaseStore();
       instance.getSet_data = {
         foo: 'bar'
       };

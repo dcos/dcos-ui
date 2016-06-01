@@ -1,5 +1,5 @@
 import deepEqual from 'deep-equal';
-import BaseStore from './BaseStore';
+import GetSetBaseStore from './GetSetBaseStore';
 
 var AppDispatcher = require('../events/AppDispatcher');
 import ActionTypes from '../constants/ActionTypes';
@@ -7,7 +7,7 @@ import Config from '../config/Config';
 import EventTypes from '../constants/EventTypes';
 import MetadataActions from '../events/MetadataActions';
 
-class MetadataStore extends BaseStore {
+class MetadataStore extends GetSetBaseStore {
 
   constructor() {
     super(...arguments);
