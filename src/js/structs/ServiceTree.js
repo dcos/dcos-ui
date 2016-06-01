@@ -27,16 +27,6 @@ module.exports = class ServiceTree extends Tree {
       this.id = options.id;
     }
 
-    // Append Marathon groups
-    if (options.groups) {
-      this.list = this.list.concat(options.groups);
-    }
-
-    // Append applications
-    if (options.apps) {
-      this.list = this.list.concat(options.apps);
-    }
-
     // Converts items into instances of ServiceTree, Application or Framework
     // based on their properties.
     this.list = this.list.map((item) => {
@@ -44,11 +34,9 @@ module.exports = class ServiceTree extends Tree {
         return item;
       }
 
-      // Check item properties and convert items with an items array or an apps
-      // and groups array (Marathon group structure) into ServiceTree instances.
-      if ((item.items != null && Array.isArray(item.items)) ||
-          (item.groups != null && Array.isArray(item.groups) &&
-          item.apps != null && Array.isArray(item.apps))) {
+      // Check item properties and convert items with an items array (sub trees)
+      // into ServiceTree instances.
+      if ((item.items != null && Array.isArray(item.items))) {
         return new this.constructor(
           Object.assign({filterProperties: this.getFilterProperties()}, item)
         );

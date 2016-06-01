@@ -18,6 +18,7 @@ import {
 } from '../constants/ActionTypes';
 var AppDispatcher = require('./AppDispatcher');
 var Config = require('../config/Config');
+import MarathonUtil from '../utils/MarathonUtil';
 
 module.exports = {
 

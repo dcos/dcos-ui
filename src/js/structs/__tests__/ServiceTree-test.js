@@ -12,41 +12,26 @@ describe('ServiceTree', function () {
 
     beforeEach(function () {
       this.instance = new ServiceTree({
-        id: '/group/id',
-        apps: [
+        id: '/group',
+        items: [
           {
-            id: 'alpha',
-            cmd: 'cmd'
+            id: 'group/test',
+            items: []
           },
           {
-            id: 'beta',
-            cmd: 'cmd',
+            id: '/group/alpha'
+          },
+          {
+            id: '/group/beta',
             labels: {
               DCOS_PACKAGE_FRAMEWORK_NAME: 'beta'
             }
           },
           {
-            id: 'gamma',
-            cmd: 'cmd',
+            id: '/group/gamma',
             labels: {
               RANDOM_LABEL: 'random'
             }
-          }
-        ],
-        groups: [
-          {
-            id: '/test',
-            apps: [
-              {
-                id: 'foo',
-                cmd: 'cmd'
-              },
-              {
-                id: 'bar',
-                cmd: 'cmd'
-              }
-            ],
-            groups: []
           }
         ],
         filterProperties: {
@@ -62,11 +47,11 @@ describe('ServiceTree', function () {
       expect(tree.getId()).toEqual('/');
     });
 
-    it('sets correct tree (groups) id', function () {
-      expect(this.instance.getId()).toEqual('/group/id');
+    it('sets correct tree (group) id', function () {
+      expect(this.instance.getId()).toEqual('/group');
     });
 
-    it('accepts nested trees (groups)', function () {
+    it('accepts nested trees', function () {
       expect(this.instance.getItems()[0] instanceof ServiceTree).toEqual(true);
     });
 
@@ -81,19 +66,19 @@ describe('ServiceTree', function () {
   describe('#add', function () {
 
     it('adds a service', function () {
-      let tree = new ServiceTree({id: '/test', apps: [], groups: []});
+      let tree = new ServiceTree({id: '/test', items: [],});
       tree.add(new Application({id: 'a'}));
       expect(tree.getItems()[0].get('id')).toEqual('a');
     });
 
     it('adds service like items', function () {
-      let tree = new ServiceTree({id: '/test', apps: [], groups: []});
+      let tree = new ServiceTree({id: '/test', items: []});
       tree.add({id: 'a'});
       expect(tree.getItems()[0].id).toEqual('a');
     });
 
     it('adds two items', function () {
-      let tree = new ServiceTree({id: '/test', apps: [], groups: []});
+      let tree = new ServiceTree({id: '/test', items: []});
       tree.add(new Application({id: 'a'}));
       tree.add(new Application({id: 'b'}));
       expect(tree.getItems()[0].get('id')).toEqual('a');
@@ -103,8 +88,7 @@ describe('ServiceTree', function () {
     it('adds items to current Tree', function () {
       let tree = new ServiceTree({
         id: '/test',
-        apps: [new Application({id: 'a'})],
-        groups: []
+        items: [new Application({id: 'a'})]
       });
       tree.add(new Application({id: 'b'}));
       tree.add(new Application({id: 'c'}));
@@ -120,41 +104,33 @@ describe('ServiceTree', function () {
 
     beforeEach(function () {
       this.instance = new ServiceTree({
-        id: '/group/id',
-        apps: [
+        id: '/group',
+        items: [
           {
-            id: 'alpha',
-            cmd: 'cmd'
+            id: 'group/test',
+            items: [
+              {
+                id: 'group/test/foo',
+              },
+              {
+                id: 'group/test/bar',
+              }
+            ]
           },
           {
-            id: 'beta',
-            cmd: 'cmd',
+            id: '/group/alpha'
+          },
+          {
+            id: '/group/beta',
             labels: {
               DCOS_PACKAGE_FRAMEWORK_NAME: 'beta'
             }
           },
           {
-            id: 'gamma',
-            cmd: 'cmd',
+            id: '/group/gamma',
             labels: {
               RANDOM_LABEL: 'random'
             }
-          }
-        ],
-        groups: [
-          {
-            id: '/test',
-            apps: [
-              {
-                id: 'foo',
-                cmd: 'cmd'
-              },
-              {
-                id: 'bar',
-                cmd: 'cmd'
-              }
-            ],
-            groups: []
           }
         ],
         filterProperties: {
@@ -190,14 +166,27 @@ describe('ServiceTree', function () {
 
     beforeEach(function () {
       this.instance = new ServiceTree({
-        id: '/group/id',
-        apps: [
+        id: '/group',
+        items: [
           {
-            id: 'alpha',
+            id: '/group/test',
+            items: [
+              {
+                id: '/group/test/foo',
+                cmd: 'cmd'
+              },
+              {
+                id: '/group/test/bar',
+                cmd: 'cmd'
+              }
+            ],
+          },
+          {
+            id: '/group/alpha',
             cmd: 'cmd'
           },
           {
-            id: 'beta',
+            id: '/group/beta',
             cmd: 'cmd',
             labels: {
               DCOS_PACKAGE_FRAMEWORK_NAME: 'beta'
@@ -208,26 +197,9 @@ describe('ServiceTree', function () {
           {
             id: 'gamma',
             cmd: 'cmd',
-            labels:
-            {
+            labels: {
               RANDOM_LABEL: 'random'
             }
-          }
-        ],
-        groups: [
-          {
-            id: '/test',
-            apps: [
-              {
-                id: 'foo',
-                cmd: 'cmd'
-              },
-              {
-                id: 'bar',
-                cmd: 'cmd'
-              }
-            ],
-            groups: []
           }
         ],
         filterProperties: {
@@ -244,16 +216,16 @@ describe('ServiceTree', function () {
       }).getItems();
 
       expect(filteredServices.length).toEqual(1);
-      expect(filteredServices[0].id).toEqual('alpha');
+      expect(filteredServices[0].getId()).toEqual('/group/alpha');
     });
 
     it('should filter by name in groups', function () {
       let filteredServices = this.instance.filterItemsByFilter({
-        id: 'foo'
+        id: '/group/test/foo'
       }).getItems();
 
       expect(filteredServices.length).toEqual(1);
-      expect(filteredServices[0].id).toEqual('/test');
+      expect(filteredServices[0].getId()).toEqual('/group/test');
     });
 
     it('should filter by health', function () {
@@ -262,7 +234,7 @@ describe('ServiceTree', function () {
       }).getItems();
 
       expect(filteredServices.length).toEqual(1);
-      expect(filteredServices[0].id).toEqual('beta');
+      expect(filteredServices[0].getId()).toEqual('/group/beta');
     });
 
     it('should perform a logical AND with multiple filters', function () {
@@ -272,7 +244,7 @@ describe('ServiceTree', function () {
       }).getItems();
 
       expect(filteredServices.length).toEqual(1);
-      expect(filteredServices[0].id).toEqual('alpha');
+      expect(filteredServices[0].getId()).toEqual('/group/alpha');
     });
   });
 
@@ -280,41 +252,13 @@ describe('ServiceTree', function () {
 
     beforeEach(function () {
       this.instance = new ServiceTree({
-        id: '/group/id',
-        apps: [
-          {
-            id: 'alpha',
-            cmd: 'cmd'
-          },
-          {
-            id: 'beta',
-            cmd: 'cmd',
-            labels: {
-              DCOS_PACKAGE_FRAMEWORK_NAME: 'beta'
-            }
-          },
-          {
-            id: 'gamma',
-            cmd: 'cmd',
-            labels: {
-              RANDOM_LABEL: 'random'
-            }
-          }
-        ],
-        groups: [
+        items: [
           {
             id: '/test',
-            apps: [
-              {
-                id: 'foo',
-                cmd: 'cmd'
-              },
-              {
-                id: 'bar',
-                cmd: 'cmd'
-              }
-            ],
-            groups: []
+            items: []
+          },
+          {
+            id: '/alpha'
           }
         ],
         filterProperties: {
@@ -337,8 +281,19 @@ describe('ServiceTree', function () {
 
     beforeEach(function () {
       this.instance = new ServiceTree({
-        id: '/group/id',
-        apps: [
+        id: '/',
+        items: [
+          {
+            id: '/test',
+            items: [
+              {
+                id: '/test/foo',
+              },
+              {
+                id: '/test/bar',
+              }
+            ],
+          },
           {
             id: '/alpha',
             cmd: 'cmd'
@@ -349,29 +304,6 @@ describe('ServiceTree', function () {
             labels: {
               DCOS_PACKAGE_FRAMEWORK_NAME: 'beta'
             }
-          },
-          {
-            id: '/gamma',
-            cmd: 'cmd',
-            labels: {
-              RANDOM_LABEL: 'random'
-            }
-          }
-        ],
-        groups: [
-          {
-            id: '/test',
-            apps: [
-              {
-                id: '/foo',
-                cmd: 'cmd'
-              },
-              {
-                id: '/bar',
-                cmd: 'cmd'
-              }
-            ],
-            groups: []
           }
         ]
       });
@@ -382,7 +314,8 @@ describe('ServiceTree', function () {
     });
 
     it('should find matching subtree item', function () {
-      expect(this.instance.findItemById('/foo').getId()).toEqual('/foo');
+      expect(this.instance.findItemById('/test/foo').getId())
+        .toEqual('/test/foo');
     });
 
     it('should find matching subtree', function () {
@@ -392,10 +325,25 @@ describe('ServiceTree', function () {
   });
 
   describe('#getDeployments', function () {
+
     it('should return an empty array', function () {
       let serviceTree = new ServiceTree({
         id: '/group/id',
-        apps: [
+        items: [
+          {
+            id: '/test',
+            items: [
+              {
+                id: '/foo',
+                cmd: 'cmd',
+                deployments: []
+              },
+              {
+                id: '/bar',
+                cmd: 'cmd'
+              }
+            ],
+          },
           {
             id: '/alpha',
             cmd: 'cmd',
@@ -416,23 +364,6 @@ describe('ServiceTree', function () {
               RANDOM_LABEL: 'random'
             }
           }
-        ],
-        groups: [
-          {
-            id: '/test',
-            apps: [
-              {
-                id: '/foo',
-                cmd: 'cmd',
-                deployments: []
-              },
-              {
-                id: '/bar',
-                cmd: 'cmd'
-              }
-            ],
-            groups: []
-          }
         ]
       });
 
@@ -442,7 +373,25 @@ describe('ServiceTree', function () {
     it('should return an array with three deployments', function () {
       let serviceTree = new ServiceTree({
         id: '/group/id',
-        apps: [
+        items: [
+          {
+            id: '/test',
+            items: [
+              {
+                id: '/foo',
+                cmd: 'cmd',
+                deployments: [
+                  {
+                    id: '4d08fc0d-d450-4a3e-9c85-464ffd7565f1'
+                  }
+                ]
+              },
+              {
+                id: '/bar',
+                cmd: 'cmd'
+              }
+            ]
+          },
           {
             id: '/alpha',
             cmd: 'cmd',
@@ -470,27 +419,6 @@ describe('ServiceTree', function () {
             labels: {
               RANDOM_LABEL: 'random'
             }
-          }
-        ],
-        groups: [
-          {
-            id: '/test',
-            apps: [
-              {
-                id: '/foo',
-                cmd: 'cmd',
-                deployments: [
-                  {
-                    id: '4d08fc0d-d450-4a3e-9c85-464ffd7565f1'
-                  }
-                ]
-              },
-              {
-                id: '/bar',
-                cmd: 'cmd'
-              }
-            ],
-            groups: []
           }
         ]
       });
