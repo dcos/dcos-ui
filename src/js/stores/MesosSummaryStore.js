@@ -26,7 +26,7 @@ function startPolling() {
     // Should always retrieve bulk summary when polling starts
     MesosSummaryActions.fetchSummary(TimeScales.MINUTE);
 
-    requestInterval = setInterval(function () {
+    requestInterval = setInterval(() => {
       let wasInactive = isInactive && !VisibilityStore.get('isInactive');
       isInactive = VisibilityStore.get('isInactive');
 
