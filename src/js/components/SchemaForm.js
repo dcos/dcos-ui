@@ -53,6 +53,13 @@ class SchemaForm extends React.Component {
     this.setState({renderGemini: true});
   }
 
+  componentWillUnmount() {
+    // Unschedule all validation if component unmounts.
+    if (this.timer) {
+      clearTimeout(this.timer);
+    }
+  }
+
   componentDidUpdate() {
     // Timeout necessary due to modal content height updates on did mount
     setTimeout(() => {
@@ -78,7 +85,12 @@ class SchemaForm extends React.Component {
       return;
     }
 
-    setTimeout(() => {
+    // The cleartimeout is there to debounce the validation. And to make
+    // sure it is only run once.
+    if (this.timer) {
+      clearTimeout(this.timer);
+    }
+    this.timer = setTimeout(() => {
       this.validateForm();
       this.props.onChange(this.getDataTriple());
     });
@@ -181,8 +193,12 @@ class SchemaForm extends React.Component {
     );
   }
 
-  getServiceHeader() {
+  getFormHeader() {
     let {packageIcon, packageName, packageVersion} = this.props;
+
+    if (!packageName || !packageIcon) {
+      return null;
+    }
 
     return (
       <div className="modal-header modal-header-padding-narrow modal-header-bottom-border modal-header-white flex-no-shrink">
@@ -201,28 +217,6 @@ class SchemaForm extends React.Component {
                 {packageVersion}
               </span>
             </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  getFormHeader() {
-    if (this.props.headerText != null) {
-      return this.getTitleHeader();
-    }
-
-    return this.getServiceHeader();
-  }
-
-  getTitleHeader() {
-    let {headerText}= this.props;
-
-    return (
-      <div className="modal-header modal-header-padding-narrow modal-header-bottom-border modal-header-white flex-no-shrink">
-        <div className="media-object-spacing-wrapper media-object-spacing-narrow media-object-offset">
-          <div className="media-object media-object-align-middle">
-            {headerText}
           </div>
         </div>
       </div>
@@ -315,12 +309,12 @@ class SchemaForm extends React.Component {
 SchemaForm.defaultProps = {
   className: 'multiple-form row',
   getTriggerSubmit: function () {},
+  onChange: function () {},
   schema: {}
 };
 
 SchemaForm.propTypes = {
   getTriggerSubmit: React.PropTypes.func,
-  headerText: React.PropTypes.string,
   schema: React.PropTypes.object,
   packageIcon: React.PropTypes.string,
   packageName: React.PropTypes.string,

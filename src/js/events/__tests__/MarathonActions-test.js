@@ -108,7 +108,7 @@ describe('MarathonActions', function () {
           .toEqual(ActionTypes.REQUEST_MARATHON_SERVICE_CREATE_ERROR);
       });
 
-      this.configuration.error({message: 'error'});
+      this.configuration.error({message: 'error', response: '{}'});
     });
 
   });
