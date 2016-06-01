@@ -57,7 +57,23 @@ class ServiceDetail extends mixin(InternalStorageMixin, TabsMixin) {
           service-detail-header media-object-spacing-wrapper
           media-object-spacing-narrow">
           <ServicesBreadcrumb serviceTreeItem={service} />
-          <ServiceInfo service={service} tabs={this.tabs_getUnroutedTabs()} />
+          <div className="flex-box control-group flex-grow">
+            <ServiceInfo service={service} tabs={this.tabs_getUnroutedTabs()} />
+            <div className="flex-grow flex-align-right">
+              <div className="filter-bar-item">
+                <button className="button button-stroke button-inverse">Scale</button>
+              </div>
+              <div className="filter-bar-item">
+                <button className="button button-stroke button-inverse">Edit</button>
+              </div>
+              <div className="filter-bar-item">
+                <button className="button button-stroke button-inverse">Suspend</button>
+              </div>
+              <div className="filter-bar-item">
+                <button className="button button-stroke button-inverse">Destroy</button>
+              </div>
+            </div>
+          </div>
           {this.tabs_getTabView()}
         </div>
       </div>
