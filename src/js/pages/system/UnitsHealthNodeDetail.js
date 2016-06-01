@@ -13,8 +13,8 @@ import UnitHealthStore from '../../stores/UnitHealthStore';
 import UnitSummaries from '../../constants/UnitSummaries';
 
 const FLAGS = {
-  UNIT_LOADED: parseInt('1', 2),
-  NODE_LOADED: parseInt('10', 2)
+  UNIT_LOADED: 0b1,
+  NODE_LOADED: 0b10
 };
 
 class UnitsHealthNodeDetail extends mixin(StoreMixin) {

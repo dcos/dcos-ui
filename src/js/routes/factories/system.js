@@ -33,7 +33,7 @@ let RouteFactory = {
                       label: 'System Components',
                       route: {to: 'system-overview-units'}
                     }
-                  ]
+                  ];
                 }
               }
             }
@@ -51,7 +51,7 @@ let RouteFactory = {
                     <UnitsHealthDetailBreadcrumb
                       parentRouter={router}
                       routeName="system-overview-units-unit-nodes-detail" />
-                  ]
+                  ];
                 }
               }
             }
@@ -70,7 +70,7 @@ let RouteFactory = {
                       parentRouter={router}
                       routeName="system-overview-units-unit-nodes-node-detail"
                       />
-                  ]
+                  ];
                 }
               }
             }

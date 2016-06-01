@@ -1,11 +1,11 @@
-import Breadcrumb from '../../../components/Breadcrumb';
+import BreadcrumbSegment from '../../../components/BreadcrumbSegment';
 import UnitHealthStore from '../../../stores/UnitHealthStore';
 
 const FLAGS = {
   UNIT_LOADED: parseInt('1', 2)
 };
 
-class UnitsHealthDetailBreadcrumb extends Breadcrumb {
+class UnitsHealthDetailBreadcrumb extends BreadcrumbSegment {
   constructor() {
     super(...arguments);
 
