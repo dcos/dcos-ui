@@ -110,7 +110,7 @@ class ChronosStore extends EventEmitter {
     return new JobTree(this.data.jobTree);
   }
 
-  static get storeID() {
+  get storeID() {
     return 'chronos';
   }
 }

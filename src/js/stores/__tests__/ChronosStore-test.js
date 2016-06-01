@@ -5,18 +5,14 @@ jest.dontMock('../../structs/Job');
 jest.dontMock('../../structs/JobTree');
 jest.dontMock('../../../../tests/_fixtures/chronos/jobs.json');
 
-import {RequestUtil} from 'mesosphere-shared-reactjs';
-
 const ActionTypes = require('../../constants/ActionTypes');
 const AppDispatcher = require('../../events/AppDispatcher');
 const ChronosActions = require('../../events/ChronosActions');
 const ChronosStore = require('../ChronosStore');
 const Config = require('../../config/Config');
 const EventTypes = require('../../constants/EventTypes');
-const Job = require('../../structs/Job');
 const jobsFixture = require('../../../../tests/_fixtures/chronos/jobs.json');
 const JobTree = require('../../structs/JobTree');
-
 
 describe('ChronosStore', function () {
 
@@ -93,6 +89,12 @@ describe('ChronosStore', function () {
       expect(jobTree instanceof JobTree).toEqual(true);
     });
 
+  });
+
+  describe('storeID', function () {
+    it('should return \'chronos\'', function () {
+      expect(ChronosStore.storeID).toEqual('chronos');
+    });
   });
 
 });
