@@ -9,6 +9,7 @@ if (global.__DEV__) {
 
 import {APP_STORE_CHANGE} from '../constants/EventTypes';
 
+// TODO: DCOS-6404, remove getters and setters from stores
 class GetSetBaseStore extends BaseStore {
   get(key) {
     if (typeof this.getSet_data === 'undefined') {
