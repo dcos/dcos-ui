@@ -12,18 +12,14 @@ import serviceDefaultURI from '../../../img/services/icon-service-default-medium
 import UnitHealthStore from '../../stores/UnitHealthStore';
 import UnitSummaries from '../../constants/UnitSummaries';
 
-const FLAGS = {
-  UNIT_LOADED: 0b1,
-  NODE_LOADED: 0b10
-};
-
 class UnitsHealthNodeDetail extends mixin(StoreMixin) {
   constructor() {
     super(...arguments);
 
     this.state = {
-      isLoading: FLAGS.UNIT_LOADED | FLAGS.NODE_LOADED,
-      hasError: false
+      hasError: false,
+      isLoadingUnit: true,
+      isLoadingNode: true
     };
 
     this.store_listeners = [
@@ -44,8 +40,7 @@ class UnitsHealthNodeDetail extends mixin(StoreMixin) {
   }
 
   onUnitHealthStoreUnitSuccess() {
-    let isLoading = this.state.isLoading & ~FLAGS.UNIT_LOADED;
-    this.setState({isLoading});
+    this.setState({isLoadingUnit: false});
   }
 
   onUnitHealthStoreUnitError() {
@@ -53,8 +48,7 @@ class UnitsHealthNodeDetail extends mixin(StoreMixin) {
   }
 
   onUnitHealthStoreNodeSuccess() {
-    let isLoading = this.state.isLoading & ~FLAGS.NODE_LOADED;
-    this.setState({isLoading});
+    this.setState({isLoadingNode: false});
   }
 
   onUnitHealthStoreNodeError() {
@@ -127,13 +121,13 @@ class UnitsHealthNodeDetail extends mixin(StoreMixin) {
   }
 
   render() {
-    let {state} = this;
+    let {hasError, isLoadingNode, isLoadingUnit} = this.state;
 
-    if (state.hasError) {
+    if (hasError) {
       return this.getErrorNotice();
     }
 
-    if (state.isLoading) {
+    if (isLoadingNode || isLoadingUnit) {
       return this.getLoadingScreen();
     }
 

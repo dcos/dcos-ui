@@ -1,15 +1,13 @@
+import mixin from 'reactjs-mixin';
+import {StoreMixin} from 'mesosphere-shared-reactjs';
+
 import BreadcrumbSegment from '../../../components/BreadcrumbSegment';
 import UnitHealthStore from '../../../stores/UnitHealthStore';
 
-const FLAGS = {
-  NODE_LOADED: 0b1
-};
-
-class UnitsHealthNodeDetailBreadcrumb extends BreadcrumbSegment {
+class UnitsHealthNodeDetailBreadcrumb
+extends mixin(BreadcrumbSegment, StoreMixin) {
   constructor() {
     super(...arguments);
-
-    this.state.isLoadingCrumb = FLAGS.NODE_LOADED;
 
     this.store_listeners = [
       {
@@ -26,16 +24,14 @@ class UnitsHealthNodeDetailBreadcrumb extends BreadcrumbSegment {
     let node = UnitHealthStore.getNode(unitNodeID);
 
     if (node.get('host_ip')) {
-      let isLoadingCrumb = this.state.isLoadingCrumb & ~FLAGS.NODE_LOADED;
-      this.setState({isLoadingCrumb});
+      this.setState({isLoadingCrumb: false});
     } else {
       UnitHealthStore.fetchUnitNode(unitID, unitNodeID);
     }
   }
 
   onUnitHealthStoreNodeSuccess() {
-    let isLoadingCrumb = this.state.isLoadingCrumb & ~FLAGS.NODE_LOADED;
-    this.setState({isLoadingCrumb});
+    this.setState({isLoadingCrumb: false});
   }
 
   getCrumbLabel() {

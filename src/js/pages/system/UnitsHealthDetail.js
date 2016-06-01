@@ -20,11 +20,6 @@ const METHODS_TO_BIND = [
   'resetFilter'
 ];
 
-const FLAGS = {
-  UNIT_LOADED: parseInt('1', 2),
-  NODES_LOADED: parseInt('10', 2)
-};
-
 class UnitsHealthDetail extends mixin(StoreMixin) {
   constructor() {
     super(...arguments);
@@ -39,7 +34,8 @@ class UnitsHealthDetail extends mixin(StoreMixin) {
     this.state = {
       hasError: false,
       healthFilter: 'all',
-      isLoading: FLAGS.UNIT_LOADED | FLAGS.NODES_LOADED,
+      isLoadingUnit: true,
+      isLoadingNodes: true,
       searchString: ''
     };
 
@@ -56,8 +52,7 @@ class UnitsHealthDetail extends mixin(StoreMixin) {
   }
 
   onUnitHealthStoreUnitSuccess() {
-    let isLoading = this.state.isLoading & ~FLAGS.UNIT_LOADED;
-    this.setState({isLoading});
+    this.setState({isLoadingUnit: false});
   }
 
   onUnitHealthStoreUnitError() {
@@ -65,8 +60,7 @@ class UnitsHealthDetail extends mixin(StoreMixin) {
   }
 
   onUnitHealthStoreNodesSuccess() {
-    let isLoading = this.state.isLoading & ~FLAGS.NODES_LOADED;
-    this.setState({isLoading});
+    this.setState({isLoadingNodes: false});
   }
 
   onUnitHealthStoreNodeError() {
@@ -139,13 +133,19 @@ class UnitsHealthDetail extends mixin(StoreMixin) {
   }
 
   render() {
-    let {healthFilter, searchString, hasError, isLoading} = this.state;
+    let {
+      healthFilter,
+      searchString,
+      hasError,
+      isLoadingUnit,
+      isLoadingNodes
+    } = this.state;
 
     if (hasError) {
       return this.getErrorNotice();
     }
 
-    if (isLoading) {
+    if (isLoadingUnit || isLoadingNodes) {
       return this.getLoadingScreen();
     }
 
