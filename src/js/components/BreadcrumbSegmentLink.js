@@ -7,7 +7,7 @@ class BreadcrumbSegmentLink extends React.Component {
     let content = props.label;
 
     if (props.route) {
-      content = (
+      return (
         <Link to={props.route.to}
           params={props.route.params}
           title={props.label}>
@@ -15,12 +15,10 @@ class BreadcrumbSegmentLink extends React.Component {
         </Link>
       );
     } else {
-      content = (
+      return (
         <span>{content}</span>
       );
     }
-
-    return content;
   }
 };
 

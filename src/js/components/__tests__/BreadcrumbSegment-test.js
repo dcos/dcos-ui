@@ -32,7 +32,7 @@ describe('BreadcrumbSegment', function () {
     expect(instance.getBackupCrumbLabel()).toEqual('baz');
   });
 
-  it('renders the label', function () {
+  it('renders the link', function () {
     let instance = TestUtils.renderIntoDocument(
       <BreadcrumbSegment routeName="foo" parentRouter={this.parentRouter} />
     );

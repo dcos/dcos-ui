@@ -9,14 +9,19 @@ class BreadcrumbSegment extends React.Component {
     this.state = {
       isLoadingCrumb: true
     };
-
-    this.store_listeners = [];
   }
 
   getCrumbLabel() {
     return '';
   }
 
+  /**
+   * This method will be called if `isLoadingCrumb` is true.
+   * This will return the very last segment in the URL,
+   * using that as a the crumb label
+   *
+   * @return {String} Crumb label
+   */
   getBackupCrumbLabel() {
     let {parentRouter, routeName} = this.props;
     let route = parentRouter.namedRoutes[routeName];
