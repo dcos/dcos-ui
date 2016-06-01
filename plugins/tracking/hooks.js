@@ -18,7 +18,7 @@ module.exports = {
 
   actions: [
     'pluginsConfigured',
-    'processLoginSuccess',
+    'userLoginSuccess',
     'userLogoutSuccess',
     'applicationRouter'
   ],
@@ -42,7 +42,7 @@ module.exports = {
     DOMUtils.appendScript(document.head, segmentScript);
   },
 
-  processLoginSuccess: function () {
+  userLoginSuccess: function () {
     Actions.identify(AuthStore.getUser().uid);
   },
 

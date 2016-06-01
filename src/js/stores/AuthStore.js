@@ -84,7 +84,7 @@ class AuthStore extends BaseStore {
   }
 
   processLoginSuccess() {
-    Hooks.doAction('processLoginSuccess');
+    Hooks.doAction('userLoginSuccess');
     this.emit(AUTH_USER_LOGIN_CHANGED);
   }
 
