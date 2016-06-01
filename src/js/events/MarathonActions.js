@@ -80,7 +80,7 @@ module.exports = {
           success: function (response) {
             AppDispatcher.handleServerAction({
               type: REQUEST_MARATHON_GROUPS_SUCCESS,
-              data: response
+              data: MarathonUtil.parseGroups(response)
             });
             resolve();
           },

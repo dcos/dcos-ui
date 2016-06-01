@@ -25,7 +25,7 @@ describe('ServicesTab', function () {
   beforeEach(function () {
     DCOSStore.serviceTree = new ServiceTree({
       id: '/',
-      apps: [{
+      items: [{
         id: '/alpha'
       }]
     });

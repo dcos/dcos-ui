@@ -26,7 +26,7 @@ describe('MarathonStore', function () {
 
     it('should return NA health when app has no health check', function () {
       var health = MarathonStore.getFrameworkHealth(
-        MockMarathonResponse.hasNoHealthy.apps[0]
+        MockMarathonResponse.hasNoHealthy.items[0]
       );
       expect(health).not.toEqual(null);
       expect(health.key).toEqual('NA');
@@ -35,7 +35,7 @@ describe('MarathonStore', function () {
 
     it('should return idle when app has no running tasks', function () {
       var health = MarathonStore.getFrameworkHealth(
-        MockMarathonResponse.hasNoRunningTasks.apps[0]
+        MockMarathonResponse.hasNoRunningTasks.items[0]
       );
       expect(health.key).toEqual('IDLE');
     });
@@ -43,7 +43,7 @@ describe('MarathonStore', function () {
     it('should return unhealthy when app has only unhealthy tasks',
       function () {
         var health = MarathonStore.getFrameworkHealth(
-          MockMarathonResponse.hasOnlyUnhealth.apps[0]
+          MockMarathonResponse.hasOnlyUnhealth.items[0]
         );
         expect(health.key).toEqual('UNHEALTHY');
       }
@@ -52,7 +52,7 @@ describe('MarathonStore', function () {
     it('should return unhealthy when app has both healthy and unhealthy tasks',
       function () {
         var health = MarathonStore.getFrameworkHealth(
-          MockMarathonResponse.hasOnlyUnhealth.apps[0]
+          MockMarathonResponse.hasOnlyUnhealth.items[0]
         );
         expect(health.key).toEqual('UNHEALTHY');
       }
@@ -61,7 +61,7 @@ describe('MarathonStore', function () {
     it('should return healthy when app has healthy and no unhealthy tasks',
       function () {
         var health = MarathonStore.getFrameworkHealth(
-          MockMarathonResponse.hasHealth.apps[0]
+          MockMarathonResponse.hasHealth.items[0]
         );
         expect(health.key).toEqual('HEALTHY');
       }
@@ -146,8 +146,8 @@ describe('MarathonStore', function () {
 
   describe('#processMarathonGroups', function () {
 
-    it('should set Marathon health to idle with no apps', function () {
-      MarathonStore.processMarathonGroups({apps: []});
+    it('should set Marathon health to idle with no items', function () {
+      MarathonStore.processMarathonGroups({items: []});
       var marathonApps = MarathonStore.get('apps');
       expect(marathonApps.marathon.health.key).toEqual('IDLE');
     });
