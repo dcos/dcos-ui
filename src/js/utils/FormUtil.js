@@ -12,6 +12,24 @@ function cloneDefinition(array) {
   });
 }
 
+function getProp(key) {
+  return key.split('[')[0];
+}
+
+function getPropIndex(key) {
+  let value = key.split('[');
+  return parseInt(value[1].split(']')[0])
+}
+
+function getPropKey(key) {
+  let value = key.split('[');
+  return value[1].split('.')[1];
+}
+
+function isNotMultipleProp(key) {
+  return !key.includes('[') || !key.includes(']');
+}
+
 const FormUtil = {
   getMultipleFields: function (prop, count, definition) {
     let definitions = [];
@@ -41,19 +59,14 @@ const FormUtil = {
     model = Object.assign({}, model);
 
     Object.keys(model).forEach(function (key) {
-      if (!key.includes('[') || !key.includes(']')) {
-        return;
-      }
-
-      let value = key.split('[');
-      if (value[0] !== prop) {
+      if (isNotMultipleProp(key) || (getProp(key) !== prop)) {
         return;
       }
 
       let instanceValue = model[key];
       delete model[key];
-      let valueIndex = parseInt(value[1].split(']')[0]);
-      let valueProperty = value[1].split('.')[1];
+      let valueIndex = getPropIndex(key);
+      let valueProperty = getPropKey(key);
 
       if (valueProperty) {
         if (typeof propValue[valueIndex] === 'object') {
