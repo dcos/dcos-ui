@@ -37,19 +37,6 @@ function stopPolling() {
   }
 }
 
-function handleInactiveChange() {
-  let isInactive = VisibilityStore.get('isInactive');
-  if (isInactive) {
-    stopPolling();
-  }
-
-  if (!isInactive && ChronosStore.shouldPoll()) {
-    startPolling();
-  }
-}
-
-VisibilityStore.addChangeListener(VISIBILITY_CHANGE, handleInactiveChange);
-
 class ChronosStore extends EventEmitter {
   constructor() {
     super(...arguments);
@@ -78,6 +65,11 @@ class ChronosStore extends EventEmitter {
 
       return true;
     });
+
+    VisibilityStore.addChangeListener(
+      VISIBILITY_CHANGE,
+      this.onVisibilityStoreChange.bind(this)
+    );
   }
 
   addChangeListener(eventName, callback) {
@@ -96,6 +88,15 @@ class ChronosStore extends EventEmitter {
     if (!this.shouldPoll()) {
       stopPolling();
     }
+  }
+
+  onVisibilityStoreChange() {
+    if (!VisibilityStore.isInactive() && this.shouldPoll()) {
+      startPolling();
+      return;
+    }
+
+    stopPolling();
   }
 
   shouldPoll() {
