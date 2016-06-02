@@ -289,8 +289,8 @@ describe('MarathonStore', function () {
 
   });
 
-  describe('#get storeID', function(){
-    it('should return marathon', function() {
+  describe('#get storeID', function () {
+    it('should return marathon', function () {
       expect(MarathonStore.storeID).toBe('marathon');
     });
   });
