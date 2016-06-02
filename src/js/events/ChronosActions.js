@@ -6,6 +6,7 @@ import {
   REQUEST_CHRONOS_JOBS_SUCCESS
 } from '../constants/ActionTypes';
 import AppDispatcher from './AppDispatcher';
+import ChronosUtil from '../utils/ChronosUtil';
 import Config from '../config/Config';
 
 const ChronosActions = {
@@ -17,11 +18,16 @@ const ChronosActions = {
           url: `${Config.rootUrl}/chronos/jobs`,
           data: [{name: 'embed', value: 'activeJobs'}],
           success: function (response) {
-            AppDispatcher.handleServerAction({
-              type: REQUEST_CHRONOS_JOBS_SUCCESS,
-              data: response
-            });
-            resolve();
+            try {
+              let data = ChronosUtil.parseJobs(response);
+              AppDispatcher.handleServerAction({
+                type: REQUEST_CHRONOS_JOBS_SUCCESS,
+                data
+              });
+              resolve();
+            } catch (error) {
+              this.error(error);
+            }
           },
           error: function (e) {
             AppDispatcher.handleServerAction({
