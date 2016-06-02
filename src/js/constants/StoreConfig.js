@@ -5,6 +5,12 @@ import {
   AUTH_USER_LOGOUT_SUCCESS,
   AUTH_USER_LOGOUT_ERROR,
 
+  CHRONOS_JOB_DETAIL_CHANGE,
+  CHRONOS_JOB_DETAIL_ERROR,
+  CHRONOS_JOB_RUN_ERROR,
+  CHRONOS_JOB_RUN_SUCCESS,
+  CHRONOS_JOB_SUSPEND_ERROR,
+  CHRONOS_JOB_SUSPEND_SUCCESS,
   CHRONOS_JOBS_CHANGE,
   CHRONOS_JOBS_ERROR,
 
@@ -124,6 +130,12 @@ const ListenersDescription = {
   chronos: {
     store: ChronosStore,
     events: {
+      jobDetailChange: CHRONOS_JOB_DETAIL_CHANGE,
+      jobDetailError: CHRONOS_JOB_DETAIL_ERROR,
+      jobRunError: CHRONOS_JOB_RUN_ERROR,
+      jobRunSuccess: CHRONOS_JOB_RUN_SUCCESS,
+      jobSuspendError: CHRONOS_JOB_SUSPEND_ERROR,
+      jobSuspendSuccess: CHRONOS_JOB_SUSPEND_SUCCESS,
       change: CHRONOS_JOBS_CHANGE,
       error: CHRONOS_JOBS_ERROR
     },
