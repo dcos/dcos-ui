@@ -62,6 +62,7 @@ module.exports = {
     FormModal: 'FormModal',
     IconInfo: 'icons/IconInfo',
     MesosphereLogo: 'icons/MesosphereLogo',
+    NestedServiceLinks: 'NestedServiceLinks',
     Page: 'Page',
     PageHeader: 'PageHeader',
     RequestErrorMsg: 'RequestErrorMsg',

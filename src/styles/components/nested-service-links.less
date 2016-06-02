@@ -1,0 +1,26 @@
+/* -----------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+NestedServiceLinks
+
+--------------------------------------------------------------------------------
+----------------------------------------------------------------------------- */
+
+.nested-service-link-container {
+  padding-top: @base-spacing-unit * 0.5 !important;
+  padding-bottom: @base-spacing-unit * 0.5 !important;
+}
+
+.service-link {
+
+  &.inverse {
+
+    a {
+      color: color-lighten(@neutral, 30) !important;
+
+      &:hover {
+        color: color-lighten(@neutral, 60);
+      }
+    }
+  }
+}
