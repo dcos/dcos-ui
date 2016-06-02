@@ -10,7 +10,6 @@ let SERVICE_SCHEMA = {
       type: 'object',
       properties: {
         id: {
-          default: '/service',
           title: 'ID',
           description: 'The id for the service',
           type: 'string',
@@ -43,14 +42,12 @@ let SERVICE_SCHEMA = {
         instances: {
           title: 'Instances',
           type: 'number',
-          default: 1,
           getter: function (service) {
             return (service.getInstancesCount() || 0);
           }
         },
         cmd: {
           title: 'Command',
-          default: 'sleep 1000;',
           description: 'The command which is executed by the service',
           type: 'string',
           multiLine: true,
@@ -68,7 +65,6 @@ let SERVICE_SCHEMA = {
       type: 'object',
       properties: {
         image: {
-          default: '',
           description: 'name of your docker image',
           type: 'string',
           getter: function (service) {
