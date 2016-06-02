@@ -17,6 +17,10 @@ import MarathonStore from '../../stores/MarathonStore';
 describe('DeploymentsTab', function () {
 
   beforeEach(function () {
+    // Clean up application timers.
+    jasmine.clock().uninstall();
+    // Install our custom jasmine timers.
+    jasmine.clock().install();
     jasmine.clock().mockDate(new Date(2016, 3, 19));
     let deployments = new DeploymentsList({
       items: [
