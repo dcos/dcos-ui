@@ -15,6 +15,7 @@
     "type": "git",
     "url": "https://github.com/mesosphere/dcos-ui"
   },
+  "license": "Apache-2.0",
   "engines": {
     "node": "4.x.x",
     "npm": "3.x.x"
