@@ -3,10 +3,10 @@ jest.dontMock('../FormUtil');
 var FormUtil = require('../FormUtil');
 
 describe('FormUtil', function () {
-  describe('#getMultipleFields', function () {
+  describe('#getMultipleFieldDefinitions', function () {
     describe('one property', function () {
       beforeEach(function () {
-        this.result = FormUtil.getMultipleFields('uid', 2, {
+        this.result = FormUtil.getMultipleFieldDefinitions('uid', 2, {
           name: 'uid'
         });
       });
@@ -23,7 +23,7 @@ describe('FormUtil', function () {
 
     describe('multiple properties', function () {
       beforeEach(function () {
-        this.result = FormUtil.getMultipleFields('uid', 2, [
+        this.result = FormUtil.getMultipleFieldDefinitions('uid', 2, [
           {
             name: 'uid'
           },

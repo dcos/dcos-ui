@@ -31,13 +31,13 @@ function isNotMultipleProp(key) {
 }
 
 const FormUtil = {
-  getMultipleFields: function (prop, count, definition) {
+  getMultipleFieldDefinitions: function (prop, count, definition) {
     let definitions = [];
-    let multipleDefinition = Array.isArray(definition);
+    let isMultipleDefinition = Array.isArray(definition);
 
     for (let i = 0; i < count; i++) {
       let definitionInstance;
-      if (multipleDefinition) {
+      if (isMultipleDefinition) {
         definitionInstance = cloneDefinition(definition).map(function (definitionClone) {
           definitionClone.name = `${prop}[${i}].${definitionClone.name}`;
 
@@ -82,8 +82,5 @@ const FormUtil = {
     return Object.assign({}, model, {[prop]: propValue});
   }
 };
-
-global.test = FormUtil.getMultipleFields;
-global.xform = FormUtil.modelToCombinedProps;
 
 module.exports = FormUtil;
