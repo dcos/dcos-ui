@@ -16,6 +16,8 @@ import {
   SERVER_ACTION
 } from '../constants/ActionTypes';
 
+import VisibilityStore from './VisibilityStore';
+
 let requestInterval;
 
 function startPolling() {
