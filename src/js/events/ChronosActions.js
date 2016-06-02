@@ -180,6 +180,7 @@ if (Config.useFixtures) {
   const jobFixture = require('../../../tests/_fixtures/chronos/job.json');
   const jobsFixture = require('../../../tests/_fixtures/chronos/jobs.json');
 
+
   if (!global.actionTypes) {
     global.actionTypes = {};
   }
