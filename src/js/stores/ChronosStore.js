@@ -39,7 +39,7 @@ let requestInterval;
 let jobDetailFetchTimers = {};
 
 function pauseJobDetailMonitors() {
-  Object.keys(jobDetailFetchTimers).forEach((jobID) => {
+  Object.keys(jobDetailFetchTimers).forEach(function (jobID) {
     global.clearInterval(jobDetailFetchTimers[jobID]);
     jobDetailFetchTimers[jobID] = null;
   });
