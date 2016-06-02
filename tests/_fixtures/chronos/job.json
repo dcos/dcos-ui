@@ -1,0 +1,76 @@
+{
+  "id": "/foo",
+  "description": "Foo Description",
+  "labels": {
+    "name": "foo",
+    "project": "metronome",
+    "stage": "test"
+  },
+  "schedule": {
+    "schedule": "0 19 6 9 *",
+    "timezone": "America/Chicago",
+    "startingDeadlineSeconds": 60,
+    "concurrencyPolicy": "allow",
+    "enabled": true
+  },
+  "run": {
+    "cpus": 1,
+    "mem": 1,
+    "disk": 1,
+    "artifacts": [{
+      "url": "https://foo.com/archive.zip",
+      "executable": false,
+      "extract": true,
+      "cache": true
+    }],
+    "placement": {
+      "constraints": [{
+        "attr": "hostname",
+        "op": "LIKE",
+        "value": ".*PROD.*"
+      }]
+    },
+    "cmd": "/foo",
+    "args": [],
+    "user": "marathon",
+    "env": {
+      "DRY_RUN": "false",
+      "ZK": "zk://master.mesos:2181/marathon"
+    },
+    "docker": {
+      "image": "mesosphere/foo"
+    },
+    "volumes": [{
+      "containerPath": "/logs",
+      "hostPath": "/var/log/mesosphere/foo",
+      "mode": "RW"
+    }],
+    "restart": {
+      "restart": "never",
+      "activeDeadlineSeconds": 120
+    }
+  },
+  "status": {
+    "successCount": 1,
+    "failureCount": 1,
+    "lastSuccessAt": "1990-01-02T00:00:00Z",
+    "lastFailureAt": "1989-03-01T00:10:15.957Z",
+    "nextScheduledRunAt": "1990-01-02T00:00:00Z"
+  },
+  "activeRuns": [{
+    "id": "/foo/1990-01-03t00:00:00z-1",
+    "jobId": "/foo",
+    "status": "active",
+    "createdAt": "1990-01-03t00:00:00z-1",
+    "tasks": [{
+      "id": "foo.1990-01-03t00:00:00z-1.68d65242-1838-11e6-8d2d-5ec97000bce0",
+      "startedAt": "1990-01-03T00:00:04.919Z",
+      "status": "TASK_STARTED"
+    }, {
+      "id": "dfoo.1990-01-03t00:00:00z-1.68d65242-1838-11e6-8d2d-5ec97000bce0",
+      "startedAt": "1990-01-03T00:00:04.919Z",
+      "completedAt": "1990-01-03T00:00:09.919Z",
+      "status": "TASK_FAILED"
+    }]
+  }]
+}
