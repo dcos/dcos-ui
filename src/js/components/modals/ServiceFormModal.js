@@ -117,7 +117,7 @@ class ServiceFormModal extends mixin(StoreMixin) {
 
   handleSubmit() {
     if (this.state.jsonMode) {
-      let jsonDefinition = this.state;
+      let jsonDefinition = this.state.jsonDefinition;
       MarathonStore.createService(JSON.parse(jsonDefinition));
       this.setState({
         errorMessage: null,
