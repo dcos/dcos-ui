@@ -16,6 +16,7 @@ import {
   VISIBILITY_CHANGE
 } from '../constants/EventTypes';
 import Config from '../config/Config';
+import Job from '../structs/Job';
 import JobTree from '../structs/JobTree';
 import {
   REQUEST_CHRONOS_JOB_DELETE_ERROR,
@@ -133,12 +134,14 @@ class ChronosStore extends EventEmitter {
     ChronosActions.fetchJobDetail(jobID);
   }
 
-  runJob(jobDefinition) {
-    ChronosActions.runJob(jobDefinition);
+  runJob(jobID) {
+    ChronosActions.runJob(jobID);
   }
 
   suspendJob(jobID) {
-    ChronosActions.suspendJob(jobID);
+    let jobConfiguration = this.getJobDetail(jobID);
+    jobConfiguration.schedule.enabled = false;
+    ChronosActions.suspendJob(jobID, jobConfiguration);
   }
 
   addChangeListener(eventName, callback) {
@@ -159,8 +162,16 @@ class ChronosStore extends EventEmitter {
     }
   }
 
+  getJobDetail(jobID) {
+    if (this.data.jobDetail[jobID] == null) {
+      return null;
+    }
+
+    return new Job(this.data.jobDetail[jobID]);
+  }
+
   monitorJobDetail(jobID) {
-    if (jobDetailFetchTimers[jobID] != null) {
+    if (jobDetailFetchTimers[jobID] != null || jobID == null) {
       // Already monitoring
       return;
     }

@@ -108,11 +108,11 @@ const ChronosActions = {
     });
   },
 
-  runJob: function (data) {
+  runJob: function (jobID) {
     RequestUtil.json({
-      url: `${Config.rootUrl}/chronos/jobs-runs`,
+      url: `${Config.rootUrl}/jobs/${jobID}/runs`,
       method: 'POST',
-      data,
+      data: {},
       success: function () {
         AppDispatcher.handleServerAction({
           type: REQUEST_CHRONOS_JOB_RUN_SUCCESS
@@ -128,11 +128,11 @@ const ChronosActions = {
     });
   },
 
-  suspendJob: function (jobID) {
+  suspendJob: function (jobID, data) {
     RequestUtil.json({
       url: `${Config.rootUrl}/chronos/jobs/${jobID}`,
       method: 'PUT',
-      data: {schedule: {enabled: false}},
+      data,
       success: function () {
         AppDispatcher.handleServerAction({
           type: REQUEST_CHRONOS_JOB_SUSPEND_SUCCESS,
