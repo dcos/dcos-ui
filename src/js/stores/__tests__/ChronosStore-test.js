@@ -25,7 +25,6 @@ describe('ChronosStore', function () {
   });
 
   afterEach(function () {
-    jasmine.clock().uninstall();
     ChronosStore.removeAllListeners();
   });
 

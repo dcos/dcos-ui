@@ -44,7 +44,6 @@ describe('DeploymentsTab', function () {
   });
 
   afterEach(function () {
-    jasmine.clock().uninstall();
     ReactDOM.unmountComponentAtNode(this.container);
   });
 
