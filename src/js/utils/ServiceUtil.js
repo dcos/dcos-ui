@@ -33,6 +33,10 @@ const ServiceUtil = {
           docker: {
             image: formModel['Container Settings'].image
           }
+        };
+        if (formModel['Container Settings'].network != null) {
+          definition.container.docker.network =
+            formModel['Container Settings'].network.toUpperCase();
         }
       }
     }
