@@ -21,7 +21,6 @@ class TabForm extends React.Component {
     });
 
     this.triggerSubmit = function () {};
-    this.isValidated = true;
   }
 
   componentWillMount() {

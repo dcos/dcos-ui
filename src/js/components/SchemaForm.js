@@ -40,10 +40,6 @@ class SchemaForm extends React.Component {
     this.props.getTriggerSubmit(this.handleExternalSubmit);
   }
 
-  componentDidMount() {
-    this.setState({renderGemini: true});
-  }
-
   componentWillUnmount() {
     // Unschedule all validation if component unmounts.
     if (this.timer) {
@@ -56,10 +52,6 @@ class SchemaForm extends React.Component {
     setTimeout(() => {
       GeminiUtil.updateWithRef(this.refs.geminiForms);
     });
-  }
-
-  handleTabClick(currentTab) {
-    this.setState({currentTab});
   }
 
   handleFormChange(formData, eventObj) {
@@ -85,10 +77,6 @@ class SchemaForm extends React.Component {
       this.validateForm();
       this.props.onChange(this.getDataTriple());
     });
-  }
-
-  handleFormSubmit(formKey, formModel) {
-    this.model[formKey] = formModel;
   }
 
   handleExternalSubmit() {
