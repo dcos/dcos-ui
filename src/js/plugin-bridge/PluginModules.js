@@ -50,6 +50,7 @@ module.exports = {
     Breadcrumbs: 'Breadcrumbs',
     Chart: 'charts/Chart',
     CheckboxTable: 'CheckboxTable',
+    ClipboardTrigger: 'ClipboardTrigger',
     ClusterHeader: 'ClusterHeader',
     ClusterName: 'ClusterName',
     DCOSLogo: 'DCOSLogo',
