@@ -125,7 +125,7 @@ let SchemaUtil = {
       let requiredProps = topLevelPropertyObject.required;
       let definitionForm = multipleDefinition[topLevelProp] = {};
 
-      definitionForm.title = topLevelProp;
+      definitionForm.title = topLevelPropertyObject.title || topLevelProp;
       definitionForm.description = topLevelPropertyObject.description;
       definitionForm.definition = [];
       Object.keys(secondLevelProperties).forEach(function (secondLevelProp) {
