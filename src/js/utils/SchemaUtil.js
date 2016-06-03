@@ -52,6 +52,11 @@ function schemaToFieldDefinition(fieldName, fieldProps, formParent, isRequired, 
     definition.checked = value;
   }
 
+  if (fieldProps.fieldType === 'select') {
+    definition.fieldType = 'select';
+    definition.options = fieldProps.options;
+  }
+
   if (fieldProps.type === 'boolean') {
     definition.fieldType = 'checkbox';
     definition.checked = fieldProps.default || false;
