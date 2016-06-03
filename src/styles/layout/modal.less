@@ -156,22 +156,16 @@
     width: 100%;
   }
 
-  .form-row-element {
-    &:first-child {
-      padding-left: 0;
-    }
-
-    &:last-child {
-      padding-right: 0;
-    }
-  }
-
   .row {
     margin-left: 0;
     margin-right: 0;
 
-    [class*="column-"] {
-      padding: 0;
+    [class*="column-"]:first-child {
+      padding-left: 0;
+    }
+
+    [class*="column-"]:last-child {
+      padding-right: 0;
     }
 
     &:last-child .form-group {
