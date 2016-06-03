@@ -70,11 +70,27 @@
     "tasks": [{
       "id": "foo.1990-01-03t00:00:00z-1.68d65242-1838-11e6-8d2d-5ec97000bce0",
       "startedAt": "1990-01-03T00:00:04.919Z",
-      "status": "TASK_STARTED"
+      "completedAt": "1990-01-03T01:00:04.919Z",
+      "status": "TASK_FINISHED"
     }, {
       "id": "dfoo.1990-01-03t00:00:00z-1.68d65242-1838-11e6-8d2d-5ec97000bce0",
       "startedAt": "1990-01-03T00:00:04.919Z",
       "completedAt": "1990-01-03T00:00:09.919Z",
+      "status": "TASK_FAILED"
+    }]
+  }, {
+    "id": "/bar/1985-01-03t00:00:00z-1",
+    "jobId": "/bar",
+    "status": "active",
+    "createdAt": "1985-01-03t00:00:00z-1",
+    "tasks": [{
+      "id": "bar.1990-01-03t00:00:00z-1.68d65242-1838-11e6-8d2d-5ec97000bce0",
+      "startedAt": "1990-01-03T00:00:04.919Z",
+      "status": "TASK_STARTED"
+    }, {
+      "id": "dbar.1985-01-03t00:00:00z-1.68d65242-1838-11e6-8d2d-5ec97000bce0",
+      "startedAt": "1985-01-03T00:00:04.919Z",
+      "completedAt": "1985-01-03T00:00:09.919Z",
       "status": "TASK_FAILED"
     }]
   }]

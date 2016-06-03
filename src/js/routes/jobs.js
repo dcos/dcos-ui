@@ -1,5 +1,6 @@
 import {Route} from 'react-router';
 
+import JobDetailPage from '../pages/jobs/JobDetailPage';
 import JobsPage from '../pages/JobsPage';
 import JobsTab from '../pages/jobs/JobsTab';
 
@@ -15,8 +16,9 @@ let jobsRoutes = {
       children: [
         {
           type: Route,
-          name: 'jobs-detail',
-          path: ':id/?'
+          handler: JobDetailPage,
+          name: 'jobs-page-detail',
+          path: ':jobID/?'
         }
       ]
     }

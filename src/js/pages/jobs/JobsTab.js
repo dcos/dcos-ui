@@ -1,5 +1,6 @@
 import mixin from 'reactjs-mixin';
 import React from 'react';
+import {RouteHandler} from 'react-router';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import AlertPanel from '../../components/AlertPanel';
@@ -182,6 +183,12 @@ class JobsTab extends mixin(StoreMixin, QueryParamsMixin, SaveStateMixin) {
 
     if (item instanceof JobTree && item.getItems().length > 0) {
       return this.getJobTreeView(item);
+    }
+
+    if (this.props.params.jobID) {
+      return (
+        <RouteHandler />
+      );
     }
 
     // Render empty panel
