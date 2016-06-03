@@ -121,8 +121,6 @@ base/forms.less
 
       .form-row-element {
         padding-bottom: @base-spacing-unit * 2/3;
-        padding-left: @base-spacing-unit;
-        padding-right: @base-spacing-unit;
       }
 
       .media-object-item {
@@ -130,10 +128,11 @@ base/forms.less
       }
 
       .multiple-form-left-column {
-        height: auto;
         flex: 0 0 auto;
+        height: auto;
         max-height: 300px;
         overflow: auto;
+        padding-right: 0;
 
         &:first-child {
           border-bottom: 1px solid color-lighten(@neutral, 80);
@@ -146,12 +145,14 @@ base/forms.less
         flex: 1 1;
         padding-bottom: @base-spacing-unit;
         padding-right: 0;
+        padding-left: 0;
         padding-top: @base-spacing-unit;
       }
 
     }
 
     .form-panel {
+      padding-left: @base-spacing-unit;
       padding-right: @base-spacing-unit;
 
       > .form > *:last-child {
@@ -168,8 +169,17 @@ base/forms.less
 
   @media (max-width: @screen-mini-max) {
 
-    .multiple-form-modal .multiple-form .form-row-element {
-      padding-left: @base-spacing-unit * 4/3;
+    .multiple-form-modal {
+
+      .multiple-form {
+
+        .form-panel {
+          padding-left: @base-spacing-unit-screen-mini;
+          padding-right: @base-spacing-unit-screen-mini;
+        }
+
+      }
+
     }
 
   }
@@ -202,6 +212,68 @@ base/forms.less
         .multiple-form-right-column {
           // Override gemini width styles
           width: 67%;
+        }
+      }
+
+    }
+
+  }
+
+}
+
+& when (@screen-small-enabled) {
+
+  @media (max-width: @screen-small) {
+
+    .multiple-form-modal {
+
+      .multiple-form {
+
+        .form-panel {
+          padding-left: @base-spacing-unit-screen-small;
+          padding-right: @base-spacing-unit-screen-small;
+        }
+
+      }
+
+    }
+
+  }
+
+}
+
+& when (@screen-medium-enabled) {
+
+  @media (max-width: @screen-medium) {
+
+    .multiple-form-modal {
+
+      .multiple-form {
+
+        .form-panel {
+          padding-left: @base-spacing-unit-screen-medium;
+          padding-right: @base-spacing-unit-screen-medium;
+        }
+
+      }
+
+    }
+
+  }
+
+}
+
+& when (@screen-large-enabled) {
+
+  @media (max-width: @screen-large) {
+
+    .multiple-form-modal {
+
+      .multiple-form {
+
+        .form-panel {
+          padding-left: @base-spacing-unit-screen-large;
+          padding-right: @base-spacing-unit-screen-large;
         }
 
       }

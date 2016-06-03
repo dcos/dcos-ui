@@ -1,7 +1,7 @@
 .sidebar-tabs {
 
   padding-top: @base-spacing-unit * 0.5;
-  padding-left: @base-spacing-unit * 4/3;
+  padding-left: @base-spacing-unit;
 
   /* -----------------------------------------------------------------------------
   Sidebar Menu Item
@@ -65,17 +65,25 @@
 
   .sidebar-tabs {
 
+    padding-left: @base-spacing-unit-screen-mini;
+
     .sidebar-menu-item {
       .text-styling(
-          @heading-h3-text-color,
-          @heading-h3-text-font-family,
-          @heading-h3-text-font-size,
-          @heading-h3-text-font-style,
-          @heading-h3-text-font-weight,
-          @heading-h3-text-line-height,
-          @heading-h3-text-transform,
-          @heading-h3-text-shadow
-        );
+        @heading-h3-text-color,
+        @heading-h3-text-font-family,
+        @heading-h3-text-font-size,
+        @heading-h3-text-font-style,
+        @heading-h3-text-font-weight,
+        @heading-h3-text-line-height,
+        @heading-h3-text-transform,
+        @heading-h3-text-shadow
+      );
+
+      a {
+        padding-bottom: (@base-spacing-unit-screen-mini * 0.3);
+        padding-right: @base-spacing-unit-screen-mini;
+        padding-top: (@base-spacing-unit-screen-mini * 0.3);
+      }
     }
 
   }
@@ -94,6 +102,65 @@
           color: @purple;
         }
 
+      }
+
+    }
+
+  }
+
+}
+
+@media (max-width: @screen-small) {
+
+  .sidebar-tabs {
+
+    padding-left: @base-spacing-unit-screen-small;
+
+    .sidebar-menu-item {
+
+      a {
+        padding-bottom: (@base-spacing-unit-screen-small * 0.3);
+        padding-right: @base-spacing-unit-screen-small;
+        padding-top: (@base-spacing-unit-screen-small * 0.3);
+      }
+
+    }
+  }
+
+}
+
+@media (max-width: @screen-medium) {
+
+  .sidebar-tabs {
+
+    padding-left: @base-spacing-unit-screen-medium;
+
+    .sidebar-menu-item {
+
+      a {
+        padding-bottom: (@base-spacing-unit-screen-medium * 0.3);
+        padding-right: @base-spacing-unit-screen-medium;
+        padding-top: (@base-spacing-unit-screen-medium * 0.3);
+      }
+
+    }
+
+  }
+
+}
+
+@media (max-width: @screen-large) {
+
+  .sidebar-tabs {
+
+    padding-left: @base-spacing-unit-screen-large;
+
+    .sidebar-menu-item {
+
+      a {
+        padding-bottom: (@base-spacing-unit-screen-large * 0.3);
+        padding-right: @base-spacing-unit-screen-large;
+        padding-top: (@base-spacing-unit-screen-large * 0.3);
       }
 
     }
