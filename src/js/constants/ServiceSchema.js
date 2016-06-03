@@ -2,10 +2,10 @@
 import React from 'react';
 /* eslint-enable no-unused-vars */
 
-import General from './service-schema/general';
-import Optional from './service-schema/optional';
+import General from './service-schema/General';
+import Optional from './service-schema/Optional';
 
-let SERVICE_SCHEMA = {
+let ServiceSchema = {
   type: 'object',
   properties: {
     General: General,
@@ -49,4 +49,4 @@ let SERVICE_SCHEMA = {
   ]
 };
 
-module.exports = SERVICE_SCHEMA;
+module.exports = ServiceSchema;

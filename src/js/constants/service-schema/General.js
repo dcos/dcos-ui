@@ -2,7 +2,7 @@
 import React from 'react';
 /* eslint-enable no-unused-vars */
 
-let GENERAL = {
+let General = {
   description: 'Configure your container',
   type: 'object',
   properties: {
@@ -58,4 +58,4 @@ let GENERAL = {
   ]
 };
 
-module.exports = GENERAL;
+module.exports = General;

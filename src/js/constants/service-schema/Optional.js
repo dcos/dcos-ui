@@ -2,7 +2,7 @@
 import React from 'react';
 /* eslint-enable no-unused-vars */
 
-let OPTIONAL = {
+let Optional = {
   type: 'object',
   properties: {
     executor: {
@@ -60,4 +60,4 @@ let OPTIONAL = {
   }
 };
 
-module.exports = OPTIONAL;
+module.exports = Optional;
