@@ -17,6 +17,10 @@ const JobTree = require('../../structs/JobTree');
 describe('ChronosStore', function () {
 
   beforeEach(function () {
+    // Clean up application timers
+    jasmine.clock().uninstall();
+    // Install our custom jasmine timers
+    jasmine.clock().install();
     ChronosActions.fetchJobs = jasmine.createSpy('fetchJobs');
   });
 
@@ -26,7 +30,7 @@ describe('ChronosStore', function () {
 
   describe('constructor', function () {
 
-    it('should call the fetchJobs 2 times', function () {
+    it('should call the fetchJobs 3 times', function () {
       ChronosStore.addChangeListener(
         EventTypes.CHRONOS_JOBS_CHANGE,
         function () {}
@@ -35,7 +39,7 @@ describe('ChronosStore', function () {
       jasmine.clock().tick(2 * Config.getRefreshRate());
       // Finish up outstanding timers
       jest.runOnlyPendingTimers();
-      expect(ChronosActions.fetchJobs.calls.count()).toEqual(2);
+      expect(ChronosActions.fetchJobs.calls.count()).toEqual(3);
     });
 
   });
