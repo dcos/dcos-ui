@@ -149,7 +149,7 @@ describe('ChronosActions', function () {
 
     beforeEach(function () {
       spyOn(RequestUtil, 'json');
-      ChronosActions.runJob({foo: 'bar'});
+      ChronosActions.runJob('foo');
       this.configuration = RequestUtil.json.calls.mostRecent().args[0];
     });
 
@@ -159,15 +159,15 @@ describe('ChronosActions', function () {
 
     it('POSTs data to the correct URL', function () {
       expect(this.configuration.url)
-        .toEqual(`${Config.rootUrl}/chronos/jobs-runs`);
+        .toEqual(`${Config.rootUrl}/jobs/foo/runs`);
     });
 
     it('POSTs data with the correct method', function () {
       expect(this.configuration.method).toEqual('POST');
     });
 
-    it('POSTs with the correct data', function () {
-      expect(this.configuration.data).toEqual({foo: 'bar'});
+    it('POSTs with the an empty object', function () {
+      expect(this.configuration.data).toEqual({});
     });
 
     it('dispatches the correct action when successful', function () {

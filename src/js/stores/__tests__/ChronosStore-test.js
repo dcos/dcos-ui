@@ -277,8 +277,8 @@ describe('ChronosStore', function () {
       jest.runOnlyPendingTimers();
       // Stop monitoring specific job's details
       ChronosStore.stopJobDetailMonitor('foo');
-      // Initiate another 10 intervals to ensure the job is no longer fetched
-      jasmine.clock().tick(10 * Config.getRefreshRate());
+      // Initiate another 1 intervals to ensure the job is no longer fetched
+      jasmine.clock().tick(1 * Config.getRefreshRate());
       // Finish up outstanding timers
       jest.runOnlyPendingTimers();
       expect(ChronosActions.fetchJobDetail.calls.count()).toEqual(4);
@@ -296,8 +296,8 @@ describe('ChronosStore', function () {
       jest.runOnlyPendingTimers();
       // Stop monitoring specific job's details
       ChronosStore.stopJobDetailMonitor();
-      // Initiate another 10 intervals to ensure the jobs are no longer fetched
-      jasmine.clock().tick(10 * Config.getRefreshRate());
+      // Initiate another 1 intervals to ensure the jobs are no longer fetched
+      jasmine.clock().tick(1 * Config.getRefreshRate());
       // Finish up outstanding timers
       jest.runOnlyPendingTimers();
       expect(ChronosActions.fetchJobDetail.calls.count()).toEqual(15);
