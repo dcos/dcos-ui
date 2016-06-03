@@ -32,7 +32,9 @@ Cypress.addParentCommand('configureCluster', function (configuration) {
 
   if (configuration.mesos === '1-task-healthy') {
     cy
-      .route(/apps/, 'fx:marathon-1-task/app')
+      .route(/marathon\/v2\/apps/, 'fx:marathon-1-task/app')
+      .route(/marathon\/v2\/groups/, 'fx:marathon-1-task/groups')
+      .route(/marathon\/v2\/deployments/, 'fx:marathon-1-task/deployments')
       .route(/dcos-version/, 'fx:dcos/dcos-version')
       .route(/history\/minute/, 'fx:marathon-1-task/history-minute')
       .route(/history\/last/, 'fx:marathon-1-task/summary')
@@ -42,7 +44,10 @@ Cypress.addParentCommand('configureCluster', function (configuration) {
 
   if (configuration.mesos === '1-for-each-health') {
     cy
-      .route(/apps/, 'fx:1-app-for-each-health/app')
+      .route(/marathon\/v2\/apps/, 'fx:1-app-for-each-health/app')
+      .route(/marathon\/v2\/groups/, 'fx:1-app-for-each-health/groups')
+      .route(/marathon\/v2\/deployments/, 'fx:marathon-1-task/deployments')
+      .route(/chronos\/jobs/, 'fx:chronos/jobs')
       .route(/dcos-version/, 'fx:dcos/dcos-version')
       .route(/history\/minute/, 'fx:marathon-1-task/history-minute')
       .route(/history\/last/, 'fx:1-app-for-each-health/summary')
@@ -52,7 +57,10 @@ Cypress.addParentCommand('configureCluster', function (configuration) {
 
   if (configuration.mesos === '1-service-with-executor-task') {
     cy
-      .route(/apps/, 'fx:1-service-with-executor-task/app')
+      .route(/marathon\/v2\/apps/, 'fx:1-service-with-executor-task/app')
+      .route(/marathon\/v2\/groups/, 'fx:1-service-with-executor-task/app')
+      .route(/marathon\/v2\/deployments/, 'fx:marathon-1-task/deployments')
+      .route(/chronos\/jobs/, 'fx:chronos/jobs')
       .route(/slave\/(.*)?\/files\/(.*)?\/runs\/(.*)?/, 'fx:1-service-with-executor-task/browse')
       .route(/dcos-version/, 'fx:dcos/dcos-version')
       .route(/history\/minute/, 'fx:1-service-with-executor-task/history-minute')

@@ -1,0 +1,182 @@
+{
+  "apps": [
+    {
+      "id": "/cassandra",
+      "cmd": "./scheduler/bin/cassandra-scheduler server ./scheduler/conf/scheduler.yml",
+      "args": null,
+      "user": null,
+      "env": {
+        "CASSANDRA_INTER_DC_TCP_NODELAY": "false",
+        "CASSANDRA_START_RPC": "false",
+        "EXECUTOR_HEAP_MB": "512",
+        "EXECUTOR_MEMORY_MB": "768",
+        "CASSANDRA_MAX_HINT_WINDOW_IN_MS": "10800000",
+        "FRAMEWORK_VERSION": "0.1.0",
+        "CASSANDRA_INTERNODE_COMPRESSION": "all",
+        "CASSANDRA_TRICKLE_FSYNC": "false",
+        "EXECUTOR_API_PORT": "9000",
+        "CASSANDRA_MAX_HINTS_DELIVERY_THREADS": "2",
+        "CASSANDRA_REQUEST_TIMEOUT_IN_MS": "10000",
+        "CASSANDRA_COUNTER_WRITE_REQUEST_TIMEOUT_IN_MS": "5000",
+        "CASSANDRA_CONCURRENT_WRITES": "32",
+        "CASSANDRA_RPC_KEEPALIVE": "true",
+        "CASSANDRA_COMMITLOG_SYNC": "periodic",
+        "CASSANDRA_RPC_SERVER_TYPE": "sync",
+        "CASSANDRA_PARTITIONER": "org.apache.cassandra.dht.Murmur3Partitioner",
+        "CASSANDRA_MEMORY_MB": "4096",
+        "JAVA_HOME": "./jre",
+        "CASSANDRA_DYNAMIC_SNITCH_BADNESS_THRESHOLD": "0.1",
+        "CASSANDRA_TOMBSTONE_WARN_THRESHOLD": "1000",
+        "CASSANDRA_ROW_CACHE_SAVE_PERIOD": "0",
+        "CASSANDRA_CAS_CONTENTION_TIMEOUT_IN_MS": "1000",
+        "UPDATE_CONFIG": "false",
+        "CASSANDRA_COMMITLOG_SEGMENT_SIZE_IN_MB": "32",
+        "CASSANDRA_BATCH_SIZE_WARN_THRESHOLD_IN_KB": "5",
+        "EXECUTOR_COMMAND": "./executor/bin/cassandra-executor server executor/conf/executor.yml",
+        "CASSANDRA_ENABLE_USER_DEFINED_FUNCTIONS": "false",
+        "EXECUTOR_CPUS": "0.5",
+        "CASSANDRA_COMPACTION_THROUGHPUT_MB_PER_SEC": "16",
+        "CASSANDRA_BATCH_SIZE_FAIL_THRESHOLD_IN_KB": "50",
+        "CASSANDRA_WRITE_REQUEST_TIMEOUT_IN_MS": "2000",
+        "CASSANDRA_TRACETYPE_QUERY_TTL": "86400",
+        "CASSANDRA_READ_REQUEST_TIMEOUT_IN_MS": "5000",
+        "CASSANDRA_NATIVE_TRANSPORT_PORT": "9042",
+        "EXECUTOR_DISK_MB": "1024",
+        "EXECUTOR_JAVA_HOME": "./jre",
+        "CASSANDRA_RANGE_REQUEST_TIMEOUT_IN_MS": "10000",
+        "CASSANDRA_COMPACTION_LARGE_PARTITION_WARNING_THRESHOLD_MB": "100",
+        "SEED_NODES": "2",
+        "ADMIN_PORT": "9001",
+        "CASSANDRA_ROW_CACHE_SIZE_IN_MB": "0",
+        "CASSANDRA_KEY_CACHE_SAVE_PERIOD": "14400",
+        "EXECUTOR_JRE_LOCATION": "https://s3-us-west-2.amazonaws.com/cassandra-framework-dev/jre/linux/server-jre-8u74-linux-x64.tar.gz",
+        "CASSANDRA_THRIFT_FRAMED_TRANSPORT_SIZE_IN_MB": "15",
+        "CASSANDRA_DISK_FAILURE_POLICY": "stop",
+        "PLACEMENT_STRATEGY": "NODE",
+        "CASSANDRA_DYNAMIC_SNITCH_UPDATE_INTERVAL_IN_MS": "100",
+        "CASSANDRA_SSTABLE_PREEMPTIVE_OPEN_INTERVAL_IN_MB": "50",
+        "EXECUTOR_CASSANDRA_LOCATION": "https://s3-us-west-2.amazonaws.com/cassandra-framework-dev/testing/apache-cassandra-2.2.5-bin.tar.gz",
+        "CASSANDRA_PERSISTENT_VOLUME": "",
+        "CASSANDRA_COMMITLOG_SYNC_PERIOD_IN_MS": "10000",
+        "CASSANDRA_COLUMN_INDEX_SIZE_IN_KB": "64",
+        "CASSANDRA_RPC_PORT": "9160",
+        "CASSANDRA_COMMIT_FAILURE_POLICY": "stop",
+        "CASSANDRA_BATCHLOG_REPLAY_THROTTLE_IN_KB": "1024",
+        "CASSANDRA_CONCURRENT_READS": "32",
+        "CASSANDRA_HINTED_HANDOFF_THROTTLE_IN_KB": "1024",
+        "CASSANDRA_HEAP_SIZE_MB": "2048",
+        "CASSANDRA_VERSION": "2.2.5",
+        "CASSANDRA_WINDOWS_TIMER_INTERVAL": "1",
+        "CASSANDRA_VOLUME_SIZE_MB": "9216",
+        "CASSANDRA_HINTED_HANDOFF_ENABLED": "true",
+        "CASSANDRA_ENDPOINT_SNITCH": "SimpleSnitch",
+        "CASSANDRA_JMX_PORT": "7199",
+        "NODES": "3",
+        "CASSANDRA_NUM_TOKENS": "256",
+        "CASSANDRA_DYNAMIC_SNITCH_RESET_INTERVAL_IN_MS": "600000",
+        "CASSANDRA_TOMBSTONE_FAILURE_THRESHOLD": "100000",
+        "CASSANDRA_DISK_MB": "10240",
+        "CASSANDRA_HEAP_NEW_MB": "100",
+        "CASSANDRA_TRICKLE_FSYNC_INTERVAL_IN_KB": "10240",
+        "CASSANDRA_REQUEST_SCHEDULER": "org.apache.cassandra.scheduler.NoScheduler",
+        "FRAMEWORK_NAME": "cassandra",
+        "CASSANDRA_MEMTABLE_ALLOCATION_TYPE": "heap_buffers",
+        "CASSANDRA_CONCURRENT_COUNTER_WRITES": "32",
+        "PLAN_STRATEGY": "INSTALL",
+        "CASSANDRA_TRACETYPE_REPAIR_TTL": "604800",
+        "API_PORT": "9000",
+        "CASSANDRA_COUNTER_CACHE_SAVE_PERIOD": "7200",
+        "CASSANDRA_CROSS_NODE_TIMEOUT": "false",
+        "CASSANDRA_STORAGE_PORT": "7000",
+        "EXECUTOR_LOCATION": "https://s3-us-west-2.amazonaws.com/cassandra-framework-dev/ken/executor.zip",
+        "CASSANDRA_START_NATIVE_TRANSPORT": "true",
+        "CASSANDRA_CPUS": "0.5",
+        "CASSANDRA_SSL_STORAGE_PORT": "7001",
+        "CASSANDRA_TRUNCATE_REQUEST_TIMEOUT_IN_MS": "60000",
+        "EXECUTOR_ADMIN_PORT": "9001",
+        "CASSANDRA_INDEX_SUMMARY_RESIZE_INTERVAL_IN_MINUTES": "60"
+      },
+      "instances": 1,
+      "cpus": 0.5,
+      "mem": 2048,
+      "disk": 0,
+      "executor": "",
+      "constraints": [
+      ],
+      "uris": [
+        "https://s3-us-west-2.amazonaws.com/cassandra-framework-dev/ken/scheduler.zip",
+        "https://s3-us-west-2.amazonaws.com/cassandra-framework-dev/jre/linux/server-jre-8u74-linux-x64.tar.gz"
+      ],
+      "fetch": [
+        {
+          "uri": "https://s3-us-west-2.amazonaws.com/cassandra-framework-dev/ken/scheduler.zip",
+          "extract": true,
+          "executable": false,
+          "cache": false
+        },
+        {
+          "uri": "https://s3-us-west-2.amazonaws.com/cassandra-framework-dev/jre/linux/server-jre-8u74-linux-x64.tar.gz",
+          "extract": true,
+          "executable": false,
+          "cache": false
+        }
+      ],
+      "storeUrls": [
+      ],
+      "ports": [
+        9000,
+        9001
+      ],
+      "requirePorts": true,
+      "backoffSeconds": 1,
+      "backoffFactor": 1.15,
+      "maxLaunchDelaySeconds": 3600,
+      "container": null,
+      "healthChecks": [
+        {
+          "protocol": "COMMAND",
+          "command": {
+            "value": "curl -f -X GET http://$HOST:9001/healthcheck"
+          },
+          "gracePeriodSeconds": 300,
+          "intervalSeconds": 60,
+          "timeoutSeconds": 20,
+          "maxConsecutiveFailures": 3,
+          "ignoreHttp1xx": false
+        }
+      ],
+      "dependencies": [
+      ],
+      "upgradeStrategy": {
+        "minimumHealthCapacity": 1,
+        "maximumOverCapacity": 1
+      },
+      "labels": {
+        "DCOS_PACKAGE_RELEASE": "2",
+        "DCOS_PACKAGE_SOURCE": "file:///Users/kowens/git/universe/",
+        "DCOS_PACKAGE_COMMAND": "eyJwaXAiOiBbImRjb3M9PTAuMS4xMyIsICJnaXQraHR0cHM6Ly9naXRodWIuY29tL21lc29zcGhlcmUvZGNvcy1jYXNzYW5kcmEuZ2l0I2Rjb3MtY2Fzc2FuZHJhPTAuMS4wIl19",
+        "DCOS_PACKAGE_METADATA": "eyJkZXNjcmlwdGlvbiI6ICJBcGFjaGUgQ2Fzc2FuZHJhIHJ1bm5pbmcgb24gQXBhY2hlIE1lc29zIiwgImZyYW1ld29yayI6IHRydWUsICJpbWFnZXMiOiB7Imljb24tbGFyZ2UiOiAiaHR0cHM6Ly9kb3dubG9hZHMubWVzb3NwaGVyZS5jb20vY2Fzc2FuZHJhLW1lc29zL2Fzc2V0cy9jYXNzYW5kcmEtbGFyZ2UucG5nIiwgImljb24tbWVkaXVtIjogImh0dHBzOi8vZG93bmxvYWRzLm1lc29zcGhlcmUuY29tL2Nhc3NhbmRyYS1tZXNvcy9hc3NldHMvY2Fzc2FuZHJhLW1lZGl1bS5wbmciLCAiaWNvbi1zbWFsbCI6ICJodHRwczovL2Rvd25sb2Fkcy5tZXNvc3BoZXJlLmNvbS9jYXNzYW5kcmEtbWVzb3MvYXNzZXRzL2Nhc3NhbmRyYS1zbWFsbC5wbmcifSwgImxpY2Vuc2VzIjogW3sibmFtZSI6ICJBcGFjaGUgTGljZW5zZSBWZXJzaW9uIDIuMCIsICJ1cmwiOiAiaHR0cHM6Ly9naXRodWIuY29tL21lc29zcGhlcmUvY2Fzc2FuZHJhLW1lc29zL2Jsb2IvbWFzdGVyL0xJQ0VOU0UudHh0In1dLCAibWFpbnRhaW5lciI6ICJzdXBwb3J0QG1lc29zcGhlcmUuaW8iLCAibmFtZSI6ICJjYXNzYW5kcmEiLCAicGFja2FnaW5nVmVyc2lvbiI6ICIyLjAiLCAicG9zdEluc3RhbGxOb3RlcyI6ICJUaGFuayB5b3UgZm9yIGluc3RhbGxpbmcgdGhlIEFwYWNoZSBDYXNzYW5kcmEgRENPUyBTZXJ2aWNlLlxuXG5cdERvY3VtZW50YXRpb246IGh0dHA6Ly9tZXNvc3BoZXJlLmdpdGh1Yi5pby9jYXNzYW5kcmEtbWVzb3MvXG5cdElzc3VlczogaHR0cHM6Ly9naXRodWIuY29tL21lc29zcGhlcmUvY2Fzc2FuZHJhLW1lc29zL2lzc3VlcyIsICJwb3N0VW5pbnN0YWxsTm90ZXMiOiAiVGhlIEFwYWNoZSBDYXNzYW5kcmEgRENPUyBTZXJ2aWNlIGhhcyBiZWVuIHVuaW5zdGFsbGVkIGFuZCB3aWxsIG5vIGxvbmdlciBydW4uXG5QbGVhc2UgZm9sbG93IHRoZSBpbnN0cnVjdGlvbnMgYXQgaHR0cDovL2RvY3MubWVzb3NwaGVyZS5jb20vc2VydmljZXMvY2Fzc2FuZHJhLyN1bmluc3RhbGwgdG8gY2xlYW4gdXAgYW55IHBlcnNpc3RlZCBzdGF0ZSIsICJwcmVJbnN0YWxsTm90ZXMiOiAiVGhlIEFwYWNoZSBDYXNzYW5kcmEgRENPUyBTZXJ2aWNlIGltcGxlbWVudGF0aW9uIGlzIGFscGhhIGFuZCB0aGVyZSBtYXkgYmUgYnVncywgaW5jb21wbGV0ZSBmZWF0dXJlcywgaW5jb3JyZWN0IGRvY3VtZW50YXRpb24gb3Igb3RoZXIgZGlzY3JlcGFuY2llcy5cblRoZSBkZWZhdWx0IGNvbmZpZ3VyYXRpb24gcmVxdWlyZXMgMyBub2RlcyBlYWNoIHdpdGggMC4zIENQVSBzaGFyZXMsIDExODRNQiBvZiBtZW1vcnkgYW5kIDI3Mk1CIG9mIGRpc2suIiwgInNjbSI6ICJodHRwczovL2dpdGh1Yi5jb20vbWVzb3NwaGVyZS9jYXNzYW5kcmEtbWVzb3MuZ2l0IiwgInRhZ3MiOiBbImRhdGEiLCAiZGF0YWJhc2UiLCAibm9zcWwiXSwgInZlcnNpb24iOiAiMC4yLjAtMSJ9",
+        "DCOS_PACKAGE_REGISTRY_VERSION": "2.0.0-rc1",
+        "DCOS_PACKAGE_FRAMEWORK_NAME": "cassandra",
+        "DCOS_PACKAGE_VERSION": "0.2.0-1",
+        "DCOS_PACKAGE_NAME": "cassandra",
+        "DCOS_PACKAGE_IS_FRAMEWORK": "true"
+      },
+      "acceptedResourceRoles": null,
+      "ipAddress": null,
+      "version": "2016-02-23T14:58:51.659Z",
+      "versionInfo": {
+        "lastScalingAt": "2016-02-23T14:58:51.659Z",
+        "lastConfigChangeAt": "2016-02-23T14:58:51.659Z"
+      },
+      "tasksStaged": 0,
+      "tasksRunning": 1,
+      "tasksHealthy": 1,
+      "tasksUnhealthy": 0,
+      "deployments": [
+      ]
+    }
+  ],
+  "groups": [],
+  "id": "/"
+}
