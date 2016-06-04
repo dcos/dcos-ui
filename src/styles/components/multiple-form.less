@@ -165,27 +165,6 @@ base/forms.less
 
 }
 
-& when (@screen-mini-enabled) {
-
-  @media (max-width: @screen-mini-max) {
-
-    .multiple-form-modal {
-
-      .multiple-form {
-
-        .form-panel {
-          padding-left: @base-spacing-unit-screen-mini;
-          padding-right: @base-spacing-unit-screen-mini;
-        }
-
-      }
-
-    }
-
-  }
-
-}
-
 & when (@screen-small-enabled) {
 
   @media (min-width: @screen-small) {
@@ -212,68 +191,6 @@ base/forms.less
         .multiple-form-right-column {
           // Override gemini width styles
           width: 67%;
-        }
-      }
-
-    }
-
-  }
-
-}
-
-& when (@screen-small-enabled) {
-
-  @media (max-width: @screen-small) {
-
-    .multiple-form-modal {
-
-      .multiple-form {
-
-        .form-panel {
-          padding-left: @base-spacing-unit-screen-small;
-          padding-right: @base-spacing-unit-screen-small;
-        }
-
-      }
-
-    }
-
-  }
-
-}
-
-& when (@screen-medium-enabled) {
-
-  @media (max-width: @screen-medium) {
-
-    .multiple-form-modal {
-
-      .multiple-form {
-
-        .form-panel {
-          padding-left: @base-spacing-unit-screen-medium;
-          padding-right: @base-spacing-unit-screen-medium;
-        }
-
-      }
-
-    }
-
-  }
-
-}
-
-& when (@screen-large-enabled) {
-
-  @media (max-width: @screen-large) {
-
-    .multiple-form-modal {
-
-      .multiple-form {
-
-        .form-panel {
-          padding-left: @base-spacing-unit-screen-large;
-          padding-right: @base-spacing-unit-screen-large;
         }
 
       }
