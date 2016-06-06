@@ -2,6 +2,7 @@ import HealthStatus from '../constants/HealthStatus';
 import Item from './Item';
 import ServiceImages from '../constants/ServiceImages';
 import ServiceStatus from '../constants/ServiceStatus';
+import TaskStats from './TaskStats';
 
 module.exports = class Service extends Item {
   getArguments() {
@@ -152,6 +153,10 @@ module.exports = class Service extends Item {
       tasksUnknown: this.get('tasksRunning') -
         this.get('tasksHealthy') - this.get('tasksUnhealthy'),
     };
+  }
+
+  getTaskStats() {
+    return new TaskStats(this.get('taskStats'));
   }
 
   getFetch() {

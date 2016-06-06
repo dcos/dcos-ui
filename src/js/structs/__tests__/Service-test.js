@@ -2,6 +2,7 @@ let HealthStatus = require('../../constants/HealthStatus');
 let Service = require('../Service');
 let ServiceImages = require('../../constants/ServiceImages');
 let ServiceStatus = require('../../constants/ServiceStatus');
+let TaskStats = require('../TaskStats');
 
 describe('Service', function () {
 
@@ -490,6 +491,16 @@ describe('Service', function () {
         tasksUnhealthy: 0,
         tasksUnknown: 0
       });
+    });
+
+  });
+
+  describe('#getTaskStats', function () {
+
+    it('returns task stats instance', function () {
+      let service = new Service({taskStats:{}});
+
+      expect(service.getTaskStats() instanceof TaskStats).toBeTruthy();
     });
 
   });
