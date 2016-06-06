@@ -3,6 +3,7 @@ import React from 'react';
 /* eslint-enable no-unused-vars */
 
 let General = {
+  title: 'General',
   description: 'Configure your container',
   type: 'object',
   properties: {

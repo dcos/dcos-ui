@@ -8,7 +8,7 @@ import Optional from './service-schema/Optional';
 let ServiceSchema = {
   type: 'object',
   properties: {
-    General: General,
+    general: General,
     'Container Settings': {
       description: 'Configure your Docker Container',
       type: 'object',
@@ -42,10 +42,10 @@ let ServiceSchema = {
       },
       required: []
     },
-    'Optional': Optional
+    optional: Optional
   },
   required: [
-    'General'
+    'general'
   ]
 };
 
