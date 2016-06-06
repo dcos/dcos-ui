@@ -24,6 +24,10 @@ module.exports = class Service extends Item {
     return this.get('container');
   }
 
+  getConstraints() {
+    return this.get('constraints');
+  }
+
   getDeployments() {
     return this.get('deployments');
   }
@@ -34,6 +38,10 @@ module.exports = class Service extends Item {
 
   getExecutor() {
     return this.get('executor');
+  }
+
+  getAcceptedResourceRoles() {
+    return this.get('acceptedResourceRoles');
   }
 
   getHealth() {

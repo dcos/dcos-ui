@@ -8,7 +8,12 @@ const getFindPropertiesRecursive = function (service, item) {
 
       return memo;
     }
-    memo[subItem] = item[subItem].getter(service) || item[subItem].default;
+
+    memo[subItem] = item[subItem].default
+
+    if (item[subItem].getter) {
+      memo[subItem] = item[subItem].getter(service);
+    }
 
     return memo;
   }, {});
@@ -19,19 +24,43 @@ const ServiceUtil = {
     let definition = {};
 
     if (formModel != null) {
+      let {General, Optional} = formModel;
+      let ContainerSettings = formModel['Container Settings'];
+
       if (formModel.General != null) {
-        definition.id = formModel.General.id;
-        definition.cmd = formModel.General.cmd;
-        definition.cpus = formModel.General.cpus;
-        definition.mem = formModel.General.mem;
-        definition.disk = formModel.General.disk;
-        definition.instances = formModel.General.instances;
+        definition.id = General.id;
+        definition.cmd = General.cmd;
+        definition.cpus = General.cpus;
+        definition.mem = General.mem;
+        definition.disk = General.disk;
+        definition.instances = General.instances;
       }
 
-      if (formModel['Container Settings'] != null) {
+      if (Optional != null) {
+        definition.executor = Optional.executor;
+        definition.fetch = Optional.uris &&
+          Optional.uris.split(',')
+            .map(function (uri) {
+              return {uri: uri.trim()};
+            });
+        definition.constraints = Optional.constraints &&
+          Optional.constraints.split(',')
+            .map(function (item) {
+              return item.split(':')
+            });
+        definition.acceptedResourceRoles =
+          Optional.acceptedResourceRoles &&
+            Optional.acceptedResourceRoles.split(',')
+              .map(function (item) {
+                return item.trim();
+              });
+        definition.user = Optional.user;
+      }
+
+      if (ContainerSettings != null) {
         definition.container = {
           docker: {
-            image: formModel['Container Settings'].image
+            image: ContainerSettings.image
           }
         };
         if (formModel['Container Settings'].network != null) {
@@ -51,6 +80,7 @@ const ServiceUtil = {
   getAppDefinitionFromService: function (service) {
     let appDefinition = {};
 
+    // General
     appDefinition.id = service.getId();
     appDefinition.cpus = service.getCpus();
     appDefinition.mem = service.getMem();
@@ -58,9 +88,16 @@ const ServiceUtil = {
     appDefinition.instances = service.getInstancesCount();
     appDefinition.cmd = service.getCommand();
 
+    // Optional
+    appDefinition.executor = service.getExecutor();
+    appDefinition.fetch = service.getFetch();
+    appDefinition.constraints = service.getConstraints();
+    appDefinition.acceptedResourceRoles = service.getAcceptedResourceRoles();
+    appDefinition.user = service.getUser();
+
     let containerSettings = service.getContainerSettings();
-    if (
-      containerSettings && containerSettings.docker &&
+    if (containerSettings &&
+      containerSettings.docker &&
       containerSettings.docker.image
     ) {
       appDefinition.container = containerSettings;

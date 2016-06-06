@@ -2,64 +2,13 @@
 import React from 'react';
 /* eslint-enable no-unused-vars */
 
-let SERVICE_SCHEMA = {
+import General from './service-schema/General';
+import Optional from './service-schema/Optional';
+
+let ServiceSchema = {
   type: 'object',
   properties: {
-    General: {
-      description: 'Configure your container',
-      type: 'object',
-      properties: {
-        id: {
-          title: 'ID',
-          description: 'The id for the service',
-          type: 'string',
-          getter: function (service) {
-            return service.getId();
-          }
-        },
-        cpus: {
-          title: 'CPUs',
-          description: 'The amount of CPUs which are used for the service',
-          type:'number',
-          getter: function (service) {
-            return (service.getCpus() || '');
-          }
-        },
-        mem: {
-          title: 'Mem (MiB)',
-          type: 'number',
-          getter: function (service) {
-            return (service.getMem() || '');
-          }
-        },
-        disk: {
-          title: 'Disk (MiB)',
-          type: 'number',
-          getter: function (service) {
-            return (service.getDisk() || '');
-          }
-        },
-        instances: {
-          title: 'Instances',
-          type: 'number',
-          getter: function (service) {
-            return (service.getInstancesCount() || 0);
-          }
-        },
-        cmd: {
-          title: 'Command',
-          description: 'The command which is executed by the service',
-          type: 'string',
-          multiLine: true,
-          getter: function (service) {
-            return service.getCommand();
-          }
-        }
-      },
-      required: [
-        'id'
-      ]
-    },
+    General: General,
     'Container Settings': {
       description: 'Configure your Docker Container',
       type: 'object',
@@ -92,11 +41,12 @@ let SERVICE_SCHEMA = {
         }
       },
       required: []
-    }
+    },
+    'Optional': Optional
   },
   required: [
     'General'
   ]
 };
 
-module.exports = SERVICE_SCHEMA;
+module.exports = ServiceSchema;
