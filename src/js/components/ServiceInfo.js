@@ -6,15 +6,8 @@ import HealthStatus from '../constants/HealthStatus';
 import HealthLabels from '../constants/HealthLabels';
 import PageHeader from './PageHeader';
 import Service from '../structs/Service';
+import ServiceActionItem from '../constants/ServiceActionItem';
 import StringUtil from '../utils/StringUtil';
-
-const ServiceActionItem = {
-  EDIT: 'edit',
-  DESTROY: 'destroy',
-  SCALE: 'scale',
-  SUSPEND: 'suspend',
-  MORE: 'more'
-};
 
 class ServiceInfo extends React.Component {
   constructor() {
