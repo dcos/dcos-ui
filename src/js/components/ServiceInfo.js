@@ -1,3 +1,4 @@
+import {Dropdown} from 'reactjs-components';
 import React from 'react';
 
 import HealthBar from './HealthBar';
@@ -8,6 +9,56 @@ import Service from '../structs/Service';
 import StringUtil from '../utils/StringUtil';
 
 class ServiceInfo extends React.Component {
+  constructor() {
+    super();
+
+    this.onItemSelection = this.onItemSelection.bind(this);
+  }
+
+  onItemSelection(obj) {
+    console.log(obj);
+  }
+
+  getDropdownItems() {
+    return [{
+      className: 'hidden',
+      id: 'more',
+      html: '',
+      selectedHtml: 'More'
+    }, {
+      id: 'scale',
+      html: 'Scale'
+    }, {
+      id: 'suspend',
+      html: 'Suspend'
+    }, {
+      id: 'destroy',
+      html: <span className="text-danger">Destroy</span>
+    }];
+  }
+
+  getActionButtons() {
+    return [(
+      <button className="button button-stroke button-inverse flush-bottom"
+        key="action-button-edit"
+        onClick={() => console.log('edit click')}>
+        Edit
+      </button>
+    ), (
+      <Dropdown
+        key="actions-dropdown"
+        buttonClassName="button button-stroke button-inverse dropdown-toggle"
+        dropdownMenuClassName="dropdown-menu"
+        dropdownMenuListClassName="dropdown-menu-list"
+        dropdownMenuListItemClassName="clickable"
+        wrapperClassName="dropdown"
+        items={this.getDropdownItems()}
+        persistentID={'more'}
+        onItemSelection={this.onItemSelection}
+        transition={true}
+        transitionName="dropdown-menu" />
+    )];
+  }
 
   getSubHeader(service) {
     let serviceHealth = service.getHealth();
@@ -73,6 +124,7 @@ class ServiceInfo extends React.Component {
 
     return (
       <PageHeader
+        actionButtons={this.getActionButtons()}
         icon={serviceIcon}
         subTitle={this.getSubHeader(service)}
         navigationTabs={tabs}
