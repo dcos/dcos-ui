@@ -121,8 +121,6 @@ base/forms.less
 
       .form-row-element {
         padding-bottom: @base-spacing-unit * 2/3;
-        padding-left: @base-spacing-unit;
-        padding-right: @base-spacing-unit;
       }
 
       .media-object-item {
@@ -130,10 +128,11 @@ base/forms.less
       }
 
       .multiple-form-left-column {
-        height: auto;
         flex: 0 0 auto;
+        height: auto;
         max-height: 300px;
         overflow: auto;
+        padding-right: 0;
 
         &:first-child {
           border-bottom: 1px solid color-lighten(@neutral, 80);
@@ -144,32 +143,19 @@ base/forms.less
       .multiple-form-right-column {
         // Make right column scroll
         flex: 1 1;
-        padding-bottom: @base-spacing-unit;
-        padding-right: 0;
-        padding-top: @base-spacing-unit;
+        padding: @base-spacing-unit 0;
       }
 
     }
 
     .form-panel {
+      padding-left: @base-spacing-unit;
       padding-right: @base-spacing-unit;
 
       > .form > *:last-child {
         padding-bottom: @base-spacing-unit;
       }
 
-    }
-
-  }
-
-}
-
-& when (@screen-mini-enabled) {
-
-  @media (max-width: @screen-mini-max) {
-
-    .multiple-form-modal .multiple-form .form-row-element {
-      padding-left: @base-spacing-unit * 4/3;
     }
 
   }
