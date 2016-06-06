@@ -192,6 +192,7 @@ TabForm.defaultProps = {
 
 TabForm.propTypes = {
   className: React.PropTypes.string,
+  definition: React.PropTypes.array.isRequired,
   getTriggerSubmit: React.PropTypes.func,
   onChange: React.PropTypes.func,
   onSubmit: React.PropTypes.func
