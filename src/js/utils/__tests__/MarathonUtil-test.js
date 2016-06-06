@@ -191,6 +191,55 @@ describe('MarathonUtil', function () {
       expect(instance.items[0].volumes[0].status).toEqual('Detached');
     });
 
+    it('doesn\'t throw when localVolumes is null', function () {
+      var instance = MarathonUtil.parseGroups.bind(MarathonUtil, {
+        id: '/',
+        apps: [{
+          id: '/alpha', container: {
+            volumes: [{
+              containerPath: 'path',
+              mode: 'RW',
+              persistent: {
+                size: 2048
+              }
+            }]
+          },
+          tasks: [
+            {
+              host: '0.0.0.1',
+              localVolumes: null
+            }
+          ]
+        }]
+      });
+
+      expect(instance).not.toThrow();
+    });
+
+    it('doesn\'t throw when localVolumes is not present', function () {
+      var instance = MarathonUtil.parseGroups.bind(MarathonUtil, {
+        id: '/',
+        apps: [{
+          id: '/alpha', container: {
+            volumes: [{
+              containerPath: 'path',
+              mode: 'RW',
+              persistent: {
+                size: 2048
+              }
+            }]
+          },
+          tasks: [
+            {
+              host: '0.0.0.1'
+            }
+          ]
+        }]
+      });
+
+      expect(instance).not.toThrow();
+    });
+
     it('doesn\'t adds volumes array to all services', function () {
       var instance = MarathonUtil.parseGroups({
         id: '/',
