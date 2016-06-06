@@ -7,7 +7,7 @@ module.exports = class JobTask extends Item {
     let dateStarted = this.get('startedAt');
 
     if (dateStarted != null) {
-      return moment(dateStarted);
+      return moment(dateStarted.toUpperCase());
     }
 
     return null;
@@ -17,7 +17,7 @@ module.exports = class JobTask extends Item {
     let dateCompleted = this.get('completedAt');
 
     if (dateCompleted != null) {
-      return moment(dateCompleted);
+      return moment(dateCompleted.toUpperCase());
     }
 
     return null;
