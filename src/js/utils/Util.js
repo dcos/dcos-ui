@@ -139,6 +139,41 @@ const Util = {
         func.apply(null, args);
       }, wait);
     };
+  },
+
+  /**
+   * Check if item is an object.
+   *
+   * @param  {Object} obj Item to check if is an object.
+   * @return {Boolean} Whether the argument is an object.
+   */
+  isObject: function (obj) {
+    return obj.toString && obj.toString() === '[object Object]';
+  },
+
+  /**
+   * Deep copy an object.
+   *
+   * @param  {Object} obj Object to deep copy.
+   * @return {Object} Copy of obj.
+   */
+  deepCopy: function (obj) {
+    let copy;
+    if (this.isObject(obj)) {
+      copy = Object.assign({}, obj);
+    } else if (Array.isArray(obj)) {
+      copy = obj.slice(); // shallow copy
+    }
+
+    if (copy != null) {
+      Object.keys(copy).forEach((key) => {
+        copy[key] = this.deepCopy(copy[key]);
+      });
+    } else {
+      copy = obj;
+    }
+
+    return copy;
   }
 };
 

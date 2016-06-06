@@ -1,5 +1,7 @@
 jest.dontMock('../Util');
 
+var deepEqual = require('deep-equal');
+
 var Util = require('../Util');
 
 describe('Util', function () {
@@ -243,4 +245,123 @@ describe('Util', function () {
 
   });
 
+  describe('deepCopy', function () {
+
+    it('it returns an actual deep copy', function () {
+      var currentDate = new Date();
+
+      var originalObject = {
+        obj1: {
+          string2: 'string2',
+          number2: 2,
+          func: function () {
+            return true;
+          },
+          obj2: {
+            string3: 'string3',
+            number3: 3,
+            date: currentDate,
+            obj3: {
+              array2: ['a', 'b'],
+              number3: 3
+            }
+          }
+        },
+        string1: 'string1',
+        number1: 1,
+        array1: [1, 2]
+      };
+
+      var copiedObject = Util.deepCopy(originalObject);
+      expect(copiedObject).toEqual(originalObject);
+    });
+
+    it('mutating the copy does not affect the original', function () {
+      var currentDate = new Date();
+
+      var originalObject = {
+        obj1: {
+          obj2: {
+            string3: 'string3',
+            number3: 3,
+            date: currentDate,
+            obj3: {
+              array2: ['a', 'b'],
+              number3: 3
+            }
+          }
+        },
+        string1: 'string1',
+        number1: 1,
+        array1: [1, 2]
+      };
+
+      // An exact replica of the originalObject
+      var originalObject2 = {
+        obj1: {
+          obj2: {
+            string3: 'string3',
+            number3: 3,
+            date: currentDate,
+            obj3: {
+              array2: ['a', 'b'],
+              number3: 3
+            }
+          }
+        },
+        string1: 'string1',
+        number1: 1,
+        array1: [1, 2]
+      };
+
+      var copiedObject = Util.deepCopy(originalObject);
+      copiedObject.obj1.obj2 = null;
+      expect(copiedObject).not.toEqual(originalObject);
+      expect(originalObject2).toEqual(originalObject);
+    });
+
+    it('does not clone out of bounds arrays', function () {
+      var originalObject = {
+        obj1: {
+          array1: [1, 2]
+        }
+      };
+
+      var number = 83864234234;
+      originalObject.obj1.array1[number] = 3;
+
+      var copiedObject = Util.deepCopy(originalObject);
+      expect(copiedObject).not.toEqual(originalObject);
+    });
+
+    it('does clone an array with normal indices', () => {
+      var originalObject = {
+        array: []
+      };
+      originalObject.array[0] = 'test';
+
+      var expectedObject = {
+        array: []
+      };
+      expectedObject.array[0] = 'test';
+
+      expect(deepEqual(Util.deepCopy(originalObject), expectedObject))
+        .toEqual(true);
+    });
+
+    it('does clone an array with unusual small indices', () => {
+      var originalObject = {
+        array: []
+      };
+      originalObject.array[2] = 'test';
+
+      var expectedObject = {
+        array: []
+      };
+      expectedObject.array[2] = 'test';
+
+      expect(deepEqual(Util.deepCopy(originalObject), expectedObject))
+        .toEqual(true);
+    });
+  });
 });
