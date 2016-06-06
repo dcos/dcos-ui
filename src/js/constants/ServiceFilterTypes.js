@@ -1,5 +1,6 @@
 const ServiceFilterTypes = {
   HEALTH: 'filterHealth',
+  STATUS: 'filterStatus',
   TEXT: 'searchString'
 };
 

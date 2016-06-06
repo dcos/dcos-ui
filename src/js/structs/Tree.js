@@ -143,6 +143,14 @@ module.exports = class Tree extends List {
           });
         });
       }
+
+      if (filter.status != null && filter.status.length !== 0) {
+        services = services.filter(function (service) {
+          return filter.status.some(function (statusValue) {
+            return service.getServiceStatus().key === parseInt(statusValue, 10);
+          });
+        });
+      }
     }
 
     return new this.constructor(Object.assign({}, this, {items: services}));

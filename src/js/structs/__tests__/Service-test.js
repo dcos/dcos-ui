@@ -372,6 +372,52 @@ describe('Service', function () {
 
   });
 
+  describe('#getServiceStatus', function () {
+
+    it('returns correct status object for running app', function () {
+      let service = new Service({
+        tasksStaged: 0,
+        tasksRunning: 1,
+        tasksHealthy: 0,
+        tasksUnhealthy: 0,
+        instances: 1,
+        deployments: []
+      });
+
+      expect(service.getServiceStatus())
+        .toEqual(ServiceStatus.RUNNING);
+    });
+
+    it('returns correct status for suspended app', function () {
+      let service = new Service({
+        tasksStaged: 0,
+        tasksRunning: 0,
+        tasksHealthy: 0,
+        tasksUnhealthy: 0,
+        instances: 0,
+        deployments: []
+      });
+
+      expect(service.getServiceStatus())
+        .toEqual(ServiceStatus.SUSPENDED);
+    });
+
+    it('returns correct status for deploying app', function () {
+      let service = new Service({
+        tasksStaged: 0,
+        tasksRunning: 15,
+        tasksHealthy: 0,
+        tasksUnhealthy: 0,
+        instances: 0,
+        deployments: [{id: '4d08fc0d-d450-4a3e-9c85-464ffd7565f1'}]
+      });
+
+      expect(service.getServiceStatus())
+        .toEqual(ServiceStatus.DEPLOYING);
+    });
+
+  });
+
   describe('#getTasksSummary', function () {
 
     it('returns correct task summary', function () {

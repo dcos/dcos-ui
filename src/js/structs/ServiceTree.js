@@ -118,22 +118,30 @@ module.exports = class ServiceTree extends Tree {
   }
 
   getStatus() {
+    let status = this.getServiceStatus();
+    if (status == null) {
+      return null;
+    }
+
+    return status.displayName;
+  }
+
+  getServiceStatus() {
     let {tasksRunning} = this.getTasksSummary();
     let deployments = this.getDeployments();
 
     if (deployments.length > 0) {
-      return ServiceStatus.DEPLOYING.displayName;
+      return ServiceStatus.DEPLOYING;
     }
 
     if (tasksRunning > 0) {
-      return ServiceStatus.RUNNING.displayName;
+      return ServiceStatus.RUNNING;
     }
 
     let instances = this.getInstancesCount();
     if (instances === 0) {
-      return ServiceStatus.SUSPENDED.displayName;
+      return ServiceStatus.SUSPENDED;
     }
-
   }
 
   getTasksSummary() {

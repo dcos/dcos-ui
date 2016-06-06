@@ -666,6 +666,56 @@ describe('ServiceTree', function () {
 
   });
 
+  describe('#getServiceStatus', function () {
+
+    beforeEach(function () {
+      this.instance = new ServiceTree();
+    });
+
+    it('returns correct status object for running tree', function () {
+      this.instance.add(new Service({
+        tasksStaged: 0,
+        tasksRunning: 1,
+        tasksHealthy: 0,
+        tasksUnhealthy: 0,
+        instances: 1,
+        deployments: []
+      }));
+
+      expect(this.instance.getServiceStatus())
+        .toEqual(ServiceStatus.RUNNING);
+    });
+
+    it('returns correct status object for suspended tree', function () {
+      this.instance.add(new Service({
+        tasksStaged: 0,
+        tasksRunning: 0,
+        tasksHealthy: 0,
+        tasksUnhealthy: 0,
+        instances: 0,
+        deployments: []
+      }));
+
+      expect(this.instance.getServiceStatus())
+        .toEqual(ServiceStatus.SUSPENDED);
+    });
+
+    it('returns correct status object for deploying tree', function () {
+      this.instance.add(new Service({
+        tasksStaged: 0,
+        tasksRunning: 15,
+        tasksHealthy: 0,
+        tasksUnhealthy: 0,
+        instances: 0,
+        deployments: [{id: '4d08fc0d-d450-4a3e-9c85-464ffd7565f1'}]
+      }));
+
+      expect(this.instance.getServiceStatus())
+        .toEqual(ServiceStatus.DEPLOYING);
+    });
+
+  });
+
   describe('#getTasksSummary', function () {
 
     beforeEach(function () {

@@ -1,6 +1,9 @@
-xdescribe('Sidebar Filter', function () {
+describe('Sidebar Filter', function () {
   context('Filters services table', function () {
     beforeEach(function () {
+      // Remove once responsive filters are in place
+      cy.viewport(1280, 600);
+
       cy.configureCluster({
         mesos: '1-for-each-health',
         nodeHealth: true
@@ -10,22 +13,37 @@ xdescribe('Sidebar Filter', function () {
 
     it('filters correctly on Idle', function () {
       cy.get('.sidebar-filters .label').contains('Idle').click();
-      cy.get('tbody tr').should('to.have.length', 1);
+      cy.get('tbody tr:visible').should('to.have.length', 1);
     });
 
     it('filters correctly on Unhealthy', function () {
       cy.get('.sidebar-filters .label').contains('Unhealthy').click();
-      cy.get('tbody tr').should('to.have.length', 3);
+      cy.get('tbody tr:visible').should('to.have.length', 1);
     });
 
     it('filters correctly on N/A', function () {
       cy.get('.sidebar-filters .label').contains('N/A').click();
-      cy.get('tbody tr').should('to.have.length', 4);
+      cy.get('tbody tr:visible').should('to.have.length', 2);
     });
 
     it('filters correctly on Healthy', function () {
       cy.get('.sidebar-filters .label').contains('Healthy').click();
-      cy.get('tbody tr').should('to.have.length', 3);
+      cy.get('tbody tr:visible').should('to.have.length', 1);
+    });
+
+    it('filters correctly on Running', function () {
+      cy.get('.sidebar-filters .label').contains('Running').click();
+      cy.get('tbody tr:visible').should('to.have.length', 4);
+    });
+
+    it('filters correctly on Deploying', function () {
+      cy.get('.sidebar-filters .label').contains('Deploying').click();
+      cy.get('tbody tr:visible').should('to.have.length', 1);
+    });
+
+    it('filters correctly on Suspended', function () {
+      cy.get('.sidebar-filters .label').contains('Suspended').click();
+      cy.get('tbody tr:visible').should('to.have.length', 1);
     });
 
     it('filters correctly on two filters', function () {
