@@ -36,8 +36,8 @@ class ServiceInfo extends React.Component {
     }
   }
 
-  getDropdownItems() {
-    return [{
+  getActionButtons() {
+    const dropdownItems = [{
       className: 'hidden',
       id: ServiceActionItem.MORE,
       html: '',
@@ -52,9 +52,7 @@ class ServiceInfo extends React.Component {
       id: ServiceActionItem.DESTROY,
       html: <span className="text-danger">Destroy</span>
     }];
-  }
 
-  getActionButtons() {
     return [(
       <button className="button button-stroke button-inverse flush-bottom"
         key="action-button-edit"
@@ -70,7 +68,7 @@ class ServiceInfo extends React.Component {
         dropdownMenuListClassName="dropdown-menu-list"
         dropdownMenuListItemClassName="clickable"
         wrapperClassName="dropdown"
-        items={this.getDropdownItems()}
+        items={dropdownItems}
         persistentID={ServiceActionItem.MORE}
         onItemSelection={this.onActionsItemSelection}
         transition={true}
