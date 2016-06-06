@@ -12,7 +12,7 @@ import MarathonStore from '../../stores/MarathonStore';
 import SchemaForm from '../SchemaForm';
 import Service from '../../structs/Service';
 import ServiceUtil from '../../utils/ServiceUtil';
-import ServiceSchema from '../../constants/ServiceSchema';
+import ServiceSchema from '../../schemas/ServiceSchema';
 import ToggleButton from '../ToggleButton';
 
 const METHODS_TO_BIND = [
