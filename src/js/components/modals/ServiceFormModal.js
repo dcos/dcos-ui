@@ -8,8 +8,9 @@ import 'brace/mode/json';
 import 'brace/theme/monokai';
 import 'brace/ext/language_tools';
 
+import FormUtil from '../../utils/FormUtil';
 import MarathonStore from '../../stores/MarathonStore';
-import SchemaForm from '../SchemaForm';
+import ServiceForm from '../ServiceForm';
 import Service from '../../structs/Service';
 import ServiceUtil from '../../utils/ServiceUtil';
 import ServiceSchema from '../../schemas/ServiceSchema';
@@ -94,7 +95,7 @@ class ServiceFormModal extends mixin(StoreMixin) {
   handleJSONToggle() {
     let nextState = {};
     if (!this.state.jsonMode) {
-      let {model} = this.triggerSubmit();
+      let model = this.triggerSubmit();
       let service = ServiceUtil.createServiceFromFormModel(model);
       nextState.model = model;
       nextState.service = service;
@@ -132,7 +133,7 @@ class ServiceFormModal extends mixin(StoreMixin) {
       return;
     }
     if (this.triggerSubmit) {
-      let {model} = this.triggerSubmit();
+      let model = this.triggerSubmit();
       let service = ServiceUtil.createServiceFromFormModel(model);
       this.setState({service, model, errorMessage: null});
       MarathonStore
@@ -208,7 +209,7 @@ class ServiceFormModal extends mixin(StoreMixin) {
     let model = ServiceUtil.createFormModelFromSchema(ServiceSchema, service);
 
     return (
-      <SchemaForm
+      <ServiceForm
         getTriggerSubmit={this.getTriggerSubmit}
         model={model}
         schema={ServiceSchema}/>

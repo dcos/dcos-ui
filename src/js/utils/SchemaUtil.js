@@ -66,6 +66,16 @@ function schemaToFieldDefinition(fieldName, fieldProps, formParent, isRequired, 
     definition.fieldType = 'textarea';
   }
 
+  if (fieldProps.duplicable === true && fieldProps.itemShape) {
+    definition.itemShape = nestedSchemaToFieldDefinition(
+      fieldName,
+      fieldProps.itemShape,
+      fieldName,
+      renderLabel,
+      renderLabel
+    );
+  }
+
   return definition;
 }
 
