@@ -48,14 +48,18 @@ class ServiceDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
 
   componentDidMount() {
     super.componentDidMount(...arguments);
-    ServicePlanStore.addPlanChangeListener(this.props.service.id,
-      this.onServicePlanStoreChange);
+    ServicePlanStore.addPlanChangeListener(
+      this.props.service.id,
+      this.onServicePlanStoreChange
+    );
   }
 
   componentWillUnmount() {
     super.componentWillUnmount(...arguments);
-    ServicePlanStore.removePlanChangeListener(this.props.service.id,
-      this.onServicePlanStoreChange);
+    ServicePlanStore.removePlanChangeListener(
+      this.props.service.id,
+      this.onServicePlanStoreChange
+    );
   }
 
   onServicePlanStoreChange() {
