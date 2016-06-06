@@ -8,31 +8,48 @@ import PageHeader from './PageHeader';
 import Service from '../structs/Service';
 import StringUtil from '../utils/StringUtil';
 
+const ServiceActionItem = {
+  EDIT: 'edit',
+  DESTROY: 'destroy',
+  SCALE: 'scale',
+  SUSPEND: 'suspend',
+  MORE: 'more'
+};
+
 class ServiceInfo extends React.Component {
   constructor() {
     super();
 
-    this.onItemSelection = this.onItemSelection.bind(this);
+    this.state = {
+      isServiceFormModalShown: false
+    };
+
+    this.onActionsItemSelection =
+      this.onActionsItemSelection.bind(this);
   }
 
-  onItemSelection(obj) {
-    console.log(obj);
+  onActionsItemSelection(item) {
+    if (item.id === ServiceActionItem.EDIT) {
+      this.setState({
+        isServiceFormModalShown: true
+      });
+    }
   }
 
   getDropdownItems() {
     return [{
       className: 'hidden',
-      id: 'more',
+      id: ServiceActionItem.MORE,
       html: '',
       selectedHtml: 'More'
     }, {
-      id: 'scale',
+      id: ServiceActionItem.SCALE,
       html: 'Scale'
     }, {
-      id: 'suspend',
+      id: ServiceActionItem.SUSPEND,
       html: 'Suspend'
     }, {
-      id: 'destroy',
+      id: ServiceActionItem.DESTROY,
       html: <span className="text-danger">Destroy</span>
     }];
   }
@@ -41,7 +58,8 @@ class ServiceInfo extends React.Component {
     return [(
       <button className="button button-stroke button-inverse flush-bottom"
         key="action-button-edit"
-        onClick={() => console.log('edit click')}>
+        onClick={() =>
+          this.onActionsItemSelection({id: ServiceActionItem.EDIT})}>
         Edit
       </button>
     ), (
@@ -53,8 +71,8 @@ class ServiceInfo extends React.Component {
         dropdownMenuListItemClassName="clickable"
         wrapperClassName="dropdown"
         items={this.getDropdownItems()}
-        persistentID={'more'}
-        onItemSelection={this.onItemSelection}
+        persistentID={ServiceActionItem.MORE}
+        onItemSelection={this.onActionsItemSelection}
         transition={true}
         transitionName="dropdown-menu" />
     )];
