@@ -12,6 +12,7 @@ import ServiceDetailDebugTab from './ServiceDetailDebugTab';
 import ServiceDetailTaskTab from './ServiceDetailTaskTab';
 import ServiceDetailVolumesTab from './ServiceDetailVolumesTab';
 import ServiceFormModal from './modals/ServiceFormModal';
+import ServiceDetailVolumesTab from './ServiceDetailVolumesTab';
 import ServiceInfo from './ServiceInfo';
 import ServiceScaleFormModal from './modals/ServiceScaleFormModal';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
