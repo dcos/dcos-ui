@@ -126,6 +126,7 @@ let SchemaUtil = {
       let definitionForm = multipleDefinition[topLevelProp] = {};
 
       definitionForm.title = topLevelPropertyObject.title || topLevelProp;
+      definitionForm.value = topLevelProp;
       definitionForm.description = topLevelPropertyObject.description;
       definitionForm.definition = [];
       Object.keys(secondLevelProperties).forEach(function (secondLevelProp) {
