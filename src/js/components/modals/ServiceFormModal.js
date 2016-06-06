@@ -32,6 +32,7 @@ class ServiceFormModal extends mixin(StoreMixin) {
 
     let model =
       ServiceUtil.createFormModelFromSchema(ServiceSchema);
+
     this.state = {
       errorMessage: null,
       jsonDefinition: JSON.stringify({id:'', cmd:''}, null, 2),
@@ -185,7 +186,12 @@ class ServiceFormModal extends mixin(StoreMixin) {
   }
 
   getModalContents() {
-    let {jsonDefinition, jsonMode, service} = this.state;
+    let {app, jsonMode, service} = this.state;
+
+    if (this.props.service != null) {
+      service = this.props.service;
+    }
+
     if (jsonMode) {
       return (
         <Ace editorProps={{$blockScrolling: true}}
@@ -194,20 +200,27 @@ class ServiceFormModal extends mixin(StoreMixin) {
           showGutter={true}
           showPrintMargin={false}
           theme="monokai"
-          value={jsonDefinition}
+          value={app}
+          height="462px"
           width="100%"/>
       );
     }
 
     return (
       <SchemaForm
-        getTriggerSubmit={this.getTriggerSubmit}
+        getTriggerSubmit={this.getAdvancedSubmit}
         model={ServiceUtil.createFormModelFromSchema(ServiceSchema, service)}
         schema={ServiceSchema}/>
     );
   }
 
   render() {
+    let title = 'Deploy new Serivce';
+
+    if (this.props.isEdit) {
+      title = 'Edit Service';
+    }
+
     return (
       <Modal
         backdropClass="modal-backdrop default-cursor"
@@ -219,7 +232,7 @@ class ServiceFormModal extends mixin(StoreMixin) {
         showCloseButton={false}
         showHeader={true}
         footer={this.getFooter()}
-        titleText="Deploy New Service"
+        titleText={title}
         showFooter={true}>
         {this.getErrorMessage()}
         {this.getModalContents()}
@@ -229,14 +242,17 @@ class ServiceFormModal extends mixin(StoreMixin) {
 }
 
 ServiceFormModal.defaultProps = {
+  isEdit: false,
   onClose: function () {},
-  open: false
+  open: false,
+  service: null
 };
 
 ServiceFormModal.propTypes = {
+  isEdit: React.PropTypes.bool,
   open: React.PropTypes.bool,
-  model: React.PropTypes.object,
-  onClose: React.PropTypes.func
+  onClose: React.PropTypes.func,
+  service: React.PropTypes.instanceOf(Service)
 };
 
 module.exports = ServiceFormModal;
