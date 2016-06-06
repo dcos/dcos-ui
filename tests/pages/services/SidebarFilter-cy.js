@@ -13,17 +13,17 @@ describe('Sidebar Filter', function () {
 
     it('filters correctly on Idle', function () {
       cy.get('.sidebar-filters .label').contains('Idle').click();
-      cy.get('tbody tr').should('to.have.length', 1);
+      cy.get('tbody tr:visible').should('to.have.length', 1);
     });
 
     it('filters correctly on Unhealthy', function () {
       cy.get('.sidebar-filters .label').contains('Unhealthy').click();
-      cy.get('tbody tr').should('to.have.length', 3);
+      cy.get('tbody tr:visible').should('to.have.length', 1);
     });
 
     it('filters correctly on N/A', function () {
       cy.get('.sidebar-filters .label').contains('N/A').click();
-      cy.get('tbody tr').should('to.have.length', 4);
+      cy.get('tbody tr:visible').should('to.have.length', 2);
     });
 
     it('filters correctly on Healthy', function () {
