@@ -1,15 +1,18 @@
+import StatusLabels from './StatusLabels';
+import StatusTypes from './StatusTypes';
+
 var SERVICE_STATUS = {
   RUNNING: {
-    key: 0,
-    displayName: 'Running'
+    key: StatusTypes.RUNNING,
+    displayName: StatusLabels.RUNNING
   },
   DEPLOYING: {
-    key: 1,
-    displayName: 'Deploying'
+    key: StatusTypes.DEPLOYING,
+    displayName: StatusLabels.DEPLOYING
   },
   SUSPENDED: {
-    key: 2,
-    displayName: 'Suspended'
+    key: StatusTypes.SUSPENDED,
+    displayName: StatusLabels.SUSPENDED
   }
 };
 
