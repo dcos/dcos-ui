@@ -5,31 +5,17 @@ import JobTaskList from './JobTaskList';
 
 module.exports = class JobActiveRun extends Item {
   getDateCreated() {
-    return moment(this.get('createdAt'));
+    let dateCreated = this.get('createdAt');
+
+    if (dateCreated != null) {
+      return moment(dateCreated.toUpperCase());
+    }
+
+    return null;
   }
 
   getJobID() {
     return this.get('jobId');
-  }
-
-  getLongestRunningTask() {
-    let sortedTasks = this.getTasks().getItems().sort(function (a, b) {
-      if (a.getDateStarted() === null && b.getDateStarted() === null) {
-        return 0;
-      }
-
-      if (a.getDateStarted() === null) {
-        return -1;
-      }
-
-      if (b.getDateStarted() === null) {
-        return 1;
-      }
-
-      return a.getDateStarted().valueOf() -  b.getDateStarted().valueOf();
-    })
-
-    return sortedTasks[0];
   }
 
   getStatus() {
