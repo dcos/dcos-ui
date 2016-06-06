@@ -1,14 +1,18 @@
-let id = 0;
+let uniqueIDMap = {};
 
 const Util = {
 
   /**
    * Give a unique ID for this session.
+   * @param {string} id              Namespace for the unique ids.
    * @return {Integer}               A unique id.
    */
-  uniqueID: function () {
-    id = id + 1;
-    return id;
+  uniqueID: function (id) {
+    if (!uniqueIDMap.hasOwnProperty(id)) {
+      uniqueIDMap[id] = 0;
+    }
+
+    return uniqueIDMap[id]++;
   },
 
   /**
