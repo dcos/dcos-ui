@@ -28,7 +28,22 @@ describe('Sidebar Filter', function () {
 
     it('filters correctly on Healthy', function () {
       cy.get('.sidebar-filters .label').contains('Healthy').click();
-      cy.get('tbody tr').should('to.have.length', 3);
+      cy.get('tbody tr:visible').should('to.have.length', 1);
+    });
+
+    it('filters correctly on Running', function () {
+      cy.get('.sidebar-filters .label').contains('Running').click();
+      cy.get('tbody tr:visible').should('to.have.length', 4);
+    });
+
+    it('filters correctly on Deploying', function () {
+      cy.get('.sidebar-filters .label').contains('Deploying').click();
+      cy.get('tbody tr:visible').should('to.have.length', 1);
+    });
+
+    it('filters correctly on Suspended', function () {
+      cy.get('.sidebar-filters .label').contains('Suspended').click();
+      cy.get('tbody tr:visible').should('to.have.length', 1);
     });
 
     it('filters correctly on two filters', function () {
