@@ -89,6 +89,47 @@ module.exports = class ServiceTree extends Tree {
     });
   }
 
+  // TODO @pierlo-upitup MARATHON-1030: refactor for more generic usage
+  filterItemsByFilter(filter) {
+    let services = this.getItems();
+
+    if (filter) {
+      if (filter.ids) {
+        services = services.filter(function (service) {
+          return this.ids.indexOf(service.id) !== -1;
+        }, {ids: filter.ids});
+      }
+
+      if (filter.id) {
+        let filterProperties = Object.assign({}, this.getFilterProperties(), {
+          name: function (item) {
+            return item.getId();
+          }
+        });
+
+        services = this.filterItemsByText(filter.id, filterProperties).getItems();
+      }
+
+      if (filter.health != null && filter.health.length !== 0) {
+        services = services.filter(function (service) {
+          return filter.health.some(function (healthValue) {
+            return service.getHealth().value === parseInt(healthValue, 10);
+          });
+        });
+      }
+
+      if (filter.status != null && filter.status.length !== 0) {
+        services = services.filter(function (service) {
+          return filter.status.some(function (statusValue) {
+            return service.getServiceStatus().key === parseInt(statusValue, 10);
+          });
+        });
+      }
+    }
+
+    return new this.constructor(Object.assign({}, this, {items: services}));
+  }
+
   getInstancesCount() {
     return this.reduceItems(function (instances, item) {
       if (item instanceof Service) {
