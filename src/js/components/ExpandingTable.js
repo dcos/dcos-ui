@@ -1,13 +1,15 @@
 import React from 'react';
 import {Table} from 'reactjs-components';
 
+import Util from '../utils/Util';
+
+const WHITESPACE = '\u00A0';
+
 class ExpandingTable extends React.Component {
   constructor() {
     super(...arguments);
 
-    this.state = {
-      expandedRows: []
-    };
+    this.state = {expandedRows: {}};
   }
 
   defaultRenderer(prop, row) {
@@ -17,13 +19,12 @@ class ExpandingTable extends React.Component {
   expandRow(row) {
     let {expandedRows} = this.state;
     let rowID = this.getRowID(row);
-    let selectedRowIndex = expandedRows.indexOf(rowID);
 
     // If the selected row is already expanded, then we want to collapse it.
-    if (selectedRowIndex > -1) {
-      expandedRows.splice(selectedRowIndex, 1);
+    if (!!expandedRows[rowID]) {
+      delete expandedRows[rowID];
     } else {
-      expandedRows.push(rowID);
+      expandedRows[rowID] = true;
     }
 
     this.setState({expandedRows});
@@ -42,7 +43,7 @@ class ExpandingTable extends React.Component {
 
     return (prop, row) => {
       let hasChildren = !!row.children;
-      let isExpanded = this.state.expandedRows.indexOf(this.getRowID(row)) > -1;
+      let isExpanded = !!this.state.expandedRows[this.getRowID(row)];
 
       // Render the column's top-level item.
       let cellContent = [
@@ -55,13 +56,17 @@ class ExpandingTable extends React.Component {
       // render all children. We need to render a whitespace character if the
       // property is undefined to retain proper spacing.
       if (hasChildren && isExpanded) {
-        const whitespace = '\u00A0';
-
         cellContent = cellContent.concat(
           row.children.map((child, childIndex) => {
+            let cellValue = renderFn(prop, child, {isParent: false});
+
+            if (cellValue == null) {
+              cellValue = WHITESPACE;
+            }
+
             return (
               <div className={this.props.childRowClassName} key={childIndex}>
-                {renderFn(prop, child, {isParent: false}) || whitespace}
+                {cellValue}
               </div>
             );
           }
@@ -79,7 +84,11 @@ class ExpandingTable extends React.Component {
   render() {
     let {props} = this;
 
-    return <Table {...props} columns={this.getColumns(props.columns)} />;
+    return (
+      <Table
+        {...Util.omit(props, ['childRowClassName'])}
+        columns={this.getColumns(props.columns)} />
+    );
   }
 }
 

@@ -29,7 +29,7 @@ describe('ExpandingTable', function () {
 
         instance.expandRow(this.rows[0]);
 
-        expect(instance.state.expandedRows.indexOf('foo') > -1).toBeTruthy();
+        expect(instance.state.expandedRows['foo']).toBeTruthy();
       });
 
       it('should remove a row from state.expandedRows if already expanded',
@@ -42,7 +42,7 @@ describe('ExpandingTable', function () {
         instance.expandRow(this.rows[0]);
         instance.expandRow(this.rows[0]);
 
-        expect(instance.state.expandedRows.indexOf('foo') === -1).toBeTruthy();
+        expect(instance.state.expandedRows['foo']).toBeFalsy();
       });
 
       it('should allow multiple rows in state.expandedRows',
@@ -55,8 +55,8 @@ describe('ExpandingTable', function () {
         instance.expandRow(this.rows[0]);
         instance.expandRow(this.rows[1]);
 
-        expect(instance.state.expandedRows.indexOf('foo') > -1).toBeTruthy();
-        expect(instance.state.expandedRows.indexOf('bar') > -1).toBeTruthy();
+        expect(instance.state.expandedRows['foo']).toBeTruthy();
+        expect(instance.state.expandedRows['bar']).toBeTruthy();
       });
 
     });
