@@ -153,26 +153,20 @@ NestedServiceLinks.defaultProps = {
   minorLinkClassName: 'inverse'
 };
 
+const classPropType = PropTypes.oneOfType([
+  PropTypes.array,
+  PropTypes.object,
+  PropTypes.string
+]);
+
 NestedServiceLinks.propTypes = {
   serviceID: PropTypes.string.isRequired,
   taskID: PropTypes.string,
   // Classes
-  className: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.object,
-  ]),
-  majorLinkClassName: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.object,
-  ]),
-  minorLinkClassName: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.object,
-  ]),
-  minorLinkWrapperClassName: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.object,
-  ])
+  className: classPropType,
+  majorLinkClassName: classPropType,
+  minorLinkClassName: classPropType,
+  minorLinkWrapperClassName: classPropType
 };
 
 module.exports = NestedServiceLinks;
