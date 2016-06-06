@@ -27,6 +27,7 @@ import SidePanels from '../../components/SidePanels';
 
 var DEFAULT_FILTER_OPTIONS = {
   filterHealth: null,
+  filterStatus: null,
   searchString: ''
 };
 
@@ -212,6 +213,7 @@ var ServicesTab = React.createClass({
     let services = item.getItems();
     let filteredServices = item.filterItemsByFilter({
       health: state.filterHealth,
+      status: state.filterStatus,
       id: state.searchString
     }).getItems();
 
