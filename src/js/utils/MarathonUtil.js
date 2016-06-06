@@ -1,12 +1,63 @@
-function parseApp(app) {
-  let {id} = app;
+import VolumeTypes from '../constants/VolumeTypes'
+import VolumeStatus from '../constants/VolumeStatus'
 
-  if (!id.startsWith('/') || id.endsWith('/')) {
+function parseApp(app) {
+  let {id, tasks = [], container = {}} = app;
+
+  if (id == null || !id.startsWith('/') || id.endsWith('/')) {
     throw new Error(`Id (${id}) must start with a leading slash ("/") ` +
       'and should not end with a slash.');
   }
 
-  return app;
+  if (container == null || container.volumes == null || !Array.isArray(container.volumes)) {
+    return app;
+  }
+
+  let volumeDefinitionMap = new Map();
+  let volumes = [];
+
+  // Parse container volumes to extract external volumes
+  // and persistent volume definitions
+  container.volumes.forEach(
+    function ({containerPath, external, mode, persistent}) {
+      if (external != null) {
+        volumes.push(Object.assign({
+          containerPath: containerPath,
+          id: external.name,
+          mode: mode,
+          status: VolumeStatus.UNAVAILABLE,
+          type: VolumeTypes.EXTERNAL
+        }, external));
+      }
+
+      if (persistent != null) {
+        volumeDefinitionMap.set(containerPath,
+          Object.assign({type: VolumeTypes.PERSISTENT, mode}, persistent)
+        );
+      }
+    });
+
+  if (tasks == null || !Array.isArray(tasks)) {
+    return Object.assign({volumes}, app);
+  }
+
+  tasks.forEach(function ({host, localVolumes, startedAt}) {
+    let status = VolumeStatus.DETACHED;
+    if (startedAt != null) {
+      status = VolumeStatus.ATTACHED;
+    }
+
+    localVolumes.forEach(function ({containerPath, persistenceId:id}) {
+      let volumeDefinition =
+        volumeDefinitionMap.get(containerPath);
+
+      volumes.push(
+        Object.assign(volumeDefinition, {status, host, containerPath, id})
+      );
+    });
+  });
+
+  return Object.assign({volumes}, app);
 }
 
 const MarathonUtil = {

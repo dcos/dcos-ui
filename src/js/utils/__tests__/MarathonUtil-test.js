@@ -67,6 +67,139 @@ describe('MarathonUtil', function () {
       });
     });
 
+    it('correctly parses external volumes', function () {
+      var instance = MarathonUtil.parseGroups({
+        id: '/',
+        apps: [{
+          id: '/alpha', container: {
+            volumes: [{
+              containerPath: 'path',
+              external: {
+                size: 2048,
+                name: 'volume-name',
+                options: {'volume/driver': 'value'},
+                provider: 'volume-provide'
+              },
+              mode: 'RW'
+            }]
+          }
+        }]
+      });
+
+      expect(instance.items[0].volumes[0]).toEqual({
+        containerPath: 'path',
+        id: 'volume-name',
+        name: 'volume-name',
+        mode: 'RW',
+        options: {'volume/driver': 'value'},
+        provider: 'volume-provide',
+        size: 2048,
+        status: 'Unavailable',
+        type: 'External'
+      });
+    });
+
+    it('correctly parses persistent volumes', function () {
+      var instance = MarathonUtil.parseGroups({
+        id: '/',
+        apps: [{
+          id: '/alpha', container: {
+            volumes: [{
+              containerPath: 'path',
+              mode: 'RW',
+              persistent: {
+                size: 2048
+              }
+            }]
+          },
+          tasks: [
+            {
+              host: '0.0.0.1',
+              startedAt: '2016-06-03T16:22:30.282Z',
+              localVolumes: [{
+                containerPath: 'path',
+                persistenceId: 'volume-id'
+              }]
+            }]
+        }]
+      });
+
+      expect(instance.items[0].volumes[0]).toEqual({
+        containerPath: 'path',
+        host: '0.0.0.1',
+        id: 'volume-id',
+        mode: 'RW',
+        size: 2048,
+        status: 'Attached',
+        type: 'Persistent'
+      });
+    });
+
+    it('correctly determine persistent volume attached status', function () {
+      var instance = MarathonUtil.parseGroups({
+        id: '/',
+        apps: [{
+          id: '/alpha', container: {
+            volumes: [{
+              containerPath: 'path',
+              mode: 'RW',
+              persistent: {
+                size: 2048
+              }
+            }]
+          },
+          tasks: [
+            {
+              host: '0.0.0.1',
+              startedAt: '2016-06-03T16:22:30.282Z',
+              localVolumes: [{
+                containerPath: 'path',
+                persistenceId: 'volume-id'
+              }]
+            }]
+        }]
+      });
+
+      expect(instance.items[0].volumes[0].status).toEqual('Attached');
+    });
+
+    it('correctly determine persistent volume detached status', function () {
+      var instance = MarathonUtil.parseGroups({
+        id: '/',
+        apps: [{
+          id: '/alpha', container: {
+            volumes: [{
+              containerPath: 'path',
+              mode: 'RW',
+              persistent: {
+                size: 2048
+              }
+            }]
+          },
+          tasks: [
+            {
+              host: '0.0.0.1',
+              localVolumes: [{
+                containerPath: 'path',
+                persistenceId: 'volume-id'
+              }]
+            }
+          ]
+        }]
+      });
+
+      expect(instance.items[0].volumes[0].status).toEqual('Detached');
+    });
+
+    it('doesn\'t adds volumes array to all services', function () {
+      var instance = MarathonUtil.parseGroups({
+        id: '/',
+        apps: [{id: '/alpha'}]
+      });
+
+      expect(instance.items[0]).toEqual({id: '/alpha'});
+    });
+
   });
 
 });
