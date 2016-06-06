@@ -9,7 +9,7 @@ function parseApp(app) {
       'and should not end with a slash.');
   }
 
-  if (container == null || container.volumes == null || !Array.isArray(container.volumes)) {
+  if (container == null || !Array.isArray(container.volumes)) {
     return app;
   }
 
@@ -22,9 +22,9 @@ function parseApp(app) {
     function ({containerPath, external, mode, persistent}) {
       if (external != null) {
         volumes.push(Object.assign({
-          containerPath: containerPath,
+          containerPath,
           id: external.name,
-          mode: mode,
+          mode,
           status: VolumeStatus.UNAVAILABLE,
           type: VolumeTypes.EXTERNAL
         }, external));
@@ -35,7 +35,8 @@ function parseApp(app) {
           Object.assign({type: VolumeTypes.PERSISTENT, mode}, persistent)
         );
       }
-    });
+    }
+  );
 
   if (tasks == null || !Array.isArray(tasks)) {
     return Object.assign({volumes}, app);
