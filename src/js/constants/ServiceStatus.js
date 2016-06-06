@@ -13,6 +13,10 @@ var SERVICE_STATUS = {
   SUSPENDED: {
     key: ServiceStatusTypes.SUSPENDED,
     displayName: ServiceStatusLabels.SUSPENDED
+  },
+  NA: {
+    key: ServiceStatusTypes.NA,
+    displayName: ServiceStatusLabels.NA
   }
 };
 

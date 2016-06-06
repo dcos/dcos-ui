@@ -370,6 +370,19 @@ describe('Service', function () {
       expect(service.getStatus()).toEqual(ServiceStatus.DEPLOYING.displayName);
     });
 
+    it('returns correct status for deploying app', function () {
+      let service = new Service({
+        tasksStaged: 0,
+        tasksRunning: 0,
+        tasksHealthy: 0,
+        tasksUnhealthy: 0,
+        instances: 1,
+        deployments: []
+      });
+
+      expect(service.getStatus()).toEqual(ServiceStatus.NA.displayName);
+    });
+
   });
 
   describe('#getServiceStatus', function () {
@@ -414,6 +427,20 @@ describe('Service', function () {
 
       expect(service.getServiceStatus())
         .toEqual(ServiceStatus.DEPLOYING);
+    });
+
+    it('returns n/a status object when no other status is found', function () {
+      let service = new Service({
+        tasksStaged: 0,
+        tasksRunning: 0,
+        tasksHealthy: 0,
+        tasksUnhealthy: 0,
+        instances: 1,
+        deployments: []
+      });
+
+      expect(service.getServiceStatus())
+        .toEqual(ServiceStatus.NA);
     });
 
   });
