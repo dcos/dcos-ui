@@ -1,6 +1,6 @@
 {
   "hasVersion": {
-    "apps": [
+    "items": [
       {
         "healthChecks": [],
         "labels": {
@@ -19,7 +19,7 @@
     ]
   },
   "hasNoVersion": {
-    "apps": [
+    "items": [
       {
         "healthChecks": [],
         "labels": {
@@ -37,7 +37,7 @@
     ]
   },
   "hasNoHealthy": {
-    "apps": [
+    "items": [
       {
         "healthChecks": [],
         "labels": {
@@ -56,7 +56,7 @@
   },
 
   "hasHealth": {
-    "apps": [
+    "items": [
       {
         "healthChecks": [
           {
@@ -96,7 +96,7 @@
   },
 
   "hasOnlyUnhealth": {
-    "apps": [
+    "items": [
       {
         "healthChecks": [
           {
@@ -136,7 +136,7 @@
   },
 
   "hasUnhealthAndHealth": {
-    "apps": [
+    "items": [
       {
         "healthChecks": [
           {
@@ -176,7 +176,7 @@
   },
 
   "hasNoRunningTasks": {
-    "apps": [
+    "items": [
       {
         "healthChecks": [
           {
@@ -216,7 +216,7 @@
   },
 
   "hasMetadata": {
-    "apps": [
+    "items": [
       {
         "labels": {
           "DCOS_PACKAGE_SOURCE": "https://github.com/mesosphere/universe/archive/master.zip",

@@ -284,6 +284,7 @@ class MarathonStore extends GetSetBaseStore {
       return map;
     }, {});
 
+    let numberOfApps = Object.keys(apps).length;
     // Specific health check for Marathon
     // We are setting the 'marathon' key here, since we can safely assume,
     // it to be 'marathon' (we control it).
@@ -293,8 +294,8 @@ class MarathonStore extends GetSetBaseStore {
         // Make sure health check has a result
         healthChecks: [{}],
         // Marathon is healthy if this request returned apps
-        tasksHealthy: data.apps.length,
-        tasksRunning: data.apps.length
+        tasksHealthy: numberOfApps,
+        tasksRunning: numberOfApps
       }),
       images: ServiceImages.MARATHON_IMAGES
     };

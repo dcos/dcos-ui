@@ -50,7 +50,7 @@ describe('DCOSStore', function () {
       expect(DCOSStore.serviceTree.getItems().length).toEqual(0);
 
       MarathonStore.__setKeyResponse('groups', new ServiceTree({
-        apps: [{
+        items: [{
           id: '/alpha',
           labels: {DCOS_PACKAGE_FRAMEWORK_NAME: 'alpha'}
         }]
@@ -62,14 +62,14 @@ describe('DCOSStore', function () {
 
     it('should replace old Marathon data', function () {
       MarathonStore.__setKeyResponse('groups', new ServiceTree({
-        apps: [{
+        items: [{
           id: '/alpha',
           labels: {DCOS_PACKAGE_FRAMEWORK_NAME: 'alpha'}
         }]
       }));
       DCOSStore.onMarathonGroupsChange();
       MarathonStore.__setKeyResponse('groups', new ServiceTree({
-        apps: [{
+        items: [{
           id: '/beta',
           labels: {DCOS_PACKAGE_FRAMEWORK_NAME: 'beta'}
         }]
@@ -80,7 +80,7 @@ describe('DCOSStore', function () {
 
     it('should merge (matching by id) summary data', function () {
       MarathonStore.__setKeyResponse('groups', new ServiceTree({
-        apps: [{
+        items: [{
           id: '/alpha', labels: {DCOS_PACKAGE_FRAMEWORK_NAME: 'alpha'}
         }]
       }));
@@ -93,7 +93,7 @@ describe('DCOSStore', function () {
     it('should not merge summary data if it doesn\'t find a matching id',
       function () {
         MarathonStore.__setKeyResponse('groups', new ServiceTree({
-          apps: [{
+          items: [{
             id: '/beta', labels: {DCOS_PACKAGE_FRAMEWORK_NAME: 'beta'}
           }]
         }));
@@ -110,7 +110,7 @@ describe('DCOSStore', function () {
 
     beforeEach(function () {
       MarathonStore.__setKeyResponse('groups', new ServiceTree({
-        apps: [{
+        items: [{
           id: '/alpha'
         }]
       }));
@@ -143,7 +143,7 @@ describe('DCOSStore', function () {
 
     beforeEach(function () {
       MarathonStore.__setKeyResponse('groups', new ServiceTree({
-        apps: [{
+        items: [{
           id: '/beta'
         }]
       }));
@@ -185,7 +185,7 @@ describe('DCOSStore', function () {
 
     beforeEach(function () {
       MarathonStore.__setKeyResponse('groups', new ServiceTree({
-        apps: [{
+        items: [{
           id: '/alpha',
           labels: {DCOS_PACKAGE_FRAMEWORK_NAME: 'alpha'}
         }]

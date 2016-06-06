@@ -18,6 +18,7 @@ import {
 } from '../constants/ActionTypes';
 var AppDispatcher = require('./AppDispatcher');
 var Config = require('../config/Config');
+import MarathonUtil from '../utils/MarathonUtil';
 
 module.exports = {
 
@@ -80,7 +81,7 @@ module.exports = {
           success: function (response) {
             AppDispatcher.handleServerAction({
               type: REQUEST_MARATHON_GROUPS_SUCCESS,
-              data: response
+              data: MarathonUtil.parseGroups(response)
             });
             resolve();
           },
