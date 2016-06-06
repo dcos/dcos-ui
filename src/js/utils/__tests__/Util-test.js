@@ -334,7 +334,7 @@ describe('Util', function () {
       expect(copiedObject).not.toEqual(originalObject);
     });
 
-    it('does clone an array with normal indices', () => {
+    it('does clone an array with normal indices', function () {
       var originalObject = {
         array: []
       };
@@ -349,7 +349,7 @@ describe('Util', function () {
         .toEqual(true);
     });
 
-    it('does clone an array with unusual small indices', () => {
+    it('does clone an array with unusual small indices', function () {
       var originalObject = {
         array: []
       };
