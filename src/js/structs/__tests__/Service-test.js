@@ -468,7 +468,7 @@ describe('Service', function () {
   });
 
   describe('#getCpus', function () {
-    it('returns the correct cpus', function() {
+    it('returns the correct cpus', function () {
       let service = new Service({
         cpus: 0.5
       });
@@ -487,7 +487,7 @@ describe('Service', function () {
     });
   });
 
-  describe('#getMem', function() {
+  describe('#getMem', function () {
     it('returns the correct mem', function () {
       let service = new Service({
         mem: 49
@@ -496,4 +496,5 @@ describe('Service', function () {
       expect(service.getMem()).toEqual(49);
     })
   });
+
 });
