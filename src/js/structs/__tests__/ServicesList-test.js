@@ -64,19 +64,6 @@ describe('ServicesList', function () {
       expect(filteredList[0].get('name')).toEqual('chronos');
     });
 
-    it('filters by status', function () {
-      let items = [
-        {name: 'marathon', getServiceStatus: function () {return {key: 0}; }},
-        {name: 'chronos', getServiceStatus: function () {return {key: 1}; }},
-        {name: 'marathon-user', getServiceStatus: function () {return {key: 2}; }}
-      ];
-
-      let list = new ServicesList({items});
-      let filteredList = list.filter({status: [1]}).getItems();
-      expect(filteredList.length).toEqual(1);
-      expect(filteredList[0].get('name')).toEqual('chronos');
-    });
-
   });
 
   describe('#sumUsedResources', function () {

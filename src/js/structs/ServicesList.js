@@ -25,14 +25,6 @@ class ServicesList extends List {
           });
         });
       }
-
-      if (filters.status != null && filters.status.length !== 0) {
-        services = services.filter(function (service) {
-          return filters.status.some(function (statusValue) {
-            return service.getServiceStatus().key === parseInt(statusValue, 10);
-          });
-        });
-      }
     }
 
     return new ServicesList({items: services});
