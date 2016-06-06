@@ -376,6 +376,34 @@ describe('Service', function () {
 
     it('returns correct task summary', function () {
       let service = new Service({
+        lastTaskFailure: {
+          appId: '/toggle',
+          host: '10.141.141.10',
+          message: 'Abnormal executor termination',
+          state: 'TASK_FAILED',
+          taskId: 'toggle.cc427e60-5046-11e4-9e34-56847afe9799',
+          timestamp: '2014-09-12T23:23:41.711Z',
+          version: '2014-09-12T23:28:21.737Z'
+        }
+      });
+
+      expect(service.getLastTaskFailure()).toEqual({
+        appId: '/toggle',
+        host: '10.141.141.10',
+        message: 'Abnormal executor termination',
+        state: 'TASK_FAILED',
+        taskId: 'toggle.cc427e60-5046-11e4-9e34-56847afe9799',
+        timestamp: '2014-09-12T23:23:41.711Z',
+        version: '2014-09-12T23:28:21.737Z'
+      });
+    });
+
+  });
+
+  describe('#getLastTaskFailure', function () {
+
+    it('returns correct task summary', function () {
+      let service = new Service({
         tasksStaged: 0,
         tasksRunning: 1,
         tasksHealthy: 1,

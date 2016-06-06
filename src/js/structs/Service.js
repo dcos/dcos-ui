@@ -90,6 +90,10 @@ module.exports = class Service extends Item {
     return this.getVersionInfo().lastScalingAt;
   }
 
+  getLastTaskFailure() {
+    return this.get('lastTaskFailure');
+  }
+
   getMem() {
     return this.get('mem');
   }
