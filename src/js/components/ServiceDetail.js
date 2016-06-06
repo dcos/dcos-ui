@@ -6,6 +6,7 @@ import Service from '../structs/Service';
 import ServiceActionItem from '../constants/ServiceActionItem';
 import ServiceDetailConfigurationTab from './ServiceDetailConfigurationTab';
 import ServiceDetailTaskTab from './ServiceDetailTaskTab';
+import ServiceDetailVolumesTab from './ServiceDetailVolumesTab';
 import ServiceFormModal from './modals/ServiceFormModal';
 import ServiceInfo from './ServiceInfo';
 import ServicesBreadcrumb from './ServicesBreadcrumb';
@@ -25,7 +26,7 @@ class ServiceDetail extends mixin(InternalStorageMixin, TabsMixin) {
       tasks: 'Tasks',
       configuration: 'Configuration',
       debug: 'Debug',
-      logs: 'Logs'
+      volumes: 'Volumes'
     };
 
     this.state = {
@@ -58,8 +59,10 @@ class ServiceDetail extends mixin(InternalStorageMixin, TabsMixin) {
     return (<span>Debug Placeholder</span>);
   }
 
-  renderLogsTabView() {
-    return (<span>Logs Placeholder</span>);
+  renderVolumesTabView() {
+    return (
+      <ServiceDetailVolumesTab service={this.props.service}/>
+    );
   }
 
   renderTasksTabView() {
