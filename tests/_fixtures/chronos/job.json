@@ -6,13 +6,17 @@
     "project": "metronome",
     "stage": "test"
   },
-  "schedule": {
-    "schedule": "0 19 6 9 *",
-    "timezone": "America/Chicago",
-    "startingDeadlineSeconds": 60,
-    "concurrencyPolicy": "allow",
-    "enabled": true
-  },
+  "schedules": [
+    {
+      "id": "everyBirthday",
+      "description": "lorem ipsum",
+      "cron": "0 19 6 9 *",
+      "timezone": "Europe/Berlin",
+      "startingDeadlineSeconds" : 60,
+      "concurrencyPolicy": "allow",
+      "enabled": true
+    }
+  ],
   "run": {
     "cpus": 1,
     "mem": 1,
@@ -60,6 +64,7 @@
   "activeRuns": [{
     "id": "/foo/1990-01-03t00:00:00z-1",
     "jobId": "/foo",
+    "scheduleId": "everyHour",
     "status": "active",
     "createdAt": "1990-01-03t00:00:00z-1",
     "tasks": [{
