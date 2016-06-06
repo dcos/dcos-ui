@@ -1,6 +1,9 @@
-xdescribe('Sidebar Filter', function () {
+describe('Sidebar Filter', function () {
   context('Filters services table', function () {
     beforeEach(function () {
+      // Remove once responsive filters are in place
+      cy.viewport(1280, 600);
+
       cy.configureCluster({
         mesos: '1-for-each-health',
         nodeHealth: true
