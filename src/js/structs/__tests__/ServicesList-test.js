@@ -66,13 +66,13 @@ describe('ServicesList', function () {
 
     it('filters by status', function () {
       let items = [
-        {name: 'marathon', getStatus: function () {return {value: 1}; }},
-        {name: 'chronos', getStatus: function () {return {value: 0}; }},
-        {name: 'marathon-user', getStatus: function () {return {value: 2}; }}
+        {name: 'marathon', getServiceStatus: function () {return {key: 0}; }},
+        {name: 'chronos', getServiceStatus: function () {return {key: 1}; }},
+        {name: 'marathon-user', getServiceStatus: function () {return {key: 2}; }}
       ];
 
       let list = new ServicesList({items});
-      let filteredList = list.filter({status: [0]}).getItems();
+      let filteredList = list.filter({status: [1]}).getItems();
       expect(filteredList.length).toEqual(1);
       expect(filteredList[0].get('name')).toEqual('chronos');
     });
