@@ -1,5 +1,6 @@
 let HealthStatus = require('../../constants/HealthStatus');
 let Service = require('../Service');
+let VolumeList = require('../VolumeList');
 let ServiceImages = require('../../constants/ServiceImages');
 let ServiceStatus = require('../../constants/ServiceStatus');
 let TaskStats = require('../TaskStats');
@@ -661,6 +662,32 @@ describe('Service', function () {
 
       expect(service.getMem()).toEqual(49);
     })
+  });
+
+  describe('#getVolumes', function () {
+
+    it('returns volume list', function () {
+      let service = new Service({
+        volumes: [{
+          containerPath: 'path',
+          host: '0.0.0.1',
+          id: 'volume-id',
+          mode: 'RW',
+          size: 2048,
+          status: 'Attached',
+          type: 'Persistent'
+        }]
+      });
+
+      expect(service.getVolumes() instanceof VolumeList).toBeTruthy();
+    });
+
+    it('returns empty volume list if volumes data is undefined', function () {
+      let service = new Service({});
+
+      expect(service.getVolumes().getItems().length).toEqual(0);
+    });
+
   });
 
 });

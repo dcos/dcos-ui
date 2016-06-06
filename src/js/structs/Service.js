@@ -3,6 +3,7 @@ import Item from './Item';
 import ServiceImages from '../constants/ServiceImages';
 import ServiceStatus from '../constants/ServiceStatus';
 import TaskStats from './TaskStats';
+import VolumeList from './VolumeList';
 
 module.exports = class Service extends Item {
   getArguments() {
@@ -176,5 +177,9 @@ module.exports = class Service extends Item {
     let {lastConfigChangeAt, lastScalingAt} =  this.get('versionInfo');
 
     return {lastConfigChangeAt, lastScalingAt, currentVersionID};
+  }
+
+  getVolumes() {
+    return new VolumeList({items: this.get('volumes') || []});
   }
 };
