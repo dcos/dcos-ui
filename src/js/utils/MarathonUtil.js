@@ -48,6 +48,10 @@ function parseApp(app) {
       status = VolumeStatus.ATTACHED;
     }
 
+    if (!Array.isArray(localVolumes)) {
+      return;
+    }
+
     localVolumes.forEach(function ({containerPath, persistenceId:id}) {
       let volumeDefinition =
         volumeDefinitionMap.get(containerPath);
