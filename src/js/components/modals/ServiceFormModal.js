@@ -62,12 +62,16 @@ class ServiceFormModal extends mixin(StoreMixin) {
 
   resetState() {
     let model = ServiceUtil.createFormModelFromSchema(ServiceSchema);
+    let service = ServiceUtil.createServiceFromFormModel(model);
+    if (this.props.service) {
+      service = this.props.service;
+    }
     this.setState({
       errorMessage: null,
       jsonDefinition: JSON.stringify({id:'', cmd:''}, null, 2),
       jsonMode: false,
       model,
-      service: ServiceUtil.createServiceFromFormModel(model)
+      service: service
     });
   }
 
@@ -186,11 +190,7 @@ class ServiceFormModal extends mixin(StoreMixin) {
   }
 
   getModalContents() {
-    let {app, jsonMode, service} = this.state;
-
-    if (this.props.service != null) {
-      service = this.props.service;
-    }
+    let {jsonDefinition, jsonMode, service} = this.state;
 
     if (jsonMode) {
       return (
@@ -200,16 +200,17 @@ class ServiceFormModal extends mixin(StoreMixin) {
           showGutter={true}
           showPrintMargin={false}
           theme="monokai"
-          value={app}
-          height="462px"
+          value={jsonDefinition}
           width="100%"/>
       );
     }
 
+    let model = ServiceUtil.createFormModelFromSchema(ServiceSchema, service);
+
     return (
       <SchemaForm
-        getTriggerSubmit={this.getAdvancedSubmit}
-        model={ServiceUtil.createFormModelFromSchema(ServiceSchema, service)}
+        getTriggerSubmit={this.getTriggerSubmit}
+        model={model}
         schema={ServiceSchema}/>
     );
   }
