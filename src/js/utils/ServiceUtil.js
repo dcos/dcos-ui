@@ -24,8 +24,7 @@ const ServiceUtil = {
     let definition = {};
 
     if (formModel != null) {
-      let {general, optional} = formModel;
-      let ContainerSettings = formModel['Container Settings'];
+      let {general, optional, containerSettings} = formModel;
 
       if (general != null) {
         definition.id = general.id;
@@ -57,15 +56,15 @@ const ServiceUtil = {
         definition.user = optional.user;
       }
 
-      if (ContainerSettings != null) {
+      if (containerSettings != null) {
         definition.container = {
           docker: {
-            image: ContainerSettings.image
+            image: containerSettings.image
           }
         };
-        if (formModel['Container Settings'].network != null) {
+        if (containerSettings.network != null) {
           definition.container.docker.network =
-            formModel['Container Settings'].network.toUpperCase();
+            containerSettings.network.toUpperCase();
         }
       }
     }

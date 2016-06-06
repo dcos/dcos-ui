@@ -4,44 +4,13 @@ import React from 'react';
 
 import General from './service-schema/General';
 import Optional from './service-schema/Optional';
+import ContainerSettings from './service-schema/ContainerSettings';
 
 let ServiceSchema = {
   type: 'object',
   properties: {
     general: General,
-    'Container Settings': {
-      description: 'Configure your Docker Container',
-      type: 'object',
-      properties: {
-        image: {
-          description: 'name of your docker image',
-          type: 'string',
-          getter: function (service) {
-            let container = service.getContainerSettings();
-            if (container && container.docker && container.docker.image) {
-              return container.docker.image;
-            }
-            return null;
-          }
-        },
-        network: {
-          title: 'Network',
-          fieldType: 'select',
-          options: [
-            'Host',
-            'Bridged'
-          ],
-          getter: function (service) {
-            let container = service.getContainerSettings();
-            if (container && container.docker && container.docker.network) {
-              return container.docker.network.toLowerCase();
-            }
-            return null;
-          }
-        }
-      },
-      required: []
-    },
+    containerSettings: ContainerSettings,
     optional: Optional
   },
   required: [
