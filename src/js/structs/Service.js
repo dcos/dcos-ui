@@ -139,6 +139,8 @@ module.exports = class Service extends Item {
     if (instances === 0) {
       return ServiceStatus.SUSPENDED;
     }
+
+    return ServiceStatus.NA;
   }
 
   getTasksSummary() {
