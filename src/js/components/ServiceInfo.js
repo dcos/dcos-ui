@@ -12,21 +12,6 @@ import StringUtil from '../utils/StringUtil';
 class ServiceInfo extends React.Component {
   constructor() {
     super();
-
-    this.state = {
-      isServiceFormModalShown: false
-    };
-
-    this.onActionsItemSelection =
-      this.onActionsItemSelection.bind(this);
-  }
-
-  onActionsItemSelection(item) {
-    if (item.id === ServiceActionItem.EDIT) {
-      this.setState({
-        isServiceFormModalShown: true
-      });
-    }
   }
 
   getDropdownItems() {
@@ -52,7 +37,7 @@ class ServiceInfo extends React.Component {
       <button className="button button-stroke button-inverse flush-bottom"
         key="action-button-edit"
         onClick={() =>
-          this.onActionsItemSelection({id: ServiceActionItem.EDIT})}>
+          this.props.onActionsItemSelection({id: ServiceActionItem.EDIT})}>
         Edit
       </button>
     ), (
@@ -65,7 +50,7 @@ class ServiceInfo extends React.Component {
         wrapperClassName="dropdown"
         items={this.getDropdownItems()}
         persistentID={ServiceActionItem.MORE}
-        onItemSelection={this.onActionsItemSelection}
+        onItemSelection={this.props.onActionsItemSelection}
         transition={true}
         transitionName="dropdown-menu" />
     )];
@@ -146,7 +131,9 @@ class ServiceInfo extends React.Component {
 }
 
 ServiceInfo.propTypes = {
-  service: React.PropTypes.instanceOf(Service).isRequired
+  onActionsItemSelection: React.PropTypes.func.isRequired,
+  service: React.PropTypes.instanceOf(Service).isRequired,
+  tabs: React.PropTypes.array
 };
 
 module.exports = ServiceInfo;

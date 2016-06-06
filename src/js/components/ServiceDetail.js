@@ -3,8 +3,10 @@ import React from 'react';
 
 import InternalStorageMixin from '../mixins/InternalStorageMixin';
 import Service from '../structs/Service';
+import ServiceActionItem from '../constants/ServiceActionItem';
 import ServiceDetailConfigurationTab from './ServiceDetailConfigurationTab';
 import ServiceDetailTaskTab from './ServiceDetailTaskTab';
+import ServiceFormModal from './modals/ServiceFormModal';
 import ServiceInfo from './ServiceInfo';
 import ServicesBreadcrumb from './ServicesBreadcrumb';
 import TabsMixin from '../mixins/TabsMixin';
@@ -22,8 +24,22 @@ class ServiceDetail extends mixin(InternalStorageMixin, TabsMixin) {
     };
 
     this.state = {
-      currentTab: Object.keys(this.tabs_tabs).shift()
+      currentTab: Object.keys(this.tabs_tabs).shift(),
+      isServiceFormModalShown: false
     };
+
+    this.onActionsItemSelection = this.onActionsItemSelection.bind(this);
+    this.onCloseServiceFormModal = this.onCloseServiceFormModal.bind(this);
+  }
+
+  onActionsItemSelection(item) {
+    if (item.id === ServiceActionItem.EDIT) {
+      this.setState({isServiceFormModalShown: true});
+    }
+  }
+
+  onCloseServiceFormModal() {
+    this.setState({isServiceFormModalShown: false});
   }
 
   renderConfigurationTabView() {
@@ -57,9 +73,14 @@ class ServiceDetail extends mixin(InternalStorageMixin, TabsMixin) {
           service-detail-header media-object-spacing-wrapper
           media-object-spacing-narrow">
           <ServicesBreadcrumb serviceTreeItem={service} />
-          <ServiceInfo service={service} tabs={this.tabs_getUnroutedTabs()} />
+          <ServiceInfo onActionsItemSelection={this.onActionsItemSelection}
+            service={service} tabs={this.tabs_getUnroutedTabs()} />
           {this.tabs_getTabView()}
         </div>
+        <ServiceFormModal isEdit={true}
+          open={this.state.isServiceFormModalShown}
+          service={service}
+          onClose={this.onCloseServiceFormModal} />
       </div>
 
     );
