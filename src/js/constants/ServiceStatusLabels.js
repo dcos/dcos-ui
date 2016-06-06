@@ -1,7 +1,7 @@
-var StatusLabels = {
+var ServiceStatusLabels = {
   RUNNING: 'Running',
   DEPLOYING: 'Deploying',
   SUSPENDED: 'Suspended'
 };
 
-module.exports = StatusLabels;
+module.exports = ServiceStatusLabels;

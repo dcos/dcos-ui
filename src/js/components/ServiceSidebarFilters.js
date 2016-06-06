@@ -2,8 +2,8 @@ import React from 'react';
 
 import ServiceFilterTypes from '../constants/ServiceFilterTypes';
 import HealthTypes from '../constants/HealthTypes';
-import StatusLabels from '../constants/StatusLabels';
-import StatusTypes from '../constants/StatusTypes';
+import ServiceStatusLabels from '../constants/ServiceStatusLabels';
+import ServiceStatusTypes from '../constants/ServiceStatusTypes';
 import HealthLabels from '../constants/HealthLabels';
 import SidebarFilter from './SidebarFilter';
 
@@ -50,8 +50,8 @@ class ServiceSidebarFilters extends React.Component {
         <SidebarFilter
           countByValue={getCountByStatus(props.services)}
           filterType={ServiceFilterTypes.STATUS}
-          filterValues={StatusTypes}
-          filterLabels={StatusLabels}
+          filterValues={ServiceStatusTypes}
+          filterLabels={ServiceStatusLabels}
           handleFilterChange={props.handleFilterChange}
           title="STATUS" />
       </div>
