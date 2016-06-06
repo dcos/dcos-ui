@@ -49,12 +49,18 @@ base/forms.less
 
   }
 
+  .permission-form {
+    min-height: 325px;
+  }
+
   .review-config,
   .multiple-form {
     height: 462px;
   }
 
-  .multiple-form-modal {
+  .multiple-form-modal,
+  .permission-form-modal,
+  .review-config {
 
     .button-collection {
       display: flex;
@@ -75,6 +81,9 @@ base/forms.less
         display: none;
       }
     }
+  }
+
+  .multiple-form-modal {
 
     .form-header {
       margin: 0;
