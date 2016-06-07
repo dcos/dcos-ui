@@ -190,6 +190,13 @@ class ServiceFormModal extends mixin(StoreMixin) {
     );
   }
 
+  getSubmitText() {
+    if (this.props.isEdit) {
+      return 'Change and deploy configuration';
+    }
+    return 'Deploy';
+  }
+
   getFooter() {
     return (
       <div className="button-collection flush-bottom">
@@ -206,7 +213,7 @@ class ServiceFormModal extends mixin(StoreMixin) {
         <button
           className="button button-large button-success flush-bottom"
           onClick={this.handleSubmit}>
-          Deploy
+          {this.getSubmitText()}
         </button>
       </div>
     );
@@ -239,7 +246,7 @@ class ServiceFormModal extends mixin(StoreMixin) {
   }
 
   render() {
-    let title = 'Deploy new Serivce';
+    let title = 'Deploy new Service';
 
     if (this.props.isEdit) {
       title = 'Edit Service';
