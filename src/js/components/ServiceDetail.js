@@ -95,7 +95,7 @@ class ServiceDetail extends mixin(InternalStorageMixin, TabsMixin) {
 
     let message = (
       <div className="container-pod flush-top container-pod-short-bottom">
-        <h4 className="text-danger flush-top">Destroy Service</h4>
+        <h2 className="text-danger text-align-center flush-top">Destroy Service</h2>
         <p>Are you sure you want to destroy {service.getId()}? This action is irreversible.</p>
       </div>
     );
@@ -117,7 +117,7 @@ class ServiceDetail extends mixin(InternalStorageMixin, TabsMixin) {
 
     let message = (
       <div className="container-pod flush-top container-pod-short-bottom">
-        <h4 className="flush-top">Suspend Service</h4>
+        <h2 className="text-align-center flush-top">Suspend Service</h2>
         <p>Are you sure you want to suspend {service.getId()} by scaling to 0 instances?</p>
       </div>
     );
@@ -129,7 +129,7 @@ class ServiceDetail extends mixin(InternalStorageMixin, TabsMixin) {
         leftButtonText="Cancel"
         leftButtonCallback={this.onCancelSuspendConfirmDialog}
         rightButtonText="Suspend Service"
-        rightButtonClassName="button button-warning"
+        rightButtonClassName="button button-primary"
         rightButtonCallback={this.onAcceptSuspendConfirmDialog} />
     );
   }
