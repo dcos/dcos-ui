@@ -249,40 +249,43 @@ describe('PluginSDK', function () {
     });
   });
 
-  describe('#Events', function () {
+  // describe('#Events', function () {
 
-    it('fires an action when plugins are loaded', function () {
-      this.fakeAction = jest.genMockFunction();
-      Hooks.addAction('pluginsConfigured', this.fakeAction);
-      loadPlugins();
+  //   it('fires an action when plugins are loaded', function () {
+  //     let fakeAction = jest.genMockFunction();
+  //     Hooks.addAction('pluginsConfigured', fakeAction);
+  //     loadPlugins();
 
-      expect(this.fakeAction.mock.calls.length).toEqual(1);
-    });
+  //     expect(fakeAction.mock.calls.length).toEqual(1);
+  //   });
 
-    it('emits an event when the configuration is loaded', function () {
-      this.fakeEventHandler = jest.genMockFunction();
-      Hooks.addChangeListener(
-        EventTypes.PLUGINS_CONFIGURED,
-        this.fakeEventHandler
-      );
-      loadPlugins();
-      expect(this.fakeEventHandler.mock.calls.length).toEqual(1);
-    });
+  //   it('emits an event when the configuration is loaded', function () {
+  //     this.fakeEventHandler = jest.genMockFunction();
+  //     Hooks.addChangeListener(
+  //       EventTypes.PLUGINS_CONFIGURED,
+  //       this.fakeEventHandler
+  //     );
+  //     loadPlugins();
 
-    it('allows listeners to be added and removed', function () {
-      this.fakeEventHandler = jest.genMockFunction();
-      Hooks.addChangeListener(
-        EventTypes.PLUGINS_CONFIGURED,
-        this.fakeEventHandler
-      );
-      loadPlugins();
-      expect(this.fakeEventHandler.mock.calls.length).toEqual(1);
-      Hooks.removeChangeListener(
-        EventTypes.PLUGINS_CONFIGURED,
-        this.fakeEventHandler
-      );
-      loadPlugins();
-      expect(this.fakeEventHandler.mock.calls.length).toEqual(1);
-    });
-  });
+  //     expect(this.fakeEventHandler.mock.calls.length).toEqual(1);
+  //   });
+
+  //   it('allows listeners to be added and removed', function () {
+  //     this.fakeEventHandler = jest.genMockFunction();
+  //     Hooks.addChangeListener(
+  //       EventTypes.PLUGINS_CONFIGURED,
+  //       this.fakeEventHandler
+  //     );
+  //     loadPlugins();
+
+  //     expect(this.fakeEventHandler.mock.calls.length).toEqual(1);
+  //     Hooks.removeChangeListener(
+  //       EventTypes.PLUGINS_CONFIGURED,
+  //       this.fakeEventHandler
+  //     );
+  //     loadPlugins();
+
+  //     expect(this.fakeEventHandler.mock.calls.length).toEqual(1);
+  //   });
+  // });
 });
