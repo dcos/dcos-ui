@@ -17,8 +17,10 @@ import {
   MARATHON_DEPLOYMENTS_ERROR,
   MARATHON_QUEUE_CHANGE,
   MARATHON_QUEUE_ERROR,
-  MARATHON_SERVICE_CREATE_SUCCESS,
   MARATHON_SERVICE_CREATE_ERROR,
+  MARATHON_SERVICE_CREATE_SUCCESS,
+  MARATHON_SERVICE_EDIT_ERROR,
+  MARATHON_SERVICE_EDIT_SUCCESS,
   MARATHON_SERVICE_VERSION_CHANGE,
   MARATHON_SERVICE_VERSION_ERROR,
   MARATHON_SERVICE_VERSIONS_CHANGE,
@@ -80,6 +82,12 @@ class MarathonStore extends GetSetBaseStore {
           break;
         case ActionTypes.REQUEST_MARATHON_SERVICE_CREATE_SUCCESS:
           this.emit(MARATHON_SERVICE_CREATE_SUCCESS);
+          break;
+        case ActionTypes.REQUEST_MARATHON_SERVICE_EDIT_ERROR:
+          this.emit(MARATHON_SERVICE_EDIT_ERROR, action.data);
+          break;
+        case ActionTypes.REQUEST_MARATHON_SERVICE_EDIT_SUCCESS:
+          this.emit(MARATHON_SERVICE_EDIT_SUCCESS);
           break;
         case ActionTypes.REQUEST_MARATHON_GROUPS_SUCCESS:
           this.processMarathonGroups(action.data);
@@ -155,6 +163,10 @@ class MarathonStore extends GetSetBaseStore {
       this.listenerCount(MARATHON_QUEUE_CHANGE) > 0 ||
       this.listenerCount(MARATHON_DEPLOYMENTS_CHANGE) > 0 ||
       this.listenerCount(MARATHON_APPS_CHANGE) > 0;
+  }
+
+  changeService() {
+    return MarathonActions.changeService(...arguments);
   }
 
   createGroup() {
