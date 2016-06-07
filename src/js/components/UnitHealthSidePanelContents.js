@@ -154,7 +154,7 @@ module.exports = class UnitHealthSidePanelContents extends SidePanelContents {
             <FilterHeadline
               currentLength={visibleData.length}
               inverseStyle={false}
-              name={"Health Checks"}
+              name={"Health Check"}
               onReset={this.resetFilter}
               totalLength={nodes.getItems().length} />
             <ul className="list list-unstyled list-inline flush-bottom">

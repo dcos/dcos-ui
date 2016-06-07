@@ -160,7 +160,7 @@ class TaskView extends mixin(SaveStateMixin) {
         <FilterHeadline
           inverseStyle={inverseStyle}
           onReset={this.resetFilter}
-          name="Tasks"
+          name="Task"
           currentLength={tasks.length}
           totalLength={totalNumberOfTasks} />
         <FilterBar>

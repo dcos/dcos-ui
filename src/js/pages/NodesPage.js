@@ -251,7 +251,7 @@ var NodesPage = React.createClass({
         <FilterHeadline
           inverseStyle={true}
           onReset={this.resetFilter}
-          name="Nodes"
+          name="Node"
           currentLength={nodesList.length}
           totalLength={data.totalNodes} />
         <FilterBar rightAlignLastNChildren={1}>

@@ -198,7 +198,7 @@ var ServicesTab = React.createClass({
         <FilterHeadline
           inverseStyle={true}
           onReset={this.resetFilter}
-          name="Services"
+          name="Service"
           currentLength={filteredServices.length}
           totalLength={services.length} />
       );

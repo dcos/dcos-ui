@@ -1,6 +1,8 @@
 var classNames = require('classnames');
 var React = require('react');
 
+import StringUtil from '../utils/StringUtil';
+
 var FilterHeadline = React.createClass({
 
   displayName: 'FilterHeadline',
@@ -25,10 +27,10 @@ var FilterHeadline = React.createClass({
   },
 
   render: function () {
-    var name = this.props.name;
     var filteredLength = this.props.currentLength;
     var totalLength = this.props.totalLength;
     let inverseStyle = this.props.inverseStyle;
+    let name = StringUtil.pluralize(this.props.name, totalLength);
 
     var filteredClassSet = classNames({
       'h4': true,
