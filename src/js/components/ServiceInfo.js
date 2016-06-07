@@ -1,3 +1,4 @@
+import {Dropdown} from 'reactjs-components';
 import React from 'react';
 
 import HealthBar from './HealthBar';
@@ -5,9 +6,53 @@ import HealthStatus from '../constants/HealthStatus';
 import HealthLabels from '../constants/HealthLabels';
 import PageHeader from './PageHeader';
 import Service from '../structs/Service';
+import ServiceActionItem from '../constants/ServiceActionItem';
 import StringUtil from '../utils/StringUtil';
 
 class ServiceInfo extends React.Component {
+  constructor() {
+    super();
+  }
+
+  getActionButtons() {
+    const dropdownItems = [{
+      className: 'hidden',
+      id: ServiceActionItem.MORE,
+      html: '',
+      selectedHtml: 'More'
+    }, {
+      id: ServiceActionItem.SCALE,
+      html: 'Scale'
+    }, {
+      id: ServiceActionItem.SUSPEND,
+      html: 'Suspend'
+    }, {
+      id: ServiceActionItem.DESTROY,
+      html: <span className="text-danger">Destroy</span>
+    }];
+
+    return [(
+      <button className="button button-stroke button-inverse flush-bottom"
+        key="action-button-edit"
+        onClick={() =>
+          this.props.onActionsItemSelection({id: ServiceActionItem.EDIT})}>
+        Edit
+      </button>
+    ), (
+      <Dropdown
+        key="actions-dropdown"
+        buttonClassName="button button-stroke button-inverse dropdown-toggle"
+        dropdownMenuClassName="dropdown-menu"
+        dropdownMenuListClassName="dropdown-menu-list"
+        dropdownMenuListItemClassName="clickable"
+        wrapperClassName="dropdown anchor-right"
+        items={dropdownItems}
+        persistentID={ServiceActionItem.MORE}
+        onItemSelection={this.props.onActionsItemSelection}
+        transition={true}
+        transitionName="dropdown-menu" />
+    )];
+  }
 
   getSubHeader(service) {
     let serviceHealth = service.getHealth();
@@ -73,6 +118,7 @@ class ServiceInfo extends React.Component {
 
     return (
       <PageHeader
+        actionButtons={this.getActionButtons()}
         icon={serviceIcon}
         subTitle={this.getSubHeader(service)}
         navigationTabs={tabs}
@@ -83,7 +129,9 @@ class ServiceInfo extends React.Component {
 }
 
 ServiceInfo.propTypes = {
-  service: React.PropTypes.instanceOf(Service).isRequired
+  onActionsItemSelection: React.PropTypes.func.isRequired,
+  service: React.PropTypes.instanceOf(Service).isRequired,
+  tabs: React.PropTypes.array
 };
 
 module.exports = ServiceInfo;
