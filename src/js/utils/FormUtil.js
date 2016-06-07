@@ -10,8 +10,7 @@ function getPropIndex(key) {
 }
 
 function getPropKey(key) {
-  let value = key.split('[');
-  return value[1].split('.')[1];
+  return key.split('.')[1];
 }
 
 function isNotMultipleProp(key) {
@@ -45,6 +44,20 @@ function getNewDefinition(prop, propID, parentDefinition, itemDefinition, getRem
 }
 
 const FormUtil = {
+  /**
+   * @return {Array} parentDefinition the modified definition.
+   * @param {Object} options Object containing properties for
+   * transformingDefinition. The following properties are:
+   *
+   * {String} prop Property to transform into multiple fields.
+   * {Number} propID ID to assign to field. ex: port[propID].value
+   * {Object} parentDefinition Definition to modify.
+   * {Object} itemDefinition Definition to create instance from.
+   * {Number} instancesIndex Index to remove and add at.
+   * {Function} getRemoveButton Getter to return button at end of row.
+   * {Function} getNewRowButton Getter to return button at end of definition.
+   * {Array} startValues Values to default to.
+   */
   transformDefinition: function (options) {
     let {
       prop,
@@ -104,6 +117,13 @@ const FormUtil = {
     return parentDefinition;
   },
 
+  /**
+   * @return {Array} definition the created definition.
+   * @param {String} prop Property name for created definition.
+   * @param {Number} id Number for the instance. ex: port[id].value
+   * @param {Array} definition Definition to copy.
+   * @param {Object} model Default values to fill in field.
+   */
   getMultipleFieldDefinition: function (prop, id, definition, model) {
     return definition.map(function (definitionField) {
       definitionField = Util.deepCopy(definitionField);
@@ -118,6 +138,11 @@ const FormUtil = {
     });
   },
 
+  /**
+   * @return {Object} newModel the created model.
+   * @param {String} prop Property name for fields to replace.
+   * @param {Object} model Model to copy fields over from.
+   */
   modelToCombinedProps: function (prop, model) {
     let propValue = [];
     model = Object.assign({}, model);
@@ -147,6 +172,12 @@ const FormUtil = {
     return Object.assign({}, model, {[prop]: propValue});
   },
 
+  /**
+   * @return {Boolean} isFieldInstanceOfProp If the field is an instance.
+   * @param {String} prop Property name for fields to replace.
+   * @param {Number} id Id to match field.
+   * @param {Object} field Field to check for match.
+   */
   isFieldInstanceOfProp: function (prop, id, field) {
     let isFieldArray = Array.isArray(field);
     let recursiveCheck = this.isFieldInstanceOfProp.bind(this, prop, id);
@@ -155,6 +186,12 @@ const FormUtil = {
       containsMultipleProp(prop, id, field);
   },
 
+  /**
+   * @return {undefined}
+   * @param {Array} definition Definition to remove fields from.
+   * @param {String} prop Property name for fields to replace.
+   * @param {Number} id Id to match when removing fields.
+   */
   removePropID: function (definition, prop, id) {
     let fieldsToRemove = [];
     definition.forEach((field) => {
