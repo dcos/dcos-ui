@@ -62,7 +62,7 @@ const ChronosActions = {
   fetchJobDetail: function (jobID) {
     RequestUtil.json({
       url: `${Config.rootUrl}/chronos/jobs/${jobID}`,
-      data: [{name: 'embed', value: 'active-runs'}],
+      data: [{name: 'embed', value: 'activeRuns'}],
       success: function (response) {
         AppDispatcher.handleServerAction({
           type: REQUEST_CHRONOS_JOB_DETAIL_SUCCESS,
