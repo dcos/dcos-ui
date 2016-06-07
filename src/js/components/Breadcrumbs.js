@@ -238,7 +238,7 @@ class Breadcrumbs extends mixin(StoreMixin) {
 
   render() {
     let classSet = classNames(
-      'list-unstyled breadcrumb',
+      'list-unstyled breadcrumb flex-no-shrink',
       {collapsed: this.state.collapsed},
       this.props.breadcrumbClasses
     );
