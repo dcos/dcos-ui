@@ -203,6 +203,57 @@ describe('MarathonActions', function () {
 
   });
 
+  describe('#fetchQueue', function () {
+
+    beforeEach(function () {
+      spyOn(RequestUtil, 'json');
+      MarathonActions.fetchQueue();
+      this.configuration = RequestUtil.json.calls.mostRecent().args[0];
+    });
+
+    it('calls #json from the RequestUtil', function () {
+      expect(RequestUtil.json).toHaveBeenCalled();
+    });
+
+    it('fetches data from the correct URL', function () {
+      expect(this.configuration.url)
+        .toEqual(`${Config.rootUrl}/marathon/v2/queue`);
+    });
+
+    it('dispatches the correct action when successful', function () {
+      var id = AppDispatcher.register(function (payload) {
+        var action = payload.action;
+        AppDispatcher.unregister(id);
+        expect(action.type).toEqual(ActionTypes.REQUEST_MARATHON_QUEUE_SUCCESS);
+      });
+
+      this.configuration.success({
+        queue: [
+          {
+            app: {
+              id: '/service-id'
+            },
+            delay: {
+              timeLeftSeconds: 0,
+              overdue: true
+            }
+          }
+        ]
+      });
+    });
+
+    it('dispatches the correct action when unsucessful', function () {
+      var id = AppDispatcher.register(function (payload) {
+        var action = payload.action;
+        AppDispatcher.unregister(id);
+        expect(action.type).toEqual(ActionTypes.REQUEST_MARATHON_QUEUE_ERROR);
+      });
+
+      this.configuration.error({message: 'error'});
+    });
+
+  });
+
   describe('#fetchServiceVersion', function () {
 
     const serviceID = 'test';

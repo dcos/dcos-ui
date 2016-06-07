@@ -9,6 +9,9 @@ import {
   REQUEST_MARATHON_DEPLOYMENTS_SUCCESS,
   REQUEST_MARATHON_DEPLOYMENTS_ERROR,
   REQUEST_MARATHON_DEPLOYMENTS_ONGOING,
+  REQUEST_MARATHON_QUEUE_SUCCESS,
+  REQUEST_MARATHON_QUEUE_ERROR,
+  REQUEST_MARATHON_QUEUE_ONGOING,
   REQUEST_MARATHON_SERVICE_CREATE_ERROR,
   REQUEST_MARATHON_SERVICE_CREATE_SUCCESS,
   REQUEST_MARATHON_SERVICE_VERSION_SUCCESS,
@@ -171,6 +174,37 @@ module.exports = {
         });
       }
     });
-  }
+  },
+
+  fetchQueue: RequestUtil.debounceOnError(
+    Config.getRefreshRate(),
+    function (resolve, reject) {
+      return function () {
+        RequestUtil.json({
+          url: `${Config.rootUrl}/marathon/v2/queue`,
+          success: function (response) {
+            AppDispatcher.handleServerAction({
+              type: REQUEST_MARATHON_QUEUE_SUCCESS,
+              data: response
+            });
+            resolve();
+          },
+          error: function (e) {
+            AppDispatcher.handleServerAction({
+              type: REQUEST_MARATHON_QUEUE_ERROR,
+              data: e.message
+            });
+            reject();
+          },
+          hangingRequestCallback: function () {
+            AppDispatcher.handleServerAction({
+              type: REQUEST_MARATHON_QUEUE_ONGOING
+            });
+          }
+        });
+      }
+    },
+    {delayAfterCount: Config.delayAfterErrorCount}
+  )
 
 };
