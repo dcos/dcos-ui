@@ -15,7 +15,9 @@ import TabsMixin from '../mixins/TabsMixin';
 const METHODS_TO_BIND = [
   'onActionsItemSelection',
   'onAcceptDestroyConfirmDialog',
+  'onAcceptSuspendConfirmDialog',
   'onCancelDestroyConfirmDialog',
+  'onCancelSuspendConfirmDialog',
   'onCloseServiceFormModal'
 ];
 
@@ -34,7 +36,8 @@ class ServiceDetail extends mixin(InternalStorageMixin, TabsMixin) {
     this.state = {
       currentTab: Object.keys(this.tabs_tabs).shift(),
       isServiceFormModalShown: false,
-      isServiceDestroyConfirmShown: false
+      isServiceDestroyConfirmShown: false,
+      isServiceSuspendConfirmShown: false
     };
 
     METHODS_TO_BIND.forEach((method) => {
@@ -50,6 +53,9 @@ class ServiceDetail extends mixin(InternalStorageMixin, TabsMixin) {
       case ServiceActionItem.DESTROY:
         this.setState({isServiceDestroyConfirmShown: true});
         break;
+      case ServiceActionItem.SUSPEND:
+        this.setState({isServiceSuspendConfirmShown: true});
+        break;
     }
   }
 
@@ -57,8 +63,16 @@ class ServiceDetail extends mixin(InternalStorageMixin, TabsMixin) {
     this.setState({isServiceDestroyConfirmShown: false});
   }
 
+  onAcceptSuspendConfirmDialog() {
+    this.setState({isServiceSuspendConfirmShown: false});
+  }
+
   onCancelDestroyConfirmDialog() {
     this.setState({isServiceDestroyConfirmShown: false});
+  }
+
+  onCancelSuspendConfirmDialog() {
+    this.setState({isServiceSuspendConfirmShown: false});
   }
 
   onCloseServiceFormModal() {
@@ -85,6 +99,29 @@ class ServiceDetail extends mixin(InternalStorageMixin, TabsMixin) {
         rightButtonText="Destroy Service"
         rightButtonClassName="button button-danger"
         rightButtonCallback={this.onAcceptDestroyConfirmDialog} />
+    );
+  }
+
+  getSuspendConfirmDialog() {
+    const {service} = this.props;
+
+    let message = (
+      <div className="container-pod flush-top container-pod-short-bottom">
+        <h4 className="flush-top">Suspend Service</h4>
+        <p>Are you sure you want to suspend {service.getId()}
+        by scaling to 0 instances?</p>
+      </div>
+    );
+
+    return  (
+      <Confirm children={message}
+        open={this.state.isServiceSuspendConfirmShown}
+        onClose={this.onCancelSuspendConfirmDialog}
+        leftButtonText="Cancel"
+        leftButtonCallback={this.onCancelSuspendConfirmDialog}
+        rightButtonText="Suspend Service"
+        rightButtonClassName="button button-warning"
+        rightButtonCallback={this.onAcceptSuspendConfirmDialog} />
     );
   }
 
@@ -128,6 +165,7 @@ class ServiceDetail extends mixin(InternalStorageMixin, TabsMixin) {
           service={service}
           onClose={this.onCloseServiceFormModal} />
         {this.getDestroyConfirmDialog()}
+        {this.getSuspendConfirmDialog()}
       </div>
 
     );
