@@ -19,7 +19,7 @@ const buttonDefinition = [
   },
   {
     text: 'Scale Service',
-    className: 'button button-warning button-medium',
+    className: 'button button-primary button-medium',
     isSubmit: true
   }
 ];
