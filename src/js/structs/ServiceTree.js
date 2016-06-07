@@ -4,6 +4,7 @@ import HealthSorting from '../constants/HealthSorting';
 import HealthStatus from '../constants/HealthStatus';
 import Service from './Service';
 import ServiceStatus from '../constants/ServiceStatus';
+import ServiceStatusTypes from '../constants/ServiceStatusTypes';
 import Tree from './Tree';
 
 module.exports = class ServiceTree extends Tree {
@@ -168,23 +169,20 @@ module.exports = class ServiceTree extends Tree {
   }
 
   getServiceStatus() {
-    let {tasksRunning} = this.getTasksSummary();
-    let deployments = this.getDeployments();
+    // Return the service status with the highest index
+    let treeStatus = this.getStatusSummary().reduce((memo, count, statusKey) => {
+      if (count > 0) {
+        Object.keys(ServiceStatus).forEach(statusId => {
+          if (ServiceStatus[statusId].key === statusKey) {
+            memo = ServiceStatus[statusId];
+          }
+        });
+      }
 
-    if (deployments.length > 0) {
-      return ServiceStatus.DEPLOYING;
-    }
+      return memo;
+    }, ServiceStatus.NA);
 
-    if (tasksRunning > 0) {
-      return ServiceStatus.RUNNING;
-    }
-
-    let instances = this.getInstancesCount();
-    if (instances === 0) {
-      return ServiceStatus.SUSPENDED;
-    }
-
-    return ServiceStatus.NA;
+    return treeStatus;
   }
 
   getTasksSummary() {
