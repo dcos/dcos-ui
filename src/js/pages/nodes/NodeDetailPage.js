@@ -17,7 +17,6 @@ import MesosStateStore from '../../stores/MesosStateStore';
 import NodeHealthStore from '../../stores/NodeHealthStore';
 import Page from '../../components/Page';
 import PageHeader from '../../components/PageHeader';
-import SidePanels from '../../components/SidePanels';
 import StringUtil from '../../utils/StringUtil';
 import ResourceChart from '../../components/charts/ResourceChart';
 import TabsMixin from '../../mixins/TabsMixin';
@@ -241,9 +240,6 @@ class NodeDetailPage extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) 
           </div>
         </PageHeader>
         {this.tabs_getTabView()}
-        <SidePanels
-          params={params}
-          openedPage="nodes" />
       </Page>
     );
   }
