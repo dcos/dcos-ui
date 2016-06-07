@@ -1,3 +1,4 @@
+import classNames from 'classnames/dedupe';
 import {Dropdown} from 'reactjs-components';
 import React from 'react';
 
@@ -15,6 +16,8 @@ class ServiceInfo extends React.Component {
   }
 
   getActionButtons() {
+    const {service} = this.props;
+
     const dropdownItems = [{
       className: 'hidden',
       id: ServiceActionItem.MORE,
@@ -24,6 +27,9 @@ class ServiceInfo extends React.Component {
       id: ServiceActionItem.SCALE,
       html: 'Scale'
     }, {
+      className: classNames({
+        hidden: service.getInstancesCount() === 0
+      }),
       id: ServiceActionItem.SUSPEND,
       html: 'Suspend'
     }, {
