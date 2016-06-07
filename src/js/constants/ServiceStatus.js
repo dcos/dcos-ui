@@ -17,6 +17,14 @@ var SERVICE_STATUS = {
   NA: {
     key: ServiceStatusTypes.NA,
     displayName: ServiceStatusLabels.NA
+  },
+  DELAYED: {
+    key: ServiceStatusTypes.DELAYED,
+    displayName: ServiceStatusLabels.DELAYED
+  },
+  WAITING: {
+    key: ServiceStatusTypes.WAITING,
+    displayName: ServiceStatusLabels.WAITING
   }
 };
 
