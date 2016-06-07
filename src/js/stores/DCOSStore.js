@@ -5,6 +5,7 @@ import {
   DCOS_CHANGE,
   MESOS_SUMMARY_CHANGE,
   MARATHON_GROUPS_CHANGE,
+  MARATHON_QUEUE_CHANGE,
   MARATHON_SERVICE_VERSION_CHANGE,
   MARATHON_SERVICE_VERSIONS_CHANGE
 } from '../constants/EventTypes';
@@ -18,6 +19,7 @@ import SummaryList from '../structs/SummaryList';
 const METHODS_TO_BIND = [
   'onChronosChange',
   'onMarathonGroupsChange',
+  'onMarathonQueueChange',
   'onMarathonServiceVersionChange',
   'onMarathonServiceVersionsChange',
   'onMesosSummaryChange'
@@ -35,6 +37,7 @@ class DCOSStore extends EventEmitter {
     this.data = {
       marathon: {
         serviceTree: new ServiceTree(),
+        queue: new Map(),
         versions: new Map()
       },
       mesos: new SummaryList(),
@@ -53,6 +56,11 @@ class DCOSStore extends EventEmitter {
         store: MarathonStore
       },
       {
+        event: MARATHON_QUEUE_CHANGE,
+        handler: this.onMarathonQueueChange,
+        store: MarathonStore
+      },
+      {
         event: MARATHON_SERVICE_VERSION_CHANGE,
         handler: this.onMarathonServiceVersionChange,
         store: MarathonStore
@@ -68,6 +76,13 @@ class DCOSStore extends EventEmitter {
         store: MesosSummaryStore
       }
     ];
+  }
+
+  /**
+   * Fetch launch queue from Marathon
+   */
+  fetchQueue() {
+    MarathonStore.fetchQueue();
   }
 
   /**
@@ -95,6 +110,21 @@ class DCOSStore extends EventEmitter {
 
     this.data.marathon.serviceTree = serviceTree;
     this.data.dataProcessed = true;
+    this.emit(DCOS_CHANGE);
+  }
+
+  onMarathonQueueChange(nextQueue) {
+    let {marathon:{queue}} = this.data;
+
+    nextQueue.forEach((entry) => {
+      if (entry.app == null) {
+        return;
+      }
+
+      let serviceId = entry.app.id;
+      queue.set(serviceId, entry);
+    });
+
     this.emit(DCOS_CHANGE);
   }
 
@@ -202,7 +232,7 @@ class DCOSStore extends EventEmitter {
    * @type {ServiceTree}
    */
   get serviceTree() {
-    let {marathon:{serviceTree, versions}, mesos} = this.data;
+    let {marathon:{serviceTree, queue, versions}, mesos} = this.data;
 
     // Create framework dict from Mesos data
     let frameworks = mesos.lastSuccessful().getServiceList()
@@ -218,7 +248,10 @@ class DCOSStore extends EventEmitter {
         return item;
       }
 
-      let options = {versions: versions.get(item.getId())};
+      let options = {
+        versions: versions.get(item.getId()),
+        queue: queue.get(item.getId())
+      };
 
       if (item instanceof Framework) {
         options = Object.assign(options, frameworks[item.getName()]);
