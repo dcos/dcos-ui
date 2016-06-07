@@ -94,7 +94,9 @@ const initialize = function (pluginsConfig) {
 
   replaceStoreReducers();
 
-  Hooks.notifyPluginsLoaded();
+  // Allows plugins to do things before the application ever renders
+  let promises = Hooks.applyFilter('pluginsLoadedCheck', []);
+  Promise.all(promises).then(Hooks.notifyPluginsLoaded.bind(Hooks));
 };
 
 /**
