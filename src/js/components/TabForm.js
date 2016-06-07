@@ -54,12 +54,9 @@ class TabForm extends React.Component {
   }
 
   handleExternalSubmit() {
-    return this.validateForm();
-  }
-
-  validateForm() {
     this.buildModel();
     this.props.onSubmit(this.model);
+
     return this.model;
   }
 
@@ -92,8 +89,11 @@ class TabForm extends React.Component {
             <span className="media-object-item">
               {label}
             </span>
-            <Tooltip content={description} wrapperClassName="tooltip-wrapper
-              media-object-item" wrapText={true} maxWidth={300}
+            <Tooltip
+              content={description}
+              wrapperClassName="tooltip-wrapper media-object-item"
+              wrapText={true}
+              maxWidth={300}
               scrollContainer=".gm-scroll-view">
               <i className="icon icon-sprite icon-sprite-mini icon-error" />
             </Tooltip>
