@@ -139,7 +139,7 @@ class ChronosStore extends EventEmitter {
   }
 
   suspendJob(jobID) {
-    let jobConfiguration = this.getJobDetail(jobID);
+    let jobConfiguration = this.getJob(jobID);
     jobConfiguration.schedule.enabled = false;
     ChronosActions.suspendJob(jobID, jobConfiguration);
   }
@@ -162,7 +162,7 @@ class ChronosStore extends EventEmitter {
     }
   }
 
-  getJobDetail(jobID) {
+  getJob(jobID) {
     if (this.data.jobDetail[jobID] == null) {
       return null;
     }

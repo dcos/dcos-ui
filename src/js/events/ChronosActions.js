@@ -93,6 +93,7 @@ const ChronosActions = {
   deleteJob: function (jobID) {
     RequestUtil.json({
       url: `${Config.rootUrl}/chronos/jobs/${jobID}`,
+      data: {stopCurrentJobRuns: true},
       method: 'DELETE',
       success: function () {
         AppDispatcher.handleServerAction({
