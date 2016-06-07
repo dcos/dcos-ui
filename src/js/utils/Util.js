@@ -152,7 +152,7 @@ const Util = {
    * @return {Boolean} Whether the argument is an object.
    */
   isObject: function (obj) {
-    return obj.toString && obj.toString() === '[object Object]';
+    return obj && obj.toString && obj.toString() === '[object Object]';
   },
 
   /**

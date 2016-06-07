@@ -1,16 +1,4 @@
-function cloneDefinition(array) {
-  return array.map(function (object) {
-    if (Array.isArray(object)) {
-      return object.slice();
-    }
-
-    if (typeof object === 'object') {
-      return Object.assign({}, object);
-    }
-
-    return object;
-  });
-}
+import Util from './Util';
 
 function getProp(key) {
   return key.split('[')[0];
@@ -30,28 +18,104 @@ function isNotMultipleProp(key) {
   return !key.includes('[') || !key.includes(']');
 }
 
+function containsMultipleProp(prop, id, fieldColumn) {
+  return !!(
+    fieldColumn &&
+    fieldColumn.name &&
+    fieldColumn.name.includes(`${prop}[${id}]`)
+  );
+}
+
+function getNewDefinition(prop, propID, parentDefinition, itemDefinition, getRemoveButton, model) {
+  let newDefinition = FormUtil.getMultipleFieldDefinition(
+    prop,
+    propID,
+    itemDefinition,
+    model
+  );
+
+  // Add remove button.
+  if (getRemoveButton) {
+    newDefinition.push(
+      getRemoveButton(parentDefinition, prop, propID)
+    );
+  }
+
+  return newDefinition;
+}
+
 const FormUtil = {
-  getMultipleFieldDefinitions: function (prop, count, definition) {
-    let definitions = [];
-    let isMultipleDefinition = Array.isArray(definition);
+  transformDefinition: function (options) {
+    let {
+      prop,
+      propID,
+      parentDefinition,
+      itemDefinition,
+      instancesIndex,
+      getRemoveButton,
+      getNewRowButton,
+      startValues
+    } = options;
 
-    for (let i = 0; i < count; i++) {
-      let definitionInstance;
-      if (isMultipleDefinition) {
-        definitionInstance = cloneDefinition(definition).map(function (definitionClone) {
-          definitionClone.name = `${prop}[${i}].${definitionClone.name}`;
-
-          return definitionClone;
-        });
-      } else {
-        definitionInstance = Object.assign({}, definition);
-        definitionInstance.name = `${prop}[${i}]`;
-      }
-
-      definitions.push(definitionInstance);
+    if (prop == null || parentDefinition == null || itemDefinition == null) {
+      throw 'Need prop, parent definition, and item definition to transform.'
     }
 
-    return definitions;
+    if (instancesIndex == null) {
+      instancesIndex = 0;
+    }
+
+    if (propID == null) {
+      propID = Util.uniqueID(prop);
+    }
+
+    let newDefinition = [];
+    if (startValues && startValues.length) {
+      newDefinition = startValues.map(function (startValue) {
+        return getNewDefinition(
+          prop,
+          Util.uniqueID(prop),
+          parentDefinition,
+          itemDefinition,
+          getRemoveButton,
+          startValue
+        );
+      });
+    } else {
+      newDefinition = [getNewDefinition(
+        prop,
+        propID,
+        parentDefinition,
+        itemDefinition,
+        getRemoveButton
+      )];
+    }
+
+    // Replace original definition with instance.
+    parentDefinition.splice(instancesIndex, 1, ...newDefinition);
+
+    // Add new row button.
+    if (getNewRowButton) {
+      parentDefinition.push(
+        getNewRowButton(prop, parentDefinition, itemDefinition)
+      );
+    }
+
+    return parentDefinition;
+  },
+
+  getMultipleFieldDefinition: function (prop, id, definition, model) {
+    return definition.map(function (definitionField) {
+      definitionField = Util.deepCopy(definitionField);
+      definitionField.name = `${prop}[${id}].${definitionField.name}`;
+
+      let propKey = getPropKey(definitionField.name);
+      if (model && model.hasOwnProperty(propKey)) {
+        definitionField.value = model[propKey];
+      }
+
+      return definitionField;
+    });
   },
 
   modelToCombinedProps: function (prop, model) {
@@ -79,7 +143,29 @@ const FormUtil = {
       }
     });
 
+    propValue = propValue.filter(function (item) { return item !== undefined});
     return Object.assign({}, model, {[prop]: propValue});
+  },
+
+  isFieldInstanceOfProp: function (prop, id, field) {
+    let isFieldArray = Array.isArray(field);
+    let recursiveCheck = this.isFieldInstanceOfProp.bind(this, prop, id);
+
+    return (isFieldArray && field.some(recursiveCheck)) ||
+      containsMultipleProp(prop, id, field);
+  },
+
+  removePropID: function (definition, prop, id) {
+    let fieldsToRemove = [];
+    definition.forEach((field) => {
+      if (this.isFieldInstanceOfProp(prop, id, field)) {
+        fieldsToRemove.push(field);
+      }
+    });
+
+    fieldsToRemove.forEach(function (field) {
+      definition.splice(definition.indexOf(field), 1);
+    });
   }
 };
 
