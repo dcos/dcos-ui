@@ -155,22 +155,22 @@ const ChronosActions = {
 };
 
 if (Config.useFixtures) {
-  const jobsFixture = require('../../../tests/_fixtures/chronos/jobs.json');
   const jobFixture = require('../../../tests/_fixtures/chronos/job.json');
+  const jobsFixture = require('../../../tests/_fixtures/chronos/jobs.json');
 
   if (!global.actionTypes) {
     global.actionTypes = {};
   }
 
   global.actionTypes.ChronosActions = {
-    fetchJobs: {
-      event: 'success', success: {response: jobsFixture}
+    deleteJob: {
+      event: 'success', success: {response: {}}
     },
     fetchJobDetail: {
       event: 'success', success: {response: jobFixture}
     },
-    deleteJob: {
-      event: 'success', success: {response: {}}
+    fetchJobs: {
+      event: 'success', success: {response: jobsFixture}
     },
     runJob: {
       event: 'success', success: {response: {}}
