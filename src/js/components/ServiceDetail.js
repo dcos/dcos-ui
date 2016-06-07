@@ -1,3 +1,4 @@
+import {Confirm} from 'reactjs-components';
 import mixin from 'reactjs-mixin';
 import React from 'react';
 
@@ -14,6 +15,8 @@ import TabsMixin from '../mixins/TabsMixin';
 
 const METHODS_TO_BIND = [
   'onActionsItemSelection',
+  'onAcceptDestroyConfirmDialog',
+  'onCancelDestroyConfirmDialog',
   'onCloseServiceFormModal'
 ];
 
@@ -31,7 +34,8 @@ class ServiceDetail extends mixin(InternalStorageMixin, TabsMixin) {
 
     this.state = {
       currentTab: Object.keys(this.tabs_tabs).shift(),
-      isServiceFormModalShown: false
+      isServiceFormModalShown: false,
+      isServiceDestroyConfirmShown: false
     };
 
     METHODS_TO_BIND.forEach((method) => {
@@ -40,13 +44,49 @@ class ServiceDetail extends mixin(InternalStorageMixin, TabsMixin) {
   }
 
   onActionsItemSelection(item) {
-    if (item.id === ServiceActionItem.EDIT) {
-      this.setState({isServiceFormModalShown: true});
+    switch (item.id) {
+      case ServiceActionItem.EDIT:
+        this.setState({isServiceFormModalShown: true});
+        break;
+      case ServiceActionItem.DESTROY:
+        this.setState({isServiceDestroyConfirmShown: true});
+        break;
     }
+  }
+
+  onAcceptDestroyConfirmDialog() {
+    this.setState({isServiceDestroyConfirmShown: false});
+  }
+
+  onCancelDestroyConfirmDialog() {
+    this.setState({isServiceDestroyConfirmShown: false});
   }
 
   onCloseServiceFormModal() {
     this.setState({isServiceFormModalShown: false});
+  }
+
+  getDestroyConfirmDialog() {
+    const {service} = this.props;
+
+    let message = (
+      <div className="container-pod flush-top container-pod-short-bottom">
+        <h4 className="text-danger flush-top">Destroy Service</h4>
+        <p>Are you sure you want to destroy {service.getId()}?
+        This action is irreversible.</p>
+      </div>
+    );
+
+    return  (
+      <Confirm children={message}
+        open={this.state.isServiceDestroyConfirmShown}
+        onClose={this.onCancelDestroyConfirmDialog}
+        leftButtonText="Cancel"
+        leftButtonCallback={this.onCancelDestroyConfirmDialog}
+        rightButtonText="Destroy Service"
+        rightButtonClassName="button button-danger"
+        rightButtonCallback={this.onAcceptDestroyConfirmDialog} />
+    );
   }
 
   renderConfigurationTabView() {
@@ -90,6 +130,7 @@ class ServiceDetail extends mixin(InternalStorageMixin, TabsMixin) {
           open={this.state.isServiceFormModalShown}
           service={service}
           onClose={this.onCloseServiceFormModal} />
+        {this.getDestroyConfirmDialog()}
       </div>
 
     );
