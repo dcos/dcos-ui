@@ -7,7 +7,7 @@ import GeminiUtil from '../utils/GeminiUtil';
 import SideTabs from './SideTabs';
 
 const METHODS_TO_BIND = [
-  'getTriggerSubmit', 'validateForm', 'handleTabClick', 'handleExternalSubmit'
+  'getTriggerSubmit', 'handleTabClick', 'handleExternalSubmit'
 ];
 
 class TabForm extends React.Component {
