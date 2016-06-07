@@ -1,4 +1,4 @@
-import classNames from 'classnames/dedupe';
+import classNames from 'classnames';
 import {Dropdown} from 'reactjs-components';
 import React from 'react';
 
