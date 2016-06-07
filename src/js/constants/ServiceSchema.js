@@ -42,7 +42,38 @@ let ServiceSchema = {
       },
       required: []
     },
-    'Optional': Optional
+    'Optional': Optional,
+    'environmentVariables': {
+      description: 'Variables exposed to your environment homie.',
+      type: 'object',
+      title: 'Environment Variables',
+      properties: {
+        ports: {
+          description: 'ports for ships to dock',
+          type: 'array',
+          duplicable: true,
+          getter: function (service) {
+            return service.getCommand();
+          },
+          itemShape: {
+            properties: {
+              key: {
+                type: 'string',
+                getter: function (service) {
+                  return service.getCommand();
+                }
+              },
+              value: {
+                type: 'string',
+                getter: function (service) {
+                  return service.getCommand();
+                }
+              }
+            }
+          }
+        }
+      }
+    }
   },
   required: [
     'General'
