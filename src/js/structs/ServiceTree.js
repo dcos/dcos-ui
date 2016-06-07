@@ -183,6 +183,8 @@ module.exports = class ServiceTree extends Tree {
     if (instances === 0) {
       return ServiceStatus.SUSPENDED;
     }
+
+    return ServiceStatus.NA;
   }
 
   getTasksSummary() {
