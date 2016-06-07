@@ -8,7 +8,6 @@ import 'brace/mode/json';
 import 'brace/theme/monokai';
 import 'brace/ext/language_tools';
 
-import FormUtil from '../../utils/FormUtil';
 import MarathonStore from '../../stores/MarathonStore';
 import ServiceForm from '../ServiceForm';
 import Service from '../../structs/Service';
