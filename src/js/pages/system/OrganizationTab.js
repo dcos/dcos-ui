@@ -415,7 +415,7 @@ class OrganizationTab extends mixin(InternalStorageMixin) {
             <a
               className="button button-success"
               onClick={handleNewItemClick}>
-              {`+ New ${capitalizedItemName}`}
+              {`New ${capitalizedItemName}`}
             </a>
           </FilterBar>
         </div>
