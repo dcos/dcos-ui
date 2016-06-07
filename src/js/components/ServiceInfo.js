@@ -6,34 +6,12 @@ import HealthStatus from '../constants/HealthStatus';
 import HealthLabels from '../constants/HealthLabels';
 import PageHeader from './PageHeader';
 import Service from '../structs/Service';
+import ServiceActionItem from '../constants/ServiceActionItem';
 import StringUtil from '../utils/StringUtil';
-
-const ServiceActionItem = {
-  EDIT: 'edit',
-  DESTROY: 'destroy',
-  SCALE: 'scale',
-  SUSPEND: 'suspend',
-  MORE: 'more'
-};
 
 class ServiceInfo extends React.Component {
   constructor() {
     super();
-
-    this.state = {
-      isServiceFormModalShown: false
-    };
-
-    this.onActionsItemSelection =
-      this.onActionsItemSelection.bind(this);
-  }
-
-  onActionsItemSelection(item) {
-    if (item.id === ServiceActionItem.EDIT) {
-      this.setState({
-        isServiceFormModalShown: true
-      });
-    }
   }
 
   getActionButtons() {
@@ -57,7 +35,7 @@ class ServiceInfo extends React.Component {
       <button className="button button-stroke button-inverse flush-bottom"
         key="action-button-edit"
         onClick={() =>
-          this.onActionsItemSelection({id: ServiceActionItem.EDIT})}>
+          this.props.onActionsItemSelection({id: ServiceActionItem.EDIT})}>
         Edit
       </button>
     ), (
@@ -70,7 +48,7 @@ class ServiceInfo extends React.Component {
         wrapperClassName="dropdown"
         items={dropdownItems}
         persistentID={ServiceActionItem.MORE}
-        onItemSelection={this.onActionsItemSelection}
+        onItemSelection={this.props.onActionsItemSelection}
         transition={true}
         transitionName="dropdown-menu" />
     )];
@@ -151,7 +129,9 @@ class ServiceInfo extends React.Component {
 }
 
 ServiceInfo.propTypes = {
-  service: React.PropTypes.instanceOf(Service).isRequired
+  onActionsItemSelection: React.PropTypes.func.isRequired,
+  service: React.PropTypes.instanceOf(Service).isRequired,
+  tabs: React.PropTypes.array
 };
 
 module.exports = ServiceInfo;
