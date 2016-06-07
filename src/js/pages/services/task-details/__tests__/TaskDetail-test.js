@@ -1,4 +1,3 @@
-jest.dontMock('../../../../components/SidePanelContents');
 jest.dontMock('../TaskFilesTab');
 jest.dontMock('../TaskDetail');
 jest.dontMock('../../../../stores/MesosStateStore');

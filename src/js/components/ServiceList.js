@@ -46,7 +46,7 @@ let ServiceList = React.createClass({
     // Modifier key not pressed or service didn't have a web URL, open detail
     event.preventDefault();
     this.context.router.transitionTo(
-      'dashboard-panel',
+      'services-panel',
       {serviceName: service.name}
     );
   },

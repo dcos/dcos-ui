@@ -6,19 +6,7 @@ let dashboardRoutes = {
   type: Route,
   name: 'dashboard',
   path: 'dashboard/?',
-  handler: DashboardPage,
-  children: [
-    {
-      type: Route,
-      name: 'dashboard-panel',
-      path: 'service-detail/:serviceName/?'
-    },
-    {
-      type: Route,
-      name: 'dashboard-task-panel',
-      path: 'task-detail/:taskID/?'
-    }
-  ]
+  handler: DashboardPage
 };
 
 module.exports = dashboardRoutes;

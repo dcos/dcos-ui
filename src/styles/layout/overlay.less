@@ -60,19 +60,8 @@ Overlay
     display: block;
     position: relative;
     z-index: @z-index-overlay-header;
-    background-color: @side-panel-header-background-color;
-    #gradient > .vertical(@side-panel-header-background-gradient-color-top, @side-panel-header-background-gradient-color-bottom);
-    border-width: @side-panel-header-border-width;
-    border-top-width: @side-panel-header-border-top-width;
-    border-top-color: @side-panel-header-border-top-color;
-    border-right-width: @side-panel-header-border-right-width;
-    border-right-color: @side-panel-header-border-right-color;
-    border-bottom-width: @side-panel-header-border-bottom-width;
-    border-bottom-color: @side-panel-header-border-bottom-color;
-    border-left-width: @side-panel-header-border-left-width;
-    border-left-color: @side-panel-header-border-left-color;
-    .box-shadow(@side-panel-header-shadow);
-    .border-radius(@side-panel-border-radius @side-panel-border-radius 0px 0px);
+    background-color: @purple;
+    box-shadow: inset 0px -1px 0px 0px rgba(0, 0, 0, 0.1);
 
     > .overlay-header-container {
 
@@ -94,27 +83,27 @@ Overlay
 
       .overlay-header-content-title {
 
-        color: @side-panel-header-content-title-text-color;
-        font-family: @side-panel-header-content-title-text-font-family;
-        font-size: @side-panel-header-content-title-text-font-size;
-        font-style: @side-panel-header-content-title-text-font-style;
-        font-weight: @side-panel-header-content-title-text-font-weight;
-        line-height: @side-panel-header-content-title-text-line-height;
-        text-transform: @side-panel-header-content-title-text-transform;
-        text-shadow: @side-panel-header-content-title-text-shadow;
+        color: @white;
+        font-family: @heading-h3-text-font-family;
+        font-size: @heading-h3-text-font-size;
+        font-style: @heading-h3-text-font-style;
+        font-weight: @heading-h3-text-font-weight;
+        line-height: @heading-h3-text-line-height;
+        text-transform: @heading-h3-text-transform;
+        text-shadow: @heading-h3-text-shadow;
 
       }
 
       .overlay-header-content-subtitle {
 
-        color: @side-panel-header-content-subtitle-text-color;
-        font-family: @side-panel-header-content-subtitle-text-font-family;
-        font-size: @side-panel-header-content-subtitle-text-font-size;
-        font-style: @side-panel-header-content-subtitle-text-font-style;
-        font-weight: @side-panel-header-content-subtitle-text-font-weight;
-        line-height: @side-panel-header-content-subtitle-text-line-height;
-        text-transform: @side-panel-header-content-subtitle-text-transform;
-        text-shadow: @side-panel-header-content-subtitle-text-shadow;
+        color: rgba(255, 255, 255, 0.6);
+        font-family: @body-text-font-family;
+        font-size: @body-text-font-size;
+        font-style: @body-text-font-style;
+        font-weight: @body-text-font-weight;
+        line-height: @body-text-line-height;;
+        text-transform: @body-text-transform;
+        text-shadow: @body-text-shadow;
 
       }
 
@@ -149,14 +138,12 @@ Overlay
 
       cursor: pointer;
       display: inline-block;
-      color: @side-panel-header-action-text-color;
-      font-family: @side-panel-header-action-text-font-family;
-      font-size: @side-panel-header-action-text-font-size;
-      font-style: @side-panel-header-action-text-font-style;
-      font-weight: @side-panel-header-action-text-font-weight;
-      line-height: @side-panel-header-action-text-line-height;
-      text-transform: @side-panel-header-action-text-transform;
-      text-shadow: @side-panel-header-action-text-shadow;
+      color: @white;
+      font-family: @button-default-text-font-family;
+      font-size: @button-text-font-size;
+      font-style: @button-default-text-font-style;
+      font-weight: @button-default-text-font-weight;
+      line-height: @button-text-line-height;
 
       .icon {
 
@@ -238,23 +225,23 @@ Overlay
 
         .overlay-header-content {
 
-          & when (@side-panel-header-content-title-screen-mini-enabled) {
+          & when (@heading-h3-text-scale-screen-mini) {
 
             .overlay-header-content-title {
 
-              font-size: @side-panel-header-content-title-text-font-size * @side-panel-header-content-title-text-font-size-scale-screen-mini;
-              line-height: @side-panel-header-content-title-text-line-height * @side-panel-header-content-title-text-line-height-scale-screen-mini;
+              font-size: @heading-h3-text-font-size * @heading-h3-text-font-size-scale-screen-mini;
+              line-height: @heading-h3-text-line-height * @heading-h3-text-line-height-scale-screen-mini;
 
             }
 
           }
 
-          & when (@side-panel-header-content-subtitle-screen-mini-enabled) {
+          & when (@body-text-scale-screen-mini) {
 
             .overlay-header-content-subtitle {
 
-              font-size: @side-panel-header-content-subtitle-text-font-size * @side-panel-header-content-subtitle-text-font-size-scale-screen-mini;
-              line-height: @side-panel-header-content-subtitle-text-line-height * @side-panel-header-content-subtitle-text-line-height-scale-screen-mini;
+              font-size: @body-text-font-size * @body-text-font-size-scale-screen-mini;
+              line-height: @body-text-line-height * @body-text-line-height-scale-screen-mini;
 
             }
 
@@ -268,10 +255,10 @@ Overlay
 
         .overlay-header-action {
 
-          & when (@side-panel-header-action-scale-screen-mini-enabled) {
+          & when (@button-scale-screen-mini-enabled) {
 
-            font-size: @side-panel-header-action-text-font-size * @side-panel-header-action-text-font-size-scale-screen-mini;
-            line-height: @side-panel-header-action-text-line-height * @side-panel-header-action-text-line-height-scale-screen-mini;
+            font-size: @button-text-font-size * @button-text-font-size-scale-screen-mini;
+            line-height: @button-text-line-height * @button-text-line-height-scale-screen-mini;
 
           }
 
@@ -328,23 +315,23 @@ Overlay
 
         .overlay-header-content {
 
-          & when (@side-panel-header-content-title-screen-small-enabled) {
+          & when (@heading-h3-text-scale-screen-small) {
 
             .overlay-header-content-title {
 
-              font-size: @side-panel-header-content-title-text-font-size * @side-panel-header-content-title-text-font-size-scale-screen-small;
-              line-height: @side-panel-header-content-title-text-line-height * @side-panel-header-content-title-text-line-height-scale-screen-small;
+              font-size: @heading-h3-text-font-size * @heading-h3-text-font-size-scale-screen-small;
+              line-height: @heading-h3-text-line-height * @heading-h3-text-line-height-scale-screen-small;
 
             }
 
           }
 
-          & when (@side-panel-header-content-subtitle-screen-small-enabled) {
+          & when (@body-text-scale-screen-small) {
 
             .overlay-header-content-subtitle {
 
-              font-size: @side-panel-header-content-subtitle-text-font-size * @side-panel-header-content-subtitle-text-font-size-scale-screen-small;
-              line-height: @side-panel-header-content-subtitle-text-line-height * @side-panel-header-content-subtitle-text-line-height-scale-screen-small;
+              font-size: @body-text-font-size * @body-text-font-size-scale-screen-small;
+              line-height: @body-text-line-height * @body-text-line-height-scale-screen-small;
 
             }
 
@@ -358,10 +345,10 @@ Overlay
 
         .overlay-header-action {
 
-          & when (@side-panel-header-action-scale-screen-small-enabled) {
+          & when (@button-scale-screen-small-enabled) {
 
-            font-size: @side-panel-header-action-text-font-size * @side-panel-header-action-text-font-size-scale-screen-small;
-            line-height: @side-panel-header-action-text-line-height * @side-panel-header-action-text-line-height-scale-screen-small;
+            font-size: @button-text-font-size * @button-text-font-size-scale-screen-small;
+            line-height: @button-text-line-height * @button-text-line-height-scale-screen-small;
 
           }
 
@@ -431,23 +418,23 @@ Overlay
 
         .overlay-header-content {
 
-          & when (@side-panel-header-content-title-screen-medium-enabled) {
+          & when (@heading-h3-text-scale-screen-medium) {
 
             .overlay-header-content-title {
 
-              font-size: @side-panel-header-content-title-text-font-size * @side-panel-header-content-title-text-font-size-scale-screen-medium;
-              line-height: @side-panel-header-content-title-text-line-height * @side-panel-header-content-title-text-line-height-scale-screen-medium;
+              font-size: @heading-h3-text-font-size * @heading-h3-text-font-size-scale-screen-medium;
+              line-height: @heading-h3-text-line-height * @heading-h3-text-line-height-scale-screen-medium;
 
             }
 
           }
 
-          & when (@side-panel-header-content-subtitle-screen-medium-enabled) {
+          & when (@body-text-scale-screen-medium) {
 
             .overlay-header-content-subtitle {
 
-              font-size: @side-panel-header-content-subtitle-text-font-size * @side-panel-header-content-subtitle-text-font-size-scale-screen-medium;
-              line-height: @side-panel-header-content-subtitle-text-line-height * @side-panel-header-content-subtitle-text-line-height-scale-screen-medium;
+              font-size: @body-text-font-size * @body-text-font-size-scale-screen-medium;
+              line-height: @body-text-line-height * @body-text-line-height-scale-screen-medium;
 
             }
 
@@ -461,10 +448,10 @@ Overlay
 
         .overlay-header-action {
 
-          & when (@side-panel-header-action-scale-screen-medium-enabled) {
+          & when (@button-scale-screen-medium-enabled) {
 
-            font-size: @side-panel-header-action-text-font-size * @side-panel-header-action-text-font-size-scale-screen-medium;
-            line-height: @side-panel-header-action-text-line-height * @side-panel-header-action-text-line-height-scale-screen-medium;
+            font-size: @button-text-font-size * @button-text-font-size-scale-screen-medium;
+            line-height: @button-text-line-height * @button-text-line-height-scale-screen-medium;
 
           }
 
@@ -496,7 +483,7 @@ Overlay
 
 
 
-& when (@screen-large-enabled) {
+& when (@screen-large) {
 
   /* -----------------------------------------------------------------------------
   --------------------------------------------------------------------------------
@@ -534,23 +521,23 @@ Overlay
 
         .overlay-header-content {
 
-          & when (@side-panel-header-content-title-screen-large-enabled) {
+          & when (@heading-h3-screen-large) {
 
             .overlay-header-content-title {
 
-              font-size: @side-panel-header-content-title-text-font-size * @side-panel-header-content-title-text-font-size-scale-screen-large;
-              line-height: @side-panel-header-content-title-text-line-height * @side-panel-header-content-title-text-line-height-scale-screen-large;
+              font-size: @heading-h3-text-font-size * @heading-h3-text-font-size-scale-screen-large;
+              line-height: @heading-h3-text-line-height * @heading-h3-text-line-height-scale-screen-large;
 
             }
 
           }
 
-          & when (@side-panel-header-content-subtitle-screen-large-enabled) {
+          & when (@body-screen-large) {
 
             .overlay-header-content-subtitle {
 
-              font-size: @side-panel-header-content-subtitle-text-font-size * @side-panel-header-content-subtitle-text-font-size-scale-screen-large;
-              line-height: @side-panel-header-content-subtitle-text-line-height * @side-panel-header-content-subtitle-text-line-height-scale-screen-large;
+              font-size: @body-text-font-size * @body-text-font-size-scale-screen-large;
+              line-height: @body-text-line-height * @body-text-line-height-scale-screen-large;
 
             }
 
@@ -564,10 +551,10 @@ Overlay
 
         .overlay-header-action {
 
-          & when (@side-panel-header-action-scale-screen-large-enabled) {
+          & when (@button-scale-screen-large-enabled) {
 
-            font-size: @side-panel-header-action-text-font-size * @side-panel-header-action-text-font-size-scale-screen-large;
-            line-height: @side-panel-header-action-text-line-height * @side-panel-header-action-text-line-height-scale-screen-large;
+            font-size: @button-text-font-size * @button-text-font-size-scale-screen-large;
+            line-height: @button-text-line-height * @button-text-line-height-scale-screen-large;
 
           }
 
