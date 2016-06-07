@@ -139,8 +139,7 @@ var ServicesTab = React.createClass({
     // Render loading screen
     if (!DCOSStore.dataProcessed) {
       return (
-        <div className="container container-fluid container-pod text-align-center
-            vertical-center inverse">
+        <div className="container container-fluid container-pod text-align-center vertical-center inverse">
           <div className="row">
             <div className="ball-scale">
               <div />

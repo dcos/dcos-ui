@@ -163,8 +163,7 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
     );
 
     let tabs = (
-      <ul className="tabs list-inline flush-bottom container-pod
-        container-pod-short-top inverse">
+      <ul className="tabs list-inline flush-bottom container-pod container-pod-short-top inverse">
         {this.tabs_getUnroutedTabs()}
       </ul>
     );
@@ -344,16 +343,10 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
     let node = MesosStateStore.getNodeFromID(task.slave_id);
 
     return (
-      <div className="flex-container-col">
-        <div className="container-pod
-          container-pod-divider-bottom-align-right
-          container-pod-short-top flush-bottom flush-top
-          service-detail-header media-object-spacing-wrapper
-          media-object-spacing-narrow">
-          {this.getServicesBreadcrumb()}
-          {this.getBasicInfo(task, node)}
-          {this.tabs_getTabView()}
-        </div>
+      <div className="flex-container-col flex-grow flex-shrink container-pod container-pod-divider-bottom-align-right container-pod-short-top flush-bottom flush-top">
+        {this.getServicesBreadcrumb()}
+        {this.getBasicInfo(task, node)}
+        {this.tabs_getTabView()}
       </div>
     );
   }
