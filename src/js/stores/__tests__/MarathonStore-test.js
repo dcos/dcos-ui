@@ -207,6 +207,31 @@ describe('MarathonStore', function () {
 
   });
 
+  describe('#processMarathonQueue', function () {
+
+    beforeEach(function () {
+      this.handler = jest.genMockFunction();
+      MarathonStore.once(EventTypes.MARATHON_QUEUE_CHANGE, this.handler);
+      MarathonStore.processMarathonQueue({
+        queue: [{
+          app: {'id': '/service-id'},
+          delay: {'overdue': false}
+        }]
+      });
+    });
+
+    it('should emit a marathon queue event', function () {
+      expect(this.handler).toBeCalled();
+    });
+
+    it('should emit a launch queue', function () {
+      let queue = this.handler.mock.calls[0][0];
+      expect(queue).toEqual(jasmine.any(Object));
+      expect(queue[0].app.id).toEqual('/service-id');
+    });
+
+  });
+
   describe('#processMarathonServiceVersion', function () {
 
     it('should emit correct event', function () {

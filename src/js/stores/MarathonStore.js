@@ -15,6 +15,8 @@ import {
   MARATHON_GROUPS_ERROR,
   MARATHON_DEPLOYMENTS_CHANGE,
   MARATHON_DEPLOYMENTS_ERROR,
+  MARATHON_QUEUE_CHANGE,
+  MARATHON_QUEUE_ERROR,
   MARATHON_SERVICE_CREATE_SUCCESS,
   MARATHON_SERVICE_CREATE_ERROR,
   MARATHON_SERVICE_VERSION_CHANGE,
@@ -32,14 +34,8 @@ var requestInterval = null;
 
 function startPolling() {
   if (requestInterval == null) {
-    MarathonActions.fetchGroups();
-    MarathonActions.fetchDeployments();
-    requestInterval = global.setInterval(
-      function () {
-        MarathonActions.fetchGroups();
-        MarathonActions.fetchDeployments();
-      }, Config.getRefreshRate()
-    );
+    poll();
+    requestInterval = global.setInterval(poll, Config.getRefreshRate());
   }
 }
 
@@ -48,6 +44,12 @@ function stopPolling() {
     global.clearInterval(requestInterval);
     requestInterval = null;
   }
+}
+
+function poll() {
+  MarathonActions.fetchGroups();
+  MarathonActions.fetchQueue();
+  MarathonActions.fetchDeployments();
 }
 
 class MarathonStore extends GetSetBaseStore {
@@ -93,6 +95,12 @@ class MarathonStore extends GetSetBaseStore {
           break;
         case ActionTypes.REQUEST_MARATHON_GROUPS_ONGOING:
           this.processOngoingRequest();
+          break;
+        case ActionTypes.REQUEST_MARATHON_QUEUE_SUCCESS:
+          this.processMarathonQueue(action.data);
+          break;
+        case ActionTypes.REQUEST_MARATHON_QUEUE_ERROR:
+          this.processMarathonQueueError();
           break;
         case ActionTypes.REQUEST_MARATHON_SERVICE_VERSION_SUCCESS:
           this.processMarathonServiceVersion(action.data);
@@ -144,6 +152,7 @@ class MarathonStore extends GetSetBaseStore {
 
   shouldPoll() {
     return this.listenerCount(MARATHON_GROUPS_CHANGE) > 0 ||
+      this.listenerCount(MARATHON_QUEUE_CHANGE) > 0 ||
       this.listenerCount(MARATHON_DEPLOYMENTS_CHANGE) > 0 ||
       this.listenerCount(MARATHON_APPS_CHANGE) > 0;
   }
@@ -154,6 +163,10 @@ class MarathonStore extends GetSetBaseStore {
 
   createService() {
     return MarathonActions.createService(...arguments);
+  }
+
+  fetchQueue() {
+    return MarathonActions.fetchQueue(...arguments);
   }
 
   fetchServiceVersion() {
@@ -322,6 +335,16 @@ class MarathonStore extends GetSetBaseStore {
 
   processMarathonDeploymentsError() {
     this.emit(MARATHON_DEPLOYMENTS_ERROR);
+  }
+
+  processMarathonQueue(data) {
+    if (data.queue != null) {
+      this.emit(MARATHON_QUEUE_CHANGE, data.queue);
+    }
+  }
+
+  processMarathonQueueError() {
+    this.emit(MARATHON_QUEUE_ERROR);
   }
 
   processOngoingRequest() {
