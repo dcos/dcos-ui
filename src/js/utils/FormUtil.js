@@ -13,6 +13,7 @@ function getPropKey(key) {
   return key.split('.')[1];
 }
 
+// Will return false if key isn't something like 'ports[0].value'.
 function isNotMultipleProp(key) {
   return !key.includes('[') || !key.includes(']');
 }
