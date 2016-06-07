@@ -11,6 +11,11 @@ import ServiceInfo from './ServiceInfo';
 import ServicesBreadcrumb from './ServicesBreadcrumb';
 import TabsMixin from '../mixins/TabsMixin';
 
+const METHODS_TO_BIND = [
+  'onActionsItemSelection',
+  'onCloseServiceFormModal'
+];
+
 class ServiceDetail extends mixin(InternalStorageMixin, TabsMixin) {
 
   constructor() {
@@ -28,8 +33,9 @@ class ServiceDetail extends mixin(InternalStorageMixin, TabsMixin) {
       isServiceFormModalShown: false
     };
 
-    this.onActionsItemSelection = this.onActionsItemSelection.bind(this);
-    this.onCloseServiceFormModal = this.onCloseServiceFormModal.bind(this);
+    METHODS_TO_BIND.forEach((method) => {
+      this[method] = this[method].bind(this);
+    });
   }
 
   onActionsItemSelection(item) {
