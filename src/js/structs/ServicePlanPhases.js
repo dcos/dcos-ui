@@ -9,6 +9,14 @@ class ServicePlanPhases extends List {
     this._activePhaseIndex = -1;
     this._activePhase = null;
 
+    this.list = this.getItems().map(function (phase) {
+      if (!(phase instanceof ServicePlanPhase)) {
+        return new ServicePlanPhase(phase);
+      }
+
+      return phase;
+    });
+
     // Find first phase where status is not complete
     this.getItems().some((phase, phaseIndex) => {
       let complete = phase.isComplete();

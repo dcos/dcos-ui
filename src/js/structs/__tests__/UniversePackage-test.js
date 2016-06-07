@@ -5,6 +5,15 @@ var UniversePackage = require('../UniversePackage');
 
 describe('UniversePackage', function () {
 
+  describe('#getConfig', function () {
+
+    it('returns correct config', function () {
+      let service = new UniversePackage({config: {foo: 'bar', bar: 'baz'}});
+      expect(service.getConfig()).toEqual({foo: 'bar', bar: 'baz'});
+    });
+
+  });
+
   describe('#getIcons', function () {
 
     it('returns a hash of icons', function () {
@@ -86,5 +95,14 @@ describe('UniversePackage', function () {
       var pkg = new UniversePackage({fake: {}});
       expect(pkg.getMaintainer()).toEqual(null);
     });
+  });
+
+  describe('#getPackage', function () {
+
+    it('returns correct package', function () {
+      let service = new UniversePackage({package: {foo: 'bar', bar: 'baz'}});
+      expect(service.getPackage()).toEqual({foo: 'bar', bar: 'baz'});
+    });
+
   });
 });

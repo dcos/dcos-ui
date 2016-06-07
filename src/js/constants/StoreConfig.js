@@ -28,6 +28,9 @@ import {
   COSMOS_REPOSITORY_DELETE_SUCCESS,
   COSMOS_REPOSITORY_DELETE_ERROR,
 
+  DCOS_CHANGE,
+  DCOS_METADATA_CHANGE,
+
   HEALTH_NODE_ERROR,
   HEALTH_NODE_SUCCESS,
   HEALTH_NODE_UNITS_ERROR,
@@ -66,11 +69,17 @@ import {
 
   NOTIFICATION_CHANGE,
 
-  DCOS_CHANGE,
-  DCOS_METADATA_CHANGE,
-
   MESOS_LOG_CHANGE,
   MESOS_LOG_REQUEST_ERROR,
+
+  PLAN_BLOCK_FORCE_COMPLETE_SUCCESS,
+  PLAN_BLOCK_FORCE_COMPLETE_ERROR,
+  PLAN_BLOCK_RESTART_SUCCESS,
+  PLAN_BLOCK_RESTART_ERROR,
+  PLAN_CHANGE,
+  PLAN_ERROR,
+  PLAN_DECISION_SUCCESS,
+  PLAN_DECISION_ERROR,
 
   SIDEBAR_WIDTH_CHANGE,
 
@@ -99,6 +108,7 @@ import MesosSummaryStore from '../stores/MesosSummaryStore';
 import MetadataStore from '../stores/MetadataStore';
 import NodeHealthStore from '../stores/NodeHealthStore';
 import NotificationStore from '../stores/NotificationStore';
+import ServicePlanStore from '../stores/ServicePlanStore';
 import SidebarStore from '../stores/SidebarStore';
 import TaskDirectoryStore from '../stores/TaskDirectoryStore';
 import UnitHealthStore from '../stores/UnitHealthStore';
@@ -321,6 +331,24 @@ const ListenersDescription = {
     },
     listenAlways: true,
     suppressUpdate: true
+  },
+
+  servicePlan: {
+    store: ServicePlanStore,
+    events: {
+      change: PLAN_CHANGE,
+      error: PLAN_ERROR,
+      decisionSuccess: PLAN_DECISION_SUCCESS,
+      decisionError: PLAN_DECISION_ERROR,
+      forceCompleteBlockSuccess: PLAN_BLOCK_FORCE_COMPLETE_SUCCESS,
+      forceCompleteBlockError: PLAN_BLOCK_FORCE_COMPLETE_ERROR,
+      restartBlockSuccess: PLAN_BLOCK_RESTART_SUCCESS,
+      restartBlockError: PLAN_BLOCK_RESTART_ERROR
+    },
+    unmountWhen: function () {
+      return true;
+    },
+    listenAlways: true,
   },
 
   taskDirectory: {

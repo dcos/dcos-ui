@@ -1,0 +1,241 @@
+@keyframes active-block-pulse {
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.5;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.service-plan-modal {
+
+  .container {
+    width: 100%;
+  }
+
+  .segmented-progress-bar {
+    text-align: left;
+    width: 100%;
+  }
+}
+
+.service-plan-modal-details-button {
+  position: relative;
+
+  &.is-expanded {
+
+    &:after {
+      transform: scaleX(1);
+    }
+  }
+
+  &:after {
+    background: @service-plan-block-upcoming-color;
+    content: '';
+    height: 1px;
+    left: -24px;
+    position: absolute;
+    right: -24px;
+    top: 50%;
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform 0.5s;
+    width: auto;
+    z-index: 1;
+  }
+
+  .button {
+    background: @white;
+    position: relative;
+    z-index: 2;
+
+    &:hover {
+      background: color-lighten(@white, -2);
+    }
+  }
+}
+
+.service-plan-modal-details-heading,
+.service-plan-modal-details-subheading {
+  display: block;
+  font-size: @service-plan-block-heading-font-size;
+}
+
+.service-plan-modal-details-heading {
+  margin-bottom: @service-plan-block-heading-margin;
+
+  &,
+  strong {
+    color: @service-plan-block-heading-color;
+  }
+}
+
+.service-plan-modal-details-subheading {
+  color: @service-plan-block-subheading-color;
+  margin-bottom: @service-plan-block-subheading-margin;
+}
+
+.service-plan-modal-details-blocks {
+  line-height: 0;
+  margin: 0;
+  text-align: left;
+}
+
+.service-plan-modal-details-block {
+  cursor: pointer;
+  display: inline-block;
+
+  .service-plan-modal-details-block-content {
+    height: 12px;
+    padding: @service-plan-block-padding;
+    width: 12px;
+  }
+
+  .icon {
+    fill: @service-plan-block-upcoming-color;
+  }
+
+  &:hover {
+
+    .icon {
+      fill: @service-plan-block-upcoming-color-hover;
+    }
+  }
+
+  &.is-selected {
+
+    .icon {
+      fill: @service-plan-block-upcoming-color-selected;
+    }
+  }
+
+  .tooltip {
+    font-size: @service-plan-block-tooltip-font-size;
+  }
+
+  &.is-complete {
+
+    .icon {
+      fill: @green;
+    }
+
+    &:hover {
+
+      .icon {
+        fill: @service-plan-block-complete-color-hover;
+      }
+    }
+
+    &.is-selected {
+
+      .icon {
+        fill: @service-plan-block-complete-color-selected;
+      }
+    }
+  }
+
+  &.is-active {
+
+    .icon {
+      animation: active-block-pulse 1.5s linear infinite;
+      fill: @service-plan-block-active-color;
+    }
+
+    &:hover {
+
+      .icon {
+        fill: @service-plan-block-active-color-hover;
+      }
+    }
+
+    &.is-selected {
+
+      .icon {
+        fill: @service-plan-block-active-color-selected;
+      }
+    }
+  }
+
+}
+
+.service-plan-modal-details-block-label {
+  display: inline-block;
+  margin-right: @service-plan-block-label-margin;
+
+  strong {
+    color: @white;
+    font-size: inherit;
+  }
+
+  a {
+    display: inline-block;
+    margin-right: @service-plan-block-label-margin;
+  }
+}
+
+.service-plan-modal-details-block-tooltip {
+
+  a {
+    display: inline-block;
+    margin-right: @service-plan-block-label-margin;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}
+
+.service-plan-modal-footer {
+
+  .service-plan-modal-footer-heading {
+    color: color-lighten(@neutral, 50);
+    font-size: @body-text-font-size * 0.95;
+    font-weight: 400;
+    text-transform: uppercase;
+  }
+
+  .button-collection {
+    display: flex;
+    justify-content: flex-end;
+
+    .button {
+      flex: 0 0 auto;
+
+      &:first-child {
+        margin-right: auto;
+      }
+    }
+  }
+}
+
+.service-plan-modal-status {
+  padding-left: @base-spacing-unit * 1.5;
+  padding-right: @base-spacing-unit * 1.5;
+}
+
+.service-plan-modal-error {
+
+  .icon {
+    fill: @red;
+  }
+
+  .service-plan-modal-status-title {
+    color: @red;
+  }
+}
+
+.service-plan-modal-success {
+
+  .icon {
+    fill: @green;
+  }
+
+  .service-plan-modal-status-title {
+    color: @green;
+  }
+}

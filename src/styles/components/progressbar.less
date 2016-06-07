@@ -48,40 +48,34 @@
     &.color-6, &.staged {
       background-color: @yellow;
     }
-
   }
 }
 
-.spread-content {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-left: @base-spacing-unit * 0.5;
-}
-
-.upgrade-progress-bar {
+.service-plan-progress-bar {
   display: block;
   margin-right: @base-spacing-unit * 2/3;
-  width: 216px;
 
   &.is-ongoing,
   &.is-waiting {
 
+    .progress-bar-label {
+      color: @green;
+    }
+
     .progress-bar-fill {
+      .candy-stripe(color-lighten(@green, 10), color-lighten(@green, -10));
       animation: candy-stripe 1s linear infinite;
       background-size: 16px 16px;
-      background-image: linear-gradient(-45deg, color-lighten(@green, 10) 0,
-        color-lighten(@green, 10) 25%, color-lighten(@green, -10) 25%,
-        color-lighten(@green, -10) 50%, color-lighten(@green, 10) 50%,
-        color-lighten(@green, 10) 75%, color-lighten(@green, -10) 75%,
-        color-lighten(@green, -10) 100%);
     }
   }
 
   &.is-waiting {
 
-    .progress-bar-label {
-      color: @white;
+    &.inverse {
+
+      .progress-bar-label {
+        color: @white;
+      }
     }
   }
 
@@ -92,28 +86,15 @@
     }
   }
 
-  .progress-bar-header {
-    display: flex;
-    margin-bottom: @base-spacing-unit * 1/6;
+  &.is-complete {
 
-    &,
-    .emphasize {
-      color: currentColor;
-      font-size: @body-text-font-size * 0.95;
+    .progress-bar-fill {
+      background: @green;
     }
+  }
 
-    .progress-bar-label {
-      flex: 1 1 auto;
-    }
-
-    .progress-bar-label-action {
-      flex: 0 0 auto;
-      text-align: right;
-
-      a {
-        text-decoration: underline;
-      }
-    }
+  .progress-bar-label {
+    font-weight: 600;
   }
 
   .progress-bar-fill-wrapper,
@@ -124,10 +105,90 @@
   .progress-bar-fill-wrapper {
     background: @neutral;
     border-radius: 10px;
+    display: inline-block;
+    margin: 0 @base-spacing-unit * 1/4;
     overflow: hidden;
+    width: @base-spacing-unit * 8;
   }
 
   .progress-bar-fill {
     transition: width 600ms;
+  }
+
+  .progress-bar-label-action {
+
+    a {
+      color: @white;
+      text-decoration: underline;
+    }
+  }
+}
+
+.spread-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: @base-spacing-unit * 0.5;
+}
+
+.segmented-progress-bar {
+
+  .segmented-progress-bar-segments {
+    display: flex;
+
+    .progress-bar-fill-wrapper {
+      background: color-lighten(@neutral, 85);
+      margin: 0;
+      width: 100%;
+    }
+
+    .stacked-progress-bar {
+      flex: 1 0 auto;
+      margin-right: 0;
+      padding-right: @base-spacing-unit * 1/8;
+      width: auto;
+
+      .progress-bar-fill-wrapper,
+      .progress-bar-fill {
+        border-radius: 0;
+      }
+
+      &:first-child {
+
+        .progress-bar-fill-wrapper,
+        .progress-bar-fill {
+          border-radius: 10px 0 0 10px;
+        }
+      }
+
+      &:last-child {
+        padding-right: 0;
+
+        .progress-bar-fill-wrapper,
+        .progress-bar-fill {
+          border-radius: 0 10px 10px 0;
+        }
+      }
+
+      &.is-ongoing {
+
+        .progress-bar-fill {
+          box-shadow: 0 0 5px @green;
+        }
+      }
+    }
+  }
+
+  .segmented-progress-bar-title {
+    margin-bottom: @base-spacing-unit * 1/6;
+
+    a {
+      color: @neutral;
+      text-decoration: underline;
+
+      &:hover {
+        color: @neutral;
+      }
+    }
   }
 }
