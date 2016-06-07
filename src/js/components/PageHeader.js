@@ -11,7 +11,7 @@ class PageHeader extends React.Component {
     }
 
     let iconClasses = classNames(
-      'icon icon-large icon-image-container',
+      'icon icon-large icon-app-container icon-image-container',
       iconClassName
     );
 
