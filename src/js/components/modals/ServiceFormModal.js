@@ -23,7 +23,9 @@ const METHODS_TO_BIND = [
   'handleJSONToggle',
   'handleSubmit',
   'onMarathonStoreServiceCreateError',
-  'onMarathonStoreServiceCreateSuccess'
+  'onMarathonStoreServiceCreateSuccess',
+  'onMarathonStoreServiceEditError',
+  'onMarathonStoreServiceEditSuccess'
 ];
 
 class ServiceFormModal extends mixin(StoreMixin) {
@@ -44,7 +46,12 @@ class ServiceFormModal extends mixin(StoreMixin) {
     this.store_listeners = [
       {
         name: 'marathon',
-        events: ['serviceCreateError', 'serviceCreateSuccess']
+        events: [
+          'serviceCreateError',
+          'serviceCreateSuccess',
+          'serviceEditError',
+          'serviceEditSuccess'
+        ]
       }
     ];
 
@@ -116,14 +123,31 @@ class ServiceFormModal extends mixin(StoreMixin) {
     });
   }
 
+  onMarathonStoreServiceEditSuccess() {
+    this.resetState();
+    this.props.onClose();
+  }
+
+  onMarathonStoreServiceEditError(errorMessage) {
+    this.setState({
+      errorMessage
+    });
+  }
+
   handleCancel() {
     this.props.onClose();
   }
 
   handleSubmit() {
+    let marathonAction = MarathonStore.createService;
+
+    if (this.props.isEdit) {
+      marathonAction = MarathonStore.changeService;
+    }
+
     if (this.state.jsonMode) {
       let jsonDefinition = this.state.jsonDefinition;
-      MarathonStore.createService(JSON.parse(jsonDefinition));
+      marathonAction(JSON.parse(jsonDefinition));
       this.setState({
         errorMessage: null,
         jsonDefinition,
@@ -135,8 +159,7 @@ class ServiceFormModal extends mixin(StoreMixin) {
       let {model} = this.triggerSubmit();
       let service = ServiceUtil.createServiceFromFormModel(model);
       this.setState({service, model, errorMessage: null});
-      MarathonStore
-        .createService(ServiceUtil.getAppDefinitionFromService(service));
+      marathonAction(ServiceUtil.getAppDefinitionFromService(service));
     }
   }
 
