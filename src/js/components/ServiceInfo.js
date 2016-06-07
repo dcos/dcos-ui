@@ -45,7 +45,7 @@ class ServiceInfo extends React.Component {
         dropdownMenuClassName="dropdown-menu"
         dropdownMenuListClassName="dropdown-menu-list"
         dropdownMenuListItemClassName="clickable"
-        wrapperClassName="dropdown"
+        wrapperClassName="dropdown anchor-right"
         items={dropdownItems}
         persistentID={ServiceActionItem.MORE}
         onItemSelection={this.props.onActionsItemSelection}
