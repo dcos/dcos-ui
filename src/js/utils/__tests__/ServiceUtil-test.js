@@ -8,7 +8,7 @@ describe('ServiceUtil', function () {
   describe('#createServiceFromFormModel', function () {
     it('should convert to the correct Service', function () {
       let model = {
-        General: {
+        general: {
           id: '/test',
           cmd: 'sleep 1000;'
         }

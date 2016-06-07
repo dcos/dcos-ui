@@ -3,6 +3,7 @@ import React from 'react';
 /* eslint-enable no-unused-vars */
 
 let Optional = {
+  title: 'Optional',
   type: 'object',
   properties: {
     executor: {

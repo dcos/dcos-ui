@@ -24,48 +24,47 @@ const ServiceUtil = {
     let definition = {};
 
     if (formModel != null) {
-      let {General, Optional} = formModel;
-      let ContainerSettings = formModel['Container Settings'];
+      let {general, optional, containerSettings} = formModel;
 
-      if (formModel.General != null) {
-        definition.id = General.id;
-        definition.cmd = General.cmd;
-        definition.cpus = General.cpus;
-        definition.mem = General.mem;
-        definition.disk = General.disk;
-        definition.instances = General.instances;
+      if (general != null) {
+        definition.id = general.id;
+        definition.cmd = general.cmd;
+        definition.cpus = general.cpus;
+        definition.mem = general.mem;
+        definition.disk = general.disk;
+        definition.instances = general.instances;
       }
 
-      if (Optional != null) {
-        definition.executor = Optional.executor;
-        definition.fetch = Optional.uris &&
-          Optional.uris.split(',')
+      if (optional != null) {
+        definition.executor = optional.executor;
+        definition.fetch = optional.uris &&
+          optional.uris.split(',')
             .map(function (uri) {
               return {uri: uri.trim()};
             });
-        definition.constraints = Optional.constraints &&
-          Optional.constraints.split(',')
+        definition.constraints = optional.constraints &&
+          optional.constraints.split(',')
             .map(function (item) {
               return item.split(':')
             });
         definition.acceptedResourceRoles =
-          Optional.acceptedResourceRoles &&
-            Optional.acceptedResourceRoles.split(',')
+          optional.acceptedResourceRoles &&
+            optional.acceptedResourceRoles.split(',')
               .map(function (item) {
                 return item.trim();
               });
-        definition.user = Optional.user;
+        definition.user = optional.user;
       }
 
-      if (ContainerSettings != null) {
+      if (containerSettings != null) {
         definition.container = {
           docker: {
-            image: ContainerSettings.image
+            image: containerSettings.image
           }
         };
-        if (formModel['Container Settings'].network != null) {
+        if (containerSettings.network != null) {
           definition.container.docker.network =
-            formModel['Container Settings'].network.toUpperCase();
+            containerSettings.network.toUpperCase();
         }
       }
     }
