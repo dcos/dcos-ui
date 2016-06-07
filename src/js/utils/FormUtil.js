@@ -45,10 +45,11 @@ function getNewDefinition(prop, propID, parentDefinition, itemDefinition, getRem
 
 const FormUtil = {
   /**
-   * @return {Array} parentDefinition the modified definition.
+   * Modifies a form definition by replacing field properties that should be
+   * duplicated with the correct number of fields.
+   *
    * @param {Object} options Object containing properties for
    * transformingDefinition. The following properties are:
-   *
    * {String} prop Property to transform into multiple fields.
    * {Number} propID ID to assign to field. ex: port[propID].value
    * {Object} parentDefinition Definition to modify.
@@ -57,6 +58,8 @@ const FormUtil = {
    * {Function} getRemoveButton Getter to return button at end of row.
    * {Function} getNewRowButton Getter to return button at end of definition.
    * {Array} startValues Values to default to.
+   *
+   * @return {Array} parentDefinition the modified definition.
    */
   transformDefinition: function (options) {
     let {
@@ -78,10 +81,6 @@ const FormUtil = {
       instancesIndex = 0;
     }
 
-    if (propID == null) {
-      propID = Util.uniqueID(prop);
-    }
-
     let newDefinition = [];
     if (startValues && startValues.length) {
       newDefinition = startValues.map(function (startValue) {
@@ -95,6 +94,10 @@ const FormUtil = {
         );
       });
     } else {
+      if (propID == null) {
+        propID = Util.uniqueID(prop);
+      }
+
       newDefinition = [getNewDefinition(
         prop,
         propID,
@@ -118,6 +121,8 @@ const FormUtil = {
   },
 
   /**
+   * Creates a field definition with correctly formatted name.
+   *
    * @return {Array} definition the created definition.
    * @param {String} prop Property name for created definition.
    * @param {Number} id Number for the instance. ex: port[id].value
@@ -139,6 +144,9 @@ const FormUtil = {
   },
 
   /**
+   * Takes a model and turns all the multiple props (ports[0].key) into a
+   * format that makes sense (ports: [{key: 'value'}])
+   *
    * @return {Object} newModel the created model.
    * @param {String} prop Property name for fields to replace.
    * @param {Object} model Model to copy fields over from.
@@ -173,10 +181,13 @@ const FormUtil = {
   },
 
   /**
-   * @return {Boolean} isFieldInstanceOfProp If the field is an instance.
+   * Checks if a field definition is an instance of a duplicate. For example,
+   * it checks if the field's name is something like 'ports[0].key'.
+   *
    * @param {String} prop Property name for fields to replace.
    * @param {Number} id Id to match field.
    * @param {Object} field Field to check for match.
+   * @return {Boolean} isFieldInstanceOfProp If the field is an instance.
    */
   isFieldInstanceOfProp: function (prop, id, field) {
     let isFieldArray = Array.isArray(field);
@@ -187,10 +198,14 @@ const FormUtil = {
   },
 
   /**
-   * @return {undefined}
+   * Removes all props with an ID in a definition. For example, if you pass in
+   * 'ports' and 2 as the prop and id, it will remove things with the names like
+   * 'ports[2].key' and 'ports[2].value' from the definition.
+   *
    * @param {Array} definition Definition to remove fields from.
    * @param {String} prop Property name for fields to replace.
    * @param {Number} id Id to match when removing fields.
+   * @return {undefined}
    */
   removePropID: function (definition, prop, id) {
     let fieldsToRemove = [];

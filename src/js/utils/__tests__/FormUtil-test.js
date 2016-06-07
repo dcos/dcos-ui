@@ -3,6 +3,159 @@ jest.dontMock('../FormUtil');
 let FormUtil = require('../FormUtil');
 
 describe('FormUtil', function () {
+  describe('#transformDefinition', function () {
+    beforeEach(function () {
+      this.definition = [
+        {
+          name: 'key',
+          value: null
+        },
+        {
+          name: 'value',
+          value: null
+        }
+      ];
+
+      this.generalDefinition = [
+        {
+          name: 'ports',
+          value: null
+        },
+        {
+          name: 'password',
+          value: null
+        },
+        {
+          name: 'username',
+          value: null
+        }
+      ];
+    });
+
+    it('transforms the definition correctly', function () {
+      FormUtil.transformDefinition({
+        parentDefinition: this.generalDefinition,
+        itemDefinition: this.definition,
+        prop: 'ports'
+      });
+
+      let expectedDefinition = [
+        [
+          {
+            name: 'ports[0].key',
+            value: null
+          },
+          {
+            name: 'ports[0].value',
+            value: null
+          }
+        ],
+        {
+          name: 'password',
+          value: null
+        },
+        {
+          name: 'username',
+          value: null
+        }
+      ];
+
+      expect(expectedDefinition).toEqual(this.generalDefinition);
+    });
+
+    it('transforms the definition correctly with a model', function () {
+      FormUtil.transformDefinition({
+        parentDefinition: this.generalDefinition,
+        itemDefinition: this.definition,
+        prop: 'startValueTest',
+        startValues: [
+          {key: 'kenny', value: 'tran'},
+          {key: 'mat', value: 'app'}
+        ]
+      });
+
+      let expectedDefinition = [
+        [
+          {
+            name: 'startValueTest[0].key',
+            value: 'kenny'
+          },
+          {
+            name: 'startValueTest[0].value',
+            value: 'tran'
+          }
+        ],
+        [
+          {
+            name: 'startValueTest[1].key',
+            value: 'mat'
+          },
+          {
+            name: 'startValueTest[1].value',
+            value: 'app'
+          }
+        ],
+        {
+          name: 'password',
+          value: null
+        },
+        {
+          name: 'username',
+          value: null
+        }
+      ];
+
+      expect(expectedDefinition).toEqual(this.generalDefinition);
+    });
+
+    it('transforms the definition correctly with instanceIndex', function () {
+      let generalDefinition = [
+        {
+          name: 'password',
+          value: null
+        },
+        {
+          name: 'username',
+          value: null
+        },
+        {
+          name: 'instancesIndexTest',
+          value: null
+        }
+      ];
+
+      FormUtil.transformDefinition({
+        parentDefinition: generalDefinition,
+        itemDefinition: this.definition,
+        prop: 'instanceIndexTest',
+        instancesIndex: 2
+      });
+
+      let expectedDefinition = [
+        {
+          name: 'password',
+          value: null
+        },
+        {
+          name: 'username',
+          value: null
+        },
+        [
+          {
+            name: 'instanceIndexTest[0].key',
+            value: null
+          },
+          {
+            name: 'instanceIndexTest[0].value',
+            value: null
+          }
+        ]
+      ];
+
+      expect(expectedDefinition).toEqual(generalDefinition);
+    });
+  });
+
   describe('#getMultipleFieldDefinition', function () {
     beforeEach(function () {
       this.definition = [
