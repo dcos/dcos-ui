@@ -9,6 +9,7 @@ import ServiceDetailConfigurationTab from './ServiceDetailConfigurationTab';
 import ServiceDetailTaskTab from './ServiceDetailTaskTab';
 import ServiceFormModal from './modals/ServiceFormModal';
 import ServiceInfo from './ServiceInfo';
+import ServiceScaleFormModal from './modals/ServiceScaleFormModal';
 import ServicesBreadcrumb from './ServicesBreadcrumb';
 import TabsMixin from '../mixins/TabsMixin';
 
@@ -18,6 +19,7 @@ const METHODS_TO_BIND = [
   'onAcceptSuspendConfirmDialog',
   'onCancelDestroyConfirmDialog',
   'onCancelSuspendConfirmDialog',
+  'onCloseScaleFormModal',
   'onCloseServiceFormModal'
 ];
 
@@ -37,6 +39,7 @@ class ServiceDetail extends mixin(InternalStorageMixin, TabsMixin) {
       currentTab: Object.keys(this.tabs_tabs).shift(),
       isServiceFormModalShown: false,
       isServiceDestroyConfirmShown: false,
+      isServiceScaleFormModalShown: false,
       isServiceSuspendConfirmShown: false
     };
 
@@ -52,6 +55,9 @@ class ServiceDetail extends mixin(InternalStorageMixin, TabsMixin) {
         break;
       case ServiceActionItem.DESTROY:
         this.setState({isServiceDestroyConfirmShown: true});
+        break;
+      case ServiceActionItem.SCALE:
+        this.setState({isServiceScaleFormModalShown: true});
         break;
       case ServiceActionItem.SUSPEND:
         this.setState({isServiceSuspendConfirmShown: true});
@@ -75,6 +81,10 @@ class ServiceDetail extends mixin(InternalStorageMixin, TabsMixin) {
     this.setState({isServiceSuspendConfirmShown: false});
   }
 
+  onCloseScaleFormModal() {
+    this.setState({isServiceScaleFormModalShown: false});
+  }
+
   onCloseServiceFormModal() {
     this.setState({isServiceFormModalShown: false});
   }
@@ -85,8 +95,7 @@ class ServiceDetail extends mixin(InternalStorageMixin, TabsMixin) {
     let message = (
       <div className="container-pod flush-top container-pod-short-bottom">
         <h4 className="text-danger flush-top">Destroy Service</h4>
-        <p>Are you sure you want to destroy {service.getId()}?
-        This action is irreversible.</p>
+        <p>Are you sure you want to destroy {service.getId()}? This action is irreversible.</p>
       </div>
     );
 
@@ -108,8 +117,7 @@ class ServiceDetail extends mixin(InternalStorageMixin, TabsMixin) {
     let message = (
       <div className="container-pod flush-top container-pod-short-bottom">
         <h4 className="flush-top">Suspend Service</h4>
-        <p>Are you sure you want to suspend {service.getId()}
-        by scaling to 0 instances?</p>
+        <p>Are you sure you want to suspend {service.getId()} by scaling to 0 instances?</p>
       </div>
     );
 
@@ -125,9 +133,18 @@ class ServiceDetail extends mixin(InternalStorageMixin, TabsMixin) {
     );
   }
 
+  getServiceScaleFormModal() {
+    return (
+      <ServiceScaleFormModal
+        open={this.state.isServiceScaleFormModalShown}
+        service={this.props.service}
+        onClose={this.onCloseScaleFormModal} />
+    );
+  }
+
   renderConfigurationTabView() {
     return (
-      <ServiceDetailConfigurationTab service={this.props.service}/>
+      <ServiceDetailConfigurationTab service={this.props.service} />
     );
   }
 
@@ -141,7 +158,7 @@ class ServiceDetail extends mixin(InternalStorageMixin, TabsMixin) {
 
   renderTasksTabView() {
     return (
-      <ServiceDetailTaskTab service={this.props.service}/>
+      <ServiceDetailTaskTab service={this.props.service} />
     );
   }
 
@@ -165,6 +182,7 @@ class ServiceDetail extends mixin(InternalStorageMixin, TabsMixin) {
           service={service}
           onClose={this.onCloseServiceFormModal} />
         {this.getDestroyConfirmDialog()}
+        {this.getServiceScaleFormModal()}
         {this.getSuspendConfirmDialog()}
       </div>
 
