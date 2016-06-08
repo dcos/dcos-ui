@@ -26,14 +26,16 @@ describe('TaskDetail', function () {
     this.params = {
 
     };
-    this.instance = TestUtils.findRenderedComponentWithType(ReactDOM.render(
-      JestUtil.stubRouterContext(TaskDetail, {params: this.params}, {
+    this.instance = JestUtil.renderWithStubbedRouter(
+      TaskDetail,
+      {params: this.params},
+      this.container,
+      {
         getCurrentRoutes: function () {
           return [{name: 'services-task-details-tab'}];
         }
-      }),
-      this.container
-    ), TaskDetail);
+      }
+    );
     this.instance.setState = jasmine.createSpy('setState');
     this.instance.getErrorScreen = jasmine.createSpy('getErrorScreen');
     // Store original versions
@@ -111,6 +113,69 @@ describe('TaskDetail', function () {
     });
 
   });
+
+  describe('#getSubView', function () {
+    beforeEach(function () {
+      this.getNodeFromID = MesosStateStore.getNodeFromID;
+      MesosStateStore.getNodeFromID = function () {
+        return {hostname: 'hello'};
+      };
+      this.container = document.createElement('div');
+    });
+
+    afterEach(function () {
+      MesosStateStore.getNodeFromID = this.getNodeFromID;
+
+      ReactDOM.unmountComponentAtNode(this.container);
+    });
+
+    it('should call getErrorScreen when error occured', function () {
+      this.instance.state = {
+        directory: new TaskDirectory({items: [{nlink: 1, path: '/stdout'}]}),
+        taskDirectoryErrorCount: 3
+      };
+      this.instance.getSubView();
+
+      expect(this.instance.getErrorScreen).toHaveBeenCalled();
+    });
+
+    it('ignores getErrorScreen when error has not occured', function () {
+      this.instance.state = {
+        directory: new TaskDirectory({items: [{nlink: 1, path: '/stdout'}]})
+      };
+      this.instance.getSubView();
+
+      expect(this.instance.getErrorScreen).not.toHaveBeenCalled();
+    });
+
+    it('should return null if there are no nodes', function () {
+      var node = ReactDOM.findDOMNode(this.instance);
+      expect(node).toEqual(null);
+    });
+
+    it('should return an element if there is a node', function () {
+      MesosStateStore.get = function () {
+        return new Task({
+          slaves: {fakeProp: 'faked'}
+        });
+      };
+
+      var instance = JestUtil.renderWithStubbedRouter(
+        TaskDetail,
+        {params: this.params},
+        this.container,
+        {
+          getCurrentRoutes: function () {
+            return [{name: 'services-task-details-tab'}];
+          }
+        }
+      );
+
+      var node = ReactDOM.findDOMNode(instance);
+      expect(TestUtils.isDOMComponent(node)).toEqual(true);
+    });
+  });
+
 
   describe('#getBasicInfo', function () {
 
