@@ -46,9 +46,13 @@ const RouterUtil = {
         );
       }
 
-      if (originalConfiguration.buildBreadCrumb) {
-        route.buildBreadCrumb = originalConfiguration.buildBreadCrumb;
-      }
+      // Transfer any property that is not already present on route,
+      // but available in originalConfiguration
+      Object.keys(originalConfiguration).forEach(function (prop) {
+        if (!route.hasOwnProperty(prop)) {
+          route[prop] = originalConfiguration[prop];
+        }
+      });
 
       return route;
     });
