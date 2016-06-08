@@ -16,7 +16,7 @@ const ChronosActions = {
       return function () {
         RequestUtil.json({
           url: `${Config.rootUrl}/chronos/jobs`,
-          data: [{name: 'embed', value: 'activeJobs'}],
+          data: [{name: 'embed', value: 'activeRuns'}],
           success: function (response) {
             try {
               let data = ChronosUtil.parseJobs(response);
