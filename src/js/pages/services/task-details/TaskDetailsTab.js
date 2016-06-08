@@ -14,15 +14,17 @@ class TaskDetailsTab extends React.Component {
       return null;
     }
 
+    let headerValueMapping = {'ID': mesosTask.id};
+
     let services = MesosSummaryStore.get('states')
       .lastSuccessful()
       .getServiceList();
     let service = services.filter({ids: [mesosTask.framework_id]}).last();
 
-    let headerValueMapping = {
-      'ID': mesosTask.id,
-      'Service': `${service.name} (${service.id})`
-    };
+    if (service != null) {
+      headerValueMapping['Service'] = `${service.name} (${service.id})`;
+    }
+
 
     let node = MesosStateStore.getNodeFromID(mesosTask.slave_id);
 
