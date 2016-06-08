@@ -18,7 +18,7 @@ describe('Tasks Table', function () {
 
       beforeEach(function () {
         cy.visitUrl({
-          url: '/services/%2Fcassandra/task-detail/server-0_10ab666b-cf9b-44eb-bc53-b6dba1b7c737/'
+          url: '/services/%2Fcassandra/tasks/server-0_10ab666b-cf9b-44eb-bc53-b6dba1b7c737/'
         });
         cy.get('.page-content .tab-item-label').contains('Files').click();
       });
@@ -39,4 +39,4 @@ describe('Tasks Table', function () {
 
   });
 });
- 
+
