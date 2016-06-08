@@ -5,7 +5,7 @@ import JobsTab from '../pages/jobs/JobsTab';
 
 let jobsRoutes = {
   type: Route,
-  name: 'jobs',
+  name: 'jobs-page',
   handler: JobsPage,
   path: '/jobs/?',
   children: [

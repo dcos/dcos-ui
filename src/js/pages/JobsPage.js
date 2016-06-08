@@ -10,8 +10,8 @@ class JobsPage extends mixin(TabsMixin) {
   constructor() {
     super(...arguments);
 
-    this.tabs_tabs = {'jobs': 'Jobs'};
-    this.state = {currentTab: 'jobs'};
+    this.tabs_tabs = {'jobs-page': 'Jobs'};
+    this.state = {currentTab: 'jobs-page'};
   }
 
   componentWillMount() {
