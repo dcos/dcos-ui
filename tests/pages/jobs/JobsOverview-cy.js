@@ -13,9 +13,8 @@ describe('Jobs Overview', function () {
         .should('to.have.text', 'Jobs');
     });
 
-    it('displays empty jobs overview page', function () {
-      cy.get('.page-content .panel-content h3')
-        .should('to.have.text', 'No Jobs Created');
+    it('displays jobs overview page', function () {
+      cy.get('tbody tr:visible').should('to.have.length', 3);
     });
   });
 });
