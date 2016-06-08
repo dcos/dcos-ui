@@ -164,8 +164,8 @@ class MarathonStore extends GetSetBaseStore {
     return MarathonActions.createService(...arguments);
   }
 
-  changeService() {
-    return MarathonActions.changeService(...arguments);
+  editService() {
+    return MarathonActions.editService(...arguments);
   }
 
   fetchServiceVersion() {
