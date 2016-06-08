@@ -28,6 +28,18 @@ describe('TabsMixin', function () {
         .toEqual(true);
     });
 
+    it('should add custom props to span', function () {
+      expect(TabsMixin.tabs_getRoutedItem({other: true}, 'foo').props.other)
+        .toEqual(true);
+    });
+
+    it('should remove existing className', function () {
+      expect(TabsMixin.tabs_getUnroutedItem(
+        {classNames: {'tab-item-label': false}},
+        'foo'
+      ).props.className).toEqual('');
+    });
+
     it('should add custom class to link', function () {
       expect(this.instance.props.className)
         .toEqual('tab-item-label foo');
@@ -45,6 +57,18 @@ describe('TabsMixin', function () {
 
     it('should return an element containing a span', function () {
       expect(this.instance.type).toEqual('span');
+    });
+
+    it('should add custom props to span', function () {
+      expect(TabsMixin.tabs_getUnroutedItem({other: true}, 'baz').props.other)
+        .toEqual(true);
+    });
+
+    it('should remove existing className', function () {
+      expect(TabsMixin.tabs_getUnroutedItem(
+        {classNames: {'tab-item-label': false}},
+        'baz'
+      ).props.className).toEqual('');
     });
 
     it('should add custom class to span', function () {
