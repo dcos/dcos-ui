@@ -59,7 +59,7 @@ var Page = React.createClass({
     }
 
     return (
-      <div className="page-header-navigation">
+      <div className="page-navigation-list">
         <div className="container container-fluid container-pod container-pod-short flush-bottom">
           {navigation}
         </div>
@@ -69,7 +69,7 @@ var Page = React.createClass({
 
   getPageHeader: function (title, navigation) {
     return (
-      <div className="page-header">
+      <div className="page-navigation">
         {this.getTitle(title)}
         {this.getNavigation(navigation, title)}
       </div>
@@ -84,9 +84,9 @@ var Page = React.createClass({
     }
 
     return (
-      <div className="page-header-context">
+      <div className="page-navigation-context">
         <div className="container container-fluid container-pod container-pod-short">
-          <h1 className="page-header-title inverse flush">
+          <h1 className="page-navigation-title inverse flush">
             <SidebarToggle />
             {title}
           </h1>
