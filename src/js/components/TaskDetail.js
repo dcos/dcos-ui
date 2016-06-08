@@ -169,18 +169,12 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
       </ul>
     );
 
-    const mediaWrapperClassNames = {
-      'media-object-spacing-narrow': false,
-      'media-object-offset': false
-    };
-
     return (
       <PageHeader
         icon={taskIcon}
         iconClassName="icon-app-container"
         subTitle={TaskStates[task.state].displayName}
         navigationTabs={tabs}
-        mediaWrapperClassName={mediaWrapperClassNames}
         title={task.getId()} />
     );
   }
