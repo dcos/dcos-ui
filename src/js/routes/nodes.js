@@ -1,6 +1,4 @@
-import Router from 'react-router';
-let Route = Router.Route;
-let Redirect = Router.Redirect;
+import {DefaultRoute, Route} from 'react-router';
 
 import HostTable from '../components/HostTable';
 import NodesPage from '../pages/NodesPage';
@@ -53,9 +51,8 @@ let nodesRoutes = {
           handler: TaskDetail,
           children: [
             {
-              type: Route,
+              type: DefaultRoute,
               name: 'nodes-task-details-tab',
-              path: 'details/?',
               handler: TaskDetailsTab
             },
             {
@@ -69,11 +66,6 @@ let nodesRoutes = {
               name: 'nodes-task-details-logs',
               path: 'logs/?',
               handler: TaskLogsTab
-            },
-            {
-              type: Redirect,
-              from: '',
-              to: 'nodes-task-details-tab'
             }
           ]
         },
@@ -81,7 +73,7 @@ let nodesRoutes = {
           type: Route,
           name: 'node-detail-health',
           path: ':unitNodeID/:unitID/?'
-        },
+        }
       ]
     }
   ]
