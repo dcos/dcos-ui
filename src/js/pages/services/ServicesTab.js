@@ -153,9 +153,9 @@ var ServicesTab = React.createClass({
     }
 
     // TODO (DCOS-7580): Clean up ServicesTab routed and unrouted views
-    if (this.props.params.taskID) {
+    if (this.props.params.taskID || this.props.params.volumeID) {
       return (
-        <RouteHandler />
+        <RouteHandler service={item} />
       );
     }
 

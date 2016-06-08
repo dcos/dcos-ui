@@ -125,6 +125,18 @@ let serviceRoutes = {
                       getCrumbs: function () { return []; }
                     }
                   }
+                },
+                {
+                  type: Route,
+                  name: 'services-task-details-volumes',
+                  path: 'volumes/?',
+                  handler: TaskLogsTab,
+                  buildBreadCrumb: function () {
+                    return {
+                      parentCrumb: 'services-task-details',
+                      getCrumbs: function () { return []; }
+                    }
+                  }
                 }
               ]
             }

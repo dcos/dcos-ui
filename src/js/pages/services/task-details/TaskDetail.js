@@ -55,6 +55,25 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
     });
   }
 
+  checkForVolumes() {
+    // Add the Volumes tab if it isn't already there and the service has
+    // at least one volume.
+    if (this.tabs_tabs.volumes == null) {
+      let {service = null} = this.props;
+
+      if (!!this.props.params.taskID) {
+        service = MarathonStore.getServiceFromTaskID(
+          this.props.params.taskID
+        );
+      }
+
+      if (!!service && service.getVolumes().getItems().length > 0) {
+        this.tabs_tabs.volumes = 'Volumes';
+        this.forceUpdate();
+      }
+    }
+  }
+
   componentWillMount() {
     super.componentWillMount(...arguments);
     this.tabs_tabs = Object.assign({}, SERVICES_TABS);
