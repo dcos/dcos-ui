@@ -47,7 +47,7 @@ module.exports = class AccessDeniedPage extends React.Component {
                 Please contact your {Config.productName} administrator.
               </p>
               <p className="flush-bottom">
-                See the <a href={MetadataStore.buildDocsURI('/administration/security-and-authentication/')} target="_blank">Security and Authentication</a> documentation for more information.
+                See the <a href={MetadataStore.buildDocsURI('/administration/security/managing-authentication/')} target="_blank">Security and Authentication</a> documentation for more information.
               </p>
             </AlertPanel>
           </div>
