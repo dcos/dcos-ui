@@ -129,11 +129,11 @@ module.exports = class Service extends Item {
     let deployments = this.getDeployments();
     let queue = this.getQueue();
 
-    if (queue != null && queue.delay && queue.delay.overdue) {
-      return ServiceStatus.WAITING;
-    }
+    if (queue != null && queue.delay) {
+      if (queue.delay.overdue) {
+        return ServiceStatus.WAITING;
+      }
 
-    if (queue != null && queue.delay && !queue.delay.overdue) {
       return ServiceStatus.DELAYED;
     }
 

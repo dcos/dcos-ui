@@ -79,13 +79,6 @@ class DCOSStore extends EventEmitter {
   }
 
   /**
-   * Fetch launch queue from Marathon
-   */
-  fetchQueue() {
-    MarathonStore.fetchQueue();
-  }
-
-  /**
    * Fetch service version/configuration from Marathon
    * @param {string} serviceID
    * @param {string} versionID
@@ -121,8 +114,7 @@ class DCOSStore extends EventEmitter {
         return;
       }
 
-      let serviceId = entry.app.id;
-      queue.set(serviceId, entry);
+      queue.set(entry.app.id, entry);
     });
 
     this.emit(DCOS_CHANGE);
@@ -247,10 +239,10 @@ class DCOSStore extends EventEmitter {
       if (item instanceof ServiceTree) {
         return item;
       }
-
+      let serviceId = item.getId();
       let options = {
-        versions: versions.get(item.getId()),
-        queue: queue.get(item.getId())
+        versions: versions.get(serviceId),
+        queue: queue.get(serviceId)
       };
 
       if (item instanceof Framework) {

@@ -1,10 +1,10 @@
 var ServiceStatusTypes = {
   NA: 0,
-  RUNNING: 1,
-  DEPLOYING: 2,
-  SUSPENDED: 3,
-  DELAYED: 4,
-  WAITING: 5
+  SUSPENDED: 1,
+  RUNNING: 2,
+  DEPLOYING: 3,
+  WAITING: 4,
+  DELAYED: 5
 };
 
 module.exports = ServiceStatusTypes;
