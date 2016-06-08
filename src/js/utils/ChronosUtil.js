@@ -15,10 +15,9 @@ function addJob(parent, item, jobsAlreadyAdded) {
 
   const itemId = item.id;
 
-  if (itemId !== '/' && (!itemId.startsWith('/') || itemId.endsWith('/'))) {
-    throw new Error(`Id (${itemId}) must start with a leading slash ("/") ` +
-      'and should not end with a slash, except for root id which is only ' +
-      'a slash.');
+  if ((itemId.startsWith('.') || itemId.endsWith('.'))) {
+    throw new Error(`Id (${itemId}) must not start with a leading dot (".") ` +
+      'and should not end with a dot.');
   }
 
   if (!itemId.startsWith(id)) {
@@ -33,11 +32,11 @@ function addJob(parent, item, jobsAlreadyAdded) {
     return;
   }
 
-  // Get the parent id (e.g. /group) by matching every thing but the item
-  // name including the preceding slash "/" (e.g. /id).
-  const [parentId] = itemId.match(/\/.*?(?=\/?[^/]+\/?$)/) || [null];
+  // Get the parent id (e.g. group) by matching everything but the item
+  // name including the preceding dot "." (e.g. ".name").
+  const [parentId] = itemId.match(/.*?(?=\.?[^.]+\.?$)/)
 
-  if (!parentId) {
+  if (parentId == null) {
     return;
   }
 
@@ -78,7 +77,7 @@ module.exports = {
    * }} jobs and groups in a tree structure
    */
   parseJobs(jobs) {
-    let rootTree = {id: '/'};
+    let rootTree = {id: ''};
     let jobsAlreadyAdded = {
       [rootTree.id]: rootTree
     };
