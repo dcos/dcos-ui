@@ -105,6 +105,46 @@ describe('DCOSStore', function () {
 
   });
 
+  describe('#onMarathonQueueChange', function () {
+    const serviceId = '/alpha';
+    beforeEach(function () {
+      MarathonStore.__setKeyResponse('groups', new ServiceTree({
+        items: [{
+          id: serviceId
+        }]
+      }));
+      DCOSStore.onMarathonGroupsChange();
+      DCOSStore.onMarathonQueueChange([{
+        app: {
+          id: serviceId
+        },
+        delay: {
+          'timeLeftSeconds': 0,
+          'overdue': true
+        }
+      }]);
+    });
+
+    it('should update the service tree', function () {
+      expect(DCOSStore.serviceTree.getItems()[0].getStatus())
+        .toEqual('Waiting');
+
+      DCOSStore.onMarathonQueueChange([{
+        app: {
+          id: serviceId
+        },
+        delay: {
+          'timeLeftSeconds': 0,
+          'overdue': false
+        }
+      }]);
+
+      expect(DCOSStore.serviceTree.getItems()[0].getStatus())
+        .toEqual('Delayed');
+    });
+
+  });
+
   describe('#processMarathonServiceVersion', function () {
     const versionID = '2016-03-22T10:46:07.354Z';
 

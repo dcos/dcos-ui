@@ -127,6 +127,15 @@ module.exports = class Service extends Item {
   getServiceStatus() {
     let {tasksRunning} = this.getTasksSummary();
     let deployments = this.getDeployments();
+    let queue = this.getQueue();
+
+    if (queue != null && queue.delay) {
+      if (queue.delay.overdue) {
+        return ServiceStatus.WAITING;
+      }
+
+      return ServiceStatus.DELAYED;
+    }
 
     if (deployments.length > 0) {
       return ServiceStatus.DEPLOYING;
@@ -161,6 +170,10 @@ module.exports = class Service extends Item {
 
   getFetch() {
     return this.get('fetch');
+  }
+
+  getQueue() {
+    return this.get('queue');
   }
 
   getUser() {
