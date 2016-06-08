@@ -1,23 +1,23 @@
-jest.dontMock('../SidePanelContents');
-jest.dontMock('../TaskDirectoryView');
+jest.dontMock('../../../../components/SidePanelContents');
+jest.dontMock('../TaskFilesTab');
 jest.dontMock('../TaskDetail');
-jest.dontMock('../../stores/MesosStateStore');
-jest.dontMock('../../mixins/GetSetMixin');
+jest.dontMock('../../../../stores/MesosStateStore');
+jest.dontMock('../../../../mixins/GetSetMixin');
 
-var JestUtil = require('../../utils/JestUtil');
+var JestUtil = require('../../../../utils/JestUtil');
 
 JestUtil.unMockStores(['MesosStateStore', 'TaskDirectoryStore', 'MesosSummaryStore']);
-require('../../utils/StoreMixinConfig');
+require('../../../../utils/StoreMixinConfig');
 /* eslint-disable no-unused-vars */
 var React = require('react');
 /* eslint-enable no-unused-vars */
 var ReactDOM = require('react-dom');
 var TestUtils = require('react-addons-test-utils');
 
-var MesosStateStore = require('../../stores/MesosStateStore');
-import Task from '../../structs/Task';
-var TaskDirectory = require('../../structs/TaskDirectory');
-var TaskDirectoryStore = require('../../stores/TaskDirectoryStore');
+var MesosStateStore = require('../../../../stores/MesosStateStore');
+import Task from '../../../../structs/Task';
+var TaskDirectory = require('../../../../structs/TaskDirectory');
+var TaskDirectoryStore = require('../../../../stores/TaskDirectoryStore');
 var TaskDetail = require('../TaskDetail');
 
 describe('TaskDetail', function () {
@@ -26,17 +26,20 @@ describe('TaskDetail', function () {
     this.params = {
 
     };
-    this.instance = ReactDOM.render(
-      <TaskDetail params={this.params} />,
+    this.instance = TestUtils.findRenderedComponentWithType(ReactDOM.render(
+      JestUtil.stubRouterContext(TaskDetail, {params: this.params}, {
+        getCurrentRoutes: function () {
+          return [{name: 'services-task-details-tab'}];
+        }
+      }),
       this.container
-    );
+    ), TaskDetail);
     this.instance.setState = jasmine.createSpy('setState');
     this.instance.getErrorScreen = jasmine.createSpy('getErrorScreen');
     // Store original versions
     this.storeGetDirectory = TaskDirectoryStore.getDirectory;
     this.storeGet = MesosStateStore.get;
     this.storeChangeListener = MesosStateStore.addChangeListener;
-
     // Create mock functions
     MesosStateStore.get = function (key) {
       if (key === 'lastMesosState') {
@@ -109,70 +112,11 @@ describe('TaskDetail', function () {
 
   });
 
-  describe('#render', function () {
-    beforeEach(function () {
-      this.getNodeFromID = MesosStateStore.getNodeFromID;
-      MesosStateStore.getNodeFromID = function () {
-        return {hostname: 'hello'};
-      };
-      this.container = document.createElement('div');
-    });
-
-    afterEach(function () {
-      MesosStateStore.getNodeFromID = this.getNodeFromID;
-
-      ReactDOM.unmountComponentAtNode(this.container);
-    });
-
-    it('should call getErrorScreen when error occured', function () {
-      this.instance.state = {
-        directory: new TaskDirectory({items: [{nlink: 1, path: '/stdout'}]}),
-        taskDirectoryErrorCount: 3
-      };
-      this.instance.renderFilesTabView();
-
-      expect(this.instance.getErrorScreen).toHaveBeenCalled();
-    });
-
-    it('ignores getErrorScreen when error has not occured', function () {
-      this.instance.state = {
-        directory: new TaskDirectory({items: [{nlink: 1, path: '/stdout'}]})
-      };
-      this.instance.renderFilesTabView();
-
-      expect(this.instance.getErrorScreen).not.toHaveBeenCalled();
-    });
-
-    it('should return null if there are no nodes', function () {
-      var instance = ReactDOM.render(
-        <TaskDetail params={this.params} />,
-        this.container
-      );
-      var node = ReactDOM.findDOMNode(instance);
-      expect(node).toEqual(null);
-    });
-
-    it('should return an element if there is a node', function () {
-      MesosStateStore.get = function () {
-        return new Task({
-          slaves: {fakeProp: 'faked'}
-        });
-      };
-
-      var instance = ReactDOM.render(
-        <TaskDetail params={this.params} />,
-        this.container
-      );
-
-      var node = ReactDOM.findDOMNode(instance);
-      expect(TestUtils.isDOMComponent(node)).toEqual(true);
-    });
-  });
-
   describe('#getBasicInfo', function () {
 
     it('should return null if task is null', function () {
-      var result = this.instance.getBasicInfo(null);
+      MesosStateStore.getTaskFromTaskID = function () { return null; };
+      var result = this.instance.getBasicInfo();
       expect(result).toEqual(null);
     });
 
@@ -182,7 +126,7 @@ describe('TaskDetail', function () {
         state: 'TASK_RUNNING'
       });
 
-      var result = this.instance.getBasicInfo(task);
+      var result = this.instance.getBasicInfo();
 
       expect(TestUtils.isElement(result)).toEqual(true);
     });
