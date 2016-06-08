@@ -107,11 +107,24 @@ class JobsTab extends mixin(StoreMixin, QueryParamsMixin, SaveStateMixin) {
     );
   }
 
+  getFilteredJobs(item) {
+    let {searchString} = this.state;
+    let jobs = item.getItems();
+
+    if (searchString) {
+      let filterProperties = Object.assign({}, item.getFilterProperties(), {
+        name: function (item) {
+          return item.getId();
+        }
+      });
+
+      jobs = item.filterItemsByText(searchString, filterProperties).getItems();
+    }
+    return jobs;
+  }
+
   getJobTreeView(item) {
-    let {state} = this;
-    let filteredJobs = item.filterItemsByFilter({
-      id: state.searchString
-    }).getItems();
+    let filteredJobs = this.getFilteredJobs(item);
 
     return (
       <div className="flex-grow">
@@ -123,6 +136,16 @@ class JobsTab extends mixin(StoreMixin, QueryParamsMixin, SaveStateMixin) {
           </button>
         </FilterBar>
         <JobsTable jobs={filteredJobs} />
+      </div>
+    );
+  }
+
+  getAlertPanelFooter() {
+    return (
+      <div className="button-collection flush-bottom">
+        <button className="button button-stroke button-inverse">
+          Create Job
+        </button>
       </div>
     );
   }
@@ -150,6 +173,7 @@ class JobsTab extends mixin(StoreMixin, QueryParamsMixin, SaveStateMixin) {
     return (
       <AlertPanel
         title="No Jobs Created"
+        footer={this.getAlertPanelFooter()}
         iconClassName="icon icon-sprite icon-sprite-jumbo
           icon-sprite-jumbo-white icon-jobs flush-top">
         <p className="flush-bottom">
