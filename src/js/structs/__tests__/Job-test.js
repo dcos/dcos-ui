@@ -59,12 +59,12 @@ describe('Job', function () {
 
   });
 
-  describe('#getSchedule', function () {
+  describe('#getSchedules', function () {
 
-    it('returns the schedule', function () {
-      let job = new Job({id: '/foo', schedule: 'bar'});
+    it('returns the schedules', function () {
+      let job = new Job({id: '/foo', schedules: ['bar']});
 
-      expect(job.getSchedule()).toEqual('bar');
+      expect(job.getSchedules()).toEqual(['bar']);
     });
 
   });

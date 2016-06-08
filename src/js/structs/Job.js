@@ -22,7 +22,7 @@ module.exports = class Job extends Item {
     return this.getId().split('/').pop();
   }
 
-  getSchedule() {
-    return this.get('schedule');
+  getSchedules() {
+    return this.get('schedules');
   }
 };
