@@ -271,6 +271,7 @@ describe('Job', function () {
   });
 
   describe('#getSchedules', function () {
+<<<<<<< HEAD
 
     it('returns the schedules', function () {
       let job = new Job({id: 'foo', schedules: ['bar']});
@@ -335,6 +336,13 @@ describe('Job', function () {
       });
 
       expect(job.getScheduleStatus()).toEqual('completed');
+=======
+
+    it('returns the schedules', function () {
+      let job = new Job({id: '/foo', schedules: ['bar']});
+
+      expect(job.getSchedules()).toEqual(['bar']);
+>>>>>>> 077d5dd... Fix Schedules getter
     });
 
   });
