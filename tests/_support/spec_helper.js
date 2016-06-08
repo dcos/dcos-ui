@@ -134,6 +134,10 @@ Cypress.addParentCommand('configureCluster', function (configuration) {
       .route(/system\/health\/v1\/nodes\/172\.17\.8\.101\/nodes\/REPLACE/, 'fx:unit-health/node-unit');
   }
 
+  if (configuration.jobDetails) {
+    cy.route(/jobs\/(.*)/, 'fx:chronos/job');
+  }
+
   // The app won't load until plugins are loaded
   var pluginsFixture = configuration.plugins || 'no-plugins';
   cy.route(/ui-config/, 'fx:config/' + pluginsFixture + '.json');
