@@ -3,7 +3,7 @@ import React from 'react';
 import TaskDirectoryTable from '../../../components/TaskDirectoryTable';
 import TaskDirectoryStore from '../../../stores/TaskDirectoryStore';
 
-class TaskDirectoryView extends React.Component {
+class TaskFilesTab extends React.Component {
   handleFileClick(path) {
     TaskDirectoryStore.addPath(this.props.task, path);
   }
@@ -83,13 +83,13 @@ class TaskDirectoryView extends React.Component {
   }
 }
 
-TaskDirectoryView.propTypes = {
+TaskFilesTab.propTypes = {
   directory: React.PropTypes.object,
   task: React.PropTypes.object
 };
 
-TaskDirectoryView.defaultProps = {
+TaskFilesTab.defaultProps = {
   task: {}
 };
 
-module.exports = TaskDirectoryView;
+module.exports = TaskFilesTab;

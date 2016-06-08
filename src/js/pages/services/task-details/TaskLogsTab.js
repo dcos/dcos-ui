@@ -16,7 +16,7 @@ const METHODS_TO_BIND = [
   'handleKeyDown'
 ];
 
-class TaskDebugView extends React.Component {
+class TaskLogsTab extends React.Component {
   constructor() {
     super();
 
@@ -320,14 +320,14 @@ class TaskDebugView extends React.Component {
   }
 }
 
-TaskDebugView.propTypes = {
+TaskLogsTab.propTypes = {
   directory: React.PropTypes.object,
   selectedLogFile: React.PropTypes.object,
   task: React.PropTypes.object
 };
 
-TaskDebugView.defaultProps = {
+TaskLogsTab.defaultProps = {
   task: {}
 };
 
-module.exports = TaskDebugView;
+module.exports = TaskLogsTab;
