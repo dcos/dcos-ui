@@ -113,7 +113,7 @@ describe('MarathonActions', function () {
 
   });
 
-  describe('#changeService', function () {
+  describe('#editService', function () {
     const appDefiniton = {
       id: '/test',
       cmd: 'sleep 100;'
@@ -121,7 +121,7 @@ describe('MarathonActions', function () {
 
     beforeEach(function () {
       spyOn(RequestUtil, 'json');
-      MarathonActions.changeService(appDefiniton);
+      MarathonActions.editService(appDefiniton);
       this.configuration = RequestUtil.json.calls.mostRecent().args[0];
     });
 

@@ -142,7 +142,7 @@ class ServiceFormModal extends mixin(StoreMixin) {
     let marathonAction = MarathonStore.createService;
 
     if (this.props.isEdit) {
-      marathonAction = MarathonStore.changeService;
+      marathonAction = MarathonStore.editService;
     }
 
     if (this.state.jsonMode) {
