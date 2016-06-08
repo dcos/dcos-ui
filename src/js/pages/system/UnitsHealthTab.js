@@ -163,6 +163,11 @@ class UnitsHealthTab extends mixin(StoreMixin) {
             currentLength={visibleData.length}
             totalLength={dataItems.length} />
           <FilterBar rightAlignLastNChildren={1}>
+            <FilterInputText
+              className="flush-bottom"
+              searchString={searchString}
+              handleFilterChange={this.handleSearchStringChange}
+              inverseStyle={true} />
             <FilterButtons
               renderButtonContent={this.getButtonContent}
               filters={['all', 'healthy', 'unhealthy']}
@@ -171,11 +176,6 @@ class UnitsHealthTab extends mixin(StoreMixin) {
               inverseStyle={true}
               itemList={dataHealth}
               selectedFilter={healthFilter} />
-            <FilterInputText
-              className="flush-bottom"
-              searchString={searchString}
-              handleFilterChange={this.handleSearchStringChange}
-              inverseStyle={true} />
             <a href={UnitHealthStore.getDownloadURL()}
               className="button button-primary" target="_blank">
               Download Snapshot
