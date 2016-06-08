@@ -1,4 +1,4 @@
-import {DefaultRoute, Route} from 'react-router';
+import {DefaultRoute, Redirect, Route} from 'react-router';
 
 import HostTable from '../components/HostTable';
 import NodesPage from '../pages/NodesPage';
