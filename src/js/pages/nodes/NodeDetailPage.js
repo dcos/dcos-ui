@@ -16,6 +16,7 @@ import MesosSummaryStore from '../../stores/MesosSummaryStore';
 import MesosStateStore from '../../stores/MesosStateStore';
 import NodeHealthStore from '../../stores/NodeHealthStore';
 import Page from '../../components/Page';
+import PageHeader from '../../components/PageHeader';
 import SidePanels from '../../components/SidePanels';
 import StringUtil from '../../utils/StringUtil';
 import ResourceChart from '../../components/charts/ResourceChart';
@@ -61,17 +62,6 @@ class NodeDetailPage extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) 
       this.internalStorage_update({node})
       NodeHealthStore.fetchNodeUnits(node.hostname);
     }
-  }
-
-  getBasicInfo(node) {
-    return (
-      <div className="detail-page-header">
-        <h1 className="inverse flush">
-          {node.hostname}
-        </h1>
-        {this.getSubHeader(node)}
-      </div>
-    );
   }
 
   getBreadcrumbs(nodeID) {
@@ -230,28 +220,30 @@ class NodeDetailPage extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) 
       );
     }
 
+    let tabs = (
+      <ul className="tabs list-inline flush-bottom container-pod
+        container-pod-short-top inverse">
+        {this.tabs_getUnroutedTabs()}
+      </ul>
+    );
+
     return (
       <Page title="Nodes">
         <div className="container container-fluid flush breadcrumbs">
           {this.getBreadcrumbs(node.get('hostname'))}
         </div>
-        <div>
-          <div className="container container-fluid container-pod container-pod-short container-pod-super-short-top flush">
-            {this.getBasicInfo(node)}
-            <div className="container-pod container-pod-short">
-              {this.getCharts('Node', node)}
-            </div>
-            <div className="container-pod container-pod-divider-bottom container-pod-divider-inverse container-pod-divider-bottom-align-right flush-top flush-bottom">
-              <ul className="tabs list-inline flush-bottom inverse">
-                {this.tabs_getUnroutedTabs()}
-              </ul>
-            </div>
+        <PageHeader
+          navigationTabs={tabs}
+          subTitle={this.getSubHeader(node)}
+          title={node.hostname}>
+          <div className="container-pod container-pod-short flush-bottom">
+            {this.getCharts('Node', node)}
           </div>
-          {this.tabs_getTabView()}
-          <SidePanels
-            params={params}
-            openedPage="nodes" />
-        </div>
+        </PageHeader>
+        {this.tabs_getTabView()}
+        <SidePanels
+          params={params}
+          openedPage="nodes" />
       </Page>
     );
   }
