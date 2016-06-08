@@ -15,19 +15,15 @@ class TaskDetailsTab extends React.Component {
     }
 
     let headerValueMapping = {'ID': mesosTask.id};
-
     let services = MesosSummaryStore.get('states')
       .lastSuccessful()
       .getServiceList();
     let service = services.filter({ids: [mesosTask.framework_id]}).last();
-
     if (service != null) {
       headerValueMapping['Service'] = `${service.name} (${service.id})`;
     }
 
-
     let node = MesosStateStore.getNodeFromID(mesosTask.slave_id);
-
     if (node != null) {
       headerValueMapping['Node'] = `${node.hostname} (${node.id})`;
     }
@@ -51,7 +47,6 @@ class TaskDetailsTab extends React.Component {
     }
 
     let labelMapping = {};
-
     if (mesosTask.labels) {
       mesosTask.labels.forEach(function (label) {
         labelMapping[label.key] = label.value;
@@ -86,6 +81,7 @@ class TaskDetailsTab extends React.Component {
       let resourceValue = Units.formatResource(
         resource, task.resources[resource]
       );
+
       return (
         <div key={resource} className="media-object-item">
           <div className="media-object-spacing-wrapper media-object-spacing-narrow media-object-offset">
