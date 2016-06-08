@@ -34,7 +34,7 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
     this.tabs_tabs = {};
 
     this.state = {
-      currentTab: 'details',
+      currentTab: 'services-task-details-tab',
       directory: null,
       expandClass: 'large',
       selectedLogFile: null,
