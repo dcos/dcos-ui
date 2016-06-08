@@ -139,6 +139,9 @@ class ChronosStore extends EventEmitter {
   }
 
   suspendJob(jobID) {
+    // TODO: This is not implemented properly. Schedules is an array, so the
+    // correct schedule needs to be selected, then its enabled key set to false.
+    // https://mesosphere.atlassian.net/browse/DCOS-7574
     let jobConfiguration = this.getJob(jobID);
     jobConfiguration.schedule.enabled = false;
     ChronosActions.suspendJob(jobID, jobConfiguration);
