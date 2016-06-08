@@ -173,6 +173,7 @@ class TaskView extends mixin(SaveStateMixin) {
             selectedFilter={filterByStatus} />
           <div className="form-group flush-bottom">
             <FilterInputText
+              className="flush-bottom"
               searchString={searchString}
               handleFilterChange={this.handleSearchStringChange}
               inverseStyle={inverseStyle} />
