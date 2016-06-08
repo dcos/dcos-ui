@@ -1,7 +1,7 @@
 import React from 'react';
 
-import TaskDirectoryTable from './TaskDirectoryTable';
-import TaskDirectoryStore from '../stores/TaskDirectoryStore';
+import TaskDirectoryTable from '../../../components/TaskDirectoryTable';
+import TaskDirectoryStore from '../../../stores/TaskDirectoryStore';
 
 class TaskDirectoryView extends React.Component {
   handleFileClick(path) {

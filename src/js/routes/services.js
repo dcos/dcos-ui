@@ -1,10 +1,13 @@
-import {Route} from 'react-router';
+import {Redirect, Route} from 'react-router';
 
 import DeploymentsTab from '../pages/services/DeploymentsTab';
 import ServiceOverlay from '../components/ServiceOverlay';
 import ServicesPage from '../pages/ServicesPage';
 import ServicesTab from '../pages/services/ServicesTab';
-import TaskDetail from '../components/TaskDetail';
+import TaskDetail from '../pages/services/task-details/TaskDetail';
+import TaskFilesTab from '../pages/services/task-details/TaskFilesTab';
+import TaskLogsTab from '../pages/services/task-details/TaskLogsTab';
+import TaskDetailsTab from '../pages/services/task-details/TaskDetailsTab';
 
 let serviceRoutes = {
   type: Route,
@@ -29,9 +32,34 @@ let serviceRoutes = {
           children: [
             {
               type: Route,
+              path: 'tasks/:taskID/?',
               name: 'services-task-details',
-              path: 'task-detail/:taskID/?',
-              handler: TaskDetail
+              handler: TaskDetail,
+              children: [
+                {
+                  type: Route,
+                  name: 'services-task-details-tab',
+                  path: 'details/?',
+                  handler: TaskDetailsTab
+                },
+                {
+                  type: Route,
+                  name: 'services-task-details-files',
+                  path: 'files/?',
+                  handler: TaskFilesTab
+                },
+                {
+                  type: Route,
+                  name: 'services-task-details-logs',
+                  path: 'logs/?',
+                  handler: TaskLogsTab
+                },
+                {
+                  type: Redirect,
+                  from: '',
+                  to: 'services-task-details-tab'
+                }
+              ]
             }
           ]
         },

@@ -2,30 +2,24 @@ import mixin from 'reactjs-mixin';
 /* eslint-disable no-unused-vars */
 import React from 'react';
 /* eslint-enable no-unused-vars */
+import {RouteHandler} from 'react-router';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
-import DescriptionList from './DescriptionList';
-import MarathonStore from '../stores/MarathonStore';
-import MarathonTaskDetailsList from './MarathonTaskDetailsList';
-import MesosStateStore from '../stores/MesosStateStore';
-import MesosSummaryStore from '../stores/MesosSummaryStore';
-import PageHeader from './PageHeader';
-import RequestErrorMsg from './RequestErrorMsg';
-import ResourcesUtil from '../utils/ResourcesUtil';
-import ServicesBreadcrumb from './ServicesBreadcrumb';
-import TaskDebugView from './TaskDebugView';
-import TaskDirectoryView from './TaskDirectoryView';
-import TaskDirectoryStore from '../stores/TaskDirectoryStore';
-import TaskStates from '../constants/TaskStates';
-import Units from '../utils/Units';
+import MarathonStore from '../../../stores/MarathonStore';
+import MesosStateStore from '../../../stores/MesosStateStore';
+import PageHeader from '../../../components/PageHeader';
+import RequestErrorMsg from '../../../components/RequestErrorMsg';
+import ServicesBreadcrumb from '../../../components/ServicesBreadcrumb';
+import TaskDirectoryStore from '../../../stores/TaskDirectoryStore';
+import TaskStates from '../../../constants/TaskStates';
 
-import InternalStorageMixin from '../mixins/InternalStorageMixin';
-import TabsMixin from '../mixins/TabsMixin';
+import InternalStorageMixin from '../../../mixins/InternalStorageMixin';
+import TabsMixin from '../../../mixins/TabsMixin';
 
 const TABS = {
-  details: 'Details',
-  files: 'Files',
-  debug: 'Logs'
+  'services-task-details-tab': 'Details',
+  'services-task-details-files': 'Files',
+  'services-task-details-logs': 'Logs'
 };
 
 const METHODS_TO_BIND = [
@@ -37,13 +31,12 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
   constructor() {
     super(...arguments);
 
-    this.tabs_tabs = Object.assign({}, TABS);
+    this.tabs_tabs = {};
 
     this.state = {
       currentTab: 'details',
       directory: null,
       expandClass: 'large',
-      showExpandButton: false,
       selectedLogFile: null,
       taskDirectoryErrorCount: 0
     };
@@ -57,6 +50,20 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
     METHODS_TO_BIND.forEach((method) => {
       this[method] = this[method].bind(this);
     });
+  }
+
+  componentWillMount() {
+    super.componentWillMount(...arguments);
+    this.tabs_tabs = Object.assign({}, TABS);
+    this.updateCurrentTab();
+  }
+
+  updateCurrentTab() {
+    let routes = this.context.router.getCurrentRoutes();
+    let currentTab = routes[routes.length - 1].name;
+    if (currentTab != null) {
+      this.setState({currentTab});
+    }
   }
 
   componentDidMount() {
@@ -110,49 +117,6 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
     this.setState({selectedLogFile, currentTab: 'debug'});
   }
 
-  getResources(task) {
-    if (task.resources == null) {
-      return null;
-    }
-
-    let resourceColors = ResourcesUtil.getResourceColors();
-    let resourceLabels = ResourcesUtil.getResourceLabels();
-
-    return ResourcesUtil.getDefaultResources().map(function (resource) {
-      if (resource === 'ports') {
-        return null;
-      }
-
-      let colorIndex = resourceColors[resource];
-      let resourceLabel = resourceLabels[resource];
-      let resourceIconClasses = `icon icon-sprite icon-sprite-medium
-        icon-sprite-medium-color icon-resources-${resourceLabel.toLowerCase()}`;
-      let resourceValue = Units.formatResource(
-        resource, task.resources[resource]
-      );
-      return (
-        <div key={resource} className="media-object-item">
-          <div className="media-object-spacing-wrapper media-object-spacing-narrow media-object-offset">
-            <div className="media-object media-object-align-middle">
-              <div className="media-object-item">
-                <i className={resourceIconClasses}></i>
-              </div>
-              <div className="media-object-item">
-                <h4 className="flush-top flush-bottom inverse">
-                  {resourceValue}
-                </h4>
-                <span className={`side-panel-resource-label
-                    text-color-${colorIndex}`}>
-                  {resourceLabel.toUpperCase()}
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
-      );
-    });
-  }
-
   getBasicInfo(task) {
     if (task == null) {
       return null;
@@ -164,7 +128,7 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
 
     let tabs = (
       <ul className="tabs list-inline flush-bottom container-pod container-pod-short-top inverse">
-        {this.tabs_getUnroutedTabs()}
+        {this.tabs_getRoutedTabs({params: this.props.params})}
       </ul>
     );
 
@@ -175,121 +139,6 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
         subTitle={TaskStates[task.state].displayName}
         navigationTabs={tabs}
         title={task.getId()} />
-    );
-  }
-
-  getMesosTaskDetailsDescriptionList(mesosTask) {
-    if (mesosTask == null || !MesosSummaryStore.get('statesProcessed')) {
-      return null;
-    }
-
-    let services = MesosSummaryStore.get('states')
-      .lastSuccessful()
-      .getServiceList();
-    let service = services.filter({ids: [mesosTask.framework_id]}).last();
-
-    let headerValueMapping = {
-      'ID': mesosTask.id,
-      'Service': `${service.name} (${service.id})`
-    };
-
-    let node = MesosStateStore.getNodeFromID(mesosTask.slave_id);
-
-    if (node != null) {
-      headerValueMapping['Node'] = `${node.hostname} (${node.id})`;
-    }
-
-    let sandBoxPath = TaskDirectoryStore.get('sandBoxPath');
-    if (sandBoxPath) {
-      headerValueMapping['Sandbox Path'] = sandBoxPath;
-    }
-
-    return (
-      <DescriptionList
-        className="container container-fluid flush container-pod container-pod-super-short flush-top"
-        hash={headerValueMapping}
-        headline="Configuration" />
-    )
-  }
-
-  getMesosTaskLabelDescriptionList(mesosTask) {
-    if (mesosTask == null) {
-      return null;
-    }
-
-    let labelMapping = {};
-
-    if (mesosTask.labels) {
-      mesosTask.labels.forEach(function (label) {
-        labelMapping[label.key] = label.value;
-      });
-    }
-
-    return (
-      <DescriptionList
-        className="container container-fluid flush container-pod container-pod-super-short flush-top"
-        hash={labelMapping}
-        headline="Labels" />
-    );
-  }
-
-  renderDetailsTabView() {
-    const {taskID} = this.props.params;
-
-    const mesosTask =
-      MesosStateStore.getTaskFromTaskID(taskID);
-
-    return (
-      <div className="container container-fluid flush">
-        <div className="media-object-spacing-wrapper container-pod container-pod-super-short flush-top flush-bottom">
-          <div className="media-object">
-            {this.getResources(mesosTask)}
-          </div>
-        </div>
-        {this.getMesosTaskDetailsDescriptionList(mesosTask)}
-        {this.getMesosTaskLabelDescriptionList(mesosTask)}
-        <MarathonTaskDetailsList taskID={taskID} />
-      </div>
-    );
-  }
-
-  renderFilesTabView() {
-    let {state, props} = this;
-    let task = MesosStateStore.getTaskFromTaskID(props.params.taskID);
-    if (this.hasLoadingError()) {
-      this.getErrorScreen();
-    }
-    if (!state.directory || !task) {
-      return this.getLoadingScreen();
-    }
-
-    return (
-      <TaskDirectoryView
-        directory={state.directory}
-        task={task}
-        onOpenLogClick={this.handleOpenLogClick.bind(this)} />
-    );
-  }
-
-  renderLogsTabView() {
-    let {state, props} = this;
-    let task = MesosStateStore.getTaskFromTaskID(props.params.taskID);
-
-    if (this.hasLoadingError()) {
-      this.getErrorScreen();
-    }
-
-    if (!state.directory || !task) {
-      return this.getLoadingScreen();
-    }
-
-    return (
-      <TaskDebugView
-        logViewClassName="inverse"
-        selectedLogFile={state.selectedLogFile}
-        showExpandButton={this.showExpandButton}
-        directory={state.directory}
-        task={task} />
     );
   }
 
@@ -341,16 +190,25 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
     }
 
     let node = MesosStateStore.getNodeFromID(task.slave_id);
+    let {directory, selectedLogFile} = this.state;
 
     return (
       <div className="flex-container-col flex-grow flex-shrink container-pod container-pod-divider-bottom-align-right container-pod-short-top flush-bottom flush-top">
         {this.getServicesBreadcrumb()}
         {this.getBasicInfo(task, node)}
-        {this.tabs_getTabView()}
+        <RouteHandler
+          directory={directory}
+          onOpenLogClick={this.handleOpenLogClick.bind(this)}
+          selectedLogFile={selectedLogFile}
+          task={task} />
       </div>
     );
   }
 }
+
+TaskDetail.contextTypes = {
+  router: React.PropTypes.func
+};
 
 TaskDetail.propTypes = {
   params: React.PropTypes.object

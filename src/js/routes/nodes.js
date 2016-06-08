@@ -6,7 +6,10 @@ import HostTable from '../components/HostTable';
 import NodesPage from '../pages/NodesPage';
 import NodesGridView from '../components/NodesGridView';
 import NodeDetailPage from '../pages/nodes/NodeDetailPage';
-import TaskDetail from '../components/TaskDetail';
+import TaskDetail from '../pages/services/task-details/TaskDetail';
+import TaskFilesTab from '../pages/services/task-details/TaskFilesTab';
+import TaskLogsTab from '../pages/services/task-details/TaskLogsTab';
+import TaskDetailsTab from '../pages/services/task-details/TaskDetailsTab';
 
 let nodesRoutes = {
   type: Route,
@@ -45,9 +48,34 @@ let nodesRoutes = {
       children: [
         {
           type: Route,
+          path: 'tasks/:taskID/?',
           name: 'nodes-task-details',
-          path: 'task-detail/:taskID/?',
-          handler: TaskDetail
+          handler: TaskDetail,
+          children: [
+            {
+              type: Route,
+              name: 'nodes-task-details-tab',
+              path: 'details/?',
+              handler: TaskDetailsTab
+            },
+            {
+              type: Route,
+              name: 'nodes-task-details-files',
+              path: 'files/?',
+              handler: TaskFilesTab
+            },
+            {
+              type: Route,
+              name: 'nodes-task-details-logs',
+              path: 'logs/?',
+              handler: TaskLogsTab
+            },
+            {
+              type: Redirect,
+              from: '',
+              to: 'nodes-task-details-tab'
+            }
+          ]
         },
         {
           type: Route,

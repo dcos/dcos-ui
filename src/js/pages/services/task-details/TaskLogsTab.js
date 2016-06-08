@@ -3,12 +3,12 @@ import {Dropdown, Tooltip} from 'reactjs-components';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import FilterBar from './FilterBar';
-import FilterInputText from './FilterInputText';
-import IconDownload from './icons/IconDownload';
-import KeyboardUtil from '../utils/KeyboardUtil';
-import MesosLogView from './MesosLogView';
-import TaskDirectoryActions from '../events/TaskDirectoryActions';
+import FilterBar from '../../../components/FilterBar';
+import FilterInputText from '../../../components/FilterInputText';
+import IconDownload from '../../../components/icons/IconDownload';
+import KeyboardUtil from '../../../utils/KeyboardUtil';
+import MesosLogView from '../../../components/MesosLogView';
+import TaskDirectoryActions from '../../../events/TaskDirectoryActions';
 
 const METHODS_TO_BIND = [
   'handleSearchStringChange',
@@ -323,12 +323,10 @@ class TaskDebugView extends React.Component {
 TaskDebugView.propTypes = {
   directory: React.PropTypes.object,
   selectedLogFile: React.PropTypes.object,
-  showExpandButton: React.PropTypes.func,
   task: React.PropTypes.object
 };
 
 TaskDebugView.defaultProps = {
-  showExpandButton: function () {},
   task: {}
 };
 
