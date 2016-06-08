@@ -38,8 +38,10 @@
           }
         ]
       },
-      "cmd": "./bar",
-      "args": [],
+      "cmd": "/bar",
+      "args": [
+        
+      ],
       "user": "marathon",
       "env": {
         "ENV_VAR": "bar"
@@ -118,8 +120,10 @@
           }
         ]
       },
-      "cmd": "./foo",
-      "args": [],
+      "cmd": "/foo",
+      "args": [
+        
+      ],
       "user": "marathon",
       "env": {
         "DRY_RUN": "false",
@@ -205,8 +209,10 @@
           }
         ]
       },
-      "cmd": "./alpha",
-      "args": [],
+      "cmd": "/alpha",
+      "args": [
+        
+      ],
       "user": "marathon",
       "env": {
         "ENV_VAR": "alpha"
@@ -285,8 +291,10 @@
           }
         ]
       },
-      "cmd": "./beta",
-      "args": [],
+      "cmd": "/beta",
+      "args": [
+        
+      ],
       "user": "marathon",
       "env": {
         "DRY_RUN": "false",
