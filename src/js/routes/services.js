@@ -5,9 +5,9 @@ import ServiceOverlay from '../components/ServiceOverlay';
 import ServicesPage from '../pages/ServicesPage';
 import ServicesTab from '../pages/services/ServicesTab';
 import TaskDetail from '../pages/services/task-details/TaskDetail';
+import TaskDetailsTab from '../pages/services/task-details/TaskDetailsTab';
 import TaskFilesTab from '../pages/services/task-details/TaskFilesTab';
 import TaskLogsTab from '../pages/services/task-details/TaskLogsTab';
-import TaskDetailsTab from '../pages/services/task-details/TaskDetailsTab';
 
 let serviceRoutes = {
   type: Route,
