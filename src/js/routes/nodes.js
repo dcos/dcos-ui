@@ -1,13 +1,13 @@
 import {DefaultRoute, Redirect, Route} from 'react-router';
 
 import HostTable from '../components/HostTable';
-import NodesPage from '../pages/NodesPage';
-import NodesGridView from '../components/NodesGridView';
 import NodeDetailPage from '../pages/nodes/NodeDetailPage';
+import NodesGridView from '../components/NodesGridView';
+import NodesPage from '../pages/NodesPage';
 import TaskDetail from '../pages/services/task-details/TaskDetail';
+import TaskDetailsTab from '../pages/services/task-details/TaskDetailsTab';
 import TaskFilesTab from '../pages/services/task-details/TaskFilesTab';
 import TaskLogsTab from '../pages/services/task-details/TaskLogsTab';
-import TaskDetailsTab from '../pages/services/task-details/TaskDetailsTab';
 
 let nodesRoutes = {
   type: Route,
