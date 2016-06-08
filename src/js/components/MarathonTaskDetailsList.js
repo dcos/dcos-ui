@@ -29,9 +29,9 @@ class MarathonTaskDetailsList extends React.Component {
       }, []);
 
       if (endpoints.length) {
-        return endpoints.map(function (endpoint) {
+        return endpoints.map(function (endpoint, index) {
           return (
-            <a className="visible-block" href={`//${endpoint}`} target="_blank">
+            <a key={index} className="visible-block" href={`//${endpoint}`} target="_blank">
               {endpoint}
             </a>
           );
@@ -41,10 +41,10 @@ class MarathonTaskDetailsList extends React.Component {
       return 'n/a';
     }
 
-    return task.ports.map(function (port) {
+    return task.ports.map(function (port, index) {
       let endpoint = `${task.host}:${port}`;
       return (
-        <a className="visible-block" href={`//${endpoint}`} target="_blank">
+        <a key={index} className="visible-block" href={`//${endpoint}`} target="_blank">
           {endpoint}
         </a>
       );
