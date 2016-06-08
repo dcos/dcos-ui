@@ -100,4 +100,4 @@ class CompositeState {
   }
 }
 
-module.exports = new CompositeState();
+module.exports = new CompositeState({frameworks: [], slaves: []});

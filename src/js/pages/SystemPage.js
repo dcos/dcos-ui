@@ -44,7 +44,7 @@ let SYSTEM_TABS;
 
 class SystemPage extends mixin(TabsMixin) {
   constructor() {
-    super();
+    super(...arguments);
 
     // Get top level tabs
     SYSTEM_TABS = TabsUtil.sortTabs(
