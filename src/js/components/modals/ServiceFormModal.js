@@ -23,7 +23,9 @@ const METHODS_TO_BIND = [
   'handleJSONToggle',
   'handleSubmit',
   'onMarathonStoreServiceCreateError',
-  'onMarathonStoreServiceCreateSuccess'
+  'onMarathonStoreServiceCreateSuccess',
+  'onMarathonStoreServiceEditError',
+  'onMarathonStoreServiceEditSuccess'
 ];
 
 class ServiceFormModal extends mixin(StoreMixin) {
@@ -44,7 +46,12 @@ class ServiceFormModal extends mixin(StoreMixin) {
     this.store_listeners = [
       {
         name: 'marathon',
-        events: ['serviceCreateError', 'serviceCreateSuccess']
+        events: [
+          'serviceCreateError',
+          'serviceCreateSuccess',
+          'serviceEditError',
+          'serviceEditSuccess'
+        ]
       }
     ];
 
@@ -116,14 +123,31 @@ class ServiceFormModal extends mixin(StoreMixin) {
     });
   }
 
+  onMarathonStoreServiceEditSuccess() {
+    this.resetState();
+    this.props.onClose();
+  }
+
+  onMarathonStoreServiceEditError(errorMessage) {
+    this.setState({
+      errorMessage
+    });
+  }
+
   handleCancel() {
     this.props.onClose();
   }
 
   handleSubmit() {
+    let marathonAction = MarathonStore.createService;
+
+    if (this.props.isEdit) {
+      marathonAction = MarathonStore.editService;
+    }
+
     if (this.state.jsonMode) {
       let jsonDefinition = this.state.jsonDefinition;
-      MarathonStore.createService(JSON.parse(jsonDefinition));
+      marathonAction(JSON.parse(jsonDefinition));
       this.setState({
         errorMessage: null,
         jsonDefinition,
@@ -135,8 +159,7 @@ class ServiceFormModal extends mixin(StoreMixin) {
       let {model} = this.triggerSubmit();
       let service = ServiceUtil.createServiceFromFormModel(model);
       this.setState({service, model, errorMessage: null});
-      MarathonStore
-        .createService(ServiceUtil.getAppDefinitionFromService(service));
+      marathonAction(ServiceUtil.getAppDefinitionFromService(service));
     }
   }
 
@@ -167,6 +190,13 @@ class ServiceFormModal extends mixin(StoreMixin) {
     );
   }
 
+  getSubmitText() {
+    if (this.props.isEdit) {
+      return 'Change and deploy configuration';
+    }
+    return 'Deploy';
+  }
+
   getFooter() {
     return (
       <div className="button-collection flush-bottom">
@@ -183,7 +213,7 @@ class ServiceFormModal extends mixin(StoreMixin) {
         <button
           className="button button-large button-success flush-bottom"
           onClick={this.handleSubmit}>
-          Deploy
+          {this.getSubmitText()}
         </button>
       </div>
     );
@@ -216,7 +246,7 @@ class ServiceFormModal extends mixin(StoreMixin) {
   }
 
   render() {
-    let title = 'Deploy new Serivce';
+    let title = 'Deploy new Service';
 
     if (this.props.isEdit) {
       title = 'Edit Service';
