@@ -110,7 +110,7 @@ describe('ChronosActions', function () {
 
     it('fetches data from the correct URL', function () {
       expect(this.configuration.url)
-        .toEqual(`${Config.rootUrl}/chronos/jobs/foo`);
+        .toEqual(`${Config.rootUrl}/chronos/jobs/foo?stopCurrentJobRuns=false`);
     });
 
     it('fetches data with the correct method', function () {
@@ -196,11 +196,11 @@ describe('ChronosActions', function () {
 
   });
 
-  describe('#suspendJob', function () {
+  describe('#suspendSchedule', function () {
 
     beforeEach(function () {
       spyOn(RequestUtil, 'json');
-      ChronosActions.suspendJob('foo');
+      ChronosActions.suspendSchedule('foo', {id: 'bar'});
       this.configuration = RequestUtil.json.calls.mostRecent().args[0];
     });
 
@@ -210,11 +210,15 @@ describe('ChronosActions', function () {
 
     it('PUTs data to the correct URL', function () {
       expect(this.configuration.url)
-        .toEqual(`${Config.rootUrl}/chronos/jobs/foo`);
+        .toEqual(`${Config.rootUrl}/chronos/jobs/foo/schedules/bar`);
     });
 
     it('PUTs data with the correct method', function () {
       expect(this.configuration.method).toEqual('PUT');
+    });
+
+    it('PUTs data with the correct data', function () {
+      expect(this.configuration.data).toEqual({id: 'bar'});
     });
 
     it('dispatches the correct action when successful', function () {

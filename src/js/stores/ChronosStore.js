@@ -126,8 +126,8 @@ class ChronosStore extends EventEmitter {
     );
   }
 
-  deleteJob(jobID) {
-    ChronosActions.deleteJob(jobID);
+  deleteJob(jobID, stopCurrentJobRuns) {
+    ChronosActions.deleteJob(jobID, stopCurrentJobRuns);
   }
 
   fetchJobDetail(jobID) {
@@ -138,13 +138,10 @@ class ChronosStore extends EventEmitter {
     ChronosActions.runJob(jobID);
   }
 
-  suspendJob(jobID) {
-    // TODO: This is not implemented properly. Schedules is an array, so the
-    // correct schedule needs to be selected, then its enabled key set to false.
-    // https://mesosphere.atlassian.net/browse/DCOS-7574
-    let jobConfiguration = this.getJob(jobID);
-    jobConfiguration.schedule.enabled = false;
-    ChronosActions.suspendJob(jobID, jobConfiguration);
+  suspendSchedule(jobID) {
+    let schedule = this.getJob(jobID).schedules[0];
+    schedule.enabled = false;
+    ChronosActions.suspendSchedule(jobID, schedule);
   }
 
   addChangeListener(eventName, callback) {

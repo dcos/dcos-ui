@@ -311,4 +311,38 @@ describe('ChronosStore', function () {
     });
   });
 
+  describe('#suspendSchedule', function () {
+
+    it('should pass the jobID to the action', function () {
+      let changeHandler = jasmine.createSpy('changeHandler');
+      ChronosActions.suspendSchedule = changeHandler;
+
+      AppDispatcher.handleServerAction({
+        type: ActionTypes.REQUEST_CHRONOS_JOB_DETAIL_SUCCESS,
+        data: jobFixture,
+        jobID: '/foo'
+      });
+
+      ChronosStore.suspendSchedule('/foo');
+
+      expect(changeHandler.calls.allArgs()[0][0]).toEqual('/foo');
+    });
+
+    it('should grab the schedule and set enabled to false', function () {
+      let changeHandler = jasmine.createSpy('changeHandler');
+      ChronosActions.suspendSchedule = changeHandler;
+
+      AppDispatcher.handleServerAction({
+        type: ActionTypes.REQUEST_CHRONOS_JOB_DETAIL_SUCCESS,
+        data: jobFixture,
+        jobID: '/foo'
+      });
+
+      ChronosStore.suspendSchedule('/foo');
+
+      expect(changeHandler.calls.allArgs()[0][1].enabled).toEqual(false);
+    });
+
+  });
+
 });
