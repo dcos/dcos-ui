@@ -12,6 +12,7 @@ var TestUtils = require('react-addons-test-utils');
 var JestUtil = require('../../utils/JestUtil');
 
 var AlertPanel = require('../../components/AlertPanel');
+var ChronosUtil = require('../../utils/ChronosUtil');
 var DCOSStore = require('../../stores/DCOSStore');
 var QueryParamsMixin = require('../../mixins/QueryParamsMixin');
 var JobsTab = require('../jobs/JobsTab');
@@ -22,12 +23,9 @@ var UserSettingsStore = require('../../stores/UserSettingsStore');
 describe('JobsTab', function () {
 
   beforeEach(function () {
-    DCOSStore.jobTree = new JobTree({
-      id: '/',
-      apps: [{
-        id: '/alpha'
-      }]
-    });
+    DCOSStore.jobTree = new JobTree(ChronosUtil.parseJobs([{
+      id: '/test'
+    }]));
     DCOSStore.dataProcessed = true;
     this.container = document.createElement('div');
   });
