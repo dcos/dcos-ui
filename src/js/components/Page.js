@@ -79,7 +79,9 @@ var Page = React.createClass({
   getTitle: function (title) {
     if (!title) {
       return null;
-    } else if (React.isValidElement(title)) {
+    }
+
+    if (React.isValidElement(title)) {
       return title;
     }
 
@@ -128,7 +130,7 @@ var Page = React.createClass({
         {content}
       </GeminiScrollbar>
     );
-  }
+  },
 
   render: function () {
     let {className, navigation, dontScroll, title} = this.props;
