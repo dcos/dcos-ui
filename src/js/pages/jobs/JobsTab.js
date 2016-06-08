@@ -181,14 +181,14 @@ class JobsTab extends mixin(StoreMixin, QueryParamsMixin, SaveStateMixin) {
       );
     }
 
-    if (item instanceof JobTree && item.getItems().length > 0) {
-      return this.getJobTreeView(item);
-    }
-
-    if (this.props.params.jobID) {
+    if (this.props.params.id) {
       return (
         <RouteHandler />
       );
+    }
+
+    if (item instanceof JobTree && item.getItems().length > 0) {
+      return this.getJobTreeView(item);
     }
 
     // Render empty panel

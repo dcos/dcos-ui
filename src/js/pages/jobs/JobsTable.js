@@ -64,12 +64,12 @@ class JobsTable extends React.Component {
     return (
       <div className="job-table-heading flex-box
         flex-box-align-vertical-center table-cell-flex-box">
-        <Link to="jobs-detail"
+        <Link to="jobs-page-detail"
           className="table-cell-icon"
           params={{id}}>
           {itemImage}
         </Link>
-        <Link to="jobs-detail"
+        <Link to="jobs-page-detail"
           className="headline table-cell-value flex-box flex-box-col"
           params={{id}}>
           <span className="text-overflow">

@@ -141,7 +141,7 @@ class JobRunHistoryTable extends React.Component {
     let activeRuns = job.getActiveRuns();
 
     return activeRuns.getItems().map((activeRun, runIndex) => {
-      let longestRunningTask = activeRun.getLongestRunningTask();
+      let longestRunningTask = activeRun.getTasks().getLongestRunningTask();
       let dateRunStarted = activeRun.getDateCreated();
       let dateRunFinished = longestRunningTask.getDateCompleted();
 
@@ -185,7 +185,7 @@ class JobRunHistoryTable extends React.Component {
   }
 
   render() {
-    let job = ChronosStore.getJobDetail(this.props.jobID);
+    let job = ChronosStore.getJob(this.props.jobID);
     let activeRunCount = job.getActiveRuns().getItems().length;
 
     let filterHeadlineLabel = StringUtil.pluralize('Run', activeRunCount);

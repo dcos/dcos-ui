@@ -44,7 +44,7 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
 
   componentDidMount() {
     super.componentDidMount(...arguments);
-    ChronosStore.monitorJobDetail(this.props.params.jobID);
+    ChronosStore.monitorJobDetail(this.props.params.id);
   }
 
   onChronosStoreJobDetailError() {
@@ -150,8 +150,10 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
   }
 
   getSubTitle(job) {
-    let longestRunningActiveRun = job.getLongestRunningActiveRun();
-    let longestRunningTask = longestRunningActiveRun.getLongestRunningTask();
+    let longestRunningActiveRun = job.getActiveRuns()
+      .getLongestRunningActiveRun();
+    let longestRunningTask = longestRunningActiveRun.getTasks()
+      .getLongestRunningTask();
     let dateCompleted = longestRunningTask.getDateCompleted();
 
     let status = TaskStates[longestRunningTask.getStatus()];
@@ -179,11 +181,11 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
   }
 
   renderConfigurationTabView() {
-    return <JobConfiguration jobID={this.props.params.jobID} />;
+    return <JobConfiguration jobID={this.props.params.id} />;
   }
 
   renderRunHistoryTabView() {
-    return <JobRunHistoryTable jobID={this.props.params.jobID} />;
+    return <JobRunHistoryTable jobID={this.props.params.id} />;
   }
 
   render() {
@@ -195,7 +197,7 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
       return this.getLoadingScreen();
     }
 
-    let job = ChronosStore.getJobDetail(this.props.params.jobID);
+    let job = ChronosStore.getJob(this.props.params.id);
 
     return (
       <div>

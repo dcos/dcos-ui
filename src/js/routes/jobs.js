@@ -18,7 +18,7 @@ let jobsRoutes = {
           type: Route,
           handler: JobDetailPage,
           name: 'jobs-page-detail',
-          path: ':jobID/?'
+          path: ':id/?'
         }
       ]
     }
