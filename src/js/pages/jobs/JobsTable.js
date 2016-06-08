@@ -8,17 +8,8 @@ import ServiceTableUtil from '../../utils/ServiceTableUtil';
 import TableUtil from '../../utils/TableUtil';
 import Tree from '../../structs/Tree';
 
-const StatusMapping = {
-  'Completed': 'text-mute',
-  'Running': 'text-success',
-  'Scheduled': 'text-mute',
-  'Unscheduled': 'text-mute'
-};
-
 const METHODS_TO_BIND = [
-  'renderHeadline',
-  'renderStatus',
-  'renderLastRunStatus'
+  'renderHeadline'
 ];
 
 class JobsTable extends React.Component {
@@ -50,24 +41,6 @@ class JobsTable extends React.Component {
         headerClassName: className,
         prop: 'name',
         render: this.renderHeadline,
-        sortable: true,
-        sortFunction: ServiceTableUtil.propCompareFunctionFactory,
-        heading
-      },
-      {
-        className,
-        headerClassName: className,
-        prop: 'status',
-        render: this.renderStatus,
-        sortable: true,
-        sortFunction: ServiceTableUtil.propCompareFunctionFactory,
-        heading
-      },
-      {
-        className,
-        headerClassName: className,
-        prop: 'lastRunStatus',
-        render: this.renderLastRunStatus,
         sortable: true,
         sortFunction: ServiceTableUtil.propCompareFunctionFactory,
         heading
@@ -104,46 +77,6 @@ class JobsTable extends React.Component {
           </span>
         </Link>
       </div>
-    );
-  }
-
-  renderStatus(prop, job) {
-    if (job instanceof Tree) {
-      return null;
-    }
-
-    let jobStatus = job.getStatus();
-    let jobStatusClassSet = StatusMapping[jobStatus] || '';
-
-    return (
-      <div className="status-bar-wrapper media-object media-object-spacing-wrapper media-object-spacing-narrow media-object-offset">
-        <span className="media-object-item flush-bottom visible-large-inline-block">
-          <span className={jobStatusClassSet}>{jobStatus}</span>
-        </span>
-      </div>
-    );
-  }
-
-  renderLastRunStatus(prop, job) {
-    if (job instanceof Tree) {
-      return null;
-    }
-
-    let className = 'text-mute';
-    let lastRunStatus = job.lastRunStatus || 'n/a';
-
-    if (lastRunStatus === 'Failed') {
-      className = 'text-danger';
-    }
-
-    if (lastRunStatus === 'Successful') {
-      className = 'text-success';
-    }
-
-    return (
-      <span className={className}>
-        {lastRunStatus}
-      </span>
     );
   }
 
