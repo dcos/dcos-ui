@@ -3,7 +3,6 @@ import React from 'react';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import AlertPanel from '../../components/AlertPanel';
-import BreadCrumb from '../../components/Breadcrumb';
 import DCOSStore from '../../stores/DCOSStore';
 import FilterBar from '../../components/FilterBar';
 import FilterHeadline from '../../components/FilterHeadline';
@@ -102,8 +101,9 @@ class JobsTab extends mixin(StoreMixin, QueryParamsMixin, SaveStateMixin) {
       );
     }
 
+    // Breadcrumbs here
     return (
-      <BreadCrumb />
+      null
     );
   }
 
