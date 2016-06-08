@@ -67,7 +67,7 @@ module.exports = {
     });
   },
 
-  changeService: function (data) {
+  editService: function (data) {
     RequestUtil.json({
       url: `${Config.rootUrl}/marathon/v2/apps/${data.id}`,
       method: 'PUT',
