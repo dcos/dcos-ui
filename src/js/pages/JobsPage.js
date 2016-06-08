@@ -19,13 +19,13 @@ class JobsPage extends mixin(TabsMixin) {
   }
 
   componentWillReceiveProps() {
-    super.componentWillReceiveProps(...arguments);
     this.updateCurrentTab();
   }
 
   updateCurrentTab() {
     let routes = this.context.router.getCurrentRoutes();
     let currentTab = routes[routes.length - 1].name;
+
     if (currentTab != null) {
       this.setState({currentTab});
     }
@@ -41,9 +41,7 @@ class JobsPage extends mixin(TabsMixin) {
 
   render() {
     return (
-      <Page
-        navigation={this.getNavigation()}
-        title="Jobs">
+      <Page navigation={this.getNavigation()} title="Jobs">
         <RouteHandler />
       </Page>
     );
