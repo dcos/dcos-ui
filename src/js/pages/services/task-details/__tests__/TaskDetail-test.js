@@ -4,21 +4,21 @@ jest.dontMock('../TaskDetail');
 jest.dontMock('../../../../stores/MesosStateStore');
 jest.dontMock('../../../../mixins/GetSetMixin');
 
-var JestUtil = require('../../../../utils/JestUtil');
+let JestUtil = require('../../../../utils/JestUtil');
 
 JestUtil.unMockStores(['MesosStateStore', 'TaskDirectoryStore', 'MesosSummaryStore']);
 require('../../../../utils/StoreMixinConfig');
 /* eslint-disable no-unused-vars */
-var React = require('react');
+let React = require('react');
 /* eslint-enable no-unused-vars */
-var ReactDOM = require('react-dom');
-var TestUtils = require('react-addons-test-utils');
+let ReactDOM = require('react-dom');
+let TestUtils = require('react-addons-test-utils');
 
-var MesosStateStore = require('../../../../stores/MesosStateStore');
+let MesosStateStore = require('../../../../stores/MesosStateStore');
 import Task from '../../../../structs/Task';
-var TaskDirectory = require('../../../../structs/TaskDirectory');
-var TaskDirectoryStore = require('../../../../stores/TaskDirectoryStore');
-var TaskDetail = require('../TaskDetail');
+let TaskDirectory = require('../../../../structs/TaskDirectory');
+let TaskDirectoryStore = require('../../../../stores/TaskDirectoryStore');
+let TaskDetail = require('../TaskDetail');
 
 describe('TaskDetail', function () {
   beforeEach(function () {
@@ -102,7 +102,7 @@ describe('TaskDetail', function () {
     });
 
     it('should setState increment onTaskDirectoryStoreSuccess', function () {
-      var directory = new TaskDirectory({items: [{nlink: 1, path: '/stdout'}]});
+      let directory = new TaskDirectory({items: [{nlink: 1, path: '/stdout'}]});
       // Let directory return something
       TaskDirectoryStore.get = jasmine.createSpy('TaskDirectoryStore#get')
         .and.returnValue(directory);
@@ -149,7 +149,7 @@ describe('TaskDetail', function () {
     });
 
     it('should return null if there are no nodes', function () {
-      var node = ReactDOM.findDOMNode(this.instance);
+      let node = ReactDOM.findDOMNode(this.instance);
       expect(node).toEqual(null);
     });
 
@@ -160,7 +160,7 @@ describe('TaskDetail', function () {
         });
       };
 
-      var instance = JestUtil.renderWithStubbedRouter(
+      let instance = JestUtil.renderWithStubbedRouter(
         TaskDetail,
         {params: this.params},
         this.container,
@@ -171,7 +171,7 @@ describe('TaskDetail', function () {
         }
       );
 
-      var node = ReactDOM.findDOMNode(instance);
+      let node = ReactDOM.findDOMNode(instance);
       expect(TestUtils.isDOMComponent(node)).toEqual(true);
     });
   });
@@ -181,7 +181,7 @@ describe('TaskDetail', function () {
 
     it('should return null if task is null', function () {
       MesosStateStore.getTaskFromTaskID = function () { return null; };
-      var result = this.instance.getBasicInfo();
+      let result = this.instance.getBasicInfo();
       expect(result).toEqual(null);
     });
 
@@ -191,7 +191,7 @@ describe('TaskDetail', function () {
         state: 'TASK_RUNNING'
       });
 
-      var result = this.instance.getBasicInfo();
+      let result = this.instance.getBasicInfo();
 
       expect(TestUtils.isElement(result)).toEqual(true);
     });

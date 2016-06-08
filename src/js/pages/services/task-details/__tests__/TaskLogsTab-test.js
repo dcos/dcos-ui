@@ -4,20 +4,20 @@ jest.dontMock('../../../../components/RequestErrorMsg');
 jest.dontMock('../TaskLogsTab');
 jest.dontMock('../../../../components/FilterBar');
 
-var JestUtil = require('../../../../utils/JestUtil');
+let JestUtil = require('../../../../utils/JestUtil');
 
 JestUtil.unMockStores(['TaskDirectoryStore', 'MesosLogStore']);
 require('../../../../utils/StoreMixinConfig');
 
-var DirectoryItem = require('../../../../structs/DirectoryItem');
-var TaskDirectory = require('../../../../structs/TaskDirectory');
+let DirectoryItem = require('../../../../structs/DirectoryItem');
+let TaskDirectory = require('../../../../structs/TaskDirectory');
 /* eslint-disable no-unused-vars */
-var React = require('react');
+let React = require('react');
 /* eslint-enable no-unused-vars */
-var ReactDOM = require('react-dom');
+let ReactDOM = require('react-dom');
 
-var TaskDirectoryActions = require('../../../../events/TaskDirectoryActions');
-var TaskLogsTab = require('../TaskLogsTab');
+let TaskDirectoryActions = require('../../../../events/TaskDirectoryActions');
+let TaskLogsTab = require('../TaskLogsTab');
 
 describe('TaskLogsTab', function () {
 
@@ -45,7 +45,7 @@ describe('TaskLogsTab', function () {
           task={{slave_id: 'foo'}} />,
         this.container
       );
-      var btn = this.container.querySelector('a.button.button-stroke');
+      let btn = this.container.querySelector('a.button.button-stroke');
       // If btn.props.disabled = true, then disabled attribute will return an object.
       // If btn.props.disabled = false, then disabled attribute will be undefined.
       // So here we just test to see if attribute exists
@@ -53,7 +53,7 @@ describe('TaskLogsTab', function () {
     });
 
     it('should set button not disabled when file is found', function () {
-      var btn = this.container.querySelector('a.button.button-stroke');
+      let btn = this.container.querySelector('a.button.button-stroke');
       // If btn.props.disabled = false, then disabled attribute will be undefined
       expect(btn.attributes.disabled).toEqual(undefined);
     });
