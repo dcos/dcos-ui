@@ -117,7 +117,8 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
     this.setState({selectedLogFile, currentTab: 'debug'});
   }
 
-  getBasicInfo(task) {
+  getBasicInfo() {
+    let task = MesosStateStore.getTaskFromTaskID(this.props.params.taskID);
     if (task == null) {
       return null;
     }
@@ -178,6 +179,26 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
     return (<ServicesBreadcrumb serviceTreeItem={service} taskID={taskID} />);
   }
 
+  getSubView() {
+    let task = MesosStateStore.getTaskFromTaskID(this.props.params.taskID);
+    let {directory, selectedLogFile} = this.state;
+    if (this.hasLoadingError()) {
+      this.getErrorScreen();
+    }
+
+    if (!directory || !task) {
+      return this.getLoadingScreen();
+    }
+
+    return (
+      <RouteHandler
+        directory={directory}
+        onOpenLogClick={this.handleOpenLogClick.bind(this)}
+        selectedLogFile={selectedLogFile}
+        task={task} />
+    );
+  }
+
   render() {
     if (MesosStateStore.get('lastMesosState').slaves == null) {
       return null;
@@ -189,18 +210,11 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
       return this.getNotFound('task', this.props.params.taskID);
     }
 
-    let node = MesosStateStore.getNodeFromID(task.slave_id);
-    let {directory, selectedLogFile} = this.state;
-
     return (
       <div className="flex-container-col flex-grow flex-shrink container-pod container-pod-divider-bottom-align-right container-pod-short-top flush-bottom flush-top">
         {this.getServicesBreadcrumb()}
-        {this.getBasicInfo(task, node)}
-        <RouteHandler
-          directory={directory}
-          onOpenLogClick={this.handleOpenLogClick.bind(this)}
-          selectedLogFile={selectedLogFile}
-          task={task} />
+        {this.getBasicInfo()}
+        {this.getSubView()}
       </div>
     );
   }
