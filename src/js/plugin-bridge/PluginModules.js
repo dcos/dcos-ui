@@ -65,6 +65,7 @@ module.exports = {
     NestedServiceLinks: 'NestedServiceLinks',
     Page: 'Page',
     PageHeader: 'PageHeader',
+    ProgressBar: 'charts/ProgressBar',
     RequestErrorMsg: 'RequestErrorMsg',
     SidePanelContents: 'SidePanelContents',
     ToggleButton: 'ToggleButton'
