@@ -21,8 +21,8 @@ class RouterStub {
   static getCurrentPath() {}
   static getCurrentRoutes() {}
   static getCurrentPathname() {}
-  static getCurrentParams() {}
-  static getCurrentQuery() {}
+  static getCurrentParams() { return {}; }
+  static getCurrentQuery() { return {}; }
   static getLocation() {}
   static isActive() {}
   static getRouteAtDepth() {}
@@ -56,9 +56,10 @@ const JestUtil = {
    * https://github.com/reactjs/react-router/blob/0.13.x/docs/guides/testing.md
    * @param {React.Component} Component
    * @param {object} [props]
+   * @param {object} [routerStubs]
    * @returns {React.Element} wrapped component element
    */
-  stubRouterContext: function (Component, props={}) {
+  stubRouterContext: function (Component, props={}, routerStubs) {
     // Create wrapper component
     class WrappedComponent extends React.Component {
 
@@ -71,7 +72,7 @@ const JestUtil = {
 
       getChildContext() {
         return {
-          router: RouterStub,
+          router: Object.assign(RouterStub, routerStubs),
           routeDepth: 0
         };
       }
