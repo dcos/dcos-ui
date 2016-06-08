@@ -1,30 +1,30 @@
-jest.dontMock('../icons/IconDownload');
-jest.dontMock('../MesosLogView');
-jest.dontMock('../RequestErrorMsg');
-jest.dontMock('../TaskDebugView');
-jest.dontMock('../FilterBar');
+jest.dontMock('../../../../components/icons/IconDownload');
+jest.dontMock('../../../../components/MesosLogView');
+jest.dontMock('../../../../components/RequestErrorMsg');
+jest.dontMock('../TaskLogsTab');
+jest.dontMock('../../../../components/FilterBar');
 
-var JestUtil = require('../../utils/JestUtil');
+var JestUtil = require('../../../../utils/JestUtil');
 
 JestUtil.unMockStores(['TaskDirectoryStore', 'MesosLogStore']);
-require('../../utils/StoreMixinConfig');
+require('../../../../utils/StoreMixinConfig');
 
-var DirectoryItem = require('../../structs/DirectoryItem');
-var TaskDirectory = require('../../structs/TaskDirectory');
+var DirectoryItem = require('../../../../structs/DirectoryItem');
+var TaskDirectory = require('../../../../structs/TaskDirectory');
 /* eslint-disable no-unused-vars */
 var React = require('react');
 /* eslint-enable no-unused-vars */
 var ReactDOM = require('react-dom');
 
-var TaskDirectoryActions = require('../../events/TaskDirectoryActions');
-var TaskDebugView = require('../TaskDebugView');
+var TaskDirectoryActions = require('../../../../events/TaskDirectoryActions');
+var TaskLogsTab = require('../TaskLogsTab');
 
-describe('TaskDebugView', function () {
+describe('TaskLogsTab', function () {
 
   beforeEach(function () {
     this.container = document.createElement('div');
     this.instance = ReactDOM.render(
-      <TaskDebugView
+      <TaskLogsTab
         directory={new TaskDirectory({items: [{nlink: 1, path: '/stdout'}]})}
         selectedLogFile={new DirectoryItem({nlink: 1, path: '/stdout'})}
         task={{slave_id: 'foo'}} />,
@@ -40,7 +40,7 @@ describe('TaskDebugView', function () {
 
     it('should set button disabled when file is not found', function () {
       this.instance = ReactDOM.render(
-        <TaskDebugView
+        <TaskLogsTab
           directory={new TaskDirectory({items: [{nlink: 1, path: ''}]})}
           task={{slave_id: 'foo'}} />,
         this.container
@@ -71,7 +71,7 @@ describe('TaskDebugView', function () {
 
     it('renders stderr when view is changed', function () {
       this.instance = ReactDOM.render(
-        <TaskDebugView
+        <TaskLogsTab
           directory={new TaskDirectory({items: [
             {nlink: 1, path: '/stdout'},
             {nlink: 1, path: '/stderr'}
