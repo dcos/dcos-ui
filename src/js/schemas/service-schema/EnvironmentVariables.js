@@ -6,6 +6,7 @@ let EnvironmentVariables = {
     ports: {
       type: 'array',
       duplicable: true,
+      addLabel: 'Add Environment Variable',
       itemShape: {
         properties: {
           key: {

@@ -199,7 +199,8 @@ let SchemaUtil = {
             renderAdd(
               secondLevelProp,
               definitionForm.definition,
-              itemShape.definition
+              itemShape.definition,
+              secondLevelProperties[secondLevelProp].addLabel
             )
           );
         }

@@ -9,8 +9,12 @@ import TabForm from './TabForm';
 import Util from '../utils/Util';
 
 const METHODS_TO_BIND = [
-  'validateForm', 'getTriggerTabFormSubmit', 'handleFormChange',
-  'handleExternalSubmit', 'getRemoveVariableButton', 'getAddNewRowButton'
+  'getAddNewRowButton',
+  'getRemoveVariableButton',
+  'getTriggerTabFormSubmit',
+  'handleFormChange',
+  'handleExternalSubmit',
+  'validateForm'
 ];
 
 class ServiceForm extends React.Component {
@@ -101,14 +105,20 @@ class ServiceForm extends React.Component {
     this.forceUpdate();
   }
 
-  getAddNewRowButton(prop, generalDefinition, definition) {
+  getAddNewRowButton(prop, generalDefinition, definition, labelText = '') {
+    let label = 'Add New Line';
+
+    if (labelText !== '') {
+      label = labelText;
+    }
+
     return (
       <button
         className="button"
         onClick={
           this.handleAddRow.bind(this, prop, generalDefinition, definition)
         }>
-        Add New Variable
+        {label}
       </button>
     );
   }
@@ -132,11 +142,19 @@ class ServiceForm extends React.Component {
   getNewDefinition() {
     let {model, schema} = this.props;
     let definition = SchemaUtil.schemaToMultipleDefinition(
-      schema, this.getSubHeader, this.getLabel, this.getRemoveVariableButton, this.getAddNewRowButton
+      schema,
+      this.getSubHeader,
+      this.getLabel,
+      this.getRemoveVariableButton,
+      this.getAddNewRowButton
     );
 
     if (model) {
-      SchemaFormUtil.mergeModelIntoDefinition(model, definition, this.getRemoveVariableButton);
+      SchemaFormUtil.mergeModelIntoDefinition(
+        model,
+        definition,
+        this.getRemoveVariableButton
+      );
     }
 
     return definition;
