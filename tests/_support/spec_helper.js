@@ -77,6 +77,18 @@ Cypress.addParentCommand('configureCluster', function (configuration) {
       .route(/slave\/.*\/slave\(1\)\/state/, 'fx:1-service-with-executor-task/slave-state');
   }
 
+  if (configuration.mesos === '1-task-with-volumes') {
+    cy
+      .route(/marathon\/v2\/apps/, 'fx:marathon-1-task/app')
+      .route(/marathon\/v2\/groups/, 'fx:marathon-1-task-with-volumes/groups')
+      .route(/marathon\/v2\/deployments/, 'fx:marathon-1-task/deployments')
+      .route(/dcos-version/, 'fx:dcos/dcos-version')
+      .route(/history\/minute/, 'fx:marathon-1-task/history-minute')
+      .route(/history\/last/, 'fx:marathon-1-task/summary')
+      .route(/state-summary/, 'fx:marathon-1-task/summary')
+      .route(/state/, 'fx:marathon-1-task/state');
+  }
+
   if (configuration.networkVIPSummaries) {
     cy
       .route(/networking\/api\/v1\/summary/,
