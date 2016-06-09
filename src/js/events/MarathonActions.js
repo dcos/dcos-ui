@@ -11,6 +11,8 @@ import {
   REQUEST_MARATHON_DEPLOYMENTS_ONGOING,
   REQUEST_MARATHON_SERVICE_CREATE_ERROR,
   REQUEST_MARATHON_SERVICE_CREATE_SUCCESS,
+  REQUEST_MARATHON_SERVICE_DELETE_ERROR,
+  REQUEST_MARATHON_SERVICE_DELETE_SUCCESS,
   REQUEST_MARATHON_SERVICE_EDIT_ERROR,
   REQUEST_MARATHON_SERVICE_EDIT_SUCCESS,
   REQUEST_MARATHON_SERVICE_VERSION_SUCCESS,
@@ -56,6 +58,25 @@ module.exports = {
       error: function (xhr) {
         AppDispatcher.handleServerAction({
           type: REQUEST_MARATHON_SERVICE_CREATE_ERROR,
+          data: RequestUtil.parseResponseBody(xhr),
+          xhr
+        });
+      }
+    });
+  },
+
+  deleteService: function (serviceId) {
+    RequestUtil.json({
+      url: `${Config.rootUrl}/marathon/v2/apps/${serviceId}`,
+      method: 'DELETE',
+      success: function () {
+        AppDispatcher.handleServerAction({
+          type: REQUEST_MARATHON_SERVICE_DELETE_SUCCESS
+        });
+      },
+      error: function (xhr) {
+        AppDispatcher.handleServerAction({
+          type: REQUEST_MARATHON_SERVICE_DELETE_ERROR,
           data: RequestUtil.parseResponseBody(xhr),
           xhr
         });
