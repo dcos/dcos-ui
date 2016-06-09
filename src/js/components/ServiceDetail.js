@@ -6,6 +6,7 @@ import InternalStorageMixin from '../mixins/InternalStorageMixin';
 import Service from '../structs/Service';
 import ServiceActionItem from '../constants/ServiceActionItem';
 import ServiceDetailConfigurationTab from './ServiceDetailConfigurationTab';
+import ServiceDetailDebugTab from './ServiceDetailDebugTab';
 import ServiceDetailTaskTab from './ServiceDetailTaskTab';
 import ServiceDetailVolumesTab from './ServiceDetailVolumesTab';
 import ServiceFormModal from './modals/ServiceFormModal';
@@ -56,7 +57,9 @@ class ServiceDetail extends mixin(InternalStorageMixin, TabsMixin) {
   }
 
   renderDebugTabView() {
-    return (<span>Debug Placeholder</span>);
+    return (
+      <ServiceDetailDebugTab service={this.props.service}/>
+    );
   }
 
   renderVolumesTabView() {
