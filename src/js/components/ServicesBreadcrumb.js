@@ -75,15 +75,15 @@ class ServicesBreadcrumb extends React.Component {
       );
     }
 
-    const classes = classNames('flex-box control-group', this.props.className);
-    const h4Classes = classNames(
+    const classSet = classNames('flex-box control-group', this.props.className);
+    const h4ClassSet = classNames(
       'breadcrumbs flush-top inverse',
       this.props.h4ClassNames
     );
 
     return (
-      <div className={classes}>
-        <h4 className={h4Classes}>
+      <div className={classSet}>
+        <h4 className={h4ClassSet}>
           {breadcrumbNodes}
         </h4>
       </div>
