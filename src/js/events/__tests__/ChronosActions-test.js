@@ -12,6 +12,47 @@ var ChronosActions = require('../ChronosActions');
 
 describe('ChronosActions', function () {
 
+  describe('#createJob', function () {
+
+    beforeEach(function () {
+      spyOn(RequestUtil, 'json');
+      ChronosActions.createJob();
+      this.configuration = RequestUtil.json.calls.mostRecent().args[0];
+    });
+
+    it('calls #json from the RequestUtil', function () {
+      expect(RequestUtil.json).toHaveBeenCalled();
+    });
+
+    it('sends data to the correct URL', function () {
+      expect(this.configuration.url)
+        .toEqual(`${Config.rootUrl}/chronos/scheduled-jobs`);
+    });
+
+    it('dispatches the correct action when successful', function () {
+      var id = AppDispatcher.register(function (payload) {
+        var action = payload.action;
+        AppDispatcher.unregister(id);
+        expect(action.type)
+          .toEqual(ActionTypes.REQUEST_CHRONOS_JOB_CREATE_SUCCESS);
+      });
+
+      this.configuration.success([]);
+    });
+
+    it('dispatches the correct action when unsuccessful', function () {
+      var id = AppDispatcher.register(function (payload) {
+        var action = payload.action;
+        AppDispatcher.unregister(id);
+        expect(action.type)
+          .toEqual(ActionTypes.REQUEST_CHRONOS_JOB_CREATE_ERROR);
+      });
+
+      this.configuration.error({message: 'error'});
+    });
+
+  });
+
   describe('#fetchJobs', function () {
 
     beforeEach(function () {

@@ -12,13 +12,34 @@ import {
   REQUEST_CHRONOS_JOB_DETAIL_SUCCESS,
   REQUEST_CHRONOS_JOBS_ERROR,
   REQUEST_CHRONOS_JOBS_ONGOING,
-  REQUEST_CHRONOS_JOBS_SUCCESS
+  REQUEST_CHRONOS_JOBS_SUCCESS,
+  REQUEST_CHRONOS_JOB_CREATE_SUCCESS,
+  REQUEST_CHRONOS_JOB_CREATE_ERROR
 } from '../constants/ActionTypes';
 import AppDispatcher from './AppDispatcher';
 import ChronosUtil from '../utils/ChronosUtil';
 import Config from '../config/Config';
 
 const ChronosActions = {
+  createJob: function (data) {
+    RequestUtil.json({
+      url: `${Config.rootUrl}/chronos/scheduled-jobs`,
+      method: 'POST',
+      data,
+      success: function () {
+        AppDispatcher.handleServerAction({
+          type: REQUEST_CHRONOS_JOB_CREATE_SUCCESS
+        });
+      },
+      error: function (xhr) {
+        AppDispatcher.handleServerAction({
+          type: REQUEST_CHRONOS_JOB_CREATE_ERROR,
+          data: RequestUtil.parseResponseBody(xhr),
+          xhr
+        });
+      }
+    });
+  },
   fetchJobs: RequestUtil.debounceOnError(
     Config.getRefreshRate(),
     function (resolve, reject) {
