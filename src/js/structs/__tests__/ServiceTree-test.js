@@ -5,6 +5,7 @@ let HealthTypes = require('../../constants/HealthTypes');
 let Service = require('../Service');
 let ServiceTree = require('../ServiceTree');
 let ServiceStatus = require('../../constants/ServiceStatus');
+let VolumeList = require('../../structs/VolumeList');
 
 describe('ServiceTree', function () {
 
@@ -743,6 +744,59 @@ describe('ServiceTree', function () {
         tasksUnhealthy: 1,
         tasksUnknown: 2
       });
+    });
+
+  });
+
+  describe('#getVolumes', function () {
+
+    beforeEach(function () {
+      this.instance = new ServiceTree();
+    });
+
+    it('returns a VolumeList with all the volumes in the group', function () {
+      this.instance.add(new Service({
+        id: '/persistent',
+        volumes: [{
+          containerPath: 'data',
+          mode: 'RW',
+          persistent: {size: 100}
+        }]
+      }));
+
+      this.instance.add(new Service({
+        id: '/persistent2',
+        volumes: [{
+          containerPath: 'data',
+          mode: 'RW',
+          persistent: {size: 100}
+        }]
+      }));
+
+      let volumeList = this.instance.getVolumes();
+      expect(volumeList).toEqual(jasmine.any(VolumeList));
+      expect(volumeList.getItems().length).toEqual(2);
+    });
+
+  });
+
+  describe('#getFrameworks', function () {
+
+    beforeEach(function () {
+      this.instance = new ServiceTree();
+    });
+
+    it('returns an array with all the Frameworks in the group', function () {
+      this.instance.add(new Framework({
+        id: '/chronos'
+      }));
+
+      this.instance.add(new Service({
+        id: '/sleeper'
+      }));
+
+      let frameworks = this.instance.getFrameworks();
+      expect(frameworks.length).toEqual(1);
     });
 
   });
