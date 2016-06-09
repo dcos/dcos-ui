@@ -22,6 +22,10 @@ class ServiceForm extends SchemaForm {
     this.props.getTriggerSubmit(this.handleExternalSubmit);
   }
 
+  // There will likely be more methods in this component in the future to handle
+  // the the healthCheck dropdown select / secrets select inside of
+  // environment variables tab, etc.
+
   handleFormChange() {
     // Handle the form change in the way service needs here.
     return;
