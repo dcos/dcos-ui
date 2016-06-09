@@ -5,6 +5,7 @@ import React from 'react';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import FormModal from '../FormModal';
+import MarathonStore from '../../stores/MarathonStore';
 
 const METHODS_TO_BIND = [
   'handleScaleSubmit',
@@ -26,11 +27,22 @@ const buttonDefinition = [
 
 class ServiceGroupFormModal extends mixin(StoreMixin) {
   constructor() {
-    super();
+    super(...arguments);
 
     this.state = {
-      disableForm: false
+      disableForm: false,
+      errorMsg: null
     };
+
+    this.store_listeners = [
+      {
+        name: 'marathon',
+        events: [
+          'serviceEditError',
+          'serviceEditSuccess'
+        ]
+      }
+    ];
 
     METHODS_TO_BIND.forEach((method) => {
       this[method] = this[method].bind(this);
@@ -39,13 +51,40 @@ class ServiceGroupFormModal extends mixin(StoreMixin) {
 
   resetState() {
     this.setState({
-      disableForm: false
+      disableForm: false,
+      errorMsg: null
+    });
+  }
+
+  onMarathonStoreServiceEditSuccess() {
+    this.resetState();
+    this.props.onClose();
+  }
+
+  onMarathonStoreServiceEditError({message:errorMsg}) {
+    this.resetState();
+    this.setState({
+      errorMsg
     });
   }
 
   handleScaleSubmit({instances}) {
-    this.resetState();
-    this.props.onClose();
+    this.setState({disableForm: true}, () => {
+      MarathonStore.editService({
+        id: this.props.service.id,
+        instances: parseInt(instances, 10)
+      });
+    });
+  }
+
+  getErrorMessage() {
+    let {errorMsg} = this.state;
+    if (!errorMsg) {
+      return null;
+    }
+    return (
+      <h4 className="text-align-center text-danger flush-top">{errorMsg}</h4>
+    );
   }
 
   getScaleFormDefinition() {
@@ -58,7 +97,7 @@ class ServiceGroupFormModal extends mixin(StoreMixin) {
         min: 0,
         name: 'instances',
         placeholder: instancesCount,
-        value: instancesCount,
+        value: instancesCount.toString(),
         required: true,
         showLabel: false,
         writeType: 'input'
@@ -85,6 +124,7 @@ class ServiceGroupFormModal extends mixin(StoreMixin) {
         <p className="text-align-center flush-top">
           How many instances would you like to scale to?
         </p>
+        {this.getErrorMessage()}
       </FormModal>
     );
   }
