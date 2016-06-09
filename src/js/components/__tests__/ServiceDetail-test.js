@@ -18,7 +18,7 @@ var ServiceDetail = require('../ServiceDetail');
 var ServiceDetailDebugTab = require('../ServiceDetailDebugTab');
 var ServiceDetailConfigurationTab = require('../ServiceDetailConfigurationTab');
 var ServiceDetailTaskTab = require('../ServiceDetailTaskTab');
-var ServiceDetailVolumeTab = require('../ServiceDetailVolumesTab');
+var ServiceVolumeTable = require('../ServiceVolumeTable');
 
 describe('ServiceDetail', function () {
 
@@ -93,24 +93,6 @@ describe('ServiceDetail', function () {
       );
 
       expect(serviceDetailDebugTab).toBeDefined();
-    });
-
-  });
-
-  describe('#renderVolumeTabView', function () {
-
-    it('renders volume tab', function () {
-      var volumeTabView = ReactDOM.render(
-        this.instance.renderVolumesTabView(),
-        this.container
-      );
-      var serviceDetailVolumeTab = TestUtils.findRenderedComponentWithType(
-        volumeTabView,
-        ServiceDetailVolumeTab
-      );
-
-      expect(serviceDetailVolumeTab).toBeDefined();
-
     });
 
   });
