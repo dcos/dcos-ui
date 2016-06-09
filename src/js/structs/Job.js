@@ -6,7 +6,7 @@ module.exports = class Job extends Item {
   }
 
   getName() {
-    return this.getId().split('/').pop();
+    return this.getId().split('.').pop();
   }
 
 };
