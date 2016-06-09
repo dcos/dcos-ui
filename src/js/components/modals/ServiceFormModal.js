@@ -94,7 +94,7 @@ class ServiceFormModal extends mixin(StoreMixin) {
   handleJSONToggle() {
     let nextState = {};
     if (!this.state.jsonMode) {
-      let model = this.triggerSubmit();
+      let {model} = this.triggerSubmit();
       let service = ServiceUtil.createServiceFromFormModel(model);
       nextState.model = model;
       nextState.service = service;
@@ -132,7 +132,7 @@ class ServiceFormModal extends mixin(StoreMixin) {
       return;
     }
     if (this.triggerSubmit) {
-      let model = this.triggerSubmit();
+      let {model} = this.triggerSubmit();
       let service = ServiceUtil.createServiceFromFormModel(model);
       this.setState({service, model, errorMessage: null});
       MarathonStore
