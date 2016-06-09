@@ -4,46 +4,38 @@ describe('ChronosUtil', function () {
 
   describe('#addJob', function () {
 
-    it('should throw error if the provided id doesn\'t start with a slash',
+    it('should throw error if the provided id  starts with a dot',
       function () {
         expect(function () {
-          ChronosUtil.parseJobs({id: 'malformed/id'});
+          ChronosUtil.parseJobs({id: '.malformed.id'});
         }.bind(this)).toThrow();
       }
     );
 
-    it('should throw error if the provided id ends with a slash',
+    it('should throw error if the provided id ends with a dot',
       function () {
         expect(function () {
-          ChronosUtil.parseJobs({id: '/malformed/id/'});
+          ChronosUtil.parseJobs({id: 'malformed.id.'});
         }.bind(this)).toThrow();
-      }
-    );
-
-    it('should not throw error if the provided id is only a slash (root id)',
-      function () {
-        expect(function () {
-          ChronosUtil.parseJobs({id: '/'});
-        }.bind(this)).not.toThrow();
       }
     );
 
     it('adds a job to the tree', function () {
-      var instance = ChronosUtil.parseJobs({id: '/alpha'});
+      var instance = ChronosUtil.parseJobs({id: 'alpha'});
 
-      expect(instance.items[0].id).toEqual('/alpha');
+      expect(instance.items[0].id).toEqual('alpha');
     });
 
     it('adds nested items at the correct location based on id/path matching',
       function () {
 
-        var instance = ChronosUtil.parseJobs({id: '/group/foo/bar'});
+        var instance = ChronosUtil.parseJobs({id: 'group.foo.bar'});
 
-        expect(instance.items[0].id).toEqual('/group');
+        expect(instance.items[0].id).toEqual('group');
         expect(instance.items[0].items[0].id)
-          .toEqual('/group/foo');
+          .toEqual('group.foo');
         expect(instance.items[0].items[0].items[0].id)
-          .toEqual('/group/foo/bar');
+          .toEqual('group.foo.bar');
       }
     );
 
@@ -61,7 +53,7 @@ describe('ChronosUtil', function () {
 
     it('should return root group if empty array is passed', function () {
       var instance = ChronosUtil.parseJobs([]);
-      expect(instance.id).toEqual('/');
+      expect(instance.id).toEqual('');
       expect(instance.items).toEqual(undefined);
     });
 
@@ -71,32 +63,32 @@ describe('ChronosUtil', function () {
 
     beforeEach(function () {
       this.instance = ChronosUtil.parseJobs([
-        {id: '/group'},
-        {id: '/group/foo'},
-        {id: '/group/bar'},
-        {id: '/group/alpha'},
-        {id: '/group/beta', cmd: '>beta', description: 'First beta'},
-        {id: '/group/beta', label: 'Beta', description: 'Second beta'},
-        {id: '/group/wibble/wobble'}
+        {id: 'group'},
+        {id: 'group.foo'},
+        {id: 'group.bar'},
+        {id: 'group.alpha'},
+        {id: 'group.beta', cmd: '>beta', description: 'First beta'},
+        {id: 'group.beta', label: 'Beta', description: 'Second beta'},
+        {id: 'group.wibble.wobble'}
       ]);
     });
 
     it('nests everything under root', function () {
-      expect(this.instance.id).toEqual('/');
+      expect(this.instance.id).toEqual('');
     });
 
     it('consolidates jobs into common parent', function () {
       expect(this.instance.items.length).toEqual(1);
-      expect(this.instance.items[0].id).toEqual('/group');
+      expect(this.instance.items[0].id).toEqual('group');
     });
 
-    it('defaults id to slash (root group id)', function () {
+    it('defaults id to empty string (root group id)', function () {
       let tree = ChronosUtil.parseJobs([]);
-      expect(tree.id).toEqual('/');
+      expect(tree.id).toEqual('');
     });
 
     it('sets correct tree id', function () {
-      expect(this.instance.items[0].id).toEqual('/group');
+      expect(this.instance.items[0].id).toEqual('group');
     });
 
     it('accepts nested trees (groups)', function () {
@@ -108,17 +100,17 @@ describe('ChronosUtil', function () {
     });
 
     it('converts a single item into a subitem of root', function () {
-      let instance = ChronosUtil.parseJobs({id: '/group/job'});
+      let instance = ChronosUtil.parseJobs({id: 'group.job'});
 
-      expect(instance.id).toEqual('/');
-      expect(instance.items[0].id).toEqual('/group');
-      expect(instance.items[0].items[0].id).toEqual('/group/job');
+      expect(instance.id).toEqual('');
+      expect(instance.items[0].id).toEqual('group');
+      expect(instance.items[0].items[0].id).toEqual('group.job');
     });
 
     it('merges data of items that are defined multiple times', function () {
       let result = this.instance.items[0].items[3];
       expect(result).toEqual({
-        id: '/group/beta',
+        id: 'group.beta',
         cmd: '>beta',
         label: 'Beta',
         description: 'Second beta'

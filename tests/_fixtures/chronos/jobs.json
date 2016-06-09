@@ -1,19 +1,21 @@
 [
   {
-    "id": "/bar",
+    "id": "bar",
     "description": "Bar Description",
     "labels": {
       "name": "bar",
       "project": "metronome",
       "stage": "test"
     },
-    "schedule": {
-      "schedule": "0 1 6 9 *",
+    "schedule": [{
+      "id": "every-once-in-a-while",
+      "description": "lorem ipsum",
+      "cron": "0 1 6 9 *",
       "timezone": "America/Chicago",
       "startingDeadlineSeconds": 60,
       "concurrencyPolicy": "allow",
       "enabled": true
-    },
+    }],
     "run": {
       "cpus": 1,
       "mem": 1,
@@ -35,7 +37,7 @@
           }
         ]
       },
-      "cmd": "/bar",
+      "cmd": "./bar",
       "args": [],
       "user": "marathon",
       "env": {
@@ -65,8 +67,8 @@
     },
     "activeRuns": [
       {
-        "id": "/bar/1990-01-03t00:00:00z-1",
-        "jobId": "/bar",
+        "id": "bar.1990-01-03t00:00:00z-1",
+        "jobId": "bar",
         "status": "active",
         "createdAt": "1990-01-03t00:00:00z-1",
         "tasks": [
@@ -80,7 +82,7 @@
     ]
   },
   {
-    "id": "/foo",
+    "id": "foo",
     "description": "Foo Description",
     "labels": {
       "name": "foo",
@@ -115,7 +117,7 @@
           }
         ]
       },
-      "cmd": "/foo",
+      "cmd": "./foo",
       "args": [],
       "user": "marathon",
       "env": {
@@ -127,8 +129,8 @@
       },
       "volumes": [
         {
-          "containerPath": "/logs",
-          "hostPath": "/var/log/mesosphere/foo",
+          "containerPath": "logs",
+          "hostPath": "var/log/mesosphere/foo",
           "mode": "RW"
         }
       ],
@@ -146,8 +148,8 @@
     },
     "activeRuns": [
       {
-        "id": "/foo/1990-01-03t00:00:00z-1",
-        "jobId": "/foo",
+        "id": "foo.1990-01-03t00:00:00z-1",
+        "jobId": "foo",
         "status": "active",
         "createdAt": "1990-01-03t00:00:00z-1",
         "tasks": [
@@ -167,7 +169,7 @@
     ]
   },
   {
-    "id": "/group/alpha",
+    "id": "group.alpha",
     "description": "Bar Description",
     "labels": {
       "name": "alpha",
@@ -202,7 +204,7 @@
           }
         ]
       },
-      "cmd": "/alpha",
+      "cmd": "./alpha",
       "args": [],
       "user": "marathon",
       "env": {
@@ -213,8 +215,8 @@
       },
       "volumes": [
         {
-          "containerPath": "/logs",
-          "hostPath": "/var/log/mesosphere/alpha",
+          "containerPath": "logs",
+          "hostPath": "var/log/mesosphere/alpha",
           "mode": "RW"
         }
       ],
@@ -232,8 +234,8 @@
     },
     "activeRuns": [
       {
-        "id": "/alpha/1990-01-03t00:00:00z-1",
-        "jobId": "/alpha",
+        "id": "alpha.1990-01-03t00:00:00z-1",
+        "jobId": "alpha",
         "status": "active",
         "createdAt": "1990-01-03t00:00:00z-1",
         "tasks": [
@@ -247,7 +249,7 @@
     ]
   },
   {
-    "id": "/group/beta",
+    "id": "group.beta",
     "description": "Foo Description",
     "labels": {
       "name": "beta",
@@ -282,7 +284,7 @@
           }
         ]
       },
-      "cmd": "/beta",
+      "cmd": "./beta",
       "args": [],
       "user": "marathon",
       "env": {
@@ -294,8 +296,8 @@
       },
       "volumes": [
         {
-          "containerPath": "/logs",
-          "hostPath": "/var/log/mesosphere/beta",
+          "containerPath": "logs",
+          "hostPath": "var/log/mesosphere/beta",
           "mode": "RW"
         }
       ],
@@ -313,8 +315,8 @@
     },
     "activeRuns": [
       {
-        "id": "/beta/1990-01-03t00:00:00z-1",
-        "jobId": "/beta",
+        "id": "beta.1990-01-03t00:00:00z-1",
+        "jobId": "beta",
         "status": "active",
         "createdAt": "1990-01-03t00:00:00z-1",
         "tasks": [
