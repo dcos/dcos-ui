@@ -1,0 +1,49 @@
+.deployments-table {
+
+  td {
+    vertical-align: bottom;
+    &.align-top {
+      vertical-align: top;
+    }
+  }
+
+  .deployment-services-list,
+  .deployment-start-time,
+  .deployment-step,
+  .deployment-status-list {
+    font-size: @body-text-font-size;
+  }
+
+  .deployment-id {
+    margin-bottom: 8px;
+  }
+
+  .deployment-service-icon {
+    margin: 0 8px;
+  }
+
+  .deployment-breadcrumb {
+    .crumb {
+      line-height: 32px;
+      font-size: @body-text-font-size;
+      // Don't display the service itself
+      &:last-child {
+        display: none;
+      }
+    }
+    .icon.forward {
+      margin: 0 0 0 8px;
+      width: 12.5px;
+    }
+  }
+
+  .deployment-step {
+    margin-bottom: 8px;
+  }
+  .deployment-status-list {
+    li {
+      line-height: 32px;
+    }
+  }
+
+}
