@@ -1,15 +1,22 @@
 import React from 'react';
 
 import ServiceFilterTypes from '../constants/ServiceFilterTypes';
+import Framework from '../structs/Framework';
 import HealthTypes from '../constants/HealthTypes';
+import ServiceOther from '../constants/ServiceOther';
+import ServiceOtherTypes from '../constants/ServiceOtherTypes';
+import ServiceOtherLabels from '../constants/ServiceOtherLabels';
 import ServiceStatusLabels from '../constants/ServiceStatusLabels';
 import ServiceStatusTypes from '../constants/ServiceStatusTypes';
+import ServiceTree from '../structs/ServiceTree';
 import HealthLabels from '../constants/HealthLabels';
 import SidebarFilter from './SidebarFilter';
 
 const PropTypes = React.PropTypes;
 
 function getCountByFilters(services) {
+  const universeKey = ServiceOther.UNIVERSE.key;
+  const volumesKey = ServiceOther.VOLUMES.key;
 
   return services.reduce(function (memo, service) {
     let serviceStatus = service.getServiceStatus();
@@ -27,6 +34,33 @@ function getCountByFilters(services) {
       memo.healthCount[serviceHealth.value]++;
     }
 
+    if (service instanceof Framework) {
+      if (memo.otherCount[universeKey] === undefined) {
+        memo.otherCount[universeKey] = 1;
+      } else {
+        memo.otherCount[universeKey]++;
+      }
+    } else if (service instanceof ServiceTree) {
+      let frameworks = service
+        .filterItemsByFilter({other: [ServiceOther.UNIVERSE.key]})
+        .getItems();
+
+      if (frameworks.length > 0) {
+        if (memo.otherCount[universeKey] === undefined) {
+          memo.otherCount[universeKey] = 1;
+        } else {
+          memo.otherCount[universeKey]++;
+        }
+      }
+    }
+
+    let volumes = service.getVolumes();
+    if (volumes.list && volumes.list.length > 0 ) {
+      if (memo.otherCount[volumesKey] === undefined) {
+        memo.otherCount[volumesKey] = 1;
+      } else {
+        memo.otherCount[volumesKey]++;
+      }
     }
 
     return memo;
@@ -58,6 +92,13 @@ class ServiceSidebarFilters extends React.Component {
           filterLabels={ServiceStatusLabels}
           handleFilterChange={props.handleFilterChange}
           title="STATUS" />
+        <SidebarFilter
+          countByValue={otherCount}
+          filterType={ServiceFilterTypes.OTHER}
+          filterValues={ServiceOtherTypes}
+          filterLabels={ServiceOtherLabels}
+          handleFilterChange={props.handleFilterChange}
+          title="OTHER" />
       </div>
     );
   }
