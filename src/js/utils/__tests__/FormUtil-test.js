@@ -245,7 +245,7 @@ describe('FormUtil', function () {
         {name: 'variable[2].key', value: 'kenny'},
         {name: 'variable[2].value', value: 'tran'}
       ];
-      let result = FormUtil.isFieldInstanceOfProp('variable', 2, fields);
+      let result = FormUtil.isFieldInstanceOfProp('variable', fields, 2);
       expect(result).toEqual(true);
     });
 
@@ -254,13 +254,13 @@ describe('FormUtil', function () {
         {name: 'variable[1].key', value: 'kenny'},
         {name: 'variable[1].value', value: 'tran'}
       ];
-      let result = FormUtil.isFieldInstanceOfProp('variable', 2, fields);
+      let result = FormUtil.isFieldInstanceOfProp('variable', fields, 2);
       expect(result).toEqual(false);
     });
 
     it('should work on a single definition', function () {
       let field = {name: 'variable[1].key', value: 'kenny'};
-      let result = FormUtil.isFieldInstanceOfProp('variable', 1, field);
+      let result = FormUtil.isFieldInstanceOfProp('variable', field, 1);
       expect(result).toEqual(true);
     });
   });
