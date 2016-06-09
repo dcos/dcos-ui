@@ -3,7 +3,7 @@ let EnvironmentVariables = {
   type: 'object',
   title: 'Environment Variables',
   properties: {
-    ports: {
+    variables: {
       type: 'array',
       duplicable: true,
       addLabel: 'Add Environment Variable',
