@@ -1,6 +1,8 @@
 import {Dropdown} from 'reactjs-components';
 import React from 'react';
 
+import Cluster from '../utils/Cluster';
+import Framework from '../structs/Framework';
 import HealthBar from './HealthBar';
 import HealthStatus from '../constants/HealthStatus';
 import HealthLabels from '../constants/HealthLabels';
@@ -31,7 +33,7 @@ class ServiceInfo extends React.Component {
       html: <span className="text-danger">Destroy</span>
     }];
 
-    return [(
+    let actionButtons = [(
       <button className="button button-stroke button-inverse flush-bottom"
         key="action-button-edit"
         onClick={() =>
@@ -52,6 +54,20 @@ class ServiceInfo extends React.Component {
         transition={true}
         transitionName="dropdown-menu" />
     )];
+    let {service} = this.props;
+
+    if (service instanceof Framework && service.getWebURL()) {
+      actionButtons.unshift(
+        <a className="button button-primary flush-bottom"
+          key="service-link"
+          href={Cluster.getServiceLink(service.getName())} target="_blank"
+          title="Open in a new window">
+          Open Service
+        </a>
+      );
+    }
+
+    return actionButtons;
   }
 
   getSubHeader(service) {
