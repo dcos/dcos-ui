@@ -37,15 +37,7 @@ class TaskStatsTable extends React.Component {
 
   getColumns() {
     let getClassName = this.getClassName;
-    let heading = this.renderHeading({
-      caption: '',
-      running: 'Running',
-      healthy: 'Healthy',
-      unhealthy: 'Unhealthy',
-      staged: 'Staged',
-      averageSeconds: 'Average Seconds',
-      medianSeconds: 'Median Seconds'
-    });
+    let heading = this.renderHeading;
 
     return [
       {
@@ -109,32 +101,20 @@ class TaskStatsTable extends React.Component {
     ];
   }
 
-  renderHeading(config) {
-    return function (prop, order, sortBy) {
-      let title = config[prop];
-      let caret = {
-        before: null,
-        after: null
-      };
-      let caretClassSet = classNames(
-        `caret caret--${order}`,
-        {'caret--visible': prop === sortBy.prop}
-      );
+  renderHeading(prop) {
+    let headerMapping = {
+      caption: '',
+      running: 'Running',
+      healthy: 'Healthy',
+      unhealthy: 'Unhealthy',
+      staged: 'Staged',
+      averageSeconds: 'Average Seconds',
+      medianSeconds: 'Median Seconds'
+    }
 
-      if (taskStatus.includes(prop)) {
-        caret.before = <span className={caretClassSet} />;
-      } else {
-        caret.after = <span className={caretClassSet} />;
-      }
-
-      return (
-        <span>
-          {caret.before}
-          <span className="table-header-title">{title}</span>
-          {caret.after}
-        </span>
-      );
-    };
+    return (
+      <span className="table-header-title">{headerMapping[prop]}</span>
+    );
   }
 
   getColGroup() {
