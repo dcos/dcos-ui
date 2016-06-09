@@ -53,7 +53,7 @@ describe('DCOSStore', function () {
           totalSteps: 3
         }
       ]}));
-      MarathonStore.__setKeyResponse('groups', new ServiceTree({apps: [
+      MarathonStore.__setKeyResponse('groups', new ServiceTree({items: [
         {id: '/app1', cmd: 'sleep 1000'},
         {id: '/app2', cmd: 'sleep 1000'}
       ]}));
@@ -105,6 +105,22 @@ describe('DCOSStore', function () {
       it('should update the notification store', function () {
         expect(NotificationStore.addNotification)
           .toHaveBeenCalledWith('services-deployments', 'deployment-count', 1);
+      });
+
+    });
+
+    describe('when the deployments endpoint references stale services', function () {
+
+      beforeEach(function () {
+        DCOSStore.onMarathonDeploymentsChange();
+        MarathonStore.__setKeyResponse('groups', new ServiceTree({apps: []}));
+        DCOSStore.onMarathonGroupsChange();
+      });
+
+      it('should trim stale services', function () {
+        let deployment = DCOSStore.deploymentsList.last();
+        let services = deployment.getAffectedServices();
+        expect(services.length).toEqual(0);
       });
 
     });
