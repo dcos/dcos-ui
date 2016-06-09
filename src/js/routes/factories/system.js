@@ -43,6 +43,7 @@ let RouteFactory = {
             name: 'system-overview-units-unit-nodes-detail',
             path: 'components/:unitID/?',
             handler: UnitsHealthDetail,
+            hideHeaderNavigation: true,
             buildBreadCrumb: function () {
               return {
                 parentCrumb: 'system-overview-units',
@@ -61,6 +62,7 @@ let RouteFactory = {
             name: 'system-overview-units-unit-nodes-node-detail',
             path: 'components/:unitID/nodes/:unitNodeID/?',
             handler: UnitsHealthNodeDetail,
+            hideHeaderNavigation: true,
             buildBreadCrumb: function () {
               return {
                 parentCrumb: 'system-overview-units-unit-nodes-detail',

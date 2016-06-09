@@ -60,6 +60,7 @@ let serviceRoutes = {
           type: Route,
           name: 'services-detail',
           path: ':id/?',
+          hideHeaderNavigation: true,
           buildBreadCrumb: function () {
             return {
               parentCrumb: 'services-page',
@@ -72,6 +73,7 @@ let serviceRoutes = {
               path: 'tasks/:taskID/?',
               name: 'services-task-details',
               handler: TaskDetail,
+              hideHeaderNavigation: true,
               buildBreadCrumb: function () {
                 return {
                   parentCrumb: 'services-detail',
@@ -89,6 +91,7 @@ let serviceRoutes = {
                   type: DefaultRoute,
                   name: 'services-task-details-tab',
                   handler: TaskDetailsTab,
+                  hideHeaderNavigation: true,
                   buildBreadCrumb: function () {
                     return {
                       parentCrumb: 'services-task-details',
@@ -101,6 +104,7 @@ let serviceRoutes = {
                   name: 'services-task-details-files',
                   path: 'files/?',
                   handler: TaskFilesTab,
+                  hideHeaderNavigation: true,
                   buildBreadCrumb: function () {
                     return {
                       parentCrumb: 'services-task-details',
@@ -114,6 +118,7 @@ let serviceRoutes = {
                   dontScroll: true,
                   path: 'logs/?',
                   handler: TaskLogsTab,
+                  hideHeaderNavigation: true,
                   buildBreadCrumb: function () {
                     return {
                       parentCrumb: 'services-task-details',

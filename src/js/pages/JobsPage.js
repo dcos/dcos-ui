@@ -4,6 +4,7 @@ import {RouteHandler} from 'react-router';
 
 import IconJobs from '../../img/components/icons/pages-code.svg?name=IconJobs';
 import Page from '../components/Page';
+import RouterUtil from '../utils/RouterUtil';
 import SidebarActions from '../events/SidebarActions';
 import TabsMixin from '../mixins/TabsMixin';
 
@@ -33,6 +34,10 @@ class JobsPage extends mixin(TabsMixin) {
   }
 
   getNavigation() {
+    if (RouterUtil.shouldHideNavigation(this.context.router)) {
+      return null;
+    }
+
     return (
       <ul className="tabs list-inline flush-bottom inverse">
         {this.tabs_getRoutedTabs()}
