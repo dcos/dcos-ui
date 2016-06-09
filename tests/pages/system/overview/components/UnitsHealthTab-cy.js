@@ -82,7 +82,7 @@ describe('Units Tab [0e2]', function () {
 
     it('renders unit health [0eb]', function () {
       cy.wait(2000);
-      cy.get('.page-content .container-pod.flush-top')
+      cy.get('.page-content .page-header-text')
         .find('.text-danger')
         .should(function ($health) {
           expect($health).to.contain('Unhealthy');
@@ -124,7 +124,7 @@ describe('Units Tab [0e2]', function () {
 
     it('renders node health [0ej]', function () {
       cy.wait(2000);
-      cy.get('.page-content .container-pod.flush-top')
+      cy.get('.page-content .page-header-text')
         .find('.text-success')
         .should(function ($health) {
           expect($health).to.contain('Healthy');

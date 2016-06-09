@@ -9,7 +9,7 @@ describe('Jobs Overview', function () {
     });
 
     it('has the right active navigation entry', function () {
-      cy.get('.page-header-navigation .tab-item.active')
+      cy.get('.page-navigation-list .tab-item.active')
         .should('to.have.text', 'Jobs');
     });
 

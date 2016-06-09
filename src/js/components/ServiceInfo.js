@@ -104,11 +104,6 @@ class ServiceInfo extends React.Component {
       );
     }
 
-    const mediaWrapperClassNames = {
-      'media-object-spacing-narrow': false,
-      'media-object-offset': false
-    };
-
     const tabs = (
       <ul className="tabs list-inline flush-bottom container-pod
         container-pod-short-top inverse">
@@ -120,9 +115,9 @@ class ServiceInfo extends React.Component {
       <PageHeader
         actionButtons={this.getActionButtons()}
         icon={serviceIcon}
+        iconClassName="icon-app-container"
         subTitle={this.getSubHeader(service)}
         navigationTabs={tabs}
-        mediaWrapperClassName={mediaWrapperClassNames}
         title={service.getName()} />
     );
   }

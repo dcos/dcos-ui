@@ -177,6 +177,7 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
     return (
       <PageHeader
         icon={taskIcon}
+        iconClassName="icon-app-container"
         subTitle={TaskStates[task.state].displayName}
         navigationTabs={tabs}
         mediaWrapperClassName={mediaWrapperClassNames}

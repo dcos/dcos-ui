@@ -11,12 +11,12 @@ class PageHeader extends React.Component {
     }
 
     let iconClasses = classNames(
-      'icon icon-large icon-image-container',
+      'icon icon-image-container',
       iconClassName
     );
 
     return (
-      <div className="media-object-item">
+      <div className="page-header-icon">
         <div className={iconClasses}>
           {icon}
         </div>
@@ -32,7 +32,7 @@ class PageHeader extends React.Component {
     }
 
     let titleClasses = classNames(
-      'flush inverse',
+      'flush-top inverse',
       titleClassName
     );
 
@@ -72,50 +72,36 @@ class PageHeader extends React.Component {
   render() {
     let {
       className,
-      dividerClassName,
-      mediaWrapperClassName,
+      pageHeaderHeadingClassNames,
       navigationTabs
     } = this.props;
 
-    let classes = classNames(
-      'container container-fluid container-pod container-pod-short',
-      'flush flush-top',
+    let pageHeaderClasses = classNames(
+      'page-header',
+      {'has-tabs': !!navigationTabs},
       className
     );
 
-    let dividerClasses = classNames(
-      'container-pod container-pod-short flush-top',
-      'container-pod-divider-bottom container-pod-divider-bottom-align-right',
-      'container-pod-divider-inverse',
-      {'flush-bottom': !!navigationTabs},
-      dividerClassName
-    );
-
-    let mediaWrapperClasses = classNames(
-      'media-object-spacing-wrapper media-object-spacing-narrow',
-      'media-object-offset',
-      mediaWrapperClassName
+    let pageHeaderHeadingClasses = classNames(
+      'page-header-heading',
+      pageHeaderHeadingClassNames
     );
 
     return (
-      <div className={classes}>
-        <div className={dividerClasses}>
-          <div className={mediaWrapperClasses}>
-            <div className="media-object flex-box flex-box-align-vertical-center page-header-container">
-              <div className="page-header-container-left">
-                {this.getIcon()}
-                <div className="media-object-item">
-                  {this.getTitle()}
-                  {this.getSubTitle()}
-                </div>
-              </div>
-              <div className="page-header-container-right">
-                {this.renderActionButtons()}
-              </div>
+      <div className={pageHeaderClasses}>
+        <div className={pageHeaderHeadingClasses}>
+          <div className="page-header-content">
+            {this.getIcon()}
+            <div className="page-header-text">
+              {this.getTitle()}
+              {this.getSubTitle()}
             </div>
           </div>
-          {navigationTabs}
+          <div className="page-header-actions">
+            {this.renderActionButtons()}
+          </div>
         </div>
+        {navigationTabs}
       </div>
     );
   }
@@ -136,11 +122,11 @@ PageHeader.propTypes = {
     React.PropTypes.string,
     React.PropTypes.object,
   ]),
-  dividerClassName: React.PropTypes.oneOfType([
+  pageHeaderClassNames: React.PropTypes.oneOfType([
     React.PropTypes.string,
     React.PropTypes.object,
   ]),
-  mediaWrapperClassName: React.PropTypes.oneOfType([
+  pageHeaderHeadingClassNames: React.PropTypes.oneOfType([
     React.PropTypes.string,
     React.PropTypes.object,
   ]),
