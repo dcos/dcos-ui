@@ -5,13 +5,13 @@ import DescriptionList from '../../components/DescriptionList';
 
 class JobRunHistoryTable extends React.Component {
   render() {
-    let job = ChronosStore.getJobDetail(this.props.jobID);
+    let job = ChronosStore.getJob(this.props.jobID);
 
     return (
       <DescriptionList
         hash={{
           Command: job.getCommand(),
-          Schedule: job.getSchedule().schedule
+          Schedule: job.getSchedules()[0].cron
         }} />
     );
   }
