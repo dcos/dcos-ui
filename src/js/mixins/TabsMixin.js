@@ -5,6 +5,7 @@ import React from 'react';
 /* eslint-enable no-unused-vars */
 
 import TabsUtil from '../utils/TabsUtil';
+import Util from '../utils/Util';
 import NotificationStore from '../stores/NotificationStore';
 
 /**
@@ -60,8 +61,7 @@ const TabsMixin = {
    * @return {Component} React component to render
    */
   tabs_getUnroutedItem(props = {}, tab) {
-    let attributes = Object.assign({}, props);
-    delete attributes.classNames;
+    let attributes = Util.omit(props, ['classNames']);
     let tabLabelClass = classNames({'tab-item-label': true}, props.classNames);
 
     return (
@@ -99,8 +99,7 @@ const TabsMixin = {
    * @return {Component} React component to render
    */
   tabs_getRoutedItem(props = {}, tab) {
-    let attributes = Object.assign({}, props);
-    delete attributes.classNames;
+    let attributes = Util.omit(props, ['classNames']);
     let notificationCount = NotificationStore.getNotificationCount(tab);
     let tabLabelClass = classNames({'tab-item-label': true}, props.classNames);
 
