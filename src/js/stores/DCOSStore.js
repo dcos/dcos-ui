@@ -123,7 +123,13 @@ class DCOSStore extends EventEmitter {
     this.data.marathon.deploymentsList = deploymentsList
       .mapItems(function (deployment) {
         let ids = deployment.getAffectedServiceIds();
-        let services = ids.map(serviceTree.findItemById.bind(serviceTree));
+        let services = ids.reduce(function (memo, id) {
+          let service = serviceTree.findItemById(id);
+          if (service != null) {
+            memo.push(service);
+          }
+          return memo;
+        }, []);
 
         return Object.assign({affectedServices: services}, deployment);
       });
