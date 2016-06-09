@@ -6,7 +6,7 @@ import {StoreMixin} from 'mesosphere-shared-reactjs';
 import DescriptionList from './DescriptionList';
 import Service from '../structs/Service';
 
-class ServiceDetailDebugTab extends mixin(StoreMixin) {
+class ServiceDetailDebugTab extends React.Component {
   getValueText(value) {
     if (value == null || value === '') {
       return (
