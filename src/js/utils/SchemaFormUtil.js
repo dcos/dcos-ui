@@ -1,14 +1,46 @@
 import tv4 from 'tv4';
 
+import FormUtil from './FormUtil';
+import Util from './Util';
+
 function filteredPaths(combinedPath) {
   return combinedPath.split('/').filter(function (path) {
     return path.length > 0;
   });
 }
 
-function setDefinitionValue(thingToSet, definition) {
+function setDefinitionValue(thingToSet, definition, renderRemove) {
   let {path, value} = thingToSet;
   let definitionToSet = SchemaFormUtil.getDefinitionFromPath(definition, path);
+
+  if (Array.isArray(value)) {
+    let prop = path[path.length - 1];
+
+    let firstIndex = 0;
+    definitionToSet.definition.find(function (field, i) {
+      if (FormUtil.isFieldInstanceOfProp(prop, field)) {
+        firstIndex = i;
+        return true;
+      }
+
+      return false;
+    });
+
+    FormUtil.removePropID(definitionToSet.definition, prop);
+    value.forEach(function (item) {
+      let propID = Util.uniqueID(prop);
+      let instanceDefinition = FormUtil.getMultipleFieldDefinition(
+        prop,
+        propID,
+        definitionToSet.definition.itemShapes[prop].definition,
+        item
+      );
+      instanceDefinition.push(
+        renderRemove(definitionToSet.definition, prop, propID)
+      );
+      definitionToSet.definition.splice(firstIndex, 0, instanceDefinition);
+    });
+  }
 
   definitionToSet.value = value;
   definitionToSet.startValue = value;
@@ -17,6 +49,15 @@ function setDefinitionValue(thingToSet, definition) {
 function getThingsToSet(model, path) {
   path = path || [];
   let thingsToSet = [];
+
+  if (Array.isArray(model)) {
+    thingsToSet.push({
+      path,
+      value: model
+    });
+
+    return thingsToSet;
+  }
 
   Object.keys(model).forEach(function (key) {
     let pathCopy = path.concat([key]);
@@ -120,14 +161,14 @@ let SchemaFormUtil = {
       }
     });
 
-    return newModel;
+    return FormUtil.modelToCombinedProps(newModel);
   },
 
-  mergeModelIntoDefinition(model, definition) {
+  mergeModelIntoDefinition(model, definition, renderRemove) {
     let thingsToSet = getThingsToSet(model);
 
     thingsToSet.forEach(function (thingToSet) {
-      setDefinitionValue(thingToSet, definition);
+      setDefinitionValue(thingToSet, definition, renderRemove);
     });
   },
 

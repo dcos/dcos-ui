@@ -1,3 +1,6 @@
+import FormUtil from './FormUtil';
+import Util from './Util';
+
 function getValueFromSchemaProperty(fieldProps) {
   let value = '';
 
@@ -29,13 +32,12 @@ function getLabelFromSchemaProperty(fieldName, fieldProps, isRequired, renderLab
   return label;
 }
 
-function schemaToFieldDefinition(fieldName, fieldProps, formParent, isRequired, renderLabel) {
+function schemaToFieldDefinition(fieldName, fieldProps, formParent, isRequired, renderLabel, renderRemove) {
   let value = getValueFromSchemaProperty(fieldProps);
   let label = getLabelFromSchemaProperty(fieldName, fieldProps, isRequired, renderLabel);
 
   let definition = {
     fieldType: 'text',
-    formParent,
     name: fieldName,
     placeholder: '',
     isRequired,
@@ -67,13 +69,32 @@ function schemaToFieldDefinition(fieldName, fieldProps, formParent, isRequired, 
   }
 
   if (fieldProps.duplicable === true && fieldProps.itemShape) {
-    definition.itemShape = nestedSchemaToFieldDefinition(
+    let itemShape = nestedSchemaToFieldDefinition(
       fieldName,
       fieldProps.itemShape,
-      fieldName,
+      formParent,
       renderLabel,
       renderLabel
     );
+    let propID = Util.uniqueID(fieldName);
+
+    definition = FormUtil.getMultipleFieldDefinition(
+      fieldName,
+      propID,
+      itemShape.definition
+    );
+
+    if (renderRemove) {
+      definition.push(renderRemove(formParent, fieldName, propID));
+    }
+
+    if (formParent.itemShapes == null) {
+      formParent.itemShapes = {};
+    }
+
+    formParent.itemShapes[fieldName] = itemShape;
+
+    return definition;
   }
 
   return definition;
@@ -82,7 +103,6 @@ function schemaToFieldDefinition(fieldName, fieldProps, formParent, isRequired, 
 function nestedSchemaToFieldDefinition(fieldName, fieldProps, topLevelProp, renderSubheader, renderLabel) {
   let nestedDefinition = {
     name: fieldName,
-    formParent: topLevelProp,
     render: null,
     fieldType: 'object',
     definition: []
@@ -103,7 +123,7 @@ function nestedSchemaToFieldDefinition(fieldName, fieldProps, topLevelProp, rend
         nestedSchemaToFieldDefinition(
           nestedFieldName,
           nestedPropertyValue,
-          nestedFieldName,
+          nestedDefinition.definition,
           renderSubheader,
           renderLabel
         )
@@ -113,7 +133,7 @@ function nestedSchemaToFieldDefinition(fieldName, fieldProps, topLevelProp, rend
         schemaToFieldDefinition(
           nestedFieldName,
           nestedPropertyValue,
-          nestedFieldName,
+          nestedDefinition.definition,
           requiredProps && requiredProps.indexOf(nestedFieldName) > -1,
           renderLabel
         )
@@ -125,7 +145,7 @@ function nestedSchemaToFieldDefinition(fieldName, fieldProps, topLevelProp, rend
 }
 
 let SchemaUtil = {
-  schemaToMultipleDefinition: function (schema, renderSubheader, renderLabel) {
+  schemaToMultipleDefinition: function (schema, renderSubheader, renderLabel, renderRemove, renderAdd) {
     let multipleDefinition = {};
     let schemaProperties = schema.properties;
 
@@ -147,20 +167,42 @@ let SchemaUtil = {
           fieldDefinition = schemaToFieldDefinition(
             secondLevelProp,
             secondLevelObject,
-            topLevelProp,
+            definitionForm.definition,
             requiredProps && requiredProps.indexOf(secondLevelProp) > -1,
-            renderLabel
+            renderLabel,
+            renderRemove,
+            renderAdd
           );
         } else {
           fieldDefinition = nestedSchemaToFieldDefinition(
             secondLevelProp,
             secondLevelObject,
-            topLevelProp,
+            definitionForm.definition,
             renderSubheader,
-            renderLabel
+            renderLabel,
+            renderRemove,
+            renderAdd
           );
         }
         definitionForm.definition.push(fieldDefinition);
+
+        if (secondLevelObject.duplicable === true && renderAdd) {
+          let itemShape = nestedSchemaToFieldDefinition(
+            secondLevelProp,
+            secondLevelObject.itemShape,
+            definitionForm.definition,
+            renderLabel,
+            renderLabel
+          );
+
+          definitionForm.definition.push(
+            renderAdd(
+              secondLevelProp,
+              definitionForm.definition,
+              itemShape.definition
+            )
+          );
+        }
       });
 
     });

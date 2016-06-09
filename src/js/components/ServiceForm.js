@@ -88,33 +88,17 @@ class ServiceForm extends React.Component {
     newDefinition.push(
       this.getRemoveVariableButton(definition, prop, propID)
     );
-    definition.splice(definition.length - 1, 0, newDefinition);
-    this.forceUpdate();
-  }
 
-  transformPorts(definition, startValues) {
-    let generalDefinition = definition.environmentVariables.definition;
-    let instancesIndex = 0;
-    let instancesDefinition = generalDefinition.find(function (fieldDefinition, index) {
-      if (fieldDefinition.name === 'ports') {
-        instancesIndex = index;
-        return true;
+    // Default to appending.
+    let lastIndex = definition.length - 1;
+    definition.forEach(function (field, i) {
+      if (FormUtil.isFieldInstanceOfProp(prop, field)) {
+        lastIndex = i;
       }
-
-      return false;
     });
 
-    let transformOptions = {
-      prop: 'ports',
-      parentDefinition: generalDefinition,
-      itemDefinition: instancesDefinition.itemShape.definition,
-      index: instancesIndex,
-      getRemoveButton: this.getRemoveVariableButton,
-      getNewRowButton: this.getAddNewRowButton,
-      startValues
-    };
-
-    FormUtil.transformDefinition(transformOptions);
+    definition.splice(lastIndex + 1, 0, newDefinition);
+    this.forceUpdate();
   }
 
   getAddNewRowButton(prop, generalDefinition, definition) {
@@ -142,26 +126,19 @@ class ServiceForm extends React.Component {
 
   getModel() {
     let model = this.triggerTabFormSubmit();
-    model = SchemaFormUtil.processFormModel(model, this.multipleDefinition);
-    model.environmentVariables = FormUtil.modelToCombinedProps(
-      'ports',
-      model.environmentVariables
-    );
-
-    return model;
+    return SchemaFormUtil.processFormModel(model, this.multipleDefinition);
   }
 
   getNewDefinition() {
     let {model, schema} = this.props;
     let definition = SchemaUtil.schemaToMultipleDefinition(
-      schema, this.getSubHeader, this.getLabel
+      schema, this.getSubHeader, this.getLabel, this.getRemoveVariableButton, this.getAddNewRowButton
     );
 
     if (model) {
-      SchemaFormUtil.mergeModelIntoDefinition(model, definition);
+      SchemaFormUtil.mergeModelIntoDefinition(model, definition, this.getRemoveVariableButton);
     }
 
-    this.transformPorts(definition, model.environmentVariables.ports);
     return definition;
   }
 

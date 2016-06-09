@@ -210,7 +210,7 @@ describe('FormUtil', function () {
 
   describe('#modelToCombinedProps', function () {
     beforeEach(function () {
-      this.result = FormUtil.modelToCombinedProps('uid', {
+      this.result = FormUtil.modelToCombinedProps({
         'uid[0].uid': 'kenny',
         'uid[0].password': 'secret',
         'uid[1].uid': 'jane',

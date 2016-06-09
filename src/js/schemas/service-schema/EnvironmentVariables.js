@@ -9,9 +9,11 @@ let EnvironmentVariables = {
       itemShape: {
         properties: {
           key: {
+            title: 'Variable Name',
             type: 'string'
           },
           value: {
+            title: 'Value',
             type: 'string'
           }
         }

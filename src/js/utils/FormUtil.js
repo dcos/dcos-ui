@@ -18,11 +18,20 @@ function isNotMultipleProp(key) {
   return !key.includes('[') || !key.includes(']');
 }
 
-function containsMultipleProp(prop, id, fieldColumn) {
+function containsMultipleProp(prop, fieldColumn, id) {
+  if (id) {
+    return !!(
+      fieldColumn &&
+      fieldColumn.name &&
+      fieldColumn.name.includes(`${prop}[${id}]`)
+    );
+  }
+
   return !!(
     fieldColumn &&
     fieldColumn.name &&
-    fieldColumn.name.includes(`${prop}[${id}]`)
+    fieldColumn.name.startsWith(`${prop}[`) &&
+    fieldColumn.name.includes(']')
   );
 }
 
@@ -149,36 +158,43 @@ const FormUtil = {
    * format that makes sense (ports: [{key: 'value'}])
    *
    * @return {Object} newModel the created model.
-   * @param {String} prop Property name for fields to replace.
    * @param {Object} model Model to copy fields over from.
    */
-  modelToCombinedProps: function (prop, model) {
-    let propValue = [];
+  modelToCombinedProps: function (model) {
+    let propValues = {};
     model = Object.assign({}, model);
 
     Object.keys(model).forEach(function (key) {
-      if (isNotMultipleProp(key) || (getProp(key) !== prop)) {
+      if (isNotMultipleProp(key) || !getProp(key)) {
         return;
       }
 
+      let multipleProperty = getProp(key);
       let instanceValue = model[key];
       delete model[key];
       let valueIndex = getPropIndex(key);
       let valueProperty = getPropKey(key);
 
+      if (propValues[multipleProperty] == null) {
+        propValues[multipleProperty] = [];
+      }
+
       if (valueProperty) {
-        if (typeof propValue[valueIndex] === 'object') {
-          propValue[valueIndex][valueProperty] = instanceValue;
-        } else if (propValue[valueIndex] == null) {
-          propValue[valueIndex] = {[valueProperty]: instanceValue};
+        if (typeof propValues[multipleProperty][valueIndex] === 'object') {
+          propValues[multipleProperty][valueIndex][valueProperty] = instanceValue;
+        } else if (propValues[multipleProperty][valueIndex] == null) {
+          propValues[multipleProperty][valueIndex] = {[valueProperty]: instanceValue};
         }
-      } else {
-        propValue[valueIndex] = instanceValue;
       }
     });
 
-    propValue = propValue.filter(function (item) { return item !== undefined});
-    return Object.assign({}, model, {[prop]: propValue});
+    Object.keys(propValues).forEach(function (propValue) {
+      propValues[propValue] = propValues[propValue].filter(function (item) {
+        return item !== undefined
+      });
+    });
+
+    return Object.assign({}, model, propValues);
   },
 
   /**
@@ -186,16 +202,18 @@ const FormUtil = {
    * it checks if the field's name is something like 'ports[0].key'.
    *
    * @param {String} prop Property name for fields to replace.
-   * @param {Number} id Id to match field.
    * @param {Object} field Field to check for match.
+   * @param {Number} id Id to match field.
    * @return {Boolean} isFieldInstanceOfProp If the field is an instance.
    */
-  isFieldInstanceOfProp: function (prop, id, field) {
+  isFieldInstanceOfProp: function (prop, field, id) {
     let isFieldArray = Array.isArray(field);
-    let recursiveCheck = this.isFieldInstanceOfProp.bind(this, prop, id);
+    let recursiveCheck = (nestedField) => {
+      return this.isFieldInstanceOfProp(prop, nestedField, id);
+    };
 
     return (isFieldArray && field.some(recursiveCheck)) ||
-      containsMultipleProp(prop, id, field);
+      containsMultipleProp(prop, field, id);
   },
 
   /**
@@ -211,7 +229,7 @@ const FormUtil = {
   removePropID: function (definition, prop, id) {
     let fieldsToRemove = [];
     definition.forEach((field) => {
-      if (this.isFieldInstanceOfProp(prop, id, field)) {
+      if (this.isFieldInstanceOfProp(prop, field, id)) {
         fieldsToRemove.push(field);
       }
     });
