@@ -24,6 +24,7 @@ module.exports = {
   },
   utils: {
     CookieUtils: 'CookieUtils',
+    DateUtil: 'DateUtil',
     DOMUtils: 'DOMUtils',
     LocalStorageUtil: 'LocalStorageUtil',
     Maths: 'Maths',
@@ -31,6 +32,7 @@ module.exports = {
     StoreMixinConfig: 'StoreMixinConfig',
     StringUtil: 'StringUtil',
     TableUtil: 'TableUtil',
+    TabsUtil: 'TabsUtil',
     Units: 'Units',
     Util: 'Util'
   },

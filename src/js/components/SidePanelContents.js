@@ -7,7 +7,7 @@ import Chart from './charts/Chart';
 import Config from '../config/Config';
 import InternalStorageMixin from '../mixins/InternalStorageMixin';
 import MesosSummaryStore from '../stores/MesosSummaryStore';
-import ResourceTypes from '../constants/ResourceTypes';
+import ResourcesUtil from '../utils/ResourcesUtil';
 import TabsMixin from '../mixins/TabsMixin';
 import Units from '../utils/Units';
 import Util from '../utils/Util';
@@ -55,11 +55,11 @@ extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
   }
 
   getResourceChart(resource, totalResources) {
-    let colorIndex = ResourceTypes[resource].colorIndex;
-    let resourceLabel = ResourceTypes[resource].label;
+    let colorIndex = ResourcesUtil.getResourceColor(resource);
+    let resourceLabel = ResourcesUtil.getResourceLabel(resource);
     let resourceData = [{
       name: 'Alloc',
-      colorIndex: colorIndex,
+      colorIndex,
       values: totalResources[resource]
     }];
     let resourceValue = Units.formatResource(

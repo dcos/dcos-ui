@@ -57,14 +57,6 @@ const Util = {
     return -1;
   },
 
-  /**
-   * @param  {Object} arg to determine whether is an array or not
-   * @return {Boolean} returns whether given arg is an array or not
-   */
-  isArray: function (arg) {
-    return Object.prototype.toString.call(arg) === '[object Array]';
-  },
-
   getLocaleCompareSortFn: function (prop) {
     return function (a, b) {
       return a[prop].localeCompare(b[prop]);
@@ -147,24 +139,6 @@ const Util = {
         func.apply(null, args);
       }, wait);
     };
-  },
-
-  /**
-   * @param {Array}    array - An array to search in.
-   * @param {Function} func  - Function testing each array element.
-   * @return {anything}      - Returns first array element that passes
-   *                           func truth test. Otherwise returns undefined.
-   */
-  find: function (array, func) {
-    let length = array.length;
-
-    for (let i = 0; i < length; i++) {
-      if (func(array[i]) === true) {
-        return array[i];
-      }
-    }
-
-    return undefined;
   }
 };
 

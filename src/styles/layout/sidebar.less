@@ -104,7 +104,7 @@ Sidebar Header Sub Label
 }
 
 .sidebar-menu-item-label {
-  display: inline-block;
+  display: flex;
   vertical-align: middle;
 }
 
@@ -220,9 +220,11 @@ Sidebar
         color: color-lighten(@neutral, 50);
         margin: 0px;
         position: relative;
+        display: flex;
 
         .sidebar-menu-item-icon {
 
+          flex: 0 0 auto;
           margin-right: (@base-spacing-unit * 0.5);
           .opacity(0.60);
 
@@ -231,12 +233,27 @@ Sidebar
         a {
 
           color: color-lighten(@neutral, 50);
-          display: block;
+          display: flex;
           padding: (@base-spacing-unit * 0.5) (@grid-container-fluid-narrow-gutter-width * 1.0);
+          width: 100%;
 
           .sidebar-menu-item-label {
 
+            align-items: center;
             color: color-lighten(@neutral, 50);
+            flex: 1 1 auto;
+
+            .badge {
+
+              flex: 0 0 auto;
+
+            }
+
+            .sidebar-menu-item-label-text {
+
+              flex: 1 1 auto;
+
+            }
 
           }
 
@@ -830,7 +847,7 @@ Sidebar Open
           }
 
           .sidebar-menu-item-label {
-            display: inline-block;
+            display: flex;
           }
 
           .company-name {

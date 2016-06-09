@@ -1,6 +1,5 @@
 import UnitHealthStatus from '../constants/UnitHealthStatus';
 import TableUtil from '../utils/TableUtil';
-import Util from '../utils/Util';
 
 const UnitHealthUtil = {
   getHealthSortFunction: function (...args) {
@@ -28,7 +27,7 @@ const UnitHealthUtil = {
    * @return {Object}       - UnitHealthStatus object.
    */
   getHealth(health) {
-    let healthKey = Util.find(Object.keys(UnitHealthStatus), function (key) {
+    let healthKey = Object.keys(UnitHealthStatus).find(function (key) {
       return (UnitHealthStatus[key].value === health);
     });
 

@@ -28,6 +28,7 @@ describe('Service Search Filters', function () {
     it('will clear filters by clear all link click', function () {
       cy.get('.filter-input-text').as('filterInputText');
       cy.get('@filterInputText').type('cassandra-healthy');
+      cy.wait(200);
       cy.get('.h4.clickable .small').click();
       cy.location().its('href').should(function (href) {
         var queries = href.split('?')[1];

@@ -3,7 +3,7 @@ import React from 'react';
 import BarChart from '../../components/charts/BarChart';
 import Chart from '../../components/charts/Chart';
 import Config from '../../config/Config';
-import ResourceTypes from '../../constants/ResourceTypes';
+import ResourcesUtil from '../../utils/ResourcesUtil';
 import Units from '../../utils/Units';
 import Util from '../../utils/Util';
 
@@ -13,11 +13,11 @@ const WIDTH_HEIGHT_RATIO = 4.5;
 class ResourceChart extends React.Component {
 
   getResourceChart(resource, totalResources) {
-    let colorIndex = ResourceTypes[resource].colorIndex;
-    let resourceLabel = ResourceTypes[resource].label;
+    let colorIndex = ResourcesUtil.getResourceColor(resource);
+    let resourceLabel = ResourcesUtil.getResourceLabel(resource);
     let resourceData = [{
       name: 'Alloc',
-      colorIndex: colorIndex,
+      colorIndex,
       values: totalResources[resource]
     }];
     let resourceValue = Units.formatResource(

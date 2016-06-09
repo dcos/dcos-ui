@@ -1,5 +1,4 @@
 import Item from './Item';
-import ServicesList from './ServicesList';
 
 /**
  * An application deployment.
@@ -32,7 +31,7 @@ module.exports = class Deployment extends Item {
     let ids = this.getAffectedServiceIds();
     let services = this.get('affectedServices');
     if (ids == null || ids.length === 0) {
-      return new ServicesList();
+      return [];
     }
     if (services == null) {
       throw Error('Affected services list is stale.');

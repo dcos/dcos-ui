@@ -1,6 +1,7 @@
 import {EventEmitter} from 'events';
 
 import {
+  CHRONOS_JOBS_CHANGE,
   DCOS_CHANGE,
   MESOS_SUMMARY_CHANGE,
   MARATHON_DEPLOYMENTS_CHANGE,
@@ -8,16 +9,17 @@ import {
   MARATHON_SERVICE_VERSION_CHANGE,
   MARATHON_SERVICE_VERSIONS_CHANGE
 } from '../constants/EventTypes';
+import ChronosStore from '../stores/ChronosStore';
 import DeploymentsList from '../structs/DeploymentsList';
 import Framework from '../structs/Framework';
 import MarathonStore from './MarathonStore';
 import MesosSummaryStore from './MesosSummaryStore';
 import NotificationStore from './NotificationStore';
-import ServicesList from '../structs/ServicesList';
 import ServiceTree from '../structs/ServiceTree';
 import SummaryList from '../structs/SummaryList';
 
 const METHODS_TO_BIND = [
+  'onChronosChange',
   'onMarathonGroupsChange',
   'onMarathonDeploymentsChange',
   'onMarathonServiceVersionChange',
@@ -45,6 +47,15 @@ class DCOSStore extends EventEmitter {
     };
 
     this.proxyListeners = [
+      {
+        event: MARATHON_DEPLOYMENTS_CHANGE,
+        handler: this.onMarathonDeploymentsChange,
+        store: MarathonStore
+      }, {
+        event: CHRONOS_JOBS_CHANGE,
+        handler: this.onChronosChange,
+        store: ChronosStore
+      },
       {
         event: MARATHON_DEPLOYMENTS_CHANGE,
         handler: this.onMarathonDeploymentsChange,
@@ -106,10 +117,10 @@ class DCOSStore extends EventEmitter {
         let ids = deployment.getAffectedServiceIds();
         let services = ids.map(serviceTree.findItemById.bind(serviceTree));
 
-        return Object.assign({
-          affectedServices: new ServicesList({items: services})
-        }, deployment);
+        return Object.assign({affectedServices: services}, deployment);
       });
+
+    this.emit(DCOS_CHANGE);
   }
 
   onMarathonGroupsChange() {
@@ -156,6 +167,10 @@ class DCOSStore extends EventEmitter {
     }
 
     this.data.mesos = states;
+    this.emit(DCOS_CHANGE);
+  }
+
+  onChronosChange() {
     this.emit(DCOS_CHANGE);
   }
 
@@ -210,6 +225,20 @@ class DCOSStore extends EventEmitter {
     }
 
     return this;
+  }
+
+  /**
+   * @type {DeploymentsList}
+   */
+  get deploymentsList() {
+    return this.data.marathon.deploymentsList;
+  }
+
+  /**
+   * @type {JobTree}
+   */
+  get jobTree() {
+    return ChronosStore.jobTree;
   }
 
   /**

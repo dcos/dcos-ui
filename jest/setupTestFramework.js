@@ -1,3 +1,6 @@
+// Install jasmine clock to fake time passing
+jasmine.clock().install();
+
 if (process.env.TEAMCITY_VERSION != null) {
   var jasmineReporters = require('jasmine-reporters/src/teamcity_reporter');
   jasmine.getEnv().addReporter(new jasmineReporters.TeamCityReporter());

@@ -1,4 +1,4 @@
-import {Store} from 'mesosphere-shared-reactjs';
+import BaseStore from './BaseStore';
 
 var AppDispatcher = require('../events/AppDispatcher');
 import ActionTypes from '../constants/ActionTypes';
@@ -8,7 +8,6 @@ import {
   MESOS_SUMMARY_CHANGE,
   MESOS_SUMMARY_REQUEST_ERROR
 } from '../constants/EventTypes';
-var GetSetMixin = require('../mixins/GetSetMixin');
 var MesosSummaryUtil = require('../utils/MesosSummaryUtil');
 var MesosSummaryActions = require('../events/MesosSummaryActions');
 import SummaryList from '../structs/SummaryList';
@@ -19,8 +18,11 @@ import VisibilityStore from './VisibilityStore';
 let requestInterval = null;
 let isInactive = false;
 
+/**
+ * @this {MesosSummaryStore}
+ */
 function startPolling() {
-  if (requestInterval == null && MesosSummaryStore.shouldPoll()) {
+  if (requestInterval == null) {
     // Should always retrieve bulk summary when polling starts
     MesosSummaryActions.fetchSummary(TimeScales.MINUTE);
 
@@ -43,7 +45,7 @@ function startPolling() {
         // effects (like re-rendering etc). The tab is out of focus so we
         // don't want it to do any work. It only matters that there is
         // appropriate history when we return focus to the tab.
-        MesosSummaryStore.processSummaryError({silent: true});
+        this.processSummaryError({silent: true});
       }
     }, Config.getRefreshRate());
   }
@@ -56,12 +58,40 @@ function stopPolling() {
   }
 }
 
-var MesosSummaryStore = Store.createStore({
-  storeID: 'summary',
+class MesosSummaryStore extends BaseStore {
+  constructor() {
+    super(...arguments);
 
-  mixins: [GetSetMixin],
+    this.dispatcherIndex = AppDispatcher.register((payload) => {
+      if (payload.source !== ActionTypes.SERVER_ACTION) {
+        return false;
+      }
 
-  init: function () {
+      var action = payload.action;
+      switch (action.type) {
+        case ActionTypes.REQUEST_SUMMARY_SUCCESS:
+          this.processSummary(action.data);
+          break;
+        case ActionTypes.REQUEST_SUMMARY_HISTORY_SUCCESS:
+          this.processBulkState(action.data);
+          break;
+        case ActionTypes.REQUEST_SUMMARY_ERROR:
+          this.processSummaryError();
+          break;
+        case ActionTypes.REQUEST_SUMMARY_PLACEHOLDER:
+          this.processSummaryPlaceholder();
+          break;
+        case ActionTypes.REQUEST_SUMMARY_ONGOING:
+        case ActionTypes.REQUEST_MESOS_HISTORY_ONGOING:
+          this.processSummaryError();
+          break;
+      }
+
+      return true;
+    });
+  }
+
+  init() {
     if (this.get('initCalledAt') != null) {
       return;
     }
@@ -74,10 +104,10 @@ var MesosSummaryStore = Store.createStore({
       statesProcessed: false
     });
 
-    startPolling();
-  },
+    startPolling.call(this);
+  }
 
-  getInitialStates: function () {
+  getInitialStates() {
     let initialStates = MesosSummaryUtil.getInitialStates().slice();
     let states = new SummaryList({maxLength: Config.historyLength});
     initialStates.forEach(state => {
@@ -85,9 +115,9 @@ var MesosSummaryStore = Store.createStore({
     });
 
     return states;
-  },
+  }
 
-  unmount: function () {
+  unmount() {
     this.set({
       initCalledAt: null,
       loading: null,
@@ -97,56 +127,58 @@ var MesosSummaryStore = Store.createStore({
     });
 
     stopPolling();
-  },
+  }
 
-  addChangeListener: function (eventName, callback) {
+  addChangeListener(eventName, callback) {
     this.on(eventName, callback);
 
-    startPolling();
-  },
+    if (!this.shouldPoll()) {
+      startPolling.call(this);
+    }
+  }
 
-  removeChangeListener: function (eventName, callback) {
+  removeChangeListener(eventName, callback) {
     this.removeListener(eventName, callback);
 
     if (!this.shouldPoll()) {
       stopPolling();
     }
-  },
+  }
 
-  shouldPoll: function () {
+  shouldPoll() {
     return !!this.listeners(MESOS_SUMMARY_CHANGE).length;
-  },
+  }
 
-  getActiveServices: function () {
+  getActiveServices() {
     return this.get('states').lastSuccessful().getServiceList().getItems();
-  },
+  }
 
-  getServiceFromName: function (name) {
+  getServiceFromName(name) {
     let services = this.getActiveServices();
 
     return services.find(function (service) {
       return service.get('name') === name;
     });
-  },
+  }
 
-  hasServiceUrl: function (serviceName) {
-    let service = MesosSummaryStore.getServiceFromName(serviceName);
+  hasServiceUrl(serviceName) {
+    let service = this.getServiceFromName(serviceName);
     let webuiUrl = service.get('webui_url');
 
     return service && !!webuiUrl && webuiUrl.length > 0;
-  },
+  }
 
-  updateStateProcessed: function () {
+  updateStateProcessed() {
     this.set({statesProcessed: true});
     this.emit(MESOS_SUMMARY_CHANGE);
-  },
+  }
 
-  notifySummaryProcessed: function () {
+  notifySummaryProcessed() {
     var initCalledAt = this.get('initCalledAt');
     // skip if state is processed, already loading or init has not been called
     if (this.get('statesProcessed') ||
-        this.get('loading') != null ||
-        initCalledAt == null) {
+      this.get('loading') != null ||
+      initCalledAt == null) {
       this.emit(MESOS_SUMMARY_CHANGE);
       return;
     }
@@ -163,9 +195,9 @@ var MesosSummaryStore = Store.createStore({
         )
       });
     }
-  },
+  }
 
-  processSummary: function (data, options = {}) {
+  processSummary(data, options = {}) {
     // If request to Mesos times out we get an empty Object
     if (!Object.keys(data).length) {
       return this.processSummaryError();
@@ -184,20 +216,20 @@ var MesosSummaryStore = Store.createStore({
     if (!options.silent) {
       this.notifySummaryProcessed();
     }
-  },
+  }
 
-  processBulkState: function (data) {
+  processBulkState(data) {
     if (!Array.isArray(data)) {
       return MesosSummaryActions.fetchSummary(TimeScales.MINUTE);
     }
     // Multiply Config.stateRefresh in order to use larger time slices
     data = MesosSummaryUtil.addTimestampsToData(data, Config.getRefreshRate());
-    data.forEach(function (datum) {
-      MesosSummaryStore.processSummary(datum, {silent: true});
+    data.forEach((datum) => {
+      this.processSummary(datum, {silent: true});
     });
-  },
+  }
 
-  processSummaryError: function (options = {}) {
+  processSummaryError(options = {}) {
     let unsuccessfulSummary = new StateSummary({successful: false});
     let states = this.get('states');
 
@@ -206,37 +238,16 @@ var MesosSummaryStore = Store.createStore({
     if (!options.silent) {
       this.emit(MESOS_SUMMARY_REQUEST_ERROR);
     }
-  },
+  }
 
-  processOngoingRequest: function () {
+  processOngoingRequest() {
     // Handle ongoing request here.
-  },
+  }
 
-  dispatcherIndex: AppDispatcher.register(function (payload) {
-    if (payload.source !== ActionTypes.SERVER_ACTION) {
-      return false;
-    }
+  get storeID() {
+    return 'summary';
+  }
 
-    var action = payload.action;
-    switch (action.type) {
-      case ActionTypes.REQUEST_SUMMARY_SUCCESS:
-        MesosSummaryStore.processSummary(action.data);
-        break;
-      case ActionTypes.REQUEST_SUMMARY_HISTORY_SUCCESS:
-        MesosSummaryStore.processBulkState(action.data);
-        break;
-      case ActionTypes.REQUEST_SUMMARY_ERROR:
-        MesosSummaryStore.processSummaryError();
-        break;
-      case ActionTypes.REQUEST_SUMMARY_ONGOING:
-      case ActionTypes.REQUEST_MESOS_HISTORY_ONGOING:
-        MesosSummaryStore.processSummaryError();
-        break;
-    }
+}
 
-    return true;
-  })
-
-});
-
-module.exports = MesosSummaryStore;
+module.exports = new MesosSummaryStore();

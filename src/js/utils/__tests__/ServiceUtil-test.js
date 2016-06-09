@@ -5,7 +5,7 @@ var Service = require('../../structs/Service');
 var ServiceUtil = require('../ServiceUtil');
 
 describe('ServiceUtil', function () {
-  describe('#converModelToService', function () {
+  describe('#createServiceFromFormModel', function () {
     it('should convert to the correct Service', function () {
       let model = {
         General: {
@@ -22,7 +22,27 @@ describe('ServiceUtil', function () {
       expect(ServiceUtil.createServiceFromFormModel(model))
         .toEqual(expectedService);
     });
+
+    it('should return empty service if null is provided', function () {
+      let model = null;
+
+      let expectedService = new Service({});
+
+      expect(ServiceUtil.createServiceFromFormModel(model))
+        .toEqual(expectedService);
+    });
+
+    it('should return empty service if empty object is provided', function () {
+      let model = {};
+
+      let expectedService = new Service({});
+
+      expect(ServiceUtil.createServiceFromFormModel(model))
+        .toEqual(expectedService);
+    });
   });
+
+
 
   describe('#createFormModelFromSchema', function () {
     it('should create the correct model', function () {
@@ -37,14 +57,20 @@ describe('ServiceUtil', function () {
                 default: '/service',
                 title: 'ID',
                 description: 'The id for the service',
-                type: 'string'
+                type: 'string',
+                getter: function(service) {
+                  return service.getId();
+                }
               },
               cmd: {
                 title: 'Command',
                 default: 'sleep 1000;',
                 description: 'The command which is executed by the service',
                 type: 'string',
-                multiLine: true
+                multiLine: true,
+                getter: function(service) {
+                  return service.getCommand();
+                }
               }
             }
           }
@@ -59,7 +85,7 @@ describe('ServiceUtil', function () {
         cmd: 'sleep 1000;'
       });
 
-      expect(ServiceUtil.createFormModelFromSchema(service, schema)).toEqual({
+      expect(ServiceUtil.createFormModelFromSchema(schema, service)).toEqual({
         General: {
           id: '/test',
           cmd: 'sleep 1000;'

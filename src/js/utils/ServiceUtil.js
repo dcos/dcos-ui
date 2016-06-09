@@ -8,7 +8,7 @@ const getFindPropertiesRecursive = function (service, item) {
 
       return memo;
     }
-    memo[subItem] = service.get(subItem) || item[subItem].default;
+    memo[subItem] = item[subItem].getter(service) || item[subItem].default;
 
     return memo;
   }, {});
@@ -16,18 +16,30 @@ const getFindPropertiesRecursive = function (service, item) {
 
 const ServiceUtil = {
   createServiceFromFormModel: function (formModel) {
-    let values = Object.keys(formModel).reduce(function (memo, section) {
-      Object.keys(formModel[section]).forEach(function (attribute) {
-        memo[attribute] = formModel[section][attribute];
-      });
+    let definition = {};
 
-      return memo;
-    }, {});
+    if (formModel != null) {
+      if (formModel.General != null) {
+        definition.id = formModel.General.id;
+        definition.cmd = formModel.General.cmd;
+        definition.cpus = formModel.General.cpus;
+        definition.mem = formModel.General.mem;
+        definition.disk = formModel.General.disk;
+        definition.instances = formModel.General.instances;
+      }
 
-    return new Service(values);
+      if (formModel['Container Settings'] != null) {
+        definition.container = {
+          docker: {
+            image: formModel['Container Settings'].image
+          }
+        }
+      }
+    }
+    return new Service(definition);
   },
 
-  createFormModelFromSchema: function (service, schema) {
+  createFormModelFromSchema: function (schema, service = new Service()) {
 
     return getFindPropertiesRecursive(service, schema.properties);
   },
@@ -41,6 +53,14 @@ const ServiceUtil = {
     appDefinition.disk = service.getDisk();
     appDefinition.instances = service.getInstancesCount();
     appDefinition.cmd = service.getCommand();
+
+    let containerSettings = service.getContainerSettings();
+    if (
+      containerSettings && containerSettings.docker &&
+      containerSettings.docker.image
+    ) {
+      appDefinition.container = containerSettings;
+    }
 
     Object.keys(appDefinition).forEach(function (key) {
       if (appDefinition[key] == null) {

@@ -1,24 +1,24 @@
-import {Store} from 'mesosphere-shared-reactjs';
+import BaseStore from './BaseStore';
 
-import GetSetMixin from '../mixins/GetSetMixin';
 import {NOTIFICATION_CHANGE} from '../constants/EventTypes';
 
-const NotificationStore = Store.createStore({
-  storeID: 'notification',
+class NotificationStore extends BaseStore {
 
-  mixins: [GetSetMixin],
+  constructor() {
+    super(...arguments);
 
-  getSet_data: {
-    notificationMap: {}
-  },
+    this.getSet_data = {
+      notificationMap: {}
+    }
+  }
 
-  addChangeListener: function (eventName, callback) {
+  addChangeListener(eventName, callback) {
     this.on(eventName, callback);
-  },
+  }
 
-  removeChangeListener: function (eventName, callback) {
+  removeChangeListener(eventName, callback) {
     this.removeListener(eventName, callback);
-  },
+  }
 
   setLocationValue(notificationMap, location, notificationID, value) {
     let locationMap = notificationMap[location];
@@ -28,28 +28,28 @@ const NotificationStore = Store.createStore({
 
     notificationMap[location][notificationID] = value;
     return notificationMap;
-  },
+  }
 
-  deleteLocation: function (notificationMap, location, notificationID) {
+  deleteLocation(notificationMap, location, notificationID) {
     if (!notificationMap.hasOwnProperty(location)) {
       return notificationMap;
     }
 
     delete notificationMap[location][notificationID];
     return notificationMap;
-  },
+  }
 
   // Public API Below
-
+  // TODO:  DCOS-7431 - Fix documentation style (jsdoc)
   /*
-    Set the notification value for a specific location.
+   Set the notification value for a specific location.
 
-    @param {Array|String} locations Location or locations to set.
-    @param {String} notificationID ID of the specific notification.
-    @param {Number} value The number of notifications.
-    @access public
-  */
-  addNotification: function (locations, notificationID, value) {
+   @param {Array|String} locations Location or locations to set.
+   @param {String} notificationID ID of the specific notification.
+   @param {Number} value The number of notifications.
+   @access public
+   */
+  addNotification(locations, notificationID, value) {
     let notificationMap = this.get('notificationMap');
 
     if (Array.isArray(locations)) {
@@ -62,16 +62,16 @@ const NotificationStore = Store.createStore({
 
     this.set({notificationMap});
     this.emit(NOTIFICATION_CHANGE);
-  },
+  }
 
   /*
-    Remove all the notifications for a specific location.
+   Remove all the notifications for a specific location.
 
-    @param {Array|String} locations Location or locations to remove.
-    @param {String} notificationID ID of the specific notification.
-    @access public
-  */
-  removeNotification: function (locations, notificationID) {
+   @param {Array|String} locations Location or locations to remove.
+   @param {String} notificationID ID of the specific notification.
+   @access public
+   */
+  removeNotification(locations, notificationID) {
     let notificationMap = this.get('notificationMap');
 
     if (Array.isArray(locations)) {
@@ -84,16 +84,16 @@ const NotificationStore = Store.createStore({
 
     this.set({notificationMap});
     this.emit(NOTIFICATION_CHANGE);
-  },
+  }
 
   /*
-    Get the notification value for a specific location
+   Get the notification value for a specific location
 
-    @param {String} tabName Location or locations to get the notification count.
-    @access public
-    @return {Number} value representing the number of notifications.
-  */
-  getNotificationCount: function (tabName) {
+   @param {String} tabName Location or locations to get the notification count.
+   @access public
+   @return {Number} value representing the number of notifications.
+   */
+  getNotificationCount(tabName) {
     let notificationMap = this.get('notificationMap');
     if (!notificationMap.hasOwnProperty(tabName)) {
       return 0;
@@ -106,6 +106,9 @@ const NotificationStore = Store.createStore({
     }, 0);
   }
 
-});
+  get storeID() {
+    return 'notification';
+  }
+}
 
-module.exports = NotificationStore;
+module.exports = new NotificationStore();

@@ -6,7 +6,9 @@ import '../styles/index.less';
 import PluginSDK from 'PluginSDK';
 
 import 'babel-polyfill';
+/* eslint-disable no-unused-vars */
 import React from 'react';
+/* eslint-enable no-unused-vars */
 import ReactDOM from 'react-dom';
 import {RequestUtil} from 'mesosphere-shared-reactjs';
 import Router from 'react-router';
@@ -20,7 +22,7 @@ import ApplicationLoader from './pages/ApplicationLoader';
 import appRoutes from './routes/index';
 import Config from './config/Config';
 import ConfigStore from './stores/ConfigStore';
-import Util from './utils/Util';
+import RouterUtil from './utils/RouterUtil';
 
 let domElement = document.getElementById('application');
 
@@ -42,19 +44,6 @@ RequestUtil.json = function (options = {}) {
   oldJSON(options);
 };
 
-function createRoutes(routes) {
-  return routes.map(function (route) {
-    let args = [route.type, Util.omit(route, ['type', 'children'])];
-
-    if (route.children) {
-      let children = createRoutes(route.children);
-      args = args.concat(children);
-    }
-
-    return React.createElement(...args);
-  });
-}
-
 function onApplicationLoad() {
   // Allow overriding of application contents
   let contents = PluginSDK.Hooks.applyFilter('applicationContents', null);
@@ -66,11 +55,8 @@ function onApplicationLoad() {
       domElement);
   } else {
     setTimeout(function () {
-      let builtRoutes = createRoutes(
-        appRoutes.getRoutes()
-      );
-
-      let router = Router.run(builtRoutes[0], function (Handler, state) {
+      let routes = RouterUtil.buildRoutes(appRoutes.getRoutes());
+      let router = Router.run(routes, function (Handler, state) {
         Config.setOverrides(state.query);
         ReactDOM.render(
           (<Provider store={PluginSDK.Store}>
