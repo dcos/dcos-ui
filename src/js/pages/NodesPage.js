@@ -45,7 +45,6 @@ function getMesosHosts(state) {
     totalNodes: nodes.getItems().length,
     refreshRate: Config.getRefreshRate(),
     services: lastState.getServiceList().getItems(),
-    statesProcessed: MesosSummaryStore.get('statesProcessed'),
     totalHostsResources: states.getResourceStatesForNodeIDs(nodeIDs),
     totalResources: lastState.getSlaveTotalResources()
   };
@@ -305,7 +304,8 @@ var NodesPage = React.createClass({
 
   render: function () {
     var data = this.internalStorage_get();
-    var isEmpty = data.statesProcessed && data.totalNodes === 0;
+    let statesProcessed = MesosSummaryStore.get('statesProcessed');
+    var isEmpty = statesProcessed && data.totalNodes === 0;
 
     return (
       <Page title="Nodes">

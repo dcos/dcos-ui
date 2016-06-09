@@ -5,6 +5,7 @@ var ConfigTest = require('./Config.test.js');
 var Config = {
   analyticsKey: '51ybGTeFEFU1xo6u10XMDrr6kATFyRyh',
   acsAPIPrefix: '/acs/api/v1',
+  applicationRenderDelay: 1000,
   networkingAPIPrefix: '/networking/api/v1',
   cosmosAPIPrefix: '/package',
   secretsAPIPrefix: '/secrets/v1',
@@ -20,7 +21,6 @@ var Config = {
   setInactiveAfter: 30000,
   testHistoryInterval: 10000,
   rootUrl: '',
-  stateLoadDelay: 1000,
   slackChannel: 'https://dcos-community.slack.com/messages/general/',
   stateRefresh: 2000,
   supportEmail: 'help@dcos.io',

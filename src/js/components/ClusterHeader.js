@@ -1,17 +1,31 @@
+import mixin from 'reactjs-mixin';
 import React from 'react';
+import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import ClipboardTrigger from '../components/ClipboardTrigger';
 import ClusterName from './ClusterName';
 import MetadataStore from '../stores/MetadataStore';
 
-var ClusterHeader = React.createClass({
-  displayName: 'ClusterHeader',
+class ClusterHeader extends mixin(StoreMixin) {
+  constructor() {
+    super(...arguments);
 
-  getDefaultProps: function () {
-    return {
-      useClipboard: true
-    };
-  },
+    this.store_listeners = [
+      {
+        name: 'metadata',
+        events: ['success'],
+        listenAlways: false
+      }
+    ];
+  }
+
+  shouldComponentUpdate(nextProps) {
+    if (nextProps.useClipboard !== this.props.useClipboard) {
+      return true;
+    }
+
+    return false;
+  }
 
   getFlashButton() {
     if (!this.props.useClipboard) {
@@ -19,7 +33,7 @@ var ClusterHeader = React.createClass({
     }
 
     return <ClipboardTrigger copyText={this.getPublicIP()} />;
-  },
+  }
 
   getPublicIP() {
     let metadata = MetadataStore.get('metadata');
@@ -31,7 +45,7 @@ var ClusterHeader = React.createClass({
     }
 
     return metadata.PUBLIC_IPV4;
-  },
+  }
 
   getHostName() {
     let ip = this.getPublicIP();
@@ -47,7 +61,7 @@ var ClusterHeader = React.createClass({
         </span>
       </div>
     );
-  },
+  }
 
   render() {
     return (
@@ -57,6 +71,14 @@ var ClusterHeader = React.createClass({
       </div>
     );
   }
-});
+}
+
+ClusterHeader.defaultProps = {
+  useClipboard: true
+};
+
+ClusterHeader.propTypes = {
+  useClipboard: React.PropTypes.bool
+};
 
 module.exports = ClusterHeader;
