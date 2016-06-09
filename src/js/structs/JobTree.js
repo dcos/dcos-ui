@@ -16,7 +16,7 @@ module.exports = class JobTree extends Tree {
   constructor({id} = {}) {
     super(...arguments);
 
-    this.id = '/';
+    this.id = '';
     if (typeof id == 'string') {
       this.id = id;
     }
@@ -56,6 +56,6 @@ module.exports = class JobTree extends Tree {
   }
 
   getName() {
-    return this.getId().split('/').pop();
+    return this.getId().split('.').pop();
   }
 };

@@ -7,23 +7,23 @@ describe('JobTree', function () {
 
     beforeEach(function () {
       this.instance = new JobTree({
-        id: '/group',
+        id: 'group',
         items: [
-          {id: '/group/foo', items: []},
-          {id: '/group/bar', items: []},
-          {id: '/group/alpha'},
-          {id: '/group/beta'}
+          {id: 'group.foo', items: []},
+          {id: 'group.bar', items: []},
+          {id: 'group.alpha'},
+          {id: 'group.beta'}
         ]
       });
     });
 
     it('defaults id to slash (root group id)', function () {
       let tree = new JobTree({items: []});
-      expect(tree.getId()).toEqual('/');
+      expect(tree.getId()).toEqual('');
     });
 
     it('sets correct tree id', function () {
-      expect(this.instance.getId()).toEqual('/group');
+      expect(this.instance.getId()).toEqual('group');
     });
 
     it('accepts nested trees (groups)', function () {
@@ -43,20 +43,20 @@ describe('JobTree', function () {
 
     beforeEach(function () {
       this.instance = new JobTree({
-        id: '/',
+        id: '',
         items: [
-          {id: '/foo', items: []},
-          {id: '/alpha'}
+          {id: 'foo', items: []},
+          {id: 'alpha'}
         ],
       });
     });
 
     it('should find matching item', function () {
-      expect(this.instance.findItemById('/alpha').getId()).toEqual('/alpha');
+      expect(this.instance.findItemById('alpha').getId()).toEqual('alpha');
     });
 
     it('should find matching subtree', function () {
-      expect(this.instance.findItemById('/foo').getId()).toEqual('/foo');
+      expect(this.instance.findItemById('foo').getId()).toEqual('foo');
     });
 
   });
