@@ -10,9 +10,11 @@ import Util from '../utils/Util';
 
 const METHODS_TO_BIND = [
   'getAddNewRowButton',
-  'getRemoveVariableButton',
-  'validateForm', 'getTriggerTabFormSubmit', 'handleFormChange',
-  'handleExternalSubmit'
+  'getRemoveRowButton',
+  'getTriggerTabFormSubmit',
+  'handleFormChange',
+  'handleExternalSubmit',
+  'validateForm'
 ];
 
 class SchemaForm extends React.Component {
@@ -102,7 +104,7 @@ class SchemaForm extends React.Component {
       newDefinition
     );
     newDefinition.push(
-      this.getRemoveVariableButton(definition, prop, propID)
+      this.getRemoveRowButton(definition, prop, propID)
     );
 
     // Default to prepending.
@@ -135,7 +137,7 @@ class SchemaForm extends React.Component {
     );
   }
 
-  getRemoveVariableButton(generalDefinition, prop, id) {
+  getRemoveRowButton(generalDefinition, prop, id) {
     return (
       <button
         className="button"
@@ -160,7 +162,7 @@ class SchemaForm extends React.Component {
       schema,
       this.getSubHeader,
       this.getLabel,
-      this.getRemoveVariableButton,
+      this.getRemoveRowButton,
       this.getAddNewRowButton
     );
 
@@ -168,7 +170,7 @@ class SchemaForm extends React.Component {
       SchemaFormUtil.mergeModelIntoDefinition(
         model,
         definition,
-        this.getRemoveVariableButton
+        this.getRemoveRowButton
       );
     }
 
