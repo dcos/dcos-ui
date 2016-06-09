@@ -10,7 +10,7 @@ class ServiceDetailDebugTab extends mixin(StoreMixin) {
   getValueText(value) {
     if (value == null || value === '') {
       return (
-        <span className="text-muted">
+        <span className="text-mute">
           Unspecified
         </span>
       );
@@ -25,7 +25,7 @@ class ServiceDetailDebugTab extends mixin(StoreMixin) {
     let {lastTaskFailure} = this.props.service;
     if (lastTaskFailure == null) {
       return (
-        <span className="text-muted">
+        <span className="text-mute">
           This app does not have failed tasks
         </span>
       );
@@ -52,7 +52,7 @@ class ServiceDetailDebugTab extends mixin(StoreMixin) {
     let {versionInfo} = this.props.service;
     if (versionInfo == null) {
       return (
-        <span className="text-muted">
+        <span className="text-mute">
           This app does not have version change information
         </span>
       );
@@ -81,11 +81,11 @@ class ServiceDetailDebugTab extends mixin(StoreMixin) {
   render() {
     return (
       <div>
-        <h5 className="flush-top">
+        <h5 className="inverse flush-top">
           Last Changes
         </h5>
         {this.getLastVersionChange()}
-        <h5 className="flush-top">
+        <h5 className="inverse flush-top">
           Last Task Failure
         </h5>
         {this.getLastTaskFailureInfo()}
