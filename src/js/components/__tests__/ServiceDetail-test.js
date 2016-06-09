@@ -1,7 +1,8 @@
 jest.dontMock('../PageHeader');
 jest.dontMock('../ServiceDetail');
-jest.dontMock('../ServiceDetailTaskTab');
+jest.dontMock('../ServiceDetailDebugTab');
 jest.dontMock('../ServiceDetailConfigurationTab');
+jest.dontMock('../ServiceDetailTaskTab');
 jest.dontMock('../ServiceInfo');
 jest.dontMock('../../structs/Service');
 
@@ -14,6 +15,7 @@ var JestUtil = require('../../utils/JestUtil');
 
 var Service = require('../../structs/Service');
 var ServiceDetail = require('../ServiceDetail');
+var ServiceDetailDebugTab = require('../ServiceDetailDebugTab');
 var ServiceDetailConfigurationTab = require('../ServiceDetailConfigurationTab');
 var ServiceDetailTaskTab = require('../ServiceDetailTaskTab');
 var ServiceDetailVolumeTab = require('../ServiceDetailVolumesTab');
@@ -80,13 +82,17 @@ describe('ServiceDetail', function () {
 
   describe('#renderDebugTabView', function () {
 
-    it('renders placeholder', function () {
+    it('renders debug tab', function () {
       var debugTabView = ReactDOM.render(
         this.instance.renderDebugTabView(),
         this.container
       );
+      var serviceDetailDebugTab = TestUtils.findRenderedComponentWithType(
+        debugTabView,
+        ServiceDetailDebugTab
+      );
 
-      expect(debugTabView.textContent).toEqual('Debug Placeholder');
+      expect(serviceDetailDebugTab).toBeDefined();
     });
 
   });
