@@ -30,7 +30,6 @@ class TaskStatsTable extends React.Component {
   getClassName(prop, sortBy, row) {
     return classNames({
       'highlight': prop === sortBy.prop,
-      'clickable': row == null, // this is a header
       'text-align-right': taskStatus.includes(prop),
       'hidden-mini': taskStatus.includes(prop)
     });
