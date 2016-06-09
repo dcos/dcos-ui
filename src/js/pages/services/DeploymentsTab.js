@@ -82,7 +82,7 @@ class DeploymentsTab extends mixin(StoreMixin) {
         <li key={index}>
           <ServicesBreadcrumb
             className="deployment-breadcrumb"
-            h4ClassNames="flush-bottom"
+            headerClassNames="flush-bottom"
             serviceTreeItem={service} />
         </li>
       );
