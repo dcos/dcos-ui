@@ -18,10 +18,7 @@ const METHODS_TO_BIND = [
   'onActionsItemSelection',
   'onAcceptDestroyConfirmDialog',
   'onAcceptSuspendConfirmDialog',
-  'onCancelDestroyConfirmDialog',
-  'onCancelSuspendConfirmDialog',
-  'onCloseScaleFormModal',
-  'onCloseServiceFormModal'
+  'closeDialog'
 ];
 
 class ServiceDetail extends mixin(InternalStorageMixin, TabsMixin) {
@@ -38,10 +35,7 @@ class ServiceDetail extends mixin(InternalStorageMixin, TabsMixin) {
 
     this.state = {
       currentTab: Object.keys(this.tabs_tabs).shift(),
-      isServiceFormModalShown: false,
-      isServiceDestroyConfirmShown: false,
-      isServiceScaleFormModalShown: false,
-      isServiceSuspendConfirmShown: false
+      serviceActionDialog: null
     };
 
     METHODS_TO_BIND.forEach((method) => {
@@ -50,44 +44,24 @@ class ServiceDetail extends mixin(InternalStorageMixin, TabsMixin) {
   }
 
   onActionsItemSelection(item) {
-    switch (item.id) {
-      case ServiceActionItem.EDIT:
-        this.setState({isServiceFormModalShown: true});
-        break;
-      case ServiceActionItem.DESTROY:
-        this.setState({isServiceDestroyConfirmShown: true});
-        break;
-      case ServiceActionItem.SCALE:
-        this.setState({isServiceScaleFormModalShown: true});
-        break;
-      case ServiceActionItem.SUSPEND:
-        this.setState({isServiceSuspendConfirmShown: true});
-        break;
-    }
+    this.setState({
+      serviceActionDialog:
+        Object.values(ServiceActionItem).find(function (actionItem) {
+          return actionItem === item.id;
+        })
+    });
   }
 
   onAcceptDestroyConfirmDialog() {
-    this.setState({isServiceDestroyConfirmShown: false});
+    this.closeDialog();
   }
 
   onAcceptSuspendConfirmDialog() {
-    this.setState({isServiceSuspendConfirmShown: false});
+    this.closeDialog();
   }
 
-  onCancelDestroyConfirmDialog() {
-    this.setState({isServiceDestroyConfirmShown: false});
-  }
-
-  onCancelSuspendConfirmDialog() {
-    this.setState({isServiceSuspendConfirmShown: false});
-  }
-
-  onCloseScaleFormModal() {
-    this.setState({isServiceScaleFormModalShown: false});
-  }
-
-  onCloseServiceFormModal() {
-    this.setState({isServiceFormModalShown: false});
+  closeDialog() {
+    this.setState({serviceActionDialog: null});
   }
 
   getDestroyConfirmDialog() {
@@ -102,10 +76,10 @@ class ServiceDetail extends mixin(InternalStorageMixin, TabsMixin) {
 
     return  (
       <Confirm children={message}
-        open={this.state.isServiceDestroyConfirmShown}
-        onClose={this.onCancelDestroyConfirmDialog}
+        open={this.state.serviceActionDialog === ServiceActionItem.DESTROY}
+        onClose={this.closeDialog}
         leftButtonText="Cancel"
-        leftButtonCallback={this.onCancelDestroyConfirmDialog}
+        leftButtonCallback={this.closeDialog}
         rightButtonText="Destroy Service"
         rightButtonClassName="button button-danger"
         rightButtonCallback={this.onAcceptDestroyConfirmDialog} />
@@ -124,10 +98,10 @@ class ServiceDetail extends mixin(InternalStorageMixin, TabsMixin) {
 
     return  (
       <Confirm children={message}
-        open={this.state.isServiceSuspendConfirmShown}
-        onClose={this.onCancelSuspendConfirmDialog}
+        open={this.state.serviceActionDialog === ServiceActionItem.SUSPEND}
+        onClose={this.closeDialog}
         leftButtonText="Cancel"
-        leftButtonCallback={this.onCancelSuspendConfirmDialog}
+        leftButtonCallback={this.closeDialog}
         rightButtonText="Suspend Service"
         rightButtonClassName="button button-primary"
         rightButtonCallback={this.onAcceptSuspendConfirmDialog} />
@@ -137,9 +111,9 @@ class ServiceDetail extends mixin(InternalStorageMixin, TabsMixin) {
   getServiceScaleFormModal() {
     return (
       <ServiceScaleFormModal
-        open={this.state.isServiceScaleFormModalShown}
+        open={this.state.serviceActionDialog === ServiceActionItem.SCALE}
         service={this.props.service}
-        onClose={this.onCloseScaleFormModal} />
+        onClose={this.closeDialog} />
     );
   }
 
@@ -181,9 +155,9 @@ class ServiceDetail extends mixin(InternalStorageMixin, TabsMixin) {
           {this.tabs_getTabView()}
         </div>
         <ServiceFormModal isEdit={true}
-          open={this.state.isServiceFormModalShown}
+          open={this.state.serviceActionDialog === ServiceActionItem.EDIT}
           service={service}
-          onClose={this.onCloseServiceFormModal} />
+          onClose={this.closeDialog} />
         {this.getDestroyConfirmDialog()}
         {this.getServiceScaleFormModal()}
         {this.getSuspendConfirmDialog()}
