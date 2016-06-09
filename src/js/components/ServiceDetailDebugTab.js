@@ -8,9 +8,7 @@ class ServiceDetailDebugTab extends React.Component {
   getValueText(value) {
     if (value == null || value === '') {
       return (
-        <span className="text-mute">
-          Unspecified
-        </span>
+        <p>Unspecified</p>
       );
     }
 
@@ -23,9 +21,7 @@ class ServiceDetailDebugTab extends React.Component {
     let {lastTaskFailure} = this.props.service;
     if (lastTaskFailure == null) {
       return (
-        <span className="text-mute">
-          This app does not have failed tasks
-        </span>
+        <p>This app does not have failed tasks</p>
       );
     }
 
@@ -50,9 +46,7 @@ class ServiceDetailDebugTab extends React.Component {
     let {versionInfo} = this.props.service;
     if (versionInfo == null) {
       return (
-        <span className="text-mute">
-          This app does not have version change information
-        </span>
+        <p>This app does not have version change information</p>
       );
     }
 
