@@ -25,6 +25,7 @@ import {
 import appRoutes from './routes/index';
 import Config from './config/Config';
 import ConfigStore from './stores/ConfigStore';
+import RequestErrorMsg from './components/RequestErrorMsg';
 import RouterUtil from './utils/RouterUtil';
 
 let domElement = document.getElementById('application');
@@ -90,7 +91,20 @@ RequestUtil.json = function (options = {}) {
   }
 
   function onConfigurationError() {
-    // Render configuration error
+    // Try to find appropriate DOM element or fallback
+    let element = document.querySelector('#canvas div') || domElement;
+    let columnClasses = {
+      'column-small-8': false,
+      'column-small-offset-2': false,
+      'column-medium-6': false,
+      'column-medium-offset-3': false
+    };
+
+    ReactDOM.render(
+      (<RequestErrorMsg
+        columnClasses={columnClasses}
+        header="Error requesting UI Configuration" />),
+      element);
   }
 
   PluginSDK.Hooks.addChangeListener(PLUGINS_CONFIGURED, onPluginsLoaded);
