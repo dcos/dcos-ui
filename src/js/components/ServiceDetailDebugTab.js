@@ -1,7 +1,5 @@
-import mixin from 'reactjs-mixin';
 import moment from 'moment';
 import React from 'react';
-import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import DescriptionList from './DescriptionList';
 import Service from '../structs/Service';
