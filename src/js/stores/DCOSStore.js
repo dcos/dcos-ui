@@ -139,6 +139,10 @@ class DCOSStore extends EventEmitter {
 
     this.data.marathon.serviceTree = serviceTree;
     this.data.dataProcessed = true;
+
+    // Populate deployments with services data immediately
+    this.onMarathonDeploymentsChange();
+
     this.emit(DCOS_CHANGE);
   }
 

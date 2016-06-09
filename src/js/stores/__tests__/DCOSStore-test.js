@@ -76,6 +76,12 @@ describe('DCOSStore', function () {
         expect(NotificationStore.addNotification).not.toHaveBeenCalled();
       });
 
+      it('should be called as soon as groups endpoint data arrives', function () {
+        spyOn(DCOSStore, 'onMarathonDeploymentsChange');
+        DCOSStore.onMarathonGroupsChange();
+        expect(DCOSStore.onMarathonDeploymentsChange).toHaveBeenCalled();
+      });
+
     });
 
     describe('when the groups endpoint is already populated', function () {
