@@ -3,6 +3,7 @@ import mixin from 'reactjs-mixin';
 import React from 'react';
 
 import InternalStorageMixin from '../mixins/InternalStorageMixin';
+import MarathonStore from '../stores/MarathonStore';
 import Service from '../structs/Service';
 import ServiceActionItem from '../constants/ServiceActionItem';
 import ServiceDetailConfigurationTab from './ServiceDetailConfigurationTab';
@@ -11,6 +12,7 @@ import ServiceFormModal from './modals/ServiceFormModal';
 import ServiceInfo from './ServiceInfo';
 import ServiceScaleFormModal from './modals/ServiceScaleFormModal';
 import ServicesBreadcrumb from './ServicesBreadcrumb';
+import {StoreMixin} from 'mesosphere-shared-reactjs';
 import TabsMixin from '../mixins/TabsMixin';
 
 const METHODS_TO_BIND = [
@@ -20,7 +22,7 @@ const METHODS_TO_BIND = [
   'closeDialog'
 ];
 
-class ServiceDetail extends mixin(InternalStorageMixin, TabsMixin) {
+class ServiceDetail extends mixin(InternalStorageMixin, StoreMixin, TabsMixin) {
 
   constructor() {
     super(...arguments);
@@ -34,8 +36,20 @@ class ServiceDetail extends mixin(InternalStorageMixin, TabsMixin) {
 
     this.state = {
       currentTab: Object.keys(this.tabs_tabs).shift(),
-      serviceActionDialog: null
+      disabledDialog: null,
+      serviceActionDialog: null,
+      errorMsg: null
     };
+
+    this.store_listeners = [
+      {
+        name: 'marathon',
+        events: [
+          'serviceEditError',
+          'serviceEditSuccess'
+        ]
+      }
+    ];
 
     METHODS_TO_BIND.forEach((method) => {
       this[method] = this[method].bind(this);
@@ -56,11 +70,31 @@ class ServiceDetail extends mixin(InternalStorageMixin, TabsMixin) {
   }
 
   onAcceptSuspendConfirmDialog() {
+    this.setState({disabledDialog: ServiceActionItem.SUSPEND}, () => {
+      MarathonStore.editService({
+        id: this.props.service.id,
+        instances: 0
+      });
+    });
+  }
+
+  onMarathonStoreServiceEditSuccess() {
     this.closeDialog();
   }
 
+  onMarathonStoreServiceEditError({message:errorMsg}) {
+    this.setState({
+      disabledDialog: null,
+      errorMsg
+    });
+  }
+
   closeDialog() {
-    this.setState({serviceActionDialog: null});
+    this.setState({
+      disabledDialog: null,
+      errorMsg: null,
+      serviceActionDialog: null
+    });
   }
 
   getDestroyConfirmDialog() {
@@ -87,17 +121,20 @@ class ServiceDetail extends mixin(InternalStorageMixin, TabsMixin) {
 
   getSuspendConfirmDialog() {
     const {service} = this.props;
+    const {state} = this;
 
     let message = (
       <div className="container-pod flush-top container-pod-short-bottom">
         <h2 className="text-align-center flush-top">Suspend Service</h2>
         <p>Are you sure you want to suspend {service.getId()} by scaling to 0 instances?</p>
+        {this.getErrorMessage()}
       </div>
     );
 
     return  (
       <Confirm children={message}
-        open={this.state.serviceActionDialog === ServiceActionItem.SUSPEND}
+        disabled={state.disabledDialog === ServiceActionItem.SUSPEND}
+        open={state.serviceActionDialog === ServiceActionItem.SUSPEND}
         onClose={this.closeDialog}
         leftButtonText="Cancel"
         leftButtonCallback={this.closeDialog}
@@ -113,6 +150,16 @@ class ServiceDetail extends mixin(InternalStorageMixin, TabsMixin) {
         open={this.state.serviceActionDialog === ServiceActionItem.SCALE}
         service={this.props.service}
         onClose={this.closeDialog} />
+    );
+  }
+
+  getErrorMessage() {
+    let {errorMsg} = this.state;
+    if (!errorMsg) {
+      return null;
+    }
+    return (
+      <p className="text-danger flush-top">{errorMsg}</p>
     );
   }
 
