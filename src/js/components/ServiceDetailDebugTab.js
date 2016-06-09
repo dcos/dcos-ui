@@ -3,6 +3,7 @@ import React from 'react';
 import DateUtil from '../utils/DateUtil';
 import DescriptionList from './DescriptionList';
 import Service from '../structs/Service';
+import TaskStatsTable from './TaskStatsTable';
 
 class ServiceDetailDebugTab extends React.Component {
   getValueText(value) {
@@ -72,6 +73,18 @@ class ServiceDetailDebugTab extends React.Component {
     return <DescriptionList hash={LastVersionChangeValueMapping} />;
   }
 
+  getTaskStats() {
+    let {taskStats} = this.props.service;
+
+    if (taskStats == null || Object.keys(taskStats).length === 0) {
+      return (
+        <p>This app does not have task statistics</p>
+      );
+    }
+
+    return <TaskStatsTable taskStats={taskStats} />
+  }
+
   render() {
     return (
       <div>
@@ -83,6 +96,10 @@ class ServiceDetailDebugTab extends React.Component {
           Last Task Failure
         </h5>
         {this.getLastTaskFailureInfo()}
+        <h5 className="inverse flush-top">
+          Task Statistics
+        </h5>
+        {this.getTaskStats()}
       </div>
     );
   }
