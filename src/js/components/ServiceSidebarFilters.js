@@ -9,46 +9,50 @@ import SidebarFilter from './SidebarFilter';
 
 const PropTypes = React.PropTypes;
 
-function getCountByHealth(services) {
-  return services.reduce(function (acc, service) {
-    let serviceHealth = service.getHealth();
-    if (acc[serviceHealth.value] === undefined) {
-      acc[serviceHealth.value] = 1;
-    } else {
-      acc[serviceHealth.value]++;
-    }
-    return acc;
-  }, {});
-}
+function getCountByFilters(services) {
 
-function getCountByStatus(services) {
-  return services.reduce(function (acc, service) {
+  return services.reduce(function (memo, service) {
     let serviceStatus = service.getServiceStatus();
+    let serviceHealth = service.getHealth();
 
-    if (acc[serviceStatus.key] === undefined) {
-      acc[serviceStatus.key] = 1;
+    if (memo.statusCount[serviceStatus.key] === undefined) {
+      memo.statusCount[serviceStatus.key] = 1;
     } else {
-      acc[serviceStatus.key]++;
+      memo.statusCount[serviceStatus.key]++;
     }
-    return acc;
-  }, {});
+
+    if (memo.healthCount[serviceHealth.value] === undefined) {
+      memo.healthCount[serviceHealth.value] = 1;
+    } else {
+      memo.healthCount[serviceHealth.value]++;
+    }
+
+    }
+
+    return memo;
+  }, {healthCount: {}, statusCount: {}, otherCount: {}});
 }
 
 class ServiceSidebarFilters extends React.Component {
   render() {
     let {props} = this;
+    let {
+      healthCount,
+      statusCount,
+      otherCount
+    } = getCountByFilters(props.services);
 
     return (
       <div>
         <SidebarFilter
-          countByValue={getCountByHealth(props.services)}
+          countByValue={healthCount}
           filterType={ServiceFilterTypes.HEALTH}
           filterValues={HealthTypes}
           filterLabels={HealthLabels}
           handleFilterChange={props.handleFilterChange}
           title="HEALTH" />
         <SidebarFilter
-          countByValue={getCountByStatus(props.services)}
+          countByValue={statusCount}
           filterType={ServiceFilterTypes.STATUS}
           filterValues={ServiceStatusTypes}
           filterLabels={ServiceStatusLabels}
