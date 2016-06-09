@@ -14,7 +14,8 @@
       "timezone": "America/Chicago",
       "startingDeadlineSeconds": 60,
       "concurrencyPolicy": "allow",
-      "enabled": true
+      "enabled": true,
+      "nextRunAt": "1990-01-02T00:00:00Z"
     }],
     "run": {
       "cpus": 1,
@@ -62,8 +63,7 @@
       "successCount": 1,
       "failureCount": 0,
       "lastSuccessAt": "1990-01-02T00:00:00Z",
-      "lastFailureAt": "1989-03-01T00:10:15.957Z",
-      "nextScheduledRunAt": "1990-01-02T00:00:00Z"
+      "lastFailureAt": "1989-03-01T00:10:15.957Z"
     },
     "activeRuns": [
       {
@@ -94,7 +94,8 @@
       "timezone": "America/Chicago",
       "startingDeadlineSeconds": 60,
       "concurrencyPolicy": "allow",
-      "enabled": true
+      "enabled": true,
+      "nextRunAt": "1990-01-02T00:00:00Z"
     },
     "run": {
       "cpus": 1,
@@ -143,8 +144,7 @@
       "successCount": 1,
       "failureCount": 1,
       "lastSuccessAt": "1990-01-02T00:00:00Z",
-      "lastFailureAt": "1989-03-01T00:10:15.957Z",
-      "nextScheduledRunAt": "1990-01-02T00:00:00Z"
+      "lastFailureAt": "1989-03-01T00:10:15.957Z"
     },
     "activeRuns": [
       {
@@ -181,7 +181,8 @@
       "timezone": "America/Chicago",
       "startingDeadlineSeconds": 60,
       "concurrencyPolicy": "allow",
-      "enabled": true
+      "enabled": true,
+      "nextRunAt": "1990-01-02T00:00:00Z"
     },
     "run": {
       "cpus": 1,
@@ -229,8 +230,7 @@
       "successCount": 1,
       "failureCount": 0,
       "lastSuccessAt": "1990-01-02T00:00:00Z",
-      "lastFailureAt": "1989-03-01T00:10:15.957Z",
-      "nextScheduledRunAt": "1990-01-02T00:00:00Z"
+      "lastFailureAt": "1989-03-01T00:10:15.957Z"
     },
     "activeRuns": [
       {
@@ -261,7 +261,8 @@
       "timezone": "America/Chicago",
       "startingDeadlineSeconds": 60,
       "concurrencyPolicy": "allow",
-      "enabled": true
+      "enabled": true,
+      "nextRunAt": "1990-01-02T00:00:00Z"
     },
     "run": {
       "cpus": 1,
@@ -310,8 +311,7 @@
       "successCount": 1,
       "failureCount": 1,
       "lastSuccessAt": "1990-01-02T00:00:00Z",
-      "lastFailureAt": "1989-03-01T00:10:15.957Z",
-      "nextScheduledRunAt": "1990-01-02T00:00:00Z"
+      "lastFailureAt": "1989-03-01T00:10:15.957Z"
     },
     "activeRuns": [
       {
