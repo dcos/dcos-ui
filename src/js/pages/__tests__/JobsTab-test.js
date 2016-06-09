@@ -76,7 +76,7 @@ describe('JobsTab', function () {
       );
 
       expect(
-        TestUtils.findRenderedComponentWithType(instance, JobsTable)
+        TestUtils.scryRenderedComponentsWithType(instance, JobsTable)
       ).toBeDefined();
     });
 
@@ -101,7 +101,7 @@ describe('JobsTab', function () {
       );
 
       expect(
-        TestUtils.findRenderedComponentWithType(instance, AlertPanel)
+        TestUtils.scryRenderedComponentsWithType(instance, AlertPanel)
       ).toBeDefined();
     });
 
