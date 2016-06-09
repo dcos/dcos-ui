@@ -107,6 +107,9 @@ class DCOSStore extends EventEmitter {
   }
 
   onMarathonDeploymentsChange() {
+    if (!this.data.dataProcessed) {
+      return;
+    }
     let deploymentsList = MarathonStore.get('deployments');
     let serviceTree = MarathonStore.get('groups');
 
