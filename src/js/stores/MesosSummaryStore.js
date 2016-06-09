@@ -92,13 +92,7 @@ class MesosSummaryStore extends GetSetBaseStore {
   }
 
   init() {
-    if (this.get('initCalledAt') != null) {
-      return;
-    }
-
     this.set({
-      initCalledAt: Date.now(), // log when we started calling
-      loading: null,
       states: this.getInitialStates(),
       prevMesosStatusesMap: {},
       statesProcessed: false
@@ -119,8 +113,6 @@ class MesosSummaryStore extends GetSetBaseStore {
 
   unmount() {
     this.set({
-      initCalledAt: null,
-      loading: null,
       states: this.getInitialStates(),
       prevMesosStatusesMap: {},
       statesProcessed: false
@@ -168,35 +160,6 @@ class MesosSummaryStore extends GetSetBaseStore {
     return service && !!webuiUrl && webuiUrl.length > 0;
   }
 
-  updateStateProcessed() {
-    this.set({statesProcessed: true});
-    this.emit(MESOS_SUMMARY_CHANGE);
-  }
-
-  notifySummaryProcessed() {
-    var initCalledAt = this.get('initCalledAt');
-    // skip if state is processed, already loading or init has not been called
-    if (this.get('statesProcessed') ||
-      this.get('loading') != null ||
-      initCalledAt == null) {
-      this.emit(MESOS_SUMMARY_CHANGE);
-      return;
-    }
-
-    var msLeftOfDelay = Config.stateLoadDelay - (Date.now() - initCalledAt);
-
-    if (msLeftOfDelay < 0) {
-      this.updateStateProcessed();
-    } else {
-      this.set({
-        loading: setTimeout(
-          this.updateStateProcessed.bind(this),
-          msLeftOfDelay
-        )
-      });
-    }
-  }
-
   processSummary(data, options = {}) {
     // If request to Mesos times out we get an empty Object
     if (!Object.keys(data).length) {
@@ -214,7 +177,8 @@ class MesosSummaryStore extends GetSetBaseStore {
     states.addSnapshot(data, data.date);
 
     if (!options.silent) {
-      this.notifySummaryProcessed();
+      this.set({statesProcessed: true});
+      this.emit(MESOS_SUMMARY_CHANGE);
     }
   }
 

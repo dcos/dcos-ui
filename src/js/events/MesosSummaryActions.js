@@ -13,11 +13,20 @@ var TimeScales = require('../constants/TimeScales');
 
 var _historyServiceOnline = true;
 
+function testHistoryServerResponse(response) {
+  // If the response is an empty object, that means something is whack
+  // Fall back to making requests to Mesos
+  if (response === {}) {
+    _historyServiceOnline = false;
+  }
+}
+
 function testHistoryOnline() {
   RequestUtil.json({
     url: `${Config.historyServer}/dcos-history-service/history/last`,
-    success: function () {
+    success: function (response) {
       _historyServiceOnline = true;
+      testHistoryServerResponse(response);
     },
     error: function () {
       setTimeout(testHistoryOnline, Config.testHistoryInterval);
@@ -36,6 +45,7 @@ function requestFromHistoryServer(resolve, reject, timeScale = 'last') {
   RequestUtil.json({
     url,
     success: function (response) {
+      testHistoryServerResponse(response);
       AppDispatcher.handleServerAction({
         type: successEventType,
         data: response

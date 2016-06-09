@@ -31,8 +31,7 @@ function getMesosState() {
     usedResourcesStates: states.getResourceStatesForNodeIDs(),
     usedResources: last.getSlaveUsedResources(),
     totalResources: last.getSlaveTotalResources(),
-    activeSlaves: last.getActiveSlaves(),
-    statesProcessed: MesosSummaryStore.get('statesProcessed')
+    activeSlaves: last.getActiveSlaves()
   };
 }
 

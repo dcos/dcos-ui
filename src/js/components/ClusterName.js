@@ -8,7 +8,7 @@ import MesosSummaryStore from '../stores/MesosSummaryStore';
 
 class ClusterName extends mixin(StoreMixin) {
   constructor() {
-    super();
+    super(...arguments);
 
     this.store_listeners = [{
       name: 'summary',
