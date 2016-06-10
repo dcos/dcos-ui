@@ -1,4 +1,5 @@
 import {EventEmitter} from 'events';
+import {ClassMixin, StoreMixin} from 'mesosphere-shared-reactjs';
 
 import AppDispatcher from '../events/AppDispatcher';
 import ChronosActions  from '../events/ChronosActions';
@@ -14,8 +15,7 @@ import {
   CHRONOS_JOB_SUSPEND_ERROR,
   CHRONOS_JOB_SUSPEND_SUCCESS,
   CHRONOS_JOBS_CHANGE,
-  CHRONOS_JOBS_ERROR,
-  VISIBILITY_CHANGE
+  CHRONOS_JOBS_ERROR
 } from '../constants/EventTypes';
 import Config from '../config/Config';
 import Job from '../structs/Job';
@@ -67,7 +67,7 @@ function stopPolling() {
   }
 }
 
-class ChronosStore extends EventEmitter {
+class ChronosStore extends ClassMixin(EventEmitter, StoreMixin) {
   constructor() {
     super(...arguments);
 
@@ -130,10 +130,7 @@ class ChronosStore extends EventEmitter {
       return true;
     });
 
-    VisibilityStore.addChangeListener(
-      VISIBILITY_CHANGE,
-      this.onVisibilityStoreChange.bind(this)
-    );
+    this.store_initializeListeners([{name: 'visibility', events: ['change']}]);
   }
 
   createJob(job) {
