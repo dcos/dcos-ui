@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import React from 'react';
 import {Link} from 'react-router';
 
@@ -74,9 +75,15 @@ class ServicesBreadcrumb extends React.Component {
       );
     }
 
+    const classSet = classNames('flex-box control-group', this.props.className);
+    const headerClassSet = classNames(
+      'breadcrumbs flush-top inverse',
+      this.props.headerClassNames
+    );
+
     return (
-      <div className="flex-box control-group">
-        <h4 className="breadcrumbs flush-top inverse">
+      <div className={classSet}>
+        <h4 className={headerClassSet}>
           {breadcrumbNodes}
         </h4>
       </div>
@@ -85,6 +92,8 @@ class ServicesBreadcrumb extends React.Component {
 }
 
 ServicesBreadcrumb.propTypes = {
+  className: React.PropTypes.string,
+  headerClassName: React.PropTypes.string,
   serviceTreeItem: React.PropTypes.object.isRequired,
   taskID: React.PropTypes.string
 };

@@ -1,3 +1,5 @@
+import classNames from 'classnames';
+import {Link} from 'react-router';
 import moment from 'moment';
 import mixin from 'reactjs-mixin';
 /* eslint-disable no-unused-vars */
@@ -9,39 +11,22 @@ import {Table} from 'reactjs-components';
 import AlertPanel from '../../components/AlertPanel';
 import DCOSStore from '../../stores/DCOSStore';
 import ResourceTableUtil from '../../utils/ResourceTableUtil';
-import StringUtil from '../../utils/StringUtil'
+import ServicesBreadcrumb from '../../components/ServicesBreadcrumb';
+import StringUtil from '../../utils/StringUtil';
 
 const columnClassNameGetter = ResourceTableUtil.getClassName;
 const columnHeading = ResourceTableUtil.renderHeading({
-  id: 'DEPLOYMENT',
+  id: 'AFFECTED SERVICES',
   startTime: 'STARTED',
+  location: 'LOCATION',
   status: 'STATUS'
 });
-const columns = [
-  {
-    className: columnClassNameGetter,
-    heading: columnHeading,
-    prop: 'id',
-    render: function (prop, deployment) {
-      return deployment.getId();
-    }
-  },
-  {
-    className: columnClassNameGetter,
-    heading: columnHeading,
-    prop: 'startTime',
-    render: function (prop, deployment) {
-      return moment(deployment.getStartTime()).fromNow();
-    }
-  },
-  {
-    className: columnClassNameGetter,
-    heading: columnHeading,
-    prop: 'status',
-    render: function (prop, deployment) {
-      return `Step ${deployment.getCurrentStep()} of ${deployment.getTotalSteps()}`;
-    }
-  }
+const METHODS_TO_BIND = [
+  'renderAffectedServices',
+  'renderAffectedServicesList',
+  'renderLocation',
+  'renderStartTime',
+  'renderStatus'
 ];
 
 class DeploymentsTab extends mixin(StoreMixin) {
@@ -53,10 +38,121 @@ class DeploymentsTab extends mixin(StoreMixin) {
     this.store_listeners = [
       {name: 'dcos', events: ['change'], suppressUpdate: true}
     ];
+
+    METHODS_TO_BIND.forEach((method) => {
+      this[method] = this[method].bind(this);
+    }, this);
   }
 
   onDcosStoreChange() {
     this.setState({deployments: DCOSStore.deploymentsList});
+  }
+
+  renderAffectedServices(prop, deployment) {
+    return (
+      <dl className="deployment-services-list flush-top flush-bottom tree-list">
+        <dt className="deployment-id text-uppercase">{deployment.id}</dt>
+        {this.renderAffectedServicesList(deployment.getAffectedServices())}
+      </dl>
+    );
+  }
+
+  renderAffectedServicesList(services) {
+    return services.map(function (service, index) {
+      const id = encodeURIComponent(service.getId());
+      const image = service.getImages()['icon-small'];
+
+      return (
+        <dd key={index}>
+          <span className="icon icon-small icon-image-container icon-app-container deployment-service-icon">
+            <img src={image} />
+          </span>
+          <Link to="services-detail" params={{id}}>
+            {StringUtil.capitalize(service.getName())}
+          </Link>
+        </dd>
+      );
+    });
+  }
+
+  renderLocation(prop, deployment) {
+    const services = deployment.getAffectedServices();
+    const items = services.map(function (service, index) {
+      return (
+        <li key={index}>
+          <ServicesBreadcrumb
+            className="deployment-breadcrumb"
+            headerClassNames="flush-bottom"
+            serviceTreeItem={service} />
+        </li>
+      );
+    });
+
+    return (
+      <ol className="deployment-location-list list-unstyled flush-bottom">
+        {items}
+      </ol>
+    );
+  }
+
+  renderStartTime(prop, deployment) {
+    const time = deployment.getStartTime();
+
+    return (
+      <time dateTime={time.toISOString()} className="deployment-start-time">
+        {moment(time).fromNow()}
+      </time>
+    );
+  }
+
+  renderStatus(prop, deployment) {
+    const title = `Step ${deployment.getCurrentStep()} of ${deployment.getTotalSteps()}`;
+    const services = deployment.getAffectedServices();
+    const items = services.map(function (service, index) {
+      return (
+        <li key={index}>
+          {service.getStatus()}
+        </li>
+      );
+    });
+
+    return (
+      <div>
+        <div className="deployment-step">{title}</div>
+        <ol className="deployment-status-list list-unstyled flush-bottom">{items}</ol>
+      </div>
+    );
+  }
+
+  getColumns() {
+    return [
+      {
+        className: columnClassNameGetter,
+        heading: columnHeading,
+        prop: 'id',
+        render: this.renderAffectedServices
+      },
+      {
+        className: columnClassNameGetter,
+        heading: columnHeading,
+        prop: 'location',
+        render: this.renderLocation
+      },
+      {
+        className: function () {
+          return classNames(columnClassNameGetter(...arguments), 'align-top');
+        },
+        heading: columnHeading,
+        prop: 'startTime',
+        render: this.renderStartTime
+      },
+      {
+        className: columnClassNameGetter,
+        heading: columnHeading,
+        prop: 'status',
+        render: this.renderStatus
+      }
+    ];
   }
 
   renderEmpty() {
@@ -82,9 +178,8 @@ class DeploymentsTab extends mixin(StoreMixin) {
           {deploymentsCount} Active {deploymentsLabel}
         </h4>
         <Table
-          className="table inverse table-borderless-outer
-              table-borderless-inner-columns flush-bottom"
-          columns={columns}
+          className="table inverse table-borderless-outer table-borderless-inner-columns flush-bottom deployments-table"
+          columns={this.getColumns()}
           data={deploymentsItems.slice()} />
       </div>
     );
