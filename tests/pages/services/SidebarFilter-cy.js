@@ -56,6 +56,16 @@ describe('Sidebar Filter', function () {
       cy.get('tbody tr:visible').should('to.have.length', 1);
     });
 
+    it('filters correctly on Universe', function () {
+      cy.get('.sidebar-filters .label').contains('Universe').click();
+      cy.get('tbody tr:visible').should('to.have.length', 4);
+    });
+
+    it('filters correctly on Volumes', function () {
+      cy.get('.sidebar-filters .label').contains('Volumes').click();
+      cy.get('tbody tr:visible').should('to.have.length', 1);
+    });
+
     it('filters correctly on two filters', function () {
       cy.get('.sidebar-filters .label').contains('Healthy').click();
       cy.get('.sidebar-filters .label').contains('Unhealthy').click();

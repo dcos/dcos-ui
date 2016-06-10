@@ -3,8 +3,10 @@ import Framework from './Framework';
 import HealthSorting from '../constants/HealthSorting';
 import HealthStatus from '../constants/HealthStatus';
 import Service from './Service';
+import ServiceOther from '../constants/ServiceOther';
 import ServiceStatus from '../constants/ServiceStatus';
 import Tree from './Tree';
+import VolumeList from '../structs/VolumeList';
 
 module.exports = class ServiceTree extends Tree {
   /**
@@ -118,6 +120,27 @@ module.exports = class ServiceTree extends Tree {
         });
       }
 
+      if (filter.other != null && filter.other.length !== 0) {
+        services = services.filter(function (service) {
+          return filter.other.some(function (otherKey) {
+
+            if (parseInt(otherKey, 10) === ServiceOther.UNIVERSE.key) {
+              if (service instanceof ServiceTree) {
+                return service.getFrameworks().length > 0;
+              }
+
+              return service instanceof Framework;
+            }
+
+            if (parseInt(otherKey, 10) === ServiceOther.VOLUMES.key) {
+              let volumes = service.getVolumes();
+
+              return volumes.list && volumes.list.length > 0;
+            }
+          });
+        });
+      }
+
       if (filter.status != null && filter.status.length !== 0) {
         services = services.filter(function (service) {
           return filter.status.some(function (statusValue) {
@@ -204,5 +227,30 @@ module.exports = class ServiceTree extends Tree {
       return taskSummary;
     }, {tasksHealthy: 0, tasksRunning: 0, tasksStaged: 0, tasksUnhealthy: 0,
       tasksUnknown: 0});
+  }
+
+  getFrameworks() {
+    return this.reduceItems(function (frameworks, item) {
+      if (item instanceof Framework) {
+        frameworks.push(item);
+      }
+
+      return frameworks;
+    }, []);
+  }
+
+  getVolumes() {
+    let items = this.reduceItems(function (serviceTreeVolumes, item) {
+      if (item instanceof Service) {
+        let itemVolumes = item.getVolumes().getItems();
+        if (itemVolumes && itemVolumes.length) {
+          serviceTreeVolumes.push(itemVolumes);
+        }
+      }
+
+      return serviceTreeVolumes;
+    }, []);
+
+    return new VolumeList({items});
   }
 };
