@@ -17,6 +17,8 @@ import {
   MARATHON_DEPLOYMENTS_ERROR,
   MARATHON_SERVICE_CREATE_ERROR,
   MARATHON_SERVICE_CREATE_SUCCESS,
+  MARATHON_SERVICE_DELETE_ERROR,
+  MARATHON_SERVICE_DELETE_SUCCESS,
   MARATHON_SERVICE_EDIT_ERROR,
   MARATHON_SERVICE_EDIT_SUCCESS,
   MARATHON_SERVICE_VERSION_CHANGE,
@@ -80,6 +82,12 @@ class MarathonStore extends GetSetBaseStore {
           break;
         case ActionTypes.REQUEST_MARATHON_SERVICE_CREATE_SUCCESS:
           this.emit(MARATHON_SERVICE_CREATE_SUCCESS);
+          break;
+        case ActionTypes.REQUEST_MARATHON_SERVICE_DELETE_ERROR:
+          this.emit(MARATHON_SERVICE_DELETE_ERROR, action.data);
+          break;
+        case ActionTypes.REQUEST_MARATHON_SERVICE_DELETE_SUCCESS:
+          this.emit(MARATHON_SERVICE_DELETE_SUCCESS);
           break;
         case ActionTypes.REQUEST_MARATHON_SERVICE_EDIT_ERROR:
           this.emit(MARATHON_SERVICE_EDIT_ERROR, action.data);
@@ -162,6 +170,10 @@ class MarathonStore extends GetSetBaseStore {
 
   createService() {
     return MarathonActions.createService(...arguments);
+  }
+
+  deleteService() {
+    return MarathonActions.deleteService(...arguments);
   }
 
   editService() {

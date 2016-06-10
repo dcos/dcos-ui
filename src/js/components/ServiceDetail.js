@@ -45,6 +45,8 @@ class ServiceDetail extends mixin(InternalStorageMixin, StoreMixin, TabsMixin) {
       {
         name: 'marathon',
         events: [
+          'serviceDeleteError',
+          'serviceDeleteSuccess',
           'serviceEditError',
           'serviceEditSuccess'
         ]
@@ -57,16 +59,13 @@ class ServiceDetail extends mixin(InternalStorageMixin, StoreMixin, TabsMixin) {
   }
 
   onActionsItemSelection(item) {
-    this.setState({
-      serviceActionDialog:
-        Object.values(ServiceActionItem).find(function (actionItem) {
-          return actionItem === item.id;
-        })
-    });
+    this.setState({serviceActionDialog: item.id});
   }
 
   onAcceptDestroyConfirmDialog() {
-    this.closeDialog();
+    this.setState({disabledDialog: ServiceActionItem.DESTROY}, () => {
+      MarathonStore.deleteService(this.props.service.id);
+    });
   }
 
   onAcceptSuspendConfirmDialog() {
@@ -75,6 +74,18 @@ class ServiceDetail extends mixin(InternalStorageMixin, StoreMixin, TabsMixin) {
         id: this.props.service.id,
         instances: 0
       });
+    });
+  }
+
+  onMarathonStoreServiceDeleteSuccess() {
+    this.closeDialog();
+    this.context.router.transitionTo('services-page');
+  }
+
+  onMarathonStoreServiceDeleteError({message:errorMsg}) {
+    this.setState({
+      disabledDialog: null,
+      errorMsg
     });
   }
 
@@ -99,17 +110,20 @@ class ServiceDetail extends mixin(InternalStorageMixin, StoreMixin, TabsMixin) {
 
   getDestroyConfirmDialog() {
     const {service} = this.props;
+    const {state} = this;
 
     let message = (
       <div className="container-pod flush-top container-pod-short-bottom">
         <h2 className="text-danger text-align-center flush-top">Destroy Service</h2>
         <p>Are you sure you want to destroy {service.getId()}? This action is irreversible.</p>
+        {this.getErrorMessage()}
       </div>
     );
 
     return  (
       <Confirm children={message}
-        open={this.state.serviceActionDialog === ServiceActionItem.DESTROY}
+        disabled={state.disabledDialog === ServiceActionItem.DESTROY}
+        open={state.serviceActionDialog === ServiceActionItem.DESTROY}
         onClose={this.closeDialog}
         leftButtonText="Cancel"
         leftButtonCallback={this.closeDialog}
