@@ -1,4 +1,8 @@
+import mixin from 'reactjs-mixin';
+/* eslint-disable no-unused-vars */
 import React from 'react';
+/* eslint-enable no-unused-vars */
+import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import FormModal from '../FormModal';
 import MarathonStore from '../../stores/MarathonStore';
@@ -21,7 +25,7 @@ const buttonDefinition = [
   }
 ];
 
-class ServiceGroupFormModal extends React.Component {
+class ServiceScaleFormModal extends mixin(StoreMixin) {
   constructor() {
     super(...arguments);
 
@@ -126,8 +130,8 @@ class ServiceGroupFormModal extends React.Component {
   }
 }
 
-ServiceGroupFormModal.propTypes = {
+ServiceScaleFormModal.propTypes = {
   service: React.PropTypes.object.isRequired
 };
 
-module.exports = ServiceGroupFormModal;
+module.exports = ServiceScaleFormModal;
