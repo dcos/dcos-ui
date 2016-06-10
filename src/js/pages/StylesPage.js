@@ -14,7 +14,8 @@ const STYLES_TABS = {
 const STYLES_SUB_TABS = {
   'styles-components-tab': {
     'styles-components-buttons': 'Buttons',
-    'styles-components-forms': 'Forms'
+    'styles-components-forms': 'Forms',
+    'styles-components-icons': 'Icons'
   },
   'styles-layout-tab': {
     'styles-layout-grid': 'Grid'
@@ -42,6 +43,8 @@ class StylesPage extends mixin(TabsMixin) {
     let currentTab = routes[routes.length - 1].name;
     // Get top level Tab
     let topLevelTab = currentTab.split('-').slice(0, 2).join('-') + '-tab';
+
+    console.log(topLevelTab);
 
     this.tabs_tabs = STYLES_SUB_TABS[topLevelTab];
 
