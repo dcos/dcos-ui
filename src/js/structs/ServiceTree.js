@@ -134,6 +134,7 @@ module.exports = class ServiceTree extends Tree {
 
             if (parseInt(otherKey, 10) === ServiceOther.VOLUMES.key) {
               let volumes = service.getVolumes();
+
               return volumes.list && volumes.list.length > 0;
             }
           });
@@ -233,6 +234,7 @@ module.exports = class ServiceTree extends Tree {
       if (item instanceof Framework) {
         frameworks.push(item);
       }
+
       return frameworks;
     }, []);
   }
@@ -245,8 +247,10 @@ module.exports = class ServiceTree extends Tree {
           serviceTreeVolumes.push(itemVolumes);
         }
       }
+
       return serviceTreeVolumes;
     }, []);
+
     return new VolumeList({items});
   }
 };
