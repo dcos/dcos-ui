@@ -76,6 +76,18 @@ module.exports = class Job extends Item {
     return {status, time};
   }
 
+  getLastRunStatus() {
+    let {lastFailureAt, lastSuccessAt} = this.get('status');
+    lastFailureAt = DateUtil.strToMs(lastFailureAt);
+    lastSuccessAt = DateUtil.strToMs(lastSuccessAt);
+
+    if (lastFailureAt > lastSuccessAt) {
+      return {status: 'Failed', time: lastFailureAt};
+    }
+
+    return {status: 'Success', time: lastSuccessAt};
+  }
+
   getName() {
     return this.getId().split('.').pop();
   }
