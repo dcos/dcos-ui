@@ -2,6 +2,7 @@ import {Route, Redirect} from 'react-router';
 
 import ButtonsTabContent from '../pages/styles/components/ButtonsTabContent';
 import FormsTabContent from '../pages/styles/components/FormsTabContent';
+import IconsTabContent from '../pages/styles/components/IconsTabContent';
 import GridTabContent from '../pages/styles/layout/GridTabContent';
 import StylesPage from '../pages/StylesPage';
 
@@ -27,6 +28,12 @@ let stylesRoutes = {
           name: 'styles-components-forms',
           path: 'forms/?',
           handler: FormsTabContent
+        },
+        {
+          type: Route,
+          name: 'styles-components-icons',
+          path: 'icons/?',
+          handler: IconsTabContent
         },
         {
           type: Redirect,
