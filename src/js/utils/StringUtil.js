@@ -66,6 +66,23 @@ const StringUtil = {
     return string.charAt(0).toUpperCase() + string.slice(1, string.length);
   },
 
+  humanizeArray: function (array, serialComma=true) {
+    let length = array.length;
+    if (length === 0) {
+      return '';
+    }
+    if (length === 1) {
+      return array[0];
+    }
+    if (length === 2) {
+      return array.join(' and ');
+    }
+    let head = array.slice(0, -1);
+    let tail = array.slice(-1)[0];
+    let conjunction = serialComma ? ', and ' : ' and ';
+    return head.join(', ') + conjunction + tail;
+  },
+
   parseMarkdown(text) {
     if (!text) {
       return null;
