@@ -104,6 +104,13 @@ describe('DeploymentsTab', function () {
       });
     });
 
+    describe('action column', function () {
+      it('should render a rollback button', function () {
+        let rollbackButton = this.tds[4].querySelector('.deployment-rollback');
+        expect(rollbackButton).not.toBeNull();
+      });
+    });
+
   });
 
 });
