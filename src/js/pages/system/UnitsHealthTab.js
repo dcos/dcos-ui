@@ -149,9 +149,6 @@ class UnitsHealthTab extends mixin(StoreMixin) {
     let dataItems = data.getItems();
     let {healthFilter, searchString} = this.state;
     let visibleData = this.getVisibleData(data, searchString, healthFilter);
-    let pluralizedItemName = StringUtil.pluralize(
-      'Component', dataItems.length
-    );
     let dataHealth = dataItems.map(function (unit) {
       return unit.getHealth();
     });
@@ -162,10 +159,15 @@ class UnitsHealthTab extends mixin(StoreMixin) {
           <FilterHeadline
             inverseStyle={true}
             onReset={this.resetFilter}
-            name={pluralizedItemName}
+            name="Component"
             currentLength={visibleData.length}
             totalLength={dataItems.length} />
           <FilterBar rightAlignLastNChildren={1}>
+            <FilterInputText
+              className="flush-bottom"
+              searchString={searchString}
+              handleFilterChange={this.handleSearchStringChange}
+              inverseStyle={true} />
             <FilterButtons
               renderButtonContent={this.getButtonContent}
               filters={['all', 'healthy', 'unhealthy']}
@@ -174,11 +176,6 @@ class UnitsHealthTab extends mixin(StoreMixin) {
               inverseStyle={true}
               itemList={dataHealth}
               selectedFilter={healthFilter} />
-            <FilterInputText
-              className="flush-bottom"
-              searchString={searchString}
-              handleFilterChange={this.handleSearchStringChange}
-              inverseStyle={true} />
             <a href={UnitHealthStore.getDownloadURL()}
               className="button button-primary" target="_blank">
               Download Snapshot

@@ -401,7 +401,7 @@ class OrganizationTab extends mixin(InternalStorageMixin) {
           <FilterHeadline
             inverseStyle={true}
             onReset={this.resetFilter}
-            name={`${StringUtil.pluralize(capitalizedItemName)}`}
+            name={capitalizedItemName}
             currentLength={visibleItems.length}
             totalLength={items.length} />
           <FilterBar rightAlignLastNChildren={1}>
@@ -415,7 +415,7 @@ class OrganizationTab extends mixin(InternalStorageMixin) {
             <a
               className="button button-success"
               onClick={handleNewItemClick}>
-              {`+ New ${capitalizedItemName}`}
+              {`New ${capitalizedItemName}`}
             </a>
           </FilterBar>
         </div>

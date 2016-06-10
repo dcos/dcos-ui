@@ -160,10 +160,15 @@ class TaskView extends mixin(SaveStateMixin) {
         <FilterHeadline
           inverseStyle={inverseStyle}
           onReset={this.resetFilter}
-          name="Tasks"
+          name="Task"
           currentLength={tasks.length}
           totalLength={totalNumberOfTasks} />
         <FilterBar>
+          <FilterInputText
+            className="flush-bottom"
+            searchString={searchString}
+            handleFilterChange={this.handleSearchStringChange}
+            inverseStyle={inverseStyle} />
           <FilterButtons
             renderButtonContent={this.getButtonContent}
             filters={STATUS_FILTER_BUTTONS}
@@ -171,12 +176,6 @@ class TaskView extends mixin(SaveStateMixin) {
             inverseStyle={inverseStyle}
             itemList={taskStates}
             selectedFilter={filterByStatus} />
-          <div className="form-group flush-bottom">
-            <FilterInputText
-              searchString={searchString}
-              handleFilterChange={this.handleSearchStringChange}
-              inverseStyle={inverseStyle} />
-          </div>
         </FilterBar>
         {this.getTaskTable(tasks)}
       </div>

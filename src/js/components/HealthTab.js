@@ -132,7 +132,7 @@ class HealthTab extends React.Component {
         <FilterHeadline
           currentLength={visibleData.length}
           inverseStyle={true}
-          name={"Health Checks"}
+          name={"Health Check"}
           onReset={this.resetFilter}
           totalLength={units.getItems().length} />
         <FilterBar>

@@ -169,7 +169,6 @@ var ServicesTab = React.createClass({
     // Render empty panel
     return (
       <div>
-        <ServicesBreadcrumb serviceTreeItem={item} />
         <AlertPanel
           title="No Services Deployed"
           footer={this.getAlertPanelFooter()}
@@ -198,7 +197,7 @@ var ServicesTab = React.createClass({
         <FilterHeadline
           inverseStyle={true}
           onReset={this.resetFilter}
-          name="Services"
+          name="Service"
           currentLength={filteredServices.length}
           totalLength={services.length} />
       );

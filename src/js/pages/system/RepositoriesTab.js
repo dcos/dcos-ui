@@ -115,7 +115,7 @@ class RepositoriesTab extends mixin(StoreMixin) {
           <button
             className="button button-success"
             onClick={this.handleOpenAddRepository}>
-            + Add Repository
+            Add Repository
           </button>
         </FilterBar>
         <RepositoriesTable repositories={repositories} filter={searchString} />
