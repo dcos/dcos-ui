@@ -32,6 +32,32 @@ let ContainerSettings = {
         }
         return null;
       }
+    },
+    forcePullImage: {
+      title: 'Force pull image on every launch',
+      type: 'boolean',
+      getter: function (service) {
+        let container = service.getContainerSettings();
+        if (container && container.docker &&
+          container.docker.forcePullImage
+        ) {
+          return container.docker.forcePullImage;
+        }
+        return null;
+      }
+    },
+    privileged: {
+      title: 'Extend runtime privileges',
+      type: 'boolean',
+      getter: function (service) {
+        let container = service.getContainerSettings();
+        if (container && container.docker &&
+          container.docker.privileged
+        ) {
+          return container.docker.privileged;
+        }
+        return null;
+      }
     }
   },
   required: []

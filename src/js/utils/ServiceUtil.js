@@ -66,6 +66,14 @@ const ServiceUtil = {
           definition.container.docker.network =
             containerSettings.network.toUpperCase();
         }
+        if (containerSettings.forcePullImage != null) {
+          definition.container.docker.forcePullImage =
+            containerSettings.forcePullImage;
+        }
+        if (containerSettings.privileged != null) {
+          definition.container.docker.privileged =
+            containerSettings.privileged;
+        }
       }
     }
     return new Service(definition);
