@@ -112,6 +112,66 @@ describe('Job', function () {
 
   });
 
+  describe('#getLastRunStatus', function () {
+
+    it('returns an object with the time in ms', function () {
+      let job = new Job({
+        id: 'test.job',
+        status: {
+          lastSuccessAt: '1990-04-30T00:00:00Z',
+          lastFailureAt: '1985-04-30T00:00:00Z'
+        }
+      });
+
+      expect(job.getLastRunStatus().time).toEqual(641433600000);
+    });
+
+    it('returns the most recent status', function () {
+      let job = new Job({
+        id: 'test.job',
+        status: {
+          lastSuccessAt: '1990-04-30T00:00:00Z',
+          lastFailureAt: '1985-04-30T00:00:00Z'
+        }
+      });
+
+      expect(job.getLastRunStatus().status).toEqual('Success');
+    });
+
+    it('returns the most recent status', function () {
+      let job = new Job({
+        id: 'test.job',
+        status: {
+          lastSuccessAt: '1985-04-30T00:00:00Z',
+          lastFailureAt: '1990-04-30T00:00:00Z'
+        }
+      });
+
+      expect(job.getLastRunStatus().status).toEqual('Failed');
+    });
+
+    it('returns N/A if both are undefiend', function () {
+      let job = new Job({
+        id: 'test.job',
+        status: {}
+      });
+
+      expect(job.getLastRunStatus().status).toEqual('N/A');
+    });
+
+    it('returns success if lastFailureAt is undefiend', function () {
+      let job = new Job({
+        id: 'test.job',
+        status: {
+          lastSuccessAt: '1990-04-30T00:00:00Z'
+        }
+      });
+
+      expect(job.getLastRunStatus().status).toEqual('Success');
+    });
+
+  });
+
   describe('#getName', function () {
 
     it('returns correct name', function () {
@@ -128,6 +188,65 @@ describe('Job', function () {
       let job = new Job({id: '/foo', schedules: ['bar']});
 
       expect(job.getSchedules()).toEqual(['bar']);
+    });
+
+    it('returns an empty array if schedules is undefined', function () {
+      let job = new Job({id: '/foo'});
+
+      expect(job.getSchedules()).toEqual([]);
+    });
+
+  });
+
+  describe('#getScheduleStatus', function () {
+
+    it('returns the longest running job\'s status', function () {
+      let job = new Job({
+        id: '/foo',
+        activeRuns: [{
+          status: 'foo',
+          createdAt: '1985-01-03t00:00:00z-1'
+        }, {
+          status: 'bar',
+          createdAt: '1990-01-03t00:00:00z-1'
+        }],
+        schedules: ['bar']
+      });
+
+      expect(job.getScheduleStatus()).toEqual('foo');
+    });
+
+    it('returns scheduled if there are no active runs and the schedule is enabled', function () {
+      let job = new Job({
+        id: '/foo',
+        activeRuns: [],
+        schedules: [{
+          enabled: true
+        }]
+      });
+
+      expect(job.getScheduleStatus()).toEqual('scheduled');
+    });
+
+    it('returns completed if there are no active runs and no enabled schedule', function () {
+      let job = new Job({
+        id: '/foo',
+        activeRuns: [],
+        scheduled: [{
+          enabled: false
+        }]
+      });
+
+      expect(job.getScheduleStatus()).toEqual('completed');
+    });
+
+    it('returns completed if there are no active runs and no schedule', function () {
+      let job = new Job({
+        id: '/foo',
+        activeRuns: []
+      });
+
+      expect(job.getScheduleStatus()).toEqual('completed');
     });
 
   });
