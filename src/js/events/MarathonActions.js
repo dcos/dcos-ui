@@ -205,6 +205,13 @@ module.exports = {
       }
     },
     {delayAfterCount: Config.delayAfterErrorCount}
-  )
+  ),
+
+  revertDeployment: function (deploymentID) {
+    RequestUtil.json({
+      url: `${Config.rootUrl}/marathon/v2/deployments/${deploymentID}`,
+      method: 'DELETE'
+    });
+  }
 
 };
