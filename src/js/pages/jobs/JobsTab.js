@@ -12,10 +12,13 @@ import JobSearchFilter from '../../components/JobSearchFilter'
 import JobTree from '../../structs/JobTree';
 import QueryParamsMixin from '../../mixins/QueryParamsMixin';
 import SaveStateMixin from '../../mixins/SaveStateMixin';
+import JobFormModal from '../../components/modals/JobFormModal';
 
 const METHODS_TO_BIND = [
   'getHeadline',
   'handleFilterChange',
+  'handleCloseJobFormModal',
+  'handleOpenJobFormModal',
   'resetFilter',
   'resetFilterQueryParams'
 ];
@@ -31,7 +34,9 @@ class JobsTab extends mixin(StoreMixin, QueryParamsMixin, SaveStateMixin) {
   constructor() {
     super(...arguments);
 
-    this.state = Object.assign({}, DEFAULT_FILTER_OPTIONS);
+    this.state = Object.assign({
+      isJobFormModalOpen: false
+    }, DEFAULT_FILTER_OPTIONS);
 
     this.saveState_key = 'jobsPage';
     this.saveState_properties = saveState_properties;
@@ -56,6 +61,14 @@ class JobsTab extends mixin(StoreMixin, QueryParamsMixin, SaveStateMixin) {
         this.setQueryParam(saveStateKey, saveStateValue);
       }
     });
+  }
+
+  handleCloseJobFormModal() {
+    this.setState({isJobFormModalOpen: false});
+  }
+
+  handleOpenJobFormModal() {
+    this.setState({isJobFormModalOpen: true});
   }
 
   handleFilterChange(filterValues, filterType) {
@@ -131,7 +144,8 @@ class JobsTab extends mixin(StoreMixin, QueryParamsMixin, SaveStateMixin) {
         {this.getHeadline(item, filteredJobs)}
         <FilterBar rightAlignLastNChildren={1}>
           <JobSearchFilter handleFilterChange={this.handleFilterChange} />
-          <button className="button button-success">
+          <button className="button button-success"
+            onClick={this.handleOpenJobFormModal}>
             New Job
           </button>
         </FilterBar>
@@ -143,7 +157,8 @@ class JobsTab extends mixin(StoreMixin, QueryParamsMixin, SaveStateMixin) {
   getAlertPanelFooter() {
     return (
       <div className="button-collection flush-bottom">
-        <button className="button button-stroke button-inverse">
+        <button className="button button-stroke button-inverse"
+          onClick={this.handleOpenJobFormModal}>
           Create Job
         </button>
       </div>
@@ -177,7 +192,7 @@ class JobsTab extends mixin(StoreMixin, QueryParamsMixin, SaveStateMixin) {
         iconClassName="icon icon-sprite icon-sprite-jumbo
           icon-sprite-jumbo-white icon-jobs flush-top">
         <p className="flush-bottom">
-         Jobs aren't available yet.
+          Jobs aren't available yet.
         </p>
       </AlertPanel>
     );
@@ -189,7 +204,14 @@ class JobsTab extends mixin(StoreMixin, QueryParamsMixin, SaveStateMixin) {
 
     // Find item in root tree and default to root tree if there is no match
     let item = DCOSStore.jobTree.findItemById(id) || DCOSStore.jobTree;
-    return this.getContents(item);
+
+    return (
+      <div>
+        {this.getContents(item)}
+        <JobFormModal open={this.state.isJobFormModalOpen}
+          onClose={this.handleCloseJobFormModal}/>
+      </div>
+    );
   }
 }
 
