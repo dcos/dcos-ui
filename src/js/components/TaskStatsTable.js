@@ -27,7 +27,7 @@ class TaskStatsTable extends React.Component {
     return data;
   }
 
-  getClassName(prop, sortBy, row) {
+  getClassName(prop, sortBy) {
     return classNames({
       'highlight': prop === sortBy.prop,
       'text-align-right': taskStatus.includes(prop),
