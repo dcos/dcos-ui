@@ -2,7 +2,7 @@
 import React from 'react';
 /* eslint-enable no-unused-vars */
 
-let ContainerSettings = {
+const ContainerSettings = {
   title: 'Container Settings',
   description: 'Configure your Docker Container',
   type: 'object',
@@ -70,14 +70,12 @@ let ContainerSettings = {
         ) {
           let parameters = container.docker.parameters;
 
-          return Object.keys(parameters).reduce(function (memo, key) {
-            memo.push({
+          return Object.keys(parameters).map(function (key) {
+            return {
               key,
               value: parameters[key]
-            });
-
-            return memo;
-          }, []);
+            };
+          });
         }
         return null;
       },
