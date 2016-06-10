@@ -1,18 +1,5 @@
 import Util from './Util';
 
-function getProp(key) {
-  return key.split('[')[0];
-}
-
-function getPropIndex(key) {
-  let value = key.split('[');
-  return parseInt(value[1].split(']')[0])
-}
-
-function getPropKey(key) {
-  return key.split('.')[1];
-}
-
 // Will return false if key isn't something like 'ports[0].value'.
 function isNotMultipleProp(key) {
   return !key.includes('[') || !key.includes(']');
@@ -144,7 +131,7 @@ const FormUtil = {
       definitionField = Util.deepCopy(definitionField);
       definitionField.name = `${prop}[${id}].${definitionField.name}`;
 
-      let propKey = getPropKey(definitionField.name);
+      let propKey = FormUtil.getPropKey(definitionField.name);
       if (model && model.hasOwnProperty(propKey)) {
         definitionField.value = model[propKey];
       }
@@ -165,15 +152,15 @@ const FormUtil = {
     model = Object.assign({}, model);
 
     Object.keys(model).forEach(function (key) {
-      if (isNotMultipleProp(key) || !getProp(key)) {
+      if (isNotMultipleProp(key) || !FormUtil.getProp(key)) {
         return;
       }
 
-      let multipleProperty = getProp(key);
+      let multipleProperty = FormUtil.getProp(key);
       let instanceValue = model[key];
       delete model[key];
-      let valueIndex = getPropIndex(key);
-      let valueProperty = getPropKey(key);
+      let valueIndex = FormUtil.getPropIndex(key);
+      let valueProperty = FormUtil.getPropKey(key);
 
       if (propValues[multipleProperty] == null) {
         propValues[multipleProperty] = [];
@@ -237,7 +224,39 @@ const FormUtil = {
     fieldsToRemove.forEach(function (field) {
       definition.splice(definition.indexOf(field), 1);
     });
-  }
+  },
+
+  /**
+   * Ex: if key is 'variables[0].key', this method will return 'variables'.
+   *
+   * @param {String} key String to parse for prop.
+   * @return {String} prop
+   */
+  getProp: function (key) {
+    return key && key.split('[')[0];
+  },
+
+  /**
+   * Ex: if key is 'variables[0].key', this method will return 0.
+   *
+   * @param {String} key String to parse for index.
+   * @return {Number} index
+   */
+  getPropIndex: function (key) {
+    let value = key.split('[');
+    return parseInt(value[1].split(']')[0])
+  },
+
+  /**
+   * Ex: if key is 'variables[0].key', this method will return 'key'.
+   *
+   * @param {String} key String to parse for prop key.
+   * @return {String} prop key
+   */
+  getPropKey: function (key) {
+
+    return key && key.split('.')[1];
+  },
 };
 
 module.exports = FormUtil;

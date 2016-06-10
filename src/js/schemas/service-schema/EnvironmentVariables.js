@@ -10,12 +10,17 @@ let EnvironmentVariables = {
       itemShape: {
         properties: {
           key: {
-            title: 'Variable Name',
+            title: 'Key',
             type: 'string'
           },
           value: {
             title: 'Value',
             type: 'string'
+          },
+          isSecret: {
+            title: 'Use a secret',
+            type: 'boolean',
+            description: 'Use a secret homie'
           }
         }
       }
