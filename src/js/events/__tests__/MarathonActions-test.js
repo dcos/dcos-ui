@@ -353,4 +353,31 @@ describe('MarathonActions', function () {
 
   });
 
+  describe('#revertDeployment', function () {
+
+    beforeEach(function () {
+      spyOn(RequestUtil, 'json');
+      MarathonActions.revertDeployment('test');
+      this.configuration = RequestUtil.json.calls.mostRecent().args[0];
+    });
+
+    describe('JSON request', function () {
+
+      it('is made', function () {
+        expect(RequestUtil.json).toHaveBeenCalled();
+      });
+
+      it('is a DELETE', function () {
+        expect(this.configuration.method).toEqual('DELETE');
+      });
+
+      it('calls the approprate endpoint', function () {
+        expect(this.configuration.url)
+          .toEqual(`${Config.rootUrl}/marathon/v2/deployments/test`);
+      });
+
+    });
+      
+  });
+
 });
