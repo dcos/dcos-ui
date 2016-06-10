@@ -58,6 +58,41 @@ let ContainerSettings = {
         }
         return null;
       }
+    },
+    parameters: {
+      type: 'array',
+      duplicable: true,
+      addLabel: 'Add Parameter',
+      getter: function (service) {
+        let container = service.getContainerSettings();
+        if (container && container.docker &&
+          container.docker.parameters
+        ) {
+          let parameters = container.docker.parameters;
+
+          return Object.keys(parameters).reduce(function (memo, key) {
+            memo.push({
+              key,
+              value: parameters[key]
+            });
+
+            return memo;
+          }, []);
+        }
+        return null;
+      },
+      itemShape: {
+        properties: {
+          key: {
+            title: 'Key',
+            type: 'string'
+          },
+          value: {
+            title: 'Value',
+            type: 'string'
+          }
+        }
+      }
     }
   },
   required: []
