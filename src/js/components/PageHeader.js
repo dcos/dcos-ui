@@ -71,6 +71,7 @@ class PageHeader extends React.Component {
 
   render() {
     let {
+      children,
       className,
       pageHeaderHeadingClassNames,
       navigationTabs
@@ -97,10 +98,8 @@ class PageHeader extends React.Component {
               {this.getSubTitle()}
             </div>
           </div>
-          <div className="page-header-actions">
-            {this.renderActionButtons()}
-          </div>
         </div>
+        {children}
         {navigationTabs}
       </div>
     );
