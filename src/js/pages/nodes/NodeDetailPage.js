@@ -6,6 +6,7 @@ import React from 'react';
 import {RouteHandler} from 'react-router';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
+import Breadcrumbs from '../../components/Breadcrumbs';
 import CompositeState from '../../structs/CompositeState';
 import DateUtil from '../../utils/DateUtil';
 import DescriptionList from '../../components/DescriptionList';
@@ -228,9 +229,7 @@ class NodeDetailPage extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) 
 
     return (
       <Page title="Nodes">
-        <div className="container container-fluid flush breadcrumbs">
-          {this.getBreadcrumbs(node.get('hostname'))}
-        </div>
+        <Breadcrumbs />
         <PageHeader
           navigationTabs={tabs}
           subTitle={this.getSubHeader(node)}

@@ -1,6 +1,10 @@
 import {DefaultRoute, Redirect, Route} from 'react-router';
+/* eslint-disable no-unused-vars */
+import React from 'react';
+/* eslint-enable no-unused-vars */
 
 import HostTable from '../components/HostTable';
+import NodeDetailBreadcrumb from '../pages/nodes/breadcrumbs/NodeDetailBreadcrumb';
 import NodeDetailPage from '../pages/nodes/NodeDetailPage';
 import NodesGridView from '../components/NodesGridView';
 import NodesPage from '../pages/NodesPage';
@@ -18,6 +22,18 @@ let nodesRoutes = {
       name: 'nodes-page',
       path: '/nodes/?',
       handler: NodesPage,
+      buildBreadCrumb: function () {
+        return {
+          getCrumbs: function () {
+            return [
+              {
+                label: 'Nodes',
+                route: {to: 'nodes-page'}
+              }
+            ];
+          }
+        }
+      },
       children: [
         {
           type: Route,
@@ -43,6 +59,18 @@ let nodesRoutes = {
       name: 'node-detail',
       path: ':nodeID/?',
       handler: NodeDetailPage,
+      buildBreadCrumb: function () {
+        return {
+          parentCrumb: 'nodes-page',
+          getCrumbs: function (router) {
+            return [
+              <NodeDetailBreadcrumb
+                parentRouter={router}
+                routeName="node-detail" />
+            ];
+          }
+        }
+      },
       children: [
         {
           type: Route,
