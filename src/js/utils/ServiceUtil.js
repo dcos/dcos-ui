@@ -74,6 +74,13 @@ const ServiceUtil = {
           definition.container.docker.privileged =
             containerSettings.privileged;
         }
+        if (containerSettings.parameters != null) {
+          definition.container.docker.parameters =
+            containerSettings.parameters.reduce(function (memo, item) {
+              memo[item.key] = item.value;
+              return memo;
+            }, {});
+        }
       }
     }
     return new Service(definition);

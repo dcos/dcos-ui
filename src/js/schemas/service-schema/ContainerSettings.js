@@ -2,7 +2,7 @@
 import React from 'react';
 /* eslint-enable no-unused-vars */
 
-let ContainerSettings = {
+const ContainerSettings = {
   title: 'Container Settings',
   description: 'Configure your Docker Container',
   type: 'object',
@@ -57,6 +57,39 @@ let ContainerSettings = {
           return container.docker.privileged;
         }
         return null;
+      }
+    },
+    parameters: {
+      type: 'array',
+      duplicable: true,
+      addLabel: 'Add Parameter',
+      getter: function (service) {
+        let container = service.getContainerSettings();
+        if (container && container.docker &&
+          container.docker.parameters
+        ) {
+          let parameters = container.docker.parameters;
+
+          return Object.keys(parameters).map(function (key) {
+            return {
+              key,
+              value: parameters[key]
+            };
+          });
+        }
+        return null;
+      },
+      itemShape: {
+        properties: {
+          key: {
+            title: 'Key',
+            type: 'string'
+          },
+          value: {
+            title: 'Value',
+            type: 'string'
+          }
+        }
       }
     }
   },
