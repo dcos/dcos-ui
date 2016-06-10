@@ -190,7 +190,7 @@ class ServiceDetail extends mixin(InternalStorageMixin, StoreMixin, TabsMixin) {
   checkForVolumes() {
     // Add the Volumes tab if it isn't already there and the service has
     // at least one volume.
-    if (this.tabs_tabs.volumes == null
+    if (this.tabs_tabs.volumes == null && !!this.props.service
       && this.props.service.getVolumes().getItems().length > 0) {
       this.tabs_tabs.volumes = 'Volumes';
       this.forceUpdate();
