@@ -107,6 +107,9 @@ class DCOSStore extends EventEmitter {
   }
 
   onMarathonDeploymentsChange() {
+    if (!this.data.dataProcessed) {
+      return;
+    }
     let deploymentsList = MarathonStore.get('deployments');
     let serviceTree = MarathonStore.get('groups');
 
@@ -120,7 +123,13 @@ class DCOSStore extends EventEmitter {
     this.data.marathon.deploymentsList = deploymentsList
       .mapItems(function (deployment) {
         let ids = deployment.getAffectedServiceIds();
-        let services = ids.map(serviceTree.findItemById.bind(serviceTree));
+        let services = ids.reduce(function (memo, id) {
+          let service = serviceTree.findItemById(id);
+          if (service != null) {
+            memo.push(service);
+          }
+          return memo;
+        }, []);
 
         return Object.assign({affectedServices: services}, deployment);
       });
@@ -136,6 +145,10 @@ class DCOSStore extends EventEmitter {
 
     this.data.marathon.serviceTree = serviceTree;
     this.data.dataProcessed = true;
+
+    // Populate deployments with services data immediately
+    this.onMarathonDeploymentsChange();
+
     this.emit(DCOS_CHANGE);
   }
 

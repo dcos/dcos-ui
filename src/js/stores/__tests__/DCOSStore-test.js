@@ -42,11 +42,8 @@ describe('DCOSStore', function () {
   });
 
   describe('#onMarathonDeploymentsChange', function () {
+
     beforeEach(function () {
-      MarathonStore.__setKeyResponse('groups', new ServiceTree({apps: [
-        {id: '/app1', cmd: 'sleep 1000'},
-        {id: '/app2', cmd: 'sleep 1000'}
-      ]}));
       MarathonStore.__setKeyResponse('deployments', new DeploymentsList({items: [
         {
           id: 'deployment-id',
@@ -56,25 +53,76 @@ describe('DCOSStore', function () {
           totalSteps: 3
         }
       ]}));
+      MarathonStore.__setKeyResponse('groups', new ServiceTree({items: [
+        {id: '/app1', cmd: 'sleep 1000'},
+        {id: '/app2', cmd: 'sleep 1000'}
+      ]}));
       spyOn(NotificationStore, 'addNotification');
-      DCOSStore.onMarathonGroupsChange();
-      DCOSStore.onMarathonDeploymentsChange();
+      // DCOSStore is a singleton, need to reset it manually
+      DCOSStore.data.dataProcessed = false;
     });
 
-    it('should update the deployments list', function () {
-      expect(DCOSStore.deploymentsList.getItems().length).toEqual(1);
-      expect(DCOSStore.deploymentsList.last().id).toEqual('deployment-id')
+    describe('when the groups endpoint is not populated', function () {
+
+      beforeEach(function () {
+        DCOSStore.onMarathonDeploymentsChange();
+      });
+
+      it('should not update the deployments list', function () {
+        expect(DCOSStore.deploymentsList.getItems().length).toEqual(0);
+      });
+
+      it('should not update the notification store', function () {
+        expect(NotificationStore.addNotification).not.toHaveBeenCalled();
+      });
+
+      it('should be called as soon as groups endpoint data arrives', function () {
+        spyOn(DCOSStore, 'onMarathonDeploymentsChange');
+        DCOSStore.onMarathonGroupsChange();
+        expect(DCOSStore.onMarathonDeploymentsChange).toHaveBeenCalled();
+      });
+
     });
 
-    it('should populate the deployments with relevant services', function () {
-      let deployment = DCOSStore.deploymentsList.last();
-      let services = deployment.getAffectedServices();
-      expect(services.length).toEqual(2);
+    describe('when the groups endpoint is already populated', function () {
+
+      beforeEach(function () {
+        DCOSStore.onMarathonGroupsChange();
+        DCOSStore.onMarathonDeploymentsChange();
+      });
+
+      it('should update the deployments list', function () {
+        expect(DCOSStore.deploymentsList.getItems().length).toEqual(1);
+        expect(DCOSStore.deploymentsList.last().id).toEqual('deployment-id')
+      });
+
+      it('should populate the deployments with relevant services', function () {
+        let deployment = DCOSStore.deploymentsList.last();
+        let services = deployment.getAffectedServices();
+        expect(services.length).toEqual(2);
+      });
+
+      it('should update the notification store', function () {
+        expect(NotificationStore.addNotification)
+          .toHaveBeenCalledWith('services-deployments', 'deployment-count', 1);
+      });
+
     });
 
-    it('should update the notification store', function () {
-      expect(NotificationStore.addNotification)
-        .toHaveBeenCalledWith('services-deployments', 'deployment-count', 1);
+    describe('when the deployments endpoint references stale services', function () {
+
+      beforeEach(function () {
+        DCOSStore.onMarathonDeploymentsChange();
+        MarathonStore.__setKeyResponse('groups', new ServiceTree({apps: []}));
+        DCOSStore.onMarathonGroupsChange();
+      });
+
+      it('should trim stale services', function () {
+        let deployment = DCOSStore.deploymentsList.last();
+        let services = deployment.getAffectedServices();
+        expect(services.length).toEqual(0);
+      });
+
     });
 
   });
