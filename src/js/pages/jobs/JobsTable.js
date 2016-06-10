@@ -1,10 +1,10 @@
+import classNames from 'classnames';
 import {Link} from 'react-router';
 import React from 'react';
 import {Table} from 'reactjs-components';
 
 import JobTableHeaderLabels from '../../constants/JobTableHeaderLables';
 import ResourceTableUtil from '../../utils/ResourceTableUtil';
-import ServiceTableUtil from '../../utils/ServiceTableUtil';
 import TableUtil from '../../utils/TableUtil';
 import Tree from '../../structs/Tree';
 
@@ -18,15 +18,15 @@ class JobsTable extends React.Component {
 
     METHODS_TO_BIND.forEach((method) => {
       this[method] = this[method].bind(this);
-    }, this);
+    });
   }
 
   getColGroup() {
     return (
       <colgroup>
-        <col style={{width: '25%'}} />
         <col />
-        <col style={{width: '25%'}} />
+        <col style={{width: '20%'}} />
+        <col style={{width: '20%'}} />
       </colgroup>
     );
   }
@@ -42,17 +42,94 @@ class JobsTable extends React.Component {
         prop: 'name',
         render: this.renderHeadline,
         sortable: true,
-        sortFunction: ServiceTableUtil.propCompareFunctionFactory,
+        sortFunction: function (prop, direction) {
+          let score = 1;
+
+          if (direction === 'desc') {
+            score = -1;
+          }
+
+          return function (a, b) {
+            // Hoist group trees to the top
+            if (a.isGroup && !b.isGroup) {
+              return score * -1;
+            } else if (b.isGroup && !a.isGroup) {
+              return score;
+            }
+
+            return a.name.localeCompare(b.name);
+          };
+        },
+        heading
+      }, {
+        className,
+        headerClassName: className,
+        prop: 'status',
+        render: function (prop, row) {
+          let value = row[prop];
+          let statusClasses = classNames({
+            'text-muted': value === 'completed',
+            'text-color-white': value !== 'completed'
+          });
+          let statusText = null;
+
+          if (value === 'active') {
+            statusText = 'Running';
+          } else if (value === 'scheduled') {
+            statusText = 'Scheduled';
+          } else if (value === 'completed') {
+            statusText = 'Completed';
+          }
+
+          return <span className={statusClasses}>{statusText}</span>;
+        },
+        sortable: false,
+        heading
+      }, {
+        className,
+        headerClassName: className,
+        prop: 'lastRunStatus',
+        render: function (prop, row) {
+          let value = row[prop];
+          let statusClasses = classNames({
+            'text-success': value === 'Success',
+            'text-danger': value === 'Failed'
+          });
+
+          return <span className={statusClasses}>{value}</span>;
+        },
+        sortable: false,
         heading
       }
     ];
   }
 
+  getData() {
+    return this.props.jobs.map(function (job) {
+      let isGroup = job instanceof Tree;
+      let lastRunStatus = null;
+      let status = null;
+
+      if (!isGroup) {
+        lastRunStatus = job.getLastRunStatus().status;
+        status = job.getScheduleStatus();
+      }
+
+      return {
+        id: job.getId(),
+        isGroup,
+        name: job.getName(),
+        status,
+        lastRunStatus
+      };
+    });
+  }
+
   renderHeadline(prop, job) {
-    const id = encodeURIComponent(job.getId());
+    const id = encodeURIComponent(job.id);
     let itemImage = null;
 
-    if (job instanceof Tree) {
+    if (job.isGroup) {
       itemImage = (
         <span
           className="icon icon-small icon-image-container icon-app-container">
@@ -73,7 +150,7 @@ class JobsTable extends React.Component {
           className="headline table-cell-value flex-box flex-box-col"
           params={{id}}>
           <span className="text-overflow">
-            {job.getName()}
+            {job.name}
           </span>
         </Link>
       </div>
@@ -84,10 +161,10 @@ class JobsTable extends React.Component {
     return (
       <Table
         className="table inverse table-borderless-outer table-borderless-inner-columns flush-bottom"
+        colGroup={this.getColGroup()}
         columns={this.getColumns()}
-        data={this.props.jobs.slice()}
+        data={this.getData()}
         itemHeight={TableUtil.getRowHeight()}
-        containerSelector=".gm-scroll-view"
         sortBy={{prop: 'name', order: 'asc'}} />
     );
   }
