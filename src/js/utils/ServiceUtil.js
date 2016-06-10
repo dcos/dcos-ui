@@ -9,7 +9,7 @@ const getFindPropertiesRecursive = function (service, item) {
       return memo;
     }
 
-    memo[subItem] = item[subItem].default
+    memo[subItem] = item[subItem].default;
 
     if (item[subItem].getter) {
       memo[subItem] = item[subItem].getter(service);
@@ -24,7 +24,7 @@ const ServiceUtil = {
     let definition = {};
 
     if (formModel != null) {
-      let {general, optional, containerSettings} = formModel;
+      let {general, optional, containerSettings, labels} = formModel;
 
       if (general != null) {
         definition.id = general.id;
@@ -82,6 +82,13 @@ const ServiceUtil = {
             }, {});
         }
       }
+
+      if (labels != null) {
+        definition.labels = labels.labels.reduce(function (memo, item) {
+          memo[item.key] = item.value;
+          return memo;
+        }, {});
+      }
     }
     return new Service(definition);
   },
@@ -108,6 +115,7 @@ const ServiceUtil = {
     appDefinition.constraints = service.getConstraints();
     appDefinition.acceptedResourceRoles = service.getAcceptedResourceRoles();
     appDefinition.user = service.getUser();
+    appDefinition.labels = service.getLabels();
 
     let containerSettings = service.getContainerSettings();
     if (containerSettings &&
