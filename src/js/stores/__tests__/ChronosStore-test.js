@@ -81,136 +81,169 @@ describe('ChronosStore', function () {
 
     it('emits event after #fetchJobDetail success event is dispatched',
       function () {
-      let changeHandler = jasmine.createSpy('changeHandler');
-      ChronosStore.addChangeListener(
-        EventTypes.CHRONOS_JOB_DETAIL_CHANGE,
-        changeHandler
-      );
+        let changeHandler = jasmine.createSpy('changeHandler');
+        ChronosStore.addChangeListener(
+          EventTypes.CHRONOS_JOB_DETAIL_CHANGE,
+          changeHandler
+        );
 
-      AppDispatcher.handleServerAction({
-        type: ActionTypes.REQUEST_CHRONOS_JOB_DETAIL_SUCCESS,
-        data: jobFixture
+        AppDispatcher.handleServerAction({
+          type: ActionTypes.REQUEST_CHRONOS_JOB_DETAIL_SUCCESS,
+          data: jobFixture
+        });
+
+        expect(changeHandler).toHaveBeenCalled();
       });
-
-      expect(changeHandler).toHaveBeenCalled();
-    });
 
     it('emits event after #fetchJobDetail error event is dispatched',
       function () {
-      let changeHandler = jasmine.createSpy('changeHandler');
-      ChronosStore.addChangeListener(
-        EventTypes.CHRONOS_JOB_DETAIL_ERROR,
-        changeHandler
-      );
+        let changeHandler = jasmine.createSpy('changeHandler');
+        ChronosStore.addChangeListener(
+          EventTypes.CHRONOS_JOB_DETAIL_ERROR,
+          changeHandler
+        );
 
-      AppDispatcher.handleServerAction({
-        type: ActionTypes.REQUEST_CHRONOS_JOB_DETAIL_ERROR
+        AppDispatcher.handleServerAction({
+          type: ActionTypes.REQUEST_CHRONOS_JOB_DETAIL_ERROR
+        });
+
+        expect(changeHandler).toHaveBeenCalled();
       });
-
-      expect(changeHandler).toHaveBeenCalled();
-    });
 
     it('emits event after #deleteJob success event is dispatched',
       function () {
-      let changeHandler = jasmine.createSpy('changeHandler');
-      ChronosStore.addChangeListener(
-        EventTypes.CHRONOS_JOB_DELETE_SUCCESS,
-        changeHandler
-      );
+        let changeHandler = jasmine.createSpy('changeHandler');
+        ChronosStore.addChangeListener(
+          EventTypes.CHRONOS_JOB_DELETE_SUCCESS,
+          changeHandler
+        );
 
-      AppDispatcher.handleServerAction({
-        type: ActionTypes.REQUEST_CHRONOS_JOB_DELETE_SUCCESS,
-        jobID: 'foo'
+        AppDispatcher.handleServerAction({
+          type: ActionTypes.REQUEST_CHRONOS_JOB_DELETE_SUCCESS,
+          jobID: 'foo'
+        });
+
+        expect(changeHandler).toHaveBeenCalled();
+        expect(changeHandler).toHaveBeenCalledWith('foo');
       });
-
-      expect(changeHandler).toHaveBeenCalled();
-      expect(changeHandler).toHaveBeenCalledWith('foo');
-    });
 
     it('emits event after #deleteJob error event is dispatched',
       function () {
-      let changeHandler = jasmine.createSpy('changeHandler');
-      ChronosStore.addChangeListener(
-        EventTypes.CHRONOS_JOB_DELETE_ERROR,
-        changeHandler
-      );
+        let changeHandler = jasmine.createSpy('changeHandler');
+        ChronosStore.addChangeListener(
+          EventTypes.CHRONOS_JOB_DELETE_ERROR,
+          changeHandler
+        );
 
-      AppDispatcher.handleServerAction({
-        type: ActionTypes.REQUEST_CHRONOS_JOB_DELETE_ERROR,
-        jobID: 'foo'
+        AppDispatcher.handleServerAction({
+          type: ActionTypes.REQUEST_CHRONOS_JOB_DELETE_ERROR,
+          jobID: 'foo'
+        });
+
+        expect(changeHandler).toHaveBeenCalled();
+        expect(changeHandler).toHaveBeenCalledWith('foo');
       });
-
-      expect(changeHandler).toHaveBeenCalled();
-      expect(changeHandler).toHaveBeenCalledWith('foo');
-    });
 
     it('emits event after #runJob success event is dispatched',
       function () {
-      let changeHandler = jasmine.createSpy('changeHandler');
-      ChronosStore.addChangeListener(
-        EventTypes.CHRONOS_JOB_RUN_SUCCESS,
-        changeHandler
-      );
+        let changeHandler = jasmine.createSpy('changeHandler');
+        ChronosStore.addChangeListener(
+          EventTypes.CHRONOS_JOB_RUN_SUCCESS,
+          changeHandler
+        );
 
-      AppDispatcher.handleServerAction({
-        type: ActionTypes.REQUEST_CHRONOS_JOB_RUN_SUCCESS,
-        jobID: 'foo'
+        AppDispatcher.handleServerAction({
+          type: ActionTypes.REQUEST_CHRONOS_JOB_RUN_SUCCESS,
+          jobID: 'foo'
+        });
+
+        expect(changeHandler).toHaveBeenCalled();
+        expect(changeHandler).toHaveBeenCalledWith('foo');
       });
-
-      expect(changeHandler).toHaveBeenCalled();
-      expect(changeHandler).toHaveBeenCalledWith('foo');
-    });
 
     it('emits event after #runJob error event is dispatched',
       function () {
-      let changeHandler = jasmine.createSpy('changeHandler');
-      ChronosStore.addChangeListener(
-        EventTypes.CHRONOS_JOB_RUN_ERROR,
-        changeHandler
-      );
+        let changeHandler = jasmine.createSpy('changeHandler');
+        ChronosStore.addChangeListener(
+          EventTypes.CHRONOS_JOB_RUN_ERROR,
+          changeHandler
+        );
 
-      AppDispatcher.handleServerAction({
-        type: ActionTypes.REQUEST_CHRONOS_JOB_RUN_ERROR,
-        jobID: 'foo'
+        AppDispatcher.handleServerAction({
+          type: ActionTypes.REQUEST_CHRONOS_JOB_RUN_ERROR,
+          jobID: 'foo'
+        });
+
+        expect(changeHandler).toHaveBeenCalled();
+        expect(changeHandler).toHaveBeenCalledWith('foo');
       });
-
-      expect(changeHandler).toHaveBeenCalled();
-      expect(changeHandler).toHaveBeenCalledWith('foo');
-    });
 
     it('emits event after #suspendJob success event is dispatched',
       function () {
-      let changeHandler = jasmine.createSpy('changeHandler');
-      ChronosStore.addChangeListener(
-        EventTypes.CHRONOS_JOB_SUSPEND_SUCCESS,
-        changeHandler
-      );
+        let changeHandler = jasmine.createSpy('changeHandler');
+        ChronosStore.addChangeListener(
+          EventTypes.CHRONOS_JOB_SUSPEND_SUCCESS,
+          changeHandler
+        );
 
-      AppDispatcher.handleServerAction({
-        type: ActionTypes.REQUEST_CHRONOS_JOB_SUSPEND_SUCCESS,
-        jobID: 'foo'
+        AppDispatcher.handleServerAction({
+          type: ActionTypes.REQUEST_CHRONOS_JOB_SUSPEND_SUCCESS,
+          jobID: 'foo'
+        });
+
+        expect(changeHandler).toHaveBeenCalled();
+        expect(changeHandler).toHaveBeenCalledWith('foo');
       });
-
-      expect(changeHandler).toHaveBeenCalled();
-      expect(changeHandler).toHaveBeenCalledWith('foo');
-    });
 
     it('emits event after #suspendJob error event is dispatched',
       function () {
-      let changeHandler = jasmine.createSpy('changeHandler');
-      ChronosStore.addChangeListener(
-        EventTypes.CHRONOS_JOB_SUSPEND_ERROR,
-        changeHandler
-      );
+        let changeHandler = jasmine.createSpy('changeHandler');
+        ChronosStore.addChangeListener(
+          EventTypes.CHRONOS_JOB_SUSPEND_ERROR,
+          changeHandler
+        );
 
-      AppDispatcher.handleServerAction({
-        type: ActionTypes.REQUEST_CHRONOS_JOB_SUSPEND_ERROR,
-        jobID: 'foo'
+        AppDispatcher.handleServerAction({
+          type: ActionTypes.REQUEST_CHRONOS_JOB_SUSPEND_ERROR,
+          jobID: 'foo'
+        });
+
+        expect(changeHandler).toHaveBeenCalled();
+        expect(changeHandler).toHaveBeenCalledWith('foo');
       });
 
-      expect(changeHandler).toHaveBeenCalled();
-      expect(changeHandler).toHaveBeenCalledWith('foo');
-    });
+    it('emits event after create job success event is dispatched',
+      function () {
+        let changeHandler = jasmine.createSpy('changeHandler');
+        ChronosStore.addChangeListener(
+          EventTypes.CHRONOS_JOB_CREATE_SUCCESS,
+          changeHandler
+        );
+
+        AppDispatcher.handleServerAction({
+          type: ActionTypes.REQUEST_CHRONOS_JOB_CREATE_SUCCESS,
+        });
+
+        expect(changeHandler).toHaveBeenCalled();
+      });
+
+    it('emits event after create job error event is dispatched',
+      function () {
+        let changeHandler = jasmine.createSpy('changeHandler');
+        ChronosStore.addChangeListener(
+          EventTypes.CHRONOS_JOB_CREATE_ERROR,
+          changeHandler
+        );
+
+        AppDispatcher.handleServerAction({
+          type: ActionTypes.REQUEST_CHRONOS_JOB_CREATE_ERROR,
+          data: {message: 'Json validation error'}
+        });
+
+        expect(changeHandler).toHaveBeenCalled();
+        expect(changeHandler)
+          .toHaveBeenCalledWith({message: 'Json validation error'});
+      });
 
   });
 
@@ -269,39 +302,39 @@ describe('ChronosStore', function () {
 
     it('should prevent subequent fetchJobDetail calls for specific jobID',
       function () {
-      // Begin monitoring job details on specific ID
-      ChronosStore.monitorJobDetail('foo');
-      // Let three intervals run
-      jasmine.clock().tick(3 * Config.getRefreshRate());
-      // Finish up outstanding timers
-      jest.runOnlyPendingTimers();
-      // Stop monitoring specific job's details
-      ChronosStore.stopJobDetailMonitor('foo');
-      // Initiate another 1 intervals to ensure the job is no longer fetched
-      jasmine.clock().tick(1 * Config.getRefreshRate());
-      // Finish up outstanding timers
-      jest.runOnlyPendingTimers();
-      expect(ChronosActions.fetchJobDetail.calls.count()).toEqual(4);
-    });
+        // Begin monitoring job details on specific ID
+        ChronosStore.monitorJobDetail('foo');
+        // Let three intervals run
+        jasmine.clock().tick(3 * Config.getRefreshRate());
+        // Finish up outstanding timers
+        jest.runOnlyPendingTimers();
+        // Stop monitoring specific job's details
+        ChronosStore.stopJobDetailMonitor('foo');
+        // Initiate another 1 intervals to ensure the job is no longer fetched
+        jasmine.clock().tick(1 * Config.getRefreshRate());
+        // Finish up outstanding timers
+        jest.runOnlyPendingTimers();
+        expect(ChronosActions.fetchJobDetail.calls.count()).toEqual(4);
+      });
 
     it('should prevent subequent fetchJobDetail calls for all jobID',
       function () {
-      // Begin monitoring job details on specific IDs
-      ChronosStore.monitorJobDetail('foo');
-      ChronosStore.monitorJobDetail('bar');
-      ChronosStore.monitorJobDetail('baz');
-      // Let four intervals run
-      jasmine.clock().tick(4 * Config.getRefreshRate());
-      // Finish up outstanding timers
-      jest.runOnlyPendingTimers();
-      // Stop monitoring specific job's details
-      ChronosStore.stopJobDetailMonitor();
-      // Initiate another 1 intervals to ensure the jobs are no longer fetched
-      jasmine.clock().tick(1 * Config.getRefreshRate());
-      // Finish up outstanding timers
-      jest.runOnlyPendingTimers();
-      expect(ChronosActions.fetchJobDetail.calls.count()).toEqual(15);
-    });
+        // Begin monitoring job details on specific IDs
+        ChronosStore.monitorJobDetail('foo');
+        ChronosStore.monitorJobDetail('bar');
+        ChronosStore.monitorJobDetail('baz');
+        // Let four intervals run
+        jasmine.clock().tick(4 * Config.getRefreshRate());
+        // Finish up outstanding timers
+        jest.runOnlyPendingTimers();
+        // Stop monitoring specific job's details
+        ChronosStore.stopJobDetailMonitor();
+        // Initiate another 1 intervals to ensure the jobs are no longer fetched
+        jasmine.clock().tick(1 * Config.getRefreshRate());
+        // Finish up outstanding timers
+        jest.runOnlyPendingTimers();
+        expect(ChronosActions.fetchJobDetail.calls.count()).toEqual(15);
+      });
 
   });
 

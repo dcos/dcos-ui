@@ -3,6 +3,8 @@ import {EventEmitter} from 'events';
 import AppDispatcher from '../events/AppDispatcher';
 import ChronosActions  from '../events/ChronosActions';
 import {
+  CHRONOS_JOB_CREATE_ERROR,
+  CHRONOS_JOB_CREATE_SUCCESS,
   CHRONOS_JOB_DELETE_ERROR,
   CHRONOS_JOB_DELETE_SUCCESS,
   CHRONOS_JOB_DETAIL_CHANGE,
@@ -19,6 +21,8 @@ import Config from '../config/Config';
 import Job from '../structs/Job';
 import JobTree from '../structs/JobTree';
 import {
+  REQUEST_CHRONOS_JOB_CREATE_ERROR,
+  REQUEST_CHRONOS_JOB_CREATE_SUCCESS,
   REQUEST_CHRONOS_JOB_DELETE_ERROR,
   REQUEST_CHRONOS_JOB_DELETE_SUCCESS,
   REQUEST_CHRONOS_JOB_DETAIL_ERROR,
@@ -78,6 +82,12 @@ class ChronosStore extends EventEmitter {
         return false;
       }
       switch (action.type) {
+        case REQUEST_CHRONOS_JOB_CREATE_SUCCESS:
+          this.emit(CHRONOS_JOB_CREATE_SUCCESS);
+          break;
+        case REQUEST_CHRONOS_JOB_CREATE_ERROR:
+          this.emit(CHRONOS_JOB_CREATE_ERROR, action.data);
+          break;
         case REQUEST_CHRONOS_JOB_DELETE_ERROR:
           this.emit(CHRONOS_JOB_DELETE_ERROR, action.jobID);
           break;
@@ -124,6 +134,10 @@ class ChronosStore extends EventEmitter {
       VISIBILITY_CHANGE,
       this.onVisibilityStoreChange.bind(this)
     );
+  }
+
+  createJob(job) {
+    ChronosActions.createJob(job);
   }
 
   deleteJob(jobID, stopCurrentJobRuns) {
