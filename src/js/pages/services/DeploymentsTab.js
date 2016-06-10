@@ -10,6 +10,7 @@ import {Table} from 'reactjs-components';
 
 import AlertPanel from '../../components/AlertPanel';
 import DCOSStore from '../../stores/DCOSStore';
+import MarathonActions from '../../events/MarathonActions';
 import ResourceTableUtil from '../../utils/ResourceTableUtil';
 import ServicesBreadcrumb from '../../components/ServicesBreadcrumb';
 import StringUtil from '../../utils/StringUtil';
@@ -19,14 +20,17 @@ const columnHeading = ResourceTableUtil.renderHeading({
   id: 'AFFECTED SERVICES',
   startTime: 'STARTED',
   location: 'LOCATION',
-  status: 'STATUS'
+  status: 'STATUS',
+  action: ''
 });
 const METHODS_TO_BIND = [
   'renderAffectedServices',
   'renderAffectedServicesList',
   'renderLocation',
   'renderStartTime',
-  'renderStatus'
+  'renderStatus',
+  'renderAction',
+  'handleRollbackClick'
 ];
 
 class DeploymentsTab extends mixin(StoreMixin) {
@@ -124,6 +128,21 @@ class DeploymentsTab extends mixin(StoreMixin) {
     );
   }
 
+  renderAction(prop, deployment) {
+    if (deployment != null) {
+      return (
+        <a className="deployment-rollback button button-link button-danger table-display-on-row-hover"
+            onClick={this.handleRollbackClick.bind(null, deployment)}>
+          Rollback
+        </a>
+      );
+    }
+  }
+
+  handleRollbackClick(deployment) {
+    MarathonActions.revertDeployment(deployment.id);
+  }
+
   getColumns() {
     return [
       {
@@ -151,6 +170,14 @@ class DeploymentsTab extends mixin(StoreMixin) {
         heading: columnHeading,
         prop: 'status',
         render: this.renderStatus
+      },
+      {
+        className: function () {
+          return classNames(columnClassNameGetter(...arguments), 'align-top');
+        },
+        heading: columnHeading,
+        prop: 'action',
+        render: this.renderAction
       }
     ];
   }
