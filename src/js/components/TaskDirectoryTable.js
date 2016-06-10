@@ -82,9 +82,11 @@ class TaskDirectoryTable extends React.Component {
   }
 
   renderDate(prop, directoryItem) {
+    let ms = directoryItem.get(prop) * 1000;
+
     return (
-      <span title={DateUtil.msToDateStr(directoryItem.get(prop) * 1000)}>
-        {DateUtil.msToRelativeTime(directoryItem.get(prop))}
+      <span title={DateUtil.msToDateStr(ms)}>
+        {DateUtil.msToRelativeTime(ms)}
       </span>
     );
   }
