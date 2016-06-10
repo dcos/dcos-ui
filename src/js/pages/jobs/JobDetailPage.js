@@ -7,6 +7,7 @@ import {Dropdown} from 'reactjs-components';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import ChronosStore from '../../stores/ChronosStore';
+import DateUtil from '../../utils/DateUtil';
 import JobConfiguration from './JobConfiguration';
 import JobRunHistoryTable from './JobRunHistoryTable';
 import PageHeader from '../../components/PageHeader';
@@ -164,9 +165,9 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
     });
 
     let timePrefix = null;
-    let shouldShowRelativeTime = dateCompleted !== null;
+    let shouldSuppressRelativeTime = dateCompleted == null;
 
-    if (!shouldShowRelativeTime) {
+    if (shouldSuppressRelativeTime) {
       timePrefix = 'for ';
     }
 
@@ -175,7 +176,10 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
         {status.displayName}
       </span>,
       <span key="time-running">
-        ({timePrefix}{longestRunningActiveRun.getDateCreated().fromNow(!shouldShowRelativeTime)})
+        ({timePrefix}{DateUtil.msToRelativeTime(
+          longestRunningActiveRun.getDateCreated(),
+          shouldSuppressRelativeTime
+        )})
       </span>
     ];
   }

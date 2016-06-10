@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import React from 'react';
 
 import ChronosStore from '../../stores/ChronosStore';
+import DateUtil from '../../utils/DateUtil';
 import ExpandingTable from '../../components/ExpandingTable';
 import FilterHeadline from '../../components/FilterHeadline';
 import JobStates from '../../constants/JobStates';
@@ -146,11 +147,11 @@ class JobRunHistoryTable extends React.Component {
       let dateRunFinished = longestRunningTask.getDateCompleted();
 
       if (dateRunStarted != null) {
-        dateRunStarted = dateRunStarted.fromNow();
+        dateRunStarted = DateUtil.msToRelativeTime(dateRunStarted);
       }
 
       if (dateRunFinished != null) {
-        dateRunFinished = dateRunFinished.fromNow();
+        dateRunFinished = DateUtil.msToRelativeTime(dateRunFinished);
       }
 
       let children = activeRun.getTasks().getItems().map((jobTask) => {
@@ -158,11 +159,11 @@ class JobRunHistoryTable extends React.Component {
         let dateTaskFinished = jobTask.getDateCompleted();
 
         if (dateTaskStarted != null) {
-          dateTaskStarted = dateTaskStarted.fromNow();
+          dateTaskStarted = DateUtil.msToRelativeTime(dateTaskStarted);
         }
 
         if (dateTaskFinished != null) {
-          dateTaskFinished = dateTaskFinished.fromNow();
+          dateTaskFinished = DateUtil.msToRelativeTime(dateTaskFinished);
         }
 
         return {
