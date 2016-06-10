@@ -109,8 +109,9 @@ var ResourceTableUtil = {
       return 'N/A';
     }
 
-    let exactTime = DateUtil.msToDateStr(updatedAt.toFixed(3) * 1000);
-    let relativeTime = DateUtil.msToRelativeTime(updatedAt);
+    let ms = updatedAt.toFixed(3) * 1000;
+    let exactTime = DateUtil.msToDateStr(ms);
+    let relativeTime = DateUtil.msToRelativeTime(ms);
 
     return <span title={exactTime}>{relativeTime}</span>;
   },
