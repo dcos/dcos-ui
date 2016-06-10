@@ -17,8 +17,8 @@ const DateUtil = {
     return dateStr;
   },
 
-  msToRelativeTime: function (ms) {
-    return moment(ms).fromNow();
+  msToRelativeTime: function (ms, suppressRelativeTime = false) {
+    return moment(ms).fromNow(suppressRelativeTime);
   },
 
    /**
