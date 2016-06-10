@@ -9,7 +9,7 @@ import 'brace/theme/monokai';
 import 'brace/ext/language_tools';
 
 import MarathonStore from '../../stores/MarathonStore';
-import SchemaForm from '../SchemaForm';
+import ServiceForm from '../ServiceForm';
 import Service from '../../structs/Service';
 import ServiceUtil from '../../utils/ServiceUtil';
 import ServiceSchema from '../../schemas/ServiceSchema';
@@ -208,7 +208,7 @@ class ServiceFormModal extends mixin(StoreMixin) {
     let model = ServiceUtil.createFormModelFromSchema(ServiceSchema, service);
 
     return (
-      <SchemaForm
+      <ServiceForm
         getTriggerSubmit={this.getTriggerSubmit}
         model={model}
         schema={ServiceSchema}/>

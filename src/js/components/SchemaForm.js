@@ -1,14 +1,20 @@
 import {Tooltip} from 'reactjs-components';
 import React from 'react';
 
+import FormUtil from '../utils/FormUtil';
 import GeminiUtil from '../utils/GeminiUtil';
 import SchemaFormUtil from '../utils/SchemaFormUtil';
 import SchemaUtil from '../utils/SchemaUtil';
 import TabForm from './TabForm';
+import Util from '../utils/Util';
 
 const METHODS_TO_BIND = [
-  'validateForm', 'getTriggerTabFormSubmit', 'handleFormChange',
-  'handleExternalSubmit'
+  'getAddNewRowButton',
+  'getRemoveRowButton',
+  'getTriggerTabFormSubmit',
+  'handleFormChange',
+  'handleExternalSubmit',
+  'validateForm'
 ];
 
 class SchemaForm extends React.Component {
@@ -73,6 +79,7 @@ class SchemaForm extends React.Component {
     if (this.timer) {
       clearTimeout(this.timer);
     }
+
     this.timer = setTimeout(() => {
       this.validateForm();
       this.props.onChange(this.getDataTriple());
@@ -82,6 +89,63 @@ class SchemaForm extends React.Component {
   handleExternalSubmit() {
     this.validateForm();
     return this.getDataTriple();
+  }
+
+  handleRemoveRow(definition, prop, id) {
+    FormUtil.removePropID(definition, prop, id);
+    this.forceUpdate();
+  }
+
+  handleAddRow(prop, definition, newDefinition) {
+    let propID = Util.uniqueID(prop);
+    newDefinition = FormUtil.getMultipleFieldDefinition(
+      prop,
+      propID,
+      newDefinition
+    );
+    newDefinition.push(
+      this.getRemoveRowButton(definition, prop, propID)
+    );
+
+    // Default to prepending.
+    let lastIndex = -1;
+    definition.forEach(function (field, i) {
+      if (FormUtil.isFieldInstanceOfProp(prop, field)) {
+        lastIndex = i;
+      }
+    });
+
+    definition.splice(lastIndex + 1, 0, newDefinition);
+    this.forceUpdate();
+  }
+
+  getAddNewRowButton(prop, generalDefinition, definition, labelText = '') {
+    let label = 'Add New Line';
+
+    if (labelText !== '') {
+      label = labelText;
+    }
+
+    return (
+      <button
+        className="button"
+        onClick={
+          this.handleAddRow.bind(this, prop, generalDefinition, definition)
+        }>
+        {label}
+      </button>
+    );
+  }
+
+  getRemoveRowButton(generalDefinition, prop, id) {
+    return (
+      <button
+        className="button"
+        key={prop + id}
+        onClick={this.handleRemoveRow.bind(this, generalDefinition, prop, id)}>
+        X
+      </button>
+    );
   }
 
   getDataTriple() {
@@ -95,11 +159,19 @@ class SchemaForm extends React.Component {
   getNewDefinition() {
     let {model, schema} = this.props;
     let definition = SchemaUtil.schemaToMultipleDefinition(
-      schema, this.getSubHeader, this.getLabel
+      schema,
+      this.getSubHeader,
+      this.getLabel,
+      this.getRemoveRowButton,
+      this.getAddNewRowButton
     );
 
     if (model) {
-      SchemaFormUtil.mergeModelIntoDefinition(model, definition);
+      SchemaFormUtil.mergeModelIntoDefinition(
+        model,
+        definition,
+        this.getRemoveRowButton
+      );
     }
 
     return definition;
