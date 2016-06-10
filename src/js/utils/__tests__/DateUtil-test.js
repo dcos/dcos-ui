@@ -60,4 +60,15 @@ describe('DateUtil', function () {
       expect(result).toEqual('in a year');
     });
   });
+
+  describe('#strToMs', function () {
+    it('returns value of date in ms', function () {
+      expect(DateUtil.strToMs('1990-01-03T00:00:00Z-1')).toEqual(631324800000);
+    });
+
+    it('returns null if the string is undefined or null', function () {
+      expect(DateUtil.strToMs(null)).toEqual(null);
+      expect(DateUtil.strToMs(undefined)).toEqual(null);
+    });
+  });
 });
