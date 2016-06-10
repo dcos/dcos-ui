@@ -16,7 +16,7 @@ class JobActiveRunList extends List {
         return -1;
       }
 
-      return a.getDateCreated().valueOf() - b.getDateCreated().valueOf();
+      return a.getDateCreated() - b.getDateCreated();
     });
 
     return sortedRuns[0];

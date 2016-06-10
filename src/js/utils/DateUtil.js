@@ -49,6 +49,14 @@ const DateUtil = {
 
     var strTime = `${hours}:${minutes} ${meridiem}`;
     return strTime;
+  },
+
+  strToMs: function (str) {
+    if (str == null) {
+      return null;
+    }
+
+    return moment(str).valueOf();
   }
 };
 

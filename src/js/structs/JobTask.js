@@ -1,26 +1,13 @@
-import moment from 'moment';
-
+import DateUtil from '../utils/DateUtil';
 import Item from './Item';
 
 module.exports = class JobTask extends Item {
   getDateStarted() {
-    let dateStarted = this.get('startedAt');
-
-    if (dateStarted != null) {
-      return moment(dateStarted.toUpperCase());
-    }
-
-    return null;
+    return DateUtil.strToMs(this.get('startedAt'));
   }
 
   getDateCompleted() {
-    let dateCompleted = this.get('completedAt');
-
-    if (dateCompleted != null) {
-      return moment(dateCompleted.toUpperCase());
-    }
-
-    return null;
+    return DateUtil.strToMs(this.get('completedAt'));
   }
 
   getTaskID() {

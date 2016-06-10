@@ -16,7 +16,7 @@ class JobTaskList extends List {
         return -1;
       }
 
-      return a.getDateStarted().valueOf() - b.getDateStarted().valueOf();
+      return a.getDateStarted() - b.getDateStarted();
     });
 
     return sortedTasks[0];

@@ -7,20 +7,14 @@ describe('JobActiveRun', function () {
 
   describe('#getDateCreated', function () {
 
-    it('should return null if startedAt is undefined', function () {
+    it('should return null if createdAt is undefined', function () {
       let activeRun = new JobActiveRun({foo: 'bar'});
       expect(activeRun.getDateCreated()).toEqual(null);
     });
 
-    it('should return a moment instance', function () {
-      let activeRun = new JobActiveRun({createdAt: '1985-04-30'});
-      expect(activeRun.getDateCreated() instanceof moment).toBeTruthy();
-    });
-
-    it('should properly parse the time-zone format from API', function () {
-      let activeRun = new JobActiveRun({createdAt: '1990-01-03t02:00:00z-1'});
-      expect(activeRun.getDateCreated().valueOf())
-        .toEqual(moment('1990-01-03T02:00:00Z-1').valueOf());
+    it('should return the correct value in milliseconds', function () {
+      let activeRun = new JobActiveRun({createdAt: '1990-01-03T02:00:00Z-1'});
+      expect(activeRun.getDateCreated()).toEqual(631332000000);
     });
 
   });

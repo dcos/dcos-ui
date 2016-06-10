@@ -1,5 +1,3 @@
-let moment = require('moment');
-
 let JobTask = require('../JobTask');
 
 describe('Job', function () {
@@ -11,15 +9,9 @@ describe('Job', function () {
       expect(jobTask.getDateStarted()).toEqual(null);
     });
 
-    it('should return a moment instance', function () {
-      let jobTask = new JobTask({startedAt: '1985-04-30'});
-      expect(jobTask.getDateStarted() instanceof moment).toBeTruthy();
-    });
-
     it('should properly parse the time-zone format from API', function () {
-      let jobTask = new JobTask({startedAt: '1990-01-03t02:00:00z-1'});
-      expect(jobTask.getDateStarted().valueOf())
-        .toEqual(moment('1990-01-03T02:00:00Z-1').valueOf());
+      let jobTask = new JobTask({startedAt: '1990-01-03T02:00:00Z-1'});
+      expect(jobTask.getDateStarted()).toEqual(631332000000);
     });
 
   });
@@ -31,15 +23,9 @@ describe('Job', function () {
       expect(jobTask.getDateCompleted()).toEqual(null);
     });
 
-    it('should return a moment instance', function () {
-      let jobTask = new JobTask({completedAt: '1985-04-30'});
-      expect(jobTask.getDateCompleted() instanceof moment).toBeTruthy();
-    });
-
     it('should properly parse the time-zone format from API', function () {
-      let jobTask = new JobTask({startedAt: '1990-01-03t02:00:00z-1'});
-      expect(jobTask.getDateStarted().valueOf())
-        .toEqual(moment('1990-01-03T02:00:00Z-1').valueOf());
+      let jobTask = new JobTask({completedAt: '1990-01-03T02:00:00Z-1'});
+      expect(jobTask.getDateCompleted()).toEqual(631332000000);
     });
 
   });

@@ -1,17 +1,10 @@
-import moment from 'moment';
-
+import DateUtil from '../utils/DateUtil';
 import Item from './Item';
 import JobTaskList from './JobTaskList';
 
 module.exports = class JobActiveRun extends Item {
   getDateCreated() {
-    let dateCreated = this.get('createdAt');
-
-    if (dateCreated != null) {
-      return moment(dateCreated.toUpperCase());
-    }
-
-    return null;
+    return DateUtil.strToMs(this.get('createdAt'));
   }
 
   getJobID() {
