@@ -1,4 +1,4 @@
-var Labels = {
+const Labels = {
   type: 'object',
   title: 'Labels',
   properties: {
@@ -9,14 +9,12 @@ var Labels = {
       getter: function (service) {
         let labels = service.getLabels() || {};
 
-        return Object.keys(labels).reduce(function (memo, key) {
-          memo.push({
+        return Object.keys(labels).map(function (key) {
+          return {
             key,
             value: labels[key]
-          });
-
-          return memo;
-        }, []);
+          };
+        });
       },
       itemShape: {
         properties: {
