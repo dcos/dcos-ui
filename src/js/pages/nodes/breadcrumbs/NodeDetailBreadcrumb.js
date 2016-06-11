@@ -16,8 +16,8 @@ class NodeDetailBreadCrumb extends BreadcrumbSegment {
     }
   }
 
-  componentWillUpdate() {
-    super.componentWillUpdate(...arguments);
+  componentWillReceiveProps() {
+    super.componentWillReceiveProps(...arguments);
 
     let hostname = this.getHostname();
 
