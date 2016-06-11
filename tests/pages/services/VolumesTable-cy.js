@@ -49,7 +49,7 @@ describe('Volumes', function () {
     });
 
     it('displays the correct status in the header', function () {
-      cy.get('.page-header-container-left .emphasize').should('contain', 'Attached');
+      cy.get('.page-header-heading .emphasize').should('contain', 'Attached');
     });
 
     it('displays the details of the volume', function () {
