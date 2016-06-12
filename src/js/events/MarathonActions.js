@@ -216,7 +216,7 @@ module.exports = {
       success: function (response) {
         AppDispatcher.handleServerAction({
           type: REQUEST_MARATHON_DEPLOYMENT_ROLLBACK_SUCCESS,
-          data: response
+          data: Object.assign({originalDeploymentID: deploymentID}, response)
         });
       },
       error: function (e) {
