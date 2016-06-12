@@ -348,6 +348,7 @@ class MarathonStore extends GetSetBaseStore {
           return deployment.id !== id;
         });
       this.set({deployments});
+      this.emit(MARATHON_DEPLOYMENTS_CHANGE);
     }
   }
 
