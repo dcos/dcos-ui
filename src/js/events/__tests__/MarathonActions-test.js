@@ -357,7 +357,7 @@ describe('MarathonActions', function () {
 
     beforeEach(function () {
       spyOn(RequestUtil, 'json');
-      MarathonActions.revertDeployment('test');
+      MarathonActions.revertDeployment('deployment-id');
       this.configuration = RequestUtil.json.calls.mostRecent().args[0];
     });
 
@@ -373,20 +373,35 @@ describe('MarathonActions', function () {
 
       it('calls the approprate endpoint', function () {
         expect(this.configuration.url)
-          .toEqual(`${Config.rootUrl}/marathon/v2/deployments/test`);
+          .toEqual(`${Config.rootUrl}/marathon/v2/deployments/deployment-id`);
       });
 
     });
 
-    it('emits a success event on success', function () {
-      var id = AppDispatcher.register(function (payload) {
-        var action = payload.action;
-        AppDispatcher.unregister(id);
-        expect(action.type)
-          .toEqual(ActionTypes.REQUEST_MARATHON_DEPLOYMENT_ROLLBACK_SUCCESS);
+    describe('on success', function () {
+
+      it('emits a success event on success', function () {
+        var id = AppDispatcher.register(function (payload) {
+          var action = payload.action;
+          AppDispatcher.unregister(id);
+          expect(action.type)
+            .toEqual(ActionTypes.REQUEST_MARATHON_DEPLOYMENT_ROLLBACK_SUCCESS);
+        });
+
+        this.configuration.success({});
       });
 
-      this.configuration.success({});
+      it('emits the original deployment ID as the success payload', function () {
+        var id = AppDispatcher.register(function (payload) {
+          var action = payload.action;
+          AppDispatcher.unregister(id);
+          expect(action.data.originalDeploymentID)
+            .toEqual('deployment-id');
+        });
+
+        this.configuration.success({});
+      });
+
     });
 
     it('emits an error event on error', function () {
