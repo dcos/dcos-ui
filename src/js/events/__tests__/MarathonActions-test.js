@@ -377,6 +377,28 @@ describe('MarathonActions', function () {
       });
 
     });
+
+    it('emits a success event on success', function () {
+      var id = AppDispatcher.register(function (payload) {
+        var action = payload.action;
+        AppDispatcher.unregister(id);
+        expect(action.type)
+          .toEqual(ActionTypes.REQUEST_MARATHON_DEPLOYMENT_ROLLBACK_SUCCESS);
+      });
+
+      this.configuration.success({});
+    });
+
+    it('emits an error event on error', function () {
+      var id = AppDispatcher.register(function (payload) {
+        var action = payload.action;
+        AppDispatcher.unregister(id);
+        expect(action.type)
+          .toEqual(ActionTypes.REQUEST_MARATHON_DEPLOYMENT_ROLLBACK_ERROR);
+      });
+
+      this.configuration.error({});
+    });
       
   });
 
