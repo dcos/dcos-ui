@@ -44,8 +44,6 @@ class StylesPage extends mixin(TabsMixin) {
     // Get top level Tab
     let topLevelTab = currentTab.split('-').slice(0, 2).join('-') + '-tab';
 
-    console.log(topLevelTab);
-
     this.tabs_tabs = STYLES_SUB_TABS[topLevelTab];
 
     this.setState({currentTab});
