@@ -80,11 +80,11 @@ module.exports = Object.assign({}, webpackConfig, {
       },
       {
         test: /\.css$/,
-        loader: ExtractTextPlugin.extract('style', 'css!postcss')
+        loader: ExtractTextPlugin.extract('style', 'css?-mergeLonghand!postcss')
       },
       {
         test: /\.less$/,
-        loader: ExtractTextPlugin.extract('style', 'css!postcss!less')
+        loader: ExtractTextPlugin.extract('style', 'css?-mergeLonghand!postcss!less')
       },
       {
         test: /\.png$/,
