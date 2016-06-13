@@ -1,12 +1,13 @@
-import Router from 'react-router';
-let Route = Router.Route;
-let Redirect = Router.Redirect;
+import {DefaultRoute, Redirect, Route} from 'react-router';
 
 import HostTable from '../components/HostTable';
-import NodesPage from '../pages/NodesPage';
-import NodesGridView from '../components/NodesGridView';
 import NodeDetailPage from '../pages/nodes/NodeDetailPage';
-import TaskDetail from '../components/TaskDetail';
+import NodesGridView from '../components/NodesGridView';
+import NodesPage from '../pages/NodesPage';
+import TaskDetail from '../pages/services/task-details/TaskDetail';
+import TaskDetailsTab from '../pages/services/task-details/TaskDetailsTab';
+import TaskFilesTab from '../pages/services/task-details/TaskFilesTab';
+import TaskLogsTab from '../pages/services/task-details/TaskLogsTab';
 
 let nodesRoutes = {
   type: Route,
@@ -45,15 +46,34 @@ let nodesRoutes = {
       children: [
         {
           type: Route,
+          path: 'tasks/:taskID/?',
           name: 'nodes-task-details',
-          path: 'task-detail/:taskID/?',
-          handler: TaskDetail
+          handler: TaskDetail,
+          children: [
+            {
+              type: DefaultRoute,
+              name: 'nodes-task-details-tab',
+              handler: TaskDetailsTab
+            },
+            {
+              type: Route,
+              name: 'nodes-task-details-files',
+              path: 'files/?',
+              handler: TaskFilesTab
+            },
+            {
+              type: Route,
+              name: 'nodes-task-details-logs',
+              path: 'logs/?',
+              handler: TaskLogsTab
+            }
+          ]
         },
         {
           type: Route,
           name: 'node-detail-health',
           path: ':unitNodeID/:unitID/?'
-        },
+        }
       ]
     }
   ]

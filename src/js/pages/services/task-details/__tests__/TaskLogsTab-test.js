@@ -1,30 +1,30 @@
-jest.dontMock('../icons/IconDownload');
-jest.dontMock('../MesosLogView');
-jest.dontMock('../RequestErrorMsg');
-jest.dontMock('../TaskDebugView');
-jest.dontMock('../FilterBar');
+jest.dontMock('../../../../components/icons/IconDownload');
+jest.dontMock('../../../../components/MesosLogView');
+jest.dontMock('../../../../components/RequestErrorMsg');
+jest.dontMock('../TaskLogsTab');
+jest.dontMock('../../../../components/FilterBar');
 
-var JestUtil = require('../../utils/JestUtil');
+let JestUtil = require('../../../../utils/JestUtil');
 
 JestUtil.unMockStores(['TaskDirectoryStore', 'MesosLogStore']);
-require('../../utils/StoreMixinConfig');
+require('../../../../utils/StoreMixinConfig');
 
-var DirectoryItem = require('../../structs/DirectoryItem');
-var TaskDirectory = require('../../structs/TaskDirectory');
+let DirectoryItem = require('../../../../structs/DirectoryItem');
+let TaskDirectory = require('../../../../structs/TaskDirectory');
 /* eslint-disable no-unused-vars */
-var React = require('react');
+let React = require('react');
 /* eslint-enable no-unused-vars */
-var ReactDOM = require('react-dom');
+let ReactDOM = require('react-dom');
 
-var TaskDirectoryActions = require('../../events/TaskDirectoryActions');
-var TaskDebugView = require('../TaskDebugView');
+let TaskDirectoryActions = require('../../../../events/TaskDirectoryActions');
+let TaskLogsTab = require('../TaskLogsTab');
 
-describe('TaskDebugView', function () {
+describe('TaskLogsTab', function () {
 
   beforeEach(function () {
     this.container = document.createElement('div');
     this.instance = ReactDOM.render(
-      <TaskDebugView
+      <TaskLogsTab
         directory={new TaskDirectory({items: [{nlink: 1, path: '/stdout'}]})}
         selectedLogFile={new DirectoryItem({nlink: 1, path: '/stdout'})}
         task={{slave_id: 'foo'}} />,
@@ -40,12 +40,12 @@ describe('TaskDebugView', function () {
 
     it('should set button disabled when file is not found', function () {
       this.instance = ReactDOM.render(
-        <TaskDebugView
+        <TaskLogsTab
           directory={new TaskDirectory({items: [{nlink: 1, path: ''}]})}
           task={{slave_id: 'foo'}} />,
         this.container
       );
-      var btn = this.container.querySelector('a.button.button-stroke');
+      let btn = this.container.querySelector('a.button.button-stroke');
       // If btn.props.disabled = true, then disabled attribute will return an object.
       // If btn.props.disabled = false, then disabled attribute will be undefined.
       // So here we just test to see if attribute exists
@@ -53,7 +53,7 @@ describe('TaskDebugView', function () {
     });
 
     it('should set button not disabled when file is found', function () {
-      var btn = this.container.querySelector('a.button.button-stroke');
+      let btn = this.container.querySelector('a.button.button-stroke');
       // If btn.props.disabled = false, then disabled attribute will be undefined
       expect(btn.attributes.disabled).toEqual(undefined);
     });
@@ -71,7 +71,7 @@ describe('TaskDebugView', function () {
 
     it('renders stderr when view is changed', function () {
       this.instance = ReactDOM.render(
-        <TaskDebugView
+        <TaskLogsTab
           directory={new TaskDirectory({items: [
             {nlink: 1, path: '/stdout'},
             {nlink: 1, path: '/stderr'}

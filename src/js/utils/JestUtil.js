@@ -1,5 +1,6 @@
 const TestUtils = require('react-addons-test-utils');
 import React from 'react';
+import ReactDOM from 'react-dom';
 
 let stores = {
   CosmosPackagesStore: '../stores/CosmosPackagesStore',
@@ -21,8 +22,8 @@ class RouterStub {
   static getCurrentPath() {}
   static getCurrentRoutes() {}
   static getCurrentPathname() {}
-  static getCurrentParams() {}
-  static getCurrentQuery() {}
+  static getCurrentParams() { return {}; }
+  static getCurrentQuery() { return {}; }
   static getLocation() {}
   static isActive() {}
   static getRouteAtDepth() {}
@@ -31,12 +32,12 @@ class RouterStub {
 }
 
 const JestUtil = {
-  renderAndFindTag: function (instance, tag) {
+  renderAndFindTag(instance, tag) {
     var result = TestUtils.renderIntoDocument(instance);
     return TestUtils.findRenderedDOMComponentWithTag(result, tag);
   },
 
-  unMockStores: function (storeIDs) {
+  unMockStores(storeIDs) {
     Object.keys(stores).forEach(function (storeID) {
       if (storeIDs.indexOf(storeID) === -1) {
         jest.setMock(stores[storeID], {});
@@ -44,7 +45,7 @@ const JestUtil = {
     });
   },
 
-  dontMockStore: function (storeID) {
+  dontMockStore(storeID) {
     if (storeID in stores) {
       jest.dontMock(stores[storeID]);
       return true;
@@ -56,9 +57,10 @@ const JestUtil = {
    * https://github.com/reactjs/react-router/blob/0.13.x/docs/guides/testing.md
    * @param {React.Component} Component
    * @param {object} [props]
+   * @param {object} [routerStubs]
    * @returns {React.Element} wrapped component element
    */
-  stubRouterContext: function (Component, props={}) {
+  stubRouterContext(Component, props = {}, routerStubs) {
     // Create wrapper component
     class WrappedComponent extends React.Component {
 
@@ -71,7 +73,7 @@ const JestUtil = {
 
       getChildContext() {
         return {
-          router: RouterStub,
+          router: Object.assign(RouterStub, routerStubs),
           routeDepth: 0
         };
       }
@@ -83,6 +85,23 @@ const JestUtil = {
     }
 
     return React.createElement(WrappedComponent);
+  },
+
+  /**
+   * Helper to render component with stubbed router and getting original
+   * rendered component, not the WrappedComponent returned by stubRouterContext
+   * @param {React.Component} Component to render
+   * @param  {Object} [props] properties to pass to the component to render
+   * @param  {DOMElement} container element to render component into
+   * @param  {Object} [routerStubs]
+   * @return {React.Element} rendered into container
+   */
+  renderWithStubbedRouter(Component, props, container, routerStubs = {}) {
+    return TestUtils.findRenderedComponentWithType(
+      ReactDOM.render(
+        this.stubRouterContext(Component, props, routerStubs),
+        container
+      ), Component);
   }
 
 };

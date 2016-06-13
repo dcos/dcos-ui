@@ -16,7 +16,7 @@ describe('TabsMixin', function () {
 
   describe('#tabs_getRoutedItem', function () {
     beforeEach(function () {
-      this.instance = TabsMixin.tabs_getRoutedItem('foo', 'baz', true);
+      this.instance = TabsMixin.tabs_getRoutedItem({classNames: 'foo'}, 'baz');
     });
 
     it('should return an element', function () {
@@ -28,15 +28,27 @@ describe('TabsMixin', function () {
         .toEqual(true);
     });
 
+    it('should add custom props to span', function () {
+      expect(TabsMixin.tabs_getRoutedItem({other: true}, 'foo').props.other)
+        .toEqual(true);
+    });
+
+    it('should remove existing className', function () {
+      expect(TabsMixin.tabs_getUnroutedItem(
+        {classNames: {'tab-item-label': false}},
+        'foo'
+      ).props.className).toEqual('');
+    });
+
     it('should add custom class to link', function () {
       expect(this.instance.props.className)
-        .toEqual('foo tab-item-label');
+        .toEqual('tab-item-label foo');
     });
   });
 
   describe('#tabs_getUnroutedItem', function () {
     beforeEach(function () {
-      this.instance = TabsMixin.tabs_getUnroutedItem('hux', 'baz', true);
+      this.instance = TabsMixin.tabs_getUnroutedItem({classNames: 'hux'}, 'baz');
     });
 
     it('should return an element', function () {
@@ -47,9 +59,21 @@ describe('TabsMixin', function () {
       expect(this.instance.type).toEqual('span');
     });
 
+    it('should add custom props to span', function () {
+      expect(TabsMixin.tabs_getUnroutedItem({other: true}, 'baz').props.other)
+        .toEqual(true);
+    });
+
+    it('should remove existing className', function () {
+      expect(TabsMixin.tabs_getUnroutedItem(
+        {classNames: {'tab-item-label': false}},
+        'baz'
+      ).props.className).toEqual('');
+    });
+
     it('should add custom class to span', function () {
       expect(this.instance.props.className)
-        .toEqual('hux tab-item-label');
+        .toEqual('tab-item-label hux');
     });
   });
 
@@ -69,12 +93,12 @@ describe('TabsMixin', function () {
 
     it('should call tabs_getUnroutedItem with appropriate arguments', function () {
       spyOn(TabsMixin, 'tabs_getUnroutedItem');
-      TabsMixin.tabs_getUnroutedTabs('quix');
+      TabsMixin.tabs_getUnroutedTabs({classNames: 'quix'});
 
       expect(TabsMixin.tabs_getUnroutedItem.calls.allArgs()).toEqual([
-        ['quix', 'foo', 0],
-        ['quix', 'baz', 1],
-        ['quix', 'corge', 2]
+        [{classNames: 'quix'}, 'foo', 0],
+        [{classNames: 'quix'}, 'baz', 1],
+        [{classNames: 'quix'}, 'corge', 2]
       ]);
     });
   });
@@ -95,12 +119,12 @@ describe('TabsMixin', function () {
 
     it('should call tabs_getRoutedItem with appropriate arguments', function () {
       spyOn(TabsMixin, 'tabs_getRoutedItem');
-      TabsMixin.tabs_getRoutedTabs('quilt');
+      TabsMixin.tabs_getRoutedTabs({classNames: 'quilt'});
 
       expect(TabsMixin.tabs_getRoutedItem.calls.allArgs()).toEqual([
-        ['quilt', 'foo', 0],
-        ['quilt', 'baz', 1],
-        ['quilt', 'corge', 2]
+        [{classNames: 'quilt'}, 'foo', 0],
+        [{classNames: 'quilt'}, 'baz', 1],
+        [{classNames: 'quilt'}, 'corge', 2]
       ]);
     });
   });
