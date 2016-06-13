@@ -7,7 +7,9 @@ module.exports = class Job extends Item {
   }
 
   getCommand() {
-    return this.get('run').cmd;
+    const {cmd} = this.get('run') || {};
+
+    return cmd;
   }
 
   getDescription() {
