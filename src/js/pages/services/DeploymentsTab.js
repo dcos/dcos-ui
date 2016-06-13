@@ -194,6 +194,18 @@ class DeploymentsTab extends mixin(StoreMixin) {
     ];
   }
 
+  getColGroup() {
+    return (
+      <colgroup>
+        <col />
+        <col className="hidden-mini" />
+        <col className="hidden-mini" style={{width: '120px'}} />
+        <col style={{width: '240px'}} />
+        <col className="hidden-mini" style={{width: '120px'}} />
+      </colgroup>
+    );
+  }
+
   renderEmpty() {
     return (
       <AlertPanel
@@ -219,6 +231,7 @@ class DeploymentsTab extends mixin(StoreMixin) {
         <Table
           className="table inverse table-borderless-outer table-borderless-inner-columns flush-bottom deployments-table"
           columns={this.getColumns()}
+          colGroup={this.getColGroup()}
           data={deploymentsItems.slice()} />
         {this.renderRollbackModal()}
       </div>
