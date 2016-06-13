@@ -172,7 +172,23 @@ base/forms.less
       }
     }
 
+    .modal-header {
+      color: @white;
+      background-color: @purple;
+    }
+
+    .modal-header-title {
+      color: currentColor;
+      font-size: @form-label-font-size * @form-label-font-size-scale-screen-small;
+      line-height: @form-label-line-height * @form-label-line-height-scale-screen-small;
+
+      label{
+        color: @white;
+      }
+    }
+
   }
+
 
 }
 
@@ -208,6 +224,16 @@ base/forms.less
 
     }
 
+    .service-deploy-modal .multiple-form{
+
+      .multiple-form-left-column {
+        width: 27%;
+      }
+
+      .multiple-form-right-column {
+        width: 73%;
+      }
+    }
   }
 
 }

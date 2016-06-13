@@ -378,11 +378,6 @@ class ServiceFormModal extends mixin(StoreMixin) {
           onClick={this.handleCancel}>
           Cancel
         </button>
-        <ToggleButton
-          checked={this.state.jsonMode}
-          onChange={this.handleJSONToggle}>
-          JSON mode
-        </ToggleButton>
         <button
           className="button button-large button-success flush-bottom"
           onClick={this.handleSubmit}>
@@ -420,7 +415,20 @@ class ServiceFormModal extends mixin(StoreMixin) {
   }
 
   render() {
-    let title = 'Deploy new Service';
+    let title = (
+      <div>
+        <div className="column-6">
+          Deploy new Service
+        </div>
+        <div className="column-6 text-align-right">
+          <ToggleButton
+            checked={this.state.jsonMode}
+            onChange={this.handleJSONToggle}>
+            JSON mode
+          </ToggleButton>
+        </div>
+      </div>
+    );
 
     if (this.props.isEdit) {
       title = 'Edit Service';
@@ -438,6 +446,7 @@ class ServiceFormModal extends mixin(StoreMixin) {
         showHeader={true}
         footer={this.getFooter()}
         titleText={title}
+        titleClass="modal-header-title flush-top flush-bottom"
         showFooter={true}>
         {this.getErrorMessage()}
         {this.getModalContents()}
