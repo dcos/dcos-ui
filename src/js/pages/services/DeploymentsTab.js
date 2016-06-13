@@ -258,7 +258,7 @@ class DeploymentsTab extends mixin(StoreMixin) {
       let listOfServiceNames = StringUtil.humanizeArray(serviceNames);
       let serviceCount = serviceNames.length;
 
-      let application = StringUtil.pluralize('application', serviceCount);
+      let service = StringUtil.pluralize('service', serviceCount);
       let its = (serviceCount === 1) ? 'its' : 'their';
       let version = StringUtil.pluralize('version', serviceCount);
 
@@ -278,7 +278,7 @@ class DeploymentsTab extends mixin(StoreMixin) {
             <p>
               This will stop the current deployment of {listOfServiceNames} and
               start a new deployment to revert the
-              affected {application} to {its} previous {version}.
+              affected {service} to {its} previous {version}.
             </p>
           </div>
         </Confirm>
