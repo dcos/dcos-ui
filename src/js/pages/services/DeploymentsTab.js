@@ -211,7 +211,7 @@ class DeploymentsTab extends mixin(StoreMixin) {
         <col className="hidden-mini" />
         <col className="hidden-mini" style={{width: '120px'}} />
         <col style={{width: '240px'}} />
-        <col className="hidden-mini" style={{width: '120px'}} />
+        <col className="hidden-mini" style={{width: '160px'}} />
       </colgroup>
     );
   }
@@ -251,17 +251,6 @@ class DeploymentsTab extends mixin(StoreMixin) {
   renderRollbackModal() {
     let {deploymentToRollback} = this.state;
     if (deploymentToRollback != null) {
-      let serviceNames = deploymentToRollback.getAffectedServices()
-        .map(function (service) {
-          return StringUtil.capitalize(service.getName());
-        });
-      let listOfServiceNames = StringUtil.humanizeArray(serviceNames);
-      let serviceCount = serviceNames.length;
-
-      let service = StringUtil.pluralize('service', serviceCount);
-      let its = (serviceCount === 1) ? 'its' : 'their';
-      let version = StringUtil.pluralize('version', serviceCount);
-
       return (
         <Confirm
           closeByBackdropClick={true}
@@ -275,15 +264,33 @@ class DeploymentsTab extends mixin(StoreMixin) {
           rightButtonText="Continue Rollback">
           <div className="container-pod container-pod-short text-align-center">
             <h3 className="flush-top">You're About To Rollback The Deployment</h3>
-            <p>
-              This will stop the current deployment of {listOfServiceNames} and
-              start a new deployment to revert the
-              affected {service} to {its} previous {version}.
-            </p>
+            <p>{this.getRollbackModalText(deploymentToRollback)}</p>
           </div>
         </Confirm>
       );
     }
+  }
+
+  getRollbackModalText(deploymentToRollback) {
+    let serviceNames = deploymentToRollback.getAffectedServices()
+      .map(function (service) {
+        return StringUtil.capitalize(service.getName());
+      });
+    let listOfServiceNames = StringUtil.humanizeArray(serviceNames);
+    let serviceCount = serviceNames.length;
+
+    let service = StringUtil.pluralize('service', serviceCount);
+    let its = (serviceCount === 1) ? 'its' : 'their';
+    let version = StringUtil.pluralize('version', serviceCount);
+
+    if (deploymentToRollback.isStarting()) {
+      return `This will stop the current deployment of ${listOfServiceNames}
+              and start a new deployment to remove the affected ${service}.`
+    }
+
+    return `This will stop the current deployment of ${listOfServiceNames} and
+            start a new deployment to revert the affected ${service} to ${its}
+            previous ${version}.`
   }
 
   render() {

@@ -11,6 +11,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import DCOSStore from '../../stores/DCOSStore';
+import Deployment from '../../structs/Deployment';
 import DeploymentsTab from '../services/DeploymentsTab';
 import DeploymentsList from '../../structs/DeploymentsList';
 import Service from '../../structs/Service';
@@ -52,6 +53,30 @@ describe('DeploymentsTab', function () {
 
   afterEach(function () {
     ReactDOM.unmountComponentAtNode(this.container);
+  });
+
+  describe('#getRollbackModalText', function () {
+
+    it('should return a removal message when passed a starting deployment', function () {
+      let text = DeploymentsTab.prototype.getRollbackModalText(new Deployment({
+        id: 'deployment-id',
+        affectedApps: ['app1'],
+        affectedServices: [new Service({name: 'app1'})],
+        steps: [{actions: [{type: 'StartApplication'}]}]
+      }));
+      expect(text).toContain('remove the affected service');
+    });
+
+    it('should return a revert message when passed a non-starting deployment', function () {
+      let text = DeploymentsTab.prototype.getRollbackModalText(new Deployment({
+        id: 'deployment-id',
+        affectedApps: ['app1'],
+        affectedServices: [new Service({name: 'app1'})],
+        steps: [{actions: [{type: 'ScaleApplication'}]}]
+      }));
+      expect(text).toContain('revert the affected service');
+    });
+
   });
 
   describe('#render', function () {
