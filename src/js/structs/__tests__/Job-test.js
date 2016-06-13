@@ -43,6 +43,36 @@ describe('Job', function () {
 
   });
 
+  describe('#getMem', function () {
+
+    it('returns the correct mem', function () {
+      let job = new Job({
+        run: {
+          mem: 49
+        }
+      });
+
+      expect(job.getMem()).toEqual(49);
+    });
+
+    it('defaults to the correct value if property is undefined', function () {
+      let job = new Job({
+        run: {}
+      });
+
+      expect(job.getMem()).toEqual(32);
+    });
+
+    it('defaults to the correct value if run configuration is undefined',
+      function () {
+        let job = new Job({});
+
+        expect(job.getMem()).toEqual(32);
+      }
+    );
+
+  });
+
   describe('#getName', function () {
 
     it('returns correct name', function () {

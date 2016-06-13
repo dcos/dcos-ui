@@ -18,6 +18,12 @@ module.exports = class Job extends Item {
     return this.get('id');
   }
 
+  getMem() {
+    const {mem = 32} = this.get('run') || {};
+
+    return mem;
+  }
+
   getName() {
     return this.getId().split('.').pop();
   }
