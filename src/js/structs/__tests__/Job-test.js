@@ -21,6 +21,15 @@ describe('Job', function () {
       expect(job.getCommand()).toEqual('foo');
     });
 
+    it('does\'t throw and error if run configuration is undefined',
+      function () {
+        let job = new Job({});
+
+        expect(function () {
+          job.getCommand()
+        }).not.toThrow();
+      }
+    );
   });
 
   describe('#getDescription', function () {
