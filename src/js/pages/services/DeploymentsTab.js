@@ -16,7 +16,6 @@ import ResourceTableUtil from '../../utils/ResourceTableUtil';
 import ServicesBreadcrumb from '../../components/ServicesBreadcrumb';
 import StringUtil from '../../utils/StringUtil';
 
-const columnClassNameGetter = ResourceTableUtil.getClassName;
 const columnHeading = ResourceTableUtil.renderHeading({
   id: 'AFFECTED SERVICES',
   startTime: 'STARTED',
@@ -24,6 +23,7 @@ const columnHeading = ResourceTableUtil.renderHeading({
   status: 'STATUS',
   action: ''
 });
+const COLLAPSING_COLUMNS = ['location', 'startTime', 'action'];
 const METHODS_TO_BIND = [
   'renderAffectedServices',
   'renderAffectedServicesList',
@@ -35,6 +35,16 @@ const METHODS_TO_BIND = [
   'handleRollbackCancel',
   'handleRollbackConfirm'
 ];
+
+// collapsing columns are tightly coupled to the left-align caret property;
+// this wrapper allows ordinary columns to collapse.
+function columnClassNameGetter(prop, sortBy, row) {
+  let classSet = ResourceTableUtil.getClassName(prop, sortBy, row);
+  if (COLLAPSING_COLUMNS.includes(prop)) {
+    return classNames(classSet, 'hidden-mini');
+  }
+  return classSet;
+}
 
 class DeploymentsTab extends mixin(StoreMixin) {
 
