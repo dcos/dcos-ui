@@ -14,6 +14,12 @@ module.exports = class Job extends Item {
     return this.get('description');
   }
 
+  getDisk() {
+    const {disk = 0} = this.get('run') || {};
+
+    return disk;
+  }
+
   getId() {
     return this.get('id');
   }
