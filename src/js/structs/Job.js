@@ -12,6 +12,13 @@ module.exports = class Job extends Item {
     return cmd;
   }
 
+  getCpus() {
+    // Default to the minimum number of cpus per Mesos offer
+    const {cpus = 0.01} = this.get('run') || {};
+
+    return cpus;
+  }
+
   getDescription() {
     return this.get('description');
   }
