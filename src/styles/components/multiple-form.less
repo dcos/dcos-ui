@@ -160,6 +160,20 @@ base/forms.less
 
   }
 
+  .service-deploy-modal {
+
+    .error-field {
+      background: color-lighten(@red, 60);
+      border-bottom: @red 1px solid;
+      padding: (@base-spacing-unit / 2) @base-spacing-unit;
+
+      li:before {
+        background-color: currentColor;
+      }
+    }
+
+  }
+
 }
 
 & when (@screen-small-enabled) {
