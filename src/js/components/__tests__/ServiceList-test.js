@@ -1,6 +1,5 @@
 jest.dontMock('../../mixins/GetSetMixin');
 jest.dontMock('../ServiceList');
-jest.dontMock('../ServiceOverlay');
 jest.dontMock('../../stores/MarathonStore');
 /* eslint-disable no-unused-vars */
 var React = require('react');
