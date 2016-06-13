@@ -53,5 +53,43 @@ describe('Deployment', function () {
     });
   });
 
+  describe('#isStarting', function () {
+
+    it('flags deployments of newly-created services', function () {
+      let deployment = new Deployment({
+        id: 'deployment-id',
+        affectedApps: ['app1'],
+        steps: [{
+          actions: [
+            {app: 'app1', type: 'StartApplication'},
+            {app: 'app1', type: 'ScaleApplication'}
+          ]
+        }]
+      });
+
+      expect(deployment.isStarting()).toEqual(true);
+    });
+    
+    it('flags deployments which update services', function () {
+      let deployment = new Deployment({
+        id: 'deployment-id',
+        affectedApps: ['app1'],
+        steps: [{
+          actions: [
+            {app: 'app1', type: 'ScaleApplication'}
+          ]
+        }]
+      });
+
+      expect(deployment.isStarting()).toEqual(false);
+    });
+
+    it('gracefully handles deployments without steps', function () {
+      let deployment = new Deployment({id: 'deployment-id'});
+      expect(deployment.isStarting.bind(deployment)).not.toThrow(); 
+    });
+
+  });
+
 });
 
