@@ -143,10 +143,14 @@ class DeploymentsTab extends mixin(StoreMixin) {
 
   renderAction(prop, deployment) {
     if (deployment != null) {
+      let linkText = 'Rollback';
+      if (deployment.isStarting()) {
+        linkText = linkText + ' & Remove';
+      }
       return (
         <a className="deployment-rollback button button-link button-danger table-display-on-row-hover"
             onClick={this.handleRollbackClick.bind(null, deployment)}>
-          Rollback
+          {linkText}
         </a>
       );
     }
