@@ -12,6 +12,7 @@ import TaskDetail from '../pages/services/task-details/TaskDetail';
 import TaskDetailsTab from '../pages/services/task-details/TaskDetailsTab';
 import TaskFilesTab from '../pages/services/task-details/TaskFilesTab';
 import TaskLogsTab from '../pages/services/task-details/TaskLogsTab';
+import TaskDetailBreadcrumb from '../pages/nodes/breadcrumbs/TaskDetailBreadcrumb';
 
 let nodesRoutes = {
   type: Route,
@@ -77,6 +78,18 @@ let nodesRoutes = {
           path: 'tasks/:taskID/?',
           name: 'nodes-task-details',
           handler: TaskDetail,
+          buildBreadCrumb: function () {
+            return {
+              parentCrumb: 'node-detail',
+              getCrumbs: function (router) {
+                return [
+                  <TaskDetailBreadcrumb
+                    parentRouter={router}
+                    routeName="nodes-task-details" />
+                ];
+              }
+            }
+          },
           children: [
             {
               type: DefaultRoute,

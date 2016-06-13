@@ -5,6 +5,7 @@ import React from 'react';
 import {RouteHandler} from 'react-router';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
+import Breadcrumbs from '../../../components/Breadcrumbs';
 import MarathonStore from '../../../stores/MarathonStore';
 import MesosStateStore from '../../../stores/MesosStateStore';
 import PageHeader from '../../../components/PageHeader';
@@ -220,7 +221,7 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
 
     return (
       <div className="flex-container-col flex-grow flex-shrink container-pod container-pod-divider-bottom-align-right container-pod-short-top flush-bottom flush-top">
-        {this.getServicesBreadcrumb()}
+        <Breadcrumbs />
         {this.getBasicInfo()}
         {this.getSubView()}
       </div>
