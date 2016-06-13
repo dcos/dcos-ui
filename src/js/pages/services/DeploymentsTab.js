@@ -81,10 +81,10 @@ class DeploymentsTab extends mixin(StoreMixin) {
 
       return (
         <dd key={index}>
-          <span className="icon icon-small icon-image-container icon-app-container deployment-service-icon">
-            <img src={image} />
-          </span>
           <Link to="services-detail" params={{id}} className="deployment-service-name">
+            <span className="icon icon-small icon-image-container icon-app-container deployment-service-icon">
+              <img src={image} />
+            </span>
             {StringUtil.capitalize(service.getName())}
           </Link>
         </dd>
