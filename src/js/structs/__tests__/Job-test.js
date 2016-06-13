@@ -82,6 +82,28 @@ describe('Job', function () {
 
   });
 
+  describe('#getLabels', function () {
+
+    it('returns the correct labels', function () {
+      let job = new Job({
+        labels: {
+          foo: 'bar'
+        }
+      });
+
+      expect(job.getLabels()).toEqual({foo: 'bar'});
+    });
+
+    it('defaults to an empty object if property is undefined', function () {
+      let job = new Job({
+        run: {}
+      });
+
+      expect(job.getLabels()).toEqual({});
+    });
+
+  });
+
   describe('#getMem', function () {
 
     it('returns the correct mem', function () {
