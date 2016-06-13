@@ -207,7 +207,7 @@ class DeploymentsTab extends mixin(StoreMixin) {
   getColGroup() {
     return (
       <colgroup>
-        <col />
+        <col style={{width: '300px'}} />
         <col className="hidden-mini" />
         <col className="hidden-mini" style={{width: '120px'}} />
         <col style={{width: '240px'}} />
