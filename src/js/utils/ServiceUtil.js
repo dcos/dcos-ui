@@ -83,13 +83,11 @@ const ServiceUtil = {
         }
       }
 
-      if (labels != null) {
-        if (labels.labels != null) {
-          definition.labels = labels.labels.reduce(function (memo, item) {
-            memo[item.key] = item.value;
-            return memo;
-          }, {});
-        }
+      if (labels != null && labels.labels != null) {
+        definition.labels = labels.labels.reduce(function (memo, item) {
+          memo[item.key] = item.value;
+          return memo;
+        }, {});
       }
     }
     return new Service(definition);
