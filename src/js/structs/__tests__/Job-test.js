@@ -33,6 +33,36 @@ describe('Job', function () {
 
   });
 
+  describe('#getDisk', function () {
+
+    it('returns the correct disk', function () {
+      let job = new Job({
+        run:{
+          disk: 125
+        }
+      });
+
+      expect(job.getDisk()).toEqual(125);
+    });
+
+    it('defaults to the correct value if property is undefined', function () {
+      let job = new Job({
+        run: {}
+      });
+
+      expect(job.getDisk()).toEqual(0);
+    });
+
+    it('defaults to the correct value if run configuration is undefined',
+      function () {
+        let job = new Job({});
+
+        expect(job.getDisk()).toEqual(0);
+      }
+    );
+
+  });
+
   describe('#getId', function () {
 
     it('returns correct id', function () {
