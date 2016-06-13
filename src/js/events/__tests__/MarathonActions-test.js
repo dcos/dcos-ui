@@ -371,7 +371,7 @@ describe('MarathonActions', function () {
         expect(this.configuration.method).toEqual('DELETE');
       });
 
-      it('calls the approprate endpoint', function () {
+      it('calls the appropriate endpoint', function () {
         expect(this.configuration.url)
           .toEqual(`${Config.rootUrl}/marathon/v2/deployments/deployment-id`);
       });
