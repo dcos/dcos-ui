@@ -1,6 +1,7 @@
 import mixin from 'reactjs-mixin';
 import React from 'react';
 
+import Breadcrumbs from './Breadcrumbs';
 import InternalStorageMixin from '../mixins/InternalStorageMixin';
 import Service from '../structs/Service';
 import ServiceActionItem from '../constants/ServiceActionItem';
@@ -9,7 +10,6 @@ import ServiceDetailTaskTab from './ServiceDetailTaskTab';
 import ServiceDetailVolumesTab from './ServiceDetailVolumesTab';
 import ServiceFormModal from './modals/ServiceFormModal';
 import ServiceInfo from './ServiceInfo';
-import ServicesBreadcrumb from './ServicesBreadcrumb';
 import TabsMixin from '../mixins/TabsMixin';
 
 const METHODS_TO_BIND = [
@@ -81,7 +81,7 @@ class ServiceDetail extends mixin(InternalStorageMixin, TabsMixin) {
           container-pod-short-top flush-bottom flush-top
           service-detail-header media-object-spacing-wrapper
           media-object-spacing-narrow">
-          <ServicesBreadcrumb serviceTreeItem={service} />
+          <Breadcrumbs />
           <ServiceInfo onActionsItemSelection={this.onActionsItemSelection}
             service={service} tabs={this.tabs_getUnroutedTabs()} />
           {this.tabs_getTabView()}

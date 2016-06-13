@@ -1,7 +1,11 @@
 import classNames from 'classnames';
 import DeepEqual from 'deep-equal';
+import mixin from 'reactjs-mixin';
+/* eslint-disable no-unused-vars */
 import React, {PropTypes} from 'react';
+/* eslint-enable no-unused-vars */
 import ReactDOM from 'react-dom';
+import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import BreadcrumbSegmentLink from './BreadcrumbSegmentLink';
 import IconChevron from './icons/IconChevron';
@@ -10,7 +14,7 @@ const COLLAPSE_BUFFER = 12;
 const LAST_ITEM_OFFSET = 150; // Difference between scrollWidth and outerWidth
 const PADDED_ICON_WIDTH = 38; // Width of icon + padding
 
-class Breadcrumbs extends React.Component {
+class Breadcrumbs extends mixin(StoreMixin) {
   constructor() {
     super(...arguments);
 
@@ -20,10 +24,16 @@ class Breadcrumbs extends React.Component {
       expandedWidth: null
     };
 
+    this.store_listeners = [
+      {name: 'history', events: ['change'], listenAlways: true}
+    ];
+
     this.handleResize = this.handleResize.bind(this);
   }
 
   componentDidMount() {
+    super.componentDidMount(...arguments);
+
     if (global.window != null) {
       window.addEventListener('resize', this.handleResize);
       window.addEventListener('focus', this.handleResize);
@@ -31,10 +41,14 @@ class Breadcrumbs extends React.Component {
   }
 
   componentDidUpdate() {
+    super.componentDidUpdate(...arguments);
+
     this.updateDimensions();
   }
 
   componentWillUnmount() {
+    super.componentWillUnmount(...arguments);
+
     if (global.window != null) {
       window.removeEventListener('resize', this.handleResize);
       window.removeEventListener('focus', this.handleResize);
@@ -115,6 +129,11 @@ class Breadcrumbs extends React.Component {
 
   getLastItemWidth() {
     let lastItem = ReactDOM.findDOMNode(this).lastChild;
+
+    if (!lastItem) {
+      return 0;
+    }
+
     let lastItemLink = lastItem.firstChild;
 
     return lastItemLink.scrollWidth + LAST_ITEM_OFFSET;
@@ -186,7 +205,20 @@ class Breadcrumbs extends React.Component {
   renderCrumbsFromRoute() {
     let {router} = this.context;
     let routes = router.getCurrentRoutes();
-    let currentRoute = routes[routes.length - 1];
+    // Find the first route with a name
+    let currentRoute = null;
+    loop:
+    for (var i = routes.length - 1; i >= 0; i--) {
+      if (routes[i].name) {
+        currentRoute = routes[i];
+        break loop;
+      }
+    }
+
+    if (!currentRoute) {
+      return [];
+    }
+
     let crumbs = this.buildCrumbs(currentRoute.name);
 
     crumbs = crumbs.slice(this.props.shift);

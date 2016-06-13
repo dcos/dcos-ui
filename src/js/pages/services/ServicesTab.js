@@ -3,6 +3,7 @@ import {RouteHandler} from 'react-router';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import AlertPanel from '../../components/AlertPanel';
+import Breadcrumbs from '../../components/Breadcrumbs';
 import DCOSStore from '../../stores/DCOSStore';
 import FilterBar from '../../components/FilterBar';
 import FilterHeadline from '../../components/FilterHeadline';
@@ -18,7 +19,6 @@ import ServiceFilterTypes from '../../constants/ServiceFilterTypes';
 import ServiceFormModal from '../../components/modals/ServiceFormModal';
 import ServiceSearchFilter from '../../components/ServiceSearchFilter';
 import ServiceSidebarFilters from '../../components/ServiceSidebarFilters';
-import ServicesBreadcrumb from '../../components/ServicesBreadcrumb';
 import ServiceGroupFormModal from '../../components/modals/ServiceGroupFormModal';
 import ServicesTable from '../../components/ServicesTable';
 import ServiceTree from '../../structs/ServiceTree';
@@ -66,7 +66,9 @@ var ServicesTab = React.createClass({
   },
 
   componentWillMount: function () {
-    this.store_listeners = [{name: 'dcos', events: ['change']}];
+    this.store_listeners = [
+      {name: 'dcos', events: ['change']}
+    ];
   },
 
   componentDidMount: function () {
@@ -202,8 +204,15 @@ var ServicesTab = React.createClass({
       );
     }
 
+    let shift = 1;
+
+    // Only show when there's a path
+    if (this.props.params.id && this.props.params.id.length) {
+      shift = 0;
+    }
+
     return (
-      <ServicesBreadcrumb serviceTreeItem={item} />
+      <Breadcrumbs shift={shift} />
     );
   },
 

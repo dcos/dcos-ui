@@ -25,25 +25,25 @@ class TaskDetailBreadcrumb extends BreadcrumbSegment {
   }
 
   updateCrumbStatus() {
-    let taskID = this.getTaskID();
+    let taskID = this.getTaskName();
 
     if (taskID) {
       this.setState({isLoadingCrumb: false});
     }
   }
 
-  getTaskID() {
+  getTaskName() {
     let {taskID} = this.props.parentRouter.getCurrentParams();
 
     if (MesosStateStore.get('lastMesosState').slaves == null) {
       return null;
     }
 
-    return MesosStateStore.getTaskFromTaskID(taskID).getId();
+    return MesosStateStore.getTaskFromTaskID(taskID).getName();
   }
 
   getCrumbLabel() {
-    return this.getTaskID();
+    return this.getTaskName();
   }
 };
 
