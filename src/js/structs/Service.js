@@ -38,6 +38,10 @@ module.exports = class Service extends Item {
     return this.get('disk');
   }
 
+  getEnvironmentVariables() {
+    return this.get('env');
+  }
+
   getExecutor() {
     return this.get('executor');
   }

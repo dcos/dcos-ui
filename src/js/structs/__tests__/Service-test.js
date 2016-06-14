@@ -99,6 +99,18 @@ describe('Service', function () {
     });
   });
 
+  describe('#getEnvironmentVariables', function () {
+
+    it('returns correct command', function () {
+      let service = new Service({
+        env: {secretName: 'test'}
+      });
+
+      expect(service.getEnvironmentVariables()).toEqual({secretName: 'test'});
+    });
+
+  });
+
   describe('#getExecuter', function () {
 
     it('returns correct command', function () {
