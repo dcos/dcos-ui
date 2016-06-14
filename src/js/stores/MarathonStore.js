@@ -345,7 +345,7 @@ class MarathonStore extends GetSetBaseStore {
     if (id != null) {
       let deployments = this.get('deployments')
         .filterItems(function (deployment) {
-          return deployment.id !== id;
+          return deployment.getId() !== id;
         });
       this.set({deployments});
       this.emit(MARATHON_DEPLOYMENTS_CHANGE);
