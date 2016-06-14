@@ -42,64 +42,20 @@ class JobsTable extends React.Component {
         prop: 'name',
         render: this.renderHeadline,
         sortable: true,
-        sortFunction: function (prop, direction) {
-          let score = 1;
-
-          if (direction === 'desc') {
-            score = -1;
-          }
-
-          return function (a, b) {
-            // Hoist group trees to the top
-            if (a.isGroup && !b.isGroup) {
-              return score * -1;
-            } else if (b.isGroup && !a.isGroup) {
-              return score;
-            }
-
-            return a.name.localeCompare(b.name);
-          };
-        },
+        sortFunction: this.sortJobNames,
         heading
       }, {
         className,
         headerClassName: className,
         prop: 'status',
-        render: function (prop, row) {
-          let value = row[prop];
-          let statusClasses = classNames({
-            'text-muted': value === 'completed',
-            'text-color-white': value !== 'completed'
-          });
-          let statusText = null;
-
-          if (value === 'active') {
-            statusText = 'Running';
-          } else if (value === 'scheduled') {
-            statusText = 'Scheduled';
-          } else if (value === 'completed') {
-            statusText = 'Completed';
-          }
-
-          return <span className={statusClasses}>{statusText}</span>;
-        },
+        render: this.renderStatusColumn,
         sortable: false,
         heading
       }, {
         className,
         headerClassName: className,
         prop: 'lastRunStatus',
-        render: function (prop, row) {
-          let value = row[prop];
-          let statusClasses = classNames({
-            'text-success': value === 'Success',
-            'text-danger': value === 'Failed'
-          });
-
-          return <span className={statusClasses}>{value}</span>;
-        },
-        sortable: false,
-        heading
+        render: this.renderLastRunStatusColumn
       }
     ];
   }
@@ -123,6 +79,25 @@ class JobsTable extends React.Component {
         lastRunStatus
       };
     });
+  }
+
+  sortJobNames(prop, direction) {
+    let score = 1;
+
+    if (direction === 'desc') {
+      score = -1;
+    }
+
+    return function (a, b) {
+      // Hoist group trees to the top
+      if (a.isGroup && !b.isGroup) {
+        return score * -1;
+      } else if (b.isGroup && !a.isGroup) {
+        return score;
+      }
+
+      return a.name.localeCompare(b.name);
+    };
   }
 
   renderHeadline(prop, job) {
@@ -155,6 +130,35 @@ class JobsTable extends React.Component {
         </Link>
       </div>
     );
+  }
+
+  renderLastRunStatusColumn(prop, row) {
+    let value = row[prop];
+    let statusClasses = classNames({
+      'text-success': value === 'Success',
+      'text-danger': value === 'Failed'
+    });
+
+    return <span className={statusClasses}>{value}</span>;
+  }
+
+  renderStatusColumn(prop, row) {
+    let value = row[prop];
+    let statusClasses = classNames({
+      'text-muted': value === 'completed',
+      'text-color-white': value !== 'completed'
+    });
+    let statusText = null;
+
+    if (value === 'active') {
+      statusText = 'Running';
+    } else if (value === 'scheduled') {
+      statusText = 'Scheduled';
+    } else if (value === 'completed') {
+      statusText = 'Completed';
+    }
+
+    return <span className={statusClasses}>{statusText}</span>;
   }
 
   render() {
