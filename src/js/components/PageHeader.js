@@ -58,6 +58,7 @@ class PageHeader extends React.Component {
 
   renderActionButtons() {
     let {actionButtons} = this.props;
+
     if (actionButtons.length === 0) {
       return null;
     }
@@ -97,6 +98,9 @@ class PageHeader extends React.Component {
               {this.getTitle()}
               {this.getSubTitle()}
             </div>
+          </div>
+          <div className="page-header-actions">
+            {this.renderActionButtons()}
           </div>
         </div>
         {children}

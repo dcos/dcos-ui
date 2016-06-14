@@ -60,7 +60,6 @@ class ServiceInfo extends React.Component {
         transition={true}
         transitionName="dropdown-menu" />
     )];
-    let {service} = this.props;
 
     if (service instanceof Framework && service.getWebURL()) {
       actionButtons.unshift(
