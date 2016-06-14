@@ -68,7 +68,7 @@ class DeploymentsTab extends mixin(StoreMixin) {
   renderAffectedServices(prop, deployment) {
     return (
       <dl className="deployment-services-list flush-top flush-bottom tree-list">
-        <dt className="deployment-id text-uppercase">{deployment.id}</dt>
+        <dt className="deployment-id text-uppercase">{deployment.getId()}</dt>
         {this.renderAffectedServicesList(deployment.getAffectedServices())}
       </dl>
     );
