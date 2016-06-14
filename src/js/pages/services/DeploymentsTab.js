@@ -135,7 +135,7 @@ class DeploymentsTab extends mixin(StoreMixin) {
 
     return (
       <div>
-        <div className="deployment-step">{title}</div>
+        <span className="deployment-step">{title}</span>
         <ol className="deployment-status-list list-unstyled flush-bottom">{items}</ol>
       </div>
     );
@@ -180,9 +180,7 @@ class DeploymentsTab extends mixin(StoreMixin) {
         render: this.renderLocation
       },
       {
-        className: function () {
-          return classNames(columnClassNameGetter(...arguments), 'align-top');
-        },
+        className: columnClassNameGetter,
         heading: columnHeading,
         prop: 'startTime',
         render: this.renderStartTime
@@ -194,9 +192,7 @@ class DeploymentsTab extends mixin(StoreMixin) {
         render: this.renderStatus
       },
       {
-        className: function () {
-          return classNames(columnClassNameGetter(...arguments), 'align-top');
-        },
+        className: columnClassNameGetter,
         heading: columnHeading,
         prop: 'action',
         render: this.renderAction
