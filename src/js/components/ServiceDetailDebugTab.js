@@ -1,6 +1,7 @@
 import moment from 'moment';
 import React from 'react';
 
+import DateUtil from '../utils/DateUtil';
 import DescriptionList from './DescriptionList';
 import Service from '../structs/Service';
 
@@ -28,18 +29,18 @@ class ServiceDetailDebugTab extends React.Component {
     const {version, timestamp, taskId, state, message, host} = lastTaskFailure;
     let timeStampText = 'Just now';
     if (new Date(timestamp) > Date.now()) {
-      timeStampText = new moment(timestamp).fromNow();
+      timeStampText = DateUtil.msToRelativeTime(timestamp);
     }
     let taskFailureValueMapping = {
-      'Task id': this.getValueText(taskId),
+      'Task ID': this.getValueText(taskId),
       'State': this.getValueText(state),
       'Message': this.getValueText(message),
       'Host': this.getValueText(host),
       'Timestamp': <span>{timestamp} ({timeStampText})</span>,
-      'Version': <span>{version} ({new moment(version).fromNow()})</span>
+      'Version': <span>{version} ({DateUtil.msToRelativeTime(version)})</span>
     };
 
-    return (<DescriptionList hash={taskFailureValueMapping} />);
+    return <DescriptionList hash={taskFailureValueMapping} />;
   }
 
   getLastVersionChange() {
@@ -54,7 +55,9 @@ class ServiceDetailDebugTab extends React.Component {
     let lastScaling = 'No operation since last config change'
     if (lastScalingAt !== lastConfigChangeAt) {
       lastScaling = (
-        <span>{lastScalingAt} ({new moment(lastScalingAt).fromNow()})</span>
+        <span>
+          {lastScalingAt} ({DateUtil.msToRelativeTime(lastScalingAt)})
+        </span>
       );
     }
 
@@ -62,12 +65,12 @@ class ServiceDetailDebugTab extends React.Component {
       'Scale or Restart': lastScaling,
       'Configuration': (
         <span>
-          {lastConfigChangeAt} ({new moment(lastConfigChangeAt).fromNow()})
+          {lastConfigChangeAt} ({DateUtil.msToRelativeTime(lastConfigChangeAt)})
         </span>
       )
     };
 
-    return (<DescriptionList hash={LastVersionChangeValueMapping} />);
+    return <DescriptionList hash={LastVersionChangeValueMapping} />;
   }
 
   render() {
