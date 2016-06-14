@@ -53,9 +53,13 @@ var ServicesPage = React.createClass({
   },
 
   render: function () {
+    // Make sure to grow when logs are displayed
+    let routes = this.context.router.getCurrentRoutes();
+
     return (
       <Page
         navigation={this.getNavigation()}
+        dontScroll={routes[routes.length - 1].dontScroll}
         title="Services">
         <RouteHandler />
       </Page>

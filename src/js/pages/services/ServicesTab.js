@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import React from 'react';
 import {RouteHandler} from 'react-router';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
@@ -259,8 +260,14 @@ var ServicesTab = React.createClass({
     // Find item in root tree and default to root tree if there is no match
     let item = DCOSStore.serviceTree.findItemById(id) || DCOSStore.serviceTree;
 
+    // Make sure to grow when logs are displayed
+    let routes = this.context.router.getCurrentRoutes();
+    let classes = classNames({
+      'flex-container-col flex-grow flex-shrink': routes[routes.length - 1].dontScroll
+    });
+
     return (
-      <div>
+      <div className={classes}>
         {this.getContents(item)}
         <ServiceGroupFormModal
           open={state.isServiceGroupFormModalShown}

@@ -1,4 +1,4 @@
-var classNames = require('classnames');
+import classNames from 'classnames/dedupe';
 var GeminiScrollbar = require('react-gemini-scrollbar');
 var React = require('react');
 import {StoreMixin} from 'mesosphere-shared-reactjs';
@@ -14,7 +14,12 @@ var Page = React.createClass({
   mixins: [InternalStorageMixin, StoreMixin],
 
   propTypes: {
-    className: React.PropTypes.string,
+    className: React.PropTypes.oneOfType([
+      React.PropTypes.array,
+      React.PropTypes.object,
+      React.PropTypes.string
+    ]),
+    dontScroll: React.PropTypes.bool,
     navigation: React.PropTypes.oneOfType([
       React.PropTypes.object,
       React.PropTypes.string
@@ -42,7 +47,7 @@ var Page = React.createClass({
   },
 
   onSidebarStoreWidthChange: function () {
-    GeminiUtil.updateWithRef(this.refs.pageRef);
+    GeminiUtil.updateWithRef(this.refs.gemini);
   },
 
   getChildren: function () {
@@ -79,7 +84,9 @@ var Page = React.createClass({
   getTitle: function (title) {
     if (!title) {
       return null;
-    } else if (React.isValidElement(title)) {
+    }
+
+    if (React.isValidElement(title)) {
       return title;
     }
 
@@ -95,20 +102,54 @@ var Page = React.createClass({
     );
   },
 
-  render: function () {
-    let {className, navigation, title} = this.props;
+  getContent: function () {
+    let {dontScroll} = this.props;
+    let contentClassSet = classNames('page-content inverse', {
+      'flex-container-col flex-grow flex-shrink': dontScroll
+    });
+    let contentInnerClassSet = classNames(
+      'flex-container-col container container-fluid',
+      'container-pod container-pod-short-top',
+      {'flex-grow flex-shrink': dontScroll}
+    );
 
-    let classSet = classNames('page flex-container-col', className);
+    let content = (
+      <div className={contentInnerClassSet}>
+        {this.getChildren()}
+      </div>
+    );
+
+    if (dontScroll) {
+      return (
+        <div className={contentClassSet}>
+          {content}
+        </div>
+      );
+    }
+
+    return (
+      <GeminiScrollbar
+        autoshow={true}
+        className={contentClassSet}
+        ref="gemini">
+        {content}
+      </GeminiScrollbar>
+    );
+  },
+
+  render: function () {
+    let {className, navigation, dontScroll, title} = this.props;
+
+    let classSet = classNames(
+      'page',
+      {'flex-grow flex-shrink': dontScroll},
+      className
+    );
 
     return (
       <div className={classSet}>
         {this.getPageHeader(title, navigation)}
-        <GeminiScrollbar autoshow={true} className="page-content
-          container-scrollable inverse" ref="pageRef">
-          <div className="flex-container-col container container-fluid container-pod container-pod-short-top">
-            {this.getChildren()}
-          </div>
-        </GeminiScrollbar>
+        {this.getContent()}
       </div>
     );
   }

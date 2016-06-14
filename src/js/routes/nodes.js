@@ -119,6 +119,7 @@ let nodesRoutes = {
             {
               type: Route,
               name: 'nodes-task-details-logs',
+              dontScroll: true,
               path: 'logs/?',
               handler: TaskLogsTab,
               buildBreadCrumb: function () {

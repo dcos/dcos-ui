@@ -78,7 +78,7 @@ class PageHeader extends React.Component {
     } = this.props;
 
     let pageHeaderClasses = classNames(
-      'page-header',
+      'page-header flex-no-shrink',
       {'has-tabs': !!navigationTabs},
       className
     );
