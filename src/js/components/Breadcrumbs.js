@@ -130,8 +130,8 @@ class Breadcrumbs extends mixin(StoreMixin) {
   getLastItemWidth() {
     let lastItem = ReactDOM.findDOMNode(this).lastChild;
 
-    if (!lastItem) {
-      return 0;
+    if (!lastItem || !lastItem.firstChild) {
+      return LAST_ITEM_OFFSET;
     }
 
     let lastItemLink = lastItem.firstChild;
