@@ -35,10 +35,34 @@ describe('Job', function () {
   describe('#getDescription', function () {
 
     it('returns the description', function () {
-      let job = new Job({id: '/foo', description: 'bar'});
+      let job = new Job({id: 'foo', description: 'bar'});
 
       expect(job.getDescription()).toEqual('bar');
     });
+
+  });
+
+  describe('#getDocker', function () {
+
+    it('returns the docker configuration', function () {
+      let job = new Job({id: 'foo', run: {docker: {image: 'busybox'}}});
+
+      expect(job.getDocker()).toEqual({image: 'busybox'});
+    });
+
+    it('defaults to an empty object if property is undefined', function () {
+      let job = new Job({run: {}});
+
+      expect(job.getDocker()).toEqual({});
+    });
+
+    it('defaults to an empty object  if run configuration is undefined',
+      function () {
+        let job = new Job({run: {}});
+
+        expect(job.getDocker()).toEqual({});
+      }
+    );
 
   });
 
