@@ -3,6 +3,18 @@ import Service from '../structs/Service';
 const getFindPropertiesRecursive = function (service, item) {
 
   return Object.keys(item).reduce(function (memo, subItem) {
+
+    if (item[subItem].type === 'group') {
+      Object.keys(item[subItem].properties).forEach(function (key) {
+        memo[key] = item[subItem].properties[key].default;
+
+        if (item[subItem].properties[key].getter) {
+          memo[key] = item[subItem].properties[key].getter(service);
+        }
+      });
+      return memo;
+    }
+
     if (item[subItem].type === 'object') {
       memo[subItem] = getFindPropertiesRecursive(service, item[subItem].properties);
 

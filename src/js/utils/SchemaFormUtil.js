@@ -117,7 +117,7 @@ let SchemaFormUtil = {
         return;
       }
 
-      let nextDefinition = definition.definition.find(
+      let nextDefinition = [].concat.apply([], definition.definition).find(
         function (definitionField) {
           return definitionField.name === path
             || definitionField.title === path;

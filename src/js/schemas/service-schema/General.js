@@ -15,33 +15,38 @@ let General = {
         return service.getId();
       }
     },
-    cpus: {
-      title: 'CPUs',
-      description: 'The amount of CPUs which are used for the service',
-      type:'number',
-      getter: function (service) {
-        return `${service.getCpus() || ''}`;
-      }
-    },
-    mem: {
-      title: 'Mem (MiB)',
-      type: 'number',
-      getter: function (service) {
-        return `${service.getMem() || ''}`;
-      }
-    },
-    disk: {
-      title: 'Disk (MiB)',
-      type: 'number',
-      getter: function (service) {
-        return `${service.getDisk() || ''}`;
-      }
-    },
-    instances: {
-      title: 'Instances',
-      type: 'number',
-      getter: function (service) {
-        return `${service.getInstancesCount() || 0}`;
+    resources: {
+      type: 'group',
+      properties: {
+        cpus: {
+          title: 'CPUs',
+          description: 'The amount of CPUs which are used for the service',
+          type: 'number',
+          getter: function (service) {
+            return `${service.getCpus() || ''}`;
+          }
+        },
+        mem: {
+          title: 'Mem (MiB)',
+          type: 'number',
+          getter: function (service) {
+            return `${service.getMem() || ''}`;
+          }
+        },
+        disk: {
+          title: 'Disk (MiB)',
+          type: 'number',
+          getter: function (service) {
+            return `${service.getDisk() || ''}`;
+          }
+        },
+        instances: {
+          title: 'Instances',
+          type: 'number',
+          getter: function (service) {
+            return `${service.getInstancesCount() || 0}`;
+          }
+        }
       }
     },
     cmd: {

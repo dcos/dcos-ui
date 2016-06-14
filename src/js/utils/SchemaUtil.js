@@ -163,7 +163,19 @@ let SchemaUtil = {
         let secondLevelObject = secondLevelProperties[secondLevelProp];
         let fieldDefinition;
 
-        if (secondLevelObject.properties == null) {
+        if (secondLevelObject.type === 'group' && secondLevelObject.properties != null) {
+          fieldDefinition = Object.keys(secondLevelObject.properties).map(function (key) {
+            let field = secondLevelObject.properties[key];
+
+            return schemaToFieldDefinition(
+              key,
+              field,
+              topLevelProp,
+              requiredProps && requiredProps.indexOf(secondLevelProp) > -1,
+              renderLabel
+            );
+          });
+        } else if (secondLevelObject.properties == null) {
           fieldDefinition = schemaToFieldDefinition(
             secondLevelProp,
             secondLevelObject,
