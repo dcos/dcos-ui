@@ -2,11 +2,11 @@ import Job from '../structs/Job';
 
 // TODO: DCOS-7747 Move this method as well as `createFormModelFromSchema` into
 // the SchemaUtil and refactor it accordingly.
-const getFindPropertiesRecursive = function (job, item) {
+const getMatchingProperties = function (job, item) {
 
   return Object.keys(item).reduce(function (memo, subItem) {
     if (item[subItem].type === 'object') {
-      memo[subItem] = getFindPropertiesRecursive(job, item[subItem].properties);
+      memo[subItem] = getMatchingProperties(job, item[subItem].properties);
 
       return memo;
     }
@@ -62,9 +62,9 @@ const JobUtil = {
     return new Job(spec);
   },
 
-  createFormModelFromSchema: function (schema, service = new Job()) {
+  createFormModelFromSchema: function (schema, job = new Job()) {
 
-    return getFindPropertiesRecursive(service, schema.properties);
+    return getMatchingProperties(job, schema.properties);
   },
 
   createJobSpecFromJob: function (job) {
