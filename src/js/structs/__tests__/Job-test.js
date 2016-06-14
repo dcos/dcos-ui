@@ -42,7 +42,7 @@ describe('Job', function () {
       });
 
       expect(job.getCpus()).toEqual(2);
-    })
+    });
 
     it('defaults to the correct value if property is undefined', function () {
       let job = new Job({
@@ -76,7 +76,7 @@ describe('Job', function () {
 
     it('returns the correct disk', function () {
       let job = new Job({
-        run:{
+        run: {
           disk: 125
         }
       });
