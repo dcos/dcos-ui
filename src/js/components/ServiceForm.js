@@ -1,8 +1,9 @@
 import {Hooks} from 'PluginSDK';
 import React from 'react';
 
-import FormUtil from '../utils/FormUtil';
 import SchemaForm from './SchemaForm';
+import SchemaFormUtil from '../utils/SchemaFormUtil';
+import SchemaUtil from '../utils/SchemaUtil';
 
 const METHODS_TO_BIND = [
   'handleFormChange',
@@ -29,58 +30,36 @@ class ServiceForm extends SchemaForm {
 
   componentDidMount() {
     super.componentDidMount(...arguments);
-    Hooks.doAction('serviceFormMount');
+    Hooks.doAction('serviceFormMount', this);
   }
 
-  handleVariableSecretClick(fieldName, prop) {
-    let propIndex = FormUtil.getPropIndex(fieldName);
-    let variablesDefinition = this.multipleDefinition
-      .environmentVariables.definition;
-
-    if (!variablesDefinition) {
-      return;
-    }
-
-    variablesDefinition.forEach(function (field) {
-      if (!Array.isArray(field)) {
-        return;
-      }
-
-      field.forEach(function (fieldColumn) {
-        let propKey = FormUtil.getPropKey(fieldColumn.name);
-        if (FormUtil.isFieldInstanceOfProp(prop, fieldColumn, propIndex) &&
-          propKey === 'value') {
-          if (fieldColumn.fieldType === 'text') {
-            fieldColumn.fieldType = 'select';
-            fieldColumn.options = Hooks.applyFilter(
-              'environmentVariableValueList', []
-            );
-          } else {
-            fieldColumn.fieldType = 'text';
-          }
-        }
-      });
-
-    });
-
-    this.forceUpdate();
-  }
-
-  // There will likely be more methods in this component in the future to handle
-  // the the healthCheck dropdown select / secrets select inside of
-  // environment variables tab, etc.
-
-  handleFormChange(formData, eventObj) {
-    let {fieldName} = eventObj;
-    let prop = FormUtil.getProp(fieldName);
-    let propKey = FormUtil.getPropKey(fieldName);
-
-    if (propKey === 'isSecret' && prop === 'variables') {
-      this.handleVariableSecretClick(fieldName, prop);
-    }
+  handleFormChange() {
+    Hooks.doAction('serviceFormChange', ...arguments);
     // Handle the form change in the way service needs here.
     this.props.onChange(...arguments);
     return;
+  }
+
+  getNewDefinition() {
+    let {model, schema} = this.props;
+    schema = Hooks.applyFilter('serviceFormSchema', schema);
+    let definition = SchemaUtil.schemaToMultipleDefinition(
+      schema,
+      this.getSubHeader,
+      this.getLabel,
+      this.getRemoveRowButton,
+      this.getAddNewRowButton
+    );
+
+    if (model) {
+      SchemaFormUtil.mergeModelIntoDefinition(
+        model,
+        definition,
+        this.getRemoveRowButton
+      );
+    }
+
+    return definition;
   }
 
   validateForm() {

@@ -243,6 +243,10 @@ const FormUtil = {
    * @return {Number} index
    */
   getPropIndex: function (key) {
+    if (key == null) {
+      return null;
+    }
+
     let value = key.split('[');
     return parseInt(value[1].split(']')[0])
   },

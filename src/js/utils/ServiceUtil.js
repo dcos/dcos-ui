@@ -1,3 +1,5 @@
+import {Hooks} from 'PluginSDK';
+
 import Service from '../structs/Service';
 
 const getFindPropertiesRecursive = function (service, item) {
@@ -24,7 +26,13 @@ const ServiceUtil = {
     let definition = {};
 
     if (formModel != null) {
-      let {general, optional, containerSettings, labels} = formModel;
+      let {
+        general,
+        optional,
+        containerSettings,
+        environmentVariables,
+        labels
+      } = formModel;
 
       if (general != null) {
         definition.id = general.id;
@@ -89,7 +97,22 @@ const ServiceUtil = {
           return memo;
         }, {});
       }
+
+      if (environmentVariables != null && environmentVariables.variables != null) {
+        definition.env = environmentVariables.variables
+          .reduce(function (variableMap, variable) {
+            variableMap[variable.key] = Hooks.applyFilter(
+              'serviceVariableValue',
+              variable.value,
+              variable,
+              definition
+            );
+
+            return variableMap;
+          }, {});
+      }
     }
+
     return new Service(definition);
   },
 
@@ -124,6 +147,15 @@ const ServiceUtil = {
     ) {
       appDefinition.container = containerSettings;
     }
+
+    // Environment Variables
+    appDefinition.env = service.getEnvironmentVariables();
+
+    Hooks.applyFilter(
+      'serviceToAppDefinition',
+      appDefinition,
+      service
+    );
 
     Object.keys(appDefinition).forEach(function (key) {
       if (appDefinition[key] == null) {
