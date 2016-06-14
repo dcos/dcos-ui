@@ -1,9 +1,9 @@
 import classNames from 'classnames';
+import {Dropdown} from 'reactjs-components';
 import mixin from 'reactjs-mixin';
 /* eslint-disable no-unused-vars */
 import React from 'react';
 /* eslint-enable no-unused-vars */
-import {Dropdown} from 'reactjs-components';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import ChronosStore from '../../stores/ChronosStore';
@@ -159,9 +159,9 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
 
     let status = TaskStates[longestRunningTask.getStatus()];
     let statusClasses = classNames('job-details-header-status', {
-      'text-success': status.stateTypes.indexOf('success') > -1
-        && status.stateTypes.indexOf('failure') === -1,
-      'text-danger': status.stateTypes.indexOf('failure') > -1
+      'text-success': status.stateTypes.includes('success')
+        && status.stateTypes.includes('failure'),
+      'text-danger': status.stateTypes.includes('failure')
     });
 
     let timePrefix = null;
@@ -207,7 +207,6 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
       <div>
         <PageHeader
           actionButtons={this.getActionButtons(job)}
-          mediaWrapperClassName={'mediaWrapperClassNames'}
           navigationTabs={this.getNavigationTabs()}
           subTitle={this.getSubTitle(job)}
           subTitleClassName={{emphasize: false}}

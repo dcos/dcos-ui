@@ -3,7 +3,7 @@ import React from 'react';
 import ChronosStore from '../../stores/ChronosStore';
 import DescriptionList from '../../components/DescriptionList';
 
-class JobRunHistoryTable extends React.Component {
+class JobConfiguration extends React.Component {
   render() {
     let job = ChronosStore.getJob(this.props.jobID);
 
@@ -17,4 +17,4 @@ class JobRunHistoryTable extends React.Component {
   }
 }
 
-module.exports = JobRunHistoryTable;
+module.exports = JobConfiguration;

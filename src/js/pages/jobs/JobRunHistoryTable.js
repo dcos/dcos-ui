@@ -59,30 +59,7 @@ class JobRunHistoryTable extends React.Component {
     return [
       {
         className: this.getColumnClassName,
-        render: (prop, row, rowOptions = {}) => {
-          if (!rowOptions.isParent) {
-            return (
-              <div className="job-run-history-task-id text-overflow">
-                {row.taskID}
-              </div>
-            );
-          }
-
-          let classes = classNames('job-run-history-job-id', {
-            'is-expanded': rowOptions.isExpanded
-          });
-          let clickHandler = null;
-
-          if (rowOptions.hasChildren) {
-            clickHandler = this.handleExpansionClick.bind(this, row);
-          }
-
-          return (
-            <div className={classes} onClick={clickHandler}>
-              {row[prop]}
-            </div>
-          );
-        },
+        render: this.renderJobIDColumn.bind(this),
         heading: this.getColumnHeading,
         prop: 'jobID',
         sortable: true
@@ -91,36 +68,7 @@ class JobRunHistoryTable extends React.Component {
         className: this.getColumnClassName,
         heading: this.getColumnHeading,
         prop: 'status',
-        render: function (prop, row, rowOptions = {}) {
-          if (rowOptions.isParent) {
-            let status = JobStates[row[prop]];
-            let statusClasses = classNames({
-              'text-success': status.stateTypes.indexOf('success') > -1
-                && status.stateTypes.indexOf('failure') === -1,
-              'text-danger': status.stateTypes.indexOf('failure') > -1,
-              'text-neutral': status.stateTypes.indexOf('active') > -1
-            });
-
-            return (
-              <span className={statusClasses}>
-                {status.displayName}
-              </span>
-            );
-          }
-
-          let status = TaskStates[row[prop]];
-          let statusClasses = classNames({
-            'text-success': status.stateTypes.indexOf('success') > -1
-              && status.stateTypes.indexOf('failure') === -1,
-            'text-danger': status.stateTypes.indexOf('failure') > -1
-          });
-
-          return (
-            <span className={statusClasses}>
-              {status.displayName}
-            </span>
-          );
-        },
+        render: this.renderStatusColumn,
         sortable: true
       },
       {
@@ -141,7 +89,7 @@ class JobRunHistoryTable extends React.Component {
   getData(job) {
     let activeRuns = job.getActiveRuns();
 
-    return activeRuns.getItems().map((activeRun, runIndex) => {
+    return activeRuns.getItems().map(function (activeRun, runIndex) {
       let longestRunningTask = activeRun.getTasks().getLongestRunningTask();
       let dateRunStarted = activeRun.getDateCreated();
       let dateRunFinished = longestRunningTask.getDateCompleted();
@@ -154,7 +102,7 @@ class JobRunHistoryTable extends React.Component {
         dateRunFinished = DateUtil.msToRelativeTime(dateRunFinished);
       }
 
-      let children = activeRun.getTasks().getItems().map((jobTask) => {
+      let children = activeRun.getTasks().getItems().map(function (jobTask) {
         let dateTaskStarted = jobTask.getDateStarted();
         let dateTaskFinished = jobTask.getDateCompleted();
 
@@ -185,6 +133,62 @@ class JobRunHistoryTable extends React.Component {
     });
   }
 
+  renderJobIDColumn(prop, row, rowOptions = {}) {
+    if (!rowOptions.isParent) {
+      return (
+        <div className="job-run-history-task-id text-overflow">
+          {row.taskID}
+        </div>
+      );
+    }
+
+    let classes = classNames('job-run-history-job-id', {
+      'is-expanded': rowOptions.isExpanded
+    });
+    let clickHandler = null;
+
+    if (rowOptions.hasChildren) {
+      clickHandler = this.handleExpansionClick.bind(this, row);
+    }
+
+    return (
+      <div className={classes} onClick={clickHandler}>
+        {row[prop]}
+      </div>
+    );
+  }
+
+  renderStatusColumn(prop, row, rowOptions = {}) {
+    if (rowOptions.isParent) {
+      let status = JobStates[row[prop]];
+      let statusClasses = classNames({
+        'text-success': status.stateTypes.includes('success')
+          && status.stateTypes.includes('failure'),
+        'text-danger': status.stateTypes.includes('failure'),
+        'text-neutral': status.stateTypes.includes('active')
+      });
+
+      return (
+        <span className={statusClasses}>
+          {status.displayName}
+        </span>
+      );
+    }
+
+    let status = TaskStates[row[prop]];
+    let statusClasses = classNames({
+      'text-success': status.stateTypes.includes('success')
+        && status.stateTypes.includes('failure'),
+      'text-danger': status.stateTypes.includes('failure')
+    });
+
+    return (
+      <span className={statusClasses}>
+        {status.displayName}
+      </span>
+    );
+  }
+
   render() {
     let job = ChronosStore.getJob(this.props.jobID);
     let activeRunCount = job.getActiveRuns().getItems().length;
@@ -211,5 +215,9 @@ class JobRunHistoryTable extends React.Component {
     );
   }
 }
+
+JobRunHistoryTable.propTypes = {
+  params: React.PropTypes.object
+};
 
 module.exports = JobRunHistoryTable;
