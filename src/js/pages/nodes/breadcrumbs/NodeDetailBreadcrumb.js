@@ -2,23 +2,17 @@ import BreadcrumbSegment from '../../../components/BreadcrumbSegment';
 import CompositeState from '../../../structs/CompositeState';
 
 class NodeDetailBreadCrumb extends BreadcrumbSegment {
-  constructor() {
-    super(...arguments);
-  }
-
   componentDidMount() {
     super.componentDidMount();
-
-    let hostname = this.getHostname();
-
-    if (hostname) {
-      this.setState({isLoadingCrumb: false});
-    }
+    this.updateCrumbSatus();
   }
 
   componentWillReceiveProps() {
     super.componentWillReceiveProps(...arguments);
+    this.updateCrumbSatus();
+  }
 
+  updateCrumbSatus() {
     let hostname = this.getHostname();
 
     if (hostname) {
