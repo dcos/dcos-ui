@@ -3,11 +3,13 @@ import React from 'react';
 /* eslint-enable no-unused-vars */
 
 import General from './job-schema/General';
+import Schedule from './job-schema/Schedule';
 
 let JobSchema = {
   type: 'object',
   properties: {
-    general: General
+    general: General,
+    schedule: Schedule
   },
   required: [
     'general'
