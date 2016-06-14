@@ -2,6 +2,7 @@ import Application from './Application';
 import Framework from './Framework';
 import HealthSorting from '../constants/HealthSorting';
 import HealthStatus from '../constants/HealthStatus';
+import List from './List';
 import Service from './Service';
 import ServiceOther from '../constants/ServiceOther';
 import ServiceStatus from '../constants/ServiceStatus';
@@ -204,6 +205,18 @@ module.exports = class ServiceTree extends Tree {
       }
       return serviceTreeStatus;
     }, ServiceStatus.NA);
+  }
+
+  getServices() {
+    let items = this.reduceItems(function (services, item) {
+      if (item instanceof Service) {
+        services.push(item);
+      }
+
+      return services;
+    }, []);
+
+    return new List({items});
   }
 
   getTasksSummary() {
