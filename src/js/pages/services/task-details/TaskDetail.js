@@ -5,14 +5,12 @@ import React from 'react';
 import {RouteHandler} from 'react-router';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
-import MarathonStore from '../../../stores/MarathonStore';
+import Breadcrumbs from '../../../components/Breadcrumbs';
 import MesosStateStore from '../../../stores/MesosStateStore';
 import PageHeader from '../../../components/PageHeader';
 import RequestErrorMsg from '../../../components/RequestErrorMsg';
-import ServicesBreadcrumb from '../../../components/ServicesBreadcrumb';
 import TaskDirectoryStore from '../../../stores/TaskDirectoryStore';
 import TaskStates from '../../../constants/TaskStates';
-
 import InternalStorageMixin from '../../../mixins/InternalStorageMixin';
 import TabsMixin from '../../../mixins/TabsMixin';
 
@@ -147,7 +145,7 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
         iconClassName="icon-app-container"
         subTitle={TaskStates[task.state].displayName}
         navigationTabs={tabs}
-        title={task.getId()} />
+        title={task.getName()} />
     );
   }
 
@@ -169,22 +167,6 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
         </p>
       </div>
     );
-  }
-
-  getServicesBreadcrumb() {
-    let {id, taskID} = this.props.params;
-
-    if (id == null) {
-      return null;
-    }
-
-    let service = MarathonStore.getServiceFromTaskID(taskID);
-
-    if (service == null) {
-      return null;
-    }
-
-    return (<ServicesBreadcrumb serviceTreeItem={service} taskID={taskID} />);
   }
 
   getSubView() {
@@ -220,7 +202,7 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
 
     return (
       <div className="flex-container-col flex-grow flex-shrink container-pod container-pod-divider-bottom-align-right container-pod-short-top flush-bottom flush-top">
-        {this.getServicesBreadcrumb()}
+        <Breadcrumbs />
         {this.getBasicInfo()}
         {this.getSubView()}
       </div>

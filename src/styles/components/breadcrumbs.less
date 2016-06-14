@@ -38,11 +38,13 @@ Breadcrumbs
   font-size: @base-spacing-unit * .65;
   line-height: @base-spacing-unit;
   list-style: none !important;
+  padding-top: 8px; // this + container-pod-short-top = 32px;
+  padding-bottom: 32px;
   margin: 0;
-  padding: 20px 0;
 
   li {
     display: flex;
+    margin: 0;
 
     + li::before {
       display: none; /* override Bootstrap */
@@ -53,6 +55,7 @@ Breadcrumbs
       a {
         color: color-lighten(@neutral, 20);
         cursor: default;
+        margin: 0;
 
         &::before {
           content: "";
