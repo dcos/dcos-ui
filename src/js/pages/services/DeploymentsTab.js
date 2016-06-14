@@ -16,7 +16,6 @@ import ResourceTableUtil from '../../utils/ResourceTableUtil';
 import ServicesBreadcrumb from '../../components/ServicesBreadcrumb';
 import StringUtil from '../../utils/StringUtil';
 
-const columnClassNameGetter = ResourceTableUtil.getClassName;
 const columnHeading = ResourceTableUtil.renderHeading({
   id: 'AFFECTED SERVICES',
   startTime: 'STARTED',
@@ -24,6 +23,7 @@ const columnHeading = ResourceTableUtil.renderHeading({
   status: 'STATUS',
   action: ''
 });
+const COLLAPSING_COLUMNS = ['location', 'startTime', 'action'];
 const METHODS_TO_BIND = [
   'renderAffectedServices',
   'renderAffectedServicesList',
@@ -35,6 +35,16 @@ const METHODS_TO_BIND = [
   'handleRollbackCancel',
   'handleRollbackConfirm'
 ];
+
+// collapsing columns are tightly coupled to the left-align caret property;
+// this wrapper allows ordinary columns to collapse.
+function columnClassNameGetter(prop, sortBy, row) {
+  let classSet = ResourceTableUtil.getClassName(prop, sortBy, row);
+  if (COLLAPSING_COLUMNS.includes(prop)) {
+    return classNames(classSet, 'hidden-mini');
+  }
+  return classSet;
+}
 
 class DeploymentsTab extends mixin(StoreMixin) {
 
@@ -71,10 +81,10 @@ class DeploymentsTab extends mixin(StoreMixin) {
 
       return (
         <dd key={index}>
-          <span className="icon icon-small icon-image-container icon-app-container deployment-service-icon">
-            <img src={image} />
-          </span>
-          <Link to="services-detail" params={{id}}>
+          <Link to="services-detail" params={{id}} className="deployment-service-name">
+            <span className="icon icon-small icon-image-container icon-app-container deployment-service-icon">
+              <img src={image} />
+            </span>
             {StringUtil.capitalize(service.getName())}
           </Link>
         </dd>
@@ -125,7 +135,7 @@ class DeploymentsTab extends mixin(StoreMixin) {
 
     return (
       <div>
-        <div className="deployment-step">{title}</div>
+        <span className="deployment-step">{title}</span>
         <ol className="deployment-status-list list-unstyled flush-bottom">{items}</ol>
       </div>
     );
@@ -170,9 +180,7 @@ class DeploymentsTab extends mixin(StoreMixin) {
         render: this.renderLocation
       },
       {
-        className: function () {
-          return classNames(columnClassNameGetter(...arguments), 'align-top');
-        },
+        className: columnClassNameGetter,
         heading: columnHeading,
         prop: 'startTime',
         render: this.renderStartTime
@@ -184,14 +192,24 @@ class DeploymentsTab extends mixin(StoreMixin) {
         render: this.renderStatus
       },
       {
-        className: function () {
-          return classNames(columnClassNameGetter(...arguments), 'align-top');
-        },
+        className: columnClassNameGetter,
         heading: columnHeading,
         prop: 'action',
         render: this.renderAction
       }
     ];
+  }
+
+  getColGroup() {
+    return (
+      <colgroup>
+        <col style={{width: '300px'}} />
+        <col className="hidden-mini" />
+        <col className="hidden-mini" style={{width: '120px'}} />
+        <col style={{width: '240px'}} />
+        <col className="hidden-mini" style={{width: '120px'}} />
+      </colgroup>
+    );
   }
 
   renderEmpty() {
@@ -219,6 +237,7 @@ class DeploymentsTab extends mixin(StoreMixin) {
         <Table
           className="table inverse table-borderless-outer table-borderless-inner-columns flush-bottom deployments-table"
           columns={this.getColumns()}
+          colGroup={this.getColGroup()}
           data={deploymentsItems.slice()} />
         {this.renderRollbackModal()}
       </div>
@@ -235,7 +254,7 @@ class DeploymentsTab extends mixin(StoreMixin) {
       let listOfServiceNames = StringUtil.humanizeArray(serviceNames);
       let serviceCount = serviceNames.length;
 
-      let application = StringUtil.pluralize('application', serviceCount);
+      let service = StringUtil.pluralize('service', serviceCount);
       let its = (serviceCount === 1) ? 'its' : 'their';
       let version = StringUtil.pluralize('version', serviceCount);
 
@@ -255,7 +274,7 @@ class DeploymentsTab extends mixin(StoreMixin) {
             <p>
               This will stop the current deployment of {listOfServiceNames} and
               start a new deployment to revert the
-              affected {application} to {its} previous {version}.
+              affected {service} to {its} previous {version}.
             </p>
           </div>
         </Confirm>
