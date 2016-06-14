@@ -1,6 +1,7 @@
 {
   "items": [
     {
+      "id": "IdleFramework",
       "healthChecks": [
         {
           "path": "/health/cluster",
@@ -36,6 +37,7 @@
       "tasksUnhealthy": 0
     },
     {
+      "id": "UnhealthyFramework",
       "healthChecks": [
         {
           "path": "/health/cluster",
@@ -71,6 +73,7 @@
       "tasksUnhealthy": 1
     },
     {
+      "id": "HealthyFramework",
       "healthChecks": [
         {
           "path": "/health/cluster",
@@ -106,6 +109,7 @@
       "tasksUnhealthy": 0
     },
     {
+      "id": "NAFramework",
       "healthChecks": [],
       "labels": {
         "DCOS_PACKAGE_SOURCE": "https://github.com/mesosphere/universe/archive/master.zip",
