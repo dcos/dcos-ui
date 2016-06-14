@@ -1,4 +1,5 @@
 import classNames from 'classnames';
+import {Confirm} from 'reactjs-components';
 import {Link} from 'react-router';
 import moment from 'moment';
 import mixin from 'reactjs-mixin';
@@ -10,6 +11,7 @@ import {Table} from 'reactjs-components';
 
 import AlertPanel from '../../components/AlertPanel';
 import DCOSStore from '../../stores/DCOSStore';
+import MarathonActions from '../../events/MarathonActions';
 import ResourceTableUtil from '../../utils/ResourceTableUtil';
 import ServicesBreadcrumb from '../../components/ServicesBreadcrumb';
 import StringUtil from '../../utils/StringUtil';
@@ -19,14 +21,19 @@ const columnHeading = ResourceTableUtil.renderHeading({
   id: 'AFFECTED SERVICES',
   startTime: 'STARTED',
   location: 'LOCATION',
-  status: 'STATUS'
+  status: 'STATUS',
+  action: ''
 });
 const METHODS_TO_BIND = [
   'renderAffectedServices',
   'renderAffectedServicesList',
   'renderLocation',
   'renderStartTime',
-  'renderStatus'
+  'renderStatus',
+  'renderAction',
+  'handleRollbackClick',
+  'handleRollbackCancel',
+  'handleRollbackConfirm'
 ];
 
 class DeploymentsTab extends mixin(StoreMixin) {
@@ -124,6 +131,30 @@ class DeploymentsTab extends mixin(StoreMixin) {
     );
   }
 
+  renderAction(prop, deployment) {
+    if (deployment != null) {
+      return (
+        <a className="deployment-rollback button button-link button-danger table-display-on-row-hover"
+            onClick={this.handleRollbackClick.bind(null, deployment)}>
+          Rollback
+        </a>
+      );
+    }
+  }
+
+  handleRollbackClick(deployment) {
+    this.setState({deploymentToRollback: deployment});
+  }
+
+  handleRollbackCancel() {
+    this.setState({deploymentToRollback: null});
+  }
+
+  handleRollbackConfirm() {
+    MarathonActions.revertDeployment(this.state.deploymentToRollback.id);
+    this.setState({deploymentToRollback: null});
+  }
+
   getColumns() {
     return [
       {
@@ -151,6 +182,14 @@ class DeploymentsTab extends mixin(StoreMixin) {
         heading: columnHeading,
         prop: 'status',
         render: this.renderStatus
+      },
+      {
+        className: function () {
+          return classNames(columnClassNameGetter(...arguments), 'align-top');
+        },
+        heading: columnHeading,
+        prop: 'action',
+        render: this.renderAction
       }
     ];
   }
@@ -181,8 +220,47 @@ class DeploymentsTab extends mixin(StoreMixin) {
           className="table inverse table-borderless-outer table-borderless-inner-columns flush-bottom deployments-table"
           columns={this.getColumns()}
           data={deploymentsItems.slice()} />
+        {this.renderRollbackModal()}
       </div>
     );
+  }
+
+  renderRollbackModal() {
+    let {deploymentToRollback} = this.state;
+    if (deploymentToRollback != null) {
+      let serviceNames = deploymentToRollback.getAffectedServices()
+        .map(function (service) {
+          return StringUtil.capitalize(service.getName());
+        });
+      let listOfServiceNames = StringUtil.humanizeArray(serviceNames);
+      let serviceCount = serviceNames.length;
+
+      let application = StringUtil.pluralize('application', serviceCount);
+      let its = (serviceCount === 1) ? 'its' : 'their';
+      let version = StringUtil.pluralize('version', serviceCount);
+
+      return (
+        <Confirm
+          closeByBackdropClick={true}
+          footerContainerClass="container container-pod container-pod-short
+            container-pod-fluid flush-top flush-bottom"
+          onClose={this.handleRollbackCancel}
+          leftButtonCallback={this.handleRollbackCancel}
+          leftButtonText="Cancel"
+          rightButtonClassName="button button-danger"
+          rightButtonCallback={this.handleRollbackConfirm}
+          rightButtonText="Continue Rollback">
+          <div className="container-pod container-pod-short text-align-center">
+            <h3 className="flush-top">You're About To Rollback The Deployment</h3>
+            <p>
+              This will stop the current deployment of {listOfServiceNames} and
+              start a new deployment to revert the
+              affected {application} to {its} previous {version}.
+            </p>
+          </div>
+        </Confirm>
+      );
+    }
   }
 
   render() {

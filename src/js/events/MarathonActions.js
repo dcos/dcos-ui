@@ -9,6 +9,8 @@ import {
   REQUEST_MARATHON_DEPLOYMENTS_SUCCESS,
   REQUEST_MARATHON_DEPLOYMENTS_ERROR,
   REQUEST_MARATHON_DEPLOYMENTS_ONGOING,
+  REQUEST_MARATHON_DEPLOYMENT_ROLLBACK_ERROR,
+  REQUEST_MARATHON_DEPLOYMENT_ROLLBACK_SUCCESS,
   REQUEST_MARATHON_QUEUE_SUCCESS,
   REQUEST_MARATHON_QUEUE_ERROR,
   REQUEST_MARATHON_QUEUE_ONGOING,
@@ -205,6 +207,25 @@ module.exports = {
       }
     },
     {delayAfterCount: Config.delayAfterErrorCount}
-  )
+  ),
+
+  revertDeployment: function (deploymentID) {
+    RequestUtil.json({
+      url: `${Config.rootUrl}/marathon/v2/deployments/${deploymentID}`,
+      method: 'DELETE',
+      success: function (response) {
+        AppDispatcher.handleServerAction({
+          type: REQUEST_MARATHON_DEPLOYMENT_ROLLBACK_SUCCESS,
+          data: Object.assign({originalDeploymentID: deploymentID}, response)
+        });
+      },
+      error: function (e) {
+        AppDispatcher.handleServerAction({
+          type: REQUEST_MARATHON_DEPLOYMENT_ROLLBACK_ERROR,
+          data: e.message
+        });
+      }
+    });
+  }
 
 };
