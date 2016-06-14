@@ -42,7 +42,11 @@ class UsersStore extends GetSetBaseStore {
   }
 
   getUsers() {
-    return new UsersList({items: this.get('users')});
+    return new UsersList({items: this.getUsersRaw()});
+  }
+
+  getUsersRaw() {
+    return this.get('users');
   }
 
   addChangeListener(eventName, callback) {
