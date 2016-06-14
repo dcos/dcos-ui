@@ -4,6 +4,7 @@ import React from 'react';
 
 import Docker from './job-schema/Docker';
 import General from './job-schema/General';
+import Labels from './job-schema/Labels';
 import Schedule from './job-schema/Schedule';
 
 let JobSchema = {
@@ -12,6 +13,7 @@ let JobSchema = {
     general: General,
     schedule: Schedule,
     docker: Docker,
+    labels: Labels
   },
   required: [
     'general'
