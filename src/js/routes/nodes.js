@@ -94,19 +94,37 @@ let nodesRoutes = {
             {
               type: DefaultRoute,
               name: 'nodes-task-details-tab',
-              handler: TaskDetailsTab
+              handler: TaskDetailsTab,
+              buildBreadCrumb: function () {
+                return {
+                  parentCrumb: 'nodes-task-details',
+                  getCrumbs: function () { return []; }
+                }
+              }
             },
             {
               type: Route,
               name: 'nodes-task-details-files',
               path: 'files/?',
-              handler: TaskFilesTab
+              handler: TaskFilesTab,
+              buildBreadCrumb: function () {
+                return {
+                  parentCrumb: 'nodes-task-details',
+                  getCrumbs: function () { return []; }
+                }
+              }
             },
             {
               type: Route,
               name: 'nodes-task-details-logs',
               path: 'logs/?',
-              handler: TaskLogsTab
+              handler: TaskLogsTab,
+              buildBreadCrumb: function () {
+                return {
+                  parentCrumb: 'nodes-task-details',
+                  getCrumbs: function () { return []; }
+                }
+              }
             }
           ]
         },
