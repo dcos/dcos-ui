@@ -34,19 +34,19 @@ module.exports = class Job extends Item {
   }
 
   getLastRunStatus() {
-    let {lastFailureAt, lastSuccessAt} = this.get('status');
+    let {lastFailureAt = null, lastSuccessAt = null} = this.get('status');
     let status = 'N/A';
     let time = null;
 
-    if (lastFailureAt != null) {
+    if (lastFailureAt !== null) {
       lastFailureAt = DateUtil.strToMs(lastFailureAt);
     }
 
-    if (lastSuccessAt != null) {
+    if (lastSuccessAt !== null) {
       lastSuccessAt = DateUtil.strToMs(lastSuccessAt);
     }
 
-    if (lastFailureAt != null || lastSuccessAt != null) {
+    if (lastFailureAt !== null || lastSuccessAt !== null) {
       if (lastFailureAt > lastSuccessAt) {
         status = 'Failed';
         time = lastFailureAt;

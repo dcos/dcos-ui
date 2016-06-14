@@ -150,13 +150,14 @@ describe('Job', function () {
       expect(job.getLastRunStatus().status).toEqual('Failed');
     });
 
-    it('returns N/A if both are undefiend', function () {
+    it('returns N/A status if both are undefiend', function () {
       let job = new Job({
         id: 'test.job',
         status: {}
       });
 
       expect(job.getLastRunStatus().status).toEqual('N/A');
+      expect(job.getLastRunStatus().time).toEqual(null);
     });
 
     it('returns success if lastFailureAt is undefiend', function () {
@@ -168,6 +169,17 @@ describe('Job', function () {
       });
 
       expect(job.getLastRunStatus().status).toEqual('Success');
+    });
+
+    it('returns success if lastFailureAt is undefiend', function () {
+      let job = new Job({
+        id: 'test.job',
+        status: {
+          lastFailureAt: '1990-04-30T00:00:00Z'
+        }
+      });
+
+      expect(job.getLastRunStatus().status).toEqual('Failed');
     });
 
   });
