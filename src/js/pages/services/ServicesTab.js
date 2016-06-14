@@ -23,7 +23,6 @@ import ServiceGroupFormModal from '../../components/modals/ServiceGroupFormModal
 import ServicesTable from '../../components/ServicesTable';
 import ServiceTree from '../../structs/ServiceTree';
 import SidebarActions from '../../events/SidebarActions';
-import SidePanels from '../../components/SidePanels';
 
 var DEFAULT_FILTER_OPTIONS = {
   filterHealth: null,
@@ -239,9 +238,6 @@ var ServicesTab = React.createClass({
           <ServicesTable
             services={filteredServices} />
         </div>
-        <SidePanels
-          params={this.props.params}
-          openedPage="services"/>
       </div>
     );
   },

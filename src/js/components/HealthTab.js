@@ -1,15 +1,14 @@
 import React from 'react';
 import {Table} from 'reactjs-components';
 
-import FilterBar from '../components/FilterBar';
-import FilterHeadline from '../components/FilterHeadline';
-import FilterInputText from '../components/FilterInputText';
+import FilterBar from './FilterBar';
+import FilterHeadline from './FilterHeadline';
+import FilterInputText from './FilterInputText';
 import ResourceTableUtil from '../utils/ResourceTableUtil';
 import StringUtil from '../utils/StringUtil';
 import TableUtil from '../utils/TableUtil';
-import UnitHealthDropdown from '../components/UnitHealthDropdown';
+import UnitHealthDropdown from './UnitHealthDropdown';
 import UnitHealthUtil from '../utils/UnitHealthUtil';
-import Util from '../utils/Util';
 
 const METHODS_TO_BIND = [
   'handleHealthSelection',
@@ -21,7 +20,7 @@ const METHODS_TO_BIND = [
 
 class HealthTab extends React.Component {
   constructor() {
-    super();
+    super(...arguments);
 
     this.state = {
       healthFilter: 'all',
@@ -103,19 +102,16 @@ class HealthTab extends React.Component {
   }
 
   renderUnitHealthCheck(prop, unit) {
-    let router = this.props.parentRouter;
     let healthCheckName = `${unit.getTitle()} Health Check`;
-    let currentPath = router.getCurrentRoutes();
-    let path = `${Util.last(currentPath).name}-health`;
+    let router = this.props.parentRouter;
     let params = Object.assign({}, router.getCurrentParams());
-
-    params.unitNodeID = this.props.node.get('host_ip');
+    params.unitNodeID = this.props.node.get('hostname');
     params.unitID = unit.get('id');
 
     return (
       <a
         className="emphasize clickable text-overflow"
-        onClick={() => { this.props.parentRouter.transitionTo(path, params); }}
+        onClick={() => { this.props.parentRouter.transitionTo('node-detail-health', params); }}
         title={healthCheckName}>
         {healthCheckName}
       </a>
