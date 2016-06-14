@@ -14,7 +14,12 @@ var Page = React.createClass({
   mixins: [InternalStorageMixin, StoreMixin],
 
   propTypes: {
-    className: React.PropTypes.string,
+    className: React.PropTypes.oneOfType([
+      React.PropTypes.array,
+      React.PropTypes.object,
+      React.PropTypes.string
+    ]),
+    dontScroll: React.PropTypes.bool,
     navigation: React.PropTypes.oneOfType([
       React.PropTypes.object,
       React.PropTypes.string
