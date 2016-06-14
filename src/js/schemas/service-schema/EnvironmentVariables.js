@@ -1,5 +1,5 @@
 let EnvironmentVariables = {
-  description: 'Set environment variables for each task your service launches in addition to those set be Mesos.',
+  description: 'Set environment variables for each task your service launches in addition to those set by Mesos.',
   type: 'object',
   title: 'Environment Variables',
   properties: {

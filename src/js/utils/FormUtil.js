@@ -258,7 +258,6 @@ const FormUtil = {
    * @return {String} prop key
    */
   getPropKey: function (key) {
-
     return key && key.split('.')[1];
   },
 };
