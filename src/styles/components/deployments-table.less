@@ -36,21 +36,13 @@
   }
 
   .deployment-breadcrumb {
-    .breadcrumbs {
-      .text-overflow;
+    .deployment-breadcrumb-service-id {
+      display: none;
     }
-      
-    .crumb {
+    .deployment-breadcrumb-crumb { 
       line-height: 32px;
       font-size: @body-text-font-size;
-      // Don't display the service itself
-      &:last-child {
-        display: none;
-      }
-    }
-    .icon.forward {
-      margin: 0 0 0 8px;
-      width: 12.5px;
+      text-transform: capitalize;
     }
   }
 
