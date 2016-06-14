@@ -5,11 +5,12 @@ const Networking = {
   properties: {
     networkType: {
       fieldType: 'select',
+      default: 'host',
       options: [
-        'Host (Default)',
+        {html: 'Host (Default)', id: 'host'},
         'Bridge',
-        'Virtual Network: Dev',
-        'Virtual Network: Prod'
+        {html: 'Virtual Network: Dev', id: 'dev'},
+        {html: 'Virtual Network: Prod', id: 'prod'}
       ],
       getter: function () {
         return null;
@@ -21,8 +22,27 @@ const Networking = {
       type: 'array',
       duplicable: true,
       addLabel: 'Add an endpoint',
-      getter: function () {
-        return null;
+      getter: function (service) {
+        let portMappings = service.getPortDefinitions();
+
+        if (portMappings == null) {
+          let container = service.getContainerSettings();
+          if (container && container.docker && container.docker.portMappings) {
+            portMappings = container.docker.portMappings;
+          }
+
+          if (portMappings == null) {
+            return null;
+          }
+        }
+
+        return portMappings.map(function (portMapping) {
+          return {
+            lbPort: portMapping.hostPort || portMapping.containerPort,
+            name: portMapping.name,
+            protocol: portMapping.protocol
+          };
+        });
       },
       itemShape: {
         properties: {
@@ -38,6 +58,7 @@ const Networking = {
             title: 'Protocol',
             type: 'string',
             fieldType: 'select',
+            default: 'tcp',
             options: ['tcp', 'udp', 'udp,tcp']
           },
           discovery: {

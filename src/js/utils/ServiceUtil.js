@@ -66,6 +66,7 @@ const ServiceUtil = {
         environmentVariables,
         labels,
         volumes,
+        networking,
         healthChecks
       } = formModel;
 
@@ -254,6 +255,38 @@ const ServiceUtil = {
             return variableMap;
           }, {});
       }
+
+      if (networking != null) {
+        if (networking.ports != null) {
+          if (containerSettings != null && containerSettings.image != null) {
+            definition.container.docker.portMappings = networking.ports.map(function (port) {
+              let portMapping = {
+                name: port.name,
+                protocol: port.protocol || 'tcp'
+              };
+
+              if (/host/.test(networking.networkType) ||
+                networking.networkType == null) {
+                portMapping.hostPort = parseInt(port.lbPort, 10);
+              } else if (/bridge/.test(networking.networkType)) {
+                portMapping.containerPort = parseInt(port.lbPort, 10);
+              }
+
+              return portMapping;
+            });
+          } else {
+            definition.portDefinitions = networking.ports.map(function (port) {
+              let portMapping = {
+                port: parseInt(port.lbPort, 10),
+                name: port.name,
+                protocol: port.protocol || 'tcp'
+              };
+
+              return portMapping;
+            });
+          }
+        }
+      }
     }
 
     return new Service(definition);
@@ -302,6 +335,8 @@ const ServiceUtil = {
 
     // Environment Variables
     appDefinition.env = service.getEnvironmentVariables();
+
+    appDefinition.portDefinitions = service.getPortDefinitions();
 
     Hooks.applyFilter(
       'serviceToAppDefinition',
