@@ -26,6 +26,10 @@ module.exports = class Job extends Item {
     return this.get('id');
   }
 
+  getLabels() {
+    return this.get('labels') || {};
+  }
+
   getMem() {
     const {mem = 32} = this.get('run') || {};
 
