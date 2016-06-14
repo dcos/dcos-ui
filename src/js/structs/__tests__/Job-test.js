@@ -32,6 +32,36 @@ describe('Job', function () {
     );
   });
 
+  describe('#getCpus', function () {
+
+    it('returns the correct cpus', function () {
+      let job = new Job({
+        run: {
+          cpus: 2
+        }
+      });
+
+      expect(job.getCpus()).toEqual(2);
+    })
+
+    it('defaults to the correct value if property is undefined', function () {
+      let job = new Job({
+        run: {}
+      });
+
+      expect(job.getCpus()).toEqual(0.01);
+    });
+
+    it('defaults to the correct value if run configuration is undefined',
+      function () {
+        let job = new Job({});
+
+        expect(job.getCpus()).toEqual(0.01);
+      }
+    );
+
+  });
+
   describe('#getDescription', function () {
 
     it('returns the description', function () {
