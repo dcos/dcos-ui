@@ -19,7 +19,7 @@ class ServiceDetailDebugTab extends React.Component {
   }
 
   getLastTaskFailureInfo() {
-    let {lastTaskFailure} = this.props.service;
+    let lastTaskFailure = this.props.service.getLastTaskFailure();
     if (lastTaskFailure == null) {
       return (
         <p>This app does not have failed tasks</p>
@@ -44,7 +44,7 @@ class ServiceDetailDebugTab extends React.Component {
   }
 
   getLastVersionChange() {
-    let {versionInfo} = this.props.service;
+    let versionInfo = this.props.service.getVersionInfo();
     if (versionInfo == null) {
       return (
         <p>This app does not have version change information</p>
