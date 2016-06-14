@@ -6,7 +6,7 @@ describe('Job', function () {
   describe('#getActiveRuns', function () {
 
     it('returns an instance of JobActiveRunList', function () {
-      let job = new Job({id: '/foo', activeRuns: []});
+      let job = new Job({id: 'foo', activeRuns: []});
 
       expect(job.getActiveRuns() instanceof JobActiveRunList).toBeTruthy();
     });
@@ -16,7 +16,7 @@ describe('Job', function () {
   describe('#getCommand', function () {
 
     it('returns the command', function () {
-      let job = new Job({id: '/foo', run: {cmd: 'foo'}});
+      let job = new Job({id: 'foo', run: {cmd: 'foo'}});
 
       expect(job.getCommand()).toEqual('foo');
     });
@@ -177,7 +177,7 @@ describe('Job', function () {
   describe('#getSchedules', function () {
 
     it('returns the schedules', function () {
-      let job = new Job({id: '/foo', schedules: ['bar']});
+      let job = new Job({id: 'foo', schedules: ['bar']});
 
       expect(job.getSchedules()).toEqual(['bar']);
     });
