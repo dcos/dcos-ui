@@ -216,7 +216,7 @@ class ConfigurationView extends mixin(StoreMixin) {
 
     return (
       <div>
-        <h4>{headline}</h4>
+        <h4 className="inverse">{headline}</h4>
         {this.getGenralSection(config)}
         {this.getDockerContainerSection(config)}
         {this.getPortDefinitionsSection(config)}
