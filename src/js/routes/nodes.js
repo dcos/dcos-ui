@@ -4,6 +4,8 @@ import HostTable from '../components/HostTable';
 import NodeDetailPage from '../pages/nodes/NodeDetailPage';
 import NodesGridView from '../components/NodesGridView';
 import NodesPage from '../pages/NodesPage';
+import UnitsHealthNodeDetail from '../pages/system/UnitsHealthNodeDetail';
+import UnitsHealthNodeDetailPage from '../pages/nodes/UnitsHealthNodeDetailPage';
 import TaskDetail from '../pages/services/task-details/TaskDetail';
 import TaskDetailsTab from '../pages/services/task-details/TaskDetailsTab';
 import TaskFilesTab from '../pages/services/task-details/TaskFilesTab';
@@ -68,11 +70,18 @@ let nodesRoutes = {
               handler: TaskLogsTab
             }
           ]
-        },
+        }
+      ]
+    },
+    {
+      type: Route,
+      name: 'node-detail-health',
+      path: ':nodeID/:unitNodeID/:unitID/?',
+      handler: UnitsHealthNodeDetailPage,
+      children: [
         {
-          type: Route,
-          name: 'node-detail-health',
-          path: ':unitNodeID/:unitID/?'
+          type: DefaultRoute,
+          handler: UnitsHealthNodeDetail
         }
       ]
     }
