@@ -247,19 +247,18 @@ class ServiceFormModal extends mixin(StoreMixin) {
       return null;
     }
 
-    // TODO: Refcator the var name
-    let msgs = null;
+    let errorList = null;
     if (errorMessage.details != null) {
-      msgs = errorMessage.details.map(function ({path, errors}) {
+      errorList = errorMessage.details.map(function ({path, errors}) {
         let fieldId = 'general';
 
         // Check if attributePath contains an index like path(0)/attribute
         // Matches as defined: [0] : '(0)', [1]: '0'
-        var matches = path.match(/\(([0-9]+)\)/);
+        let matches = path.match(/\(([0-9]+)\)/);
         if (matches != null) {
           let resolvePath = responseAttributePathToFieldIdMap[
             path.replace(matches[0], '({INDEX})')
-            ];
+          ];
           if (resolvePath != null) {
             fieldId = resolvePath.replace('{INDEX}', matches[1]);
           }
@@ -288,7 +287,7 @@ class ServiceFormModal extends mixin(StoreMixin) {
             {errorMessage.message}
           </h4>
           <ul>
-            {msgs}
+            {errorList}
           </ul>
         </div>
       </div>

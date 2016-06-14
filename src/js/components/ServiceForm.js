@@ -28,7 +28,7 @@ class ServiceForm extends SchemaForm {
 
   handleFormChange() {
     // Handle the form change in the way service needs here.
-    this.props.onChange();
+    this.props.onChange(...arguments);
     return;
   }
 
