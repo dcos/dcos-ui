@@ -136,6 +136,7 @@ class TabForm extends React.Component {
       'multiple-form-right-column column-mini-12 column-small-8',
       this.props.formContentClassNames
     );
+    let formRowClass = this.props.formRowClass;
 
     let panels = Object.keys(multipleDefinition).map((formKey, i) => {
       let panelClassSet = classNames('form', {
@@ -147,11 +148,14 @@ class TabForm extends React.Component {
         render: this.getHeader.bind(this, title, description)
       }].concat(definition);
 
+      let formRowClassSet = classNames('row', formRowClass);
+
       return (
         <div key={i} className="form-panel">
           <Form
             className={panelClassSet}
             formGroupClass="form-group flush"
+            formRowClass={formRowClassSet}
             definition={formDefinition}
             triggerSubmit={this.getTriggerSubmit.bind(this, formKey)}
             onChange={this.props.onChange}
@@ -181,8 +185,10 @@ class TabForm extends React.Component {
   }
 
   render() {
+    let classNameSet = classNames('multiple-form row', this.props.className);
+
     return (
-      <div className={this.props.className}>
+      <div className={classNameSet}>
         {this.getSideContent(this.props.definition)}
         {this.getFormPanels()}
       </div>
@@ -191,7 +197,6 @@ class TabForm extends React.Component {
 }
 
 TabForm.defaultProps = {
-  className: 'multiple-form row',
   getTriggerSubmit: function () {},
   onChange: function () {},
   onSubmit: function () {}
@@ -204,9 +209,10 @@ const classPropType = React.PropTypes.oneOfType([
 ]);
 
 TabForm.propTypes = {
-  className: React.PropTypes.string,
+  className: classPropType,
   definition: React.PropTypes.object.isRequired,
   formContentClassNames: classPropType,
+  formRowClass: classPropType,
   getTriggerSubmit: React.PropTypes.func,
   navigationContentClassNames: classPropType,
   onChange: React.PropTypes.func,

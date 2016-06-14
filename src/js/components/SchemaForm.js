@@ -132,25 +132,26 @@ class SchemaForm extends React.Component {
     }
 
     return (
-      <button
-        className="button"
-        prop={prop}
+      <a
+        className="clickable"
         onClick={
           this.handleAddRow.bind(this, prop, generalDefinition, definition)
         }>
-        {label}
-      </button>
+        + {label}
+      </a>
     );
   }
 
   getRemoveRowButton(generalDefinition, prop, id) {
     return (
-      <button
-        className="button"
-        key={prop + id}
-        onClick={this.handleRemoveRow.bind(this, generalDefinition, prop, id)}>
-        X
-      </button>
+      <div className="form-row-element align-self-flex-end">
+        <button
+          className="button button-link"
+          key={prop + id}
+          onClick={this.handleRemoveRow.bind(this, generalDefinition, prop, id)}>
+          <i className="icon icon-sprite icon-sprite-mini icon-close"/>
+        </button>
+      </div>
     );
   }
 
