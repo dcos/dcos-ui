@@ -23,7 +23,7 @@ import Config from '../config/Config';
 const ChronosActions = {
   createJob: function (data) {
     RequestUtil.json({
-      url: `${Config.rootUrl}/chronos/scheduled-jobs`,
+      url: `${Config.rootUrl}/chronos/v0/scheduled-jobs`,
       method: 'POST',
       data,
       success: function () {
@@ -45,7 +45,7 @@ const ChronosActions = {
     function (resolve, reject) {
       return function () {
         RequestUtil.json({
-          url: `${Config.rootUrl}/chronos/jobs`,
+          url: `${Config.rootUrl}/chronos/v1/jobs`,
           data: [
             {name: 'embed', value: 'activeRuns'},
             {name: 'embed', value: 'schedules'}
@@ -82,7 +82,7 @@ const ChronosActions = {
 
   fetchJobDetail: function (jobID) {
     RequestUtil.json({
-      url: `${Config.rootUrl}/chronos/jobs/${jobID}`,
+      url: `${Config.rootUrl}/chronos/v1/jobs/${jobID}`,
       data: [
         {name: 'embed', value: 'activeRuns'},
         {name: 'embed', value: 'schedules'}
@@ -113,7 +113,7 @@ const ChronosActions = {
 
   deleteJob: function (jobID, stopCurrentJobRuns = false) {
     RequestUtil.json({
-      url: `${Config.rootUrl}/chronos/jobs/${jobID}` +
+      url: `${Config.rootUrl}/chronos/v1/jobs/${jobID}` +
         `?stopCurrentJobRuns=${stopCurrentJobRuns}`,
       method: 'DELETE',
       success: function () {
@@ -135,7 +135,7 @@ const ChronosActions = {
 
   runJob: function (jobID) {
     RequestUtil.json({
-      url: `${Config.rootUrl}/jobs/${jobID}/runs`,
+      url: `${Config.rootUrl}/chronos/v1/jobs/${jobID}/runs`,
       method: 'POST',
       data: {},
       success: function () {
@@ -155,7 +155,7 @@ const ChronosActions = {
 
   suspendSchedule: function (jobID, data) {
     RequestUtil.json({
-      url: `${Config.rootUrl}/chronos/jobs/${jobID}/schedules/${data.id}`,
+      url: `${Config.rootUrl}/chronos/v1/jobs/${jobID}/schedules/${data.id}`,
       method: 'PUT',
       data,
       success: function () {
