@@ -8,6 +8,12 @@ import ResourceTableUtil from '../../utils/ResourceTableUtil';
 import TableUtil from '../../utils/TableUtil';
 import Tree from '../../structs/Tree';
 
+const JOBS_STATUS = {
+  active: 'Running',
+  completed: 'Completed',
+  scheduled: 'Scheduled'
+};
+
 const METHODS_TO_BIND = [
   'renderHeadline'
 ];
@@ -38,21 +44,22 @@ class JobsTable extends React.Component {
     return [
       {
         className,
+        heading,
         headerClassName: className,
         prop: 'name',
         render: this.renderHeadline,
         sortable: true,
-        sortFunction: this.sortJobNames,
-        heading
+        sortFunction: this.sortJobNames
       }, {
         className,
+        heading,
         headerClassName: className,
         prop: 'status',
         render: this.renderStatusColumn,
-        sortable: false,
-        heading
+        sortable: false
       }, {
         className,
+        heading,
         headerClassName: className,
         prop: 'lastRunStatus',
         render: this.renderLastRunStatusColumn
@@ -148,15 +155,7 @@ class JobsTable extends React.Component {
       'text-muted': value === 'completed',
       'text-color-white': value !== 'completed'
     });
-    let statusText = null;
-
-    if (value === 'active') {
-      statusText = 'Running';
-    } else if (value === 'scheduled') {
-      statusText = 'Scheduled';
-    } else if (value === 'completed') {
-      statusText = 'Completed';
-    }
+    let statusText = JOBS_STATUS[value];
 
     return <span className={statusClasses}>{statusText}</span>;
   }
