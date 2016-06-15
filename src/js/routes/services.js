@@ -6,8 +6,8 @@ import React from 'react';
 import DeploymentsTab from '../pages/services/DeploymentsTab';
 import ServicesPage from '../pages/ServicesPage';
 import ServicesTab from '../pages/services/ServicesTab';
-import ServicesVolumesTab from '../pages/services/ServicesVolumesTab';
 import ItemVolumeDetail from '../components/ItemVolumeDetail';
+import ItemVolumeTable from '../components/ItemVolumeTable';
 import TaskDetail from '../pages/services/task-details/TaskDetail';
 import TaskDetailsTab from '../pages/services/task-details/TaskDetailsTab';
 import TaskFilesTab from '../pages/services/task-details/TaskFilesTab';
@@ -79,14 +79,8 @@ let serviceRoutes = {
               handler: ItemVolumeDetail,
               buildBreadCrumb: function () {
                 return {
-                  parentCrumb: 'services-task-details',
-                  getCrumbs: function (router) {
-                    return [
-                      <TaskDetailBreadcrumb
-                        parentRouter={router}
-                        routeName="services-task-details" />
-                    ];
-                  }
+                  parentCrumb: 'services-detail',
+                  getCrumbs: function () { return []; }
                 }
               }
             },
@@ -99,7 +93,13 @@ let serviceRoutes = {
               buildBreadCrumb: function () {
                 return {
                   parentCrumb: 'services-detail',
-                  getCrumbs: function () { return []; }
+                  getCrumbs: function (router) {
+                    return [
+                      <TaskDetailBreadcrumb
+                        parentRouter={router}
+                        routeName="services-task-details" />
+                    ];
+                  }
                 }
               },
               children: [
@@ -146,7 +146,7 @@ let serviceRoutes = {
                   type: Route,
                   name: 'services-task-details-volumes',
                   path: 'volumes/:volumeID?',
-                  handler: ServicesVolumesTab,
+                  handler: ItemVolumeTable,
                   buildBreadCrumb: function () {
                     return {
                       parentCrumb: 'services-task-details',

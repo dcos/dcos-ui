@@ -5,6 +5,7 @@ import React from 'react';
 
 import HostTable from '../components/HostTable';
 import ItemVolumeDetail from '../components/ItemVolumeDetail';
+import ItemVolumeTable from '../components/ItemVolumeTable';
 import NodeDetailBreadcrumb from '../pages/nodes/breadcrumbs/NodeDetailBreadcrumb';
 import NodeDetailPage from '../pages/nodes/NodeDetailPage';
 import NodesGridView from '../components/NodesGridView';
@@ -14,7 +15,6 @@ import TaskDetailsTab from '../pages/services/task-details/TaskDetailsTab';
 import TaskFilesTab from '../pages/services/task-details/TaskFilesTab';
 import TaskLogsTab from '../pages/services/task-details/TaskLogsTab';
 import TaskDetailBreadcrumb from '../pages/nodes/breadcrumbs/TaskDetailBreadcrumb';
-import TaskVolumesTab from '../pages/services/task-details/TaskVolumesTab';
 import UnitsHealthNodeDetail from '../pages/system/UnitsHealthNodeDetail';
 import UnitsHealthNodeDetailPage from '../pages/nodes/UnitsHealthNodeDetailPage';
 
@@ -160,7 +160,7 @@ let nodesRoutes = {
               type: Route,
               name: 'nodes-task-details-volumes',
               path: 'volumes/:volumeID?',
-              handler: TaskVolumesTab,
+              handler: ItemVolumeTable,
               buildBreadCrumb: function () {
                 return {
                   parentCrumb: 'nodes-task-details',

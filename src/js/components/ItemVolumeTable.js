@@ -172,7 +172,7 @@ class ItemVolumeTable extends React.Component {
         className="table inverse table-borderless-outer table-borderless-inner-columns flush-bottom"
         columns={this.getColumns()}
         colGroup={this.getColGroup()}
-        data={this.getData(this.props.volumes)}
+        data={this.getData(this.props.service.getVolumes().getItems())}
         sortBy={{ prop: 'id', order: 'asc' }} />
     );
   }
