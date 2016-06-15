@@ -112,6 +112,11 @@ class SchemaForm extends React.Component {
     definition.forEach(function (field, i) {
       if (FormUtil.isFieldInstanceOfProp(prop, field)) {
         lastIndex = i;
+        return;
+      }
+
+      if (field.props && field.props.prop === prop) {
+        lastIndex = i - 1;
       }
     });
 
@@ -129,6 +134,7 @@ class SchemaForm extends React.Component {
     return (
       <button
         className="button"
+        prop={prop}
         onClick={
           this.handleAddRow.bind(this, prop, generalDefinition, definition)
         }>
