@@ -67,6 +67,7 @@ module.exports = {
     PageHeader: 'PageHeader',
     ProgressBar: 'charts/ProgressBar',
     RequestErrorMsg: 'RequestErrorMsg',
+    TabForm: 'TabForm',
     ToggleButton: 'ToggleButton'
   },
   config: {
