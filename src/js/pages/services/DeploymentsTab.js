@@ -67,6 +67,14 @@ class DeploymentsTab extends mixin(StoreMixin) {
     }, this);
   }
 
+  onMarathonStoreDeploymentRollbackError(data) {
+    let {deploymentToRollback} = this.state;
+    if (deploymentToRollback != null &&
+        deploymentToRollback.getId() === data.originalDeploymentID) {
+      this.setState({deploymentRollbackError: data.error});
+    }
+  }
+
   renderAffectedServices(prop, deployment) {
     return (
       <dl className="deployment-services-list flush-top flush-bottom tree-list">
@@ -250,7 +258,8 @@ class DeploymentsTab extends mixin(StoreMixin) {
   }
 
   renderRollbackModal() {
-    let {deploymentToRollback} = this.state;
+    let {deploymentToRollback, deploymentRollbackError} = this.state;
+
     if (deploymentToRollback != null) {
       return (
         <Confirm
@@ -266,6 +275,7 @@ class DeploymentsTab extends mixin(StoreMixin) {
           <div className="container-pod container-pod-short text-align-center">
             <h3 className="flush-top">You're About To Rollback The Deployment</h3>
             <p>{this.getRollbackModalText(deploymentToRollback)}</p>
+            {this.renderRollbackError(deploymentRollbackError)}
           </div>
         </Confirm>
       );
@@ -292,6 +302,16 @@ class DeploymentsTab extends mixin(StoreMixin) {
     return `This will stop the current deployment of ${listOfServiceNames} and
             start a new deployment to revert the affected ${service} to ${its}
             previous ${version}.`
+  }
+
+  renderRollbackError(deploymentRollbackError) {
+    if (deploymentRollbackError != null) {
+      return (
+        <p className="text-error-state flush-bottom">
+          {deploymentRollbackError}
+        </p>
+      );
+    }
   }
 
   render() {
