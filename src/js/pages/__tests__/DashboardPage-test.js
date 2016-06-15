@@ -18,6 +18,7 @@ var ReactDOM = require('react-dom');
 
 var DashboardPage = require('../DashboardPage');
 var DCOSStore = require('../../stores/DCOSStore');
+var DeploymentsList = require('../../structs/DeploymentsList');
 var MarathonStore = require('../../stores/MarathonStore');
 var MesosSummaryStore = require('../../stores/MesosSummaryStore');
 var MockMarathonResponse = require('./fixtures/MockMarathonResponse.json');
@@ -54,7 +55,11 @@ describe('DashboardPage', function () {
     });
 
     it('gets list of services', function () {
-      MarathonStore.get = function () {
+      MarathonStore.get = function (key) {
+        if (key === 'deployments') {
+          return new DeploymentsList({items: []});
+        }
+
         return new ServiceTree({items: [
           {id: 'foo', health: {key: 'bar'}}
         ]});
@@ -66,7 +71,11 @@ describe('DashboardPage', function () {
     });
 
     it('handles services with missing health', function () {
-      MarathonStore.get = function () {
+      MarathonStore.get = function (key) {
+        if (key === 'deployments') {
+          return new DeploymentsList({items: []});
+        }
+
         return new ServiceTree({items: [{id: 'foo'}]});
       };
       DCOSStore.onMarathonGroupsChange();
@@ -76,7 +85,11 @@ describe('DashboardPage', function () {
     });
 
     it('should not return more services than servicesListLength', function () {
-      MarathonStore.get = function () {
+       MarathonStore.get = function (key) {
+        if (key === 'deployments') {
+          return new DeploymentsList({items: []});
+        }
+
         return new ServiceTree({items: [
           {id: 'foo', health: {key: 'bar'}},
           {id: 'foo', health: {key: 'bar'}},
