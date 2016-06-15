@@ -87,7 +87,7 @@ let nodesRoutes = {
           handler: ItemVolumeDetail,
           buildBreadCrumb: function () {
             return {
-              parentCrumb: 'nodes-task-details-volumes',
+              parentCrumb: 'node-detail',
               getCrumbs: function (router) {
                 return [
                   <TaskDetailBreadcrumb

@@ -80,7 +80,13 @@ let serviceRoutes = {
               buildBreadCrumb: function () {
                 return {
                   parentCrumb: 'services-detail',
-                  getCrumbs: function () { return []; }
+                  getCrumbs: function (router) {
+                    return [
+                      <TaskDetailBreadcrumb
+                        parentRouter={router}
+                        routeName="service-details-volumes" />
+                    ];
+                  }
                 }
               }
             },
