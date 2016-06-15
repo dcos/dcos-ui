@@ -51,18 +51,14 @@ class DeploymentsTab extends mixin(StoreMixin) {
   constructor() {
     super(...arguments);
 
-    this.state = {deployments: DCOSStore.deploymentsList};
+    this.state = {};
     this.store_listeners = [
-      {name: 'dcos', events: ['change'], suppressUpdate: true}
+      {name: 'dcos', events: ['change']}
     ];
 
     METHODS_TO_BIND.forEach((method) => {
       this[method] = this[method].bind(this);
     }, this);
-  }
-
-  onDcosStoreChange() {
-    this.setState({deployments: DCOSStore.deploymentsList});
   }
 
   renderAffectedServices(prop, deployment) {
@@ -228,9 +224,7 @@ class DeploymentsTab extends mixin(StoreMixin) {
     );
   }
 
-  renderPopulated() {
-    let {deployments} = this.state;
-    let deploymentsItems = deployments.getItems();
+  renderPopulated(deploymentsItems) {
     let deploymentsCount = deploymentsItems.length;
     let deploymentsLabel = StringUtil.pluralize('Deployment', deploymentsCount);
 
@@ -295,12 +289,12 @@ class DeploymentsTab extends mixin(StoreMixin) {
   }
 
   render() {
-    let deployments = this.state.deployments.getItems();
+    let deployments = DCOSStore.deploymentsList.getItems();
 
     if (deployments.length === 0) {
       return this.renderEmpty();
     } else {
-      return this.renderPopulated();
+      return this.renderPopulated(deployments);
     }
   }
 
