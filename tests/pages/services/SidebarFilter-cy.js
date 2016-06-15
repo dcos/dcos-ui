@@ -2,13 +2,21 @@ describe('Sidebar Filter', function () {
   context('Filters services table', function () {
     beforeEach(function () {
       // Remove once responsive filters are in place
-      cy.viewport(1280, 600);
+      cy.viewport(1280, 800);
 
       cy.configureCluster({
         mesos: '1-for-each-health',
         nodeHealth: true
       });
       cy.visitUrl({url: '/services'});
+    });
+
+    it('filters correctly on Labels', function () {
+      cy.get('.sidebar-filters .dropdown').contains('Labels').click();
+      cy.get('.sidebar-filters .dropdown-menu .is-selectable').first().click();
+      cy.get('tbody tr:visible').should('to.have.length', 4);
+      cy.get('.sidebar-filters ul.list-unstyled li')
+        .should('to.have.length', 1);
     });
 
     it('filters correctly on Idle', function () {
@@ -65,6 +73,8 @@ describe('Sidebar Filter', function () {
       cy.get('.sidebar-filters .label').contains('Volumes').click();
       cy.get('tbody tr:visible').should('to.have.length', 1);
     });
+
+
 
     it('filters correctly on two filters', function () {
       cy.get('.sidebar-filters .label').contains('Healthy').click();
