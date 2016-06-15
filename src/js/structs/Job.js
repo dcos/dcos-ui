@@ -24,6 +24,12 @@ module.exports = class Job extends Item {
     return this.get('description');
   }
 
+  getDocker() {
+    const {docker = {}} = this.get('run') || {};
+
+    return docker;
+  }
+
   getDisk() {
     const {disk = 0} = this.get('run') || {};
 
