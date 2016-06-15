@@ -9,10 +9,6 @@ const Labels = {
       getter: function (service) {
         let labels = service.getLabels() || {};
 
-        if (Object.keys(labels).length === 0) {
-          return null;
-        }
-
         return Object.keys(labels).map(function (key) {
           return {
             key,
