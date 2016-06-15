@@ -347,6 +347,23 @@ describe('MarathonStore', function () {
 
   });
 
+  describe('processMarathonDeploymentRollbackError', function () {
+
+    it('should emit a rollback error event', function () {
+      let handler = jest.genMockFunction();
+      MarathonStore.once(EventTypes.MARATHON_DEPLOYMENT_ROLLBACK_ERROR, handler);
+      MarathonStore.processMarathonDeploymentRollbackError({
+        originalDeploymentID: 'deployment-id',
+        error: 'Guru meditation'
+      });
+      expect(handler).toBeCalledWith({
+        originalDeploymentID: 'deployment-id',
+        error: 'Guru meditation'
+      });
+    });
+
+  });
+
   describe('#get storeID', function () {
     it('should return marathon', function () {
       expect(MarathonStore.storeID).toBe('marathon');
