@@ -2,49 +2,66 @@ import Item from './Item';
 
 class TaskStat extends Item {
 
-  constructor(item = {}) {
-    super(item.stats || {});
+  isEmpty() {
+    return typeof this.get('stats') !== 'object' ||
+      !Object.keys(this.get('stats')).length;
+  }
+
+  getName() {
+    return this.get('name');
   }
 
   getHealthyTaskCount() {
-    if (this.get('counts')) {
-      return this.get('counts').healthy || 0;
+    let stats = this.get('stats') || {};
+    if (stats.counts) {
+      return stats.counts.healthy || 0;
     }
+
     return 0;
   }
 
   getRunningTaskCount() {
-    if (this.get('counts')) {
-      return this.get('counts').running || 0;
+    let stats = this.get('stats') || {};
+    if (stats.counts) {
+      return stats.counts.running || 0;
     }
+
     return 0;
   }
 
   getStagedTaskCount() {
-    if (this.get('counts')) {
-      return this.get('counts').staged || 0;
+    let stats = this.get('stats') || {};
+    if (stats.counts) {
+      return stats.counts.staged || 0;
     }
+
     return 0;
   }
 
   getUnhealthyTaskCount() {
-    if (this.get('counts')) {
-      return this.get('counts').unhealthy || 0;
+    let stats = this.get('stats') || {};
+    if (stats.counts) {
+      return stats.counts.unhealthy || 0;
     }
+
     return 0;
   }
 
   getAverageLifeTime() {
-    if (this.get('lifeTime')) {
-      return this.get('lifeTime').averageSeconds || 0;
+    let stats = this.get('stats') || {};
+    if (stats.lifeTime) {
+      return stats.lifeTime.averageSeconds || 0;
     }
+
     return 0;
   }
 
   getMedianLifeTime() {
-    if (this.get('lifeTime')) {
-      return this.get('lifeTime').medianSeconds || 0;
+    let stats = this.get('stats') || {};
+    if (stats.lifeTime) {
+      return stats.lifeTime.medianSeconds || 0;
     }
+
     return 0;
   }
 }
