@@ -130,6 +130,9 @@ class MarathonStore extends GetSetBaseStore {
         case ActionTypes.REQUEST_MARATHON_SERVICE_VERSIONS_ERROR:
           this.processMarathonServiceVersionsError();
           break;
+        case ActionTypes.REQUEST_MARATHON_DEPLOYMENT_ROLLBACK_SUCCESS:
+          this.processMarathonDeploymentRollback(action.data);
+          break;
       }
 
       return true;
@@ -363,6 +366,18 @@ class MarathonStore extends GetSetBaseStore {
 
   processMarathonDeploymentsError() {
     this.emit(MARATHON_DEPLOYMENTS_ERROR);
+  }
+
+  processMarathonDeploymentRollback(data) {
+    let id = data.originalDeploymentID;
+    if (id != null) {
+      let deployments = this.get('deployments')
+        .filterItems(function (deployment) {
+          return deployment.getId() !== id;
+        });
+      this.set({deployments});
+      this.emit(MARATHON_DEPLOYMENTS_CHANGE);
+    }
   }
 
   processMarathonQueue(data) {

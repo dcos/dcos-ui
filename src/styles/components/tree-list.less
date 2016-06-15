@@ -1,0 +1,31 @@
+@tree-list-border-color: @neutral;
+.tree-list {
+  dd {
+    margin-left: 12px;
+    border-left: 1px solid @tree-list-border-color;
+    display: flex;
+    align-items: center;
+
+    &:before {
+      content: '';
+      display: inline-block;
+      align-self: flex-start;
+      flex-shrink: 0;
+
+      margin: 0 0 12px;
+      width: 20px;
+      height: 20px;
+      border-bottom: 1px solid @tree-list-border-color;
+
+    }
+
+    &:last-child {
+      border-left: 0;
+      &:before {
+        border-left: 1px solid @tree-list-border-color;
+      }
+    }
+
+  }
+}
+

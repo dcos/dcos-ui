@@ -200,4 +200,30 @@ describe('StringUtil', function () {
     });
   });
 
+  describe('#humanizeArray', function () {
+
+    it('returns an empty string for a 0-length array', function () {
+      expect(StringUtil.humanizeArray([])).toEqual('');
+    });
+
+    it('returns the sole member of a 1-length array', function () {
+      expect(StringUtil.humanizeArray(['one'])).toEqual('one');
+    });
+    
+    it('joins a 2-length array with \'and\'', function () {
+      expect(StringUtil.humanizeArray(['one', 'two'])).toEqual('one and two');
+    });
+
+    it('joins a 3-length array with commas and \'and\'', function () {
+      expect(StringUtil.humanizeArray(['one', 'two', 'three']))
+        .toEqual('one, two, and three');
+    });
+
+    it('allows the user to disable the serial comma', function () {
+      expect(StringUtil.humanizeArray(['one', 'two', 'three'], false))
+        .toEqual('one, two and three');
+    });
+
+  });
+
 });

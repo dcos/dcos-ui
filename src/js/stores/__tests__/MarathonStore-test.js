@@ -314,6 +314,26 @@ describe('MarathonStore', function () {
 
   });
 
+  describe('processMarathonDeploymentRollback', function () {
+    it('should delete the relevant deployment from the store', function () {
+      MarathonStore.processMarathonDeployments([{id: 'deployment-id'}]);
+      MarathonStore.processMarathonDeploymentRollback({
+        originalDeploymentID: 'deployment-id'
+      });
+      expect(MarathonStore.get('deployments').getItems().length).toEqual(0);
+    });
+
+    it('should emit a deployments change event', function () {
+      let handler = jest.genMockFunction();
+      MarathonStore.once(EventTypes.MARATHON_DEPLOYMENTS_CHANGE, handler);
+      MarathonStore.processMarathonDeploymentRollback({
+        originalDeploymentID: 'deployment-id'
+      });
+      expect(handler).toBeCalled();
+    });
+
+  });
+
   describe('#get storeID', function () {
     it('should return marathon', function () {
       expect(MarathonStore.storeID).toBe('marathon');
