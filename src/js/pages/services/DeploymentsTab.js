@@ -67,6 +67,17 @@ class DeploymentsTab extends mixin(StoreMixin) {
     }, this);
   }
 
+  onMarathonStoreDeploymentRollbackSuccess(data) {
+    let {deploymentToRollback} = this.state;
+    if (deploymentToRollback != null &&
+        deploymentToRollback.getId() === data.originalDeploymentID) {
+      this.setState({
+        deploymentToRollback: null,
+        deploymentRollbackError: null
+      });
+    }
+  }
+
   onMarathonStoreDeploymentRollbackError(data) {
     let {deploymentToRollback} = this.state;
     if (deploymentToRollback != null &&
@@ -172,12 +183,17 @@ class DeploymentsTab extends mixin(StoreMixin) {
   }
 
   handleRollbackCancel() {
-    this.setState({deploymentToRollback: null});
+    this.setState({
+      deploymentToRollback: null,
+      deploymentRollbackError: null
+    });
   }
 
   handleRollbackConfirm() {
-    MarathonActions.revertDeployment(this.state.deploymentToRollback.id);
-    this.setState({deploymentToRollback: null});
+    let {deploymentToRollback} = this.state;
+    if (deploymentToRollback != null) {
+      MarathonActions.revertDeployment(deploymentToRollback.getId());
+    }
   }
 
   getColumns() {
