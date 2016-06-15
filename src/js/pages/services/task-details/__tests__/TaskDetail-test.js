@@ -1,11 +1,12 @@
 jest.dontMock('../TaskFilesTab');
 jest.dontMock('../TaskDetail');
+jest.dontMock('../../../../stores/MarathonStore');
 jest.dontMock('../../../../stores/MesosStateStore');
 jest.dontMock('../../../../mixins/GetSetMixin');
 
 let JestUtil = require('../../../../utils/JestUtil');
 
-JestUtil.unMockStores(['MesosStateStore', 'TaskDirectoryStore', 'MesosSummaryStore']);
+JestUtil.unMockStores(['MarathonStore', 'MesosStateStore', 'TaskDirectoryStore', 'MesosSummaryStore']);
 require('../../../../utils/StoreMixinConfig');
 /* eslint-disable no-unused-vars */
 let React = require('react');
@@ -47,7 +48,6 @@ describe('TaskDetail', function () {
         return {};
       }
     };
-
     MesosStateStore.addChangeListener = function () {};
     MesosStateStore.getTaskFromTaskID = function () {
       return new Task({

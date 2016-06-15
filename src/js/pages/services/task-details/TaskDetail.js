@@ -153,7 +153,7 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
     let taskIcon = (
       <img src={task.getImages()['icon-large']} />
     );
-    let tabsArr = this.tabs_getRoutedTabs({params: this.props.params});
+    let tabsArr = this.tabs_getRoutedTabs({params: this.props.params}) || [];
 
     if (!this.hasVolumes(service)) {
       tabsArr = tabsArr.filter(function (tab) {

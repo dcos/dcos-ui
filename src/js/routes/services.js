@@ -78,7 +78,13 @@ let serviceRoutes = {
               buildBreadCrumb: function () {
                 return {
                   parentCrumb: 'services-task-details',
-                  getCrumbs: buildServiceCrumbs
+                  getCrumbs: function (router) {
+                    return [
+                      <TaskDetailBreadcrumb
+                        parentRouter={router}
+                        routeName="services-task-details" />
+                    ];
+                  }
                 }
               }
             },
@@ -91,9 +97,7 @@ let serviceRoutes = {
               buildBreadCrumb: function () {
                 return {
                   parentCrumb: 'services-detail',
-                  getCrumbs: function (router) {
-                    return [];
-                  }
+                  getCrumbs: function () { return []; }
                 }
               },
               children: [
