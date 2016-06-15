@@ -12,8 +12,8 @@ import {Table} from 'reactjs-components';
 import AlertPanel from '../../components/AlertPanel';
 import DCOSStore from '../../stores/DCOSStore';
 import MarathonActions from '../../events/MarathonActions';
+import NestedServiceLinks from '../../components/NestedServiceLinks';
 import ResourceTableUtil from '../../utils/ResourceTableUtil';
-import ServicesBreadcrumb from '../../components/ServicesBreadcrumb';
 import StringUtil from '../../utils/StringUtil';
 
 const columnHeading = ResourceTableUtil.renderHeading({
@@ -97,10 +97,11 @@ class DeploymentsTab extends mixin(StoreMixin) {
     const items = services.map(function (service, index) {
       return (
         <li key={index}>
-          <ServicesBreadcrumb
+          <NestedServiceLinks
+            serviceID={service.getId()}
             className="deployment-breadcrumb"
-            headerClassNames="flush-bottom"
-            serviceTreeItem={service} />
+            majorLinkClassName="deployment-breadcrumb-service-id"
+            minorLinkWrapperClassName="deployment-breadcrumb-crumb" />
         </li>
       );
     });
