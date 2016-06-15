@@ -1,4 +1,5 @@
 jest.dontMock('../DashboardPage');
+jest.dontMock('../../stores/DCOSStore');
 jest.dontMock('../../stores/MarathonStore');
 jest.dontMock('../../stores/UnitHealthStore');
 jest.dontMock('./fixtures/MockMarathonResponse.json');
@@ -16,10 +17,11 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 
 var DashboardPage = require('../DashboardPage');
+var DCOSStore = require('../../stores/DCOSStore');
 var MarathonStore = require('../../stores/MarathonStore');
 var MesosSummaryStore = require('../../stores/MesosSummaryStore');
 var MockMarathonResponse = require('./fixtures/MockMarathonResponse.json');
-var ServicesList = require('../../structs/ServicesList');
+var ServiceTree = require('../../structs/ServiceTree');
 var SummaryList = require('../../structs/SummaryList');
 
 MesosSummaryStore.get = function (key) {
@@ -35,6 +37,8 @@ describe('DashboardPage', function () {
   describe('#getServicesList', function () {
 
     beforeEach(function () {
+      this.MarathonGet = MarathonStore.get;
+      this.MarathonAddChangeListener = MarathonStore.addChangeListener;
       MarathonStore.addChangeListener = function () {};
       this.container = document.createElement('div');
       this.instance = ReactDOM.render(
@@ -44,71 +48,58 @@ describe('DashboardPage', function () {
     });
 
     afterEach(function () {
+      MarathonStore.get = this.MarathonGet;
+      MarathonStore.addChangeListener = this.MarathonAddChangeListener;
       ReactDOM.unmountComponentAtNode(this.container);
     });
 
     it('gets list of services', function () {
-      let services = new ServicesList({items: [
-        {name: 'foo', health: {key: 'bar'}}
-      ]});
-      let list = this.instance.getServicesList(services.getItems());
-      expect(list).toEqual([{name: 'foo'}]);
-    });
-
-    it('picks out [name, webui_url, TASK_RUNNING, id] keys only', function () {
-      let services = new ServicesList({items: [{
-        name: 'foo',
-        health: {key: 'bar'},
-        webui_url: 'qux',
-        TASK_RUNNING: 'baz',
-        id: 'quux',
-        corge: 'grault'
-      }]});
-
-      let list = this.instance.getServicesList(services.getItems());
-
-      expect(list).toEqual([{
-        name: 'foo',
-        webui_url: 'qux',
-        TASK_RUNNING: 'baz',
-        id: 'quux'
-      }]);
+      MarathonStore.get = function () {
+        return new ServiceTree({items: [
+          {id: 'foo', health: {key: 'bar'}}
+        ]});
+      };
+      DCOSStore.onMarathonGroupsChange();
+      let list = this.instance.getServicesList();
+      expect(list.length).toEqual(1);
+      expect(list[0].getId()).toEqual('foo');
     });
 
     it('handles services with missing health', function () {
-      let services = new ServicesList({items: [{name: 'foo'}]});
-      let list = this.instance.getServicesList(services.getItems());
-      expect(list).toEqual([{name: 'foo'}]);
+      MarathonStore.get = function () {
+        return new ServiceTree({items: [{id: 'foo'}]});
+      };
+      DCOSStore.onMarathonGroupsChange();
+
+      let list = this.instance.getServicesList();
+      expect(list[0].getId()).toEqual('foo');
     });
 
     it('should not return more services than servicesListLength', function () {
-      let services = new ServicesList({items: [
-        {name: 'foo', health: {key: 'bar'}},
-        {name: 'foo', health: {key: 'bar'}},
-        {name: 'foo', health: {key: 'bar'}},
-        {name: 'foo', health: {key: 'bar'}},
-        {name: 'foo', health: {key: 'bar'}},
-        {name: 'foo', health: {key: 'bar'}}
-      ]});
-      let list = this.instance.getServicesList(services.getItems());
+      MarathonStore.get = function () {
+        return new ServiceTree({items: [
+          {id: 'foo', health: {key: 'bar'}},
+          {id: 'foo', health: {key: 'bar'}},
+          {id: 'foo', health: {key: 'bar'}},
+          {id: 'foo', health: {key: 'bar'}},
+          {id: 'foo', health: {key: 'bar'}},
+          {id: 'foo', health: {key: 'bar'}}
+        ]});
+      };
+      DCOSStore.onMarathonGroupsChange();
+      let list = this.instance.getServicesList();
       expect(list.length).toEqual(5);
     });
 
     it('should sort by health', function () {
       MarathonStore.processMarathonGroups(MockMarathonResponse);
+      DCOSStore.onMarathonGroupsChange();
+      let list = this.instance.getServicesList();
 
-      let services = new ServicesList({items: [
-        {name: 'IdleFramework'},
-        {name: 'UnhealthyFramework'},
-        {name: 'HealthyFramework'},
-        {name: 'NAFramework'}
-      ]});
-      let list = this.instance.getServicesList(services.getItems());
-
-      expect(list[0].name).toEqual('UnhealthyFramework');
-      expect(list[1].name).toEqual('HealthyFramework');
-      expect(list[2].name).toEqual('IdleFramework');
-      expect(list[3].name).toEqual('NAFramework');
+      expect(list[0].getId()).toEqual('UnhealthyFramework');
+      expect(list[1].getId()).toEqual('HealthyFramework');
+      expect(list[2].getId()).toEqual('IdleFramework');
+      expect(list[3].getId()).toEqual('NAFramework');
     });
 
   });

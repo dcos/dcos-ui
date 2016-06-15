@@ -25,6 +25,21 @@ module.exports = class Deployment extends Item {
   }
 
   /**
+   * @return {ServiceList} list of services affected by this deployment.
+   */
+  getAffectedServices() {
+    let ids = this.getAffectedServiceIds();
+    let services = this.get('affectedServices');
+    if (ids == null || ids.length === 0) {
+      return [];
+    }
+    if (services == null) {
+      throw Error('Affected services list is stale.');
+    }
+    return services;
+  }
+
+  /**
    * @return {Date} the date and time at which the deployment was started.
    */
   getStartTime() {
@@ -45,6 +60,20 @@ module.exports = class Deployment extends Item {
    */
   getTotalSteps() {
     return this.get('totalSteps');
+  }
+
+  /**
+   * @return {boolean} true if this deployment starts a new service.
+   */
+  isStarting() {
+    let steps = this.get('steps');
+    if (steps != null) {
+      return this.get('steps').some(function (step) {
+        return step.actions.some(function (action) {
+          return action.type === 'StartApplication';
+        });
+      });
+    }
   }
 
 }

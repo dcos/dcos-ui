@@ -1,3 +1,4 @@
+const List = require('../List');
 const TaskStats = require('../TaskStats');
 const TaskStat = require('../TaskStat');
 
@@ -90,6 +91,37 @@ describe('TaskStats', function () {
       }).getStatsForAllTasks();
 
       expect(statistics.getHealthyTaskCount()).toEqual(1);
+    });
+
+  });
+
+  describe('#getList', function () {
+
+    it('returns List instance', function () {
+      let statisticsList = new TaskStats({totalSummary: {}}).getList();
+
+      expect(statisticsList instanceof List).toBeTruthy();
+    });
+
+    it('should only return items with stats', function () {
+      let statisticsList = new TaskStats({
+        totalSummary: {
+          stats: {
+            counts: {healthy: 1}
+          }
+        },
+        startedAfterLastScaling: {
+          stats: {
+            counts: {healthy: 1}
+          }
+        },
+        withOutdatedConfig: {
+          stats: {}
+        },
+        withLatestConfig: {}
+      }).getList();
+
+      expect(statisticsList.getItems().length).toEqual(2);
     });
 
   });

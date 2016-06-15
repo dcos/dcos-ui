@@ -26,7 +26,7 @@ describe('ChronosActions', function () {
 
     it('sends data to the correct URL', function () {
       expect(this.configuration.url)
-        .toEqual(`${Config.rootUrl}/chronos/scheduled-jobs`);
+        .toEqual(`${Config.rootUrl}/chronos/v0/scheduled-jobs`);
     });
 
     it('dispatches the correct action when successful', function () {
@@ -67,7 +67,7 @@ describe('ChronosActions', function () {
 
     it('fetches data from the correct URL', function () {
       expect(this.configuration.url)
-        .toEqual(`${Config.rootUrl}/chronos/jobs`);
+        .toEqual(`${Config.rootUrl}/chronos/v1/jobs`);
     });
 
     it('dispatches the correct action when successful', function () {
@@ -106,7 +106,7 @@ describe('ChronosActions', function () {
 
     it('fetches data from the correct URL', function () {
       expect(this.configuration.url)
-        .toEqual(`${Config.rootUrl}/chronos/jobs/foo`);
+        .toEqual(`${Config.rootUrl}/chronos/v1/jobs/foo`);
     });
 
     it('dispatches the correct action when successful', function () {
@@ -150,8 +150,9 @@ describe('ChronosActions', function () {
     });
 
     it('fetches data from the correct URL', function () {
-      expect(this.configuration.url)
-        .toEqual(`${Config.rootUrl}/chronos/jobs/foo?stopCurrentJobRuns=false`);
+      expect(this.configuration.url).toEqual(
+          `${Config.rootUrl}/chronos/v1/jobs/foo?stopCurrentJobRuns=false`
+      );
     });
 
     it('fetches data with the correct method', function () {
@@ -200,7 +201,7 @@ describe('ChronosActions', function () {
 
     it('POSTs data to the correct URL', function () {
       expect(this.configuration.url)
-        .toEqual(`${Config.rootUrl}/jobs/foo/runs`);
+        .toEqual(`${Config.rootUrl}/chronos/v1/jobs/foo/runs`);
     });
 
     it('POSTs data with the correct method', function () {
@@ -251,7 +252,7 @@ describe('ChronosActions', function () {
 
     it('PUTs data to the correct URL', function () {
       expect(this.configuration.url)
-        .toEqual(`${Config.rootUrl}/chronos/jobs/foo/schedules/bar`);
+        .toEqual(`${Config.rootUrl}/chronos/v1/jobs/foo/schedules/bar`);
     });
 
     it('PUTs data with the correct method', function () {

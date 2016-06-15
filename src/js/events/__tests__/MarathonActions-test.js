@@ -456,4 +456,68 @@ describe('MarathonActions', function () {
 
   });
 
+  describe('#revertDeployment', function () {
+
+    beforeEach(function () {
+      spyOn(RequestUtil, 'json');
+      MarathonActions.revertDeployment('deployment-id');
+      this.configuration = RequestUtil.json.calls.mostRecent().args[0];
+    });
+
+    describe('JSON request', function () {
+
+      it('is made', function () {
+        expect(RequestUtil.json).toHaveBeenCalled();
+      });
+
+      it('is a DELETE', function () {
+        expect(this.configuration.method).toEqual('DELETE');
+      });
+
+      it('calls the appropriate endpoint', function () {
+        expect(this.configuration.url)
+          .toEqual(`${Config.rootUrl}/marathon/v2/deployments/deployment-id`);
+      });
+
+    });
+
+    describe('on success', function () {
+
+      it('emits a success event on success', function () {
+        var id = AppDispatcher.register(function (payload) {
+          var action = payload.action;
+          AppDispatcher.unregister(id);
+          expect(action.type)
+            .toEqual(ActionTypes.REQUEST_MARATHON_DEPLOYMENT_ROLLBACK_SUCCESS);
+        });
+
+        this.configuration.success({});
+      });
+
+      it('emits the original deployment ID as the success payload', function () {
+        var id = AppDispatcher.register(function (payload) {
+          var action = payload.action;
+          AppDispatcher.unregister(id);
+          expect(action.data.originalDeploymentID)
+            .toEqual('deployment-id');
+        });
+
+        this.configuration.success({});
+      });
+
+    });
+
+    it('emits an error event on error', function () {
+      var id = AppDispatcher.register(function (payload) {
+        var action = payload.action;
+        AppDispatcher.unregister(id);
+        expect(action.type)
+          .toEqual(ActionTypes.REQUEST_MARATHON_DEPLOYMENT_ROLLBACK_ERROR);
+      });
+
+      this.configuration.error({});
+    });
+      
+  });
+
 });

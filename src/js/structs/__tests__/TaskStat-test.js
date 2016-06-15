@@ -2,6 +2,44 @@ const TaskStat = require('../TaskStat');
 
 describe('TaskStat', function () {
 
+  describe('#getName', function () {
+
+    it('returns undefined if no name have been provided', function () {
+      let statistics = new TaskStat({});
+
+      expect(statistics.getName()).toEqual(undefined);
+    });
+
+    it('returns name if name have been provided', function () {
+      let statistics = new TaskStat({name: 'foo'});
+
+      expect(statistics.getName()).toEqual('foo');
+    });
+
+  });
+
+  describe('#isEmpty', function () {
+
+    it('returns true if no stats have been provided', function () {
+      let statistics = new TaskStat({});
+
+      expect(statistics.isEmpty()).toEqual(true);
+    });
+
+    it('returns true if stats with no keys have been provided', function () {
+      let statistics = new TaskStat({stats: {}});
+
+      expect(statistics.isEmpty()).toEqual(true);
+    });
+
+    it('returns false if stats have been provided', function () {
+      let statistics = new TaskStat({stats: {counts: {}}});
+
+      expect(statistics.isEmpty()).toEqual(false);
+    });
+
+  });
+
   describe('#getHealthyTaskCount', function () {
 
     it('returns defaults to zero (0) if data is undefined', function () {

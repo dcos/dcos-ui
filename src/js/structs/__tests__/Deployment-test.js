@@ -1,4 +1,4 @@
-let Deployment = require('../Deployment');
+import Deployment from '../Deployment';
 
 describe('Deployment', function () {
 
@@ -26,6 +26,69 @@ describe('Deployment', function () {
       expect(deployment.getStartTime()).toEqual(jasmine.any(Date));
       expect(deployment.getStartTime().toISOString()).toEqual(version);
     });
+  });
+
+  describe('#getAffectedServices', function () {
+
+    it('returns an empty array by default', function () {
+      let deployment = new Deployment();
+      let affectedServices = deployment.getAffectedServices();
+      expect(affectedServices).toEqual([]);
+    });
+
+    it('throws an error if service IDs are set but services are not', function () {
+      let deployment = new Deployment({affectedApps: ['app1', 'app2']});
+      expect(deployment.getAffectedServices.bind(deployment)).toThrow();
+    });
+
+    it('returns the populated list of services if it is up-to-date', function () {
+      let deployment = new Deployment({
+        affectedApps: ['app1', 'app2'],
+        affectedServices: [
+          {id: 'app1'}, {id: 'app2'}
+        ]
+      });
+      let affectedServices = deployment.getAffectedServices();
+      expect(affectedServices.length).toEqual(2);
+    });
+  });
+
+  describe('#isStarting', function () {
+
+    it('flags deployments of newly-created services', function () {
+      let deployment = new Deployment({
+        id: 'deployment-id',
+        affectedApps: ['app1'],
+        steps: [{
+          actions: [
+            {app: 'app1', type: 'StartApplication'},
+            {app: 'app1', type: 'ScaleApplication'}
+          ]
+        }]
+      });
+
+      expect(deployment.isStarting()).toEqual(true);
+    });
+    
+    it('flags deployments which update services', function () {
+      let deployment = new Deployment({
+        id: 'deployment-id',
+        affectedApps: ['app1'],
+        steps: [{
+          actions: [
+            {app: 'app1', type: 'ScaleApplication'}
+          ]
+        }]
+      });
+
+      expect(deployment.isStarting()).toEqual(false);
+    });
+
+    it('gracefully handles deployments without steps', function () {
+      let deployment = new Deployment({id: 'deployment-id'});
+      expect(deployment.isStarting.bind(deployment)).not.toThrow(); 
+    });
+
   });
 
 });

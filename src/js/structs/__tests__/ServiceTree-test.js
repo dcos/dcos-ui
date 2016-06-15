@@ -717,6 +717,47 @@ describe('ServiceTree', function () {
 
   });
 
+  describe('#getServices', function () {
+
+    beforeEach(function () {
+      this.instance = new ServiceTree({
+        id: '/group',
+        items: [
+          {
+            id: 'group/test',
+            items: []
+          },
+          {
+            id: '/group/alpha'
+          },
+          {
+            id: '/group/beta',
+            labels: {
+              DCOS_PACKAGE_FRAMEWORK_NAME: 'beta'
+            }
+          },
+          {
+            id: '/group/gamma',
+            labels: {
+              RANDOM_LABEL: 'random'
+            }
+          }
+        ],
+        filterProperties: {
+          id: function (item) {
+            return item.getId();
+          }
+        }
+      });
+    });
+
+    it('returns an array with all the Services in the group', function () {
+      let services = this.instance.getServices();
+      expect(services.getItems().length).toEqual(3);
+    });
+
+  });
+
   describe('#getTasksSummary', function () {
 
     beforeEach(function () {
