@@ -107,4 +107,43 @@ describe('ServiceUtil', function () {
       });
     });
   });
+
+  describe('#convertServiceLabelsToArray', function ()  {
+    it('should return an array of key-value tuples', function () {
+      let service = new Service({
+        id: '/test',
+        cmd: 'sleep 1000;',
+        labels: {
+          'label_one': 'value_one',
+          'label_two': 'value_two'
+        }
+      });
+
+      let serviceLabels = ServiceUtil.convertServiceLabelsToArray(service);
+      expect(serviceLabels.length).toEqual(2);
+      expect(serviceLabels).toEqual([
+        {key: 'label_one', value: 'value_one'},
+        {key: 'label_two', value: 'value_two'}
+      ]);
+    });
+
+    it('should return an empty array if no labels are found', function () {
+      let service = new Service({
+        id: '/test',
+        cmd: 'sleep 1000;'
+      });
+
+      let serviceLabels = ServiceUtil.convertServiceLabelsToArray(service);
+      expect(serviceLabels.length).toEqual(0);
+      expect(serviceLabels).toEqual([]);
+    });
+
+    it('only performs the conversion on a Service', function () {
+      let service = {};
+      let serviceLabels = ServiceUtil.convertServiceLabelsToArray(service);
+      expect(serviceLabels.length).toEqual(0);
+      expect(serviceLabels).toEqual([]);
+    });
+  });
+
 });
