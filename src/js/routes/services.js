@@ -124,11 +124,6 @@ let serviceRoutes = {
               ]
             }
           ]
-        },
-        {
-          type: Route,
-          name: 'services-panel',
-          path: 'service-detail/:serviceName/?'
         }
       ]
     }

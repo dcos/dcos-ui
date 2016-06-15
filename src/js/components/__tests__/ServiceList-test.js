@@ -1,4 +1,5 @@
 jest.dontMock('../../mixins/GetSetMixin');
+jest.dontMock('../../structs/ServiceTree');
 jest.dontMock('../ServiceList');
 jest.dontMock('../../stores/MarathonStore');
 /* eslint-disable no-unused-vars */
@@ -7,17 +8,18 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 
 var ServiceList = require('../ServiceList');
+var ServiceTree = require('../../structs/ServiceTree');
 
 describe('ServiceList', function () {
 
   describe('#shouldComponentUpdate', function () {
 
     beforeEach(function () {
-      var services = [{name: 'foo'}];
+      var services = new ServiceTree({items: [{name: 'foo'}]});
       this.container = document.createElement('div');
       this.instance = ReactDOM.render(
         <ServiceList
-          services={services}
+          services={services.getServices().getItems()}
           healthProcessed={false} />,
         this.container
       );
@@ -44,11 +46,11 @@ describe('ServiceList', function () {
   describe('#getServices', function () {
 
     beforeEach(function () {
-      var services = [{name: 'foo'}];
+      var services = new ServiceTree({items: [{name: 'foo'}]});
       this.container = document.createElement('div');
       this.instance = ReactDOM.render(
         <ServiceList
-          services={services}
+          services={services.getServices().getItems()}
           healthProcessed={false} />,
         this.container
       );
@@ -59,9 +61,8 @@ describe('ServiceList', function () {
     });
 
     it('returns services that have a value of two elements', function () {
-      var services = [{
-        name: 'foo'
-      }];
+      var services = new ServiceTree({items: [{name: 'foo'}]})
+        .getServices().getItems();
       var result = this.instance.getServices(services, false);
 
       expect(result[0].content[0].content.key).toEqual('title');
