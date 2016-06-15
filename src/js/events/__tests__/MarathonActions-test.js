@@ -517,6 +517,30 @@ describe('MarathonActions', function () {
 
       this.configuration.error({});
     });
+
+    it('emits the original deployment ID in the error payload', function () {
+      var id = AppDispatcher.register(function (payload) {
+        var action = payload.action;
+        AppDispatcher.unregister(id);
+        expect(action.data.originalDeploymentID)
+          .toEqual('deployment-id');
+      });
+
+      this.configuration.error({});
+    });
+
+    it('emits the response text in the error payload', function () {
+      var id = AppDispatcher.register(function (payload) {
+        var action = payload.action;
+        AppDispatcher.unregister(id);
+        expect(action.data.error)
+          .toEqual('A helpful error message.');
+      });
+
+      this.configuration.error({
+        responseText: JSON.stringify({message: 'A helpful error message.'})
+      });
+    });
       
   });
 

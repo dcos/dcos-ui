@@ -262,10 +262,13 @@ module.exports = {
           data: Object.assign({originalDeploymentID: deploymentID}, response)
         });
       },
-      error: function (e) {
+      error: function (xhr) {
         AppDispatcher.handleServerAction({
           type: REQUEST_MARATHON_DEPLOYMENT_ROLLBACK_ERROR,
-          data: e.message
+          data: {
+            originalDeploymentID: deploymentID,
+            error: RequestUtil.getErrorFromXHR(xhr)
+          }
         });
       }
     });
