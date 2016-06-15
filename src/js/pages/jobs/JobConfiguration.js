@@ -1,17 +1,26 @@
 import React from 'react';
 
-import ChronosStore from '../../stores/ChronosStore';
 import DescriptionList from '../../components/DescriptionList';
 
 class JobConfiguration extends React.Component {
+  getSchedule(job) {
+    let lastSchedule = job.getSchedules()[0];
+
+    if (!!lastSchedule && !!lastSchedule.cron) {
+      return lastSchedule.cron;
+    }
+
+    return 'No schedule available.';
+  }
+
   render() {
-    let job = ChronosStore.getJob(this.props.jobID);
+    let {job} = this.props;
 
     return (
       <DescriptionList
         hash={{
           Command: job.getCommand(),
-          Schedule: job.getSchedules()[0].cron
+          Schedule: this.getSchedule(job)
         }} />
     );
   }

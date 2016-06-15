@@ -153,6 +153,11 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
   getSubTitle(job) {
     let longestRunningActiveRun = job.getActiveRuns()
       .getLongestRunningActiveRun();
+
+    if (!longestRunningActiveRun) {
+      return null;
+    }
+
     let longestRunningTask = longestRunningActiveRun.getTasks()
       .getLongestRunningTask();
     let dateCompleted = longestRunningTask.getDateCompleted();
@@ -184,12 +189,12 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
     ];
   }
 
-  renderConfigurationTabView() {
-    return <JobConfiguration jobID={this.props.params.id} />;
+  renderConfigurationTabView(job) {
+    return <JobConfiguration job={job} />;
   }
 
-  renderRunHistoryTabView() {
-    return <JobRunHistoryTable jobID={this.props.params.id} />;
+  renderRunHistoryTabView(job) {
+    return <JobRunHistoryTable job={job} />;
   }
 
   render() {
@@ -211,7 +216,7 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
           subTitle={this.getSubTitle(job)}
           subTitleClassName={{emphasize: false}}
           title={job.getDescription()} />
-          {this.tabs_getTabView()}
+          {this.tabs_getTabView(job)}
       </div>
     );
   }

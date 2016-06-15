@@ -1,12 +1,10 @@
 import classNames from 'classnames';
 import React from 'react';
 
-import ChronosStore from '../../stores/ChronosStore';
 import DateUtil from '../../utils/DateUtil';
 import ExpandingTable from '../../components/ExpandingTable';
 import FilterHeadline from '../../components/FilterHeadline';
 import JobStates from '../../constants/JobStates';
-import StringUtil from '../../utils/StringUtil';
 import TaskStates from '../../constants/TaskStates';
 
 class JobRunHistoryTable extends React.Component {
@@ -190,17 +188,15 @@ class JobRunHistoryTable extends React.Component {
   }
 
   render() {
-    let job = ChronosStore.getJob(this.props.jobID);
+    let {job} = this.props;
     let activeRunCount = job.getActiveRuns().getItems().length;
-
-    let filterHeadlineLabel = StringUtil.pluralize('Run', activeRunCount);
 
     return (
       <div>
         <FilterHeadline
           currentLength={activeRunCount}
           inverseStyle={true}
-          name={filterHeadlineLabel}
+          name="Run"
           onReset={function () {}}
           totalLength={activeRunCount} />
         <ExpandingTable
