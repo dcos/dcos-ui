@@ -28,6 +28,74 @@ const METHODS_TO_BIND = [
   'onMarathonStoreServiceEditSuccess'
 ];
 
+const serverResponseMappings = {
+  'error.path.missing': 'Specify a path',
+  'error.minLength': 'Field may not be blank',
+  'error.expected.jsnumber': 'A number is expected',
+  'error.expected.jsstring': 'A string is expected'
+};
+
+const responseAttributePathToFieldIdMap = {
+  'id': 'appId',
+  'apps': 'appId',
+  '/id': 'appId',
+  '/acceptedResourceRoles': 'acceptedResourceRoles',
+  '/cmd': 'cmd',
+  '/constraints': 'constraints',
+  '/constraints({INDEX})': 'constraints',
+  '/container/docker/forcePullImage': 'dockerForcePullImage',
+  '/container/docker/image': 'dockerImage',
+  '/container/docker/network': 'dockerNetwork',
+  '/container/docker/privileged': 'dockerPrivileged',
+  '/container/docker/parameters({INDEX})/key':
+    'dockerParameters/{INDEX}/key',
+  '/container/docker/parameters({INDEX})/value':
+    'dockerParameters/{INDEX}/value',
+  '/container/volumes({INDEX})/containerPath':
+    'containerVolumes/{INDEX}/containerPath',
+  '/container/volumes({INDEX})/hostPath':
+    'containerVolumes/{INDEX}/hostPath',
+  '/container/volumes({INDEX})/mode':
+    'containerVolumes/{INDEX}/mode',
+  '/cpus': 'cpus',
+  '/disk': 'disk',
+  '/env': 'env',
+  '/executor': 'executor',
+  '/healthChecks({INDEX})/command/value':
+    'healthChecks/{INDEX}/command',
+  '/healthChecks({INDEX})/path':
+    'healthChecks/{INDEX}/path',
+  '/healthChecks({INDEX})/intervalSeconds':
+    'healthChecks/{INDEX}/intervalSeconds',
+  '/healthChecks({INDEX})/port':
+    'healthChecks/{INDEX}/port',
+  '/healthChecks({INDEX})/portIndex':
+    'healthChecks/{INDEX}/portIndex',
+  '/healthChecks({INDEX})/timeoutSeconds':
+    'healthChecks/{INDEX}/timeoutSeconds',
+  '/healthChecks({INDEX})/gracePeriodSeconds':
+    'healthChecks/{INDEX}/gracePeriodSeconds',
+  '/healthChecks({INDEX})/maxConsecutiveFailures':
+    'healthChecks/{INDEX}/maxConsecutiveFailures',
+  '/instances': 'instances',
+  '/mem': 'mem',
+  '/portDefinitions': 'portDefinitions',
+  '/portDefinitions({INDEX})/name': 'portDefinitions/{INDEX}/name',
+  '/portDefinitions({INDEX})/port': 'portDefinitions/{INDEX}/port',
+  '/portDefinitions({INDEX})/protocol': 'portDefinitions/{INDEX}/protocol',
+  '/container/docker/portMappings': 'dockerPortMappings',
+  '/container/docker/portMappings({INDEX})/containerPort':
+    'dockerPortMappings/{INDEX}/port',
+  '/container/docker/portMappings({INDEX})/protocol':
+    'dockerPortMappings/{INDEX}/protocol',
+  '/container/docker/portMappings({INDEX})/hostPort': 'dockerPortMappings',
+  '/container/docker/portMappings({INDEX})/servicePort': 'dockerPortMappings',
+  '/labels': 'labels',
+  '/uris': 'uris',
+  '/user': 'user',
+  '/': 'general'
+};
+
 class ServiceFormModal extends mixin(StoreMixin) {
   constructor() {
     super(...arguments);
@@ -83,6 +151,9 @@ class ServiceFormModal extends mixin(StoreMixin) {
   }
 
   handleClearError() {
+    if (this.state.errorMessage == null) {
+      return;
+    }
     this.setState({
       errorMessage: null
     });
@@ -156,7 +227,11 @@ class ServiceFormModal extends mixin(StoreMixin) {
       return;
     }
     if (this.triggerSubmit) {
-      let {model} = this.triggerSubmit();
+      let {model, isValidated} = this.triggerSubmit();
+
+      if (!isValidated) {
+        return;
+      }
       let service = ServiceUtil.createServiceFromFormModel(model);
       this.setState({service, model, errorMessage: null});
       marathonAction(ServiceUtil.getAppDefinitionFromService(service));
@@ -173,19 +248,49 @@ class ServiceFormModal extends mixin(StoreMixin) {
       return null;
     }
 
+    let errorList = null;
+    if (errorMessage.details != null) {
+      errorList = errorMessage.details.map(function ({path, errors}) {
+        let fieldId = 'general';
+
+        // Check if attributePath contains an index like path(0)/attribute
+        // Matches as defined: [0] : '(0)', [1]: '0'
+        let matches = path.match(/\(([0-9]+)\)/);
+        if (matches != null) {
+          let resolvePath = responseAttributePathToFieldIdMap[
+            path.replace(matches[0], '({INDEX})')
+          ];
+          if (resolvePath != null) {
+            fieldId = resolvePath.replace('{INDEX}', matches[1]);
+          }
+        } else {
+          fieldId = responseAttributePathToFieldIdMap[path];
+        }
+        errors = errors.map(function (error) {
+          if (serverResponseMappings[error]) {
+            return serverResponseMappings[error];
+          }
+          return error;
+        });
+
+        return (
+          <li key={path}>
+            {`${fieldId}: ${errors}`}
+          </li>
+        );
+      });
+    }
+
     return (
       <div>
-        <h4 className="text-align-center text-danger flush-top">
-          {errorMessage.message}
-        </h4>
-        <pre className="text-danger">
-          {JSON.stringify(errorMessage.details, null, 2)}
-        </pre>
-        <button
-          className="button button-small button-danger flush-bottom"
-          onClick={this.handleClearError}>
-          clear
-        </button>
+        <div className="error-field text-danger">
+          <h4 className="text-align-center text-danger flush-top">
+            {errorMessage.message}
+          </h4>
+          <ul>
+            {errorList}
+          </ul>
+        </div>
       </div>
     );
   }
@@ -241,6 +346,7 @@ class ServiceFormModal extends mixin(StoreMixin) {
       <ServiceForm
         getTriggerSubmit={this.getTriggerSubmit}
         model={model}
+        onChange={this.handleClearError}
         schema={ServiceSchema}/>
     );
   }
@@ -257,7 +363,7 @@ class ServiceFormModal extends mixin(StoreMixin) {
         backdropClass="modal-backdrop default-cursor"
         maxHeightPercentage={.9}
         bodyClass=""
-        modalWrapperClass="multiple-form-modal"
+        modalWrapperClass="multiple-form-modal modal-form"
         innerBodyClass=""
         open={this.props.open}
         showCloseButton={false}

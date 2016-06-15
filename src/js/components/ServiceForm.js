@@ -1,7 +1,6 @@
 import React from 'react';
 
 import SchemaForm from './SchemaForm';
-import SchemaFormUtil from '../utils/SchemaFormUtil';
 
 const METHODS_TO_BIND = [
   'handleFormChange',
@@ -28,18 +27,14 @@ class ServiceForm extends SchemaForm {
 
   handleFormChange() {
     // Handle the form change in the way service needs here.
+    this.props.onChange(...arguments);
     return;
   }
 
-  getDataTriple() {
-    let model = this.triggerTabFormSubmit();
-    return {
-      model: SchemaFormUtil.processFormModel(model, this.multipleDefinition)
-    };
-  }
-
   validateForm() {
+    this.model = this.triggerTabFormSubmit();
     // Handle the form change in the way service needs here.
+    this.isValidated = true;
     return true;
   }
 }
