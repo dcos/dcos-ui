@@ -1,4 +1,4 @@
-import classNames from 'classnames';
+import classNames from 'classnames/dedupe';
 import {Form, Tooltip} from 'reactjs-components';
 import GeminiScrollbar from 'react-gemini-scrollbar';
 import React from 'react';
@@ -114,9 +114,13 @@ class TabForm extends React.Component {
 
   getSideContent(multipleDefinition) {
     let {currentTab} = this.state;
+    let classes = classNames(
+      'column-mini-12 column-small-4 multiple-form-left-column',
+      this.props.navigationContentClassNames
+    );
 
     return (
-      <div className="column-mini-12 column-small-4 multiple-form-left-column">
+      <div className={classes}>
         <SideTabs
           onTabClick={this.handleTabClick}
           selectedTab={currentTab}
@@ -128,7 +132,10 @@ class TabForm extends React.Component {
   getFormPanels() {
     let currentTab = this.state.currentTab;
     let multipleDefinition = this.props.definition;
-    let multipleDefinitionClasses = 'multiple-form-right-column column-mini-12 column-small-8';
+    let multipleDefinitionClasses = classNames(
+      'multiple-form-right-column column-mini-12 column-small-8',
+      this.props.formContentClassNames
+    );
 
     let panels = Object.keys(multipleDefinition).map((formKey, i) => {
       let panelClassSet = classNames('form', {
@@ -190,10 +197,18 @@ TabForm.defaultProps = {
   onSubmit: function () {}
 };
 
+const classPropType = React.PropTypes.oneOfType([
+  React.PropTypes.array,
+  React.PropTypes.object,
+  React.PropTypes.string
+]);
+
 TabForm.propTypes = {
   className: React.PropTypes.string,
   definition: React.PropTypes.object.isRequired,
+  formContentClassNames: classPropType,
   getTriggerSubmit: React.PropTypes.func,
+  navigationContentClassNames: classPropType,
   onChange: React.PropTypes.func,
   onSubmit: React.PropTypes.func
 };
