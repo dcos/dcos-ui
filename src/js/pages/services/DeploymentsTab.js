@@ -33,7 +33,9 @@ const METHODS_TO_BIND = [
   'renderAction',
   'handleRollbackClick',
   'handleRollbackCancel',
-  'handleRollbackConfirm'
+  'handleRollbackConfirm',
+  'onMarathonStoreDeploymentRollbackSuccess',
+  'onMarathonStoreDeploymentRollbackError'
 ];
 
 // collapsing columns are tightly coupled to the left-align caret property;
@@ -53,7 +55,11 @@ class DeploymentsTab extends mixin(StoreMixin) {
 
     this.state = {};
     this.store_listeners = [
-      {name: 'dcos', events: ['change']}
+      {name: 'dcos', events: ['change']},
+      {
+        name: 'marathon',
+        events: ['deploymentRollbackSuccess', 'deploymentRollbackError']
+      }
     ];
 
     METHODS_TO_BIND.forEach((method) => {
