@@ -63,8 +63,7 @@ class JobFormModal extends mixin(StoreMixin) {
     return (nextProps.open !== open ||
       nextState.errorMessage !== errorMessage ||
       nextState.jsonMode !== jsonMode
-    )
-
+    );
   }
 
   onChronosStoreJobCreateSuccess() {
@@ -101,7 +100,7 @@ class JobFormModal extends mixin(StoreMixin) {
       return;
     }
 
-    this.setState({job: JobUtil.createJobFromFormModel(model)})
+    this.setState({job: JobUtil.createJobFromFormModel(model)});
   }
 
   handleInputModeToggle() {
@@ -111,7 +110,7 @@ class JobFormModal extends mixin(StoreMixin) {
   handleJSONEditorChange(jsonDefinition) {
     try {
       let job = new Job(JSON.parse(jsonDefinition));
-      this.setState({job})
+      this.setState({job});
     } catch (error) {
       // TODO: DCOS-7734 Handle error
     }
@@ -124,6 +123,7 @@ class JobFormModal extends mixin(StoreMixin) {
   getErrorMessage() {
     let {errorMessage} = this.state;
     if (!errorMessage) {
+
       return null;
     }
 
@@ -170,7 +170,6 @@ class JobFormModal extends mixin(StoreMixin) {
         model={formModel}
         schema={JobSchema} />
     );
-
   }
 
   getModalFooter() {
