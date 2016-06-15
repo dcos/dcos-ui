@@ -363,7 +363,7 @@ class ServiceFormModal extends mixin(StoreMixin) {
         backdropClass="modal-backdrop default-cursor"
         maxHeightPercentage={.9}
         bodyClass=""
-        modalWrapperClass="multiple-form-modal service-deploy-modal"
+        modalWrapperClass="multiple-form-modal modal-form"
         innerBodyClass=""
         open={this.props.open}
         showCloseButton={false}
