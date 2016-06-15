@@ -55,9 +55,17 @@ class TaskStats extends Item {
     return new TaskStat(stat);
   }
 
+  /**
+   * @return {List} with each of the non-empty types of TaskStat available
+   */
   getList() {
-    let items = Object.keys(functionMap).map((key) => {
-      return this[functionMap[key]]();
+    let items = [];
+
+    Object.keys(functionMap).forEach((key) => {
+      let stat = this[functionMap[key]]();
+      if (!stat.isEmpty()) {
+        items.push(stat);
+      }
     });
 
     return new List({items});

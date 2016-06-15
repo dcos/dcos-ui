@@ -2,6 +2,10 @@ import Item from './Item';
 
 class TaskStat extends Item {
 
+  isEmpty() {
+    return this.get('stats') == null;
+  }
+
   getName() {
     return this.get('name');
   }

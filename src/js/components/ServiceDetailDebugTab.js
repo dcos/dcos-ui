@@ -76,7 +76,7 @@ class ServiceDetailDebugTab extends React.Component {
   getTaskStats() {
     let taskStats = this.props.service.getTaskStats();
 
-    if (taskStats == null || Object.keys(taskStats).length === 0) {
+    if (taskStats.getList().getItems().length === 0) {
       return (
         <p>This app does not have task statistics</p>
       );
