@@ -227,8 +227,9 @@ class ServiceFormModal extends mixin(StoreMixin) {
       return;
     }
     if (this.triggerSubmit) {
-      let {model, isValid} = this.triggerSubmit();
-      if (!isValid) {
+      let {model, isValidated} = this.triggerSubmit();
+
+      if (!isValidated) {
         return;
       }
       let service = ServiceUtil.createServiceFromFormModel(model);
