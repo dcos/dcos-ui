@@ -78,7 +78,8 @@ let nodesRoutes = {
         }
       },
       children: [
-        // This is out here for good reasons.
+        // This route needs to be rendered outside of the tabs that are rendered
+        // in the nodes-task-details route.
         {
           type: Route,
           name: 'item-volume-detail',

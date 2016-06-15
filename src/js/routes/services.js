@@ -70,6 +70,8 @@ let serviceRoutes = {
             }
           },
           children: [
+            // This route needs to be rendered outside of the tabs that are
+            // rendered in the service-task-details route.
             {
               type: Route,
               name: 'service-details-volumes',
@@ -140,7 +142,6 @@ let serviceRoutes = {
                     }
                   }
                 },
-                // This is out here for good reasons.
                 {
                   type: Route,
                   name: 'services-task-details-volumes',
