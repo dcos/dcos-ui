@@ -1,4 +1,5 @@
 import classNames from 'classnames';
+import {Link} from 'react-router';
 import React from 'react';
 
 import DateUtil from '../../utils/DateUtil';
@@ -57,9 +58,9 @@ class JobRunHistoryTable extends React.Component {
     return [
       {
         className: this.getColumnClassName,
-        render: this.renderJobIDColumn.bind(this),
         heading: this.getColumnHeading,
         prop: 'jobID',
+        render: this.renderJobIDColumn.bind(this),
         sortable: true
       },
       {
@@ -138,9 +139,17 @@ class JobRunHistoryTable extends React.Component {
 
   renderJobIDColumn(prop, row, rowOptions = {}) {
     if (!rowOptions.isParent) {
+      let taskID = row.taskID;
+
       return (
         <div className="job-run-history-task-id text-overflow">
-          {row.taskID}
+          <Link
+            className="emphasize clickable text-overflow"
+            to={'jobs-task-details'}
+            params={{'id': this.props.jobID, taskID}}
+            title={taskID}>
+            {taskID}
+          </Link>
         </div>
       );
     }

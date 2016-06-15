@@ -9,6 +9,14 @@ import TaskDirectoryStore from '../../../stores/TaskDirectoryStore';
 import Units from '../../../utils/Units';
 
 class TaskDetailsTab extends React.Component {
+  getDescriptionLists(task) {
+    return [
+      this.getMesosTaskDetailsDescriptionList(task),
+      this.getMesosTaskLabelDescriptionList(task),
+      <MarathonTaskDetailsList taskID={task.id} />
+    ];
+  }
+
   getMesosTaskDetailsDescriptionList(mesosTask) {
     if (mesosTask == null || !MesosSummaryStore.get('statesProcessed')) {
       return null;
@@ -115,9 +123,7 @@ class TaskDetailsTab extends React.Component {
             {this.getResources(task)}
           </div>
         </div>
-        {this.getMesosTaskDetailsDescriptionList(task)}
-        {this.getMesosTaskLabelDescriptionList(task)}
-        <MarathonTaskDetailsList taskID={task.id} />
+        {this.getDescriptionLists(task)}
       </div>
     );
   }

@@ -107,7 +107,7 @@ module.exports = class Job extends Item {
     return this.get('status') || {};
   }
 
-  getTaskByID(id) {
+  getTasks() {
     let activeRunsList = this.getActiveRuns();
 
     if (!activeRunsList) {
@@ -121,6 +121,12 @@ module.exports = class Job extends Item {
     }
 
     let taskList = longestRun.getTasks();
+
+    return taskList;
+  }
+
+  getTaskByID(id) {
+    let taskList = this.getTasks();
 
     if (!taskList) {
       return null;
