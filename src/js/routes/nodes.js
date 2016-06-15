@@ -90,9 +90,16 @@ let nodesRoutes = {
               parentCrumb: 'node-detail',
               getCrumbs: function (router) {
                 return [
-                  <TaskDetailBreadcrumb
-                    parentRouter={router}
-                    routeName="item-volume-detail" />
+                  {
+                    label: 'Volumes',
+                    route: {
+                      params: router.getCurrentParams(),
+                      to: 'nodes-task-details-volumes'
+                    }
+                  },
+                  {
+                    label: router.getCurrentParams().volumeID
+                  }
                 ];
               }
             }

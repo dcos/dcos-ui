@@ -4,10 +4,10 @@ import React from 'react';
 /* eslint-enable no-unused-vars */
 
 import DeploymentsTab from '../pages/services/DeploymentsTab';
-import ServicesPage from '../pages/ServicesPage';
-import ServicesTab from '../pages/services/ServicesTab';
 import ItemVolumeDetail from '../components/ItemVolumeDetail';
 import ItemVolumeTable from '../components/ItemVolumeTable';
+import ServicesPage from '../pages/ServicesPage';
+import ServicesTab from '../pages/services/ServicesTab';
 import TaskDetail from '../pages/services/task-details/TaskDetail';
 import TaskDetailsTab from '../pages/services/task-details/TaskDetailsTab';
 import TaskFilesTab from '../pages/services/task-details/TaskFilesTab';
@@ -74,7 +74,7 @@ let serviceRoutes = {
             // rendered in the service-task-details route.
             {
               type: Route,
-              name: 'service-details-volumes',
+              name: 'service-volume-details',
               path: 'volumes/:volumeID/?',
               handler: ItemVolumeDetail,
               buildBreadCrumb: function () {
@@ -82,9 +82,34 @@ let serviceRoutes = {
                   parentCrumb: 'services-detail',
                   getCrumbs: function (router) {
                     return [
-                      <TaskDetailBreadcrumb
-                        parentRouter={router}
-                        routeName="service-details-volumes" />
+                      {
+                        label: router.getCurrentParams().volumeID
+                      }
+                    ];
+                  }
+                }
+              }
+            },
+            {
+              type: Route,
+              name: 'service-task-details-volume-details',
+              path: 'tasks/:taskID/volumes/:volumeID/?',
+              handler: ItemVolumeDetail,
+              buildBreadCrumb: function () {
+                return {
+                  parentCrumb: 'services-task-details-volumes',
+                  getCrumbs: function (router) {
+                    return [
+                      {
+                        label: 'Volumes',
+                        route: {
+                          params: router.getCurrentParams(),
+                          to: 'services-task-details-volumes'
+                        }
+                      },
+                      {
+                        label: router.getCurrentParams().volumeID
+                      }
                     ];
                   }
                 }
@@ -151,7 +176,7 @@ let serviceRoutes = {
                 {
                   type: Route,
                   name: 'services-task-details-volumes',
-                  path: 'volumes/:volumeID?',
+                  path: 'volumes/?',
                   handler: ItemVolumeTable,
                   buildBreadCrumb: function () {
                     return {

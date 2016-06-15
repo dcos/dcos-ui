@@ -136,11 +136,13 @@ class ItemVolumeTable extends React.Component {
     let currentRouteName = routes[routes.length - 1].name;
     let routeName = null;
 
+    // debugger;
+
     if (currentRouteName === 'services-detail') {
-      routeName = 'service-details-volumes';
+      routeName = 'service-volume-details';
       params.id = this.props.params.id;
     } else if (currentRouteName === 'services-task-details-volumes') {
-      routeName = 'service-details-volumes';
+      routeName = 'service-task-details-volume-details';
       params.id = this.props.params.id;
       params.taskID = this.props.params.taskID;
     } else if (currentRouteName === 'nodes-task-details-volumes') {

@@ -10,6 +10,10 @@ import VolumeStatus from '../constants/VolumeStatus';
 
 class ItemVolumeDetail extends React.Component {
   renderSubHeader(volume) {
+    if (!volume) {
+      return null;
+    }
+
     let status = volume.getStatus();
     let classes = classNames({
       'text-danger': status === VolumeStatus.DETACHED,
@@ -24,8 +28,11 @@ class ItemVolumeDetail extends React.Component {
     let routes = this.context.router.getCurrentRoutes();
     let currentRoute = routes[routes.length - 1];
 
+    let pageContent = null;
     let service = null;
-    if (currentRoute.name === 'service-details-volumes') {
+    let volume = null;
+
+    if (currentRoute.name === 'service-volume-details') {
       let id = decodeURIComponent(params.id);
       service = DCOSStore.serviceTree.findItemById(id);
     } else {
@@ -34,19 +41,23 @@ class ItemVolumeDetail extends React.Component {
       service = MarathonStore.getServiceFromTaskID(params.taskID);
     }
 
-    let volume = service.getVolumes().findItem((volume) => {
-      return volume.getId() === global.decodeURIComponent(params.volumeID);
-    });
+    if (service) {
+      volume = service.getVolumes().findItem((volume) => {
+        return volume.getId() === global.decodeURIComponent(params.volumeID);
+      });
 
-    let detailsHash = {
-      'Container Path': volume.getContainerPath(),
-      'Mode': volume.getMode(),
-      'Size (MiB)': volume.getSize(),
-      'Application': service.getId(),
-      // TODO: Figure out how to get the correct task ID.
-      // 'Task ID': volume.getId(),
-      'Host': volume.getHost()
-    };
+      let detailsHash = {
+        'Container Path': volume.getContainerPath(),
+        'Mode': volume.getMode(),
+        'Size (MiB)': volume.getSize(),
+        'Application': service.getId(),
+        // TODO: Figure out how to get the correct task ID.
+        // 'Task ID': volume.getId(),
+        'Host': volume.getHost()
+      };
+
+      pageContent = <DescriptionList hash={detailsHash} />;
+    }
 
     return (
       <div>
@@ -58,7 +69,7 @@ class ItemVolumeDetail extends React.Component {
           }}
           subTitle={this.renderSubHeader(volume)}
           title={volume.getId()} />
-        <DescriptionList hash={detailsHash} />
+        {pageContent}
       </div>
     );
   }
