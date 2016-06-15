@@ -332,6 +332,19 @@ describe('MarathonStore', function () {
       expect(handler).toBeCalled();
     });
 
+    it('should emit a rollback success event', function () {
+      let handler = jest.genMockFunction();
+      MarathonStore
+        .once(EventTypes.MARATHON_DEPLOYMENT_ROLLBACK_SUCCESS, handler);
+      MarathonStore.processMarathonDeploymentRollback({
+        originalDeploymentID: 'deployment-id'
+      });
+      expect(handler).toBeCalledWith({
+        originalDeploymentID: 'deployment-id'
+      });
+
+    });
+
   });
 
   describe('#get storeID', function () {

@@ -15,6 +15,7 @@ import {
   MARATHON_GROUPS_ERROR,
   MARATHON_DEPLOYMENTS_CHANGE,
   MARATHON_DEPLOYMENTS_ERROR,
+  MARATHON_DEPLOYMENT_ROLLBACK_SUCCESS,
   MARATHON_QUEUE_CHANGE,
   MARATHON_QUEUE_ERROR,
   MARATHON_SERVICE_CREATE_ERROR,
@@ -376,6 +377,7 @@ class MarathonStore extends GetSetBaseStore {
           return deployment.getId() !== id;
         });
       this.set({deployments});
+      this.emit(MARATHON_DEPLOYMENT_ROLLBACK_SUCCESS, data);
       this.emit(MARATHON_DEPLOYMENTS_CHANGE);
     }
   }
