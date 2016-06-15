@@ -1,12 +1,14 @@
 import classNames from 'classnames';
 import React from 'react';
 
+import Breadcrumbs from '../components/Breadcrumbs';
 import DescriptionList from './DescriptionList';
+import DCOSStore from '../stores/DCOSStore';
+import MarathonStore from '../stores/MarathonStore';
 import PageHeader from './PageHeader';
 import VolumeStatus from '../constants/VolumeStatus';
 
-class ServiceVolumeDetail extends React.Component {
-
+class ItemVolumeDetail extends React.Component {
   renderSubHeader(volume) {
     let status = volume.getStatus();
     let classes = classNames({
@@ -18,7 +20,19 @@ class ServiceVolumeDetail extends React.Component {
   }
 
   render() {
-    let {params, service} = this.props;
+    let {params} = this.props;
+    let routes = this.context.router.getCurrentRoutes();
+    let currentRoute = routes[routes.length - 1];
+
+    let service = null;
+    if (currentRoute.name === 'service-details-volumes') {
+      let id = decodeURIComponent(params.id);
+      service = DCOSStore.serviceTree.findItemById(id);
+    } else {
+      // This `if` will be executed if you look at volumes in a taskID for
+      // both a service or a single node
+      service = MarathonStore.getServiceFromTaskID(params.taskID);
+    }
 
     let volume = service.getVolumes().findItem((volume) => {
       return volume.getId() === global.decodeURIComponent(params.volumeID);
@@ -36,6 +50,7 @@ class ServiceVolumeDetail extends React.Component {
 
     return (
       <div>
+        <Breadcrumbs />
         <PageHeader
           dividerClassName={{
             'container-pod-divider-bottom': false,
@@ -49,8 +64,12 @@ class ServiceVolumeDetail extends React.Component {
   }
 }
 
-ServiceVolumeDetail.propTypes = {
+ItemVolumeDetail.propTypes = {
   params: React.PropTypes.object
 };
 
-module.exports = ServiceVolumeDetail;
+ItemVolumeDetail.contextTypes = {
+  router: React.PropTypes.func
+};
+
+module.exports = ItemVolumeDetail;

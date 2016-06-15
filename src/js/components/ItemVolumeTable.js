@@ -8,7 +8,7 @@ import VolumeStatus from '../constants/VolumeStatus';
 
 const METHODS_TO_BIND = ['renderIDColumn'];
 
-class ServiceVolumeTable extends React.Component {
+class ItemVolumeTable extends React.Component {
   constructor() {
     super();
 
@@ -129,13 +129,24 @@ class ServiceVolumeTable extends React.Component {
 
   renderIDColumn(prop, row) {
     let id = row[prop];
-    let params = Object.assign({}, this.props.params);
-    let routeName = 'services-volume-details';
+    let params = {
+      volumeID: global.encodeURIComponent(id)
+    };
+    let routes = this.context.router.getCurrentRoutes();
+    let currentRouteName = routes[routes.length - 1].name;
+    let routeName = null;
 
-    params.volumeID = global.encodeURIComponent(id);
-
-    if (params.taskID) {
-      routeName = 'services-task-volume-details';
+    if (currentRouteName === 'services-detail') {
+      routeName = 'service-details-volumes';
+      params.id = this.props.params.id;
+    } else if (currentRouteName === 'services-task-details-volumes') {
+      routeName = 'service-details-volumes';
+      params.id = this.props.params.id;
+      params.taskID = this.props.params.taskID;
+    } else if (currentRouteName === 'nodes-task-details-volumes') {
+      routeName = 'item-volume-detail';
+      params.nodeID = this.props.params.nodeID;
+      params.taskID = this.props.params.taskID;
     }
 
     return <Link to={routeName} params={params}>{id}</Link>;
@@ -168,8 +179,12 @@ class ServiceVolumeTable extends React.Component {
 
 }
 
-ServiceVolumeTable.propTypes = {
+ItemVolumeTable.propTypes = {
   volumes: React.PropTypes.arrayOf(React.PropTypes.instanceOf(Volume))
 };
 
-module.exports = ServiceVolumeTable;
+ItemVolumeTable.contextTypes = {
+  router: React.PropTypes.func
+};
+
+module.exports = ItemVolumeTable;

@@ -4,17 +4,19 @@ import React from 'react';
 /* eslint-enable no-unused-vars */
 
 import HostTable from '../components/HostTable';
+import ItemVolumeDetail from '../components/ItemVolumeDetail';
 import NodeDetailBreadcrumb from '../pages/nodes/breadcrumbs/NodeDetailBreadcrumb';
 import NodeDetailPage from '../pages/nodes/NodeDetailPage';
 import NodesGridView from '../components/NodesGridView';
 import NodesPage from '../pages/NodesPage';
-import UnitsHealthNodeDetail from '../pages/system/UnitsHealthNodeDetail';
-import UnitsHealthNodeDetailPage from '../pages/nodes/UnitsHealthNodeDetailPage';
 import TaskDetail from '../pages/services/task-details/TaskDetail';
 import TaskDetailsTab from '../pages/services/task-details/TaskDetailsTab';
 import TaskFilesTab from '../pages/services/task-details/TaskFilesTab';
 import TaskLogsTab from '../pages/services/task-details/TaskLogsTab';
 import TaskDetailBreadcrumb from '../pages/nodes/breadcrumbs/TaskDetailBreadcrumb';
+import TaskVolumesTab from '../pages/services/task-details/TaskVolumesTab';
+import UnitsHealthNodeDetail from '../pages/system/UnitsHealthNodeDetail';
+import UnitsHealthNodeDetailPage from '../pages/nodes/UnitsHealthNodeDetailPage';
 
 let nodesRoutes = {
   type: Route,
@@ -76,6 +78,25 @@ let nodesRoutes = {
         }
       },
       children: [
+        // This is out here for good reasons.
+        {
+          type: Route,
+          name: 'item-volume-detail',
+          path: ':nodeID/tasks/:taskID/volumes/:volumeID/?',
+          handler: ItemVolumeDetail,
+          buildBreadCrumb: function () {
+            return {
+              parentCrumb: 'nodes-task-details-volumes',
+              getCrumbs: function (router) {
+                return [
+                  <TaskDetailBreadcrumb
+                    parentRouter={router}
+                    routeName="item-volume-detail" />
+                ];
+              }
+            }
+          }
+        },
         {
           type: Route,
           path: 'tasks/:taskID/?',
@@ -127,6 +148,18 @@ let nodesRoutes = {
               path: 'logs/?',
               handler: TaskLogsTab,
               hideHeaderNavigation: true,
+              buildBreadCrumb: function () {
+                return {
+                  parentCrumb: 'nodes-task-details',
+                  getCrumbs: function () { return []; }
+                }
+              }
+            },
+            {
+              type: Route,
+              name: 'nodes-task-details-volumes',
+              path: 'volumes/:volumeID?',
+              handler: TaskVolumesTab,
               buildBreadCrumb: function () {
                 return {
                   parentCrumb: 'nodes-task-details',
