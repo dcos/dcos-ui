@@ -13,7 +13,7 @@ function setDefinitionValue(thingToSet, definition, renderRemove) {
   let {path, value} = thingToSet;
   let definitionToSet = SchemaFormUtil.getDefinitionFromPath(definition, path);
 
-  if (Array.isArray(value)) {
+  if (Array.isArray(value) && value.length !== 0) {
     let prop = path[path.length - 1];
 
     let firstIndex = 0;

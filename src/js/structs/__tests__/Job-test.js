@@ -6,7 +6,7 @@ describe('Job', function () {
   describe('#getActiveRuns', function () {
 
     it('returns an instance of JobActiveRunList', function () {
-      let job = new Job({id: '/foo', activeRuns: []});
+      let job = new Job({id: 'foo', activeRuns: []});
 
       expect(job.getActiveRuns() instanceof JobActiveRunList).toBeTruthy();
     });
@@ -16,7 +16,7 @@ describe('Job', function () {
   describe('#getCommand', function () {
 
     it('returns the command', function () {
-      let job = new Job({id: '/foo', run: {cmd: 'foo'}});
+      let job = new Job({id: 'foo', run: {cmd: 'foo'}});
 
       expect(job.getCommand()).toEqual('foo');
     });
@@ -42,7 +42,7 @@ describe('Job', function () {
       });
 
       expect(job.getCpus()).toEqual(2);
-    })
+    });
 
     it('defaults to the correct value if property is undefined', function () {
       let job = new Job({
@@ -65,10 +65,34 @@ describe('Job', function () {
   describe('#getDescription', function () {
 
     it('returns the description', function () {
-      let job = new Job({id: '/foo', description: 'bar'});
+      let job = new Job({id: 'foo', description: 'bar'});
 
       expect(job.getDescription()).toEqual('bar');
     });
+
+  });
+
+  describe('#getDocker', function () {
+
+    it('returns the docker configuration', function () {
+      let job = new Job({id: 'foo', run: {docker: {image: 'busybox'}}});
+
+      expect(job.getDocker()).toEqual({image: 'busybox'});
+    });
+
+    it('defaults to an empty object if property is undefined', function () {
+      let job = new Job({run: {}});
+
+      expect(job.getDocker()).toEqual({});
+    });
+
+    it('defaults to an empty object  if run configuration is undefined',
+      function () {
+        let job = new Job({run: {}});
+
+        expect(job.getDocker()).toEqual({});
+      }
+    );
 
   });
 
@@ -76,7 +100,7 @@ describe('Job', function () {
 
     it('returns the correct disk', function () {
       let job = new Job({
-        run:{
+        run: {
           disk: 125
         }
       });
@@ -164,6 +188,78 @@ describe('Job', function () {
 
   });
 
+  describe('#getLastRunStatus', function () {
+
+    it('returns an object with the time in ms', function () {
+      let job = new Job({
+        id: 'test.job',
+        status: {
+          lastSuccessAt: '1990-04-30T00:00:00Z',
+          lastFailureAt: '1985-04-30T00:00:00Z'
+        }
+      });
+
+      expect(job.getLastRunStatus().time).toEqual(641433600000);
+    });
+
+    it('returns the most recent status', function () {
+      let job = new Job({
+        id: 'test.job',
+        status: {
+          lastSuccessAt: '1990-04-30T00:00:00Z',
+          lastFailureAt: '1985-04-30T00:00:00Z'
+        }
+      });
+
+      expect(job.getLastRunStatus().status).toEqual('Success');
+    });
+
+    it('returns the most recent status', function () {
+      let job = new Job({
+        id: 'test.job',
+        status: {
+          lastSuccessAt: '1985-04-30T00:00:00Z',
+          lastFailureAt: '1990-04-30T00:00:00Z'
+        }
+      });
+
+      expect(job.getLastRunStatus().status).toEqual('Failed');
+    });
+
+    it('returns N/A status if both are undefiend', function () {
+      let job = new Job({
+        id: 'test.job',
+        status: {}
+      });
+
+      expect(job.getLastRunStatus().status).toEqual('N/A');
+      expect(job.getLastRunStatus().time).toEqual(null);
+    });
+
+    it('returns success if lastFailureAt is undefiend', function () {
+      let job = new Job({
+        id: 'test.job',
+        status: {
+          lastSuccessAt: '1990-04-30T00:00:00Z'
+        }
+      });
+
+      expect(job.getLastRunStatus().status).toEqual('Success');
+    });
+
+    it('returns success if lastFailureAt is undefiend', function () {
+      let job = new Job({
+        id: 'test.job',
+        status: {
+          lastFailureAt: '1990-04-30T00:00:00Z'
+        }
+      });
+
+      expect(job.getLastRunStatus().status).toEqual('Failed');
+    });
+
+  });
+
   describe('#getName', function () {
 
     it('returns correct name', function () {
@@ -177,9 +273,91 @@ describe('Job', function () {
   describe('#getSchedules', function () {
 
     it('returns the schedules', function () {
-      let job = new Job({id: '/foo', schedules: ['bar']});
+      let job = new Job({id: 'foo', schedules: ['bar']});
 
       expect(job.getSchedules()).toEqual(['bar']);
+    });
+
+    it('returns an empty array if schedules is undefined', function () {
+      let job = new Job({id: '/foo'});
+
+      expect(job.getSchedules()).toEqual([]);
+    });
+
+  });
+
+  describe('#getScheduleStatus', function () {
+
+    it('returns the longest running job\'s status', function () {
+      let job = new Job({
+        id: '/foo',
+        activeRuns: [{
+          status: 'foo',
+          createdAt: '1985-01-03t00:00:00z-1'
+        }, {
+          status: 'bar',
+          createdAt: '1990-01-03t00:00:00z-1'
+        }],
+        schedules: ['bar']
+      });
+
+      expect(job.getScheduleStatus()).toEqual('foo');
+    });
+
+    it('returns scheduled if there are no active runs and the schedule is enabled', function () {
+      let job = new Job({
+        id: '/foo',
+        activeRuns: [],
+        schedules: [{
+          enabled: true
+        }]
+      });
+
+      expect(job.getScheduleStatus()).toEqual('scheduled');
+    });
+
+    it('returns completed if there are no active runs and no enabled schedule', function () {
+      let job = new Job({
+        id: '/foo',
+        activeRuns: [],
+        scheduled: [{
+          enabled: false
+        }]
+      });
+
+      expect(job.getScheduleStatus()).toEqual('completed');
+    });
+
+    it('returns completed if there are no active runs and no schedule', function () {
+      let job = new Job({
+        id: '/foo',
+        activeRuns: []
+      });
+
+      expect(job.getScheduleStatus()).toEqual('completed');
+    });
+
+  });
+
+  describe('#getStatus', function () {
+
+    it('returns the status key', function () {
+      let job = new Job({
+        id: '/foo',
+        status: {
+          lastRunAt: 0
+        }
+      });
+
+      expect(job.getStatus()).toEqual({lastRunAt: 0});
+    });
+
+    it('returns empty object when status is undefined', function () {
+      let job = new Job({
+        id: '/foo'
+      });
+
+      expect(job.getStatus()).toEqual({});
     });
 
   });

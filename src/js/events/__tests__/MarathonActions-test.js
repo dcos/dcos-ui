@@ -113,6 +113,109 @@ describe('MarathonActions', function () {
 
   });
 
+  describe('#deleteService', function () {
+    const appDefiniton = {
+      id: '/test'
+    };
+
+    beforeEach(function () {
+      spyOn(RequestUtil, 'json');
+      MarathonActions.deleteService(appDefiniton.id);
+      this.configuration = RequestUtil.json.calls.mostRecent().args[0];
+    });
+
+    it('calls #json from the RequestUtil', function () {
+      expect(RequestUtil.json).toHaveBeenCalled();
+    });
+
+    it('sends data to the correct URL', function () {
+      expect(this.configuration.url)
+        .toEqual(`${Config.rootUrl}/marathon/v2/apps//test`);
+    });
+
+    it('uses DELETE for the request method', function () {
+      expect(this.configuration.method).toEqual('DELETE');
+    });
+
+    it('dispatches the correct action when successful', function () {
+      var id = AppDispatcher.register(function (payload) {
+        var action = payload.action;
+        AppDispatcher.unregister(id);
+        expect(action.type)
+          .toEqual(ActionTypes.REQUEST_MARATHON_SERVICE_DELETE_SUCCESS);
+      });
+
+      this.configuration.success({
+        'version': '2016-05-13T10:26:55.840Z',
+        'deploymentId': '6119207e-a146-44b4-9c6f-0e4227dc04a5'
+      });
+    });
+
+    it('dispatches the correct action when unsucessful', function () {
+      var id = AppDispatcher.register(function (payload) {
+        var action = payload.action;
+        AppDispatcher.unregister(id);
+        expect(action.type)
+          .toEqual(ActionTypes.REQUEST_MARATHON_SERVICE_DELETE_ERROR);
+      });
+
+      this.configuration.error({message: 'error', response: '{}'});
+    });
+
+  });
+
+  describe('#editService', function () {
+    const appDefiniton = {
+      id: '/test',
+      cmd: 'sleep 100;'
+    };
+
+    beforeEach(function () {
+      spyOn(RequestUtil, 'json');
+      MarathonActions.editService(appDefiniton);
+      this.configuration = RequestUtil.json.calls.mostRecent().args[0];
+    });
+
+    it('calls #json from the RequestUtil', function () {
+      expect(RequestUtil.json).toHaveBeenCalled();
+    });
+
+    it('sends data to the correct URL', function () {
+      expect(this.configuration.url)
+        .toEqual(`${Config.rootUrl}/marathon/v2/apps//test`);
+    });
+
+    it('uses PUT for the request method', function () {
+      expect(this.configuration.method).toEqual('PUT');
+    });
+
+    it('dispatches the correct action when successful', function () {
+      var id = AppDispatcher.register(function (payload) {
+        var action = payload.action;
+        AppDispatcher.unregister(id);
+        expect(action.type)
+          .toEqual(ActionTypes.REQUEST_MARATHON_SERVICE_EDIT_SUCCESS);
+      });
+
+      this.configuration.success({
+        'version': '2016-05-13T10:26:55.840Z',
+        'deploymentId': '6119207e-a146-44b4-9c6f-0e4227dc04a5'
+      });
+    });
+
+    it('dispatches the correct action when unsucessful', function () {
+      var id = AppDispatcher.register(function (payload) {
+        var action = payload.action;
+        AppDispatcher.unregister(id);
+        expect(action.type)
+          .toEqual(ActionTypes.REQUEST_MARATHON_SERVICE_EDIT_ERROR);
+      });
+
+      this.configuration.error({message: 'error', response: '{}'});
+    });
+
+  });
+
   describe('#fetchDeployments', function () {
 
     beforeEach(function () {

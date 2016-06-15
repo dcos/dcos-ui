@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import {Dropdown} from 'reactjs-components';
 import React from 'react';
 
@@ -17,6 +18,8 @@ class ServiceInfo extends React.Component {
   }
 
   getActionButtons() {
+    const {service} = this.props;
+
     const dropdownItems = [{
       className: 'hidden',
       id: ServiceActionItem.MORE,
@@ -26,6 +29,9 @@ class ServiceInfo extends React.Component {
       id: ServiceActionItem.SCALE,
       html: 'Scale'
     }, {
+      className: classNames({
+        hidden: service.getInstancesCount() === 0
+      }),
       id: ServiceActionItem.SUSPEND,
       html: 'Suspend'
     }, {
@@ -54,7 +60,6 @@ class ServiceInfo extends React.Component {
         transition={true}
         transitionName="dropdown-menu" />
     )];
-    let {service} = this.props;
 
     if (service instanceof Framework && service.getWebURL()) {
       actionButtons.unshift(

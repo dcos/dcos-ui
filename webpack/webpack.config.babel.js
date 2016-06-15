@@ -109,6 +109,10 @@ module.exports = {
         loader: 'json-loader'
       },
       {
+        test: /icons(.*)\.svg/,
+        loader: 'babel!svg-react'
+      },
+      {
         test: /\.(ico|icns)$/,
         loader: 'file?name=[hash]-[name].[ext]',
       }
