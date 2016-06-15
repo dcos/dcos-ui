@@ -72,6 +72,7 @@ class DeploymentsTab extends mixin(StoreMixin) {
     if (deploymentToRollback != null &&
         deploymentToRollback.getId() === data.originalDeploymentID) {
       this.setState({
+        awaitingRevertDeploymentResponse: false,
         deploymentToRollback: null,
         deploymentRollbackError: null
       });
@@ -82,7 +83,10 @@ class DeploymentsTab extends mixin(StoreMixin) {
     let {deploymentToRollback} = this.state;
     if (deploymentToRollback != null &&
         deploymentToRollback.getId() === data.originalDeploymentID) {
-      this.setState({deploymentRollbackError: data.error});
+      this.setState({
+        awaitingRevertDeploymentResponse: false,
+        deploymentRollbackError: data.error
+      });
     }
   }
 
@@ -184,6 +188,7 @@ class DeploymentsTab extends mixin(StoreMixin) {
 
   handleRollbackCancel() {
     this.setState({
+      awaitingRevertDeploymentResponse: false,
       deploymentToRollback: null,
       deploymentRollbackError: null
     });
@@ -192,6 +197,7 @@ class DeploymentsTab extends mixin(StoreMixin) {
   handleRollbackConfirm() {
     let {deploymentToRollback} = this.state;
     if (deploymentToRollback != null) {
+      this.setState({awaitingRevertDeploymentResponse: true});
       MarathonActions.revertDeployment(deploymentToRollback.getId());
     }
   }
@@ -274,12 +280,17 @@ class DeploymentsTab extends mixin(StoreMixin) {
   }
 
   renderRollbackModal() {
-    let {deploymentToRollback, deploymentRollbackError} = this.state;
+    let {
+      awaitingRevertDeploymentResponse,
+      deploymentToRollback,
+      deploymentRollbackError
+    } = this.state;
 
     if (deploymentToRollback != null) {
       return (
         <Confirm
           closeByBackdropClick={true}
+          disabled={!!awaitingRevertDeploymentResponse}
           footerContainerClass="container container-pod container-pod-short
             container-pod-fluid flush-top flush-bottom"
           onClose={this.handleRollbackCancel}
