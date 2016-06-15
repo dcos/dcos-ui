@@ -263,4 +263,27 @@ describe('Job', function () {
 
   });
 
+  describe('#getStatus', function () {
+
+    it('returns the status key', function () {
+      let job = new Job({
+        id: '/foo',
+        status: {
+          lastRunAt: 0
+        }
+      });
+
+      expect(job.getStatus()).toEqual({lastRunAt: 0});
+    });
+
+    it('returns empty object when status is undefined', function () {
+      let job = new Job({
+        id: '/foo'
+      });
+
+      expect(job.getStatus()).toEqual({});
+    });
+
+  });
+
 });
