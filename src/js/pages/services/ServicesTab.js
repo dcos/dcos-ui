@@ -28,6 +28,7 @@ var DEFAULT_FILTER_OPTIONS = {
   filterHealth: null,
   filterOther: null,
   filterStatus: null,
+  filterLabels: null,
   searchString: ''
 };
 
@@ -220,6 +221,7 @@ var ServicesTab = React.createClass({
     let services = item.getItems();
     let filteredServices = item.filterItemsByFilter({
       health: state.filterHealth,
+      labels: state.filterLabels,
       other: state.filterOther,
       status: state.filterStatus,
       id: state.searchString

@@ -10,6 +10,7 @@ import ServiceStatusLabels from '../constants/ServiceStatusLabels';
 import ServiceStatusTypes from '../constants/ServiceStatusTypes';
 import ServiceTree from '../structs/ServiceTree';
 import HealthLabels from '../constants/HealthLabels';
+import SidebarLabelsFilter from './SidebarLabelsFilter';
 import SidebarFilter from './SidebarFilter';
 
 const PropTypes = React.PropTypes;
@@ -92,6 +93,7 @@ class ServiceSidebarFilters extends React.Component {
           filterLabels={ServiceStatusLabels}
           handleFilterChange={props.handleFilterChange}
           title="STATUS" />
+        <SidebarLabelsFilter {...props}/>
         <SidebarFilter
           countByValue={otherCount}
           filterType={ServiceFilterTypes.OTHER}
