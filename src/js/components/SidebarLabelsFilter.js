@@ -81,6 +81,7 @@ class SidebarLabelsFilters extends mixin(QueryParamsMixin) {
     });
 
     let labelOptions = [{
+      className: 'hidden',
       id: '0',
       html: 'Labels',
       selectable: false
