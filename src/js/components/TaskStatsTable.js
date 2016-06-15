@@ -1,32 +1,30 @@
 import classNames from 'classnames';
-import moment from 'moment';
+import DateUtil from '../utils/DateUtil';
 import React from 'react';
 import {Table} from 'reactjs-components';
 
-const taskStatus = ['running','healthy','unhealthy','staged'];
-const keyCaptionMap = {
+const taskStatus = [
+  'getRunningTaskCount',
+  'getHealthyTaskCount',
+  'getUnhealthyTaskCount',
+  'getStagedTaskCount'
+];
+const nameMapping = {
   startedAfterLastScaling: 'Started After Last Scaling',
   withLatestConfig: 'With Latest Config',
   withOutdatedConfig: 'With Outdated Config',
   totalSummary: 'Total Summary'
 };
+const headerMapping = {
+  getRunningTaskCount: 'Running',
+  getHealthyTaskCount: 'Healthy',
+  getUnhealthyTaskCount: 'Unhealthy',
+  getStagedTaskCount: 'Staged',
+  getAverageLifeTime: 'Average Seconds',
+  getMedianLifeTime: 'Median Seconds'
+}
 
 class TaskStatsTable extends React.Component {
-  getTaskStats() {
-    let {taskStats} = this.props;
-
-    let data = [];
-    Object.keys(keyCaptionMap).forEach(function (key) {
-      if (!taskStats[key]) {
-        return;
-      }
-
-      data.push(Object.assign({}, {caption: keyCaptionMap[key]}, taskStats[key].stats));
-    });
-
-    return data;
-  }
-
   getClassName(prop, sortBy) {
     return classNames({
       'highlight': prop === sortBy.prop,
@@ -44,9 +42,9 @@ class TaskStatsTable extends React.Component {
         className: getClassName,
         headerClassName: getClassName,
         heading,
-        prop: 'caption',
+        prop: 'getName',
         render: function (prop, taskStats) {
-          return taskStats[prop];
+          return nameMapping[taskStats.getName()];
         },
         sortable: false
       },
@@ -54,7 +52,7 @@ class TaskStatsTable extends React.Component {
         className: getClassName,
         headerClassName: getClassName,
         heading,
-        prop: 'running',
+        prop: 'getRunningTaskCount',
         render: this.getStatus,
         sortable: false
       },
@@ -62,7 +60,7 @@ class TaskStatsTable extends React.Component {
         className: getClassName,
         headerClassName: getClassName,
         heading,
-        prop: 'healthy',
+        prop: 'getHealthyTaskCount',
         render: this.getStatus,
         sortable: false
       },
@@ -70,7 +68,7 @@ class TaskStatsTable extends React.Component {
         className: getClassName,
         headerClassName: getClassName,
         heading,
-        prop: 'unhealthy',
+        prop: 'getUnhealthyTaskCount',
         render: this.getStatus,
         sortable: false
       },
@@ -78,7 +76,7 @@ class TaskStatsTable extends React.Component {
         className: getClassName,
         headerClassName: getClassName,
         heading,
-        prop: 'staged',
+        prop: 'getStagedTaskCount',
         render: this.getStatus,
         sortable: false
       },
@@ -86,7 +84,7 @@ class TaskStatsTable extends React.Component {
         className: getClassName,
         headerClassName: getClassName,
         heading,
-        prop: 'averageSeconds',
+        prop: 'getAverageLifeTime',
         render: this.renderTime,
         sortable: false
       },
@@ -94,7 +92,7 @@ class TaskStatsTable extends React.Component {
         className: getClassName,
         headerClassName: getClassName,
         heading,
-        prop: 'medianSeconds',
+        prop: 'getMedianLifeTime',
         render: this.renderTime,
         sortable: false
       }
@@ -102,16 +100,6 @@ class TaskStatsTable extends React.Component {
   }
 
   renderHeading(prop) {
-    let headerMapping = {
-      caption: '',
-      running: 'Running',
-      healthy: 'Healthy',
-      unhealthy: 'Unhealthy',
-      staged: 'Staged',
-      averageSeconds: 'Average Seconds',
-      medianSeconds: 'Median Seconds'
-    }
-
     return (
       <span className="table-header-title">{headerMapping[prop]}</span>
     );
@@ -132,17 +120,14 @@ class TaskStatsTable extends React.Component {
   }
 
   getStatus(prop, taskStats) {
-    return taskStats.counts[prop];
+    return taskStats[prop]();
   }
 
   renderTime(prop, taskStats) {
-    let lifeTimeSeconds = taskStats.lifeTime[prop];
+    let lifeTimeSeconds = taskStats[prop]();
     let seconds = new Number(parseFloat(lifeTimeSeconds).toFixed(2))
       .toLocaleString();
-    let humanReadable = moment.duration(
-      parseInt(lifeTimeSeconds),
-      'seconds'
-    ).humanize();
+    let humanReadable = DateUtil.getDuration(parseInt(lifeTimeSeconds));
 
     return `${seconds} sec (${humanReadable})`;
   }
@@ -153,7 +138,7 @@ class TaskStatsTable extends React.Component {
         className="table inverse table-borderless-outer table-borderless-inner-columns flush-bottom"
         columns={this.getColumns()}
         colGroup={this.getColGroup()}
-        data={this.getTaskStats()} />
+        data={this.props.taskStats.getList().getItems()} />
     );
   }
 }

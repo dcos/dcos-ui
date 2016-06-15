@@ -57,6 +57,10 @@ const DateUtil = {
     }
 
     return moment(str).valueOf();
+  },
+
+  getDuration: function (time, formatKey = 'seconds') {
+    return moment.duration(time, formatKey).humanize();
   }
 };
 

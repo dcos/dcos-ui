@@ -74,7 +74,7 @@ class ServiceDetailDebugTab extends React.Component {
   }
 
   getTaskStats() {
-    let {taskStats} = this.props.service;
+    let taskStats = this.props.service.getTaskStats();
 
     if (taskStats == null || Object.keys(taskStats).length === 0) {
       return (

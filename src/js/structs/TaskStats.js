@@ -1,5 +1,13 @@
 import Item from './Item';
+import List from './List';
 import TaskStat from './TaskStat';
+
+const functionMap = {
+  withLatestConfig: 'getStatsForTasksWithLatestConfig',
+  startedAfterLastScaling: 'getStatsForTasksStaredAfterLastScaling',
+  withOutdatedConfig: 'getStatsForTasksWithOutdatedConfig',
+  totalSummary: 'getStatsForAllTasks'
+};
 
 class TaskStats extends Item {
 
@@ -8,7 +16,10 @@ class TaskStats extends Item {
    * config as the latest app version.
    */
   getStatsForTasksWithLatestConfig() {
-    return new TaskStat(this.get('withLatestConfig'));
+    let stat = this.get('withLatestConfig') || {};
+    stat.name = 'withLatestConfig';
+
+    return new TaskStat(stat);
   }
 
   /**
@@ -16,7 +27,10 @@ class TaskStats extends Item {
    * the last scaling or restart operation.
    */
   getStatsForTasksStaredAfterLastScaling() {
-    return new TaskStat(this.get('startedAfterLastScaling'));
+    let stat = this.get('startedAfterLastScaling') || {};
+    stat.name = 'startedAfterLastScaling';
+
+    return new TaskStat(stat);
   }
 
   /**
@@ -25,14 +39,28 @@ class TaskStats extends Item {
    * operation.
    */
   getStatsForTasksWithOutdatedConfig() {
-    return new TaskStat(this.get('withOutdatedConfig'));
+    let stat = this.get('withOutdatedConfig') || {};
+    stat.name = 'withOutdatedConfig';
+
+    return new TaskStat(stat);
   }
 
   /**
    * @return {TaskStat} task statistics about all tasks
    */
   getStatsForAllTasks() {
-    return new TaskStat(this.get('totalSummary'));
+    let stat = this.get('totalSummary') || {};
+    stat.name = 'totalSummary';
+
+    return new TaskStat(stat);
+  }
+
+  getList() {
+    let items = Object.keys(functionMap).map((key) => {
+      return this[functionMap[key]]();
+    });
+
+    return new List({items});
   }
 
 }
