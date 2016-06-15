@@ -3,7 +3,8 @@ import Item from './Item';
 class TaskStat extends Item {
 
   isEmpty() {
-    return this.get('stats') == null;
+    return typeof this.get('stats') !== 'object' ||
+      !Object.keys(this.get('stats')).length;
   }
 
   getName() {

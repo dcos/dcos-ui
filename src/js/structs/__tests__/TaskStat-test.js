@@ -26,6 +26,12 @@ describe('TaskStat', function () {
       expect(statistics.isEmpty()).toEqual(true);
     });
 
+    it('returns true if stats with no keys have been provided', function () {
+      let statistics = new TaskStat({stats: {}});
+
+      expect(statistics.isEmpty()).toEqual(true);
+    });
+
     it('returns false if stats have been provided', function () {
       let statistics = new TaskStat({stats: {counts: {}}});
 
