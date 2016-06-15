@@ -5,6 +5,7 @@ import HealthStatus from '../constants/HealthStatus';
 import Service from './Service';
 import ServiceOther from '../constants/ServiceOther';
 import ServiceStatus from '../constants/ServiceStatus';
+import ServiceUtil from '../utils/ServiceUtil';
 import Tree from './Tree';
 import VolumeList from '../structs/VolumeList';
 
@@ -116,6 +117,21 @@ module.exports = class ServiceTree extends Tree {
         services = services.filter(function (service) {
           return filter.health.some(function (healthValue) {
             return service.getHealth().value === parseInt(healthValue, 10);
+          });
+        });
+      }
+
+      if (filter.labels != null && filter.labels.length > 0) {
+        services = services.filter(function (service) {
+          return filter.labels.some(function (label) {
+            let serviceLabels = ServiceUtil.convertServiceLabelsToArray(
+              service
+            );
+
+            return serviceLabels.find(function (serviceLabel) {
+              return serviceLabel.key === label[0] &&
+                serviceLabel.value === label[1];
+            }) != null;
           });
         });
       }
@@ -252,5 +268,19 @@ module.exports = class ServiceTree extends Tree {
     }, []);
 
     return new VolumeList({items});
+  }
+
+  getLabels() {
+    return this.reduceItems(function (serviceTreeLabels, item) {
+      ServiceUtil.convertServiceLabelsToArray(item)
+        .forEach(function ({key, value}) {
+          if (0 > serviceTreeLabels.findIndex(function (label) {
+            return label.key === key && label.value === value;
+          })) {
+            serviceTreeLabels = serviceTreeLabels.concat([{key, value}]);
+          }
+        });
+      return serviceTreeLabels;
+    }, []);
   }
 };
