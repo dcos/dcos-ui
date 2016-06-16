@@ -172,7 +172,42 @@ base/forms.less
       }
     }
 
+    .modal-header {
+      background: @white;
+
+      .header-flex {
+        display: flex;
+        flex-wrap: wrap-reverse;
+        width: 100%;
+
+        .header-left, .header-right {
+          display: inline-flex;
+          flex: 0 0 auto;
+          flex-wrap: wrap;
+          max-width: 100%;
+          width: auto;
+        }
+
+        .header-right {
+          margin-left: auto;
+          padding-right: 0;
+        }
+      }
+    }
+
+    .modal-header-title {
+      color: @heading-h3-text-color;
+      font-size: @form-label-font-size * @form-label-font-size-scale-screen-small;
+      line-height: @form-label-line-height * @form-label-line-height-scale-screen-small;
+    }
+
+    .modal-form-title-label {
+      color: currentColor;
+      font-weight: 300;
+    }
+
   }
+
 
 }
 
