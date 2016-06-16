@@ -3,6 +3,7 @@ import React from 'react';
 /* eslint-enable no-unused-vars */
 
 import ContainerSettings from './service-schema/ContainerSettings';
+import EnvironmentVariables from './service-schema/EnvironmentVariables';
 import General from './service-schema/General';
 import Labels from './service-schema/Labels';
 import Optional from './service-schema/Optional';
@@ -13,6 +14,7 @@ let ServiceSchema = {
     general: General,
     containerSettings: ContainerSettings,
     optional: Optional,
+    environmentVariables: EnvironmentVariables,
     labels: Labels
   },
   required: [

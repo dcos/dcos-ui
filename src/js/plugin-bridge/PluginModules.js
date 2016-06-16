@@ -28,6 +28,7 @@ module.exports = {
     CookieUtils: 'CookieUtils',
     DateUtil: 'DateUtil',
     DOMUtils: 'DOMUtils',
+    FormUtil: 'FormUtil',
     LocalStorageUtil: 'LocalStorageUtil',
     Maths: 'Maths',
     ResourceTableUtil: 'ResourceTableUtil',

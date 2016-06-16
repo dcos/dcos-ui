@@ -1,5 +1,7 @@
-import {Tooltip} from 'reactjs-components';
+import mixin from 'reactjs-mixin';
 import React from 'react';
+import {StoreMixin} from 'mesosphere-shared-reactjs';
+import {Tooltip} from 'reactjs-components';
 
 import FormUtil from '../utils/FormUtil';
 import GeminiUtil from '../utils/GeminiUtil';
@@ -17,13 +19,15 @@ const METHODS_TO_BIND = [
   'validateForm'
 ];
 
-class SchemaForm extends React.Component {
+class SchemaForm extends mixin(StoreMixin) {
   constructor() {
     super();
 
     METHODS_TO_BIND.forEach((method) => {
       this[method] = this[method].bind(this);
     });
+
+    this.store_listeners = [];
 
     this.triggerSubmit = function () {};
     this.isValidated = true;

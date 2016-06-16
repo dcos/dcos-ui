@@ -1,6 +1,9 @@
+import {Hooks} from 'PluginSDK';
 import React from 'react';
 
 import SchemaForm from './SchemaForm';
+import SchemaFormUtil from '../utils/SchemaFormUtil';
+import SchemaUtil from '../utils/SchemaUtil';
 
 const METHODS_TO_BIND = [
   'handleFormChange',
@@ -14,6 +17,10 @@ class ServiceForm extends SchemaForm {
     METHODS_TO_BIND.forEach((method) => {
       this[method] = this[method].bind(this);
     });
+
+    this.store_listeners = Hooks.applyFilter(
+      'serviceFormStoreListeners', []
+    );
   }
 
   componentWillMount() {
@@ -21,14 +28,38 @@ class ServiceForm extends SchemaForm {
     this.props.getTriggerSubmit(this.handleExternalSubmit);
   }
 
-  // There will likely be more methods in this component in the future to handle
-  // the the healthCheck dropdown select / secrets select inside of
-  // environment variables tab, etc.
+  componentDidMount() {
+    super.componentDidMount(...arguments);
+    Hooks.doAction('serviceFormMount', this);
+  }
 
   handleFormChange() {
+    Hooks.doAction('serviceFormChange', ...arguments);
     // Handle the form change in the way service needs here.
     this.props.onChange(...arguments);
     return;
+  }
+
+  getNewDefinition() {
+    let {model, schema} = this.props;
+    schema = Hooks.applyFilter('serviceFormSchema', schema);
+    let definition = SchemaUtil.schemaToMultipleDefinition(
+      schema,
+      this.getSubHeader,
+      this.getLabel,
+      this.getRemoveRowButton,
+      this.getAddNewRowButton
+    );
+
+    if (model) {
+      SchemaFormUtil.mergeModelIntoDefinition(
+        model,
+        definition,
+        this.getRemoveRowButton
+      );
+    }
+
+    return definition;
   }
 
   validateForm() {
