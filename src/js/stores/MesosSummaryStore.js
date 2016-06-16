@@ -181,7 +181,7 @@ class MesosSummaryStore extends GetSetBaseStore {
 
     if (typeof data.date !== 'number') {
       let lastRequestTime = this.getNextRequestTime();
-      this.set({lastRequestTime: lastRequestTime});
+      this.set({lastRequestTime});
       data.date = lastRequestTime;
     }
 

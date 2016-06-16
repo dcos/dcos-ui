@@ -63,15 +63,17 @@ RequestUtil.json = function (options = {}) {
         mesos: false
       };
       let mesosEvents = [MESOS_SUMMARY_CHANGE, MESOS_SUMMARY_REQUEST_ERROR];
+      let waitingToRenderApplication = false;
 
       // Responsible for checking if application is ready to render
       function delayOrLoadApplication() {
         // Check if we've loaded all resources first
-        let allLoaded = Object.values(loadedResources).some(function (loaded) {
+        let resources = Object.values(loadedResources);
+        let resourcesLoading = resources.some(function (loaded) {
           return !loaded;
         });
 
-        if (!allLoaded) {
+        if (!resourcesLoading || waitingToRenderApplication) {
           return;
         }
 
@@ -80,10 +82,12 @@ RequestUtil.json = function (options = {}) {
         let msLeftOfDelay = Config.applicationRenderDelay - timeSpentLoading;
 
         if (msLeftOfDelay <= 0) {
-          renderApplicationToDOM();
+          setTimeout(renderApplicationToDOM);
         } else {
-          setTimeout(delayOrLoadApplication, msLeftOfDelay);
+          setTimeout(renderApplicationToDOM, msLeftOfDelay);
         }
+
+        waitingToRenderApplication = true;
       }
 
       // Let's make sure we get Mesos Summary data before we render app
@@ -115,19 +119,17 @@ RequestUtil.json = function (options = {}) {
       });
 
       function renderApplicationToDOM() {
-        setTimeout(function () {
-          let routes = RouterUtil.buildRoutes(appRoutes.getRoutes());
-          let router = Router.run(routes, function (Handler, state) {
-            Config.setOverrides(state.query);
-            ReactDOM.render(
-              (<Provider store={PluginSDK.Store}>
-                <Handler state={state} />
-              </Provider>),
-              domElement);
-          });
-
-          PluginSDK.Hooks.doAction('applicationRouter', router);
+        let routes = RouterUtil.buildRoutes(appRoutes.getRoutes());
+        let router = Router.run(routes, function (Handler, state) {
+          Config.setOverrides(state.query);
+          ReactDOM.render(
+            (<Provider store={PluginSDK.Store}>
+              <Handler state={state} />
+            </Provider>),
+            domElement);
         });
+
+        PluginSDK.Hooks.doAction('applicationRouter', router);
       }
     }
 
