@@ -67,16 +67,11 @@ RequestUtil.json = function (options = {}) {
       // Responsible for checking if application is ready to render
       function delayOrLoadApplication() {
         // Check if we've loaded all resources first
-        let resources = Object.keys(loadedResources);
-        let allLoaded = resources.reduce(function (memo, resource) {
-          if (loadedResources[resource] === false) {
-            memo = false;
-          }
+        let allLoaded = Object.values(loadedResources).some(function (loaded) {
+          return !loaded;
+        });
 
-          return memo;
-        }, true);
-
-        if (allLoaded === false) {
+        if (!allLoaded) {
           return;
         }
 
