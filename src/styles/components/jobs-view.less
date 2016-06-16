@@ -1,0 +1,74 @@
+.job-details-header-status {
+  display: inline-block;
+  font-weight: bold;
+  margin-right: @base-spacing-unit * 1/2;
+}
+
+.job-run-history-table {
+
+  tbody {
+    line-height: 1.8;
+  }
+}
+
+.job-run-history-job-id {
+  &:extend(.clickable);
+  color: @white;
+  margin: @base-spacing-unit * -1/4 0;
+  padding: @base-spacing-unit * 1/4 @base-spacing-unit * 1/2;
+  position: relative;
+
+  &:before {
+    content: '';
+    border-left: 5px solid @white;
+    border-top: 4px solid transparent;
+    border-bottom: 4px solid transparent;
+    left: 0;
+    position: absolute;
+    transform: translateY(-50%);
+    top: 50%;
+  }
+
+  &.is-expanded {
+
+    &:before {
+      transform: translateY(-50%) rotate(90deg);
+    }
+  }
+}
+
+.job-run-history-task-id {
+  font-weight: normal;
+  padding-left: @base-spacing-unit;
+  position: relative;
+
+  &:before,
+  &:after {
+    background: color-lighten(@neutral, 10);
+    content: '';
+    height: 100%;
+    left: @base-spacing-unit * 1/2;
+    position: absolute;
+    top: 0;
+    width: 1px;
+  }
+
+  &:before {
+    height: 1px;
+    top: 50%;
+    width: @base-spacing-unit * 3/10;
+  }
+}
+
+.job-run-history-table-child {
+
+  &:last-child {
+
+    .job-run-history-task-id {
+
+      &:after {
+        height: 50%;
+      }
+    }
+  }
+}

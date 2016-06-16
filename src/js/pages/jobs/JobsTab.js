@@ -1,5 +1,6 @@
 import mixin from 'reactjs-mixin';
 import React from 'react';
+import {RouteHandler} from 'react-router';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import AlertPanel from '../../components/AlertPanel';
@@ -177,6 +178,12 @@ class JobsTab extends mixin(StoreMixin, QueryParamsMixin, SaveStateMixin) {
             </div>
           </div>
         </div>
+      );
+    }
+
+    if (this.props.params.id) {
+      return (
+        <RouteHandler />
       );
     }
 

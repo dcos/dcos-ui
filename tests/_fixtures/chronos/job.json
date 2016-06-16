@@ -12,7 +12,7 @@
       "description": "lorem ipsum",
       "cron": "0 19 6 9 *",
       "timezone": "Europe/Berlin",
-      "startingDeadlineSeconds" : 60,
+      "startingDeadlineSeconds": 60,
       "concurrencyPolicy": "allow",
       "enabled": true
     }
@@ -21,21 +21,27 @@
     "cpus": 1,
     "mem": 1,
     "disk": 1,
-    "artifacts": [{
-      "url": "https://foo.com/archive.zip",
-      "executable": false,
-      "extract": true,
-      "cache": true
-    }],
+    "artifacts": [
+      {
+        "url": "https://foo.com/archive.zip",
+        "executable": false,
+        "extract": true,
+        "cache": true
+      }
+    ],
     "placement": {
-      "constraints": [{
-        "attr": "hostname",
-        "op": "LIKE",
-        "value": ".*PROD.*"
-      }]
+      "constraints": [
+        {
+          "attr": "hostname",
+          "op": "LIKE",
+          "value": ".*PROD.*"
+        }
+      ]
     },
     "cmd": "/foo",
-    "args": [],
+    "args": [
+      
+    ],
     "user": "marathon",
     "env": {
       "DRY_RUN": "false",
@@ -44,11 +50,13 @@
     "docker": {
       "image": "mesosphere/foo"
     },
-    "volumes": [{
-      "containerPath": "/logs",
-      "hostPath": "/var/log/mesosphere/foo",
-      "mode": "RW"
-    }],
+    "volumes": [
+      {
+        "containerPath": "/logs",
+        "hostPath": "/var/log/mesosphere/foo",
+        "mode": "RW"
+      }
+    ],
     "restart": {
       "restart": "never",
       "activeDeadlineSeconds": 120
@@ -61,21 +69,46 @@
     "lastFailureAt": "1989-03-01T00:10:15.957Z",
     "nextScheduledRunAt": "1990-01-02T00:00:00Z"
   },
-  "activeRuns": [{
-    "id": "/foo/1990-01-03t00:00:00z-1",
-    "jobId": "/foo",
-    "scheduleId": "everyHour",
-    "status": "active",
-    "createdAt": "1990-01-03t00:00:00z-1",
-    "tasks": [{
-      "id": "foo.1990-01-03t00:00:00z-1.68d65242-1838-11e6-8d2d-5ec97000bce0",
-      "startedAt": "1990-01-03T00:00:04.919Z",
-      "status": "TASK_STARTED"
-    }, {
-      "id": "dfoo.1990-01-03t00:00:00z-1.68d65242-1838-11e6-8d2d-5ec97000bce0",
-      "startedAt": "1990-01-03T00:00:04.919Z",
-      "completedAt": "1990-01-03T00:00:09.919Z",
-      "status": "TASK_FAILED"
-    }]
-  }]
+  "activeRuns": [
+    {
+      "id": "/foo/1990-01-03t00:00:00z-1",
+      "jobId": "/foo",
+      "scheduleId": "everyHour",
+      "status": "active",
+      "createdAt": "1990-01-03t00:00:00z-1",
+      "tasks": [
+        {
+          "id": "foo.1990-01-03t00:00:00z-1.68d65242-1838-11e6-8d2d-5ec97000bce0",
+          "startedAt": "1990-01-03T00:00:04.919Z",
+          "completedAt": "1990-01-03T01:00:04.919Z",
+          "status": "TASK_FINISHED"
+        },
+        {
+          "id": "dfoo.1990-01-03t00:00:00z-1.68d65242-1838-11e6-8d2d-5ec97000bce0",
+          "startedAt": "1990-01-03T00:00:04.919Z",
+          "completedAt": "1990-01-03T00:00:09.919Z",
+          "status": "TASK_FAILED"
+        }
+      ]
+    },
+    {
+      "id": "/bar/1985-01-03t00:00:00z-1",
+      "jobId": "/bar",
+      "status": "active",
+      "createdAt": "1985-01-03t00:00:00z-1",
+      "tasks": [
+        {
+          "id": "bar.1990-01-03t00:00:00z-1.68d65242-1838-11e6-8d2d-5ec97000bce0",
+          "startedAt": "1990-01-03T00:00:04.919Z",
+          "status": "TASK_STARTED"
+        },
+        {
+          "id": "dbar.1985-01-03t00:00:00z-1.68d65242-1838-11e6-8d2d-5ec97000bce0",
+          "startedAt": "1985-01-03T00:00:04.919Z",
+          "completedAt": "1985-01-03T00:00:09.919Z",
+          "status": "TASK_FAILED"
+        }
+      ]
+    }
+  ]
 }
