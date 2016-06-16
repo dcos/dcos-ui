@@ -330,6 +330,7 @@ class ServiceFormModal extends mixin(StoreMixin) {
           showGutter={true}
           showPrintMargin={false}
           theme="monokai"
+          height="462px"
           value={jsonDefinition}
           width="100%"/>
       );
@@ -354,6 +355,8 @@ class ServiceFormModal extends mixin(StoreMixin) {
         </div>
         <div className="column-6 text-align-right">
           <ToggleButton
+            className="modal-form-title-label"
+            checkboxClassName="modal-form-title-toggle-button toggle-button"
             checked={this.state.jsonMode}
             onChange={this.handleJSONToggle}>
             JSON mode

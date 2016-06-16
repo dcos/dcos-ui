@@ -173,17 +173,40 @@ base/forms.less
     }
 
     .modal-header {
-      color: @white;
-      background-color: @purple;
+      background: @white;
     }
 
     .modal-header-title {
-      color: currentColor;
-      font-size: @form-label-font-size * @form-label-font-size-scale-screen-small;
-      line-height: @form-label-line-height * @form-label-line-height-scale-screen-small;
+      color: @heading-h3-text-color;
+    }
 
-      label{
-        color: @white;
+    .modal-form-title-label {
+      color: currentColor;
+      font-size: .7em;
+      font-weight: 300;
+      line-height: 1em;
+      margin-bottom: 0;
+      margin-top: .42em;
+    }
+
+    .modal-form-title-toggle-button {
+      &+span {
+        padding-right: 2.25em;
+        color: @form-label-default-inverse-color;
+
+        &:before {
+          height: 1em;
+          width: 1.5em;
+          border-radius: 1em;
+          background: currentColor;
+        }
+
+        &:after {
+          border-radius: 1em;
+          height: calc(~"1em - 2px");
+          transform: translateX(-.5em);
+          width: calc(~"1em - 2px");
+        }
       }
     }
 
@@ -224,14 +247,20 @@ base/forms.less
 
     }
 
-    .service-deploy-modal .multiple-form{
-
-      .multiple-form-left-column {
-        width: 27%;
+    .modal-form {
+      .modal-form-title-label {
+        margin-top: .21em;
       }
 
-      .multiple-form-right-column {
-        width: 73%;
+      .multiple-form {
+
+        .multiple-form-left-column {
+          width: 27%;
+        }
+
+        .multiple-form-right-column {
+          width: 73%;
+        }
       }
     }
   }
