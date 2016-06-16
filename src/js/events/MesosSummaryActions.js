@@ -9,6 +9,7 @@ import {
 } from '../constants/ActionTypes';
 var AppDispatcher = require('./AppDispatcher');
 var Config = require('../config/Config');
+import {Hooks} from 'PluginSDK';
 var TimeScales = require('../constants/TimeScales');
 
 var _historyServiceOnline = true;
@@ -95,7 +96,11 @@ var MesosSummaryActions = {
     function (resolve, reject) {
 
       return function (timeScale) {
-        if (!_historyServiceOnline) {
+        let canAccessHistoryServer = Hooks.applyFilter(
+          'hasCapability', false, 'historyServiceAPI'
+        );
+
+        if (!_historyServiceOnline || !canAccessHistoryServer) {
           requestFromMesos(resolve, reject);
         } else {
           requestFromHistoryServer(resolve, reject, timeScale);

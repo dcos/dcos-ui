@@ -12,6 +12,7 @@ module.exports = {
   ],
 
   filters: [
+    'hasCapability',
     'getHistoryAt'
   ],
 
@@ -31,6 +32,11 @@ module.exports = {
 
   closeSidebar() {
     SidebarActions.close();
+  },
+
+  hasCapability() {
+    // Users have access to everything by default
+    return true;
   },
 
   goBack(router) {
