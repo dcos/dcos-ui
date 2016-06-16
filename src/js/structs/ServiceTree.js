@@ -124,9 +124,13 @@ module.exports = class ServiceTree extends Tree {
       if (filter.labels != null && filter.labels.length > 0) {
         services = services.filter(function (service) {
           return filter.labels.some(function (label) {
-            let serviceLabels = ServiceUtil.convertServiceLabelsToArray(
-              service
-            );
+            let serviceLabels = service.getLabels();
+
+            if (service instanceof Service) {
+              serviceLabels = ServiceUtil.convertServiceLabelsToArray(
+                service
+              );
+            }
 
             return serviceLabels.find(function (serviceLabel) {
               return serviceLabel.key === label[0] &&
