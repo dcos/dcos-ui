@@ -12,7 +12,7 @@ let EnvironmentVariables = {
       getter: function (service) {
         let variableMap = service.getEnvironmentVariables();
         if (variableMap == null) {
-          return [{}];
+          return [];
         }
         return Object.keys(variableMap).map(function (key) {
           return Hooks.applyFilter('variablesGetter', {
