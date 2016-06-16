@@ -7,7 +7,7 @@
       "project": "metronome",
       "stage": "test"
     },
-    "schedule": [
+    "schedules": [
       {
         "id": "every-once-in-a-while",
         "description": "lorem ipsum",
@@ -65,25 +65,11 @@
     },
     "status": {
       "successCount": 1,
-      "failureCount": 0,
+      "failureCount": 1,
       "lastSuccessAt": "1990-01-02T00:00:00Z",
-      "lastFailureAt": "1989-03-01T00:10:15.957Z"
+      "lastFailureAt": "1999-03-01T00:10:15.957Z"
     },
-    "activeRuns": [
-      {
-        "id": "bar.1990-01-03t00:00:00z-1",
-        "jobId": "bar",
-        "status": "active",
-        "createdAt": "1990-01-03t00:00:00z-1",
-        "tasks": [
-          {
-            "id": "bar.1990-01-03t00:00:00z-1.68d65242-1838-11e6-8d2d-5ec97000bce0",
-            "startedAt": "1990-01-03T00:00:04.919Z",
-            "status": "TASK_STARTED"
-          }
-        ]
-      }
-    ]
+    "activeRuns": []
   },
   {
     "id": "foo",
@@ -93,7 +79,7 @@
       "project": "metronome",
       "stage": "test"
     },
-    "schedule": {
+    "schedules": {
       "schedule": "0 19 6 9 *",
       "timezone": "America/Chicago",
       "startingDeadlineSeconds": 60,
