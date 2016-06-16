@@ -91,7 +91,11 @@ class JobRunHistoryTable extends React.Component {
     return activeRuns.getItems().map(function (activeRun, runIndex) {
       let longestRunningTask = activeRun.getTasks().getLongestRunningTask();
       let dateRunStarted = activeRun.getDateCreated();
-      let dateRunFinished = longestRunningTask.getDateCompleted();
+      let dateRunFinished;
+
+      if (longestRunningTask != null) {
+        dateRunFinished = longestRunningTask.getDateCompleted();
+      }
 
       if (dateRunStarted != null) {
         dateRunStarted = DateUtil.msToRelativeTime(dateRunStarted);
