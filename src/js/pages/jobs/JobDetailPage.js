@@ -160,6 +160,11 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
 
     let longestRunningTask = longestRunningActiveRun.getTasks()
       .getLongestRunningTask();
+
+    if (!longestRunningTask) {
+      return null;
+    }
+
     let dateCompleted = longestRunningTask.getDateCompleted();
 
     let status = TaskStates[longestRunningTask.getStatus()];
