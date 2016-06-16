@@ -84,6 +84,7 @@ class JobRunHistoryTable extends React.Component {
     ];
   }
 
+  // TODO: DCOS-7766 Revisit this pre-rendering data transformation...
   getData(job) {
     let activeRuns = job.getActiveRuns();
 
