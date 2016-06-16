@@ -161,6 +161,16 @@ class MesosSummaryStore extends GetSetBaseStore {
     return service && !!webuiUrl && webuiUrl.length > 0;
   }
 
+  getNextRequestTime() {
+    let lastRequestTime = this.get('lastRequestTime');
+    if (!lastRequestTime) {
+      return Date.now();
+    }
+
+    // We want a consistent interval, this is how we're going to do it
+    return lastRequestTime + Config.getRefreshRate();
+  }
+
   processSummary(data, options = {}) {
     // If request to Mesos times out we get an empty Object
     if (!Object.keys(data).length) {
@@ -170,7 +180,9 @@ class MesosSummaryStore extends GetSetBaseStore {
     let states = this.get('states');
 
     if (typeof data.date !== 'number') {
-      data.date = Date.now();
+      let lastRequestTime = this.getNextRequestTime();
+      this.set({lastRequestTime: lastRequestTime});
+      data.date = lastRequestTime;
     }
 
     CompositeState.addSummary(data);
@@ -202,12 +214,15 @@ class MesosSummaryStore extends GetSetBaseStore {
     data.forEach((datum) => {
       this.processSummary(datum, {silent: true});
     });
+    this.set({lastRequestTime: Date.now()});
     this.emit(MESOS_SUMMARY_CHANGE);
   }
 
   processSummaryError(options = {}) {
     let unsuccessfulSummary = new StateSummary({successful: false});
     let states = this.get('states');
+
+    this.set({lastRequestTime: this.getNextRequestTime()});
 
     states.add(unsuccessfulSummary);
 
