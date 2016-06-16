@@ -4,8 +4,9 @@ import mixin from 'reactjs-mixin';
 import React from 'react';
 /* eslint-enable no-unused-vars */
 import {Hooks} from 'PluginSDK';
-import Page from '../components/Page';
 import NotificationStore from '../stores/NotificationStore';
+import Page from '../components/Page';
+import RouterUtil from '../utils/RouterUtil';
 import SidebarActions from '../events/SidebarActions';
 import TabsUtil from '../utils/TabsUtil';
 import TabsMixin from '../mixins/TabsMixin';
@@ -114,6 +115,10 @@ class SystemPage extends mixin(TabsMixin) {
   }
 
   getNavigation() {
+    if (RouterUtil.shouldHideNavigation(this.context.router)) {
+      return null;
+    }
+
     let routes = this.context.router.getCurrentRoutes();
     let currentRoute = routes[routes.length - 2].name;
 
@@ -129,10 +134,18 @@ class SystemPage extends mixin(TabsMixin) {
   }
 
   getSubNavigation() {
+    if (RouterUtil.shouldHideNavigation(this.context.router)) {
+      return null;
+    }
+
     return (
-      <ul className="tabs list-inline flush-bottom inverse">
-        {this.tabs_getRoutedTabs()}
-      </ul>
+      <div className="container-pod container-pod-short flush-top">
+        <div className="container-pod container-pod-divider-bottom container-pod-divider-inverse container-pod-divider-bottom-align-right flush-top flush-bottom">
+           <ul className="tabs list-inline flush-bottom inverse">
+            {this.tabs_getRoutedTabs()}
+          </ul>
+        </div>
+      </div>
     );
   }
 
@@ -141,11 +154,7 @@ class SystemPage extends mixin(TabsMixin) {
       <Page
         title="System"
         navigation={this.getNavigation()}>
-        <div className="container-pod container-pod-short flush-top">
-          <div className="container-pod container-pod-divider-bottom container-pod-divider-inverse container-pod-divider-bottom-align-right flush-top flush-bottom">
-            {this.getSubNavigation()}
-          </div>
-        </div>
+        {this.getSubNavigation()}
         <RouteHandler currentTab={this.state.currentTab} />
       </Page>
     );

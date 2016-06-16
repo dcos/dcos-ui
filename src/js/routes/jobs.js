@@ -18,7 +18,8 @@ let jobsRoutes = {
           type: Route,
           handler: JobDetailPage,
           name: 'jobs-page-detail',
-          path: ':id/?'
+          path: ':id/?',
+          hideHeaderNavigation: true
         }
       ]
     }

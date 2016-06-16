@@ -31,6 +31,7 @@ module.exports = {
     LocalStorageUtil: 'LocalStorageUtil',
     Maths: 'Maths',
     ResourceTableUtil: 'ResourceTableUtil',
+    RouterUtil: 'RouterUtil',
     StoreMixinConfig: 'StoreMixinConfig',
     StringUtil: 'StringUtil',
     TableUtil: 'TableUtil',

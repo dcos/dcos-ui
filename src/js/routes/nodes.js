@@ -62,6 +62,7 @@ let nodesRoutes = {
       name: 'node-detail',
       path: ':nodeID/?',
       handler: NodeDetailPage,
+      hideHeaderNavigation: true,
       buildBreadCrumb: function () {
         return {
           parentCrumb: 'nodes-page',
@@ -80,6 +81,7 @@ let nodesRoutes = {
           path: 'tasks/:taskID/?',
           name: 'nodes-task-details',
           handler: TaskDetail,
+          hideHeaderNavigation: true,
           buildBreadCrumb: function () {
             return {
               parentCrumb: 'node-detail',
@@ -97,6 +99,7 @@ let nodesRoutes = {
               type: DefaultRoute,
               name: 'nodes-task-details-tab',
               handler: TaskDetailsTab,
+              hideHeaderNavigation: true,
               buildBreadCrumb: function () {
                 return {
                   parentCrumb: 'nodes-task-details',
@@ -109,6 +112,7 @@ let nodesRoutes = {
               name: 'nodes-task-details-files',
               path: 'files/?',
               handler: TaskFilesTab,
+              hideHeaderNavigation: true,
               buildBreadCrumb: function () {
                 return {
                   parentCrumb: 'nodes-task-details',
@@ -122,6 +126,7 @@ let nodesRoutes = {
               dontScroll: true,
               path: 'logs/?',
               handler: TaskLogsTab,
+              hideHeaderNavigation: true,
               buildBreadCrumb: function () {
                 return {
                   parentCrumb: 'nodes-task-details',
@@ -138,6 +143,7 @@ let nodesRoutes = {
       name: 'node-detail-health',
       path: ':nodeID/:unitNodeID/:unitID/?',
       handler: UnitsHealthNodeDetailPage,
+      hideHeaderNavigation: true,
       children: [
         {
           type: DefaultRoute,
