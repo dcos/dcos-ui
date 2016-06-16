@@ -174,40 +174,36 @@ base/forms.less
 
     .modal-header {
       background: @white;
+
+      .header-flex {
+        display: flex;
+        flex-wrap: wrap-reverse;
+        width: 100%;
+
+        .header-left, .header-right {
+          display: inline-flex;
+          flex: 0 0 auto;
+          flex-wrap: wrap;
+          max-width: 100%;
+          width: auto;
+        }
+
+        .header-right {
+          margin-left: auto;
+          padding-right: 0;
+        }
+      }
     }
 
     .modal-header-title {
       color: @heading-h3-text-color;
+      font-size: @form-label-font-size * @form-label-font-size-scale-screen-small;
+      line-height: @form-label-line-height * @form-label-line-height-scale-screen-small;
     }
 
     .modal-form-title-label {
       color: currentColor;
-      font-size: .7em;
       font-weight: 300;
-      line-height: 1em;
-      margin-bottom: 0;
-      margin-top: .42em;
-    }
-
-    .modal-form-title-toggle-button {
-      &+span {
-        padding-right: 2.25em;
-        color: @form-label-default-inverse-color;
-
-        &:before {
-          height: 1em;
-          width: 1.5em;
-          border-radius: 1em;
-          background: currentColor;
-        }
-
-        &:after {
-          border-radius: 1em;
-          height: calc(~"1em - 2px");
-          transform: translateX(-.5em);
-          width: calc(~"1em - 2px");
-        }
-      }
     }
 
   }
@@ -247,22 +243,6 @@ base/forms.less
 
     }
 
-    .modal-form {
-      .modal-form-title-label {
-        margin-top: .21em;
-      }
-
-      .multiple-form {
-
-        .multiple-form-left-column {
-          width: 27%;
-        }
-
-        .multiple-form-right-column {
-          width: 73%;
-        }
-      }
-    }
   }
 
 }

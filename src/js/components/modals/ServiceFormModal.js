@@ -348,12 +348,14 @@ class ServiceFormModal extends mixin(StoreMixin) {
   }
 
   render() {
-    let title = (
-      <div>
-        <div className="column-6">
-          Deploy new Service
+    let title  = (
+      <div className="header-flex">
+        <div className="header-left">
+          <h4 className="flush-top flush-bottom text-color-neutral">
+            Deploy new Service
+          </h4>
         </div>
-        <div className="column-6 text-align-right">
+        <div className="header-right">
           <ToggleButton
             className="modal-form-title-label"
             checkboxClassName="modal-form-title-toggle-button toggle-button"
