@@ -206,15 +206,8 @@ var ServicesTab = React.createClass({
       );
     }
 
-    let shift = 1;
-
-    // Only show when there's a path
-    if (this.props.params.id && this.props.params.id.length) {
-      shift = 0;
-    }
-
     return (
-      <Breadcrumbs shift={shift} />
+      <Breadcrumbs />
     );
   },
 
