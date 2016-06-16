@@ -45,9 +45,10 @@ class ServiceDetailConfigurationTab extends React.Component {
 
     let versionItems = [];
     for (let version of versions.keys()) {
-      let itemCaption = version;
+      let localeVersion = new Date(version).toLocaleString();
+      let itemCaption = localeVersion;
       if (version === service.getVersion()) {
-        itemCaption = `Current version ${version}`;
+        itemCaption = `Current Version - ${localeVersion}`;
       }
 
       versionItems.push({
@@ -79,10 +80,11 @@ class ServiceDetailConfigurationTab extends React.Component {
     let {service} = this.props;
     let {selectedVersionID} = this.state;
 
-    let headline = `Current Version (${selectedVersionID})`;
+    let localeVersion = new Date(selectedVersionID).toLocaleString();
+    let headline = `Current Version (${localeVersion})`;
 
     if (service.getVersion() !== selectedVersionID) {
-      headline = `Version (${selectedVersionID})`;
+      headline = `Previous Version (${localeVersion})`;
     }
 
     return (
