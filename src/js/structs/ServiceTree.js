@@ -132,10 +132,10 @@ module.exports = class ServiceTree extends Tree {
               );
             }
 
-            return serviceLabels.find(function (serviceLabel) {
+            return serviceLabels.some(function (serviceLabel) {
               return serviceLabel.key === label[0] &&
                 serviceLabel.value === label[1];
-            }) != null;
+            });
           });
         });
       }

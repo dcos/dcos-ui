@@ -74,8 +74,6 @@ describe('Sidebar Filter', function () {
       cy.get('tbody tr:visible').should('to.have.length', 1);
     });
 
-
-
     it('filters correctly on two filters', function () {
       cy.get('.sidebar-filters .label').contains('Healthy').click();
       cy.get('.sidebar-filters .label').contains('Unhealthy').click();
