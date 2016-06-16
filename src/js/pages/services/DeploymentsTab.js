@@ -33,7 +33,9 @@ const METHODS_TO_BIND = [
   'renderAction',
   'handleRollbackClick',
   'handleRollbackCancel',
-  'handleRollbackConfirm'
+  'handleRollbackConfirm',
+  'onMarathonStoreDeploymentRollbackSuccess',
+  'onMarathonStoreDeploymentRollbackError'
 ];
 
 // collapsing columns are tightly coupled to the left-align caret property;
@@ -53,12 +55,39 @@ class DeploymentsTab extends mixin(StoreMixin) {
 
     this.state = {};
     this.store_listeners = [
-      {name: 'dcos', events: ['change']}
+      {name: 'dcos', events: ['change']},
+      {
+        name: 'marathon',
+        events: ['deploymentRollbackSuccess', 'deploymentRollbackError']
+      }
     ];
 
     METHODS_TO_BIND.forEach((method) => {
       this[method] = this[method].bind(this);
     }, this);
+  }
+
+  onMarathonStoreDeploymentRollbackSuccess(data) {
+    let {deploymentToRollback} = this.state;
+    if (deploymentToRollback != null &&
+        deploymentToRollback.getId() === data.originalDeploymentID) {
+      this.setState({
+        awaitingRevertDeploymentResponse: false,
+        deploymentToRollback: null,
+        deploymentRollbackError: null
+      });
+    }
+  }
+
+  onMarathonStoreDeploymentRollbackError(data) {
+    let {deploymentToRollback} = this.state;
+    if (deploymentToRollback != null &&
+        deploymentToRollback.getId() === data.originalDeploymentID) {
+      this.setState({
+        awaitingRevertDeploymentResponse: false,
+        deploymentRollbackError: data.error
+      });
+    }
   }
 
   renderAffectedServices(prop, deployment) {
@@ -158,12 +187,19 @@ class DeploymentsTab extends mixin(StoreMixin) {
   }
 
   handleRollbackCancel() {
-    this.setState({deploymentToRollback: null});
+    this.setState({
+      awaitingRevertDeploymentResponse: false,
+      deploymentToRollback: null,
+      deploymentRollbackError: null
+    });
   }
 
   handleRollbackConfirm() {
-    MarathonActions.revertDeployment(this.state.deploymentToRollback.id);
-    this.setState({deploymentToRollback: null});
+    let {deploymentToRollback} = this.state;
+    if (deploymentToRollback != null) {
+      this.setState({awaitingRevertDeploymentResponse: true});
+      MarathonActions.revertDeployment(deploymentToRollback.getId());
+    }
   }
 
   getColumns() {
@@ -244,11 +280,17 @@ class DeploymentsTab extends mixin(StoreMixin) {
   }
 
   renderRollbackModal() {
-    let {deploymentToRollback} = this.state;
+    let {
+      awaitingRevertDeploymentResponse,
+      deploymentToRollback,
+      deploymentRollbackError
+    } = this.state;
+
     if (deploymentToRollback != null) {
       return (
         <Confirm
           closeByBackdropClick={true}
+          disabled={!!awaitingRevertDeploymentResponse}
           footerContainerClass="container container-pod container-pod-short
             container-pod-fluid flush-top flush-bottom"
           onClose={this.handleRollbackCancel}
@@ -260,6 +302,7 @@ class DeploymentsTab extends mixin(StoreMixin) {
           <div className="container-pod container-pod-short text-align-center">
             <h3 className="flush-top">You're About To Rollback The Deployment</h3>
             <p>{this.getRollbackModalText(deploymentToRollback)}</p>
+            {this.renderRollbackError(deploymentRollbackError)}
           </div>
         </Confirm>
       );
@@ -286,6 +329,16 @@ class DeploymentsTab extends mixin(StoreMixin) {
     return `This will stop the current deployment of ${listOfServiceNames} and
             start a new deployment to revert the affected ${service} to ${its}
             previous ${version}.`
+  }
+
+  renderRollbackError(deploymentRollbackError) {
+    if (deploymentRollbackError != null) {
+      return (
+        <p className="text-error-state flush-bottom">
+          {deploymentRollbackError}
+        </p>
+      );
+    }
   }
 
   render() {
