@@ -132,6 +132,19 @@ const ServiceUtil = {
     });
 
     return appDefinition;
+  },
+
+  convertServiceLabelsToArray: function (service) {
+    if (!(service instanceof Service)) {
+      return [];
+    }
+
+    let labels = service.getLabels();
+    if (labels == null) {
+      return [];
+    }
+
+    return Object.keys(labels).map(key => ({key, value: labels[key]}));
   }
 };
 

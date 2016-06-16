@@ -8,4 +8,34 @@
       color: @white;
     }
   }
+
+  .dropdown.dropdown-wide {
+    .dropdown-menu {
+      max-width: 500px;
+      min-width: 100%;
+      width: auto;
+
+      .text-overflow {
+        max-width: none;
+      }
+    }
+  }
+
+  .badge.label-pill {
+    .pill-wrap {
+      padding: 0 @base-spacing-unit 0 @base-spacing-unit / 4;
+    }
+
+    .remove-filter {
+      background-color: transparent;
+      position: absolute;
+      right: 0;
+      z-index: 2;
+
+      &:hover {
+        color: @white;
+        text-decoration: none;
+      }
+    }
+  }
 }

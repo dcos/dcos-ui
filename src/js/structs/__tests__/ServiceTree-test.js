@@ -842,4 +842,81 @@ describe('ServiceTree', function () {
 
   });
 
+  describe('#getLabels', function () {
+
+    beforeEach(function () {
+      this.instance = new ServiceTree();
+    });
+
+    it('returns an array with all the labels in the group', function () {
+      this.instance.add(new Framework({
+        id: '/chronos',
+        labels: {
+          'label_one': 'value_one'
+        }
+      }));
+
+      this.instance.add(new Framework({
+        id: '/cassandra',
+        labels: {
+          'label_one': 'value_two',
+          'label_two': 'value_three'
+        }
+      }));
+
+      this.instance.add(new Service({
+        id: '/sleeper'
+      }));
+
+      let labels = this.instance.getLabels();
+      expect(labels.length).toEqual(3);
+      expect(labels).toEqual([
+        {key: 'label_one', value: 'value_one'},
+        {key: 'label_one', value:  'value_two'},
+        {key: 'label_two', value:  'value_three'}
+      ]);
+    });
+
+    it('filters out duplicate label key-value tuples', function () {
+      this.instance.add(new Framework({
+        id: '/chronos',
+        labels: {
+          'label_one': 'value_one'
+        }
+      }));
+
+      this.instance.add(new Service({
+        id: '/sleeper',
+        labels: {
+          'label_one': 'value_one',
+          'label_two': 'value_one'
+        }
+      }));
+
+      let labels = this.instance.getLabels();
+      expect(labels.length).toEqual(2);
+      expect(labels).toEqual([
+        {key: 'label_one', value: 'value_one'},
+        {key: 'label_two', value:  'value_one'}
+      ]);
+    });
+
+    it('returns an empty array if no labels are found', function () {
+      this.instance.add(new Framework({
+        id: '/chronos'
+      }));
+
+      let labels = this.instance.getLabels();
+      expect(labels.length).toEqual(0);
+      expect(labels).toEqual([]);
+    });
+
+    it('returns an empty array if tree is empty', function () {
+      let labels = this.instance.getLabels();
+      expect(labels.length).toEqual(0);
+      expect(labels).toEqual([]);
+    });
+
+  });
+
 });
