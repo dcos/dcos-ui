@@ -163,10 +163,10 @@ const Util = {
    */
   deepCopy: function (obj) {
     let copy;
-    if (this.isObject(obj)) {
-      copy = Object.assign({}, obj);
-    } else if (Array.isArray(obj)) {
+    if (Array.isArray(obj)) {
       copy = obj.slice(); // shallow copy
+    } else if (this.isObject(obj)) {
+      copy = Object.assign({}, obj);
     }
 
     if (copy != null) {
