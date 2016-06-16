@@ -67,6 +67,7 @@ class JobsTable extends React.Component {
     ];
   }
 
+  // TODO: DCOS-7766 Revisit this pre-rendering data transformation...
   getData() {
     return this.props.jobs.map(function (job) {
       let isGroup = job instanceof Tree;
