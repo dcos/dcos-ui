@@ -117,12 +117,13 @@ let SchemaFormUtil = {
         return;
       }
 
-      let nextDefinition = [].concat.apply([], definition.definition).find(
-        function (definitionField) {
-          return definitionField.name === path
-            || definitionField.title === path;
-        }
-      );
+      let nextDefinition = Array.prototype
+        .concat.apply([], definition.definition).find(
+          function (definitionField) {
+            return definitionField.name === path
+              || definitionField.title === path;
+          }
+        );
 
       if (nextDefinition) {
         definition = nextDefinition;
