@@ -5,7 +5,7 @@ const Volumes = {
     localVolumes: {
       type: 'array',
       duplicable: true,
-      addLabel: 'Add LocalVolume',
+      addLabel: 'Add Local Volume',
       getter: function (service) {
         let containerSettings = service.getContainerSettings();
 

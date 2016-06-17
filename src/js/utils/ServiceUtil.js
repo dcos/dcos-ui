@@ -115,7 +115,9 @@ const ServiceUtil = {
 
         if (definition.container.docker &&
           definition.container.docker.image) {
+
           type = VolumeConstants.type.DOCKER;
+
           if (volumes.dockerVolumes) {
             volumesList = volumesList.concat(
               volumes.dockerVolumes
@@ -163,6 +165,7 @@ const ServiceUtil = {
                 mode: VolumeConstants.mode.rw
               };
             });
+
           if (localVolumes.length > 0) {
             volumesList = volumesList.concat(localVolumes);
             definition.updateStrategy = {
@@ -231,9 +234,9 @@ const ServiceUtil = {
 
     let containerSettings = service.getContainerSettings();
     if (containerSettings &&
-      containerSettings.docker &&
+      (containerSettings.docker &&
       containerSettings.docker.image ||
-      containerSettings.type === VolumeConstants.type.MESOS
+      containerSettings.type === VolumeConstants.type.MESOS)
     ) {
       appDefinition.container = containerSettings;
 
