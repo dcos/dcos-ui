@@ -6,8 +6,6 @@ class ButtonTabContent extends React.Component {
   render() {
     return (
       <div>
-        Button example
-        <button>Button</button>
       </div>
     );
   }
