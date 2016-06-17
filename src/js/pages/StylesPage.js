@@ -7,11 +7,27 @@ import TabsMixin from '../mixins/TabsMixin';
 import TabsUtil from '../utils/TabsUtil';
 
 const STYLES_TABS = {
-  'styles-components-tab': 'Components',
-  'styles-layout-tab': 'Layout'
+  'styles-layout-tab': 'Layout',
+  'styles-content-tab': 'Content',
+  'styles-components-tab': 'Components'
 };
 
 const STYLES_SUB_TABS = {
+  'styles-layout-tab': {
+    'styles-layout-containers': 'Containers',
+    'styles-layout-grid': 'Grid',
+    'styles-layout-pods': 'Pods',
+    'styles-layout-flex': 'Flex',
+    'styles-layout-dividers': 'Dividers',
+    'styles-layout-responsive-utilities': 'Responsive Utilities'
+  },
+  'styles-content-tab': {
+    'styles-content-typography': 'Typography',
+    'styles-content-tables': 'Tables',
+    'styles-content-colors': 'Colors',
+    'styles-content-code': 'Code',
+    'styles-content-images': 'Images'
+  },
   'styles-components-tab': {
     'styles-components-buttons': 'Buttons',
     'styles-components-button-groups': 'Button Groups',
@@ -21,9 +37,6 @@ const STYLES_SUB_TABS = {
     'styles-components-icons': 'Icons',
     'styles-components-modals': 'Modals',
     'styles-components-panels': 'Panels'
-  },
-  'styles-layout-tab': {
-    'styles-layout-grid': 'Grid'
   }
 };
 
