@@ -57,7 +57,7 @@ function parseApp(app) {
         volumeDefinitionMap.get(containerPath);
 
       volumes.push(
-        Object.assign(volumeDefinition, {status, host, containerPath, id})
+        Object.assign({}, volumeDefinition, {status, host, containerPath, id})
       );
     });
   });
