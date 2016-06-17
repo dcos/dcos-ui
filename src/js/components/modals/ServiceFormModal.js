@@ -166,7 +166,7 @@ class ServiceFormModal extends mixin(StoreMixin) {
     } catch (e) {
 
     }
-    this.setState({jsonDefinition, service})
+    this.setState({jsonDefinition, service});
   }
 
   handleJSONToggle() {
