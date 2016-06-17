@@ -129,14 +129,10 @@ class VolumeTable extends React.Component {
 
   renderIDColumn(prop, row) {
     let id = row[prop];
-    let params = {
-      volumeID: global.encodeURIComponent(id)
-    };
+    let params = {volumeID: global.encodeURIComponent(id)};
     let routes = this.context.router.getCurrentRoutes();
     let currentRouteName = routes[routes.length - 1].name;
     let routeName = null;
-
-    // debugger;
 
     if (currentRouteName === 'services-detail') {
       routeName = 'service-volume-details';
