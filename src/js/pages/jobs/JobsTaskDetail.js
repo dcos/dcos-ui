@@ -1,11 +1,13 @@
+import classNames from 'classnames';
 import {Confirm} from 'reactjs-components';
 
 /* eslint-disable no-unused-vars */
 import React from 'react';
 /* eslint-enable no-unused-vars */
 
-import TaskDetail from '../services/task-details/TaskDetail';
 import ChronosStore from '../../stores/ChronosStore';
+import TaskDetail from '../services/task-details/TaskDetail';
+import TaskStates from '../../constants/TaskStates';
 
 /* eslint-disable no-unused-vars */
 const METHODS_TO_BIND = [
@@ -150,8 +152,19 @@ class JobsTaskDetail extends TaskDetail {
     return task.id;
   }
 
-  getTaskSubtitle() {
-    return 'subTitle';
+  getTaskSubtitle(task) {
+    let status = TaskStates[task.getStatus()];
+    let statusClasses = classNames('job-details-header-status', {
+      'text-success': status.stateTypes.includes('success')
+        && status.stateTypes.includes('failure'),
+      'text-danger': status.stateTypes.includes('failure')
+    });
+
+    return (
+      <span className={statusClasses} key="status-text">
+        {status.displayName}
+      </span>
+    );
   }
 
   isSubviewReady(task) {
