@@ -20,9 +20,11 @@ class JobsTaskDetailsTab extends TaskDetailsTab {
     let job = ChronosStore.getJob(id);
     let task = job.getTaskByID(taskID);
     delete task._itemData;
+    delete task.id;
 
     return (
       <DescriptionList
+        headline="Job Information"
         className="container container-fluid flush container-pod container-pod-super-short flush-top"
         hash={task} />
     );
