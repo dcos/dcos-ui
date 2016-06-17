@@ -51,9 +51,7 @@ class VolumeDetail extends React.Component {
         'Mode': volume.getMode(),
         'Size (MiB)': volume.getSize(),
         'Application': service.getId(),
-        // TODO: Figure out how to get the correct task ID.
-        // https://mesosphere.atlassian.net/browse/DCOS-7803
-        // 'Task ID': volume.getId(),
+        'Task ID': volume.getTaskID(),
         'Host': volume.getHost()
       };
 
