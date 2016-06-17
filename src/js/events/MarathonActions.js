@@ -29,12 +29,10 @@ var AppDispatcher = require('./AppDispatcher');
 var Config = require('../config/Config');
 import MarathonUtil from '../utils/MarathonUtil';
 
-const marathonAPIPrefix = '/service/marathon/v2';
-
 module.exports = {
   createGroup: function (data) {
     RequestUtil.json({
-      url: `${Config.rootUrl}${marathonAPIPrefix}/groups`,
+      url: `${Config.rootUrl}${Config.marathonAPIPrefix}/groups`,
       method: 'POST',
       data,
       success: function () {
@@ -54,7 +52,7 @@ module.exports = {
 
   createService: function (data) {
     RequestUtil.json({
-      url: `${Config.rootUrl}${marathonAPIPrefix}/apps`,
+      url: `${Config.rootUrl}${Config.marathonAPIPrefix}/apps`,
       method: 'POST',
       data,
       success: function () {
@@ -74,7 +72,7 @@ module.exports = {
 
   deleteService: function (serviceId) {
     RequestUtil.json({
-      url: `${Config.rootUrl}${marathonAPIPrefix}/apps/${serviceId}`,
+      url: `${Config.rootUrl}${Config.marathonAPIPrefix}/apps/${serviceId}`,
       method: 'DELETE',
       success: function () {
         AppDispatcher.handleServerAction({
@@ -93,7 +91,7 @@ module.exports = {
 
   editService: function (data) {
     RequestUtil.json({
-      url: `${Config.rootUrl}${marathonAPIPrefix}/apps/${data.id}`,
+      url: `${Config.rootUrl}${Config.marathonAPIPrefix}/apps/${data.id}`,
       method: 'PUT',
       data,
       success: function () {
@@ -115,7 +113,7 @@ module.exports = {
     Config.getRefreshRate(),
     function (resolve, reject) {
       return function () {
-        const url = `${Config.rootUrl}${marathonAPIPrefix}/groups`;
+        const url = `${Config.rootUrl}${Config.marathonAPIPrefix}/groups`;
         const embed = [
           {name: 'embed', value: 'group.groups'},
           {name: 'embed', value: 'group.apps'},
@@ -159,7 +157,7 @@ module.exports = {
     function (resolve, reject) {
       return function () {
         RequestUtil.json({
-          url: `${Config.rootUrl}${marathonAPIPrefix}/deployments`,
+          url: `${Config.rootUrl}${Config.marathonAPIPrefix}/deployments`,
           success: function (response) {
             AppDispatcher.handleServerAction({
               type: REQUEST_MARATHON_DEPLOYMENTS_SUCCESS,
@@ -187,7 +185,7 @@ module.exports = {
 
   fetchServiceVersion: function (serviceID, versionID) {
     RequestUtil.json({
-      url: `${Config.rootUrl}${marathonAPIPrefix}/apps/${serviceID}/versions/${versionID}`,
+      url: `${Config.rootUrl}${Config.marathonAPIPrefix}/apps/${serviceID}/versions/${versionID}`,
       success: function (response) {
         AppDispatcher.handleServerAction({
           type: REQUEST_MARATHON_SERVICE_VERSION_SUCCESS,
@@ -205,7 +203,7 @@ module.exports = {
 
   fetchServiceVersions: function (serviceID) {
     RequestUtil.json({
-      url: `${Config.rootUrl}${marathonAPIPrefix}/apps/${serviceID}/versions`,
+      url: `${Config.rootUrl}${Config.marathonAPIPrefix}/apps/${serviceID}/versions`,
       success: function (response) {
         let {versions} = response;
         AppDispatcher.handleServerAction({
@@ -227,7 +225,7 @@ module.exports = {
     function (resolve, reject) {
       return function () {
         RequestUtil.json({
-          url: `${Config.rootUrl}${marathonAPIPrefix}/queue`,
+          url: `${Config.rootUrl}${Config.marathonAPIPrefix}/queue`,
           success: function (response) {
             AppDispatcher.handleServerAction({
               type: REQUEST_MARATHON_QUEUE_SUCCESS,
@@ -255,7 +253,7 @@ module.exports = {
 
   revertDeployment: function (deploymentID) {
     RequestUtil.json({
-      url: `${Config.rootUrl}${marathonAPIPrefix}/deployments/${deploymentID}`,
+      url: `${Config.rootUrl}${Config.marathonAPIPrefix}/deployments/${deploymentID}`,
       method: 'DELETE',
       success: function (response) {
         AppDispatcher.handleServerAction({

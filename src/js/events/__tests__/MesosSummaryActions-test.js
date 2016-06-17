@@ -4,6 +4,8 @@ jest.dontMock('../../config/Config');
 jest.dontMock('../MesosSummaryActions');
 jest.dontMock('../../constants/TimeScales');
 
+import {Hooks} from 'PluginSDK';
+
 jest.setMock('react-router', {
   HashLocation: {
     getCurrentPath: function () { return '/foo'; },
@@ -28,6 +30,8 @@ global.analytics = {
   track: function () {},
   log: function () {}
 };
+
+Hooks.addFilter('hasCapability', function () { return true; });
 
 describe('Mesos State Actions', function () {
 
