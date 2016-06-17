@@ -1,8 +1,14 @@
 import {Route, Redirect} from 'react-router';
 
+import ButtonCollectionsTabContent from '../pages/styles/components/ButtonCollectionsTabContent';
+import ButtonGroupsTabContent from '../pages/styles/components/ButtonGroupsTabContent';
 import ButtonsTabContent from '../pages/styles/components/ButtonsTabContent';
+import DropdownsTabContent from '../pages/styles/components/DropdownsTabContent';
 import FormsTabContent from '../pages/styles/components/FormsTabContent';
 import IconsTabContent from '../pages/styles/components/IconsTabContent';
+import ModalsTabContent from '../pages/styles/components/ModalsTabContent';
+import PanelsTabContent from '../pages/styles/components/PanelsTabContent';
+
 import GridTabContent from '../pages/styles/layout/GridTabContent';
 import StylesPage from '../pages/StylesPage';
 
@@ -25,6 +31,24 @@ let stylesRoutes = {
         },
         {
           type: Route,
+          name: 'styles-components-button-collections',
+          path: 'button-collections/?',
+          handler: ButtonCollectionsTabContent
+        },
+        {
+          type: Route,
+          name: 'styles-components-button-groups',
+          path: 'button-groups/?',
+          handler: ButtonGroupsTabContent
+        },
+        {
+          type: Route,
+          name: 'styles-components-dropdowns',
+          path: 'dropdowns/?',
+          handler: DropdownsTabContent
+        },
+        {
+          type: Route,
           name: 'styles-components-forms',
           path: 'forms/?',
           handler: FormsTabContent
@@ -34,6 +58,18 @@ let stylesRoutes = {
           name: 'styles-components-icons',
           path: 'icons/?',
           handler: IconsTabContent
+        },
+        {
+          type: Route,
+          name: 'styles-components-modals',
+          path: 'modals/?',
+          handler: ModalsTabContent
+        },
+        {
+          type: Route,
+          name: 'styles-components-panels',
+          path: 'panels/?',
+          handler: PanelsTabContent
         },
         {
           type: Redirect,
@@ -69,4 +105,3 @@ let stylesRoutes = {
 };
 
 module.exports = stylesRoutes;
-
