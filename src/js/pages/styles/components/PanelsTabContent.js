@@ -1,19 +1,19 @@
 import React from 'react';
 import SidebarActions from '../../../events/SidebarActions';
 
-class FormTabContent extends React.Component {
+class PanelsTabContent extends React.Component {
 
   render() {
     return null;
   }
 }
 
-FormTabContent.contextTypes = {
+PanelsTabContent.contextTypes = {
   router: React.PropTypes.func
 };
 
-FormTabContent.willTransitionTo = function () {
+PanelsTabContent.willTransitionTo = function () {
   SidebarActions.close();
 };
 
-module.exports = FormTabContent;
+module.exports = PanelsTabContent;
