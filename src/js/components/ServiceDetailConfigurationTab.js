@@ -27,10 +27,25 @@ class ServiceDetailConfigurationTab extends React.Component {
   }
 
   componentWillMount() {
+    let {service} = this.props;
+
     this.setState({
-      selectedVersionID: this.props.service.getVersion()
+      selectedVersionID: service.getVersion()
     });
-    DCOSStore.fetchServiceVersions(this.props.service.getId());
+    DCOSStore.fetchServiceVersions(service.getId());
+  }
+
+  componentWillReceiveProps({service:nextService}) {
+    let {service} = this.props;
+
+    if (service.getVersion() === nextService.getVersion()) {
+      return;
+    }
+
+    this.setState({
+      selectedVersionID: nextService.getVersion()
+    });
+    DCOSStore.fetchServiceVersions(service.getId());
   }
 
   handleApplyButtonClick() {
