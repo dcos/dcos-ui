@@ -8,7 +8,10 @@ import Icon from './Icon';
 import SideTabs from './SideTabs';
 
 const METHODS_TO_BIND = [
-  'getTriggerSubmit', 'handleTabClick', 'handleExternalSubmit'
+  'getTriggerSubmit',
+  'handleFormError',
+  'handleTabClick',
+  'handleExternalSubmit'
 ];
 
 class TabForm extends React.Component {
@@ -22,6 +25,7 @@ class TabForm extends React.Component {
     });
 
     this.triggerSubmit = function () {};
+    this.isValidated = false;
   }
 
   componentWillMount() {
@@ -50,18 +54,29 @@ class TabForm extends React.Component {
     this.setState({currentTab});
   }
 
+  handleFormError() {
+    this.isValidated = false;
+  }
+
   handleFormSubmit(formKey, formModel) {
     this.model[formKey] = formModel;
   }
 
   handleExternalSubmit() {
     this.buildModel();
-    this.props.onSubmit(this.model);
+
+    if (this.isValidated) {
+      this.props.onSubmit(this.model);
+    } else {
+      this.props.onError();
+    }
 
     return this.model;
   }
 
   buildModel() {
+    this.isValidated = true;
+
     Object.keys(this.props.definition).forEach((formKey) => {
       this.submitMap[formKey]();
     });
@@ -168,6 +183,7 @@ class TabForm extends React.Component {
             definition={formDefinition}
             triggerSubmit={this.getTriggerSubmit.bind(this, formKey)}
             onChange={this.props.onChange}
+            onError={this.handleFormError}
             onSubmit={this.handleFormSubmit.bind(this, formKey)} />
         </div>
       );
@@ -208,6 +224,7 @@ class TabForm extends React.Component {
 TabForm.defaultProps = {
   getTriggerSubmit: function () {},
   onChange: function () {},
+  onError: function () {},
   onSubmit: function () {}
 };
 
@@ -224,6 +241,7 @@ TabForm.propTypes = {
   formRowClass: classPropType,
   getTriggerSubmit: React.PropTypes.func,
   navigationContentClassNames: classPropType,
+  onError: React.PropTypes.func,
   onChange: React.PropTypes.func,
   onSubmit: React.PropTypes.func
 };
