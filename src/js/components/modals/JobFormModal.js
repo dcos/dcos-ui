@@ -17,7 +17,6 @@ import ToggleButton from '../ToggleButton';
 
 const METHODS_TO_BIND = [
   'handleCancel',
-  'handleClearError',
   'handleFormChange',
   'handleJSONEditorChange',
   'handleInputModeToggle',
@@ -89,18 +88,15 @@ class JobFormModal extends mixin(StoreMixin) {
     this.props.onClose();
   }
 
-  handleClearError() {
-    this.setState({
-      errorMessage: null
-    });
-  }
-
   handleFormChange({model}) {
     if (!model) {
       return;
     }
 
-    this.setState({job: JobUtil.createJobFromFormModel(model)});
+    this.setState({
+      errorMessage: null,
+      job: JobUtil.createJobFromFormModel(model)
+    });
   }
 
   handleInputModeToggle() {
@@ -110,7 +106,7 @@ class JobFormModal extends mixin(StoreMixin) {
   handleJSONEditorChange(jsonDefinition) {
     try {
       let job = new Job(JSON.parse(jsonDefinition));
-      this.setState({job});
+      this.setState({errorMessage: null, job});
     } catch (error) {
       // TODO: DCOS-7734 Handle error
     }
@@ -128,19 +124,13 @@ class JobFormModal extends mixin(StoreMixin) {
     }
 
     return (
-      <div>
-        <h4 className="text-align-center text-danger flush-top">
+    <div>
+      <div className="error-field text-danger">
+        <pre className="text-align-center">
           {errorMessage.message}
-        </h4>
-        <pre className="text-danger">
-          {JSON.stringify(errorMessage.details, null, 2)}
         </pre>
-        <button
-          className="button button-small button-danger flush-bottom"
-          onClick={this.handleClearError}>
-          clear
-        </button>
       </div>
+    </div>
     );
   }
 
