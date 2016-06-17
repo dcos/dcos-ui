@@ -140,7 +140,7 @@ class ServiceFormModal extends mixin(StoreMixin) {
     let {state, props} = this;
     return props.open !== nextProps.open ||
       state.jsonMode !== nextState.jsonMode ||
-      state.errorMessages !== nextState.errorMessage;
+      state.errorMessages !== nextState.errorMessages;
   }
 
   resetState() {
