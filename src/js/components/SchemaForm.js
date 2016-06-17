@@ -137,6 +137,7 @@ class SchemaForm extends mixin(StoreMixin) {
 
     return (
       <a
+        key={`${prop}-add-new-row`}
         className="clickable"
         onClick={
           this.handleAddRow.bind(this, prop, generalDefinition, definition)
@@ -148,10 +149,9 @@ class SchemaForm extends mixin(StoreMixin) {
 
   getRemoveRowButton(generalDefinition, prop, id) {
     return (
-      <div className="form-row-element align-self-flex-end">
+      <div key={`${prop}${id}-remove`} className="form-row-element align-self-flex-end">
         <button
           className="button button-link"
-          key={prop + id}
           onClick={this.handleRemoveRow.bind(this, generalDefinition, prop, id)}>
           <i className="icon icon-sprite icon-sprite-mini icon-close"/>
         </button>
