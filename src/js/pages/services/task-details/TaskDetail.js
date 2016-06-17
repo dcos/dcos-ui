@@ -64,6 +64,10 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
 
   componentWillMount() {
     super.componentWillMount(...arguments);
+    this.tabs_tabs = Object.assign({}, SERVICES_TABS);
+    if (this.props.params.nodeID != null) {
+      this.tabs_tabs = Object.assign({}, NODES_TABS);
+    }
     this.updateCurrentTab();
   }
 
@@ -81,7 +85,8 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
   }
 
   onStateStoreSuccess() {
-    TaskDirectoryStore.getDirectory(this.getTask());
+    let task = MesosStateStore.getTaskFromTaskID(this.props.params.taskID);
+    TaskDirectoryStore.getDirectory(task);
   }
 
   onTaskDirectoryStoreError() {
