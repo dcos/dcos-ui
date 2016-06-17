@@ -120,6 +120,10 @@ module.exports = class Service extends Item {
     };
   }
 
+  getResidency() {
+    return this.get('residency');
+  }
+
   getStatus() {
     const status = this.getServiceStatus();
     if (status.displayName == null) {
@@ -179,6 +183,10 @@ module.exports = class Service extends Item {
 
   getQueue() {
     return this.get('queue');
+  }
+
+  getUpdateStrategy() {
+    return this.get('updateStrategy');
   }
 
   getUser() {

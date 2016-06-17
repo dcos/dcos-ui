@@ -1,6 +1,7 @@
 import {Hooks} from 'PluginSDK';
 
 import Service from '../structs/Service';
+import VolumeConstants from '../constants/VolumeConstants';
 
 const getFindPropertiesRecursive = function (service, item) {
 
@@ -43,7 +44,8 @@ const ServiceUtil = {
         optional,
         containerSettings,
         environmentVariables,
-        labels
+        labels,
+        volumes
       } = formModel;
 
       if (general != null) {
@@ -103,6 +105,81 @@ const ServiceUtil = {
         }
       }
 
+      if (volumes != null) {
+        let type = VolumeConstants.type.MESOS;
+        let volumesList = [];
+
+        if (definition.container == null) {
+          definition.container = {};
+        }
+
+        if (definition.container.docker &&
+          definition.container.docker.image) {
+          type = VolumeConstants.type.DOCKER;
+          if (volumes.dockerVolumes) {
+            volumesList = volumesList.concat(
+              volumes.dockerVolumes
+              .map(function ({containerPath, hostPath, mode}) {
+                return {
+                  containerPath,
+                  hostPath,
+                  mode: VolumeConstants.mode[mode]
+                };
+              }));
+          }
+        }
+
+        if (volumes.externalVolumes) {
+          let externalVolumes = volumes.externalVolumes
+            .map(function ({containerPath, externalName}) {
+              return {
+                containerPath: containerPath,
+                external: {
+                  name: externalName,
+                  provider: 'dvdi',
+                  options: {
+                    'dvdi/driver': 'rexray'
+                  }
+                },
+                mode: 'RW'
+              };
+            });
+
+          if (externalVolumes.length > 0) {
+            volumesList = volumesList.concat(externalVolumes);
+          }
+          definition.updateStrategy = {
+            maximumOverCapacity: 0,
+            minimumHealthCapacity: 0
+          };
+        }
+
+        if (volumes.localVolumes) {
+          let localVolumes = volumes.localVolumes
+            .map(function ({containerPath, size}) {
+              return {
+                containerPath,
+                persistent: {size},
+                mode: VolumeConstants.mode.rw
+              };
+            });
+          if (localVolumes.length > 0) {
+            volumesList = volumesList.concat(localVolumes);
+            definition.updateStrategy = {
+              maximumOverCapacity: 0,
+              minimumHealthCapacity: 0
+            };
+            definition.residency = {
+              relaunchEscalationTimeoutSeconds: 10,
+              taskLostBehavior: 'WAIT_FOREVER'
+            };
+          }
+        }
+
+        definition.container.type = type;
+        definition.container.volumes = volumesList;
+      }
+
       if (labels != null && labels.labels != null) {
         definition.labels = labels.labels.reduce(function (memo, item) {
           memo[item.key] = item.value;
@@ -155,10 +232,18 @@ const ServiceUtil = {
     let containerSettings = service.getContainerSettings();
     if (containerSettings &&
       containerSettings.docker &&
-      containerSettings.docker.image
+      containerSettings.docker.image ||
+      containerSettings.type === VolumeConstants.type.MESOS
     ) {
       appDefinition.container = containerSettings;
+
+      if (appDefinition.container.type === VolumeConstants.type.MESOS) {
+        delete(appDefinition.container.docker);
+      }
     }
+
+    appDefinition.updateStrategy = service.getUpdateStrategy();
+    appDefinition.residency = service.getResidency();
 
     // Environment Variables
     appDefinition.env = service.getEnvironmentVariables();
