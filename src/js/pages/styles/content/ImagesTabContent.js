@@ -1,19 +1,19 @@
 import React from 'react';
 import SidebarActions from '../../../events/SidebarActions';
 
-class GridTabContent extends React.Component {
+class ImagesTabContent extends React.Component {
 
   render() {
     return null;
   }
 }
 
-GridTabContent.contextTypes = {
+ImagesTabContent.contextTypes = {
   router: React.PropTypes.func
 };
 
-GridTabContent.willTransitionTo = function () {
+ImagesTabContent.willTransitionTo = function () {
   SidebarActions.close();
 };
 
-module.exports = GridTabContent;
+module.exports = ImagesTabContent;
