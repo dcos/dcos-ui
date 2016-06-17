@@ -185,6 +185,10 @@ module.exports = class Service extends Item {
     return this.get('user');
   }
 
+  getVersion() {
+    return this.get('version');
+  }
+
   getVersions() {
     return this.get('versions') || new Map();
   }

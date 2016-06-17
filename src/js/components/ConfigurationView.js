@@ -2,7 +2,7 @@ import mixin from 'reactjs-mixin';
 import React from 'react';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
-import DCOSStore from '../stores/DCOSStore'
+import DCOSStore from '../stores/DCOSStore';
 import DescriptionList from './DescriptionList';
 import Service from '../structs/Service';
 import StringUtil from '../utils/StringUtil';
@@ -216,7 +216,7 @@ class ConfigurationView extends mixin(StoreMixin) {
 
     return (
       <div>
-        <h4 className="inverse">{headline}</h4>
+        <h4 className="inverse" title={versionID}>{headline}</h4>
         {this.getGenralSection(config)}
         {this.getDockerContainerSection(config)}
         {this.getPortDefinitionsSection(config)}
