@@ -281,6 +281,7 @@ class SchemaForm extends React.Component {
         {this.getFormHeader()}
         <TabForm
           definition={this.multipleDefinition}
+          formRowClass="flex-box"
           getTriggerSubmit={this.getTriggerTabFormSubmit}
           onChange={this.handleFormChange} />
       </div>
