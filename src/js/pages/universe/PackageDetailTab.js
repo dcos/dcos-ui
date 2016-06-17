@@ -4,6 +4,7 @@ import React from 'react';
 /* eslint-enable no-unused-vars */
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
+import Breadcrumbs from '../../components/Breadcrumbs';
 import CosmosPackagesStore from '../../stores/CosmosPackagesStore';
 import ImageViewer from '../../components/ImageViewer';
 import InstallPackageModal from '../../components/modals/InstallPackageModal';
@@ -209,6 +210,7 @@ class PackageDetailTab extends mixin(StoreMixin) {
 
     return (
       <div>
+        <Breadcrumbs />
         <div className="container-pod container-pod-divider-bottom container-pod-divider-inverse flush-top flush-bottom">
           <div className="media-object-spacing-wrapper">
             <div className="media-object media-object-align-middle">
