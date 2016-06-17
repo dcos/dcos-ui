@@ -13,6 +13,7 @@ import {
 import ChronosStore from '../stores/ChronosStore';
 import DeploymentsList from '../structs/DeploymentsList';
 import Framework from '../structs/Framework';
+import {Hooks} from 'PluginSDK';
 import JobTree from '../structs/JobTree';
 import MarathonStore from './MarathonStore';
 import MesosSummaryStore from './MesosSummaryStore';
@@ -50,43 +51,58 @@ class DCOSStore extends EventEmitter {
       mesos: new SummaryList(),
       dataProcessed: false
     };
+  }
 
-    this.proxyListeners = [
-      {
+  getProxyListeners() {
+    let proxyListeners = [];
+
+    if (Hooks.applyFilter('hasCapability', false, 'chronosAPI')) {
+      proxyListeners.push({
         event: CHRONOS_JOBS_CHANGE,
         handler: this.onChronosChange,
         store: ChronosStore
-      },{
-        event: MARATHON_DEPLOYMENTS_CHANGE,
-        handler: this.onMarathonDeploymentsChange,
-        store: MarathonStore
-      },
-      {
-        event: MARATHON_GROUPS_CHANGE,
-        handler: this.onMarathonGroupsChange,
-        store: MarathonStore
-      },
-      {
-        event: MARATHON_QUEUE_CHANGE,
-        handler: this.onMarathonQueueChange,
-        store: MarathonStore
-      },
-      {
-        event: MARATHON_SERVICE_VERSION_CHANGE,
-        handler: this.onMarathonServiceVersionChange,
-        store: MarathonStore
-      },
-      {
-        event: MARATHON_SERVICE_VERSIONS_CHANGE,
-        handler: this.onMarathonServiceVersionsChange,
-        store: MarathonStore
-      },
-      {
+      });
+    }
+
+    if (Hooks.applyFilter('hasCapability', false, 'mesosAPI')) {
+      proxyListeners.push({
         event: MESOS_SUMMARY_CHANGE,
         handler: this.onMesosSummaryChange,
         store: MesosSummaryStore
-      }
-    ];
+      });
+    }
+
+    if (Hooks.applyFilter('hasCapability', false, 'marathonAPI')) {
+      proxyListeners = proxyListeners.concat([
+        {
+          event: MARATHON_DEPLOYMENTS_CHANGE,
+          handler: this.onMarathonDeploymentsChange,
+          store: MarathonStore
+        },
+        {
+          event: MARATHON_GROUPS_CHANGE,
+          handler: this.onMarathonGroupsChange,
+          store: MarathonStore
+        },
+        {
+          event: MARATHON_QUEUE_CHANGE,
+          handler: this.onMarathonQueueChange,
+          store: MarathonStore
+        },
+        {
+          event: MARATHON_SERVICE_VERSION_CHANGE,
+          handler: this.onMarathonServiceVersionChange,
+          store: MarathonStore
+        },
+        {
+          event: MARATHON_SERVICE_VERSIONS_CHANGE,
+          handler: this.onMarathonServiceVersionsChange,
+          store: MarathonStore
+        }
+      ]);
+    }
+
+    return proxyListeners;
   }
 
   /**
@@ -208,13 +224,13 @@ class DCOSStore extends EventEmitter {
   }
 
   addProxyListeners() {
-    this.proxyListeners.forEach(function (item) {
+    this.getProxyListeners().forEach(function (item) {
       item.store.addChangeListener(item.event, item.handler);
     });
   }
 
   removeProxyListeners() {
-    this.proxyListeners.forEach(function (item) {
+    this.getProxyListeners().forEach(function (item) {
       item.store.removeChangeListener(item.event, item.handler);
     });
   }

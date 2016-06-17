@@ -16,6 +16,7 @@ var Config = {
   historyLength: 31,
   historyServer: '',
   fullProductName: 'DC/OS',
+  marathonAPIPrefix: '/service/marathon/v2',
   productName: 'DC/OS',
   productHomepageURI: 'https://dcos.io',
   setInactiveAfter: 30000,

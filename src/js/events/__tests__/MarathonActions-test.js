@@ -3,12 +3,15 @@ jest.dontMock('../UnitHealthActions');
 jest.dontMock('../../config/Config');
 jest.dontMock('../../constants/ActionTypes');
 
+import {Hooks} from 'PluginSDK';
 import {RequestUtil} from 'mesosphere-shared-reactjs';
 
 var ActionTypes = require('../../constants/ActionTypes');
 var AppDispatcher = require('../AppDispatcher');
 var Config = require('../../config/Config');
 var MarathonActions = require('../MarathonActions');
+
+Hooks.addFilter('hasCapability', function () { return true; });
 
 describe('MarathonActions', function () {
 
@@ -27,7 +30,7 @@ describe('MarathonActions', function () {
 
     it('sends data to the correct URL', function () {
       expect(this.configuration.url)
-        .toEqual(`${Config.rootUrl}/marathon/v2/groups`);
+        .toEqual(`${Config.rootUrl}/service/marathon/v2/groups`);
     });
 
     it('uses POST for the request method', function () {
@@ -79,7 +82,7 @@ describe('MarathonActions', function () {
 
     it('sends data to the correct URL', function () {
       expect(this.configuration.url)
-        .toEqual(`${Config.rootUrl}/marathon/v2/apps`);
+        .toEqual(`${Config.rootUrl}/service/marathon/v2/apps`);
     });
 
     it('uses POST for the request method', function () {
@@ -130,7 +133,7 @@ describe('MarathonActions', function () {
 
     it('sends data to the correct URL', function () {
       expect(this.configuration.url)
-        .toEqual(`${Config.rootUrl}/marathon/v2/apps//test`);
+        .toEqual(`${Config.rootUrl}/service/marathon/v2/apps//test`);
     });
 
     it('uses DELETE for the request method', function () {
@@ -182,7 +185,7 @@ describe('MarathonActions', function () {
 
     it('sends data to the correct URL', function () {
       expect(this.configuration.url)
-        .toEqual(`${Config.rootUrl}/marathon/v2/apps//test`);
+        .toEqual(`${Config.rootUrl}/service/marathon/v2/apps//test`);
     });
 
     it('uses PUT for the request method', function () {
@@ -230,7 +233,7 @@ describe('MarathonActions', function () {
 
     it('fetches data from the correct URL', function () {
       expect(this.configuration.url)
-        .toEqual(`${Config.rootUrl}/marathon/v2/deployments`);
+        .toEqual(`${Config.rootUrl}/service/marathon/v2/deployments`);
     });
 
     it('dispatches the correct action when successful', function () {
@@ -275,7 +278,7 @@ describe('MarathonActions', function () {
 
     it('fetches data from the correct URL', function () {
       expect(this.configuration.url)
-        .toEqual(`${Config.rootUrl}/marathon/v2/groups`);
+        .toEqual(`${Config.rootUrl}/service/marathon/v2/groups`);
     });
 
     it('dispatches the correct action when successful', function () {
@@ -320,7 +323,7 @@ describe('MarathonActions', function () {
 
     it('fetches data from the correct URL', function () {
       expect(this.configuration.url)
-        .toEqual(`${Config.rootUrl}/marathon/v2/queue`);
+        .toEqual(`${Config.rootUrl}/service/marathon/v2/queue`);
     });
 
     it('dispatches the correct action when successful', function () {
@@ -374,7 +377,7 @@ describe('MarathonActions', function () {
 
     it('fetches data from the correct URL', function () {
       expect(this.configuration.url).toEqual(
-        `${Config.rootUrl}/marathon/v2/apps/${serviceID}/versions/${versionID}`
+        `${Config.rootUrl}/service/marathon/v2/apps/${serviceID}/versions/${versionID}`
       );
     });
 
@@ -424,7 +427,7 @@ describe('MarathonActions', function () {
 
     it('fetches data from the correct URL', function () {
       expect(this.configuration.url)
-        .toEqual(`${Config.rootUrl}/marathon/v2/apps/${serviceID}/versions`);
+        .toEqual(`${Config.rootUrl}/service/marathon/v2/apps/${serviceID}/versions`);
     });
 
     it('dispatches the correct action when successful', function () {
@@ -476,7 +479,7 @@ describe('MarathonActions', function () {
 
       it('calls the appropriate endpoint', function () {
         expect(this.configuration.url)
-          .toEqual(`${Config.rootUrl}/marathon/v2/deployments/deployment-id`);
+          .toEqual(`${Config.rootUrl}/service/marathon/v2/deployments/deployment-id`);
       });
 
     });
@@ -541,7 +544,7 @@ describe('MarathonActions', function () {
         responseText: JSON.stringify({message: 'A helpful error message.'})
       });
     });
-      
+
   });
 
 });
