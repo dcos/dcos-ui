@@ -119,7 +119,8 @@ class ServiceFormModal extends mixin(StoreMixin) {
           'serviceCreateSuccess',
           'serviceEditError',
           'serviceEditSuccess'
-        ]
+        ],
+        suppressUpdate: true
       }
     ];
 
@@ -133,6 +134,13 @@ class ServiceFormModal extends mixin(StoreMixin) {
     if (!this.props.open && nextProps.open) {
       this.resetState();
     }
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    let {state, props} = this;
+    return props.open !== nextProps.open ||
+      state.jsonMode !== nextState.jsonMode ||
+      state.errorMessages !== nextState.errorMessages;
   }
 
   resetState() {
