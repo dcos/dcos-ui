@@ -14,8 +14,13 @@ const STYLES_TABS = {
 const STYLES_SUB_TABS = {
   'styles-components-tab': {
     'styles-components-buttons': 'Buttons',
+    'styles-components-button-groups': 'Button Groups',
+    'styles-components-button-collections': 'Button Collections',
     'styles-components-forms': 'Forms',
-    'styles-components-icons': 'Icons'
+    'styles-components-dropdowns': 'Dropdowns',
+    'styles-components-icons': 'Icons',
+    'styles-components-modals': 'Modals',
+    'styles-components-panels': 'Panels'
   },
   'styles-layout-tab': {
     'styles-layout-grid': 'Grid'
