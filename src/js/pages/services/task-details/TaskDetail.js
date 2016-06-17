@@ -186,6 +186,10 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
     );
   }
 
+  getConfirmModal() {
+    return null;
+  }
+
   getTask() {
     return MesosStateStore.getTaskFromTaskID(this.props.params.taskID);
   };
@@ -244,6 +248,7 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
           navigationTabs={this.getTaskTabs()}
           title={this.getTaskName(task)} />
         {this.getSubView(task)}
+        {this.getConfirmModal()}
       </div>
     );
   }
