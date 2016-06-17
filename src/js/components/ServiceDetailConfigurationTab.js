@@ -23,8 +23,6 @@ class ServiceDetailConfigurationTab extends React.Component {
   }
 
   componentWillMount() {
-    super.componentWillMount(...arguments);
-
     this.setState({
       selectedVersionID: this.props.service.getVersion()
     });
