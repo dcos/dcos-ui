@@ -6,6 +6,8 @@ import DCOSStore from '../stores/DCOSStore';
 import Service from '../structs/Service';
 
 const METHODS_TO_BIND = [
+  'handleApplyButtonClick',
+  'handleEditButtonClick',
   'handleVersionSelection'
 ];
 
@@ -29,19 +31,61 @@ class ServiceDetailConfigurationTab extends React.Component {
     DCOSStore.fetchServiceVersions(this.props.service.getId());
   }
 
+  handleApplyButtonClick() {
+
+  }
+
+  handleEditButtonClick() {
+
+  }
+
   handleVersionSelection(versionItem) {
     this.setState({
       selectedVersionID: versionItem.id
     });
   }
 
-  getVersionsDropdown() {
-    let {service} = this.props;
-    let versions = service.getVersions();
+  getVersionsActions() {
+    let versions = this.props.service.getVersions();
 
     if (versions.size < 2) {
       return null;
     }
+
+    return (
+      <div className="button-collection">
+        {this.getVersionsDropdown()}
+        {this.getRollbackButtons()}
+      </div>
+    )
+  }
+
+  getRollbackButtons() {
+    let {service} = this.props;
+    let {selectedVersionID} = this.state;
+
+    if (service.getVersion() === selectedVersionID) {
+      return null;
+    }
+
+    return [(
+      <button className="button button-stroke button-inverse"
+        key="version-button-edit"
+        onClick={() => this.handleEditButtonClick()}>
+        Edit
+      </button>
+    ), (
+      <button className="button button-stroke button-inverse"
+        key="version-button-apply"
+        onClick={() => this.handleApplyButtonClick()}>
+        Apply
+      </button>
+    )];
+  }
+
+  getVersionsDropdown() {
+    let {service} = this.props;
+    let versions = service.getVersions();
 
     let versionItems = [];
     for (let version of versions.keys()) {
@@ -68,6 +112,7 @@ class ServiceDetailConfigurationTab extends React.Component {
         dropdownMenuListClassName="dropdown-menu-list"
         dropdownMenuListItemClassName="clickable"
         items={versionItems}
+        key="version-dropdown"
         onItemSelection={this.handleVersionSelection}
         persistentID={this.state.selectedVersionID}
         transition={true}
@@ -89,7 +134,7 @@ class ServiceDetailConfigurationTab extends React.Component {
 
     return (
       <div>
-        {this.getVersionsDropdown()}
+        {this.getVersionsActions()}
         <ConfigurationView
           headline={headline}
           service={service}
