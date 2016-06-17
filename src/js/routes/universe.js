@@ -15,14 +15,38 @@ let universeRoutes = {
       type: Route,
       name: 'universe-packages',
       path: 'packages/?',
-      handler: PackagesTab
+      handler: PackagesTab,
+      buildBreadCrumb: function () {
+        return {
+          getCrumbs: function () {
+            return [
+              {
+                label: 'Packages',
+                route: {to: 'universe-packages'}
+              }
+            ];
+          }
+        }
+      }
     },
     {
       type: Route,
       name: 'universe-packages-detail',
       path: 'packages/:packageName?:packageVersion?',
       handler: PackageDetailTab,
-      hideHeaderNavigation: true
+      hideHeaderNavigation: true,
+      buildBreadCrumb: function () {
+        return {
+          parentCrumb: 'universe-packages',
+          getCrumbs: function (router) {
+            return [
+              {
+                label: router.getCurrentParams().packageName
+              }
+            ];
+          }
+        }
+      }
     },
     {
       type: Route,
