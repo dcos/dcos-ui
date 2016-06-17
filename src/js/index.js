@@ -20,16 +20,14 @@ require('./utils/StoreMixinConfig');
 
 import {
   CONFIG_ERROR,
-  MESOS_SUMMARY_CHANGE,
-  MESOS_SUMMARY_REQUEST_ERROR,
   PLUGINS_CONFIGURED
 } from './constants/EventTypes';
 import appRoutes from './routes/index';
 import Config from './config/Config';
 import ConfigStore from './stores/ConfigStore';
-import MesosSummaryStore from './stores/MesosSummaryStore';
 import RequestErrorMsg from './components/RequestErrorMsg';
 import RouterUtil from './utils/RouterUtil';
+import ApplicationUtil from './utils/ApplicationUtil';
 
 let domElement = document.getElementById('application');
 
@@ -59,64 +57,15 @@ RequestUtil.json = function (options = {}) {
         </Provider>),
         domElement);
     } else {
-      let loadedResources = {
-        mesos: false
-      };
-      let mesosEvents = [MESOS_SUMMARY_CHANGE, MESOS_SUMMARY_REQUEST_ERROR];
-      let waitingToRenderApplication = false;
-
-      // Responsible for checking if application is ready to render
-      function delayOrLoadApplication() {
-        // Check if we've loaded all resources first
-        let resources = Object.values(loadedResources);
-        let resourcesLoading = resources.some(function (loaded) {
-          return !loaded;
+      if (PluginSDK.Hooks.applyFilter('delayApplicationLoad', true)) {
+        // Let's make sure we get Mesos Summary data before we render app
+        // Mesos may unreachable, so we will render even on request failure
+        ApplicationUtil.beginTemporaryPolling(function () {
+          ApplicationUtil.renderOnDelayEnd(renderApplicationToDOM);
         });
-
-        if (!resourcesLoading || waitingToRenderApplication) {
-          return;
-        }
-
-        // Next - check to see if enough time has elapsed before rendering
-        let timeSpentLoading = Date.now() - global.getPageLoadedTime();
-        let msLeftOfDelay = Config.applicationRenderDelay - timeSpentLoading;
-
-        if (msLeftOfDelay <= 0) {
-          setTimeout(renderApplicationToDOM);
-        } else {
-          setTimeout(renderApplicationToDOM, msLeftOfDelay);
-        }
-
-        waitingToRenderApplication = true;
+      } else {
+        renderApplicationToDOM();
       }
-
-      // Let's make sure we get Mesos Summary data before we render app
-      // Mesos may unreachable, so we will render even on request failure
-      function onMesosSummaryChange() {
-        // Keep polling until the system attaches another listener to summary
-        function keepPollingAlive() {
-          if (MesosSummaryStore.listeners(MESOS_SUMMARY_CHANGE).length > 1) {
-            MesosSummaryStore.removeChangeListener(
-              MESOS_SUMMARY_CHANGE, keepPollingAlive
-            );
-          }
-        }
-        MesosSummaryStore.addChangeListener(
-          MESOS_SUMMARY_CHANGE, keepPollingAlive
-        );
-
-        mesosEvents.forEach(function (event) {
-          MesosSummaryStore.removeChangeListener(event, onMesosSummaryChange);
-        });
-        loadedResources.mesos = true;
-        delayOrLoadApplication();
-      }
-
-      // Mesos
-      MesosSummaryStore.init();
-      mesosEvents.forEach(function (event) {
-        MesosSummaryStore.addChangeListener(event, onMesosSummaryChange);
-      });
 
       function renderApplicationToDOM() {
         let routes = RouterUtil.buildRoutes(appRoutes.getRoutes());

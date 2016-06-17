@@ -25,6 +25,7 @@ module.exports = {
     Tree: 'Tree'
   },
   utils: {
+    ApplicationUtil: 'ApplicationUtil',
     CookieUtils: 'CookieUtils',
     DateUtil: 'DateUtil',
     DOMUtils: 'DOMUtils',
