@@ -114,6 +114,7 @@ describe('MarathonUtil', function () {
           },
           tasks: [
             {
+              id:'task-id-1',
               host: '0.0.0.1',
               startedAt: '2016-06-03T16:22:30.282Z',
               localVolumes: [{
@@ -132,6 +133,7 @@ describe('MarathonUtil', function () {
         mode: 'RW',
         size: 2048,
         status: 'Attached',
+        taskID: 'task-id-1',
         type: 'Persistent'
       });
     });
@@ -151,6 +153,7 @@ describe('MarathonUtil', function () {
           },
           tasks: [
             {
+              id:'task-id-1',
               host: '0.0.0.1',
               startedAt: '2016-06-03T16:22:30.282Z',
               localVolumes: [{
@@ -159,6 +162,7 @@ describe('MarathonUtil', function () {
               }]
             },
             {
+              id:'task-id-2',
               host: '0.0.0.1',
               startedAt: '2016-06-03T16:22:30.282Z',
               localVolumes: [{
@@ -189,6 +193,7 @@ describe('MarathonUtil', function () {
           },
           tasks: [
             {
+              id:'task-id',
               host: '0.0.0.1',
               startedAt: '2016-06-03T16:22:30.282Z',
               localVolumes: [{
@@ -217,6 +222,7 @@ describe('MarathonUtil', function () {
           },
           tasks: [
             {
+              id:'task-id',
               host: '0.0.0.1',
               localVolumes: [{
                 containerPath: 'path',
@@ -245,6 +251,7 @@ describe('MarathonUtil', function () {
           },
           tasks: [
             {
+              id:'task-id',
               host: '0.0.0.1',
               localVolumes: null
             }
@@ -270,6 +277,7 @@ describe('MarathonUtil', function () {
           },
           tasks: [
             {
+              id:'task-id',
               host: '0.0.0.1'
             }
           ]
