@@ -5,11 +5,13 @@ import ConfigurationView from './ConfigurationView';
 import DCOSStore from '../stores/DCOSStore';
 import MarathonStore from '../stores/MarathonStore';
 import Service from '../structs/Service';
+import ServiceFormModal from './modals/ServiceFormModal';
 import ServiceUtil from '../utils/ServiceUtil';
 
 const METHODS_TO_BIND = [
   'handleApplyButtonClick',
   'handleEditButtonClick',
+  'handleCloseServiceFormModal',
   'handleVersionSelection'
 ];
 
@@ -18,7 +20,8 @@ class ServiceDetailConfigurationTab extends React.Component {
     super(...arguments);
 
     this.state = {
-      selectedVersionID: null
+      selectedVersionID: null,
+      serviceToEdit: null
     };
 
     METHODS_TO_BIND.forEach(method => {
@@ -60,7 +63,18 @@ class ServiceDetailConfigurationTab extends React.Component {
   }
 
   handleEditButtonClick() {
+    let serviceConfiguration =
+      this.props.service.getVersions().get(this.state.selectedVersionID);
 
+    this.setState({
+      serviceToEdit: new Service(serviceConfiguration)
+    });
+  }
+
+  handleCloseServiceFormModal() {
+    this.setState({
+      serviceToEdit: null
+    });
   }
 
   handleVersionSelection(versionItem) {
@@ -147,7 +161,7 @@ class ServiceDetailConfigurationTab extends React.Component {
 
   render() {
     let {service} = this.props;
-    let {selectedVersionID} = this.state;
+    let {selectedVersionID, serviceToEdit} = this.state;
 
     let localeVersion = new Date(selectedVersionID).toLocaleString();
     let headline = `Current Version (${localeVersion})`;
@@ -163,6 +177,10 @@ class ServiceDetailConfigurationTab extends React.Component {
           headline={headline}
           service={service}
           versionID={selectedVersionID} />
+        <ServiceFormModal isEdit={true}
+          open={serviceToEdit != null}
+          service={serviceToEdit}
+          onClose={this.handleCloseServiceFormModal} />
       </div>
     );
   }
