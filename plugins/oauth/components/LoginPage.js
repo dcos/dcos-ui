@@ -63,17 +63,6 @@ class LoginPage extends mixin(StoreMixin) {
     }
   }
 
-  onAuthStoreSuccess() {
-    let router = this.context.router;
-    let loginRedirectRoute = AuthStore.get('loginRedirectRoute');
-
-    if (loginRedirectRoute) {
-      router.transitionTo(loginRedirectRoute);
-    } else {
-      router.transitionTo('/');
-    }
-  }
-
   onAuthStoreError(message, xhr) {
     if (xhr.status >= 400 && xhr.status < 500) {
       this.navigateToAccessDenied();

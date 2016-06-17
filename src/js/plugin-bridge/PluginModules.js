@@ -70,6 +70,7 @@ module.exports = {
     PageHeader: 'PageHeader',
     ProgressBar: 'charts/ProgressBar',
     RequestErrorMsg: 'RequestErrorMsg',
+    RouterUtil: 'RouterUtil',
     TabForm: 'TabForm',
     ToggleButton: 'ToggleButton'
   },

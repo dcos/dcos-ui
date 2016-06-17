@@ -1,9 +1,40 @@
+import qs from 'query-string';
 import {createRoutesFromReactChildren} from 'react-router';
 import React from 'react';
 
 import Util from './Util';
 
+function findRedirect(queryString) {
+  let redirectTo = false;
+
+  Object.keys(queryString).forEach(function (key) {
+    if (/redirect/.test(key)) {
+      redirectTo = queryString[key];
+    }
+  });
+
+  return redirectTo;
+}
+
 const RouterUtil = {
+
+  getRedirectTo() {
+    let redirectTo = false;
+
+    // This will match url instances like this:
+    // /?redirect=SOME_ADDRESS#/login
+    if (global.location.search) {
+      redirectTo = findRedirect(qs.parse(global.location.search));
+    }
+
+    // This will match url instances like this:
+    // /#/login?redirect=SOME_ADDRESS
+    if (!redirectTo && global.location.hash) {
+      redirectTo = findRedirect(qs.parse(global.location.hash));
+    }
+
+    return redirectTo;
+  },
 
   /**
    * Creates a tree of React components for an array of route configurations
