@@ -61,7 +61,7 @@ RequestUtil.json = function (options = {}) {
         // Let's make sure we get Mesos Summary data before we render app
         // Mesos may unreachable, so we will render even on request failure
         ApplicationUtil.beginTemporaryPolling(function () {
-          ApplicationUtil.renderOnDelayEnd(renderApplicationToDOM);
+          ApplicationUtil.invokeAfterPageLoad(renderApplicationToDOM);
         });
       } else {
         renderApplicationToDOM();

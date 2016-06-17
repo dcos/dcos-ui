@@ -7,7 +7,7 @@ let MesosSummaryStore = require('../../stores/MesosSummaryStore');
 
 describe('ApplicationUtil', function () {
 
-  describe('#renderOnDelayEnd', function () {
+  describe('#invokeAfterPageLoad', function () {
 
     it('should call callback right away', function () {
       let spy = jest.fn();
@@ -17,13 +17,13 @@ describe('ApplicationUtil', function () {
         return now - Config.applicationRenderDelay;
       }
 
-      ApplicationUtil.renderOnDelayEnd(spy);
+      ApplicationUtil.invokeAfterPageLoad(spy);
 
       expect(setTimeout.mock.calls[0][0]).toEqual(spy);
       expect(setTimeout.mock.calls[0][1]).toEqual(undefined);
     });
 
-    it('should call after time has ellapsed', function () {
+    it('should call after time has elapsed', function () {
       let spy = jest.fn();
       let now = Date.now();
 
@@ -31,7 +31,7 @@ describe('ApplicationUtil', function () {
         return now;
       }
 
-      ApplicationUtil.renderOnDelayEnd(spy);
+      ApplicationUtil.invokeAfterPageLoad(spy);
 
       expect(setTimeout.mock.calls[0][0]).toEqual(spy);
       expect(setTimeout.mock.calls[0][1]).toEqual(1000);

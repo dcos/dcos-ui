@@ -9,9 +9,9 @@ module.exports = {
   /**
    * Checks that enough time has elapsed before rendering app
    *
-   * @param  {Func} onDelayEndCallback Gets called after delay has ellapsed
+   * @param  {Func} onDelayEndCallback Gets called after delay has elapsed
    */
-  renderOnDelayEnd(onDelayEndCallback) {
+  invokeAfterPageLoad(onDelayEndCallback) {
     let timeSpentLoading = Date.now() - global.getPageLoadedTime();
     let msLeftOfDelay = Config.applicationRenderDelay - timeSpentLoading;
 
