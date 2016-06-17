@@ -52,6 +52,7 @@ class ItemVolumeDetail extends React.Component {
         'Size (MiB)': volume.getSize(),
         'Application': service.getId(),
         // TODO: Figure out how to get the correct task ID.
+        // https://mesosphere.atlassian.net/browse/DCOS-7803
         // 'Task ID': volume.getId(),
         'Host': volume.getHost()
       };
