@@ -8,7 +8,7 @@ import VolumeStatus from '../constants/VolumeStatus';
 
 const METHODS_TO_BIND = ['renderIDColumn'];
 
-class ItemVolumeTable extends React.Component {
+class VolumeTable extends React.Component {
   constructor() {
     super();
 
@@ -181,12 +181,12 @@ class ItemVolumeTable extends React.Component {
 
 }
 
-ItemVolumeTable.propTypes = {
+VolumeTable.propTypes = {
   volumes: React.PropTypes.arrayOf(React.PropTypes.instanceOf(Volume))
 };
 
-ItemVolumeTable.contextTypes = {
+VolumeTable.contextTypes = {
   router: React.PropTypes.func
 };
 
-module.exports = ItemVolumeTable;
+module.exports = VolumeTable;

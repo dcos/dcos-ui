@@ -5,7 +5,6 @@ import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import Breadcrumbs from './Breadcrumbs';
 import InternalStorageMixin from '../mixins/InternalStorageMixin';
-import ItemVolumeTable from './ItemVolumeTable';
 import MarathonStore from '../stores/MarathonStore';
 import Service from '../structs/Service';
 import ServiceActionItem from '../constants/ServiceActionItem';
@@ -16,6 +15,7 @@ import ServiceFormModal from './modals/ServiceFormModal';
 import ServiceInfo from './ServiceInfo';
 import ServiceScaleFormModal from './modals/ServiceScaleFormModal';
 import TabsMixin from '../mixins/TabsMixin';
+import VolumeTable from './VolumeTable';
 
 const METHODS_TO_BIND = [
   'onActionsItemSelection',
@@ -211,7 +211,7 @@ class ServiceDetail extends mixin(InternalStorageMixin, StoreMixin, TabsMixin) {
 
   renderVolumesTabView() {
     return (
-      <ItemVolumeTable
+      <VolumeTable
         params={this.context.router.getCurrentParams()}
         service={this.props.service}
         volumes={this.props.service.getVolumes().getItems()} />

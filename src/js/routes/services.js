@@ -4,8 +4,6 @@ import React from 'react';
 /* eslint-enable no-unused-vars */
 
 import DeploymentsTab from '../pages/services/DeploymentsTab';
-import ItemVolumeDetail from '../components/ItemVolumeDetail';
-import ItemVolumeTable from '../components/ItemVolumeTable';
 import ServicesPage from '../pages/ServicesPage';
 import ServicesTab from '../pages/services/ServicesTab';
 import TaskDetail from '../pages/services/task-details/TaskDetail';
@@ -13,6 +11,8 @@ import TaskDetailsTab from '../pages/services/task-details/TaskDetailsTab';
 import TaskFilesTab from '../pages/services/task-details/TaskFilesTab';
 import TaskLogsTab from '../pages/services/task-details/TaskLogsTab';
 import TaskDetailBreadcrumb from '../pages/nodes/breadcrumbs/TaskDetailBreadcrumb';
+import VolumeDetail from '../components/VolumeDetail';
+import VolumeTable from '../components/VolumeTable';
 
 function buildServiceCrumbs(router) {
   let {id} = router.getCurrentParams();
@@ -76,7 +76,7 @@ let serviceRoutes = {
               type: Route,
               name: 'service-volume-details',
               path: 'volumes/:volumeID/?',
-              handler: ItemVolumeDetail,
+              handler: VolumeDetail,
               buildBreadCrumb: function () {
                 return {
                   parentCrumb: 'services-detail',
@@ -94,7 +94,7 @@ let serviceRoutes = {
               type: Route,
               name: 'service-task-details-volume-details',
               path: 'tasks/:taskID/volumes/:volumeID/?',
-              handler: ItemVolumeDetail,
+              handler: VolumeDetail,
               buildBreadCrumb: function () {
                 return {
                   parentCrumb: 'services-task-details-volumes',
@@ -177,7 +177,7 @@ let serviceRoutes = {
                   type: Route,
                   name: 'services-task-details-volumes',
                   path: 'volumes/?',
-                  handler: ItemVolumeTable,
+                  handler: VolumeTable,
                   buildBreadCrumb: function () {
                     return {
                       parentCrumb: 'services-task-details',

@@ -8,7 +8,7 @@ import MarathonStore from '../stores/MarathonStore';
 import PageHeader from './PageHeader';
 import VolumeStatus from '../constants/VolumeStatus';
 
-class ItemVolumeDetail extends React.Component {
+class VolumeDetail extends React.Component {
   renderSubHeader(volume) {
     if (!volume) {
       return null;
@@ -76,12 +76,12 @@ class ItemVolumeDetail extends React.Component {
   }
 }
 
-ItemVolumeDetail.propTypes = {
+VolumeDetail.propTypes = {
   params: React.PropTypes.object
 };
 
-ItemVolumeDetail.contextTypes = {
+VolumeDetail.contextTypes = {
   router: React.PropTypes.func
 };
 
-module.exports = ItemVolumeDetail;
+module.exports = VolumeDetail;

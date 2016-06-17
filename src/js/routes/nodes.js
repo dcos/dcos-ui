@@ -4,19 +4,19 @@ import React from 'react';
 /* eslint-enable no-unused-vars */
 
 import HostTable from '../components/HostTable';
-import ItemVolumeDetail from '../components/ItemVolumeDetail';
-import ItemVolumeTable from '../components/ItemVolumeTable';
 import NodeDetailBreadcrumb from '../pages/nodes/breadcrumbs/NodeDetailBreadcrumb';
 import NodeDetailPage from '../pages/nodes/NodeDetailPage';
 import NodesGridView from '../components/NodesGridView';
 import NodesPage from '../pages/NodesPage';
 import TaskDetail from '../pages/services/task-details/TaskDetail';
+import TaskDetailBreadcrumb from '../pages/nodes/breadcrumbs/TaskDetailBreadcrumb';
 import TaskDetailsTab from '../pages/services/task-details/TaskDetailsTab';
 import TaskFilesTab from '../pages/services/task-details/TaskFilesTab';
 import TaskLogsTab from '../pages/services/task-details/TaskLogsTab';
-import TaskDetailBreadcrumb from '../pages/nodes/breadcrumbs/TaskDetailBreadcrumb';
 import UnitsHealthNodeDetail from '../pages/system/UnitsHealthNodeDetail';
 import UnitsHealthNodeDetailPage from '../pages/nodes/UnitsHealthNodeDetailPage';
+import VolumeDetail from '../components/VolumeDetail';
+import VolumeTable from '../components/VolumeTable';
 
 let nodesRoutes = {
   type: Route,
@@ -84,7 +84,7 @@ let nodesRoutes = {
           type: Route,
           name: 'item-volume-detail',
           path: ':nodeID/tasks/:taskID/volumes/:volumeID/?',
-          handler: ItemVolumeDetail,
+          handler: VolumeDetail,
           buildBreadCrumb: function () {
             return {
               parentCrumb: 'node-detail',
@@ -167,7 +167,7 @@ let nodesRoutes = {
               type: Route,
               name: 'nodes-task-details-volumes',
               path: 'volumes/:volumeID?',
-              handler: ItemVolumeTable,
+              handler: VolumeTable,
               buildBreadCrumb: function () {
                 return {
                   parentCrumb: 'nodes-task-details',
