@@ -3,7 +3,9 @@ import React from 'react';
 
 import ConfigurationView from './ConfigurationView';
 import DCOSStore from '../stores/DCOSStore';
+import MarathonStore from '../stores/MarathonStore';
 import Service from '../structs/Service';
+import ServiceUtil from '../utils/ServiceUtil';
 
 const METHODS_TO_BIND = [
   'handleApplyButtonClick',
@@ -32,7 +34,14 @@ class ServiceDetailConfigurationTab extends React.Component {
   }
 
   handleApplyButtonClick() {
+    let serviceConfiguration =
+      this.props.service.getVersions().get(this.state.selectedVersionID);
 
+    MarathonStore.editService(
+      ServiceUtil.getAppDefinitionFromService(
+        new Service(serviceConfiguration)
+      )
+    );
   }
 
   handleEditButtonClick() {
