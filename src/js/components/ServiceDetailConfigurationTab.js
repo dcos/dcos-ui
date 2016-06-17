@@ -11,7 +11,7 @@ const METHODS_TO_BIND = [
 
 class ServiceDetailConfigurationTab extends React.Component {
   constructor() {
-    super();
+    super(...arguments);
 
     this.state = {
       selectedVersionID: null
@@ -23,6 +23,8 @@ class ServiceDetailConfigurationTab extends React.Component {
   }
 
   componentWillMount() {
+    super.componentWillMount(...arguments);
+
     this.setState({
       selectedVersionID: this.props.service.getVersion()
     });
