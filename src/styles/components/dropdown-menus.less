@@ -124,15 +124,19 @@ components/dropdown-menus.less
 
   }
 
-
-  .dropdown-menu-down-leave {
-    z-index: @z-index-dropdown;
-  }
-
-
+  .dropdown-menu-down-leave,
   .dropdown-menu-up-leave {
     z-index: @z-index-dropdown;
   }
 
+  // This ugly hack is necessary to force the scrolling parent element to be
+  // large enough to display the dropdown menu. This can and should be removed
+  // when the dropdown menu renders with the <Portal /> component.
+  .directory-form-encryption-dropdown {
+
+    .dropdown {
+      margin-bottom: 125px;
+    }
+  }
 
 }
