@@ -64,8 +64,10 @@ var Page = React.createClass({
     }
 
     return (
-      <div className="page-header-navigation">
-        {navigation}
+      <div className="page-navigation-list">
+        <div className="container container-fluid container-pod container-pod-short flush-bottom">
+          {navigation}
+        </div>
       </div>
     );
   },
@@ -73,12 +75,8 @@ var Page = React.createClass({
   getPageHeader: function (title, navigation) {
     return (
       <div className="page-header flex-item-shrink-0 fill fill-light">
-        <div className="page-header-inner">
-          <div className="pod">
-            {this.getTitle(title)}
-            {this.getNavigation(navigation, title)}
-          </div>
-        </div>
+        {this.getTitle(title)}
+        {this.getNavigation(navigation, title)}
       </div>
     );
   },
@@ -93,11 +91,13 @@ var Page = React.createClass({
     }
 
     return (
-      <div>
-        <SidebarToggle />
-        <h1 className="page-header-title flush">
-          {title}
-        </h1>
+      <div className="page-header-inner">
+        <div className="pod">
+          <SidebarToggle />
+          <h1 className="page-header-title flush">
+            {title}
+          </h1>
+        </div>
       </div>
     );
   },
@@ -105,16 +105,31 @@ var Page = React.createClass({
   getContent: function () {
     let {dontScroll} = this.props;
     let contentClassSet = classNames('page-content flex flex-direction-top-to-bottom flex-item-grow-1', {
-      '': dontScroll
+      'flex-container-col flex-grow flex-shrink': dontScroll
     });
+    let contentInnerClassSet = classNames(
+      'flex-container-col container container-fluid',
+      'container-pod container-pod-short-top',
+      {'flex-grow flex-shrink': dontScroll}
+    );
 
-    let content = this.getChildren();
+    let content = (
+      <div className={contentInnerClassSet}>
+        {this.getChildren()}
+      </div>
+    );
+
+    if (dontScroll) {
+      return (
+        <div className={contentClassSet}>
+          {content}
+        </div>
+      );
+    }
 
     return (
       <div className={contentClassSet}>
-        <div className="pod">
-          {content}
-        </div>
+        {content}
       </div>
     );
   },
@@ -124,7 +139,7 @@ var Page = React.createClass({
 
     let classSet = classNames(
       'page flex flex-direction-top-to-bottom flex-item-grow-1',
-      {'': dontScroll},
+      {'flex-grow flex-shrink': dontScroll},
       className
     );
 
