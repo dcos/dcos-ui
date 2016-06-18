@@ -1,139 +1,32 @@
 /* -----------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
-layout/foundation.less
+fill/styles.less
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 ----------------------------------------------------------------------------- */
 
-// REMOVE ME
-.tooltip {
-  display:none;
-}
 
-/* -----------------------------------------------------------------------------
-Foundation
------------------------------------------------------------------------------ */
 
-html,
-body {
+& when (@fill-enabled) {
 
-  width: 100%;
-  height: 100%;
-  margin: 0px;
-  overflow: visible;
+  /* -----------------------------------------------------------------------------
+  Canvas Pod
+  ----------------------------------------------------------------------------- */
 
-}
+  // Light
 
-body {
+  .fill-light {
 
-  overflow-x: visible;
-
-}
-
-#application > div {
-
-  height: 100%;
-  
-}
-
-#application,
-.canvas {
-
-  height: 100%;
-  overflow: hidden;
-
-}
-
-body {
-  overflow: hidden;
-}
-
-::selection {
-
-  background: color-lighten(@purple, 0);
-
-}
-
-.clickable {
-
-  cursor: pointer;
-
-}
-
-.default-cursor {
-
-  cursor: auto;
-
-}
-
-.clear {
-
-  clear: both;
-
-}
-
-.hidden {
-
-  display: none !important;
-
-}
-
-.allow-overflow {
-
-  overflow: visible;
-
-}
-
-.no-overflow {
-
-  overflow: hidden;
-
-}
-
-.no-overflow-horizontal {
-
-  overflow-x: hidden;
-
-}
-
-.highlight {
-
-  background-color: color-lighten(@yellow, 60);
-
-  &.selected {
-
-    background-color: @yellow;
+    .shape-style-variant(fill-light);
 
   }
 
-}
+  // Dark
 
-.fade-in-on-hover {
+  .fill-dark {
 
-  opacity: 0.2;
-
-  &:hover {
-
-    opacity: 0.6;
-
-  }
-
-}
-
-/* -----------------------------------------------------------------------------
-Scrollable Container
------------------------------------------------------------------------------ */
-
-.container-scrollable {
-
-  flex: 1;
-  overflow-y: auto;
-  overflow-x: hidden;
-
-  > .gm-scrollbar-container {
-
-    height: 100%;
+    .shape-style-variant(fill-dark);
 
   }
 
