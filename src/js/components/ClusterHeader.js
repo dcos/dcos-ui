@@ -51,12 +51,12 @@ class ClusterHeader extends mixin(StoreMixin) {
     let ip = this.getPublicIP();
 
     return (
-      <div className="sidebar-header-sublabel"
+      <div className="header-subtitle"
         title={ip}>
-        <span className="hostname text-overflow">
+        <p className="hostname text-overflow inverse flush">
           {ip}
-        </span>
-        <span className="sidebar-header-sublabel-action">
+        </p>
+        <span className="header-subtitle-action">
           {this.getFlashButton()}
         </span>
       </div>
@@ -65,7 +65,7 @@ class ClusterHeader extends mixin(StoreMixin) {
 
   render() {
     return (
-      <div className="container container-fluid container-fluid-narrow container-pod container-pod-short">
+      <div>
         <ClusterName />
         {this.getHostName()}
       </div>
