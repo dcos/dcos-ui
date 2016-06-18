@@ -74,7 +74,7 @@ var Page = React.createClass({
 
   getPageHeader: function (title, navigation) {
     return (
-      <div className="page-navigation">
+      <div className="page-header flex-item-shrink-0 fill fill-light">
         {this.getTitle(title)}
         {this.getNavigation(navigation, title)}
       </div>
@@ -91,10 +91,10 @@ var Page = React.createClass({
     }
 
     return (
-      <div className="page-navigation-context">
-        <div className="container container-fluid container-pod container-pod-short">
-          <h1 className="page-navigation-title inverse flush">
-            <SidebarToggle />
+      <div className="page-header-inner">
+        <div className="pod">
+          <SidebarToggle />
+          <h1 className="page-header-title flush">
             {title}
           </h1>
         </div>
@@ -104,7 +104,7 @@ var Page = React.createClass({
 
   getContent: function () {
     let {dontScroll} = this.props;
-    let contentClassSet = classNames('page-content inverse', {
+    let contentClassSet = classNames('page-content flex flex-direction-top-to-bottom flex-item-grow-1', {
       'flex-container-col flex-grow flex-shrink': dontScroll
     });
     let contentInnerClassSet = classNames(
@@ -128,12 +128,9 @@ var Page = React.createClass({
     }
 
     return (
-      <GeminiScrollbar
-        autoshow={true}
-        className={contentClassSet}
-        ref="gemini">
+      <div className={contentClassSet}>
         {content}
-      </GeminiScrollbar>
+      </div>
     );
   },
 
@@ -141,7 +138,7 @@ var Page = React.createClass({
     let {className, navigation, dontScroll, title} = this.props;
 
     let classSet = classNames(
-      'page',
+      'page flex flex-direction-top-to-bottom flex-item-grow-1',
       {'flex-grow flex-shrink': dontScroll},
       className
     );
@@ -149,7 +146,12 @@ var Page = React.createClass({
     return (
       <div className={classSet}>
         {this.getPageHeader(title, navigation)}
-        {this.getContent()}
+        <GeminiScrollbar
+          autoshow={true}
+          className="page-content-wrapper flex flex-direction-top-to-bottom flex-direction-left-to-right-screen-large flex-item-grow-1 flex-item-shrink-1"
+          ref="gemini">
+          {this.getContent()}
+        </GeminiScrollbar>
       </div>
     );
   }
