@@ -75,8 +75,12 @@ var Page = React.createClass({
   getPageHeader: function (title, navigation) {
     return (
       <div className="page-header flex-item-shrink-0 fill fill-light">
-        {this.getTitle(title)}
-        {this.getNavigation(navigation, title)}
+        <div className="page-header-inner">
+          <div className="pod">
+            {this.getTitle(title)}
+            {this.getNavigation(navigation, title)}
+          </div>
+        </div>
       </div>
     );
   },
@@ -91,13 +95,11 @@ var Page = React.createClass({
     }
 
     return (
-      <div className="page-header-inner">
-        <div className="pod">
-          <SidebarToggle />
-          <h1 className="page-header-title flush">
-            {title}
-          </h1>
-        </div>
+      <div>
+        <SidebarToggle />
+        <h1 className="page-header-title flush">
+          {title}
+        </h1>
       </div>
     );
   },
@@ -122,14 +124,18 @@ var Page = React.createClass({
     if (dontScroll) {
       return (
         <div className={contentClassSet}>
-          {content}
+          <div className="pod">
+            {content}
+          </div>
         </div>
       );
     }
 
     return (
       <div className={contentClassSet}>
-        {content}
+        <div className="pod">
+          {content}
+        </div>
       </div>
     );
   },
