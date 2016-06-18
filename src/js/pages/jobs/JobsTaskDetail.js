@@ -127,6 +127,9 @@ class JobsTaskDetail extends TaskDetail {
 
   getTask() {
     let job = this.getJob();
+    if (!job) {
+      return null;
+    }
 
     return job.getTaskByID(this.props.params.taskID);
   };

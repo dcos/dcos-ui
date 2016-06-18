@@ -8,7 +8,19 @@ import FilterHeadline from '../../components/FilterHeadline';
 import JobStates from '../../constants/JobStates';
 import TaskStates from '../../constants/TaskStates';
 
+const METHODS_TO_BIND = [
+  'renderJobIDColumn'
+];
+
 class JobRunHistoryTable extends React.Component {
+  constructor() {
+    super(...arguments);
+
+    METHODS_TO_BIND.forEach((method) => {
+      this[method] = this[method].bind(this);
+    });
+  }
+
   handleExpansionClick(row) {
     this.refs.expandingTable.expandRow(row);
   }
@@ -60,7 +72,7 @@ class JobRunHistoryTable extends React.Component {
         className: this.getColumnClassName,
         heading: this.getColumnHeading,
         prop: 'jobID',
-        render: this.renderJobIDColumn.bind(this),
+        render: this.renderJobIDColumn,
         sortable: true
       },
       {
@@ -140,13 +152,14 @@ class JobRunHistoryTable extends React.Component {
   renderJobIDColumn(prop, row, rowOptions = {}) {
     if (!rowOptions.isParent) {
       let taskID = row.taskID;
+      let id = this.props.job.getId();
 
       return (
         <div className="job-run-history-task-id text-overflow">
           <Link
             className="emphasize clickable text-overflow"
-            to={'jobs-task-details'}
-            params={{'id': this.props.jobID, taskID}}
+            to='jobs-task-details'
+            params={{id, taskID}}
             title={taskID}>
             {taskID}
           </Link>

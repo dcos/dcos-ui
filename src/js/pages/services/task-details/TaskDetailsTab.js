@@ -45,7 +45,8 @@ class TaskDetailsTab extends React.Component {
       <DescriptionList
         className="container container-fluid flush container-pod container-pod-super-short flush-top"
         hash={headerValueMapping}
-        headline="Configuration" />
+        headline="Configuration"
+        key="MesosDescriptionList" />
     )
   }
 
@@ -65,7 +66,8 @@ class TaskDetailsTab extends React.Component {
       <DescriptionList
         className="container container-fluid flush container-pod container-pod-super-short flush-top"
         hash={labelMapping}
-        headline="Labels" />
+        headline="Labels"
+        key="labelDescriptionList" />
     );
   }
 

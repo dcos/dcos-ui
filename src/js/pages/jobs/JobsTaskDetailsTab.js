@@ -24,9 +24,10 @@ class JobsTaskDetailsTab extends TaskDetailsTab {
 
     return (
       <DescriptionList
-        headline="Job Information"
         className="container container-fluid flush container-pod container-pod-super-short flush-top"
-        hash={task} />
+        headline="Job Information"
+        hash={task}
+        key="jobDescriptionList" />
     );
   }
 }
