@@ -9,19 +9,37 @@ import UserDropup from './components/UserDropup';
 
 let SDK = require('./SDK').getSDK();
 
-let {AccessDeniedPage, Authenticated, ConfigStore, CookieUtils} = SDK.get([
-  'AccessDeniedPage', 'Authenticated', 'ConfigStore', 'CookieUtils']);
+let {
+  AccessDeniedPage,
+  ApplicationUtil,
+  Authenticated,
+  AuthStore,
+  ConfigStore,
+  CookieUtils,
+  RouterUtil
+} = SDK.get([
+  'AccessDeniedPage',
+  'ApplicationUtil',
+  'AuthStore',
+  'Authenticated',
+  'ConfigStore',
+  'CookieUtils',
+  'RouterUtil'
+]);
 
 let configResponseCallback = null;
 
 module.exports = Object.assign({}, StoreMixin, {
   actions: [
     'AJAXRequestError',
+    'applicationRouter',
+    'userLoginSuccess',
     'userLogoutSuccess',
     'redirectToLogin'
   ],
 
   filters: [
+    'delayApplicationLoad',
     'sidebarFooter',
     'applicationRoutes',
     'serverErrorModalListeners'
@@ -63,6 +81,10 @@ module.exports = Object.assign({}, StoreMixin, {
     if (xhr.status === 403 && !onLoginPage && !onAccessDeniedPage) {
       global.location.href = '#/access-denied';
     }
+  },
+
+  applicationRouter(router) {
+    this.applicationRouter = router;
   },
 
   sidebarFooter(value, defaultButtonSet) {
@@ -125,11 +147,43 @@ module.exports = Object.assign({}, StoreMixin, {
     }
   },
 
+  userLoginSuccess() {
+    let redirectTo = RouterUtil.getRedirectTo();
+
+    if (redirectTo) {
+      window.location.href = redirectTo;
+    } else {
+      ApplicationUtil.beginTemporaryPolling(() => {
+        let loginRedirectRoute = AuthStore.get('loginRedirectRoute');
+
+        if (loginRedirectRoute) {
+          // Go to redirect route if it is present
+          this.applicationRouter.transitionTo(loginRedirectRoute);
+        } else {
+          // Go to home
+          this.applicationRouter.transitionTo('/');
+        }
+      });
+    }
+  },
+
   userLogoutSuccess() {
     // Reload configuration because we need to get 'firstUser' which is
     // dynamically set based on number of users
     configResponseCallback = this.navigateToLoginPage;
     ConfigStore.fetchConfig();
+  },
+
+  delayApplicationLoad(value) {
+    let user = AuthStore.getUser();
+
+    // If user is logged in, then let's let the app do its thing
+    if (user) {
+      return value;
+    }
+
+    // Let's wait till login and then we'll request mesos summary before render
+    return false;
   },
 
   navigateToLoginPage() {

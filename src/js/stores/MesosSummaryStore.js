@@ -13,6 +13,7 @@ var MesosSummaryActions = require('../events/MesosSummaryActions');
 import SummaryList from '../structs/SummaryList';
 import StateSummary from '../structs/StateSummary';
 var TimeScales = require('../constants/TimeScales');
+import Util from '../utils/Util';
 import VisibilityStore from './VisibilityStore';
 
 let requestInterval = null;
@@ -160,6 +161,16 @@ class MesosSummaryStore extends GetSetBaseStore {
     return service && !!webuiUrl && webuiUrl.length > 0;
   }
 
+  getNextRequestTime() {
+    let lastRequestTime = this.get('lastRequestTime');
+    if (!lastRequestTime) {
+      return Date.now();
+    }
+
+    // We want a consistent interval, this is how we're going to do it
+    return lastRequestTime + Config.getRefreshRate();
+  }
+
   processSummary(data, options = {}) {
     // If request to Mesos times out we get an empty Object
     if (!Object.keys(data).length) {
@@ -169,7 +180,9 @@ class MesosSummaryStore extends GetSetBaseStore {
     let states = this.get('states');
 
     if (typeof data.date !== 'number') {
-      data.date = Date.now();
+      let lastRequestTime = this.getNextRequestTime();
+      this.set({lastRequestTime});
+      data.date = lastRequestTime;
     }
 
     CompositeState.addSummary(data);
@@ -186,16 +199,30 @@ class MesosSummaryStore extends GetSetBaseStore {
     if (!Array.isArray(data)) {
       return MesosSummaryActions.fetchSummary(TimeScales.MINUTE);
     }
+
+    // If we get less data than the history length
+    // fill the front with the `n` copies of the earliest snapshot available
+    if (data.length < Config.historyLength) {
+      let diff = Config.historyLength - data.length;
+      for (var i = 0; i < diff; i++) {
+        data.unshift(Util.deepCopy(data[0]));
+      }
+    }
+
     // Multiply Config.stateRefresh in order to use larger time slices
     data = MesosSummaryUtil.addTimestampsToData(data, Config.getRefreshRate());
     data.forEach((datum) => {
       this.processSummary(datum, {silent: true});
     });
+    this.set({lastRequestTime: Date.now()});
+    this.emit(MESOS_SUMMARY_CHANGE);
   }
 
   processSummaryError(options = {}) {
     let unsuccessfulSummary = new StateSummary({successful: false});
     let states = this.get('states');
+
+    this.set({lastRequestTime: this.getNextRequestTime()});
 
     states.add(unsuccessfulSummary);
 

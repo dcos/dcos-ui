@@ -25,6 +25,7 @@ module.exports = {
     Tree: 'Tree'
   },
   utils: {
+    ApplicationUtil: 'ApplicationUtil',
     CookieUtils: 'CookieUtils',
     DateUtil: 'DateUtil',
     DOMUtils: 'DOMUtils',
@@ -69,6 +70,7 @@ module.exports = {
     PageHeader: 'PageHeader',
     ProgressBar: 'charts/ProgressBar',
     RequestErrorMsg: 'RequestErrorMsg',
+    RouterUtil: 'RouterUtil',
     TabForm: 'TabForm',
     ToggleButton: 'ToggleButton'
   },

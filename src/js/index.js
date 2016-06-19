@@ -27,6 +27,7 @@ import Config from './config/Config';
 import ConfigStore from './stores/ConfigStore';
 import RequestErrorMsg from './components/RequestErrorMsg';
 import RouterUtil from './utils/RouterUtil';
+import ApplicationUtil from './utils/ApplicationUtil';
 
 let domElement = document.getElementById('application');
 
@@ -56,7 +57,17 @@ RequestUtil.json = function (options = {}) {
         </Provider>),
         domElement);
     } else {
-      setTimeout(function () {
+      if (PluginSDK.Hooks.applyFilter('delayApplicationLoad', true)) {
+        // Let's make sure we get Mesos Summary data before we render app
+        // Mesos may unreachable, so we will render even on request failure
+        ApplicationUtil.beginTemporaryPolling(function () {
+          ApplicationUtil.invokeAfterPageLoad(renderApplicationToDOM);
+        });
+      } else {
+        renderApplicationToDOM();
+      }
+
+      function renderApplicationToDOM() {
         let routes = RouterUtil.buildRoutes(appRoutes.getRoutes());
         let router = Router.run(routes, function (Handler, state) {
           Config.setOverrides(state.query);
@@ -68,26 +79,16 @@ RequestUtil.json = function (options = {}) {
         });
 
         PluginSDK.Hooks.doAction('applicationRouter', router);
-      });
+      }
     }
 
     PluginSDK.Hooks.doAction('applicationRendered');
   }
 
-  function delayOrLoadApplication() {
-    let timeSpentLoading = Date.now() - global.getPageLoadedTime();
-    let msLeftOfDelay = Config.applicationRenderDelay - timeSpentLoading;
-
-    if (msLeftOfDelay <= 0) {
-      renderApplication();
-    } else {
-      setTimeout(delayOrLoadApplication, msLeftOfDelay);
-    }
-  }
-
   function onPluginsLoaded() {
     PluginSDK.Hooks.removeChangeListener(PLUGINS_CONFIGURED, onPluginsLoaded);
-    delayOrLoadApplication();
+    ConfigStore.removeChangeListener(CONFIG_ERROR, onConfigurationError);
+    renderApplication();
   }
 
   function onConfigurationError() {
@@ -107,6 +108,7 @@ RequestUtil.json = function (options = {}) {
       element);
   }
 
+  // Plugins events
   PluginSDK.Hooks.addChangeListener(PLUGINS_CONFIGURED, onPluginsLoaded);
   ConfigStore.addChangeListener(CONFIG_ERROR, onConfigurationError);
 
