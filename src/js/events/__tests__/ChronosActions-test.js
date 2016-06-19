@@ -187,6 +187,47 @@ describe('ChronosActions', function () {
 
   });
 
+  describe('#updateJob', function () {
+
+    beforeEach(function () {
+      spyOn(RequestUtil, 'json');
+      ChronosActions.updateJob('foo', {id: 'foo', labels: {foo: 'bar'}});
+      this.configuration = RequestUtil.json.calls.mostRecent().args[0];
+    });
+
+    it('calls #json from the RequestUtil', function () {
+      expect(RequestUtil.json).toHaveBeenCalled();
+    });
+
+    it('sends data to the correct URL', function () {
+      expect(this.configuration.url)
+        .toEqual(`${Config.rootUrl}/chronos/v0/scheduled-jobs/foo`);
+    });
+
+    it('dispatches the correct action when successful', function () {
+      var id = AppDispatcher.register(function (payload) {
+        var action = payload.action;
+        AppDispatcher.unregister(id);
+        expect(action.type)
+          .toEqual(ActionTypes.REQUEST_CHRONOS_JOB_UPDATE_SUCCESS);
+      });
+
+      this.configuration.success([]);
+    });
+
+    it('dispatches the correct action when unsuccessful', function () {
+      var id = AppDispatcher.register(function (payload) {
+        var action = payload.action;
+        AppDispatcher.unregister(id);
+        expect(action.type)
+          .toEqual(ActionTypes.REQUEST_CHRONOS_JOB_UPDATE_ERROR);
+      });
+
+      this.configuration.error({message: 'error'});
+    });
+
+  });
+
   describe('#runJob', function () {
 
     beforeEach(function () {
