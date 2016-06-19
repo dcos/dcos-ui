@@ -9,9 +9,10 @@ import {StoreMixin} from 'mesosphere-shared-reactjs';
 import ChronosStore from '../../stores/ChronosStore';
 import DateUtil from '../../utils/DateUtil';
 import JobConfiguration from './JobConfiguration';
+import JobFormModal from '../../components/modals/JobFormModal';
 import JobRunHistoryTable from './JobRunHistoryTable';
-import PageHeader from '../../components/PageHeader';
 import RequestErrorMsg from '../../components/RequestErrorMsg';
+import PageHeader from '../../components/PageHeader';
 import TabsMixin from '../../mixins/TabsMixin';
 import TaskStates from '../../constants/TaskStates';
 
@@ -39,6 +40,7 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
     this.state = {
       currentTab: Object.keys(this.tabs_tabs).shift(),
       errorCount: 0,
+      isJobFormModalOpen: false,
       isLoading: true
     };
   }
@@ -57,7 +59,11 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
   }
 
   handleEditButtonClick() {
-    // TODO: Handle edit button click
+    this.setState({isJobFormModalOpen: true});
+  }
+
+  handleCloseJobFormModal() {
+    this.setState({isJobFormModalOpen: false});
   }
 
   handleRunNowButtonClick(jobID) {
@@ -97,7 +103,7 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
       <button
         className="button button-inverse button-stroke"
         key="edit"
-        onClick={this.handleEditButtonClick.bind(this, jobID)}>
+        onClick={this.handleEditButtonClick.bind(this)}>
         Edit
       </button>,
       <button
@@ -221,7 +227,9 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
           subTitle={this.getSubTitle(job)}
           subTitleClassName={{emphasize: false}}
           title={job.getDescription()} />
-          {this.tabs_getTabView(job)}
+        {this.tabs_getTabView(job)}
+        <JobFormModal isEdit={true} job={job} open={this.state.isJobFormModalOpen}
+          onClose={this.handleCloseJobFormModal.bind(this)} />
       </div>
     );
   }
