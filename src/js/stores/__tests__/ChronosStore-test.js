@@ -245,6 +245,39 @@ describe('ChronosStore', function () {
           .toHaveBeenCalledWith({message: 'Json validation error'});
       });
 
+    it('emits event after update job success event is dispatched',
+      function () {
+        let changeHandler = jasmine.createSpy('changeHandler');
+        ChronosStore.addChangeListener(
+          EventTypes.CHRONOS_JOB_UPDATE_SUCCESS,
+          changeHandler
+        );
+
+        AppDispatcher.handleServerAction({
+          type: ActionTypes.REQUEST_CHRONOS_JOB_UPDATE_SUCCESS,
+        });
+
+        expect(changeHandler).toHaveBeenCalled();
+      });
+
+    it('emits event after update job error event is dispatched',
+      function () {
+        let changeHandler = jasmine.createSpy('changeHandler');
+        ChronosStore.addChangeListener(
+          EventTypes.CHRONOS_JOB_UPDATE_ERROR,
+          changeHandler
+        );
+
+        AppDispatcher.handleServerAction({
+          type: ActionTypes.REQUEST_CHRONOS_JOB_UPDATE_ERROR,
+          data: {message: 'Json validation error'}
+        });
+
+        expect(changeHandler).toHaveBeenCalled();
+        expect(changeHandler)
+          .toHaveBeenCalledWith({message: 'Json validation error'});
+      });
+
   });
 
   describe('jobTree', function () {
