@@ -142,7 +142,7 @@
       {
         "id": "foo.1990-01-03t00:00:00z-1",
         "jobId": "foo",
-        "status": "active",
+        "status": "ACTIVE",
         "createdAt": "1990-01-03t00:00:00z-1",
         "tasks": [
           {
@@ -230,7 +230,7 @@
       {
         "id": "alpha.1990-01-03t00:00:00z-1",
         "jobId": "alpha",
-        "status": "active",
+        "status": "ACTIVE",
         "createdAt": "1990-01-03t00:00:00z-1",
         "tasks": [
           {
@@ -313,7 +313,7 @@
       {
         "id": "beta.1990-01-03t00:00:00z-1",
         "jobId": "beta",
-        "status": "active",
+        "status": "ACTIVE",
         "createdAt": "1990-01-03t00:00:00z-1",
         "tasks": [
           {

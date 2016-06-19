@@ -40,13 +40,6 @@ describe('Job Details', function () {
       });
     });
 
-    it('renders the correct number of jobs in the table', function () {
-      cy.get('.job-run-history-table tbody tr').should(function ($rows) {
-        // Four rows, two for the virtual list padding and two for the data.
-        expect($rows.length).to.equal(4);
-      });
-    });
-
     it('does not show table children when row is not expanded', function () {
       cy.get('.job-run-history-table tbody tr').should(function ($rows) {
         // Four rows, two for the virtual list padding and two for the data.

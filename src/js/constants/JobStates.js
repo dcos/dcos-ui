@@ -1,17 +1,21 @@
 const JobStates = {
-  starting: {
+  INITIAL: {
     stateTypes: ['active'],
     displayName: 'Starting'
   },
-  active: {
+  STARTING: {
+    stateTypes: ['active'],
+    displayName: 'Starting'
+  },
+  ACTIVE: {
     stateTypes: ['active'],
     displayName: 'Running'
   },
-  failed: {
+  FAILED: {
     stateTypes: ['completed', 'failure'],
     displayName: 'Failed'
   },
-  success: {
+  SUCCESS: {
     stateTypes: ['success'],
     displayName: 'Success'
   }
