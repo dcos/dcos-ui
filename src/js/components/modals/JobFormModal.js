@@ -17,7 +17,6 @@ import ToggleButton from '../ToggleButton';
 
 const METHODS_TO_BIND = [
   'handleCancel',
-  'handleClearError',
   'handleFormChange',
   'handleJSONEditorChange',
   'handleInputModeToggle',
@@ -89,18 +88,15 @@ class JobFormModal extends mixin(StoreMixin) {
     this.props.onClose();
   }
 
-  handleClearError() {
-    this.setState({
-      errorMessage: null
-    });
-  }
-
   handleFormChange({model}) {
     if (!model) {
       return;
     }
 
-    this.setState({job: JobUtil.createJobFromFormModel(model)});
+    this.setState({
+      errorMessage: null,
+      job: JobUtil.createJobFromFormModel(model)
+    });
   }
 
   handleInputModeToggle() {
@@ -110,7 +106,7 @@ class JobFormModal extends mixin(StoreMixin) {
   handleJSONEditorChange(jsonDefinition) {
     try {
       let job = new Job(JSON.parse(jsonDefinition));
-      this.setState({job});
+      this.setState({errorMessage: null, job});
     } catch (error) {
       // TODO: DCOS-7734 Handle error
     }
@@ -128,19 +124,13 @@ class JobFormModal extends mixin(StoreMixin) {
     }
 
     return (
-      <div>
-        <h4 className="text-align-center text-danger flush-top">
+    <div>
+      <div className="error-field text-danger">
+        <pre className="text-align-center">
           {errorMessage.message}
-        </h4>
-        <pre className="text-danger">
-          {JSON.stringify(errorMessage.details, null, 2)}
         </pre>
-        <button
-          className="button button-small button-danger flush-bottom"
-          onClick={this.handleClearError}>
-          clear
-        </button>
       </div>
+    </div>
     );
   }
 
@@ -157,6 +147,7 @@ class JobFormModal extends mixin(StoreMixin) {
           showGutter={true}
           showPrintMargin={false}
           theme="monokai"
+          height="462px"
           value={JSON.stringify(jobSpec, null, 2)}
           width="100%" />
       );
@@ -191,12 +182,16 @@ class JobFormModal extends mixin(StoreMixin) {
 
   getModalTitle() {
     return (
-      <div>
-        <div className="column-6">
-          Create new Job
+      <div className="header-flex">
+        <div className="header-left">
+          <h4 className="flush-top flush-bottom text-color-neutral">
+            Create new Job
+          </h4>
         </div>
-        <div className="column-6 text-align-right">
+        <div className="header-right">
           <ToggleButton
+            className="modal-form-title-label"
+            checkboxClassName="modal-form-title-toggle-button toggle-button"
             checked={this.state.jsonMode}
             onChange={this.handleInputModeToggle}>
             JSON mode
@@ -212,13 +207,14 @@ class JobFormModal extends mixin(StoreMixin) {
         backdropClass="modal-backdrop default-cursor"
         maxHeightPercentage={.9}
         bodyClass=""
-        modalWrapperClass="multiple-form-modal"
+        modalWrapperClass="multiple-form-modal modal-form"
         innerBodyClass=""
         open={this.props.open}
         showCloseButton={false}
         showHeader={true}
         footer={this.getModalFooter()}
         titleText={this.getModalTitle()}
+        titleClass="modal-header-title flush-top flush-bottom"
         showFooter={true}>
         {this.getErrorMessage()}
         {this.getModalContents()}
