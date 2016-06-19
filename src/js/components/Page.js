@@ -64,10 +64,8 @@ var Page = React.createClass({
     }
 
     return (
-      <div className="page-navigation-list">
-        <div className="container container-fluid container-pod container-pod-short flush-bottom">
-          {navigation}
-        </div>
+      <div className="page-header-navigation">
+        {navigation}
       </div>
     );
   },
@@ -107,29 +105,10 @@ var Page = React.createClass({
   getContent: function () {
     let {dontScroll} = this.props;
     let contentClassSet = classNames('page-content flex flex-direction-top-to-bottom flex-item-grow-1', {
-      'flex-container-col flex-grow flex-shrink': dontScroll
+      '': dontScroll
     });
-    let contentInnerClassSet = classNames(
-      'flex-container-col container container-fluid',
-      'container-pod container-pod-short-top',
-      {'flex-grow flex-shrink': dontScroll}
-    );
 
-    let content = (
-      <div className={contentInnerClassSet}>
-        {this.getChildren()}
-      </div>
-    );
-
-    if (dontScroll) {
-      return (
-        <div className={contentClassSet}>
-          <div className="pod">
-            {content}
-          </div>
-        </div>
-      );
-    }
+    let content = this.getChildren();
 
     return (
       <div className={contentClassSet}>
@@ -145,7 +124,7 @@ var Page = React.createClass({
 
     let classSet = classNames(
       'page flex flex-direction-top-to-bottom flex-item-grow-1',
-      {'flex-grow flex-shrink': dontScroll},
+      {'': dontScroll},
       className
     );
 
