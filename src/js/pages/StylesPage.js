@@ -82,7 +82,7 @@ class StylesPage extends mixin(TabsMixin) {
     let currentRoute = routes[routes.length - 2].name;
 
     return (
-      <ul className="tabs list-inline flush-bottom inverse">
+      <ul className="navigation-tabbed">
         {TabsUtil.getTabs(
           STYLES_TABS,
           currentRoute,
