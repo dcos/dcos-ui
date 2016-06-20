@@ -41,7 +41,7 @@
     },
     "cmd": "/foo",
     "args": [
-
+      
     ],
     "user": "marathon",
     "env": {
