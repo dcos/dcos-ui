@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import React from 'react';
-import {RouteHandler} from 'react-router';
+import {Link, RouteHandler} from 'react-router';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import AlertPanel from '../../components/AlertPanel';
@@ -138,6 +138,29 @@ var ServicesTab = React.createClass({
     );
   },
 
+  getNotFoundFooter: function () {
+    return (
+      <div className="button-collection flush-bottom">
+        <Link to="services-page" className="button button-stroke button-inverse">
+          Go back to Services Page
+        </Link>
+      </div>
+    );
+  },
+
+  getServiceNotFound: function (id) {
+    return (
+      <AlertPanel
+        title="Not Found"
+        footer={this.getNotFoundFooter()}
+        iconClassName="icon icon-sprite icon-sprite-medium icon-sprite-medium-white icon-alert">
+        <p className="flush-bottom">
+          {`Service '${id}' was not found.`}
+        </p>
+      </AlertPanel>
+    );
+  },
+
   getContents: function (item) {
     // Render loading screen
     if (!DCOSStore.dataProcessed) {
@@ -253,8 +276,14 @@ var ServicesTab = React.createClass({
     id = decodeURIComponent(id);
     let {state} = this;
 
-    // Find item in root tree and default to root tree if there is no match
-    let item = DCOSStore.serviceTree.findItemById(id) || DCOSStore.serviceTree;
+    // Find item in root tree
+    let item = DCOSStore.serviceTree.findItemById(id);
+    if (this.props.params.id != null && !item) {
+      return this.getServiceNotFound(id);
+    }
+
+    // Default to root tree if there is no ID
+    item = item || DCOSStore.serviceTree;
 
     // Make sure to grow when logs are displayed
     let routes = this.context.router.getCurrentRoutes();
