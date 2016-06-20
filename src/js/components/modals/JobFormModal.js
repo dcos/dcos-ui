@@ -9,10 +9,10 @@ import 'brace/theme/monokai';
 import 'brace/ext/language_tools';
 
 import ChronosStore from '../../stores/ChronosStore';
-import JobSchema from '../../schemas/JobSchema';
-import JobUtil from '../../utils/JobUtil';
 import Job from '../../structs/Job';
 import JobForm from '../JobForm';
+import JobUtil from '../../utils/JobUtil';
+import JobSchema from '../../schemas/JobSchema';
 import ToggleButton from '../ToggleButton';
 
 const METHODS_TO_BIND = [
@@ -148,13 +148,13 @@ class JobFormModal extends mixin(StoreMixin) {
     }
 
     return (
-    <div>
-      <div className="error-field text-danger">
+      <div>
+        <div className="error-field text-danger">
         <pre className="text-align-center">
           {errorMessage.message}
         </pre>
+        </div>
       </div>
-    </div>
     );
   }
 
@@ -260,8 +260,7 @@ class JobFormModal extends mixin(StoreMixin) {
 JobFormModal.defaultProps = {
   isEdit: false,
   job: new Job(),
-  onClose: function () {
-  },
+  onClose: function () {},
   open: false
 };
 
