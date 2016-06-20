@@ -6,7 +6,7 @@ describe('Job Details', function () {
       mesos: '1-for-each-health',
       nodeHealth: true
     });
-    cy.visitUrl({url: '/jobs/%2Ffoo'});
+    cy.visitUrl({url: '/jobs/foo'});
   });
 
   context('Job Details Header', function () {
@@ -31,13 +31,6 @@ describe('Job Details', function () {
     it('shows the correct number of jobs in the filter header', function () {
       cy.get('.page-content .list-inline.list-unstyled').should('contain',
         '2 Runs');
-    });
-
-    it('renders the correct number of jobs in the table', function () {
-      cy.get('.job-run-history-table tbody tr').should(function ($rows) {
-        // Four rows, two for the virtual list padding and two for the data.
-        expect($rows.length).to.equal(4);
-      });
     });
 
     it('renders the correct number of jobs in the table', function () {
@@ -106,7 +99,7 @@ describe('Job Details', function () {
       cy.get('.page-content dl:nth-child(1)').should('contain', 'Command');
       cy.get('.page-content dl:nth-child(1)').should('contain', '/foo');
       cy.get('.page-content dl:nth-child(2)').should('contain', 'Schedule');
-      cy.get('.page-content dl:nth-child(2)').should('contain', '0 19 6 9 *');
+      cy.get('.page-content dl:nth-child(2)').should('contain', '0 1 6 9 *');
     });
 
   });

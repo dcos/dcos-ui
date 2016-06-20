@@ -1,5 +1,5 @@
 {
-  "id": "/foo",
+  "id": "foo",
   "description": "Foo Description",
   "labels": {
     "name": "foo",
@@ -8,13 +8,14 @@
   },
   "schedules": [
     {
-      "id": "everyBirthday",
+      "id": "every-once-in-a-while",
       "description": "lorem ipsum",
-      "cron": "0 19 6 9 *",
-      "timezone": "Europe/Berlin",
+      "cron": "0 1 6 9 *",
+      "timezone": "America/Chicago",
       "startingDeadlineSeconds": 60,
-      "concurrencyPolicy": "allow",
-      "enabled": true
+      "concurrencyPolicy": "ALLOW",
+      "enabled": true,
+      "nextRunAt": "1990-01-02T00:00:00Z"
     }
   ],
   "run": {
@@ -23,7 +24,7 @@
     "disk": 1,
     "artifacts": [
       {
-        "url": "https://foo.com/archive.zip",
+        "uri": "https://foo.com/archive.zip",
         "executable": false,
         "extract": true,
         "cache": true
@@ -32,8 +33,8 @@
     "placement": {
       "constraints": [
         {
-          "attr": "hostname",
-          "op": "LIKE",
+          "attribute": "hostname",
+          "operator": "LIKE",
           "value": ".*PROD.*"
         }
       ]
@@ -58,7 +59,7 @@
       }
     ],
     "restart": {
-      "restart": "never",
+      "policy": "NEVER",
       "activeDeadlineSeconds": 120
     }
   },
@@ -71,16 +72,16 @@
   },
   "activeRuns": [
     {
-      "id": "/foo/1990-01-03t00:00:00z-1",
-      "jobId": "/foo",
-      "scheduleId": "everyHour",
-      "status": "active",
+      "id": "foo.1990-01-03t00:00:00z-1",
+      "jobId": "foo",
+      "status": "SUCCESS",
       "createdAt": "1990-01-03t00:00:00z-1",
+      "completedAt": "1990-01-03T00:00:09Z-1",
       "tasks": [
         {
           "id": "foo.1990-01-03t00:00:00z-1.68d65242-1838-11e6-8d2d-5ec97000bce0",
-          "startedAt": "1990-01-03T00:00:04.919Z",
-          "completedAt": "1990-01-03T01:00:04.919Z",
+          "startedAt": "1990-01-03T00:00:02Z-1",
+          "completedAt": "1990-01-03T00:00:09Z-1",
           "status": "TASK_FINISHED"
         },
         {
@@ -92,9 +93,9 @@
       ]
     },
     {
-      "id": "/bar/1985-01-03t00:00:00z-1",
-      "jobId": "/bar",
-      "status": "active",
+      "id": "foo.1985-01-03t00:00:00z-1",
+      "jobId": "foo",
+      "status": "ACTIVE",
       "createdAt": "1985-01-03t00:00:00z-1",
       "tasks": [
         {

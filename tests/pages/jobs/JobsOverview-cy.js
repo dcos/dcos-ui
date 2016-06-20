@@ -27,7 +27,7 @@ describe('Jobs Overview', function () {
     it('displays the proper job status', function () {
       cy.get('tbody tr:visible').should(function ($tableRows) {
         expect($tableRows[1].children[1].textContent).to.equal('Scheduled');
-        expect($tableRows[2].children[1].textContent).to.equal('Running');
+        expect($tableRows[2].children[1].textContent).to.equal('');
       });
     });
 
