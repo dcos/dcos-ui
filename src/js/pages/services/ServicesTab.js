@@ -256,6 +256,8 @@ var ServicesTab = React.createClass({
     // Find item in root tree and default to root tree if there is no match
     let item = DCOSStore.serviceTree.findItemById(id) || DCOSStore.serviceTree;
 
+    let service = new Service({id: item.getId().replace(/^(\/.+)$/, '$1/')});
+
     // Make sure to grow when logs are displayed
     let routes = this.context.router.getCurrentRoutes();
     let classes = classNames({
@@ -270,6 +272,7 @@ var ServicesTab = React.createClass({
           parentGroupId={item.getId()}
           onClose={this.handleCloseGroupFormModal}/>
         <ServiceFormModal open={state.isServiceFormModalShown}
+          service={service}
           onClose={this.handleCloseServiceFormModal}/>
       </div>
     );
