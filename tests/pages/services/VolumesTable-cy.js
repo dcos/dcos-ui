@@ -58,7 +58,8 @@ describe('Volumes', function () {
         expect($descriptionListEls[1].children[1].textContent).to.equal('RW');
         expect($descriptionListEls[2].children[1].textContent).to.equal('100');
         expect($descriptionListEls[3].children[1].textContent).to.equal('/sleep');
-        expect($descriptionListEls[4].children[1].textContent).to.equal('10.0.1.117');
+        expect($descriptionListEls[4].children[1].textContent).to.equal('foo-bar.624fd085-2e5e-11e6-8e49-a6a5a4687c4d');
+        expect($descriptionListEls[5].children[1].textContent).to.equal('10.0.1.117');
       });
     });
 
