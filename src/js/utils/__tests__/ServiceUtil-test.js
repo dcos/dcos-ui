@@ -41,6 +41,158 @@ describe('ServiceUtil', function () {
       expect(ServiceUtil.createServiceFromFormModel(model))
         .toEqual(expectedService);
     });
+
+    describe('should return a service with', function() {
+      it('local Volumes', function () {
+        let model = {
+          volumes: {
+            localVolumes: [{
+              containerPath: 'home',
+              size: 10
+            }]
+          }
+        };
+
+        let expectedService = new Service({
+          container: {
+            type: 'MESOS',
+            volumes: [{
+              containerPath: 'home',
+              persistent: {
+                size: 10
+              },
+              mode: 'RW'
+            }]
+          },
+          updateStrategy: {maximumOverCapacity: 0, minimumHealthCapacity: 0},
+          residency: {
+            relaunchEscalationTimeoutSeconds: 10,
+            taskLostBehavior: 'WAIT_FOREVER'
+          }
+        });
+
+        expect(ServiceUtil.createServiceFromFormModel(model))
+          .toEqual(expectedService);
+      });
+
+      it('local and docker Volumes', function () {
+        let model = {
+          containerSettings: {
+            image: 'nginx'
+          },
+          volumes: {
+            localVolumes: [{
+              containerPath: 'home',
+              size: 10
+            }],
+            dockerVolumes: [{
+              containerPath: 'home',
+              hostPath: 'home',
+              mode: 'rw',
+            }]
+          }
+        };
+
+        let expectedService = new Service({
+          container: {
+            type: 'DOCKER',
+            docker: {
+              image: 'nginx'
+            },
+            volumes: [
+              {
+                containerPath: 'home',
+                hostPath: 'home',
+                mode: 'RW'
+              },
+              {
+                containerPath: 'home',
+                persistent: {
+                  size: 10
+                },
+                mode: 'RW'
+              }
+            ]
+          },
+          updateStrategy: {maximumOverCapacity: 0, minimumHealthCapacity: 0},
+          residency: {
+            relaunchEscalationTimeoutSeconds: 10,
+            taskLostBehavior: 'WAIT_FOREVER'
+          }
+        });
+
+        expect(ServiceUtil.createServiceFromFormModel(model))
+          .toEqual(expectedService);
+      });
+
+      it('docker Volumes', function () {
+        let model = {
+          containerSettings: {
+            image: 'nginx'
+          },
+          volumes: {
+            dockerVolumes: [{
+              containerPath: 'home',
+              hostPath: 'home',
+              mode: 'rw',
+            }]
+          }
+        };
+
+        let expectedService = new Service({
+          container: {
+            type: 'DOCKER',
+            docker: {
+              image: 'nginx'
+            },
+            volumes: [
+              {
+                containerPath: 'home',
+                hostPath: 'home',
+                mode: 'RW'
+              }
+            ]
+          }
+        });
+
+        expect(ServiceUtil.createServiceFromFormModel(model))
+          .toEqual(expectedService);
+      });
+
+      it('external Volumes', function () {
+        let model = {
+          volumes: {
+            externalVolumes: [{
+              containerPath: 'home',
+              externalName: 'home'
+            }]
+          }
+        };
+
+        let expectedService = new Service({
+          container: {
+            type: 'MESOS',
+            volumes: [
+              {
+                containerPath: 'home',
+                external: {
+                  name: 'home',
+                  provider: 'dvdi',
+                  options: {
+                    'dvdi/driver': 'rexray'
+                  }
+                },
+                mode: 'RW'
+              }
+            ]
+          },
+          updateStrategy: {maximumOverCapacity: 0, minimumHealthCapacity: 0}
+        });
+
+        expect(ServiceUtil.createServiceFromFormModel(model))
+          .toEqual(expectedService);
+      });
+    })
   });
 
   describe('#createFormModelFromSchema', function () {
