@@ -59,7 +59,7 @@
       }
     ],
     "restart": {
-      "restart": "never",
+      "policy": "NEVER",
       "activeDeadlineSeconds": 120
     }
   },
