@@ -1,5 +1,5 @@
 {
-  "id": "/foo",
+  "id": "foo",
   "description": "Foo Description",
   "labels": {
     "name": "foo",
@@ -71,8 +71,8 @@
   },
   "activeRuns": [
     {
-      "id": "/foo/1990-01-03t00:00:00z-1",
-      "jobId": "/foo",
+      "id": "foo.1990-01-03t00:00:00z-1",
+      "jobId": "foo",
       "scheduleId": "everyHour",
       "status": "active",
       "createdAt": "1990-01-03t00:00:00z-1",
@@ -92,8 +92,8 @@
       ]
     },
     {
-      "id": "/bar/1985-01-03t00:00:00z-1",
-      "jobId": "/bar",
+      "id": "bar.1985-01-03t00:00:00z-1",
+      "jobId": "bar",
       "status": "active",
       "createdAt": "1985-01-03t00:00:00z-1",
       "tasks": [
@@ -103,7 +103,7 @@
           "status": "TASK_STARTED"
         },
         {
-          "id": "dbar.1985-01-03t00:00:00z-1.68d65242-1838-11e6-8d2d-5ec97000bce0",
+          "id": "bar.1985-01-03t00:00:00z-1.68d65242-1838-11e6-8d2d-5ec97000bce0",
           "startedAt": "1985-01-03T00:00:04.919Z",
           "completedAt": "1985-01-03T00:00:09.919Z",
           "status": "TASK_FAILED"

@@ -353,12 +353,12 @@ describe('ChronosStore', function () {
       AppDispatcher.handleServerAction({
         type: ActionTypes.REQUEST_CHRONOS_JOB_DETAIL_SUCCESS,
         data: jobFixture,
-        jobID: '/foo'
+        jobID: 'foo'
       });
 
-      ChronosStore.suspendSchedule('/foo');
+      ChronosStore.suspendSchedule('foo');
 
-      expect(changeHandler.calls.allArgs()[0][0]).toEqual('/foo');
+      expect(changeHandler.calls.allArgs()[0][0]).toEqual('foo');
     });
 
     it('should grab the schedule and set enabled to false', function () {
@@ -368,10 +368,10 @@ describe('ChronosStore', function () {
       AppDispatcher.handleServerAction({
         type: ActionTypes.REQUEST_CHRONOS_JOB_DETAIL_SUCCESS,
         data: jobFixture,
-        jobID: '/foo'
+        jobID: 'foo'
       });
 
-      ChronosStore.suspendSchedule('/foo');
+      ChronosStore.suspendSchedule('foo');
 
       expect(changeHandler.calls.allArgs()[0][1].enabled).toEqual(false);
     });
