@@ -8,11 +8,19 @@ class BreadcrumbSegmentLink extends React.Component {
 
     if (props.route) {
       return (
-        <Link to={props.route.to}
+        <Link
+          className={props.className}
+          to={props.route.to}
           params={props.route.params}
-          title={props.label}>
-          {props.label}
+          title={content}>
+          {content}
         </Link>
+      );
+    } else if (props.onClick) {
+      return (
+        <a className={props.className} onClick={props.onClick} title={content}>
+          {content}
+        </a>
       );
     } else {
       return (
