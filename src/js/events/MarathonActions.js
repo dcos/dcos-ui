@@ -89,9 +89,15 @@ module.exports = {
     });
   },
 
-  editService: function (data) {
+  editService: function (data, force) {
+    let url = `${Config.rootUrl}${Config.marathonAPIPrefix}/apps/${data.id}`;
+
+    if (force === true) {
+      url += '?force=true';
+    }
+
     RequestUtil.json({
-      url: `${Config.rootUrl}${Config.marathonAPIPrefix}/apps/${data.id}`,
+      url,
       method: 'PUT',
       data,
       success: function () {
