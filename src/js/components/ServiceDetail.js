@@ -65,6 +65,7 @@ class ServiceDetail extends mixin(InternalStorageMixin, StoreMixin, TabsMixin) {
   }
 
   componentWillUpdate() {
+    super.componentWillUpdate(...arguments);
     this.checkForVolumes();
   }
 
