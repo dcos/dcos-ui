@@ -71,7 +71,7 @@ const Volumes = {
             fieldType: 'select',
             default: 'ro',
             options: [
-              {html: 'ReadOnly', id: 'ro'},
+              {html: 'Read Only', id: 'ro'},
               {html: 'Read and Write', id: 'rw'}
             ]
           }
