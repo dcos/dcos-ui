@@ -99,7 +99,7 @@ describe('Job Details', function () {
       cy.get('.page-content dl:nth-child(1)').should('contain', 'Command');
       cy.get('.page-content dl:nth-child(1)').should('contain', '/foo');
       cy.get('.page-content dl:nth-child(2)').should('contain', 'Schedule');
-      cy.get('.page-content dl:nth-child(2)').should('contain', '0 19 6 9 *');
+      cy.get('.page-content dl:nth-child(2)').should('contain', '0 1 6 9 *');
     });
 
   });

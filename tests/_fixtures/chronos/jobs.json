@@ -14,7 +14,7 @@
         "cron": "0 1 6 9 *",
         "timezone": "America/Chicago",
         "startingDeadlineSeconds": 60,
-        "concurrencyPolicy": "allow",
+        "concurrencyPolicy": "ALLOW",
         "enabled": true,
         "nextRunAt": "1990-01-02T00:00:00Z"
       }
@@ -79,14 +79,18 @@
       "project": "metronome",
       "stage": "test"
     },
-    "schedules": {
-      "schedule": "0 19 6 9 *",
-      "timezone": "America/Chicago",
-      "startingDeadlineSeconds": 60,
-      "concurrencyPolicy": "allow",
-      "enabled": true,
-      "nextRunAt": "1990-01-02T00:00:00Z"
-    },
+    "schedules": [
+      {
+        "id": "every-once-in-a-while",
+        "description": "lorem ipsum",
+        "cron": "0 1 6 9 *",
+        "timezone": "America/Chicago",
+        "startingDeadlineSeconds": 60,
+        "concurrencyPolicy": "ALLOW",
+        "enabled": true,
+        "nextRunAt": "1990-01-02T00:00:00Z"
+      }
+    ],
     "run": {
       "cpus": 1,
       "mem": 1,
@@ -168,14 +172,18 @@
       "project": "metronome",
       "stage": "test"
     },
-    "schedule": {
-      "schedule": "0 1 6 9 *",
-      "timezone": "America/Chicago",
-      "startingDeadlineSeconds": 60,
-      "concurrencyPolicy": "allow",
-      "enabled": true,
-      "nextRunAt": "1990-01-02T00:00:00Z"
-    },
+    "schedules": [
+      {
+        "id": "every-once-in-a-while",
+        "description": "lorem ipsum",
+        "cron": "0 1 6 9 *",
+        "timezone": "America/Chicago",
+        "startingDeadlineSeconds": 60,
+        "concurrencyPolicy": "ALLOW",
+        "enabled": true,
+        "nextRunAt": "1990-01-02T00:00:00Z"
+      }
+    ],
     "run": {
       "cpus": 1,
       "mem": 1,
@@ -250,14 +258,18 @@
       "project": "metronome",
       "stage": "test"
     },
-    "schedule": {
-      "schedule": "0 19 6 9 *",
-      "timezone": "America/Chicago",
-      "startingDeadlineSeconds": 60,
-      "concurrencyPolicy": "allow",
-      "enabled": true,
-      "nextRunAt": "1990-01-02T00:00:00Z"
-    },
+    "schedules": [
+      {
+        "id": "every-once-in-a-while",
+        "description": "lorem ipsum",
+        "cron": "0 1 6 9 *",
+        "timezone": "America/Chicago",
+        "startingDeadlineSeconds": 60,
+        "concurrencyPolicy": "ALLOW",
+        "enabled": true,
+        "nextRunAt": "1990-01-02T00:00:00Z"
+      }
+    ],
     "run": {
       "cpus": 1,
       "mem": 1,

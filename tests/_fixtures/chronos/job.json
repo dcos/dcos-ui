@@ -8,13 +8,14 @@
   },
   "schedules": [
     {
-      "id": "everyBirthday",
+      "id": "every-once-in-a-while",
       "description": "lorem ipsum",
-      "cron": "0 19 6 9 *",
-      "timezone": "Europe/Berlin",
+      "cron": "0 1 6 9 *",
+      "timezone": "America/Chicago",
       "startingDeadlineSeconds": 60,
-      "concurrencyPolicy": "allow",
-      "enabled": true
+      "concurrencyPolicy": "ALLOW",
+      "enabled": true,
+      "nextRunAt": "1990-01-02T00:00:00Z"
     }
   ],
   "run": {
@@ -40,7 +41,7 @@
     },
     "cmd": "/foo",
     "args": [
-      
+
     ],
     "user": "marathon",
     "env": {
