@@ -25,7 +25,7 @@
       "disk": 1,
       "artifacts": [
         {
-          "url": "https://bar.com/archive.zip",
+          "uri": "https://bar.com/archive.zip",
           "executable": false,
           "extract": true,
           "cache": true
@@ -97,7 +97,7 @@
       "disk": 1,
       "artifacts": [
         {
-          "url": "https://foo.com/archive.zip",
+          "uri": "https://foo.com/archive.zip",
           "executable": false,
           "extract": true,
           "cache": true
@@ -190,7 +190,7 @@
       "disk": 1,
       "artifacts": [
         {
-          "url": "https://alpha.com/archive.zip",
+          "uri": "https://alpha.com/archive.zip",
           "executable": false,
           "extract": true,
           "cache": true
@@ -276,7 +276,7 @@
       "disk": 1,
       "artifacts": [
         {
-          "url": "https://beta.com/archive.zip",
+          "uri": "https://beta.com/archive.zip",
           "executable": false,
           "extract": true,
           "cache": true

@@ -24,7 +24,7 @@
     "disk": 1,
     "artifacts": [
       {
-        "url": "https://foo.com/archive.zip",
+        "uri": "https://foo.com/archive.zip",
         "executable": false,
         "extract": true,
         "cache": true
