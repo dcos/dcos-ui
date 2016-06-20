@@ -153,10 +153,10 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
     let taskIcon = (
       <img src={task.getImages()['icon-large']} />
     );
-    let tabsArr = this.tabs_getRoutedTabs({params: this.props.params}) || [];
+    let tabsArray = this.tabs_getRoutedTabs({params: this.props.params}) || [];
 
     if (!this.hasVolumes(service)) {
-      tabsArr = tabsArr.filter(function (tab) {
+      tabsArray = tabsArray.filter(function (tab) {
         if (tab.key === 'nodes-task-details-volumes'
           || tab.key === 'services-task-details-volumes') {
           return false;
@@ -168,7 +168,7 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
 
     let navigationTabs = (
       <ul className="tabs list-inline flush-bottom container-pod container-pod-short-top inverse">
-        {tabsArr}
+        {tabsArray}
       </ul>
     );
 
