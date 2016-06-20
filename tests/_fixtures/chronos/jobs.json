@@ -34,8 +34,8 @@
       "placement": {
         "constraints": [
           {
-            "attr": "hostname",
-            "op": "LIKE",
+            "attribute": "hostname",
+            "operator": "LIKE",
             "value": ".*PROD.*"
           }
         ]
@@ -106,8 +106,8 @@
       "placement": {
         "constraints": [
           {
-            "attr": "hostname",
-            "op": "LIKE",
+            "attribute": "hostname",
+            "operator": "LIKE",
             "value": ".*PROD.*"
           }
         ]
@@ -199,8 +199,8 @@
       "placement": {
         "constraints": [
           {
-            "attr": "hostname",
-            "op": "LIKE",
+            "attribute": "hostname",
+            "operator": "LIKE",
             "value": ".*PROD.*"
           }
         ]
@@ -285,8 +285,8 @@
       "placement": {
         "constraints": [
           {
-            "attr": "hostname",
-            "op": "LIKE",
+            "attribute": "hostname",
+            "operator": "LIKE",
             "value": ".*PROD.*"
           }
         ]

@@ -33,8 +33,8 @@
     "placement": {
       "constraints": [
         {
-          "attr": "hostname",
-          "op": "LIKE",
+          "attribute": "hostname",
+          "operator": "LIKE",
           "value": ".*PROD.*"
         }
       ]
