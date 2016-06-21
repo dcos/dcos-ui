@@ -16,7 +16,7 @@ module.exports = {
       if (babel.util.canCompile(filename)) {
         // This will match:
         // import IconFoo from '../../icons/icon-medium/pages-code.svg?name=foo';
-        var matches = src.match(/(\w+) (.*?) (\w+)(.*?)(icons)(.*?)\.svg(\?.*?)$/img);
+        var matches = src.match(/^(\w+) (.*?) (\w+|=) '(.*?)(icons)(.*?)\.svg(\?.*?)';$/img);
         if (matches && matches.length) {
           for (var i = 0; i < matches.length; i++) {
             var importMatch = matches[i].match(/^(\w+) (\w+)/);
