@@ -93,4 +93,16 @@ describe('Volume', function () {
     });
 
   });
+
+  describe('#getTaskID', function () {
+
+    it('returns correct tyoe', function () {
+      let service = new Volume({
+        taskID: 'foo'
+      });
+
+      expect(service.getTaskID()).toEqual('foo');
+    });
+
+  });
 });

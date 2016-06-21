@@ -11,6 +11,8 @@ import TaskDetailsTab from '../pages/services/task-details/TaskDetailsTab';
 import TaskFilesTab from '../pages/services/task-details/TaskFilesTab';
 import TaskLogsTab from '../pages/services/task-details/TaskLogsTab';
 import TaskDetailBreadcrumb from '../pages/nodes/breadcrumbs/TaskDetailBreadcrumb';
+import VolumeDetail from '../components/VolumeDetail';
+import VolumeTable from '../components/VolumeTable';
 
 function buildServiceCrumbs(router) {
   let {id} = router.getCurrentParams();
@@ -68,6 +70,51 @@ let serviceRoutes = {
             }
           },
           children: [
+            // This route needs to be rendered outside of the tabs that are
+            // rendered in the service-task-details route.
+            {
+              type: Route,
+              name: 'service-volume-details',
+              path: 'volumes/:volumeID/?',
+              handler: VolumeDetail,
+              buildBreadCrumb: function () {
+                return {
+                  parentCrumb: 'services-detail',
+                  getCrumbs: function (router) {
+                    return [
+                      {
+                        label: router.getCurrentParams().volumeID
+                      }
+                    ];
+                  }
+                }
+              }
+            },
+            {
+              type: Route,
+              name: 'service-task-details-volume-details',
+              path: 'tasks/:taskID/volumes/:volumeID/?',
+              handler: VolumeDetail,
+              buildBreadCrumb: function () {
+                return {
+                  parentCrumb: 'services-task-details-volumes',
+                  getCrumbs: function (router) {
+                    return [
+                      {
+                        label: 'Volumes',
+                        route: {
+                          params: router.getCurrentParams(),
+                          to: 'services-task-details-volumes'
+                        }
+                      },
+                      {
+                        label: router.getCurrentParams().volumeID
+                      }
+                    ];
+                  }
+                }
+              }
+            },
             {
               type: Route,
               path: 'tasks/:taskID/?',
@@ -119,6 +166,18 @@ let serviceRoutes = {
                   path: 'logs/?',
                   handler: TaskLogsTab,
                   hideHeaderNavigation: true,
+                  buildBreadCrumb: function () {
+                    return {
+                      parentCrumb: 'services-task-details',
+                      getCrumbs: function () { return []; }
+                    }
+                  }
+                },
+                {
+                  type: Route,
+                  name: 'services-task-details-volumes',
+                  path: 'volumes/?',
+                  handler: VolumeTable,
                   buildBreadCrumb: function () {
                     return {
                       parentCrumb: 'services-task-details',

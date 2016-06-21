@@ -1,0 +1,120 @@
+{
+  "apps": [
+    {
+      "id": "/sleep",
+      "cmd": "sleep 3000",
+      "args": null,
+      "user": null,
+      "env": {
+        
+      },
+      "instances": 1,
+      "cpus": 0.1,
+      "mem": 16,
+      "disk": 0,
+      "executor": "",
+      "constraints": [
+        
+      ],
+      "uris": [
+        
+      ],
+      "storeUrls": [
+        
+      ],
+      "ports": [
+        10000
+      ],
+      "requirePorts": false,
+      "backoffSeconds": 1,
+      "backoffFactor": 1.15,
+      "maxLaunchDelaySeconds": 3600,
+      "container": {
+        "type": "MESOS",
+        "volumes": [
+          {
+            "containerPath": "data-1",
+            "mode": "RW",
+            "persistent": {
+              "size": 100
+            }
+          },
+          {
+            "containerPath": "data-2",
+            "mode": "RW",
+            "persistent": {
+              "size": 200
+            }
+          },
+          {
+            "containerPath": "data-3",
+            "mode": "RW",
+            "persistent": {
+              "size": 300
+            }
+          }
+        ]
+      },
+      "healthChecks": [
+        
+      ],
+      "dependencies": [
+        
+      ],
+      "upgradeStrategy": {
+        "minimumHealthCapacity": 1,
+        "maximumOverCapacity": 1
+      },
+      "labels": {
+        
+      },
+      "acceptedResourceRoles": null,
+      "version": "2015-08-28T01:26:14.620Z",
+      "tasksStaged": 0,
+      "tasksRunning": 1,
+      "tasksHealthy": 0,
+      "tasksUnhealthy": 0,
+      "deployments": [
+        
+      ],
+      "tasks": [
+        {
+          "id": "foo-bar.624fd085-2e5e-11e6-8e49-a6a5a4687c4d",
+          "slaveId": "7a1c7cc0-0274-416a-a30c-0b970e3d7fdf-S1",
+          "host": "10.0.1.117",
+          "startedAt": "2016-06-09T16:22:40.478Z",
+          "stagedAt": "2016-06-09T16:22:40.341Z",
+          "ports": [
+            12280
+          ],
+          "version": "2016-06-09T16:22:39.008Z",
+          "ipAddresses": [
+            {
+              "ipAddress": "10.0.1.117",
+              "protocol": "IPv4"
+            }
+          ],
+          "localVolumes": [
+            {
+              "containerPath": "data-1",
+              "persistenceId": "foo-bar#data-1#624f5b52-2e5e-11e6-8e49-a6a5a4687c4d"
+            },
+            {
+              "containerPath": "data-2",
+              "persistenceId": "foo-bar#data-2#624f5b53-2e5e-11e6-8e49-a6a5a4687c4d"
+            },
+            {
+              "containerPath": "data-3",
+              "persistenceId": "foo-bar#data-3#624f5b54-2e5e-11e6-8e49-a6a5a4687c4d"
+            }
+          ],
+          "appId": "/foo-bar"
+        }
+      ]
+    }
+  ],
+  "groups": [
+    
+  ],
+  "id": "/"
+}

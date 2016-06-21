@@ -114,25 +114,68 @@ describe('MarathonUtil', function () {
           },
           tasks: [
             {
+              id:'task-id-1',
               host: '0.0.0.1',
               startedAt: '2016-06-03T16:22:30.282Z',
               localVolumes: [{
                 containerPath: 'path',
-                persistenceId: 'volume-id'
+                persistenceId: 'volume-id-1'
               }]
-            }]
+            }
+          ]
         }]
       });
 
       expect(instance.items[0].volumes[0]).toEqual({
         containerPath: 'path',
         host: '0.0.0.1',
-        id: 'volume-id',
+        id: 'volume-id-1',
         mode: 'RW',
         size: 2048,
         status: 'Attached',
+        taskID: 'task-id-1',
         type: 'Persistent'
       });
+    });
+
+    it('correctly parses multiple persistent volumes', function () {
+      var instance = MarathonUtil.parseGroups({
+        id: '/',
+        apps: [{
+          id: '/alpha', container: {
+            volumes: [{
+              containerPath: 'path',
+              mode: 'RW',
+              persistent: {
+                size: 2048
+              }
+            }]
+          },
+          tasks: [
+            {
+              id:'task-id-1',
+              host: '0.0.0.1',
+              startedAt: '2016-06-03T16:22:30.282Z',
+              localVolumes: [{
+                containerPath: 'path',
+                persistenceId: 'volume-id-1'
+              }]
+            },
+            {
+              id:'task-id-2',
+              host: '0.0.0.1',
+              startedAt: '2016-06-03T16:22:30.282Z',
+              localVolumes: [{
+                containerPath: 'path',
+                persistenceId: 'volume-id-2'
+              }]
+            }
+          ]
+        }]
+      });
+
+      expect(instance.items[0].volumes[0].id).toEqual('volume-id-1');
+      expect(instance.items[0].volumes[1].id).toEqual('volume-id-2');
     });
 
     it('correctly determine persistent volume attached status', function () {
@@ -150,6 +193,7 @@ describe('MarathonUtil', function () {
           },
           tasks: [
             {
+              id:'task-id',
               host: '0.0.0.1',
               startedAt: '2016-06-03T16:22:30.282Z',
               localVolumes: [{
@@ -178,6 +222,7 @@ describe('MarathonUtil', function () {
           },
           tasks: [
             {
+              id:'task-id',
               host: '0.0.0.1',
               localVolumes: [{
                 containerPath: 'path',
@@ -206,6 +251,7 @@ describe('MarathonUtil', function () {
           },
           tasks: [
             {
+              id:'task-id',
               host: '0.0.0.1',
               localVolumes: null
             }
@@ -231,6 +277,7 @@ describe('MarathonUtil', function () {
           },
           tasks: [
             {
+              id:'task-id',
               host: '0.0.0.1'
             }
           ]

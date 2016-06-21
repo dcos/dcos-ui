@@ -192,7 +192,7 @@ class Breadcrumbs extends mixin(StoreMixin) {
       return [];
     }
 
-    let crumbConfiguration = route.buildBreadCrumb();
+    let crumbConfiguration = route.buildBreadCrumb(router);
     let crumbs = crumbConfiguration.getCrumbs(router);
 
     if (crumbConfiguration.parentCrumb) {

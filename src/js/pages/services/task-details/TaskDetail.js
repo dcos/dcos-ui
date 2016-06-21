@@ -6,6 +6,7 @@ import {RouteHandler} from 'react-router';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import Breadcrumbs from '../../../components/Breadcrumbs';
+import MarathonStore from '../../../stores/MarathonStore';
 import MesosStateStore from '../../../stores/MesosStateStore';
 import PageHeader from '../../../components/PageHeader';
 import RequestErrorMsg from '../../../components/RequestErrorMsg';
@@ -17,13 +18,15 @@ import TabsMixin from '../../../mixins/TabsMixin';
 const SERVICES_TABS = {
   'services-task-details-tab': 'Details',
   'services-task-details-files': 'Files',
-  'services-task-details-logs': 'Logs'
+  'services-task-details-logs': 'Logs',
+  'services-task-details-volumes': 'Volumes'
 };
 
 const NODES_TABS = {
   'nodes-task-details-tab': 'Details',
   'nodes-task-details-files': 'Files',
-  'nodes-task-details-logs': 'Logs'
+  'nodes-task-details-logs': 'Logs',
+  'nodes-task-details-volumes': 'Volumes'
 };
 
 const METHODS_TO_BIND = [
@@ -45,6 +48,7 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
     };
 
     this.store_listeners = [
+      {name: 'marathon', events: ['appsSuccess'], listenAlways: false},
       {name: 'state', events: ['success'], listenAlways: false},
       {name: 'summary', events: ['success'], listenAlways: false},
       {name: 'taskDirectory', events: ['error', 'success']}
@@ -95,10 +99,6 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
     });
   }
 
-  hasLoadingError() {
-    return this.state.taskDirectoryErrorCount >= 3;
-  }
-
   getErrorScreen() {
     return (
       <div className="container container-fluid container-pod text-align-center vertical-center inverse">
@@ -119,23 +119,56 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
     );
   }
 
+  getService() {
+    let {params, service = null} = this.props;
+
+    // Get the service from the taskID if it wasn't explicitly passed.
+    if (!!params.taskID && service === null) {
+      service = MarathonStore.getServiceFromTaskID(params.taskID);
+    }
+
+    return service;
+  }
+
+  hasVolumes(service) {
+    return !!service && service.getVolumes().getItems().length > 0;
+  }
+
+  hasLoadingError() {
+    return this.state.taskDirectoryErrorCount >= 3;
+  }
+
   handleOpenLogClick(selectedLogFile) {
     this.setState({selectedLogFile, currentTab: 'debug'});
   }
 
   getBasicInfo() {
     let task = MesosStateStore.getTaskFromTaskID(this.props.params.taskID);
+
     if (task == null) {
       return null;
     }
 
+    let service = this.getService();
     let taskIcon = (
       <img src={task.getImages()['icon-large']} />
     );
+    let tabsArray = this.tabs_getRoutedTabs({params: this.props.params}) || [];
 
-    let tabs = (
+    if (!this.hasVolumes(service)) {
+      tabsArray = tabsArray.filter(function (tab) {
+        if (tab.key === 'nodes-task-details-volumes'
+          || tab.key === 'services-task-details-volumes') {
+          return false;
+        }
+
+        return true;
+      });
+    }
+
+    let navigationTabs = (
       <ul className="tabs list-inline flush-bottom container-pod container-pod-short-top inverse">
-        {this.tabs_getRoutedTabs({params: this.props.params})}
+        {tabsArray}
       </ul>
     );
 
@@ -144,7 +177,7 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
         icon={taskIcon}
         iconClassName="icon-app-container"
         subTitle={TaskStates[task.state].displayName}
-        navigationTabs={tabs}
+        navigationTabs={navigationTabs}
         title={task.getName()} />
     );
   }
@@ -185,6 +218,7 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
         directory={directory}
         onOpenLogClick={this.handleOpenLogClick.bind(this)}
         selectedLogFile={selectedLogFile}
+        service={this.getService()}
         task={task} />
     );
   }

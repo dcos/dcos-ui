@@ -1,6 +1,7 @@
 import {Confirm} from 'reactjs-components';
 import mixin from 'reactjs-mixin';
 import React from 'react';
+import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import Breadcrumbs from './Breadcrumbs';
 import InternalStorageMixin from '../mixins/InternalStorageMixin';
@@ -10,12 +11,11 @@ import ServiceActionItem from '../constants/ServiceActionItem';
 import ServiceDetailConfigurationTab from './ServiceDetailConfigurationTab';
 import ServiceDetailDebugTab from './ServiceDetailDebugTab';
 import ServiceDetailTaskTab from './ServiceDetailTaskTab';
-import ServiceDetailVolumesTab from './ServiceDetailVolumesTab';
 import ServiceFormModal from './modals/ServiceFormModal';
 import ServiceInfo from './ServiceInfo';
 import ServiceScaleFormModal from './modals/ServiceScaleFormModal';
-import {StoreMixin} from 'mesosphere-shared-reactjs';
 import TabsMixin from '../mixins/TabsMixin';
+import VolumeTable from './VolumeTable';
 
 const METHODS_TO_BIND = [
   'onActionsItemSelection',
@@ -32,8 +32,7 @@ class ServiceDetail extends mixin(InternalStorageMixin, StoreMixin, TabsMixin) {
     this.tabs_tabs = {
       tasks: 'Tasks',
       configuration: 'Configuration',
-      debug: 'Debug',
-      volumes: 'Volumes'
+      debug: 'Debug'
     };
 
     this.state = {
@@ -58,6 +57,16 @@ class ServiceDetail extends mixin(InternalStorageMixin, StoreMixin, TabsMixin) {
     METHODS_TO_BIND.forEach((method) => {
       this[method] = this[method].bind(this);
     });
+  }
+
+  componentDidMount() {
+    super.componentDidMount(...arguments);
+    this.checkForVolumes();
+  }
+
+  componentWillUpdate() {
+    super.componentWillUpdate(...arguments);
+    this.checkForVolumes();
   }
 
   onActionsItemSelection(item) {
@@ -179,6 +188,16 @@ class ServiceDetail extends mixin(InternalStorageMixin, StoreMixin, TabsMixin) {
     );
   }
 
+  checkForVolumes() {
+    // Add the Volumes tab if it isn't already there and the service has
+    // at least one volume.
+    if (this.tabs_tabs.volumes == null && !!this.props.service
+      && this.props.service.getVolumes().getItems().length > 0) {
+      this.tabs_tabs.volumes = 'Volumes';
+      this.forceUpdate();
+    }
+  }
+
   renderConfigurationTabView() {
     return (
       <ServiceDetailConfigurationTab service={this.props.service} />
@@ -193,7 +212,10 @@ class ServiceDetail extends mixin(InternalStorageMixin, StoreMixin, TabsMixin) {
 
   renderVolumesTabView() {
     return (
-      <ServiceDetailVolumesTab service={this.props.service}/>
+      <VolumeTable
+        params={this.context.router.getCurrentParams()}
+        service={this.props.service}
+        volumes={this.props.service.getVolumes().getItems()} />
     );
   }
 

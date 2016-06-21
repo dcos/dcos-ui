@@ -27,6 +27,10 @@ class Volume extends Item {
     return this.get('size');
   }
 
+  getTaskID() {
+    return this.get('taskID');
+  }
+
   getType() {
     return this.get('type');
   }

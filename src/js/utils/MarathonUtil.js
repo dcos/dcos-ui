@@ -42,7 +42,7 @@ function parseApp(app) {
     return Object.assign({volumes}, app);
   }
 
-  tasks.forEach(function ({host, localVolumes, startedAt}) {
+  tasks.forEach(function ({host, id:taskID, localVolumes, startedAt}) {
     let status = VolumeStatus.DETACHED;
     if (startedAt != null) {
       status = VolumeStatus.ATTACHED;
@@ -53,12 +53,11 @@ function parseApp(app) {
     }
 
     localVolumes.forEach(function ({containerPath, persistenceId:id}) {
-      let volumeDefinition =
-        volumeDefinitionMap.get(containerPath);
+      let volumeDefinition = volumeDefinitionMap.get(containerPath);
+      let volume = Object.assign({}, volumeDefinition,
+        {status, host, containerPath, id, taskID});
 
-      volumes.push(
-        Object.assign(volumeDefinition, {status, host, containerPath, id})
-      );
+      volumes.push(volume);
     });
   });
 

@@ -8,13 +8,15 @@ import NodeDetailBreadcrumb from '../pages/nodes/breadcrumbs/NodeDetailBreadcrum
 import NodeDetailPage from '../pages/nodes/NodeDetailPage';
 import NodesGridView from '../components/NodesGridView';
 import NodesPage from '../pages/NodesPage';
-import UnitsHealthNodeDetail from '../pages/system/UnitsHealthNodeDetail';
-import UnitsHealthNodeDetailPage from '../pages/nodes/UnitsHealthNodeDetailPage';
 import TaskDetail from '../pages/services/task-details/TaskDetail';
+import TaskDetailBreadcrumb from '../pages/nodes/breadcrumbs/TaskDetailBreadcrumb';
 import TaskDetailsTab from '../pages/services/task-details/TaskDetailsTab';
 import TaskFilesTab from '../pages/services/task-details/TaskFilesTab';
 import TaskLogsTab from '../pages/services/task-details/TaskLogsTab';
-import TaskDetailBreadcrumb from '../pages/nodes/breadcrumbs/TaskDetailBreadcrumb';
+import UnitsHealthNodeDetail from '../pages/system/UnitsHealthNodeDetail';
+import UnitsHealthNodeDetailPage from '../pages/nodes/UnitsHealthNodeDetailPage';
+import VolumeDetail from '../components/VolumeDetail';
+import VolumeTable from '../components/VolumeTable';
 
 let nodesRoutes = {
   type: Route,
@@ -76,6 +78,33 @@ let nodesRoutes = {
         }
       },
       children: [
+        // This route needs to be rendered outside of the tabs that are rendered
+        // in the nodes-task-details route.
+        {
+          type: Route,
+          name: 'item-volume-detail',
+          path: ':nodeID/tasks/:taskID/volumes/:volumeID/?',
+          handler: VolumeDetail,
+          buildBreadCrumb: function () {
+            return {
+              parentCrumb: 'node-detail',
+              getCrumbs: function (router) {
+                return [
+                  {
+                    label: 'Volumes',
+                    route: {
+                      params: router.getCurrentParams(),
+                      to: 'nodes-task-details-volumes'
+                    }
+                  },
+                  {
+                    label: router.getCurrentParams().volumeID
+                  }
+                ];
+              }
+            }
+          }
+        },
         {
           type: Route,
           path: 'tasks/:taskID/?',
@@ -127,6 +156,18 @@ let nodesRoutes = {
               path: 'logs/?',
               handler: TaskLogsTab,
               hideHeaderNavigation: true,
+              buildBreadCrumb: function () {
+                return {
+                  parentCrumb: 'nodes-task-details',
+                  getCrumbs: function () { return []; }
+                }
+              }
+            },
+            {
+              type: Route,
+              name: 'nodes-task-details-volumes',
+              path: 'volumes/:volumeID?',
+              handler: VolumeTable,
               buildBreadCrumb: function () {
                 return {
                   parentCrumb: 'nodes-task-details',
