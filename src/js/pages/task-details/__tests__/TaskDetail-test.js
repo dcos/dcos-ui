@@ -1,23 +1,23 @@
 jest.dontMock('../TaskFilesTab');
 jest.dontMock('../TaskDetail');
-jest.dontMock('../../../../stores/MarathonStore');
-jest.dontMock('../../../../stores/MesosStateStore');
-jest.dontMock('../../../../mixins/GetSetMixin');
+jest.dontMock('../../../stores/MarathonStore');
+jest.dontMock('../../../stores/MesosStateStore');
+jest.dontMock('../../../mixins/GetSetMixin');
 
-let JestUtil = require('../../../../utils/JestUtil');
+let JestUtil = require('../../../utils/JestUtil');
 
 JestUtil.unMockStores(['MarathonStore', 'MesosStateStore', 'TaskDirectoryStore', 'MesosSummaryStore']);
-require('../../../../utils/StoreMixinConfig');
+require('../../../utils/StoreMixinConfig');
 /* eslint-disable no-unused-vars */
 let React = require('react');
 /* eslint-enable no-unused-vars */
 let ReactDOM = require('react-dom');
 let TestUtils = require('react-addons-test-utils');
 
-let MesosStateStore = require('../../../../stores/MesosStateStore');
-import Task from '../../../../structs/Task';
-let TaskDirectory = require('../../../../structs/TaskDirectory');
-let TaskDirectoryStore = require('../../../../stores/TaskDirectoryStore');
+let MesosStateStore = require('../../../stores/MesosStateStore');
+import Task from '../../../structs/Task';
+let TaskDirectory = require('../../../structs/TaskDirectory');
+let TaskDirectoryStore = require('../../../stores/TaskDirectoryStore');
 let TaskDetail = require('../TaskDetail');
 
 describe('TaskDetail', function () {

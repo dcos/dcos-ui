@@ -5,15 +5,15 @@ import React from 'react';
 import {RouteHandler} from 'react-router';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
-import Breadcrumbs from '../../../components/Breadcrumbs';
-import MarathonStore from '../../../stores/MarathonStore';
-import MesosStateStore from '../../../stores/MesosStateStore';
-import PageHeader from '../../../components/PageHeader';
-import RequestErrorMsg from '../../../components/RequestErrorMsg';
-import TaskDirectoryStore from '../../../stores/TaskDirectoryStore';
-import TaskStates from '../../../constants/TaskStates';
-import InternalStorageMixin from '../../../mixins/InternalStorageMixin';
-import TabsMixin from '../../../mixins/TabsMixin';
+import Breadcrumbs from '../../components/Breadcrumbs';
+import MarathonStore from '../../stores/MarathonStore';
+import MesosStateStore from '../../stores/MesosStateStore';
+import PageHeader from '../../components/PageHeader';
+import RequestErrorMsg from '../../components/RequestErrorMsg';
+import TaskDirectoryStore from '../../stores/TaskDirectoryStore';
+import TaskStates from '../../constants/TaskStates';
+import InternalStorageMixin from '../../mixins/InternalStorageMixin';
+import TabsMixin from '../../mixins/TabsMixin';
 
 const SERVICES_TABS = {
   'services-task-details-tab': 'Details',

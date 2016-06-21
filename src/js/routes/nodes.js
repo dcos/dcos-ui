@@ -8,11 +8,11 @@ import NodeDetailBreadcrumb from '../pages/nodes/breadcrumbs/NodeDetailBreadcrum
 import NodeDetailPage from '../pages/nodes/NodeDetailPage';
 import NodesGridView from '../components/NodesGridView';
 import NodesPage from '../pages/NodesPage';
-import TaskDetail from '../pages/services/task-details/TaskDetail';
+import TaskDetail from '../pages/task-details/TaskDetail';
 import TaskDetailBreadcrumb from '../pages/nodes/breadcrumbs/TaskDetailBreadcrumb';
-import TaskDetailsTab from '../pages/services/task-details/TaskDetailsTab';
-import TaskFilesTab from '../pages/services/task-details/TaskFilesTab';
-import TaskLogsTab from '../pages/services/task-details/TaskLogsTab';
+import TaskDetailsTab from '../pages/task-details/TaskDetailsTab';
+import TaskFilesTab from '../pages/task-details/TaskFilesTab';
+import TaskLogsTab from '../pages/task-details/TaskLogsTab';
 import UnitsHealthNodeDetail from '../pages/system/UnitsHealthNodeDetail';
 import UnitsHealthNodeDetailPage from '../pages/nodes/UnitsHealthNodeDetailPage';
 import VolumeDetail from '../components/VolumeDetail';

@@ -1,22 +1,22 @@
-jest.dontMock('../../../../components/icons/IconDownload');
-jest.dontMock('../../../../components/MesosLogView');
-jest.dontMock('../../../../components/RequestErrorMsg');
+jest.dontMock('../../../components/icons/IconDownload');
+jest.dontMock('../../../components/MesosLogView');
+jest.dontMock('../../../components/RequestErrorMsg');
 jest.dontMock('../TaskLogsTab');
-jest.dontMock('../../../../components/FilterBar');
+jest.dontMock('../../../components/FilterBar');
 
-let JestUtil = require('../../../../utils/JestUtil');
+let JestUtil = require('../../../utils/JestUtil');
 
 JestUtil.unMockStores(['TaskDirectoryStore', 'MesosLogStore']);
-require('../../../../utils/StoreMixinConfig');
+require('../../../utils/StoreMixinConfig');
 
-let DirectoryItem = require('../../../../structs/DirectoryItem');
-let TaskDirectory = require('../../../../structs/TaskDirectory');
+let DirectoryItem = require('../../../structs/DirectoryItem');
+let TaskDirectory = require('../../../structs/TaskDirectory');
 /* eslint-disable no-unused-vars */
 let React = require('react');
 /* eslint-enable no-unused-vars */
 let ReactDOM = require('react-dom');
 
-let TaskDirectoryActions = require('../../../../events/TaskDirectoryActions');
+let TaskDirectoryActions = require('../../../events/TaskDirectoryActions');
 let TaskLogsTab = require('../TaskLogsTab');
 
 describe('TaskLogsTab', function () {
