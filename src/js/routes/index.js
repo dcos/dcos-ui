@@ -10,30 +10,27 @@ import services from './services';
 import jobs from './jobs';
 import universe from './universe';
 
-// Statically defined routes
-let applicationRoutes = [
-  dashboard,
-  services,
-  jobs,
-  nodes,
-
-  universe,
-  {
-    type: Redirect,
-    from: '/',
-    to: 'dashboard'
-  },
-  {
-    type: NotFoundRoute,
-    handler: NotFoundPage
-  }
-];
-
 // Modules that produce routes
 let routeFactories = [System];
 
 function getApplicationRoutes() {
-  let routes = applicationRoutes.slice();
+  // Statically defined routes
+  let routes = [
+    dashboard,
+    services,
+    jobs,
+    nodes,
+    universe,
+    {
+      type: Redirect,
+      from: '/',
+      to: Hooks.applyFilter('applicationRedirectRoute', 'dashboard')
+    },
+    {
+      type: NotFoundRoute,
+      handler: NotFoundPage
+    }
+  ];
 
   routeFactories.forEach(function (routeFactory) {
     routes.push(routeFactory.getRoutes());
