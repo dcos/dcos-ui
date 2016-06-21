@@ -14,6 +14,18 @@ module.exports = {
       }
       // Run our modules through Babel before running tests
       if (babel.util.canCompile(filename)) {
+        // This will match:
+        // import IconFoo from '../../icons/icon-medium/pages-code.svg?name=foo';
+        var matches = src.match(/^(\w+) (.*?) (\w+|=) '(.*?)(icons)(.*?)\.svg(\?.*?)';$/img);
+        if (matches && matches.length) {
+          for (var i = 0; i < matches.length; i++) {
+            var importMatch = matches[i].match(/^(\w+) (\w+)/);
+            // It'll replace all matches with:
+            // var IconFoo = React.createClass(...);
+            src = src.replace(matches[i], 'var ' + importMatch[2] + ' = React.createClass({render: function () { return React.createElement("div", null); } });');
+          }
+        }
+
         src = babel.transform(src, {
           auxiliaryCommentBefore: ' istanbul ignore next ',
           filename,
