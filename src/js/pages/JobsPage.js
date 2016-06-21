@@ -2,7 +2,7 @@ import mixin from 'reactjs-mixin';
 import React from 'react';
 import {RouteHandler} from 'react-router';
 
-import IconJobs from '../../img/components/icons/pages-code.svg?name=IconJobs';
+import IconJobs from '../../img/components/icons/icon-medium/pages-code.svg?name=IconJobs';
 import Page from '../components/Page';
 import RouterUtil from '../utils/RouterUtil';
 import SidebarActions from '../events/SidebarActions';
