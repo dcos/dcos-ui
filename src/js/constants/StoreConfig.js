@@ -101,6 +101,9 @@ import {
   USERS_CHANGE,
   USERS_REQUEST_ERROR,
 
+  VIRTUAL_NETWORKS_CHANGE,
+  VIRTUAL_NETWORKS_REQUEST_ERROR,
+
   VISIBILITY_CHANGE
 } from './EventTypes';
 import AuthStore from '../stores/AuthStore';
@@ -120,6 +123,7 @@ import TaskDirectoryStore from '../stores/TaskDirectoryStore';
 import UnitHealthStore from '../stores/UnitHealthStore';
 import UserStore from '../stores/UserStore';
 import UsersStore from '../stores/UsersStore';
+import VirtualNetworksStore from '../stores/VirtualNetworksStore';
 import VisibilityStore from '../stores/VisibilityStore';
 
 const ListenersDescription = {
@@ -386,6 +390,18 @@ const ListenersDescription = {
     events: {
       success: USERS_CHANGE,
       error: USERS_REQUEST_ERROR
+    },
+    unmountWhen: function () {
+      return true;
+    },
+    listenAlways: true
+  },
+
+  virtualNetworks: {
+    store: VirtualNetworksStore,
+    events: {
+      success: VIRTUAL_NETWORKS_CHANGE,
+      error: VIRTUAL_NETWORKS_REQUEST_ERROR
     },
     unmountWhen: function () {
       return true;

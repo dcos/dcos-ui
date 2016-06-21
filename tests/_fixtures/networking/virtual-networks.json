@@ -1,0 +1,73 @@
+{
+  "agents": [
+    {
+      "ip": "10.0.2.15",
+      "overlays": [
+        {
+          "backend": {
+            "vxlan": {
+              "vni": 1024,
+              "vtep_ip": "44.128.0.1/16",
+              "vtep_mac": "70:b3:d5:00:00:01",
+              "vtep_name": "vtep1024"
+            }
+          },
+          "docker_bridge": {
+            "ip": "192.168.0.128/25",
+            "name": "d-vxlan-1"
+          },
+          "info": {
+            "name": "vxlan-1",
+            "prefix": 24,
+            "subnet": "192.168.0.0/17"
+          },
+          "mesos_bridge": {
+            "ip": "192.168.0.0/25",
+            "name": "m-vxlan-1"
+          },
+          "subnet": "192.168.0.0/24"
+        },
+        {
+          "backend": {
+            "vxlan": {
+              "vni": 1024,
+              "vtep_ip": "44.128.0.1/16",
+              "vtep_mac": "70:b3:d5:00:00:01",
+              "vtep_name": "vtep1024"
+            }
+          },
+          "docker_bridge": {
+            "ip": "192.168.128.128/25",
+            "name": "d-vxlan-2"
+          },
+          "info": {
+            "name": "vxlan-2",
+            "prefix": 24,
+            "subnet": "192.168.128.0/17"
+          },
+          "mesos_bridge": {
+            "ip": "192.168.128.0/25",
+            "name": "m-vxlan-2"
+          },
+          "subnet": "192.168.128.0/24"
+        }
+      ]
+    }
+  ],
+  "network": {
+    "overlays": [
+      {
+        "name": "vxlan-1",
+        "prefix": 24,
+        "subnet": "192.168.0.0/17"
+      },
+      {
+        "name": "vxlan-2",
+        "prefix": 24,
+        "subnet": "192.168.128.0/17"
+      }
+    ],
+    "vtep_mac_oui": "70:B3:D5:00:00:00",
+    "vtep_subnet": "44.128.0.0/16"
+  }
+}

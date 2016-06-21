@@ -27,7 +27,8 @@ var Config = {
   supportEmail: 'help@dcos.io',
   tailRefresh: 10000,
   unitHealthAPIPrefix: '/system/health/v1',
-  version: '@@VERSION'
+  version: '@@VERSION',
+  virtualNetworksApi: '/mesos/overlay-master'
 };
 
 Config.getRefreshRate = function () {
