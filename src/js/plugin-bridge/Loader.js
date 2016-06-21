@@ -12,6 +12,9 @@ const requireConstants = require.context('../constants', false);
 const requireComponents = require.context('../components', false);
 const requireCharts = require.context('../components/charts', false);
 const requireIcons = require.context('../components/icons', false);
+const requireIconsMini = require.context('../../img/components/icons/icon-mini', false);
+const requireIconsSmall = require.context('../../img/components/icons/icon-small', false);
+const requireIconsMedium = require.context('../../img/components/icons/icon-medium', false);
 const requireModals = require.context('../components/modals', false);
 let requireExternalPlugin = function () {
   return {};
@@ -91,6 +94,12 @@ function requireModule(dir, name) {
       return requireConstants(path);
     case 'events':
       return requireEvents(path);
+    case 'iconsMini':
+      return requireIconsMini(path);
+    case 'iconsSmall':
+      return requireIconsSmall(path);
+    case 'iconsMedium':
+      return requireIconsMedium(path);
     case 'stores':
       return requireStores(path);
     case 'structs':
