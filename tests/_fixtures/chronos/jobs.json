@@ -42,7 +42,7 @@
       },
       "cmd": "/bar",
       "args": [
-
+        
       ],
       "user": "marathon",
       "env": {
@@ -69,7 +69,9 @@
       "lastSuccessAt": "1990-01-02T00:00:00Z",
       "lastFailureAt": "1999-03-01T00:10:15.957Z"
     },
-    "activeRuns": []
+    "activeRuns": [
+      
+    ]
   },
   {
     "id": "foo",
@@ -110,7 +112,7 @@
       },
       "cmd": "/foo",
       "args": [
-
+        
       ],
       "user": "marathon",
       "env": {
@@ -199,7 +201,7 @@
       },
       "cmd": "/alpha",
       "args": [
-
+        
       ],
       "user": "marathon",
       "env": {
@@ -281,7 +283,7 @@
       },
       "cmd": "/beta",
       "args": [
-
+        
       ],
       "user": "marathon",
       "env": {

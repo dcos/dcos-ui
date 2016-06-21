@@ -278,7 +278,7 @@ var ServicesTab = React.createClass({
 
     // Find item in root tree
     let item = DCOSStore.serviceTree.findItemById(id);
-    if (this.props.params.id != null && !item) {
+    if (this.props.params.id != null && this.props.params.id !== '/' && !item) {
       return this.getServiceNotFound(id);
     }
 
