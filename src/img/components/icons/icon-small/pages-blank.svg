@@ -1,5 +1,5 @@
 <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-    <g fill="#000" fill-rule="evenodd">
+    <g fill-rule="evenodd">
         <path d="M17 20h6V0H7v4h10v16z" fill-opacity=".15"/>
         <path d="M17 20h6V0H7v4h2V2h12v16h-4v2zM1 4h16v20H1V4zm2 2h12v16H3V6z"/>
     </g>
