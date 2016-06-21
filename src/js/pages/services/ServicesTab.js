@@ -140,11 +140,9 @@ var ServicesTab = React.createClass({
 
   getNotFoundFooter: function () {
     return (
-      <div className="button-collection flush-bottom">
-        <Link to="services-page" className="button button-stroke button-inverse">
-          Go back to Services Page
-        </Link>
-      </div>
+      <Link to="services-page" className="button button-stroke button-inverse">
+        Go back to Services Page
+      </Link>
     );
   },
 
@@ -173,6 +171,13 @@ var ServicesTab = React.createClass({
           </div>
         </div>
       );
+    }
+
+    let {id} = this.props.params;
+    id = id && decodeURIComponent(id);
+    let itemFound = !!DCOSStore.serviceTree.findItemById(id);
+    if (id && this.props.params.id !== '/' && !itemFound) {
+      return this.getServiceNotFound(id);
     }
 
     // TODO (DCOS-7580): Clean up ServicesTab routed and unrouted views
@@ -277,13 +282,7 @@ var ServicesTab = React.createClass({
     let {state} = this;
 
     // Find item in root tree
-    let item = DCOSStore.serviceTree.findItemById(id);
-    if (this.props.params.id != null && this.props.params.id !== '/' && !item) {
-      return this.getServiceNotFound(id);
-    }
-
-    // Default to root tree if there is no ID
-    item = item || DCOSStore.serviceTree;
+    let item = DCOSStore.serviceTree.findItemById(id) || DCOSStore.serviceTree;
 
     // The regular expression `/^(\/.+)$/` is looking for the beginning of the
     // string and matches if the string starts with a `/` and does contain more
