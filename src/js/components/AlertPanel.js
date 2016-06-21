@@ -7,8 +7,13 @@ var AlertPanel = React.createClass({
 
   displayName: 'AlertPanel',
 
+  defaultProps: {
+    icon: null
+  },
+
   propTypes: {
     title: React.PropTypes.string,
+    icon: React.PropTypes.node,
     iconClassName: React.PropTypes.string
   },
 
@@ -21,13 +26,18 @@ var AlertPanel = React.createClass({
   },
 
   getIcon: function () {
-    let classes = this.props.iconClassName;
-    if (!classes) {
+    let {icon, iconClassName} = this.props;
+
+    if (!!icon) {
+      return icon;
+    }
+
+    if (!iconClassName) {
       return null;
     }
 
     return (
-      <i className={classes}></i>
+      <i className={iconClassName}></i>
     );
   },
 
