@@ -3,12 +3,12 @@ import {Dropdown, Tooltip} from 'reactjs-components';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import FilterBar from '../../../components/FilterBar';
-import FilterInputText from '../../../components/FilterInputText';
-import IconDownload from '../../../components/icons/IconDownload';
-import KeyboardUtil from '../../../utils/KeyboardUtil';
-import MesosLogView from '../../../components/MesosLogView';
-import TaskDirectoryActions from '../../../events/TaskDirectoryActions';
+import FilterBar from '../../components/FilterBar';
+import FilterInputText from '../../components/FilterInputText';
+import IconDownload from '../../components/icons/IconDownload';
+import KeyboardUtil from '../../utils/KeyboardUtil';
+import MesosLogView from '../../components/MesosLogView';
+import TaskDirectoryActions from '../../events/TaskDirectoryActions';
 
 const METHODS_TO_BIND = [
   'handleSearchStringChange',

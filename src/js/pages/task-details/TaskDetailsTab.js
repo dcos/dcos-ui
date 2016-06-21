@@ -1,12 +1,12 @@
 import React from 'react';
 
-import DescriptionList from '../../../components/DescriptionList';
-import MarathonTaskDetailsList from '../../../components/MarathonTaskDetailsList';
-import MesosStateStore from '../../../stores/MesosStateStore';
-import MesosSummaryStore from '../../../stores/MesosSummaryStore';
-import ResourcesUtil from '../../../utils/ResourcesUtil';
-import TaskDirectoryStore from '../../../stores/TaskDirectoryStore';
-import Units from '../../../utils/Units';
+import DescriptionList from '../../components/DescriptionList';
+import MarathonTaskDetailsList from '../../components/MarathonTaskDetailsList';
+import MesosStateStore from '../../stores/MesosStateStore';
+import MesosSummaryStore from '../../stores/MesosSummaryStore';
+import ResourcesUtil from '../../utils/ResourcesUtil';
+import TaskDirectoryStore from '../../stores/TaskDirectoryStore';
+import Units from '../../utils/Units';
 
 class TaskDetailsTab extends React.Component {
   getMesosTaskDetailsDescriptionList(mesosTask) {
