@@ -6,6 +6,7 @@ import {RouteHandler} from 'react-router';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import AlertPanel from '../../components/AlertPanel';
+import IconNetwork from '../../../img/components/icons/icon-medium/network-hierarchical.svg?name=IconNetwork';
 import FilterBar from '../../components/FilterBar';
 import FilterHeadline from '../../components/FilterHeadline';
 import FilterInputText from '../../components/FilterInputText';
@@ -67,7 +68,7 @@ class VirtualNetworksTabContent extends mixin(StoreMixin) {
     return (
       <AlertPanel
         title="No Networks Detected"
-        iconClassName="icon icon-sprite icon-sprite-jumbo icon-sprite-jumbo-white icon-network flush-top">
+        icon={<IconNetwork className="icon icon-jumbo icon-white" />}>
         <p className="flush">
           Virtual Networks have to be configured at cluster creation time.
         </p>
