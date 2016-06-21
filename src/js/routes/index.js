@@ -3,6 +3,7 @@ import {Route, Redirect, NotFoundRoute} from 'react-router';
 import dashboard from './dashboard';
 import {Hooks} from 'PluginSDK';
 import Index from '../pages/Index';
+import Network from './factories/network';
 import nodes from './nodes';
 import NotFoundPage from '../pages/NotFoundPage';
 import System from './factories/system';
@@ -11,7 +12,7 @@ import jobs from './jobs';
 import universe from './universe';
 
 // Modules that produce routes
-let routeFactories = [System];
+let routeFactories = [System, Network];
 
 function getApplicationRoutes() {
   // Statically defined routes

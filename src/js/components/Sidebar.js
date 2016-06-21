@@ -22,6 +22,7 @@ let defaultMenuItems = [
   'services-page',
   'jobs-page',
   'nodes-list',
+  'network',
   'universe',
   'system'
 ];
