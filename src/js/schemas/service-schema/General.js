@@ -22,6 +22,7 @@ let General = {
           title: 'CPUs',
           description: 'The amount of CPUs which are used for the service',
           type: 'number',
+          default: 1,
           getter: function (service) {
             return `${service.getCpus() || ''}`;
           }
@@ -29,6 +30,7 @@ let General = {
         mem: {
           title: 'Mem (MiB)',
           type: 'number',
+          default: 128,
           getter: function (service) {
             return `${service.getMem() || ''}`;
           }
@@ -36,6 +38,7 @@ let General = {
         disk: {
           title: 'Disk (MiB)',
           type: 'number',
+          default: 0,
           getter: function (service) {
             return `${service.getDisk() || ''}`;
           }
@@ -43,8 +46,9 @@ let General = {
         instances: {
           title: 'Instances',
           type: 'number',
+          default: 1,
           getter: function (service) {
-            return `${service.getInstancesCount() || 0}`;
+            return `${service.getInstancesCount() || ''}`;
           }
         }
       }

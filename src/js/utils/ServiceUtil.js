@@ -11,7 +11,8 @@ const getFindPropertiesRecursive = function (service, item) {
       Object.keys(item[subItem].properties).forEach(function (key) {
         memo[key] = item[subItem].properties[key].default;
 
-        if (item[subItem].properties[key].getter) {
+        if (item[subItem].properties[key].getter &&
+          !!item[subItem].properties[key].getter(service)) {
           memo[key] = item[subItem].properties[key].getter(service);
         }
       });
