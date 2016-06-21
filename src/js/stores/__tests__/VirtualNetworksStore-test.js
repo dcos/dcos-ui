@@ -7,9 +7,9 @@ import PluginTestUtils from 'PluginTestUtils';
 const ActionTypes = require('../../constants/ActionTypes');
 const AppDispatcher = require('../../events/AppDispatcher');
 const EventTypes = require('../../constants/EventTypes');
-const VirtualNetworksStore = require('../VirtualNetworksStore');
 const Overlay = require('../../structs/Overlay');
 const OverlayList = require('../../structs/OverlayList');
+const VirtualNetworksStore = require('../VirtualNetworksStore');
 
 describe('VirtualNetworksStore', function () {
   beforeEach(function () {
