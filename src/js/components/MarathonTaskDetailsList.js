@@ -83,6 +83,7 @@ class MarathonTaskDetailsList extends React.Component {
 
     return (
       <DescriptionList
+        key="marathonTaskDetailsList"
         className="container container-fluid flush container-pod container-pod-super-short flush-top"
         hash={headerValueMapping}
         headline="Marathon Task Configuration" />

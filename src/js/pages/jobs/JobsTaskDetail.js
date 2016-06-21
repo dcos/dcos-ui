@@ -1,6 +1,5 @@
 import classNames from 'classnames';
 import {Confirm} from 'reactjs-components';
-
 /* eslint-disable no-unused-vars */
 import React from 'react';
 /* eslint-enable no-unused-vars */
@@ -9,19 +8,13 @@ import ChronosStore from '../../stores/ChronosStore';
 import TaskDetail from '../services/task-details/TaskDetail';
 import TaskStates from '../../constants/TaskStates';
 
-/* eslint-disable no-unused-vars */
-const METHODS_TO_BIND = [
-  'handleKillButtonClick'
-];
-/* eslint-enable no-unused-vars */
-
 const JOBS_TABS = {
   'jobs-task-details-tab': 'Details',
   'jobs-task-details-files': 'Files',
   'jobs-task-details-logs': 'Logs'
 };
 
-const MORE_METHODS_TO_BIND = [
+const METHODS_TO_BIND = [
   'handleKillButtonClick',
   'handleKillModalClose',
   'handleTaskKill'
@@ -40,13 +33,13 @@ class JobsTaskDetail extends TaskDetail {
 
     this.state = {
       directory: null,
-      selectedLogFile: null,
       errorCount: 0,
+      killError: null,
       openKillConfirm: false,
-      killError: null
+      selectedLogFile: null
     };
 
-    MORE_METHODS_TO_BIND.forEach((method) => {
+    METHODS_TO_BIND.forEach((method) => {
       this[method] = this[method].bind(this);
     });
   }
@@ -72,8 +65,8 @@ class JobsTaskDetail extends TaskDetail {
 
   handleKillModalClose() {
     this.setState({
-      openKillConfirm: false,
-      killError: false
+      killError: false,
+      openKillConfirm: false
     });
   }
 
@@ -121,12 +114,8 @@ class JobsTaskDetail extends TaskDetail {
     );
   }
 
-  getJob() {
-    return ChronosStore.getJob(this.props.params.id);
-  }
-
   getTask() {
-    let job = this.getJob();
+    let job = ChronosStore.getJob(this.props.params.id);
     if (!job) {
       return null;
     }
@@ -135,13 +124,11 @@ class JobsTaskDetail extends TaskDetail {
   };
 
   getTaskActionButtons() {
-    let jobID = this.props.params.id;
-
     return [
       <button
         className="button button-inverse button-stroke button-danger"
         key="kill"
-        onClick={this.handleKillButtonClick.bind(this, jobID)}>
+        onClick={this.handleKillButtonClick}>
         Kill Task
       </button>
     ];
@@ -159,7 +146,7 @@ class JobsTaskDetail extends TaskDetail {
     let status = TaskStates[task.getStatus()];
     let statusClasses = classNames('job-details-header-status', {
       'text-success': status.stateTypes.includes('success')
-        && status.stateTypes.includes('failure'),
+        && !status.stateTypes.includes('failure'),
       'text-danger': status.stateTypes.includes('failure')
     });
 

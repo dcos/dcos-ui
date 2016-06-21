@@ -5,6 +5,7 @@ import React from 'react';
 import ChronosStore from '../../stores/ChronosStore';
 import DescriptionList from '../../components/DescriptionList';
 import TaskDetailsTab from '../services/task-details/TaskDetailsTab';
+import Util from '../../utils/Util';
 
 class JobsTaskDetailsTab extends TaskDetailsTab {
   getDescriptionLists(task) {
@@ -19,14 +20,12 @@ class JobsTaskDetailsTab extends TaskDetailsTab {
     let {id, taskID} = this.props.params
     let job = ChronosStore.getJob(id);
     let task = job.getTaskByID(taskID);
-    delete task._itemData;
-    delete task.id;
 
     return (
       <DescriptionList
         className="container container-fluid flush container-pod container-pod-super-short flush-top"
         headline="Job Information"
-        hash={task}
+        hash={Util.omit(task, ['_itemData', 'id'])}
         key="jobDescriptionList" />
     );
   }
