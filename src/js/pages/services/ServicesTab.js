@@ -256,6 +256,16 @@ var ServicesTab = React.createClass({
     // Find item in root tree and default to root tree if there is no match
     let item = DCOSStore.serviceTree.findItemById(id) || DCOSStore.serviceTree;
 
+    // The regular expression `/^(\/.+)$/` is looking for the beginning of the
+    // string and matches if the string starts with a `/` and does contain more
+    // characters after the slash. This is combined into a group and then
+    // replaced with the first group which is the complete string and a `/` is
+    // appended. This is needed because in most case a path like
+    // `/group/another-group` will be given by `getId` except on root then the
+    // return value of `getId` would be `/` so in most cases we want to append a
+    // `/` so that the user can begin typing the `id` of their application.
+    let serviceId = item.getId().replace(/^(\/.+)$/, '$1/');
+
     // Make sure to grow when logs are displayed
     let routes = this.context.router.getCurrentRoutes();
     let classes = classNames({
@@ -270,6 +280,7 @@ var ServicesTab = React.createClass({
           parentGroupId={item.getId()}
           onClose={this.handleCloseGroupFormModal}/>
         <ServiceFormModal open={state.isServiceFormModalShown}
+          id={serviceId}
           onClose={this.handleCloseServiceFormModal}/>
       </div>
     );

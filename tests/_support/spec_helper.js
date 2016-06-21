@@ -48,6 +48,10 @@ Cypress.addParentCommand('configureCluster', function (configuration) {
       .route(/state-summary/, 'fx:marathon-1-task/summary')
       .route(/state/, 'fx:marathon-1-task/state');
   }
+  if (configuration.mesos === '1-empty-group') {
+    cy
+      .route(/marathon\/v2\/groups/, 'fx:marathon-1-group/groups')
+  }
 
   if (configuration.mesos === '1-for-each-health') {
     cy
