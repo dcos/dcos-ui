@@ -2,9 +2,9 @@ import PluginTestUtils from 'PluginTestUtils';
 import {RequestUtil} from 'mesosphere-shared-reactjs';
 
 let ActionTypes = require('../../constants/ActionTypes');
-var AppDispatcher = require('../AppDispatcher');
 let Config = require('../../config/Config');
 let VirtualNetworksActions = require('../VirtualNetworksActions');
+var AppDispatcher = require('../AppDispatcher');
 
 const {virtualNetworksApi} = Config;
 
