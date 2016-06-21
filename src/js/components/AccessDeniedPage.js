@@ -39,8 +39,6 @@ module.exports = class AccessDeniedPage extends React.Component {
             flex-container-col">
             <AlertPanel
               footer={this.getFooter()}
-              iconClassName="icon icon-sprite icon-sprite-jumbo
-                icon-sprite-jumbo-white icon-lost-planet flush-top"
               title="Access Denied">
               <p>
                 You do not have access to this service. <br />
