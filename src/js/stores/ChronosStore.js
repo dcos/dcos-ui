@@ -9,6 +9,8 @@ import {
   CHRONOS_JOB_DELETE_SUCCESS,
   CHRONOS_JOB_DETAIL_CHANGE,
   CHRONOS_JOB_DETAIL_ERROR,
+  CHRONOS_JOB_UPDATE_ERROR,
+  CHRONOS_JOB_UPDATE_SUCCESS,
   CHRONOS_JOB_RUN_ERROR,
   CHRONOS_JOB_RUN_SUCCESS,
   CHRONOS_JOB_SUSPEND_ERROR,
@@ -28,6 +30,8 @@ import {
   REQUEST_CHRONOS_JOB_DETAIL_ERROR,
   REQUEST_CHRONOS_JOB_DETAIL_ONGOING,
   REQUEST_CHRONOS_JOB_DETAIL_SUCCESS,
+  REQUEST_CHRONOS_JOB_UPDATE_ERROR,
+  REQUEST_CHRONOS_JOB_UPDATE_SUCCESS,
   REQUEST_CHRONOS_JOB_RUN_ERROR,
   REQUEST_CHRONOS_JOB_RUN_SUCCESS,
   REQUEST_CHRONOS_JOB_SUSPEND_ERROR,
@@ -103,6 +107,12 @@ class ChronosStore extends EventEmitter {
         case REQUEST_CHRONOS_JOB_DETAIL_ERROR:
           this.emit(CHRONOS_JOB_DETAIL_ERROR);
           break;
+        case REQUEST_CHRONOS_JOB_UPDATE_SUCCESS:
+          this.emit(CHRONOS_JOB_UPDATE_SUCCESS);
+          break;
+        case REQUEST_CHRONOS_JOB_UPDATE_ERROR:
+          this.emit(CHRONOS_JOB_UPDATE_ERROR, action.data);
+          break;
         case REQUEST_CHRONOS_JOB_RUN_ERROR:
           this.emit(CHRONOS_JOB_RUN_ERROR, action.jobID);
           break;
@@ -146,6 +156,10 @@ class ChronosStore extends EventEmitter {
 
   fetchJobDetail(jobID) {
     ChronosActions.fetchJobDetail(jobID);
+  }
+
+  updateJob(jobId, job) {
+    ChronosActions.updateJob(jobId, job);
   }
 
   runJob(jobID) {

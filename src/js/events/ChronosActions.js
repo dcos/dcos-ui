@@ -3,6 +3,8 @@ import {RequestUtil} from 'mesosphere-shared-reactjs';
 import {
   REQUEST_CHRONOS_JOB_DELETE_ERROR,
   REQUEST_CHRONOS_JOB_DELETE_SUCCESS,
+  REQUEST_CHRONOS_JOB_UPDATE_ERROR,
+  REQUEST_CHRONOS_JOB_UPDATE_SUCCESS,
   REQUEST_CHRONOS_JOB_RUN_ERROR,
   REQUEST_CHRONOS_JOB_RUN_SUCCESS,
   REQUEST_CHRONOS_JOB_SUSPEND_ERROR,
@@ -40,6 +42,7 @@ const ChronosActions = {
       }
     });
   },
+
   fetchJobs: RequestUtil.debounceOnError(
     Config.getRefreshRate(),
     function (resolve, reject) {
@@ -127,6 +130,26 @@ const ChronosActions = {
           type: REQUEST_CHRONOS_JOB_DELETE_ERROR,
           data: RequestUtil.parseResponseBody(xhr),
           jobID,
+          xhr
+        });
+      }
+    });
+  },
+
+  updateJob: function (jobID, data) {
+    RequestUtil.json({
+      url: `${Config.rootUrl}/chronos/v0/scheduled-jobs/${jobID}`,
+      method: 'PUT',
+      data,
+      success: function () {
+        AppDispatcher.handleServerAction({
+          type: REQUEST_CHRONOS_JOB_UPDATE_SUCCESS
+        });
+      },
+      error: function (xhr) {
+        AppDispatcher.handleServerAction({
+          type: REQUEST_CHRONOS_JOB_UPDATE_ERROR,
+          data: RequestUtil.parseResponseBody(xhr),
           xhr
         });
       }
