@@ -100,6 +100,7 @@ module.exports = Object.assign({}, webpackConfig, {
       {
         test: /\.svg$/,
         loader: 'file?name=[hash]-[name].[ext]&limit=100000&mimetype=image/svg+xml',
+        exclude: /icons(.*)\.svg/
       },
       {
         test: /\.gif$/,
