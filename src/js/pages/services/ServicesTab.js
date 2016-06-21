@@ -264,7 +264,7 @@ var ServicesTab = React.createClass({
     // `/group/another-group` will be given by `getId` except on root then the
     // return value of `getId` would be `/` so in most cases we want to append a
     // `/` so that the user can begin typing the `id` of their application.
-    let service = new Service({id: item.getId().replace(/^(\/.+)$/, '$1/')});
+    let serviceId = item.getId().replace(/^(\/.+)$/, '$1/');
 
     // Make sure to grow when logs are displayed
     let routes = this.context.router.getCurrentRoutes();
@@ -280,7 +280,7 @@ var ServicesTab = React.createClass({
           parentGroupId={item.getId()}
           onClose={this.handleCloseGroupFormModal}/>
         <ServiceFormModal open={state.isServiceFormModalShown}
-          service={service}
+          id={serviceId}
           onClose={this.handleCloseServiceFormModal}/>
       </div>
     );

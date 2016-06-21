@@ -145,6 +145,9 @@ class ServiceFormModal extends mixin(StoreMixin) {
 
   resetState() {
     let model = ServiceUtil.createFormModelFromSchema(ServiceSchema);
+    if (this.props.id) {
+      model.general.id = this.props.id;
+    }
     let service = ServiceUtil.createServiceFromFormModel(model);
     if (this.props.service) {
       service = this.props.service;
@@ -404,10 +407,12 @@ ServiceFormModal.defaultProps = {
   isEdit: false,
   onClose: function () {},
   open: false,
+  id: null,
   service: null
 };
 
 ServiceFormModal.propTypes = {
+  id: React.PropTypes.string,
   isEdit: React.PropTypes.bool,
   open: React.PropTypes.bool,
   onClose: React.PropTypes.func,
