@@ -40,10 +40,12 @@ class NetworkPage extends mixin(TabsMixin) {
   }
 
   componentWillMount() {
+    super.componentWillMount(...arguments);
     this.updateCurrentTab();
   }
 
   componentWillReceiveProps() {
+    super.componentWillReceiveProps(...arguments);
     this.updateCurrentTab();
   }
 
