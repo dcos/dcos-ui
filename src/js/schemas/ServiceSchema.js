@@ -7,6 +7,7 @@ import EnvironmentVariables from './service-schema/EnvironmentVariables';
 import General from './service-schema/General';
 import Labels from './service-schema/Labels';
 import Optional from './service-schema/Optional';
+import Volumes from './service-schema/Volumes';
 
 let ServiceSchema = {
   type: 'object',
@@ -15,6 +16,7 @@ let ServiceSchema = {
     containerSettings: ContainerSettings,
     optional: Optional,
     environmentVariables: EnvironmentVariables,
+    volumes: Volumes,
     labels: Labels
   },
   required: [

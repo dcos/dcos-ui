@@ -714,4 +714,36 @@ describe('Service', function () {
 
   });
 
+  describe('#getResidency', function () {
+    it('should return the right residency value', function () {
+      let service = new Service({
+        residency: {
+          relaunchEscalationTimeoutSeconds: 10,
+          taskLostBehavior: 'WAIT_FOREVER'
+        }
+      });
+
+      expect(service.getResidency()).toEqual({
+        relaunchEscalationTimeoutSeconds: 10,
+        taskLostBehavior: 'WAIT_FOREVER'
+      });
+    });
+  });
+
+  describe('#getUpdateStrategy', function () {
+    it('should return the right updateStrategy value', function () {
+      let service = new Service({
+        updateStrategy: {
+          maximunOverCapacity: 0,
+          minimumHealthCapacity: 0
+        }
+      });
+
+      expect(service.getUpdateStrategy()).toEqual({
+        maximunOverCapacity: 0,
+        minimumHealthCapacity: 0
+      });
+    });
+  });
+
 });
