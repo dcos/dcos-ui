@@ -1,5 +1,5 @@
 describe('ServicesTab', function () {
-  context.only('Service not found page', function () {
+  context('Service not found page', function () {
     beforeEach(function () {
       cy.configureCluster({
         mesos: '1-for-each-health',
