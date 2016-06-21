@@ -15,10 +15,6 @@ import TaskStates from '../../../constants/TaskStates';
 import InternalStorageMixin from '../../../mixins/InternalStorageMixin';
 import TabsMixin from '../../../mixins/TabsMixin';
 
-const JOBS_TABS = {
-  'jobs-task-details-tab': 'Details'
-};
-
 const NODES_TABS = {
   'nodes-task-details-tab': 'Details',
   'nodes-task-details-files': 'Files',
