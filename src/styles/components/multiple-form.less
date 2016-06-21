@@ -22,11 +22,18 @@ base/forms.less
 
   --------------------------------------------------------------------------------
   ----------------------------------------------------------------------------- */
+  .form-element-inline {
+    display: inline-block;
+
+    & + .form-element-inline {
+      margin-left: @base-spacing-unit;
+    }
+  }
+
   .horizontal-center {
 
     .form-element-inline {
       border-radius: 0;
-      display: inline-block;
 
       .form-element-inline-text {
         flex: none;
