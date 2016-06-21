@@ -158,7 +158,7 @@ class JobRunHistoryTable extends React.Component {
         <div className="job-run-history-task-id text-overflow">
           <Link
             className="emphasize clickable text-overflow"
-            to='jobs-task-details'
+            to="jobs-task-details"
             params={{id, taskID}}
             title={taskID}>
             {taskID}
