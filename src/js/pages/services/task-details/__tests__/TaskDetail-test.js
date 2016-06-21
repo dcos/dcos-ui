@@ -84,11 +84,19 @@ describe('TaskDetail', function () {
       expect(this.instance.setState).toHaveBeenCalled();
     });
 
-    it('should setState increment taskDirectoryErrorCount', function () {
-      this.instance.state = {taskDirectoryErrorCount: 1};
+    it('should setState increment errorCount', function () {
+      this.instance.state = {errorCount: 1};
       this.instance.onTaskDirectoryStoreError();
       expect(this.instance.setState)
-        .toHaveBeenCalledWith({taskDirectoryErrorCount: 2});
+        .toHaveBeenCalledWith({errorCount: 2});
+    });
+
+  });
+
+  describe('#getTask', function () {
+
+    it('should get the Mesos task', function () {
+      expect(typeof this.instance.getTask()).toEqual('object');
     });
 
   });
@@ -108,7 +116,7 @@ describe('TaskDetail', function () {
 
       this.instance.onTaskDirectoryStoreSuccess();
       expect(this.instance.setState)
-        .toHaveBeenCalledWith({directory, taskDirectoryErrorCount: 0});
+        .toHaveBeenCalledWith({directory, errorCount: 0});
     });
 
   });
@@ -131,7 +139,7 @@ describe('TaskDetail', function () {
     it('should call getErrorScreen when error occured', function () {
       this.instance.state = {
         directory: new TaskDirectory({items: [{nlink: 1, path: '/stdout'}]}),
-        taskDirectoryErrorCount: 3
+        errorCount: 3
       };
       this.instance.getSubView();
 
@@ -175,24 +183,4 @@ describe('TaskDetail', function () {
     });
   });
 
-
-  describe('#getBasicInfo', function () {
-
-    it('should return null if task is null', function () {
-      MesosStateStore.getTaskFromTaskID = function () { return null; };
-      let result = this.instance.getBasicInfo();
-      expect(result).toEqual(null);
-    });
-
-    it('should return an element if task is not null', function () {
-      let task = new Task({
-        id: 'fade',
-        state: 'TASK_RUNNING'
-      });
-
-      let result = this.instance.getBasicInfo();
-
-      expect(TestUtils.isElement(result)).toEqual(true);
-    });
-  });
 });

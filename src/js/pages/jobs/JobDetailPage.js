@@ -4,6 +4,7 @@ import mixin from 'reactjs-mixin';
 /* eslint-disable no-unused-vars */
 import React from 'react';
 /* eslint-enable no-unused-vars */
+import {RouteHandler} from 'react-router';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import ChronosStore from '../../stores/ChronosStore';
@@ -209,6 +210,10 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
 
     if (this.state.isLoading) {
       return this.getLoadingScreen();
+    }
+
+    if (this.props.params.taskID) {
+      return <RouteHandler />;
     }
 
     let job = ChronosStore.getJob(this.props.params.id);

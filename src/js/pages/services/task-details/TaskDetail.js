@@ -15,18 +15,18 @@ import TaskStates from '../../../constants/TaskStates';
 import InternalStorageMixin from '../../../mixins/InternalStorageMixin';
 import TabsMixin from '../../../mixins/TabsMixin';
 
-const SERVICES_TABS = {
-  'services-task-details-tab': 'Details',
-  'services-task-details-files': 'Files',
-  'services-task-details-logs': 'Logs',
-  'services-task-details-volumes': 'Volumes'
-};
-
 const NODES_TABS = {
   'nodes-task-details-tab': 'Details',
   'nodes-task-details-files': 'Files',
   'nodes-task-details-logs': 'Logs',
   'nodes-task-details-volumes': 'Volumes'
+};
+
+const SERVICES_TABS = {
+  'services-task-details-tab': 'Details',
+  'services-task-details-files': 'Files',
+  'services-task-details-logs': 'Logs',
+  'services-task-details-volumes': 'Volumes'
 };
 
 const METHODS_TO_BIND = [
@@ -42,9 +42,8 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
 
     this.state = {
       directory: null,
-      expandClass: 'large',
       selectedLogFile: null,
-      taskDirectoryErrorCount: 0
+      errorCount: 0
     };
 
     this.store_listeners = [
@@ -88,14 +87,14 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
 
   onTaskDirectoryStoreError() {
     this.setState({
-      taskDirectoryErrorCount: this.state.taskDirectoryErrorCount + 1
+      errorCount: this.state.errorCount + 1
     });
   }
 
   onTaskDirectoryStoreSuccess() {
     this.setState({
       directory: TaskDirectoryStore.get('directory'),
-      taskDirectoryErrorCount: 0
+      errorCount: 0
     });
   }
 
@@ -142,46 +141,6 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
     this.setState({selectedLogFile, currentTab: 'debug'});
   }
 
-  getBasicInfo() {
-    let task = MesosStateStore.getTaskFromTaskID(this.props.params.taskID);
-
-    if (task == null) {
-      return null;
-    }
-
-    let service = this.getService();
-    let taskIcon = (
-      <img src={task.getImages()['icon-large']} />
-    );
-    let tabsArray = this.tabs_getRoutedTabs({params: this.props.params}) || [];
-
-    if (!this.hasVolumes(service)) {
-      tabsArray = tabsArray.filter(function (tab) {
-        if (tab.key === 'nodes-task-details-volumes'
-          || tab.key === 'services-task-details-volumes') {
-          return false;
-        }
-
-        return true;
-      });
-    }
-
-    let navigationTabs = (
-      <ul className="tabs list-inline flush-bottom container-pod container-pod-short-top inverse">
-        {tabsArray}
-      </ul>
-    );
-
-    return (
-      <PageHeader
-        icon={taskIcon}
-        iconClassName="icon-app-container"
-        subTitle={TaskStates[task.state].displayName}
-        navigationTabs={navigationTabs}
-        title={task.getName()} />
-    );
-  }
-
   tabs_handleTabClick() {
     this.setState({selectedLogFile: null});
 
@@ -189,27 +148,27 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
     super.tabs_handleTabClick(...arguments);
   }
 
-  getNotFound(item, itemID) {
+  getNotFound() {
     return (
       <div className="container container-fluid container-pod text-align-center">
         <h3 className="flush-top text-align-center">
-          {`Error finding ${item}`}
+          Error finding task
         </h3>
         <p className="flush">
-          {`Did not find a ${item} with id "${itemID}"`}
+          {`Did not find a task with ID "${this.props.params.taskID}"`}
         </p>
       </div>
     );
   }
 
-  getSubView() {
-    let task = MesosStateStore.getTaskFromTaskID(this.props.params.taskID);
+  getSubView(task) {
     let {directory, selectedLogFile} = this.state;
+
     if (this.hasLoadingError()) {
       this.getErrorScreen();
     }
 
-    if (!directory || !task) {
+    if (!this.isSubviewReady) {
       return this.getLoadingScreen();
     }
 
@@ -223,22 +182,69 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
     );
   }
 
+  getConfirmModal() {
+    return null;
+  }
+
+  getTask() {
+    return MesosStateStore.getTaskFromTaskID(this.props.params.taskID);
+  };
+
+  getTaskActionButtons() {
+    return [];
+  }
+
+  getTaskIcon(task) {
+    return <img src={task.getImages()['icon-large']} />;
+  }
+
+  getTaskName(task) {
+    return task.getName();
+  }
+
+  getTaskSubtitle(task) {
+    return TaskStates[task.state].displayName;
+  }
+
+  getTaskTabs() {
+    return (
+      <ul className="tabs list-inline flush-bottom container-pod container-pod-short-top inverse">
+        {this.tabs_getRoutedTabs({params: this.props.params})}
+      </ul>
+    );
+  }
+
+  isPageReady() {
+    return MesosStateStore.get('lastMesosState').slaves != null;
+  }
+
+  isSubviewReady(task) {
+    return this.state.directory && task;
+  }
+
   render() {
-    if (MesosStateStore.get('lastMesosState').slaves == null) {
+    if (!this.isPageReady()) {
       return null;
     }
 
-    let task = MesosStateStore.getTaskFromTaskID(this.props.params.taskID);
+    let task = this.getTask();
 
     if (task == null) {
-      return this.getNotFound('task', this.props.params.taskID);
+      return this.getNotFound();
     }
 
     return (
       <div className="flex-container-col flex-grow flex-shrink container-pod container-pod-divider-bottom-align-right container-pod-short-top flush-bottom flush-top">
         <Breadcrumbs />
-        {this.getBasicInfo()}
-        {this.getSubView()}
+        <PageHeader
+          actionButtons={this.getTaskActionButtons()}
+          icon={this.getTaskIcon(task)}
+          iconClassName="icon-app-container"
+          subTitle={this.getTaskSubtitle(task)}
+          navigationTabs={this.getTaskTabs()}
+          title={this.getTaskName(task)} />
+        {this.getSubView(task)}
+        {this.getConfirmModal()}
       </div>
     );
   }

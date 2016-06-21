@@ -106,4 +106,34 @@ module.exports = class Job extends Item {
   getStatus() {
     return this.get('status') || {};
   }
+
+  getTasks() {
+    let activeRunsList = this.getActiveRuns();
+
+    if (!activeRunsList) {
+      return null;
+    }
+
+    let longestRun = activeRunsList.getLongestRunningActiveRun();
+
+    if (!longestRun) {
+      return null;
+    }
+
+    let taskList = longestRun.getTasks();
+
+    return taskList;
+  }
+
+  getTaskByID(id) {
+    let taskList = this.getTasks();
+
+    if (!taskList) {
+      return null;
+    }
+
+    return taskList.findItem(function (task) {
+      return task.id === id;
+    });
+  }
 };

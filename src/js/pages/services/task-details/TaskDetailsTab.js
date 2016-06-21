@@ -9,6 +9,14 @@ import TaskDirectoryStore from '../../../stores/TaskDirectoryStore';
 import Units from '../../../utils/Units';
 
 class TaskDetailsTab extends React.Component {
+  getDescriptionLists(task) {
+    return [
+      this.getMesosTaskDetailsDescriptionList(task),
+      this.getMesosTaskLabelDescriptionList(task),
+      <MarathonTaskDetailsList taskID={task.id} />
+    ];
+  }
+
   getMesosTaskDetailsDescriptionList(mesosTask) {
     if (mesosTask == null || !MesosSummaryStore.get('statesProcessed')) {
       return null;
@@ -37,7 +45,8 @@ class TaskDetailsTab extends React.Component {
       <DescriptionList
         className="container container-fluid flush container-pod container-pod-super-short flush-top"
         hash={headerValueMapping}
-        headline="Configuration" />
+        headline="Configuration"
+        key="MesosDescriptionList" />
     )
   }
 
@@ -57,7 +66,8 @@ class TaskDetailsTab extends React.Component {
       <DescriptionList
         className="container container-fluid flush container-pod container-pod-super-short flush-top"
         hash={labelMapping}
-        headline="Labels" />
+        headline="Labels"
+        key="labelDescriptionList" />
     );
   }
 
@@ -115,9 +125,7 @@ class TaskDetailsTab extends React.Component {
             {this.getResources(task)}
           </div>
         </div>
-        {this.getMesosTaskDetailsDescriptionList(task)}
-        {this.getMesosTaskLabelDescriptionList(task)}
-        <MarathonTaskDetailsList taskID={task.id} />
+        {this.getDescriptionLists(task)}
       </div>
     );
   }
