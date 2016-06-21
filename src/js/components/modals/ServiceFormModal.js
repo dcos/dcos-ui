@@ -206,6 +206,10 @@ class ServiceFormModal extends mixin(StoreMixin) {
     });
   }
 
+  shouldForceUpdate(message = this.errorMessage) {
+    return message.message && /force=update/.test(message.message);
+  }
+
   onMarathonStoreServiceEditSuccess() {
     this.resetState();
     this.props.onClose();
@@ -213,7 +217,7 @@ class ServiceFormModal extends mixin(StoreMixin) {
 
   onMarathonStoreServiceEditError(errorMessage) {
     this.setState({
-      force: errorMessage.message && /force=true/.test(errorMessage.message),
+      force: this.shouldForceUpdate(errorMessage),
       errorMessage
     });
   }
@@ -247,7 +251,10 @@ class ServiceFormModal extends mixin(StoreMixin) {
       }
       let service = ServiceUtil.createServiceFromFormModel(model);
       this.setState({service, model, errorMessage: null});
-      marathonAction(ServiceUtil.getAppDefinitionFromService(service), this.state.force);
+      marathonAction(
+        ServiceUtil.getAppDefinitionFromService(service),
+        this.state.force
+      );
     }
   }
 
@@ -294,7 +301,7 @@ class ServiceFormModal extends mixin(StoreMixin) {
       });
     }
 
-    if (errorMessage.message && /force=true/.test(errorMessage.message)) {
+    if (this.shouldForceUpdate(errorMessage.message)) {
       return (
         <div className="error-field text-danger">
           <h4 className="text-align-center text-danger flush-top">
