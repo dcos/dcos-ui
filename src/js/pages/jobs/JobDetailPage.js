@@ -89,7 +89,7 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
     let job = ChronosStore.getJob(this.props.params.id);
 
     if (selection.id === 'suspend') {
-      ChronosStore.suspendJob(job.getId());
+      ChronosStore.suspendSchedule(job.getId());
     }
 
     if (selection.id === 'destroy') {
