@@ -1,3 +1,4 @@
+import Util from './Util';
 const RESOURCE_KEYS = ['cpus', 'disk', 'mem'];
 
 const MesosStateUtil = {
@@ -33,6 +34,20 @@ const MesosStateUtil = {
 
       return memo;
     }, {});
+  },
+
+  getTasksFromVirtualNetworkName: function (state = {}, overlayName) {
+    let frameworks = state.frameworks || [];
+    return frameworks.reduce(function (memo, framework) {
+      let tasks = framework.tasks || [];
+
+      return memo.concat(tasks.filter(function (task) {
+        return Util.findNestedPropertyInObject(
+          task,
+          'container.network_infos.0.name'
+        ) === overlayName;
+      }));
+    }, []);
   }
 
 };

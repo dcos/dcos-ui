@@ -6,14 +6,14 @@ import {RouteHandler} from 'react-router';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import Breadcrumbs from '../../components/Breadcrumbs';
+import InternalStorageMixin from '../../mixins/InternalStorageMixin';
 import MarathonStore from '../../stores/MarathonStore';
 import MesosStateStore from '../../stores/MesosStateStore';
 import PageHeader from '../../components/PageHeader';
 import RequestErrorMsg from '../../components/RequestErrorMsg';
+import TabsMixin from '../../mixins/TabsMixin';
 import TaskDirectoryStore from '../../stores/TaskDirectoryStore';
 import TaskStates from '../../constants/TaskStates';
-import InternalStorageMixin from '../../mixins/InternalStorageMixin';
-import TabsMixin from '../../mixins/TabsMixin';
 
 const SERVICES_TABS = {
   'services-task-details-tab': 'Details',
@@ -27,6 +27,12 @@ const NODES_TABS = {
   'nodes-task-details-files': 'Files',
   'nodes-task-details-logs': 'Logs',
   'nodes-task-details-volumes': 'Volumes'
+};
+
+const VIRTUAL_NETWORKS_TABS = {
+  'virtual-networks-tab-detail-tasks-details-tab': 'Details',
+  'virtual-networks-tab-detail-tasks-details-files': 'Files',
+  'virtual-networks-tab-detail-tasks-details-logs': 'Logs'
 };
 
 const METHODS_TO_BIND = [
@@ -64,6 +70,9 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
     this.tabs_tabs = Object.assign({}, SERVICES_TABS);
     if (this.props.params.nodeID != null) {
       this.tabs_tabs = Object.assign({}, NODES_TABS);
+    }
+    if (this.props.params.overlayName != null) {
+      this.tabs_tabs = Object.assign({}, VIRTUAL_NETWORKS_TABS);
     }
     this.updateCurrentTab();
   }

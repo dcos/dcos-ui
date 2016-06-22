@@ -251,6 +251,13 @@ class MesosStateStore extends GetSetBaseStore {
     }, []);
   }
 
+  getTasksFromVirtualNetworkName(overlayName) {
+    return MesosStateUtil.getTasksFromVirtualNetworkName(
+      this.get('lastMesosState'),
+      overlayName
+    );
+  }
+
   processStateSuccess(lastMesosState) {
     CompositeState.addState(lastMesosState);
     this.set({lastMesosState});
