@@ -4,6 +4,8 @@ import mixin from 'reactjs-mixin';
 import React from 'react';
 /* eslint-enable no-unused-vars */
 import {Hooks} from 'PluginSDK';
+
+import Icon from '../components/Icon';
 import Page from '../components/Page';
 import RouterUtil from '../utils/RouterUtil';
 import SidebarActions from '../events/SidebarActions';
@@ -124,7 +126,7 @@ NetworkPage.contextTypes = {
 
 NetworkPage.routeConfig = {
   label: 'Network',
-  icon: 'network',
+  icon: <Icon id="network-hierarchical" />,
   matches: /^\/network/
 };
 

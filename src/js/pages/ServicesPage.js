@@ -1,6 +1,7 @@
 import React from 'react';
 import {RouteHandler} from 'react-router';
 
+import Icon from '../components/Icon';
 import Page from '../components/Page';
 import RouterUtil from '../utils/RouterUtil';
 import TabsMixin from '../mixins/TabsMixin';
@@ -18,7 +19,7 @@ var ServicesPage = React.createClass({
   statics: {
     routeConfig: {
       label: 'Services',
-      icon: 'services',
+      icon: <Icon id="services" />,
       matches: /^\/services/
     }
   },

@@ -2,6 +2,7 @@ import mixin from 'reactjs-mixin';
 import React from 'react';
 import {RouteHandler} from 'react-router';
 
+import Icon from '../components/Icon';
 import Page from '../components/Page';
 import RouterUtil from '../utils/RouterUtil';
 import SidebarActions from '../events/SidebarActions';
@@ -59,7 +60,7 @@ JobsPage.contextTypes = {
 
 JobsPage.routeConfig = {
   label: 'Jobs',
-  icon: 'jobs',
+  icon: <Icon id="pages-code" />,
   matches: /^\/jobs/
 };
 
