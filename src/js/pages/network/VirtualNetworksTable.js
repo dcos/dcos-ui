@@ -1,4 +1,5 @@
 import classNames from 'classnames';
+import {Link} from 'react-router';
 import React from 'react';
 import {Table} from 'reactjs-components';
 
@@ -30,6 +31,7 @@ class VirtualNetworksTable extends React.Component {
         headerClassName: getClassName,
         heading,
         prop: 'name',
+        render: this.renderName,
         sortable: false
       },
       {
@@ -58,6 +60,20 @@ class VirtualNetworksTable extends React.Component {
   renderHeading(prop) {
     return (
       <span className="table-header-title">{headerMapping[prop]}</span>
+    );
+  }
+
+  renderName(prop, overlay) {
+    let overlayName = overlay.getName();
+
+    return (
+      <Link
+        className="clickable"
+        params={{overlayName}}
+        title={overlayName}
+        to="virtual-networks-tab-detail">
+        {overlayName}
+      </Link>
     );
   }
 
