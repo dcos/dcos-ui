@@ -8,10 +8,165 @@ sidebar/styles.less
 
 
 
-.sidebar {
+& when (@sidebar-enabled) {
 
-  background: color-lighten(@neutral, -40);
-  //box-shadow: 1px 0px 0px 0px fade(@neutral, 0.1);
+  .sidebar {
+
+    background: color-lighten(@neutral, -40);
+    //box-shadow: 1px 0px 0px 0px hsla(hue(@neutral), saturation(@neutral), lightness(@neutral), 0.1);
+
+  }
+
+  .navigation {
+
+    position: fixed;
+    left: -100%;
+    width: 100%;
+
+    ul.sidebar-menu {
+
+      .clearfix();
+      .element-shape-style(sidebar-menu);
+      margin-bottom: 0px;
+
+      li {
+
+        display: block;
+        .element-text-size(sidebar-menu-item, null);
+        .element-spacing(sidebar-menu-item, null, null);
+        .element-text-style(sidebar-menu-item);
+        .element-shape-style(sidebar-menu-item);
+
+        &:first-child {
+
+          margin-top: 0px;
+
+        }
+
+        .icon {
+
+          display: none;
+
+        }
+
+        a {
+
+          display: block;
+          text-decoration: none !important;
+          .element-spacing(sidebar-menu-item-link, null, null);
+          .element-text-style(sidebar-menu-item-link);
+          .element-shape-style(sidebar-menu-item-link);
+
+          &:hover {
+
+            .element-text-style(sidebar-menu-item-link-hover);
+            .element-shape-style(sidebar-menu-item-link-hover);
+
+          }
+
+          &:active {
+
+            .element-text-style(sidebar-menu-item-link-active);
+            .element-shape-style(sidebar-menu-item-link-active);
+
+          }
+
+        }
+
+        &.selected:not(.open) {
+
+          .element-shape-style(sidebar-menu-item-selected);
+
+        }
+
+        &.selected,
+        &.selected.open {
+
+          .element-text-style(sidebar-menu-item-selected);
+
+          > a,
+          > a:hover,
+          > a:active {
+
+            .element-text-style(sidebar-menu-item-link-selected);
+            .element-shape-style(sidebar-menu-item-link-selected);
+
+          }
+
+        }
+
+        &.open {
+
+          .element-shape-style(sidebar-submenu);
+          .element-text-style(sidebar-menu-item-open);
+
+          > a {
+
+            .element-text-style(sidebar-menu-item-open);
+            .element-shape-style(sidebar-menu-item-open);
+
+          }
+
+          > ul {
+
+            .element-spacing(sidebar-submenu, null, null);
+
+            li {
+
+              display: block;
+              .element-text-size(sidebar-submenu-item, null);
+              .element-spacing(sidebar-submenu-item, null, null);
+              .element-text-style(sidebar-submenu-item);
+              .element-shape-style(sidebar-submenu-item);
+
+              &.selected {
+
+                > a,
+                > a:hover,
+                > a:active {
+
+                  .element-text-style(sidebar-submenu-item-link-selected);
+                  .element-shape-style(sidebar-submenu-item-link-selected);
+
+                }
+
+              }
+
+              > a {
+
+                display: block;
+                text-decoration: none !important;
+                .element-spacing(sidebar-submenu-item-link, null, null);
+                .element-text-style(sidebar-submenu-item-link);
+                .element-shape-style(sidebar-submenu-item-link);
+
+                &:hover {
+
+                  .element-text-style(sidebar-submenu-item-link-hover);
+                  .element-shape-style(sidebar-submenu-item-link-hover);
+
+                }
+
+                &:active {
+
+                  .element-text-style(sidebar-submenu-item-link-active);
+                  .element-shape-style(sidebar-submenu-item-link-active);
+
+                }
+
+              }
+
+            }
+
+          }
+
+        }
+
+      }
+
+    }
+
+  }
 
 }
 
@@ -19,11 +174,59 @@ sidebar/styles.less
 
 & when (@layout-screen-small-enabled) {
 
-  /* ---------------------------------------------------------------------------
+  /* -----------------------------------------------------------------------------
   Screen Size: Small (@layout-screen-small-min-width) and wider
-  ----------------------------------------------------------------------------*/
+  ----------------------------------------------------------------------------- */
 
   @media (min-width: @layout-screen-small-min-width) {
+
+    & when (@sidebar-enabled) and (@sidebar-screen-small-enabled) {
+
+      .navigation {
+
+        ul.sidebar-menu {
+
+          li {
+
+            .element-text-size(sidebar-submenu-item, screen-small);
+            .element-spacing(sidebar-menu-item, null, screen-small);
+
+            a {
+
+              .element-spacing(sidebar-menu-item-link, null, screen-small);
+
+            }
+
+          }
+
+          > li.open {
+
+            > ul {
+
+              .element-spacing(sidebar-submenu, null, screen-small);
+
+              li {
+
+                .element-text-size(sidebar-submenu-item, screen-small);
+                .element-spacing(sidebar-submenu-item, null, screen-small);
+
+                a {
+
+                  .element-spacing(sidebar-submenu-item-link, null, screen-small);
+
+                }
+
+              }
+
+            }
+
+          }
+
+        }
+
+      }
+
+    }
 
   }
 }
@@ -32,15 +235,61 @@ sidebar/styles.less
 
 & when (@layout-screen-medium-enabled) {
 
-  /* ---------------------------------------------------------------------------
+  /* -----------------------------------------------------------------------------
   Screen Size: Medium (@layout-screen-medium-min-width) and wider
-  ----------------------------------------------------------------------------*/
+  ----------------------------------------------------------------------------- */
 
   @media (min-width: @layout-screen-medium-min-width) {
 
-    .sidebar {
+    & when (@sidebar-enabled) and (@sidebar-screen-medium-enabled) {
 
-      flex-basis: 200px;
+      .navigation {
+
+        position: relative;
+        width: auto;
+        left: auto;
+
+        ul.sidebar-menu {
+
+          li {
+
+            .element-text-size(sidebar-submenu-item, screen-medium);
+            .element-spacing(sidebar-menu-item, null, screen-medium);
+
+            a {
+
+              .element-spacing(sidebar-menu-item-link, null, screen-medium);
+
+            }
+
+          }
+
+          > li.open {
+
+            > ul {
+
+              .element-spacing(sidebar-submenu, null, screen-medium);
+
+              li {
+
+                .element-text-size(sidebar-submenu-item, screen-medium);
+                .element-spacing(sidebar-submenu-item, null, screen-medium);
+
+                a {
+
+                  .element-spacing(sidebar-submenu-item-link, null, screen-medium);
+
+                }
+
+              }
+
+            }
+
+          }
+
+        }
+
+      }
 
     }
   }
@@ -50,11 +299,65 @@ sidebar/styles.less
 
 & when (@layout-screen-large-enabled) {
 
-  /* ---------------------------------------------------------------------------
+  /* -----------------------------------------------------------------------------
   Screen Size: Large (@layout-screen-large-min-width) and wider
-  ----------------------------------------------------------------------------*/
+  ----------------------------------------------------------------------------- */
 
   @media (min-width: @layout-screen-large-min-width) {
+
+    & when (@sidebar-enabled) and (@sidebar-screen-large-enabled) {
+
+      .sidebar {
+
+        flex-basis: 200px;
+
+      }
+
+      .navigation {
+
+        ul.sidebar-menu {
+
+          li {
+
+            .element-text-size(sidebar-menu-item, screen-large);
+            .element-spacing(sidebar-menu-item, null, screen-large);
+
+            a {
+
+              .element-spacing(sidebar-menu-item-link, null, screen-large);
+
+            }
+
+          }
+
+          > li.open {
+
+            > ul {
+
+              .element-spacing(sidebar-submenu, null, screen-large);
+
+              li {
+
+                .element-text-size(sidebar-submenu-item, screen-large);
+                .element-spacing(sidebar-submenu-item, null, screen-large);
+
+                a {
+
+                  .element-spacing(sidebar-submenu-item-link, null, screen-large);
+
+                }
+
+              }
+
+            }
+
+          }
+
+        }
+
+      }
+
+    }
 
   }
 
@@ -64,19 +367,69 @@ sidebar/styles.less
 
 & when (@layout-screen-jumbo-enabled) {
 
-  /* ---------------------------------------------------------------------------
+  /* -----------------------------------------------------------------------------
   Screen Size: Jumbo (@layout-screen-jumbo-min-width) and wider
-  ----------------------------------------------------------------------------*/
+  ----------------------------------------------------------------------------- */
 
   @media (min-width: @layout-screen-jumbo-min-width) {
 
-    .sidebar {
+    & when (@sidebar-enabled) and (@sidebar-screen-jumbo-enabled) {
 
-      flex-basis: 250px;
+      .sidebar {
+
+        flex-basis: 250px;
+
+      }
+
+      .navigation {
+
+        ul.sidebar-menu {
+
+          li {
+
+            .element-text-size(sidebar-menu-item, screen-jumbo);
+            .element-spacing(sidebar-menu-item, null, screen-jumbo);
+
+            a {
+
+              .element-spacing(sidebar-menu-item-link, null, screen-jumbo);
+
+            }
+
+          }
+
+          > li.open {
+
+            > ul {
+
+              .element-spacing(sidebar-submenu, null, screen-jumbo);
+
+              li {
+
+                .element-text-size(sidebar-submenu-item, screen-jumbo);
+                .element-spacing(sidebar-submenu-item, null, screen-jumbo);
+
+                a {
+
+                  .element-spacing(sidebar-submenu-item-link, null, screen-jumbo);
+
+                }
+
+              }
+
+            }
+
+          }
+
+        }
+
+      }
 
     }
 
   }
+
+
 
 }
 
