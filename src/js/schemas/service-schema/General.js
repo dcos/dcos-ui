@@ -22,27 +22,31 @@ let General = {
           title: 'CPUs',
           description: 'The amount of CPUs which are used for the service',
           type: 'number',
+          default: 1,
           getter: function (service) {
-            return `${service.getCpus() || ''}`;
+            return `${service.getCpus() || 0}`;
           }
         },
         mem: {
           title: 'Mem (MiB)',
           type: 'number',
+          default: 128,
           getter: function (service) {
-            return `${service.getMem() || ''}`;
+            return `${service.getMem() || 0}`;
           }
         },
         disk: {
           title: 'Disk (MiB)',
           type: 'number',
+          default: 0,
           getter: function (service) {
-            return `${service.getDisk() || ''}`;
+            return `${service.getDisk() || 0}`;
           }
         },
         instances: {
           title: 'Instances',
           type: 'number',
+          default: 1,
           getter: function (service) {
             return `${service.getInstancesCount() || 0}`;
           }
