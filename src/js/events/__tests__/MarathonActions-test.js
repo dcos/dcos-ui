@@ -188,6 +188,15 @@ describe('MarathonActions', function () {
         .toEqual(`${Config.rootUrl}/service/marathon/v2/apps//test`);
     });
 
+    it('sends data to the correct URL with the force=true parameter',
+      function () {
+        MarathonActions.editService(appDefiniton, true);
+        this.configuration = RequestUtil.json.calls.mostRecent().args[0];
+
+        expect(this.configuration.url)
+          .toEqual(`${Config.rootUrl}/service/marathon/v2/apps//test?force=true`);
+      });
+
     it('uses PUT for the request method', function () {
       expect(this.configuration.method).toEqual('PUT');
     });
