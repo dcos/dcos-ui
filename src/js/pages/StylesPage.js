@@ -82,7 +82,11 @@ class StylesPage extends mixin(TabsMixin) {
     let currentRoute = routes[routes.length - 2].name;
 
     return (
+<<<<<<< HEAD
       <ul className="tabs list-inline flush-bottom inverse">
+=======
+      <ul className="menu-tabbed">
+>>>>>>> 9927399... Updated Navigation and CNVS
         {TabsUtil.getTabs(
           STYLES_TABS,
           currentRoute,
