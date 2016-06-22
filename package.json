@@ -26,7 +26,7 @@
   },
   "dependencies": {
     "browser-info": "0.4.0",
-    "cnvs": "1.0.0",
+    "cnvs": "1.0.1",
     "classnames": "2.2.3",
     "clipboard": "1.5.10",
     "cookie": "0.2.3",
