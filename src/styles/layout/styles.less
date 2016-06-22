@@ -1,48 +1,135 @@
 /* -----------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
-header.less
+layout/styles.less
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 ----------------------------------------------------------------------------- */
 
-
+// TODO: Remove Me
+.tooltip {
+  display:none;
+}
 
 /* -----------------------------------------------------------------------------
-Header
+Foundation
 ----------------------------------------------------------------------------- */
 
-.header {
+html,
+body {
 
-  .clearfix();
-  background: color-lighten(@neutral, -50);
-  position: relative;
+  height: 100%;
+  margin: 0px;
+  overflow: hidden;
   width: 100%;
-  z-index: @z-index-header;
 
-  /* -----------------------------------------------------------------------------
-  Header Title
-  ----------------------------------------------------------------------------- */
+}
 
-  .header-title {
+body {
+
+  overflow-x: visible;
+
+}
+
+#application > div {
+
+  height: 100%;
+
+}
+
+#application,
+.canvas {
+
+  height: 100%;
+  overflow: hidden;
+
+}
+
+::selection {
+
+  background: color-lighten(@purple, 0);
+
+}
+
+.clickable {
+
+  cursor: pointer;
+
+}
+
+.default-cursor {
+
+  cursor: auto;
+
+}
+
+.clear {
+
+  clear: both;
+
+}
+
+.hidden {
+
+  display: none !important;
+
+}
+
+.allow-overflow {
+
+  overflow: visible;
+
+}
+
+.no-overflow {
+
+  overflow: hidden;
+
+}
+
+.no-overflow-horizontal {
+
+  overflow-x: hidden;
+
+}
+
+.highlight {
+
+  background-color: color-lighten(@yellow, 60);
+
+  &.selected {
+
+    background-color: @yellow;
 
   }
 
-  /* -----------------------------------------------------------------------------
-  Header Subtitle
-  ----------------------------------------------------------------------------- */
+}
 
-  .header-subtitle {
+.fade-in-on-hover {
+
+  opacity: 0.2;
+
+  &:hover {
+
+    opacity: 0.6;
 
   }
 
-  /* -----------------------------------------------------------------------------
-  Header Subtitle Action
-  ----------------------------------------------------------------------------- */
+}
 
-  .header-subtitle-action {
+/* -----------------------------------------------------------------------------
+Scrollable Container
+----------------------------------------------------------------------------- */
 
-    display: none;
+.container-scrollable {
+
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  > .gm-scrollbar-container {
+
+    height: 100%;
 
   }
 

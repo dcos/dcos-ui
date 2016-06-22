@@ -23,6 +23,7 @@ function getApplicationRoutes() {
     jobs,
     nodes,
     universe,
+    styles,
     {
       type: Redirect,
       from: '/',
