@@ -74,7 +74,7 @@ var Page = React.createClass({
     return (
       <div className="page-header flex-item-shrink-0 fill fill-light">
         <div className="page-header-inner">
-          <div className="pod">
+          <div className="pod pod-short">
             {this.getTitle(title)}
             {this.getNavigation(navigation, title)}
           </div>
