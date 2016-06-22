@@ -166,7 +166,7 @@ class JobRunHistoryTable extends React.Component {
       let status = JobStates[row[prop]];
       let statusClasses = classNames({
         'text-success': status.stateTypes.includes('success')
-          && status.stateTypes.includes('failure'),
+          && !status.stateTypes.includes('failure'),
         'text-danger': status.stateTypes.includes('failure'),
         'text-neutral': status.stateTypes.includes('active')
       });
@@ -181,7 +181,7 @@ class JobRunHistoryTable extends React.Component {
     let status = TaskStates[row[prop]];
     let statusClasses = classNames({
       'text-success': status.stateTypes.includes('success')
-        && status.stateTypes.includes('failure'),
+        && !status.stateTypes.includes('failure'),
       'text-danger': status.stateTypes.includes('failure')
     });
 
