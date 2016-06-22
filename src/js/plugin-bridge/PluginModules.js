@@ -8,11 +8,6 @@ module.exports = {
   events: {
     SidebarActions: 'SidebarActions'
   },
-  iconsMedium: {
-    IconMediumNetwork: 'network-hierarchical.svg',
-    IconMediumServices: 'services.svg',
-    IconMediumYield: 'yield.svg'
-  },
   stores: {
     AuthStore: 'AuthStore',
     BaseStore: 'BaseStore',
