@@ -1,0 +1,142 @@
+/* -----------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+navigation-tabbed/styles.less
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+----------------------------------------------------------------------------- */
+
+
+
+& when (@navigation-tabbed-enabled) {
+
+  /* -----------------------------------------------------------------------------
+  Navigation Tabbed
+  ----------------------------------------------------------------------------- */
+
+  .navigation-tabbed {
+
+    position: relative;
+    padding: 0px;
+    .element-spacing(navigation-tabbed, null, null);
+
+    /* -----------------------------------------------------------------------------
+    Layout Variants
+    ----------------------------------------------------------------------------- */
+
+    &.short {
+
+      .element-spacing(navigation-tabbed, short, null);
+
+    }
+
+    &.tall {
+
+      .element-spacing(navigation-tabbed, tall, null);
+
+    }
+
+    /* -----------------------------------------------------------------------------
+    Navigation Tabbed Item
+    ----------------------------------------------------------------------------- */
+
+    li {
+
+      position: relative;
+      display: inline-block;
+      .element-text-style(navigation-tabbed-item);
+      .shape-style-variant(navigation-tabbed-item);
+      .element-spacing(navigation-tabbed-item, null, null);
+      .property-variant(navigation-tabbed-item, opacity);
+
+      &:last-child {
+
+        margin-right: 0px;
+
+      }
+
+      &:before {
+
+        display: none;
+
+      }
+
+    }
+
+    /* -----------------------------------------------------------------------------
+    Inverse
+    ----------------------------------------------------------------------------- */
+
+    &.inverse {
+
+      /* -----------------------------------------------------------------------------
+      Navigation Tabbed Item
+      ----------------------------------------------------------------------------- */
+
+      li {
+
+        .element-text-style(navigation-tabbed-item-inverse);
+        .shape-style-variant(navigation-tabbed-item-inverse);
+        .property-variant(navigation-tabbed-item-inverse, opacity);
+
+      }
+
+    }
+
+  }
+
+}
+
+
+
+& when (@layout-screen-small-enabled) {
+
+  /* -----------------------------------------------------------------------------
+  Screen Size: Small (@layout-screen-small-min-width) and wider
+  ----------------------------------------------------------------------------- */
+
+  @media (min-width: @layout-screen-small-min-width) {
+
+    & when (@navigation-tabbed-enabled) and (@navigation-tabbed-screen-small-enabled) {
+
+      /* -----------------------------------------------------------------------------
+      Navigation Tabbed
+      ----------------------------------------------------------------------------- */
+
+      .navigation-tabbed {
+
+        .element-spacing(navigation-tabbed, null, screen-small);
+
+        /* -----------------------------------------------------------------------------
+        Layout Variants
+        ----------------------------------------------------------------------------- */
+
+        &.short {
+
+          .element-spacing(navigation-tabbed, short, screen-small);
+
+        }
+
+        &.tall {
+
+          .element-spacing(navigation-tabbed, tall, screen-small);
+
+        }
+
+        /* -----------------------------------------------------------------------------
+        Navigation Tabbed Item
+        ----------------------------------------------------------------------------- */
+
+        li {
+
+          .element-spacing(navigation-tabbed-item, null, screen-small);
+
+        }
+
+      }
+
+    }
+
+  }
+
+}
