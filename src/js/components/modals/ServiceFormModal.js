@@ -206,8 +206,8 @@ class ServiceFormModal extends mixin(StoreMixin) {
     });
   }
 
-  shouldForceUpdate(message = this.errorMessage) {
-    return message.message && /force=update/.test(message.message);
+  shouldForceUpdate(message = this.state.errorMessage) {
+    return message && message.message && /force=update/.test(message.message);
   }
 
   onMarathonStoreServiceEditSuccess() {
