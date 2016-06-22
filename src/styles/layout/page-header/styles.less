@@ -42,8 +42,19 @@ Page Header Navigation
 
   & when not (@pod-margin-bottom = null) {
 
-    padding-top: 0.5 * @pod-margin-bottom;
-    margin-bottom: -@pod-margin-bottom;
+    & when (@pod-short-margin-top-scale = null) {
+
+      padding-top: @pod-margin-bottom;
+      margin-bottom: -@pod-margin-bottom;
+
+    }
+
+    & when not (@pod-short-margin-top-scale = null) {
+
+      padding-top: @pod-margin-bottom * @pod-short-margin-top-scale;
+      margin-bottom: -@pod-margin-bottom * @pod-short-margin-top-scale;
+
+    }
 
   }
 
@@ -73,8 +84,19 @@ Page Header Navigation
 
       & when not (@pod-margin-bottom-screen-small = null) {
 
-        padding-top: 0.5 * @pod-margin-bottom-screen-small;
-        margin-bottom: -@pod-margin-bottom-screen-small;
+        & when (@pod-short-margin-top-scale = null) {
+
+          padding-top: @pod-margin-bottom-screen-small;
+          margin-bottom: -@pod-margin-bottom-screen-small;
+
+        }
+
+        & when not (@pod-short-margin-top-scale = null) {
+
+          padding-top: @pod-margin-bottom-screen-small * @pod-short-margin-top-scale;
+          margin-bottom: -@pod-margin-bottom-screen-small * @pod-short-margin-top-scale;
+
+        }
 
       }
 
@@ -102,8 +124,19 @@ Page Header Navigation
 
       & when not (@pod-margin-bottom-screen-medium = null) {
 
-        padding-top: 0.5 * @pod-margin-bottom-screen-medium;
-        margin-bottom: -@pod-margin-bottom-screen-medium;
+        & when (@pod-short-margin-top-scale = null) {
+
+          padding-top: @pod-margin-bottom-screen-medium;
+          margin-bottom: -@pod-margin-bottom-screen-medium;
+
+        }
+
+        & when not (@pod-short-margin-top-scale = null) {
+
+          padding-top: @pod-margin-bottom-screen-medium * @pod-short-margin-top-scale;
+          margin-bottom: -@pod-margin-bottom-screen-medium * @pod-short-margin-top-scale;
+
+        }
 
       }
 
@@ -131,8 +164,19 @@ Page Header Navigation
 
       & when not (@pod-margin-bottom-screen-large = null) {
 
-        padding-top: 0.5 * @pod-margin-bottom-screen-large;
-        margin-bottom: -@pod-margin-bottom-screen-large;
+        & when (@pod-short-margin-top-scale = null) {
+
+          padding-top: @pod-margin-bottom-screen-large;
+          margin-bottom: -@pod-margin-bottom-screen-large;
+
+        }
+
+        & when not (@pod-short-margin-top-scale = null) {
+
+          padding-top: @pod-margin-bottom-screen-large * @pod-short-margin-top-scale;
+          margin-bottom: -@pod-margin-bottom-screen-large * @pod-short-margin-top-scale;
+
+        }
 
       }
 
@@ -160,8 +204,19 @@ Page Header Navigation
 
       & when not (@pod-margin-bottom-screen-jumbo = null) {
 
-        padding-top: 0.5 * @pod-margin-bottom-screen-jumbo;
-        margin-bottom: -@pod-margin-bottom-screen-jumbo;
+        & when (@pod-short-margin-top-scale = null) {
+
+          padding-top: @pod-margin-bottom-screen-jumbo;
+          margin-bottom: -@pod-margin-bottom-screen-jumbo;
+
+        }
+
+        & when not (@pod-short-margin-top-scale = null) {
+
+          padding-top: @pod-margin-bottom-screen-jumbo * @pod-short-margin-top-scale;
+          margin-bottom: -@pod-margin-bottom-screen-jumbo * @pod-short-margin-top-scale;
+
+        }
 
       }
 
