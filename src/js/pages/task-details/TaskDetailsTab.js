@@ -9,6 +9,24 @@ import TaskDirectoryStore from '../../stores/TaskDirectoryStore';
 import Units from '../../utils/Units';
 
 class TaskDetailsTab extends React.Component {
+  getContainerInfo(task) {
+    if (task == null || !task.container ||
+      !MesosSummaryStore.get('statesProcessed')) {
+      return null;
+    }
+
+    return (
+      <div>
+        <h5 className="flush-top inverse">
+          Container Configuration
+        </h5>
+        <pre className="mute prettyprint flush-bottom prettyprinted">
+          {JSON.stringify(task.container, null, 4)}
+        </pre>
+      </div>
+    );
+  }
+
   getMesosTaskDetailsDescriptionList(mesosTask) {
     if (mesosTask == null || !MesosSummaryStore.get('statesProcessed')) {
       return null;
@@ -118,6 +136,7 @@ class TaskDetailsTab extends React.Component {
         {this.getMesosTaskDetailsDescriptionList(task)}
         {this.getMesosTaskLabelDescriptionList(task)}
         <MarathonTaskDetailsList taskID={task.id} />
+        {this.getContainerInfo(task)}
       </div>
     );
   }
