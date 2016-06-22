@@ -216,6 +216,9 @@ class ServiceFormModal extends mixin(StoreMixin) {
   }
 
   onMarathonStoreServiceEditError(errorMessage) {
+    if (!this.props.open) {
+      return;
+    }
     this.setState({
       force: this.shouldForceUpdate(errorMessage),
       errorMessage
