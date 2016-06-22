@@ -39,7 +39,9 @@ const MesosStateUtil = {
   getTasksFromVirtualNetworkName: function (state = {}, overlayName) {
     let frameworks = state.frameworks || [];
     return frameworks.reduce(function (memo, framework) {
-      return memo.concat(framework.tasks.filter(function (task) {
+      let tasks = framework.tasks || [];
+
+      return memo.concat(tasks.filter(function (task) {
         return Util.findNestedPropertyInObject(
           task,
           'container.network_infos.0.name'
