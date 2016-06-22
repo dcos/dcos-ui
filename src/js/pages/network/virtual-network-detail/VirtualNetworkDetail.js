@@ -11,6 +11,7 @@ import PageHeader from '../../../components/PageHeader';
 import RequestErrorMsg from '../../../components/RequestErrorMsg';
 import TabsMixin from '../../../mixins/TabsMixin';
 import VirtualNetworksStore from '../../../stores/VirtualNetworksStore';
+import VirtualNetworkUtil from '../../../utils/VirtualNetworkUtil';
 
 const METHODS_TO_BIND = [
   'onVirtualNetworksStoreError',
@@ -19,11 +20,11 @@ const METHODS_TO_BIND = [
 
 class VirtualNetworkDetail extends mixin(StoreMixin, TabsMixin) {
   constructor() {
-    super();
+    super(...arguments);
 
     this.state = {
-      receivedVirtualNetworks: false,
-      errorCount: 0
+      errorCount: 0,
+      receivedVirtualNetworks: false
     };
 
     this.tabs_tabs = {};
@@ -72,13 +73,9 @@ class VirtualNetworkDetail extends mixin(StoreMixin, TabsMixin) {
     this.setState({receivedVirtualNetworks: true, errorCount: 0});
   }
 
-  isLoading() {
-    return !this.state.receivedVirtualNetworks;
-  }
-
   getBasicInfo(overlay) {
     if (!overlay) {
-      return this.getEmptyScreen();
+      return VirtualNetworkUtil.getEmptyNetworkScreen();
     }
 
     let overlayIcon = (
@@ -101,21 +98,6 @@ class VirtualNetworkDetail extends mixin(StoreMixin, TabsMixin) {
     );
   }
 
-  getEmptyScreen() {
-    return (
-      <AlertPanel
-        title="Virtual Network Not Found"
-        iconClassName="icon icon-sprite icon-sprite-jumbo icon-sprite-jumbo-white icon-network flush-top">
-        <p className="flush">
-          {'Could not find the requested virtual network. Go to '}
-          <Link to="virtual-networks-tab">
-            Virtual Networks
-          </Link> overview to see all virtual networks.
-        </p>
-      </AlertPanel>
-    );
-  }
-
   getErrorScreen() {
     return <RequestErrorMsg />;
   }
@@ -133,12 +115,12 @@ class VirtualNetworkDetail extends mixin(StoreMixin, TabsMixin) {
   }
 
   render() {
-    let {errorCount} = this.state;
+    let {errorCount, receivedVirtualNetworks} = this.state;
     if (errorCount >= 3) {
       return this.getErrorScreen();
     }
 
-    if (this.isLoading()) {
+    if (!receivedVirtualNetworks) {
       return this.getLoadingScreen();
     }
 

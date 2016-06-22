@@ -13,8 +13,7 @@ class VirtualNetworkDetailsTab extends React.Component {
     }
 
     return (
-      <DescriptionList
-        hash={details} />
+      <DescriptionList hash={details} />
     );
   }
 }

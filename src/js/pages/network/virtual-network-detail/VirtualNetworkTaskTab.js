@@ -15,6 +15,7 @@ import MesosStateStore from '../../../stores/MesosStateStore';
 import Overlay from '../../../structs/Overlay';
 import RequestErrorMsg from '../../../components/RequestErrorMsg';
 import TaskUtil from '../../../utils/TaskUtil';
+import VirtualNetworkUtil from '../../../utils/VirtualNetworkUtil';
 import Util from '../../../utils/Util';
 
 const headerMapping = {
@@ -34,8 +35,8 @@ class VirtualNetworkTaskTab extends mixin(StoreMixin) {
     super(...arguments);
 
     this.state = {
-      tasksDataReceived: false,
-      errorMessage: null
+      errorMessage: null,
+      tasksDataReceived: false
     };
 
     this.store_listeners = [{
@@ -133,21 +134,6 @@ class VirtualNetworkTaskTab extends mixin(StoreMixin) {
     );
   }
 
-  getEmptyScreen() {
-    return (
-      <AlertPanel
-        title="Virtual Network Not Found"
-        iconClassName="icon icon-sprite icon-sprite-jumbo icon-sprite-jumbo-white icon-network flush-top">
-        <p className="flush">
-          {'Could not find the requested virtual network. Go to '}
-          <Link to="virtual-networks-tab">
-            Virtual Networks
-          </Link> overview to see all virtual networks.
-        </p>
-      </AlertPanel>
-    );
-  }
-
   getErrorScreen() {
     return <RequestErrorMsg />;
   }
@@ -241,14 +227,18 @@ class VirtualNetworkTaskTab extends mixin(StoreMixin) {
   }
 
   render() {
-    let {searchString} = this.state;
+    let {errorMessage, searchString} = this.state;
     if (this.isLoading()) {
       return this.getLoadingScreen();
     }
 
+    if (errorMessage) {
+      return this.getErrorScreen();
+    }
+
     let {overlay} = this.props;
     if (!overlay) {
-      return this.getEmptyScreen();
+      return VirtualNetworkUtil.getEmptyNetworkScreen();
     }
 
     let tasks = MesosStateStore.getTasksFromVirtualNetworkName(
