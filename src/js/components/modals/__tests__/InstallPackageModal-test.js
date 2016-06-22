@@ -1,9 +1,16 @@
 jest.dontMock('../InstallPackageModal');
 jest.dontMock('../../CosmosErrorMessage');
 jest.dontMock('../../ReviewConfig');
+jest.dontMock('../../SchemaForm');
 jest.dontMock('../../../stores/CosmosPackagesStore');
 jest.dontMock('../../../mixins/InternalStorageMixin');
 jest.dontMock('../../../mixins/TabsMixin');
+jest.dontMock('../../../utils/FormUtil');
+jest.dontMock('../../../utils/GeminiUtil');
+jest.dontMock('../../../utils/SchemaFormUtil');
+jest.dontMock('../../../utils/SchemaUtil');
+jest.dontMock('../../TabForm');
+jest.dontMock('../../../utils/Util');
 
 /* eslint-disable no-unused-vars */
 var React = require('react');
@@ -63,7 +70,7 @@ describe('InstallPackageModal', function () {
         this.instance.getModalContents(),
         this.container
       ));
-      var result = node.querySelectorAll('p')[1];
+      var result = node.querySelectorAll('p')[4];
       expect(result.textContent).toEqual('0.11.1');
     });
 
