@@ -101,5 +101,25 @@ describe('JobUtil', function () {
           }
         });
     });
+
+    it('should add concurrencyPolicy if schedule is defined', function () {
+      const job = new Job({
+        id: 'test',
+        run: {
+          cmd: 'sleep 1000;'
+        },
+        schedules: [{
+          id: 'every-minute',
+          cron: '* * * * *'
+        }]
+      });
+
+      expect(JobUtil.createJobSpecFromJob(job).schedules[0]).toEqual(
+        {
+          id: 'every-minute',
+          concurrencyPolicy: 'ALLOW',
+          cron: '* * * * *'
+        });
+    });
   });
 });
