@@ -9,10 +9,10 @@ import 'brace/theme/monokai';
 import 'brace/ext/language_tools';
 
 import ChronosStore from '../../stores/ChronosStore';
-import JobSchema from '../../schemas/JobSchema';
-import JobUtil from '../../utils/JobUtil';
 import Job from '../../structs/Job';
 import JobForm from '../JobForm';
+import JobUtil from '../../utils/JobUtil';
+import JobSchema from '../../schemas/JobSchema';
 import ToggleButton from '../ToggleButton';
 
 const METHODS_TO_BIND = [
@@ -22,7 +22,9 @@ const METHODS_TO_BIND = [
   'handleInputModeToggle',
   'handleSubmit',
   'onChronosStoreJobCreateSuccess',
-  'onChronosStoreJobCreateError'
+  'onChronosStoreJobCreateError',
+  'onChronosStoreJobUpdateSuccess',
+  'onChronosStoreJobUpdateError'
 ];
 
 class JobFormModal extends mixin(StoreMixin) {
@@ -38,7 +40,12 @@ class JobFormModal extends mixin(StoreMixin) {
     this.store_listeners = [
       {
         name: 'chronos',
-        events: ['jobCreateSuccess', 'jobCreateError'],
+        events: [
+          'jobCreateSuccess',
+          'jobCreateError',
+          'jobUpdateSuccess',
+          'jobUpdateError'
+        ],
         suppressUpdate: true
       }
     ];
@@ -49,8 +56,7 @@ class JobFormModal extends mixin(StoreMixin) {
   }
 
   componentWillReceiveProps(nextProps) {
-    super.componentWillReceiveProps(...arguments);
-    if (!this.props.open && nextProps.open) {
+    if (nextProps.open !== this.props.open) {
       this.resetState();
     }
   }
@@ -76,10 +82,21 @@ class JobFormModal extends mixin(StoreMixin) {
     });
   }
 
+  onChronosStoreJobUpdateSuccess() {
+    this.resetState();
+    this.props.onClose();
+  }
+
+  onChronosStoreJobUpdateError(errorMessage) {
+    this.setState({
+      errorMessage
+    });
+  }
+
   resetState() {
     this.setState({
       errorMessage: null,
-      job: new Job(),
+      job: this.props.job,
       jsonMode: false
     });
   }
@@ -113,7 +130,14 @@ class JobFormModal extends mixin(StoreMixin) {
   }
 
   handleSubmit() {
-    ChronosStore.createJob(JobUtil.createJobSpecFromJob(this.state.job));
+    let {isEdit, job} = this.props;
+    let jobSpec = JobUtil.createJobSpecFromJob(this.state.job);
+
+    if (!isEdit) {
+      ChronosStore.createJob(jobSpec);
+    } else {
+      ChronosStore.updateJob(job.getId(), jobSpec);
+    }
   }
 
   getErrorMessage() {
@@ -124,13 +148,13 @@ class JobFormModal extends mixin(StoreMixin) {
     }
 
     return (
-    <div>
-      <div className="error-field text-danger">
+      <div>
+        <div className="error-field text-danger">
         <pre className="text-align-center">
           {errorMessage.message}
         </pre>
+        </div>
       </div>
-    </div>
     );
   }
 
@@ -164,6 +188,11 @@ class JobFormModal extends mixin(StoreMixin) {
   }
 
   getModalFooter() {
+    let submitLabel = 'Deploy';
+    if (this.props.isEdit) {
+      submitLabel = 'Change and deploy';
+    }
+
     return (
       <div className="button-collection flush-bottom">
         <button
@@ -174,18 +203,23 @@ class JobFormModal extends mixin(StoreMixin) {
         <button
           className="button button-large button-success flush-bottom"
           onClick={this.handleSubmit}>
-          Deploy
+          {submitLabel}
         </button>
       </div>
     );
   }
 
   getModalTitle() {
+    let heading = ' Create new Job';
+    if (this.props.isEdit) {
+      heading = 'Edit Job';
+    }
+
     return (
       <div className="header-flex">
         <div className="header-left">
           <h4 className="flush-top flush-bottom text-color-neutral">
-            Create new Job
+            {heading}
           </h4>
         </div>
         <div className="header-right">
@@ -224,11 +258,15 @@ class JobFormModal extends mixin(StoreMixin) {
 }
 
 JobFormModal.defaultProps = {
+  isEdit: false,
+  job: new Job(),
   onClose: function () {},
   open: false
 };
 
 JobFormModal.propTypes = {
+  isEdit: React.PropTypes.bool,
+  job: React.PropTypes.instanceOf(Job),
   open: React.PropTypes.bool,
   onClose: React.PropTypes.func
 };

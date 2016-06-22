@@ -9,11 +9,21 @@ import {StoreMixin} from 'mesosphere-shared-reactjs';
 import ChronosStore from '../../stores/ChronosStore';
 import DateUtil from '../../utils/DateUtil';
 import JobConfiguration from './JobConfiguration';
+import JobFormModal from '../../components/modals/JobFormModal';
 import JobRunHistoryTable from './JobRunHistoryTable';
-import PageHeader from '../../components/PageHeader';
 import RequestErrorMsg from '../../components/RequestErrorMsg';
+import PageHeader from '../../components/PageHeader';
 import TabsMixin from '../../mixins/TabsMixin';
 import TaskStates from '../../constants/TaskStates';
+
+const METHODS_TO_BIND = [
+  'handleCloseJobFormModal',
+  'handleEditButtonClick',
+  'handleMoreDropdownSelection',
+  'handleRunNowButtonClick',
+  'onChronosStoreJobDetailError',
+  'onChronosStoreJobDetailChange'
+];
 
 class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
   constructor() {
@@ -39,8 +49,13 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
     this.state = {
       currentTab: Object.keys(this.tabs_tabs).shift(),
       errorCount: 0,
+      isJobFormModalOpen: false,
       isLoading: true
     };
+
+    METHODS_TO_BIND.forEach((method) => {
+      this[method] = this[method].bind(this);
+    });
   }
 
   componentDidMount() {
@@ -57,26 +72,32 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
   }
 
   handleEditButtonClick() {
-    // TODO: Handle edit button click
+    this.setState({isJobFormModalOpen: true});
   }
 
-  handleRunNowButtonClick(jobID) {
-    ChronosStore.runJob(jobID);
+  handleCloseJobFormModal() {
+    this.setState({isJobFormModalOpen: false});
   }
 
-  handleMoreDropdownSelection(jobID, selection) {
+  handleRunNowButtonClick() {
+    let job = ChronosStore.getJob(this.props.params.id);
+
+    ChronosStore.runJob(job.getId());
+  }
+
+  handleMoreDropdownSelection(selection) {
+    let job = ChronosStore.getJob(this.props.params.id);
+
     if (selection.id === 'suspend') {
-      ChronosStore.suspendJob(jobID);
+      ChronosStore.suspendJob(job.getId());
     }
 
     if (selection.id === 'destroy') {
-      ChronosStore.deleteJob(jobID);
+      ChronosStore.deleteJob(job.getId());
     }
   }
 
-  getActionButtons(job) {
-    let jobID = encodeURIComponent(job.getId());
-
+  getActionButtons() {
     let dropdownItems = [
       {
         className: 'hidden',
@@ -97,13 +118,13 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
       <button
         className="button button-inverse button-stroke"
         key="edit"
-        onClick={this.handleEditButtonClick.bind(this, jobID)}>
+        onClick={this.handleEditButtonClick}>
         Edit
       </button>,
       <button
         className="button button-inverse button-stroke"
         key="run-now"
-        onClick={this.handleRunNowButtonClick.bind(this, jobID)}>
+        onClick={this.handleRunNowButtonClick}>
         Run Now
       </button>,
       <Dropdown
@@ -114,7 +135,7 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
         initialID="more"
         items={dropdownItems}
         key="more"
-        onItemSelection={this.handleMoreDropdownSelection.bind(this, jobID)}
+        onItemSelection={this.handleMoreDropdownSelection}
         persistentID="more"
         transition={true}
         wrapperClassName="dropdown anchor-right" />
@@ -216,12 +237,14 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
     return (
       <div>
         <PageHeader
-          actionButtons={this.getActionButtons(job)}
+          actionButtons={this.getActionButtons()}
           navigationTabs={this.getNavigationTabs()}
           subTitle={this.getSubTitle(job)}
           subTitleClassName={{emphasize: false}}
           title={job.getDescription()} />
-          {this.tabs_getTabView(job)}
+        {this.tabs_getTabView(job)}
+        <JobFormModal isEdit={true} job={job} open={this.state.isJobFormModalOpen}
+          onClose={this.handleCloseJobFormModal} />
       </div>
     );
   }
