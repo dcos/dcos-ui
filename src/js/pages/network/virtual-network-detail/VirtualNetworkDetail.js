@@ -2,10 +2,9 @@ import mixin from 'reactjs-mixin';
 /* eslint-disable no-unused-vars */
 const React = require('react');
 /* eslint-enable no-unused-vars */
-import {Link, RouteHandler} from 'react-router';
+import {RouteHandler} from 'react-router';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
-import AlertPanel from '../../../components/AlertPanel';
 import Breadcrumbs from '../../../components/Breadcrumbs';
 import PageHeader from '../../../components/PageHeader';
 import RequestErrorMsg from '../../../components/RequestErrorMsg';

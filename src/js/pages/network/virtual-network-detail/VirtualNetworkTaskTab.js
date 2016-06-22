@@ -7,7 +7,6 @@ import React from 'react';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 import {Table} from 'reactjs-components';
 
-import AlertPanel from '../../../components/AlertPanel';
 import FilterBar from '../../../components/FilterBar';
 import FilterHeadline from '../../../components/FilterHeadline';
 import FilterInputText from '../../../components/FilterInputText';
