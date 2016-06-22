@@ -5,6 +5,7 @@ import React from 'react';
 import ContainerSettings from './service-schema/ContainerSettings';
 import EnvironmentVariables from './service-schema/EnvironmentVariables';
 import General from './service-schema/General';
+import HealthChecks from './service-schema/HealthChecks';
 import Labels from './service-schema/Labels';
 import Optional from './service-schema/Optional';
 import Volumes from './service-schema/Volumes';
@@ -17,7 +18,8 @@ let ServiceSchema = {
     optional: Optional,
     environmentVariables: EnvironmentVariables,
     volumes: Volumes,
-    labels: Labels
+    labels: Labels,
+    healthChecks: HealthChecks
   },
   required: [
     'general'

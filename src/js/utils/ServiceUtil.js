@@ -1,5 +1,4 @@
 import {Hooks} from 'PluginSDK';
-
 import Service from '../structs/Service';
 import VolumeConstants from '../constants/VolumeConstants';
 
@@ -47,7 +46,8 @@ const ServiceUtil = {
         containerSettings,
         environmentVariables,
         labels,
-        volumes
+        volumes,
+        healthChecks
       } = formModel;
 
       if (general != null) {
@@ -192,6 +192,20 @@ const ServiceUtil = {
         }, {});
       }
 
+      if (healthChecks != null && healthChecks.healthChecks != null) {
+        definition.healthChecks = healthChecks.healthChecks
+          .map(function (healthCheck) {
+            if (healthCheck.portType == null) {
+              healthCheck.portType = 'PORT_INDEX';
+            }
+            if (healthCheck.protocol == null) {
+              healthCheck.protocol = 'HTTP';
+            }
+
+            return healthCheck;
+          });
+      }
+
       if (environmentVariables != null && environmentVariables.variables != null) {
         definition.env = environmentVariables.variables
           .reduce(function (variableMap, variable) {
@@ -233,6 +247,7 @@ const ServiceUtil = {
     appDefinition.acceptedResourceRoles = service.getAcceptedResourceRoles();
     appDefinition.user = service.getUser();
     appDefinition.labels = service.getLabels();
+    appDefinition.healthChecks = service.getHealthChecks();
 
     let containerSettings = service.getContainerSettings();
     if (containerSettings &&
