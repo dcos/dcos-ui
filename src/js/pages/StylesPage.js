@@ -82,7 +82,7 @@ class StylesPage extends mixin(TabsMixin) {
     let currentRoute = routes[routes.length - 2].name;
 
     return (
-      <ul className="navigation-tabbed">
+      <ul className="menu-tabbed">
         {TabsUtil.getTabs(
           STYLES_TABS,
           currentRoute,
