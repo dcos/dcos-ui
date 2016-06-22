@@ -157,6 +157,7 @@ class ServiceFormModal extends mixin(StoreMixin) {
       jsonDefinition: JSON.stringify({id:'', cmd:''}, null, 2),
       jsonMode: false,
       model,
+      force: false,
       service: service
     });
   }
@@ -205,13 +206,21 @@ class ServiceFormModal extends mixin(StoreMixin) {
     });
   }
 
+  shouldForceUpdate(message = this.state.errorMessage) {
+    return message && message.message && /force=update/.test(message.message);
+  }
+
   onMarathonStoreServiceEditSuccess() {
     this.resetState();
     this.props.onClose();
   }
 
   onMarathonStoreServiceEditError(errorMessage) {
+    if (!this.props.open) {
+      return;
+    }
     this.setState({
+      force: this.shouldForceUpdate(errorMessage),
       errorMessage
     });
   }
@@ -245,7 +254,10 @@ class ServiceFormModal extends mixin(StoreMixin) {
       }
       let service = ServiceUtil.createServiceFromFormModel(model);
       this.setState({service, model, errorMessage: null});
-      marathonAction(ServiceUtil.getAppDefinitionFromService(service));
+      marathonAction(
+        ServiceUtil.getAppDefinitionFromService(service),
+        this.state.force
+      );
     }
   }
 
@@ -290,6 +302,17 @@ class ServiceFormModal extends mixin(StoreMixin) {
           </li>
         );
       });
+    }
+
+    if (this.shouldForceUpdate(errorMessage.message)) {
+      return (
+        <div className="error-field text-danger">
+          <h4 className="text-align-center text-danger flush-top">
+            App is currently locked by one or more deployments. Press the button
+            again to forcefully change and deploy the new configuration.
+          </h4>
+        </div>
+      );
     }
 
     return (
@@ -359,11 +382,17 @@ class ServiceFormModal extends mixin(StoreMixin) {
   }
 
   render() {
+    let titleText = 'Deploy new Service';
+
+    if (this.props.isEdit) {
+      titleText = 'Edit Service';
+    }
+
     let title  = (
       <div className="header-flex">
         <div className="header-left">
           <h4 className="flush-top flush-bottom text-color-neutral">
-            Deploy new Service
+            {titleText}
           </h4>
         </div>
         <div className="header-right">
@@ -377,10 +406,6 @@ class ServiceFormModal extends mixin(StoreMixin) {
         </div>
       </div>
     );
-
-    if (this.props.isEdit) {
-      title = 'Edit Service';
-    }
 
     return (
       <Modal
