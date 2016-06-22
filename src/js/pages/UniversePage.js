@@ -4,6 +4,7 @@ import React from 'react';
 /* eslint-enable no-unused-vars */
 import {RouteHandler} from 'react-router';
 
+import IconPackages from '../../img/components/icons/icon-medium/packages.svg?name=IconPackages';
 import Page from '../components/Page';
 import RouterUtil from '../utils/RouterUtil';
 import SidebarActions from '../events/SidebarActions';
@@ -67,7 +68,7 @@ UniversePage.contextTypes = {
 
 UniversePage.routeConfig = {
   label: 'Universe',
-  icon: 'universe',
+  icon: <IconPackages />,
   matches: /^\/universe/
 };
 

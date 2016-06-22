@@ -10,6 +10,7 @@ import {StoreMixin} from 'mesosphere-shared-reactjs';
 import {Table} from 'reactjs-components';
 
 import AlertPanel from '../../components/AlertPanel';
+import IconServices from '../../../img/components/icons/icon-medium/services.svg?name=IconServices';
 import DCOSStore from '../../stores/DCOSStore';
 import MarathonActions from '../../events/MarathonActions';
 import NestedServiceLinks from '../../components/NestedServiceLinks';
@@ -253,8 +254,7 @@ class DeploymentsTab extends mixin(StoreMixin) {
     return (
       <AlertPanel
         title="No Deployments"
-        iconClassName="icon icon-sprite icon-sprite-jumbo
-            icon-sprite-jumbo-white icon-services flush-top">
+        icon={<IconServices className="icon icon-jumbo icon-white" />}>
         <p className="flush">Active deployments will be shown here.</p>
       </AlertPanel>
     );

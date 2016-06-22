@@ -7,6 +7,7 @@ import Config from '../config/Config';
 import DCOSStore from '../stores/DCOSStore';
 var HealthSorting = require('../constants/HealthSorting');
 var HostTimeSeriesChart = require('../components/charts/HostTimeSeriesChart');
+import IconGauge from '../../img/components/icons/icon-medium/gauge.svg?name=IconGauge';
 var InternalStorageMixin = require('../mixins/InternalStorageMixin');
 var MesosSummaryStore = require('../stores/MesosSummaryStore');
 var Page = require('../components/Page');
@@ -41,7 +42,7 @@ var DashboardPage = React.createClass({
   statics: {
     routeConfig: {
       label: 'Dashboard',
-      icon: 'dashboard',
+      icon: <IconGauge />,
       matches: /^\/dashboard/
     },
 
