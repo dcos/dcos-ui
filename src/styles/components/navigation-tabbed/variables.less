@@ -27,12 +27,12 @@ Responsive Scaling
 
 /* -----------------------------------------------------------------------------
 --------------------------------------------------------------------------------
-Navigation Tabbed Layout
+Navigation Tabbed
 --------------------------------------------------------------------------------
 ----------------------------------------------------------------------------- */
 
 /* -----------------------------------------------------------------------------
-Margin
+Layout
 ----------------------------------------------------------------------------- */
 
 // Margin Top
@@ -45,11 +45,11 @@ Margin
 
 // Margin Bottom
 
-@navigation-tabbed-margin-bottom:                                               0.8rem;
-@navigation-tabbed-margin-bottom-screen-small:                                  null;
-@navigation-tabbed-margin-bottom-screen-medium:                                 1.1 * @navigation-tabbed-margin-bottom;
-@navigation-tabbed-margin-bottom-screen-large:                                  1.2 * @navigation-tabbed-margin-bottom;
-@navigation-tabbed-margin-bottom-screen-jumbo:                                  null;
+@navigation-tabbed-margin-bottom:                                               @base-spacing-unit;
+@navigation-tabbed-margin-bottom-screen-small:                                  @base-spacing-unit-screen-small;
+@navigation-tabbed-margin-bottom-screen-medium:                                 @base-spacing-unit-screen-medium;
+@navigation-tabbed-margin-bottom-screen-large:                                  @base-spacing-unit-screen-large;
+@navigation-tabbed-margin-bottom-screen-jumbo:                                  @base-spacing-unit-screen-jumbo;
 
 // Margin Left
 
@@ -66,10 +66,6 @@ Margin
 @navigation-tabbed-margin-right-screen-medium:                                  null;
 @navigation-tabbed-margin-right-screen-large:                                   null;
 @navigation-tabbed-margin-right-screen-jumbo:                                   null;
-
-/* -----------------------------------------------------------------------------
-Padding
------------------------------------------------------------------------------ */
 
 // Padding Top
 
@@ -135,8 +131,12 @@ Layout Variants
 
 /* -----------------------------------------------------------------------------
 --------------------------------------------------------------------------------
-Navigation Tabbed Item Text Styling
+Navigation Tabbed Item
 --------------------------------------------------------------------------------
+----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+Text Styling
 ----------------------------------------------------------------------------- */
 
 // Normal
@@ -144,7 +144,7 @@ Navigation Tabbed Item Text Styling
 @navigation-tabbed-item-color:                                                  color-lighten(@neutral, 20);
 @navigation-tabbed-item-font-family:                                            null;
 @navigation-tabbed-item-font-style:                                             null;
-@navigation-tabbed-item-font-weight:                                            null;
+@navigation-tabbed-item-font-weight:                                            600;
 @navigation-tabbed-item-text-transform:                                         null;
 @navigation-tabbed-item-text-shadow:                                            null;
 @navigation-tabbed-item-text-decoration:                                        none;
@@ -201,16 +201,28 @@ Navigation Tabbed Item Text Styling
 @navigation-tabbed-item-inverse-shadow:                                         null;
 @navigation-tabbed-item-inverse-opacity:                                        null;
 
-
-
 /* -----------------------------------------------------------------------------
---------------------------------------------------------------------------------
-Navigation Tabbed Item Layout
---------------------------------------------------------------------------------
+Text Size
 ----------------------------------------------------------------------------- */
 
+// Font Size
+
+@navigation-tabbed-item-font-size:                                              null;
+@navigation-tabbed-item-font-size-screen-small:                                 null;
+@navigation-tabbed-item-font-size-screen-medium:                                null;
+@navigation-tabbed-item-font-size-screen-large:                                 null;
+@navigation-tabbed-item-font-size-screen-jumbo:                                 null;
+
+// Line Height
+
+@navigation-tabbed-item-line-height:                                            null;
+@navigation-tabbed-item-line-height-screen-small:                               null;
+@navigation-tabbed-item-line-height-screen-medium:                              null;
+@navigation-tabbed-item-line-height-screen-large:                               null;
+@navigation-tabbed-item-line-height-screen-jumbo:                               null;
+
 /* -----------------------------------------------------------------------------
-Margin
+Layout
 ----------------------------------------------------------------------------- */
 
 // Margin Top
@@ -245,10 +257,6 @@ Margin
 @navigation-tabbed-item-margin-right-screen-large:                              null;
 @navigation-tabbed-item-margin-right-screen-jumbo:                              null;
 
-/* -----------------------------------------------------------------------------
-Padding
------------------------------------------------------------------------------ */
-
 // Padding Top
 
 @navigation-tabbed-item-padding-top:                                            null;
@@ -259,11 +267,11 @@ Padding
 
 // Padding Bottom
 
-@navigation-tabbed-item-padding-bottom:                                         0.8rem * 1.5;
-@navigation-tabbed-item-padding-bottom-screen-small:                            null;
-@navigation-tabbed-item-padding-bottom-screen-medium:                           1.1 * @navigation-tabbed-item-padding-left;
-@navigation-tabbed-item-padding-bottom-screen-large:                            1.2 * @navigation-tabbed-item-padding-left;
-@navigation-tabbed-item-padding-bottom-screen-jumbo:                            null;
+@navigation-tabbed-item-padding-bottom:                                         0.5 * @base-spacing-unit;
+@navigation-tabbed-item-padding-bottom-screen-small:                            0.5 * @base-spacing-unit-screen-small;
+@navigation-tabbed-item-padding-bottom-screen-medium:                           0.5 * @base-spacing-unit-screen-medium;
+@navigation-tabbed-item-padding-bottom-screen-large:                            0.5 * @base-spacing-unit-screen-large;
+@navigation-tabbed-item-padding-bottom-screen-jumbo:                            0.5 * @base-spacing-unit-screen-jumbo;
 
 // Padding Left
 
@@ -275,8 +283,356 @@ Padding
 
 // Padding Right
 
-@navigation-tabbed-item-padding-right:                                          0.8rem * 1.5;
-@navigation-tabbed-item-padding-right-screen-small:                             null;
-@navigation-tabbed-item-padding-right-screen-medium:                            1.1 * @navigation-tabbed-item-padding-left;
-@navigation-tabbed-item-padding-right-screen-large:                             1.2 * @navigation-tabbed-item-padding-left;
-@navigation-tabbed-item-padding-right-screen-jumbo:                             null;
+@navigation-tabbed-item-padding-right:                                          0.5 * @base-spacing-unit;
+@navigation-tabbed-item-padding-right-screen-small:                             0.5 * @base-spacing-unit-screen-small;
+@navigation-tabbed-item-padding-right-screen-medium:                            0.5 * @base-spacing-unit-screen-medium;
+@navigation-tabbed-item-padding-right-screen-large:                             0.5 * @base-spacing-unit-screen-large;
+@navigation-tabbed-item-padding-right-screen-jumbo:                             0.5 * @base-spacing-unit-screen-jumbo;
+
+
+
+/* -----------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+Navigation Tabbed Item Link
+--------------------------------------------------------------------------------
+----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+Text Styling
+----------------------------------------------------------------------------- */
+
+// Normal
+
+@navigation-tabbed-item-link-color:                                             color-lighten(@neutral, 20);
+@navigation-tabbed-item-link-font-family:                                       null;
+@navigation-tabbed-item-link-font-style:                                        null;
+@navigation-tabbed-item-link-font-weight:                                       null;
+@navigation-tabbed-item-link-text-transform:                                    null;
+@navigation-tabbed-item-link-text-shadow:                                       null;
+@navigation-tabbed-item-link-text-decoration:                                   none;
+@navigation-tabbed-item-link-text-rendering:                                    null;
+@navigation-tabbed-item-link-background-color:                                  null;
+@navigation-tabbed-item-link-background-gradient-color-top:                     null;
+@navigation-tabbed-item-link-background-gradient-color-bottom:                  null;
+@navigation-tabbed-item-link-border-width:                                      null;
+@navigation-tabbed-item-link-border-color:                                      null;
+@navigation-tabbed-item-link-border-style:                                      null;
+@navigation-tabbed-item-link-border-top-width:                                  null;
+@navigation-tabbed-item-link-border-top-color:                                  null;
+@navigation-tabbed-item-link-border-top-style:                                  null;
+@navigation-tabbed-item-link-border-right-width:                                null;
+@navigation-tabbed-item-link-border-right-color:                                null;
+@navigation-tabbed-item-link-border-right-style:                                null;
+@navigation-tabbed-item-link-border-bottom-width:                               null;
+@navigation-tabbed-item-link-border-bottom-color:                               null;
+@navigation-tabbed-item-link-border-bottom-style:                               null;
+@navigation-tabbed-item-link-border-left-width:                                 null;
+@navigation-tabbed-item-link-border-left-color:                                 null;
+@navigation-tabbed-item-link-border-left-style:                                 null;
+@navigation-tabbed-item-link-shadow:                                            null;
+@navigation-tabbed-item-link-opacity:                                           null;
+
+// Hover
+
+@navigation-tabbed-item-link-hover-color:                                       color-lighten(@purple, 0);
+@navigation-tabbed-item-link-hover-font-family:                                 null;
+@navigation-tabbed-item-link-hover-font-style:                                  null;
+@navigation-tabbed-item-link-hover-font-weight:                                 null;
+@navigation-tabbed-item-link-hover-text-transform:                              null;
+@navigation-tabbed-item-link-hover-text-shadow:                                 null;
+@navigation-tabbed-item-link-hover-text-decoration:                             none;
+@navigation-tabbed-item-link-hover-text-rendering:                              null;
+@navigation-tabbed-item-link-hover-background-color:                            null;
+@navigation-tabbed-item-link-hover-background-gradient-color-top:               null;
+@navigation-tabbed-item-link-hover-background-gradient-color-bottom:            null;
+@navigation-tabbed-item-link-hover-border-width:                                null;
+@navigation-tabbed-item-link-hover-border-color:                                null;
+@navigation-tabbed-item-link-hover-border-style:                                null;
+@navigation-tabbed-item-link-hover-border-top-width:                            null;
+@navigation-tabbed-item-link-hover-border-top-color:                            null;
+@navigation-tabbed-item-link-hover-border-top-style:                            null;
+@navigation-tabbed-item-link-hover-border-right-width:                          null;
+@navigation-tabbed-item-link-hover-border-right-color:                          null;
+@navigation-tabbed-item-link-hover-border-right-style:                          null;
+@navigation-tabbed-item-link-hover-border-bottom-width:                         null;
+@navigation-tabbed-item-link-hover-border-bottom-color:                         null;
+@navigation-tabbed-item-link-hover-border-bottom-style:                         null;
+@navigation-tabbed-item-link-hover-border-left-width:                           null;
+@navigation-tabbed-item-link-hover-border-left-color:                           null;
+@navigation-tabbed-item-link-hover-border-left-style:                           null;
+@navigation-tabbed-item-link-hover-shadow:                                      null;
+@navigation-tabbed-item-link-hover-opacity:                                     null;
+
+// Active
+
+@navigation-tabbed-item-link-active-color:                                      color-lighten(@purple, -20);
+@navigation-tabbed-item-link-active-font-family:                                null;
+@navigation-tabbed-item-link-active-font-style:                                 null;
+@navigation-tabbed-item-link-active-font-weight:                                null;
+@navigation-tabbed-item-link-active-text-transform:                             null;
+@navigation-tabbed-item-link-active-text-shadow:                                null;
+@navigation-tabbed-item-link-active-text-decoration:                            none;
+@navigation-tabbed-item-link-active-text-rendering:                             null;
+@navigation-tabbed-item-link-active-background-color:                           null;
+@navigation-tabbed-item-link-active-background-gradient-color-top:              null;
+@navigation-tabbed-item-link-active-background-gradient-color-bottom:           null;
+@navigation-tabbed-item-link-active-border-width:                               null;
+@navigation-tabbed-item-link-active-border-color:                               null;
+@navigation-tabbed-item-link-active-border-style:                               null;
+@navigation-tabbed-item-link-active-border-top-width:                           null;
+@navigation-tabbed-item-link-active-border-top-color:                           null;
+@navigation-tabbed-item-link-active-border-top-style:                           null;
+@navigation-tabbed-item-link-active-border-right-width:                         null;
+@navigation-tabbed-item-link-active-border-right-color:                         null;
+@navigation-tabbed-item-link-active-border-right-style:                         null;
+@navigation-tabbed-item-link-active-border-bottom-width:                        null;
+@navigation-tabbed-item-link-active-border-bottom-color:                        null;
+@navigation-tabbed-item-link-active-border-bottom-style:                        null;
+@navigation-tabbed-item-link-active-border-left-width:                          null;
+@navigation-tabbed-item-link-active-border-left-color:                          null;
+@navigation-tabbed-item-link-active-border-left-style:                          null;
+@navigation-tabbed-item-link-active-shadow:                                     null;
+@navigation-tabbed-item-link-active-opacity:                                    null;
+
+// Selected
+
+@navigation-tabbed-item-link-selected-color:                                    color-lighten(@purple, 0);
+@navigation-tabbed-item-link-selected-font-family:                              null;
+@navigation-tabbed-item-link-selected-font-style:                               null;
+@navigation-tabbed-item-link-selected-font-weight:                              null;
+@navigation-tabbed-item-link-selected-text-transform:                           null;
+@navigation-tabbed-item-link-selected-text-shadow:                              null;
+@navigation-tabbed-item-link-selected-text-decoration:                          none;
+@navigation-tabbed-item-link-selected-text-rendering:                           null;
+@navigation-tabbed-item-link-selected-background-color:                         null;
+@navigation-tabbed-item-link-selected-background-gradient-color-top:            null;
+@navigation-tabbed-item-link-selected-background-gradient-color-bottom:         null;
+@navigation-tabbed-item-link-selected-border-width:                             null;
+@navigation-tabbed-item-link-selected-border-color:                             null;
+@navigation-tabbed-item-link-selected-border-style:                             null;
+@navigation-tabbed-item-link-selected-border-top-width:                         null;
+@navigation-tabbed-item-link-selected-border-top-color:                         null;
+@navigation-tabbed-item-link-selected-border-top-style:                         null;
+@navigation-tabbed-item-link-selected-border-right-width:                       null;
+@navigation-tabbed-item-link-selected-border-right-color:                       null;
+@navigation-tabbed-item-link-selected-border-right-style:                       null;
+@navigation-tabbed-item-link-selected-border-bottom-width:                      null;
+@navigation-tabbed-item-link-selected-border-bottom-color:                      null;
+@navigation-tabbed-item-link-selected-border-bottom-style:                      null;
+@navigation-tabbed-item-link-selected-border-left-width:                        null;
+@navigation-tabbed-item-link-selected-border-left-color:                        null;
+@navigation-tabbed-item-link-selected-border-left-style:                        null;
+@navigation-tabbed-item-link-selected-shadow:                                   null;
+@navigation-tabbed-item-link-selected-opacity:                                  null;
+
+// Inverse
+
+@navigation-tabbed-item-link-inverse-color:                                     null;
+@navigation-tabbed-item-link-inverse-font-family:                               null;
+@navigation-tabbed-item-link-inverse-font-style:                                null;
+@navigation-tabbed-item-link-inverse-font-weight:                               null;
+@navigation-tabbed-item-link-inverse-text-transform:                            null;
+@navigation-tabbed-item-link-inverse-text-shadow:                               null;
+@navigation-tabbed-item-link-inverse-text-decoration:                           null;
+@navigation-tabbed-item-link-inverse-text-rendering:                            null;
+@navigation-tabbed-item-link-inverse-background-color:                          null;
+@navigation-tabbed-item-link-inverse-background-gradient-color-top:             null;
+@navigation-tabbed-item-link-inverse-background-gradient-color-bottom:          null;
+@navigation-tabbed-item-link-inverse-border-width:                              null;
+@navigation-tabbed-item-link-inverse-border-color:                              null;
+@navigation-tabbed-item-link-inverse-border-style:                              null;
+@navigation-tabbed-item-link-inverse-border-top-width:                          null;
+@navigation-tabbed-item-link-inverse-border-top-color:                          null;
+@navigation-tabbed-item-link-inverse-border-top-style:                          null;
+@navigation-tabbed-item-link-inverse-border-right-width:                        null;
+@navigation-tabbed-item-link-inverse-border-right-color:                        null;
+@navigation-tabbed-item-link-inverse-border-right-style:                        null;
+@navigation-tabbed-item-link-inverse-border-bottom-width:                       null;
+@navigation-tabbed-item-link-inverse-border-bottom-color:                       null;
+@navigation-tabbed-item-link-inverse-border-bottom-style:                       null;
+@navigation-tabbed-item-link-inverse-border-left-width:                         null;
+@navigation-tabbed-item-link-inverse-border-left-color:                         null;
+@navigation-tabbed-item-link-inverse-border-left-style:                         null;
+@navigation-tabbed-item-link-inverse-shadow:                                    null;
+@navigation-tabbed-item-link-inverse-opacity:                                   null;
+
+// Hover
+
+@navigation-tabbed-item-link-inverse-hover-color:                               null;
+@navigation-tabbed-item-link-inverse-hover-font-family:                         null;
+@navigation-tabbed-item-link-inverse-hover-font-style:                          null;
+@navigation-tabbed-item-link-inverse-hover-font-weight:                         null;
+@navigation-tabbed-item-link-inverse-hover-text-transform:                      null;
+@navigation-tabbed-item-link-inverse-hover-text-shadow:                         null;
+@navigation-tabbed-item-link-inverse-hover-text-decoration:                     none;
+@navigation-tabbed-item-link-inverse-hover-text-rendering:                      null;
+@navigation-tabbed-item-link-inverse-hover-background-color:                    null;
+@navigation-tabbed-item-link-inverse-hover-background-gradient-color-top:       null;
+@navigation-tabbed-item-link-inverse-hover-background-gradient-color-bottom:    null;
+@navigation-tabbed-item-link-inverse-hover-border-width:                        null;
+@navigation-tabbed-item-link-inverse-hover-border-color:                        null;
+@navigation-tabbed-item-link-inverse-hover-border-style:                        null;
+@navigation-tabbed-item-link-inverse-hover-border-top-width:                    null;
+@navigation-tabbed-item-link-inverse-hover-border-top-color:                    null;
+@navigation-tabbed-item-link-inverse-hover-border-top-style:                    null;
+@navigation-tabbed-item-link-inverse-hover-border-right-width:                  null;
+@navigation-tabbed-item-link-inverse-hover-border-right-color:                  null;
+@navigation-tabbed-item-link-inverse-hover-border-right-style:                  null;
+@navigation-tabbed-item-link-inverse-hover-border-bottom-width:                 null;
+@navigation-tabbed-item-link-inverse-hover-border-bottom-color:                 null;
+@navigation-tabbed-item-link-inverse-hover-border-bottom-style:                 null;
+@navigation-tabbed-item-link-inverse-hover-border-left-width:                   null;
+@navigation-tabbed-item-link-inverse-hover-border-left-color:                   null;
+@navigation-tabbed-item-link-inverse-hover-border-left-style:                   null;
+@navigation-tabbed-item-link-inverse-hover-shadow:                              null;
+@navigation-tabbed-item-link-inverse-hover-opacity:                             null;
+
+// Active
+
+@navigation-tabbed-item-link-inverse-active-color:                              null;
+@navigation-tabbed-item-link-inverse-active-font-family:                        null;
+@navigation-tabbed-item-link-inverse-active-font-style:                         null;
+@navigation-tabbed-item-link-inverse-active-font-weight:                        null;
+@navigation-tabbed-item-link-inverse-active-text-transform:                     null;
+@navigation-tabbed-item-link-inverse-active-text-shadow:                        null;
+@navigation-tabbed-item-link-inverse-active-text-decoration:                    none;
+@navigation-tabbed-item-link-inverse-active-text-rendering:                     null;
+@navigation-tabbed-item-link-inverse-active-background-color:                   null;
+@navigation-tabbed-item-link-inverse-active-background-gradient-color-top:      null;
+@navigation-tabbed-item-link-inverse-active-background-gradient-color-bottom:   null;
+@navigation-tabbed-item-link-inverse-active-border-width:                       null;
+@navigation-tabbed-item-link-inverse-active-border-color:                       null;
+@navigation-tabbed-item-link-inverse-active-border-style:                       null;
+@navigation-tabbed-item-link-inverse-active-border-top-width:                   null;
+@navigation-tabbed-item-link-inverse-active-border-top-color:                   null;
+@navigation-tabbed-item-link-inverse-active-border-top-style:                   null;
+@navigation-tabbed-item-link-inverse-active-border-right-width:                 null;
+@navigation-tabbed-item-link-inverse-active-border-right-color:                 null;
+@navigation-tabbed-item-link-inverse-active-border-right-style:                 null;
+@navigation-tabbed-item-link-inverse-active-border-bottom-width:                null;
+@navigation-tabbed-item-link-inverse-active-border-bottom-color:                null;
+@navigation-tabbed-item-link-inverse-active-border-bottom-style:                null;
+@navigation-tabbed-item-link-inverse-active-border-left-width:                  null;
+@navigation-tabbed-item-link-inverse-active-border-left-color:                  null;
+@navigation-tabbed-item-link-inverse-active-border-left-style:                  null;
+@navigation-tabbed-item-link-inverse-active-shadow:                             null;
+@navigation-tabbed-item-link-inverse-active-opacity:                            null;
+
+// Selected
+
+@navigation-tabbed-item-link-inverse-selected-color:                            null;
+@navigation-tabbed-item-link-inverse-selected-font-family:                      null;
+@navigation-tabbed-item-link-inverse-selected-font-style:                       null;
+@navigation-tabbed-item-link-inverse-selected-font-weight:                      null;
+@navigation-tabbed-item-link-inverse-selected-text-transform:                   null;
+@navigation-tabbed-item-link-inverse-selected-text-shadow:                      null;
+@navigation-tabbed-item-link-inverse-selected-text-decoration:                  none;
+@navigation-tabbed-item-link-inverse-selected-text-rendering:                   null;
+@navigation-tabbed-item-link-inverse-selected-background-color:                 null;
+@navigation-tabbed-item-link-inverse-selected-background-gradient-color-top:    null;
+@navigation-tabbed-item-link-inverse-selected-background-gradient-color-bottom: null;
+@navigation-tabbed-item-link-inverse-selected-border-width:                     null;
+@navigation-tabbed-item-link-inverse-selected-border-color:                     null;
+@navigation-tabbed-item-link-inverse-selected-border-style:                     null;
+@navigation-tabbed-item-link-inverse-selected-border-top-width:                 null;
+@navigation-tabbed-item-link-inverse-selected-border-top-color:                 null;
+@navigation-tabbed-item-link-inverse-selected-border-top-style:                 null;
+@navigation-tabbed-item-link-inverse-selected-border-right-width:               null;
+@navigation-tabbed-item-link-inverse-selected-border-right-color:               null;
+@navigation-tabbed-item-link-inverse-selected-border-right-style:               null;
+@navigation-tabbed-item-link-inverse-selected-border-bottom-width:              null;
+@navigation-tabbed-item-link-inverse-selected-border-bottom-color:              null;
+@navigation-tabbed-item-link-inverse-selected-border-bottom-style:              null;
+@navigation-tabbed-item-link-inverse-selected-border-left-width:                null;
+@navigation-tabbed-item-link-inverse-selected-border-left-color:                null;
+@navigation-tabbed-item-link-inverse-selected-border-left-style:                null;
+@navigation-tabbed-item-link-inverse-selected-shadow:                           null;
+@navigation-tabbed-item-link-inverse-selected-opacity:                          null;
+
+/* -----------------------------------------------------------------------------
+Text Size
+----------------------------------------------------------------------------- */
+
+// Font Size
+
+@navigation-tabbed-item-link-font-size:                                         null;
+@navigation-tabbed-item-link-font-size-screen-small:                            null;
+@navigation-tabbed-item-link-font-size-screen-medium:                           null;
+@navigation-tabbed-item-link-font-size-screen-large:                            null;
+@navigation-tabbed-item-link-font-size-screen-jumbo:                            null;
+
+// Line Height
+
+@navigation-tabbed-item-link-line-height:                                       null;
+@navigation-tabbed-item-link-line-height-screen-small:                          null;
+@navigation-tabbed-item-link-line-height-screen-medium:                         null;
+@navigation-tabbed-item-link-line-height-screen-large:                          null;
+@navigation-tabbed-item-link-line-height-screen-jumbo:                          null;
+
+/* -----------------------------------------------------------------------------
+Layout
+----------------------------------------------------------------------------- */
+
+// Margin Top
+
+@navigation-tabbed-item-link-margin-top:                                        null;
+@navigation-tabbed-item-link-margin-top-screen-small:                           null;
+@navigation-tabbed-item-link-margin-top-screen-medium:                          null;
+@navigation-tabbed-item-link-margin-top-screen-large:                           null;
+@navigation-tabbed-item-link-margin-top-screen-jumbo:                           null;
+
+// Margin Bottom
+
+@navigation-tabbed-item-link-margin-bottom:                                     -0.5 * @base-spacing-unit;
+@navigation-tabbed-item-link-margin-bottom-screen-small:                        -0.5 * @base-spacing-unit-screen-small;
+@navigation-tabbed-item-link-margin-bottom-screen-medium:                       -0.5 * @base-spacing-unit-screen-medium;
+@navigation-tabbed-item-link-margin-bottom-screen-large:                        -0.5 * @base-spacing-unit-screen-large;
+@navigation-tabbed-item-link-margin-bottom-screen-jumbo:                        -0.5 * @base-spacing-unit-screen-jumbo;
+
+// Margin Left
+
+@navigation-tabbed-item-link-margin-left:                                       null;
+@navigation-tabbed-item-link-margin-left-screen-small:                          null;
+@navigation-tabbed-item-link-margin-left-screen-medium:                         null;
+@navigation-tabbed-item-link-margin-left-screen-large:                          null;
+@navigation-tabbed-item-link-margin-left-screen-jumbo:                          null;
+
+// Margin Right
+
+@navigation-tabbed-item-link-margin-right:                                      null;
+@navigation-tabbed-item-link-margin-right-screen-small:                         null;
+@navigation-tabbed-item-link-margin-right-screen-medium:                        null;
+@navigation-tabbed-item-link-margin-right-screen-large:                         null;
+@navigation-tabbed-item-link-margin-right-screen-jumbo:                         null;
+
+// Padding Top
+
+@navigation-tabbed-item-link-padding-top:                                       null;
+@navigation-tabbed-item-link-padding-top-screen-small:                          null;
+@navigation-tabbed-item-link-padding-top-screen-medium:                         null;
+@navigation-tabbed-item-link-padding-top-screen-large:                          null;
+@navigation-tabbed-item-link-padding-top-screen-jumbo:                          null;
+
+// Padding Bottom
+
+@navigation-tabbed-item-link-padding-bottom:                                    0.5 * @base-spacing-unit;
+@navigation-tabbed-item-link-padding-bottom-screen-small:                       0.5 * @base-spacing-unit-screen-small;
+@navigation-tabbed-item-link-padding-bottom-screen-medium:                      0.5 * @base-spacing-unit-screen-medium;
+@navigation-tabbed-item-link-padding-bottom-screen-large:                       0.5 * @base-spacing-unit-screen-large;
+@navigation-tabbed-item-link-padding-bottom-screen-jumbo:                       0.5 * @base-spacing-unit-screen-jumbo;
+
+// Padding Left
+
+@navigation-tabbed-item-link-padding-left:                                      null;
+@navigation-tabbed-item-link-padding-left-screen-small:                         null;
+@navigation-tabbed-item-link-padding-left-screen-medium:                        null;
+@navigation-tabbed-item-link-padding-left-screen-large:                         null;
+@navigation-tabbed-item-link-padding-left-screen-jumbo:                         null;
+
+// Padding Right
+
+@navigation-tabbed-item-link-padding-right:                                     null;
+@navigation-tabbed-item-link-padding-right-screen-small:                        null;
+@navigation-tabbed-item-link-padding-right-screen-medium:                       null;
+@navigation-tabbed-item-link-padding-right-screen-large:                        null;
+@navigation-tabbed-item-link-padding-right-screen-jumbo:                        null;
