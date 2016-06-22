@@ -1,24 +1,24 @@
 /* -----------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
-navigation-tabbed/styles.less
+menu-tabbed/styles.less
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 ----------------------------------------------------------------------------- */
 
 
 
-& when (@navigation-tabbed-enabled) {
+& when (@menu-tabbed-enabled) {
 
   /* -----------------------------------------------------------------------------
-  Navigation Tabbed
+  Menu Tabbed
   ----------------------------------------------------------------------------- */
 
-  .navigation-tabbed {
+  .menu-tabbed {
 
     position: relative;
     padding: 0px;
-    .element-spacing(navigation-tabbed, null, null);
+    .element-spacing(menu-tabbed, null, null);
 
     /* -----------------------------------------------------------------------------
     Layout Variants
@@ -26,29 +26,29 @@ navigation-tabbed/styles.less
 
     &.short {
 
-      .element-spacing(navigation-tabbed, short, null);
+      .element-spacing(menu-tabbed, short, null);
 
     }
 
     &.tall {
 
-      .element-spacing(navigation-tabbed, tall, null);
+      .element-spacing(menu-tabbed, tall, null);
 
     }
 
     /* -----------------------------------------------------------------------------
-    Navigation Tabbed Item
+    Menu Tabbed Item
     ----------------------------------------------------------------------------- */
 
     li {
 
       position: relative;
       display: inline-block;
-      .element-text-size(navigation-tabbed-item, null);
-      .element-text-style(navigation-tabbed-item);
-      .element-shape-style(navigation-tabbed-item);
-      .element-spacing(navigation-tabbed-item, null, null);
-      .property-variant(navigation-tabbed-item, opacity);
+      .element-text-size(menu-tabbed-item, null);
+      .element-text-style(menu-tabbed-item);
+      .element-shape-style(menu-tabbed-item);
+      .element-spacing(menu-tabbed-item, null, null);
+      .property-variant(menu-tabbed-item, opacity);
 
       &:last-child {
 
@@ -65,11 +65,11 @@ navigation-tabbed/styles.less
       a {
 
         position: relative;
-        .element-text-size(navigation-tabbed-item-link, null);
-        .element-text-style(navigation-tabbed-item-link);
-        .element-shape-style(navigation-tabbed-item-link);
-        .element-spacing(navigation-tabbed-item-link, null, null);
-        .property-variant(navigation-tabbed-item-link, opacity);
+        .element-text-size(menu-tabbed-item-link, null);
+        .element-text-style(menu-tabbed-item-link);
+        .element-shape-style(menu-tabbed-item-link);
+        .element-spacing(menu-tabbed-item-link, null, null);
+        .property-variant(menu-tabbed-item-link, opacity);
 
         &:after {
 
@@ -80,19 +80,19 @@ navigation-tabbed/styles.less
           position: absolute;
           bottom: 0px;
           left: 0px;
-          .property-variant(navigation-tabbed-item-link, background-color, color, null, null);
+          .property-variant(menu-tabbed-item-link, background-color, color, null, null);
 
         }
 
         &:hover {
 
-          .element-text-style(navigation-tabbed-item-link-hover);
-          .element-shape-style(navigation-tabbed-item-link-hover);
-          .property-variant(navigation-tabbed-item-link-hover, opacity);
+          .element-text-style(menu-tabbed-item-link-hover);
+          .element-shape-style(menu-tabbed-item-link-hover);
+          .property-variant(menu-tabbed-item-link-hover, opacity);
 
           &:after {
 
-            .property-variant(navigation-tabbed-item-link-hover, background-color, color, null, null);
+            .property-variant(menu-tabbed-item-link-hover, background-color, color, null, null);
 
           }
 
@@ -100,13 +100,13 @@ navigation-tabbed/styles.less
 
         &:active {
 
-          .element-text-style(navigation-tabbed-item-link-active);
-          .element-shape-style(navigation-tabbed-item-link-active);
-          .property-variant(navigation-tabbed-item-link-active, opacity);
+          .element-text-style(menu-tabbed-item-link-active);
+          .element-shape-style(menu-tabbed-item-link-active);
+          .property-variant(menu-tabbed-item-link-active, opacity);
 
           &:after {
 
-            .property-variant(navigation-tabbed-item-link-active, background-color, color, null, null);
+            .property-variant(menu-tabbed-item-link-active, background-color, color, null, null);
 
           }
 
@@ -115,14 +115,14 @@ navigation-tabbed/styles.less
         &.selected,
         &.active {
 
-          .element-text-style(navigation-tabbed-item-link-selected);
-          .element-shape-style(navigation-tabbed-item-link-selected);
-          .property-variant(navigation-tabbed-item-link-selected, opacity);
+          .element-text-style(menu-tabbed-item-link-selected);
+          .element-shape-style(menu-tabbed-item-link-selected);
+          .property-variant(menu-tabbed-item-link-selected, opacity);
 
           &:after {
 
             display: block;
-            .property-variant(navigation-tabbed-item-link-selected, background-color, color, null, null);
+            .property-variant(menu-tabbed-item-link-selected, background-color, color, null, null);
 
           }
 
@@ -139,36 +139,36 @@ navigation-tabbed/styles.less
     &.inverse {
 
       /* -----------------------------------------------------------------------------
-      Navigation Tabbed Item
+      Menu Tabbed Item
       ----------------------------------------------------------------------------- */
 
       li {
 
-        .element-text-style(navigation-tabbed-item-inverse);
-        .element-shape-style(navigation-tabbed-item-inverse);
-        .property-variant(navigation-tabbed-item-inverse, opacity);
+        .element-text-style(menu-tabbed-item-inverse);
+        .element-shape-style(menu-tabbed-item-inverse);
+        .property-variant(menu-tabbed-item-inverse, opacity);
 
         a {
 
-          .element-text-style(navigation-tabbed-item-link-inverse);
-          .element-shape-style(navigation-tabbed-item-link-inverse);
-          .property-variant(navigation-tabbed-item-link-inverse, opacity);
+          .element-text-style(menu-tabbed-item-link-inverse);
+          .element-shape-style(menu-tabbed-item-link-inverse);
+          .property-variant(menu-tabbed-item-link-inverse, opacity);
 
           &:after {
 
-            .property-variant(navigation-tabbed-item-link-inverse, background-color, color, null, null);
+            .property-variant(menu-tabbed-item-link-inverse, background-color, color, null, null);
 
           }
 
           &:hover {
 
-            .element-text-style(navigation-tabbed-item-link-inverse-hover);
-            .element-shape-style(navigation-tabbed-item-link-inverse-hover);
-            .property-variant(navigation-tabbed-item-link-inverse-hover, opacity);
+            .element-text-style(menu-tabbed-item-link-inverse-hover);
+            .element-shape-style(menu-tabbed-item-link-inverse-hover);
+            .property-variant(menu-tabbed-item-link-inverse-hover, opacity);
 
             &:after {
 
-              .property-variant(navigation-tabbed-item-link-inverse-hover, background-color, color, null, null);
+              .property-variant(menu-tabbed-item-link-inverse-hover, background-color, color, null, null);
 
             }
 
@@ -176,13 +176,13 @@ navigation-tabbed/styles.less
 
           &:active {
 
-            .element-text-style(navigation-tabbed-item-link-inverse-active);
-            .element-shape-style(navigation-tabbed-item-link-inverse-active);
-            .property-variant(navigation-tabbed-item-link-inverse-active, opacity);
+            .element-text-style(menu-tabbed-item-link-inverse-active);
+            .element-shape-style(menu-tabbed-item-link-inverse-active);
+            .property-variant(menu-tabbed-item-link-inverse-active, opacity);
 
             &:after {
 
-              .property-variant(navigation-tabbed-item-link-inverse-active, background-color, color, null, null);
+              .property-variant(menu-tabbed-item-link-inverse-active, background-color, color, null, null);
 
             }
 
@@ -190,13 +190,13 @@ navigation-tabbed/styles.less
 
           &.selected {
 
-            .element-text-style(navigation-tabbed-item-link-inverse-selected);
-            .element-shape-style(navigation-tabbed-item-link-inverse-selected);
-            .property-variant(navigation-tabbed-item-link-inverse-selected, opacity);
+            .element-text-style(menu-tabbed-item-link-inverse-selected);
+            .element-shape-style(menu-tabbed-item-link-inverse-selected);
+            .property-variant(menu-tabbed-item-link-inverse-selected, opacity);
 
             &:after {
 
-              .property-variant(navigation-tabbed-item-link-inverse-selected, background-color, color, null, null);
+              .property-variant(menu-tabbed-item-link-inverse-selected, background-color, color, null, null);
 
             }
 
@@ -222,15 +222,15 @@ navigation-tabbed/styles.less
 
   @media (min-width: @layout-screen-small-min-width) {
 
-    & when (@navigation-tabbed-enabled) and (@navigation-tabbed-screen-small-enabled) {
+    & when (@menu-tabbed-enabled) and (@menu-tabbed-screen-small-enabled) {
 
       /* -----------------------------------------------------------------------------
-      Navigation Tabbed
+      Menu Tabbed
       ----------------------------------------------------------------------------- */
 
-      .navigation-tabbed {
+      .menu-tabbed {
 
-        .element-spacing(navigation-tabbed, null, screen-small);
+        .element-spacing(menu-tabbed, null, screen-small);
 
         /* -----------------------------------------------------------------------------
         Layout Variants
@@ -238,29 +238,29 @@ navigation-tabbed/styles.less
 
         &.short {
 
-          .element-spacing(navigation-tabbed, short, screen-small);
+          .element-spacing(menu-tabbed, short, screen-small);
 
         }
 
         &.tall {
 
-          .element-spacing(navigation-tabbed, tall, screen-small);
+          .element-spacing(menu-tabbed, tall, screen-small);
 
         }
 
         /* -----------------------------------------------------------------------------
-        Navigation Tabbed Item
+        Menu Tabbed Item
         ----------------------------------------------------------------------------- */
 
         li {
 
-          .element-text-size(navigation-tabbed-item, screen-small);
-          .element-spacing(navigation-tabbed-item, null, screen-small);
+          .element-text-size(menu-tabbed-item, screen-small);
+          .element-spacing(menu-tabbed-item, null, screen-small);
 
           a {
 
-            .element-text-size(navigation-tabbed-item-link, screen-small);
-            .element-spacing(navigation-tabbed-item-link, null, screen-small);
+            .element-text-size(menu-tabbed-item-link, screen-small);
+            .element-spacing(menu-tabbed-item-link, null, screen-small);
 
           }
 
@@ -284,15 +284,15 @@ navigation-tabbed/styles.less
 
   @media (min-width: @layout-screen-medium-min-width) {
 
-    & when (@navigation-tabbed-enabled) and (@navigation-tabbed-screen-medium-enabled) {
+    & when (@menu-tabbed-enabled) and (@menu-tabbed-screen-medium-enabled) {
 
       /* -----------------------------------------------------------------------------
-      Navigation Tabbed
+      Menu Tabbed
       ----------------------------------------------------------------------------- */
 
-      .navigation-tabbed {
+      .menu-tabbed {
 
-        .element-spacing(navigation-tabbed, null, screen-medium);
+        .element-spacing(menu-tabbed, null, screen-medium);
 
         /* -----------------------------------------------------------------------------
         Layout Variants
@@ -300,29 +300,29 @@ navigation-tabbed/styles.less
 
         &.short {
 
-          .element-spacing(navigation-tabbed, short, screen-medium);
+          .element-spacing(menu-tabbed, short, screen-medium);
 
         }
 
         &.tall {
 
-          .element-spacing(navigation-tabbed, tall, screen-medium);
+          .element-spacing(menu-tabbed, tall, screen-medium);
 
         }
 
         /* -----------------------------------------------------------------------------
-        Navigation Tabbed Item
+        Menu Tabbed Item
         ----------------------------------------------------------------------------- */
 
         li {
 
-          .element-text-size(navigation-tabbed-item, screen-medium);
-          .element-spacing(navigation-tabbed-item, null, screen-medium);
+          .element-text-size(menu-tabbed-item, screen-medium);
+          .element-spacing(menu-tabbed-item, null, screen-medium);
 
           a {
 
-            .element-text-size(navigation-tabbed-item-link, screen-medium);
-            .element-spacing(navigation-tabbed-item-link, null, screen-medium);
+            .element-text-size(menu-tabbed-item-link, screen-medium);
+            .element-spacing(menu-tabbed-item-link, null, screen-medium);
 
           }
 
@@ -346,15 +346,15 @@ navigation-tabbed/styles.less
 
   @media (min-width: @layout-screen-large-min-width) {
 
-    & when (@navigation-tabbed-enabled) and (@navigation-tabbed-screen-large-enabled) {
+    & when (@menu-tabbed-enabled) and (@menu-tabbed-screen-large-enabled) {
 
       /* -----------------------------------------------------------------------------
-      Navigation Tabbed
+      Menu Tabbed
       ----------------------------------------------------------------------------- */
 
-      .navigation-tabbed {
+      .menu-tabbed {
 
-        .element-spacing(navigation-tabbed, null, screen-large);
+        .element-spacing(menu-tabbed, null, screen-large);
 
         /* -----------------------------------------------------------------------------
         Layout Variants
@@ -362,29 +362,29 @@ navigation-tabbed/styles.less
 
         &.short {
 
-          .element-spacing(navigation-tabbed, short, screen-large);
+          .element-spacing(menu-tabbed, short, screen-large);
 
         }
 
         &.tall {
 
-          .element-spacing(navigation-tabbed, tall, screen-large);
+          .element-spacing(menu-tabbed, tall, screen-large);
 
         }
 
         /* -----------------------------------------------------------------------------
-        Navigation Tabbed Item
+        Menu Tabbed Item
         ----------------------------------------------------------------------------- */
 
         li {
 
-          .element-text-size(navigation-tabbed-item, screen-large);
-          .element-spacing(navigation-tabbed-item, null, screen-large);
+          .element-text-size(menu-tabbed-item, screen-large);
+          .element-spacing(menu-tabbed-item, null, screen-large);
 
           a {
 
-            .element-text-size(navigation-tabbed-item-link, screen-large);
-            .element-spacing(navigation-tabbed-item-link, null, screen-large);
+            .element-text-size(menu-tabbed-item-link, screen-large);
+            .element-spacing(menu-tabbed-item-link, null, screen-large);
 
           }
 
@@ -408,15 +408,15 @@ navigation-tabbed/styles.less
 
   @media (min-width: @layout-screen-jumbo-min-width) {
 
-    & when (@navigation-tabbed-enabled) and (@navigation-tabbed-screen-jumbo-enabled) {
+    & when (@menu-tabbed-enabled) and (@menu-tabbed-screen-jumbo-enabled) {
 
       /* -----------------------------------------------------------------------------
-      Navigation Tabbed
+      Menu Tabbed
       ----------------------------------------------------------------------------- */
 
-      .navigation-tabbed {
+      .menu-tabbed {
 
-        .element-spacing(navigation-tabbed, null, screen-jumbo);
+        .element-spacing(menu-tabbed, null, screen-jumbo);
 
         /* -----------------------------------------------------------------------------
         Layout Variants
@@ -424,29 +424,29 @@ navigation-tabbed/styles.less
 
         &.short {
 
-          .element-spacing(navigation-tabbed, short, screen-jumbo);
+          .element-spacing(menu-tabbed, short, screen-jumbo);
 
         }
 
         &.tall {
 
-          .element-spacing(navigation-tabbed, tall, screen-jumbo);
+          .element-spacing(menu-tabbed, tall, screen-jumbo);
 
         }
 
         /* -----------------------------------------------------------------------------
-        Navigation Tabbed Item
+        Menu Tabbed Item
         ----------------------------------------------------------------------------- */
 
         li {
 
-          .element-text-size(navigation-tabbed-item, screen-jumbo);
-          .element-spacing(navigation-tabbed-item, null, screen-jumbo);
+          .element-text-size(menu-tabbed-item, screen-jumbo);
+          .element-spacing(menu-tabbed-item, null, screen-jumbo);
 
           a {
 
-            .element-text-size(navigation-tabbed-item-link, screen-jumbo);
-            .element-spacing(navigation-tabbed-item-link, null, screen-jumbo);
+            .element-text-size(menu-tabbed-item-link, screen-jumbo);
+            .element-spacing(menu-tabbed-item-link, null, screen-jumbo);
 
           }
 
