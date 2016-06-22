@@ -7,6 +7,7 @@ import AlertPanel from '../../components/AlertPanel';
 import DCOSStore from '../../stores/DCOSStore';
 import FilterBar from '../../components/FilterBar';
 import FilterHeadline from '../../components/FilterHeadline';
+import Icon from '../../components/Icon';
 import JobsTable from './JobsTable';
 import JobFilterTypes from '../../constants/JobFilterTypes';
 import JobSearchFilter from '../../components/JobSearchFilter'
@@ -196,8 +197,7 @@ class JobsTab extends mixin(StoreMixin, QueryParamsMixin, SaveStateMixin) {
       <AlertPanel
         title="No Jobs Created"
         footer={this.getAlertPanelFooter()}
-        iconClassName="icon icon-sprite icon-sprite-jumbo
-          icon-sprite-jumbo-white icon-jobs flush-top">
+        icon={<Icon id="pages-code" color="white" size="jumbo" />}>
         <p className="flush-bottom">
           Jobs aren't available yet.
         </p>

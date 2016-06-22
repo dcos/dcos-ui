@@ -8,6 +8,7 @@ import Breadcrumbs from '../../components/Breadcrumbs';
 import DCOSStore from '../../stores/DCOSStore';
 import FilterBar from '../../components/FilterBar';
 import FilterHeadline from '../../components/FilterHeadline';
+import Icon from '../../components/Icon';
 import QueryParamsMixin from '../../mixins/QueryParamsMixin';
 import SaveStateMixin from '../../mixins/SaveStateMixin';
 import {
@@ -151,7 +152,7 @@ var ServicesTab = React.createClass({
       <AlertPanel
         title="Not Found"
         footer={this.getNotFoundFooter()}
-        iconClassName="icon icon-sprite icon-sprite-medium icon-sprite-medium-white icon-alert">
+        icon={<Icon id="services" color="white" size="jumbo" />}>
         <p className="flush-bottom">
           {`Service '${id}' was not found.`}
         </p>
@@ -203,8 +204,7 @@ var ServicesTab = React.createClass({
         <AlertPanel
           title="No Services Deployed"
           footer={this.getAlertPanelFooter()}
-          iconClassName="icon icon-sprite icon-sprite-jumbo
-          icon-sprite-jumbo-white icon-services flush-top">
+          icon={<Icon id="services" color="white" size="jumbo" />}>
           <p className="flush-bottom">
             Create groups to organize your services or
             deploy a new service.
