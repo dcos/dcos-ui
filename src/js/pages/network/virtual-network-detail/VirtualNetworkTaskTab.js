@@ -109,15 +109,16 @@ class VirtualNetworkTaskTab extends mixin(StoreMixin) {
         headerClassName: getClassName,
         heading,
         prop: 'ip_address',
+        render: this.renderAgentIP,
         sortable: false
       },
       {
         className: getClassName,
         getValue: TaskUtil.getPortMappings,
-        render: this.renderPorts,
         headerClassName: getClassName,
         heading,
         prop: 'port_mappings',
+        render: this.renderPorts,
         sortable: false
       }
     ];
@@ -173,6 +174,19 @@ class VirtualNetworkTaskTab extends mixin(StoreMixin) {
     return portMappings.map(function (mapping) {
       return `${mapping.container_port} > ${mapping.host_port} (${mapping.protocol})`
     }).join(', ')
+  }
+
+  renderAgentIP(task) {
+    let ipAddress = Util.findNestedPropertyInObject(
+      task,
+      'statuses.0.container_status.network_infos.0.ip_address'
+    );
+
+    if (!ipAddress) {
+      return 'N/A';
+    }
+
+    return ipAddress;
   }
 
   renderHeading(prop) {
