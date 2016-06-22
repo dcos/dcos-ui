@@ -15,9 +15,7 @@ main.less
 
 /* -----------------------------------------------------------------------------
 --------------------------------------------------------------------------------
-
 Vendors
-
 --------------------------------------------------------------------------------
 ----------------------------------------------------------------------------- */
 
@@ -27,14 +25,9 @@ Vendors
 
 
 
-
-
-
 /* -----------------------------------------------------------------------------
 --------------------------------------------------------------------------------
-
 Reactjs-component Styling
-
 --------------------------------------------------------------------------------
 ----------------------------------------------------------------------------- */
 
@@ -44,9 +37,6 @@ Reactjs-component Styling
 // @import "../../node_modules/reactjs-components/lib/Modal/modal.less";
 // @import "../../node_modules/reactjs-components/lib/Table/table.less";
 // @import "../../node_modules/reactjs-components/lib/Tooltip/tooltip.less";
-
-
-
 
 
 
@@ -72,14 +62,9 @@ Variables
 
 
 
-
-
-
 /* -----------------------------------------------------------------------------
 --------------------------------------------------------------------------------
-
 Utilities
-
 --------------------------------------------------------------------------------
 ----------------------------------------------------------------------------- */
 
@@ -88,24 +73,45 @@ Utilities
 
 
 
-
-
-
 /* -----------------------------------------------------------------------------
 --------------------------------------------------------------------------------
-
 Layout
-
 --------------------------------------------------------------------------------
 ----------------------------------------------------------------------------- */
 
-@import "layout/foundation.less";
-@import "layout/sidebar.less";
-@import "layout/header.less";
-@import "layout/navigation.less";
-@import "layout/page.less";
-@import "layout/page-header.less";
-@import "layout/page-content.less";
+@import "layout/variables.less";
+@import "layout/styles.less";
+
+// Header
+
+@import "layout/header/variables.less";
+@import "layout/header/styles.less";
+
+// Sidebar
+
+@import "layout/sidebar/variables.less";
+@import "layout/sidebar/styles.less";
+
+// Navigation
+
+@import "layout/navigation/variables.less";
+@import "layout/navigation/styles.less";
+
+// Page
+
+@import "layout/page/variables.less";
+@import "layout/page/styles.less";
+
+// Page Header
+
+@import "layout/page-header/variables.less";
+@import "layout/page-header/styles.less";
+
+// Page Content
+
+@import "layout/page-content/variables.less";
+@import "layout/page-content/styles.less";
+
 // @import "layout/grid.less";
 // @import "layout/iframes.less";
 // @import "layout/media-object.less";
@@ -116,14 +122,9 @@ Layout
 
 
 
-
-
-
 /* -----------------------------------------------------------------------------
 --------------------------------------------------------------------------------
-
 Components
-
 --------------------------------------------------------------------------------
 ----------------------------------------------------------------------------- */
 
