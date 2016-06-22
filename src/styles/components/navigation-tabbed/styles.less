@@ -45,7 +45,9 @@ navigation-tabbed/styles.less
       position: relative;
       display: inline-block;
       .element-text-style(navigation-tabbed-item);
+      .shape-style-variant(navigation-tabbed-item);
       .element-spacing(navigation-tabbed-item, null, null);
+      .property-variant(navigation-tabbed-item, opacity);
 
       &:last-child {
 
@@ -56,6 +58,26 @@ navigation-tabbed/styles.less
       &:before {
 
         display: none;
+
+      }
+
+    }
+
+    /* -----------------------------------------------------------------------------
+    Inverse
+    ----------------------------------------------------------------------------- */
+
+    &.inverse {
+
+      /* -----------------------------------------------------------------------------
+      Navigation Tabbed Item
+      ----------------------------------------------------------------------------- */
+
+      li {
+
+        .element-text-style(navigation-tabbed-item-inverse);
+        .shape-style-variant(navigation-tabbed-item-inverse);
+        .property-variant(navigation-tabbed-item-inverse, opacity);
 
       }
 
