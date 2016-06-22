@@ -40,7 +40,7 @@ let General = {
           type: 'number',
           default: 0,
           getter: function (service) {
-            return `${service.getDisk() || ''}`;
+            return `${service.getDisk() || 0}`;
           }
         },
         instances: {

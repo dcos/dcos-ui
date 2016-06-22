@@ -16,6 +16,7 @@ const getFindPropertiesRecursive = function (service, item) {
           memo[key] = item[subItem].properties[key].getter(service);
         }
       });
+
       return memo;
     }
 
