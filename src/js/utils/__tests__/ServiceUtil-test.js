@@ -42,6 +42,340 @@ describe('ServiceUtil', function () {
         .toEqual(expectedService);
     });
 
+    describe('networking', function () {
+
+      describe('host mode', function () {
+
+        it('should not add a portDefinitions field if no ports were passed in', function () {
+          let service = ServiceUtil.createServiceFromFormModel({
+            networking: {
+              networkType: 'host',
+              ports: []
+            }
+          });
+          expect(service.portDefinitions).not.toBeDefined();
+        });
+
+        it('should convert the supplied network fields', function () {
+          let service = ServiceUtil.createServiceFromFormModel({
+            networking: {
+              networkType: 'host',
+              ports: [ {protocol: 'udp', name: 'foo'} ]
+            }
+          });
+          expect(service.portDefinitions).toEqual([
+            {port: 0, protocol: 'udp', name: 'foo'}
+          ]);
+        });
+
+        it('should enforce the port when discovery is on', function () {
+          let service = ServiceUtil.createServiceFromFormModel({
+            networking: {
+              networkType: 'host',
+              ports: [ {lbPort: 1234, discovery: true} ]
+            }
+          });
+          expect(service.portDefinitions).toEqual([
+            {port: 1234, protocol: 'tcp'}
+          ]);
+        });
+
+        it('should override the port to 0 when discovery is off', function () {
+          let service = ServiceUtil.createServiceFromFormModel({
+            networking: {
+              networkType: 'host',
+              ports: [ {lbPort: 1234, discovery: false} ]
+            }
+          });
+          expect(service.portDefinitions).toEqual([
+            {port: 0, protocol: 'tcp'}
+          ]);
+        });
+
+        it('should default the port to 0 when discovery is on', function () {
+          let service = ServiceUtil.createServiceFromFormModel({
+            networking: {
+              networkType: 'host',
+              ports: [ {discovery: true} ]
+            }
+          });
+          expect(service.portDefinitions).toEqual([
+            {port: 0, protocol: 'tcp'}
+          ]);
+        });
+
+        describe('an empty networking ports member', function () {
+
+          beforeEach(function () {
+            let service = ServiceUtil.createServiceFromFormModel({
+              networking: {
+                networkType: 'host',
+                ports: [{}]
+              }
+            });
+            this.portDefinition = service.portDefinitions[0];
+          });
+
+          it('defaults port number to 0', function () {
+            expect(this.portDefinition.port).toEqual(0);
+          });
+
+          it('defaults protocol to tcp', function () {
+            expect(this.portDefinition.protocol).toEqual('tcp');
+          });
+
+          it('does not include a name by default', function () {
+            expect(Object.keys(this.portDefinition)).not.toContain('name');
+          });
+
+          it('does not include labels by default', function () {
+            expect(Object.keys(this.portDefinition)).not.toContain('labels');
+          });
+
+        });
+
+      });
+
+      describe('host mode (with docker)', function () {
+        beforeEach(function () {
+          this.service = ServiceUtil.createServiceFromFormModel({
+            containerSettings: { image: 'redis' },
+            networking: {
+              networkType: 'host',
+              ports: [{}]
+            }
+          });
+        });
+
+        it('should add a portDefinitions field', function () {
+          expect(this.service.portDefinitions).toBeDefined();
+        });
+
+        it('should not add a portMappings field to the docker definition',function () {
+          expect(this.service.container.docker.portMappings).not.toBeDefined();
+        });
+
+        it('sets the docker network property correctly', function () {
+          expect(this.service.container.docker.network).toEqual('HOST');
+        });
+
+      });
+
+      describe('bridge mode (with docker)', function () {
+
+        beforeEach(function () {
+          this.serviceEmptyPorts = ServiceUtil.createServiceFromFormModel({
+            containerSettings: { image: 'redis' },
+            networking: {
+              networkType: 'bridge',
+              ports: []
+            }
+          });
+        });
+
+        it('should not add a portMappings field if no ports were passed in', function () {
+          expect(Object.keys(this.serviceEmptyPorts.container.docker))
+            .not.toContain('portMappings');
+        });
+
+        it('should not add a portDefinitions field to the app config', function () {
+          expect(Object.keys(this.serviceEmptyPorts))
+            .not.toContain('portDefinitions');
+        });
+
+        it('should convert the supplied string fields', function () {
+          let service = ServiceUtil.createServiceFromFormModel({
+            containerSettings: { image: 'redis' },
+            networking: {
+              networkType: 'bridge',
+              ports: [ { protocol: 'udp', name: 'foo' } ]
+            }
+          });
+          expect(service.container.docker.portMappings).toEqual([
+              {containerPort: 0, protocol: 'udp', name: 'foo'}
+          ]);
+        });
+
+        it('should add the specified containerPort', function () {
+          let service = ServiceUtil.createServiceFromFormModel({
+            containerSettings: { image: 'redis' },
+            networking: {
+              networkType: 'bridge',
+              ports: [ { lbPort: 1234 } ]
+            }
+          });
+          expect(service.container.docker.portMappings[0].containerPort)
+            .toEqual(1234);
+        });
+
+        it('should not add a hostPort when discovery is off', function () {
+          let service = ServiceUtil.createServiceFromFormModel({
+            containerSettings: { image: 'redis' },
+            networking: {
+              networkType: 'bridge',
+              ports: [ { lbPort: 1234 } ]
+            }
+          });
+          expect(Object.keys(service.container.docker.portMappings[0]))
+            .not.toContain('hostPort');
+        });
+
+        it('should add both containerPort and hostPort when discovery is on', function () {
+          let service = ServiceUtil.createServiceFromFormModel({
+            containerSettings: { image: 'redis' },
+            networking: {
+              networkType: 'bridge',
+              ports: [ { lbPort: 1234, discovery: true } ]
+            }
+          });
+          expect(service.container.docker.portMappings).toEqual([
+            {containerPort: 1234, hostPort: 1234, protocol: 'tcp'}
+          ]);
+        });
+
+        it('sets the docker network property correctly', function () {
+          let service = ServiceUtil.createServiceFromFormModel({
+            containerSettings: { image: 'redis' },
+            networking: { networkType: 'bridge' }
+          });
+          expect(service.container.docker.network).toEqual('BRIDGE');
+        });
+
+        describe('an empty networking ports member', function () {
+
+          beforeEach(function () {
+            let service = ServiceUtil.createServiceFromFormModel({
+              containerSettings: { image: 'redis' },
+              networking: {
+                networkType: 'bridge',
+                ports: [{}]
+              }
+            });
+            this.portMapping = service.container.docker.portMappings[0];
+          });
+
+          it('defaults containerPort to 0', function () {
+            expect(this.portMapping.containerPort).toEqual(0);
+          });
+
+          it('defaults protocol to tcp', function () {
+            expect(this.portMapping.protocol).toEqual('tcp');
+          });
+
+          it('does not include a name by default', function () {
+            expect(Object.keys(this.portMapping)).not.toContain('name');
+          });
+
+          it('does not include labels by default', function () {
+            expect(Object.keys(this.portMapping)).not.toContain('labels');
+          });
+
+        });
+
+      });
+
+      describe('user mode', function () {
+        it('sets the docker network property correctly', function () {
+          let service = ServiceUtil.createServiceFromFormModel({
+            containerSettings: { image: 'redis' },
+            networking: { networkType: 'user' }
+          });
+          expect(service.container.docker.network).toEqual('USER');
+        });
+
+        it('adds the networkName field to the service', function () {
+          let service = ServiceUtil.createServiceFromFormModel({
+            containerSettings: { image: 'redis' },
+            networking: { networkType: 'user', ports: [{}] },
+          });
+          expect(service.ipAddress.networkName).toEqual('d-overlay-1');
+        });
+
+        it('should convert the supplied string fields', function () {
+          let service = ServiceUtil.createServiceFromFormModel({
+            containerSettings: { image: 'redis' },
+            networking: {
+              networkType: 'user',
+              ports: [ { protocol: 'udp', name: 'foo' } ]
+            }
+          });
+          expect(service.container.docker.portMappings).toEqual([
+              {containerPort: 0, protocol: 'udp', name: 'foo'}
+          ]);
+        });
+
+        it('should add the specified containerPort', function () {
+          let service = ServiceUtil.createServiceFromFormModel({
+            containerSettings: { image: 'redis' },
+            networking: {
+              networkType: 'user',
+              ports: [ { lbPort: 1234 } ]
+            }
+          });
+          expect(service.container.docker.portMappings[0].containerPort)
+            .toEqual(1234);
+        });
+
+        it('should not add a servicePort when discovery is off', function () {
+          let service = ServiceUtil.createServiceFromFormModel({
+            containerSettings: { image: 'redis' },
+            networking: {
+              networkType: 'user',
+              ports: [ { lbPort: 1234 } ]
+            }
+          });
+          expect(Object.keys(service.container.docker.portMappings[0]))
+            .not.toContain('servicePort');
+        });
+
+        it('should add both containerPort and servicePort when discovery is on', function () {
+          let service = ServiceUtil.createServiceFromFormModel({
+            containerSettings: { image: 'redis' },
+            networking: {
+              networkType: 'user',
+              ports: [ { lbPort: 1234, discovery: true } ]
+            }
+          });
+          expect(service.container.docker.portMappings).toEqual([
+            {containerPort: 1234, servicePort: 1234, protocol: 'tcp'}
+          ]);
+        });
+
+
+        describe('an empty networking ports member', function () {
+
+          beforeEach(function () {
+            let service = ServiceUtil.createServiceFromFormModel({
+              containerSettings: { image: 'redis' },
+              networking: {
+                networkType: 'user',
+                ports: [{}]
+              }
+            });
+            this.portMapping = service.container.docker.portMappings[0];
+          });
+
+          it('defaults containerPort to 0', function () {
+            expect(this.portMapping.containerPort).toEqual(0);
+          });
+
+          it('defaults protocol to tcp', function () {
+            expect(this.portMapping.protocol).toEqual('tcp');
+          });
+
+          it('does not include a name by default', function () {
+            expect(Object.keys(this.portMapping)).not.toContain('name');
+          });
+
+          it('does not include labels by default', function () {
+            expect(Object.keys(this.portMapping)).not.toContain('labels');
+          });
+        });
+
+      });
+
+    });
+
     describe('should return a service with', function() {
       it('local Volumes', function () {
         let model = {
