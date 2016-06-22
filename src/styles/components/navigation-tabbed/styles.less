@@ -44,6 +44,7 @@ navigation-tabbed/styles.less
 
       position: relative;
       display: inline-block;
+      .element-text-size(navigation-tabbed-item, null);
       .element-text-style(navigation-tabbed-item);
       .element-shape-style(navigation-tabbed-item);
       .element-spacing(navigation-tabbed-item, null, null);
@@ -58,6 +59,74 @@ navigation-tabbed/styles.less
       &:before {
 
         display: none;
+
+      }
+
+      a {
+
+        position: relative;
+        .element-text-size(navigation-tabbed-item-link, null);
+        .element-text-style(navigation-tabbed-item-link);
+        .element-shape-style(navigation-tabbed-item-link);
+        .element-spacing(navigation-tabbed-item-link, null, null);
+        .property-variant(navigation-tabbed-item-link, opacity);
+
+        &:after {
+
+          content: '';
+          display: none;
+          width: 100%;
+          height: 2px;
+          position: absolute;
+          bottom: 0px;
+          left: 0px;
+          .property-variant(navigation-tabbed-item-link, background-color, color, null, null);
+
+        }
+
+        &:hover {
+
+          .element-text-style(navigation-tabbed-item-link-hover);
+          .element-shape-style(navigation-tabbed-item-link-hover);
+          .property-variant(navigation-tabbed-item-link-hover, opacity);
+
+          &:after {
+
+            .property-variant(navigation-tabbed-item-link-hover, background-color, color, null, null);
+
+          }
+
+        }
+
+        &:active {
+
+          .element-text-style(navigation-tabbed-item-link-active);
+          .element-shape-style(navigation-tabbed-item-link-active);
+          .property-variant(navigation-tabbed-item-link-active, opacity);
+
+          &:after {
+
+            .property-variant(navigation-tabbed-item-link-active, background-color, color, null, null);
+
+          }
+
+        }
+
+        &.selected,
+        &.active {
+
+          .element-text-style(navigation-tabbed-item-link-selected);
+          .element-shape-style(navigation-tabbed-item-link-selected);
+          .property-variant(navigation-tabbed-item-link-selected, opacity);
+
+          &:after {
+
+            display: block;
+            .property-variant(navigation-tabbed-item-link-selected, background-color, color, null, null);
+
+          }
+
+        }
 
       }
 
@@ -78,6 +147,62 @@ navigation-tabbed/styles.less
         .element-text-style(navigation-tabbed-item-inverse);
         .element-shape-style(navigation-tabbed-item-inverse);
         .property-variant(navigation-tabbed-item-inverse, opacity);
+
+        a {
+
+          .element-text-style(navigation-tabbed-item-link-inverse);
+          .element-shape-style(navigation-tabbed-item-link-inverse);
+          .property-variant(navigation-tabbed-item-link-inverse, opacity);
+
+          &:after {
+
+            .property-variant(navigation-tabbed-item-link-inverse, background-color, color, null, null);
+
+          }
+
+          &:hover {
+
+            .element-text-style(navigation-tabbed-item-link-inverse-hover);
+            .element-shape-style(navigation-tabbed-item-link-inverse-hover);
+            .property-variant(navigation-tabbed-item-link-inverse-hover, opacity);
+
+            &:after {
+
+              .property-variant(navigation-tabbed-item-link-inverse-hover, background-color, color, null, null);
+
+            }
+
+          }
+
+          &:active {
+
+            .element-text-style(navigation-tabbed-item-link-inverse-active);
+            .element-shape-style(navigation-tabbed-item-link-inverse-active);
+            .property-variant(navigation-tabbed-item-link-inverse-active, opacity);
+
+            &:after {
+
+              .property-variant(navigation-tabbed-item-link-inverse-active, background-color, color, null, null);
+
+            }
+
+          }
+
+          &.selected {
+
+            .element-text-style(navigation-tabbed-item-link-inverse-selected);
+            .element-shape-style(navigation-tabbed-item-link-inverse-selected);
+            .property-variant(navigation-tabbed-item-link-inverse-selected, opacity);
+
+            &:after {
+
+              .property-variant(navigation-tabbed-item-link-inverse-selected, background-color, color, null, null);
+
+            }
+
+          }
+
+        }
 
       }
 
@@ -129,7 +254,201 @@ navigation-tabbed/styles.less
 
         li {
 
+          .element-text-size(navigation-tabbed-item, screen-small);
           .element-spacing(navigation-tabbed-item, null, screen-small);
+
+          a {
+
+            .element-text-size(navigation-tabbed-item-link, screen-small);
+            .element-spacing(navigation-tabbed-item-link, null, screen-small);
+
+          }
+
+        }
+
+      }
+
+    }
+
+  }
+
+}
+
+
+
+& when (@layout-screen-medium-enabled) {
+
+  /* -----------------------------------------------------------------------------
+  Screen Size: Small (@layout-screen-medium-min-width) and wider
+  ----------------------------------------------------------------------------- */
+
+  @media (min-width: @layout-screen-medium-min-width) {
+
+    & when (@navigation-tabbed-enabled) and (@navigation-tabbed-screen-medium-enabled) {
+
+      /* -----------------------------------------------------------------------------
+      Navigation Tabbed
+      ----------------------------------------------------------------------------- */
+
+      .navigation-tabbed {
+
+        .element-spacing(navigation-tabbed, null, screen-medium);
+
+        /* -----------------------------------------------------------------------------
+        Layout Variants
+        ----------------------------------------------------------------------------- */
+
+        &.short {
+
+          .element-spacing(navigation-tabbed, short, screen-medium);
+
+        }
+
+        &.tall {
+
+          .element-spacing(navigation-tabbed, tall, screen-medium);
+
+        }
+
+        /* -----------------------------------------------------------------------------
+        Navigation Tabbed Item
+        ----------------------------------------------------------------------------- */
+
+        li {
+
+          .element-text-size(navigation-tabbed-item, screen-medium);
+          .element-spacing(navigation-tabbed-item, null, screen-medium);
+
+          a {
+
+            .element-text-size(navigation-tabbed-item-link, screen-medium);
+            .element-spacing(navigation-tabbed-item-link, null, screen-medium);
+
+          }
+
+        }
+
+      }
+
+    }
+
+  }
+
+}
+
+
+
+& when (@layout-screen-large-enabled) {
+
+  /* -----------------------------------------------------------------------------
+  Screen Size: Small (@layout-screen-large-min-width) and wider
+  ----------------------------------------------------------------------------- */
+
+  @media (min-width: @layout-screen-large-min-width) {
+
+    & when (@navigation-tabbed-enabled) and (@navigation-tabbed-screen-large-enabled) {
+
+      /* -----------------------------------------------------------------------------
+      Navigation Tabbed
+      ----------------------------------------------------------------------------- */
+
+      .navigation-tabbed {
+
+        .element-spacing(navigation-tabbed, null, screen-large);
+
+        /* -----------------------------------------------------------------------------
+        Layout Variants
+        ----------------------------------------------------------------------------- */
+
+        &.short {
+
+          .element-spacing(navigation-tabbed, short, screen-large);
+
+        }
+
+        &.tall {
+
+          .element-spacing(navigation-tabbed, tall, screen-large);
+
+        }
+
+        /* -----------------------------------------------------------------------------
+        Navigation Tabbed Item
+        ----------------------------------------------------------------------------- */
+
+        li {
+
+          .element-text-size(navigation-tabbed-item, screen-large);
+          .element-spacing(navigation-tabbed-item, null, screen-large);
+
+          a {
+
+            .element-text-size(navigation-tabbed-item-link, screen-large);
+            .element-spacing(navigation-tabbed-item-link, null, screen-large);
+
+          }
+
+        }
+
+      }
+
+    }
+
+  }
+
+}
+
+
+
+& when (@layout-screen-jumbo-enabled) {
+
+  /* -----------------------------------------------------------------------------
+  Screen Size: Small (@layout-screen-jumbo-min-width) and wider
+  ----------------------------------------------------------------------------- */
+
+  @media (min-width: @layout-screen-jumbo-min-width) {
+
+    & when (@navigation-tabbed-enabled) and (@navigation-tabbed-screen-jumbo-enabled) {
+
+      /* -----------------------------------------------------------------------------
+      Navigation Tabbed
+      ----------------------------------------------------------------------------- */
+
+      .navigation-tabbed {
+
+        .element-spacing(navigation-tabbed, null, screen-jumbo);
+
+        /* -----------------------------------------------------------------------------
+        Layout Variants
+        ----------------------------------------------------------------------------- */
+
+        &.short {
+
+          .element-spacing(navigation-tabbed, short, screen-jumbo);
+
+        }
+
+        &.tall {
+
+          .element-spacing(navigation-tabbed, tall, screen-jumbo);
+
+        }
+
+        /* -----------------------------------------------------------------------------
+        Navigation Tabbed Item
+        ----------------------------------------------------------------------------- */
+
+        li {
+
+          .element-text-size(navigation-tabbed-item, screen-jumbo);
+          .element-spacing(navigation-tabbed-item, null, screen-jumbo);
+
+          a {
+
+            .element-text-size(navigation-tabbed-item-link, screen-jumbo);
+            .element-spacing(navigation-tabbed-item-link, null, screen-jumbo);
+
+          }
 
         }
 
