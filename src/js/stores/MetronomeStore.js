@@ -1,44 +1,44 @@
 import {EventEmitter} from 'events';
 
 import AppDispatcher from '../events/AppDispatcher';
-import ChronosActions  from '../events/ChronosActions';
+import MetronomeActions  from '../events/MetronomeActions';
 import {
-  CHRONOS_JOB_CREATE_ERROR,
-  CHRONOS_JOB_CREATE_SUCCESS,
-  CHRONOS_JOB_DELETE_ERROR,
-  CHRONOS_JOB_DELETE_SUCCESS,
-  CHRONOS_JOB_DETAIL_CHANGE,
-  CHRONOS_JOB_DETAIL_ERROR,
-  CHRONOS_JOB_UPDATE_ERROR,
-  CHRONOS_JOB_UPDATE_SUCCESS,
-  CHRONOS_JOB_RUN_ERROR,
-  CHRONOS_JOB_RUN_SUCCESS,
-  CHRONOS_JOB_SUSPEND_ERROR,
-  CHRONOS_JOB_SUSPEND_SUCCESS,
-  CHRONOS_JOBS_CHANGE,
-  CHRONOS_JOBS_ERROR,
+  METRONOME_JOB_CREATE_ERROR,
+  METRONOME_JOB_CREATE_SUCCESS,
+  METRONOME_JOB_DELETE_ERROR,
+  METRONOME_JOB_DELETE_SUCCESS,
+  METRONOME_JOB_DETAIL_CHANGE,
+  METRONOME_JOB_DETAIL_ERROR,
+  METRONOME_JOB_UPDATE_ERROR,
+  METRONOME_JOB_UPDATE_SUCCESS,
+  METRONOME_JOB_RUN_ERROR,
+  METRONOME_JOB_RUN_SUCCESS,
+  METRONOME_JOB_SUSPEND_ERROR,
+  METRONOME_JOB_SUSPEND_SUCCESS,
+  METRONOME_JOBS_CHANGE,
+  METRONOME_JOBS_ERROR,
   VISIBILITY_CHANGE
 } from '../constants/EventTypes';
 import Config from '../config/Config';
 import Job from '../structs/Job';
 import JobTree from '../structs/JobTree';
 import {
-  REQUEST_CHRONOS_JOB_CREATE_ERROR,
-  REQUEST_CHRONOS_JOB_CREATE_SUCCESS,
-  REQUEST_CHRONOS_JOB_DELETE_ERROR,
-  REQUEST_CHRONOS_JOB_DELETE_SUCCESS,
-  REQUEST_CHRONOS_JOB_DETAIL_ERROR,
-  REQUEST_CHRONOS_JOB_DETAIL_ONGOING,
-  REQUEST_CHRONOS_JOB_DETAIL_SUCCESS,
-  REQUEST_CHRONOS_JOB_UPDATE_ERROR,
-  REQUEST_CHRONOS_JOB_UPDATE_SUCCESS,
-  REQUEST_CHRONOS_JOB_RUN_ERROR,
-  REQUEST_CHRONOS_JOB_RUN_SUCCESS,
-  REQUEST_CHRONOS_JOB_SUSPEND_ERROR,
-  REQUEST_CHRONOS_JOB_SUSPEND_SUCCESS,
-  REQUEST_CHRONOS_JOBS_ERROR,
-  REQUEST_CHRONOS_JOBS_ONGOING,
-  REQUEST_CHRONOS_JOBS_SUCCESS,
+  REQUEST_METRONOME_JOB_CREATE_ERROR,
+  REQUEST_METRONOME_JOB_CREATE_SUCCESS,
+  REQUEST_METRONOME_JOB_DELETE_ERROR,
+  REQUEST_METRONOME_JOB_DELETE_SUCCESS,
+  REQUEST_METRONOME_JOB_DETAIL_ERROR,
+  REQUEST_METRONOME_JOB_DETAIL_ONGOING,
+  REQUEST_METRONOME_JOB_DETAIL_SUCCESS,
+  REQUEST_METRONOME_JOB_UPDATE_ERROR,
+  REQUEST_METRONOME_JOB_UPDATE_SUCCESS,
+  REQUEST_METRONOME_JOB_RUN_ERROR,
+  REQUEST_METRONOME_JOB_RUN_SUCCESS,
+  REQUEST_METRONOME_JOB_SUSPEND_ERROR,
+  REQUEST_METRONOME_JOB_SUSPEND_SUCCESS,
+  REQUEST_METRONOME_JOBS_ERROR,
+  REQUEST_METRONOME_JOBS_ONGOING,
+  REQUEST_METRONOME_JOBS_SUCCESS,
   SERVER_ACTION
 } from '../constants/ActionTypes';
 
@@ -56,9 +56,9 @@ function pauseJobDetailMonitors() {
 
 function startPolling() {
   if (!requestInterval) {
-    ChronosActions.fetchJobs();
+    MetronomeActions.fetchJobs();
     requestInterval = global.setInterval(
-      ChronosActions.fetchJobs,
+      MetronomeActions.fetchJobs,
       Config.getRefreshRate()
     );
   }
@@ -71,7 +71,7 @@ function stopPolling() {
   }
 }
 
-class ChronosStore extends EventEmitter {
+class MetronomeStore extends EventEmitter {
   constructor() {
     super(...arguments);
 
@@ -86,53 +86,53 @@ class ChronosStore extends EventEmitter {
         return false;
       }
       switch (action.type) {
-        case REQUEST_CHRONOS_JOB_CREATE_SUCCESS:
-          this.emit(CHRONOS_JOB_CREATE_SUCCESS);
+        case REQUEST_METRONOME_JOB_CREATE_SUCCESS:
+          this.emit(METRONOME_JOB_CREATE_SUCCESS);
           break;
-        case REQUEST_CHRONOS_JOB_CREATE_ERROR:
-          this.emit(CHRONOS_JOB_CREATE_ERROR, action.data);
+        case REQUEST_METRONOME_JOB_CREATE_ERROR:
+          this.emit(METRONOME_JOB_CREATE_ERROR, action.data);
           break;
-        case REQUEST_CHRONOS_JOB_DELETE_ERROR:
-          this.emit(CHRONOS_JOB_DELETE_ERROR, action.jobID);
+        case REQUEST_METRONOME_JOB_DELETE_ERROR:
+          this.emit(METRONOME_JOB_DELETE_ERROR, action.jobID);
           break;
-        case REQUEST_CHRONOS_JOB_DELETE_SUCCESS:
-          this.emit(CHRONOS_JOB_DELETE_SUCCESS, action.jobID);
+        case REQUEST_METRONOME_JOB_DELETE_SUCCESS:
+          this.emit(METRONOME_JOB_DELETE_SUCCESS, action.jobID);
           break;
-        case REQUEST_CHRONOS_JOB_DETAIL_SUCCESS:
+        case REQUEST_METRONOME_JOB_DETAIL_SUCCESS:
           this.data.jobDetail[action.jobID] = action.data;
-          this.emit(CHRONOS_JOB_DETAIL_CHANGE);
+          this.emit(METRONOME_JOB_DETAIL_CHANGE);
           break;
-        case REQUEST_CHRONOS_JOB_DETAIL_ONGOING:
+        case REQUEST_METRONOME_JOB_DETAIL_ONGOING:
           break;
-        case REQUEST_CHRONOS_JOB_DETAIL_ERROR:
-          this.emit(CHRONOS_JOB_DETAIL_ERROR);
+        case REQUEST_METRONOME_JOB_DETAIL_ERROR:
+          this.emit(METRONOME_JOB_DETAIL_ERROR);
           break;
-        case REQUEST_CHRONOS_JOB_UPDATE_SUCCESS:
-          this.emit(CHRONOS_JOB_UPDATE_SUCCESS);
+        case REQUEST_METRONOME_JOB_UPDATE_SUCCESS:
+          this.emit(METRONOME_JOB_UPDATE_SUCCESS);
           break;
-        case REQUEST_CHRONOS_JOB_UPDATE_ERROR:
-          this.emit(CHRONOS_JOB_UPDATE_ERROR, action.data);
+        case REQUEST_METRONOME_JOB_UPDATE_ERROR:
+          this.emit(METRONOME_JOB_UPDATE_ERROR, action.data);
           break;
-        case REQUEST_CHRONOS_JOB_RUN_ERROR:
-          this.emit(CHRONOS_JOB_RUN_ERROR, action.jobID);
+        case REQUEST_METRONOME_JOB_RUN_ERROR:
+          this.emit(METRONOME_JOB_RUN_ERROR, action.jobID);
           break;
-        case REQUEST_CHRONOS_JOB_RUN_SUCCESS:
-          this.emit(CHRONOS_JOB_RUN_SUCCESS, action.jobID);
+        case REQUEST_METRONOME_JOB_RUN_SUCCESS:
+          this.emit(METRONOME_JOB_RUN_SUCCESS, action.jobID);
           break;
-        case REQUEST_CHRONOS_JOB_SUSPEND_ERROR:
-          this.emit(CHRONOS_JOB_SUSPEND_ERROR, action.jobID);
+        case REQUEST_METRONOME_JOB_SUSPEND_ERROR:
+          this.emit(METRONOME_JOB_SUSPEND_ERROR, action.jobID);
           break;
-        case REQUEST_CHRONOS_JOB_SUSPEND_SUCCESS:
-          this.emit(CHRONOS_JOB_SUSPEND_SUCCESS, action.jobID);
+        case REQUEST_METRONOME_JOB_SUSPEND_SUCCESS:
+          this.emit(METRONOME_JOB_SUSPEND_SUCCESS, action.jobID);
           break;
-        case REQUEST_CHRONOS_JOBS_SUCCESS:
+        case REQUEST_METRONOME_JOBS_SUCCESS:
           this.data.jobTree = action.data;
-          this.emit(CHRONOS_JOBS_CHANGE);
+          this.emit(METRONOME_JOBS_CHANGE);
           break;
-        case REQUEST_CHRONOS_JOBS_ONGOING:
+        case REQUEST_METRONOME_JOBS_ONGOING:
           break;
-        case REQUEST_CHRONOS_JOBS_ERROR:
-          this.emit(CHRONOS_JOBS_ERROR);
+        case REQUEST_METRONOME_JOBS_ERROR:
+          this.emit(METRONOME_JOBS_ERROR);
           break;
 
       }
@@ -147,29 +147,29 @@ class ChronosStore extends EventEmitter {
   }
 
   createJob(job) {
-    ChronosActions.createJob(job);
+    MetronomeActions.createJob(job);
   }
 
   deleteJob(jobID, stopCurrentJobRuns) {
-    ChronosActions.deleteJob(jobID, stopCurrentJobRuns);
+    MetronomeActions.deleteJob(jobID, stopCurrentJobRuns);
   }
 
   fetchJobDetail(jobID) {
-    ChronosActions.fetchJobDetail(jobID);
+    MetronomeActions.fetchJobDetail(jobID);
   }
 
   updateJob(jobId, job) {
-    ChronosActions.updateJob(jobId, job);
+    MetronomeActions.updateJob(jobId, job);
   }
 
   runJob(jobID) {
-    ChronosActions.runJob(jobID);
+    MetronomeActions.runJob(jobID);
   }
 
   suspendSchedule(jobID) {
     let schedule = this.getJob(jobID).schedules[0];
     schedule.enabled = false;
-    ChronosActions.suspendSchedule(jobID, schedule);
+    MetronomeActions.suspendSchedule(jobID, schedule);
   }
 
   addChangeListener(eventName, callback) {
@@ -231,7 +231,7 @@ class ChronosStore extends EventEmitter {
   }
 
   shouldPoll() {
-    return !!this.listeners(CHRONOS_JOBS_CHANGE).length;
+    return !!this.listeners(METRONOME_JOBS_CHANGE).length;
   }
 
   stopJobDetailMonitor(jobID) {
@@ -255,8 +255,8 @@ class ChronosStore extends EventEmitter {
   }
 
   get storeID() {
-    return 'chronos';
+    return 'metronome';
   }
 }
 
-module.exports = new ChronosStore();
+module.exports = new MetronomeStore();

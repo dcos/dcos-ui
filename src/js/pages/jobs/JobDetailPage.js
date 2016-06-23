@@ -6,7 +6,7 @@ import React from 'react';
 /* eslint-enable no-unused-vars */
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
-import ChronosStore from '../../stores/ChronosStore';
+import MetronomeStore from '../../stores/MetronomeStore';
 import DateUtil from '../../utils/DateUtil';
 import JobConfiguration from './JobConfiguration';
 import JobFormModal from '../../components/modals/JobFormModal';
@@ -21,8 +21,8 @@ const METHODS_TO_BIND = [
   'handleEditButtonClick',
   'handleMoreDropdownSelection',
   'handleRunNowButtonClick',
-  'onChronosStoreJobDetailError',
-  'onChronosStoreJobDetailChange'
+  'onMetronomeStoreJobDetailError',
+  'onMetronomeStoreJobDetailChange'
 ];
 
 class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
@@ -30,7 +30,7 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
     super(...arguments);
 
     this.store_listeners = [{
-      name: 'chronos',
+      name: 'metronome',
       events: [
         'jobDetailChange',
         'jobDetailError',
@@ -60,14 +60,14 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
 
   componentDidMount() {
     super.componentDidMount(...arguments);
-    ChronosStore.monitorJobDetail(this.props.params.id);
+    MetronomeStore.monitorJobDetail(this.props.params.id);
   }
 
-  onChronosStoreJobDetailError() {
+  onMetronomeStoreJobDetailError() {
     this.setState({errorCount: this.state.errorCount + 1});
   }
 
-  onChronosStoreJobDetailChange() {
+  onMetronomeStoreJobDetailChange() {
     this.setState({errorCount: 0, isLoading: false});
   }
 
@@ -80,20 +80,20 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
   }
 
   handleRunNowButtonClick() {
-    let job = ChronosStore.getJob(this.props.params.id);
+    let job = MetronomeStore.getJob(this.props.params.id);
 
-    ChronosStore.runJob(job.getId());
+    MetronomeStore.runJob(job.getId());
   }
 
   handleMoreDropdownSelection(selection) {
-    let job = ChronosStore.getJob(this.props.params.id);
+    let job = MetronomeStore.getJob(this.props.params.id);
 
     if (selection.id === 'suspend') {
-      ChronosStore.suspendSchedule(job.getId());
+      MetronomeStore.suspendSchedule(job.getId());
     }
 
     if (selection.id === 'destroy') {
-      ChronosStore.deleteJob(job.getId());
+      MetronomeStore.deleteJob(job.getId());
     }
   }
 
@@ -232,7 +232,7 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
       return this.getLoadingScreen();
     }
 
-    let job = ChronosStore.getJob(this.props.params.id);
+    let job = MetronomeStore.getJob(this.props.params.id);
 
     return (
       <div>

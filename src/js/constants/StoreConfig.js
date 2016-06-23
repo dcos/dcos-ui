@@ -5,19 +5,6 @@ import {
   AUTH_USER_LOGOUT_SUCCESS,
   AUTH_USER_LOGOUT_ERROR,
 
-  CHRONOS_JOB_CREATE_SUCCESS,
-  CHRONOS_JOB_CREATE_ERROR,
-  CHRONOS_JOB_DETAIL_CHANGE,
-  CHRONOS_JOB_DETAIL_ERROR,
-  CHRONOS_JOB_UPDATE_SUCCESS,
-  CHRONOS_JOB_UPDATE_ERROR,
-  CHRONOS_JOB_RUN_ERROR,
-  CHRONOS_JOB_RUN_SUCCESS,
-  CHRONOS_JOB_SUSPEND_ERROR,
-  CHRONOS_JOB_SUSPEND_SUCCESS,
-  CHRONOS_JOBS_CHANGE,
-  CHRONOS_JOBS_ERROR,
-
   CONFIG_LOADED,
   CONFIG_ERROR,
 
@@ -58,11 +45,6 @@ import {
 
   HISTORY_CHANGE,
 
-  MESOS_SUMMARY_CHANGE,
-  MESOS_SUMMARY_REQUEST_ERROR,
-  MESOS_STATE_CHANGE,
-  MESOS_STATE_REQUEST_ERROR,
-
   MARATHON_GROUP_CREATE_ERROR,
   MARATHON_GROUP_CREATE_SUCCESS,
   MARATHON_APPS_CHANGE,
@@ -79,6 +61,24 @@ import {
   MARATHON_SERVICE_EDIT_SUCCESS,
 
   METADATA_CHANGE,
+
+  METRONOME_JOB_CREATE_SUCCESS,
+  METRONOME_JOB_CREATE_ERROR,
+  METRONOME_JOB_DETAIL_CHANGE,
+  METRONOME_JOB_DETAIL_ERROR,
+  METRONOME_JOB_UPDATE_SUCCESS,
+  METRONOME_JOB_UPDATE_ERROR,
+  METRONOME_JOB_RUN_ERROR,
+  METRONOME_JOB_RUN_SUCCESS,
+  METRONOME_JOB_SUSPEND_ERROR,
+  METRONOME_JOB_SUSPEND_SUCCESS,
+  METRONOME_JOBS_CHANGE,
+  METRONOME_JOBS_ERROR,
+
+  MESOS_SUMMARY_CHANGE,
+  MESOS_SUMMARY_REQUEST_ERROR,
+  MESOS_STATE_CHANGE,
+  MESOS_STATE_REQUEST_ERROR,
 
   NOTIFICATION_CHANGE,
 
@@ -107,7 +107,7 @@ import {
   VISIBILITY_CHANGE
 } from './EventTypes';
 import AuthStore from '../stores/AuthStore';
-import ChronosStore from '../stores/ChronosStore';
+import MetronomeStore from '../stores/MetronomeStore';
 import ConfigStore from '../stores/ConfigStore';
 import DCOSStore from '../stores/DCOSStore';
 import HistoryStore from '../stores/HistoryStore';
@@ -134,28 +134,6 @@ const ListenersDescription = {
       error: AUTH_USER_LOGIN_ERROR,
       logoutSuccess: AUTH_USER_LOGOUT_SUCCESS,
       logoutError: AUTH_USER_LOGOUT_ERROR
-    },
-    unmountWhen: function () {
-      return true;
-    },
-    listenAlways: true
-  },
-
-  chronos: {
-    store: ChronosStore,
-    events: {
-      jobCreateSuccess: CHRONOS_JOB_CREATE_SUCCESS,
-      jobCreateError: CHRONOS_JOB_CREATE_ERROR,
-      jobDetailChange: CHRONOS_JOB_DETAIL_CHANGE,
-      jobDetailError: CHRONOS_JOB_DETAIL_ERROR,
-      jobUpdateSuccess: CHRONOS_JOB_UPDATE_SUCCESS,
-      jobUpdateError: CHRONOS_JOB_UPDATE_ERROR,
-      jobRunError: CHRONOS_JOB_RUN_ERROR,
-      jobRunSuccess: CHRONOS_JOB_RUN_SUCCESS,
-      jobSuspendError: CHRONOS_JOB_SUSPEND_ERROR,
-      jobSuspendSuccess: CHRONOS_JOB_SUSPEND_SUCCESS,
-      change: CHRONOS_JOBS_CHANGE,
-      error: CHRONOS_JOBS_ERROR
     },
     unmountWhen: function () {
       return true;
@@ -339,6 +317,28 @@ const ListenersDescription = {
     events: {
       success: METADATA_CHANGE,
       dcosSuccess: DCOS_METADATA_CHANGE
+    },
+    unmountWhen: function () {
+      return true;
+    },
+    listenAlways: true
+  },
+
+  metronome: {
+    store: MetronomeStore,
+    events: {
+      jobCreateSuccess: METRONOME_JOB_CREATE_SUCCESS,
+      jobCreateError: METRONOME_JOB_CREATE_ERROR,
+      jobDetailChange: METRONOME_JOB_DETAIL_CHANGE,
+      jobDetailError: METRONOME_JOB_DETAIL_ERROR,
+      jobUpdateSuccess: METRONOME_JOB_UPDATE_SUCCESS,
+      jobUpdateError: METRONOME_JOB_UPDATE_ERROR,
+      jobRunError: METRONOME_JOB_RUN_ERROR,
+      jobRunSuccess: METRONOME_JOB_RUN_SUCCESS,
+      jobSuspendError: METRONOME_JOB_SUSPEND_ERROR,
+      jobSuspendSuccess: METRONOME_JOB_SUSPEND_SUCCESS,
+      change: METRONOME_JOBS_CHANGE,
+      error: METRONOME_JOBS_ERROR
     },
     unmountWhen: function () {
       return true;

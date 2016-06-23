@@ -8,7 +8,7 @@ import 'brace/mode/json';
 import 'brace/theme/monokai';
 import 'brace/ext/language_tools';
 
-import ChronosStore from '../../stores/ChronosStore';
+import MetronomeStore from '../../stores/MetronomeStore';
 import Job from '../../structs/Job';
 import JobForm from '../JobForm';
 import JobUtil from '../../utils/JobUtil';
@@ -21,10 +21,10 @@ const METHODS_TO_BIND = [
   'handleJSONEditorChange',
   'handleInputModeToggle',
   'handleSubmit',
-  'onChronosStoreJobCreateSuccess',
-  'onChronosStoreJobCreateError',
-  'onChronosStoreJobUpdateSuccess',
-  'onChronosStoreJobUpdateError'
+  'onMetronomeStoreJobCreateSuccess',
+  'onMetronomeStoreJobCreateError',
+  'onMetronomeStoreJobUpdateSuccess',
+  'onMetronomeStoreJobUpdateError'
 ];
 
 class JobFormModal extends mixin(StoreMixin) {
@@ -39,7 +39,7 @@ class JobFormModal extends mixin(StoreMixin) {
 
     this.store_listeners = [
       {
-        name: 'chronos',
+        name: 'metronome',
         events: [
           'jobCreateSuccess',
           'jobCreateError',
@@ -71,23 +71,23 @@ class JobFormModal extends mixin(StoreMixin) {
     );
   }
 
-  onChronosStoreJobCreateSuccess() {
+  onMetronomeStoreJobCreateSuccess() {
     this.resetState();
     this.props.onClose();
   }
 
-  onChronosStoreJobCreateError(errorMessage) {
+  onMetronomeStoreJobCreateError(errorMessage) {
     this.setState({
       errorMessage
     });
   }
 
-  onChronosStoreJobUpdateSuccess() {
+  onMetronomeStoreJobUpdateSuccess() {
     this.resetState();
     this.props.onClose();
   }
 
-  onChronosStoreJobUpdateError(errorMessage) {
+  onMetronomeStoreJobUpdateError(errorMessage) {
     this.setState({
       errorMessage
     });
@@ -134,9 +134,9 @@ class JobFormModal extends mixin(StoreMixin) {
     let jobSpec = JobUtil.createJobSpecFromJob(this.state.job);
 
     if (!isEdit) {
-      ChronosStore.createJob(jobSpec);
+      MetronomeStore.createJob(jobSpec);
     } else {
-      ChronosStore.updateJob(job.getId(), jobSpec);
+      MetronomeStore.updateJob(job.getId(), jobSpec);
     }
   }
 

@@ -8,15 +8,15 @@ import {RequestUtil} from 'mesosphere-shared-reactjs';
 var ActionTypes = require('../../constants/ActionTypes');
 var AppDispatcher = require('../AppDispatcher');
 var Config = require('../../config/Config');
-var ChronosActions = require('../ChronosActions');
+var MetronomeActions = require('../MetronomeActions');
 
-describe('ChronosActions', function () {
+describe('MetronomeActions', function () {
 
   describe('#createJob', function () {
 
     beforeEach(function () {
       spyOn(RequestUtil, 'json');
-      ChronosActions.createJob();
+      MetronomeActions.createJob();
       this.configuration = RequestUtil.json.calls.mostRecent().args[0];
     });
 
@@ -26,7 +26,7 @@ describe('ChronosActions', function () {
 
     it('sends data to the correct URL', function () {
       expect(this.configuration.url)
-        .toEqual(`${Config.rootUrl}/chronos/v0/scheduled-jobs`);
+        .toEqual(`${Config.rootUrl}/metronome/v0/scheduled-jobs`);
     });
 
     it('dispatches the correct action when successful', function () {
@@ -34,7 +34,7 @@ describe('ChronosActions', function () {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type)
-          .toEqual(ActionTypes.REQUEST_CHRONOS_JOB_CREATE_SUCCESS);
+          .toEqual(ActionTypes.REQUEST_METRONOME_JOB_CREATE_SUCCESS);
       });
 
       this.configuration.success([]);
@@ -45,7 +45,7 @@ describe('ChronosActions', function () {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type)
-          .toEqual(ActionTypes.REQUEST_CHRONOS_JOB_CREATE_ERROR);
+          .toEqual(ActionTypes.REQUEST_METRONOME_JOB_CREATE_ERROR);
       });
 
       this.configuration.error({message: 'error'});
@@ -57,7 +57,7 @@ describe('ChronosActions', function () {
 
     beforeEach(function () {
       spyOn(RequestUtil, 'json');
-      ChronosActions.fetchJobs();
+      MetronomeActions.fetchJobs();
       this.configuration = RequestUtil.json.calls.mostRecent().args[0];
     });
 
@@ -67,14 +67,14 @@ describe('ChronosActions', function () {
 
     it('fetches data from the correct URL', function () {
       expect(this.configuration.url)
-        .toEqual(`${Config.rootUrl}/chronos/v1/jobs`);
+        .toEqual(`${Config.rootUrl}/metronome/v1/jobs`);
     });
 
     it('dispatches the correct action when successful', function () {
       var id = AppDispatcher.register(function (payload) {
         var action = payload.action;
         AppDispatcher.unregister(id);
-        expect(action.type).toEqual(ActionTypes.REQUEST_CHRONOS_JOBS_SUCCESS);
+        expect(action.type).toEqual(ActionTypes.REQUEST_METRONOME_JOBS_SUCCESS);
       });
 
       this.configuration.success([]);
@@ -84,7 +84,7 @@ describe('ChronosActions', function () {
       var id = AppDispatcher.register(function (payload) {
         var action = payload.action;
         AppDispatcher.unregister(id);
-        expect(action.type).toEqual(ActionTypes.REQUEST_CHRONOS_JOBS_ERROR);
+        expect(action.type).toEqual(ActionTypes.REQUEST_METRONOME_JOBS_ERROR);
       });
 
       this.configuration.error({message: 'error'});
@@ -96,7 +96,7 @@ describe('ChronosActions', function () {
 
     beforeEach(function () {
       spyOn(RequestUtil, 'json');
-      ChronosActions.fetchJobDetail('foo');
+      MetronomeActions.fetchJobDetail('foo');
       this.configuration = RequestUtil.json.calls.mostRecent().args[0];
     });
 
@@ -106,7 +106,7 @@ describe('ChronosActions', function () {
 
     it('fetches data from the correct URL', function () {
       expect(this.configuration.url)
-        .toEqual(`${Config.rootUrl}/chronos/v1/jobs/foo`);
+        .toEqual(`${Config.rootUrl}/metronome/v1/jobs/foo`);
     });
 
     it('dispatches the correct action when successful', function () {
@@ -115,7 +115,7 @@ describe('ChronosActions', function () {
         AppDispatcher.unregister(id);
 
         expect(action.type)
-          .toEqual(ActionTypes.REQUEST_CHRONOS_JOB_DETAIL_SUCCESS);
+          .toEqual(ActionTypes.REQUEST_METRONOME_JOB_DETAIL_SUCCESS);
         expect(action.jobID).toEqual('foo');
       });
 
@@ -128,7 +128,7 @@ describe('ChronosActions', function () {
         AppDispatcher.unregister(id);
 
         expect(action.type)
-          .toEqual(ActionTypes.REQUEST_CHRONOS_JOB_DETAIL_ERROR);
+          .toEqual(ActionTypes.REQUEST_METRONOME_JOB_DETAIL_ERROR);
         expect(action.jobID).toEqual('foo');
       });
 
@@ -141,7 +141,7 @@ describe('ChronosActions', function () {
 
     beforeEach(function () {
       spyOn(RequestUtil, 'json');
-      ChronosActions.deleteJob('foo');
+      MetronomeActions.deleteJob('foo');
       this.configuration = RequestUtil.json.calls.mostRecent().args[0];
     });
 
@@ -151,7 +151,7 @@ describe('ChronosActions', function () {
 
     it('fetches data from the correct URL', function () {
       expect(this.configuration.url).toEqual(
-          `${Config.rootUrl}/chronos/v1/jobs/foo?stopCurrentJobRuns=false`
+          `${Config.rootUrl}/metronome/v1/jobs/foo?stopCurrentJobRuns=false`
       );
     });
 
@@ -165,7 +165,7 @@ describe('ChronosActions', function () {
         AppDispatcher.unregister(id);
 
         expect(action.type)
-          .toEqual(ActionTypes.REQUEST_CHRONOS_JOB_DELETE_SUCCESS);
+          .toEqual(ActionTypes.REQUEST_METRONOME_JOB_DELETE_SUCCESS);
         expect(action.jobID).toEqual('foo');
       });
 
@@ -178,7 +178,7 @@ describe('ChronosActions', function () {
         AppDispatcher.unregister(id);
 
         expect(action.type)
-          .toEqual(ActionTypes.REQUEST_CHRONOS_JOB_DELETE_ERROR);
+          .toEqual(ActionTypes.REQUEST_METRONOME_JOB_DELETE_ERROR);
         expect(action.jobID).toEqual('foo');
       });
 
@@ -191,7 +191,7 @@ describe('ChronosActions', function () {
 
     beforeEach(function () {
       spyOn(RequestUtil, 'json');
-      ChronosActions.updateJob('foo', {id: 'foo', labels: {foo: 'bar'}});
+      MetronomeActions.updateJob('foo', {id: 'foo', labels: {foo: 'bar'}});
       this.configuration = RequestUtil.json.calls.mostRecent().args[0];
     });
 
@@ -201,7 +201,7 @@ describe('ChronosActions', function () {
 
     it('sends data to the correct URL', function () {
       expect(this.configuration.url)
-        .toEqual(`${Config.rootUrl}/chronos/v0/scheduled-jobs/foo`);
+        .toEqual(`${Config.rootUrl}/metronome/v0/scheduled-jobs/foo`);
     });
 
     it('dispatches the correct action when successful', function () {
@@ -209,7 +209,7 @@ describe('ChronosActions', function () {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type)
-          .toEqual(ActionTypes.REQUEST_CHRONOS_JOB_UPDATE_SUCCESS);
+          .toEqual(ActionTypes.REQUEST_METRONOME_JOB_UPDATE_SUCCESS);
       });
 
       this.configuration.success([]);
@@ -220,7 +220,7 @@ describe('ChronosActions', function () {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type)
-          .toEqual(ActionTypes.REQUEST_CHRONOS_JOB_UPDATE_ERROR);
+          .toEqual(ActionTypes.REQUEST_METRONOME_JOB_UPDATE_ERROR);
       });
 
       this.configuration.error({message: 'error'});
@@ -232,7 +232,7 @@ describe('ChronosActions', function () {
 
     beforeEach(function () {
       spyOn(RequestUtil, 'json');
-      ChronosActions.runJob('foo');
+      MetronomeActions.runJob('foo');
       this.configuration = RequestUtil.json.calls.mostRecent().args[0];
     });
 
@@ -242,7 +242,7 @@ describe('ChronosActions', function () {
 
     it('POSTs data to the correct URL', function () {
       expect(this.configuration.url)
-        .toEqual(`${Config.rootUrl}/chronos/v1/jobs/foo/runs`);
+        .toEqual(`${Config.rootUrl}/metronome/v1/jobs/foo/runs`);
     });
 
     it('POSTs data with the correct method', function () {
@@ -259,7 +259,7 @@ describe('ChronosActions', function () {
         AppDispatcher.unregister(id);
 
         expect(action.type)
-          .toEqual(ActionTypes.REQUEST_CHRONOS_JOB_RUN_SUCCESS);
+          .toEqual(ActionTypes.REQUEST_METRONOME_JOB_RUN_SUCCESS);
       });
 
       this.configuration.success([]);
@@ -271,7 +271,7 @@ describe('ChronosActions', function () {
         AppDispatcher.unregister(id);
 
         expect(action.type)
-          .toEqual(ActionTypes.REQUEST_CHRONOS_JOB_RUN_ERROR);
+          .toEqual(ActionTypes.REQUEST_METRONOME_JOB_RUN_ERROR);
       });
 
       this.configuration.error({message: 'error'});
@@ -283,7 +283,7 @@ describe('ChronosActions', function () {
 
     beforeEach(function () {
       spyOn(RequestUtil, 'json');
-      ChronosActions.suspendSchedule('foo', {id: 'bar'});
+      MetronomeActions.suspendSchedule('foo', {id: 'bar'});
       this.configuration = RequestUtil.json.calls.mostRecent().args[0];
     });
 
@@ -293,7 +293,7 @@ describe('ChronosActions', function () {
 
     it('PUTs data to the correct URL', function () {
       expect(this.configuration.url)
-        .toEqual(`${Config.rootUrl}/chronos/v1/jobs/foo/schedules/bar`);
+        .toEqual(`${Config.rootUrl}/metronome/v1/jobs/foo/schedules/bar`);
     });
 
     it('PUTs data with the correct method', function () {
@@ -310,7 +310,7 @@ describe('ChronosActions', function () {
         AppDispatcher.unregister(id);
 
         expect(action.type)
-          .toEqual(ActionTypes.REQUEST_CHRONOS_JOB_SUSPEND_SUCCESS);
+          .toEqual(ActionTypes.REQUEST_METRONOME_JOB_SUSPEND_SUCCESS);
         expect(action.jobID).toEqual('foo');
       });
 
@@ -323,7 +323,7 @@ describe('ChronosActions', function () {
         AppDispatcher.unregister(id);
 
         expect(action.type)
-          .toEqual(ActionTypes.REQUEST_CHRONOS_JOB_SUSPEND_ERROR);
+          .toEqual(ActionTypes.REQUEST_METRONOME_JOB_SUSPEND_ERROR);
         expect(action.jobID).toEqual('foo');
       });
 
