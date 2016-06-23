@@ -53,7 +53,7 @@ describe('ConfigActions', function () {
         );
       });
 
-      this.configuration.error({message: 'error'});
+      this.configuration.error();
     });
 
   });

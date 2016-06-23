@@ -32,10 +32,9 @@ const ConfigActions = {
           data: response
         });
       },
-      error: function (e) {
+      error: function () {
         AppDispatcher.handleServerAction({
-          type: ActionTypes.REQUEST_CLUSTER_CCID_ERROR,
-          data: e.message
+          type: ActionTypes.REQUEST_CLUSTER_CCID_ERROR
         });
       }
     });
