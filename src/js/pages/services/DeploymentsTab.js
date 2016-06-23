@@ -11,6 +11,7 @@ import {Table} from 'reactjs-components';
 
 import AlertPanel from '../../components/AlertPanel';
 import DCOSStore from '../../stores/DCOSStore';
+import Icon from '../../components/Icon';
 import MarathonActions from '../../events/MarathonActions';
 import NestedServiceLinks from '../../components/NestedServiceLinks';
 import ResourceTableUtil from '../../utils/ResourceTableUtil';
@@ -253,8 +254,7 @@ class DeploymentsTab extends mixin(StoreMixin) {
     return (
       <AlertPanel
         title="No Deployments"
-        iconClassName="icon icon-sprite icon-sprite-jumbo
-            icon-sprite-jumbo-white icon-services flush-top">
+        icon={<Icon id="services" color="white" size="jumbo" />}>
         <p className="flush">Active deployments will be shown here.</p>
       </AlertPanel>
     );

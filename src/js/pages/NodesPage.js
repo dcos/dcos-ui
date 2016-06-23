@@ -15,6 +15,7 @@ import FilterBar from '../components/FilterBar';
 var FilterByService = require('../components/FilterByService');
 var FilterInputText = require('../components/FilterInputText');
 var FilterHeadline = require('../components/FilterHeadline');
+import Icon from '../components/Icon';
 var InternalStorageMixin = require('../mixins/InternalStorageMixin');
 var MesosSummaryStore = require('../stores/MesosSummaryStore');
 var Page = require('../components/Page');
@@ -285,8 +286,7 @@ var NodesPage = React.createClass({
     return (
       <AlertPanel
         title="Empty Datacenter"
-        iconClassName="icon icon-sprite icon-sprite-jumbo
-          icon-sprite-jumbo-white icon-datacenter flush-top">
+        icon={<Icon id="servers" color="white" size="jumbo" />}>
         <p className="flush-bottom">
           Your datacenter is looking pretty empty. We don't see any nodes other than your master.
         </p>
