@@ -91,6 +91,7 @@ class TabForm extends React.Component {
             </span>
             <Tooltip
               content={description}
+              interactive={true}
               wrapperClassName="tooltip-wrapper media-object-item"
               wrapText={true}
               maxWidth={300}
