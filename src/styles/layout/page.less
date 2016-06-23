@@ -72,7 +72,45 @@
 
         .page-navigation-sidebar-toggle-icon {
           margin-right: (@base-spacing-unit * 1.0);
-          .opacity(0.40);
+          opacity: 0.4;
+          position: relative;
+
+          &:before,
+          &:after {
+            background: currentColor;
+            content: '';
+            display: block;
+            height: 2px;
+            position: absolute;
+            transform-origin: center;
+            transition: all 0.2s;
+            width: 100%;
+          }
+
+          &:before {
+            top: 28%;
+          }
+
+          &:after {
+            bottom: 28%;
+          }
+
+          .canvas-sidebar-open & {
+
+            &:after,
+            &:before {
+              left: 50%;
+              top: 50%;
+            }
+
+            &:before {
+              transform: translate(-50%, -50%) rotate(45deg);
+            }
+
+            &:after {
+              transform: translate(-50%, -50%) rotate(-45deg);
+            }
+          }
         }
 
         .page-navigation-sidebar-toggle-label {
@@ -80,14 +118,16 @@
         }
 
         &:hover {
-           .page-navigation-sidebar-toggle-icon {
-            .opacity(0.80);
+
+          .page-navigation-sidebar-toggle-icon {
+            opacity: 0.8;
           }
         }
 
         &:active {
-           .page-navigation-sidebar-toggle-icon {
-            .opacity(0.40);
+
+          .page-navigation-sidebar-toggle-icon {
+            opacity: 0.4;
           }
         }
       }
