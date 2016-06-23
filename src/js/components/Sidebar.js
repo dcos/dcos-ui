@@ -9,7 +9,6 @@ import ClusterHeader from './ClusterHeader';
 import Config from '../config/Config';
 import EventTypes from '../constants/EventTypes';
 import Icon from './Icon';
-import IconDCOSLogoMark from './icons/IconDCOSLogoMark';
 import {keyCodes} from '../utils/KeyboardUtil';
 import InternalStorageMixin from '../mixins/InternalStorageMixin';
 import MesosSummaryStore from '../stores/MesosSummaryStore';
@@ -208,27 +207,24 @@ var Sidebar = React.createClass({
           >
           <div className="navigation-inner">
             <div className="pod pod-narrow flush-top flush-bottom">
-              <ul className="sidebar-menu list-unstyled flush">
-                {this.getMenuItems()}
-              </ul>
-              <div className="hide container container-fluid container-pod container-pod-short sidebar-logo-container">
-                <div className="sidebar-footer-image">
-                  <a href={Config.productHomepageURI} target="_blank">
-                    <IconDCOSLogoMark />
-                  </a>
-                </div>
-                <p className="text-align-center flush-top flush-bottom mute small">
-                  <span className="clickable" onClick={this.handleVersionClick}>
-                    <span className="company-name small">{Config.productName} </span>
-                    <span className="app-name small">{this.getVersion()}</span>
-                  </span>
-                </p>
+              <div className="sidebar-section">
+                <ul className="sidebar-menu">
+                  {this.getMenuItems()}
+                </ul>
+              </div>
+              <div className="sidebar-section">
+                <h6 className="sidebar-section-header inverse">
+                  Resources
+                </h6>
+                <ul className="sidebar-menu">
+                  {this.getMenuItems()}
+                </ul>
               </div>
             </div>
           </div>
         </GeminiScrollbar>
         <div className="hide footer">
-          <div className="header-inner">
+          <div className="footer-inner">
             <div className="pod pod-narrow pod-short">
               {this.getFooter()}
             </div>
