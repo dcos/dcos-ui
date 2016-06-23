@@ -132,7 +132,7 @@ class ServiceFormModal extends mixin(StoreMixin) {
   componentWillReceiveProps(nextProps) {
     super.componentWillReceiveProps(...arguments);
     if (!this.props.open && nextProps.open) {
-      this.resetState();
+      this.resetState(nextProps);
     }
   }
 
@@ -143,15 +143,17 @@ class ServiceFormModal extends mixin(StoreMixin) {
       state.errorMessage !== nextState.errorMessage;
   }
 
-  resetState() {
+  resetState(props = this.props) {
     let model = ServiceUtil.createFormModelFromSchema(ServiceSchema);
-    if (this.props.id) {
-      model.general.id = this.props.id;
+    if (props.id) {
+      model.general.id = props.id;
     }
     let service = ServiceUtil.createServiceFromFormModel(model);
-    if (this.props.service) {
-      service = this.props.service;
+
+    if (props.service) {
+      service = props.service;
     }
+
     this.setState({
       errorMessage: null,
       jsonDefinition: JSON.stringify({id:'', cmd:''}, null, 2),

@@ -3,9 +3,15 @@ import React from 'react';
 
 import ConfigurationView from './ConfigurationView';
 import DCOSStore from '../stores/DCOSStore';
+import MarathonStore from '../stores/MarathonStore';
 import Service from '../structs/Service';
+import ServiceFormModal from './modals/ServiceFormModal';
+import ServiceUtil from '../utils/ServiceUtil';
 
 const METHODS_TO_BIND = [
+  'handleApplyButtonClick',
+  'handleEditButtonClick',
+  'handleCloseServiceFormModal',
   'handleVersionSelection'
 ];
 
@@ -14,7 +20,8 @@ class ServiceDetailConfigurationTab extends React.Component {
     super(...arguments);
 
     this.state = {
-      selectedVersionID: null
+      selectedVersionID: null,
+      serviceToEdit: null
     };
 
     METHODS_TO_BIND.forEach(method => {
@@ -23,10 +30,51 @@ class ServiceDetailConfigurationTab extends React.Component {
   }
 
   componentWillMount() {
+    let {service} = this.props;
+
     this.setState({
-      selectedVersionID: this.props.service.getVersion()
+      selectedVersionID: service.getVersion()
     });
-    DCOSStore.fetchServiceVersions(this.props.service.getId());
+    DCOSStore.fetchServiceVersions(service.getId());
+  }
+
+  componentWillReceiveProps({service:nextService}) {
+    let {service} = this.props;
+
+    if (service.getVersion() === nextService.getVersion()) {
+      return;
+    }
+
+    this.setState({
+      selectedVersionID: nextService.getVersion()
+    });
+    DCOSStore.fetchServiceVersions(service.getId());
+  }
+
+  handleApplyButtonClick() {
+    let serviceConfiguration =
+      this.props.service.getVersions().get(this.state.selectedVersionID);
+
+    MarathonStore.editService(
+      ServiceUtil.getAppDefinitionFromService(
+        new Service(serviceConfiguration)
+      )
+    );
+  }
+
+  handleEditButtonClick() {
+    let serviceConfiguration =
+      this.props.service.getVersions().get(this.state.selectedVersionID);
+
+    this.setState({
+      serviceToEdit: new Service(serviceConfiguration)
+    });
+  }
+
+  handleCloseServiceFormModal() {
+    this.setState({
+      serviceToEdit: null
+    });
   }
 
   handleVersionSelection(versionItem) {
@@ -35,13 +83,47 @@ class ServiceDetailConfigurationTab extends React.Component {
     });
   }
 
-  getVersionsDropdown() {
-    let {service} = this.props;
-    let versions = service.getVersions();
+  getVersionsActions() {
+    let versions = this.props.service.getVersions();
 
     if (versions.size < 2) {
       return null;
     }
+
+    return (
+      <div className="button-collection">
+        {this.getVersionsDropdown()}
+        {this.getRollbackButtons()}
+      </div>
+    )
+  }
+
+  getRollbackButtons() {
+    let {service} = this.props;
+    let {selectedVersionID} = this.state;
+
+    if (service.getVersion() === selectedVersionID) {
+      return null;
+    }
+
+    return [(
+      <button className="button button-stroke button-inverse"
+        key="version-button-edit"
+        onClick={() => this.handleEditButtonClick()}>
+        Edit
+      </button>
+    ), (
+      <button className="button button-stroke button-inverse"
+        key="version-button-apply"
+        onClick={() => this.handleApplyButtonClick()}>
+        Apply
+      </button>
+    )];
+  }
+
+  getVersionsDropdown() {
+    let {service} = this.props;
+    let versions = service.getVersions();
 
     let versionItems = [];
     for (let version of versions.keys()) {
@@ -68,6 +150,7 @@ class ServiceDetailConfigurationTab extends React.Component {
         dropdownMenuListClassName="dropdown-menu-list"
         dropdownMenuListItemClassName="clickable"
         items={versionItems}
+        key="version-dropdown"
         onItemSelection={this.handleVersionSelection}
         persistentID={this.state.selectedVersionID}
         transition={true}
@@ -78,7 +161,7 @@ class ServiceDetailConfigurationTab extends React.Component {
 
   render() {
     let {service} = this.props;
-    let {selectedVersionID} = this.state;
+    let {selectedVersionID, serviceToEdit} = this.state;
 
     let localeVersion = new Date(selectedVersionID).toLocaleString();
     let headline = `Current Version (${localeVersion})`;
@@ -88,12 +171,16 @@ class ServiceDetailConfigurationTab extends React.Component {
     }
 
     return (
-      <div>
-        {this.getVersionsDropdown()}
+      <div className="tab">
+        {this.getVersionsActions()}
         <ConfigurationView
           headline={headline}
           service={service}
           versionID={selectedVersionID} />
+        <ServiceFormModal isEdit={true}
+          open={serviceToEdit != null}
+          service={serviceToEdit}
+          onClose={this.handleCloseServiceFormModal} />
       </div>
     );
   }
