@@ -9,7 +9,7 @@ var TestUtils = require('react-addons-test-utils');
 import PluginTestUtils from 'PluginTestUtils';
 
 PluginTestUtils.dontMock([
-  'IconInfo',
+  'Icon',
   'DOMUtils'
 ]);
 

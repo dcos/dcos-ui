@@ -7,7 +7,6 @@ var EventTypes = require('../constants/EventTypes');
 import Framework from '../structs/Framework';
 import HealthBar from './HealthBar';
 import Icon from './Icon';
-import IconNewWindow from './icons/IconNewWindow';
 var MarathonStore = require('../stores/MarathonStore');
 var ResourceTableUtil = require('../utils/ResourceTableUtil');
 var ServiceTableHeaderLabels = require('../constants/ServiceTableHeaderLabels');
@@ -59,8 +58,12 @@ var ServicesTable = React.createClass({
       <a className="table-display-on-row-hover"
         href={Cluster.getServiceLink(service.getName())} target="_blank"
         title="Open in a new window">
-        <IconNewWindow className="icon icon-new-window icon-margin-left
-          icon-margin-left-wide" />
+        <Icon
+          color="white"
+          className="icon-margin-left icon-margin-left-wide"
+          family="mini"
+          id="open-external"
+          size="mini" />
       </a>
     );
   },

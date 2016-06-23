@@ -1,4 +1,4 @@
-jest.dontMock('../../../components/icons/IconDownload');
+jest.dontMock('../../../components/Icon');
 jest.dontMock('../../../components/MesosLogView');
 jest.dontMock('../../../components/RequestErrorMsg');
 jest.dontMock('../TaskLogsTab');

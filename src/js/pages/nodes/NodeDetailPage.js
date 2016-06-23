@@ -11,7 +11,7 @@ import CompositeState from '../../structs/CompositeState';
 import DateUtil from '../../utils/DateUtil';
 import DescriptionList from '../../components/DescriptionList';
 import HealthTab from '../../components/HealthTab';
-import IconChevron from '../../components/icons/IconChevron';
+import Icon from '../../components/Icon';
 import InternalStorageMixin from '../../mixins/InternalStorageMixin';
 import MesosSummaryStore from '../../stores/MesosSummaryStore';
 import MesosStateStore from '../../stores/MesosStateStore';
@@ -70,9 +70,7 @@ class NodeDetailPage extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) 
         <Link className="headline emphasize" to="nodes">
           Nodes
         </Link>
-        <IconChevron
-          className="icon icon-micro"
-          isForward={true}/>
+        <Icon family="small" id="caret-right" size="small" />
         {nodeID}
       </h5>
     );

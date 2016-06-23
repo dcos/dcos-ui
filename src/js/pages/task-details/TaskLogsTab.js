@@ -5,7 +5,7 @@ import ReactDOM from 'react-dom';
 
 import FilterBar from '../../components/FilterBar';
 import FilterInputText from '../../components/FilterInputText';
-import IconDownload from '../../components/icons/IconDownload';
+import Icon from '../../components/Icon';
 import KeyboardUtil from '../../utils/KeyboardUtil';
 import MesosLogView from '../../components/MesosLogView';
 import TaskDirectoryActions from '../../events/TaskDirectoryActions';
@@ -310,7 +310,7 @@ class TaskLogsTab extends React.Component {
               disabled={!filePath}
               href=
                 {TaskDirectoryActions.getDownloadURL(task.slave_id, filePath)}>
-              <IconDownload />
+              <Icon family="mini" id="download" size="mini" />
             </a>
           </Tooltip>
         </FilterBar>

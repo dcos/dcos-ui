@@ -9,7 +9,7 @@ import {StoreMixin} from 'mesosphere-shared-reactjs';
 import Config from '../../config/Config';
 import CosmosErrorMessage from '../CosmosErrorMessage';
 import CosmosPackagesStore from '../../stores/CosmosPackagesStore';
-import IconCircleCheckmark from '../icons/IconCircleCheckmark';
+import Icon from '../Icon';
 
 const METHODS_TO_BIND = [
   'handleClose',
@@ -118,7 +118,7 @@ class UninstallPackageModal extends mixin(StoreMixin) {
     return (
       <div className="container-pod container-pod-short text-align-center">
         <span className="text-success">
-          <IconCircleCheckmark />
+          <Icon id="ring-check" size="jumbo" />
         </span>
         <h3 className="short-top">{`${name} Uninstalled`}</h3>
         <p className="small flush-bottom">
