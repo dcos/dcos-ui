@@ -38,8 +38,7 @@ function setDefinitionValue(thingToSet, definition, renderRemove) {
       instanceDefinition.push(
         renderRemove(definitionToSet.definition, prop, propID)
       );
-      definitionToSet.definition.splice(firstIndex, 0, instanceDefinition);
-      firstIndex++;
+      definitionToSet.definition.splice(firstIndex++, 0, instanceDefinition);
     });
   }
 
