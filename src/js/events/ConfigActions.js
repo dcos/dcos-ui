@@ -5,7 +5,6 @@ import AppDispatcher from './AppDispatcher';
 import Config from '../config/Config';
 
 const ConfigActions = {
-
   fetchConfig: function () {
     RequestUtil.json({
       url: `${Config.rootUrl}/dcos-metadata/ui-config.json`,
@@ -18,6 +17,24 @@ const ConfigActions = {
       error: function (e) {
         AppDispatcher.handleServerAction({
           type: ActionTypes.REQUEST_CONFIG_ERROR,
+          data: e.message
+        });
+      }
+    });
+  },
+
+  fetchCCID: function () {
+    RequestUtil.json({
+      url: `${Config.rootUrl}/navstar/lashup/key`,
+      success: function (response) {
+        AppDispatcher.handleServerAction({
+          type: ActionTypes.REQUEST_CLUSTER_CCID_SUCCESS,
+          data: response
+        });
+      },
+      error: function (e) {
+        AppDispatcher.handleServerAction({
+          type: ActionTypes.REQUEST_CLUSTER_CCID_ERROR,
           data: e.message
         });
       }

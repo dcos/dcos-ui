@@ -468,6 +468,52 @@ describe('MarathonActions', function () {
 
   });
 
+  describe('#fetchMarathonInstanceInfo', function () {
+
+    const serviceID = 'test';
+
+    beforeEach(function () {
+      spyOn(RequestUtil, 'json');
+      MarathonActions.fetchMarathonInstanceInfo(serviceID);
+      this.configuration = RequestUtil.json.calls.mostRecent().args[0];
+    });
+
+    it('calls #json from the RequestUtil', function () {
+      expect(RequestUtil.json).toHaveBeenCalled();
+    });
+
+    it('fetches data from the correct URL', function () {
+      expect(this.configuration.url)
+        .toEqual(`${Config.rootUrl}/service/marathon/v2/info`);
+    });
+
+    it('dispatches the correct action when successful', function () {
+      var id = AppDispatcher.register(function (payload) {
+        var action = payload.action;
+        AppDispatcher.unregister(id);
+        expect(action.type).toEqual(
+          ActionTypes.REQUEST_MARATHON_INSTANCE_INFO_SUCCESS
+        );
+        expect(action.data).toEqual({foo: 'bar', baz: 'qux'});
+      });
+
+      this.configuration.success({foo: 'bar', baz: 'qux'});
+    });
+
+    it('dispatches the correct action when unsucessful', function () {
+      var id = AppDispatcher.register(function (payload) {
+        var action = payload.action;
+        AppDispatcher.unregister(id);
+        expect(action.type).toEqual(
+          ActionTypes.REQUEST_MARATHON_INSTANCE_INFO_ERROR
+        );
+      });
+
+      this.configuration.error({message: 'error'});
+    });
+
+  });
+
   describe('#revertDeployment', function () {
 
     beforeEach(function () {
