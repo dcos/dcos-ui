@@ -108,7 +108,7 @@ class ServiceFormModal extends mixin(StoreMixin) {
       jsonDefinition: JSON.stringify({id:'', cmd:''}, null, 2),
       jsonMode: false,
       model,
-      service: ServiceUtil.createServiceFromFormModel(model)
+      service: ServiceUtil.createServiceFromFormModel(model, ServiceSchema)
     };
 
     this.store_listeners = [
@@ -148,10 +148,9 @@ class ServiceFormModal extends mixin(StoreMixin) {
     if (props.id) {
       model.general.id = props.id;
     }
-    let service = ServiceUtil.createServiceFromFormModel(model);
-
-    if (props.service) {
-      service = props.service;
+    let service = ServiceUtil.createServiceFromFormModel(model, ServiceSchema);
+    if (this.props.service) {
+      service = this.props.service;
     }
 
     this.setState({
@@ -187,7 +186,7 @@ class ServiceFormModal extends mixin(StoreMixin) {
     let nextState = {};
     if (!this.state.jsonMode) {
       let {model} = this.triggerSubmit();
-      let service = ServiceUtil.createServiceFromFormModel(model);
+      let service = ServiceUtil.createServiceFromFormModel(model, ServiceSchema);
       nextState.model = model;
       nextState.service = service;
       nextState.jsonDefinition = JSON.stringify(ServiceUtil
@@ -254,7 +253,7 @@ class ServiceFormModal extends mixin(StoreMixin) {
       if (!isValidated) {
         return;
       }
-      let service = ServiceUtil.createServiceFromFormModel(model);
+      let service = ServiceUtil.createServiceFromFormModel(model, ServiceSchema);
       this.setState({service, model, errorMessage: null});
       marathonAction(
         ServiceUtil.getAppDefinitionFromService(service),

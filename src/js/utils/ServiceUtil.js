@@ -35,8 +35,27 @@ const getFindPropertiesRecursive = function (service, item) {
   }, {});
 };
 
+// Removes redundant attributes
+const pruneHealthCheckAttributes = function (healthCheckSchema, healthCheck) {
+  let properties = healthCheckSchema
+    .properties
+    .healthChecks
+    .itemShape
+    .properties;
+
+  return Object.keys(properties).reduce(function (memo, prop) {
+    if (!properties[prop].shouldShow
+      || properties[prop].shouldShow(healthCheck)) {
+
+      memo[prop] = healthCheck[prop];
+    }
+
+    return memo;
+  }, {});
+};
+
 const ServiceUtil = {
-  createServiceFromFormModel: function (formModel) {
+  createServiceFromFormModel: function (formModel, schema) {
     let definition = {};
 
     if (formModel != null) {
@@ -194,16 +213,30 @@ const ServiceUtil = {
 
       if (healthChecks != null && healthChecks.healthChecks != null) {
         definition.healthChecks = healthChecks.healthChecks
-          .map(function (healthCheck) {
-            if (healthCheck.portType == null) {
-              healthCheck.portType = 'PORT_INDEX';
-            }
-            if (healthCheck.protocol == null) {
-              healthCheck.protocol = 'HTTP';
+          .reduce(function (memo, healthCheck) {
+            // Only set defaults if user has changed a value in the form.
+            // I.e. user has intent to create a healthCheck.
+            let hasSetValue = Object.values(healthCheck).some(function (value) {
+              return value != null && value !== false;
+            });
+
+            if (hasSetValue) {
+              if (healthCheck.portType == null) {
+                healthCheck.portType = 'PORT_INDEX';
+              }
+              if (healthCheck.protocol == null) {
+                healthCheck.protocol = 'HTTP';
+              }
+
+              memo.push(
+                pruneHealthCheckAttributes(
+                  schema.properties.healthChecks, healthCheck
+                )
+              );
             }
 
-            return healthCheck;
-          });
+            return memo;
+          }, []);
       }
 
       if (environmentVariables != null && environmentVariables.variables != null) {
