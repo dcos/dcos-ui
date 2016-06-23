@@ -9,7 +9,7 @@ const General = {
   properties: {
     id: {
       title: 'ID',
-      description: 'The id for the job',
+      description: 'The job ID',
       type: 'string',
       getter: function (job) {
         let [schedule = {}] = job.getSchedules();
@@ -19,7 +19,7 @@ const General = {
     },
     cron: {
       title: 'CRON Schedule',
-      description: 'Enter your schedule in CRON formet e.g. [0 20 * * *]',
+      description: 'Enter your schedule in CRON formet, e.g. [0 20 * * *]',
       type: 'string',
       getter: function (job) {
         let [schedule = {}] = job.getSchedules();
@@ -29,7 +29,7 @@ const General = {
     },
     timezone: {
       title: 'Time Zone',
-      description: 'Enter time zone in TZ format e.g. [America/New_York]',
+      description: 'Enter time zone in TZ format, e.g. [America/New_York]',
       type: 'string',
       getter: function (job) {
         let [schedule = {}] = job.getSchedules();
@@ -39,7 +39,7 @@ const General = {
     },
     startingDeadlineSeconds: {
       title: 'Starting Deadline',
-      description: 'Time in seconds for starting the job if it misses ' +
+      description: 'Time in seconds to start the job if it misses ' +
       'scheduled time for any reason. Missed jobs executions will be ' +
       'counted as failed ones.',
       type: 'number',
