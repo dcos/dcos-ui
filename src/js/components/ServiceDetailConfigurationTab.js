@@ -171,7 +171,7 @@ class ServiceDetailConfigurationTab extends React.Component {
     }
 
     return (
-      <div>
+      <div className="tab">
         {this.getVersionsActions()}
         <ConfigurationView
           headline={headline}
