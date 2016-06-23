@@ -57,8 +57,8 @@ var ServicesTable = React.createClass({
       <a className="table-display-on-row-hover"
         href={Cluster.getServiceLink(service.getName())} target="_blank"
         title="Open in a new window">
-        <IconNewWindow className="icon icon-new-window icon-align-right
-          icon-margin-wide" />
+        <IconNewWindow className="icon icon-new-window icon-margin-left
+          icon-margin-left-wide" />
       </a>
     );
   },
@@ -75,7 +75,7 @@ var ServicesTable = React.createClass({
       // Get serviceTree image/icon
       itemImage = (
       <span
-        className="icon icon-small icon-image-container icon-app-container">
+        className="icon icon-small icon-image-container icon-app-container icon-margin-right">
           <i className="icon icon-sprite icon-sprite-mini icon-directory "/>
         </span>
       );
@@ -85,7 +85,7 @@ var ServicesTable = React.createClass({
       // Get framework image/icon
       itemImage = (
         <span
-          className="icon icon-small icon-image-container icon-app-container">
+          className="icon icon-small icon-image-container icon-app-container icon-margin-right">
           <img src={service.getImages()['icon-small']}/>
         </span>
       );

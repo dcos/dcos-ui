@@ -115,7 +115,7 @@ class JobsTable extends React.Component {
     if (job.isGroup) {
       itemImage = (
         <span
-          className="icon icon-small icon-image-container icon-app-container">
+          className="icon icon-margin-right icon-small icon-image-container icon-app-container">
           <i className="icon icon-sprite icon-sprite-mini icon-directory "/>
         </span>
       );

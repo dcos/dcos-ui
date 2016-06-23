@@ -16,7 +16,7 @@ const TaskUtil = {
 
   getTaskStatusIcon(task) {
     let taskStatus = TaskUtil.getTaskStatusSlug(task);
-    let iconClassName = `icon icon-sprite icon-sprite-mini icon-${taskStatus}`;
+    let iconClassName = `icon icon-sprite icon-sprite-mini icon-${taskStatus} icon-margin-right`;
 
     // 'staging', 'finished', and 'starting' all use their monochromatic colors.
     if (taskStatus !== 'staging' && taskStatus !== 'finished' &&

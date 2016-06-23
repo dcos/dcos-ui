@@ -42,11 +42,13 @@ class TaskDirectoryTable extends React.Component {
       );
     }
 
-    let iconClass = classNames({
-      'icon icon-sprite icon-sprite-mini': true,
-      'icon-file': !directoryItem.isDirectory(),
-      'icon-directory': directoryItem.isDirectory()
-    });
+    let iconClass = classNames(
+      'icon icon-sprite icon-sprite-mini icon-margin-right',
+      {
+        'icon-file': !directoryItem.isDirectory(),
+        'icon-directory': directoryItem.isDirectory()
+      }
+    );
 
     let openLogView;
     if (directoryItem.isLogFile()) {
@@ -55,7 +57,7 @@ class TaskDirectoryTable extends React.Component {
           className="table-cell-icon table-cell-icon-mini table-display-on-row-hover fade-in-on-hover clickable"
           onClick={this.props.onOpenLogClick.bind(this, directoryItem, this.props.directoryPath)}>
           <i
-            className="icon icon-sprite icon-sprite-mini icon-search icon-align-right" />
+            className="icon icon-sprite icon-sprite-mini icon-search icon-margin-left" />
         </div>
       );
     }
