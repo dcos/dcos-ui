@@ -105,7 +105,7 @@ class PackagesTable extends React.Component {
 
     return (
       <div className="package-table-heading flex-box flex-box-align-vertical-center table-cell-flex-box">
-        <span className="icon icon-small icon-image-container icon-app-container">
+        <span className="icon icon-margin-right icon-small icon-image-container icon-app-container">
           <img src={packageImages['icon-small']} />
         </span>
         <span className="headline text-overflow">

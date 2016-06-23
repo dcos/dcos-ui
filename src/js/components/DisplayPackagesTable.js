@@ -59,7 +59,7 @@ class DisplayPackagesTable extends React.Component {
         onClick={this.props.onDetailOpen.bind(this, cosmosPackage)}>
         <div className="media-object media-object-align-middle">
           <div className="media-object-item">
-            <div className="icon icon-large icon-image-container icon-app-container icon-default-white">
+            <div className="icon icon-margin-right icon-large icon-image-container icon-app-container icon-default-white">
               <img src={packageImages['icon-large']} />
             </div>
           </div>

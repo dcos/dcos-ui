@@ -187,6 +187,31 @@ Icon (huge)
 
     }
 
+    &.icon-margin-right {
+
+      margin-right: @base-spacing-unit * 0.25;
+
+      &.icon-margin-right-wide {
+
+        margin-right: @base-spacing-unit * 0.5;
+
+      }
+
+    }
+
+    &.icon-margin-left {
+
+      margin-left: @base-spacing-unit * 0.25;
+      margin-right: 0;
+
+      &.icon-margin-left-wide {
+
+        margin-left: @base-spacing-unit * 0.5;
+
+      }
+
+    }
+
   }
 
   .icon.icon-micro {
@@ -1248,7 +1273,50 @@ Icon (huge)
 
 }
 
+& when (@icon-enabled) and (@screen-small-enabled) {
 
+  @media (min-width: @screen-small) {
+
+    .icon {
+
+      &.icon-margin-right {
+        margin-right: @base-spacing-unit-screen-small * 0.25;
+      }
+    }
+
+  }
+
+}
+
+& when (@icon-enabled) and (@screen-medium-enabled) {
+
+  @media (min-width: @screen-medium) {
+
+    .icon {
+
+      &.icon-margin-right {
+        margin-right: @base-spacing-unit-screen-medium * 0.15;
+      }
+    }
+
+  }
+
+}
+
+& when (@icon-enabled) and (@screen-large-enabled) {
+
+  @media (min-width: @screen-large) {
+
+    .icon {
+
+      &.icon-margin-right {
+        margin-right: @base-spacing-unit-screen-large * 0.15;
+      }
+    }
+
+  }
+
+}
 
 
 
