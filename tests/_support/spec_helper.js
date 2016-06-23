@@ -41,7 +41,7 @@ Cypress.addParentCommand('configureCluster', function (configuration) {
         'fx:marathon-1-task/app-version-2')
       .route(/service\/marathon\/v2\/groups/, 'fx:marathon-1-task/groups')
       .route(/service\/marathon\/v2\/deployments/, 'fx:marathon-1-task/deployments')
-      .route(/chronos\/v1\/jobs/, 'fx:chronos/jobs')
+      .route(/metronome\/v1\/jobs/, 'fx:metronome/jobs')
       .route(/dcos-version/, 'fx:dcos/dcos-version')
       .route(/history\/minute/, 'fx:marathon-1-task/history-minute')
       .route(/history\/last/, 'fx:marathon-1-task/summary')
@@ -58,7 +58,7 @@ Cypress.addParentCommand('configureCluster', function (configuration) {
       .route(/service\/marathon\/v2\/apps/, 'fx:1-app-for-each-health/app')
       .route(/service\/marathon\/v2\/groups/, 'fx:1-app-for-each-health/groups')
       .route(/service\/marathon\/v2\/deployments/, 'fx:marathon-1-task/deployments')
-      .route(/chronos\/v1\/jobs/, 'fx:chronos/jobs')
+      .route(/metronome\/v1\/jobs/, 'fx:metronome/jobs')
       .route(/dcos-version/, 'fx:dcos/dcos-version')
       .route(/history\/minute/, 'fx:marathon-1-task/history-minute')
       .route(/history\/last/, 'fx:1-app-for-each-health/summary')
@@ -71,7 +71,7 @@ Cypress.addParentCommand('configureCluster', function (configuration) {
       .route(/service\/marathon\/v2\/apps/, 'fx:1-service-with-executor-task/app')
       .route(/service\/marathon\/v2\/groups/, 'fx:1-service-with-executor-task/app')
       .route(/service\/marathon\/v2\/deployments/, 'fx:marathon-1-task/deployments')
-      .route(/chronos\/v1\/jobs/, 'fx:chronos/jobs')
+      .route(/metronome\/v1\/jobs/, 'fx:metronome/jobs')
       .route(/slave\/(.*)?\/files\/(.*)?\/runs\/(.*)?/, 'fx:1-service-with-executor-task/browse')
       .route(/dcos-version/, 'fx:dcos/dcos-version')
       .route(/history\/minute/, 'fx:1-service-with-executor-task/history-minute')
@@ -158,7 +158,7 @@ Cypress.addParentCommand('configureCluster', function (configuration) {
   }
 
   if (configuration.jobDetails) {
-    cy.route(/jobs\/(.*)/, 'fx:chronos/job');
+    cy.route(/jobs\/(.*)/, 'fx:metronome/job');
   }
 
   // The app won't load until plugins are loaded

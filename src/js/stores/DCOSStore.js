@@ -1,7 +1,7 @@
 import {EventEmitter} from 'events';
 
 import {
-  CHRONOS_JOBS_CHANGE,
+  METRONOME_JOBS_CHANGE,
   DCOS_CHANGE,
   MESOS_SUMMARY_CHANGE,
   MARATHON_DEPLOYMENTS_CHANGE,
@@ -10,7 +10,7 @@ import {
   MARATHON_SERVICE_VERSION_CHANGE,
   MARATHON_SERVICE_VERSIONS_CHANGE
 } from '../constants/EventTypes';
-import ChronosStore from '../stores/ChronosStore';
+import MetronomeStore from '../stores/MetronomeStore';
 import DeploymentsList from '../structs/DeploymentsList';
 import Framework from '../structs/Framework';
 import {Hooks} from 'PluginSDK';
@@ -22,7 +22,7 @@ import ServiceTree from '../structs/ServiceTree';
 import SummaryList from '../structs/SummaryList';
 
 const METHODS_TO_BIND = [
-  'onChronosChange',
+  'onMetronomeChange',
   'onMarathonGroupsChange',
   'onMarathonQueueChange',
   'onMarathonDeploymentsChange',
@@ -47,7 +47,7 @@ class DCOSStore extends EventEmitter {
         deploymentsList: new DeploymentsList(),
         versions: new Map()
       },
-      chronos: new JobTree(),
+      metronome: new JobTree(),
       mesos: new SummaryList(),
       dataProcessed: false
     };
@@ -56,11 +56,11 @@ class DCOSStore extends EventEmitter {
   getProxyListeners() {
     let proxyListeners = [];
 
-    if (Hooks.applyFilter('hasCapability', false, 'chronosAPI')) {
+    if (Hooks.applyFilter('hasCapability', false, 'metronomeAPI')) {
       proxyListeners.push({
-        event: CHRONOS_JOBS_CHANGE,
-        handler: this.onChronosChange,
-        store: ChronosStore
+        event: METRONOME_JOBS_CHANGE,
+        handler: this.onMetronomeChange,
+        store: MetronomeStore
       });
     }
 
@@ -218,8 +218,8 @@ class DCOSStore extends EventEmitter {
     this.emit(DCOS_CHANGE);
   }
 
-  onChronosChange() {
-    this.data.chronos = ChronosStore.jobTree;
+  onMetronomeChange() {
+    this.data.metronome = MetronomeStore.jobTree;
     this.emit(DCOS_CHANGE);
   }
 
@@ -280,7 +280,7 @@ class DCOSStore extends EventEmitter {
    * @type {JobTree}
    */
   get jobTree() {
-    return this.data.chronos;
+    return this.data.metronome;
   }
 
   /**

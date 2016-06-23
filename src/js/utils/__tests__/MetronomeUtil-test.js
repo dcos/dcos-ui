@@ -1,13 +1,13 @@
-let ChronosUtil = require('../ChronosUtil');
+let MetronomeUtil = require('../MetronomeUtil');
 
-describe('ChronosUtil', function () {
+describe('MetronomeUtil', function () {
 
   describe('#addJob', function () {
 
     it('should throw error if the provided id  starts with a dot',
       function () {
         expect(function () {
-          ChronosUtil.parseJobs({id: '.malformed.id'});
+          MetronomeUtil.parseJobs({id: '.malformed.id'});
         }.bind(this)).toThrow();
       }
     );
@@ -15,13 +15,13 @@ describe('ChronosUtil', function () {
     it('should throw error if the provided id ends with a dot',
       function () {
         expect(function () {
-          ChronosUtil.parseJobs({id: 'malformed.id.'});
+          MetronomeUtil.parseJobs({id: 'malformed.id.'});
         }.bind(this)).toThrow();
       }
     );
 
     it('adds a job to the tree', function () {
-      var instance = ChronosUtil.parseJobs({id: 'alpha'});
+      var instance = MetronomeUtil.parseJobs({id: 'alpha'});
 
       expect(instance.items[0].id).toEqual('alpha');
     });
@@ -29,7 +29,7 @@ describe('ChronosUtil', function () {
     it('adds nested items at the correct location based on id/path matching',
       function () {
 
-        var instance = ChronosUtil.parseJobs({id: 'group.foo.bar'});
+        var instance = MetronomeUtil.parseJobs({id: 'group.foo.bar'});
 
         expect(instance.items[0].id).toEqual('group');
         expect(instance.items[0].items[0].id)
@@ -41,18 +41,18 @@ describe('ChronosUtil', function () {
 
     it('should throw error if item is not an object with id', function () {
       expect(function () {
-        ChronosUtil.parseJobs({});
+        MetronomeUtil.parseJobs({});
       }).toThrow();
       expect(function () {
-        ChronosUtil.parseJobs(NaN);
+        MetronomeUtil.parseJobs(NaN);
       }).toThrow();
       expect(function () {
-        ChronosUtil.parseJobs();
+        MetronomeUtil.parseJobs();
       }).toThrow();
     });
 
     it('should return root group if empty array is passed', function () {
-      var instance = ChronosUtil.parseJobs([]);
+      var instance = MetronomeUtil.parseJobs([]);
       expect(instance.id).toEqual('');
       expect(instance.items).toEqual(undefined);
     });
@@ -62,7 +62,7 @@ describe('ChronosUtil', function () {
   describe('#parseJobs', function () {
 
     beforeEach(function () {
-      this.instance = ChronosUtil.parseJobs([
+      this.instance = MetronomeUtil.parseJobs([
         {id: 'group'},
         {id: 'group.foo'},
         {id: 'group.bar'},
@@ -83,7 +83,7 @@ describe('ChronosUtil', function () {
     });
 
     it('defaults id to empty string (root group id)', function () {
-      let tree = ChronosUtil.parseJobs([]);
+      let tree = MetronomeUtil.parseJobs([]);
       expect(tree.id).toEqual('');
     });
 
@@ -100,7 +100,7 @@ describe('ChronosUtil', function () {
     });
 
     it('converts a single item into a subitem of root', function () {
-      let instance = ChronosUtil.parseJobs({id: 'group.job'});
+      let instance = MetronomeUtil.parseJobs({id: 'group.job'});
 
       expect(instance.id).toEqual('');
       expect(instance.items[0].id).toEqual('group');

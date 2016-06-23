@@ -829,7 +829,7 @@ describe('ServiceTree', function () {
 
     it('returns an array with all the Frameworks in the group', function () {
       this.instance.add(new Framework({
-        id: '/chronos'
+        id: '/metronome'
       }));
 
       this.instance.add(new Service({
@@ -850,7 +850,7 @@ describe('ServiceTree', function () {
 
     it('returns an array with all the labels in the group', function () {
       this.instance.add(new Framework({
-        id: '/chronos',
+        id: '/metronome',
         labels: {
           'label_one': 'value_one'
         }
@@ -879,7 +879,7 @@ describe('ServiceTree', function () {
 
     it('filters out duplicate label key-value tuples', function () {
       this.instance.add(new Framework({
-        id: '/chronos',
+        id: '/metronome',
         labels: {
           'label_one': 'value_one'
         }
@@ -903,7 +903,7 @@ describe('ServiceTree', function () {
 
     it('returns an empty array if no labels are found', function () {
       this.instance.add(new Framework({
-        id: '/chronos'
+        id: '/metronome'
       }));
 
       let labels = this.instance.getLabels();

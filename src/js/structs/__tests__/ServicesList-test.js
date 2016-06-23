@@ -28,20 +28,20 @@ describe('ServicesList', function () {
     it('filters by ids', function () {
       let items = [
         {id: 1, name: 'marathon'},
-        {id: 2, name: 'chronos'},
+        {id: 2, name: 'metronome'},
         {id: '3', name: 'marathon-user'}
       ];
       let list = new ServicesList({items});
       let filteredList = list.filter({ids: [2, '3']}).getItems();
       expect(filteredList.length).toEqual(2);
-      expect(filteredList[0].get('name')).toEqual('chronos');
+      expect(filteredList[0].get('name')).toEqual('metronome');
       expect(filteredList[1].get('name')).toEqual('marathon-user');
     });
 
     it('filters by name', function () {
       let items = [
         {name: 'marathon'},
-        {name: 'chronos'},
+        {name: 'metronome'},
         {name: 'marathon-user'}
       ];
       let list = new ServicesList({items});
@@ -54,14 +54,14 @@ describe('ServicesList', function () {
     it('filters by health', function () {
       let items = [
         {name: 'marathon', getHealth: function () {return {value: 1}; }},
-        {name: 'chronos', getHealth: function () {return {value: 0}; }},
+        {name: 'metronome', getHealth: function () {return {value: 0}; }},
         {name: 'marathon-user', getHealth: function () {return {value: 2}; }}
       ];
 
       let list = new ServicesList({items});
       let filteredList = list.filter({health: [0]}).getItems();
       expect(filteredList.length).toEqual(1);
-      expect(filteredList[0].get('name')).toEqual('chronos');
+      expect(filteredList[0].get('name')).toEqual('metronome');
     });
 
   });

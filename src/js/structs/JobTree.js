@@ -3,7 +3,7 @@ import Tree from './Tree';
 
 module.exports = class JobTree extends Tree {
   /**
-   * (Chronos) JobTree
+   * (Metronome) JobTree
    * @param {{
    *          id:string,
    *          items:array<({id:string, items:array}|*)>,

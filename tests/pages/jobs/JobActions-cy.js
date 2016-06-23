@@ -20,7 +20,7 @@ describe('Job Actions', function () {
       cy
         .route({
           method: 'PUT',
-          url: /chronos\/v0\/scheduled-jobs\/foo/,
+          url: /metronome\/v0\/scheduled-jobs\/foo/,
           response: [],
           delay: 500
         });
