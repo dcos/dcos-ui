@@ -10,12 +10,19 @@ sidebar/styles.less
 
 & when (@sidebar-enabled) {
 
+  /* -----------------------------------------------------------------------------
+  Sidebar
+  ----------------------------------------------------------------------------- */
+
   .sidebar {
 
     background: color-lighten(@neutral, -40);
-    //box-shadow: 1px 0px 0px 0px hsla(hue(@neutral), saturation(@neutral), lightness(@neutral), 0.1);
 
   }
+
+  /* -----------------------------------------------------------------------------
+  Navigation
+  ----------------------------------------------------------------------------- */
 
   .navigation {
 
@@ -23,136 +30,158 @@ sidebar/styles.less
     left: -100%;
     width: 100%;
 
-    ul.sidebar-menu {
+  }
 
-      .clearfix();
-      .element-shape-style(sidebar-menu);
-      margin-bottom: 0px;
+  /* -----------------------------------------------------------------------------
+  Sidebar Section
+  ----------------------------------------------------------------------------- */
 
-      li {
+  .sidebar-section {
+
+    .sidebar-section-header {
+
+    }
+
+  }
+
+  /* -----------------------------------------------------------------------------
+  Sidebar Menu
+  ----------------------------------------------------------------------------- */
+
+  .sidebar-menu {
+
+    .clearfix();
+    .element-shape-style(sidebar-menu);
+    margin-bottom: 0px;
+
+    li {
+
+      display: block;
+      .element-text-size(sidebar-menu-item, null);
+      .element-spacing(sidebar-menu-item, null, null);
+      .element-text-style(sidebar-menu-item);
+      .element-shape-style(sidebar-menu-item);
+
+      &:before {
+
+        display: none;
+        
+      }
+
+      &:first-child {
+
+        margin-top: 0px;
+
+      }
+
+      .icon {
+
+        display: none;
+
+      }
+
+      a {
 
         display: block;
-        .element-text-size(sidebar-menu-item, null);
-        .element-spacing(sidebar-menu-item, null, null);
-        .element-text-style(sidebar-menu-item);
-        .element-shape-style(sidebar-menu-item);
+        text-decoration: none !important;
+        .element-spacing(sidebar-menu-item-link, null, null);
+        .element-text-style(sidebar-menu-item-link);
+        .element-shape-style(sidebar-menu-item-link);
 
-        &:first-child {
+        &:hover {
 
-          margin-top: 0px;
-
-        }
-
-        .icon {
-
-          display: none;
+          .element-text-style(sidebar-menu-item-link-hover);
+          .element-shape-style(sidebar-menu-item-link-hover);
 
         }
 
-        a {
+        &:active {
 
-          display: block;
-          text-decoration: none !important;
-          .element-spacing(sidebar-menu-item-link, null, null);
-          .element-text-style(sidebar-menu-item-link);
-          .element-shape-style(sidebar-menu-item-link);
-
-          &:hover {
-
-            .element-text-style(sidebar-menu-item-link-hover);
-            .element-shape-style(sidebar-menu-item-link-hover);
-
-          }
-
-          &:active {
-
-            .element-text-style(sidebar-menu-item-link-active);
-            .element-shape-style(sidebar-menu-item-link-active);
-
-          }
+          .element-text-style(sidebar-menu-item-link-active);
+          .element-shape-style(sidebar-menu-item-link-active);
 
         }
 
-        &.selected:not(.open) {
+      }
 
-          .element-shape-style(sidebar-menu-item-selected);
+      &.selected:not(.open) {
+
+        .element-shape-style(sidebar-menu-item-selected);
+
+      }
+
+      &.selected,
+      &.selected.open {
+
+        .element-text-style(sidebar-menu-item-selected);
+
+        > a,
+        > a:hover,
+        > a:active {
+
+          .element-text-style(sidebar-menu-item-link-selected);
+          .element-shape-style(sidebar-menu-item-link-selected);
 
         }
 
-        &.selected,
-        &.selected.open {
+      }
 
-          .element-text-style(sidebar-menu-item-selected);
+      &.open {
 
-          > a,
-          > a:hover,
-          > a:active {
+        .element-shape-style(sidebar-submenu);
+        .element-text-style(sidebar-menu-item-open);
 
-            .element-text-style(sidebar-menu-item-link-selected);
-            .element-shape-style(sidebar-menu-item-link-selected);
+        > a {
 
-          }
-
-        }
-
-        &.open {
-
-          .element-shape-style(sidebar-submenu);
           .element-text-style(sidebar-menu-item-open);
+          .element-shape-style(sidebar-menu-item-open);
 
-          > a {
+        }
 
-            .element-text-style(sidebar-menu-item-open);
-            .element-shape-style(sidebar-menu-item-open);
+        > ul {
 
-          }
+          .element-spacing(sidebar-submenu, null, null);
 
-          > ul {
+          li {
 
-            .element-spacing(sidebar-submenu, null, null);
+            display: block;
+            .element-text-size(sidebar-submenu-item, null);
+            .element-spacing(sidebar-submenu-item, null, null);
+            .element-text-style(sidebar-submenu-item);
+            .element-shape-style(sidebar-submenu-item);
 
-            li {
+            &.selected {
 
-              display: block;
-              .element-text-size(sidebar-submenu-item, null);
-              .element-spacing(sidebar-submenu-item, null, null);
-              .element-text-style(sidebar-submenu-item);
-              .element-shape-style(sidebar-submenu-item);
+              > a,
+              > a:hover,
+              > a:active {
 
-              &.selected {
-
-                > a,
-                > a:hover,
-                > a:active {
-
-                  .element-text-style(sidebar-submenu-item-link-selected);
-                  .element-shape-style(sidebar-submenu-item-link-selected);
-
-                }
+                .element-text-style(sidebar-submenu-item-link-selected);
+                .element-shape-style(sidebar-submenu-item-link-selected);
 
               }
 
-              > a {
+            }
 
-                display: block;
-                text-decoration: none !important;
-                .element-spacing(sidebar-submenu-item-link, null, null);
-                .element-text-style(sidebar-submenu-item-link);
-                .element-shape-style(sidebar-submenu-item-link);
+            > a {
 
-                &:hover {
+              display: block;
+              text-decoration: none !important;
+              .element-spacing(sidebar-submenu-item-link, null, null);
+              .element-text-style(sidebar-submenu-item-link);
+              .element-shape-style(sidebar-submenu-item-link);
 
-                  .element-text-style(sidebar-submenu-item-link-hover);
-                  .element-shape-style(sidebar-submenu-item-link-hover);
+              &:hover {
 
-                }
+                .element-text-style(sidebar-submenu-item-link-hover);
+                .element-shape-style(sidebar-submenu-item-link-hover);
 
-                &:active {
+              }
 
-                  .element-text-style(sidebar-submenu-item-link-active);
-                  .element-shape-style(sidebar-submenu-item-link-active);
+              &:active {
 
-                }
+                .element-text-style(sidebar-submenu-item-link-active);
+                .element-shape-style(sidebar-submenu-item-link-active);
 
               }
 
@@ -182,39 +211,39 @@ sidebar/styles.less
 
     & when (@sidebar-enabled) and (@sidebar-screen-small-enabled) {
 
-      .navigation {
+      /* -----------------------------------------------------------------------------
+      Sidebar Menu
+      ----------------------------------------------------------------------------- */
 
-        ul.sidebar-menu {
+      .sidebar-menu {
 
-          li {
+        li {
 
-            .element-text-size(sidebar-submenu-item, screen-small);
-            .element-spacing(sidebar-menu-item, null, screen-small);
+          .element-text-size(sidebar-submenu-item, screen-small);
+          .element-spacing(sidebar-menu-item, null, screen-small);
 
-            a {
+          a {
 
-              .element-spacing(sidebar-menu-item-link, null, screen-small);
-
-            }
+            .element-spacing(sidebar-menu-item-link, null, screen-small);
 
           }
 
-          > li.open {
+        }
 
-            > ul {
+        > li.open {
 
-              .element-spacing(sidebar-submenu, null, screen-small);
+          > ul {
 
-              li {
+            .element-spacing(sidebar-submenu, null, screen-small);
 
-                .element-text-size(sidebar-submenu-item, screen-small);
-                .element-spacing(sidebar-submenu-item, null, screen-small);
+            li {
 
-                a {
+              .element-text-size(sidebar-submenu-item, screen-small);
+              .element-spacing(sidebar-submenu-item, null, screen-small);
 
-                  .element-spacing(sidebar-submenu-item-link, null, screen-small);
+              a {
 
-                }
+                .element-spacing(sidebar-submenu-item-link, null, screen-small);
 
               }
 
@@ -244,43 +273,51 @@ sidebar/styles.less
 
     & when (@sidebar-enabled) and (@sidebar-screen-medium-enabled) {
 
+      /* -----------------------------------------------------------------------------
+      Navigation
+      ----------------------------------------------------------------------------- */
+
       .navigation {
 
         position: relative;
         width: auto;
         left: auto;
 
-        ul.sidebar-menu {
+      }
 
-          li {
+      /* -----------------------------------------------------------------------------
+      Sidebar Menu
+      ----------------------------------------------------------------------------- */
 
-            .element-text-size(sidebar-submenu-item, screen-medium);
-            .element-spacing(sidebar-menu-item, null, screen-medium);
+      .sidebar-menu {
 
-            a {
+        li {
 
-              .element-spacing(sidebar-menu-item-link, null, screen-medium);
+          .element-text-size(sidebar-submenu-item, screen-medium);
+          .element-spacing(sidebar-menu-item, null, screen-medium);
 
-            }
+          a {
+
+            .element-spacing(sidebar-menu-item-link, null, screen-medium);
 
           }
 
-          > li.open {
+        }
 
-            > ul {
+        > li.open {
 
-              .element-spacing(sidebar-submenu, null, screen-medium);
+          > ul {
 
-              li {
+            .element-spacing(sidebar-submenu, null, screen-medium);
 
-                .element-text-size(sidebar-submenu-item, screen-medium);
-                .element-spacing(sidebar-submenu-item, null, screen-medium);
+            li {
 
-                a {
+              .element-text-size(sidebar-submenu-item, screen-medium);
+              .element-spacing(sidebar-submenu-item, null, screen-medium);
 
-                  .element-spacing(sidebar-submenu-item-link, null, screen-medium);
+              a {
 
-                }
+                .element-spacing(sidebar-submenu-item-link, null, screen-medium);
 
               }
 
@@ -310,45 +347,49 @@ sidebar/styles.less
 
     & when (@sidebar-enabled) and (@sidebar-screen-large-enabled) {
 
+      /* -----------------------------------------------------------------------------
+      Sidebar
+      ----------------------------------------------------------------------------- */
+
       .sidebar {
 
         flex-basis: 200px;
 
       }
 
-      .navigation {
+      /* -----------------------------------------------------------------------------
+      Sidebar Menu
+      ----------------------------------------------------------------------------- */
 
-        ul.sidebar-menu {
+      .sidebar-menu {
 
-          li {
+        li {
 
-            .element-text-size(sidebar-menu-item, screen-large);
-            .element-spacing(sidebar-menu-item, null, screen-large);
+          .element-text-size(sidebar-menu-item, screen-large);
+          .element-spacing(sidebar-menu-item, null, screen-large);
 
-            a {
+          a {
 
-              .element-spacing(sidebar-menu-item-link, null, screen-large);
-
-            }
+            .element-spacing(sidebar-menu-item-link, null, screen-large);
 
           }
 
-          > li.open {
+        }
 
-            > ul {
+        > li.open {
 
-              .element-spacing(sidebar-submenu, null, screen-large);
+          > ul {
 
-              li {
+            .element-spacing(sidebar-submenu, null, screen-large);
 
-                .element-text-size(sidebar-submenu-item, screen-large);
-                .element-spacing(sidebar-submenu-item, null, screen-large);
+            li {
 
-                a {
+              .element-text-size(sidebar-submenu-item, screen-large);
+              .element-spacing(sidebar-submenu-item, null, screen-large);
 
-                  .element-spacing(sidebar-submenu-item-link, null, screen-large);
+              a {
 
-                }
+                .element-spacing(sidebar-submenu-item-link, null, screen-large);
 
               }
 
@@ -378,45 +419,49 @@ sidebar/styles.less
 
     & when (@sidebar-enabled) and (@sidebar-screen-jumbo-enabled) {
 
+      /* -----------------------------------------------------------------------------
+      Sidebar
+      ----------------------------------------------------------------------------- */
+
       .sidebar {
 
         flex-basis: 250px;
 
       }
 
-      .navigation {
+      /* -----------------------------------------------------------------------------
+      Sidebar Menu
+      ----------------------------------------------------------------------------- */
 
-        ul.sidebar-menu {
+      .sidebar-menu {
 
-          li {
+        li {
 
-            .element-text-size(sidebar-menu-item, screen-jumbo);
-            .element-spacing(sidebar-menu-item, null, screen-jumbo);
+          .element-text-size(sidebar-menu-item, screen-jumbo);
+          .element-spacing(sidebar-menu-item, null, screen-jumbo);
 
-            a {
+          a {
 
-              .element-spacing(sidebar-menu-item-link, null, screen-jumbo);
-
-            }
+            .element-spacing(sidebar-menu-item-link, null, screen-jumbo);
 
           }
 
-          > li.open {
+        }
 
-            > ul {
+        > li.open {
 
-              .element-spacing(sidebar-submenu, null, screen-jumbo);
+          > ul {
 
-              li {
+            .element-spacing(sidebar-submenu, null, screen-jumbo);
 
-                .element-text-size(sidebar-submenu-item, screen-jumbo);
-                .element-spacing(sidebar-submenu-item, null, screen-jumbo);
+            li {
 
-                a {
+              .element-text-size(sidebar-submenu-item, screen-jumbo);
+              .element-spacing(sidebar-submenu-item, null, screen-jumbo);
 
-                  .element-spacing(sidebar-submenu-item-link, null, screen-jumbo);
+              a {
 
-                }
+                .element-spacing(sidebar-submenu-item-link, null, screen-jumbo);
 
               }
 
