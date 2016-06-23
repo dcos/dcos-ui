@@ -25,7 +25,7 @@ import Config from '../config/Config';
 const MetronomeActions = {
   createJob: function (data) {
     RequestUtil.json({
-      url: `${Config.rootUrl}/metronome/v0/scheduled-jobs`,
+      url: `${Config.metronomeAPI}/v0/scheduled-jobs`,
       method: 'POST',
       data,
       success: function () {
@@ -48,7 +48,7 @@ const MetronomeActions = {
     function (resolve, reject) {
       return function () {
         RequestUtil.json({
-          url: `${Config.rootUrl}/metronome/v1/jobs`,
+          url: `${Config.metronomeAPI}/v1/jobs`,
           data: [
             {name: 'embed', value: 'activeRuns'},
             {name: 'embed', value: 'schedules'}
@@ -85,7 +85,7 @@ const MetronomeActions = {
 
   fetchJobDetail: function (jobID) {
     RequestUtil.json({
-      url: `${Config.rootUrl}/metronome/v1/jobs/${jobID}`,
+      url: `${Config.metronomeAPI}/v1/jobs/${jobID}`,
       data: [
         {name: 'embed', value: 'activeRuns'},
         {name: 'embed', value: 'schedules'}
@@ -116,7 +116,7 @@ const MetronomeActions = {
 
   deleteJob: function (jobID, stopCurrentJobRuns = false) {
     RequestUtil.json({
-      url: `${Config.rootUrl}/metronome/v1/jobs/${jobID}` +
+      url: `${Config.metronomeAPI}/v1/jobs/${jobID}` +
         `?stopCurrentJobRuns=${stopCurrentJobRuns}`,
       method: 'DELETE',
       success: function () {
@@ -138,7 +138,7 @@ const MetronomeActions = {
 
   updateJob: function (jobID, data) {
     RequestUtil.json({
-      url: `${Config.rootUrl}/metronome/v0/scheduled-jobs/${jobID}`,
+      url: `${Config.metronomeAPI}/v0/scheduled-jobs/${jobID}`,
       method: 'PUT',
       data,
       success: function () {
@@ -158,7 +158,7 @@ const MetronomeActions = {
 
   runJob: function (jobID) {
     RequestUtil.json({
-      url: `${Config.rootUrl}/metronome/v1/jobs/${jobID}/runs`,
+      url: `${Config.metronomeAPI}/v1/jobs/${jobID}/runs`,
       method: 'POST',
       data: {},
       success: function () {
@@ -178,7 +178,7 @@ const MetronomeActions = {
 
   suspendSchedule: function (jobID, data) {
     RequestUtil.json({
-      url: `${Config.rootUrl}/metronome/v1/jobs/${jobID}/schedules/${data.id}`,
+      url: `${Config.metronomeAPI}/v1/jobs/${jobID}/schedules/${data.id}`,
       method: 'PUT',
       data,
       success: function () {
