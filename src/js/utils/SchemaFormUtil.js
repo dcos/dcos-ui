@@ -194,7 +194,8 @@ let SchemaFormUtil = {
 
   validateModelWithSchema(model, schema) {
     let result = tv4.validateMultiple(model, schema);
-    if (result.valid) {
+
+    if (result == null || result.valid) {
       return [];
     }
 
