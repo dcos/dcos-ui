@@ -19,7 +19,7 @@ const General = {
     },
     cron: {
       title: 'CRON Schedule',
-      description: 'Enter your schedule in CRON formet, e.g. [0 20 * * *]',
+      description: 'Enter your schedule in CRON format, e.g. [0 20 * * *]',
       type: 'string',
       getter: function (job) {
         let [schedule = {}] = job.getSchedules();
