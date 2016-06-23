@@ -9,7 +9,7 @@ const General = {
   properties: {
     image: {
       title: 'image',
-      description: 'Name of your docker image',
+      description: 'Name of your Docker image',
       type: 'string',
       getter: function (job) {
         return job.getDocker().image;
