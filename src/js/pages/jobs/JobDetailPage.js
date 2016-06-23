@@ -191,7 +191,7 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
     let status = TaskStates[longestRunningTask.getStatus()];
     let statusClasses = classNames('job-details-header-status', {
       'text-success': status.stateTypes.includes('success')
-        && status.stateTypes.includes('failure'),
+        && !status.stateTypes.includes('failure'),
       'text-danger': status.stateTypes.includes('failure')
     });
 
