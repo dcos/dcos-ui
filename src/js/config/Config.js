@@ -17,6 +17,7 @@ var Config = {
   historyServer: '',
   fullProductName: 'DC/OS',
   marathonAPIPrefix: '/service/marathon/v2',
+  metronomeAPI: '/service/metronome',
   productName: 'DC/OS',
   productHomepageURI: 'https://dcos.io',
   setInactiveAfter: 30000,
