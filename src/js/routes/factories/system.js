@@ -4,6 +4,7 @@ import React, {PropTypes} from 'react';
 import {Route, Redirect} from 'react-router';
 
 import {Hooks} from 'PluginSDK';
+import OverviewDetailTab from '../../pages/system/OverviewDetailTab';
 import RepositoriesTab from '../../pages/system/RepositoriesTab';
 import SystemPage from '../../pages/SystemPage';
 import UnitsHealthDetail from '../../pages/system/UnitsHealthDetail';
@@ -20,6 +21,12 @@ let RouteFactory = {
     return this.getFilteredRoutes(
       Hooks.applyFilter('OverviewRoutes', {
         routes: [
+          {
+            type: Route,
+            name: 'system-overview-details',
+            path: 'details/?',
+            handler: OverviewDetailTab
+          },
           {
             type: Route,
             name: 'system-overview-units',
@@ -87,7 +94,7 @@ let RouteFactory = {
         redirect: {
           type: Redirect,
           from: '/system/overview/?',
-          to: 'system-overview-units'
+          to: 'system-overview-details'
         }
       })
     );

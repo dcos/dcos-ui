@@ -18,7 +18,7 @@ class DescriptionList extends React.Component {
   getItems() {
     let {hash, dtClassName, ddClassName} = this.props;
 
-    return Object.keys(hash).map(function (key, index) {
+    return Object.keys(hash).map((key, index) => {
       let value = hash[key];
 
       // Check whether we are trying to render an object that is not a
@@ -27,7 +27,11 @@ class DescriptionList extends React.Component {
         value !== null && !React.isValidElement(value)) {
 
         return (
-          <DescriptionList hash={value} key={index} headline={key} />
+          <DescriptionList
+            {...this.props}
+            hash={value}
+            key={index}
+            headline={key} />
         );
       }
 

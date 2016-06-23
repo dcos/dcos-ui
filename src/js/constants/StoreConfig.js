@@ -5,6 +5,8 @@ import {
   AUTH_USER_LOGOUT_SUCCESS,
   AUTH_USER_LOGOUT_ERROR,
 
+  CLUSTER_CCID_SUCCESS,
+  CLUSTER_CCID_ERROR,
   CONFIG_LOADED,
   CONFIG_ERROR,
 
@@ -53,6 +55,8 @@ import {
   MARATHON_DEPLOYMENTS_ERROR,
   MARATHON_DEPLOYMENT_ROLLBACK_ERROR,
   MARATHON_DEPLOYMENT_ROLLBACK_SUCCESS,
+  MARATHON_INSTANCE_INFO_ERROR,
+  MARATHON_INSTANCE_INFO_SUCCESS,
   MARATHON_SERVICE_CREATE_ERROR,
   MARATHON_SERVICE_CREATE_SUCCESS,
   MARATHON_SERVICE_DELETE_ERROR,
@@ -145,7 +149,9 @@ const ListenersDescription = {
     store: ConfigStore,
     events: {
       success: CONFIG_LOADED,
-      error: CONFIG_ERROR
+      error: CONFIG_ERROR,
+      ccidSuccess: CLUSTER_CCID_SUCCESS,
+      ccidError: CLUSTER_CCID_ERROR
     },
     unmountWhen: function () {
       return true;
@@ -294,6 +300,8 @@ const ListenersDescription = {
       deploymentsError: MARATHON_DEPLOYMENTS_ERROR,
       deploymentRollbackSuccess: MARATHON_DEPLOYMENT_ROLLBACK_SUCCESS,
       deploymentRollbackError: MARATHON_DEPLOYMENT_ROLLBACK_ERROR,
+      instanceInfoSuccess: MARATHON_INSTANCE_INFO_SUCCESS,
+      instanceInfoError: MARATHON_INSTANCE_INFO_ERROR,
       groupCreateSuccess: MARATHON_GROUP_CREATE_SUCCESS,
       groupCreateError: MARATHON_GROUP_CREATE_ERROR,
       serviceCreateError: MARATHON_SERVICE_CREATE_ERROR,
