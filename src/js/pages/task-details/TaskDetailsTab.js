@@ -1,9 +1,12 @@
 import React from 'react';
 
 import DescriptionList from '../../components/DescriptionList';
+import Icon from '../../components/Icon';
 import MarathonTaskDetailsList from '../../components/MarathonTaskDetailsList';
 import MesosStateStore from '../../stores/MesosStateStore';
 import MesosSummaryStore from '../../stores/MesosSummaryStore';
+import ResourceColors from '../../constants/ResourceColors';
+import ResourceIcons from '../../constants/ResourceIcons';
 import ResourcesUtil from '../../utils/ResourcesUtil';
 import TaskDirectoryStore from '../../stores/TaskDirectoryStore';
 import Units from '../../utils/Units';
@@ -92,20 +95,21 @@ class TaskDetailsTab extends React.Component {
         return null;
       }
 
-      let colorIndex = resourceColors[resource];
       let resourceLabel = resourceLabels[resource];
-      let resourceIconClasses = `icon icon-sprite icon-sprite-medium
-        icon-sprite-medium-color icon-resources-${resourceLabel.toLowerCase()}`;
       let resourceValue = Units.formatResource(
         resource, task.resources[resource]
       );
+      let colorIndex = resourceColors[resource];
+      let resourceKey = resourceLabel.toLowerCase();
+      let iconID = ResourceIcons[resourceKey];
+      let iconColor = ResourceColors[resourceKey];
 
       return (
         <div key={resource} className="media-object-item">
           <div className="media-object-spacing-wrapper media-object-spacing-narrow media-object-offset">
             <div className="media-object media-object-align-middle">
               <div className="media-object-item">
-                <i className={resourceIconClasses}></i>
+                <Icon color={iconColor} id={iconID} />
               </div>
               <div className="media-object-item">
                 <h4 className="flush-top flush-bottom inverse">

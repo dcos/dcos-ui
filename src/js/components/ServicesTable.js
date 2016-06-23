@@ -5,6 +5,7 @@ import Cluster from '../utils/Cluster';
 var EventTypes = require('../constants/EventTypes');
 import Framework from '../structs/Framework';
 import HealthBar from './HealthBar';
+import Icon from './Icon';
 import IconNewWindow from './icons/IconNewWindow';
 var MarathonStore = require('../stores/MarathonStore');
 var ResourceTableUtil = require('../utils/ResourceTableUtil');
@@ -74,10 +75,12 @@ var ServicesTable = React.createClass({
     if (service instanceof ServiceTree) {
       // Get serviceTree image/icon
       itemImage = (
-      <span
-        className="icon icon-small icon-image-container icon-app-container icon-margin-right">
-          <i className="icon icon-sprite icon-sprite-mini icon-directory "/>
-        </span>
+        <Icon
+          className="icon-margin-right inverse"
+          color="grey"
+          id="folder"
+          size="small"
+          family="small" />
       );
     }
 

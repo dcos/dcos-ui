@@ -4,6 +4,8 @@ import React, {PropTypes} from 'react';
 import ReactDOM from 'react-dom';
 import {Tooltip} from 'reactjs-components';
 
+import Icon from './Icon';
+
 const METHODS_TO_BIND = [
   'handleCopy',
   'handleCopyIconMouseEnter'
@@ -57,8 +59,12 @@ class ClipboardTrigger extends React.Component {
 
     let {copiedText, tooltipContent} = this.props;
     let clipboardIcon = (
-      <i className="icon icon-sprite icon-sprite-mini icon-clipboard
-        icon-sprite-mini-color clickable"
+      <Icon
+        family="mini"
+        id="clipboard"
+        size="mini"
+        className="clickable icon-clipboard"
+        color="purple"
         onMouseEnter={this.handleCopyIconMouseEnter} />
     );
     let text = tooltipContent;

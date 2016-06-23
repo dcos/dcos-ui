@@ -2,6 +2,8 @@ import classNames from 'classnames/dedupe';
 import {Link} from 'react-router';
 import React, {PropTypes} from 'react';
 
+import Icon from './Icon';
+
 class NestedServiceLinks extends React.Component {
 
   getMinorLink(label, params, key, classes) {
@@ -20,9 +22,12 @@ class NestedServiceLinks extends React.Component {
 
   getCrumbDivider(key) {
     return (
-      <div key={key}>
-        <i className="icon icon-sprite icon-sprite-mini icon-chevron flush" />
-      </div>
+      <Icon
+        className="list-inline-separator"
+        family="tiny"
+        id="caret-right"
+        key={key}
+        size="tiny" />
     );
   }
 

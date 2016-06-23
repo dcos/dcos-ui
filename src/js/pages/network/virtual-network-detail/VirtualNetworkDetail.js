@@ -6,6 +6,7 @@ import {RouteHandler} from 'react-router';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import Breadcrumbs from '../../../components/Breadcrumbs';
+import Icon from '../../../components/Icon';
 import PageHeader from '../../../components/PageHeader';
 import RequestErrorMsg from '../../../components/RequestErrorMsg';
 import TabsMixin from '../../../mixins/TabsMixin';
@@ -77,9 +78,7 @@ class VirtualNetworkDetail extends mixin(StoreMixin, TabsMixin) {
       return VirtualNetworkUtil.getEmptyNetworkScreen();
     }
 
-    let overlayIcon = (
-      <i className="icon icon-sprite icon-sprite-jumbo icon-sprite-jumbo-white icon-network" />
-    );
+    let overlayIcon = <Icon id="network" size="jumbo" color="white" />;
 
     let tabs = (
       <ul className="tabs list-inline flush-bottom container-pod container-pod-short-top inverse">
@@ -90,7 +89,6 @@ class VirtualNetworkDetail extends mixin(StoreMixin, TabsMixin) {
     return (
       <PageHeader
         icon={overlayIcon}
-        iconClassName="icon-app-container"
         subTitle={overlay.getSubnet()}
         navigationTabs={tabs}
         title={overlay.getName()} />

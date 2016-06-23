@@ -3,6 +3,7 @@ import React from 'react';
 import {Table} from 'reactjs-components';
 
 import DateUtil from '../utils/DateUtil';
+import Icon from './Icon';
 import ResourceTableUtil from '../utils/ResourceTableUtil';
 import TableUtil from '../utils/TableUtil';
 import TaskDirectoryHeaderLabels from '../constants/TaskDirectoryHeaderLabels';
@@ -22,9 +23,11 @@ class TaskDirectoryTable extends React.Component {
     let label;
     let {nodeID} = this.props;
     let filePath = directoryItem.get('path');
+    let iconID = 'page';
     let value = directoryItem.getName();
 
     if (directoryItem.isDirectory()) {
+      iconID = 'folder';
       label = (
         <a
           className="emphasize clickable"
@@ -42,22 +45,18 @@ class TaskDirectoryTable extends React.Component {
       );
     }
 
-    let iconClass = classNames(
-      'icon icon-sprite icon-sprite-mini icon-margin-right',
-      {
-        'icon-file': !directoryItem.isDirectory(),
-        'icon-directory': directoryItem.isDirectory()
-      }
-    );
-
     let openLogView;
     if (directoryItem.isLogFile()) {
       openLogView = (
         <div
           className="table-cell-icon table-cell-icon-mini table-display-on-row-hover fade-in-on-hover clickable"
           onClick={this.props.onOpenLogClick.bind(this, directoryItem, this.props.directoryPath)}>
-          <i
-            className="icon icon-sprite icon-sprite-mini icon-search icon-margin-left" />
+          <Icon
+            className="icon-margin-left"
+            color="grey"
+            family="mini"
+            id="search"
+            size="mini" />
         </div>
       );
     }
@@ -65,7 +64,12 @@ class TaskDirectoryTable extends React.Component {
     return (
       <div className="flex-box flex-box-align-vertical-center table-cell-flex-box">
         <div className="table-cell-icon table-cell-icon-mini">
-          <i className={iconClass}></i>
+          <Icon
+            className="icon-margin-right inverse"
+            color="grey"
+            family="mini"
+            id={iconID}
+            size="mini" />
         </div>
         <span title={value} className="table-cell-value text-overflow">
           {label}

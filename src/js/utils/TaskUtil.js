@@ -14,21 +14,6 @@ const TaskUtil = {
     return `task-status-${taskStatus}`;
   },
 
-  getTaskStatusIcon(task) {
-    let taskStatus = TaskUtil.getTaskStatusSlug(task);
-    let iconClassName = `icon icon-sprite icon-sprite-mini icon-${taskStatus} icon-margin-right`;
-
-    // 'staging', 'finished', and 'starting' all use their monochromatic colors.
-    if (taskStatus !== 'staging' && taskStatus !== 'finished' &&
-      taskStatus !== 'starting') {
-      iconClassName += ' icon-sprite-mini-color';
-    }
-
-    return (
-      <i className={iconClassName}></i>
-    );
-  },
-
   getPortMappings(task) {
     let container = task.container;
     if (!container || !container.type) {

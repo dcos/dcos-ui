@@ -4,6 +4,7 @@ import GeminiScrollbar from 'react-gemini-scrollbar';
 import React from 'react';
 
 import GeminiUtil from '../utils/GeminiUtil';
+import Icon from './Icon';
 import SideTabs from './SideTabs';
 
 const METHODS_TO_BIND = [
@@ -96,7 +97,7 @@ class TabForm extends React.Component {
               wrapText={true}
               maxWidth={300}
               scrollContainer=".gm-scroll-view">
-              <i className="icon icon-sprite icon-sprite-mini icon-error" />
+              <Icon color="grey" id="ring-question" size="mini" family="mini" />
             </Tooltip>
           </div>
         </span>
