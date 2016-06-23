@@ -10,6 +10,7 @@ class ConfigStore extends GetSetBaseStore {
     super(...arguments);
 
     this.getSet_data = {
+      ccid: {},
       config: null
     };
 
@@ -21,10 +22,16 @@ class ConfigStore extends GetSetBaseStore {
       var action = payload.action;
       switch (action.type) {
         case ActionTypes.REQUEST_CONFIG_SUCCESS:
-          this.processStateSuccess(action.data);
+          this.processConfigSuccess(action.data);
           break;
         case ActionTypes.REQUEST_CONFIG_ERROR:
-          this.processStateError();
+          this.emit(EventTypes.CONFIG_ERROR);
+          break;
+        case ActionTypes.REQUEST_CLUSTER_CCID_SUCCESS:
+          this.processCCIDSuccess(action.data);
+          break;
+        case ActionTypes.REQUEST_CLUSTER_CCID_ERROR:
+          this.emit(EventTypes.CLUSTER_CCID_ERROR);
           break;
       }
 
@@ -40,17 +47,22 @@ class ConfigStore extends GetSetBaseStore {
     this.removeListener(eventName, callback);
   }
 
-  processStateSuccess(config) {
+  processConfigSuccess(config) {
     this.set({config});
     this.emit(EventTypes.CONFIG_LOADED);
   }
 
-  processStateError() {
-    this.emit(EventTypes.CONFIG_ERROR);
+  processCCIDSuccess(ccid) {
+    this.set({ccid});
+    this.emit(EventTypes.CLUSTER_CCID_SUCCESS);
   }
 
   fetchConfig() {
     return ConfigActions.fetchConfig(...arguments);
+  }
+
+  fetchCCID() {
+    return ConfigActions.fetchCCID(...arguments);
   }
 
   get storeID() {

@@ -17,6 +17,8 @@ import {
   MARATHON_DEPLOYMENTS_ERROR,
   MARATHON_DEPLOYMENT_ROLLBACK_SUCCESS,
   MARATHON_DEPLOYMENT_ROLLBACK_ERROR,
+  MARATHON_INSTANCE_INFO_SUCCESS,
+  MARATHON_INSTANCE_INFO_ERROR,
   MARATHON_QUEUE_CHANGE,
   MARATHON_QUEUE_ERROR,
   MARATHON_SERVICE_CREATE_ERROR,
@@ -65,7 +67,8 @@ class MarathonStore extends GetSetBaseStore {
     this.getSet_data = {
       apps: {},
       deployments: new DeploymentsList(),
-      groups: new ServiceTree()
+      groups: new ServiceTree(),
+      info: {}
     };
 
     this.dispatcherIndex = AppDispatcher.register((payload) => {
@@ -75,6 +78,12 @@ class MarathonStore extends GetSetBaseStore {
 
       var action = payload.action;
       switch (action.type) {
+        case ActionTypes.REQUEST_MARATHON_INSTANCE_INFO_ERROR:
+          this.emit(MARATHON_INSTANCE_INFO_ERROR, action.data);
+          break;
+        case ActionTypes.REQUEST_MARATHON_INSTANCE_INFO_SUCCESS:
+          this.processMarathonInfoRequest(action.data);
+          break;
         case ActionTypes.REQUEST_MARATHON_GROUP_CREATE_ERROR:
           this.emit(MARATHON_GROUP_CREATE_ERROR, action.data);
           break;
@@ -213,6 +222,10 @@ class MarathonStore extends GetSetBaseStore {
     return MarathonActions.fetchServiceVersions(...arguments);
   }
 
+  fetchMarathonInstanceInfo() {
+    return MarathonActions.fetchMarathonInstanceInfo(...arguments);
+  }
+
   hasProcessedApps() {
     return !!Object.keys(this.get('apps')).length;
   }
@@ -230,6 +243,10 @@ class MarathonStore extends GetSetBaseStore {
     }
 
     return health;
+  }
+
+  getInstanceInfo() {
+    return this.get('info');
   }
 
   getServiceHealth(name) {
@@ -316,6 +333,11 @@ class MarathonStore extends GetSetBaseStore {
     return service.tasks.find(function (task) {
       return task.id === taskID;
     });
+  }
+
+  processMarathonInfoRequest(info) {
+    this.set({info});
+    this.emit(MARATHON_INSTANCE_INFO_SUCCESS);
   }
 
   processMarathonGroups(data) {

@@ -14,6 +14,8 @@ import {
   REQUEST_MARATHON_QUEUE_SUCCESS,
   REQUEST_MARATHON_QUEUE_ERROR,
   REQUEST_MARATHON_QUEUE_ONGOING,
+  REQUEST_MARATHON_INSTANCE_INFO_ERROR,
+  REQUEST_MARATHON_INSTANCE_INFO_SUCCESS,
   REQUEST_MARATHON_SERVICE_CREATE_ERROR,
   REQUEST_MARATHON_SERVICE_CREATE_SUCCESS,
   REQUEST_MARATHON_SERVICE_DELETE_ERROR,
@@ -220,6 +222,24 @@ module.exports = {
       error: function (xhr) {
         AppDispatcher.handleServerAction({
           type: REQUEST_MARATHON_SERVICE_VERSIONS_ERROR,
+          data: RequestUtil.getErrorFromXHR(xhr)
+        });
+      }
+    });
+  },
+
+  fetchMarathonInstanceInfo: function () {
+    RequestUtil.json({
+      url: `${Config.rootUrl}${Config.marathonAPIPrefix}/info`,
+      success: function (response) {
+        AppDispatcher.handleServerAction({
+          type: REQUEST_MARATHON_INSTANCE_INFO_SUCCESS,
+          data: response
+        });
+      },
+      error: function (xhr) {
+        AppDispatcher.handleServerAction({
+          type: REQUEST_MARATHON_INSTANCE_INFO_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr)
         });
       }

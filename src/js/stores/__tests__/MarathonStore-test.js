@@ -207,6 +207,26 @@ describe('MarathonStore', function () {
 
   });
 
+  describe('#processMarathonInfoRequest', function () {
+
+    beforeEach(function () {
+      this.handler = jest.genMockFunction();
+      MarathonStore.once(
+        EventTypes.MARATHON_INSTANCE_INFO_SUCCESS, this.handler
+      );
+      MarathonStore.processMarathonInfoRequest({foo: 'bar'});
+    });
+
+    it('should emit an event', function () {
+      expect(this.handler).toBeCalled();
+    });
+
+    it('should return stored info', function () {
+      expect(MarathonStore.getInstanceInfo()).toEqual({foo: 'bar'});
+    });
+
+  });
+
   describe('#processMarathonQueue', function () {
 
     beforeEach(function () {
