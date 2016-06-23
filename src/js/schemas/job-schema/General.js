@@ -9,7 +9,7 @@ const General = {
   properties: {
     id: {
       title: 'ID',
-      description: 'The id for the job',
+      description: 'The job ID',
       type: 'string',
       getter: function (job) {
         return job.getId();
@@ -25,7 +25,7 @@ const General = {
     },
     cpus: {
       title: 'CPUs',
-      description: 'The amount of CPUs which are used for the job',
+      description: 'The amount of CPUs the job requires',
       type:'number',
       getter: function (job) {
         return `${job.getCpus() || ''}`;
@@ -47,7 +47,7 @@ const General = {
     },
     cmd: {
       title: 'Command',
-      description: 'The command which is executed by the service',
+      description: 'The command executed by the service',
       type: 'string',
       multiLine: true,
       getter: function (job) {
