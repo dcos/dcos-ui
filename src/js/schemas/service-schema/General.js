@@ -24,7 +24,7 @@ let General = {
           type: 'number',
           default: 1,
           getter: function (service) {
-            return `${service.getCpus() || 0}`;
+            return `${service.getCpus() || this.default}`;
           }
         },
         mem: {
@@ -32,7 +32,7 @@ let General = {
           type: 'number',
           default: 128,
           getter: function (service) {
-            return `${service.getMem() || 0}`;
+            return `${service.getMem() || this.default}`;
           }
         },
         disk: {
@@ -40,7 +40,7 @@ let General = {
           type: 'number',
           default: 0,
           getter: function (service) {
-            return `${service.getDisk() || 0}`;
+            return `${service.getDisk() || this.default}`;
           }
         },
         instances: {
@@ -48,7 +48,7 @@ let General = {
           type: 'number',
           default: 1,
           getter: function (service) {
-            return `${service.getInstancesCount() || 0}`;
+            return `${service.getInstancesCount() || this.default}`;
           }
         }
       }
