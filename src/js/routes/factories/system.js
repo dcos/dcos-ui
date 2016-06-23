@@ -102,6 +102,19 @@ let RouteFactory = {
           name: 'system-organization-users',
           path: 'users/?',
           handler: UsersTab,
+          buildBreadCrumb: function () {
+            return {
+              parentCrumb: 'system-organization',
+              getCrumbs: function () {
+                return [
+                  {
+                    label: 'Users',
+                    route: {to: 'system-organization-users'}
+                  }
+                ];
+              }
+            }
+          },
           children: []
         }],
         redirect: {
@@ -126,6 +139,18 @@ let RouteFactory = {
       type: Route,
       name: 'system-organization',
       path: 'organization/?',
+      buildBreadCrumb: function () {
+        return {
+          getCrumbs: function () {
+            return [
+              {
+                label: 'Organization',
+                route: {to: 'system-organization'}
+              }
+            ];
+          }
+        }
+      },
       // Get children for Overview
       children: RouteFactory.getOrganizationRoutes()
     };
