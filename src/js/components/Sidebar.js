@@ -107,28 +107,15 @@ var Sidebar = React.createClass({
       var route = this.context.router.namedRoutes[routeKey];
       // Figure out if current route is active
       var isActive = route.handler.routeConfig.matches.test(currentPath);
-      let isIconSVG = React.isValidElement(route.handler.routeConfig.icon);
-      let icon = null;
-      let iconClasses = classNames('sidebar-menu-item-icon icon icon-medium', {
-        [`icon-${route.handler.routeConfig.icon}`]: !isIconSVG,
-        'icon-sprite icon-sprite-medium': !isIconSVG,
-        'icon-sprite-medium-color': isActive,
-        'icon-sprite-medium-black': !isActive
-      });
+      let icon = React.cloneElement(
+        route.handler.routeConfig.icon,
+        {className: 'sidebar-menu-item-icon icon icon-medium'}
+      );
 
       var itemClassSet = classNames({
         'sidebar-menu-item': true,
         'selected': isActive
       });
-
-      if (isIconSVG) {
-        icon = React.cloneElement(
-          route.handler.routeConfig.icon,
-          {className: iconClasses}
-        );
-      } else {
-        icon = <i className={iconClasses}></i>;
-      }
 
       let sidebarText = (
         <span className="sidebar-menu-item-label h4 flush">

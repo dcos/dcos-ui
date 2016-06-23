@@ -4,6 +4,8 @@ import mixin from 'reactjs-mixin';
 import React from 'react';
 /* eslint-enable no-unused-vars */
 import {Hooks} from 'PluginSDK';
+
+import Icon from '../components/Icon';
 import NotificationStore from '../stores/NotificationStore';
 import Page from '../components/Page';
 import RouterUtil from '../utils/RouterUtil';
@@ -167,7 +169,7 @@ SystemPage.contextTypes = {
 
 SystemPage.routeConfig = {
   label: 'System',
-  icon: 'system',
+  icon: <Icon id="gears" />,
   matches: /^\/system/
 };
 

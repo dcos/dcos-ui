@@ -5,6 +5,7 @@ import {StoreMixin} from 'mesosphere-shared-reactjs';
 import {Tooltip} from 'reactjs-components';
 
 var HostTableHeaderLabels = require('../constants/HostTableHeaderLabels');
+import Icon from '../components/Icon';
 var InternalStorageMixin = require('../mixins/InternalStorageMixin');
 var ResourceTableUtil = require('../utils/ResourceTableUtil');
 var ProgressBar = require('./charts/ProgressBar');
@@ -22,7 +23,7 @@ var HostTable = React.createClass({
   statics: {
     routeConfig: {
       label: 'Nodes',
-      icon: 'datacenter',
+      icon: <Icon id="servers" />,
       matches: /^\/nodes/
     }
   },
