@@ -144,7 +144,8 @@ let serviceRoutes = {
                       parentCrumb: 'services-task-details',
                       getCrumbs: function () { return []; }
                     }
-                  }
+                  },
+                  title:'Details'
                 },
                 {
                   type: Route,
@@ -157,7 +158,8 @@ let serviceRoutes = {
                       parentCrumb: 'services-task-details',
                       getCrumbs: function () { return []; }
                     }
-                  }
+                  },
+                  title:'Files'
                 },
                 {
                   type: Route,
@@ -171,7 +173,8 @@ let serviceRoutes = {
                       parentCrumb: 'services-task-details',
                       getCrumbs: function () { return []; }
                     }
-                  }
+                  },
+                  title:'Logs'
                 },
                 {
                   type: Route,
@@ -183,7 +186,8 @@ let serviceRoutes = {
                       parentCrumb: 'services-task-details',
                       getCrumbs: function () { return []; }
                     }
-                  }
+                  },
+                  title:'Volumes'
                 }
               ]
             }

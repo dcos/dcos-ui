@@ -134,7 +134,8 @@ let nodesRoutes = {
                   parentCrumb: 'nodes-task-details',
                   getCrumbs: function () { return []; }
                 }
-              }
+              },
+              title: 'Details'
             },
             {
               type: Route,
@@ -147,7 +148,8 @@ let nodesRoutes = {
                   parentCrumb: 'nodes-task-details',
                   getCrumbs: function () { return []; }
                 }
-              }
+              },
+              title: 'Files'
             },
             {
               type: Route,
@@ -161,7 +163,8 @@ let nodesRoutes = {
                   parentCrumb: 'nodes-task-details',
                   getCrumbs: function () { return []; }
                 }
-              }
+              },
+              title: 'Logs'
             },
             {
               type: Route,
@@ -173,7 +176,8 @@ let nodesRoutes = {
                   parentCrumb: 'nodes-task-details',
                   getCrumbs: function () { return []; }
                 }
-              }
+              },
+              title: 'Volumes'
             }
           ]
         }
