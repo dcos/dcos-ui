@@ -26,7 +26,7 @@ describe('MetronomeActions', function () {
 
     it('sends data to the correct URL', function () {
       expect(this.configuration.url)
-        .toEqual(`${Config.rootUrl}/metronome/v0/scheduled-jobs`);
+        .toEqual(`${Config.metronomeAPI}/v0/scheduled-jobs`);
     });
 
     it('dispatches the correct action when successful', function () {
@@ -67,7 +67,7 @@ describe('MetronomeActions', function () {
 
     it('fetches data from the correct URL', function () {
       expect(this.configuration.url)
-        .toEqual(`${Config.rootUrl}/metronome/v1/jobs`);
+        .toEqual(`${Config.metronomeAPI}/v1/jobs`);
     });
 
     it('dispatches the correct action when successful', function () {
@@ -106,7 +106,7 @@ describe('MetronomeActions', function () {
 
     it('fetches data from the correct URL', function () {
       expect(this.configuration.url)
-        .toEqual(`${Config.rootUrl}/metronome/v1/jobs/foo`);
+        .toEqual(`${Config.metronomeAPI}/v1/jobs/foo`);
     });
 
     it('dispatches the correct action when successful', function () {
@@ -151,7 +151,7 @@ describe('MetronomeActions', function () {
 
     it('fetches data from the correct URL', function () {
       expect(this.configuration.url).toEqual(
-          `${Config.rootUrl}/metronome/v1/jobs/foo?stopCurrentJobRuns=false`
+          `${Config.metronomeAPI}/v1/jobs/foo?stopCurrentJobRuns=false`
       );
     });
 
@@ -201,7 +201,7 @@ describe('MetronomeActions', function () {
 
     it('sends data to the correct URL', function () {
       expect(this.configuration.url)
-        .toEqual(`${Config.rootUrl}/metronome/v0/scheduled-jobs/foo`);
+        .toEqual(`${Config.metronomeAPI}/v0/scheduled-jobs/foo`);
     });
 
     it('dispatches the correct action when successful', function () {
@@ -242,7 +242,7 @@ describe('MetronomeActions', function () {
 
     it('POSTs data to the correct URL', function () {
       expect(this.configuration.url)
-        .toEqual(`${Config.rootUrl}/metronome/v1/jobs/foo/runs`);
+        .toEqual(`${Config.metronomeAPI}/v1/jobs/foo/runs`);
     });
 
     it('POSTs data with the correct method', function () {
@@ -293,7 +293,7 @@ describe('MetronomeActions', function () {
 
     it('PUTs data to the correct URL', function () {
       expect(this.configuration.url)
-        .toEqual(`${Config.rootUrl}/metronome/v1/jobs/foo/schedules/bar`);
+        .toEqual(`${Config.metronomeAPI}/v1/jobs/foo/schedules/bar`);
     });
 
     it('PUTs data with the correct method', function () {
