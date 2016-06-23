@@ -15,26 +15,6 @@ import TabsMixin from '../../mixins/TabsMixin';
 import TaskDirectoryStore from '../../stores/TaskDirectoryStore';
 import TaskStates from '../../constants/TaskStates';
 
-const SERVICES_TABS = {
-  'services-task-details-tab': 'Details',
-  'services-task-details-files': 'Files',
-  'services-task-details-logs': 'Logs',
-  'services-task-details-volumes': 'Volumes'
-};
-
-const NODES_TABS = {
-  'nodes-task-details-tab': 'Details',
-  'nodes-task-details-files': 'Files',
-  'nodes-task-details-logs': 'Logs',
-  'nodes-task-details-volumes': 'Volumes'
-};
-
-const VIRTUAL_NETWORKS_TABS = {
-  'virtual-networks-tab-detail-tasks-details-tab': 'Details',
-  'virtual-networks-tab-detail-tasks-details-files': 'Files',
-  'virtual-networks-tab-detail-tasks-details-logs': 'Logs'
-};
-
 const METHODS_TO_BIND = [
   'onTaskDirectoryStoreError',
   'onTaskDirectoryStoreSuccess'
@@ -67,14 +47,25 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
 
   componentWillMount() {
     super.componentWillMount(...arguments);
-    this.tabs_tabs = Object.assign({}, SERVICES_TABS);
-    if (this.props.params.nodeID != null) {
-      this.tabs_tabs = Object.assign({}, NODES_TABS);
+
+    // TODO: DCOS-7871 Refactor the TabsMixin to generalize this solution:
+    let routes = this.context.router.getCurrentRoutes();
+    let currentRoute = routes.find(function (route) {
+      return route.handler === TaskDetail;
+    });
+
+    if (currentRoute != null) {
+      this.tabs_tabs = currentRoute.children.reduce(function (tabs, {name, title}) {
+        if (name !== null) {
+          tabs[name] = title || name;
+        }
+
+        return tabs;
+      }, this.tabs_tabs);
+
+      this.updateCurrentTab();
     }
-    if (this.props.params.overlayName != null) {
-      this.tabs_tabs = Object.assign({}, VIRTUAL_NETWORKS_TABS);
-    }
-    this.updateCurrentTab();
+
   }
 
   updateCurrentTab() {

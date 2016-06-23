@@ -111,7 +111,8 @@ let RouteFactory = {
                 parentCrumb: 'virtual-networks-tab-detail-tasks-detail',
                 getCrumbs: function () { return []; }
               }
-            }
+            },
+            title: 'Details'
           },
           {
             type: Route,
@@ -124,7 +125,8 @@ let RouteFactory = {
                 parentCrumb: 'virtual-networks-tab-detail-tasks-detail',
                 getCrumbs: function () { return []; }
               }
-            }
+            },
+            title: 'Files'
           },
           {
             type: Route,
@@ -138,7 +140,8 @@ let RouteFactory = {
                 parentCrumb: 'virtual-networks-tab-detail-tasks-detail',
                 getCrumbs: function () { return []; }
               }
-            }
+            },
+            title: 'Logs'
           }
         ]
       }
