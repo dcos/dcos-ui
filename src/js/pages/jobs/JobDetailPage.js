@@ -7,13 +7,14 @@ import React from 'react';
 import {RouteHandler} from 'react-router';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
-import MetronomeStore from '../../stores/MetronomeStore';
+import Breadcrumbs from '../../components/Breadcrumbs';
 import DateUtil from '../../utils/DateUtil';
 import JobConfiguration from './JobConfiguration';
 import JobFormModal from '../../components/modals/JobFormModal';
 import JobRunHistoryTable from './JobRunHistoryTable';
-import RequestErrorMsg from '../../components/RequestErrorMsg';
+import MetronomeStore from '../../stores/MetronomeStore';
 import PageHeader from '../../components/PageHeader';
+import RequestErrorMsg from '../../components/RequestErrorMsg';
 import TabsMixin from '../../mixins/TabsMixin';
 import TaskStates from '../../constants/TaskStates';
 
@@ -241,6 +242,7 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
 
     return (
       <div>
+        <Breadcrumbs />
         <PageHeader
           actionButtons={this.getActionButtons()}
           navigationTabs={this.getNavigationTabs()}
