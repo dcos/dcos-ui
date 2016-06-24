@@ -26,6 +26,10 @@ let DEFAULT_SERVICES_TABS = {
 };
 
 let DEFAULT_OVERVIEW_TABS = {
+  'system-overview-details': {
+    content: 'Details',
+    priority: 30
+  },
   'system-overview-units': {
     content: 'Components',
     priority: 20
