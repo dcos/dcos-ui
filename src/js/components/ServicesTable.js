@@ -128,7 +128,7 @@ var ServicesTable = React.createClass({
         <span className="media-object-item flush-bottom">
           <HealthBar tasksSummary={taskSummary} instancesCount={instanceCount} />
         </span>
-        <span className="media-object-item flush-bottom visible-large-inline-block">
+        <span className="media-object-item flush-bottom status-bar-text">
           <span className={serviceStatusClassSet}>{serviceStatus}</span>
           {text}
         </span>
