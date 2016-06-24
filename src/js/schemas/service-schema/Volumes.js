@@ -3,7 +3,6 @@ const Volumes = {
   type: 'object',
   properties: {
     localVolumes: {
-      title: 'Local Volumes',
       type: 'array',
       duplicable: true,
       addLabel: 'Add Local Volume',
@@ -37,7 +36,6 @@ const Volumes = {
       }
     },
     dockerVolumes: {
-      title: 'Container Volumes',
       type: 'array',
       duplicable: true,
       addLabel: 'Add Container Volume',
@@ -82,7 +80,6 @@ const Volumes = {
       }
     },
     externalVolumes: {
-      title: 'Network Volumes',
       type: 'array',
       duplicable: true,
       addLabel: 'Add Network Volume',
