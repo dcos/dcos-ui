@@ -4,7 +4,7 @@
   background-color: @gray;
   margin-right: 0;
   height: @status-bar-height;
-  width: @status-bar-width;
+  width: @status-bar-width * 0.6;
   max-width: 100%;
 
   .bar {
@@ -35,4 +35,16 @@
     color: @yellow;
 
   }
+}
+
+& when (@screen-small-enabled) {
+
+  @media (min-width: @screen-small) {
+
+    .status-bar {
+      width: @status-bar-width;
+    }
+
+  }
+
 }
