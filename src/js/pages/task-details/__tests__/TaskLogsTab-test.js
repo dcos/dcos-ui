@@ -26,6 +26,7 @@ describe('TaskLogsTab', function () {
     this.instance = ReactDOM.render(
       <TaskLogsTab
         directory={new TaskDirectory({items: [{nlink: 1, path: '/stdout'}]})}
+        params={{filePath: 'undefined'}}
         selectedLogFile={new DirectoryItem({nlink: 1, path: '/stdout'})}
         task={{slave_id: 'foo'}} />,
       this.container
@@ -42,6 +43,7 @@ describe('TaskLogsTab', function () {
       this.instance = ReactDOM.render(
         <TaskLogsTab
           directory={new TaskDirectory({items: [{nlink: 1, path: ''}]})}
+          params={{filePath: 'undefined'}}
           task={{slave_id: 'foo'}} />,
         this.container
       );
@@ -76,6 +78,7 @@ describe('TaskLogsTab', function () {
             {nlink: 1, path: '/stdout'},
             {nlink: 1, path: '/stderr'}
           ]})}
+          params={{filePath: '/stderr'}}
           selectedLogFile={new DirectoryItem({nlink: 1, path: '/stderr'})}
           task={{slave_id: 'foo'}} />,
         this.container
