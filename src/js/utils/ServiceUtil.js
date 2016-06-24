@@ -123,6 +123,9 @@ const ServiceUtil = {
           if (volumes.dockerVolumes) {
             volumesList = volumesList.concat(
               volumes.dockerVolumes
+                .filter(function ({containerPath, hostPath}) {
+                  return containerPath != null && hostPath != null
+                })
               .map(function ({containerPath, hostPath, mode}) {
                 return {
                   containerPath,
