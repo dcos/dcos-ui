@@ -4,7 +4,11 @@ import React from 'react';
 
 let General = {
   title: 'General',
-  description: 'Configure your container',
+  description: (
+    <span>
+      Configure your container or <a href="/#/universe/packages/">browse all DC/OS Universe services</a>.
+    </span>
+  ),
   type: 'object',
   properties: {
     id: {
