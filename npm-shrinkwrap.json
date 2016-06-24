@@ -835,9 +835,9 @@
       "resolved": "https://registry.npmjs.org/brace/-/brace-0.8.0.tgz"
     },
     "brace-expansion": {
-      "version": "1.1.4",
+      "version": "1.1.5",
       "from": "brace-expansion@>=1.0.0 <2.0.0",
-      "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.4.tgz"
+      "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.5.tgz"
     },
     "braces": {
       "version": "1.8.4",
@@ -2666,7 +2666,7 @@
     },
     "glob": {
       "version": "7.0.5",
-      "from": "glob@latest",
+      "from": "glob@7.0.5",
       "resolved": "https://registry.npmjs.org/glob/-/glob-7.0.5.tgz",
       "dependencies": {
         "minimatch": {
@@ -3217,9 +3217,9 @@
       "resolved": "https://registry.npmjs.org/indexof/-/indexof-0.0.1.tgz"
     },
     "inflight": {
-      "version": "1.0.4",
+      "version": "1.0.5",
       "from": "inflight@>=1.0.4 <2.0.0",
-      "resolved": "https://registry.npmjs.org/inflight/-/inflight-1.0.4.tgz"
+      "resolved": "https://registry.npmjs.org/inflight/-/inflight-1.0.5.tgz"
     },
     "inherits": {
       "version": "2.0.1",
@@ -6005,7 +6005,7 @@
     },
     "svg-sprite": {
       "version": "1.3.1",
-      "from": "svg-sprite@latest",
+      "from": "svg-sprite@1.3.1",
       "resolved": "https://registry.npmjs.org/svg-sprite/-/svg-sprite-1.3.1.tgz",
       "dependencies": {
         "async": {
@@ -6493,7 +6493,7 @@
     },
     "vinyl": {
       "version": "1.1.1",
-      "from": "vinyl@latest",
+      "from": "vinyl@1.1.1",
       "resolved": "https://registry.npmjs.org/vinyl/-/vinyl-1.1.1.tgz"
     },
     "vinyl-assign": {
