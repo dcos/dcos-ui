@@ -1,6 +1,7 @@
 var classNames = require('classnames');
 var React = require('react');
 
+import Icon from './Icon';
 import ServiceFilterTypes from '../constants/ServiceFilterTypes';
 
 var FilterInputText = React.createClass({
@@ -60,17 +61,22 @@ var FilterInputText = React.createClass({
   renderClearIcon: function (props) {
 
     if (props.searchString) {
+      let color = 'white';
 
-      var clearIconClasses = classNames({
-        'clickable icon icon-sprite icon-sprite-mini icon-close': true,
-        'icon-sprite-mini-white': props.inverseStyle
-      });
+      if (!props.inverseStyle) {
+        color = 'purple';
+      }
 
       return (
         <span className="form-control-group-add-on form-control-group-add-on-append">
           {props.sideText}
           <a onClick={this.handleClearInput}>
-            <i className={clearIconClasses}></i>
+          <Icon
+            family="mini"
+            id="ring-close"
+            size="mini"
+            className="clickable"
+            color={color} />
           </a>
         </span>
       );
@@ -83,12 +89,14 @@ var FilterInputText = React.createClass({
     var props = this.props;
     var focus = this.state.focus;
 
-    var iconSearchClasses = classNames({
-      'icon icon-sprite icon-sprite-mini icon-search': true,
-      'icon-sprite-mini-white': props.inverseStyle,
-      'icon-sprite-mini-color': !props.inverseStyle && focus,
+    let iconColor = 'white';
+    let iconSearchClasses = classNames({
       'active': focus
     });
+
+    if (!props.inverseStyle && focus) {
+      iconColor = 'purple';
+    }
 
     var inputClasses = classNames({
       'form-control filter-input-text': true,
@@ -112,7 +120,12 @@ var FilterInputText = React.createClass({
           onClick={this.handleFocus}
           onBlur={this.handleBlur}>
           <span className="form-control-group-add-on form-control-group-add-on-prepend">
-            <i className={iconSearchClasses}></i>
+            <Icon
+              family="mini"
+              id="search"
+              size="mini"
+              className={iconSearchClasses}
+              color={iconColor} />
           </span>
           <input
             type="text"

@@ -155,15 +155,11 @@ class TaskTable extends React.Component {
 
   renderState(prop, task) {
     let statusClassName = TaskUtil.getTaskStatusClassName(task);
-    let statusIcon = TaskUtil.getTaskStatusIcon(task);
     let statusLabelClasses = `${statusClassName} table-cell-value`;
 
     return (
       <div className="flex-box flex-box-align-vertical-center
         table-cell-flex-box">
-        <div className="table-cell-icon table-cell-icon-mini">
-          {statusIcon}
-        </div>
         <span className={statusLabelClasses}>
           {this.getStateValue(task, prop)}
         </span>

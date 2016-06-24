@@ -1,5 +1,6 @@
 import React from 'react';
 
+import Icon from '../../components/Icon';
 import TaskDirectoryTable from '../../components/TaskDirectoryTable';
 import TaskDirectoryStore from '../../stores/TaskDirectoryStore';
 
@@ -18,16 +19,7 @@ class TaskFilesTab extends React.Component {
 
     let crumbs = innerPath.map((directoryItem, index) => {
       let textValue = directoryItem;
-      let icon = (
-        <i
-          className="
-            icon
-            icon-sprite
-            icon-sprite-small
-            icon-back
-            forward">
-        </i>
-      );
+      let icon = <Icon id="caret-right" size="small" family="small" />;
 
       // First breadcrumb is always 'Working Directory'.
       if (index === 0) {

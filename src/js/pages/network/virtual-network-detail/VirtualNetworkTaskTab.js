@@ -10,6 +10,7 @@ import {Table} from 'reactjs-components';
 import FilterBar from '../../../components/FilterBar';
 import FilterHeadline from '../../../components/FilterHeadline';
 import FilterInputText from '../../../components/FilterInputText';
+import Icon from '../../../components/Icon';
 import MesosStateStore from '../../../stores/MesosStateStore';
 import Overlay from '../../../structs/Overlay';
 import RequestErrorMsg from '../../../components/RequestErrorMsg';
@@ -217,7 +218,11 @@ class VirtualNetworkTaskTab extends mixin(StoreMixin) {
 
       if (mapping.host_port) {
         mapTo.push(
-          <i className="icon icon-sprite icon-sprite-mini icon-chevron flush" />
+          <Icon
+            className="list-inline-separator"
+            family="tiny"
+            id="caret-right"
+            size="tiny" />
         );
         mapTo.push(this.getTaskLink(
           id,

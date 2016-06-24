@@ -8,6 +8,7 @@ import {Tooltip} from 'reactjs-components';
 import ClusterHeader from './ClusterHeader';
 import Config from '../config/Config';
 var EventTypes = require('../constants/EventTypes');
+import Icon from './Icon';
 import IconDCOSLogoMark from './icons/IconDCOSLogoMark';
 import {keyCodes} from '../utils/KeyboardUtil';
 var InternalStorageMixin = require('../mixins/InternalStorageMixin');
@@ -162,13 +163,13 @@ var Sidebar = React.createClass({
       <Tooltip content="Documentation" key="button-docs" elementTag="a"
         href={MetadataStore.buildDocsURI('/')} target="_blank"
         wrapperClassName="button button-link tooltip-wrapper">
-        <i className="icon icon-sprite icon-documents icon-sprite-medium clickable"></i>
+        <Icon className="clickable" id="pages" />
       </Tooltip>
     ), (
       <Tooltip content="Install CLI"
         key="button-cli" elementTag="a" onClick={this.handleInstallCLI}
         wrapperClassName="button button-link tooltip-wrapper">
-        <i className="icon icon-sprite icon-cli icon-sprite-medium clickable"></i>
+        <Icon className="clickable" id="cli" />
       </Tooltip>
     )];
 

@@ -54,10 +54,10 @@ var SidebarToggle = React.createClass({
   },
 
   render: function () {
+    // TODO: Create toggle icon here.
+    // https://mesosphere.atlassian.net/browse/DCOS-7877
     return (
       <div className="page-navigation-sidebar-toggle" onClick={this.onClick}>
-        <i className="page-navigation-sidebar-toggle-icon icon icon-menu icon-sprite
-          icon-sprite-medium icon-sprite-medium-white"></i>
         <span className="page-navigation-sidebar-toggle-label">
           Show/Hide Sidebar
         </span>

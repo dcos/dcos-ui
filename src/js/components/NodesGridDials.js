@@ -3,6 +3,7 @@ import {Tooltip} from 'reactjs-components';
 
 var Chart = require('./charts/Chart');
 var DialChart = require('./charts/DialChart');
+import Icon from './Icon';
 var ResourcesUtil = require('../utils/ResourcesUtil');
 
 var colors = {
@@ -136,7 +137,7 @@ var NodesGridDials = React.createClass({
         data: this.getInactiveSliceData(),
         description: (
           <span className="error">
-            <i className="icon icon-sprite icon-sprite-medium icon-sprite-medium-white icon-alert" />
+            <Icon id="yield" className="icon-alert" color="white" />
           </span>
         )
       };

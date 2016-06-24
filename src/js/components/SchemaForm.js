@@ -5,6 +5,7 @@ import {Tooltip} from 'reactjs-components';
 
 import FormUtil from '../utils/FormUtil';
 import GeminiUtil from '../utils/GeminiUtil';
+import Icon from './Icon';
 import SchemaFormUtil from '../utils/SchemaFormUtil';
 import SchemaUtil from '../utils/SchemaUtil';
 import TabForm from './TabForm';
@@ -166,7 +167,7 @@ class SchemaForm extends mixin(StoreMixin) {
         <button
           className="button button-link"
           onClick={this.handleRemoveRow.bind(this, generalDefinition, prop, id)}>
-          <i className="icon icon-sprite icon-sprite-mini icon-close"/>
+          <Icon id="close" size="mini" family="mini" />
         </button>
       </div>
     );
@@ -254,7 +255,11 @@ class SchemaForm extends mixin(StoreMixin) {
             <Tooltip content={description} wrapperClassName="tooltip-wrapper
               media-object-item" wrapText={true} maxWidth={300}
               scrollContainer=".gm-scroll-view">
-              <i className="icon icon-sprite icon-sprite-mini icon-error" />
+              <Icon
+                color="grey"
+                family="mini"
+                id="ring-question"
+                size="mini" />
             </Tooltip>
           </div>
         </span>
@@ -274,7 +279,7 @@ class SchemaForm extends mixin(StoreMixin) {
         <div className="media-object-spacing-wrapper media-object-spacing-narrow media-object-offset">
           <div className="media-object media-object-align-middle">
             <div className="media-object-item">
-              <div className="icon icon-sprite icon-sprite-medium icon-sprite-medium-color icon-image-container icon-app-container icon-default-white">
+              <div className="icon icon-medium icon-image-container icon-app-container icon-default-white">
                 <img src={packageIcon} />
               </div>
             </div>

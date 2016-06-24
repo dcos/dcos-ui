@@ -3,6 +3,7 @@ import {Link} from 'react-router';
 import React from 'react';
 import {Table} from 'reactjs-components';
 
+import Icon from '../../components/Icon';
 import JobTableHeaderLabels from '../../constants/JobTableHeaderLables';
 import ResourceTableUtil from '../../utils/ResourceTableUtil';
 import TableUtil from '../../utils/TableUtil';
@@ -114,10 +115,12 @@ class JobsTable extends React.Component {
 
     if (job.isGroup) {
       itemImage = (
-        <span
-          className="icon icon-margin-right icon-small icon-image-container icon-app-container">
-          <i className="icon icon-sprite icon-sprite-mini icon-directory "/>
-        </span>
+        <Icon
+          className="icon-margin-right inverse"
+          color="grey"
+          id="folder"
+          size="small"
+          family="small" />
       );
     }
 
