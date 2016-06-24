@@ -7,6 +7,7 @@ import EnvironmentVariables from './service-schema/EnvironmentVariables';
 import General from './service-schema/General';
 import HealthChecks from './service-schema/HealthChecks';
 import Labels from './service-schema/Labels';
+import Networking from './service-schema/Networking';
 import Optional from './service-schema/Optional';
 import Volumes from './service-schema/Volumes';
 
@@ -15,6 +16,7 @@ let ServiceSchema = {
   properties: {
     general: General,
     containerSettings: ContainerSettings,
+    networking: Networking,
     optional: Optional,
     environmentVariables: EnvironmentVariables,
     volumes: Volumes,
