@@ -7,6 +7,7 @@ import Framework from '../structs/Framework';
 import HealthBar from './HealthBar';
 import IconNewWindow from './icons/IconNewWindow';
 var MarathonStore = require('../stores/MarathonStore');
+import NestedServiceLinks from '../components/NestedServiceLinks';
 var ResourceTableUtil = require('../utils/ResourceTableUtil');
 var ServiceTableHeaderLabels = require('../constants/ServiceTableHeaderLabels');
 import ServiceTableUtil from '../utils/ServiceTableUtil';
@@ -24,7 +25,12 @@ var ServicesTable = React.createClass({
 
   displayName: 'ServicesTable',
 
+  defaultProps: {
+    isFiltered: false
+  },
+
   propTypes: {
+    isFiltered: React.PropTypes.bool,
     services: React.PropTypes.array.isRequired
   },
 
@@ -67,6 +73,30 @@ var ServicesTable = React.createClass({
     this.forceUpdate();
   },
 
+  getServiceLink: function (service) {
+    const id = encodeURIComponent(service.getId());
+
+    if (this.props.isFiltered) {
+      return (
+        <NestedServiceLinks
+          serviceID={id}
+          className="service-breadcrumb"
+          majorLinkClassName="service-breadcrumb-service-id"
+          minorLinkWrapperClassName="service-breadcrumb-crumb" />
+      );
+    }
+
+    return (
+      <Link to="services-detail"
+        className="headline table-cell-value flex-box flex-box-col"
+        params={{id}}>
+        <span className="text-overflow">
+          {service.getName()}
+        </span>
+      </Link>
+    );
+  },
+
   renderHeadline: function (prop, service) {
     const id = encodeURIComponent(service.getId());
     let itemImage = null;
@@ -99,13 +129,7 @@ var ServicesTable = React.createClass({
           params={{id}}>
           {itemImage}
         </Link>
-        <Link to="services-detail"
-          className="headline table-cell-value flex-box flex-box-col"
-          params={{id}}>
-          <span className="text-overflow">
-            {service.getName()}
-          </span>
-        </Link>
+        {this.getServiceLink(service)}
         {this.getOpenInNewWindowLink(service)}
       </div>
     );
