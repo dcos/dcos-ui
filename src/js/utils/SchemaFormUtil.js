@@ -35,7 +35,18 @@ function setDefinitionValue(thingToSet, definition, renderRemove) {
         definitionToSet.definition.itemShapes[prop].definition,
         item
       );
-      instanceDefinition.push(
+
+      if (definitionToSet.definition.itemShapes[prop].filterProperties) {
+        definitionToSet.definition.itemShapes[prop]
+          .filterProperties(item, instanceDefinition);
+      }
+
+      let arrayAction = 'push';
+      if (definitionToSet.definition.itemShapes[prop].deleteButtonTop) {
+        arrayAction = 'unshift';
+      }
+
+      instanceDefinition[arrayAction](
         renderRemove(definitionToSet.definition, prop, propID)
       );
       definitionToSet.definition.splice(firstIndex++, 0, instanceDefinition);

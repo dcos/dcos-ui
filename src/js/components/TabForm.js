@@ -149,7 +149,14 @@ class TabForm extends React.Component {
         render: this.getHeader.bind(this, title, description)
       }].concat(definition);
 
-      let formRowClassSet = classNames('row', formRowClass);
+      let formRowClasses = {};
+      // Add tab key to formRowClasses for custom styling
+      if (definition.itemShapes) {
+        Object.keys(definition.itemShapes).forEach(function (key) {
+          formRowClasses[key] = true;
+        });
+      }
+      let formRowClassSet = classNames('row', formRowClass, formRowClasses);
 
       return (
         <div key={i} className="form-panel">

@@ -107,7 +107,17 @@ class SchemaForm extends mixin(StoreMixin) {
       propID,
       newDefinition
     );
-    newDefinition.push(
+
+    let deleteButtonTop = Object.values(definition.itemShapes || {})
+      .some(function (itemShape) {
+        return itemShape.deleteButtonTop;
+      });
+    let arrayAction = 'push';
+
+    if (deleteButtonTop) {
+      arrayAction = 'unshift';
+    }
+    newDefinition[arrayAction](
       this.getRemoveRowButton(definition, prop, propID)
     );
 

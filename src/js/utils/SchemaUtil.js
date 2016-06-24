@@ -54,6 +54,10 @@ function schemaToFieldDefinition(fieldName, fieldProps, formParent, isRequired, 
     definition.checked = value;
   }
 
+  if (fieldProps.fieldType === 'number') {
+    definition.fieldType = 'number';
+  }
+
   if (fieldProps.fieldType === 'select') {
     definition.fieldType = 'select';
     definition.options = fieldProps.options;
@@ -68,13 +72,18 @@ function schemaToFieldDefinition(fieldName, fieldProps, formParent, isRequired, 
     definition.fieldType = 'textarea';
   }
 
+  if (fieldProps.formElementClass) {
+    definition.formElementClass = fieldProps.formElementClass;
+  }
+
   if (fieldProps.duplicable === true && fieldProps.itemShape) {
     let itemShape = nestedSchemaToFieldDefinition(
       fieldName,
       fieldProps.itemShape,
       formParent,
       renderLabel,
-      renderLabel
+      renderLabel,
+      fieldProps.filterProperties
     );
     let propID = Util.uniqueID(fieldName);
 
@@ -84,8 +93,17 @@ function schemaToFieldDefinition(fieldName, fieldProps, formParent, isRequired, 
       itemShape.definition
     );
 
+    if (fieldProps.filterProperties) {
+      itemShape.filterProperties = fieldProps.filterProperties;
+    }
+
     if (renderRemove) {
-      definition.push(renderRemove(formParent, fieldName, propID));
+      let arrayAction = 'push';
+      if (fieldProps.deleteButtonTop) {
+        itemShape.deleteButtonTop = true;
+        arrayAction = 'unshift';
+      }
+      definition[arrayAction](renderRemove(formParent, fieldName, propID));
     }
 
     if (formParent.itemShapes == null) {
@@ -100,7 +118,7 @@ function schemaToFieldDefinition(fieldName, fieldProps, formParent, isRequired, 
   return definition;
 }
 
-function nestedSchemaToFieldDefinition(fieldName, fieldProps, topLevelProp, renderSubheader, renderLabel) {
+function nestedSchemaToFieldDefinition(fieldName, fieldProps, topLevelProp, renderSubheader, renderLabel, filterProperties) {
   let nestedDefinition = {
     name: fieldName,
     render: null,
@@ -117,7 +135,6 @@ function nestedSchemaToFieldDefinition(fieldName, fieldProps, topLevelProp, rend
 
   Object.keys(properties).forEach(function (nestedFieldName) {
     let nestedPropertyValue = properties[nestedFieldName];
-
     if (nestedPropertyValue.properties) {
       nestedDefinition.definition.push(
         nestedSchemaToFieldDefinition(
@@ -125,7 +142,8 @@ function nestedSchemaToFieldDefinition(fieldName, fieldProps, topLevelProp, rend
           nestedPropertyValue,
           nestedDefinition.definition,
           renderSubheader,
-          renderLabel
+          renderLabel,
+          filterProperties
         )
       );
     } else {
@@ -140,6 +158,10 @@ function nestedSchemaToFieldDefinition(fieldName, fieldProps, topLevelProp, rend
       );
     }
   });
+
+  if (filterProperties) {
+    filterProperties({}, nestedDefinition.definition);
+  }
 
   return nestedDefinition;
 }
@@ -192,8 +214,7 @@ let SchemaUtil = {
             definitionForm.definition,
             renderSubheader,
             renderLabel,
-            renderRemove,
-            renderAdd
+            secondLevelObject.filterProperties
           );
         }
         definitionForm.definition.push(fieldDefinition);
@@ -204,7 +225,8 @@ let SchemaUtil = {
             secondLevelObject.itemShape,
             definitionForm.definition,
             renderLabel,
-            renderLabel
+            renderLabel,
+            secondLevelObject.filterProperties
           );
 
           definitionForm.definition.push(
