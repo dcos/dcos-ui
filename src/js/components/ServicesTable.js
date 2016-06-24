@@ -215,7 +215,7 @@ var ServicesTable = React.createClass({
       <div>
         <Table
           buildRowOptions={this.getRowAttributes}
-          className="table inverse table-borderless-outer table-borderless-inner-columns flush-bottom"
+          className="table service-table inverse table-borderless-outer table-borderless-inner-columns flush-bottom"
           columns={this.getColumns()}
           colGroup={this.getColGroup()}
           data={this.props.services.slice()}

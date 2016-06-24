@@ -1,0 +1,28 @@
+& when (@table-enabled) {
+
+  .service-table {
+    table-layout: fixed;
+
+    .status-bar-column {
+
+      width: 138px;
+
+    }
+
+  }
+
+  @media (min-width: @screen-large) {
+
+    .service-table {
+
+      .status-bar-column {
+
+        width: 330px;
+
+      }
+
+    }
+
+  }
+
+}
