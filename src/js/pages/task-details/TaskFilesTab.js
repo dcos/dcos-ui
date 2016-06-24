@@ -1,10 +1,19 @@
 import React from 'react';
 
-import Icon from '../../components/Icon';
+import ManualBreadcrumbs from '../../components/ManualBreadcrumbs';
 import TaskDirectoryTable from '../../components/TaskDirectoryTable';
 import TaskDirectoryStore from '../../stores/TaskDirectoryStore';
 
+const METHODS_TO_BIND = ['handleBreadcrumbClick']
+
 class TaskFilesTab extends React.Component {
+  constructor() {
+    super(...arguments);
+
+    METHODS_TO_BIND.forEach((method) => {
+      this[method] = this[method].bind(this);
+    });
+  }
   handleFileClick(path) {
     TaskDirectoryStore.addPath(this.props.task, path);
   }
@@ -16,44 +25,25 @@ class TaskFilesTab extends React.Component {
   getBreadcrumbs() {
     let innerPath = TaskDirectoryStore.get('innerPath').split('/');
     let onClickPath = '';
-
     let crumbs = innerPath.map((directoryItem, index) => {
       let textValue = directoryItem;
-      let icon = <Icon id="caret-right" size="small" family="small" />;
 
       // First breadcrumb is always 'Working Directory'.
       if (index === 0) {
         textValue = 'Working Directory';
-        icon = null;
       } else {
-        // Build the path that the user goes to if clicked.
         onClickPath += ('/' + directoryItem);
       }
 
-      // Last breadcrumb. Don't make it a link.
-      if (index === innerPath.length - 1) {
-        return (
-          <span key={index}>
-            {icon}
-            <span className="crumb" key={index}>{textValue}</span>
-          </span>
-        );
-      }
-
-      return (
-        <span key={index}>
-          {icon}
-          <a
-            className="crumb clickable"
-            onClick={this.handleBreadcrumbClick.bind(this, onClickPath)}>
-            {textValue}
-          </a>
-        </span>
-      );
+      return {
+        className: 'clickable',
+        label: textValue,
+        onClick: this.handleBreadcrumbClick.bind(this, onClickPath)
+      };
     });
 
     return (
-      <h3 className="breadcrumbs flush-top">{crumbs}</h3>
+      <ManualBreadcrumbs crumbs={crumbs} />
     );
   }
 
