@@ -71,6 +71,7 @@ const ContainerSettings = {
     },
 
     parameters: {
+      title: 'Parameters',
       type: 'array',
       duplicable: true,
       addLabel: 'Add Parameter',

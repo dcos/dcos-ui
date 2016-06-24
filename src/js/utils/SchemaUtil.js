@@ -217,9 +217,8 @@ let SchemaUtil = {
             secondLevelObject.filterProperties
           );
         }
-        definitionForm.definition.push(fieldDefinition);
 
-        if (secondLevelObject.duplicable === true && renderAdd) {
+        if (secondLevelObject.duplicable === true) {
           let itemShape = nestedSchemaToFieldDefinition(
             secondLevelProp,
             secondLevelObject.itemShape,
@@ -229,15 +228,31 @@ let SchemaUtil = {
             secondLevelObject.filterProperties
           );
 
-          definitionForm.definition.push(
-            renderAdd(
-              secondLevelProp,
-              definitionForm.definition,
-              itemShape.definition,
-              secondLevelProperties[secondLevelProp].addLabel
-            )
-          );
+          if (secondLevelObject.title) {
+            definitionForm.definition.push(
+              renderSubheader(secondLevelObject.title)
+            );
+          }
+          definitionForm.definition.push(fieldDefinition);
+
+          if (renderAdd) {
+            definitionForm.definition.push(
+              {
+                render: renderAdd.bind(
+                  null,
+                  secondLevelProp,
+                  definitionForm.definition,
+                  itemShape.definition,
+                  secondLevelProperties[secondLevelProp].addLabel
+                )
+              }
+            );
+          }
+
+          return;
         }
+
+        definitionForm.definition.push(fieldDefinition);
       });
 
     });

@@ -146,16 +146,16 @@ class SchemaForm extends mixin(StoreMixin) {
     }
 
     return (
-      <div className="form-row-element"
-        prop={prop}>
-        <a
-          key={`${prop}-add-new-row`}
-          className="clickable row"
-          onClick={
-            this.handleAddRow.bind(this, prop, generalDefinition, definition)
-          }>
-          + {label}
-        </a>
+      <div prop={prop} key={`${prop}-add-new-row`}>
+        <div className="row form-row-element">
+          <a
+            className="clickable row"
+            onClick={
+              this.handleAddRow.bind(this, prop, generalDefinition, definition)
+            }>
+            + {label}
+          </a>
+        </div>
       </div>
     );
   }
