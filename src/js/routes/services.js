@@ -152,6 +152,7 @@ let serviceRoutes = {
                   path: 'files/?',
                   handler: TaskFilesTab,
                   hideHeaderNavigation: true,
+                  logRouteName: 'services-task-details-logs',
                   buildBreadCrumb: function () {
                     return {
                       parentCrumb: 'services-task-details',
@@ -164,7 +165,7 @@ let serviceRoutes = {
                   type: Route,
                   name: 'services-task-details-logs',
                   dontScroll: true,
-                  path: 'logs/?',
+                  path: 'logs/:filePath?/?',
                   handler: TaskLogsTab,
                   hideHeaderNavigation: true,
                   buildBreadCrumb: function () {

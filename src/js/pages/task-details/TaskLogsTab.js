@@ -3,6 +3,7 @@ import {Dropdown, Tooltip} from 'reactjs-components';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import DirectoryItem from '../../structs/DirectoryItem';
 import FilterBar from '../../components/FilterBar';
 import FilterInputText from '../../components/FilterInputText';
 import Icon from '../../components/Icon';
@@ -98,12 +99,17 @@ class TaskLogsTab extends React.Component {
   }
 
   handleViewChange(currentFile) {
-    this.setState({
-      currentFile,
-      watching: 0,
-      searchString: '',
-      totalFound: 0
-    });
+    let currentRoutes = this.context.router.getCurrentRoutes();
+    let lastRoute = currentRoutes[currentRoutes.length - 1];
+    console.log('in here', lastRoute);
+    this.context.router.transitionTo(
+      lastRoute.name,
+      Object.assign(
+        {},
+        this.props.params,
+        {filePath: encodeURIComponent(currentFile.get('path'))}
+      )
+    );
   }
 
   handleCountChange(totalFound) {
@@ -188,6 +194,7 @@ class TaskLogsTab extends React.Component {
   }
 
   onItemSelection(obj) {
+    console.log(obj);
     this.handleViewChange(obj.value);
   }
 
@@ -215,8 +222,13 @@ class TaskLogsTab extends React.Component {
 
   getSelectedFile() {
     let {props, state} = this;
-    return state.currentFile ||
-      props.selectedLogFile || this.getLogFiles()[0];
+    let file = state.currentFile;
+    let paramsPath = decodeURIComponent(props.params.filePath);
+    if (!file && paramsPath !== 'undefined') {
+      return new DirectoryItem({path: paramsPath});
+    } else {
+      return this.getLogFiles()[0];
+    }
   }
 
   getSelectionComponent() {
@@ -319,6 +331,10 @@ class TaskLogsTab extends React.Component {
     );
   }
 }
+
+TaskLogsTab.contextTypes = {
+  router: React.PropTypes.func
+};
 
 TaskLogsTab.propTypes = {
   directory: React.PropTypes.object,

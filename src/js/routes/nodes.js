@@ -143,6 +143,7 @@ let nodesRoutes = {
               path: 'files/?',
               handler: TaskFilesTab,
               hideHeaderNavigation: true,
+              logRouteName: 'nodes-task-details-logs',
               buildBreadCrumb: function () {
                 return {
                   parentCrumb: 'nodes-task-details',
@@ -155,7 +156,7 @@ let nodesRoutes = {
               type: Route,
               name: 'nodes-task-details-logs',
               dontScroll: true,
-              path: 'logs/?',
+              path: 'logs/:filePath?/?',
               handler: TaskLogsTab,
               hideHeaderNavigation: true,
               buildBreadCrumb: function () {

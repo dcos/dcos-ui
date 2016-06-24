@@ -120,6 +120,7 @@ let RouteFactory = {
             path: 'files/?',
             handler: TaskFilesTab,
             hideHeaderNavigation: true,
+            logRouteName: 'virtual-networks-tab-detail-tasks-details-logs',
             buildBreadCrumb: function () {
               return {
                 parentCrumb: 'virtual-networks-tab-detail-tasks-detail',
@@ -132,7 +133,7 @@ let RouteFactory = {
             type: Route,
             name: 'virtual-networks-tab-detail-tasks-details-logs',
             dontScroll: true,
-            path: 'logs/?',
+            path: 'logs/:filePath?/?',
             handler: TaskLogsTab,
             hideHeaderNavigation: true,
             buildBreadCrumb: function () {
