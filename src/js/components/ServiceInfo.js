@@ -40,7 +40,7 @@ class ServiceInfo extends React.Component {
     }];
 
     let actionButtons = [(
-      <button className="button button-stroke button-inverse"
+      <button className="button flush-bottom button-stroke button-inverse"
         key="action-button-edit"
         onClick={() =>
           this.props.onActionsItemSelection({id: ServiceActionItem.EDIT})}>
@@ -53,7 +53,7 @@ class ServiceInfo extends React.Component {
         dropdownMenuClassName="dropdown-menu"
         dropdownMenuListClassName="dropdown-menu-list"
         dropdownMenuListItemClassName="clickable"
-        wrapperClassName="dropdown anchor-right"
+        wrapperClassName="dropdown anchor-right flush-bottom"
         items={dropdownItems}
         persistentID={ServiceActionItem.MORE}
         onItemSelection={this.props.onActionsItemSelection}
