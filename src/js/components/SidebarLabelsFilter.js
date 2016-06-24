@@ -3,6 +3,7 @@ import {Dropdown} from 'reactjs-components';
 import mixin from 'reactjs-mixin';
 import React from 'react';
 
+import Icon from './Icon';
 import QueryParamsMixin from '../mixins/QueryParamsMixin';
 import Service from '../structs/Service';
 import ServiceTree from '../structs/ServiceTree';
@@ -125,7 +126,7 @@ class SidebarLabelsFilters extends mixin(QueryParamsMixin) {
             <span className="text-overflow">{labelText}</span>
             <a className={removeLabelClassNames}
                onClick={this.handleActionSelection.bind(this, {key, value})}>
-              x
+              <Icon family="mini" id="close" size="micro" />
             </a>
           </div>
         </li>
