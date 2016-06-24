@@ -181,8 +181,10 @@ const ServiceUtil = {
           }
         }
 
-        definition.container.type = type;
-        definition.container.volumes = volumesList;
+        if (volumesList.length > 0) {
+          definition.container.type = type;
+          definition.container.volumes = volumesList;
+        }
       }
 
       if (labels != null && labels.labels != null) {
