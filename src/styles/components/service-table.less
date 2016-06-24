@@ -1,0 +1,49 @@
+& when (@table-enabled) {
+
+  .service-table {
+    table-layout: fixed;
+
+    // We don't want the status bar to increase the height of the table row
+    // when it wraps to two lines.
+    .status-bar-wrapper {
+      line-height: 1;
+    }
+
+    .status-bar-column {
+      width: @base-spacing-unit * 6;
+    }
+
+    .status-bar-indicator {
+      margin-right: @base-spacing-unit * 1/2;
+    }
+
+    .status-bar-text {
+      white-space: nowrap;
+    }
+
+  }
+
+  & when (@screen-small-enabled) {
+
+    @media (min-width: @screen-small) {
+
+      .service-table {
+
+        .status-bar-wrapper {
+          white-space: nowrap;
+        }
+
+        .status-bar-column {
+          width: @base-spacing-unit * 11.5;
+        }
+
+        .status-bar-text {
+          display: inline;
+        }
+      }
+
+    }
+
+  }
+
+}

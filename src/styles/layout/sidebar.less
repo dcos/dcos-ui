@@ -28,6 +28,9 @@ Sidebar Variables
 @sidebar-footer-image-scale-screen-medium:                                      1.0;
 @sidebar-footer-image-scale-screen-large:                                       1.0;
 
+@sidebar-width-screen-medium:                                                   225px;
+@sidebar-width-screen-large:                                                    250px;
+
 
 
 
@@ -736,7 +739,7 @@ Sidebar Open
 
       &.is-expanded {
 
-        width: 250px;
+        width: @sidebar-width-screen-medium;
 
 
 
@@ -887,7 +890,7 @@ Sidebar Open
         }
 
         & + .page {
-          margin-left: 250px;
+          margin-left: @sidebar-width-screen-medium;
         }
 
       }
@@ -950,7 +953,7 @@ Sidebar Open
 
       &.is-expanded {
 
-        width: 300px;
+        width: @sidebar-width-screen-large;
 
         /* -----------------------------------------------------------------------------
         Sidebar Header
@@ -1037,7 +1040,7 @@ Sidebar Open
         }
 
         & + .page {
-          margin-left: 300px;
+          margin-left: @sidebar-width-screen-large;
         }
 
       }
