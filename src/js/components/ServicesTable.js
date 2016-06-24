@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import {Link} from 'react-router';
 var React = require('react');
 
@@ -124,11 +125,11 @@ var ServicesTable = React.createClass({
     }
 
     return (
-      <div className="status-bar-wrapper media-object media-object-spacing-wrapper media-object-spacing-narrow media-object-offset">
-        <span className="media-object-item flush-bottom">
+      <div className="status-bar-wrapper">
+        <span className="status-bar-indicator">
           <HealthBar tasksSummary={taskSummary} instancesCount={instanceCount} />
         </span>
-        <span className="media-object-item flush-bottom status-bar-text">
+        <span className="status-bar-text">
           <span className={serviceStatusClassSet}>{serviceStatus}</span>
           {text}
         </span>
@@ -142,6 +143,15 @@ var ServicesTable = React.createClass({
         {Units.formatResource(prop, service.getResources()[prop])}
       </span>
     );
+  },
+
+  renderStatsHeading: function (prop, sortBy, row) {
+    let isHeader = row == null;
+
+    return classNames('flush-left text-align-right hidden-mini hidden-small', {
+      'highlight': prop === sortBy.prop,
+      'clickable': isHeader
+    });
   },
 
   getColumns: function () {
@@ -168,8 +178,8 @@ var ServicesTable = React.createClass({
         heading
       },
       {
-        className,
-        headerClassName: className,
+        className: this.renderStatsHeading,
+        headerClassName: this.renderStatsHeading,
         prop: 'disk',
         render: this.renderStats,
         sortable: true,
@@ -177,8 +187,8 @@ var ServicesTable = React.createClass({
         heading
       },
       {
-        className,
-        headerClassName: className,
+        className: this.renderStatsHeading,
+        headerClassName: this.renderStatsHeading,
         prop: 'cpus',
         render: this.renderStats,
         sortable: true,
@@ -186,8 +196,8 @@ var ServicesTable = React.createClass({
         heading
       },
       {
-        className,
-        headerClassName: className,
+        className: this.renderStatsHeading,
+        headerClassName: this.renderStatsHeading,
         prop: 'mem',
         render: this.renderStats,
         sortable: true,
@@ -202,9 +212,9 @@ var ServicesTable = React.createClass({
       <colgroup>
         <col />
         <col className="status-bar-column"/>
-        <col className="hidden-mini" style={{width: '100px'}} />
-        <col className="hidden-mini" style={{width: '100px'}} />
-        <col className="hidden-mini" style={{width: '100px'}} />
+        <col className="hidden-mini hidden-small" style={{width: '85px'}} />
+        <col className="hidden-mini hidden-small" style={{width: '75px'}} />
+        <col className="hidden-mini hidden-small" style={{width: '85px'}} />
       </colgroup>
     );
   },
