@@ -17,11 +17,11 @@ let ServiceSchema = {
     general: General,
     containerSettings: ContainerSettings,
     networking: Networking,
-    optional: Optional,
     environmentVariables: EnvironmentVariables,
-    volumes: Volumes,
     labels: Labels,
-    healthChecks: HealthChecks
+    healthChecks: HealthChecks,
+    volumes: Volumes,
+    optional: Optional
   },
   required: [
     'general'
