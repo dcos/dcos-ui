@@ -113,7 +113,7 @@ var Sidebar = React.createClass({
       var isActive = route.handler.routeConfig.matches.test(currentPath);
       let icon = React.cloneElement(
         route.handler.routeConfig.icon,
-        {className: 'sidebar-menu-item-icon icon icon-medium'}
+        {className: 'sidebar-menu-item-icon icon icon-small'}
       );
 
       var itemClassSet = classNames({
@@ -203,16 +203,16 @@ var Sidebar = React.createClass({
           </div>
         </header>
         <GeminiScrollbar autoshow={true}
-          className="navigation flex-item-grow-1 flex-item-shrink-1"
+          className="navigation flex-item-grow-1 flex-item-shrink-1 inverse"
           >
-          <div className="navigation-inner">
+          <div className="navigation-inner pod pod-short flush-left flush-right">
             <div className="pod pod-narrow flush-top flush-bottom">
-              <div className="sidebar-section">
+              <div className="sidebar-section pod pod-shorter flush-top flush-left flush-right">
                 <ul className="sidebar-menu">
                   {this.getMenuItems()}
                 </ul>
               </div>
-              <div className="sidebar-section">
+              <div className="sidebar-section pod pod-shorter flush-top flush-left flush-right">
                 <h6 className="sidebar-section-header inverse">
                   Resources
                 </h6>
