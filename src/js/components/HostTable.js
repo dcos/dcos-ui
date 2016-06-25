@@ -22,7 +22,7 @@ var HostTable = React.createClass({
   statics: {
     routeConfig: {
       label: 'Nodes',
-      icon: <Icon id="servers" />,
+      icon: <Icon id="servers" size="small" family="small" />,
       matches: /^\/nodes/
     }
   },
