@@ -4,7 +4,7 @@ import React, {PropTypes} from 'react';
 import ReactDOM from 'react-dom';
 
 import BreadcrumbSegmentLink from './BreadcrumbSegmentLink';
-import IconChevron from './icons/IconChevron';
+import Icon from './Icon';
 
 const COLLAPSE_BUFFER = 12;
 const LAST_ITEM_OFFSET = 150; // Difference between scrollWidth and outerWidth
@@ -148,9 +148,7 @@ class ManualBreadcrumbs extends React.Component {
   getBreadcrumbDivider(key) {
     return (
       <li key={key} >
-        <IconChevron
-          className="icon icon-small"
-          isForward={true} />
+        <Icon family="small" id="caret-right" size="small" />
       </li>
     );
   }

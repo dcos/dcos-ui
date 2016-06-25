@@ -6,7 +6,7 @@ import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import CosmosErrorMessage from '../CosmosErrorMessage';
 import CosmosPackagesStore from '../../stores/CosmosPackagesStore';
-import IconCircleCheckmark from '../icons/IconCircleCheckmark';
+import Icon from '../Icon';
 import InternalStorageMixin from '../../mixins/InternalStorageMixin';
 import ReviewConfig from '../ReviewConfig';
 import SchemaForm from '../SchemaForm';
@@ -447,7 +447,7 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
         <div className="modal-content">
           <div className="horizontal-center modal-content-inner container container-pod container-pod-short text-align-center">
             <span className="text-success">
-              <IconCircleCheckmark />
+              <Icon id="ring-check" size="jumbo" />
             </span>
             <h2 className="short-top short-bottom">Success!</h2>
             <div

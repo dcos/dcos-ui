@@ -3,7 +3,7 @@ import React from 'react';
 
 import DescriptionList from './DescriptionList';
 import GeminiUtil from '../utils/GeminiUtil';
-import IconDownload from './icons/IconDownload';
+import Icon from './Icon';
 
 class ReviewConfig extends React.Component {
   componentDidMount() {
@@ -58,7 +58,7 @@ class ReviewConfig extends React.Component {
               onClick={ieDownloadConfig}
               download={fileName}
               href={`data:attachment/json;content-disposition=attachment;filename=${fileName};charset=utf-8,${encodeURIComponent(configString)}`}>
-              <IconDownload /> Download config.json
+              <Icon family="mini" id="download" size="mini" /> Download config.json
             </a>
           </div>
         </div>

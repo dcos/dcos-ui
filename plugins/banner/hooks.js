@@ -4,7 +4,7 @@ import React from 'react';
 
 let SDK = require('./SDK').getSDK();
 
-let {IconInfo, DOMUtils} = SDK.get(['IconInfo', 'DOMUtils']);
+let {Icon, DOMUtils} = SDK.get(['Icon', 'DOMUtils']);
 
 module.exports = {
   configuration: {
@@ -181,7 +181,11 @@ module.exports = {
           <span
             className="banner-plugin-info-icon clickable hidden-small hidden-medium hidden-large"
             onClick={this.toggleFullContent}>
-            <IconInfo fill={this.configuration.foregroundColor} />
+            <Icon
+              family="mini"
+              fill={this.configuration.foregroundColor}
+              id="ring-information"
+              size="mini" />
           </span>
         </span>
         {content}
