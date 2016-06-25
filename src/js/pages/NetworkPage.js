@@ -159,7 +159,7 @@ NetworkPage.contextTypes = {
 
 NetworkPage.routeConfig = {
   label: 'Network',
-  icon: <Icon id="network-hierarchical" />,
+  icon: <Icon id="network-hierarchical" size="small" family="small" />,
   matches: /^\/network/
 };
 

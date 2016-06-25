@@ -1,0 +1,169 @@
+/* -----------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+scrollbar/styles.less
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+----------------------------------------------------------------------------- */
+
+
+
+& when (@scrollbar-enabled) {
+
+  /* -----------------------------------------------------------------------------
+  Gemini Scrollbar
+  ----------------------------------------------------------------------------- */
+
+  .gm-scrollbar {
+
+    right: 3px;
+    bottom: 3px;
+    border-radius: 4px;
+    z-index: @gemini-scrollbar-handle;
+
+    &.-vertical {
+
+      width: 6px;
+      top: 3px;
+
+    }
+
+    &.-horizontal {
+
+      height: 6px;
+      left: 3px;
+
+    }
+
+    .thumb {
+
+      background-color: color-lighten(@neutral, 0);
+      opacity: 0.3;
+      transition: opacity 0.2s ease;
+
+      &:hover {
+
+        background-color: color-lighten(@neutral, 0);
+        opacity: 0.7;
+
+      }
+
+      &:active {
+
+        background-color: color-lighten(@neutral, 0);
+        opacity: 0.7;
+
+      }
+
+    }
+
+  }
+
+  .gm-prevented {
+
+    overflow: auto;
+
+  }
+
+  .gm-scrollbar-container {
+
+    &.inverse {
+
+      .gm-scrollbar {
+
+        .thumb {
+
+          background-color: color-lighten(@white, 0);
+          opacity: 0.3;
+
+          &:hover {
+
+            background-color: color-lighten(@white, 0);
+            opacity: 0.7;
+
+          }
+
+          &:active {
+
+            background-color: color-lighten(@white, 0);
+            opacity: 0.7;
+
+          }
+
+        }
+
+      }
+
+    }
+
+    .gm-scroll-view {
+
+      position: absolute;
+
+      > * {
+
+        position: relative;
+
+      }
+
+    }
+
+  }
+
+}
+
+
+
+& when (@layout-screen-small-enabled) {
+
+  /* -----------------------------------------------------------------------------
+  Screen Size: Small (@layout-screen-small-min-width) and wider
+  ----------------------------------------------------------------------------- */
+
+  @media (min-width: @layout-screen-small-min-width) {
+
+  }
+
+}
+
+
+
+& when (@layout-screen-medium-enabled) {
+
+  /* -----------------------------------------------------------------------------
+  Screen Size: Medium (@layout-screen-medium-min-width) and wider
+  ----------------------------------------------------------------------------- */
+
+  @media (min-width: @layout-screen-medium-min-width) {
+
+  }
+
+}
+
+
+
+& when (@layout-screen-large-enabled) {
+
+  /* -----------------------------------------------------------------------------
+  Screen Size: Large (@layout-screen-large-min-width) and wider
+  ----------------------------------------------------------------------------- */
+
+  @media (min-width: @layout-screen-large-min-width) {
+
+  }
+
+}
+
+
+
+& when (@layout-screen-jumbo-enabled) {
+
+  /* -----------------------------------------------------------------------------
+  Screen Size: Jumbo (@layout-screen-jumbo-min-width) and wider
+  ----------------------------------------------------------------------------- */
+
+  @media (min-width: @layout-screen-jumbo-min-width) {
+
+  }
+
+}
