@@ -10,7 +10,7 @@
     }
 
     .status-bar-column {
-      width: @base-spacing-unit * 6;
+      width: @base-spacing-unit * 4;
     }
 
     .status-bar-indicator {
@@ -21,6 +21,25 @@
       white-space: nowrap;
     }
 
+    .status-bar-count {
+      display: none;
+    }
+
+  }
+
+  & when (@screen-mini-enabled) {
+
+    @media (min-width: @screen-mini) {
+
+      .service-table {
+
+        .status-bar-column {
+          width: @base-spacing-unit * 7;
+        }
+      }
+
+    }
+
   }
 
   & when (@screen-small-enabled) {
@@ -29,15 +48,34 @@
 
       .service-table {
 
+        .status-bar-column {
+          width: @base-spacing-unit * 10;
+        }
+
         .status-bar-wrapper {
           white-space: nowrap;
         }
+      }
+
+    }
+
+  }
+
+  & when (@screen-x-large-enabled) {
+
+    @media (min-width: @screen-x-large) {
+
+      .health-bar-tooltip-instances-total {
+        display: none;
+      }
+
+      .service-table {
 
         .status-bar-column {
-          width: @base-spacing-unit * 11.5;
+          width: @base-spacing-unit * 15;
         }
 
-        .status-bar-text {
+        .status-bar-count {
           display: inline;
         }
       }

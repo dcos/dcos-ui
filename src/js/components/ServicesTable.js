@@ -137,7 +137,7 @@ var ServicesTable = React.createClass({
         </span>
         <span className="status-bar-text">
           <span className={serviceStatusClassSet}>{serviceStatus}</span>
-          {text}
+          <span className="status-bar-count">{text}</span>
         </span>
       </div>
     );
