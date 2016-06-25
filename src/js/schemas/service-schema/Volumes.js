@@ -82,7 +82,7 @@ const Volumes = {
     externalVolumes: {
       type: 'array',
       duplicable: true,
-      addLabel: 'Add network Volume',
+      addLabel: 'Add Network Volume',
       getter: function (service) {
         let containerSettings = service.getContainerSettings();
 
