@@ -12,6 +12,8 @@ module.exports = {
     AuthStore: 'AuthStore',
     BaseStore: 'BaseStore',
     ConfigStore: 'ConfigStore',
+    CosmosPackagesStore: 'CosmosPackagesStore',
+    MarathonStore: 'MarathonStore',
     MetadataStore: 'MetadataStore',
     NotificationStore: 'NotificationStore',
     UsersStore: 'UsersStore',
