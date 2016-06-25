@@ -214,15 +214,7 @@ var ServicesTab = React.createClass({
     );
   },
 
-  getHeadline: function (item, filteredServices) {
-    let {state} = this;
-    let services = item.getItems();
-
-    const hasFiltersApplied = Object.keys(DEFAULT_FILTER_OPTIONS)
-      .some((filterKey) => {
-        return state[filterKey] != null && state[filterKey].length > 0;
-      });
-
+  getHeadline: function (services, filteredServices, hasFiltersApplied) {
     if (hasFiltersApplied) {
       return (
         <FilterHeadline
@@ -239,24 +231,33 @@ var ServicesTab = React.createClass({
     );
   },
 
-  getServiceTreeView(item) {
-    let {state} = this;
-    let services = item.getItems();
-    let filteredServices = item.filterItemsByFilter({
-      health: state.filterHealth,
-      labels: state.filterLabels,
-      other: state.filterOther,
-      status: state.filterStatus,
-      id: state.searchString
-    }).getItems();
+  getServiceTreeView(serviceTree) {
+    const {state} = this;
+    const hasFiltersApplied = Object.keys(DEFAULT_FILTER_OPTIONS)
+      .some(function (filterKey) {
+        return state[filterKey] != null && state[filterKey].length > 0;
+      });
+
+    let allServices = serviceTree.flattenItems().getItems();
+    let filteredServices = serviceTree.getItems();
+
+    if (hasFiltersApplied) {
+      filteredServices = serviceTree.filterItemsByFilter({
+        health: state.filterHealth,
+        labels: state.filterLabels,
+        other: state.filterOther,
+        status: state.filterStatus,
+        id: state.searchString
+      }).flattenItems().getItems();
+    }
 
     return (
       <div className="flex-box flush flex-mobile-column">
         <ServiceSidebarFilters
           handleFilterChange={this.handleFilterChange}
-          services={services} />
+          services={allServices} />
         <div className="flex-grow">
-          {this.getHeadline(item, filteredServices)}
+          {this.getHeadline(allServices, filteredServices, hasFiltersApplied)}
           <FilterBar rightAlignLastNChildren={2}>
             <ServiceSearchFilter
               handleFilterChange={this.handleFilterChange} />
@@ -269,8 +270,8 @@ var ServicesTab = React.createClass({
               Deploy Service
             </button>
           </FilterBar>
-          <ServicesTable
-            services={filteredServices} />
+          <ServicesTable services={filteredServices}
+            isFiltered={hasFiltersApplied} />
         </div>
       </div>
     );
