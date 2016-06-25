@@ -20,7 +20,7 @@ var ServicesPage = React.createClass({
   statics: {
     routeConfig: {
       label: 'Services',
-      icon: <Icon id="services" />,
+      icon: <Icon id="services" size="small" family="small" />,
       matches: /^\/services/
     }
   },
