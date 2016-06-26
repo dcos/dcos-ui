@@ -100,8 +100,8 @@ class TaskLogsTab extends React.Component {
 
   handleViewChange(currentFile) {
     let currentRoutes = this.context.router.getCurrentRoutes();
-    let lastRoute = currentRoutes[currentRoutes.length - 1];
-    console.log('in here', lastRoute);
+    let lastRoute = currentRoutes.pop();
+
     this.context.router.transitionTo(
       lastRoute.name,
       Object.assign(
@@ -194,7 +194,6 @@ class TaskLogsTab extends React.Component {
   }
 
   onItemSelection(obj) {
-    console.log(obj);
     this.handleViewChange(obj.value);
   }
 
