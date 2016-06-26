@@ -12,6 +12,7 @@ const ContainerSettings = {
       properties: {
         image: {
           description: 'name of your docker image',
+          title: 'Image',
           type: 'string',
           getter: function (service) {
             let container = service.getContainerSettings();

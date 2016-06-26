@@ -6,6 +6,7 @@ const Networking = {
     networkType: {
       fieldType: 'select',
       default: 'host',
+      title: 'Network Type',
       options: [
         {html: 'Host (Default)', id: 'host'},
         'Bridge',
