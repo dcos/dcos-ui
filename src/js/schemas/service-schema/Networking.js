@@ -1,7 +1,7 @@
 const Networking = {
   type: 'object',
   title: 'Network',
-  description: 'Something about configuring networks and ports and so forth.',
+  description: 'Configure the networking for your service.',
   properties: {
     networkType: {
       fieldType: 'select',
