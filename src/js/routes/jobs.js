@@ -103,6 +103,7 @@ let jobsRoutes = {
                   path: 'files/?',
                   handler: TaskFilesTab,
                   hideHeaderNavigation: true,
+                  logRouteName: 'jobs-task-details-logs',
                   buildBreadCrumb: function () {
                     return {
                       parentCrumb: 'jobs-task-details',
@@ -115,7 +116,7 @@ let jobsRoutes = {
                   type: Route,
                   name: 'jobs-task-details-logs',
                   dontScroll: true,
-                  path: 'logs/?',
+                  path: 'logs/:filePath?/?',
                   handler: TaskLogsTab,
                   hideHeaderNavigation: true,
                   buildBreadCrumb: function () {

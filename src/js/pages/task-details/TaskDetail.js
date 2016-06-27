@@ -139,10 +139,18 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
   }
 
   handleOpenLogClick(selectedLogFile) {
-    this.setState({selectedLogFile, currentTab: 'debug'});
+    let params = Object.assign(
+      {},
+      this.props.params,
+      {filePath: encodeURIComponent(selectedLogFile.get('path'))}
+    );
+    let currentRoutes = this.context.router.getCurrentRoutes();
+    let {logRouteName} = currentRoutes[currentRoutes.length - 1];
+    this.context.router.transitionTo(logRouteName, params);
   }
 
   getBasicInfo() {
+    let {selectedLogFile} = this.state;
     let task = MesosStateStore.getTaskFromTaskID(this.props.params.taskID);
 
     if (task == null) {
@@ -153,7 +161,12 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
     let taskIcon = (
       <img src={task.getImages()['icon-large']} />
     );
-    let tabsArray = this.tabs_getRoutedTabs({params: this.props.params}) || [];
+    let filePath = (selectedLogFile && selectedLogFile.get('path')) || null;
+    let params = Object.assign(
+      {filePath},
+      this.props.params
+    );
+    let tabsArray = this.tabs_getRoutedTabs({params}) || [];
 
     if (!this.hasVolumes(service)) {
       tabsArray = tabsArray.filter(function (tab) {
