@@ -10,7 +10,7 @@ const Networking = {
       options: [
         {html: 'Host (Default)', id: 'host'},
         {html: 'Bridge', id: 'bridge'},
-        {html: 'Virtual Network: Dev', id: 'dev'},
+        {html: 'Virtual Network: Dev', id: 'user'},
         {html: 'Virtual Network: Prod', id: 'prod'}
       ],
       getter: function (service) {

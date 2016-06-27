@@ -368,6 +368,7 @@ const ServiceUtil = {
 
     appDefinition.updateStrategy = service.getUpdateStrategy();
     appDefinition.residency = service.getResidency();
+    appDefinition.ipAddress = service.getIpAddress();
 
     // Environment Variables
     appDefinition.env = service.getEnvironmentVariables();

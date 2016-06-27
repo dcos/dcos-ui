@@ -84,6 +84,10 @@ module.exports = class Service extends Item {
     return this.get('instances');
   }
 
+  getIpAddress() {
+    return this.get('ipAddress');
+  }
+
   getLabels() {
     return this.get('labels');
   }
