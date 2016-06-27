@@ -18,7 +18,7 @@ function getValueFromSchemaProperty(fieldProps) {
   return value;
 }
 
-function getLabelFromSchemaProperty(fieldName, fieldProps, isRequired, renderLabel, definition) {
+function setLabelFromSchemaProperty(fieldName, fieldProps, isRequired, renderLabel, definition) {
   let label = fieldProps.title || fieldName;
 
   if (isRequired) {
@@ -55,7 +55,7 @@ function schemaToFieldDefinition(fieldName, fieldProps, formParent, isRequired, 
     valueType: fieldProps.type
   };
 
-  getLabelFromSchemaProperty(fieldName, fieldProps, isRequired, renderLabel, definition);
+  setLabelFromSchemaProperty(fieldName, fieldProps, isRequired, renderLabel, definition);
 
   if (typeof value === 'boolean') {
     definition.checked = value;
