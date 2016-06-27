@@ -25,8 +25,6 @@ var ServicesPage = React.createClass({
     }
   },
 
-  store_listeners: [{name: 'notification', events: ['change']}],
-
   getInitialState: function () {
     return {
       currentTab: 'services-page'
@@ -34,6 +32,9 @@ var ServicesPage = React.createClass({
   },
 
   componentWillMount: function () {
+    this.store_listeners = [
+      {name: 'notification', events: ['change']}
+    ];
     this.tabs_tabs = {
       'services-page': 'Services',
       'services-deployments': 'Deployments'
