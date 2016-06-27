@@ -78,7 +78,7 @@ class ServiceSidebarFilters extends React.Component {
     } = getCountByFilters(props.services);
 
     return (
-      <div>
+      <div className="flex-no-shrink">
         <SidebarFilter
           countByValue={healthCount}
           filterType={ServiceFilterTypes.HEALTH}
