@@ -1,3 +1,5 @@
+import {RequestUtil} from 'mesosphere-shared-reactjs';
+
 import {
   REQUEST_PLAN_BLOCK_FORCE_COMPLETE_SUCCESS,
   REQUEST_PLAN_BLOCK_FORCE_COMPLETE_ERROR,
@@ -11,14 +13,13 @@ import {
 
 import AppDispatcher from './AppDispatcher';
 import Config from '../config/Config';
-import RequestUtil from '../utils/RequestUtil';
 
 const ServicePlanActions = {
 
   fetchPlan: function (serviceID) {
-    serviceID = encodeURIComponent(serviceID);
+    let uriServiceID = encodeURIComponent(serviceID);
     RequestUtil.json({
-      url: `${Config.rootUrl}/service/${serviceID}${Config.servicePlanAPIPath}`,
+      url: `${Config.rootUrl}/service/${uriServiceID}${Config.servicePlanAPIPath}`,
       success: function (response) {
         AppDispatcher.handleServerAction({
           type: REQUEST_PLAN_FETCH_SUCCESS,
@@ -97,10 +98,10 @@ const ServicePlanActions = {
   },
 
   sendDecisionCommand: function (cmd, serviceID) {
-    serviceID = encodeURIComponent(serviceID);
+    let uriServiceID = encodeURIComponent(serviceID);
     RequestUtil.json({
       method: 'PUT',
-      url: `${Config.rootUrl}/service/${serviceID}${Config.servicePlanAPIPath}?cmd=${cmd}`,
+      url: `${Config.rootUrl}/service/${uriServiceID}${Config.servicePlanAPIPath}?cmd=${cmd}`,
       success: function (response) {
         AppDispatcher.handleServerAction({
           type: REQUEST_PLAN_DECISION_SUCCESS,
@@ -122,7 +123,7 @@ const ServicePlanActions = {
 
 if (Config.useFixtures) {
 
-  let servicePlan = require('../../../tests/_fixtures/plan/plan.json');
+  let servicePlan = require('../../../tests/_fixtures/service-plan/2-phases-in-progress.json');
 
   if (!global.actionTypes) {
     global.actionTypes = {};

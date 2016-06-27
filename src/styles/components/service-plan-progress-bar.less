@@ -1,0 +1,87 @@
+.service-plan-progress-bar {
+
+  &.is-ongoing,
+  &.is-waiting {
+
+    .progress-bar-label {
+      color: @green;
+    }
+
+    .progress-bar-fill {
+      .candy-stripe(color-lighten(@green, 10), color-lighten(@green, -10));
+      animation: candy-stripe 1s linear infinite;
+      background-size: 16px 16px;
+    }
+  }
+
+  &.is-waiting {
+
+    &.inverse {
+
+      .progress-bar-label {
+        color: @white;
+      }
+    }
+  }
+
+  &.is-paused {
+
+    .progress-bar-fill {
+      background: color-lighten(@neutral, 40);
+    }
+  }
+
+  &.is-complete {
+
+    .progress-bar-fill {
+      background: @green;
+    }
+  }
+
+  .progress-bar-label {
+    font-weight: 600;
+  }
+
+  .progress-bar-fill-wrapper,
+  .progress-bar-fill {
+    height: 7px;
+  }
+
+  .progress-bar-fill-wrapper {
+    background: @neutral;
+    border-radius: 10px;
+    display: inline-block;
+    margin: 0 @base-spacing-unit * 1/4;
+    overflow: hidden;
+    width: @base-spacing-unit * 8;
+  }
+
+  .progress-bar-fill {
+    transition: width 600ms;
+  }
+
+  .progress-bar-phase-details {
+
+    a {
+      color: @white;
+      text-decoration: underline;
+    }
+  }
+}
+
+/* Screen Size: Large (@screen-large) and above */
+& when (@screen-large-enabled) {
+  @media (min-width: @screen-large) {
+
+    .service-plan-progress-bar {
+      display: flex;
+      flex-wrap: wrap;
+
+      .progress-bar-phase-progress,
+      .progress-bar-phase-details {
+        flex: 0 1 auto;
+      }
+    }
+
+  }
+}

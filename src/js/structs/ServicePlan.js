@@ -11,24 +11,28 @@ class ServicePlan extends Item {
     return this.get('errors') || [];
   }
 
+  getStatus() {
+    return this.get('status');
+  }
+
   hasError() {
-    return this.get('status') === ServicePlanStatusTypes.ERROR;
+    return this.getStatus() === ServicePlanStatusTypes.ERROR;
   }
 
   isComplete() {
-    return this.get('status') === ServicePlanStatusTypes.COMPLETE;
+    return this.getStatus() === ServicePlanStatusTypes.COMPLETE;
   }
 
   isInProgress() {
-    return this.get('status') === ServicePlanStatusTypes.IN_PROGRESS;
+    return this.getStatus() === ServicePlanStatusTypes.IN_PROGRESS;
   }
 
   isPending() {
-    return this.get('status') === ServicePlanStatusTypes.PENDING;
+    return this.getStatus() === ServicePlanStatusTypes.PENDING;
   }
 
   isWaiting() {
-    return this.get('status') === ServicePlanStatusTypes.WAITING;
+    return this.getStatus() === ServicePlanStatusTypes.WAITING;
   }
 }
 

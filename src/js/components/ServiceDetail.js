@@ -1,16 +1,24 @@
 import mixin from 'reactjs-mixin';
 import React from 'react';
+import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import InternalStorageMixin from '../mixins/InternalStorageMixin';
 import Service from '../structs/Service';
 import ServiceDetailConfigurationTab from './ServiceDetailConfigurationTab';
 import ServiceDetailTaskTab from './ServiceDetailTaskTab';
 import ServiceInfo from './ServiceInfo';
-import ServiceOptions from './ServiceOptions';
+import ServicePlanProgressModal from './modals/ServicePlanProgressModal';
+import ServicePlanStore from '../stores/ServicePlanStore';
 import ServicesBreadcrumb from './ServicesBreadcrumb';
 import TabsMixin from '../mixins/TabsMixin';
 
-class ServiceDetail extends mixin(InternalStorageMixin, TabsMixin) {
+const METHODS_TO_BIND = [
+  'handleViewProgressDetailsClick',
+  'handleProgressDetailModalClose',
+  'onServicePlanStoreChange'
+];
+
+class ServiceDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
 
   constructor() {
     super(...arguments);
@@ -23,8 +31,53 @@ class ServiceDetail extends mixin(InternalStorageMixin, TabsMixin) {
     };
 
     this.state = {
-      currentTab: Object.keys(this.tabs_tabs).shift()
+      currentTab: Object.keys(this.tabs_tabs).shift(),
+      progressDetailModalOpen: false,
+      servicePlan: null
     };
+
+    this.store_listeners = [{
+      name: 'servicePlan',
+      events: ['error']
+    }];
+
+    METHODS_TO_BIND.forEach((method) => {
+      this[method] = this[method].bind(this);
+    });
+  }
+
+  componentDidMount() {
+    super.componentDidMount(...arguments);
+    ServicePlanStore.addPlanChangeListener(
+      this.props.service.id,
+      this.onServicePlanStoreChange
+    );
+  }
+
+  componentWillUnmount() {
+    super.componentWillUnmount(...arguments);
+    ServicePlanStore.removePlanChangeListener(
+      this.props.service.id,
+      this.onServicePlanStoreChange
+    );
+  }
+
+  onServicePlanStoreChange() {
+    this.setState({
+      servicePlan: ServicePlanStore.getServicePlan(this.props.service.id)
+    });
+  }
+
+  onServicePlanStoreError() {
+    this.setState({servicePlan: null});
+  }
+
+  handleProgressDetailModalClose() {
+    this.setState({progressDetailModalOpen: false});
+  }
+
+  handleViewProgressDetailsClick() {
+    this.setState({progressDetailModalOpen: true});
   }
 
   renderConfigurationTabView() {
@@ -49,6 +102,7 @@ class ServiceDetail extends mixin(InternalStorageMixin, TabsMixin) {
 
   render() {
     const {service} = this.props;
+    let {servicePlan} = this.state;
 
     return (
       <div className="flex-container-col">
@@ -58,17 +112,17 @@ class ServiceDetail extends mixin(InternalStorageMixin, TabsMixin) {
           service-detail-header media-object-spacing-wrapper
           media-object-spacing-narrow">
           <ServicesBreadcrumb serviceTreeItem={service} />
-          <ServiceInfo service={service} tabs={this.tabs_getUnroutedTabs()} />
-          <ServiceOptions service={service} />
-          <ul className="tabs list-inline flush-bottom container-pod
-            container-pod-short-top inverse">
-            {this.tabs_getUnroutedTabs()}
-          </ul>
-        </div>
-        <div className="side-panel-tab-content side-panel-section container
-          container-pod container-pod-short container-fluid
-          container-fluid-flush flex-container-col flex-grow">
+          <ServiceInfo
+            onViewProgressDetailsClick={this.handleViewProgressDetailsClick}
+            service={service}
+            servicePlan={servicePlan}
+            tabs={this.tabs_getUnroutedTabs()} />
           {this.tabs_getTabView()}
+          <ServicePlanProgressModal
+            isOpen={this.state.progressDetailModalOpen}
+            onClose={this.handleProgressDetailModalClose}
+            service={service}
+            servicePlan={servicePlan} />
         </div>
       </div>
 

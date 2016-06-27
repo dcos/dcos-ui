@@ -1,8 +1,8 @@
 import React from 'react';
 
-import AdvancedConfig from '../AdvancedConfig';
 import CosmosErrorMessage from '../CosmosErrorMessage';
 import CosmosPackagesStore from '../../stores/CosmosPackagesStore';
+import SchemaForm from '../SchemaForm';
 import Service from '../../structs/Service';
 import ServicePlan from '../../structs/ServicePlan';
 import UniversePackage from '../../structs/UniversePackage';
@@ -135,14 +135,14 @@ class UpdateConfigModal extends React.Component {
     let schema = service.getConfig();
 
     return (
-      <AdvancedConfig
+      <SchemaForm
         getTriggerSubmit={this.getConfigSubmit}
         model={currentConfiguration}
         onChange={this.handleAdvancedFormChange}
+        schema={schema}
         packageIcon={icon}
         packageName={name}
-        packageVersion={version}
-        schema={schema} />
+        packageVersion={version} />
     );
   }
 

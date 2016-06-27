@@ -10,10 +10,11 @@ const labelMap = {
 class ServicePlanProgressBar extends React.Component {
   getPhaseLabel(servicePlan) {
     let phases = servicePlan.getPhases();
+    let activePhase = phases.getActiveIndex() + 1;
 
     return (
-      <span className="text-overflow-break-word">
-        {`Phase ${phases.getActiveIndex()} of ${phases.getItems().length}: ${phases.getActive().getName()}`}
+      <span>
+        {`Phase ${activePhase} of ${phases.getItems().length}: ${phases.getActive().getName()} `}
         <a className="clickable" onClick={this.props.onViewDetailsClick}>
           View Details
         </a>
@@ -23,7 +24,6 @@ class ServicePlanProgressBar extends React.Component {
 
   getStatusLabel(servicePlan) {
     let status = servicePlan.getStatus();
-
     return labelMap[status] || status;
   }
 
@@ -33,6 +33,7 @@ class ServicePlanProgressBar extends React.Component {
       fillClassName,
       fillWrapperClassName,
       phaseLabelClassName,
+      phaseProgressClassName,
       progress,
       servicePlan,
       statusLabelClassName
@@ -44,8 +45,12 @@ class ServicePlanProgressBar extends React.Component {
       fillWrapperClassName
     );
     let phaseLabelClasses = classNames(
-      'progress-bar-label-action',
+      'progress-bar-phase-details',
       phaseLabelClassName
+    );
+    let phaseProgressClasses = classNames(
+      'progress-bar-phase-progress',
+      phaseProgressClassName
     );
     let serviceStatusWrapperClasses = classNames({
       'is-erroneous': servicePlan.hasError(),
@@ -58,18 +63,20 @@ class ServicePlanProgressBar extends React.Component {
       statusLabelClassName
     );
     let wrapperClasses = classNames(
-      'upgrade-progress-bar',
+      'service-plan-progress-bar',
       serviceStatusWrapperClasses,
       className
     );
 
     return (
       <div className={wrapperClasses}>
-        <span className={statusLabelClasses}>
-          {this.getStatusLabel(servicePlan)}
-        </span>
-        <div className={fillWrapperClasses}>
-          <div className={fillClasses} style={{width: `${progress}%`}} />
+        <div className={phaseProgressClasses}>
+          <span className={statusLabelClasses}>
+            {this.getStatusLabel(servicePlan)}
+          </span>
+          <div className={fillWrapperClasses}>
+            <div className={fillClasses} style={{width: `${progress}%`}} />
+          </div>
         </div>
         <span className={phaseLabelClasses}>
           {this.getPhaseLabel(servicePlan)}
@@ -99,6 +106,10 @@ ServicePlanProgressBar.propTypes = {
   ]),
   onViewDetailsClick: React.PropTypes.func,
   phaseLabelClassName: React.PropTypes.oneOfType([
+    React.PropTypes.object,
+    React.PropTypes.string
+  ]),
+  phaseProgressClassName: React.PropTypes.oneOfType([
     React.PropTypes.object,
     React.PropTypes.string
   ]),
