@@ -264,7 +264,25 @@ const ServiceUtil = {
         let isContainerApp = containerSettings != null && containerSettings.image != null;
         let networkType = networking.networkType;
         if (networking.ports != null && networking.ports.length > 0) {
-          if (isContainerApp && (networkType === 'bridge' || networkType === 'user')) {
+          if (networkType === 'host' || !isContainerApp) {
+            // Avoid specifying an empty portDefinitions by default
+            if (networking.ports.length > 0) {
+              definition.portDefinitions = networking.ports.map(function (port) {
+                let portMapping = {port: 0, protocol: 'tcp'};
+                if (port.discovery === true) {
+                  portMapping.port = parseInt(port.lbPort || 0, 10);
+                }
+                if (port.protocol != null) {
+                  portMapping.protocol = port.protocol;
+                }
+                if (port.name != null) {
+                  portMapping.name = port.name;
+                }
+
+                return portMapping;
+              });
+            }
+          } else {
             definition.container.docker.portMappings = networking.ports.map(function (port) {
               let portMapping = {containerPort: 0, protocol: 'tcp'};
 
@@ -286,32 +304,18 @@ const ServiceUtil = {
 
               return portMapping;
             });
-          } else {
-            // Avoid specifying an empty portDefinitions by default
-            if (networking.ports.length > 0) {
-              definition.portDefinitions = networking.ports.map(function (port) {
-                let portMapping = {port: 0, protocol: 'tcp'};
-                if (port.discovery === true) {
-                  portMapping.port = parseInt(port.lbPort || 0, 10);
-                }
-                if (port.protocol != null) {
-                  portMapping.protocol = port.protocol;
-                }
-                if (port.name != null) {
-                  portMapping.name = port.name;
-                }
-
-                return portMapping;
-              });
-            }
           }
         }
 
-        if (isContainerApp && networking.networkType === 'user') {
-          definition.ipAddress = {networkName: 'd-overlay-1'};
-        }
-        if (isContainerApp && networking.networkType != null) {
-          definition.container.docker.network = networking.networkType.toUpperCase();
+        if (isContainerApp) {
+          if (networkType === 'host') {
+            definition.container.docker.network = 'HOST';
+          } else if (networkType === 'bridge') {
+            definition.container.docker.network = 'BRIDGE';
+          } else {
+            definition.container.docker.network = 'USER';
+            definition.ipAddress = {networkName: 'd-overlay-1'};
+          }
         }
       }
     }

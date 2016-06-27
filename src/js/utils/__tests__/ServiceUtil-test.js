@@ -174,7 +174,11 @@ describe('ServiceUtil', function () {
         });
 
         it('should not add a portMappings field if no ports were passed in', function () {
-          expect(Object.keys(this.serviceEmptyPorts.container.docker))
+          let service = ServiceUtil.createServiceFromFormModel({
+            containerSettings: { image: 'redis' },
+            networking: { networkType: 'bridge' }
+          });
+          expect(Object.keys(service.container.docker))
             .not.toContain('portMappings');
         });
 
@@ -278,7 +282,7 @@ describe('ServiceUtil', function () {
         it('sets the docker network property correctly', function () {
           let service = ServiceUtil.createServiceFromFormModel({
             containerSettings: { image: 'redis' },
-            networking: { networkType: 'user' }
+            networking: { networkType: 'prod' }
           });
           expect(service.container.docker.network).toEqual('USER');
         });
