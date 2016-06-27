@@ -18,7 +18,7 @@ function getValueFromSchemaProperty(fieldProps) {
   return value;
 }
 
-function getLabelFromSchemaProperty(fieldName, fieldProps, isRequired, renderLabel) {
+function setLabelFromSchemaProperty(fieldName, fieldProps, isRequired, renderLabel, definition) {
   let label = fieldProps.title || fieldName;
 
   if (isRequired) {
@@ -26,15 +26,21 @@ function getLabelFromSchemaProperty(fieldName, fieldProps, isRequired, renderLab
   }
 
   if (renderLabel && fieldProps.description) {
-    return renderLabel(fieldProps.description, label);
+    label = renderLabel(fieldProps.description, label);
   }
 
-  return label;
+  // Set the label property of checkboxes if a label is defined.
+  if (fieldProps.type === 'boolean' && fieldProps.label != null
+    && fieldProps.label !== '') {
+    definition.label = fieldProps.label;
+    return;
+  }
+
+  definition.showLabel = label;
 }
 
 function schemaToFieldDefinition(fieldName, fieldProps, formParent, isRequired, renderLabel, renderRemove) {
   let value = getValueFromSchemaProperty(fieldProps);
-  let label = getLabelFromSchemaProperty(fieldName, fieldProps, isRequired, renderLabel);
 
   let definition = {
     fieldType: 'text',
@@ -43,12 +49,13 @@ function schemaToFieldDefinition(fieldName, fieldProps, formParent, isRequired, 
     isRequired,
     required: false,
     showError: false,
-    showLabel: label,
     writeType: 'input',
     validation: function () { return true; },
     value,
     valueType: fieldProps.type
   };
+
+  setLabelFromSchemaProperty(fieldName, fieldProps, isRequired, renderLabel, definition);
 
   if (typeof value === 'boolean') {
     definition.checked = value;

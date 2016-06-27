@@ -70,6 +70,8 @@ const Networking = {
             options: ['tcp', 'udp', 'udp,tcp']
           },
           discovery: {
+            label: 'Discovery',
+            showLabel: false,
             title: 'Discovery',
             type: 'boolean'
           }
