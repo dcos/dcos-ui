@@ -29,6 +29,8 @@ const ContainerSettings = {
       properties: {
         privileged: {
           title: 'Extend runtime privileges',
+          label: 'Extend runtime privileges',
+          showLabel: false,
           type: 'boolean',
           getter: function (service) {
             let container = service.getContainerSettings();
@@ -41,7 +43,9 @@ const ContainerSettings = {
           }
         },
         forcePullImage: {
-          title: 'Force pull image on every launch',
+          title: 'Force pull image on launch',
+          label: 'Force pull image on launch',
+          showLabel: false,
           type: 'boolean',
           getter: function (service) {
             let container = service.getContainerSettings();

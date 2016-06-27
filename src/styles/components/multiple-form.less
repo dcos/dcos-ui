@@ -92,6 +92,21 @@ base/forms.less
 
   .multiple-form-modal {
 
+    .form-row-element {
+
+      &.checkbox {
+        &:extend(.align-self-flex-end);
+
+        &.column-1 {
+          align-self: flex-start;
+        }
+
+        .form-element-checkbox {
+          padding-bottom: 6px;
+        }
+      }
+    }
+
     .form-header {
       margin: 0;
     }
