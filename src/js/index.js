@@ -51,11 +51,7 @@ RequestUtil.json = function (options = {}) {
     // Allow overriding of application contents
     let contents = PluginSDK.Hooks.applyFilter('applicationContents', null);
     if (contents) {
-      ReactDOM.render(
-        (<Provider store={PluginSDK.Store}>
-          contents
-        </Provider>),
-        domElement);
+      ReactDOM.render(contents, domElement);
     } else {
       if (PluginSDK.Hooks.applyFilter('delayApplicationLoad', true)) {
         // Let's make sure we get Mesos Summary data before we render app
