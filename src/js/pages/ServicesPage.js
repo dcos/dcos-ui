@@ -1,5 +1,6 @@
 import React from 'react';
 import {RouteHandler} from 'react-router';
+import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import Icon from '../components/Icon';
 import Page from '../components/Page';
@@ -12,7 +13,7 @@ var ServicesPage = React.createClass({
     router: React.PropTypes.func
   },
 
-  mixins: [TabsMixin],
+  mixins: [TabsMixin, StoreMixin],
 
   displayName: 'ServicesPage',
 
@@ -23,6 +24,8 @@ var ServicesPage = React.createClass({
       matches: /^\/services/
     }
   },
+
+  store_listeners: [{name: 'notification', events: ['change']}],
 
   getInitialState: function () {
     return {

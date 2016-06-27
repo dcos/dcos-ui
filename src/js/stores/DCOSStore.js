@@ -129,11 +129,18 @@ class DCOSStore extends EventEmitter {
     let deploymentsList = MarathonStore.get('deployments');
     let serviceTree = MarathonStore.get('groups');
 
-    NotificationStore.addNotification(
-      'services-deployments',
-      'deployment-count',
-      deploymentsList.getItems().length
+    let deploymentListlength = deploymentsList.getItems().length;
+    let currentDeploymentCount = NotificationStore.getNotificationCount(
+      'services-deployments'
     );
+
+    if (deploymentListlength !== currentDeploymentCount) {
+      NotificationStore.addNotification(
+        'services-deployments',
+        'deployment-count',
+        deploymentListlength
+      );
+    }
 
     // Populate deployments with affected services
     this.data.marathon.deploymentsList = deploymentsList
