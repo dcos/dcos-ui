@@ -10,9 +10,17 @@ let HealthChecks = {
       addLabel: 'Add Another Health Check',
       getter: function (service) {
         let healthChecks = service.getHealthChecks();
+
         if (healthChecks == null) {
           return [];
         }
+
+        healthChecks = healthChecks.map(function (check) {
+          if (check.protocol === 'COMMAND') {
+            check.command = check.command.value;
+          }
+          return check;
+        });
 
         return healthChecks;
       },

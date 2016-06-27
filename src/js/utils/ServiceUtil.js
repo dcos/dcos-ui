@@ -47,6 +47,11 @@ const pruneHealthCheckAttributes = function (healthCheckSchema, healthCheck) {
     if (!properties[prop].shouldShow
       || properties[prop].shouldShow(healthCheck)) {
 
+      if (prop === 'command') {
+        memo[prop] = {value: healthCheck[prop]};
+        return memo;
+      }
+
       memo[prop] = healthCheck[prop];
     }
 
