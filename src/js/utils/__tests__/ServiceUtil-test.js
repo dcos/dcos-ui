@@ -174,7 +174,11 @@ describe('ServiceUtil', function () {
         });
 
         it('should not add a portMappings field if no ports were passed in', function () {
-          expect(Object.keys(this.serviceEmptyPorts.container.docker))
+          let service = ServiceUtil.createServiceFromFormModel({
+            containerSettings: { image: 'redis' },
+            networking: { networkType: 'bridge' }
+          });
+          expect(Object.keys(service.container.docker))
             .not.toContain('portMappings');
         });
 
@@ -278,7 +282,7 @@ describe('ServiceUtil', function () {
         it('sets the docker network property correctly', function () {
           let service = ServiceUtil.createServiceFromFormModel({
             containerSettings: { image: 'redis' },
-            networking: { networkType: 'user' }
+            networking: { networkType: 'prod' }
           });
           expect(service.container.docker.network).toEqual('USER');
         });
@@ -328,7 +332,7 @@ describe('ServiceUtil', function () {
             .not.toContain('servicePort');
         });
 
-        it('should add both containerPort and servicePort when discovery is on', function () {
+        it('should add a servicePort when discovery is on', function () {
           let service = ServiceUtil.createServiceFromFormModel({
             containerSettings: { image: 'redis' },
             networking: {
@@ -336,11 +340,33 @@ describe('ServiceUtil', function () {
               ports: [ { lbPort: 1234, discovery: true } ]
             }
           });
-          expect(service.container.docker.portMappings).toEqual([
-            {containerPort: 1234, servicePort: 1234, protocol: 'tcp'}
-          ]);
+          expect(service.container.docker.portMappings[0].servicePort)
+            .toEqual(1234);
         });
 
+        it('should not add a VIP label when discovery is off', function () {
+          let service = ServiceUtil.createServiceFromFormModel({
+            containerSettings: { image: 'redis' },
+            networking: {
+              networkType: 'user',
+              ports: [ { lbPort: 1234 } ]
+            }
+          });
+          expect(Object.keys(service.container.docker.portMappings[0]))
+            .not.toContain('labels');
+        });
+
+        it('should add the appropriate VIP label when discovery is on', function () {
+         let service = ServiceUtil.createServiceFromFormModel({
+            containerSettings: { image: 'redis' },
+            networking: {
+              networkType: 'user',
+              ports: [ { lbPort: 1234, discovery: true } ]
+            }
+          });
+          expect(service.container.docker.portMappings[0].labels)
+            .toEqual({'VIP_0': '0.0.0.0:1234'});
+        });
 
         describe('an empty networking ports member', function () {
 
