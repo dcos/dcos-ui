@@ -112,10 +112,6 @@ const ServiceUtil = {
             image: containerSettings.image
           }
         };
-        if (containerSettings.network != null) {
-          definition.container.docker.network =
-            containerSettings.network.toUpperCase();
-        }
         if (containerSettings.forcePullImage != null) {
           definition.container.docker.forcePullImage =
             containerSettings.forcePullImage;
