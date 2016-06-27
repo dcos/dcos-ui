@@ -47,7 +47,8 @@ const Networking = {
               portMapping.port,
             name: portMapping.name,
             protocol: portMapping.protocol,
-            discovery: portMapping.port > 0
+            discovery: (portMapping.hostPort || portMapping.containerPort ||
+            portMapping.port) > 0
           };
         });
       },
