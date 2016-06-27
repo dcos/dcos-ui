@@ -21,21 +21,6 @@ const ContainerSettings = {
             }
             return null;
           }
-        },
-        network: {
-          title: 'Network',
-          fieldType: 'select',
-          options: [
-            'Host',
-            'Bridged'
-          ],
-          getter: function (service) {
-            let container = service.getContainerSettings();
-            if (container && container.docker && container.docker.network) {
-              return container.docker.network.toLowerCase();
-            }
-            return null;
-          }
         }
       }
     },

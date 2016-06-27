@@ -112,10 +112,6 @@ const ServiceUtil = {
             image: containerSettings.image
           }
         };
-        if (containerSettings.network != null) {
-          definition.container.docker.network =
-            containerSettings.network.toUpperCase();
-        }
         if (containerSettings.forcePullImage != null) {
           definition.container.docker.forcePullImage =
             containerSettings.forcePullImage;
@@ -372,6 +368,7 @@ const ServiceUtil = {
 
     appDefinition.updateStrategy = service.getUpdateStrategy();
     appDefinition.residency = service.getResidency();
+    appDefinition.ipAddress = service.getIpAddress();
 
     // Environment Variables
     appDefinition.env = service.getEnvironmentVariables();

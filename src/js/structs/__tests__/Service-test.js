@@ -746,4 +746,12 @@ describe('Service', function () {
     });
   });
 
+  describe('#getIpAddress', function () {
+    it('should return the right ipAddress value', function () {
+      let service = new Service({ipAddress:{networkName: 'd-overlay-1'}});
+
+      expect(service.getIpAddress()).toEqual({networkName: 'd-overlay-1'});
+    });
+  });
+
 });

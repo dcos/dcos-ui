@@ -9,11 +9,15 @@ const Networking = {
       title: 'Network Type',
       options: [
         {html: 'Host (Default)', id: 'host'},
-        'Bridge',
+        {html: 'Bridge', id: 'bridge'},
         {html: 'Virtual Network: Dev', id: 'dev'},
         {html: 'Virtual Network: Prod', id: 'prod'}
       ],
-      getter: function () {
+      getter: function (service) {
+        let container = service.getContainerSettings();
+        if (container && container.docker && container.docker.network) {
+          return container.docker.network.toLowerCase();
+        }
         return null;
       }
     },
@@ -39,9 +43,12 @@ const Networking = {
 
         return portMappings.map(function (portMapping) {
           return {
-            lbPort: portMapping.hostPort || portMapping.containerPort,
+            lbPort: portMapping.hostPort || portMapping.containerPort ||
+              portMapping.port,
             name: portMapping.name,
-            protocol: portMapping.protocol
+            protocol: portMapping.protocol,
+            discovery: (portMapping.hostPort || portMapping.containerPort ||
+            portMapping.port) > 0
           };
         });
       },
