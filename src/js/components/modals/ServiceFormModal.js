@@ -208,7 +208,7 @@ class ServiceFormModal extends mixin(StoreMixin) {
   }
 
   shouldForceUpdate(message = this.state.errorMessage) {
-    return message && message.message && /force=update/.test(message.message);
+    return message && message.message && /force=true/.test(message.message);
   }
 
   onMarathonStoreServiceEditSuccess() {
@@ -305,7 +305,7 @@ class ServiceFormModal extends mixin(StoreMixin) {
       });
     }
 
-    if (this.shouldForceUpdate(errorMessage.message)) {
+    if (this.shouldForceUpdate(errorMessage)) {
       return (
         <div className="error-field text-danger">
           <h4 className="text-align-center text-danger flush-top">
