@@ -127,7 +127,7 @@ function nestedSchemaToFieldDefinition(fieldName, fieldProps, topLevelProp, rend
   };
 
   if (typeof renderSubheader === 'function') {
-    nestedDefinition.render = renderSubheader.bind(null, fieldName);
+    nestedDefinition.render = renderSubheader.bind(null, fieldName, fieldProps.description);
   }
 
   let properties = fieldProps.properties;
