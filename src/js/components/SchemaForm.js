@@ -233,11 +233,32 @@ class SchemaForm extends mixin(StoreMixin) {
     return isValidated;
   }
 
-  getSubHeader(name) {
+  getSubHeader(name, description) {
+    let tooltip = null;
+    if (description) {
+      tooltip = (
+        <Tooltip content={description} wrapperClassName="tooltip-wrapper
+          media-object-item" wrapText={true} maxWidth={300}
+          scrollContainer=".gm-scroll-view">
+          <Icon
+            color="grey"
+            family="mini"
+            id="ring-question"
+            size="mini" />
+        </Tooltip>
+      );
+    }
+
     return (
-      <div key={name}>
-        <div className="h5 form-row-element flush-bottom flush-top">
-          {name}
+      <div className="media-object-spacing-wrapper
+          media-object-spacing-narrow">
+        <div className="media-object">
+          <div className="media-object-item">
+            <div className="h5 form-row-element flush-bottom flush-top">
+              {name}
+            </div>
+          </div>
+          {tooltip}
         </div>
       </div>
     );
