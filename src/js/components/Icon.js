@@ -48,7 +48,7 @@ Icon.propTypes = {
   ]),
   id: React.PropTypes.string.isRequired,
   size: React.PropTypes.oneOf([
-    'micro',
+    'tiny',
     'mini',
     'small',
     'medium',
