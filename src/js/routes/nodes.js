@@ -156,7 +156,7 @@ let nodesRoutes = {
               type: Route,
               name: 'nodes-task-details-logs',
               dontScroll: true,
-              path: 'logs/:filePath?/?',
+              path: 'logs/:filePath?/?:innerPath?/?',
               handler: TaskLogsTab,
               hideHeaderNavigation: true,
               buildBreadCrumb: function () {

@@ -133,7 +133,7 @@ let RouteFactory = {
             type: Route,
             name: 'virtual-networks-tab-detail-tasks-details-logs',
             dontScroll: true,
-            path: 'logs/:filePath?/?',
+            path: 'logs/:filePath?/?:innerPath?/?',
             handler: TaskLogsTab,
             hideHeaderNavigation: true,
             buildBreadCrumb: function () {
