@@ -210,15 +210,6 @@ var ServicesTable = React.createClass({
       {
         className: this.renderStatsHeading,
         headerClassName: this.renderStatsHeading,
-        prop: 'disk',
-        render: this.renderStats,
-        sortable: true,
-        sortFunction: ServiceTableUtil.propCompareFunctionFactory,
-        heading
-      },
-      {
-        className: this.renderStatsHeading,
-        headerClassName: this.renderStatsHeading,
         prop: 'cpus',
         render: this.renderStats,
         sortable: true,
@@ -229,6 +220,15 @@ var ServicesTable = React.createClass({
         className: this.renderStatsHeading,
         headerClassName: this.renderStatsHeading,
         prop: 'mem',
+        render: this.renderStats,
+        sortable: true,
+        sortFunction: ServiceTableUtil.propCompareFunctionFactory,
+        heading
+      },
+      {
+        className: this.renderStatsHeading,
+        headerClassName: this.renderStatsHeading,
+        prop: 'disk',
         render: this.renderStats,
         sortable: true,
         sortFunction: ServiceTableUtil.propCompareFunctionFactory,
