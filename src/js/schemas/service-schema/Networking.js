@@ -39,9 +39,11 @@ const Networking = {
 
         return portMappings.map(function (portMapping) {
           return {
-            lbPort: portMapping.hostPort || portMapping.containerPort,
+            lbPort: portMapping.hostPort || portMapping.containerPort ||
+              portMapping.port,
             name: portMapping.name,
-            protocol: portMapping.protocol
+            protocol: portMapping.protocol,
+            discovery: portMapping.port > 0
           };
         });
       },
