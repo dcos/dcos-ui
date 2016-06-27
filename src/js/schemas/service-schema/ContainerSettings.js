@@ -28,7 +28,6 @@ const ContainerSettings = {
       type: 'group',
       properties: {
         privileged: {
-          title: 'Extend runtime privileges',
           label: 'Extend runtime privileges',
           showLabel: false,
           type: 'boolean',
@@ -43,7 +42,6 @@ const ContainerSettings = {
           }
         },
         forcePullImage: {
-          title: 'Force pull image on launch',
           label: 'Force pull image on launch',
           showLabel: false,
           type: 'boolean',

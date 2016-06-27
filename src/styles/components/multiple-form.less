@@ -95,11 +95,8 @@ base/forms.less
     .form-row-element {
 
       &.checkbox {
-        &:extend(.align-self-flex-end);
-
-        &.column-1 {
-          align-self: flex-start;
-        }
+        align-items: flex-end;
+        display: flex;
 
         .form-element-checkbox {
           padding-bottom: 6px;
