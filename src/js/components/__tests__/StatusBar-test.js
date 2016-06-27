@@ -144,11 +144,11 @@ describe('#StatusBar', function () {
           ).toBeTruthy();
         });
 
-      it('should have a transform of scaleX(0.4)', function () {
+      it('should have a width of 40%', function () {
         expect(
           this.container.querySelector('.bar:first-child')
-            .style.transform
-        ).toEqual('scaleX(0.4)');
+            .style.width
+        ).toEqual('40%');
       });
     });
 
@@ -161,11 +161,11 @@ describe('#StatusBar', function () {
         ).toBeTruthy();
       });
 
-      it('should have a transform of scaleX(0.6)', function () {
+      it('should have a width of 60%', function () {
         expect(
           this.container.querySelector('.bar:nth-child(2)')
-            .style.transform
-        ).toEqual('scaleX(0.6)');
+            .style.width
+        ).toEqual('60%');
       });
     });
   });

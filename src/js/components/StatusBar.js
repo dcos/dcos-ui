@@ -25,10 +25,10 @@ class StatusBar extends React.Component {
         return null;
       }
 
-      let scale = value / max;
+      let scale = value / max * 100;
 
       let style = {
-        transform: `scaleX(${scale})`
+        width: `${scale}%`
       };
 
       return (
