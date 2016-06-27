@@ -568,12 +568,12 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
         backdropClass={backdropClasses}
         bodyClass=""
         closeByBackdropClick={!isAdvanced}
-        innerBodyClass="flush-top flush-bottom"
         maxHeightPercentage={1}
         modalClass={modalClasses}
         modalWrapperClass={modalWrapperClasses}
         onClose={this.handleModalClose}
         open={props.open}
+        scrollContainerClass=""
         showCloseButton={false}
         showFooter={false}>
         {this.getModalContents()}
