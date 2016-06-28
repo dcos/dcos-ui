@@ -322,9 +322,9 @@ describe('ServiceUtil', function () {
         it('adds the networkName field to the service', function () {
           let service = ServiceUtil.createServiceFromFormModel({
             containerSettings: { image: 'redis' },
-            networking: { networkType: 'user', ports: [{}] },
+            networking: { networkType: 'prod', ports: [{}] },
           });
-          expect(service.ipAddress.networkName).toEqual('d-overlay-1');
+          expect(service.ipAddress.networkName).toEqual('prod');
         });
 
         it('should convert the supplied string fields', function () {
