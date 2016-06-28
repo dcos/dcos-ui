@@ -70,12 +70,11 @@ const Volumes = {
           },
           mode: {
             title: 'Mode',
-            description: 'RO = Read Only, RW = Read and Write',
             fieldType: 'select',
             default: 'ro',
             options: [
-              {html: 'RO', id: 'ro'},
-              {html: 'RW', id: 'rw'}
+              {html: 'Read Only', id: 'ro'},
+              {html: 'Read and Write', id: 'rw'}
             ]
           }
         }
