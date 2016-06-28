@@ -10,14 +10,20 @@ const Networking = {
       options: [
         {html: 'Host (Default)', id: 'host'},
         {html: 'Bridge', id: 'bridge'},
-        {html: 'Virtual Network: Dev', id: 'dev'},
-        {html: 'Virtual Network: Prod', id: 'prod'}
       ],
       getter: function (service) {
+        let ipAddress = service.getIpAddress();
+        if (ipAddress) {
+
+          return ipAddress.networkName;
+        }
+
         let container = service.getContainerSettings();
         if (container && container.docker && container.docker.network) {
+
           return container.docker.network.toLowerCase();
         }
+
         return null;
       }
     },
