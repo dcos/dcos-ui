@@ -75,9 +75,7 @@ describe('ServiceUtil', function () {
               ports: [ {lbPort: 1234, discovery: true} ]
             }
           });
-          expect(service.portDefinitions).toEqual([
-            {port: 1234, protocol: 'tcp'}
-          ]);
+          expect(service.portDefinitions[0].port).toEqual(1234);
         });
 
         it('should override the port to 0 when discovery is off', function () {
@@ -87,9 +85,7 @@ describe('ServiceUtil', function () {
               ports: [ {lbPort: 1234, discovery: false} ]
             }
           });
-          expect(service.portDefinitions).toEqual([
-            {port: 0, protocol: 'tcp'}
-          ]);
+          expect(service.portDefinitions[0].port).toEqual(0);
         });
 
         it('should default the port to 0 when discovery is on', function () {
@@ -99,9 +95,7 @@ describe('ServiceUtil', function () {
               ports: [ {discovery: true} ]
             }
           });
-          expect(service.portDefinitions).toEqual([
-            {port: 0, protocol: 'tcp'}
-          ]);
+          expect(service.portDefinitions[0].port).toEqual(0);
         });
 
         describe('an empty networking ports member', function () {
