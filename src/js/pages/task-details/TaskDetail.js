@@ -229,7 +229,7 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
     let task = MesosStateStore.getTaskFromTaskID(this.props.params.taskID);
     let {directory, selectedLogFile} = this.state;
     if (this.hasLoadingError()) {
-      this.getErrorScreen();
+      return this.getErrorScreen();
     }
 
     if (!directory || !task) {

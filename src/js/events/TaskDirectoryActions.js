@@ -34,8 +34,16 @@ var TaskDirectoryActions = {
   },
 
   getNodeStateJSON: function (task) {
-    let pid = MesosStateStore.getNodeFromID(task.slave_id).pid;
-    let nodePID = pid.substring(0, pid.indexOf('@'));
+    let node = MesosStateStore.getNodeFromID(task.slave_id);
+    let pid, nodePID;
+
+    if (node) {
+      pid = node.pid;
+    }
+
+    if (pid) {
+      nodePID = pid.substring(0, pid.indexOf('@'));
+    }
 
     return `${Config.rootUrl}/slave/${task.slave_id}/${nodePID}/state`;
   },
