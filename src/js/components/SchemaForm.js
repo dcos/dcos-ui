@@ -6,6 +6,7 @@ import {Tooltip} from 'reactjs-components';
 import FormUtil from '../utils/FormUtil';
 import GeminiUtil from '../utils/GeminiUtil';
 import Icon from './Icon';
+import InternalStorageMixin from '../mixins/InternalStorageMixin';
 import SchemaFormUtil from '../utils/SchemaFormUtil';
 import SchemaUtil from '../utils/SchemaUtil';
 import TabForm from './TabForm';
@@ -20,7 +21,7 @@ const METHODS_TO_BIND = [
   'validateForm'
 ];
 
-class SchemaForm extends mixin(StoreMixin) {
+class SchemaForm extends mixin(StoreMixin, InternalStorageMixin) {
   constructor() {
     super();
 
@@ -113,14 +114,6 @@ class SchemaForm extends mixin(StoreMixin) {
       .some(function (itemShape) {
         return itemShape.deleteButtonTop;
       });
-    let arrayAction = 'push';
-
-    if (deleteButtonTop) {
-      arrayAction = 'unshift';
-    }
-    newDefinition[arrayAction](
-      this.getRemoveRowButton(definition, prop, propID)
-    );
 
     // Default to prepending.
     let lastIndex = -1;
@@ -134,6 +127,23 @@ class SchemaForm extends mixin(StoreMixin) {
         lastIndex = i - 1;
       }
     });
+
+    let arrayAction = 'push';
+
+    if (deleteButtonTop) {
+      arrayAction = 'unshift';
+    }
+    let title = null;
+    Object.values(definition.itemShapes || {}).some(function (itemShape) {
+      if (itemShape.getTitle) {
+        title = itemShape.getTitle(lastIndex + 2);
+      }
+
+      return title;
+    });
+    newDefinition[arrayAction](
+      this.getRemoveRowButton(definition, prop, propID, title)
+    );
 
     definition.splice(lastIndex + 1, 0, newDefinition);
     this.forceUpdate();
@@ -161,14 +171,29 @@ class SchemaForm extends mixin(StoreMixin) {
     );
   }
 
-  getRemoveRowButton(generalDefinition, prop, id) {
-    return (
-      <div key={`${prop}${id}-remove`} className="form-row-element align-self-flex-end">
+  getRemoveRowButton(generalDefinition, prop, id, title = null) {
+    let deleteButton = (
+      <div key={`${prop}${id}-remove`} className="align-self-flex-end">
         <button
           className="button button-link"
           onClick={this.handleRemoveRow.bind(this, generalDefinition, prop, id)}>
           <Icon id="close" size="mini" family="mini" />
         </button>
+      </div>
+    );
+
+    if (!title) {
+      return deleteButton;
+    }
+
+    return (
+      <div className="form-row-element duplicable-row-title-wrapper">
+        <div className="duplicable-row-title-container">
+          <div className="duplicable-row-title">
+            {title}
+          </div>
+        </div>
+        {deleteButton}
       </div>
     );
   }
