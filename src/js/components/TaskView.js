@@ -1,8 +1,8 @@
 import classNames from 'classnames';
 import mixin from 'reactjs-mixin';
 import React from 'react';
+import {StoreMixin} from 'mesosphere-shared-reactjs';
 
-import EventTypes from '../constants/EventTypes';
 import FilterBar from './FilterBar';
 import FilterButtons from './FilterButtons';
 import FilterHeadline from './FilterHeadline';
@@ -17,13 +17,14 @@ import TaskTable from './TaskTable';
 const METHODS_TO_BIND = [
   'handleSearchStringChange',
   'handleStatusFilterChange',
-  'onMesosStateRequestError',
+  'onStateStoreSuccess',
+  'onStateStoreError',
   'resetFilter'
 ];
 
 const STATUS_FILTER_BUTTONS = ['all', 'active', 'completed'];
 
-class TaskView extends mixin(SaveStateMixin) {
+class TaskView extends mixin(SaveStateMixin, StoreMixin) {
   constructor() {
     super();
 
@@ -32,7 +33,16 @@ class TaskView extends mixin(SaveStateMixin) {
       searchString: '',
       filterByStatus: 'active'
     };
+
     this.saveState_properties = ['filterByStatus'];
+
+    this.store_listeners = [
+      {
+        name: 'state',
+        events: ['success', 'error'],
+        suppressUpdate: true
+      }
+    ];
 
     METHODS_TO_BIND.forEach(function (method) {
       this[method] = this[method].bind(this);
@@ -42,23 +52,15 @@ class TaskView extends mixin(SaveStateMixin) {
   componentWillMount() {
     this.saveState_key = `taskView#${this.props.itemID}`;
     super.componentWillMount();
-
-    MesosStateStore.addChangeListener(
-      EventTypes.MESOS_STATE_REQUEST_ERROR,
-      this.onMesosStateRequestError
-    );
   }
 
-  componentWillUnmount() {
-    super.componentWillUnmount();
-
-    MesosStateStore.removeChangeListener(
-      EventTypes.MESOS_STATE_REQUEST_ERROR,
-      this.onMesosStateRequestError
-    );
+  onStateStoreSuccess() {
+    if (this.state.mesosStateErrorCount !== 0) {
+      this.setState({mesosStateErrorCount: 0});
+    }
   }
 
-  onMesosStateRequestError() {
+  onStateStoreError() {
     this.setState({mesosStateErrorCount: this.state.mesosStateErrorCount + 1});
   }
 
@@ -82,7 +84,7 @@ class TaskView extends mixin(SaveStateMixin) {
   }
 
   hasLoadingError() {
-    return this.state.mesosStateErrorCount >= 3;
+    return this.state.mesosStateErrorCount >= 5;
   }
 
   getLoadingScreen() {
