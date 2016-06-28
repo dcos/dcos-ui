@@ -102,7 +102,7 @@ class HealthTab extends React.Component {
   }
 
   renderUnitHealthCheck(prop, unit) {
-    let healthCheckName = `${unit.getTitle()} Health Check`;
+    let healthCheckName = unit.getTitle();
     let router = this.props.parentRouter;
     let params = Object.assign({}, router.getCurrentParams());
     params.unitNodeID = this.props.node.get('hostname');
