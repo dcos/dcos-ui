@@ -210,7 +210,7 @@ class NodeDetailPage extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) 
       );
     }
 
-    if (params.taskID || params.volumeID) {
+    if (params.taskID || params.volumeID || params.unitID) {
       // Make sure to grow when logs are displayed
       let routes = this.context.router.getCurrentRoutes();
 
