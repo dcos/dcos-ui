@@ -324,7 +324,7 @@ const ServiceUtil = {
             definition.container.docker.network = 'BRIDGE';
           } else {
             definition.container.docker.network = 'USER';
-            definition.ipAddress = {networkName: 'd-overlay-1'};
+            definition.ipAddress = {networkName: networkType};
           }
         }
       }
