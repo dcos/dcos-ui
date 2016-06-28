@@ -9,7 +9,7 @@ function filteredPaths(combinedPath) {
   });
 }
 
-function setDefinitionValue(thingToSet, definition, renderRemove) {
+function setDefinitionValue(thingToSet, definition, renderRemove, model) {
   let {path, value} = thingToSet;
   let definitionToSet = SchemaFormUtil.getDefinitionFromPath(definition, path);
 
@@ -39,7 +39,7 @@ function setDefinitionValue(thingToSet, definition, renderRemove) {
 
       if (definitionToSet.definition.itemShapes[prop].filterProperties) {
         definitionToSet.definition.itemShapes[prop]
-          .filterProperties(item, instanceDefinition);
+          .filterProperties(item, instanceDefinition, model);
       }
 
       let arrayAction = 'push';
@@ -61,6 +61,28 @@ function setDefinitionValue(thingToSet, definition, renderRemove) {
 
   definitionToSet.value = value;
   definitionToSet.startValue = value;
+}
+
+function getCombinedModel(thingsToSet) {
+  // Build a full model to pass down
+  return thingsToSet.reduce(function (memo, thingToSet) {
+    let currentObject = memo;
+
+    thingToSet.path.forEach(function (path, index) {
+      if (index === thingToSet.path.length - 1) {
+        currentObject[path] = thingToSet.value;
+
+        return;
+      }
+
+      if (!currentObject[path]) {
+        currentObject[path] = {};
+      }
+      currentObject = currentObject[path];
+    });
+
+    return memo;
+  }, {});
 }
 
 function getThingsToSet(model, path) {
@@ -184,9 +206,12 @@ let SchemaFormUtil = {
 
   mergeModelIntoDefinition(model, definition, renderRemove) {
     let thingsToSet = getThingsToSet(model);
+    let combinedModel = getCombinedModel(thingsToSet);
 
     thingsToSet.forEach(function (thingToSet) {
-      setDefinitionValue(thingToSet, definition, renderRemove);
+      setDefinitionValue(
+        thingToSet, definition, renderRemove, combinedModel
+      );
     });
   },
 

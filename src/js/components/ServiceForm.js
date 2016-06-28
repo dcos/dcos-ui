@@ -14,8 +14,18 @@ const METHODS_TO_BIND = [
   'validateForm'
 ];
 
-const FIELDS_TO_WATCH = {
-  healthChecks: ['protocol', 'portType']
+const DUPLICABLE_FIELDS_TO_WATCH = {
+  healthChecks: ['protocol', 'portType'],
+  ports: ['discovery']
+};
+
+const FIELDS_TO_WATCH = ['networkType'];
+// Map a field to the tab it's contained within.
+// Mapping to a tab helps us nest the model correctly when merging back into
+// the definition (so we can enable the filtering of fields).
+const FIELD_TO_TABS = {
+  networkType: 'networking',
+  ports: 'networking'
 };
 
 class ServiceForm extends SchemaForm {
@@ -29,6 +39,10 @@ class ServiceForm extends SchemaForm {
     this.store_listeners = Hooks.applyFilter('serviceFormStoreListeners', [
       {name: 'virtualNetworks', events: ['success']}
     ]);
+
+    this.internalStorage_set({
+      model: {}
+    });
   }
 
   componentWillMount() {
@@ -42,21 +56,42 @@ class ServiceForm extends SchemaForm {
   }
 
   handleFormChange(model, eventObj) {
-    if (eventObj.eventType === 'change') {
-      // Since the keys we're watching are of the
-      // form `prop[id].key`, extract the key
-      let propKey = FormUtil.getPropKey(eventObj.fieldName);
+    let {eventType, fieldName} = eventObj;
 
+    if (eventType === 'change') {
+      let propKey = FormUtil.getPropKey(fieldName);
       let shouldUpdateDefinition = Object.keys(model).some(function (changeKey) {
         let tab = FormUtil.getProp(changeKey);
 
-        return (tab in FIELDS_TO_WATCH)
-          && (FIELDS_TO_WATCH[tab].includes(propKey));
+        return (tab in DUPLICABLE_FIELDS_TO_WATCH)
+          && (DUPLICABLE_FIELDS_TO_WATCH[tab].includes(propKey))
+          || FIELDS_TO_WATCH.includes(fieldName);
       });
 
       if (shouldUpdateDefinition) {
+        let combinedModel = FormUtil.modelToCombinedProps(model);
+        let nestedModel = this.internalStorage_get().model;
+
+        Object.keys(combinedModel).forEach(function (key) {
+          if (key in FIELD_TO_TABS) {
+            // Create nested object within tab key
+            if (!nestedModel[FIELD_TO_TABS[key]]) {
+              nestedModel[FIELD_TO_TABS[key]] = {};
+            }
+            if (combinedModel[key] != null) {
+              nestedModel[FIELD_TO_TABS[key]][key] = combinedModel[key];
+            }
+
+            return;
+          }
+          if (combinedModel[key] != null) {
+            nestedModel[key] = combinedModel[key];
+          }
+        });
+        this.internalStorage_set({model: nestedModel});
+
         SchemaFormUtil.mergeModelIntoDefinition(
-          FormUtil.modelToCombinedProps(model),
+          nestedModel,
           this.multipleDefinition,
           this.getRemoveRowButton
         );
