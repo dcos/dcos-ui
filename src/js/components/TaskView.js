@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import mixin from 'reactjs-mixin';
-import {StoreMixin} from 'mesosphere-shared-reactjs';
 import React from 'react';
+import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import FilterBar from './FilterBar';
 import FilterButtons from './FilterButtons';
