@@ -8,6 +8,7 @@ base/forms.less
 --------------------------------------------------------------------------------
 ----------------------------------------------------------------------------- */
 
+@multiple-form-modal-column-padding-horizontal: @base-spacing-unit * 1/4;
 
 
 
@@ -188,6 +189,12 @@ base/forms.less
           width: auto;
         }
       }
+    }
+
+    // Override column padding.
+    [class*="column-"] {
+      padding-left: @multiple-form-modal-column-padding-horizontal;
+      padding-right: @multiple-form-modal-column-padding-horizontal;
     }
 
   }
