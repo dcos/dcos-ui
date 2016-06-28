@@ -6,9 +6,9 @@ import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import Breadcrumbs from '../../components/Breadcrumbs';
 import {documentationURI} from '../../config/Config';
+import Icon from '../../components/Icon';
 import PageHeader from '../../components/PageHeader';
 import RequestErrorMsg from '../../components/RequestErrorMsg';
-import serviceDefaultURI from '../../../img/services/icon-service-default-medium@2x.png';
 import UnitHealthStore from '../../stores/UnitHealthStore';
 import UnitSummaries from '../../constants/UnitSummaries';
 
@@ -134,14 +134,12 @@ class UnitsHealthNodeDetail extends mixin(StoreMixin) {
     let {unitID, unitNodeID} = this.props.params;
     let node = UnitHealthStore.getNode(unitNodeID);
     let unit = UnitHealthStore.getUnit(unitID);
-    let serviceIcon = <img src={serviceDefaultURI} />;
 
     return (
       <div className="flex-container-col">
         <Breadcrumbs />
         <PageHeader
-          icon={serviceIcon}
-          iconClassName="icon-app-container"
+          icon={<Icon color="white" id="heart-pulse" size="jumbo" />}
           subTitle={this.getSubTitle(unit, node)}
           title={`${unit.getTitle()} Health Check`} />
         <div className="flex-container-col flex-grow no-overflow">
