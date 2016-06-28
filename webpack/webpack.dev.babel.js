@@ -65,7 +65,7 @@ module.exports = Object.assign({}, webpackConfig, {
       template: './src/index.html',
     }),
 
-    new ExtractTextPlugin('[name].css'),
+    new ExtractTextPlugin('./[name].css'),
 
     new WebpackNotifierPlugin({alwaysNotify: true})
   ],
@@ -95,19 +95,19 @@ module.exports = Object.assign({}, webpackConfig, {
       },
       {
         test: /\.png$/,
-        loader: 'file?name=[hash]-[name].[ext]&limit=100000&mimetype=image/png'
+        loader: 'file?name=./[hash]-[name].[ext]&limit=100000&mimetype=image/png'
       },
       {
         test: /\.svg$/,
-        loader: 'file?name=[hash]-[name].[ext]&limit=100000&mimetype=image/svg+xml'
+        loader: 'file?name=./[hash]-[name].[ext]&limit=100000&mimetype=image/svg+xml'
       },
       {
         test: /\.gif$/,
-        loader: 'file?name=[hash]-[name].[ext]&limit=100000&mimetype=image/gif',
+        loader: 'file?name=./[hash]-[name].[ext]&limit=100000&mimetype=image/gif',
       },
       {
         test: /\.jpg$/,
-        loader: 'file?name=[hash]-[name].[ext]',
+        loader: 'file?name=./[hash]-[name].[ext]',
       },
       // Replace @@variables
       {
