@@ -2,7 +2,6 @@ import {Hooks} from 'PluginSDK';
 import Service from '../structs/Service';
 import VolumeConstants from '../constants/VolumeConstants';
 
-const VIP_ADDRESS = '0.0.0.0';
 const getFindPropertiesRecursive = function (service, item) {
 
   return Object.keys(item).reduce(function (memo, subItem) {
@@ -269,10 +268,15 @@ const ServiceUtil = {
           if (networkType === 'host' || !isContainerApp) {
             // Avoid specifying an empty portDefinitions by default
             if (networking.ports.length > 0) {
-              definition.portDefinitions = networking.ports.map(function (port) {
+              definition.portDefinitions = networking.ports.map(function (port, index) {
                 let portMapping = {port: 0, protocol: 'tcp'};
                 if (port.discovery === true) {
-                  portMapping.port = parseInt(port.lbPort || 0, 10);
+                  let lbPort = parseInt(port.lbPort || 0, 10);
+                  portMapping.port = lbPort;
+                  if (general != null) {
+                    portMapping.labels = {};
+                    portMapping.labels[`VIP_${index}`] = `${general.id}:${lbPort}`;
+                  }
                 }
                 if (port.protocol != null) {
                   portMapping.protocol = port.protocol;
@@ -285,7 +289,7 @@ const ServiceUtil = {
               });
             }
           } else {
-            definition.container.docker.portMappings = networking.ports.map(function (port) {
+            definition.container.docker.portMappings = networking.ports.map(function (port, index) {
               let portMapping = {containerPort: 0, protocol: 'tcp'};
 
               if (port.protocol != null) {
@@ -301,9 +305,10 @@ const ServiceUtil = {
                   portMapping.hostPort = lbPort;
                 } else {
                   portMapping.servicePort = lbPort;
-                  portMapping.labels = {
-                    'VIP_0': `${VIP_ADDRESS}:${lbPort}`
-                  };
+                }
+                portMapping.labels = {};
+                if (general != null) {
+                  portMapping.labels[`VIP_${index}`] = `${general.id}:${lbPort}`;
                 }
               }
 

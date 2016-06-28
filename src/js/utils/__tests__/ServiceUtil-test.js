@@ -75,9 +75,7 @@ describe('ServiceUtil', function () {
               ports: [ {lbPort: 1234, discovery: true} ]
             }
           });
-          expect(service.portDefinitions).toEqual([
-            {port: 1234, protocol: 'tcp'}
-          ]);
+          expect(service.portDefinitions[0].port).toEqual(1234);
         });
 
         it('should override the port to 0 when discovery is off', function () {
@@ -87,9 +85,7 @@ describe('ServiceUtil', function () {
               ports: [ {lbPort: 1234, discovery: false} ]
             }
           });
-          expect(service.portDefinitions).toEqual([
-            {port: 0, protocol: 'tcp'}
-          ]);
+          expect(service.portDefinitions[0].port).toEqual(0);
         });
 
         it('should default the port to 0 when discovery is on', function () {
@@ -99,9 +95,34 @@ describe('ServiceUtil', function () {
               ports: [ {discovery: true} ]
             }
           });
-          expect(service.portDefinitions).toEqual([
-            {port: 0, protocol: 'tcp'}
-          ]);
+          expect(service.portDefinitions[0].port).toEqual(0);
+        });
+
+        it('should add a VIP label when discovery is on', function () {
+          let service = ServiceUtil.createServiceFromFormModel({
+              general: { id: '/foo/bar'},
+            networking: {
+              networkType: 'host',
+              ports: [ {lbPort: 1234, discovery: true} ]
+            }
+          });
+          expect(service.portDefinitions[0].labels)
+            .toEqual({VIP_0: '/foo/bar:1234'});
+        });
+
+        it('increments the VIP index', function () {
+          let service = ServiceUtil.createServiceFromFormModel({
+              general: { id: '/foo/bar'},
+            networking: {
+              networkType: 'host',
+              ports: [
+                {lbPort: 1234, discovery: true},
+                {lbPort: 4321, discovery: true}
+              ]
+            }
+          });
+          expect(service.portDefinitions[1].labels)
+            .toEqual({VIP_1: '/foo/bar:4321'});
         });
 
         describe('an empty networking ports member', function () {
@@ -232,9 +253,20 @@ describe('ServiceUtil', function () {
               ports: [ { lbPort: 1234, discovery: true } ]
             }
           });
-          expect(service.container.docker.portMappings).toEqual([
-            {containerPort: 1234, hostPort: 1234, protocol: 'tcp'}
-          ]);
+          expect(service.container.docker.portMappings[0].hostPort).toEqual(1234);
+        });
+
+        it('should add a VIP label when discovery is on', function () {
+          let service = ServiceUtil.createServiceFromFormModel({
+            general: { id: '/foo/bar' },
+            containerSettings: { image: 'redis' },
+            networking: {
+              networkType: 'bridge',
+              ports: [ { lbPort: 1234, discovery: true } ]
+            }
+          });
+          expect(service.container.docker.portMappings[0].labels)
+            .toEqual({VIP_0: '/foo/bar:1234'});
         });
 
         it('sets the docker network property correctly', function () {
@@ -359,13 +391,14 @@ describe('ServiceUtil', function () {
         it('should add the appropriate VIP label when discovery is on', function () {
          let service = ServiceUtil.createServiceFromFormModel({
             containerSettings: { image: 'redis' },
+            general: { id: '/foo/bar' },
             networking: {
               networkType: 'user',
               ports: [ { lbPort: 1234, discovery: true } ]
             }
           });
           expect(service.container.docker.portMappings[0].labels)
-            .toEqual({'VIP_0': '0.0.0.0:1234'});
+            .toEqual({VIP_0: '/foo/bar:1234'});
         });
 
         describe('an empty networking ports member', function () {
