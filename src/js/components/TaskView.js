@@ -195,15 +195,14 @@ class TaskView extends mixin(SaveStateMixin, StoreMixin) {
     }
 
     let {killAction} = this.state;
-
     let tasks = this.getCheckedItems(this.props.tasks);
+
     return (
       <KillTaskModal
         action={killAction}
         selectedItems={tasks}
         onClose={this.handleKillClose}
-        open={!!killAction}
-        />
+        open={!!killAction} />
     );
   }
 

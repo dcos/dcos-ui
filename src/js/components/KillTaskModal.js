@@ -61,17 +61,17 @@ class KillTaskModal extends mixin(StoreMixin) {
 
   getConfirmTextBody(selectedItems, selectedItemsLength) {
     let {action} = this.props;
-    let secretText;
+    let bodyText;
 
     if (selectedItemsLength === 1) {
-      secretText = selectedItems[0].id;
+      bodyText = selectedItems[0].id;
     } else {
-      secretText = 'these tasks';
+      bodyText = 'these tasks';
     }
 
     return (
       <span key="confirmText">
-        You are about to {ACTION_DISPLAY_NAMES[action]} {secretText}.
+        You are about to {ACTION_DISPLAY_NAMES[action]} {bodyText}.
       </span>
     );
   }
