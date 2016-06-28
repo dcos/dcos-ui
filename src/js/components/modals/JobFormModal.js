@@ -242,8 +242,8 @@ class JobFormModal extends mixin(StoreMixin) {
         maxHeightPercentage={.9}
         bodyClass=""
         modalWrapperClass="multiple-form-modal modal-form"
-        innerBodyClass=""
         open={this.props.open}
+        scrollContainerClass=""
         showCloseButton={false}
         showHeader={true}
         footer={this.getModalFooter()}

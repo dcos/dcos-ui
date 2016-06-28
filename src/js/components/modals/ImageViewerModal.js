@@ -124,11 +124,11 @@ class ImageViewerModal extends React.Component {
     return (
       <Modal
         footer={this.getFooter()}
-        innerBodyClass=""
         maxHeightPercentage={0.9}
         modalClass={modalClasses}
         onClose={props.onClose}
         open={props.open}
+        scrollContainerClass=""
         showCloseButton={true}
         showFooter={props.images && props.images.length > 1}
         showHeader={true}

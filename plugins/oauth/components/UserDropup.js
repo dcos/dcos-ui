@@ -168,8 +168,8 @@ class UserDropup extends mixin(StoreMixin) {
     let modalClasses = {
       bodyClass: '',
       containerClass: 'user-dropdown-menu dropdown',
-      innerBodyClass: '',
-      modalClass: 'dropdown-menu'
+      modalClass: 'dropdown-menu',
+      scrollContainerClass: ''
     };
 
     let userButton = this.getUserButton(user, this.handleDropdownClick);

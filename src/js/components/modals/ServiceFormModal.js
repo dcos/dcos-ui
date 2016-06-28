@@ -414,11 +414,11 @@ class ServiceFormModal extends mixin(StoreMixin) {
         maxHeightPercentage={.9}
         bodyClass=""
         modalWrapperClass="multiple-form-modal modal-form"
-        innerBodyClass=""
         open={this.props.open}
         showCloseButton={false}
         showHeader={true}
         footer={this.getFooter()}
+        scrollContainerClass=""
         titleText={title}
         titleClass="modal-header-title flush-top flush-bottom"
         showFooter={true}>
