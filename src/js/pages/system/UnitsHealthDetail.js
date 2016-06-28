@@ -158,7 +158,7 @@ class UnitsHealthDetail extends mixin(StoreMixin) {
       <div className="flex-container-col">
         <Breadcrumbs />
         <PageHeader
-          icon={<Icon color="white" id="heart-pulse" size="jumbo" />}
+          icon={<Icon color="white" id="shapes" size="jumbo" />}
           subTitle={this.getSubTitle(unit)}
           title={unit.getTitle()} />
         <FilterHeadline
