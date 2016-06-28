@@ -25,6 +25,9 @@ let HealthChecks = {
         return healthChecks;
       },
       deleteButtonTop: true,
+      getTitle: function (index = 1) {
+        return `Health check #${index}`;
+      },
       filterProperties: function (service = {}, instanceDefinition) {
         let properties = HealthChecks
           .properties

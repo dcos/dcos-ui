@@ -104,13 +104,22 @@ function schemaToFieldDefinition(fieldName, fieldProps, formParent, isRequired, 
       itemShape.filterProperties = fieldProps.filterProperties;
     }
 
+    if (fieldProps.getTitle) {
+      itemShape.getTitle = fieldProps.getTitle;
+    }
+
     if (renderRemove) {
       let arrayAction = 'push';
       if (fieldProps.deleteButtonTop) {
         itemShape.deleteButtonTop = true;
         arrayAction = 'unshift';
       }
-      definition[arrayAction](renderRemove(formParent, fieldName, propID));
+      let title = null;
+      if (itemShape.getTitle) {
+        title = itemShape.getTitle();
+      }
+
+      definition[arrayAction](renderRemove(formParent, fieldName, propID, title));
     }
 
     if (formParent.itemShapes == null) {

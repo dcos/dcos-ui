@@ -27,7 +27,8 @@ function setDefinitionValue(thingToSet, definition, renderRemove) {
     });
 
     FormUtil.removePropID(definitionToSet.definition, prop);
-    value.forEach(function (item) {
+
+    value.forEach(function (item, index) {
       let propID = Util.uniqueID(prop);
       let instanceDefinition = FormUtil.getMultipleFieldDefinition(
         prop,
@@ -46,8 +47,13 @@ function setDefinitionValue(thingToSet, definition, renderRemove) {
         arrayAction = 'unshift';
       }
 
+      let title = null;
+      if (definitionToSet.definition.itemShapes[prop].getTitle) {
+        title = definitionToSet.definition.itemShapes[prop].getTitle(index + 1);
+        title = definitionToSet.definition.itemShapes[prop].getTitle(index + 1);
+      }
       instanceDefinition[arrayAction](
-        renderRemove(definitionToSet.definition, prop, propID)
+        renderRemove(definitionToSet.definition, prop, propID, title)
       );
       definitionToSet.definition.splice(firstIndex++, 0, instanceDefinition);
     });
