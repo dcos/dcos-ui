@@ -179,6 +179,7 @@ class TaskTable extends React.Component {
         getColGroup={this.getColGroup}
         onCheckboxChange={onCheckboxChange}
         sortBy={{prop: 'updated', order: 'desc'}}
+        sortOrder="desc"
         sortProp="updated"
         uniqueProperty="id" />
     );
