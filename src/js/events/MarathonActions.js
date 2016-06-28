@@ -25,7 +25,9 @@ import {
   REQUEST_MARATHON_SERVICE_VERSION_SUCCESS,
   REQUEST_MARATHON_SERVICE_VERSION_ERROR,
   REQUEST_MARATHON_SERVICE_VERSIONS_SUCCESS,
-  REQUEST_MARATHON_SERVICE_VERSIONS_ERROR
+  REQUEST_MARATHON_SERVICE_VERSIONS_ERROR,
+  REQUEST_MARATHON_TASK_KILL_SUCCESS,
+  REQUEST_MARATHON_TASK_KILL_ERROR
 } from '../constants/ActionTypes';
 var AppDispatcher = require('./AppDispatcher');
 var Config = require('../config/Config');
@@ -294,6 +296,30 @@ module.exports = {
             originalDeploymentID: deploymentID,
             error: RequestUtil.getErrorFromXHR(xhr)
           }
+        });
+      }
+    });
+  },
+
+  killTasks: function (taskIDs, scaleTask) {
+    let params = '';
+    if (scaleTask) {
+      params = '?scale=true';
+    }
+
+    RequestUtil.json({
+      url: `${Config.rootUrl}${Config.marathonAPIPrefix}/tasks/delete${params}`,
+      data: {ids: taskIDs},
+      method: 'POST',
+      success: function () {
+        AppDispatcher.handleServerAction({
+          type: REQUEST_MARATHON_TASK_KILL_SUCCESS
+        });
+      },
+      error: function (xhr) {
+        AppDispatcher.handleServerAction({
+          type: REQUEST_MARATHON_TASK_KILL_ERROR,
+          data: RequestUtil.getErrorFromXHR(xhr)
         });
       }
     });

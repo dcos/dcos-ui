@@ -18,6 +18,7 @@ import TaskTable from './TaskTable';
 const METHODS_TO_BIND = [
   'handleItemCheck',
   'handleKillClose',
+  'handleKillSuccess',
   'handleSearchStringChange',
   'handleStatusFilterChange',
   'onStateStoreSuccess',
@@ -94,6 +95,10 @@ class TaskView extends mixin(SaveStateMixin, StoreMixin) {
     this.setState({filterByStatus});
   }
 
+  handleKillSuccess() {
+    this.setState({checkedItems: {}, killAction: ''});
+  }
+
   filterByCurrentStatus(tasks) {
     let status = this.state.filterByStatus;
     if (status === 'all') {
@@ -107,14 +112,6 @@ class TaskView extends mixin(SaveStateMixin, StoreMixin) {
 
   hasLoadingError() {
     return this.state.mesosStateErrorCount >= 5;
-  }
-
-  getCheckedItems(tasks) {
-    let {checkedItems} = this.state;
-
-    return tasks.filter(function (task) {
-      return checkedItems[task.id];
-    });
   }
 
   getLoadingScreen() {
@@ -195,13 +192,14 @@ class TaskView extends mixin(SaveStateMixin, StoreMixin) {
     }
 
     let {killAction} = this.state;
-    let tasks = this.getCheckedItems(this.props.tasks);
+    let tasks = Object.keys(checkedItems);
 
     return (
       <KillTaskModal
         action={killAction}
         selectedItems={tasks}
         onClose={this.handleKillClose}
+        onSuccess={this.handleKillSuccess}
         open={!!killAction} />
     );
   }

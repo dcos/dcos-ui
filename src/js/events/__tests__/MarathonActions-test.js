@@ -602,4 +602,78 @@ describe('MarathonActions', function () {
 
   });
 
+  describe('#killTasks', function () {
+
+    beforeEach(function () {
+      spyOn(RequestUtil, 'json');
+      MarathonActions.killTasks(['task1', 'task2'], false);
+      this.configuration = RequestUtil.json.calls.mostRecent().args[0];
+    });
+
+    describe('JSON request', function () {
+
+      it('is made', function () {
+        expect(RequestUtil.json).toHaveBeenCalled();
+      });
+
+      it('is a POST', function () {
+        expect(this.configuration.method).toEqual('POST');
+      });
+
+      it('calls the appropriate endpoint', function () {
+        expect(this.configuration.url)
+          .toEqual(`${Config.rootUrl}/service/marathon/v2/tasks/delete`);
+      });
+
+      it('calls the appropriate endpoint if scaled is true', function () {
+        MarathonActions.killTasks(['task1', 'task2'], true);
+        let configuration = RequestUtil.json.calls.mostRecent().args[0];
+        expect(configuration.url).toEqual(
+          `${Config.rootUrl}/service/marathon/v2/tasks/delete?scale=true`
+        );
+      });
+
+    });
+
+    describe('on success', function () {
+
+      it('emits a success event on success', function () {
+        var id = AppDispatcher.register(function (payload) {
+          var action = payload.action;
+          AppDispatcher.unregister(id);
+          expect(action.type)
+            .toEqual(ActionTypes.REQUEST_MARATHON_TASK_KILL_SUCCESS);
+        });
+
+        this.configuration.success({});
+      });
+
+    });
+
+    it('emits an error event on error', function () {
+      var id = AppDispatcher.register(function (payload) {
+        var action = payload.action;
+        AppDispatcher.unregister(id);
+        expect(action.type)
+          .toEqual(ActionTypes.REQUEST_MARATHON_TASK_KILL_ERROR);
+      });
+
+      this.configuration.error({});
+    });
+
+    it('emits the response text in the error payload', function () {
+      var id = AppDispatcher.register(function (payload) {
+        var action = payload.action;
+        AppDispatcher.unregister(id);
+        expect(action.data)
+          .toEqual('A helpful error message.');
+      });
+
+      this.configuration.error({
+        responseText: JSON.stringify({message: 'A helpful error message.'})
+      });
+    });
+
+  });
+
 });

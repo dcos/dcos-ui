@@ -63,6 +63,8 @@ import {
   MARATHON_SERVICE_DELETE_SUCCESS,
   MARATHON_SERVICE_EDIT_ERROR,
   MARATHON_SERVICE_EDIT_SUCCESS,
+  MARATHON_TASK_KILL_ERROR,
+  MARATHON_TASK_KILL_SUCCESS,
 
   METADATA_CHANGE,
 
@@ -309,7 +311,9 @@ const ListenersDescription = {
       serviceDeleteError: MARATHON_SERVICE_DELETE_ERROR,
       serviceDeleteSuccess: MARATHON_SERVICE_DELETE_SUCCESS,
       serviceEditError: MARATHON_SERVICE_EDIT_ERROR,
-      serviceEditSuccess: MARATHON_SERVICE_EDIT_SUCCESS
+      serviceEditSuccess: MARATHON_SERVICE_EDIT_SUCCESS,
+      taskKillSuccess: MARATHON_TASK_KILL_SUCCESS,
+      taskKillError: MARATHON_TASK_KILL_ERROR
     },
     unmountWhen: function (store, event) {
       if (event === 'appsSuccess') {

@@ -31,6 +31,8 @@ import {
   MARATHON_SERVICE_VERSION_ERROR,
   MARATHON_SERVICE_VERSIONS_CHANGE,
   MARATHON_SERVICE_VERSIONS_ERROR,
+  MARATHON_TASK_KILL_SUCCESS,
+  MARATHON_TASK_KILL_ERROR,
   VISIBILITY_CHANGE
 } from '../constants/EventTypes';
 var HealthStatus = require('../constants/HealthStatus');
@@ -147,6 +149,12 @@ class MarathonStore extends GetSetBaseStore {
         case ActionTypes.REQUEST_MARATHON_DEPLOYMENT_ROLLBACK_ERROR:
           this.processMarathonDeploymentRollbackError(action.data);
           break;
+        case ActionTypes.REQUEST_MARATHON_TASK_KILL_SUCCESS:
+          this.emit(MARATHON_TASK_KILL_SUCCESS);
+          break;
+        case ActionTypes.REQUEST_MARATHON_TASK_KILL_ERROR:
+          this.emit(MARATHON_TASK_KILL_ERROR);
+          break;
       }
 
       return true;
@@ -224,6 +232,10 @@ class MarathonStore extends GetSetBaseStore {
 
   fetchMarathonInstanceInfo() {
     return MarathonActions.fetchMarathonInstanceInfo(...arguments);
+  }
+
+  killTasks() {
+    return MarathonActions.killTasks(...arguments);
   }
 
   hasProcessedApps() {
