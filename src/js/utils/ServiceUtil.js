@@ -305,10 +305,10 @@ const ServiceUtil = {
                   portMapping.hostPort = lbPort;
                 } else {
                   portMapping.servicePort = lbPort;
-                  portMapping.labels = {};
-                  if (general != null) {
-                    portMapping.labels[`VIP_${index}`] = `${general.id}:${lbPort}`;
-                  }
+                }
+                portMapping.labels = {};
+                if (general != null) {
+                  portMapping.labels[`VIP_${index}`] = `${general.id}:${lbPort}`;
                 }
               }
 

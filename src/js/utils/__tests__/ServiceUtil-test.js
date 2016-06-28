@@ -253,9 +253,20 @@ describe('ServiceUtil', function () {
               ports: [ { lbPort: 1234, discovery: true } ]
             }
           });
-          expect(service.container.docker.portMappings).toEqual([
-            {containerPort: 1234, hostPort: 1234, protocol: 'tcp'}
-          ]);
+          expect(service.container.docker.portMappings[0].hostPort).toEqual(1234);
+        });
+
+        it('should add a VIP label when discovery is on', function () {
+          let service = ServiceUtil.createServiceFromFormModel({
+            general: { id: '/foo/bar' },
+            containerSettings: { image: 'redis' },
+            networking: {
+              networkType: 'bridge',
+              ports: [ { lbPort: 1234, discovery: true } ]
+            }
+          });
+          expect(service.container.docker.portMappings[0].labels)
+            .toEqual({VIP_0: '/foo/bar:1234'});
         });
 
         it('sets the docker network property correctly', function () {
