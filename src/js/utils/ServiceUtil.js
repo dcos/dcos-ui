@@ -2,7 +2,6 @@ import {Hooks} from 'PluginSDK';
 import Service from '../structs/Service';
 import VolumeConstants from '../constants/VolumeConstants';
 
-const VIP_ADDRESS = '0.0.0.0';
 const getFindPropertiesRecursive = function (service, item) {
 
   return Object.keys(item).reduce(function (memo, subItem) {
@@ -290,7 +289,7 @@ const ServiceUtil = {
               });
             }
           } else {
-            definition.container.docker.portMappings = networking.ports.map(function (port) {
+            definition.container.docker.portMappings = networking.ports.map(function (port, index) {
               let portMapping = {containerPort: 0, protocol: 'tcp'};
 
               if (port.protocol != null) {
@@ -306,9 +305,10 @@ const ServiceUtil = {
                   portMapping.hostPort = lbPort;
                 } else {
                   portMapping.servicePort = lbPort;
-                  portMapping.labels = {
-                    'VIP_0': `${VIP_ADDRESS}:${lbPort}`
-                  };
+                  portMapping.labels = {};
+                  if (general != null) {
+                    portMapping.labels[`VIP_${index}`] = `${general.id}:${lbPort}`;
+                  }
                 }
               }
 
