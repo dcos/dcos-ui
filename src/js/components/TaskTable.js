@@ -2,9 +2,8 @@ import classNames from 'classnames';
 import {Link} from 'react-router';
 import React from 'react';
 
+import CheckboxTable from './CheckboxTable';
 import ResourceTableUtil from '../utils/ResourceTableUtil';
-import {Table} from 'reactjs-components';
-import TableUtil from '../utils/TableUtil';
 import TaskStates from '../constants/TaskStates';
 import TaskTableHeaderLabels from '../constants/TaskTableHeaderLabels';
 import TaskUtil from '../utils/TaskUtil';
@@ -96,6 +95,7 @@ class TaskTable extends React.Component {
   getColGroup() {
     return (
       <colgroup>
+        <col style={{width: '40px'}} />
         <col />
         <col style={{width: '120px'}} />
         <col style={{width: '120px'}} />
@@ -168,23 +168,27 @@ class TaskTable extends React.Component {
   }
 
   render() {
-    let {className, tasks} = this.props;
+    let {checkedItemsMap, className, onCheckboxChange, tasks} = this.props;
 
     return (
-      <Table
+      <CheckboxTable
+        checkedItemsMap={checkedItemsMap}
         className={className}
         columns={this.getColumns()}
-        colGroup={this.getColGroup()}
-        containerSelector=".gm-scroll-view"
         data={tasks.slice()}
-        itemHeight={TableUtil.getRowHeight()}
-        sortBy={{prop: 'updated', order: 'desc'}} />
+        getColGroup={this.getColGroup}
+        onCheckboxChange={onCheckboxChange}
+        sortBy={{prop: 'updated', order: 'desc'}}
+        sortProp="updated"
+        uniqueProperty="id" />
     );
   }
 }
 
 TaskTable.propTypes = {
+  checkedItemsMap: React.PropTypes.object,
   className: React.PropTypes.string,
+  onCheckboxChange: React.PropTypes.func,
   parentRouter: React.PropTypes.oneOfType([
     React.PropTypes.func,
     React.PropTypes.object

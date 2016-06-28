@@ -7,6 +7,7 @@ import FilterBar from './FilterBar';
 import FilterButtons from './FilterButtons';
 import FilterHeadline from './FilterHeadline';
 import FilterInputText from './FilterInputText';
+import KillTaskModal from './KillTaskModal';
 import MesosStateStore from '../stores/MesosStateStore';
 import RequestErrorMsg from './RequestErrorMsg';
 import SaveStateMixin from '../mixins/SaveStateMixin';
@@ -15,6 +16,8 @@ import TaskStates from '../constants/TaskStates';
 import TaskTable from './TaskTable';
 
 const METHODS_TO_BIND = [
+  'handleItemCheck',
+  'handleKillClose',
   'handleSearchStringChange',
   'handleStatusFilterChange',
   'onStateStoreSuccess',
@@ -29,6 +32,8 @@ class TaskView extends mixin(SaveStateMixin, StoreMixin) {
     super();
 
     this.state = {
+      checkedItems: {},
+      killAction: '',
       mesosStateErrorCount: 0,
       searchString: '',
       filterByStatus: 'active'
@@ -64,6 +69,23 @@ class TaskView extends mixin(SaveStateMixin, StoreMixin) {
     this.setState({mesosStateErrorCount: this.state.mesosStateErrorCount + 1});
   }
 
+  handleItemCheck(idsChecked) {
+    let checkedItems = {};
+    idsChecked.forEach(function (id) {
+      checkedItems[id] = true;
+    });
+
+    this.setState({checkedItems});
+  }
+
+  handleKillClick(killAction) {
+    this.setState({killAction});
+  }
+
+  handleKillClose() {
+    this.setState({killAction: ''});
+  }
+
   handleSearchStringChange(searchString) {
     this.setState({searchString});
   }
@@ -87,6 +109,14 @@ class TaskView extends mixin(SaveStateMixin, StoreMixin) {
     return this.state.mesosStateErrorCount >= 5;
   }
 
+  getCheckedItems(tasks) {
+    let {checkedItems} = this.state;
+
+    return tasks.filter(function (task) {
+      return checkedItems[task.id];
+    });
+  }
+
   getLoadingScreen() {
     if (this.hasLoadingError()) {
       return <RequestErrorMsg />;
@@ -103,7 +133,7 @@ class TaskView extends mixin(SaveStateMixin, StoreMixin) {
     );
   }
 
-  getTaskTable(tasks) {
+  getTaskTable(tasks, checkedItems) {
     let {inverseStyle, parentRouter} = this.props;
 
     let classSet = classNames({
@@ -114,7 +144,9 @@ class TaskView extends mixin(SaveStateMixin, StoreMixin) {
 
     return (
       <TaskTable
+        checkedItemsMap={checkedItems}
         className={classSet}
+        onCheckboxChange={this.handleItemCheck}
         parentRouter={parentRouter}
         tasks={tasks} />
     );
@@ -136,9 +168,48 @@ class TaskView extends mixin(SaveStateMixin, StoreMixin) {
     );
   }
 
+  getKillButtons(hasCheckedTasks) {
+    if (!hasCheckedTasks) {
+      return null;
+    }
+
+    return (
+      <div className="button-collection flush-bottom">
+        <div
+          className="button button-stroke button-danger"
+          onClick={this.handleKillClick.bind(this, 'killAndScale')}>
+          Kill and Scale
+        </div>
+        <div
+          className="button button-stroke button-danger"
+          onClick={this.handleKillClick.bind(this, 'kill')}>
+          Kill
+        </div>
+      </div>
+    );
+  }
+
+  getKillTaskModal(checkedItems, hasCheckedTasks) {
+    if (!hasCheckedTasks) {
+      return null;
+    }
+
+    let {killAction} = this.state;
+
+    let tasks = this.getCheckedItems(this.props.tasks);
+    return (
+      <KillTaskModal
+        action={killAction}
+        selectedItems={tasks}
+        onClose={this.handleKillClose}
+        open={!!killAction}
+        />
+    );
+  }
+
   getContent() {
     let {inverseStyle, tasks} = this.props;
-    let {filterByStatus, searchString} = this.state;
+    let {checkedItems, filterByStatus, searchString} = this.state;
 
     let totalNumberOfTasks = tasks.length;
 
@@ -157,6 +228,12 @@ class TaskView extends mixin(SaveStateMixin, StoreMixin) {
 
     tasks = this.filterByCurrentStatus(tasks);
 
+    let rightAlignLastNChildren = 0;
+    let hasCheckedTasks = Object.keys(checkedItems).length !== 0;
+    if (hasCheckedTasks) {
+      rightAlignLastNChildren = 1;
+    }
+
     return (
       <div className="flex-container-col flex-grow">
         <FilterHeadline
@@ -165,7 +242,7 @@ class TaskView extends mixin(SaveStateMixin, StoreMixin) {
           name="Task"
           currentLength={tasks.length}
           totalLength={totalNumberOfTasks} />
-        <FilterBar>
+        <FilterBar rightAlignLastNChildren={rightAlignLastNChildren}>
           <FilterInputText
             className="flush-bottom"
             searchString={searchString}
@@ -178,8 +255,10 @@ class TaskView extends mixin(SaveStateMixin, StoreMixin) {
             inverseStyle={inverseStyle}
             itemList={taskStates}
             selectedFilter={filterByStatus} />
+          {this.getKillButtons(hasCheckedTasks)}
         </FilterBar>
-        {this.getTaskTable(tasks)}
+        {this.getTaskTable(tasks, checkedItems)}
+        {this.getKillTaskModal(checkedItems, hasCheckedTasks)}
       </div>
     );
   }
