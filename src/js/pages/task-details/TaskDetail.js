@@ -82,8 +82,15 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
   }
 
   onStateStoreSuccess() {
-    let task = MesosStateStore.getTaskFromTaskID(this.props.params.taskID);
-    TaskDirectoryStore.getDirectory(task);
+    let {params} = this.props;
+    let task = MesosStateStore.getTaskFromTaskID(params.taskID);
+    let innerPath = null;
+
+    if (params.innerPath != null) {
+      innerPath = decodeURIComponent(params.innerPath);
+    }
+
+    TaskDirectoryStore.getDirectory(task, innerPath);
   }
 
   onTaskDirectoryStoreError() {
@@ -142,7 +149,10 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
     let params = Object.assign(
       {},
       this.props.params,
-      {filePath: encodeURIComponent(selectedLogFile.get('path'))}
+      {
+        filePath: encodeURIComponent(selectedLogFile.get('path')),
+        innerPath: encodeURIComponent(TaskDirectoryStore.get('innerPath'))
+      }
     );
     let currentRoutes = this.context.router.getCurrentRoutes();
     let {logRouteName} = currentRoutes[currentRoutes.length - 1];

@@ -116,7 +116,7 @@ let jobsRoutes = {
                   type: Route,
                   name: 'jobs-task-details-logs',
                   dontScroll: true,
-                  path: 'logs/:filePath?/?',
+                  path: 'logs/:filePath?/?:innerPath?/?',
                   handler: TaskLogsTab,
                   hideHeaderNavigation: true,
                   buildBreadCrumb: function () {
