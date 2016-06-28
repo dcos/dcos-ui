@@ -98,6 +98,33 @@ describe('ServiceUtil', function () {
           expect(service.portDefinitions[0].port).toEqual(0);
         });
 
+        it('should add a VIP label when discovery is on', function () {
+          let service = ServiceUtil.createServiceFromFormModel({
+              general: { id: '/foo/bar'},
+            networking: {
+              networkType: 'host',
+              ports: [ {lbPort: 1234, discovery: true} ]
+            }
+          });
+          expect(service.portDefinitions[0].labels)
+            .toEqual({VIP_0: '/foo/bar:1234'});
+        });
+
+        it('increments the VIP index', function () {
+          let service = ServiceUtil.createServiceFromFormModel({
+              general: { id: '/foo/bar'},
+            networking: {
+              networkType: 'host',
+              ports: [
+                {lbPort: 1234, discovery: true},
+                {lbPort: 4321, discovery: true}
+              ]
+            }
+          });
+          expect(service.portDefinitions[1].labels)
+            .toEqual({VIP_1: '/foo/bar:4321'});
+        });
+
         describe('an empty networking ports member', function () {
 
           beforeEach(function () {

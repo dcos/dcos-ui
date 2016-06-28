@@ -269,10 +269,15 @@ const ServiceUtil = {
           if (networkType === 'host' || !isContainerApp) {
             // Avoid specifying an empty portDefinitions by default
             if (networking.ports.length > 0) {
-              definition.portDefinitions = networking.ports.map(function (port) {
+              definition.portDefinitions = networking.ports.map(function (port, index) {
                 let portMapping = {port: 0, protocol: 'tcp'};
                 if (port.discovery === true) {
-                  portMapping.port = parseInt(port.lbPort || 0, 10);
+                  let lbPort = parseInt(port.lbPort || 0, 10);
+                  portMapping.port = lbPort;
+                  if (general != null) {
+                    portMapping.labels = {};
+                    portMapping.labels[`VIP_${index}`] = `${general.id}:${lbPort}`;
+                  }
                 }
                 if (port.protocol != null) {
                   portMapping.protocol = port.protocol;
