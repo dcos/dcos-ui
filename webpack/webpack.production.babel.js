@@ -88,7 +88,7 @@ module.exports = Object.assign({}, webpackConfig, {
       },
       {
         test: /\.png$/,
-        loader: addImageOptimizer('file?name=[hash]-[name].[ext]&limit=100000&mimetype=image/png')
+        loader: addImageOptimizer('file?name=./[hash]-[name].[ext]&limit=100000&mimetype=image/png')
       },
       {
         test: /\.svg$/,

@@ -151,7 +151,7 @@ module.exports = {
       },
       {
         test: /\.(ico|icns)$/,
-        loader: 'file?name=[hash]-[name].[ext]',
+        loader: 'file?name=./[hash]-[name].[ext]',
       }
     ],
     postLoaders: [
