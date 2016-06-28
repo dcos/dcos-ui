@@ -172,28 +172,36 @@ class SchemaForm extends mixin(StoreMixin, InternalStorageMixin) {
   }
 
   getRemoveRowButton(generalDefinition, prop, id, title = null) {
-    let deleteButton = (
-      <div key={`${prop}${id}-remove`} className="align-self-flex-end">
-        <button
-          className="button button-link"
-          onClick={this.handleRemoveRow.bind(this, generalDefinition, prop, id)}>
-          <Icon id="close" size="mini" family="mini" />
-        </button>
-      </div>
-    );
-
     if (!title) {
-      return deleteButton;
+      return (
+        <div
+          key={`${prop}${id}-remove`}
+          className="form-row-element align-self-flex-end">
+          <button
+            className="button button-link"
+            onClick={this.handleRemoveRow.bind(this, generalDefinition, prop, id)}>
+            <Icon id="close" size="mini" family="mini" />
+          </button>
+        </div>
+      );
     }
 
     return (
-      <div className="form-row-element duplicable-row-title-wrapper">
+      <div
+        key={`${prop}${id}-title`}
+        className="form-row-element duplicable-row-title-wrapper">
         <div className="duplicable-row-title-container">
           <div className="duplicable-row-title">
             {title}
           </div>
         </div>
-        {deleteButton}
+        <div className="align-self-flex-end">
+          <button
+            className="button button-link"
+            onClick={this.handleRemoveRow.bind(this, generalDefinition, prop, id)}>
+            <Icon id="close" size="mini" family="mini" />
+          </button>
+        </div>
       </div>
     );
   }
