@@ -8,10 +8,10 @@ import Breadcrumbs from '../../components/Breadcrumbs';
 import FilterBar from '../../components/FilterBar';
 import FilterHeadline from '../../components/FilterHeadline';
 import FilterInputText from '../../components/FilterInputText';
+import Icon from '../../components/Icon';
 import PageHeader from '../../components/PageHeader';
 import RequestErrorMsg from '../../components/RequestErrorMsg';
 import UnitHealthDropdown from '../../components/UnitHealthDropdown';
-import unitHealthImageURI from '../../../img/services/icon-service-default-medium@2x.png';
 import UnitHealthNodesTable from '../../components/UnitHealthNodesTable';
 import UnitHealthStore from '../../stores/UnitHealthStore';
 
@@ -158,8 +158,7 @@ class UnitsHealthDetail extends mixin(StoreMixin) {
       <div className="flex-container-col">
         <Breadcrumbs />
         <PageHeader
-          icon={<img src={unitHealthImageURI} />}
-          iconClassName="icon-app-container"
+          icon={<Icon color="white" id="heart-pulse" size="jumbo" />}
           subTitle={this.getSubTitle(unit)}
           title={unit.getTitle()} />
         <FilterHeadline
