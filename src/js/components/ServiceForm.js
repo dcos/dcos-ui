@@ -5,9 +5,11 @@ import FormUtil from '../utils/FormUtil';
 import SchemaForm from './SchemaForm';
 import SchemaFormUtil from '../utils/SchemaFormUtil';
 import SchemaUtil from '../utils/SchemaUtil';
+import VirtualNetworksStore from '../stores/VirtualNetworksStore';
 
 const METHODS_TO_BIND = [
   'handleFormChange',
+  'onVirtualNetworksStoreSuccess',
   'validateForm'
 ];
 
@@ -23,9 +25,9 @@ class ServiceForm extends SchemaForm {
       this[method] = this[method].bind(this);
     });
 
-    this.store_listeners = Hooks.applyFilter(
-      'serviceFormStoreListeners', []
-    );
+    this.store_listeners = Hooks.applyFilter('serviceFormStoreListeners', [
+      {name: 'virtualNetworks', events: ['success']}
+    ]);
   }
 
   componentWillMount() {
@@ -66,6 +68,23 @@ class ServiceForm extends SchemaForm {
     this.props.onChange(...arguments);
 
     return;
+  }
+
+  onVirtualNetworksStoreSuccess() {
+    let {networkType} = this.props.schema.properties.networking.properties;
+    let {networking} = this.multipleDefinition;
+    let virtualNetworks = VirtualNetworksStore.getOverlays()
+      .mapItems(function (overlay) {
+        let name = overlay.getName();
+
+        return {html: `Virtual Network: ${name}`, id: name}
+      }).getItems();
+
+    networking.definition.forEach(function (definition) {
+      if (definition.name === 'networkType') {
+        definition.options = [].concat(networkType.options, virtualNetworks);
+      }
+    });
   }
 
   getNewDefinition() {
