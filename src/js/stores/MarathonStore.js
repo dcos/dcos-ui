@@ -99,7 +99,11 @@ class MarathonStore extends GetSetBaseStore {
           this.emit(MARATHON_SERVICE_CREATE_SUCCESS);
           break;
         case ActionTypes.REQUEST_MARATHON_SERVICE_DELETE_ERROR:
-          this.emit(MARATHON_SERVICE_DELETE_ERROR, action.data);
+          let message = action.data;
+          if (!Object.keys(message).length) {
+            message = 'Error destroying service';
+          }
+          this.emit(MARATHON_SERVICE_DELETE_ERROR, message);
           break;
         case ActionTypes.REQUEST_MARATHON_SERVICE_DELETE_SUCCESS:
           this.emit(MARATHON_SERVICE_DELETE_SUCCESS);

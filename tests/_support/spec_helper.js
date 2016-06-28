@@ -72,13 +72,13 @@ Cypress.addParentCommand('configureCluster', function (configuration) {
       .route(/service\/marathon\/v2\/groups/, 'fx:1-service-with-executor-task/app')
       .route(/service\/marathon\/v2\/deployments/, 'fx:marathon-1-task/deployments')
       .route(/metronome\/v1\/jobs/, 'fx:metronome/jobs')
-      .route(/slave\/(.*)?\/files\/(.*)?\/runs\/(.*)?/, 'fx:1-service-with-executor-task/browse')
+      .route(/agent\/(.*)?\/files\/(.*)?\/runs\/(.*)?/, 'fx:1-service-with-executor-task/browse')
       .route(/dcos-version/, 'fx:dcos/dcos-version')
       .route(/history\/minute/, 'fx:1-service-with-executor-task/history-minute')
       .route(/history\/last/, 'fx:1-service-with-executor-task/summary')
       .route(/master\/state/, 'fx:1-service-with-executor-task/state')
       .route(/state-summary/, 'fx:1-service-with-executor-task/summary')
-      .route(/slave\/.*\/slave\(1\)\/state/, 'fx:1-service-with-executor-task/slave-state');
+      .route(/agent\/.*\/slave\(1\)\/state/, 'fx:1-service-with-executor-task/slave-state');
   }
 
   if (configuration.mesos === '1-task-with-volumes') {

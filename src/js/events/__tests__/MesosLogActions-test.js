@@ -24,7 +24,7 @@ describe('MesosLogActions', function () {
 
     it('fetches data from the correct URL', function () {
       expect(this.configuration.url)
-        .toEqual('/slave/foo/files/read?path=bar&offset=-1');
+        .toEqual('/agent/foo/files/read?path=bar&offset=-1');
     });
 
     it('dispatches the correct action when successful', function () {
@@ -87,7 +87,7 @@ describe('MesosLogActions', function () {
 
     it('fetches data from the correct URL', function () {
       expect(this.configuration.url)
-        .toEqual('/slave/foo/files/read?path=bar&offset=0&length=2000');
+        .toEqual('/agent/foo/files/read?path=bar&offset=0&length=2000');
     });
 
     it('dispatches the correct action when successful', function () {
@@ -148,7 +148,7 @@ describe('MesosLogActions', function () {
 
     it('fetches data from the correct URL', function () {
       expect(this.configuration.url)
-        .toEqual('/slave/foo/files/read?path=bar&offset=0&length=2000');
+        .toEqual('/agent/foo/files/read?path=bar&offset=0&length=2000');
     });
 
     it('dispatches the correct action when successful', function () {

@@ -4,7 +4,7 @@
     "mode": "-rw-rw----",
     "mtime": 1428104267,
     "nlink": 1,
-    "path": "/var/lib/mesos/slave/slaves/f629b4ab-55c6-4674-bf61-c255e4c71bde-S1/frameworks/f629b4ab-55c6-4674-bf61-c255e4c71bde-0000/executors/cassandra_dcos.28faa71b-da12-11e5-82db-0242c836a0d1/runs/26f8101e-0e0e-47f0-bda2-f59d97410fd9/apache-cassandra-2.1.4-bin.tar.gz",
+    "path": "/var/lib/mesos/agent/slaves/f629b4ab-55c6-4674-bf61-c255e4c71bde-S1/frameworks/f629b4ab-55c6-4674-bf61-c255e4c71bde-0000/executors/cassandra_dcos.28faa71b-da12-11e5-82db-0242c836a0d1/runs/26f8101e-0e0e-47f0-bda2-f59d97410fd9/apache-cassandra-2.1.4-bin.tar.gz",
     "size": 22967081,
     "uid": "root"
   },
@@ -13,7 +13,7 @@
     "mode": "-rw-r--r--",
     "mtime": 1456220729,
     "nlink": 1,
-    "path": "/var/lib/mesos/slave/slaves/f629b4ab-55c6-4674-bf61-c255e4c71bde-S1/frameworks/f629b4ab-55c6-4674-bf61-c255e4c71bde-0000/executors/cassandra_dcos.28faa71b-da12-11e5-82db-0242c836a0d1/runs/26f8101e-0e0e-47f0-bda2-f59d97410fd9/cassandra-mesos-0.2.0-1.tar.gz",
+    "path": "/var/lib/mesos/agent/slaves/f629b4ab-55c6-4674-bf61-c255e4c71bde-S1/frameworks/f629b4ab-55c6-4674-bf61-c255e4c71bde-0000/executors/cassandra_dcos.28faa71b-da12-11e5-82db-0242c836a0d1/runs/26f8101e-0e0e-47f0-bda2-f59d97410fd9/cassandra-mesos-0.2.0-1.tar.gz",
     "size": 70886405,
     "uid": "root"
   },
@@ -22,7 +22,7 @@
     "mode": "-rw-rw----",
     "mtime": 1439233150,
     "nlink": 1,
-    "path": "/var/lib/mesos/slave/slaves/f629b4ab-55c6-4674-bf61-c255e4c71bde-S1/frameworks/f629b4ab-55c6-4674-bf61-c255e4c71bde-0000/executors/cassandra_dcos.28faa71b-da12-11e5-82db-0242c836a0d1/runs/26f8101e-0e0e-47f0-bda2-f59d97410fd9/cassandra-mesos-executor.jar",
+    "path": "/var/lib/mesos/agent/slaves/f629b4ab-55c6-4674-bf61-c255e4c71bde-S1/frameworks/f629b4ab-55c6-4674-bf61-c255e4c71bde-0000/executors/cassandra_dcos.28faa71b-da12-11e5-82db-0242c836a0d1/runs/26f8101e-0e0e-47f0-bda2-f59d97410fd9/cassandra-mesos-executor.jar",
     "size": 40585680,
     "uid": "root"
   },
@@ -31,7 +31,7 @@
     "mode": "-rw-rw----",
     "mtime": 1439233149,
     "nlink": 1,
-    "path": "/var/lib/mesos/slave/slaves/f629b4ab-55c6-4674-bf61-c255e4c71bde-S1/frameworks/f629b4ab-55c6-4674-bf61-c255e4c71bde-0000/executors/cassandra_dcos.28faa71b-da12-11e5-82db-0242c836a0d1/runs/26f8101e-0e0e-47f0-bda2-f59d97410fd9/cassandra-mesos-framework.jar",
+    "path": "/var/lib/mesos/agent/slaves/f629b4ab-55c6-4674-bf61-c255e4c71bde-S1/frameworks/f629b4ab-55c6-4674-bf61-c255e4c71bde-0000/executors/cassandra_dcos.28faa71b-da12-11e5-82db-0242c836a0d1/runs/26f8101e-0e0e-47f0-bda2-f59d97410fd9/cassandra-mesos-framework.jar",
     "size": 12964095,
     "uid": "root"
   },
@@ -40,7 +40,7 @@
     "mode": "-rw-r--r--",
     "mtime": 1456267597,
     "nlink": 1,
-    "path": "/var/lib/mesos/slave/slaves/f629b4ab-55c6-4674-bf61-c255e4c71bde-S1/frameworks/f629b4ab-55c6-4674-bf61-c255e4c71bde-0000/executors/cassandra_dcos.28faa71b-da12-11e5-82db-0242c836a0d1/runs/26f8101e-0e0e-47f0-bda2-f59d97410fd9/cassandra-mesos.log",
+    "path": "/var/lib/mesos/agent/slaves/f629b4ab-55c6-4674-bf61-c255e4c71bde-S1/frameworks/f629b4ab-55c6-4674-bf61-c255e4c71bde-0000/executors/cassandra_dcos.28faa71b-da12-11e5-82db-0242c836a0d1/runs/26f8101e-0e0e-47f0-bda2-f59d97410fd9/cassandra-mesos.log",
     "size": 75156866,
     "uid": "root"
   },
@@ -49,7 +49,7 @@
     "mode": "-rw-r--r--",
     "mtime": 1456255238,
     "nlink": 1,
-    "path": "/var/lib/mesos/slave/slaves/f629b4ab-55c6-4674-bf61-c255e4c71bde-S1/frameworks/f629b4ab-55c6-4674-bf61-c255e4c71bde-0000/executors/cassandra_dcos.28faa71b-da12-11e5-82db-0242c836a0d1/runs/26f8101e-0e0e-47f0-bda2-f59d97410fd9/cassandra-mesos.log.1.zip",
+    "path": "/var/lib/mesos/agent/slaves/f629b4ab-55c6-4674-bf61-c255e4c71bde-S1/frameworks/f629b4ab-55c6-4674-bf61-c255e4c71bde-0000/executors/cassandra_dcos.28faa71b-da12-11e5-82db-0242c836a0d1/runs/26f8101e-0e0e-47f0-bda2-f59d97410fd9/cassandra-mesos.log.1.zip",
     "size": 2562830,
     "uid": "root"
   },
@@ -58,7 +58,7 @@
     "mode": "-rw-r--r--",
     "mtime": 1456237996,
     "nlink": 1,
-    "path": "/var/lib/mesos/slave/slaves/f629b4ab-55c6-4674-bf61-c255e4c71bde-S1/frameworks/f629b4ab-55c6-4674-bf61-c255e4c71bde-0000/executors/cassandra_dcos.28faa71b-da12-11e5-82db-0242c836a0d1/runs/26f8101e-0e0e-47f0-bda2-f59d97410fd9/cassandra-mesos.log.2.zip",
+    "path": "/var/lib/mesos/agent/slaves/f629b4ab-55c6-4674-bf61-c255e4c71bde-S1/frameworks/f629b4ab-55c6-4674-bf61-c255e4c71bde-0000/executors/cassandra_dcos.28faa71b-da12-11e5-82db-0242c836a0d1/runs/26f8101e-0e0e-47f0-bda2-f59d97410fd9/cassandra-mesos.log.2.zip",
     "size": 2569342,
     "uid": "root"
   },
@@ -67,7 +67,7 @@
     "mode": "-rw-r--r--",
     "mtime": 1456220731,
     "nlink": 1,
-    "path": "/var/lib/mesos/slave/slaves/f629b4ab-55c6-4674-bf61-c255e4c71bde-S1/frameworks/f629b4ab-55c6-4674-bf61-c255e4c71bde-0000/executors/cassandra_dcos.28faa71b-da12-11e5-82db-0242c836a0d1/runs/26f8101e-0e0e-47f0-bda2-f59d97410fd9/jre-7u76-linux-x64.tar.gz",
+    "path": "/var/lib/mesos/agent/slaves/f629b4ab-55c6-4674-bf61-c255e4c71bde-S1/frameworks/f629b4ab-55c6-4674-bf61-c255e4c71bde-0000/executors/cassandra_dcos.28faa71b-da12-11e5-82db-0242c836a0d1/runs/26f8101e-0e0e-47f0-bda2-f59d97410fd9/jre-7u76-linux-x64.tar.gz",
     "size": 47058747,
     "uid": "root"
   },
@@ -76,7 +76,7 @@
     "mode": "drwxr-xr-x",
     "mtime": 1418952274,
     "nlink": 6,
-    "path": "/var/lib/mesos/slave/slaves/f629b4ab-55c6-4674-bf61-c255e4c71bde-S1/frameworks/f629b4ab-55c6-4674-bf61-c255e4c71bde-0000/executors/cassandra_dcos.28faa71b-da12-11e5-82db-0242c836a0d1/runs/26f8101e-0e0e-47f0-bda2-f59d97410fd9/jre1.7.0_76",
+    "path": "/var/lib/mesos/agent/slaves/f629b4ab-55c6-4674-bf61-c255e4c71bde-S1/frameworks/f629b4ab-55c6-4674-bf61-c255e4c71bde-0000/executors/cassandra_dcos.28faa71b-da12-11e5-82db-0242c836a0d1/runs/26f8101e-0e0e-47f0-bda2-f59d97410fd9/jre1.7.0_76",
     "size": 4096,
     "uid": "root"
   },
@@ -85,7 +85,7 @@
     "mode": "-rw-r--r--",
     "mtime": 1456220736,
     "nlink": 1,
-    "path": "/var/lib/mesos/slave/slaves/f629b4ab-55c6-4674-bf61-c255e4c71bde-S1/frameworks/f629b4ab-55c6-4674-bf61-c255e4c71bde-0000/executors/cassandra_dcos.28faa71b-da12-11e5-82db-0242c836a0d1/runs/26f8101e-0e0e-47f0-bda2-f59d97410fd9/stderr",
+    "path": "/var/lib/mesos/agent/slaves/f629b4ab-55c6-4674-bf61-c255e4c71bde-S1/frameworks/f629b4ab-55c6-4674-bf61-c255e4c71bde-0000/executors/cassandra_dcos.28faa71b-da12-11e5-82db-0242c836a0d1/runs/26f8101e-0e0e-47f0-bda2-f59d97410fd9/stderr",
     "size": 9950,
     "uid": "root"
   },
@@ -94,7 +94,7 @@
     "mode": "-rw-r--r--",
     "mtime": 1456220723,
     "nlink": 1,
-    "path": "/var/lib/mesos/slave/slaves/f629b4ab-55c6-4674-bf61-c255e4c71bde-S1/frameworks/f629b4ab-55c6-4674-bf61-c255e4c71bde-0000/executors/cassandra_dcos.28faa71b-da12-11e5-82db-0242c836a0d1/runs/26f8101e-0e0e-47f0-bda2-f59d97410fd9/stderr.logrotate.conf",
+    "path": "/var/lib/mesos/agent/slaves/f629b4ab-55c6-4674-bf61-c255e4c71bde-S1/frameworks/f629b4ab-55c6-4674-bf61-c255e4c71bde-0000/executors/cassandra_dcos.28faa71b-da12-11e5-82db-0242c836a0d1/runs/26f8101e-0e0e-47f0-bda2-f59d97410fd9/stderr.logrotate.conf",
     "size": 259,
     "uid": "root"
   },
@@ -103,7 +103,7 @@
     "mode": "-rw-r--r--",
     "mtime": 1456220732,
     "nlink": 1,
-    "path": "/var/lib/mesos/slave/slaves/f629b4ab-55c6-4674-bf61-c255e4c71bde-S1/frameworks/f629b4ab-55c6-4674-bf61-c255e4c71bde-0000/executors/cassandra_dcos.28faa71b-da12-11e5-82db-0242c836a0d1/runs/26f8101e-0e0e-47f0-bda2-f59d97410fd9/stdout",
+    "path": "/var/lib/mesos/agent/slaves/f629b4ab-55c6-4674-bf61-c255e4c71bde-S1/frameworks/f629b4ab-55c6-4674-bf61-c255e4c71bde-0000/executors/cassandra_dcos.28faa71b-da12-11e5-82db-0242c836a0d1/runs/26f8101e-0e0e-47f0-bda2-f59d97410fd9/stdout",
     "size": 261,
     "uid": "root"
   },
@@ -112,7 +112,7 @@
     "mode": "-rw-r--r--",
     "mtime": 1456220723,
     "nlink": 1,
-    "path": "/var/lib/mesos/slave/slaves/f629b4ab-55c6-4674-bf61-c255e4c71bde-S1/frameworks/f629b4ab-55c6-4674-bf61-c255e4c71bde-0000/executors/cassandra_dcos.28faa71b-da12-11e5-82db-0242c836a0d1/runs/26f8101e-0e0e-47f0-bda2-f59d97410fd9/stdout.logrotate.conf",
+    "path": "/var/lib/mesos/agent/slaves/f629b4ab-55c6-4674-bf61-c255e4c71bde-S1/frameworks/f629b4ab-55c6-4674-bf61-c255e4c71bde-0000/executors/cassandra_dcos.28faa71b-da12-11e5-82db-0242c836a0d1/runs/26f8101e-0e0e-47f0-bda2-f59d97410fd9/stdout.logrotate.conf",
     "size": 259,
     "uid": "root"
   }
