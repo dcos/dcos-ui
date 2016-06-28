@@ -14,7 +14,7 @@ import TaskDetailsTab from '../pages/task-details/TaskDetailsTab';
 import TaskFilesTab from '../pages/task-details/TaskFilesTab';
 import TaskLogsTab from '../pages/task-details/TaskLogsTab';
 import UnitsHealthNodeDetail from '../pages/system/UnitsHealthNodeDetail';
-import UnitsHealthNodeDetailPage from '../pages/nodes/UnitsHealthNodeDetailPage';
+import UnitsHealthDetailBreadcrumb from '../pages/system/breadcrumbs/UnitsHealthDetailBreadcrumb';
 import VolumeDetail from '../components/VolumeDetail';
 import VolumeTable from '../components/VolumeTable';
 
@@ -181,19 +181,25 @@ let nodesRoutes = {
               title: 'Volumes'
             }
           ]
-        }
-      ]
-    },
-    {
-      type: Route,
-      name: 'node-detail-health',
-      path: ':nodeID/:unitNodeID/:unitID/?',
-      handler: UnitsHealthNodeDetailPage,
-      hideHeaderNavigation: true,
-      children: [
+        },
         {
-          type: DefaultRoute,
-          handler: UnitsHealthNodeDetail
+          type: Route,
+          name: 'node-detail-health',
+          path: ':nodeID/:unitNodeID/:unitID/?',
+          handler: UnitsHealthNodeDetail,
+          buildBreadCrumb: function () {
+            return {
+              parentCrumb: 'node-detail',
+              getCrumbs: function (router) {
+                return [
+                  <UnitsHealthDetailBreadcrumb
+                    parentRouter={router}
+                    routeName="node-detail-health"
+                    />
+                ];
+              }
+            }
+          }
         }
       ]
     }
