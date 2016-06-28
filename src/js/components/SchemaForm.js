@@ -130,7 +130,7 @@ class SchemaForm extends mixin(StoreMixin) {
         return;
       }
 
-      if (field.props && field.props.prop === prop) {
+      if (field.prop === prop) {
         lastIndex = i - 1;
       }
     });
