@@ -52,6 +52,8 @@ class SchemaForm extends mixin(StoreMixin) {
   }
 
   componentWillUnmount() {
+    super.componentWillUnmount(...arguments);
+
     // Unschedule all validation if component unmounts.
     if (this.timer) {
       clearTimeout(this.timer);
