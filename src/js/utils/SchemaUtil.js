@@ -251,7 +251,8 @@ let SchemaUtil = {
                   definitionForm.definition,
                   itemShape.definition,
                   secondLevelProperties[secondLevelProp].addLabel
-                )
+                ),
+                prop: secondLevelProp
               }
             );
           }
