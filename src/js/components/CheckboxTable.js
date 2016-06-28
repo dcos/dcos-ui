@@ -152,7 +152,7 @@ class CheckboxTable extends React.Component {
   }
 
   render() {
-    let {className, data, getColGroup, sortProp} = this.props;
+    let {className, data, getColGroup, sortOrder, sortProp} = this.props;
     let columns = this.getColumns();
 
     let tableClassSet = classNames(
@@ -170,7 +170,7 @@ class CheckboxTable extends React.Component {
         containerSelector=".gm-scroll-view"
         data={data}
         itemHeight={TableUtil.getRowHeight()}
-        sortBy={{prop: sortProp, order: 'asc'}} />
+        sortBy={{prop: sortProp, order: sortOrder}} />
     );
   }
 }
@@ -190,6 +190,7 @@ CheckboxTable.propTypes = {
   ]),
   onCheckboxChange: PropTypes.func,
   sortProp: PropTypes.string,
+  sortOrder: PropTypes.string,
   uniqueProperty: PropTypes.string
 };
 
@@ -199,7 +200,8 @@ CheckboxTable.defaultProps = {
   data: [],
   getColGroup: function () {},
   labelClass: {},
-  onCheckboxChange: function () {}
+  onCheckboxChange: function () {},
+  sortOrder: 'asc'
 };
 
 module.exports = CheckboxTable;

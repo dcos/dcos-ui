@@ -3,6 +3,8 @@ import mixin from 'reactjs-mixin';
 import React from 'react';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
+import MarathonStore from '../stores/MarathonStore';
+
 const METHODS_TO_BIND = [
   'handleButtonConfirm'
 ];
@@ -17,6 +19,7 @@ class KillTaskModal extends mixin(StoreMixin) {
     super(...arguments);
 
     this.store_listeners = [
+      {name: 'marathon', events: ['taskKillSuccess'], suppressUpdate: true}
     ];
 
     this.state = {
@@ -29,17 +32,12 @@ class KillTaskModal extends mixin(StoreMixin) {
   }
 
   handleButtonConfirm() {
-    /* eslint-disable */
     let {action, selectedItems} = this.props;
-    selectedItems.forEach(function (task) {
-      /* eslint-enable */
-      // TODO: Do some kind of task action here. Coming up.
-    });
-
+    MarathonStore.killTasks(selectedItems, action === 'killAndScale');
     this.setState({pendingRequest: true});
   }
 
-  onSecretsStoreDeleteSecretSuccess() {
+  onMarathonStoreTaskKillSuccess() {
     this.setState({pendingRequest: false});
     this.props.onClose();
     this.props.onSuccess();
@@ -49,7 +47,7 @@ class KillTaskModal extends mixin(StoreMixin) {
     let {action} = this.props;
     let headerContent = ` ${selectedItemsLength} Tasks`;
     if (selectedItemsLength === 1) {
-      headerContent = ` ${selectedItems[0].id}`
+      headerContent = ` ${selectedItems[0]}`
     }
 
     return (
@@ -64,7 +62,7 @@ class KillTaskModal extends mixin(StoreMixin) {
     let bodyText;
 
     if (selectedItemsLength === 1) {
-      bodyText = selectedItems[0].id;
+      bodyText = selectedItems[0];
     } else {
       bodyText = 'these tasks';
     }
