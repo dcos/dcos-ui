@@ -8,7 +8,7 @@ const General = {
   type: 'object',
   properties: {
     image: {
-      title: 'image',
+      title: 'Image',
       description: 'Name of your Docker image',
       type: 'string',
       getter: function (job) {

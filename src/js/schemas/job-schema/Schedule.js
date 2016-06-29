@@ -9,7 +9,7 @@ const General = {
   properties: {
     id: {
       title: 'ID',
-      description: 'The job ID',
+      description: 'The schedule ID',
       type: 'string',
       getter: function (job) {
         let [schedule = {}] = job.getSchedules();
