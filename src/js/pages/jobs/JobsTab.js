@@ -214,7 +214,7 @@ class JobsTab extends mixin(StoreMixin, QueryParamsMixin, SaveStateMixin) {
     let item = DCOSStore.jobTree.findItemById(id) || DCOSStore.jobTree;
 
     return (
-      <div>
+      <div className="flex-container-col flex-grow flex-shrink">
         {this.getContents(item)}
         <JobFormModal open={this.state.isJobFormModalOpen}
           onClose={this.handleCloseJobFormModal}/>
