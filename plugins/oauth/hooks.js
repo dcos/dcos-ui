@@ -63,7 +63,7 @@ module.exports = Object.assign({}, StoreMixin, {
   },
 
   AJAXRequestError(xhr) {
-    if (xhr.status !== 401 && xhr.status !== 403) {
+    if (xhr.status !== 401) {
       return;
     }
 
@@ -75,11 +75,6 @@ module.exports = Object.assign({}, StoreMixin, {
     if (xhr.status === 401 && !onLoginPage && !onAccessDeniedPage) {
       global.document.cookie = CookieUtils.emptyCookieWithExpiry(new Date(1970));
       global.location.href = '#/login';
-    }
-
-    // Forbidden
-    if (xhr.status === 403 && !onLoginPage && !onAccessDeniedPage) {
-      global.location.href = '#/access-denied';
     }
   },
 
