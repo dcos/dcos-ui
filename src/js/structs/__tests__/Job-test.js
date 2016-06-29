@@ -313,7 +313,7 @@ describe('Job', function () {
         }]
       });
 
-      expect(job.getScheduleStatus()).toEqual('scheduled');
+      expect(job.getScheduleStatus()).toEqual('SCHEDULED');
     });
 
     it('returns completed if there are no active runs and no enabled schedule', function () {
@@ -325,7 +325,7 @@ describe('Job', function () {
         }]
       });
 
-      expect(job.getScheduleStatus()).toEqual('completed');
+      expect(job.getScheduleStatus()).toEqual('COMPLETED');
     });
 
     it('returns completed if there are no active runs and no schedule', function () {
@@ -334,7 +334,7 @@ describe('Job', function () {
         activeRuns: []
       });
 
-      expect(job.getScheduleStatus()).toEqual('completed');
+      expect(job.getScheduleStatus()).toEqual('COMPLETED');
     });
 
   });

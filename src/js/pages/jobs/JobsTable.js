@@ -4,16 +4,11 @@ import React from 'react';
 import {Table} from 'reactjs-components';
 
 import Icon from '../../components/Icon';
+import JobStates from '../../constants/JobStates';
 import JobTableHeaderLabels from '../../constants/JobTableHeaderLables';
 import ResourceTableUtil from '../../utils/ResourceTableUtil';
 import TableUtil from '../../utils/TableUtil';
 import Tree from '../../structs/Tree';
-
-const JOBS_STATUS = {
-  active: 'Running',
-  completed: 'Completed',
-  scheduled: 'Scheduled'
-};
 
 const METHODS_TO_BIND = [
   'renderHeadline'
@@ -154,14 +149,15 @@ class JobsTable extends React.Component {
   }
 
   renderStatusColumn(prop, row) {
-    let value = row[prop];
-    let statusClasses = classNames({
-      'text-muted': value === 'completed',
-      'text-color-white': value !== 'completed'
-    });
-    let statusText = JOBS_STATUS[value];
+    let jobState = JobStates[row[prop]];
 
-    return <span className={statusClasses}>{statusText}</span>;
+    let statusClasses = classNames({
+      'text-success': jobState.stateTypes.includes('success'),
+      'text-danger': jobState.stateTypes.includes('failure'),
+      'text-color-white': jobState.stateTypes.includes('active')
+    });
+
+    return <span className={statusClasses}>{jobState.displayName}</span>;
   }
 
   render() {
