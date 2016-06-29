@@ -93,7 +93,7 @@ class MetronomeStore extends EventEmitter {
           this.emit(METRONOME_JOB_CREATE_ERROR, action.data);
           break;
         case REQUEST_METRONOME_JOB_DELETE_ERROR:
-          this.emit(METRONOME_JOB_DELETE_ERROR, action.jobID);
+          this.emit(METRONOME_JOB_DELETE_ERROR, action.jobID, action.data);
           break;
         case REQUEST_METRONOME_JOB_DELETE_SUCCESS:
           this.emit(METRONOME_JOB_DELETE_SUCCESS, action.jobID);
