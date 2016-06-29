@@ -264,6 +264,11 @@ const ServiceUtil = {
       if (networking != null) {
         let isContainerApp = containerSettings != null && containerSettings.image != null;
         let networkType = networking.networkType;
+        if (networking.ports != null) {
+          networking.ports = networking.ports.filter(function (port) {
+            return port.name != null || port.lbPort != null;
+          });
+        }
         if (networking.ports != null && networking.ports.length > 0) {
           if (networkType === 'host' || !isContainerApp) {
             // Avoid specifying an empty portDefinitions by default
