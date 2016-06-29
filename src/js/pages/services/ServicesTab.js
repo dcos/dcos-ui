@@ -10,6 +10,7 @@ import FilterBar from '../../components/FilterBar';
 import FilterHeadline from '../../components/FilterHeadline';
 import Icon from '../../components/Icon';
 import QueryParamsMixin from '../../mixins/QueryParamsMixin';
+import RequestErrorMsg from '../../components/RequestErrorMsg';
 import SaveStateMixin from '../../mixins/SaveStateMixin';
 import {
   SERVICE_FORM_MODAL,
@@ -62,6 +63,7 @@ var ServicesTab = React.createClass({
 
   getInitialState: function () {
     return Object.assign({}, DEFAULT_FILTER_OPTIONS, {
+      marathonErrorCount: 0,
       isServiceGroupFormModalShown: false,
       isServiceFormModalShown: false
     });
@@ -69,7 +71,8 @@ var ServicesTab = React.createClass({
 
   componentWillMount: function () {
     this.store_listeners = [
-      {name: 'dcos', events: ['change']}
+      {name: 'dcos', events: ['change']},
+      {name: 'marathon', events: ['groupsSuccess', 'groupsError']}
     ];
   },
 
@@ -82,6 +85,14 @@ var ServicesTab = React.createClass({
         this.setQueryParam(saveStateKey, saveStateValue);
       }
     });
+  },
+
+  onMarathonStoreGroupsError: function () {
+    this.setState({marathonErrorCount: this.state.marathonErrorCount + 1});
+  },
+
+  onMarathonStoreGroupsSuccess: function () {
+    this.setState({marathonErrorCount: 0});
   },
 
   handleCloseServiceFormModal: function () {
@@ -161,6 +172,14 @@ var ServicesTab = React.createClass({
   },
 
   getContents: function (item) {
+    if (this.state.marathonErrorCount > 3) {
+      return (
+        <div className="container container-pod">
+          <RequestErrorMsg />
+        </div>
+      );
+    }
+
     // Render loading screen
     if (!DCOSStore.dataProcessed) {
       return (
