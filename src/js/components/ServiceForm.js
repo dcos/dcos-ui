@@ -5,6 +5,7 @@ import FormUtil from '../utils/FormUtil';
 import SchemaForm from './SchemaForm';
 import SchemaFormUtil from '../utils/SchemaFormUtil';
 import SchemaUtil from '../utils/SchemaUtil';
+import StringUtil from '../utils/StringUtil';
 import VirtualNetworksStore from '../stores/VirtualNetworksStore';
 
 const METHODS_TO_BIND = [
@@ -74,7 +75,34 @@ class ServiceForm extends SchemaForm {
     this.updateDefinitions();
   }
 
+  getNetworkingDescriptionDefinition({networking:model}) {
+    return {
+      name: 'ports-description',
+      render: function () {
+        let {ports} = FormUtil.modelToCombinedProps(model);
+
+        if (ports == null) {
+
+          return null;
+        }
+
+        let portMapping = ports.map(function (port, index) {
+
+          return `$PORT${index}`;
+        });
+
+        return (
+          <div key="ports-description" style={{marginBottom: '20px'}}>
+            Host ports will be dynamically assigned and mapped
+            to {StringUtil.humanizeArray(portMapping)}.
+          </div>
+        );
+      }
+    }
+  }
+
   updateDefinitions() {
+    let model = this.triggerTabFormSubmit();
     let {networking} = this.multipleDefinition;
 
     if (networking) {
@@ -87,10 +115,19 @@ class ServiceForm extends SchemaForm {
           return {html: `Virtual Network: ${name}`, id: name}
         }).getItems();
 
+      let networkDescriptionDefinition =
+        this.getNetworkingDescriptionDefinition(model);
+
       networking.definition.forEach(function (definition) {
+
+        if (definition.name === networkDescriptionDefinition.name) {
+          Object.assign(definition, networkDescriptionDefinition);
+        }
+
         if (definition.name === 'networkType') {
           definition.options = [].concat(networkType.options, virtualNetworks);
         }
+
       });
 
     }
@@ -114,6 +151,14 @@ class ServiceForm extends SchemaForm {
       definition,
       this.getRemoveRowButton
     );
+
+    // Append definitions
+    let {networking} = definition;
+    if (networking) {
+      networking.definition.push(
+        this.getNetworkingDescriptionDefinition(model)
+      );
+    }
 
     return definition;
   }
