@@ -29,7 +29,7 @@ function findWithID(stateObject, listProps, id) {
 
 var TaskDirectoryActions = {
   getDownloadURL: function (nodeID, path) {
-    return `${Config.rootUrl}/slave/${nodeID}/files/download?` +
+    return `${Config.rootUrl}/agent/${nodeID}/files/download?` +
       `path=${path}`;
   },
 
@@ -45,7 +45,7 @@ var TaskDirectoryActions = {
       nodePID = pid.substring(0, pid.indexOf('@'));
     }
 
-    return `${Config.rootUrl}/slave/${task.slave_id}/${nodePID}/state`;
+    return `${Config.rootUrl}/agent/${task.slave_id}/${nodePID}/state`;
   },
 
   getInnerPath: function (nodeState, task, innerPath) {
@@ -115,7 +115,7 @@ var TaskDirectoryActions = {
     }
 
     RequestUtil.json({
-      url: `${Config.rootUrl}/slave/${task.slave_id}/files/browse`,
+      url: `${Config.rootUrl}/agent/${task.slave_id}/files/browse`,
       data: {
         path: innerPath
       },
