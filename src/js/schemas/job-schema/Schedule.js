@@ -17,6 +17,22 @@ const General = {
         return schedule.id;
       }
     },
+    enabled: {
+      label: 'Enabled',
+      showLabel: true,
+      title: 'Enabled',
+      type: 'boolean',
+      getter: function (job) {
+        let [schedule = {}] = job.getSchedules();
+
+        if (schedule.hasOwnProperty('enabled')) {
+
+          return schedule.enabled;
+        }
+
+        return true;
+      }
+    },
     cron: {
       title: 'CRON Schedule',
       description: 'Enter your schedule in CRON format, e.g. [0 20 * * *]',
