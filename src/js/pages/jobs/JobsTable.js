@@ -148,8 +148,12 @@ class JobsTable extends React.Component {
     return <span className={statusClasses}>{value}</span>;
   }
 
-  renderStatusColumn(prop, row) {
-    let jobState = JobStates[row[prop]];
+  renderStatusColumn(prop, {[prop]:statusKey, isGroup}) {
+    if (isGroup) {
+      return null;
+    }
+
+    let jobState = JobStates[statusKey];
 
     let statusClasses = classNames({
       'text-success': jobState.stateTypes.includes('success'),
