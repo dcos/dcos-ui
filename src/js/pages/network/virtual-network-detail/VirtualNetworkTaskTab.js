@@ -25,10 +25,13 @@ const headerMapping = {
 };
 const METHODS_TO_BIND = [
   'handleSearchStringChange',
+  'renderAgentIP',
   'renderID',
   'renderPorts',
   'resetFilter'
 ];
+
+const agentIPPath = 'statuses.0.container_status.network_infos.0.ip_addresses';
 
 class VirtualNetworkTaskTab extends mixin(StoreMixin) {
   constructor() {
@@ -101,12 +104,7 @@ class VirtualNetworkTaskTab extends mixin(StoreMixin) {
       },
       {
         className: getClassName,
-        getValue: function (task) {
-          return Util.findNestedPropertyInObject(
-            task,
-            'statuses.0.container_status.network_infos.0.ip_address'
-          );
-        },
+        getValue: this.getAgentIP,
         headerClassName: getClassName,
         heading,
         prop: 'ip_address',
@@ -177,11 +175,20 @@ class VirtualNetworkTaskTab extends mixin(StoreMixin) {
     }).join(', ')
   }
 
-  renderAgentIP(task) {
-    let ipAddress = Util.findNestedPropertyInObject(
-      task,
-      'statuses.0.container_status.network_infos.0.ip_address'
-    );
+  getAgentIP(task) {
+    let ipAddresses = Util.findNestedPropertyInObject(task, agentIPPath);
+
+    if (!ipAddresses || !Array.isArray(ipAddresses)) {
+      return ipAddresses;
+    }
+
+    return ipAddresses.map(function (ipAddress) {
+      return ipAddress.ip_address;
+    }).join(', ');
+  }
+
+  renderAgentIP(prop, task) {
+    let ipAddress = this.getAgentIP(task);
 
     if (!ipAddress) {
       return 'N/A';
