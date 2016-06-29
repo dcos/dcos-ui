@@ -96,11 +96,11 @@ module.exports = class Job extends Item {
       let schedule = this.getSchedules()[0];
 
       if (!!schedule && schedule.enabled) {
-        return 'scheduled';
+        return 'SCHEDULED';
       }
     }
 
-    return 'completed';
+    return 'COMPLETED';
   }
 
   getStatus() {

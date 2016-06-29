@@ -18,6 +18,14 @@ const JobStates = {
   SUCCESS: {
     stateTypes: ['success'],
     displayName: 'Success'
+  },
+  COMPLETED: {
+    stateTypes: ['success'],
+    displayName: 'Completed'
+  },
+  SCHEDULED: {
+    stateTypes: [],
+    displayName: 'Scheduled'
   }
 };
 
