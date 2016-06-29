@@ -83,6 +83,8 @@ const responseAttributePathToFieldIdMap = {
   '/portDefinitions({INDEX})/name': 'portDefinitions/{INDEX}/name',
   '/portDefinitions({INDEX})/port': 'portDefinitions/{INDEX}/port',
   '/portDefinitions({INDEX})/protocol': 'portDefinitions/{INDEX}/protocol',
+  '/value/isResident': 'Residency',
+  '/value/upgradeStrategy': 'Update Strategy',
   '/container/docker/portMappings': 'dockerPortMappings',
   '/container/docker/portMappings({INDEX})/containerPort':
     'dockerPortMappings/{INDEX}/port',
