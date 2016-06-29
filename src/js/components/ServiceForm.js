@@ -59,32 +59,41 @@ class ServiceForm extends SchemaForm {
           this.multipleDefinition,
           this.getRemoveRowButton
         );
-        this.forceUpdate();
       }
+
+      this.updateDefinitions();
+      this.forceUpdate();
     }
 
     Hooks.doAction('serviceFormChange', ...arguments);
     // Handle the form change in the way service needs here.
     this.props.onChange(...arguments);
-
-    return;
   }
 
   onVirtualNetworksStoreSuccess() {
-    let {networkType} = this.props.schema.properties.networking.properties;
+    this.updateDefinitions();
+  }
+
+  updateDefinitions() {
     let {networking} = this.multipleDefinition;
-    let virtualNetworks = VirtualNetworksStore.getOverlays()
-      .mapItems(function (overlay) {
-        let name = overlay.getName();
 
-        return {html: `Virtual Network: ${name}`, id: name}
-      }).getItems();
+    if (networking) {
+      let {networkType} = this.props.schema.properties.networking.properties;
 
-    networking.definition.forEach(function (definition) {
-      if (definition.name === 'networkType') {
-        definition.options = [].concat(networkType.options, virtualNetworks);
-      }
-    });
+      let virtualNetworks = VirtualNetworksStore.getOverlays()
+        .mapItems(function (overlay) {
+          let name = overlay.getName();
+
+          return {html: `Virtual Network: ${name}`, id: name}
+        }).getItems();
+
+      networking.definition.forEach(function (definition) {
+        if (definition.name === 'networkType') {
+          definition.options = [].concat(networkType.options, virtualNetworks);
+        }
+      });
+
+    }
   }
 
   getNewDefinition() {
