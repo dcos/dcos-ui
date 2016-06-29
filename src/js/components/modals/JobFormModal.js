@@ -27,6 +27,15 @@ const METHODS_TO_BIND = [
   'onMetronomeStoreJobUpdateError'
 ];
 
+const serverResponseMappings = {
+  'error.path.missing': 'Specify a path',
+  'error.minLength': 'Field may not be blank',
+  'error.expected.jsnumber': 'A number is expected',
+  'error.expected.jsstring': 'A string is expected'
+};
+
+const responseAttributePathToFieldIdMap = {};
+
 class JobFormModal extends mixin(StoreMixin) {
   constructor() {
     super(...arguments);
@@ -143,16 +152,62 @@ class JobFormModal extends mixin(StoreMixin) {
   getErrorMessage() {
     let {errorMessage} = this.state;
     if (!errorMessage) {
-
       return null;
+    }
+
+    let errorList = null;
+    if (errorMessage.details != null) {
+      errorList = errorMessage.details.map(function ({path, errors}) {
+        let fieldId = 'general';
+
+        // Check if attributePath contains an index like path(0)/attribute
+        // Matches as defined: [0] : '(0)', [1]: '0'
+        let matches = path.match(/\(([0-9]+)\)/);
+        if (matches != null) {
+          let resolvePath = responseAttributePathToFieldIdMap[
+            path.replace(matches[0], '({INDEX})')
+            ];
+          if (resolvePath != null) {
+            fieldId = resolvePath.replace('{INDEX}', matches[1]);
+          }
+        } else {
+          fieldId = responseAttributePathToFieldIdMap[path] || fieldId;
+        }
+        errors = errors.map(function (error) {
+          if (serverResponseMappings[error]) {
+            return serverResponseMappings[error];
+          }
+          return error;
+        });
+
+        return (
+          <li key={path}>
+            {`${fieldId}: ${errors}`}
+          </li>
+        );
+      });
+    }
+
+    if (this.shouldForceUpdate(errorMessage)) {
+      return (
+        <div className="error-field text-danger">
+          <h4 className="text-align-center text-danger flush-top">
+            App is currently locked by one or more deployments. Press the button
+            again to forcefully change and deploy the new configuration.
+          </h4>
+        </div>
+      );
     }
 
     return (
       <div>
         <div className="error-field text-danger">
-        <pre className="text-align-center">
-          {errorMessage.message}
-        </pre>
+          <h4 className="text-align-center text-danger flush-top">
+            {errorMessage.message}
+          </h4>
+          <ul>
+            {errorList}
+          </ul>
         </div>
       </div>
     );
