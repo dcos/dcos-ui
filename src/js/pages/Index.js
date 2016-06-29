@@ -10,7 +10,6 @@ import EventTypes from '../constants/EventTypes';
 import HistoryStore from '../stores/HistoryStore';
 var InternalStorageMixin = require('../mixins/InternalStorageMixin');
 var MetadataStore = require('../stores/MetadataStore');
-var MesosSummaryStore = require('../stores/MesosSummaryStore');
 var Modals = require('../components/Modals');
 var RequestErrorMsg = require('../components/RequestErrorMsg');
 import ServerErrorModal from '../components/ServerErrorModal';
@@ -81,8 +80,6 @@ var Index = React.createClass({
     ConfigStore.removeChangeListener(
       EventTypes.CONFIG_ERROR, this.onConfigError
     );
-
-    MesosSummaryStore.unmount();
   },
 
   onSideBarChange: function () {
