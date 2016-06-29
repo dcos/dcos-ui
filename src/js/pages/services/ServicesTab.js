@@ -72,7 +72,7 @@ var ServicesTab = React.createClass({
   componentWillMount: function () {
     this.store_listeners = [
       {name: 'dcos', events: ['change']},
-      {name: 'marathon', events: ['groupsSuccess','groupsError']}
+      {name: 'marathon', events: ['groupsSuccess', 'groupsError']}
     ];
   },
 
@@ -91,7 +91,7 @@ var ServicesTab = React.createClass({
     this.setState({marathonErrorCount: this.state.marathonErrorCount + 1});
   },
 
-  onMarathonStoreGroupsSucces: function () {
+  onMarathonStoreGroupsSuccess: function () {
     this.setState({marathonErrorCount: 0});
   },
 
