@@ -114,9 +114,9 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
     MetronomeStore.runJob(job.getId());
   }
 
-  handleAcceptDestroyDialog() {
+  handleAcceptDestroyDialog(stopCurrentJobRuns = false) {
     this.setState({disabledDialog: JobActionItem.DESTROY}, () => {
-      MetronomeStore.deleteJob(this.props.params.id);
+      MetronomeStore.deleteJob(this.props.params.id, stopCurrentJobRuns);
     });
   }
 
@@ -184,15 +184,25 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
 
   getDestroyConfirmDialog() {
     const {id} = this.props.params;
-    const {disabledDialog, jobActionDialog} = this.state;
+    const {disabledDialog, jobActionDialog, errorMsg} = this.state;
+    let stopCurrentJobRuns = false;
     let actionButtonLabel = 'Destroy Job';
+    let message = `Are you sure you want to destroy ${id}? ` +
+      'This action is irreversible.';
+
+    if (/stopCurrentJobRuns=true/.test(errorMsg)) {
+      actionButtonLabel = 'Stop Current Runs and Destroy Job';
+      stopCurrentJobRuns = true;
+      message = `Couldn't destroy ${id} as there are currently active job ` +
+        'runs. Do you want to stop all runs and destroy the job?';
+    }
 
     let content = (
       <div className="container-pod flush-top container-pod-short-bottom">
         <h2 className="text-danger text-align-center flush-top">
           Destroy Job
         </h2>
-        Are you sure you want to destroy {id}? This action is irreversible.
+        {message}
       </div>
     );
 
@@ -206,7 +216,7 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
         rightButtonText={actionButtonLabel}
         rightButtonClassName="button button-danger"
         rightButtonCallback=
-          {this.handleAcceptDestroyDialog.bind(this)} />
+          {this.handleAcceptDestroyDialog.bind(this, stopCurrentJobRuns)} />
     );
   }
 
