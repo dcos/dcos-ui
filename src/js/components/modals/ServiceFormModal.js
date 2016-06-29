@@ -83,6 +83,8 @@ const responseAttributePathToFieldIdMap = {
   '/portDefinitions({INDEX})/name': 'portDefinitions/{INDEX}/name',
   '/portDefinitions({INDEX})/port': 'portDefinitions/{INDEX}/port',
   '/portDefinitions({INDEX})/protocol': 'portDefinitions/{INDEX}/protocol',
+  '/value/isResident': 'Residency',
+  '/value/upgradeStrategy': 'Update Strategy',
   '/container/docker/portMappings': 'dockerPortMappings',
   '/container/docker/portMappings({INDEX})/containerPort':
     'dockerPortMappings/{INDEX}/port',
@@ -148,7 +150,11 @@ class ServiceFormModal extends mixin(StoreMixin) {
     if (props.id) {
       model.general.id = props.id;
     }
-    let service = ServiceUtil.createServiceFromFormModel(model, ServiceSchema);
+    let service = ServiceUtil.createServiceFromFormModel(
+      model,
+      ServiceSchema,
+      this.props.isEdit
+    );
     if (props.service) {
       service = props.service;
     }
@@ -186,7 +192,11 @@ class ServiceFormModal extends mixin(StoreMixin) {
     let nextState = {};
     if (!this.state.jsonMode) {
       let {model} = this.triggerSubmit();
-      let service = ServiceUtil.createServiceFromFormModel(model, ServiceSchema);
+      let service = ServiceUtil.createServiceFromFormModel(
+        model,
+        ServiceSchema,
+        this.props.isEdit
+      );
       nextState.model = model;
       nextState.service = service;
       nextState.jsonDefinition = JSON.stringify(ServiceUtil
@@ -253,7 +263,11 @@ class ServiceFormModal extends mixin(StoreMixin) {
       if (!isValidated) {
         return;
       }
-      let service = ServiceUtil.createServiceFromFormModel(model, ServiceSchema);
+      let service = ServiceUtil.createServiceFromFormModel(
+        model,
+        ServiceSchema,
+        this.props.isEdit
+      );
       this.setState({service, model, errorMessage: null});
       marathonAction(
         ServiceUtil.getAppDefinitionFromService(service),
