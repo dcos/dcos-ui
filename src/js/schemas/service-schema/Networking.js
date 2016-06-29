@@ -1,27 +1,5 @@
 import FormUtil from '../../utils/FormUtil';
 
-function filterProperties(service = {}, instanceDefinition, model) {
-  let properties = Networking
-    .properties
-    .ports
-    .itemShape
-    .properties;
-
-  instanceDefinition.forEach(function (definition) {
-    let prop = definition.name;
-    if (FormUtil.isFieldInstanceOfProp('ports', definition)) {
-      prop = FormUtil.getPropKey(definition.name);
-    }
-
-    if (properties[prop].shouldShow) {
-      definition.formElementClass = {
-        'hidden-form-element': !properties[prop].shouldShow(
-          service, model || {networking: {}})
-      }
-    }
-  });
-}
-
 const Networking = {
   type: 'object',
   title: 'Network',
@@ -32,7 +10,7 @@ const Networking = {
       title: 'Network Type',
       options: [
         {html: 'Host (Default)', id: 'host'},
-        {html: 'Bridge', id: 'bridge'},
+        {html: 'Bridge', id: 'bridge'}
       ],
       getter: function (service) {
         let ipAddress = service.getIpAddress();
@@ -48,6 +26,17 @@ const Networking = {
         }
 
         return null;
+      },
+      filterProperties: function (currentValue, definition, model) {
+        // Hide this definition when model values dictate
+        if (model.containerSettings
+          && model.containerSettings.image != null
+          && model.containerSettings.image.length) {
+
+          definition.formElementClass = '';
+        } else {
+          definition.formElementClass = 'hidden-form-element';
+        }
       }
     },
     ports: {
@@ -82,7 +71,27 @@ const Networking = {
           };
         });
       },
-      filterProperties,
+      filterProperties: function (service = {}, instanceDefinition, model) {
+        let properties = Networking
+          .properties
+          .ports
+          .itemShape
+          .properties;
+
+        instanceDefinition.forEach(function (definition) {
+          let prop = definition.name;
+          if (FormUtil.isFieldInstanceOfProp('ports', definition)) {
+            prop = FormUtil.getPropKey(definition.name);
+          }
+
+          if (properties[prop].shouldShow) {
+            definition.formElementClass = {
+              'hidden-form-element': !properties[prop].shouldShow(
+                service, model || {networking: {}})
+            }
+          }
+        });
+      },
       itemShape: {
         properties: {
           lbPort: {
