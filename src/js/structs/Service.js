@@ -171,14 +171,23 @@ module.exports = class Service extends Item {
   }
 
   getTasksSummary() {
-    return {
+    let healthData = {
       tasksHealthy: this.get('tasksHealthy'),
-      tasksRunning: this.get('tasksRunning'),
       tasksStaged: this.get('tasksStaged'),
       tasksUnhealthy: this.get('tasksUnhealthy'),
-      tasksUnknown: this.get('tasksRunning') -
-        this.get('tasksHealthy') - this.get('tasksUnhealthy'),
+      tasksUnknown: Math.max(0, this.get('tasksRunning') -
+        this.get('tasksHealthy') - this.get('tasksUnhealthy')),
     };
+
+    let tasksSum = Object.keys(healthData).reduce(function (sum, healthItem) {
+      return sum + healthData[healthItem];
+    }, 0);
+
+    healthData.tasksOverCapacity =
+      Math.max(0 , tasksSum - this.getInstancesCount());
+
+    healthData.tasksRunning = this.get('tasksRunning');
+    return healthData;
   }
 
   getTaskStats() {

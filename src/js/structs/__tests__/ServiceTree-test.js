@@ -766,12 +766,14 @@ describe('ServiceTree', function () {
 
     it('returns correct task summary', function () {
       this.instance.add(new Service({
+        instances: 1,
         tasksStaged: 0,
         tasksRunning: 1,
         tasksHealthy: 1,
         tasksUnhealthy: 0
       }));
       this.instance.add(new Service({
+        instances: 19,
         tasksStaged: 1,
         tasksRunning: 18,
         tasksHealthy: 15,
@@ -783,7 +785,34 @@ describe('ServiceTree', function () {
         tasksRunning: 19,
         tasksHealthy: 16,
         tasksUnhealthy: 1,
-        tasksUnknown: 2
+        tasksUnknown: 2,
+        tasksOverCapacity: 0
+      });
+    });
+
+    it('returns correct task summary for Over Capacity', function () {
+      this.instance.add(new Service({
+        instances: 1,
+        tasksStaged: 0,
+        tasksRunning: 1,
+        tasksHealthy: 1,
+        tasksUnhealthy: 0
+      }));
+      this.instance.add(new Service({
+        instances: 10,
+        tasksStaged: 1,
+        tasksRunning: 18,
+        tasksHealthy: 15,
+        tasksUnhealthy: 1
+      }));
+
+      expect(this.instance.getTasksSummary()).toEqual({
+        tasksStaged: 1,
+        tasksRunning: 19,
+        tasksHealthy: 16,
+        tasksUnhealthy: 1,
+        tasksUnknown: 2,
+        tasksOverCapacity: 9
       });
     });
 

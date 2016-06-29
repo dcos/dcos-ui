@@ -77,6 +77,7 @@ HealthBar.propTypes = {
   tasksSummary: React.PropTypes.shape({
     tasksRunning: React.PropTypes.number,
     tasksHealthy: React.PropTypes.number,
+    tasksOverCapacity: React.PropTypes.number,
     tasksStaged: React.PropTypes.number,
     tasksUnhealthy: React.PropTypes.number,
     tasksUnknown: React.PropTypes.number
