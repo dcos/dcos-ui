@@ -60,7 +60,7 @@ const pruneHealthCheckAttributes = function (healthCheckSchema, healthCheck) {
 };
 
 const ServiceUtil = {
-  createServiceFromFormModel: function (formModel, schema) {
+  createServiceFromFormModel: function (formModel, schema, isEdit = false) {
     let definition = {};
 
     if (formModel != null) {
@@ -177,10 +177,12 @@ const ServiceUtil = {
           if (externalVolumes.length > 0) {
             volumesList = volumesList.concat(externalVolumes);
           }
-          definition.updateStrategy = {
-            maximumOverCapacity: 0,
-            minimumHealthCapacity: 0
-          };
+          if (!isEdit) {
+            definition.updateStrategy = {
+              maximumOverCapacity: 0,
+              minimumHealthCapacity: 0
+            };
+          }
         }
 
         if (volumes.localVolumes) {
@@ -195,14 +197,16 @@ const ServiceUtil = {
 
           if (localVolumes.length > 0) {
             volumesList = volumesList.concat(localVolumes);
-            definition.updateStrategy = {
-              maximumOverCapacity: 0,
-              minimumHealthCapacity: 0
-            };
-            definition.residency = {
-              relaunchEscalationTimeoutSeconds: 10,
-              taskLostBehavior: 'WAIT_FOREVER'
-            };
+            if (!isEdit) {
+              definition.updateStrategy = {
+                maximumOverCapacity: 0,
+                minimumHealthCapacity: 0
+              };
+              definition.residency = {
+                relaunchEscalationTimeoutSeconds: 10,
+                taskLostBehavior: 'WAIT_FOREVER'
+              };
+            }
           }
         }
 
