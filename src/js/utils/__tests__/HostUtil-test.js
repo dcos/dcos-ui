@@ -48,7 +48,6 @@ describe('HostUtil', function () {
       expect(result).toEqual('fdgsf---gs7-fgs--d7fddg1234567890123456789012345678901234567891');
     });
 
-    // TODO
     it('should strip invalid start characters and trim to 63 characters and remove invalid end characters', function () {
       var result = HostUtil.stringToHostname('%%fdgsf---gs7-fgs--d7fddg123456789012345678901234567890123456789---123');
 
