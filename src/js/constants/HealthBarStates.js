@@ -7,6 +7,10 @@ const HealthBarStates = {
     className: 'healthy',
     label: 'Healthy'
   },
+  tasksOverCapacity: {
+    className: 'over-capacity',
+    label: 'Over Capacity'
+  },
   tasksUnhealthy: {
     className: 'unhealthy',
     label: 'Unhealthy'

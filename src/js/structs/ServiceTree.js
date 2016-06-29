@@ -245,6 +245,7 @@ module.exports = class ServiceTree extends Tree {
         let {
           tasksHealthy = 0,
           tasksRunning = 0,
+          tasksOverCapacity = 0,
           tasksStaged = 0,
           tasksUnhealthy = 0
         } = item.getTasksSummary();
@@ -255,11 +256,13 @@ module.exports = class ServiceTree extends Tree {
         taskSummary.tasksUnhealthy += tasksUnhealthy;
         taskSummary.tasksUnknown += tasksRunning -
           tasksHealthy - tasksUnhealthy;
+
+        taskSummary.tasksOverCapacity += tasksOverCapacity;
       }
 
       return taskSummary;
     }, {tasksHealthy: 0, tasksRunning: 0, tasksStaged: 0, tasksUnhealthy: 0,
-      tasksUnknown: 0});
+      tasksUnknown: 0, tasksOverCapacity: 0});
   }
 
   getFrameworks() {

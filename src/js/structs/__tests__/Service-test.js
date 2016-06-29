@@ -459,7 +459,7 @@ describe('Service', function () {
 
   });
 
-  describe('#getTasksSummary', function () {
+  describe('#getLastTaskFailure', function () {
 
     it('returns correct task summary', function () {
       let service = new Service({
@@ -487,10 +487,11 @@ describe('Service', function () {
 
   });
 
-  describe('#getLastTaskFailure', function () {
+  describe('#getTasksSummary', function () {
 
     it('returns correct task summary', function () {
       let service = new Service({
+        instances: 2,
         tasksStaged: 0,
         tasksRunning: 1,
         tasksHealthy: 1,
@@ -502,7 +503,27 @@ describe('Service', function () {
         tasksRunning: 1,
         tasksHealthy: 1,
         tasksUnhealthy: 0,
-        tasksUnknown: 0
+        tasksUnknown: 0,
+        tasksOverCapacity: 0
+      });
+    });
+
+    it('returns correct task summary for overcapcity', function () {
+      let service = new Service({
+        instances: 2,
+        tasksStaged: 0,
+        tasksRunning: 4,
+        tasksHealthy: 2,
+        tasksUnhealthy: 0
+      });
+
+      expect(service.getTasksSummary()).toEqual({
+        tasksStaged: 0,
+        tasksRunning: 4,
+        tasksHealthy: 2,
+        tasksUnhealthy: 0,
+        tasksUnknown: 2,
+        tasksOverCapacity: 2
       });
     });
 
