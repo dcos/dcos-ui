@@ -46,8 +46,13 @@ class JobsPage extends mixin(TabsMixin) {
   }
 
   render() {
+    let routes = this.context.router.getCurrentRoutes();
+
     return (
-      <Page navigation={this.getNavigation()} title="Jobs">
+      <Page
+        dontScroll={routes[routes.length - 1].dontScroll}
+        navigation={this.getNavigation()}
+        title="Jobs">
         <RouteHandler />
       </Page>
     );
