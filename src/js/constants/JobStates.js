@@ -26,6 +26,10 @@ const JobStates = {
   SCHEDULED: {
     stateTypes: [],
     displayName: 'Scheduled'
+  },
+  UNSCHEDULED: {
+    stateTypes: [],
+    displayName: 'Unscheduled'
   }
 };
 
