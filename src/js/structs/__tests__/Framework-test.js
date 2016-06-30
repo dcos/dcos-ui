@@ -66,12 +66,17 @@ describe('Framework', function () {
 
   describe('#getWebURL', function () {
 
-    it('returns the ID if it is present', function () {
+    it('returns the url if the webui_url key is present', function () {
+      let service = new Framework({webui_url: 'foo', id: 'bar'});
+      expect(service.getWebURL()).toEqual('foo');
+    });
+
+    it('returns the url if ID is present but webui_url is not', function () {
       let service = new Framework({id: 'foo'});
       expect(service.getWebURL()).toEqual('/services/foo');
     });
 
-    it('returns null if the id is not present', function () {
+    it('returns null if the id and webui_url keys are not present', function () {
       let service = new Framework({foo: 'bar'});
       expect(service.getWebURL()).toEqual(null);
     });

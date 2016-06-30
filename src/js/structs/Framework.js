@@ -40,6 +40,12 @@ module.exports = class Framework extends Service {
   }
 
   getWebURL() {
+    let url = this.get('webui_url');
+
+    if (url != null && url !== '') {
+      return url;
+    }
+
     let name = super.getName();
 
     if (name != null && name !== '') {
