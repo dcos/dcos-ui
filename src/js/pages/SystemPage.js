@@ -173,7 +173,7 @@ SystemPage.contextTypes = {
 
 SystemPage.routeConfig = {
   label: 'System',
-  icon: <Icon id="gears" size="small" family="small" />,
+  icon: <Icon id="gear-inverse" size="small" family="small" />,
   matches: /^\/system/
 };
 
