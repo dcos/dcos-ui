@@ -63,6 +63,9 @@ class ServiceForm extends SchemaForm {
   componentDidMount() {
     super.componentDidMount(...arguments);
     Hooks.doAction('serviceFormMount', this);
+    // Update definition and build model
+    this.updateDefinitions();
+    this.bananas(true, 0);
   }
 
   onVirtualNetworksStoreSuccess() {
