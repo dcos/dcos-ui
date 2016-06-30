@@ -55,7 +55,6 @@ class ServiceForm extends SchemaForm {
   }
 
   componentWillMount() {
-    super.componentWillMount(...arguments);
     this.multipleDefinition = this.getNewDefinition();
     this.props.getTriggerSubmit(this.handleExternalSubmit);
   }
