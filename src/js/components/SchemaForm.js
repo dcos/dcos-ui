@@ -179,7 +179,7 @@ class SchemaForm extends mixin(StoreMixin, InternalStorageMixin) {
 
   getRemoveRowButton(generalDefinition, prop, id, title = null) {
     let deleteButton = (
-      <div key={`${prop}${id}-remove`} className="align-self-flex-end">
+      <div key={`${prop}${id}-remove`} className="form-row-element align-self-flex-end">
         <button
           className="button button-link"
           onClick={this.handleRemoveRow.bind(this, generalDefinition, prop, id)}>
