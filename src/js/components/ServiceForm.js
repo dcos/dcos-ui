@@ -318,9 +318,16 @@ class ServiceForm extends SchemaForm {
     // First port definition in networking definition is at index 2
     let portDefinitionIndex = 2;
 
+    // TODO: We need to refactor this as the current impl. is highly error prone
+    // -> Use the port name to map fields (it's required to be unique)
     if (model.networking && model.networking.ports && isUserMode) {
       model.networking.ports.forEach(function (port) {
         let portDefinition = networkingDefinition[portDefinitionIndex++];
+
+        if (!Array.isArray(portDefinition)) {
+          return;
+        }
+
         let propID = FormUtil.getPropIndex(portDefinition[0].name);
 
         definitionGroup.push({
