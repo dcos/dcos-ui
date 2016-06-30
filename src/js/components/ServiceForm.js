@@ -39,7 +39,7 @@ const FIELDS_TO_WATCH = {
 
 class ServiceForm extends SchemaForm {
   constructor() {
-    super();
+    super(...arguments);
 
     METHODS_TO_BIND.forEach((method) => {
       this[method] = this[method].bind(this);
@@ -55,6 +55,7 @@ class ServiceForm extends SchemaForm {
   }
 
   componentWillMount() {
+    super.componentWillMount(...arguments);
     this.multipleDefinition = this.getNewDefinition();
     this.props.getTriggerSubmit(this.handleExternalSubmit);
   }

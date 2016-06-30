@@ -37,6 +37,8 @@ class SchemaForm extends mixin(StoreMixin, InternalStorageMixin) {
   }
 
   componentWillMount() {
+    super.componentWillMount(...arguments);
+
     if (this.props.definition) {
       this.multipleDefinition = this.props.definition;
     } else {
@@ -54,6 +56,8 @@ class SchemaForm extends mixin(StoreMixin, InternalStorageMixin) {
   }
 
   componentWillUnmount() {
+    super.componentWillUnmount(...arguments);
+
     // Unschedule all validation if component unmounts.
     if (this.timer) {
       clearTimeout(this.timer);
@@ -61,6 +65,8 @@ class SchemaForm extends mixin(StoreMixin, InternalStorageMixin) {
   }
 
   componentDidUpdate() {
+    super.componentDidUpdate(...arguments);
+
     // Timeout necessary due to modal content height updates on did mount
     setTimeout(() => {
       GeminiUtil.updateWithRef(this.refs.geminiForms);
