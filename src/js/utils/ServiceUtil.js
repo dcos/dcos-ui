@@ -273,13 +273,16 @@ const ServiceUtil = {
             // Avoid specifying an empty portDefinitions by default
             if (networking.ports.length > 0) {
               definition.portDefinitions = networking.ports.map(function (port, index) {
-                let portMapping = {port: 0, protocol: 'tcp'};
+                let portMapping = {protocol: 'tcp'};
+                // Ensure that lbPort is an int
+                let lbPort = parseInt(port.lbPort || 0, 10);
+
+                if (networkType === 'host') {
+                  portMapping.port = 0;
+                }
                 if (port.discovery === true) {
-                  // Ensure that lbPort is an int
-                  let lbPort = parseInt(port.lbPort || 0, 10) | 0;
-                  portMapping.port = lbPort;
                   if (networkType === 'host') {
-                    delete portMapping.port;
+                    portMapping.port = lbPort;
                   }
                   if (general != null) {
                     portMapping.labels = {};
