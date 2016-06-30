@@ -3,6 +3,7 @@ import React from 'react';
 
 import FormUtil from '../utils/FormUtil';
 import HostUtil from '../utils/HostUtil';
+import Icon from './Icon';
 import SchemaForm from './SchemaForm';
 import SchemaFormUtil from '../utils/SchemaFormUtil';
 import SchemaUtil from '../utils/SchemaUtil';
@@ -189,7 +190,7 @@ class ServiceForm extends SchemaForm {
               <p>
                 Clients can access your service at these Service Addresses
               </p>
-              <ul>
+              <ul className="list list-narrow">
                 {addresses}
               </ul>
             </div>
@@ -197,9 +198,23 @@ class ServiceForm extends SchemaForm {
         }
 
         return (
-          <div key="ports-description" style={{marginBottom: '20px'}}>
-            {hostNetworkingDefinition}
-            {serviceAddressNetworkingDefinition}
+          <div
+            className="media-object-spacing-wrapper media-object-spacing-super-narrow"
+            key="ports-description"
+            style={{marginBottom: '20px'}}>
+            <div className="media-object">
+              <div className="media-object-item">
+                <Icon
+                  color="blue"
+                  family="small"
+                  id="ring-information"
+                  size="mini" />
+              </div>
+              <div className="media-object-item media-object-item-shrink">
+                {hostNetworkingDefinition}
+                {serviceAddressNetworkingDefinition}
+              </div>
+            </div>
           </div>
         );
       }

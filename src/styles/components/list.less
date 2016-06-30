@@ -1,6 +1,13 @@
 .list {
   width: 100%;
 
+  &.list-narrow {
+
+    li {
+      padding-left: @base-spacing-unit * 1/2;
+    }
+  }
+
   .list-item {
   	display: flex;
     border-top: 1px solid @neutral;
