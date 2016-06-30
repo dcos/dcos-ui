@@ -168,6 +168,11 @@ class ServiceForm extends SchemaForm {
           );
         }
 
+        if (hostNetworkingDefinition == null &&
+          serviceAddressNetworkingDefinition == null) {
+          return null
+        }
+
         return (
           <div
             className="media-object-spacing-wrapper media-object-spacing-super-narrow"
