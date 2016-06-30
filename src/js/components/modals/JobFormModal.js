@@ -207,17 +207,6 @@ class JobFormModal extends mixin(StoreMixin) {
       });
     }
 
-    if (this.shouldForceUpdate(errorMessage)) {
-      return (
-        <div className="error-field text-danger">
-          <h4 className="text-align-center text-danger flush-top">
-            App is currently locked by one or more deployments. Press the button
-            again to forcefully change and deploy the new configuration.
-          </h4>
-        </div>
-      );
-    }
-
     return (
       <div>
         <div className="error-field text-danger">
