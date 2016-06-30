@@ -89,10 +89,13 @@ const JobUtil = {
     }
 
     let [schedule = {}] = job.getSchedules();
-    if (schedule.concurrencyPolicy == null) {
-      schedule.concurrencyPolicy = 'ALLOW';
+
+    if (schedule.id != null || schedule.cros != null) {
+      if (schedule.concurrencyPolicy == null) {
+        schedule.concurrencyPolicy = 'ALLOW';
+      }
+      spec.schedules = [schedule];
     }
-    spec.schedules = [schedule];
 
     return spec;
   }
