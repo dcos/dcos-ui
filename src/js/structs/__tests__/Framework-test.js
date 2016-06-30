@@ -73,7 +73,7 @@ describe('Framework', function () {
 
     it('returns the url if ID is present but webui_url is not', function () {
       let service = new Framework({id: 'foo'});
-      expect(service.getWebURL()).toEqual('/services/foo');
+      expect(service.getWebURL()).toEqual('/service/foo');
     });
 
     it('returns null if the id and webui_url keys are not present', function () {

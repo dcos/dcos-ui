@@ -49,7 +49,7 @@ module.exports = class Framework extends Service {
     let name = super.getName();
 
     if (name != null && name !== '') {
-      return `${Config.rootUrl}/services/${name}`;
+      return `${Config.rootUrl}/service/${name}`;
     }
 
     return null;
