@@ -302,7 +302,7 @@ class ServiceFormModal extends mixin(StoreMixin) {
             fieldId = resolvePath.replace('{INDEX}', matches[1]);
           }
         } else {
-          fieldId = responseAttributePathToFieldIdMap[path];
+          fieldId = responseAttributePathToFieldIdMap[path] || fieldId;
         }
         errors = errors.map(function (error) {
           if (serverResponseMappings[error]) {

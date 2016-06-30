@@ -27,6 +27,30 @@ const METHODS_TO_BIND = [
   'onMetronomeStoreJobUpdateError'
 ];
 
+const serverResponseMappings = {
+  'error.path.missing': 'Specify a path',
+  'error.minLength': 'Field may not be blank',
+  'error.expected.jsnumber': 'A number is expected',
+  'error.expected.jsstring': 'A string is expected'
+};
+
+// The values of this map are only used to generate the error strings atm.
+// This mapping will make sense when we introduce client-side validation.
+const responseAttributePathToFieldIdMap = {
+  '/id': 'id',
+  '/description': 'description',
+  '/run/cpus': 'cpus',
+  '/run/mem': 'mem',
+  '/run/disk': 'disk',
+  '/run/cmd': 'cmd',
+  '/run/docker/image': 'docker/image',
+  '/schedules/{INDEX}/id': 'schedules/{INDEX}/id',
+  '/schedules({INDEX})/cron': 'schedules/{INDEX}/cron',
+  '/schedules/{INDEX}/concurrencyPolicy': 'schedules/{INDEX}/concurrencyPolicy',
+  '/schedules/{INDEX}/enabled': 'schedules/{INDEX}/enabled',
+  '/labels': 'labels'
+};
+
 class JobFormModal extends mixin(StoreMixin) {
   constructor() {
     super(...arguments);
@@ -143,16 +167,55 @@ class JobFormModal extends mixin(StoreMixin) {
   getErrorMessage() {
     let {errorMessage} = this.state;
     if (!errorMessage) {
-
       return null;
+    }
+
+    let errorList = null;
+    if (errorMessage.details != null) {
+      errorList = errorMessage.details.map(function ({path, errors}) {
+        let fieldId = 'general';
+
+        // See: https://github.com/dcos/metronome/issues/71
+        // Check if attributePath contains an index like path(0)/attribute
+        // Matches as defined: [0] : '/0/' (or [0] : '(0)'), [1]: '0'
+        let matches = path.match(/[\/\(](\d+)[\/\)]/);
+        if (matches != null) {
+          // Keep the separator characters as returned by the server
+          // Example: (0), /0/  -> ({INDEX}), /{INDEX}/
+          let placeholder = matches[0].replace(/(\d+)/, '{INDEX}');
+          let resolvePath = responseAttributePathToFieldIdMap[
+            path.replace(matches[0], placeholder)
+            ];
+          if (resolvePath != null) {
+            fieldId = resolvePath.replace('{INDEX}', matches[1]);
+          }
+        } else {
+          fieldId = responseAttributePathToFieldIdMap[path] || fieldId;
+        }
+        errors = errors.map(function (error) {
+          if (serverResponseMappings[error]) {
+            return serverResponseMappings[error];
+          }
+          return error;
+        });
+
+        return (
+          <li key={path}>
+            {`${fieldId}: ${errors}`}
+          </li>
+        );
+      });
     }
 
     return (
       <div>
         <div className="error-field text-danger">
-        <pre className="text-align-center">
-          {errorMessage.message}
-        </pre>
+          <h4 className="text-align-center text-danger flush-top">
+            {errorMessage.message}
+          </h4>
+          <ul>
+            {errorList}
+          </ul>
         </div>
       </div>
     );
