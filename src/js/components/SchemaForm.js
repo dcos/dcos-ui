@@ -155,10 +155,10 @@ class SchemaForm extends mixin(StoreMixin, InternalStorageMixin) {
   }
 
   getAddNewRowButton(prop, generalDefinition, definition, labelText = '') {
-    let label = 'Add New Line';
+    let label = ' Add New Line';
 
     if (labelText !== '') {
-      label = labelText;
+      label = ' ' + labelText;
     }
 
     return (
@@ -169,7 +169,8 @@ class SchemaForm extends mixin(StoreMixin, InternalStorageMixin) {
             onClick={
               this.handleAddRow.bind(this, prop, generalDefinition, definition)
             }>
-            + {label}
+            <Icon id="plus" family="small" size="tiny" />
+            {label}
           </a>
         </div>
       </div>
