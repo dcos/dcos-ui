@@ -175,12 +175,16 @@ class JobFormModal extends mixin(StoreMixin) {
       errorList = errorMessage.details.map(function ({path, errors}) {
         let fieldId = 'general';
 
+        // See: https://github.com/dcos/metronome/issues/71
         // Check if attributePath contains an index like path(0)/attribute
-        // Matches as defined: [0] : '(0)', [1]: '0'
-        let matches = path.match(/\(([0-9]+)\)/);
+        // Matches as defined: [0] : '/0/' (or [0] : '(0)'), [1]: '0'
+        let matches = path.match(/[\/\(](\d+)[\/\)]/);
         if (matches != null) {
+          // Keep the separator characters as returned by the server
+          // Example: (0), /0/  -> ({INDEX}), /{INDEX}/
+          let placeholder = matches[0].replace(/(\d+)/, '{INDEX}');
           let resolvePath = responseAttributePathToFieldIdMap[
-            path.replace(matches[0], '({INDEX})')
+            path.replace(matches[0], placeholder)
             ];
           if (resolvePath != null) {
             fieldId = resolvePath.replace('{INDEX}', matches[1]);
