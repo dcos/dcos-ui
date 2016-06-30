@@ -79,6 +79,11 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
     MetronomeStore.monitorJobDetail(this.props.params.id);
   }
 
+  componentWillUnmount() {
+    super.componentWillUnmount(...arguments);
+    MetronomeStore.stopJobDetailMonitor(this.props.params.id);
+  }
+
   onMetronomeStoreJobDeleteError(id, {message:errorMsg}) {
     if (id !== this.props.params.id || errorMsg == null) {
       return;
