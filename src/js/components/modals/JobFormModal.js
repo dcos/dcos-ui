@@ -34,7 +34,22 @@ const serverResponseMappings = {
   'error.expected.jsstring': 'A string is expected'
 };
 
-const responseAttributePathToFieldIdMap = {};
+// The values of this map are only used to generate the error strings atm.
+// This mapping will make sense when we introduce client-side validation.
+const responseAttributePathToFieldIdMap = {
+  '/id': 'id',
+  '/description': 'description',
+  '/run/cpus': 'cpus',
+  '/run/mem': 'mem',
+  '/run/disk': 'disk',
+  '/run/cmd': 'cmd',
+  '/run/docker/image': 'docker/image',
+  '/schedules/{INDEX}/id': 'schedules/{INDEX}/id',
+  '/schedules({INDEX})/cron': 'schedules/{INDEX}/cron',
+  '/schedules/{INDEX}/concurrencyPolicy': 'schedules/{INDEX}/concurrencyPolicy',
+  '/schedules/{INDEX}/enabled': 'schedules/{INDEX}/enabled',
+  '/labels': 'labels'
+};
 
 class JobFormModal extends mixin(StoreMixin) {
   constructor() {
