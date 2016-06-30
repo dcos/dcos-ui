@@ -46,6 +46,7 @@ const responseAttributePathToFieldIdMap = {
   '/run/docker/image': 'docker/image',
   '/schedules/{INDEX}/id': 'schedules/{INDEX}/id',
   '/schedules/{INDEX}/cron': 'schedules/{INDEX}/cron',
+  '/schedules({INDEX})/cron': 'schedules/{INDEX}/cron',
   '/schedules/{INDEX}/concurrencyPolicy': 'schedules/{INDEX}/concurrencyPolicy',
   '/schedules/{INDEX}/enabled': 'schedules/{INDEX}/enabled',
   '/labels': 'labels'
