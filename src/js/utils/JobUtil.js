@@ -89,7 +89,8 @@ const JobUtil = {
     }
 
     let [schedule = {}] = job.getSchedules();
-    if (schedule.id != null && schedule.cron != null) {
+
+    if (schedule.id != null || schedule.cron != null) {
       if (schedule.concurrencyPolicy == null) {
         schedule.concurrencyPolicy = 'ALLOW';
       }

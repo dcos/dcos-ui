@@ -45,6 +45,7 @@ const responseAttributePathToFieldIdMap = {
   '/run/cmd': 'cmd',
   '/run/docker/image': 'docker/image',
   '/schedules/{INDEX}/id': 'schedules/{INDEX}/id',
+  '/schedules/{INDEX}/cron': 'schedules/{INDEX}/cron',
   '/schedules({INDEX})/cron': 'schedules/{INDEX}/cron',
   '/schedules/{INDEX}/concurrencyPolicy': 'schedules/{INDEX}/concurrencyPolicy',
   '/schedules/{INDEX}/enabled': 'schedules/{INDEX}/enabled',
@@ -185,7 +186,7 @@ class JobFormModal extends mixin(StoreMixin) {
           let placeholder = matches[0].replace(/(\d+)/, '{INDEX}');
           let resolvePath = responseAttributePathToFieldIdMap[
             path.replace(matches[0], placeholder)
-            ];
+          ];
           if (resolvePath != null) {
             fieldId = resolvePath.replace('{INDEX}', matches[1]);
           }
