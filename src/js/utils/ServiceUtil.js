@@ -325,7 +325,7 @@ const ServiceUtil = {
                 }
               }
 
-              if (['host', 'bridge'].includes(networkType) || !port.expose) {
+              if (['host', 'bridge'].includes(networkType)) {
                 definition.container.docker.portMappings.push(portMapping);
               }
 
