@@ -245,7 +245,7 @@ describe('ServiceUtil', function () {
             .not.toContain('hostPort');
         });
 
-        it('should add both containerPort and hostPort when discovery is on', function () {
+        it('should have default hostPort when discovery is on', function () {
           let service = ServiceUtil.createServiceFromFormModel({
             containerSettings: { image: 'redis' },
             networking: {
@@ -253,7 +253,7 @@ describe('ServiceUtil', function () {
               ports: [ { lbPort: 1234, discovery: true } ]
             }
           });
-          expect(service.container.docker.portMappings[0].hostPort).toEqual(1234);
+          expect(service.container.docker.portMappings[0].hostPort).toEqual(0);
         });
 
         it('should add a VIP label when discovery is on', function () {
