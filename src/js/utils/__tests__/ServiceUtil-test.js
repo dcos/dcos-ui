@@ -125,35 +125,17 @@ describe('ServiceUtil', function () {
             .toEqual({VIP_1: '/foo/bar:4321'});
         });
 
-        describe('an empty networking ports member', function () {
-
-          beforeEach(function () {
+        it('should not add any port definitions if ports is emoty',
+          function () {
             let service = ServiceUtil.createServiceFromFormModel({
               networking: {
                 networkType: 'host',
                 ports: [{}]
               }
             });
-            this.portDefinition = service.portDefinitions[0];
-          });
-
-          it('defaults port number to 0', function () {
-            expect(this.portDefinition.port).toEqual(0);
-          });
-
-          it('defaults protocol to tcp', function () {
-            expect(this.portDefinition.protocol).toEqual('tcp');
-          });
-
-          it('does not include a name by default', function () {
-            expect(Object.keys(this.portDefinition)).not.toContain('name');
-          });
-
-          it('does not include labels by default', function () {
-            expect(Object.keys(this.portDefinition)).not.toContain('labels');
-          });
-
-        });
+            expect(service.portDefinitions).not.toBeDefined();
+          }
+        );
 
       });
 
@@ -163,7 +145,7 @@ describe('ServiceUtil', function () {
             containerSettings: { image: 'redis' },
             networking: {
               networkType: 'host',
-              ports: [{}]
+              ports: [{lbPort: 1234}]
             }
           });
         });
@@ -189,7 +171,7 @@ describe('ServiceUtil', function () {
             containerSettings: { image: 'redis' },
             networking: {
               networkType: 'bridge',
-              ports: []
+              ports: [{lbPort: 1234}]
             }
           });
         });
@@ -266,36 +248,17 @@ describe('ServiceUtil', function () {
           expect(service.container.docker.network).toEqual('BRIDGE');
         });
 
-        describe('an empty networking ports member', function () {
-
-          beforeEach(function () {
+        it('should not add any port definitions if ports is emoty',
+          function () {
             let service = ServiceUtil.createServiceFromFormModel({
-              containerSettings: { image: 'redis' },
               networking: {
-                networkType: 'bridge',
+                networkType: 'host',
                 ports: [{}]
               }
             });
-            this.portMapping = service.container.docker.portMappings[0];
-          });
-
-          it('defaults containerPort to 0', function () {
-            expect(this.portMapping.containerPort).toEqual(0);
-          });
-
-          it('defaults protocol to tcp', function () {
-            expect(this.portMapping.protocol).toEqual('tcp');
-          });
-
-          it('does not include a name by default', function () {
-            expect(Object.keys(this.portMapping)).not.toContain('name');
-          });
-
-          it('does not include labels by default', function () {
-            expect(Object.keys(this.portMapping)).not.toContain('labels');
-          });
-
-        });
+            expect(service.portDefinitions).not.toBeDefined();
+          }
+        );
 
       });
 
@@ -390,9 +353,8 @@ describe('ServiceUtil', function () {
             .toEqual({VIP_0: '/foo/bar:1234'});
         });
 
-        describe('an empty networking ports member', function () {
-
-          beforeEach(function () {
+        it('should not add any port definitions if ports is emoty',
+          function () {
             let service = ServiceUtil.createServiceFromFormModel({
               containerSettings: { image: 'redis' },
               networking: {
@@ -400,28 +362,11 @@ describe('ServiceUtil', function () {
                 ports: [{}]
               }
             });
-            this.portMapping = service.container.docker.portMappings[0];
-          });
-
-          it('defaults containerPort to 0', function () {
-            expect(this.portMapping.containerPort).toEqual(0);
-          });
-
-          it('defaults protocol to tcp', function () {
-            expect(this.portMapping.protocol).toEqual('tcp');
-          });
-
-          it('does not include a name by default', function () {
-            expect(Object.keys(this.portMapping)).not.toContain('name');
-          });
-
-          it('does not include labels by default', function () {
-            expect(Object.keys(this.portMapping)).not.toContain('labels');
-          });
-        });
+            expect(service.portDefinitions).not.toBeDefined();
+          }
+        );
 
       });
-
     });
 
     describe('should return a service with', function() {
