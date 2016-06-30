@@ -34,13 +34,14 @@ const Networking = {
       duplicable: true,
       addLabel: 'Add an endpoint',
       getter: function (service) {
-        let portMappings = service.getPortDefinitions();
+        let container = service.getContainerSettings();
+        let portMappings = null;
+        if (container && container.docker && container.docker.portMappings) {
+          portMappings = container.docker.portMappings;
+        }
 
         if (portMappings == null) {
-          let container = service.getContainerSettings();
-          if (container && container.docker && container.docker.portMappings) {
-            portMappings = container.docker.portMappings;
-          }
+          portMappings = service.getPortDefinitions();
 
           if (portMappings == null) {
             return null;
