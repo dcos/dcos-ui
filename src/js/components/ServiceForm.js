@@ -293,7 +293,7 @@ class ServiceForm extends SchemaForm {
       if (!['host', 'bridge'].includes(model.networking.networkType)) {
         // Set expose to true as default
         model.networking.ports.map(function (port) {
-          port.expose = true;
+          port.expose = port.expose || false;
 
           return port;
         });
