@@ -26,14 +26,6 @@ const DUPLICABLE_FIELDS_TO_WATCH = {
   }
 };
 
-const NESTED_FIELDS = [
-  'dockerVolumes',
-  'externalVolumes',
-  'localVolumes',
-  'networkType',
-  'ports'
-];
-
 const FIELDS_TO_WATCH = {
   networkType: {
     forceUpdate: true
@@ -58,15 +50,6 @@ class ServiceForm extends SchemaForm {
         suppressUpdate: true
       }
     ]);
-
-    this.internalStorage_set({
-      currentTab: 'general',
-      model: {
-        networking: {
-          networkType: 'host'
-        }
-      }
-    });
   }
 
   componentWillMount() {
@@ -79,69 +62,70 @@ class ServiceForm extends SchemaForm {
     Hooks.doAction('serviceFormMount', this);
   }
 
-  handleFormChange(changes, eventObj) {
-    let {eventType, fieldName} = eventObj;
+  onVirtualNetworksStoreSuccess() {
+    this.updateDefinitions();
+  }
+
+  shouldUpdateDefinition(changes, eventType, fieldName) {
     let propKey = FormUtil.getPropKey(fieldName);
     let blurChange = Object.values(DUPLICABLE_FIELDS_TO_WATCH).some(function (item) {
       return item.blurOnly && item.blurOnly.includes(propKey);
     });
-    if (eventType === 'change' || (eventType === 'blur' && blurChange)) {
 
-      let shouldUpdateDefinition = Object.keys(changes).some(function (changeKey) {
-        let tab = FormUtil.getProp(changeKey);
+    return Object.keys(changes).some(function (changeKey) {
+      let tab = FormUtil.getProp(changeKey);
 
-        return (tab in DUPLICABLE_FIELDS_TO_WATCH)
-          && (DUPLICABLE_FIELDS_TO_WATCH[tab].fields.includes(propKey)
-          && DUPLICABLE_FIELDS_TO_WATCH[tab].forceUpdate)
-          || (fieldName in FIELDS_TO_WATCH
-          && FIELDS_TO_WATCH[fieldName].forceUpdate);
-      }) || (eventType === 'blur' && blurChange);
+      return (tab in DUPLICABLE_FIELDS_TO_WATCH)
+        && (DUPLICABLE_FIELDS_TO_WATCH[tab].fields.includes(propKey)
+        && DUPLICABLE_FIELDS_TO_WATCH[tab].forceUpdate)
+        || (fieldName in FIELDS_TO_WATCH
+        && FIELDS_TO_WATCH[fieldName].forceUpdate);
 
-      let {currentTab, model} = this.internalStorage_get();
-      let combinedModel = FormUtil.modelToCombinedProps(changes);
+    }) || (eventType === 'blur' && blurChange);
+  }
 
-      Object.keys(combinedModel).forEach(function (key) {
-        if (!propKey || NESTED_FIELDS.includes(key)) {
-          // Create nested object within tab key
-          if (!model[currentTab]) {
-            model[currentTab] = {};
-          }
-          if (combinedModel[key] != null) {
-            if (!(key === 'networkType' && fieldName !== 'networkType')) {
-              model[currentTab][key] = combinedModel[key];
-            }
-          }
+  handleFormChange(changes, eventObj) {
+    let {eventType, fieldName} = eventObj;
+    let shouldUpdateDefinition = this.shouldUpdateDefinition(
+      changes, eventType, fieldName
+    );
 
-          return;
-        }
-        if (combinedModel[key] != null) {
-          if (!(key === 'networkType' && fieldName !== 'networkType')) {
-            model[key] = combinedModel[key];
-          }
-        }
-      });
-
-      this.internalStorage_set({model, currentTab});
-
-      if (shouldUpdateDefinition) {
-        SchemaFormUtil.mergeModelIntoDefinition(
-          model,
-          this.multipleDefinition,
-          this.getRemoveRowButton
-        );
-
-        this.updateDefinitions();
-        this.forceUpdate();
+    if (eventType === 'change' || shouldUpdateDefinition) {
+      if (this.timer) {
+        clearTimeout(this.timer);
       }
+      // Debounce definition update. Also ensures we build the model with
+      // latest form changes.
+      this.timer = setTimeout(() => {
+        let model = {};
+        let formModel = this.triggerTabFormSubmit();
+
+        Object.keys(formModel).forEach(function (key) {
+          model[key] = FormUtil.modelToCombinedProps(formModel[key]);
+        });
+
+        model.environmentVariables = model.environmentVariables.environmentVariables;
+        model.labels = model.labels.labels;
+        model.healthChecks = model.healthChecks.healthChecks;
+
+        this.internalStorage_set({model});
+
+        if (shouldUpdateDefinition) {
+          SchemaFormUtil.mergeModelIntoDefinition(
+            model,
+            this.multipleDefinition,
+            this.getRemoveRowButton
+          );
+
+          this.updateDefinitions();
+          this.forceUpdate();
+        }
+      }, 50);
     }
 
     Hooks.doAction('serviceFormChange', ...arguments);
     // Handle the form change in the way service needs here.
     this.props.onChange(...arguments);
-  }
-
-  onVirtualNetworksStoreSuccess() {
-    this.updateDefinitions();
   }
 
   getNetworkingDescriptionDefinition({networking: model}) {
@@ -229,10 +213,8 @@ class ServiceForm extends SchemaForm {
     }
   }
 
-  handleTabClick(currentTab) {
+  handleTabClick() {
     let {model} = this.internalStorage_get();
-    this.internalStorage_set({currentTab, model});
-
     SchemaFormUtil.mergeModelIntoDefinition(
       model,
       this.multipleDefinition,

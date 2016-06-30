@@ -125,7 +125,6 @@ class SchemaForm extends mixin(StoreMixin, InternalStorageMixin) {
     definition.forEach(function (field, i) {
       if (FormUtil.isFieldInstanceOfProp(prop, field)) {
         lastIndex = i;
-        debugger;
         return;
       }
 
@@ -151,7 +150,7 @@ class SchemaForm extends mixin(StoreMixin, InternalStorageMixin) {
       this.getRemoveRowButton(definition, prop, propID, title)
     );
     definition.splice(lastIndex + 1, 0, newDefinition);
-    debugger;
+
     this.forceUpdate();
   }
 
