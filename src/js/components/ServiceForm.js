@@ -262,6 +262,11 @@ class ServiceForm extends SchemaForm {
     this.bananas(true, 0);
   }
 
+  handleRemoveRow() {
+    super.handleRemoveRow(...arguments);
+    this.bananas(true, 0);
+  }
+
   bananas(shouldUpdateDefinition = false, delay = 50) {
     if (this.timer) {
       clearTimeout(this.timer);
