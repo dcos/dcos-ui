@@ -155,10 +155,10 @@ class SchemaForm extends mixin(StoreMixin, InternalStorageMixin) {
   }
 
   getAddNewRowButton(prop, generalDefinition, definition, labelText = '') {
-    let label = ' Add New Line';
+    let label = 'Add New Line';
 
     if (labelText !== '') {
-      label = ' ' + labelText;
+      label = labelText;
     }
 
     return (
@@ -169,8 +169,7 @@ class SchemaForm extends mixin(StoreMixin, InternalStorageMixin) {
             onClick={
               this.handleAddRow.bind(this, prop, generalDefinition, definition)
             }>
-            <Icon id="plus" family="small" size="tiny" />
-            {label}
+            + {label}
           </a>
         </div>
       </div>
@@ -179,7 +178,7 @@ class SchemaForm extends mixin(StoreMixin, InternalStorageMixin) {
 
   getRemoveRowButton(generalDefinition, prop, id, title = null) {
     let deleteButton = (
-      <div key={`${prop}${id}-remove`} className="form-row-element align-self-flex-end">
+      <div key={`${prop}${id}-remove`} className="align-self-flex-end">
         <button
           className="button button-link"
           onClick={this.handleRemoveRow.bind(this, generalDefinition, prop, id)}>
@@ -193,7 +192,7 @@ class SchemaForm extends mixin(StoreMixin, InternalStorageMixin) {
     }
 
     return (
-      <div className="form-row-element duplicable-row-title-wrapper">
+      <div key={`${prop}${id}-title`} className="form-row-element duplicable-row-title-wrapper">
         <div className="duplicable-row-title-container">
           <div className="duplicable-row-title">
             {title}
