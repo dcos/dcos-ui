@@ -2,6 +2,7 @@ import {Hooks} from 'PluginSDK';
 import React from 'react';
 
 import FormUtil from '../utils/FormUtil';
+import HostUtil from '../utils/HostUtil';
 import SchemaForm from './SchemaForm';
 import SchemaFormUtil from '../utils/SchemaFormUtil';
 import SchemaUtil from '../utils/SchemaUtil';
@@ -128,24 +129,77 @@ class ServiceForm extends SchemaForm {
     this.props.onChange(...arguments);
   }
 
-  getNetworkingDescriptionDefinition({networking: model}) {
+  onVirtualNetworksStoreSuccess() {
+    this.updateDefinitions();
+  }
+
+  getNetworkingDescriptionDefinition(model) {
     return {
       name: 'ports-description',
-      render: function () {
-        let {ports} = model;
+      render: () => {
+        let {networkType} = this.getNetworkingConfiguration(model);
+        let hostNetworkingDefinition = null;
+        let {ports} = model.networking;
+        let serviceAddressNetworkingDefinition = null;
 
         if (ports == null) {
           return null;
         }
 
-        let portMapping = ports.map(function (port, index) {
-          return `$PORT${index}`;
-        });
+        // Build out the Host ports that get dynamically created
+        if ('host' === networkType) {
+          let portMapping = ports.map(function (port, index) {
+            return `$PORT${index}`;
+          });
+          portMapping = StringUtil.humanizeArray(portMapping, {
+            wrapValueFunction: function (value, index) {
+              return (
+                <strong key={index}>{value}</strong>
+              )
+            }
+          });
+
+          hostNetworkingDefinition = (
+            <p>
+              Host ports will be dynamically assigned and mapped
+              to {portMapping}.
+            </p>
+          );
+        }
+
+        // Build out the hostname mappings
+        let serviceAddress = HostUtil.stringToHostname(model.general.id);
+        if (serviceAddress) {
+          serviceAddress += '.marathon.l4lb.thisdcos.directory';
+
+          let addresses = ports.filter(function (port) {
+            return !!port.lbPort;
+          }).map(function (port, index) {
+            return (
+              <li key={index}>
+                <strong>
+                  {`${serviceAddress}:${port.lbPort}`}
+                </strong>
+              </li>
+            );
+          });
+
+          serviceAddressNetworkingDefinition = (
+            <div>
+              <p>
+                Clients can access your service at these Service Addresses
+              </p>
+              <ul>
+                {addresses}
+              </ul>
+            </div>
+          );
+        }
 
         return (
           <div key="ports-description" style={{marginBottom: '20px'}}>
-            Host ports will be dynamically assigned and mapped
-            to {StringUtil.humanizeArray(portMapping)}.
+            {hostNetworkingDefinition}
+            {serviceAddressNetworkingDefinition}
           </div>
         );
       }
@@ -225,12 +279,17 @@ class ServiceForm extends SchemaForm {
     this.forceUpdate();
   }
 
-  getExposeNetworkingCheckboxes() {
-    let {model} = this.internalStorage_get();
-    let definitionGroup = [];
+  getNetworkingConfiguration(model) {
     let networkType = (model.networking.networkType || 'host').toLowerCase();
     let isUserMode = model.networking
       && !['host', 'bridge'].includes(networkType);
+    return {networkType, isUserMode};
+  }
+
+  getExposeNetworkingCheckboxes() {
+    let {model} = this.internalStorage_get();
+    let definitionGroup = [];
+    let {isUserMode} = this.getNetworkingConfiguration(model);
     let networkingDefinition = this.multipleDefinition.networking.definition;
     // First port definition in networking definition is at index 2
     let portDefinitionIndex = 2;
