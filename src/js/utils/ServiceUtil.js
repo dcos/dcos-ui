@@ -275,7 +275,8 @@ const ServiceUtil = {
               definition.portDefinitions = networking.ports.map(function (port, index) {
                 let portMapping = {port: 0, protocol: 'tcp'};
                 if (port.discovery === true) {
-                  let lbPort = parseInt(port.lbPort || 0, 10);
+                  // Ensure that lbPort is an int
+                  let lbPort = parseInt(port.lbPort || 0, 10) | 0;
                   portMapping.port = lbPort;
                   if (networkType === 'host') {
                     delete portMapping.port;

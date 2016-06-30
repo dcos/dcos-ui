@@ -93,45 +93,7 @@ class ServiceForm extends SchemaForm {
     );
 
     if (eventType === 'change' || shouldUpdateDefinition) {
-      if (this.timer) {
-        clearTimeout(this.timer);
-      }
-      // Debounce definition update. Also ensures we build the model with
-      // latest form changes.
-      this.timer = setTimeout(() => {
-        let model = {};
-        let formModel = this.triggerTabFormSubmit();
-
-        Object.keys(formModel).forEach(function (key) {
-          model[key] = FormUtil.modelToCombinedProps(formModel[key]);
-        });
-
-        model.environmentVariables = model.environmentVariables.environmentVariables;
-        model.labels = model.labels.labels;
-        model.healthChecks = model.healthChecks.healthChecks;
-
-        if (fieldName === 'networkType'
-          && !['host', 'bridge'].includes(model.networking.networkType)) {
-          // Set expose to true as default
-          model.networking.ports.map(function (port) {
-            port.expose = true;
-
-            return port;
-          });
-        }
-        this.internalStorage_set({model});
-
-        if (shouldUpdateDefinition) {
-          SchemaFormUtil.mergeModelIntoDefinition(
-            model,
-            this.multipleDefinition,
-            this.getRemoveRowButton
-          );
-
-          this.updateDefinitions();
-          this.forceUpdate();
-        }
-      }, 50);
+      this.bananas(shouldUpdateDefinition);
     }
 
     Hooks.doAction('serviceFormChange', ...arguments);
@@ -292,15 +254,54 @@ class ServiceForm extends SchemaForm {
   }
 
   handleTabClick() {
-    let {model} = this.internalStorage_get();
-    SchemaFormUtil.mergeModelIntoDefinition(
-      model,
-      this.multipleDefinition,
-      this.getRemoveRowButton
-    );
+    this.bananas(true, 0);
+  }
 
-    this.updateDefinitions();
-    this.forceUpdate();
+  handleAddRow() {
+    super.handleAddRow(...arguments);
+    this.bananas(true, 0);
+  }
+
+  bananas(shouldUpdateDefinition = false, delay = 50) {
+    if (this.timer) {
+      clearTimeout(this.timer);
+    }
+    // Debounce definition update. Also ensures we build the model with
+    // latest form changes.
+    this.timer = setTimeout(() => {
+      let model = {};
+      let formModel = this.triggerTabFormSubmit();
+
+      Object.keys(formModel).forEach(function (key) {
+        model[key] = FormUtil.modelToCombinedProps(formModel[key]);
+      });
+
+      model.environmentVariables = model.environmentVariables.environmentVariables;
+      model.labels = model.labels.labels;
+      model.healthChecks = model.healthChecks.healthChecks;
+
+      if (fieldName === 'networkType'
+        && !['host', 'bridge'].includes(model.networking.networkType)) {
+        // Set expose to true as default
+        model.networking.ports.map(function (port) {
+          port.expose = true;
+
+          return port;
+        });
+      }
+      this.internalStorage_set({model});
+
+      if (shouldUpdateDefinition) {
+        SchemaFormUtil.mergeModelIntoDefinition(
+          model,
+          this.multipleDefinition,
+          this.getRemoveRowButton
+        );
+
+        this.updateDefinitions();
+        this.forceUpdate();
+      }
+    }, delay);
   }
 
   getNetworkingConfiguration(model) {

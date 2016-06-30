@@ -97,16 +97,28 @@ const Networking = {
             }
           }
 
+          let disabledLBPortFieldValue = 'Not Enabled';
           if (prop === 'lbPort' && model && model.networking) {
             if (model.networking.networkType !== 'host') {
               definition.showLabel = 'Container Port';
+              if (definition.value === disabledLBPortFieldValue) {
+                definition.value = null;
+              }
             } else {
               definition.showLabel = 'LB Port';
 
               if (service.discovery) {
                 // show as input
+                if (definition.value === disabledLBPortFieldValue) {
+                  definition.value = null;
+                  definition.disabled = false;
+                  definition.className = 'form-control';
+                }
               } else {
                 // show as disabled
+                definition.value = disabledLBPortFieldValue;
+                definition.disabled = true;
+                definition.className = 'form-control lb-port-input-field-disabled';
               }
 
             }
