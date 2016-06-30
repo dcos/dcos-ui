@@ -47,18 +47,11 @@ const Networking = {
       duplicable: true,
       addLabel: 'Add an endpoint',
       getter: function (service) {
-        let container = service.getContainerSettings();
-        let portMappings = null;
-        if (container && container.docker && container.docker.portMappings) {
-          portMappings = container.docker.portMappings;
-        }
-
-        let networkType = 'host';
+        let portMappings = service.getPortDefinitions();
         if (portMappings == null) {
-          portMappings = service.getPortDefinitions();
-
-          if (container && container.docker && container.docker.network) {
-            networkType = container.docker.network.toLowerCase();
+          let container = service.getContainerSettings();
+          if (container && container.docker && container.docker.portMappings) {
+            portMappings = container.docker.portMappings;
           }
 
           if (portMappings == null) {
@@ -68,13 +61,12 @@ const Networking = {
 
         return portMappings.map(function (portMapping) {
           return {
-            lbPort: portMapping.hostPort || portMapping.containerPort ||
-              portMapping.port,
+            lbPort: portMapping.port || portMapping.containerPort,
             name: portMapping.name,
             protocol: portMapping.protocol,
-            discovery: (portMapping.hostPort || portMapping.containerPort ||
-            portMapping.port) > 0,
-            expose: !['host', 'bridge'].includes(networkType)
+            discovery: portMapping.labels &&
+              Object.keys(portMapping.labels).length > 0,
+            expose: portMapping.hostPort != null
           };
         });
       },

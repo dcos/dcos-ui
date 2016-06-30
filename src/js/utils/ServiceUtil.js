@@ -310,9 +310,10 @@ const ServiceUtil = {
               let lbPort = parseInt(port.lbPort || 0, 10);
               portMapping.containerPort = lbPort;
 
-              if (networkType === 'bridge') {
-                portMapping.hostPort = lbPort;
-              }
+              // Needs to be removed?
+              // if (networkType === 'bridge') {
+              //   portMapping.hostPort = lbPort;
+              // }
               if (port.discovery === true) {
 
                 if (networkType !== 'bridge') {
@@ -324,13 +325,16 @@ const ServiceUtil = {
                 }
               }
 
-              if (['host', 'bridge'].includes(networkType) || port.expose) {
+              if (['host', 'bridge'].includes(networkType) || !port.expose) {
                 definition.container.docker.portMappings.push(portMapping);
               }
 
-              if (!['host', 'bridge'].includes(networkType)
-                && !port.expose
-                && port.discovery) {
+              if (!['host', 'bridge'].includes(networkType)) {
+
+                if (port.expose) {
+                  portMapping.hostPort = 0;
+                }
+                definition.container.docker.portMappings.push(portMapping);
                 // TODO - Add portDefinition to discovery field
               }
             });
