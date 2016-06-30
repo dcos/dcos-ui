@@ -306,7 +306,7 @@ const ServiceUtil = {
               portMapping.containerPort = lbPort;
               if (port.discovery === true) {
                 if (networkType === 'bridge') {
-                  portMapping.hostPort = lbPort;
+                  portMapping.hostPort = 0;
                 } else {
                   portMapping.servicePort = lbPort;
                 }
