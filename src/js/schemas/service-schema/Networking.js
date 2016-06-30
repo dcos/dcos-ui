@@ -36,6 +36,7 @@ const Networking = {
           definition.formElementClass = '';
         } else {
           definition.formElementClass = 'hidden-form-element';
+          model.networking.networkType = 'host';
         }
       }
     },
