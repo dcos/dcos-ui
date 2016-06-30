@@ -296,7 +296,8 @@ const ServiceUtil = {
               });
             }
           } else {
-            definition.container.docker.portMappings = networking.ports.map(function (port, index) {
+            definition.container.docker.portMappings = [];
+            networking.ports.forEach(function (port, index) {
               let portMapping = {containerPort: 0, protocol: 'tcp'};
 
               if (port.protocol != null) {
@@ -307,10 +308,13 @@ const ServiceUtil = {
               }
               let lbPort = parseInt(port.lbPort || 0, 10);
               portMapping.containerPort = lbPort;
+
+              if (networkType === 'bridge') {
+                portMapping.hostPort = lbPort;
+              }
               if (port.discovery === true) {
-                if (networkType === 'bridge') {
-                  portMapping.hostPort = 0;
-                } else {
+
+                if (networkType !== 'bridge') {
                   portMapping.servicePort = lbPort;
                 }
                 portMapping.labels = {};
@@ -319,7 +323,15 @@ const ServiceUtil = {
                 }
               }
 
-              return portMapping;
+              if (['host', 'bridge'].includes(networkType) || port.expose) {
+                definition.container.docker.portMappings.push(portMapping);
+              }
+
+              if (!['host', 'bridge'].includes(networkType)
+                && !port.expose
+                && port.discovery) {
+                // TODO - Add portDefinition to discovery field
+              }
             });
           }
         }

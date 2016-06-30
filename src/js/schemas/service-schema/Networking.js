@@ -52,8 +52,13 @@ const Networking = {
           portMappings = container.docker.portMappings;
         }
 
+        let networkType = 'host';
         if (portMappings == null) {
           portMappings = service.getPortDefinitions();
+
+          if (container && container.docker && container.docker.network) {
+            networkType = container.docker.network.toLowerCase();
+          }
 
           if (portMappings == null) {
             return null;
@@ -67,7 +72,8 @@ const Networking = {
             name: portMapping.name,
             protocol: portMapping.protocol,
             discovery: (portMapping.hostPort || portMapping.containerPort ||
-            portMapping.port) > 0
+            portMapping.port) > 0,
+            expose: !['host', 'bridge'].includes(networkType)
           };
         });
       },

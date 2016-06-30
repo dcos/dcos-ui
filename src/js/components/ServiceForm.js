@@ -110,6 +110,15 @@ class ServiceForm extends SchemaForm {
         model.labels = model.labels.labels;
         model.healthChecks = model.healthChecks.healthChecks;
 
+        if (fieldName === 'networkType'
+          && !['host', 'bridge'].includes(model.networking.networkType)) {
+          // Set expose to true as default
+          model.networking.ports.map(function (port) {
+            port.expose = true;
+
+            return port;
+          });
+        }
         this.internalStorage_set({model});
 
         if (shouldUpdateDefinition) {
@@ -256,7 +265,7 @@ class ServiceForm extends SchemaForm {
       for (let i = definition.length - 1; i >= 0; i--) {
         let currentDefinition = definition[i];
         if ((FormUtil.isFieldInstanceOfProp('ports', currentDefinition)
-          && FormUtil.getPropKey(currentDefinition.name) === 'bananas')
+          && FormUtil.getPropKey(currentDefinition.name) === 'expose')
           || currentDefinition.name === 'expose-endpoints') {
 
           firstCheckboxIndex = i;
@@ -316,12 +325,12 @@ class ServiceForm extends SchemaForm {
 
         definitionGroup.push({
           fieldType: 'checkbox',
-          name: `ports[${propID}].bananas`,
+          name: `ports[${propID}].expose`,
           placeholder: '',
           required: false,
           showError: false,
           writeType: 'input',
-          value: port.bananas || false,
+          value: port.expose || false,
           valueType: 'boolean',
           label: `${port.name} (${port.lbPort || 0}/${port.protocol})`,
           checked: false
