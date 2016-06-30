@@ -9,7 +9,7 @@ function filteredPaths(combinedPath) {
   });
 }
 
-function setDefinitionValue(thingToSet, definition, renderRemove) {
+function setDefinitionValue(thingToSet, definition, renderRemove, model) {
   let {path, value} = thingToSet;
   let definitionToSet = SchemaFormUtil.getDefinitionFromPath(definition, path);
 
@@ -39,7 +39,7 @@ function setDefinitionValue(thingToSet, definition, renderRemove) {
 
       if (definitionToSet.definition.itemShapes[prop].filterProperties) {
         definitionToSet.definition.itemShapes[prop]
-          .filterProperties(item, instanceDefinition);
+          .filterProperties(item, instanceDefinition, model);
       }
 
       let arrayAction = 'push';
@@ -61,6 +61,10 @@ function setDefinitionValue(thingToSet, definition, renderRemove) {
 
   definitionToSet.value = value;
   definitionToSet.startValue = value;
+
+  if (definitionToSet.filterProperties) {
+    definitionToSet.filterProperties(value, definitionToSet, model);
+  }
 }
 
 function getThingsToSet(model, path) {
@@ -82,7 +86,7 @@ function getThingsToSet(model, path) {
 
     if (typeof value === 'object' && value !== null) {
       thingsToSet = thingsToSet.concat(getThingsToSet(value, pathCopy));
-    } else if (value != null) {
+    } else {
       thingsToSet.push({
         path: pathCopy,
         value
@@ -186,7 +190,9 @@ let SchemaFormUtil = {
     let thingsToSet = getThingsToSet(model);
 
     thingsToSet.forEach(function (thingToSet) {
-      setDefinitionValue(thingToSet, definition, renderRemove);
+      setDefinitionValue(
+        thingToSet, definition, renderRemove, model
+      );
     });
   },
 

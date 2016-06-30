@@ -209,7 +209,7 @@ describe('StringUtil', function () {
     it('returns the sole member of a 1-length array', function () {
       expect(StringUtil.humanizeArray(['one'])).toEqual('one');
     });
-    
+
     it('joins a 2-length array with \'and\'', function () {
       expect(StringUtil.humanizeArray(['one', 'two'])).toEqual('one and two');
     });
@@ -220,8 +220,9 @@ describe('StringUtil', function () {
     });
 
     it('allows the user to disable the serial comma', function () {
-      expect(StringUtil.humanizeArray(['one', 'two', 'three'], false))
-        .toEqual('one, two and three');
+      expect(StringUtil.humanizeArray(['one', 'two', 'three'], {
+        serialComma: false
+      })).toEqual('one, two and three');
     });
 
   });

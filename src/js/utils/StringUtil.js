@@ -1,4 +1,7 @@
 import marked from 'marked';
+/* eslint-disable no-unused-vars */
+import React from 'react';
+/* eslint-enable no-unused-vars */
 
 const StringUtil = {
   arrayToJoinedString: function (array=[], separator = ', ') {
@@ -66,21 +69,63 @@ const StringUtil = {
     return string.charAt(0).toUpperCase() + string.slice(1, string.length);
   },
 
-  humanizeArray: function (array, serialComma=true) {
+  humanizeArray: function (array, options) {
+    options = Object.assign({
+      serialComma: true,
+      wrapValueFunction: false
+    }, options);
+
     let length = array.length;
+    let conjunction =  ' and ';
+
     if (length === 0) {
       return '';
     }
+
     if (length === 1) {
-      return array[0];
+      if (options.wrapValueFunction) {
+        return options.wrapValueFunction(array[0], 0);
+      } else {
+        return array[0];
+      }
     }
+
     if (length === 2) {
-      return array.join(' and ');
+      if (options.wrapValueFunction) {
+        return [
+          options.wrapValueFunction(array[0], 0),
+          conjunction,
+          options.wrapValueFunction(array[1], 1)
+        ];
+      } else {
+        return array.join(conjunction);
+      }
     }
+
     let head = array.slice(0, -1);
     let tail = array.slice(-1)[0];
-    let conjunction = serialComma ? ', and ' : ' and ';
-    return head.join(', ') + conjunction + tail;
+    if (options.serialComma) {
+      conjunction = ', and ';
+    }
+
+    if (options.wrapValueFunction) {
+      let jsx = head.reduce(function (memo, value, index) {
+        memo.push(options.wrapValueFunction(value, index));
+
+        if (index !== head.length - 1) {
+          memo.push(', ');
+        }
+
+        return memo;
+      }, []);
+
+      jsx.push(conjunction);
+      jsx.push(options.wrapValueFunction(tail, 'tail'));
+
+      return jsx;
+    } else {
+      return head.join(', ') + conjunction + tail;
+    }
   },
 
   parseMarkdown(text) {

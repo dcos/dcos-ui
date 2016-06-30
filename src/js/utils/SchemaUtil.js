@@ -83,6 +83,10 @@ function schemaToFieldDefinition(fieldName, fieldProps, formParent, isRequired, 
     definition.formElementClass = fieldProps.formElementClass;
   }
 
+  if (fieldProps.filterProperties) {
+    definition.filterProperties = fieldProps.filterProperties;
+  }
+
   if (fieldProps.duplicable === true && fieldProps.itemShape) {
     let itemShape = nestedSchemaToFieldDefinition(
       fieldName,

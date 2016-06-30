@@ -16,6 +16,12 @@ base/forms.less
 
 & when (@form-enabled) {
 
+  .lb-port-input-field-disabled {
+    border: 0;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
   /* -----------------------------------------------------------------------------
   --------------------------------------------------------------------------------
 
@@ -91,7 +97,7 @@ base/forms.less
     }
   }
 
-  .multiple-form-modal {
+    .multiple-form-modal {
 
     .form-row-element {
 
@@ -144,6 +150,13 @@ base/forms.less
 
         &.hidden-form-element {
           display: none;
+        }
+      }
+
+      .duplicable-row-title-wrapper {
+
+        .form-row-remove-button {
+          padding-bottom: 0;
         }
       }
 

@@ -18,6 +18,7 @@ const METHODS_TO_BIND = [
   'getTriggerTabFormSubmit',
   'handleFormChange',
   'handleExternalSubmit',
+  'handleTabClick',
   'validateForm'
 ];
 
@@ -36,6 +37,8 @@ class SchemaForm extends mixin(StoreMixin, InternalStorageMixin) {
   }
 
   componentWillMount() {
+    super.componentWillMount(...arguments);
+
     if (this.props.definition) {
       this.multipleDefinition = this.props.definition;
     } else {
@@ -62,6 +65,8 @@ class SchemaForm extends mixin(StoreMixin, InternalStorageMixin) {
   }
 
   componentDidUpdate() {
+    super.componentDidUpdate(...arguments);
+
     // Timeout necessary due to modal content height updates on did mount
     setTimeout(() => {
       GeminiUtil.updateWithRef(this.refs.geminiForms);
@@ -102,6 +107,10 @@ class SchemaForm extends mixin(StoreMixin, InternalStorageMixin) {
   handleRemoveRow(definition, prop, id) {
     FormUtil.removePropID(definition, prop, id);
     this.forceUpdate();
+  }
+
+  handleTabClick() {
+    // Default method.
   }
 
   handleAddRow(prop, definition, newDefinition) {
@@ -146,8 +155,8 @@ class SchemaForm extends mixin(StoreMixin, InternalStorageMixin) {
     newDefinition[arrayAction](
       this.getRemoveRowButton(definition, prop, propID, title)
     );
-
     definition.splice(lastIndex + 1, 0, newDefinition);
+
     this.forceUpdate();
   }
 
@@ -174,36 +183,28 @@ class SchemaForm extends mixin(StoreMixin, InternalStorageMixin) {
   }
 
   getRemoveRowButton(generalDefinition, prop, id, title = null) {
+    let deleteButton = (
+      <div key={`${prop}${id}-remove`} className="form-row-element form-row-remove-button align-self-flex-end">
+        <button
+          className="button button-link"
+          onClick={this.handleRemoveRow.bind(this, generalDefinition, prop, id)}>
+          <Icon id="close" size="mini" family="mini" />
+        </button>
+      </div>
+    );
+
     if (!title) {
-      return (
-        <div
-          key={`${prop}${id}-remove`}
-          className="form-row-element align-self-flex-end">
-          <button
-            className="button button-link"
-            onClick={this.handleRemoveRow.bind(this, generalDefinition, prop, id)}>
-            <Icon id="close" size="mini" family="mini" />
-          </button>
-        </div>
-      );
+      return deleteButton;
     }
 
     return (
-      <div
-        key={`${prop}${id}-title`}
-        className="form-row-element duplicable-row-title-wrapper">
+      <div key={`${prop}${id}-title`} className="form-row-element duplicable-row-title-wrapper">
         <div className="duplicable-row-title-container">
           <div className="duplicable-row-title">
             {title}
           </div>
         </div>
-        <div className="align-self-flex-end">
-          <button
-            className="button button-link"
-            onClick={this.handleRemoveRow.bind(this, generalDefinition, prop, id)}>
-            <Icon id="close" size="mini" family="mini" />
-          </button>
-        </div>
+        {deleteButton}
       </div>
     );
   }
@@ -289,9 +290,9 @@ class SchemaForm extends mixin(StoreMixin, InternalStorageMixin) {
           media-object-spacing-narrow">
         <div className="media-object">
           <div className="media-object-item">
-            <h3 className="form-row-element flush-bottom flush-top">
+            <div className="h5 form-row-element flush-bottom flush-top">
               {name}
-            </h3>
+            </div>
           </div>
           {tooltip}
         </div>
@@ -361,7 +362,8 @@ class SchemaForm extends mixin(StoreMixin, InternalStorageMixin) {
           definition={this.multipleDefinition}
           formRowClass="flex-box"
           getTriggerSubmit={this.getTriggerTabFormSubmit}
-          onChange={this.handleFormChange} />
+          onChange={this.handleFormChange}
+          onTabClick={this.handleTabClick} />
       </div>
     );
   }

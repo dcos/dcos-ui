@@ -267,16 +267,23 @@ const ServiceUtil = {
 
       if (networking != null) {
         let isContainerApp = containerSettings != null && containerSettings.image != null;
-        let networkType = networking.networkType;
+        let networkType = networking.networkType || 'host';
         if (networking.ports != null && networking.ports.length > 0) {
           if (networkType === 'host' || !isContainerApp) {
             // Avoid specifying an empty portDefinitions by default
             if (networking.ports.length > 0) {
               definition.portDefinitions = networking.ports.map(function (port, index) {
-                let portMapping = {port: 0, protocol: 'tcp'};
+                let portMapping = {protocol: 'tcp'};
+                // Ensure that lbPort is an int
+                let lbPort = parseInt(port.lbPort || 0, 10);
+
+                if (networkType === 'host') {
+                  portMapping.port = 0;
+                }
                 if (port.discovery === true) {
-                  let lbPort = parseInt(port.lbPort || 0, 10);
-                  portMapping.port = lbPort;
+                  if (networkType === 'host') {
+                    portMapping.port = lbPort;
+                  }
                   if (general != null) {
                     portMapping.labels = {};
                     portMapping.labels[`VIP_${index}`] = `${general.id}:${lbPort}`;
@@ -293,7 +300,8 @@ const ServiceUtil = {
               });
             }
           } else {
-            definition.container.docker.portMappings = networking.ports.map(function (port, index) {
+            definition.container.docker.portMappings = [];
+            networking.ports.forEach(function (port, index) {
               let portMapping = {containerPort: 0, protocol: 'tcp'};
 
               if (port.protocol != null) {
@@ -304,10 +312,14 @@ const ServiceUtil = {
               }
               let lbPort = parseInt(port.lbPort || 0, 10);
               portMapping.containerPort = lbPort;
+
+              // Needs to be removed?
+              // if (networkType === 'bridge') {
+              //   portMapping.hostPort = lbPort;
+              // }
               if (port.discovery === true) {
-                if (networkType === 'bridge') {
-                  portMapping.hostPort = 0;
-                } else {
+
+                if (networkType !== 'bridge') {
                   portMapping.servicePort = lbPort;
                 }
                 portMapping.labels = {};
@@ -316,7 +328,18 @@ const ServiceUtil = {
                 }
               }
 
-              return portMapping;
+              if (['host', 'bridge'].includes(networkType)) {
+                definition.container.docker.portMappings.push(portMapping);
+              }
+
+              if (!['host', 'bridge'].includes(networkType)) {
+
+                if (port.expose) {
+                  portMapping.hostPort = 0;
+                }
+                definition.container.docker.portMappings.push(portMapping);
+                // TODO - Add portDefinition to discovery field
+              }
             });
           }
         }

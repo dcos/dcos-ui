@@ -52,6 +52,7 @@ class TabForm extends mixin(InternalStorageMixin) {
   }
 
   handleTabClick(currentTab) {
+    this.props.onTabClick(...arguments);
     this.setState({currentTab});
   }
 
@@ -167,14 +168,7 @@ class TabForm extends mixin(InternalStorageMixin) {
         render: this.getHeader.bind(this, title, description)
       }].concat(definition);
 
-      let formRowClasses = {};
-      // Add tab key to formRowClasses for custom styling
-      if (definition.itemShapes) {
-        Object.keys(definition.itemShapes).forEach(function (key) {
-          formRowClasses[key] = true;
-        });
-      }
-      let formRowClassSet = classNames('row', formRowClass, formRowClasses);
+      let formRowClassSet = classNames('row', formRowClass, formKey);
 
       return (
         <div key={i} className="form-panel">
@@ -227,7 +221,8 @@ TabForm.defaultProps = {
   getTriggerSubmit: function () {},
   onChange: function () {},
   onError: function () {},
-  onSubmit: function () {}
+  onSubmit: function () {},
+  onTabClick: function () {}
 };
 
 const classPropType = React.PropTypes.oneOfType([
@@ -245,7 +240,8 @@ TabForm.propTypes = {
   navigationContentClassNames: classPropType,
   onError: React.PropTypes.func,
   onChange: React.PropTypes.func,
-  onSubmit: React.PropTypes.func
+  onSubmit: React.PropTypes.func,
+  onTabClick: React.PropTypes.func,
 };
 
 module.exports = TabForm;
