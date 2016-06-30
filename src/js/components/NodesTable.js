@@ -29,7 +29,7 @@ var NodesTable = React.createClass({
   statics: {
     routeConfig: {
       label: 'Nodes',
-      icon: <Icon id="servers" size="small" family="small" />,
+      icon: <Icon id="servers-inverse" size="small" family="small" />,
       matches: /^\/nodes/
     }
   },
