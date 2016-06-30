@@ -137,11 +137,12 @@ describe('MetronomeStore', function () {
 
         AppDispatcher.handleServerAction({
           type: ActionTypes.REQUEST_METRONOME_JOB_DELETE_ERROR,
-          jobID: 'foo'
+          jobID: 'foo',
+          data: {message: 'error'}
         });
 
         expect(changeHandler).toHaveBeenCalled();
-        expect(changeHandler).toHaveBeenCalledWith('foo');
+        expect(changeHandler).toHaveBeenCalledWith('foo', {message: 'error'});
       });
 
     it('emits event after #runJob success event is dispatched',

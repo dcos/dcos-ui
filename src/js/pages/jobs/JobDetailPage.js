@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import {Dropdown} from 'reactjs-components';
+import {Confirm, Dropdown} from 'reactjs-components';
 import mixin from 'reactjs-mixin';
 /* eslint-disable no-unused-vars */
 import React from 'react';
@@ -19,13 +19,22 @@ import TabsMixin from '../../mixins/TabsMixin';
 import TaskStates from '../../constants/TaskStates';
 
 const METHODS_TO_BIND = [
-  'handleCloseJobFormModal',
+  'closeDialog',
   'handleEditButtonClick',
   'handleMoreDropdownSelection',
   'handleRunNowButtonClick',
+  'onMetronomeStoreJobDeleteError',
+  'onMetronomeStoreJobDeleteSuccess',
   'onMetronomeStoreJobDetailError',
   'onMetronomeStoreJobDetailChange'
 ];
+
+const JobActionItem = {
+  EDIT: 'edit',
+  DESTROY: 'destroy',
+  SUSPEND: 'suspend',
+  MORE: 'more'
+};
 
 class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
   constructor() {
@@ -34,6 +43,8 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
     this.store_listeners = [{
       name: 'metronome',
       events: [
+        'jobDeleteSuccess',
+        'jobDeleteError',
         'jobDetailChange',
         'jobDetailError',
         'jobRunError',
@@ -50,6 +61,9 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
 
     this.state = {
       currentTab: Object.keys(this.tabs_tabs).shift(),
+      disabledDialog: null,
+      jobActionDialog: null,
+      errorMsg: null,
       errorCount: 0,
       isJobFormModalOpen: false,
       isLoading: true
@@ -65,6 +79,23 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
     MetronomeStore.monitorJobDetail(this.props.params.id);
   }
 
+  onMetronomeStoreJobDeleteError(id, {message:errorMsg}) {
+    if (id !== this.props.params.id || errorMsg == null) {
+      return;
+    }
+
+    this.setState({
+      jobActionDialog: JobActionItem.DESTROY,
+      disabledDialog: null,
+      errorMsg
+    });
+  }
+
+  onMetronomeStoreJobDeleteSuccess() {
+    this.closeDialog();
+    this.context.router.transitionTo('jobs-page');
+  }
+
   onMetronomeStoreJobDetailError() {
     this.setState({errorCount: this.state.errorCount + 1});
   }
@@ -74,11 +105,7 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
   }
 
   handleEditButtonClick() {
-    this.setState({isJobFormModalOpen: true});
-  }
-
-  handleCloseJobFormModal() {
-    this.setState({isJobFormModalOpen: false});
+    this.setState({jobActionDialog: JobActionItem.EDIT});
   }
 
   handleRunNowButtonClick() {
@@ -87,16 +114,27 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
     MetronomeStore.runJob(job.getId());
   }
 
+  handleAcceptDestroyDialog(stopCurrentJobRuns = false) {
+    this.setState({disabledDialog: JobActionItem.DESTROY}, () => {
+      MetronomeStore.deleteJob(this.props.params.id, stopCurrentJobRuns);
+    });
+  }
+
   handleMoreDropdownSelection(selection) {
-    let job = MetronomeStore.getJob(this.props.params.id);
-
-    if (selection.id === 'suspend') {
-      MetronomeStore.suspendSchedule(job.getId());
+    if (selection.id === JobActionItem.SUSPEND) {
+      MetronomeStore.suspendSchedule(this.props.params.id);
+      return;
     }
 
-    if (selection.id === 'destroy') {
-      MetronomeStore.deleteJob(job.getId());
-    }
+    this.setState({jobActionDialog: selection.id});
+  }
+
+  closeDialog() {
+    this.setState({
+      disabledDialog: null,
+      errorMsg: null,
+      jobActionDialog: null
+    });
   }
 
   getActionButtons() {
@@ -104,15 +142,15 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
       {
         className: 'hidden',
         html: 'More',
-        id: 'more'
+        id: JobActionItem.MORE
       },
       {
         html: 'Suspend',
-        id: 'suspend'
+        id: JobActionItem.SUSPEND
       },
       {
         html: 'Destroy',
-        id: 'destroy'
+        id: JobActionItem.DESTROY
       }
     ];
 
@@ -142,6 +180,44 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
         transition={true}
         wrapperClassName="dropdown anchor-right" />
     ];
+  }
+
+  getDestroyConfirmDialog() {
+    const {id} = this.props.params;
+    const {disabledDialog, jobActionDialog, errorMsg} = this.state;
+    let stopCurrentJobRuns = false;
+    let actionButtonLabel = 'Destroy Job';
+    let message = `Are you sure you want to destroy ${id}? ` +
+      'This action is irreversible.';
+
+    if (/stopCurrentJobRuns=true/.test(errorMsg)) {
+      actionButtonLabel = 'Stop Current Runs and Destroy Job';
+      stopCurrentJobRuns = true;
+      message = `Couldn't destroy ${id} as there are currently active job ` +
+        'runs. Do you want to stop all runs and destroy the job?';
+    }
+
+    let content = (
+      <div className="container-pod flush-top container-pod-short-bottom">
+        <h2 className="text-danger text-align-center flush-top">
+          Destroy Job
+        </h2>
+        {message}
+      </div>
+    );
+
+    return  (
+      <Confirm children={content}
+        disabled={disabledDialog === JobActionItem.DESTROY}
+        open={jobActionDialog === JobActionItem.DESTROY}
+        onClose={this.closeDialog}
+        leftButtonText="Cancel"
+        leftButtonCallback={this.closeDialog}
+        rightButtonText={actionButtonLabel}
+        rightButtonClassName="button button-danger"
+        rightButtonCallback=
+          {this.handleAcceptDestroyDialog.bind(this, stopCurrentJobRuns)} />
+    );
   }
 
   getErrorScreen() {
@@ -250,11 +326,18 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
           subTitleClassName={{emphasize: false}}
           title={job.getDescription()} />
         {this.tabs_getTabView(job)}
-        <JobFormModal isEdit={true} job={job} open={this.state.isJobFormModalOpen}
-          onClose={this.handleCloseJobFormModal} />
+        <JobFormModal isEdit={true}
+          job={job}
+          open={this.state.jobActionDialog === JobActionItem.EDIT}
+          onClose={this.closeDialog} />
+        {this.getDestroyConfirmDialog()}
       </div>
     );
   }
 }
+
+JobDetailPage.contextTypes = {
+  router: React.PropTypes.func
+};
 
 module.exports = JobDetailPage;
