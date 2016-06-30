@@ -314,20 +314,19 @@ class ServiceForm extends SchemaForm {
         let portDefinition = networkingDefinition[portDefinitionIndex++];
         let propID = FormUtil.getPropIndex(portDefinition[0].name);
 
-        if (port.name != null && port.name.length) {
-          definitionGroup.push({
-            fieldType: 'checkbox',
-            name: `ports[${propID}].bananas`,
-            placeholder: '',
-            required: false,
-            showError: false,
-            writeType: 'input',
-            value: port.bananas || false,
-            valueType: 'boolean',
-            label: `${port.name} (${port.lbPort || 0}/${port.protocol})`,
-            checked: false
-          });
-        }
+        definitionGroup.push({
+          fieldType: 'checkbox',
+          name: `ports[${propID}].bananas`,
+          placeholder: '',
+          required: false,
+          showError: false,
+          writeType: 'input',
+          value: port.bananas || false,
+          valueType: 'boolean',
+          label: `${port.name} (${port.lbPort || 0}/${port.protocol})`,
+          checked: false
+        });
+
       });
     }
 

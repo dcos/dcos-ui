@@ -277,6 +277,9 @@ const ServiceUtil = {
                 if (port.discovery === true) {
                   let lbPort = parseInt(port.lbPort || 0, 10);
                   portMapping.port = lbPort;
+                  if (networkType === 'host') {
+                    delete portMapping.port;
+                  }
                   if (general != null) {
                     portMapping.labels = {};
                     portMapping.labels[`VIP_${index}`] = `${general.id}:${lbPort}`;

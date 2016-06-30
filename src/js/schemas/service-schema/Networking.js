@@ -25,7 +25,7 @@ const Networking = {
           return container.docker.network.toLowerCase();
         }
 
-        return null;
+        return 'host';
       },
       filterProperties: function (currentValue, definition, model) {
         // Hide this definition when model values dictate
@@ -90,22 +90,28 @@ const Networking = {
                 service, model || {networking: {}})
             }
           }
+
+          if (prop === 'lbPort' && model && model.networking) {
+            if (model.networking.networkType !== 'host') {
+              definition.showLabel = 'Container Port';
+            } else {
+              definition.showLabel = 'LB Port';
+
+              if (service.discovery) {
+                // show as input
+              } else {
+                // show as disabled
+              }
+
+            }
+          }
         });
       },
       itemShape: {
         properties: {
           lbPort: {
             title: 'LB Port',
-            type: 'number',
-            shouldShow: function (service, model) {
-              let networkType = (
-                model.networking.networkType || 'HOST'
-              ).toLowerCase();
-
-              return networkType === 'bridge'
-                || networkType === 'user'
-                || (networkType === 'host' && service.discovery);
-            }
+            type: 'number'
           },
           name: {
             title: 'Name',
