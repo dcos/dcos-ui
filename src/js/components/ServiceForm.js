@@ -243,7 +243,7 @@ class ServiceForm extends SchemaForm {
       let label = {
         name: 'expose-endpoints',
         render: function () {
-          return <label key="expose-endpoints">Expose endpoints on physical network</label>;
+          return <label key="expose-endpoints">Expose endpoints on host network</label>;
         }
       };
 
