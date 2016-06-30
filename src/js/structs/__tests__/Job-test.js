@@ -316,7 +316,7 @@ describe('Job', function () {
       expect(job.getScheduleStatus()).toEqual('SCHEDULED');
     });
 
-    it('returns completed if there are no active runs and no enabled schedule', function () {
+    it('returns unscheduled if there are no active runs and no enabled schedule', function () {
       let job = new Job({
         id: '/foo',
         activeRuns: [],
@@ -325,16 +325,16 @@ describe('Job', function () {
         }]
       });
 
-      expect(job.getScheduleStatus()).toEqual('COMPLETED');
+      expect(job.getScheduleStatus()).toEqual('UNSCHEDULED');
     });
 
-    it('returns completed if there are no active runs and no schedule', function () {
+    it('returns unscheduled if there are no active runs and no schedule', function () {
       let job = new Job({
         id: '/foo',
         activeRuns: []
       });
 
-      expect(job.getScheduleStatus()).toEqual('COMPLETED');
+      expect(job.getScheduleStatus()).toEqual('UNSCHEDULED');
     });
 
   });

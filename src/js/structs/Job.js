@@ -86,18 +86,24 @@ module.exports = class Job extends Item {
 
   getScheduleStatus() {
     let activeRuns = this.getActiveRuns();
+    let activeRunsLength = activeRuns.getItems().length;
+    let scheduleLength = this.getSchedules().length;
 
-    if (activeRuns.getItems().length > 0) {
+    if (activeRunsLength > 0) {
       let longestRunningActiveRun = activeRuns.getLongestRunningActiveRun();
       return longestRunningActiveRun.getStatus();
     }
 
-    if (this.getSchedules().length > 0) {
+    if (scheduleLength > 0) {
       let schedule = this.getSchedules()[0];
 
       if (!!schedule && schedule.enabled) {
         return 'SCHEDULED';
       }
+    }
+
+    if (scheduleLength === 0 && activeRunsLength === 0) {
+      return 'UNSCHEDULED';
     }
 
     return 'COMPLETED';
