@@ -266,7 +266,7 @@ const ServiceUtil = {
         let networkType = networking.networkType;
         if (networking.ports != null) {
           networking.ports = networking.ports.filter(function (port) {
-            return port.name != null || port.lbPort != null;
+            return port.name != null || port.lbPort != null || port.discovery;
           });
         }
         if (networking.ports != null && networking.ports.length > 0) {
