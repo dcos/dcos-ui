@@ -251,8 +251,8 @@ const ServiceUtil = {
           }, []);
       }
 
-      if (environmentVariables != null && environmentVariables.variables != null) {
-        definition.env = environmentVariables.variables
+      if (environmentVariables != null && environmentVariables.environmentVariables != null) {
+        definition.env = environmentVariables.environmentVariables
           .reduce(function (variableMap, variable) {
             variableMap[variable.key] = Hooks.applyFilter(
               'serviceVariableValue',
