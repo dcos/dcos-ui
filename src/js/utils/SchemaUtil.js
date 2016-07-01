@@ -61,7 +61,7 @@ function schemaToFieldDefinition(fieldName, fieldProps, formParent, isRequired, 
     definition.checked = value;
   }
 
-  if (fieldProps.fieldType === 'number') {
+  if (fieldProps.type === 'number') {
     definition.fieldType = 'number';
   }
 

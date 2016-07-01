@@ -91,7 +91,7 @@ class AddRepositoryFormModal extends mixin(StoreMixin) {
         value: ''
       },
       {
-        fieldType: 'number',
+        type: 'number',
         name: 'priority',
         placeholder: 'Priority',
         required: false,

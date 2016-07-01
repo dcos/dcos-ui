@@ -27,7 +27,7 @@ const Volumes = {
         properties: {
           size: {
             title: 'Size (MiB)',
-            fieldType: 'number'
+            type: 'number'
           },
           containerPath: {
             title: 'Container Path',
