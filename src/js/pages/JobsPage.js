@@ -39,7 +39,7 @@ class JobsPage extends mixin(TabsMixin) {
     }
 
     return (
-      <ul className="tabs list-inline flush-bottom inverse">
+      <ul className="menu-tabbed inverse">
         {this.tabs_getRoutedTabs()}
       </ul>
     );
