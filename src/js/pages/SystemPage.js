@@ -129,7 +129,7 @@ class SystemPage extends mixin(TabsMixin) {
     let currentRoute = routes[routes.length - 2].name;
 
     return (
-      <ul className="tabs list-inline flush-bottom inverse">
+      <ul className="menu-tabbed inverse">
         {TabsUtil.getTabs(
           SYSTEM_TABS,
           currentRoute,
@@ -147,7 +147,7 @@ class SystemPage extends mixin(TabsMixin) {
     return (
       <div className="container-pod container-pod-short flush-top">
         <div className="container-pod container-pod-divider-bottom container-pod-divider-inverse container-pod-divider-bottom-align-right flush-top flush-bottom">
-           <ul className="tabs list-inline flush-bottom inverse">
+           <ul className="menu-tabbed inverse">
             {this.tabs_getRoutedTabs()}
           </ul>
         </div>

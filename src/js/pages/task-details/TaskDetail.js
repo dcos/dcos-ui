@@ -190,7 +190,7 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
     }
 
     let navigationTabs = (
-      <ul className="tabs list-inline flush-bottom container-pod container-pod-short-top inverse">
+      <ul className="menu-tabbed container-pod container-pod-short-top inverse">
         {tabsArray}
       </ul>
     );

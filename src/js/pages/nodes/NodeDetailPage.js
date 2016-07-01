@@ -223,7 +223,7 @@ class NodeDetailPage extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) 
     }
 
     let tabs = (
-      <ul className="tabs list-inline flush-bottom container-pod
+      <ul className="menu-tabbed container-pod
         container-pod-short-top inverse">
         {this.tabs_getUnroutedTabs()}
       </ul>
