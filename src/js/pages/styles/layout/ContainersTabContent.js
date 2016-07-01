@@ -5,7 +5,7 @@ class ContainersTabContent extends React.Component {
 
   render() {
     return (
-      <div className="container-fluid pod">
+      <div>
 
         <section id="containers">
 
