@@ -50,11 +50,7 @@ var ServicesPage = React.createClass({
     let routes = this.context.router.getCurrentRoutes();
     let currentTab = routes[routes.length - 1].name;
     // `services-page` tab also contains routes for 'services-details'
-    if (currentTab === 'services-detail') {
-      currentTab = 'services-page';
-    }
-
-    if (currentTab == null) {
+    if (currentTab === 'services-detail' || currentTab == null) {
       currentTab = 'services-page';
     }
 
