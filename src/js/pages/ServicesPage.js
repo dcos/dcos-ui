@@ -42,6 +42,10 @@ var ServicesPage = React.createClass({
     this.updateCurrentTab();
   },
 
+  componentWillReceiveProps: function () {
+    this.updateCurrentTab();
+  },
+
   updateCurrentTab: function () {
     let routes = this.context.router.getCurrentRoutes();
     let currentTab = routes[routes.length - 1].name;
@@ -49,9 +53,7 @@ var ServicesPage = React.createClass({
     if (currentTab === 'services-detail') {
       currentTab = 'services-page';
     }
-    if (currentTab != null) {
-      this.setState({currentTab});
-    }
+    this.setState({currentTab: currentTab || 'services-page'});
   },
 
   getNavigation: function () {
