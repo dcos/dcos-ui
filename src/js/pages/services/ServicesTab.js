@@ -246,9 +246,11 @@ var ServicesTab = React.createClass({
       );
     }
 
-    return (
-      <Breadcrumbs />
-    );
+    if (this.context.router.getCurrentPathname().match(/^\/services\/?$/) === null) {
+      return (
+        <Breadcrumbs />
+      );
+    }
   },
 
   getServiceTreeView(serviceTree) {
