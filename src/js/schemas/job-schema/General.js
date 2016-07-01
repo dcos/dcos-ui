@@ -33,14 +33,14 @@ const General = {
     },
     mem: {
       title: 'Mem (MiB)',
-      type: 'number',
+      fieldType: 'number',
       getter: function (job) {
         return `${job.getMem() || ''}`;
       }
     },
     disk: {
       title: 'Disk (MiB)',
-      type: 'number',
+      fieldType: 'number',
       getter: function (job) {
         return `${job.getDisk() || ''}`;
       }

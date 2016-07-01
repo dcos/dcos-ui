@@ -58,7 +58,7 @@ const General = {
       description: 'Time in seconds to start the job if it misses ' +
       'scheduled time for any reason. Missed jobs executions will be ' +
       'counted as failed ones.',
-      type: 'number',
+      fieldType: 'number',
       getter: function (job) {
         let [schedule = {}] = job.getSchedules();
 
