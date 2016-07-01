@@ -133,7 +133,7 @@ var Index = React.createClass({
     let showErrorScreen =
       this.state.configErrorCount >= Config.delayAfterErrorCount;
 
-    var classSet = classNames({
+    var classSet = classNames('canvas flex flex-direction-top-to-bottom flex-direction-left-to-right-screen-medium', {
       'canvas-sidebar-open': data.isOpen
     });
 

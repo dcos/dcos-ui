@@ -65,7 +65,7 @@ JobsPage.contextTypes = {
 
 JobsPage.routeConfig = {
   label: 'Jobs',
-  icon: <Icon id="pages-code" />,
+  icon: <Icon id="pages-code-inverse" size="small" family="small" />,
   matches: /^\/jobs/
 };
 

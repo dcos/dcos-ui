@@ -1,0 +1,298 @@
+/* -----------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+page/styles.less
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+----------------------------------------------------------------------------- */
+
+
+
+.page {
+
+  overflow-y: hidden;
+  overflow-x: hidden;
+
+}
+
+
+
+& when (@layout-screen-small-enabled) {
+
+  /* ---------------------------------------------------------------------------
+  Screen Size: Small (@layout-screen-small-min-width) and wider
+  ----------------------------------------------------------------------------*/
+
+  @media (min-width: @layout-screen-small-min-width) {
+
+  }
+
+}
+
+
+
+& when (@layout-screen-medium-enabled) {
+
+  /* ---------------------------------------------------------------------------
+  Screen Size: Medium (@layout-screen-medium-min-width) and wider
+  ----------------------------------------------------------------------------*/
+
+  @media (min-width: @layout-screen-medium-min-width) {
+
+  }
+
+}
+
+
+
+& when (@layout-screen-large-enabled) {
+
+  /* ---------------------------------------------------------------------------
+  Screen Size: Large (@layout-screen-large-min-width) and wider
+  ----------------------------------------------------------------------------*/
+
+  @media (min-width: @layout-screen-large-min-width) {
+
+  }
+
+}
+
+
+
+& when (@layout-screen-jumbo-enabled) {
+
+  /* ---------------------------------------------------------------------------
+  Screen Size: Jumbo (@layout-screen-jumbo-min-width) and wider
+  ----------------------------------------------------------------------------*/
+
+  @media (min-width: @layout-screen-jumbo-min-width) {
+
+  }
+
+}
+
+
+
+
+// @page-navigation-font-size: @body-text-font-size * 1.4;
+//
+// .page {
+//   display: flex;
+//   flex: 1;
+//   flex-direction: column;
+//   height: 100%;
+//   left: 0px;
+//   overflow: hidden;
+//   position: relative;
+//   top: 0px;
+//   transition: left 0.3s ease-in-out, margin-left 0.3s ease-in-out;
+//   width: 100%;
+//
+//   .page-navigation {
+//     .clearfix();
+//     background-color: @page-navigation-background-color;
+//
+//     .page-navigation-list {
+//
+//       font-size: @page-navigation-font-size;
+//
+//       .tab-item {
+//         .tab-item-label {
+//           padding-bottom: @container-pod-short-padding-vertical-screen-mini;
+//
+//           .tab-item-label-text {
+//             &:after {
+//               bottom: @container-pod-short-padding-vertical-screen-mini * -1;
+//             }
+//           }
+//         }
+//       }
+//     }
+//
+//     .page-navigation-context {
+//       width: 100%;
+//
+//       .tabs {
+//
+//         li {
+//           a {
+//
+//             &.active {
+//
+//               &:after {
+//                 .opacity(1);
+//               }
+//
+//               .page-navigation-title {
+//                 color: @white;
+//               }
+//
+//             }
+//
+//           }
+//
+//           &:not(.active) {
+//             .page-navigation-title {
+//               color: color-lighten(@neutral, 40);
+//             }
+//           }
+//         }
+//       }
+//
+//       /* Page Header Sidebar Toggle */
+//       .page-navigation-sidebar-toggle {
+//         position: relative;
+//         float: left;
+//         cursor: pointer;
+//         z-index: @z-index-page-navigation-sidebar-toggle;
+//
+//         .page-navigation-sidebar-toggle-icon {
+//           margin-right: (@base-spacing-unit * 1.0);
+//           .opacity(0.40);
+//         }
+//
+//         .page-navigation-sidebar-toggle-label {
+//           display: none;
+//         }
+//
+//         &:hover {
+//            .page-navigation-sidebar-toggle-icon {
+//             .opacity(0.80);
+//           }
+//         }
+//
+//         &:active {
+//            .page-navigation-sidebar-toggle-icon {
+//             .opacity(0.40);
+//           }
+//         }
+//       }
+//     }
+//
+//     /* Page Header Actions */
+//     .page-navigation-actions {
+//       float: right;
+//     }
+//
+//     /* Page Header Navigation */
+//     .page-navigation-navigation {
+//       clear: both;
+//     }
+//   }
+// }
+//
+// .page-content {
+//
+//   // When the content of pages need to fill the height of the page (and not
+//   // exceed that height), the page content wrapper height needs to be explicitly
+//   // 100%. We also want to set a sane minimum size.
+//   .page-content-fit-height {
+//     height: 100%;
+//     min-height: 300px;
+//
+//     .page-content-fill {
+//
+//       // This targets the direct descendent of the element that is meant to fill
+//       // the page's content. Specifically, this is necessary to target the
+//       // generic div that wraps our table component.
+//       > div {
+//         display: flex;
+//         flex-direction: column;
+//         flex-grow: 1;
+//       }
+//
+//       .gm-scrollbar-container {
+//         flex-grow: 1;
+//       }
+//     }
+//   }
+//
+//
+//   // Make sure to grow Gemini view in page content
+//   > .gm-scroll-view {
+//     display: flex;
+//     flex-direction: column;
+//     flex: 1 0 auto;
+//   }
+//
+// }
+//
+// /* Screen Size: Mini (@screen-mini) and above */
+// & when (@screen-mini-enabled) {
+//   @media (max-width: @screen-mini-max) {
+//     .page {
+//
+//       .page-navigation {
+//
+//         .page-navigation-navigation {
+//
+//           .container-pod {
+//             padding-top: 0;
+//           }
+//         }
+//       }
+//     }
+//   }
+// }
+//
+// /* Screen Size: Small (@screen-small) and above */
+// & when (@screen-small-enabled) {
+//   @media (min-width: @screen-small) {
+//
+//     .page {
+//       height: 100%;
+//       position: relative;
+//       transition: none;
+//       width: auto;
+//
+//       .page-navigation {
+//
+//         .page-navigation-context {
+//           display: none;
+//         }
+//
+//         .page-navigation-navigation {
+//
+//           padding-top: @base-spacing-unit-screen-small * 0.2;
+//
+//         }
+//       }
+//     }
+//   }
+// }
+//
+// /* Screen Size: Medium (@screen-medium) and above */
+// & when (@screen-medium-enabled) {
+//   @media (min-width: @screen-medium) {
+//
+//     .page {
+//
+//       .page-navigation {
+//
+//         .page-navigation-navigation {
+//
+//           padding-top: @base-spacing-unit-screen-medium * 0.2;
+//
+//         }
+//       }
+//     }
+//   }
+// }
+//
+// /* Screen Size: Large (@screen-large) and above */
+// & when (@screen-large-enabled) {
+//   @media (min-width: @screen-large) {
+//
+//     .page {
+//
+//       .page-navigation {
+//
+//         .page-navigation-navigation {
+//
+//           padding-top: @base-spacing-unit-screen-large * 0.2;
+//
+//         }
+//       }
+//     }
+//   }
+// }

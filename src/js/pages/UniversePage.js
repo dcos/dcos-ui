@@ -68,7 +68,7 @@ UniversePage.contextTypes = {
 
 UniversePage.routeConfig = {
   label: 'Universe',
-  icon: <Icon id="packages" />,
+  icon: <Icon id="packages-inverse" size="small" family="small" />,
   matches: /^\/universe/
 };
 

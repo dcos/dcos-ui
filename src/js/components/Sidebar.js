@@ -6,10 +6,10 @@ var State = require('react-router').State;
 import {Tooltip} from 'reactjs-components';
 
 import ClusterHeader from './ClusterHeader';
-import Config from '../config/Config';
+// import Config from '../config/Config';
 var EventTypes = require('../constants/EventTypes');
 import Icon from './Icon';
-import IconDCOSLogoMark from './icons/IconDCOSLogoMark';
+// import IconDCOSLogoMark from './icons/IconDCOSLogoMark';
 import {keyCodes} from '../utils/KeyboardUtil';
 var InternalStorageMixin = require('../mixins/InternalStorageMixin');
 var MesosSummaryStore = require('../stores/MesosSummaryStore');
@@ -110,7 +110,7 @@ var Sidebar = React.createClass({
       var isActive = route.handler.routeConfig.matches.test(currentPath);
       let icon = React.cloneElement(
         route.handler.routeConfig.icon,
-        {className: 'sidebar-menu-item-icon icon icon-medium'}
+        {className: 'sidebar-menu-item-icon icon icon-small'}
       );
 
       var itemClassSet = classNames({
@@ -119,14 +119,14 @@ var Sidebar = React.createClass({
       });
 
       let sidebarText = (
-        <span className="sidebar-menu-item-label h4 flush">
+        <span className="sidebar-menu-item-label">
           {route.handler.routeConfig.label}
         </span>
       );
 
       if (notificationCount > 0) {
         sidebarText = (
-          <span className="sidebar-menu-item-label h4 flush badge-container badge-primary">
+          <span className="sidebar-menu-item-label badge-container badge-primary">
             <span className="sidebar-menu-item-label-text">
               {route.handler.routeConfig.label}
             </span>
@@ -186,39 +186,46 @@ var Sidebar = React.createClass({
   },
 
   render: function () {
-    let sidebarClasses = classNames('sidebar flex-container-col', {
+    let sidebarClasses = classNames('sidebar flex flex-direction-top-to-bottom flex-item-shrink-0', {
       'is-expanded': this.state.sidebarExpanded
     });
 
     return (
       <div className={sidebarClasses}>
-        <div className="sidebar-header">
-          <ClusterHeader />
-        </div>
-        <GeminiScrollbar autoshow={true} className="sidebar-content container-scrollable">
-          <div className="sidebar-content-wrapper">
-            <nav className="sidebar-navigation">
-              <ul className="sidebar-menu list-unstyled flush-bottom">
-                {this.getMenuItems()}
-              </ul>
-            </nav>
-            <div className="container container-fluid container-pod container-pod-short sidebar-logo-container">
-              <div className="sidebar-footer-image">
-                <a href={Config.productHomepageURI} target="_blank">
-                  <IconDCOSLogoMark />
-                </a>
+        <header className="header flex-item-shrink-0">
+          <div className="header-inner">
+            <div className="pod pod-narrow pod-short">
+              <ClusterHeader />
+            </div>
+          </div>
+        </header>
+        <GeminiScrollbar autoshow={true}
+          className="navigation flex-item-grow-1 flex-item-shrink-1 inverse"
+          >
+          <div className="navigation-inner pod pod-short flush-left flush-right">
+            <div className="pod pod-narrow flush-top flush-bottom">
+              <div className="sidebar-section pod pod-shorter flush-top flush-left flush-right">
+                <ul className="sidebar-menu">
+                  {this.getMenuItems()}
+                </ul>
               </div>
-              <p className="text-align-center flush-top flush-bottom mute small">
-                <span className="clickable" onClick={this.handleVersionClick}>
-                  <span className="company-name small">{Config.productName} </span>
-                  <span className="app-name small">{this.getVersion()}</span>
-                </span>
-              </p>
+              <div className="sidebar-section pod pod-shorter flush-top flush-left flush-right">
+                <h6 className="sidebar-section-header inverse">
+                  Resources
+                </h6>
+                <ul className="sidebar-menu">
+                  {this.getMenuItems()}
+                </ul>
+              </div>
             </div>
           </div>
         </GeminiScrollbar>
-        <div className="sidebar-footer">
-          {this.getFooter()}
+        <div className="hide footer">
+          <div className="footer-inner">
+            <div className="pod pod-narrow pod-short">
+              {this.getFooter()}
+            </div>
+          </div>
         </div>
       </div>
     );
