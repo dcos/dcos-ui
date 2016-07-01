@@ -4,7 +4,11 @@ import SidebarActions from '../../../events/SidebarActions';
 class TypographyTabContent extends React.Component {
 
   render() {
-    return null;
+    return (
+      <div>
+
+      </div>
+    );
   }
 }
 
