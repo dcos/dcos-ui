@@ -71,7 +71,7 @@ describe('Framework', function () {
       expect(service.getWebURL()).toEqual('foo');
     });
 
-    it('returns the url if ID is present but webui_url is not', function () {
+    it('returns a dynamically created url if an ID is defined but is not webui_url', function () {
       let service = new Framework({id: 'foo'});
       expect(service.getWebURL()).toEqual('/service/foo');
     });
@@ -81,7 +81,7 @@ describe('Framework', function () {
       expect(service.getWebURL()).toEqual(null);
     });
 
-    it('returns null if the id is an empty string', function () {
+    it('returns null if the id is an empty string and webui_url is undefined', function () {
       let service = new Framework({id: ''});
       expect(service.getWebURL()).toEqual(null);
     });
