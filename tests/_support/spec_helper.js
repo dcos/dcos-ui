@@ -63,7 +63,8 @@ Cypress.addParentCommand('configureCluster', function (configuration) {
       .route(/history\/minute/, 'fx:marathon-1-task/history-minute')
       .route(/history\/last/, 'fx:1-app-for-each-health/summary')
       .route(/state-summary/, 'fx:1-app-for-each-health/summary')
-      .route(/state/, 'fx:marathon-1-task/state');
+      .route(/state/, 'fx:marathon-1-task/state')
+      .route(/overlay-master\/state/, 'fx:mesos/overlay-master');
   }
 
   if (configuration.mesos === '1-service-with-executor-task') {
