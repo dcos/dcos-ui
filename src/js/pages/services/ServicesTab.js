@@ -220,7 +220,6 @@ var ServicesTab = React.createClass({
     // Render empty panel
     return (
       <div>
-        <Breadcrumbs />
         <AlertPanel
           title="No Services Deployed"
           footer={this.getAlertPanelFooter()}
