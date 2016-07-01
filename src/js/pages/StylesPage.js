@@ -94,7 +94,7 @@ class StylesPage extends mixin(TabsMixin) {
 
   getSubNavigation() {
     return (
-      <ul className="tabs list-inline flush-bottom inverse">
+      <ul className="menu-tabbed">
         {this.tabs_getRoutedTabs()}
       </ul>
     );
