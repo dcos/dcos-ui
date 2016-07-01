@@ -126,7 +126,7 @@ const Networking = {
         properties: {
           lbPort: {
             title: 'LB Port',
-            fieldType: 'number'
+            type: 'number'
           },
           name: {
             title: 'Name',
