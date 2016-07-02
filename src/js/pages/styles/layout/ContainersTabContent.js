@@ -4,6 +4,15 @@ import SidebarActions from '../../../events/SidebarActions';
 class ContainersTabContent extends React.Component {
 
   render() {
+    let codeBlockContainersFixed =
+`<div class="container">
+  <!-- Container content goes here -->
+</div>`;
+    let codeBlockContainersFluid =
+`<div class="pod flush-top flush-bottom">
+  <!-- Container content goes here -->
+</div>`;
+
     return (
       <div>
 
@@ -55,9 +64,9 @@ class ContainersTabContent extends React.Component {
             <div className="example-block-footer example-block-footer-codeblock">
 
               <pre className="prettyprint lang-html flush-bottom">
-              &lt;div class="container"&gt;
-                &lt;!-- Container content goes here --&gt;
-              &lt;/div&gt;
+
+                {codeBlockContainersFixed}
+
               </pre>
 
             </div>
@@ -98,9 +107,9 @@ class ContainersTabContent extends React.Component {
             <div className="example-block-footer example-block-footer-codeblock">
 
               <pre className="prettyprint lang-html flush-bottom">
-              &lt;div class="pod flush-top flush-bottom"&gt;
-                &lt;!-- Container content goes here --&gt;
-              &lt;/div&gt;
+
+                {codeBlockContainersFluid}
+
               </pre>
 
             </div>
