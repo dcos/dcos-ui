@@ -1,0 +1,294 @@
+/* -----------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+example-block/styles.less
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+----------------------------------------------------------------------------- */
+
+
+
+& when (@example-block-enabled) {
+
+  /* -----------------------------------------------------------------------------
+  Example Block
+  ----------------------------------------------------------------------------- */
+
+  .example-block {
+
+    border-radius: 5px;
+    @shadow:  0px 0px 0px 1px rgba(0, 0, 0, 0.1), 0px 2px 1px 0px rgba(0, 0, 0, 0.1);
+    box-shadow: @shadow;
+    overflow: hidden;
+    margin-bottom: @base-spacing-unit * 0.5;
+
+
+
+    &.example-block-overflow {
+
+      overflow: visible;
+
+    }
+
+
+
+    .example-block-content {
+
+      background: @white;
+      padding: (@grid-gutter-width * 0.5);
+      position: relative;
+
+      &:before {
+
+        display: none;
+        content: 'Example';
+        background: color-lighten(@neutral, 95);
+        border-right: 1px solid rgba(0, 0, 0, 0.1);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        border-radius: 5px 0px 5px 0px;
+        padding: (@grid-gutter-width * 0.125) (@grid-gutter-width * 0.25);
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        text-transform: uppercase;
+
+      }
+
+      & + .example-block-footer {
+
+        border-radius: 0px 0px 5px 5px;
+
+      }
+
+      .dropdown-open {
+
+        .clearfix();
+
+        .dropdown-toggle {
+
+          float: left;
+
+        }
+
+        .dropdown-menu {
+
+          position: static;
+          display: block;
+          clear: left;
+
+        }
+
+      }
+
+    }
+
+    .example-block-footer {
+
+      border-radius: 5px;
+      padding: (@grid-gutter-width * 0.5);
+      background: color-lighten(@neutral, 95);
+      border-top: 1px solid rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+
+      &.example-block-footer-codeblock {
+
+        padding: 0px;
+
+        pre {
+
+          border-radius: 0px;
+
+        }
+
+      }
+
+    }
+
+    &.inverse {
+
+      .example-block-content {
+
+        background: @fill-dark-background-color;
+        margin: 3px;
+        border-radius: 3px 3px 0px 0px;
+
+        &:before {
+
+          top: -3px;
+          left: -3px;
+
+        }
+
+      }
+
+    }
+
+  }
+
+}
+
+
+
+& when (@layout-screen-small-enabled) {
+
+  /* -----------------------------------------------------------------------------
+  Screen Size: Small (@layout-screen-small-min-width) and wider
+  ----------------------------------------------------------------------------- */
+
+  @media (min-width: @layout-screen-small-min-width) {
+
+    & when (@example-block-enabled) and (@example-block-screen-small-enabled) {
+
+      .example-block {
+
+        .example-block-content {
+
+          padding: (@base-spacing-unit-screen-small * 0.5);
+
+          &:before {
+
+            padding: (@base-spacing-unit-screen-small * 0.125) (@base-spacing-unit-screen-small * 0.25);
+
+          }
+
+        }
+
+        .example-block-footer {
+
+          padding: (@base-spacing-unit-screen-small * 0.5);
+
+        }
+
+      }
+
+    }
+
+  }
+
+}
+
+
+
+& when (@layout-screen-medium-enabled) {
+
+  /* -----------------------------------------------------------------------------
+  Screen Size: Medium (@layout-screen-medium-min-width) and wider
+  ----------------------------------------------------------------------------- */
+
+  @media (min-width: @layout-screen-medium-min-width) {
+
+    & when (@example-block-enabled) and (@example-block-screen-medium-enabled) {
+
+      .example-block {
+
+        margin-bottom: @base-spacing-unit-screen-medium * 0.5;
+
+        .example-block-content {
+
+          padding: (@base-spacing-unit-screen-medium * 0.5);
+
+          &:before {
+
+            padding: (@base-spacing-unit-screen-medium * 0.125) (@base-spacing-unit-screen-medium * 0.25);
+
+          }
+
+        }
+
+        .example-block-footer {
+
+          padding: (@base-spacing-unit-screen-medium * 0.5);
+
+        }
+
+      }
+
+    }
+
+  }
+
+}
+
+
+
+& when (@layout-screen-large-enabled) {
+
+  /* -----------------------------------------------------------------------------
+  Screen Size: Large (@layout-screen-large-min-width) and wider
+  ----------------------------------------------------------------------------- */
+
+  @media (min-width: @layout-screen-large-min-width) {
+
+    & when (@example-block-enabled) and (@example-block-screen-large-enabled) {
+
+      .example-block {
+
+        margin-bottom: @base-spacing-unit-screen-large * 0.5;
+
+        .example-block-content {
+
+          padding: (@base-spacing-unit-screen-large * 0.5);
+
+          &:before {
+
+            padding: (@base-spacing-unit-screen-large * 0.125) (@base-spacing-unit-screen-large * 0.25);
+
+          }
+
+        }
+
+        .example-block-footer {
+
+          padding: (@base-spacing-unit-screen-large * 0.5);
+
+        }
+
+      }
+
+    }
+
+  }
+
+}
+
+
+
+& when (@layout-screen-jumbo-enabled) {
+
+  /* -----------------------------------------------------------------------------
+  Screen Size: Jumbo (@layout-screen-jumbo-min-width) and wider
+  ----------------------------------------------------------------------------- */
+
+  @media (min-width: @layout-screen-jumbo-min-width) {
+
+    & when (@example-block-enabled) and (@example-block-screen-jumbo-enabled) {
+
+      .example-block {
+
+        margin-bottom: @base-spacing-unit-screen-jumbo * 0.5;
+
+        .example-block-content {
+
+          padding: (@base-spacing-unit-screen-jumbo * 0.5);
+
+          &:before {
+
+            padding: (@base-spacing-unit-screen-jumbo * 0.125) (@base-spacing-unit-screen-jumbo * 0.25);
+
+          }
+
+        }
+
+        .example-block-footer {
+
+          padding: (@base-spacing-unit-screen-jumbo * 0.5);
+
+        }
+
+      }
+
+    }
+
+  }
+
+}
