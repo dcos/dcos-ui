@@ -1,15 +1,162 @@
 import React from 'react';
 import SidebarActions from '../../../events/SidebarActions';
+// JSON.stringify(this.props.versionDump, null, 2)`
+
 
 class TypographyTabContent extends React.Component {
 
   render() {
+    let codeBlockTypographyBody =
+`<p>
+  Collaboratively administrate empowered…
+</p>
+
+<p>
+  Efficiently unleash cross-media information…
+</p>`;
+    let codeBlockTypographyBodyLead =
+`<p class="lead">
+  Collaboratively administrate empowered…
+</p>
+
+<p>
+  Efficiently unleash cross-media information…
+</p>`;
+    let codeBlockTypographyBodySmall =
+`<p>
+  Collaboratively administrate empowered…
+</p>
+
+<p class="small">
+  Efficiently unleash cross-media information…
+</p>`;
+    let codeBlockTypographyHeadings =
+`<h1>
+  h1 Heading Text
+</h1>
+
+<h2>
+  h2 Heading Text
+</h2>
+
+<h3>
+  h3 Heading Text
+</h3>
+
+<h4>
+  h4 Heading Text
+</h4>
+
+<h5>
+  h5 Heading Text
+</h5>
+
+<h6>
+  h6 Heading Text
+</h6>`;
+    let codeBlockTypographyInlineStylingEmphasis =
+`<h2 className="flush-top">
+  Heading with <span className="emphasis">emphasized</span> text
+</h2>
+
+<p className="lead">
+  Quickly <span className="emphasis">maximize</span> timely…
+</p>
+
+<p className="flush-bottom">
+  Efficiently unleash <span className="emphasis">cross-media</span> inf…
+</p>`;
+    let codeBlockTypographyInlineStylingMuted =
+`<h2 className="flush-top">
+  Heading with <span className="muted">muted</span> text
+</h2>
+
+<p className="lead">
+  Quickly <span className="muted">maximize</span> timely…
+</p>
+
+<p className="flush-bottom">
+  Efficiently unleash <span className="muted">cross-media</span> inf…
+</p>`;
+    let codeBlockTypographyInverseStyling=
+`<h2 className="inverse">
+  h2 Heading Text
+</h2>
+
+<p className="lead inverse">
+  Dramatically visualize <span className="emphasis">emphasized</span> directed…
+</p>
+
+<p className="inverse">
+  Collaboratively administrate empowered…
+</p>
+
+<p className="inverse">
+  Efficiently unleash <span className="muted">cross-media</span> information…
+</p>`;
+    let codeBlockTypographyAlignment =
+`<p className="text-align-left">
+  Left aligned text.
+</p>
+
+<p className="text-align-center">
+  Center aligned text.
+</p>
+
+<p className="text-align-right">
+  Right aligned text.
+</p>
+
+<p className="text-align-justify">
+  Justify aligned text.
+</p>
+
+<p className="text-align-nowrap">
+  No wrap text.
+</p>`;
+    let codeBlockTypographyTransformation =
+`<p className="text-uppercase">
+  Uppercase text
+</p>
+
+<p className="text-lowercase">
+  Lowercase text.
+</p>
+
+<p className="text-capitalize">
+  Capitalized text.
+</p>`;
+    let codeBlockTypographyListsOrdered =
+`<ol>
+  <li>
+    …
+  </li>
+</ol>`;
+    let codeBlockTypographyListsUnordered =
+`<ol>
+  <li>
+    …
+  </li>
+</ol>`;
+    let codeBlockTypographyListsUnstyled =
+`<ul className="list-unstyled">
+  <li>
+    …
+  </li>
+</ul>`;
+    let codeBlockTypographyListsInline =
+`<ul className="list-inline">
+  <li>
+    …
+  </li>
+</ul>`;
+
     return (
       <div>
 
         <section id="typography-body">
 
-          <h2 class="flush-top">
+          <h2 className="flush-top">
 
             Body Text
 
@@ -21,17 +168,17 @@ class TypographyTabContent extends React.Component {
 
           </p>
 
-          <div class="example-block flush-bottom">
+          <div className="example-block flush-bottom">
 
-            <div class="example-block-content">
+            <div className="example-block-content">
 
-              <p class="">
+              <p className="">
 
                 Collaboratively administrate empowered markets via plug-and-play networks. Dynamically procrastinate B2C users after installed base benefits. Dramatically visualize customer directed convergence without revolutionary ROI.
 
               </p>
 
-              <p class="flush-bottom">
+              <p className="flush-bottom">
 
                 Efficiently unleash cross-media information without cross-media value. Quickly maximize timely deliverables for real-time schemas. Dramatically maintain clicks-and-mortar solutions without functional solutions. Completely synergize resource sucking relationships via premier niche markets.
 
@@ -39,17 +186,13 @@ class TypographyTabContent extends React.Component {
 
             </div>
 
-            <div class="example-block-footer example-block-footer-codeblock">
+            <div className="example-block-footer example-block-footer-codeblock">
 
-<pre class="prettyprint lang-html lang-html flush-bottom">
-&lt;p&gt;
-  Collaboratively administrate empowered&hellip;
-&lt;/p&gt;
+              <pre className="prettyprint lang-html flush-bottom">
 
-&lt;p&gt;
-  Efficiently unleash cross-media information&hellip;
-&lt;/p&gt;
-</pre>
+                {codeBlockTypographyBody}
+
+              </pre>
 
             </div>
 
@@ -69,17 +212,17 @@ class TypographyTabContent extends React.Component {
 
             </p>
 
-            <div class="example-block flush-bottom">
+            <div className="example-block flush-bottom">
 
-              <div class="example-block-content">
+              <div className="example-block-content">
 
-                <p class="lead">
+                <p className="lead">
 
                   Collaboratively administrate empowered markets via plug-and-play networks. Dynamically procrastinate B2C users after installed base benefits.
 
                 </p>
 
-                <p class="flush-bottom">
+                <p className="flush-bottom">
 
                   Efficiently unleash cross-media information without cross-media value. Quickly maximize timely deliverables for real-time schemas. Dramatically maintain clicks-and-mortar solutions without functional solutions. Completely synergize resource sucking relationships via premier niche markets.
 
@@ -87,17 +230,13 @@ class TypographyTabContent extends React.Component {
 
               </div>
 
-              <div class="example-block-footer example-block-footer-codeblock">
+              <div className="example-block-footer example-block-footer-codeblock">
 
-<pre class="prettyprint lang-html flush-bottom">
-&lt;p class="lead"&gt;
-  Collaboratively administrate empowered&hellip;
-&lt;/p&gt;
+                <pre className="prettyprint lang-html flush-bottom">
 
-&lt;p&gt;
-  Efficiently unleash cross-media information&hellip;
-&lt;/p&gt;
-</pre>
+                  {codeBlockTypographyBodyLead}
+
+                </pre>
 
               </div>
 
@@ -119,9 +258,9 @@ class TypographyTabContent extends React.Component {
 
             </p>
 
-            <div class="example-block flush-bottom">
+            <div className="example-block flush-bottom">
 
-              <div class="example-block-content">
+              <div className="example-block-content">
 
                 <p>
 
@@ -129,7 +268,7 @@ class TypographyTabContent extends React.Component {
 
                 </p>
 
-                <p class="small flush-bottom">
+                <p className="small flush-bottom">
 
                   Collaboratively administrate empowered markets via plug-and-play networks.
 
@@ -137,17 +276,13 @@ class TypographyTabContent extends React.Component {
 
               </div>
 
-              <div class="example-block-footer example-block-footer-codeblock">
+              <div className="example-block-footer example-block-footer-codeblock">
 
-<pre class="prettyprint lang-html flush-bottom">
-&lt;p&gt;
-  Collaboratively administrate empowered&hellip;
-&lt;/p&gt;
+                <pre className="prettyprint lang-html flush-bottom">
 
-&lt;p class="small"&gt;
-  Efficiently unleash cross-media information&hellip;
-&lt;/p&gt;
-</pre>
+                  {codeBlockTypographyBodySmall}
+
+                </pre>
 
               </div>
 
@@ -171,11 +306,11 @@ class TypographyTabContent extends React.Component {
 
           </p>
 
-          <div class="example-block flush-bottom">
+          <div className="example-block flush-bottom">
 
-            <div class="example-block-content">
+            <div className="example-block-content">
 
-              <h1 class="flush-top">
+              <h1 className="flush-top">
 
                 h1 Heading Text
 
@@ -205,7 +340,7 @@ class TypographyTabContent extends React.Component {
 
               </h5>
 
-              <h6 class="flush-bottom">
+              <h6 className="flush-bottom">
 
                 h6 Heading Text
 
@@ -213,33 +348,13 @@ class TypographyTabContent extends React.Component {
 
             </div>
 
-            <div class="example-block-footer example-block-footer-codeblock">
+            <div className="example-block-footer example-block-footer-codeblock">
 
-<pre class="prettyprint lang-html flush-bottom">
-&lt;h1&gt;
-  h1 Heading Text
-&lt;/h1&gt;
+              <pre className="prettyprint lang-html flush-bottom">
 
-&lt;h2&gt;
-  h2 Heading Text
-&lt;/h2&gt;
+                {codeBlockTypographyHeadings}
 
-&lt;h3&gt;
-  h3 Heading Text
-&lt;/h3&gt;
-
-&lt;h4&gt;
-  h4 Heading Text
-&lt;/h4&gt;
-
-&lt;h5&gt;
-  h5 Heading Text
-&lt;/h5&gt;
-
-&lt;h6&gt;
-  h6 Heading Text
-&lt;/h6&gt;
-</pre>
+              </pre>
 
             </div>
 
@@ -255,7 +370,7 @@ class TypographyTabContent extends React.Component {
 
           </h2>
 
-          <p class="flush-bottom">
+          <p className="flush-bottom">
 
             For all text elements, classes are made available to adjust the styling inline.  For example, increase the emphasis of text to convey importance.
 
@@ -275,45 +390,37 @@ class TypographyTabContent extends React.Component {
 
             </p>
 
-            <div class="example-block flush-bottom">
+            <div className="example-block flush-bottom">
 
-              <div class="example-block-content">
+              <div className="example-block-content">
 
-                <h2 class="flush-top">
+                <h2 className="flush-top">
 
-                  Heading with <span class="emphasis">emphasized</span> text
+                  Heading with <span className="emphasis">emphasized</span> text
 
                 </h2>
 
-                <p class="lead">
+                <p className="lead">
 
-                  Quickly <span class="emphasis">maximize</span> timely deliverables for deliverables without functional solutions.
+                  Quickly <span className="emphasis">maximize</span> timely deliverables for deliverables without functional solutions.
 
                 </p>
 
-                <p class="flush-bottom">
+                <p className="flush-bottom">
 
-                  Efficiently unleash <span class="emphasis">cross-media</span> information without cross-media value. Quickly maximize timely deliverables for real-time schemas. Dramatically maintain clicks-and-mortar solutions without functional solutions. Completely synergize resource sucking relationships via premier niche markets.
+                  Efficiently unleash <span className="emphasis">cross-media</span> information without cross-media value. Quickly maximize timely deliverables for real-time schemas. Dramatically maintain clicks-and-mortar solutions without functional solutions. Completely synergize resource sucking relationships via premier niche markets.
 
                 </p>
 
               </div>
 
-              <div class="example-block-footer example-block-footer-codeblock">
+              <div className="example-block-footer example-block-footer-codeblock">
 
-<pre class="prettyprint lang-html flush-bottom">
-&lt;h2 class="flush-top"&gt;
-  Heading with &lt;span class="emphasis"&gt;emphasized&lt;/span&gt; text
-&lt;/h2&gt;
+                <pre className="prettyprint lang-html flush-bottom">
 
-&lt;p class="lead"&gt;
-  Quickly &lt;span class="emphasis"&gt;maximize&lt;/span&gt; timely&hellip;
-&lt;/p&gt;
+                  {codeBlockTypographyInlineStylingEmphasis}
 
-&lt;p class="flush-bottom"&gt;
-  Efficiently unleash &lt;span class="emphasis"&gt;cross-media&lt;/span&gt; inf&hellip;
-&lt;/p&gt;
-</pre>
+                </pre>
 
               </div>
 
@@ -335,45 +442,37 @@ class TypographyTabContent extends React.Component {
 
             </p>
 
-            <div class="example-block flush-bottom">
+            <div className="example-block flush-bottom">
 
-              <div class="example-block-content">
+              <div className="example-block-content">
 
-                <h2 class="flush-top">
+                <h2 className="flush-top">
 
-                  Heading with <span class="muted">muted</span> text
+                  Heading with <span className="muted">muted</span> text
 
                 </h2>
 
-                <p class="lead">
+                <p className="lead">
 
-                  Quickly <span class="muted">maximize</span> timely deliverables for deliverables without functional solutions.
+                  Quickly <span className="muted">maximize</span> timely deliverables for deliverables without functional solutions.
 
                 </p>
 
-                <p class="flush-bottom">
+                <p className="flush-bottom">
 
-                  Efficiently unleash <span class="muted">cross-media</span> information without cross-media value. Quickly maximize timely deliverables for real-time schemas. Dramatically maintain clicks-and-mortar solutions without functional solutions. Completely synergize resource sucking relationships via premier niche markets.
+                  Efficiently unleash <span className="muted">cross-media</span> information without cross-media value. Quickly maximize timely deliverables for real-time schemas. Dramatically maintain clicks-and-mortar solutions without functional solutions. Completely synergize resource sucking relationships via premier niche markets.
 
                 </p>
 
               </div>
 
-              <div class="example-block-footer example-block-footer-codeblock">
+              <div className="example-block-footer example-block-footer-codeblock">
 
-<pre class="prettyprint lang-html flush-bottom">
-&lt;h2 class="flush-top"&gt;
-  Heading with &lt;span class="muted"&gt;muted&lt;/span&gt; text
-&lt;/h2&gt;
+                <pre className="prettyprint lang-html flush-bottom">
 
-&lt;p class="lead"&gt;
-  Quickly &lt;span class="muted"&gt;maximize&lt;/span&gt; timely&hellip;
-&lt;/p&gt;
+                  {codeBlockTypographyInlineStylingMuted}
 
-&lt;p class="flush-bottom"&gt;
-  Efficiently unleash &lt;span class="muted"&gt;cross-media&lt;/span&gt; inf&hellip;
-&lt;/p&gt;
-</pre>
+                </pre>
 
               </div>
 
@@ -403,85 +502,73 @@ class TypographyTabContent extends React.Component {
 
           </p>
 
-          <div class="example-block inverse">
+          <div className="example-block inverse">
 
-            <div class="example-block-content">
+            <div className="example-block-content">
 
-              <h1 class="inverse flush-top">
+              <h1 className="inverse flush-top">
 
                 h1 Heading Text
 
               </h1>
 
-              <h2 class="inverse">
+              <h2 className="inverse">
 
                 h2 Heading Text
 
               </h2>
 
-              <h3 class="inverse">
+              <h3 className="inverse">
 
                 h3 Heading Text
 
               </h3>
 
-              <h4 class="inverse">
+              <h4 className="inverse">
 
                 h4 Heading Text
 
               </h4>
 
-              <h5 class="inverse">
+              <h5 className="inverse">
 
                 h5 Heading Text
 
               </h5>
 
-              <h6 class="inverse">
+              <h6 className="inverse">
 
                 h6 Heading Text
 
               </h6>
 
-              <p class="lead inverse">
+              <p className="lead inverse">
 
-                Dramatically visualize <span class="emphasis">customer</span> directed convergence without revolutionary ROI.
+                Dramatically visualize <span className="emphasis">customer</span> directed convergence without revolutionary ROI.
 
               </p>
 
-              <p class="inverse">
+              <p className="inverse">
 
                 Collaboratively administrate empowered markets via plug-and-play networks. Dynamically procrastinate B2C users after installed base benefits. Dramatically visualize customer directed convergence without revolutionary ROI.
 
               </p>
 
-              <p class="inverse flush-bottom">
+              <p className="inverse flush-bottom">
 
-                Efficiently unleash <span class="muted">cross-media</span> information without cross-media value. Quickly maximize timely deliverables for real-time schemas. Dramatically maintain clicks-and-mortar solutions without functional solutions. Completely synergize resource sucking relationships via premier niche markets.
+                Efficiently unleash <span className="muted">cross-media</span> information without cross-media value. Quickly maximize timely deliverables for real-time schemas. Dramatically maintain clicks-and-mortar solutions without functional solutions. Completely synergize resource sucking relationships via premier niche markets.
 
               </p>
 
             </div>
 
-            <div class="example-block-footer example-block-footer-codeblock">
+            <div className="example-block-footer example-block-footer-codeblock">
 
-<pre class="prettyprint lang-html flush-bottom">
-&lt;h2 class="inverse"&gt;
-  h2 Heading Text
-&lt;/h2&gt;
+              <pre className="prettyprint lang-html flush-bottom">
 
-&lt;p class="lead inverse"&gt;
-  Dramatically visualize &lt;span class="emphasis"&gt;emphasized&lt;/span&gt; directed&hellip;
-&lt;/p&gt;
+                {codeBlockTypographyInverseStyling}
 
-&lt;p class="inverse"&gt;
-  Collaboratively administrate empowered&hellip;
-&lt;/p&gt;
-
-&lt;p class="inverse"&gt;
-  Efficiently unleash &lt;span class="muted"&gt;cross-media&lt;/span&gt; information&hellip;
-&lt;/p&gt;
-</pre>
+              </pre>
 
             </div>
 
@@ -503,35 +590,35 @@ class TypographyTabContent extends React.Component {
 
           </p>
 
-          <div class="example-block flush-bottom">
+          <div className="example-block flush-bottom">
 
-            <div class="example-block-content">
+            <div className="example-block-content">
 
-              <p class="text-align-left">
+              <p className="text-align-left">
 
                 Left aligned text. Cartibulum ercisco buglossa montepessulanus bicrotum cosidero auricolor menda boo bubo pernot io anilis lento infrequens cit circumvolutor crux. Congregalis chrysoprassos vanesco carptor galbanus veles septimpliciter corripio assuo bua arferia?
 
               </p>
 
-              <p class="text-align-center">
+              <p className="text-align-center">
 
                 Center aligned text. Cartibulum ercisco buglossa montepessulanus bicrotum cosidero auricolor menda boo bubo pernot io anilis lento infrequens cit circumvolutor crux. Congregalis chrysoprassos vanesco carptor galbanus veles septimpliciter corripio assuo bua arferia?
 
               </p>
 
-              <p class="text-align-right">
+              <p className="text-align-right">
 
                 Right aligned text. Cartibulum ercisco buglossa montepessulanus bicrotum cosidero auricolor menda boo bubo pernot io anilis lento infrequens cit circumvolutor crux. Congregalis chrysoprassos vanesco carptor galbanus veles septimpliciter corripio assuo bua arferia?
 
               </p>
 
-              <p class="text-align-justify">
+              <p className="text-align-justify">
 
                 Justify aligned text. Cartibulum ercisco buglossa montepessulanus bicrotum cosidero auricolor menda boo bubo pernot io anilis lento infrequens cit circumvolutor crux. Congregalis chrysoprassos vanesco carptor galbanus veles septimpliciter corripio assuo bua arferia?
 
               </p>
 
-              <p class="text-align-nowrap">
+              <p className="text-align-nowrap">
 
                 No wrap text. Cartibulum ercisco buglossa montepessulanus bicrotum cosidero auricolor menda boo bubo pernot io anilis lento infrequens cit circumvolutor crux. Congregalis chrysoprassos vanesco carptor galbanus veles septimpliciter corripio assuo bua arferia?
 
@@ -539,29 +626,13 @@ class TypographyTabContent extends React.Component {
 
             </div>
 
-            <div class="example-block-footer example-block-footer-codeblock">
+            <div className="example-block-footer example-block-footer-codeblock">
 
-<pre class="prettyprint lang-html flush-bottom">
-&lt;p class="text-align-left"&gt;
-  Left aligned text.
-&lt;/p&gt;
+              <pre className="prettyprint lang-html flush-bottom">
 
-&lt;p class="text-align-center"&gt;
-  Center aligned text.
-&lt;/p&gt;
+                {codeBlockTypographyAlignment}
 
-&lt;p class="text-align-right"&gt;
-  Right aligned text.
-&lt;/p&gt;
-
-&lt;p class="text-align-justify"&gt;
-  Justify aligned text.
-&lt;/p&gt;
-
-&lt;p class="text-align-nowrap"&gt;
-  No wrap text.
-&lt;/p&gt;
-</pre>
+              </pre>
 
             </div>
 
@@ -583,23 +654,23 @@ class TypographyTabContent extends React.Component {
 
           </p>
 
-          <div class="example-block flush-bottom">
+          <div className="example-block flush-bottom">
 
-            <div class="example-block-content">
+            <div className="example-block-content">
 
-              <p class="text-uppercase">
+              <p className="text-uppercase">
 
                 Uppercase text
 
               </p>
 
-              <p class="text-lowercase">
+              <p className="text-lowercase">
 
                 Lowercase text.
 
               </p>
 
-              <p class="text-capitalize">
+              <p className="text-capitalize">
 
                 Capitalized text.
 
@@ -607,21 +678,13 @@ class TypographyTabContent extends React.Component {
 
             </div>
 
-            <div class="example-block-footer example-block-footer-codeblock">
+            <div className="example-block-footer example-block-footer-codeblock">
 
-<pre class="prettyprint lang-html flush-bottom">
-&lt;p class="text-uppercase"&gt;
-  Uppercase text
-&lt;/p&gt;
+              <pre className="prettyprint lang-html flush-bottom">
 
-&lt;p class="text-lowercase"&gt;
-  Lowercase text.
-&lt;/p&gt;
+                {codeBlockTypographyTransformation}
 
-&lt;p class="text-capitalize"&gt;
-  Capitalized text.
-&lt;/p&gt;
-</pre>
+              </pre>
 
             </div>
 
@@ -657,11 +720,11 @@ class TypographyTabContent extends React.Component {
 
             </p>
 
-            <div class="example-block flush-bottom">
+            <div className="example-block flush-bottom">
 
-              <div class="example-block-content">
+              <div className="example-block-content">
 
-                <ol class="flush-bottom I">
+                <ol className="flush-bottom I">
 
                   <li>
 
@@ -691,7 +754,7 @@ class TypographyTabContent extends React.Component {
 
                     Nulla volutpat aliquam velit
 
-                    <ol class="a">
+                    <ol className="a">
 
                       <li>
 
@@ -743,15 +806,13 @@ class TypographyTabContent extends React.Component {
 
               </div>
 
-              <div class="example-block-footer example-block-footer-codeblock">
+              <div className="example-block-footer example-block-footer-codeblock">
 
-<pre class="prettyprint lang-html flush-bottom">
-&lt;ol&gt;
-  &lt;li&gt;
-    &hellip;
-  &lt;/li&gt;
-&lt;/ol&gt;
-</pre>
+                <pre className="prettyprint lang-html flush-bottom">
+
+                  {codeBlockTypographyListsOrdered}
+
+                </pre>
 
               </div>
 
@@ -773,11 +834,11 @@ class TypographyTabContent extends React.Component {
 
             </p>
 
-            <div class="example-block flush-bottom">
+            <div className="example-block flush-bottom">
 
-              <div class="example-block-content">
+              <div className="example-block-content">
 
-                <ul class="flush-bottom">
+                <ul className="flush-bottom">
 
                   <li>
 
@@ -859,15 +920,13 @@ class TypographyTabContent extends React.Component {
 
               </div>
 
-              <div class="example-block-footer example-block-footer-codeblock">
+              <div className="example-block-footer example-block-footer-codeblock">
 
-<pre class="prettyprint lang-html flush-bottom">
-&lt;ul&gt;
-  &lt;li&gt;
-    &hellip;
-  &lt;/li&gt;
-&lt;/ul&gt;
-</pre>
+                <pre className="prettyprint lang-html flush-bottom">
+
+                  {codeBlockTypographyListsUnordered}
+
+                </pre>
 
               </div>
 
@@ -889,11 +948,11 @@ class TypographyTabContent extends React.Component {
 
             </p>
 
-            <div class="example-block flush-bottom">
+            <div className="example-block flush-bottom">
 
-              <div class="example-block-content">
+              <div className="example-block-content">
 
-                <ul class="list-unstyled flush-bottom">
+                <ul className="list-unstyled flush-bottom">
 
                   <li>
 
@@ -975,15 +1034,13 @@ class TypographyTabContent extends React.Component {
 
               </div>
 
-              <div class="example-block-footer example-block-footer-codeblock">
+              <div className="example-block-footer example-block-footer-codeblock">
 
-<pre class="prettyprint lang-html flush-bottom">
-&lt;ul class="list-unstyled"&gt;
-  &lt;li&gt;
-    &hellip;
-  &lt;/li&gt;
-&lt;/ul&gt;
-</pre>
+                <pre className="prettyprint lang-html flush-bottom">
+
+                  {codeBlockTypographyListsUnstyled}
+
+                </pre>
 
               </div>
 
@@ -1005,11 +1062,11 @@ class TypographyTabContent extends React.Component {
 
             </p>
 
-            <div class="example-block flush-bottom">
+            <div className="example-block flush-bottom">
 
-              <div class="example-block-content">
+              <div className="example-block-content">
 
-                <ul class="list-inline flush-bottom">
+                <ul className="list-inline flush-bottom">
 
                   <li>
 
@@ -1045,15 +1102,13 @@ class TypographyTabContent extends React.Component {
 
               </div>
 
-              <div class="example-block-footer example-block-footer-codeblock">
+              <div className="example-block-footer example-block-footer-codeblock">
 
-<pre class="prettyprint lang-html flush-bottom">
-&lt;ul class="list-inline"&gt;
-  &lt;li&gt;
-    &hellip;
-  &lt;/li&gt;
-&lt;/ul&gt;
-</pre>
+                <pre className="prettyprint lang-html flush-bottom">
+
+                  {codeBlockTypographyListsInline}
+
+                </pre>
 
               </div>
 
