@@ -72,7 +72,7 @@ var Page = React.createClass({
 
   getPageHeader: function (title, navigation) {
     return (
-      <div className="page-header flex-item-shrink-0 fill fill-light">
+      <div className="page-header flex-item-shrink-0">
         <div className="page-header-inner">
           <div className="pod pod-short">
             {this.getTitle(title)}
@@ -111,12 +111,25 @@ var Page = React.createClass({
 
     let content = this.getChildren();
 
-    return (
-      <div className={contentClassSet}>
-        <div className="pod">
+    if (dontScroll) {
+      return (
+        <div className={contentClassSet}>
           {content}
         </div>
-      </div>
+      );
+    }
+
+    return (
+      <GeminiScrollbar
+        autoshow={true}
+        className="page-content-wrapper flex flex-direction-top-to-bottom flex-direction-left-to-right-screen-large flex-item-grow-1 flex-item-shrink-1"
+        ref="gemini">
+        <div className={contentClassSet}>
+          <div className="pod">
+            {content}
+          </div>
+        </div>
+      </GeminiScrollbar>
     );
   },
 
@@ -132,14 +145,7 @@ var Page = React.createClass({
     return (
       <div className={classSet}>
         {this.getPageHeader(title, navigation)}
-        <GeminiScrollbar
-          autoshow={true}
-          className="page-content-wrapper flex flex-direction-top-to-bottom
-            flex-direction-left-to-right-screen-large flex-item-grow-1
-            flex-item-shrink-1"
-          ref="gemini">
-          {this.getContent()}
-        </GeminiScrollbar>
+        {this.getContent()}
       </div>
     );
   }
