@@ -41,9 +41,9 @@ class ButtonCollectionsTabContent extends React.Component {
 
         </p>
 
-        <div className="example-block flush-bottom">
+        <div className="panel flush-bottom">
 
-          <div className="example-block-content">
+          <div className="panel-cell">
 
             <div className="button-collection flush-bottom">
 
@@ -63,9 +63,9 @@ class ButtonCollectionsTabContent extends React.Component {
 
           </div>
 
-          <div className="example-block-footer example-block-footer-codeblock">
+          <div className="panel-cell panel-cell-light panel-cell-code-block">
 
-            <pre className="prettyprint lang-html flush-bottom">
+            <pre className="prettyprint transparent flush lang-html">
 
               {codeBlockButtonCollection}
 
@@ -89,9 +89,9 @@ class ButtonCollectionsTabContent extends React.Component {
 
           </p>
 
-          <div className="example-block flush-bottom">
+          <div className="panel flush-bottom">
 
-            <div className="example-block-content">
+            <div className="panel-cell">
 
               <div className="button-collection button-collection-align-vertical-top">
 
@@ -197,9 +197,9 @@ class ButtonCollectionsTabContent extends React.Component {
 
             </div>
 
-            <div className="example-block-footer example-block-footer-codeblock">
+            <div className="panel-cell panel-cell-light panel-cell-code-block">
 
-              <pre className="prettyprint lang-html flush-bottom">
+              <pre className="prettyprint transparent flush lang-html">
 
                 {codeBlockButtonCollectionVerticalAlignment}
 

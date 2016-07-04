@@ -76,9 +76,9 @@ class ButtonGroupsTabContent extends React.Component {
 
         </p>
 
-        <div className="example-block flush-bottom">
+        <div className="panel flush-bottom">
 
-          <div className="example-block-content">
+          <div className="panel-cell">
 
             <div className="button-collection">
 
@@ -212,9 +212,9 @@ class ButtonGroupsTabContent extends React.Component {
 
           </div>
 
-          <div className="example-block-footer example-block-footer-codeblock">
+          <div className="panel-cell panel-cell-light panel-cell-code-block">
 
-            <pre className="prettyprint lang-html flush-bottom">
+            <pre className="prettyprint transparent flush lang-html">
 
               {codeBlockButtonGroup}
 
@@ -244,9 +244,9 @@ class ButtonGroupsTabContent extends React.Component {
 
           </h3>
 
-          <div className="example-block flush-bottom">
+          <div className="panel flush-bottom">
 
-            <div className="example-block-content">
+            <div className="panel-cell">
 
               <div className="button-collection">
 
@@ -380,9 +380,9 @@ class ButtonGroupsTabContent extends React.Component {
 
             </div>
 
-            <div className="example-block-footer example-block-footer-codeblock">
+            <div className="panel-cell panel-cell-light panel-cell-code-block">
 
-              <pre className="prettyprint lang-html flush-bottom">
+              <pre className="prettyprint transparent flush lang-html">
 
                 {codeBlockButtonGroupOutline}
 
@@ -398,9 +398,9 @@ class ButtonGroupsTabContent extends React.Component {
 
           </h3>
 
-          <div className="example-block flush-bottom">
+          <div className="panel flush-bottom">
 
-            <div className="example-block-content">
+            <div className="panel-cell">
 
               <div className="button-group" role="group">
 
@@ -426,9 +426,9 @@ class ButtonGroupsTabContent extends React.Component {
 
             </div>
 
-            <div className="example-block-footer example-block-footer-codeblock">
+            <div className="panel-cell panel-cell-light panel-cell-code-block">
 
-              <pre className="prettyprint lang-html flush-bottom">
+              <pre className="prettyprint transparent flush lang-html">
 
                 {codeBlockButtonGroupRounded}
 
@@ -444,9 +444,9 @@ class ButtonGroupsTabContent extends React.Component {
 
           </h3>
 
-          <div className="example-block flush-bottom">
+          <div className="panel flush-bottom">
 
-            <div className="example-block-content">
+            <div className="panel-cell">
 
               <div className="button-group" role="group">
 
@@ -472,9 +472,9 @@ class ButtonGroupsTabContent extends React.Component {
 
             </div>
 
-            <div className="example-block-footer example-block-footer-codeblock">
+            <div className="panel-cell panel-cell-light panel-cell-code-block">
 
-              <pre className="prettyprint lang-html flush-bottom">
+              <pre className="prettyprint transparent flush lang-html">
 
                 {codeBlockButtonGroupCombined}
 
@@ -490,9 +490,9 @@ class ButtonGroupsTabContent extends React.Component {
 
           </h3>
 
-          <div className="example-block inverse flush-bottom">
+          <div className="panel panel-inverse flush-bottom">
 
-            <div className="example-block-content">
+            <div className="panel-cell panel-cell-inverse">
 
               <div className="button-collection">
 
@@ -626,9 +626,9 @@ class ButtonGroupsTabContent extends React.Component {
 
             </div>
 
-            <div className="example-block-footer example-block-footer-codeblock">
+            <div className="panel-cell panel-cell-dark panel-cell-inverse panel-cell-code-block">
 
-              <pre className="prettyprint lang-html flush-bottom">
+              <pre className="prettyprint code-block-inverse transparent flush lang-html">
 
                 {codeBlockButtonGroupInverse}
 
