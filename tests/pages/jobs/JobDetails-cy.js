@@ -21,7 +21,7 @@ describe('Job Details', function () {
     });
 
     it('renders the relative time of the longest running task', function () {
-      cy.get('.page-header-heading').should('contain', '31 yrs ago');
+      cy.get('.page-header-heading').should('contain', '32 yrs ago');
     });
 
   });
