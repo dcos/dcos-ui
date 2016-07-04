@@ -89,7 +89,7 @@ class ContainersTabContent extends React.Component {
 
           </p>
 
-          <div className="example-block">
+          <div className="example-block flush-bottom">
 
             <div className="example-block-content">
 
