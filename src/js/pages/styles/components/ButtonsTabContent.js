@@ -1,5 +1,6 @@
 import React from 'react';
 import SidebarActions from '../../../events/SidebarActions';
+import Icon from '../../../components/Icon';
 
 class ButtonTabContent extends React.Component {
 
@@ -1974,8 +1975,7 @@ class ButtonTabContent extends React.Component {
 
                 <a href="#" className="button">
 
-                  <i className="icon icon-mini">
-                  </i>
+                  <Icon id="plus" size="mini" family="mini" />
 
                   <span>
 
@@ -1993,8 +1993,7 @@ class ButtonTabContent extends React.Component {
 
                   </span>
 
-                  <i className="icon icon-mini">
-                  </i>
+                  <Icon id="arrow-right" size="mini" family="mini" />
 
                 </a>
 
