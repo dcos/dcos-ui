@@ -319,9 +319,9 @@ class FlexTabContent extends React.Component {
 
             </table>
 
-            <div className="example-block">
+            <div className="panel">
 
-              <div className="example-block-content">
+              <div className="panel-cell">
 
                 <div className="example-flex-container example-flex-direction flex flex-direction-left-to-right">
                   <div className="example-flex-item example-flex-item-1">
@@ -340,9 +340,9 @@ class FlexTabContent extends React.Component {
 
               </div>
 
-              <div className="example-block-footer example-block-footer-codeblock">
+              <div className="panel-cell panel-cell-light panel-cell-code-block">
 
-                <pre className="prettyprint lang-html flush-bottom">
+                <pre className="prettyprint transparent flush lang-html">
 
                   {codeBlockFlexOptionsDirection}
 
@@ -458,9 +458,9 @@ class FlexTabContent extends React.Component {
 
             </table>
 
-            <div className="example-block">
+            <div className="panel">
 
-              <div className="example-block-content">
+              <div className="panel-cell">
 
                 <div className="example-flex-container example-flex-wrap-items flex flex-direction-left-to-right flex-wrap-items">
                   <div className="example-flex-item example-flex-item-1">
@@ -482,9 +482,9 @@ class FlexTabContent extends React.Component {
 
               </div>
 
-              <div className="example-block-footer example-block-footer-codeblock">
+              <div className="panel-cell panel-cell-light panel-cell-code-block">
 
-                <pre className="prettyprint lang-html flush-bottom">
+                <pre className="prettyprint transparent flush lang-html">
 
                   {codeBlockFlexOptionsWrapItems}
 
@@ -640,9 +640,9 @@ class FlexTabContent extends React.Component {
 
             </table>
 
-            <div className="example-block">
+            <div className="panel">
 
-              <div className="example-block-content">
+              <div className="panel-cell">
 
                 <div className="example-flex-container example-flex-align-items flex flex-align-items-end">
                   <div className="example-flex-item example-flex-item-1">
@@ -661,9 +661,9 @@ class FlexTabContent extends React.Component {
 
               </div>
 
-              <div className="example-block-footer example-block-footer-codeblock">
+              <div className="panel-cell panel-cell-light panel-cell-code-block">
 
-                <pre className="prettyprint lang-html flush-bottom">
+                <pre className="prettyprint transparent flush lang-html">
 
                   {codeBlockFlexOptionsAlignItems}
 
@@ -819,9 +819,9 @@ class FlexTabContent extends React.Component {
 
             </table>
 
-            <div className="example-block">
+            <div className="panel">
 
-              <div className="example-block-content">
+              <div className="panel-cell">
 
                 <div className="example-flex-container example-flex-justify-items flex flex-justify-items-space-around">
                   <div className="example-flex-item example-flex-item-1">
@@ -840,9 +840,9 @@ class FlexTabContent extends React.Component {
 
               </div>
 
-              <div className="example-block-footer example-block-footer-codeblock">
+              <div className="panel-cell panel-cell-light panel-cell-code-block">
 
-                <pre className="prettyprint lang-html flush-bottom">
+                <pre className="prettyprint transparent flush lang-html">
 
                   {codeBlockFlexOptionsJustifyItems}
 
@@ -1024,9 +1024,9 @@ class FlexTabContent extends React.Component {
 
             </table>
 
-            <div className="example-block">
+            <div className="panel">
 
-              <div className="example-block-content">
+              <div className="panel-cell">
 
                 <div className="example-flex-container example-flex-align-content flex flex-direction-left-to-right flex-wrap-items flex-align-content-space-between">
                   <div className="example-flex-item example-flex-item-1">
@@ -1048,9 +1048,9 @@ class FlexTabContent extends React.Component {
 
               </div>
 
-              <div className="example-block-footer example-block-footer-codeblock">
+              <div className="panel-cell panel-cell-light panel-cell-code-block">
 
-                <pre className="prettyprint lang-html flush-bottom">
+                <pre className="prettyprint transparent flush lang-html">
 
                   {codeBlockFlexOptionsAlignContent}
 
@@ -1220,9 +1220,9 @@ class FlexTabContent extends React.Component {
 
             </table>
 
-            <div className="example-block">
+            <div className="panel">
 
-              <div className="example-block-content">
+              <div className="panel-cell">
 
                 <div className="example-flex-container example-flex-item-align flex flex-align-items-end">
                   <div className="example-flex-item example-flex-item-1">
@@ -1241,9 +1241,9 @@ class FlexTabContent extends React.Component {
 
               </div>
 
-              <div className="example-block-footer example-block-footer-codeblock">
+              <div className="panel-cell panel-cell-light panel-cell-code-block">
 
-                <pre className="prettyprint lang-html flush-bottom">
+                <pre className="prettyprint transparent flush lang-html">
 
                   {codeBlockFlexItemAlign}
 
@@ -1269,9 +1269,9 @@ class FlexTabContent extends React.Component {
 
             </p>
 
-            <div className="example-block">
+            <div className="panel">
 
-              <div className="example-block-content">
+              <div className="panel-cell">
 
                 <div className="example-flex-container example-flex-item-order flex flex-direction-left-to-right">
                   <div className="example-flex-item example-flex-item-1 flex-item-order-3">
@@ -1290,9 +1290,9 @@ class FlexTabContent extends React.Component {
 
               </div>
 
-              <div className="example-block-footer example-block-footer-codeblock">
+              <div className="panel-cell panel-cell-light panel-cell-code-block">
 
-                <pre className="prettyprint lang-html flush-bottom">
+                <pre className="prettyprint transparent flush lang-html">
 
                   {codeBlockFlexItemOrder}
 
@@ -1324,9 +1324,9 @@ class FlexTabContent extends React.Component {
 
             </p>
 
-            <div className="example-block">
+            <div className="panel">
 
-              <div className="example-block-content">
+              <div className="panel-cell">
 
                 <div className="example-flex-container example-flex-item-grow flex flex-direction-left-to-right">
                   <div className="example-flex-item example-flex-item-1 flex-item-grow-2">
@@ -1339,9 +1339,9 @@ class FlexTabContent extends React.Component {
 
               </div>
 
-              <div className="example-block-footer example-block-footer-codeblock">
+              <div className="panel-cell panel-cell-light panel-cell-code-block">
 
-                <pre className="prettyprint lang-html flush-bottom">
+                <pre className="prettyprint transparent flush lang-html">
 
                   {codeBlockFlexItemGrow}
 
@@ -1373,9 +1373,9 @@ class FlexTabContent extends React.Component {
 
             </p>
 
-            <div className="example-block">
+            <div className="panel">
 
-              <div className="example-block-content">
+              <div className="panel-cell">
 
                 <div className="example-flex-container example-flex-item-shrink flex flex-direction-left-to-right">
                   <div className="example-flex-item example-flex-item-1 flex-item-shrink-2" style={{flexBasis: 1000 + 'px'}}>
@@ -1388,9 +1388,9 @@ class FlexTabContent extends React.Component {
 
               </div>
 
-              <div className="example-block-footer example-block-footer-codeblock">
+              <div className="panel-cell panel-cell-light panel-cell-code-block">
 
-                <pre className="prettyprint lang-html flush-bottom">
+                <pre className="prettyprint transparent flush lang-html">
 
                   {codeBlockFlexItemShrink}
 
@@ -1504,9 +1504,9 @@ class FlexTabContent extends React.Component {
 
             </table>
 
-            <div className="example-block">
+            <div className="panel">
 
-              <div className="example-block-content">
+              <div className="panel-cell">
 
                 <div className="example-flex-container example-flex-item-basis flex flex-direction-left-to-right">
                   <div className="example-flex-item example-flex-item-1" style={{flexBasis: 100 + 'px'}}>
@@ -1525,9 +1525,9 @@ class FlexTabContent extends React.Component {
 
               </div>
 
-              <div className="example-block-footer example-block-footer-codeblock">
+              <div className="panel-cell panel-cell-light panel-cell-code-block">
 
-                <pre className="prettyprint lang-html flush-bottom">
+                <pre className="prettyprint transparent flush lang-html">
 
                   {codeBlockFlexItemBasis}
 
@@ -1555,9 +1555,9 @@ class FlexTabContent extends React.Component {
 
           </p>
 
-          <div className="example-block flush-bottom">
+          <div className="panel flush-bottom">
 
-            <div className="example-block-content">
+            <div className="panel-cell">
 
               <div className="example-flex-container example-flex-responsive flex flex-direction-top-to-bottom flex-direction-left-to-right-screen-medium flex-align-items-stretch">
                 <div className="example-flex-item example-flex-item-1 flex-item-grow-3-screen-medium flex-item-order-3-screen-medium">
@@ -1576,9 +1576,9 @@ class FlexTabContent extends React.Component {
 
             </div>
 
-            <div className="example-block-footer example-block-footer-codeblock">
+            <div className="panel-cell panel-cell-light panel-cell-code-block">
 
-              <pre className="prettyprint lang-html flush-bottom">
+              <pre className="prettyprint transparent flush lang-html">
 
                 {codeBlockFlexResponsive}
 

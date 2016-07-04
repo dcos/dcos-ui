@@ -36,9 +36,9 @@ class PodsTabContent extends React.Component {
 
           </p>
 
-          <div className="example-block">
+          <div className="panel">
 
-            <div className="example-block-content">
+            <div className="panel-cell">
 
               <div className="layout-box pods-overview">
                 <div className="layout-box-item layout-box-item-margin pod">
@@ -51,9 +51,9 @@ class PodsTabContent extends React.Component {
 
             </div>
 
-            <div className="example-block-footer example-block-footer-codeblock">
+            <div className="panel-cell panel-cell-light panel-cell-code-block">
 
-              <pre className="prettyprint lang-html flush-bottom">
+              <pre className="prettyprint transparent flush lang-html">
 
                 {codeBlockPod}
 
@@ -301,9 +301,9 @@ class PodsTabContent extends React.Component {
 
             </table>
 
-            <div className="example-block">
+            <div className="panel">
 
-              <div className="example-block-content">
+              <div className="panel-cell">
 
                 <div className="layout-box pods-options-size-modifier">
                   <div className="layout-box-item layout-box-item-margin pod pod-short pod-wider">
@@ -316,9 +316,9 @@ class PodsTabContent extends React.Component {
 
               </div>
 
-              <div className="example-block-footer example-block-footer-codeblock">
+              <div className="panel-cell panel-cell-light panel-cell-code-block">
 
-                <pre className="prettyprint lang-html flush-bottom">
+                <pre className="prettyprint transparent flush lang-html">
 
                   {codeBlockPodOptionsSizeModifiers}
 
@@ -452,9 +452,9 @@ class PodsTabContent extends React.Component {
 
             </table>
 
-            <div className="example-block flush-bottom">
+            <div className="panel flush-bottom">
 
-              <div className="example-block-content">
+              <div className="panel-cell">
 
                 <div className="layout-box pods-options-size-direction-modifier">
                   <div className="layout-box-item layout-box-item-margin pod pod-short-top pod-taller-bottom pod-wide-left pod-narrower-right">
@@ -467,9 +467,9 @@ class PodsTabContent extends React.Component {
 
               </div>
 
-              <div className="example-block-footer example-block-footer-codeblock">
+              <div className="panel-cell panel-cell-light panel-cell-code-block">
 
-                <pre className="prettyprint lang-html flush-bottom">
+                <pre className="prettyprint transparent flush lang-html">
 
                   {codeBlockPodOptionsDirectionModifiers}
 
