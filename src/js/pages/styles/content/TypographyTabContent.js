@@ -168,9 +168,9 @@ class TypographyTabContent extends React.Component {
 
           </p>
 
-          <div className="example-block flush-bottom">
+          <div className="panel flush-bottom">
 
-            <div className="example-block-content">
+            <div className="panel-cell">
 
               <p className="">
 
@@ -186,9 +186,9 @@ class TypographyTabContent extends React.Component {
 
             </div>
 
-            <div className="example-block-footer example-block-footer-codeblock">
+            <div className="panel-cell panel-cell-light panel-cell-code-block">
 
-              <pre className="prettyprint lang-html flush-bottom">
+              <pre className="prettyprint transparent flush lang-html">
 
                 {codeBlockTypographyBody}
 
@@ -212,9 +212,9 @@ class TypographyTabContent extends React.Component {
 
             </p>
 
-            <div className="example-block flush-bottom">
+            <div className="panel flush-bottom">
 
-              <div className="example-block-content">
+              <div className="panel-cell">
 
                 <p className="lead">
 
@@ -230,9 +230,9 @@ class TypographyTabContent extends React.Component {
 
               </div>
 
-              <div className="example-block-footer example-block-footer-codeblock">
+              <div className="panel-cell panel-cell-light panel-cell-code-block">
 
-                <pre className="prettyprint lang-html flush-bottom">
+                <pre className="prettyprint transparent flush lang-html">
 
                   {codeBlockTypographyBodyLead}
 
@@ -258,9 +258,9 @@ class TypographyTabContent extends React.Component {
 
             </p>
 
-            <div className="example-block flush-bottom">
+            <div className="panel flush-bottom">
 
-              <div className="example-block-content">
+              <div className="panel-cell">
 
                 <p>
 
@@ -276,9 +276,9 @@ class TypographyTabContent extends React.Component {
 
               </div>
 
-              <div className="example-block-footer example-block-footer-codeblock">
+              <div className="panel-cell panel-cell-light panel-cell-code-block">
 
-                <pre className="prettyprint lang-html flush-bottom">
+                <pre className="prettyprint transparent flush lang-html">
 
                   {codeBlockTypographyBodySmall}
 
@@ -306,9 +306,9 @@ class TypographyTabContent extends React.Component {
 
           </p>
 
-          <div className="example-block flush-bottom">
+          <div className="panel flush-bottom">
 
-            <div className="example-block-content">
+            <div className="panel-cell">
 
               <h1 className="flush-top">
 
@@ -348,9 +348,9 @@ class TypographyTabContent extends React.Component {
 
             </div>
 
-            <div className="example-block-footer example-block-footer-codeblock">
+            <div className="panel-cell panel-cell-light panel-cell-code-block">
 
-              <pre className="prettyprint lang-html flush-bottom">
+              <pre className="prettyprint transparent flush lang-html">
 
                 {codeBlockTypographyHeadings}
 
@@ -390,9 +390,9 @@ class TypographyTabContent extends React.Component {
 
             </p>
 
-            <div className="example-block flush-bottom">
+            <div className="panel flush-bottom">
 
-              <div className="example-block-content">
+              <div className="panel-cell">
 
                 <h2 className="flush-top">
 
@@ -414,9 +414,9 @@ class TypographyTabContent extends React.Component {
 
               </div>
 
-              <div className="example-block-footer example-block-footer-codeblock">
+              <div className="panel-cell panel-cell-light panel-cell-code-block">
 
-                <pre className="prettyprint lang-html flush-bottom">
+                <pre className="prettyprint transparent flush lang-html">
 
                   {codeBlockTypographyInlineStylingEmphasis}
 
@@ -442,9 +442,9 @@ class TypographyTabContent extends React.Component {
 
             </p>
 
-            <div className="example-block flush-bottom">
+            <div className="panel flush-bottom">
 
-              <div className="example-block-content">
+              <div className="panel-cell">
 
                 <h2 className="flush-top">
 
@@ -466,9 +466,9 @@ class TypographyTabContent extends React.Component {
 
               </div>
 
-              <div className="example-block-footer example-block-footer-codeblock">
+              <div className="panel-cell panel-cell-light panel-cell-code-block">
 
-                <pre className="prettyprint lang-html flush-bottom">
+                <pre className="prettyprint transparent flush lang-html">
 
                   {codeBlockTypographyInlineStylingMuted}
 
@@ -502,9 +502,9 @@ class TypographyTabContent extends React.Component {
 
           </p>
 
-          <div className="example-block inverse">
+          <div className="panel panel-inverse">
 
-            <div className="example-block-content">
+            <div className="panel-cell panel-cell-inverse">
 
               <h1 className="inverse flush-top">
 
@@ -562,9 +562,9 @@ class TypographyTabContent extends React.Component {
 
             </div>
 
-            <div className="example-block-footer example-block-footer-codeblock">
+            <div className="panel-cell panel-cell-dark panel-cell-inverse panel-cell-code-block">
 
-              <pre className="prettyprint lang-html flush-bottom">
+              <pre className="prettyprint code-block-inverse transparent flush lang-html">
 
                 {codeBlockTypographyInverseStyling}
 
@@ -590,9 +590,9 @@ class TypographyTabContent extends React.Component {
 
           </p>
 
-          <div className="example-block flush-bottom">
+          <div className="panel flush-bottom">
 
-            <div className="example-block-content">
+            <div className="panel-cell">
 
               <p className="text-align-left">
 
@@ -626,9 +626,9 @@ class TypographyTabContent extends React.Component {
 
             </div>
 
-            <div className="example-block-footer example-block-footer-codeblock">
+            <div className="panel-cell panel-cell-light panel-cell-code-block">
 
-              <pre className="prettyprint lang-html flush-bottom">
+              <pre className="prettyprint transparent flush lang-html">
 
                 {codeBlockTypographyAlignment}
 
@@ -654,9 +654,9 @@ class TypographyTabContent extends React.Component {
 
           </p>
 
-          <div className="example-block flush-bottom">
+          <div className="panel flush-bottom">
 
-            <div className="example-block-content">
+            <div className="panel-cell">
 
               <p className="text-uppercase">
 
@@ -678,9 +678,9 @@ class TypographyTabContent extends React.Component {
 
             </div>
 
-            <div className="example-block-footer example-block-footer-codeblock">
+            <div className="panel-cell panel-cell-light panel-cell-code-block">
 
-              <pre className="prettyprint lang-html flush-bottom">
+              <pre className="prettyprint transparent flush lang-html">
 
                 {codeBlockTypographyTransformation}
 
@@ -720,9 +720,9 @@ class TypographyTabContent extends React.Component {
 
             </p>
 
-            <div className="example-block flush-bottom">
+            <div className="panel flush-bottom">
 
-              <div className="example-block-content">
+              <div className="panel-cell">
 
                 <ol className="flush-bottom I">
 
@@ -806,9 +806,9 @@ class TypographyTabContent extends React.Component {
 
               </div>
 
-              <div className="example-block-footer example-block-footer-codeblock">
+              <div className="panel-cell panel-cell-light panel-cell-code-block">
 
-                <pre className="prettyprint lang-html flush-bottom">
+                <pre className="prettyprint transparent flush lang-html">
 
                   {codeBlockTypographyListsOrdered}
 
@@ -834,9 +834,9 @@ class TypographyTabContent extends React.Component {
 
             </p>
 
-            <div className="example-block flush-bottom">
+            <div className="panel flush-bottom">
 
-              <div className="example-block-content">
+              <div className="panel-cell">
 
                 <ul className="flush-bottom">
 
@@ -920,9 +920,9 @@ class TypographyTabContent extends React.Component {
 
               </div>
 
-              <div className="example-block-footer example-block-footer-codeblock">
+              <div className="panel-cell panel-cell-light panel-cell-code-block">
 
-                <pre className="prettyprint lang-html flush-bottom">
+                <pre className="prettyprint transparent flush lang-html">
 
                   {codeBlockTypographyListsUnordered}
 
@@ -948,9 +948,9 @@ class TypographyTabContent extends React.Component {
 
             </p>
 
-            <div className="example-block flush-bottom">
+            <div className="panel flush-bottom">
 
-              <div className="example-block-content">
+              <div className="panel-cell">
 
                 <ul className="list-unstyled flush-bottom">
 
@@ -1034,9 +1034,9 @@ class TypographyTabContent extends React.Component {
 
               </div>
 
-              <div className="example-block-footer example-block-footer-codeblock">
+              <div className="panel-cell panel-cell-light panel-cell-code-block">
 
-                <pre className="prettyprint lang-html flush-bottom">
+                <pre className="prettyprint transparent flush lang-html">
 
                   {codeBlockTypographyListsUnstyled}
 
@@ -1062,9 +1062,9 @@ class TypographyTabContent extends React.Component {
 
             </p>
 
-            <div className="example-block flush-bottom">
+            <div className="panel flush-bottom">
 
-              <div className="example-block-content">
+              <div className="panel-cell">
 
                 <ul className="list-inline flush-bottom">
 
@@ -1102,9 +1102,9 @@ class TypographyTabContent extends React.Component {
 
               </div>
 
-              <div className="example-block-footer example-block-footer-codeblock">
+              <div className="panel-cell panel-cell-light panel-cell-code-block">
 
-                <pre className="prettyprint lang-html flush-bottom">
+                <pre className="prettyprint transparent flush lang-html">
 
                   {codeBlockTypographyListsInline}
 
