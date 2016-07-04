@@ -1,0 +1,475 @@
+/* -----------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+pod/styles.less
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+----------------------------------------------------------------------------- */
+
+
+
+/* -----------------------------------------------------------------------------
+Example Flex Container
+----------------------------------------------------------------------------- */
+
+.example-flex-container {
+
+  position: relative;
+  margin-top: -@grid-gutter-width * 0.5;
+  margin-left: -@grid-gutter-width * 0.5;
+
+}
+
+/* -----------------------------------------------------------------------------
+Example Flex Item
+----------------------------------------------------------------------------- */
+
+.example-flex-item {
+
+  height: 50px;
+  background: #9fc4ea;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: color-lighten(#9fc4ea, -70);
+  font-weight: 600;
+  margin-top: @grid-gutter-width * 0.5;
+  margin-left: @grid-gutter-width * 0.5;
+
+}
+
+/* -----------------------------------------------------------------------------
+Flex Direction
+----------------------------------------------------------------------------- */
+
+.example-flex-direction {
+
+  .example-flex-item {
+
+    height: 50px;
+
+  }
+
+  .example-flex-item-1 {
+
+    width: 15%;
+
+  }
+
+  .example-flex-item-2 {
+
+    width: 30%;
+
+  }
+
+  .example-flex-item-3 {
+
+    width: 10%;
+
+  }
+
+  .example-flex-item-4 {
+
+    width: 15%;
+
+  }
+
+}
+
+/* -----------------------------------------------------------------------------
+Flex Wrap Items
+----------------------------------------------------------------------------- */
+
+.example-flex-wrap-items {
+
+  .example-flex-item-1 {
+
+    flex-basis: 20%;
+
+  }
+
+  .example-flex-item-2 {
+
+    flex-basis: 30%;
+
+  }
+
+  .example-flex-item-3 {
+
+    flex-basis: 20%;
+
+  }
+
+  .example-flex-item-4 {
+
+    flex-basis: 40%;
+
+  }
+
+  .example-flex-item-5 {
+
+    flex-basis: 20%;
+
+  }
+
+}
+
+/* -----------------------------------------------------------------------------
+Flex Align Items
+----------------------------------------------------------------------------- */
+
+.example-flex-align-items {
+
+  .example-flex-item-1 {
+
+    height: 50px;
+    width: 15%;
+
+  }
+
+  .example-flex-item-2 {
+
+    height: 90px;
+    width: 15%;
+
+  }
+
+  .example-flex-item-3 {
+
+    height: 30px;
+    width: 15%;
+
+  }
+
+  .example-flex-item-4 {
+
+    height: 50px;
+    width: 15%;
+
+  }
+
+}
+
+/* -----------------------------------------------------------------------------
+Flex Align Content
+----------------------------------------------------------------------------- */
+
+.example-flex-align-content {
+
+  height: 180px;
+
+  .example-flex-item-1 {
+
+    flex-basis: 20%;
+
+  }
+
+  .example-flex-item-2 {
+
+    flex-basis: 30%;
+
+  }
+
+  .example-flex-item-3 {
+
+    flex-basis: 20%;
+
+  }
+
+  .example-flex-item-4 {
+
+    flex-basis: 40%;
+
+  }
+
+  .example-flex-item-5 {
+
+    flex-basis: 20%;
+
+  }
+
+}
+
+/* -----------------------------------------------------------------------------
+Flex Item Align
+----------------------------------------------------------------------------- */
+
+.example-flex-item-align {
+
+  .example-flex-item-1 {
+
+    height: 50px;
+    width: 15%;
+
+  }
+
+  .example-flex-item-2 {
+
+    height: 90px;
+    width: 15%;
+
+  }
+
+  .example-flex-item-3 {
+
+    height: 30px;
+    width: 15%;
+
+  }
+
+  .example-flex-item-4 {
+
+    height: 50px;
+    width: 15%;
+
+  }
+
+}
+
+/* -----------------------------------------------------------------------------
+Flex Item Order
+----------------------------------------------------------------------------- */
+
+.example-flex-item-order {
+
+  .example-flex-item {
+
+    height: 50px;
+
+  }
+
+  .example-flex-item-1 {
+
+    width: 15%;
+
+  }
+
+  .example-flex-item-2 {
+
+    width: 30%;
+
+  }
+
+  .example-flex-item-3 {
+
+    width: 10%;
+
+  }
+
+  .example-flex-item-4 {
+
+    width: 15%;
+
+  }
+
+}
+
+/* -----------------------------------------------------------------------------
+Flex Basis
+----------------------------------------------------------------------------- */
+
+.example-flex-item-basis {
+
+  .example-flex-item {
+
+    height: 50px;
+
+  }
+
+}
+
+/* -----------------------------------------------------------------------------
+Flex Responsive
+----------------------------------------------------------------------------- */
+
+.example-flex-responsive {
+
+  .example-flex-item {
+
+    height: 50px;
+
+  }
+
+}
+
+
+
+& when (@layout-screen-small-enabled) {
+
+  /* -----------------------------------------------------------------------------
+  Screen Size: Small (@layout-screen-small-min-width) and wider
+  ----------------------------------------------------------------------------- */
+
+  @media (min-width: @layout-screen-small-min-width) {
+
+    /* -----------------------------------------------------------------------------
+    Example Flex Container
+    ----------------------------------------------------------------------------- */
+
+    .example-flex-container {
+
+      margin-top: -@grid-gutter-width-screen-small * 0.5;
+      margin-left: -@grid-gutter-width-screen-small * 0.5;
+
+    }
+
+    /* -----------------------------------------------------------------------------
+    Example Flex Item
+    ----------------------------------------------------------------------------- */
+
+    .example-flex-item {
+
+      margin-top: @grid-gutter-width-screen-small * 0.5;
+      margin-left: @grid-gutter-width-screen-small * 0.5;
+
+    }
+
+  }
+
+}
+
+/* -----------------------------------------------------------------------------
+Flex Direction
+----------------------------------------------------------------------------- */
+
+.example-flex-justify-items {
+
+  .example-flex-item {
+
+    height: 50px;
+
+  }
+
+  .example-flex-item-1 {
+
+    width: 15%;
+
+  }
+
+  .example-flex-item-2 {
+
+    width: 20%;
+
+  }
+
+  .example-flex-item-3 {
+
+    width: 10%;
+
+  }
+
+  .example-flex-item-4 {
+
+    width: 15%;
+
+  }
+
+}
+
+
+
+& when (@layout-screen-medium-enabled) {
+
+  /* -----------------------------------------------------------------------------
+  Screen Size: Medium (@layout-screen-medium-min-width) and wider
+  ----------------------------------------------------------------------------- */
+
+  @media (min-width: @layout-screen-medium-min-width) {
+
+    /* -----------------------------------------------------------------------------
+    Example Flex Container
+    ----------------------------------------------------------------------------- */
+
+    .example-flex-container {
+
+      margin-top: -@grid-gutter-width-screen-medium * 0.5;
+      margin-left: -@grid-gutter-width-screen-medium * 0.5;
+
+    }
+
+    /* -----------------------------------------------------------------------------
+    Example Flex Item
+    ----------------------------------------------------------------------------- */
+
+    .example-flex-item {
+
+      margin-top: @grid-gutter-width-screen-medium * 0.5;
+      margin-left: @grid-gutter-width-screen-medium * 0.5;
+
+    }
+
+  }
+
+}
+
+
+
+& when (@layout-screen-large-enabled) {
+
+  /* -----------------------------------------------------------------------------
+  Screen Size: Large (@layout-screen-large-min-width) and wider
+  ----------------------------------------------------------------------------- */
+
+  @media (min-width: @layout-screen-large-min-width) {
+
+    /* -----------------------------------------------------------------------------
+    Example Flex Container
+    ----------------------------------------------------------------------------- */
+
+    .example-flex-container {
+
+      margin-top: -@grid-gutter-width-screen-large * 0.5;
+      margin-left: -@grid-gutter-width-screen-large * 0.5;
+
+    }
+
+    /* -----------------------------------------------------------------------------
+    Example Flex Item
+    ----------------------------------------------------------------------------- */
+
+    .example-flex-item {
+
+      margin-top: @grid-gutter-width-screen-large * 0.5;
+      margin-left: @grid-gutter-width-screen-large * 0.5;
+
+    }
+
+  }
+
+}
+
+
+
+& when (@layout-screen-jumbo-enabled) {
+
+  /* -----------------------------------------------------------------------------
+  Screen Size: Jumbo (@layout-screen-jumbo-min-width) and wider
+  ----------------------------------------------------------------------------- */
+
+  @media (min-width: @layout-screen-jumbo-min-width) {
+
+    /* -----------------------------------------------------------------------------
+    Example Flex Container
+    ----------------------------------------------------------------------------- */
+
+    .example-flex-container {
+
+      margin-top: -@grid-gutter-width-screen-jumbo * 0.5;
+      margin-left: -@grid-gutter-width-screen-jumbo * 0.5;
+
+    }
+
+    /* -----------------------------------------------------------------------------
+    Example Flex Item
+    ----------------------------------------------------------------------------- */
+
+    .example-flex-item {
+
+      margin-top: @grid-gutter-width-screen-jumbo * 0.5;
+      margin-left: @grid-gutter-width-screen-jumbo * 0.5;
+
+    }
+
+  }
+
+}
