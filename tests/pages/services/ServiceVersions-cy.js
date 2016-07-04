@@ -9,9 +9,11 @@ describe('Service Versions', function () {
 
       cy.visitUrl({url: '/services/%2Fsleep/'});
       cy.wait(1500);
-      cy.get('.tab-item .tab-item-label-text')
-        .contains('Configuration').click();
-      cy.wait(1000);
+      cy.get('.page-content').within(function () {
+        cy.get('.tab-item .tab-item-label-text')
+          .contains('Configuration').click();
+          cy.wait(1000);
+      });
     });
 
     it('opens the current service version on default', function () {

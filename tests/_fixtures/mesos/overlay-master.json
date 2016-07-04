@@ -1,0 +1,291 @@
+{
+  "agents": [
+    {
+      "ip": "10.0.6.6",
+      "overlays": [
+        {
+          "backend": {
+            "vxlan": {
+              "vni": 1024,
+              "vtep_ip": "198.15.0.1\/20",
+              "vtep_mac": "70:b3:d5:0f:00:01",
+              "vtep_name": "vtep1024"
+            }
+          },
+          "docker_bridge": {
+            "ip": "192.168.0.128\/25",
+            "name": "d-dcos-1"
+          },
+          "info": {
+            "name": "dcos-1",
+            "prefix": 24,
+            "subnet": "192.168.0.0\/17"
+          },
+          "state": {
+            "status": "STATUS_OK"
+          },
+          "subnet": "192.168.0.0\/24"
+        },
+        {
+          "backend": {
+            "vxlan": {
+              "vni": 1024,
+              "vtep_ip": "198.15.0.1\/20",
+              "vtep_mac": "70:b3:d5:0f:00:01",
+              "vtep_name": "vtep1024"
+            }
+          },
+          "docker_bridge": {
+            "ip": "192.168.128.128\/25",
+            "name": "d-dcos-2"
+          },
+          "info": {
+            "name": "dcos-2",
+            "prefix": 24,
+            "subnet": "192.168.128.0\/17"
+          },
+          "state": {
+            "status": "STATUS_OK"
+          },
+          "subnet": "192.168.128.0\/24"
+        }
+      ]
+    },
+    {
+      "ip": "10.0.6.5",
+      "overlays": [
+        {
+          "backend": {
+            "vxlan": {
+              "vni": 1024,
+              "vtep_ip": "198.15.0.2\/20",
+              "vtep_mac": "70:b3:d5:0f:00:02",
+              "vtep_name": "vtep1024"
+            }
+          },
+          "docker_bridge": {
+            "ip": "192.168.1.128\/25",
+            "name": "d-dcos-1"
+          },
+          "info": {
+            "name": "dcos-1",
+            "prefix": 24,
+            "subnet": "192.168.0.0\/17"
+          },
+          "state": {
+            "status": "STATUS_OK"
+          },
+          "subnet": "192.168.1.0\/24"
+        },
+        {
+          "backend": {
+            "vxlan": {
+              "vni": 1024,
+              "vtep_ip": "198.15.0.2\/20",
+              "vtep_mac": "70:b3:d5:0f:00:02",
+              "vtep_name": "vtep1024"
+            }
+          },
+          "docker_bridge": {
+            "ip": "192.168.129.128\/25",
+            "name": "d-dcos-2"
+          },
+          "info": {
+            "name": "dcos-2",
+            "prefix": 24,
+            "subnet": "192.168.128.0\/17"
+          },
+          "state": {
+            "status": "STATUS_OK"
+          },
+          "subnet": "192.168.129.0\/24"
+        }
+      ]
+    },
+    {
+      "ip": "10.0.6.7",
+      "overlays": [
+        {
+          "backend": {
+            "vxlan": {
+              "vni": 1024,
+              "vtep_ip": "198.15.0.3\/20",
+              "vtep_mac": "70:b3:d5:0f:00:03",
+              "vtep_name": "vtep1024"
+            }
+          },
+          "docker_bridge": {
+            "ip": "192.168.2.128\/25",
+            "name": "d-dcos-1"
+          },
+          "info": {
+            "name": "dcos-1",
+            "prefix": 24,
+            "subnet": "192.168.0.0\/17"
+          },
+          "state": {
+            "status": "STATUS_OK"
+          },
+          "subnet": "192.168.2.0\/24"
+        },
+        {
+          "backend": {
+            "vxlan": {
+              "vni": 1024,
+              "vtep_ip": "198.15.0.3\/20",
+              "vtep_mac": "70:b3:d5:0f:00:03",
+              "vtep_name": "vtep1024"
+            }
+          },
+          "docker_bridge": {
+            "ip": "192.168.130.128\/25",
+            "name": "d-dcos-2"
+          },
+          "info": {
+            "name": "dcos-2",
+            "prefix": 24,
+            "subnet": "192.168.128.0\/17"
+          },
+          "state": {
+            "status": "STATUS_OK"
+          },
+          "subnet": "192.168.130.0\/24"
+        }
+      ]
+    },
+    {
+      "ip": "10.0.7.120",
+      "overlays": [
+        {
+          "backend": {
+            "vxlan": {
+              "vni": 1024,
+              "vtep_ip": "198.15.0.4\/20",
+              "vtep_mac": "70:b3:d5:0f:00:04",
+              "vtep_name": "vtep1024"
+            }
+          },
+          "docker_bridge": {
+            "ip": "192.168.3.128\/25",
+            "name": "d-dcos-1"
+          },
+          "info": {
+            "name": "dcos-1",
+            "prefix": 24,
+            "subnet": "192.168.0.0\/17"
+          },
+          "mesos_bridge": {
+            "ip": "192.168.3.0\/25",
+            "name": "m-dcos-1"
+          },
+          "state": {
+            "status": "STATUS_OK"
+          },
+          "subnet": "192.168.3.0\/24"
+        },
+        {
+          "backend": {
+            "vxlan": {
+              "vni": 1024,
+              "vtep_ip": "198.15.0.4\/20",
+              "vtep_mac": "70:b3:d5:0f:00:04",
+              "vtep_name": "vtep1024"
+            }
+          },
+          "docker_bridge": {
+            "ip": "192.168.131.128\/25",
+            "name": "d-dcos-2"
+          },
+          "info": {
+            "name": "dcos-2",
+            "prefix": 24,
+            "subnet": "192.168.128.0\/17"
+          },
+          "mesos_bridge": {
+            "ip": "192.168.131.0\/25",
+            "name": "m-dcos-2"
+          },
+          "state": {
+            "status": "STATUS_OK"
+          },
+          "subnet": "192.168.131.0\/24"
+        }
+      ]
+    },
+    {
+      "ip": "10.0.0.10",
+      "overlays": [
+        {
+          "backend": {
+            "vxlan": {
+              "vni": 1024,
+              "vtep_ip": "198.15.0.5\/20",
+              "vtep_mac": "70:b3:d5:0f:00:05",
+              "vtep_name": "vtep1024"
+            }
+          },
+          "docker_bridge": {
+            "ip": "192.168.4.128\/25",
+            "name": "d-dcos-1"
+          },
+          "info": {
+            "name": "dcos-1",
+            "prefix": 24,
+            "subnet": "192.168.0.0\/17"
+          },
+          "mesos_bridge": {
+            "ip": "192.168.4.0\/25",
+            "name": "m-dcos-1"
+          },
+          "state": {
+            "status": "STATUS_OK"
+          },
+          "subnet": "192.168.4.0\/24"
+        },
+        {
+          "backend": {
+            "vxlan": {
+              "vni": 1024,
+              "vtep_ip": "198.15.0.5\/20",
+              "vtep_mac": "70:b3:d5:0f:00:05",
+              "vtep_name": "vtep1024"
+            }
+          },
+          "docker_bridge": {
+            "ip": "192.168.132.128\/25",
+            "name": "d-dcos-2"
+          },
+          "info": {
+            "name": "dcos-2",
+            "prefix": 24,
+            "subnet": "192.168.128.0\/17"
+          },
+          "mesos_bridge": {
+            "ip": "192.168.132.0\/25",
+            "name": "m-dcos-2"
+          },
+          "state": {
+            "status": "STATUS_OK"
+          },
+          "subnet": "192.168.132.0\/24"
+        }
+      ]
+    }
+  ],
+  "network": {
+    "overlays": [
+      {
+        "name": "dcos-1",
+        "prefix": 24,
+        "subnet": "192.168.0.0\/17"
+      },
+      {
+        "name": "dcos-2",
+        "prefix": 24,
+        "subnet": "192.168.128.0\/17"
+      }
+    ],
+    "vtep_mac_oui": "70:B3:D5:00:00:00",
+    "vtep_subnet": "198.15.0.0\/20"
+  }
+}

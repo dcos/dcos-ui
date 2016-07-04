@@ -4,7 +4,7 @@
   "args": null,
   "user": null,
   "env": {
-
+    
   },
   "instances": 5,
   "cpus": 0.1,
@@ -12,13 +12,13 @@
   "disk": 0,
   "executor": "",
   "constraints": [
-
+    
   ],
   "uris": [
-
+    
   ],
   "storeUrls": [
-
+    
   ],
   "ports": [
     10000
@@ -29,17 +29,17 @@
   "maxLaunchDelaySeconds": 3600,
   "container": null,
   "healthChecks": [
-
+    
   ],
   "dependencies": [
-
+    
   ],
   "upgradeStrategy": {
     "minimumHealthCapacity": 1,
     "maximumOverCapacity": 1
   },
   "labels": {
-
+    
   },
   "acceptedResourceRoles": null,
   "version": "2015-02-28T05:12:12.221Z",
@@ -48,6 +48,6 @@
   "tasksHealthy": 0,
   "tasksUnhealthy": 0,
   "deployments": [
-
+    
   ]
 }

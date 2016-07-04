@@ -86,12 +86,10 @@ describe('Service Actions', function () {
           method: 'DELETE',
           status: 409,
           url: /marathon\/v2\/apps\/\/cassandra\-healthy/,
-          response: {
-            message: 'App is locked by one or more deployments.'
-          }
+          response: ['App is locked by one or more deployments.']
         });
       cy.get('.confirm-modal .button-collection .button-danger').click();
-      cy.get('.confirm-modal p.text-danger')
+      cy.get('.modal p.text-align-center.flush-bottom')
         .should('to.have.text', 'App is locked by one or more deployments.');
     });
 
@@ -101,12 +99,10 @@ describe('Service Actions', function () {
           method: 'DELETE',
           status: 403,
           url: /marathon\/v2\/apps\/\/cassandra\-healthy/,
-          response: {
-            message: 'Not Authorized to perform this action!'
-          }
+          response: ['Not Authorized to perform this action!']
         });
       cy.get('.confirm-modal .button-collection .button-danger').click();
-      cy.get('.confirm-modal p.text-danger')
+      cy.get('.modal p.text-align-center.flush-bottom')
         .should('to.have.text', 'Not Authorized to perform this action!');
     });
 

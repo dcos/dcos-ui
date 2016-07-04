@@ -21,7 +21,7 @@ describe('Job Details', function () {
     });
 
     it('renders the relative time of the longest running task', function () {
-      cy.get('.page-header-heading').should('contain', '31 yrs ago');
+      cy.get('.page-header-heading').should('contain', '32 yrs ago');
     });
 
   });
@@ -86,20 +86,19 @@ describe('Job Details', function () {
   });
 
   context('Configuration Tab', function () {
-
     it('renders the correct amount of job configuration details', function () {
       cy.get('.page-content .tabs .tab-item').contains('Configuration').click();
       cy.get('.page-content dl').should(function ($elements) {
-        expect($elements.length).to.equal(2);
+        expect($elements.length).to.equal(15);
       });
     });
 
     it('renders the job configuration data', function () {
       cy.get('.page-content .tabs .tab-item').contains('Configuration').click();
-      cy.get('.page-content dl:nth-child(1)').should('contain', 'Command');
-      cy.get('.page-content dl:nth-child(1)').should('contain', '/foo');
-      cy.get('.page-content dl:nth-child(2)').should('contain', 'Schedule');
-      cy.get('.page-content dl:nth-child(2)').should('contain', '0 1 6 9 *');
+      cy.get('.page-content dl').should('contain', 'Command');
+      cy.get('.page-content dl').should('contain', '/foo');
+      cy.get('.page-content dl').should('contain', 'Schedule');
+      cy.get('.page-content dl').should('contain', '0 1 6 9 *');
     });
 
   });

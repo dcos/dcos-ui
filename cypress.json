@@ -3,6 +3,7 @@
   "integrationFolder": "tests",
   "fixturesFolder": "tests/_fixtures",
   "supportFolder": "tests/_support",
+  "commandTimeout": 6000,
   "environmentVariables": {
     "CLUSTER_URL": "http://localhost:4200",
     "FULL_INTEGRATION_TEST": false
