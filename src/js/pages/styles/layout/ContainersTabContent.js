@@ -46,9 +46,9 @@ class ContainersTabContent extends React.Component {
 
           </p>
 
-          <div className="example-block flush-bottom">
+          <div className="panel flush-bottom">
 
-            <div className="example-block-content">
+            <div className="panel-cell">
 
               <div className="layout-box containers-fixed">
                 <div className="layout-box-item layout-box-item-margin container">
@@ -61,9 +61,9 @@ class ContainersTabContent extends React.Component {
 
             </div>
 
-            <div className="example-block-footer example-block-footer-codeblock">
+            <div className="panel-cell panel-cell-light panel-cell-code-block">
 
-              <pre className="prettyprint lang-html flush-bottom">
+              <pre className="prettyprint transparent flush lang-html">
 
                 {codeBlockContainersFixed}
 
@@ -89,9 +89,9 @@ class ContainersTabContent extends React.Component {
 
           </p>
 
-          <div className="example-block flush-bottom">
+          <div className="panel flush-bottom">
 
-            <div className="example-block-content">
+            <div className="panel-cell">
 
               <div className="layout-box containers-fluid">
                 <div className="layout-box-item layout-box-item-margin pod flush-top flush-bottom">
@@ -104,9 +104,9 @@ class ContainersTabContent extends React.Component {
 
             </div>
 
-            <div className="example-block-footer example-block-footer-codeblock">
+            <div className="panel-cell panel-cell-light panel-cell-code-block">
 
-              <pre className="prettyprint lang-html flush-bottom">
+              <pre className="prettyprint transparent flush lang-html">
 
                 {codeBlockContainersFluid}
 
