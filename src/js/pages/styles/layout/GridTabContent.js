@@ -265,7 +265,7 @@ class GridTabContent extends React.Component {
               <tr>
                 <th className="text-nowrap" scope="row">Grid behavior</th>
                 <td>Horizontal at all times</td>
-                <td colspan="4">Collapsed to start, horizontal above breakpoints</td>
+                <td colSpan="4">Collapsed to start, horizontal above breakpoints</td>
               </tr>
               <tr>
                 <th className="text-nowrap" scope="row">Class prefix</th>
@@ -277,7 +277,7 @@ class GridTabContent extends React.Component {
               </tr>
               <tr>
                 <th className="text-nowrap" scope="row"># of columns</th>
-                <td colspan="5">12 (default)</td>
+                <td colSpan="5">12 (default)</td>
               </tr>
               <tr>
                 <th className="text-nowrap" scope="row">Gutter width</th>
@@ -289,15 +289,15 @@ class GridTabContent extends React.Component {
               </tr>
               <tr>
                 <th className="text-nowrap" scope="row">Nestable</th>
-                <td colspan="5">Yes</td>
+                <td colSpan="5">Yes</td>
               </tr>
               <tr>
                 <th className="text-nowrap" scope="row">Offsets</th>
-                <td colspan="5">Yes</td>
+                <td colSpan="5">Yes</td>
               </tr>
               <tr>
                 <th className="text-nowrap" scope="row">Column ordering</th>
-                <td colspan="5">Yes</td>
+                <td colSpan="5">Yes</td>
               </tr>
             </tbody>
           </table>
