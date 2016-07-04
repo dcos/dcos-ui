@@ -1,0 +1,277 @@
+/* -----------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+button-link/styles.less
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+----------------------------------------------------------------------------- */
+
+
+
+& when (@button-link-enabled) {
+
+  /* -----------------------------------------------------------------------------
+  Button Link (.button-link)
+  ----------------------------------------------------------------------------- */
+
+  .button-link {
+
+    .element-text-style(button-link);
+    .element-shape-style(button-link);
+
+    // Button Dropdown (.button-dropdown)
+
+    &.button-dropdown,
+    &.dropdown-toggle {
+
+      &:after {
+
+        .triangle-color("down", @button-link-color);
+
+      }
+
+    }
+
+    &:hover {
+
+      .element-text-style(button-link-hover);
+      .element-shape-style(button-link-hover);
+
+      // Button Dropdown (.button-dropdown)
+
+      &.button-dropdown,
+      &.dropdown-toggle {
+
+        &:after {
+
+          .triangle-color("down", @button-link-hover-color);
+
+        }
+
+      }
+
+    }
+
+    &:active {
+
+      .element-text-style(button-link-active);
+      .element-shape-style(button-link-active);
+
+      // Button Dropdown (.button-dropdown)
+
+      &.button-dropdown,
+      &.dropdown-toggle {
+
+        &:after {
+
+          .triangle-color("down", @button-link-active-color);
+
+        }
+
+      }
+
+    }
+
+    &.selected,
+    &.active {
+
+      .element-text-style(button-link-selected);
+      .element-shape-style(button-link-selected);
+
+      // Button Dropdown (.button-dropdown)
+
+      &.button-dropdown,
+      &.dropdown-toggle {
+
+        &:after {
+
+          .triangle-color("down", @button-link-selected-color);
+
+        }
+
+      }
+
+    }
+
+    &:disabled,
+    &.disabled {
+
+      .element-text-style(button-link-disabled);
+      .element-shape-style(button-link-disabled);
+
+      // Button Dropdown (.button-dropdown)
+
+      &.button-dropdown,
+      &.dropdown-toggle {
+
+        &:after {
+
+          .triangle-color("down", @button-link-disabled-color);
+
+        }
+
+      }
+
+    }
+
+    /* -----------------------------------------------------------------------------
+    Button Link Inverse (.button-inverse)
+    ----------------------------------------------------------------------------- */
+
+    &.button-inverse {
+
+      .element-text-style(button-link-inverse);
+      .element-shape-style(button-link-inverse);
+
+      // Button Dropdown (.button-dropdown)
+
+      &.button-dropdown,
+      &.dropdown-toggle {
+
+        &:after {
+
+          .triangle-color("down", @button-link-inverse-color);
+
+        }
+
+      }
+
+      &:hover {
+
+        .element-text-style(button-link-inverse-hover);
+        .element-shape-style(button-link-inverse-hover);
+
+        // Button Dropdown (.button-dropdown)
+
+        &.button-dropdown,
+        &.dropdown-toggle {
+
+          &:after {
+
+            .triangle-color("down", @button-link-inverse-hover-color);
+
+          }
+
+        }
+
+      }
+
+      &:active {
+
+        .element-text-style(button-link-inverse-active);
+        .element-shape-style(button-link-inverse-active);
+
+        // Button Dropdown (.button-dropdown)
+
+        &.button-dropdown,
+        &.dropdown-toggle {
+
+          &:after {
+
+            .triangle-color("down", @button-link-inverse-active-color);
+
+          }
+
+        }
+
+      }
+
+      &.selected,
+      &.active {
+
+        .element-text-style(button-link-inverse-selected);
+        .element-shape-style(button-link-inverse-selected);
+
+        // Button Dropdown (.button-dropdown)
+
+        &.button-dropdown,
+        &.dropdown-toggle {
+
+          &:after {
+
+            .triangle-color("down", @button-link-inverse-selected-color);
+
+          }
+
+        }
+
+      }
+
+      &:disabled,
+      &.disabled {
+
+        .element-text-style(button-link-inverse-disabled);
+        .element-shape-style(button-link-inverse-disabled);
+
+        // Button Dropdown (.button-dropdown)
+
+        &.button-dropdown,
+        &.dropdown-toggle {
+
+          &:after {
+
+            .triangle-color("down", @button-link-inverse-disabled-color);
+
+          }
+
+        }
+
+      }
+
+    }
+
+  }
+
+  & when (@button-group-enabled) {
+
+    /* -----------------------------------------------------------------------------
+    Button Group (.open)
+    ----------------------------------------------------------------------------- */
+
+    .button-group.open {
+
+      > .button-link {
+
+        .element-text-style(button-link-selected);
+        .element-shape-style(button-link-selected);
+
+        // Button Dropdown (.button-dropdown)
+
+        &.button-dropdown,
+        &.dropdown-toggle {
+
+          &:after {
+
+            .triangle-color("down", @button-link-selected-color);
+
+          }
+
+        }
+
+        &.button-inverse {
+
+          .element-text-style(button-link-inverse-selected);
+          .element-shape-style(button-link-inverse-selected);
+
+          // Button Dropdown (.button-dropdown)
+
+          &.button-dropdown,
+          &.dropdown-toggle {
+
+            &:after {
+
+              .triangle-color("down", @button-link-inverse-selected-color);
+
+            }
+
+          }
+
+        }
+
+      }
+
+    }
+
+  }
+
+}
