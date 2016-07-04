@@ -23,7 +23,7 @@ class TaskDetailsTab extends React.Component {
         <h5 className="flush-top inverse">
           Container Configuration
         </h5>
-        <pre className="mute prettyprint flush-bottom prettyprinted">
+        <pre className="mute prettyprint transparent flush flush-bottom prettyprint transparent flushed">
           {JSON.stringify(task.container, null, 4)}
         </pre>
       </div>
