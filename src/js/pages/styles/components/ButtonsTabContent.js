@@ -253,9 +253,9 @@ class ButtonTabContent extends React.Component {
 
         </p>
 
-        <div className="example-block flush-bottom">
+        <div className="panel flush-bottom">
 
-          <div className="example-block-content">
+          <div className="panel-cell">
 
             <a href="#" className="button">
 
@@ -265,9 +265,9 @@ class ButtonTabContent extends React.Component {
 
           </div>
 
-          <div className="example-block-footer example-block-footer-codeblock">
+          <div className="panel-cell panel-cell-light">
 
-            <pre className="prettyprint lang-html flush-bottom">
+            <pre className="prettyprint transparent flush lang-html">
 
               {codeBlockButton}
 
@@ -291,9 +291,9 @@ class ButtonTabContent extends React.Component {
 
           </p>
 
-          <div className="example-block flush-bottom">
+          <div className="panel flush-bottom">
 
-            <div className="example-block-content">
+            <div className="panel-cell">
 
               <div className="button-collection button-collection-align-middle flush">
 
@@ -331,9 +331,9 @@ class ButtonTabContent extends React.Component {
 
             </div>
 
-            <div className="example-block-footer example-block-footer-codeblock">
+            <div className="panel-cell">
 
-              <pre className="prettyprint lang-html flush-bottom">
+              <pre className="prettyprint transparent flush lang-html">
 
                 {codeBlockButtonSizes}
 
@@ -359,9 +359,9 @@ class ButtonTabContent extends React.Component {
 
           </p>
 
-          <div className="example-block flush-bottom">
+          <div className="panel flush-bottom">
 
-            <div className="example-block-content">
+            <div className="panel-cell">
 
               <div className="button-collection flush-bottom">
 
@@ -399,9 +399,9 @@ class ButtonTabContent extends React.Component {
 
             </div>
 
-            <div className="example-block-footer example-block-footer-codeblock">
+            <div className="panel-cell panel-cell-light panel-cell-code-block">
 
-              <pre className="prettyprint lang-html flush-bottom">
+              <pre className="prettyprint transparent flush lang-html">
 
                 {codeBlockButtonStates}
 
@@ -441,9 +441,9 @@ class ButtonTabContent extends React.Component {
 
             </p>
 
-            <div className="example-block flush-bottom">
+            <div className="panel flush-bottom">
 
-              <div className="example-block-content">
+              <div className="panel-cell">
 
                 <div className="button-collection flush-bottom">
 
@@ -481,9 +481,9 @@ class ButtonTabContent extends React.Component {
 
               </div>
 
-              <div className="example-block-footer example-block-footer-codeblock">
+              <div className="panel-cell panel-cell-light panel-cell-code-block">
 
-                <pre className="prettyprint lang-html flush-bottom">
+                <pre className="prettyprint transparent flush lang-html">
 
                   {codeBlockButtonTypesRounded}
 
@@ -509,9 +509,9 @@ class ButtonTabContent extends React.Component {
 
             </p>
 
-            <div className="example-block flush-bottom">
+            <div className="panel flush-bottom">
 
-              <div className="example-block-content">
+              <div className="panel-cell">
 
                 <div className="button-collection flush-bottom">
 
@@ -549,9 +549,9 @@ class ButtonTabContent extends React.Component {
 
               </div>
 
-              <div className="example-block-footer example-block-footer-codeblock">
+              <div className="panel-cell panel-cell-light panel-cell-code-block">
 
-                <pre className="prettyprint lang-html flush-bottom">
+                <pre className="prettyprint transparent flush lang-html">
 
                   {codeBlockButtonTypesOutline}
 
@@ -577,9 +577,9 @@ class ButtonTabContent extends React.Component {
 
             </p>
 
-            <div className="example-block flush-bottom">
+            <div className="panel flush-bottom">
 
-              <div className="example-block-content">
+              <div className="panel-cell">
 
                 <div className="button-collection flush-bottom">
 
@@ -617,9 +617,9 @@ class ButtonTabContent extends React.Component {
 
               </div>
 
-              <div className="example-block-footer example-block-footer-codeblock">
+              <div className="panel-cell panel-cell-light panel-cell-code-block">
 
-                <pre className="prettyprint lang-html flush-bottom">
+                <pre className="prettyprint transparent flush lang-html">
 
                   {codeBlockButtonTypesLink}
 
@@ -645,9 +645,9 @@ class ButtonTabContent extends React.Component {
 
             </p>
 
-            <div className="example-block flush-bottom">
+            <div className="panel flush-bottom">
 
-              <div className="example-block-content">
+              <div className="panel-cell">
 
                 <div className="button-collection flush-bottom">
 
@@ -685,9 +685,9 @@ class ButtonTabContent extends React.Component {
 
               </div>
 
-              <div className="example-block-footer example-block-footer-codeblock">
+              <div className="panel-cell panel-cell-light panel-cell-code-block">
 
-                <pre className="prettyprint lang-html flush-bottom">
+                <pre className="prettyprint transparent flush lang-html">
 
                   {codeBlockButtonTypesCombined}
 
@@ -715,9 +715,9 @@ class ButtonTabContent extends React.Component {
 
           </p>
 
-          <div className="example-block inverse">
+          <div className="panel panel-inverse">
 
-            <div className="example-block-content">
+            <div className="panel-cell panel-cell-inverse">
 
               <div className="button-collection">
 
@@ -823,9 +823,9 @@ class ButtonTabContent extends React.Component {
 
             </div>
 
-            <div className="example-block-footer example-block-footer-codeblock">
+            <div className="panel-cell panel-cell-inverse panel-cell-dark panel-cell-code-block">
 
-              <pre className="prettyprint lang-html flush-bottom">
+              <pre className="prettyprint transparent flush lang-html code-block-inverse">
 
                 {codeBlockButtonInverseStyling}
 
@@ -851,9 +851,9 @@ class ButtonTabContent extends React.Component {
 
           </p>
 
-          <div className="example-block flush-bottom">
+          <div className="panel flush-bottom">
 
-            <div className="example-block-content">
+            <div className="panel-cell">
 
               <div className="button-collection button-collection-align-middle flush-bottom">
 
@@ -873,9 +873,9 @@ class ButtonTabContent extends React.Component {
 
             </div>
 
-            <div className="example-block-footer example-block-footer-codeblock">
+            <div className="panel-cell panel-cell-light panel-cell-code-block">
 
-              <pre className="prettyprint lang-html flush-bottom">
+              <pre className="prettyprint transparent flush lang-html">
 
                 {codeBlockButtonWide}
 
@@ -901,9 +901,9 @@ class ButtonTabContent extends React.Component {
 
           </p>
 
-          <div className="example-block flush-bottom">
+          <div className="panel flush-bottom">
 
-            <div className="example-block-content">
+            <div className="panel-cell">
 
               <div className="button-collection button-collection-align-middle flush-bottom">
 
@@ -923,9 +923,9 @@ class ButtonTabContent extends React.Component {
 
             </div>
 
-            <div className="example-block-footer example-block-footer-codeblock">
+            <div className="panel-cell panel-cell-light panel-cell-code-block">
 
-              <pre className="prettyprint lang-html flush-bottom">
+              <pre className="prettyprint transparent flush lang-html">
 
                 {codeBlockButtonNarrow}
 
@@ -951,9 +951,9 @@ class ButtonTabContent extends React.Component {
 
           </p>
 
-          <div className="example-block flush-bottom">
+          <div className="panel flush-bottom">
 
-            <div className="example-block-content">
+            <div className="panel-cell">
 
               <div className="button-collection button-collection-align-middle flush-bottom">
 
@@ -973,9 +973,9 @@ class ButtonTabContent extends React.Component {
 
             </div>
 
-            <div className="example-block-footer example-block-footer-codeblock">
+            <div className="panel-cell panel-cell-light panel-cell-code-block">
 
-              <pre className="prettyprint lang-html flush-bottom">
+              <pre className="prettyprint transparent flush lang-html">
 
                 {codeBlockButtonBlock}
 
@@ -999,9 +999,9 @@ class ButtonTabContent extends React.Component {
 
             </p>
 
-            <div className="example-block flush-bottom">
+            <div className="panel flush-bottom">
 
-              <div className="example-block-content">
+              <div className="panel-cell">
 
                 <div className="button-collection button-collection-align-middle flush-bottom">
 
@@ -1033,9 +1033,9 @@ class ButtonTabContent extends React.Component {
 
               </div>
 
-              <div className="example-block-footer example-block-footer-codeblock">
+              <div className="panel-cell panel-cell-light panel-cell-code-block">
 
-                <pre className="prettyprint lang-html flush-bottom">
+                <pre className="prettyprint transparent flush lang-html">
 
                   {codeBlockButtonBlockResponsive}
 
@@ -1077,9 +1077,9 @@ class ButtonTabContent extends React.Component {
 
             </p>
 
-            <div className="example-block example-block-overflow">
+            <div className="panel panel-overflow">
 
-              <div className="example-block-content">
+              <div className="panel-cell">
 
                 <div className="button-group">
 
@@ -1131,9 +1131,9 @@ class ButtonTabContent extends React.Component {
 
               </div>
 
-              <div className="example-block-footer example-block-footer-codeblock">
+              <div className="panel-cell panel-cell-light panel-cell-code-block">
 
-                <pre className="prettyprint lang-html flush-bottom">
+                <pre className="prettyprint transparent flush lang-html">
 
                   {codeBlockButtonDropdowns}
 
@@ -1159,9 +1159,9 @@ class ButtonTabContent extends React.Component {
 
             </p>
 
-            <div className="example-block example-block-overflow">
+            <div className="panel panel-overflow">
 
-              <div className="example-block-content">
+              <div className="panel-cell">
 
                 <div className="button-collection button-collection-align-vertical-center flush-bottom">
 
@@ -1409,9 +1409,9 @@ class ButtonTabContent extends React.Component {
 
               </div>
 
-              <div className="example-block-footer example-block-footer-codeblock">
+              <div className="panel-cell panel-cell-light panel-cell-code-block">
 
-                <pre className="prettyprint lang-html flush-bottom">
+                <pre className="prettyprint transparent flush lang-html">
 
                   {codeBlockButtonDropdownsSizes}
 
@@ -1437,9 +1437,9 @@ class ButtonTabContent extends React.Component {
 
             </p>
 
-            <div className="example-block example-block-overflow">
+            <div className="panel panel-overflow">
 
-              <div className="example-block-content">
+              <div className="panel-cell">
 
                 <div className="button-collection button-collection-align-vertical-center flush-bottom">
 
@@ -1817,9 +1817,9 @@ class ButtonTabContent extends React.Component {
 
             </p>
 
-            <div className="example-block flush-bottom">
+            <div className="panel flush-bottom">
 
-              <div className="example-block-content">
+              <div className="panel-cell">
 
                 <button type="button" className="button button-primary" data-toggle="button" aria-pressed="false" autocomplete="off">
 
@@ -1829,9 +1829,9 @@ class ButtonTabContent extends React.Component {
 
               </div>
 
-              <div className="example-block-footer example-block-footer-codeblock">
+              <div className="panel-cell panel-cell-light panel-cell-code-block">
 
-                <pre className="prettyprint lang-html flush-bottom">
+                <pre className="prettyprint transparent flush lang-html">
 
                   {codeBlockButtonControlsToggles}
 
@@ -1863,9 +1863,9 @@ class ButtonTabContent extends React.Component {
 
             </h4>
 
-            <div className="example-block flush-bottom">
+            <div className="panel flush-bottom">
 
-              <div className="example-block-content">
+              <div className="panel-cell">
 
                 <div className="button-group" data-toggle="buttons">
 
@@ -1891,9 +1891,9 @@ class ButtonTabContent extends React.Component {
 
               </div>
 
-              <div className="example-block-footer example-block-footer-codeblock">
+              <div className="panel-cell panel-cell-light panel-cell-code-block">
 
-                <pre className="prettyprint lang-html flush-bottom">
+                <pre className="prettyprint transparent flush lang-html">
 
                   {codeBlockButtonControlsButtonGroupsCheckboxes}
 
@@ -1909,9 +1909,9 @@ class ButtonTabContent extends React.Component {
 
             </h4>
 
-            <div className="example-block flush-bottom">
+            <div className="panel flush-bottom">
 
-              <div className="example-block-content">
+              <div className="panel-cell">
 
                 <div className="button-group" data-toggle="buttons">
 
@@ -1937,9 +1937,9 @@ class ButtonTabContent extends React.Component {
 
               </div>
 
-              <div className="example-block-footer example-block-footer-codeblock">
+              <div className="panel-cell panel-cell-light panel-cell-code-block">
 
-                <pre className="prettyprint lang-html flush-bottom">
+                <pre className="prettyprint transparent flush lang-html">
 
                   {codeBlockButtonControlsButtonGroupsRadios}
 
@@ -1967,9 +1967,9 @@ class ButtonTabContent extends React.Component {
 
           </p>
 
-          <div className="example-block flush-bottom">
+          <div className="panel flush-bottom">
 
-            <div className="example-block-content">
+            <div className="panel-cell">
 
               <div className="button-collection flush-bottom">
 
@@ -2001,9 +2001,9 @@ class ButtonTabContent extends React.Component {
 
             </div>
 
-            <div className="example-block-footer example-block-footer-codeblock">
+            <div className="panel-cell panel-cell-light panel-cell-code-block">
 
-              <pre className="prettyprint lang-html flush-bottom">
+              <pre className="prettyprint transparent flush lang-html">
 
                 {codeBlockButtonContent}
 
