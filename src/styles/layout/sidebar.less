@@ -903,6 +903,23 @@ Sidebar Open
 
   }
 
+  @media (max-height: @screen-medium-height) {
+
+    .sidebar {
+
+      &.is-expanded {
+
+        .sidebar-content {
+
+          .sidebar-logo-container {
+            display: none;
+          }
+        }
+      }
+    }
+
+  }
+
 }
 
 
