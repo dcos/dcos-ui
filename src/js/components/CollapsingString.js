@@ -46,8 +46,8 @@ class CollapsingString extends React.Component {
       return false;
     }
 
-    return !DeepEqual(this.props, nextProps)
-      || !DeepEqual(this.state, nextState);
+    return !DeepEqual(this.state, nextState)
+      || !DeepEqual(this.props, nextProps);
   }
 
   getParentWidth() {
