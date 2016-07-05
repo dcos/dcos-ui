@@ -1,6 +1,26 @@
 const HEIGHT_ATTRIBUTES = ['paddingTop', 'paddingBottom', 'borderTopWidth', 'borderBottomWidth'];
 const WIDTH_ATTRIBUTES = ['paddingLeft', 'paddingRight', 'borderLeftWidth', 'borderRightWidth'];
 
+let matchesFn = (function () {
+  let el = document.querySelector('body');
+  let names = [
+    'matches',
+    'matchesSelector',
+    'msMatchesSelector',
+    'oMatchesSelector',
+    'mozMatchesSelector',
+    'webkitMatchesSelector'
+  ];
+
+  for (let i = 0; i < names.length; i++) {
+    if (el[names[i]]) {
+      return names[i];
+    }
+  }
+
+  return names[0];
+})();
+
 var DOMUtils = {
   appendScript: function (el, code) {
     let scriptNode = document.createElement('script');
@@ -13,6 +33,20 @@ var DOMUtils = {
     }
 
     el.appendChild(scriptNode);
+  },
+
+  closest: function (el, selector) {
+    var currentEl = el;
+
+    while (currentEl && currentEl.parentElement !== null) {
+      if (currentEl[matchesFn] && currentEl[matchesFn](selector)) {
+        return currentEl;
+      }
+
+      currentEl = currentEl.parentElement;
+    }
+
+    return null;
   },
 
   getComputedWidth: function (obj) {
