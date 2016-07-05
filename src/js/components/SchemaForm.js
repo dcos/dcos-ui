@@ -311,6 +311,7 @@ class SchemaForm extends mixin(StoreMixin, InternalStorageMixin) {
             </span>
             <Tooltip content={description} wrapperClassName="tooltip-wrapper
               media-object-item" wrapText={true} maxWidth={300}
+              interactive={true}
               scrollContainer=".gm-scroll-view">
               <Icon
                 color="grey"
