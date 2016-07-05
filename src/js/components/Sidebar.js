@@ -46,8 +46,6 @@ var Sidebar = React.createClass({
   },
 
   getInitialState: function () {
-    // TODO: Use SaveState mixin to remember the user's preference.
-    // https://mesosphere.atlassian.net/browse/DCOS-6909
     return {sidebarExpanded: true};
   },
 
