@@ -14,4 +14,26 @@ describe('ServicesTab', function () {
         .should('to.have.length', 1);
     });
   });
+
+  context('Tab highlighting', function () {
+    beforeEach(function () {
+      cy.configureCluster({
+        mesos: '1-for-each-health',
+        nodeHealth: true
+      });
+
+      cy.visitUrl({url: '/services'});
+    });
+
+    it('should have an active services tab', function () {
+      cy.get('.tab-item-label.active .tab-item-label-text').contains('Services')
+        .should('to.have.length', 1);
+    });
+
+    it('should be able to go to deployments tab', function () {
+      cy.get('.tab-item-label').contains('Deployments').click();
+      cy.get('.tab-item-label.active .tab-item-label-text')
+        .contains('Deployments').should('to.have.length', 1);
+    });
+  });
 });
