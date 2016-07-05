@@ -252,9 +252,9 @@ class JobFormModal extends mixin(StoreMixin) {
   }
 
   getModalFooter() {
-    let submitLabel = 'Deploy';
+    let submitLabel = 'Create Job';
     if (this.props.isEdit) {
-      submitLabel = 'Change and deploy';
+      submitLabel = 'Save Job';
     }
 
     return (
@@ -274,7 +274,7 @@ class JobFormModal extends mixin(StoreMixin) {
   }
 
   getModalTitle() {
-    let heading = ' Create new Job';
+    let heading = ' New Job';
     if (this.props.isEdit) {
       heading = 'Edit Job';
     }
