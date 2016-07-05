@@ -44,15 +44,15 @@ describe('SaveStateMixin', function () {
 
   describe('#componentWillUnmount', function () {
 
-    it('should call #saveState', function () {
-      this.instance.saveState = jasmine.createSpy();
+    it('should call #saveState_save', function () {
+      this.instance.saveState_save = jasmine.createSpy();
       this.instance.componentWillUnmount();
-      expect(this.instance.saveState).toHaveBeenCalled();
+      expect(this.instance.saveState_save).toHaveBeenCalled();
     });
 
   });
 
-  describe('#saveState', function () {
+  describe('#saveState_save', function () {
 
     beforeEach(function () {
       this.prevGetKey = UserSettingsStore.getKey;
@@ -75,14 +75,14 @@ describe('SaveStateMixin', function () {
 
     it('should not save any state', function () {
       this.instance.state = {open: false, errorCount: 9001};
-      this.instance.componentWillUnmount();
+      this.instance.saveState_save();
       expect(UserSettingsStore.setKey).not.toHaveBeenCalled();
     });
 
     it('should set the previous state', function () {
       this.instance.saveState_properties = ['open', 'errorCount'];
       this.instance.state = {open: false, errorCount: 9001};
-      this.instance.componentWillUnmount();
+      this.instance.saveState_save();
       expect(UserSettingsStore.setKey).toHaveBeenCalledWith(
         'savedStates', {fakeInstance: {open: false, errorCount: 9001}}
       );
@@ -91,7 +91,7 @@ describe('SaveStateMixin', function () {
     it('should save specified keys', function () {
       this.instance.saveState_properties = ['errorCount'];
       this.instance.state = {open: false, errorCount: 9001};
-      this.instance.componentWillUnmount();
+      this.instance.saveState_save();
       expect(UserSettingsStore.setKey).toHaveBeenCalledWith(
         'savedStates', {fakeInstance: {errorCount: 9001}}
       );
