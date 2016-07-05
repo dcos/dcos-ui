@@ -150,7 +150,7 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
         id: JobActionItem.MORE
       },
       {
-        html: 'Suspend',
+        html: 'Disable Schedule',
         id: JobActionItem.SUSPEND
       },
       {
