@@ -36,5 +36,19 @@
         }
       }
     ]
+  },
+  "serviceAccounts": {
+    "array": [
+      {
+        "membershipurl": "/groups/olis/users/velit",
+        "user" : {
+          "description": "velit service account",
+          "is_remote": "false",
+          "is_service": "true",
+          "uid": "velit",
+          "url": "/groups/olis/users/velit"
+        }
+      }
+    ]
   }
 }
