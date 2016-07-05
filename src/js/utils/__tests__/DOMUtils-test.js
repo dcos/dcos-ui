@@ -6,7 +6,7 @@ describe('DOMUtils', function () {
 
   describe('#closest', function () {
 
-    it('should should return the parent element when provided a selector and ' +
+    it('should return the parent element when provided a selector and ' +
       'element where the element is a child of the selection', function () {
       var el = {
         parentElement: {
@@ -24,7 +24,7 @@ describe('DOMUtils', function () {
       expect(match.id).toEqual('something-fake');
     });
 
-    it('should should return null when provided a selector and element where ' +
+    it('should return null when provided a selector and element where ' +
       'the element is not a child of the selection', function () {
       var el = {
         parentElement: null,
@@ -37,7 +37,7 @@ describe('DOMUtils', function () {
       expect(match).toEqual(null);
     });
 
-    it('should should return the provided element when the provided element' +
+    it('should return the provided element when the provided element' +
       'matches the selector AND has a parent element', function () {
       var el = {
         parentElement: {

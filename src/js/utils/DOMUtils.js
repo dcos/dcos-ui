@@ -1,7 +1,7 @@
 const HEIGHT_ATTRIBUTES = ['paddingTop', 'paddingBottom', 'borderTopWidth', 'borderBottomWidth'];
 const WIDTH_ATTRIBUTES = ['paddingLeft', 'paddingRight', 'borderLeftWidth', 'borderRightWidth'];
 
-let matchesFn = function () {
+let matchesFn = (function () {
   let el = document.querySelector('body');
   let names = [
     'matches',
@@ -19,7 +19,7 @@ let matchesFn = function () {
   }
 
   return names[0];
-}();
+})();
 
 var DOMUtils = {
   appendScript: function (el, code) {
