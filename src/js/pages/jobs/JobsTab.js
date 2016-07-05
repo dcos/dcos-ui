@@ -201,7 +201,8 @@ class JobsTab extends mixin(StoreMixin, QueryParamsMixin, SaveStateMixin) {
         footer={this.getAlertPanelFooter()}
         icon={<Icon id="pages-code" color="white" size="jumbo" />}>
         <p className="flush-bottom">
-          Jobs aren't available yet.
+          Create both one-off or scheduled jobs to perform tasks at a predefined
+          interval.
         </p>
       </AlertPanel>
     );
