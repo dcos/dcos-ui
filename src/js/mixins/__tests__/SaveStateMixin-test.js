@@ -44,6 +44,16 @@ describe('SaveStateMixin', function () {
 
   describe('#componentWillUnmount', function () {
 
+    it('should call #saveState', function () {
+      this.instance.saveState = jasmine.createSpy();
+      this.instance.componentWillUnmount();
+      expect(this.instance.saveState).toHaveBeenCalled();
+    });
+
+  });
+
+  describe('#saveState', function () {
+
     beforeEach(function () {
       this.prevGetKey = UserSettingsStore.getKey;
       this.prevSetKey = UserSettingsStore.setKey;
