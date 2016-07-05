@@ -25,7 +25,7 @@ describe('Job Actions', function () {
           delay: 500
         });
       cy.get('.modal .button-collection .button-success')
-        .contains('Change and deploy')
+        .contains('Save Job')
         .click();
       cy.get('.modal').should('to.have.length', 0);
     });
