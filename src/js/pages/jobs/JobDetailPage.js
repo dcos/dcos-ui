@@ -143,21 +143,26 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
   }
 
   getActionButtons() {
-    let dropdownItems = [
-      {
-        className: 'hidden',
-        html: 'More',
-        id: JobActionItem.MORE
-      },
-      {
+    let job = MetronomeStore.getJob(this.props.params.id);
+    let dropdownItems = [];
+
+    dropdownItems.push({
+      className: 'hidden',
+      html: 'More',
+      id: JobActionItem.MORE
+    });
+
+    if (job.getSchedules().length > 0) {
+      dropdownItems.push({
         html: 'Disable Schedule',
         id: JobActionItem.SUSPEND
-      },
-      {
-        html: 'Destroy',
-        id: JobActionItem.DESTROY
-      }
-    ];
+      });
+    }
+
+    dropdownItems.push({
+      html: 'Destroy',
+      id: JobActionItem.DESTROY
+    });
 
     return [
       <button
