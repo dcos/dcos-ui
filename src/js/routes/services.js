@@ -62,6 +62,7 @@ let serviceRoutes = {
           type: Route,
           name: 'services-detail',
           path: ':id/?',
+          hideHeaderNavigation: true,
           buildBreadCrumb: function () {
             return {
               parentCrumb: 'services-page',
