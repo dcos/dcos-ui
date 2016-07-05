@@ -90,7 +90,7 @@ var Sidebar = React.createClass({
       // has had a chance to update before Gemini re-renders.
       this.setState({sidebarExpanded: !this.state.sidebarExpanded}, () => {
         SidebarActions.sidebarWidthChange();
-        this.saveState();
+        this.saveState_save();
       });
     }
   },
