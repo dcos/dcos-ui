@@ -46,13 +46,8 @@ class CollapsingString extends React.Component {
       return false;
     }
 
-    if (this.state.collapsed !== nextState.collapsed
-      || this.state.stringWidth !== nextState.stringWidth
-      || this.state.parentWidth !== nextState.parentWidth) {
-      return true;
-    }
-
-    return !DeepEqual(this.props, nextProps);
+    return !DeepEqual(this.props, nextProps)
+      || !DeepEqual(this.state, nextState);
   }
 
   getParentWidth() {
@@ -147,7 +142,7 @@ CollapsingString.defaultProps = {
   truncatedStringStartClassName: 'collapsing-string-truncated-start',
   truncatedWrapperClassName: 'collapsing-string-truncated-wrapper',
   wrapperClassName: 'collapsing-string'
-}
+};
 
 CollapsingString.propTypes = {
   // The number of characters to keep visible at the end of the string.
