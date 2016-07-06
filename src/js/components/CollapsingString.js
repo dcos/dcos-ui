@@ -54,10 +54,18 @@ class CollapsingString extends React.Component {
     let parent = null;
     let node = ReactDOM.findDOMNode(this);
 
+    if (node == null) {
+      return 0;
+    }
+
     if (this.props.parentSelector != null) {
       parent = DOMUtils.closest(node, this.props.parentSelector);
     } else {
       parent = node.parentNode;
+    }
+
+    if (parent == null) {
+      parent = global.document.body;
     }
 
     return DOMUtils.getComputedWidth(parent);
@@ -82,9 +90,10 @@ class CollapsingString extends React.Component {
   updateDimensions() {
     let parentWidth = this.getParentWidth();
 
-    // Return early if the string isn't collapsed and the parent is growing.
-    if (this.state.parentWidth != null && parentWidth >= this.state.parentWidth
-      && !this.state.collapsed) {
+    // Return early if the parent width is 0, or the string isn't collapsed
+    // and the parent is growing.
+    if (parentWidth === 0 || (this.state.parentWidth != null
+      && parentWidth >= this.state.parentWidth && !this.state.collapsed)) {
       return;
     }
 
