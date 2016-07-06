@@ -7,15 +7,15 @@ class PodsTabContent extends React.Component {
 
     let codeBlockPod =
 `<div class="pod">
-  &hellip;
+  …
 </div>`;
     let codeBlockPodOptionsSizeModifiers =
 `<div class="pod pod-short pod-wider">
-  &hellip;
+  …
 </div>`;
     let codeBlockPodOptionsDirectionModifiers =
 `<div class="pod pod-short-top pod-taller-bottom pod-wide-left pod-narrower-right">
-  &hellip;
+  …
 </div>`;
 
     return (
