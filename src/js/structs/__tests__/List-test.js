@@ -87,6 +87,31 @@ describe('List', function () {
 
   });
 
+  describe('#concatItems', function () {
+
+    beforeEach(function () {
+      this.list = new List({items: [1, 2]});
+    });
+
+    it('returns an instance of List', function () {
+      expect(this.list.concatItems()).toEqual(jasmine.any(List));
+    });
+
+    it('concatenate list items', function () {
+      let items = this.list.concatItems(new List({items: [3, 4]})).getItems();
+
+      expect(items).toEqual([1, 2, 3, 4]);
+    });
+
+    it('concatenate list items', function () {
+      let items = this.list.concatItems(new List({items: [3, 4]}), 5, {v: 6})
+        .getItems();
+
+      expect(items).toEqual([1, 2, 3, 4, 5, {v: 6}]);
+    });
+
+  });
+
   describe('#getItems', function () {
 
     it('returns list', function () {

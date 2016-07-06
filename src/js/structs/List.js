@@ -53,6 +53,30 @@ module.exports = class List {
     this.list.push(cast.call(this, item));
   }
 
+  /**
+   * @param {*} items
+   * @returns {List} List (or child class) containing concatenated items
+   */
+  concatItems(...items) {
+
+    // Prepend current list
+    items.unshift(this);
+
+    // Get items from lists
+    items = items.map(function (item) {
+      if (item instanceof List) {
+        return item.getItems();
+      }
+
+      return item;
+    });
+
+    // Flatten items
+    items = Array.prototype.concat.apply([], items);
+
+    return new this.constructor({items});
+  }
+
   getItems() {
     return this.list;
   }
