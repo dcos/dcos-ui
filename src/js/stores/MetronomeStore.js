@@ -34,8 +34,8 @@ import {
   REQUEST_METRONOME_JOB_UPDATE_SUCCESS,
   REQUEST_METRONOME_JOB_RUN_ERROR,
   REQUEST_METRONOME_JOB_RUN_SUCCESS,
-  REQUEST_METRONOME_JOB_SUSPEND_ERROR,
-  REQUEST_METRONOME_JOB_SUSPEND_SUCCESS,
+  REQUEST_METRONOME_JOB_SCHEDULE_UPDATE_ERROR,
+  REQUEST_METRONOME_JOB_SCHEDULE_UPDATE_SUCCESS,
   REQUEST_METRONOME_JOBS_ERROR,
   REQUEST_METRONOME_JOBS_ONGOING,
   REQUEST_METRONOME_JOBS_SUCCESS,
@@ -119,10 +119,10 @@ class MetronomeStore extends EventEmitter {
         case REQUEST_METRONOME_JOB_RUN_SUCCESS:
           this.emit(METRONOME_JOB_RUN_SUCCESS, action.jobID);
           break;
-        case REQUEST_METRONOME_JOB_SUSPEND_ERROR:
+        case REQUEST_METRONOME_JOB_SCHEDULE_UPDATE_ERROR:
           this.emit(METRONOME_JOB_SUSPEND_ERROR, action.jobID);
           break;
-        case REQUEST_METRONOME_JOB_SUSPEND_SUCCESS:
+        case REQUEST_METRONOME_JOB_SCHEDULE_UPDATE_SUCCESS:
           this.emit(METRONOME_JOB_SUSPEND_SUCCESS, action.jobID);
           break;
         case REQUEST_METRONOME_JOBS_SUCCESS:
@@ -169,7 +169,11 @@ class MetronomeStore extends EventEmitter {
   suspendSchedule(jobID) {
     let schedule = this.getJob(jobID).schedules[0];
     schedule.enabled = false;
-    MetronomeActions.suspendSchedule(jobID, schedule);
+    this.updateSchedule(jobID, schedule);
+  }
+
+  updateSchedule(jobID, schedule) {
+    MetronomeActions.updateSchedule(jobID, schedule);
   }
 
   addChangeListener(eventName, callback) {
