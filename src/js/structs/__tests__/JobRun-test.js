@@ -1,19 +1,19 @@
 let moment = require('moment');
 
-let JobActiveRun = require('../JobActiveRun');
+let JobRun = require('../JobRun');
 let JobTaskList = require('../JobTaskList');
 
-describe('JobActiveRun', function () {
+describe('JobRun', function () {
 
   describe('#getDateCreated', function () {
 
     it('should return null if createdAt is undefined', function () {
-      let activeRun = new JobActiveRun({foo: 'bar'});
+      let activeRun = new JobRun({foo: 'bar'});
       expect(activeRun.getDateCreated()).toEqual(null);
     });
 
     it('should return the correct value in milliseconds', function () {
-      let activeRun = new JobActiveRun({createdAt: '1990-01-03T02:00:00Z-1'});
+      let activeRun = new JobRun({createdAt: '1990-01-03T02:00:00Z-1'});
       expect(activeRun.getDateCreated()).toEqual(631332000000);
     });
 
@@ -22,7 +22,7 @@ describe('JobActiveRun', function () {
   describe('#getJobID', function () {
 
     it('should return the jobId', function () {
-      let activeRun = new JobActiveRun({jobId: 'foo'});
+      let activeRun = new JobRun({jobId: 'foo'});
       expect(activeRun.getJobID()).toEqual('foo');
     });
 
@@ -31,7 +31,7 @@ describe('JobActiveRun', function () {
   describe('#getStatus', function () {
 
     it('should return the id', function () {
-      let activeRun = new JobActiveRun({status: 'foo'});
+      let activeRun = new JobRun({status: 'foo'});
       expect(activeRun.getStatus()).toEqual('foo');
     });
 
@@ -40,7 +40,7 @@ describe('JobActiveRun', function () {
   describe('#getTasks', function () {
 
     it('should return an instance of JobTaskList', function () {
-      let activeRun = new JobActiveRun({id: 'foo', tasks: []});
+      let activeRun = new JobRun({id: 'foo', tasks: []});
       expect(activeRun.getTasks() instanceof JobTaskList).toBeTruthy();
     });
 

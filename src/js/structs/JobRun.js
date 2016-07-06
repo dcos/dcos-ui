@@ -2,7 +2,7 @@ import DateUtil from '../utils/DateUtil';
 import Item from './Item';
 import JobTaskList from './JobTaskList';
 
-module.exports = class JobActiveRun extends Item {
+class JobRun extends Item {
   getDateCreated() {
     return DateUtil.strToMs(this.get('createdAt'));
   }
@@ -18,4 +18,6 @@ module.exports = class JobActiveRun extends Item {
   getTasks() {
     return new JobTaskList({items: this.get('tasks')});
   }
-};
+}
+
+module.exports = JobRun;
