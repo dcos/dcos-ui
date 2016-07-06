@@ -166,7 +166,7 @@ class MetronomeStore extends EventEmitter {
     MetronomeActions.runJob(jobID);
   }
 
-  suspendSchedule(jobID) {
+  disableSchedule(jobID) {
     let schedule = this.getJob(jobID).schedules[0];
     schedule.enabled = false;
     this.updateSchedule(jobID, schedule);

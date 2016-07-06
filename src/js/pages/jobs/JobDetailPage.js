@@ -127,7 +127,7 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
 
   handleMoreDropdownSelection(selection) {
     if (selection.id === JobActionItem.SUSPEND) {
-      MetronomeStore.suspendSchedule(this.props.params.id);
+      MetronomeStore.disableSchedule(this.props.params.id);
       return;
     }
 

@@ -380,7 +380,7 @@ describe('MetronomeStore', function () {
     });
   });
 
-  describe('#suspendSchedule', function () {
+  describe('#disableSchedule', function () {
 
     it('should pass the jobID to update schedule', function () {
       spyOn(MetronomeStore, 'updateSchedule');
@@ -391,7 +391,7 @@ describe('MetronomeStore', function () {
         jobID: 'foo'
       });
 
-      MetronomeStore.suspendSchedule('foo');
+      MetronomeStore.disableSchedule('foo');
 
       expect(MetronomeStore.updateSchedule.calls.allArgs()[0][0])
         .toEqual('foo');
@@ -406,7 +406,7 @@ describe('MetronomeStore', function () {
         jobID: 'foo'
       });
 
-      MetronomeStore.suspendSchedule('foo');
+      MetronomeStore.disableSchedule('foo');
 
       expect(MetronomeStore.updateSchedule.calls.allArgs()[0][1].enabled)
         .toEqual(false);
