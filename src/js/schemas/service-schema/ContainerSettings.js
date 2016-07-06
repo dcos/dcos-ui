@@ -4,7 +4,7 @@ import React from 'react';
 
 const ContainerSettings = {
   title: 'Container Settings',
-  description: 'Configure your Docker Container',
+  description: 'Configure your Docker Container. You can configure your Docker Volumes in the Volumes tab and your Docker Ports in the Network tab.',
   type: 'object',
   properties: {
     basic: {
@@ -57,7 +57,6 @@ const ContainerSettings = {
         },
       }
     },
-
     parameters: {
       title: 'Parameters',
       type: 'array',
