@@ -168,7 +168,7 @@ class ButtonTabContent extends React.Component {
       Jumbo
     </button>
     <span class="dropdown-menu" role="menu">
-      &hellip;
+      …
     </span>
   </div>
 
@@ -177,7 +177,7 @@ class ButtonTabContent extends React.Component {
       Large
     </button>
     <span class="dropdown-menu" role="menu">
-      &hellip;
+      …
     </span>
   </div>
 
@@ -186,7 +186,7 @@ class ButtonTabContent extends React.Component {
       Medium
     </button>
     <span class="dropdown-menu" role="menu">
-      &hellip;
+      …
     </span>
   </div>
 
@@ -195,7 +195,7 @@ class ButtonTabContent extends React.Component {
       Small
     </button>
     <span class="dropdown-menu" role="menu">
-      &hellip;
+      …
     </span>
   </div>
 
@@ -204,7 +204,7 @@ class ButtonTabContent extends React.Component {
       Mini
     </button>
     <span class="dropdown-menu" role="menu">
-      &hellip;
+      …
     </span>
   </div>
 </div>`;
@@ -331,7 +331,7 @@ class ButtonTabContent extends React.Component {
 
             </div>
 
-            <div className="panel-cell">
+            <div className="panel-cell panel-cell-light">
 
               <pre className="prettyprint transparent flush lang-html">
 
