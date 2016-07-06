@@ -509,6 +509,38 @@ EXPECTED MARKUP
 
   }
 
+  /* -----------------------------------------------------------------------------
+  Screen Size: Medium (@layout-screen-medium-min-height) and taller
+  ----------------------------------------------------------------------------- */
+
+  // Remove in 1.9
+
+  @media (min-width: @layout-screen-medium-min-height) {
+
+    & when (@sidebar-enabled) and (@sidebar-screen-medium-enabled) {
+
+      .sidebar {
+
+        &.is-expanded {
+
+          .sidebar-content {
+
+            .sidebar-logo-container {
+
+              display: none;
+
+            }
+
+          }
+
+        }
+
+      }
+
+    }
+
+  }
+
 }
 
 
@@ -732,7 +764,6 @@ EXPECTED MARKUP
 
 
 }
-
 
 
 
