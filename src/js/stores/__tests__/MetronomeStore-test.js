@@ -412,6 +412,30 @@ describe('MetronomeStore', function () {
         .toEqual(false);
     });
 
+    it('should do nothing if job unknown', function () {
+      spyOn(MetronomeStore, 'updateSchedule');
+
+      MetronomeStore.disableSchedule('unknown');
+
+      expect(MetronomeStore.updateSchedule).not.toHaveBeenCalled()
+    });
+
+    it('should do nothing if schedule undefined', function () {
+      spyOn(MetronomeStore, 'updateSchedule');
+
+      AppDispatcher.handleServerAction({
+        type: ActionTypes.REQUEST_METRONOME_JOB_DETAIL_SUCCESS,
+        data: {
+          id: 'foo',
+        },
+        jobID: 'foo'
+      });
+
+      MetronomeStore.disableSchedule('foo');
+
+      expect(MetronomeStore.updateSchedule).not.toHaveBeenCalled()
+    });
+
   });
 
   describe('#updateSchedule', function () {

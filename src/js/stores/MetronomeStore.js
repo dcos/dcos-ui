@@ -167,9 +167,19 @@ class MetronomeStore extends EventEmitter {
   }
 
   disableSchedule(jobID) {
-    let schedule = this.getJob(jobID).schedules[0];
-    schedule.enabled = false;
-    this.updateSchedule(jobID, schedule);
+    let job = this.getJob(jobID);
+    if (job == null) {
+
+      return null;
+    }
+
+    let [schedule] = job.getSchedules();
+    if (schedule == null) {
+
+      return null;
+    }
+
+    this.updateSchedule(jobID, Object.assign({},schedule,{enabled:false}));
   }
 
   updateSchedule(jobID, schedule) {
