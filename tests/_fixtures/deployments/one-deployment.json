@@ -1,0 +1,57 @@
+[
+  {
+    "id": "b4f69082-6f96-4c92-a778-37bf61c59686",
+    "version": "2016-07-05T17:54:37.134Z",
+    "affectedApps": [
+      "/kafka"
+    ],
+    "steps": [
+      {
+        "actions": [
+          {
+            "action": "StartApplication",
+            "app": "/kafka"
+          }
+        ]
+      },
+      {
+        "actions": [
+          {
+            "action": "ScaleApplication",
+            "app": "/kafka"
+          }
+        ]
+      }
+    ],
+    "currentActions": [
+      {
+        "action": "ScaleApplication",
+        "app": "/kafka",
+        "readinessCheckResults": [
+          {
+            "name": "cassandraUpdateProgress",
+            "taskId": "kafka.8a29a459-42d9-11e6-b767-1ea433350c2b",
+            "ready": false,
+            "lastResponse": {
+              "status": 504,
+              "contentType": "text/plain",
+              "body": "Marathon could not query http://10.0.2.243:15790/v1/plan: Connection attempt to 10.0.2.243:15790 failed"
+            }
+          },
+          {
+            "name": "cassandraUpdateProgress",
+            "taskId": "kafka.93bd3c2b-42f2-11e6-b767-1ea433350c2b",
+            "ready": false,
+            "lastResponse": {
+              "status": 503,
+              "contentType": "application/json",
+              "body": "{\"phases\":[{\"id\":\"5f9c9c05-faff-45b1-aa57-4f4d0aada233\",\"name\":\"Reconciliation\",\"blocks\":[{\"id\":\"e91d36fd-4504-4e8e-8d96-fc22e5b7149f\",\"status\":\"Pending\",\"name\":\"Reconciliation\",\"message\":\"Reconciliation pending\",\"has_decision_point\":false}],\"status\":\"Pending\"},{\"id\":\"bd320876-6ece-4fb1-a506-7e3f4f34b62d\",\"name\":\"Update to: 1aee477f-7751-4a9a-a0dd-79948789ff76\",\"blocks\":[{\"id\":\"e9d11c20-fe67-4239-8c29-7447a73bd9a1\",\"status\":\"Pending\",\"name\":\"broker-0\",\"message\":\"Broker-0 is Pending\",\"has_decision_point\":false},{\"id\":\"7e97125f-5701-45f0-84d5-a079ea3faf28\",\"status\":\"Pending\",\"name\":\"broker-1\",\"message\":\"Broker-1 is Pending\",\"has_decision_point\":false},{\"id\":\"0aeb40d1-5c96-4362-9455-42a9b9f9915c\",\"status\":\"Pending\",\"name\":\"broker-2\",\"message\":\"Broker-2 is Pending\",\"has_decision_point\":false}],\"status\":\"Pending\"}],\"errors\":[],\"status\":\"Pending\"}"
+            }
+          }
+        ]
+      }
+    ],
+    "currentStep": 2,
+    "totalSteps": 2
+  }
+]

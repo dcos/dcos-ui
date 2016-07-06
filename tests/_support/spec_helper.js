@@ -95,6 +95,12 @@ Cypress.addParentCommand('configureCluster', function (configuration) {
       .route(/state/, 'fx:marathon-1-task/state');
   }
 
+  if (configuration.deployments === 'one-deployment') {
+    cy
+      .route(/marathon\/v2\/deployments/, 'fx:deployments/one-deployment')
+      .route(/service\/marathon\/v2\/groups/, 'fx:marathon-1-group/kafka')
+  }
+
   if (configuration.networkVIPSummaries) {
     cy
       .route(/networking\/api\/v1\/summary/,

@@ -42,14 +42,19 @@ var ServicesPage = React.createClass({
     this.updateCurrentTab();
   },
 
+  componentDidUpdate: function () {
+    this.updateCurrentTab();
+  },
+
   updateCurrentTab: function () {
     let routes = this.context.router.getCurrentRoutes();
     let currentTab = routes[routes.length - 1].name;
     // `services-page` tab also contains routes for 'services-details'
-    if (currentTab === 'services-detail') {
+    if (currentTab === 'services-detail' || currentTab == null) {
       currentTab = 'services-page';
     }
-    if (currentTab != null) {
+
+    if (this.state.currentTab !== currentTab) {
       this.setState({currentTab});
     }
   },
