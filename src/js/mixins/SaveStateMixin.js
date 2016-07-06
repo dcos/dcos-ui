@@ -19,6 +19,10 @@ const SaveStateMixin = {
   },
 
   componentWillUnmount() {
+    this.saveState_save();
+  },
+
+  saveState_save() {
     let {saveState_key, saveState_properties, state} = this;
     let savedStates = UserSettingsStore.getKey(SAVED_STATE_KEY);
     if (savedStates == null) {
