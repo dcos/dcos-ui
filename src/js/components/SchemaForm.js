@@ -74,29 +74,12 @@ class SchemaForm extends mixin(StoreMixin, InternalStorageMixin) {
   }
 
   handleFormChange(formData, eventObj) {
-    let isBlur = eventObj.eventType === 'blur';
-    let isChange = eventObj.eventType === 'change';
-
-    if (!isBlur && !isChange) {
+    if (eventObj.eventType !== 'blur') {
       return;
     }
 
-    if (isBlur) {
-      this.validateForm();
-      this.props.onChange(this.getDataTriple());
-      return;
-    }
-
-    // The cleartimeout is there to debounce the validation. And to make
-    // sure it is only run once.
-    if (this.timer) {
-      clearTimeout(this.timer);
-    }
-
-    this.timer = setTimeout(() => {
-      this.validateForm();
-      this.props.onChange(this.getDataTriple());
-    });
+    this.validateForm();
+    this.props.onChange(this.getDataTriple());
   }
 
   handleExternalSubmit() {
