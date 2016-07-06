@@ -55,6 +55,8 @@ module.exports = Object.assign({}, webpackConfig, {
     // Don't include images in /icons/_exports
     new webpack.IgnorePlugin(/icons\/_exports\//),
 
+    new webpack.IgnorePlugin(/tests\/_fixtures\//),
+
     new CompressionPlugin({
       asset: '[path].gz[query]',
       algorithm: 'gzip',
