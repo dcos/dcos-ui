@@ -88,6 +88,7 @@ const MetronomeActions = {
       url: `${Config.metronomeAPI}/v1/jobs/${jobID}`,
       data: [
         {name: 'embed', value: 'activeRuns'},
+        {name: 'embed', value: 'history'},
         {name: 'embed', value: 'schedules'}
       ],
       success: function (response) {
