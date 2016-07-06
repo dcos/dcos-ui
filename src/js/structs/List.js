@@ -21,12 +21,11 @@ function cast(item) {
 }
 
 module.exports = class List {
+
   /**
    * List
-   * @param {{
-   *          items:array,
-   *          filterProperties:{propertyName:(null|function)}
-   *        }} options
+   * @param {Array} options.items
+   * @param {{propertyName:(null|function)}} [options.filterProperties]
    * @property {Class} type - the type of list items
    * @constructor
    * @struct
