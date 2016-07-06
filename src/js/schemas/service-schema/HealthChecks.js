@@ -75,30 +75,25 @@ let HealthChecks = {
           },
           gracePeriodSeconds: {
             description: 'Grace period in seconds',
-            fieldType: 'number',
             title: 'Grace Period',
             type: 'number'
           },
           intervalSeconds: {
             description: 'Interval in seconds',
-            fieldType: 'number',
             title: 'Interval',
             type: 'number'
           },
           timeoutSeconds: {
             description: 'Timeout in seconds',
-            fieldType: 'number',
             title: 'Timeout',
             type: 'number'
           },
           maxConsecutiveFailures: {
             title: 'Maximum Consecutive Failures',
-            fieldType: 'number',
             type: 'number'
           },
           port: {
             title: 'Port Number',
-            fieldType: 'number',
             type: 'number',
             shouldShow: function (service) {
               return service.portType === 'PORT_NUMBER';
@@ -106,7 +101,6 @@ let HealthChecks = {
           },
           portIndex: {
             title: 'Port Index',
-            fieldType: 'number',
             type: 'number',
             shouldShow: function (service) {
               return service.portType == null || service.portType === 'PORT_INDEX';
