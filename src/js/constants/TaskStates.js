@@ -16,7 +16,7 @@ const TaskStates = {
 
   TASK_STARTED: {
     stateTypes: ['active', 'success'],
-    displayName: 'Running'
+    displayName: 'Started'
   },
 
   TASK_RUNNING: {

@@ -61,48 +61,58 @@ Badge
 
 .dot {
 
-  background-color: @neutral;
+  background-color: currentColor;
+  color: @neutral;
   width: @body-text-font-size * 0.75;
   height: @body-text-font-size * 0.75;
   border-radius: 100%;
 
   &.danger {
 
-    background-color: @text-danger-color;
+    background-color: currentColor;
+    color: @text-danger-color;
 
   }
 
   &.success {
 
-    background-color: @text-success-color;
+    color: @text-success-color;
+
+  }
+
+  &.running {
+
+    color: lighten(@neutral, 10);
 
   }
 
   &.unknown {
 
-    background-color: lighten(@neutral, 10);
+    color: lighten(@neutral, 10);
 
   }
 
   &.over-capacity {
-    background-color: @blue;
+
+    color: @blue;
+
   }
 
   &.healthy {
 
-    background-color: @green;
+    color: @green;
 
   }
 
   &.unhealthy {
 
-    background-color: @red;
+    color: @red;
 
   }
 
   &.staged {
 
-    background-color: @yellow;
+    color: @yellow;
 
   }
 

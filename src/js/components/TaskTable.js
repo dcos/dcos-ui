@@ -143,9 +143,40 @@ class TaskTable extends React.Component {
     let statusClassName = TaskUtil.getTaskStatusClassName(task);
     let statusLabelClasses = `${statusClassName} table-cell-value`;
 
+    let {state} = task;
+
+    let dangerState = TaskStates[state].stateTypes.includes('failure');
+
+    let healthy = task.statuses.some(function (status) {
+      return status.healthy;
+    });
+
+    let unknown = task.statuses.some(function (status) {
+      return status.healthy == null;
+    });
+
+    let activeState = TaskStates[state].stateTypes.includes('active');
+
+    let running = ['TASK_RUNNING', 'TASK_STARTING'].includes(state) && unknown;
+    let success = healthy && state === 'TASK_RUNNING';
+    let danger = (dangerState && !activeState && dangerState &&
+      ['TASK_ERROR', 'TASK_FAILED'].includes(state)) || healthy === false;
+
+    let statusClass = classNames({
+      'dot': true,
+      inactive: !activeState,
+      success: success,
+      running: running,
+      danger: danger
+    });
+
     return (
       <div className="flex-box flex-box-align-vertical-center
         table-cell-flex-box">
+        <div className="table-cell-icon table-cell-task-dot
+          task-status-indicator">
+          <span className={statusClass}></span>
+        </div>
         <span className={statusLabelClasses}>
           {this.getStateValue(task, prop)}
         </span>

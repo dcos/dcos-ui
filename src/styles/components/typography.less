@@ -141,20 +141,23 @@ components/typography.less
   --------------------------------------------------------------------------------
   ----------------------------------------------------------------------------- */
 
-  .task-status-running {
-    color: @purple;
+  .task-status-running,
+  .task-status-starting {
+    color: @white;
   }
 
-  .task-status-staging,
-  .task-status-starting {
+  .task-status-staging{
+    color: @yellow;
+  }
+
+  .task-status-killing,
+  .task-status-killed,
+  .task-status-lost {
     color: @text-muted-color;
   }
 
   .task-status-error,
   .task-status-failed,
-  .task-status-killed,
-  .task-status-killing,
-  .task-status-lost,
   .text-error-state {
     color: @text-danger-color;
   }
