@@ -49,8 +49,8 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
         'jobDetailError',
         'jobRunError',
         'jobRunSuccess',
-        'jobSuspendError',
-        'jobSuspendSuccess'
+        'jobScheduleUpdateError',
+        'jobScheduleUpdateSuccess'
       ]
     }];
 

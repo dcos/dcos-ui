@@ -179,11 +179,11 @@ describe('MetronomeStore', function () {
         expect(changeHandler).toHaveBeenCalledWith('foo');
       });
 
-    it('emits event after #suspendJob success event is dispatched',
+    it('emits event after update schedule success event is dispatched',
       function () {
         let changeHandler = jasmine.createSpy('changeHandler');
         MetronomeStore.addChangeListener(
-          EventTypes.METRONOME_JOB_SUSPEND_SUCCESS,
+          EventTypes.METRONOME_JOB_SCHEDULE_UPDATE_SUCCESS,
           changeHandler
         );
 
@@ -194,13 +194,14 @@ describe('MetronomeStore', function () {
 
         expect(changeHandler).toHaveBeenCalled();
         expect(changeHandler).toHaveBeenCalledWith('foo');
-      });
+      }
+    );
 
-    it('emits event after #suspendJob error event is dispatched',
+    it('emits event after update schedule error event is dispatched',
       function () {
         let changeHandler = jasmine.createSpy('changeHandler');
         MetronomeStore.addChangeListener(
-          EventTypes.METRONOME_JOB_SUSPEND_ERROR,
+          EventTypes.METRONOME_JOB_SCHEDULE_UPDATE_ERROR,
           changeHandler
         );
 
@@ -211,7 +212,8 @@ describe('MetronomeStore', function () {
 
         expect(changeHandler).toHaveBeenCalled();
         expect(changeHandler).toHaveBeenCalledWith('foo');
-      });
+      }
+    );
 
     it('emits event after create job success event is dispatched',
       function () {
