@@ -106,16 +106,6 @@ class TaskTable extends React.Component {
   }
 
   renderHeadline(prop, task) {
-    let dangerState = TaskStates[task.state].stateTypes.includes('failure');
-
-    let successState = TaskStates[task.state].stateTypes.includes('success');
-
-    let statusClass = classNames({
-      'dot': true,
-      success: successState,
-      danger: dangerState
-    });
-
     let title = task.name || task.id;
     let params = this.props.parentRouter.getCurrentParams();
     let routeParams = Object.assign({taskID: task.id}, params);
@@ -128,10 +118,6 @@ class TaskTable extends React.Component {
     return (
       <div className="flex-box flex-box-align-vertical-center
         table-cell-flex-box">
-        <div className="table-cell-icon table-cell-task-dot
-          task-status-indicator">
-          <span className={statusClass}></span>
-        </div>
         <div className="table-cell-value flex-box flex-box-col">
           <Link
             className="emphasize clickable text-overflow"
