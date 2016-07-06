@@ -108,11 +108,13 @@ const Networking = {
                   definition.value = null;
                   definition.disabled = false;
                   definition.className = 'form-control';
+                  definition.fieldType = 'number';
                 }
               } else {
                 // show as disabled
                 definition.value = disabledLBPortFieldValue;
                 definition.disabled = true;
+                definition.fieldType = 'text';
                 definition.className = 'form-control lb-port-input-field-disabled';
               }
 
