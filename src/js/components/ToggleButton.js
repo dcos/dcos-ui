@@ -29,7 +29,7 @@ ToggleButton.defaultProps = {
   checked: false,
   onChange: function () {},
   checkboxClassName: 'toggle-button'
-}
+};
 
 ToggleButton.propTypes = {
   checked: React.PropTypes.bool,
@@ -46,6 +46,6 @@ ToggleButton.propTypes = {
     React.PropTypes.object,
     React.PropTypes.string
   ])
-}
+};
 
 module.exports = ToggleButton;

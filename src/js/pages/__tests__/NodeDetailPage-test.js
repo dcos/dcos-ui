@@ -39,7 +39,7 @@ describe('NodeDetailPage', function () {
 
     CompositeState.getNodesList = function () {
       return new NodesList({items: [{id: 'existingNode'}]});
-    }
+    };
 
     MesosSummaryActions.fetchSummary = function () {
       return null;

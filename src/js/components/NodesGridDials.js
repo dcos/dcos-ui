@@ -183,7 +183,7 @@ var NodesGridDials = React.createClass({
   // not to spread themselves across the line.
   getSpacers: function () {
     return Array(30).fill().map(function (v, index) {
-      return <div className="nodes-grid-dials-spacer" key={index}></div>
+      return <div className="nodes-grid-dials-spacer" key={index}></div>;
     });
   },
 

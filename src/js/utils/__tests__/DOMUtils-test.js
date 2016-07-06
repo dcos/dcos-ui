@@ -202,7 +202,7 @@ describe('DOMUtils', function () {
         contains: function (el) {
           return this === el;
         }
-      }
+      };
       this.prevElementFromPoint = global.document.elementFromPoint;
     });
 
@@ -246,7 +246,7 @@ describe('DOMUtils', function () {
             };
           }
         }
-      }
+      };
     });
 
     it('gets the correct distance from parent top', function () {

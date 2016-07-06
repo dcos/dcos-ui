@@ -26,7 +26,7 @@ describe('MesosStateUtil', function () {
 
     it('should throw when a null state is provided', function () {
       expect(function () {
-        MesosStateUtil.getTasksFromVirtualNetworkName(null, 'foo')
+        MesosStateUtil.getTasksFromVirtualNetworkName(null, 'foo');
       }).toThrow();
     });
 

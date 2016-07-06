@@ -76,6 +76,6 @@ CosmosErrorMessage.propTypes = {
   header: React.PropTypes.string,
   headerClass: React.PropTypes.string,
   wrapperClass: React.PropTypes.string
-}
+};
 
 module.exports = CosmosErrorMessage;

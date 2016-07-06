@@ -47,7 +47,7 @@ class KillTaskModal extends mixin(StoreMixin) {
     let {action} = this.props;
     let headerContent = ` ${selectedItemsLength} Tasks`;
     if (selectedItemsLength === 1) {
-      headerContent = ` ${selectedItems[0]}`
+      headerContent = ` ${selectedItems[0]}`;
     }
 
     return (

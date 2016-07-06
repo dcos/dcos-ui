@@ -23,8 +23,8 @@ describe('ResourcesUtil', function () {
   describe('#getAvailableResources', function () {
 
     beforeEach(function () {
-      CompositeState.getNodesList = function () {return new NodesList()};
-      CompositeState.getServicesList = function () {return []};
+      CompositeState.getNodesList = function () {return new NodesList();};
+      CompositeState.getServicesList = function () {return [];};
     });
 
     it('returns an array', function () {

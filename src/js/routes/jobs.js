@@ -45,7 +45,7 @@ let jobsRoutes = {
           }
         ];
       }
-    }
+    };
   },
   children: [
     {
@@ -62,7 +62,7 @@ let jobsRoutes = {
             return {
               parentCrumb: 'jobs-page',
               getCrumbs: buildJobCrumbs
-            }
+            };
           },
           children:[
             {
@@ -81,7 +81,7 @@ let jobsRoutes = {
                         routeName="jobs-task-details" />
                     ];
                   }
-                }
+                };
               },
               children: [
                 {
@@ -93,7 +93,7 @@ let jobsRoutes = {
                     return {
                       parentCrumb: 'jobs-task-details',
                       getCrumbs: function () { return []; }
-                    }
+                    };
                   },
                   title:'Details'
                 },
@@ -108,7 +108,7 @@ let jobsRoutes = {
                     return {
                       parentCrumb: 'jobs-task-details',
                       getCrumbs: function () { return []; }
-                    }
+                    };
                   },
                   title:'Files'
                 },
@@ -123,7 +123,7 @@ let jobsRoutes = {
                     return {
                       parentCrumb: 'jobs-task-details',
                       getCrumbs: function () { return []; }
-                    }
+                    };
                   },
                   title:'Logs'
                 }

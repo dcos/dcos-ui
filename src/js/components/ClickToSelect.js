@@ -23,6 +23,6 @@ class ClickToSelect extends React.Component {
 
 ClickToSelect.propTypes = {
   children: React.PropTypes.any
-}
+};
 
 module.exports = ClickToSelect;

@@ -30,7 +30,7 @@ let RouteFactory = {
                 route: {to: 'virtual-networks-tab'}
               }];
             }
-          }
+          };
         }
       },
       {
@@ -58,7 +58,7 @@ let RouteFactory = {
                     }
                   }];
                 }
-              }
+              };
             }
           },
           {
@@ -81,7 +81,7 @@ let RouteFactory = {
                     }
                   }];
                 }
-              }
+              };
             }
           }
         ]
@@ -98,7 +98,7 @@ let RouteFactory = {
             getCrumbs: function (router) {
               return [{label: router.getCurrentParams().taskID}];
             }
-          }
+          };
         },
         children: [
           {
@@ -110,7 +110,7 @@ let RouteFactory = {
               return {
                 parentCrumb: 'virtual-networks-tab-detail-tasks-detail',
                 getCrumbs: function () { return []; }
-              }
+              };
             },
             title: 'Details'
           },
@@ -125,7 +125,7 @@ let RouteFactory = {
               return {
                 parentCrumb: 'virtual-networks-tab-detail-tasks-detail',
                 getCrumbs: function () { return []; }
-              }
+              };
             },
             title: 'Files'
           },
@@ -140,7 +140,7 @@ let RouteFactory = {
               return {
                 parentCrumb: 'virtual-networks-tab-detail-tasks-detail',
                 getCrumbs: function () { return []; }
-              }
+              };
             },
             title: 'Logs'
           }

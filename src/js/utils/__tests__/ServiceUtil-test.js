@@ -100,7 +100,7 @@ describe('ServiceUtil', function () {
 
         it('should add a VIP label when discovery is on', function () {
           let service = ServiceUtil.createServiceFromFormModel({
-              general: { id: '/foo/bar'},
+            general: { id: '/foo/bar'},
             networking: {
               networkType: 'host',
               ports: [ {lbPort: 1234, discovery: true} ]
@@ -519,7 +519,7 @@ describe('ServiceUtil', function () {
         expect(ServiceUtil.createServiceFromFormModel(model))
           .toEqual(expectedService);
       });
-    })
+    });
   });
 
   describe('#createFormModelFromSchema', function () {

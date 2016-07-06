@@ -86,7 +86,7 @@ describe('Deployment', function () {
 
     it('gracefully handles deployments without steps', function () {
       let deployment = new Deployment({id: 'deployment-id'});
-      expect(deployment.isStarting.bind(deployment)).not.toThrow(); 
+      expect(deployment.isStarting.bind(deployment)).not.toThrow();
     });
 
   });

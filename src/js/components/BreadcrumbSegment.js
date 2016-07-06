@@ -60,6 +60,6 @@ class BreadcrumbSegment extends mixin(StoreMixin) {
 BreadcrumbSegment.propTypes = {
   parentRouter: PropTypes.func.isRequired,
   routeName: PropTypes.string.isRequired
-}
+};
 
 module.exports = BreadcrumbSegment;

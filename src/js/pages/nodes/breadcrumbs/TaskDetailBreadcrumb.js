@@ -7,7 +7,7 @@ class TaskDetailBreadcrumb extends BreadcrumbSegment {
 
     this.store_listeners = [
       {name: 'state', events: ['success'], listenAlways: false}
-    ]
+    ];
   }
 
   componentDidMount() {

@@ -65,21 +65,21 @@ describe('NodesGridDials', function () {
 
     it('contains a slice for the used resource', function () {
       var slice = this.activeSlices.data.find((datum) => {
-        return datum.name === this.resourceLabel
+        return datum.name === this.resourceLabel;
       });
       expect(typeof slice).toEqual('object');
     });
 
     it('the used slice uses the correct color', function () {
       var slice = this.activeSlices.data.find((datum) => {
-        return datum.name === this.resourceLabel
+        return datum.name === this.resourceLabel;
       });
       expect(slice.colorIndex).toEqual(this.resourceColor);
     });
 
     it('the used slice contains the correct percentage', function () {
       var slice = this.activeSlices.data.find((datum) => {
-        return datum.name === this.resourceLabel
+        return datum.name === this.resourceLabel;
       });
       expect(slice.percentage).toEqual(50);
     });

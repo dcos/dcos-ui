@@ -21,6 +21,6 @@ const VirtualNetworkUtil = {
       </AlertPanel>
     );
   }
-}
+};
 
 module.exports = VirtualNetworkUtil;

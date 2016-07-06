@@ -25,7 +25,7 @@ module.exports = class JobTree extends Tree {
     // based on their properties.
     this.list = this.list.map((item) => {
       if (item instanceof Job || item instanceof JobTree) {
-        return item
+        return item;
       }
 
       // Create instances of JobTree for tree like items

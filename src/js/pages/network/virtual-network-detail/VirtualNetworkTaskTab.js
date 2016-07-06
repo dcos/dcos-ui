@@ -171,8 +171,8 @@ class VirtualNetworkTaskTab extends mixin(StoreMixin) {
 
   getTitle(portMappings) {
     return portMappings.map(function (mapping) {
-      return `${mapping.container_port} > ${mapping.host_port} (${mapping.protocol})`
-    }).join(', ')
+      return `${mapping.container_port} > ${mapping.host_port} (${mapping.protocol})`;
+    }).join(', ');
   }
 
   getAgentIP(task) {
@@ -301,6 +301,6 @@ VirtualNetworkTaskTab.contextTypes = {
 
 VirtualNetworkTaskTab.propTypes = {
   overlay: React.PropTypes.instanceOf(Overlay)
-}
+};
 
 module.exports = VirtualNetworkTaskTab;

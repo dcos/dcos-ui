@@ -22,7 +22,7 @@ describe('BreadcrumbSegment', function () {
     };
 
     this.parentRouter = parentRouter;
-  })
+  });
 
   it('renders the label', function () {
     let instance = TestUtils.renderIntoDocument(

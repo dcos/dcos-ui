@@ -323,12 +323,12 @@ class DeploymentsTab extends mixin(StoreMixin) {
 
     if (deploymentToRollback.isStarting()) {
       return `This will stop the current deployment of ${listOfServiceNames}
-              and start a new deployment to remove the affected ${service}.`
+              and start a new deployment to remove the affected ${service}.`;
     }
 
     return `This will stop the current deployment of ${listOfServiceNames} and
             start a new deployment to revert the affected ${service} to ${its}
-            previous ${version}.`
+            previous ${version}.`;
   }
 
   renderRollbackError(deploymentRollbackError) {

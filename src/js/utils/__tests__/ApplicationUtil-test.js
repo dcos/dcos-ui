@@ -15,7 +15,7 @@ describe('ApplicationUtil', function () {
 
       global.getPageLoadedTime = function () {
         return now - Config.applicationRenderDelay;
-      }
+      };
 
       ApplicationUtil.invokeAfterPageLoad(spy);
 
@@ -29,7 +29,7 @@ describe('ApplicationUtil', function () {
 
       global.getPageLoadedTime = function () {
         return now;
-      }
+      };
 
       ApplicationUtil.invokeAfterPageLoad(spy);
 

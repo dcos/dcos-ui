@@ -11,7 +11,7 @@ import FilterHeadline from '../../components/FilterHeadline';
 import Icon from '../../components/Icon';
 import JobsTable from './JobsTable';
 import JobFilterTypes from '../../constants/JobFilterTypes';
-import JobSearchFilter from '../../components/JobSearchFilter'
+import JobSearchFilter from '../../components/JobSearchFilter';
 import JobTree from '../../structs/JobTree';
 import QueryParamsMixin from '../../mixins/QueryParamsMixin';
 import SaveStateMixin from '../../mixins/SaveStateMixin';

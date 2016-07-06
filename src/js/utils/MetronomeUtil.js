@@ -34,7 +34,7 @@ function addJob(parent, item, jobsAlreadyAdded) {
 
   // Get the parent id (e.g. group) by matching everything but the item
   // name including the preceding dot "." (e.g. ".name").
-  const [parentId] = itemId.match(/.*?(?=\.?[^.]+\.?$)/)
+  const [parentId] = itemId.match(/.*?(?=\.?[^.]+\.?$)/);
 
   if (parentId == null) {
     return;

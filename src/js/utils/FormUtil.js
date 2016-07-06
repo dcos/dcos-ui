@@ -71,7 +71,7 @@ const FormUtil = {
     } = options;
 
     if (prop == null || parentDefinition == null || itemDefinition == null) {
-      throw 'Need prop, parent definition, and item definition to transform.'
+      throw 'Need prop, parent definition, and item definition to transform.';
     }
 
     if (instancesIndex == null) {
@@ -177,7 +177,7 @@ const FormUtil = {
 
     Object.keys(propValues).forEach(function (propValue) {
       propValues[propValue] = propValues[propValue].filter(function (item) {
-        return item !== undefined
+        return item !== undefined;
       });
     });
 
@@ -248,7 +248,7 @@ const FormUtil = {
     }
 
     let value = key.split('[');
-    return parseInt(value[1].split(']')[0])
+    return parseInt(value[1].split(']')[0]);
   },
 
   /**

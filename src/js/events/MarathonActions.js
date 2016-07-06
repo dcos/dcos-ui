@@ -188,7 +188,7 @@ module.exports = {
             });
           }
         });
-      }
+      };
     },
     {delayAfterCount: Config.delayAfterErrorCount}
   ),
@@ -274,7 +274,7 @@ module.exports = {
             });
           }
         });
-      }
+      };
     },
     {delayAfterCount: Config.delayAfterErrorCount}
   ),

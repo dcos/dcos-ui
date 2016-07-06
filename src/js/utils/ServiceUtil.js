@@ -94,7 +94,7 @@ const ServiceUtil = {
         definition.constraints = optional.constraints &&
           optional.constraints.split(',')
             .map(function (item) {
-              return item.split(':')
+              return item.split(':');
             });
         definition.acceptedResourceRoles =
           optional.acceptedResourceRoles &&
@@ -145,7 +145,7 @@ const ServiceUtil = {
             volumesList = volumesList.concat(
               volumes.dockerVolumes
               .filter(function ({containerPath, hostPath}) {
-                return containerPath != null && hostPath != null
+                return containerPath != null && hostPath != null;
               })
               .map(function ({containerPath, hostPath, mode}) {
                 return {

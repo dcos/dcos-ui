@@ -42,7 +42,7 @@ let RouteFactory = {
                     }
                   ];
                 }
-              }
+              };
             }
           },
           {
@@ -61,7 +61,7 @@ let RouteFactory = {
                       routeName="system-overview-units-unit-nodes-detail" />
                   ];
                 }
-              }
+              };
             }
           },
           {
@@ -81,7 +81,7 @@ let RouteFactory = {
                       />
                   ];
                 }
-              }
+              };
             }
           },
           {
@@ -120,7 +120,7 @@ let RouteFactory = {
                   }
                 ];
               }
-            }
+            };
           },
           children: []
         }],
@@ -156,7 +156,7 @@ let RouteFactory = {
               }
             ];
           }
-        }
+        };
       },
       // Get children for Overview
       children: RouteFactory.getOrganizationRoutes()
@@ -199,9 +199,9 @@ let RouteFactory = {
                 label: 'System',
                 route: {to: 'system'}
               }
-            ]
+            ];
           }
-        }
+        };
       }
     };
   }

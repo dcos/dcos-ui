@@ -36,7 +36,7 @@ let mergeObjectsById = function (newData, data = []) {
   return newData.map(function (newDatum) {
     let oldDatum = data.find(function (datum) {
       return datum.id === newDatum.id;
-    })
+    });
 
     // These objects don't need to be deeply merged.
     return Object.assign({}, oldDatum, newDatum);

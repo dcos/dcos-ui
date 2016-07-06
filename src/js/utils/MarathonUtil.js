@@ -1,5 +1,5 @@
-import VolumeTypes from '../constants/VolumeTypes'
-import VolumeStatus from '../constants/VolumeStatus'
+import VolumeTypes from '../constants/VolumeTypes';
+import VolumeStatus from '../constants/VolumeStatus';
 
 function parseApp(app) {
   let {id, tasks = [], container = {}} = app;

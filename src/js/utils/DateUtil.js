@@ -26,7 +26,7 @@ const DateUtil = {
     * @return {String} The relative time.
     */
   dateToRelativeTime: function (date) {
-    return moment(date.getTime()).fromNow()
+    return moment(date.getTime()).fromNow();
   },
 
   formatAMPM: function (date) {

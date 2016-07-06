@@ -76,4 +76,4 @@ module.exports = class Deployment extends Item {
     }
   }
 
-}
+};

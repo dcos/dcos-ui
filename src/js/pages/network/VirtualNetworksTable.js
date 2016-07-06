@@ -104,6 +104,6 @@ VirtualNetworksTable.contextTypes = {
 
 VirtualNetworksTable.propTypes = {
   overlays: React.PropTypes.instanceOf(OverlayList)
-}
+};
 
 module.exports = VirtualNetworksTable;

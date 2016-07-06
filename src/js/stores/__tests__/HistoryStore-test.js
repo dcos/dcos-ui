@@ -4,7 +4,7 @@ jest.dontMock('../HistoryStore');
 jest.setMock('react-router', {
   HashLocation: {
     getCurrentPath: function () {
-      '/#/foo'
+      '/#/foo';
     },
     addChangeListener: function () {
 
