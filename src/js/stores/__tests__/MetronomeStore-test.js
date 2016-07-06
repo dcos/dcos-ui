@@ -196,6 +196,23 @@ describe('MetronomeStore', function () {
         expect(changeHandler).toHaveBeenCalledWith('foo');
       });
 
+    it('emits event after #jobEnableSchedule success event is dispatched',
+      function () {
+        let changeHandler = jasmine.createSpy('changeHandler');
+        MetronomeStore.addChangeListener(
+          EventTypes.METRONOME_JOB_ENABLE_SCHEDULE_SUCCESS,
+          changeHandler
+        );
+
+        AppDispatcher.handleServerAction({
+          type: ActionTypes.REQUEST_METRONOME_JOB_ENABLE_SCHEDULE_SUCCESS,
+          jobID: 'foo'
+        });
+
+        expect(changeHandler).toHaveBeenCalled();
+        expect(changeHandler).toHaveBeenCalledWith('foo');
+      });
+
     it('emits event after #jobDisableScheduleError error event is dispatched',
       function () {
         let changeHandler = jasmine.createSpy('changeHandler');
@@ -206,6 +223,23 @@ describe('MetronomeStore', function () {
 
         AppDispatcher.handleServerAction({
           type: ActionTypes.REQUEST_METRONOME_JOB_DISABLE_SCHEDULE_ERROR,
+          jobID: 'foo'
+        });
+
+        expect(changeHandler).toHaveBeenCalled();
+        expect(changeHandler).toHaveBeenCalledWith('foo');
+      });
+
+    it('emits event after #jobEnableScheduleError error event is dispatched',
+      function () {
+        let changeHandler = jasmine.createSpy('changeHandler');
+        MetronomeStore.addChangeListener(
+          EventTypes.METRONOME_JOB_ENABLE_SCHEDULE_ERROR,
+          changeHandler
+        );
+
+        AppDispatcher.handleServerAction({
+          type: ActionTypes.REQUEST_METRONOME_JOB_ENABLE_SCHEDULE_ERROR,
           jobID: 'foo'
         });
 
@@ -408,6 +442,40 @@ describe('MetronomeStore', function () {
       MetronomeStore.disableSchedule('foo');
 
       expect(changeHandler.calls.allArgs()[0][1].enabled).toEqual(false);
+    });
+
+  });
+
+  describe('#enableSchedule', function () {
+
+    it('should pass the jobID to the action', function () {
+      let changeHandler = jasmine.createSpy('changeHandler');
+      MetronomeActions.enableSchedule = changeHandler;
+
+      AppDispatcher.handleServerAction({
+        type: ActionTypes.REQUEST_METRONOME_JOB_DETAIL_SUCCESS,
+        data: jobFixture,
+        jobID: 'foo'
+      });
+
+      MetronomeStore.enableSchedule('foo');
+
+      expect(changeHandler.calls.allArgs()[0][0]).toEqual('foo');
+    });
+
+    it('should grab the schedule and set enabled to true', function () {
+      let changeHandler = jasmine.createSpy('changeHandler');
+      MetronomeActions.enableSchedule = changeHandler;
+
+      AppDispatcher.handleServerAction({
+        type: ActionTypes.REQUEST_METRONOME_JOB_DETAIL_SUCCESS,
+        data: jobFixture,
+        jobID: 'foo'
+      });
+
+      MetronomeStore.enableSchedule('foo');
+
+      expect(changeHandler.calls.allArgs()[0][1].enabled).toEqual(true);
     });
 
   });

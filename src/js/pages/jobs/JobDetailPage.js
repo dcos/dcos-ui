@@ -33,6 +33,7 @@ const JobActionItem = {
   EDIT: 'edit',
   DESTROY: 'destroy',
   SCHEDULE_DISABLE: 'schedule_disable',
+  SCHEDULE_ENABLE: 'schedule_enable',
   MORE: 'more'
 };
 
@@ -131,6 +132,11 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
       return;
     }
 
+    if (selection.id === JobActionItem.SCHEDULE_ENABLE) {
+      MetronomeStore.enableSchedule(this.props.params.id);
+      return;
+    }
+
     this.setState({jobActionDialog: selection.id});
   }
 
@@ -157,6 +163,13 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
       dropdownItems.push({
         html: 'Disable Schedule',
         id: JobActionItem.SCHEDULE_DISABLE
+      });
+    }
+
+    if (schedule != null && !schedule.enabled) {
+      dropdownItems.push({
+        html: 'Enable Schedule',
+        id: JobActionItem.SCHEDULE_ENABLE
       });
     }
 

@@ -15,6 +15,8 @@ import {
   METRONOME_JOB_RUN_SUCCESS,
   METRONOME_JOB_DISABLE_SCHEDULE_ERROR,
   METRONOME_JOB_DISABLE_SCHEDULE_SUCCESS,
+  METRONOME_JOB_ENABLE_SCHEDULE_ERROR,
+  METRONOME_JOB_ENABLE_SCHEDULE_SUCCESS,
   METRONOME_JOBS_CHANGE,
   METRONOME_JOBS_ERROR,
   VISIBILITY_CHANGE
@@ -36,6 +38,8 @@ import {
   REQUEST_METRONOME_JOB_RUN_SUCCESS,
   REQUEST_METRONOME_JOB_DISABLE_SCHEDULE_ERROR,
   REQUEST_METRONOME_JOB_DISABLE_SCHEDULE_SUCCESS,
+  REQUEST_METRONOME_JOB_ENABLE_SCHEDULE_ERROR,
+  REQUEST_METRONOME_JOB_ENABLE_SCHEDULE_SUCCESS,
   REQUEST_METRONOME_JOBS_ERROR,
   REQUEST_METRONOME_JOBS_ONGOING,
   REQUEST_METRONOME_JOBS_SUCCESS,
@@ -125,6 +129,12 @@ class MetronomeStore extends EventEmitter {
         case REQUEST_METRONOME_JOB_DISABLE_SCHEDULE_SUCCESS:
           this.emit(METRONOME_JOB_DISABLE_SCHEDULE_SUCCESS, action.jobID);
           break;
+        case REQUEST_METRONOME_JOB_ENABLE_SCHEDULE_ERROR:
+          this.emit(METRONOME_JOB_ENABLE_SCHEDULE_ERROR, action.jobID);
+          break;
+        case REQUEST_METRONOME_JOB_ENABLE_SCHEDULE_SUCCESS:
+          this.emit(METRONOME_JOB_ENABLE_SCHEDULE_SUCCESS, action.jobID);
+          break;
         case REQUEST_METRONOME_JOBS_SUCCESS:
           this.data.jobTree = action.data;
           this.emit(METRONOME_JOBS_CHANGE);
@@ -170,6 +180,12 @@ class MetronomeStore extends EventEmitter {
     let schedule = Object.assign({}, this.getJob(jobID).schedules[0]);
     schedule.enabled = false;
     MetronomeActions.disableSchedule(jobID, schedule);
+  }
+
+  enableSchedule(jobID) {
+    let schedule = Object.assign({}, this.getJob(jobID).schedules[0]);
+    schedule.enabled = true;
+    MetronomeActions.enableSchedule(jobID, schedule);
   }
 
   addChangeListener(eventName, callback) {

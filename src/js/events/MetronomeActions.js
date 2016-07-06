@@ -9,6 +9,8 @@ import {
   REQUEST_METRONOME_JOB_RUN_SUCCESS,
   REQUEST_METRONOME_JOB_DISABLE_SCHEDULE_ERROR,
   REQUEST_METRONOME_JOB_DISABLE_SCHEDULE_SUCCESS,
+  REQUEST_METRONOME_JOB_ENABLE_SCHEDULE_ERROR,
+  REQUEST_METRONOME_JOB_ENABLE_SCHEDULE_SUCCESS,
   REQUEST_METRONOME_JOB_DETAIL_ERROR,
   REQUEST_METRONOME_JOB_DETAIL_ONGOING,
   REQUEST_METRONOME_JOB_DETAIL_SUCCESS,
@@ -196,6 +198,28 @@ const MetronomeActions = {
         });
       }
     });
+  },
+
+  enableSchedule: function (jobID, data) {
+    RequestUtil.json({
+      url: `${Config.metronomeAPI}/v1/jobs/${jobID}/schedules/${data.id}`,
+      method: 'PUT',
+      data,
+      success: function () {
+        AppDispatcher.handleServerAction({
+          type: REQUEST_METRONOME_JOB_ENABLE_SCHEDULE_SUCCESS,
+          jobID
+        });
+      },
+      error: function (xhr) {
+        AppDispatcher.handleServerAction({
+          type: REQUEST_METRONOME_JOB_ENABLE_SCHEDULE_ERROR,
+          data: RequestUtil.parseResponseBody(xhr),
+          jobID,
+          xhr
+        });
+      }
+    });
   }
 };
 
@@ -220,7 +244,10 @@ if (Config.useFixtures) {
     runJob: {
       event: 'success', success: {response: {}}
     },
-    suspendSchedule: {
+    enableSchedule: {
+      event: 'success', success: {response: {}}
+    },
+    disableSchedule: {
       event: 'success', success: {response: {}}
     }
   };

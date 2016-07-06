@@ -323,7 +323,60 @@ describe('MetronomeActions', function () {
         AppDispatcher.unregister(id);
 
         expect(action.type)
-          .toEqual(ActionTypes.REQUEST_METRONOME_JOB_SUSPEND_ERROR);
+          .toEqual(ActionTypes.REQUEST_METRONOME_JOB_DISABLE_SCHEDULE_ERROR);
+        expect(action.jobID).toEqual('foo');
+      });
+
+      this.configuration.error({message: 'error'});
+    });
+
+  });
+
+  describe('#enableSchedule', function () {
+
+    beforeEach(function () {
+      spyOn(RequestUtil, 'json');
+      MetronomeActions.enableSchedule('foo', {id: 'bar'});
+      this.configuration = RequestUtil.json.calls.mostRecent().args[0];
+    });
+
+    it('calls #json from the RequestUtil', function () {
+      expect(RequestUtil.json).toHaveBeenCalled();
+    });
+
+    it('PUTs data to the correct URL', function () {
+      expect(this.configuration.url)
+        .toEqual(`${Config.metronomeAPI}/v1/jobs/foo/schedules/bar`);
+    });
+
+    it('PUTs data with the correct method', function () {
+      expect(this.configuration.method).toEqual('PUT');
+    });
+
+    it('PUTs data with the correct data', function () {
+      expect(this.configuration.data).toEqual({id: 'bar'});
+    });
+
+    it('dispatches the correct action when successful', function () {
+      var id = AppDispatcher.register(function (payload) {
+        var action = payload.action;
+        AppDispatcher.unregister(id);
+
+        expect(action.type)
+          .toEqual(ActionTypes.REQUEST_METRONOME_JOB_ENABLE_SCHEDULE_SUCCESS);
+        expect(action.jobID).toEqual('foo');
+      });
+
+      this.configuration.success([]);
+    });
+
+    it('dispatches the correct action when unsucessful', function () {
+      var id = AppDispatcher.register(function (payload) {
+        var action = payload.action;
+        AppDispatcher.unregister(id);
+
+        expect(action.type)
+          .toEqual(ActionTypes.REQUEST_METRONOME_JOB_ENABLE_SCHEDULE_ERROR);
         expect(action.jobID).toEqual('foo');
       });
 
