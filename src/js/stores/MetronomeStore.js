@@ -13,8 +13,8 @@ import {
   METRONOME_JOB_UPDATE_SUCCESS,
   METRONOME_JOB_RUN_ERROR,
   METRONOME_JOB_RUN_SUCCESS,
-  METRONOME_JOB_SUSPEND_ERROR,
-  METRONOME_JOB_SUSPEND_SUCCESS,
+  METRONOME_JOB_DISABLE_SCHEDULE_ERROR,
+  METRONOME_JOB_DISABLE_SCHEDULE_SUCCESS,
   METRONOME_JOBS_CHANGE,
   METRONOME_JOBS_ERROR,
   VISIBILITY_CHANGE
@@ -34,8 +34,8 @@ import {
   REQUEST_METRONOME_JOB_UPDATE_SUCCESS,
   REQUEST_METRONOME_JOB_RUN_ERROR,
   REQUEST_METRONOME_JOB_RUN_SUCCESS,
-  REQUEST_METRONOME_JOB_SUSPEND_ERROR,
-  REQUEST_METRONOME_JOB_SUSPEND_SUCCESS,
+  REQUEST_METRONOME_JOB_DISABLE_SCHEDULE_ERROR,
+  REQUEST_METRONOME_JOB_DISABLE_SCHEDULE_SUCCESS,
   REQUEST_METRONOME_JOBS_ERROR,
   REQUEST_METRONOME_JOBS_ONGOING,
   REQUEST_METRONOME_JOBS_SUCCESS,
@@ -119,11 +119,11 @@ class MetronomeStore extends EventEmitter {
         case REQUEST_METRONOME_JOB_RUN_SUCCESS:
           this.emit(METRONOME_JOB_RUN_SUCCESS, action.jobID);
           break;
-        case REQUEST_METRONOME_JOB_SUSPEND_ERROR:
-          this.emit(METRONOME_JOB_SUSPEND_ERROR, action.jobID);
+        case REQUEST_METRONOME_JOB_DISABLE_SCHEDULE_ERROR:
+          this.emit(METRONOME_JOB_DISABLE_SCHEDULE_ERROR, action.jobID);
           break;
-        case REQUEST_METRONOME_JOB_SUSPEND_SUCCESS:
-          this.emit(METRONOME_JOB_SUSPEND_SUCCESS, action.jobID);
+        case REQUEST_METRONOME_JOB_DISABLE_SCHEDULE_SUCCESS:
+          this.emit(METRONOME_JOB_DISABLE_SCHEDULE_SUCCESS, action.jobID);
           break;
         case REQUEST_METRONOME_JOBS_SUCCESS:
           this.data.jobTree = action.data;
@@ -166,10 +166,10 @@ class MetronomeStore extends EventEmitter {
     MetronomeActions.runJob(jobID);
   }
 
-  suspendSchedule(jobID) {
-    let schedule = this.getJob(jobID).schedules[0];
+  disableSchedule(jobID) {
+    let schedule = Object.assign({}, this.getJob(jobID).schedules[0]);
     schedule.enabled = false;
-    MetronomeActions.suspendSchedule(jobID, schedule);
+    MetronomeActions.disableSchedule(jobID, schedule);
   }
 
   addChangeListener(eventName, callback) {

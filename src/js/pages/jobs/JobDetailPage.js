@@ -32,7 +32,7 @@ const METHODS_TO_BIND = [
 const JobActionItem = {
   EDIT: 'edit',
   DESTROY: 'destroy',
-  SUSPEND: 'suspend',
+  SCHEDULE_DISABLE: 'schedule_disable',
   MORE: 'more'
 };
 
@@ -126,8 +126,8 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
   }
 
   handleMoreDropdownSelection(selection) {
-    if (selection.id === JobActionItem.SUSPEND) {
-      MetronomeStore.suspendSchedule(this.props.params.id);
+    if (selection.id === JobActionItem.SCHEDULE_DISABLE) {
+      MetronomeStore.disableSchedule(this.props.params.id);
       return;
     }
 
@@ -145,6 +145,7 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
   getActionButtons() {
     let job = MetronomeStore.getJob(this.props.params.id);
     let dropdownItems = [];
+    let [schedule] = job.getSchedules();
 
     dropdownItems.push({
       className: 'hidden',
@@ -152,10 +153,10 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
       id: JobActionItem.MORE
     });
 
-    if (job.getSchedules().length > 0) {
+    if (schedule != null && schedule.enabled) {
       dropdownItems.push({
         html: 'Disable Schedule',
-        id: JobActionItem.SUSPEND
+        id: JobActionItem.SCHEDULE_DISABLE
       });
     }
 

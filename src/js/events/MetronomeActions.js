@@ -7,8 +7,8 @@ import {
   REQUEST_METRONOME_JOB_UPDATE_SUCCESS,
   REQUEST_METRONOME_JOB_RUN_ERROR,
   REQUEST_METRONOME_JOB_RUN_SUCCESS,
-  REQUEST_METRONOME_JOB_SUSPEND_ERROR,
-  REQUEST_METRONOME_JOB_SUSPEND_SUCCESS,
+  REQUEST_METRONOME_JOB_DISABLE_SCHEDULE_ERROR,
+  REQUEST_METRONOME_JOB_DISABLE_SCHEDULE_SUCCESS,
   REQUEST_METRONOME_JOB_DETAIL_ERROR,
   REQUEST_METRONOME_JOB_DETAIL_ONGOING,
   REQUEST_METRONOME_JOB_DETAIL_SUCCESS,
@@ -176,20 +176,20 @@ const MetronomeActions = {
     });
   },
 
-  suspendSchedule: function (jobID, data) {
+  disableSchedule: function (jobID, data) {
     RequestUtil.json({
       url: `${Config.metronomeAPI}/v1/jobs/${jobID}/schedules/${data.id}`,
       method: 'PUT',
       data,
       success: function () {
         AppDispatcher.handleServerAction({
-          type: REQUEST_METRONOME_JOB_SUSPEND_SUCCESS,
+          type: REQUEST_METRONOME_JOB_DISABLE_SCHEDULE_SUCCESS,
           jobID
         });
       },
       error: function (xhr) {
         AppDispatcher.handleServerAction({
-          type: REQUEST_METRONOME_JOB_SUSPEND_ERROR,
+          type: REQUEST_METRONOME_JOB_DISABLE_SCHEDULE_ERROR,
           data: RequestUtil.parseResponseBody(xhr),
           jobID,
           xhr

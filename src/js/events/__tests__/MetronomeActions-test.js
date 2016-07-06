@@ -279,11 +279,11 @@ describe('MetronomeActions', function () {
 
   });
 
-  describe('#suspendSchedule', function () {
+  describe('#disableSchedule', function () {
 
     beforeEach(function () {
       spyOn(RequestUtil, 'json');
-      MetronomeActions.suspendSchedule('foo', {id: 'bar'});
+      MetronomeActions.disableSchedule('foo', {id: 'bar'});
       this.configuration = RequestUtil.json.calls.mostRecent().args[0];
     });
 
@@ -310,7 +310,7 @@ describe('MetronomeActions', function () {
         AppDispatcher.unregister(id);
 
         expect(action.type)
-          .toEqual(ActionTypes.REQUEST_METRONOME_JOB_SUSPEND_SUCCESS);
+          .toEqual(ActionTypes.REQUEST_METRONOME_JOB_DISABLE_SCHEDULE_SUCCESS);
         expect(action.jobID).toEqual('foo');
       });
 

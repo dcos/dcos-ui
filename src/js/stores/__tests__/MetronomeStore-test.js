@@ -179,16 +179,16 @@ describe('MetronomeStore', function () {
         expect(changeHandler).toHaveBeenCalledWith('foo');
       });
 
-    it('emits event after #suspendJob success event is dispatched',
+    it('emits event after #jobDisableSchedule success event is dispatched',
       function () {
         let changeHandler = jasmine.createSpy('changeHandler');
         MetronomeStore.addChangeListener(
-          EventTypes.METRONOME_JOB_SUSPEND_SUCCESS,
+          EventTypes.METRONOME_JOB_DISABLE_SCHEDULE_SUCCESS,
           changeHandler
         );
 
         AppDispatcher.handleServerAction({
-          type: ActionTypes.REQUEST_METRONOME_JOB_SUSPEND_SUCCESS,
+          type: ActionTypes.REQUEST_METRONOME_JOB_DISABLE_SCHEDULE_SUCCESS,
           jobID: 'foo'
         });
 
@@ -196,16 +196,16 @@ describe('MetronomeStore', function () {
         expect(changeHandler).toHaveBeenCalledWith('foo');
       });
 
-    it('emits event after #suspendJob error event is dispatched',
+    it('emits event after #jobDisableScheduleError error event is dispatched',
       function () {
         let changeHandler = jasmine.createSpy('changeHandler');
         MetronomeStore.addChangeListener(
-          EventTypes.METRONOME_JOB_SUSPEND_ERROR,
+          EventTypes.METRONOME_JOB_DISABLE_SCHEDULE_ERROR,
           changeHandler
         );
 
         AppDispatcher.handleServerAction({
-          type: ActionTypes.REQUEST_METRONOME_JOB_SUSPEND_ERROR,
+          type: ActionTypes.REQUEST_METRONOME_JOB_DISABLE_SCHEDULE_ERROR,
           jobID: 'foo'
         });
 
@@ -378,11 +378,11 @@ describe('MetronomeStore', function () {
     });
   });
 
-  describe('#suspendSchedule', function () {
+  describe('#disableSchedule', function () {
 
     it('should pass the jobID to the action', function () {
       let changeHandler = jasmine.createSpy('changeHandler');
-      MetronomeActions.suspendSchedule = changeHandler;
+      MetronomeActions.disableSchedule = changeHandler;
 
       AppDispatcher.handleServerAction({
         type: ActionTypes.REQUEST_METRONOME_JOB_DETAIL_SUCCESS,
@@ -390,14 +390,14 @@ describe('MetronomeStore', function () {
         jobID: 'foo'
       });
 
-      MetronomeStore.suspendSchedule('foo');
+      MetronomeStore.disableSchedule('foo');
 
       expect(changeHandler.calls.allArgs()[0][0]).toEqual('foo');
     });
 
     it('should grab the schedule and set enabled to false', function () {
       let changeHandler = jasmine.createSpy('changeHandler');
-      MetronomeActions.suspendSchedule = changeHandler;
+      MetronomeActions.disableSchedule = changeHandler;
 
       AppDispatcher.handleServerAction({
         type: ActionTypes.REQUEST_METRONOME_JOB_DETAIL_SUCCESS,
@@ -405,7 +405,7 @@ describe('MetronomeStore', function () {
         jobID: 'foo'
       });
 
-      MetronomeStore.suspendSchedule('foo');
+      MetronomeStore.disableSchedule('foo');
 
       expect(changeHandler.calls.allArgs()[0][1].enabled).toEqual(false);
     });
