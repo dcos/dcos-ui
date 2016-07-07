@@ -50,7 +50,6 @@ function setDefinitionValue(thingToSet, definition, renderRemove, model) {
       let title = null;
       if (definitionToSet.definition.itemShapes[prop].getTitle) {
         title = definitionToSet.definition.itemShapes[prop].getTitle(index + 1);
-        title = definitionToSet.definition.itemShapes[prop].getTitle(index + 1);
       }
       instanceDefinition[arrayAction](
         renderRemove(definitionToSet.definition, prop, propID, title)
