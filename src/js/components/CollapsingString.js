@@ -84,7 +84,7 @@ class CollapsingString extends React.Component {
       return false;
     }
 
-    return stringWidth >= parentWidth;
+    return stringWidth > parentWidth;
   }
 
   updateDimensions() {
