@@ -84,9 +84,9 @@ sidebar/styles.less
 
           .element-text-style(sidebar-menu-item-selected);
 
-          > a,
-          > a:hover,
-          > a:active {
+          & > a,
+          & > a:hover,
+          & > a:active {
 
             .element-text-style(sidebar-menu-item-link-selected);
             .element-shape-style(sidebar-menu-item-link-selected);
@@ -100,14 +100,14 @@ sidebar/styles.less
           .element-shape-style(sidebar-submenu);
           .element-text-style(sidebar-menu-item-open);
 
-          > a {
+          & > a {
 
             .element-text-style(sidebar-menu-item-open);
             .element-shape-style(sidebar-menu-item-open);
 
           }
 
-          > ul {
+          & > ul {
 
             .element-spacing(sidebar-submenu, null, null);
 
@@ -121,9 +121,9 @@ sidebar/styles.less
 
               &.selected {
 
-                > a,
-                > a:hover,
-                > a:active {
+                & > a,
+                & > a:hover,
+                & > a:active {
 
                   .element-text-style(sidebar-submenu-item-link-selected);
                   .element-shape-style(sidebar-submenu-item-link-selected);
@@ -132,7 +132,7 @@ sidebar/styles.less
 
               }
 
-              > a {
+              & > a {
 
                 display: block;
                 text-decoration: none !important;
@@ -199,9 +199,9 @@ sidebar/styles.less
 
           }
 
-          > li.open {
+          & > li.open {
 
-            > ul {
+            & > ul {
 
               .element-spacing(sidebar-submenu, null, screen-small);
 
@@ -265,9 +265,9 @@ sidebar/styles.less
 
           }
 
-          > li.open {
+          & > li.open {
 
-            > ul {
+            & > ul {
 
               .element-spacing(sidebar-submenu, null, screen-medium);
 
@@ -333,9 +333,9 @@ sidebar/styles.less
 
           }
 
-          > li.open {
+          & > li.open {
 
-            > ul {
+            & > ul {
 
               .element-spacing(sidebar-submenu, null, screen-large);
 
@@ -401,9 +401,9 @@ sidebar/styles.less
 
           }
 
-          > li.open {
+          & > li.open {
 
-            > ul {
+            & > ul {
 
               .element-spacing(sidebar-submenu, null, screen-jumbo);
 
@@ -601,7 +601,7 @@ sidebar/styles.less
 //
 //   .sidebar-content {
 //
-//     > .sidebar-navigation {
+//     & > .sidebar-navigation {
 //
 //       width: 100%;
 //
