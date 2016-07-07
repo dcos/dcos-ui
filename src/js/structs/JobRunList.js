@@ -1,7 +1,7 @@
 import List from './List';
-import JobActiveRun from './JobActiveRun';
+import JobRun from './JobRun';
 
-class JobActiveRunList extends List {
+class JobRunList extends List {
   getLongestRunningActiveRun() {
     let sortedRuns = this.getItems().sort(function (a, b) {
       if (a.getDateCreated() == null && b.getDateCreated() == null) {
@@ -23,6 +23,6 @@ class JobActiveRunList extends List {
   }
 }
 
-JobActiveRunList.type = JobActiveRun;
+JobRunList.type = JobRun;
 
-module.exports = JobActiveRunList;
+module.exports = JobRunList;

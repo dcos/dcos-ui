@@ -1,10 +1,10 @@
 import DateUtil from '../utils/DateUtil';
 import Item from './Item';
-import JobActiveRunList from './JobActiveRunList';
+import JobRunList from './JobRunList';
 
 module.exports = class Job extends Item {
   getActiveRuns() {
-    return new JobActiveRunList({items: this.get('activeRuns')});
+    return new JobRunList({items: this.get('activeRuns')});
   }
 
   getCommand() {

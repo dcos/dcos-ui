@@ -1,5 +1,5 @@
 let Job = require('../Job');
-let JobActiveRunList = require('../JobActiveRunList');
+let JobRunList = require('../JobRunList');
 
 describe('Job', function () {
 
@@ -8,7 +8,7 @@ describe('Job', function () {
     it('returns an instance of JobActiveRunList', function () {
       let job = new Job({id: 'foo', activeRuns: []});
 
-      expect(job.getActiveRuns() instanceof JobActiveRunList).toBeTruthy();
+      expect(job.getActiveRuns() instanceof JobRunList).toBeTruthy();
     });
 
   });

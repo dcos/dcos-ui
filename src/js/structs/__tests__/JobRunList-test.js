@@ -1,13 +1,13 @@
 let moment = require('moment');
 
-let JobActiveRunList = require('../JobActiveRunList');
+let JobRunList = require('../JobRunList');
 
-describe('JobActiveRunList', function () {
+describe('JobRunList', function () {
 
   describe('#getLongestRunningActiveRun', function () {
 
     it('returns the longest running active run', function () {
-      let activeRunList = new JobActiveRunList({
+      let activeRunList = new JobRunList({
         items: [
           {'createdAt': '1990-01-03T00:00:00Z-1'},
           {'createdAt': '1985-01-03T00:00:00Z-1'},
@@ -20,7 +20,7 @@ describe('JobActiveRunList', function () {
     });
 
     it('returns the longest running active run', function () {
-      let activeRunList = new JobActiveRunList({
+      let activeRunList = new JobRunList({
         items: [
           {'createdAt': '1990-01-03T00:10:00Z-1'},
           {'createdAt': '1990-01-03T00:05:00Z-1'},
