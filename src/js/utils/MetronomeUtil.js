@@ -49,7 +49,7 @@ function addJob(parent, item, jobsAlreadyAdded) {
 
     // Store child as added
     jobsAlreadyAdded[item.id] = item;
-    parent.items.push(item);
+    parent.items.push(MetronomeUtil.parseJob(item));
 
     return;
   }
@@ -65,7 +65,7 @@ function addJob(parent, item, jobsAlreadyAdded) {
   addJob(subParent, item, jobsAlreadyAdded);
 }
 
-module.exports = {
+const MetronomeUtil = {
 
   /**
    * [parseJobs description]
@@ -91,5 +91,36 @@ module.exports = {
     });
 
     return rootTree;
+  },
+
+  parseJob(job) {
+    let {history}= job;
+
+    if (history == null) {
+
+      return job;
+    }
+
+    let {failedFinishedRuns = [], successfulFinishedRuns = []} = history;
+
+    failedFinishedRuns = failedFinishedRuns.map(function (jobRun) {
+
+      return Object.assign({}, jobRun, {status: 'FAILED', jobId: job.id});
+    });
+
+    successfulFinishedRuns = successfulFinishedRuns.map(function (jobRun) {
+
+      return Object.assign({}, jobRun, {status: 'COMPLETED', jobId: job.id});
+    });
+
+    history = Object.assign({}, history, {
+      failedFinishedRuns,
+      successfulFinishedRuns
+    });
+
+    return Object.assign({}, job, {history});
   }
+
 };
+
+module.exports = MetronomeUtil;
