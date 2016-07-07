@@ -59,9 +59,15 @@ class MarathonTaskDetailsList extends React.Component {
   }
 
   getTimeField(time) {
+    let timeString = 'Never';
+
+    if (time != null) {
+      timeString = new Date(time).toLocaleString();
+    }
+
     return (
       <time dateTime={time} title={time}>
-        {new Date(time).toLocaleString()}
+        {timeString}
       </time>
     );
   }
@@ -89,10 +95,54 @@ class MarathonTaskDetailsList extends React.Component {
     );
   }
 
+  getMarathonTaskHealthCheckResults(task) {
+    if (task == null || task.healthCheckResults == null) {
+
+      return null;
+    }
+
+    return task.healthCheckResults.map((result, i) =>{
+      let consecutiveFailures = result.consecutiveFailures;
+      let alive = 'Yes';
+
+      if (consecutiveFailures == null) {
+        consecutiveFailures = 'None';
+      }
+
+      if (!result.alive) {
+        alive = 'No';
+      }
+
+      const headerValueMapping = {
+        'First success': this.getTimeField(result.firstSuccess),
+        'Last success': this.getTimeField(result.lastSuccess),
+        'Last failure': this.getTimeField(result.lastFailure),
+        'Consecutive failures': consecutiveFailures,
+        'Alive': alive
+      };
+
+      return (
+        <DescriptionList
+          key={i}
+          className="container container-fluid flush container-pod container-pod-super-short flush-top"
+          hash={headerValueMapping}
+          headline={`Health Check Result ${i+1}`} />
+      );
+    });
+  }
+
   render() {
     const marathonTask = MarathonStore.getTaskFromTaskID(this.props.taskID);
-
-    return this.getMarathonTaskDetailsDescriptionList(marathonTask);
+    const taskConfiguration =
+      this.getMarathonTaskDetailsDescriptionList(marathonTask);
+    const healthCheckResults =
+      this.getMarathonTaskHealthCheckResults(marathonTask);
+    return (
+      <div>
+        {taskConfiguration}
+        {healthCheckResults}
+      </div>
+    );
   }
 };
 
