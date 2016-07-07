@@ -32,7 +32,8 @@ const METHODS_TO_BIND = [
 const JobActionItem = {
   EDIT: 'edit',
   DESTROY: 'destroy',
-  SUSPEND: 'suspend',
+  SCHEDULE_DISABLE: 'schedule_disable',
+  SCHEDULE_ENABLE: 'schedule_enable',
   MORE: 'more'
 };
 
@@ -126,8 +127,13 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
   }
 
   handleMoreDropdownSelection(selection) {
-    if (selection.id === JobActionItem.SUSPEND) {
+    if (selection.id === JobActionItem.SCHEDULE_DISABLE) {
       MetronomeStore.disableSchedule(this.props.params.id);
+      return;
+    }
+
+    if (selection.id === JobActionItem.SCHEDULE_ENABLE) {
+      MetronomeStore.enableSchedule(this.props.params.id);
       return;
     }
 
@@ -143,21 +149,34 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
   }
 
   getActionButtons() {
-    let dropdownItems = [
-      {
-        className: 'hidden',
-        html: 'More',
-        id: JobActionItem.MORE
-      },
-      {
+    let job = MetronomeStore.getJob(this.props.params.id);
+    let dropdownItems = [];
+    let [schedule] = job.getSchedules();
+
+    dropdownItems.push({
+      className: 'hidden',
+      html: 'More',
+      id: JobActionItem.MORE
+    });
+
+    if (schedule != null && schedule.enabled) {
+      dropdownItems.push({
         html: 'Disable Schedule',
-        id: JobActionItem.SUSPEND
-      },
-      {
-        html: 'Destroy',
-        id: JobActionItem.DESTROY
-      }
-    ];
+        id: JobActionItem.SCHEDULE_DISABLE
+      });
+    }
+
+    if (schedule != null && !schedule.enabled) {
+      dropdownItems.push({
+        html: 'Enable Schedule',
+        id: JobActionItem.SCHEDULE_ENABLE
+      });
+    }
+
+    dropdownItems.push({
+      html: 'Destroy',
+      id: JobActionItem.DESTROY
+    });
 
     return [
       <button
