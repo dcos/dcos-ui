@@ -118,12 +118,13 @@ class CollapsingString extends React.Component {
 
   render() {
     let fullString = this.props.string;
+    let endLength = this.props.endLength || Math.floor(fullString.length * 1/3);
     let stringEnding = null;
 
     if (this.state.collapsed) {
       stringEnding = (
         <span className={this.props.truncatedStringEndClassName}>
-          {fullString.substring(fullString.length - this.props.endLength)}
+          {fullString.substring(fullString.length - endLength)}
         </span>
       );
     }
@@ -145,7 +146,6 @@ class CollapsingString extends React.Component {
 }
 
 CollapsingString.defaultProps = {
-  endLength: 15,
   fullStringClassName: 'collapsing-string-full-string',
   truncatedStringEndClassName: 'collapsing-string-truncated-end',
   truncatedStringStartClassName: 'collapsing-string-truncated-start',
