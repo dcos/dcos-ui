@@ -1,5 +1,5 @@
-import React, {PropTypes} from 'react';
 import classNames from 'classnames';
+import React, {PropTypes} from 'react';
 
 import StringUtil from '../utils/StringUtil';
 
@@ -9,7 +9,7 @@ const METHODS_TO_BIND = [
 
 class FilterHeadline extends React.Component {
   constructor() {
-    super();
+    super(...arguments);
 
     METHODS_TO_BIND.forEach((method) => {
       this[method] = this[method].bind(this);
@@ -23,24 +23,25 @@ class FilterHeadline extends React.Component {
 
   render() {
     let {currentLength, inverseStyle, isFiltering, name, totalLength} = this.props;
+    let hideFilteredClasses = (isFiltering == null && currentLength === totalLength) || (isFiltering != null && !isFiltering);
     name = StringUtil.pluralize(name, totalLength);
 
     let filteredClassSet = classNames({
       'h4': true,
       'inverse': inverseStyle,
-      'hidden': (isFiltering == null && currentLength === totalLength) || (isFiltering != null && !isFiltering)
+      'hidden': hideFilteredClasses
     });
 
     let unfilteredClassSet = classNames({
       'h4': true,
       'inverse': inverseStyle,
-      'hidden': (isFiltering == null && currentLength !== totalLength) || (isFiltering != null && isFiltering)
+      'hidden': !hideFilteredClasses
     });
 
     let anchorClassSet = classNames({
       'h4 clickable': true,
       'inverse': inverseStyle,
-      'hidden': (isFiltering == null && currentLength === totalLength) || (isFiltering != null && !isFiltering)
+      'hidden': hideFilteredClasses
     });
 
     let listClassSet = classNames({
