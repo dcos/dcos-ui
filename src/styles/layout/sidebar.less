@@ -11,7 +11,7 @@ sidebar.less
 .sidebar {
 
   background: color-lighten(@neutral, -40);
-  box-shadow: 1px 0px 0px 0px hsla(hue(@neutral), saturation(@neutral), lightness(@neutral), 0.1);
+  box-shadow: 1px 0px 0px 0px fade(@neutral, 0.1);
 
 }
 
@@ -73,26 +73,6 @@ sidebar.less
     .sidebar {
 
       flex-basis: 250px;
-
-    }
-
-  }
-
-  @media (max-height: @screen-medium-height) {
-
-    .sidebar {
-
-      &.is-expanded {
-
-        .sidebar-content {
-
-          .sidebar-logo-container {
-            display: none;
-          }
-
-        }
-
-      }
 
     }
 

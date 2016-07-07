@@ -10,8 +10,8 @@ sidebar.less
 
 .navigation {
 
-  position: fixed;
   left: -100%;
+  position: fixed;
   width: 100%;
 
   ul.sidebar-menu {
@@ -22,11 +22,11 @@ sidebar.less
 
     li {
 
-      display: block;
       .element-text-size(sidebar-menu-item, null);
       .element-spacing(sidebar-menu-item, null, null);
       .text-style-variant(sidebar-menu-item);
       .shape-style-variant(sidebar-menu-item);
+      display: block;
 
       &:first-child {
 
@@ -37,16 +37,16 @@ sidebar.less
       .icon {
 
         display: none;
-        
+
       }
 
       a {
 
-        display: block;
-        text-decoration: none !important;
         .element-spacing(sidebar-menu-item-link, null, null);
         .text-style-variant(sidebar-menu-item-link);
         .shape-style-variant(sidebar-menu-item-link);
+        display: block;
+        text-decoration: none !important;
 
         &:hover {
 
@@ -104,11 +104,11 @@ sidebar.less
 
           li {
 
-            display: block;
             .element-text-size(sidebar-submenu-item, null);
             .element-spacing(sidebar-submenu-item, null, null);
             .text-style-variant(sidebar-submenu-item);
             .shape-style-variant(sidebar-submenu-item);
+            display: block;
 
             &.selected {
 
@@ -125,11 +125,11 @@ sidebar.less
 
             > a {
 
-              display: block;
-              text-decoration: none !important;
               .element-spacing(sidebar-submenu-item-link, null, null);
               .text-style-variant(sidebar-submenu-item-link);
               .shape-style-variant(sidebar-submenu-item-link);
+              display: block;
+              text-decoration: none !important;
 
               &:hover {
 
