@@ -6,6 +6,7 @@ import React from 'react';
 /* eslint-enable no-unused-vars */
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
+import CollapsingString from './CollapsingString';
 import Config from '../config/Config';
 import CosmosPackagesStore from '../stores/CosmosPackagesStore';
 import List from '../structs/List';
@@ -150,11 +151,7 @@ class RepositoriesTable extends mixin(StoreMixin) {
 
   getUri(prop, repository) {
     return (
-      <div className="flex-box table-cell-flex-box">
-        <span className="text-overflow-break-word" title={repository.get('uri')}>
-          {repository.get('uri')}
-        </span>
-      </div>
+      <CollapsingString string={repository.get('uri')} />
     );
   }
 
