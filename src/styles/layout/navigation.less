@@ -75,9 +75,9 @@ sidebar.less
 
         .text-style-variant(sidebar-menu-item-selected);
 
-        > a,
-        > a:hover,
-        > a:active {
+        & > a,
+        & > a:hover,
+        & > a:active {
 
           .text-style-variant(sidebar-menu-item-link-selected);
           .shape-style-variant(sidebar-menu-item-link-selected);
@@ -91,14 +91,14 @@ sidebar.less
         .shape-style-variant(sidebar-submenu);
         .text-style-variant(sidebar-menu-item-open);
 
-        > a {
+        & > a {
 
           .text-style-variant(sidebar-menu-item-open);
           .shape-style-variant(sidebar-menu-item-open);
 
         }
 
-        > ul {
+        & > ul {
 
           .element-spacing(sidebar-submenu, null, null);
 
@@ -112,9 +112,9 @@ sidebar.less
 
             &.selected {
 
-              > a,
-              > a:hover,
-              > a:active {
+              & > a,
+              & > a:hover,
+              & > a:active {
 
                 .text-style-variant(sidebar-submenu-item-link-selected);
                 .shape-style-variant(sidebar-submenu-item-link-selected);
@@ -123,7 +123,7 @@ sidebar.less
 
             }
 
-            > a {
+            & > a {
 
               .element-spacing(sidebar-submenu-item-link, null, null);
               .text-style-variant(sidebar-submenu-item-link);
@@ -188,9 +188,9 @@ sidebar.less
 
           }
 
-          > li.open {
+          & > li.open {
 
-            > ul {
+            & > ul {
 
               .element-spacing(sidebar-submenu, null, screen-small);
 
@@ -254,9 +254,9 @@ sidebar.less
 
           }
 
-          > li.open {
+          & > li.open {
 
-            > ul {
+            & > ul {
 
               .element-spacing(sidebar-submenu, null, screen-medium);
 
@@ -316,9 +316,9 @@ sidebar.less
 
           }
 
-          > li.open {
+          & > li.open {
 
-            > ul {
+            & > ul {
 
               .element-spacing(sidebar-submenu, null, screen-large);
 
@@ -378,9 +378,9 @@ sidebar.less
 
           }
 
-          > li.open {
+          & > li.open {
 
-            > ul {
+            & > ul {
 
               .element-spacing(sidebar-submenu, null, screen-jumbo);
 
