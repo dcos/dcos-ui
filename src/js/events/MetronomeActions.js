@@ -94,7 +94,7 @@ const MetronomeActions = {
       success: function (response) {
         AppDispatcher.handleServerAction({
           type: REQUEST_METRONOME_JOB_DETAIL_SUCCESS,
-          data: response,
+          data: MetronomeUtil.parseJob(response),
           jobID
         });
       },
