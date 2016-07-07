@@ -16,6 +16,7 @@ var MesosSummaryStore = require('../stores/MesosSummaryStore');
 import MetadataStore from '../stores/MetadataStore';
 import NotificationStore from '../stores/NotificationStore';
 import PluginSDK from 'PluginSDK';
+import SaveStateMixin from '../mixins/SaveStateMixin';
 var SidebarActions = require('../events/SidebarActions');
 
 let defaultMenuItems = [
@@ -34,15 +35,17 @@ var Sidebar = React.createClass({
 
   displayName: 'Sidebar',
 
-  mixins: [State, InternalStorageMixin],
+  saveState_key: 'sidebar',
+
+  saveState_properties: ['sidebarExpanded'],
+
+  mixins: [SaveStateMixin, State, InternalStorageMixin],
 
   contextTypes: {
     router: React.PropTypes.func
   },
 
   getInitialState: function () {
-    // TODO: Use SaveState mixin to remember the user's preference.
-    // https://mesosphere.atlassian.net/browse/DCOS-6909
     return {sidebarExpanded: true};
   },
 
@@ -83,10 +86,10 @@ var Sidebar = React.createClass({
       && !(nodeName === 'INPUT' || nodeName === 'TEXTAREA')) {
       // #sidebarWidthChange is passed as a callback so that the sidebar
       // has had a chance to update before Gemini re-renders.
-      this.setState(
-        {sidebarExpanded: !this.state.sidebarExpanded},
-        SidebarActions.sidebarWidthChange
-      );
+      this.setState({sidebarExpanded: !this.state.sidebarExpanded}, () => {
+        SidebarActions.sidebarWidthChange();
+        this.saveState_save();
+      });
     }
   },
 
