@@ -108,7 +108,7 @@ class ManualBreadcrumbs extends React.Component {
         return this.getWidthFromCollapsedItem(item);
       })
       .reduce(
-        function (totalWidth, itemWidth) { return totalWidth + itemWidth },
+        function (totalWidth, itemWidth) { return totalWidth + itemWidth; },
         this.getLastItemWidth()
       );
   }

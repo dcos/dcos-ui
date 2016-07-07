@@ -10,7 +10,7 @@ class VirtualNetworkDetailsTab extends React.Component {
     let details = {
       Name: overlay.getName(),
       Network: overlay.getSubnet()
-    }
+    };
 
     return (
       <DescriptionList hash={details} />
@@ -20,6 +20,6 @@ class VirtualNetworkDetailsTab extends React.Component {
 
 VirtualNetworkDetailsTab.propTypes = {
   overlay: React.PropTypes.instanceOf(Overlay)
-}
+};
 
 module.exports = VirtualNetworkDetailsTab;

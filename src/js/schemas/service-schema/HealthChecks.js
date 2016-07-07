@@ -43,7 +43,7 @@ let HealthChecks = {
           if (properties[prop].shouldShow) {
             definition.formElementClass = {
               'hidden-form-element': !properties[prop].shouldShow(service)
-            }
+            };
           }
         });
       },

@@ -73,7 +73,7 @@ Breadcrumbs.defaultProps = {
   breadcrumbClasses: 'inverse',
   // Remove root '/' by default
   shift: 0
-}
+};
 
 Breadcrumbs.propTypes = {
   breadcrumbClasses: PropTypes.oneOfType([
@@ -83,6 +83,6 @@ Breadcrumbs.propTypes = {
   ]),
   // Remove n crumbs from beginning of route crumbs
   shift: PropTypes.number
-}
+};
 
 module.exports = Breadcrumbs;

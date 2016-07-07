@@ -185,13 +185,13 @@ UninstallPackageModal.defaultProps = {
   handleUninstallFinish: function () {},
   onClose: function () {},
   open: false
-}
+};
 
 UninstallPackageModal.propTypes = {
   cosmosPackage: React.PropTypes.object,
   handleUninstallFinish: React.PropTypes.func,
   onClose: React.PropTypes.func,
   open: React.PropTypes.bool
-}
+};
 
 module.exports = UninstallPackageModal;

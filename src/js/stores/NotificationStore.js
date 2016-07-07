@@ -9,7 +9,7 @@ class NotificationStore extends GetSetBaseStore {
 
     this.getSet_data = {
       notificationMap: {}
-    }
+    };
   }
 
   addChangeListener(eventName, callback) {

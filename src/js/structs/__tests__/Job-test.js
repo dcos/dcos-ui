@@ -26,7 +26,7 @@ describe('Job', function () {
         let job = new Job({});
 
         expect(function () {
-          job.getCommand()
+          job.getCommand();
         }).not.toThrow();
       }
     );

@@ -148,12 +148,12 @@ describe('MesosStateStore', function () {
 
     it('should find a currently running task', function () {
       var result = MesosStateStore.getTaskFromTaskID(1);
-      expect(result.get()).toEqual({id: 1})
+      expect(result.get()).toEqual({id: 1});
     });
 
     it('should find a completed task', function () {
       var result = MesosStateStore.getTaskFromTaskID(2);
-      expect(result.get()).toEqual({id: 2})
+      expect(result.get()).toEqual({id: 2});
     });
   });
 

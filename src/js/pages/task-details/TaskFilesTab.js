@@ -4,7 +4,7 @@ import ManualBreadcrumbs from '../../components/ManualBreadcrumbs';
 import TaskDirectoryTable from '../../components/TaskDirectoryTable';
 import TaskDirectoryStore from '../../stores/TaskDirectoryStore';
 
-const METHODS_TO_BIND = ['handleBreadcrumbClick']
+const METHODS_TO_BIND = ['handleBreadcrumbClick'];
 
 class TaskFilesTab extends React.Component {
   constructor() {

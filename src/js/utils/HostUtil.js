@@ -24,6 +24,6 @@ const HostUtil = {
 
     return host.slice(0, HOSTNAME_MAX_LENGTH);
   }
-}
+};
 
 module.exports = HostUtil;

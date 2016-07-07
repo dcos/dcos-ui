@@ -22,7 +22,7 @@ const headerMapping = {
   getStagedTaskCount: 'Staged',
   getAverageLifeTime: 'Average Seconds',
   getMedianLifeTime: 'Median Seconds'
-}
+};
 
 class TaskStatsTable extends React.Component {
   getClassName(prop, sortBy) {

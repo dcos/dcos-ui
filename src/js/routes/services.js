@@ -45,7 +45,7 @@ let serviceRoutes = {
           }
         ];
       }
-    }
+    };
   },
   children: [
     {
@@ -66,7 +66,7 @@ let serviceRoutes = {
             return {
               parentCrumb: 'services-page',
               getCrumbs: buildServiceCrumbs
-            }
+            };
           },
           children: [
             // This route needs to be rendered outside of the tabs that are
@@ -86,7 +86,7 @@ let serviceRoutes = {
                       }
                     ];
                   }
-                }
+                };
               }
             },
             {
@@ -111,7 +111,7 @@ let serviceRoutes = {
                       }
                     ];
                   }
-                }
+                };
               }
             },
             {
@@ -130,7 +130,7 @@ let serviceRoutes = {
                         routeName="services-task-details" />
                     ];
                   }
-                }
+                };
               },
               children: [
                 {
@@ -142,7 +142,7 @@ let serviceRoutes = {
                     return {
                       parentCrumb: 'services-task-details',
                       getCrumbs: function () { return []; }
-                    }
+                    };
                   },
                   title:'Details'
                 },
@@ -157,7 +157,7 @@ let serviceRoutes = {
                     return {
                       parentCrumb: 'services-task-details',
                       getCrumbs: function () { return []; }
-                    }
+                    };
                   },
                   title:'Files'
                 },
@@ -172,7 +172,7 @@ let serviceRoutes = {
                     return {
                       parentCrumb: 'services-task-details',
                       getCrumbs: function () { return []; }
-                    }
+                    };
                   },
                   title:'Logs'
                 },
@@ -185,7 +185,7 @@ let serviceRoutes = {
                     return {
                       parentCrumb: 'services-task-details',
                       getCrumbs: function () { return []; }
-                    }
+                    };
                   },
                   title:'Volumes'
                 }

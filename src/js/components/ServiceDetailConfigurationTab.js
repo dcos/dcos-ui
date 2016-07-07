@@ -95,7 +95,7 @@ class ServiceDetailConfigurationTab extends React.Component {
         {this.getVersionsDropdown()}
         {this.getRollbackButtons()}
       </div>
-    )
+    );
   }
 
   getRollbackButtons() {

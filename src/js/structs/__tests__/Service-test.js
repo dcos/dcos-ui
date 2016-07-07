@@ -686,7 +686,7 @@ describe('Service', function () {
       });
 
       expect(service.getCpus()).toEqual(0.5);
-    })
+    });
   });
 
   describe('#getDisk', function () {
@@ -706,7 +706,7 @@ describe('Service', function () {
       });
 
       expect(service.getMem()).toEqual(49);
-    })
+    });
   });
 
   describe('#getVolumes', function () {

@@ -37,7 +37,7 @@ let Optional = {
         return service.getConstraints() && service.getConstraints()
             .map(function (item) {
               return item.join(':');
-            }).join(',')
+            }).join(',');
       }
     },
     acceptedResourceRoles: {

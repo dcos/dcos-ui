@@ -93,7 +93,7 @@ describe('DCOSStore', function () {
 
       it('should update the deployments list', function () {
         expect(DCOSStore.deploymentsList.getItems().length).toEqual(1);
-        expect(DCOSStore.deploymentsList.last().id).toEqual('deployment-id')
+        expect(DCOSStore.deploymentsList.last().id).toEqual('deployment-id');
       });
 
       it('should populate the deployments with relevant services', function () {

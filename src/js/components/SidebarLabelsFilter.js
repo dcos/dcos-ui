@@ -145,7 +145,7 @@ class SidebarLabelsFilters extends mixin(QueryParamsMixin) {
       <ul className={labelsListClassNames}>
         {labelNodes}
       </ul>
-    )
+    );
   }
 
   handleActionSelection({key, value}) {

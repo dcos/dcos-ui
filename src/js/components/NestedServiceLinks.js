@@ -74,7 +74,7 @@ class NestedServiceLinks extends React.Component {
       params = {
         id: serviceID,
         taskID
-      }
+      };
       routeName = 'services-task-details';
     } else {
       label = this.getServicePathParts().pop();

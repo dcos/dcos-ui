@@ -89,7 +89,7 @@ const Networking = {
             definition.formElementClass = {
               'hidden-form-element': !properties[prop].shouldShow(
                 service, model || {networking: {}})
-            }
+            };
           }
 
           let disabledLBPortFieldValue = 'Not Enabled';

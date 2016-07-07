@@ -37,7 +37,7 @@ let nodesRoutes = {
               }
             ];
           }
-        }
+        };
       },
       children: [
         {
@@ -75,7 +75,7 @@ let nodesRoutes = {
                 routeName="node-detail" />
             ];
           }
-        }
+        };
       },
       children: [
         // This route needs to be rendered outside of the tabs that are rendered
@@ -102,7 +102,7 @@ let nodesRoutes = {
                   }
                 ];
               }
-            }
+            };
           }
         },
         {
@@ -121,7 +121,7 @@ let nodesRoutes = {
                     routeName="nodes-task-details" />
                 ];
               }
-            }
+            };
           },
           children: [
             {
@@ -133,7 +133,7 @@ let nodesRoutes = {
                 return {
                   parentCrumb: 'nodes-task-details',
                   getCrumbs: function () { return []; }
-                }
+                };
               },
               title: 'Details'
             },
@@ -148,7 +148,7 @@ let nodesRoutes = {
                 return {
                   parentCrumb: 'nodes-task-details',
                   getCrumbs: function () { return []; }
-                }
+                };
               },
               title: 'Files'
             },
@@ -163,7 +163,7 @@ let nodesRoutes = {
                 return {
                   parentCrumb: 'nodes-task-details',
                   getCrumbs: function () { return []; }
-                }
+                };
               },
               title: 'Logs'
             },
@@ -176,7 +176,7 @@ let nodesRoutes = {
                 return {
                   parentCrumb: 'nodes-task-details',
                   getCrumbs: function () { return []; }
-                }
+                };
               },
               title: 'Volumes'
             }
@@ -198,7 +198,7 @@ let nodesRoutes = {
                     />
                 ];
               }
-            }
+            };
           }
         }
       ]

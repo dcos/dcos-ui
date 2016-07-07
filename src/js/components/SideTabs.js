@@ -50,7 +50,7 @@ class SideTabs extends React.Component {
     });
     let caretClasses = classNames('caret caret--desc caret--visible', {
       'dropup': dropdownOpen
-    })
+    });
 
     return (
       <div className={className}>

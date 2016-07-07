@@ -44,6 +44,7 @@
     "no-use-before-define": 0,
     "no-multiple-empty-lines": [2, {"max": 1}],
     "keyword-spacing": [2],
+    "semi": [2],
     "space-before-blocks": [2, "always"],
     "space-before-function-paren": [2, {
       "anonymous": "always", "named": "never"

@@ -130,7 +130,7 @@ class ServiceForm extends SchemaForm {
             wrapValueFunction: function (value, index) {
               return (
                 <strong key={index}>{value}</strong>
-              )
+              );
             }
           });
 
@@ -173,7 +173,7 @@ class ServiceForm extends SchemaForm {
 
         if (hostNetworkingDefinition == null &&
           serviceAddressNetworkingDefinition == null) {
-          return null
+          return null;
         }
 
         return (
@@ -197,7 +197,7 @@ class ServiceForm extends SchemaForm {
           </div>
         );
       }
-    }
+    };
   }
 
   updateDefinitions() {
@@ -211,7 +211,7 @@ class ServiceForm extends SchemaForm {
         .mapItems(function (overlay) {
           let name = overlay.getName();
 
-          return {html: `Virtual Network: ${name}`, id: name}
+          return {html: `Virtual Network: ${name}`, id: name};
         }).getItems();
 
       let networkDescriptionDefinition =

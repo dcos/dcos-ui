@@ -91,7 +91,7 @@ describe('RouterUtil', function () {
           buildBreadCrumb: function () {}
         }
       ];
-    })
+    });
 
     it('sets route configurations', function () {
       let components = RouterUtil.createComponentsFromRoutes(this.routeConfig);

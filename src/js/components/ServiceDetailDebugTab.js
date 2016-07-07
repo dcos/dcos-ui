@@ -52,7 +52,7 @@ class ServiceDetailDebugTab extends React.Component {
     }
 
     const {lastScalingAt, lastConfigChangeAt} = versionInfo;
-    let lastScaling = 'No operation since last config change'
+    let lastScaling = 'No operation since last config change';
     if (lastScalingAt !== lastConfigChangeAt) {
       lastScaling = (
         <span>
@@ -82,7 +82,7 @@ class ServiceDetailDebugTab extends React.Component {
       );
     }
 
-    return <TaskStatsTable taskStats={taskStats} />
+    return <TaskStatsTable taskStats={taskStats} />;
   }
 
   render() {

@@ -26,7 +26,7 @@ let universeRoutes = {
               }
             ];
           }
-        }
+        };
       }
     },
     {
@@ -45,7 +45,7 @@ let universeRoutes = {
               }
             ];
           }
-        }
+        };
       }
     },
     {

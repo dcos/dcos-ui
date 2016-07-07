@@ -59,7 +59,7 @@ class NodeDetailPage extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) 
 
     let node = this.getNode();
     if (node && !this.internalStorage_get().node) {
-      this.internalStorage_update({node})
+      this.internalStorage_update({node});
       NodeHealthStore.fetchNodeUnits(node.hostname);
     }
   }
