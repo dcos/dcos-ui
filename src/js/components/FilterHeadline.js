@@ -22,25 +22,25 @@ class FilterHeadline extends React.Component {
   }
 
   render() {
-    let {currentLength, inverseStyle, name, totalLength} = this.props;
+    let {currentLength, inverseStyle, isFiltering, name, totalLength} = this.props;
     name = StringUtil.pluralize(name, totalLength);
 
     let filteredClassSet = classNames({
       'h4': true,
       'inverse': inverseStyle,
-      'hidden': filteredLength === totalLength
+      'hidden': (isFiltering == null && currentLength === totalLength) || (isFiltering != null && !isFiltering)
     });
 
     let unfilteredClassSet = classNames({
       'h4': true,
       'inverse': inverseStyle,
-      'hidden': filteredLength !== totalLength
+      'hidden': (isFiltering == null && currentLength !== totalLength) || (isFiltering != null && isFiltering)
     });
 
     let anchorClassSet = classNames({
       'h4 clickable': true,
       'inverse': inverseStyle,
-      'hidden': filteredLength === totalLength
+      'hidden': (isFiltering == null && currentLength === totalLength) || (isFiltering != null && !isFiltering)
     });
 
     let listClassSet = classNames({
@@ -55,7 +55,7 @@ class FilterHeadline extends React.Component {
         </li>
         <li className={anchorClassSet} onClick={this.handleReset}>
           <a className="small">
-            (Show all)
+            (Clear)
           </a>
         </li>
         <li className={unfilteredClassSet}>
@@ -73,6 +73,9 @@ FilterHeadline.defaultProps = {
 FilterHeadline.propTypes = {
   currentLength: PropTypes.number.isRequired,
   inverseStyle: PropTypes.bool,
+  // Optional prop used to force the "Clear" button to show even when n of n
+  // items are currenetly displayed.
+  isFiltering: PropTypes.bool,
   name: PropTypes.string.isRequired,
   onReset: PropTypes.func.isRequired,
   totalLength: PropTypes.number.isRequired
