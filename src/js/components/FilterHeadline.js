@@ -23,7 +23,9 @@ class FilterHeadline extends React.Component {
 
   render() {
     let {currentLength, inverseStyle, isFiltering, name, totalLength} = this.props;
-    let hideFilteredClasses = (isFiltering == null && currentLength === totalLength) || (isFiltering != null && !isFiltering);
+    let hideFilteredClasses =
+      (isFiltering == null && currentLength === totalLength) ||
+      (isFiltering != null && !isFiltering);
     name = StringUtil.pluralize(name, totalLength);
 
     let filteredClassSet = classNames({
