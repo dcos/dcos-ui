@@ -12,16 +12,16 @@ function filteredPaths(combinedPath) {
 function getErroredFieldPositions(definition) {
   let fieldsWithError = [];
 
-  definition.forEach(function (fieldDefinition, indexInForm) {
-    if (Array.isArray(fieldDefinition)) {
-      fieldDefinition.forEach(function (deeper, indexInRow) {
-        let hasError = !!deeper.showError;
+  definition.forEach(function (rowDefinition, indexInForm) {
+    if (Array.isArray(rowDefinition)) {
+      rowDefinition.forEach(function (columnDefinition, indexInRow) {
+        let hasError = !!columnDefinition.showError;
 
         if (hasError) {
           fieldsWithError.push({
             indexInForm: indexInForm,
             indexInRow: indexInRow,
-            showError: deeper.showError
+            showError: columnDefinition.showError
           });
         }
       });
