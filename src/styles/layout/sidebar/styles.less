@@ -16,18 +16,18 @@ EXPECTED MARKUP
   </div>
   <ul class="sidebar-menu">
     <li>
-      <a></a>
+      <a>Link</a>
     </li>
     <li class="open">
       <a></a>
       <ul>
-        <li></li>
-        <li class="selected"></li>
-        <li></li>
+        <li><span>Link</span></li>
+        <li class="selected"><a>Link</a></li>
+        <li><a>Link</a></li>
       </ul>
     </li>
     <li>
-      <a></a>
+      <a>Link</a>
     </li>
   </ul>
 </div>
@@ -78,13 +78,13 @@ EXPECTED MARKUP
 
     .sidebar-section-header {
 
-      display: flex;
-      align-items: center;
-      .element-text-style(sidebar-section-header);
       .element-shape-style(sidebar-section-header);
-      .element-text-size(sidebar-section-header, null);
       .element-spacing(sidebar-section-header, null, null);
+      .element-text-size(sidebar-section-header, null);
+      .element-text-style(sidebar-section-header);
       .property-variant(sidebar-section-header, height);
+      align-items: center;
+      display: flex;
 
       &:empty {
 
@@ -108,13 +108,13 @@ EXPECTED MARKUP
 
     li {
 
+      .element-shape-style(sidebar-menu-item);
+      .element-spacing(sidebar-menu-item, null, null);
+      .element-text-size(sidebar-menu-item, null);
+      .element-text-style(sidebar-menu-item);
+      .property-variant(sidebar-menu-item, min-height, height, null, null);
       display: block;
       transition: background-color 0.15s ease;
-      .element-text-size(sidebar-menu-item, null);
-      .element-spacing(sidebar-menu-item, null, null);
-      .element-text-style(sidebar-menu-item);
-      .element-shape-style(sidebar-menu-item);
-      .property-variant(sidebar-menu-item, min-height, height, null, null);
 
       &:empty {
 
@@ -140,7 +140,7 @@ EXPECTED MARKUP
 
       }
 
-      > *:not(a) {
+      & > *:not(a):not(span) {
 
         .property-variant(sidebar-menu-item-content, margin-right, padding-horizontal, null, null);
 
@@ -152,18 +152,19 @@ EXPECTED MARKUP
 
       }
 
-      a {
+      & > a,
+      & > span {
 
-        display: flex;
-        align-items: center;
-        text-decoration: none !important;
-        transition: background-color 0.15s ease;
+        .element-shape-style(sidebar-menu-item-link);
         .element-spacing(sidebar-menu-item-link, null, null);
         .element-text-style(sidebar-menu-item-link);
-        .element-shape-style(sidebar-menu-item-link);
         .property-variant(sidebar-menu-item, height);
+        align-items: center;
+        display: flex;
+        text-decoration: none !important;
+        transition: background-color 0.15s ease;
 
-        > * {
+        & > * {
 
           .property-variant(sidebar-menu-item-content, margin-right, padding-horizontal, null, null);
 
@@ -175,17 +176,22 @@ EXPECTED MARKUP
 
         }
 
+      }
+
+      & > a {
+
         &:hover {
 
-          .element-text-style(sidebar-menu-item-link-hover);
           .element-shape-style(sidebar-menu-item-link-hover);
+          .element-text-style(sidebar-menu-item-link-hover);
+          cursor: pointer;
 
         }
 
         &:active {
 
-          .element-text-style(sidebar-menu-item-link-active);
           .element-shape-style(sidebar-menu-item-link-active);
+          .element-text-style(sidebar-menu-item-link-active);
 
         }
 
@@ -202,12 +208,12 @@ EXPECTED MARKUP
 
         .element-text-style(sidebar-menu-item-selected);
 
-        > a,
-        > a:hover,
-        > a:active {
+        & > a,
+        & > a:hover,
+        & > a:active {
 
-          .element-text-style(sidebar-menu-item-link-selected);
           .element-shape-style(sidebar-menu-item-link-selected);
+          .element-text-style(sidebar-menu-item-link-selected);
 
         }
 
@@ -218,62 +224,69 @@ EXPECTED MARKUP
         .element-shape-style(sidebar-submenu);
         .element-text-style(sidebar-menu-item-open);
 
-        > a {
+        & > span,
+        & > a {
 
-          .element-text-style(sidebar-menu-item-open);
           .element-shape-style(sidebar-menu-item-open);
+          .element-text-style(sidebar-menu-item-open);
 
         }
 
-        > ul {
+      }
 
-          .element-spacing(sidebar-submenu, null, null);
+      & > ul {
 
-          li {
+        .element-spacing(sidebar-submenu, null, null);
 
-            display: block;
-            .element-text-size(sidebar-submenu-item, null);
-            .element-spacing(sidebar-submenu-item, null, null);
-            .element-text-style(sidebar-submenu-item);
-            .element-shape-style(sidebar-submenu-item);
-            .property-variant(sidebar-submenu-item, min-height, height, null, null);
+        li {
 
-            &.selected {
+          .element-shape-style(sidebar-submenu-item);
+          .element-spacing(sidebar-submenu-item, null, null);
+          .element-text-size(sidebar-submenu-item, null);
+          .element-text-style(sidebar-submenu-item);
+          .property-variant(sidebar-submenu-item, min-height, height, null, null);
+          display: block;
 
-              > a,
-              > a:hover,
-              > a:active {
+          &.selected {
 
-                .element-text-style(sidebar-submenu-item-link-selected);
-                .element-shape-style(sidebar-submenu-item-link-selected);
+            & > a,
+            & > a:hover,
+            & > a:active {
 
-              }
+              .element-shape-style(sidebar-submenu-item-link-selected);
+              .element-text-style(sidebar-submenu-item-link-selected);
 
             }
 
-            > a {
+          }
 
-              display: flex;
-              align-items: center;
-              text-decoration: none !important;
-              .element-spacing(sidebar-submenu-item-link, null, null);
-              .element-text-style(sidebar-submenu-item-link);
-              .element-shape-style(sidebar-submenu-item-link);
-              .property-variant(sidebar-submenu-item, height);
+          & > span,
+          & > a {
 
-              &:hover {
+            .element-shape-style(sidebar-submenu-item-link);
+            .element-spacing(sidebar-submenu-item-link, null, null);
+            .element-text-style(sidebar-submenu-item-link);
+            .property-variant(sidebar-submenu-item, height);
+            display: flex;
+            align-items: center;
+            text-decoration: none !important;
 
-                .element-text-style(sidebar-submenu-item-link-hover);
-                .element-shape-style(sidebar-submenu-item-link-hover);
+          }
 
-              }
+          & > a {
 
-              &:active {
+            &:hover {
 
-                .element-text-style(sidebar-submenu-item-link-active);
-                .element-shape-style(sidebar-submenu-item-link-active);
+              .element-shape-style(sidebar-submenu-item-link-hover);
+              .element-text-style(sidebar-submenu-item-link-hover);
+              cursor: pointer;
 
-              }
+            }
+
+            &:active {
+
+              .element-shape-style(sidebar-submenu-item-link-active);
+              .element-text-style(sidebar-submenu-item-link-active);
 
             }
 
@@ -313,8 +326,8 @@ EXPECTED MARKUP
 
         .sidebar-section-header {
 
-          .element-text-size(sidebar-section-header, screen-small);
           .element-spacing(sidebar-section-header, null, screen-small);
+          .element-text-size(sidebar-section-header, screen-small);
           .property-variant(sidebar-section-header, height, null, screen-small);
 
         }
@@ -329,22 +342,23 @@ EXPECTED MARKUP
 
         li {
 
-          .element-text-size(sidebar-submenu-item, screen-small);
           .element-spacing(sidebar-menu-item, null, screen-small);
+          .element-text-size(sidebar-submenu-item, screen-small);
           .property-variant(sidebar-menu-item, min-height, height, null, screen-small);
 
-          > *:not(a) {
+          & > *:not(a):not(span) {
 
             .property-variant(sidebar-menu-item-content, margin-right, padding-horizontal, null, screen-small);
 
           }
 
-          a {
+          & > span,
+          & > a {
 
             .element-spacing(sidebar-menu-item-link, null, screen-small);
             .property-variant(sidebar-menu-item, height, null, screen-small);
 
-            > * {
+            & > * {
 
               .property-variant(sidebar-menu-item-content, margin-right, padding-horizontal, null, screen-small);
 
@@ -352,21 +366,18 @@ EXPECTED MARKUP
 
           }
 
-        }
-
-        > li.open {
-
-          > ul {
+          & > ul {
 
             .element-spacing(sidebar-submenu, null, screen-small);
 
             li {
 
-              .element-text-size(sidebar-submenu-item, screen-small);
               .element-spacing(sidebar-submenu-item, null, screen-small);
+              .element-text-size(sidebar-submenu-item, screen-small);
               .property-variant(sidebar-submenu-item, min-height, height, null, screen-small);
 
-              a {
+              & > span,
+              & > a {
 
                 .element-spacing(sidebar-submenu-item-link, null, screen-small);
                 .property-variant(sidebar-submenu-item, height, null, screen-small);
@@ -412,9 +423,9 @@ EXPECTED MARKUP
 
       .navigation {
 
+        left: auto;
         position: relative;
         width: auto;
-        left: auto;
 
       }
 
@@ -432,8 +443,8 @@ EXPECTED MARKUP
 
         .sidebar-section-header {
 
-          .element-text-size(sidebar-section-header, screen-medium);
           .element-spacing(sidebar-section-header, null, screen-medium);
+          .element-text-size(sidebar-section-header, screen-medium);
           .property-variant(sidebar-section-header, height, null, screen-medium);
 
         }
@@ -448,22 +459,23 @@ EXPECTED MARKUP
 
         li {
 
-          .element-text-size(sidebar-submenu-item, screen-medium);
           .element-spacing(sidebar-menu-item, null, screen-medium);
+          .element-text-size(sidebar-submenu-item, screen-medium);
           .property-variant(sidebar-menu-item, min-height, height, null, screen-medium);
 
-          > *:not(a) {
+          & > *:not(a):not(span) {
 
             .property-variant(sidebar-menu-item-content, margin-right, padding-horizontal, null, screen-medium);
 
           }
 
-          a {
+          & > span,
+          & > a {
 
             .element-spacing(sidebar-menu-item-link, null, screen-medium);
             .property-variant(sidebar-menu-item, height, null, screen-medium);
 
-            > * {
+            & > * {
 
               .property-variant(sidebar-menu-item-content, margin-right, padding-horizontal, null, screen-medium);
 
@@ -471,21 +483,18 @@ EXPECTED MARKUP
 
           }
 
-        }
-
-        > li.open {
-
-          > ul {
+          & > ul {
 
             .element-spacing(sidebar-submenu, null, screen-medium);
 
             li {
 
-              .element-text-size(sidebar-submenu-item, screen-medium);
               .element-spacing(sidebar-submenu-item, null, screen-medium);
+              .element-text-size(sidebar-submenu-item, screen-medium);
               .property-variant(sidebar-submenu-item, min-height, height, null, screen-medium);
 
-              a {
+              & > span,
+              & > a {
 
                 .element-spacing(sidebar-submenu-item-link, null, screen-medium);
                 .property-variant(sidebar-submenu-item, height, null, screen-medium);
@@ -538,8 +547,8 @@ EXPECTED MARKUP
 
         .sidebar-section-header {
 
-          .element-text-size(sidebar-section-header, screen-large);
           .element-spacing(sidebar-section-header, null, screen-large);
+          .element-text-size(sidebar-section-header, screen-large);
           .property-variant(sidebar-section-header, height, null, screen-large);
 
         }
@@ -554,22 +563,23 @@ EXPECTED MARKUP
 
         li {
 
-          .element-text-size(sidebar-menu-item, screen-large);
           .element-spacing(sidebar-menu-item, null, screen-large);
+          .element-text-size(sidebar-menu-item, screen-large);
           .property-variant(sidebar-menu-item, min-height, height, null, screen-large);
 
-          > *:not(a) {
+          & > *:not(a):not(span) {
 
             .property-variant(sidebar-menu-item-content, margin-right, padding-horizontal, null, screen-large);
 
           }
 
-          a {
+          & > span,
+          & > a {
 
             .element-spacing(sidebar-menu-item-link, null, screen-large);
             .property-variant(sidebar-menu-item, height, null, screen-large);
 
-            > * {
+            & > * {
 
               .property-variant(sidebar-menu-item-content, margin-right, padding-horizontal, null, screen-large);
 
@@ -577,21 +587,18 @@ EXPECTED MARKUP
 
           }
 
-        }
-
-        > li.open {
-
-          > ul {
+          & > ul {
 
             .element-spacing(sidebar-submenu, null, screen-large);
 
             li {
 
-              .element-text-size(sidebar-submenu-item, screen-large);
               .element-spacing(sidebar-submenu-item, null, screen-large);
+              .element-text-size(sidebar-submenu-item, screen-large);
               .property-variant(sidebar-submenu-item, min-height, height, null, screen-large);
 
-              a {
+              & > span,
+              & > a {
 
                 .element-spacing(sidebar-submenu-item-link, null, screen-large);
                 .property-variant(sidebar-submenu-item, height, null, screen-large);
@@ -679,8 +686,8 @@ EXPECTED MARKUP
 
         .sidebar-section-header {
 
-          .element-text-size(sidebar-section-header, screen-jumbo);
           .element-spacing(sidebar-section-header, null, screen-jumbo);
+          .element-text-size(sidebar-section-header, screen-jumbo);
           .property-variant(sidebar-section-header, height, null, screen-jumbo);
 
         }
@@ -695,22 +702,23 @@ EXPECTED MARKUP
 
         li {
 
-          .element-text-size(sidebar-menu-item, screen-jumbo);
           .element-spacing(sidebar-menu-item, null, screen-jumbo);
+          .element-text-size(sidebar-menu-item, screen-jumbo);
           .property-variant(sidebar-menu-item, min-height, height, null, screen-jumbo);
 
-          > *:not(a) {
+          & > *:not(a):not(span) {
 
             .property-variant(sidebar-menu-item-content, margin-right, padding-horizontal, null, screen-jumbo);
 
           }
 
-          a {
+          & > span,
+          & > a {
 
             .element-spacing(sidebar-menu-item-link, null, screen-jumbo);
             .property-variant(sidebar-menu-item, height, null, screen-jumbo);
 
-            > * {
+            & > * {
 
               .property-variant(sidebar-menu-item-content, margin-right, padding-horizontal, null, screen-jumbo);
 
@@ -718,21 +726,18 @@ EXPECTED MARKUP
 
           }
 
-        }
-
-        > li.open {
-
-          > ul {
+          & > ul {
 
             .element-spacing(sidebar-submenu, null, screen-jumbo);
 
             li {
 
-              .element-text-size(sidebar-submenu-item, screen-jumbo);
               .element-spacing(sidebar-submenu-item, null, screen-jumbo);
+              .element-text-size(sidebar-submenu-item, screen-jumbo);
               .property-variant(sidebar-submenu-item, min-height, height, null, screen-jumbo);
 
-              a {
+              & > span,
+              & > a {
 
                 .element-spacing(sidebar-submenu-item-link, null, screen-jumbo);
                 .property-variant(sidebar-submenu-item, height, null, screen-jumbo);
