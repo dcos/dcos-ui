@@ -16,9 +16,9 @@ menu-tabbed/styles.less
 
   .menu-tabbed {
 
-    position: relative;
-    padding: 0px;
     .element-spacing(menu-tabbed, null, null);
+    padding: 0px;
+    position: relative;
 
     /* -----------------------------------------------------------------------------
     Layout Variants
@@ -42,13 +42,13 @@ menu-tabbed/styles.less
 
     li {
 
-      position: relative;
-      display: inline-block;
-      .element-text-size(menu-tabbed-item, null);
-      .element-text-style(menu-tabbed-item);
       .element-shape-style(menu-tabbed-item);
       .element-spacing(menu-tabbed-item, null, null);
+      .element-text-size(menu-tabbed-item, null);
+      .element-text-style(menu-tabbed-item);
       .property-variant(menu-tabbed-item, opacity);
+      position: relative;
+      display: inline-block;
 
       &:last-child {
 
@@ -64,30 +64,30 @@ menu-tabbed/styles.less
 
       a {
 
-        position: relative;
-        .element-text-size(menu-tabbed-item-link, null);
-        .element-text-style(menu-tabbed-item-link);
         .element-shape-style(menu-tabbed-item-link);
         .element-spacing(menu-tabbed-item-link, null, null);
+        .element-text-size(menu-tabbed-item-link, null);
+        .element-text-style(menu-tabbed-item-link);
         .property-variant(menu-tabbed-item-link, opacity);
+        position: relative;
 
         &:after {
 
+          .property-variant(menu-tabbed-item-link, background-color, color, null, null);
+          bottom: 0px;
           content: '';
           display: none;
-          width: 100%;
           height: 2px;
-          position: absolute;
-          bottom: 0px;
           left: 0px;
-          .property-variant(menu-tabbed-item-link, background-color, color, null, null);
+          position: absolute;
+          width: 100%;
 
         }
 
         &:hover {
 
-          .element-text-style(menu-tabbed-item-link-hover);
           .element-shape-style(menu-tabbed-item-link-hover);
+          .element-text-style(menu-tabbed-item-link-hover);
           .property-variant(menu-tabbed-item-link-hover, opacity);
 
           &:after {
@@ -100,8 +100,8 @@ menu-tabbed/styles.less
 
         &:active {
 
-          .element-text-style(menu-tabbed-item-link-active);
           .element-shape-style(menu-tabbed-item-link-active);
+          .element-text-style(menu-tabbed-item-link-active);
           .property-variant(menu-tabbed-item-link-active, opacity);
 
           &:after {
@@ -115,8 +115,8 @@ menu-tabbed/styles.less
         &.selected,
         &.active {
 
-          .element-text-style(menu-tabbed-item-link-selected);
           .element-shape-style(menu-tabbed-item-link-selected);
+          .element-text-style(menu-tabbed-item-link-selected);
           .property-variant(menu-tabbed-item-link-selected, opacity);
 
           &:after {
@@ -144,14 +144,14 @@ menu-tabbed/styles.less
 
       li {
 
-        .element-text-style(menu-tabbed-item-inverse);
         .element-shape-style(menu-tabbed-item-inverse);
+        .element-text-style(menu-tabbed-item-inverse);
         .property-variant(menu-tabbed-item-inverse, opacity);
 
         a {
 
-          .element-text-style(menu-tabbed-item-link-inverse);
           .element-shape-style(menu-tabbed-item-link-inverse);
+          .element-text-style(menu-tabbed-item-link-inverse);
           .property-variant(menu-tabbed-item-link-inverse, opacity);
 
           &:after {
@@ -162,8 +162,8 @@ menu-tabbed/styles.less
 
           &:hover {
 
-            .element-text-style(menu-tabbed-item-link-inverse-hover);
             .element-shape-style(menu-tabbed-item-link-inverse-hover);
+            .element-text-style(menu-tabbed-item-link-inverse-hover);
             .property-variant(menu-tabbed-item-link-inverse-hover, opacity);
 
             &:after {
@@ -176,8 +176,8 @@ menu-tabbed/styles.less
 
           &:active {
 
-            .element-text-style(menu-tabbed-item-link-inverse-active);
             .element-shape-style(menu-tabbed-item-link-inverse-active);
+            .element-text-style(menu-tabbed-item-link-inverse-active);
             .property-variant(menu-tabbed-item-link-inverse-active, opacity);
 
             &:after {
@@ -190,8 +190,8 @@ menu-tabbed/styles.less
 
           &.selected {
 
-            .element-text-style(menu-tabbed-item-link-inverse-selected);
             .element-shape-style(menu-tabbed-item-link-inverse-selected);
+            .element-text-style(menu-tabbed-item-link-inverse-selected);
             .property-variant(menu-tabbed-item-link-inverse-selected, opacity);
 
             &:after {
@@ -254,13 +254,13 @@ menu-tabbed/styles.less
 
         li {
 
-          .element-text-size(menu-tabbed-item, screen-small);
           .element-spacing(menu-tabbed-item, null, screen-small);
+          .element-text-size(menu-tabbed-item, screen-small);
 
           a {
 
-            .element-text-size(menu-tabbed-item-link, screen-small);
             .element-spacing(menu-tabbed-item-link, null, screen-small);
+            .element-text-size(menu-tabbed-item-link, screen-small);
 
           }
 
@@ -316,13 +316,13 @@ menu-tabbed/styles.less
 
         li {
 
-          .element-text-size(menu-tabbed-item, screen-medium);
           .element-spacing(menu-tabbed-item, null, screen-medium);
+          .element-text-size(menu-tabbed-item, screen-medium);
 
           a {
 
-            .element-text-size(menu-tabbed-item-link, screen-medium);
             .element-spacing(menu-tabbed-item-link, null, screen-medium);
+            .element-text-size(menu-tabbed-item-link, screen-medium);
 
           }
 
@@ -378,13 +378,13 @@ menu-tabbed/styles.less
 
         li {
 
-          .element-text-size(menu-tabbed-item, screen-large);
           .element-spacing(menu-tabbed-item, null, screen-large);
+          .element-text-size(menu-tabbed-item, screen-large);
 
           a {
 
-            .element-text-size(menu-tabbed-item-link, screen-large);
             .element-spacing(menu-tabbed-item-link, null, screen-large);
+            .element-text-size(menu-tabbed-item-link, screen-large);
 
           }
 
@@ -440,13 +440,13 @@ menu-tabbed/styles.less
 
         li {
 
-          .element-text-size(menu-tabbed-item, screen-jumbo);
           .element-spacing(menu-tabbed-item, null, screen-jumbo);
+          .element-text-size(menu-tabbed-item, screen-jumbo);
 
           a {
 
-            .element-text-size(menu-tabbed-item-link, screen-jumbo);
             .element-spacing(menu-tabbed-item-link, null, screen-jumbo);
+            .element-text-size(menu-tabbed-item-link, screen-jumbo);
 
           }
 
