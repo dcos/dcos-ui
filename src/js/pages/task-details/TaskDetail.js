@@ -20,6 +20,10 @@ const METHODS_TO_BIND = [
   'onTaskDirectoryStoreSuccess'
 ];
 
+const StatusMapping = {
+  'Running': 'service-running-state'
+};
+
 class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
   constructor() {
     super(...arguments);
@@ -195,11 +199,16 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
       </ul>
     );
 
+    let taskState = task.get('state');
+    let serviceStatus = TaskStates[taskState].displayName;
+    let serviceStatusClassSet = StatusMapping[serviceStatus] || '';
+
     return (
       <PageHeader
         icon={taskIcon}
-        iconClassName="icon-app-container icon-image-container"
-        subTitle={TaskStates[task.state].displayName}
+        iconClassName="icon-app-container  icon-image-container"
+        subTitle={serviceStatus}
+        subTitleClassName={serviceStatusClassSet}
         navigationTabs={navigationTabs}
         title={task.getName()} />
     );
