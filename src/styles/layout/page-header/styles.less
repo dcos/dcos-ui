@@ -14,19 +14,19 @@ Page Header
 
 .page-header {
 
-  position: relative;
   .clearfix();
+  position: relative;
 
   &:before {
 
+    background-color: color-lighten(@neutral, 80);
+    bottom: 0px;
     content: '';
     display: block;
-    width: 100%;
     height: 1px;
-    position: absolute;
-    bottom: 0px;
     left: 0px;
-    background-color: color-lighten(@neutral, 80);
+    position: absolute;
+    width: 100%;
 
   }
 
@@ -58,15 +58,15 @@ Page Header Navigation
 
     & when (@pod-short-margin-top-scale = null) {
 
-      padding-top: @pod-margin-bottom;
       margin-bottom: -@pod-margin-bottom;
+      padding-top: @pod-margin-bottom;
 
     }
 
     & when not (@pod-short-margin-top-scale = null) {
 
-      padding-top: @pod-margin-bottom * @pod-short-margin-top-scale;
       margin-bottom: -@pod-margin-bottom * @pod-short-margin-top-scale;
+      padding-top: @pod-margin-bottom * @pod-short-margin-top-scale;
 
     }
 
@@ -100,15 +100,15 @@ Page Header Navigation
 
         & when (@pod-short-margin-top-scale = null) {
 
-          padding-top: @pod-margin-bottom-screen-small;
           margin-bottom: -@pod-margin-bottom-screen-small;
+          padding-top: @pod-margin-bottom-screen-small;
 
         }
 
         & when not (@pod-short-margin-top-scale = null) {
 
-          padding-top: @pod-margin-bottom-screen-small * @pod-short-margin-top-scale;
           margin-bottom: -@pod-margin-bottom-screen-small * @pod-short-margin-top-scale;
+          padding-top: @pod-margin-bottom-screen-small * @pod-short-margin-top-scale;
 
         }
 
@@ -140,15 +140,15 @@ Page Header Navigation
 
         & when (@pod-short-margin-top-scale = null) {
 
-          padding-top: @pod-margin-bottom-screen-medium;
           margin-bottom: -@pod-margin-bottom-screen-medium;
+          padding-top: @pod-margin-bottom-screen-medium;
 
         }
 
         & when not (@pod-short-margin-top-scale = null) {
 
-          padding-top: @pod-margin-bottom-screen-medium * @pod-short-margin-top-scale;
           margin-bottom: -@pod-margin-bottom-screen-medium * @pod-short-margin-top-scale;
+          padding-top: @pod-margin-bottom-screen-medium * @pod-short-margin-top-scale;
 
         }
 
@@ -180,15 +180,15 @@ Page Header Navigation
 
         & when (@pod-short-margin-top-scale = null) {
 
-          padding-top: @pod-margin-bottom-screen-large;
           margin-bottom: -@pod-margin-bottom-screen-large;
+          padding-top: @pod-margin-bottom-screen-large;
 
         }
 
         & when not (@pod-short-margin-top-scale = null) {
 
-          padding-top: @pod-margin-bottom-screen-large * @pod-short-margin-top-scale;
           margin-bottom: -@pod-margin-bottom-screen-large * @pod-short-margin-top-scale;
+          padding-top: @pod-margin-bottom-screen-large * @pod-short-margin-top-scale;
 
         }
 
@@ -220,15 +220,15 @@ Page Header Navigation
 
         & when (@pod-short-margin-top-scale = null) {
 
-          padding-top: @pod-margin-bottom-screen-jumbo;
           margin-bottom: -@pod-margin-bottom-screen-jumbo;
+          padding-top: @pod-margin-bottom-screen-jumbo;
 
         }
 
         & when not (@pod-short-margin-top-scale = null) {
 
-          padding-top: @pod-margin-bottom-screen-jumbo * @pod-short-margin-top-scale;
           margin-bottom: -@pod-margin-bottom-screen-jumbo * @pod-short-margin-top-scale;
+          padding-top: @pod-margin-bottom-screen-jumbo * @pod-short-margin-top-scale;
 
         }
 
