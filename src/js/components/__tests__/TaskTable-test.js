@@ -1,8 +1,10 @@
+jest.dontMock('../CollapsingString');
 jest.dontMock('./fixtures/MockTasks.json');
 jest.dontMock('../../utils/ResourceTableUtil');
 jest.dontMock('../../stores/MesosStateStore');
 jest.dontMock('../TaskTable');
 jest.dontMock('moment');
+
 /* eslint-disable no-unused-vars */
 var React = require('react');
 /* eslint-enable no-unused-vars */

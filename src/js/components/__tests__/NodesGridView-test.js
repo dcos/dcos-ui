@@ -1,3 +1,4 @@
+jest.dontMock('../CollapsingString');
 jest.dontMock('../../mixins/GetSetMixin');
 jest.dontMock('../../mixins/InternalStorageMixin');
 jest.dontMock('../NodesGridView');

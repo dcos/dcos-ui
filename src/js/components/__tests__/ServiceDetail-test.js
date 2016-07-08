@@ -1,8 +1,10 @@
+jest.dontMock('../CollapsingString');
 jest.dontMock('../PageHeader');
 jest.dontMock('../ServiceDetail');
 jest.dontMock('../ServiceDetailDebugTab');
 jest.dontMock('../ServiceDetailConfigurationTab');
 jest.dontMock('../ServiceDetailTaskTab');
+jest.dontMock('../ServiceInfo');
 jest.dontMock('../ServiceInfo');
 jest.dontMock('../../structs/Service');
 
@@ -59,7 +61,7 @@ describe('ServiceDetail', function () {
   describe('#render', function () {
 
     it('renders service info name', function () {
-      expect(this.node.querySelector('.h1').textContent).toEqual('test');
+      expect(this.node.querySelector('.h1 .collapsing-string-full-string').textContent).toEqual('test');
     });
 
   });
