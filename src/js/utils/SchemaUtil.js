@@ -51,6 +51,7 @@ function schemaToFieldDefinition(fieldName, fieldProps, formParent, isRequired, 
     showError: false,
     writeType: 'input',
     validation: function () { return true; },
+    externalValidator: fieldProps.externalValidator,
     value,
     valueType: fieldProps.type
   };

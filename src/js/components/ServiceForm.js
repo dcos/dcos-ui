@@ -104,6 +104,42 @@ class ServiceForm extends SchemaForm {
     this.props.onChange(...arguments);
   }
 
+  validateForm() {
+    let model = this.triggerTabFormSubmit();
+
+    // Clears all previous errors.
+    FormUtil.applyToDefinitions(this.multipleDefinition, function (definition) {
+      definition.showError = false;
+    });
+
+    // Apply all validations.
+    let validated = false;
+    FormUtil.applyToDefinitions(this.multipleDefinition, function (definition) {
+      if (typeof definition.externalValidator !== 'function') {
+        return;
+      }
+
+      let fieldValidated = definition.externalValidator(model, definition);
+      if (!fieldValidated && validated) {
+        validated = false;
+      }
+    });
+
+    if (!validated) {
+      this.forceUpdate();
+    }
+
+    return {
+      isValidated: validated,
+      model: SchemaFormUtil.processFormModel(model, this.multipleDefinition),
+      definition: this.multipleDefinition
+    };
+  }
+
+  handleExternalSubmit() {
+    return this.validateForm();
+  }
+
   onVirtualNetworksStoreSuccess() {
     this.updateDefinitions();
   }
@@ -394,14 +430,6 @@ class ServiceForm extends SchemaForm {
     }
 
     return definition;
-  }
-
-  validateForm() {
-    this.model = this.triggerTabFormSubmit();
-    // Handle the form change in the way service needs here.
-    this.isValidated = true;
-
-    return true;
   }
 }
 

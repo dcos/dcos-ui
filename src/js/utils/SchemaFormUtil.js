@@ -26,6 +26,23 @@ function setDefinitionValue(thingToSet, definition, renderRemove, model) {
       return false;
     });
 
+    let indexesToError = [];
+    definitionToSet.definition.forEach(function (fieldDefinition, i1) {
+      if (Array.isArray(fieldDefinition)) {
+        fieldDefinition.forEach(function (deeper, i2) {
+          let hasError = !!deeper.showError;
+
+          if (hasError) {
+            indexesToError.push({
+              firstIndex: i1,
+              secondIndex: i2,
+              showError: deeper.showError
+            });
+          }
+        });
+      }
+    });
+
     FormUtil.removePropID(definitionToSet.definition, prop);
 
     value.forEach(function (item, index) {
@@ -56,6 +73,16 @@ function setDefinitionValue(thingToSet, definition, renderRemove, model) {
         renderRemove(definitionToSet.definition, prop, propID, title)
       );
       definitionToSet.definition.splice(firstIndex++, 0, instanceDefinition);
+    });
+
+    indexesToError.forEach(function (indexToError) {
+      let needsToError = definitionToSet.definition[indexToError.firstIndex];
+      if (needsToError) {
+        needsToError = needsToError[indexToError.secondIndex];
+        if (needsToError) {
+          needsToError.showError = indexToError.showError;
+        }
+      }
     });
   }
 
