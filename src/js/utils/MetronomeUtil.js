@@ -97,19 +97,16 @@ const MetronomeUtil = {
     let {history}= job;
 
     if (history == null) {
-
       return job;
     }
 
     let {failedFinishedRuns = [], successfulFinishedRuns = []} = history;
 
     failedFinishedRuns = failedFinishedRuns.map(function (jobRun) {
-
       return Object.assign({}, jobRun, {status: 'FAILED', jobId: job.id});
     });
 
     successfulFinishedRuns = successfulFinishedRuns.map(function (jobRun) {
-
       return Object.assign({}, jobRun, {status: 'COMPLETED', jobId: job.id});
     });
 
