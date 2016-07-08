@@ -43,6 +43,14 @@ class UniversePackage extends Item {
     return this.getActiveBlock() + 10;
   }
 
+  getConfig() {
+    return this.get('config');
+  }
+
+  getDescription() {
+    return this.get('description');
+  }
+
   getDecisionPointCount() {
     return this.getActiveBlock() + 10;
   }
@@ -76,6 +84,10 @@ class UniversePackage extends Item {
     return this.get('selected');
   }
 
+  getLicenses() {
+    return this.get('licenses') || [];
+  }
+
   getMaintainer() {
     return this.get('maintainer');
   }
@@ -90,6 +102,10 @@ class UniversePackage extends Item {
 
   getPostUninstallNotes() {
     return this.get('postUninstallNotes');
+  }
+
+  getSCM() {
+    return this.get('scm');
   }
 
   // TODO (John): Use actual data.
