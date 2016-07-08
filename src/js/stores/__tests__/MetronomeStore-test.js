@@ -380,7 +380,7 @@ describe('MetronomeStore', function () {
     });
   });
 
-  describe('#disableSchedule', function () {
+  describe('#toggleSchedule', function () {
 
     it('should pass the jobID to update schedule', function () {
       spyOn(MetronomeStore, 'updateSchedule');
@@ -391,7 +391,7 @@ describe('MetronomeStore', function () {
         jobID: 'foo'
       });
 
-      MetronomeStore.disableSchedule('foo');
+      MetronomeStore.toggleSchedule('foo');
 
       expect(MetronomeStore.updateSchedule.calls.allArgs()[0][0])
         .toEqual('foo');
@@ -406,41 +406,13 @@ describe('MetronomeStore', function () {
         jobID: 'foo'
       });
 
-      MetronomeStore.disableSchedule('foo');
+      MetronomeStore.toggleSchedule('foo', false);
 
       expect(MetronomeStore.updateSchedule.calls.allArgs()[0][1].enabled)
         .toEqual(false);
     });
 
-    it('should do nothing if job unknown', function () {
-      spyOn(MetronomeStore, 'updateSchedule');
-
-      MetronomeStore.disableSchedule('unknown');
-
-      expect(MetronomeStore.updateSchedule).not.toHaveBeenCalled()
-    });
-
-    it('should do nothing if schedule undefined', function () {
-      spyOn(MetronomeStore, 'updateSchedule');
-
-      AppDispatcher.handleServerAction({
-        type: ActionTypes.REQUEST_METRONOME_JOB_DETAIL_SUCCESS,
-        data: {
-          id: 'foo',
-        },
-        jobID: 'foo'
-      });
-
-      MetronomeStore.disableSchedule('foo');
-
-      expect(MetronomeStore.updateSchedule).not.toHaveBeenCalled()
-    });
-
-  });
-
-  describe('#enableSchedule', function () {
-
-    it('should pass the jobID to update schedule', function () {
+    it('should grab the schedule and set enabled to true by default', function () {
       spyOn(MetronomeStore, 'updateSchedule');
 
       AppDispatcher.handleServerAction({
@@ -449,22 +421,7 @@ describe('MetronomeStore', function () {
         jobID: 'foo'
       });
 
-      MetronomeStore.enableSchedule('foo');
-
-      expect(MetronomeStore.updateSchedule.calls.allArgs()[0][0])
-        .toEqual('foo');
-    });
-
-    it('should grab the schedule and set enabled to true', function () {
-      spyOn(MetronomeStore, 'updateSchedule');
-
-      AppDispatcher.handleServerAction({
-        type: ActionTypes.REQUEST_METRONOME_JOB_DETAIL_SUCCESS,
-        data: jobFixture,
-        jobID: 'foo'
-      });
-
-      MetronomeStore.enableSchedule('foo');
+      MetronomeStore.toggleSchedule('foo');
 
       expect(MetronomeStore.updateSchedule.calls.allArgs()[0][1].enabled)
         .toEqual(true);
@@ -473,7 +430,7 @@ describe('MetronomeStore', function () {
     it('should do nothing if job unknown', function () {
       spyOn(MetronomeStore, 'updateSchedule');
 
-      MetronomeStore.enableSchedule('unknown');
+      MetronomeStore.toggleSchedule('unknown', false);
 
       expect(MetronomeStore.updateSchedule).not.toHaveBeenCalled()
     });
@@ -489,7 +446,7 @@ describe('MetronomeStore', function () {
         jobID: 'foo'
       });
 
-      MetronomeStore.enableSchedule('foo');
+      MetronomeStore.toggleSchedule('foo');
 
       expect(MetronomeStore.updateSchedule).not.toHaveBeenCalled()
     });

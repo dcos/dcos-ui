@@ -128,12 +128,12 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
 
   handleMoreDropdownSelection(selection) {
     if (selection.id === JobActionItem.SCHEDULE_DISABLE) {
-      MetronomeStore.disableSchedule(this.props.params.id);
+      MetronomeStore.toggleSchedule(this.props.params.id, false);
       return;
     }
 
     if (selection.id === JobActionItem.SCHEDULE_ENABLE) {
-      MetronomeStore.enableSchedule(this.props.params.id);
+      MetronomeStore.toggleSchedule(this.props.params.id, true);
       return;
     }
 
