@@ -188,7 +188,11 @@ base/forms.less
     .form-panel {
       padding: @base-spacing-unit @base-spacing-unit @base-spacing-unit * 1/3 @base-spacing-unit;
 
-      > form > .healthChecks {
+      & > .form > *:last-child {
+        padding-bottom: @base-spacing-unit;
+      }
+
+      & > .form > .healthChecks {
         flex-direction: column;
 
         .form-row-element {
