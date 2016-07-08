@@ -11,7 +11,7 @@ describe('Volumes', function () {
 
     beforeEach(function () {
       cy.visitUrl({url: '/services/%2Fsleep/'});
-      cy.get('.page-content .tabs').contains('Volumes').click();
+      cy.get('.page-body-content .tabs').contains('Volumes').click();
     });
 
     it('shows the correct number of volumes in the table', function () {
@@ -40,7 +40,7 @@ describe('Volumes', function () {
 
     beforeEach(function () {
       cy.visitUrl({url: '/services/%2Fsleep/'});
-      cy.get('.page-content .tabs').contains('Volumes').click();
+      cy.get('.page-body-content .tabs').contains('Volumes').click();
       cy.get('.table tbody tr a').contains('foo-bar#data-1#624f5b52-2e5e-11e6-8e49-a6a5a4687c4d').click();
     });
 
@@ -53,7 +53,7 @@ describe('Volumes', function () {
     });
 
     it('displays the details of the volume', function () {
-      cy.get('.page-content dl.flex-box').should(function ($descriptionListEls) {
+      cy.get('.page-body-content dl.flex-box').should(function ($descriptionListEls) {
         expect($descriptionListEls[0].children[1].textContent).to.equal('data-1');
         expect($descriptionListEls[1].children[1].textContent).to.equal('RW');
         expect($descriptionListEls[2].children[1].textContent).to.equal('100');

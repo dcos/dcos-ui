@@ -7,7 +7,7 @@ describe('Add Repository Form Modal', function () {
         universePackages: true
       })
       .visitUrl({url: '/system/overview/repositories'})
-      .get('.page-content .button.button-success')
+      .get('.page-body-content .button.button-success')
       .contains('Add Repository')
       .click();
   });
@@ -68,7 +68,7 @@ describe('Add Repository Form Modal', function () {
     // Clean up
     cy.clusterCleanup(function () {
       cy
-        .get('.page-content')
+        .get('.page-body-content')
         .contains('tr', 'Here we go!')
         .find('.button.button-link.button-danger')
         .invoke('show')

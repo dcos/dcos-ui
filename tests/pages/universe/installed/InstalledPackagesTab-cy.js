@@ -28,7 +28,7 @@ xdescribe('Installed Packages Tab', function () {
   });
 
   it('allows users to filter packages', function () {
-    cy.get('.page-content input[type="text"]').as('filterTextbox');
+    cy.get('.page-body-content input[type="text"]').as('filterTextbox');
     cy
       .get('table.table > tbody > tr .package-table-heading')
       .as('itemNames');
@@ -41,7 +41,7 @@ xdescribe('Installed Packages Tab', function () {
   });
 
   it('displays \'No data\' when it has filtered out all packages', function () {
-    cy.get('.page-content input[type="text"]').as('filterTextbox');
+    cy.get('.page-body-content input[type="text"]').as('filterTextbox');
     cy.get('table.table > tbody > tr').as('tableRows');
     cy.get('@tableRows').get('td').as('tableRowCell');
 
