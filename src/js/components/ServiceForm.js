@@ -120,14 +120,12 @@ class ServiceForm extends SchemaForm {
       }
 
       let fieldValidated = definition.externalValidator(model, definition);
-      if (!fieldValidated && validated) {
+      if (!fieldValidated) {
         validated = false;
       }
     });
 
-    if (!validated) {
-      this.forceUpdate();
-    }
+    this.forceUpdate();
 
     return {
       isValidated: validated,
