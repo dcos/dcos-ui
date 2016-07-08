@@ -234,7 +234,7 @@ var NodesPage = React.createClass({
   },
 
   getHostsPageContent: function () {
-    var state = this.state;
+    let {byServiceFilter, healthFilter, searchString, selectedResource} = this.state;
     var data = this.internalStorage_get();
     let nodes = data.nodes || [];
     let nodesList = nodes.slice(0, NODES_DISPLAY_LIMIT);
@@ -243,6 +243,9 @@ var NodesPage = React.createClass({
         return node.getHealth();
       }
     );
+    let isFiltering = byServiceFilter !== null ||
+      healthFilter !== 'all' ||
+      searchString !== '';
 
     return (
       <div>
@@ -252,13 +255,14 @@ var NodesPage = React.createClass({
           totalResources={data.totalResources}
           refreshRate={data.refreshRate}
           resourceType="Nodes"
-          selectedResource={this.state.selectedResource}
+          selectedResource={selectedResource}
           onResourceSelectionChange={this.onResourceSelectionChange} />
         <FilterHeadline
-          inverseStyle={true}
-          onReset={this.resetFilter}
-          name="Node"
           currentLength={nodesList.length}
+          inverseStyle={true}
+          isFiltering={isFiltering}
+          name="Node"
+          onReset={this.resetFilter}
           totalLength={data.totalNodes} />
         <FilterBar rightAlignLastNChildren={1}>
           {this.getFilterInputText()}
@@ -269,10 +273,10 @@ var NodesPage = React.createClass({
             onFilterChange={this.handleHealthFilterChange}
             inverseStyle={true}
             itemList={nodesHealth}
-            selectedFilter={state.healthFilter} />
+            selectedFilter={healthFilter} />
           <div className="form-group flush-bottom">
             <FilterByService
-              byServiceFilter={state.byServiceFilter}
+              byServiceFilter={byServiceFilter}
               handleFilterChange={this.handleByServiceFilterChange}
               ref={(ref) => this.serviceFilter = ref}
               services={data.services}
@@ -281,7 +285,7 @@ var NodesPage = React.createClass({
           {this.getViewTypeRadioButtons(this.resetFilter)}
         </FilterBar>
         <RouteHandler
-          selectedResource={state.selectedResource}
+          selectedResource={selectedResource}
           hosts={nodesList}
           services={data.services} />
       </div>
