@@ -50,8 +50,7 @@ describe('PackageDetailTab', function () {
         .querySelector('.button.button-success');
       TestUtils.Simulate.click(installButton);
 
-      expect(this.instance.handleInstallModalOpen
-          .calls.mostRecent().args[0].get('package').name).toEqual('marathon');
+      expect(this.instance.handleInstallModalOpen).toHaveBeenCalled();
     });
 
   });
@@ -159,14 +158,6 @@ describe('PackageDetailTab', function () {
   });
 
   describe('#mapLicenses', function () {
-
-    it('returns empty array for null', function () {
-      expect(this.instance.mapLicenses(null)).toEqual([]);
-    });
-
-    it('returns array for undefined', function () {
-      expect(this.instance.mapLicenses(undefined)).toEqual([]);
-    });
 
     it('returns array for empty array', function () {
       expect(this.instance.mapLicenses([])).toEqual([]);
