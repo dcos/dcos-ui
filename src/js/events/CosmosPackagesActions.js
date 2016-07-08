@@ -24,8 +24,8 @@ import Config from '../config/Config';
 
 const REQUEST_TIMEOUT = 10000;
 
-function getContentType(action, actionType) {
-  return `application/vnd.dcos.package.${action}-${actionType}+json;charset=utf-8;version=v1`;
+function getContentType(action, actionType, version = 'v1') {
+  return `application/vnd.dcos.package.${action}-${actionType}+json;charset=utf-8;version=${version}`;
 }
 
 const CosmosPackagesActions = {
@@ -85,7 +85,7 @@ const CosmosPackagesActions = {
   fetchPackageDescription: function (packageName, packageVersion) {
     RequestUtil.json({
       contentType: getContentType('describe', 'request'),
-      headers: {Accept: getContentType('describe', 'response')},
+      headers: {Accept: getContentType('describe', 'response', 'v2')},
       method: 'POST',
       url: `${Config.rootUrl}${Config.cosmosAPIPrefix}/describe`,
       data: JSON.stringify({packageName, packageVersion}),
@@ -112,7 +112,7 @@ const CosmosPackagesActions = {
   installPackage: function (packageName, packageVersion, options = {}) {
     RequestUtil.json({
       contentType: getContentType('install', 'request'),
-      headers: {Accept: getContentType('install', 'response')},
+      headers: {Accept: getContentType('install', 'response', 'v2')},
       method: 'POST',
       url: `${Config.rootUrl}${Config.cosmosAPIPrefix}/install`,
       data: JSON.stringify({packageName, packageVersion, options}),
