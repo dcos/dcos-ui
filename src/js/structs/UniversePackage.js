@@ -77,10 +77,6 @@ class UniversePackage extends Item {
   }
 
   isSelected() {
-    if (this.get('package') && this.get('package').hasOwnProperty('selected')) {
-      return this.get('package').selected;
-    }
-
     return this.get('selected');
   }
 
