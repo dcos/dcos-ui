@@ -122,7 +122,7 @@ let HealthChecks = {
             ]
           },
           ignoreHttp1xx: {
-            label: 'Ignore HTTP informational status codes 100 to 199',
+            label: 'Ignore HTTP Status Codes 100 to 199',
             showLabel: false,
             type: 'boolean',
             shouldShow: function (service) {
