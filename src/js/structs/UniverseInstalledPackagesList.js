@@ -29,10 +29,7 @@ class UniverseInstalledPackagesList extends List {
       if (item instanceof UniversePackage) {
         return item;
       } else {
-        let installedPackage = item.packageInformation;
-        installedPackage.appId = item.appId;
-
-        return new UniversePackage(installedPackage);
+        return new UniversePackage(item);
       }
     });
   }

@@ -64,9 +64,19 @@ const CosmosPackagesActions = {
       data: JSON.stringify({packageName, appId}),
       timeout: REQUEST_TIMEOUT,
       success: function (response) {
+        let packages = response.packages || [];
+        // Map list data to match other endpoint structures
+        let data = packages.map(function (item) {
+          let cosmosPackage = item.packageInformation.packageDefinition;
+          cosmosPackage.appId = item.appId;
+          cosmosPackage.resource = item.packageInformation.resourceDefinition;
+
+          return cosmosPackage;
+        });
+
         AppDispatcher.handleServerAction({
           type: REQUEST_COSMOS_PACKAGES_LIST_SUCCESS,
-          data: response.packages,
+          data,
           packageName,
           appId
         });
