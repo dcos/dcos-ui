@@ -177,10 +177,10 @@ describe('CosmosPackagesStore', function () {
     it('should return the packageDetails it was given', function () {
       CosmosPackagesStore.fetchPackageDescription('foo', 'bar');
       var pkg = CosmosPackagesStore.getPackageDetails();
-      expect(pkg.get('package').name)
-        .toEqual(this.packageDescribeFixture.package.name);
-      expect(pkg.get('package').version)
-        .toEqual(this.packageDescribeFixture.package.version);
+      expect(pkg.getName())
+        .toEqual(this.packageDescribeFixture.name);
+      expect(pkg.getCurrentVersion())
+        .toEqual(this.packageDescribeFixture.version);
     });
 
     it('should pass though query parameters', function () {
@@ -274,9 +274,9 @@ describe('CosmosPackagesStore', function () {
       CosmosPackagesStore.fetchInstalledPackages('foo', 'bar');
       var installedPackage =
         CosmosPackagesStore.getInstalledPackages().getItems()[0];
-      expect(installedPackage.get('packageDefinition').name)
+      expect(installedPackage.getName())
         .toEqual('marathon');
-      expect(installedPackage.get('appId'))
+      expect(installedPackage.getAppId())
         .toEqual('/marathon-user');
     });
 
@@ -292,7 +292,7 @@ describe('CosmosPackagesStore', function () {
       it('stores installedPackages when event is dispatched', function () {
         AppDispatcher.handleServerAction({
           type: REQUEST_COSMOS_PACKAGES_LIST_SUCCESS,
-          data: [{appId: 'bar', packageInformation: {gid: 'foo', bar: 'baz'}}],
+          data: [{appId: 'bar', gid: 'foo', bar: 'baz'}],
           packageName: 'foo',
           appId: 'bar'
         });
@@ -312,7 +312,7 @@ describe('CosmosPackagesStore', function () {
         );
         AppDispatcher.handleServerAction({
           type: REQUEST_COSMOS_PACKAGES_LIST_SUCCESS,
-          data: [{appId: 'bar', packageInformation: {gid: 'foo', bar: 'baz'}}],
+          data: [{appId: 'bar', gid: 'foo', bar: 'baz'}],
           packageName: 'foo',
           appId: 'baz'
         });
