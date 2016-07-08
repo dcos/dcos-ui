@@ -304,6 +304,12 @@ const FormUtil = {
     }
   },
 
+  /**
+   * Checks if object is a proper field definition for a Form.
+   *
+   * @param {Object} fieldDefinition Definition to check.
+   * @return {Boolean} isFieldDefinition Whether it is a definition.
+   */
   isFieldDefinition: function (fieldDefinition) {
     return typeof fieldDefinition === 'object' && fieldDefinition != null &&
       fieldDefinition.hasOwnProperty('name') &&
