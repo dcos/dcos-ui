@@ -4,14 +4,14 @@ import React from 'react';
 
 const ContainerSettings = {
   title: 'Container Settings',
-  description: 'Configure your Docker Container. You can configure your Docker Volumes in the Volumes tab and your Docker Ports in the Network tab.',
+  description: 'Configure your Docker Container. You can configure your Docker volumes in the Volumes tab and your Docker ports in the Network tab.',
   type: 'object',
   properties: {
     basic: {
       type: 'group',
       properties: {
         image: {
-          description: 'name of your docker image',
+          description: 'Name of your Docker image',
           title: 'Image',
           type: 'string',
           getter: function (service) {
