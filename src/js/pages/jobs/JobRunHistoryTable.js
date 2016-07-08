@@ -167,20 +167,29 @@ class JobRunHistoryTable extends React.Component {
       );
     }
 
-    let classes = classNames('job-run-history-job-id', {
-      'is-expanded': rowOptions.isExpanded
-    });
-    let clickHandler = null;
+    if (row.children && row.children.length > 0) {
+      let classes = classNames('job-run-history-job-id', {
+        'is-expanded': rowOptions.isExpanded
+      });
+      let clickHandler = null;
 
-    if (rowOptions.hasChildren) {
-      clickHandler = this.handleExpansionClick.bind(this, row);
+      if (rowOptions.hasChildren) {
+        clickHandler = this.handleExpansionClick.bind(this, row);
+      }
+
+      return (
+        <div className={classes} onClick={clickHandler}>
+          {row[prop]}
+        </div>
+      );
     }
 
     return (
-      <div className={classes} onClick={clickHandler}>
+      <div>
         {row[prop]}
       </div>
     );
+
   }
 
   renderStatusColumn(prop, row, rowOptions = {}) {
