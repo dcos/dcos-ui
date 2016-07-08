@@ -29,7 +29,7 @@ describe('Job Details', function () {
   context('Run History Tab', function () {
 
     it('shows the correct number of jobs in the filter header', function () {
-      cy.get('.page-content .list-inline.list-unstyled').should('contain',
+      cy.get('.page-body-content .list-inline.list-unstyled').should('contain',
         '13 Runs');
     });
 
@@ -90,18 +90,18 @@ describe('Job Details', function () {
 
   context('Configuration Tab', function () {
     it('renders the correct amount of job configuration details', function () {
-      cy.get('.page-content .tabs .tab-item').contains('Configuration').click();
-      cy.get('.page-content dl').should(function ($elements) {
+      cy.get('.page-body-content .tabs .tab-item').contains('Configuration').click();
+      cy.get('.page-body-content dl').should(function ($elements) {
         expect($elements.length).to.equal(15);
       });
     });
 
     it('renders the job configuration data', function () {
-      cy.get('.page-content .tabs .tab-item').contains('Configuration').click();
-      cy.get('.page-content dl').should('contain', 'Command');
-      cy.get('.page-content dl').should('contain', '/foo');
-      cy.get('.page-content dl').should('contain', 'Schedule');
-      cy.get('.page-content dl').should('contain', '0 1 6 9 *');
+      cy.get('.page-body-content .tabs .tab-item').contains('Configuration').click();
+      cy.get('.page-body-content dl').should('contain', 'Command');
+      cy.get('.page-body-content dl').should('contain', '/foo');
+      cy.get('.page-body-content dl').should('contain', 'Schedule');
+      cy.get('.page-body-content dl').should('contain', '0 1 6 9 *');
     });
 
   });
