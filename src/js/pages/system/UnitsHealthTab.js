@@ -182,7 +182,7 @@ class UnitsHealthTab extends mixin(StoreMixin) {
             </a>
           </FilterBar>
         </div>
-        <div className="page-content-fill flex-grow flex-container-col">
+        <div className="page-body-content-fill flex-grow flex-container-col">
           <Table
             className="table inverse table-borderless-outer
               table-borderless-inner-columns flush-bottom"

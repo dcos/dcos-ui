@@ -17,7 +17,7 @@ describe('Nodes Detail Page', function () {
       }).click();
 
       cy.hash().should('match', /nodes\/[a-zA-Z0-9-]+/);
-      cy.get('.page-content h1').should(function ($title) {
+      cy.get('.page-body-content h1').should(function ($title) {
         expect($title).to.contain(nodeName);
       });
     });
@@ -26,7 +26,7 @@ describe('Nodes Detail Page', function () {
       cy.visitUrl({url: '/nodes/INVALID_NODE', identify: true, fakeAnalytics: true});
 
       cy.hash().should('match', /nodes\/INVALID_NODE/);
-      cy.get('.page-content h3').should(function ($title) {
+      cy.get('.page-body-content h3').should(function ($title) {
         expect($title).to.contain('Error finding node');
       });
     });

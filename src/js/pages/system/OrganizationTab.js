@@ -419,7 +419,7 @@ class OrganizationTab extends mixin(InternalStorageMixin) {
             </a>
           </FilterBar>
         </div>
-        <div className="page-content-fill flex-grow flex-container-col">
+        <div className="page-body-content-fill flex-grow flex-container-col">
           <Table
             buildRowOptions={this.getTableRowOptions}
             className="table inverse table-borderless-outer
