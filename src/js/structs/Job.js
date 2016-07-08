@@ -40,6 +40,18 @@ module.exports = class Job extends Item {
     return this.get('id');
   }
 
+  getJobRuns() {
+    const activeRuns = this.get('activeRuns') || [];
+    const {
+      failedFinishedRuns = [],
+      successfulFinishedRuns = []
+    } = this.get('history') || {};
+
+    return new JobRunList({
+      items: [].concat(activeRuns, failedFinishedRuns, successfulFinishedRuns)
+    });
+  }
+
   getLabels() {
     return this.get('labels') || {};
   }

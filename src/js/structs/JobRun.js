@@ -7,6 +7,10 @@ class JobRun extends Item {
     return DateUtil.strToMs(this.get('createdAt'));
   }
 
+  getDateFinished() {
+    return DateUtil.strToMs(this.get('finishedAt'));
+  }
+
   getJobID() {
     return this.get('jobId');
   }

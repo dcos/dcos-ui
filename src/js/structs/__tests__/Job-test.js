@@ -136,6 +136,43 @@ describe('Job', function () {
 
   });
 
+  describe('#getJobRuns', function () {
+
+    it('returns an instance of JobRunList', function () {
+      let job = new Job({id: 'foo', activeRuns: []});
+
+      expect(job.getJobRuns()).toEqual(jasmine.any(JobRunList));
+    });
+
+    it('includes failed finished runs', function () {
+      let job = new Job({
+        id: 'foo', activeRuns: [], history: {
+          failedFinishedRuns: [
+            {
+              id: 'bar'
+            }
+          ]
+        }
+      });
+
+      expect(job.getJobRuns().getItems()[0].id).toEqual('bar');
+    });
+
+    it('includes successful finished runs', function () {
+      let job = new Job({
+        id: 'foo', activeRuns: [], history: {
+          successfulFinishedRuns: [
+            {
+              id: 'bar'
+            }
+          ]
+        }
+      });
+
+      expect(job.getJobRuns().getItems()[0].id).toEqual('bar');
+    });
+  });
+
   describe('#getLabels', function () {
 
     it('returns the correct labels', function () {

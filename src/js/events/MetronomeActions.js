@@ -88,12 +88,13 @@ const MetronomeActions = {
       url: `${Config.metronomeAPI}/v1/jobs/${jobID}`,
       data: [
         {name: 'embed', value: 'activeRuns'},
+        {name: 'embed', value: 'history'},
         {name: 'embed', value: 'schedules'}
       ],
       success: function (response) {
         AppDispatcher.handleServerAction({
           type: REQUEST_METRONOME_JOB_DETAIL_SUCCESS,
-          data: response,
+          data: MetronomeUtil.parseJob(response),
           jobID
         });
       },

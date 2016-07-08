@@ -99,16 +99,11 @@ class JobRunHistoryTable extends React.Component {
 
   // TODO: DCOS-7766 Revisit this pre-rendering data transformation...
   getData(job) {
-    let activeRuns = job.getActiveRuns();
+    let jonRuns = job.getJobRuns();
 
-    return activeRuns.getItems().map(function (activeRun, runIndex) {
-      let longestRunningTask = activeRun.getTasks().getLongestRunningTask();
-      let dateRunStarted = activeRun.getDateCreated();
-      let dateRunFinished;
-
-      if (longestRunningTask != null) {
-        dateRunFinished = longestRunningTask.getDateCompleted();
-      }
+    return jonRuns.getItems().map(function (jobRun, runIndex) {
+      let dateRunStarted = jobRun.getDateCreated();
+      let dateRunFinished = jobRun.getDateFinished();
 
       if (dateRunStarted != null) {
         dateRunStarted = DateUtil.msToRelativeTime(dateRunStarted);
@@ -118,7 +113,7 @@ class JobRunHistoryTable extends React.Component {
         dateRunFinished = DateUtil.msToRelativeTime(dateRunFinished);
       }
 
-      let children = activeRun.getTasks().getItems().map(function (jobTask) {
+      let children = jobRun.getTasks().getItems().map(function (jobTask) {
         let dateTaskStarted = jobTask.getDateStarted();
         let dateTaskFinished = jobTask.getDateCompleted();
 
@@ -141,9 +136,9 @@ class JobRunHistoryTable extends React.Component {
       return {
         finishedAt: dateRunFinished,
         id: runIndex,
-        jobID: activeRun.getJobID(),
+        jobID: jobRun.getJobID(),
         startedAt: dateRunStarted,
-        status: activeRun.getStatus(),
+        status: jobRun.getStatus(),
         children
       };
     });
@@ -167,20 +162,29 @@ class JobRunHistoryTable extends React.Component {
       );
     }
 
-    let classes = classNames('job-run-history-job-id', {
-      'is-expanded': rowOptions.isExpanded
-    });
-    let clickHandler = null;
+    if (row.children && row.children.length > 0) {
+      let classes = classNames('job-run-history-job-id', {
+        'is-expanded': rowOptions.isExpanded
+      });
+      let clickHandler = null;
 
-    if (rowOptions.hasChildren) {
-      clickHandler = this.handleExpansionClick.bind(this, row);
+      if (rowOptions.hasChildren) {
+        clickHandler = this.handleExpansionClick.bind(this, row);
+      }
+
+      return (
+        <div className={classes} onClick={clickHandler}>
+          {row[prop]}
+        </div>
+      );
     }
 
     return (
-      <div className={classes} onClick={clickHandler}>
+      <div>
         {row[prop]}
       </div>
     );
+
   }
 
   renderStatusColumn(prop, row, rowOptions = {}) {

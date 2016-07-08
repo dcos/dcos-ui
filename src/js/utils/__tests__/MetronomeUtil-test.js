@@ -119,4 +119,52 @@ describe('MetronomeUtil', function () {
 
   });
 
+  describe('#parseJobs', function () {
+
+    beforeEach(function () {
+      this.job = MetronomeUtil.parseJob({
+        id: 'foo', history: {
+          failedFinishedRuns: [{
+            createdAt: '1990-01-02T12:10:59.571+0000',
+            finishedAt: '1990-01-02T12:11:19.762+0000',
+            id: '20160705121059J7cPJ'
+          }],
+          successfulFinishedRuns: [{
+            createdAt: '1990-01-02T12:10:59.571+0000',
+            finishedAt: '1990-01-02T12:11:19.762+0000',
+            id: '20160705121059J7cPJ'
+          }],
+        }
+      });
+    });
+
+    it('should just do nothing if history is undefined', function () {
+      let job = MetronomeUtil.parseJob({id: 'foo'});
+
+      expect(job).toEqual({id: 'foo'});
+    });
+
+    it('should add the proper status to the failed finished runs',
+      function () {
+        expect(this.job.history.failedFinishedRuns[0].status).toEqual('FAILED');
+      }
+    );
+
+    it('should add the job id to the failed finished runs', function () {
+      expect(this.job.history.failedFinishedRuns[0].jobId).toEqual('foo');
+    });
+
+    it('should add the proper status to the successful finished runs',
+      function () {
+        expect(this.job.history.successfulFinishedRuns[0].status)
+          .toEqual('COMPLETED');
+      }
+    );
+
+    it('should add the job id to the successful finished runs', function () {
+      expect(this.job.history.successfulFinishedRuns[0].jobId).toEqual('foo');
+    });
+
+  });
+
 });
