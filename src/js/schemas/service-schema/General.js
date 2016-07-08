@@ -6,7 +6,7 @@ let General = {
   title: 'General',
   description: (
     <span>
-      Configure your container or <a href="/#/universe/packages/">browse all DC/OS Universe services</a>.
+      Configure your container service here or <a href="/#/universe/">install from Universe</a>.
     </span>
   ),
   type: 'object',
