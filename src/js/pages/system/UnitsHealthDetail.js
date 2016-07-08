@@ -127,6 +127,10 @@ class UnitsHealthDetail extends mixin(StoreMixin) {
   }
 
   resetFilter() {
+    if (this.healthFilter !== null && this.healthFilter.dropdown !== null) {
+      this.healthFilter.dropdown.setState({selectedID: 'all'});
+    }
+
     this.setState({
       searchString: '',
       healthFilter: 'all'
@@ -179,7 +183,8 @@ class UnitsHealthDetail extends mixin(StoreMixin) {
             className="button dropdown-toggle text-align-left button-inverse"
             dropdownMenuClassName="dropdown-menu inverse"
             initialID="all"
-            onHealthSelection={this.handleHealthSelection} />
+            onHealthSelection={this.handleHealthSelection}
+            ref={(ref) => this.healthFilter = ref} />
         </FilterBar>
         <div className="flex-container-col flex-grow no-overflow">
           {this.getNodesTable(unit, visibleData)}
