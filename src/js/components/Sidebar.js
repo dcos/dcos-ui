@@ -129,7 +129,8 @@ var Sidebar = React.createClass({
 
       if (notificationCount > 0) {
         sidebarText = (
-          <span className="sidebar-menu-item-label badge-container badge-primary">
+          <span className="sidebar-menu-item-label badge-container
+            badge-primary">
             <span className="sidebar-menu-item-label-text">
               {route.handler.routeConfig.label}
             </span>
@@ -189,9 +190,10 @@ var Sidebar = React.createClass({
   },
 
   render: function () {
-    let sidebarClasses = classNames('sidebar flex flex-direction-top-to-bottom flex-item-shrink-0', {
-      'is-expanded': this.state.sidebarExpanded
-    });
+    let sidebarClasses = classNames('sidebar flex flex-direction-top-to-bottom',
+      'flex-item-shrink-0', {
+        'is-expanded': this.state.sidebarExpanded
+      });
 
     return (
       <div className={sidebarClasses}>
@@ -201,15 +203,18 @@ var Sidebar = React.createClass({
           </div>
         </header>
         <GeminiScrollbar autoshow={true}
-          className="navigation flex-item-grow-1 flex-item-shrink-1 inverse"
+          className="navigation flex-item-grow-1 flex-item-shrink-1 inverse
+            gm-scrollbar-container-flex"
           >
           <div className="navigation-inner pod pod-short pod-narrow">
-            <div className="sidebar-section pod pod-shorter flush-top flush-left flush-right">
+            <div className="sidebar-section pod pod-shorter flush-top flush-left
+              flush-right">
               <ul className="sidebar-menu">
                 {this.getMenuItems()}
               </ul>
             </div>
-            <div className="sidebar-section pod pod-shorter flush-top flush-left flush-right">
+            <div className="sidebar-section pod pod-shorter flush-top flush-left
+              flush-right">
               <h6 className="sidebar-section-header inverse">
                 Resources
               </h6>
