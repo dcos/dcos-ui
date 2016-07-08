@@ -196,30 +196,26 @@ var Sidebar = React.createClass({
     return (
       <div className={sidebarClasses}>
         <header className="header flex-item-shrink-0">
-          <div className="header-inner">
-            <div className="pod pod-narrow pod-short">
-              <ClusterHeader />
-            </div>
+          <div className="header-inner pod pod-narrow pod-short">
+            <ClusterHeader />
           </div>
         </header>
         <GeminiScrollbar autoshow={true}
           className="navigation flex-item-grow-1 flex-item-shrink-1 inverse"
           >
-          <div className="navigation-inner pod pod-short flush-left flush-right">
-            <div className="pod pod-narrow flush-top flush-bottom">
-              <div className="sidebar-section pod pod-shorter flush-top flush-left flush-right">
-                <ul className="sidebar-menu">
-                  {this.getMenuItems()}
-                </ul>
-              </div>
-              <div className="sidebar-section pod pod-shorter flush-top flush-left flush-right">
-                <h6 className="sidebar-section-header inverse">
-                  Resources
-                </h6>
-                <ul className="sidebar-menu">
-                  {this.getMenuItems()}
-                </ul>
-              </div>
+          <div className="navigation-inner pod pod-short pod-narrow">
+            <div className="sidebar-section pod pod-shorter flush-top flush-left flush-right">
+              <ul className="sidebar-menu">
+                {this.getMenuItems()}
+              </ul>
+            </div>
+            <div className="sidebar-section pod pod-shorter flush-top flush-left flush-right">
+              <h6 className="sidebar-section-header inverse">
+                Resources
+              </h6>
+              <ul className="sidebar-menu">
+                {this.getMenuItems()}
+              </ul>
             </div>
           </div>
         </GeminiScrollbar>
