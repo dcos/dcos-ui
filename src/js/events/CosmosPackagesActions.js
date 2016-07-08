@@ -21,6 +21,7 @@ import {
 } from '../constants/ActionTypes';
 import AppDispatcher from './AppDispatcher';
 import Config from '../config/Config';
+import Util from '../utils/Util';
 
 const REQUEST_TIMEOUT = 10000;
 
@@ -67,9 +68,15 @@ const CosmosPackagesActions = {
         let packages = response.packages || [];
         // Map list data to match other endpoint structures
         let data = packages.map(function (item) {
-          let cosmosPackage = item.packageInformation.packageDefinition;
+          let cosmosPackage = Util.findNestedPropertyInObject(
+            item,
+            'packageInformation.packageDefinition'
+          ) || {};
           cosmosPackage.appId = item.appId;
-          cosmosPackage.resource = item.packageInformation.resourceDefinition;
+          cosmosPackage.resource = Util.findNestedPropertyInObject(
+            item,
+            'packageInformation.resourceDefinition'
+          ) || {};
 
           return cosmosPackage;
         });
