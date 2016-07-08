@@ -113,7 +113,7 @@ class ServiceForm extends SchemaForm {
     });
 
     // Apply all validations.
-    let validated = false;
+    let validated = true;
     FormUtil.applyToDefinitions(this.multipleDefinition, function (definition) {
       if (typeof definition.externalValidator !== 'function') {
         return;
