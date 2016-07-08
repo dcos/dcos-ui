@@ -1,22 +1,22 @@
 import List from './List';
 import UniversePackage from './UniversePackage';
 
-function propertyGetter(item, prop) {
-  return item.get('packageDefinition')[prop];
-}
-
 class UniverseInstalledPackagesList extends List {
   constructor(options = {}) {
     // Specify filter properties if not specified
     if (!options.filterProperties) {
       options.filterProperties = {
-        appId: null, // default getter
-        description: propertyGetter,
-        name: propertyGetter,
-        tags: function (item, prop) {
-          let tags = propertyGetter(item, prop) || [];
-
-          return tags.join(' ');
+        appId: function (item) {
+          return item.getAppId();
+        },
+        description: function (item) {
+          return item.getDescription();
+        },
+        name: function (item) {
+          return item.getName();
+        },
+        tags: function (item) {
+          return item.getTags().join(' ');
         }
       };
     }

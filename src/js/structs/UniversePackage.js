@@ -113,6 +113,10 @@ class UniversePackage extends Item {
     return this.get('version');
   }
 
+  getTags() {
+    return this.get('tags') || [];
+  }
+
   isDecisionPointActive() {
     return this._isDecisionPointActive;
   }
