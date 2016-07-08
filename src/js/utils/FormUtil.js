@@ -269,7 +269,7 @@ const FormUtil = {
    * @param {Array|Object} definition Definition to iterate through.
    * @param {Function} callback Function that will receive the field definitions.
    */
-  applyToDefinitions: function (definition, callback) {
+  forEachDefinition: function (definition, callback) {
     // This means the field is an individual field. Here we just set the error
     // to false.
     if (FormUtil.isFieldDefinition(definition)) {
@@ -280,7 +280,7 @@ const FormUtil = {
     // If an array of definitions, then call on each individual field.
     if (Array.isArray(definition)) {
       definition.forEach(function (fieldDefinition) {
-        FormUtil.applyToDefinitions(fieldDefinition, callback);
+        FormUtil.forEachDefinition(fieldDefinition, callback);
       });
       return;
     }
@@ -290,7 +290,7 @@ const FormUtil = {
     // (multiple definitions).
     if (definition.hasOwnProperty('definition') &&
       Array.isArray(definition.definition)) {
-      FormUtil.applyToDefinitions(definition.definition, callback);
+      FormUtil.forEachDefinition(definition.definition, callback);
       return;
     }
 
@@ -298,7 +298,7 @@ const FormUtil = {
     if (!React.isValidElement(definition)) {
       Object.values(definition).forEach(function (nestedDefinition) {
         if (nestedDefinition.hasOwnProperty('definition')) {
-          FormUtil.applyToDefinitions(nestedDefinition.definition, callback);
+          FormUtil.forEachDefinition(nestedDefinition.definition, callback);
         }
       });
     }

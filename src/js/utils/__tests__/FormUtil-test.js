@@ -287,7 +287,7 @@ describe('FormUtil', function () {
     });
   });
 
-  describe('#applyToDefinitions', function () {
+  describe('#forEachDefinition', function () {
     beforeEach(function () {
       this.definition = {
         general: {
@@ -319,7 +319,7 @@ describe('FormUtil', function () {
 
     it('correctly iterates through each definition', function () {
       let result = [];
-      FormUtil.applyToDefinitions(this.definition, function (fieldDefinition) {
+      FormUtil.forEachDefinition(this.definition, function (fieldDefinition) {
         result.push(fieldDefinition.name);
       });
 

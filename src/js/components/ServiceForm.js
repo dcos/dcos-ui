@@ -108,13 +108,13 @@ class ServiceForm extends SchemaForm {
     let model = this.triggerTabFormSubmit();
 
     // Clears all previous errors.
-    FormUtil.applyToDefinitions(this.multipleDefinition, function (definition) {
+    FormUtil.forEachDefinition(this.multipleDefinition, function (definition) {
       definition.showError = false;
     });
 
     // Apply all validations.
     let validated = true;
-    FormUtil.applyToDefinitions(this.multipleDefinition, function (definition) {
+    FormUtil.forEachDefinition(this.multipleDefinition, function (definition) {
       if (typeof definition.externalValidator !== 'function') {
         return;
       }
