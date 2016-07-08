@@ -30,7 +30,7 @@ describe('Installed Packages Tab', function () {
   });
 
   it('allows users to filter repositories', function () {
-    cy.get('.page-content input[type="text"]').as('filterTextbox');
+    cy.get('.page-body-content input[type="text"]').as('filterTextbox');
     cy
       .get('table.table > tbody > tr td:first-child')
       .as('itemNames');
@@ -43,7 +43,7 @@ describe('Installed Packages Tab', function () {
   });
 
   it('displays \'No data\' when it has filtered out all packages', function () {
-    cy.get('.page-content input[type="text"]').as('filterTextbox');
+    cy.get('.page-body-content input[type="text"]').as('filterTextbox');
     cy.get('table.table > tbody > tr').as('tableRows');
     cy.get('@tableRows').get('td').as('tableRowCell');
 
@@ -75,7 +75,7 @@ describe('Installed Packages Tab', function () {
       .click();
 
     cy
-      .get('.page-content')
+      .get('.page-body-content')
       .contains('tr', 'Here we go!')
       .find('.button.button-link.button-danger')
       .invoke('show')

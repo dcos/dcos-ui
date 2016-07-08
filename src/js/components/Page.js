@@ -64,20 +64,19 @@ var Page = React.createClass({
     }
 
     return (
-      <div className="page-navigation-list">
-        <div className="container container-fluid container-pod
-          container-pod-short flush-bottom">
-          {navigation}
-        </div>
+      <div className="page-header-navigation">
+        {navigation}
       </div>
     );
   },
 
   getPageHeader: function (title, navigation) {
     return (
-      <div className="page-header flex-item-shrink-0 fill fill-light">
-        {this.getTitle(title)}
-        {this.getNavigation(navigation, title)}
+      <div className="page-header flex-item-shrink-0">
+        <div className="page-header-inner pod pod-short">
+          {this.getTitle(title)}
+          {this.getNavigation(navigation, title)}
+        </div>
       </div>
     );
   },
@@ -92,34 +91,23 @@ var Page = React.createClass({
     }
 
     return (
-      <div className="page-header-inner">
-        <div className="pod">
-          <SidebarToggle />
-          <h1 className="page-header-title flush">
-            {title}
-          </h1>
-        </div>
+      <div>
+        <SidebarToggle />
+        <h1 className="page-header-title flush">
+          {title}
+        </h1>
       </div>
     );
   },
 
   getContent: function () {
     let {dontScroll} = this.props;
-    let contentClassSet = classNames('page-content flex',
+    let contentClassSet = classNames('page-body-content flex',
       'flex-direction-top-to-bottom flex-item-grow-1', {
         'flex-container-col flex-grow flex-shrink': dontScroll
       });
-    let contentInnerClassSet = classNames(
-      'flex-container-col container container-fluid',
-      'container-pod container-pod-short-top',
-      {'flex-grow flex-shrink': dontScroll}
-    );
 
-    let content = (
-      <div className={contentInnerClassSet}>
-        {this.getChildren()}
-      </div>
-    );
+    let content = this.getChildren();
 
     if (dontScroll) {
       return (
@@ -130,9 +118,18 @@ var Page = React.createClass({
     }
 
     return (
-      <div className={contentClassSet}>
-        {content}
-      </div>
+      <GeminiScrollbar
+        autoshow={true}
+        className="page-body flex flex-direction-top-to-bottom
+          flex-direction-left-to-right-screen-large flex-item-grow-1
+          flex-item-shrink-1 gm-scrollbar-container-flex"
+        ref="gemini">
+        <div className={contentClassSet}>
+          <div className="pod">
+            {content}
+          </div>
+        </div>
+      </GeminiScrollbar>
     );
   },
 
@@ -148,14 +145,7 @@ var Page = React.createClass({
     return (
       <div className={classSet}>
         {this.getPageHeader(title, navigation)}
-        <GeminiScrollbar
-          autoshow={true}
-          className="page-content-wrapper flex flex-direction-top-to-bottom
-            flex-direction-left-to-right-screen-large flex-item-grow-1
-            flex-item-shrink-1"
-          ref="gemini">
-          {this.getContent()}
-        </GeminiScrollbar>
+        {this.getContent()}
       </div>
     );
   }

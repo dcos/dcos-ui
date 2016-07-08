@@ -1,0 +1,461 @@
+/* -----------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+menu-tabbed/styles.less
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+----------------------------------------------------------------------------- */
+
+
+
+& when (@menu-tabbed-enabled) {
+
+  /* -----------------------------------------------------------------------------
+  Menu Tabbed
+  ----------------------------------------------------------------------------- */
+
+  .menu-tabbed {
+
+    .element-spacing(menu-tabbed, null, null);
+    padding: 0px;
+    position: relative;
+
+    /* -----------------------------------------------------------------------------
+    Layout Variants
+    ----------------------------------------------------------------------------- */
+
+    &.short {
+
+      .element-spacing(menu-tabbed, short, null);
+
+    }
+
+    &.tall {
+
+      .element-spacing(menu-tabbed, tall, null);
+
+    }
+
+    /* -----------------------------------------------------------------------------
+    Menu Tabbed Item
+    ----------------------------------------------------------------------------- */
+
+    li {
+
+      .element-shape-style(menu-tabbed-item);
+      .element-spacing(menu-tabbed-item, null, null);
+      .element-text-size(menu-tabbed-item, null);
+      .element-text-style(menu-tabbed-item);
+      .property-variant(menu-tabbed-item, opacity);
+      position: relative;
+      display: inline-block;
+
+      &:last-child {
+
+        margin-right: 0px;
+
+      }
+
+      &:before {
+
+        display: none;
+
+      }
+
+      a {
+
+        .element-shape-style(menu-tabbed-item-link);
+        .element-spacing(menu-tabbed-item-link, null, null);
+        .element-text-size(menu-tabbed-item-link, null);
+        .element-text-style(menu-tabbed-item-link);
+        .property-variant(menu-tabbed-item-link, opacity);
+        position: relative;
+
+        &:after {
+
+          .property-variant(menu-tabbed-item-link, background-color, color, null, null);
+          bottom: 0px;
+          content: '';
+          display: none;
+          height: 2px;
+          left: 0px;
+          position: absolute;
+          width: 100%;
+
+        }
+
+        &:hover {
+
+          .element-shape-style(menu-tabbed-item-link-hover);
+          .element-text-style(menu-tabbed-item-link-hover);
+          .property-variant(menu-tabbed-item-link-hover, opacity);
+
+          &:after {
+
+            .property-variant(menu-tabbed-item-link-hover, background-color, color, null, null);
+
+          }
+
+        }
+
+        &:active {
+
+          .element-shape-style(menu-tabbed-item-link-active);
+          .element-text-style(menu-tabbed-item-link-active);
+          .property-variant(menu-tabbed-item-link-active, opacity);
+
+          &:after {
+
+            .property-variant(menu-tabbed-item-link-active, background-color, color, null, null);
+
+          }
+
+        }
+
+        &.selected,
+        &.active {
+
+          .element-shape-style(menu-tabbed-item-link-selected);
+          .element-text-style(menu-tabbed-item-link-selected);
+          .property-variant(menu-tabbed-item-link-selected, opacity);
+
+          &:after {
+
+            display: block;
+            .property-variant(menu-tabbed-item-link-selected, background-color, color, null, null);
+
+          }
+
+        }
+
+      }
+
+    }
+
+    /* -----------------------------------------------------------------------------
+    Inverse
+    ----------------------------------------------------------------------------- */
+
+    &.inverse {
+
+      /* -----------------------------------------------------------------------------
+      Menu Tabbed Item
+      ----------------------------------------------------------------------------- */
+
+      li {
+
+        .element-shape-style(menu-tabbed-item-inverse);
+        .element-text-style(menu-tabbed-item-inverse);
+        .property-variant(menu-tabbed-item-inverse, opacity);
+
+        a {
+
+          .element-shape-style(menu-tabbed-item-link-inverse);
+          .element-text-style(menu-tabbed-item-link-inverse);
+          .property-variant(menu-tabbed-item-link-inverse, opacity);
+
+          &:after {
+
+            .property-variant(menu-tabbed-item-link-inverse, background-color, color, null, null);
+
+          }
+
+          &:hover {
+
+            .element-shape-style(menu-tabbed-item-link-inverse-hover);
+            .element-text-style(menu-tabbed-item-link-inverse-hover);
+            .property-variant(menu-tabbed-item-link-inverse-hover, opacity);
+
+            &:after {
+
+              .property-variant(menu-tabbed-item-link-inverse-hover, background-color, color, null, null);
+
+            }
+
+          }
+
+          &:active {
+
+            .element-shape-style(menu-tabbed-item-link-inverse-active);
+            .element-text-style(menu-tabbed-item-link-inverse-active);
+            .property-variant(menu-tabbed-item-link-inverse-active, opacity);
+
+            &:after {
+
+              .property-variant(menu-tabbed-item-link-inverse-active, background-color, color, null, null);
+
+            }
+
+          }
+
+          &.selected {
+
+            .element-shape-style(menu-tabbed-item-link-inverse-selected);
+            .element-text-style(menu-tabbed-item-link-inverse-selected);
+            .property-variant(menu-tabbed-item-link-inverse-selected, opacity);
+
+            &:after {
+
+              .property-variant(menu-tabbed-item-link-inverse-selected, background-color, color, null, null);
+
+            }
+
+          }
+
+        }
+
+      }
+
+    }
+
+  }
+
+}
+
+
+
+& when (@layout-screen-small-enabled) {
+
+  /* -----------------------------------------------------------------------------
+  Screen Size: Small (@layout-screen-small-min-width) and wider
+  ----------------------------------------------------------------------------- */
+
+  @media (min-width: @layout-screen-small-min-width) {
+
+    & when (@menu-tabbed-enabled) and (@menu-tabbed-screen-small-enabled) {
+
+      /* -----------------------------------------------------------------------------
+      Menu Tabbed
+      ----------------------------------------------------------------------------- */
+
+      .menu-tabbed {
+
+        .element-spacing(menu-tabbed, null, screen-small);
+
+        /* -----------------------------------------------------------------------------
+        Layout Variants
+        ----------------------------------------------------------------------------- */
+
+        &.short {
+
+          .element-spacing(menu-tabbed, short, screen-small);
+
+        }
+
+        &.tall {
+
+          .element-spacing(menu-tabbed, tall, screen-small);
+
+        }
+
+        /* -----------------------------------------------------------------------------
+        Menu Tabbed Item
+        ----------------------------------------------------------------------------- */
+
+        li {
+
+          .element-spacing(menu-tabbed-item, null, screen-small);
+          .element-text-size(menu-tabbed-item, screen-small);
+
+          a {
+
+            .element-spacing(menu-tabbed-item-link, null, screen-small);
+            .element-text-size(menu-tabbed-item-link, screen-small);
+
+          }
+
+        }
+
+      }
+
+    }
+
+  }
+
+}
+
+
+
+& when (@layout-screen-medium-enabled) {
+
+  /* -----------------------------------------------------------------------------
+  Screen Size: Small (@layout-screen-medium-min-width) and wider
+  ----------------------------------------------------------------------------- */
+
+  @media (min-width: @layout-screen-medium-min-width) {
+
+    & when (@menu-tabbed-enabled) and (@menu-tabbed-screen-medium-enabled) {
+
+      /* -----------------------------------------------------------------------------
+      Menu Tabbed
+      ----------------------------------------------------------------------------- */
+
+      .menu-tabbed {
+
+        .element-spacing(menu-tabbed, null, screen-medium);
+
+        /* -----------------------------------------------------------------------------
+        Layout Variants
+        ----------------------------------------------------------------------------- */
+
+        &.short {
+
+          .element-spacing(menu-tabbed, short, screen-medium);
+
+        }
+
+        &.tall {
+
+          .element-spacing(menu-tabbed, tall, screen-medium);
+
+        }
+
+        /* -----------------------------------------------------------------------------
+        Menu Tabbed Item
+        ----------------------------------------------------------------------------- */
+
+        li {
+
+          .element-spacing(menu-tabbed-item, null, screen-medium);
+          .element-text-size(menu-tabbed-item, screen-medium);
+
+          a {
+
+            .element-spacing(menu-tabbed-item-link, null, screen-medium);
+            .element-text-size(menu-tabbed-item-link, screen-medium);
+
+          }
+
+        }
+
+      }
+
+    }
+
+  }
+
+}
+
+
+
+& when (@layout-screen-large-enabled) {
+
+  /* -----------------------------------------------------------------------------
+  Screen Size: Small (@layout-screen-large-min-width) and wider
+  ----------------------------------------------------------------------------- */
+
+  @media (min-width: @layout-screen-large-min-width) {
+
+    & when (@menu-tabbed-enabled) and (@menu-tabbed-screen-large-enabled) {
+
+      /* -----------------------------------------------------------------------------
+      Menu Tabbed
+      ----------------------------------------------------------------------------- */
+
+      .menu-tabbed {
+
+        .element-spacing(menu-tabbed, null, screen-large);
+
+        /* -----------------------------------------------------------------------------
+        Layout Variants
+        ----------------------------------------------------------------------------- */
+
+        &.short {
+
+          .element-spacing(menu-tabbed, short, screen-large);
+
+        }
+
+        &.tall {
+
+          .element-spacing(menu-tabbed, tall, screen-large);
+
+        }
+
+        /* -----------------------------------------------------------------------------
+        Menu Tabbed Item
+        ----------------------------------------------------------------------------- */
+
+        li {
+
+          .element-spacing(menu-tabbed-item, null, screen-large);
+          .element-text-size(menu-tabbed-item, screen-large);
+
+          a {
+
+            .element-spacing(menu-tabbed-item-link, null, screen-large);
+            .element-text-size(menu-tabbed-item-link, screen-large);
+
+          }
+
+        }
+
+      }
+
+    }
+
+  }
+
+}
+
+
+
+& when (@layout-screen-jumbo-enabled) {
+
+  /* -----------------------------------------------------------------------------
+  Screen Size: Small (@layout-screen-jumbo-min-width) and wider
+  ----------------------------------------------------------------------------- */
+
+  @media (min-width: @layout-screen-jumbo-min-width) {
+
+    & when (@menu-tabbed-enabled) and (@menu-tabbed-screen-jumbo-enabled) {
+
+      /* -----------------------------------------------------------------------------
+      Menu Tabbed
+      ----------------------------------------------------------------------------- */
+
+      .menu-tabbed {
+
+        .element-spacing(menu-tabbed, null, screen-jumbo);
+
+        /* -----------------------------------------------------------------------------
+        Layout Variants
+        ----------------------------------------------------------------------------- */
+
+        &.short {
+
+          .element-spacing(menu-tabbed, short, screen-jumbo);
+
+        }
+
+        &.tall {
+
+          .element-spacing(menu-tabbed, tall, screen-jumbo);
+
+        }
+
+        /* -----------------------------------------------------------------------------
+        Menu Tabbed Item
+        ----------------------------------------------------------------------------- */
+
+        li {
+
+          .element-spacing(menu-tabbed-item, null, screen-jumbo);
+          .element-text-size(menu-tabbed-item, screen-jumbo);
+
+          a {
+
+            .element-spacing(menu-tabbed-item-link, null, screen-jumbo);
+            .element-text-size(menu-tabbed-item-link, screen-jumbo);
+
+          }
+
+        }
+
+      }
+
+    }
+
+  }
+
+}

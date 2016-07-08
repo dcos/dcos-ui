@@ -15,26 +15,20 @@ main.less
 
 /* -----------------------------------------------------------------------------
 --------------------------------------------------------------------------------
-
 Vendors
-
 --------------------------------------------------------------------------------
 ----------------------------------------------------------------------------- */
 
-@import "../../node_modules/cnvs/styles/canvas.less";
+@import "../../node_modules/cnvs/styles/canvas.less"; // Source CNVS
+@import "vendor/cnvs/styles.less"; // CNVS Overrides
 @import "vendor/loaders.less";
 @import (inline) "../../node_modules/gemini-scrollbar/gemini-scrollbar.css";
 
 
 
-
-
-
 /* -----------------------------------------------------------------------------
 --------------------------------------------------------------------------------
-
 Reactjs-component Styling
-
 --------------------------------------------------------------------------------
 ----------------------------------------------------------------------------- */
 
@@ -47,14 +41,9 @@ Reactjs-component Styling
 
 
 
-
-
-
 /* -----------------------------------------------------------------------------
 --------------------------------------------------------------------------------
-
 Variables
-
 --------------------------------------------------------------------------------
 ----------------------------------------------------------------------------- */
 
@@ -72,14 +61,9 @@ Variables
 
 
 
-
-
-
 /* -----------------------------------------------------------------------------
 --------------------------------------------------------------------------------
-
 Utilities
-
 --------------------------------------------------------------------------------
 ----------------------------------------------------------------------------- */
 
@@ -88,42 +72,60 @@ Utilities
 
 
 
-
-
-
 /* -----------------------------------------------------------------------------
 --------------------------------------------------------------------------------
-
 Layout
-
 --------------------------------------------------------------------------------
 ----------------------------------------------------------------------------- */
 
-@import "layout/foundation.less";
-@import "layout/sidebar.less";
-@import "layout/header.less";
-@import "layout/navigation.less";
-@import "layout/page.less";
-@import "layout/page-header.less";
-@import "layout/page-content.less";
+@import "layout/variables.less";
+@import "layout/styles.less";
+
+// Header
+
+@import "layout/header/variables.less";
+@import "layout/header/styles.less";
+
+// Sidebar
+
+@import "layout/sidebar/variables.less";
+@import "layout/sidebar/styles.less";
+
+// Page
+
+@import "layout/page/variables.less";
+@import "layout/page/styles.less";
+
+// Page Header
+
+@import "layout/page-header/variables.less";
+@import "layout/page-header/styles.less";
+
+// Page Content
+
+@import "layout/page-body/variables.less";
+@import "layout/page-body/styles.less";
+
 // @import "layout/grid.less";
 // @import "layout/iframes.less";
 // @import "layout/media-object.less";
 // @import "layout/modal.less";
 // @import "layout/overlay.less";
 // @import "layout/panel.less";
-// @import "layout/page.less";
-
-
-
 
 
 
 /* -----------------------------------------------------------------------------
 --------------------------------------------------------------------------------
+Content
+--------------------------------------------------------------------------------
+----------------------------------------------------------------------------- */
 
+
+
+/* -----------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 Components
-
 --------------------------------------------------------------------------------
 ----------------------------------------------------------------------------- */
 
@@ -131,6 +133,21 @@ Components
 
 @import "components/fill/variables.less";
 @import "components/fill/styles.less";
+
+// Menu (Tabbed)
+
+@import "components/menu-tabbed/variables.less";
+@import "components/menu-tabbed/styles.less";
+
+// Scrollbar
+
+@import "components/scrollbar/variables.less";
+@import "components/scrollbar/styles.less";
+
+// Layout Box
+
+@import "components/layout-box/variables.less";
+@import "components/layout-box/styles.less";
 
 // @import "components/application-loading-indicator.less";
 // @import "components/badges.less";
@@ -159,7 +176,6 @@ Components
 // @import "components/nodes-grid-view.less";
 // @import "components/page-header.less";
 // @import "components/progressbar.less";
-@import "components/scrollbar.less";
 // @import "components/secret-value.less";
 // @import "components/service-sidebar.less";
 // @import "components/service-table.less";
@@ -173,3 +189,17 @@ Components
 // @import "components/tree-list.less";
 // @import "components/typography.less";
 // @import "components/user-dropdown-menu.less";
+
+
+
+/* -----------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+Views
+--------------------------------------------------------------------------------
+----------------------------------------------------------------------------- */
+
+@import "views/layout/container/styles.less";
+@import "views/layout/pod/styles.less";
+@import "views/layout/flex/styles.less";
+@import "views/layout/divider/styles.less";
+@import "views/layout/responsive-utilities/styles.less";

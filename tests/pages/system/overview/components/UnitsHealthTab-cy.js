@@ -75,14 +75,14 @@ describe('Units Tab [0e2]', function () {
     });
 
     it('renders unit title [0ea]', function () {
-      cy.get('.page-content h1').contains('Mesos DNS').should(function ($title) {
+      cy.get('.page-body-content h1').contains('Mesos DNS').should(function ($title) {
         expect($title).to.exist;
       });
     });
 
     it('renders unit health [0eb]', function () {
       cy.wait(2000);
-      cy.get('.page-content .page-header-text')
+      cy.get('.page-body-content .page-header-text')
         .find('.text-danger')
         .should(function ($health) {
           expect($health).to.contain('Unhealthy');
@@ -90,7 +90,7 @@ describe('Units Tab [0e2]', function () {
     });
 
     it('filters by node health [0ec]', function () {
-      cy.get('.page-content button').contains('All Health Checks').click();
+      cy.get('.page-body-content button').contains('All Health Checks').click();
       cy.get('.dropdown').find('li').contains('Healthy').click();
       cy.get('tr').contains('Healthy').should(function ($row) {
         expect($row.length).to.equal(1);
@@ -98,7 +98,7 @@ describe('Units Tab [0e2]', function () {
     });
 
     it('opens unit node detail side panel [0ee]', function () {
-      cy.get('.page-content tr a').contains('10.10.0.236').click();
+      cy.get('.page-body-content tr a').contains('10.10.0.236').click();
       cy.hash().should('match', /10\.10\.0\.236/);
     });
   });
@@ -117,14 +117,14 @@ describe('Units Tab [0e2]', function () {
     });
 
     it('renders health check title [0ei]', function () {
-      cy.get('.page-content h1').contains('Mesos DNS Health Check').should(function ($title) {
+      cy.get('.page-body-content h1').contains('Mesos DNS Health Check').should(function ($title) {
         expect($title).to.exist;
       });
     });
 
     it('renders node health [0ej]', function () {
       cy.wait(2000);
-      cy.get('.page-content .page-header-text')
+      cy.get('.page-body-content .page-header-text')
         .find('.text-success')
         .should(function ($health) {
           expect($health).to.contain('Healthy');
@@ -132,7 +132,7 @@ describe('Units Tab [0e2]', function () {
     });
 
     it('renders health check output [0ek]', function () {
-      cy.get('.page-content')
+      cy.get('.page-body-content')
         .find('pre')
         .should(function ($output) {
           expect($output).to.contain('journald');

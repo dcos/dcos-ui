@@ -84,7 +84,7 @@ class NetworkPage extends mixin(TabsMixin) {
     let currentRoute = routes[routes.length - 1].name;
 
     return (
-      <ul className="tabs list-inline flush-bottom inverse">
+      <ul className="menu-tabbed inverse">
         {TabsUtil.getTabs(NETWORK_TABS, currentRoute, this.getRoutedItem)}
       </ul>
     );
@@ -100,7 +100,7 @@ class NetworkPage extends mixin(TabsMixin) {
     return (
       <div className="container-pod container-pod-short flush-top">
         <div className="container-pod container-pod-divider-bottom container-pod-divider-inverse container-pod-divider-bottom-align-right flush-top flush-bottom">
-          <ul className="tabs list-inline flush-bottom inverse">
+          <ul className="menu-tabbed inverse">
             {subTabs}
           </ul>
         </div>
@@ -126,7 +126,7 @@ NetworkPage.contextTypes = {
 
 NetworkPage.routeConfig = {
   label: 'Network',
-  icon: <Icon id="network-hierarchical" />,
+  icon: <Icon id="network-hierarchical-inverse" size="small" family="small" />,
   matches: /^\/network/
 };
 

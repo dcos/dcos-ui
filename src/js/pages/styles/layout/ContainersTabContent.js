@@ -4,8 +4,17 @@ import SidebarActions from '../../../events/SidebarActions';
 class ContainersTabContent extends React.Component {
 
   render() {
+    let codeBlockContainersFixed =
+`<div class="container">
+  <!-- Container content goes here -->
+</div>`;
+    let codeBlockContainersFluid =
+`<div class="pod flush-top flush-bottom">
+  <!-- Container content goes here -->
+</div>`;
+
     return (
-      <div className="container-fluid pod">
+      <div>
 
         <section id="containers">
 
@@ -37,9 +46,9 @@ class ContainersTabContent extends React.Component {
 
           </p>
 
-          <div className="example-block flush-bottom">
+          <div className="panel flush-bottom">
 
-            <div className="example-block-content">
+            <div className="panel-cell">
 
               <div className="layout-box containers-fixed">
                 <div className="layout-box-item layout-box-item-margin container">
@@ -52,12 +61,12 @@ class ContainersTabContent extends React.Component {
 
             </div>
 
-            <div className="example-block-footer example-block-footer-codeblock">
+            <div className="panel-cell panel-cell-light panel-cell-code-block">
 
-              <pre className="prettyprint lang-html flush-bottom">
-              &lt;div class="container"&gt;
-                &lt;!-- Container content goes here --&gt;
-              &lt;/div&gt;
+              <pre className="prettyprint transparent flush lang-html">
+
+                {codeBlockContainersFixed}
+
               </pre>
 
             </div>
@@ -80,9 +89,9 @@ class ContainersTabContent extends React.Component {
 
           </p>
 
-          <div className="example-block">
+          <div className="panel flush-bottom">
 
-            <div className="example-block-content">
+            <div className="panel-cell">
 
               <div className="layout-box containers-fluid">
                 <div className="layout-box-item layout-box-item-margin pod flush-top flush-bottom">
@@ -95,12 +104,12 @@ class ContainersTabContent extends React.Component {
 
             </div>
 
-            <div className="example-block-footer example-block-footer-codeblock">
+            <div className="panel-cell panel-cell-light panel-cell-code-block">
 
-              <pre className="prettyprint lang-html flush-bottom">
-              &lt;div class="pod flush-top flush-bottom"&gt;
-                &lt;!-- Container content goes here --&gt;
-              &lt;/div&gt;
+              <pre className="prettyprint transparent flush lang-html">
+
+                {codeBlockContainersFluid}
+
               </pre>
 
             </div>

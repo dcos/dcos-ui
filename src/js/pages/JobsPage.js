@@ -39,7 +39,7 @@ class JobsPage extends mixin(TabsMixin) {
     }
 
     return (
-      <ul className="tabs list-inline flush-bottom inverse">
+      <ul className="menu-tabbed inverse">
         {this.tabs_getRoutedTabs()}
       </ul>
     );
@@ -65,7 +65,7 @@ JobsPage.contextTypes = {
 
 JobsPage.routeConfig = {
   label: 'Jobs',
-  icon: <Icon id="pages-code" />,
+  icon: <Icon id="pages-code-inverse" size="small" family="small" />,
   matches: /^\/jobs/
 };
 
