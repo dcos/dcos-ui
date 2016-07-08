@@ -102,7 +102,7 @@ var Page = React.createClass({
 
   getContent: function () {
     let {dontScroll} = this.props;
-    let contentClassSet = classNames('page-content flex',
+    let contentClassSet = classNames('page-body-content flex',
       'flex-direction-top-to-bottom flex-item-grow-1', {
         'flex-container-col flex-grow flex-shrink': dontScroll
       });
@@ -120,7 +120,7 @@ var Page = React.createClass({
     return (
       <GeminiScrollbar
         autoshow={true}
-        className="page-content-wrapper flex flex-direction-top-to-bottom flex-direction-left-to-right-screen-large flex-item-grow-1 flex-item-shrink-1"
+        className="page-body flex flex-direction-top-to-bottom flex-direction-left-to-right-screen-large flex-item-grow-1 flex-item-shrink-1"
         ref="gemini">
         <div className={contentClassSet}>
           <div className="pod">
