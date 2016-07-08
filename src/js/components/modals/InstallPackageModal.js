@@ -47,7 +47,7 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
     this.state = {
       currentTab: 'defaultInstall',
       schemaIncorrect: false,
-      truncatedPreinstallNotes: true
+      truncatedPreInstallNotes: true
     };
 
     this.store_listeners = [{
@@ -90,7 +90,7 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
       this.triggerAdvancedSubmit = undefined;
       this.setState({
         currentTab: 'defaultInstall',
-        truncatedPreinstallNotes: true
+        truncatedPreInstallNotes: true
       });
     }
 
@@ -117,7 +117,7 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
 
   onCosmosPackagesStoreDescriptionSuccess() {
     let cosmosPackage = CosmosPackagesStore.getPackageDetails();
-    if (!SchemaUtil.validateSchema(cosmosPackage.get('config'))) {
+    if (!SchemaUtil.validateSchema(cosmosPackage.getConfig())) {
       this.setState({schemaIncorrect: true});
       return;
     }
@@ -172,8 +172,9 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
   }
 
   handleInstallPackage() {
-    let {name, version} = CosmosPackagesStore
-      .getPackageDetails().get('package');
+    let cosmosPackage = CosmosPackagesStore.getPackageDetails();
+    let name = cosmosPackage.getName();
+    let version = cosmosPackage.getCurrentVersion();
     let configuration = this.getPackageConfiguration();
 
     CosmosPackagesStore.installPackage(name, version, configuration);
@@ -187,8 +188,8 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
   }
 
   handlePreinstallNotesToggle() {
-    let truncatedPreinstallNotes = !this.state.truncatedPreinstallNotes;
-    this.setState({truncatedPreinstallNotes});
+    let truncatedPreInstallNotes = !this.state.truncatedPreInstallNotes;
+    this.setState({truncatedPreInstallNotes});
   }
 
   getAdvancedSubmit(triggerSubmit) {
@@ -209,7 +210,7 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
 
     if (isAdvancedInstall && !advancedConfiguration) {
       return SchemaUtil.definitionToJSONDocument(
-        SchemaUtil.schemaToMultipleDefinition(cosmosPackage.get('config'))
+        SchemaUtil.schemaToMultipleDefinition(cosmosPackage.getConfig())
       );
     }
 
@@ -256,7 +257,7 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
     );
   }
 
-  getPreinstallNotes(notes, truncated) {
+  getPreInstallNotes(notes, truncated) {
     if (!notes) {
       return null;
     }
@@ -268,13 +269,13 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
     return (
       <p className="small flush-bottom">
         <span className="mute">
-          {notes}{this.getPreinstallNotesToggle(truncated, notes)}
+          {notes}{this.getPreInstallNotesToggle(truncated, notes)}
         </span>
       </p>
     );
   }
 
-  getPreinstallNotesToggle(truncated, notes) {
+  getPreInstallNotesToggle(truncated, notes) {
     if (notes.length < PREINSTALL_NOTES_CHAR_LIMIT) {
       return null;
     }
@@ -307,11 +308,12 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
       installError
     } = this.internalStorage_get();
     let cosmosPackage = CosmosPackagesStore.getPackageDetails();
-    let preinstallNotes = cosmosPackage.getPreinstallNotes();
-    let {name, version} = cosmosPackage.get('package');
-    let truncated = this.state.truncatedPreinstallNotes;
+    let preInstallNotes = cosmosPackage.getPreInstallNotes();
+    let name = cosmosPackage.getName();
+    let version = cosmosPackage.getCurrentVersion();
+    let truncated = this.state.truncatedPreInstallNotes;
     let packageVersionClasses = classNames({
-      'flush-bottom': !preinstallNotes
+      'flush-bottom': !preInstallNotes
     });
 
     let error;
@@ -342,7 +344,7 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
             </div>
             <p className="h2 short-top short-bottom">{name}</p>
             <p className={packageVersionClasses}>{version}</p>
-            {this.getPreinstallNotes(preinstallNotes, truncated)}
+            {this.getPreInstallNotes(preInstallNotes, truncated)}
             {error}
           </div>
         </div>
@@ -399,7 +401,8 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
   renderReviewAdvancedConfigTabView() {
     let {pendingRequest} = this.internalStorage_get();
     let cosmosPackage = CosmosPackagesStore.getPackageDetails();
-    let {name, version} = cosmosPackage.get('package');
+    let name = cosmosPackage.getName();
+    let version = cosmosPackage.getCurrentVersion();
     let buttonText = 'Install';
 
     if (pendingRequest) {
@@ -521,7 +524,8 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
       return this.getLoadingScreen();
     }
 
-    let {name, version} = cosmosPackage.get('package');
+    let name = cosmosPackage.getName();
+    let version = cosmosPackage.getCurrentVersion();
     let advancedConfigClasses = classNames({
       hidden: currentTab !== 'advancedInstall'
     });
@@ -533,7 +537,7 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
             packageIcon={cosmosPackage.getIcons()['icon-small']}
             packageName={name}
             packageVersion={version}
-            schema={cosmosPackage.get('config')}
+            schema={cosmosPackage.getConfig()}
             onChange={this.handleAdvancedFormChange}
             getTriggerSubmit={this.getAdvancedSubmit} />
         </div>

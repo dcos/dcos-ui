@@ -47,7 +47,7 @@ class DisplayPackagesTable extends React.Component {
 
   getHeadline(prop, cosmosPackage) {
     let packageImages = cosmosPackage.getIcons();
-    let name = cosmosPackage.get('name');
+    let name = cosmosPackage.getName();
 
     // Remove initial slash if present
     if (name.charAt(0) === '/') {
@@ -68,7 +68,7 @@ class DisplayPackagesTable extends React.Component {
               {name}
             </h2>
             <p className="flush-bottom">
-              {cosmosPackage.get('currentVersion')}
+              {cosmosPackage.getCurrentVersion()}
             </p>
           </div>
         </div>

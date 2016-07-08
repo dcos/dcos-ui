@@ -53,8 +53,8 @@ class PackagesTab extends mixin(StoreMixin) {
     event.stopPropagation();
     this.context.router.transitionTo(
       'universe-packages-detail',
-      {packageName: cosmosPackage.get('name')},
-      {version: cosmosPackage.get('currentVersion')}
+      {packageName: cosmosPackage.getName()},
+      {version: cosmosPackage.getCurrentVersion()}
     );
   }
 
@@ -130,10 +130,10 @@ class PackagesTab extends mixin(StoreMixin) {
             onClick={this.handleDetailOpen.bind(this, cosmosPackage)}>
             {this.getIcon(cosmosPackage)}
             <div className="h2 inverse short">
-              {cosmosPackage.get('name')}
+              {cosmosPackage.getName()}
             </div>
             <p className="inverse flush">
-              {cosmosPackage.get('currentVersion')}
+              {cosmosPackage.getCurrentVersion()}
             </p>
           </Panel>
         </div>
@@ -200,8 +200,8 @@ class PackagesTab extends mixin(StoreMixin) {
     }
 
     if (state.installModalPackage) {
-      packageName = state.installModalPackage.get('name');
-      packageVersion = state.installModalPackage.get('currentVersion');
+      packageName = state.installModalPackage.getName();
+      packageVersion = state.installModalPackage.getCurrentVersion();
     }
 
     let packages = CosmosPackagesStore.getAvailablePackages();
