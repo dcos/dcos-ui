@@ -99,11 +99,11 @@ class JobRunHistoryTable extends React.Component {
 
   // TODO: DCOS-7766 Revisit this pre-rendering data transformation...
   getData(job) {
-    let activeRuns = job.getActiveRuns();
+    let jonRuns = job.getJobRuns();
 
-    return activeRuns.getItems().map(function (activeRun, runIndex) {
-      let longestRunningTask = activeRun.getTasks().getLongestRunningTask();
-      let dateRunStarted = activeRun.getDateCreated();
+    return jonRuns.getItems().map(function (jobRun, runIndex) {
+      let longestRunningTask = jobRun.getTasks().getLongestRunningTask();
+      let dateRunStarted = jobRun.getDateCreated();
       let dateRunFinished;
 
       if (longestRunningTask != null) {
@@ -118,7 +118,7 @@ class JobRunHistoryTable extends React.Component {
         dateRunFinished = DateUtil.msToRelativeTime(dateRunFinished);
       }
 
-      let children = activeRun.getTasks().getItems().map(function (jobTask) {
+      let children = jobRun.getTasks().getItems().map(function (jobTask) {
         let dateTaskStarted = jobTask.getDateStarted();
         let dateTaskFinished = jobTask.getDateCompleted();
 
@@ -141,9 +141,9 @@ class JobRunHistoryTable extends React.Component {
       return {
         finishedAt: dateRunFinished,
         id: runIndex,
-        jobID: activeRun.getJobID(),
+        jobID: jobRun.getJobID(),
         startedAt: dateRunStarted,
-        status: activeRun.getStatus(),
+        status: jobRun.getStatus(),
         children
       };
     });
