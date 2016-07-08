@@ -120,7 +120,9 @@ var Page = React.createClass({
     return (
       <GeminiScrollbar
         autoshow={true}
-        className="page-body flex flex-direction-top-to-bottom flex-direction-left-to-right-screen-large flex-item-grow-1 flex-item-shrink-1"
+        className="page-body flex flex-direction-top-to-bottom
+          flex-direction-left-to-right-screen-large flex-item-grow-1
+          flex-item-shrink-1 gm-scrollbar-container-flex"
         ref="gemini">
         <div className={contentClassSet}>
           <div className="pod">
