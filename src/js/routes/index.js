@@ -8,7 +8,7 @@ import nodes from './nodes';
 import NotFoundPage from '../pages/NotFoundPage';
 import System from './factories/system';
 import services from './services';
-// import styles from './styles';
+import styles from './styles';
 import jobs from './jobs';
 import universe from './universe';
 
