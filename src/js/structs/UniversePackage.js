@@ -58,7 +58,7 @@ class UniversePackage extends Item {
   }
 
   getName() {
-    return this.get('packageDefinition').name;
+    return this.get('name');
   }
 
   getScreenshots() {
@@ -77,31 +77,19 @@ class UniversePackage extends Item {
   }
 
   getMaintainer() {
-    return Util.findNestedPropertyInObject(
-      this.get('package'),
-      'maintainer'
-    );
+    return this.get('maintainer');
   }
 
-  getPreinstallNotes() {
-    return Util.findNestedPropertyInObject(
-      this.get('package'),
-      'preInstallNotes'
-    );
+  getPreInstallNotes() {
+    return this.get('preInstallNotes');
   }
 
   getPostInstallNotes() {
-    return Util.findNestedPropertyInObject(
-      this.get('package'),
-      'postInstallNotes'
-    );
+    return this.get('postInstallNotes');
   }
 
   getPostUninstallNotes() {
-    return Util.findNestedPropertyInObject(
-      this.get('packageDefinition'),
-      'postUninstallNotes'
-    );
+    return this.get('postUninstallNotes');
   }
 
   // TODO (John): Use actual data.
@@ -110,7 +98,7 @@ class UniversePackage extends Item {
   }
 
   getCurrentVersion() {
-    return this.get('packageDefinition').version;
+    return this.get('version');
   }
 
   isDecisionPointActive() {
