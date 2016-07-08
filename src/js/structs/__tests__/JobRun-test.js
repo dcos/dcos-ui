@@ -17,6 +17,20 @@ describe('JobRun', function () {
 
   });
 
+  describe('#getDateFinished', function () {
+
+    it('should return null if finishedAt is undefined', function () {
+      let activeRun = new JobRun({foo: 'bar'});
+      expect(activeRun.getDateFinished()).toEqual(null);
+    });
+
+    it('should return the correct value in milliseconds', function () {
+      let activeRun = new JobRun({finishedAt: '1990-01-03T02:00:00Z-1'});
+      expect(activeRun.getDateFinished()).toEqual(631332000000);
+    });
+
+  });
+
   describe('#getJobID', function () {
 
     it('should return the jobId', function () {
