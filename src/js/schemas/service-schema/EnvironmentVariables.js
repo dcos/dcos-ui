@@ -1,7 +1,7 @@
 import {Hooks} from 'PluginSDK';
 
 let EnvironmentVariables = {
-  description: 'Set environment variables for each task your service launches in addition to those set by Mesos.',
+  description: 'Set variables for each task your service launches. You can also use variables to expose Secrets. <a href="/secrets">Manage secrets here</a>. <a href="https://mesosphere.github.io/marathon/docs/task-environment-vars.html">Read more about variables</a>.',
   type: 'object',
   title: 'Environment Variables',
   properties: {
