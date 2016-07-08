@@ -9,6 +9,28 @@ function filteredPaths(combinedPath) {
   });
 }
 
+function getErroredFieldPositions(definition) {
+  let fieldsWithError = [];
+
+  definition.forEach(function (fieldDefinition, indexInForm) {
+    if (Array.isArray(fieldDefinition)) {
+      fieldDefinition.forEach(function (deeper, indexInRow) {
+        let hasError = !!deeper.showError;
+
+        if (hasError) {
+          fieldsWithError.push({
+            indexInForm: indexInForm,
+            indexInRow: indexInRow,
+            showError: deeper.showError
+          });
+        }
+      });
+    }
+  });
+
+  return fieldsWithError;
+}
+
 function setDefinitionValue(thingToSet, definition, renderRemove, model) {
   let {path, value} = thingToSet;
   let definitionToSet = SchemaFormUtil.getDefinitionFromPath(definition, path);
@@ -26,22 +48,7 @@ function setDefinitionValue(thingToSet, definition, renderRemove, model) {
       return false;
     });
 
-    let indexesToError = [];
-    definitionToSet.definition.forEach(function (fieldDefinition, i1) {
-      if (Array.isArray(fieldDefinition)) {
-        fieldDefinition.forEach(function (deeper, i2) {
-          let hasError = !!deeper.showError;
-
-          if (hasError) {
-            indexesToError.push({
-              firstIndex: i1,
-              secondIndex: i2,
-              showError: deeper.showError
-            });
-          }
-        });
-      }
-    });
+    let indexesToError = getErroredFieldPositions(definitionToSet.definition);
 
     FormUtil.removePropID(definitionToSet.definition, prop);
 
@@ -76,9 +83,9 @@ function setDefinitionValue(thingToSet, definition, renderRemove, model) {
     });
 
     indexesToError.forEach(function (indexToError) {
-      let needsToError = definitionToSet.definition[indexToError.firstIndex];
+      let needsToError = definitionToSet.definition[indexToError.indexInForm];
       if (needsToError) {
-        needsToError = needsToError[indexToError.secondIndex];
+        needsToError = needsToError[indexToError.indexInRow];
         if (needsToError) {
           needsToError.showError = indexToError.showError;
         }
