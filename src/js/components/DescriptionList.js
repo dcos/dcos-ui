@@ -16,10 +16,20 @@ class DescriptionList extends React.Component {
   }
 
   getItems() {
-    let {hash, dtClassName, ddClassName} = this.props;
+    let {dtClassName, ddClassName, hash, renderKeys} = this.props;
 
     return Object.keys(hash).map((key, index) => {
       let value = hash[key];
+
+      // Check if we need to render a component in the dt
+      if (renderKeys.includes(key)) {
+        return (
+          <dl key={index} className="flex-box row">
+            <dt className={dtClassName}>{value.key}</dt>
+            <dd className={ddClassName}>{value.value}</dd>
+          </dl>
+        );
+      }
 
       // Check whether we are trying to render an object that is not a
       // React component
@@ -68,7 +78,8 @@ DescriptionList.defaultProps = {
   ddClassName: 'column-9 text-overflow-break-word',
   dtClassName: 'column-3 text-mute',
   headlineClassName: 'inverse flush-top',
-  key: ''
+  key: '',
+  renderKeys: []
 };
 
 DescriptionList.propTypes = {
@@ -78,7 +89,10 @@ DescriptionList.propTypes = {
   headlineClassName: React.PropTypes.string,
   headline: React.PropTypes.node,
   hash: React.PropTypes.object,
-  key: React.PropTypes.string
+  key: React.PropTypes.string,
+  // An array of keys in `hash` containing an object value with keys `key`
+  // and `value` to be rendered as components.
+  renderKeys: React.PropTypes.array
 };
 
 module.exports = DescriptionList;
