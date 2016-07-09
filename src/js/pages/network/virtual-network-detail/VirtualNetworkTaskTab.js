@@ -20,7 +20,7 @@ import Util from '../../../utils/Util';
 
 const headerMapping = {
   id: 'TASK',
-  ip_address: 'AGENT IP',
+  ip_address: 'CONTAINER IP',
   port_mappings: 'PORT MAPPINGS'
 };
 const METHODS_TO_BIND = [
