@@ -3,6 +3,7 @@ import FormUtil from '../../utils/FormUtil';
 let HealthChecks = {
   type: 'object',
   title: 'Health Checks',
+  description: 'Perform health checks on running tasks to determine if they are operating as expected.',
   properties: {
     healthChecks: {
       type: 'array',
