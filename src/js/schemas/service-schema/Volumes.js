@@ -4,6 +4,7 @@ const Volumes = {
   properties: {
     localVolumes: {
       title: 'Persistent Local Volumes',
+      description: 'Specify a local volume or volumes to “pin” tasks and their associated data to the node they are first launched on. Tasks will be relaunched on that node if they terminate. <a href="https://dcos.io/docs/1.7/usage/storage/persistent-volume/">Read more about creating stateful tasks with persistent volumes</a>.',
       type: 'array',
       duplicable: true,
       addLabel: 'Add Local Volume',
@@ -38,6 +39,7 @@ const Volumes = {
     },
     dockerVolumes: {
       title: 'Docker Volumes',
+      description: 'Create a stateful application using Docker volumes. <a href="https://docs.docker.com/engine/tutorials/dockervolumes/">Learn more about Docker volumes.</a>',
       type: 'array',
       duplicable: true,
       addLabel: 'Add Container Volume',
@@ -81,7 +83,8 @@ const Volumes = {
       }
     },
     externalVolumes: {
-      title: 'Network Volumes',
+      title: 'External Volumes',
+      description: 'Create a stateful, fault-tolerant application with external volumes. <a href="https://docs.mesosphere.com/1.7/usage/storage/external-storage/">Learn more about external volumes.</a>',
       type: 'array',
       duplicable: true,
       addLabel: 'Add Network Volume',
