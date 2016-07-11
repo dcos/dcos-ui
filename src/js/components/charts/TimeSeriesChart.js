@@ -134,6 +134,7 @@ var TimeSeriesChart = React.createClass({
     return data.map(function (obj) {
       if (obj[props.y] == null) {
         let x = xTimeScale(obj.date - props.refreshRate);
+        let uniqueMaskID = Util.uniqueID('singleMask');
 
         return (
           <Rect
@@ -145,7 +146,7 @@ var TimeSeriesChart = React.createClass({
             className="unsuccessful-block"
             transitionDuration={props.refreshRate}
             transform={`translate(${-nextY}, 0)`}
-            key={x} />
+            key={`${uniqueMaskID}${x}`} />
         );
       }
     });
