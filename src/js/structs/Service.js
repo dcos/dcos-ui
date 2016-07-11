@@ -146,6 +146,10 @@ module.exports = class Service extends Item {
     let deployments = this.getDeployments();
     let queue = this.getQueue();
 
+    if (this.getInstancesCount() === 0) {
+      return ServiceStatus.SUSPENDED;
+    }
+
     if (queue != null && queue.delay) {
       if (queue.delay.overdue) {
         return ServiceStatus.WAITING;
