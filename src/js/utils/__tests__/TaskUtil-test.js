@@ -1,3 +1,6 @@
+jest.dontMock('../../stores/MarathonStore');
+
+let MarathonStore = require('../../stores/MarathonStore');
 let TaskUtil = require('../TaskUtil');
 let Service = require('../../structs/Service');
 
