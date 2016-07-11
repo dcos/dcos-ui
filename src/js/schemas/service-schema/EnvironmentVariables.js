@@ -1,10 +1,10 @@
-import {Hooks} from 'PluginSDK';
 import {Link} from 'react-router';
+import {Hooks} from 'PluginSDK';
 
 let EnvironmentVariables = {
   description: (
     <span>
-    Set variables for each task your service launches. You can also use variables to expose Secrets. <Link to "system-security-secrets">Manage secrets here</Link>. <a href="https://mesosphere.github.io/marathon/docs/task-environment-vars.html">Learn more about variables</a>.
+      Set variables for each task your service launches. You can also use variables to expose Secrets. <Link to="system-security-secrets">Manage secrets here</Link>. <a href="https://mesosphere.github.io/marathon/docs/task-environment-vars.html" target="_blank">Learn more about variables</a>.
     </span>  
   ),
   type: 'object',
