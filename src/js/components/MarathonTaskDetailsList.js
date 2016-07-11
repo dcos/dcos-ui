@@ -135,6 +135,7 @@ class MarathonTaskDetailsList extends React.Component {
       this.getMarathonTaskDetailsDescriptionList(marathonTask);
     const healthCheckResults =
       this.getMarathonTaskHealthCheckResults(marathonTask);
+
     return (
       <div>
         {taskConfiguration}
