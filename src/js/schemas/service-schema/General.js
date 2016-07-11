@@ -1,13 +1,14 @@
+
+import {Link} from 'react-router';
 /* eslint-disable no-unused-vars */
 import React from 'react';
-import {Link} from 'react-router';
 /* eslint-enable no-unused-vars */
 
 let General = {
   title: 'General',
   description: (
     <span>
-      Configure your container service here or <Link to"universe">install from Universe</Link>.
+      Configure your container service here or <Link to="universe">install from Universe</Link>.
     </span>
   ),
   type: 'object',
