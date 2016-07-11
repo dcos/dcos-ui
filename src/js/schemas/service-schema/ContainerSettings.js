@@ -65,7 +65,7 @@ const ContainerSettings = {
       title: 'Docker Parameters',
       description: (
         <span>
-          Supply options for the <a href="https://docs.docker.com/engine/reference/commandline/run/">docker run</a> command executed by the Mesos containerizer.
+          Supply options for the <a href="https://docs.docker.com/engine/reference/commandline/run/" target="_blank">docker run</a> command executed by the Mesos containerizer.
         </span>
       )
       type: 'array',
