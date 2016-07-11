@@ -9,7 +9,7 @@ const TaskUtil = {
 
   getTaskEndpoints(task = {}) {
     if ((task.ports == null || task.ports.length === 0) &&
-        (task.ipAddresses == null || task.ipAddresses.length === 0)) {
+      (task.ipAddresses == null || task.ipAddresses.length === 0)) {
       return {hosts: [], ports: []};
     }
 
