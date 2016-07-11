@@ -25,6 +25,14 @@ describe('TaskUtil', function () {
       expect(endpoints.ports).toEqual([0, 1, 2, 3]);
     });
 
+    it('should return empty arrays for ports and host if the task is undefined',
+      function () {
+      let endpoints = TaskUtil.getTaskEndpoints();
+
+      expect(endpoints.hosts).toEqual([]);
+      expect(endpoints.ports).toEqual([]);
+    });
+
     it('should return empty arrays for ports and host if the ports and ' +
       'ipAddresses values are undefined', function () {
       let endpoints = TaskUtil.getTaskEndpoints({foo: 'bar'});
