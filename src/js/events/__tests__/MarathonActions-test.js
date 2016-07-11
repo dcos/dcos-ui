@@ -64,6 +64,117 @@ describe('MarathonActions', function () {
 
   });
 
+  describe('#deleteGroup', function () {
+    const groupDefinition = {
+      id: '/test'
+    };
+
+    beforeEach(function () {
+      spyOn(RequestUtil, 'json');
+      MarathonActions.deleteGroup(groupDefinition.id);
+      this.configuration = RequestUtil.json.calls.mostRecent().args[0];
+    });
+
+    it('calls #json from the RequestUtil', function () {
+      expect(RequestUtil.json).toHaveBeenCalled();
+    });
+
+    it('sends data to the correct URL', function () {
+      expect(this.configuration.url)
+        .toEqual(`${Config.rootUrl}/service/marathon/v2/groups//test`);
+    });
+
+    it('uses DELETE for the request method', function () {
+      expect(this.configuration.method).toEqual('DELETE');
+    });
+
+    it('dispatches the correct action when successful', function () {
+      var id = AppDispatcher.register(function (payload) {
+        var action = payload.action;
+        AppDispatcher.unregister(id);
+        expect(action.type)
+          .toEqual(ActionTypes.REQUEST_MARATHON_GROUP_DELETE_SUCCESS);
+      });
+
+      this.configuration.success({
+        'version': '2016-05-13T10:26:55.840Z',
+        'deploymentId': '6119207e-a146-44b4-9c6f-0e4227dc04a5'
+      });
+    });
+
+    it('dispatches the correct action when unsucessful', function () {
+      var id = AppDispatcher.register(function (payload) {
+        var action = payload.action;
+        AppDispatcher.unregister(id);
+        expect(action.type)
+          .toEqual(ActionTypes.REQUEST_MARATHON_GROUP_DELETE_ERROR);
+      });
+
+      this.configuration.error({message: 'error', response: '{}'});
+    });
+
+  });
+
+  describe('#editGroup', function () {
+    const groupDefinition = {
+      id: '/test'
+    };
+
+    beforeEach(function () {
+      spyOn(RequestUtil, 'json');
+      MarathonActions.editGroup(groupDefinition);
+      this.configuration = RequestUtil.json.calls.mostRecent().args[0];
+    });
+
+    it('calls #json from the RequestUtil', function () {
+      expect(RequestUtil.json).toHaveBeenCalled();
+    });
+
+    it('sends data to the correct URL', function () {
+      expect(this.configuration.url)
+        .toEqual(`${Config.rootUrl}/service/marathon/v2/groups//test`);
+    });
+
+    it('sends data to the correct URL with the force=true parameter',
+      function () {
+        MarathonActions.editGroup(groupDefinition, true);
+        this.configuration = RequestUtil.json.calls.mostRecent().args[0];
+
+        expect(this.configuration.url)
+          .toEqual(`${Config.rootUrl}/service/marathon/v2/groups//test?force=true`);
+      });
+
+    it('uses PUT for the request method', function () {
+      expect(this.configuration.method).toEqual('PUT');
+    });
+
+    it('dispatches the correct action when successful', function () {
+      var id = AppDispatcher.register(function (payload) {
+        var action = payload.action;
+        AppDispatcher.unregister(id);
+        expect(action.type)
+          .toEqual(ActionTypes.REQUEST_MARATHON_GROUP_EDIT_SUCCESS);
+      });
+
+      this.configuration.success({
+        'version': '2016-05-13T10:26:55.840Z',
+        'deploymentId': '6119207e-a146-44b4-9c6f-0e4227dc04a5'
+      });
+    });
+
+    it('dispatches the correct action when unsucessful', function () {
+      var id = AppDispatcher.register(function (payload) {
+        var action = payload.action;
+        AppDispatcher.unregister(id);
+        expect(action.type)
+          .toEqual(ActionTypes.REQUEST_MARATHON_GROUP_EDIT_ERROR);
+      });
+
+      this.configuration.error({message: 'error', response: '{}'});
+    });
+
+  });
+
   describe('#createService', function () {
     const appDefiniton = {
       id: '/test',

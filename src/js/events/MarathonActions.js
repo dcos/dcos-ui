@@ -3,6 +3,10 @@ import {RequestUtil} from 'mesosphere-shared-reactjs';
 import {
   REQUEST_MARATHON_GROUP_CREATE_ERROR,
   REQUEST_MARATHON_GROUP_CREATE_SUCCESS,
+  REQUEST_MARATHON_GROUP_DELETE_ERROR,
+  REQUEST_MARATHON_GROUP_DELETE_SUCCESS,
+  REQUEST_MARATHON_GROUP_EDIT_ERROR,
+  REQUEST_MARATHON_GROUP_EDIT_SUCCESS,
   REQUEST_MARATHON_GROUPS_SUCCESS,
   REQUEST_MARATHON_GROUPS_ERROR,
   REQUEST_MARATHON_GROUPS_ONGOING,
@@ -48,6 +52,51 @@ module.exports = {
         AppDispatcher.handleServerAction({
           type: REQUEST_MARATHON_GROUP_CREATE_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr),
+          xhr
+        });
+      }
+    });
+  },
+
+  deleteGroup: function (groupId) {
+    RequestUtil.json({
+      url: `${Config.rootUrl}${Config.marathonAPIPrefix}/groups/${groupId}`,
+      method: 'DELETE',
+      success: function () {
+        AppDispatcher.handleServerAction({
+          type: REQUEST_MARATHON_GROUP_DELETE_SUCCESS
+        });
+      },
+      error: function (xhr) {
+        AppDispatcher.handleServerAction({
+          type: REQUEST_MARATHON_GROUP_DELETE_ERROR,
+          data: RequestUtil.parseResponseBody(xhr),
+          xhr
+        });
+      }
+    });
+  },
+
+  editGroup: function (data, force) {
+    let url = `${Config.rootUrl}${Config.marathonAPIPrefix}/groups/${data.id}`;
+
+    if (force === true) {
+      url += '?force=true';
+    }
+
+    RequestUtil.json({
+      url,
+      method: 'PUT',
+      data,
+      success: function () {
+        AppDispatcher.handleServerAction({
+          type: REQUEST_MARATHON_GROUP_EDIT_SUCCESS
+        });
+      },
+      error: function (xhr) {
+        AppDispatcher.handleServerAction({
+          type: REQUEST_MARATHON_GROUP_EDIT_ERROR,
+          data: RequestUtil.parseResponseBody(xhr),
           xhr
         });
       }

@@ -11,6 +11,10 @@ import {
   MARATHON_APPS_ERROR,
   MARATHON_GROUP_CREATE_SUCCESS,
   MARATHON_GROUP_CREATE_ERROR,
+  MARATHON_GROUP_DELETE_ERROR,
+  MARATHON_GROUP_DELETE_SUCCESS,
+  MARATHON_GROUP_EDIT_ERROR,
+  MARATHON_GROUP_EDIT_SUCCESS,
   MARATHON_GROUPS_CHANGE,
   MARATHON_GROUPS_ERROR,
   MARATHON_DEPLOYMENTS_CHANGE,
@@ -91,6 +95,22 @@ class MarathonStore extends GetSetBaseStore {
           break;
         case ActionTypes.REQUEST_MARATHON_GROUP_CREATE_SUCCESS:
           this.emit(MARATHON_GROUP_CREATE_SUCCESS);
+          break;
+        case ActionTypes.REQUEST_MARATHON_GROUP_DELETE_ERROR:
+          let message = action.data;
+          if (!Object.keys(message).length) {
+            message = 'Error destroying group';
+          }
+          this.emit(MARATHON_GROUP_DELETE_ERROR, message);
+          break;
+        case ActionTypes.REQUEST_MARATHON_GROUP_DELETE_SUCCESS:
+          this.emit(MARATHON_GROUP_DELETE_SUCCESS);
+          break;
+        case ActionTypes.REQUEST_MARATHON_GROUP_EDIT_ERROR:
+          this.emit(MARATHON_GROUP_EDIT_ERROR, action.data);
+          break;
+        case ActionTypes.REQUEST_MARATHON_GROUP_EDIT_SUCCESS:
+          this.emit(MARATHON_GROUP_EDIT_SUCCESS);
           break;
         case ActionTypes.REQUEST_MARATHON_SERVICE_CREATE_ERROR:
           this.emit(MARATHON_SERVICE_CREATE_ERROR, action.data);
