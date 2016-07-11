@@ -48,15 +48,6 @@ class TaskTable extends React.Component {
         sortFunction
       },
       {
-        className,
-        headerClassName: className,
-        heading,
-        prop: 'updated',
-        render: ResourceTableUtil.renderUpdated,
-        sortable: true,
-        sortFunction
-      },
-      {
         cacheCell: true,
         className,
         getValue: this.getStateValue,
@@ -88,6 +79,15 @@ class TaskTable extends React.Component {
         render: this.renderStats,
         sortable: true,
         sortFunction
+      },
+      {
+        className,
+        headerClassName: className,
+        heading,
+        prop: 'updated',
+        render: ResourceTableUtil.renderUpdated,
+        sortable: true,
+        sortFunction
       }
     ];
   }
@@ -98,9 +98,9 @@ class TaskTable extends React.Component {
         <col style={{width: '40px'}} />
         <col />
         <col style={{width: '120px'}} />
-        <col style={{width: '120px'}} />
         <col style={{width: '85px'}} className="hidden-mini" />
         <col style={{width: '110px'}} className="hidden-mini" />
+        <col style={{width: '120px'}} />
       </colgroup>
     );
   }
