@@ -121,10 +121,7 @@ const ServiceUtil = {
         }
         if (containerSettings.parameters != null) {
           definition.container.docker.parameters =
-            containerSettings.parameters.reduce(function (memo, item) {
-              memo[item.key] = item.value;
-              return memo;
-            }, {});
+            containerSettings.parameters;
         }
       }
 

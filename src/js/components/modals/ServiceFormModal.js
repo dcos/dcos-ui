@@ -49,6 +49,7 @@ const responseAttributePathToFieldIdMap = {
   '/container/docker/privileged': 'dockerPrivileged',
   '/container/docker/parameters({INDEX})/key':
     'dockerParameters/{INDEX}/key',
+  '/container/docker/parameters': 'dockerParameters',
   '/container/docker/parameters({INDEX})/value':
     'dockerParameters/{INDEX}/value',
   '/container/volumes({INDEX})/containerPath':
