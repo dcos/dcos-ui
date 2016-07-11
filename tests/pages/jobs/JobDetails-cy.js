@@ -36,7 +36,7 @@ describe('Job Details', function () {
     it('renders the correct number of jobs in the table', function () {
       cy.get('.job-run-history-table tbody tr').should(function ($rows) {
         // Four rows, two for the virtual list padding and two for the data.
-        expect($rows.length).to.equal(4);
+        expect($rows.length).to.equal(15);
       });
     });
 
@@ -69,7 +69,7 @@ describe('Job Details', function () {
 
     it('expands a second table row when clicking another job run', function () {
       cy.get('.job-run-history-table tbody tr:nth-child(2)').as('tableRowA');
-      cy.get('.job-run-history-table tbody tr:nth-child(3)').as('tableRowB');
+      cy.get('.job-run-history-table tbody tr:nth-child(14)').as('tableRowB');
 
       cy.get('@tableRowA').find('.job-run-history-job-id').click();
       cy.get('@tableRowB').find('.job-run-history-job-id').click();
