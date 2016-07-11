@@ -11,11 +11,11 @@ const ContainerSettings = {
       type: 'group',
       properties: {
         image: {
-          description: {
+          description: ()
             <span>
             Configure your Docker container. Use <a href="https://hub.docker.com/explore/">DockerHub</a> to find popular repositories.
             </span>
-          },
+          ),
           title: 'Container Image',
           type: 'string',
           getter: function (service) {
@@ -63,11 +63,11 @@ const ContainerSettings = {
     },
     parameters: {
       title: 'Docker Parameters',
-      description: {
+      description: (
         <span>
         Supply options for the <a href="https://docs.docker.com/engine/reference/commandline/run/">docker run</a> command executed by the Mesos containerizer.
         </span>
-      }
+      )
       type: 'array',
       duplicable: true,
       addLabel: 'Add Parameter',
