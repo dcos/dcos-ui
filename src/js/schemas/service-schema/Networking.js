@@ -44,7 +44,7 @@ const Networking = {
       title: 'Service Endpoints',
       description: (
         <span>
-        Configure the ports and endpoints you would like to use to talk to your service, or we can assign a random port for you. <a href="https://docs.mesosphere.com/overview/service-discovery/"Learn more about ports</a>.
+          Configure the ports and endpoints you would like to use to talk to your service, or we can assign a random port for you. <a href="https://docs.mesosphere.com/overview/service-discovery/" >Learn more about ports</a>.
         </span>
       ),
       type: 'array',
