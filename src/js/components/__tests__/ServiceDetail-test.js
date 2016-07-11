@@ -25,6 +25,7 @@ describe('ServiceDetail', function () {
   const service = new Service({
     id: '/group/test',
     healthChecks: [{path: '', protocol: 'HTTP'}],
+    deployments: [],
     cpus: 1,
     mem: 2048,
     disk: 0,
@@ -49,6 +50,7 @@ describe('ServiceDetail', function () {
     this.instance =
       TestUtils.findRenderedComponentWithType(this.wrapper, ServiceDetail);
     this.node = ReactDOM.findDOMNode(this.instance);
+
   });
 
   afterEach(function () {
