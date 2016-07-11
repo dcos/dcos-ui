@@ -63,7 +63,9 @@ class ConfigurationView extends mixin(StoreMixin) {
       'Force Pull Image': docker.forcePullImage,
       'Image': docker.image,
       'Network': docker.network,
-      'Parameters': StringUtil.arrayToJoinedString(docker.parameters),
+      'Parameters': StringUtil.arrayToJoinedString(
+        docker.parameters.map(({key, value}) => `${key} : ${value}`)
+      ),
       'Privileged': docker.privileged
     };
 
