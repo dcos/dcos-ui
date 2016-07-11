@@ -67,14 +67,7 @@ const ContainerSettings = {
         if (container && container.docker &&
           container.docker.parameters
         ) {
-          let parameters = container.docker.parameters;
-
-          return Object.keys(parameters).map(function (key) {
-            return {
-              key,
-              value: parameters[key]
-            };
-          });
+          return container.docker.parameters;
         }
         return null;
       },
