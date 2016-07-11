@@ -9,7 +9,15 @@ const MarathonStore = require('../stores/MarathonStore');
 import TableUtil from '../utils/TableUtil';
 import Util from '../utils/Util';
 
-const LEFT_ALIGN_PROPS = ['cpus', 'mem', 'disk', 'size', 'mtime', 'priority'];
+const LEFT_ALIGN_PROPS = [
+  'cpus',
+  'disk',
+  'log',
+  'mem',
+  'mtime',
+  'priority',
+  'size'
+];
 
 function leftAlignCaret(prop) {
   return LEFT_ALIGN_PROPS.includes(prop);
