@@ -235,6 +235,15 @@ base/forms.less
       background: color-lighten(@red, 60);
       border-bottom: @red 1px solid;
       padding: (@base-spacing-unit / 2) @base-spacing-unit;
+      position: absolute;
+      width: 100%;
+      top: 88px;
+      left: 0;
+      z-index: 5;
+
+      & + div#brace-editor {
+        margin-top: 92px;
+      }
 
       li:before {
         background-color: currentColor;

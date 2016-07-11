@@ -331,15 +331,13 @@ class ServiceFormModal extends mixin(StoreMixin) {
     }
 
     return (
-      <div>
-        <div className="error-field text-danger">
-          <h4 className="text-align-center text-danger flush-top">
-            {errorMessage.message}
-          </h4>
-          <ul>
-            {errorList}
-          </ul>
-        </div>
+      <div className="error-field text-danger">
+        <h4 className="text-align-center text-danger flush-top">
+          {errorMessage.message}
+        </h4>
+        <ul>
+          {errorList}
+        </ul>
       </div>
     );
   }
@@ -372,6 +370,11 @@ class ServiceFormModal extends mixin(StoreMixin) {
     let {jsonDefinition, jsonMode, service} = this.state;
 
     if (jsonMode) {
+      let height = '370px';
+
+      if (this.state.errorMessage) {
+        height = '462px';
+      }
       return (
         <Ace editorProps={{$blockScrolling: true}}
           mode="json"
@@ -379,7 +382,7 @@ class ServiceFormModal extends mixin(StoreMixin) {
           showGutter={true}
           showPrintMargin={false}
           theme="monokai"
-          height="462px"
+          height={height}
           value={jsonDefinition}
           width="100%"/>
       );
