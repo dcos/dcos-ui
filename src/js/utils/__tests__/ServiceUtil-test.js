@@ -520,6 +520,28 @@ describe('ServiceUtil', function () {
           .toEqual(expectedService);
       });
     });
+
+    describe('container settings', function () {
+      beforeEach(function () {
+        this.service = ServiceUtil.createServiceFromFormModel({
+          containerSettings: {
+            image: 'redis',
+            parameters: [
+              {key: 'key-a', value: 'value-a'}
+            ]
+          }
+        });
+      });
+
+      it('should correctly parse docker parameters', function () {
+        expect(this.service.container.docker.parameters).toBeDefined();
+      });
+
+      it('should convert parameters to an array of objects', function () {
+        expect(this.service.container.docker.parameters[0].key).toEqual('key-a');
+        expect(this.service.container.docker.parameters[0].value).toEqual('value-a');
+      });
+    });
   });
 
   describe('#createFormModelFromSchema', function () {
