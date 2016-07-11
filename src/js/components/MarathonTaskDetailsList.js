@@ -2,53 +2,29 @@ import React from 'react';
 
 import DescriptionList from './DescriptionList';
 import MarathonStore from '../stores/MarathonStore';
+import TaskUtil from '../utils/TaskUtil';
 
 class MarathonTaskDetailsList extends React.Component {
   getTaskEndpoints(task) {
-    if ((task.ports == null || task.ports.length === 0) &&
-        (task.ipAddresses == null || task.ipAddresses.length === 0)) {
-      return 'None';
+    let endpoints = TaskUtil.getTaskEndpoints(task);
+
+    let endpointURLs = endpoints.hosts.reduce(function (memo, host) {
+      return memo.concat(endpoints.ports.map(function (port) {
+        return `${host}:${port}`;
+      }));
+    }, []);
+
+    if (endpointURLs.length) {
+      return endpointURLs.map(function (endpoint, index) {
+        return (
+          <a key={index} className="visible-block" href={`//${endpoint}`} target="_blank">
+            {endpoint}
+          </a>
+        );
+      });
     }
 
-    let service = MarathonStore.getServiceFromTaskID(task.id);
-
-    if (service != null &&
-      service.ipAddress != null &&
-      service.ipAddress.discovery != null &&
-      service.ipAddress.discovery.ports != null &&
-      task.ipAddresses != null &&
-      task.ipAddresses.length > 0) {
-
-      let ports = service.ipAddress.discovery.ports;
-      let endpoints = task.ipAddresses.reduce(function (memo, address) {
-        ports.forEach(function (port) {
-          memo.push(`${address.ipAddress}:${port.number}`);
-        });
-
-        return memo;
-      }, []);
-
-      if (endpoints.length) {
-        return endpoints.map(function (endpoint, index) {
-          return (
-            <a key={index} className="visible-block" href={`//${endpoint}`} target="_blank">
-              {endpoint}
-            </a>
-          );
-        });
-      }
-
-      return 'n/a';
-    }
-
-    return task.ports.map(function (port, index) {
-      let endpoint = `${task.host}:${port}`;
-      return (
-        <a key={index} className="visible-block" href={`//${endpoint}`} target="_blank">
-          {endpoint}
-        </a>
-      );
-    });
+    return 'n/a';
   }
 
   getTaskStatus(task) {
