@@ -2,49 +2,69 @@ import React from 'react';
 
 import DescriptionList from './DescriptionList';
 import MarathonStore from '../stores/MarathonStore';
+import Util from '../utils/Util';
 
 class MarathonTaskDetailsList extends React.Component {
+  getHostList(task) {
+    let {ipAddresses} = task;
+    if (ipAddresses && ipAddresses.length) {
+      return ipAddresses.map(function (address) {
+        return address.ipAddress;
+      });
+    }
+
+    if (!task.host) {
+      return [];
+    }
+
+    return [task.host];
+  }
+
+  getPortList(task) {
+    let service = MarathonStore.getServiceFromTaskID(task.id);
+    let ports = Util.findNestedPropertyInObject(
+      service,
+      'ipAddress.discovery.ports'
+    );
+
+    // If there are no service ports, use task ports
+    if (!ports || !ports.length) {
+      return task.ports;
+    }
+
+    return ports.map(function (port) {
+      return port.number;
+    });
+  }
+
   getTaskEndpoints(task) {
-    if ((task.ports == null || task.ports.length === 0) &&
-        (task.ipAddresses == null || task.ipAddresses.length === 0)) {
+    let hosts = this.getHostList(task) || [];
+    let ports = this.getPortList(task) || [];
+    if (!hosts.length && !ports.length) {
       return 'None';
     }
 
-    let service = MarathonStore.getServiceFromTaskID(task.id);
-
-    if (service != null &&
-      service.ipAddress != null &&
-      service.ipAddress.discovery != null &&
-      service.ipAddress.discovery.ports != null &&
-      task.ipAddresses != null &&
-      task.ipAddresses.length > 0) {
-
-      let ports = service.ipAddress.discovery.ports;
-      let endpoints = task.ipAddresses.reduce(function (memo, address) {
-        ports.forEach(function (port) {
-          memo.push(`${address.ipAddress}:${port.number}`);
-        });
-
-        return memo;
-      }, []);
-
-      if (endpoints.length) {
-        return endpoints.map(function (endpoint, index) {
-          return (
-            <a key={index} className="visible-block" href={`//${endpoint}`} target="_blank">
-              {endpoint}
-            </a>
-          );
-        });
-      }
-
-      return 'n/a';
+    // If there are no ports, return list of ip addresses
+    if (!ports.length && hosts.length) {
+      return hosts.join(', ');
     }
 
-    return task.ports.map(function (port, index) {
-      let endpoint = `${task.host}:${port}`;
+    // Map each port onto a host, to create endpoint list
+    let endpoints = hosts.reduce(function (memo, host) {
+      ports.forEach(function (port) {
+        memo.push(`${host}:${port}`);
+      });
+
+      return memo;
+    }, []);
+
+    return endpoints.map(function (endpoint, index) {
       return (
-        <a key={index} className="visible-block" href={`//${endpoint}`} target="_blank">
+        <a
+          className="visible-block"
+          href={`//${endpoint}`}
+          key={index}
+          target="_blank">
           {endpoint}
         </a>
       );
