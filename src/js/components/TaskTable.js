@@ -3,6 +3,7 @@ import {Link} from 'react-router';
 import React from 'react';
 
 import CheckboxTable from './CheckboxTable';
+import Icon from './Icon';
 import ResourceTableUtil from '../utils/ResourceTableUtil';
 import TaskStates from '../constants/TaskStates';
 import TaskTableHeaderLabels from '../constants/TaskTableHeaderLabels';
@@ -11,6 +12,7 @@ import Units from '../utils/Units';
 
 const METHODS_TO_BIND = [
   'renderHeadline',
+  'renderLog',
   'renderState',
   'renderStats'
 ];
@@ -61,6 +63,16 @@ class TaskTable extends React.Component {
       {
         cacheCell: true,
         className,
+        headerClassName: className,
+        heading,
+        prop: 'log',
+        render: this.renderLog,
+        sortable: false,
+        sortFunction
+      },
+      {
+        cacheCell: true,
+        className,
         getValue: this.getStatValue,
         headerClassName: className,
         heading,
@@ -98,6 +110,7 @@ class TaskTable extends React.Component {
         <col style={{width: '40px'}} />
         <col />
         <col style={{width: '120px'}} />
+        <col style={{width: '30px'}} className="hidden-mini" />
         <col style={{width: '85px'}} className="hidden-mini" />
         <col style={{width: '110px'}} className="hidden-mini" />
         <col style={{width: '120px'}} />
@@ -128,6 +141,27 @@ class TaskTable extends React.Component {
           </Link>
         </div>
       </div>
+    );
+  }
+
+  renderLog(prop, task) {
+    let title = task.name || task.id;
+    let params = this.props.parentRouter.getCurrentParams();
+    let routeParams = Object.assign({taskID: task.id}, params);
+
+    let linkTo = 'services-task-details-logs';
+    if (params.nodeID != null) {
+      linkTo = 'nodes-task-details-logs';
+    }
+
+    return (
+      <Link
+        className="emphasize clickable text-overflow"
+        to={linkTo}
+        params={routeParams}
+        title={title}>
+        <Icon color="grey" id="page" size="mini" family="mini" />
+      </Link>
     );
   }
 
