@@ -127,6 +127,9 @@ class ServiceScaleFormModal extends mixin(StoreMixin) {
   getScaleFormDefinition() {
     let {service} = this.props;
     let instancesCount = service.getInstancesCount();
+    if (service instanceof ServiceTree) {
+      instancesCount = '1.0';
+    }
 
     return [
       {
