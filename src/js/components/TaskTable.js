@@ -106,16 +106,6 @@ class TaskTable extends React.Component {
   }
 
   renderHeadline(prop, task) {
-    let dangerState = TaskStates[task.state].stateTypes.includes('failure');
-
-    let successState = TaskStates[task.state].stateTypes.includes('success');
-
-    let statusClass = classNames({
-      'dot': true,
-      success: successState,
-      danger: dangerState
-    });
-
     let title = task.name || task.id;
     let params = this.props.parentRouter.getCurrentParams();
     let routeParams = Object.assign({taskID: task.id}, params);
@@ -128,10 +118,6 @@ class TaskTable extends React.Component {
     return (
       <div className="flex-box flex-box-align-vertical-center
         table-cell-flex-box">
-        <div className="table-cell-icon table-cell-task-dot
-          task-status-indicator">
-          <span className={statusClass}></span>
-        </div>
         <div className="table-cell-value flex-box flex-box-col">
           <Link
             className="emphasize clickable text-overflow"
@@ -157,9 +143,41 @@ class TaskTable extends React.Component {
     let statusClassName = TaskUtil.getTaskStatusClassName(task);
     let statusLabelClasses = `${statusClassName} table-cell-value`;
 
+    let {state} = task;
+
+    let dangerState = TaskStates[state].stateTypes.includes('failure');
+
+    let healthy = task.statuses.some(function (status) {
+      return status.healthy;
+    });
+
+    let unknown = task.statuses.length === 0 || task.statuses.some(function (status) {
+      return status.healthy == null;
+    });
+
+    let activeState = TaskStates[state].stateTypes.includes('active');
+
+    let running = ['TASK_RUNNING', 'TASK_STARTING'].includes(state) && unknown;
+    let success = healthy && state === 'TASK_RUNNING';
+    let danger = (dangerState && !activeState &&
+      ['TASK_ERROR', 'TASK_FAILED'].includes(state)) || healthy === false &&
+      task.statuses.length !== 0 ;
+
+    let statusClass = classNames({
+      'dot': true,
+      inactive: !activeState,
+      success: success,
+      running: running,
+      danger: danger
+    });
+
     return (
       <div className="flex-box flex-box-align-vertical-center
         table-cell-flex-box">
+        <div className="table-cell-icon table-cell-task-dot
+          task-status-indicator">
+          <span className={statusClass}></span>
+        </div>
         <span className={statusLabelClasses}>
           {this.getStateValue(task, prop)}
         </span>
