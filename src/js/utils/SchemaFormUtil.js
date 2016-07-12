@@ -9,6 +9,28 @@ function filteredPaths(combinedPath) {
   });
 }
 
+function getErroredFieldPositions(definition) {
+  let fieldsWithError = [];
+
+  definition.forEach(function (rowDefinition, indexInForm) {
+    if (Array.isArray(rowDefinition)) {
+      rowDefinition.forEach(function (columnDefinition, indexInRow) {
+        let hasError = !!columnDefinition.showError;
+
+        if (hasError) {
+          fieldsWithError.push({
+            indexInForm: indexInForm,
+            indexInRow: indexInRow,
+            showError: columnDefinition.showError
+          });
+        }
+      });
+    }
+  });
+
+  return fieldsWithError;
+}
+
 function setDefinitionValue(thingToSet, definition, renderRemove, model) {
   let {path, value} = thingToSet;
   let definitionToSet = SchemaFormUtil.getDefinitionFromPath(definition, path);
@@ -25,6 +47,8 @@ function setDefinitionValue(thingToSet, definition, renderRemove, model) {
 
       return false;
     });
+
+    let indexesToError = getErroredFieldPositions(definitionToSet.definition);
 
     FormUtil.removePropID(definitionToSet.definition, prop);
 
@@ -55,6 +79,16 @@ function setDefinitionValue(thingToSet, definition, renderRemove, model) {
         renderRemove(definitionToSet.definition, prop, propID, title)
       );
       definitionToSet.definition.splice(firstIndex++, 0, instanceDefinition);
+    });
+
+    indexesToError.forEach(function (indexToError) {
+      let needsToError = definitionToSet.definition[indexToError.indexInForm];
+      if (needsToError) {
+        needsToError = needsToError[indexToError.indexInRow];
+        if (needsToError) {
+          needsToError.showError = indexToError.showError;
+        }
+      }
     });
   }
 

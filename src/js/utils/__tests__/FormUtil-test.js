@@ -287,4 +287,63 @@ describe('FormUtil', function () {
     });
   });
 
+  describe('#forEachDefinition', function () {
+    beforeEach(function () {
+      this.definition = {
+        general: {
+          definition: [
+            {
+              name: 'command',
+              fieldType: 'text'
+            },
+            {
+              name: 'cpu',
+              fieldType: 'number'
+            }
+          ]
+        },
+        labels: {
+          definition: [
+            {
+              name: 'key',
+              fieldType: 'text'
+            },
+            {
+              name: 'value',
+              fieldType: 'text'
+            }
+          ]
+        }
+      };
+    });
+
+    it('correctly iterates through each definition', function () {
+      let result = [];
+      FormUtil.forEachDefinition(this.definition, function (fieldDefinition) {
+        result.push(fieldDefinition.name);
+      });
+
+      expect(result).toEqual(['command', 'cpu', 'key', 'value']);
+    });
+  });
+
+  describe('#isFieldDefinition', function () {
+    it('returns false if it is not a definition', function () {
+      let result = FormUtil.isFieldDefinition({render: function () {}});
+      expect(result).toEqual(false);
+    });
+
+    it('returns false if it is not an object', function () {
+      let result = FormUtil.isFieldDefinition(null);
+      expect(result).toEqual(false);
+    });
+
+    it('returns true if it is a definition', function () {
+      let result = FormUtil.isFieldDefinition({
+        name: 'username',
+        fieldType: 'text'
+      });
+      expect(result).toEqual(true);
+    });
+  });
 });

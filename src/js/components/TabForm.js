@@ -180,7 +180,8 @@ class TabForm extends mixin(InternalStorageMixin) {
             triggerSubmit={this.getTriggerSubmit.bind(this, formKey)}
             onChange={this.props.onChange}
             onError={this.handleFormError}
-            onSubmit={this.handleFormSubmit.bind(this, formKey)} />
+            onSubmit={this.handleFormSubmit.bind(this, formKey)}
+            useExternalErrors={true} />
         </div>
       );
     });

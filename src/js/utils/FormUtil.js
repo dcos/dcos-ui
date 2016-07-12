@@ -1,3 +1,5 @@
+import React from 'react';
+
 import Util from './Util';
 
 // Will return false if key isn't something like 'ports[0].value'.
@@ -260,6 +262,59 @@ const FormUtil = {
   getPropKey: function (key) {
     return key && key.split('.')[1];
   },
+
+  /**
+   * Applies a callback on all field definitions within a form definition.
+   *
+   * @param {Array|Object} definition Definition to iterate through.
+   * @param {Function} callback Function that will receive the field definitions.
+   */
+  forEachDefinition: function (definition, callback) {
+    // This means the field is an individual field. Here we just set the error
+    // to false.
+    if (FormUtil.isFieldDefinition(definition)) {
+      callback(definition);
+      return;
+    }
+
+    // If an array of definitions, then call on each individual field.
+    if (Array.isArray(definition)) {
+      definition.forEach(function (fieldDefinition) {
+        FormUtil.forEachDefinition(fieldDefinition, callback);
+      });
+      return;
+    }
+
+    // If has a property called 'definition' and it is an array, call on each
+    // individual field. This can happen for definitions from TabForms
+    // (multiple definitions).
+    if (definition.hasOwnProperty('definition') &&
+      Array.isArray(definition.definition)) {
+      FormUtil.forEachDefinition(definition.definition, callback);
+      return;
+    }
+
+    // This means we're at the root of a multiple definition.
+    if (!React.isValidElement(definition)) {
+      Object.values(definition).forEach(function (nestedDefinition) {
+        if (nestedDefinition.hasOwnProperty('definition')) {
+          FormUtil.forEachDefinition(nestedDefinition.definition, callback);
+        }
+      });
+    }
+  },
+
+  /**
+   * Checks if object is a proper field definition for a Form.
+   *
+   * @param {Object} fieldDefinition Definition to check.
+   * @return {Boolean} isFieldDefinition Whether it is a definition.
+   */
+  isFieldDefinition: function (fieldDefinition) {
+    return typeof fieldDefinition === 'object' && fieldDefinition != null &&
+      fieldDefinition.hasOwnProperty('name') &&
+      fieldDefinition.hasOwnProperty('fieldType');
+  }
 };
 
 module.exports = FormUtil;
