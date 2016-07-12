@@ -21,16 +21,6 @@ class DescriptionList extends React.Component {
     return Object.keys(hash).map((key, index) => {
       let value = hash[key];
 
-      // Check if we need to render a component in the dt
-      if (renderKeys.includes(key)) {
-        return (
-          <dl key={index} className="flex-box row">
-            <dt className={dtClassName}>{value.key}</dt>
-            <dd className={ddClassName}>{value.value}</dd>
-          </dl>
-        );
-      }
-
       // Check whether we are trying to render an object that is not a
       // React component
       if (typeof value === 'object' && !Array.isArray(value) &&
@@ -47,6 +37,11 @@ class DescriptionList extends React.Component {
 
       if (typeof value === 'boolean') {
         value = value.toString();
+      }
+
+      // Check if we need to render a component in the dt
+      if (renderKeys.hasOwnProperty(key)) {
+        key = renderKeys[key];
       }
 
       return (
@@ -79,7 +74,7 @@ DescriptionList.defaultProps = {
   dtClassName: 'column-3 text-mute',
   headlineClassName: 'inverse flush-top',
   key: '',
-  renderKeys: []
+  renderKeys: {}
 };
 
 DescriptionList.propTypes = {
@@ -90,9 +85,9 @@ DescriptionList.propTypes = {
   headline: React.PropTypes.node,
   hash: React.PropTypes.object,
   key: React.PropTypes.string,
-  // An array of keys in `hash` containing an object value with keys `key`
-  // and `value` to be rendered as components.
-  renderKeys: React.PropTypes.array
+  // Optional object with keys consisting of keys in `props.hash` to be
+  // replaced, and with corresponding values of the replacement to be rendered.
+  renderKeys: React.PropTypes.object
 };
 
 module.exports = DescriptionList;
