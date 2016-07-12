@@ -21,16 +21,6 @@ class DescriptionList extends React.Component {
     return Object.keys(hash).map((key, index) => {
       let value = hash[key];
 
-      // Check if we need to render a component in the dt
-      if (renderKeys.includes(key)) {
-        return (
-          <dl key={index} className="flex-box row">
-            <dt className={dtClassName}>{value.key}</dt>
-            <dd className={ddClassName}>{value.value}</dd>
-          </dl>
-        );
-      }
-
       // Check whether we are trying to render an object that is not a
       // React component
       if (typeof value === 'object' && !Array.isArray(value) &&
