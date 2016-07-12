@@ -40,10 +40,7 @@ describe('MarathonTaskDetailsList', function () {
         this.container
       );
       expect(instance.getTaskEndpoints({
-        ipAddresses: [
-          new Service({ipAddress: 'foo'}),
-          new Service({ipAddress: 'bar'})
-        ]
+        ipAddresses: [{ipAddress: 'foo'}, {ipAddress: 'bar'}]
       })).toEqual('foo, bar');
     });
 
@@ -95,10 +92,7 @@ describe('MarathonTaskDetailsList', function () {
       );
       let result = instance.getTaskEndpoints({
         host: 'foo',
-        ipAddresses: [
-          new Service({ipAddress: 'foo'}),
-          new Service({ipAddress: 'bar'})
-        ],
+        ipAddresses: [{ipAddress: 'foo'}, {ipAddress: 'bar'}],
         ports: [1, 2]
       });
 
