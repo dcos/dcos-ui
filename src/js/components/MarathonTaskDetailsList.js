@@ -71,6 +71,15 @@ class MarathonTaskDetailsList extends React.Component {
     });
   }
 
+  getTaskPorts(task) {
+    let {ports} = task;
+    if (!ports || !ports.length) {
+      return 'None';
+    }
+
+    return ports.join(', ');
+  }
+
   getTaskStatus(task) {
     if (task == null || task.status == null) {
       return 'Unknown';
@@ -99,7 +108,7 @@ class MarathonTaskDetailsList extends React.Component {
 
     let headerValueMapping = {
       'Host': task.host,
-      'Ports': task.ports.join(', '),
+      'Ports': this.getTaskPorts(task),
       'Endpoints': this.getTaskEndpoints(task),
       'Status': this.getTaskStatus(task),
       'Staged at': this.getTimeField(task.stagedAt),
