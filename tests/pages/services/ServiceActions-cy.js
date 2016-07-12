@@ -146,8 +146,7 @@ describe('Service Actions', function () {
         });
 
       cy.visitUrl({url: '/services/%2Fcassandra-healthy/'});
-      cy.get('.button-collection .button').contains('More').click();
-      cy.get('.dropdown-menu-list li').contains('Scale').click();
+      cy.get('.button-collection .button').contains('Scale').click();
     });
 
     it('opens the correct service scale dialog', function () {
