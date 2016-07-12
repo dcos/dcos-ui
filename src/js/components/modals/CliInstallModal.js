@@ -113,7 +113,7 @@ class CliInstallModal extends React.Component {
         <div className="flush-top snippet-wrapper">
           <ClickToSelect>
             <pre className="mute prettyprint flush-bottom prettyprinted">
-              {`curl ${cliInstallScriptUrl} > /usr/local/bin/dcos && \n chmod +x /usr/local/bin/dcos && \n dcos config set core.dcos_url ${clusterUrl} && \n dcos --help`}
+              {`curl ${cliInstallScriptUrl} > /usr/local/bin/dcos && \n chmod +x /usr/local/bin/dcos && \n dcos config set core.dcos_url ${clusterUrl} && \n dcos`}
             </pre>
           </ClickToSelect>
         </div>
