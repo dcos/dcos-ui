@@ -11,8 +11,6 @@ let segmentScript = `!function(){var analytics=window.analytics=window.analytics
 
 module.exports = {
   filters: [
-    'installCLIModalCLIInstallURL',
-    'installCLIModalCLIInstallScript',
     'userFormModalFooter'
   ],
 
@@ -44,14 +42,6 @@ module.exports = {
 
   userLoginSuccess: function () {
     Actions.identify(AuthStore.getUser().uid);
-  },
-
-  installCLIModalCLIInstallURL: function () {
-    return `${Config.downloadsURI}/dcos-cli/install.sh`;
-  },
-
-  installCLIModalCLIInstallScript: function () {
-    return './install.sh';
   },
 
   applicationRouter: function (applicationRouter) {

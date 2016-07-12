@@ -1,4 +1,3 @@
-var browserInfo = require('browser-info');
 var React = require('react');
 
 var CliInstallModal = require('./modals/CliInstallModal');
@@ -98,17 +97,9 @@ var Modals = React.createClass({
       this.setState({showingCliModal: false});
     }.bind(this);
 
-    let OS = browserInfo().os;
-    let subHeaderContent = '';
-
-    if (OS !== 'Windows') {
-      subHeaderContent = `Install the ${Config.productName} command-line interface (CLI) tool on your local system by copying and pasting the code snippet below into your terminal.`;
-    }
-
     return {
       onClose,
-      title: `Welcome to ${Config.productName}`,
-      subHeaderContent,
+      title: `Install ${Config.productName} CLI`,
       showFooter: true,
       footer: (
         <div>
@@ -126,7 +117,6 @@ var Modals = React.createClass({
     var options = {
       onClose: function () {},
       title: '',
-      subHeaderContent: '',
       showFooter: true,
       footer: <div></div>
     };
