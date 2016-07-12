@@ -273,9 +273,9 @@ class SchemaForm extends mixin(StoreMixin, InternalStorageMixin) {
           media-object-spacing-narrow">
         <div className="media-object">
           <div className="media-object-item">
-            <div className="h5 form-row-element flush-bottom flush-top">
+            <h3 className="form-header form-row-element flush-bottom short-top">
               {name}
-            </div>
+            </h3>
           </div>
           {tooltip}
         </div>

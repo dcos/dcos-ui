@@ -92,7 +92,7 @@ class TabForm extends mixin(InternalStorageMixin) {
   getSubHeader(name) {
     return (
       <div key={name}>
-        <div className="h5 form-row-element flush-bottom flush-top">
+        <div className="h3 form-row-element flush-bottom flush-top">
           {name}
         </div>
       </div>
@@ -126,7 +126,7 @@ class TabForm extends mixin(InternalStorageMixin) {
   getHeader(title, description) {
     return (
       <div key={title} className="form-row-element">
-        <h3 className="form-header short-bottom">{title}</h3>
+        <h3 className="form-header flush-top short-bottom">{title}</h3>
         <p className="flush-bottom">{description}</p>
       </div>
     );
