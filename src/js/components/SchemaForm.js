@@ -256,9 +256,9 @@ class SchemaForm extends mixin(StoreMixin, InternalStorageMixin) {
     let tooltip = null;
     if (description) {
       tooltip = (
-        <Tooltip content={description} wrapperClassName="tooltip-wrapper
-          media-object-item" wrapText={true} maxWidth={300}
-          scrollContainer=".gm-scroll-view">
+        <Tooltip content={description} wrapperClassName="tooltip-wrapper h3
+          flush-bottom short-top media-object-item" wrapText={true}
+          maxWidth={300} scrollContainer=".gm-scroll-view">
           <Icon
             color="grey"
             family="mini"
