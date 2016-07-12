@@ -4,13 +4,10 @@ import React from 'react';
 /* eslint-enable no-unused-vars */
 
 let EnvironmentVariables = {
-  description: Hooks.applyFilter(
-    'environmentVariablesDescription',
-    (
-      <span>
-        Set variables for each task your service launches. <a href="https://mesosphere.github.io/marathon/docs/task-environment-vars.html" target="_blank">Learn more about variables</a>.
-      </span>
-    )
+  description: (
+    <span>
+      Set variables for each task your service launches. <a href="https://mesosphere.github.io/marathon/docs/task-environment-vars.html" target="_blank">Learn more about variables</a>.
+    </span>
   ),
   type: 'object',
   title: 'Environment Variables',
