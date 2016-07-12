@@ -220,16 +220,16 @@ class JobRunHistoryTable extends React.Component {
 
   render() {
     let {job} = this.props;
-    let activeRunCount = job.getActiveRuns().getItems().length;
+    let totalRunCount = job.getJobRuns().getItems().length;
 
     return (
       <div>
         <FilterHeadline
-          currentLength={activeRunCount}
+          currentLength={totalRunCount}
           inverseStyle={true}
           name="Run"
           onReset={function () {}}
-          totalLength={activeRunCount} />
+          totalLength={totalRunCount} />
         <ExpandingTable
           className="job-run-history-table table table-hover inverse table-borderless-outer table-borderless-inner-columns flush-bottom"
           childRowClassName="job-run-history-table-child"
