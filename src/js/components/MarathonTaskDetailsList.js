@@ -2,44 +2,13 @@ import React from 'react';
 
 import DescriptionList from './DescriptionList';
 import MarathonStore from '../stores/MarathonStore';
-import Util from '../utils/Util';
+import TaskUtil from '../utils/TaskUtil';
 
 class MarathonTaskDetailsList extends React.Component {
-  getHostList(task) {
-    let {ipAddresses} = task;
-    if (ipAddresses && ipAddresses.length) {
-      return ipAddresses.map(function (address) {
-        return address.ipAddress;
-      });
-    }
-
-    if (!task.host) {
-      return [];
-    }
-
-    return [task.host];
-  }
-
-  getPortList(task) {
-    let service = MarathonStore.getServiceFromTaskID(task.id);
-    let ports = Util.findNestedPropertyInObject(
-      service,
-      'ipAddress.discovery.ports'
-    );
-
-    // If there are no service ports, use task ports
-    if (!ports || !ports.length) {
-      return task.ports;
-    }
-
-    return ports.map(function (port) {
-      return port.number;
-    });
-  }
-
   getTaskEndpoints(task) {
-    let hosts = this.getHostList(task) || [];
-    let ports = this.getPortList(task) || [];
+    let service = MarathonStore.getServiceFromTaskID(task.id);
+    let hosts = TaskUtil.getHostList(task);
+    let ports = TaskUtil.getPortList(task, service);
     if (!hosts.length && !ports.length) {
       return 'None';
     }

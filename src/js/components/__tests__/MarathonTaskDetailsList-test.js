@@ -5,13 +5,17 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var TestUtils = require('react-addons-test-utils');
 
-var MarathonTaskDetailsList = require('../MarathonTaskDetailsList');
 var MarathonStore = require('../../stores/MarathonStore');
+var MarathonTaskDetailsList = require('../MarathonTaskDetailsList');
+var Service = require('../../structs/Service');
 
 describe('MarathonTaskDetailsList', function () {
 
   beforeEach(function () {
     this.getServiceFromTaskID = MarathonStore.getServiceFromTaskID;
+    MarathonStore.getServiceFromTaskID = function () {
+      return new Service();
+    };
     this.container = document.createElement('div');
   });
 
@@ -36,7 +40,10 @@ describe('MarathonTaskDetailsList', function () {
         this.container
       );
       expect(instance.getTaskEndpoints({
-        ipAddresses: [{ipAddress: 'foo'}, {ipAddress: 'bar'}]
+        ipAddresses: [
+          new Service({ipAddress: 'foo'}),
+          new Service({ipAddress: 'bar'})
+        ]
       })).toEqual('foo, bar');
     });
 
@@ -62,9 +69,9 @@ describe('MarathonTaskDetailsList', function () {
 
     it('uses service ports if available', function () {
       MarathonStore.getServiceFromTaskID = function () {
-        return {
+        return new Service({
           ipAddress: {discovery : {ports: [{number: 3}]}}
-        };
+        });
       };
       var instance = ReactDOM.render(
         <MarathonTaskDetailsList taskID="foo" />,
@@ -78,9 +85,9 @@ describe('MarathonTaskDetailsList', function () {
 
     it('defaults to ipAddresses and service ports', function () {
       MarathonStore.getServiceFromTaskID = function () {
-        return {
+        return new Service({
           ipAddress: {discovery : {ports: [{number: 3}]}}
-        };
+        });
       };
       var instance = ReactDOM.render(
         <MarathonTaskDetailsList taskID="foo" />,
@@ -88,7 +95,10 @@ describe('MarathonTaskDetailsList', function () {
       );
       var result = instance.getTaskEndpoints({
         host: 'foo',
-        ipAddresses: [{ipAddress: 'foo'}, {ipAddress: 'bar'}],
+        ipAddresses: [
+          new Service({ipAddress: 'foo'}),
+          new Service({ipAddress: 'bar'})
+        ],
         ports: [1, 2]
       });
 
