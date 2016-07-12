@@ -1,6 +1,7 @@
 import DateUtil from '../utils/DateUtil';
 import Item from './Item';
 import JobRunList from './JobRunList';
+import MesosConstants from '../constants/MesosConstants';
 
 module.exports = class Job extends Item {
   getActiveRuns() {
@@ -14,8 +15,7 @@ module.exports = class Job extends Item {
   }
 
   getCpus() {
-    // Default to the minimum number of cpus per Mesos offer
-    const {cpus = 0.01} = this.get('run') || {};
+    const {cpus = MesosConstants.MIN_CPUS} = this.get('run') || {};
 
     return cpus;
   }
@@ -57,7 +57,7 @@ module.exports = class Job extends Item {
   }
 
   getMem() {
-    const {mem = 32} = this.get('run') || {};
+    const {mem = MesosConstants.MIN_MEM} = this.get('run') || {};
 
     return mem;
   }
