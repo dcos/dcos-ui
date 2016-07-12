@@ -5,9 +5,9 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var TestUtils = require('react-addons-test-utils');
 
-var MarathonStore = require('../../stores/MarathonStore');
-var MarathonTaskDetailsList = require('../MarathonTaskDetailsList');
-var Service = require('../../structs/Service');
+let MarathonStore = require('../../stores/MarathonStore');
+let MarathonTaskDetailsList = require('../MarathonTaskDetailsList');
+let Service = require('../../structs/Service');
 
 describe('MarathonTaskDetailsList', function () {
 
@@ -27,7 +27,7 @@ describe('MarathonTaskDetailsList', function () {
   describe('#getTaskEndpoints', function () {
 
     it('returns None if ipAddresses, ports and host is not set', function () {
-      var instance = ReactDOM.render(
+      let instance = ReactDOM.render(
         <MarathonTaskDetailsList taskID="foo" />,
         this.container
       );
@@ -35,7 +35,7 @@ describe('MarathonTaskDetailsList', function () {
     });
 
     it('returns a list of ipAddresses if ports is not defined', function () {
-      var instance = ReactDOM.render(
+      let instance = ReactDOM.render(
         <MarathonTaskDetailsList taskID="foo" />,
         this.container
       );
@@ -48,7 +48,7 @@ describe('MarathonTaskDetailsList', function () {
     });
 
     it('returns host if ports and ipAddresses are not defined', function () {
-      var instance = ReactDOM.render(
+      let instance = ReactDOM.render(
         <MarathonTaskDetailsList taskID="foo" />,
         this.container
       );
@@ -57,11 +57,11 @@ describe('MarathonTaskDetailsList', function () {
     });
 
     it('returns host with ports if ipAddresses are not defined', function () {
-      var instance = ReactDOM.render(
+      let instance = ReactDOM.render(
         <MarathonTaskDetailsList taskID="foo" />,
         this.container
       );
-      var result = instance.getTaskEndpoints({host: 'foo', ports: [1, 2]});
+      let result = instance.getTaskEndpoints({host: 'foo', ports: [1, 2]});
 
       expect(result.length).toEqual(2);
       expect(result[0].props.children).toEqual('foo:1');
@@ -73,11 +73,11 @@ describe('MarathonTaskDetailsList', function () {
           ipAddress: {discovery : {ports: [{number: 3}]}}
         });
       };
-      var instance = ReactDOM.render(
+      let instance = ReactDOM.render(
         <MarathonTaskDetailsList taskID="foo" />,
         this.container
       );
-      var result = instance.getTaskEndpoints({host: 'foo', ports: [1, 2]});
+      let result = instance.getTaskEndpoints({host: 'foo', ports: [1, 2]});
 
       expect(result.length).toEqual(1);
       expect(result[0].props.children).toEqual('foo:3');
@@ -89,11 +89,11 @@ describe('MarathonTaskDetailsList', function () {
           ipAddress: {discovery : {ports: [{number: 3}]}}
         });
       };
-      var instance = ReactDOM.render(
+      let instance = ReactDOM.render(
         <MarathonTaskDetailsList taskID="foo" />,
         this.container
       );
-      var result = instance.getTaskEndpoints({
+      let result = instance.getTaskEndpoints({
         host: 'foo',
         ipAddresses: [
           new Service({ipAddress: 'foo'}),
