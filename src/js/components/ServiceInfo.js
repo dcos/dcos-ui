@@ -40,6 +40,13 @@ class ServiceInfo extends React.Component {
     }];
 
     let actionButtons = [(
+      <button className="button flush-bottom  button-primary"
+        key="action-button-scale"
+        onClick={() =>
+          this.props.onActionsItemSelection({id: ServiceActionItem.SCALE})}>
+        Scale
+      </button>
+    ),(
       <button className="button flush-bottom button-stroke button-inverse"
         key="action-button-edit"
         onClick={() =>
