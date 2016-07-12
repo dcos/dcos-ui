@@ -1,4 +1,3 @@
-import {Link} from 'react-router';
 import {Hooks} from 'PluginSDK';
 /* eslint-disable no-unused-vars */
 import React from 'react';
@@ -7,8 +6,8 @@ import React from 'react';
 let EnvironmentVariables = {
   description: (
     <span>
-      Set variables for each task your service launches. You can also use variables to expose Secrets. <Link to="system-security-secrets">Manage secrets here</Link>. <a href="https://mesosphere.github.io/marathon/docs/task-environment-vars.html" target="_blank">Learn more about variables</a>.
-    </span>  
+      Set variables for each task your service launches. <a href="https://mesosphere.github.io/marathon/docs/task-environment-vars.html" target="_blank">Learn more about variables</a>.
+    </span>
   ),
   type: 'object',
   title: 'Environment Variables',
