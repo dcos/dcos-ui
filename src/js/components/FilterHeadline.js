@@ -77,7 +77,7 @@ FilterHeadline.propTypes = {
   currentLength: PropTypes.number.isRequired,
   inverseStyle: PropTypes.bool,
   // Optional prop used to force the "Clear" button to show even when n of n
-  // items are currenetly displayed.
+  // items are currently displayed.
   isFiltering: PropTypes.bool,
   name: PropTypes.string.isRequired,
   onReset: PropTypes.func.isRequired,
