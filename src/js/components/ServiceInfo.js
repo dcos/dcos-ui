@@ -26,9 +26,6 @@ class ServiceInfo extends React.Component {
       html: '',
       selectedHtml: 'More'
     }, {
-      id: ServiceActionItem.SCALE,
-      html: 'Scale'
-    }, {
       className: classNames({
         hidden: service.getInstancesCount() === 0
       }),
