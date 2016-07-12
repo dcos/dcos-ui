@@ -50,7 +50,6 @@ describe('ServiceDetail', function () {
     this.instance =
       TestUtils.findRenderedComponentWithType(this.wrapper, ServiceDetail);
     this.node = ReactDOM.findDOMNode(this.instance);
-
   });
 
   afterEach(function () {
