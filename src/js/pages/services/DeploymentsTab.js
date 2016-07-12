@@ -152,13 +152,26 @@ class DeploymentsTab extends mixin(StoreMixin) {
   renderStatus(prop, deployment) {
     const title = `Step ${deployment.getCurrentStep()} of ${deployment.getTotalSteps()}`;
     const services = deployment.getAffectedServices();
-    const action = deployment.currentActions.map(function (action) {
-      return action.action;
-    }).join(', ');
+
+    let currentActions = {};
+    if (deployment.currentActions && deployment.currentActions.length > 0) {
+      currentActions =
+        deployment.currentActions.reduce(function (memo, action) {
+          memo[action.app] = action.action;
+
+          return memo;
+        }, {});
+    }
+
     const items = services.map(function (service, index) {
+      let statusText = service.getStatus();
+      if (currentActions[service.id] != null) {
+        statusText += ` (${currentActions[service.id]})`;
+      }
+
       return (
         <li key={index}>
-          {service.getStatus()} ({action})
+          {statusText}
         </li>
       );
     });
