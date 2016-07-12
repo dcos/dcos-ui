@@ -237,7 +237,7 @@ class JobRunHistoryTable extends React.Component {
           colGroup={this.getColGroup()}
           data={this.getData(job)}
           ref="expandingTable"
-          sortBy={{prop: 'status', order: 'asc'}} />
+          sortBy={{prop: 'startedAt', order: 'desc'}} />
       </div>
     );
   }
