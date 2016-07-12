@@ -2,6 +2,7 @@
 import React from 'react';
 /* eslint-enable no-unused-vars */
 import Util from './Util';
+import Service from '../structs/Service';
 
 const TaskUtil = {
   /**
@@ -9,7 +10,7 @@ const TaskUtil = {
    * @param  {object} task to return ip or host list from
    * @return {Array.<string>} an array of ip addresses or hosts
    */
-  getHostList(task) {
+  getHostList(task = {}) {
     let {ipAddresses} = task;
     if (ipAddresses && ipAddresses.length) {
       return ipAddresses.map(function (address) {
@@ -31,7 +32,7 @@ const TaskUtil = {
    * @param  {Service} service to get ports from
    * @return {Array.<number>} an array of port numbers
    */
-  getPortList(task, service) {
+  getPortList(task = {}, service = new Service()) {
     let ports = Util.findNestedPropertyInObject(
       service.getIpAddress(),
       'discovery.ports'
