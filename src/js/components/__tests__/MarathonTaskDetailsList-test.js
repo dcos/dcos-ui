@@ -101,6 +101,6 @@ describe('MarathonTaskDetailsList', function () {
       expect(result[1].props.children).toEqual('bar:3');
     });
 
-  })
+  });
 
 });
