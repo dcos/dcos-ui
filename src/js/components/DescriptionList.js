@@ -16,7 +16,7 @@ class DescriptionList extends React.Component {
   }
 
   getItems() {
-    let {hash, dtClassName, ddClassName} = this.props;
+    let {dtClassName, ddClassName, hash, renderKeys} = this.props;
 
     return Object.keys(hash).map((key, index) => {
       let value = hash[key];
@@ -37,6 +37,11 @@ class DescriptionList extends React.Component {
 
       if (typeof value === 'boolean') {
         value = value.toString();
+      }
+
+      // Check if we need to render a component in the dt
+      if (renderKeys.hasOwnProperty(key)) {
+        key = renderKeys[key];
       }
 
       return (
@@ -68,7 +73,8 @@ DescriptionList.defaultProps = {
   ddClassName: 'column-9 text-overflow-break-word',
   dtClassName: 'column-3 text-mute',
   headlineClassName: 'inverse flush-top',
-  key: ''
+  key: '',
+  renderKeys: {}
 };
 
 DescriptionList.propTypes = {
@@ -78,7 +84,10 @@ DescriptionList.propTypes = {
   headlineClassName: React.PropTypes.string,
   headline: React.PropTypes.node,
   hash: React.PropTypes.object,
-  key: React.PropTypes.string
+  key: React.PropTypes.string,
+  // Optional object with keys consisting of keys in `props.hash` to be
+  // replaced, and with corresponding values of the replacement to be rendered.
+  renderKeys: React.PropTypes.object
 };
 
 module.exports = DescriptionList;
