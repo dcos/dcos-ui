@@ -128,7 +128,7 @@ class UnitsHealthDetail extends mixin(StoreMixin) {
 
   resetFilter() {
     if (this.healthFilter !== null && this.healthFilter.dropdown !== null) {
-      this.healthFilter.dropdown.setState({selectedID: 'all'});
+      this.healthFilter.setDropdownValue('all');
     }
 
     this.setState({

@@ -86,7 +86,7 @@ class HealthTab extends React.Component {
 
   resetFilter() {
     if (this.healthFilter !== null && this.healthFilter.dropdown !== null) {
-      this.healthFilter.dropdown.setState({selectedID: 'all'});
+      this.healthFilter.setDropdownValue('all');
     }
 
     this.setState({

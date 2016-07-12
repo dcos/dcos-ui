@@ -145,9 +145,7 @@ var NodesPage = React.createClass({
     this.internalStorage_update(getMesosHosts(state));
 
     if (this.serviceFilter !== null && this.serviceFilter.dropdown !== null) {
-      this.serviceFilter.dropdown.setState({
-        selectedID: 'default'
-      });
+      this.serviceFilter.setDropdownValue('default');
     }
   },
 

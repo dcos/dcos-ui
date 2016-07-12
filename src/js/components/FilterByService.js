@@ -84,6 +84,12 @@ var FilterByService = React.createClass({
     return id;
   },
 
+  setDropdownValue: function (id) {
+    this.dropdown.setState({
+      selectedID: id
+    });
+  },
+
   render: function () {
     return (
       <Dropdown
