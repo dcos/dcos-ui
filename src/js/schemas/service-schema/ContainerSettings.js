@@ -4,15 +4,19 @@ import React from 'react';
 
 const ContainerSettings = {
   title: 'Container Settings',
-  description: 'Configure your Docker Container. You can configure your Docker Volumes in the Volumes tab and your Docker Ports in the Network tab.',
+  description: 'Configure your Docker Container. You can configure your Docker volumes in the Volumes tab and your Docker ports in the Network tab.',
   type: 'object',
   properties: {
     basic: {
       type: 'group',
       properties: {
         image: {
-          description: 'name of your docker image',
-          title: 'Image',
+          description: (
+            <span>
+              Configure your Docker container. Use <a href="https://hub.docker.com/explore/" target="_blank">DockerHub</a> to find popular repositories.
+            </span>
+          ),
+          title: 'Container Image',
           type: 'string',
           getter: function (service) {
             let container = service.getContainerSettings();
@@ -58,7 +62,12 @@ const ContainerSettings = {
       }
     },
     parameters: {
-      title: 'Parameters',
+      title: 'Docker Parameters',
+      description: (
+        <span>
+          Supply options for the <a href="https://docs.docker.com/engine/reference/commandline/run/" target="_blank">docker run</a> command executed by the Mesos containerizer.
+        </span>
+      ),
       type: 'array',
       duplicable: true,
       addLabel: 'Add Parameter',

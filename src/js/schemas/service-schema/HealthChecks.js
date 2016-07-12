@@ -3,6 +3,7 @@ import FormUtil from '../../utils/FormUtil';
 let HealthChecks = {
   type: 'object',
   title: 'Health Checks',
+  description: 'Perform health checks on running tasks to determine if they are operating as expected.',
   properties: {
     healthChecks: {
       type: 'array',
@@ -122,7 +123,7 @@ let HealthChecks = {
             ]
           },
           ignoreHttp1xx: {
-            label: 'Ignore HTTP informational status codes 100 to 199',
+            label: 'Ignore HTTP Status Codes 100 to 199',
             showLabel: false,
             type: 'boolean',
             shouldShow: function (service) {

@@ -1,6 +1,7 @@
 const Labels = {
   type: 'object',
   title: 'Labels',
+  description: 'Attach metadata to services to expose additional information to other services.',
   properties: {
     labels: {
       type: 'array',

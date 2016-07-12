@@ -1,3 +1,6 @@
+/* eslint-disable no-unused-vars */
+import React from 'react';
+/* eslint-enable no-unused-vars */
 import FormUtil from '../../utils/FormUtil';
 
 const Networking = {
@@ -42,7 +45,11 @@ const Networking = {
     },
     ports: {
       title: 'Service Endpoints',
-      description: 'Define the ports and endpoints for your service',
+      description: (
+        <span>
+          Configure the ports and endpoints you would like to use to talk to your service, or we can assign a random port for you. <a href="https://docs.mesosphere.com/overview/service-discovery/" target="_blank">Learn more about ports</a>.
+        </span>
+      ),
       type: 'array',
       duplicable: true,
       addLabel: 'Add an endpoint',
