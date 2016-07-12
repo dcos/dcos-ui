@@ -111,9 +111,18 @@ class JobsTable extends React.Component {
     if (job.isGroup) {
       itemImage = (
         <Icon
-          className="icon-margin-right inverse"
+          className="icon-margin-right"
           color="grey"
           id="folder"
+          size="small"
+          family="small" />
+      );
+    } else {
+      itemImage = (
+        <Icon
+          className="icon-margin-right"
+          color="grey"
+          id="page-code"
           size="small"
           family="small" />
       );

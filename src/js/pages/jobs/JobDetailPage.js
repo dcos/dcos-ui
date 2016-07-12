@@ -9,6 +9,7 @@ import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import Breadcrumbs from '../../components/Breadcrumbs';
 import DateUtil from '../../utils/DateUtil';
+import Icon from '../../components/Icon';
 import JobConfiguration from './JobConfiguration';
 import JobFormModal from '../../components/modals/JobFormModal';
 import JobRunHistoryTable from './JobRunHistoryTable';
@@ -345,6 +346,7 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
         <Breadcrumbs />
         <PageHeader
           actionButtons={this.getActionButtons()}
+          icon={<Icon color="white" id="page-code" size="jumbo" />}
           navigationTabs={this.getNavigationTabs()}
           subTitle={this.getSubTitle(job)}
           subTitleClassName={{emphasize: false}}

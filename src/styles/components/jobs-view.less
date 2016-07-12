@@ -12,21 +12,24 @@
 }
 
 .job-run-history-job-id {
-  &:extend(.clickable);
   color: @white;
   margin: @base-spacing-unit * -1/4 0;
   padding: @base-spacing-unit * 1/4 @base-spacing-unit * 1/2;
-  position: relative;
 
-  &:before {
-    content: '';
-    border-left: 5px solid @white;
-    border-top: 4px solid transparent;
-    border-bottom: 4px solid transparent;
-    left: 0;
-    position: absolute;
-    transform: translateY(-50%);
-    top: 50%;
+  &.is-expandable {
+    cursor: pointer;
+    position: relative;
+
+    &:before {
+      content: '';
+      border-left: 5px solid @white;
+      border-top: 4px solid transparent;
+      border-bottom: 4px solid transparent;
+      left: 0;
+      position: absolute;
+      transform: translateY(-50%);
+      top: 50%;
+    }
   }
 
   &.is-expanded {
@@ -39,7 +42,7 @@
 
 .job-run-history-task-id {
   font-weight: normal;
-  padding-left: @base-spacing-unit;
+  padding-left: @base-spacing-unit * 1.25;
   position: relative;
 
   &:before,
@@ -47,7 +50,7 @@
     background: color-lighten(@neutral, 10);
     content: '';
     height: 100%;
-    left: @base-spacing-unit * 1/2;
+    left: @base-spacing-unit * 3/4 + 1px;
     position: absolute;
     top: 0;
     width: 1px;

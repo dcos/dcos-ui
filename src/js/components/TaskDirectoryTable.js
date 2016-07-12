@@ -65,7 +65,7 @@ class TaskDirectoryTable extends React.Component {
       <div className="flex-box flex-box-align-vertical-center table-cell-flex-box">
         <div className="table-cell-icon table-cell-icon-mini">
           <Icon
-            className="icon-margin-right inverse"
+            className="icon-margin-right"
             color="grey"
             family="mini"
             id={iconID}
