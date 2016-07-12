@@ -146,8 +146,9 @@ module.exports = class Service extends Item {
     let deployments = this.getDeployments();
     let queue = this.getQueue();
 
-    if (this.getInstancesCount() === 0 &&
-      this.getTasksSummary().tasksRunning === 0
+    let instances = this.getInstancesCount();
+    if (instances === 0 &&
+      tasksRunning === 0
     ) {
       return ServiceStatus.SUSPENDED;
     }
@@ -166,11 +167,6 @@ module.exports = class Service extends Item {
 
     if (tasksRunning > 0) {
       return ServiceStatus.RUNNING;
-    }
-
-    let instances = this.getInstancesCount();
-    if (instances === 0) {
-      return ServiceStatus.SUSPENDED;
     }
 
     return ServiceStatus.NA;
