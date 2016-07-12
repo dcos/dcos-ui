@@ -102,9 +102,8 @@ class NestedServiceLinks extends React.Component {
     return (
        <div key={key} className="table-cell-value">
         <div className={minorLinkClasses}>
-          <Link to="services-page"
-              title="services">
-            services
+          <Link to="services-page" title="services">
+            Services
           </Link>
         </div>
       </div>
