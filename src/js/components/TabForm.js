@@ -126,7 +126,7 @@ class TabForm extends mixin(InternalStorageMixin) {
   getHeader(title, description) {
     return (
       <div key={title} className="form-row-element">
-        <h3 className="form-header flush-bottom">{title}</h3>
+        <h3 className="form-header short-bottom">{title}</h3>
         <p className="flush-bottom">{description}</p>
       </div>
     );
