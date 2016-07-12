@@ -114,8 +114,8 @@ class ReviewConfig extends React.Component {
       <DescriptionList
         hash={hash}
         key={key}
-        ddClassName="column-6"
-        dtClassName="column-6 emphasize"/>
+        ddClassName="column-6 text-color-neutral"
+        dtClassName="column-6"/>
     );
   }
 
