@@ -97,11 +97,11 @@ class MarathonStore extends GetSetBaseStore {
           this.emit(MARATHON_GROUP_CREATE_SUCCESS);
           break;
         case ActionTypes.REQUEST_MARATHON_GROUP_DELETE_ERROR:
-          let message = action.data;
-          if (!Object.keys(message).length) {
-            message = 'Error destroying group';
+          let groupErrorMessage = action.data;
+          if (!Object.keys(groupErrorMessage).length) {
+            groupErrorMessage = 'Error destroying group';
           }
-          this.emit(MARATHON_GROUP_DELETE_ERROR, message);
+          this.emit(MARATHON_GROUP_DELETE_ERROR, groupErrorMessage);
           break;
         case ActionTypes.REQUEST_MARATHON_GROUP_DELETE_SUCCESS:
           this.emit(MARATHON_GROUP_DELETE_SUCCESS);
