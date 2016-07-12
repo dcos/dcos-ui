@@ -230,6 +230,14 @@ class MarathonStore extends GetSetBaseStore {
     return MarathonActions.createGroup(...arguments);
   }
 
+  deleteGroup() {
+    return MarathonActions.deleteGroup(...arguments);
+  }
+
+  editGroup() {
+    return MarathonActions.editGroup(...arguments);
+  }
+
   createService() {
     return MarathonActions.createService(...arguments);
   }
