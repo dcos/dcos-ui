@@ -1,5 +1,8 @@
 import {Link} from 'react-router';
 import {Hooks} from 'PluginSDK';
+/* eslint-disable no-unused-vars */
+import React from 'react';
+/* eslint-enable no-unused-vars */
 
 let EnvironmentVariables = {
   description: (
