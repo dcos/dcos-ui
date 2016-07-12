@@ -207,20 +207,19 @@ var ServicesTab = React.createClass({
       );
     }
 
-    // Render service table
-    if (item instanceof ServiceTree && item.getItems().length > 0) {
-      return this.getServiceTreeView(item);
-    }
-
     // Render service detail
     if (item instanceof Service) {
       return (<ServiceDetail service={item} />);
     }
 
-    // Render empty panel
+    // Render service table or empty service table if only id is available
+    if ((item instanceof ServiceTree && item.getItems().length > 0) || id) {
+      return this.getServiceTreeView(item);
+    }
+
+    // Render empty root panel
     return (
       <div>
-        <Breadcrumbs />
         <AlertPanel
           title="No Services Deployed"
           footer={this.getAlertPanelFooter()}

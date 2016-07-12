@@ -103,6 +103,29 @@ describe('ServicesTab', function () {
       ).toBeDefined();
     });
 
+    it('renders empty service table', function () {
+      DCOSStore.serviceTree = new ServiceTree({
+        id: '/',
+        items: [{
+          id: '/gg',
+          items: []
+        }]
+      });
+      var instance = ReactDOM.render(
+        JestUtil.stubRouterContext(ServicesTab, {params: {id: '/gg'}},
+        {
+          getCurrentRoutes: function () {
+            return [{name: 'services-task-details-tab'}];
+          }
+        }),
+        this.container
+      );
+
+      expect(
+        TestUtils.findRenderedComponentWithType(instance, ServicesTable)
+      ).toBeDefined();
+    });
+
     it('renders the service detail', function () {
       var instance = ReactDOM.render(
         JestUtil.stubRouterContext(ServicesTab, {params: {id: '/alpha'}},
@@ -140,7 +163,7 @@ describe('ServicesTab', function () {
     it('renders correct empty panel', function () {
       DCOSStore.serviceTree = new ServiceTree({id: '/'});
       var instance = ReactDOM.render(
-        JestUtil.stubRouterContext(ServicesTab, {params: {id: '/'}},
+        JestUtil.stubRouterContext(ServicesTab, {params: {}},
         {
           getCurrentRoutes: function () {
             return [{name: 'services-task-details-tab'}];
