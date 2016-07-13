@@ -2,9 +2,13 @@
 
   & when (@code-block-prettyprint-enabled) {
 
-    .inverse pre.prettyprint {
-      border-style: @code-block-prettyprint-border-style;
+    pre.prettyprint {
+      border: @code-block-prettyprint-border-width @code-block-prettyprint-border-style @code-block-prettyprint-border-color;
       .border-radius(@code-border-radius);
+
+      &.inverse {
+        border-color: @code-block-prettyprint-border-color-inverse;
+      }
     }
 
   }

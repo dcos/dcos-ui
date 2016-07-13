@@ -112,7 +112,7 @@ class CliInstallModal extends React.Component {
         <p className="short-bottom">Copy and paste the code snippet into the terminal:</p>
         <div className="flush-top snippet-wrapper">
           <ClickToSelect>
-            <pre className="prettyprint flush-bottom prettyprinted">
+            <pre className="prettyprint flush-bottom">
               {`curl ${cliInstallScriptUrl} > /usr/local/bin/dcos && \n chmod +x /usr/local/bin/dcos && \n dcos config set core.dcos_url ${clusterUrl} && \n dcos`}
             </pre>
           </ClickToSelect>

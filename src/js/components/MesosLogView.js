@@ -281,7 +281,7 @@ class MesosLogView extends mixin(StoreMixin) {
 
     return (
       <pre
-        className="flex-grow flush-bottom prettyprint"
+        className="flex-grow flush-bottom inverse prettyprint"
         ref="logContainer"
         onScroll={this.handleLogContainerScroll}>
         <Highlight
