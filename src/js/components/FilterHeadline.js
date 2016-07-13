@@ -22,7 +22,7 @@ class FilterHeadline extends React.Component {
   }
 
   render() {
-    let {currentLength, inverseStyle, isFiltering, name, totalLength} = this.props;
+    let {className, currentLength, inverseStyle, isFiltering, name, totalLength} = this.props;
     let hideFilteredClasses =
       (isFiltering == null && currentLength === totalLength) ||
       (isFiltering != null && !isFiltering);
@@ -49,7 +49,7 @@ class FilterHeadline extends React.Component {
     let listClassSet = classNames({
       'list-unstyled list-inline': true,
       'inverse': inverseStyle
-    });
+    }, className);
 
     return (
       <ul className={listClassSet}>
@@ -74,6 +74,7 @@ FilterHeadline.defaultProps = {
 };
 
 FilterHeadline.propTypes = {
+  className: PropTypes.string,
   currentLength: PropTypes.number.isRequired,
   inverseStyle: PropTypes.bool,
   // Optional prop used to force the "Clear" button to show even when n of n
