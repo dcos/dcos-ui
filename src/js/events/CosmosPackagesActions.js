@@ -21,27 +21,41 @@ import {
 } from '../constants/ActionTypes';
 import AppDispatcher from './AppDispatcher';
 import Config from '../config/Config';
+import Util from '../utils/Util';
 
 const REQUEST_TIMEOUT = 10000;
 
-function getContentType(action, actionType) {
-  return `application/vnd.dcos.package.${action}-${actionType}+json;charset=utf-8;version=v1`;
+function getContentType(action, actionType, version = 'v2') {
+  return `application/vnd.dcos.package.${action}-${actionType}+json;charset=utf-8;version=${version}`;
 }
 
 const CosmosPackagesActions = {
 
   fetchAvailablePackages: function (query) {
     RequestUtil.json({
-      contentType: getContentType('search', 'request'),
-      headers: {Accept: getContentType('search', 'response')},
+      contentType: getContentType('search', 'request', 'v1'),
+      headers: {Accept: getContentType('search', 'response', 'v1')},
       method: 'POST',
       url: `${Config.rootUrl}${Config.cosmosAPIPrefix}/search`,
       data: JSON.stringify({query}),
       timeout: REQUEST_TIMEOUT,
       success: function (response) {
+        let packages = response.packages || [];
+        let data = packages.map(function (cosmosPackage) {
+          if (!cosmosPackage.resource) {
+            cosmosPackage.resource = {};
+          }
+
+          if (cosmosPackage.images) {
+            cosmosPackage.resource.images = cosmosPackage.images;
+            delete cosmosPackage.images;
+          }
+
+          return cosmosPackage;
+        });
         AppDispatcher.handleServerAction({
           type: REQUEST_COSMOS_PACKAGES_SEARCH_SUCCESS,
-          data: response.packages,
+          data,
           query
         });
       },
@@ -57,16 +71,42 @@ const CosmosPackagesActions = {
 
   fetchInstalledPackages: function (packageName, appId) {
     RequestUtil.json({
-      contentType: getContentType('list', 'request'),
-      headers: {Accept: getContentType('list', 'response')},
+      contentType: getContentType('list', 'request', 'v1'),
+      headers: {Accept: getContentType('list', 'response', 'v1')},
       method: 'POST',
       url: `${Config.rootUrl}${Config.cosmosAPIPrefix}/list`,
       data: JSON.stringify({packageName, appId}),
       timeout: REQUEST_TIMEOUT,
       success: function (response) {
+        let packages = response.packages || [];
+        // Map list data to match other endpoint structures
+        let data = packages.map(function (item) {
+          let cosmosPackage = Util.findNestedPropertyInObject(
+            item,
+            'packageInformation.packageDefinition'
+          ) || {};
+          cosmosPackage.appId = item.appId;
+          cosmosPackage.resource = Util.findNestedPropertyInObject(
+            item,
+            'packageInformation.resourceDefinition'
+          ) || {};
+
+          if (cosmosPackage.images) {
+            cosmosPackage.resource.images = cosmosPackage.images;
+            delete cosmosPackage.images;
+          }
+
+          if (!cosmosPackage.currentVersion && cosmosPackage.version) {
+            cosmosPackage.currentVersion = cosmosPackage.version;
+            delete cosmosPackage.version;
+          }
+
+          return cosmosPackage;
+        });
+
         AppDispatcher.handleServerAction({
           type: REQUEST_COSMOS_PACKAGES_LIST_SUCCESS,
-          data: response.packages,
+          data,
           packageName,
           appId
         });
@@ -84,16 +124,20 @@ const CosmosPackagesActions = {
 
   fetchPackageDescription: function (packageName, packageVersion) {
     RequestUtil.json({
-      contentType: getContentType('describe', 'request'),
+      contentType: getContentType('describe', 'request', 'v1'),
       headers: {Accept: getContentType('describe', 'response')},
       method: 'POST',
       url: `${Config.rootUrl}${Config.cosmosAPIPrefix}/describe`,
       data: JSON.stringify({packageName, packageVersion}),
       timeout: REQUEST_TIMEOUT,
-      success: function (response) {
+      success: function (cosmosPackage) {
+        if (!cosmosPackage.currentVersion && cosmosPackage.version) {
+          cosmosPackage.currentVersion = cosmosPackage.version;
+          delete cosmosPackage.version;
+        }
         AppDispatcher.handleServerAction({
           type: REQUEST_COSMOS_PACKAGE_DESCRIBE_SUCCESS,
-          data: response,
+          data: cosmosPackage,
           packageName,
           packageVersion
         });
@@ -111,7 +155,7 @@ const CosmosPackagesActions = {
 
   installPackage: function (packageName, packageVersion, options = {}) {
     RequestUtil.json({
-      contentType: getContentType('install', 'request'),
+      contentType: getContentType('install', 'request', 'v1'),
       headers: {Accept: getContentType('install', 'response')},
       method: 'POST',
       url: `${Config.rootUrl}${Config.cosmosAPIPrefix}/install`,
@@ -138,8 +182,8 @@ const CosmosPackagesActions = {
 
   uninstallPackage: function (packageName, packageVersion, appId, all = false) {
     RequestUtil.json({
-      contentType: getContentType('uninstall', 'request'),
-      headers: {Accept: getContentType('uninstall', 'response')},
+      contentType: getContentType('uninstall', 'request', 'v1'),
+      headers: {Accept: getContentType('uninstall', 'response', 'v1')},
       method: 'POST',
       url: `${Config.rootUrl}${Config.cosmosAPIPrefix}/uninstall`,
       data: JSON.stringify({packageName, packageVersion, appId, all}),
@@ -167,8 +211,8 @@ const CosmosPackagesActions = {
 
   fetchRepositories: function (type) {
     RequestUtil.json({
-      contentType: getContentType('repository.list', 'request'),
-      headers: {Accept: getContentType('repository.list', 'response')},
+      contentType: getContentType('repository.list', 'request', 'v1'),
+      headers: {Accept: getContentType('repository.list', 'response', 'v1')},
       method: 'POST',
       url: `${Config.rootUrl}${Config.cosmosAPIPrefix}/repository/list`,
       data: JSON.stringify({type}),
@@ -190,8 +234,8 @@ const CosmosPackagesActions = {
 
   addRepository: function (name, uri, index) {
     RequestUtil.json({
-      contentType: getContentType('repository.add', 'request'),
-      headers: {Accept: getContentType('repository.add', 'response')},
+      contentType: getContentType('repository.add', 'request', 'v1'),
+      headers: {Accept: getContentType('repository.add', 'response', 'v1')},
       method: 'POST',
       url: `${Config.rootUrl}${Config.cosmosAPIPrefix}/repository/add`,
       data: JSON.stringify({name, uri, index}),
@@ -217,8 +261,8 @@ const CosmosPackagesActions = {
 
   deleteRepository: function (name, uri) {
     RequestUtil.json({
-      contentType: getContentType('repository.delete', 'request'),
-      headers: {Accept: getContentType('repository.delete', 'response')},
+      contentType: getContentType('repository.delete', 'request', 'v1'),
+      headers: {Accept: getContentType('repository.delete', 'response', 'v1')},
       method: 'POST',
       url: `${Config.rootUrl}${Config.cosmosAPIPrefix}/repository/delete`,
       data: JSON.stringify({name, uri}),

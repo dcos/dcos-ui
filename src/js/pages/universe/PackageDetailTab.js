@@ -12,7 +12,8 @@ import RequestErrorMsg from '../../components/RequestErrorMsg';
 import StringUtil from '../../utils/StringUtil';
 
 const METHODS_TO_BIND = [
-  'handleInstallModalClose'
+  'handleInstallModalClose',
+  'handleInstallModalOpen'
 ];
 
 class PackageDetailTab extends mixin(StoreMixin) {
@@ -141,7 +142,6 @@ class PackageDetailTab extends mixin(StoreMixin) {
   }
 
   mapLicenses(licenses) {
-    licenses = licenses || [];
     return licenses.map(function (license) {
       let item = {
         label: license.name,
@@ -183,28 +183,32 @@ class PackageDetailTab extends mixin(StoreMixin) {
       return this.getLoadingScreen();
     }
 
-    let packageDetails = cosmosPackage.get('package');
+    let name = cosmosPackage.getName();
+    let version = cosmosPackage.getCurrentVersion();
+    let description = cosmosPackage.getDescription();
+    let preInstallNotes = cosmosPackage.getPreInstallNotes();
+
     let definition = [
       {
         label: 'Description',
-        value: packageDetails.description && <div dangerouslySetInnerHTML={StringUtil.parseMarkdown(packageDetails.description)} />
+        value: description && <div dangerouslySetInnerHTML={StringUtil.parseMarkdown(description)} />
       },
       {
         label: 'Pre-Install Notes',
-        value: packageDetails.preInstallNotes && <div dangerouslySetInnerHTML={StringUtil.parseMarkdown(packageDetails.preInstallNotes)} />
+        value: preInstallNotes && <div dangerouslySetInnerHTML={StringUtil.parseMarkdown(preInstallNotes)} />
       },
       {
         label: 'Information',
         type: 'subItems',
         value: [
-          {label: 'SCM', value: packageDetails.scm},
-          {label: 'Maintainer', value: packageDetails.maintainer}
+          {label: 'SCM', value: cosmosPackage.getSCM()},
+          {label: 'Maintainer', value: cosmosPackage.getMaintainer()}
         ]
       },
       {
         label: 'Licenses',
         type: 'subItems',
-        value: this.mapLicenses(packageDetails.licenses)
+        value: this.mapLicenses(cosmosPackage.getLicenses())
       }
     ];
 
@@ -221,12 +225,12 @@ class PackageDetailTab extends mixin(StoreMixin) {
               </div>
               <div className="media-object-item">
                 <h1 className="inverse flush">
-                  {packageDetails.name}
+                  {name}
                 </h1>
-                <p>{this.getSelectedBadge(cosmosPackage, packageDetails.version)}</p>
+                <p>{this.getSelectedBadge(cosmosPackage, version)}</p>
                 <button
                   className="button button-success"
-                  onClick={this.handleInstallModalOpen.bind(this, cosmosPackage)}>
+                  onClick={this.handleInstallModalOpen}>
                   Install Package
                 </button>
               </div>
@@ -239,8 +243,8 @@ class PackageDetailTab extends mixin(StoreMixin) {
         </div>
         <InstallPackageModal
           open={state.openInstallModal}
-          packageName={packageDetails.name}
-          packageVersion={packageDetails.version}
+          packageName={name}
+          packageVersion={version}
           onClose={this.handleInstallModalClose}/>
       </div>
     );

@@ -43,22 +43,26 @@ class UniversePackage extends Item {
     return this.getActiveBlock() + 10;
   }
 
+  getConfig() {
+    return this.get('config');
+  }
+
+  getDescription() {
+    return this.get('description');
+  }
+
   getDecisionPointCount() {
     return this.getActiveBlock() + 10;
   }
 
   getIcons() {
     return FrameworkUtil.getServiceImages(
-      this.get('images') ||
-      Util.findNestedPropertyInObject(
-        this.get('resourceDefinition'), 'images'
-      ) ||
       Util.findNestedPropertyInObject(this.get('resource'), 'images')
     );
   }
 
   getName() {
-    return this.get('packageDefinition').name;
+    return this.get('name');
   }
 
   getScreenshots() {
@@ -69,39 +73,31 @@ class UniversePackage extends Item {
   }
 
   isSelected() {
-    if (this.get('package') && this.get('package').hasOwnProperty('selected')) {
-      return this.get('package').selected;
-    }
-
     return this.get('selected');
   }
 
-  getMaintainer() {
-    return Util.findNestedPropertyInObject(
-      this.get('package'),
-      'maintainer'
-    );
+  getLicenses() {
+    return this.get('licenses') || [];
   }
 
-  getPreinstallNotes() {
-    return Util.findNestedPropertyInObject(
-      this.get('package'),
-      'preInstallNotes'
-    );
+  getMaintainer() {
+    return this.get('maintainer');
+  }
+
+  getPreInstallNotes() {
+    return this.get('preInstallNotes');
   }
 
   getPostInstallNotes() {
-    return Util.findNestedPropertyInObject(
-      this.get('package'),
-      'postInstallNotes'
-    );
+    return this.get('postInstallNotes');
   }
 
   getPostUninstallNotes() {
-    return Util.findNestedPropertyInObject(
-      this.get('packageDefinition'),
-      'postUninstallNotes'
-    );
+    return this.get('postUninstallNotes');
+  }
+
+  getSCM() {
+    return this.get('scm');
   }
 
   // TODO (John): Use actual data.
@@ -110,7 +106,11 @@ class UniversePackage extends Item {
   }
 
   getCurrentVersion() {
-    return this.get('packageDefinition').version;
+    return this.get('currentVersion');
+  }
+
+  getTags() {
+    return this.get('tags') || [];
   }
 
   isDecisionPointActive() {

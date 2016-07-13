@@ -51,40 +51,17 @@ describe('UniversePackage', function () {
       var pkg = new UniversePackage({'selected': false});
       expect(pkg.isSelected()).toEqual(false);
     });
-
-    it('looks for package if selected is nested and returns true', function () {
-      var pkg = new UniversePackage({
-        'package': {
-          selected: true
-        }
-      });
-      expect(pkg.isSelected()).toEqual(true);
-    });
-
-    it('looks for package and returns false', function () {
-      var pkg = new UniversePackage({
-        'package': {
-          selected: false
-        }
-      });
-      expect(pkg.isSelected()).toEqual(false);
-    });
   });
 
   describe('#getMaintainer', function () {
     it('returns correct value', function () {
-      var pkg = new UniversePackage({package: {maintainer: 'hellothere'}});
+      var pkg = new UniversePackage({maintainer: 'hellothere'});
       expect(pkg.getMaintainer()).toEqual('hellothere');
     });
 
     it('returns null if there is no maintainer info', function () {
-      var pkg = new UniversePackage({package: {}});
+      var pkg = new UniversePackage({});
       expect(pkg.getMaintainer()).toEqual(undefined);
-    });
-
-    it('does not error even if there is no package property', function () {
-      var pkg = new UniversePackage({fake: {}});
-      expect(pkg.getMaintainer()).toEqual(null);
     });
   });
 });
