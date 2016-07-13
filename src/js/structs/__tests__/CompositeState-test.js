@@ -158,6 +158,10 @@ describe('CompositeState', function () {
       }
     );
 
+    it('handles null data gracefully', function () {
+      expect(CompositeState.addNodeHealth).not.toThrow();
+    });
+
   });
 
   describe('#mergeData', function () {
