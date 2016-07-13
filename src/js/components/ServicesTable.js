@@ -115,7 +115,7 @@ var ServicesTable = React.createClass({
       );
     }
 
-    // Get framework image/icon
+    // Get service image/icon
     return (
       <span
         className="icon icon-small icon-image-container icon-app-container icon-margin-right">
