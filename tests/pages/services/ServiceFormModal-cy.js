@@ -51,25 +51,28 @@ describe('Service Form Modal', function () {
     });
 
     it('Opens the right modal on click', function () {
-      cy.get('.panel-footer .button')
+      cy.get('.filter-bar .button')
         .contains('Deploy Service')
         .click();
+
       cy.get('.modal-form').should('to.have.length', 1);
     });
 
     it('contains the right group id in the modal', function () {
-      cy.get('.panel-footer .button')
+      cy.get('.filter-bar .button')
         .contains('Deploy Service')
         .click();
+
       cy.get('.modal-form input[name="id"]').should(function (nodeList) {
         expect(nodeList[0].value).to.equal('/services/');
       });
     });
 
     it('contains the right JSON in the JSON editor', function () {
-      cy.get('.panel-footer .button')
+      cy.get('.filter-bar .button')
         .contains('Deploy Service')
         .click();
+
       cy.get('.modal-form-title-label').click();
 
       cy.get('.ace_content').should(function (nodeList) {

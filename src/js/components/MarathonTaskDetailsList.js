@@ -2,53 +2,51 @@ import React from 'react';
 
 import DescriptionList from './DescriptionList';
 import MarathonStore from '../stores/MarathonStore';
+import TaskUtil from '../utils/TaskUtil';
 
 class MarathonTaskDetailsList extends React.Component {
   getTaskEndpoints(task) {
-    if ((task.ports == null || task.ports.length === 0) &&
-        (task.ipAddresses == null || task.ipAddresses.length === 0)) {
+    let service = MarathonStore.getServiceFromTaskID(task.id);
+    let hosts = TaskUtil.getHostList(task);
+    let ports = TaskUtil.getPortList(task, service);
+    if (!hosts.length && !ports.length) {
       return 'None';
     }
 
-    let service = MarathonStore.getServiceFromTaskID(task.id);
-
-    if (service != null &&
-      service.ipAddress != null &&
-      service.ipAddress.discovery != null &&
-      service.ipAddress.discovery.ports != null &&
-      task.ipAddresses != null &&
-      task.ipAddresses.length > 0) {
-
-      let ports = service.ipAddress.discovery.ports;
-      let endpoints = task.ipAddresses.reduce(function (memo, address) {
-        ports.forEach(function (port) {
-          memo.push(`${address.ipAddress}:${port.number}`);
-        });
-
-        return memo;
-      }, []);
-
-      if (endpoints.length) {
-        return endpoints.map(function (endpoint, index) {
-          return (
-            <a key={index} className="visible-block" href={`//${endpoint}`} target="_blank">
-              {endpoint}
-            </a>
-          );
-        });
-      }
-
-      return 'n/a';
+    // If there are no ports, return list of ip addresses
+    if (!ports.length && hosts.length) {
+      return hosts.join(', ');
     }
 
-    return task.ports.map(function (port, index) {
-      let endpoint = `${task.host}:${port}`;
+    // Map each port onto a host, to create endpoint list
+    let endpoints = hosts.reduce(function (memo, host) {
+      ports.forEach(function (port) {
+        memo.push(`${host}:${port}`);
+      });
+
+      return memo;
+    }, []);
+
+    return endpoints.map(function (endpoint, index) {
       return (
-        <a key={index} className="visible-block" href={`//${endpoint}`} target="_blank">
+        <a
+          className="visible-block"
+          href={`//${endpoint}`}
+          key={index}
+          target="_blank">
           {endpoint}
         </a>
       );
     });
+  }
+
+  getTaskPorts(task) {
+    let {ports} = task;
+    if (!ports || !ports.length) {
+      return 'None';
+    }
+
+    return ports.join(', ');
   }
 
   getTaskStatus(task) {
@@ -79,7 +77,7 @@ class MarathonTaskDetailsList extends React.Component {
 
     let headerValueMapping = {
       'Host': task.host,
-      'Ports': task.ports.join(', '),
+      'Ports': this.getTaskPorts(task),
       'Endpoints': this.getTaskEndpoints(task),
       'Status': this.getTaskStatus(task),
       'Staged at': this.getTimeField(task.stagedAt),
