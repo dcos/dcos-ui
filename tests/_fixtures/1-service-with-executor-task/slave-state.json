@@ -1,12 +1,12 @@
 {
   "attributes": {
-
+    
   },
   "build_date": "2016-02-10 01:46:43",
   "build_time": 1455068803.0,
   "build_user": "",
   "completed_frameworks": [
-
+    
   ],
   "flags": {
     "appc_store_dir": "/tmp/mesos/store/appc",
@@ -75,19 +75,19 @@
     {
       "checkpoint": true,
       "completed_executors": [
-
+        
       ],
       "executors": [
         {
           "completed_tasks": [
-
+            
           ],
           "container": "6ce1f063-3838-49b9-b6aa-428127094507",
           "directory": "/var/lib/mesos/agent/slaves/b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S2/frameworks/b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001/executors/server-0_10ab666b-cf9b-44eb-bc53-b6dba1b7c737_executor/runs/6ce1f063-3838-49b9-b6aa-428127094507",
           "id": "server-0_10ab666b-cf9b-44eb-bc53-b6dba1b7c737_executor",
           "name": "server-0_10ab666b-cf9b-44eb-bc53-b6dba1b7c737_executor",
           "queued_tasks": [
-
+            
           ],
           "resources": {
             "cpus": 1.0,

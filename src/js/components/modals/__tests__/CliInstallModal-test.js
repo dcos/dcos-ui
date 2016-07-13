@@ -51,28 +51,36 @@ describe('CliInstallModal', function () {
 
   describe('#getCliInstructions', function () {
     beforeEach(function () {
-      this.container = document.createElement('div');
-      this.instance = ReactDOM.render(
+      this.container1 = document.createElement('div');
+      this.container2 = document.createElement('div');
+      setUserAgent('Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Trident/6.0)');
+      this.instance1 = ReactDOM.render(
         <CliInstallModal
           onClose={function () {}}
           showFooter={false}
           title=""
           subHeaderContent="" />,
-        this.container
+        this.container1
+      );
+      setUserAgent('Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.63 Safari/537.36');
+      this.instance2 = ReactDOM.render(
+        <CliInstallModal
+          onClose={function () {}}
+          showFooter={false}
+          title=""
+          subHeaderContent="" />,
+        this.container2
       );
     });
 
     afterEach(function () {
-      ReactDOM.unmountComponentAtNode(this.container);
+      ReactDOM.unmountComponentAtNode(this.container1);
+      ReactDOM.unmountComponentAtNode(this.container2);
     });
 
     it('it returns different data depending on OS', function () {
-
-      setUserAgent('Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Trident/6.0)');
-      var firstCall = this.instance.getCliInstructions();
-
-      setUserAgent('Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.63 Safari/537.36');
-      var secondCall = this.instance.getCliInstructions();
+      var firstCall = this.instance1.getCliInstructions();
+      var secondCall = this.instance2.getCliInstructions();
 
       expect(firstCall).not.toEqual(secondCall);
     });
