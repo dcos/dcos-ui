@@ -298,20 +298,14 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
     });
 
     let timePrefix = null;
-    let shouldSuppressRelativeTime = dateCompleted == null;
-
-    if (shouldSuppressRelativeTime) {
-      timePrefix = 'for ';
-    }
 
     return [
       <span className={statusClasses} key="status-text">
         {status.displayName}
       </span>,
       <span key="time-running">
-        ({timePrefix}{DateUtil.msToRelativeTime(
-          longestRunningActiveRun.getDateCreated(),
-          shouldSuppressRelativeTime
+        (as of {timePrefix}{DateUtil.msToRelativeTime(
+          longestRunningActiveRun.getDateCreated()
         )})
       </span>
     ];
