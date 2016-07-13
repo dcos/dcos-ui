@@ -11,7 +11,7 @@ describe('Tasks Table', function () {
     it('displays task detail page on task click', function () {
       cy.visitUrl({url: '/services/%2Fcassandra/'});
       cy.get('a[title="server-0"]').click();
-      cy.get('.page-content h1').should('to.have.text', 'server-0');
+      cy.get('.page-content .h1').should('to.have.text', 'server-0');
     });
 
     context('Files tab', function () {

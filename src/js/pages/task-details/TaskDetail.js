@@ -198,7 +198,7 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
     return (
       <PageHeader
         icon={taskIcon}
-        iconClassName="icon-app-container"
+        iconClassName="icon-app-container icon-image-container"
         subTitle={TaskStates[task.state].displayName}
         navigationTabs={navigationTabs}
         title={task.getName()} />

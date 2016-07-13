@@ -139,7 +139,7 @@ class UnitsHealthNodeDetail extends mixin(StoreMixin) {
       <div className="flex-container-col">
         <Breadcrumbs />
         <PageHeader
-          icon={<Icon color="white" id="heart-pulse" size="jumbo" />}
+          icon={<Icon color="white" id="heart-pulse" size="large" />}
           subTitle={this.getSubTitle(unit, node)}
           title={`${unit.getTitle()} Health Check`} />
         <div className="flex-container-col flex-grow no-overflow">
