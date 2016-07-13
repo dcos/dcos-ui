@@ -54,11 +54,12 @@ describe('Job Details', function () {
     });
 
     it('expands the table row when clicking a job run', function () {
-      cy.get('.job-run-history-table tbody tr:nth-child(2)').as('tableRow');
+      cy.get('.job-run-history-table tbody tr').as('tableRow');
 
-      cy.get('@tableRow').find('.job-run-history-job-id').click();
+      cy.get('@tableRow').find('.job-run-history-job-id').first().click();
 
-      cy.get('@tableRow').find('.job-run-history-job-id').should('have.class', 'is-expanded');
+      cy.get('@tableRow').find('.job-run-history-job-id').first()
+        .should('have.class', 'is-expanded');
 
       cy.get('@tableRow').find('td:first-child .job-run-history-table-child')
         .should(function ($children) {
@@ -68,11 +69,13 @@ describe('Job Details', function () {
     });
 
     it('expands a second table row when clicking another job run', function () {
-      cy.get('.job-run-history-table tbody tr:nth-child(2)').as('tableRowA');
-      cy.get('.job-run-history-table tbody tr:nth-child(14)').as('tableRowB');
+      cy.get('.job-run-history-table tbody tr .job-run-history-job-id')
+        .as('tableRows');
+      cy.get('@tableRows').first().as('tableRowA');
+      cy.get('@tableRows').last().as('tableRowB');
 
-      cy.get('@tableRowA').find('.job-run-history-job-id').click();
-      cy.get('@tableRowB').find('.job-run-history-job-id').click();
+      cy.get('@tableRowA').click();
+      cy.get('@tableRowB').click();
 
       cy.get('.job-run-history-table .job-run-history-table-child')
         .should(function ($children) {
