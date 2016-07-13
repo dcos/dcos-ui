@@ -40,9 +40,22 @@ const CosmosPackagesActions = {
       data: JSON.stringify({query}),
       timeout: REQUEST_TIMEOUT,
       success: function (response) {
+        let packages = response.packages || [];
+        let data = packages.map(function (cosmosPackage) {
+          if (!cosmosPackage.resource) {
+            cosmosPackage.resource = {};
+          }
+
+          if (cosmosPackage.images) {
+            cosmosPackage.resource.images = cosmosPackage.images;
+            delete cosmosPackage.images;
+          }
+
+          return cosmosPackage;
+        });
         AppDispatcher.handleServerAction({
           type: REQUEST_COSMOS_PACKAGES_SEARCH_SUCCESS,
-          data: response.packages,
+          data,
           query
         });
       },
@@ -77,6 +90,11 @@ const CosmosPackagesActions = {
             item,
             'packageInformation.resourceDefinition'
           ) || {};
+
+          if (cosmosPackage.images) {
+            cosmosPackage.resource.images = cosmosPackage.images;
+            delete cosmosPackage.images;
+          }
 
           return cosmosPackage;
         });
