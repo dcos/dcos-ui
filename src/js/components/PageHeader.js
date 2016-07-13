@@ -93,9 +93,13 @@ class PageHeader extends React.Component {
       <div className={pageHeaderClasses}>
         <div className={pageHeaderHeadingClasses}>
           <div className="page-header-content">
-            {this.getIcon()}
-            <div className="page-header-text">
-              {this.getTitle()}
+            <h1 className="page-header-main-content">
+              {this.getIcon()}
+              <div className="page-header-heading">
+                {this.getTitle()}
+              </div>
+            </h1>
+            <div className="page-header-sub-heading">
               {this.getSubTitle()}
             </div>
           </div>
