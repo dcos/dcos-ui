@@ -2,42 +2,11 @@ import React from 'react';
 
 import DescriptionList from './DescriptionList';
 import MarathonStore from '../stores/MarathonStore';
-import TaskUtil from '../utils/TaskUtil';
+import TaskEndpointsList from './TaskEndpointsList';
 
 class MarathonTaskDetailsList extends React.Component {
   getTaskEndpoints(task) {
-    let service = MarathonStore.getServiceFromTaskID(task.id);
-    let hosts = TaskUtil.getHostList(task);
-    let ports = TaskUtil.getPortList(task, service);
-    if (!hosts.length && !ports.length) {
-      return 'None';
-    }
-
-    // If there are no ports, return list of ip addresses
-    if (!ports.length && hosts.length) {
-      return hosts.join(', ');
-    }
-
-    // Map each port onto a host, to create endpoint list
-    let endpoints = hosts.reduce(function (memo, host) {
-      ports.forEach(function (port) {
-        memo.push(`${host}:${port}`);
-      });
-
-      return memo;
-    }, []);
-
-    return endpoints.map(function (endpoint, index) {
-      return (
-        <a
-          className="visible-block"
-          href={`//${endpoint}`}
-          key={index}
-          target="_blank">
-          {endpoint}
-        </a>
-      );
-    });
+    return <TaskEndpointsList task={task} />;
   }
 
   getTaskPorts(task) {
