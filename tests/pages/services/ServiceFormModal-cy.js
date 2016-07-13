@@ -54,6 +54,7 @@ describe('Service Form Modal', function () {
       cy.get('.filter-bar .button')
         .contains('Deploy Service')
         .click();
+
       cy.get('.modal-form').should('to.have.length', 1);
     });
 
@@ -61,6 +62,7 @@ describe('Service Form Modal', function () {
       cy.get('.filter-bar .button')
         .contains('Deploy Service')
         .click();
+
       cy.get('.modal-form input[name="id"]').should(function (nodeList) {
         expect(nodeList[0].value).to.equal('/services/');
       });
@@ -70,6 +72,7 @@ describe('Service Form Modal', function () {
       cy.get('.filter-bar .button')
         .contains('Deploy Service')
         .click();
+
       cy.get('.modal-form-title-label').click();
 
       cy.get('.ace_content').should(function (nodeList) {
