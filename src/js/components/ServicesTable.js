@@ -346,8 +346,10 @@ var ServicesTable = React.createClass({
   },
 
   renderServiceActions: function (prop, service) {
+    let isGroup = service instanceof ServiceTree;
+    let instancesCount = service.getInstancesCount();
     let scaleText = 'Scale';
-    if (service instanceof ServiceTree) {
+    if (isGroup) {
       scaleText = 'Scale By';
     }
 
@@ -366,12 +368,15 @@ var ServicesTable = React.createClass({
         )
       },
       {
+        className: classNames({
+          hidden: isGroup && instancesCount === 0
+        }),
         id: ServiceActionItem.SCALE,
         html: scaleText
       },
       {
         className: classNames({
-          hidden: service.getInstancesCount() === 0
+          hidden: instancesCount === 0
         }),
         id: ServiceActionItem.SUSPEND,
         html: 'Suspend'
