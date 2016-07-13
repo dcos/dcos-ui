@@ -72,7 +72,7 @@ class CliInstallModal extends React.Component {
             <p className="short-bottom">In Terminal, enter</p>
             <div className="flush-top snippet-wrapper">
               <ClickToSelect>
-                <pre className="mute prettyprint flush-bottom prettyprinted">
+                <pre className="prettyprint flush-bottom prettyprinted">
                   cd path/to/download/directory
                 </pre>
               </ClickToSelect>
@@ -82,7 +82,7 @@ class CliInstallModal extends React.Component {
             <p className="short-bottom">Enter</p>
             <div className="flush-top snippet-wrapper">
               <ClickToSelect>
-                <pre className="mute prettyprint flush-bottom prettyprinted">
+                <pre className="prettyprint flush-bottom prettyprinted">
                   dcos config set core.dcos_url <a href={clusterUrl}>{clusterUrl}</a>
                 </pre>
               </ClickToSelect>
@@ -92,7 +92,7 @@ class CliInstallModal extends React.Component {
             <p className="short-bottom">Enter</p>
             <div className="flush-top snippet-wrapper">
               <ClickToSelect>
-                <pre className="mute prettyprint flush-bottom prettyprinted">
+                <pre className="prettyprint flush-bottom prettyprinted">
                   dcos
                 </pre>
               </ClickToSelect>
@@ -112,7 +112,7 @@ class CliInstallModal extends React.Component {
         <p className="short-bottom">Copy and paste the code snippet into the terminal:</p>
         <div className="flush-top snippet-wrapper">
           <ClickToSelect>
-            <pre className="mute prettyprint flush-bottom prettyprinted">
+            <pre className="prettyprint flush-bottom prettyprinted">
               {`curl ${cliInstallScriptUrl} > /usr/local/bin/dcos && \n chmod +x /usr/local/bin/dcos && \n dcos config set core.dcos_url ${clusterUrl} && \n dcos`}
             </pre>
           </ClickToSelect>
