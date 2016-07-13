@@ -102,13 +102,10 @@ var ServicesTable = React.createClass({
     );
   },
 
-  renderHeadline: function (prop, service) {
-    const id = encodeURIComponent(service.getId());
-    let itemImage = null;
-
+  getImage: function (service) {
     if (service instanceof ServiceTree) {
       // Get serviceTree image/icon
-      itemImage = (
+      return (
         <Icon
           className="icon-margin-right inverse"
           color="grey"
@@ -118,15 +115,17 @@ var ServicesTable = React.createClass({
       );
     }
 
-    if (service instanceof Framework) {
-      // Get framework image/icon
-      itemImage = (
-        <span
-          className="icon icon-small icon-image-container icon-app-container icon-margin-right">
-          <img src={service.getImages()['icon-small']}/>
-        </span>
-      );
-    }
+    // Get framework image/icon
+    return (
+      <span
+        className="icon icon-small icon-image-container icon-app-container icon-margin-right">
+        <img src={service.getImages()['icon-small']}/>
+      </span>
+    );
+  },
+
+  renderHeadline: function (prop, service) {
+    const id = encodeURIComponent(service.getId());
 
     return (
       <div className="service-table-heading flex-box
@@ -134,7 +133,7 @@ var ServicesTable = React.createClass({
         <Link to="services-detail"
           className="table-cell-icon"
           params={{id}}>
-          {itemImage}
+          {this.getImage(service)}
         </Link>
         {this.getServiceLink(service)}
         {this.getOpenInNewWindowLink(service)}
