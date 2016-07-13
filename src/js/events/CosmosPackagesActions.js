@@ -96,6 +96,11 @@ const CosmosPackagesActions = {
             delete cosmosPackage.images;
           }
 
+          if (!cosmosPackage.currentVersion && cosmosPackage.version) {
+            cosmosPackage.currentVersion = cosmosPackage.version;
+            delete cosmosPackage.version;
+          }
+
           return cosmosPackage;
         });
 
@@ -125,10 +130,14 @@ const CosmosPackagesActions = {
       url: `${Config.rootUrl}${Config.cosmosAPIPrefix}/describe`,
       data: JSON.stringify({packageName, packageVersion}),
       timeout: REQUEST_TIMEOUT,
-      success: function (response) {
+      success: function (cosmosPackage) {
+        if (!cosmosPackage.currentVersion && cosmosPackage.version) {
+          cosmosPackage.currentVersion = cosmosPackage.version;
+          delete cosmosPackage.version;
+        }
         AppDispatcher.handleServerAction({
           type: REQUEST_COSMOS_PACKAGE_DESCRIBE_SUCCESS,
-          data: response,
+          data: cosmosPackage,
           packageName,
           packageVersion
         });
