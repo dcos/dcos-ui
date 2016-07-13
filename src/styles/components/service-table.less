@@ -10,7 +10,7 @@
     }
 
     .status-bar-column {
-      width: @base-spacing-unit * 4;
+      width: @base-spacing-unit * 5;
     }
 
     .status-bar-indicator {
@@ -19,10 +19,6 @@
 
     .status-bar-text {
       white-space: nowrap;
-    }
-
-    .status-bar-count {
-      display: none;
     }
 
   }
@@ -34,7 +30,7 @@
       .service-table {
 
         .status-bar-column {
-          width: @base-spacing-unit * 7;
+          width: @base-spacing-unit * 9;
         }
       }
 
@@ -49,7 +45,7 @@
       .service-table {
 
         .status-bar-column {
-          width: @base-spacing-unit * 10;
+          width: @base-spacing-unit * 12;
         }
 
         .status-bar-wrapper {
@@ -61,22 +57,46 @@
 
   }
 
-  & when (@screen-x-large-enabled) {
+  & when (@screen-medium-enabled) {
 
-    @media (min-width: @screen-x-large) {
-
-      .health-bar-tooltip-instances-total {
-        display: none;
-      }
+    @media (min-width: @screen-medium) {
 
       .service-table {
 
         .status-bar-column {
-          width: @base-spacing-unit * 15;
+          width: @base-spacing-unit * 9.5;
         }
 
-        .status-bar-count {
-          display: inline;
+      }
+
+    }
+
+  }
+
+  & when (@screen-large-enabled) {
+
+    @media (min-width: @screen-large) {
+
+      .service-table {
+
+        .status-bar-column {
+          width: @base-spacing-unit * 10.5;
+        }
+
+      }
+
+    }
+
+  }
+
+  & when (@screen-x-large-enabled) {
+
+    @media (min-width: @screen-x-large) {
+
+      .service-table {
+
+        .status-bar-column {
+          width: @base-spacing-unit * 14;
         }
       }
 
