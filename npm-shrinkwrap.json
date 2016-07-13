@@ -5174,6 +5174,11 @@
       "from": "react-addons-test-utils@0.14.7",
       "resolved": "https://registry.npmjs.org/react-addons-test-utils/-/react-addons-test-utils-0.14.7.tgz"
     },
+    "react-bootstrap-typeahead": {
+      "version": "0.5.3",
+      "from": "react-bootstrap-typeahead@latest",
+      "resolved": "https://registry.npmjs.org/react-bootstrap-typeahead/-/react-bootstrap-typeahead-0.5.3.tgz"
+    },
     "react-deep-force-update": {
       "version": "1.0.1",
       "from": "react-deep-force-update@>=1.0.0 <2.0.0",
@@ -5189,6 +5194,11 @@
       "from": "react-gemini-scrollbar@2.1.0",
       "resolved": "https://registry.npmjs.org/react-gemini-scrollbar/-/react-gemini-scrollbar-2.1.0.tgz"
     },
+    "react-highlighter": {
+      "version": "0.3.2",
+      "from": "react-highlighter@>=0.3.1 <0.4.0",
+      "resolved": "https://registry.npmjs.org/react-highlighter/-/react-highlighter-0.3.2.tgz"
+    },
     "react-hot-api": {
       "version": "0.4.7",
       "from": "react-hot-api@>=0.4.5 <0.5.0",
@@ -5203,6 +5213,23 @@
           "version": "0.4.4",
           "from": "source-map@>=0.4.4 <0.5.0",
           "resolved": "https://registry.npmjs.org/source-map/-/source-map-0.4.4.tgz"
+        }
+      }
+    },
+    "react-input-autosize": {
+      "version": "0.6.13",
+      "from": "react-input-autosize@>=0.6.2 <0.7.0",
+      "resolved": "https://registry.npmjs.org/react-input-autosize/-/react-input-autosize-0.6.13.tgz"
+    },
+    "react-onclickoutside": {
+      "version": "4.9.0",
+      "from": "react-onclickoutside@>=4.1.1 <5.0.0",
+      "resolved": "https://registry.npmjs.org/react-onclickoutside/-/react-onclickoutside-4.9.0.tgz",
+      "dependencies": {
+        "object-assign": {
+          "version": "4.1.0",
+          "from": "object-assign@>=4.0.1 <5.0.0",
+          "resolved": "https://registry.npmjs.org/object-assign/-/object-assign-4.1.0.tgz"
         }
       }
     },
