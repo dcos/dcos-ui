@@ -57,7 +57,7 @@ describe('ServiceDetail', function () {
   describe('#render', function () {
 
     it('renders service info name', function () {
-      expect(this.node.querySelector('h1').textContent).toEqual('test');
+      expect(this.node.querySelector('.h1').textContent).toEqual('test');
     });
 
   });
