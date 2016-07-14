@@ -8,7 +8,6 @@ var AlertPanel = React.createClass({
   displayName: 'AlertPanel',
 
   defaultProps: {
-    className: '',
     icon: null
   },
 
