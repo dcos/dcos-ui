@@ -52,13 +52,13 @@ describe('ServiceInfo', function () {
 
     it('renders health state', function () {
       expect(
-        this.node.querySelectorAll('.page-header-sub-heading')[0].children[0].children[0].textContent
+        this.node.querySelector('.page-header-sub-heading').children[0].children[0].textContent
       ).toEqual('Healthy');
     });
 
     it('renders number of running tasks', function () {
       expect(
-        this.node.querySelectorAll('.page-header-sub-heading')[0].children[0].children[1].textContent
+        this.node.querySelector('.page-header-sub-heading').children[0].children[1].textContent
       ).toEqual('2 Running Tasks');
     });
 

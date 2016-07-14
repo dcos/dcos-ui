@@ -121,6 +121,12 @@ class PageHeader extends React.Component {
   }
 }
 
+const classPropType = React.PropTypes.oneOfType([
+  React.PropTypes.array,
+  React.PropTypes.object,
+  React.PropTypes.string
+]);
+
 PageHeader.defaultProps = {
   actionButtons: []
 };
@@ -132,30 +138,12 @@ PageHeader.propTypes = {
   subTitle: React.PropTypes.node,
   title: React.PropTypes.string,
 
-  className: React.PropTypes.oneOfType([
-    React.PropTypes.string,
-    React.PropTypes.object,
-  ]),
-  pageHeaderClassNames: React.PropTypes.oneOfType([
-    React.PropTypes.string,
-    React.PropTypes.object,
-  ]),
-  pageHeaderContentWrapperClassNames: React.PropTypes.oneOfType([
-    React.PropTypes.string,
-    React.PropTypes.object,
-  ]),
-  titleClassName: React.PropTypes.oneOfType([
-    React.PropTypes.string,
-    React.PropTypes.object,
-  ]),
-  iconClassName: React.PropTypes.oneOfType([
-    React.PropTypes.string,
-    React.PropTypes.object,
-  ]),
-  subTitleClassName: React.PropTypes.oneOfType([
-    React.PropTypes.string,
-    React.PropTypes.object,
-  ])
+  className: classPropType,
+  pageHeaderClassNames: classPropType,
+  pageHeaderContentWrapperClassNames: classPropType,
+  titleClassName: classPropType,
+  iconClassName: classPropType,
+  subTitleClassName: classPropType
 };
 
 module.exports = PageHeader;
