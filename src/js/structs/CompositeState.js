@@ -65,6 +65,10 @@ class CompositeState {
   }
 
   addNodeHealth(data) {
+    if (data == null) {
+      return;
+    }
+
     let oldData = this.data.slaves || [];
     let dataByIP = {};
 
