@@ -20,15 +20,17 @@ const headerMapping = {
   getHealthyTaskCount: 'Healthy',
   getUnhealthyTaskCount: 'Unhealthy',
   getStagedTaskCount: 'Staged',
-  getAverageLifeTime: 'Average Seconds',
-  getMedianLifeTime: 'Median Seconds'
+  getMedianLifeTime: 'Median Lifetime'
 };
 
 class TaskStatsTable extends React.Component {
   getClassName(prop, sortBy) {
+    let shouldAlignRight = taskStatus.includes(prop)
+      || prop === 'getMedianLifeTime';
+
     return classNames({
       'highlight': prop === sortBy.prop,
-      'text-align-right': taskStatus.includes(prop),
+      'text-align-right': shouldAlignRight,
       'hidden-mini': taskStatus.includes(prop)
     });
   }
@@ -84,14 +86,6 @@ class TaskStatsTable extends React.Component {
         className: getClassName,
         headerClassName: getClassName,
         heading,
-        prop: 'getAverageLifeTime',
-        render: this.renderTime,
-        sortable: false
-      },
-      {
-        className: getClassName,
-        headerClassName: getClassName,
-        heading,
         prop: 'getMedianLifeTime',
         render: this.renderTime,
         sortable: false
@@ -114,7 +108,6 @@ class TaskStatsTable extends React.Component {
         <col style={{width: '105px'}} className="hidden-mini" />
         <col style={{width: '90px'}} className="hidden-mini" />
         <col />
-        <col />
       </colgroup>
     );
   }
@@ -124,12 +117,21 @@ class TaskStatsTable extends React.Component {
   }
 
   renderTime(prop, taskStats) {
+    let label = 'sec';
     let lifeTimeSeconds = taskStats[prop]();
-    let seconds = new Number(parseFloat(lifeTimeSeconds).toFixed(2))
+    let timeValue = lifeTimeSeconds;
+
+    if (lifeTimeSeconds > 3600) {
+      label = 'min';
+      timeValue = timeValue / 60;
+    }
+
+    timeValue = new Number(parseFloat(timeValue).toFixed())
       .toLocaleString();
+
     let humanReadable = DateUtil.getDuration(parseInt(lifeTimeSeconds));
 
-    return `${seconds} sec (${humanReadable})`;
+    return `${timeValue} ${label} (${humanReadable})`;
   }
 
   render() {
