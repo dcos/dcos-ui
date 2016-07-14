@@ -4,8 +4,9 @@ var TaskTableHeaderLabels = {
   mem: 'MEM',
   id: 'TASK NAME',
   name: 'TASK NAME',
-  status: 'STATUS',
-  updated: 'UPDATED'
+  state: 'STATUS',
+  updated: 'UPDATED',
+  version: 'VERSION'
 };
 
 module.exports = TaskTableHeaderLabels;

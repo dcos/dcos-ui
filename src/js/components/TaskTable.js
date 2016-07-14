@@ -4,6 +4,7 @@ import React from 'react';
 
 import CheckboxTable from './CheckboxTable';
 import Icon from './Icon';
+import MarathonStore from '../stores/MarathonStore';
 import ResourceTableUtil from '../utils/ResourceTableUtil';
 import TaskStates from '../constants/TaskStates';
 import TaskTableHeaderLabels from '../constants/TaskTableHeaderLabels';
@@ -14,7 +15,8 @@ const METHODS_TO_BIND = [
   'renderHeadline',
   'renderLog',
   'renderStatus',
-  'renderStats'
+  'renderStats',
+  'renderVersion'
 ];
 
 class TaskTable extends React.Component {
@@ -100,6 +102,15 @@ class TaskTable extends React.Component {
         render: ResourceTableUtil.renderUpdated,
         sortable: true,
         sortFunction
+      },
+      {
+        className,
+        headerClassName: className,
+        heading,
+        prop: 'version',
+        render: this.renderVersion,
+        sortable: true,
+        sortFunction
       }
     ];
   }
@@ -114,6 +125,7 @@ class TaskTable extends React.Component {
         <col style={{width: '85px'}} className="hidden-mini" />
         <col style={{width: '110px'}} className="hidden-mini" />
         <col style={{width: '120px'}} />
+        <col style={{width: '180px'}} className="hidden-mini"/>
       </colgroup>
     );
   }
@@ -216,6 +228,27 @@ class TaskTable extends React.Component {
           {this.getStatusValue(task)}
         </span>
       </div>
+    );
+  }
+
+  renderVersion(prop, task) {
+    let marathonTask = MarathonStore.getTaskFromTaskID(task.id);
+    if (marathonTask == null) {
+      return null;
+    }
+
+    let version = marathonTask.version;
+
+    if (version == null) {
+      return null;
+    }
+
+    let localeVersion = new Date(version).toLocaleString();
+
+    return (
+      <span>
+        {localeVersion}
+      </span>
     );
   }
 
