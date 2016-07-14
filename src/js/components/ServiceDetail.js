@@ -122,11 +122,12 @@ class ServiceDetail extends mixin(InternalStorageMixin, StoreMixin, TabsMixin) {
   getDestroyConfirmDialog() {
     const {service} = this.props;
     const {state} = this;
+    const serviceID = (<span className="emphasize">{service.getId()}</span>);
 
     let message = (
       <div className="container-pod flush-top container-pod-short-bottom">
         <h2 className="text-danger text-align-center flush-top">Destroy Service</h2>
-        <p>Are you sure you want to destroy {service.getId()}? This action is irreversible.</p>
+        <p>Destroying {serviceID} is irreversible. Are you sure you want to continue?</p>
         {this.getErrorMessage()}
       </div>
     );
