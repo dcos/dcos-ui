@@ -1,194 +1,166 @@
 /* -----------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
-
-components/badges.less
-
+badges/styles.less
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 ----------------------------------------------------------------------------- */
 
-
-
-
-
-
-/* -----------------------------------------------------------------------------
---------------------------------------------------------------------------------
-
-Badge
-
---------------------------------------------------------------------------------
------------------------------------------------------------------------------ */
-
-.badge {
-
-  color: @body-background-color;
-  font-size: @body-text-font-size;
-  line-height: @body-text-line-height;
-  padding: 0 @base-spacing-unit * 0.25;
-  background-color: @button-default-active-background-color;
-  border-radius: 1000px !important;
-  min-width: @base-spacing-unit;
-
-  &:empty {
-
-    display: none;
-
-  }
-
-  &.inverse {
-
-    background-color: rgba(255, 255, 255, 0.05);
-
-  }
-
-}
-
-
-
-.active {
+& when (@badges-enabled) {
 
   .badge {
+    color: @body-background-color;
+    padding: 0 @base-spacing-unit * 0.25;
+    background-color: @badge-background-color;
+    border-radius: 1000px !important;
 
-    background-color: @white;
+    &:empty {
+      display: none;
+    }
+
+    &.inverse {
+      background-color: @badge-background-color-inverse;
+    }
+
+  }
+
+  .active {
+
+    .badge {
+      background-color: @white;
+    }
+
+  }
+
+  .badge-container {
+    display: flex;
+
+    & > *:first-child {
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      flex-grow: 1;
+      text-align: left;
+    }
+
+    .badge {
+      margin-left: 0.25 * @base-spacing-unit;
+      flex-shrink: 0;
+      align-self: center;
+    }
+
+    .inverse &,
+    &.inverse {
+
+      .badge {
+        background-color: @white;
+      }
+
+    }
+
+    &.badge-primary {
+
+      .badge {
+        background-color: @purple;
+        color: color-lighten(@white, 40);
+      }
+
+    }
+
+    &.selected-badge {
+      align-items: center;
+      margin-top: @base-spacing-unit * 0.25;
+
+      & > *:last-child {
+        margin-left: @base-spacing-unit * 0.5;
+      }
+
+      .badge {
+        flex-grow: 0;
+        padding: @base-spacing-unit * 0.15 @base-spacing-unit * 2/3 @base-spacing-unit * 0.15 @base-spacing-unit * 2/3;
+      }
+
+    }
 
   }
 
 }
 
+& when (@badges-enabled) and (@layout-screen-small-enabled) {
 
+  @media (min-width: @layout-screen-small-min-width) {
 
-.dot {
+    .badge {
+      .property-variant(body, font-size, screen-small);
+      .property-variant(body, line-height, screen-small);
+      min-width: @base-spacing-unit-screen-small;
+      padding: 0 @base-spacing-unit-screen-small * 0.25;
 
-  background-color: currentColor;
-  color: @neutral;
-  width: @body-text-font-size * 0.75;
-  height: @body-text-font-size * 0.75;
-  border-radius: 100%;
+      .badge-container & {
+        margin-left: 0.25 * @base-spacing-unit-screen-small;
+      }
 
-  &.danger {
-
-    background-color: currentColor;
-    color: @text-danger-color;
-
-  }
-
-  &.success {
-
-    color: @text-success-color;
-
-  }
-
-  &.running {
-
-    color: lighten(@neutral, 10);
-
-  }
-
-  &.unknown {
-
-    color: lighten(@neutral, 10);
-
-  }
-
-  &.over-capacity {
-
-    color: @blue;
-
-  }
-
-  &.healthy {
-
-    color: @green;
-
-  }
-
-  &.unhealthy {
-
-    color: @red;
-
-  }
-
-  &.staged {
-
-      animation: candy-stripe 1s linear infinite;
-      background-size: 16px 16px;
-      background-image: linear-gradient(-45deg, color-lighten(@neutral, 10) 0,
-      color-lighten(@neutral, 10) 25%, color-lighten(@neutral, -10) 25%,
-      color-lighten(@neutral, -10) 50%, color-lighten(@neutral, 10) 50%,
-      color-lighten(@neutral, 10) 75%, color-lighten(@neutral, -10) 75%,
-      color-lighten(@neutral, -10) 100%);
+    }
 
   }
 
 }
 
+& when (@badges-enabled) and (@layout-screen-medium-enabled) {
 
+  @media (min-width: @layout-screen-medium-min-width) {
 
-.badge-container {
+    .badge {
+      .property-variant(body, font-size, screen-medium);
+      .property-variant(body, line-height, screen-medium);
+      min-width: @base-spacing-unit-screen-medium;
+      padding: 0 @base-spacing-unit-screen-medium * 0.25;
 
-  display: flex;
+      .badge-container & {
+        margin-left: 0.25 * @base-spacing-unit-screen-medium;
+      }
 
-  :first-child {
-
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    flex-grow: 1;
-    text-align: left;
-
-  }
-
-  .badge {
-
-    margin-left: 0.25 * @base-spacing-unit;
-    flex-shrink: 0;
-    align-self: center;
+    }
 
   }
 
 }
 
+& when (@badges-enabled) and (@layout-screen-large-enabled) {
 
+  @media (min-width: @layout-screen-large-min-width) {
 
-.inverse .badge-container .badge,
-.badge-container.inverse .badge {
+    .badge {
+      .property-variant(body, font-size, screen-large);
+      .property-variant(body, line-height, screen-large);
+      min-width: @base-spacing-unit-screen-large;
+      padding: 0 @base-spacing-unit-screen-large * 0.25;
 
-  background-color: @white;
+      .badge-container & {
+        margin-left: 0.25 * @base-spacing-unit-screen-large;
+      }
 
-}
+    }
 
-
-.badge-container.badge-primary .badge {
-
-  background-color: @purple;
-  color: color-lighten(@white, 40);
-
-}
-
-
-.table .dot {
-
-  display: inline-block;
-  margin-right: @base-spacing-unit * 0.25;
-
-}
-
-
-.badge-container.selected-badge{
-
-  align-items: center;
-  margin-top: @base-spacing-unit * 0.25;
-
-  & > *:last-child {
-    margin-left: @base-spacing-unit * 0.5;
   }
 
-  .badge {
+}
 
-    flex-grow: 0;
-    padding: (@base-spacing-unit * 0.15) (@base-spacing-unit * 2/3) (@base-spacing-unit * 0.15) (@base-spacing-unit * 2/3);
+& when (@badges-enabled) and (@layout-screen-jumbo-enabled) {
+
+  @media (min-width: @layout-screen-jumbo-min-width) {
+
+    .badge {
+      .property-variant(body, font-size, screen-jumbo);
+      .property-variant(body, line-height, screen-jumbo);
+      min-width: @base-spacing-unit-screen-jumbo;
+      padding: 0 @base-spacing-unit-screen-jumbo * 0.25;
+
+      .badge-container & {
+        margin-left: 0.25 * @base-spacing-unit-screen-jumbo;
+      }
+
+    }
 
   }
 
