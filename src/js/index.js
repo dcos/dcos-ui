@@ -52,6 +52,7 @@ RequestUtil.json = function (options = {}) {
     let contents = PluginSDK.Hooks.applyFilter('applicationContents', null);
     if (contents) {
       ReactDOM.render(contents, domElement);
+      PluginSDK.Hooks.doAction('applicationRendered');
     } else {
       if (PluginSDK.Hooks.applyFilter('delayApplicationLoad', true)) {
         // Let's make sure we get Mesos Summary data before we render app
@@ -71,14 +72,14 @@ RequestUtil.json = function (options = {}) {
             (<Provider store={PluginSDK.Store}>
               <Handler state={state} />
             </Provider>),
-            domElement);
+            domElement
+          );
         });
 
         PluginSDK.Hooks.doAction('applicationRouter', router);
+        PluginSDK.Hooks.doAction('applicationRendered');
       }
     }
-
-    PluginSDK.Hooks.doAction('applicationRendered');
   }
 
   function onPluginsLoaded() {
