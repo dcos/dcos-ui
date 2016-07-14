@@ -226,7 +226,7 @@ describe('ServiceTree', function () {
       }).getItems();
 
       expect(filteredServices.length).toEqual(1);
-      expect(filteredServices[0].getId()).toEqual('/group/test');
+      expect(filteredServices[0].getId()).toEqual('/group/test/foo');
     });
 
     it('should filter by health', function () {
