@@ -267,7 +267,13 @@ var ServicesTab = React.createClass({
         other: state.filterOther,
         status: state.filterStatus,
         id: state.searchString
-      }).flattenItems().getItems();
+      });
+
+      if (!state.searchString) {
+        filteredServices = filteredServices.flattenItems();
+      }
+
+      filteredServices = filteredServices.getItems();
     }
 
     return (
