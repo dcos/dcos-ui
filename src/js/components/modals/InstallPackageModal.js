@@ -210,7 +210,9 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
 
     if (isAdvancedInstall && !advancedConfiguration) {
       return SchemaUtil.definitionToJSONDocument(
-        SchemaUtil.schemaToMultipleDefinition(cosmosPackage.getConfig())
+        SchemaUtil.schemaToMultipleDefinition({
+          schema: cosmosPackage.getConfig()
+        })
       );
     }
 
