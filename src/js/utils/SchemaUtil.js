@@ -26,13 +26,12 @@ function setLabelFromSchemaProperty(fieldName, fieldProps, isRequired, renderLab
   }
 
   if (renderLabel && fieldProps.description) {
-    label = renderLabel(fieldProps.description, label);
+    label = renderLabel(fieldProps.description, label, fieldProps.type);
   }
 
   // Set the label property of checkboxes if a label is defined.
-  if (fieldProps.type === 'boolean' && fieldProps.label != null
-    && fieldProps.label !== '') {
-    definition.label = fieldProps.label;
+  if (fieldProps.type === 'boolean') {
+    definition.label = fieldProps.label || label;
     return;
   }
 

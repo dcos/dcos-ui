@@ -283,25 +283,41 @@ class SchemaForm extends mixin(StoreMixin, InternalStorageMixin) {
     );
   }
 
-  getLabel(description, label) {
-    return (
-      <label>
-        <span className="media-object-spacing-wrapper
-          media-object-spacing-narrow">
-          <div className="media-object">
+  getLabel(description, label, fieldType) {
+    let tooltip = (
+      <Tooltip content={description} wrapperClassName="tooltip-wrapper
+        media-object-item" wrapText={true} maxWidth={300}
+        interactive={true}
+        scrollContainer=".gm-scroll-view">
+        <Icon
+          color="grey"
+          family="mini"
+          id="ring-question"
+          size="mini" />
+      </Tooltip>
+    );
+
+    if (fieldType === 'boolean') {
+      return (
+        <span className="media-object-spacing-wrapper media-object-spacing-wrapper-inline media-object-spacing-narrow">
+          <div className="media-object media-object-inline">
             <span className="media-object-item">
               {label}
             </span>
-            <Tooltip content={description} wrapperClassName="tooltip-wrapper
-              media-object-item" wrapText={true} maxWidth={300}
-              interactive={true}
-              scrollContainer=".gm-scroll-view">
-              <Icon
-                color="grey"
-                family="mini"
-                id="ring-question"
-                size="mini" />
-            </Tooltip>
+            {tooltip}
+          </div>
+        </span>
+      );
+    }
+
+    return (
+      <label>
+        <span className="media-object-spacing-wrapper media-object-spacing-narrow">
+          <div className="media-object media-object-inline">
+            <span className="media-object-item">
+              {label}
+            </span>
+            {tooltip}
           </div>
         </span>
       </label>
