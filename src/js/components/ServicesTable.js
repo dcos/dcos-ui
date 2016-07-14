@@ -187,10 +187,16 @@ var ServicesTable = React.createClass({
   getColumns: function () {
     let className = ResourceTableUtil.getClassName;
     let heading = ResourceTableUtil.renderHeading(ServiceTableHeaderLabels);
+    let {isFiltered} = this.props;
 
     return [
       {
-        className,
+        className: function () {
+          return classNames([
+            className.apply(this, arguments),
+            {'table-cell-short': isFiltered}
+          ]);
+        },
         headerClassName: className,
         prop: 'name',
         render: this.renderHeadline,
