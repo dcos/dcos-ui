@@ -3,6 +3,9 @@ import {Table} from 'reactjs-components';
 import React from 'react';
 /* eslint-enable no-unused-vars */
 
+import defaultServiceImage from '../../img/services/icon-service-default-medium@2x.png';
+import Image from './Image';
+
 const METHODS_TO_BIND = [
   'getDeployButton',
   'getHeadline'
@@ -60,7 +63,9 @@ class DisplayPackagesTable extends React.Component {
         <div className="media-object media-object-align-middle">
           <div className="media-object-item">
             <div className="icon icon-margin-right icon-large icon-image-container icon-app-container icon-default-white">
-              <img src={packageImages['icon-large']} />
+              <Image
+                fallbackSrc={defaultServiceImage}
+                src={packageImages['icon-large']} />
             </div>
           </div>
           <div className="media-object-item">

@@ -6,9 +6,11 @@ import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import CosmosErrorMessage from '../../components/CosmosErrorMessage';
 import CosmosPackagesStore from '../../stores/CosmosPackagesStore';
-import FilterInputText from '../../components/FilterInputText';
-import InstallPackageModal from '../../components/modals/InstallPackageModal';
+import defaultServiceImage from '../../../img/services/icon-service-default-medium@2x.png';
 import DisplayPackagesTable from '../../components/DisplayPackagesTable';
+import FilterInputText from '../../components/FilterInputText';
+import Image from '../../components/Image';
+import InstallPackageModal from '../../components/modals/InstallPackageModal';
 import Panel from '../../components/Panel';
 import StringUtil from '../../utils/StringUtil';
 
@@ -94,7 +96,9 @@ class PackagesTab extends mixin(StoreMixin) {
   getIcon(cosmosPackage) {
     return (
       <div className="icon icon-jumbo icon-image-container icon-app-container icon-default-white">
-        <img src={cosmosPackage.getIcons()['icon-medium']} />
+        <Image
+          fallbackSrc={defaultServiceImage}
+          src={cosmosPackage.getIcons()['icon-medium']} />
       </div>
     );
   }
