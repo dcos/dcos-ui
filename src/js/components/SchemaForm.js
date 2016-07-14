@@ -252,7 +252,7 @@ class SchemaForm extends mixin(StoreMixin, InternalStorageMixin) {
     return isValidated;
   }
 
-  getSubHeader(name, description) {
+  getSubHeader(name, description, levelsDeep) {
     let tooltip = null;
     if (description) {
       tooltip = (
@@ -268,14 +268,19 @@ class SchemaForm extends mixin(StoreMixin, InternalStorageMixin) {
       );
     }
 
+    let subheaderClasses = classNames({
+      h2: levelsDeep === 0,
+      h5: levelsDeep !== 0
+    }, 'form-header form-row-element flush-bottom flush-top');
+
     return (
       <div className="media-object-spacing-wrapper
           media-object-spacing-narrow">
         <div className="media-object">
           <div className="media-object-item">
-            <h3 className="form-header form-row-element flush-bottom short-top">
+            <div className={subheaderClasses}>
               {name}
-            </h3>
+            </div>
           </div>
           {tooltip}
         </div>
