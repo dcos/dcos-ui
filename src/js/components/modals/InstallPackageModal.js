@@ -270,9 +270,7 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
 
     return (
       <p className="small flush-bottom">
-        <span className="mute">
-          {notes}{this.getPreInstallNotesToggle(truncated, notes)}
-        </span>
+        {notes}{this.getPreInstallNotesToggle(truncated, notes)}
       </p>
     );
   }
