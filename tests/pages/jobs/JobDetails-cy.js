@@ -69,7 +69,7 @@ describe('Job Details', function () {
     });
 
     it('expands a second table row when clicking another job run', function () {
-      cy.get('.job-run-history-table tbody tr .job-run-history-job-id')
+      cy.get('.job-run-history-table tbody tr .is-expandable')
         .as('tableRows');
       cy.get('@tableRows').first().as('tableRowA');
       cy.get('@tableRows').last().as('tableRowB');
