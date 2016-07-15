@@ -76,7 +76,7 @@ const StringUtil = {
     }, options);
 
     let length = array.length;
-    let conjunction =  ' and ';
+    let conjunction = ' and ';
 
     if (length === 0) {
       return '';

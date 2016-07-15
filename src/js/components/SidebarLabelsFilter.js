@@ -62,7 +62,7 @@ class SidebarLabelsFilters extends mixin(QueryParamsMixin) {
       }
 
       return memo;
-    },  [])
+    }, [])
     .sort((a, b) => a.key.localeCompare(b.key));
   }
 

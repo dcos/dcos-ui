@@ -132,7 +132,7 @@ class ServiceDetail extends mixin(InternalStorageMixin, StoreMixin, TabsMixin) {
       </div>
     );
 
-    return  (
+    return (
       <Confirm children={message}
         disabled={state.disabledDialog === ServiceActionItem.DESTROY}
         open={state.serviceActionDialog === ServiceActionItem.DESTROY}
@@ -157,7 +157,7 @@ class ServiceDetail extends mixin(InternalStorageMixin, StoreMixin, TabsMixin) {
       </div>
     );
 
-    return  (
+    return (
       <Confirm children={message}
         disabled={state.disabledDialog === ServiceActionItem.SUSPEND}
         open={state.serviceActionDialog === ServiceActionItem.SUSPEND}

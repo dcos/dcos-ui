@@ -1,7 +1,7 @@
 import {EventEmitter} from 'events';
 
 import AppDispatcher from '../events/AppDispatcher';
-import MetronomeActions  from '../events/MetronomeActions';
+import MetronomeActions from '../events/MetronomeActions';
 import {
   METRONOME_JOB_CREATE_ERROR,
   METRONOME_JOB_CREATE_SUCCESS,

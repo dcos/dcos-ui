@@ -231,7 +231,7 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
       </div>
     );
 
-    return  (
+    return (
       <Confirm children={content}
         disabled={disabledDialog === JobActionItem.DESTROY}
         open={jobActionDialog === JobActionItem.DESTROY}

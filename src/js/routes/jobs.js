@@ -8,7 +8,7 @@ import JobsPage from '../pages/JobsPage';
 import JobsTab from '../pages/jobs/JobsTab';
 import TaskDetail from '../pages/task-details/TaskDetail';
 import TaskDetailBreadcrumb from '../pages/nodes/breadcrumbs/TaskDetailBreadcrumb';
-import TaskDetailsTab  from '../pages/task-details/TaskDetailsTab';
+import TaskDetailsTab from '../pages/task-details/TaskDetailsTab';
 import TaskFilesTab from '../pages/task-details/TaskFilesTab';
 import TaskLogsTab from '../pages/task-details/TaskLogsTab';
 
