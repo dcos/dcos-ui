@@ -44,7 +44,7 @@ class TaskTable extends React.Component {
         className,
         headerClassName: className,
         heading,
-        prop: 'name',
+        prop: 'id',
         render: this.renderHeadline,
         sortable: true,
         sortFunction
@@ -119,7 +119,7 @@ class TaskTable extends React.Component {
   }
 
   renderHeadline(prop, task) {
-    let title = task.name || task.id;
+    let title = task.id;
     let params = this.props.parentRouter.getCurrentParams();
     let routeParams = Object.assign({taskID: task.id}, params);
 

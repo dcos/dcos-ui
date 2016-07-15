@@ -220,7 +220,7 @@ class TaskView extends mixin(SaveStateMixin, StoreMixin) {
     });
 
     if (searchString !== '') {
-      tasks = StringUtil.filterByString(tasks, 'name', searchString);
+      tasks = StringUtil.filterByString(tasks, 'id', searchString);
     }
 
     tasks = this.filterByCurrentStatus(tasks);
