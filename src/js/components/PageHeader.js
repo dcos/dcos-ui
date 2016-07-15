@@ -10,10 +10,7 @@ class PageHeader extends React.Component {
       return null;
     }
 
-    let iconClasses = classNames(
-      'icon icon-image-container',
-      iconClassName
-    );
+    let iconClasses = classNames('icon icon-large', iconClassName);
 
     return (
       <div className="page-header-icon">
@@ -32,12 +29,12 @@ class PageHeader extends React.Component {
     }
 
     let titleClasses = classNames(
-      'flush-top inverse',
+      'h1 flush inverse',
       titleClassName
     );
 
     return (
-      <h1 className={titleClasses}>{title}</h1>
+      <span className={titleClasses}>{title}</span>
     );
   }
 
@@ -57,14 +54,18 @@ class PageHeader extends React.Component {
   }
 
   renderActionButtons() {
-    let {actionButtons} = this.props;
+    let {actionButtons, buttonCollectionClassNames} = this.props;
+    let buttonCollectionClasses = classNames(
+      'button-collection',
+      buttonCollectionClassNames
+    );
 
     if (actionButtons.length === 0) {
       return null;
     }
 
     return (
-      <div className="button-collection">
+      <div className={buttonCollectionClasses}>
         {actionButtons}
       </div>
     );
@@ -74,7 +75,8 @@ class PageHeader extends React.Component {
     let {
       children,
       className,
-      pageHeaderHeadingClassNames,
+      pageHeaderContentWrapperClassNames,
+      pageHeaderContentHeadingClassNames,
       navigationTabs
     } = this.props;
 
@@ -84,23 +86,32 @@ class PageHeader extends React.Component {
       className
     );
 
-    let pageHeaderHeadingClasses = classNames(
-      'page-header-heading',
-      pageHeaderHeadingClassNames
+    let pageHeaderContentWrapperClasses = classNames(
+      'page-header-content-wrapper',
+      pageHeaderContentWrapperClassNames
+    );
+
+    let pageHeaderContentHeadingClasses = classNames(
+      'page-header-content-heading',
+      pageHeaderContentHeadingClassNames
     );
 
     return (
       <div className={pageHeaderClasses}>
-        <div className={pageHeaderHeadingClasses}>
-          <div className="page-header-content">
-            {this.getIcon()}
-            <div className="page-header-text">
-              {this.getTitle()}
-              {this.getSubTitle()}
+        <div className={pageHeaderContentWrapperClasses}>
+          <div className={pageHeaderContentHeadingClasses}>
+            <div className="page-header-content-primary">
+              {this.getIcon()}
+              <div className="page-header-title">
+                {this.getTitle()}
+              </div>
+            </div>
+            <div className="page-header-content-secondary">
+              {this.renderActionButtons()}
             </div>
           </div>
-          <div className="page-header-actions">
-            {this.renderActionButtons()}
+          <div className="page-header-sub-heading">
+            {this.getSubTitle()}
           </div>
         </div>
         {children}
@@ -109,6 +120,12 @@ class PageHeader extends React.Component {
     );
   }
 }
+
+const classPropType = React.PropTypes.oneOfType([
+  React.PropTypes.array,
+  React.PropTypes.object,
+  React.PropTypes.string
+]);
 
 PageHeader.defaultProps = {
   actionButtons: []
@@ -121,30 +138,12 @@ PageHeader.propTypes = {
   subTitle: React.PropTypes.node,
   title: React.PropTypes.string,
 
-  className: React.PropTypes.oneOfType([
-    React.PropTypes.string,
-    React.PropTypes.object,
-  ]),
-  pageHeaderClassNames: React.PropTypes.oneOfType([
-    React.PropTypes.string,
-    React.PropTypes.object,
-  ]),
-  pageHeaderHeadingClassNames: React.PropTypes.oneOfType([
-    React.PropTypes.string,
-    React.PropTypes.object,
-  ]),
-  titleClassName: React.PropTypes.oneOfType([
-    React.PropTypes.string,
-    React.PropTypes.object,
-  ]),
-  iconClassName: React.PropTypes.oneOfType([
-    React.PropTypes.string,
-    React.PropTypes.object,
-  ]),
-  subTitleClassName: React.PropTypes.oneOfType([
-    React.PropTypes.string,
-    React.PropTypes.object,
-  ])
+  className: classPropType,
+  pageHeaderClassNames: classPropType,
+  pageHeaderContentWrapperClassNames: classPropType,
+  titleClassName: classPropType,
+  iconClassName: classPropType,
+  subTitleClassName: classPropType
 };
 
 module.exports = PageHeader;

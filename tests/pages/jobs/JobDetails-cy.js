@@ -12,16 +12,16 @@ describe('Job Details', function () {
   context('Job Details Header', function () {
 
     it('renders the proper job name', function () {
-      cy.get('.page-header-heading').should('contain',
+      cy.get('.page-header-title').should('contain',
         'Foo Description');
     });
 
     it('renders the proper job status', function () {
-      cy.get('.page-header-heading').should('contain', 'Failed');
+      cy.get('.page-header-sub-heading').should('contain', 'Failed');
     });
 
     it('renders the relative time of the longest running task', function () {
-      cy.get('.page-header-heading').should('contain', '32 yrs ago');
+      cy.get('.page-header-sub-heading').should('contain', '32 yrs ago');
     });
 
   });

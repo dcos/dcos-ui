@@ -17,7 +17,7 @@ describe('Nodes Detail Page', function () {
       }).click();
 
       cy.hash().should('match', /nodes\/[a-zA-Z0-9-]+/);
-      cy.get('.page-content h1').should(function ($title) {
+      cy.get('.page-content .h1').should(function ($title) {
         expect($title).to.contain(nodeName);
       });
     });

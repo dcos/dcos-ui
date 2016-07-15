@@ -41,7 +41,7 @@ describe('ServiceInfo', function () {
     });
 
     it('renders name', function () {
-      expect(this.node.querySelector('h1').textContent).toEqual('test');
+      expect(this.node.querySelector('.h1').textContent).toEqual('test');
     });
 
     it('renders image', function () {
@@ -52,13 +52,13 @@ describe('ServiceInfo', function () {
 
     it('renders health state', function () {
       expect(
-        this.node.querySelectorAll('.page-header-text')[0].children[1].children[0].textContent
+        this.node.querySelector('.page-header-sub-heading').children[0].children[0].textContent
       ).toEqual('Healthy');
     });
 
     it('renders number of running tasks', function () {
       expect(
-        this.node.querySelectorAll('.page-header-text')[0].children[1].children[1].textContent
+        this.node.querySelector('.page-header-sub-heading').children[0].children[1].textContent
       ).toEqual('2 Running Tasks');
     });
 

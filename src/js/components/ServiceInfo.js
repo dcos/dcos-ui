@@ -140,7 +140,7 @@ class ServiceInfo extends React.Component {
       <PageHeader
         actionButtons={this.getActionButtons()}
         icon={serviceIcon}
-        iconClassName="icon-app-container"
+        iconClassName="icon-image-container icon-app-container"
         subTitle={this.getSubHeader(service)}
         navigationTabs={tabs}
         title={service.getName()} />
