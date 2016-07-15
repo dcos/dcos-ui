@@ -42,17 +42,11 @@ var AlertPanel = React.createClass({
   },
 
   render: function () {
-    var classes = {
-      'container container-fluid container-pod': true
-    };
-    if (this.props.className) {
-      classes[this.props.className] = true;
-    }
-
-    var classSet = classNames(classes);
+    let classes = classNames('container container-fluid container-pod',
+      'flush-bottom', this.props.className);
 
     return (
-      <div className={classSet}>
+      <div className={classes}>
         <Panel ref="panel"
           className="panel panel-inverse vertical-center horizontal-center
             text-align-center flush-bottom alert-panel"
