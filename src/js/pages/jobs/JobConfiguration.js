@@ -46,7 +46,6 @@ class JobConfiguration extends React.Component {
       'CRON Schedule': schedule.cron,
       'Time Zone': schedule.timezone,
       'Starting Deadline': schedule.startingDeadlineSeconds
-      ,
     };
 
     return (
@@ -63,7 +62,7 @@ class JobConfiguration extends React.Component {
     }
 
     let headerValueMapping = {
-      'Image': docker.image,
+      'Image': docker.image
     };
 
     return (
@@ -97,7 +96,7 @@ class JobConfiguration extends React.Component {
 }
 
 JobConfiguration.propTypes = {
-  job: React.PropTypes.instanceOf(Job).isRequired,
+  job: React.PropTypes.instanceOf(Job).isRequired
 };
 
 module.exports = JobConfiguration;

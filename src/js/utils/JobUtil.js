@@ -75,7 +75,7 @@ const JobUtil = {
       cmd: job.getCommand(),
       cpus: job.getCpus(),
       mem: job.getMem(),
-      disk: job.getDisk(),
+      disk: job.getDisk()
     };
 
     let labels = job.getLabels();

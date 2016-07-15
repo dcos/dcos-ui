@@ -60,7 +60,7 @@
 
     // Airbnb overwrites
     "jsx-quotes": [2, "prefer-double"],
-    "comma-dangle":  0,
+    "comma-dangle": [2, "never"],
     "object-shorthand": 0,
     "no-var": 0,
     "no-useless-escape": 0,

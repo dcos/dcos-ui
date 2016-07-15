@@ -244,7 +244,7 @@ TabForm.propTypes = {
   onError: React.PropTypes.func,
   onChange: React.PropTypes.func,
   onSubmit: React.PropTypes.func,
-  onTabClick: React.PropTypes.func,
+  onTabClick: React.PropTypes.func
 };
 
 module.exports = TabForm;
