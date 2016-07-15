@@ -404,7 +404,7 @@ class ServiceFormModal extends mixin(StoreMixin) {
       titleText = 'Edit Service';
     }
 
-    let title  = (
+    let title = (
       <div className="header-flex">
         <div className="header-left">
           <h4 className="flush-top flush-bottom text-color-neutral">

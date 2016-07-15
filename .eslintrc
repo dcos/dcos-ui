@@ -80,7 +80,6 @@
     "quote-props": 0,
     "no-restricted-syntax": 0,
     "padded-blocks": 0,
-    "no-multi-spaces": 0,
     "import/no-unresolved": 0,
     "no-dupe-keys": 0,
     "newline-per-chained-call": 0,

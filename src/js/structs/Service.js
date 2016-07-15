@@ -222,7 +222,7 @@ module.exports = class Service extends Item {
 
   getVersionInfo() {
     let currentVersionID = this.get('version');
-    let {lastConfigChangeAt, lastScalingAt} =  this.get('versionInfo');
+    let {lastConfigChangeAt, lastScalingAt} = this.get('versionInfo');
 
     return {lastConfigChangeAt, lastScalingAt, currentVersionID};
   }
