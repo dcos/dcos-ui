@@ -1,0 +1,124 @@
+/* -----------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+status-dots/styles.less
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+----------------------------------------------------------------------------- */
+
+& when (@status-dots-enabled) {
+
+  .dot {
+    background-color: @neutral;
+    border-radius: 100%;
+    height: 0.75rem;
+    width: 0.75rem;
+
+    &.danger {
+      background-color: @danger-color;
+    }
+
+    &.healthy {
+      background-color: @healthy-color;
+    }
+
+    &.over-capacity {
+      background-color: @over-capacity-color;
+    }
+
+    &.staged {
+      background-color: @staged-color;
+    }
+
+    &.success {
+      background-color: @success-color;
+    }
+
+    &.unhealthy {
+      background-color: @unhealthy-color;
+    }
+
+    &.unknown {
+      background-color: @unknown-color;
+    }
+
+    .table & {
+      display: inline-block;
+      margin-right: @base-spacing-unit * 0.25;
+    }
+
+  }
+
+}
+
+& when (@status-dots-enabled) and (@layout-screen-small-enabled) {
+
+  @media (min-width: @layout-screen-small-min-width) {
+
+    .dot {
+      .property-variant(body, width, font-size, null, screen-small);
+      .property-variant(body, line-height, screen-small);
+
+      .table & {
+        margin-right: @base-spacing-unit-screen-small * 0.25;
+      }
+
+    }
+
+  }
+
+}
+
+& when (@status-dots-enabled) and (@layout-screen-medium-enabled) {
+
+  @media (min-width: @layout-screen-medium-min-width) {
+
+    .dot {
+      .property-variant(body, width, font-size, null, screen-medium);
+      .property-variant(body, line-height, screen-medium);
+
+      .table & {
+        margin-right: @base-spacing-unit-screen-medium * 0.25;
+      }
+
+    }
+
+  }
+
+}
+
+& when (@status-dots-enabled) and (@layout-screen-large-enabled) {
+
+  @media (min-width: @layout-screen-large-min-width) {
+
+    .dot {
+      .property-variant(body, width, font-size, null, screen-large);
+      .property-variant(body, line-height, screen-large);
+
+      .table & {
+        margin-right: @base-spacing-unit-screen-large * 0.25;
+      }
+
+    }
+
+  }
+
+}
+
+& when (@status-dots-enabled) and (@layout-screen-jumbo-enabled) {
+
+  @media (min-width: @layout-screen-jumbo-min-width) {
+
+    .dot {
+      .property-variant(body, width, font-size, null, screen-jumbo);
+      .property-variant(body, line-height, screen-jumbo);
+
+      .table & {
+        margin-right: @base-spacing-unit-screen-jumbo * 0.25;
+      }
+
+    }
+
+  }
+
+}
