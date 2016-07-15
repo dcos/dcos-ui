@@ -21,12 +21,20 @@ let EnvironmentVariables = {
         if (variableMap == null) {
           return [];
         }
-        return Object.keys(variableMap).map(function (key) {
-          return Hooks.applyFilter('variablesGetter', {
+
+        return Object.keys(variableMap).reduce(function (memo, key) {
+          if ((key == null || key === 'undefined')
+            && (variableMap[key] === 'undefined' || variableMap[key] == null)) {
+            return;
+          }
+
+          memo.push(Hooks.applyFilter('variablesGetter', {
             key,
             value: variableMap[key]
-          }, service);
-        });
+          }, service));
+
+          return memo;
+        }, []);
       },
       itemShape: {
         properties: {
