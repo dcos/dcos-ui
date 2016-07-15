@@ -6,6 +6,8 @@ import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import Breadcrumbs from '../../components/Breadcrumbs';
 import CosmosPackagesStore from '../../stores/CosmosPackagesStore';
+import defaultServiceImage from '../../../img/services/icon-service-default-large@2x.png';
+import Image from '../../components/Image';
 import ImageViewer from '../../components/ImageViewer';
 import InstallPackageModal from '../../components/modals/InstallPackageModal';
 import RequestErrorMsg from '../../components/RequestErrorMsg';
@@ -220,7 +222,9 @@ class PackageDetailTab extends mixin(StoreMixin) {
             <div className="media-object media-object-align-middle">
               <div className="media-object-item">
                 <div className="icon icon-huge icon-image-container icon-app-container icon-default-white">
-                  <img src={cosmosPackage.getIcons()['icon-large']} />
+                  <Image
+                    fallbackSrc={defaultServiceImage}
+                    src={cosmosPackage.getIcons()['icon-large']} />
                 </div>
               </div>
               <div className="media-object-item">

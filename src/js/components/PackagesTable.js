@@ -3,11 +3,13 @@ import React from 'react';
 import {Table} from 'reactjs-components';
 
 import CosmosPackagesStore from '../stores/CosmosPackagesStore';
+import defaultServiceImage from '../../img/services/icon-service-default-small@2x.png';
+import Image from './Image';
 import PackagesTableHeaderLabels from '../constants/PackagesTableHeaderLabels';
 import ResourceTableUtil from '../utils/ResourceTableUtil';
 import TableUtil from '../utils/TableUtil';
-import UniversePackagesList from '../structs/UniversePackagesList';
 import UninstallPackageModal from './modals/UninstallPackageModal';
+import UniversePackagesList from '../structs/UniversePackagesList';
 
 const METHODS_TO_BIND = [
   'getHeadline',
@@ -106,7 +108,9 @@ class PackagesTable extends React.Component {
     return (
       <div className="package-table-heading flex-box flex-box-align-vertical-center table-cell-flex-box">
         <span className="icon icon-margin-right icon-small icon-image-container icon-app-container">
-          <img src={packageImages['icon-small']} />
+          <Image
+            fallbackSrc={defaultServiceImage}
+            src={packageImages['icon-small']} />
         </span>
         <span className="headline text-overflow">
           {name}
