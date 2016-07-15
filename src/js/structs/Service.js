@@ -186,7 +186,7 @@ module.exports = class Service extends Item {
     }, 0);
 
     healthData.tasksOverCapacity =
-      Math.max(0 , tasksSum - this.getInstancesCount());
+      Math.max(0, tasksSum - this.getInstancesCount());
 
     healthData.tasksRunning = this.get('tasksRunning');
     return healthData;

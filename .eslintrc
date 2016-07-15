@@ -94,7 +94,6 @@
     "wrap-iife": 0,
     "no-extra-semi": 0,
     "yoda": 0,
-    "comma-spacing": 0,
     "default-case": 0,
     "global-require": 0,
     "no-case-declarations": 0,

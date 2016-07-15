@@ -36,21 +36,19 @@ class ServiceInfo extends React.Component {
       html: <span className="text-danger">Destroy</span>
     }];
 
-    let actionButtons = [(
+    let actionButtons = [
       <button className="button flush-bottom  button-primary"
         key="action-button-scale"
         onClick={() =>
           this.props.onActionsItemSelection({id: ServiceActionItem.SCALE})}>
         Scale
-      </button>
-    ),(
+      </button>,
       <button className="button flush-bottom button-stroke button-inverse"
         key="action-button-edit"
         onClick={() =>
           this.props.onActionsItemSelection({id: ServiceActionItem.EDIT})}>
         Edit
-      </button>
-    ), (
+      </button>,
       <Dropdown
         key="actions-dropdown"
         buttonClassName="button button-stroke button-inverse dropdown-toggle"
@@ -63,7 +61,7 @@ class ServiceInfo extends React.Component {
         onItemSelection={this.props.onActionsItemSelection}
         transition={true}
         transitionName="dropdown-menu" />
-    )];
+    ];
 
     if (service instanceof Framework && service.getWebURL()) {
       actionButtons.unshift(
