@@ -85,6 +85,10 @@ class HealthTab extends React.Component {
   }
 
   resetFilter() {
+    if (this.healthFilter !== null && this.healthFilter.dropdown !== null) {
+      this.healthFilter.setDropdownValue('all');
+    }
+
     this.setState({
       searchString: '',
       healthFilter: 'all'
@@ -141,7 +145,8 @@ class HealthTab extends React.Component {
             initialID="all"
             className="button dropdown-toggle text-align-left button-inverse"
             dropdownMenuClassName="dropdown-menu inverse"
-            onHealthSelection={this.handleHealthSelection} />
+            onHealthSelection={this.handleHealthSelection}
+            ref={(ref) => this.healthFilter = ref} />
         </FilterBar>
         <Table
           className="table table-borderless-outer

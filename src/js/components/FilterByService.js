@@ -84,6 +84,12 @@ var FilterByService = React.createClass({
     return id;
   },
 
+  setDropdownValue: function (id) {
+    this.dropdown.setState({
+      selectedID: id
+    });
+  },
+
   render: function () {
     return (
       <Dropdown
@@ -93,8 +99,9 @@ var FilterByService = React.createClass({
         dropdownMenuListItemClassName="clickable"
         wrapperClassName="dropdown"
         items={this.getDropdownItems()}
-        onItemSelection={this.handleItemSelection}
         initialID={this.getSelectedId(this.props.byServiceFilter)}
+        onItemSelection={this.handleItemSelection}
+        ref={(ref) => this.dropdown = ref}
         transition={true}
         transitionName="dropdown-menu" />
     );

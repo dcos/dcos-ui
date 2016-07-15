@@ -139,9 +139,14 @@ var NodesPage = React.createClass({
   },
 
   resetFilter: function () {
-    var state = Object.assign({}, DEFAULT_FILTER_OPTIONS);
-    this.internalStorage_update(getMesosHosts(state));
+    let state = Object.assign({}, DEFAULT_FILTER_OPTIONS);
+
     this.setState(state);
+    this.internalStorage_update(getMesosHosts(state));
+
+    if (this.serviceFilter !== null && this.serviceFilter.dropdown !== null) {
+      this.serviceFilter.setDropdownValue('default');
+    }
   },
 
   handleSearchStringChange: function (searchString) {
@@ -268,9 +273,10 @@ var NodesPage = React.createClass({
           <div className="form-group flush-bottom">
             <FilterByService
               byServiceFilter={state.byServiceFilter}
+              handleFilterChange={this.handleByServiceFilterChange}
+              ref={(ref) => this.serviceFilter = ref}
               services={data.services}
-              totalHostsCount={data.totalNodes}
-              handleFilterChange={this.handleByServiceFilterChange} />
+              totalHostsCount={data.totalNodes} />
           </div>
           {this.getViewTypeRadioButtons(this.resetFilter)}
         </FilterBar>
