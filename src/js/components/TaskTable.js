@@ -187,7 +187,12 @@ class TaskTable extends React.Component {
   renderHost(prop, task) {
     let marathonTask = MarathonStore.getTaskFromTaskID(task.id);
 
-    return <TaskEndpointsList portLimit={3} task={marathonTask} />;
+    return (
+      <TaskEndpointsList
+        key={task.id}
+        portLimit={3}
+        task={marathonTask} />
+    );
   }
 
   renderStats(prop, task) {
