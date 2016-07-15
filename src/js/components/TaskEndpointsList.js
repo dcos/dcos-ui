@@ -114,7 +114,8 @@ class TaskEndpointsList extends React.Component {
   }
 
   handlePortsToggle(host) {
-    let {expandedHosts} = this.state;
+    // Prevent mutating state.
+    let expandedHosts = Object.assign([], this.state.expandedHosts);
     let hostIndex = expandedHosts.indexOf(host);
 
     if (hostIndex > -1) {
@@ -127,12 +128,13 @@ class TaskEndpointsList extends React.Component {
   }
 
   render() {
-    if (!this.props.task) {
+    if (this.props.task == null) {
       return this.getNullList();
     }
 
     let hosts = TaskUtil.getHostList(this.props.task);
     let ports = TaskUtil.getPortList(this.props.task);
+
     let totalPortCount = ports.length;
 
     if (hosts.length === 0 && totalPortCount === 0) {
