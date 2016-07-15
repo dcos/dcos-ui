@@ -70,7 +70,7 @@ const MesosSummaryUtil = {
 
   addTimestampsToData: function (data, timeStep) {
     var length = data.length;
-    var timeNow = Date.now() - timeStep;
+    var timeNow = Date.now() + timeStep;
 
     return data.map(function (datum, i) {
       var timeDelta = (-length + i) * timeStep;
