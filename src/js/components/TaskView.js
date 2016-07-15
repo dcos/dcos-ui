@@ -120,7 +120,7 @@ class TaskView extends mixin(SaveStateMixin, StoreMixin) {
     }
 
     return (
-      <div className="container container-pod text-align-center vertical-center inverse">
+      <div className="container container-pod container-fluid text-align-center vertical-center inverse">
         <div className="row">
           <div className="ball-scale">
             <div />
