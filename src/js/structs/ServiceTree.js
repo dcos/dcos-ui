@@ -107,11 +107,11 @@ module.exports = class ServiceTree extends Tree {
       if (filter.id) {
         let filterProperties = Object.assign({}, this.getFilterProperties(), {
           name: function (item) {
-            return item.getId();
+            return item.getName();
           }
         });
 
-        services = this.filterItemsByText(filter.id, filterProperties).getItems();
+        services = this.flattenItems().filterItemsByText(filter.id, filterProperties).getItems();
       }
 
       if (filter.health != null && filter.health.length !== 0) {
