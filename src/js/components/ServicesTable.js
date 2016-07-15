@@ -148,9 +148,10 @@ var ServicesTable = React.createClass({
     let taskSummary = service.getTasksSummary();
     let {tasksRunning} = taskSummary;
 
-    let text = ` (${tasksRunning} ${StringUtil.pluralize('Task', tasksRunning)})`;
+    let conciseOverview = ` (${tasksRunning}/${instanceCount})`;
+    let verboseOverview = ` (${tasksRunning} ${StringUtil.pluralize('Task', tasksRunning)})`;
     if (tasksRunning !== instanceCount) {
-      text = ` (${tasksRunning} of ${instanceCount} Tasks)`;
+      verboseOverview = ` (${tasksRunning} of ${instanceCount} Tasks)`;
     }
 
     return (
@@ -160,7 +161,8 @@ var ServicesTable = React.createClass({
         </span>
         <span className="status-bar-text">
           <span className={serviceStatusClassSet}>{serviceStatus}</span>
-          <span className="status-bar-count">{text}</span>
+          <span className="visible-x-large-inline">{verboseOverview}</span>
+          <span className="hidden-x-large">{conciseOverview}</span>
         </span>
       </div>
     );
