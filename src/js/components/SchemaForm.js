@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import mixin from 'reactjs-mixin';
 import React from 'react';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
@@ -252,12 +253,14 @@ class SchemaForm extends mixin(StoreMixin, InternalStorageMixin) {
     return isValidated;
   }
 
-  getSubHeader(name, description) {
+  getSubHeader(name, description, levelsDeep) {
     let tooltip = null;
     if (description) {
       tooltip = (
-        <Tooltip content={description} wrapperClassName="tooltip-wrapper h3
-          flush-bottom short-top media-object-item" wrapText={true}
+        <Tooltip
+          content={description}
+          wrapperClassName="tooltip-wrapper flush-bottom short-top media-object-item"
+          wrapText={true}
           maxWidth={300} scrollContainer=".gm-scroll-view">
           <Icon
             color="grey"
@@ -268,14 +271,19 @@ class SchemaForm extends mixin(StoreMixin, InternalStorageMixin) {
       );
     }
 
+    let subheaderClasses = classNames({
+      h2: levelsDeep === 0,
+      h5: levelsDeep !== 0
+    }, 'form-header form-row-element flush-bottom flush-top');
+
     return (
       <div className="media-object-spacing-wrapper
           media-object-spacing-narrow">
         <div className="media-object">
           <div className="media-object-item">
-            <h3 className="form-header form-row-element flush-bottom short-top">
+            <div className={subheaderClasses}>
               {name}
-            </h3>
+            </div>
           </div>
           {tooltip}
         </div>

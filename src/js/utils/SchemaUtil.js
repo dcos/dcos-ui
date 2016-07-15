@@ -152,7 +152,8 @@ function nestedSchemaToFieldDefinition(options) {
     fieldProps,
     renderSubheader,
     renderLabel,
-    filterProperties
+    filterProperties,
+    levelsDeep = 0
   } = options;
   let nestedDefinition = {
     name: fieldName,
@@ -162,7 +163,7 @@ function nestedSchemaToFieldDefinition(options) {
   };
 
   if (typeof renderSubheader === 'function') {
-    nestedDefinition.render = renderSubheader.bind(null, fieldName, fieldProps.description);
+    nestedDefinition.render = renderSubheader.bind(null, fieldName, fieldProps.description, levelsDeep);
   }
 
   let properties = fieldProps.properties;
@@ -177,7 +178,8 @@ function nestedSchemaToFieldDefinition(options) {
           fieldProps: nestedPropertyValue,
           renderSubheader,
           renderLabel,
-          filterProperties
+          filterProperties,
+          levelsDeep: levelsDeep + 1
         })
       );
     } else {
