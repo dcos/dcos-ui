@@ -41,7 +41,9 @@ class TabForm extends mixin(InternalStorageMixin) {
   }
 
   componentDidMount() {
+    /* eslint-disable react/no-did-mount-set-state */
     this.setState({renderGemini: true});
+    /* eslint-enable react/no-did-mount-set-state */
   }
 
   componentDidUpdate() {

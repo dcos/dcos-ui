@@ -24,6 +24,7 @@ module.exports = class List {
 
   /**
    * List
+   * @param {Object} options Options object
    * @param {Array} options.items
    * @param {{propertyName:(null|function)}} [options.filterProperties]
    * @property {Class} type - the type of list items
