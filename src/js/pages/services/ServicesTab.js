@@ -237,6 +237,7 @@ var ServicesTab = React.createClass({
     if (hasFiltersApplied) {
       return (
         <FilterHeadline
+          className="breadcrumb-style-headline"
           inverseStyle={true}
           onReset={this.resetFilter}
           name="Service"
