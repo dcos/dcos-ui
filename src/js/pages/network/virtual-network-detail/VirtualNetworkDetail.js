@@ -78,7 +78,7 @@ class VirtualNetworkDetail extends mixin(StoreMixin, TabsMixin) {
       return VirtualNetworkUtil.getEmptyNetworkScreen();
     }
 
-    let overlayIcon = <Icon id="network" size="jumbo" color="white" />;
+    let overlayIcon = <Icon id="network" size="large" color="white" />;
 
     let tabs = (
       <ul className="tabs list-inline flush-bottom container-pod container-pod-short-top inverse">
