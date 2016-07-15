@@ -113,7 +113,6 @@
     "semi-spacing": 0,
     "no-new-wrappers": 0,
     "react/jsx-space-before-closing": 0,
-    // "react/no-did-mount-set-state": 0,
     "react/jsx-indent-props": 0,
     "jsx-a11y/img-has-alt": 0,
     "space-in-parens": 0,
