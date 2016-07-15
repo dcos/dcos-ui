@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import {Confirm} from 'reactjs-components';
+import {Confirm, Table} from 'reactjs-components';
 import {Link} from 'react-router';
 import moment from 'moment';
 import mixin from 'reactjs-mixin';
@@ -7,7 +7,6 @@ import mixin from 'reactjs-mixin';
 import React from 'react';
 /* eslint-enable no-unused-vars */
 import {StoreMixin} from 'mesosphere-shared-reactjs';
-import {Table} from 'reactjs-components';
 
 import AlertPanel from '../../components/AlertPanel';
 import DCOSStore from '../../stores/DCOSStore';
