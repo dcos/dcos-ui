@@ -20,9 +20,10 @@ describe('SchemaUtil', function () {
         };
 
         this.subheaderRender = jasmine.createSpy();
-        this.result = SchemaUtil.schemaToMultipleDefinition(
-          schema, this.subheaderRender
-        );
+        this.result = SchemaUtil.schemaToMultipleDefinition({
+          schema,
+          renderSubheader: this.subheaderRender
+        });
       });
 
       it('sets the title of the definition', function () {
@@ -71,9 +72,9 @@ describe('SchemaUtil', function () {
         };
 
         this.subheaderRender = jasmine.createSpy();
-        this.result = SchemaUtil.schemaToMultipleDefinition(
-          schema, this.subheaderRender
-        );
+        this.result = SchemaUtil.schemaToMultipleDefinition({
+          schema, renderSubheader: this.subheaderRender
+        });
       });
 
       it('creates a nested definition correctly', function () {

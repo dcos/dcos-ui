@@ -398,13 +398,13 @@ class ServiceForm extends SchemaForm {
 
     schema = Hooks.applyFilter('serviceFormSchema', schema);
 
-    let definition = SchemaUtil.schemaToMultipleDefinition(
+    let definition = SchemaUtil.schemaToMultipleDefinition({
       schema,
-      this.getSubHeader,
-      this.getLabel,
-      this.getRemoveRowButton,
-      this.getAddNewRowButton
-    );
+      renderSubheader: this.getSubHeader,
+      renderLabel: this.getLabel,
+      renderRemove: this.getRemoveRowButton,
+      renderAdd: this.getAddNewRowButton
+    });
 
     SchemaFormUtil.mergeModelIntoDefinition(
       model,

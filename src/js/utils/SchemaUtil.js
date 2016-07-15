@@ -39,7 +39,15 @@ function setLabelFromSchemaProperty(fieldName, fieldProps, isRequired, renderLab
   definition.showLabel = label;
 }
 
-function schemaToFieldDefinition(fieldName, fieldProps, formParent, isRequired, renderLabel, renderRemove) {
+function schemaToFieldDefinition(options) {
+  let {
+    fieldName,
+    fieldProps,
+    formParent,
+    isRequired,
+    renderLabel,
+    renderRemove
+  } = options;
   let value = getValueFromSchemaProperty(fieldProps);
 
   let definition = {
@@ -89,14 +97,13 @@ function schemaToFieldDefinition(fieldName, fieldProps, formParent, isRequired, 
   }
 
   if (fieldProps.duplicable === true && fieldProps.itemShape) {
-    let itemShape = nestedSchemaToFieldDefinition(
+    let itemShape = nestedSchemaToFieldDefinition({
       fieldName,
-      fieldProps.itemShape,
-      formParent,
+      fieldProps: fieldProps.itemShape,
+      renderSubheader: renderLabel,
       renderLabel,
-      renderLabel,
-      fieldProps.filterProperties
-    );
+      filterProperties: fieldProps.filterProperties
+    });
     let propID = Util.uniqueID(fieldName);
 
     definition = FormUtil.getMultipleFieldDefinition(
@@ -139,7 +146,14 @@ function schemaToFieldDefinition(fieldName, fieldProps, formParent, isRequired, 
   return definition;
 }
 
-function nestedSchemaToFieldDefinition(fieldName, fieldProps, topLevelProp, renderSubheader, renderLabel, filterProperties) {
+function nestedSchemaToFieldDefinition(options) {
+  let {
+    fieldName,
+    fieldProps,
+    renderSubheader,
+    renderLabel,
+    filterProperties
+  } = options;
   let nestedDefinition = {
     name: fieldName,
     render: null,
@@ -158,24 +172,23 @@ function nestedSchemaToFieldDefinition(fieldName, fieldProps, topLevelProp, rend
     let nestedPropertyValue = properties[nestedFieldName];
     if (nestedPropertyValue.properties) {
       nestedDefinition.definition.push(
-        nestedSchemaToFieldDefinition(
-          nestedFieldName,
-          nestedPropertyValue,
-          nestedDefinition.definition,
+        nestedSchemaToFieldDefinition({
+          fieldName: nestedFieldName,
+          fieldProps: nestedPropertyValue,
           renderSubheader,
           renderLabel,
           filterProperties
-        )
+        })
       );
     } else {
       nestedDefinition.definition.push(
-        schemaToFieldDefinition(
-          nestedFieldName,
-          nestedPropertyValue,
-          nestedDefinition.definition,
-          requiredProps && requiredProps.indexOf(nestedFieldName) > -1,
+        schemaToFieldDefinition({
+          fieldName: nestedFieldName,
+          fieldProps: nestedPropertyValue,
+          formParent: nestedDefinition.definition,
+          isRequired: requiredProps && requiredProps.indexOf(nestedFieldName) > -1,
           renderLabel
-        )
+        })
       );
     }
   });
@@ -188,7 +201,14 @@ function nestedSchemaToFieldDefinition(fieldName, fieldProps, topLevelProp, rend
 }
 
 let SchemaUtil = {
-  schemaToMultipleDefinition: function (schema, renderSubheader, renderLabel, renderRemove, renderAdd) {
+  schemaToMultipleDefinition: function (options) {
+    let {
+      schema,
+      renderSubheader,
+      renderLabel,
+      renderRemove,
+      renderAdd
+    } = options;
     let multipleDefinition = {};
     let schemaProperties = schema.properties;
 
@@ -210,44 +230,41 @@ let SchemaUtil = {
           fieldDefinition = Object.keys(secondLevelObject.properties).map(function (key) {
             let field = secondLevelObject.properties[key];
 
-            return schemaToFieldDefinition(
-              key,
-              field,
-              topLevelProp,
-              requiredProps && requiredProps.indexOf(secondLevelProp) > -1,
+            return schemaToFieldDefinition({
+              fieldName: key,
+              fieldProps: field,
+              formParent: topLevelProp,
+              isRequired: requiredProps && requiredProps.indexOf(secondLevelProp) > -1,
               renderLabel
-            );
+            });
           });
         } else if (secondLevelObject.properties == null) {
-          fieldDefinition = schemaToFieldDefinition(
-            secondLevelProp,
-            secondLevelObject,
-            definitionForm.definition,
-            requiredProps && requiredProps.indexOf(secondLevelProp) > -1,
+          fieldDefinition = schemaToFieldDefinition({
+            fieldName: secondLevelProp,
+            fieldProps: secondLevelObject,
+            formParent: definitionForm.definition,
+            isRequired: requiredProps && requiredProps.indexOf(secondLevelProp) > -1,
             renderLabel,
-            renderRemove,
-            renderAdd
-          );
+            renderRemove
+          });
         } else {
-          fieldDefinition = nestedSchemaToFieldDefinition(
-            secondLevelProp,
-            secondLevelObject,
-            definitionForm.definition,
+          fieldDefinition = nestedSchemaToFieldDefinition({
+            fieldName: secondLevelProp,
+            fieldProps: secondLevelObject,
             renderSubheader,
             renderLabel,
-            secondLevelObject.filterProperties
-          );
+            filterProperties: secondLevelObject.filterProperties
+          });
         }
 
         if (secondLevelObject.duplicable === true) {
-          let itemShape = nestedSchemaToFieldDefinition(
-            secondLevelProp,
-            secondLevelObject.itemShape,
-            definitionForm.definition,
+          let itemShape = nestedSchemaToFieldDefinition({
+            fieldName: secondLevelProp,
+            fieldProps: secondLevelObject.itemShape,
             renderLabel,
             renderLabel,
-            secondLevelObject.filterProperties
-          );
+            filterProperties: secondLevelObject.filterProperties
+          });
 
           if (secondLevelObject.title) {
             definitionForm.definition.push(
@@ -316,7 +333,7 @@ let SchemaUtil = {
   validateSchema: function (schema) {
     try {
       SchemaUtil.definitionToJSONDocument(
-        SchemaUtil.schemaToMultipleDefinition(schema)
+        SchemaUtil.schemaToMultipleDefinition({schema})
       );
       return true;
     } catch (e) {
