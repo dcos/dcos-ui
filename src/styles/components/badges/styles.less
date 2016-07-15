@@ -1,0 +1,167 @@
+/* -----------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+badges/styles.less
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+----------------------------------------------------------------------------- */
+
+& when (@badges-enabled) {
+
+  .badge {
+    color: @body-background-color;
+    padding: 0 @base-spacing-unit * 0.25;
+    background-color: @badge-background-color;
+    border-radius: 1000px !important;
+
+    &:empty {
+      display: none;
+    }
+
+    &.inverse {
+      background-color: @badge-background-color-inverse;
+    }
+
+  }
+
+  .active {
+
+    .badge {
+      background-color: @white;
+    }
+
+  }
+
+  .badge-container {
+    display: flex;
+
+    & > *:first-child {
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      flex-grow: 1;
+      text-align: left;
+    }
+
+    .badge {
+      margin-left: 0.25 * @base-spacing-unit;
+      flex-shrink: 0;
+      align-self: center;
+    }
+
+    .inverse &,
+    &.inverse {
+
+      .badge {
+        background-color: @white;
+      }
+
+    }
+
+    &.badge-primary {
+
+      .badge {
+        background-color: @purple;
+        color: color-lighten(@white, 40);
+      }
+
+    }
+
+    &.selected-badge{
+      align-items: center;
+      margin-top: @base-spacing-unit * 0.25;
+
+      & > *:last-child {
+        margin-left: @base-spacing-unit * 0.5;
+      }
+
+      .badge {
+        flex-grow: 0;
+        padding: @base-spacing-unit * 0.15 @base-spacing-unit * 2/3 @base-spacing-unit * 0.15 @base-spacing-unit * 2/3;
+      }
+
+    }
+
+  }
+
+}
+
+& when (@badges-enabled) and (@layout-screen-small-enabled) {
+
+  @media (min-width: @layout-screen-small-min-width) {
+
+    .badge {
+      .property-variant(body, font-size, screen-small);
+      .property-variant(body, line-height, screen-small);
+      min-width: @base-spacing-unit-screen-small;
+      padding: 0 @base-spacing-unit-screen-small * 0.25;
+
+      .badge-container & {
+        margin-left: 0.25 * @base-spacing-unit-screen-small;
+      }
+
+    }
+
+  }
+
+}
+
+& when (@badges-enabled) and (@layout-screen-medium-enabled) {
+
+  @media (min-width: @layout-screen-medium-min-width) {
+
+    .badge {
+      .property-variant(body, font-size, screen-medium);
+      .property-variant(body, line-height, screen-medium);
+      min-width: @base-spacing-unit-screen-medium;
+      padding: 0 @base-spacing-unit-screen-medium * 0.25;
+
+      .badge-container & {
+        margin-left: 0.25 * @base-spacing-unit-screen-medium;
+      }
+
+    }
+
+  }
+
+}
+
+& when (@badges-enabled) and (@layout-screen-large-enabled) {
+
+  @media (min-width: @layout-screen-large-min-width) {
+
+    .badge {
+      .property-variant(body, font-size, screen-large);
+      .property-variant(body, line-height, screen-large);
+      min-width: @base-spacing-unit-screen-large;
+      padding: 0 @base-spacing-unit-screen-large * 0.25;
+
+      .badge-container & {
+        margin-left: 0.25 * @base-spacing-unit-screen-large;
+      }
+
+    }
+
+  }
+
+}
+
+& when (@badges-enabled) and (@layout-screen-jumbo-enabled) {
+
+  @media (min-width: @layout-screen-jumbo-min-width) {
+
+    .badge {
+      .property-variant(body, font-size, screen-jumbo);
+      .property-variant(body, line-height, screen-jumbo);
+      min-width: @base-spacing-unit-screen-jumbo;
+      padding: 0 @base-spacing-unit-screen-jumbo * 0.25;
+
+      .badge-container & {
+        margin-left: 0.25 * @base-spacing-unit-screen-jumbo;
+      }
+
+    }
+
+  }
+
+}
