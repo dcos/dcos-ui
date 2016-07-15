@@ -20,7 +20,9 @@ class UnitsHealthDetailBreadcrumb extends BreadcrumbSegment {
     let unit = UnitHealthStore.getUnit(unitID);
 
     if (unit.get('id')) {
+      /* eslint-disable react/no-did-mount-set-state */
       this.setState({isLoadingCrumb: false});
+      /* eslint-enable react/no-did-mount-set-state */
     } else {
       UnitHealthStore.fetchUnit(unitID);
     }

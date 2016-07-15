@@ -20,7 +20,9 @@ class UnitsHealthNodeDetailBreadcrumb extends BreadcrumbSegment {
     let node = UnitHealthStore.getNode(unitNodeID);
 
     if (node.get('host_ip')) {
+      /* eslint-disable react/no-did-mount-set-state */
       this.setState({isLoadingCrumb: false});
+      /* eslint-enable react/no-did-mount-set-state */
     } else {
       UnitHealthStore.fetchUnitNode(unitID, unitNodeID);
     }
