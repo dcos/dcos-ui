@@ -48,11 +48,16 @@ RequestUtil.json = function (options = {}) {
 
 (function () {
   function renderApplication() {
+    function renderAppToDOM(content) {
+      ReactDOM.render(content, domElement, function () {
+        PluginSDK.Hooks.doAction('applicationRendered');
+      });
+    }
+
     // Allow overriding of application contents
     let contents = PluginSDK.Hooks.applyFilter('applicationContents', null);
     if (contents) {
-      ReactDOM.render(contents, domElement);
-      PluginSDK.Hooks.doAction('applicationRendered');
+      renderAppToDOM(contents);
     } else {
       if (PluginSDK.Hooks.applyFilter('delayApplicationLoad', true)) {
         // Let's make sure we get Mesos Summary data before we render app
@@ -68,16 +73,14 @@ RequestUtil.json = function (options = {}) {
         let routes = RouterUtil.buildRoutes(appRoutes.getRoutes());
         let router = Router.run(routes, function (Handler, state) {
           Config.setOverrides(state.query);
-          ReactDOM.render(
-            (<Provider store={PluginSDK.Store}>
+          renderAppToDOM(
+            <Provider store={PluginSDK.Store}>
               <Handler state={state} />
-            </Provider>),
-            domElement
+            </Provider>
           );
         });
 
         PluginSDK.Hooks.doAction('applicationRouter', router);
-        PluginSDK.Hooks.doAction('applicationRendered');
       }
     }
   }
