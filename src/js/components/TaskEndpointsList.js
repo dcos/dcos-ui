@@ -1,4 +1,5 @@
 import React from 'react';
+import deepEqual from 'deep-equal';
 
 import TaskUtil from '../utils/TaskUtil';
 
@@ -20,6 +21,11 @@ class TaskEndpointsList extends React.Component {
     METHODS_TO_BIND.forEach((method) => {
       this[method] = this[method].bind(this);
     });
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return !deepEqual(this.props.task, nextProps.task)
+      || !deepEqual(this.state, nextState);
   }
 
   getNullList() {
