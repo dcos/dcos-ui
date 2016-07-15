@@ -59,6 +59,7 @@ module.exports = {
   },
 
   deleteGroup: function (groupId) {
+    groupId = encodeURIComponent(groupId);
     RequestUtil.json({
       url: `${Config.rootUrl}${Config.marathonAPIPrefix}/groups/${groupId}`,
       method: 'DELETE',
@@ -78,7 +79,8 @@ module.exports = {
   },
 
   editGroup: function (data, force) {
-    let url = `${Config.rootUrl}${Config.marathonAPIPrefix}/groups/${data.id}`;
+    let groupId = encodeURIComponent(data.id);
+    let url = `${Config.rootUrl}${Config.marathonAPIPrefix}/groups/${groupId}`;
 
     if (force === true) {
       url += '?force=true';
