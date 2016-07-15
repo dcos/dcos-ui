@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import mixin from 'reactjs-mixin';
 import React from 'react';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
@@ -256,8 +257,10 @@ class SchemaForm extends mixin(StoreMixin, InternalStorageMixin) {
     let tooltip = null;
     if (description) {
       tooltip = (
-        <Tooltip content={description} wrapperClassName="tooltip-wrapper h3
-          flush-bottom short-top media-object-item" wrapText={true}
+        <Tooltip
+          content={description}
+          wrapperClassName="tooltip-wrapper flush-bottom short-top media-object-item"
+          wrapText={true}
           maxWidth={300} scrollContainer=".gm-scroll-view">
           <Icon
             color="grey"
