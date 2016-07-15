@@ -45,10 +45,8 @@
 .user-dropdown-menu.dropdown {
   bottom: 0;
   display: block;
-  margin-left: @sidebar-margin-offset * -1;
-  padding-left: @sidebar-margin-offset;
   position: absolute;
-  width: 100%;
+  width: @sidebar-width;
   z-index: @z-index-user-dropdown-menu;
 
   .dropdown-menu {
@@ -162,8 +160,7 @@
   @media (min-width: @screen-mini) {
 
     .user-dropdown-menu.dropdown {
-      margin-left: @sidebar-margin-offset-screen-mini * -1;
-      padding-left: @sidebar-margin-offset-screen-mini;
+      width: @sidebar-width-screen-mini;
     }
 
   }
