@@ -20,11 +20,22 @@ class Image extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    // Try again if new urls were provided
-    let image = ReactDOM.findDOMNode(this);
-    image.src = nextProps.src;
+    let {src, fallbackSrc} = this.props;
+    let newSrc;
+    if (src !== nextProps.src) {
+      newSrc = nextProps.src;
+    }
 
-    this.setState({imageErrorCount: 0});
+    if (src === nextProps.src && fallbackSrc !== nextProps.fallbackSrc) {
+      newSrc = nextProps.fallbackSrc;
+    }
+
+    // Try again if a new url was provided
+    if (newSrc) {
+      let image = ReactDOM.findDOMNode(this);
+      image.src = newSrc;
+      this.setState({imageErrorCount: 0});
+    }
   }
 
   onImageError(event) {
