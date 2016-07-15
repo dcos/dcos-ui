@@ -30,7 +30,7 @@ describe('Job Details', function () {
 
     it('shows the correct number of jobs in the filter header', function () {
       cy.get('.page-content .list-inline.list-unstyled').should('contain',
-        '2 Runs');
+        '13 Runs');
     });
 
     it('renders the correct number of jobs in the table', function () {
