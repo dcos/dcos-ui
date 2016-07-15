@@ -27,7 +27,13 @@ status-dots/styles.less
     }
 
     &.staged {
-      background-color: @staged-color;
+      animation: candy-stripe 1s linear infinite;
+      background-size: 16px 16px;
+      background-image: linear-gradient(-45deg, color-lighten(@neutral, 10) 0,
+      color-lighten(@neutral, 10) 25%, color-lighten(@neutral, -10) 25%,
+      color-lighten(@neutral, -10) 50%, color-lighten(@neutral, 10) 50%,
+      color-lighten(@neutral, 10) 75%, color-lighten(@neutral, -10) 75%,
+      color-lighten(@neutral, -10) 100%);
     }
 
     &.success {
