@@ -81,7 +81,7 @@ describe('MarathonActions', function () {
 
     it('sends data to the correct URL', function () {
       expect(this.configuration.url)
-        .toEqual(`${Config.rootUrl}/service/marathon/v2/groups//test`);
+        .toEqual(`${Config.rootUrl}/service/marathon/v2/groups/%2Ftest`);
     });
 
     it('uses DELETE for the request method', function () {
@@ -132,7 +132,7 @@ describe('MarathonActions', function () {
 
     it('sends data to the correct URL', function () {
       expect(this.configuration.url)
-        .toEqual(`${Config.rootUrl}/service/marathon/v2/groups//test`);
+        .toEqual(`${Config.rootUrl}/service/marathon/v2/groups/%2Ftest`);
     });
 
     it('sends data to the correct URL with the force=true parameter',
@@ -141,7 +141,7 @@ describe('MarathonActions', function () {
         this.configuration = RequestUtil.json.calls.mostRecent().args[0];
 
         expect(this.configuration.url)
-          .toEqual(`${Config.rootUrl}/service/marathon/v2/groups//test?force=true`);
+          .toEqual(`${Config.rootUrl}/service/marathon/v2/groups/%2Ftest?force=true`);
       });
 
     it('uses PUT for the request method', function () {
