@@ -107,7 +107,7 @@ var ServicesTable = React.createClass({
       // Get serviceTree image/icon
       return (
         <Icon
-          className="icon-margin-right inverse"
+          className="icon-margin-right"
           color="grey"
           id="folder"
           size="small"

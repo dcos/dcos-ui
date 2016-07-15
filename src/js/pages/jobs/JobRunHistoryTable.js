@@ -5,6 +5,7 @@ import React from 'react';
 import DateUtil from '../../utils/DateUtil';
 import ExpandingTable from '../../components/ExpandingTable';
 import FilterHeadline from '../../components/FilterHeadline';
+import Icon from '../../components/Icon';
 import JobStates from '../../constants/JobStates';
 import TaskStates from '../../constants/TaskStates';
 
@@ -162,8 +163,20 @@ class JobRunHistoryTable extends React.Component {
       );
     }
 
+    let cellContent = (
+        <span>
+          <Icon
+            className="icon-margin-right"
+            color="grey"
+            id="page-code"
+            size="mini"
+            family="small" />
+          {row[prop]}
+        </span>
+      );
+
     if (row.children && row.children.length > 0) {
-      let classes = classNames('job-run-history-job-id', {
+      let classes = classNames('job-run-history-job-id is-expandable', {
         'is-expanded': rowOptions.isExpanded
       });
       let clickHandler = null;
@@ -174,14 +187,14 @@ class JobRunHistoryTable extends React.Component {
 
       return (
         <div className={classes} onClick={clickHandler}>
-          {row[prop]}
+          {cellContent}
         </div>
       );
     }
 
     return (
-      <div>
-        {row[prop]}
+      <div className="job-run-history-job-id">
+        {cellContent}
       </div>
     );
 
