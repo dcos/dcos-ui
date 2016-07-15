@@ -13,7 +13,7 @@ import Units from '../utils/Units';
 const METHODS_TO_BIND = [
   'renderHeadline',
   'renderLog',
-  'renderStatus',
+  'renderState',
   'renderStats'
 ];
 
@@ -30,8 +30,8 @@ class TaskTable extends React.Component {
     return task.resources[prop];
   }
 
-  getStatusValue(state) {
-    return TaskStates[state].displayName;
+  getStateValue(task, prop) {
+    return TaskStates[task[prop]].displayName;
   }
 
   getColumns() {
@@ -52,11 +52,11 @@ class TaskTable extends React.Component {
       {
         cacheCell: true,
         className,
-        getValue: this.getStatusValue,
+        getValue: this.getStateValue,
         headerClassName: className,
         heading,
-        prop: 'status',
-        render: this.renderStatus,
+        prop: 'state',
+        render: this.renderState,
         sortable: true,
         sortFunction
       },
@@ -173,7 +173,7 @@ class TaskTable extends React.Component {
     );
   }
 
-  renderStatus(prop, task) {
+  renderState(prop, task) {
     let statusClassName = TaskUtil.getTaskStatusClassName(task);
     let statusLabelClasses = `${statusClassName} table-cell-value`;
 
@@ -213,7 +213,7 @@ class TaskTable extends React.Component {
           <span className={statusClass}></span>
         </div>
         <span className={statusLabelClasses}>
-          {this.getStatusValue(state)}
+          {this.getStateValue(task, prop)}
         </span>
       </div>
     );
