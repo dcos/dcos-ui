@@ -6,7 +6,6 @@ import Cluster from '../utils/Cluster';
 import Framework from '../structs/Framework';
 import HealthBar from './HealthBar';
 import HealthStatus from '../constants/HealthStatus';
-import HealthLabels from '../constants/HealthLabels';
 import PageHeader from './PageHeader';
 import Service from '../structs/Service';
 import ServiceActionItem from '../constants/ServiceActionItem';
@@ -81,6 +80,7 @@ class ServiceInfo extends React.Component {
 
   getSubHeader(service) {
     let serviceHealth = service.getHealth();
+    let serviceStatus = service.getStatus();
     let tasksSummary = service.getTasksSummary();
     let runningTasksCount = tasksSummary.tasksRunning;
     let instancesCount = service.getInstancesCount();
@@ -88,7 +88,7 @@ class ServiceInfo extends React.Component {
     let subHeaderItems = [
       {
         classes: `media-object-item ${HealthStatus[serviceHealth.key].classNames}`,
-        label: HealthLabels[HealthStatus[serviceHealth.key].key],
+        label: serviceStatus,
         shouldShow: serviceHealth.key != null
       },
       {
