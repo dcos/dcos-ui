@@ -13,7 +13,7 @@ let General = {
   properties: {
     id: {
       title: 'ID',
-      description: 'The ID for the service',
+      description: 'ID for the service',
       type: 'string',
       getter: function (service) {
         return service.getId();
@@ -24,7 +24,7 @@ let General = {
       properties: {
         cpus: {
           title: 'CPUs',
-          description: 'The amount of CPUs used for the service',
+          description: 'Amount of CPUs used for the service',
           type: 'number',
           default: 1,
           getter: function (service) {
@@ -59,7 +59,7 @@ let General = {
     },
     cmd: {
       title: 'Command',
-      description: 'The command executed by the service',
+      description: 'Command executed by the service',
       type: 'string',
       multiLine: true,
       getter: function (service) {

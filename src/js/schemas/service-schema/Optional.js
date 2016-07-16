@@ -18,7 +18,7 @@ let Optional = {
     uris: {
       title: 'URIs',
       type: 'string',
-      description: 'Comma-separated list of valid URIs.',
+      description: 'Comma-separated list of valid URIs',
       getter: function (service) {
         if (!service.getFetch()) {
           return null;
