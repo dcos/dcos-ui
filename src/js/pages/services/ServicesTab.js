@@ -87,6 +87,21 @@ var ServicesTab = React.createClass({
     });
   },
 
+  componentWillReceiveProps: function () {
+    const queryParams = this.getQueryParamObject();
+    const {state} = this;
+
+    // Reset filter defaults when query params are deleted externally
+    Object.keys(DEFAULT_FILTER_OPTIONS).forEach(stateKey => {
+      if (queryParams[stateKey] == null &&
+        (state[stateKey] != null && state[stateKey].length > 0)) {
+        this.setState({
+          [stateKey]: DEFAULT_FILTER_OPTIONS[stateKey]
+        });
+      }
+    });
+  },
+
   onMarathonStoreGroupsError: function () {
     this.setState({marathonErrorCount: this.state.marathonErrorCount + 1});
   },
