@@ -63,7 +63,6 @@
     "comma-dangle": [2, "never"],
     "object-shorthand": 0,
     "no-var": 0,
-    "no-useless-escape": 0,
     "arrow-body-style": 0,
     "object-curly-spacing": 0,
     "react/jsx-closing-bracket-location": 0,

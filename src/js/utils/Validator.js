@@ -18,8 +18,8 @@ var Validator = {
   isWellFormedServiceIdPath: function (str) {
     // This RegExp is taken from the ID field explanation described here:
     // https://mesosphere.github.io/marathon/docs/rest-api.html#post-v2-apps
-    var idMatchRegExp = '^(([a-z0-9]|[a-z0-9][a-z0-9\-]*' +
-      '[a-z0-9])\.)*([a-z0-9]|[a-z0-9][a-z0-9\-]*[a-z0-9])$';
+    var idMatchRegExp = '^(([a-z0-9]|[a-z0-9][a-z0-9-]*' +
+      '[a-z0-9]).)*([a-z0-9]|[a-z0-9][a-z0-9-]*[a-z0-9])$';
     return str.split('/').every((pathSegement) => {
       return pathSegement == null ||
         pathSegement.length === 0 ||
