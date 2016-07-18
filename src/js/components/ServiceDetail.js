@@ -84,7 +84,7 @@ class ServiceDetail extends mixin(InternalStorageMixin, StoreMixin, TabsMixin) {
       MarathonStore.editService({
         id: this.props.service.id,
         instances: 0
-      });
+      }, this.shouldForceUpdate(this.state.errorMsg));
     });
   }
 
@@ -179,11 +179,25 @@ class ServiceDetail extends mixin(InternalStorageMixin, StoreMixin, TabsMixin) {
     );
   }
 
+  shouldForceUpdate(message = this.state.errorMsg) {
+    return message && /force=true/.test(message);
+  }
+
   getErrorMessage() {
     let {errorMsg} = this.state;
     if (!errorMsg) {
       return null;
     }
+
+    if (this.shouldForceUpdate(errorMsg)) {
+      return (
+        <h4 className="text-align-center text-danger flush-top">
+          App is currently locked by one or more deployments. Press the button
+          again to forcefully change and deploy the new configuration.
+        </h4>
+      );
+    }
+
     return (
       <p className="text-danger flush-top">{errorMsg}</p>
     );

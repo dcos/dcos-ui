@@ -56,6 +56,10 @@ class ServiceScaleFormModal extends mixin(StoreMixin) {
     });
   }
 
+  shouldForceUpdate(message = this.state.errorMsg) {
+    return message && /force=true/.test(message);
+  }
+
   onMarathonStoreServiceEditSuccess() {
     this.resetState();
     this.props.onClose();
@@ -73,7 +77,7 @@ class ServiceScaleFormModal extends mixin(StoreMixin) {
       MarathonStore.editService({
         id: this.props.service.id,
         instances: parseInt(instances, 10)
-      });
+      }, this.shouldForceUpdate(this.state.errorMsg));
     });
   }
 
@@ -82,6 +86,16 @@ class ServiceScaleFormModal extends mixin(StoreMixin) {
     if (!errorMsg) {
       return null;
     }
+
+    if (this.shouldForceUpdate(errorMsg)) {
+      return (
+        <h4 className="text-align-center text-danger flush-top">
+            App is currently locked by one or more deployments. Press the button
+            again to forcefully change and deploy the new configuration.
+        </h4>
+      );
+    }
+
     return (
       <h4 className="text-align-center text-danger flush-top">{errorMsg}</h4>
     );
