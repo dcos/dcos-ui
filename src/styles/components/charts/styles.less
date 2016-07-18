@@ -1,350 +1,369 @@
-.chart {
-  display: flex;
-  flex-direction: column;
-  transform: translateZ(0);
+/* -----------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+charts/styles.less
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+----------------------------------------------------------------------------- */
 
-  .chart-chart {
-    position: relative;
-    flex-grow: 1;
-  }
+& when (@charts-enabled) {
 
-  svg {
-    display: block;
-  }
+  .chart {
+    display: flex;
+    flex-direction: column;
+    transform: translateZ(0);
 
-  svg .background {
-    fill: fade(@neutral, 80%);
-  }
-
-  .axis path,
-  .grid-graph .tick,
-  .axis line {
-    fill: none;
-    stroke: fade(@white, 6%);
-    stroke-width: 1px;
-    shape-rendering: crispEdges;
-  }
-
-  .axis text {
-    fill: @body-text-inverse-color;
-  }
-
-  .axis text.current-value {
-    fill: @white;
-  }
-
-  .axis text.current-value.shadow {
-    text-shadow: 0px 0px 10px fade(@white, 6%);
-  }
-
-  .unsuccessful-block {
-    fill: @black;
-  }
-
-  [class*="path-color"] .unsuccessful-block {
-    fill: inherit;
-    fill-opacity: 1;
-  }
-
-  .arc,
-  .area,
-  .bar rect {
-    &.path-color-0 {
-      stroke: @resource-cpu-color;
-      fill: @resource-cpu-color;
+    .chart-chart {
+      position: relative;
+      flex-grow: 1;
     }
 
-    &.path-color-1 {
-      stroke: @yellow;
-      fill: @yellow;
-    }
+    svg {
+      display: block;
 
-    &.path-color-2 {
-      stroke: @red;
-      fill: @red;
-    }
-
-    &.path-color-3 {
-      stroke: @resource-disk-color;
-      fill: @resource-disk-color;
-    }
-
-    &.path-color-4 {
-      stroke: @green;
-      fill: @green;
-    }
-
-    &.path-color-5 {
-      stroke: @orange;
-      fill: @orange;
-    }
-
-    &.path-color-6 {
-      stroke: @resource-mem-color;
-      fill: @resource-mem-color;
-    }
-    &.path-color-7 {
-      stroke: @body-text-mute-color;
-      fill: @body-text-mute-color;
-      opacity: 0.2;
-    }
-  }
-
-  .area {
-    fill-opacity: 0.3;
-    stroke-width: 0;
-  }
-
-  .arc path {
-    stroke-width: 4px;
-    stroke: @panel-background-color;
-  }
-
-  .line {
-    stroke-width: 2px;
-    fill: none;
-    &.path-color-0 {
-      stroke: @resource-cpu-color;
-    }
-
-    &.path-color-1 {
-      stroke: @yellow;
-    }
-
-    &.path-color-2 {
-      stroke: @red;
-    }
-
-    &.path-color-3 {
-      stroke: @resource-disk-color;
-    }
-
-    &.path-color-4 {
-      stroke: @green;
-    }
-
-    &.path-color-5 {
-      stroke: @orange;
-    }
-
-    &.path-color-6 {
-      stroke: @resource-mem-color;
-    }
-  }
-
-  .barchart {
-    .bar {
-      stroke-width: 0px;
-
-      line {
-        fill-opacity: 1;
-        stroke-width: 2px;
-
-        &.hidden,
-        &.invisble {
-          stroke-width: 0px;
-        }
+      .background {
+        fill: fade(@neutral, 80%);
       }
     }
 
-    .axis {
-      &.x path {
-        display: none;
-      }
-
-      &.y {
-        &.inverse path {
-          stroke: fade(@neutral, 10%);
-        }
-
-        path {
-          stroke: @neutral;
-        }
-      }
-
-      line {
-        display: none;
-      }
+    .axis path,
+    .grid-graph .tick,
+    .axis line {
+      fill: none;
+      stroke: fade(@white, 6%);
+      stroke-width: 1px;
+      shape-rendering: crispEdges;
     }
 
-    .grid-graph {
-      .grid.y {
-        .tick:first-child line {
-          stroke-dasharray: 0,0;
-        }
-      }
-
-      &.inverse line {
-        stroke: fade(@neutral, 10%);
-      }
-
-      line {
-        stroke: @neutral;
-        stroke-dasharray: 4,4;
-      }
-    }
-  }
-
-  .timeseries-chart {
-    position: absolute;
-    left: 0;
-    top: 0;
-
-    .moving-elements {
-      position: absolute;
-      left: 0;
-      top: 0;
-      transform: translateZ(0);
-    }
-  }
-
-  .timeseries-chart,
-  .barchart {
-
-    .axis {
-
-      &.x,
-      &.y {
-        font-size: @small-text-font-size;
-
-        .domain {
-          display: none;
-        }
-      }
-    }
-  }
-
-  .unit-bordered-horizontal {
-    border-right: 1px solid @border-color;
-
-    &:last-child {
-      border-right: none;
+    .axis text {
+      fill: @chart-axis-text-color;
     }
 
-    .panel-inverse & {
-      border-color: @border-color-inverse;
-    }
-  }
-
-  & when (@typography-enabled) {
-    .unit {
+    .axis text.current-value {
       fill: @white;
-      line-height: 1;
     }
 
-    .unit-label {
-      fill: @resource-cpu-color;
+    .axis text.current-value.shadow {
+      text-shadow: 0px 0px 10px fade(@white, 6%);
+    }
+
+    .unsuccessful-block {
+      fill: @black;
+    }
+
+    [class*="path-color"] .unsuccessful-block {
+      fill: inherit;
+      fill-opacity: 1;
+    }
+
+    .arc,
+    .area,
+    .bar rect {
+
       &.path-color-0 {
-        color: @resource-cpu-color;
+        fill: @purple;
+        stroke: @purple;
       }
 
       &.path-color-1 {
-        color: @yellow;
+        fill: @yellow;
+        stroke: @yellow;
       }
 
       &.path-color-2 {
-        color: @red;
+        fill: @red;
+        stroke: @red;
       }
 
       &.path-color-3 {
-        color: @resource-disk-color;
+        fill: @blue;
+        stroke: @blue;
       }
 
       &.path-color-4 {
-        color: @green;
+        fill: @green;
+        stroke: @green;
       }
 
       &.path-color-5 {
-        color: @orange;
+        fill: @orchid;
+        stroke: @orchid;
       }
 
       &.path-color-6 {
-        color: @resource-mem-color;
+        fill: @pink;
+        stroke: @pink;
       }
-    }
 
-    .text-danger {
-      fill: @red;
-    }
-
-    .text-success {
-      fill: @green;
-    }
-
-    .text-muted {
-      fill: @body-text-mute-color;
-    }
-  }
-
-}
-
-.dropdown-chart-details {
-
-  position: relative;
-  z-index: @z-index-dropdown-chart-details;
-
-}
-
-.dygraph-chart-wrapper {
-
-  .dot {
-
-    display: inline-block;
-    margin-right: 6px;
-
-  }
-
-  .dygraph-label,
-  .graph-legend {
-
-    font-size: @body-text-font-size;
-
-  }
-
-  .dygraph-axis-label {
-
-    color: color-lighten(@neutral, 40);
-    font-size: @body-text-font-size * 0.75;
-
-    &.dygraph-axis-label-y {
-
-      padding-right: 5px;
-
-      em {
-
-        color: color-lighten(@neutral, 20);
-
+      &.path-color-7 {
+        fill: @label-muted-color;
+        opacity: 0.2;
+        stroke: @label-muted-color;
       }
 
     }
 
+    .area {
+      fill-opacity: 0.3;
+      stroke-width: 0;
+    }
+
+    .arc path {
+      stroke-width: 4px;
+      stroke: @panel-background-color;
+    }
+
+    .line {
+      fill: none;
+      stroke-width: 2px;
+
+      &.path-color-0 {
+        stroke: @purple;
+      }
+
+      &.path-color-1 {
+        stroke: @yellow;
+      }
+
+      &.path-color-2 {
+        stroke: @red;
+      }
+
+      &.path-color-3 {
+        stroke: @blue;
+      }
+
+      &.path-color-4 {
+        stroke: @green;
+      }
+
+      &.path-color-5 {
+        stroke: @orchid;
+      }
+
+      &.path-color-6 {
+        stroke: @pink;
+      }
+
+    }
+
+    .barchart {
+
+      .bar {
+        stroke-width: 0px;
+
+        line {
+          fill-opacity: 1;
+          stroke-width: 2px;
+
+          &.hidden,
+          &.invisble {
+            stroke-width: 0px;
+          }
+
+        }
+
+      }
+
+      .axis {
+
+        &.x path {
+          display: none;
+        }
+
+        &.y {
+
+          &.inverse path {
+            stroke: fade(@neutral, 10%);
+          }
+
+          path {
+            stroke: @neutral;
+          }
+
+        }
+
+        line {
+          display: none;
+        }
+
+      }
+
+      .grid-graph {
+
+        .grid.y {
+
+          .tick:first-child line {
+            stroke-dasharray: 0,0;
+          }
+
+        }
+
+        &.inverse line {
+          stroke: fade(@neutral, 10%);
+        }
+
+        line {
+          stroke: @neutral;
+          stroke-dasharray: 4,4;
+        }
+
+      }
+
+    }
+
+    .timeseries-chart {
+      left: 0;
+      position: absolute;
+      top: 0;
+
+      .moving-elements {
+        left: 0;
+        position: absolute;
+        top: 0;
+        transform: translateZ(0);
+      }
+
+    }
+
+    .timeseries-chart,
+    .barchart {
+
+      .axis {
+
+        &.x,
+        &.y {
+          font-size: 0.8rem;
+
+          .domain {
+            display: none;
+          }
+
+        }
+
+      }
+
+    }
+
+    .unit-bordered-horizontal {
+      border-right: 1px solid @chart-axis-color;
+
+      &:last-child {
+        border-right: none;
+      }
+
+      .panel-inverse & {
+        border-color: @chart-axis-color-inverse;
+      }
+
+    }
+
+    & when (@typography-enabled) {
+
+      .unit {
+        fill: @white;
+        line-height: 1;
+      }
+
+      .unit-label {
+        fill: @purple;
+
+        &.path-color-0 {
+          color: @purple;
+        }
+
+        &.path-color-1 {
+          color: @yellow;
+        }
+
+        &.path-color-2 {
+          color: @red;
+        }
+
+        &.path-color-3 {
+          color: @blue;
+        }
+
+        &.path-color-4 {
+          color: @green;
+        }
+
+        &.path-color-5 {
+          color: @orchid;
+        }
+
+        &.path-color-6 {
+          color: @pink;
+        }
+      }
+
+      .text-danger {
+        fill: @red;
+      }
+
+      .text-success {
+        fill: @green;
+      }
+
+      .text-muted {
+        fill: @label-muted-color;
+      }
+
+    }
+
   }
 
-  .graph-legend {
+  .dropdown-chart-details {
+    position: relative;
+    z-index: @z-index-dropdown-chart-details;
+  }
 
-    display: flex;
-    justify-content: center;
-    margin-top: 10px;
+  .dygraph-chart-wrapper {
 
-    & > span {
+    .dot {
+      display: inline-block;
+      margin-right: 6px;
+    }
 
-      margin-left: 10px;
+    .dygraph-label,
+    .graph-legend {
+      font-size: 1rem;
+    }
 
-      &.disabled {
+    .dygraph-axis-label {
+      color: color-lighten(@neutral, 40);
+      font-size: 0.75rem;
 
-        opacity: 0.7;
+      &.dygraph-axis-label-y {
+        padding-right: 5px;
+
+        em {
+          color: color-lighten(@neutral, 20);
+        }
 
       }
 
-      &:hover {
+    }
 
-        color: color-lighten(@black, 40);
+    .graph-legend {
+      display: flex;
+      justify-content: center;
+      margin-top: 10px;
 
-      }
+      & > span {
+        margin-left: 10px;
 
-      &:first {
+        &.disabled {
+          opacity: 0.7;
+        }
 
-        margin-left: 0px;
+        &:hover {
+          color: color-lighten(@black, 40);
+        }
+
+        &:first {
+          margin-left: 0px;
+        }
 
       }
 
@@ -352,49 +371,42 @@
 
   }
 
-}
+  .dygraph-chart {
+    position: relative;
+    z-index: @z-index-dygraph-chart;
 
-.dygraph-chart {
+    .dygraph-hover-label {
+      background-color: #171A22;
+      border: 1px solid #000;
+      border-radius: 4px;
+      color: #9B9FA8;
+      font-size: 0.9rem;
+      padding: 6px 8px;
+      pointer-events: none;
+      position: absolute;
+      width: 200px;
+      z-index: @z-index-dygraph-hover-label;
 
-  position: relative;
-  z-index: @z-index-dygraph-chart;
+      .highlight {
+        background-color: transparent;
+      }
 
-  .dygraph-hover-label {
+      span {
+        color: #fff;
 
-    background-color: #171A22;
-    border: 1px solid #000;
-    border-radius: 4px;
-    color: #9B9FA8;
-    font-size: @body-text-font-size * 0.9;
-    padding: 6px 8px;
-    pointer-events: none;
-    position: absolute;
-    width: 200px;
-    z-index: @z-index-dygraph-hover-label;
+        b {
 
-    .highlight {
+          span {
 
-      background-color: transparent;
-
-    }
-
-    span {
-
-      color: #fff;
-
-      b {
-
-        span {
-
-          &:before {
-
-            background-color: currentColor;
-            border-radius: 8px;
-            content: '';
-            display: inline-block;
-            height: 8px;
-            margin-right: 4px;
-            width: 8px;
+            &:before {
+              background-color: currentColor;
+              border-radius: 8px;
+              content: '';
+              display: inline-block;
+              height: 8px;
+              margin-right: 4px;
+              width: 8px;
+            }
 
           }
 
@@ -406,26 +418,395 @@
 
   }
 
+  .chart-dialchart {
+    position: absolute;
+
+    .description {
+      display: flex;
+      height: 100%;
+      flex-direction: column;
+      justify-content: center;
+      left: 0;
+      position: absolute;
+      text-align: center;
+      top: 0;
+      width: 100%;
+
+      .icon {
+        display: inline-block;
+      }
+
+    }
+
+  }
+
+  /**********************************/
+  /*  Specific to Nodes Grid View   */
+  /**********************************/
+  .nodes-grid-dials {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    margin-left: -(ceil(@base-spacing-unit * 0.3333));
+    margin-right: -(ceil(@base-spacing-unit * 0.3333));
+
+    .nodes-grid-dials-item {
+      height: ceil(@base-spacing-unit * 3.33);
+      margin-bottom: ceil(@base-spacing-unit * 0.3333);
+      margin-right: ceil(@base-spacing-unit * 0.3333);
+      width: ceil(@base-spacing-unit * 3.33);
+
+      .chart-dialchart {
+
+        // Remove stroke when dials are in small containers
+        .arc path {
+          stroke-width: 1px;
+          stroke: @panel-background-color;
+        }
+
+        .arc {
+          &.path-color-0 {
+            stroke: @resource-cpu-color;
+            fill: @resource-cpu-color;
+          }
+
+          &.path-color-1 {
+            stroke: @yellow;
+            fill: @yellow;
+          }
+
+          &.path-color-2 {
+            stroke: @red;
+            fill: @red;
+          }
+
+          &.path-color-3 {
+            stroke: @resource-disk-color;
+            fill: @resource-disk-color;
+          }
+
+          &.path-color-4 {
+            stroke: @green;
+            fill: @green;
+          }
+
+          &.path-color-5 {
+            stroke: @orange;
+            fill: @orange;
+          }
+
+          &.path-color-6 {
+            stroke: @resource-mem-color;
+            fill: @resource-mem-color;
+          }
+
+          &.path-color-7 {
+            stroke: @cyan;
+            fill: @cyan;
+          }
+
+          &.path-color-8 {
+            stroke: @unique-color-1;
+            fill: @unique-color-1;
+          }
+
+          &.path-color-9 {
+            stroke: @unique-color-2;
+            fill: @unique-color-2;
+          }
+
+          &.path-color-10 {
+            stroke: @unique-color-3;
+            fill: @unique-color-3;
+          }
+
+          &.path-color-11 {
+            stroke: @unique-color-4;
+            fill: @unique-color-4;
+          }
+
+          &.path-color-12 {
+            stroke: @unique-color-5;
+            fill: @unique-color-5;
+          }
+
+          &.path-color-13 {
+            stroke: @unique-color-6;
+            fill: @unique-color-6;
+          }
+
+          &.path-color-14 {
+            stroke: @unique-color-7;
+            fill: @unique-color-7;
+          }
+
+          &.path-color-15 {
+            stroke: @unique-color-8;
+            fill: @unique-color-8;
+          }
+
+          &.path-color-16 {
+            stroke: @unique-color-9;
+            fill: @unique-color-9;
+          }
+
+          &.path-color-17 {
+            stroke: @unique-color-10;
+            fill: @unique-color-10;
+          }
+
+          &.path-color-18 {
+            stroke: @unique-color-11;
+            fill: @unique-color-11;
+          }
+
+          &.path-color-19 {
+            stroke: @unique-color-12;
+            fill: @unique-color-12;
+          }
+
+          &.path-color-20 {
+            stroke: @unique-color-13;
+            fill: @unique-color-13;
+          }
+
+          &.path-color-21 {
+            stroke: @unique-color-14;
+            fill: @unique-color-14;
+          }
+
+          &.path-color-22 {
+            stroke: @unique-color-15;
+            fill: @unique-color-15;
+          }
+
+          &.path-color-23 {
+            stroke: @unique-color-16;
+            fill: @unique-color-16;
+          }
+
+          &.path-color-24 {
+            stroke: @unique-color-17;
+            fill: @unique-color-17;
+          }
+
+          &.path-color-25 {
+            stroke: @unique-color-18;
+            fill: @unique-color-18;
+          }
+
+          &.path-color-26 {
+            stroke: @unique-color-19;
+            fill: @unique-color-19;
+          }
+
+          &.path-color-27 {
+            stroke: @unique-color-20;
+            fill: @unique-color-20;
+          }
+
+          &.path-color-28 {
+            stroke: @unique-color-21;
+            fill: @unique-color-21;
+          }
+
+          &.path-color-29 {
+            stroke: @unique-color-22;
+            fill: @unique-color-22;
+          }
+
+          &.path-color-30 {
+            stroke: @unique-color-23;
+            fill: @unique-color-23;
+          }
+
+          &.path-color-31 {
+            stroke: @unique-color-24;
+            fill: @unique-color-24;
+          }
+
+          &.path-color-32 {
+            stroke: color-lighten(@neutral, 40);
+            fill: color-lighten(@neutral, 40);
+          }
+
+          &.path-color-unused {
+            stroke: color-lighten(@neutral, 5);
+            fill: color-lighten(@neutral, 5);
+          }
+
+        }
+
+        .unit {
+          color: @white;
+          font-size: 16px;
+        }
+
+        .unit-label {
+          font-size: 11px;
+        }
+
+        .error {
+          position: relative;
+          top: -2px;
+        }
+
+      }
+
+    }
+
+    .nodes-grid-dials-spacer {
+      height: 0;
+      margin-right: ceil(@base-spacing-unit * 0.3333);
+      width: ceil(@base-spacing-unit * 3.33);
+    }
+
+  }
+
 }
 
-& when (@panel-enabled) and (@screen-mini-enabled) {
+& when (@charts-enabled) and (@layout-screen-small-enabled) {
 
-  @media (min-width: @screen-mini) {
+  @media (min-width: @layout-screen-small-min-width) {
 
     .chart {
 
       .unit-bordered-horizontal-mini {
-        border-right: 1px solid @border-color;
-        margin-top: @base-spacing-unit * 1/4;
+        border-right: 1px solid @chart-axis-color;
+        margin-top: @base-spacing-unit-screen-small * 1/4;
 
         &:last-child {
           border-right: none;
         }
 
         .panel-inverse & {
-          border-color: @border-color-inverse;
+          border-color: @chart-axis-color-inverse;
         }
+
       }
+
     }
+
+    .nodes-grid-dials {
+      margin-left: -(ceil(@base-spacing-unit-screen-small * 0.3333));
+      margin-right: -(ceil(@base-spacing-unit-screen-small * 0.3333));
+
+      .nodes-grid-dials-item {
+        height: ceil(@base-spacing-unit-screen-small * 3.33);
+        margin-bottom: ceil(@base-spacing-unit-screen-small * 0.3333);
+        margin-right: ceil(@base-spacing-unit-screen-small * 0.3333);
+        width: ceil(@base-spacing-unit-screen-small * 3.33);
+      }
+
+      .nodes-grid-dials-spacer {
+        margin-right: ceil(@base-spacing-unit-screen-small * 0.3333);
+        width: ceil(@base-spacing-unit-screen-small * 3.33);
+      }
+
+    }
+
   }
+
+}
+
+& when (@charts-enabled) and (@layout-screen-medium-enabled) {
+
+  @media (min-width: @layout-screen-medium-min-width) {
+
+    .chart {
+
+      .unit-bordered-horizontal-mini {
+        margin-top: @base-spacing-unit-screen-medium * 1/4;
+      }
+
+    }
+
+    .nodes-grid-dials {
+      margin-left: -(ceil(@base-spacing-unit-screen-medium * 0.3333));
+      margin-right: -(ceil(@base-spacing-unit-screen-medium * 0.3333));
+
+      .nodes-grid-dials-item {
+        height: ceil(@base-spacing-unit-screen-medium * 3.33);
+        margin-right: ceil(@base-spacing-unit-screen-medium * 0.3333);
+        margin-bottom: ceil(@base-spacing-unit-screen-medium * 0.3333);
+        width: ceil(@base-spacing-unit-screen-medium * 3.33);
+      }
+
+      .nodes-grid-dials-spacer {
+        margin-right: ceil(@base-spacing-unit-screen-medium * 0.3333);
+        width: ceil(@base-spacing-unit-screen-medium * 3.33);
+      }
+
+    }
+
+  }
+
+}
+
+& when (@charts-enabled) and (@layout-screen-large-enabled) {
+
+  @media (min-width: @layout-screen-large-min-width) {
+
+    .chart {
+
+      .unit-bordered-horizontal-mini {
+        margin-top: @base-spacing-unit-screen-large * 1/4;
+      }
+
+    }
+
+    .nodes-grid-dials {
+      margin-left: -(ceil(@base-spacing-unit-screen-large * 0.3333));
+      margin-right: -(ceil(@base-spacing-unit-screen-large * 0.3333));
+
+      .nodes-grid-dials-item {
+        height: ceil(@base-spacing-unit-screen-large * 3.33);
+        margin-right: ceil(@base-spacing-unit-screen-large * 0.3333);
+        margin-bottom: ceil(@base-spacing-unit-screen-large * 0.3333);
+        width: ceil(@base-spacing-unit-screen-large * 3.33);
+      }
+
+      .nodes-grid-dials-spacer {
+        margin-right: ceil(@base-spacing-unit-screen-large * 0.3333);
+        width: ceil(@base-spacing-unit-screen-large * 3.33);
+      }
+
+    }
+
+  }
+
+}
+
+& when (@charts-enabled) and (@layout-screen-jumbo-enabled) {
+
+  @media (min-width: @layout-screen-jumbo-min-width) {
+
+    .chart {
+
+      .unit-bordered-horizontal-mini {
+        margin-top: @base-spacing-unit-screen-jumbo * 1/4;
+      }
+
+    }
+
+    .nodes-grid-dials {
+      margin-left: -(ceil(@base-spacing-unit-screen-jumbo * 0.3333));
+      margin-right: -(ceil(@base-spacing-unit-screen-jumbo * 0.3333));
+
+      .nodes-grid-dials-item {
+        height: ceil(@base-spacing-unit-screen-jumbo * 3.33);
+        margin-right: ceil(@base-spacing-unit-screen-jumbo * 0.3333);
+        margin-bottom: ceil(@base-spacing-unit-screen-jumbo * 0.3333);
+        width: ceil(@base-spacing-unit-screen-jumbo * 3.33);
+      }
+
+      .nodes-grid-dials-spacer {
+        margin-right: ceil(@base-spacing-unit-screen-jumbo * 0.3333);
+        width: ceil(@base-spacing-unit-screen-jumbo * 3.33);
+      }
+
+    }
+
+  }
+
 }
