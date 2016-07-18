@@ -250,58 +250,54 @@ charts/styles.less
 
     }
 
-    & when (@typography-enabled) {
+    .unit {
+      fill: @white;
+      line-height: 1;
+    }
 
-      .unit {
-        fill: @white;
-        line-height: 1;
+    .unit-label {
+      fill: @purple;
+
+      &.path-color-0 {
+        color: @purple;
       }
 
-      .unit-label {
-        fill: @purple;
-
-        &.path-color-0 {
-          color: @purple;
-        }
-
-        &.path-color-1 {
-          color: @yellow;
-        }
-
-        &.path-color-2 {
-          color: @red;
-        }
-
-        &.path-color-3 {
-          color: @blue;
-        }
-
-        &.path-color-4 {
-          color: @green;
-        }
-
-        &.path-color-5 {
-          color: @orchid;
-        }
-
-        &.path-color-6 {
-          color: @pink;
-        }
-
+      &.path-color-1 {
+        color: @yellow;
       }
 
-      .text-danger {
-        fill: @red;
+      &.path-color-2 {
+        color: @red;
       }
 
-      .text-success {
-        fill: @green;
+      &.path-color-3 {
+        color: @blue;
       }
 
-      .text-muted {
-        fill: @label-muted-color;
+      &.path-color-4 {
+        color: @green;
       }
 
+      &.path-color-5 {
+        color: @orchid;
+      }
+
+      &.path-color-6 {
+        color: @pink;
+      }
+
+    }
+
+    .text-danger {
+      fill: @red;
+    }
+
+    .text-success {
+      fill: @green;
+    }
+
+    .text-muted {
+      fill: @label-muted-color;
     }
 
   }
@@ -440,14 +436,14 @@ charts/styles.less
     display: flex;
     flex-flow: row wrap;
     justify-content: space-around;
-    margin-left: -(ceil(@base-spacing-unit * 0.3333));
-    margin-right: -(ceil(@base-spacing-unit * 0.3333));
+    margin-left: -(ceil(@base-spacing-unit * 1/3));
+    margin-right: -(ceil(@base-spacing-unit * 1/3));
 
     .nodes-grid-dials-item {
-      height: ceil(@base-spacing-unit * 3.33);
-      margin-bottom: ceil(@base-spacing-unit * 0.3333);
-      margin-right: ceil(@base-spacing-unit * 0.3333);
-      width: ceil(@base-spacing-unit * 3.33);
+      height: ceil(@base-spacing-unit * (3 + 1/3));
+      margin-bottom: ceil(@base-spacing-unit * 1/3);
+      margin-right: ceil(@base-spacing-unit * 1/3);
+      width: ceil(@base-spacing-unit * (3 + 1/3));
 
       .chart-dialchart {
 
@@ -531,8 +527,8 @@ charts/styles.less
 
     .nodes-grid-dials-spacer {
       height: 0;
-      margin-right: ceil(@base-spacing-unit * 0.3333);
-      width: ceil(@base-spacing-unit * 3.33);
+      margin-right: ceil(@base-spacing-unit * 1/3);
+      width: ceil(@base-spacing-unit * (3 + 1/3));
     }
 
   }
@@ -562,19 +558,19 @@ charts/styles.less
     }
 
     .nodes-grid-dials {
-      margin-left: -(ceil(@base-spacing-unit-screen-small * 0.3333));
-      margin-right: -(ceil(@base-spacing-unit-screen-small * 0.3333));
+      margin-left: -(ceil(@base-spacing-unit-screen-small * 1/3));
+      margin-right: -(ceil(@base-spacing-unit-screen-small * 1/3));
 
       .nodes-grid-dials-item {
-        height: ceil(@base-spacing-unit-screen-small * 3.33);
-        margin-bottom: ceil(@base-spacing-unit-screen-small * 0.3333);
-        margin-right: ceil(@base-spacing-unit-screen-small * 0.3333);
-        width: ceil(@base-spacing-unit-screen-small * 3.33);
+        height: ceil(@base-spacing-unit-screen-small * (3 + 1/3));
+        margin-bottom: ceil(@base-spacing-unit-screen-small * 1/3);
+        margin-right: ceil(@base-spacing-unit-screen-small * 1/3);
+        width: ceil(@base-spacing-unit-screen-small * (3 + 1/3));
       }
 
       .nodes-grid-dials-spacer {
-        margin-right: ceil(@base-spacing-unit-screen-small * 0.3333);
-        width: ceil(@base-spacing-unit-screen-small * 3.33);
+        margin-right: ceil(@base-spacing-unit-screen-small * 1/3);
+        width: ceil(@base-spacing-unit-screen-small * (3 + 1/3));
       }
 
     }
@@ -596,19 +592,19 @@ charts/styles.less
     }
 
     .nodes-grid-dials {
-      margin-left: -(ceil(@base-spacing-unit-screen-medium * 0.3333));
-      margin-right: -(ceil(@base-spacing-unit-screen-medium * 0.3333));
+      margin-left: -(ceil(@base-spacing-unit-screen-medium * 1/3));
+      margin-right: -(ceil(@base-spacing-unit-screen-medium * 1/3));
 
       .nodes-grid-dials-item {
-        height: ceil(@base-spacing-unit-screen-medium * 3.33);
-        margin-right: ceil(@base-spacing-unit-screen-medium * 0.3333);
-        margin-bottom: ceil(@base-spacing-unit-screen-medium * 0.3333);
-        width: ceil(@base-spacing-unit-screen-medium * 3.33);
+        height: ceil(@base-spacing-unit-screen-medium * (3 + 1/3));
+        margin-right: ceil(@base-spacing-unit-screen-medium * 1/3);
+        margin-bottom: ceil(@base-spacing-unit-screen-medium * 1/3);
+        width: ceil(@base-spacing-unit-screen-medium * (3 + 1/3));
       }
 
       .nodes-grid-dials-spacer {
-        margin-right: ceil(@base-spacing-unit-screen-medium * 0.3333);
-        width: ceil(@base-spacing-unit-screen-medium * 3.33);
+        margin-right: ceil(@base-spacing-unit-screen-medium * 1/3);
+        width: ceil(@base-spacing-unit-screen-medium * (3 + 1/3));
       }
 
     }
@@ -630,19 +626,19 @@ charts/styles.less
     }
 
     .nodes-grid-dials {
-      margin-left: -(ceil(@base-spacing-unit-screen-large * 0.3333));
-      margin-right: -(ceil(@base-spacing-unit-screen-large * 0.3333));
+      margin-left: -(ceil(@base-spacing-unit-screen-large * 1/3));
+      margin-right: -(ceil(@base-spacing-unit-screen-large * 1/3));
 
       .nodes-grid-dials-item {
-        height: ceil(@base-spacing-unit-screen-large * 3.33);
-        margin-right: ceil(@base-spacing-unit-screen-large * 0.3333);
-        margin-bottom: ceil(@base-spacing-unit-screen-large * 0.3333);
-        width: ceil(@base-spacing-unit-screen-large * 3.33);
+        height: ceil(@base-spacing-unit-screen-large * (3 + 1/3));
+        margin-right: ceil(@base-spacing-unit-screen-large * 1/3);
+        margin-bottom: ceil(@base-spacing-unit-screen-large * 1/3);
+        width: ceil(@base-spacing-unit-screen-large * (3 + 1/3));
       }
 
       .nodes-grid-dials-spacer {
-        margin-right: ceil(@base-spacing-unit-screen-large * 0.3333);
-        width: ceil(@base-spacing-unit-screen-large * 3.33);
+        margin-right: ceil(@base-spacing-unit-screen-large * 1/3);
+        width: ceil(@base-spacing-unit-screen-large * (3 + 1/3));
       }
 
     }
@@ -664,19 +660,19 @@ charts/styles.less
     }
 
     .nodes-grid-dials {
-      margin-left: -(ceil(@base-spacing-unit-screen-jumbo * 0.3333));
-      margin-right: -(ceil(@base-spacing-unit-screen-jumbo * 0.3333));
+      margin-left: -(ceil(@base-spacing-unit-screen-jumbo * 1/3));
+      margin-right: -(ceil(@base-spacing-unit-screen-jumbo * 1/3));
 
       .nodes-grid-dials-item {
-        height: ceil(@base-spacing-unit-screen-jumbo * 3.33);
-        margin-right: ceil(@base-spacing-unit-screen-jumbo * 0.3333);
-        margin-bottom: ceil(@base-spacing-unit-screen-jumbo * 0.3333);
-        width: ceil(@base-spacing-unit-screen-jumbo * 3.33);
+        height: ceil(@base-spacing-unit-screen-jumbo * (3 + 1/3));
+        margin-right: ceil(@base-spacing-unit-screen-jumbo * 1/3);
+        margin-bottom: ceil(@base-spacing-unit-screen-jumbo * 1/3);
+        width: ceil(@base-spacing-unit-screen-jumbo * (3 + 1/3));
       }
 
       .nodes-grid-dials-spacer {
-        margin-right: ceil(@base-spacing-unit-screen-jumbo * 0.3333);
-        width: ceil(@base-spacing-unit-screen-jumbo * 3.33);
+        margin-right: ceil(@base-spacing-unit-screen-jumbo * 1/3);
+        width: ceil(@base-spacing-unit-screen-jumbo * (3 + 1/3));
       }
 
     }
