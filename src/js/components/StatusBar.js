@@ -8,43 +8,44 @@ const GROW_RATIO = 0.07;
 const MIN_SIZE = 7; // (% of statusBar width)
 
 function stealPortion(barSizes, indexesLessThanThreshold, unassignedPortion) {
-  if (indexesLessThanThreshold.length) {
-    // Try to steal some width from the largest portion
-    // and give it to the first portion in indexesLessThanThreshold
-    let maxSize = 0;
-    let maxIndex = 0;
-    // Find new Max (could be different after we've stolen from a portion already)
-    barSizes.forEach(function (relativeSize, index) {
-      if (relativeSize > maxSize) {
-        maxSize = relativeSize;
-        maxIndex = index;
-      }
-    });
-    // Possible we have unassigned portion that we should steal from first
-    if (unassignedPortion > maxSize) {
-      maxSize = unassignedPortion;
-      maxIndex = -1;
-    }
-
-    let currentGrowthIndex = indexesLessThanThreshold[0];
-    let sizeToSteal = maxSize * GROW_RATIO;
-    // Reassign the portion
-    barSizes[currentGrowthIndex] += sizeToSteal;
-    if (maxIndex > -1) {
-      barSizes[maxIndex] -= sizeToSteal;
-    } else {
-      unassignedPortion -= sizeToSteal;
-    }
-
-    if (barSizes[currentGrowthIndex] > MIN_SIZE) {
-      // Done with growing this portion. Otherwise it stays on the stack
-      // and will get another % added to it from the largest portion
-      // calculated in the next iteration.
-      indexesLessThanThreshold = indexesLessThanThreshold.slice(1);
-    }
-    // Recurse till we have grown everything above threshold
-    stealPortion(barSizes, indexesLessThanThreshold, unassignedPortion);
+  if (!indexesLessThanThreshold.length) {
+    return;
   }
+  // Try to steal some width from the largest portion
+  // and give it to the first portion in indexesLessThanThreshold
+  let maxSize = 0;
+  let maxIndex = 0;
+  // Find new Max (could be different after we've stolen from a portion already)
+  barSizes.forEach(function (relativeSize, index) {
+    if (relativeSize > maxSize) {
+      maxSize = relativeSize;
+      maxIndex = index;
+    }
+  });
+  // Possible we have unassigned portion that we should steal from first
+  if (unassignedPortion > maxSize) {
+    maxSize = unassignedPortion;
+    maxIndex = -1;
+  }
+
+  let currentGrowthIndex = indexesLessThanThreshold[0];
+  let sizeToSteal = maxSize * GROW_RATIO;
+  // Reassign the portion
+  barSizes[currentGrowthIndex] += sizeToSteal;
+  if (maxIndex > -1) {
+    barSizes[maxIndex] -= sizeToSteal;
+  } else {
+    unassignedPortion -= sizeToSteal;
+  }
+
+  if (barSizes[currentGrowthIndex] > MIN_SIZE) {
+    // Done with growing this portion. Otherwise it stays on the stack
+    // and will get another % added to it from the largest portion
+    // calculated in the next iteration.
+    indexesLessThanThreshold = indexesLessThanThreshold.slice(1);
+  }
+  // Recurse till we have grown everything above threshold
+  stealPortion(barSizes, indexesLessThanThreshold, unassignedPortion);
 }
 
 class StatusBar extends React.Component {

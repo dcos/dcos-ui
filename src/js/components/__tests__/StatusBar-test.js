@@ -168,5 +168,60 @@ describe('#StatusBar', function () {
         ).toEqual('60%');
       });
     });
+
+    describe('Growing small .bar portions to be visible when below threshold',
+      function () {
+
+        it('should not have .bar elements < 7% width', function () {
+          ReactDOM.render(
+            <StatusBar
+              data={[
+                {
+                  value: 99
+                },
+                {
+                  value: 1
+                }
+              ]}
+              className="test-bar"/>,
+            this.container
+          );
+          let percentages = [];
+          [].slice.call(this.container.querySelectorAll('.bar')).forEach(function (el) {
+            percentages.push(parseInt(el.style.width.replace('%', '')));
+          });
+          expect(percentages.length).toBe(2);
+          expect(percentages.filter(percent => percent < 7).length).toBe(0);
+        });
+
+        it('should not have .bar elements < 7% width when using scale', function () {
+          ReactDOM.render(
+            <StatusBar
+              data={[
+                {
+                  value: 0
+                },
+                {
+                  value: 1
+                },
+                {
+                  value: 1
+                },
+                {
+                  value: 6
+                }
+              ]}
+              scale={100}
+              className="test-bar"/>,
+            this.container
+          );
+          let percentages = [];
+          [].slice.call(this.container.querySelectorAll('.bar')).forEach(function (el) {
+            percentages.push(parseInt(el.style.width.replace('%', '')));
+          });
+          expect(percentages.length).toBe(3);
+          expect(percentages.filter(percent => percent < 7).length).toBe(0);
+        });
+      });
   });
 });
