@@ -209,6 +209,7 @@ var ServicesTable = React.createClass({
         className,
         headerClassName: className,
         prop: 'status',
+        helpText: 'At-a-glance overview of the global application or group state',
         render: this.renderStatus,
         sortable: true,
         sortFunction: ServiceTableUtil.propCompareFunctionFactory,

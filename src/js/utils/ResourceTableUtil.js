@@ -2,9 +2,11 @@ const classNames = require('classnames');
 /* eslint-disable no-unused-vars */
 const React = require('react');
 /* eslint-enable no-unused-vars */
+import {Tooltip} from 'reactjs-components';
 
 import DateUtil from '../utils/DateUtil';
 const HealthSorting = require('../constants/HealthSorting');
+import Icon from '../components/Icon';
 const MarathonStore = require('../stores/MarathonStore');
 import TableUtil from '../utils/TableUtil';
 import Util from '../utils/Util';
@@ -93,6 +95,7 @@ var ResourceTableUtil = {
         `caret caret--${order}`,
         {'caret--visible': prop === sortBy.prop}
       );
+      let helpIcon = null;
 
       if (leftAlignCaret(prop) || prop === 'TASK_RUNNING') {
         caret.before = <span className={caretClassSet} />;
@@ -100,10 +103,22 @@ var ResourceTableUtil = {
         caret.after = <span className={caretClassSet} />;
       }
 
+      if (this.helpText != null) {
+        helpIcon = (
+          <Tooltip
+            content={this.helpText}
+            wrapText={true}
+            wrapperClassName="tooltip-wrapper text-align-center table-header-help-icon">
+            <Icon id="ring-question" size="mini" family="mini" color="grey" />
+          </Tooltip>
+        );
+      }
+
       return (
         <span>
           {caret.before}
           <span className="table-header-title">{title}</span>
+          {helpIcon}
           {caret.after}
         </span>
       );
