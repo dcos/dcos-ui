@@ -3,6 +3,7 @@ import React from 'react';
 /* eslint-enable no-unused-vars */
 import MesosConstants from '../../constants/MesosConstants';
 import ResourceValidatorUtil from '../../utils/ResourceValidatorUtil';
+import ServiceValidatorUtil from '../../utils/ServiceValidatorUtil';
 
 let General = {
   title: 'General',
@@ -19,6 +20,17 @@ let General = {
       type: 'string',
       getter: function (service) {
         return service.getId();
+      },
+      externalValidator: function ({general}, definition) {
+        if (!ServiceValidatorUtil.isValidServiceID(general.id)) {
+          definition.showError = 'ID must not be empty, must not contain ' +
+            'whitespace, and should not contain any other characters than ' +
+            'lowercase letters, digits, hyphens, ".", and ".."';
+
+          return false;
+        }
+
+        return true;
       }
     },
     resources: {
