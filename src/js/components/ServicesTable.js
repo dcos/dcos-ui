@@ -143,6 +143,7 @@ var ServicesTable = React.createClass({
 
   renderStatus: function (prop, service) {
     let instanceCount = service.getInstancesCount();
+    let serviceId = service.getId();
     let serviceStatus = service.getStatus();
     let serviceStatusClassSet = StatusMapping[serviceStatus] || '';
     let taskSummary = service.getTasksSummary();
@@ -157,7 +158,10 @@ var ServicesTable = React.createClass({
     return (
       <div className="status-bar-wrapper">
         <span className="status-bar-indicator">
-          <HealthBar tasksSummary={taskSummary} instancesCount={instanceCount} />
+          <HealthBar
+            key={serviceId}
+            tasksSummary={taskSummary}
+            instancesCount={instanceCount} />
         </span>
         <span className="status-bar-text">
           <span className={serviceStatusClassSet}>{serviceStatus}</span>
