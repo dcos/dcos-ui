@@ -15,6 +15,7 @@ describe('ServiceInfo', function () {
     id: '/group/test',
     healthChecks: [{path: '', protocol: 'HTTP'}],
     cpus: 1,
+    deployments: [],
     mem: 2048,
     disk: 0,
     tasksStaged: 0,
@@ -50,10 +51,10 @@ describe('ServiceInfo', function () {
       ).toEqual('foo.png');
     });
 
-    it('renders health state', function () {
+    it('renders app status, not health state', function () {
       expect(
         this.node.querySelector('.page-header-sub-heading').children[0].children[0].textContent
-      ).toEqual('Healthy');
+      ).toEqual('Running');
     });
 
     it('renders number of running tasks', function () {
