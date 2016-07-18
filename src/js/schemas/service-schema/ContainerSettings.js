@@ -58,7 +58,7 @@ const ContainerSettings = {
             }
             return null;
           }
-        },
+        }
       }
     },
     parameters: {

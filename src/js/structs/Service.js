@@ -178,7 +178,7 @@ module.exports = class Service extends Item {
       tasksStaged: this.get('tasksStaged'),
       tasksUnhealthy: this.get('tasksUnhealthy'),
       tasksUnknown: Math.max(0, this.get('tasksRunning') -
-        this.get('tasksHealthy') - this.get('tasksUnhealthy')),
+        this.get('tasksHealthy') - this.get('tasksUnhealthy'))
     };
 
     let tasksSum = Object.keys(healthData).reduce(function (sum, healthItem) {

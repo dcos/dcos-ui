@@ -85,7 +85,7 @@ class VolumeTable extends React.Component {
         heading: this.getColumnHeading,
         prop: 'id',
         render: this.renderIDColumn,
-        sortable: true,
+        sortable: true
       },
       {
         className: this.getColumnClassName,

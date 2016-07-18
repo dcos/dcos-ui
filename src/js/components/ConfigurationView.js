@@ -124,7 +124,7 @@ class ConfigurationView extends mixin(StoreMixin) {
         switch (healthCheck.protocol) {
           case 'COMMAND':
             headerValueMapping = Object.assign(headerValueMapping, {
-              'Command': healthCheck.command.value,
+              'Command': healthCheck.command.value
             });
             break;
           case 'HTTP':
@@ -133,7 +133,7 @@ class ConfigurationView extends mixin(StoreMixin) {
               'Port': healthCheck.port,
               'Port Index': healthCheck.portIndex,
               'Port Type': healthCheck.portType || 'PORT_INDEX',
-              'Ignore Http1xx': healthCheck.ignoreHttp1xx,
+              'Ignore Http1xx': healthCheck.ignoreHttp1xx
             });
             break;
           case 'TCP':
