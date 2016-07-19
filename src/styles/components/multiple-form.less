@@ -180,18 +180,13 @@ base/forms.less
       .multiple-form-right-column {
         // Make right column scroll
         flex: 1 1;
-        padding: @base-spacing-unit 0;
+        padding: 0;
       }
 
     }
 
     .form-panel {
-      padding-left: @base-spacing-unit;
-      padding-right: @base-spacing-unit;
-
-      > .form > *:last-child {
-        padding-bottom: @base-spacing-unit;
-      }
+      padding: @base-spacing-unit;
 
       > .form > .healthChecks {
         flex-direction: column;

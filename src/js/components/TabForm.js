@@ -161,7 +161,7 @@ class TabForm extends mixin(InternalStorageMixin) {
     let formRowClass = this.props.formRowClass;
 
     let panels = Object.keys(multipleDefinition).map((formKey, i) => {
-      let panelClassSet = classNames('form', {
+      let formPanelClassSet = classNames('form-panel', {
         'hidden': currentTab !== formKey
       });
 
@@ -173,9 +173,9 @@ class TabForm extends mixin(InternalStorageMixin) {
       let formRowClassSet = classNames('row', formRowClass, formKey);
 
       return (
-        <div key={i} className="form-panel">
+        <div key={i} className={formPanelClassSet}>
           <Form
-            className={panelClassSet}
+            className="form"
             formGroupClass="form-group flush"
             formRowClass={formRowClassSet}
             definition={formDefinition}
