@@ -152,7 +152,11 @@ module.exports = {
       {
         test: /\.(ico|icns)$/,
         loader: 'file?name=./[hash]-[name].[ext]',
-      }
+      },
+      {
+        test: /\.(ttf|woff)$/,
+        loader: 'file?name=./fonts/source-sans-pro/[name].[ext]',
+      },
     ],
     postLoaders: [
       {
