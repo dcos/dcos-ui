@@ -249,6 +249,21 @@ var ServicesTab = React.createClass({
   },
 
   getHeadline: function (services, filteredServices, hasFiltersApplied) {
+    if (this.state.searchString) {
+      return (
+        <ul className="breadcrumb-style-headline list-unstyled list-inline inverse">
+          <li className="h4 inverse">
+            Showing results for "{this.state.searchString}"
+          </li>
+          <li className="h4 clickable" onClick={this.resetFilter}>
+            <a className="small">
+              (Clear)
+            </a>
+          </li>
+        </ul>
+      );
+    }
+
     if (hasFiltersApplied) {
       return (
         <FilterHeadline
