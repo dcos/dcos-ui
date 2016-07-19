@@ -57,7 +57,6 @@ let jobsRoutes = {
           handler: JobDetailPage,
           name: 'jobs-page-detail',
           path: ':id/?',
-          hideHeaderNavigation: true,
           buildBreadCrumb: function () {
             return {
               parentCrumb: 'jobs-page',
