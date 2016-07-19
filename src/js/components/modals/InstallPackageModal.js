@@ -6,7 +6,9 @@ import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import CosmosErrorMessage from '../CosmosErrorMessage';
 import CosmosPackagesStore from '../../stores/CosmosPackagesStore';
+import defaultServiceImage from '../../../img/services/icon-service-default-large@2x.png';
 import Icon from '../Icon';
+import Image from '../Image';
 import InternalStorageMixin from '../../mixins/InternalStorageMixin';
 import ReviewConfig from '../ReviewConfig';
 import SchemaForm from '../SchemaForm';
@@ -340,7 +342,9 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
         <div className="modal-content">
           <div className="modal-content-inner modal-content-inner-tall horizontal-center">
             <div className="icon icon-jumbo icon-image-container icon-app-container">
-              <img src={cosmosPackage.getIcons()['icon-large']} />
+              <Image
+                fallbackSrc={defaultServiceImage}
+                src={cosmosPackage.getIcons()['icon-large']} />
             </div>
             <p className="h2 short-top short-bottom">{name}</p>
             <p className={packageVersionClasses}>{version}</p>
