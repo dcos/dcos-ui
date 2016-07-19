@@ -81,12 +81,43 @@ class FormTabContent extends React.Component {
   </span>
 </div>`;
 
-    let codeBlockFormControlsSizes =
-`<input type="text" class="form-control form-control-mini" />
-<input type="text" class="form-control form-control-small" />
-<input type="text" class="form-control" />
-<input type="text" class="form-control form-control-large" />
-<input type="text" class="form-control form-control-jumbo" />`;
+    let codeBlockFormControlSizes =
+`<input type="text" className="form-control form-control-mini" />
+<input type="text" className="form-control form-control-small" />
+<input type="text" className="form-control" />
+<input type="text" className="form-control form-control-large" />
+<input type="text" className="form-control form-control-jumbo" />`;
+
+  let codeBlockFormControlStates =
+`<div className="form-group">
+  <label>
+    Default Input
+  </label>
+  <input type="text" className="form-control" placeholder="Placeholder">
+  <p className="small flush-bottom">
+    Example block-level help text here.
+  </p>
+</div>
+
+<div className="form-group form-group-success">
+  <label>
+    Success Input
+  </label>
+  <input type="text" className="form-control" placeholder="Placeholder">
+  <p className="small flush-bottom">
+    Example block-level help text here.
+  </p>
+</div>
+
+<div className="form-group form-group-danger">
+  <label>
+    Danger Input
+  </label>
+  <input type="text" className="form-control" placeholder="Placeholder">
+  <p className="small flush-bottom">
+    Example block-level help text here.
+  </p>
+</div>`;
 
     return (
       <div>
@@ -685,13 +716,307 @@ class FormTabContent extends React.Component {
 
               <pre className="prettyprint transparent flush lang-html">
 
-                {codeBlockFormControlsSizes}
+                {codeBlockFormControlSizes}
 
               </pre>
 
             </div>
 
           </div>
+
+        </section>
+
+        <section id="forms-controls-states">
+
+          <h2>
+
+            Control States
+
+          </h2>
+
+          <section id="forms-controls-states-focus">
+
+            <h3>
+
+              Focus
+
+            </h3>
+
+            <p>
+
+              For form controls, we remove the default <code>outline</code> style added by most browsers.  On <code>:focus</code> we apply user-defined styling.  Similar styling attributes can be defined for the <code>:hover</code> state.
+
+            </p>
+
+            <div className="panel flush-bottom">
+
+              <div className="panel-cell">
+
+                <form className="form flush-bottom">
+
+                  <div className="row">
+
+                    <div className="column-small-12">
+
+                      <div className="form-group flush-bottom">
+
+                        <input type="text" className="form-control focus" id="form-control-focus" placeholder="Placeholder Text" />
+
+                      </div>
+
+                    </div>
+
+                  </div>
+
+                </form>
+
+              </div>
+
+            </div>
+
+          </section>
+
+          <section id="forms-controls-states-disabled">
+
+            <h3>
+
+              Disabled
+
+            </h3>
+
+            <p>
+
+              Add the <code>disabled</code> boolean attribute on an input to prevent user input and trigger a slightly different look.
+
+            </p>
+
+            <div className="panel flush-bottom">
+
+              <div className="panel-cell">
+
+                <form className="form flush-bottom">
+
+                  <div className="row">
+
+                    <div className="column-small-12">
+
+                      <div className="form-group flush-bottom">
+
+                        <input type="text" className="form-control" placeholder="Placeholder Text" disabled />
+
+                      </div>
+
+                    </div>
+
+                  </div>
+
+                </form>
+
+              </div>
+
+            </div>
+
+          </section>
+
+          <section id="forms-controls-states-validation">
+
+            <h3>
+
+              Validation
+
+            </h3>
+
+            <p>
+
+              Canvas includes validation states for success and error states for all form elements including <code>.form-control</code>, <code>checkbox</code>, and <code>label</code>.  Simply add class <code>.form-group-success</code> or <code>.form-group-error</code> to any <code>.form-group</code> and all components inside will reflect the appropriate state styling.
+
+            </p>
+
+            <div className="panel flush-bottom">
+
+              <div className="panel-cell">
+
+                <form className="form flush-bottom">
+
+                  <div className="row">
+
+                    <div className="column-small-6">
+
+                      <div className="form-group">
+
+                        <label>
+
+                          Default Input
+
+                        </label>
+
+                        <input type="text" className="form-control" placeholder="Placeholder" />
+
+                        <p className="small flush-bottom">
+
+                          Example block-level help text here.
+
+                        </p>
+
+                      </div>
+
+                    </div>
+
+                    <div className="column-small-6">
+
+                      <div className="form-group">
+
+                        <label>
+
+                          Default Select
+
+                        </label>
+
+                        <span className="form-control form-control-select">
+
+                          <select>
+
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+
+                          </select>
+
+                        </span>
+
+                      </div>
+
+                    </div>
+
+                  </div>
+
+                  <div className="row">
+
+                    <div className="column-small-6">
+
+                      <div className="form-group form-group-success">
+
+                        <label>
+
+                          Success Input
+
+                        </label>
+
+                        <input type="text" className="form-control form-control-success" placeholder="Placeholder" />
+
+                        <p className="small flush-bottom">
+
+                          Example block-level help text here.
+
+                        </p>
+
+                      </div>
+
+                    </div>
+
+                    <div className="column-small-6">
+
+                      <div className="form-group form-group-success">
+
+                        <label>
+
+                          Success Select
+
+                        </label>
+
+                        <span className="form-control form-control-success form-control-select">
+
+                          <select>
+
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+
+                          </select>
+
+                        </span>
+
+                      </div>
+
+                    </div>
+
+                  </div>
+
+                  <div className="row">
+
+                    <div className="column-small-6">
+
+                      <div className="form-group form-group-error">
+
+                        <label>
+
+                          Error Input
+
+                        </label>
+
+                        <input type="text" className="form-control form-control-error" placeholder="Input (Error)" />
+
+                        <p className="small flush-bottom">
+
+                          Example block-level help text here.
+
+                        </p>
+
+                      </div>
+
+                    </div>
+
+                    <div className="column-small-6">
+
+                      <div className="form-group form-group-error">
+
+                        <label>
+
+                          Error Select
+
+                        </label>
+
+                        <span className="form-control form-control-error form-control-select">
+
+                          <select>
+
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+
+                          </select>
+
+                        </span>
+
+                      </div>
+
+                    </div>
+
+                  </div>
+
+                </form>
+
+              </div>
+
+              <div className="panel-cell panel-cell-light panel-cell-code-block">
+
+                <pre className="prettyprint transparent flush lang-html">
+
+                  {codeBlockFormControlStates}
+
+                </pre>
+
+              </div>
+
+            </div>
+
+          </section>
 
         </section>
 
