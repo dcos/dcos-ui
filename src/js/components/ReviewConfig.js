@@ -1,9 +1,11 @@
 import GeminiScrollbar from 'react-gemini-scrollbar';
 import React from 'react';
 
+import defaultServiceImage from '../../img/services/icon-service-default-small@2x.png';
 import DescriptionList from './DescriptionList';
 import GeminiUtil from '../utils/GeminiUtil';
 import Icon from './Icon';
+import Image from './Image';
 
 class ReviewConfig extends React.Component {
   componentDidMount() {
@@ -38,7 +40,9 @@ class ReviewConfig extends React.Component {
               <div className="media-object media-object-align-middle">
                 <div className="media-object-item">
                   <div className="icon icon-medium icon-image-container icon-app-container icon-default-white">
-                    <img src={packageIcon} />
+                    <Image
+                      fallbackSrc={defaultServiceImage}
+                      src={packageIcon} />
                   </div>
                 </div>
                 <div className="media-object-item">

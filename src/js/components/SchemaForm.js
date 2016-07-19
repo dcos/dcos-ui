@@ -4,9 +4,11 @@ import React from 'react';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 import {Tooltip} from 'reactjs-components';
 
+import defaultServiceImage from '../../img/services/icon-service-default-small@2x.png';
 import FormUtil from '../utils/FormUtil';
 import GeminiUtil from '../utils/GeminiUtil';
 import Icon from './Icon';
+import Image from './Image';
 import InternalStorageMixin from '../mixins/InternalStorageMixin';
 import SchemaFormUtil from '../utils/SchemaFormUtil';
 import SchemaUtil from '../utils/SchemaUtil';
@@ -345,7 +347,9 @@ class SchemaForm extends mixin(StoreMixin, InternalStorageMixin) {
           <div className="media-object media-object-align-middle">
             <div className="media-object-item">
               <div className="icon icon-medium icon-image-container icon-app-container icon-default-white">
-                <img src={packageIcon} />
+                <Image
+                  fallbackSrc={defaultServiceImage}
+                  src={packageIcon} />
               </div>
             </div>
             <div className="media-object-item">
