@@ -1,0 +1,28 @@
+/* -----------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+code/variables.less
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+----------------------------------------------------------------------------- */
+
+
+
+& when (@code-enabled) {
+
+  & when (@code-block-prettyprint-enabled) {
+
+    pre.prettyprint {
+      border-radius: @code-border-radius;
+      border-style: @code-block-prettyprint-border-style;
+      border: @code-block-prettyprint-border-width @code-block-prettyprint-border-style @code-block-prettyprint-border-color;
+
+      &.inverse {
+        border-color: @code-block-prettyprint-border-color-inverse;
+      }
+
+    }
+
+  }
+
+}
