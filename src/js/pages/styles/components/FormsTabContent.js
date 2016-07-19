@@ -13,7 +13,7 @@ class FormTabContent extends React.Component {
         <label>
           First Name
         </label>
-        <input type="text" className="form-control" placeholder="">
+        <input type="text" className="form-control" placeholder="" />
       </div>
     </div>
     <div className="column-small-6">
@@ -21,7 +21,7 @@ class FormTabContent extends React.Component {
         <label>
           Last Name
         </label>
-        <input type="text" className="form-control" placeholder="">
+        <input type="text" className="form-control" placeholder="" />
       </div>
     </div>
   </div>
@@ -35,7 +35,7 @@ class FormTabContent extends React.Component {
 
     let codeBlockFormControls =
 `<div className="form-group">
-  <input type="text" className="form-control" placeholder="Placeholder Text">
+  <input type="text" className="form-control" placeholder="Placeholder Text" />
 </div>`;
 
     let codeBlockFormControlsTextArea =
@@ -80,6 +80,13 @@ class FormTabContent extends React.Component {
     </select>
   </span>
 </div>`;
+
+    let codeBlockFormControlsSizes =
+`<input type="text" class="form-control form-control-mini" />
+<input type="text" class="form-control form-control-small" />
+<input type="text" class="form-control" />
+<input type="text" class="form-control form-control-large" />
+<input type="text" class="form-control form-control-jumbo" />`;
 
     return (
       <div>
@@ -587,6 +594,104 @@ class FormTabContent extends React.Component {
             </div>
 
           </section>
+
+        </section>
+
+        <section id="forms-controls-sizes">
+
+          <h2>
+
+            Control Sizes
+
+          </h2>
+
+          <p>
+
+            Donec ullamcorper nulla non metus auctor fringilla. Maecenas sed diam eget risus varius blandit sit amet non magna. Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Donec id elit non mi porta gravida at eget metus.
+
+          </p>
+
+          <div className="panel flush-bottom">
+
+            <div className="panel-cell">
+
+              <form className="form flush-bottom">
+
+                <div className="form-group">
+
+                  <label>
+
+                    Mini
+
+                  </label>
+
+                  <input type="text" className="form-control form-control-mini" placeholder="Input (Mini)" />
+
+                </div>
+
+                <div className="form-group">
+
+                  <label>
+
+                    Small
+
+                  </label>
+
+                  <input type="text" className="form-control form-control-small" placeholder="Input (Small)" />
+
+                </div>
+
+                <div className="form-group">
+
+                  <label>
+
+                    Default
+
+                  </label>
+
+                  <input type="text" className="form-control" placeholder="Input (Default)" />
+
+                </div>
+
+                <div className="form-group">
+
+                  <label>
+
+                    Large
+
+                  </label>
+
+                  <input type="text" className="form-control form-control-large" placeholder="Input (Large)" />
+
+                </div>
+
+                <div className="form-group flush-bottom">
+
+                  <label>
+
+                    Jumbo
+
+                  </label>
+
+                  <input type="text" className="form-control form-control-jumbo" placeholder="Input (Jumbo)" />
+
+                </div>
+
+              </form>
+
+            </div>
+
+            <div className="panel-cell panel-cell-light panel-cell-code-block">
+
+              <pre className="prettyprint transparent flush lang-html">
+
+                {codeBlockFormControlsSizes}
+
+              </pre>
+
+            </div>
+
+          </div>
 
         </section>
 
