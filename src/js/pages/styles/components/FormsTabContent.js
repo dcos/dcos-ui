@@ -130,6 +130,17 @@ class FormTabContent extends React.Component {
   </p>
 </div>`;
 
+    let codeBlockFormHelpBlock =
+`<div class="form-group">
+  <label>
+  Input with help text
+  </label>
+  <input type="text" class="form-control" placeholder="Placeholder" />
+  <p class="small flush-bottom">
+    A block of help text that breaks onto a new line and may extend beyond one line.
+  </p>
+</div>`;
+
     return (
       <div>
 
@@ -1174,6 +1185,62 @@ class FormTabContent extends React.Component {
               <pre className="prettyprint code-block-inverse transparent flush lang-html">
 
                 {codeBlockFormControlInverse}
+
+              </pre>
+
+            </div>
+
+          </div>
+
+        </section>
+
+        <section id="forms-help-block">
+
+          <h2>
+
+            Help Block
+
+          </h2>
+
+          <p>
+
+            Block level help text or hint text for form controls.
+
+          </p>
+
+          <div className="panel flush-bottom">
+
+            <div className="panel-cell">
+
+              <form className="form flush-bottom">
+
+                <div className="form-group flush-bottom">
+
+                  <label>
+
+                    Input with help text
+
+                  </label>
+
+                  <input type="text" className="form-control" placeholder="Placeholder" />
+
+                  <p className="small flush-bottom">
+
+                    A block of help text that breaks onto a new line and may extend beyond one line.
+
+                  </p>
+
+                </div>
+
+              </form>
+
+            </div>
+
+            <div className="panel-cell panel-cell-light panel-cell-code-block">
+
+              <pre className="prettyprint transparent flush lang-html">
+
+                {codeBlockFormHelpBlock}
 
               </pre>
 
