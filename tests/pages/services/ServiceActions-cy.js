@@ -25,7 +25,7 @@ describe('Service Actions', function () {
           delay: 500
         });
       cy.get('.modal .button-collection .button-success')
-        .contains('Change and deploy configuration')
+        .contains('Deploy Changes')
         .click();
       cy.get('.modal').should('to.have.length', 0);
     });
