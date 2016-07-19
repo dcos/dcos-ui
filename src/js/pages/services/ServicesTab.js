@@ -273,6 +273,12 @@ var ServicesTab = React.createClass({
         return state[filterKey] != null && state[filterKey].length > 0;
       });
 
+    if (state.searchString) {
+      serviceTree = DCOSStore.serviceTree.filterItemsByFilter({
+        id: state.searchString
+      });
+    }
+
     let allServices = serviceTree.flattenItems().getItems();
     let filteredServices = serviceTree.getItems();
 
@@ -281,8 +287,7 @@ var ServicesTab = React.createClass({
         health: state.filterHealth,
         labels: state.filterLabels,
         other: state.filterOther,
-        status: state.filterStatus,
-        id: state.searchString
+        status: state.filterStatus
       });
 
       if (!state.searchString) {
