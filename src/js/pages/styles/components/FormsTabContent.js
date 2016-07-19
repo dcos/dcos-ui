@@ -33,6 +33,54 @@ class FormTabContent extends React.Component {
   </div>
 </form>`;
 
+    let codeBlockFormControls =
+`<div className="form-group">
+  <input type="text" className="form-control" placeholder="Placeholder Text">
+</div>`;
+
+    let codeBlockFormControlsTextArea =
+`<div className="form-group">
+  <textarea className="form-control" placeholder="Placeholder Text" rows="4"></textarea>
+</div>`;
+
+    let codeBlockFormControlsCheckboxes =
+`<div className="form-group">
+  <div className="checkbox">
+    <label>
+      <input type="checkbox">
+      First Option
+    </label>
+  </div>
+  <div className="checkbox">
+    <label>
+      <input type="checkbox">
+      Second Option
+    </label>
+  </div>
+  …
+</div>`;
+
+    let codeBlockFormControlsSelects =
+`<div className="form-group">
+  <span className="form-control form-control-select">
+    <select>
+      <option>1</option>
+      <option>2</option>
+      <option>…</option>
+    </select>
+  </span>
+</div>
+
+<div className="form-group">
+  <span className="form-control form-control-select form-control-select-multiple">
+    <select multiple>
+      <option>1</option>
+      <option>2</option>
+      <option>…</option>
+    </select>
+  </span>
+</div>`;
+
     return (
       <div>
 
@@ -220,7 +268,330 @@ class FormTabContent extends React.Component {
 
         </div>
 
+        <section id="forms-controls">
+
+          <h2>
+
+            Form Controls
+
+          </h2>
+
+          <section id="forms-controls-inputs">
+
+            <h3>
+
+              Inputs
+
+            </h3>
+
+            <p>
+
+              Donec ullamcorper nulla non metus auctor fringilla. Maecenas sed diam eget risus varius blandit sit amet non magna. Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Donec id elit non mi porta gravida at eget metus.
+
+            </p>
+
+            <div className="panel flush-bottom">
+
+              <div className="panel-cell">
+
+                <form className="form flush-bottom">
+
+                  <div className="row">
+
+                    <div className="column-small-12">
+
+                      <div className="form-group flush-bottom">
+
+                        <input type="text" className="form-control" placeholder="Placeholder Text" />
+
+                      </div>
+
+                    </div>
+
+                  </div>
+
+                </form>
+
+              </div>
+
+              <div className="panel-cell panel-cell-light panel-cell-code-block">
+
+                <pre className="prettyprint transparent flush lang-html">
+
+                  {codeBlockFormControls}
+
+                </pre>
+
+              </div>
+
+            </div>
+
+          </section>
+
+          <section id="forms-controls-textarea">
+
+            <h3>
+
+              Textarea
+
+            </h3>
+
+            <p>
+
+              Donec ullamcorper nulla non metus auctor fringilla. Maecenas sed diam eget risus varius blandit sit amet non magna. Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Donec id elit non mi porta gravida at eget metus.
+
+            </p>
+
+            <div className="panel flush-bottom">
+
+              <div className="panel-cell">
+
+                <form className="form flush-bottom">
+
+                  <div className="row">
+
+                    <div className="column-small-12">
+
+                      <div className="form-group flush-bottom">
+
+                        <textarea className="form-control" placeholder="Placeholder Text" rows="4"></textarea>
+
+                      </div>
+
+                    </div>
+
+                  </div>
+
+                </form>
+
+              </div>
+
+              <div className="panel-cell panel-cell-light panel-cell-code-block">
+
+                <pre className="prettyprint transparent flush lang-html">
+
+                  {codeBlockFormControlsTextArea}
+
+                </pre>
+
+              </div>
+
+            </div>
+
+          </section>
+
+          <section id="forms-controls-checkboxes-and-radios">
+
+            <h3>
+
+              Checkboxes &amp; Radios
+
+            </h3>
+
+            <p>
+
+              Donec ullamcorper nulla non metus auctor fringilla. Maecenas sed diam eget risus varius blandit sit amet non magna. Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Donec id elit non mi porta gravida at eget metus.
+
+            </p>
+
+            <div className="panel flush-bottom">
+
+              <div className="panel-cell">
+
+                <form className="form flush-bottom">
+
+                  <div className="row">
+
+                    <div className="column-small-12">
+
+                      <div className="form-group">
+
+                        <div className="checkbox">
+
+                          <label>
+
+                            <input type="checkbox" />
+
+                            First Option
+
+                          </label>
+
+                        </div>
+
+                        <div className="checkbox">
+
+                          <label>
+
+                            <input type="checkbox" />
+
+                            Second Option
+
+                          </label>
+
+                        </div>
+
+                        <div className="checkbox disabled">
+
+                          <label>
+
+                            <input type="checkbox" disabled="" />
+
+                            Third Option (Disabled)
+
+                          </label>
+
+                        </div>
+
+                      </div>
+
+                      <div className="form-group flush-bottom">
+
+                        <div className="radio">
+
+                          <label>
+
+                            <input type="radio" name="sample-radio-group" checked="" />
+
+                            First Option
+
+                          </label>
+
+                        </div>
+
+                        <div className="radio">
+
+                          <label>
+
+                            <input type="radio" name="sample-radio-group" />
+
+                            Second Option
+
+                          </label>
+
+                        </div>
+
+                        <div className="radio disabled">
+
+                          <label>
+
+                            <input type="radio" name="sample-radio-group" disabled="" />
+
+                            Third Option (Disabled)
+
+                          </label>
+
+                        </div>
+
+                      </div>
+
+                    </div>
+
+                  </div>
+
+                </form>
+
+              </div>
+
+              <div className="panel-cell panel-cell-light panel-cell-code-block">
+
+                <pre className="prettyprint transparent flush lang-html">
+
+                  {codeBlockFormControlsCheckboxes}
+
+                </pre>
+
+              </div>
+
+            </div>
+
+          </section>
+
+          <section id="forms-controls-selects">
+
+            <h3>
+
+              Selects
+
+            </h3>
+
+            <p>
+
+              Default styling for <code>select</code> elements are available, or mirror custom control styling by wrapping any select in <code>.form-control</code> class and add the additional class <code>.form-control-select</code>.  For selects of type <code>multiple</code> add the class <code>.form-control-select-multiple</code>.
+
+            </p>
+
+            <div className="panel flush-bottom">
+
+              <div className="panel-cell">
+
+                <form className="form flush-bottom">
+
+                  <div className="row">
+
+                    <div className="column-small-12">
+
+                      <div className="form-group">
+
+                        <span className="form-control form-control-select">
+
+                          <select>
+
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+
+                          </select>
+
+                        </span>
+
+                      </div>
+
+                      <div className="form-group flush-bottom">
+
+                        <span className="form-control form-control-select form-control-select-multiple">
+
+                          <select multiple>
+
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+
+                          </select>
+
+                        </span>
+
+                      </div>
+
+                    </div>
+
+                  </div>
+
+                </form>
+
+              </div>
+
+              <div className="panel-cell panel-cell-light panel-cell-code-block">
+
+                <pre className="prettyprint transparent flush lang-html">
+
+                  {codeBlockFormControlsSelects}
+
+                </pre>
+
+              </div>
+
+            </div>
+
+          </section>
+
+        </section>
+
       </div>
+
     );
   }
 }
