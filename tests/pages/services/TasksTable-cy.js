@@ -10,7 +10,8 @@ describe('Tasks Table', function () {
 
     it('displays task detail page on task click', function () {
       cy.visitUrl({url: '/services/%2Fcassandra/'});
-      cy.get('a[title="server-0"]').click();
+      cy.get('a[title="server-0_10ab666b-cf9b-44eb-bc53-b6dba1b7c737"]')
+        .click();
       cy.get('.page-content .h1').should('to.have.text', 'server-0');
     });
 
