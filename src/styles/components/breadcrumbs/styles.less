@@ -157,6 +157,16 @@ breadcrumbs/styles.less
 
   }
 
+  .breadcrumb-style-headline {
+    margin-bottom: @base-spacing-unit * 2/3;
+
+    .h4 {
+      font-size: 1.2rem;
+      line-height: @base-spacing-unit;
+    }
+
+  }
+
 }
 
 & when (@breadcrumbs-enabled) and (@layout-screen-small-enabled) {
@@ -309,12 +319,4 @@ breadcrumbs/styles.less
 
   }
 
-}
-
-.breadcrumb-style-headline {
-  margin-bottom: @base-spacing-unit * 2/3;
-  .h4 {
-    font-size: @body-text-font-size * 1.2;
-    line-height: @base-spacing-unit;
-  }
 }
