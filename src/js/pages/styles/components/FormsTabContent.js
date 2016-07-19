@@ -1,5 +1,6 @@
 import React from 'react';
 import SidebarActions from '../../../events/SidebarActions';
+import Icon from '../../../components/Icon';
 
 class FormTabContent extends React.Component {
 
@@ -131,14 +132,63 @@ class FormTabContent extends React.Component {
 </div>`;
 
     let codeBlockFormHelpBlock =
-`<div class="form-group">
+`<div className="form-group">
   <label>
   Input with help text
   </label>
-  <input type="text" class="form-control" placeholder="Placeholder" />
-  <p class="small flush-bottom">
+  <input type="text" className="form-control" placeholder="Placeholder" />
+  <p className="small flush-bottom">
     A block of help text that breaks onto a new line and may extend beyond one line.
   </p>
+</div>`;
+
+    let codeBlockFormControlGroups =
+`<!-- Input With Add On Before -->
+
+<div className="form-control-group">
+  <div className="form-control-group-add-on">
+    &hellip;
+  </div>
+  <input type="text" className="form-control" placeholder="Placeholder" />
+</div>
+
+<!-- Input With Add On After -->
+
+<div className="form-control-group">
+  <input type="text" className="form-control" placeholder="Placeholder" />
+  <div className="form-control-group-add-on">
+    &hellip;
+  </div>
+</div>
+
+<!-- Input With Nested Add On Before -->
+
+<div className="form-control-group form-control">
+  <span className="form-control-group-add-on form-control-group-add-on-prepend">
+    &hellip;
+  </span>
+  <input type="text" className="form-control" placeholder="Placeholder" />
+</div>
+
+<!-- Input With Nested Add On After -->
+
+<div className="form-control-group form-control">
+  <input type="text" className="form-control" placeholder="Placeholder" />
+  <span className="form-control-group-add-on form-control-group-add-on-append">
+    &hellip;
+  </span>
+</div>
+
+<!-- Input With Nested Add On Before &amp; After -->
+
+<div className="form-control-group form-control">
+  <span className="form-control-group-add-on form-control-group-add-on-prepend">
+    &hellip;
+  </span>
+  <input type="text" className="form-control" placeholder="Placeholder" />
+  <span className="form-control-group-add-on form-control-group-add-on-append">
+    &hellip;
+  </span>
 </div>`;
 
     return (
@@ -1241,6 +1291,168 @@ class FormTabContent extends React.Component {
               <pre className="prettyprint transparent flush lang-html">
 
                 {codeBlockFormHelpBlock}
+
+              </pre>
+
+            </div>
+
+          </div>
+
+        </section>
+
+        <section id="forms-form-control-groups">
+
+          <h2>
+
+            Form Control Groups
+
+          </h2>
+
+          <p>
+
+            Align elements alongside or inside <code>.form-control</code> elements by wrapping them in a <code>.form-control-group</code> element. Use the <code>.form-control-group-add-on</code> element to position elements.  If you add <code>.form-control</code> to the wrapping <code>.form-control-group</code> the <code>.form-control-group-add-on</code> will live inside the <code>.form-control</code> rather than outside it.
+
+          </p>
+
+          <div className="panel flush-bottom">
+
+            <div className="panel-cell">
+
+              <form className="form flush-bottom">
+
+                <div className="form-group">
+
+                  <label>
+
+                    Input With Add On (Before)
+
+                  </label>
+
+                  <div className="form-control-group">
+
+                    <div className="form-control-group-add-on">
+
+                      <button className="button">
+
+                        Test
+
+                      </button>
+
+                    </div>
+
+                    <input type="text" className="form-control" placeholder="Placeholder" />
+
+                  </div>
+
+                </div>
+
+                <div className="form-group">
+
+                  <label>
+
+                    Input With Add On (After)
+
+                  </label>
+
+                  <div className="form-control-group">
+
+                    <input type="text" className="form-control" placeholder="Placeholder" />
+
+                    <div className="form-control-group-add-on">
+
+                      <button className="button">
+
+                        Test
+
+                      </button>
+
+                    </div>
+
+                  </div>
+
+                </div>
+
+                <div className="form-group">
+
+                  <label>
+
+                    Input With Nested Add On (Before)
+
+                  </label>
+
+                  <div className="form-control-group form-control">
+
+                    <span className="form-control-group-add-on form-control-group-add-on-prepend">
+
+                      <Icon id="arrow-right" size="mini" family="mini" />
+
+                    </span>
+
+                    <input type="text" className="form-control" placeholder="Placeholder" />
+
+                  </div>
+
+                </div>
+
+                <div className="form-group">
+
+                  <label>
+
+                    Input With Nested Add On (After)
+
+                  </label>
+
+                  <div className="form-control-group form-control">
+
+                    <input type="text" className="form-control" placeholder="Placeholder" />
+
+                    <span className="form-control-group-add-on form-control-group-add-on-append">
+
+                      <Icon id="arrow-right" size="mini" family="mini" />
+
+                    </span>
+
+                  </div>
+
+                </div>
+
+                <div className="form-group flush-bottom">
+
+                  <label>
+
+                    Input With Nested Add On (Before & After)
+
+                  </label>
+
+                  <div className="form-control-group form-control">
+
+                    <span className="form-control-group-add-on form-control-group-add-on-prepend">
+
+                      <Icon id="arrow-right" size="mini" family="mini" />
+
+                    </span>
+
+                    <input type="text" className="form-control" placeholder="Placeholder" />
+
+                    <span className="form-control-group-add-on form-control-group-add-on-append">
+
+                      <Icon id="arrow-right" size="mini" family="mini" />
+
+                    </span>
+
+                  </div>
+
+                </div>
+
+              </form>
+
+            </div>
+
+            <div className="panel-cell panel-cell-light panel-cell-code-block">
+
+              <pre className="prettyprint transparent flush lang-html">
+
+                {codeBlockFormControlGroups}
 
               </pre>
 
