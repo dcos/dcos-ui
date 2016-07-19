@@ -1,4 +1,5 @@
 import {Hooks} from 'PluginSDK';
+import Classnames from 'classnames';
 import React from 'react';
 
 import FormUtil from '../utils/FormUtil';
@@ -233,8 +234,36 @@ class ServiceForm extends SchemaForm {
 
   updateDefinitions() {
     let {model} = this.internalStorage_get();
-    let {networking} = this.multipleDefinition;
+    let {networking, volumes} = this.multipleDefinition;
+    let {containerSettings} = model;
 
+    let showDockerVolumes = containerSettings &&
+      containerSettings.image != null && containerSettings.image !== '';
+    volumes.definition.forEach(function (item, index) {
+      let dockerList = false;
+      if (Array.isArray(item)) {
+        item.forEach(function (definitions) {
+          dockerList = dockerList || /docker/g.test(definitions.name);
+          if (!!definitions.fieldType && /docker/g.test(definitions.name)) {
+            if (definitions.fieldType === 'select') {
+              definitions.formElementClass = Classnames({
+                hidden: !showDockerVolumes
+              });
+            } else {
+              definitions.formGroupClass = Classnames('form-group flush', {
+                hidden: !showDockerVolumes
+              });
+            }
+          } else if (definitions.props && /docker/g.test(definitions.key)) {
+            definitions = React.cloneElement(definitions, {
+              className: Classnames(definitions.props.className, {
+                hidden: !showDockerVolumes
+              })
+            });
+          }
+        });
+      }
+    });
     if (networking) {
       let {networkType} = this.props.schema.properties.networking.properties;
 
