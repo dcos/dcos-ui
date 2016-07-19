@@ -27,7 +27,7 @@
   "dependencies": {
     "browser-info": "0.4.0",
     "canvas-ui": "0.2.1",
-    "cnvs": "1.0.4",
+    "cnvs": "1.0.5",
     "classnames": "2.2.3",
     "clipboard": "1.5.10",
     "cookie": "0.2.3",
