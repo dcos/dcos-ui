@@ -154,7 +154,7 @@ module.exports = {
         loader: 'file?name=./[hash]-[name].[ext]',
       },
       {
-        test: /\.ttf$/,
+        test: /\.(ttf|woff)$/,
         loader: 'file?name=./fonts/source-sans-pro/[name].[ext]',
       },
     ],
