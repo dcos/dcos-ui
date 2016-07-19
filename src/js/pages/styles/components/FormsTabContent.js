@@ -93,7 +93,7 @@ class FormTabContent extends React.Component {
   <label>
     Default Input
   </label>
-  <input type="text" className="form-control" placeholder="Placeholder">
+  <input type="text" className="form-control" placeholder="Placeholder" />
   <p className="small flush-bottom">
     Example block-level help text here.
   </p>
@@ -103,7 +103,7 @@ class FormTabContent extends React.Component {
   <label>
     Success Input
   </label>
-  <input type="text" className="form-control" placeholder="Placeholder">
+  <input type="text" className="form-control" placeholder="Placeholder" />
   <p className="small flush-bottom">
     Example block-level help text here.
   </p>
@@ -113,9 +113,20 @@ class FormTabContent extends React.Component {
   <label>
     Danger Input
   </label>
-  <input type="text" className="form-control" placeholder="Placeholder">
+  <input type="text" className="form-control" placeholder="Placeholder" />
   <p className="small flush-bottom">
     Example block-level help text here.
+  </p>
+</div>`;
+
+    let codeBlockFormControlInverse =
+`<div className="form-group">
+  <label className="inverse">
+    …
+  </label>
+  <input type="text" className="form-control form-control-inverse" />
+  <p className="small flush-bottom inverse">
+    …
   </p>
 </div>`;
 
@@ -1017,6 +1028,158 @@ class FormTabContent extends React.Component {
             </div>
 
           </section>
+
+        </section>
+
+        <section id="forms-controls-inverse-styling">
+
+          <h2>
+
+            Inverse Styling
+
+          </h2>
+
+          <p>
+
+            Donec ullamcorper nulla non metus auctor fringilla. Maecenas sed diam eget risus varius blandit sit amet non magna. Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Donec id elit non mi porta gravida at eget metus.
+
+          </p>
+
+          <div className="panel panel-inverse">
+
+            <div className="panel-cell panel-cell-inverse">
+
+              <form className="form flush-bottom">
+
+                <div className="row">
+
+                  <div className="column-small-6">
+
+                    <div className="form-group">
+
+                      <label className="inverse">
+
+                        First Name
+
+                      </label>
+
+                      <input type="text" className="form-control form-control-inverse" placeholder="" />
+
+                    </div>
+
+                  </div>
+
+                  <div className="column-small-6">
+
+                    <div className="form-group">
+
+                      <label className="inverse">
+
+                        Last Name
+
+                      </label>
+
+                      <input type="text" className="form-control form-control-inverse" placeholder="" />
+
+                    </div>
+
+                  </div>
+
+                </div>
+
+                <div className="row">
+
+                  <div className="column-small-6">
+
+                    <div className="form-group">
+
+                      <label className="inverse">
+
+                        Email address
+
+                      </label>
+
+                      <input type="email" className="form-control form-control-inverse" placeholder="email@domain.com" />
+
+                      <p className="small flush-bottom inverse">
+
+                        Please provide a valid email.
+
+                      </p>
+
+                    </div>
+
+                  </div>
+
+                  <div className="column-small-6">
+
+                    <div className="form-group">
+
+                      <label className="inverse">
+
+                        Password
+
+                      </label>
+
+                      <input type="password" className="form-control form-control-inverse" placeholder="" />
+
+                      <p className="small flush-bottom inverse">
+
+                        Must include atleast 1 number and 1 symbol.
+
+                      </p>
+
+                    </div>
+
+                  </div>
+
+                </div>
+
+                <div className="row">
+
+                  <div className="column-small-12">
+
+                    <div className="form-group">
+
+                      <label className="inverse">
+
+                        About Me
+
+                      </label>
+
+                      <textarea className="form-control form-control-inverse"></textarea>
+
+                    </div>
+
+                  </div>
+
+                </div>
+
+                <div className="button-collection flush-bottom">
+
+                  <button type="submit" className="button button-primary button-stroke button-inverse">
+
+                    Submit
+
+                  </button>
+
+                </div>
+
+              </form>
+
+            </div>
+
+            <div className="panel-cell panel-cell-dark panel-cell-inverse panel-cell-code-block">
+
+              <pre className="prettyprint code-block-inverse transparent flush lang-html">
+
+                {codeBlockFormControlInverse}
+
+              </pre>
+
+            </div>
+
+          </div>
 
         </section>
 
