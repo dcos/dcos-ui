@@ -347,7 +347,7 @@ class ServiceFormModal extends mixin(StoreMixin) {
 
   getSubmitText() {
     if (this.props.isEdit) {
-      return 'Change and deploy configuration';
+      return 'Deploy Changes';
     }
     return 'Deploy';
   }
