@@ -161,6 +161,16 @@ components/buttons.less
     flex-flow: row nowrap;
     justify-content: space-between;
 
+    .button-split-content-label {
+      flex: 1 1 auto;
+      text-align: left;
+    }
+
+    &:after {
+      align-self: center;
+      flex: 0 0 auto;
+    }
+
   }
 
   .button-inverse .badge {

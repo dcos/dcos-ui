@@ -85,6 +85,7 @@ class SidebarLabelsFilters extends mixin(QueryParamsMixin) {
       className: 'hidden',
       id: '0',
       html: 'Labels',
+      selectedHtml: <span className="button-split-content-label">Labels</span>,
       selectable: false
     }].concat(availableLabels);
 
