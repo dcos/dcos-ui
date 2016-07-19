@@ -25,6 +25,13 @@ module.exports = class Deployment extends Item {
   }
 
   /**
+   * @return {Array.<string>} an array of stale service IDs.
+   */
+  getStaleServiceIds() {
+    return this.get('staleServiceIds');
+  }
+
+  /**
    * @return {ServiceList} list of services affected by this deployment.
    */
   getAffectedServices() {

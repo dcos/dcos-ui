@@ -149,12 +149,17 @@ class DCOSStore extends EventEmitter {
         let services = ids.reduce(function (memo, id) {
           let service = serviceTree.findItemById(id);
           if (service != null) {
-            memo.push(service);
+            memo.affected.push(service);
+          } else {
+            memo.stale.push(id);
           }
           return memo;
-        }, []);
+        }, {affected: [], stale: []});
 
-        return Object.assign({affectedServices: services}, deployment);
+        return Object.assign({
+          affectedServices: services.affected,
+          staleServiceIds: services.stale
+        }, deployment);
       });
 
     this.emit(DCOS_CHANGE);
