@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import {Confirm, Dropdown} from 'reactjs-components';
+import {Confirm, Dropdown, Table} from 'reactjs-components';
 import {Link} from 'react-router';
 var React = require('react');
 import {StoreMixin} from 'mesosphere-shared-reactjs';
@@ -18,7 +18,6 @@ var ServiceTableHeaderLabels = require('../constants/ServiceTableHeaderLabels');
 import ServiceTableUtil from '../utils/ServiceTableUtil';
 import ServiceTree from '../structs/ServiceTree';
 import StringUtil from '../utils/StringUtil';
-import {Table} from 'reactjs-components';
 import TableUtil from '../utils/TableUtil';
 var Units = require('../utils/Units');
 
@@ -222,16 +221,20 @@ var ServicesTable = React.createClass({
   getDestroyConfirmDialog: function () {
     const {state} = this;
     let service = state.serviceToChange;
+    let itemText = 'Service';
+    if (service instanceof ServiceTree) {
+      itemText = 'Group';
+    }
 
     let message = (
       <div className="container-pod flush-top container-pod-short-bottom">
-        <h2 className="text-danger text-align-center flush-top">Destroy Service</h2>
+        <h2 className="text-danger text-align-center flush-top">Destroy {itemText}</h2>
         <p>Are you sure you want to destroy {service && service.getId()}? This action is irreversible.</p>
         {this.getErrorMessage()}
       </div>
     );
 
-    return  (
+    return (
       <Confirm children={message}
         disabled={state.disabledDialog === ServiceActionItem.DESTROY}
         open={state.serviceActionDialog === ServiceActionItem.DESTROY}
@@ -247,16 +250,20 @@ var ServicesTable = React.createClass({
   getSuspendConfirmDialog: function () {
     let service = this.state.serviceToChange;
     const {state} = this;
+    let itemText = 'Service';
+    if (service instanceof ServiceTree) {
+      itemText = 'Group';
+    }
 
     let message = (
       <div className="container-pod flush-top container-pod-short-bottom">
-        <h2 className="text-align-center flush-top">Suspend Service</h2>
+        <h2 className="text-align-center flush-top">Suspend {itemText}</h2>
         <p>Are you sure you want to suspend {service && service.getId()} by scaling to 0 instances?</p>
         {this.getErrorMessage()}
       </div>
     );
 
-    return  (
+    return (
       <Confirm children={message}
         disabled={state.disabledDialog === ServiceActionItem.SUSPEND}
         open={state.serviceActionDialog === ServiceActionItem.SUSPEND}
