@@ -11,6 +11,7 @@ var Config = {
   secretsAPIPrefix: '/secrets/v1',
   delayAfterErrorCount: 5,
   documentationURI: 'https://dcos.io/docs',
+  marathonJSONDocsURI: 'https://mesosphere.github.io/marathon/docs/generated/api.html#v2_apps_post',
   downloadsURI: 'https://downloads.dcos.io',
   environment: '@@ENV',
   historyLength: 31,

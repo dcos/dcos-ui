@@ -1,6 +1,6 @@
 import Ace from 'react-ace';
 import mixin from 'reactjs-mixin';
-import {Modal} from 'reactjs-components';
+import {Modal, Tooltip} from 'reactjs-components';
 import React from 'react';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
@@ -8,6 +8,8 @@ import 'brace/mode/json';
 import 'brace/theme/monokai';
 import 'brace/ext/language_tools';
 
+import Config from '../../config/Config';
+import Icon from '../Icon';
 import MarathonStore from '../../stores/MarathonStore';
 import ServiceForm from '../ServiceForm';
 import Service from '../../structs/Service';
@@ -373,16 +375,38 @@ class ServiceFormModal extends mixin(StoreMixin) {
     let {jsonDefinition, jsonMode, service} = this.state;
 
     if (jsonMode) {
+      let toolTipContent = (
+        <div>
+          Use the JSON editor to enter Marathon Application definitions manually.
+          {' '}
+          <a href={Config.marathonJSONDocsURI} target="_blank">
+            Read more here.
+          </a>
+        </div>
+      );
+
       return (
-        <Ace editorProps={{$blockScrolling: true}}
-          mode="json"
-          onChange={this.handleJSONChange}
-          showGutter={true}
-          showPrintMargin={false}
-          theme="monokai"
-          height="462px"
-          value={jsonDefinition}
-          width="100%"/>
+        <div className="ace-editor-container">
+          <Ace editorProps={{$blockScrolling: true}}
+            mode="json"
+            onChange={this.handleJSONChange}
+            showGutter={true}
+            showPrintMargin={false}
+            theme="monokai"
+            height="462px"
+            value={jsonDefinition}
+            width="100%"/>
+          <Tooltip
+            content={toolTipContent}
+            interactive={true}
+            wrapperClassName="tooltip-wrapper media-object-item json-editor-help"
+            wrapText={true}
+            maxWidth={300}
+            position="left"
+            scrollContainer=".gm-scroll-view">
+            <Icon color="grey" id="ring-question" size="mini" family="mini" />
+          </Tooltip>
+        </div>
       );
     }
 
