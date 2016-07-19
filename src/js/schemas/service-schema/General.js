@@ -1,6 +1,8 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
 /* eslint-enable no-unused-vars */
+import MesosConstants from '../../constants/MesosConstants';
+import ResourceValidatorUtil from '../../utils/ResourceValidatorUtil';
 
 let General = {
   title: 'General',
@@ -29,14 +31,34 @@ let General = {
           default: 1,
           getter: function (service) {
             return `${service.getCpus() || this.default}`;
+          },
+          externalValidator: function ({general}, definition) {
+            if (!ResourceValidatorUtil.isValidCPUSValue(general.cpus)) {
+              definition.showError = 'CPUs must be a number greater than ' +
+                `or equal to ${MesosConstants.MIN_CPUS}`;
+
+              return false;
+            }
+
+            return true;
           }
         },
         mem: {
-          title: 'Mem (MiB)',
+          title: 'Memory (MiB)',
           type: 'number',
           default: 128,
           getter: function (service) {
             return `${service.getMem() || this.default}`;
+          },
+          externalValidator: function ({general}, definition) {
+            if (!ResourceValidatorUtil.isValidMemoryValue(general.mem)) {
+              definition.showError = 'Memory must be a number greater than ' +
+                `or equal to ${MesosConstants.MIN_MEM}`;
+
+              return false;
+            }
+
+            return true;
           }
         },
         disk: {
@@ -45,6 +67,15 @@ let General = {
           default: 0,
           getter: function (service) {
             return `${service.getDisk() || this.default}`;
+          },
+          externalValidator: function ({general}, definition) {
+            if (!ResourceValidatorUtil.isValidDiskValue(general.disk)) {
+              definition.showError = 'Disk must be a non-negative number';
+
+              return false;
+            }
+
+            return true;
           }
         },
         instances: {
