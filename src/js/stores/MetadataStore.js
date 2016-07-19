@@ -70,6 +70,7 @@ class MetadataStore extends GetSetBaseStore {
   buildDocsURI(path) {
     let metadata = this.get('dcosMetadata');
     let version = metadata && metadata.version || 'latest';
+    version = version.split('-')[0];
     let docsVersion = version.replace(/(.*?)\.(.*?)\..*/, '$1.$2');
     return `${Config.documentationURI}/${docsVersion}${path}`;
   }
