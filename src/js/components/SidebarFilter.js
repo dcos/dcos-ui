@@ -139,30 +139,34 @@ class SidebarFilter extends mixin(QueryParamsMixin) {
     let {filterLabels, filterValues} = this.props;
     let {selectedNodes} = this.state;
 
-    return Object.keys(filterValues).map(filterValue => {
-      let value = filterValues[filterValue].toString();
-      let checked = selectedNodes.indexOf(value) > -1;
+    return Object.keys(filterLabels)
+      .filter(filterLabel => {
+        return filterValues[filterLabel] != null;
+      })
+      .map(filterLabel => {
+        let value = filterValues[filterLabel];
+        let checked = selectedNodes.indexOf(value.toString()) > -1;
 
-      let labelClassSet = classNames(
-        'side-list-item form-row-element form-element-checkbox inverse',
-        'row row-flex flex-align-items-center vertical-center flush clickable',
-        {
-          'filter-active': this.getCountByValue(filterValue) > 0,
-          'filter-checked': checked
-        }
-      );
+        let labelClassSet = classNames(
+          'side-list-item form-row-element form-element-checkbox inverse',
+          'row row-flex flex-align-items-center vertical-center flush clickable',
+          {
+            'filter-active': this.getCountByValue(filterLabel) > 0,
+            'filter-checked': checked
+          }
+        );
 
-      return {
-        checked,
-        checkboxLabelClass: 'form-element-checkbox-label flex-grow',
-        value: checked,
-        fieldType: 'checkbox',
-        formElementClass: 'form-row-element checkbox flush',
-        name: filterValue,
-        label:
-          this.getFormLabel(filterLabels[filterValue], filterValue),
-        labelClass: labelClassSet
-      };
+        return {
+          checked,
+          checkboxLabelClass: 'form-element-checkbox-label flex-grow',
+          value: checked,
+          fieldType: 'checkbox',
+          formElementClass: 'form-row-element checkbox flush',
+          name: filterLabel,
+          label:
+            this.getFormLabel(filterLabels[filterLabel], filterLabel),
+          labelClass: labelClassSet
+        };
     });
   }
 
