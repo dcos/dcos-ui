@@ -2,7 +2,7 @@ var ServiceTableHeaderLabels = {
   cpus: 'CPU',
   disk: 'DISK',
   mem: 'MEM',
-  name: 'SERVICE NAME',
+  name: 'NAME',
   status: 'STATUS'
 };
 
