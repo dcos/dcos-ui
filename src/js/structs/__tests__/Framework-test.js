@@ -67,13 +67,18 @@ describe('Framework', function () {
   describe('#getWebURL', function () {
 
     it('returns the url if the webui_url key is present', function () {
-      let service = new Framework({webui_url: 'foo', id: 'bar'});
-      expect(service.getWebURL()).toEqual('foo');
+      let service = new Framework({
+        webui_url: 'foo',
+        labels: {
+          DCOS_PACKAGE_FRAMEWORK_NAME: 'baz'
+        }
+      });
+      expect(service.getWebURL()).toEqual('/service/baz');
     });
 
-    it('returns a dynamically created url if an ID is defined but is not webui_url', function () {
-      let service = new Framework({id: 'foo'});
-      expect(service.getWebURL()).toEqual('/service/foo');
+    it('returns the url with the app id', function () {
+      let service = new Framework({webui_url: 'foo', id: 'bar'});
+      expect(service.getWebURL()).toEqual('/service/bar');
     });
 
     it('returns null if the id and webui_url keys are not present', function () {
@@ -82,7 +87,7 @@ describe('Framework', function () {
     });
 
     it('returns null if the id is an empty string and webui_url is undefined', function () {
-      let service = new Framework({id: ''});
+      let service = new Framework({id: '', webui_url: 'foo'});
       expect(service.getWebURL()).toEqual(null);
     });
 

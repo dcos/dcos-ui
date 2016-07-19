@@ -41,17 +41,12 @@ module.exports = class Framework extends Service {
 
   getWebURL() {
     let url = this.get('webui_url');
+    let name = this.getName();
 
-    if (url != null && url !== '') {
-      return url;
+    if (!url || !name) {
+      return null;
     }
 
-    let name = super.getName();
-
-    if (name != null && name !== '') {
-      return `${Config.rootUrl}/service/${name}`;
-    }
-
-    return null;
+    return `${Config.rootUrl}/service/${name}`;
   }
 };
