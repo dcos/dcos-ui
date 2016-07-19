@@ -126,10 +126,10 @@ Text Size
 
 // Line Height
 
-@body-line-height:                                                              @body-font-size * 1.3;
+@body-line-height:                                                              floor(@body-font-size * 1.3);
 @body-line-height-screen-small:                                                 null;
 @body-line-height-screen-medium:                                                null;
-@body-line-height-screen-large:                                                 @body-font-size-screen-large * 1.3;
+@body-line-height-screen-large:                                                 floor(@body-font-size-screen-large * 1.3);
 @body-line-height-screen-jumbo:                                                 null;
 
 
