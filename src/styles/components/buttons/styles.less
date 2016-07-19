@@ -1,0 +1,334 @@
+/* -----------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+buttons/styles.less
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+----------------------------------------------------------------------------- */
+
+& when (@buttons-enabled) {
+
+  // TODO: https://github.com/dcos/dcos-ui/pull/741#discussion_r71219313
+  .go-to-bottom-button {
+    bottom: 32px;
+    left: 50%;
+    position: absolute;
+    transform: translateX(-50%);
+  }
+
+  .button {
+
+    &-enter,
+    &-appear {
+      opacity: 0.01;
+      transform: translate(-50%, -100%);
+      transition: transform 350ms ease-in, opacity 350ms ease-in;
+
+      &-leave {
+        opacity: 1;
+        transform: translate(-50%, 0);
+      }
+
+      &.button {
+
+        &-enter-active,
+        &-appear-active {
+          opacity: 1;
+          transform: translate(-50%, 0);
+        }
+
+        &-leave-active {
+          opacity: 0.01;
+          transform: translate(-50%, -100%);
+          transition: transform 350ms ease-in, opacity 350ms ease-in;
+        }
+
+      }
+
+    }
+
+    // TODO: https://github.com/dcos/dcos-ui/pull/741#discussion_r71219594
+    &.button-short {
+      height: auto;
+      padding-bottom: 4px;
+      padding-top: 4px;
+    }
+
+    // TODO: https://github.com/dcos/dcos-ui/pull/741#discussion_r71219660
+    &.button-fixed-width {
+
+      &.button-fixed-width-small {
+        width: @base-spacing-unit * 3;
+      }
+
+    }
+
+    &-up-arrow,
+    &-down-arrow {
+
+      &:after {
+        border-left: 5px solid transparent;
+        border-right: 5px solid transparent;
+        content: '';
+        display: inline-block;
+        vertical-align: middle;
+      }
+
+    }
+
+    &-up-arrow {
+
+      &:after {
+        border-bottom: 6px solid color-lighten(@neutral, 10);
+      }
+
+    }
+
+    &-down-arrow {
+
+      &:after {
+        border-top: 6px solid color-lighten(@neutral, 10);
+      }
+
+    }
+
+  }
+
+  .button-collection {
+
+    // TODO: https://github.com/dcos/dcos-ui/pull/741#discussion_r71220184
+    & > .dropdown {
+      margin-bottom: @button-collection-margin-vertical;
+      margin-right: @button-collection-margin-horizontal;
+      vertical-align: middle;
+    }
+
+    &.button-collection-stacked {
+
+      .button {
+        margin-right: 0;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+
+      }
+
+    }
+
+  }
+
+  // TODO: https://github.com/dcos/dcos-ui/pull/741#discussion_r71220271
+  .button-group {
+    margin-bottom: @base-spacing-unit * 0.5;
+
+    // TODO: https://github.com/dcos/dcos-ui/pull/741#discussion-diff-71220439
+    .dot {
+      margin-right: @base-spacing-unit * 0.25;
+    }
+
+    .badge {
+      margin-left: @base-spacing-unit * 0.25;
+    }
+
+    // TODO: https://github.com/dcos/dcos-ui/pull/741#discussion_r71220726
+    &-directions {
+      white-space: nowrap;
+
+      .button {
+        background: color-lighten(@neutral, 90);
+        display: inline-block;
+        float: none;
+      }
+
+    }
+
+  }
+
+  .button-align-content {
+    align-items: center;
+    display: flex;
+    flex-flow: row nowrap;
+  }
+
+  // TODO: https://github.com/dcos/dcos-ui/pull/741#discussion-diff-71220632
+  .button-split-content {
+    align-items: center;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+  }
+
+  .button-inverse .badge {
+    background-color: @white;
+  }
+
+}
+
+& when (@buttons-enabled) and (@layout-screen-small-enabled) {
+
+  @media (min-width: @layout-screen-small-min-width) {
+
+    .button {
+
+      &.button-fixed-width {
+
+        &.button-fixed-width-small {
+          width: @base-spacing-unit-screen-small * 3;
+        }
+
+      }
+
+    }
+
+    .button-collection {
+
+      & > .dropdown {
+        margin-bottom: @button-collection-margin-vertical-screen-small;
+        margin-right: @button-collection-margin-horizontal-screen-small;
+      }
+
+    }
+
+    .button-group {
+      margin-bottom: @base-spacing-unit-screen-small * 0.5;
+
+      .dot {
+        margin-right: @base-spacing-unit-screen-small * 0.25;
+      }
+
+      .badge {
+        margin-left: @base-spacing-unit-screen-small * 0.25;
+      }
+
+    }
+
+  }
+
+}
+
+& when (@buttons-enabled) and (@layout-screen-medium-enabled) {
+
+  @media (min-width: @layout-screen-medium-min-width) {
+
+    .button {
+
+      &.button-fixed-width {
+
+        &.button-fixed-width-small {
+          width: @base-spacing-unit-screen-medium * 3;
+        }
+
+      }
+
+    }
+
+    .button-collection {
+
+      & > .dropdown {
+        margin-bottom: @button-collection-margin-vertical-screen-medium;
+        margin-right: @button-collection-margin-horizontal-screen-medium;
+      }
+
+    }
+
+    .button-group {
+      margin-bottom: @base-spacing-unit-screen-medium * 0.5;
+
+      .dot {
+        margin-right: @base-spacing-unit-screen-medium * 0.15;
+      }
+
+      .badge {
+        margin-left: @base-spacing-unit-screen-medium * 0.15;
+      }
+
+    }
+
+  }
+
+}
+
+& when (@buttons-enabled) and (@layout-screen-large-enabled) {
+
+  @media (min-width: @layout-screen-large-min-width) {
+
+    .button {
+
+      &.button-fixed-width {
+
+        &.button-fixed-width-small {
+          width: @base-spacing-unit-screen-large * 3;
+        }
+
+      }
+
+    }
+
+    .button-collection {
+
+      & > .dropdown {
+        margin-bottom: @button-collection-margin-vertical-screen-large;
+        margin-right: @button-collection-margin-horizontal-screen-large;
+      }
+
+    }
+
+    .button-group {
+      margin-bottom: @base-spacing-unit-screen-large * 0.5;
+
+      .dot {
+        margin-right: @base-spacing-unit-screen-large * 0.15;
+      }
+
+      .badge {
+        margin-left: @base-spacing-unit-screen-large * 0.15;
+      }
+
+    }
+
+  }
+
+}
+
+& when (@buttons-enabled) and (@layout-screen-jumbo-enabled) {
+
+  @media (min-width: @layout-screen-jumbo-min-width) {
+
+    .button {
+
+      &.button-fixed-width {
+
+        &.button-fixed-width-small {
+          width: @base-spacing-unit-screen-jumbo * 3;
+        }
+
+      }
+
+    }
+
+    .button-collection {
+
+      & > .dropdown {
+        margin-bottom: @button-collection-margin-vertical-screen-jumbo;
+        margin-right: @button-collection-margin-horizontal-screen-jumbo;
+      }
+
+    }
+
+    .button-group {
+      margin-bottom: @base-spacing-unit-screen-jumbo * 0.5;
+
+      .dot {
+        margin-right: @base-spacing-unit-screen-jumbo * 0.15;
+      }
+
+      .badge {
+        margin-left: @base-spacing-unit-screen-jumbo * 0.15;
+      }
+
+    }
+
+  }
+
+}
