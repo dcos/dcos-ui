@@ -27,7 +27,7 @@ class HealthBar extends React.Component {
       let classSet = classNames(HealthBarStates[task].className, 'dot icon');
 
       return (
-        <div key={index}>
+        <div key={index} className="tooltip-line-item">
           <span className={classSet} />
           {` ${tasksSummary[task]} ${HealthBarStates[task].label} `}
           <span className="health-bar-tooltip-instances-total">
