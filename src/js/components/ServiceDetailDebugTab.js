@@ -1,9 +1,9 @@
 import React from 'react';
 
-import TimeAgo from './TimeAgo';
 import DescriptionList from './DescriptionList';
 import Service from '../structs/Service';
 import TaskStatsTable from './TaskStatsTable';
+import TimeAgo from './TimeAgo';
 
 class ServiceDetailDebugTab extends React.Component {
   getValueText(value) {
@@ -32,9 +32,11 @@ class ServiceDetailDebugTab extends React.Component {
       'State': this.getValueText(state),
       'Message': this.getValueText(message),
       'Host': this.getValueText(host),
-      'Timestamp': <span>
-        {timestamp} (<TimeAgo time={new Date(timestamp)} />)
-      </span>,
+      'Timestamp': (
+        <span>
+          {timestamp} (<TimeAgo time={new Date(timestamp)} />)
+        </span>
+      ),
       'Version': <span>{version} (<TimeAgo time={new Date(version)} />)</span>
     };
 
