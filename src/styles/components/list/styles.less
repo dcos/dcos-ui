@@ -1,77 +1,159 @@
-.list {
-  width: 100%;
+/* -----------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+list/styles.less
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+----------------------------------------------------------------------------- */
 
-  &.list-narrow {
 
-    li {
-      padding-left: @base-spacing-unit * 1/2;
+
+& when (@list-enabled) {
+
+  .list {
+    width: 100%;
+
+    &.list-narrow {
+
+      li {
+        padding-left: @base-spacing-unit * 1/2;
+      }
     }
-  }
 
-  .list-item {
-  	display: flex;
-    border-top: 1px solid @neutral;
-    margin: 0;
-    padding: (@base-spacing-unit * 0.25) 0;
+    .list-item {
+    	display: flex;
+      border-top: 1px solid @neutral;
+      margin: 0;
+      padding: (@base-spacing-unit * 1/4) 0;
 
-    &:first-child {
-      border-top-color: transparent;
+      &:first-child {
+        border-top-color: transparent;
+      }
     }
-  }
 
-  &.list-inline {
-    .list-item-aligned-right {
-      float: right;
-    }
-  }
-}
-
-.list-inline-separator {
-  margin: 0 @base-spacing-unit * 1/6;
-  vertical-align: middle;
-}
-
-/* Screen Size: Mini (@screen-mini) and above */
-& when (@screen-mini-enabled) {
-  @media (min-width: @screen-mini) {
-    .list {
-      .list-item {
-        padding: (@base-spacing-unit-screen-mini * 0.25) 0;
+    &.list-inline {
+      .list-item-aligned-right {
+        float: right;
       }
     }
   }
-}
 
-/* Screen Size: Small (@screen-small) and above */
-& when (@screen-small-enabled) {
-  @media (min-width: @screen-small) {
-    .list {
-      .list-item {
-        padding: (@base-spacing-unit-screen-small * 0.25) 0;
-      }
-    }
+  .list-inline-separator {
+    margin: 0 @base-spacing-unit * 1/6;
+    vertical-align: middle;
   }
+
 }
 
-/* Screen Size: Medium (@screen-medium) and above */
-& when (@screen-medium-enabled) {
-  @media (min-width: @screen-medium) {
+& when (@layout-screen-small-enabled) {
+
+  @media (min-width: @layout-screen-small-min-width) {
+
     .list {
-      .list-item {
-        padding: (@base-spacing-unit-screen-medium * 0.25) 0;
+
+      &.list-narrow {
+
+        li {
+          padding-left: @base-spacing-unit-screen-small * 1/2;
+        }
+
       }
+
+      .list-item {
+        padding: (@base-spacing-unit-screen-small * 1/4) 0;
+      }
+
     }
+
+    .list-inline-separator {
+      margin: 0 @base-spacing-unit-screen-small * 1/6;
+    }
+
   }
+
 }
 
-/* Screen Size: Large (@screen-large) and above */
-& when (@screen-large-enabled) {
-  @media (min-width: @screen-large) {
+& when (@layout-screen-medium-enabled) {
+
+  @media (min-width: @layout-screen-medium-min-width) {
+
     .list {
-      .list-item {
-        padding: (@base-spacing-unit-screen-large * 0.25) 0;
+
+      &.list-narrow {
+
+        li {
+          padding-left: @base-spacing-unit-screen-medium * 1/2;
+        }
+
       }
+
+      .list-item {
+        padding: (@base-spacing-unit-screen-medium * 1/4) 0;
+      }
+
     }
+
+    .list-inline-separator {
+      margin: 0 @base-spacing-unit-screen-medium * 1/6;
+    }
+
   }
+
 }
 
+& when (@layout-screen-large-enabled) {
+
+  @media (min-width: @layout-screen-large-min-width) {
+
+    .list {
+
+      &.list-narrow {
+
+        li {
+          padding-left: @base-spacing-unit-screen-large * 1/2;
+        }
+
+      }
+
+      .list-item {
+        padding: (@base-spacing-unit-screen-large * 1/4) 0;
+      }
+
+    }
+
+    .list-inline-separator {
+      margin: 0 @base-spacing-unit-screen-large * 1/6;
+    }
+
+  }
+
+}
+
+
+& when (@layout-screen-jumbo-enabled) {
+
+  @media (min-width: @layout-screen-jumbo-min-width) {
+
+    .list {
+
+      &.list-narrow {
+
+        li {
+          padding-left: @base-spacing-unit-screen-jumbo * 1/2;
+        }
+
+      }
+
+      .list-item {
+        padding: (@base-spacing-unit-screen-jumbo * 1/4) 0;
+      }
+
+    }
+
+    .list-inline-separator {
+      margin: 0 @base-spacing-unit-screen-jumbo * 1/6;
+    }
+
+  }
+
+}
