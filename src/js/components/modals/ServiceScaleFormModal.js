@@ -67,10 +67,9 @@ class ServiceScaleFormModal extends mixin(StoreMixin) {
 
   onMarathonStoreServiceEditError({message:errorMsg = '', details: details}) {
     this.resetState();
-    let isErrorMsgToShort = errorMsg.toLowerCase() === 'object is not valid' &&
-      details.length !== 0;
+    let hasDetails = details && details.length !== 0;
 
-    if (isErrorMsgToShort) {
+    if (hasDetails) {
       this.setState({
         errorMsg: details.reduce(function (memo, error) {
 
