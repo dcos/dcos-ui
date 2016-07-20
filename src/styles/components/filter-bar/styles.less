@@ -1,111 +1,91 @@
-@filter-bar-item-spacing-vertical:                                              @base-spacing-unit * 1/4;
-@filter-bar-item-spacing-horizontal:                                            0;
-@filter-bar-item-spacing-vertical-screen-mini:                                  @base-spacing-unit-screen-mini * 1/4;
-@filter-bar-item-spacing-horizontal-screen-mini:                                @button-collection-spacing-screen-mini;
-@filter-bar-item-spacing-vertical-screen-small:                                 @base-spacing-unit-screen-small * 1/4;
-@filter-bar-item-spacing-horizontal-screen-small:                               @button-collection-spacing-screen-small;
-@filter-bar-item-spacing-vertical-screen-medium:                                @base-spacing-unit-screen-medium * 1/4;
-@filter-bar-item-spacing-horizontal-screen-medium:                              @button-collection-spacing-screen-medium;
-@filter-bar-item-spacing-vertical-screen-large:                                 @base-spacing-unit-screen-large * 1/4;
-@filter-bar-item-spacing-horizontal-screen-large:                               @button-collection-spacing-screen-large;
+/* -----------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+filter-bar/styles.less
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+----------------------------------------------------------------------------- */
 
-.filter-bar {
 
-  display: flex;
-  flex-wrap: wrap-reverse;
-  width: 100%;
 
-  &.filter-bar-offset {
-    margin-bottom: -@filter-bar-item-spacing-vertical;
-  }
+& when (@filter-bar-enabled) {
 
-}
+  .filter-bar {
 
-.filter-bar-right {
+    display: flex;
+    flex-wrap: wrap-reverse;
+    width: 100%;
 
-  margin-left: auto;
-
-  &:last-child {
-
-    padding-right: 0;
-
-  }
-
-  .filter-bar-item:last-child {
-
-    // This overrides all of the specificity applied by the classes
-    // below.
-    padding-right: 0;
-
-  }
-
-}
-
-.filter-bar-left,
-.filter-bar-right {
-
-  display: inline-flex;
-  flex: 0 0 auto;
-  flex-wrap: wrap;
-  max-width: 100%;
-  width: auto;
-
-  &.flex-grow {
-
-    flex-grow: 1;
-
-  }
-
-  &.flex-shrink {
-
-    flex-shrink: 1;
-
-  }
-
-}
-
-.filter-bar-item {
-
-  flex: 0 0 auto;
-  max-width: 100%;
-  padding-bottom: @filter-bar-item-spacing-vertical;
-  padding-right: @filter-bar-item-spacing-horizontal;
-
-}
-
-& when (@media-object-enabled) and (@screen-mini-enabled) {
-
-  @media (min-width: @screen-mini) {
-
-    .filter-bar {
-
-      &.filter-bar-offset {
-        margin-bottom: -@filter-bar-item-spacing-vertical-screen-mini;
-      }
-
+    &.filter-bar-offset {
+      margin-bottom: -@filter-bar-item-spacing-vertical;
     }
 
-    .flex-no-wrap-mini {
+  }
 
-      flex-wrap: nowrap;
+  .filter-bar-left,
+  .filter-bar-right {
 
-    }
+    display: inline-flex;
+    flex: 0 0 auto;
+    flex-wrap: wrap;
+    max-width: 100%;
+    width: auto;
 
     .filter-bar-item {
 
-      padding-bottom: @filter-bar-item-spacing-vertical-screen-mini;
-      padding-right: @filter-bar-item-spacing-horizontal-screen-mini;
+      flex: 0 0 auto;
+      max-width: 100%;
+
+    }
+
+    &.flex-grow {
+
+      flex-grow: 1;
+
+    }
+
+    &.flex-shrink {
+
+      flex-shrink: 1;
 
     }
 
   }
 
+  .filter-bar-right {
+
+    margin-left: auto;
+
+    &:last-child {
+
+      padding-right: 0;
+
+    }
+
+    .filter-bar-item:last-child {
+
+      // This overrides all of the specificity applied by the classes
+      // below.
+      padding-right: 0;
+
+    }
+
+  }
+
+  .filter-bar-item {
+
+    .property-variant(button-collection, padding-right, margin-horizontal, null, null);
+    flex: 0 0 auto;
+    max-width: 100%;
+    padding-bottom: @filter-bar-item-spacing-vertical;
+
+  }
+
 }
 
+& when (@filter-bar-enabled) and (@layout-screen-small-enabled) {
 
-& when (@media-object-enabled) and (@screen-small-enabled) {
-
-  @media (min-width: @screen-small) {
+  @media (min-width: @layout-screen-small-min-width) {
 
     .filter-bar {
 
@@ -115,10 +95,16 @@
 
     }
 
+    .flex-no-wrap-small {
+
+      flex-wrap: nowrap;
+
+    }
+
     .filter-bar-item {
 
+      .property-variant(button-collection, padding-right, margin-horizontal, null, screen-small);
       padding-bottom: @filter-bar-item-spacing-vertical-screen-small;
-      padding-right: @filter-bar-item-spacing-horizontal-screen-small;
 
     }
 
@@ -126,10 +112,9 @@
 
 }
 
+& when (@filter-bar-enabled) and (@layout-screen-medium-enabled) {
 
-& when (@media-object-enabled) and (@screen-medium-enabled) {
-
-  @media (min-width: @screen-medium) {
+  @media (min-width: @layout-screen-medium-min-width) {
 
     .filter-bar {
 
@@ -141,8 +126,8 @@
 
     .filter-bar-item {
 
+      .property-variant(button-collection, padding-right, margin-horizontal, null, screen-medium);
       padding-bottom: @filter-bar-item-spacing-vertical-screen-medium;
-      padding-right: @filter-bar-item-spacing-horizontal-screen-medium;
 
     }
 
@@ -151,9 +136,9 @@
 }
 
 
-& when (@media-object-enabled) and (@screen-large-enabled) {
+& when (@filter-bar-enabled) and (@layout-screen-large-enabled) {
 
-  @media (min-width: @screen-large) {
+  @media (min-width: @layout-screen-large-min-width) {
 
     .filter-bar {
 
@@ -165,8 +150,31 @@
 
     .filter-bar-item {
 
+      .property-variant(button-collection, padding-right, margin-horizontal, null, screen-large);
       padding-bottom: @filter-bar-item-spacing-vertical-screen-large;
-      padding-right: @filter-bar-item-spacing-horizontal-screen-large;
+
+    }
+
+  }
+
+}
+
+& when (@filter-bar-enabled) and (@layout-screen-jumbo-enabled) {
+
+  @media (min-width: @layout-screen-jumbo-min-width) {
+
+    .filter-bar {
+
+      &.filter-bar-offset {
+        margin-bottom: -@filter-bar-item-spacing-vertical-screen-jumbo;
+      }
+
+    }
+
+    .filter-bar-item {
+
+      .property-variant(button-collection, padding-right, margin-horizontal, null, screen-jumbo);
+      padding-bottom: @filter-bar-item-spacing-vertical-screen-jumbo;
 
     }
 
