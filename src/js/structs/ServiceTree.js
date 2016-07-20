@@ -118,7 +118,9 @@ module.exports = class ServiceTree extends Tree {
         services = services.reduce(function (memo, service) {
           filter.health.forEach(function (healthValue) {
             if (service instanceof ServiceTree) {
-              memo = memo.concat(service.filterItemsByFilter({health: [healthValue]}).getItems());
+              memo = memo.concat(
+                service.filterItemsByFilter({health: [healthValue]}).getItems()
+              );
               return;
             }
 
@@ -135,7 +137,9 @@ module.exports = class ServiceTree extends Tree {
         services = services.reduce(function (memo, service) {
           filter.labels.forEach(function (label) {
             if (service instanceof ServiceTree) {
-              memo = memo.concat(service.filterItemsByFilter({labels: [label]}).getItems());
+              memo = memo.concat(
+                service.filterItemsByFilter({labels: [label]}).getItems()
+              );
               return;
             }
 
@@ -166,7 +170,9 @@ module.exports = class ServiceTree extends Tree {
           filter.other.forEach(function (otherKey) {
             if (parseInt(otherKey, 10) === ServiceOther.UNIVERSE.key) {
               if (service instanceof ServiceTree) {
-                memo = memo.concat(service.filterItemsByFilter({other: [otherKey]}).getItems());
+                memo = memo.concat(
+                  service.filterItemsByFilter({other: [otherKey]}).getItems()
+                );
               }
 
               if (service instanceof Framework) {
@@ -189,7 +195,9 @@ module.exports = class ServiceTree extends Tree {
         services = services.reduce(function (memo, service) {
           filter.status.some(function (statusValue) {
             if (service instanceof ServiceTree) {
-              memo = memo.concat(service.filterItemsByFilter({status: [statusValue]}).getItems());
+              memo = memo.concat(
+                service.filterItemsByFilter({status: [statusValue]}).getItems()
+              );
               return;
             }
 
