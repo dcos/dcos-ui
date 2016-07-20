@@ -89,7 +89,7 @@ class FormTabContent extends React.Component {
 <input type="text" className="form-control form-control-large" />
 <input type="text" className="form-control form-control-jumbo" />`;
 
-  let codeBlockFormControlStates =
+    let codeBlockFormControlStates =
 `<div className="form-group">
   <label>
     Default Input
