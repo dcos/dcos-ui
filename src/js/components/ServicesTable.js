@@ -219,6 +219,7 @@ var ServicesTable = React.createClass({
   },
 
   getDestroyConfirmDialog: function () {
+    let message = null;
     const {state} = this;
     let service = state.serviceToChange;
     let itemText = 'Service';
@@ -226,13 +227,17 @@ var ServicesTable = React.createClass({
       itemText = 'Group';
     }
 
-    let message = (
-      <div className="container-pod flush-top container-pod-short-bottom">
-        <h2 className="text-danger text-align-center flush-top">Destroy {itemText}</h2>
-        <p>Are you sure you want to destroy {service && service.getId()}? This action is irreversible.</p>
-        {this.getErrorMessage()}
-      </div>
-    );
+    if (service) {
+      message = (
+        <div className="container-pod flush-top container-pod-short-bottom">
+          <h2 className="text-danger text-align-center flush-top">Destroy {itemText}</h2>
+          <p>
+            Are you sure you want to destroy <span className="emphasize">{service.getId()}</span>? This action is irreversible.
+          </p>
+          {this.getErrorMessage()}
+        </div>
+      );
+    }
 
     return (
       <Confirm children={message}
@@ -248,6 +253,7 @@ var ServicesTable = React.createClass({
   },
 
   getSuspendConfirmDialog: function () {
+    let message = null;
     let service = this.state.serviceToChange;
     const {state} = this;
     let itemText = 'Service';
@@ -255,13 +261,17 @@ var ServicesTable = React.createClass({
       itemText = 'Group';
     }
 
-    let message = (
-      <div className="container-pod flush-top container-pod-short-bottom">
-        <h2 className="text-align-center flush-top">Suspend {itemText}</h2>
-        <p>Are you sure you want to suspend {service && service.getId()} by scaling to 0 instances?</p>
-        {this.getErrorMessage()}
-      </div>
-    );
+    if (service) {
+      message = (
+        <div className="container-pod flush-top container-pod-short-bottom">
+          <h2 className="text-align-center flush-top">Suspend {itemText}</h2>
+          <p>
+            Are you sure you want to suspend <span className="emphasize">{service.getId()}</span> by scaling to 0 instances?
+          </p>
+          {this.getErrorMessage()}
+        </div>
+      );
+    }
 
     return (
       <Confirm children={message}
