@@ -19,7 +19,9 @@ class TimeAgo extends React.Component {
       this[method] = this[method].bind(this);
     });
 
-    this.updateTime();
+    if (!this.props.dontUpdate) {
+      this.updateTime();
+    }
   }
 
   componentWillUnmount() {
@@ -70,10 +72,12 @@ class TimeAgo extends React.Component {
 }
 
 TimeAgo.defaultProps = {
+  dontUpdate: false,
   suppressSuffix: false
 };
 
 TimeAgo.propTypes = {
+  dontUpdate: React.PropTypes.bool,
   prefix: React.PropTypes.node,
   suppressSuffix: React.PropTypes.bool,
   time: React.PropTypes.oneOfType([
