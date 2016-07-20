@@ -94,7 +94,7 @@ TimeAgo.propTypes = {
   time: React.PropTypes.oneOfType([
     React.PropTypes.object,
     React.PropTypes.number
-  ]).isRequired
+  ])
 };
 
 module.exports = TimeAgo;
