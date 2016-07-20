@@ -1,77 +1,210 @@
-.job-details-header-status {
-  display: inline-block;
-  font-weight: bold;
-  margin-right: @base-spacing-unit * 1/2;
-}
+/* -----------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+jobs-view/styles.less
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+----------------------------------------------------------------------------- */
 
-.job-run-history-table {
 
-  tbody {
-    line-height: 1.8;
+
+& when (@jobs-view-enabled) {
+
+  .job-details-header-status {
+    display: inline-block;
+    font-weight: bold;
+    margin-right: @base-spacing-unit * 1/2;
   }
-}
 
-.job-run-history-job-id {
-  color: @white;
-  margin: @base-spacing-unit * -1/4 0;
-  padding: @base-spacing-unit * 1/4 @base-spacing-unit * 1/2;
+  .job-run-history-table {
 
-  &.is-expandable {
-    cursor: pointer;
-    position: relative;
-
-    &:before {
-      content: '';
-      border-left: 5px solid @white;
-      border-top: 4px solid transparent;
-      border-bottom: 4px solid transparent;
-      left: 0;
-      position: absolute;
-      transform: translateY(-50%);
-      top: 50%;
+    tbody {
+      line-height: 1.8;
     }
   }
 
-  &.is-expanded {
+  .job-run-history-job-id {
+    color: @white;
+    margin: @base-spacing-unit * -1/4 0;
+    padding: @base-spacing-unit * 1/4 @base-spacing-unit * 1/2;
 
-    &:before {
-      transform: translateY(-50%) rotate(90deg);
+    &.is-expandable {
+      cursor: pointer;
+      position: relative;
+
+      &:before {
+        content: '';
+        border-left: 5px solid @white;
+        border-top: 4px solid transparent;
+        border-bottom: 4px solid transparent;
+        left: 0;
+        position: absolute;
+        transform: translateY(-50%);
+        top: 50%;
+      }
     }
-  }
-}
 
-.job-run-history-task-id {
-  font-weight: normal;
-  padding-left: @base-spacing-unit * 1.25;
-  position: relative;
+    &.is-expanded {
 
-  &:before,
-  &:after {
-    background: color-lighten(@neutral, 10);
-    content: '';
-    height: 100%;
-    left: @base-spacing-unit * 3/4 + 1px;
-    position: absolute;
-    top: 0;
-    width: 1px;
-  }
-
-  &:before {
-    height: 1px;
-    top: 50%;
-    width: @base-spacing-unit * 3/10;
-  }
-}
-
-.job-run-history-table-child {
-
-  &:last-child {
-
-    .job-run-history-task-id {
-
-      &:after {
-        height: 50%;
+      &:before {
+        transform: translateY(-50%) rotate(90deg);
       }
     }
   }
+
+  .job-run-history-task-id {
+    font-weight: normal;
+    padding-left: @base-spacing-unit * 1.25;
+    position: relative;
+
+    &:before,
+    &:after {
+      background: color-lighten(@neutral, 10);
+      content: '';
+      height: 100%;
+      left: @base-spacing-unit * 3/4 + 1px;
+      position: absolute;
+      top: 0;
+      width: 1px;
+    }
+
+    &:before {
+      height: 1px;
+      top: 50%;
+      width: @base-spacing-unit * 3/10;
+    }
+  }
+
+  .job-run-history-table-child {
+
+    &:last-child {
+
+      .job-run-history-task-id {
+
+        &:after {
+          height: 50%;
+        }
+      }
+    }
+  }
+
+}
+
+& when (@layout-screen-small-enabled) {
+
+  @media (min-width: @layout-screen-small-min-width) {
+
+    .job-details-header-status {
+      margin-right: @base-spacing-unit-screen-small * 1/2;
+    }
+
+    .job-run-history-job-id {
+      margin: @base-spacing-unit-screen-small * -1/4 0;
+      padding: @base-spacing-unit-screen-small * 1/4 @base-spacing-unit-screen-small * 1/2;
+    }
+
+    .job-run-history-task-id {
+      padding-left: @base-spacing-unit-screen-small * 1.25;
+
+      &:before,
+      &:after {
+        left: @base-spacing-unit-screen-small * 3/4 + 1px;
+      }
+
+      &:before {
+        width: @base-spacing-unit-screen-small * 3/10;
+      }
+    }
+
+  }
+
+}
+
+& when (@layout-screen-medium-enabled) {
+
+  @media (min-width: @layout-screen-medium-min-width) {
+
+    .job-details-header-status {
+      margin-right: @base-spacing-unit-screen-medium * 1/2;
+    }
+
+    .job-run-history-job-id {
+      margin: @base-spacing-unit-screen-medium * -1/4 0;
+      padding: @base-spacing-unit-screen-medium * 1/4 @base-spacing-unit-screen-medium * 1/2;
+    }
+
+    .job-run-history-task-id {
+      padding-left: @base-spacing-unit-screen-medium * 1.25;
+
+      &:before,
+      &:after {
+        left: @base-spacing-unit-screen-medium * 3/4 + 1px;
+      }
+
+      &:before {
+        width: @base-spacing-unit-screen-medium * 3/10;
+      }
+    }
+
+  }
+
+}
+
+& when (@layout-screen-large-enabled) {
+
+  @media (min-width: @layout-screen-large-min-width) {
+
+    .job-details-header-status {
+      margin-right: @base-spacing-unit-screen-large * 1/2;
+    }
+
+    .job-run-history-job-id {
+      margin: @base-spacing-unit-screen-large * -1/4 0;
+      padding: @base-spacing-unit-screen-large * 1/4 @base-spacing-unit-screen-large * 1/2;
+    }
+
+    .job-run-history-task-id {
+      padding-left: @base-spacing-unit-screen-large * 1.25;
+
+      &:before,
+      &:after {
+        left: @base-spacing-unit-screen-large * 3/4 + 1px;
+      }
+
+      &:before {
+        width: @base-spacing-unit-screen-large * 3/10;
+      }
+    }
+  }
+
+}
+
+& when (@layout-screen-jumbo-enabled) {
+
+  @media (min-width: @layout-screen-jumbo-min-width) {
+
+    .job-details-header-status {
+      margin-right: @base-spacing-unit-screen-jumbo * 1/2;
+    }
+
+    .job-run-history-job-id {
+      margin: @base-spacing-unit-screen-jumbo * -1/4 0;
+      padding: @base-spacing-unit-screen-jumbo * 1/4 @base-spacing-unit-screen-jumbo * 1/2;
+    }
+
+    .job-run-history-task-id {
+      padding-left: @base-spacing-unit-screen-jumbo * 1.25;
+
+      &:before,
+      &:after {
+        left: @base-spacing-unit-screen-jumbo * 3/4 + 1px;
+      }
+
+      &:before {
+        width: @base-spacing-unit-screen-jumbo * 3/10;
+      }
+    }
+
+  }
+
 }
