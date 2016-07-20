@@ -1,9 +1,7 @@
 /* -----------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
-
-base/forms.less
-
+multiple-form/styles.less
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 ----------------------------------------------------------------------------- */
@@ -13,9 +11,7 @@ base/forms.less
 
 
 
-
-
-& when (@form-enabled) {
+& when (@multiple-form-enabled) {
 
   .lb-port-input-field-disabled {
     border: 0;
@@ -30,6 +26,7 @@ base/forms.less
 
   --------------------------------------------------------------------------------
   ----------------------------------------------------------------------------- */
+
   .form-element-inline {
     display: inline-block;
 
@@ -224,8 +221,8 @@ base/forms.less
 
       .duplicable-row-title {
         align-self: flex-start;
-        color: @heading-h3-text-color;
-        font-size: @form-label-font-size * @form-label-font-size-scale-screen-small * 1.2;
+        color: @heading-h3-color;
+        font-size: @label-font-size * 1.2;
       }
     }
   }
@@ -284,9 +281,9 @@ base/forms.less
     }
 
     .modal-header-title {
-      color: @heading-h3-text-color;
-      font-size: @form-label-font-size * @form-label-font-size-scale-screen-small;
-      line-height: @form-label-line-height * @form-label-line-height-scale-screen-small;
+      color: @heading-h3-color;
+      font-size: @label-font-size;
+      line-height: @label-line-height;
     }
 
     .modal-form-title-label {
@@ -298,29 +295,13 @@ base/forms.less
 
 }
 
-& when (@form-enabled) and (@screen-mini-enabled) {
+& when (@layout-screen-small-enabled) {
 
-  @media (min-width: @screen-mini) {
+  @media (min-width: @layout-screen-small-min-width) {
 
-    .multiple-form-modal {
-
-      .multiple-form {
-
-        .form-row-element-mixed-label-presence {
-          line-height: @form-control-height * @form-control-height-scale-screen-mini;
-        }
-
-      }
-
+    .form-row-element-mixed-label-presence {
+      line-height: @form-control-height * @form-control-height-scale-screen-mini;
     }
-
-  }
-
-}
-
-& when (@form-enabled) and (@screen-small-enabled) {
-
-  @media (min-width: @screen-small) {
 
     .multiple-form-modal {
 
