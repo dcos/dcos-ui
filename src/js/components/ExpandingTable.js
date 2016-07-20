@@ -83,9 +83,10 @@ class ExpandingTable extends React.Component {
 
   render() {
     let {props} = this;
+    let TableComponent = props.tableComponent;
 
     return (
-      <Table
+      <TableComponent
         {...Util.omit(props, ['childRowClassName'])}
         columns={this.getColumns(props.columns)} />
     );
@@ -93,11 +94,13 @@ class ExpandingTable extends React.Component {
 }
 
 ExpandingTable.defaultProps = {
-  childRowClassName: 'text-overflow'
+  childRowClassName: 'text-overflow',
+  tableComponent: Table
 };
 
 ExpandingTable.propTypes = {
-  childRowClassName: React.PropTypes.string
+  childRowClassName: React.PropTypes.string,
+  tableComponent: React.PropTypes.func
 };
 
 module.exports = ExpandingTable;
