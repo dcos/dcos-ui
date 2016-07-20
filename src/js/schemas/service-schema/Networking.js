@@ -2,6 +2,9 @@
 import React from 'react';
 /* eslint-enable no-unused-vars */
 import FormUtil from '../../utils/FormUtil';
+import NetworkValidatorUtil from '../../utils/NetworkValidatorUtil';
+
+const DISABLED_LB_PORT_FIELD_VALUE = 'Not Enabled';
 
 const Networking = {
   type: 'object',
@@ -99,11 +102,13 @@ const Networking = {
             };
           }
 
-          let disabledLBPortFieldValue = service.lbPort || 'Not Enabled';
+          const disabledLBPortFieldValue = service.lbPort ||
+            DISABLED_LB_PORT_FIELD_VALUE;
+
           if (prop === 'lbPort' && model && model.networking) {
             if (model.networking.networkType !== 'host') {
               definition.showLabel = 'Container Port';
-              if (definition.value === 'Not Enabled') {
+              if (definition.value === DISABLED_LB_PORT_FIELD_VALUE) {
                 definition.value = null;
               }
             } else {
@@ -111,7 +116,7 @@ const Networking = {
 
               if (service.discovery) {
                 // show as input
-                if (definition.value === 'Not Enabled') {
+                if (definition.value === DISABLED_LB_PORT_FIELD_VALUE) {
                   definition.value = null;
                   definition.disabled = false;
                   definition.className = 'form-control';
@@ -133,7 +138,20 @@ const Networking = {
         properties: {
           lbPort: {
             title: 'LB Port',
-            type: 'number'
+            type: 'number',
+            externalValidator: function ({networking}, definition) {
+              const {[definition.name]: port} = networking;
+
+              if (port === DISABLED_LB_PORT_FIELD_VALUE ||
+                NetworkValidatorUtil.isValidPort(port)) {
+                return true;
+              }
+
+              definition.showError =
+                'LB Port  must be a number between 0 and 65535.';
+
+              return false;
+            }
           },
           name: {
             title: 'Name',
