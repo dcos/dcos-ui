@@ -4,27 +4,56 @@ import React from 'react';
 
 import CollapsingString from '../../components/CollapsingString';
 import ExpandingTable from '../../components/ExpandingTable';
+import DateUtil from '../../utils/DateUtil';
+import FilterBar from '../../components/FilterBar';
 import FilterHeadline from '../../components/FilterHeadline';
 import Icon from '../../components/Icon';
 import JobStates from '../../constants/JobStates';
+import JobStopRunModal from '../../components/modals/JobStopRunModal';
 import TaskStates from '../../constants/TaskStates';
 import TimeAgo from '../../components/TimeAgo';
 
 const METHODS_TO_BIND = [
-  'renderJobIDColumn'
+  'renderJobIDColumn',
+  'handleItemCheck',
+  'handleStopClick',
+  'handleStopJobRunModalClose',
+  'handleStopJobRunSuccess'
 ];
 
 class JobRunHistoryTable extends React.Component {
   constructor() {
     super(...arguments);
 
+    this.state = {
+      checkedItems: {},
+      isStopRunModalShown: null
+    };
+
     METHODS_TO_BIND.forEach((method) => {
       this[method] = this[method].bind(this);
     });
   }
 
-  handleExpansionClick(row) {
-    this.refs.expandingTable.expandRow(row);
+  handleItemCheck(idsChecked) {
+    let checkedItems = {};
+
+    idsChecked.forEach(function (id) {
+      checkedItems[id] = true;
+    });
+    this.setState({checkedItems});
+  }
+
+  handleStopClick() {
+    this.setState({isStopRunModalShown: true});
+  }
+
+  handleStopJobRunModalClose() {
+    this.setState({isStopRunModalShown: false});
+  }
+
+  handleStopJobRunSuccess() {
+    this.setState({checkedItems: {}, isStopRunModalShown: false});
   }
 
   getColGroup() {
@@ -105,7 +134,18 @@ class JobRunHistoryTable extends React.Component {
   getData(job) {
     let jonRuns = job.getJobRuns();
 
-    return jonRuns.getItems().map(function (jobRun, runIndex) {
+    return jonRuns.getItems().map(function (jobRun) {
+      let dateRunStarted = jobRun.getDateCreated();
+      let dateRunFinished = jobRun.getDateFinished();
+
+      if (dateRunStarted != null) {
+        dateRunStarted = DateUtil.msToRelativeTime(dateRunStarted);
+      }
+
+      if (dateRunFinished != null) {
+        dateRunFinished = DateUtil.msToRelativeTime(dateRunFinished);
+      }
+
       let children = jobRun.getTasks().getItems().map(function (jobTask) {
         return {
           taskID: jobTask.getTaskID(),
@@ -117,13 +157,47 @@ class JobRunHistoryTable extends React.Component {
 
       return {
         finishedAt: jobRun.getDateFinished(),
-        id: runIndex,
+        id: jobRun.id,
         jobID: jobRun.getJobID(),
         startedAt: jobRun.getDateCreated(),
         status: jobRun.getStatus(),
         children
       };
     });
+  }
+
+  getStopButton(hasCheckedTasks) {
+    if (!hasCheckedTasks) {
+      return null;
+    }
+
+    return (
+      <div className="button-collection flush-bottom">
+        <div
+          className="button button-stroke button-danger"
+          onClick={this.handleStopClick}>
+          Stop
+        </div>
+      </div>
+    );
+  }
+
+  getStopRunModal(checkedItems, hasCheckedTasks) {
+    if (!hasCheckedTasks) {
+      return null;
+    }
+
+    let {isStopRunModalShown} = this.state;
+    let jobRuns = Object.keys(checkedItems);
+
+    return (
+      <JobStopRunModal
+        jobID={this.props.job.getId()}
+        selectedItems={jobRuns}
+        onClose={this.handleStopJobRunModalClose}
+        onSuccess={this.handleStopJobRunSuccess}
+        open={!!isStopRunModalShown} />
+    );
   }
 
   renderJobIDColumn(prop, row, rowOptions = {}) {
@@ -160,11 +234,7 @@ class JobRunHistoryTable extends React.Component {
       let classes = classNames('job-run-history-job-id is-expandable', {
         'is-expanded': rowOptions.isExpanded
       });
-      let clickHandler = null;
-
-      if (rowOptions.hasChildren) {
-        clickHandler = this.handleExpansionClick.bind(this, row);
-      }
+      let {clickHandler} = rowOptions;
 
       return (
         <div className={classes} onClick={clickHandler}>
@@ -220,24 +290,37 @@ class JobRunHistoryTable extends React.Component {
 
   render() {
     let {job} = this.props;
+    let {checkedItems} = this.state;
     let totalRunCount = job.getJobRuns().getItems().length;
+    let rightAlignLastNChildren = 0;
+    let hasCheckedTasks = Object.keys(checkedItems).length !== 0;
+    if (hasCheckedTasks) {
+      rightAlignLastNChildren = 1;
+    }
 
     return (
       <div>
-        <FilterHeadline
-          currentLength={totalRunCount}
-          inverseStyle={true}
-          name="Run"
-          onReset={function () {}}
-          totalLength={totalRunCount} />
+        <FilterBar rightAlignLastNChildren={rightAlignLastNChildren}>
+          <FilterHeadline
+            currentLength={totalRunCount}
+            inverseStyle={true}
+            name="Run"
+            onReset={function () {}}
+            totalLength={totalRunCount} />
+          {this.getStopButton(hasCheckedTasks)}
+        </FilterBar>
         <ExpandingTable
+          allowMultipleSelect={false}
           className="job-run-history-table table table-hover inverse table-borderless-outer table-borderless-inner-columns flush-bottom"
           childRowClassName="job-run-history-table-child"
           columns={this.getColumns()}
           colGroup={this.getColGroup()}
           data={this.getData(job)}
-          ref="expandingTable"
+          uniqueProperty="id"
+          checkedItemsMap={this.state.checkedItems}
+          onCheckboxChange={this.handleItemCheck}
           sortBy={{prop: 'startedAt', order: 'desc'}} />
+        {this.getStopRunModal(checkedItems, hasCheckedTasks)}
       </div>
     );
   }

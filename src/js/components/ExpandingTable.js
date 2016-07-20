@@ -17,7 +17,7 @@ class ExpandingTable extends React.Component {
   }
 
   expandRow(row) {
-    let {expandedRows} = this.state;
+    let {expandedRows} = Object.assign({}, this.state);
     let rowID = this.getRowID(row);
 
     // If the selected row is already expanded, then we want to collapse it.
@@ -48,7 +48,12 @@ class ExpandingTable extends React.Component {
       // Render the column's top-level item.
       let cellContent = [
         <div key={-1}>
-          {renderFn(prop, row, {hasChildren, isExpanded, isParent: true})}
+          {renderFn(prop, row, {
+            hasChildren,
+            isExpanded,
+            isParent: true,
+            clickHandler: this.expandRow.bind(this, row)
+          })}
         </div>
       ];
 
