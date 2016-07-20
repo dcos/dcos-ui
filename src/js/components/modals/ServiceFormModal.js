@@ -1,4 +1,5 @@
 import Ace from 'react-ace';
+import classNames from 'classnames';
 import mixin from 'reactjs-mixin';
 import {Modal} from 'reactjs-components';
 import React from 'react';
@@ -111,6 +112,7 @@ class ServiceFormModal extends mixin(StoreMixin) {
       jsonDefinition: JSON.stringify({id:'', cmd:''}, null, 2),
       jsonMode: false,
       model,
+      pendingRequest: false,
       service: ServiceUtil.createServiceFromFormModel(model, ServiceSchema)
     };
 
@@ -162,11 +164,12 @@ class ServiceFormModal extends mixin(StoreMixin) {
 
     this.setState({
       errorMessage: null,
+      force: false,
       jsonDefinition: JSON.stringify({id:'', cmd:''}, null, 2),
       jsonMode: false,
       model,
-      force: false,
-      service: service
+      pendingRequest: false,
+      service
     });
   }
 
@@ -214,7 +217,8 @@ class ServiceFormModal extends mixin(StoreMixin) {
 
   onMarathonStoreServiceCreateError(errorMessage) {
     this.setState({
-      errorMessage
+      errorMessage,
+      pendingRequest: false
     });
   }
 
@@ -232,8 +236,9 @@ class ServiceFormModal extends mixin(StoreMixin) {
       return;
     }
     this.setState({
+      errorMessage,
       force: this.shouldForceUpdate(errorMessage),
-      errorMessage
+      pendingRequest: false
     });
   }
 
@@ -254,10 +259,12 @@ class ServiceFormModal extends mixin(StoreMixin) {
       this.setState({
         errorMessage: null,
         jsonDefinition,
+        pendingRequest: true,
         service: new Service(JSON.parse(jsonDefinition))
       });
       return;
     }
+
     if (this.triggerSubmit) {
       let {model, isValidated} = this.triggerSubmit();
 
@@ -269,7 +276,12 @@ class ServiceFormModal extends mixin(StoreMixin) {
         ServiceSchema,
         this.props.isEdit
       );
-      this.setState({service, model, errorMessage: null});
+      this.setState({
+        errorMessage: null,
+        model,
+        pendingRequest: true,
+        service
+      });
       marathonAction(
         ServiceUtil.getAppDefinitionFromService(service),
         this.state.force
@@ -353,6 +365,14 @@ class ServiceFormModal extends mixin(StoreMixin) {
   }
 
   getFooter() {
+    let {pendingRequest} = this.state;
+    let deployButtonClassNames = classNames('button button-large flush-bottom',
+      {
+        'button-success': !pendingRequest,
+        'disabled': pendingRequest
+      }
+    );
+
     return (
       <div className="button-collection flush-bottom">
         <button
@@ -361,7 +381,7 @@ class ServiceFormModal extends mixin(StoreMixin) {
           Cancel
         </button>
         <button
-          className="button button-large button-success flush-bottom"
+          className={deployButtonClassNames}
           onClick={this.handleSubmit}>
           {this.getSubmitText()}
         </button>
