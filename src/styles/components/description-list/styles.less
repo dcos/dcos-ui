@@ -1,26 +1,28 @@
-dl > dd {
-  color: @heading-h5-text-inverse-color;
-}
+/* -----------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+description-list/styles.less
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+----------------------------------------------------------------------------- */
 
-.nested-description-list {
-  margin-left: @base-spacing-unit*.5;
-}
 
-& when (@screen-mini-enabled) {
 
-  @media (min-width: @screen-mini) {
+& when (@description-list-enabled) {
 
-    .nested-description-list {
-      margin-left: @base-spacing-unit-screen-mini*.5;
-    }
+  dl > dd {
+    color: @heading-h5-inverse-muted-color;
+  }
 
+  .nested-description-list {
+    margin-left: @base-spacing-unit*.5;
   }
 
 }
 
-& when (@screen-small-enabled) {
+& when (@description-list-enabled) and (@layout-screen-small-enabled) {
 
-  @media (min-width: @screen-small) {
+  @media (min-width: @layout-screen-small-min-width) {
 
     .nested-description-list {
       margin-left: @base-spacing-unit-screen-small*.5;
@@ -30,9 +32,9 @@ dl > dd {
 
 }
 
-& when (@screen-medium-enabled) {
+& when (@description-list-enabled) and (@layout-screen-medium-enabled) {
 
-  @media (min-width: @screen-medium) {
+  @media (min-width: @layout-screen-medium-min-width) {
 
     .nested-description-list {
       margin-left: @base-spacing-unit-screen-medium*.5;
@@ -42,12 +44,24 @@ dl > dd {
 
 }
 
-& when (@screen-large-enabled) {
+& when (@description-list-enabled) and (@layout-screen-large-enabled) {
 
-  @media (min-width: @screen-large) {
+  @media (min-width: @layout-screen-large-min-width) {
 
     .nested-description-list {
       margin-left: @base-spacing-unit-screen-large*.5;
+    }
+
+  }
+
+}
+
+& when (@description-list-enabled) and (@layout-screen-jumbo-enabled) {
+
+  @media (min-width: @layout-screen-jumbo-min-width) {
+
+    .nested-description-list {
+      margin-left: @base-spacing-unit-screen-jumbo*.5;
     }
 
   }
