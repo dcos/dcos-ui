@@ -118,7 +118,7 @@ let ServiceList = React.createClass({
 
   getNoServicesMessage: function () {
     return (
-      <div>
+      <div className="vertical-center">
         <h3 className="flush-top inverse text-align-center">No Services Running</h3>
         <p className="inverse flush text-align-center">Use the {Config.productName} command line tools to find and install services.</p>
       </div>
@@ -148,11 +148,7 @@ let ServiceList = React.createClass({
   },
 
   render: function () {
-    return (
-      <div>
-        {this.getContent()}
-      </div>
-    );
+    return this.getContent();
   }
 });
 

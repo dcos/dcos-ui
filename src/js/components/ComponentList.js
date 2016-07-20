@@ -58,7 +58,7 @@ class ComponentList extends React.Component {
 
   getErrorMessage() {
     return (
-      <div>
+      <div className="vertical-center">
         <h3 className="flush-top inverse text-align-center">Components Not Found</h3>
         <p className="inverse flush text-align-center">An error has occurred.</p>
       </div>
