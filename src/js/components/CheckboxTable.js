@@ -25,14 +25,18 @@ class CheckboxTable extends React.Component {
   }
 
   handleCheckboxChange(prevCheckboxState, eventObject) {
-    let {checkedItemsMap, onCheckboxChange} = this.props;
+    let {allowMultipleSelect, checkedItemsMap, onCheckboxChange} = this.props;
     let isChecked = eventObject.fieldValue;
     let rowID = eventObject.fieldName;
     let checkedIDs;
 
     if (isChecked) {
       checkedIDs = Object.keys(checkedItemsMap);
-      checkedIDs.push(rowID);
+      if (!allowMultipleSelect) {
+        checkedIDs = [rowID];
+      } else {
+        checkedIDs.push(rowID);
+      }
     } else {
       delete checkedItemsMap[rowID];
       checkedIDs = Object.keys(checkedItemsMap);
@@ -71,7 +75,12 @@ class CheckboxTable extends React.Component {
   renderHeadingCheckbox() {
     let checked = false;
     let indeterminate = false;
-    let {checkedItemsMap, data} = this.props;
+    let {allowMultipleSelect, checkedItemsMap, data} = this.props;
+
+    if (!allowMultipleSelect) {
+      return null;
+    }
+
     let checkedItemsCount = Object.keys(checkedItemsMap).length;
 
     if (checkedItemsCount > 0) {
@@ -195,6 +204,7 @@ CheckboxTable.propTypes = {
 };
 
 CheckboxTable.defaultProps = {
+  allowMultipleSelect: true,
   checkedItemsMap: {},
   columns: [],
   data: [],
