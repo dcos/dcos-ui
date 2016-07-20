@@ -1821,7 +1821,7 @@ class ButtonTabContent extends React.Component {
 
               <div className="panel-cell">
 
-                <button type="button" className="button button-primary" data-toggle="button" aria-pressed="false" autocomplete="off">
+                <button type="button" className="button button-primary" data-toggle="button" aria-pressed="false" autoComplete="off">
 
                   Toggle Button
 
@@ -1871,19 +1871,19 @@ class ButtonTabContent extends React.Component {
 
                   <label className="button button-primary active">
 
-                    <input type="checkbox" autocomplete="off" checked /> Checkbox 1
+                    <input type="checkbox" autoComplete="off" checked /> Checkbox 1
 
                   </label>
 
                   <label className="button button-primary">
 
-                    <input type="checkbox" autocomplete="off" /> Checkbox 2
+                    <input type="checkbox" autoComplete="off" /> Checkbox 2
 
                   </label>
 
                   <label className="button button-primary">
 
-                    <input type="checkbox" autocomplete="off" /> Checkbox 3
+                    <input type="checkbox" autoComplete="off" /> Checkbox 3
 
                   </label>
 
@@ -1917,19 +1917,19 @@ class ButtonTabContent extends React.Component {
 
                   <label className="button button-primary active">
 
-                    <input type="radio" name="options" id="option1" autocomplete="off" checked /> Radio 1
+                    <input type="radio" name="options" id="option1" autoComplete="off" checked /> Radio 1
 
                   </label>
 
                   <label className="button button-primary">
 
-                    <input type="radio" name="options" id="option1" autocomplete="off" /> Radio 2
+                    <input type="radio" name="options" id="option1" autoComplete="off" /> Radio 2
 
                   </label>
 
                   <label className="button button-primary">
 
-                    <input type="radio" name="options" id="option1" autocomplete="off" /> Radio 3
+                    <input type="radio" name="options" id="option1" autoComplete="off" /> Radio 3
 
                   </label>
 
