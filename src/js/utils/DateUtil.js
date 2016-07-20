@@ -11,6 +11,15 @@ const DateUtil = {
   },
 
   /**
+   * Creates a UTC time string from time provided
+   * @param  {Date|Number} ms number to convert to UTC time string
+   * @return {String} time string with the format 'YYYY-MM-DD[T]HH:mm:ss.SSS[Z]'
+   */
+  msToUTCDate: function (ms) {
+    return moment(ms).utc().format('YYYY-MM-DD[T]HH:mm:ss.SSS[Z]');
+  },
+
+  /**
    * Creates relative time based on now and the time provided
    * @param  {Date|Number} ms number to convert to relative time string
    * @param  {Boolean} suppressRelativeTime whether to remove 'ago' from string

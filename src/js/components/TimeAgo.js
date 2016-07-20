@@ -73,8 +73,8 @@ class TimeAgo extends React.Component {
 
     return (
       <time
-        title={DateUtil.msToDateStr(time)}
-        dateTime={DateUtil.msToDateStr(time)}
+        title={DateUtil.msToUTCDate(time)}
+        dateTime={DateUtil.msToUTCDate(time)}
         {...Util.omit(this.props, ['prefix', 'suppressSuffix', 'time'])}>
         {prefixString}{relativeTime}
       </time>
