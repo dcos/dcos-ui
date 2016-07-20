@@ -5,10 +5,10 @@ import React from 'react';
 import Cluster from '../utils/Cluster';
 import Framework from '../structs/Framework';
 import HealthBar from './HealthBar';
-import HealthStatus from '../constants/HealthStatus';
 import PageHeader from './PageHeader';
 import Service from '../structs/Service';
 import ServiceActionItem from '../constants/ServiceActionItem';
+import StatusMapping from '../constants/StatusMapping';
 import StringUtil from '../utils/StringUtil';
 
 class ServiceInfo extends React.Component {
@@ -80,18 +80,19 @@ class ServiceInfo extends React.Component {
     let serviceHealth = service.getHealth();
     let serviceStatus = service.getStatus();
     let tasksSummary = service.getTasksSummary();
+    let serviceStatusClassSet = StatusMapping[serviceStatus] || '';
     let runningTasksCount = tasksSummary.tasksRunning;
     let instancesCount = service.getInstancesCount();
     let runningTasksSubHeader = StringUtil.pluralize('Task', runningTasksCount);
     let subHeaderItems = [
       {
-        classes: `media-object-item ${HealthStatus[serviceHealth.key].classNames}`,
+        classes: `media-object-item ${serviceStatusClassSet}`,
         label: serviceStatus,
         shouldShow: serviceHealth.key != null
       },
       {
         classes: 'media-object-item',
-        label: `${runningTasksCount} Running ${runningTasksSubHeader}`,
+        label: `${runningTasksCount} ${runningTasksSubHeader}`,
         shouldShow: runningTasksCount != null && runningTasksSubHeader != null
       },
       {

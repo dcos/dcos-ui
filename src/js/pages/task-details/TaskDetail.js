@@ -11,6 +11,7 @@ import MarathonStore from '../../stores/MarathonStore';
 import MesosStateStore from '../../stores/MesosStateStore';
 import PageHeader from '../../components/PageHeader';
 import RequestErrorMsg from '../../components/RequestErrorMsg';
+import StatusMapping from '../../constants/StatusMapping';
 import TabsMixin from '../../mixins/TabsMixin';
 import TaskDirectoryStore from '../../stores/TaskDirectoryStore';
 import TaskStates from '../../constants/TaskStates';
@@ -195,11 +196,16 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
       </ul>
     );
 
+    let taskState = task.get('state');
+    let serviceStatus = TaskStates[taskState].displayName;
+    let serviceStatusClassSet = StatusMapping[serviceStatus] || '';
+
     return (
       <PageHeader
         icon={taskIcon}
-        iconClassName="icon-app-container icon-image-container"
-        subTitle={TaskStates[task.state].displayName}
+        iconClassName="icon-app-container  icon-image-container"
+        subTitle={serviceStatus}
+        subTitleClassName={serviceStatusClassSet}
         navigationTabs={navigationTabs}
         title={task.getName()} />
     );
