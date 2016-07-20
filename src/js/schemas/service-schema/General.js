@@ -33,7 +33,7 @@ let General = {
             return `${service.getCpus() || this.default}`;
           },
           externalValidator: function ({general}, definition) {
-            if (!ResourceValidatorUtil.isValidCPUSValue(general.cpus)) {
+            if (!ResourceValidatorUtil.isValidCPUs(general.cpus)) {
               definition.showError = 'CPUs must be a number greater than ' +
                 `or equal to ${MesosConstants.MIN_CPUS}`;
 
@@ -51,7 +51,7 @@ let General = {
             return `${service.getMem() || this.default}`;
           },
           externalValidator: function ({general}, definition) {
-            if (!ResourceValidatorUtil.isValidMemoryValue(general.mem)) {
+            if (!ResourceValidatorUtil.isValidMemory(general.mem)) {
               definition.showError = 'Memory must be a number greater than ' +
                 `or equal to ${MesosConstants.MIN_MEM}`;
 
@@ -69,7 +69,7 @@ let General = {
             return `${service.getDisk() || this.default}`;
           },
           externalValidator: function ({general}, definition) {
-            if (!ResourceValidatorUtil.isValidDiskValue(general.disk)) {
+            if (!ResourceValidatorUtil.isValidDisk(general.disk)) {
               definition.showError = 'Disk must be a non-negative number';
 
               return false;
