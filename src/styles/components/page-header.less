@@ -40,12 +40,14 @@
   align-items: center;
   display: flex;
   flex: 1 1 auto;
+  min-width: 0;
 }
 
 .page-header-content-secondary {
   flex: 0 1 auto;
   margin-left: 0;
   margin-top: @base-spacing-unit * 1/4;
+  padding-left: @base-spacing-unit;
   white-space: nowrap;
 
   &:last-child {
@@ -55,6 +57,11 @@
   .button-collection {
     margin-bottom: 0;
   }
+}
+
+.page-header-title {
+  flex: 1 1 auto;
+  min-width: 0;
 }
 
 .page-header-content-heading {
