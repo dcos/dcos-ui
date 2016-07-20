@@ -175,7 +175,6 @@ class TabForm extends mixin(InternalStorageMixin) {
       return (
         <div key={i} className={formPanelClassSet}>
           <Form
-            className="form"
             formGroupClass="form-group flush"
             formRowClass={formRowClassSet}
             definition={formDefinition}
