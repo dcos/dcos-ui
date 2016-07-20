@@ -1,21 +1,21 @@
 import MesosConstants from '../constants/MesosConstants';
 
 const ResourceValidatorUtil = {
-  isValidCPUSValue(value) {
+  isValidCPUs(value) {
     const cpus = parseFloat(value);
 
     return !Number.isNaN(cpus) && !!cpus.toString().match(/^[0-9\.]+$/) &&
       cpus >= MesosConstants.MIN_CPUS;
   },
 
-  isValidDiskValue(value) {
+  isValidDisk(value) {
     const disk = parseFloat(value);
 
     return !Number.isNaN(disk) && !!disk.toString().match(/^[0-9\.]+$/) &&
       disk >= 0;
   },
 
-  isValidMemoryValue(value) {
+  isValidMemory(value) {
     const memory = parseFloat(value);
 
     return !Number.isNaN(memory) && !!memory.toString().match(/^[0-9\.]+$/) &&
