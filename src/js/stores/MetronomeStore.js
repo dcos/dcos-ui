@@ -13,6 +13,8 @@ import {
   METRONOME_JOB_UPDATE_SUCCESS,
   METRONOME_JOB_RUN_ERROR,
   METRONOME_JOB_RUN_SUCCESS,
+  METRONOME_JOB_STOP_RUN_SUCCESS,
+  METRONOME_JOB_STOP_RUN_ERROR,
   METRONOME_JOB_SCHEDULE_UPDATE_ERROR,
   METRONOME_JOB_SCHEDULE_UPDATE_SUCCESS,
   METRONOME_JOBS_CHANGE,
@@ -34,6 +36,8 @@ import {
   REQUEST_METRONOME_JOB_UPDATE_SUCCESS,
   REQUEST_METRONOME_JOB_RUN_ERROR,
   REQUEST_METRONOME_JOB_RUN_SUCCESS,
+  REQUEST_METRONOME_JOB_STOP_RUN_ERROR,
+  REQUEST_METRONOME_JOB_STOP_RUN_SUCCESS,
   REQUEST_METRONOME_JOB_SCHEDULE_UPDATE_ERROR,
   REQUEST_METRONOME_JOB_SCHEDULE_UPDATE_SUCCESS,
   REQUEST_METRONOME_JOBS_ERROR,
@@ -119,6 +123,12 @@ class MetronomeStore extends EventEmitter {
         case REQUEST_METRONOME_JOB_RUN_SUCCESS:
           this.emit(METRONOME_JOB_RUN_SUCCESS, action.jobID);
           break;
+        case REQUEST_METRONOME_JOB_STOP_RUN_ERROR:
+          this.emit(METRONOME_JOB_STOP_RUN_ERROR, action.jobID);
+          break;
+        case REQUEST_METRONOME_JOB_STOP_RUN_SUCCESS:
+          this.emit(METRONOME_JOB_STOP_RUN_SUCCESS, action.jobID);
+          break;
         case REQUEST_METRONOME_JOB_SCHEDULE_UPDATE_ERROR:
           this.emit(METRONOME_JOB_SCHEDULE_UPDATE_ERROR, action.jobID);
           break;
@@ -164,6 +174,16 @@ class MetronomeStore extends EventEmitter {
 
   runJob(jobID) {
     MetronomeActions.runJob(jobID);
+  }
+
+  stopJobRun(jobID, jobRunID) {
+    let job = this.getJob(jobID);
+
+    if (job == null || jobRunID == null) {
+      return;
+    }
+
+    MetronomeActions.stopJobRun(jobID, jobRunID);
   }
 
   toggleSchedule(jobID, isEnabled = true) {

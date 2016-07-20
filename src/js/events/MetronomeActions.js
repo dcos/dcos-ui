@@ -16,7 +16,9 @@ import {
   REQUEST_METRONOME_JOBS_ONGOING,
   REQUEST_METRONOME_JOBS_SUCCESS,
   REQUEST_METRONOME_JOB_CREATE_SUCCESS,
-  REQUEST_METRONOME_JOB_CREATE_ERROR
+  REQUEST_METRONOME_JOB_CREATE_ERROR,
+  REQUEST_METRONOME_JOB_STOP_RUN_SUCCESS,
+  REQUEST_METRONOME_JOB_STOP_RUN_ERROR
 } from '../constants/ActionTypes';
 import AppDispatcher from './AppDispatcher';
 import MetronomeUtil from '../utils/MetronomeUtil';
@@ -177,6 +179,29 @@ const MetronomeActions = {
     });
   },
 
+  stopJobRun: function (jobID, jobRunID) {
+    const url = `${Config.metronomeAPI}/v1/jobs/${jobID}` +
+      `/runs/${jobRunID}/actions/stop`;
+
+    RequestUtil.json({
+      url,
+      method: 'POST',
+      data: {},
+      success: function () {
+        AppDispatcher.handleServerAction({
+          type: REQUEST_METRONOME_JOB_STOP_RUN_SUCCESS
+        });
+      },
+      error: function (xhr) {
+        AppDispatcher.handleServerAction({
+          type: REQUEST_METRONOME_JOB_STOP_RUN_ERROR,
+          data: RequestUtil.parseResponseBody(xhr),
+          xhr
+        });
+      }
+    });
+  },
+
   updateSchedule: function (jobID, data) {
     RequestUtil.json({
       url: `${Config.metronomeAPI}/v1/jobs/${jobID}/schedules/${data.id}`,
@@ -219,6 +244,9 @@ if (Config.useFixtures) {
       event: 'success', success: {response: jobsFixture}
     },
     runJob: {
+      event: 'success', success: {response: {}}
+    },
+    stopJobRun: {
       event: 'success', success: {response: {}}
     },
     updateSchedule: {
