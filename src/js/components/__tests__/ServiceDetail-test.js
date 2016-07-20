@@ -5,7 +5,6 @@ jest.dontMock('../ServiceDetailDebugTab');
 jest.dontMock('../ServiceDetailConfigurationTab');
 jest.dontMock('../ServiceDetailTaskTab');
 jest.dontMock('../ServiceInfo');
-jest.dontMock('../ServiceInfo');
 jest.dontMock('../../structs/Service');
 
 /* eslint-disable no-unused-vars */
