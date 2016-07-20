@@ -115,16 +115,30 @@ module.exports = class ServiceTree extends Tree {
       }
 
       if (filter.health != null && filter.health.length !== 0) {
-        services = services.filter(function (service) {
-          return filter.health.some(function (healthValue) {
-            return service.getHealth().value === parseInt(healthValue, 10);
+        services = services.reduce(function (memo, service) {
+          filter.health.forEach(function (healthValue) {
+            if (service instanceof ServiceTree) {
+              memo = memo.concat(service.filterItemsByFilter({health: [healthValue]}).getItems());
+              return;
+            }
+
+            if (service.getHealth().value === parseInt(healthValue, 10)) {
+              memo.push(service);
+            }
           });
-        });
+
+          return memo;
+        }, []);
       }
 
       if (filter.labels != null && filter.labels.length > 0) {
-        services = services.filter(function (service) {
-          return filter.labels.some(function (label) {
+        services = services.reduce(function (memo, service) {
+          filter.labels.forEach(function (label) {
+            if (service instanceof ServiceTree) {
+              memo = memo.concat(service.filterItemsByFilter({labels: [label]}).getItems());
+              return;
+            }
+
             let serviceLabels = service.getLabels();
 
             if (service instanceof Service) {
@@ -133,24 +147,31 @@ module.exports = class ServiceTree extends Tree {
               );
             }
 
-            return serviceLabels.some(function (serviceLabel) {
+            let hasLabel = serviceLabels.some(function (serviceLabel) {
               return serviceLabel.key === label[0] &&
                 serviceLabel.value === label[1];
             });
+
+            if (hasLabel) {
+              memo.push(service);
+            }
           });
-        });
+
+          return memo;
+        }, []);
       }
 
       if (filter.other != null && filter.other.length !== 0) {
-        services = services.filter(function (service) {
-          return filter.other.some(function (otherKey) {
-
+        services = services.reduce(function (memo, service) {
+          filter.other.forEach(function (otherKey) {
             if (parseInt(otherKey, 10) === ServiceOther.UNIVERSE.key) {
               if (service instanceof ServiceTree) {
-                return service.getFrameworks().length > 0;
+                memo = memo.concat(service.filterItemsByFilter({other: [otherKey]}).getItems());
               }
 
-              return service instanceof Framework;
+              if (service instanceof Framework) {
+                memo.push(service);
+              }
             }
 
             if (parseInt(otherKey, 10) === ServiceOther.VOLUMES.key) {
@@ -159,15 +180,26 @@ module.exports = class ServiceTree extends Tree {
               return volumes.list && volumes.list.length > 0;
             }
           });
-        });
+
+          return memo;
+        }, []);
       }
 
       if (filter.status != null && filter.status.length !== 0) {
-        services = services.filter(function (service) {
-          return filter.status.some(function (statusValue) {
-            return service.getServiceStatus().key === parseInt(statusValue, 10);
+        services = services.reduce(function (memo, service) {
+          filter.status.some(function (statusValue) {
+            if (service instanceof ServiceTree) {
+              memo = memo.concat(service.filterItemsByFilter({status: [statusValue]}).getItems());
+              return;
+            }
+
+            if (service.getServiceStatus().key === parseInt(statusValue, 10)) {
+              memo.push(service);
+            }
           });
-        });
+
+          return memo;
+        }, []);
       }
     }
 
