@@ -1,48 +1,55 @@
-.deployments-table {
+& when (@deployments-table-enabled) {
 
-  td {
-    vertical-align: top;
-  }
+  .deployments-table {
 
-  .deployment-services-list,
-  .deployment-start-time,
-  .deployment-step,
-  .deployment-status-list,
-  .deployment-rollback {
-    font-size: @body-text-font-size;
-  }
-
-  .deployment-id {
-    margin-bottom: 8px;
-    .text-overflow;
-  }
-
-  .deployment-service-icon {
-    margin: 0 8px;
-    flex-shrink: 0;
-  }
-
-  .deployment-service-name {
-    .text-overflow;
-  }
-
-  .deployment-location-list {
-    padding-top: 25px;
-  }
-
-  .deployment-location-list li,
-  .deployment-status-list li {
-    margin-bottom: 0;
-  }
-
-  .deployment-breadcrumb {
-    .deployment-breadcrumb-service-id {
-      display: none;
+    td {
+      vertical-align: top;
     }
-    .deployment-breadcrumb-crumb {
-      line-height: 32px;
-      font-size: @body-text-font-size;
+
+    .deployment-services-list,
+    .deployment-start-time,
+    .deployment-step,
+    .deployment-status-list,
+    .deployment-rollback {
+      font-size: 1rem;
     }
+
+    .deployment-id {
+      margin-bottom: 8px;
+      .text-overflow;
+    }
+
+    .deployment-service-icon {
+      margin: 0 8px;
+      flex-shrink: 0;
+    }
+
+    .deployment-service-name {
+      .text-overflow;
+    }
+
+    .deployment-location-list {
+      padding-top: 25px;
+    }
+
+    .deployment-location-list li,
+    .deployment-status-list li {
+      margin-bottom: 0;
+    }
+
+    .deployment-breadcrumb {
+
+      .deployment-breadcrumb-service-id {
+        display: none;
+      }
+
+      .deployment-breadcrumb-crumb {
+        line-height: 32px;
+        font-size: 1rem;
+      }
+
+    }
+
   }
 
   .deployment-step {
@@ -50,10 +57,13 @@
     margin-left: @base-spacing-unit * 0.25;
     margin-bottom: 8px;
   }
+
   .deployment-status-list {
+
     li {
       line-height: 32px;
     }
+
   }
 
 }
