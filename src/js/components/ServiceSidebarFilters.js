@@ -20,6 +20,10 @@ function getCountByFilters(services) {
   const volumesKey = ServiceOther.VOLUMES.key;
 
   return services.reduce(function (memo, service) {
+    if (service instanceof ServiceTree) {
+      return memo;
+    }
+
     let serviceStatus = service.getServiceStatus();
     let serviceHealth = service.getHealth();
 
@@ -40,18 +44,6 @@ function getCountByFilters(services) {
         memo.otherCount[universeKey] = 1;
       } else {
         memo.otherCount[universeKey]++;
-      }
-    } else if (service instanceof ServiceTree) {
-      let frameworks = service
-        .filterItemsByFilter({other: [ServiceOther.UNIVERSE.key]})
-        .getItems();
-
-      if (frameworks.length > 0) {
-        if (memo.otherCount[universeKey] === undefined) {
-          memo.otherCount[universeKey] = 1;
-        } else {
-          memo.otherCount[universeKey]++;
-        }
       }
     }
 
