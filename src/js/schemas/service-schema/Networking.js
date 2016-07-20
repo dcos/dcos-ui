@@ -168,7 +168,8 @@ const Networking = {
             label: 'Discovery',
             showLabel: false,
             title: 'Discovery',
-            type: 'boolean'
+            type: 'boolean',
+            className: 'form-row-element-mixed-label-presence'
           }
         }
       }

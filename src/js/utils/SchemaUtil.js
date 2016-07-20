@@ -63,6 +63,10 @@ function schemaToFieldDefinition(options) {
     valueType: fieldProps.type
   };
 
+  if (fieldProps.className != null) {
+    definition.labelClass = fieldProps.className;
+  }
+
   setLabelFromSchemaProperty(fieldName, fieldProps, isRequired, renderLabel, definition);
 
   if (typeof value === 'boolean') {
