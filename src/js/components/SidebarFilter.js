@@ -167,7 +167,7 @@ class SidebarFilter extends mixin(QueryParamsMixin) {
             this.getFormLabel(filterLabels[filterLabel], filterLabel),
           labelClass: labelClassSet
         };
-    });
+      });
   }
 
   getHealthNodes() {
