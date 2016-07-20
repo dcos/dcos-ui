@@ -1,5 +1,4 @@
 import {Hooks} from 'PluginSDK';
-import Classnames from 'classnames';
 import React from 'react';
 
 import FormUtil from '../utils/FormUtil';
