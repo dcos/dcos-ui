@@ -8,11 +8,8 @@ import HealthBar from './HealthBar';
 import PageHeader from './PageHeader';
 import Service from '../structs/Service';
 import ServiceActionItem from '../constants/ServiceActionItem';
+import StatusMapping from '../constants/StatusMapping';
 import StringUtil from '../utils/StringUtil';
-
-const StatusMapping = {
-  'Running': 'service-running-state'
-};
 
 class ServiceInfo extends React.Component {
   constructor() {

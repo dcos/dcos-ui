@@ -11,6 +11,7 @@ import MarathonStore from '../../stores/MarathonStore';
 import MesosStateStore from '../../stores/MesosStateStore';
 import PageHeader from '../../components/PageHeader';
 import RequestErrorMsg from '../../components/RequestErrorMsg';
+import StatusMapping from '../../constants/StatusMapping';
 import TabsMixin from '../../mixins/TabsMixin';
 import TaskDirectoryStore from '../../stores/TaskDirectoryStore';
 import TaskStates from '../../constants/TaskStates';
@@ -19,10 +20,6 @@ const METHODS_TO_BIND = [
   'onTaskDirectoryStoreError',
   'onTaskDirectoryStoreSuccess'
 ];
-
-const StatusMapping = {
-  'Running': 'service-running-state'
-};
 
 class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
   constructor() {
