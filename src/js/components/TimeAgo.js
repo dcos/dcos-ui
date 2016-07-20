@@ -62,6 +62,10 @@ class TimeAgo extends React.Component {
   render() {
     let {prefix, suppressSuffix, time} = this.props;
     let relativeTime = DateUtil.msToRelativeTime(time, suppressSuffix);
+    if (time == null) {
+      relativeTime = 'N/A';
+    }
+
     let prefixString;
     if (prefix) {
       prefixString = `${prefix} `;
