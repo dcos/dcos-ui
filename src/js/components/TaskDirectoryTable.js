@@ -2,12 +2,12 @@ import classNames from 'classnames';
 import React from 'react';
 import {Table} from 'reactjs-components';
 
-import DateUtil from '../utils/DateUtil';
 import Icon from './Icon';
 import ResourceTableUtil from '../utils/ResourceTableUtil';
 import TableUtil from '../utils/TableUtil';
 import TaskDirectoryHeaderLabels from '../constants/TaskDirectoryHeaderLabels';
 import TaskDirectoryActions from '../events/TaskDirectoryActions';
+import TimeAgo from './TimeAgo';
 import Units from '../utils/Units';
 
 function renderByProperty(prop, directoryItem) {
@@ -91,9 +91,7 @@ class TaskDirectoryTable extends React.Component {
     let ms = directoryItem.get(prop) * 1000;
 
     return (
-      <span title={DateUtil.msToDateStr(ms)}>
-        {DateUtil.msToRelativeTime(ms)}
-      </span>
+      <TimeAgo time={ms} />
     );
   }
 

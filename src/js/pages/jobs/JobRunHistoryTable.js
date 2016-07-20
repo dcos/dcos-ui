@@ -2,12 +2,12 @@ import classNames from 'classnames';
 import {Link} from 'react-router';
 import React from 'react';
 
-import DateUtil from '../../utils/DateUtil';
 import ExpandingTable from '../../components/ExpandingTable';
 import FilterHeadline from '../../components/FilterHeadline';
 import Icon from '../../components/Icon';
 import JobStates from '../../constants/JobStates';
 import TaskStates from '../../constants/TaskStates';
+import TimeAgo from '../../components/TimeAgo';
 
 const METHODS_TO_BIND = [
   'renderJobIDColumn'
@@ -87,12 +87,14 @@ class JobRunHistoryTable extends React.Component {
         className: this.getColumnClassName,
         heading: this.getColumnHeading,
         prop: 'startedAt',
+        render: this.renderTimeColumn,
         sortable: true
       },
       {
         className: this.getColumnClassName,
         heading: this.getColumnHeading,
         prop: 'finishedAt',
+        render: this.renderTimeColumn,
         sortable: true
       }
     ];
@@ -103,42 +105,20 @@ class JobRunHistoryTable extends React.Component {
     let jonRuns = job.getJobRuns();
 
     return jonRuns.getItems().map(function (jobRun, runIndex) {
-      let dateRunStarted = jobRun.getDateCreated();
-      let dateRunFinished = jobRun.getDateFinished();
-
-      if (dateRunStarted != null) {
-        dateRunStarted = DateUtil.msToRelativeTime(dateRunStarted);
-      }
-
-      if (dateRunFinished != null) {
-        dateRunFinished = DateUtil.msToRelativeTime(dateRunFinished);
-      }
-
       let children = jobRun.getTasks().getItems().map(function (jobTask) {
-        let dateTaskStarted = jobTask.getDateStarted();
-        let dateTaskFinished = jobTask.getDateCompleted();
-
-        if (dateTaskStarted != null) {
-          dateTaskStarted = DateUtil.msToRelativeTime(dateTaskStarted);
-        }
-
-        if (dateTaskFinished != null) {
-          dateTaskFinished = DateUtil.msToRelativeTime(dateTaskFinished);
-        }
-
         return {
           taskID: jobTask.getTaskID(),
           status: jobTask.getStatus(),
-          startedAt: dateTaskStarted,
-          finishedAt: dateTaskFinished
+          startedAt: jobTask.getDateStarted(),
+          finishedAt: jobTask.getDateCompleted()
         };
       });
 
       return {
-        finishedAt: dateRunFinished,
+        finishedAt: jobRun.getDateFinished(),
         id: runIndex,
         jobID: jobRun.getJobID(),
-        startedAt: dateRunStarted,
+        startedAt: jobRun.getDateCreated(),
         status: jobRun.getStatus(),
         children
       };
@@ -228,6 +208,12 @@ class JobRunHistoryTable extends React.Component {
       <span className={statusClasses}>
         {status.displayName}
       </span>
+    );
+  }
+
+  renderTimeColumn(prop, row) {
+    return (
+      <TimeAgo time={row[prop]} />
     );
   }
 

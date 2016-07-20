@@ -1,6 +1,6 @@
 import React from 'react';
 
-import DateUtil from '../utils/DateUtil';
+import TimeAgo from './TimeAgo';
 import DescriptionList from './DescriptionList';
 import Service from '../structs/Service';
 import TaskStatsTable from './TaskStatsTable';
@@ -27,17 +27,13 @@ class ServiceDetailDebugTab extends React.Component {
     }
 
     const {version, timestamp, taskId, state, message, host} = lastTaskFailure;
-    let timeStampText = 'Just now';
-    if (new Date(timestamp) > Date.now()) {
-      timeStampText = DateUtil.msToRelativeTime(timestamp);
-    }
     let taskFailureValueMapping = {
       'Task ID': this.getValueText(taskId),
       'State': this.getValueText(state),
       'Message': this.getValueText(message),
       'Host': this.getValueText(host),
-      'Timestamp': <span>{timestamp} ({timeStampText})</span>,
-      'Version': <span>{version} ({DateUtil.msToRelativeTime(version)})</span>
+      'Timestamp': <span>{timestamp} (<TimeAgo time={timestamp} />)</span>,
+      'Version': <span>{version} (<TimeAgo time={version} />)</span>
     };
 
     return <DescriptionList hash={taskFailureValueMapping} />;
@@ -56,7 +52,7 @@ class ServiceDetailDebugTab extends React.Component {
     if (lastScalingAt !== lastConfigChangeAt) {
       lastScaling = (
         <span>
-          {lastScalingAt} ({DateUtil.msToRelativeTime(lastScalingAt)})
+          {lastScalingAt} (<TimeAgo time={lastScalingAt} />)
         </span>
       );
     }
@@ -65,7 +61,7 @@ class ServiceDetailDebugTab extends React.Component {
       'Scale or Restart': lastScaling,
       'Configuration': (
         <span>
-          {lastConfigChangeAt} ({DateUtil.msToRelativeTime(lastConfigChangeAt)})
+          {lastConfigChangeAt} (<TimeAgo time={lastConfigChangeAt} />)
         </span>
       )
     };
