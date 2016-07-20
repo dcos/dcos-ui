@@ -140,10 +140,10 @@ class SidebarFilter extends mixin(QueryParamsMixin) {
     let {selectedNodes} = this.state;
 
     return Object.keys(filterLabels)
-      .filter(filterLabel => {
+      .filter(function (filterLabel) {
         return filterValues[filterLabel] != null;
       })
-      .map(filterLabel => {
+      .map((filterLabel) => {
         let value = filterValues[filterLabel];
         let checked = selectedNodes.indexOf(value.toString()) > -1;
 
