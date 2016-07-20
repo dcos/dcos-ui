@@ -213,7 +213,7 @@ class TaskTable extends React.Component {
           <span className={statusClass}></span>
         </div>
         <span className={statusLabelClasses}>
-          {this.getStatusValue(task, prop)}
+          {this.getStatusValue(task)}
         </span>
       </div>
     );
