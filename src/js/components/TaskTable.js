@@ -30,8 +30,8 @@ class TaskTable extends React.Component {
     return task.resources[prop];
   }
 
-  getStatusValue(state) {
-    return TaskStates[state].displayName;
+  getStatusValue(task) {
+    return TaskStates[task.state].displayName;
   }
 
   getColumns() {
@@ -213,7 +213,7 @@ class TaskTable extends React.Component {
           <span className={statusClass}></span>
         </div>
         <span className={statusLabelClasses}>
-          {this.getStatusValue(state)}
+          {this.getStatusValue(task, prop)}
         </span>
       </div>
     );
