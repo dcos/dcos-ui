@@ -1,20 +1,14 @@
 /* -----------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
-
-base/forms.less
-
+multiple-form/styles.less
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 ----------------------------------------------------------------------------- */
 
-@multiple-form-modal-column-padding-horizontal: @base-spacing-unit * 1/4;
 
 
-
-
-
-& when (@form-enabled) {
+& when (@multiple-form-enabled) {
 
   .lb-port-input-field-disabled {
     border: 0;
@@ -29,6 +23,7 @@ base/forms.less
 
   --------------------------------------------------------------------------------
   ----------------------------------------------------------------------------- */
+
   .form-element-inline {
     display: inline-block;
 
@@ -223,8 +218,8 @@ base/forms.less
 
       .duplicable-row-title {
         align-self: flex-start;
-        color: @heading-h3-text-color;
-        font-size: @form-label-font-size * @form-label-font-size-scale-screen-small * 1.2;
+        color: @heading-h3-color;
+        font-size: @label-font-size * 1.2;
       }
     }
   }
@@ -269,9 +264,9 @@ base/forms.less
     }
 
     .modal-header-title {
-      color: @heading-h3-text-color;
-      font-size: @form-label-font-size * @form-label-font-size-scale-screen-small;
-      line-height: @form-label-line-height * @form-label-line-height-scale-screen-small;
+      color: @heading-h3-color;
+      font-size: @label-font-size;
+      line-height: @label-line-height;
     }
 
     .modal-form-title-label {
@@ -283,9 +278,9 @@ base/forms.less
 
 }
 
-& when (@screen-small-enabled) {
+& when (@layout-screen-small-enabled) {
 
-  @media (min-width: @screen-small) {
+  @media (min-width: @layout-screen-small-min-width) {
 
     .multiple-form-modal {
 
