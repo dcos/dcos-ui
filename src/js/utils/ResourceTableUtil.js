@@ -4,11 +4,11 @@ const React = require('react');
 /* eslint-enable no-unused-vars */
 import {Tooltip} from 'reactjs-components';
 
-import DateUtil from '../utils/DateUtil';
 const HealthSorting = require('../constants/HealthSorting');
 import Icon from '../components/Icon';
 const MarathonStore = require('../stores/MarathonStore');
 import TableUtil from '../utils/TableUtil';
+import TimeAgo from '../components/TimeAgo';
 import Util from '../utils/Util';
 
 const LEFT_ALIGN_PROPS = [
@@ -133,10 +133,8 @@ var ResourceTableUtil = {
     }
 
     let ms = updatedAt.toFixed(3) * 1000;
-    let exactTime = DateUtil.msToDateStr(ms);
-    let relativeTime = DateUtil.msToRelativeTime(ms);
 
-    return <span title={exactTime}>{relativeTime}</span>;
+    return <TimeAgo time={ms} />;
   },
 
   renderTask: function (prop, model) {
