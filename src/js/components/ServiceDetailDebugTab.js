@@ -32,8 +32,10 @@ class ServiceDetailDebugTab extends React.Component {
       'State': this.getValueText(state),
       'Message': this.getValueText(message),
       'Host': this.getValueText(host),
-      'Timestamp': <span>{timestamp} (<TimeAgo time={timestamp} />)</span>,
-      'Version': <span>{version} (<TimeAgo time={version} />)</span>
+      'Timestamp': <span>
+        {timestamp} (<TimeAgo time={new Date(timestamp)} />)
+      </span>,
+      'Version': <span>{version} (<TimeAgo time={new Date(version)} />)</span>
     };
 
     return <DescriptionList hash={taskFailureValueMapping} />;
@@ -52,7 +54,7 @@ class ServiceDetailDebugTab extends React.Component {
     if (lastScalingAt !== lastConfigChangeAt) {
       lastScaling = (
         <span>
-          {lastScalingAt} (<TimeAgo time={lastScalingAt} />)
+          {lastScalingAt} (<TimeAgo time={new Date(lastScalingAt)} />)
         </span>
       );
     }
@@ -61,7 +63,7 @@ class ServiceDetailDebugTab extends React.Component {
       'Scale or Restart': lastScaling,
       'Configuration': (
         <span>
-          {lastConfigChangeAt} (<TimeAgo time={lastConfigChangeAt} />)
+          {lastConfigChangeAt} (<TimeAgo time={new Date(lastConfigChangeAt)} />)
         </span>
       )
     };
