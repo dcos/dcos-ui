@@ -62,8 +62,9 @@ class TaskView extends mixin(SaveStateMixin, StoreMixin) {
   }
 
   componentWillReceiveProps(nextProps) {
-    let tasks = this.filterByCurrentStatus(nextProps.tasks);
-    let prevTasks = this.filterByCurrentStatus(this.props.tasks);
+    let {filterByStatus, searchString} = this.state;
+    let tasks = this.getFilteredTasks(filterByStatus, nextProps.tasks, searchString);
+    let prevTasks = this.getFilteredTasks(filterByStatus, this.props.tasks, searchString);
 
     if (!deepEqual(tasks, prevTasks)) {
       let checkedItems = {};
@@ -117,19 +118,28 @@ class TaskView extends mixin(SaveStateMixin, StoreMixin) {
     this.setState({checkedItems: {}, killAction: ''});
   }
 
-  filterByCurrentStatus(tasks) {
-    let status = this.state.filterByStatus;
-    if (status === 'all') {
+  filterByCurrentStatus(tasks, filterByStatus) {
+    if (filterByStatus === 'all') {
       return tasks;
     }
 
     return tasks.filter(function (task) {
-      return TaskStates[task.state].stateTypes.includes(status);
+      return TaskStates[task.state].stateTypes.includes(filterByStatus);
     });
   }
 
   hasLoadingError() {
     return this.state.mesosStateErrorCount >= 5;
+  }
+
+  getFilteredTasks(filterByStatus, tasks, searchString) {
+    if (searchString !== '') {
+      tasks = StringUtil.filterByString(tasks, 'id', searchString);
+    }
+
+    tasks = this.filterByCurrentStatus(tasks, filterByStatus);
+
+    return tasks;
   }
 
   getLoadingScreen() {
@@ -237,11 +247,7 @@ class TaskView extends mixin(SaveStateMixin, StoreMixin) {
       });
     });
 
-    if (searchString !== '') {
-      tasks = StringUtil.filterByString(tasks, 'id', searchString);
-    }
-
-    tasks = this.filterByCurrentStatus(tasks);
+    tasks = this.getFilteredTasks(filterByStatus, tasks, searchString);
 
     let rightAlignLastNChildren = 0;
     let hasCheckedTasks = Object.keys(checkedItems).length !== 0;
