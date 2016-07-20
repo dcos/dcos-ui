@@ -213,7 +213,7 @@ class JobRunHistoryTable extends React.Component {
 
   renderTimeColumn(prop, row) {
     return (
-      <TimeAgo time={row[prop]} />
+      <TimeAgo time={row[prop]} dontUpdate={true} />
     );
   }
 

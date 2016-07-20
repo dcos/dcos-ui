@@ -91,7 +91,7 @@ class TaskDirectoryTable extends React.Component {
     let ms = directoryItem.get(prop) * 1000;
 
     return (
-      <TimeAgo time={ms} />
+      <TimeAgo time={ms} dontUpdate={true} />
     );
   }
 
