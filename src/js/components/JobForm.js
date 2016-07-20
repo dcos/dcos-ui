@@ -20,7 +20,7 @@ class JobForm extends SchemaForm {
   componentWillMount() {
     this.multipleDefinition = this.getNewDefinition();
     // On edit hide the id field.
-    if (this.props.edit) {
+    if (this.props.isEdit) {
       this.multipleDefinition.general.definition.forEach(function (definition) {
         if (definition.name === 'id') {
           definition.formElementClass = 'hidden';
@@ -46,13 +46,14 @@ class JobForm extends SchemaForm {
 JobForm.defaultProps = {
   className: 'multiple-form row',
   getTriggerSubmit: function () {},
+  isEdit: false,
   onChange: function () {},
   schema: {}
 };
 
 JobForm.propTypes = {
   className: React.PropTypes.string,
-  edit: React.PropTypes.bool,
+  isEdit: React.PropTypes.bool,
   getTriggerSubmit: React.PropTypes.func,
   onChange: React.PropTypes.func,
   schema: React.PropTypes.object
