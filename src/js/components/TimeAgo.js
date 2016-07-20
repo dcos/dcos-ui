@@ -19,13 +19,20 @@ class TimeAgo extends React.Component {
       this[method] = this[method].bind(this);
     });
 
-    if (!this.props.dontUpdate) {
-      this.updateTime();
+    this.state = {};
+
+    if (!this.props.dontUpdate && this.props.time != null) {
+      this.state.interval = global.setTimeout(
+        this.updateTime,
+        this.getUpdateInterval()
+      );
     }
   }
 
   componentWillUnmount() {
-    global.clearInterval(this.state.interval);
+    if (this.state.interval) {
+      global.clearInterval(this.state.interval);
+    }
   }
 
   getUpdateInterval() {
