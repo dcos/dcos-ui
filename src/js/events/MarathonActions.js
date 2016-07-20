@@ -36,6 +36,7 @@ import {
 var AppDispatcher = require('./AppDispatcher');
 var Config = require('../config/Config');
 import MarathonUtil from '../utils/MarathonUtil';
+import Util from '../utils/Util';
 
 module.exports = {
   createGroup: function (data) {
@@ -81,6 +82,7 @@ module.exports = {
   editGroup: function (data, force) {
     let groupId = encodeURIComponent(data.id);
     let url = `${Config.rootUrl}${Config.marathonAPIPrefix}/groups/${groupId}`;
+    data = Util.omit(data, ['id']);
 
     if (force === true) {
       url += '?force=true';
