@@ -142,7 +142,7 @@ class SidebarFilter extends mixin(QueryParamsMixin) {
     let {selectedNodes} = this.state;
 
     return Object.keys(filterLabels)
-      .filter(function (filterLabel) {
+      .filter((filterLabel) => {
         let filterValue = filterValues[filterLabel];
 
         return filterValue != null &&
