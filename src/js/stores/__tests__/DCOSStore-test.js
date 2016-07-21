@@ -398,10 +398,4 @@ describe('DCOSStore', function () {
 
   });
 
-  describe('#get storeID', function () {
-    it('should return \'dcos\'', function () {
-      expect(DCOSStore.storeID).toEqual('dcos');
-    });
-  });
-
 });
