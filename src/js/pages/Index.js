@@ -7,7 +7,6 @@ import {StoreMixin} from 'mesosphere-shared-reactjs';
 var Config = require('../config/Config');
 import ConfigStore from '../stores/ConfigStore';
 import EventTypes from '../constants/EventTypes';
-import HistoryStore from '../stores/HistoryStore';
 var InternalStorageMixin = require('../mixins/InternalStorageMixin');
 var MetadataStore = require('../stores/MetadataStore');
 var Modals = require('../components/Modals');
@@ -39,7 +38,6 @@ var Index = React.createClass({
   },
 
   componentWillMount: function () {
-    HistoryStore.init();
     MetadataStore.init();
     SidebarStore.init();
 

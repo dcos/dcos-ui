@@ -16,7 +16,6 @@ var HistoryStore = require('../HistoryStore');
 
 describe('HistoryStore', function () {
   beforeEach(function () {
-    HistoryStore.init();
     var routes = [{name: 'home'}, {name: 'dashboard'}];
     this.routes = routes;
     this.router = {

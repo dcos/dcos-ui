@@ -4,24 +4,18 @@ import {HashLocation} from 'react-router';
 import {HISTORY_CHANGE} from '../constants/EventTypes';
 
 class HistoryStore extends GetSetBaseStore {
-  init() {
-    this.set({
+  constructor() {
+    super(...arguments);
+
+    this.getSet_data = {
       history: [HashLocation.getCurrentPath()]
-    });
+    };
 
     HashLocation.addChangeListener(change => {
       // The router will call the callback with a different context
       // this is why this is here
       this.onHashChange(change);
     });
-  }
-
-  addChangeListener(eventName, callback) {
-    this.on(eventName, callback);
-  }
-
-  removeChangeListener(eventName, callback) {
-    this.removeListener(eventName, callback);
   }
 
   onHashChange(change) {
