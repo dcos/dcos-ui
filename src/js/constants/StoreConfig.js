@@ -68,7 +68,6 @@ import {
 
   NOTIFICATION_CHANGE,
 
-  DCOS_CHANGE,
   DCOS_METADATA_CHANGE,
 
   MESOS_LOG_CHANGE,
@@ -93,7 +92,6 @@ import {
   VISIBILITY_CHANGE
 } from './EventTypes';
 import MetronomeStore from '../stores/MetronomeStore';
-import DCOSStore from '../stores/DCOSStore';
 import MarathonStore from '../stores/MarathonStore';
 import MesosLogStore from '../stores/MesosLogStore';
 import MesosStateStore from '../stores/MesosStateStore';
@@ -175,17 +173,6 @@ const ListenersDescription = {
     },
 
     // Set to true to keep listening until unmount
-    listenAlways: true
-  },
-
-  dcos: {
-    store: DCOSStore,
-    events: {
-      change: DCOS_CHANGE
-    },
-    unmountWhen: function () {
-      return true;
-    },
     listenAlways: true
   },
 
