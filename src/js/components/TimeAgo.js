@@ -4,9 +4,9 @@ import DateUtil from '../utils/DateUtil';
 import Util from '../utils/Util';
 
 const SECOND = 1000;
-const MINUTE = 60 * 1000;
-const HOUR = 60 * 60 * 1000;
-const DAY = 24 * 60 * 60 * 1000;
+const MINUTE = 60 * MINUTE;
+const HOUR = 60 * HOUR;
+const DAY = 24 * DAY;
 const METHODS_TO_BIND = [
   'updateTime'
 ];
