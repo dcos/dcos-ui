@@ -1,150 +1,264 @@
-@keyframes candy-stripe {
-  0% {
-    background-position: 0 0;
-  }
+/* -----------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+progress-bar/styles.less
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+----------------------------------------------------------------------------- */
 
-  100% {
-    background-position: 16px 0;
-  }
-}
 
-.inline-progress-bar-wrapper {
-  align-items: center;
-  display: flex;
-  flex-direction: row;
-  padding-left: @base-spacing-unit * 0.5;
-}
 
-.progress-bar {
-  background-color: @neutral;
-  border-radius: @table-header-border-radius;
-  display: inline-block;
-  height: @progress-bar-height;
-  line-height: @body-text-line-height;
-  overflow: hidden;
-  width: @progress-bar-width;
+& when (@progress-bar-enabled) {
 
-  .bar {
-    box-shadow: 1px 0px 0px 0px @body-background-color;
-    height: 100%;
-    transform: scaleX(0);
-    transform-origin: 0;
-    transition: transform 600ms;
-    width: 100%;
-
-    &.color-1 {
-      background-color: @purple;
+  @keyframes candy-stripe {
+    0% {
+      background-position: 0 0;
     }
 
-    &.color-2 {
-      background-color: @pink;
-    }
-
-    &.color-3, &.over-capacity {
-      background-color: @blue;
-    }
-
-    &.color-4, &.healthy {
-      background-color: @green;
-    }
-
-    &.color-5, &.unhealthy {
-      background-color: @red;
-    }
-
-    &.color-6 {
-      background-color: @yellow;
-    }
-
-    &.staged {
-      animation: candy-stripe 1s linear infinite;
-      background-size: 16px 16px;
-      background-image: linear-gradient(-45deg, color-lighten(@neutral, 10) 0,
-      color-lighten(@neutral, 10) 25%, color-lighten(@neutral, -10) 25%,
-      color-lighten(@neutral, -10) 50%, color-lighten(@neutral, 10) 50%,
-      color-lighten(@neutral, 10) 75%, color-lighten(@neutral, -10) 75%,
-      color-lighten(@neutral, -10) 100%);
-    }
-
-  }
-}
-
-.spread-content {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-left: @base-spacing-unit * 0.5;
-}
-
-.upgrade-progress-bar {
-  display: block;
-  margin-right: @base-spacing-unit * 2/3;
-  width: 216px;
-
-  &.is-ongoing,
-  &.is-waiting {
-
-    .progress-bar-fill {
-      animation: candy-stripe 1s linear infinite;
-      background-size: 16px 16px;
-      background-image: linear-gradient(-45deg, color-lighten(@green, 10) 0,
-        color-lighten(@green, 10) 25%, color-lighten(@green, -10) 25%,
-        color-lighten(@green, -10) 50%, color-lighten(@green, 10) 50%,
-        color-lighten(@green, 10) 75%, color-lighten(@green, -10) 75%,
-        color-lighten(@green, -10) 100%);
+    100% {
+      background-position: 16px 0;
     }
   }
 
-  &.is-waiting {
-
-    .progress-bar-label {
-      color: @white;
-    }
-  }
-
-  &.is-paused {
-
-    .progress-bar-fill {
-      background: color-lighten(@neutral, 40);
-    }
-  }
-
-  .progress-bar-header {
+  .inline-progress-bar-wrapper {
+    align-items: center;
     display: flex;
-    margin-bottom: @base-spacing-unit * 1/6;
+    flex-direction: row;
+    padding-left: @base-spacing-unit * 0.5;
+  }
 
-    &,
-    .emphasize {
-      color: currentColor;
-      font-size: @body-text-font-size * 0.95;
+  .progress-bar {
+    background-color: @neutral;
+    border-radius: @progress-bar-border-radius;
+    display: inline-block;
+    height: @progress-bar-height;
+    line-height: 1rem;
+    overflow: hidden;
+    width: @progress-bar-width;
+
+    .bar {
+      box-shadow: 1px 0 0 0 @body-background-color;
+      height: 100%;
+      transform: scaleX(0);
+      transform-origin: 0;
+      transition: transform 600ms;
+      width: 100%;
+
+      &.color-1 {
+        background-color: @purple;
+      }
+
+      &.color-2 {
+        background-color: @pink;
+      }
+
+      &.color-3, &.over-capacity {
+        background-color: @blue;
+      }
+
+      &.color-4, &.healthy {
+        background-color: @green;
+      }
+
+      &.color-5, &.unhealthy {
+        background-color: @red;
+      }
+
+      &.color-6 {
+        background-color: @yellow;
+      }
+
+      &.staged {
+        animation: candy-stripe 1s linear infinite;
+        background-size: 16px 16px;
+        background-image: linear-gradient(-45deg, color-lighten(@neutral, 10) 0,
+        color-lighten(@neutral, 10) 25%, color-lighten(@neutral, -10) 25%,
+        color-lighten(@neutral, -10) 50%, color-lighten(@neutral, 10) 50%,
+        color-lighten(@neutral, 10) 75%, color-lighten(@neutral, -10) 75%,
+        color-lighten(@neutral, -10) 100%);
+      }
+
     }
+  }
 
-    .progress-bar-label {
-      flex: 1 1 auto;
-    }
+  .spread-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: @base-spacing-unit * 0.5;
+  }
 
-    .progress-bar-label-action {
-      flex: 0 0 auto;
-      text-align: right;
+  .upgrade-progress-bar {
+    display: block;
+    margin-right: @base-spacing-unit * 2/3;
+    width: 216px;
 
-      a {
-        text-decoration: underline;
+    &.is-ongoing,
+    &.is-waiting {
+
+      .progress-bar-fill {
+        animation: candy-stripe 1s linear infinite;
+        background-size: 16px 16px;
+        background-image: linear-gradient(-45deg, color-lighten(@green, 10) 0,
+          color-lighten(@green, 10) 25%, color-lighten(@green, -10) 25%,
+          color-lighten(@green, -10) 50%, color-lighten(@green, 10) 50%,
+          color-lighten(@green, 10) 75%, color-lighten(@green, -10) 75%,
+          color-lighten(@green, -10) 100%);
       }
     }
+
+    &.is-waiting {
+
+      .progress-bar-label {
+        color: @white;
+      }
+    }
+
+    &.is-paused {
+
+      .progress-bar-fill {
+        background: color-lighten(@neutral, 40);
+      }
+    }
+
+    .progress-bar-header {
+      display: flex;
+      margin-bottom: @base-spacing-unit * 1/6;
+
+      &,
+      .emphasize {
+        color: currentColor;
+        font-size: 0.95rem;
+      }
+
+      .progress-bar-label {
+        flex: 1 1 auto;
+      }
+
+      .progress-bar-label-action {
+        flex: 0 0 auto;
+        text-align: right;
+
+        a {
+          text-decoration: underline;
+        }
+      }
+    }
+
+    .progress-bar-fill-wrapper,
+    .progress-bar-fill {
+      height: 7px;
+    }
+
+    .progress-bar-fill-wrapper {
+      background: @neutral;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .progress-bar-fill {
+      transition: width 600ms;
+    }
   }
 
-  .progress-bar-fill-wrapper,
-  .progress-bar-fill {
-    height: 7px;
+}
+
+& when (@layout-screen-small-enabled) {
+
+  @media (min-width: @layout-screen-small-min-width) {
+
+    .inline-progress-bar-wrapper {
+      padding-left: @base-spacing-unit-screen-small * 0.5;
+    }
+
+    .spread-content {
+      margin-left: @base-spacing-unit-screen-small * 0.5;
+    }
+
+    .upgrade-progress-bar {
+      margin-right: @base-spacing-unit-screen-small * 2/3;
+
+      .progress-bar-header {
+        margin-bottom: @base-spacing-unit-screen-small * 1/6;
+      }
+
+    }
+
   }
 
-  .progress-bar-fill-wrapper {
-    background: @neutral;
-    border-radius: 10px;
-    overflow: hidden;
+}
+
+& when (@layout-screen-medium-enabled) {
+
+  @media (min-width: @layout-screen-medium-min-width) {
+
+    .inline-progress-bar-wrapper {
+      padding-left: @base-spacing-unit-screen-medium * 0.5;
+    }
+
+    .spread-content {
+      margin-left: @base-spacing-unit-screen-medium * 0.5;
+    }
+
+    .upgrade-progress-bar {
+      margin-right: @base-spacing-unit-screen-medium * 2/3;
+
+      .progress-bar-header {
+        margin-bottom: @base-spacing-unit-screen-medium * 1/6;
+      }
+
+    }
+
   }
 
-  .progress-bar-fill {
-    transition: width 600ms;
+}
+
+& when (@layout-screen-large-enabled) {
+
+  @media (min-width: @layout-screen-large-min-width) {
+
+    .inline-progress-bar-wrapper {
+      padding-left: @base-spacing-unit-screen-large * 0.5;
+    }
+
+    .spread-content {
+      margin-left: @base-spacing-unit-screen-large * 0.5;
+    }
+
+    .upgrade-progress-bar {
+      margin-right: @base-spacing-unit-screen-large * 2/3;
+
+      .progress-bar-header {
+        margin-bottom: @base-spacing-unit-screen-large * 1/6;
+      }
+
+    }
+
   }
+
+}
+
+& when (@layout-screen-jumbo-enabled) {
+
+  @media (min-width: @layout-screen-jumbo-min-width) {
+
+    .inline-progress-bar-wrapper {
+      padding-left: @base-spacing-unit-screen-jumbo * 0.5;
+    }
+
+    .spread-content {
+      margin-left: @base-spacing-unit-screen-jumbo * 0.5;
+    }
+
+    .upgrade-progress-bar {
+      margin-right: @base-spacing-unit-screen-jumbo * 2/3;
+
+      .progress-bar-header {
+        margin-bottom: @base-spacing-unit-screen-jumbo * 1/6;
+      }
+
+    }
+
+  }
+
 }
