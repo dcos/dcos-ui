@@ -234,10 +234,11 @@ class TaskView extends mixin(SaveStateMixin, StoreMixin) {
     return (
       <div className="flex-container-col flex-grow">
         <FilterHeadline
+          currentLength={tasks.length}
           inverseStyle={inverseStyle}
+          isFiltering={filterByStatus !== 'all' || searchString !== ''}
           onReset={this.resetFilter}
           name="Task"
-          currentLength={tasks.length}
           totalLength={totalNumberOfTasks} />
         <FilterBar rightAlignLastNChildren={rightAlignLastNChildren}>
           <FilterInputText
