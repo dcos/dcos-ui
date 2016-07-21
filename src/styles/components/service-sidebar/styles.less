@@ -1,41 +1,119 @@
-.sidebar-filters {
-  .form-row-element {
-    .filter-active {
-      color: color-lighten(@neutral, 75);
-    }
+/* -----------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+service-sidebar/styles.less
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+----------------------------------------------------------------------------- */
 
-    .filter-checked, &:hover {
-      color: @white;
-    }
-  }
 
-  .dropdown.dropdown-wide {
-    .dropdown-menu {
-      max-width: 500px;
-      min-width: 100%;
-      width: auto;
 
-      .text-overflow {
-        max-width: none;
+& when (@service-sidebar-enabled) {
+
+  .sidebar-filters {
+    .form-row-element {
+      .filter-active {
+        color: color-lighten(@neutral, 75);
       }
-    }
-  }
 
-  .badge.label-pill {
-    .pill-wrap {
-      padding: 0 @base-spacing-unit 0 @base-spacing-unit / 4;
-    }
-
-    .remove-filter {
-      background-color: transparent;
-      position: absolute;
-      right: 0;
-      z-index: 2;
-
-      &:hover {
+      .filter-checked, &:hover {
         color: @white;
-        text-decoration: none;
+      }
+    }
+
+    .dropdown.dropdown-wide {
+      .dropdown-menu {
+        max-width: 500px;
+        min-width: 100%;
+        width: auto;
+
+        .text-overflow {
+          max-width: none;
+        }
+      }
+    }
+
+    .badge.label-pill {
+      .pill-wrap {
+        padding: 0 @base-spacing-unit 0 @base-spacing-unit / 4;
+      }
+
+      .remove-filter {
+        background-color: transparent;
+        position: absolute;
+        right: 0;
+        z-index: 2;
+
+        &:hover {
+          color: @white;
+          text-decoration: none;
+        }
       }
     }
   }
+
+}
+
+& when (@service-sidebar-enabled) and (@layout-screen-small-enabled) {
+
+  @media (min-width: @layout-screen-small-min-width) {
+
+    .badge.label-pill {
+
+      .pill-wrap {
+        padding: 0 @base-spacing-unit-screen-small 0 @base-spacing-unit-screen-small / 4;
+      }
+
+    }
+
+  }
+
+}
+
+& when (@service-sidebar-enabled) and (@layout-screen-medium-enabled) {
+
+  @media (min-width: @layout-screen-medium-min-width) {
+
+    .badge.label-pill {
+
+      .pill-wrap {
+        padding: 0 @base-spacing-unit-screen-medium 0 @base-spacing-unit-screen-medium / 4;
+      }
+
+    }
+
+  }
+
+}
+
+& when (@service-sidebar-enabled) and (@layout-screen-large-enabled) {
+
+  @media (min-width: @layout-screen-large-min-width) {
+
+    .badge.label-pill {
+
+      .pill-wrap {
+        padding: 0 @base-spacing-unit-screen-large 0 @base-spacing-unit-screen-large / 4;
+      }
+
+    }
+
+  }
+
+}
+
+& when (@service-sidebar-enabled) and (@layout-screen-jumbo-enabled) {
+
+  @media (min-width: @layout-screen-jumbo-min-width) {
+
+    .badge.label-pill {
+
+      .pill-wrap {
+        padding: 0 @base-spacing-unit-screen-jumbo 0 @base-spacing-unit-screen-jumbo / 4;
+      }
+
+    }
+
+  }
+
 }
