@@ -1,10 +1,5 @@
 import CosmosPackagesStore from '../stores/CosmosPackagesStore';
 import {
-  CLUSTER_CCID_SUCCESS,
-  CLUSTER_CCID_ERROR,
-  CONFIG_LOADED,
-  CONFIG_ERROR,
-
   COSMOS_SEARCH_CHANGE,
   COSMOS_SEARCH_ERROR,
   COSMOS_LIST_CHANGE,
@@ -116,7 +111,6 @@ import {
   VISIBILITY_CHANGE
 } from './EventTypes';
 import MetronomeStore from '../stores/MetronomeStore';
-import ConfigStore from '../stores/ConfigStore';
 import DCOSStore from '../stores/DCOSStore';
 import MarathonStore from '../stores/MarathonStore';
 import MesosLogStore from '../stores/MesosLogStore';
@@ -134,20 +128,6 @@ import VirtualNetworksStore from '../stores/VirtualNetworksStore';
 import VisibilityStore from '../stores/VisibilityStore';
 
 const ListenersDescription = {
-  config: {
-    store: ConfigStore,
-    events: {
-      success: CONFIG_LOADED,
-      error: CONFIG_ERROR,
-      ccidSuccess: CLUSTER_CCID_SUCCESS,
-      ccidError: CLUSTER_CCID_ERROR
-    },
-    unmountWhen: function () {
-      return true;
-    },
-    listenAlways: true
-  },
-
   unitHealth: {
     store: UnitHealthStore,
     events: {
