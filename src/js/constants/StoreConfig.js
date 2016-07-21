@@ -1,10 +1,5 @@
 import CosmosPackagesStore from '../stores/CosmosPackagesStore';
 import {
-  AUTH_USER_LOGIN_CHANGED,
-  AUTH_USER_LOGIN_ERROR,
-  AUTH_USER_LOGOUT_SUCCESS,
-  AUTH_USER_LOGOUT_ERROR,
-
   CLUSTER_CCID_SUCCESS,
   CLUSTER_CCID_ERROR,
   CONFIG_LOADED,
@@ -120,7 +115,6 @@ import {
 
   VISIBILITY_CHANGE
 } from './EventTypes';
-import AuthStore from '../stores/AuthStore';
 import MetronomeStore from '../stores/MetronomeStore';
 import ConfigStore from '../stores/ConfigStore';
 import DCOSStore from '../stores/DCOSStore';
@@ -140,20 +134,6 @@ import VirtualNetworksStore from '../stores/VirtualNetworksStore';
 import VisibilityStore from '../stores/VisibilityStore';
 
 const ListenersDescription = {
-  auth: {
-    store: AuthStore,
-    events: {
-      success: AUTH_USER_LOGIN_CHANGED,
-      error: AUTH_USER_LOGIN_ERROR,
-      logoutSuccess: AUTH_USER_LOGOUT_SUCCESS,
-      logoutError: AUTH_USER_LOGOUT_ERROR
-    },
-    unmountWhen: function () {
-      return true;
-    },
-    listenAlways: true
-  },
-
   config: {
     store: ConfigStore,
     events: {
