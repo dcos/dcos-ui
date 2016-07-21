@@ -1,0 +1,318 @@
+/* -----------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+icons/styles.less
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+----------------------------------------------------------------------------- */
+
+
+
+& when (@icon-enabled) {
+
+  /* -----------------------------------------------------------------------------
+  --------------------------------------------------------------------------------
+
+  Icon
+
+  --------------------------------------------------------------------------------
+  ----------------------------------------------------------------------------- */
+
+  .icon {
+
+    svg {
+      display: block;
+    }
+
+    &.icon-image-container {
+
+      overflow: hidden;
+
+      img {
+
+        width: 100%;
+        height: auto;
+        display: block;
+        margin: 0px;
+        padding: 0px;
+
+      }
+
+    }
+
+    &.icon-app-container {
+
+      border-radius: 20%;
+      position: relative;
+
+      &:after {
+
+        border-radius: 20%;
+        box-shadow:
+          inset 0px 0px 0px 1px rgba(0, 0, 0, 0.1),
+          0px 0px 0px 1px rgba(0, 0, 0, 0.1);
+        content: '';
+        display: block;
+        height: 100%;
+        left: 0px;
+        position: absolute;
+        top: 0px;
+        width: 100%;
+
+      }
+
+    }
+
+    &.icon-user-container, &.icon-group-container {
+
+      position: relative;
+      border-radius: 100%;
+
+        &:after {
+
+          box-shadow:
+            inset 0px 0px 0px 1px rgba(0, 0, 0, 0.3),
+            0px 0px 0px 1px rgba(0, 0, 0, 0.1);
+          border-radius: 100%;
+          content: '';
+          display: block;
+          height: 100%;
+          left: 0px;
+          position: absolute;
+          top: 0px;
+          width: 100%;
+
+        }
+
+    }
+
+    &-default-white {
+
+      background-color: @icon-default-background-white;
+
+    }
+
+    &.icon-margin-right {
+
+      margin-right: @base-spacing-unit * 0.25;
+
+      &.icon-margin-right-wide {
+
+        margin-right: @base-spacing-unit * 0.5;
+
+      }
+
+    }
+
+    &.icon-margin-left {
+
+      margin-left: @base-spacing-unit * 0.25;
+      margin-right: 0;
+
+      &.icon-margin-left-wide {
+
+        margin-left: @base-spacing-unit * 0.5;
+
+      }
+
+    }
+
+    &.icon-neutral {
+      color: @neutral;
+    }
+
+    &.icon-grey {
+      color: color-lighten(@neutral, 70%);
+
+      &.inverse {
+        color: color-lighten(@neutral, 30%);
+      }
+    }
+
+  }
+
+  & when (@icon-tiny-enabled) {
+
+    .icon.icon-tiny {
+      width: @icon-tiny-width;
+      height: @icon-tiny-height;
+    }
+
+  }
+
+  & when (@icon-mini-enabled) {
+
+    .icon.icon-mini {
+      max-height: @icon-mini-height;
+      max-width: @icon-mini-width;
+    }
+
+  }
+
+  & when (@icon-small-enabled) {
+
+    .icon.icon-small {
+      max-height: @icon-small-height;
+      max-width: @icon-small-width;
+    }
+
+  }
+
+  & when (@icon-medium-enabled) {
+
+    .icon.icon-medium {
+      max-height: @icon-medium-height;
+      max-width: @icon-medium-width;
+    }
+
+  }
+
+  & when (@icon-large-enabled) {
+
+    .icon.icon-large {
+      max-height: @icon-large-height;
+      max-width: @icon-large-width;
+    }
+
+  }
+
+  & when (@icon-jumbo-enabled) {
+
+    .icon.icon-jumbo {
+      max-height: @icon-jumbo-height;
+      max-width: @icon-jumbo-width;
+    }
+
+  }
+
+  & when (@icon-huge-enabled) {
+
+    .icon.icon-huge {
+      width: @icon-huge-width;
+      height: @icon-huge-height;
+    }
+
+  }
+
+}
+
+
+& when (@icon-enabled) and (@layout-screen-small-enabled) {
+
+  @media (min-width: @layout-screen-small-min-width) {
+
+    .icon {
+
+      &.icon-margin-right {
+        margin-right: @base-spacing-unit-screen-small * 0.25;
+
+        &.icon-margin-right-wide {
+          margin-right: @base-spacing-unit-screen-small * 0.5;
+        }
+
+      }
+
+      &.icon-margin-left {
+        margin-left: @base-spacing-unit-screen-small * 0.25;
+
+        &.icon-margin-left-wide {
+          margin-left: @base-spacing-unit-screen-small * 0.5;
+        }
+
+      }
+
+    }
+
+  }
+
+}
+
+& when (@icon-enabled) and (@layout-screen-medium-enabled) {
+
+  @media (min-width: @layout-screen-medium-min-width) {
+
+    .icon {
+
+      &.icon-margin-right {
+        margin-right: @base-spacing-unit-screen-medium * 0.25;
+
+        &.icon-margin-right-wide {
+          margin-right: @base-spacing-unit-screen-medium 0.5;
+        }
+
+      }
+
+      &.icon-margin-left {
+        margin-left: @base-spacing-unit-screen-medium * 0.25;
+
+        &.icon-margin-left-wide {
+          margin-left: @base-spacing-unit-screen-medium * 0.5;
+        }
+
+      }
+
+    }
+
+  }
+
+}
+
+& when (@icon-enabled) and (@layout-screen-large-enabled) {
+
+  @media (min-width: @layout-screen-large-min-width) {
+
+    .icon {
+
+      &.icon-margin-right {
+        margin-right: @base-spacing-unit-screen-large * 0.25;
+
+        &.icon-margin-right-wide {
+          margin-right: @base-spacing-unit-screen-large 0.5;
+        }
+
+      }
+
+      &.icon-margin-left {
+        margin-left: @base-spacing-unit-screen-large * 0.25;
+
+        &.icon-margin-left-wide {
+          margin-left: @base-spacing-unit-screen-large * 0.5;
+        }
+
+      }
+
+    }
+
+  }
+
+}
+
+& when (@icon-enabled) and (@layout-screen-jumbo-enabled) {
+
+  @media (min-width: @layout-screen-jumbo-min-width) {
+
+    .icon {
+
+      &.icon-margin-right {
+        margin-right: @base-spacing-unit-screen-jumbo * 0.25;
+
+        &.icon-margin-right-wide {
+          margin-right: @base-spacing-unit-screen-jumbo 0.5;
+        }
+
+      }
+
+      &.icon-margin-left {
+        margin-left: @base-spacing-unit-screen-jumbo * 0.25;
+
+        &.icon-margin-left-wide {
+          margin-left: @base-spacing-unit-screen-jumbo * 0.5;
+        }
+
+      }
+
+    }
+
+  }
+
+}
