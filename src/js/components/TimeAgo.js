@@ -21,7 +21,7 @@ class TimeAgo extends React.Component {
 
     this.state = {};
 
-    if (this.props.autoUpdate && this.props.time != null) {
+    if (this.props.autoUpdate && this.props.time) {
       this.state.interval = global.setTimeout(
         this.updateTime,
         this.getUpdateInterval()
@@ -61,9 +61,9 @@ class TimeAgo extends React.Component {
 
   render() {
     let {prefix, suppressSuffix, time} = this.props;
-    let relativeTime = DateUtil.msToRelativeTime(time, suppressSuffix);
-    if (time == null) {
-      relativeTime = 'N/A';
+    let relativeTime = 'N/A';
+    if (time) {
+      relativeTime = DateUtil.msToRelativeTime(time, suppressSuffix);
     }
 
     let prefixString;
