@@ -1,94 +1,86 @@
-.page-header {
-  display: flex;
-  margin-bottom: @base-spacing-unit;
-  position: relative;
-  flex-direction: column;
-  width: 100%;
+/* -----------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+page-header/styles.less
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+----------------------------------------------------------------------------- */
 
-  &.has-tabs {
 
-    &:after {
-      background: @border-color-inverse;
-      bottom: -1px;
-      content: '';
-      height: 1px;
-      left: 0;
-      position: absolute;
-      right: @grid-container-fluid-gutter-width * -1;
-      width: auto;
-      z-index: @z-index-header-border;
-    }
 
-    .tabs {
-      position: relative;
-      z-index: @z-index-header-tabs;
-    }
-  }
-}
+& when (@page-header-enabled) {
 
-.page-header-icon {
-  flex: 0 0 auto;
-  padding-right: @base-spacing-unit * 1/4;
-}
+  // TODO: Audit this. Ashenden's page-header styles seem to cover most of this.
+  .page-header {
+    display: flex;
+    margin-bottom: @base-spacing-unit;
+    position: relative;
+    flex-direction: column;
+    width: 100%;
 
-.page-header-content-primary,
-.page-header-content-secondary {
-  display: flex;
-}
+    &.has-tabs {
 
-.page-header-content-primary {
-  align-items: center;
-  display: flex;
-  flex: 1 1 auto;
-}
+      &:after {
+        background: @page-header-border-color;
+        bottom: -1px;
+        content: '';
+        height: 1px;
+        left: 0;
+        position: absolute;
+        right: @base-spacing-unit * -1;
+        width: auto;
+        z-index: @z-index-header-border;
+      }
 
-.page-header-content-secondary {
-  flex: 0 1 auto;
-  margin-left: 0;
-  margin-top: @base-spacing-unit * 1/4;
-  white-space: nowrap;
-
-  &:last-child {
-    padding-right: 0;
-  }
-
-  .button-collection {
-    margin-bottom: 0;
-  }
-}
-
-.page-header-content-heading {
-  align-items: center;
-  display: flex;
-  margin-bottom: @base-spacing-unit * 1/2;
-}
-
-& when (@screen-mini-enabled) {
-
-  @media (min-width: @screen-mini) {
-
-    .page-header {
-      margin-bottom: @base-spacing-unit-screen-mini;
-
-      &.has-tabs {
-
-        &:after {
-          right: @grid-container-fluid-gutter-width-screen-mini * -1;
-        }
+      .tabs {
+        position: relative;
+        z-index: @z-index-header-tabs;
       }
     }
+  }
 
-    .page-header-icon {
-      padding-right: @base-spacing-unit-screen-mini * 1/4;
+  .page-header-icon {
+    flex: 0 0 auto;
+    padding-right: @base-spacing-unit * 1/4;
+  }
+
+  .page-header-content-primary,
+  .page-header-content-secondary {
+    display: flex;
+  }
+
+  .page-header-content-primary {
+    align-items: center;
+    display: flex;
+    flex: 1 1 auto;
+  }
+
+  .page-header-content-secondary {
+    flex: 0 1 auto;
+    margin-left: 0;
+    margin-top: @base-spacing-unit * 1/4;
+    white-space: nowrap;
+
+    &:last-child {
+      padding-right: 0;
     }
 
+    .button-collection {
+      margin-bottom: 0;
+    }
+  }
+
+  .page-header-content-heading {
+    align-items: center;
+    display: flex;
+    margin-bottom: @base-spacing-unit * 1/2;
   }
 
 }
 
-& when (@screen-small-enabled) {
+& when (@layout-screen-small-enabled) {
 
-  @media (min-width: @screen-small) {
+  @media (min-width: @layout-screen-small-min-width) {
 
     .page-header {
       margin-bottom: @base-spacing-unit-screen-small;
@@ -96,34 +88,37 @@
       &.has-tabs {
 
         &:after {
-          right: @grid-container-fluid-gutter-width-screen-small * -1;
+          right: @base-spacing-unit-screen-small * -1;
         }
       }
-    }
-
-    .page-header-content-secondary {
-      margin-left: auto;
-      margin-top: 0;
     }
 
     .page-header-icon {
       padding-right: @base-spacing-unit-screen-small * 1/4;
     }
 
+    .page-header-content-secondary {
+      margin-top: @base-spacing-unit-screen-small * 1/4;
+    }
+
+    .page-header-content-heading {
+      margin-bottom: @base-spacing-unit-screen-small * 1/2;
+    }
+
   }
 
 }
 
-& when (@screen-medium-enabled) {
+& when (@layout-screen-medium-enabled) {
 
-  @media (min-width: @screen-medium) {
+  @media (min-width: @layout-screen-medium-min-width) {
 
     .page-header {
 
       &.has-tabs {
 
         &:after {
-          right: @grid-container-fluid-gutter-width-screen-medium * -1;
+          right: @base-spacing-unit-screen-medium * -1;
         }
       }
     }
@@ -132,26 +127,72 @@
       padding-right: @base-spacing-unit-screen-medium * 1/4;
     }
 
+    .page-header-content-secondary {
+      margin-top: @base-spacing-unit-screen-medium * 1/4;
+    }
+
+    .page-header-content-heading {
+      margin-bottom: @base-spacing-unit-screen-medium * 1/2;
+    }
+
   }
 
 }
 
-& when (@screen-large-enabled) {
+& when (@layout-screen-large-enabled) {
 
-  @media (min-width: @screen-large) {
+  @media (min-width: @layout-screen-large-min-width) {
 
     .page-header {
 
       &.has-tabs {
 
         &:after {
-          right: @grid-container-fluid-gutter-width-screen-large * -1;
+          right: @base-spacing-unit-screen-large * -1;
         }
       }
     }
 
     .page-header-icon {
       padding-right: @base-spacing-unit-screen-large * 1/4;
+    }
+
+    .page-header-content-secondary {
+      margin-top: @base-spacing-unit-screen-large * 1/4;
+    }
+
+    .page-header-content-heading {
+      margin-bottom: @base-spacing-unit-screen-large * 1/2;
+    }
+
+  }
+
+}
+
+& when (@layout-screen-jumbo-enabled) {
+
+  @media (min-width: @layout-screen-jumbo-min-width) {
+
+    .page-header {
+
+      &.has-tabs {
+
+        &:after {
+          right: @base-spacing-unit-screen-jumbo * -1;
+        }
+      }
+    }
+
+    .page-header-icon {
+      padding-right: @base-spacing-unit-screen-jumbo * 1/4;
+    }
+
+    .page-header-content-secondary {
+      margin-top: @base-spacing-unit-screen-jumbo * 1/4;
+    }
+
+    .page-header-content-heading {
+      margin-bottom: @base-spacing-unit-screen-jumbo * 1/2;
     }
 
   }
