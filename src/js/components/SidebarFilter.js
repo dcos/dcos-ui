@@ -5,6 +5,8 @@ import mixin from 'reactjs-mixin';
 import React from 'react';
 
 import QueryParamsMixin from '../mixins/QueryParamsMixin';
+import ServiceFilterTypes from '../constants/ServiceFilterTypes';
+import ServiceStatusTypes from '../constants/ServiceStatusTypes';
 
 class SidebarFilter extends mixin(QueryParamsMixin) {
   constructor() {
@@ -136,12 +138,17 @@ class SidebarFilter extends mixin(QueryParamsMixin) {
   }
 
   getHealthCheckboxes() {
-    let {filterLabels, filterValues} = this.props;
+    let {filterLabels, filterType, filterValues} = this.props;
     let {selectedNodes} = this.state;
 
     return Object.keys(filterLabels)
-      .filter(function (filterLabel) {
-        return filterValues[filterLabel] != null;
+      .filter((filterLabel) => {
+        let filterValue = filterValues[filterLabel];
+
+        return filterValue != null &&
+          !(filterType === ServiceFilterTypes.STATUS &&
+          filterValue === ServiceStatusTypes.NA &&
+          this.getCountByValue(filterValue) === 0);
       })
       .map((filterLabel) => {
         let value = filterValues[filterLabel];
