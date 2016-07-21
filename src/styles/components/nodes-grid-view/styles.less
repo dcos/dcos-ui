@@ -1,0 +1,255 @@
+/* -----------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+nodes-grid-view/styles.less
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+----------------------------------------------------------------------------- */
+
+
+
+& when (@nodes-grid-view-enabled) {
+
+  .nodes-grid {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    z-index: @z-index-nodes-grid;
+
+    .nodes-grid-legend {
+      display: flex;
+      flex-shrink: 0;
+      flex-direction: column;
+      flex-basis: 225px;
+      transition: opacity .5s;
+
+      &.disabled .nodes-grid-service-list {
+        opacity: 0.5;
+      }
+
+      .show-services-label {
+        color: @white;
+        user-select: none;
+        padding-bottom: @base-spacing-unit / 1.5;
+        margin-right: @base-spacing-unit;
+
+        input {
+          margin-right: @base-spacing-unit / 3;
+          outline: none;
+        }
+      }
+
+      .nodes-grid-service-list {
+        color: @white;
+        width: 225px;
+        margin-right: @base-spacing-unit;
+
+        & > li {
+          line-height: 1.2 * @base-spacing-unit;
+        }
+
+        .service-legend-color {
+          background-color: @white;
+          border-radius: 4px;
+          display: inline-block;
+          margin-right: @base-spacing-unit / 3;
+          height: @base-spacing-unit / 3;
+          width: @base-spacing-unit / 3;
+
+          &.service-color-0 {
+            background-color: @purple;
+          }
+
+          &.service-color-1 {
+            background-color: @blue;
+          }
+
+          &.service-color-2 {
+            background-color: @red;
+          }
+
+          &.service-color-3 {
+            background-color: @orange;
+          }
+
+          &.service-color-4 {
+            background-color: @yellow;
+          }
+
+          &.service-color-5 {
+            background-color: @green;
+          }
+
+          &.service-color-6 {
+            background-color: @pink;
+          }
+
+          &.service-color-7 {
+            background-color: @cyan;
+          }
+
+          &.service-color-8 {
+            background-color: color-lighten(@neutral, 40);
+          }
+
+          &.service-color-unused {
+            background-color: color-lighten(@neutral, 5);
+          }
+        }
+
+        a {
+          color: @white;
+        }
+      }
+    }
+  }
+
+}
+
+& when (@layout-screen-small-enabled) {
+
+  @media (min-width: @layout-screen-small-min-width) {
+
+    .nodes-grid {
+
+      .nodes-grid-legend {
+
+        .show-services-label {
+          padding-bottom: @base-spacing-unit-screen-small / 1.5;
+          margin-right: @base-spacing-unit-screen-small;
+
+          input {
+            margin-right: @base-spacing-unit-screen-small / 3;
+          }
+        }
+
+        .nodes-grid-service-list {
+          margin-right: @base-spacing-unit-screen-small;
+
+          & > li {
+            line-height: 1.2 * @base-spacing-unit-screen-small;
+          }
+
+          .service-legend-color {
+            margin-right: @base-spacing-unit-screen-small / 3;
+            height: @base-spacing-unit-screen-small / 3;
+            width: @base-spacing-unit-screen-small / 3;
+          }
+        }
+      }
+    }
+
+  }
+
+}
+
+& when (@layout-screen-medium-enabled) {
+
+  @media (min-width: @layout-screen-medium-min-width) {
+
+    .nodes-grid {
+
+      .nodes-grid-legend {
+
+        .show-services-label {
+          padding-bottom: @base-spacing-unit-screen-medium / 1.5;
+          margin-right: @base-spacing-unit-screen-medium;
+
+          input {
+            margin-right: @base-spacing-unit-screen-medium / 3;
+          }
+        }
+
+        .nodes-grid-service-list {
+          margin-right: @base-spacing-unit-screen-medium;
+
+          & > li {
+            line-height: 1.2 * @base-spacing-unit-screen-medium;
+          }
+
+          .service-legend-color {
+            margin-right: @base-spacing-unit-screen-medium / 3;
+            height: @base-spacing-unit-screen-medium / 3;
+            width: @base-spacing-unit-screen-medium / 3;
+          }
+        }
+      }
+    }
+
+  }
+
+}
+
+& when (@layout-screen-large-enabled) {
+
+  @media (min-width: @layout-screen-large-min-width) {
+
+    .nodes-grid {
+
+      .nodes-grid-legend {
+
+        .show-services-label {
+          padding-bottom: @base-spacing-unit-screen-large / 1.5;
+          margin-right: @base-spacing-unit-screen-large;
+
+          input {
+            margin-right: @base-spacing-unit-screen-large / 3;
+          }
+        }
+
+        .nodes-grid-service-list {
+          margin-right: @base-spacing-unit-screen-large;
+
+          & > li {
+            line-height: 1.2 * @base-spacing-unit-screen-large;
+          }
+
+          .service-legend-color {
+            margin-right: @base-spacing-unit-screen-large / 3;
+            height: @base-spacing-unit-screen-large / 3;
+            width: @base-spacing-unit-screen-large / 3;
+          }
+        }
+      }
+    }
+
+  }
+
+}
+
+& when (@layout-screen-jumbo-enabled) {
+
+  @media (min-width: @layout-screen-jumbo-min-width) {
+
+    .nodes-grid {
+
+      .nodes-grid-legend {
+
+        .show-services-label {
+          padding-bottom: @base-spacing-unit-screen-jumbo / 1.5;
+          margin-right: @base-spacing-unit-screen-jumbo;
+
+          input {
+            margin-right: @base-spacing-unit-screen-jumbo / 3;
+          }
+        }
+
+        .nodes-grid-service-list {
+          margin-right: @base-spacing-unit-screen-jumbo;
+
+          & > li {
+            line-height: 1.2 * @base-spacing-unit-screen-jumbo;
+          }
+
+          .service-legend-color {
+            margin-right: @base-spacing-unit-screen-jumbo / 3;
+            height: @base-spacing-unit-screen-jumbo / 3;
+            width: @base-spacing-unit-screen-jumbo / 3;
+          }
+        }
+      }
+    }
+
+  }
+
+}
