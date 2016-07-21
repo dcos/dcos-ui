@@ -161,7 +161,7 @@ module.exports = class Service extends Item {
       return ServiceStatus.DELAYED;
     }
 
-    if (deployments.length > 0) {
+    if (deployments != null && deployments.length > 0) {
       return ServiceStatus.DEPLOYING;
     }
 
