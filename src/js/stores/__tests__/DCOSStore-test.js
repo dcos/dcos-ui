@@ -242,6 +242,14 @@ describe('DCOSStore', function () {
         .toEqual('Delayed');
     });
 
+    it('should correctly convert running apps from waiting state', function () {
+      expect(DCOSStore.serviceTree.getItems()[0].getStatus())
+        .toEqual('Waiting');
+      DCOSStore.onMarathonQueueChange([]);
+      expect(DCOSStore.serviceTree.getItems()[0].getStatus())
+        .not.toEqual('Waiting');
+    });
+
   });
 
   describe('#processMarathonServiceVersion', function () {
