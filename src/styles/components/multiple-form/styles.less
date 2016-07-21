@@ -100,8 +100,8 @@ multiple-form/styles.less
     .multiple-form {
 
       .form-row-element-mixed-label-presence {
-        line-height: @form-control-height;
-        padding-top: @modal-form-label-line-height + @form-label-margin-bottom;
+        .property-variant(form-control, line-height, height, null, null);
+        padding-top: @modal-form-label-line-height + @label-margin-bottom;
 
         &.form-row-element {
           margin-bottom: 0;
@@ -275,7 +275,7 @@ multiple-form/styles.less
       }
 
       .header-full-width {
-        margin: @modal-header-padding-vertical -@modal-header-padding-horizontal -@modal-header-padding-vertical -@modal-header-padding-horizontal;
+        margin: @modal-header-padding-top -@modal-header-padding-right -@modal-header-padding-bottom -@modal-header-padding-left;
       }
 
     }
@@ -295,13 +295,9 @@ multiple-form/styles.less
 
 }
 
-& when (@layout-screen-small-enabled) {
+& when (@form-enabled) and (@layout-screen-small-enabled) {
 
   @media (min-width: @layout-screen-small-min-width) {
-
-    .form-row-element-mixed-label-presence {
-      line-height: @form-control-height * @form-control-height-scale-screen-mini;
-    }
 
     .multiple-form-modal {
 
@@ -328,7 +324,7 @@ multiple-form/styles.less
         }
 
         .form-row-element-mixed-label-presence {
-          line-height: @form-control-height * @form-control-height-scale-screen-small;
+          .property-variant(form-control, line-height, height, null, screen-small);
         }
 
       }
@@ -336,7 +332,7 @@ multiple-form/styles.less
       .modal-header {
 
         .header-full-width {
-          margin: @modal-header-padding-vertical-screen-small -@modal-header-padding-horizontal-screen-small -@modal-header-padding-vertical-screen-small -@modal-header-padding-horizontal-screen-small;
+          margin: @modal-header-padding-top-screen-small -@modal-header-padding-right-screen-small -@modal-header-padding-bottom-screen-small -@modal-header-padding-left-screen-small;
         }
 
       }
@@ -347,16 +343,16 @@ multiple-form/styles.less
 
 }
 
-& when (@form-enabled) and (@screen-medium-enabled) {
+& when (@form-enabled) and (@layout-screen-medium-enabled) {
 
-  @media (min-width: @screen-medium) {
+  @media (min-width: @layout-screen-medium-min-width) {
 
     .multiple-form-modal {
 
       .multiple-form {
 
         .form-row-element-mixed-label-presence {
-          line-height: @form-control-height * @form-control-height-scale-screen-medium;
+          .property-variant(form-control, line-height, height, null, screen-medium);
         }
 
       }
@@ -364,7 +360,7 @@ multiple-form/styles.less
       .modal-header {
 
         .header-full-width {
-          margin: @modal-header-padding-vertical-screen-medium -@modal-header-padding-horizontal-screen-medium -@modal-header-padding-vertical-screen-medium -@modal-header-padding-horizontal-screen-medium;
+          margin: @modal-header-padding-top-screen-medium -@modal-header-padding-right-screen-medium -@modal-header-padding-bottom-screen-medium -@modal-header-padding-left-screen-medium;
         }
 
       }
@@ -375,16 +371,16 @@ multiple-form/styles.less
 
 }
 
-& when (@form-enabled) and (@screen-large-enabled) {
+& when (@form-enabled) and (@layout-screen-large-enabled) {
 
-  @media (min-width: @screen-large) {
+  @media (min-width: @layout-screen-large-min-width) {
 
     .multiple-form-modal {
 
       .multiple-form {
 
         .form-row-element-mixed-label-presence {
-          line-height: @form-control-height * @form-control-height-scale-screen-large;
+          .property-variant(form-control, line-height, height, null, screen-large);
         }
 
       }
@@ -392,7 +388,7 @@ multiple-form/styles.less
       .modal-header {
 
         .header-full-width {
-          margin: @modal-header-padding-vertical-screen-large -@modal-header-padding-horizontal-screen-large -@modal-header-padding-vertical-screen-large -@modal-header-padding-horizontal-screen-large;
+          margin: @modal-header-padding-top-screen-large -@modal-header-padding-right-screen-large -@modal-header-padding-bottom-screen-large -@modal-header-padding-left-screen-large;
         }
 
       }
