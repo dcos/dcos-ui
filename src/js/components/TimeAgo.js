@@ -21,7 +21,7 @@ class TimeAgo extends React.Component {
 
     this.state = {};
 
-    if (!this.props.dontUpdate && this.props.time != null) {
+    if (this.props.autoUpdate && this.props.time != null) {
       this.state.interval = global.setTimeout(
         this.updateTime,
         this.getUpdateInterval()
@@ -83,12 +83,12 @@ class TimeAgo extends React.Component {
 }
 
 TimeAgo.defaultProps = {
-  dontUpdate: false,
+  autoUpdate: true,
   suppressSuffix: false
 };
 
 TimeAgo.propTypes = {
-  dontUpdate: React.PropTypes.bool,
+  autoUpdate: React.PropTypes.bool,
   prefix: React.PropTypes.node,
   suppressSuffix: React.PropTypes.bool,
   time: React.PropTypes.oneOfType([

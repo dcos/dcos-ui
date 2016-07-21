@@ -134,7 +134,7 @@ var ResourceTableUtil = {
 
     let ms = updatedAt.toFixed(3) * 1000;
 
-    return <TimeAgo time={ms} dontUpdate={true} />;
+    return <TimeAgo time={ms} autoUpdate={false} />;
   },
 
   renderTask: function (prop, model) {
