@@ -1,22 +1,4 @@
-import CosmosPackagesStore from '../stores/CosmosPackagesStore';
 import {
-  COSMOS_SEARCH_CHANGE,
-  COSMOS_SEARCH_ERROR,
-  COSMOS_LIST_CHANGE,
-  COSMOS_LIST_ERROR,
-  COSMOS_DESCRIBE_CHANGE,
-  COSMOS_DESCRIBE_ERROR,
-  COSMOS_INSTALL_SUCCESS,
-  COSMOS_INSTALL_ERROR,
-  COSMOS_UNINSTALL_SUCCESS,
-  COSMOS_UNINSTALL_ERROR,
-  COSMOS_REPOSITORIES_SUCCESS,
-  COSMOS_REPOSITORIES_ERROR,
-  COSMOS_REPOSITORY_ADD_SUCCESS,
-  COSMOS_REPOSITORY_ADD_ERROR,
-  COSMOS_REPOSITORY_DELETE_SUCCESS,
-  COSMOS_REPOSITORY_DELETE_ERROR,
-
   HEALTH_NODE_ERROR,
   HEALTH_NODE_SUCCESS,
   HEALTH_NODE_UNITS_ERROR,
@@ -162,34 +144,6 @@ const ListenersDescription = {
       return true;
     },
     listenAlways: true
-  },
-
-  cosmosPackages: {
-    store: CosmosPackagesStore,
-    events: {
-      availableError: COSMOS_SEARCH_ERROR,
-      availableSuccess: COSMOS_SEARCH_CHANGE,
-      descriptionSuccess: COSMOS_DESCRIBE_CHANGE,
-      descriptionError: COSMOS_DESCRIBE_ERROR,
-      installedSuccess: COSMOS_LIST_CHANGE,
-      installedError: COSMOS_LIST_ERROR,
-
-      installError: COSMOS_INSTALL_ERROR,
-      installSuccess: COSMOS_INSTALL_SUCCESS,
-      uninstallError: COSMOS_UNINSTALL_ERROR,
-      uninstallSuccess: COSMOS_UNINSTALL_SUCCESS,
-
-      repositoriesSuccess: COSMOS_REPOSITORIES_SUCCESS,
-      repositoriesError: COSMOS_REPOSITORIES_ERROR,
-      repositoryAddSuccess: COSMOS_REPOSITORY_ADD_SUCCESS,
-      repositoryAddError: COSMOS_REPOSITORY_ADD_ERROR,
-      repositoryDeleteSuccess: COSMOS_REPOSITORY_DELETE_SUCCESS,
-      repositoryDeleteError: COSMOS_REPOSITORY_DELETE_ERROR
-    },
-    unmountWhen: function (store, event) {
-      return event === 'availableSuccess';
-    },
-    listenAlways: false
   },
 
   sidebar: {

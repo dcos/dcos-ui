@@ -41,6 +41,7 @@ import {
 
   SERVER_ACTION
 } from '../constants/ActionTypes';
+import PluginSDK from 'PluginSDK';
 import RepositoryList from '../structs/RepositoryList';
 import UniverseInstalledPackagesList from
   '../structs/UniverseInstalledPackagesList';
@@ -57,6 +58,35 @@ class CosmosPackagesStore extends GetSetBaseStore {
       installedPackages: [],
       repositories: []
     };
+
+    PluginSDK.addStoreConfig({
+      store: this,
+      storeID: 'cosmosPackages',
+      events: {
+        availableError: COSMOS_SEARCH_ERROR,
+        availableSuccess: COSMOS_SEARCH_CHANGE,
+        descriptionSuccess: COSMOS_DESCRIBE_CHANGE,
+        descriptionError: COSMOS_DESCRIBE_ERROR,
+        installedSuccess: COSMOS_LIST_CHANGE,
+        installedError: COSMOS_LIST_ERROR,
+
+        installError: COSMOS_INSTALL_ERROR,
+        installSuccess: COSMOS_INSTALL_SUCCESS,
+        uninstallError: COSMOS_UNINSTALL_ERROR,
+        uninstallSuccess: COSMOS_UNINSTALL_SUCCESS,
+
+        repositoriesSuccess: COSMOS_REPOSITORIES_SUCCESS,
+        repositoriesError: COSMOS_REPOSITORIES_ERROR,
+        repositoryAddSuccess: COSMOS_REPOSITORY_ADD_SUCCESS,
+        repositoryAddError: COSMOS_REPOSITORY_ADD_ERROR,
+        repositoryDeleteSuccess: COSMOS_REPOSITORY_DELETE_SUCCESS,
+        repositoryDeleteError: COSMOS_REPOSITORY_DELETE_ERROR
+      },
+      unmountWhen: function (store, event) {
+        return event === 'availableSuccess';
+      },
+      listenAlways: false
+    });
 
     this.dispatcherIndex = AppDispatcher.register((payload) => {
       let source = payload.source;
@@ -273,10 +303,6 @@ class CosmosPackagesStore extends GetSetBaseStore {
     this.set({repositories});
 
     this.emit(COSMOS_REPOSITORIES_SUCCESS);
-  }
-
-  get storeID() {
-    return 'cosmosPackages';
   }
 }
 
