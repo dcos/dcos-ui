@@ -379,7 +379,7 @@ class ServiceFormModal extends mixin(StoreMixin) {
         <div>
           Use the JSON editor to enter Marathon Application definitions manually.
           {' '}
-          <a href={Config.marathonJSONDocsURI} target="_blank">
+          <a href={`${Config.marathonDocsURI}generated/api.html#v2_apps_post`} target="_blank">
             Read more here.
           </a>
         </div>
