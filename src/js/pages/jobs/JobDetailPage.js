@@ -8,7 +8,7 @@ import {RouteHandler} from 'react-router';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import Breadcrumbs from '../../components/Breadcrumbs';
-import DateUtil from '../../utils/DateUtil';
+import TimeAgo from '../../components/TimeAgo';
 import Icon from '../../components/Icon';
 import JobConfiguration from './JobConfiguration';
 import JobFormModal from '../../components/modals/JobFormModal';
@@ -310,10 +310,10 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
         {status.displayName}
       </span>,
       <span key="time-running">
-        ({timePrefix}{DateUtil.msToRelativeTime(
-          longestRunningActiveRun.getDateCreated(),
-          shouldSuppressRelativeTime
-        )})
+        <TimeAgo
+          prefix={timePrefix}
+          suppressSuffix={shouldSuppressRelativeTime}
+          time={longestRunningActiveRun.getDateCreated()} />
       </span>
     ];
   }

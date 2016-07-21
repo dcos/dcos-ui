@@ -1,7 +1,6 @@
 import classNames from 'classnames';
 import {Confirm, Table} from 'reactjs-components';
 import {Link} from 'react-router';
-import moment from 'moment';
 import mixin from 'reactjs-mixin';
 /* eslint-disable no-unused-vars */
 import React from 'react';
@@ -15,6 +14,7 @@ import MarathonActions from '../../events/MarathonActions';
 import NestedServiceLinks from '../../components/NestedServiceLinks';
 import ResourceTableUtil from '../../utils/ResourceTableUtil';
 import StringUtil from '../../utils/StringUtil';
+import TimeAgo from '../../components/TimeAgo';
 
 const columnHeading = ResourceTableUtil.renderHeading({
   id: 'AFFECTED SERVICES',
@@ -139,12 +139,10 @@ class DeploymentsTab extends mixin(StoreMixin) {
   }
 
   renderStartTime(prop, deployment) {
-    const time = deployment.getStartTime();
-
     return (
-      <time dateTime={time.toISOString()} className="deployment-start-time">
-        {moment(time).fromNow()}
-      </time>
+      <TimeAgo
+        className="deployment-start-time"
+        time={deployment.getStartTime()} />
     );
   }
 

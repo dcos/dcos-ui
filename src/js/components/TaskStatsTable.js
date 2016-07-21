@@ -1,7 +1,8 @@
 import classNames from 'classnames';
-import DateUtil from '../utils/DateUtil';
 import React from 'react';
 import {Table} from 'reactjs-components';
+
+import DateUtil from '../utils/DateUtil';
 
 const taskStatus = [
   'getRunningTaskCount',
@@ -16,11 +17,11 @@ const nameMapping = {
   totalSummary: 'Total Summary'
 };
 const headerMapping = {
-  getRunningTaskCount: 'Running',
-  getHealthyTaskCount: 'Healthy',
-  getUnhealthyTaskCount: 'Unhealthy',
-  getStagedTaskCount: 'Staged',
-  getMedianLifeTime: 'Median Lifetime'
+  getRunningTaskCount: 'RUNNING',
+  getHealthyTaskCount: 'HEALTHY',
+  getUnhealthyTaskCount: 'UNHEALTHY',
+  getStagedTaskCount: 'STAGED',
+  getMedianLifeTime: 'MEDIAN LIFETIME'
 };
 
 class TaskStatsTable extends React.Component {
@@ -117,12 +118,12 @@ class TaskStatsTable extends React.Component {
   }
 
   renderTime(prop, taskStats) {
-    let label = 'sec';
+    let label = 'seconds';
     let lifeTimeSeconds = taskStats[prop]();
     let timeValue = lifeTimeSeconds;
 
     if (lifeTimeSeconds > 3600) {
-      label = 'min';
+      label = 'minutes';
       timeValue = timeValue / 60;
     }
 
