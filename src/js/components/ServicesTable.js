@@ -314,7 +314,7 @@ var ServicesTable = React.createClass({
 
     return (
       <Link to="services-detail"
-        className="headline table-cell-value flex-box flex-box-col"
+        className="headline"
         params={{id}}>
         <span className="text-overflow">
           {service.getName()}
@@ -356,13 +356,16 @@ var ServicesTable = React.createClass({
           params={{id}}>
           {this.getImage(service)}
         </Link>
-        {this.getServiceLink(service)}
-        {this.getOpenInNewWindowLink(service)}
+        <span className="flex-shrink flex-grow text-overflow">
+          {this.getServiceLink(service)}
+          {this.getOpenInNewWindowLink(service)}
+        </span>
+        {this.renderServiceActions(service)}
       </div>
     );
   },
 
-  renderServiceActions: function (prop, service) {
+  renderServiceActions: function (service) {
     let isGroup = service instanceof ServiceTree;
     let instancesCount = service.getInstancesCount();
     let scaleText = 'Scale';
@@ -411,7 +414,7 @@ var ServicesTable = React.createClass({
         dropdownMenuClassName="dropdown-menu"
         dropdownMenuListClassName="dropdown-menu-list"
         dropdownMenuListItemClassName="clickable"
-        wrapperClassName="dropdown anchor-right flush-bottom"
+        wrapperClassName="dropdown anchor-right flush-bottom table-cell-icon"
         items={dropdownItems}
         persistentID={ServiceActionItem.MORE}
         onItemSelection={this.onActionsItemSelection.bind(this, service)}
@@ -491,14 +494,6 @@ var ServicesTable = React.createClass({
       {
         className,
         headerClassName: className,
-        prop: 'serviceActions',
-        render: this.renderServiceActions,
-        sortable: false,
-        heading: function () { return null; }
-      },
-      {
-        className,
-        headerClassName: className,
         prop: 'status',
         helpText: 'At-a-glance overview of the global application or group state',
         render: this.renderStatus,
@@ -540,7 +535,6 @@ var ServicesTable = React.createClass({
     return (
       <colgroup>
         <col />
-        <col style={{width: '40px'}} />
         <col className="status-bar-column"/>
         <col className="hidden-mini hidden-small" style={{width: '85px'}} />
         <col className="hidden-mini hidden-small" style={{width: '75px'}} />
