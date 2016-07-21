@@ -1,0 +1,27 @@
+.typeahead.inverse {
+  .dropdown-menu {
+    &:extend(.dropdown-menu.inverse);
+  }
+
+  .dropdown-menu-list {
+    &:extend(.dropdown-menu-list.inverse);
+  }
+
+  li {
+    &:extend(.dropdown.open .dropdown-menu.inverse li.is-selectable all);
+    &:extend(.clickable);
+  }
+
+}
+
+.form-control-inverse .typeahead {
+
+  .bootstrap-typeahead-input-main {
+    &:extend(.form-control-inverse all);
+    &:extend(.filter-input-text all);
+  }
+
+  .bootstrap-typeahead-input-hint {
+    color: color-lighten(@gray, 30);
+  }
+}
