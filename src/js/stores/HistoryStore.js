@@ -2,6 +2,7 @@ import GetSetBaseStore from './GetSetBaseStore';
 import {HashLocation} from 'react-router';
 
 import {HISTORY_CHANGE} from '../constants/EventTypes';
+import PluginSDK from 'PluginSDK';
 
 class HistoryStore extends GetSetBaseStore {
   constructor() {
@@ -10,6 +11,18 @@ class HistoryStore extends GetSetBaseStore {
     this.getSet_data = {
       history: [HashLocation.getCurrentPath()]
     };
+
+    PluginSDK.addStoreConfig({
+      store: this,
+      storeID: this.storeID,
+      events: {
+        change: HISTORY_CHANGE
+      },
+      unmountWhen: function () {
+        return true;
+      },
+      listenAlways: false
+    });
 
     HashLocation.addChangeListener(change => {
       // The router will call the callback with a different context
