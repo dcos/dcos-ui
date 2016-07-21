@@ -1,0 +1,159 @@
+/* -----------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+list/styles.less
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+----------------------------------------------------------------------------- */
+
+
+
+& when (@list-enabled) {
+
+  .list {
+    width: 100%;
+
+    &.list-narrow {
+
+      li {
+        padding-left: @base-spacing-unit * 1/2;
+      }
+    }
+
+    .list-item {
+    	display: flex;
+      border-top: 1px solid @neutral;
+      margin: 0;
+      padding: (@base-spacing-unit * 1/4) 0;
+
+      &:first-child {
+        border-top-color: transparent;
+      }
+    }
+
+    &.list-inline {
+      .list-item-aligned-right {
+        float: right;
+      }
+    }
+  }
+
+  .list-inline-separator {
+    margin: 0 @base-spacing-unit * 1/6;
+    vertical-align: middle;
+  }
+
+}
+
+& when (@layout-screen-small-enabled) {
+
+  @media (min-width: @layout-screen-small-min-width) {
+
+    .list {
+
+      &.list-narrow {
+
+        li {
+          padding-left: @base-spacing-unit-screen-small * 1/2;
+        }
+
+      }
+
+      .list-item {
+        padding: (@base-spacing-unit-screen-small * 1/4) 0;
+      }
+
+    }
+
+    .list-inline-separator {
+      margin: 0 @base-spacing-unit-screen-small * 1/6;
+    }
+
+  }
+
+}
+
+& when (@layout-screen-medium-enabled) {
+
+  @media (min-width: @layout-screen-medium-min-width) {
+
+    .list {
+
+      &.list-narrow {
+
+        li {
+          padding-left: @base-spacing-unit-screen-medium * 1/2;
+        }
+
+      }
+
+      .list-item {
+        padding: (@base-spacing-unit-screen-medium * 1/4) 0;
+      }
+
+    }
+
+    .list-inline-separator {
+      margin: 0 @base-spacing-unit-screen-medium * 1/6;
+    }
+
+  }
+
+}
+
+& when (@layout-screen-large-enabled) {
+
+  @media (min-width: @layout-screen-large-min-width) {
+
+    .list {
+
+      &.list-narrow {
+
+        li {
+          padding-left: @base-spacing-unit-screen-large * 1/2;
+        }
+
+      }
+
+      .list-item {
+        padding: (@base-spacing-unit-screen-large * 1/4) 0;
+      }
+
+    }
+
+    .list-inline-separator {
+      margin: 0 @base-spacing-unit-screen-large * 1/6;
+    }
+
+  }
+
+}
+
+
+& when (@layout-screen-jumbo-enabled) {
+
+  @media (min-width: @layout-screen-jumbo-min-width) {
+
+    .list {
+
+      &.list-narrow {
+
+        li {
+          padding-left: @base-spacing-unit-screen-jumbo * 1/2;
+        }
+
+      }
+
+      .list-item {
+        padding: (@base-spacing-unit-screen-jumbo * 1/4) 0;
+      }
+
+    }
+
+    .list-inline-separator {
+      margin: 0 @base-spacing-unit-screen-jumbo * 1/6;
+    }
+
+  }
+
+}
