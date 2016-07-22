@@ -136,9 +136,12 @@ class ServiceDetailConfigurationTab extends React.Component {
       versionItems.push({
         id: version,
         html: (
-          <span className="text-overflow" title={itemCaption}>
-            {itemCaption}
-          </span>
+          <div className="button-split-content-wrapper">
+            <span className="button-split-content-item text-overflow"
+              title={itemCaption}>
+              {itemCaption}
+            </span>
+          </div>
         )
       });
     }

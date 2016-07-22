@@ -155,11 +155,18 @@ components/buttons.less
   }
 
   .button-split-content {
+    text-align: left;
 
-    align-items: center;
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: space-between;
+    .button-split-content-wrapper {
+      align-items: center;
+      display: flex;
+      flex-flow: row nowrap;
+      justify-content: space-between;
+    }
+
+    .button-split-content-item {
+      flex: 0 0 auto;
+    }
 
     .button-split-content-label {
       flex: 1 1 auto;
