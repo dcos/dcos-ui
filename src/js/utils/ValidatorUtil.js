@@ -1,4 +1,4 @@
-var Validator = {
+var ValidatorUtil = {
   isEmail: function (email) {
     return email != null &&
       email.length > 0 &&
@@ -29,4 +29,4 @@ var Validator = {
   }
 };
 
-module.exports = Validator;
+module.exports = ValidatorUtil;
