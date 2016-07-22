@@ -1,0 +1,329 @@
+/* -----------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+tables/styles.less
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+----------------------------------------------------------------------------- */
+
+
+
+// TODO: Audit this.
+& when (@table-enabled) {
+
+  .no-header thead {
+    display: none;
+  }
+
+  .table {
+
+    .table-header-title {
+
+      font-size: 0.9rem;
+
+    }
+
+    .table-header-help-icon {
+
+      margin-left: @base-spacing-unit * 0.25;
+
+    }
+
+    // TODO: Remove this triple nesting atrocity.
+    & > thead,
+    & > tbody,
+    & > tfoot {
+
+      tr {
+
+        & > th,
+        & > td {
+
+          .headline {
+
+            color: @white;
+
+          }
+
+          .button-collection {
+
+            align-items: center;
+
+          }
+
+          .button {
+
+            &.button-link {
+
+              height: 1.3rem;
+              line-height: 1.3rem;
+              padding: 0;
+
+            }
+
+          }
+
+        }
+
+        & > th {
+
+          vertical-align: middle;
+
+        }
+
+        & > th {
+
+          vertical-align: middle;
+
+        }
+
+        .table-display-on-row-hover {
+
+          visibility: hidden;
+
+        }
+
+        &:hover {
+
+          .table-display-on-row-hover {
+
+            visibility: visible;
+
+          }
+
+        }
+
+        .icon-new-window {
+
+          position: relative;
+          top: -2px;
+
+        }
+
+      }
+
+    }
+
+    & > tbody {
+
+      tr {
+
+        &:first-child {
+
+          td {
+
+            &:first-child {
+
+              border-top-left-radius: 0;
+
+            }
+
+          }
+
+        }
+
+        &:nth-last-child(2) {
+
+          td {
+            border-bottom: none;
+          }
+        }
+
+        &:hover {
+
+          .button {
+
+            &.button-link {
+
+              padding: 0;
+
+            }
+
+          }
+
+        }
+
+      }
+
+    }
+
+    .flush-left {
+      padding-left: 0;
+    }
+
+    td {
+
+      // This property is necessary for table cells to respect the text-overflow
+      // property. http://stackoverflow.com/questions/9789723/css-text-overflow-in-a-table-cell
+      max-width: 0;
+
+    }
+
+    .table-cell-flex-box {
+
+      display: flex;
+
+    }
+
+    .table-cell-icon {
+
+      flex: 0 0 auto;
+
+    }
+
+    .table-cell-value {
+
+      flex: 0 1 auto;
+      // This property is necessary for table cells to respect the text-overflow
+      // property. http://stackoverflow.com/questions/9789723/css-text-overflow-in-a-table-cell
+      min-width: 0;
+      overflow: hidden;
+
+    }
+
+    .table-cell-task-dot {
+
+      max-width: calc(~"1rem + "@base-spacing-unit * 0.25);
+
+      .inactive {
+
+        background-color: transparent;
+        border: 1px solid currentColor;
+
+      }
+
+    }
+
+    .table-cell-icon-mini {
+
+      max-width: @icon-mini-width @base-spacing-unit * 0.25;
+
+    }
+
+    .table-cell-details-secondary {
+
+      font-size: 0.85rem;
+      line-height: 1.16rem;
+
+    }
+
+    .table-cell-short {
+
+      padding-top: @table-cell-padding-top * 3/4;
+      padding-bottom: @table-cell-padding-bottom * 3/4;
+
+    }
+
+    &.inverse {
+
+      // TODO: Remove this triple nesting atrocity.
+      & > thead,
+      & > tbody,
+      & > tfoot {
+
+        tr {
+
+          & > th,
+          & > td {
+
+            a {
+
+              color: @white;
+
+            }
+
+            // TODO: Is this needed only in the table?
+            input[type="checkbox"][disabled] {
+
+              + .form-element-checkbox-decoy {
+
+                background-color: @form-control-inverse-border-color;
+                cursor: not-allowed;
+
+              }
+
+            }
+
+          }
+
+        }
+
+      }
+
+    }
+
+  }
+
+}
+
+& when (@table-enabled) and (@layout-screen-small-enabled) {
+
+  @media (min-width: @layout-screen-small-min-width) {
+
+    .table {
+
+      .table-header-title {
+        font-size: 0.9rem;
+      }
+
+    }
+
+  }
+
+}
+
+& when (@table-enabled) and (@layout-screen-medium-enabled) {
+
+  @media (min-width: @layout-screen-medium-min-width) {
+
+    .table {
+
+      .button {
+
+        &.button-link {
+          height: 1.3rem;
+        }
+
+      }
+
+      .table-cell-icon-mini {
+        max-width: @icon-mini-width + @base-spacing-unit-screen-medium * 0.25;
+      }
+
+    }
+
+  }
+
+}
+
+& when (@table-enabled) and (@layout-screen-large-enabled) {
+
+  @media (min-width: @layout-screen-large-min-width) {
+
+    .table {
+
+      .table-cell-icon-mini {
+        max-width: @icon-mini-width + @base-spacing-unit-screen-large * 0.15;
+      }
+
+    }
+
+  }
+
+}
+
+& when (@table-enabled) and (@layout-screen-jumbo-enabled) {
+
+  @media (min-width: @layout-screen-jumbo-min-width) {
+
+    .table {
+
+      .table-cell-icon-mini {
+        max-width: @icon-mini-width + @base-spacing-unit-screen-jumbo * 0.15;
+      }
+
+    }
+
+  }
+
+}
