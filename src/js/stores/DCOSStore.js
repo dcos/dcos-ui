@@ -32,13 +32,12 @@ const METHODS_TO_BIND = [
 ];
 
 class DCOSStore extends EventEmitter {
-
   constructor() {
     super(...arguments);
 
     PluginSDK.addStoreConfig({
       store: this,
-      storeID: 'dcos',
+      storeID: this.storeID,
       events: {
         change: DCOS_CHANGE
       },
@@ -355,6 +354,10 @@ class DCOSStore extends EventEmitter {
 
   get dataProcessed() {
     return this.data.dataProcessed;
+  }
+
+  get storeID() {
+    return 'dcos';
   }
 }
 
