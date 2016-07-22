@@ -36,8 +36,6 @@ import {
   METRONOME_JOBS_CHANGE,
   METRONOME_JOBS_ERROR,
 
-  MESOS_SUMMARY_CHANGE,
-  MESOS_SUMMARY_REQUEST_ERROR,
   MESOS_STATE_CHANGE,
   MESOS_STATE_REQUEST_ERROR,
 
@@ -65,7 +63,6 @@ import {
 } from './EventTypes';
 import MetronomeStore from '../stores/MetronomeStore';
 import MesosStateStore from '../stores/MesosStateStore';
-import MesosSummaryStore from '../stores/MesosSummaryStore';
 import MetadataStore from '../stores/MetadataStore';
 import NodeHealthStore from '../stores/NodeHealthStore';
 import NotificationStore from '../stores/NotificationStore';
@@ -122,27 +119,6 @@ const ListenersDescription = {
     unmountWhen: function () {
       return true;
     },
-    listenAlways: true
-  },
-
-  summary: {
-    // Which store to use
-    store: MesosSummaryStore,
-
-    // What event to listen to
-    events: {
-      success: MESOS_SUMMARY_CHANGE,
-      error: MESOS_SUMMARY_REQUEST_ERROR
-    },
-
-    // When to remove listener
-    unmountWhen: function (store, event) {
-      if (event === 'success') {
-        return store.get('statesProcessed');
-      }
-    },
-
-    // Set to true to keep listening until unmount
     listenAlways: true
   },
 
