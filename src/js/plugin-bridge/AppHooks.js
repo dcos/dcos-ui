@@ -1,23 +1,16 @@
-// Cannot import here because of Circular reference.
-// PluginSDK imports this module, which imports HistoryStore
-// and HistoryStore imports PluginSDK via GetSetMixin.
-let HistoryStore;
 let SidebarActions;
 
 module.exports = {
   actions: [
     'closeSidebar',
-    'goBack',
     'pluginsConfigured'
   ],
 
   filters: [
-    'hasCapability',
-    'getHistoryAt'
+    'hasCapability'
   ],
 
   initialize(SDK) {
-    HistoryStore = require('../stores/HistoryStore');
     SidebarActions = require('../events/SidebarActions');
 
     this.actions.forEach(action => {
@@ -37,14 +30,6 @@ module.exports = {
   hasCapability() {
     // Users have access to everything by default
     return true;
-  },
-
-  goBack(router) {
-    HistoryStore.goBack(router);
-  },
-
-  getHistoryAt(index) {
-    return HistoryStore.getHistoryAt(index);
   },
 
   pluginsConfigured() {
