@@ -61,7 +61,7 @@ class CosmosPackagesStore extends GetSetBaseStore {
 
     PluginSDK.addStoreConfig({
       store: this,
-      storeID: 'cosmosPackages',
+      storeID: this.storeID,
       events: {
         availableError: COSMOS_SEARCH_ERROR,
         availableSuccess: COSMOS_SEARCH_CHANGE,
@@ -303,6 +303,10 @@ class CosmosPackagesStore extends GetSetBaseStore {
     this.set({repositories});
 
     this.emit(COSMOS_REPOSITORIES_SUCCESS);
+  }
+
+  get storeID() {
+    return 'cosmosPackages';
   }
 }
 
