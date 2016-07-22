@@ -109,8 +109,9 @@ class JobsTable extends React.Component {
   renderHeadline(prop, job) {
     let {id, isGroup, name, schedules} = job;
     let itemImage = null;
-    const jobID = encodeURIComponent(id);
     let scheduleIcon = null;
+
+    id = encodeURIComponent(id);
 
     if (isGroup) {
       itemImage = (
@@ -157,12 +158,12 @@ class JobsTable extends React.Component {
         flex-box-align-vertical-center table-cell-flex-box">
         <Link to="jobs-page-detail"
           className="table-cell-icon"
-          params={{id: jobID}}>
+          params={{id}}>
           {itemImage}
         </Link>
         <Link to="jobs-page-detail"
           className="headline table-cell-value flex-box flex-box-col"
-          params={{id: jobID}}>
+          params={{id}}>
           <span className="text-overflow">
             {name}
           </span>
