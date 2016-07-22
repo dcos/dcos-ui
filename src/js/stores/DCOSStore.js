@@ -178,12 +178,20 @@ class DCOSStore extends EventEmitter {
   onMarathonQueueChange(nextQueue) {
     let {marathon:{queue}} = this.data;
 
+    let queuedAppIDs = [];
     nextQueue.forEach((entry) => {
       if (entry.app == null) {
         return;
       }
 
+      queuedAppIDs.push(entry.app.id);
       queue.set(entry.app.id, entry);
+    });
+
+    queue.forEach((entry) => {
+      if (queuedAppIDs.indexOf(entry.app.id) === -1) {
+        queue.delete(entry.app.id);
+      }
     });
 
     this.emit(DCOS_CHANGE);

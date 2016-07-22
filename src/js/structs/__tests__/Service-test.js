@@ -457,6 +457,17 @@ describe('Service', function () {
         .toEqual(ServiceStatus.NA);
     });
 
+    it('tolerates a missing deployments field', function () {
+      let service = new Service({
+        tasksStaged: 0,
+        tasksRunning: 0,
+        tasksHealthy: 0,
+        tasksUnhealthy: 0,
+        instances: 1
+      });
+      expect(service.getServiceStatus.bind(service)).not.toThrow();
+    });
+
   });
 
   describe('#getLastTaskFailure', function () {
