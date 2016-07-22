@@ -247,6 +247,7 @@ class JobFormModal extends mixin(StoreMixin) {
       <JobForm
         onChange={this.handleFormChange}
         model={formModel}
+        isEdit={this.props.isEdit}
         schema={JobSchema} />
     );
   }
@@ -276,7 +277,7 @@ class JobFormModal extends mixin(StoreMixin) {
   getModalTitle() {
     let heading = ' New Job';
     if (this.props.isEdit) {
-      heading = 'Edit Job';
+      heading = `Edit Job (${this.props.job.getName()})`;
     }
 
     return (
