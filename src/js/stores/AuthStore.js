@@ -26,7 +26,7 @@ class AuthStore extends GetSetBaseStore {
 
     PluginSDK.addStoreConfig({
       store: this,
-      storeID: 'auth',
+      storeID: this.storeID,
       events: {
         success: AUTH_USER_LOGIN_CHANGED,
         error: AUTH_USER_LOGIN_ERROR,
@@ -109,6 +109,10 @@ class AuthStore extends GetSetBaseStore {
     this.emit(AUTH_USER_LOGOUT_SUCCESS);
 
     Hooks.doAction('userLogoutSuccess');
+  }
+
+  get storeID() {
+    return 'auth';
   }
 }
 
