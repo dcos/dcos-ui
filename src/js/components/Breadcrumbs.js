@@ -1,20 +1,8 @@
-import mixin from 'reactjs-mixin';
-/* eslint-disable no-unused-vars */
 import React, {PropTypes} from 'react';
-/* eslint-enable no-unused-vars */
-import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import ManualBreadcrumbs from './ManualBreadcrumbs';
 
-class Breadcrumbs extends mixin(StoreMixin) {
-  constructor() {
-    super(...arguments);
-
-    this.store_listeners = [
-      {name: 'history', events: ['change'], listenAlways: true}
-    ];
-  }
-
+class Breadcrumbs extends React.Component {
   buildCrumbs(routeName) {
     let {router} = this.context;
     let {namedRoutes} = router;
