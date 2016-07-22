@@ -142,18 +142,25 @@ function processValue(value, valueType) {
     }
   }
 
-  if (valueType === 'boolean' && value == null) {
-    return false;
-  }
-
-  if (value == null || value === '') {
-    return null;
+  if (valueType === 'array' && !value) {
+    return [];
   }
 
   if (valueType === 'array' && typeof value === 'string') {
     return value.split(',')
       .map(function (val) { return val.trim(); })
       .filter(function (val) { return val !== ''; });
+  }
+
+  if (valueType === 'boolean' && value == null) {
+    return false;
+  }
+
+  // Since values might be converted to null or empty strings
+  // when processing values, let's make this test last,
+  // i.e. after valueType checks
+  if (value == null || value === '') {
+    return null;
   }
 
   return value;

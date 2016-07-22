@@ -12,7 +12,7 @@
   "website": null,
   "framework": true,
   "preInstallNotes": "We recommend a minimum of one node with at least 2 CPU's and 1GB of RAM available for the Marathon Service.",
-  "postInstallNotes": "Marathon DCOS Service has been successfully installed!\n\n\tDocumentation: https://mesosphere.github.io/marathon\n\tIssues: https:/github.com/mesosphere/marathon/issues\n",
+  "postInstallNotes": "Marathon DCOS Service has been successfully installed!\n\n\tDocumentation: https://mesosphere.github.io/marathon\n\tIssues: https://github.com/mesosphere/marathon/issues\n",
   "postUninstallNotes": "The Marathon DCOS Service has been uninstalled and will no longer run.\nPlease follow the instructions at http://docs.mesosphere.com/services/marathon/#uninstall to clean up any persisted state",
   "licenses": [
     {
@@ -28,7 +28,7 @@
         "properties": {
           "name": {
             "default": "marathon-user",
-            "type": "object"
+            "type": "string"
           }
         }
       },
@@ -279,11 +279,11 @@
           },
           "uris": {
             "default": [
-              
+
             ],
             "description": "List of URIs that will be download and made available in the current working directory of Marathon. For example this can be used to download a Java keystore file for SSL configuration.",
             "items": {
-              "pattern": "^[\\s]+",
+              "pattern": "^[\\w]+",
               "type": "string"
             },
             "type": "array"
