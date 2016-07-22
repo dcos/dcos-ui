@@ -105,7 +105,7 @@ class DeploymentsTab extends mixin(StoreMixin) {
     if (serviceIds == null) {
       return;
     }
-    return serviceIds.map(function (serviceId, index) {
+    return serviceIds.map(function (serviceId) {
       return (
         <dd key={`stale_${serviceId}`}>
           <span className="icon icon-small icon-image-container icon-app-container deployment-service-icon">
@@ -118,7 +118,7 @@ class DeploymentsTab extends mixin(StoreMixin) {
   }
 
   renderAffectedServicesList(services) {
-    return services.map(function (service, index) {
+    return services.map(function (service) {
       const id = encodeURIComponent(service.getId());
       const image = service.getImages()['icon-small'];
 
