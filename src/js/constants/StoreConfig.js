@@ -45,9 +45,6 @@ import {
 
   DCOS_METADATA_CHANGE,
 
-  MESOS_LOG_CHANGE,
-  MESOS_LOG_REQUEST_ERROR,
-
   SIDEBAR_WIDTH_CHANGE,
 
   TASK_DIRECTORY_CHANGE,
@@ -67,7 +64,6 @@ import {
   VISIBILITY_CHANGE
 } from './EventTypes';
 import MetronomeStore from '../stores/MetronomeStore';
-import MesosLogStore from '../stores/MesosLogStore';
 import MesosStateStore from '../stores/MesosStateStore';
 import MesosSummaryStore from '../stores/MesosSummaryStore';
 import MetadataStore from '../stores/MetadataStore';
@@ -200,19 +196,6 @@ const ListenersDescription = {
       return true;
     },
     listenAlways: true
-  },
-
-  mesosLog: {
-    store: MesosLogStore,
-    events: {
-      success: MESOS_LOG_CHANGE,
-      error: MESOS_LOG_REQUEST_ERROR
-    },
-    unmountWhen: function () {
-      return true;
-    },
-    listenAlways: true,
-    suppressUpdate: true
   },
 
   taskDirectory: {
