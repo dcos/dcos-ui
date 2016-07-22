@@ -219,28 +219,20 @@ var ServicesTable = React.createClass({
   },
 
   getDestroyConfirmDialog: function () {
-    let message = null;
     const {state} = this;
     let service = state.serviceToChange;
+    let serviceName = '';
     let itemText = 'Service';
     if (service instanceof ServiceTree) {
       itemText = 'Group';
     }
 
     if (service) {
-      message = (
-        <div className="container-pod flush-top container-pod-short-bottom">
-          <h2 className="text-danger text-align-center flush-top">Destroy {itemText}</h2>
-          <p>
-            Are you sure you want to destroy <span className="emphasize">{service.getId()}</span>? This action is irreversible.
-          </p>
-          {this.getErrorMessage()}
-        </div>
-      );
+      serviceName = service.getId();
     }
 
     return (
-      <Confirm children={message}
+      <Confirm
         disabled={state.disabledDialog === ServiceActionItem.DESTROY}
         open={state.serviceActionDialog === ServiceActionItem.DESTROY}
         onClose={this.closeDialog}
@@ -248,13 +240,21 @@ var ServicesTable = React.createClass({
         leftButtonCallback={this.closeDialog}
         rightButtonText="Destroy Service"
         rightButtonClassName="button button-danger"
-        rightButtonCallback={this.onAcceptDestroyConfirmDialog} />
+        rightButtonCallback={this.onAcceptDestroyConfirmDialog}>
+        <div className="container-pod flush-top container-pod-short-bottom">
+          <h2 className="text-danger text-align-center flush-top">Destroy {itemText}</h2>
+          <p>
+            Are you sure you want to destroy <span className="emphasize">{serviceName}</span>? This action is irreversible.
+          </p>
+          {this.getErrorMessage()}
+        </div>
+      </Confirm>
     );
   },
 
   getSuspendConfirmDialog: function () {
-    let message = null;
     let service = this.state.serviceToChange;
+    let serviceName = '';
     const {state} = this;
     let itemText = 'Service';
     if (service instanceof ServiceTree) {
@@ -262,19 +262,11 @@ var ServicesTable = React.createClass({
     }
 
     if (service) {
-      message = (
-        <div className="container-pod flush-top container-pod-short-bottom">
-          <h2 className="text-align-center flush-top">Suspend {itemText}</h2>
-          <p>
-            Are you sure you want to suspend <span className="emphasize">{service.getId()}</span> by scaling to 0 instances?
-          </p>
-          {this.getErrorMessage()}
-        </div>
-      );
+      serviceName = service.getId();
     }
 
     return (
-      <Confirm children={message}
+      <Confirm
         disabled={state.disabledDialog === ServiceActionItem.SUSPEND}
         open={state.serviceActionDialog === ServiceActionItem.SUSPEND}
         onClose={this.closeDialog}
@@ -282,7 +274,15 @@ var ServicesTable = React.createClass({
         leftButtonCallback={this.closeDialog}
         rightButtonText="Suspend Service"
         rightButtonClassName="button button-primary"
-        rightButtonCallback={this.onAcceptSuspendConfirmDialog} />
+        rightButtonCallback={this.onAcceptSuspendConfirmDialog}>
+        <div className="container-pod flush-top container-pod-short-bottom">
+          <h2 className="text-align-center flush-top">Suspend {itemText}</h2>
+          <p>
+            Are you sure you want to suspend <span className="emphasize">{serviceName}</span> by scaling to 0 instances?
+          </p>
+          {this.getErrorMessage()}
+        </div>
+      </Confirm>
     );
   },
 
