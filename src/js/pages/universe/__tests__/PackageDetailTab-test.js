@@ -5,16 +5,13 @@ jest.dontMock('../../../components/modals/InstallPackageModal');
 jest.dontMock('../../../stores/CosmosPackagesStore');
 jest.dontMock('../../../../../tests/_fixtures/cosmos/package-describe.json');
 
-var JestUtil = require('../../../utils/JestUtil');
-
-JestUtil.unMockStores(['CosmosPackagesStore']);
-
-// Setting useFixtures for when we load StoreMixinConfig
+// Setting useFixtures for when we load CosmosPackagesStore/CosmosPackageActions
 var Config = require('../../../config/Config');
 var configUseFixtures = Config.useFixtures;
 Config.useFixtures = true;
-require('../../../utils/StoreMixinConfig');
+require('../../../stores/CosmosPackagesStore');
 Config.useFixtures = configUseFixtures;
+
 /* eslint-disable no-unused-vars */
 var React = require('react');
 /* eslint-enable no-unused-vars */
