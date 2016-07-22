@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
 /* eslint-enable no-unused-vars */
+import ContainerValidatorUtil from '../../utils/ContainerValidatorUtil';
 
 const ContainerSettings = {
   title: 'Container Settings',
@@ -24,6 +25,21 @@ const ContainerSettings = {
               return container.docker.image;
             }
             return null;
+          },
+          externalValidator: function ({containerSettings}, definition) {
+            const {image} = containerSettings;
+
+            if (image == null ||
+              ContainerValidatorUtil.isValidDockerImage(image)) {
+              return true;
+            }
+
+            definition.showError = 'Container Image  must not contain ' +
+              'whitespace and should not contain any other characters ' +
+              'than lowercase letters, digits, hyphens, underscores, ' +
+              'and colons.';
+
+            return false;
           }
         }
       }
