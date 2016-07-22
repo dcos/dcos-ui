@@ -28,7 +28,7 @@ class ConfigStore extends GetSetBaseStore {
 
     PluginSDK.addStoreConfig({
       store: this,
-      storeID: 'config',
+      storeID: this.storeID,
       events: {
         success: CONFIG_LOADED,
         error: CONFIG_ERROR,
@@ -90,6 +90,10 @@ class ConfigStore extends GetSetBaseStore {
 
   fetchCCID() {
     return ConfigActions.fetchCCID(...arguments);
+  }
+
+  get storeID() {
+    return 'config';
   }
 }
 
