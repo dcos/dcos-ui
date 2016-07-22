@@ -102,6 +102,9 @@ class DeploymentsTab extends mixin(StoreMixin) {
   }
 
   renderStaleServicesList(serviceIds) {
+    if (serviceIds == null) {
+      return;
+    }
     return serviceIds.map(function (serviceId, index) {
       return (
         <dd key={`stale_${index}`}>
