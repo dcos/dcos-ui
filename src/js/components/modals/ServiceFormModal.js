@@ -443,7 +443,7 @@ class ServiceFormModal extends mixin(StoreMixin) {
   }
 
   render() {
-    let titleText = 'Deploy new Service';
+    let titleText = 'Deploy New Service';
 
     if (this.props.isEdit) {
       titleText = 'Edit Service';
