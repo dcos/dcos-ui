@@ -5,8 +5,8 @@ When creating a component, there is a specific order to methods in order to quic
 
 1. Constructor
 2. Lifecycle methods
-3. on${methodName}Change
-4. handle${methodName}Change
+3. onEventChange
+4. handleEventChange
 5. Custom component methods
 6. Render methods
 
@@ -40,5 +40,5 @@ this.state = {
 
 ## API Requests
 
-API Requests should go into Action files like [this](https://github.com/dcos/dcos-ui/blob/master/src/js/events/CosmosPackagesActions.js)
+API Requests should go into an Action file like [this](https://github.com/dcos/dcos-ui/blob/master/src/js/events/CosmosPackagesActions.js)
 
