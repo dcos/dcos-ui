@@ -248,7 +248,7 @@ class JobFormModal extends mixin(StoreMixin) {
       <JobForm
         onChange={this.handleFormChange}
         model={formModel}
-        edit={this.props.isEdit}
+        isEdit={this.props.isEdit}
         schema={JobSchema} />
     );
   }

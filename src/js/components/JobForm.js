@@ -19,15 +19,22 @@ class JobForm extends SchemaForm {
 
   componentWillMount() {
     this.multipleDefinition = this.getNewDefinition();
+    this.props.getTriggerSubmit(this.handleExternalSubmit);
+  }
+
+  getNewDefinition() {
+    let multipleDefinition = super.getNewDefinition();
+
     // On edit hide the id field.
     if (this.props.isEdit) {
-      this.multipleDefinition.general.definition.forEach(function (definition) {
+      multipleDefinition.general.definition.forEach(function (definition) {
         if (definition.name === 'id') {
           definition.formElementClass = 'hidden';
         }
       });
     }
-    this.props.getTriggerSubmit(this.handleExternalSubmit);
+
+    return multipleDefinition;
   }
 
   getDataTriple() {
