@@ -45,8 +45,6 @@ import {
   HEALTH_UNIT_NODE_SUCCESS,
   HEALTH_UNIT_NODE_ERROR,
 
-  HISTORY_CHANGE,
-
   MARATHON_APPS_CHANGE,
   MARATHON_APPS_ERROR,
   MARATHON_DEPLOYMENTS_CHANGE,
@@ -126,7 +124,6 @@ import AuthStore from '../stores/AuthStore';
 import MetronomeStore from '../stores/MetronomeStore';
 import ConfigStore from '../stores/ConfigStore';
 import DCOSStore from '../stores/DCOSStore';
-import HistoryStore from '../stores/HistoryStore';
 import MarathonStore from '../stores/MarathonStore';
 import MesosLogStore from '../stores/MesosLogStore';
 import MesosStateStore from '../stores/MesosStateStore';
@@ -231,17 +228,6 @@ const ListenersDescription = {
     },
     unmountWhen: function (store, event) {
       return event === 'availableSuccess';
-    },
-    listenAlways: false
-  },
-
-  history: {
-    store: HistoryStore,
-    events: {
-      change: HISTORY_CHANGE
-    },
-    unmountWhen: function () {
-      return true;
     },
     listenAlways: false
   },
