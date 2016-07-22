@@ -233,8 +233,37 @@ class ServiceForm extends SchemaForm {
 
   updateDefinitions() {
     let {model} = this.internalStorage_get();
-    let {networking} = this.multipleDefinition;
+    let {networking, volumes} = this.multipleDefinition;
+    let {containerSettings} = model;
 
+    let showDockerVolumes = containerSettings &&
+      containerSettings.image != null && containerSettings.image !== '';
+
+    let endIndex = -1;
+    let startIndex = -1;
+
+    volumes.definition.forEach(function (item, index) {
+      if (item.prop === 'localVolumes') {
+        startIndex = index + 1;
+      }
+      if (item.prop === 'dockerVolumes') {
+        endIndex = index + 1;
+      }
+    });
+    if (endIndex > -1) {
+      this.internalStorage_set({
+        model,
+        dockerVolumesDefinition: volumes.definition.slice(startIndex, endIndex)
+      });
+    }
+    // Get new value if it was set
+    let {dockerVolumesDefinition} = this.internalStorage_get();
+
+    if (showDockerVolumes && endIndex < 0) {
+      volumes.definition.splice(startIndex, 0, ...dockerVolumesDefinition);
+    } else if (!showDockerVolumes && endIndex > -1) {
+      volumes.definition.splice(startIndex, dockerVolumesDefinition.length);
+    }
     if (networking) {
       let {networkType} = this.props.schema.properties.networking.properties;
 
@@ -332,7 +361,8 @@ class ServiceForm extends SchemaForm {
           return port;
         });
       }
-      this.internalStorage_set({model});
+      let {dockerVolumesDefinition = null} = this.internalStorage_get();
+      this.internalStorage_set({model, dockerVolumesDefinition});
 
       if (shouldUpdateDefinition) {
         SchemaFormUtil.mergeModelIntoDefinition(
@@ -421,7 +451,8 @@ class ServiceForm extends SchemaForm {
     }
 
     if (model) {
-      this.internalStorage_set({model});
+      let {dockerVolumesDefinition = null} = this.internalStorage_get();
+      this.internalStorage_set({model, dockerVolumesDefinition});
     }
 
     return definition;
