@@ -1,0 +1,66 @@
+/* -----------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+status-bar/styles.less
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+----------------------------------------------------------------------------- */
+
+
+
+& when (@status-bar-enabled) {
+
+  .status-bar {
+
+    display: inline-flex;
+    background-color: @gray;
+    margin-right: 0;
+    height: @status-bar-height;
+    width: @status-bar-width * 0.6;
+    max-width: 100%;
+
+    .bar {
+
+      background-color: currentColor;
+      border-left: 1px solid @black;
+      transform: none;
+      transition: width 600ms;
+
+      &:first-child {
+
+        border-left: none;
+
+      }
+    }
+  }
+
+  .status-bar-wrapper {
+
+    display: inline-block;
+
+    .running-state {
+
+      color: @white;
+
+    }
+
+    .deploying-state {
+
+      color: @yellow;
+
+    }
+  }
+
+}
+
+& when (@status-bar-enabled) and (@layout-screen-small-enabled) {
+
+  @media (min-width: @layout-screen-small-min-width) {
+
+    .status-bar {
+      width: @status-bar-width;
+    }
+
+  }
+
+}
