@@ -17,8 +17,6 @@ import {
   HEALTH_UNIT_NODE_SUCCESS,
   HEALTH_UNIT_NODE_ERROR,
 
-  METADATA_CHANGE,
-
   METRONOME_JOB_CREATE_SUCCESS,
   METRONOME_JOB_CREATE_ERROR,
   METRONOME_JOB_DELETE_SUCCESS,
@@ -41,8 +39,6 @@ import {
 
   NOTIFICATION_CHANGE,
 
-  DCOS_METADATA_CHANGE,
-
   SIDEBAR_WIDTH_CHANGE,
 
   TASK_DIRECTORY_CHANGE,
@@ -63,7 +59,6 @@ import {
 } from './EventTypes';
 import MetronomeStore from '../stores/MetronomeStore';
 import MesosStateStore from '../stores/MesosStateStore';
-import MetadataStore from '../stores/MetadataStore';
 import NodeHealthStore from '../stores/NodeHealthStore';
 import NotificationStore from '../stores/NotificationStore';
 import SidebarStore from '../stores/SidebarStore';
@@ -132,18 +127,6 @@ const ListenersDescription = {
       if (event === 'success') {
         return Object.keys(store.get('lastMesosState')).length;
       }
-    },
-    listenAlways: true
-  },
-
-  metadata: {
-    store: MetadataStore,
-    events: {
-      success: METADATA_CHANGE,
-      dcosSuccess: DCOS_METADATA_CHANGE
-    },
-    unmountWhen: function () {
-      return true;
     },
     listenAlways: true
   },
