@@ -1,8 +1,5 @@
-let SidebarActions;
-
 module.exports = {
   actions: [
-    'closeSidebar',
     'pluginsConfigured'
   ],
 
@@ -11,8 +8,6 @@ module.exports = {
   ],
 
   initialize(SDK) {
-    SidebarActions = require('../events/SidebarActions');
-
     this.actions.forEach(action => {
       SDK.Hooks.addAction(action, this[action].bind(this));
     });
@@ -21,10 +16,6 @@ module.exports = {
     });
 
     this.SDK = SDK;
-  },
-
-  closeSidebar() {
-    SidebarActions.close();
   },
 
   hasCapability() {
