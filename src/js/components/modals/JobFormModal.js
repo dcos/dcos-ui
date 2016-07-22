@@ -13,7 +13,6 @@ import Job from '../../structs/Job';
 import JobForm from '../JobForm';
 import JobUtil from '../../utils/JobUtil';
 import JobSchema from '../../schemas/JobSchema';
-import StringUtil from '../../utils/StringUtil';
 import ToggleButton from '../ToggleButton';
 
 const METHODS_TO_BIND = [
@@ -278,7 +277,7 @@ class JobFormModal extends mixin(StoreMixin) {
   getModalTitle() {
     let heading = ' New Job';
     if (this.props.isEdit) {
-      heading = `Edit ${StringUtil.capitalize(this.props.job.getName())}`;
+      heading = `Edit Job (${this.props.job.getName()})`;
     }
 
     return (
