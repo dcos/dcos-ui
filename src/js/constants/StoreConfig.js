@@ -17,23 +17,6 @@ import {
   HEALTH_UNIT_NODE_SUCCESS,
   HEALTH_UNIT_NODE_ERROR,
 
-  METRONOME_JOB_CREATE_SUCCESS,
-  METRONOME_JOB_CREATE_ERROR,
-  METRONOME_JOB_DELETE_SUCCESS,
-  METRONOME_JOB_DELETE_ERROR,
-  METRONOME_JOB_DETAIL_CHANGE,
-  METRONOME_JOB_DETAIL_ERROR,
-  METRONOME_JOB_UPDATE_SUCCESS,
-  METRONOME_JOB_UPDATE_ERROR,
-  METRONOME_JOB_RUN_ERROR,
-  METRONOME_JOB_RUN_SUCCESS,
-  METRONOME_JOB_STOP_RUN_ERROR,
-  METRONOME_JOB_STOP_RUN_SUCCESS,
-  METRONOME_JOB_SCHEDULE_UPDATE_ERROR,
-  METRONOME_JOB_SCHEDULE_UPDATE_SUCCESS,
-  METRONOME_JOBS_CHANGE,
-  METRONOME_JOBS_ERROR,
-
   MESOS_STATE_CHANGE,
   MESOS_STATE_REQUEST_ERROR,
 
@@ -57,7 +40,6 @@ import {
 
   VISIBILITY_CHANGE
 } from './EventTypes';
-import MetronomeStore from '../stores/MetronomeStore';
 import MesosStateStore from '../stores/MesosStateStore';
 import NodeHealthStore from '../stores/NodeHealthStore';
 import NotificationStore from '../stores/NotificationStore';
@@ -127,32 +109,6 @@ const ListenersDescription = {
       if (event === 'success') {
         return Object.keys(store.get('lastMesosState')).length;
       }
-    },
-    listenAlways: true
-  },
-
-  metronome: {
-    store: MetronomeStore,
-    events: {
-      jobCreateSuccess: METRONOME_JOB_CREATE_SUCCESS,
-      jobCreateError: METRONOME_JOB_CREATE_ERROR,
-      jobDeleteSuccess: METRONOME_JOB_DELETE_SUCCESS,
-      jobDeleteError: METRONOME_JOB_DELETE_ERROR,
-      jobDetailChange: METRONOME_JOB_DETAIL_CHANGE,
-      jobDetailError: METRONOME_JOB_DETAIL_ERROR,
-      jobUpdateSuccess: METRONOME_JOB_UPDATE_SUCCESS,
-      jobUpdateError: METRONOME_JOB_UPDATE_ERROR,
-      jobRunError: METRONOME_JOB_RUN_ERROR,
-      jobRunSuccess: METRONOME_JOB_RUN_SUCCESS,
-      jobStopRunError: METRONOME_JOB_STOP_RUN_ERROR,
-      jobStopRunSuccess: METRONOME_JOB_STOP_RUN_SUCCESS,
-      jobScheduleUpdateError: METRONOME_JOB_SCHEDULE_UPDATE_ERROR,
-      jobScheduleUpdateSuccess: METRONOME_JOB_SCHEDULE_UPDATE_SUCCESS,
-      change: METRONOME_JOBS_CHANGE,
-      error: METRONOME_JOBS_ERROR
-    },
-    unmountWhen: function () {
-      return true;
     },
     listenAlways: true
   },
