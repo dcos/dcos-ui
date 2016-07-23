@@ -1,7 +1,8 @@
 import classNames from 'classnames';
 import {Link} from 'react-router';
+import prettycron from 'prettycron';
 import React from 'react';
-import {Table} from 'reactjs-components';
+import {Table, Tooltip} from 'reactjs-components';
 
 import Icon from '../../components/Icon';
 import JobStates from '../../constants/JobStates';
@@ -79,6 +80,7 @@ class JobsTable extends React.Component {
         id: job.getId(),
         isGroup,
         name: job.getName(),
+        schedules: job.getSchedules(),
         status,
         lastRunStatus
       };
@@ -105,10 +107,13 @@ class JobsTable extends React.Component {
   }
 
   renderHeadline(prop, job) {
-    const id = encodeURIComponent(job.id);
+    let {id, isGroup, name, schedules} = job;
     let itemImage = null;
+    let scheduleIcon = null;
 
-    if (job.isGroup) {
+    id = encodeURIComponent(id);
+
+    if (isGroup) {
       itemImage = (
         <Icon
           className="icon-margin-right"
@@ -128,6 +133,26 @@ class JobsTable extends React.Component {
       );
     }
 
+    if (schedules && schedules.length !== 0) {
+      let schedule = schedules[0];
+
+      if (schedule.enabled) {
+        scheduleIcon = (
+          <Tooltip
+            wrapperClassName="tooltip-wrapper icon icon-margin-left"
+            content={prettycron.toString(schedule.cron)}
+            maxWidth={250}
+            wrapText={true}>
+            <Icon
+              color="grey"
+              id="repeat"
+              size="mini"
+              family="small" />
+          </Tooltip>
+        );
+      }
+    }
+
     return (
       <div className="job-table-heading flex-box
         flex-box-align-vertical-center table-cell-flex-box">
@@ -140,8 +165,9 @@ class JobsTable extends React.Component {
           className="headline table-cell-value flex-box flex-box-col"
           params={{id}}>
           <span className="text-overflow">
-            {job.name}
+            {name}
           </span>
+          {scheduleIcon}
         </Link>
       </div>
     );
