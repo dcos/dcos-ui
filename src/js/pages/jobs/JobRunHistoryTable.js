@@ -3,8 +3,9 @@ import {Link} from 'react-router';
 import React from 'react';
 
 import CollapsingString from '../../components/CollapsingString';
-import ExpandingTable from '../../components/ExpandingTable';
+import CheckboxTable from '../../components/CheckboxTable';
 import DateUtil from '../../utils/DateUtil';
+import ExpandingTable from '../../components/ExpandingTable';
 import FilterBar from '../../components/FilterBar';
 import FilterHeadline from '../../components/FilterHeadline';
 import Icon from '../../components/Icon';
@@ -59,10 +60,11 @@ class JobRunHistoryTable extends React.Component {
   getColGroup() {
     return (
       <colgroup>
-        <col style={{width: '40%'}} />
-        <col style={{width: '20%'}} />
-        <col style={{width: '20%'}} />
-        <col style={{width: '20%'}} />
+        <col style={{width: '40px'}} />
+        <col />
+        <col style={{width: '120px'}} className="hidden-mini" />
+        <col style={{width: '160px'}} className="hidden-mini" />
+        <col style={{width: '160px'}} className="hidden-mini" />
       </colgroup>
     );
   }
@@ -316,10 +318,12 @@ class JobRunHistoryTable extends React.Component {
           columns={this.getColumns()}
           colGroup={this.getColGroup()}
           data={this.getData(job)}
+          getColGroup={this.getColGroup}
           uniqueProperty="id"
           checkedItemsMap={this.state.checkedItems}
           onCheckboxChange={this.handleItemCheck}
-          sortBy={{prop: 'startedAt', order: 'desc'}} />
+          sortBy={{prop: 'startedAt', order: 'desc'}}
+          tableComponent={CheckboxTable} />
         {this.getStopRunModal(checkedItems, hasCheckedTasks)}
       </div>
     );
