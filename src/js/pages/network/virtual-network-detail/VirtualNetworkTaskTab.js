@@ -88,7 +88,7 @@ class VirtualNetworkTaskTab extends mixin(StoreMixin) {
 
   getClassName(prop, sortBy) {
     return classNames({
-      'highlight': prop === sortBy.prop
+      'table-cell-sorted': prop === sortBy.prop
     });
   }
 
