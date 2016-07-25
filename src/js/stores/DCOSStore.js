@@ -10,14 +10,14 @@ import {
   MARATHON_SERVICE_VERSION_CHANGE,
   MARATHON_SERVICE_VERSIONS_CHANGE
 } from '../constants/EventTypes';
-import MetronomeStore from '../stores/MetronomeStore';
 import DeploymentsList from '../structs/DeploymentsList';
 import Framework from '../structs/Framework';
-import {Hooks} from 'PluginSDK';
 import JobTree from '../structs/JobTree';
 import MarathonStore from './MarathonStore';
 import MesosSummaryStore from './MesosSummaryStore';
+import MetronomeStore from '../stores/MetronomeStore';
 import NotificationStore from './NotificationStore';
+import PluginSDK, {Hooks} from 'PluginSDK';
 import ServiceTree from '../structs/ServiceTree';
 import SummaryList from '../structs/SummaryList';
 
@@ -32,9 +32,20 @@ const METHODS_TO_BIND = [
 ];
 
 class DCOSStore extends EventEmitter {
-
   constructor() {
     super(...arguments);
+
+    PluginSDK.addStoreConfig({
+      store: this,
+      storeID: this.storeID,
+      events: {
+        change: DCOS_CHANGE
+      },
+      unmountWhen: function () {
+        return true;
+      },
+      listenAlways: true
+    });
 
     METHODS_TO_BIND.forEach((method) => {
       this[method] = this[method].bind(this);

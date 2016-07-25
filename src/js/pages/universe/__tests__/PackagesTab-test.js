@@ -6,24 +6,19 @@ jest.dontMock('../../../mixins/InternalStorageMixin');
 jest.dontMock('../../../stores/CosmosPackagesStore');
 jest.dontMock('../../../../../tests/_fixtures/cosmos/packages-search.json');
 
-var JestUtil = require('../../../utils/JestUtil');
-
-JestUtil.unMockStores(['CosmosPackagesStore']);
-
-// Setting useFixtures for when we load StoreMixinConfig
-var Config = require('../../../config/Config');
-var configUseFixtures = Config.useFixtures;
-Config.useFixtures = true;
-require('../../../utils/StoreMixinConfig');
-Config.useFixtures = configUseFixtures;
-
 /* eslint-disable no-unused-vars */
 var React = require('react');
 /* eslint-enable no-unused-vars */
 var ReactDOM = require('react-dom');
 var TestUtils = require('react-addons-test-utils');
 
+// Setting useFixtures for when we load CosmosPackagesStore/CosmosPackageActions
+var Config = require('../../../config/Config');
+var configUseFixtures = Config.useFixtures;
+Config.useFixtures = true;
 var CosmosPackagesStore = require('../../../stores/CosmosPackagesStore');
+Config.useFixtures = configUseFixtures;
+
 var PackagesTab = require('../PackagesTab');
 var UniversePackagesList = require('../../../structs/UniversePackagesList');
 

@@ -18,11 +18,26 @@ import {
 import AppDispatcher from '../events/AppDispatcher';
 import AuthActions from '../events/AuthActions';
 import CookieUtils from '../utils/CookieUtils';
-import {Hooks} from 'PluginSDK';
+import PluginSDK, {Hooks} from 'PluginSDK';
 
 class AuthStore extends GetSetBaseStore {
   constructor() {
     super(...arguments);
+
+    PluginSDK.addStoreConfig({
+      store: this,
+      storeID: this.storeID,
+      events: {
+        success: AUTH_USER_LOGIN_CHANGED,
+        error: AUTH_USER_LOGIN_ERROR,
+        logoutSuccess: AUTH_USER_LOGOUT_SUCCESS,
+        logoutError: AUTH_USER_LOGOUT_ERROR
+      },
+      unmountWhen: function () {
+        return true;
+      },
+      listenAlways: true
+    });
 
     this.dispatcherIndex = AppDispatcher.register((payload) =>{
       if (payload.source !== SERVER_ACTION) {

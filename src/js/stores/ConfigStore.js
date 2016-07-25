@@ -1,9 +1,21 @@
 import GetSetBaseStore from './GetSetBaseStore';
 
-import ActionTypes from '../constants/ActionTypes';
+import {
+  REQUEST_CLUSTER_CCID_ERROR,
+  REQUEST_CLUSTER_CCID_SUCCESS,
+  REQUEST_CONFIG_ERROR,
+  REQUEST_CONFIG_SUCCESS,
+  SERVER_ACTION
+} from '../constants/ActionTypes';
 import AppDispatcher from '../events/AppDispatcher';
 import ConfigActions from '../events/ConfigActions';
-import EventTypes from '../constants/EventTypes';
+import {
+  CLUSTER_CCID_ERROR,
+  CLUSTER_CCID_SUCCESS,
+  CONFIG_ERROR,
+  CONFIG_LOADED
+} from '../constants/EventTypes';
+import PluginSDK from 'PluginSDK';
 
 class ConfigStore extends GetSetBaseStore {
   constructor() {
@@ -14,24 +26,39 @@ class ConfigStore extends GetSetBaseStore {
       config: null
     };
 
+    PluginSDK.addStoreConfig({
+      store: this,
+      storeID: this.storeID,
+      events: {
+        success: CONFIG_LOADED,
+        error: CONFIG_ERROR,
+        ccidSuccess: CLUSTER_CCID_SUCCESS,
+        ccidError: CLUSTER_CCID_ERROR
+      },
+      unmountWhen: function () {
+        return true;
+      },
+      listenAlways: true
+    });
+
     this.dispatcherIndex = AppDispatcher.register((payload) => {
-      if (payload.source !== ActionTypes.SERVER_ACTION) {
+      if (payload.source !== SERVER_ACTION) {
         return false;
       }
 
       var action = payload.action;
       switch (action.type) {
-        case ActionTypes.REQUEST_CONFIG_SUCCESS:
+        case REQUEST_CONFIG_SUCCESS:
           this.processConfigSuccess(action.data);
           break;
-        case ActionTypes.REQUEST_CONFIG_ERROR:
-          this.emit(EventTypes.CONFIG_ERROR);
+        case REQUEST_CONFIG_ERROR:
+          this.emit(CONFIG_ERROR);
           break;
-        case ActionTypes.REQUEST_CLUSTER_CCID_SUCCESS:
+        case REQUEST_CLUSTER_CCID_SUCCESS:
           this.processCCIDSuccess(action.data);
           break;
-        case ActionTypes.REQUEST_CLUSTER_CCID_ERROR:
-          this.emit(EventTypes.CLUSTER_CCID_ERROR);
+        case REQUEST_CLUSTER_CCID_ERROR:
+          this.emit(CLUSTER_CCID_ERROR);
           break;
       }
 
@@ -49,12 +76,12 @@ class ConfigStore extends GetSetBaseStore {
 
   processConfigSuccess(config) {
     this.set({config});
-    this.emit(EventTypes.CONFIG_LOADED);
+    this.emit(CONFIG_LOADED);
   }
 
   processCCIDSuccess(ccid) {
     this.set({ccid});
-    this.emit(EventTypes.CLUSTER_CCID_SUCCESS);
+    this.emit(CLUSTER_CCID_SUCCESS);
   }
 
   fetchConfig() {

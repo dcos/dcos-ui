@@ -1,32 +1,4 @@
-import CosmosPackagesStore from '../stores/CosmosPackagesStore';
 import {
-  AUTH_USER_LOGIN_CHANGED,
-  AUTH_USER_LOGIN_ERROR,
-  AUTH_USER_LOGOUT_SUCCESS,
-  AUTH_USER_LOGOUT_ERROR,
-
-  CLUSTER_CCID_SUCCESS,
-  CLUSTER_CCID_ERROR,
-  CONFIG_LOADED,
-  CONFIG_ERROR,
-
-  COSMOS_SEARCH_CHANGE,
-  COSMOS_SEARCH_ERROR,
-  COSMOS_LIST_CHANGE,
-  COSMOS_LIST_ERROR,
-  COSMOS_DESCRIBE_CHANGE,
-  COSMOS_DESCRIBE_ERROR,
-  COSMOS_INSTALL_SUCCESS,
-  COSMOS_INSTALL_ERROR,
-  COSMOS_UNINSTALL_SUCCESS,
-  COSMOS_UNINSTALL_ERROR,
-  COSMOS_REPOSITORIES_SUCCESS,
-  COSMOS_REPOSITORIES_ERROR,
-  COSMOS_REPOSITORY_ADD_SUCCESS,
-  COSMOS_REPOSITORY_ADD_ERROR,
-  COSMOS_REPOSITORY_DELETE_SUCCESS,
-  COSMOS_REPOSITORY_DELETE_ERROR,
-
   HEALTH_NODE_ERROR,
   HEALTH_NODE_SUCCESS,
   HEALTH_NODE_UNITS_ERROR,
@@ -96,7 +68,6 @@ import {
 
   NOTIFICATION_CHANGE,
 
-  DCOS_CHANGE,
   DCOS_METADATA_CHANGE,
 
   MESOS_LOG_CHANGE,
@@ -120,10 +91,7 @@ import {
 
   VISIBILITY_CHANGE
 } from './EventTypes';
-import AuthStore from '../stores/AuthStore';
 import MetronomeStore from '../stores/MetronomeStore';
-import ConfigStore from '../stores/ConfigStore';
-import DCOSStore from '../stores/DCOSStore';
 import MarathonStore from '../stores/MarathonStore';
 import MesosLogStore from '../stores/MesosLogStore';
 import MesosStateStore from '../stores/MesosStateStore';
@@ -140,34 +108,6 @@ import VirtualNetworksStore from '../stores/VirtualNetworksStore';
 import VisibilityStore from '../stores/VisibilityStore';
 
 const ListenersDescription = {
-  auth: {
-    store: AuthStore,
-    events: {
-      success: AUTH_USER_LOGIN_CHANGED,
-      error: AUTH_USER_LOGIN_ERROR,
-      logoutSuccess: AUTH_USER_LOGOUT_SUCCESS,
-      logoutError: AUTH_USER_LOGOUT_ERROR
-    },
-    unmountWhen: function () {
-      return true;
-    },
-    listenAlways: true
-  },
-
-  config: {
-    store: ConfigStore,
-    events: {
-      success: CONFIG_LOADED,
-      error: CONFIG_ERROR,
-      ccidSuccess: CLUSTER_CCID_SUCCESS,
-      ccidError: CLUSTER_CCID_ERROR
-    },
-    unmountWhen: function () {
-      return true;
-    },
-    listenAlways: true
-  },
-
   unitHealth: {
     store: UnitHealthStore,
     events: {
@@ -204,34 +144,6 @@ const ListenersDescription = {
     listenAlways: true
   },
 
-  cosmosPackages: {
-    store: CosmosPackagesStore,
-    events: {
-      availableError: COSMOS_SEARCH_ERROR,
-      availableSuccess: COSMOS_SEARCH_CHANGE,
-      descriptionSuccess: COSMOS_DESCRIBE_CHANGE,
-      descriptionError: COSMOS_DESCRIBE_ERROR,
-      installedSuccess: COSMOS_LIST_CHANGE,
-      installedError: COSMOS_LIST_ERROR,
-
-      installError: COSMOS_INSTALL_ERROR,
-      installSuccess: COSMOS_INSTALL_SUCCESS,
-      uninstallError: COSMOS_UNINSTALL_ERROR,
-      uninstallSuccess: COSMOS_UNINSTALL_SUCCESS,
-
-      repositoriesSuccess: COSMOS_REPOSITORIES_SUCCESS,
-      repositoriesError: COSMOS_REPOSITORIES_ERROR,
-      repositoryAddSuccess: COSMOS_REPOSITORY_ADD_SUCCESS,
-      repositoryAddError: COSMOS_REPOSITORY_ADD_ERROR,
-      repositoryDeleteSuccess: COSMOS_REPOSITORY_DELETE_SUCCESS,
-      repositoryDeleteError: COSMOS_REPOSITORY_DELETE_ERROR
-    },
-    unmountWhen: function (store, event) {
-      return event === 'availableSuccess';
-    },
-    listenAlways: false
-  },
-
   sidebar: {
     store: SidebarStore,
     events: {
@@ -261,17 +173,6 @@ const ListenersDescription = {
     },
 
     // Set to true to keep listening until unmount
-    listenAlways: true
-  },
-
-  dcos: {
-    store: DCOSStore,
-    events: {
-      change: DCOS_CHANGE
-    },
-    unmountWhen: function () {
-      return true;
-    },
     listenAlways: true
   },
 
