@@ -1,3 +1,4 @@
+jest.dontMock('../CollapsingString');
 jest.dontMock('../../utils/Util');
 jest.dontMock('../../utils/ResourcesUtil');
 jest.dontMock('../NodesGridDials');

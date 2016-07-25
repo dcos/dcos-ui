@@ -58,6 +58,7 @@ module.exports = {
     ClipboardTrigger: 'ClipboardTrigger',
     ClusterHeader: 'ClusterHeader',
     ClusterName: 'ClusterName',
+    CollapsingString: 'CollapsingString',
     DCOSLogo: 'DCOSLogo',
     DescriptionList: 'DescriptionList',
     FilterBar: 'FilterBar',

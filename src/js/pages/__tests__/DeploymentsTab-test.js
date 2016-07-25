@@ -1,4 +1,5 @@
 jest.unmock('moment');
+jest.unmock('../../components/CollapsingString');
 jest.unmock('../services/DeploymentsTab');
 jest.unmock('../../components/TimeAgo');
 jest.unmock('../../structs/DeploymentsList');
@@ -93,7 +94,7 @@ describe('DeploymentsTab', function () {
 
     describe('affected services column', function () {
       it('should render the deployment ID', function () {
-        let dt = this.tds[0].querySelector('dt');
+        let dt = this.tds[0].querySelector('dt .collapsing-string-full-string');
         expect(dt.textContent).toEqual('deployment-id');
       });
       it('should render each affected application', function () {

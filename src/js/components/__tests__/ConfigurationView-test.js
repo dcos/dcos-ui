@@ -1,3 +1,4 @@
+jest.dontMock('../CollapsingString');
 jest.dontMock('../ConfigurationView');
 jest.dontMock('../DescriptionList');
 

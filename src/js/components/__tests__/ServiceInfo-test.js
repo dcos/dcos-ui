@@ -1,3 +1,4 @@
+jest.dontMock('../CollapsingString');
 jest.dontMock('../PageHeader');
 jest.dontMock('../ServiceInfo');
 
@@ -42,7 +43,7 @@ describe('ServiceInfo', function () {
     });
 
     it('renders name', function () {
-      expect(this.node.querySelector('.h1').textContent).toEqual('test');
+      expect(this.node.querySelector('.h1 .collapsing-string-full-string').textContent).toEqual('test');
     });
 
     it('renders image', function () {
