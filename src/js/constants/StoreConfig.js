@@ -1,13 +1,4 @@
 import {
-  HEALTH_NODE_ERROR,
-  HEALTH_NODE_SUCCESS,
-  HEALTH_NODE_UNITS_ERROR,
-  HEALTH_NODE_UNITS_SUCCESS,
-  HEALTH_NODE_UNIT_ERROR,
-  HEALTH_NODE_UNIT_SUCCESS,
-  HEALTH_NODES_CHANGE,
-  HEALTH_NODES_ERROR,
-
   HEALTH_UNITS_CHANGE,
   HEALTH_UNITS_ERROR,
   HEALTH_UNIT_SUCCESS,
@@ -41,7 +32,6 @@ import {
   VISIBILITY_CHANGE
 } from './EventTypes';
 import MesosStateStore from '../stores/MesosStateStore';
-import NodeHealthStore from '../stores/NodeHealthStore';
 import NotificationStore from '../stores/NotificationStore';
 import SidebarStore from '../stores/SidebarStore';
 import TaskDirectoryStore from '../stores/TaskDirectoryStore';
@@ -63,24 +53,6 @@ const ListenersDescription = {
       nodesError: HEALTH_UNIT_NODES_ERROR,
       nodeSuccess: HEALTH_UNIT_NODE_SUCCESS,
       nodeError: HEALTH_UNIT_NODE_ERROR
-    },
-    unmountWhen: function () {
-      return true;
-    },
-    listenAlways: true
-  },
-
-  nodeHealth: {
-    store: NodeHealthStore,
-    events: {
-      success: HEALTH_NODES_CHANGE,
-      error: HEALTH_NODES_ERROR,
-      nodeSuccess: HEALTH_NODE_SUCCESS,
-      nodeError: HEALTH_NODE_ERROR,
-      unitsSuccess: HEALTH_NODE_UNITS_SUCCESS,
-      unitsError: HEALTH_NODE_UNITS_ERROR,
-      unitSuccess: HEALTH_NODE_UNIT_SUCCESS,
-      unitError: HEALTH_NODE_UNIT_ERROR
     },
     unmountWhen: function () {
       return true;

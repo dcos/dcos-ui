@@ -1,5 +1,3 @@
-import GetSetBaseStore from './GetSetBaseStore';
-
 import {
   SERVER_ACTION,
   REQUEST_HEALTH_NODE_ERROR,
@@ -25,11 +23,13 @@ import {
 import AppDispatcher from '../events/AppDispatcher';
 import CompositeState from '../structs/CompositeState';
 import Config from '../config/Config';
-import NodeHealthActions from '../events/NodeHealthActions';
+import GetSetBaseStore from './GetSetBaseStore';
 import HealthUnit from '../structs/HealthUnit';
 import HealthUnitsList from '../structs/HealthUnitsList';
 import Node from '../structs/Node';
+import NodeHealthActions from '../events/NodeHealthActions';
 import NodesList from '../structs/NodesList';
+import PluginSDK from 'PluginSDK';
 import VisibilityStore from './VisibilityStore';
 
 let requestInterval = null;
@@ -60,6 +60,25 @@ class NodeHealthStore extends GetSetBaseStore {
       unitsByNodeID: {},
       unitsByID: {}
     };
+
+    PluginSDK.addStoreConfig({
+      store: this,
+      storeID: this.storeID,
+      events: {
+        success: HEALTH_NODES_CHANGE,
+        error: HEALTH_NODES_ERROR,
+        nodeSuccess: HEALTH_NODE_SUCCESS,
+        nodeError: HEALTH_NODE_ERROR,
+        unitsSuccess: HEALTH_NODE_UNITS_SUCCESS,
+        unitsError: HEALTH_NODE_UNITS_ERROR,
+        unitSuccess: HEALTH_NODE_UNIT_SUCCESS,
+        unitError: HEALTH_NODE_UNIT_ERROR
+      },
+      unmountWhen: function () {
+        return true;
+      },
+      listenAlways: true
+    });
 
     this.dispatcherIndex = AppDispatcher.register((payload) => {
       if (payload.source !== SERVER_ACTION) {
