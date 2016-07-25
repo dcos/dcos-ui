@@ -61,7 +61,7 @@ class UnitsHealthTab extends mixin(StoreMixin) {
       <div className="text-overflow">
         <Link to="system-overview-units-unit-nodes-detail"
           params={{unitID: unit.get('id')}}
-          className="headline">
+          className="table-cell-emphasized">
           {unit.getTitle()}
         </Link>
       </div>

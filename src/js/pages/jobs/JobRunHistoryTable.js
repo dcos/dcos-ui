@@ -62,7 +62,7 @@ class JobRunHistoryTable extends React.Component {
 
   getColumnClassName(prop, sortBy, row) {
     return classNames({
-      'highlight': prop === sortBy.prop,
+      'table-cell-sorted': prop === sortBy.prop,
       'clickable': row == null
     });
   }
@@ -156,7 +156,7 @@ class JobRunHistoryTable extends React.Component {
       );
 
     if (row.children && row.children.length > 0) {
-      let classes = classNames('job-run-history-job-id is-expandable', {
+      let classes = classNames('job-run-history-job-id table-cell-emphasized is-expandable', {
         'is-expanded': rowOptions.isExpanded
       });
       let clickHandler = null;

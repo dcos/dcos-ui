@@ -129,17 +129,14 @@ class TaskTable extends React.Component {
     }
 
     return (
-      <div className="flex-box flex-box-align-vertical-center
-        table-cell-flex-box">
-        <div className="table-cell-value flex-box flex-box-col">
-          <Link
-            className="emphasize clickable text-overflow"
-            to={linkTo}
-            params={routeParams}
-            title={title}>
-            {title}
-          </Link>
-        </div>
+      <div className="text-overflow">
+        <Link
+          className="table-cell-emphasized"
+          to={linkTo}
+          params={routeParams}
+          title={title}>
+          {title}
+        </Link>
       </div>
     );
   }
@@ -205,11 +202,12 @@ class TaskTable extends React.Component {
       danger: danger
     });
 
+    console.log(this.getStatusValue(task));
+
     return (
       <div className="flex-box flex-box-align-vertical-center
         table-cell-flex-box">
-        <div className="table-cell-icon table-cell-task-dot
-          task-status-indicator">
+        <div className="table-cell-icon task-status-indicator">
           <span className={statusClass}></span>
         </div>
         <span className={statusLabelClasses}>
