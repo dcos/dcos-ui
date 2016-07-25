@@ -78,15 +78,16 @@ describe('ServiceUtil', function () {
           expect(service.portDefinitions[0].port).toEqual(1234);
         });
 
-        it('should override the port to 0 when discovery is off', function () {
-          let service = ServiceUtil.createServiceFromFormModel({
-            networking: {
-              networkType: 'host',
-              ports: [ {lbPort: 1234, discovery: false} ]
-            }
+        it('should not override the port to 0 when discovery is off',
+          function () {
+            let service = ServiceUtil.createServiceFromFormModel({
+              networking: {
+                networkType: 'host',
+                ports: [{lbPort: 1234, discovery: false}]
+              }
+            });
+            expect(service.portDefinitions[0].port).toEqual(1234);
           });
-          expect(service.portDefinitions[0].port).toEqual(0);
-        });
 
         it('should default the port to 0 when discovery is on', function () {
           let service = ServiceUtil.createServiceFromFormModel({
