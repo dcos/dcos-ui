@@ -14,7 +14,7 @@ const headerMapping = {
 class VirtualNetworksTable extends React.Component {
   getClassName(prop, sortBy) {
     return classNames({
-      'highlight': prop === sortBy.prop
+      'table-cell-sorted': prop === sortBy.prop
     });
   }
 

@@ -150,7 +150,7 @@ var ServicesTable = React.createClass({
 
     return (
       <Link to="services-detail"
-        className="headline"
+        className="table-cell-emphasized"
         params={{id}}>
         <span className="text-overflow">
           {service.getName()}
@@ -315,7 +315,7 @@ var ServicesTable = React.createClass({
     let isHeader = row == null;
 
     return classNames('flush-left text-align-right hidden-mini hidden-small', {
-      'highlight': prop === sortBy.prop,
+      'table-cell-sorted': prop === sortBy.prop,
       'clickable': isHeader
     });
   },
