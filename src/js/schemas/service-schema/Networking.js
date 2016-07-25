@@ -99,7 +99,7 @@ const Networking = {
             };
           }
 
-          let disabledLBPortFieldValue = 'Not Enabled';
+          let disabledLBPortFieldValue = service.lbPort || 'Not Enabled';
           if (prop === 'lbPort' && model && model.networking) {
             if (model.networking.networkType !== 'host') {
               definition.showLabel = 'Container Port';

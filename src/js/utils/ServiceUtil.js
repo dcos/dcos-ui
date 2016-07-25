@@ -293,6 +293,8 @@ const ServiceUtil = {
                     portMapping.labels = {};
                     portMapping.labels[`VIP_${index}`] = `${general.id}:${lbPort}`;
                   }
+                } else if (lbPort != null && /^\d*$/.test(lbPort) ) {
+                  portMapping.port = lbPort;
                 }
                 if (port.protocol != null) {
                   portMapping.protocol = port.protocol;
