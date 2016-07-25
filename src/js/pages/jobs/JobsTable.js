@@ -69,10 +69,12 @@ class JobsTable extends React.Component {
     return this.props.jobs.map(function (job) {
       let isGroup = job instanceof Tree;
       let lastRunStatus = null;
+      let schedules = null;
       let status = null;
 
       if (!isGroup) {
         lastRunStatus = job.getLastRunStatus().status;
+        schedules = job.getSchedules();
         status = job.getScheduleStatus();
       }
 
@@ -80,7 +82,7 @@ class JobsTable extends React.Component {
         id: job.getId(),
         isGroup,
         name: job.getName(),
-        schedules: job.getSchedules(),
+        schedules,
         status,
         lastRunStatus
       };
