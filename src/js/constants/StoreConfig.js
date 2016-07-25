@@ -11,8 +11,6 @@ import {
   MESOS_STATE_CHANGE,
   MESOS_STATE_REQUEST_ERROR,
 
-  SIDEBAR_WIDTH_CHANGE,
-
   TASK_DIRECTORY_CHANGE,
   TASK_DIRECTORY_ERROR,
 
@@ -30,7 +28,6 @@ import {
   VISIBILITY_CHANGE
 } from './EventTypes';
 import MesosStateStore from '../stores/MesosStateStore';
-import SidebarStore from '../stores/SidebarStore';
 import TaskDirectoryStore from '../stores/TaskDirectoryStore';
 import UnitHealthStore from '../stores/UnitHealthStore';
 import UserStore from '../stores/UserStore';
@@ -50,17 +47,6 @@ const ListenersDescription = {
       nodesError: HEALTH_UNIT_NODES_ERROR,
       nodeSuccess: HEALTH_UNIT_NODE_SUCCESS,
       nodeError: HEALTH_UNIT_NODE_ERROR
-    },
-    unmountWhen: function () {
-      return true;
-    },
-    listenAlways: true
-  },
-
-  sidebar: {
-    store: SidebarStore,
-    events: {
-      widthChange: SIDEBAR_WIDTH_CHANGE
     },
     unmountWhen: function () {
       return true;

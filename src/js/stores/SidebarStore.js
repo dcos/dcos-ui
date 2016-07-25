@@ -16,10 +16,23 @@ import {
 } from '../constants/EventTypes';
 import AppDispatcher from '../events/AppDispatcher';
 import GetSetBaseStore from './GetSetBaseStore';
+import PluginSDK from 'PluginSDK';
 
 class SidebarStore extends GetSetBaseStore {
   constructor() {
     super(...arguments);
+
+    PluginSDK.addStoreConfig({
+      store: this,
+      storeID: this.storeID,
+      events: {
+        widthChange: SIDEBAR_WIDTH_CHANGE
+      },
+      unmountWhen: function () {
+        return true;
+      },
+      listenAlways: true
+    });
 
     this.dispatcherIndex = AppDispatcher.register((payload) => {
       var source = payload.source;
