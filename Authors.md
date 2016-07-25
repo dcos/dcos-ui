@@ -13,4 +13,4 @@ Pierluigi Cau | pierlo@mesosphere.com | Current Maintainer
 Philipp Hinrichsen | philipph@mesosphere.com | Current Maintainer
 Philip Norman | philip@mesosphere.com | Current Maintainer
 Felix Gertz | felix@mesosphere.com | Current Maintainer
-Kenny Tran | kennyt8tran@gmail.com | Contributor
+Kenny Tran | kenny8tran@gmail.com | Contributor
