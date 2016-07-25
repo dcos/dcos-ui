@@ -7,9 +7,6 @@ import {
   USER_DELETE_ERROR,
   USER_DELETE_SUCCESS,
 
-  USERS_CHANGE,
-  USERS_REQUEST_ERROR,
-
   VIRTUAL_NETWORKS_CHANGE,
   VIRTUAL_NETWORKS_REQUEST_ERROR,
 
@@ -17,7 +14,6 @@ import {
 } from './EventTypes';
 import MesosStateStore from '../stores/MesosStateStore';
 import UserStore from '../stores/UserStore';
-import UsersStore from '../stores/UsersStore';
 import VirtualNetworksStore from '../stores/VirtualNetworksStore';
 import VisibilityStore from '../stores/VisibilityStore';
 
@@ -43,18 +39,6 @@ const ListenersDescription = {
       createError: USER_CREATE_ERROR,
       deleteSuccess: USER_DELETE_SUCCESS,
       deleteError: USER_DELETE_ERROR
-    },
-    unmountWhen: function () {
-      return true;
-    },
-    listenAlways: true
-  },
-
-  'users': {
-    store: UsersStore,
-    events: {
-      success: USERS_CHANGE,
-      error: USERS_REQUEST_ERROR
     },
     unmountWhen: function () {
       return true;

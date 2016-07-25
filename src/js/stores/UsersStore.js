@@ -1,5 +1,3 @@
-import GetSetBaseStore from './GetSetBaseStore';
-import UsersActions from '../events/UsersActions';
 import {
   REQUEST_USERS_SUCCESS,
   REQUEST_USERS_ERROR,
@@ -10,6 +8,9 @@ import {
   USERS_CHANGE,
   USERS_REQUEST_ERROR
 } from '../constants/EventTypes';
+import GetSetBaseStore from './GetSetBaseStore';
+import PluginSDK from 'PluginSDK';
+import UsersActions from '../events/UsersActions';
 import UsersList from '../structs/UsersList';
 
 class UsersStore extends GetSetBaseStore {
@@ -19,6 +20,19 @@ class UsersStore extends GetSetBaseStore {
     this.getSet_data = {
       users: []
     };
+
+    PluginSDK.addStoreConfig({
+      store: this,
+      storeID: this.storeID,
+      events: {
+        success: USERS_CHANGE,
+        error: USERS_REQUEST_ERROR
+      },
+      unmountWhen: function () {
+        return true;
+      },
+      listenAlways: true
+    });
 
     this.dispatcherIndex = AppDispatcher.register((payload) => {
       if (payload.source !== SERVER_ACTION) {
