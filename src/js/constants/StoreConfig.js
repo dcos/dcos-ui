@@ -2,18 +2,12 @@ import {
   MESOS_STATE_CHANGE,
   MESOS_STATE_REQUEST_ERROR,
 
-  USER_CREATE_ERROR,
-  USER_CREATE_SUCCESS,
-  USER_DELETE_ERROR,
-  USER_DELETE_SUCCESS,
-
   VIRTUAL_NETWORKS_CHANGE,
   VIRTUAL_NETWORKS_REQUEST_ERROR,
 
   VISIBILITY_CHANGE
 } from './EventTypes';
 import MesosStateStore from '../stores/MesosStateStore';
-import UserStore from '../stores/UserStore';
 import VirtualNetworksStore from '../stores/VirtualNetworksStore';
 import VisibilityStore from '../stores/VisibilityStore';
 
@@ -28,20 +22,6 @@ const ListenersDescription = {
       if (event === 'success') {
         return Object.keys(store.get('lastMesosState')).length;
       }
-    },
-    listenAlways: true
-  },
-
-  'user': {
-    store: UserStore,
-    events: {
-      createSuccess: USER_CREATE_SUCCESS,
-      createError: USER_CREATE_ERROR,
-      deleteSuccess: USER_DELETE_SUCCESS,
-      deleteError: USER_DELETE_ERROR
-    },
-    unmountWhen: function () {
-      return true;
     },
     listenAlways: true
   },
