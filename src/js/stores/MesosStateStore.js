@@ -37,7 +37,8 @@ class MesosStateStore extends GetSetBaseStore {
     super(...arguments);
 
     this.getSet_data = {
-      lastMesosState: {}
+      lastMesosState: {},
+      taskCache: {}
     };
 
     this.dispatcherIndex = AppDispatcher.register((payload) => {
@@ -147,8 +148,12 @@ class MesosStateStore extends GetSetBaseStore {
   }
 
   getTaskFromTaskID(taskID) {
+    let taskCache = this.get('taskCache');
+    let foundTask = taskCache[taskID];
+    if (foundTask != null) {
+      return foundTask;
+    }
     let services = this.get('lastMesosState').frameworks;
-    let foundTask = null;
 
     services.some(function (service) {
       let tasks = service.tasks.concat(service.completed_tasks);
@@ -164,6 +169,7 @@ class MesosStateStore extends GetSetBaseStore {
       return null;
     }
 
+    taskCache[taskID] = foundTask;
     return new Task(foundTask);
   }
 
@@ -260,7 +266,7 @@ class MesosStateStore extends GetSetBaseStore {
 
   processStateSuccess(lastMesosState) {
     CompositeState.addState(lastMesosState);
-    this.set({lastMesosState});
+    this.set({lastMesosState, taskCache: {}});
     this.emit(MESOS_STATE_CHANGE);
   }
 
