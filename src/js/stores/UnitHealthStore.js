@@ -28,6 +28,7 @@ import HealthUnit from '../structs/HealthUnit';
 import HealthUnitsList from '../structs/HealthUnitsList';
 import Node from '../structs/Node';
 import NodesList from '../structs/NodesList';
+import PluginSDK from 'PluginSDK';
 import VisibilityStore from './VisibilityStore';
 
 let requestInterval = null;
@@ -58,6 +59,25 @@ class UnitHealthStore extends GetSetBaseStore {
       nodesByUnitID: {},
       nodesByID: {}
     };
+
+    PluginSDK.addStoreConfig({
+      store: this,
+      storeID: this.storeID,
+      events: {
+        success: HEALTH_UNITS_CHANGE,
+        error: HEALTH_UNITS_ERROR,
+        unitSuccess: HEALTH_UNIT_SUCCESS,
+        unitError: HEALTH_UNIT_ERROR,
+        nodesSuccess: HEALTH_UNIT_NODES_SUCCESS,
+        nodesError: HEALTH_UNIT_NODES_ERROR,
+        nodeSuccess: HEALTH_UNIT_NODE_SUCCESS,
+        nodeError: HEALTH_UNIT_NODE_ERROR
+      },
+      unmountWhen: function () {
+        return true;
+      },
+      listenAlways: true
+    });
 
     this.dispatcherIndex = AppDispatcher.register((payload) => {
       if (payload.source !== SERVER_ACTION) {

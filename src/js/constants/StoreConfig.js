@@ -1,13 +1,4 @@
 import {
-  HEALTH_UNITS_CHANGE,
-  HEALTH_UNITS_ERROR,
-  HEALTH_UNIT_SUCCESS,
-  HEALTH_UNIT_ERROR,
-  HEALTH_UNIT_NODES_SUCCESS,
-  HEALTH_UNIT_NODES_ERROR,
-  HEALTH_UNIT_NODE_SUCCESS,
-  HEALTH_UNIT_NODE_ERROR,
-
   MESOS_STATE_CHANGE,
   MESOS_STATE_REQUEST_ERROR,
 
@@ -25,31 +16,12 @@ import {
   VISIBILITY_CHANGE
 } from './EventTypes';
 import MesosStateStore from '../stores/MesosStateStore';
-import UnitHealthStore from '../stores/UnitHealthStore';
 import UserStore from '../stores/UserStore';
 import UsersStore from '../stores/UsersStore';
 import VirtualNetworksStore from '../stores/VirtualNetworksStore';
 import VisibilityStore from '../stores/VisibilityStore';
 
 const ListenersDescription = {
-  unitHealth: {
-    store: UnitHealthStore,
-    events: {
-      success: HEALTH_UNITS_CHANGE,
-      error: HEALTH_UNITS_ERROR,
-      unitSuccess: HEALTH_UNIT_SUCCESS,
-      unitError: HEALTH_UNIT_ERROR,
-      nodesSuccess: HEALTH_UNIT_NODES_SUCCESS,
-      nodesError: HEALTH_UNIT_NODES_ERROR,
-      nodeSuccess: HEALTH_UNIT_NODE_SUCCESS,
-      nodeError: HEALTH_UNIT_NODE_ERROR
-    },
-    unmountWhen: function () {
-      return true;
-    },
-    listenAlways: true
-  },
-
   state: {
     store: MesosStateStore,
     events: {
