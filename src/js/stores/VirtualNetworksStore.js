@@ -11,6 +11,7 @@ import {
 import BaseStore from './BaseStore';
 import Config from '../config/Config';
 import OverlayList from '../structs/OverlayList';
+import PluginSDK from 'PluginSDK';
 import VirtualNetworksActions from '../events/VirtualNetworksActions';
 
 let fetchInterval = null;
@@ -20,6 +21,19 @@ class VirtualNetworksStore extends BaseStore {
     super(...arguments);
 
     this.data = {overlays: []};
+
+    PluginSDK.addStoreConfig({
+      store: this,
+      storeID: this.storeID,
+      events: {
+        success: VIRTUAL_NETWORKS_CHANGE,
+        error: VIRTUAL_NETWORKS_REQUEST_ERROR
+      },
+      unmountWhen: function () {
+        return true;
+      },
+      listenAlways: true
+    });
 
     // Handle app actions
     this.dispatcherIndex = AppDispatcher.register(({source, action}) => {
