@@ -11,9 +11,13 @@ describe('ValidatorUtil', function () {
     it('should have at least an username, an @ and one peroid', function () {
       expect(ValidatorUtil.isEmail('user@foo.bar')).toBe(true);
       expect(ValidatorUtil.isEmail('Abc.123@example.com')).toBe(true);
-      expect(ValidatorUtil.isEmail('!#$%&\'*+-/=?^_`.{|}~@example.com')).toBe(true);
+      expect(
+        ValidatorUtil.isEmail('!#$%&\'*+-/=?^_`.{|}~@example.com')
+      ).toBe(true);
       expect(ValidatorUtil.isEmail('"Abc@def"@example.com')).toBe(true);
-      expect(ValidatorUtil.isEmail('user+mailbox/department=shipping@example.com')).toBe(true);
+      expect(
+        ValidatorUtil.isEmail('user+mailbox/department=shipping@example.com')
+      ).toBe(true);
       expect(ValidatorUtil.isEmail('"Joe.\\Blow"@example.com')).toBe(true);
     });
 
@@ -38,7 +42,6 @@ describe('ValidatorUtil', function () {
       expect(ValidatorUtil.isEmail('伊昭傑@郵件.商務')).toBe(true);
       expect(ValidatorUtil.isEmail('θσερ@εχαμπλε.ψομ')).toBe(true);
       expect(ValidatorUtil.isEmail('test@könig.de')).toBe(true);
-
       expect(ValidatorUtil.isEmail('伊昭傑郵件.商務')).toBe(false);
       expect(ValidatorUtil.isEmail('θσερ@εχαμπλεψομ')).toBe(false);
       expect(ValidatorUtil.isEmail('@könig.de')).toBe(false);
@@ -47,7 +50,11 @@ describe('ValidatorUtil', function () {
     it('should treat long unknown TLDs as valid', function () {
       expect(ValidatorUtil.isEmail('user@foobar.hamburg')).toBe(true);
       expect(ValidatorUtil.isEmail('user@foobar.københavn')).toBe(true);
-      expect(ValidatorUtil.isEmail('test@asdf.com.asd.fasd.f.asdf.asd.fa.xn--sdf-x68do18h')).toBe(true);
+      expect(
+        ValidatorUtil.isEmail(
+          'test@asdf.com.asd.fasd.f.asdf.asd.fa.xn--sdf-x68do18h'
+        )
+      ).toBe(true);
     });
 
     it('shouldn\'t have whitespaces', function () {
