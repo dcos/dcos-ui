@@ -11,8 +11,6 @@ import {
   MESOS_STATE_CHANGE,
   MESOS_STATE_REQUEST_ERROR,
 
-  NOTIFICATION_CHANGE,
-
   SIDEBAR_WIDTH_CHANGE,
 
   TASK_DIRECTORY_CHANGE,
@@ -32,7 +30,6 @@ import {
   VISIBILITY_CHANGE
 } from './EventTypes';
 import MesosStateStore from '../stores/MesosStateStore';
-import NotificationStore from '../stores/NotificationStore';
 import SidebarStore from '../stores/SidebarStore';
 import TaskDirectoryStore from '../stores/TaskDirectoryStore';
 import UnitHealthStore from '../stores/UnitHealthStore';
@@ -139,17 +136,6 @@ const ListenersDescription = {
     store: VisibilityStore,
     events: {
       change: VISIBILITY_CHANGE
-    },
-    unmountWhen: function () {
-      return true;
-    },
-    listenAlways: true
-  },
-
-  notification: {
-    store: NotificationStore,
-    events: {
-      change: NOTIFICATION_CHANGE
     },
     unmountWhen: function () {
       return true;
