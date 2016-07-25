@@ -151,7 +151,7 @@ class MesosStateStore extends GetSetBaseStore {
     let taskCache = this.get('taskCache');
     let foundTask = taskCache[taskID];
     if (foundTask != null) {
-      return foundTask;
+      return new Task(foundTask);
     }
     let services = this.get('lastMesosState').frameworks;
 
@@ -169,8 +169,10 @@ class MesosStateStore extends GetSetBaseStore {
       return null;
     }
 
-    taskCache[taskID] = foundTask;
-    return new Task(foundTask);
+    let result = new Task(foundTask);
+    taskCache[taskID] = result;
+
+    return result;
   }
 
   getSchedulerTaskFromServiceName(serviceName) {
