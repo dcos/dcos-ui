@@ -11,9 +11,6 @@ import {
   MESOS_STATE_CHANGE,
   MESOS_STATE_REQUEST_ERROR,
 
-  TASK_DIRECTORY_CHANGE,
-  TASK_DIRECTORY_ERROR,
-
   USER_CREATE_ERROR,
   USER_CREATE_SUCCESS,
   USER_DELETE_ERROR,
@@ -28,7 +25,6 @@ import {
   VISIBILITY_CHANGE
 } from './EventTypes';
 import MesosStateStore from '../stores/MesosStateStore';
-import TaskDirectoryStore from '../stores/TaskDirectoryStore';
 import UnitHealthStore from '../stores/UnitHealthStore';
 import UserStore from '../stores/UserStore';
 import UsersStore from '../stores/UsersStore';
@@ -64,18 +60,6 @@ const ListenersDescription = {
       if (event === 'success') {
         return Object.keys(store.get('lastMesosState')).length;
       }
-    },
-    listenAlways: true
-  },
-
-  taskDirectory: {
-    store: TaskDirectoryStore,
-    events: {
-      success: TASK_DIRECTORY_CHANGE,
-      error: TASK_DIRECTORY_ERROR
-    },
-    unmountWhen: function () {
-      return true;
     },
     listenAlways: true
   },
