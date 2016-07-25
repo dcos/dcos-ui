@@ -17,7 +17,7 @@ class ExpandingTable extends React.Component {
   }
 
   expandRow(row) {
-    let {expandedRows} = Object.assign({}, this.state);
+    let expandedRows = Object.assign({}, this.state.expandedRows);
     let rowID = this.getRowID(row);
 
     // If the selected row is already expanded, then we want to collapse it.
