@@ -80,7 +80,7 @@ class RepositoriesTable extends mixin(StoreMixin) {
 
   getClassName(prop, sortBy, row) {
     return classNames({
-      'highlight': prop === sortBy.prop,
+      'table-cell-sorted': prop === sortBy.prop,
       'clickable': row == null, // this is a header
       'text-align-right': prop === 'priority'
     });

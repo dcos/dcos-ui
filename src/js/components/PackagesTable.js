@@ -46,7 +46,7 @@ class PackagesTable extends React.Component {
 
   getClassName(prop, sortBy, row) {
     return classNames({
-      'highlight': prop === sortBy.prop,
+      'table-cell-sorted': prop === sortBy.prop,
       'clickable': prop === 'appId' && row == null, // this is a header
       'text-align-right': prop === 'uninstall'
     });
