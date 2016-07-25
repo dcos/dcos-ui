@@ -14,7 +14,7 @@ describe('ValidatorUtil', function () {
       expect(ValidatorUtil.isEmail('!#$%&\'*+-/=?^_`.{|}~@example.com')).toBe(true);
       expect(ValidatorUtil.isEmail('"Abc@def"@example.com')).toBe(true);
       expect(ValidatorUtil.isEmail('user+mailbox/department=shipping@example.com')).toBe(true);
-      expect(ValidatorUtil.isEmail('"Joe.\Blow"@example.com')).toBe(true);
+      expect(ValidatorUtil.isEmail('"Joe.\\Blow"@example.com')).toBe(true);
     });
 
     it('should have an @', function () {
