@@ -1,11 +1,8 @@
 import {
   MESOS_STATE_CHANGE,
-  MESOS_STATE_REQUEST_ERROR,
-
-  VISIBILITY_CHANGE
+  MESOS_STATE_REQUEST_ERROR
 } from './EventTypes';
 import MesosStateStore from '../stores/MesosStateStore';
-import VisibilityStore from '../stores/VisibilityStore';
 
 const ListenersDescription = {
   state: {
@@ -18,17 +15,6 @@ const ListenersDescription = {
       if (event === 'success') {
         return Object.keys(store.get('lastMesosState')).length;
       }
-    },
-    listenAlways: true
-  },
-
-  visibility: {
-    store: VisibilityStore,
-    events: {
-      change: VISIBILITY_CHANGE
-    },
-    unmountWhen: function () {
-      return true;
     },
     listenAlways: true
   }
