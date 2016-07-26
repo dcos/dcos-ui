@@ -46,7 +46,7 @@ const Volumes = {
       }
     },
     dockerVolumes: {
-      title: 'Docker Volumes',
+      title: 'Docker Container Volumes',
       description: (
         <span>
           Create a stateful application using Docker volumes. <a href="https://docs.docker.com/engine/tutorials/dockervolumes/" target="_blank">Learn more about Docker volumes.</a>
@@ -103,7 +103,7 @@ const Volumes = {
       ),
       type: 'array',
       duplicable: true,
-      addLabel: 'Add Network Volume',
+      addLabel: 'Add External Volume',
       getter: function (service) {
         let containerSettings = service.getContainerSettings();
 
@@ -123,7 +123,7 @@ const Volumes = {
       itemShape: {
         properties: {
           externalName: {
-            title: 'External Name',
+            title: 'Volume Name',
             type: 'string'
           },
           containerPath: {
