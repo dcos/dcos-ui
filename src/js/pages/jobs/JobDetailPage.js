@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import {Confirm, Dropdown} from 'reactjs-components';
 import mixin from 'reactjs-mixin';
+import prettycron from 'prettycron';
 /* eslint-disable no-unused-vars */
 import React from 'react';
 /* eslint-enable no-unused-vars */
@@ -274,48 +275,80 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
     );
   }
 
+  getPrettySchedule(job) {
+    let schedules = job.getSchedules();
+    if (schedules == null || schedules.length === 0) {
+      return null;
+    }
+
+    let schedule = schedules[0];
+    if (schedule.enabled) {
+      return prettycron.toString(schedule.cron);
+    }
+  }
+
   getSubTitle(job) {
+    let nodes = [];
+    let scheduleText = this.getPrettySchedule(job);
+    let longestRunningTask = null;
     let longestRunningActiveRun = job.getActiveRuns()
       .getLongestRunningActiveRun();
 
-    if (!longestRunningActiveRun) {
+    if (longestRunningActiveRun != null) {
+      longestRunningTask = longestRunningActiveRun.getTasks()
+        .getLongestRunningTask();
+    }
+
+    if (longestRunningTask == null && scheduleText == null) {
       return null;
     }
 
-    let longestRunningTask = longestRunningActiveRun.getTasks()
-      .getLongestRunningTask();
-
-    if (!longestRunningTask) {
-      return null;
+    if (scheduleText != null) {
+      nodes.push(
+        <p className="text-overflow" key="schedule-text">
+          <Icon
+            className="icon-margin-right"
+            key="schedule-icon"
+            color="grey"
+            id="repeat"
+            size="mini"
+            family="small" />
+          <span>{scheduleText}</span>
+        </p>
+      );
     }
 
-    let dateCompleted = longestRunningTask.getDateCompleted();
+    if (longestRunningTask != null) {
+      let dateCompleted = longestRunningTask.getDateCompleted();
 
-    let status = TaskStates[longestRunningTask.getStatus()];
-    let statusClasses = classNames('job-details-header-status', {
-      'text-success': status.stateTypes.includes('success')
+      let status = TaskStates[longestRunningTask.getStatus()];
+      let statusClasses = classNames('job-details-header-status', {
+        'text-success': status.stateTypes.includes('success')
         && !status.stateTypes.includes('failure'),
-      'text-danger': status.stateTypes.includes('failure')
-    });
+        'text-danger': status.stateTypes.includes('failure')
+      });
 
-    let timePrefix = null;
-    let shouldSuppressRelativeTime = dateCompleted == null;
+      let timePrefix = null;
+      let shouldSuppressRelativeTime = dateCompleted == null;
 
-    if (shouldSuppressRelativeTime) {
-      timePrefix = 'for ';
+      if (shouldSuppressRelativeTime) {
+        timePrefix = 'for ';
+      }
+
+      nodes.push(
+        <span className={statusClasses} key="status-text">
+          {status.displayName}
+        </span>,
+        <span key="time-running">
+          <TimeAgo
+            prefix={timePrefix}
+            suppressSuffix={shouldSuppressRelativeTime}
+            time={longestRunningActiveRun.getDateCreated()} />
+      </span>
+      );
     }
 
-    return [
-      <span className={statusClasses} key="status-text">
-        {status.displayName}
-      </span>,
-      <span key="time-running">
-        <TimeAgo
-          prefix={timePrefix}
-          suppressSuffix={shouldSuppressRelativeTime}
-          time={longestRunningActiveRun.getDateCreated()} />
-      </span>
-    ];
+    return nodes;
   }
 
   renderConfigurationTabView(job) {
