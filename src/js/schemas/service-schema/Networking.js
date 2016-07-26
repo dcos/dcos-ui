@@ -111,7 +111,7 @@ const Networking = {
 
               if (service.discovery) {
                 // show as input
-                if (definition.value === disabledLBPortFieldValue) {
+                if (definition.value === 'Not Enabled') {
                   definition.value = null;
                   definition.disabled = false;
                   definition.className = 'form-control';
