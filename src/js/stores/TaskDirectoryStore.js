@@ -10,6 +10,7 @@ import {
 import AppDispatcher from '../events/AppDispatcher';
 import Config from '../config/Config';
 import GetSetBaseStore from './GetSetBaseStore';
+import MesosStateStore from '../stores/MesosStateStore';
 import PluginSDK from 'PluginSDK';
 import TaskDirectory from '../structs/TaskDirectory';
 import TaskDirectoryActions from '../events/TaskDirectoryActions';
@@ -18,10 +19,15 @@ var requestInterval = null;
 var activeXHR = null;
 
 function fetchState(task, deeperPath) {
-  activeXHR = TaskDirectoryActions.fetchNodeState(task, function (response) {
-    activeXHR = TaskDirectoryActions
-      .fetchDirectory(task, deeperPath, response);
-  });
+  let node = MesosStateStore.getNodeFromID(task.slave_id);
+  activeXHR = TaskDirectoryActions.fetchNodeState(
+    task,
+    node,
+    function (response) {
+      activeXHR = TaskDirectoryActions
+        .fetchDirectory(task, deeperPath, response);
+    }
+  );
 }
 
 function startPolling(task, deeperPath) {
