@@ -11,6 +11,7 @@ import {
 } from '../constants/EventTypes';
 var MesosStateActions = require('../events/MesosStateActions');
 var MesosStateUtil = require('../utils/MesosStateUtil');
+import PluginSDK from 'PluginSDK';
 import Task from '../structs/Task';
 import VisibilityStore from './VisibilityStore';
 
@@ -40,6 +41,21 @@ class MesosStateStore extends GetSetBaseStore {
       lastMesosState: {},
       taskCache: {}
     };
+
+    PluginSDK.addStoreConfig({
+      store: this,
+      storeID: this.storeID,
+      events: {
+        success: MESOS_STATE_CHANGE,
+        error: MESOS_STATE_REQUEST_ERROR
+      },
+      unmountWhen: function (store, event) {
+        if (event === 'success') {
+          return Object.keys(store.get('lastMesosState')).length;
+        }
+      },
+      listenAlways: true
+    });
 
     this.dispatcherIndex = AppDispatcher.register((payload) => {
       if (payload.source !== ActionTypes.SERVER_ACTION) {

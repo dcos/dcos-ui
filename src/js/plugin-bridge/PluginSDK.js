@@ -1,4 +1,5 @@
 import {createStore, combineReducers, applyMiddleware, compose} from 'redux';
+import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import {APPLICATION} from '../constants/PluginConstants';
 import {APP_STORE_CHANGE} from '../constants/EventTypes';
@@ -15,7 +16,7 @@ const initialState = {};
 const middleware = [ActionsPubSub.pub];
 const PLUGIN_ENV_CACHE = [];
 const REGISTERED_ACTIONS = {};
-const EXISTING_FLUX_STORES = {};
+let existingFluxStores = {};
 
 const constants = {
   APPLICATION,
@@ -200,14 +201,13 @@ const addStoreConfig = function (definition) {
     if (!definition.storeID) {
       throw new Error('Must define a valid storeID to expose events');
     }
-    if (definition.storeID in EXISTING_FLUX_STORES) {
+    if (definition.storeID in existingFluxStores) {
       throw new Error(`Store with ID ${definition.storeID} already exists.`);
     }
-    EXISTING_FLUX_STORES[definition.storeID] = true;
-    // Register events with StoreMixinConfig. Only import this as needed
+    existingFluxStores[definition.storeID] = definition;
+    // Register events with StoreMixin. Only import this as needed
     // because its presence will degrade test performance.
-    getApplicationModuleAPI().get('StoreMixinConfig')
-      .add(definition.storeID, definition);
+    StoreMixin.store_configure(existingFluxStores);
   }
 
   return definition;
