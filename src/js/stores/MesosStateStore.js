@@ -97,6 +97,19 @@ class MesosStateStore extends GetSetBaseStore {
     return !!this.listeners(MESOS_STATE_CHANGE).length;
   }
 
+  indexTasksByID(lastMesosState) {
+    let taskIndex = {};
+
+    lastMesosState.frameworks.forEach(function (service) {
+      let tasks = service.tasks.concat(service.completed_tasks);
+      tasks.forEach(function (task) {
+        taskIndex[task.id] = task;
+      });
+    });
+
+    return taskIndex;
+  }
+
   getHostResourcesByFramework(filter) {
     return MesosStateUtil.getHostResourcesByFramework(
       this.get('lastMesosState'), filter
@@ -150,29 +163,10 @@ class MesosStateStore extends GetSetBaseStore {
   getTaskFromTaskID(taskID) {
     let taskCache = this.get('taskCache');
     let foundTask = taskCache[taskID];
-    if (foundTask != null) {
-      return new Task(foundTask);
-    }
-    let services = this.get('lastMesosState').frameworks;
-
-    services.some(function (service) {
-      let tasks = service.tasks.concat(service.completed_tasks);
-
-      foundTask = tasks.find(function (task) {
-        return task.id === taskID;
-      });
-
-      return foundTask;
-    });
-
     if (foundTask == null) {
       return null;
     }
-
-    let result = new Task(foundTask);
-    taskCache[taskID] = result;
-
-    return result;
+    return new Task(foundTask);
   }
 
   getSchedulerTaskFromServiceName(serviceName) {
@@ -268,7 +262,8 @@ class MesosStateStore extends GetSetBaseStore {
 
   processStateSuccess(lastMesosState) {
     CompositeState.addState(lastMesosState);
-    this.set({lastMesosState, taskCache: {}});
+    let taskCache = this.indexTasksByID(lastMesosState);
+    this.set({lastMesosState, taskCache});
     this.emit(MESOS_STATE_CHANGE);
   }
 
