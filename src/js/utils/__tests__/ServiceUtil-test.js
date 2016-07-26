@@ -60,7 +60,7 @@ describe('ServiceUtil', function () {
           let service = ServiceUtil.createServiceFromFormModel({
             networking: {
               networkType: 'host',
-              ports: [ {protocol: 'udp', name: 'foo'} ]
+              ports: [{protocol: 'udp', name: 'foo'}]
             }
           });
           expect(service.portDefinitions).toEqual([
@@ -72,27 +72,28 @@ describe('ServiceUtil', function () {
           let service = ServiceUtil.createServiceFromFormModel({
             networking: {
               networkType: 'host',
-              ports: [ {lbPort: 1234, discovery: true} ]
+              ports: [{lbPort: 1234, discovery: true}]
             }
           });
           expect(service.portDefinitions[0].port).toEqual(1234);
         });
 
-        it('should override the port to 0 when discovery is off', function () {
-          let service = ServiceUtil.createServiceFromFormModel({
-            networking: {
-              networkType: 'host',
-              ports: [ {lbPort: 1234, discovery: false} ]
-            }
+        it('should not override the port to 0 when discovery is off',
+          function () {
+            let service = ServiceUtil.createServiceFromFormModel({
+              networking: {
+                networkType: 'host',
+                ports: [{lbPort: 1234, discovery: false}]
+              }
+            });
+            expect(service.portDefinitions[0].port).toEqual(1234);
           });
-          expect(service.portDefinitions[0].port).toEqual(0);
-        });
 
         it('should default the port to 0 when discovery is on', function () {
           let service = ServiceUtil.createServiceFromFormModel({
             networking: {
               networkType: 'host',
-              ports: [ {discovery: true} ]
+              ports: [{discovery: true}]
             }
           });
           expect(service.portDefinitions[0].port).toEqual(0);
@@ -100,10 +101,10 @@ describe('ServiceUtil', function () {
 
         it('should add a VIP label when discovery is on', function () {
           let service = ServiceUtil.createServiceFromFormModel({
-            general: { id: '/foo/bar'},
+            general: {id: '/foo/bar'},
             networking: {
               networkType: 'host',
-              ports: [ {lbPort: 1234, discovery: true} ]
+              ports: [{lbPort: 1234, discovery: true}]
             }
           });
           expect(service.portDefinitions[0].labels)
@@ -112,7 +113,7 @@ describe('ServiceUtil', function () {
 
         it('increments the VIP index', function () {
           let service = ServiceUtil.createServiceFromFormModel({
-              general: { id: '/foo/bar'},
+            general: {id: '/foo/bar'},
             networking: {
               networkType: 'host',
               ports: [
@@ -142,7 +143,7 @@ describe('ServiceUtil', function () {
       describe('host mode (with docker)', function () {
         beforeEach(function () {
           this.service = ServiceUtil.createServiceFromFormModel({
-            containerSettings: { image: 'redis' },
+            containerSettings: {image: 'redis'},
             networking: {
               networkType: 'host',
               ports: [{lbPort: 1234}]
@@ -154,7 +155,7 @@ describe('ServiceUtil', function () {
           expect(this.service.portDefinitions).toBeDefined();
         });
 
-        it('should not add a portMappings field to the docker definition',function () {
+        it('should not add a portMappings field to the docker definition', function () {
           expect(this.service.container.docker.portMappings).not.toBeDefined();
         });
 
@@ -168,7 +169,7 @@ describe('ServiceUtil', function () {
 
         beforeEach(function () {
           this.serviceEmptyPorts = ServiceUtil.createServiceFromFormModel({
-            containerSettings: { image: 'redis' },
+            containerSettings: {image: 'redis'},
             networking: {
               networkType: 'bridge',
               ports: [{lbPort: 1234}]
@@ -178,8 +179,8 @@ describe('ServiceUtil', function () {
 
         it('should not add a portMappings field if no ports were passed in', function () {
           let service = ServiceUtil.createServiceFromFormModel({
-            containerSettings: { image: 'redis' },
-            networking: { networkType: 'bridge' }
+            containerSettings: {image: 'redis'},
+            networking: {networkType: 'bridge'}
           });
           expect(Object.keys(service.container.docker))
             .not.toContain('portMappings');
@@ -192,23 +193,23 @@ describe('ServiceUtil', function () {
 
         it('should convert the supplied string fields', function () {
           let service = ServiceUtil.createServiceFromFormModel({
-            containerSettings: { image: 'redis' },
+            containerSettings: {image: 'redis'},
             networking: {
               networkType: 'bridge',
-              ports: [ { protocol: 'udp', name: 'foo' } ]
+              ports: [{protocol: 'udp', name: 'foo'}]
             }
           });
           expect(service.container.docker.portMappings).toEqual([
-              {containerPort: 0, protocol: 'udp', name: 'foo'}
+            {containerPort: 0, protocol: 'udp', name: 'foo'}
           ]);
         });
 
         it('should add the specified containerPort', function () {
           let service = ServiceUtil.createServiceFromFormModel({
-            containerSettings: { image: 'redis' },
+            containerSettings: {image: 'redis'},
             networking: {
               networkType: 'bridge',
-              ports: [ { lbPort: 1234 } ]
+              ports: [{lbPort: 1234}]
             }
           });
           expect(service.container.docker.portMappings[0].containerPort)
@@ -217,10 +218,10 @@ describe('ServiceUtil', function () {
 
         it('should not add a hostPort when discovery is off', function () {
           let service = ServiceUtil.createServiceFromFormModel({
-            containerSettings: { image: 'redis' },
+            containerSettings: {image: 'redis'},
             networking: {
               networkType: 'bridge',
-              ports: [ { lbPort: 1234 } ]
+              ports: [{lbPort: 1234}]
             }
           });
           expect(Object.keys(service.container.docker.portMappings[0]))
@@ -229,11 +230,11 @@ describe('ServiceUtil', function () {
 
         it('should add a VIP label when discovery is on', function () {
           let service = ServiceUtil.createServiceFromFormModel({
-            general: { id: '/foo/bar' },
-            containerSettings: { image: 'redis' },
+            general: {id: '/foo/bar'},
+            containerSettings: {image: 'redis'},
             networking: {
               networkType: 'bridge',
-              ports: [ { lbPort: 1234, discovery: true } ]
+              ports: [{lbPort: 1234, discovery: true}]
             }
           });
           expect(service.container.docker.portMappings[0].labels)
@@ -242,8 +243,8 @@ describe('ServiceUtil', function () {
 
         it('sets the docker network property correctly', function () {
           let service = ServiceUtil.createServiceFromFormModel({
-            containerSettings: { image: 'redis' },
-            networking: { networkType: 'bridge' }
+            containerSettings: {image: 'redis'},
+            networking: {networkType: 'bridge'}
           });
           expect(service.container.docker.network).toEqual('BRIDGE');
         });
@@ -265,39 +266,39 @@ describe('ServiceUtil', function () {
       describe('user mode', function () {
         it('sets the docker network property correctly', function () {
           let service = ServiceUtil.createServiceFromFormModel({
-            containerSettings: { image: 'redis' },
-            networking: { networkType: 'prod' }
+            containerSettings: {image: 'redis'},
+            networking: {networkType: 'prod'}
           });
           expect(service.container.docker.network).toEqual('USER');
         });
 
         it('adds the networkName field to the service', function () {
           let service = ServiceUtil.createServiceFromFormModel({
-            containerSettings: { image: 'redis' },
-            networking: { networkType: 'prod', ports: [{}] },
+            containerSettings: {image: 'redis'},
+            networking: {networkType: 'prod', ports: [{}]},
           });
           expect(service.ipAddress.networkName).toEqual('prod');
         });
 
         it('should convert the supplied string fields', function () {
           let service = ServiceUtil.createServiceFromFormModel({
-            containerSettings: { image: 'redis' },
+            containerSettings: {image: 'redis'},
             networking: {
               networkType: 'user',
-              ports: [ { protocol: 'udp', name: 'foo' } ]
+              ports: [{protocol: 'udp', name: 'foo'}]
             }
           });
           expect(service.container.docker.portMappings).toEqual([
-              {containerPort: 0, protocol: 'udp', name: 'foo'}
+            {containerPort: 0, protocol: 'udp', name: 'foo'}
           ]);
         });
 
         it('should add the specified containerPort', function () {
           let service = ServiceUtil.createServiceFromFormModel({
-            containerSettings: { image: 'redis' },
+            containerSettings: {image: 'redis'},
             networking: {
               networkType: 'user',
-              ports: [ { lbPort: 1234 } ]
+              ports: [{lbPort: 1234}]
             }
           });
           expect(service.container.docker.portMappings[0].containerPort)
@@ -306,10 +307,10 @@ describe('ServiceUtil', function () {
 
         it('should not add a servicePort when discovery is off', function () {
           let service = ServiceUtil.createServiceFromFormModel({
-            containerSettings: { image: 'redis' },
+            containerSettings: {image: 'redis'},
             networking: {
               networkType: 'user',
-              ports: [ { lbPort: 1234 } ]
+              ports: [{lbPort: 1234}]
             }
           });
           expect(Object.keys(service.container.docker.portMappings[0]))
@@ -318,10 +319,10 @@ describe('ServiceUtil', function () {
 
         it('should add a servicePort when discovery is on', function () {
           let service = ServiceUtil.createServiceFromFormModel({
-            containerSettings: { image: 'redis' },
+            containerSettings: {image: 'redis'},
             networking: {
               networkType: 'user',
-              ports: [ { lbPort: 1234, discovery: true } ]
+              ports: [{lbPort: 1234, discovery: true}]
             }
           });
           expect(service.container.docker.portMappings[0].servicePort)
@@ -330,10 +331,10 @@ describe('ServiceUtil', function () {
 
         it('should not add a VIP label when discovery is off', function () {
           let service = ServiceUtil.createServiceFromFormModel({
-            containerSettings: { image: 'redis' },
+            containerSettings: {image: 'redis'},
             networking: {
               networkType: 'user',
-              ports: [ { lbPort: 1234 } ]
+              ports: [{lbPort: 1234}]
             }
           });
           expect(Object.keys(service.container.docker.portMappings[0]))
@@ -341,12 +342,12 @@ describe('ServiceUtil', function () {
         });
 
         it('should add the appropriate VIP label when discovery is on', function () {
-         let service = ServiceUtil.createServiceFromFormModel({
-            containerSettings: { image: 'redis' },
-            general: { id: '/foo/bar' },
+          let service = ServiceUtil.createServiceFromFormModel({
+            containerSettings: {image: 'redis'},
+            general: {id: '/foo/bar'},
             networking: {
               networkType: 'user',
-              ports: [ { lbPort: 1234, discovery: true } ]
+              ports: [{lbPort: 1234, discovery: true}]
             }
           });
           expect(service.container.docker.portMappings[0].labels)
@@ -356,7 +357,7 @@ describe('ServiceUtil', function () {
         it('should not add any port definitions if ports is emoty',
           function () {
             let service = ServiceUtil.createServiceFromFormModel({
-              containerSettings: { image: 'redis' },
+              containerSettings: {image: 'redis'},
               networking: {
                 networkType: 'user',
                 ports: [{}]
@@ -369,7 +370,7 @@ describe('ServiceUtil', function () {
       });
     });
 
-    describe('should return a service with', function() {
+    describe('should return a service with', function () {
       it('local Volumes', function () {
         let model = {
           volumes: {
@@ -608,7 +609,7 @@ describe('ServiceUtil', function () {
     });
   });
 
-  describe('#convertServiceLabelsToArray', function ()  {
+  describe('#convertServiceLabelsToArray', function () {
     it('should return an array of key-value tuples', function () {
       let service = new Service({
         id: '/test',
