@@ -62,9 +62,9 @@ class JobRunHistoryTable extends React.Component {
       <colgroup>
         <col style={{width: '40px'}} />
         <col />
-        <col style={{width: '120px'}} className="hidden-mini" />
-        <col style={{width: '160px'}} className="hidden-mini" />
-        <col style={{width: '160px'}} className="hidden-mini" />
+        <col style={{width: '120px'}} />
+        <col style={{width: '160px'}} />
+        <col style={{width: '160px'}} />
       </colgroup>
     );
   }
