@@ -27,7 +27,6 @@ var packageDescribeFixture =
 var UniversePackage = require('../../../structs/UniversePackage');
 
 JestUtil.unMockStores(['CosmosPackagesStore']);
-require('../../../utils/StoreMixinConfig');
 
 describe('InstallPackageModal', function () {
 

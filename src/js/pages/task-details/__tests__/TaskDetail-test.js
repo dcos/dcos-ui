@@ -8,7 +8,6 @@ jest.dontMock('../../../stores/MesosSummaryStore');
 let JestUtil = require('../../../utils/JestUtil');
 
 JestUtil.unMockStores(['MarathonStore', 'MesosStateStore', 'MesosSummaryStore', 'TaskDirectoryStore']);
-require('../../../utils/StoreMixinConfig');
 /* eslint-disable no-unused-vars */
 let React = require('react');
 /* eslint-enable no-unused-vars */

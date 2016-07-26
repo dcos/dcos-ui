@@ -7,7 +7,6 @@ jest.dontMock('../../../components/FilterBar');
 let JestUtil = require('../../../utils/JestUtil');
 
 JestUtil.unMockStores(['TaskDirectoryStore', 'MesosLogStore']);
-require('../../../utils/StoreMixinConfig');
 
 let DirectoryItem = require('../../../structs/DirectoryItem');
 let TaskDirectory = require('../../../structs/TaskDirectory');
