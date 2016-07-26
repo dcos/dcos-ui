@@ -4,17 +4,20 @@ import React from 'react';
 
 import CheckboxTable from './CheckboxTable';
 import Icon from './Icon';
+import MarathonStore from '../stores/MarathonStore';
 import ResourceTableUtil from '../utils/ResourceTableUtil';
 import TaskStates from '../constants/TaskStates';
 import TaskTableHeaderLabels from '../constants/TaskTableHeaderLabels';
 import TaskUtil from '../utils/TaskUtil';
+import TableUtil from '../utils/TableUtil';
 import Units from '../utils/Units';
 
 const METHODS_TO_BIND = [
   'renderHeadline',
   'renderLog',
   'renderStatus',
-  'renderStats'
+  'renderStats',
+  'renderVersion'
 ];
 
 class TaskTable extends React.Component {
@@ -32,6 +35,15 @@ class TaskTable extends React.Component {
 
   getStatusValue(task) {
     return TaskStates[task.state].displayName;
+  }
+
+  getVersionValue(task) {
+    let marathonTask = MarathonStore.getTaskFromTaskID(task.id);
+    if (marathonTask == null) {
+      return null;
+    }
+
+    return marathonTask.version;
   }
 
   getColumns() {
@@ -100,6 +112,24 @@ class TaskTable extends React.Component {
         render: ResourceTableUtil.renderUpdated,
         sortable: true,
         sortFunction
+      },
+      {
+        cacheCell: true,
+        className,
+        getValue: this.getVersionValue,
+        headerClassName: className,
+        heading,
+        prop: 'version',
+        render: this.renderVersion,
+        sortable: true,
+        sortFunction: TableUtil.getSortFunction('id', (task) => {
+          let version = this.getVersionValue(task);
+          if (version == null) {
+            return null;
+          }
+
+          return new Date(version);
+        })
       }
     ];
   }
@@ -114,6 +144,7 @@ class TaskTable extends React.Component {
         <col style={{width: '85px'}} className="hidden-mini" />
         <col style={{width: '110px'}} className="hidden-mini" />
         <col style={{width: '120px'}} />
+        <col style={{width: '180px'}} className="hidden-mini"/>
       </colgroup>
     );
   }
@@ -216,6 +247,27 @@ class TaskTable extends React.Component {
           {this.getStatusValue(task)}
         </span>
       </div>
+    );
+  }
+
+  renderVersion(prop, task) {
+    let marathonTask = MarathonStore.getTaskFromTaskID(task.id);
+    if (marathonTask == null) {
+      return null;
+    }
+
+    let version = marathonTask.version;
+
+    if (version == null) {
+      return null;
+    }
+
+    let localeVersion = new Date(version).toLocaleString();
+
+    return (
+      <span>
+        {localeVersion}
+      </span>
     );
   }
 
