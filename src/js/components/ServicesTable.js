@@ -276,6 +276,7 @@ var ServicesTable = React.createClass({
   getRestartConfirmDialog: function () {
     const {state} = this;
     let service = state.serviceToChange;
+    let serviceName = '';
     let buttonText = 'Restart Service';
 
     if (state.errorMsg) {
