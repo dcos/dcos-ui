@@ -147,6 +147,11 @@ describe('MesosStateStore', function () {
       MesosStateStore.get = this.get;
     });
 
+    it('should return null from an unknown task ID', function () {
+      var result = MesosStateStore.getTaskFromTaskID('not-a-task-id');
+      expect(result).toBeNull();
+    });
+
     it('should return an instance of Task', function () {
       var result = MesosStateStore.getTaskFromTaskID(1);
       expect(result instanceof Task).toBeTruthy();
