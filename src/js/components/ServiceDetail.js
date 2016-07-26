@@ -144,18 +144,9 @@ class ServiceDetail extends mixin(InternalStorageMixin, StoreMixin, TabsMixin) {
   getDestroyConfirmDialog() {
     const {service} = this.props;
     const {state} = this;
-    const serviceID = (<span className="emphasize">{service.getId()}</span>);
-
-    let message = (
-      <div className="container-pod flush-top container-pod-short-bottom">
-        <h2 className="text-danger text-align-center flush-top">Destroy Service</h2>
-        <p>Destroying {serviceID} is irreversible. Are you sure you want to continue?</p>
-        {this.getErrorMessage()}
-      </div>
-    );
 
     return (
-      <Confirm children={message}
+      <Confirm
         disabled={state.disabledDialog === ServiceActionItem.DESTROY}
         open={state.serviceActionDialog === ServiceActionItem.DESTROY}
         onClose={this.closeDialog}
@@ -163,7 +154,13 @@ class ServiceDetail extends mixin(InternalStorageMixin, StoreMixin, TabsMixin) {
         leftButtonCallback={this.closeDialog}
         rightButtonText="Destroy Service"
         rightButtonClassName="button button-danger"
-        rightButtonCallback={this.onAcceptDestroyConfirmDialog} />
+        rightButtonCallback={this.onAcceptDestroyConfirmDialog}>
+        <div className="container-pod flush-top container-pod-short-bottom">
+          <h2 className="text-danger text-align-center flush-top">Destroy Service</h2>
+          <p>Destroying <span className="emphasize">{service.getId()}</span> is irreversible. Are you sure you want to continue?</p>
+          {this.getErrorMessage()}
+        </div>
+      </Confirm>
     );
   }
 
@@ -171,18 +168,8 @@ class ServiceDetail extends mixin(InternalStorageMixin, StoreMixin, TabsMixin) {
     const {service} = this.props;
     const {state} = this;
 
-    let message = (
-      <div className="container-pod flush-top container-pod-short-bottom">
-        <h2 className="text-danger text-align-center flush-top">Restart Service</h2>
-        <p>
-          Are you sure you want to restart <span className="emphasize">{service.getId()}</span>?
-        </p>
-        {this.getErrorMessage()}
-      </div>
-    );
-
     return (
-      <Confirm children={message}
+      <Confirm
         disabled={state.disabledDialog === ServiceActionItem.RESTART}
         open={state.serviceActionDialog === ServiceActionItem.RESTART}
         onClose={this.closeDialog}
@@ -190,7 +177,15 @@ class ServiceDetail extends mixin(InternalStorageMixin, StoreMixin, TabsMixin) {
         leftButtonCallback={this.closeDialog}
         rightButtonText="Restart Service"
         rightButtonClassName="button button-danger"
-        rightButtonCallback={this.onAcceptRestartConfirmDialog} />
+        rightButtonCallback={this.onAcceptRestartConfirmDialog}>
+        <div className="container-pod flush-top container-pod-short-bottom">
+          <h2 className="text-danger text-align-center flush-top">Restart Service</h2>
+          <p>
+            Are you sure you want to restart <span className="emphasize">{service.getId()}</span>?
+          </p>
+          {this.getErrorMessage()}
+        </div>
+      </Confirm>
     );
   }
 
@@ -198,16 +193,8 @@ class ServiceDetail extends mixin(InternalStorageMixin, StoreMixin, TabsMixin) {
     const {service} = this.props;
     const {state} = this;
 
-    let message = (
-      <div className="container-pod flush-top container-pod-short-bottom">
-        <h2 className="text-align-center flush-top">Suspend Service</h2>
-        <p>Are you sure you want to suspend {service.getId()} by scaling to 0 instances?</p>
-        {this.getErrorMessage()}
-      </div>
-    );
-
     return (
-      <Confirm children={message}
+      <Confirm
         disabled={state.disabledDialog === ServiceActionItem.SUSPEND}
         open={state.serviceActionDialog === ServiceActionItem.SUSPEND}
         onClose={this.closeDialog}
@@ -215,7 +202,13 @@ class ServiceDetail extends mixin(InternalStorageMixin, StoreMixin, TabsMixin) {
         leftButtonCallback={this.closeDialog}
         rightButtonText="Suspend Service"
         rightButtonClassName="button button-primary"
-        rightButtonCallback={this.onAcceptSuspendConfirmDialog} />
+        rightButtonCallback={this.onAcceptSuspendConfirmDialog}>
+        <div className="container-pod flush-top container-pod-short-bottom">
+          <h2 className="text-align-center flush-top">Suspend Service</h2>
+          <p>Are you sure you want to suspend {service.getId()} by scaling to 0 instances?</p>
+          {this.getErrorMessage()}
+        </div>
+      </Confirm>
     );
   }
 
