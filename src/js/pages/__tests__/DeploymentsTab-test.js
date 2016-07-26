@@ -35,8 +35,8 @@ describe('DeploymentsTab', function () {
           totalSteps: 3,
           affectedApps: ['service-1', 'service-2'],
           affectedServices: [
-            new Service({name: 'service-1', deployments: []}),
-            new Service({name: 'service-2', deployments: []})
+            new Service({id: '1', name: 'service-1', deployments: []}),
+            new Service({id: '2', name: 'service-2', deployments: []})
           ]
         }
       ]

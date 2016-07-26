@@ -10,6 +10,7 @@ import {StoreMixin} from 'mesosphere-shared-reactjs';
 import AlertPanel from '../../components/AlertPanel';
 import CollapsingString from '../../components/CollapsingString';
 import DCOSStore from '../../stores/DCOSStore';
+import defaultServiceImage from '../../../img/services/icon-service-default-small@2x.png';
 import Icon from '../../components/Icon';
 import MarathonActions from '../../events/MarathonActions';
 import NestedServiceLinks from '../../components/NestedServiceLinks';
@@ -98,17 +99,34 @@ class DeploymentsTab extends mixin(StoreMixin) {
           <CollapsingString string={deployment.getId()} />
         </dt>
         {this.renderAffectedServicesList(deployment.getAffectedServices())}
+        {this.renderStaleServicesList(deployment.getStaleServiceIds())}
       </dl>
     );
   }
 
+  renderStaleServicesList(serviceIds) {
+    if (serviceIds == null) {
+      return;
+    }
+    return serviceIds.map(function (serviceId) {
+      return (
+        <dd key={`stale_${serviceId}`}>
+          <span className="icon icon-small icon-image-container icon-app-container deployment-service-icon">
+            <img src={defaultServiceImage} />
+          </span>
+          {serviceId}
+        </dd>
+      );
+    });
+  }
+
   renderAffectedServicesList(services) {
-    return services.map(function (service, index) {
+    return services.map(function (service) {
       const id = encodeURIComponent(service.getId());
       const image = service.getImages()['icon-small'];
 
       return (
-        <dd key={index}>
+        <dd key={`service_${id}`}>
           <Link to="services-detail" params={{id}} className="deployment-service-name">
             <span className="icon icon-small icon-image-container icon-app-container deployment-service-icon">
               <img src={image} />
