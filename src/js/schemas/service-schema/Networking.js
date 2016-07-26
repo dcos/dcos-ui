@@ -103,7 +103,7 @@ const Networking = {
           if (prop === 'lbPort' && model && model.networking) {
             if (model.networking.networkType !== 'host') {
               definition.showLabel = 'Container Port';
-              if (definition.value === disabledLBPortFieldValue) {
+              if (definition.value === 'Not Enabled') {
                 definition.value = null;
               }
             } else {
