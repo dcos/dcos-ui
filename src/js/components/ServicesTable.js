@@ -94,7 +94,7 @@ var ServicesTable = React.createClass({
     this.context.router.transitionTo('services-page');
   },
 
-  onMarathonStoreServiceDeleteError: function ({message:errorMsg}) {
+  onMarathonStoreServiceDeleteError: function ({message: errorMsg}) {
     this.setState({
       disabledDialog: null,
       errorMsg
@@ -105,7 +105,7 @@ var ServicesTable = React.createClass({
     this.closeDialog();
   },
 
-  onMarathonStoreServiceEditError: function ({message:errorMsg}) {
+  onMarathonStoreServiceEditError: function ({message: errorMsg}) {
     this.setState({
       disabledDialog: null,
       errorMsg
@@ -116,7 +116,7 @@ var ServicesTable = React.createClass({
     this.closeDialog();
   },
 
-  onMarathonStoreServiceRestartError: function ({message:errorMsg}) {
+  onMarathonStoreServiceRestartError: function ({message: errorMsg}) {
     this.setState({
       disabledDialog: null,
       errorMsg
@@ -128,7 +128,7 @@ var ServicesTable = React.createClass({
     this.context.router.transitionTo('services-page');
   },
 
-  onMarathonStoreGroupDeleteError: function ({message:errorMsg}) {
+  onMarathonStoreGroupDeleteError: function ({message: errorMsg}) {
     this.setState({
       disabledDialog: null,
       errorMsg
@@ -139,7 +139,7 @@ var ServicesTable = React.createClass({
     this.closeDialog();
   },
 
-  onMarathonStoreGroupEditError: function ({message:errorMsg}) {
+  onMarathonStoreGroupEditError: function ({message: errorMsg}) {
     this.setState({
       disabledDialog: null,
       errorMsg
