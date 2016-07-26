@@ -64,6 +64,8 @@ var ServicesTable = React.createClass({
           'serviceDeleteSuccess',
           'serviceEditError',
           'serviceEditSuccess',
+          'serviceRestartError',
+          'serviceRestartSuccess',
           'groupDeleteError',
           'groupDeleteSuccess',
           'groupEditError',
@@ -92,7 +94,7 @@ var ServicesTable = React.createClass({
     this.context.router.transitionTo('services-page');
   },
 
-  onMarathonStoreServiceDeleteError: function ({message:errorMsg}) {
+  onMarathonStoreServiceDeleteError: function ({message: errorMsg}) {
     this.setState({
       disabledDialog: null,
       errorMsg
@@ -103,7 +105,18 @@ var ServicesTable = React.createClass({
     this.closeDialog();
   },
 
-  onMarathonStoreServiceEditError: function ({message:errorMsg}) {
+  onMarathonStoreServiceEditError: function ({message: errorMsg}) {
+    this.setState({
+      disabledDialog: null,
+      errorMsg
+    });
+  },
+
+  onMarathonStoreServiceRestartSuccess: function () {
+    this.closeDialog();
+  },
+
+  onMarathonStoreServiceRestartError: function ({message: errorMsg}) {
     this.setState({
       disabledDialog: null,
       errorMsg
@@ -115,7 +128,7 @@ var ServicesTable = React.createClass({
     this.context.router.transitionTo('services-page');
   },
 
-  onMarathonStoreGroupDeleteError: function ({message:errorMsg}) {
+  onMarathonStoreGroupDeleteError: function ({message: errorMsg}) {
     this.setState({
       disabledDialog: null,
       errorMsg
@@ -126,7 +139,7 @@ var ServicesTable = React.createClass({
     this.closeDialog();
   },
 
-  onMarathonStoreGroupEditError: function ({message:errorMsg}) {
+  onMarathonStoreGroupEditError: function ({message: errorMsg}) {
     this.setState({
       disabledDialog: null,
       errorMsg
@@ -164,6 +177,14 @@ var ServicesTable = React.createClass({
       } else {
         MarathonStore.deleteService(serviceID);
       }
+    });
+  },
+
+  onAcceptRestartConfirmDialog: function () {
+    let service = this.state.serviceToChange;
+
+    this.setState({disabledDialog: ServiceActionItem.RESTART}, () => {
+      MarathonStore.restartService(service.getId(), !!this.state.errorMsg);
     });
   },
 
@@ -245,6 +266,41 @@ var ServicesTable = React.createClass({
           <h2 className="text-danger text-align-center flush-top">Destroy {itemText}</h2>
           <p>
             Are you sure you want to destroy <span className="emphasize">{serviceName}</span>? This action is irreversible.
+          </p>
+          {this.getErrorMessage()}
+        </div>
+      </Confirm>
+    );
+  },
+
+  getRestartConfirmDialog: function () {
+    const {state} = this;
+    let service = state.serviceToChange;
+    let serviceName = '';
+    let buttonText = 'Restart Service';
+
+    if (state.errorMsg) {
+      buttonText = 'Forcefully Restart Service';
+    }
+
+    if (service) {
+      serviceName = service.getId();
+    }
+
+    return (
+      <Confirm
+        disabled={state.disabledDialog === ServiceActionItem.RESTART}
+        open={state.serviceActionDialog === ServiceActionItem.RESTART}
+        onClose={this.closeDialog}
+        leftButtonText="Cancel"
+        leftButtonCallback={this.closeDialog}
+        rightButtonText={buttonText}
+        rightButtonClassName="button button-danger"
+        rightButtonCallback={this.onAcceptRestartConfirmDialog}>
+        <div className="container-pod flush-top container-pod-short-bottom">
+          <h2 className="text-danger text-align-center flush-top">Restart Service</h2>
+          <p>
+            Are you sure you want to restart <span className="emphasize">{serviceName}</span>?
           </p>
           {this.getErrorMessage()}
         </div>
@@ -393,6 +449,13 @@ var ServicesTable = React.createClass({
         }),
         id: ServiceActionItem.SCALE,
         html: scaleText
+      },
+      {
+        className: classNames({
+          hidden: isGroup || instancesCount === 0
+        }),
+        id: ServiceActionItem.RESTART,
+        html: 'Restart'
       },
       {
         className: classNames({
@@ -556,6 +619,7 @@ var ServicesTable = React.createClass({
           containerSelector=".gm-scroll-view"
           sortBy={{prop: 'name', order: 'asc'}} />
         {this.getDestroyConfirmDialog()}
+        {this.getRestartConfirmDialog()}
         {this.getServiceScaleFormModal()}
         {this.getSuspendConfirmDialog()}
       </div>

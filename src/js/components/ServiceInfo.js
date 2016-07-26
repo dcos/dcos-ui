@@ -28,6 +28,12 @@ class ServiceInfo extends React.Component {
       className: classNames({
         hidden: service.getInstancesCount() === 0
       }),
+      id: ServiceActionItem.RESTART,
+      html: 'Restart'
+    }, {
+      className: classNames({
+        hidden: service.getInstancesCount() === 0
+      }),
       id: ServiceActionItem.SUSPEND,
       html: 'Suspend'
     }, {
