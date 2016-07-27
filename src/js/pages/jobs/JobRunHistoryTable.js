@@ -214,21 +214,24 @@ class JobRunHistoryTable extends React.Component {
             to="jobs-task-details"
             params={{id, taskID}}
             title={taskID}>
-            <CollapsingString string={taskID} />
+            <CollapsingString endLength={15} string={taskID} />
           </Link>
         </div>
       );
     }
 
     let cellContent = (
-        <span>
+        <span className="table-cell-flex-box">
           <Icon
-            className="icon-margin-right"
+            className="icon-margin-right table-cell-icon"
             color="grey"
             id="page-code"
             size="mini"
             family="small" />
-          <CollapsingString string={row[prop]} />
+          <CollapsingString
+            endLength={15}
+            string={row[prop]}
+            wrapperClassName="collapsing-string table-cell-value" />
         </span>
       );
 
