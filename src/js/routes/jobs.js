@@ -69,7 +69,6 @@ let jobsRoutes = {
               path: 'tasks/:taskID/?',
               name: 'jobs-task-details',
               handler: TaskDetail,
-              hideHeaderNavigation: true,
               buildBreadCrumb: function () {
                 return {
                   parentCrumb: 'jobs-page-detail',
@@ -87,7 +86,6 @@ let jobsRoutes = {
                   type: DefaultRoute,
                   name: 'jobs-task-details-tab',
                   handler: TaskDetailsTab,
-                  hideHeaderNavigation: true,
                   buildBreadCrumb: function () {
                     return {
                       parentCrumb: 'jobs-task-details',
@@ -101,7 +99,6 @@ let jobsRoutes = {
                   name: 'jobs-task-details-files',
                   path: 'files/?',
                   handler: TaskFilesTab,
-                  hideHeaderNavigation: true,
                   logRouteName: 'jobs-task-details-logs',
                   buildBreadCrumb: function () {
                     return {
@@ -117,7 +114,6 @@ let jobsRoutes = {
                   dontScroll: true,
                   path: 'logs/:filePath?/?:innerPath?/?',
                   handler: TaskLogsTab,
-                  hideHeaderNavigation: true,
                   buildBreadCrumb: function () {
                     return {
                       parentCrumb: 'jobs-task-details',
