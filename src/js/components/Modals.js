@@ -99,7 +99,7 @@ var Modals = React.createClass({
 
     return {
       onClose,
-      title: `Install ${Config.productName} CLI`,
+      title: 'Install DC/OS CLI',
       showFooter: true,
       footer: (
         <div>
