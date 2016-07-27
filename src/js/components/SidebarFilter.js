@@ -5,6 +5,8 @@ import mixin from 'reactjs-mixin';
 import React from 'react';
 
 import QueryParamsMixin from '../mixins/QueryParamsMixin';
+import ServiceFilterTypes from '../constants/ServiceFilterTypes';
+import ServiceStatusTypes from '../constants/ServiceStatusTypes';
 
 class SidebarFilter extends mixin(QueryParamsMixin) {
   constructor() {
@@ -136,34 +138,43 @@ class SidebarFilter extends mixin(QueryParamsMixin) {
   }
 
   getHealthCheckboxes() {
-    let {filterLabels, filterValues} = this.props;
+    let {filterLabels, filterType, filterValues} = this.props;
     let {selectedNodes} = this.state;
 
-    return Object.keys(filterValues).map(filterValue => {
-      let value = filterValues[filterValue].toString();
-      let checked = selectedNodes.indexOf(value) > -1;
+    return Object.keys(filterLabels)
+      .filter((filterLabel) => {
+        let filterValue = filterValues[filterLabel];
 
-      let labelClassSet = classNames(
-        'side-list-item form-row-element form-element-checkbox inverse',
-        'row row-flex flex-align-items-center vertical-center flush clickable',
-        {
-          'filter-active': this.getCountByValue(filterValue) > 0,
-          'filter-checked': checked
-        }
-      );
+        return filterValue != null &&
+          !(filterType === ServiceFilterTypes.STATUS &&
+          filterValue === ServiceStatusTypes.NA &&
+          this.getCountByValue(filterValue) === 0);
+      })
+      .map((filterLabel) => {
+        let value = filterValues[filterLabel];
+        let checked = selectedNodes.indexOf(value.toString()) > -1;
 
-      return {
-        checked,
-        checkboxLabelClass: 'form-element-checkbox-label flex-grow',
-        value: checked,
-        fieldType: 'checkbox',
-        formElementClass: 'form-row-element checkbox flush',
-        name: filterValue,
-        label:
-          this.getFormLabel(filterLabels[filterValue], filterValue),
-        labelClass: labelClassSet
-      };
-    });
+        let labelClassSet = classNames(
+          'side-list-item form-row-element form-element-checkbox inverse',
+          'row row-flex flex-align-items-center vertical-center flush clickable',
+          {
+            'filter-active': this.getCountByValue(filterLabel) > 0,
+            'filter-checked': checked
+          }
+        );
+
+        return {
+          checked,
+          checkboxLabelClass: 'form-element-checkbox-label flex-grow',
+          value: checked,
+          fieldType: 'checkbox',
+          formElementClass: 'form-row-element checkbox flush',
+          name: filterLabel,
+          label:
+            this.getFormLabel(filterLabels[filterLabel], filterLabel),
+          labelClass: labelClassSet
+        };
+      });
   }
 
   getHealthNodes() {
