@@ -1,5 +1,6 @@
 import Ace from 'react-ace';
 import classNames from 'classnames';
+import {Hooks} from 'PluginSDK';
 import mixin from 'reactjs-mixin';
 import {Modal, Tooltip} from 'reactjs-components';
 import React from 'react';
@@ -304,21 +305,35 @@ class ServiceFormModal extends mixin(StoreMixin) {
 
     let errorList = null;
     if (errorMessage.details != null) {
+      let responseMap = Hooks.applyFilter(
+        'serviceFormErrorResponseMap',
+        responseAttributePathToFieldIdMap
+      );
       errorList = errorMessage.details.map(function ({path, errors}) {
         let fieldId = 'general';
 
         // Check if attributePath contains an index like path(0)/attribute
         // Matches as defined: [0] : '(0)', [1]: '0'
-        let matches = path.match(/\(([0-9]+)\)/);
+        let matches = Hooks.applyFilter('serviceFormMatchErrorPath',
+          path.match(/\(([0-9]+)\)/),
+          path
+        );
+
         if (matches != null) {
-          let resolvePath = responseAttributePathToFieldIdMap[
+          let resolvePath = responseMap[
             path.replace(matches[0], '({INDEX})')
           ];
+
+          if (resolvePath == null) {
+            resolvePath = responseMap[
+              path.replace(matches[0], '{INDEX}')
+            ];
+          }
           if (resolvePath != null) {
             fieldId = resolvePath.replace('{INDEX}', matches[1]);
           }
         } else {
-          fieldId = responseAttributePathToFieldIdMap[path] || fieldId;
+          fieldId = responseMap[path] || fieldId;
         }
         errors = errors.map(function (error) {
           if (serverResponseMappings[error]) {
