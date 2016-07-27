@@ -167,6 +167,16 @@ function processValue(value, valueType) {
 }
 
 let SchemaFormUtil = {
+  /**
+   * Finds a specific field definition when a path is passed in.
+   *
+   * @param {Object} definition Definition to traverse to find the field definition.
+   * @param {Array} paths Array of the properties needed to lookup to get to
+   * definition.
+   *
+   * @return {Object} definition The definition that was found, or the
+   * definition before the dead end.
+   */
   getDefinitionFromPath(definition, paths) {
     if (definition[paths[0]]) {
       definition = definition[paths[0]];
@@ -194,6 +204,21 @@ let SchemaFormUtil = {
     return definition;
   },
 
+  /**
+   * Converts a model to a model that conforms to form properties.
+   * For example, {cpu: '10'} will be converted to {cpu: 10} if the field 'cpu'
+   * requires a number. This also transforms duplicable props like
+   * 'ports[0].key' and 'ports[0].value' into the correct format.
+   *
+   * @param {Object} model Model to process.
+   * @param {Object} multipleDefinition Definition to look at to enforce value
+   * types.
+   * @param {Array} prevPath (This argument is for internal recursive use.)
+   * The paths taken to get to this model. Needed in order to find the
+   * definition paths taken for each field.
+   *
+   * @return {Object} model Model that is created from definition.
+   */
   processFormModel(model, multipleDefinition, prevPath = []) {
     let newModel = {};
 
@@ -226,6 +251,16 @@ let SchemaFormUtil = {
     return FormUtil.modelToCombinedProps(newModel);
   },
 
+  /**
+   * Merges a model into a form definition. It puts all of the values in the
+   * field definition's 'value' property.
+   *
+   * @param {Object} model Model to merge into definition.
+   * @param {Object} definition Definition to receive values from model.
+   * @param {Array} renderRemove Function to call to render a remove button.
+   * This is necessary because the model might have multiple values, and if we
+   * create more field definitions, we need to render a remove button after it.
+   */
   mergeModelIntoDefinition(model, definition, renderRemove) {
     let thingsToSet = getThingsToSet(model);
 
@@ -236,6 +271,15 @@ let SchemaFormUtil = {
     });
   },
 
+  /**
+   * Parses the error that comes back from tv4 in order for it to be easily
+   * consumable.
+   *
+   * @param {Object} tv4Error The error that comes from tv4 to parse.
+   *
+   * @return {Object} errorObj An error object. 'message' is the error message.
+   * 'path' is the path towards the value in the model.
+   */
   parseTV4Error(tv4Error) {
     let errorObj = {
       message: tv4Error.message,
@@ -255,6 +299,17 @@ let SchemaFormUtil = {
     return errorObj;
   },
 
+  /**
+   * Validates the model against a schema. For example, it'll check if it's the
+   * correct shape, and that the value types are the same as stated in the
+   * schema.
+   *
+   * @param {Object} model The model to validate.
+   * @param {Object} schema The schema for the model to validate against.
+   *
+   * @return {Array} errorObjs Array of error objects. Each object consists of
+   * the properties 'message' and 'path'.
+   */
   validateModelWithSchema(model, schema) {
     let result = tv4.validateMultiple(model, schema);
 

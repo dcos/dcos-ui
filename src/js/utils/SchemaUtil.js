@@ -206,6 +206,19 @@ function nestedSchemaToFieldDefinition(options) {
 }
 
 let SchemaUtil = {
+  /**
+   * Turns a JSON Schema into a Form definition.
+   *
+   * @param {Object} options Object containing properties for transforming a
+   * schema into a form definition. The following properties are:
+   * {Object} schema Schema to transform.
+   * {Function} renderSubheader Function used to render a subheader. We render subheaders for properties that are nested.
+   * {Function} renderLabel Function used to render a label.
+   * {Function} renderRemove Function used to render a remove button for duplicable rows.
+   * {Function} renderAdd Function used to render an add button for duplicable rows.
+   *
+   * @return {Object} multipleDefinition The form definition.
+   */
   schemaToMultipleDefinition: function (options) {
     let {
       schema,
@@ -304,6 +317,13 @@ let SchemaUtil = {
     return multipleDefinition;
   },
 
+  /**
+   * Turns a form definition into a model.
+   *
+   * @param {Object} definition Form definition to convert to model.
+   *
+   * @return {Object} multipleDefinition The form definition.
+   */
   definitionToJSONDocument: function (definition) {
     let jsonDocument = {};
 
@@ -335,6 +355,13 @@ let SchemaUtil = {
     return jsonDocument;
   },
 
+  /**
+   * Checks to see if object is a valid JSON schema.
+   *
+   * @param {Object} schema Schema to validate.
+   *
+   * @return {Boolean} isValidSchema Whether the schema is valid.
+   */
   validateSchema: function (schema) {
     try {
       SchemaUtil.definitionToJSONDocument(
