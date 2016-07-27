@@ -127,18 +127,29 @@ describe('MesosStateStore', function () {
   describe('#getTaskFromTaskID', function () {
     beforeEach(function () {
       this.get = MesosStateStore.get;
-      MesosStateStore.get = function () {
-        return {
-          frameworks: [{
-            tasks: [{id: 1}],
-            completed_tasks: [{id: 2}]
-          }]
-        };
+      let data = {
+        frameworks: [{
+          tasks: [{id: 1}],
+          completed_tasks: [{id: 2}]
+        }]
+      };
+      MesosStateStore.processStateSuccess(data);
+      let taskCache = MesosStateStore.indexTasksByID(data);
+      MesosStateStore.get = function (id) {
+        if (id === 'taskCache') {
+          return taskCache;
+        }
+        return data;
       };
     });
 
     afterEach(function () {
       MesosStateStore.get = this.get;
+    });
+
+    it('should return null from an unknown task ID', function () {
+      var result = MesosStateStore.getTaskFromTaskID('not-a-task-id');
+      expect(result).toBeNull();
     });
 
     it('should return an instance of Task', function () {
