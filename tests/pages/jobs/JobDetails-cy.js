@@ -61,7 +61,7 @@ describe('Job Details', function () {
       cy.get('@tableRow').find('.job-run-history-job-id').first()
         .should('have.class', 'is-expanded');
 
-      cy.get('@tableRow').find('td:first-child .job-run-history-table-child')
+      cy.get('@tableRow').find('td:nth-child(2) .job-run-history-table-child')
         .should(function ($children) {
           expect($children.length).to.equal(2);
         }
