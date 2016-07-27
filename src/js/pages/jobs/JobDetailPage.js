@@ -175,7 +175,7 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
     }
 
     dropdownItems.push({
-      html: 'Destroy',
+      html: <span className="text-danger">Destroy</span>,
       id: JobActionItem.DESTROY
     });
 
