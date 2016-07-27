@@ -103,8 +103,10 @@ class MesosLogView extends mixin(StoreMixin) {
       (props.highlightText !== nextProps.highlightText) ||
       // Check filePath
       (props.filePath !== nextProps.filePath) ||
-      // Check task
-      (props.task !== nextProps.task) ||
+      // Check logName
+      (props.logName !== nextProps.logName) ||
+      // Check task (slave_id is the only property being used)
+      (props.task.slave_id !== nextProps.task.slave_id) ||
       // Check hasLoadingError
       (state.hasLoadingError !== nextState.hasLoadingError) ||
       // Check fullLog
