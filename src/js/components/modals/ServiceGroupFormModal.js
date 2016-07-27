@@ -6,7 +6,7 @@ import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import FormModal from '../FormModal';
 import MarathonStore from '../../stores/MarathonStore';
-import Validator from '../../utils/Validator';
+import ServiceValidatorUtil from '../../utils/ServiceValidatorUtil';
 
 const METHODS_TO_BIND = [
   'handleNewGroupSubmit',
@@ -96,11 +96,7 @@ class ServiceGroupFormModal extends mixin(StoreMixin) {
         required: true,
         showLabel: false,
         writeType: 'input',
-        validation: function (value) {
-          return Validator.hasNoWhitespaces(value) &&
-            Validator.hasValidServiceIdChars(value) &&
-            Validator.isWellFormedServiceIdPath(value);
-        },
+        validation: ServiceValidatorUtil.isValidServiceID,
         validationErrorText: 'Group name must be at least 1 character and ' +
           'may only contain digits (0-9), dashes (-), dots (.), ' +
           'and lowercase letters (a-z). The name may not begin or end ' +

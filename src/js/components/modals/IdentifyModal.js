@@ -4,7 +4,7 @@ var React = require('react');
 
 import Config from '../../config/Config';
 var InternalStorageMixin = require('../../mixins/InternalStorageMixin');
-var Validator = require('../../utils/Validator');
+import ValidatorUtil from '../../utils/ValidatorUtil';
 
 var IdentifyModal = React.createClass({
 
@@ -28,7 +28,7 @@ var IdentifyModal = React.createClass({
 
     var email = this.refs.email.value.toLowerCase();
 
-    if (!Validator.isEmail(email)) {
+    if (!ValidatorUtil.isEmail(email)) {
       this.internalStorage_update({
         emailHasError: true,
         email: email
