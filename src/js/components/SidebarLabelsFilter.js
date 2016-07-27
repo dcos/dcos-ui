@@ -74,9 +74,12 @@ class SidebarLabelsFilters extends mixin(QueryParamsMixin) {
       return Object.assign({}, label, {
         id: `filter-label-${i}`,
         html: (
-          <a className="text-overflow" title={labelText}>
-            {labelText}
-          </a>
+          <div className="button-split-content-wrapper">
+            <a className="button-split-content-item text-overflow"
+              title={labelText}>
+              {labelText}
+            </a>
+          </div>
         )
       });
     });
@@ -84,8 +87,13 @@ class SidebarLabelsFilters extends mixin(QueryParamsMixin) {
     let labelOptions = [{
       className: 'hidden',
       id: '0',
-      html: 'Labels',
-      selectedHtml: <span className="button-split-content-label">Labels</span>,
+      html: (
+        <div className="button-split-content-wrapper">
+          <span className="button-split-content-item">
+            Labels
+          </span>
+        </div>
+      ),
       selectable: false
     }].concat(availableLabels);
 

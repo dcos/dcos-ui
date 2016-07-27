@@ -64,6 +64,39 @@ components/dropdown-menus.less
   .dropdown-toggle {
     white-space: nowrap;
 
+    &.button-split-content {
+
+      &:after {
+        display: none;
+      }
+
+      .button-split-content-wrapper {
+
+        .button-split-content-item {
+
+          &:first-child {
+            flex-grow: 1;
+          }
+        }
+
+        &:after {
+          &:extend(.button.dropdown-toggle:after all);
+          margin-top: 0;
+        }
+      }
+
+      &.button-inverse {
+
+        .button-split-content-wrapper {
+
+          &:after {
+            &:extend(.button.button-inverse.dropdown-toggle:after all);
+            margin-top: 0;
+          }
+        }
+      }
+    }
+
     .badge-container {
 
       display: inline-flex;
