@@ -283,9 +283,9 @@ class JobFormModal extends mixin(StoreMixin) {
     return (
       <div className="header-flex">
         <div className="header-left">
-          <h4 className="flush-top flush-bottom text-color-neutral">
+          <span className="h4 flush-top flush-bottom text-color-neutral">
             {heading}
-          </h4>
+          </span>
         </div>
         <div className="header-right">
           <ToggleButton
