@@ -9,6 +9,7 @@ base/forms.less
 ----------------------------------------------------------------------------- */
 
 @multiple-form-modal-column-padding-horizontal: @base-spacing-unit * 1/4;
+@modal-form-label-line-height: @icon-mini-height;
 
 
 
@@ -99,14 +100,15 @@ base/forms.less
 
   .multiple-form-modal {
 
-    .form-row-element {
+    .multiple-form {
 
-      &.checkbox {
-        align-items: flex-end;
-        display: flex;
+      .form-row-element-mixed-label-presence {
+        line-height: @form-control-height;
+        padding-top: @modal-form-label-line-height + @form-label-margin-bottom;
 
-        .form-element-checkbox {
-          padding-bottom: 6px;
+        &.form-row-element {
+          margin-bottom: 0;
+          padding-bottom: 0;
         }
       }
     }
@@ -155,8 +157,8 @@ base/forms.less
 
       .duplicable-row-title-wrapper {
 
-        .form-row-remove-button {
-          padding-bottom: 0;
+        .form-row-element-mixed-label-presence {
+          padding: 0;
         }
       }
 
@@ -237,7 +239,12 @@ base/forms.less
     }
 
     label {
+      line-height: @modal-form-label-line-height;
       white-space: nowrap;
+
+      svg {
+        display: block;
+      }
     }
 
     .modal-header {
@@ -278,7 +285,27 @@ base/forms.less
 
 }
 
-& when (@screen-small-enabled) {
+& when (@form-enabled) and (@screen-mini-enabled) {
+
+  @media (min-width: @screen-mini) {
+
+    .multiple-form-modal {
+
+      .multiple-form {
+
+        .form-row-element-mixed-label-presence {
+          line-height: @form-control-height * @form-control-height-scale-screen-mini;
+        }
+
+      }
+
+    }
+
+  }
+
+}
+
+& when (@form-enabled) and (@screen-small-enabled) {
 
   @media (min-width: @screen-small) {
 
@@ -304,6 +331,50 @@ base/forms.less
         .multiple-form-right-column {
           // Override gemini width styles
           width: 67%;
+        }
+
+        .form-row-element-mixed-label-presence {
+          line-height: @form-control-height * @form-control-height-scale-screen-small;
+        }
+
+      }
+
+    }
+
+  }
+
+}
+
+& when (@form-enabled) and (@screen-medium-enabled) {
+
+  @media (min-width: @screen-medium) {
+
+    .multiple-form-modal {
+
+      .multiple-form {
+
+        .form-row-element-mixed-label-presence {
+          line-height: @form-control-height * @form-control-height-scale-screen-medium;
+        }
+
+      }
+
+    }
+
+  }
+
+}
+
+& when (@form-enabled) and (@screen-large-enabled) {
+
+  @media (min-width: @screen-large) {
+
+    .multiple-form-modal {
+
+      .multiple-form {
+
+        .form-row-element-mixed-label-presence {
+          line-height: @form-control-height * @form-control-height-scale-screen-large;
         }
 
       }
