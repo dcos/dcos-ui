@@ -63,7 +63,7 @@ module.exports = class Job extends Item {
   }
 
   getLastRunStatus() {
-    let {lastFailureAt = null, lastSuccessAt = null} = this.getStatus();
+    let {lastFailureAt, lastSuccessAt} = this.get('history') || {};
     let status = 'N/A';
     let time = null;
 
@@ -121,7 +121,4 @@ module.exports = class Job extends Item {
     return 'COMPLETED';
   }
 
-  getStatus() {
-    return this.get('status') || {};
-  }
 };
