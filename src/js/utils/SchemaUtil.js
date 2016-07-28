@@ -51,6 +51,7 @@ function schemaToFieldDefinition(options) {
 
   let definition = {
     fieldType: 'text',
+    focused: false,
     name: fieldName,
     placeholder: '',
     isRequired,
@@ -75,6 +76,10 @@ function schemaToFieldDefinition(options) {
 
   if (fieldProps.type === 'number') {
     definition.fieldType = 'number';
+  }
+
+  if (fieldProps.focused) {
+    definition.focused = true;
   }
 
   if (fieldProps.fieldType === 'select') {
