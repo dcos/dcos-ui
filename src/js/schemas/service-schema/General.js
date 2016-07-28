@@ -16,6 +16,7 @@ let General = {
   properties: {
     id: {
       title: 'ID',
+      focused: true,
       description: 'ID for the service',
       type: 'string',
       getter: function (service) {

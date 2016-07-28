@@ -8,6 +8,7 @@ const General = {
   type: 'object',
   properties: {
     id: {
+      focused: true,
       title: 'ID',
       description: 'The job ID',
       type: 'string',
