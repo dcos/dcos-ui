@@ -1,18 +1,26 @@
-import GetSetBaseStore from './GetSetBaseStore';
-
-var AppDispatcher = require('../events/AppDispatcher');
-import ActionTypes from '../constants/ActionTypes';
+import {
+  REQUEST_MESOS_HISTORY_ONGOING,
+  REQUEST_SUMMARY_ERROR,
+  REQUEST_SUMMARY_HISTORY_SUCCESS,
+  REQUEST_SUMMARY_ONGOING,
+  REQUEST_SUMMARY_PLACEHOLDER,
+  REQUEST_SUMMARY_SUCCESS,
+  SERVER_ACTION
+} from '../constants/ActionTypes';
+import AppDispatcher from '../events/AppDispatcher';
 import CompositeState from '../structs/CompositeState';
-var Config = require('../config/Config');
+import Config from '../config/Config';
 import {
   MESOS_SUMMARY_CHANGE,
   MESOS_SUMMARY_REQUEST_ERROR
 } from '../constants/EventTypes';
-var MesosSummaryUtil = require('../utils/MesosSummaryUtil');
-var MesosSummaryActions = require('../events/MesosSummaryActions');
-import SummaryList from '../structs/SummaryList';
+import GetSetBaseStore from './GetSetBaseStore';
+import MesosSummaryActions from '../events/MesosSummaryActions';
+import MesosSummaryUtil from '../utils/MesosSummaryUtil';
+import PluginSDK from 'PluginSDK';
 import StateSummary from '../structs/StateSummary';
-var TimeScales = require('../constants/TimeScales');
+import SummaryList from '../structs/SummaryList';
+import TimeScales from '../constants/TimeScales';
 import Util from '../utils/Util';
 import VisibilityStore from './VisibilityStore';
 
@@ -63,27 +71,46 @@ class MesosSummaryStore extends GetSetBaseStore {
   constructor() {
     super(...arguments);
 
+    PluginSDK.addStoreConfig({
+      store: this,
+      storeID: this.storeID,
+      events: {
+        success: MESOS_SUMMARY_CHANGE,
+        error: MESOS_SUMMARY_REQUEST_ERROR
+      },
+
+      // When to remove listener
+      unmountWhen: function (store, event) {
+        if (event === 'success') {
+          return store.get('statesProcessed');
+        }
+      },
+
+      // Set to true to keep listening until unmount
+      listenAlways: true
+    });
+
     this.dispatcherIndex = AppDispatcher.register((payload) => {
-      if (payload.source !== ActionTypes.SERVER_ACTION) {
+      if (payload.source !== SERVER_ACTION) {
         return false;
       }
 
       var action = payload.action;
       switch (action.type) {
-        case ActionTypes.REQUEST_SUMMARY_SUCCESS:
+        case REQUEST_SUMMARY_SUCCESS:
           this.processSummary(action.data);
           break;
-        case ActionTypes.REQUEST_SUMMARY_HISTORY_SUCCESS:
+        case REQUEST_SUMMARY_HISTORY_SUCCESS:
           this.processBulkState(action.data);
           break;
-        case ActionTypes.REQUEST_SUMMARY_ERROR:
+        case REQUEST_SUMMARY_ERROR:
           this.processSummaryError();
           break;
-        case ActionTypes.REQUEST_SUMMARY_PLACEHOLDER:
+        case REQUEST_SUMMARY_PLACEHOLDER:
           this.processSummaryPlaceholder();
           break;
-        case ActionTypes.REQUEST_SUMMARY_ONGOING:
-        case ActionTypes.REQUEST_MESOS_HISTORY_ONGOING:
+        case REQUEST_SUMMARY_ONGOING:
+        case REQUEST_MESOS_HISTORY_ONGOING:
           this.processSummaryError();
           break;
       }

@@ -1,45 +1,71 @@
-import GetSetBaseStore from './GetSetBaseStore';
-
-import ActionTypes from '../constants/ActionTypes';
+import {
+  REQUEST_MESOS_LOG_ERROR,
+  REQUEST_MESOS_LOG_OFFSET_ERROR,
+  REQUEST_MESOS_LOG_OFFSET_SUCCESS,
+  REQUEST_MESOS_LOG_SUCCESS,
+  REQUEST_PREVIOUS_MESOS_LOG_ERROR,
+  REQUEST_PREVIOUS_MESOS_LOG_SUCCESS,
+  SERVER_ACTION
+} from '../constants/ActionTypes';
 import AppDispatcher from '../events/AppDispatcher';
 import Config from '../config/Config';
-import EventTypes from '../constants/EventTypes';;
+import {
+  MESOS_INITIALIZE_LOG_CHANGE,
+  MESOS_INITIALIZE_LOG_REQUEST_ERROR,
+  MESOS_LOG_CHANGE,
+  MESOS_LOG_REQUEST_ERROR
+} from '../constants/EventTypes';
+import GetSetBaseStore from './GetSetBaseStore';
 import Item from '../structs/Item';
 import LogBuffer from '../structs/LogBuffer';
 import MesosLogActions from '../events/MesosLogActions';
+import PluginSDK from 'PluginSDK';
 
 const MAX_FILE_SIZE = 50000;
 
 class MesosLogStore extends GetSetBaseStore {
-
   constructor() {
     super(...arguments);
 
+    PluginSDK.addStoreConfig({
+      store: this,
+      storeID: this.storeID,
+      events: {
+        success: MESOS_LOG_CHANGE,
+        error: MESOS_LOG_REQUEST_ERROR
+      },
+      unmountWhen: function () {
+        return true;
+      },
+      listenAlways: true,
+      suppressUpdate: true
+    });
+
     this.dispatcherIndex = AppDispatcher.register((payload) => {
       let source = payload.source;
-      if (source !== ActionTypes.SERVER_ACTION) {
+      if (source !== SERVER_ACTION) {
         return false;
       }
 
       let action = payload.action;
 
       switch (action.type) {
-        case ActionTypes.REQUEST_MESOS_LOG_SUCCESS:
+        case REQUEST_MESOS_LOG_SUCCESS:
           this.processLogEntry(action.slaveID, action.path, action.data);
           break;
-        case ActionTypes.REQUEST_MESOS_LOG_ERROR:
+        case REQUEST_MESOS_LOG_ERROR:
           this.processLogError(action.slaveID, action.path);
           break;
-        case ActionTypes.REQUEST_PREVIOUS_MESOS_LOG_SUCCESS:
+        case REQUEST_PREVIOUS_MESOS_LOG_SUCCESS:
           this.processLogPrepend(action.slaveID, action.path, action.data);
           break;
-        case ActionTypes.REQUEST_PREVIOUS_MESOS_LOG_ERROR:
+        case REQUEST_PREVIOUS_MESOS_LOG_ERROR:
           this.processLogPrependError(action.slaveID, action.path);
           break;
-        case ActionTypes.REQUEST_MESOS_LOG_OFFSET_SUCCESS:
+        case REQUEST_MESOS_LOG_OFFSET_SUCCESS:
           this.processOffset(action.slaveID, action.path, action.data);
           break;
-        case ActionTypes.REQUEST_MESOS_LOG_OFFSET_ERROR:
+        case REQUEST_MESOS_LOG_OFFSET_ERROR:
           this.processOffsetError(action.slaveID, action.path);
           break;
       }
@@ -101,7 +127,7 @@ class MesosLogStore extends GetSetBaseStore {
     MesosLogActions
       .fetchLog(slaveID, path, logBuffer.getEnd(), MAX_FILE_SIZE);
 
-    this.emit(EventTypes.MESOS_INITIALIZE_LOG_CHANGE, path);
+    this.emit(MESOS_INITIALIZE_LOG_CHANGE, path);
   }
 
   processOffsetError(slaveID, path) {
@@ -117,7 +143,7 @@ class MesosLogStore extends GetSetBaseStore {
       MesosLogActions.requestOffset(slaveID, path);
     }, Config.tailRefresh);
 
-    this.emit(EventTypes.MESOS_INITIALIZE_LOG_REQUEST_ERROR, path);
+    this.emit(MESOS_INITIALIZE_LOG_REQUEST_ERROR, path);
   }
 
   processLogEntry(slaveID, path, entry) {
@@ -134,7 +160,7 @@ class MesosLogStore extends GetSetBaseStore {
 
     // Fire event always, so listener knows that we have received data
     // This way it is easier to tell whether we are for data or it was empty
-    this.emit(EventTypes.MESOS_LOG_CHANGE, path, 'append');
+    this.emit(MESOS_LOG_CHANGE, path, 'append');
 
     let end = logBuffer.getEnd();
     if (data.length === MAX_FILE_SIZE) {
@@ -160,7 +186,7 @@ class MesosLogStore extends GetSetBaseStore {
       logBuffer.prepend(new Item(entry));
     }
 
-    this.emit(EventTypes.MESOS_LOG_CHANGE, path, 'prepend');
+    this.emit(MESOS_LOG_CHANGE, path, 'prepend');
   }
 
   processLogError(slaveID, path) {
@@ -176,7 +202,7 @@ class MesosLogStore extends GetSetBaseStore {
         .fetchLog(slaveID, path, logBuffer.getEnd(), MAX_FILE_SIZE);
     }, Config.tailRefresh);
 
-    this.emit(EventTypes.MESOS_LOG_REQUEST_ERROR, path);
+    this.emit(MESOS_LOG_REQUEST_ERROR, path);
   }
 
   processLogPrependError(slaveID, path) {
@@ -191,7 +217,7 @@ class MesosLogStore extends GetSetBaseStore {
       slaveID, path, logBuffer.getStart() - MAX_FILE_SIZE, MAX_FILE_SIZE
     );
 
-    this.emit(EventTypes.MESOS_LOG_REQUEST_ERROR, path);
+    this.emit(MESOS_LOG_REQUEST_ERROR, path);
   }
 
   get storeID() {

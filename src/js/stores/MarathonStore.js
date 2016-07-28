@@ -1,28 +1,61 @@
+import {
+  REQUEST_MARATHON_DEPLOYMENT_ROLLBACK_ERROR,
+  REQUEST_MARATHON_DEPLOYMENT_ROLLBACK_SUCCESS,
+  REQUEST_MARATHON_DEPLOYMENTS_ERROR,
+  REQUEST_MARATHON_DEPLOYMENTS_SUCCESS,
+  REQUEST_MARATHON_GROUP_CREATE_ERROR,
+  REQUEST_MARATHON_GROUP_CREATE_SUCCESS,
+  REQUEST_MARATHON_GROUP_DELETE_ERROR,
+  REQUEST_MARATHON_GROUP_DELETE_SUCCESS,
+  REQUEST_MARATHON_GROUP_EDIT_ERROR,
+  REQUEST_MARATHON_GROUP_EDIT_SUCCESS,
+  REQUEST_MARATHON_GROUPS_ERROR,
+  REQUEST_MARATHON_GROUPS_ONGOING,
+  REQUEST_MARATHON_GROUPS_SUCCESS,
+  REQUEST_MARATHON_INSTANCE_INFO_ERROR,
+  REQUEST_MARATHON_INSTANCE_INFO_SUCCESS,
+  REQUEST_MARATHON_QUEUE_ERROR,
+  REQUEST_MARATHON_QUEUE_SUCCESS,
+  REQUEST_MARATHON_SERVICE_CREATE_ERROR,
+  REQUEST_MARATHON_SERVICE_CREATE_SUCCESS,
+  REQUEST_MARATHON_SERVICE_DELETE_ERROR,
+  REQUEST_MARATHON_SERVICE_DELETE_SUCCESS,
+  REQUEST_MARATHON_SERVICE_EDIT_ERROR,
+  REQUEST_MARATHON_SERVICE_EDIT_SUCCESS,
+  REQUEST_MARATHON_SERVICE_RESTART_ERROR,
+  REQUEST_MARATHON_SERVICE_RESTART_SUCCESS,
+  REQUEST_MARATHON_SERVICE_VERSION_ERROR,
+  REQUEST_MARATHON_SERVICE_VERSION_SUCCESS,
+  REQUEST_MARATHON_SERVICE_VERSIONS_ERROR,
+  REQUEST_MARATHON_SERVICE_VERSIONS_SUCCESS,
+  REQUEST_MARATHON_TASK_KILL_ERROR,
+  REQUEST_MARATHON_TASK_KILL_SUCCESS,
+  SERVER_ACTION
+} from '../constants/ActionTypes';
 import AppDispatcher from '../events/AppDispatcher';
-import ActionTypes from '../constants/ActionTypes';
-import GetSetBaseStore from './GetSetBaseStore';
-import DeploymentsList from '../structs/DeploymentsList';
 import CompositeState from '../structs/CompositeState';
-import Service from '../structs/Service';
-import ServiceTree from '../structs/ServiceTree';
 import Config from '../config/Config';
+import DeploymentsList from '../structs/DeploymentsList';
+import GetSetBaseStore from './GetSetBaseStore';
+import HealthStatus from '../constants/HealthStatus';
+import MarathonActions from '../events/MarathonActions';
 import {
   MARATHON_APPS_CHANGE,
   MARATHON_APPS_ERROR,
-  MARATHON_GROUP_CREATE_SUCCESS,
+  MARATHON_DEPLOYMENT_ROLLBACK_ERROR,
+  MARATHON_DEPLOYMENT_ROLLBACK_SUCCESS,
+  MARATHON_DEPLOYMENTS_CHANGE,
+  MARATHON_DEPLOYMENTS_ERROR,
   MARATHON_GROUP_CREATE_ERROR,
+  MARATHON_GROUP_CREATE_SUCCESS,
   MARATHON_GROUP_DELETE_ERROR,
   MARATHON_GROUP_DELETE_SUCCESS,
   MARATHON_GROUP_EDIT_ERROR,
   MARATHON_GROUP_EDIT_SUCCESS,
   MARATHON_GROUPS_CHANGE,
   MARATHON_GROUPS_ERROR,
-  MARATHON_DEPLOYMENTS_CHANGE,
-  MARATHON_DEPLOYMENTS_ERROR,
-  MARATHON_DEPLOYMENT_ROLLBACK_SUCCESS,
-  MARATHON_DEPLOYMENT_ROLLBACK_ERROR,
-  MARATHON_INSTANCE_INFO_SUCCESS,
   MARATHON_INSTANCE_INFO_ERROR,
+  MARATHON_INSTANCE_INFO_SUCCESS,
   MARATHON_QUEUE_CHANGE,
   MARATHON_QUEUE_ERROR,
   MARATHON_SERVICE_CREATE_ERROR,
@@ -37,13 +70,14 @@ import {
   MARATHON_SERVICE_VERSION_ERROR,
   MARATHON_SERVICE_VERSIONS_CHANGE,
   MARATHON_SERVICE_VERSIONS_ERROR,
-  MARATHON_TASK_KILL_SUCCESS,
   MARATHON_TASK_KILL_ERROR,
+  MARATHON_TASK_KILL_SUCCESS,
   VISIBILITY_CHANGE
 } from '../constants/EventTypes';
-var HealthStatus = require('../constants/HealthStatus');
-var MarathonActions = require('../events/MarathonActions');
-var ServiceImages = require('../constants/ServiceImages');
+import PluginSDK from 'PluginSDK';
+import Service from '../structs/Service';
+import ServiceImages from '../constants/ServiceImages';
+import ServiceTree from '../structs/ServiceTree';
 import VisibilityStore from './VisibilityStore';
 
 var requestInterval = null;
@@ -79,112 +113,152 @@ class MarathonStore extends GetSetBaseStore {
       info: {}
     };
 
+    PluginSDK.addStoreConfig({
+      store: this,
+      storeID: this.storeID,
+      events: {
+        appsSuccess: MARATHON_APPS_CHANGE,
+        appsError: MARATHON_APPS_ERROR,
+        deploymentsSuccess: MARATHON_DEPLOYMENTS_CHANGE,
+        deploymentsError: MARATHON_DEPLOYMENTS_ERROR,
+        deploymentRollbackSuccess: MARATHON_DEPLOYMENT_ROLLBACK_SUCCESS,
+        deploymentRollbackError: MARATHON_DEPLOYMENT_ROLLBACK_ERROR,
+        instanceInfoSuccess: MARATHON_INSTANCE_INFO_SUCCESS,
+        instanceInfoError: MARATHON_INSTANCE_INFO_ERROR,
+        groupCreateSuccess: MARATHON_GROUP_CREATE_SUCCESS,
+        groupCreateError: MARATHON_GROUP_CREATE_ERROR,
+        groupDeleteSuccess: MARATHON_GROUP_DELETE_SUCCESS,
+        groupDeleteError: MARATHON_GROUP_DELETE_ERROR,
+        groupEditSuccess: MARATHON_GROUP_EDIT_SUCCESS,
+        groupEditError: MARATHON_GROUP_EDIT_ERROR,
+        groupsSuccess: MARATHON_GROUPS_CHANGE,
+        groupsError: MARATHON_GROUPS_ERROR,
+        serviceCreateError: MARATHON_SERVICE_CREATE_ERROR,
+        serviceCreateSuccess: MARATHON_SERVICE_CREATE_SUCCESS,
+        serviceDeleteError: MARATHON_SERVICE_DELETE_ERROR,
+        serviceDeleteSuccess: MARATHON_SERVICE_DELETE_SUCCESS,
+        serviceEditError: MARATHON_SERVICE_EDIT_ERROR,
+        serviceEditSuccess: MARATHON_SERVICE_EDIT_SUCCESS,
+        serviceRestartError: MARATHON_SERVICE_RESTART_ERROR,
+        serviceRestartSuccess: MARATHON_SERVICE_RESTART_SUCCESS,
+        taskKillSuccess: MARATHON_TASK_KILL_SUCCESS,
+        taskKillError: MARATHON_TASK_KILL_ERROR
+      },
+      unmountWhen: function (store, event) {
+        if (event === 'appsSuccess') {
+          return store.hasProcessedApps();
+        }
+        return true;
+      },
+      listenAlways: true
+    });
+
     this.dispatcherIndex = AppDispatcher.register((payload) => {
-      if (payload.source !== ActionTypes.SERVER_ACTION) {
+      if (payload.source !== SERVER_ACTION) {
         return false;
       }
 
       var action = payload.action;
       switch (action.type) {
-        case ActionTypes.REQUEST_MARATHON_INSTANCE_INFO_ERROR:
+        case REQUEST_MARATHON_INSTANCE_INFO_ERROR:
           this.emit(MARATHON_INSTANCE_INFO_ERROR, action.data);
           break;
-        case ActionTypes.REQUEST_MARATHON_INSTANCE_INFO_SUCCESS:
+        case REQUEST_MARATHON_INSTANCE_INFO_SUCCESS:
           this.processMarathonInfoRequest(action.data);
           break;
-        case ActionTypes.REQUEST_MARATHON_GROUP_CREATE_ERROR:
+        case REQUEST_MARATHON_GROUP_CREATE_ERROR:
           this.emit(MARATHON_GROUP_CREATE_ERROR, action.data);
           break;
-        case ActionTypes.REQUEST_MARATHON_GROUP_CREATE_SUCCESS:
+        case REQUEST_MARATHON_GROUP_CREATE_SUCCESS:
           this.emit(MARATHON_GROUP_CREATE_SUCCESS);
           break;
-        case ActionTypes.REQUEST_MARATHON_GROUP_DELETE_ERROR:
+        case REQUEST_MARATHON_GROUP_DELETE_ERROR:
           let groupErrorMessage = action.data;
           if (!Object.keys(groupErrorMessage).length) {
             groupErrorMessage = 'Error destroying group';
           }
           this.emit(MARATHON_GROUP_DELETE_ERROR, groupErrorMessage);
           break;
-        case ActionTypes.REQUEST_MARATHON_GROUP_DELETE_SUCCESS:
+        case REQUEST_MARATHON_GROUP_DELETE_SUCCESS:
           this.emit(MARATHON_GROUP_DELETE_SUCCESS);
           break;
-        case ActionTypes.REQUEST_MARATHON_GROUP_EDIT_ERROR:
+        case REQUEST_MARATHON_GROUP_EDIT_ERROR:
           this.emit(MARATHON_GROUP_EDIT_ERROR, action.data);
           break;
-        case ActionTypes.REQUEST_MARATHON_GROUP_EDIT_SUCCESS:
+        case REQUEST_MARATHON_GROUP_EDIT_SUCCESS:
           this.emit(MARATHON_GROUP_EDIT_SUCCESS);
           break;
-        case ActionTypes.REQUEST_MARATHON_SERVICE_CREATE_ERROR:
+        case REQUEST_MARATHON_SERVICE_CREATE_ERROR:
           this.emit(MARATHON_SERVICE_CREATE_ERROR, action.data);
           break;
-        case ActionTypes.REQUEST_MARATHON_SERVICE_CREATE_SUCCESS:
+        case REQUEST_MARATHON_SERVICE_CREATE_SUCCESS:
           this.emit(MARATHON_SERVICE_CREATE_SUCCESS);
           break;
-        case ActionTypes.REQUEST_MARATHON_SERVICE_DELETE_ERROR:
+        case REQUEST_MARATHON_SERVICE_DELETE_ERROR:
           let message = action.data;
           if (!Object.keys(message).length) {
             message = 'Error destroying service';
           }
           this.emit(MARATHON_SERVICE_DELETE_ERROR, message);
           break;
-        case ActionTypes.REQUEST_MARATHON_SERVICE_DELETE_SUCCESS:
+        case REQUEST_MARATHON_SERVICE_DELETE_SUCCESS:
           this.emit(MARATHON_SERVICE_DELETE_SUCCESS);
           break;
-        case ActionTypes.REQUEST_MARATHON_SERVICE_EDIT_ERROR:
+        case REQUEST_MARATHON_SERVICE_EDIT_ERROR:
           this.emit(MARATHON_SERVICE_EDIT_ERROR, action.data);
           break;
-        case ActionTypes.REQUEST_MARATHON_SERVICE_EDIT_SUCCESS:
+        case REQUEST_MARATHON_SERVICE_EDIT_SUCCESS:
           this.emit(MARATHON_SERVICE_EDIT_SUCCESS);
           break;
-        case ActionTypes.REQUEST_MARATHON_SERVICE_RESTART_ERROR:
+        case REQUEST_MARATHON_SERVICE_RESTART_ERROR:
           this.emit(MARATHON_SERVICE_RESTART_ERROR, action.data);
           break;
-        case ActionTypes.REQUEST_MARATHON_SERVICE_RESTART_SUCCESS:
+        case REQUEST_MARATHON_SERVICE_RESTART_SUCCESS:
           this.emit(MARATHON_SERVICE_RESTART_SUCCESS);
           break;
-        case ActionTypes.REQUEST_MARATHON_GROUPS_SUCCESS:
+        case REQUEST_MARATHON_GROUPS_SUCCESS:
           this.processMarathonGroups(action.data);
           break;
-        case ActionTypes.REQUEST_MARATHON_DEPLOYMENTS_SUCCESS:
+        case REQUEST_MARATHON_DEPLOYMENTS_SUCCESS:
           this.processMarathonDeployments(action.data);
           break;
-        case ActionTypes.REQUEST_MARATHON_GROUPS_ERROR:
+        case REQUEST_MARATHON_GROUPS_ERROR:
           this.processMarathonGroupsError();
           break;
-        case ActionTypes.REQUEST_MARATHON_DEPLOYMENTS_ERROR:
+        case REQUEST_MARATHON_DEPLOYMENTS_ERROR:
           this.processMarathonDeploymentsError();
           break;
-        case ActionTypes.REQUEST_MARATHON_GROUPS_ONGOING:
+        case REQUEST_MARATHON_GROUPS_ONGOING:
           this.processOngoingRequest();
           break;
-        case ActionTypes.REQUEST_MARATHON_QUEUE_SUCCESS:
+        case REQUEST_MARATHON_QUEUE_SUCCESS:
           this.processMarathonQueue(action.data);
           break;
-        case ActionTypes.REQUEST_MARATHON_QUEUE_ERROR:
+        case REQUEST_MARATHON_QUEUE_ERROR:
           this.processMarathonQueueError();
           break;
-        case ActionTypes.REQUEST_MARATHON_SERVICE_VERSION_SUCCESS:
+        case REQUEST_MARATHON_SERVICE_VERSION_SUCCESS:
           this.processMarathonServiceVersion(action.data);
           break;
-        case ActionTypes.REQUEST_MARATHON_SERVICE_VERSION_ERROR:
+        case REQUEST_MARATHON_SERVICE_VERSION_ERROR:
           this.processMarathonServiceVersionError();
           break;
-        case ActionTypes.REQUEST_MARATHON_SERVICE_VERSIONS_SUCCESS:
+        case REQUEST_MARATHON_SERVICE_VERSIONS_SUCCESS:
           this.processMarathonServiceVersions(action.data);
           break;
-        case ActionTypes.REQUEST_MARATHON_SERVICE_VERSIONS_ERROR:
+        case REQUEST_MARATHON_SERVICE_VERSIONS_ERROR:
           this.processMarathonServiceVersionsError();
           break;
-        case ActionTypes.REQUEST_MARATHON_DEPLOYMENT_ROLLBACK_SUCCESS:
+        case REQUEST_MARATHON_DEPLOYMENT_ROLLBACK_SUCCESS:
           this.processMarathonDeploymentRollback(action.data);
           break;
-        case ActionTypes.REQUEST_MARATHON_DEPLOYMENT_ROLLBACK_ERROR:
+        case REQUEST_MARATHON_DEPLOYMENT_ROLLBACK_ERROR:
           this.processMarathonDeploymentRollbackError(action.data);
           break;
-        case ActionTypes.REQUEST_MARATHON_TASK_KILL_SUCCESS:
+        case REQUEST_MARATHON_TASK_KILL_SUCCESS:
           this.emit(MARATHON_TASK_KILL_SUCCESS);
           break;
-        case ActionTypes.REQUEST_MARATHON_TASK_KILL_ERROR:
+        case REQUEST_MARATHON_TASK_KILL_ERROR:
           this.emit(MARATHON_TASK_KILL_ERROR);
           break;
       }
