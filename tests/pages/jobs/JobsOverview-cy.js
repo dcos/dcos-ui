@@ -8,11 +8,6 @@ describe('Jobs Overview', function () {
       cy.visitUrl({url: '/jobs'});
     });
 
-    it('has the right active navigation entry', function () {
-      cy.get('.page-navigation-list .tab-item.active')
-        .should('to.have.text', 'Jobs');
-    });
-
     it('displays jobs overview page', function () {
       cy.get('tbody tr:visible').should('to.have.length', 3);
     });
