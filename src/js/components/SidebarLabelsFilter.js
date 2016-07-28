@@ -90,7 +90,7 @@ class SidebarLabelsFilters extends mixin(QueryParamsMixin) {
       html: (
         <div className="button-split-content-wrapper">
           <span className="button-split-content-item">
-            Labels
+            Filter by Label
           </span>
         </div>
       ),
