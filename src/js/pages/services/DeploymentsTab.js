@@ -168,7 +168,9 @@ class DeploymentsTab extends mixin(StoreMixin) {
   }
 
   renderStatus(prop, deployment) {
-    const title = `Step ${deployment.getCurrentStep()} of ${deployment.getTotalSteps()}`;
+    const currentStep = deployment.getCurrentStep();
+    const totalSteps = deployment.getTotalSteps();
+    const title = `Step ${currentStep} of ${totalSteps}`;
     const services = deployment.getAffectedServices();
 
     let currentActions = {};
