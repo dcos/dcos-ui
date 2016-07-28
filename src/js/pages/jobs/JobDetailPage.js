@@ -193,6 +193,7 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
         Run Now
       </button>,
       <Dropdown
+        anchorRight={true}
         buttonClassName="dropdown-toggle button button-inverse button-stroke"
         dropdownMenuClassName="dropdown-menu inverse"
         dropdownMenuListClassName="dropdown-menu-list"
@@ -202,8 +203,10 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
         key="more"
         onItemSelection={this.handleMoreDropdownSelection}
         persistentID="more"
+        scrollContainer=".gm-scroll-view"
+        scrollContainerParentSelector=".gm-prevented"
         transition={true}
-        wrapperClassName="dropdown anchor-right" />
+        wrapperClassName="dropdown" />
     ];
   }
 

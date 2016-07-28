@@ -247,6 +247,8 @@ class TaskLogsTab extends React.Component {
         initialID={selectedName}
         items={this.getDropdownItems(logFiles)}
         onItemSelection={this.onItemSelection.bind(this)}
+        scrollContainer=".gm-scroll-view"
+        scrollContainerParentSelector=".gm-prevented"
         transition={true}
         transitionName="dropdown-menu"
         wrapperClassName="dropdown form-group" />

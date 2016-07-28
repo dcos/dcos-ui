@@ -156,6 +156,8 @@ class ServiceDetailConfigurationTab extends React.Component {
         key="version-dropdown"
         onItemSelection={this.handleVersionSelection}
         persistentID={this.state.selectedVersionID}
+        scrollContainer=".gm-scroll-view"
+        scrollContainerParentSelector=".gm-prevented"
         transition={true}
         transitionName="dropdown-menu"
         wrapperClassName="dropdown" />

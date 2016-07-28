@@ -106,6 +106,8 @@ class SidebarLabelsFilters extends mixin(QueryParamsMixin) {
         items={labelOptions}
         onItemSelection={this.handleActionSelection}
         persistentID="0"
+        scrollContainer=".gm-scroll-view"
+        scrollContainerParentSelector=".gm-prevented"
         transition={true}
         transitionName="dropdown-menu"
         wrapperClassName="dropdown dropdown-wide" />

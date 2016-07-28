@@ -102,6 +102,8 @@ var FilterByService = React.createClass({
         initialID={this.getSelectedId(this.props.byServiceFilter)}
         onItemSelection={this.handleItemSelection}
         ref={(ref) => this.dropdown = ref}
+        scrollContainer=".gm-scroll-view"
+        scrollContainerParentSelector=".gm-prevented"
         transition={true}
         transitionName="dropdown-menu" />
     );

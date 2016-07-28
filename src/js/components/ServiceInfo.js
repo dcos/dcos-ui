@@ -56,14 +56,17 @@ class ServiceInfo extends React.Component {
       </button>,
       <Dropdown
         key="actions-dropdown"
+        anchorRight={true}
         buttonClassName="button button-stroke button-inverse dropdown-toggle"
         dropdownMenuClassName="dropdown-menu"
         dropdownMenuListClassName="dropdown-menu-list"
         dropdownMenuListItemClassName="clickable"
-        wrapperClassName="dropdown anchor-right flush-bottom"
+        wrapperClassName="dropdown flush-bottom"
         items={dropdownItems}
         persistentID={ServiceActionItem.MORE}
         onItemSelection={this.props.onActionsItemSelection}
+        scrollContainer=".gm-scroll-view"
+        scrollContainerParentSelector=".gm-prevented"
         transition={true}
         transitionName="dropdown-menu" />
     ];
