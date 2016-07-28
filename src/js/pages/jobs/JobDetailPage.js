@@ -313,6 +313,7 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
             id="repeat"
             size="mini"
             family="small" />
+          <span className="job-details-header-status">Scheduled</span>
           <span>{scheduleText}</span>
         </p>
       );

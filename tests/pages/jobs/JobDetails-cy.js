@@ -22,7 +22,7 @@ describe('Job Details', function () {
 
     it('renders the pretty cron schedule', function () {
       cy.get('.page-header-sub-heading')
-        .should('contain', '01:00 on the 6th in Sep');
+        .should('contain', 'Scheduled 01:00 on the 6th in Sep');
     });
 
     it('renders the relative time of the longest running task', function () {
