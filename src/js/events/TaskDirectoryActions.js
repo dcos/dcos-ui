@@ -82,6 +82,7 @@ var TaskDirectoryActions = {
       return function (task, cb) {
         return RequestUtil.json({
           url: TaskDirectoryActions.getNodeStateJSON(task),
+          timeout: 5000,
           success: function (response) {
             resolve();
             cb(response);
