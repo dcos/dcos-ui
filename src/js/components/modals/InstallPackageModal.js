@@ -454,7 +454,7 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
         <div className="modal-content">
           <div className="horizontal-center modal-content-inner container container-pod container-pod-short text-align-center">
             <span className="text-success">
-              <Icon id="ring-check" size="jumbo" />
+              <Icon id="ring-check" size="large" />
             </span>
             <h2 className="short-top short-bottom">Success!</h2>
             <div
