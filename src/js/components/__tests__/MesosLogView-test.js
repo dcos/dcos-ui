@@ -278,8 +278,11 @@ describe('MesosLogView', function () {
         <MesosLogView filePath="/some/file/path" task={{slave_id: 'foo'}} />,
         this.container
       );
-      var result = this.container.querySelector('a.clickable');
-      expect(result.textContent).toEqual('working directory');
+
+      this.instance.getEmptyDirectoryScreen = jasmine.createSpy('getEmptyDirectoryScreen');
+
+      this.instance.render();
+      expect(this.instance.getEmptyDirectoryScreen).toHaveBeenCalled();
     });
 
   });

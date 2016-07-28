@@ -238,14 +238,6 @@ class MesosLogView extends mixin(StoreMixin) {
         <h3 className="text-align-center flush-top">
           This directory does not contain any logs.
         </h3>
-        <p className="text-align-center flush-bottom">
-          Go back to your&nbsp;
-          <a
-            className="clickable"
-            onClick={this.handleGoToWorkingDirectory}>
-            working directory
-          </a>
-        </p>
       </div>
     );
   }
@@ -273,6 +265,7 @@ class MesosLogView extends mixin(StoreMixin) {
 
   getLog() {
     let {props, state} = this;
+
     if (!props.logName) {
       return this.getEmptyDirectoryScreen();
     }
