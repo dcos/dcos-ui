@@ -123,6 +123,11 @@ class ServiceForm extends SchemaForm {
     });
 
     this.forceUpdate();
+
+    // Due to an as-yet untraced bug in the SchemaForm, the render resulting
+    // from the initial invocation of validateForm does not cause error
+    // messages to be shown, but the second render does. Hence we validate
+    // twice.
     if (!secondTimeLucky) {
       this.validateForm(true);
     }
