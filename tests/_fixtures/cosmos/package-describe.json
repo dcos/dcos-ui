@@ -279,7 +279,7 @@
           },
           "uris": {
             "default": [
-
+              
             ],
             "description": "List of URIs that will be download and made available in the current working directory of Marathon. For example this can be used to download a Java keystore file for SSL configuration.",
             "items": {

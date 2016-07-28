@@ -12,7 +12,7 @@ describe('Sidebar Filter', function () {
     });
 
     it('filters correctly on Labels', function () {
-      cy.get('.sidebar-filters .dropdown').contains('Labels').click();
+      cy.get('.sidebar-filters .dropdown').contains('Filter by Label').click();
       cy.get('.sidebar-filters .dropdown-menu .is-selectable').first().click();
       cy.get('tbody tr:visible').should('to.have.length', 4);
       cy.get('.sidebar-filters ul.list-unstyled li')
