@@ -15,6 +15,7 @@ import Icon from '../../components/Icon';
 import MarathonActions from '../../events/MarathonActions';
 import NestedServiceLinks from '../../components/NestedServiceLinks';
 import ResourceTableUtil from '../../utils/ResourceTableUtil';
+import StatusBar from '../../components/StatusBar';
 import StringUtil from '../../utils/StringUtil';
 import TimeAgo from '../../components/TimeAgo';
 
@@ -171,6 +172,7 @@ class DeploymentsTab extends mixin(StoreMixin) {
     const currentStep = deployment.getCurrentStep();
     const totalSteps = deployment.getTotalSteps();
     const title = `Step ${currentStep} of ${totalSteps}`;
+    const statusBar = this.renderStatusBar(currentStep, totalSteps);
     const services = deployment.getAffectedServices();
 
     let currentActions = {};
@@ -198,9 +200,24 @@ class DeploymentsTab extends mixin(StoreMixin) {
 
     return (
       <div>
+        {statusBar}
         <span className="deployment-step">{title}</span>
         <ol className="deployment-status-list list-unstyled flush-bottom">{items}</ol>
       </div>
+    );
+  }
+
+  renderStatusBar(currentStep, totalSteps) {
+    let data = [
+      {className: 'color-4', value: currentStep - 1},
+      {className: 'staged', value: 1},
+      {className: '', value: totalSteps - currentStep}
+    ];
+
+    return (
+      <StatusBar
+        className="progress-bar flex-box status-bar deployment-status-bar"
+        data={data} />
     );
   }
 
