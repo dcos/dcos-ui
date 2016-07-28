@@ -14,7 +14,7 @@ import {
   MESOS_INITIALIZE_LOG_REQUEST_ERROR,
   MESOS_LOG_CHANGE,
   MESOS_LOG_REQUEST_ERROR
-} from '../constants/EventTypes';;
+} from '../constants/EventTypes';
 import GetSetBaseStore from './GetSetBaseStore';
 import Item from '../structs/Item';
 import LogBuffer from '../structs/LogBuffer';
