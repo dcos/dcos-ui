@@ -142,7 +142,6 @@ var TimeSeriesChart = React.createClass({
             height={props.height}
             x={x}
             y={0}
-            fill="black"
             className="unsuccessful-block"
             transitionDuration={props.refreshRate}
             transform={`translate(${-nextY}, 0)`}
@@ -428,6 +427,7 @@ var TimeSeriesChart = React.createClass({
     var yScale = this.getYScale(height, props.maxY);
     var clipPath = 'url(#' + store.clipPathID + ')';
     var maskID = this.internalStorage_get().maskID;
+    var unsuccessfulBlocks = this.createUnsuccessfulBlocks(props.data[0].values, xTimeScale);
 
     return (
       <div className="timeseries-chart">
@@ -460,6 +460,9 @@ var TimeSeriesChart = React.createClass({
           ref="movingEls"
           className="moving-elements">
           <g transform={'translate(' + margin.left + ',' + margin.top + ')'}>
+            <g className="area path-color-7" clipPath={clipPath}>
+              {unsuccessfulBlocks}
+            </g>
             <g ref="masking" mask={`url(#${maskID})`} clipPath={clipPath}>
               {this.getAreaList(props, yScale, xTimeScale)}
             </g>
@@ -468,7 +471,7 @@ var TimeSeriesChart = React.createClass({
           <defs>
             <mask ref="maskDef" id={store.maskID}>
               <rect x="0" y="0" width={width} height={height} fill="white" />
-              {this.createUnsuccessfulBlocks(props.data[0].values, xTimeScale)}
+              {unsuccessfulBlocks}
             </mask>
           </defs>
         </svg>

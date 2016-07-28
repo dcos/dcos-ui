@@ -37,6 +37,15 @@
     text-shadow: 0px 0px 10px fade(@white, 6%);
   }
 
+  .unsuccessful-block {
+    fill: @black;
+  }
+
+  [class*="path-color"] .unsuccessful-block {
+    fill: inherit;
+    fill-opacity: 1;
+  }
+
   .arc,
   .area,
   .bar rect {
