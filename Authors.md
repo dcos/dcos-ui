@@ -12,5 +12,5 @@ Orlando Hohmeier | orlando@mesosphere.com | Current Maintainer
 Pierluigi Cau | pierlo@mesosphere.com | Current Maintainer
 Philipp Hinrichsen | philipph@mesosphere.com | Current Maintainer
 Philip Norman | philip@mesosphere.com | Current Maintainer
-Felix Gertz | felix@mesosphere.com | Current Maintainer
+Felix Gertz | https://github.com/aldipower | Contributor
 Kenny Tran | kenny8tran@gmail.com | Contributor
