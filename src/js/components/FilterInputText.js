@@ -26,7 +26,7 @@ class FilterInputText extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (prevState.state !== this.state.focus && this.state.focus && this.inputField) {
+    if (prevState.focus !== this.state.focus && this.state.focus && this.inputField) {
       this.inputField.focus();
     }
   }
@@ -109,27 +109,27 @@ class FilterInputText extends React.Component {
   }
 
   render() {
-    let props = this.props;
-    let focus = this.state.focus;
+    let {className, inputContainerClass, inverseStyle} = this.props;
+    let {focus} = this.state;
 
     let iconColor = 'white';
     let iconSearchClasses = classNames({
       'active': focus
     });
 
-    if (!props.inverseStyle && focus) {
+    if (!inverseStyle && focus) {
       iconColor = 'purple';
     }
 
     let inputContainerClasses = classNames({
       'form-control form-control-group filter-input-text-group': true,
-      'form-control-inverse': props.inverseStyle,
+      'form-control-inverse': inverseStyle,
       'focus': focus
-    }, props.inputContainerClass);
+    }, inputContainerClass);
 
     let formGroupClasses = classNames(
       'form-group',
-      props.className
+      className
     );
 
     return (
@@ -154,10 +154,9 @@ class FilterInputText extends React.Component {
 }
 
 FilterInputText.defaultProps = {
-  handleFilterChange: function () {},
   inverseStyle: false,
   placeholder: 'Filter',
-  searchString: ''
+  sideText: null
 };
 
 FilterInputText.propTypes = {

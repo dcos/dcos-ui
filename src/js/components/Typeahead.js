@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import InnerTypeahead from 'mesosphere-react-typeahead';
 /* eslint-disable no-unused-vars */
 import React, {PropTypes} from 'react';
@@ -10,28 +11,23 @@ class Typeahead extends FilterInputText {
     this.props.handleFilterChange(input);
   }
 
-  componentWillUpdate() {
-    if (this.inputField == null && this.typeahead) {
-      if (this.typeahead.refs.inner) {
-        if (this.typeahead.refs.inner.inputComponent) {
-          this.inputField = this.typeahead.refs.inner.inputComponent.input;
-        }
-      }
-    }
+  renderClearIcon() {
+    return this.getClearIcon();
   }
 
-  renderClearIcon() {
-    if (this.inputField && this.inputField.value) {
-      return this.getClearIcon();
-    }
+  handleClearInput() {
+    if (this.typeahead) {
+      this.typeahead.clear();
+    };
   }
 
   getInputField() {
     let {
       emptyLabel,
       labelKey,
-      onChange,
+      inverseStyle,
       items,
+      onChange,
       placeholder,
       selected
     } = this.props;
@@ -40,8 +36,12 @@ class Typeahead extends FilterInputText {
       selected = [];
     }
 
+    let classSet = classNames('typeahead', {
+      'inverse': inverseStyle
+    });
+
     return (
-      <div className="typeahead inverse">
+      <div className={classSet}>
         <InnerTypeahead
           emptyLabel={emptyLabel}
           labelKey={labelKey}
@@ -49,7 +49,7 @@ class Typeahead extends FilterInputText {
           onInputChange={this.handleInputChange}
           options={items}
           placeholder={placeholder}
-          ref={(ref) => this.typeahead = ref}
+          ref={ref => { if (ref) { this.typeahead = ref.getInstance(); } }}
           selected={selected}
           typeaheadMenuClassName="dropdown-menu-list"
           typeaheadMenuWrapperClassName="dropdown-menu" />
