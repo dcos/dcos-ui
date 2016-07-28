@@ -60,8 +60,7 @@ const pruneHealthCheckAttributes = function (healthCheckSchema, healthCheck) {
 };
 
 const ServiceUtil = {
-  createServiceFromFormModel: function (formModel, schema, isEdit = false) {
-    let definition = {};
+  createServiceFromFormModel: function (formModel, schema, isEdit = false, definition = {}) {
 
     if (formModel != null) {
       let {
@@ -382,7 +381,8 @@ const ServiceUtil = {
   },
 
   getAppDefinitionFromService: function (service) {
-    let appDefinition = {};
+
+    let appDefinition = JSON.parse(service.toJSON());
 
     // General
     appDefinition.id = service.getId();
