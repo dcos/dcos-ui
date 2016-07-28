@@ -467,9 +467,9 @@ class ServiceFormModal extends mixin(StoreMixin) {
     let title = (
       <div className="header-flex">
         <div className="header-left">
-          <h4 className="flush-top flush-bottom text-color-neutral">
+          <span className="h4 flush-top flush-bottom text-color-neutral">
             {titleText}
-          </h4>
+          </span>
         </div>
         <div className="header-right">
           <ToggleButton
