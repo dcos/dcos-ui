@@ -14,8 +14,9 @@ describe('NetworkValidatorUtil', function () {
     });
 
     it('should properly handle wrong value types', function () {
-      expect(NetworkValidatorUtil.isValidPort('not a number 666'))
-        .toBe(false);
+      expect(NetworkValidatorUtil.isValidPort('not a number 666')).toBe(false);
+      expect(NetworkValidatorUtil.isValidPort('80.80')).toBe(false);
+      expect(NetworkValidatorUtil.isValidPort('1.1')).toBe(false);
     });
 
     it('should handle number like inputs', function () {
