@@ -101,11 +101,24 @@ class ActionsModal extends mixin(StoreMixin) {
   }
 
   getActionsModalContents() {
-    let {actionText, itemType, selectedItems} = this.props;
+    let {actionText, itemType} = this.props;
     let {requestErrors, validationError} = this.state;
 
+    return (
+      <div className="container-pod container-pod-short text-align-center">
+        <h3 className="flush-top">{actionText.title}</h3>
+        <p>{this.getActionsModalContentsText()}</p>
+        {this.getDropdown(itemType)}
+        {this.getErrorMessage(validationError)}
+        {this.getRequestErrorMessage(requestErrors)}
+      </div>
+    );
+  }
+
+  getActionsModalContentsText() {
+    let {actionText, selectedItems} = this.props;
+
     let selectedItemsString = '';
-    let actionContent = '';
     if (selectedItems.length === 1) {
       selectedItemsString = selectedItems[0].description;
     } else {
@@ -137,20 +150,10 @@ class ActionsModal extends mixin(StoreMixin) {
       }
     }
     if (actionText.phraseFirst) {
-      actionContent = `${actionText.actionPhrase} ${selectedItemsString}.`;
+      return `${actionText.actionPhrase} ${selectedItemsString}.`;
     } else {
-      actionContent = `${selectedItemsString} ${actionText.actionPhrase}.`;
+      return `${selectedItemsString} ${actionText.actionPhrase}.`;
     }
-
-    return (
-      <div className="container-pod container-pod-short text-align-center">
-        <h3 className="flush-top">{actionText.title}</h3>
-        <p>{actionContent}</p>
-        {this.getDropdown(itemType)}
-        {this.getErrorMessage(validationError)}
-        {this.getRequestErrorMessage(requestErrors)}
-      </div>
-    );
   }
 
   getDropdown(itemType) {
