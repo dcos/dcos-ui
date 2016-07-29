@@ -161,7 +161,7 @@ class JobsTab extends mixin(StoreMixin, QueryParamsMixin, SaveStateMixin) {
   getAlertPanelFooter() {
     return (
       <div className="button-collection flush-bottom">
-        <button className="button button-stroke button-inverse"
+        <button className="button button-success"
           onClick={this.handleOpenJobFormModal}>
           Create Job
         </button>
