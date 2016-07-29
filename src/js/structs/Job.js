@@ -62,8 +62,13 @@ module.exports = class Job extends Item {
     return mem;
   }
 
+  // TODO DCOS-8898 only get history summary
+  getLastRunsSummary() {
+    return this.get('history') || {};
+  }
+
   getLastRunStatus() {
-    let {lastFailureAt = null, lastSuccessAt = null} = this.getStatus();
+    let {lastFailureAt, lastSuccessAt} = this.getLastRunsSummary();
     let status = 'N/A';
     let time = null;
 
@@ -121,7 +126,4 @@ module.exports = class Job extends Item {
     return 'COMPLETED';
   }
 
-  getStatus() {
-    return this.get('status') || {};
-  }
 };

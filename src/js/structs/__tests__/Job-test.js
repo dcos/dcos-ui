@@ -230,7 +230,7 @@ describe('Job', function () {
     it('returns an object with the time in ms', function () {
       let job = new Job({
         id: 'test.job',
-        status: {
+        history: {
           lastSuccessAt: '1990-04-30T00:00:00Z',
           lastFailureAt: '1985-04-30T00:00:00Z'
         }
@@ -242,7 +242,7 @@ describe('Job', function () {
     it('returns the most recent status', function () {
       let job = new Job({
         id: 'test.job',
-        status: {
+        history: {
           lastSuccessAt: '1990-04-30T00:00:00Z',
           lastFailureAt: '1985-04-30T00:00:00Z'
         }
@@ -254,7 +254,7 @@ describe('Job', function () {
     it('returns the most recent status', function () {
       let job = new Job({
         id: 'test.job',
-        status: {
+        history: {
           lastSuccessAt: '1985-04-30T00:00:00Z',
           lastFailureAt: '1990-04-30T00:00:00Z'
         }
@@ -266,7 +266,7 @@ describe('Job', function () {
     it('returns N/A status if both are undefiend', function () {
       let job = new Job({
         id: 'test.job',
-        status: {}
+        history: {}
       });
 
       expect(job.getLastRunStatus().status).toEqual('N/A');
@@ -276,7 +276,7 @@ describe('Job', function () {
     it('returns success if lastFailureAt is undefiend', function () {
       let job = new Job({
         id: 'test.job',
-        status: {
+        history: {
           lastSuccessAt: '1990-04-30T00:00:00Z'
         }
       });
@@ -287,7 +287,7 @@ describe('Job', function () {
     it('returns success if lastSuccessAt is undefiend', function () {
       let job = new Job({
         id: 'test.job',
-        status: {
+        history: {
           lastFailureAt: '1990-04-30T00:00:00Z'
         }
       });
@@ -372,29 +372,6 @@ describe('Job', function () {
       });
 
       expect(job.getScheduleStatus()).toEqual('UNSCHEDULED');
-    });
-
-  });
-
-  describe('#getStatus', function () {
-
-    it('returns the status key', function () {
-      let job = new Job({
-        id: '/foo',
-        status: {
-          lastRunAt: 0
-        }
-      });
-
-      expect(job.getStatus()).toEqual({lastRunAt: 0});
-    });
-
-    it('returns empty object when status is undefined', function () {
-      let job = new Job({
-        id: '/foo'
-      });
-
-      expect(job.getStatus()).toEqual({});
     });
 
   });

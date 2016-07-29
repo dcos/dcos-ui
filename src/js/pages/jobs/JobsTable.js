@@ -58,7 +58,7 @@ class JobsTable extends React.Component {
         className,
         heading,
         headerClassName: className,
-        prop: 'lastRunStatus',
+        prop: 'lastRun',
         render: this.renderLastRunStatusColumn
       }
     ];
@@ -68,12 +68,19 @@ class JobsTable extends React.Component {
   getData() {
     return this.props.jobs.map(function (job) {
       let isGroup = job instanceof Tree;
-      let lastRunStatus = null;
+      let lastRun = null;
       let schedules = null;
       let status = null;
 
       if (!isGroup) {
-        lastRunStatus = job.getLastRunStatus().status;
+        let lastRunsSummary = job.getLastRunsSummary();
+
+        lastRun = {
+          status: job.getLastRunStatus().status,
+          lastSuccessAt: lastRunsSummary.lastSuccessAt,
+          lastFailureAt: lastRunsSummary.lastFailureAt
+        };
+
         schedules = job.getSchedules();
         status = job.getScheduleStatus();
       }
@@ -84,7 +91,7 @@ class JobsTable extends React.Component {
         name: job.getName(),
         schedules,
         status,
-        lastRunStatus
+        lastRun
       };
     });
   }
@@ -176,13 +183,43 @@ class JobsTable extends React.Component {
   }
 
   renderLastRunStatusColumn(prop, row) {
-    let value = row[prop];
+    let {lastFailureAt, lastSuccessAt, status} = row[prop];
     let statusClasses = classNames({
-      'text-success': value === 'Success',
-      'text-danger': value === 'Failed'
+      'text-success': status === 'Success',
+      'text-danger': status === 'Failed'
     });
+    let nodes = [];
+    let statusNode = <span className={statusClasses}>{status}</span>;
 
-    return <span className={statusClasses}>{value}</span>;
+    if (lastFailureAt == null && lastSuccessAt == null) {
+      return statusNode;
+    }
+
+    if (lastSuccessAt != null) {
+      nodes.push(
+        <p className="flush-bottom" key="tooltip-success-at">
+          <span className="text-success">Last Success: </span>
+          {new Date(lastSuccessAt).toLocaleString()}
+        </p>
+      );
+    }
+
+    if (lastFailureAt != null) {
+      nodes.push(
+        <p className="flush-bottom" key="tooltip-failure-at">
+          <span className="text-danger">Last Failure: </span>
+          {new Date(lastFailureAt).toLocaleString()}
+        </p>
+      );
+    }
+
+    return (
+      <Tooltip
+        wrapperClassName="tooltip-wrapper"
+        content={nodes}>
+        {statusNode}
+      </Tooltip>
+    );
   }
 
   renderStatusColumn(prop, {[prop]:statusKey, isGroup}) {

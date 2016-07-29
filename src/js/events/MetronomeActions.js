@@ -53,7 +53,8 @@ const MetronomeActions = {
           url: `${Config.metronomeAPI}/v1/jobs`,
           data: [
             {name: 'embed', value: 'activeRuns'},
-            {name: 'embed', value: 'schedules'}
+            {name: 'embed', value: 'schedules'},
+            {name: 'embed', value: 'history'}
           ],
           success: function (response) {
             try {
