@@ -73,7 +73,7 @@ class JobsTable extends React.Component {
       let status = null;
 
       if (!isGroup) {
-        let lastRunsSummary= job.getLastRunsSummary();
+        let lastRunsSummary = job.getLastRunsSummary();
 
         lastRun = {
           status: job.getLastRunStatus().status,
