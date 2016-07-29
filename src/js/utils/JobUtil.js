@@ -29,8 +29,7 @@ const JobUtil = {
     let spec = {};
     let {
       general = {
-        id: null,
-        description: null
+        id: null
       },
       labels = {},
       docker,
@@ -69,7 +68,7 @@ const JobUtil = {
     let spec = {};
 
     spec.id = job.getId() || null;
-    spec.description = job.getDescription() || null;
+    spec.description = job.getDescription();
 
     spec.run = {
       cmd: job.getCommand(),
