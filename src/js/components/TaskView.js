@@ -1,5 +1,4 @@
 import classNames from 'classnames';
-import deepEqual from 'deep-equal';
 import mixin from 'reactjs-mixin';
 import React from 'react';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
@@ -62,21 +61,16 @@ class TaskView extends mixin(SaveStateMixin, StoreMixin) {
   }
 
   componentWillReceiveProps(nextProps) {
-    let {filterByStatus, searchString} = this.state;
-    let tasks = this.getFilteredTasks(filterByStatus, nextProps.tasks, searchString);
-    let prevTasks = this.getFilteredTasks(filterByStatus, this.props.tasks, searchString);
+    let prevCheckedItems = this.state.checkedItems;
+    let checkedItems = {};
 
-    if (!deepEqual(tasks, prevTasks)) {
-      let checkedItems = {};
+    nextProps.tasks.forEach(function (task) {
+      if (prevCheckedItems[task.id]) {
+        checkedItems[task.id] = true;
+      }
+    });
 
-      tasks.forEach(function (task) {
-        if (prevTasks[task.id]) {
-          checkedItems[task.id] = true;
-        }
-      });
-
-      this.setState({checkedItems});
-    }
+    this.setState({checkedItems});
   }
 
   onStateStoreSuccess() {
