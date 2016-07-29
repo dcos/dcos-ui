@@ -94,7 +94,7 @@ class ManualBreadcrumbs extends React.Component {
     let listItems = [...ReactDOM.findDOMNode(this).children]
       .filter(function (_, index) {
         // Filter out even nodes containing '>'
-        return index % 2;
+        return index % 2 === 0;
       });
 
     return listItems
