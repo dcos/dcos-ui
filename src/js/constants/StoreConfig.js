@@ -1,31 +1,6 @@
 import {
-  HEALTH_NODE_ERROR,
-  HEALTH_NODE_SUCCESS,
-  HEALTH_NODE_UNITS_ERROR,
-  HEALTH_NODE_UNITS_SUCCESS,
-  HEALTH_NODE_UNIT_ERROR,
-  HEALTH_NODE_UNIT_SUCCESS,
-  HEALTH_NODES_CHANGE,
-  HEALTH_NODES_ERROR,
-
-  HEALTH_UNITS_CHANGE,
-  HEALTH_UNITS_ERROR,
-  HEALTH_UNIT_SUCCESS,
-  HEALTH_UNIT_ERROR,
-  HEALTH_UNIT_NODES_SUCCESS,
-  HEALTH_UNIT_NODES_ERROR,
-  HEALTH_UNIT_NODE_SUCCESS,
-  HEALTH_UNIT_NODE_ERROR,
-
   MESOS_STATE_CHANGE,
   MESOS_STATE_REQUEST_ERROR,
-
-  NOTIFICATION_CHANGE,
-
-  SIDEBAR_WIDTH_CHANGE,
-
-  TASK_DIRECTORY_CHANGE,
-  TASK_DIRECTORY_ERROR,
 
   USER_CREATE_ERROR,
   USER_CREATE_SUCCESS,
@@ -41,64 +16,12 @@ import {
   VISIBILITY_CHANGE
 } from './EventTypes';
 import MesosStateStore from '../stores/MesosStateStore';
-import NodeHealthStore from '../stores/NodeHealthStore';
-import NotificationStore from '../stores/NotificationStore';
-import SidebarStore from '../stores/SidebarStore';
-import TaskDirectoryStore from '../stores/TaskDirectoryStore';
-import UnitHealthStore from '../stores/UnitHealthStore';
 import UserStore from '../stores/UserStore';
 import UsersStore from '../stores/UsersStore';
 import VirtualNetworksStore from '../stores/VirtualNetworksStore';
 import VisibilityStore from '../stores/VisibilityStore';
 
 const ListenersDescription = {
-  unitHealth: {
-    store: UnitHealthStore,
-    events: {
-      success: HEALTH_UNITS_CHANGE,
-      error: HEALTH_UNITS_ERROR,
-      unitSuccess: HEALTH_UNIT_SUCCESS,
-      unitError: HEALTH_UNIT_ERROR,
-      nodesSuccess: HEALTH_UNIT_NODES_SUCCESS,
-      nodesError: HEALTH_UNIT_NODES_ERROR,
-      nodeSuccess: HEALTH_UNIT_NODE_SUCCESS,
-      nodeError: HEALTH_UNIT_NODE_ERROR
-    },
-    unmountWhen: function () {
-      return true;
-    },
-    listenAlways: true
-  },
-
-  nodeHealth: {
-    store: NodeHealthStore,
-    events: {
-      success: HEALTH_NODES_CHANGE,
-      error: HEALTH_NODES_ERROR,
-      nodeSuccess: HEALTH_NODE_SUCCESS,
-      nodeError: HEALTH_NODE_ERROR,
-      unitsSuccess: HEALTH_NODE_UNITS_SUCCESS,
-      unitsError: HEALTH_NODE_UNITS_ERROR,
-      unitSuccess: HEALTH_NODE_UNIT_SUCCESS,
-      unitError: HEALTH_NODE_UNIT_ERROR
-    },
-    unmountWhen: function () {
-      return true;
-    },
-    listenAlways: true
-  },
-
-  sidebar: {
-    store: SidebarStore,
-    events: {
-      widthChange: SIDEBAR_WIDTH_CHANGE
-    },
-    unmountWhen: function () {
-      return true;
-    },
-    listenAlways: true
-  },
-
   state: {
     store: MesosStateStore,
     events: {
@@ -109,18 +32,6 @@ const ListenersDescription = {
       if (event === 'success') {
         return Object.keys(store.get('lastMesosState')).length;
       }
-    },
-    listenAlways: true
-  },
-
-  taskDirectory: {
-    store: TaskDirectoryStore,
-    events: {
-      success: TASK_DIRECTORY_CHANGE,
-      error: TASK_DIRECTORY_ERROR
-    },
-    unmountWhen: function () {
-      return true;
     },
     listenAlways: true
   },
@@ -167,17 +78,6 @@ const ListenersDescription = {
     store: VisibilityStore,
     events: {
       change: VISIBILITY_CHANGE
-    },
-    unmountWhen: function () {
-      return true;
-    },
-    listenAlways: true
-  },
-
-  notification: {
-    store: NotificationStore,
-    events: {
-      change: NOTIFICATION_CHANGE
     },
     unmountWhen: function () {
       return true;

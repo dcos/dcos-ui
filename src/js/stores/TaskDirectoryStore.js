@@ -1,8 +1,16 @@
-import GetSetBaseStore from './GetSetBaseStore';
-import ActionTypes from '../constants/ActionTypes';
+import {
+  REQUEST_TASK_DIRECTORY_ERROR,
+  REQUEST_TASK_DIRECTORY_SUCCESS,
+  SERVER_ACTION
+} from '../constants/ActionTypes';
+import {
+  TASK_DIRECTORY_CHANGE,
+  TASK_DIRECTORY_ERROR
+} from '../constants/EventTypes';
 import AppDispatcher from '../events/AppDispatcher';
 import Config from '../config/Config';
-import EventTypes from '../constants/EventTypes';
+import GetSetBaseStore from './GetSetBaseStore';
+import PluginSDK from 'PluginSDK';
 import TaskDirectory from '../structs/TaskDirectory';
 import TaskDirectoryActions from '../events/TaskDirectoryActions';
 
@@ -35,17 +43,30 @@ class TaskDirectoryStore extends GetSetBaseStore {
       innerPath: ''
     };
 
+    PluginSDK.addStoreConfig({
+      store: this,
+      storeID: this.storeID,
+      events: {
+        success: TASK_DIRECTORY_CHANGE,
+        error: TASK_DIRECTORY_ERROR
+      },
+      unmountWhen: function () {
+        return true;
+      },
+      listenAlways: true
+    });
+
     this.dispatcherIndex = AppDispatcher.register((payload) => {
-      if (payload.source !== ActionTypes.SERVER_ACTION) {
+      if (payload.source !== SERVER_ACTION) {
         return false;
       }
 
       var action = payload.action;
       switch (action.type) {
-        case ActionTypes.REQUEST_TASK_DIRECTORY_SUCCESS:
+        case REQUEST_TASK_DIRECTORY_SUCCESS:
           this.processStateSuccess(action.data, action.sandBoxPath);
           break;
-        case ActionTypes.REQUEST_TASK_DIRECTORY_ERROR:
+        case REQUEST_TASK_DIRECTORY_ERROR:
           this.processStateError();
           break;
       }
@@ -62,7 +83,7 @@ class TaskDirectoryStore extends GetSetBaseStore {
   removeChangeListener(eventName, callback) {
     this.removeListener(eventName, callback);
 
-    if (this.listeners(EventTypes.TASK_DIRECTORY_CHANGE).length === 0) {
+    if (this.listeners(TASK_DIRECTORY_CHANGE).length === 0) {
       this.resetRequests();
       this.set({innerPath: '', directory: null});
     }
@@ -83,7 +104,7 @@ class TaskDirectoryStore extends GetSetBaseStore {
   getDirectory(task, deeperPath) {
     this.resetRequests();
     this.set({directory: null});
-    this.emit(EventTypes.TASK_DIRECTORY_CHANGE);
+    this.emit(TASK_DIRECTORY_CHANGE);
 
     startPolling(task, deeperPath);
   }
@@ -99,12 +120,12 @@ class TaskDirectoryStore extends GetSetBaseStore {
   }
 
   processStateError() {
-    this.emit(EventTypes.TASK_DIRECTORY_ERROR);
+    this.emit(TASK_DIRECTORY_ERROR);
   }
 
   processStateSuccess(directory, sandBoxPath) {
     this.set({directory: new TaskDirectory({items: directory}), sandBoxPath});
-    this.emit(EventTypes.TASK_DIRECTORY_CHANGE);
+    this.emit(TASK_DIRECTORY_CHANGE);
   }
 
   get storeID() {

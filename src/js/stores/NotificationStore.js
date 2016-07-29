@@ -1,23 +1,26 @@
 import GetSetBaseStore from './GetSetBaseStore';
-
+import PluginSDK from 'PluginSDK';
 import {NOTIFICATION_CHANGE} from '../constants/EventTypes';
 
 class NotificationStore extends GetSetBaseStore {
-
   constructor() {
     super(...arguments);
 
     this.getSet_data = {
       notificationMap: {}
     };
-  }
 
-  addChangeListener(eventName, callback) {
-    this.on(eventName, callback);
-  }
-
-  removeChangeListener(eventName, callback) {
-    this.removeListener(eventName, callback);
+    PluginSDK.addStoreConfig({
+      store: this,
+      storeID: this.storeID,
+      events: {
+        change: NOTIFICATION_CHANGE
+      },
+      unmountWhen: function () {
+        return true;
+      },
+      listenAlways: true
+    });
   }
 
   setLocationValue(notificationMap, location, notificationID, value) {
