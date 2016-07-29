@@ -182,6 +182,8 @@ class UserDropup extends mixin(StoreMixin) {
           dropdownMenuListClassName="dropdown-menu-list"
           items={this.getDropdownMenu(userMenuItems)}
           persistentID="default-item"
+          scrollContainer=".gm-scroll-view"
+          scrollContainerParentSelector=".gm-prevented"
           transition={true}
           wrapperClassName="sidebar-footer-user-dropdown dropdown" />
         <div className="open">

@@ -68,6 +68,8 @@ class FilterByTaskState extends React.Component {
         items={this.getDropdownItems()}
         onItemSelection={this.onItemSelection}
         persistentID={currentStatus}
+        scrollContainer=".gm-scroll-view"
+        scrollContainerParentSelector=".gm-prevented"
         transition={true}
         transitionName="dropdown-menu" />
     );

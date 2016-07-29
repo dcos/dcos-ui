@@ -473,14 +473,17 @@ var ServicesTable = React.createClass({
     return (
       <Dropdown
         key="actions-dropdown"
+        anchorRight={true}
         buttonClassName="button button-mini dropdown-toggle button-link button-inverse table-display-on-row-hover"
         dropdownMenuClassName="dropdown-menu"
         dropdownMenuListClassName="dropdown-menu-list"
         dropdownMenuListItemClassName="clickable"
-        wrapperClassName="dropdown anchor-right flush-bottom table-cell-icon"
+        wrapperClassName="dropdown flush-bottom table-cell-icon"
         items={dropdownItems}
         persistentID={ServiceActionItem.MORE}
         onItemSelection={this.onActionsItemSelection.bind(this, service)}
+        scrollContainer=".gm-scroll-view"
+        scrollContainerParentSelector=".gm-prevented"
         transition={true}
         transitionName="dropdown-menu" />
     );

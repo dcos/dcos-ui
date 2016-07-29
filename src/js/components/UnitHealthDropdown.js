@@ -51,6 +51,8 @@ class UnitHealthDropdown extends mixin(InternalStorageMixin) {
         items={this.internalStorage_get().dropdownItems}
         onItemSelection={onHealthSelection}
         ref={(ref) => this.dropdown = ref}
+        scrollContainer=".gm-scroll-view"
+        scrollContainerParentSelector=".gm-prevented"
         transition={true}
         wrapperClassName="dropdown" />
     );

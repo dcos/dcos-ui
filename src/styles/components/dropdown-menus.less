@@ -25,17 +25,6 @@ components/dropdown-menus.less
 
   .dropdown {
 
-    &.anchor-right {
-
-      .dropdown-menu {
-
-        left: auto;
-        right: 0;
-
-      }
-
-    }
-
     &.open {
 
       .dropdown-menu {
@@ -152,6 +141,12 @@ components/dropdown-menus.less
 
     }
 
+  }
+
+  .dropdown-menu {
+    // Overrides default Canvas styles.
+    float: initial;
+    left: initial;
   }
 
   .dropdown-menu-list {

@@ -171,6 +171,8 @@ class ActionsModal extends mixin(StoreMixin) {
           initialID={DEFAULT_ID}
           items={this.getDropdownItems(itemType)}
           onItemSelection={this.handleItemSelection}
+          scrollContainer=".gm-scroll-view"
+          scrollContainerParentSelector=".gm-prevented"
           transition={true}
           transitionName="dropdown-menu"
           wrapperClassName="dropdown text-align-left" />

@@ -263,6 +263,8 @@ class OrganizationTab extends mixin(InternalStorageMixin) {
           initialID={initialID}
           items={dropdownItems}
           onItemSelection={this.handleActionSelection}
+          scrollContainer=".gm-scroll-view"
+          scrollContainerParentSelector=".gm-prevented"
           transition={true}
           transitionName="dropdown-menu"
           wrapperClassName="dropdown" />
