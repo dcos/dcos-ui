@@ -57,7 +57,7 @@ const General = {
     }
   },
   required: [
-    'id', 'description'
+    'id'
   ]
 };
 

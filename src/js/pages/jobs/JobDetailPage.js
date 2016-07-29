@@ -353,7 +353,7 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
           navigationTabs={this.getNavigationTabs()}
           subTitle={this.getSubTitle(job)}
           subTitleClassName={{emphasize: false}}
-          title={job.getDescription()} />
+          title={job.getDescription() || job.getId()} />
         {this.tabs_getTabView(job)}
         <JobFormModal isEdit={true}
           job={job}
