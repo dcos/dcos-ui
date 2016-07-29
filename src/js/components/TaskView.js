@@ -126,7 +126,10 @@ class TaskView extends mixin(SaveStateMixin, StoreMixin) {
     return this.state.mesosStateErrorCount >= 5;
   }
 
-  getFilteredTasks(filterByStatus, tasks, searchString) {
+  getFilteredTasks() {
+    let {tasks} = this.props;
+    let {filterByStatus, searchString} = this.state;
+
     if (searchString !== '') {
       tasks = StringUtil.filterByString(tasks, 'id', searchString);
     }
@@ -241,7 +244,7 @@ class TaskView extends mixin(SaveStateMixin, StoreMixin) {
       });
     });
 
-    tasks = this.getFilteredTasks(filterByStatus, tasks, searchString);
+    tasks = this.getFilteredTasks();
 
     let rightAlignLastNChildren = 0;
     let hasCheckedTasks = Object.keys(checkedItems).length !== 0;
