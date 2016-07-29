@@ -1,6 +1,7 @@
 var TaskTableHeaderLabels = {
   cpus: 'CPU',
   disk: 'DISK',
+  host: 'HOST',
   mem: 'MEM',
   id: 'TASK NAME',
   name: 'TASK NAME',

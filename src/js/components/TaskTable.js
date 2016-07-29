@@ -7,6 +7,7 @@ import Icon from './Icon';
 import MarathonStore from '../stores/MarathonStore';
 import ResourceTableUtil from '../utils/ResourceTableUtil';
 import TaskStates from '../constants/TaskStates';
+import TaskEndpointsList from './TaskEndpointsList';
 import TaskTableHeaderLabels from '../constants/TaskTableHeaderLabels';
 import TaskUtil from '../utils/TaskUtil';
 import TableUtil from '../utils/TableUtil';
@@ -58,6 +59,15 @@ class TaskTable extends React.Component {
         heading,
         prop: 'id',
         render: this.renderHeadline,
+        sortable: true,
+        sortFunction
+      },
+      {
+        className: this.getHostColumnClassname,
+        headerClassName: this.getHostColumnClassname,
+        heading,
+        prop: 'host',
+        render: this.renderHost,
         sortable: true,
         sortFunction
       },
@@ -139,14 +149,22 @@ class TaskTable extends React.Component {
       <colgroup>
         <col style={{width: '40px'}} />
         <col />
+        <col style={{width: '20%'}} className="hidden-mini" />
         <col style={{width: '120px'}} />
         <col style={{width: '30px'}} className="hidden-mini" />
         <col style={{width: '85px'}} className="hidden-mini" />
-        <col style={{width: '110px'}} className="hidden-mini" />
+        <col style={{width: '100px'}} className="hidden-mini" />
         <col style={{width: '120px'}} />
         <col style={{width: '180px'}} className="hidden-mini"/>
       </colgroup>
     );
+  }
+
+  getHostColumnClassname(prop, sortBy, row) {
+    return classNames('hidden-mini', {
+      'highlight': prop === sortBy.prop,
+      'clickable': row == null // this is a header
+    });
   }
 
   renderHeadline(prop, task) {
@@ -193,6 +211,17 @@ class TaskTable extends React.Component {
         title={title}>
         <Icon color="grey" id="page" size="mini" family="mini" />
       </Link>
+    );
+  }
+
+  renderHost(prop, task) {
+    let marathonTask = MarathonStore.getTaskFromTaskID(task.id);
+
+    return (
+      <TaskEndpointsList
+        key={task.id}
+        portLimit={3}
+        task={marathonTask} />
     );
   }
 
