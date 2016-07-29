@@ -1,3 +1,14 @@
+@filter-bar-item-spacing-vertical:                                              @base-spacing-unit * 1/4;
+@filter-bar-item-spacing-horizontal:                                            0;
+@filter-bar-item-spacing-vertical-screen-mini:                                  @base-spacing-unit-screen-mini * 1/4;
+@filter-bar-item-spacing-horizontal-screen-mini:                                @button-collection-spacing-screen-mini;
+@filter-bar-item-spacing-vertical-screen-small:                                 @base-spacing-unit-screen-small * 1/4;
+@filter-bar-item-spacing-horizontal-screen-small:                               @button-collection-spacing-screen-small;
+@filter-bar-item-spacing-vertical-screen-medium:                                @base-spacing-unit-screen-medium * 1/4;
+@filter-bar-item-spacing-horizontal-screen-medium:                              @button-collection-spacing-screen-medium;
+@filter-bar-item-spacing-vertical-screen-large:                                 @base-spacing-unit-screen-large * 1/4;
+@filter-bar-item-spacing-horizontal-screen-large:                               @button-collection-spacing-screen-large;
+
 .filter-bar {
 
   display: flex;
@@ -5,7 +16,7 @@
   width: 100%;
 
   &.filter-bar-offset {
-    margin-bottom: -@base-spacing-unit * 1/4;
+    margin-bottom: -@filter-bar-item-spacing-vertical;
   }
 
 }
@@ -30,20 +41,14 @@
 
 }
 
-.filter-bar-left, .filter-bar-right {
+.filter-bar-left,
+.filter-bar-right {
 
   display: inline-flex;
   flex: 0 0 auto;
   flex-wrap: wrap;
   max-width: 100%;
   width: auto;
-
-  .filter-bar-item {
-
-    flex: 0 0 auto;
-    max-width: 100%;
-
-  }
 
   &.flex-grow {
 
@@ -61,8 +66,10 @@
 
 .filter-bar-item {
 
-  padding-bottom: @base-spacing-unit * 1/4;
-  padding-right: 0;
+  flex: 0 0 auto;
+  max-width: 100%;
+  padding-bottom: @filter-bar-item-spacing-vertical;
+  padding-right: @filter-bar-item-spacing-horizontal;
 
 }
 
@@ -73,7 +80,7 @@
     .filter-bar {
 
       &.filter-bar-offset {
-        margin-bottom: -@base-spacing-unit-screen-mini * 1/4;
+        margin-bottom: -@filter-bar-item-spacing-vertical-screen-mini;
       }
 
     }
@@ -86,8 +93,8 @@
 
     .filter-bar-item {
 
-      padding-bottom: @base-spacing-unit-screen-mini * 1/4;
-      padding-right: @base-spacing-unit-screen-mini * 1/4;
+      padding-bottom: @filter-bar-item-spacing-vertical-screen-mini;
+      padding-right: @filter-bar-item-spacing-horizontal-screen-mini;
 
     }
 
@@ -103,15 +110,15 @@
     .filter-bar {
 
       &.filter-bar-offset {
-        margin-bottom: -@base-spacing-unit-screen-small * 1/4;
+        margin-bottom: -@filter-bar-item-spacing-vertical-screen-small;
       }
 
     }
 
     .filter-bar-item {
 
-      padding-bottom: @base-spacing-unit-screen-small * 1/4;
-      padding-right: @base-spacing-unit-screen-small * 1/4;
+      padding-bottom: @filter-bar-item-spacing-vertical-screen-small;
+      padding-right: @filter-bar-item-spacing-horizontal-screen-small;
 
     }
 
@@ -127,15 +134,15 @@
     .filter-bar {
 
       &.filter-bar-offset {
-        margin-bottom: -@base-spacing-unit-screen-medium * 1/4;
+        margin-bottom: -@filter-bar-item-spacing-vertical-screen-medium;
       }
 
     }
 
     .filter-bar-item {
 
-      padding-bottom: @base-spacing-unit-screen-medium * 1/4;
-      padding-right: @base-spacing-unit-screen-medium * 1/4;
+      padding-bottom: @filter-bar-item-spacing-vertical-screen-medium;
+      padding-right: @filter-bar-item-spacing-horizontal-screen-medium;
 
     }
 
@@ -151,15 +158,15 @@
     .filter-bar {
 
       &.filter-bar-offset {
-        margin-bottom: -@base-spacing-unit-screen-large * 1/4;
+        margin-bottom: -@filter-bar-item-spacing-vertical-screen-large;
       }
 
     }
 
     .filter-bar-item {
 
-      padding-bottom: @base-spacing-unit-screen-large * 1/4;
-      padding-right: @base-spacing-unit-screen-large * 1/4;
+      padding-bottom: @filter-bar-item-spacing-vertical-screen-large;
+      padding-right: @filter-bar-item-spacing-horizontal-screen-large;
 
     }
 
