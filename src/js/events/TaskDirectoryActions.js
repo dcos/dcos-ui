@@ -3,8 +3,6 @@ import {RequestUtil} from 'mesosphere-shared-reactjs';
 import ActionTypes from '../constants/ActionTypes';
 import AppDispatcher from './AppDispatcher';
 import Config from '../config/Config';
-// TODO for mlunoe: We shouldn't be including stores in these files. DCOS-4430
-import MesosStateStore from '../stores/MesosStateStore';
 
 function findWithID(stateObject, listProps, id) {
   let searchItem;
@@ -33,8 +31,7 @@ var TaskDirectoryActions = {
       `path=${path}`;
   },
 
-  getNodeStateJSON: function (task) {
-    let node = MesosStateStore.getNodeFromID(task.slave_id);
+  getNodeStateJSON: function (task, node) {
     let pid, nodePID;
 
     if (node) {
@@ -79,9 +76,9 @@ var TaskDirectoryActions = {
   fetchNodeState: RequestUtil.debounceOnError(
     Config.getRefreshRate(),
     function (resolve, reject) {
-      return function (task, cb) {
+      return function (task, node, cb) {
         return RequestUtil.json({
-          url: TaskDirectoryActions.getNodeStateJSON(task),
+          url: TaskDirectoryActions.getNodeStateJSON(task, node),
           timeout: 5000,
           success: function (response) {
             resolve();

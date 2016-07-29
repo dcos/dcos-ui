@@ -4,7 +4,6 @@ jest.dontMock('../MesosLogView');
 var JestUtil = require('../../utils/JestUtil');
 
 JestUtil.unMockStores(['MesosLogStore']);
-require('../../utils/StoreMixinConfig');
 /* eslint-disable no-unused-vars */
 var React = require('react');
 /* eslint-enable no-unused-vars */

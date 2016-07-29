@@ -16,7 +16,6 @@ import {Provider} from 'react-redux';
 
 require('./utils/MomentJSConfig');
 require('./utils/ReactSVG');
-require('./utils/StoreMixinConfig');
 
 import {
   CONFIG_ERROR,

@@ -36,7 +36,6 @@ module.exports = {
     Maths: 'Maths',
     ResourceTableUtil: 'ResourceTableUtil',
     RouterUtil: 'RouterUtil',
-    StoreMixinConfig: 'StoreMixinConfig',
     StringUtil: 'StringUtil',
     TableUtil: 'TableUtil',
     TabsUtil: 'TabsUtil',

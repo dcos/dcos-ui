@@ -14,6 +14,7 @@ import {
   USER_DELETE_SUCCESS,
   USER_DELETE_ERROR
 } from '../constants/EventTypes';
+import PluginSDK from 'PluginSDK';
 import UsersActions from '../events/UsersActions';
 
 /**
@@ -22,6 +23,21 @@ import UsersActions from '../events/UsersActions';
 class UserStore extends EventEmitter {
   constructor() {
     super(...arguments);
+
+    PluginSDK.addStoreConfig({
+      store: this,
+      storeID: this.storeID,
+      events: {
+        createSuccess: USER_CREATE_SUCCESS,
+        createError: USER_CREATE_ERROR,
+        deleteSuccess: USER_DELETE_SUCCESS,
+        deleteError: USER_DELETE_ERROR
+      },
+      unmountWhen: function () {
+        return true;
+      },
+      listenAlways: true
+    });
 
     this.dispatcherIndex = AppDispatcher.register((payload) => {
       if (payload.source !== SERVER_ACTION) {
