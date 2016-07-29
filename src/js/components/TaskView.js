@@ -112,16 +112,6 @@ class TaskView extends mixin(SaveStateMixin, StoreMixin) {
     this.setState({checkedItems: {}, killAction: ''});
   }
 
-  filterByCurrentStatus(tasks, filterByStatus) {
-    if (filterByStatus === 'all') {
-      return tasks;
-    }
-
-    return tasks.filter(function (task) {
-      return TaskStates[task.state].stateTypes.includes(filterByStatus);
-    });
-  }
-
   hasLoadingError() {
     return this.state.mesosStateErrorCount >= 5;
   }
@@ -134,7 +124,11 @@ class TaskView extends mixin(SaveStateMixin, StoreMixin) {
       tasks = StringUtil.filterByString(tasks, 'id', searchString);
     }
 
-    tasks = this.filterByCurrentStatus(tasks, filterByStatus);
+    if (filterByStatus !== 'all') {
+      tasks = tasks.filter(function (task) {
+        return TaskStates[task.state].stateTypes.includes(filterByStatus);
+      });
+    }
 
     return tasks;
   }
@@ -232,8 +226,7 @@ class TaskView extends mixin(SaveStateMixin, StoreMixin) {
   getContent() {
     let {inverseStyle, tasks} = this.props;
     let {checkedItems, filterByStatus, searchString} = this.state;
-
-    let totalNumberOfTasks = tasks.length;
+    let filteredTasks = this.getFilteredTasks();
 
     // Get task states based on TaskStates types
     let taskStates = tasks.map(function (task) {
@@ -244,10 +237,9 @@ class TaskView extends mixin(SaveStateMixin, StoreMixin) {
       });
     });
 
-    tasks = this.getFilteredTasks();
-
     let rightAlignLastNChildren = 0;
     let hasCheckedTasks = Object.keys(checkedItems).length !== 0;
+
     if (hasCheckedTasks) {
       rightAlignLastNChildren = 1;
     }
@@ -255,12 +247,12 @@ class TaskView extends mixin(SaveStateMixin, StoreMixin) {
     return (
       <div className="flex-container-col flex-grow">
         <FilterHeadline
-          currentLength={tasks.length}
+          currentLength={filteredTasks.length}
           inverseStyle={inverseStyle}
           isFiltering={filterByStatus !== 'all' || searchString !== ''}
           onReset={this.resetFilter}
           name="Task"
-          totalLength={totalNumberOfTasks} />
+          totalLength={tasks.length} />
         <FilterBar rightAlignLastNChildren={rightAlignLastNChildren}>
           <FilterInputText
             className="flush-bottom"
@@ -276,7 +268,7 @@ class TaskView extends mixin(SaveStateMixin, StoreMixin) {
             selectedFilter={filterByStatus} />
           {this.getKillButtons(hasCheckedTasks)}
         </FilterBar>
-        {this.getTaskTable(tasks, checkedItems)}
+        {this.getTaskTable(filteredTasks, checkedItems)}
         {this.getKillTaskModal(checkedItems, hasCheckedTasks)}
       </div>
     );
