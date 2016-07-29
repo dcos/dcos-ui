@@ -10,6 +10,10 @@
   li {
     &:extend(.dropdown.open .dropdown-menu.inverse li.is-selectable all);
     &:extend(.clickable);
+
+    &.active {
+      &:extend(.dropdown.open .dropdown-menu.inverse li.is-selectable:hover);
+    }
   }
 
 }
