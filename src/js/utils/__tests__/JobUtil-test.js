@@ -92,7 +92,6 @@ describe('JobUtil', function () {
       expect(JobUtil.createJobSpecFromJob(job)).toEqual(
         {
           id: 'test',
-          description: null,
           run: {
             cmd: 'sleep 1000;',
             cpus: 0.01,
