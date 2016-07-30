@@ -11,10 +11,6 @@ class Typeahead extends FilterInputText {
     this.props.handleFilterChange(input);
   }
 
-  renderClearIcon() {
-    return this.getClearIcon();
-  }
-
   handleClearInput() {
     if (this.typeahead) {
       this.typeahead.clear();
@@ -27,7 +23,7 @@ class Typeahead extends FilterInputText {
       labelKey,
       inverseStyle,
       items,
-      onChange,
+      onDropdownItemSelection,
       placeholder,
       selected
     } = this.props;
@@ -45,7 +41,7 @@ class Typeahead extends FilterInputText {
         <InnerTypeahead
           emptyLabel={emptyLabel}
           labelKey={labelKey}
-          onChange={onChange}
+          onChange={onDropdownItemSelection}
           onInputChange={this.handleInputChange}
           options={items}
           placeholder={placeholder}
@@ -59,15 +55,29 @@ class Typeahead extends FilterInputText {
 }
 
 Typeahead.defaultProps = {
-  labelKey: 'name'
+  emptyLabel: 'Nothing to show.',
+  onDropdownItemSelection: function () {},
+  inverseStyle: false,
+  items: [],
+  selected: [],
+  placeholder: 'Filter'
 };
 
 Typeahead.propTypes = {
   emptyLabel: PropTypes.string,
-  labelKey: PropTypes.string,
-  onChange: PropTypes.func,
-  items: PropTypes.array,
-  selected: PropTypes.array
+  labelKey: PropTypes.string.isRequired,
+  onDropdownItemSelection: PropTypes.func,
+  handleFilterChange: PropTypes.func.isRequired,
+  inverseStyle: PropTypes.bool,
+  items: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string,
+      name: PropTypes.node
+    })
+  ),
+  selected: PropTypes.array,
+  placeholder: PropTypes.string,
+  searchString: PropTypes.string.isRequired
 };
 
 module.exports = Typeahead;

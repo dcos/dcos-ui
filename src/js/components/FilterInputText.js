@@ -76,6 +76,10 @@ class FilterInputText extends React.Component {
   }
 
   getClearIcon() {
+    if (!this.props.searchString) {
+      return null;
+    }
+
     let {inverseStyle, sideText} = this.props;
     let color = 'white';
 
@@ -100,12 +104,6 @@ class FilterInputText extends React.Component {
         </a>
       </span>
     );
-  }
-
-  renderClearIcon() {
-    if (this.props.searchString) {
-      return this.getClearIcon();
-    }
   }
 
   render() {
@@ -146,7 +144,7 @@ class FilterInputText extends React.Component {
               color={iconColor} />
           </span>
           {this.getInputField()}
-          {this.renderClearIcon()}
+          {this.getClearIcon()}
         </div>
       </div>
     );
