@@ -238,12 +238,11 @@ class MesosStateStore extends GetSetBaseStore {
     return [];
   }
 
-  getTasksByServiceId(serviceId) {
+  getTasksByFrameworkName(frameworkName) {
     // Convert serviceId to Mesos service name
-    let mesosServiceName = serviceId.split('/').slice(1).reverse().join('.');
     let frameworks = this.get('lastMesosState').frameworks;
 
-    if (mesosServiceName === '' || !frameworks) {
+    if (frameworkName === '' || !frameworks) {
       return [];
     }
 
@@ -253,7 +252,7 @@ class MesosStateStore extends GetSetBaseStore {
     return frameworks.reduce(function (serviceTasks, framework) {
       let {tasks = [], completed_tasks = {}, name} = framework;
 
-      if (name === mesosServiceName) {
+      if (name === frameworkName) {
         return serviceTasks.concat(tasks, completed_tasks);
       }
 
@@ -261,7 +260,7 @@ class MesosStateStore extends GetSetBaseStore {
       if (name === 'marathon') {
         return tasks.concat(completed_tasks)
           .filter(function ({name}) {
-            return name === mesosServiceName;
+            return name === frameworkName;
           }).concat(serviceTasks);
       }
 
