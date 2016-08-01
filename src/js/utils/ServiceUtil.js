@@ -124,6 +124,10 @@ const ServiceUtil = {
         }
       }
 
+      if (definition.container.docker.image == null) {
+        delete definition.container;
+      }
+
       if (volumes != null) {
         let type = VolumeConstants.type.MESOS;
         let volumesList = [];
@@ -173,7 +177,7 @@ const ServiceUtil = {
           if (externalVolumes.length > 0) {
             volumesList = volumesList.concat(externalVolumes);
           }
-          if (!isEdit) {
+          if (!isEdit && volumesList.length > 0) {
             definition.updateStrategy = {
               maximumOverCapacity: 0,
               minimumHealthCapacity: 0
@@ -193,7 +197,7 @@ const ServiceUtil = {
 
           if (localVolumes.length > 0) {
             volumesList = volumesList.concat(localVolumes);
-            if (!isEdit) {
+            if (!isEdit && volumesList.length > 0) {
               definition.updateStrategy = {
                 maximumOverCapacity: 0,
                 minimumHealthCapacity: 0

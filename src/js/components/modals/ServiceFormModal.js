@@ -160,8 +160,7 @@ class ServiceFormModal extends mixin(StoreMixin) {
     let service = ServiceUtil.createServiceFromFormModel(
       model,
       ServiceSchema,
-      this.props.isEdit,
-      JSON.parse(this.state.service.toJSON())
+      this.props.isEdit
     );
     if (props.service) {
       service = props.service;
