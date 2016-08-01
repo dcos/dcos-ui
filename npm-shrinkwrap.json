@@ -4418,7 +4418,7 @@
     "mesosphere-shared-reactjs": {
       "version": "0.0.19",
       "from": "mesosphere-shared-reactjs@0.0.19",
-      "resolved": "http://registry.npmjs.org/mesosphere-shared-reactjs/-/mesosphere-shared-reactjs-0.0.19.tgz"
+      "resolved": "https://registry.npmjs.org/mesosphere-shared-reactjs/-/mesosphere-shared-reactjs-0.0.19.tgz"
     },
     "method-override": {
       "version": "2.3.5",
