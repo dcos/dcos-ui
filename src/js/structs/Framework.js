@@ -49,7 +49,7 @@ module.exports = class Framework extends Service {
     let name = encodeURIComponent(DCOS_SERVICE_NAME);
 
     if (!name || !DCOS_SERVICE_PORT_INDEX || !DCOS_SERVICE_SCHEME) {
-      return null;
+      return super.getWebURL();
     }
 
     return `${Config.rootUrl}/service/${name}/`;

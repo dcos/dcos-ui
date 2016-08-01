@@ -230,4 +230,8 @@ module.exports = class Service extends Item {
   getVolumes() {
     return new VolumeList({items: this.get('volumes') || []});
   }
+
+  getWebURL() {
+    return null;
+  }
 };
