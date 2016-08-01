@@ -251,9 +251,18 @@ const ServiceUtil = {
       if (environmentVariables != null && environmentVariables.environmentVariables != null) {
         definition.env = environmentVariables.environmentVariables
           .reduce(function (variableMap, variable) {
+
+            // The 'undefined' value is not rendered by the JSON.stringify,
+            // so make sure empty environment variables are not left unrendered
+            let value = variable.value;
+            if (value == null) {
+              value = '';
+            }
+
+            // Pass it through the registered plugins
             variableMap[variable.key] = Hooks.applyFilter(
               'serviceVariableValue',
-              variable.value,
+              value,
               variable,
               definition
             );
