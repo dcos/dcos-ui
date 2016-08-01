@@ -5,7 +5,6 @@ var React = require('react');
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 var EventTypes = require('../constants/EventTypes');
-import Framework from '../structs/Framework';
 import HealthBar from './HealthBar';
 import Icon from './Icon';
 var MarathonStore = require('../stores/MarathonStore');
@@ -146,7 +145,7 @@ var ServicesTable = React.createClass({
   },
 
   getOpenInNewWindowLink(service) {
-    if (!(service instanceof Framework) || !service.getWebURL()) {
+    if (!service.getWebURL()) {
       return null;
     }
 
