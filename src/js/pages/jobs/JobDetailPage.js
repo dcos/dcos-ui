@@ -17,6 +17,7 @@ import JobRunHistoryTable from './JobRunHistoryTable';
 import MetronomeStore from '../../stores/MetronomeStore';
 import PageHeader from '../../components/PageHeader';
 import RequestErrorMsg from '../../components/RequestErrorMsg';
+import StringUtil from '../../utils/StringUtil';
 import TabsMixin from '../../mixins/TabsMixin';
 import TaskStates from '../../constants/TaskStates';
 
@@ -313,8 +314,7 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
             id="repeat"
             size="mini"
             family="small" />
-          <span className="job-details-header-status">Scheduled</span>
-          <span>{scheduleText}</span>
+          <span>Scheduled {StringUtil.lowercase(scheduleText)}</span>
         </p>
       );
     }
