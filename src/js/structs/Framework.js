@@ -40,13 +40,19 @@ module.exports = class Framework extends Service {
   }
 
   getWebURL() {
-    let url = this.get('webui_url');
-    let name = this.getName();
+    let {
+      DCOS_SERVICE_NAME,
+      DCOS_SERVICE_PORT_INDEX,
+      DCOS_SERVICE_SCHEME
+    } = this.getLabels() || {};
 
-    if (!url || !name) {
+    let name = encodeURIComponent(DCOS_SERVICE_NAME);
+
+    if (!name || !DCOS_SERVICE_PORT_INDEX || !DCOS_SERVICE_SCHEME) {
       return null;
     }
 
-    return `${Config.rootUrl}/service/${name}`;
+    return `${Config.rootUrl}/service/${name}/`;
+
   }
 };
