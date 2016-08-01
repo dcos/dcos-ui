@@ -69,6 +69,14 @@ const StringUtil = {
     return string.charAt(0).toUpperCase() + string.slice(1, string.length);
   },
 
+  lowercase: function (string) {
+    if (typeof string !== 'string') {
+      return null;
+    }
+
+    return string.charAt(0).toLowerCase() + string.slice(1, string.length);
+  },
+
   humanizeArray: function (array, options) {
     options = Object.assign({
       serialComma: true,
