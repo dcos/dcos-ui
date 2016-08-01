@@ -3,7 +3,6 @@ import deepEqual from 'deep-equal';
 import {List, Tooltip} from 'reactjs-components';
 const React = require('react');
 
-import Cluster from '../utils/Cluster';
 import Config from '../config/Config';
 const HealthLabels = require('../constants/HealthLabels');
 const HealthStatus = require('../constants/HealthStatus');
@@ -37,7 +36,7 @@ let ServiceList = React.createClass({
 
   handleServiceClick: function (service, event) {
     // Open service in new window/tab if service has a web URL
-    if (service.getWebURL && service.getWebURL() &&
+    if (service.getWebURL() &&
       (event.ctrlKey || event.shiftKey || event.metaKey)) {
       return;
     }
@@ -93,7 +92,7 @@ let ServiceList = React.createClass({
             content: (
               <a key="title"
                 onClick={this.handleServiceClick.bind(this, service)}
-                href={Cluster.getServiceLink(service.getName())}
+                href={service.getWebURL()}
                 className="dashboard-health-list-item-cell h4 inverse flush-top
                   flush-bottom clickable text-overflow">
                 {service.getName()}

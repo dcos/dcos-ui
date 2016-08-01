@@ -4,7 +4,6 @@ import {Link} from 'react-router';
 var React = require('react');
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
-import Cluster from '../utils/Cluster';
 var EventTypes = require('../constants/EventTypes');
 import Framework from '../structs/Framework';
 import HealthBar from './HealthBar';
@@ -153,7 +152,8 @@ var ServicesTable = React.createClass({
 
     return (
       <a className="table-display-on-row-hover"
-        href={Cluster.getServiceLink(service.getName())} target="_blank"
+        href={service.getWebURL()}
+        target="_blank"
         title="Open in a new window">
         <Icon
           color="white"
