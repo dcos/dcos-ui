@@ -1,3 +1,4 @@
+import Config from '../config/Config';
 import HealthStatus from '../constants/HealthStatus';
 import Item from './Item';
 import ServiceImages from '../constants/ServiceImages';
@@ -232,6 +233,19 @@ module.exports = class Service extends Item {
   }
 
   getWebURL() {
-    return null;
+    let {
+      DCOS_SERVICE_NAME,
+      DCOS_SERVICE_PORT_INDEX,
+      DCOS_SERVICE_SCHEME
+    } = this.getLabels() || {};
+
+    let serviceName = encodeURIComponent(DCOS_SERVICE_NAME);
+
+    if (!serviceName || !DCOS_SERVICE_PORT_INDEX || !DCOS_SERVICE_SCHEME) {
+      return null;
+    }
+
+    return `${Config.rootUrl}/service/${serviceName}/`;
+
   }
 };

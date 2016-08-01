@@ -2,7 +2,6 @@ import {
   ROUTE_ACCESS_PREFIX,
   FRAMEWORK_ID_VALID_CHARACTERS
 } from '../constants/FrameworkConstants';
-import Config from '../config/Config';
 import Service from './Service';
 import FrameworkUtil from '../utils/FrameworkUtil';
 
@@ -37,22 +36,5 @@ module.exports = class Framework extends Service {
       return labels.DCOS_PACKAGE_FRAMEWORK_NAME;
     }
     return super.getName();
-  }
-
-  getWebURL() {
-    let {
-      DCOS_SERVICE_NAME,
-      DCOS_SERVICE_PORT_INDEX,
-      DCOS_SERVICE_SCHEME
-    } = this.getLabels() || {};
-
-    let name = encodeURIComponent(DCOS_SERVICE_NAME);
-
-    if (!name || !DCOS_SERVICE_PORT_INDEX || !DCOS_SERVICE_SCHEME) {
-      return super.getWebURL();
-    }
-
-    return `${Config.rootUrl}/service/${name}/`;
-
   }
 };
