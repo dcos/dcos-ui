@@ -1,25 +1,24 @@
 import classNames from 'classnames';
 import {Confirm, Dropdown, Table} from 'reactjs-components';
 import {Link} from 'react-router';
-var React = require('react');
+import React from 'react';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
-import Cluster from '../utils/Cluster';
-var EventTypes = require('../constants/EventTypes');
-import Framework from '../structs/Framework';
+import EventTypes from '../constants/EventTypes';
 import HealthBar from './HealthBar';
 import Icon from './Icon';
-var MarathonStore = require('../stores/MarathonStore');
+import MarathonStore from '../stores/MarathonStore';
 import NestedServiceLinks from '../components/NestedServiceLinks';
-import ServiceScaleFormModal from '../components/modals/ServiceScaleFormModal';
-var ResourceTableUtil = require('../utils/ResourceTableUtil');
+import ResourceTableUtil from '../utils/ResourceTableUtil';
+import Service from '../structs/Service';
 import ServiceActionItem from '../constants/ServiceActionItem';
-var ServiceTableHeaderLabels = require('../constants/ServiceTableHeaderLabels');
+import ServiceScaleFormModal from '../components/modals/ServiceScaleFormModal';
+import ServiceTableHeaderLabels from '../constants/ServiceTableHeaderLabels';
 import ServiceTableUtil from '../utils/ServiceTableUtil';
 import ServiceTree from '../structs/ServiceTree';
 import StringUtil from '../utils/StringUtil';
 import TableUtil from '../utils/TableUtil';
-var Units = require('../utils/Units');
+import Units from '../utils/Units';
 
 const StatusMapping = {
   'Running': 'running-state'
@@ -147,13 +146,16 @@ var ServicesTable = React.createClass({
   },
 
   getOpenInNewWindowLink(service) {
-    if (!(service instanceof Framework) || !service.getWebURL()) {
+    // This might be a serviceTree and therefore we need this check
+    // And getWebURL might therefore not be available
+    if (!(service instanceof Service) || !service.getWebURL()) {
       return null;
     }
 
     return (
       <a className="table-display-on-row-hover"
-        href={Cluster.getServiceLink(service.getName())} target="_blank"
+        href={service.getWebURL()}
+        target="_blank"
         title="Open in a new window">
         <Icon
           color="white"
