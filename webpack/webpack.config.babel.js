@@ -21,7 +21,7 @@ function absPath() {
   return path.resolve.apply(path.resolve, args);
 }
 
-// Can override this with npm config set dcos-ui:external_plugins ../some/relative/path/to/repo
+// Can override this with npm config set externalplugins ../some/relative/path/to/repo
 let externalPluginsDir = absPath(process.env.npm_config_externalplugins || 'plugins');
 
 new Promise(function (resolve, reject) {
