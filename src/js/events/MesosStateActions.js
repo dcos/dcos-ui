@@ -39,4 +39,24 @@ var MesosStateActions = {
 
 };
 
+if (Config.useFixtures) {
+  let fetchState = require('../../../scripts/logmaker/out/mesosState.json');
+
+  if (!global.actionTypes) {
+    global.actionTypes = {};
+  }
+
+  global.actionTypes.MesosStateActions = {
+    fetchState: {
+      event: 'success', success: {response: fetchState}
+    }
+  };
+
+  Object.keys(global.actionTypes.MesosStateActions).forEach(function (method) {
+    MesosStateActions[method] = RequestUtil.stubRequest(
+      MesosStateActions, 'MesosStateActions', method
+    );
+  });
+}
+
 module.exports = MesosStateActions;
