@@ -1,6 +1,7 @@
 jest.dontMock('../MesosStateStore');
 
 var MesosStateStore = require('../MesosStateStore');
+var Service = require('../../structs/Service');
 var Task = require('../../structs/Task');
 
 describe('MesosStateStore', function () {
@@ -72,7 +73,7 @@ describe('MesosStateStore', function () {
     it('should return matching framework tasks including scheduler tasks',
       function () {
         var tasks = MesosStateStore.getTasksByService(
-          new Service({id: 'spark'})
+          new Service({id: '/spark'})
         );
         expect(tasks).toEqual([
           {name: 'spark', id: 'spark.1'},
@@ -85,7 +86,7 @@ describe('MesosStateStore', function () {
 
     it('should return matching application tasks', function () {
       var tasks = MesosStateStore.getTasksByService(
-        new Service({id: 'alpha'})
+        new Service({id: '/alpha'})
       );
       expect(tasks).toEqual([
         {name: 'alpha', id: 'alpha.1'},
@@ -96,7 +97,7 @@ describe('MesosStateStore', function () {
 
     it('should empty task list if no service matches', function () {
       var tasks = MesosStateStore.getTasksByService(
-        new Service({id: 'non-existent'})
+        new Service({id: '/non-existent'})
       );
       expect(tasks).toEqual([]);
     });
