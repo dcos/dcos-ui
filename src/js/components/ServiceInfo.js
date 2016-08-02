@@ -69,11 +69,13 @@ class ServiceInfo extends React.Component {
         transitionName="dropdown-menu" />
     ];
 
-    if (service.getWebURL()) {
+    let webURL = service.getWebURL();
+    if (webURL) {
       actionButtons.unshift(
         <a className="button button-primary flush-bottom"
           key="service-link"
-          href={service.getWebURL()} target="_blank"
+          href={webURL}
+          target="_blank"
           title="Open in a new window">
           Open Service
         </a>
