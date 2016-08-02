@@ -1,4 +1,5 @@
 import React from 'react';
+import ErrorPaths from '../constants/ErrorPaths';
 
 const REPOSITORY_ERRORS = [
   'EmptyPackageImport',
@@ -26,7 +27,8 @@ class CosmosErrorMessage extends React.Component {
   }
 
   getMessage() {
-    let {type, message} = this.props.error;
+    let {type, message, data} = this.props.error;
+    let children = [];
 
     // Append reference to repository page, since repository related errors
     // can occur at any request to Cosmos
@@ -34,7 +36,47 @@ class CosmosErrorMessage extends React.Component {
       message = this.appendRepositoryLink(message);
     }
 
-    return message;
+    // The message is always there
+    children.push(
+        <h4 className="text-align-center text-danger flush-top">
+          {message}
+        </h4>
+      );
+
+    // Check if we should additionally append
+    // the error details as an unordered list
+    if (data && data.errors) {
+
+      // Get an array of array of errors for every individual path
+      let errorsDetails = data.errors.map(function ({path, errors}) {
+        return errors.map(function (error) {
+          return (
+              <li>{ErrorPaths[path] || path}: {error}</li>
+            );
+        });
+      });
+
+      // Flatten elemens array
+      errorsDetails = errorsDetails.reduce(function (a, b) {
+        return a.concat(b);
+      });
+
+      // Append an error details <ul> to the childrens
+      children.push(
+          <ul className="error-list-small">
+            {errorsDetails}
+          </ul>
+        );
+
+    }
+
+    // Return collected items
+    return (
+        <div className="text-danger">
+          {children}
+        </div>
+      );
+
   }
 
   appendRepositoryLink(message) {
@@ -71,7 +113,10 @@ CosmosErrorMessage.propTypes = {
   className: React.PropTypes.string,
   error: React.PropTypes.shape({
     message: React.PropTypes.string,
-    type: React.PropTypes.string
+    type: React.PropTypes.string,
+    data: React.PropTypes.shape({
+      errors: React.PropTypes.array
+    })
   }),
   header: React.PropTypes.string,
   headerClass: React.PropTypes.string,

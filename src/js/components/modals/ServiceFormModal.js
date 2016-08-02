@@ -18,6 +18,7 @@ import Service from '../../structs/Service';
 import ServiceUtil from '../../utils/ServiceUtil';
 import ServiceSchema from '../../schemas/ServiceSchema';
 import ToggleButton from '../ToggleButton';
+import ErrorPaths from '../../constants/ErrorPaths';
 
 const METHODS_TO_BIND = [
   'getTriggerSubmit',
@@ -39,10 +40,7 @@ const serverResponseMappings = {
   'error.expected.jsstring': 'A string is expected'
 };
 
-const responseAttributePathToFieldIdMap = {
-  'id': 'appId',
-  'apps': 'appId',
-  '/id': 'appId',
+const responseAttributePathToFieldIdMap = Object.assign({
   '/acceptedResourceRoles': 'acceptedResourceRoles',
   '/cmd': 'cmd',
   '/constraints': 'constraints',
@@ -99,9 +97,8 @@ const responseAttributePathToFieldIdMap = {
   '/container/docker/portMappings({INDEX})/servicePort': 'dockerPortMappings',
   '/labels': 'labels',
   '/uris': 'uris',
-  '/user': 'user',
-  '/': 'general'
-};
+  '/user': 'user'
+}, ErrorPaths);
 
 class ServiceFormModal extends mixin(StoreMixin) {
   constructor() {
