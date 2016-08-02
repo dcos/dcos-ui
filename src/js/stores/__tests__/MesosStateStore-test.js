@@ -1,5 +1,6 @@
 jest.dontMock('../MesosStateStore');
 
+var Framework = require('../../structs/Framework');
 var MesosStateStore = require('../MesosStateStore');
 var Service = require('../../structs/Service');
 var Task = require('../../structs/Task');
@@ -87,6 +88,17 @@ describe('MesosStateStore', function () {
     it('should return matching application tasks', function () {
       var tasks = MesosStateStore.getTasksByService(
         new Service({id: '/alpha'})
+      );
+      expect(tasks).toEqual([
+        {name: 'alpha', id: 'alpha.1'},
+        {name: 'alpha', id: 'alpha.2'},
+        {name: 'alpha', id: 'alpha.3'}
+      ]);
+    });
+
+    it('should return matching framework tasks', function () {
+      var tasks = MesosStateStore.getTasksByService(
+        new Framework({labels: {DCOS_PACKAGE_FRAMEWORK_NAME: 'alpha'}})
       );
       expect(tasks).toEqual([
         {name: 'alpha', id: 'alpha.1'},
