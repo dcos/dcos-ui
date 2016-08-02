@@ -26,6 +26,7 @@ const METHODS_TO_BIND = [
   'handleJSONChange',
   'handleJSONToggle',
   'handleSubmit',
+  'handleTabChange',
   'onMarathonStoreServiceCreateError',
   'onMarathonStoreServiceCreateSuccess',
   'onMarathonStoreServiceEditError',
@@ -111,6 +112,7 @@ class ServiceFormModal extends mixin(StoreMixin) {
       ServiceUtil.createFormModelFromSchema(ServiceSchema);
 
     this.state = {
+      defaultTab: '',
       errorMessage: null,
       jsonDefinition: JSON.stringify({id:'', cmd:''}, null, 2),
       jsonMode: false,
@@ -167,6 +169,7 @@ class ServiceFormModal extends mixin(StoreMixin) {
     }
 
     this.setState({
+      defaultTab: '',
       errorMessage: null,
       force: false,
       jsonDefinition: JSON.stringify({id:'', cmd:''}, null, 2),
@@ -212,6 +215,10 @@ class ServiceFormModal extends mixin(StoreMixin) {
     }
     nextState.jsonMode = !this.state.jsonMode;
     this.setState(nextState);
+  }
+
+  handleTabChange(tab) {
+    this.setState({defaultTab: tab});
   }
 
   onMarathonStoreServiceCreateSuccess() {
@@ -408,7 +415,7 @@ class ServiceFormModal extends mixin(StoreMixin) {
   }
 
   getModalContents() {
-    let {jsonDefinition, jsonMode, service} = this.state;
+    let {defaultTab, jsonDefinition, jsonMode, service} = this.state;
 
     if (jsonMode) {
       let toolTipContent = (
@@ -450,9 +457,11 @@ class ServiceFormModal extends mixin(StoreMixin) {
 
     return (
       <ServiceForm
+        defaultTab={defaultTab}
         getTriggerSubmit={this.getTriggerSubmit}
         model={model}
         onChange={this.handleClearError}
+        onTabChange={this.handleTabChange}
         schema={ServiceSchema}/>
     );
   }
