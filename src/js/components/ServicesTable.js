@@ -146,6 +146,8 @@ var ServicesTable = React.createClass({
   },
 
   getOpenInNewWindowLink(service) {
+    // This might be a serviceTree and therefore we need this check
+    // And getWebURL might therefore not be available
     if (!(service instanceof Service) || !service.getWebURL()) {
       return null;
     }
