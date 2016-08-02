@@ -4,6 +4,7 @@ var AppDispatcher = require('../events/AppDispatcher');
 import ActionTypes from '../constants/ActionTypes';
 import CompositeState from '../structs/CompositeState';
 var Config = require('../config/Config');
+import Framework from '../structs/Framework';
 import {
   MESOS_STATE_CHANGE,
   MESOS_STATE_REQUEST_ERROR,
@@ -238,11 +239,16 @@ class MesosStateStore extends GetSetBaseStore {
     return [];
   }
 
-  getTasksByFrameworkName(frameworkName) {
-    // Convert serviceId to Mesos service name
+  getTasksByService(service) {
     let frameworks = this.get('lastMesosState').frameworks;
+    let serviceName = service.getName();
 
-    if (frameworkName === '' || !frameworks) {
+    if (!(service instanceof Framework)) {
+      // Convert serviceId to Mesos service name
+      serviceName = service.getId().split('/').slice(1).reverse().join('.');
+    }
+
+    if (!serviceName || !frameworks) {
       return [];
     }
 
@@ -252,7 +258,7 @@ class MesosStateStore extends GetSetBaseStore {
     return frameworks.reduce(function (serviceTasks, framework) {
       let {tasks = [], completed_tasks = {}, name} = framework;
 
-      if (name === frameworkName) {
+      if (name === serviceName) {
         return serviceTasks.concat(tasks, completed_tasks);
       }
 
@@ -260,7 +266,7 @@ class MesosStateStore extends GetSetBaseStore {
       if (name === 'marathon') {
         return tasks.concat(completed_tasks)
           .filter(function ({name}) {
-            return name === frameworkName;
+            return name === serviceName;
           }).concat(serviceTasks);
       }
 

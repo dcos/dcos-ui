@@ -33,7 +33,7 @@ describe('MesosStateStore', function () {
     });
   });
 
-  describe('#getTasksByFrameworkName', function () {
+  describe('#getTasksByService', function () {
     beforeEach(function () {
       this.get = MesosStateStore.get;
       MesosStateStore.get = function () {
@@ -71,7 +71,9 @@ describe('MesosStateStore', function () {
 
     it('should return matching framework tasks including scheduler tasks',
       function () {
-        var tasks = MesosStateStore.getTasksByFrameworkName('spark');
+        var tasks = MesosStateStore.getTasksByService(
+          new Service({id: 'spark'})
+        );
         expect(tasks).toEqual([
           {name: 'spark', id: 'spark.1'},
           {name: '1'},
@@ -82,7 +84,9 @@ describe('MesosStateStore', function () {
     );
 
     it('should return matching application tasks', function () {
-      var tasks = MesosStateStore.getTasksByFrameworkName('alpha');
+      var tasks = MesosStateStore.getTasksByService(
+        new Service({id: 'alpha'})
+      );
       expect(tasks).toEqual([
         {name: 'alpha', id: 'alpha.1'},
         {name: 'alpha', id: 'alpha.2'},
@@ -91,7 +95,9 @@ describe('MesosStateStore', function () {
     });
 
     it('should empty task list if no service matches', function () {
-      var tasks = MesosStateStore.getTasksByFrameworkName('non-existent');
+      var tasks = MesosStateStore.getTasksByService(
+        new Service({id: 'non-existent'})
+      );
       expect(tasks).toEqual([]);
     });
   });

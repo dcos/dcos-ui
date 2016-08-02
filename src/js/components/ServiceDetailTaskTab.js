@@ -17,9 +17,7 @@ class ServiceDetailTaskTab extends mixin(StoreMixin) {
   }
 
   render() {
-    let tasks = MesosStateStore.getTasksByFrameworkName(
-      this.props.service.getName()
-    );
+    let tasks = MesosStateStore.getTasksByService(this.props.service);
 
     return (
       <TaskView tasks={tasks} inverseStyle={true}
