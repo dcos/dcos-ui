@@ -2,6 +2,25 @@ import {Hooks} from 'PluginSDK';
 import Service from '../structs/Service';
 import VolumeConstants from '../constants/VolumeConstants';
 
+function isEmpty(data) {
+  if (typeof(data) == 'number' || typeof(data) == 'boolean') {
+    return false;
+  }
+  if (typeof(data) == 'undefined' || data === null) {
+    return true;
+  }
+  if (typeof(data.length) != 'undefined') {
+    return data.length === 0;
+  }
+  var count = 0;
+  for (var i in data) {
+    if (data.hasOwnProperty(i)) {
+      count++;
+    }
+  }
+  return count === 0;
+}
+
 const getFindPropertiesRecursive = function (service, item) {
 
   return Object.keys(item).reduce(function (memo, subItem) {
@@ -376,6 +395,15 @@ const ServiceUtil = {
       }
     }
 
+    definition = Object.keys(definition).reduce(function (memo, key) {
+      if (!isEmpty(definition[key])) {
+        memo[key] = definition[key];
+      } else {
+        memo[key] = null;
+      }
+      return memo;
+    }, {});
+
     return new Service(definition);
   },
 
@@ -432,12 +460,6 @@ const ServiceUtil = {
       appDefinition,
       service
     );
-
-    Object.keys(appDefinition).forEach(function (key) {
-      if (appDefinition[key] == null) {
-        delete appDefinition[key];
-      }
-    });
 
     return appDefinition;
   },

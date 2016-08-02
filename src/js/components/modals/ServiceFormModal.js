@@ -169,7 +169,7 @@ class ServiceFormModal extends mixin(StoreMixin) {
     this.setState({
       errorMessage: null,
       force: false,
-      jsonDefinition: JSON.stringify({id:'', cmd:''}, null, 2),
+      jsonDefinition: service.toJSON(),
       jsonMode: false,
       model,
       pendingRequest: false,
