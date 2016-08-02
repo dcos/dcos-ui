@@ -33,10 +33,10 @@ class TabForm extends mixin(InternalStorageMixin) {
     this.model = {};
     this.submitMap = {};
 
-    this.setState({
-      currentTab: Object.keys(this.props.definition)[0]
-    });
+    let currentTab =
+      this.props.defaultTab || Object.keys(this.props.definition)[0];
 
+    this.setState({currentTab});
     this.props.getTriggerSubmit(this.handleExternalSubmit);
   }
 
@@ -220,6 +220,7 @@ class TabForm extends mixin(InternalStorageMixin) {
 }
 
 TabForm.defaultProps = {
+  defaultTab: '',
   getTriggerSubmit: function () {},
   onChange: function () {},
   onError: function () {},
@@ -235,6 +236,7 @@ const classPropType = React.PropTypes.oneOfType([
 
 TabForm.propTypes = {
   className: classPropType,
+  defaultTab: React.PropTypes.string,
   definition: React.PropTypes.object.isRequired,
   formContentClassNames: classPropType,
   formRowClass: classPropType,
