@@ -21,7 +21,7 @@ const METHODS_TO_BIND = [
   'renderVersion'
 ];
 
-const LEFT_ALIGN_PROPS = ['cpus', 'disk', 'log', 'mem', 'version'];
+const RIGHT_ALIGN_PROPS = ['cpus', 'disk', 'log', 'mem', 'version'];
 
 class TaskTable extends React.Component {
   constructor() {
@@ -51,7 +51,7 @@ class TaskTable extends React.Component {
 
   getClassName(prop, sortBy, row) {
     return classNames({
-      'text-align-right': LEFT_ALIGN_PROPS.includes(prop),
+      'text-align-right': RIGHT_ALIGN_PROPS.includes(prop),
       'hidden-mini': ['host', 'status', 'cpus', 'mem'].includes(prop),
       'hidden-medium hidden-small hidden-mini':
         ['version', 'log'].includes(prop),
