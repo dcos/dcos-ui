@@ -5,7 +5,7 @@ var TaskTableHeaderLabels = {
   mem: 'MEM',
   id: 'TASK NAME',
   name: 'TASK NAME',
-  state: 'STATUS',
+  status: 'STATUS',
   updated: 'UPDATED',
   version: 'VERSION'
 };

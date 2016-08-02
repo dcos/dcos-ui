@@ -21,6 +21,8 @@ const METHODS_TO_BIND = [
   'renderVersion'
 ];
 
+const LEFT_ALIGN_PROPS = ['cpus', 'disk', 'log', 'mem', 'version'];
+
 class TaskTable extends React.Component {
   constructor() {
     super(...arguments);
@@ -47,8 +49,19 @@ class TaskTable extends React.Component {
     return marathonTask.version;
   }
 
+  getClassName(prop, sortBy, row) {
+    return classNames({
+      'text-align-right': LEFT_ALIGN_PROPS.includes(prop),
+      'hidden-mini': ['host', 'status', 'cpus', 'mem'].includes(prop),
+      'hidden-medium hidden-small hidden-mini':
+        ['version', 'log'].includes(prop),
+      'highlight': prop === sortBy.prop,
+      'clickable': row == null // this is a header
+    });
+  }
+
   getColumns() {
-    var className = ResourceTableUtil.getClassName;
+    var className = this.getClassName;
     var heading = ResourceTableUtil.renderHeading(TaskTableHeaderLabels);
     let sortFunction = ResourceTableUtil.getSortFunction('id');
 
@@ -63,8 +76,8 @@ class TaskTable extends React.Component {
         sortFunction
       },
       {
-        className: this.getHostColumnClassname,
-        headerClassName: this.getHostColumnClassname,
+        className,
+        headerClassName: className,
         heading,
         prop: 'host',
         render: this.renderHost,
@@ -149,22 +162,15 @@ class TaskTable extends React.Component {
       <colgroup>
         <col style={{width: '40px'}} />
         <col />
-        <col style={{width: '20%'}} className="hidden-mini" />
-        <col style={{width: '120px'}} />
-        <col style={{width: '30px'}} className="hidden-mini" />
+        <col style={{width: '15%'}} className="hidden-mini" />
+        <col style={{width: '105px'}} />
+        <col style={{width: '40px'}} className="hidden-medium hidden-small hidden-mini" />
         <col style={{width: '85px'}} className="hidden-mini" />
-        <col style={{width: '100px'}} className="hidden-mini" />
+        <col style={{width: '85px'}} className="hidden-mini" />
         <col style={{width: '120px'}} />
-        <col style={{width: '180px'}} className="hidden-mini"/>
+        <col style={{width: '110px'}} className="hidden-medium hidden-small hidden-mini"/>
       </colgroup>
     );
-  }
-
-  getHostColumnClassname(prop, sortBy, row) {
-    return classNames('hidden-mini', {
-      'highlight': prop === sortBy.prop,
-      'clickable': row == null // this is a header
-    });
   }
 
   renderHeadline(prop, task) {
