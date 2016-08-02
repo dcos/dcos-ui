@@ -42,6 +42,40 @@ describe('ServiceUtil', function () {
         .toEqual(expectedService);
     });
 
+    describe('environmentVariables', function () {
+
+      it('should keep undefined values as ""', function() {
+        let service = ServiceUtil.createServiceFromFormModel({
+          environmentVariables: {
+            environmentVariables: [
+              { key: 'a', value: 'correct' },
+              { key: 'b', value: undefined }
+            ]
+          }
+        });
+        expect(service.env).toEqual({
+          a: 'correct',
+          b: ''
+        });
+      });
+
+      it('should keep null values as ""', function() {
+        let service = ServiceUtil.createServiceFromFormModel({
+          environmentVariables: {
+            environmentVariables: [
+              { key: 'a', value: 'correct' },
+              { key: 'b', value: null }
+            ]
+          }
+        });
+        expect(service.env).toEqual({
+          a: 'correct',
+          b: ''
+        });
+      });
+
+    });
+
     describe('networking', function () {
 
       describe('host mode', function () {
