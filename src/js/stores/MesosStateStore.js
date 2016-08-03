@@ -4,6 +4,7 @@ var AppDispatcher = require('../events/AppDispatcher');
 import ActionTypes from '../constants/ActionTypes';
 import CompositeState from '../structs/CompositeState';
 var Config = require('../config/Config');
+import Framework from '../structs/Framework';
 import {
   MESOS_STATE_CHANGE,
   MESOS_STATE_REQUEST_ERROR,
@@ -238,12 +239,14 @@ class MesosStateStore extends GetSetBaseStore {
     return [];
   }
 
-  getTasksByServiceId(serviceId) {
-    // Convert serviceId to Mesos service name
-    let mesosServiceName = serviceId.split('/').slice(1).reverse().join('.');
+  getTasksByService(service) {
     let frameworks = this.get('lastMesosState').frameworks;
+    let serviceName = service.getName();
 
-    if (mesosServiceName === '' || !frameworks) {
+    // Convert serviceId to Mesos task name
+    let mesosTaskName = service.getId().split('/').slice(1).reverse().join('.');
+
+    if (!serviceName || !mesosTaskName || !frameworks) {
       return [];
     }
 
@@ -252,8 +255,8 @@ class MesosStateStore extends GetSetBaseStore {
     // the scheduler tasks or a list of Marathon application tasks.
     return frameworks.reduce(function (serviceTasks, framework) {
       let {tasks = [], completed_tasks = {}, name} = framework;
-
-      if (name === mesosServiceName) {
+      // Include tasks from framework match, if service is a Framework
+      if (service instanceof Framework && name === serviceName) {
         return serviceTasks.concat(tasks, completed_tasks);
       }
 
@@ -261,7 +264,7 @@ class MesosStateStore extends GetSetBaseStore {
       if (name === 'marathon') {
         return tasks.concat(completed_tasks)
           .filter(function ({name}) {
-            return name === mesosServiceName;
+            return name === mesosTaskName;
           }).concat(serviceTasks);
       }
 
