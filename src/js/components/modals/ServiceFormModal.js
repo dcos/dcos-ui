@@ -10,7 +10,7 @@ import 'brace/mode/json';
 import 'brace/theme/monokai';
 import 'brace/ext/language_tools';
 
-import BlackListServiceConfig from '../../constants/BlackListServiceConfig';
+import ServiceConfig from '../../constants/ServiceConfig';
 import Config from '../../config/Config';
 import Icon from '../Icon';
 import MarathonStore from '../../stores/MarathonStore';
@@ -106,7 +106,7 @@ const responseAttributePathToFieldIdMap = {
 
 var cleanJSONdefinition = function (jsonDefinition) {
   return Object.keys(jsonDefinition).filter(function (key) {
-    return !BlackListServiceConfig.includes(key);
+    return !ServiceConfig.BLACK_LIST.includes(key);
   }).reduce(function (memo, key) {
     memo[key] = jsonDefinition[key];
     return memo;
