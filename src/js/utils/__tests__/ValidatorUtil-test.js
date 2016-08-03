@@ -131,6 +131,39 @@ describe('ValidatorUtil', function () {
 
   });
 
+  describe('#isInteger', function () {
+    it('should properly handle empty strings', function () {
+      expect(ValidatorUtil.isInteger('')).toBe(false);
+    });
+
+    it('should properly handle undefined values', function () {
+      expect(ValidatorUtil.isInteger()).toBe(false);
+    });
+
+    it('should properly handle null values', function () {
+      expect(ValidatorUtil.isInteger(null)).toBe(false);
+    });
+
+    it('should properly handle wrong value types', function () {
+      expect(ValidatorUtil.isInteger('not a number 666')).toBe(false);
+    });
+
+    it('should handle number like inputs', function () {
+      expect(ValidatorUtil.isInteger(2)).toBe(true);
+      expect(ValidatorUtil.isInteger('2')).toBe(true);
+    });
+
+    it('should verify that the value is in an integer', function () {
+      expect(ValidatorUtil.isInteger(0.1)).toBe(false);
+      expect(ValidatorUtil.isInteger(2.2)).toBe(false);
+      expect(ValidatorUtil.isInteger(-.3)).toBe(false);
+      expect(ValidatorUtil.isInteger(0)).toBe(true);
+      expect(ValidatorUtil.isInteger(1)).toBe(true);
+      expect(ValidatorUtil.isInteger(2)).toBe(true);
+    });
+
+  });
+
   describe('#isNumberInRange', function () {
     it('should properly handle empty strings', function () {
       expect(ValidatorUtil.isNumberInRange('')).toBe(false);

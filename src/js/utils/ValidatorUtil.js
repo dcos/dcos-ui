@@ -33,6 +33,12 @@ var ValidatorUtil = {
     }, 0) === 0;
   },
 
+  isInteger: function (value) {
+    const number = parseFloat(value);
+
+    return Number.isInteger(number);
+  },
+
   isNumberInRange: function (value, range = {}) {
     const {min = 0, max = Number.POSITIVE_INFINITY} = range;
     const number = parseFloat(value);
