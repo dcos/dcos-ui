@@ -56,7 +56,7 @@ var ValidatorUtil = {
     const number = parseFloat(value);
 
     return ValidatorUtil.isNumber(value) && number >= min && number <= max;
-  }
+  },
 
   /**
    * Check if the given string is a valid cron component
@@ -69,6 +69,12 @@ var ValidatorUtil = {
    */
   testCronComponent: function (component, numMin, numMax, discreteValues = []) {
     let value = component;
+    let expectDiscreetString = '';
+
+    // If we have discreet values, create a help string
+    if (discreteValues.length) {
+      expectDiscreetString += ' or "' + discreteValues[0] + '" - "' + discreteValues[discreteValues.length-1] + '"';
+    }
 
     // Separate stepValue
     if (component.indexOf('/') !== -1) {
@@ -85,7 +91,7 @@ var ValidatorUtil = {
       if (isNaN(stepValue)) {
         // Check non-numerical values against discreet values
         if (discreteValues.indexOf(stepValue) === -1) {
-          return 'expects step declaration (/) to be a number ('+stepValue+' given)';
+          return 'expects step declaration (/) to be a number'+expectDiscreetString+' ('+stepValue+' given)';
         }
 
       } else {
@@ -110,46 +116,97 @@ var ValidatorUtil = {
       }
 
       // Check if this is a range
-      let rangeParts = listValue.split('-');
+      let firstIndex;
+      let rangeParts = listValue.toLowerCase().split('-');
       if (rangeParts.length > 2) {
         return 'has more than one range (-) declaration';
       }
 
-      // Validate range parts
-      return rangeParts.reduce(function ( lastError, rangeValue ) {
+      // Check empty range cases
+      if (rangeParts[0] === '') {
+        return 'cannot accept negative values';
+      } else if ((rangeParts.length === 2) && (rangeParts[1] === '')) {
+        return 'has an incomplete range declaration';
+      }
 
-        // Keep the first error encountered
-        if (lastError) {
-          return lastError;
+      // Handle star wildcard case
+      if (rangeParts[0] === '*') {
+
+        // The only invalid case is in a range
+        if (rangeParts.length > 1) {
+          return 'does not accept * in a range';
         }
 
-        // Star is always accepted
-        if (rangeValue === '*') {
-          return null;
+        // Move along
+        return null;
+
+      }
+
+      // Check integrity of first part
+      if (isNaN(rangeParts[0])) {
+
+        // Try to get the discreete value index
+        firstIndex = discreteValues.indexOf(rangeParts[0]);
+
+        // If there is no discreete value, this number is not
+        if (firstIndex === -1) {
+          return 'expects value \''+rangeParts[0]+'\' to be a number'+expectDiscreetString;
         }
 
-        // Validate stepValue
-        if (isNaN(rangeValue)) {
-          // Check non-numerical values against discreet values
-          if (discreteValues.indexOf(rangeValue) === -1) {
-            return 'expects value \''+rangeValue+'\' to be a number';
+      } else {
+
+        // Check numerical values against continuous range
+        let numValue = parseInt(rangeParts[0]);
+        if (numValue < numMin) {
+          return 'expects values bigger than '+numMin;
+        }
+        if (numValue > numMax) {
+          return 'expects values smaller than '+numMax;
+        }
+
+        // Update first index
+        firstIndex = numValue;
+
+      }
+
+      // Check integrity of the second part
+      if (rangeParts.length === 2) {
+        let secondIndex;
+        if (isNaN(rangeParts[0])) {
+
+          // Try to get the discreete value index
+          secondIndex = discreteValues.indexOf(rangeParts[1]);
+
+          // If there is no discreete value, this number is not
+          if (secondIndex === -1) {
+            return 'expects value \''+rangeParts[1]+'\' to be a number'+expectDiscreetString;
           }
 
         } else {
+
           // Check numerical values against continuous range
-          let numValue = parseInt(rangeValue);
+          let numValue = parseInt(rangeParts[1]);
           if (numValue < numMin) {
             return 'expects values bigger than '+numMin;
           }
           if (numValue > numMax) {
             return 'expects values smaller than '+numMax;
           }
+
+          // Update second index
+          secondIndex = numValue;
+
         }
 
-        // Test pass
-        return null;
+        // Validate incrementing order in indices
+        if (secondIndex <= firstIndex) {
+          return 'expects ranges in incrementing order';
+        }
 
-      }, null);
+      }
+
+      // Validation passes
+      return null;
 
     }, null);
 
