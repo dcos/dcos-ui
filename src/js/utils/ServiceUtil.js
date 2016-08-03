@@ -50,6 +50,7 @@ const pruneHealthCheckAttributes = function (healthCheckSchema, healthCheck) {
 
       if (prop === 'command') {
         memo[prop] = {value: healthCheck[prop]};
+
         return memo;
       }
 
@@ -216,6 +217,7 @@ const ServiceUtil = {
       if (labels != null && labels.labels != null) {
         definition.labels = labels.labels.reduce(function (memo, item) {
           memo[item.key] = item.value;
+
           return memo;
         }, {});
       }
@@ -379,6 +381,7 @@ const ServiceUtil = {
       } else {
         memo[key] = null;
       }
+
       return memo;
     }, {});
 
