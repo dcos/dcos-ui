@@ -1,4 +1,8 @@
 var ValidatorUtil = {
+  isDefined: function (value) {
+    return value != null && value !== '' || typeof value === 'number';
+  },
+
   isEmail: function (email) {
     return email != null &&
       email.length > 0 &&

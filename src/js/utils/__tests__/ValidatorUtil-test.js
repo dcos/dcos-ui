@@ -3,6 +3,30 @@ jest.dontMock('../ValidatorUtil');
 describe('ValidatorUtil', function () {
   var ValidatorUtil = require('../ValidatorUtil');
 
+  describe('#isDefined', function () {
+    it('should properly handle empty strings', function () {
+      expect(ValidatorUtil.isDefined('')).toBe(false);
+    });
+
+    it('should properly handle undefined values', function () {
+      expect(ValidatorUtil.isDefined()).toBe(false);
+    });
+
+    it('should properly handle null values', function () {
+      expect(ValidatorUtil.isDefined(null)).toBe(false);
+    });
+
+    it('should verify that the value is defined', function () {
+      expect(ValidatorUtil.isDefined('a')).toBe(true);
+      expect(ValidatorUtil.isDefined('#')).toBe(true);
+      expect(ValidatorUtil.isDefined(0)).toBe(true);
+      expect(ValidatorUtil.isDefined(1)).toBe(true);
+      expect(ValidatorUtil.isDefined({})).toBe(true);
+      expect(ValidatorUtil.isDefined([])).toBe(true);
+    });
+
+  });
+
   describe('#isEmail', function () {
 
     // RFC822 email address validator
