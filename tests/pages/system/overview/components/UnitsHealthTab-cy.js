@@ -1,4 +1,4 @@
-describe('Units Tab [0e2]', function () {
+describe.only('Units Tab [0e2]', function () {
 
   context('Filters [0e3]', function () {
 
