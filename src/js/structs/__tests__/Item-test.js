@@ -31,4 +31,13 @@ describe('Item', function () {
 
   });
 
+  describe('#toJSON', function () {
+
+    it('returns a JSON string with the values in _itemData', function () {
+      let item = new Item({foo: 'bar', baz: 'qux'});
+      expect(item.toJSON()).toEqual('{"foo":"bar","baz":"qux"}');
+    });
+
+  });
+
 });

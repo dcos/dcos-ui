@@ -7,14 +7,15 @@ module.exports = class Item {
     this._itemData = item;
   }
 
-  toJSON() {
-    return JSON.stringify(this._itemData);
-  }
   get(key) {
     if (key == null) {
       return this._itemData;
     }
 
     return this._itemData[key];
+  }
+
+  toJSON() {
+    return JSON.stringify(this.get());
   }
 };
