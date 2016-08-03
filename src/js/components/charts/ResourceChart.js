@@ -55,7 +55,7 @@ class ResourceChart extends React.Component {
         container-pod
         container-pod-super-short
         flush-top">
-        <div className="media-object-spacing-wrapper media-object-offset">
+        <div className="media-object-spacing-wrapper media-object-spacing-narrow media-object-offset">
           <div className="media-object media-object-align-middle">
             <div className="media-object-item">
               <Icon color={iconColor} id={iconID} />
