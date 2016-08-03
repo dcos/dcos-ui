@@ -200,6 +200,23 @@ describe('StringUtil', function () {
     });
   });
 
+  describe('#lowercase', function () {
+
+    it('formats the string with the correct case', function () {
+      expect(StringUtil.lowercase('Every')).toEqual('every');
+    });
+
+    it('returns null if input is not a string', function () {
+      expect(StringUtil.lowercase(10)).toEqual(null);
+    });
+
+    it('does nothing if string is already lowercase', function () {
+      var lowercaseString = 'every';
+      expect(StringUtil.lowercase(lowercaseString))
+        .toEqual(lowercaseString);
+    });
+  });
+
   describe('#humanizeArray', function () {
 
     it('returns an empty string for a 0-length array', function () {
