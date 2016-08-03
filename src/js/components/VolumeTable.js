@@ -54,10 +54,11 @@ class VolumeTable extends React.Component {
 
   getColumnHeading(prop, order, sortBy) {
     let caretClassNames = classNames({
-      'caret': true,
-      'caret--asc': order === 'asc',
-      'caret--desc': order === 'desc',
-      'caret--visible': sortBy.prop === prop
+      'caret',
+      {
+        [`caret--${order}`]: order != null,
+        'caret--visible': prop === sortBy.prop
+      }
     });
 
     let headingStrings = {
