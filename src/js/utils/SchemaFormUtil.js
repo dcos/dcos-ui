@@ -169,6 +169,80 @@ function processValue(value, valueType) {
   return value;
 }
 
+/**
+ * Introduce custom validation function to tv4
+ */
+tv4.defineKeyword('validator', function (data, validationFunction) {
+
+  //
+  // Call the validation function and return:
+  //
+  //  - null     : No error
+  //  - 'string' : The eror description
+  //
+  return validationFunction( data );
+
+});
+
+/**
+ * The default tv4 error messages are quite bad.
+ * Here are a bit more user-friendly alternatives
+ *
+ * The default language is 'en-gb', so by setting
+ * the language to 'en-us' we are introducing our
+ * prettier version of error messages :)
+ */
+tv4.addLanguage('en-us', {
+
+  // Generic errors
+  INVALID_TYPE: 'Expecting a {expected} here',
+  ENUM_MISMATCH: 'No enum match for: {value}',
+  ANY_OF_MISSING: 'Data does not match any schemas from \'anyOf\'',
+  ONE_OF_MISSING: 'Data does not match any schemas from \'oneOf\'',
+  ONE_OF_MULTIPLE: 'Data is valid against more than one schema from \'oneOf\': indices {index1} and {index2}',
+  NOT_PASSED: 'Data matches schema from \'not\'',
+
+  // Numeric errors
+  NUMBER_MULTIPLE_OF: 'Must be a multiple of {multipleOf}',
+  NUMBER_MINIMUM: 'Must be bigger than or equal to {minimum}',
+  NUMBER_MINIMUM_EXCLUSIVE: 'Must be bigger than {minimum}',
+  NUMBER_MAXIMUM: 'Must be smaller than or equal to {maximum}',
+  NUMBER_MAXIMUM_EXCLUSIVE: 'Must be smaller than {maximum}',
+  NUMBER_NOT_A_NUMBER: '\'{value}\' is not a valid number',
+
+  // String errors
+  STRING_LENGTH_SHORT: 'Too short! Must be at least {minimum} characters long',
+  STRING_LENGTH_LONG: 'Too long! Must be less than {maximum} characters long',
+  STRING_PATTERN: '',
+
+  // Object errors
+  OBJECT_PROPERTIES_MINIMUM: 'Too few properties defined ({propertyCount}), minimum {minimum}',
+  OBJECT_PROPERTIES_MAXIMUM: 'Too many properties defined ({propertyCount}), maximum {maximum}',
+  OBJECT_REQUIRED: 'Missing required property: {key}',
+  OBJECT_ADDITIONAL_PROPERTIES: 'Additional properties not allowed',
+  OBJECT_DEPENDENCY_KEY: 'Dependency failed - key must exist: {missing} (due to key: {key})',
+
+  // Array errors
+  ARRAY_LENGTH_SHORT: 'Array is too short ({length}), minimum {minimum}',
+  ARRAY_LENGTH_LONG: 'Array is too long ({length}), maximum {maximum}',
+  ARRAY_UNIQUE: 'Array items are not unique (indices {match1} and {match2})',
+  ARRAY_ADDITIONAL_ITEMS: 'Additional items not allowed',
+
+  // Format errors
+  FORMAT_CUSTOM: '{message}',
+  KEYWORD_CUSTOM: '{message}',
+
+  // Schema structure
+  CIRCULAR_REFERENCE: 'Circular $refs: {urls}',
+
+  // Non-standard validation options
+  UNKNOWN_PROPERTY: 'Unknown property (not in schema)'
+
+});
+
+// Set the new language we just defined
+tv4.language('en-us');
+
 let SchemaFormUtil = {
   /**
    * Finds a specific field definition when a path is passed in.
