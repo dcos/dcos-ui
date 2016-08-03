@@ -29,7 +29,7 @@ class SideTabs extends React.Component {
       let {title, selectValue, definition} = tab;
 
       // Check if at least one field has errors
-      let hasErrors = definition.reduce(function ( lastErrors, def ) {
+      let hasErrors = definition && definition.reduce(function ( lastErrors, def ) {
         return lastErrors || !!def.showError;
       }, false);
 
