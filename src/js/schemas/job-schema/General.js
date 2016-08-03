@@ -36,7 +36,9 @@ const General = {
           type:'number',
           getter(job) {
             return `${job.getCpus() || ''}`;
-          }
+          },
+          minimum: 0,
+          exclusiveMinimum: true
         },
         mem: {
           title: 'Mem (MiB)',
@@ -44,7 +46,8 @@ const General = {
           type: 'number',
           getter(job) {
             return `${job.getMem() || ''}`;
-          }
+          },
+          minimum: 32
         },
         disk: {
           title: 'Disk (MiB)',
@@ -52,7 +55,9 @@ const General = {
           type: 'number',
           getter(job) {
             return `${job.getDisk() || ''}`;
-          }
+          },
+          minimum: 0,
+          exclusiveMinimum: true
         }
       }
     },
