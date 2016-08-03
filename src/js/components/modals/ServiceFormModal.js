@@ -10,6 +10,7 @@ import 'brace/mode/json';
 import 'brace/theme/monokai';
 import 'brace/ext/language_tools';
 
+import BlackListServiceConfig from '../../constants/blacklistServiceConfig';
 import Config from '../../config/Config';
 import Icon from '../Icon';
 import MarathonStore from '../../stores/MarathonStore';
@@ -101,6 +102,15 @@ const responseAttributePathToFieldIdMap = {
   '/uris': 'uris',
   '/user': 'user',
   '/': 'general'
+};
+
+var cleanJSONdefinition = function (jsonDefinition) {
+  return Object.keys(jsonDefinition).filter(function (key) {
+    return !BlackListServiceConfig.includes(key);
+  }).reduce(function (memo, key) {
+    memo[key] = jsonDefinition[key];
+    return memo;
+  }, {});
 };
 
 class ServiceFormModal extends mixin(StoreMixin) {
@@ -259,13 +269,14 @@ class ServiceFormModal extends mixin(StoreMixin) {
     }
 
     if (this.state.jsonMode) {
-      let jsonDefinition = this.state.jsonDefinition;
-      marathonAction(JSON.parse(jsonDefinition), this.state.force);
+      let jsonDefinition = JSON.parse(this.state.jsonDefinition);
+      jsonDefinition = cleanJSONdefinition(jsonDefinition);
+      marathonAction(jsonDefinition, this.state.force);
       this.setState({
         errorMessage: null,
         jsonDefinition,
         pendingRequest: true,
-        service: new Service(JSON.parse(jsonDefinition))
+        service: new Service(jsonDefinition)
       });
       return;
     }
@@ -289,7 +300,7 @@ class ServiceFormModal extends mixin(StoreMixin) {
         service
       });
       marathonAction(
-        ServiceUtil.getAppDefinitionFromService(service),
+        cleanJSONdefinition(ServiceUtil.getAppDefinitionFromService(service)),
         this.state.force
       );
     }
