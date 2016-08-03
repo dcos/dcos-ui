@@ -114,9 +114,7 @@ CosmosErrorMessage.propTypes = {
   error: React.PropTypes.shape({
     message: React.PropTypes.string,
     type: React.PropTypes.string,
-    data: React.PropTypes.shape({
-      errors: React.PropTypes.array
-    })
+    data: React.PropTypes.object
   }),
   header: React.PropTypes.string,
   headerClass: React.PropTypes.string,
