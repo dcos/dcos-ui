@@ -74,7 +74,7 @@ describe('MesosStateStore', function () {
     it('should return matching framework tasks including scheduler tasks',
       function () {
         var tasks = MesosStateStore.getTasksByService(
-          new Service({id: '/spark'})
+          new Framework({id: '/spark', labels: {DCOS_PACKAGE_FRAMEWORK_NAME: 'spark'}})
         );
         expect(tasks).toEqual([
           {name: 'spark', id: 'spark.1'},
@@ -88,17 +88,6 @@ describe('MesosStateStore', function () {
     it('should return matching application tasks', function () {
       var tasks = MesosStateStore.getTasksByService(
         new Service({id: '/alpha'})
-      );
-      expect(tasks).toEqual([
-        {name: 'alpha', id: 'alpha.1'},
-        {name: 'alpha', id: 'alpha.2'},
-        {name: 'alpha', id: 'alpha.3'}
-      ]);
-    });
-
-    it('should return matching framework tasks', function () {
-      var tasks = MesosStateStore.getTasksByService(
-        new Framework({labels: {DCOS_PACKAGE_FRAMEWORK_NAME: 'alpha'}})
       );
       expect(tasks).toEqual([
         {name: 'alpha', id: 'alpha.1'},
