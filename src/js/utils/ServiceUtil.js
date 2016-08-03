@@ -1,25 +1,7 @@
 import {Hooks} from 'PluginSDK';
 import Service from '../structs/Service';
+import ValidatorUtil from '../utils/ValidatorUtil';
 import VolumeConstants from '../constants/VolumeConstants';
-
-function isEmpty(data) {
-  if (typeof(data) == 'number' || typeof(data) == 'boolean') {
-    return false;
-  }
-  if (typeof(data) == 'undefined' || data === null) {
-    return true;
-  }
-  if (typeof(data.length) != 'undefined') {
-    return data.length === 0;
-  }
-  var count = 0;
-  for (var i in data) {
-    if (data.hasOwnProperty(i)) {
-      count++;
-    }
-  }
-  return count === 0;
-}
 
 const getFindPropertiesRecursive = function (service, item) {
 
@@ -392,7 +374,7 @@ const ServiceUtil = {
     }
 
     definition = Object.keys(definition).reduce(function (memo, key) {
-      if (!isEmpty(definition[key])) {
+      if (!ValidatorUtil.isEmpty(definition[key])) {
         memo[key] = definition[key];
       } else {
         memo[key] = null;

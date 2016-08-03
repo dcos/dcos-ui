@@ -64,4 +64,46 @@ describe('ValidatorUtil', function () {
     });
 
   });
+
+  describe('#isEmpty', function () {
+
+    it('should return false if it receives a number', function () {
+      expect(ValidatorUtil.isEmpty(0)).toBe(false);
+      expect(ValidatorUtil.isEmpty(-100)).toBe(false);
+      expect(ValidatorUtil.isEmpty(20)).toBe(false);
+    });
+
+    it('should return false if it receives a boolean', function () {
+      expect(ValidatorUtil.isEmpty(false)).toBe(false);
+      expect(ValidatorUtil.isEmpty(true)).toBe(false);
+    });
+
+    it('should return true if it receives undefined or null', function () {
+      expect(ValidatorUtil.isEmpty()).toBe(true);
+      expect(ValidatorUtil.isEmpty(undefined)).toBe(true);
+      expect(ValidatorUtil.isEmpty(null)).toBe(true);
+    });
+
+    it('should return true if it receives an empty array', function () {
+      expect(ValidatorUtil.isEmpty([])).toBe(true);
+    });
+
+    it('should return false if it receives array with items', function () {
+      expect(ValidatorUtil.isEmpty([0])).toBe(false);
+      expect(ValidatorUtil.isEmpty([{}])).toBe(false);
+    });
+
+    it('should return true if it receives an empty object', function () {
+      expect(ValidatorUtil.isEmpty({})).toBe(true);
+    });
+
+    it('should return false if it receives an object with keys', function () {
+      expect(ValidatorUtil.isEmpty({foo: 'bar', baz: 'qux'})).toBe(false);
+    });
+
+    it('should return false if it receives a string', function () {
+      expect(ValidatorUtil.isEmpty('foo')).toBe(false);
+    });
+
+  });
 });
