@@ -32,7 +32,6 @@ class SideTabs extends React.Component {
       let hasErrors = definition.reduce(function ( lastErrors, def ) {
         return lastErrors || !!def.showError;
       }, false);
-      console.log(title+' has errors:', hasErrors);
 
       // Prepare classes
       let classes = classNames('sidebar-menu-item clickable visible-block', {
