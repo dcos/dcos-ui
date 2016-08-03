@@ -1,4 +1,4 @@
-describe.only('Units Tab [0e2]', function () {
+describe('Units Tab [0e2]', function () {
 
   context('Filters [0e3]', function () {
 
@@ -89,7 +89,7 @@ describe.only('Units Tab [0e2]', function () {
         });
     });
 
-    it('filters by node health [0ec]', function () {
+    it.only('filters by node health [0ec]', function () {
       cy.get('.page-body-content button').contains('All Health Checks').click();
       cy.get('.dropdown').find('li').contains('Healthy').click();
       cy.get('tr').contains('Healthy').should(function ($row) {
