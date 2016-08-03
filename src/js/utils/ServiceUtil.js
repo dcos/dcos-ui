@@ -143,10 +143,6 @@ const ServiceUtil = {
         }
       }
 
-      if (definition.container.docker.image == null) {
-        delete definition.container;
-      }
-
       if (volumes != null) {
         let type = VolumeConstants.type.MESOS;
         let volumesList = [];

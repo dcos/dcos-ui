@@ -17,7 +17,11 @@ describe('ServiceUtil', function () {
 
       let expectedService = new Service({
         id: '/test',
-        cmd: 'sleep 1000;'
+        cmd: 'sleep 1000;',
+        cpus: null,
+        mem: null,
+        disk: null,
+        instances: null
       });
 
       expect(ServiceUtil.createServiceFromFormModel(model))
