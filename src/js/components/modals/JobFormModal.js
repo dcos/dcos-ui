@@ -24,6 +24,7 @@ const METHODS_TO_BIND = [
   'handleInputModeToggle',
   'handleSubmit',
   'handleTabChange',
+  'handleTriggerSubmit',
   'onMetronomeStoreJobCreateSuccess',
   'onMetronomeStoreJobCreateError',
   'onMetronomeStoreJobUpdateSuccess',
@@ -82,6 +83,9 @@ class JobFormModal extends mixin(StoreMixin) {
     METHODS_TO_BIND.forEach((method) => {
       this[method] = this[method].bind(this);
     });
+
+    this.triggerFormSubmit = undefined;
+
   }
 
   componentWillReceiveProps(nextProps) {
@@ -162,19 +166,38 @@ class JobFormModal extends mixin(StoreMixin) {
 
   handleSubmit() {
     let {isEdit, job} = this.props;
-    let jobSpec = cleanJobJSON(
-      JobUtil.createJobSpecFromJob(this.state.job)
-    );
+    let {isValidated} = this.triggerFormSubmit();
+    if (!isValidated) {
 
-    if (!isEdit) {
-      MetronomeStore.createJob(jobSpec);
+      // If we are not validated display error
+      this.setState({
+        errorMessage: {
+          message: 'Please fix all the errors first',
+          details: null
+        }
+      });
+
     } else {
-      MetronomeStore.updateJob(job.getId(), jobSpec);
+
+      // Get job specifications in a correct state
+      let jobSpec = cleanJobJSON(
+        JobUtil.createJobSpecFromJob(this.state.job)
+      );
+
+      if (!isEdit) {
+        MetronomeStore.createJob(jobSpec);
+      } else {
+        MetronomeStore.updateJob(job.getId(), jobSpec);
+      }
     }
   }
 
   handleTabChange(tab) {
     this.setState({defaultTab: tab});
+  }
+
+  handleTriggerSubmit( submitFunction ) {
+    this.triggerFormSubmit = submitFunction;
   }
 
   getErrorMessage() {
@@ -253,6 +276,7 @@ class JobFormModal extends mixin(StoreMixin) {
         defaultTab={defaultTab}
         onTabChange={this.handleTabChange}
         onChange={this.handleFormChange}
+        getTriggerSubmit={this.handleTriggerSubmit}
         model={formModel}
         isEdit={this.props.isEdit}
         schema={JobSchema} />

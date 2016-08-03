@@ -84,10 +84,6 @@ class JobForm extends SchemaForm {
     };
   }
 
-  validateForm() {
-    // TODO: Overwrite the default behaviour until DCOS-7669 is fixed.
-    return true;
-  }
 }
 
 JobForm.defaultProps = {
