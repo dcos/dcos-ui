@@ -10,7 +10,7 @@ import 'brace/mode/json';
 import 'brace/theme/monokai';
 import 'brace/ext/language_tools';
 
-import BlackListServiceConfig from '../../constants/blacklistServiceConfig';
+import BlackListServiceConfig from '../../constants/BlackListServiceConfig';
 import Config from '../../config/Config';
 import Icon from '../Icon';
 import MarathonStore from '../../stores/MarathonStore';
