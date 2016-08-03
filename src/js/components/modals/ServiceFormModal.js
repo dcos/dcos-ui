@@ -423,6 +423,12 @@ class ServiceFormModal extends mixin(StoreMixin) {
   getModalContents() {
     let {jsonDefinition, jsonMode, service} = this.state;
 
+    jsonDefinition = JSON.stringify(
+      cleanJSONdefinition(JSON.parse(jsonDefinition)),
+      null,
+      2
+    );
+
     if (jsonMode) {
       let toolTipContent = (
         <div>

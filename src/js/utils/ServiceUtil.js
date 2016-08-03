@@ -123,7 +123,7 @@ const ServiceUtil = {
         definition.user = optional.user;
       }
 
-      if (containerSettings != null) {
+      if (containerSettings != null && containerSettings.image != null) {
         definition.container = {
           docker: {
             image: containerSettings.image
