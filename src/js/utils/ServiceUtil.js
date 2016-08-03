@@ -174,7 +174,7 @@ const ServiceUtil = {
           if (externalVolumes.length > 0) {
             volumesList = volumesList.concat(externalVolumes);
           }
-          if (!isEdit && volumesList.length > 0) {
+          if (!isEdit && volumesList.length) {
             definition.updateStrategy = {
               maximumOverCapacity: 0,
               minimumHealthCapacity: 0
