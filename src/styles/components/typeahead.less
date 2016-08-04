@@ -5,7 +5,7 @@
      .form-control {
 
        &.bootstrap-typeahead-input-hint {
-
+        // Overriding `!important`s in Canvas' .form-control-group
         margin-bottom: 0 !important;
         margin-top: 0 !important;
       }
@@ -43,6 +43,7 @@
         }
       }
 
+      // These extends are all copying dropdown styles from reactjs-components
       .dropdown-menu {
         &:extend(.dropdown-menu.inverse);
 
@@ -81,7 +82,6 @@
     .typeahead {
 
       .dropdown-menu {
-
         margin-left: -32px;
         // We are matching the width of .filter-input-text-group
         // as defined in reactjs-components
@@ -98,7 +98,6 @@
     .typeahead {
 
       .dropdown-menu {
-
         margin-left: -33px;
         // We are matching the width of .filter-input-text-group
         // as defined in reactjs-components
