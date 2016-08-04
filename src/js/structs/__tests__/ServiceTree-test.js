@@ -73,7 +73,7 @@ describe('ServiceTree', function () {
   describe('#add', function () {
 
     it('adds a service', function () {
-      let tree = new ServiceTree({id: '/test', items: [],});
+      let tree = new ServiceTree({id: '/test', items: []});
       tree.add(new Application({id: 'a'}));
       expect(tree.getItems()[0].get('id')).toEqual('a');
     });
@@ -117,10 +117,10 @@ describe('ServiceTree', function () {
             id: 'group/test',
             items: [
               {
-                id: 'group/test/foo',
+                id: 'group/test/foo'
               },
               {
-                id: 'group/test/bar',
+                id: 'group/test/bar'
               }
             ]
           },
@@ -186,7 +186,7 @@ describe('ServiceTree', function () {
                 id: '/group/test/bar',
                 cmd: 'cmd'
               }
-            ],
+            ]
           },
           {
             id: '/group/alpha',
@@ -294,12 +294,12 @@ describe('ServiceTree', function () {
             id: '/test',
             items: [
               {
-                id: '/test/foo',
+                id: '/test/foo'
               },
               {
-                id: '/test/bar',
+                id: '/test/bar'
               }
-            ],
+            ]
           },
           {
             id: '/alpha',
@@ -349,7 +349,7 @@ describe('ServiceTree', function () {
                 id: '/bar',
                 cmd: 'cmd'
               }
-            ],
+            ]
           },
           {
             id: '/alpha',
@@ -907,8 +907,8 @@ describe('ServiceTree', function () {
       expect(labels.length).toEqual(3);
       expect(labels).toEqual([
         {key: 'label_one', value: 'value_one'},
-        {key: 'label_one', value:  'value_two'},
-        {key: 'label_two', value:  'value_three'}
+        {key: 'label_one', value: 'value_two'},
+        {key: 'label_two', value: 'value_three'}
       ]);
     });
 
@@ -932,7 +932,7 @@ describe('ServiceTree', function () {
       expect(labels.length).toEqual(2);
       expect(labels).toEqual([
         {key: 'label_one', value: 'value_one'},
-        {key: 'label_two', value:  'value_one'}
+        {key: 'label_two', value: 'value_one'}
       ]);
     });
 
