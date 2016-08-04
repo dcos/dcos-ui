@@ -1,31 +1,103 @@
-.typeahead.inverse {
-  .dropdown-menu {
-    &:extend(.dropdown-menu.inverse);
-  }
+.form-control.form-control-group {
 
-  .dropdown-menu-list {
-    &:extend(.dropdown-menu-list.inverse);
-  }
+  .typeahead {
 
-  li {
-    &:extend(.dropdown.open .dropdown-menu.inverse li.is-selectable all);
-    &:extend(.clickable);
+     .form-control {
 
-    &.active {
-      &:extend(.dropdown.open .dropdown-menu.inverse li.is-selectable:hover);
+       &.bootstrap-typeahead-input-hint {
+
+        margin-bottom: 0 !important;
+        margin-top: 0 !important;
+      }
+    }
+
+    .dropdown-menu {
+      position: absolute;
+      width: 100%;
+
+      .dropdown-menu-list {
+
+        li {
+
+          .highlight {
+            font-size: inherit;
+            line-height: inherit;
+          }
+        }
+      }
+    }
+
+    &.inverse {
+
+      .bootstrap-typeahead-input {
+
+        .bootstrap-typeahead-input-hint {
+          color: color-lighten(@gray, 30);
+        }
+      }
+
+      .dropdown-menu {
+        &:extend(.dropdown-menu.inverse);
+
+        .dropdown-menu-list {
+          &:extend(.dropdown-menu-list.inverse);
+
+          li {
+            &:extend(.dropdown.open .dropdown-menu.inverse li.is-selectable all);
+            &:extend(.clickable);
+
+            &.active {
+              &:extend(.dropdown.open .dropdown-menu.inverse li.is-selectable:hover);
+            }
+          }
+        }
+      }
     }
   }
 
+  &.form-control-inverse {
+
+    .typeahead {
+
+      .bootstrap-typeahead-input-main {
+
+        &:extend(.form-control-inverse all);
+        &:extend(.filter-input-text all);
+      }
+    }
+  }
 }
 
-.form-control-inverse .typeahead {
+@media (min-width: @screen-mini) {
 
-  .bootstrap-typeahead-input-main {
-    &:extend(.form-control-inverse all);
-    &:extend(.filter-input-text all);
+  .form-control-group.filter-input-text-group {
+
+    .typeahead {
+
+      .dropdown-menu {
+
+        margin-left: -32px;
+        // We are matching the width of .filter-input-text-group
+        // as defined in reactjs-components
+        min-width: 100px;
+      }
+    }
   }
+}
 
-  .bootstrap-typeahead-input-hint {
-    color: color-lighten(@gray, 30);
+@media (min-width: @screen-small) {
+
+  .form-control-group.filter-input-text-group {
+
+    .typeahead {
+
+      .dropdown-menu {
+
+        margin-left: -33px;
+        // We are matching the width of .filter-input-text-group
+        // as defined in reactjs-components
+        min-width: 200px;
+      }
+    }
   }
 }
