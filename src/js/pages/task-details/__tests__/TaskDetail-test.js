@@ -131,7 +131,7 @@ describe('TaskDetail', function () {
       ReactDOM.unmountComponentAtNode(this.container);
     });
 
-    it('should call getErrorScreen when error occured', function () {
+    it('should call getErrorScreen when error occurred', function () {
       this.instance.state = {
         directory: new TaskDirectory({items: [{nlink: 1, path: '/stdout'}]}),
         taskDirectoryErrorCount: 3
@@ -141,7 +141,7 @@ describe('TaskDetail', function () {
       expect(this.instance.getErrorScreen).toHaveBeenCalled();
     });
 
-    it('ignores getErrorScreen when error has not occured', function () {
+    it('ignores getErrorScreen when error has not occurred', function () {
       this.instance.state = {
         directory: new TaskDirectory({items: [{nlink: 1, path: '/stdout'}]})
       };
