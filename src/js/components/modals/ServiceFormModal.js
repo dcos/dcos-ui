@@ -273,6 +273,7 @@ class ServiceFormModal extends mixin(StoreMixin) {
       let jsonDefinition = JSON.parse(this.state.jsonDefinition);
       jsonDefinition = cleanJSONdefinition(jsonDefinition);
       marathonAction(jsonDefinition, this.state.force);
+      jsonDefinition = JSON.stringify(jsonDefinition, null, 2);
       this.setState({
         errorMessage: null,
         jsonDefinition,
