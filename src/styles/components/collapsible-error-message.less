@@ -1,0 +1,54 @@
+
+//
+// The CollapsibleErrorMessage is a component used on top
+// of forms or on other places to display a main error
+// message and a floating drop-down with the error details
+//
+.collapsible-error-message {
+
+  //
+  // Shared styling between the two items
+  //
+  .collapsible-fixed, .collapsible-floating > div {
+    background: color-lighten(@red, 90);
+    padding: (@base-spacing-unit / 2) @base-spacing-unit;
+  }
+
+  //
+  // The fixed part of the error message
+  //
+  .collapsible-fixed {
+      border-bottom: @red 1px solid;
+  }
+
+  //
+  // The floating part of the error message
+  //
+  .collapsible-floating {
+    position: relative;
+
+    > div {
+
+      // Fill the fixed part dimentions
+      position: absolute;
+      left: 0; width: 100%;
+
+      // Bring on fore-most z-index
+      z-index: 100000;
+
+    }
+  }
+
+  // When expanded, move the red bottom line to the floater
+  &.expanded {
+    .collapsible-fixed {
+      // We don't hide the border because this will
+      // introduce 1 px shift in the bottom content
+      border-bottom: color-lighten(@red, 90) 1px solid;
+    }
+    .collapsible-floating > div {
+      border-bottom: @red 1px solid;
+    }
+  }
+
+}
