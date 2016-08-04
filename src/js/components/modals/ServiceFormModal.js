@@ -109,6 +109,7 @@ var cleanJSONdefinition = function (jsonDefinition) {
     return !ServiceConfig.BLACK_LIST.includes(key);
   }).reduce(function (memo, key) {
     memo[key] = jsonDefinition[key];
+
     return memo;
   }, {});
 };
