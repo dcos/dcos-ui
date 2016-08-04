@@ -254,6 +254,10 @@ const ServiceUtil = {
         definition.env = environmentVariables.environmentVariables
           .reduce(function (variableMap, variable) {
 
+            if (variable.key == null) {
+              return variableMap;
+            }
+
             // The 'undefined' value is not rendered by the JSON.stringify,
             // so make sure empty environment variables are not left unrendered
             let value = variable.value;
