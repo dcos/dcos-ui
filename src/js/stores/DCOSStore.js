@@ -11,6 +11,7 @@ import {
   MARATHON_SERVICE_VERSIONS_CHANGE
 } from '../constants/EventTypes';
 import DeploymentsList from '../structs/DeploymentsList';
+import Item from '../structs/Item';
 import Framework from '../structs/Framework';
 import JobTree from '../structs/JobTree';
 import MarathonStore from './MarathonStore';
@@ -330,7 +331,9 @@ class DCOSStore extends EventEmitter {
     // Create framework dict from Mesos data
     let frameworks = mesos.lastSuccessful().getServiceList()
       .reduceItems(function (memo, framework) {
-        memo[framework.name] = framework;
+        if (framework instanceof Item) {
+          memo[framework.get('name')] = framework.get();
+        }
 
         return memo;
       }, {});
@@ -340,6 +343,7 @@ class DCOSStore extends EventEmitter {
       if (item instanceof ServiceTree) {
         return item;
       }
+
       let serviceId = item.getId();
       let options = {
         versions: versions.get(serviceId),
@@ -348,6 +352,12 @@ class DCOSStore extends EventEmitter {
 
       if (item instanceof Framework) {
         options = Object.assign(options, frameworks[item.getName()]);
+      }
+
+      if (item instanceof Item) {
+        return new item.constructor(
+          Object.assign(options, item.get())
+        );
       }
 
       return new item.constructor(
