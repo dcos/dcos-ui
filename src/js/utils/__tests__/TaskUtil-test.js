@@ -1,55 +1,67 @@
 let TaskUtil = require('../TaskUtil');
-let Service = require('../../structs/Service');
+let Node = require('../../structs/Node');
 
 describe('TaskUtil', function () {
 
-  describe('#getHostList', function () {
+  describe('#getHostAndPortList', function () {
 
-    it('returns empty array if ipAddresses and host is not set', function () {
-      expect(TaskUtil.getHostList({})).toEqual([]);
+    it('returns empty arrays if host and ports are not available', function () {
+      expect(TaskUtil.getHostAndPortList()).toEqual({ports: [], hosts: []});
     });
 
-    it('prefers ipAddresses if both are defined', function () {
-      expect(TaskUtil.getHostList({
-        ipAddresses: [{ipAddress: 'foo'}, {ipAddress: 'bar'}],
-        host: 'baz'
-      })).toEqual(['foo', 'bar']);
+    it('uses ips if network is BRIDGE and no port_mappings', function () {
+      expect(TaskUtil.getHostAndPortList(
+        {
+          discovery: {ports : {ports: [{number: 3}]}},
+          statuses: [{container_status: {network_infos: [
+            {ip_addresses: [{ip_address: 'bar'}]}]}}
+          ],
+          container: {type: 'FOO', foo: {network: 'BRIDGE'}}
+        },
+        new Node({hostname: 'quis'})
+      )).toEqual({ports: [3], hosts: ['bar']});
     });
 
-    it('returns host if ipAddresses is empty', function () {
-      expect(TaskUtil.getHostList({ipAddresses: [], host: 'foo'}))
-        .toEqual(['foo']);
+    it('uses port_mappings if set and network is BRIDGE', function () {
+      expect(TaskUtil.getHostAndPortList(
+        {container: {type: 'FOO', foo: {
+          port_mappings: [{host_port: 'foo'}, {host_port: 'bar'}],
+          network: 'BRIDGE'}}
+        },
+        new Node({hostname: 'quis'})
+      )).toEqual({ports: ['foo', 'bar'], hosts: ['quis']});
     });
 
-    it('returns an empty array if task is not defined', function () {
-      expect(TaskUtil.getHostList()).toEqual([]);
+    it('uses host name if network is HOST', function () {
+      expect(TaskUtil.getHostAndPortList(
+        {discovery: {ports : {ports: [{number: 3}]}}},
+        new Node({hostname: 'foo'})
+      )).toEqual({ports: [3], hosts: ['foo']});
     });
 
   });
 
-  describe('#getPortList', function () {
+  describe('#getPorts', function () {
 
-    it('returns task ports if Service is not defined', function () {
-      expect(TaskUtil.getPortList({ports: [1, 2]})).toEqual([1, 2]);
+    it('returns task ports if discovery ports are not defined', function () {
+      expect(TaskUtil.getPorts({ports: [1, 2]})).toEqual([1, 2]);
     });
 
     it('returns an empty array if neither are defined', function () {
-      expect(TaskUtil.getPortList()).toEqual([]);
+      expect(TaskUtil.getPorts()).toEqual([]);
     });
 
-    it('uses service ports if available', function () {
-      let result = TaskUtil.getPortList(
-        {},
-        new Service({ipAddress: {discovery : {ports: [{number: 3}]}}})
+    it('uses discovery ports if available', function () {
+      let result = TaskUtil.getPorts(
+        {discovery: {ports : {ports: [{number: 3}]}}}
       );
 
       expect(result).toEqual([3]);
     });
 
-    it('prefers service ports if both are available', function () {
-      let result = TaskUtil.getPortList(
-        {ports: [1, 2]},
-        new Service({ipAddress: {discovery : {ports: [{number: 3}]}}})
+    it('prefers discovery ports if both are available', function () {
+      let result = TaskUtil.getPorts(
+        {ports: [1, 2], discovery: {ports : {ports: [{number: 3}]}}}
       );
 
       expect(result).toEqual([3]);

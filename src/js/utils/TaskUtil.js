@@ -2,42 +2,53 @@
 import React from 'react';
 /* eslint-enable no-unused-vars */
 
+import Node from '../structs/Node';
 import Util from './Util';
-import Service from '../structs/Service';
 
 const TaskUtil = {
   /**
    * Returns a list of ips or hosts from task
    * @param  {object} task to return ip or host list from
+   * @param  {object} node to get host name from, if necessary
    * @return {Array.<string>} an array of ip addresses or hosts
    */
-  getHostList(task = {}) {
-    let {ipAddresses} = task;
-    if (ipAddresses && ipAddresses.length) {
-      return ipAddresses.map(function (address) {
-        return address.ipAddress;
-      });
+  getHostAndPortList(task = {}, node = new Node()) {
+    let networkType = this.getNetwork(task);
+    let ports = this.getPorts(task);
+    let hostName = node.getHostName();
+
+    // networkType is 'HOST', but no host name
+    if (networkType !== 'BRIDGE' && networkType !== 'USER' && !hostName) {
+      return {ports: [], hosts: []};
     }
 
-    if (!task.host) {
-      return [];
+    // networkType is 'HOST'
+    if (networkType !== 'BRIDGE' && networkType !== 'USER') {
+      return {ports, hosts: [hostName]};
     }
 
-    return [task.host];
+    // networkType is 'BRIDGE' or 'USER'
+    let portMappings = this.getPortMappings(task) || [];
+    if (portMappings.length) {
+      return {
+        ports: portMappings.map(function (mapping) {
+          return mapping.host_port;
+        }),
+        hosts: [hostName]
+      };
+    }
+
+    return {ports, hosts: this.getIPAddresses(task)};
   },
 
   /**
-   * Returns a list of ports, if ports is available on service it will return
-   * those, otherwise it will fall back on ports on the task
+   * Returns a list of ports, if ports is available in discovery it will return
+   * those, otherwise it will fall back on ports property on the task
    * @param  {object} task to return ports from
-   * @param  {Service} service to get ports from
    * @return {Array.<number>} an array of port numbers
    */
-  getPortList(task = {}, service = new Service()) {
-    let ports = Util.findNestedPropertyInObject(
-      service.getIpAddress(),
-      'discovery.ports'
-    );
+  getPorts(task = {}) {
+    let ports = Util.findNestedPropertyInObject(task, 'discovery.ports.ports');
 
     // If there are no service ports, use task ports
     if (!ports || !ports.length) {
@@ -59,7 +70,7 @@ const TaskUtil = {
   },
 
   getPortMappings(task) {
-    let container = task.container;
+    let {container} = task;
     if (!container || !container.type) {
       return null;
     }
@@ -74,6 +85,29 @@ const TaskUtil = {
     }
 
     return portMappings;
+  },
+
+  getNetwork(task) {
+    let {container} = task;
+    if (!container || !container.type) {
+      return null;
+    }
+
+    return Util.findNestedPropertyInObject(
+      container,
+      `${container.type.toLowerCase()}.network`
+    );
+  },
+
+  getIPAddresses(task) {
+    let ipAddresses = Util.findNestedPropertyInObject(
+      task,
+      'statuses.0.container_status.network_infos.0.ip_addresses'
+    ) || [];
+
+    return ipAddresses.map(function (item) {
+      return item.ip_address;
+    });
   }
 
 };

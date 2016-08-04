@@ -223,11 +223,14 @@ class TaskTable extends React.Component {
   }
 
   renderHost(prop, task) {
+    let node = CompositeState.getNodesList()
+      .filter({ids: [task.slave_id]}).last();
 
     return (
       <TaskEndpointsList
         key={task.id}
         portLimit={3}
+        node={node}
         task={task} />
     );
   }
