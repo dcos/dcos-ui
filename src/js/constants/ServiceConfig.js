@@ -3,6 +3,7 @@ let ServiceConfig = {
     'uris',
     'ports',
     'version',
+    'versions',
     'versionInfo',
     'deployments',
     'tasks',
