@@ -17,7 +17,14 @@
 
       .dropdown-menu-list {
 
+        // These extends are all copying dropdown styles from reactjs-components
         li {
+          &:extend(.clickable);
+          &:extend(.dropdown-menu-list li.is-selectable all);
+
+          &.active {
+            &:extend(.dropdown-menu-list li.is-selectable:hover);
+          }
 
           .highlight {
             font-size: inherit;
@@ -44,7 +51,6 @@
 
           li {
             &:extend(.dropdown.open .dropdown-menu.inverse li.is-selectable all);
-            &:extend(.clickable);
 
             &.active {
               &:extend(.dropdown.open .dropdown-menu.inverse li.is-selectable:hover);
