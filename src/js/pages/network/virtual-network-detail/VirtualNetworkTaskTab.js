@@ -161,6 +161,7 @@ class VirtualNetworkTaskTab extends mixin(StoreMixin) {
     return (
       <Link
         className="clickable"
+        key={value}
         params={{overlayName: this.props.overlay.getName(), taskID}}
         title={title}
         to="virtual-networks-tab-detail-tasks-detail">
@@ -221,21 +222,19 @@ class VirtualNetworkTaskTab extends mixin(StoreMixin) {
 
     let {id} = task;
     return portMappings.map((mapping, index) => {
-      let mapTo = [];
+      let mapTo = null;
 
       if (mapping.host_port) {
-        mapTo.push(
-          <Icon
-            className="list-inline-separator"
-            family="tiny"
-            id="caret-right"
-            size="tiny" />
+        mapTo = (
+          <span>
+            <Icon
+              className="list-inline-separator"
+              family="tiny"
+              id="caret-right"
+              size="tiny" />
+            {this.getTaskLink(id, `${mapping.host_port} (${mapping.protocol})`, title)}
+          </span>
         );
-        mapTo.push(this.getTaskLink(
-          id,
-          `${mapping.host_port} (${mapping.protocol})`,
-          title
-        ));
       }
 
       return (
