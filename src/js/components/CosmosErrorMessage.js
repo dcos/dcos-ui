@@ -50,8 +50,9 @@ class CosmosErrorMessage extends React.Component {
       // Get an array of array of errors for every individual path
       let errorsDetails = data.errors.map(function ({path, errors}) {
         return errors.map(function (error) {
+          let key = (ErrorPaths[path] || path)+'.'+error;
           return (
-              <li>{ErrorPaths[path] || path}: {error}</li>
+              <li key={key}>{ErrorPaths[path] || path}: {error}</li>
             );
         });
       });
