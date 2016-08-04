@@ -10,8 +10,7 @@ let ServiceConfig = {
     'tasksHealthy',
     'tasksRunning',
     'tasksStaged',
-    'tasksUnhealthy',
-    '_itemData'
+    'tasksUnhealthy'
   ]
 };
 
