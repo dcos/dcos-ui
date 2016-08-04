@@ -8,8 +8,7 @@ let METHODS_TO_BIND = [
   'handleBlur',
   'handleFocus',
   'handleChange',
-  'handleClearInput',
-  'handleInputChange'
+  'handleInputClear'
 ];
 
 class FilterInputText extends React.Component {
@@ -38,11 +37,9 @@ class FilterInputText extends React.Component {
       ServiceFilterTypes.TEXT);
   }
 
-  handleClearInput() {
+  handleInputClear() {
     this.props.handleFilterChange('', ServiceFilterTypes.TEXT);
   }
-
-  handleInputChange() { }
 
   handleBlur() {
     this.setState({
@@ -94,7 +91,7 @@ class FilterInputText extends React.Component {
     return (
       <span className="form-control-group-add-on form-control-group-add-on-append">
         {sideText}
-        <a onClick={this.handleClearInput}>
+        <a onClick={this.handleInputClear}>
         <Icon
           family="mini"
           id="ring-close"

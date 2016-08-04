@@ -7,11 +7,10 @@ import React, {PropTypes} from 'react';
 import FilterInputText from './FilterInputText';
 
 class Typeahead extends FilterInputText {
-  handleInputChange(input) {
-    this.props.handleFilterChange(input);
-  }
 
-  handleClearInput() {
+  // Use this method to clear the input field with a ref.
+  // See: https://github.com/mesosphere/react-typeahead#public-methods
+  handleInputClear() {
     if (this.typeahead) {
       this.typeahead.clear();
     };
@@ -21,6 +20,7 @@ class Typeahead extends FilterInputText {
     let {
       emptyLabel,
       labelKey,
+      handleFilterChange,
       inverseStyle,
       items,
       onDropdownItemSelection,
@@ -42,7 +42,7 @@ class Typeahead extends FilterInputText {
           emptyLabel={emptyLabel}
           labelKey={labelKey}
           onChange={onDropdownItemSelection}
-          onInputChange={this.handleInputChange}
+          onInputChange={handleFilterChange}
           options={items}
           placeholder={placeholder}
           ref={ref => { if (ref) { this.typeahead = ref.getInstance(); } }}
