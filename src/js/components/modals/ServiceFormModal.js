@@ -179,12 +179,23 @@ class ServiceFormModal extends mixin(StoreMixin) {
       service = props.service;
     }
 
+    let errorMessage = null;
+    let jsonMode = false;
+    let containerSettings = service.getContainerSettings();
+    if (containerSettings != null && containerSettings.type === 'MESOS' &&
+      containerSettings.docker.image != null) {
+      errorMessage = {
+        message: 'Your configuration is too advanced for the form.'
+      };
+      jsonMode = true;
+    }
+
     this.setState({
       defaultTab: '',
-      errorMessage: null,
+      errorMessage,
       force: false,
       jsonDefinition: service.toJSON(),
-      jsonMode: false,
+      jsonMode,
       model,
       pendingRequest: false,
       service
@@ -225,7 +236,15 @@ class ServiceFormModal extends mixin(StoreMixin) {
       nextState.jsonDefinition = JSON.stringify(ServiceUtil
         .getAppDefinitionFromService(service), null, 2);
     }
-    nextState.jsonMode = !this.state.jsonMode;
+    let containerSettings = this.state.service.getContainerSettings();
+    if (containerSettings != null && containerSettings.type === 'MESOS' &&
+      containerSettings.docker.image != null) {
+      nextState.errorMessage = {
+        message: 'Your configuration is too advanced for the form.'
+      };
+    } else {
+      nextState.jsonMode = !this.state.jsonMode;
+    }
     this.setState(nextState);
   }
 
