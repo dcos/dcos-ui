@@ -172,7 +172,7 @@ const ServiceUtil = {
               };
             });
 
-          if (externalVolumes.length > 0) {
+          if (externalVolumes.length) {
             volumesList = volumesList.concat(externalVolumes);
           }
           if (!isEdit && volumesList.length) {
@@ -193,9 +193,9 @@ const ServiceUtil = {
               };
             });
 
-          if (localVolumes.length > 0) {
+          if (localVolumes.length) {
             volumesList = volumesList.concat(localVolumes);
-            if (!isEdit && volumesList.length > 0) {
+            if (!isEdit && volumesList.length) {
               definition.updateStrategy = {
                 maximumOverCapacity: 0,
                 minimumHealthCapacity: 0
@@ -208,7 +208,7 @@ const ServiceUtil = {
           }
         }
 
-        if (volumesList.length > 0) {
+        if (volumesList.length) {
           definition.container.type = type;
           definition.container.volumes = volumesList;
         }
@@ -284,10 +284,10 @@ const ServiceUtil = {
           });
         }
 
-        if (networking.ports != null && networking.ports.length > 0) {
+        if (networking.ports != null && networking.ports.length) {
           if (networkType === 'host' || !isContainerApp) {
             // Avoid specifying an empty portDefinitions by default
-            if (networking.ports.length > 0) {
+            if (networking.ports.length) {
               definition.portDefinitions = networking.ports.map(function (port, index) {
                 let portMapping = {protocol: 'tcp'};
                 // Ensure that lbPort is an int
