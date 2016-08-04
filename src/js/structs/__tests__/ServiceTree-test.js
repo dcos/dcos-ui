@@ -33,7 +33,9 @@ describe('ServiceTree', function () {
             labels: {
               RANDOM_LABEL: 'random'
             }
-          }
+          },
+          new Application({id: 'a'}),
+          new Framework({id: 'b'})
         ],
         filterProperties: {
           id: function (item) {
@@ -62,6 +64,10 @@ describe('ServiceTree', function () {
       expect(this.instance.getItems()[3] instanceof Application).toEqual(true);
     });
 
+    it('should not convert instances of service', function () {
+      expect(this.instance.getItems()[4].get()).toEqual({id: 'a'});
+      expect(this.instance.getItems()[5].get()).toEqual({id: 'b'});
+    });
   });
 
   describe('#add', function () {
