@@ -106,7 +106,7 @@ const responseAttributePathToFieldIdMap = {
 
 var cleanJSONdefinition = function (jsonDefinition) {
   return Object.keys(jsonDefinition).filter(function (key) {
-    return !ServiceConfig.BLACK_LIST.includes(key);
+    return !ServiceConfig.BLACKLIST.includes(key);
   }).reduce(function (memo, key) {
     memo[key] = jsonDefinition[key];
 

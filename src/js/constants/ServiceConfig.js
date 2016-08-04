@@ -1,5 +1,5 @@
 let ServiceConfig = {
-  BLACK_LIST: [
+  BLACKLIST: [
     'uris',
     'ports',
     'version',
