@@ -170,6 +170,53 @@ function processValue(value, valueType) {
 }
 
 /**
+ * Recursive function to flatten the 'group' types
+ * in a definiton.
+ *
+ * @param {object} definition - The input definition
+ * @returns {object} The flattened definition
+ */
+function unnestGroupsInDefinition(definition) {
+  let defClone = Object.assign({}, definition);
+  if (defClone.properties == null) {
+    return defClone;
+  }
+
+  // Make sure we are operating on a cloned properties
+  defClone.properties = Object.assign({}, defClone.properties);
+
+  // Import group children
+  Object.keys(defClone.properties).forEach(function (propName) {
+    let prop = unnestGroupsInDefinition(defClone.properties[propName]);
+
+    // If we encountered a group in our properties,
+    // merge its properties in our properties
+    if (prop.type === 'group') {
+
+      // Adopt properties
+      Object.keys(prop.properties).forEach(function (propName) {
+        defClone.properties[propName] = prop.properties[propName];
+      });
+
+      // Adopt requirements
+      if (prop.required != null) {
+        defClone.required = defClone.required.concat(prop.required);
+      }
+
+      // Delete this property
+      delete defClone.properties[propName];
+
+    }
+
+    // Update property
+    defClone.properties[propName] = prop;
+
+  });
+
+  return defClone;
+}
+
+/**
  * Introduce custom validation function to tv4
  */
 tv4.defineKeyword('validator', function (data, validationFunction) {
@@ -388,7 +435,7 @@ let SchemaFormUtil = {
    * the properties 'message' and 'path'.
    */
   validateModelWithSchema(model, schema) {
-    let result = tv4.validateMultiple(model, schema);
+    let result = tv4.validateMultiple(model, unnestGroupsInDefinition(schema));
 
     if (result == null || result.valid) {
       return [];
