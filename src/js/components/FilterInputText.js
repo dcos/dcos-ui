@@ -67,8 +67,7 @@ var FilterInputText = React.createClass({
         color = 'purple';
       }
 
-      let iconClassNames = classNames({
-        'clickable': true,
+      let iconClassNames = classNames('clickable', {
         'icon-margin-left': !!props.sideText
       });
 
