@@ -18,6 +18,20 @@ const METHODS_TO_BIND = [
 /**
  * An error bar component commonly used in the ServiceForm and the JobsForm
  * that contains collapsible error messages.
+ *
+ * @example <caption>How to use the CollapsibleErrorMessage</caption>
+ *   <CollapsibleErrorMessage
+ *
+ *        className="error-for-modal"
+ *
+ *        details={[ 'an', 'array', 'of', 'detailed errors' ]}
+ *        message="The message to display"
+ *
+ *        onToggle={function(isToggled) {
+ *          // Do something
+ *        }}
+ *
+ *      />
  */
 class CollapsibleErrorMessage extends React.Component {
 
@@ -40,12 +54,24 @@ class CollapsibleErrorMessage extends React.Component {
   }
 
   /**
+   * Set the default expandedg from the properties
+   */
+  componentWillMount() {
+    this.setState({
+      expanded: this.props.expanded
+    });
+  }
+
+  /**
    * Toggle the expanded state of the collapsible error bar
    */
   toggleExpanded() {
     this.setState({
       expanded: !this.state.expanded
     });
+
+    // Call onToggle callback
+    this.props.onToggle(this.state.expanded);
   }
 
   /**
@@ -71,7 +97,7 @@ class CollapsibleErrorMessage extends React.Component {
     // Render
     return (
         <span
-          className="collapsible-toggle-label text-danger clickable"
+          className="collapsible-toggle-label  clickable"
           onClick={this.toggleExpanded} >
           (Show {moreLess})
         </span>
@@ -110,7 +136,7 @@ class CollapsibleErrorMessage extends React.Component {
 
     // Render the fixed part of the message
     return (
-        <div className="collapsible-fixed text-align-center text-danger flush-top">
+        <div className="collapsible-fixed">
           <Icon
             family="mini"
             id="yield"
@@ -138,9 +164,10 @@ class CollapsibleErrorMessage extends React.Component {
     }
 
     // Render the toggled part of the message
+    // (Note: The nested div is used to float the contents when needed)
     return (
         <div className="collapsible-toggled">
-          <div className="text-danger">
+          <div>
             <ul>
             {this.getDetailMessages()}
             </ul>
@@ -187,14 +214,18 @@ class CollapsibleErrorMessage extends React.Component {
 
 CollapsibleErrorMessage.defaultProps = {
   className: '',
+  details: null,
+  expanded: false,
   message: '',
-  details: null
+  onToggle: function () { }
 };
 
 CollapsibleErrorMessage.propTypes = {
   className: React.PropTypes.string,
+  details: React.PropTypes.array,
+  expanded: React.PropTypes.bool,
   message: React.PropTypes.string,
-  details: React.PropTypes.array
+  onToggle: React.PropTypes.func
 };
 
 module.exports = CollapsibleErrorMessage;
