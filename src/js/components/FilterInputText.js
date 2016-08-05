@@ -25,16 +25,17 @@ class FilterInputText extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (prevState.focus !== this.state.focus && this.state.focus && this.inputField) {
+    let {focus} = this.state;
+
+    if (prevState.focus !== focus && focus && this.inputField) {
       this.inputField.focus();
     }
   }
 
-  handleChange(e) {
-    let {target} = e;
+  handleChange(event) {
+    let {target} = event;
 
-    this.props.handleFilterChange(target.value,
-      ServiceFilterTypes.TEXT);
+    this.props.handleFilterChange(target.value, ServiceFilterTypes.TEXT);
   }
 
   handleInputClear() {
