@@ -14,8 +14,4 @@ module.exports = class Item {
 
     return this._itemData[key];
   }
-
-  toJSON() {
-    return JSON.stringify(this.get());
-  }
 };

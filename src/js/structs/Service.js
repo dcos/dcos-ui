@@ -248,4 +248,8 @@ module.exports = class Service extends Item {
     return `${Config.rootUrl}/service/${serviceName}/`;
 
   }
+
+  toJSON() {
+    return JSON.stringify(this.get());
+  }
 };
