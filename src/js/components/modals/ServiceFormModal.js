@@ -162,6 +162,7 @@ class ServiceFormModal extends mixin(StoreMixin) {
     return props.open !== nextProps.open ||
       state.jsonMode !== nextState.jsonMode ||
       state.errorMessage !== nextState.errorMessage ||
+      state.warningMessage !== nextState.warningMessage ||
       state.pendingRequest !== nextState.pendingRequest;
   }
 
@@ -179,20 +180,20 @@ class ServiceFormModal extends mixin(StoreMixin) {
       service = props.service;
     }
 
-    let errorMessage = null;
+    let warningMessage = null;
     let jsonMode = false;
-    let containerSettings = service.getContainerSettings();
-    if (containerSettings != null && containerSettings.type === 'MESOS' &&
-      containerSettings.docker.image != null) {
-      errorMessage = {
-        message: 'Your configuration is too advanced for the form.'
+    if (this.shouldDisableForm()) {
+      warningMessage = {
+        message: 'Your config contains attributes we currently only support ' +
+        'in the JSON mode.'
       };
       jsonMode = true;
     }
 
     this.setState({
       defaultTab: '',
-      errorMessage,
+      warningMessage,
+      errorMessage: null,
       force: false,
       jsonDefinition: service.toJSON(),
       jsonMode,
@@ -218,11 +219,19 @@ class ServiceFormModal extends mixin(StoreMixin) {
     } catch (e) {
 
     }
-    this.setState({jsonDefinition, service, errorMessage: null});
+    this.setState(
+      {
+        jsonDefinition,
+        service,
+        errorMessage: null,
+        warningMessage: null
+      }
+    );
   }
 
   handleJSONToggle() {
     let nextState = {};
+
     if (!this.state.jsonMode) {
       let {model} = this.triggerSubmit();
       let service = ServiceUtil.createServiceFromFormModel(
@@ -236,11 +245,11 @@ class ServiceFormModal extends mixin(StoreMixin) {
       nextState.jsonDefinition = JSON.stringify(ServiceUtil
         .getAppDefinitionFromService(service), null, 2);
     }
-    let containerSettings = this.state.service.getContainerSettings();
-    if (containerSettings != null && containerSettings.type === 'MESOS' &&
-      containerSettings.docker.image != null) {
-      nextState.errorMessage = {
-        message: 'Your configuration is too advanced for the form.'
+
+    if (this.shouldDisableForm()) {
+      nextState.warningMessage = {
+        message: 'Your config contains attributes we currently only support ' +
+        'in the JSON mode.'
       };
     } else {
       nextState.jsonMode = !this.state.jsonMode;
@@ -264,13 +273,23 @@ class ServiceFormModal extends mixin(StoreMixin) {
     });
   }
 
+  shouldDisableForm() {
+    let containerSettings = this.state.service.getContainerSettings();
+
+    return containerSettings != null && containerSettings.type === 'MESOS' &&
+      ((containerSettings.docker &&
+      containerSettings.docker.image != null) ||
+      containerSettings.appc &&
+      containerSettings.appc.image != null);
+  }
+
   shouldForceUpdate(message = this.state.errorMessage) {
     return message && message.message && /force=true/.test(message.message);
   }
 
   onMarathonStoreServiceEditSuccess() {
-    this.resetState();
     this.props.onClose();
+    this.resetState();
   }
 
   onMarathonStoreServiceEditError(errorMessage) {
@@ -507,6 +526,40 @@ class ServiceFormModal extends mixin(StoreMixin) {
     );
   }
 
+  getToggleButton() {
+    let classSet = 'modal-form-title-label';
+
+    if (this.shouldDisableForm()) {
+      classSet = `${classSet} blend-out`;
+    }
+
+    return (<ToggleButton
+      className={classSet}
+      checkboxClassName="modal-form-title-toggle-button toggle-button"
+      checked={this.state.jsonMode}
+      onChange={this.handleJSONToggle}>
+      JSON mode
+    </ToggleButton>);
+  }
+
+  getWarningMessage() {
+    let {warningMessage} = this.state;
+    console.log(warningMessage);
+    if (!warningMessage) {
+      return null;
+    }
+
+    return (
+      <div>
+        <div className="warning-field">
+          <h4 className="text-align-center flush-top">
+            {warningMessage.message}
+          </h4>
+        </div>
+      </div>
+    );
+  }
+
   render() {
     let titleText = 'Deploy New Service';
 
@@ -522,13 +575,8 @@ class ServiceFormModal extends mixin(StoreMixin) {
           </span>
         </div>
         <div className="header-right">
-          <ToggleButton
-            className="modal-form-title-label"
-            checkboxClassName="modal-form-title-toggle-button toggle-button"
-            checked={this.state.jsonMode}
-            onChange={this.handleJSONToggle}>
-            JSON mode
-          </ToggleButton>
+          {this.getToggleButton()}
+
         </div>
       </div>
     );
@@ -548,6 +596,7 @@ class ServiceFormModal extends mixin(StoreMixin) {
         titleClass="modal-header-title flush-top flush-bottom"
         showFooter={true}>
         {this.getErrorMessage()}
+        {this.getWarningMessage()}
         {this.getModalContents()}
       </Modal>
     );
