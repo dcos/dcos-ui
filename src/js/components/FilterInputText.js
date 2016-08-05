@@ -67,6 +67,10 @@ var FilterInputText = React.createClass({
         color = 'purple';
       }
 
+      let iconClassNames = classNames('clickable', {
+        'icon-margin-left': !!props.sideText
+      });
+
       return (
         <span className="form-control-group-add-on form-control-group-add-on-append">
           {props.sideText}
@@ -75,7 +79,7 @@ var FilterInputText = React.createClass({
             family="mini"
             id="ring-close"
             size="mini"
-            className="clickable"
+            className={iconClassNames}
             color={color} />
           </a>
         </span>
