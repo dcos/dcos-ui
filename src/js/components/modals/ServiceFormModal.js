@@ -182,7 +182,7 @@ class ServiceFormModal extends mixin(StoreMixin) {
 
     let warningMessage = null;
     let jsonMode = false;
-    if (this.shouldDisableForm()) {
+    if (this.shouldDisableForm(service.getContainerSettings())) {
       warningMessage = {
         message: 'Your config contains attributes we currently only support ' +
         'in the JSON mode.'
@@ -273,9 +273,7 @@ class ServiceFormModal extends mixin(StoreMixin) {
     });
   }
 
-  shouldDisableForm() {
-    let containerSettings = this.state.service.getContainerSettings();
-
+  shouldDisableForm(containerSettings = this.state.service.getContainerSettings()) {
     return containerSettings != null && containerSettings.type === 'MESOS' &&
       ((containerSettings.docker &&
       containerSettings.docker.image != null) ||
@@ -544,7 +542,6 @@ class ServiceFormModal extends mixin(StoreMixin) {
 
   getWarningMessage() {
     let {warningMessage} = this.state;
-    console.log(warningMessage);
     if (!warningMessage) {
       return null;
     }
