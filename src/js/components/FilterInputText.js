@@ -85,7 +85,7 @@ class FilterInputText extends React.Component {
     }
 
     let iconClassNames = classNames('clickable', {
-      'icon-margin-left': !!props.sideText
+      'icon-margin-left': !!sideText
     });
 
     return (
