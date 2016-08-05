@@ -632,4 +632,8 @@ var ServicesTable = React.createClass({
   }
 });
 
+ServicesTable.contextTypes = {
+  router: React.PropTypes.func
+};
+
 module.exports = ServicesTable;
