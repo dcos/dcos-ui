@@ -12,8 +12,9 @@
     }
 
     .dropdown-menu {
+      margin-left: -(@icon-mini-width + @form-control-default-border-width + 2 * floor(@form-control-padding-horizontal));
       position: absolute;
-      width: 100%;
+      width: calc(~"100% +" @icon-mini-width + @form-control-default-border-width + 3 * floor(@form-control-padding-horizontal));
 
       .dropdown-menu-list {
 
@@ -82,7 +83,7 @@
     .typeahead {
 
       .dropdown-menu {
-        margin-left: -32px;
+        margin-left: -(@icon-mini-width + @form-control-default-border-width + 2 * floor(@form-control-padding-horizontal * @form-control-padding-horizontal-scale-screen-mini));
         // We are matching the width of .filter-input-text-group
         // as defined in reactjs-components
         min-width: 100px;
@@ -98,10 +99,36 @@
     .typeahead {
 
       .dropdown-menu {
-        margin-left: -33px;
+        margin-left:-(@icon-mini-width + @form-control-default-border-width + 2 * floor(@form-control-padding-horizontal * @form-control-padding-horizontal-scale-screen-small));
         // We are matching the width of .filter-input-text-group
         // as defined in reactjs-components
         min-width: 200px;
+      }
+    }
+  }
+}
+
+@media (min-width: @screen-medium) {
+
+  .form-control-group.filter-input-text-group {
+
+    .typeahead {
+
+      .dropdown-menu {
+        margin-left:-(@icon-mini-width + @form-control-default-border-width + 2 * floor(@form-control-padding-horizontal * @form-control-padding-horizontal-scale-screen-medium));
+      }
+    }
+  }
+}
+
+@media (min-width: @screen-large) {
+
+  .form-control-group.filter-input-text-group {
+
+    .typeahead {
+
+      .dropdown-menu {
+        margin-left:-(@icon-mini-width + @form-control-default-border-width + 2 * floor(@form-control-padding-horizontal * @form-control-padding-horizontal-scale-screen-large));
       }
     }
   }
