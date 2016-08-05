@@ -35,7 +35,11 @@ const General = {
     },
     cron: {
       title: 'CRON Schedule',
-      description: 'Enter your schedule in CRON format, e.g. 0 20 * * *',
+      description: (
+        <span>
+          Enter your schedule in CRON format, e.g. <i>0 0 20 * * *</i>. <a href="https://dcos.io/docs/1.8/usage/jobs/getting-started" target="_blank">Read the docs</a> for more info.
+        </span>
+      ),
       type: 'string',
       getter: function (job) {
         let [schedule = {}] = job.getSchedules();
