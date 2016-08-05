@@ -551,9 +551,9 @@ class ServiceFormModal extends mixin(StoreMixin) {
     return (
       <div>
         <div className="warning-field">
-          <h4 className="text-align-center flush-top">
+          <div className="text-align-center flush-top">
             {warningMessage.message}
-          </h4>
+          </div>
         </div>
       </div>
     );
