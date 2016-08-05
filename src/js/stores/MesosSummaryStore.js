@@ -3,7 +3,6 @@ import {
   REQUEST_SUMMARY_ERROR,
   REQUEST_SUMMARY_HISTORY_SUCCESS,
   REQUEST_SUMMARY_ONGOING,
-  REQUEST_SUMMARY_PLACEHOLDER,
   REQUEST_SUMMARY_SUCCESS,
   SERVER_ACTION
 } from '../constants/ActionTypes';
@@ -105,9 +104,6 @@ class MesosSummaryStore extends GetSetBaseStore {
           break;
         case REQUEST_SUMMARY_ERROR:
           this.processSummaryError();
-          break;
-        case REQUEST_SUMMARY_PLACEHOLDER:
-          this.processSummaryPlaceholder();
           break;
         case REQUEST_SUMMARY_ONGOING:
         case REQUEST_MESOS_HISTORY_ONGOING:

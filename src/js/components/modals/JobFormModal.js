@@ -22,6 +22,7 @@ const METHODS_TO_BIND = [
   'handleJSONEditorChange',
   'handleInputModeToggle',
   'handleSubmit',
+  'handleTabChange',
   'onMetronomeStoreJobCreateSuccess',
   'onMetronomeStoreJobCreateError',
   'onMetronomeStoreJobUpdateSuccess',
@@ -58,6 +59,7 @@ class JobFormModal extends mixin(StoreMixin) {
     super(...arguments);
 
     this.state = {
+      defaultTab: '',
       errorMessage: null,
       job: new Job(),
       jsonMode: false
@@ -121,6 +123,7 @@ class JobFormModal extends mixin(StoreMixin) {
 
   resetState() {
     this.setState({
+      defaultTab: '',
       errorMessage: null,
       job: this.props.job,
       jsonMode: false
@@ -164,6 +167,10 @@ class JobFormModal extends mixin(StoreMixin) {
     } else {
       MetronomeStore.updateJob(job.getId(), jobSpec);
     }
+  }
+
+  handleTabChange(tab) {
+    this.setState({defaultTab: tab});
   }
 
   getErrorMessage() {
@@ -217,7 +224,7 @@ class JobFormModal extends mixin(StoreMixin) {
   }
 
   getModalContents() {
-    let {job, jsonMode} = this.state;
+    let {defaultTab, job, jsonMode} = this.state;
 
     if (jsonMode) {
       let jobSpec = JobUtil.createJobSpecFromJob(job);
@@ -239,6 +246,8 @@ class JobFormModal extends mixin(StoreMixin) {
 
     return (
       <JobForm
+        defaultTab={defaultTab}
+        onTabChange={this.handleTabChange}
         onChange={this.handleFormChange}
         model={formModel}
         isEdit={this.props.isEdit}

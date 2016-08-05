@@ -2,6 +2,10 @@ const HostUtil = {
   stringToHostname: function (string) {
     const HOSTNAME_MAX_LENGTH = 63;
 
+    if (string == null) {
+      return string;
+    }
+
     // Strip or convert illegal characters
     let host = string.toLowerCase().replace(/[_\.]/g, '-').replace(/[^a-z0-9-]/g, '');
 

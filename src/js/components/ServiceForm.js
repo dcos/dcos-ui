@@ -329,8 +329,9 @@ class ServiceForm extends SchemaForm {
     }
   }
 
-  handleTabClick() {
+  handleTabClick(tab) {
     this.bananas(true, 0);
+    this.props.onTabChange(tab);
   }
 
   handleAddRow() {
@@ -469,15 +470,19 @@ class ServiceForm extends SchemaForm {
 
 ServiceForm.defaultProps = {
   className: 'multiple-form row',
+  defaultTab: '',
   getTriggerSubmit: function () {},
   onChange: function () {},
+  onTabChange: function () {},
   schema: {}
 };
 
 ServiceForm.propTypes = {
   className: React.PropTypes.string,
+  defaultTab: React.PropTypes.string,
   getTriggerSubmit: React.PropTypes.func,
   onChange: React.PropTypes.func,
+  onTabChange: React.PropTypes.func,
   schema: React.PropTypes.object
 };
 

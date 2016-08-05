@@ -228,6 +228,20 @@ base/forms.less
 
   .modal-form {
 
+    .disabled {
+      opacity: 0.5;
+      .toggle-button:checked + span:before{
+        background-color: @gray;
+        border-color: @gray;
+      }
+    }
+
+    .warning-field {
+      background: color-lighten(@yellow, 30);
+      border-bottom: @yellow 1px solid;
+      padding: (@base-spacing-unit / 2) @base-spacing-unit;
+    }
+
     label {
       line-height: @modal-form-label-line-height;
       white-space: nowrap;

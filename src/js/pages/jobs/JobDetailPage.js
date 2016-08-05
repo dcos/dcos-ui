@@ -197,7 +197,7 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
       <Dropdown
         anchorRight={true}
         buttonClassName="dropdown-toggle button button-inverse button-stroke"
-        dropdownMenuClassName="dropdown-menu inverse"
+        dropdownMenuClassName="dropdown-menu"
         dropdownMenuListClassName="dropdown-menu-list"
         dropdownMenuListItemClassName="clickable"
         initialID="more"

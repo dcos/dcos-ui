@@ -59,12 +59,17 @@ class ConfigurationView extends mixin(StoreMixin) {
 
     let {docker} = container;
 
+    let parameters = docker.parameters || [];
+    parameters = parameters.map(function ({key, value}) {
+      return `${key} : ${value}`;
+    });
+
     let headerValueMapping = {
       'Force Pull Image': docker.forcePullImage,
       'Image': docker.image,
       'Network': docker.network,
       'Parameters': StringUtil.arrayToJoinedString(
-        docker.parameters.map(({key, value}) => `${key} : ${value}`)
+        parameters
       ),
       'Privileged': docker.privileged
     };

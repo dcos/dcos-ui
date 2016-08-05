@@ -3,7 +3,22 @@ import Job from '../structs/Job';
 // TODO: DCOS-7747 Move this method as well as `createFormModelFromSchema` into
 // the SchemaUtil and refactor it accordingly.
 const getMatchingProperties = function (job, item) {
+
   return Object.keys(item).reduce(function (memo, subItem) {
+
+    if (item[subItem].type === 'group') {
+      Object.keys(item[subItem].properties).forEach(function (key) {
+        memo[key] = item[subItem].properties[key].default;
+
+        if (item[subItem].properties[key].getter &&
+          !!item[subItem].properties[key].getter(job)) {
+          memo[key] = item[subItem].properties[key].getter(job);
+        }
+      });
+
+      return memo;
+    }
+
     if (item[subItem].type === 'object') {
       memo[subItem] = getMatchingProperties(job, item[subItem].properties);
 
