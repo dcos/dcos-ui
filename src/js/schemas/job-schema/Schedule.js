@@ -1,7 +1,7 @@
-import MetadataStore from '../../stores/MetadataStore';
 /* eslint-disable no-unused-vars */
 import React from 'react';
 /* eslint-enable no-unused-vars */
+import MetadataStore from '../../stores/MetadataStore';
 
 const General = {
   title: 'Schedule',
