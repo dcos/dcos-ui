@@ -8,10 +8,6 @@ import classNames from 'classnames';
  * Methods to bind in 'this' context
  */
 const METHODS_TO_BIND = [
-  'getDetailLink',
-  'getDetailMessages',
-  'getFixedPart',
-  'getToggledPart',
   'toggleExpanded'
 ];
 
@@ -112,8 +108,10 @@ class CollapsibleErrorMessage extends React.Component {
    */
   getDetailMessages() {
     let {details} = this.props;
+
     return details.map(function (message) {
       let msg = message.toString();
+
       return (
           <li key={msg}>{msg}</li>
         );
