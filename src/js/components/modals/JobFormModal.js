@@ -65,7 +65,8 @@ class JobFormModal extends mixin(StoreMixin) {
       defaultTab: '',
       errorMessage: null,
       job: new Job(),
-      jsonMode: false
+      jsonMode: false,
+      jsonDefinition: ''
     };
 
     this.store_listeners = [
@@ -132,7 +133,8 @@ class JobFormModal extends mixin(StoreMixin) {
       defaultTab: '',
       errorMessage: null,
       job: this.props.job,
-      jsonMode: false
+      jsonMode: false,
+      jsonDefinition: ''
     });
   }
 
@@ -157,26 +159,48 @@ class JobFormModal extends mixin(StoreMixin) {
   }
 
   handleJSONEditorChange(jsonDefinition) {
-    try {
-      let job = new Job(JSON.parse(jsonDefinition));
-      this.setState({errorMessage: null, job});
-    } catch (error) {
-      // TODO: DCOS-7734 Handle error
-    }
+
+    // Keep the new JSON string in the JSON definition
+    // Validation will occur upon submission of the form
+    this.setState({
+      errorMessage: null,
+      jsonDefinition
+    });
+
   }
 
   handleSubmit() {
     let {isEdit, job} = this.props;
-    let {isValidated} = this.triggerFormSubmit();
-    if (!isValidated) {
 
-      // If we are not validated display error
-      this.setState({
-        errorMessage: {
-          message: 'Please fix all the errors first',
-          details: null
+    if (jsonMode) {
+      try {
+
+        // Parse JSON and create job object
+        let job = new Job(JSON.parse(this.state.jsonDefinition));
+
+        // Get job specifications in a correct state
+        let jobSpec = JobUtil.createJobSpecFromJob(job);
+
+        if (!isEdit) {
+          MetronomeStore.createJob(jobSpec);
+        } else {
+          MetronomeStore.updateJob(job.getId(), jobSpec);
         }
-      });
+
+      } catch (error) {
+        // TODO: DCOS-7734 Handle error
+
+        // For now, display the parsing errors.
+        this.setState({
+          errorMessage: {
+            message: 'Please validate your JSON syntax',
+            'details': [
+              { path: '/', errors: [error] }
+            ]
+          }
+        });
+
+      }
 
     } else {
 
@@ -188,7 +212,16 @@ class JobFormModal extends mixin(StoreMixin) {
       if (!isEdit) {
         MetronomeStore.createJob(jobSpec);
       } else {
-        MetronomeStore.updateJob(job.getId(), jobSpec);
+
+        // Get job specifications in a correct state
+        let jobSpec = JobUtil.createJobSpecFromJob(this.state.job);
+
+        if (!isEdit) {
+          MetronomeStore.createJob(jobSpec);
+        } else {
+          MetronomeStore.updateJob(job.getId(), jobSpec);
+        }
+
       }
     }
   }
