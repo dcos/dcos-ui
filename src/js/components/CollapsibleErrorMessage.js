@@ -62,12 +62,11 @@ class CollapsibleErrorMessage extends React.Component {
    * Toggle the expanded state of the collapsible error bar
    */
   toggleExpanded() {
-    this.setState({
-      expanded: !this.state.expanded
-    });
+    let expanded = !this.state.expanded;
+    this.setState({expanded});
 
     // Call onToggle callback
-    this.props.onToggle(this.state.expanded);
+    this.props.onToggle(expanded);
   }
 
   /**
