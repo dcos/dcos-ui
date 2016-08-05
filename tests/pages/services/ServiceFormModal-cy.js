@@ -39,6 +39,34 @@ describe('Service Form Modal', function () {
         expect(nodeList[0].textContent).to.contain('"id": "/"');
       });
     });
+
+    it('remembers the selected form tab when switching back from JSON', function () {
+      cy.get('.filter-bar-right .filter-bar-item')
+        .contains('Deploy Service')
+        .click();
+
+      cy.get('.sidebar-menu-item.clickable')
+        .contains('Container Settings')
+        .click();
+
+      cy.get('.form-panel:visible .form-row-element h2.form-header').first()
+        .should('to.have.text', 'Container Settings');
+
+      // Switch to JSON
+      cy.get('.modal-form-title-label').click();
+
+      // Switch to JSON
+      cy.get('.ace_content').should(function (nodeList) {
+        expect(nodeList[0].textContent).to.contain('"id": "/"');
+      });
+
+      // Switch back to form
+      cy.get('.modal-form-title-label').click();
+
+      cy.get('.form-panel:visible .form-row-element h2.form-header').first()
+        .should('to.have.text', 'Container Settings');
+
+    });
   });
 
   context('Group level', function () {

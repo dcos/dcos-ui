@@ -371,6 +371,7 @@ class SchemaForm extends mixin(StoreMixin, InternalStorageMixin) {
       <div>
         {this.getFormHeader()}
         <TabForm
+          defaultTab={this.props.defaultTab}
           definition={this.multipleDefinition}
           formRowClass="flex-box"
           getTriggerSubmit={this.getTriggerTabFormSubmit}

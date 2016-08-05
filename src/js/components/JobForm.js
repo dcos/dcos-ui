@@ -22,6 +22,10 @@ class JobForm extends SchemaForm {
     this.props.getTriggerSubmit(this.handleExternalSubmit);
   }
 
+  handleTabClick(tab) {
+    this.props.onTabChange(tab);
+  }
+
   getNewDefinition() {
     let multipleDefinition = super.getNewDefinition();
 
@@ -52,17 +56,21 @@ class JobForm extends SchemaForm {
 
 JobForm.defaultProps = {
   className: 'multiple-form row',
+  defaultTab: '',
   getTriggerSubmit: function () {},
   isEdit: false,
   onChange: function () {},
+  onTabChange: function () {},
   schema: {}
 };
 
 JobForm.propTypes = {
   className: React.PropTypes.string,
+  defaultTab: React.PropTypes.string,
   isEdit: React.PropTypes.bool,
   getTriggerSubmit: React.PropTypes.func,
   onChange: React.PropTypes.func,
+  onTabChange: React.PropTypes.func,
   schema: React.PropTypes.object
 };
 
