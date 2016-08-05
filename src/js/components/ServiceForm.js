@@ -348,8 +348,8 @@ class ServiceForm extends SchemaForm {
       model.environmentVariables = model.environmentVariables.environmentVariables;
       model.labels = model.labels.labels;
       model.healthChecks = model.healthChecks.healthChecks;
-
-      if (!['host', 'bridge'].includes(model.networking.networkType)) {
+      if (!['host', 'bridge'].includes(model.networking.networkType) &&
+        model.networking.ports) {
         // Set expose to true as default
         model.networking.ports.map(function (port) {
           port.expose = port.expose || false;
