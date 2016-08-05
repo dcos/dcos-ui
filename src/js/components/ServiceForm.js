@@ -23,7 +23,7 @@ const DUPLICABLE_FIELDS_TO_WATCH = {
   },
   ports: {
     fields: ['discovery', 'protocol'],
-    blurOnly: ['name'],
+    blurOnly: ['name', 'lbPort'],
     forceUpdate: true
   }
 };
