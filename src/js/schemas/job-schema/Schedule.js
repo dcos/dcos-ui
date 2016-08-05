@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
-import ValidatorUtil from '../../utils/ValidatorUtil';
+import CRONValidatorUtil from '../../utils/CRONValidatorUtil';
 /* eslint-enable no-unused-vars */
 import MetadataStore from '../../stores/MetadataStore';
 
@@ -33,50 +33,7 @@ const Schedule = {
 
         return schedule.cron;
       },
-      validator: function (value) {
-        let test;
-        let parts = value.split(/ +/);
-        if (parts.length !== 5) {
-          return 'Expecting 5 components: minute hour date month weekday';
-        }
-
-        // Validate minute
-        test = ValidatorUtil.testCronComponent( parts[0], 0, 59 );
-        if (test !== null) {
-          return 'Minute (1rst component) '+test;
-        }
-
-        // Validate hour
-        test = ValidatorUtil.testCronComponent( parts[1], 0, 23 );
-        if (test !== null) {
-          return 'Hour (2nd component) '+test;
-        }
-
-        // Validate date
-        test = ValidatorUtil.testCronComponent( parts[2], 1, 31 );
-        if (test !== null) {
-          return 'Date (3rd component) '+test;
-        }
-
-        // Validate month
-        test = ValidatorUtil.testCronComponent( parts[3], 1, 12,
-          ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec']
-        );
-        if (test !== null) {
-          return 'Month (4th component) '+test;
-        }
-
-        // Validate weekday
-        test = ValidatorUtil.testCronComponent( parts[4], 0, 6,
-          ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun']
-        );
-        if (test !== null) {
-          return 'Week day (5th component) '+test;
-        }
-
-        // All tests passed successfully
-        return null;
-      }
+      validator: CRONValidatorUtil.testCronString
     },
     timezone: {
       title: 'Time Zone',
