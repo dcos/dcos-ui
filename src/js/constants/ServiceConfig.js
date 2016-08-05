@@ -6,6 +6,7 @@ let ServiceConfig = {
     'versions',
     'versionInfo',
     'deployments',
+    'queue',
     'tasks',
     'taskStats',
     'tasksHealthy',
