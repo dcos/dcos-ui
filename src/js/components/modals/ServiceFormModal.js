@@ -353,8 +353,8 @@ class ServiceFormModal extends mixin(StoreMixin) {
     if (this.shouldForceUpdate(errorMessage)) {
       return (
         <CollapsibleErrorMessage
-          message={'App is currently locked by one or more deployments. Press the button again ' +
-                  'to forcefully change and deploy the new configuration.'} />
+          message="App is currently locked by one or more deployments.
+            Press the button again to forcefully change and deploy the new configuration." />
       );
     }
 

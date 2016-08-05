@@ -30,11 +30,12 @@
     > div {
 
       // Fill the fixed part dimentions
+      left: 0;
       position: absolute;
-      left: 0; width: 100%;
+      width: 100%;
 
-      // Bring on fore-most z-index
-      z-index: 100000;
+      // Bring it on top of the modal content
+      z-index: @z-index-error-details-dropdown;
 
     }
   }
