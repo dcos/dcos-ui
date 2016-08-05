@@ -262,6 +262,7 @@ class ServiceFormModal extends mixin(StoreMixin) {
     this.props.onClose();
   }
 
+  // TODO (poltergeist): Simplify submit logic.
   handleSubmit() {
     let marathonAction = MarathonStore.createService;
 
