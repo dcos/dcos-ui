@@ -203,7 +203,9 @@ function unnestGroupsInDefinition(definition) {
         defClone.required = defClone.required.concat(prop.required);
       }
 
-      // Delete this property
+      // Now that all the child properties of this group are
+      // merged in the present definition we don't need this
+      // empty group any more.
       delete defClone.properties[propName];
 
     }
