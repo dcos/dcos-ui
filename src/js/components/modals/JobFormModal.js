@@ -210,8 +210,9 @@ class JobFormModal extends mixin(StoreMixin) {
 
     return (
       <CollapsibleErrorMessage
-        message={errorMessage.message}
-        details={errorList} />
+        className="error-for-modal"
+        details={errorList}
+        message={errorMessage.message} />
     );
   }
 

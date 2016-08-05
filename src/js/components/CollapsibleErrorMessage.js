@@ -11,7 +11,7 @@ const METHODS_TO_BIND = [
   'getDetailLink',
   'getDetailMessages',
   'getFixedPart',
-  'getFloatingPart',
+  'getToggledPart',
   'toggleExpanded'
 ];
 
@@ -71,7 +71,7 @@ class CollapsibleErrorMessage extends React.Component {
     // Render
     return (
         <span
-          className="text-danger clickable"
+          className="collapsible-toggle-label text-danger clickable"
           onClick={this.toggleExpanded} >
           (Show {moreLess})
         </span>
@@ -108,13 +108,9 @@ class CollapsibleErrorMessage extends React.Component {
       return null;
     }
 
-    // Make sure at least one whitespace character
-    // exists after the message string
-    message += ' ';
-
     // Render the fixed part of the message
     return (
-        <div key="fixed" className="collapsible-fixed text-align-center text-danger flush-top">
+        <div className="collapsible-fixed text-align-center text-danger flush-top">
           <Icon
             family="mini"
             id="yield"
@@ -128,11 +124,11 @@ class CollapsibleErrorMessage extends React.Component {
   }
 
   /**
-   * [Custom component] The floating message part
+   * [Custom component] The toggled message part
    *
    * @returns {React.Component} - The rendered content
    */
-  getFloatingPart() {
+  getToggledPart() {
     let {message, details} = this.props;
     let isDetailed = !!message && details && details.length;
 
@@ -141,9 +137,9 @@ class CollapsibleErrorMessage extends React.Component {
       return null;
     }
 
-    // Render the floating part of the message
+    // Render the toggled part of the message
     return (
-        <div key="floating" className="collapsible-floating">
+        <div className="collapsible-toggled">
           <div className="text-danger">
             <ul>
             {this.getDetailMessages()}
@@ -169,20 +165,36 @@ class CollapsibleErrorMessage extends React.Component {
     }
 
     // Compile classes
-    let className = classNames('collapsible-error-message', {
-      expanded: this.state.expanded
-    });
+    let className = classNames(
+      this.props.className,
+      'collapsible-error-message',
+      {
+        'expanded': this.state.expanded
+      }
+    );
 
     // Render message component
     return (
         <div className={className}>
           {this.getFixedPart()}
-          {this.getFloatingPart()}
+          {this.getToggledPart()}
         </div>
       );
 
   };
 
+};
+
+CollapsibleErrorMessage.defaultProps = {
+  className: '',
+  message: '',
+  details: null
+};
+
+CollapsibleErrorMessage.propTypes = {
+  className: React.PropTypes.string,
+  message: React.PropTypes.string,
+  details: React.PropTypes.array
 };
 
 module.exports = CollapsibleErrorMessage;

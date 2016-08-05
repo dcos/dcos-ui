@@ -353,6 +353,7 @@ class ServiceFormModal extends mixin(StoreMixin) {
     if (this.shouldForceUpdate(errorMessage)) {
       return (
         <CollapsibleErrorMessage
+          className="error-for-modal"
           message="App is currently locked by one or more deployments.
             Press the button again to forcefully change and deploy the new configuration." />
       );
@@ -360,8 +361,9 @@ class ServiceFormModal extends mixin(StoreMixin) {
 
     return (
       <CollapsibleErrorMessage
-        message={errorMessage.message}
-        details={errorList} />
+        className="error-for-modal"
+        details={errorList}
+        message={errorMessage.message} />
     );
 
   }
