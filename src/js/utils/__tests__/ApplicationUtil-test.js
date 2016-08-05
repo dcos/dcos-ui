@@ -33,8 +33,10 @@ describe('ApplicationUtil', function () {
 
       ApplicationUtil.invokeAfterPageLoad(spy);
 
+      let elapsed = setTimeout.mock.calls[0][1];
       expect(setTimeout.mock.calls[0][0]).toEqual(spy);
-      expect(setTimeout.mock.calls[0][1]).toEqual(1000);
+      expect(elapsed).toBeGreaterThan(950);
+      expect(elapsed).toBeLessThan(1050);
     });
 
   });
