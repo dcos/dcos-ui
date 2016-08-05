@@ -93,8 +93,11 @@ var ResourceTableUtil = {
         after: null
       };
       let caretClassSet = classNames(
-        `caret caret--${order}`,
-        {'caret--visible': prop === sortBy.prop}
+        'caret',
+        {
+          [`caret--${order}`]: order != null,
+          'caret--visible': prop === sortBy.prop
+        }
       );
       let helpIcon = null;
 

@@ -70,12 +70,13 @@ class JobRunHistoryTable extends React.Component {
   }
 
   getColumnHeading(prop, order, sortBy) {
-    let caretClassNames = classNames({
-      'caret': true,
-      'caret--asc': order === 'asc',
-      'caret--desc': order === 'desc',
-      'caret--visible': sortBy.prop === prop
-    });
+    let caretClassNames = classNames(
+      'caret',
+      {
+        [`caret--${order}`]: order != null,
+        'caret--visible': prop === sortBy.prop
+      }
+    );
 
     let headingStrings = {
       'jobID': 'Job ID',
