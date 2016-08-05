@@ -1,4 +1,3 @@
-
 import Icon from './Icon';
 
 import React from 'react';
@@ -70,11 +69,11 @@ class CollapsibleErrorMessage extends React.Component {
   }
 
   /**
-   * [Custom component] The (show more/less) link
+   * [Fragment] The show more/less link
    *
    * @returns {React.Component} - The rendered content
    */
-  getDetailLink() {
+  getShowDetailsLink() {
     let {message, details} = this.props;
     let isDetailed = message && details && details.length;
 
@@ -101,11 +100,11 @@ class CollapsibleErrorMessage extends React.Component {
   }
 
   /**
-   * [Custom component] The list of errors in the details
+   * [Fragment] The list of errors in the details
    *
    * @returns {React.Component} - The rendered content
    */
-  getDetailMessages() {
+  getDetailsListItems() {
     let {details} = this.props;
 
     return details.map(function (message) {
@@ -118,11 +117,11 @@ class CollapsibleErrorMessage extends React.Component {
   }
 
   /**
-   * [Custom component] The fixed message part
+   * [Fragment] The fixed message part
    *
    * @returns {React.Component} - The rendered content
    */
-  getFixedPart() {
+  getFixedMessagePart() {
     let {message} = this.props;
     let isVisible = !!message;
 
@@ -141,7 +140,7 @@ class CollapsibleErrorMessage extends React.Component {
             className="icon-alert icon-margin-right"
             color="red" />
           {message}
-          {this.getDetailLink()}
+          {this.getShowDetailsLink()}
         </div>
       );
   }
@@ -151,7 +150,7 @@ class CollapsibleErrorMessage extends React.Component {
    *
    * @returns {React.Component} - The rendered content
    */
-  getToggledPart() {
+  getCollapsibleMessagePart() {
     let {message, details} = this.props;
     let isDetailed = !!message && details && details.length;
 
@@ -166,7 +165,7 @@ class CollapsibleErrorMessage extends React.Component {
         <div className="collapsible-toggled">
           <div>
             <ul>
-            {this.getDetailMessages()}
+            {this.getDetailsListItems()}
             </ul>
           </div>
         </div>
@@ -200,8 +199,8 @@ class CollapsibleErrorMessage extends React.Component {
     // Render message component
     return (
         <div className={className}>
-          {this.getFixedPart()}
-          {this.getToggledPart()}
+          {this.getFixedMessagePart()}
+          {this.getCollapsibleMessagePart()}
         </div>
       );
 

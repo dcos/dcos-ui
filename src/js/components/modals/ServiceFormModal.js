@@ -415,8 +415,8 @@ class ServiceFormModal extends mixin(StoreMixin) {
       return (
         <CollapsibleErrorMessage
           className="error-for-modal"
-          message="App is currently locked by one or more deployments.
-            Press the button again to forcefully change and deploy the new configuration." />
+          message={`App is currently locked by one or more deployments.
+            Press the button again to forcefully change and deploy the new configuration.`} />
       );
     }
 
