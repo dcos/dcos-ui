@@ -1,3 +1,4 @@
+import MetadataStore from '../../stores/MetadataStore';
 /* eslint-disable no-unused-vars */
 import React from 'react';
 /* eslint-enable no-unused-vars */
@@ -37,7 +38,7 @@ const General = {
       title: 'CRON Schedule',
       description: (
         <span>
-          Enter your schedule in CRON format, e.g. <i>0 0 20 * * *</i>. <a href="https://dcos.io/docs/1.8/usage/jobs/getting-started" target="_blank">Read the docs</a> for more info.
+          Use cron format to set your schedule, e.g. <code>0 0 20 * * *</code>.<br/><a href={MetadataStore.buildDocsURI('/usage/jobs/getting-started')} target="_blank">View documentation</a>.
         </span>
       ),
       type: 'string',
