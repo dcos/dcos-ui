@@ -23,6 +23,8 @@ const DUPLICABLE_FIELDS_TO_WATCH = {
   },
   ports: {
     fields: ['discovery', 'protocol'],
+    // Watch name to update the virtual network port exposure
+    // Watch lbPort to update Service Address port on bridged networks
     blurOnly: ['name', 'lbPort'],
     forceUpdate: true
   }
