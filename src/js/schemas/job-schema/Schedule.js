@@ -38,7 +38,7 @@ const General = {
       title: 'CRON Schedule',
       description: (
         <span>
-          Use cron format to set your schedule, e.g. <code>0 0 20 * * *</code>.<br/><a href={MetadataStore.buildDocsURI('/usage/jobs/getting-started')} target="_blank">View documentation</a>.
+          Use cron format to set your schedule, e.g. <i>0 0 20 * * *</i><br/><a href={MetadataStore.buildDocsURI('/usage/jobs/getting-started')} target="_blank">View documentation</a>.
         </span>
       ),
       type: 'string',
