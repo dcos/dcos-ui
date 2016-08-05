@@ -5,6 +5,7 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var TestUtils = require('react-addons-test-utils');
 
+let Node = require('../../structs/Node');
 let TaskEndpointsList = require('../TaskEndpointsList');
 let Service = require('../../structs/Service');
 
@@ -41,7 +42,10 @@ describe('TaskEndpointsList', function () {
     it('returns a list of linked ipAddresses if ports is not defined', function () {
       let instance = ReactDOM.render(
         <TaskEndpointsList task={{
-          ipAddresses: [{ipAddress: 'foo'}, {ipAddress: 'bar'}]
+          statuses: [{container_status: {network_infos: [
+            {ip_addresses: [{ip_address: 'foo'}, {ip_address: 'bar'}]}]}}
+          ],
+          container: {type: 'FOO', foo: {network: 'BRIDGE'}}
         }} />,
         this.container
       );
@@ -55,7 +59,7 @@ describe('TaskEndpointsList', function () {
 
     it('returns a list of linked hosts ports and ipAddresses are not defined', function () {
       let instance = ReactDOM.render(
-        <TaskEndpointsList task={{host: 'foo'}} />,
+        <TaskEndpointsList task={{}} node={new Node({hostname: 'foo'})} />,
         this.container
       );
       let links = ReactDOM.findDOMNode(instance).querySelectorAll('a');
@@ -66,7 +70,7 @@ describe('TaskEndpointsList', function () {
 
     it('returns host with ports if ipAddresses are not defined', function () {
       let instance = ReactDOM.render(
-        <TaskEndpointsList task={{host: 'foo', ports: [1, 2]}} />,
+        <TaskEndpointsList task={{ports: [1, 2]}} node={new Node({hostname: 'foo'})} />,
         this.container
       );
       let links = ReactDOM.findDOMNode(instance).querySelectorAll('a');
@@ -80,7 +84,7 @@ describe('TaskEndpointsList', function () {
 
     it('returns truncated list if more than 3 ports are provided', function () {
       let instance = ReactDOM.render(
-        <TaskEndpointsList task={{host: 'foo', ports: [1, 2, 3, 4, 5]}} />,
+        <TaskEndpointsList task={{ports: [1, 2, 3, 4, 5]}} node={new Node({hostname: 'foo'})} />,
         this.container
       );
       let links = ReactDOM.findDOMNode(instance).querySelectorAll('a');
@@ -92,7 +96,7 @@ describe('TaskEndpointsList', function () {
 
     it('expands truncated list when "more" is clicked', function () {
       let instance = ReactDOM.render(
-        <TaskEndpointsList task={{host: 'foo', ports: [1, 2, 3, 4, 5]}} />,
+        <TaskEndpointsList task={{ports: [1, 2, 3, 4, 5]}} node={new Node({hostname: 'foo'})} />,
         this.container
       );
       let links = ReactDOM.findDOMNode(instance).querySelectorAll('a');
@@ -107,7 +111,7 @@ describe('TaskEndpointsList', function () {
 
     it('collapses truncated list when "less" is clicked', function () {
       let instance = ReactDOM.render(
-        <TaskEndpointsList task={{host: 'foo', ports: [1, 2, 3, 4, 5]}} />,
+        <TaskEndpointsList task={{ports: [1, 2, 3, 4, 5]}} node={new Node({hostname: 'foo'})} />,
         this.container
       );
       let links = ReactDOM.findDOMNode(instance).querySelectorAll('a');

@@ -128,13 +128,12 @@ class TaskEndpointsList extends React.Component {
   }
 
   render() {
-    if (this.props.task == null) {
+    let {node, task} = this.props;
+    if (task == null) {
       return this.getNullList();
     }
 
-    let hosts = TaskUtil.getHostList(this.props.task);
-    let ports = TaskUtil.getPortList(this.props.task);
-
+    let {hosts, ports} = TaskUtil.getHostAndPortList(task, node);
     let totalPortCount = ports.length;
 
     if (hosts.length === 0 && totalPortCount === 0) {
@@ -160,7 +159,8 @@ TaskEndpointsList.defaultProps = {
 
 TaskEndpointsList.propTypes = {
   portLimit: React.PropTypes.number,
-  task: React.PropTypes.object
+  task: React.PropTypes.object,
+  node: React.PropTypes.object
 };
 
 module.exports = TaskEndpointsList;

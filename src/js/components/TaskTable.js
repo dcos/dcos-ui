@@ -3,6 +3,7 @@ import {Link} from 'react-router';
 import React from 'react';
 
 import CheckboxTable from './CheckboxTable';
+import CompositeState from '../structs/CompositeState';
 import Icon from './Icon';
 import MarathonStore from '../stores/MarathonStore';
 import ResourceTableUtil from '../utils/ResourceTableUtil';
@@ -15,6 +16,7 @@ import Units from '../utils/Units';
 
 const METHODS_TO_BIND = [
   'renderHeadline',
+  'renderHost',
   'renderLog',
   'renderStatus',
   'renderStats',
@@ -221,13 +223,15 @@ class TaskTable extends React.Component {
   }
 
   renderHost(prop, task) {
-    let marathonTask = MarathonStore.getTaskFromTaskID(task.id);
+    let node = CompositeState.getNodesList()
+      .filter({ids: [task.slave_id]}).last();
 
     return (
       <TaskEndpointsList
         key={task.id}
         portLimit={3}
-        task={marathonTask} />
+        node={node}
+        task={task} />
     );
   }
 
@@ -286,12 +290,7 @@ class TaskTable extends React.Component {
   }
 
   renderVersion(prop, task) {
-    let marathonTask = MarathonStore.getTaskFromTaskID(task.id);
-    if (marathonTask == null) {
-      return null;
-    }
-
-    let version = marathonTask.version;
+    let version = this.getVersionValue(task);
 
     if (version == null) {
       return null;

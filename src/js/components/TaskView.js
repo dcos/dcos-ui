@@ -286,7 +286,7 @@ class TaskView extends mixin(SaveStateMixin, StoreMixin) {
   }
 }
 
-TaskTable.defaultProps = {
+TaskView.defaultProps = {
   inverseStyle: false,
   itemID: '',
   tasks: []

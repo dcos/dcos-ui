@@ -1,14 +1,15 @@
 import React from 'react';
 
+import CompositeState from '../../structs/CompositeState';
 import DescriptionList from '../../components/DescriptionList';
 import Icon from '../../components/Icon';
 import MarathonTaskDetailsList from '../../components/MarathonTaskDetailsList';
-import MesosStateStore from '../../stores/MesosStateStore';
 import MesosSummaryStore from '../../stores/MesosSummaryStore';
 import ResourceColors from '../../constants/ResourceColors';
 import ResourceIcons from '../../constants/ResourceIcons';
 import ResourcesUtil from '../../utils/ResourcesUtil';
 import TaskDirectoryStore from '../../stores/TaskDirectoryStore';
+import TaskEndpointsList from '../../components/TaskEndpointsList';
 import Units from '../../utils/Units';
 
 class TaskDetailsTab extends React.Component {
@@ -36,23 +37,26 @@ class TaskDetailsTab extends React.Component {
     }
 
     let headerValueMapping = {'ID': mesosTask.id};
-    let services = MesosSummaryStore.get('states')
-      .lastSuccessful()
-      .getServiceList();
+    let services = CompositeState.getServiceList();
     let service = services.filter({ids: [mesosTask.framework_id]}).last();
     if (service != null) {
       headerValueMapping['Service'] = `${service.name} (${service.id})`;
     }
 
-    let node = MesosStateStore.getNodeFromID(mesosTask.slave_id);
+    let node = CompositeState.getNodesList()
+      .filter({ids: [mesosTask.slave_id]}).last();
     if (node != null) {
-      headerValueMapping['Node'] = `${node.hostname} (${node.id})`;
+      headerValueMapping['Node'] = `${node.getHostName()} (${node.getID()})`;
     }
 
     let sandBoxPath = TaskDirectoryStore.get('sandBoxPath');
     if (sandBoxPath) {
       headerValueMapping['Sandbox Path'] = sandBoxPath;
     }
+
+    headerValueMapping['Endpoints'] = (
+      <TaskEndpointsList task={mesosTask} node={node} />
+    );
 
     return (
       <DescriptionList
