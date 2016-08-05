@@ -228,6 +228,14 @@ base/forms.less
 
   .modal-form {
 
+    .disabled {
+      opacity: 0.5;
+      .toggle-button:checked + span:before{
+        background-color: @gray;
+        border-color: @gray;
+      }
+    }
+
     .error-field {
       background: color-lighten(@red, 60);
       border-bottom: @red 1px solid;
@@ -236,6 +244,12 @@ base/forms.less
       li:before {
         background-color: currentColor;
       }
+    }
+
+    .warning-field {
+      background: color-lighten(@yellow, 30);
+      border-bottom: @yellow 1px solid;
+      padding: (@base-spacing-unit / 2) @base-spacing-unit;
     }
 
     label {

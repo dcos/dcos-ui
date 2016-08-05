@@ -162,6 +162,7 @@ class ServiceFormModal extends mixin(StoreMixin) {
     return props.open !== nextProps.open ||
       state.jsonMode !== nextState.jsonMode ||
       state.errorMessage !== nextState.errorMessage ||
+      state.warningMessage !== nextState.warningMessage ||
       state.pendingRequest !== nextState.pendingRequest;
   }
 
@@ -179,12 +180,23 @@ class ServiceFormModal extends mixin(StoreMixin) {
       service = props.service;
     }
 
+    let warningMessage = null;
+    let jsonMode = false;
+    if (this.shouldDisableForm(service)) {
+      warningMessage = {
+        message: 'Your config contains attributes we currently only support ' +
+        'in the JSON mode.'
+      };
+      jsonMode = true;
+    }
+
     this.setState({
       defaultTab: '',
+      warningMessage,
       errorMessage: null,
       force: false,
       jsonDefinition: service.toJSON(),
-      jsonMode: false,
+      jsonMode,
       model,
       pendingRequest: false,
       service
@@ -207,11 +219,19 @@ class ServiceFormModal extends mixin(StoreMixin) {
     } catch (e) {
 
     }
-    this.setState({jsonDefinition, service, errorMessage: null});
+    this.setState(
+      {
+        jsonDefinition,
+        service,
+        errorMessage: null,
+        warningMessage: null
+      }
+    );
   }
 
   handleJSONToggle() {
     let nextState = {};
+
     if (!this.state.jsonMode) {
       let {model} = this.triggerSubmit();
       let service = ServiceUtil.createServiceFromFormModel(
@@ -225,7 +245,15 @@ class ServiceFormModal extends mixin(StoreMixin) {
       nextState.jsonDefinition = JSON.stringify(ServiceUtil
         .getAppDefinitionFromService(service), null, 2);
     }
-    nextState.jsonMode = !this.state.jsonMode;
+
+    if (this.shouldDisableForm(this.state.service)) {
+      nextState.warningMessage = {
+        message: 'Your config contains attributes we currently only support ' +
+        'in the JSON mode.'
+      };
+    } else {
+      nextState.jsonMode = !this.state.jsonMode;
+    }
     this.setState(nextState);
   }
 
@@ -245,13 +273,23 @@ class ServiceFormModal extends mixin(StoreMixin) {
     });
   }
 
+  shouldDisableForm(service) {
+    let containerSettings = service.getContainerSettings();
+
+    return containerSettings != null && containerSettings.type === 'MESOS' &&
+      ((containerSettings.docker &&
+      containerSettings.docker.image != null) ||
+      containerSettings.appc &&
+      containerSettings.appc.image != null);
+  }
+
   shouldForceUpdate(message = this.state.errorMessage) {
     return message && message.message && /force=true/.test(message.message);
   }
 
   onMarathonStoreServiceEditSuccess() {
-    this.resetState();
     this.props.onClose();
+    this.resetState();
   }
 
   onMarathonStoreServiceEditError(errorMessage) {
@@ -488,6 +526,39 @@ class ServiceFormModal extends mixin(StoreMixin) {
     );
   }
 
+  getToggleButton() {
+    let classSet = 'modal-form-title-label';
+
+    if (this.shouldDisableForm(this.state.service)) {
+      classSet = `${classSet} disabled`;
+    }
+
+    return (<ToggleButton
+      className={classSet}
+      checkboxClassName="modal-form-title-toggle-button toggle-button"
+      checked={this.state.jsonMode}
+      onChange={this.handleJSONToggle}>
+      JSON mode
+    </ToggleButton>);
+  }
+
+  getWarningMessage() {
+    let {warningMessage} = this.state;
+    if (!warningMessage) {
+      return null;
+    }
+
+    return (
+      <div>
+        <div className="warning-field">
+          <div className="text-align-center flush-top">
+            {warningMessage.message}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   render() {
     let titleText = 'Deploy New Service';
 
@@ -503,13 +574,8 @@ class ServiceFormModal extends mixin(StoreMixin) {
           </span>
         </div>
         <div className="header-right">
-          <ToggleButton
-            className="modal-form-title-label"
-            checkboxClassName="modal-form-title-toggle-button toggle-button"
-            checked={this.state.jsonMode}
-            onChange={this.handleJSONToggle}>
-            JSON mode
-          </ToggleButton>
+          {this.getToggleButton()}
+
         </div>
       </div>
     );
@@ -529,6 +595,7 @@ class ServiceFormModal extends mixin(StoreMixin) {
         titleClass="modal-header-title flush-top flush-bottom"
         showFooter={true}>
         {this.getErrorMessage()}
+        {this.getWarningMessage()}
         {this.getModalContents()}
       </Modal>
     );
