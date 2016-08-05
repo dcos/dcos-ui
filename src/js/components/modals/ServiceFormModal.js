@@ -182,7 +182,7 @@ class ServiceFormModal extends mixin(StoreMixin) {
 
     let warningMessage = null;
     let jsonMode = false;
-    if (this.shouldDisableForm(service.getContainerSettings())) {
+    if (this.shouldDisableForm(service)) {
       warningMessage = {
         message: 'Your config contains attributes we currently only support ' +
         'in the JSON mode.'
@@ -246,7 +246,7 @@ class ServiceFormModal extends mixin(StoreMixin) {
         .getAppDefinitionFromService(service), null, 2);
     }
 
-    if (this.shouldDisableForm()) {
+    if (this.shouldDisableForm(this.state.service)) {
       nextState.warningMessage = {
         message: 'Your config contains attributes we currently only support ' +
         'in the JSON mode.'
@@ -273,7 +273,9 @@ class ServiceFormModal extends mixin(StoreMixin) {
     });
   }
 
-  shouldDisableForm(containerSettings = this.state.service.getContainerSettings()) {
+  shouldDisableForm(service) {
+    let containerSettings = service.getContainerSettings();
+
     return containerSettings != null && containerSettings.type === 'MESOS' &&
       ((containerSettings.docker &&
       containerSettings.docker.image != null) ||
@@ -527,8 +529,8 @@ class ServiceFormModal extends mixin(StoreMixin) {
   getToggleButton() {
     let classSet = 'modal-form-title-label';
 
-    if (this.shouldDisableForm()) {
-      classSet = `${classSet} blend-out`;
+    if (this.shouldDisableForm(this.state.service)) {
+      classSet = `${classSet} disabled`;
     }
 
     return (<ToggleButton
