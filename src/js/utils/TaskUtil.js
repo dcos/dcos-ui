@@ -13,7 +13,7 @@ const TaskUtil = {
    * @return {Array.<string>} an array of ip addresses or hosts
    */
   getHostAndPortList(task = {}, node = new Node()) {
-    let networkType = this.getNetwork(task);
+    let networkType = this.getNetworkType(task);
     let ports = this.getPorts(task);
     let hostName = node.getHostName();
 
@@ -87,7 +87,7 @@ const TaskUtil = {
     return portMappings;
   },
 
-  getNetwork(task) {
+  getNetworkType(task) {
     let {container} = task;
     if (!container || !container.type) {
       return null;
