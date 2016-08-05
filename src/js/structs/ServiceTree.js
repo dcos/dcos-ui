@@ -34,7 +34,7 @@ module.exports = class ServiceTree extends Tree {
     // Converts items into instances of ServiceTree, Application or Framework
     // based on their properties.
     this.list = this.list.map((item) => {
-      if (item instanceof ServiceTree) {
+      if (item instanceof ServiceTree || item instanceof Service) {
         return item;
       }
 

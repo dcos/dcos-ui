@@ -10,6 +10,7 @@ import 'brace/mode/json';
 import 'brace/theme/monokai';
 import 'brace/ext/language_tools';
 
+import ServiceConfig from '../../constants/ServiceConfig';
 import Config from '../../config/Config';
 import Icon from '../Icon';
 import MarathonStore from '../../stores/MarathonStore';
@@ -104,6 +105,16 @@ const responseAttributePathToFieldIdMap = {
   '/': 'general'
 };
 
+var cleanJSONdefinition = function (jsonDefinition) {
+  return Object.keys(jsonDefinition).filter(function (key) {
+    return !ServiceConfig.BLACKLIST.includes(key);
+  }).reduce(function (memo, key) {
+    memo[key] = jsonDefinition[key];
+
+    return memo;
+  }, {});
+};
+
 class ServiceFormModal extends mixin(StoreMixin) {
   constructor() {
     super(...arguments);
@@ -172,7 +183,7 @@ class ServiceFormModal extends mixin(StoreMixin) {
       defaultTab: '',
       errorMessage: null,
       force: false,
-      jsonDefinition: JSON.stringify({id:'', cmd:''}, null, 2),
+      jsonDefinition: service.toJSON(),
       jsonMode: false,
       model,
       pendingRequest: false,
@@ -206,7 +217,8 @@ class ServiceFormModal extends mixin(StoreMixin) {
       let service = ServiceUtil.createServiceFromFormModel(
         model,
         ServiceSchema,
-        this.props.isEdit
+        this.props.isEdit,
+        JSON.parse(this.state.service.toJSON())
       );
       nextState.model = model;
       nextState.service = service;
@@ -257,6 +269,7 @@ class ServiceFormModal extends mixin(StoreMixin) {
     this.props.onClose();
   }
 
+  // TODO (poltergeist): Simplify submit logic.
   handleSubmit() {
     let marathonAction = MarathonStore.createService;
 
@@ -265,13 +278,15 @@ class ServiceFormModal extends mixin(StoreMixin) {
     }
 
     if (this.state.jsonMode) {
-      let jsonDefinition = this.state.jsonDefinition;
-      marathonAction(JSON.parse(jsonDefinition), this.state.force);
+      let jsonDefinition = JSON.parse(this.state.jsonDefinition);
+      jsonDefinition = cleanJSONdefinition(jsonDefinition);
+      marathonAction(jsonDefinition, this.state.force);
+      jsonDefinition = JSON.stringify(jsonDefinition, null, 2);
       this.setState({
         errorMessage: null,
         jsonDefinition,
         pendingRequest: true,
-        service: new Service(JSON.parse(jsonDefinition))
+        service: new Service(jsonDefinition)
       });
       return;
     }
@@ -285,7 +300,8 @@ class ServiceFormModal extends mixin(StoreMixin) {
       let service = ServiceUtil.createServiceFromFormModel(
         model,
         ServiceSchema,
-        this.props.isEdit
+        this.props.isEdit,
+        JSON.parse(this.state.service.toJSON())
       );
       this.setState({
         errorMessage: null,
@@ -294,7 +310,7 @@ class ServiceFormModal extends mixin(StoreMixin) {
         service
       });
       marathonAction(
-        ServiceUtil.getAppDefinitionFromService(service),
+        cleanJSONdefinition(ServiceUtil.getAppDefinitionFromService(service)),
         this.state.force
       );
     }
@@ -416,6 +432,12 @@ class ServiceFormModal extends mixin(StoreMixin) {
 
   getModalContents() {
     let {defaultTab, jsonDefinition, jsonMode, service} = this.state;
+
+    jsonDefinition = JSON.stringify(
+      cleanJSONdefinition(JSON.parse(jsonDefinition)),
+      null,
+      2
+    );
 
     if (jsonMode) {
       let toolTipContent = (
