@@ -23,6 +23,7 @@ const DUPLICABLE_FIELDS_TO_WATCH = {
   },
   ports: {
     fields: ['discovery', 'protocol'],
+    blurOnly: ['name'],
     forceUpdate: true
   }
 };
@@ -72,6 +73,9 @@ class ServiceForm extends SchemaForm {
 
   shouldUpdateDefinition(changes, eventType, fieldName) {
     let propKey = FormUtil.getPropKey(fieldName);
+    let blurChange = Object.values(DUPLICABLE_FIELDS_TO_WATCH).some(function (item) {
+      return item.blurOnly && item.blurOnly.includes(propKey);
+    });
 
     return Object.keys(changes).some(function (changeKey) {
       let tab = FormUtil.getProp(changeKey);
@@ -81,7 +85,8 @@ class ServiceForm extends SchemaForm {
         && DUPLICABLE_FIELDS_TO_WATCH[tab].forceUpdate))
         || ((fieldName in FIELDS_TO_WATCH
         && FIELDS_TO_WATCH[fieldName].forceUpdate));
-    });
+
+    }) || (eventType === 'blur' && blurChange);
   }
 
   handleFormChange(changes, eventObj) {
