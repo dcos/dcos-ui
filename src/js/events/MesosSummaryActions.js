@@ -17,7 +17,10 @@ var _historyServiceOnline = true;
 function testHistoryServerResponse(response) {
   // If the response is an empty object, that means something is whack
   // Fall back to making requests to Mesos
-  if (response === {}) {
+  // TODO (DCOS-7764): This should be improved to validate against a schema
+  if (!Object.keys(response).length ||
+      !Array.isArray(response.frameworks) ||
+      !Array.isArray(response.slaves)) {
     _historyServiceOnline = false;
   }
 }
