@@ -315,7 +315,7 @@ var ServicesTable = React.createClass({
     let isHeader = row == null;
 
     return classNames('flush-left text-align-right hidden-mini hidden-small', {
-      'table-cell-sorted': prop === sortBy.prop,
+      'active': prop === sortBy.prop,
       'clickable': isHeader
     });
   },
