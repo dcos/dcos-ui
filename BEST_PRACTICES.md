@@ -23,7 +23,7 @@ We split events into two groups. Server and User triggered events. Server events
 * `onMarathonStoreChange` - `MarathonStore` is the subject, while `Change` is the Event.
 * `onVisibilityChange` - Triggered when the browser tab becomes inactive
 * `handleButtonClick` - Handles click on a button
-* `handleImageHover`
+* `handleImageHover` – Handles the user hovering an image
 
 **Render Methods**
 
