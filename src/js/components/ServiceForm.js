@@ -104,7 +104,7 @@ class ServiceForm extends SchemaForm {
     this.props.onChange(...arguments);
   }
 
-  validateForm(secondTimeLucky) {
+  validateForm() {
     let model = this.triggerTabFormSubmit();
 
     let validated = true;
@@ -123,9 +123,6 @@ class ServiceForm extends SchemaForm {
     });
 
     this.forceUpdate();
-    if (!secondTimeLucky) {
-      this.validateForm(true);
-    }
 
     return {
       isValidated: validated,
