@@ -47,9 +47,10 @@ class PackageDetailTab extends mixin(StoreMixin) {
   componentDidMount() {
     super.componentDidMount(...arguments);
 
-    let {packageName, packageVersion} = this.props.params;
+    let {packageName} = this.props.params;
+    let {version} = this.props.query;
     // Fetch package description
-    CosmosPackagesStore.fetchPackageDescription(packageName, packageVersion);
+    CosmosPackagesStore.fetchPackageDescription(packageName, version);
   }
 
   onCosmosPackagesStoreDescriptionError() {
