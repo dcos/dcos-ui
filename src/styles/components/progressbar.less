@@ -40,7 +40,11 @@
       background-color: @pink;
     }
 
-    &.color-3, &.over-capacity {
+    &.color-3 {
+      background-color: @blue;
+    }
+
+    &.over-capacity {
       animation: candy-stripe 1s linear infinite;
       background-size: 16px 16px;
       background-image: linear-gradient(-45deg, color-lighten(@green, -30) 0,
