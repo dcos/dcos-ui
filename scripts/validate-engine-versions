@@ -1,4 +1,16 @@
 #!/usr/bin/env bash
+#
+# This script will check the following versions provided in package.json,
+# based on current versions of node and npm
+# {
+#   ...
+#   "engines": {
+#     "node": "4.4.x",
+#     "npm": "3.9.x"
+#   }
+#   ...
+# }
+#
 PACKAGE_NODE_VERSION=$(node -p -e "require('./package.json').engines.node")
 NODE_VERSION=$(node -v)
 if [[ "v${PACKAGE_NODE_VERSION%.*}" == "${NODE_VERSION%.*}" ]]; then
