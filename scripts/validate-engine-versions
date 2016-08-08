@@ -1,16 +1,18 @@
 #!/usr/bin/env bash
-NODE_VERSION=$(node -p -e "require('./package.json').engines.node")
-if [[ "v$NODE_VERSION" == "$(node -v)" ]]; then
-  echo "Node version is valid"
+PACKAGE_NODE_VERSION=$(node -p -e "require('./package.json').engines.node")
+NODE_VERSION=$(node -v)
+if [[ "v${PACKAGE_NODE_VERSION%.*}" == "${NODE_VERSION%.*}" ]]; then
+  echo "Node version is valid ($NODE_VERSION)"
 else
-  echo "ERROR: Node version $(node -v) does not match required version $NODE_VERSION."
+  echo "ERROR: Node version v${PACKAGE_NODE_VERSION%.*}.x does not match required version ${NODE_VERSION%.*}.x"
   exit 1;
 fi
 
-NPM_VERSION=$(node -p -e "require('./package.json').engines.npm")
-if [[ "$NPM_VERSION" == "$(npm -v)" ]]; then
-  echo "NPM version is valid"
+PACKAGE_NPM_VERSION=$(node -p -e "require('./package.json').engines.npm")
+NPM_VERSION=$(npm -v)
+if [[ "${PACKAGE_NPM_VERSION%.*}" == "${NPM_VERSION%.*}" ]]; then
+  echo "NPM version is valid (v$NPM_VERSION)"
 else
-  echo "ERROR: Node version $(npm -v) does not match required version $NPM_VERSION."
+  echo "ERROR: Node version v${NPM_VERSION%.*}.x does not match required version ${NPM_VERSION%.*}.x"
   exit 1;
 fi
