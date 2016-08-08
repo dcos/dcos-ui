@@ -34,7 +34,8 @@ function getUpdatedTimestamp(model) {
 var ResourceTableUtil = {
   getClassName: function (prop, sortBy, row) {
     return classNames({
-      'text-align-right': leftAlignCaret(prop) || prop === 'TASK_RUNNING',
+      'text-align-right': leftAlignCaret(prop)
+        || prop === 'TASK_RUNNING' || prop === 'action',
       'hidden-mini': leftAlignCaret(prop),
       'highlight': prop === sortBy.prop,
       'clickable': row == null // this is a header
