@@ -169,6 +169,14 @@ class JobRunHistoryTable extends React.Component {
     });
   }
 
+  getDisabledItemsMap(job) {
+    return job.getJobRuns().getItems().reduce(function (memo, jobRun) {
+      let isDisabled = ['ACTIVE', 'INITIAL', 'STARTING'].indexOf(jobRun.getStatus()) < 0;
+      memo[jobRun.get('id')] = isDisabled;
+      return memo;
+    }, {});
+  }
+
   getStopButton(hasCheckedTasks) {
     if (!hasCheckedTasks) {
       return null;
@@ -325,6 +333,7 @@ class JobRunHistoryTable extends React.Component {
           getColGroup={this.getColGroup}
           uniqueProperty="id"
           checkedItemsMap={this.state.checkedItems}
+          disabledItemsMap={this.getDisabledItemsMap(job)}
           onCheckboxChange={this.handleItemCheck}
           sortBy={{prop: 'startedAt', order: 'desc'}}
           tableComponent={CheckboxTable} />
