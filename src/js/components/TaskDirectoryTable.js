@@ -101,7 +101,7 @@ class TaskDirectoryTable extends React.Component {
 
     return classNames({
       'text-align-right': propsToRight.includes(prop),
-      'table-cell-sorted': prop === sortBy.prop && isHeader,
+      'active': prop === sortBy.prop && isHeader,
       'clickable': isHeader
     });
   }
