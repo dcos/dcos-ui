@@ -82,8 +82,10 @@ var Sidebar = React.createClass({
 
   handleKeyPress: function (event) {
     let nodeName = event.target.nodeName;
+
     if (event.keyCode === keyCodes.leftBracket
-      && !(nodeName === 'INPUT' || nodeName === 'TEXTAREA')) {
+      && !(nodeName === 'INPUT' || nodeName === 'TEXTAREA')
+      && !(event.ctrlKey || event.metaKey || event.shiftKey)) {
       // #sidebarWidthChange is passed as a callback so that the sidebar
       // has had a chance to update before Gemini re-renders.
       this.setState({sidebarExpanded: !this.state.sidebarExpanded}, () => {
