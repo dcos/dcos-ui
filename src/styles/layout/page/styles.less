@@ -1,6 +1,15 @@
 .page {
-
   overflow: hidden;
+
+  .page-body {
+
+    & > .gm-scroll-view {
+      display: flex;
+      flex: 1 0 auto;
+      flex-direction: column;
+    }
+
+  }
 
 }
 
@@ -36,6 +45,7 @@
 
 }
 
+// TODO: Audit the following styles.
 // @page-navigation-font-size: @body-text-font-size * 1.4;
 //
 // .page {
