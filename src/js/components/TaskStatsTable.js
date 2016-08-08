@@ -30,7 +30,7 @@ class TaskStatsTable extends React.Component {
       || prop === 'getMedianLifeTime';
 
     return classNames({
-      'table-cell-sorted': prop === sortBy.prop,
+      'active': prop === sortBy.prop,
       'text-align-right': shouldAlignRight,
       'hidden-mini': taskStatus.includes(prop)
     });
