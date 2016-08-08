@@ -62,7 +62,7 @@ class JobRunHistoryTable extends React.Component {
 
   getColumnClassName(prop, sortBy, row) {
     return classNames({
-      'table-cell-sorted': prop === sortBy.prop,
+      'active': prop === sortBy.prop,
       'clickable': row == null
     });
   }
