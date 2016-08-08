@@ -60,6 +60,11 @@ class AddRepositoryFormModal extends mixin(StoreMixin) {
 
   getWithinRangeFunction(min, max) {
     return function (number) {
+      if (number == null) {
+        return true;
+      }
+
+      number = parseInt(number, 10);
       return number >= min && number <= max;
     };
   }
