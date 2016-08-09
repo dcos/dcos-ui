@@ -19,6 +19,7 @@ import Service from '../../structs/Service';
 import ServiceUtil from '../../utils/ServiceUtil';
 import ServiceSchema from '../../schemas/ServiceSchema';
 import ToggleButton from '../ToggleButton';
+import CollapsibleErrorMessage from '../CollapsibleErrorMessage';
 
 const METHODS_TO_BIND = [
   'getTriggerSubmit',
@@ -364,6 +365,7 @@ class ServiceFormModal extends mixin(StoreMixin) {
       return null;
     }
 
+    // Stringify error details
     let errorList = null;
     if (errorMessage.details != null) {
       let responseMap = Hooks.applyFilter(
@@ -403,37 +405,28 @@ class ServiceFormModal extends mixin(StoreMixin) {
           return error;
         });
 
-        return (
-          <li key={path}>
-            {`${fieldId}: ${errors}`}
-          </li>
-        );
+        // Return path-prefixed error string
+        return `${fieldId}: ${errors}`;
+
       });
     }
 
     if (this.shouldForceUpdate(errorMessage)) {
       return (
-        <div className="error-field text-danger">
-          <h4 className="text-align-center text-danger flush-top">
-            App is currently locked by one or more deployments. Press the button
-            again to forcefully change and deploy the new configuration.
-          </h4>
-        </div>
+        <CollapsibleErrorMessage
+          className="error-for-modal"
+          message={`App is currently locked by one or more deployments.
+            Press the button again to forcefully change and deploy the new configuration.`} />
       );
     }
 
     return (
-      <div>
-        <div className="error-field text-danger">
-          <h4 className="text-align-center text-danger flush-top">
-            {errorMessage.message}
-          </h4>
-          <ul>
-            {errorList}
-          </ul>
-        </div>
-      </div>
+      <CollapsibleErrorMessage
+        className="error-for-modal"
+        details={errorList}
+        message={errorMessage.message} />
     );
+
   }
 
   getSubmitText() {
@@ -567,15 +560,20 @@ class ServiceFormModal extends mixin(StoreMixin) {
     }
 
     let title = (
-      <div className="header-flex">
-        <div className="header-left">
-          <span className="h4 flush-top flush-bottom text-color-neutral">
-            {titleText}
-          </span>
+      <div>
+        <div className="header-flex">
+          <div className="header-left">
+            <span className="h4 flush-top flush-bottom text-color-neutral">
+              {titleText}
+            </span>
+          </div>
+          <div className="header-right">
+            {this.getToggleButton()}
+          </div>
         </div>
-        <div className="header-right">
-          {this.getToggleButton()}
-
+        <div className="header-full-width">
+          {this.getErrorMessage()}
+          {this.getWarningMessage()}
         </div>
       </div>
     );
@@ -594,8 +592,6 @@ class ServiceFormModal extends mixin(StoreMixin) {
         titleText={title}
         titleClass="modal-header-title flush-top flush-bottom"
         showFooter={true}>
-        {this.getErrorMessage()}
-        {this.getWarningMessage()}
         {this.getModalContents()}
       </Modal>
     );

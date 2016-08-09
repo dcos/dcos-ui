@@ -236,16 +236,6 @@ base/forms.less
       }
     }
 
-    .error-field {
-      background: color-lighten(@red, 60);
-      border-bottom: @red 1px solid;
-      padding: (@base-spacing-unit / 2) @base-spacing-unit;
-
-      li:before {
-        background-color: currentColor;
-      }
-    }
-
     .warning-field {
       background: color-lighten(@yellow, 30);
       border-bottom: @yellow 1px solid;
@@ -282,6 +272,11 @@ base/forms.less
           padding-right: 0;
         }
       }
+
+      .header-full-width {
+        margin: @modal-header-padding-vertical -@modal-header-padding-horizontal -@modal-header-padding-vertical -@modal-header-padding-horizontal;
+      }
+
     }
 
     .modal-header-title {
@@ -353,6 +348,14 @@ base/forms.less
 
       }
 
+      .modal-header {
+
+        .header-full-width {
+          margin: @modal-header-padding-vertical-screen-small -@modal-header-padding-horizontal-screen-small -@modal-header-padding-vertical-screen-small -@modal-header-padding-horizontal-screen-small;
+        }
+
+      }
+
     }
 
   }
@@ -373,6 +376,14 @@ base/forms.less
 
       }
 
+      .modal-header {
+
+        .header-full-width {
+          margin: @modal-header-padding-vertical-screen-medium -@modal-header-padding-horizontal-screen-medium -@modal-header-padding-vertical-screen-medium -@modal-header-padding-horizontal-screen-medium;
+        }
+
+      }
+
     }
 
   }
@@ -389,6 +400,14 @@ base/forms.less
 
         .form-row-element-mixed-label-presence {
           line-height: @form-control-height * @form-control-height-scale-screen-large;
+        }
+
+      }
+
+      .modal-header {
+
+        .header-full-width {
+          margin: @modal-header-padding-vertical-screen-large -@modal-header-padding-horizontal-screen-large -@modal-header-padding-vertical-screen-large -@modal-header-padding-horizontal-screen-large;
         }
 
       }
