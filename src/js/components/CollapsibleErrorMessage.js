@@ -69,16 +69,15 @@ class CollapsibleErrorMessage extends React.Component {
   }
 
   /**
-   * [Fragment] The show more/less link
+   * The show more/less link
    *
-   * @returns {React.Component} - The rendered content
+   * @returns {React.Component|null} - The rendered content
    */
   getShowDetailsLink() {
     let {message, details} = this.props;
-    let isDetailed = message && details && details.length;
 
     // Check if we must not show the detail link at all
-    if (!isDetailed) {
+    if (!message || !details || !details.length) {
       return null;
     }
 
@@ -100,33 +99,32 @@ class CollapsibleErrorMessage extends React.Component {
   }
 
   /**
-   * [Fragment] The list of errors in the details
+   * The list of errors in the details
    *
    * @returns {React.Component} - The rendered content
    */
   getDetailsListItems() {
     let {details} = this.props;
 
-    return details.map(function (message) {
+    return details.map(function (message, i) {
       let msg = message.toString();
 
       return (
-          <li key={msg}>{msg}</li>
+          <li key={i}>{msg}</li>
         );
     });
   }
 
   /**
-   * [Fragment] The fixed message part
+   * The fixed message part
    *
-   * @returns {React.Component} - The rendered content
+   * @returns {React.Component|null} - The rendered content
    */
   getFixedMessagePart() {
     let {message} = this.props;
-    let isVisible = !!message;
 
     // If not visible, just exit
-    if (!isVisible) {
+    if (!message) {
       return null;
     }
 
@@ -148,7 +146,7 @@ class CollapsibleErrorMessage extends React.Component {
   /**
    * [Custom component] The toggled message part
    *
-   * @returns {React.Component} - The rendered content
+   * @returns {React.Component|null} - The rendered content
    */
   getCollapsibleMessagePart() {
     let {message, details} = this.props;
@@ -176,14 +174,13 @@ class CollapsibleErrorMessage extends React.Component {
   /**
    * React.js Render Function
    *
-   * @returns {React.Component} - The rendered content
+   * @returns {React.Component|null} - The rendered content
    */
   render() {
     let {message} = this.props;
-    let isVisible = !!message;
 
     // If not visible, just exit
-    if (!isVisible) {
+    if (!message) {
       return null;
     }
 
