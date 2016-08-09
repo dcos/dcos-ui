@@ -1,4 +1,8 @@
 var ValidatorUtil = {
+  isDefined: function (value) {
+    return value != null && value !== '' || typeof value === 'number';
+  },
+
   isEmail: function (email) {
     return email != null &&
       email.length > 0 &&
@@ -27,6 +31,25 @@ var ValidatorUtil = {
 
       return memo;
     }, 0) === 0;
+  },
+
+  isInteger: function (value) {
+    const number = parseFloat(value);
+
+    return Number.isInteger(number);
+  },
+
+  isNumber: function (value) {
+    const number = parseFloat(value);
+
+    return !Number.isNaN(number) && Number.isFinite(number);
+  },
+
+  isNumberInRange: function (value, range = {}) {
+    const {min = 0, max = Number.POSITIVE_INFINITY} = range;
+    const number = parseFloat(value);
+
+    return !Number.isNaN(number) && number >= min && number <= max;
   }
 };
 
