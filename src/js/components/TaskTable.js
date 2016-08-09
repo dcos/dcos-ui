@@ -272,8 +272,6 @@ class TaskTable extends React.Component {
       danger: danger
     });
 
-    console.log(this.getStatusValue(task));
-
     return (
       <div className="flex-box flex-box-align-vertical-center
         table-cell-flex-box">
