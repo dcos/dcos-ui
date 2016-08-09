@@ -49,7 +49,7 @@ class CollapsibleErrorMessage extends React.Component {
   }
 
   /**
-   * Set the default expandedg from the properties
+   * Set the default expanded state from the properties
    */
   componentWillMount() {
     this.setState({

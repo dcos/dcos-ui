@@ -571,7 +571,7 @@ class ServiceFormModal extends mixin(StoreMixin) {
             {this.getToggleButton()}
           </div>
         </div>
-        <div className="header-full-span">
+        <div className="header-full-width">
           {this.getErrorMessage()}
           {this.getWarningMessage()}
         </div>
