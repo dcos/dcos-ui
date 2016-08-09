@@ -16,7 +16,7 @@ NODE_VERSION=$(node -v)
 if [[ "v${PACKAGE_NODE_VERSION%.*}" == "${NODE_VERSION%.*}" ]]; then
   echo "Node version is valid ($NODE_VERSION)"
 else
-  echo "ERROR: Node version v${PACKAGE_NODE_VERSION%.*}.x does not match required version ${NODE_VERSION%.*}.x"
+  echo "ERROR: Node version ${NODE_VERSION%.*}.x does not match required version v${PACKAGE_NODE_VERSION%.*}.x"
   exit 1;
 fi
 
@@ -25,6 +25,6 @@ NPM_VERSION=$(npm -v)
 if [[ "${PACKAGE_NPM_VERSION%.*}" == "${NPM_VERSION%.*}" ]]; then
   echo "NPM version is valid (v$NPM_VERSION)"
 else
-  echo "ERROR: Node version v${NPM_VERSION%.*}.x does not match required version ${NPM_VERSION%.*}.x"
+  echo "ERROR: NPM version v${NPM_VERSION%.*}.x does not match required version v${PACKAGE_NPM_VERSION%.*}.x"
   exit 1;
 fi
