@@ -284,20 +284,25 @@ class JobFormModal extends mixin(StoreMixin) {
     }
 
     return (
-      <div className="header-flex">
-        <div className="header-left">
-          <span className="h4 flush-top flush-bottom text-color-neutral">
-            {heading}
-          </span>
+      <div>
+        <div className="header-flex">
+          <div className="header-left">
+            <span className="h4 flush-top flush-bottom text-color-neutral">
+              {heading}
+            </span>
+          </div>
+          <div className="header-right">
+            <ToggleButton
+              className="modal-form-title-label"
+              checkboxClassName="modal-form-title-toggle-button toggle-button"
+              checked={this.state.jsonMode}
+              onChange={this.handleInputModeToggle}>
+              JSON mode
+            </ToggleButton>
+          </div>
         </div>
-        <div className="header-right">
-          <ToggleButton
-            className="modal-form-title-label"
-            checkboxClassName="modal-form-title-toggle-button toggle-button"
-            checked={this.state.jsonMode}
-            onChange={this.handleInputModeToggle}>
-            JSON mode
-          </ToggleButton>
+        <div className="header-full-span">
+          {this.getErrorMessage()}
         </div>
       </div>
     );
@@ -318,7 +323,6 @@ class JobFormModal extends mixin(StoreMixin) {
         titleText={this.getModalTitle()}
         titleClass="modal-header-title flush-top flush-bottom"
         showFooter={true}>
-        {this.getErrorMessage()}
         {this.getModalContents()}
       </Modal>
     );

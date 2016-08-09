@@ -560,15 +560,20 @@ class ServiceFormModal extends mixin(StoreMixin) {
     }
 
     let title = (
-      <div className="header-flex">
-        <div className="header-left">
-          <span className="h4 flush-top flush-bottom text-color-neutral">
-            {titleText}
-          </span>
+      <div>
+        <div className="header-flex">
+          <div className="header-left">
+            <span className="h4 flush-top flush-bottom text-color-neutral">
+              {titleText}
+            </span>
+          </div>
+          <div className="header-right">
+            {this.getToggleButton()}
+          </div>
         </div>
-        <div className="header-right">
-          {this.getToggleButton()}
-
+        <div className="header-full-span">
+          {this.getErrorMessage()}
+          {this.getWarningMessage()}
         </div>
       </div>
     );
@@ -587,8 +592,6 @@ class ServiceFormModal extends mixin(StoreMixin) {
         titleText={title}
         titleClass="modal-header-title flush-top flush-bottom"
         showFooter={true}>
-        {this.getErrorMessage()}
-        {this.getWarningMessage()}
         {this.getModalContents()}
       </Modal>
     );
