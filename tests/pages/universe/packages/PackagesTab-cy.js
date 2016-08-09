@@ -79,7 +79,7 @@ describe('Packages Tab', function () {
 
     cy
       .get('.page-content .h3.text-align-center')
-      .should('contain', 'An Error Occured');
+      .should('contain', 'An Error Occurred');
   });
 
   context('searching', function () {

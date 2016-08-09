@@ -229,7 +229,7 @@ describe('MesosLogView', function () {
 
   describe('#render', function () {
 
-    it('should call getErrorScreen when error occured', function () {
+    it('should call getErrorScreen when error occurred', function () {
       this.instance.state.hasLoadingError = 3;
       this.instance.getErrorScreen = jasmine.createSpy('getErrorScreen');
 
@@ -237,7 +237,7 @@ describe('MesosLogView', function () {
       expect(this.instance.getErrorScreen).toHaveBeenCalled();
     });
 
-    it('ignores getErrorScreen when error has not occured', function () {
+    it('ignores getErrorScreen when error has not occurred', function () {
       this.instance.state.hasLoadingError = 2;
       this.instance.getErrorScreen = jasmine.createSpy('getErrorScreen');
 
