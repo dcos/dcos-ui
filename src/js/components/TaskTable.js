@@ -334,8 +334,6 @@ class TaskTable extends React.Component {
       'danger': dangerState || unhealthy || failing
     });
 
-    console.log(this.getStatusValue(task));
-
     return (
       <div className="flex-box flex-box-align-vertical-center
         table-cell-flex-box">
