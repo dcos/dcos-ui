@@ -13,6 +13,7 @@ class Typeahead extends FilterInputText {
   handleInputClear() {
     if (this.typeahead) {
       this.typeahead.clear();
+      this.typeahead.focus();
     };
   }
 
