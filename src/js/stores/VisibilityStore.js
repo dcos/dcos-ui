@@ -88,14 +88,16 @@ class VisibilityStore extends GetSetBaseStore {
       }, Config.setInactiveAfter || 0);
     }
 
-    if (this.get('isInactive') && isTabVisible) {
+    if (isTabVisible) {
       if (this.timeOut) {
         clearTimeout(this.timeOut);
         this.timeOut = null;
       }
 
-      this.set({isInactive: false});
-      this.emit(VISIBILITY_CHANGE);
+      if (this.get('isInactive')) {
+        this.set({isInactive: false});
+        this.emit(VISIBILITY_CHANGE);
+      }
     }
   }
 
