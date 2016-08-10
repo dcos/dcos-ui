@@ -115,8 +115,15 @@ const JobUtil = {
 
     let [schedule] = job.getSchedules();
     if (schedule) {
-      // Transfer schedule as is, i.e. not messing with the json configuration
-      spec.schedules = [schedule];
+      let {
+        id = 'default',
+        enabled = true,
+        cron,
+        timezone,
+        concurrencyPolicy = 'ALLOW'
+      } = schedule;
+      // Transfer schedule as with reasonable defaults
+      spec.schedules = [{id, enabled, cron, timezone, concurrencyPolicy}];
     }
 
     return spec;
