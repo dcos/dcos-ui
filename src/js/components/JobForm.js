@@ -30,8 +30,9 @@ class JobForm extends SchemaForm {
     }
 
     this.validateForm();
-    this.multipleDefinition = this.getNewDefinition();
+    // Update model before we update multipleDefinition
     this.model = this.triggerTabFormSubmit();
+    this.multipleDefinition = this.getNewDefinition();
     this.props.onChange(this.getDataTriple());
     this.forceUpdate();
   }
@@ -43,7 +44,11 @@ class JobForm extends SchemaForm {
   getNewDefinition() {
     let multipleDefinition = super.getNewDefinition();
 
-    let scheduleEnabled = !this.model || this.model.schedule.runOnSchedule;
+    // This function gets called in componentWillMount, before model is defined
+    // to create multipleDefinition, so we fallback to props model,
+    // if this.model is not defined, i.e. more up to date
+    let model = this.model || this.props.model;
+    let scheduleEnabled = model.schedule.runOnSchedule;
     if (!scheduleEnabled) {
       multipleDefinition.schedule.definition.forEach(function (definition) {
         if (SCHEDULE_FIELDS.includes(definition.name)) {
