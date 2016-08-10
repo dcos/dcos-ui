@@ -8,18 +8,32 @@ const METHODS_TO_BIND = [
   'validateForm'
 ];
 
+const SCHEDULE_FIELDS = ['cron', 'timezone', 'startingDeadlineSeconds'];
+
 class JobForm extends SchemaForm {
   constructor() {
-    super();
+    super(...arguments);
 
     METHODS_TO_BIND.forEach((method) => {
       this[method] = this[method].bind(this);
     });
   }
 
-  componentWillMount() {
+  handleFormChange(formData, eventObj) {
+    // Fire changes only on blur
+    // and on schedule runOnSchedule checkbox change to show/hide fields
+    let scheduleEnabledChange = formData.hasOwnProperty('cron') &&
+      eventObj.eventType === 'change' &&
+      eventObj.fieldName === 'runOnSchedule';
+    if (eventObj.eventType !== 'blur' && !scheduleEnabledChange) {
+      return;
+    }
+
+    this.validateForm();
     this.multipleDefinition = this.getNewDefinition();
-    this.props.getTriggerSubmit(this.handleExternalSubmit);
+    this.model = this.triggerTabFormSubmit();
+    this.props.onChange(this.getDataTriple());
+    this.forceUpdate();
   }
 
   handleTabClick(tab) {
@@ -29,11 +43,12 @@ class JobForm extends SchemaForm {
   getNewDefinition() {
     let multipleDefinition = super.getNewDefinition();
 
-    // On edit hide the id field.
-    if (this.props.isEdit) {
-      multipleDefinition.general.definition.forEach(function (definition) {
-        if (definition.name === 'id') {
+    let scheduleEnabled = !this.model || this.model.schedule.runOnSchedule;
+    if (!scheduleEnabled) {
+      multipleDefinition.schedule.definition.forEach(function (definition) {
+        if (SCHEDULE_FIELDS.includes(definition.name)) {
           definition.formElementClass = 'hidden';
+          definition.value = null;
         }
       });
     }
@@ -42,9 +57,8 @@ class JobForm extends SchemaForm {
   }
 
   getDataTriple() {
-    let model = this.triggerTabFormSubmit();
     return {
-      model: SchemaFormUtil.processFormModel(model, this.multipleDefinition)
+      model: SchemaFormUtil.processFormModel(this.model, this.multipleDefinition)
     };
   }
 

@@ -70,7 +70,18 @@ const JobUtil = {
       docker
     };
 
-    spec.schedules = [schedule];
+    // Only transfer schedule if checkbox is set,
+    // but don't transfer runOnSchedule
+    if (schedule && schedule.runOnSchedule) {
+      let {
+        id = 'default',
+        enabled = true,
+        cron,
+        timezone
+      } = schedule;
+
+      spec.schedules = [{id, enabled, cron, timezone}];
+    }
 
     return new Job(spec);
   },
@@ -102,12 +113,11 @@ const JobUtil = {
       Object.assign(spec.run, {docker});
     }
 
-    let [schedule = {}] = job.getSchedules();
+    let [schedule] = job.getSchedules();
 
-    if (schedule.id != null || schedule.cron != null) {
-      if (schedule.concurrencyPolicy == null) {
-        schedule.concurrencyPolicy = 'ALLOW';
-      }
+    if (schedule) {
+      // Default to 'ALLOW'
+      schedule.concurrencyPolicy = schedule.concurrencyPolicy || 'ALLOW';
       spec.schedules = [schedule];
     }
 

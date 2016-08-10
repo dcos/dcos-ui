@@ -3,34 +3,20 @@ import React from 'react';
 /* eslint-enable no-unused-vars */
 import MetadataStore from '../../stores/MetadataStore';
 
-const General = {
+const Schedule = {
   title: 'Schedule',
   description: 'Set time and date for the job to run',
   type: 'object',
   properties: {
-    id: {
-      title: 'ID',
-      description: 'The schedule ID',
-      type: 'string',
-      getter(job) {
-        let [schedule = {}] = job.getSchedules();
-
-        return schedule.id;
-      }
-    },
-    enabled: {
-      label: 'Enabled',
+    runOnSchedule: {
+      label: 'Run on a schedule',
       showLabel: true,
-      title: 'Enabled',
+      title: 'Run on a schedule',
       type: 'boolean',
-      getter(job) {
-        let [schedule = {}] = job.getSchedules();
+      getter: function (job) {
+        let [schedule] = job.getSchedules();
 
-        if (Object.prototype.hasOwnProperty.call(schedule, 'enabled')) {
-          return schedule.enabled;
-        }
-
-        return true;
+        return schedule != null;
       }
     },
     cron: {
@@ -74,4 +60,4 @@ const General = {
 
 };
 
-module.exports = General;
+module.exports = Schedule;
