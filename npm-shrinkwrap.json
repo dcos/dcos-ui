@@ -792,6 +792,11 @@
         }
       }
     },
+    "blacklist": {
+      "version": "1.1.4",
+      "from": "blacklist@>=1.1.2 <2.0.0",
+      "resolved": "https://registry.npmjs.org/blacklist/-/blacklist-1.1.4.tgz"
+    },
     "bluebird": {
       "version": "3.3.5",
       "from": "bluebird@>=3.1.1 <4.0.0",
@@ -4415,6 +4420,18 @@
       "from": "merge-stream@>=1.0.0 <2.0.0",
       "resolved": "https://registry.npmjs.org/merge-stream/-/merge-stream-1.0.0.tgz"
     },
+    "mesosphere-react-typeahead": {
+      "version": "0.8.3",
+      "from": "mesosphere-react-typeahead@latest",
+      "resolved": "https://registry.npmjs.org/mesosphere-react-typeahead/-/mesosphere-react-typeahead-0.8.3.tgz",
+      "dependencies": {
+        "lodash": {
+          "version": "4.14.2",
+          "from": "lodash@>=4.14.0 <5.0.0",
+          "resolved": "https://registry.npmjs.org/lodash/-/lodash-4.14.2.tgz"
+        }
+      }
+    },
     "mesosphere-shared-reactjs": {
       "version": "0.0.19",
       "from": "mesosphere-shared-reactjs@0.0.19",
@@ -5340,11 +5357,6 @@
       "from": "react-addons-test-utils@0.14.7",
       "resolved": "https://registry.npmjs.org/react-addons-test-utils/-/react-addons-test-utils-0.14.7.tgz"
     },
-    "react-bootstrap-typeahead": {
-      "version": "0.5.3",
-      "from": "react-bootstrap-typeahead@latest",
-      "resolved": "https://registry.npmjs.org/react-bootstrap-typeahead/-/react-bootstrap-typeahead-0.5.3.tgz"
-    },
     "react-deep-force-update": {
       "version": "1.0.1",
       "from": "react-deep-force-update@>=1.0.0 <2.0.0",
@@ -5361,9 +5373,9 @@
       "resolved": "https://registry.npmjs.org/react-gemini-scrollbar/-/react-gemini-scrollbar-2.1.0.tgz"
     },
     "react-highlighter": {
-      "version": "0.3.2",
-      "from": "react-highlighter@>=0.3.1 <0.4.0",
-      "resolved": "https://registry.npmjs.org/react-highlighter/-/react-highlighter-0.3.2.tgz"
+      "version": "0.3.3",
+      "from": "react-highlighter@>=0.3.3 <0.4.0",
+      "resolved": "https://registry.npmjs.com/react-highlighter/-/react-highlighter-0.3.3.tgz"
     },
     "react-hot-api": {
       "version": "0.4.7",
@@ -5383,14 +5395,14 @@
       }
     },
     "react-input-autosize": {
-      "version": "0.6.13",
-      "from": "react-input-autosize@>=0.6.2 <0.7.0",
-      "resolved": "https://registry.npmjs.org/react-input-autosize/-/react-input-autosize-0.6.13.tgz"
+      "version": "1.1.0",
+      "from": "react-input-autosize@>=1.1.0 <2.0.0",
+      "resolved": "https://registry.npmjs.org/react-input-autosize/-/react-input-autosize-1.1.0.tgz"
     },
     "react-onclickoutside": {
-      "version": "4.9.0",
-      "from": "react-onclickoutside@>=4.1.1 <5.0.0",
-      "resolved": "https://registry.npmjs.org/react-onclickoutside/-/react-onclickoutside-4.9.0.tgz",
+      "version": "5.3.3",
+      "from": "react-onclickoutside@>=5.3.3 <6.0.0",
+      "resolved": "https://registry.npmjs.org/react-onclickoutside/-/react-onclickoutside-5.3.3.tgz",
       "dependencies": {
         "object-assign": {
           "version": "4.1.0",

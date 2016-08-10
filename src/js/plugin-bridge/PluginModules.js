@@ -74,7 +74,8 @@ module.exports = {
     RequestErrorMsg: 'RequestErrorMsg',
     RouterUtil: 'RouterUtil',
     TabForm: 'TabForm',
-    ToggleButton: 'ToggleButton'
+    ToggleButton: 'ToggleButton',
+    Typeahead: 'Typeahead'
   },
   config: {
     Config: 'Config'

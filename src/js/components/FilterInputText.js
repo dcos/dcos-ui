@@ -1,121 +1,131 @@
-var classNames = require('classnames');
-var React = require('react');
+import classNames from 'classnames';
+import React, {PropTypes} from 'react';
 
 import Icon from './Icon';
 import ServiceFilterTypes from '../constants/ServiceFilterTypes';
 
-var FilterInputText = React.createClass({
+let METHODS_TO_BIND = [
+  'handleBlur',
+  'handleFocus',
+  'handleChange',
+  'handleInputClear'
+];
 
-  displayName: 'FilterInputText',
+class FilterInputText extends React.Component {
+  constructor() {
+    super(...arguments);
 
-  propTypes: {
-    handleFilterChange: React.PropTypes.func.isRequired,
-    inverseStyle: React.PropTypes.bool,
-    placeholder: React.PropTypes.string,
-    searchString: React.PropTypes.string.isRequired,
-    sideText: React.PropTypes.node
-  },
-
-  getDefaultProps: function () {
-    return {
-      inverseStyle: false,
-      placeholder: 'Filter',
-      searchString: ''
-    };
-  },
-
-  getInitialState: function () {
-    return {
+    this.state = {
       focus: false
     };
-  },
 
-  componentDidUpdate: function () {
-    if (this.state.focus) {
-      this.refs.filterInput.focus();
+    METHODS_TO_BIND.forEach(method => {
+      this[method] = this[method].bind(this);
+    });
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    let {focus} = this.state;
+
+    if (prevState.focus !== focus && focus && this.inputField) {
+      this.inputField.focus();
     }
-  },
+  }
 
-  handleChange: function (e) {
-    e.preventDefault();
-    this.props.handleFilterChange(this.refs.filterInput.value,
-      ServiceFilterTypes.TEXT);
-  },
+  handleChange(event) {
+    let {target} = event;
 
-  handleClearInput: function () {
+    this.props.handleFilterChange(target.value, ServiceFilterTypes.TEXT);
+  }
+
+  handleInputClear() {
     this.props.handleFilterChange('', ServiceFilterTypes.TEXT);
-  },
+  }
 
-  handleBlur: function () {
+  handleBlur() {
     this.setState({
       focus: false
     });
-  },
+  }
 
-  handleFocus: function () {
+  handleFocus() {
     this.setState({
       focus: true
     });
-  },
+  }
 
-  renderClearIcon: function (props) {
+  getInputField() {
+    let {inverseStyle, placeholder, searchString} = this.props;
 
-    if (props.searchString) {
-      let color = 'white';
+    let inputClasses = classNames({
+      'form-control filter-input-text': true,
+      'form-control-inverse': inverseStyle
+    });
 
-      if (!props.inverseStyle) {
-        color = 'purple';
-      }
+    return (
+      <input
+        className={inputClasses}
+        placeholder={placeholder}
+        onChange={this.handleChange}
+        ref={(ref) => this.inputField = ref}
+        type="text"
+        value={searchString} />
+    );
+  }
 
-      let iconClassNames = classNames('clickable', {
-        'icon-margin-left': !!props.sideText
-      });
-
-      return (
-        <span className="form-control-group-add-on form-control-group-add-on-append">
-          {props.sideText}
-          <a onClick={this.handleClearInput}>
-          <Icon
-            family="mini"
-            id="ring-close"
-            size="mini"
-            className={iconClassNames}
-            color={color} />
-          </a>
-        </span>
-      );
+  getClearIcon() {
+    if (!this.props.searchString) {
+      return null;
     }
 
-    return null;
-  },
+    let {inverseStyle, sideText} = this.props;
+    let color = 'white';
 
-  render: function () {
-    var props = this.props;
-    var focus = this.state.focus;
+    if (!inverseStyle) {
+      color = 'purple';
+    }
+
+    let iconClassNames = classNames('clickable', {
+      'icon-margin-left': !!sideText
+    });
+
+    return (
+      <span className="form-control-group-add-on form-control-group-add-on-append">
+        {sideText}
+        <a onClick={this.handleInputClear}>
+        <Icon
+          family="mini"
+          id="ring-close"
+          size="mini"
+          className={iconClassNames}
+          color={color} />
+        </a>
+      </span>
+    );
+  }
+
+  render() {
+    let {className, inputContainerClass, inverseStyle} = this.props;
+    let {focus} = this.state;
 
     let iconColor = 'white';
     let iconSearchClasses = classNames({
       'active': focus
     });
 
-    if (!props.inverseStyle && focus) {
+    if (!inverseStyle && focus) {
       iconColor = 'purple';
     }
 
-    var inputClasses = classNames({
-      'form-control filter-input-text': true,
-      'form-control-inverse': props.inverseStyle
-    });
-
     let inputContainerClasses = classNames({
       'form-control form-control-group filter-input-text-group': true,
-      'form-control-inverse': props.inverseStyle,
+      'form-control-inverse': inverseStyle,
       'focus': focus
-    }, props.inputContainerClass);
+    }, inputContainerClass);
 
     let formGroupClasses = classNames(
       'form-group',
-      props.className
+      className
     );
 
     return (
@@ -131,18 +141,26 @@ var FilterInputText = React.createClass({
               className={iconSearchClasses}
               color={iconColor} />
           </span>
-          <input
-            type="text"
-            className={inputClasses}
-            placeholder={props.placeholder}
-            value={props.searchString}
-            onChange={this.handleChange}
-            ref="filterInput" />
-          {this.renderClearIcon(props)}
+          {this.getInputField()}
+          {this.getClearIcon()}
         </div>
       </div>
     );
   }
-});
+}
+
+FilterInputText.defaultProps = {
+  inverseStyle: false,
+  placeholder: 'Filter',
+  sideText: null
+};
+
+FilterInputText.propTypes = {
+  handleFilterChange: PropTypes.func.isRequired,
+  inverseStyle: PropTypes.bool,
+  placeholder: PropTypes.string,
+  searchString: PropTypes.string.isRequired,
+  sideText: PropTypes.node
+};
 
 module.exports = FilterInputText;
