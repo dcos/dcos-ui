@@ -215,7 +215,7 @@ class TaskTable extends React.Component {
         <col style={{width: '40px'}} />
         <col />
         <col style={{width: '15%'}} className="hidden-mini" />
-        <col style={{width: '105px'}} />
+        <col style={{width: '115px'}} />
         <col style={{width: '40px'}} className="hidden-medium hidden-small hidden-mini" />
         <col style={{width: '85px'}} className="hidden-mini" />
         <col style={{width: '85px'}} className="hidden-mini" />
