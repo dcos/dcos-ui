@@ -88,7 +88,8 @@ describe('JobUtil', function () {
             cpus: 0.01,
             mem: 32,
             disk: 0
-          }
+          },
+          schedules: []
         });
     });
 
