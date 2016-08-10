@@ -5,7 +5,7 @@ import React from 'react';
 import CheckboxTable from './CheckboxTable';
 import CompositeState from '../structs/CompositeState';
 import Icon from './Icon';
-import MarathonStore from '../stores/MarathonStore';
+import DCOSStore from '../stores/DCOSStore';
 import ResourceTableUtil from '../utils/ResourceTableUtil';
 import TaskStates from '../constants/TaskStates';
 import TaskEndpointsList from './TaskEndpointsList';
@@ -43,7 +43,7 @@ class TaskTable extends React.Component {
   }
 
   getVersionValue(task) {
-    let marathonTask = MarathonStore.getTaskFromTaskID(task.id);
+    let marathonTask = DCOSStore.serviceTree.getTaskFromTaskID(task.id);
     if (marathonTask == null) {
       return null;
     }

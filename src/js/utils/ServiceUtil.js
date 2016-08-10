@@ -449,6 +449,11 @@ const ServiceUtil = {
     return appDefinition;
   },
 
+  getServiceNameFromTaskID(taskID) {
+    let serviceName = taskID.split('.')[0].split('_');
+    return serviceName[serviceName.length - 1];
+  },
+
   convertServiceLabelsToArray: function (service) {
     if (!(service instanceof Service)) {
       return [];

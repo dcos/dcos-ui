@@ -1,7 +1,7 @@
 import React from 'react';
 
 import DescriptionList from './DescriptionList';
-import MarathonStore from '../stores/MarathonStore';
+import DCOSStore from '../stores/DCOSStore';
 
 class MarathonTaskDetailsList extends React.Component {
   getTaskPorts(task) {
@@ -93,7 +93,7 @@ class MarathonTaskDetailsList extends React.Component {
   }
 
   render() {
-    const marathonTask = MarathonStore.getTaskFromTaskID(this.props.taskID);
+    const marathonTask = DCOSStore.serviceTree.getTaskFromTaskID(this.props.taskID);
     const taskConfiguration =
       this.getMarathonTaskDetailsDescriptionList(marathonTask);
     const healthCheckResults =

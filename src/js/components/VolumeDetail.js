@@ -4,7 +4,6 @@ import React from 'react';
 import Breadcrumbs from '../components/Breadcrumbs';
 import DescriptionList from './DescriptionList';
 import DCOSStore from '../stores/DCOSStore';
-import MarathonStore from '../stores/MarathonStore';
 import PageHeader from './PageHeader';
 import VolumeStatus from '../constants/VolumeStatus';
 
@@ -27,6 +26,7 @@ class VolumeDetail extends React.Component {
     let {params} = this.props;
     let routes = this.context.router.getCurrentRoutes();
     let currentRoute = routes[routes.length - 1];
+    let {serviceTree} = DCOSStore;
 
     let pageContent = null;
     let service = null;
@@ -34,11 +34,11 @@ class VolumeDetail extends React.Component {
 
     if (currentRoute.name === 'service-volume-details') {
       let id = decodeURIComponent(params.id);
-      service = DCOSStore.serviceTree.findItemById(id);
+      service = serviceTree.findItemById(id);
     } else {
       // This `if` will be executed if you look at volumes in a taskID for
       // both a service or a single node
-      service = MarathonStore.getServiceFromTaskID(params.taskID);
+      service = serviceTree.getServiceFromTaskID(params.taskID);
     }
 
     if (service) {
