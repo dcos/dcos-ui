@@ -69,18 +69,18 @@ const JobUtil = {
       disk: general.disk,
       docker
     };
-
-    // Only transfer schedule if checkbox is set,
-    // but don't transfer runOnSchedule
-    if (schedule && schedule.runOnSchedule) {
+    // Only transfer schedule if checkbox is set, and create job with reasonable
+    // defaults
+    if (!schedule || schedule.runOnSchedule) {
       let {
         id = 'default',
         enabled = true,
         cron,
-        timezone
+        timezone,
+        concurrencyPolicy = 'ALLOW'
       } = schedule;
 
-      spec.schedules = [{id, enabled, cron, timezone}];
+      spec.schedules = [{id, enabled, cron, timezone, concurrencyPolicy}];
     }
 
     return new Job(spec);
@@ -114,10 +114,8 @@ const JobUtil = {
     }
 
     let [schedule] = job.getSchedules();
-
     if (schedule) {
-      // Default to 'ALLOW'
-      schedule.concurrencyPolicy = schedule.concurrencyPolicy || 'ALLOW';
+      // Transfer schedule as is, i.e. not messing with the json configuration
       spec.schedules = [schedule];
     }
 
