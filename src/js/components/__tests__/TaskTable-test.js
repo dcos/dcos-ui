@@ -2,6 +2,7 @@ jest.dontMock('../CollapsingString');
 jest.dontMock('./fixtures/MockTasks.json');
 jest.dontMock('../../utils/ResourceTableUtil');
 jest.dontMock('../../stores/MesosStateStore');
+jest.dontMock('../../constants/TaskStates');
 jest.dontMock('../TaskTable');
 jest.dontMock('moment');
 
@@ -135,6 +136,29 @@ describe('TaskTable', function () {
     it('returns null if no health checks are present', function () {
       var health = this.taskTable.getTaskHealthFromMarathon({id:'foo'});
       expect(health).toBeNull();
+    });
+
+  });
+
+  describe('#getStatusValue', function () {
+
+    beforeEach(function () {
+      this.taskTable = new TaskTable();
+    });
+
+    it('returns \'Healthy\' if task is healthy', function () {
+      var value = this.taskTable.getStatusValue({statuses: [{healthy:true}]});
+      expect(value).toEqual('Healthy');
+    });
+
+    it('returns \'Unhealthy\' if task is unhealthy', function () {
+      var value = this.taskTable.getStatusValue({statuses: [{healthy:false}]});
+      expect(value).toEqual('Unhealthy');
+    });
+
+    it('falls back to TaskStates if task has no health data', function () {
+      var value = this.taskTable.getStatusValue({state: 'TASK_KILLING'});
+      expect(value).toEqual('Killing');
     });
 
   });

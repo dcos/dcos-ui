@@ -39,6 +39,14 @@ class TaskTable extends React.Component {
   }
 
   getStatusValue(task) {
+    let taskHealth = this.getTaskHealth(task);
+    if (taskHealth === true) {
+      return 'Healthy';
+    }
+    if (taskHealth === false) {
+      return 'Unhealthy';
+    }
+
     return TaskStates[task.state].displayName;
   }
 
@@ -70,6 +78,9 @@ class TaskTable extends React.Component {
   }
 
   getTaskHealthFromMesos(task) {
+    if (task.statuses == null) {
+      return null;
+    }
     const healths = task.statuses.map((status) => status.healthy);
     const healthDataExists = healths.length > 0 && healths.every(
       (health) => typeof health !== 'undefined'
@@ -128,7 +139,7 @@ class TaskTable extends React.Component {
       {
         cacheCell: true,
         className,
-        getValue: this.getStatusValue,
+        getValue: this.getStatusValue.bind(this),
         headerClassName: className,
         heading,
         prop: 'status',
