@@ -10,6 +10,7 @@ import 'brace/ext/language_tools';
 
 import MetronomeStore from '../../stores/MetronomeStore';
 import Job from '../../structs/Job';
+import JobConfig from '../../constants/JobConfig';
 import JobForm from '../JobForm';
 import JobUtil from '../../utils/JobUtil';
 import JobSchema from '../../schemas/JobSchema';
@@ -52,6 +53,16 @@ const responseAttributePathToFieldIdMap = {
   '/schedules/{INDEX}/concurrencyPolicy': 'schedules/{INDEX}/concurrencyPolicy',
   '/schedules/{INDEX}/enabled': 'schedules/{INDEX}/enabled',
   '/labels': 'labels'
+};
+
+let cleanJSONspec = function (jsonDefinition) {
+  return Object.keys(jsonDefinition).filter(function (key) {
+    return !JobConfig.BLACKLIST.includes(key);
+  }).reduce(function (memo, key) {
+    memo[key] = jsonDefinition[key];
+
+    return memo;
+  }, {});
 };
 
 class JobFormModal extends mixin(StoreMixin) {
@@ -161,7 +172,9 @@ class JobFormModal extends mixin(StoreMixin) {
 
   handleSubmit() {
     let {isEdit, job} = this.props;
-    let jobSpec = JobUtil.createJobSpecFromJob(this.state.job);
+    let jobSpec = cleanJSONspec(
+      JobUtil.createJobSpecFromJob(this.state.job)
+    );
 
     if (!isEdit) {
       MetronomeStore.createJob(jobSpec);
@@ -228,7 +241,7 @@ class JobFormModal extends mixin(StoreMixin) {
     let {defaultTab, job, jsonMode} = this.state;
 
     if (jsonMode) {
-      let jobSpec = JobUtil.createJobSpecFromJob(job);
+      let jobSpec = cleanJSONspec(JobUtil.createJobSpecFromJob(job));
 
       return (
         <Ace editorProps={{$blockScrolling: true}}
