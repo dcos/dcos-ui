@@ -107,6 +107,7 @@ describe('JobUtil', function () {
       expect(JobUtil.createJobSpecFromJob(job).schedules[0]).toEqual(
         {
           id: 'every-minute',
+          enabled: true,
           concurrencyPolicy: 'ALLOW',
           cron: '* * * * *'
         });

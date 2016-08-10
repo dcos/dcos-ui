@@ -78,7 +78,7 @@ const JobUtil = {
         cron,
         timezone,
         concurrencyPolicy = 'ALLOW'
-      } = schedule;
+      } = schedule || {};
 
       spec.schedules = [{id, enabled, cron, timezone, concurrencyPolicy}];
     }
