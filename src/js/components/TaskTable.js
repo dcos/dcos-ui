@@ -42,6 +42,45 @@ class TaskTable extends React.Component {
     return TaskStates[task.state].displayName;
   }
 
+  getTaskHealth(task) {
+    let mesosTaskHealth = this.getTaskHealthFromMesos(task);
+    if (mesosTaskHealth !== null) {
+      return mesosTaskHealth;
+    }
+    let marathonTaskHealth = this.getTaskHealthFromMarathon(task);
+    if (marathonTaskHealth !== null) {
+      return marathonTaskHealth;
+    }
+
+    return null;
+  }
+
+  getTaskHealthFromMarathon(task) {
+    const marathonTask = MarathonStore.getTaskFromTaskID(task.id);
+    if (marathonTask != null) {
+      const {healthCheckResults} = marathonTask;
+      if (healthCheckResults != null && healthCheckResults.length > 0) {
+        return healthCheckResults.every(function (result) {
+          return result.alive;
+        });
+      }
+    }
+
+    return null;
+  }
+
+  getTaskHealthFromMesos(task) {
+    const healths = task.statuses.map((status) => status.healthy);
+    const healthDataExists = healths.length > 0 && healths.every(
+      (health) => typeof health !== 'undefined'
+    );
+    if (healthDataExists) {
+      return healths.some((health) => health);
+    }
+
+    return null;
+  }
+
   getVersionValue(task) {
     let marathonTask = DCOSStore.serviceTree.getTaskFromTaskID(task.id);
     if (marathonTask == null) {
@@ -251,10 +290,7 @@ class TaskTable extends React.Component {
 
     let dangerState = TaskStates[state].stateTypes.includes('failure');
 
-    let healthy = task.statuses.some(function (status) {
-      return status.healthy;
-    });
-
+    let healthy = this.getTaskHealth(task);
     let unknown = task.statuses.length === 0 || task.statuses.some(function (status) {
       return status.healthy == null;
     });
