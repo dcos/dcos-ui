@@ -1,7 +1,6 @@
 import tv4 from 'tv4';
 
 import FormUtil from './FormUtil';
-import Util from './Util';
 
 function filteredPaths(combinedPath) {
   return combinedPath.split('/').filter(function (path) {
@@ -53,7 +52,9 @@ function setDefinitionValue(thingToSet, definition, renderRemove, model) {
     FormUtil.removePropID(definitionToSet.definition, prop);
 
     value.forEach(function (item, index) {
-      let propID = Util.uniqueID(prop);
+      // Use index, so we can re-use same key for same field, to not make react
+      // think it is a completely new field
+      let propID = index;
       let instanceDefinition = FormUtil.getMultipleFieldDefinition(
         prop,
         propID,
