@@ -376,4 +376,13 @@ describe('Job', function () {
 
   });
 
+  describe('#toJSON', function () {
+
+    it('returns a JSON string with the values in _itemData', function () {
+      let item = new Job({foo: 'bar', baz: 'qux'});
+      expect(item.toJSON()).toEqual('{"foo":"bar","baz":"qux"}');
+    });
+
+  });
+
 });
