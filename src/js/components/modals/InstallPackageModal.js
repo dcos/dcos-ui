@@ -24,6 +24,7 @@ const METHODS_TO_BIND = [
   'handleInstallPackage',
   'handleAdvancedFormChange',
   'handleModalClose',
+  'handleModalUpdateRequest',
   'handlePreinstallNotesToggle'
 ];
 
@@ -194,6 +195,12 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
     this.setState({truncatedPreInstallNotes});
   }
 
+  handleModalUpdateRequest() {
+    if (this.refs.modal) {
+      this.refs.modal.forceUpdate();
+    }
+  }
+
   getAdvancedSubmit(triggerSubmit) {
     this.triggerAdvancedSubmit = triggerSubmit;
   }
@@ -241,6 +248,7 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
       <div className="modal-content">
         <div className="modal-content-inner container container-pod container-pod-short horizontal-center">
           <CosmosErrorMessage
+            onResized={this.handleModalUpdateRequest}
             className="text-error-state text-overflow-break-word"
             error={installError}
             wrapperClass="" />
@@ -573,6 +581,7 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
 
     return (
       <Modal
+        ref="modal"
         backdropClass={backdropClasses}
         bodyClass=""
         closeByBackdropClick={!isAdvanced}

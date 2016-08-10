@@ -1,5 +1,6 @@
 import React from 'react';
 import ErrorPaths from '../constants/ErrorPaths';
+import CollapsibleErrorMessage from './CollapsibleErrorMessage';
 
 const REPOSITORY_ERRORS = [
   'EmptyPackageImport',
@@ -27,8 +28,7 @@ class CosmosErrorMessage extends React.Component {
   }
 
   getMessage() {
-    let {type, message, data} = this.props.error;
-    let children = [];
+    let {type, message} = this.props.error;
 
     // Append reference to repository page, since repository related errors
     // can occur at any request to Cosmos
@@ -36,12 +36,12 @@ class CosmosErrorMessage extends React.Component {
       message = this.appendRepositoryLink(message);
     }
 
-    // The message is always there
-    children.push(
-        <h4 className="text-align-center text-danger flush-top">
-          {message}
-        </h4>
-      );
+    // Return message
+    return message;
+  }
+
+  getDetails() {
+    let {data} = this.props.error;
 
     // Check if we should additionally append
     // the error details as an unordered list
@@ -50,33 +50,21 @@ class CosmosErrorMessage extends React.Component {
       // Get an array of array of errors for every individual path
       let errorsDetails = data.errors.map(function ({path, errors}) {
         return errors.map(function (error) {
-          let key = (ErrorPaths[path] || path)+'.'+error;
-          return (
-              <li key={key}>{ErrorPaths[path] || path}: {error}</li>
-            );
+          return (ErrorPaths[path] || path)+'.'+error;
         });
       });
 
-      // Flatten elemens array
-      errorsDetails = errorsDetails.reduce(function (a, b) {
+      // Flatten elemens array and return
+      return errorsDetails.reduce(function (a, b) {
         return a.concat(b);
       });
 
-      // Append an error details <ul> to the childrens
-      children.push(
-          <ul className="error-list-small">
-            {errorsDetails}
-          </ul>
-        );
+    } else {
+
+      // No errors
+      return null;
 
     }
-
-    // Return collected items
-    return (
-        <div className="text-danger">
-          {children}
-        </div>
-      );
 
   }
 
@@ -94,9 +82,10 @@ class CosmosErrorMessage extends React.Component {
     return (
       <div className={this.props.wrapperClass}>
         {this.getHeader()}
-        <div className={this.props.className}>
-          {this.getMessage()}
-        </div>
+        <CollapsibleErrorMessage
+          onToggle={this.props.onResized}
+          message={this.getMessage()}
+          details={this.getDetails()} />
       </div>
     );
   }
@@ -119,7 +108,8 @@ CosmosErrorMessage.propTypes = {
   }),
   header: React.PropTypes.string,
   headerClass: React.PropTypes.string,
-  wrapperClass: React.PropTypes.string
+  wrapperClass: React.PropTypes.string,
+  onResized: React.PropTypes.func
 };
 
 module.exports = CosmosErrorMessage;
