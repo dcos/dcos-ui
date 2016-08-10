@@ -202,6 +202,19 @@ describe('DCOSStore', function () {
       }
     );
 
+    it('should not include _itemData', function () {
+      MarathonStore.__setKeyResponse('groups', new ServiceTree({
+        items: [{
+          id: '/alpha',
+          labels: {DCOS_PACKAGE_FRAMEWORK_NAME: 'alpha'}
+        }]
+      }));
+      DCOSStore.onMarathonGroupsChange();
+
+      expect(DCOSStore.serviceTree.getItems()[0].get()._itemData)
+        .not.toBeDefined();
+    });
+
   });
 
   describe('#onMarathonQueueChange', function () {
@@ -250,6 +263,22 @@ describe('DCOSStore', function () {
         .not.toEqual('Waiting');
     });
 
+    it('should not include _itemData', function () {
+
+      DCOSStore.onMarathonQueueChange([{
+        app: {
+          id: serviceId
+        },
+        delay: {
+          'timeLeftSeconds': 0,
+          'overdue': false
+        }
+      }]);
+
+      expect(DCOSStore.serviceTree.getItems()[0].get()._itemData)
+        .not.toBeDefined();
+    });
+
   });
 
   describe('#processMarathonServiceVersion', function () {
@@ -280,6 +309,17 @@ describe('DCOSStore', function () {
 
       expect(DCOSStore.serviceTree.getItems()[0].getVersions())
         .toEqual(new Map([[versionID, {foo: 'bar'}]]));
+    });
+
+    it('should not include _itemData', function () {
+      DCOSStore.onMarathonServiceVersionChange({
+        serviceID: '/alpha',
+        versionID,
+        version: {foo: 'bar'}
+      });
+
+      expect(DCOSStore.serviceTree.getItems()[0].get()._itemData)
+        .not.toBeDefined();
     });
 
   });
@@ -326,6 +366,16 @@ describe('DCOSStore', function () {
         .toEqual(new Map([[firstVersionID, {foo: 'bar'}], [secondVersionID]]));
     });
 
+    it('should not include _itemData', function () {
+      DCOSStore.onMarathonServiceVersionsChange({
+        serviceID: '/beta',
+        versions: new Map([[firstVersionID]])
+      });
+
+      expect(DCOSStore.serviceTree.getItems()[0].get()._itemData)
+        .not.toBeDefined();
+    });
+
   });
 
   describe('#onMesosSummaryChange', function () {
@@ -354,6 +404,21 @@ describe('DCOSStore', function () {
       DCOSStore.onMesosSummaryChange();
 
       expect(DCOSStore.serviceTree.getItems()[0].get('bar')).toEqual('baz');
+    });
+
+    it('should not include _itemData', function () {
+      MesosSummaryStore.__setKeyResponse('states', new SummaryList({
+        items: [new StateSummary({
+          snapshot: {
+            frameworks: [{id: 'alpha-id', name: 'alpha', bar: 'baz'}]
+          },
+          successful: true
+        })]
+      }));
+      DCOSStore.onMesosSummaryChange();
+
+      expect(DCOSStore.serviceTree.getItems()[0].get()._itemData)
+        .not.toBeDefined();
     });
 
     it('should replace old summary data', function () {

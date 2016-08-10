@@ -2,13 +2,8 @@ import React from 'react';
 
 import DescriptionList from './DescriptionList';
 import MarathonStore from '../stores/MarathonStore';
-import TaskEndpointsList from './TaskEndpointsList';
 
 class MarathonTaskDetailsList extends React.Component {
-  getTaskEndpoints(task) {
-    return <TaskEndpointsList task={task} />;
-  }
-
   getTaskPorts(task) {
     let {ports} = task;
     if (!ports || !ports.length) {
@@ -47,7 +42,6 @@ class MarathonTaskDetailsList extends React.Component {
     let headerValueMapping = {
       'Host': task.host,
       'Ports': this.getTaskPorts(task),
-      'Endpoints': this.getTaskEndpoints(task),
       'Status': this.getTaskStatus(task),
       'Staged at': this.getTimeField(task.stagedAt),
       'Started at': this.getTimeField(task.startedAt),

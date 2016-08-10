@@ -105,7 +105,7 @@ class CosmosErrorMessage extends React.Component {
 CosmosErrorMessage.defaultProps = {
   className: 'text-overflow-break-word column-small-8 column-small-offset-2 column-medium-6 column-medium-offset-3',
   error: {message: 'Please try again.'},
-  header: 'An Error Occured',
+  header: 'An Error Occurred',
   headerClass: 'h3 text-align-center flush-top',
   wrapperClass: 'row'
 };

@@ -17,7 +17,11 @@ describe('ServiceUtil', function () {
 
       let expectedService = new Service({
         id: '/test',
-        cmd: 'sleep 1000;'
+        cmd: 'sleep 1000;',
+        cpus: null,
+        mem: null,
+        disk: null,
+        instances: null
       });
 
       expect(ServiceUtil.createServiceFromFormModel(model))
@@ -40,6 +44,58 @@ describe('ServiceUtil', function () {
 
       expect(ServiceUtil.createServiceFromFormModel(model))
         .toEqual(expectedService);
+    });
+
+    describe('environmentVariables', function () {
+
+      it('should keep undefined values as ""', function() {
+        let service = ServiceUtil.createServiceFromFormModel({
+          environmentVariables: {
+            environmentVariables: [
+              { key: 'a', value: 'correct' },
+              { key: 'b', value: undefined }
+            ]
+          }
+        });
+        expect(service.env).toEqual({
+          a: 'correct',
+          b: ''
+        });
+      });
+
+      it('should not set items with no key', function () {
+        let service = ServiceUtil.createServiceFromFormModel(
+          {
+            environmentVariables: {
+              environmentVariables: [
+                {key: 'a', value: 'correct'},
+                {value: undefined}
+              ]
+            }
+          }
+        );
+        expect(service.env).toEqual(
+          {
+            a: 'correct'
+          }
+        );
+      });
+
+      it('should keep null values as ""', function () {
+        let service = ServiceUtil.createServiceFromFormModel({
+          environmentVariables: {
+            environmentVariables: [
+              { key: 'a', value: 'correct' },
+              { key: 'b', value: null }
+            ]
+          }
+        });
+        expect(service.env).toEqual({
+          a: 'correct',
+          b: ''
+        });
+      });
+
     });
 
     describe('networking', function () {

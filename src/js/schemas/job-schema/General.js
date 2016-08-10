@@ -2,6 +2,8 @@
 import React from 'react';
 /* eslint-enable no-unused-vars */
 
+import MesosConstants from '../../constants/MesosConstants';
+
 const General = {
   title: 'General',
   description: 'Configure your job settings',
@@ -24,26 +26,34 @@ const General = {
         return job.getDescription();
       }
     },
-    cpus: {
-      title: 'CPUs',
-      description: 'The amount of CPUs the job requires',
-      type:'number',
-      getter: function (job) {
-        return `${job.getCpus() || ''}`;
-      }
-    },
-    mem: {
-      title: 'Mem (MiB)',
-      type: 'number',
-      getter: function (job) {
-        return `${job.getMem() || ''}`;
-      }
-    },
-    disk: {
-      title: 'Disk (MiB)',
-      type: 'number',
-      getter: function (job) {
-        return `${job.getDisk() || ''}`;
+    resources: {
+      type: 'group',
+      properties: {
+        cpus: {
+          title: 'CPUs',
+          default: MesosConstants.MIN_CPUS,
+          description: 'The amount of CPUs the job requires',
+          type:'number',
+          getter: function (job) {
+            return `${job.getCpus() || ''}`;
+          }
+        },
+        mem: {
+          title: 'Mem (MiB)',
+          default: MesosConstants.MIN_MEM,
+          type: 'number',
+          getter: function (job) {
+            return `${job.getMem() || ''}`;
+          }
+        },
+        disk: {
+          title: 'Disk (MiB)',
+          default: 0,
+          type: 'number',
+          getter: function (job) {
+            return `${job.getDisk() || ''}`;
+          }
+        }
       }
     },
     cmd: {

@@ -110,7 +110,7 @@ describe('InstallPackageModal', function () {
       ));
 
       var result = node.querySelector('.h3.text-align-center.flush-top');
-      expect(result.textContent).toEqual('An Error Occured');
+      expect(result.textContent).toEqual('An Error Occurred');
     });
 
     it('should display install success', function () {

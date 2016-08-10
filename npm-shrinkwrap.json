@@ -4416,9 +4416,9 @@
       "resolved": "https://registry.npmjs.org/merge-stream/-/merge-stream-1.0.0.tgz"
     },
     "mesosphere-shared-reactjs": {
-      "version": "0.0.18",
-      "from": "mesosphere-shared-reactjs@0.0.18",
-      "resolved": "https://registry.npmjs.org/mesosphere-shared-reactjs/-/mesosphere-shared-reactjs-0.0.18.tgz"
+      "version": "0.0.19",
+      "from": "mesosphere-shared-reactjs@0.0.19",
+      "resolved": "https://registry.npmjs.org/mesosphere-shared-reactjs/-/mesosphere-shared-reactjs-0.0.19.tgz"
     },
     "method-override": {
       "version": "2.3.5",
@@ -5425,9 +5425,9 @@
       "resolved": "https://registry.npmjs.org/react-transform-hmr/-/react-transform-hmr-1.0.4.tgz"
     },
     "reactjs-components": {
-      "version": "0.14.0-beta.36",
-      "from": "reactjs-components@0.14.0-beta.36",
-      "resolved": "https://registry.npmjs.org/reactjs-components/-/reactjs-components-0.14.0-beta.36.tgz"
+      "version": "0.14.0-beta.40",
+      "from": "reactjs-components@0.14.0-beta.40",
+      "resolved": "https://registry.npmjs.org/reactjs-components/-/reactjs-components-0.14.0-beta.40.tgz"
     },
     "reactjs-mixin": {
       "version": "0.0.2",

@@ -20,6 +20,11 @@ describe('Job Details', function () {
       cy.get('.page-header-sub-heading').should('contain', 'Failed');
     });
 
+    it('renders the pretty cron schedule', function () {
+      cy.get('.page-header-sub-heading')
+        .should('contain', 'Scheduled 01:00 on the 6th in Sep');
+    });
+
     it('renders the relative time of the longest running task', function () {
       cy.get('.page-header-sub-heading').should('contain', '32 years ago');
     });

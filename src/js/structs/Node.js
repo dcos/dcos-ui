@@ -3,6 +3,10 @@ import TaskStates from '../constants/TaskStates';
 import UnitHealthUtil from '../utils/UnitHealthUtil';
 
 class Node extends Item {
+  getID() {
+    return this.get('id');
+  }
+
   getServiceIDs() {
     return this.get('framework_ids');
   }
@@ -19,9 +23,12 @@ class Node extends Item {
     return {percentage, total, value};
   }
 
+  getHostName() {
+    return this.get('hostname');
+  }
+
   // Below is Component Health specific API
   // http://schema.dcos/system/health/node
-
   getHealth() {
     return UnitHealthUtil.getHealth(this.get('health'));
   }

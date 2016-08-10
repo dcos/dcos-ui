@@ -1,3 +1,4 @@
+import MetadataStore from '../../stores/MetadataStore';
 /* eslint-disable no-unused-vars */
 import React from 'react';
 /* eslint-enable no-unused-vars */
@@ -35,7 +36,11 @@ const General = {
     },
     cron: {
       title: 'CRON Schedule',
-      description: 'Enter your schedule in CRON format, e.g. 0 20 * * *',
+      description: (
+        <span>
+          Use cron format to set your schedule, e.g. <i>0 0 20 * * *</i><br/><a href={MetadataStore.buildDocsURI('/usage/jobs/getting-started')} target="_blank">View documentation</a>.
+        </span>
+      ),
       type: 'string',
       getter: function (job) {
         let [schedule = {}] = job.getSchedules();

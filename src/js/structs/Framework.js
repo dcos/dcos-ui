@@ -2,7 +2,6 @@ import {
   ROUTE_ACCESS_PREFIX,
   FRAMEWORK_ID_VALID_CHARACTERS
 } from '../constants/FrameworkConstants';
-import Config from '../config/Config';
 import Service from './Service';
 import FrameworkUtil from '../utils/FrameworkUtil';
 
@@ -37,16 +36,5 @@ module.exports = class Framework extends Service {
       return labels.DCOS_PACKAGE_FRAMEWORK_NAME;
     }
     return super.getName();
-  }
-
-  getWebURL() {
-    let url = this.get('webui_url');
-    let name = this.getName();
-
-    if (!url || !name) {
-      return null;
-    }
-
-    return `${Config.rootUrl}/service/${name}`;
   }
 };

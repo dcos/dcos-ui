@@ -184,7 +184,7 @@ describe('PackageDetailTab', function () {
 
   describe('#render', function () {
 
-    it('should call getErrorScreen when error occured', function () {
+    it('should call getErrorScreen when error occurred', function () {
       this.instance.state.hasError = true;
       this.instance.getErrorScreen = jasmine.createSpy('getErrorScreen');
 
@@ -192,7 +192,7 @@ describe('PackageDetailTab', function () {
       expect(this.instance.getErrorScreen).toHaveBeenCalled();
     });
 
-    it('ignores getErrorScreen when error has not occured', function () {
+    it('ignores getErrorScreen when error has not occurred', function () {
       this.instance.state.hasError = false;
       this.instance.getErrorScreen = jasmine.createSpy('getErrorScreen');
 
@@ -216,7 +216,7 @@ describe('PackageDetailTab', function () {
       expect(this.instance.getLoadingScreen).not.toHaveBeenCalled();
     });
 
-    it('ignores getLoadingScreen when error has occured', function () {
+    it('ignores getLoadingScreen when error has occurred', function () {
       this.instance.state.hasError = true;
       this.instance.state.isLoading = true;
       this.instance.getLoadingScreen = jasmine.createSpy('getLoadingScreen');

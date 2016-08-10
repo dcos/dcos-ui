@@ -41,6 +41,7 @@ describe('DeploymentsTab', function () {
         }
       ]
     });
+    DCOSStore.dataProcessed = true;
     DCOSStore.deploymentsList = deployments;
     this.container = document.createElement('div');
     this.instance = ReactDOM.render(

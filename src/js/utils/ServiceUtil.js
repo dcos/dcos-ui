@@ -1,5 +1,6 @@
 import {Hooks} from 'PluginSDK';
 import Service from '../structs/Service';
+import ValidatorUtil from '../utils/ValidatorUtil';
 import VolumeConstants from '../constants/VolumeConstants';
 
 const getFindPropertiesRecursive = function (service, item) {
@@ -49,6 +50,7 @@ const pruneHealthCheckAttributes = function (healthCheckSchema, healthCheck) {
 
       if (prop === 'command') {
         memo[prop] = {value: healthCheck[prop]};
+
         return memo;
       }
 
@@ -60,8 +62,7 @@ const pruneHealthCheckAttributes = function (healthCheckSchema, healthCheck) {
 };
 
 const ServiceUtil = {
-  createServiceFromFormModel: function (formModel, schema, isEdit = false) {
-    let definition = {};
+  createServiceFromFormModel: function (formModel, schema, isEdit = false, definition = {}) {
 
     if (formModel != null) {
       let {
@@ -105,7 +106,7 @@ const ServiceUtil = {
         definition.user = optional.user;
       }
 
-      if (containerSettings != null) {
+      if (containerSettings != null && containerSettings.image != null) {
         definition.container = {
           docker: {
             image: containerSettings.image
@@ -171,10 +172,10 @@ const ServiceUtil = {
               };
             });
 
-          if (externalVolumes.length > 0) {
+          if (externalVolumes.length) {
             volumesList = volumesList.concat(externalVolumes);
           }
-          if (!isEdit) {
+          if (!isEdit && volumesList.length) {
             definition.updateStrategy = {
               maximumOverCapacity: 0,
               minimumHealthCapacity: 0
@@ -192,9 +193,9 @@ const ServiceUtil = {
               };
             });
 
-          if (localVolumes.length > 0) {
+          if (localVolumes.length) {
             volumesList = volumesList.concat(localVolumes);
-            if (!isEdit) {
+            if (!isEdit && volumesList.length) {
               definition.updateStrategy = {
                 maximumOverCapacity: 0,
                 minimumHealthCapacity: 0
@@ -207,7 +208,7 @@ const ServiceUtil = {
           }
         }
 
-        if (volumesList.length > 0) {
+        if (volumesList.length) {
           definition.container.type = type;
           definition.container.volumes = volumesList;
         }
@@ -216,6 +217,7 @@ const ServiceUtil = {
       if (labels != null && labels.labels != null) {
         definition.labels = labels.labels.reduce(function (memo, item) {
           memo[item.key] = item.value;
+
           return memo;
         }, {});
       }
@@ -251,9 +253,22 @@ const ServiceUtil = {
       if (environmentVariables != null && environmentVariables.environmentVariables != null) {
         definition.env = environmentVariables.environmentVariables
           .reduce(function (variableMap, variable) {
+
+            if (variable.key == null) {
+              return variableMap;
+            }
+
+            // The 'undefined' value is not rendered by the JSON.stringify,
+            // so make sure empty environment variables are not left unrendered
+            let value = variable.value;
+            if (value == null) {
+              value = '';
+            }
+
+            // Pass it through the registered plugins
             variableMap[variable.key] = Hooks.applyFilter(
               'serviceVariableValue',
-              variable.value,
+              value,
               variable,
               definition
             );
@@ -273,10 +288,10 @@ const ServiceUtil = {
           });
         }
 
-        if (networking.ports != null && networking.ports.length > 0) {
+        if (networking.ports != null && networking.ports.length) {
           if (networkType === 'host' || !isContainerApp) {
             // Avoid specifying an empty portDefinitions by default
-            if (networking.ports.length > 0) {
+            if (networking.ports.length) {
               definition.portDefinitions = networking.ports.map(function (port, index) {
                 let portMapping = {protocol: 'tcp'};
                 // Ensure that lbPort is an int
@@ -364,6 +379,16 @@ const ServiceUtil = {
       }
     }
 
+    definition = Object.keys(definition).reduce(function (memo, key) {
+      if (!ValidatorUtil.isEmpty(definition[key])) {
+        memo[key] = definition[key];
+      } else {
+        memo[key] = null;
+      }
+
+      return memo;
+    }, {});
+
     return new Service(definition);
   },
 
@@ -373,7 +398,8 @@ const ServiceUtil = {
   },
 
   getAppDefinitionFromService: function (service) {
-    let appDefinition = {};
+
+    let appDefinition = JSON.parse(service.toJSON());
 
     // General
     appDefinition.id = service.getId();
@@ -419,12 +445,6 @@ const ServiceUtil = {
       appDefinition,
       service
     );
-
-    Object.keys(appDefinition).forEach(function (key) {
-      if (appDefinition[key] == null) {
-        delete appDefinition[key];
-      }
-    });
 
     return appDefinition;
   },

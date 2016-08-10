@@ -1,8 +1,9 @@
+import ValidatorUtil from './ValidatorUtil';
+
 const NetworkValidatorUtil = {
   isValidPort(value) {
-    const port = parseInt(value, 10);
-
-    return !Number.isNaN(port) && port >= 0 && port <= 65535;
+    return ValidatorUtil.isInteger(value) &&
+      ValidatorUtil.isNumberInRange(value, {max: 65535});
   }
 };
 

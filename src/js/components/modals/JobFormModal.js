@@ -14,6 +14,7 @@ import JobForm from '../JobForm';
 import JobUtil from '../../utils/JobUtil';
 import JobSchema from '../../schemas/JobSchema';
 import ToggleButton from '../ToggleButton';
+import CollapsibleErrorMessage from '../CollapsibleErrorMessage';
 
 const METHODS_TO_BIND = [
   'handleCancel',
@@ -21,6 +22,7 @@ const METHODS_TO_BIND = [
   'handleJSONEditorChange',
   'handleInputModeToggle',
   'handleSubmit',
+  'handleTabChange',
   'onMetronomeStoreJobCreateSuccess',
   'onMetronomeStoreJobCreateError',
   'onMetronomeStoreJobUpdateSuccess',
@@ -57,6 +59,7 @@ class JobFormModal extends mixin(StoreMixin) {
     super(...arguments);
 
     this.state = {
+      defaultTab: '',
       errorMessage: null,
       job: new Job(),
       jsonMode: false
@@ -120,6 +123,7 @@ class JobFormModal extends mixin(StoreMixin) {
 
   resetState() {
     this.setState({
+      defaultTab: '',
       errorMessage: null,
       job: this.props.job,
       jsonMode: false
@@ -165,12 +169,17 @@ class JobFormModal extends mixin(StoreMixin) {
     }
   }
 
+  handleTabChange(tab) {
+    this.setState({defaultTab: tab});
+  }
+
   getErrorMessage() {
     let {errorMessage} = this.state;
     if (!errorMessage) {
       return null;
     }
 
+    // Stringify error details
     let errorList = null;
     if (errorMessage.details != null) {
       errorList = errorMessage.details.map(function ({path, errors}) {
@@ -200,30 +209,22 @@ class JobFormModal extends mixin(StoreMixin) {
           return error;
         });
 
-        return (
-          <li key={path}>
-            {`${fieldId}: ${errors}`}
-          </li>
-        );
+        // Return path-prefixed error string
+        return `${fieldId}: ${errors}`;
+
       });
     }
 
     return (
-      <div>
-        <div className="error-field text-danger">
-          <h4 className="text-align-center text-danger flush-top">
-            {errorMessage.message}
-          </h4>
-          <ul>
-            {errorList}
-          </ul>
-        </div>
-      </div>
+      <CollapsibleErrorMessage
+        className="error-for-modal"
+        details={errorList}
+        message={errorMessage.message} />
     );
   }
 
   getModalContents() {
-    let {job, jsonMode} = this.state;
+    let {defaultTab, job, jsonMode} = this.state;
 
     if (jsonMode) {
       let jobSpec = JobUtil.createJobSpecFromJob(job);
@@ -245,6 +246,8 @@ class JobFormModal extends mixin(StoreMixin) {
 
     return (
       <JobForm
+        defaultTab={defaultTab}
+        onTabChange={this.handleTabChange}
         onChange={this.handleFormChange}
         model={formModel}
         isEdit={this.props.isEdit}
@@ -281,20 +284,25 @@ class JobFormModal extends mixin(StoreMixin) {
     }
 
     return (
-      <div className="header-flex">
-        <div className="header-left">
-          <span className="h4 flush-top flush-bottom text-color-neutral">
-            {heading}
-          </span>
+      <div>
+        <div className="header-flex">
+          <div className="header-left">
+            <span className="h4 flush-top flush-bottom text-color-neutral">
+              {heading}
+            </span>
+          </div>
+          <div className="header-right">
+            <ToggleButton
+              className="modal-form-title-label"
+              checkboxClassName="modal-form-title-toggle-button toggle-button"
+              checked={this.state.jsonMode}
+              onChange={this.handleInputModeToggle}>
+              JSON mode
+            </ToggleButton>
+          </div>
         </div>
-        <div className="header-right">
-          <ToggleButton
-            className="modal-form-title-label"
-            checkboxClassName="modal-form-title-toggle-button toggle-button"
-            checked={this.state.jsonMode}
-            onChange={this.handleInputModeToggle}>
-            JSON mode
-          </ToggleButton>
+        <div className="header-full-width">
+          {this.getErrorMessage()}
         </div>
       </div>
     );
@@ -315,7 +323,6 @@ class JobFormModal extends mixin(StoreMixin) {
         titleText={this.getModalTitle()}
         titleClass="modal-header-title flush-top flush-bottom"
         showFooter={true}>
-        {this.getErrorMessage()}
         {this.getModalContents()}
       </Modal>
     );

@@ -313,6 +313,18 @@ class DeploymentsTab extends mixin(StoreMixin) {
     );
   }
 
+  renderLoading() {
+    return (
+      <div className="container container-fluid container-pod text-align-center vertical-center inverse">
+        <div className="row">
+          <div className="ball-scale">
+            <div />
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   renderPopulated(deploymentsItems) {
     let deploymentsCount = deploymentsItems.length;
     let deploymentsLabel = StringUtil.pluralize('Deployment', deploymentsCount);
@@ -396,7 +408,11 @@ class DeploymentsTab extends mixin(StoreMixin) {
 
   render() {
     let deployments = DCOSStore.deploymentsList.getItems();
+    let loading = !DCOSStore.dataProcessed;
 
+    if (loading) {
+      return this.renderLoading();
+    }
     if (deployments.length === 0) {
       return this.renderEmpty();
     } else {

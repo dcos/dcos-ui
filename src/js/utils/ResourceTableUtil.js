@@ -34,7 +34,8 @@ function getUpdatedTimestamp(model) {
 var ResourceTableUtil = {
   getClassName: function (prop, sortBy, row) {
     return classNames({
-      'text-align-right': leftAlignCaret(prop) || prop === 'TASK_RUNNING',
+      'text-align-right': leftAlignCaret(prop)
+        || prop === 'TASK_RUNNING' || prop === 'action',
       'hidden-mini': leftAlignCaret(prop),
       'highlight': prop === sortBy.prop,
       'clickable': row == null // this is a header
@@ -93,8 +94,11 @@ var ResourceTableUtil = {
         after: null
       };
       let caretClassSet = classNames(
-        `caret caret--${order}`,
-        {'caret--visible': prop === sortBy.prop}
+        'caret',
+        {
+          [`caret--${order}`]: order != null,
+          'caret--visible': prop === sortBy.prop
+        }
       );
       let helpIcon = null;
 

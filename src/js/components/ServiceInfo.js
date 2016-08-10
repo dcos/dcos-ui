@@ -2,8 +2,6 @@ import classNames from 'classnames';
 import {Dropdown} from 'reactjs-components';
 import React from 'react';
 
-import Cluster from '../utils/Cluster';
-import Framework from '../structs/Framework';
 import HealthBar from './HealthBar';
 import PageHeader from './PageHeader';
 import Service from '../structs/Service';
@@ -71,11 +69,13 @@ class ServiceInfo extends React.Component {
         transitionName="dropdown-menu" />
     ];
 
-    if (service instanceof Framework && service.getWebURL()) {
+    let webURL = service.getWebURL();
+    if (webURL) {
       actionButtons.unshift(
         <a className="button button-primary flush-bottom"
           key="service-link"
-          href={Cluster.getServiceLink(service.getName())} target="_blank"
+          href={webURL}
+          target="_blank"
           title="Open in a new window">
           Open Service
         </a>
