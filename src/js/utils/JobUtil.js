@@ -139,6 +139,8 @@ const JobUtil = {
         concurrencyPolicy,
         startingDeadlineSeconds
       }];
+    } else {
+      spec.schedules = [];
     }
 
     return spec;
