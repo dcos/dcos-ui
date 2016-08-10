@@ -56,7 +56,7 @@ const Schedule = {
       }
     }
   },
-  required: ['id', 'cron']
+  required: ['cron']
 
 };
 
