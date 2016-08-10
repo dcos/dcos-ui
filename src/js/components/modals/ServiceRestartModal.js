@@ -1,0 +1,69 @@
+import {Confirm} from 'reactjs-components';
+/* eslint-disable no-unused-vars */
+import React from 'react';
+/* eslint-enable no-unused-vars */
+
+import MarathonStore from '../../stores/MarathonStore';
+import ServiceActionModal from './ServiceActionModal';
+
+class ServiceRestartModal extends ServiceActionModal {
+  constructor() {
+    super();
+
+    this.store_listeners = [
+      {
+        name: 'marathon',
+        events: [
+          'serviceRestartError',
+          'serviceRestartSuccess'
+        ],
+        suppressUpdate: true
+      }
+    ];
+
+    this.onMarathonStoreServiceRestartError = this.onError;
+    this.onMarathonStoreServiceRestartSuccess = this.closeDialog;
+  }
+
+  handleConfirmClick() {
+    super.handleConfirmClick();
+
+    let {service} = this.props;
+    let serviceID = service.getId();
+    let forceUpdate = this.shouldForceUpdate(this.state.errorMsg);
+
+    MarathonStore.restartService(serviceID, forceUpdate);
+  }
+
+  render() {
+    const {open, service} = this.props;
+    let serviceName = '';
+
+    if (service) {
+      serviceName = service.getId();
+    }
+
+    return (
+      <Confirm
+        disabled={this.state.disabled}
+        open={open}
+        onClose={this.handleCloseClick}
+        leftButtonCallback={this.handleCloseClick}
+        rightButtonText="Restart Service"
+        rightButtonClassName="button button-danger"
+        rightButtonCallback={this.handleConfirmClick}>
+        <div className="container-pod flush-top container-pod-short-bottom">
+          <h2 className="text-align-center flush-top">
+            Restart Service
+          </h2>
+          <p>
+            Are you sure you want to restart <span className="emphasize">{serviceName}</span>?
+          </p>
+          {this.getErrorMessage()}
+        </div>
+      </Confirm>
+    );
+  }
+}
+
+module.exports = ServiceRestartModal;
