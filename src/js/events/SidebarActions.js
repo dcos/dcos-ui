@@ -1,6 +1,13 @@
 import {RequestUtil} from 'mesosphere-shared-reactjs';
 
-import ActionTypes from '../constants/ActionTypes';
+import {
+  REQUEST_SIDEBAR_OPEN,
+  REQUEST_SIDEBAR_CLOSE,
+  REQUEST_CLI_INSTRUCTIONS,
+  REQUEST_VERSIONS_SUCCESS,
+  REQUEST_VERSIONS_ERROR,
+  REQUEST_SIDEBAR_WIDTH_CHANGE
+} from '../constants/ActionTypes';
 import Config from '../config/Config';
 
 var AppDispatcher = require('./AppDispatcher');
@@ -9,21 +16,21 @@ module.exports = {
 
   open: function () {
     AppDispatcher.handleSidebarAction({
-      type: ActionTypes.REQUEST_SIDEBAR_OPEN,
+      type: REQUEST_SIDEBAR_OPEN,
       data: true
     });
   },
 
   close: function () {
     AppDispatcher.handleSidebarAction({
-      type: ActionTypes.REQUEST_SIDEBAR_CLOSE,
+      type: REQUEST_SIDEBAR_CLOSE,
       data: false
     });
   },
 
   openCliInstructions: function () {
     AppDispatcher.handleSidebarAction({
-      type: ActionTypes.REQUEST_CLI_INSTRUCTIONS,
+      type: REQUEST_CLI_INSTRUCTIONS,
       data: false
     });
   },
@@ -36,13 +43,13 @@ module.exports = {
       url: url,
       success: function (response) {
         AppDispatcher.handleSidebarAction({
-          type: ActionTypes.REQUEST_VERSIONS_SUCCESS,
+          type: REQUEST_VERSIONS_SUCCESS,
           data: response
         });
       },
       error: function (e) {
         AppDispatcher.handleSidebarAction({
-          type: ActionTypes.REQUEST_VERSIONS_ERROR,
+          type: REQUEST_VERSIONS_ERROR,
           data: e.message
         });
       }
@@ -51,7 +58,7 @@ module.exports = {
 
   sidebarWidthChange: function () {
     AppDispatcher.handleSidebarAction({
-      type: ActionTypes.SIDEBAR_WIDTH_CHANGE
+      type: REQUEST_SIDEBAR_WIDTH_CHANGE
     });
   }
 };
