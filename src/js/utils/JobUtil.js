@@ -36,12 +36,11 @@ const getMatchingProperties = function (job, item) {
 };
 
 const JobUtil = {
-  createJobFromFormModel(formModel) {
+  createJobFromFormModel(formModel, spec = {}) {
     if (formModel == null) {
       return new Job();
     }
 
-    let spec = {};
     let {
       general = {
         id: null
@@ -99,7 +98,7 @@ const JobUtil = {
   },
 
   createJobSpecFromJob(job) {
-    let spec = {};
+    let spec = JSON.parse(job.toJSON());
 
     spec.id = job.getId() || null;
     spec.description = job.getDescription();

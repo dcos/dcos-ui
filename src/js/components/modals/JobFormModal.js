@@ -138,10 +138,11 @@ class JobFormModal extends mixin(StoreMixin) {
     if (!model) {
       return;
     }
+    let {job} = this.state;
 
     this.setState({
       errorMessage: null,
-      job: JobUtil.createJobFromFormModel(model)
+      job: JobUtil.createJobFromFormModel(model, job.get())
     });
   }
 
