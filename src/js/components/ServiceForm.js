@@ -380,6 +380,8 @@ class ServiceForm extends SchemaForm {
           this.getRemoveRowButton
         );
 
+        // Provide opportunity to do action after update, before re-render
+        Hooks.doAction('serviceFormUpdate', this);
         this.updateDefinitions();
         this.forceUpdate();
       }
