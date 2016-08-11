@@ -11,3 +11,13 @@ indent_style = space
 insert_final_newline = true
 trim_trailing_whitespace = true
 end_of_line = lf
+
+[*.js]
+continuation_indent_size = 4
+indent_brace_style = OTBS
+quote_type = single
+spaces_around_operators = true
+spaces_around_brackets = false
+
+[*.less]
+quote_type = double
