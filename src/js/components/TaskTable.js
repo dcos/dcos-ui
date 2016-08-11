@@ -61,7 +61,7 @@ class TaskTable extends React.Component {
   }
 
   getTaskHealthFromMarathon(task) {
-    const marathonTask = MarathonStore.getTaskFromTaskID(task.id);
+    const marathonTask = DCOSStore.serviceTree.getTaskFromTaskID(task.id);
     if (marathonTask != null) {
       const {healthCheckResults} = marathonTask;
       if (healthCheckResults != null && healthCheckResults.length > 0) {

@@ -12,13 +12,16 @@ const React = require('react');
 const ReactDOM = require('react-dom');
 const JestUtil = require('../../utils/JestUtil');
 
-const MarathonStore = require('../../stores/MarathonStore');
+const DCOSStore = require('../../stores/DCOSStore');
 const MesosStateStore = require('../../stores/MesosStateStore');
 const TaskTable = require('../TaskTable');
 const Tasks = require('./fixtures/MockTasks.json').tasks;
 
 describe('TaskTable', function () {
   beforeEach(function () {
+    DCOSStore.serviceTree = {
+      getTaskFromTaskID: jest.fn()
+    };
     this.parentRouter = {
       getCurrentRoutes() {
         return [{name: 'home'}, {name: 'dashboard'}, {name: 'service-detail'}];
@@ -49,16 +52,16 @@ describe('TaskTable', function () {
     });
 
     it('interrogates the task status', function () {
-      spyOn(MarathonStore, 'getTaskFromTaskID');
+      spyOn(DCOSStore.serviceTree, 'getTaskFromTaskID');
       var health = this.taskTable.getTaskHealth({
         statuses: [{healthy: true}]
       });
       expect(health).toEqual(true);
-      expect(MarathonStore.getTaskFromTaskID).not.toHaveBeenCalled();
+      expect(DCOSStore.serviceTree.getTaskFromTaskID).not.toHaveBeenCalled();
     });
 
-    it('falls back on the MarathonStore task\'s health checks', function () {
-      MarathonStore.getTaskFromTaskID.mockReturnValueOnce({
+    it('falls back on the DCOSStore.serviceTree task\'s health checks', function () {
+      DCOSStore.serviceTree.getTaskFromTaskID.mockReturnValueOnce({
         healthCheckResults: [{alive: true}]
       });
       var health = this.taskTable.getTaskHealth({statuses: []});
@@ -67,7 +70,7 @@ describe('TaskTable', function () {
 
     it('returns null if neither status nor Marathon have task health data',
         function () {
-          MarathonStore.getTaskFromTaskID.mockReturnValueOnce({
+          DCOSStore.serviceTree.getTaskFromTaskID.mockReturnValueOnce({
             healthCheckResults: []
           });
       var health = this.taskTable.getTaskHealth({statuses: []});
@@ -118,7 +121,7 @@ describe('TaskTable', function () {
     });
 
     it('returns true if all health checks pass', function () {
-      MarathonStore.getTaskFromTaskID.mockReturnValueOnce({
+      DCOSStore.serviceTree.getTaskFromTaskID.mockReturnValueOnce({
         healthCheckResults: [{alive: true}, {alive: true}]
       });
       var health = this.taskTable.getTaskHealthFromMarathon({id:'foo'});
@@ -126,7 +129,7 @@ describe('TaskTable', function () {
     });
 
     it('returns false if one health check fails', function () {
-      MarathonStore.getTaskFromTaskID.mockReturnValueOnce({
+      DCOSStore.serviceTree.getTaskFromTaskID.mockReturnValueOnce({
         healthCheckResults: [{alive: true}, {alive: false}, {alive: true}]
       });
       var health = this.taskTable.getTaskHealthFromMarathon({id:'foo'});
