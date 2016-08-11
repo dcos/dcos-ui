@@ -14,6 +14,7 @@ class TaskFilesTab extends React.Component {
       this[method] = this[method].bind(this);
     });
   }
+
   handleFileClick(path) {
     TaskDirectoryStore.addPath(this.props.task, path);
   }

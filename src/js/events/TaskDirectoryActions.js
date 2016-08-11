@@ -104,8 +104,8 @@ var TaskDirectoryActions = {
   ),
 
   fetchDirectory: function (task, innerPath, nodeState) {
-    innerPath = TaskDirectoryActions.getInnerPath(nodeState, task, innerPath);
-    if (innerPath == null) {
+    let path = TaskDirectoryActions.getInnerPath(nodeState, task, innerPath);
+    if (path == null) {
       AppDispatcher.handleServerAction({
         type: ActionTypes.REQUEST_TASK_DIRECTORY_ERROR
       });
@@ -114,14 +114,12 @@ var TaskDirectoryActions = {
 
     RequestUtil.json({
       url: `${Config.rootUrl}/agent/${task.slave_id}/files/browse`,
-      data: {
-        path: innerPath
-      },
+      data: {path},
       success: function (directory) {
         AppDispatcher.handleServerAction({
           type: ActionTypes.REQUEST_TASK_DIRECTORY_SUCCESS,
           data: directory,
-          sandBoxPath: innerPath
+          innerPath
         });
       },
       error: function (xhr) {
