@@ -1,5 +1,5 @@
 import Config from '../config/Config';
-import ServiceUtil from '../utils/ServiceUtil';
+import FrameworkUtil from '../utils/FrameworkUtil';
 import HealthStatus from '../constants/HealthStatus';
 import Item from './Item';
 import ServiceStatus from '../constants/ServiceStatus';
@@ -78,7 +78,7 @@ module.exports = class Service extends Item {
   }
 
   getImages() {
-    return ServiceUtil.getServiceImages(this.getMetadata().images);
+    return FrameworkUtil.getServiceImages(this.getMetadata().images);
   }
 
   getInstancesCount() {
@@ -110,7 +110,7 @@ module.exports = class Service extends Item {
   }
 
   getMetadata() {
-    return ServiceUtil.getMetadataFromLabels(this.getLabels());
+    return FrameworkUtil.getMetadataFromLabels(this.getLabels());
   }
 
   getName() {
