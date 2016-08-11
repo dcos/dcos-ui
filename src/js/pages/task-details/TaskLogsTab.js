@@ -23,8 +23,9 @@ class TaskLogsTab extends React.Component {
 
     this.state = {
       currentFile: null,
-      watching: 0,
-      totalFound: 0
+      searchString: '',
+      totalFound: 0,
+      watching: 0
     };
 
     METHODS_TO_BIND.forEach((method) => {
