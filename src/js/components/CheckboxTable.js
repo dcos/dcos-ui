@@ -113,8 +113,13 @@ class CheckboxTable extends React.Component {
   }
 
   renderCheckbox(prop, row) {
-    let {checkedItemsMap, uniqueProperty} = this.props;
+    let {checkedItemsMap, disabledItemsMap, uniqueProperty} = this.props;
     let rowID = row[uniqueProperty];
+
+    if (disabledItemsMap[rowID]) {
+      return null;
+    }
+
     let checked = false;
 
     if (checkedItemsMap[rowID]) {
@@ -192,6 +197,7 @@ CheckboxTable.propTypes = {
   ]),
   columns: PropTypes.array,
   data: PropTypes.array,
+  disabledItemsMap: PropTypes.object,
   getColGroup: PropTypes.func,
   labelClass: PropTypes.oneOfType([
     PropTypes.string,
@@ -208,6 +214,7 @@ CheckboxTable.defaultProps = {
   checkedItemsMap: {},
   columns: [],
   data: [],
+  disabledItemsMap: {},
   getColGroup: function () {},
   labelClass: {},
   onCheckboxChange: function () {},

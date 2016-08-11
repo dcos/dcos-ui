@@ -169,6 +169,14 @@ class JobRunHistoryTable extends React.Component {
     });
   }
 
+  getDisabledItemsMap(job) {
+    return job.getJobRuns().getItems().reduce(function (memo, jobRun) {
+      let isDisabled = ['ACTIVE', 'INITIAL', 'STARTING'].indexOf(jobRun.getStatus()) < 0;
+      memo[jobRun.get('id')] = isDisabled;
+      return memo;
+    }, {});
+  }
+
   getStopButton(hasCheckedTasks) {
     if (!hasCheckedTasks) {
       return null;
@@ -297,9 +305,20 @@ class JobRunHistoryTable extends React.Component {
   render() {
     let {job} = this.props;
     let {checkedItems} = this.state;
+    let disabledItems = this.getDisabledItemsMap(job);
     let totalRunCount = job.getJobRuns().getItems().length;
     let rightAlignLastNChildren = 0;
-    let hasCheckedTasks = Object.keys(checkedItems).length !== 0;
+    let hasCheckedTasks = false;
+
+    // Remove all disabled items from the checkedItems.
+    checkedItems = Object.keys(checkedItems).reduce(function (filteredItems, key) {
+      if (!disabledItems[key]) {
+        filteredItems[key] = checkedItems[key];
+        hasCheckedTasks = true;
+      }
+      return filteredItems;
+    }, {});
+
     if (hasCheckedTasks) {
       rightAlignLastNChildren = 1;
     }
@@ -325,6 +344,7 @@ class JobRunHistoryTable extends React.Component {
           getColGroup={this.getColGroup}
           uniqueProperty="id"
           checkedItemsMap={this.state.checkedItems}
+          disabledItemsMap={disabledItems}
           onCheckboxChange={this.handleItemCheck}
           sortBy={{prop: 'startedAt', order: 'desc'}}
           tableComponent={CheckboxTable} />
