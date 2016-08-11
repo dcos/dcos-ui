@@ -83,6 +83,29 @@ module.exports = class ServiceTree extends Tree {
     return this.id;
   }
 
+  getServiceFromTaskID(taskID) {
+    let serviceName = ServiceUtil.getServiceNameFromTaskID(taskID);
+    let service = this.findServiceByName(serviceName);
+
+    if (service == null) {
+      return null;
+    }
+
+    return new Service(service.get());
+  }
+
+  getTaskFromTaskID(taskID) {
+    let service = this.getServiceFromTaskID(taskID);
+
+    if (service == null || service.tasks == null || !service.tasks.length) {
+      return null;
+    }
+
+    return service.tasks.find(function (task) {
+      return task.id === taskID;
+    });
+  }
+
   /**
    * @param {string} id
    * @return {Service|ServiceTree} matching item
@@ -90,6 +113,16 @@ module.exports = class ServiceTree extends Tree {
   findItemById(id) {
     return this.findItem(function (item) {
       return item.getId() === id;
+    });
+  }
+
+  /**
+   * @param {string} name
+   * @return {Service} matching Service
+   */
+  findServiceByName(name) {
+    return this.findItem(function (item) {
+      return (item.getName() === name && item instanceof Service);
     });
   }
 

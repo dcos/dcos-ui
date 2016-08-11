@@ -6,8 +6,8 @@ import {RouteHandler} from 'react-router';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import Breadcrumbs from '../../components/Breadcrumbs';
+import DCOSStore from '../../stores/DCOSStore';
 import InternalStorageMixin from '../../mixins/InternalStorageMixin';
-import MarathonStore from '../../stores/MarathonStore';
 import MesosStateStore from '../../stores/MesosStateStore';
 import PageHeader from '../../components/PageHeader';
 import RequestErrorMsg from '../../components/RequestErrorMsg';
@@ -132,7 +132,7 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
 
     // Get the service from the taskID if it wasn't explicitly passed.
     if (!!params.taskID && service === null) {
-      service = MarathonStore.getServiceFromTaskID(params.taskID);
+      service = DCOSStore.serviceTree.getServiceFromTaskID(params.taskID);
     }
 
     return service;
