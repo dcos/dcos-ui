@@ -85,7 +85,8 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
   onStateStoreSuccess() {
     let {params} = this.props;
     let task = MesosStateStore.getTaskFromTaskID(params.taskID);
-    let innerPath = null;
+    // Declare undefined to not override default values in getDirectory
+    let innerPath;
 
     if (params.innerPath != null) {
       innerPath = decodeURIComponent(params.innerPath);

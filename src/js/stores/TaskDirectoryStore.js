@@ -70,7 +70,7 @@ class TaskDirectoryStore extends GetSetBaseStore {
       var action = payload.action;
       switch (action.type) {
         case REQUEST_TASK_DIRECTORY_SUCCESS:
-          this.processStateSuccess(action.data, action.sandBoxPath);
+          this.processStateSuccess(action.data, action.innerPath);
           break;
         case REQUEST_TASK_DIRECTORY_ERROR:
           this.processStateError();
@@ -107,7 +107,8 @@ class TaskDirectoryStore extends GetSetBaseStore {
     }
   }
 
-  getDirectory(task, deeperPath) {
+  // Default deeperPath to empty string so it matches with default innerPath
+  getDirectory(task, deeperPath = '') {
     this.resetRequests();
     this.set({directory: null});
     this.emit(TASK_DIRECTORY_CHANGE);
@@ -129,9 +130,12 @@ class TaskDirectoryStore extends GetSetBaseStore {
     this.emit(TASK_DIRECTORY_ERROR);
   }
 
-  processStateSuccess(directory, sandBoxPath) {
-    this.set({directory: new TaskDirectory({items: directory}), sandBoxPath});
-    this.emit(TASK_DIRECTORY_CHANGE);
+  processStateSuccess(items, innerPath) {
+    // Only update when receiving response from what was requested
+    if (this.get('innerPath') === innerPath) {
+      this.set({directory: new TaskDirectory({items})});
+      this.emit(TASK_DIRECTORY_CHANGE);
+    }
   }
 
   get storeID() {
