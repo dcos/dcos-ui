@@ -54,7 +54,7 @@ class CosmosErrorMessage extends React.Component {
         });
       });
 
-      // Flatten elemens array and return
+      // Flatten elements in array and return
       return errorsDetails.reduce(function (a, b) {
         return a.concat(b);
       });
