@@ -1,4 +1,6 @@
 import React from 'react';
+import ErrorPaths from '../constants/ErrorPaths';
+import CollapsibleErrorMessage from './CollapsibleErrorMessage';
 
 const REPOSITORY_ERRORS = [
   'EmptyPackageImport',
@@ -34,7 +36,36 @@ class CosmosErrorMessage extends React.Component {
       message = this.appendRepositoryLink(message);
     }
 
+    // Return message
     return message;
+  }
+
+  getDetails() {
+    let {data} = this.props.error;
+
+    // Check if we should additionally append
+    // the error details as an unordered list
+    if (data && data.errors) {
+
+      // Get an array of array of errors for every individual path
+      let errorsDetails = data.errors.map(function ({path, errors}) {
+        return errors.map(function (error) {
+          return (ErrorPaths[path] || path)+'.'+error;
+        });
+      });
+
+      // Flatten elements in array and return
+      return errorsDetails.reduce(function (a, b) {
+        return a.concat(b);
+      });
+
+    } else {
+
+      // No errors
+      return null;
+
+    }
+
   }
 
   appendRepositoryLink(message) {
@@ -51,9 +82,10 @@ class CosmosErrorMessage extends React.Component {
     return (
       <div className={this.props.wrapperClass}>
         {this.getHeader()}
-        <div className={this.props.className}>
-          {this.getMessage()}
-        </div>
+        <CollapsibleErrorMessage
+          onToggle={this.props.onResized}
+          message={this.getMessage()}
+          details={this.getDetails()} />
       </div>
     );
   }
@@ -71,11 +103,13 @@ CosmosErrorMessage.propTypes = {
   className: React.PropTypes.string,
   error: React.PropTypes.shape({
     message: React.PropTypes.string,
-    type: React.PropTypes.string
+    type: React.PropTypes.string,
+    data: React.PropTypes.object
   }),
   header: React.PropTypes.string,
   headerClass: React.PropTypes.string,
-  wrapperClass: React.PropTypes.string
+  wrapperClass: React.PropTypes.string,
+  onResized: React.PropTypes.func
 };
 
 module.exports = CosmosErrorMessage;
