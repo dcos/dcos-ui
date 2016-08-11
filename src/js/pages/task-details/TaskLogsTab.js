@@ -225,9 +225,13 @@ class TaskLogsTab extends React.Component {
     let paramsPath = decodeURIComponent(props.params.filePath);
     if (!file && paramsPath !== 'undefined') {
       return new DirectoryItem({path: paramsPath});
-    } else {
-      return this.getLogFiles()[0];
     }
+
+    let files = this.getLogFiles();
+
+    return files.find(function (file) {
+      return file.getName() === 'stdout';
+    }) || files[0];
   }
 
   getSelectionComponent() {
