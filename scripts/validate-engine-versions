@@ -1,0 +1,30 @@
+#!/usr/bin/env sh
+#
+# This script will check the following versions provided in package.json,
+# based on current versions of node and npm
+# {
+#   ...
+#   "engines": {
+#     "node": "4.4.x",
+#     "npm": "3.9.x"
+#   }
+#   ...
+# }
+#
+PACKAGE_NODE_VERSION=$(node -p -e "require('./package.json').engines.node")
+NODE_VERSION=$(node -v)
+if [[ "v${PACKAGE_NODE_VERSION%.*}" == "${NODE_VERSION%.*}" ]]; then
+  echo "Node version is valid ($NODE_VERSION)"
+else
+  echo "ERROR: Node version ${NODE_VERSION%.*}.x does not match required version v${PACKAGE_NODE_VERSION%.*}.x"
+  exit 1;
+fi
+
+PACKAGE_NPM_VERSION=$(node -p -e "require('./package.json').engines.npm")
+NPM_VERSION=$(npm -v)
+if [[ "${PACKAGE_NPM_VERSION%.*}" == "${NPM_VERSION%.*}" ]]; then
+  echo "NPM version is valid (v$NPM_VERSION)"
+else
+  echo "ERROR: NPM version v${NPM_VERSION%.*}.x does not match required version v${PACKAGE_NPM_VERSION%.*}.x"
+  exit 1;
+fi
