@@ -4,6 +4,7 @@ import React from 'react';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import MarathonStore from '../stores/MarathonStore';
+import StringUtil from '../utils/StringUtil';
 
 const METHODS_TO_BIND = [
   'handleButtonConfirm'
@@ -43,46 +44,22 @@ class KillTaskModal extends mixin(StoreMixin) {
     this.props.onSuccess();
   }
 
-  getContentHeader(selectedItems, selectedItemsLength) {
-    let {action} = this.props;
-    let headerContent = ` ${selectedItemsLength} Tasks`;
-    if (selectedItemsLength === 1) {
-      headerContent = ` ${selectedItems[0]}`;
-    }
-
-    return (
-      <h2 className="flush-top text-align-center" key="confirmHeader">
-        {`Are you sure you want to ${ACTION_DISPLAY_NAMES[action]} ${headerContent}?`}
-      </h2>
-    );
-  }
-
-  getConfirmTextBody(selectedItems, selectedItemsLength) {
-    let {action} = this.props;
-    let bodyText;
-
-    if (selectedItemsLength === 1) {
-      bodyText = selectedItems[0];
-    } else {
-      bodyText = 'these tasks';
-    }
-
-    return (
-      <span key="confirmText">
-        You are about to {ACTION_DISPLAY_NAMES[action]} {bodyText}.
-      </span>
-    );
-  }
-
   getModalContents() {
-    let {selectedItems} = this.props;
-    let selectedItemsLength = selectedItems.length;
+    let selectedItemsLength = this.props.selectedItems.length;
+    let action = ACTION_DISPLAY_NAMES[this.props.action] || '';
+    let taskCountContent = `${selectedItemsLength} ${StringUtil.pluralize('Task', selectedItemsLength)}`;
 
     return (
       <div className="container container-pod container-pod-short-top
         text-align-center">
-        {this.getContentHeader(selectedItems, selectedItemsLength)}
-        {this.getConfirmTextBody(selectedItems, selectedItemsLength)}
+        <h2 className="text-danger text-align-center flush-top">
+          {action} {StringUtil.pluralize('Task', selectedItemsLength)}
+        </h2>
+        <p className="flush-bottom">
+          You are about to {action.toLowerCase()} {taskCountContent}.
+          <br />
+          Are you sure you want to continue?
+        </p>
       </div>
     );
   }
