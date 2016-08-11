@@ -2,8 +2,8 @@ import Item from './Item';
 import StringUtil from '../utils/StringUtil';
 
 const DISPLAY_NAMES = {
-  'stdout': 'Output',
-  'stderr': 'Error'
+  'stdout': 'Output (stdout)',
+  'stderr': 'Error (stderr)'
 };
 
 class DirectoryItem extends Item {
@@ -27,12 +27,7 @@ class DirectoryItem extends Item {
   }
 
   isLogFile() {
-    let name = this.getName();
-
-    return !this.isDirectory() && (
-      DISPLAY_NAMES[name] !== undefined ||
-      name.slice(name.length - 4, name.length) === '.log'
-    );
+    return !this.isDirectory();
   }
 }
 
