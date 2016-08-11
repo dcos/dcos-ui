@@ -41,7 +41,8 @@ var ValidatorUtil = {
   isNumber: function (value) {
     const number = parseFloat(value);
 
-    return !Number.isNaN(number) && Number.isFinite(number);
+    return /^[0-9e+-.,]+$/.test(value) && !Number.isNaN(number) &&
+      Number.isFinite(number);
   },
 
   isNumberInRange: function (value, range = {}) {

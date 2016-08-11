@@ -179,15 +179,17 @@ describe('ValidatorUtil', function () {
 
     it('should properly handle wrong value types', function () {
       expect(ValidatorUtil.isNumber('not a number 666')).toBe(false);
+      expect(ValidatorUtil.isNumber('2a+1')).toBe(false);
+      expect(ValidatorUtil.isNumber('2a1')).toBe(false);
     });
 
     it('should handle number like inputs', function () {
-      expect(ValidatorUtil.isNumber(0.001)).toBe(true);
       expect(ValidatorUtil.isNumber('0.0001')).toBe(true);
       expect(ValidatorUtil.isNumber(-.1)).toBe(true);
       expect(ValidatorUtil.isNumber('-.1')).toBe(true);
-      expect(ValidatorUtil.isNumber(2)).toBe(true);
       expect(ValidatorUtil.isNumber('2')).toBe(true);
+      expect(ValidatorUtil.isNumber('2e+1')).toBe(true);
+      expect(ValidatorUtil.isNumber('2e1')).toBe(true);
     });
 
     it('should verify that the value is in a number', function () {
@@ -197,6 +199,8 @@ describe('ValidatorUtil', function () {
       expect(ValidatorUtil.isNumber(0)).toBe(true);
       expect(ValidatorUtil.isNumber(1)).toBe(true);
       expect(ValidatorUtil.isNumber(2)).toBe(true);
+      expect(ValidatorUtil.isNumber(2e+1)).toBe(true);
+      expect(ValidatorUtil.isNumber(2e1)).toBe(true);
     });
 
   });
