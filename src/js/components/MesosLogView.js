@@ -42,6 +42,10 @@ class MesosLogView extends mixin(StoreMixin) {
     this.handleLogContainerScroll = Util.throttleScroll(
       this.handleLogContainerScroll, 500
     );
+
+    this.handleWindowResize = Util.debounce(
+      this.handleWindowResize.bind(this), 100
+    );
   }
 
   componentDidMount() {
@@ -50,6 +54,7 @@ class MesosLogView extends mixin(StoreMixin) {
     if (props.filePath) {
       MesosLogStore.startTailing(props.task.slave_id, props.filePath);
     }
+    global.addEventListener('resize', this.handleWindowResize);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -93,6 +98,7 @@ class MesosLogView extends mixin(StoreMixin) {
   componentWillUnmount() {
     super.componentWillUnmount(...arguments);
     MesosLogStore.stopTailing(this.props.filePath);
+    global.removeEventListener('resize', this.handleWindowResize);
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -143,6 +149,10 @@ class MesosLogView extends mixin(StoreMixin) {
 
   handleGoToWorkingDirectory() {
     TaskDirectoryStore.setPath(this.props.task, '');
+  }
+
+  handleWindowResize() {
+    this.checkIfAwayFromBottom(this.refs.logContainer);
   }
 
   onMesosLogStoreError(path) {
@@ -198,9 +208,8 @@ class MesosLogView extends mixin(StoreMixin) {
 
   checkIfAwayFromBottom(container) {
     let distanceFromTop = DOMUtils.getDistanceFromTop(container);
-    let containerHeight = DOMUtils.getComputedDimensions(container).height;
-    let isAtBottom =
-      container.scrollHeight - (containerHeight + distanceFromTop) < 50;
+    let isAtBottom = container.offsetHeight + distanceFromTop
+      >= container.scrollHeight;
 
     if (isAtBottom !== this.state.isAtBottom) {
       this.setState({isAtBottom});
