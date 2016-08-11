@@ -1,4 +1,6 @@
 import FormUtil from '../../utils/FormUtil';
+import ValidatorUtil from '../../utils/ValidatorUtil';
+import NetworkValidatorUtil from '../../utils/NetworkValidatorUtil';
 
 let HealthChecks = {
   type: 'object',
@@ -65,6 +67,21 @@ let HealthChecks = {
             type: 'string',
             shouldShow: function (service) {
               return service.protocol === 'COMMAND';
+            },
+            externalValidator: function ({healthChecks}, definition) {
+              const index = FormUtil.getPropIndex(definition.name);
+              const {[definition.name]: command} = healthChecks;
+              const {[`healthChecks[${index}].protocol`]: protocol}
+                = healthChecks;
+
+              if (protocol === 'COMMAND' && !ValidatorUtil.isDefined(command)) {
+                definition.showError =
+                  'Command must not be empty.';
+
+                return false;
+              }
+
+              return true;
             }
           },
           path: {
@@ -72,32 +89,115 @@ let HealthChecks = {
             type: 'string',
             shouldShow: function (service) {
               return service.protocol == null || service.protocol === 'HTTP';
+            },
+            externalValidator: function ({healthChecks}, definition) {
+              const index = FormUtil.getPropIndex(definition.name);
+              const {[definition.name]: path} = healthChecks;
+              const {[`healthChecks[${index}].protocol`]: protocol}
+               = healthChecks;
+
+              if (protocol === 'HTTP' && !ValidatorUtil.isDefined(path)) {
+                definition.showError =
+                  'Path must not be empty.';
+
+                return false;
+              }
+
+              return true;
             }
           },
           gracePeriodSeconds: {
             description: 'Grace period in seconds',
             title: 'Grace Period',
-            type: 'number'
+            type: 'number',
+            externalValidator: function ({healthChecks}, definition) {
+              const {[definition.name]: gracePeriodSeconds} = healthChecks;
+
+              if (ValidatorUtil.isDefined(gracePeriodSeconds) &&
+                !ValidatorUtil.isNumber(gracePeriodSeconds)) {
+                definition.showError =
+                  'Grace Period must be a number.';
+
+                return false;
+              }
+
+              return true;
+            }
           },
           intervalSeconds: {
             description: 'Interval in seconds',
             title: 'Interval',
-            type: 'number'
+            type: 'number',
+            externalValidator: function ({healthChecks}, definition) {
+              const {[definition.name]: intervalSeconds} = healthChecks;
+
+              if (ValidatorUtil.isDefined(intervalSeconds) &&
+                !ValidatorUtil.isNumber(intervalSeconds)) {
+                definition.showError =
+                  'Interval must be a number.';
+
+                return false;
+              }
+
+              return true;
+            }
           },
           timeoutSeconds: {
             description: 'Timeout in seconds',
             title: 'Timeout',
-            type: 'number'
+            type: 'number',
+            externalValidator: function ({healthChecks}, definition) {
+              const {[definition.name]: timeoutSeconds} = healthChecks;
+
+              if (ValidatorUtil.isDefined(timeoutSeconds) &&
+                !ValidatorUtil.isNumber(timeoutSeconds)) {
+                definition.showError =
+                  'Timeout must be a number.';
+
+                return false;
+              }
+
+              return true;
+            }
           },
           maxConsecutiveFailures: {
             title: 'Maximum Consecutive Failures',
-            type: 'number'
+            type: 'number',
+            externalValidator: function ({healthChecks}, definition) {
+              const {[definition.name]: maxConsecutiveFailures} = healthChecks;
+
+              if (ValidatorUtil.isDefined(maxConsecutiveFailures) &&
+                !ValidatorUtil.isNumber(maxConsecutiveFailures)) {
+                definition.showError =
+                  'Maximum Consecutive Failures must be a number.';
+
+                return false;
+              }
+
+              return true;
+            }
           },
           port: {
             title: 'Port Number',
             type: 'number',
             shouldShow: function (service) {
               return service.portType === 'PORT_NUMBER';
+            },
+            externalValidator: function ({healthChecks}, definition) {
+              const index = FormUtil.getPropIndex(definition.name);
+              const {[definition.name]: port} = healthChecks;
+              const {[`healthChecks[${index}].portType`]: type} = healthChecks;
+
+              if (type === 'PORT_NUMBER' &&
+                ValidatorUtil.isDefined(port) &&
+                !NetworkValidatorUtil.isValidPort(port)) {
+                definition.showError =
+                  'Port Number must be a number between 0 and 65535.';
+
+                return false;
+              }
+
+              return true;
             }
           },
           portIndex: {
@@ -105,6 +205,25 @@ let HealthChecks = {
             type: 'number',
             shouldShow: function (service) {
               return service.portType == null || service.portType === 'PORT_INDEX';
+            },
+            externalValidator: function ({healthChecks, networking}, definition) {
+              const index = FormUtil.getPropIndex(definition.name);
+              const {[definition.name]: portIndex} = healthChecks;
+              const {[`healthChecks[${index}].portType`]: type} = healthChecks;
+              const {ports = []} = FormUtil.modelToCombinedProps(networking);
+              const largestValidIndex = Math.max(ports.length - 1, 0);
+
+              if (type !== 'PORT_NUMBER' &&
+                ValidatorUtil.isDefined(portIndex) &&
+                !ValidatorUtil
+                  .isNumberInRange(portIndex, {max: largestValidIndex})) {
+                definition.showError = 'Port Index must be a number ' +
+                  `between 0 and ${largestValidIndex}.`;
+
+                return false;
+              }
+
+              return true;
             }
           },
           portType: {
