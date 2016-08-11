@@ -119,7 +119,8 @@ var TaskDirectoryActions = {
         AppDispatcher.handleServerAction({
           type: ActionTypes.REQUEST_TASK_DIRECTORY_SUCCESS,
           data: directory,
-          innerPath
+          innerPath,
+          taskID: task.id
         });
       },
       error(xhr) {
@@ -129,7 +130,8 @@ var TaskDirectoryActions = {
 
         AppDispatcher.handleServerAction({
           type: ActionTypes.REQUEST_TASK_DIRECTORY_ERROR,
-          data: xhr.message
+          data: xhr.message,
+          taskID: task.id
         });
       }
     });
