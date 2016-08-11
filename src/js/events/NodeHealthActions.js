@@ -97,10 +97,10 @@ const NodeHealthActions = {
 };
 
 if (Config.useFixtures) {
-  let nodesFixture = require('../../../tests/_fixtures/unit-health/nodes.json');
-  let nodeFixture = require('../../../tests/_fixtures/unit-health/node.json');
-  let nodeUnitsFixture = require('../../../tests/_fixtures/unit-health/node-units.json');
-  let nodeUnitFixture = require('../../../tests/_fixtures/unit-health/node-unit.json');
+  let nodesFixture = require('../../../scripts/logmaker/out/nodes.json');
+  let nodeFixture = require('../../../scripts/logmaker/out/node.json');
+  let nodeUnitsFixture = require('../../../scripts/logmaker/out/units.json');
+  let nodeUnitFixture = require('../../../scripts/logmaker/out/unit.json');
 
   if (!global.actionTypes) {
     global.actionTypes = {};
