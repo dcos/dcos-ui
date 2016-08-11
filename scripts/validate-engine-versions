@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 #
 # This script will check the following versions provided in package.json,
 # based on current versions of node and npm
