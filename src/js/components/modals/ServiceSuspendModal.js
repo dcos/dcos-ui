@@ -9,7 +9,7 @@ import ServiceActionModal from './ServiceActionModal';
 
 class ServiceSuspendModal extends ServiceActionModal {
   constructor() {
-    super();
+    super(...arguments);
 
     this.store_listeners = [
       {
