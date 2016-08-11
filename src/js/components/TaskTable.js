@@ -15,6 +15,7 @@ import TableUtil from '../utils/TableUtil';
 import Units from '../utils/Units';
 
 const METHODS_TO_BIND = [
+  'getStatusValue',
   'renderHeadline',
   'renderHost',
   'renderLog',
@@ -135,7 +136,7 @@ class TaskTable extends React.Component {
       {
         cacheCell: true,
         className,
-        getValue: this.getStatusValue.bind(this),
+        getValue: this.getStatusValue,
         headerClassName: className,
         heading,
         prop: 'status',
