@@ -122,7 +122,6 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
       innerPath = decodeURIComponent(params.innerPath);
     }
 
-
     TaskDirectoryStore.getDirectory(task, innerPath);
   }
 
