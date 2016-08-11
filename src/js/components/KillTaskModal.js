@@ -47,7 +47,7 @@ class KillTaskModal extends mixin(StoreMixin) {
   getModalContents() {
     let selectedItemsLength = this.props.selectedItems.length;
     let action = ACTION_DISPLAY_NAMES[this.props.action] || '';
-    let taskCountContent = ` ${selectedItemsLength} ${StringUtil.pluralize('Task', selectedItemsLength)}`;
+    let taskCountContent = `${selectedItemsLength} ${StringUtil.pluralize('Task', selectedItemsLength)}`;
 
     return (
       <div className="container container-pod container-pod-short-top
