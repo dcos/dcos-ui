@@ -20,7 +20,7 @@ const METHODS_TO_BIND = [
  */
 class ServiceActionModal extends mixin(StoreMixin) {
   constructor() {
-    super();
+    super(...arguments);
 
     this.state = {
       disabled: false,
