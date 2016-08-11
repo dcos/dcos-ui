@@ -26,9 +26,17 @@ class SideTabs extends React.Component {
     let {selectedTab, tabs} = this.props;
 
     return tabs.map((tab, index) => {
-      let {title, selectValue} = tab;
+      let {title, selectValue, definition} = tab;
+
+      // Check if at least one field has errors
+      let hasErrors = definition && definition.reduce(function (lastErrors, field) {
+        return lastErrors || !!field.showError;
+      }, false);
+
+      // Prepare classes
       let classes = classNames('sidebar-menu-item clickable visible-block', {
-        selected: selectValue === selectedTab || title === selectedTab
+        'selected': selectValue === selectedTab || title === selectedTab,
+        'has-errors': hasErrors
       });
 
       return (
