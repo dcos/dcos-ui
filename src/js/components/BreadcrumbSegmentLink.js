@@ -10,8 +10,7 @@ class BreadcrumbSegmentLink extends React.Component {
       return (
         <Link
           className={props.className}
-          to={props.route.to}
-          params={props.route.params}
+          {...props.route}
           title={content}>
           {content}
         </Link>

@@ -25,7 +25,9 @@ describe('PackageDetailTab', function () {
   beforeEach(function () {
     this.container = document.createElement('div');
     this.instance = ReactDOM.render(
-      <PackageDetailTab params={{packageName: 'marathon'}} />,
+      <PackageDetailTab
+        params={{packageName: 'marathon'}}
+        query={{version: 1}} />,
       this.container
     );
   });

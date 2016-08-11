@@ -32,16 +32,23 @@ let universeRoutes = {
     {
       type: Route,
       name: 'universe-packages-detail',
-      path: 'packages/:packageName?:packageVersion?',
+      path: 'packages/:packageName?',
       handler: PackageDetailTab,
       hideHeaderNavigation: true,
       buildBreadCrumb: function () {
         return {
           parentCrumb: 'universe-packages',
           getCrumbs: function (router) {
+            let params = router.getCurrentParams();
+
             return [
               {
-                label: router.getCurrentParams().packageName
+                label: params.packageName,
+                route: {
+                  to: 'universe-packages-detail',
+                  params: params,
+                  query: router.getCurrentQuery()
+                }
               }
             ];
           }
