@@ -126,7 +126,6 @@ class ServiceFormModal extends mixin(StoreMixin) {
     this.state = {
       defaultTab: '',
       errorMessage: null,
-      jsonDefinition: JSON.stringify({id:'', cmd:''}, null, 2),
       jsonMode: false,
       model,
       pendingRequest: false,
@@ -196,7 +195,6 @@ class ServiceFormModal extends mixin(StoreMixin) {
       warningMessage,
       errorMessage: null,
       force: false,
-      jsonDefinition: service.toJSON(),
       jsonMode,
       model,
       pendingRequest: false,
@@ -222,7 +220,6 @@ class ServiceFormModal extends mixin(StoreMixin) {
     }
     this.setState(
       {
-        jsonDefinition,
         service,
         errorMessage: null,
         warningMessage: null
@@ -243,8 +240,6 @@ class ServiceFormModal extends mixin(StoreMixin) {
       );
       nextState.model = model;
       nextState.service = service;
-      nextState.jsonDefinition = JSON.stringify(ServiceUtil
-        .getAppDefinitionFromService(service), null, 2);
     }
 
     if (this.shouldDisableForm(this.state.service)) {
@@ -308,7 +303,6 @@ class ServiceFormModal extends mixin(StoreMixin) {
     this.props.onClose();
   }
 
-  // TODO (poltergeist): Simplify submit logic.
   handleSubmit() {
     let marathonAction = MarathonStore.createService;
 
@@ -317,15 +311,12 @@ class ServiceFormModal extends mixin(StoreMixin) {
     }
 
     if (this.state.jsonMode) {
-      let jsonDefinition = JSON.parse(this.state.jsonDefinition);
+      let jsonDefinition = JSON.parse(this.state.service.toJSON());
       jsonDefinition = cleanJSONdefinition(jsonDefinition);
       marathonAction(jsonDefinition, this.state.force);
-      jsonDefinition = JSON.stringify(jsonDefinition, null, 2);
       this.setState({
         errorMessage: null,
-        jsonDefinition,
-        pendingRequest: true,
-        service: new Service(jsonDefinition)
+        pendingRequest: true
       });
       return;
     }
@@ -462,10 +453,10 @@ class ServiceFormModal extends mixin(StoreMixin) {
   }
 
   getModalContents() {
-    let {defaultTab, jsonDefinition, jsonMode, service} = this.state;
+    let {defaultTab, jsonMode, service} = this.state;
 
-    jsonDefinition = JSON.stringify(
-      cleanJSONdefinition(JSON.parse(jsonDefinition)),
+    let jsonDefinition = JSON.stringify(
+      cleanJSONdefinition(service.get()),
       null,
       2
     );
