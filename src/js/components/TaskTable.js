@@ -55,12 +55,8 @@ class TaskTable extends React.Component {
     if (mesosTaskHealth !== null) {
       return mesosTaskHealth;
     }
-    let marathonTaskHealth = this.getTaskHealthFromMarathon(task);
-    if (marathonTaskHealth !== null) {
-      return marathonTaskHealth;
-    }
 
-    return null;
+    return this.getTaskHealthFromMarathon(task);
   }
 
   getTaskHealthFromMarathon(task) {
