@@ -153,12 +153,14 @@ class SidebarFilter extends mixin(QueryParamsMixin) {
       .map((filterLabel) => {
         let value = filterValues[filterLabel];
         let checked = selectedNodes.indexOf(value.toString()) > -1;
+        let isActive = this.getCountByValue(filterLabel) > 0;
 
         let labelClassSet = classNames(
           'side-list-item form-row-element form-element-checkbox inverse',
           'row row-flex flex-align-items-center vertical-center flush clickable',
           {
-            'filter-active': this.getCountByValue(filterLabel) > 0,
+            'filter-active': isActive,
+            'filter-inactive': !isActive,
             'filter-checked': checked
           }
         );
