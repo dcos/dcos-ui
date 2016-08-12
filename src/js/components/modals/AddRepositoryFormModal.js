@@ -7,6 +7,7 @@ import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import CosmosPackagesStore from '../../stores/CosmosPackagesStore';
 import FormModal from '../FormModal';
+import ValidatorUtil from '../../utils/ValidatorUtil';
 
 const METHODS_TO_BIND = [
   'handleAddRepository',
@@ -58,12 +59,6 @@ class AddRepositoryFormModal extends mixin(StoreMixin) {
     this.resetState();
   }
 
-  getWithinRangeFunction(min, max) {
-    return function (number) {
-      return number >= min && number <= max;
-    };
-  }
-
   getAddRepositoryFormDefinition() {
     let {numberOfRepositories} = this.props;
 
@@ -101,7 +96,10 @@ class AddRepositoryFormModal extends mixin(StoreMixin) {
         validationErrorText: `Must be a positive integer between 0 and ${numberOfRepositories} representing its priority. 0 is the highest and ${numberOfRepositories} denotes the lowest priority.`,
         showLabel: false,
         writeType: 'input',
-        validation: this.getWithinRangeFunction(0, numberOfRepositories),
+        validation: function (value) {
+          return ValidatorUtil.isDefined(value) &&
+              ValidatorUtil.isNumberInRange(value, {max: numberOfRepositories});
+        },
         value: ''
       }
     ];
