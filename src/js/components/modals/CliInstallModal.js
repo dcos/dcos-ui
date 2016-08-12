@@ -103,7 +103,7 @@ class CliInstallModal extends React.Component {
     }
 
     let cliInstallScriptUrl = 'https://downloads.dcos.io/binaries/cli/darwin/x86-64/0.4.10/dcos';
-    if (selectedOS === 'UNIX' || selectedOS === 'Linux' ) {
+    if (selectedOS === 'Linux') {
       cliInstallScriptUrl = 'https://downloads.dcos.io/binaries/cli/linux/x86-64/0.4.10/dcos';
     }
 
@@ -113,7 +113,7 @@ class CliInstallModal extends React.Component {
         <div className="flush-top snippet-wrapper">
           <ClickToSelect>
             <pre className="prettyprint flush-bottom">
-              {`curl ${cliInstallScriptUrl} > /usr/local/bin/dcos && \n chmod +x /usr/local/bin/dcos && \n dcos config set core.dcos_url ${clusterUrl} && \n dcos`}
+              {`curl ${cliInstallScriptUrl} -o dcos && \n sudo cp dcos /usr/local/bin && \n sudo chmod +x /usr/local/bin/dcos && \n dcos config set core.dcos_url ${clusterUrl} && \n dcos`}
             </pre>
           </ClickToSelect>
         </div>
