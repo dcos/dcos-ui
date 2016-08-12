@@ -2,7 +2,7 @@
 /**
  * Validator utilities for CRON syntax
  */
-class CRONValidatorUtil {
+var CRONValidatorUtil = {
 
   /**
    * Test if the given string is a valid CRON syntax
@@ -10,7 +10,7 @@ class CRONValidatorUtil {
    * @param {string} value - The cron string to test
    * @returns {string} - Returns null if test passes otherwise return the error string
    */
-  static testCronString(value) {
+  testCronString: function (value) {
     let test;
     let parts = value.split(/ +/);
     if (parts.length !== 5) {
@@ -53,7 +53,7 @@ class CRONValidatorUtil {
 
     // All tests passed successfully
     return null;
-  }
+  },
 
   /**
    * Check if the given string is a valid cron component
@@ -64,7 +64,7 @@ class CRONValidatorUtil {
    * @param {array} discreteValues - Other valid discreet values
    * @returns {string} - Returns null if test passes otherwise return the error string
    */
-  static testCronComponent(component, numMin, numMax, discreteValues = []) {
+  testCronComponent: function (component, numMin, numMax, discreteValues = []) {
     let value = component;
     let expectDiscreetString = '';
 
