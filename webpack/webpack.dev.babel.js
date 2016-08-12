@@ -50,6 +50,12 @@ if (environment === 'development') {
   };
 }
 
+let reactHotLoader = 'react-hot!';
+
+if (process.env.REACTJS_COMPONENTS_LOCAL) {
+  reactHotLoader = '';
+}
+
 module.exports = Object.assign({}, webpackConfig, {
   entry,
   devtool,
@@ -76,7 +82,7 @@ module.exports = Object.assign({}, webpackConfig, {
         test: /\.js$/,
         // Exclude all node_modules except dcos-dygraphs
         exclude: /(?=\/node_modules\/)(?!\/node_modules\/dcos-dygraphs\/)/,
-        loader: 'react-hot!babel?' + JSON.stringify({
+        loader: reactHotLoader + 'babel?' + JSON.stringify({
           cacheDirectory: true,
           // Map through resolve to fix preset loading problem
           presets: [

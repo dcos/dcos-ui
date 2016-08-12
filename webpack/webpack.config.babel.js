@@ -71,6 +71,12 @@ let svgSpriter = new SVGSprite({
   }
 });
 
+let eslintExclusion = /node_modules/;
+
+if (process.env.REACTJS_COMPONENTS_LOCAL) {
+  eslintExclusion = /node_modules|reactjs-components/;
+}
+
 module.exports = {
   lessLoader: {
     lessPlugins: [
@@ -132,7 +138,7 @@ module.exports = {
       {
         test: /\.js$/,
         loader: 'eslint-loader',
-        exclude: /node_modules/
+        exclude: eslintExclusion
       },
       {
         test: /\.js$/,
