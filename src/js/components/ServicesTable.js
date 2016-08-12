@@ -14,6 +14,7 @@ import Service from '../structs/Service';
 import ServiceActionItem from '../constants/ServiceActionItem';
 import ServiceDestroyModal from './modals/ServiceDestroyModal';
 import ServiceScaleFormModal from '../components/modals/ServiceScaleFormModal';
+import ServiceSuspendModal from './modals/ServiceSuspendModal';
 import ServiceTableHeaderLabels from '../constants/ServiceTableHeaderLabels';
 import ServiceTableUtil from '../utils/ServiceTableUtil';
 import ServiceTree from '../structs/ServiceTree';
@@ -59,12 +60,8 @@ var ServicesTable = React.createClass({
       {
         name: 'marathon',
         events: [
-          'serviceEditError',
-          'serviceEditSuccess',
           'serviceRestartError',
-          'serviceRestartSuccess',
-          'groupEditError',
-          'groupEditSuccess'
+          'serviceRestartSuccess'
         ]
       }
     ];
@@ -89,15 +86,8 @@ var ServicesTable = React.createClass({
     this.context.router.transitionTo('services-page');
   },
 
-  onMarathonStoreServiceEditSuccess: function () {
+  onServiceSuspendModalClose: function () {
     this.closeDialog();
-  },
-
-  onMarathonStoreServiceEditError: function ({message: errorMsg}) {
-    this.setState({
-      disabledDialog: null,
-      errorMsg
-    });
   },
 
   onMarathonStoreServiceRestartSuccess: function () {
@@ -105,17 +95,6 @@ var ServicesTable = React.createClass({
   },
 
   onMarathonStoreServiceRestartError: function ({message: errorMsg}) {
-    this.setState({
-      disabledDialog: null,
-      errorMsg
-    });
-  },
-
-  onMarathonStoreGroupEditSuccess: function () {
-    this.closeDialog();
-  },
-
-  onMarathonStoreGroupEditError: function ({message: errorMsg}) {
     this.setState({
       disabledDialog: null,
       errorMsg
@@ -149,27 +128,6 @@ var ServicesTable = React.createClass({
 
     this.setState({disabledDialog: ServiceActionItem.RESTART}, () => {
       MarathonStore.restartService(service.getId(), !!this.state.errorMsg);
-    });
-  },
-
-  onAcceptSuspendConfirmDialog: function () {
-    let service = this.state.serviceToChange;
-    let isGroup = service instanceof ServiceTree;
-
-    this.setState({disabledDialog: ServiceActionItem.SUSPEND}, () => {
-      let serviceID = service.getId();
-
-      if (isGroup) {
-        MarathonStore.editGroup({
-          id: serviceID,
-          scaleBy: 0
-        });
-      } else {
-        MarathonStore.editService({
-          id: serviceID,
-          instances: 0
-        });
-      }
     });
   },
 
@@ -231,40 +189,6 @@ var ServicesTable = React.createClass({
           <h2 className="text-danger text-align-center flush-top">Restart Service</h2>
           <p>
             Are you sure you want to restart <span className="emphasize">{serviceName}</span>?
-          </p>
-          {this.getErrorMessage()}
-        </div>
-      </Confirm>
-    );
-  },
-
-  getSuspendConfirmDialog: function () {
-    let service = this.state.serviceToChange;
-    let serviceName = '';
-    const {state} = this;
-    let itemText = 'Service';
-    if (service instanceof ServiceTree) {
-      itemText = 'Group';
-    }
-
-    if (service) {
-      serviceName = service.getId();
-    }
-
-    return (
-      <Confirm
-        disabled={state.disabledDialog === ServiceActionItem.SUSPEND}
-        open={state.serviceActionDialog === ServiceActionItem.SUSPEND}
-        onClose={this.closeDialog}
-        leftButtonText="Cancel"
-        leftButtonCallback={this.closeDialog}
-        rightButtonText="Suspend Service"
-        rightButtonClassName="button button-primary"
-        rightButtonCallback={this.onAcceptSuspendConfirmDialog}>
-        <div className="container-pod flush-top container-pod-short-bottom">
-          <h2 className="text-align-center flush-top">Suspend {itemText}</h2>
-          <p>
-            Are you sure you want to suspend <span className="emphasize">{serviceName}</span> by scaling to 0 instances?
           </p>
           {this.getErrorMessage()}
         </div>
@@ -559,7 +483,10 @@ var ServicesTable = React.createClass({
           service={serviceToChange} />
         {this.getRestartConfirmDialog()}
         {this.getServiceScaleFormModal()}
-        {this.getSuspendConfirmDialog()}
+        <ServiceSuspendModal
+          onClose={this.onServiceSuspendModalClose}
+          open={serviceActionDialog === ServiceActionItem.SUSPEND}
+          service={serviceToChange} />
       </div>
     );
   }
