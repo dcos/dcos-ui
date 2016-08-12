@@ -79,7 +79,7 @@ class StatusBar extends React.Component {
     stealPortion(barSizes, indexesLessThanThreshold, unassignedPortion);
 
     return data.map(function (status, index) {
-      let {className} = status;
+      let {className, style} = status;
       let scale = barSizes[index];
 
       if (className == null) {
@@ -92,9 +92,10 @@ class StatusBar extends React.Component {
         return null;
       }
 
-      let style = {
-        width: `${scale}%`
-      };
+      if (!style) {
+        style = {};
+      }
+      style.width = `${scale}%`;
 
       return (
         <div style={style} key={index} className={className}></div>
