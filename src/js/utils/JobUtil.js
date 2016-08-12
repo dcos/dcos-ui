@@ -77,10 +77,18 @@ const JobUtil = {
         enabled = true,
         cron,
         timezone,
-        concurrencyPolicy = 'ALLOW'
+        concurrencyPolicy = 'ALLOW',
+        startingDeadlineSeconds
       } = schedule || {};
 
-      spec.schedules = [{id, enabled, cron, timezone, concurrencyPolicy}];
+      spec.schedules = [{
+        id,
+        enabled,
+        cron,
+        timezone,
+        concurrencyPolicy,
+        startingDeadlineSeconds
+      }];
     }
 
     return new Job(spec);
@@ -120,10 +128,18 @@ const JobUtil = {
         enabled = true,
         cron,
         timezone,
-        concurrencyPolicy = 'ALLOW'
+        concurrencyPolicy = 'ALLOW',
+        startingDeadlineSeconds
       } = schedule;
       // Transfer schedule as with reasonable defaults
-      spec.schedules = [{id, enabled, cron, timezone, concurrencyPolicy}];
+      spec.schedules = [{
+        id,
+        enabled,
+        cron,
+        timezone,
+        concurrencyPolicy,
+        startingDeadlineSeconds
+      }];
     }
 
     return spec;
