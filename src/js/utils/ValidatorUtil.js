@@ -34,22 +34,22 @@ var ValidatorUtil = {
   },
 
   isInteger: function (value) {
-    const number = parseFloat(value);
-
-    return Number.isInteger(number);
+    return ValidatorUtil.isNumber(value) &&
+      Number.isInteger(parseFloat(value));
   },
 
   isNumber: function (value) {
     const number = parseFloat(value);
 
-    return !Number.isNaN(number) && Number.isFinite(number);
+    return /^[0-9e+-.,]+$/.test(value) && !Number.isNaN(number) &&
+      Number.isFinite(number);
   },
 
   isNumberInRange: function (value, range = {}) {
     const {min = 0, max = Number.POSITIVE_INFINITY} = range;
     const number = parseFloat(value);
 
-    return !Number.isNaN(number) && number >= min && number <= max;
+    return ValidatorUtil.isNumber(value) && number >= min && number <= max;
   }
 };
 
