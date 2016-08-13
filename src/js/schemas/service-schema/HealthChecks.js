@@ -75,8 +75,7 @@ let HealthChecks = {
                 = healthChecks;
 
               if (protocol === 'COMMAND' && !ValidatorUtil.isDefined(command)) {
-                definition.showError =
-                  'Command must not be empty.';
+                definition.showError = 'Command must not be empty.';
 
                 return false;
               }
@@ -97,8 +96,7 @@ let HealthChecks = {
                = healthChecks;
 
               if (protocol === 'HTTP' && !ValidatorUtil.isDefined(path)) {
-                definition.showError =
-                  'Path must not be empty.';
+                definition.showError = 'Path must not be empty.';
 
                 return false;
               }
@@ -115,8 +113,7 @@ let HealthChecks = {
 
               if (ValidatorUtil.isDefined(gracePeriodSeconds) &&
                 !ValidatorUtil.isNumber(gracePeriodSeconds)) {
-                definition.showError =
-                  'Grace Period must be a number.';
+                definition.showError = 'Grace Period must be a number.';
 
                 return false;
               }
@@ -133,8 +130,7 @@ let HealthChecks = {
 
               if (ValidatorUtil.isDefined(intervalSeconds) &&
                 !ValidatorUtil.isNumber(intervalSeconds)) {
-                definition.showError =
-                  'Interval must be a number.';
+                definition.showError = 'Interval must be a number.';
 
                 return false;
               }
