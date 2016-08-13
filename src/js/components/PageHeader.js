@@ -140,7 +140,7 @@ PageHeader.propTypes = {
   icon: React.PropTypes.node,
   navigationTabs: React.PropTypes.node,
   subTitle: React.PropTypes.node,
-  title: React.PropTypes.string,
+  title: React.PropTypes.node,
 
   className: classPropType,
   pageHeaderClassNames: classPropType,

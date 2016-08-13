@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import {Dropdown} from 'reactjs-components';
 import React from 'react';
 
+import Framework from '../structs/Framework';
 import HealthBar from './HealthBar';
 import PageHeader from './PageHeader';
 import Service from '../structs/Service';
@@ -127,6 +128,19 @@ class ServiceInfo extends React.Component {
     });
   }
 
+  getHeaderTitle(service) {
+    if (service instanceof Framework) {
+      let {version} = service.getMetadata();
+      version = `v. ${version}`;
+
+      return (
+        <span>{service.getName()}<span className="framework-meta">{version}</span></span>
+      );
+    }
+
+    return service.getName();
+  }
+
   render() {
     let service = this.props.service;
     let serviceIcon = null;
@@ -151,7 +165,7 @@ class ServiceInfo extends React.Component {
         iconClassName="icon-image-container icon-app-container"
         subTitle={this.getSubHeader(service)}
         navigationTabs={tabs}
-        title={service.getName()} />
+        title={this.getHeaderTitle(service)} />
     );
   }
 }
