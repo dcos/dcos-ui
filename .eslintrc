@@ -38,6 +38,7 @@
     "indent": ["error", 2, {"SwitchCase": 1}],
     "camelcase": ["off", {"properties": "never"}],
     // "camelcase": ["error", {"properties": "always"}], This causes errors with mixin properties
+    "comma-dangle": ["error", "never"],
     "strict": ["error", "never"], // <-- fix
     "no-mixed-spaces-and-tabs": "error",
     "no-new": "off",
@@ -81,7 +82,6 @@
     "no-extra-boolean-cast": "off",
     "react/no-unknown-property": "off",
     "jsx-quotes": ["error", "prefer-double"],
-    "comma-dangle": ["error", "never"],
     "arrow-parens": ["error", "always"],
     "object-shorthand": "off",
     "no-var": "off",
