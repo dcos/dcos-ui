@@ -40,6 +40,7 @@
     // "camelcase": [2, {"properties": "always"}], This causes errors with mixin properties
     "strict": [2, "never"], // <-- fix
     "no-mixed-spaces-and-tabs": 2,
+    "no-new": 0,
     "no-trailing-spaces": [2, { "skipBlankLines": false }],
     "no-underscore-dangle": 0,
     "no-unused-vars": [2, {"args": "after-used", "argsIgnorePattern": "PluginSDK"}],
