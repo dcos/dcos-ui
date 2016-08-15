@@ -19,7 +19,6 @@ var ServiceDetail = require('../ServiceDetail');
 var ServiceDetailDebugTab = require('../ServiceDetailDebugTab');
 var ServiceDetailConfigurationTab = require('../ServiceDetailConfigurationTab');
 var ServiceDetailTaskTab = require('../ServiceDetailTaskTab');
-var VolumeTable = require('../VolumeTable');
 
 describe('ServiceDetail', function () {
 

@@ -65,7 +65,7 @@ describe('ExpandingTable', function () {
         let renderSpy = jasmine.createSpy('renderSpy');
         this.columns[0].render = renderSpy;
 
-        let instance = ReactDOM.render(
+        ReactDOM.render(
           <ExpandingTable columns={this.columns} data={this.rows} />,
           this.container
         );

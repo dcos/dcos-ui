@@ -8,7 +8,7 @@ describe('MetronomeUtil', function () {
       function () {
         expect(function () {
           MetronomeUtil.parseJobs({id: '.malformed.id'});
-        }.bind(this)).toThrow();
+        }).toThrow();
       }
     );
 
@@ -16,7 +16,7 @@ describe('MetronomeUtil', function () {
       function () {
         expect(function () {
           MetronomeUtil.parseJobs({id: 'malformed.id.'});
-        }.bind(this)).toThrow();
+        }).toThrow();
       }
     );
 

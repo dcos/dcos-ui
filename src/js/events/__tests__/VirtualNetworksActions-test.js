@@ -1,4 +1,3 @@
-import PluginTestUtils from 'PluginTestUtils';
 import {RequestUtil} from 'mesosphere-shared-reactjs';
 
 let ActionTypes = require('../../constants/ActionTypes');

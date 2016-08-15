@@ -29,7 +29,7 @@ describe('ResourcesUtil', function () {
 
     it('returns an array', function () {
       let resources = ResourcesUtil.getAvailableResources();
-      expect(Array.isArray(resources)).toBeTruthy;
+      expect(Array.isArray(resources)).toBeTruthy();
     });
 
     it('returns a set of default resources', function () {

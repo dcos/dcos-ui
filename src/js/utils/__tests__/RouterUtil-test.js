@@ -1,7 +1,6 @@
 jest.dontMock('../RouterUtil');
 
-import {createRoutesFromReactChildren} from 'react-router';
-import {Route, Redirect} from 'react-router';
+import {createRoutesFromReactChildren, Route, Redirect} from 'react-router';
 import ReactTestUtils from 'react-addons-test-utils';
 
 import RouterUtil from '../RouterUtil';

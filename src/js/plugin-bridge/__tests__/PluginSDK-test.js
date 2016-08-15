@@ -6,25 +6,23 @@ jest.dontMock('../../utils/StructUtil');
 
 var deepEqual = require('deep-equal');
 
-var EventTypes = require('../../constants/EventTypes');
 var PluginSDK = require('PluginSDK');
 var PluginTestUtils = require('PluginTestUtils');
 
 let Hooks = PluginSDK.Hooks;
 
-function loadPlugins() {
-  var mockPlugin = jest.genMockFunction();
-
-  PluginTestUtils.loadPlugins({
-    fakePlugin: {
-      module: mockPlugin,
-      config: {
-        enabled: true,
-        foo: 'bar'
-      }
-    }
-  });
-}
+// function loadPlugins() {
+//   var mockPlugin = jest.genMockFunction();
+//   PluginTestUtils.loadPlugins({
+//     fakePlugin: {
+//       module: mockPlugin,
+//       config: {
+//         enabled: true,
+//         foo: 'bar'
+//       }
+//     }
+//   });
+// }
 
 describe('PluginSDK', function () {
 
@@ -168,7 +166,7 @@ describe('PluginSDK', function () {
 
     it('should contain Hooks in PluginSDK', function () {
       var pluginHooks = this.mockPlugin.mock.calls[0][0].Hooks;
-      expect(pluginHooks).toEqual(PluginSDK.Hooks);
+      expect(pluginHooks).toEqual(Hooks);
     });
   });
 

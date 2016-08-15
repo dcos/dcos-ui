@@ -1,5 +1,3 @@
-import PluginTestUtils from 'PluginTestUtils';
-
 let Overlay = require('../Overlay');
 
 describe('Overlay', function () {

@@ -10,7 +10,7 @@ describe('MarathonUtil', function () {
       function () {
         expect(function () {
           MarathonUtil.parseGroups({id: 'malformed/id'});
-        }.bind(this)).toThrow();
+        }).toThrow();
       }
     );
 
@@ -18,7 +18,7 @@ describe('MarathonUtil', function () {
       function () {
         expect(function () {
           MarathonUtil.parseGroups({id: '/', apps: [{id: 'malformed/id'}]});
-        }.bind(this)).toThrow();
+        }).toThrow();
       }
     );
 
@@ -26,7 +26,7 @@ describe('MarathonUtil', function () {
       function () {
         expect(function () {
           MarathonUtil.parseGroups({id: '/malformed/id/'});
-        }.bind(this)).toThrow();
+        }).toThrow();
       }
     );
 
@@ -34,7 +34,7 @@ describe('MarathonUtil', function () {
       function () {
         expect(function () {
           MarathonUtil.parseGroups({id: '/', apps: [{id: '/malformed/id/'}]});
-        }.bind(this)).toThrow();
+        }).toThrow();
       }
     );
 
@@ -42,7 +42,7 @@ describe('MarathonUtil', function () {
       function () {
         expect(function () {
           MarathonUtil.parseGroups({id: '/'});
-        }.bind(this)).not.toThrow();
+        }).not.toThrow();
       }
     );
 
@@ -50,7 +50,7 @@ describe('MarathonUtil', function () {
       function () {
         expect(function () {
           MarathonUtil.parseGroups({id: '/', apps: [{id: '/'}]});
-        }.bind(this)).toThrow();
+        }).toThrow();
       }
     );
 

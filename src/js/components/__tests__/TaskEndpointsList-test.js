@@ -7,7 +7,6 @@ var TestUtils = require('react-addons-test-utils');
 
 let Node = require('../../structs/Node');
 let TaskEndpointsList = require('../TaskEndpointsList');
-let Service = require('../../structs/Service');
 
 describe('TaskEndpointsList', function () {
 
