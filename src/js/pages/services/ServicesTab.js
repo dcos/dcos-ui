@@ -92,7 +92,7 @@ var ServicesTab = React.createClass({
     const {state} = this;
 
     // Reset filter defaults when query params are deleted externally
-    Object.keys(DEFAULT_FILTER_OPTIONS).forEach(stateKey => {
+    Object.keys(DEFAULT_FILTER_OPTIONS).forEach((stateKey) => {
       if (queryParams[stateKey] == null &&
         (state[stateKey] != null && state[stateKey].length > 0)) {
         this.setState({

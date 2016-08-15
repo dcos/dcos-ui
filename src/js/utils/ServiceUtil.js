@@ -464,7 +464,7 @@ const ServiceUtil = {
       return [];
     }
 
-    return Object.keys(labels).map(key => ({key, value: labels[key]}));
+    return Object.keys(labels).map((key) => ({key, value: labels[key]}));
   }
 };
 

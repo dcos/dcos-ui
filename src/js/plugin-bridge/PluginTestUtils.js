@@ -110,7 +110,7 @@ function dontMock(moduleNames) {
     return;
   }
   // Assuming modules have unique names
-  let foundType = Object.keys(PluginModules).filter(moduleType => {
+  let foundType = Object.keys(PluginModules).filter((moduleType) => {
     return name in PluginModules[moduleType];
   });
   if (!foundType.length) {

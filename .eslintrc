@@ -82,6 +82,7 @@
     "react/no-unknown-property": "off",
     "jsx-quotes": ["error", "prefer-double"],
     "comma-dangle": ["error", "never"],
+    "arrow-parens": ["error", "always"],
     "object-shorthand": "off",
     "no-var": "off",
     "arrow-body-style": "off",

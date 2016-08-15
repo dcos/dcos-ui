@@ -41,9 +41,9 @@ const TabsUtil = {
     let comparator = (a, b) => b[1] - a[1];
 
     return Object.keys(tabs)
-      .map(key => [key, tabs[key].priority || 0])
+      .map((key) => [key, tabs[key].priority || 0])
       .sort(comparator)
-      .map(val => val[0])
+      .map((val) => val[0])
       .reduce((acc, curr) => {
         acc[curr] = tabs[curr].content;
         return acc;
