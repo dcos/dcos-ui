@@ -11,19 +11,6 @@ var PluginTestUtils = require('PluginTestUtils');
 
 let Hooks = PluginSDK.Hooks;
 
-// function loadPlugins() {
-//   var mockPlugin = jest.genMockFunction();
-//   PluginTestUtils.loadPlugins({
-//     fakePlugin: {
-//       module: mockPlugin,
-//       config: {
-//         enabled: true,
-//         foo: 'bar'
-//       }
-//     }
-//   });
-// }
-
 describe('PluginSDK', function () {
 
   describe('#initialize', function () {
@@ -246,44 +233,4 @@ describe('PluginSDK', function () {
       expect(deepEqual(state, {foo: 2, bar: 'qux'})).toEqual(true);
     });
   });
-
-  // describe('#Events', function () {
-
-  //   it('fires an action when plugins are loaded', function () {
-  //     let fakeAction = jest.genMockFunction();
-  //     Hooks.addAction('pluginsConfigured', fakeAction);
-  //     loadPlugins();
-
-  //     expect(fakeAction.mock.calls.length).toEqual(1);
-  //   });
-
-  //   it('emits an event when the configuration is loaded', function () {
-  //     this.fakeEventHandler = jest.genMockFunction();
-  //     Hooks.addChangeListener(
-  //       EventTypes.PLUGINS_CONFIGURED,
-  //       this.fakeEventHandler
-  //     );
-  //     loadPlugins();
-
-  //     expect(this.fakeEventHandler.mock.calls.length).toEqual(1);
-  //   });
-
-  //   it('allows listeners to be added and removed', function () {
-  //     this.fakeEventHandler = jest.genMockFunction();
-  //     Hooks.addChangeListener(
-  //       EventTypes.PLUGINS_CONFIGURED,
-  //       this.fakeEventHandler
-  //     );
-  //     loadPlugins();
-
-  //     expect(this.fakeEventHandler.mock.calls.length).toEqual(1);
-  //     Hooks.removeChangeListener(
-  //       EventTypes.PLUGINS_CONFIGURED,
-  //       this.fakeEventHandler
-  //     );
-  //     loadPlugins();
-
-  //     expect(this.fakeEventHandler.mock.calls.length).toEqual(1);
-  //   });
-  // });
 });
