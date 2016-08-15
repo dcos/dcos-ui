@@ -118,7 +118,7 @@
     "postbuild-assets": "rm -rf node_modules/compression-webpack-plugin",
     "build": "npm run lint && npm test && npm run build-assets",
     "build-with-external-plugins": "npm run lint && npm run lint-plugins && npm test && npm run build-assets",
-    "lint": "bash -c 'opts=$@ ; if [[ $# -lt 1 ]]; then opts=\"src/\\*\\*/\\*.js\"; fi ; ./node_modules/.bin/eslint --quiet ${opts}' 0",
+    "lint": "bash -c 'opts=$@ ; set -f; if [[ $# -lt 1 ]]; then opts=\"src/**/*.js\"; fi ; ./node_modules/.bin/eslint --quiet ${opts}' 0",
     "lint-plugins": "PLUGINS=$npm_config_externalplugins; npm run lint -- \"$PLUGINS/**/*.js\"",
     "prebuild": "./scripts/validate-tests",
     "serve": "npm run build-assets && ./node_modules/.bin/gulp serve",
