@@ -809,7 +809,7 @@ describe('Service', function () {
         foo: 'bar',
         labels: {
           DCOS_SERVICE_NAME: 'baz',
-          DCOS_SERVICE_PORT_INDEX: '80',
+          DCOS_SERVICE_PORT_INDEX: '80'
           // DCOS_SERVICE_SCHEME: 'https'
         }
       });
@@ -824,7 +824,7 @@ describe('Service', function () {
       let service3 = new Service({
         foo: 'bar',
         labels: {
-          DCOS_SERVICE_NAME: 'baz',
+          DCOS_SERVICE_NAME: 'baz'
           // DCOS_SERVICE_PORT_INDEX: '80',
           // DCOS_SERVICE_SCHEME: 'https'
         }

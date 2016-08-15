@@ -21,7 +21,7 @@ import {
   REQUEST_COSMOS_REPOSITORY_ADD_ERROR,
   REQUEST_COSMOS_REPOSITORY_ADD_SUCCESS,
   REQUEST_COSMOS_REPOSITORY_DELETE_ERROR,
-  REQUEST_COSMOS_REPOSITORY_DELETE_SUCCESS,
+  REQUEST_COSMOS_REPOSITORY_DELETE_SUCCESS
 } from '../../constants/ActionTypes';
 var AppDispatcher = require('../AppDispatcher');
 var CosmosPackagesActions = require('../CosmosPackagesActions');

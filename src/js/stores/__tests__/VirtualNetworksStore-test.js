@@ -82,7 +82,7 @@ describe('VirtualNetworksStore', function () {
         ]};
         AppDispatcher.handleServerAction({
           type: ActionTypes.REQUEST_VIRTUAL_NETWORKS_SUCCESS,
-          data,
+          data
         });
 
         expect(mockFn.calls.count()).toBe(1);

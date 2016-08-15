@@ -76,7 +76,7 @@ describe('ConfigurationView', function () {
       {
         port: 0,
         protocol: 'tcp',
-        name: 'alpha',
+        name: 'alpha'
       },
       {
         port: 0,

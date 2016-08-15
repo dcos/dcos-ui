@@ -178,7 +178,6 @@ describe('TaskDetail', function () {
     });
   });
 
-
   describe('#getBasicInfo', function () {
 
     it('should return null if task is null', function () {

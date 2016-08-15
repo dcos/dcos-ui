@@ -32,8 +32,7 @@ describe('ExpandingTable', function () {
         expect(instance.state.expandedRows['foo']).toBeTruthy();
       });
 
-      it('should remove a row from state.expandedRows if already expanded',
-        function () {
+      it('removes a row from state.expandedRows if expanded', function () {
         let instance = ReactDOM.render(
           <ExpandingTable columns={this.columns} data={this.rows} />,
           this.container
@@ -45,8 +44,7 @@ describe('ExpandingTable', function () {
         expect(instance.state.expandedRows['foo']).toBeFalsy();
       });
 
-      it('should allow multiple rows in state.expandedRows',
-        function () {
+      it('should allow multiple rows in state.expandedRows', function () {
         let instance = ReactDOM.render(
           <ExpandingTable columns={this.columns} data={this.rows} />,
           this.container

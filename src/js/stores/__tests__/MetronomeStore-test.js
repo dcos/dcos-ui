@@ -224,7 +224,7 @@ describe('MetronomeStore', function () {
         );
 
         AppDispatcher.handleServerAction({
-          type: ActionTypes.REQUEST_METRONOME_JOB_CREATE_SUCCESS,
+          type: ActionTypes.REQUEST_METRONOME_JOB_CREATE_SUCCESS
         });
 
         expect(changeHandler).toHaveBeenCalled();
@@ -257,7 +257,7 @@ describe('MetronomeStore', function () {
         );
 
         AppDispatcher.handleServerAction({
-          type: ActionTypes.REQUEST_METRONOME_JOB_UPDATE_SUCCESS,
+          type: ActionTypes.REQUEST_METRONOME_JOB_UPDATE_SUCCESS
         });
 
         expect(changeHandler).toHaveBeenCalled();
@@ -432,7 +432,7 @@ describe('MetronomeStore', function () {
 
       MetronomeStore.toggleSchedule('unknown', false);
 
-      expect(MetronomeStore.updateSchedule).not.toHaveBeenCalled()
+      expect(MetronomeStore.updateSchedule).not.toHaveBeenCalled();
     });
 
     it('should do nothing if schedule undefined', function () {
@@ -441,14 +441,14 @@ describe('MetronomeStore', function () {
       AppDispatcher.handleServerAction({
         type: ActionTypes.REQUEST_METRONOME_JOB_DETAIL_SUCCESS,
         data: {
-          id: 'foo',
+          id: 'foo'
         },
         jobID: 'foo'
       });
 
       MetronomeStore.toggleSchedule('foo');
 
-      expect(MetronomeStore.updateSchedule).not.toHaveBeenCalled()
+      expect(MetronomeStore.updateSchedule).not.toHaveBeenCalled();
     });
 
   });

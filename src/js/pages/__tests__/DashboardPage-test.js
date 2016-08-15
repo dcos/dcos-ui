@@ -85,7 +85,7 @@ describe('DashboardPage', function () {
     });
 
     it('should not return more services than servicesListLength', function () {
-       MarathonStore.get = function (key) {
+      MarathonStore.get = function (key) {
         if (key === 'deployments') {
           return new DeploymentsList({items: []});
         }
