@@ -42,14 +42,14 @@
     "comma-dangle": ["error", "never"],
     "strict": ["error", "never"], // <-- fix
     "no-mixed-operators": [2, {
-      groups: [
+      "groups": [
         ["+", "-", "*", "/", "%", "**"],
         ["&", "|", "^", "~", "<<", ">>", ">>>"],
         ["==", "!=", "===", "!==", ">", ">=", "<", "<="],
         ["&&", "||"],
         ["in", "instanceof"]
       ],
-      allowSamePrecedence: true
+      "allowSamePrecedence": true
     }],
     "no-mixed-spaces-and-tabs": "error",
     "no-new": "off",
