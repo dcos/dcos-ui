@@ -5,6 +5,7 @@ import {Route} from 'react-router';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import LoginPage from './components/LoginPage';
+import UserDropup from './components/UserDropup';
 
 let SDK = require('./SDK').getSDK();
 
@@ -15,8 +16,7 @@ let {
   AuthStore,
   ConfigStore,
   CookieUtils,
-  RouterUtil,
-  UserDropup
+  RouterUtil
 } = SDK.get([
   'AccessDeniedPage',
   'ApplicationUtil',
@@ -24,8 +24,7 @@ let {
   'Authenticated',
   'ConfigStore',
   'CookieUtils',
-  'RouterUtil',
-  'UserDropup'
+  'RouterUtil'
 ]);
 
 let configResponseCallback = null;

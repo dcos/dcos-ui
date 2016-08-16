@@ -75,8 +75,7 @@ module.exports = {
     RouterUtil: 'RouterUtil',
     TabForm: 'TabForm',
     ToggleButton: 'ToggleButton',
-    Typeahead: 'Typeahead',
-    UserDropup: 'UserDropup'
+    Typeahead: 'Typeahead'
   },
   config: {
     Config: 'Config'
