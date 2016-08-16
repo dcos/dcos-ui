@@ -73,7 +73,6 @@
     }],
 
     // Airbnb overwrites
-    "import/newline-after-import": "off",
     "import/no-extraneous-dependencies": "off",
     "react/no-find-dom-node": "off",
     "prefer-spread": "off",

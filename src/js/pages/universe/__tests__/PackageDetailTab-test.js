@@ -6,11 +6,13 @@ jest.dontMock('../../../stores/CosmosPackagesStore');
 jest.dontMock('../../../../../tests/_fixtures/cosmos/package-describe.json');
 
 // Setting useFixtures for when we load CosmosPackagesStore/CosmosPackageActions
+/* eslint-disable import/newline-after-import */
 const Config = require('../../../config/Config');
 var configUseFixtures = Config.useFixtures;
 Config.useFixtures = true;
 require('../../../stores/CosmosPackagesStore');
 Config.useFixtures = configUseFixtures;
+/* eslint-enable import/newline-after-import */
 
 /* eslint-disable no-unused-vars */
 const React = require('react');

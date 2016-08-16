@@ -1,4 +1,5 @@
 import Util from './Util';
+
 const RESOURCE_KEYS = ['cpus', 'disk', 'mem'];
 
 const MesosStateUtil = {

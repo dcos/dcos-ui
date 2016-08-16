@@ -7,6 +7,7 @@ import InternalStorageMixin from '../mixins/InternalStorageMixin';
 import MesosStateStore from '../stores/MesosStateStore';
 import NodesGridDials from './NodesGridDials';
 import RequestErrorMsg from './RequestErrorMsg';
+
 var MAX_SERVICES_TO_SHOW = 8;
 var OTHER_SERVICES_COLOR = 8;
 
