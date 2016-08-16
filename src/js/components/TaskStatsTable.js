@@ -46,7 +46,7 @@ class TaskStatsTable extends React.Component {
         headerClassName: getClassName,
         heading,
         prop: 'getName',
-        render: function (prop, taskStats) {
+        render(prop, taskStats) {
           return nameMapping[taskStats.getName()];
         },
         sortable: false

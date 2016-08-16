@@ -32,7 +32,7 @@ function getUpdatedTimestamp(model) {
 }
 
 var ResourceTableUtil = {
-  getClassName: function (prop, sortBy, row) {
+  getClassName(prop, sortBy, row) {
     return classNames({
       'text-align-right': leftAlignCaret(prop)
         || prop === 'TASK_RUNNING' || prop === 'action',
@@ -42,7 +42,7 @@ var ResourceTableUtil = {
     });
   },
 
-  getSortFunction: function (tieBreakerProp) {
+  getSortFunction(tieBreakerProp) {
     return TableUtil.getSortFunction(tieBreakerProp, function (item, prop) {
       if (prop === 'updated') {
         return getUpdatedTimestamp(item) || 0;
@@ -86,7 +86,7 @@ var ResourceTableUtil = {
     });
   },
 
-  renderHeading: function (config) {
+  renderHeading(config) {
     return function (prop, order, sortBy) {
       let title = config[prop];
       let caret = {
@@ -130,7 +130,7 @@ var ResourceTableUtil = {
     };
   },
 
-  renderUpdated: function (prop, model) {
+  renderUpdated(prop, model) {
     let updatedAt = getUpdatedTimestamp(model);
 
     if (updatedAt == null) {
@@ -142,7 +142,7 @@ var ResourceTableUtil = {
     return <TimeAgo time={ms} autoUpdate={false} />;
   },
 
-  renderTask: function (prop, model) {
+  renderTask(prop, model) {
     return (
       <span>
         {model[prop]}

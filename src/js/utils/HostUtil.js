@@ -1,5 +1,5 @@
 const HostUtil = {
-  stringToHostname: function (string) {
+  stringToHostname(string) {
     const HOSTNAME_MAX_LENGTH = 63;
 
     if (string == null) {

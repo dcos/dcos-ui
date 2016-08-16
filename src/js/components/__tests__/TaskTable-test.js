@@ -18,10 +18,10 @@ const Tasks = require('./fixtures/MockTasks.json').tasks;
 describe('TaskTable', function () {
   beforeEach(function () {
     this.parentRouter = {
-      getCurrentRoutes: function () {
+      getCurrentRoutes() {
         return [{name: 'home'}, {name: 'dashboard'}, {name: 'service-detail'}];
       },
-      getCurrentParams: function () {
+      getCurrentParams() {
         return [{nodeID: 'thing'}];
       }
     };

@@ -52,10 +52,10 @@ describe('MesosLogStore', function () {
 
     beforeEach(function () {
       this.MockMesosLogStore = {
-        get: function (key) {
+        get(key) {
           if (key === 'exists') {
             return {
-              getStart: function () { return 100; }
+              getStart() { return 100; }
             };
           }
         }
@@ -74,10 +74,10 @@ describe('MesosLogStore', function () {
 
     it('does nothing if already at the beginning of history', function () {
       var MockMesosLogStore = {
-        get: function (key) {
+        get(key) {
           if (key === 'exists') {
             return {
-              getStart: function () { return 0; }
+              getStart() { return 0; }
             };
           }
         }

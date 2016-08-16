@@ -16,14 +16,14 @@ var IdentifyModal = React.createClass({
 
   mixins: [InternalStorageMixin],
 
-  componentWillMount: function () {
+  componentWillMount() {
     this.internalStorage_set({
       emailHasError: false,
       email: ''
     });
   },
 
-  handleSubmit: function (e) {
+  handleSubmit(e) {
     e.preventDefault();
 
     var email = this.refs.email.value.toLowerCase();
@@ -31,7 +31,7 @@ var IdentifyModal = React.createClass({
     if (!ValidatorUtil.isEmail(email)) {
       this.internalStorage_update({
         emailHasError: true,
-        email: email
+        email
       });
 
       this.forceUpdate();
@@ -42,7 +42,7 @@ var IdentifyModal = React.createClass({
     this.props.onLogin(email);
   },
 
-  getFooter: function () {
+  getFooter() {
     return (
       <div className="button-collection button-collection-align-horizontal-center flush-bottom">
         <button className="button button-primary button-large button-wide-below-screen-mini"
@@ -53,7 +53,7 @@ var IdentifyModal = React.createClass({
     );
   },
 
-  getSubHeader: function () {
+  getSubHeader() {
     return (
       <p className="text-align-center inverse">
         Your feedback means a lot to us. Please provide an email address below
@@ -62,7 +62,7 @@ var IdentifyModal = React.createClass({
     );
   },
 
-  render: function () {
+  render() {
     var data = this.internalStorage_get();
     var emailClassSet = classNames({
       'form-group': true,

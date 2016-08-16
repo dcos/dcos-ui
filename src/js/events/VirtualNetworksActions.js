@@ -8,10 +8,10 @@ import AppDispatcher from './AppDispatcher';
 import Config from '../config/Config';
 
 const VirtualNetworksActions = {
-  fetch: function () {
+  fetch() {
     RequestUtil.json({
       url: `${Config.rootUrl}${Config.virtualNetworksApi}/state`,
-      success: function (response) {
+      success(response) {
         let {overlays, vtep_mac_oui, vtep_subnet} = response.network;
         // Map structure to mimic agents overlays
         overlays = overlays.map(function (overlay) {
@@ -23,7 +23,7 @@ const VirtualNetworksActions = {
           data: {overlays, vtep_mac_oui, vtep_subnet}
         });
       },
-      error: function (xhr) {
+      error(xhr) {
         AppDispatcher.handleServerAction({
           type: REQUEST_VIRTUAL_NETWORKS_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr)

@@ -10,7 +10,7 @@ var DialSlice = React.createClass({
     path: React.PropTypes.string.isRequired
   },
 
-  render: function () {
+  render() {
     var classes = {
       'arc': true
     };

@@ -15,11 +15,11 @@ var Bar = React.createClass({
     lineClass: React.PropTypes.string.isRequired
   },
 
-  componentDidMount: function () {
+  componentDidMount() {
     this.animate(this.props);
   },
 
-  componentWillUpdate: function () {
+  componentWillUpdate() {
     if (!this.props.transitionDelay && !this.props.transitionDuration) {
       return;
     }
@@ -33,11 +33,11 @@ var Bar = React.createClass({
       .attr('transform', 'translate(' + this.props.posX + ')');
   },
 
-  componentDidUpdate: function (props) {
+  componentDidUpdate(props) {
     this.animate(props);
   },
 
-  animate: function (props) {
+  animate(props) {
     if (!props.transitionDelay && !props.transitionDuration) {
       return;
     }
@@ -50,7 +50,7 @@ var Bar = React.createClass({
         .attr('transform', 'translate(' + (props.posX - props.rectWidth) + ')');
   },
 
-  render: function () {
+  render() {
     var props = this.props;
     var posY = props.posY || 0;
     // Show 1px height when value is 0, to not confuse user with an empty graph

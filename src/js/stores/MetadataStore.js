@@ -26,7 +26,7 @@ class MetadataStore extends GetSetBaseStore {
         success: METADATA_CHANGE,
         dcosSuccess: DCOS_METADATA_CHANGE
       },
-      unmountWhen: function () {
+      unmountWhen() {
         return true;
       },
       listenAlways: true

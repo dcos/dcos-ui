@@ -206,7 +206,7 @@ class TaskDirectoryTable extends React.Component {
 }
 
 TaskDirectoryTable.defaultProps = {
-  onOpenLogClick: function () {},
+  onOpenLogClick() {},
   files: []
 };
 

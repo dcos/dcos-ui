@@ -164,10 +164,10 @@ describe('List', function () {
       ];
       var filterProperties = {
         name: null,
-        description: function (item, prop) {
+        description(item, prop) {
           return item[prop] && item[prop].value;
         },
-        subItems: function (item, prop) {
+        subItems(item, prop) {
           return item[prop] && item[prop].join(' ');
         }
       };
@@ -195,10 +195,10 @@ describe('List', function () {
       ];
       var filterProperties = {
         name: null,
-        description: function (item, prop) {
+        description(item, prop) {
           return item[prop] && item[prop].value;
         },
-        subItems: function (item, prop) {
+        subItems(item, prop) {
           return item[prop] && item[prop].join(' ');
         }
       };
@@ -235,10 +235,10 @@ describe('List', function () {
       ];
       var filterProperties = {
         name: null,
-        description: function (item, prop) {
+        description(item, prop) {
           return item[prop] && item[prop].value;
         },
-        subItems: function (item, prop) {
+        subItems(item, prop) {
           return item[prop] && item[prop].join(' ');
         }
       };
@@ -248,7 +248,7 @@ describe('List', function () {
 
     it('should use provided filter properties', function () {
       var filterProperties = {
-        description: function (item, prop) {
+        description(item, prop) {
           return item[prop] && item[prop].label;
         }
       };

@@ -8,7 +8,7 @@ class UniversePackagesList extends List {
       options.filterProperties = {
         description: null, // use default getter
         name: null, // use default getter
-        tags: function (item) {
+        tags(item) {
           let tags = item.get('tags') || [];
 
           return tags.join(' ');

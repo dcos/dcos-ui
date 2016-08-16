@@ -31,13 +31,13 @@ var HostTable = React.createClass({
     hosts: React.PropTypes.array.isRequired
   },
 
-  getDefaultProps: function () {
+  getDefaultProps() {
     return {
       hosts: []
     };
   },
 
-  componentWillMount: function () {
+  componentWillMount() {
     this.internalStorage_set({
       nodeHealthResponseReceived: false
     });
@@ -51,14 +51,14 @@ var HostTable = React.createClass({
     ];
   },
 
-  onNodeHealthStoreSuccess: function () {
+  onNodeHealthStoreSuccess() {
     this.internalStorage_set({
       nodeHealthResponseReceived: true
     });
     this.forceUpdate();
   },
 
-  renderHeadline: function (prop, node) {
+  renderHeadline(prop, node) {
     let headline = node.get(prop);
 
     if (!node.isActive()) {
@@ -83,7 +83,7 @@ var HostTable = React.createClass({
     );
   },
 
-  renderHealth: function (prop, node) {
+  renderHealth(prop, node) {
     let requestReceived = this.internalStorage_get().nodeHealthResponseReceived;
 
     if (!requestReceived) {
@@ -105,7 +105,7 @@ var HostTable = React.createClass({
     );
   },
 
-  renderStats: function (prop, node) {
+  renderStats(prop, node) {
     var colorMapping = {
       cpus: 1,
       mem: 2,
@@ -121,7 +121,7 @@ var HostTable = React.createClass({
     );
   },
 
-  getColumns: function () {
+  getColumns() {
     let className = ResourceTableUtil.getClassName;
     let heading = ResourceTableUtil.renderHeading(HostTableHeaderLabels);
     let sortFunction = TableUtil.getSortFunction('hostname',
@@ -196,7 +196,7 @@ var HostTable = React.createClass({
     ];
   },
 
-  getColGroup: function () {
+  getColGroup() {
     return (
       <colgroup>
         <col />
@@ -209,7 +209,7 @@ var HostTable = React.createClass({
     );
   },
 
-  getRowAttributes: function (node) {
+  getRowAttributes(node) {
     return {
       className: classNames({
         'danger': node.isActive() === false
@@ -217,7 +217,7 @@ var HostTable = React.createClass({
     };
   },
 
-  render: function () {
+  render() {
     return (
       <Table
         className="table inverse table-borderless-outer table-borderless-inner-columns flush-bottom"

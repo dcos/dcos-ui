@@ -19,8 +19,8 @@ function getErroredFieldPositions(definition) {
 
         if (hasError) {
           fieldsWithError.push({
-            indexInForm: indexInForm,
-            indexInRow: indexInRow,
+            indexInForm,
+            indexInRow,
             showError: columnDefinition.showError
           });
         }

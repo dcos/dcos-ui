@@ -25,17 +25,17 @@ import MetronomeUtil from '../utils/MetronomeUtil';
 import Config from '../config/Config';
 
 const MetronomeActions = {
-  createJob: function (data) {
+  createJob(data) {
     RequestUtil.json({
       url: `${Config.metronomeAPI}/v0/scheduled-jobs`,
       method: 'POST',
       data,
-      success: function () {
+      success() {
         AppDispatcher.handleServerAction({
           type: REQUEST_METRONOME_JOB_CREATE_SUCCESS
         });
       },
-      error: function (xhr) {
+      error(xhr) {
         AppDispatcher.handleServerAction({
           type: REQUEST_METRONOME_JOB_CREATE_ERROR,
           data: RequestUtil.parseResponseBody(xhr),
@@ -56,7 +56,7 @@ const MetronomeActions = {
             {name: 'embed', value: 'schedules'},
             {name: 'embed', value: 'history'}
           ],
-          success: function (response) {
+          success(response) {
             try {
               let data = MetronomeUtil.parseJobs(response);
               AppDispatcher.handleServerAction({
@@ -68,14 +68,14 @@ const MetronomeActions = {
               this.error(error);
             }
           },
-          error: function (e) {
+          error(e) {
             AppDispatcher.handleServerAction({
               type: REQUEST_METRONOME_JOBS_ERROR,
               data: e.message
             });
             reject();
           },
-          hangingRequestCallback: function () {
+          hangingRequestCallback() {
             AppDispatcher.handleServerAction({
               type: REQUEST_METRONOME_JOBS_ONGOING
             });
@@ -86,7 +86,7 @@ const MetronomeActions = {
     {delayAfterCount: Config.delayAfterErrorCount}
   ),
 
-  fetchJobDetail: function (jobID) {
+  fetchJobDetail(jobID) {
     RequestUtil.json({
       url: `${Config.metronomeAPI}/v1/jobs/${jobID}`,
       data: [
@@ -94,14 +94,14 @@ const MetronomeActions = {
         {name: 'embed', value: 'history'},
         {name: 'embed', value: 'schedules'}
       ],
-      success: function (response) {
+      success(response) {
         AppDispatcher.handleServerAction({
           type: REQUEST_METRONOME_JOB_DETAIL_SUCCESS,
           data: MetronomeUtil.parseJob(response),
           jobID
         });
       },
-      error: function (xhr) {
+      error(xhr) {
         AppDispatcher.handleServerAction({
           type: REQUEST_METRONOME_JOB_DETAIL_ERROR,
           data: RequestUtil.parseResponseBody(xhr),
@@ -109,7 +109,7 @@ const MetronomeActions = {
           xhr
         });
       },
-      hangingRequestCallback: function () {
+      hangingRequestCallback() {
         AppDispatcher.handleServerAction({
           type: REQUEST_METRONOME_JOB_DETAIL_ONGOING,
           jobID
@@ -118,18 +118,18 @@ const MetronomeActions = {
     });
   },
 
-  deleteJob: function (jobID, stopCurrentJobRuns = false) {
+  deleteJob(jobID, stopCurrentJobRuns = false) {
     RequestUtil.json({
       url: `${Config.metronomeAPI}/v1/jobs/${jobID}` +
         `?stopCurrentJobRuns=${stopCurrentJobRuns}`,
       method: 'DELETE',
-      success: function () {
+      success() {
         AppDispatcher.handleServerAction({
           type: REQUEST_METRONOME_JOB_DELETE_SUCCESS,
           jobID
         });
       },
-      error: function (xhr) {
+      error(xhr) {
         AppDispatcher.handleServerAction({
           type: REQUEST_METRONOME_JOB_DELETE_ERROR,
           data: RequestUtil.parseResponseBody(xhr),
@@ -140,17 +140,17 @@ const MetronomeActions = {
     });
   },
 
-  updateJob: function (jobID, data) {
+  updateJob(jobID, data) {
     RequestUtil.json({
       url: `${Config.metronomeAPI}/v0/scheduled-jobs/${jobID}`,
       method: 'PUT',
       data,
-      success: function () {
+      success() {
         AppDispatcher.handleServerAction({
           type: REQUEST_METRONOME_JOB_UPDATE_SUCCESS
         });
       },
-      error: function (xhr) {
+      error(xhr) {
         AppDispatcher.handleServerAction({
           type: REQUEST_METRONOME_JOB_UPDATE_ERROR,
           data: RequestUtil.parseResponseBody(xhr),
@@ -160,17 +160,17 @@ const MetronomeActions = {
     });
   },
 
-  runJob: function (jobID) {
+  runJob(jobID) {
     RequestUtil.json({
       url: `${Config.metronomeAPI}/v1/jobs/${jobID}/runs`,
       method: 'POST',
       data: {},
-      success: function () {
+      success() {
         AppDispatcher.handleServerAction({
           type: REQUEST_METRONOME_JOB_RUN_SUCCESS
         });
       },
-      error: function (xhr) {
+      error(xhr) {
         AppDispatcher.handleServerAction({
           type: REQUEST_METRONOME_JOB_RUN_ERROR,
           data: RequestUtil.parseResponseBody(xhr),
@@ -180,7 +180,7 @@ const MetronomeActions = {
     });
   },
 
-  stopJobRun: function (jobID, jobRunID) {
+  stopJobRun(jobID, jobRunID) {
     const url = `${Config.metronomeAPI}/v1/jobs/${jobID}` +
       `/runs/${jobRunID}/actions/stop`;
 
@@ -188,12 +188,12 @@ const MetronomeActions = {
       url,
       method: 'POST',
       data: {},
-      success: function () {
+      success() {
         AppDispatcher.handleServerAction({
           type: REQUEST_METRONOME_JOB_STOP_RUN_SUCCESS
         });
       },
-      error: function (xhr) {
+      error(xhr) {
         AppDispatcher.handleServerAction({
           type: REQUEST_METRONOME_JOB_STOP_RUN_ERROR,
           data: RequestUtil.parseResponseBody(xhr),
@@ -203,18 +203,18 @@ const MetronomeActions = {
     });
   },
 
-  updateSchedule: function (jobID, data) {
+  updateSchedule(jobID, data) {
     RequestUtil.json({
       url: `${Config.metronomeAPI}/v1/jobs/${jobID}/schedules/${data.id}`,
       method: 'PUT',
       data,
-      success: function () {
+      success() {
         AppDispatcher.handleServerAction({
           type: REQUEST_METRONOME_JOB_SCHEDULE_UPDATE_SUCCESS,
           jobID
         });
       },
-      error: function (xhr) {
+      error(xhr) {
         AppDispatcher.handleServerAction({
           type: REQUEST_METRONOME_JOB_SCHEDULE_UPDATE_ERROR,
           data: RequestUtil.parseResponseBody(xhr),

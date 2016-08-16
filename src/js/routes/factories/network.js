@@ -22,9 +22,9 @@ let RouteFactory = {
         name: 'virtual-networks-tab',
         path: 'virtual-networks/?',
         handler: VirtualNetworksTab,
-        buildBreadCrumb: function () {
+        buildBreadCrumb() {
           return {
-            getCrumbs: function () {
+            getCrumbs() {
               return [{
                 label: 'Virtual Networks',
                 route: {to: 'virtual-networks-tab'}
@@ -44,10 +44,10 @@ let RouteFactory = {
             name: 'virtual-networks-tab-detail-tasks',
             handler: VirtualNetworkTaskTab,
             hideHeaderNavigation: true,
-            buildBreadCrumb: function () {
+            buildBreadCrumb() {
               return {
                 parentCrumb: 'virtual-networks-tab',
-                getCrumbs: function (router) {
+                getCrumbs(router) {
                   let {overlayName} = router.getCurrentParams();
 
                   return [{
@@ -67,10 +67,10 @@ let RouteFactory = {
             path: 'details/?',
             handler: VirtualNetworkDetailsTab,
             hideHeaderNavigation: true,
-            buildBreadCrumb: function () {
+            buildBreadCrumb() {
               return {
                 parentCrumb: 'virtual-networks-tab',
-                getCrumbs: function (router) {
+                getCrumbs(router) {
                   let {overlayName} = router.getCurrentParams();
 
                   return [{
@@ -92,10 +92,10 @@ let RouteFactory = {
         path: 'virtual-networks/:overlayName/tasks/:taskID/?',
         handler: TaskDetail,
         hideHeaderNavigation: true,
-        buildBreadCrumb: function () {
+        buildBreadCrumb() {
           return {
             parentCrumb: 'virtual-networks-tab-detail-tasks',
-            getCrumbs: function (router) {
+            getCrumbs(router) {
               return [{label: router.getCurrentParams().taskID}];
             }
           };
@@ -106,10 +106,10 @@ let RouteFactory = {
             name: 'virtual-networks-tab-detail-tasks-details-tab',
             handler: TaskDetailsTab,
             hideHeaderNavigation: true,
-            buildBreadCrumb: function () {
+            buildBreadCrumb() {
               return {
                 parentCrumb: 'virtual-networks-tab-detail-tasks-detail',
-                getCrumbs: function () { return []; }
+                getCrumbs() { return []; }
               };
             },
             title: 'Details'
@@ -121,10 +121,10 @@ let RouteFactory = {
             handler: TaskFilesTab,
             hideHeaderNavigation: true,
             logRouteName: 'virtual-networks-tab-detail-tasks-details-logs',
-            buildBreadCrumb: function () {
+            buildBreadCrumb() {
               return {
                 parentCrumb: 'virtual-networks-tab-detail-tasks-detail',
-                getCrumbs: function () { return []; }
+                getCrumbs() { return []; }
               };
             },
             title: 'Files'
@@ -136,10 +136,10 @@ let RouteFactory = {
             path: 'logs/:filePath?/?:innerPath?/?',
             handler: TaskLogsTab,
             hideHeaderNavigation: true,
-            buildBreadCrumb: function () {
+            buildBreadCrumb() {
               return {
                 parentCrumb: 'virtual-networks-tab-detail-tasks-detail',
-                getCrumbs: function () { return []; }
+                getCrumbs() { return []; }
               };
             },
             title: 'Logs'

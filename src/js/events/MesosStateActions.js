@@ -12,21 +12,21 @@ var MesosStateActions = {
       return function () {
         RequestUtil.json({
           url: `${Config.historyServer}/mesos/master/state`,
-          success: function (response) {
+          success(response) {
             AppDispatcher.handleServerAction({
               type: ActionTypes.REQUEST_MESOS_STATE_SUCCESS,
               data: response
             });
             resolve();
           },
-          error: function (e) {
+          error(e) {
             AppDispatcher.handleServerAction({
               type: ActionTypes.REQUEST_MESOS_STATE_ERROR,
               data: e.message
             });
             reject();
           },
-          hangingRequestCallback: function () {
+          hangingRequestCallback() {
             AppDispatcher.handleServerAction({
               type: ActionTypes.REQUEST_MESOS_STATE_ONGOING
             });

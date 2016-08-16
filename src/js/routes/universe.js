@@ -16,9 +16,9 @@ let universeRoutes = {
       name: 'universe-packages',
       path: 'packages/?',
       handler: PackagesTab,
-      buildBreadCrumb: function () {
+      buildBreadCrumb() {
         return {
-          getCrumbs: function () {
+          getCrumbs() {
             return [
               {
                 label: 'Packages',
@@ -35,10 +35,10 @@ let universeRoutes = {
       path: 'packages/:packageName?',
       handler: PackageDetailTab,
       hideHeaderNavigation: true,
-      buildBreadCrumb: function () {
+      buildBreadCrumb() {
         return {
           parentCrumb: 'universe-packages',
-          getCrumbs: function (router) {
+          getCrumbs(router) {
             let params = router.getCurrentParams();
 
             return [
@@ -46,7 +46,7 @@ let universeRoutes = {
                 label: params.packageName,
                 route: {
                   to: 'universe-packages-detail',
-                  params: params,
+                  params,
                   query: router.getCurrentQuery()
                 }
               }

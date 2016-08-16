@@ -11,7 +11,7 @@ let Optional = {
       type: 'string',
       description: 'Executor must be the string \'//cmd\', a string ' +
       'containing only single slashes (\'/\'), or blank.',
-      getter: function (service) {
+      getter(service) {
         return service.getExecutor();
       }
     },
@@ -19,7 +19,7 @@ let Optional = {
       title: 'URIs',
       type: 'string',
       description: 'Comma-separated list of valid URIs',
-      getter: function (service) {
+      getter(service) {
         if (!service.getFetch()) {
           return null;
         }
@@ -33,7 +33,7 @@ let Optional = {
       type: 'string',
       description: 'Comma-separated list of valid constraints. Valid ' +
       'constraint format is "field:operator[:value]".',
-      getter: function (service) {
+      getter(service) {
         return service.getConstraints() && service.getConstraints()
             .map(function (item) {
               return item.join(':');
@@ -46,7 +46,7 @@ let Optional = {
       description: 'Comma-separated list of resource roles. Marathon ' +
       'considers only resource offers with roles in this list for ' +
       'launching tasks of this app.',
-      getter: function (service) {
+      getter(service) {
         return service.getAcceptedResourceRoles() &&
           service.getAcceptedResourceRoles().join(', ');
       }
@@ -54,7 +54,7 @@ let Optional = {
     user: {
       title: 'User',
       type: 'string',
-      getter: function (service) {
+      getter(service) {
         return service.getUser();
       }
     }

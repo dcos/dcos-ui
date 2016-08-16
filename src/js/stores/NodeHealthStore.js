@@ -74,7 +74,7 @@ class NodeHealthStore extends GetSetBaseStore {
         unitSuccess: HEALTH_NODE_UNIT_SUCCESS,
         unitError: HEALTH_NODE_UNIT_ERROR
       },
-      unmountWhen: function () {
+      unmountWhen() {
         return true;
       },
       listenAlways: true

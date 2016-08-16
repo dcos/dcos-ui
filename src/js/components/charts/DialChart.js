@@ -24,7 +24,7 @@ var DialChart = React.createClass({
     value: React.PropTypes.string
   },
 
-  getDefaultProps: function () {
+  getDefaultProps() {
     return {
       duration: 1000,
       slices: [],
@@ -32,7 +32,7 @@ var DialChart = React.createClass({
     };
   },
 
-  componentWillMount: function () {
+  componentWillMount() {
     var value = this.props.value;
     var data = Object.assign({
       pie: d3.layout.pie()
@@ -43,7 +43,7 @@ var DialChart = React.createClass({
     this.internalStorage_set(data);
   },
 
-  componentWillUpdate: function (nextProps) {
+  componentWillUpdate(nextProps) {
     var slice = this.getSlice(this.props);
     var arcs = this.getArcs(this.props);
     var innerArc = arcs.innerArc;
@@ -73,7 +73,7 @@ var DialChart = React.createClass({
       });
   },
 
-  getNormalizedData: function (slices, data) {
+  getNormalizedData(slices, data) {
     if (this.isEmpty(data)) {
       return getEmptyState();
     }
@@ -96,27 +96,27 @@ var DialChart = React.createClass({
     return Object.values(normalizedNamedData);
   },
 
-  isEmpty: function (data) {
+  isEmpty(data) {
     var sumOfData = data.reduce(function (memo, datum) {
       return memo + datum.value;
     }, 0);
     return sumOfData === 0;
   },
 
-  getSlice: function (props) {
+  getSlice(props) {
     var data = this.internalStorage_get();
     var normalizedData = this.getNormalizedData(props.slices, props.data);
     return d3.select(ReactDOM.findDOMNode(this)).selectAll('path')
       .data(data.pie(normalizedData));
   },
 
-  getRadius: function (props) {
+  getRadius(props) {
     let smallSide = Math.min(props.width || Infinity, props.height || Infinity);
 
     return smallSide / 2;
   },
 
-  getArcs: function (props) {
+  getArcs(props) {
     var radius = this.getRadius(props);
     return {
       innerArc: d3.svg.arc()
@@ -129,12 +129,12 @@ var DialChart = React.createClass({
     };
   },
 
-  getPosition: function () {
+  getPosition() {
     return 'translate(' +
       this.props.width / 2 + ',' + this.props.height / 2 + ')';
   },
 
-  getWedges: function () {
+  getWedges() {
     var data = this.internalStorage_get();
     var innerArc = data.innerArc;
     var pie = data.pie;
@@ -151,7 +151,7 @@ var DialChart = React.createClass({
     });
   },
 
-  render: function () {
+  render() {
     return (
       <div className="chart-dialchart" height={this.props.height} width={this.props.width}>
         <svg height={this.props.height} width={this.props.width}>

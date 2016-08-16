@@ -130,7 +130,7 @@ class JobsTab extends mixin(StoreMixin, QueryParamsMixin, SaveStateMixin) {
 
     if (searchString) {
       let filterProperties = Object.assign({}, item.getFilterProperties(), {
-        name: function (item) {
+        name(item) {
           return item.getId();
         }
       });

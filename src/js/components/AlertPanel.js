@@ -17,7 +17,7 @@ var AlertPanel = React.createClass({
     iconClassName: React.PropTypes.string
   },
 
-  getTitle: function () {
+  getTitle() {
     return (
       <h3 className="inverse flush-top">
         {this.props.title}
@@ -25,7 +25,7 @@ var AlertPanel = React.createClass({
     );
   },
 
-  getIcon: function () {
+  getIcon() {
     let {icon, iconClassName} = this.props;
 
     if (!!icon) {
@@ -41,7 +41,7 @@ var AlertPanel = React.createClass({
     );
   },
 
-  render: function () {
+  render() {
     let classes = classNames('container container-fluid container-pod',
       'flush-bottom', this.props.className);
 

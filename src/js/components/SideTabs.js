@@ -78,7 +78,7 @@ class SideTabs extends React.Component {
 
 SideTabs.defaultProps = {
   className: 'sidebar-tabs',
-  onTabClick: function () {},
+  onTabClick() {},
   tabs: []
 };
 

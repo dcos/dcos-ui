@@ -3,7 +3,7 @@ import cookie from 'cookie';
 import {userCookieKey} from '../constants/AuthConstants';
 
 let Utils = {
-  getUserMetadata: function () {
+  getUserMetadata() {
     return cookie.parse(global.document.cookie)[userCookieKey];
   },
   emptyCookieWithExpiry(date) {

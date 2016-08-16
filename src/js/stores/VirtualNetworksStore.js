@@ -29,7 +29,7 @@ class VirtualNetworksStore extends BaseStore {
         success: VIRTUAL_NETWORKS_CHANGE,
         error: VIRTUAL_NETWORKS_REQUEST_ERROR
       },
-      unmountWhen: function () {
+      unmountWhen() {
         return true;
       },
       listenAlways: true

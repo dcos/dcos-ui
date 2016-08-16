@@ -15,16 +15,16 @@ import Config from '../config/Config';
 
 const UnitHealthActions = {
 
-  fetchUnits: function () {
+  fetchUnits() {
     RequestUtil.json({
       url: `${Config.rootUrl}${Config.unitHealthAPIPrefix}/units`,
-      success: function (response) {
+      success(response) {
         AppDispatcher.handleServerAction({
           type: REQUEST_HEALTH_UNITS_SUCCESS,
           data: response.units
         });
       },
-      error: function (xhr) {
+      error(xhr) {
         AppDispatcher.handleServerAction({
           type: REQUEST_HEALTH_UNITS_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr)
@@ -33,17 +33,17 @@ const UnitHealthActions = {
     });
   },
 
-  fetchUnit: function (unitID) {
+  fetchUnit(unitID) {
     RequestUtil.json({
       url: `${Config.rootUrl}${Config.unitHealthAPIPrefix}/units/${unitID}`,
-      success: function (response) {
+      success(response) {
         AppDispatcher.handleServerAction({
           type: REQUEST_HEALTH_UNIT_SUCCESS,
           data: response,
           unitID
         });
       },
-      error: function (xhr) {
+      error(xhr) {
         AppDispatcher.handleServerAction({
           type: REQUEST_HEALTH_UNIT_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr),
@@ -53,17 +53,17 @@ const UnitHealthActions = {
     });
   },
 
-  fetchUnitNodes: function (unitID) {
+  fetchUnitNodes(unitID) {
     RequestUtil.json({
       url: `${Config.rootUrl}${Config.unitHealthAPIPrefix}/units/${unitID}/nodes`,
-      success: function (response) {
+      success(response) {
         AppDispatcher.handleServerAction({
           type: REQUEST_HEALTH_UNIT_NODES_SUCCESS,
           data: response.nodes,
           unitID
         });
       },
-      error: function (xhr) {
+      error(xhr) {
         AppDispatcher.handleServerAction({
           type: REQUEST_HEALTH_UNIT_NODES_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr),
@@ -73,10 +73,10 @@ const UnitHealthActions = {
     });
   },
 
-  fetchUnitNode: function (unitID, nodeID) {
+  fetchUnitNode(unitID, nodeID) {
     RequestUtil.json({
       url: `${Config.rootUrl}${Config.unitHealthAPIPrefix}/units/${unitID}/nodes/${nodeID}`,
-      success: function (response) {
+      success(response) {
         AppDispatcher.handleServerAction({
           type: REQUEST_HEALTH_UNIT_NODE_SUCCESS,
           data: response,
@@ -84,7 +84,7 @@ const UnitHealthActions = {
           nodeID
         });
       },
-      error: function (xhr) {
+      error(xhr) {
         AppDispatcher.handleServerAction({
           type: REQUEST_HEALTH_UNIT_NODE_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr),

@@ -7,7 +7,7 @@ const Labels = {
       type: 'array',
       duplicable: true,
       addLabel: 'Add Label',
-      getter: function (service) {
+      getter(service) {
         let labels = service.getLabels() || {};
 
         return Object.keys(labels).map(function (key) {

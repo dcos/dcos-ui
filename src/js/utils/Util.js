@@ -7,7 +7,7 @@ const Util = {
    * @param {string} id              Namespace for the unique ids.
    * @return {Integer}               A unique id.
    */
-  uniqueID: function (id) {
+  uniqueID(id) {
     if (!uniqueIDMap.hasOwnProperty(id)) {
       uniqueIDMap[id] = 0;
     }
@@ -21,7 +21,7 @@ const Util = {
    * @param  {Array} blacklistKeys  Keys to not copy over
    * @return {Object}               Copy of object without blacklisted keys
    */
-  omit: function (object, blacklistKeys) {
+  omit(object, blacklistKeys) {
     return Object.keys(object).reduce(function (newObject, key) {
       if (blacklistKeys.indexOf(key) === -1) {
         newObject[key] = object[key];
@@ -36,7 +36,7 @@ const Util = {
    * @param  {Array} array        Array to act on
    * @return {Anything}           Value in last position of Array
    */
-  last: function (array) {
+  last(array) {
     if (array.length === 0) {
       return null;
     }
@@ -50,7 +50,7 @@ const Util = {
    * @param  {Function} condition  Condition to find
    * @return {Int}                 Index of last item or -1 if not found
    */
-  findLastIndex: function (array, condition) {
+  findLastIndex(array, condition) {
     let length = array.length;
     let index = length - 1;
     for (; index >= 0; index--) {
@@ -61,7 +61,7 @@ const Util = {
     return -1;
   },
 
-  getLocaleCompareSortFn: function (prop) {
+  getLocaleCompareSortFn(prop) {
     return function (a, b) {
       return a[prop].localeCompare(b[prop]);
     };
@@ -74,7 +74,7 @@ const Util = {
    * @param  {String} propertyPath Property path to search for
    * @return {*}                   The value of the found property or null
    */
-  findNestedPropertyInObject: function (obj, propertyPath) {
+  findNestedPropertyInObject(obj, propertyPath) {
     if (propertyPath == null || obj == null) {
       return null;
     }
@@ -97,7 +97,7 @@ const Util = {
    * This function is specifically made for React events, hence the nativeEvent
    * lookup.
    */
-  throttleScroll: function (func, wait) {
+  throttleScroll(func, wait) {
     let canCall = true;
     let callWhenReady = false;
 
@@ -131,7 +131,7 @@ const Util = {
    * @param  {Number} wait How long to wait before callback is called
    * @return {Function} A function
    */
-  debounce: function (func, wait) {
+  debounce(func, wait) {
     let timeoutID = null;
 
     return function (...args) {
@@ -151,7 +151,7 @@ const Util = {
    * @param  {Object} obj Item to check if is an object.
    * @return {Boolean} Whether the argument is an object.
    */
-  isObject: function (obj) {
+  isObject(obj) {
     return obj && obj.toString && obj.toString() === '[object Object]';
   },
 
@@ -161,7 +161,7 @@ const Util = {
    * @param  {Object} obj Object to deep copy.
    * @return {Object} Copy of obj.
    */
-  deepCopy: function (obj) {
+  deepCopy(obj) {
     let copy;
     if (Array.isArray(obj)) {
       copy = obj.slice(); // shallow copy

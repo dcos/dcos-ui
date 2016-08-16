@@ -1,9 +1,9 @@
 var ValidatorUtil = {
-  isDefined: function (value) {
+  isDefined(value) {
     return value != null && value !== '' || typeof value === 'number';
   },
 
-  isEmail: function (email) {
+  isEmail(email) {
     return email != null &&
       email.length > 0 &&
       !/\s/.test(email) &&
@@ -11,7 +11,7 @@ var ValidatorUtil = {
       .test(email);
   },
 
-  isEmpty: function (data) {
+  isEmpty(data) {
     if (typeof data === 'number' || typeof data === 'boolean') {
       return false;
     }
@@ -33,19 +33,19 @@ var ValidatorUtil = {
     }, 0) === 0;
   },
 
-  isInteger: function (value) {
+  isInteger(value) {
     return ValidatorUtil.isNumber(value) &&
       Number.isInteger(parseFloat(value));
   },
 
-  isNumber: function (value) {
+  isNumber(value) {
     const number = parseFloat(value);
 
     return /^[0-9e+-.,]+$/.test(value) && !Number.isNaN(number) &&
       Number.isFinite(number);
   },
 
-  isNumberInRange: function (value, range = {}) {
+  isNumberInRange(value, range = {}) {
     const {min = 0, max = Number.POSITIVE_INFINITY} = range;
     const number = parseFloat(value);
 

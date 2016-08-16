@@ -28,7 +28,7 @@ var Index = React.createClass({
 
   mixins: [InternalStorageMixin, StoreMixin],
 
-  getInitialState: function () {
+  getInitialState() {
     return {
       mesosSummaryErrorCount: 0,
       showErrorModal: false,
@@ -37,7 +37,7 @@ var Index = React.createClass({
     };
   },
 
-  componentWillMount: function () {
+  componentWillMount() {
     MetadataStore.init();
     SidebarStore.init();
 
@@ -53,7 +53,7 @@ var Index = React.createClass({
     this.internalStorage_set(state);
   },
 
-  componentDidMount: function () {
+  componentDidMount() {
     SidebarStore.addChangeListener(
       EventTypes.SIDEBAR_CHANGE, this.onSideBarChange
     );
@@ -64,12 +64,12 @@ var Index = React.createClass({
     );
   },
 
-  shouldComponentUpdate: function (nextProps, nextState) {
+  shouldComponentUpdate(nextProps, nextState) {
     return !(deepEqual(this.props, nextProps) &&
         deepEqual(this.state, nextState));
   },
 
-  componentWillUnmount: function () {
+  componentWillUnmount() {
     SidebarStore.removeChangeListener(
       EventTypes.SIDEBAR_CHANGE, this.onSideBarChange
     );
@@ -80,12 +80,12 @@ var Index = React.createClass({
     );
   },
 
-  onSideBarChange: function () {
+  onSideBarChange() {
     this.internalStorage_update(getSidebarState());
     this.forceUpdate();
   },
 
-  onConfigError: function () {
+  onConfigError() {
     this.setState({configErrorCount: this.state.configErrorCount + 1});
 
     if (this.state.configErrorCount < Config.delayAfterErrorCount) {
@@ -93,20 +93,20 @@ var Index = React.createClass({
     }
   },
 
-  onSummaryStoreSuccess: function () {
+  onSummaryStoreSuccess() {
     // Reset count as we've just received a successful response
     if (this.state.mesosSummaryErrorCount > 0) {
       this.setState({mesosSummaryErrorCount: 0});
     }
   },
 
-  onSummaryStoreError: function () {
+  onSummaryStoreError() {
     this.setState({
       mesosSummaryErrorCount: this.state.mesosSummaryErrorCount + 1
     });
   },
 
-  getErrorScreen: function (showErrorScreen) {
+  getErrorScreen(showErrorScreen) {
     if (!showErrorScreen) {
       return null;
     }
@@ -114,7 +114,7 @@ var Index = React.createClass({
     return <RequestErrorMsg />;
   },
 
-  getScreenOverlays: function (showErrorScreen) {
+  getScreenOverlays(showErrorScreen) {
     if (!showErrorScreen) {
       return null;
     }
@@ -126,7 +126,7 @@ var Index = React.createClass({
     );
   },
 
-  render: function () {
+  render() {
     var data = this.internalStorage_get();
     let showErrorScreen =
       this.state.configErrorCount >= Config.delayAfterErrorCount;

@@ -25,7 +25,7 @@ class VirtualNetworksTable extends React.Component {
     return [
       {
         className: getClassName,
-        getValue: function (overlay) {
+        getValue(overlay) {
           return overlay.getName();
         },
         headerClassName: getClassName,
@@ -36,7 +36,7 @@ class VirtualNetworksTable extends React.Component {
       },
       {
         className: getClassName,
-        getValue: function (overlay) {
+        getValue(overlay) {
           return overlay.getSubnet();
         },
         headerClassName: getClassName,
@@ -46,7 +46,7 @@ class VirtualNetworksTable extends React.Component {
       },
       {
         className: getClassName,
-        getValue: function (overlay) {
+        getValue(overlay) {
           return overlay.getPrefix();
         },
         headerClassName: getClassName,

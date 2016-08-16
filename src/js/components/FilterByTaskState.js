@@ -88,7 +88,7 @@ FilterByTaskState.propTypes = {
 
 FilterByTaskState.defaultProps = {
   currentStatus: defaultID,
-  handleFilterChange: function () {},
+  handleFilterChange() {},
   statuses: [],
   totalHostsCount: 0,
 

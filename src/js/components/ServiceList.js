@@ -21,20 +21,20 @@ let ServiceList = React.createClass({
     router: React.PropTypes.func
   },
 
-  getDefaultProps: function () {
+  getDefaultProps() {
     return {
       services: []
     };
   },
 
-  shouldComponentUpdate: function (nextProps, nextState) {
+  shouldComponentUpdate(nextProps, nextState) {
     var changedState =
       nextState !== undefined && !deepEqual(this.state, nextState);
 
     return !deepEqual(this.props, nextProps) || changedState;
   },
 
-  handleServiceClick: function (service, event) {
+  handleServiceClick(service, event) {
     // Open service in new window/tab if service has a web URL
     if (service.getWebURL() &&
       (event.ctrlKey || event.shiftKey || event.metaKey)) {
@@ -49,7 +49,7 @@ let ServiceList = React.createClass({
     );
   },
 
-  getServices: function (services, healthProcessed) {
+  getServices(services, healthProcessed) {
     return services.map((service) => {
       let appHealth = service.getHealth();
       let state = HealthStatus.NA;
@@ -115,7 +115,7 @@ let ServiceList = React.createClass({
     });
   },
 
-  getNoServicesMessage: function () {
+  getNoServicesMessage() {
     return (
       <div className="vertical-center">
         <h3 className="flush-top inverse text-align-center">No Services Running</h3>
@@ -124,7 +124,7 @@ let ServiceList = React.createClass({
     );
   },
 
-  getList: function () {
+  getList() {
     let props = this.props;
 
     return (
@@ -138,7 +138,7 @@ let ServiceList = React.createClass({
     );
   },
 
-  getContent: function () {
+  getContent() {
     if (this.props.services.length === 0) {
       return this.getNoServicesMessage();
     } else {
@@ -146,7 +146,7 @@ let ServiceList = React.createClass({
     }
   },
 
-  render: function () {
+  render() {
     return this.getContent();
   }
 });

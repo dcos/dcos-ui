@@ -1,12 +1,12 @@
 var Maths = {
 
-  round: function (value, precision) {
+  round(value, precision) {
     precision = precision || 0;
     var factor = Math.pow(10, precision);
     return Math.round(value * factor) / factor;
   },
 
-  sum: function (array) {
+  sum(array) {
     var sum = 0;
 
     array.forEach(function (value) {
@@ -20,7 +20,7 @@ var Maths = {
     return sum;
   },
 
-  mean: function (array) {
+  mean(array) {
     return Maths.sum(array) / array.length;
   },
 
@@ -33,7 +33,7 @@ var Maths = {
    * @param  {Number} stats.max Maximum in range
    * @return {Number} A mapped number between (0,1)
    **/
-  mapValue: function (value, stats) {
+  mapValue(value, stats) {
     value = parseFloat(value);
 
     var range = stats.max - stats.min;
@@ -61,7 +61,7 @@ var Maths = {
    * @param  {Number} stats.max Maximum in range
    * @return {Number} An unmapped number between in the provided range
    **/
-  unmapValue: function (value, stats) {
+  unmapValue(value, stats) {
     value = stats.min + value * (stats.max - stats.min);
 
     if (isNaN(value)) {

@@ -31,7 +31,7 @@ var TasksChart = React.createClass({
     tasks: React.PropTypes.object.isRequired
   },
 
-  shouldComponentUpdate: function (nextProps) {
+  shouldComponentUpdate(nextProps) {
     var previousTasks = this.getTasks(this.props.tasks);
     var newTasks = this.getTasks(nextProps.tasks);
 
@@ -39,7 +39,7 @@ var TasksChart = React.createClass({
     return !deepEqual(previousTasks, newTasks);
   },
 
-  getTaskInfo: function (tasks) {
+  getTaskInfo(tasks) {
     if (tasks.length === 0) {
       tasks = getEmptyTaskData();
     }
@@ -77,13 +77,13 @@ var TasksChart = React.createClass({
     });
   },
 
-  getTotal: function (tasks) {
+  getTotal(tasks) {
     return tasks.reduce(function (acc, task) {
       return acc + task.value;
     }, 0);
   },
 
-  getTasks: function (tasks = {}) {
+  getTasks(tasks = {}) {
     return DISPLAYED_TASK_KEYS.map(function (key) {
       return {
         colorIndex: TASK_INFO[key].colorIndex,
@@ -93,7 +93,7 @@ var TasksChart = React.createClass({
     });
   },
 
-  getDialChart: function (tasks) {
+  getDialChart(tasks) {
     var total = this.getTotal(tasks);
 
     if (tasks.length === 0) {
@@ -109,7 +109,7 @@ var TasksChart = React.createClass({
     );
   },
 
-  getDialChartChildren: function (total) {
+  getDialChartChildren(total) {
     return (
       <div className="description">
         <span className="h1 h1-large inverse flush flush-top unit">{total}</span>
@@ -118,7 +118,7 @@ var TasksChart = React.createClass({
     );
   },
 
-  render: function () {
+  render() {
     var tasks = this.getTasks(this.props.tasks);
 
     return (

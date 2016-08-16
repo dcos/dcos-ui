@@ -28,7 +28,7 @@ class SidebarStore extends GetSetBaseStore {
       events: {
         widthChange: SIDEBAR_WIDTH_CHANGE
       },
-      unmountWhen: function () {
+      unmountWhen() {
         return true;
       },
       listenAlways: true

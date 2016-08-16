@@ -26,12 +26,12 @@ function findWithID(stateObject, listProps, id) {
 }
 
 var TaskDirectoryActions = {
-  getDownloadURL: function (nodeID, path) {
+  getDownloadURL(nodeID, path) {
     return `${Config.rootUrl}/agent/${nodeID}/files/download?` +
       `path=${path}`;
   },
 
-  getNodeStateJSON: function (task, node) {
+  getNodeStateJSON(task, node) {
     let pid, nodePID;
 
     if (node) {
@@ -45,7 +45,7 @@ var TaskDirectoryActions = {
     return `${Config.rootUrl}/agent/${task.slave_id}/${nodePID}/state`;
   },
 
-  getInnerPath: function (nodeState, task, innerPath) {
+  getInnerPath(nodeState, task, innerPath) {
     innerPath = innerPath || '';
 
     // Search frameworks
@@ -80,11 +80,11 @@ var TaskDirectoryActions = {
         return RequestUtil.json({
           url: TaskDirectoryActions.getNodeStateJSON(task, node),
           timeout: 5000,
-          success: function (response) {
+          success(response) {
             resolve();
             cb(response);
           },
-          error: function (xhr) {
+          error(xhr) {
             if (xhr.statusText === 'abort') {
               resolve();
               return;
@@ -103,7 +103,7 @@ var TaskDirectoryActions = {
     {delayAfterCount: Config.delayAfterErrorCount}
   ),
 
-  fetchDirectory: function (task, innerPath, nodeState) {
+  fetchDirectory(task, innerPath, nodeState) {
     let path = TaskDirectoryActions.getInnerPath(nodeState, task, innerPath);
     if (path == null) {
       AppDispatcher.handleServerAction({
@@ -115,14 +115,14 @@ var TaskDirectoryActions = {
     RequestUtil.json({
       url: `${Config.rootUrl}/agent/${task.slave_id}/files/browse`,
       data: {path},
-      success: function (directory) {
+      success(directory) {
         AppDispatcher.handleServerAction({
           type: ActionTypes.REQUEST_TASK_DIRECTORY_SUCCESS,
           data: directory,
           innerPath
         });
       },
-      error: function (xhr) {
+      error(xhr) {
         if (xhr.statusText === 'abort') {
           return;
         }

@@ -50,7 +50,7 @@ describe('JobUtil', function () {
                 title: 'ID',
                 description: 'The id for the job',
                 type: 'string',
-                getter: function (job) {
+                getter(job) {
                   return job.getId();
                 }
               }

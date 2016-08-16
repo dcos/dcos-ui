@@ -10,17 +10,17 @@ import AppDispatcher from '../events/AppDispatcher';
 import Config from '../config/Config';
 
 const AuthActions = {
-  login: function (credentials) {
+  login(credentials) {
     RequestUtil.json({
       url: `${Config.rootUrl}${Config.acsAPIPrefix}/auth/login`,
       method: 'POST',
       data: credentials,
-      success: function () {
+      success() {
         AppDispatcher.handleServerAction({
           type: REQUEST_LOGIN_SUCCESS
         });
       },
-      error: function (xhr) {
+      error(xhr) {
         AppDispatcher.handleServerAction({
           type: REQUEST_LOGIN_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr),
@@ -30,15 +30,15 @@ const AuthActions = {
     });
   },
 
-  logout: function () {
+  logout() {
     RequestUtil.json({
       url: `${Config.rootUrl}${Config.acsAPIPrefix}/auth/logout`,
-      success: function () {
+      success() {
         AppDispatcher.handleServerAction({
           type: REQUEST_LOGOUT_SUCCESS
         });
       },
-      error: function (xhr) {
+      error(xhr) {
         AppDispatcher.handleServerAction({
           type: REQUEST_LOGOUT_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr)

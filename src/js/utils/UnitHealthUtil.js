@@ -2,7 +2,7 @@ import UnitHealthStatus from '../constants/UnitHealthStatus';
 import TableUtil from '../utils/TableUtil';
 
 const UnitHealthUtil = {
-  getHealthSortFunction: function (...args) {
+  getHealthSortFunction(...args) {
     return TableUtil.getSortFunction('id', function (item, prop) {
       if (prop === 'health') {
         return UnitHealthUtil.getHealthSorting(item);

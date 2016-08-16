@@ -6,7 +6,7 @@ const Labels = {
       type: 'array',
       duplicable: true,
       addLabel: 'Add Label',
-      getter: function (job) {
+      getter(job) {
         let labels = job.getLabels() || {};
 
         return Object.keys(labels).map(function (key) {

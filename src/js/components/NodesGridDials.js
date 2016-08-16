@@ -27,12 +27,12 @@ var NodesGridDials = React.createClass({
     router: React.PropTypes.func
   },
 
-  handleDialClick: function (nodeID) {
+  handleDialClick(nodeID) {
     // Using handler, since Link in arrays cannot get router context
     this.context.router.transitionTo('node-detail', {nodeID});
   },
 
-  getServiceSlicesConfig: function (node) {
+  getServiceSlicesConfig(node) {
     var config = [];
     var props = this.props;
     var resourcesByFramework = props.resourcesByFramework[node.get('id')];
@@ -48,14 +48,14 @@ var NodesGridDials = React.createClass({
       config.push({
         colorIndex: props.serviceColors[frameworkID],
         name: frameworkID,
-        percentage: percentage
+        percentage
       });
     });
 
     return config;
   },
 
-  getUsedSliceConfig: function (node) {
+  getUsedSliceConfig(node) {
     let {selectedResource} = this.props;
     let colorIndex = ResourcesUtil.getResourceColor(selectedResource);
     let label = ResourcesUtil.getResourceLabel(selectedResource);
@@ -71,13 +71,13 @@ var NodesGridDials = React.createClass({
     }
 
     return [{
-      colorIndex: colorIndex,
+      colorIndex,
       name: label,
-      percentage: percentage
+      percentage
     }];
   },
 
-  getActiveSliceData: function (node) {
+  getActiveSliceData(node) {
     var config;
     var props = this.props;
 
@@ -105,7 +105,7 @@ var NodesGridDials = React.createClass({
     };
   },
 
-  getInactiveSliceData: function () {
+  getInactiveSliceData() {
     return [
       {
         colorIndex: colors.error,
@@ -115,7 +115,7 @@ var NodesGridDials = React.createClass({
     ];
   },
 
-  getDialConfig: function (node) {
+  getDialConfig(node) {
     let {selectedResource} = this.props;
     let resourceLabel = ResourcesUtil.getResourceLabel(selectedResource);
 
@@ -144,7 +144,7 @@ var NodesGridDials = React.createClass({
     }
   },
 
-  getDials: function () {
+  getDials() {
     return this.props.hosts.map((node) => {
       var config = this.getDialConfig(node);
       let description = (
@@ -181,13 +181,13 @@ var NodesGridDials = React.createClass({
 
   // Zero-height spacer items force dial charts in the last line of the flex layout
   // not to spread themselves across the line.
-  getSpacers: function () {
+  getSpacers() {
     return Array(30).fill().map(function (v, index) {
       return <div className="nodes-grid-dials-spacer" key={index}></div>;
     });
   },
 
-  render: function () {
+  render() {
     return (
       <div className="nodes-grid-dials">
         {this.getDials()}

@@ -31,7 +31,7 @@ class PackageDetailTab extends mixin(StoreMixin) {
     this.store_listeners = [{
       name: 'cosmosPackages',
       events: ['descriptionError', 'descriptionSuccess'],
-      unmountWhen: function (store, event) {
+      unmountWhen(store, event) {
         if (event === 'descriptionSuccess') {
           return !!CosmosPackagesStore.get('packageDetails');
         }

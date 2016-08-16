@@ -9,7 +9,7 @@ const MesosStateUtil = {
    *   All other frameworks will be put into an 'other' category
    * @returns {Object} A map of frameworks running on host
    */
-  getHostResourcesByFramework: function (state, filter = []) {
+  getHostResourcesByFramework(state, filter = []) {
     return state.frameworks.reduce(function (memo, framework) {
       framework.tasks.forEach(function (task) {
         if (memo[task.slave_id] == null) {
@@ -36,7 +36,7 @@ const MesosStateUtil = {
     }, {});
   },
 
-  getTasksFromVirtualNetworkName: function (state = {}, overlayName) {
+  getTasksFromVirtualNetworkName(state = {}, overlayName) {
     let frameworks = state.frameworks || [];
     return frameworks.reduce(function (memo, framework) {
       let tasks = framework.tasks || [];

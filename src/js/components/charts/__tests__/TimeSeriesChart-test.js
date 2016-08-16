@@ -61,7 +61,7 @@ describe('TimeSeriesChart', function () {
         }
       ];
 
-      var props = {data: data};
+      var props = {data};
 
       Object.keys(this.instance.props).forEach((key) => {
         if (props[key] == null) {

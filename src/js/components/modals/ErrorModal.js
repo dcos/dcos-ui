@@ -11,11 +11,11 @@ var ErrorModal = React.createClass({
     errorMsg: React.PropTypes.element
   },
 
-  onClose: function () {
+  onClose() {
     this.props.onClose();
   },
 
-  render: function () {
+  render() {
     return (
       <Modal
         maxHeightPercentage={0.9}

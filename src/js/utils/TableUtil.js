@@ -15,7 +15,7 @@ var TableUtil = {
    *
    * @return {Integer} Expected row height
    */
-  getRowHeight: function () {
+  getRowHeight() {
     let defaultRowSize = 29;
     let definitionList = {
       mini: {screen: 480, rowHeight: 32},
@@ -35,7 +35,7 @@ var TableUtil = {
     return rowHeight || defaultRowSize;
   },
 
-  compareValues: function (a, b, aTieBreaker, bTieBreaker) {
+  compareValues(a, b, aTieBreaker, bTieBreaker) {
     a = toLowerCaseIfString(a);
     b = toLowerCaseIfString(b);
     aTieBreaker = toLowerCaseIfString(aTieBreaker);
@@ -66,7 +66,7 @@ var TableUtil = {
    * string and a sort order ('asc' or 'desc'), return a comparator function
    * between two items
    */
-  getSortFunction: function (tieBreakerProp, getProperty) {
+  getSortFunction(tieBreakerProp, getProperty) {
     return function (prop, order) {
       return function (a, b) {
         return TableUtil.compareValues(

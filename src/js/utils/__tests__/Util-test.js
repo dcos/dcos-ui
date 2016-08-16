@@ -262,7 +262,7 @@ describe('Util', function () {
         obj1: {
           string2: 'string2',
           number2: 2,
-          func: function () {
+          func() {
             return true;
           },
           obj2: {

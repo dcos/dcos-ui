@@ -58,7 +58,7 @@ function schemaToFieldDefinition(options) {
     required: false,
     showError: false,
     writeType: 'input',
-    validation: function () { return true; },
+    validation() { return true; },
     externalValidator: fieldProps.externalValidator,
     value,
     valueType: fieldProps.type
@@ -224,7 +224,7 @@ let SchemaUtil = {
    *
    * @return {Object} multipleDefinition The form definition.
    */
-  schemaToMultipleDefinition: function (options) {
+  schemaToMultipleDefinition(options) {
     let {
       schema,
       renderSubheader,
@@ -329,7 +329,7 @@ let SchemaUtil = {
    *
    * @return {Object} multipleDefinition The form definition.
    */
-  definitionToJSONDocument: function (definition) {
+  definitionToJSONDocument(definition) {
     let jsonDocument = {};
 
     Object.keys(definition).forEach(function (topLevelProp) {
@@ -367,7 +367,7 @@ let SchemaUtil = {
    *
    * @return {Boolean} isValidSchema Whether the schema is valid.
    */
-  validateSchema: function (schema) {
+  validateSchema(schema) {
     try {
       SchemaUtil.definitionToJSONDocument(
         SchemaUtil.schemaToMultipleDefinition({schema})

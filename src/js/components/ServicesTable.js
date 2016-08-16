@@ -40,13 +40,13 @@ var ServicesTable = React.createClass({
 
   mixins: [StoreMixin],
 
-  getDefaultProps: function () {
+  getDefaultProps() {
     return {
       services: []
     };
   },
 
-  getInitialState: function () {
+  getInitialState() {
     return {
       disabledDialog: null,
       errorMsg: null,
@@ -55,7 +55,7 @@ var ServicesTable = React.createClass({
     };
   },
 
-  componentWillMount: function () {
+  componentWillMount() {
     this.store_listeners = [
       {
         name: 'marathon',
@@ -67,34 +67,34 @@ var ServicesTable = React.createClass({
     ];
   },
 
-  componentDidMount: function () {
+  componentDidMount() {
     MarathonStore.addChangeListener(
       EventTypes.MARATHON_APPS_CHANGE,
       this.onMarathonAppsChange
     );
   },
 
-  componentWillUnmount: function () {
+  componentWillUnmount() {
     MarathonStore.removeChangeListener(
       EventTypes.MARATHON_APPS_CHANGE,
       this.onMarathonAppsChange
     );
   },
 
-  onServiceDestroyModalClose: function () {
+  onServiceDestroyModalClose() {
     this.closeDialog();
     this.context.router.transitionTo('services-page');
   },
 
-  onServiceSuspendModalClose: function () {
+  onServiceSuspendModalClose() {
     this.closeDialog();
   },
 
-  onMarathonStoreServiceRestartSuccess: function () {
+  onMarathonStoreServiceRestartSuccess() {
     this.closeDialog();
   },
 
-  onMarathonStoreServiceRestartError: function ({message: errorMsg}) {
+  onMarathonStoreServiceRestartError({message: errorMsg}) {
     this.setState({
       disabledDialog: null,
       errorMsg
@@ -123,7 +123,7 @@ var ServicesTable = React.createClass({
     );
   },
 
-  onAcceptRestartConfirmDialog: function () {
+  onAcceptRestartConfirmDialog() {
     let service = this.state.serviceToChange;
 
     this.setState({disabledDialog: ServiceActionItem.RESTART}, () => {
@@ -131,18 +131,18 @@ var ServicesTable = React.createClass({
     });
   },
 
-  onMarathonAppsChange: function () {
+  onMarathonAppsChange() {
     this.forceUpdate();
   },
 
-  onActionsItemSelection: function (service, actionItem) {
+  onActionsItemSelection(service, actionItem) {
     this.setState({
       serviceToChange: service,
       serviceActionDialog: actionItem.id
     });
   },
 
-  closeDialog: function () {
+  closeDialog() {
     this.setState({
       disabledDialog: null,
       errorMsg: null,
@@ -151,7 +151,7 @@ var ServicesTable = React.createClass({
     });
   },
 
-  getErrorMessage: function () {
+  getErrorMessage() {
     let {errorMsg} = this.state;
     if (!errorMsg) {
       return null;
@@ -161,7 +161,7 @@ var ServicesTable = React.createClass({
     );
   },
 
-  getRestartConfirmDialog: function () {
+  getRestartConfirmDialog() {
     const {state} = this;
     let service = state.serviceToChange;
     let serviceName = '';
@@ -196,7 +196,7 @@ var ServicesTable = React.createClass({
     );
   },
 
-  getServiceScaleFormModal: function () {
+  getServiceScaleFormModal() {
     if (!this.state.serviceToChange) {
       return null;
     }
@@ -209,7 +209,7 @@ var ServicesTable = React.createClass({
     );
   },
 
-  getServiceLink: function (service) {
+  getServiceLink(service) {
     const id = encodeURIComponent(service.getId());
 
     if (this.props.isFiltered) {
@@ -233,7 +233,7 @@ var ServicesTable = React.createClass({
     );
   },
 
-  getImage: function (service) {
+  getImage(service) {
     if (service instanceof ServiceTree) {
       // Get serviceTree image/icon
       return (
@@ -255,7 +255,7 @@ var ServicesTable = React.createClass({
     );
   },
 
-  renderHeadline: function (prop, service) {
+  renderHeadline(prop, service) {
     const id = encodeURIComponent(service.getId());
 
     return (
@@ -275,7 +275,7 @@ var ServicesTable = React.createClass({
     );
   },
 
-  renderServiceActions: function (service) {
+  renderServiceActions(service) {
     let isGroup = service instanceof ServiceTree;
     let instancesCount = service.getInstancesCount();
     let scaleText = 'Scale';
@@ -343,7 +343,7 @@ var ServicesTable = React.createClass({
     );
   },
 
-  renderStatus: function (prop, service) {
+  renderStatus(prop, service) {
     let instanceCount = service.getInstancesCount();
     let serviceId = service.getId();
     let serviceStatus = service.getStatus();
@@ -374,7 +374,7 @@ var ServicesTable = React.createClass({
     );
   },
 
-  renderStats: function (prop, service) {
+  renderStats(prop, service) {
     return (
       <span>
         {Units.formatResource(prop, service.getResources()[prop])}
@@ -382,7 +382,7 @@ var ServicesTable = React.createClass({
     );
   },
 
-  renderStatsHeading: function (prop, sortBy, row) {
+  renderStatsHeading(prop, sortBy, row) {
     let isHeader = row == null;
 
     return classNames('flush-left text-align-right hidden-mini hidden-small', {
@@ -391,14 +391,14 @@ var ServicesTable = React.createClass({
     });
   },
 
-  getColumns: function () {
+  getColumns() {
     let className = ResourceTableUtil.getClassName;
     let heading = ResourceTableUtil.renderHeading(ServiceTableHeaderLabels);
     let {isFiltered} = this.props;
 
     return [
       {
-        className: function () {
+        className() {
           return classNames([
             className.apply(this, arguments),
             {'table-cell-short': isFiltered}
@@ -451,7 +451,7 @@ var ServicesTable = React.createClass({
     ];
   },
 
-  getColGroup: function () {
+  getColGroup() {
     return (
       <colgroup>
         <col />
@@ -463,7 +463,7 @@ var ServicesTable = React.createClass({
     );
   },
 
-  render: function () {
+  render() {
     let {serviceActionDialog, serviceToChange} = this.state;
 
     return (

@@ -27,9 +27,9 @@ let nodesRoutes = {
       name: 'nodes-page',
       path: '/nodes/?',
       handler: NodesPage,
-      buildBreadCrumb: function () {
+      buildBreadCrumb() {
         return {
-          getCrumbs: function () {
+          getCrumbs() {
             return [
               {
                 label: 'Nodes',
@@ -65,10 +65,10 @@ let nodesRoutes = {
       path: ':nodeID/?',
       handler: NodeDetailPage,
       hideHeaderNavigation: true,
-      buildBreadCrumb: function () {
+      buildBreadCrumb() {
         return {
           parentCrumb: 'nodes-page',
-          getCrumbs: function (router) {
+          getCrumbs(router) {
             return [
               <NodeDetailBreadcrumb
                 parentRouter={router}
@@ -85,10 +85,10 @@ let nodesRoutes = {
           name: 'item-volume-detail',
           path: ':nodeID/tasks/:taskID/volumes/:volumeID/?',
           handler: VolumeDetail,
-          buildBreadCrumb: function () {
+          buildBreadCrumb() {
             return {
               parentCrumb: 'node-detail',
-              getCrumbs: function (router) {
+              getCrumbs(router) {
                 return [
                   {
                     label: 'Volumes',
@@ -111,10 +111,10 @@ let nodesRoutes = {
           name: 'nodes-task-details',
           handler: TaskDetail,
           hideHeaderNavigation: true,
-          buildBreadCrumb: function () {
+          buildBreadCrumb() {
             return {
               parentCrumb: 'node-detail',
-              getCrumbs: function (router) {
+              getCrumbs(router) {
                 return [
                   <TaskDetailBreadcrumb
                     parentRouter={router}
@@ -129,10 +129,10 @@ let nodesRoutes = {
               name: 'nodes-task-details-tab',
               handler: TaskDetailsTab,
               hideHeaderNavigation: true,
-              buildBreadCrumb: function () {
+              buildBreadCrumb() {
                 return {
                   parentCrumb: 'nodes-task-details',
-                  getCrumbs: function () { return []; }
+                  getCrumbs() { return []; }
                 };
               },
               title: 'Details'
@@ -144,10 +144,10 @@ let nodesRoutes = {
               handler: TaskFilesTab,
               hideHeaderNavigation: true,
               logRouteName: 'nodes-task-details-logs',
-              buildBreadCrumb: function () {
+              buildBreadCrumb() {
                 return {
                   parentCrumb: 'nodes-task-details',
-                  getCrumbs: function () { return []; }
+                  getCrumbs() { return []; }
                 };
               },
               title: 'Files'
@@ -159,10 +159,10 @@ let nodesRoutes = {
               path: 'logs/:filePath?/?:innerPath?/?',
               handler: TaskLogsTab,
               hideHeaderNavigation: true,
-              buildBreadCrumb: function () {
+              buildBreadCrumb() {
                 return {
                   parentCrumb: 'nodes-task-details',
-                  getCrumbs: function () { return []; }
+                  getCrumbs() { return []; }
                 };
               },
               title: 'Logs'
@@ -172,10 +172,10 @@ let nodesRoutes = {
               name: 'nodes-task-details-volumes',
               path: 'volumes/:volumeID?',
               handler: VolumeTable,
-              buildBreadCrumb: function () {
+              buildBreadCrumb() {
                 return {
                   parentCrumb: 'nodes-task-details',
-                  getCrumbs: function () { return []; }
+                  getCrumbs() { return []; }
                 };
               },
               title: 'Volumes'
@@ -187,10 +187,10 @@ let nodesRoutes = {
           name: 'node-detail-health',
           path: ':nodeID/:unitNodeID/:unitID/?',
           handler: UnitsHealthNodeDetail,
-          buildBreadCrumb: function () {
+          buildBreadCrumb() {
             return {
               parentCrumb: 'node-detail',
-              getCrumbs: function (router) {
+              getCrumbs(router) {
                 return [
                   <UnitsHealthDetailBreadcrumb
                     parentRouter={router}

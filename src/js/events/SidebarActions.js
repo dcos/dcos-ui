@@ -14,40 +14,40 @@ var AppDispatcher = require('./AppDispatcher');
 
 module.exports = {
 
-  open: function () {
+  open() {
     AppDispatcher.handleSidebarAction({
       type: REQUEST_SIDEBAR_OPEN,
       data: true
     });
   },
 
-  close: function () {
+  close() {
     AppDispatcher.handleSidebarAction({
       type: REQUEST_SIDEBAR_CLOSE,
       data: false
     });
   },
 
-  openCliInstructions: function () {
+  openCliInstructions() {
     AppDispatcher.handleSidebarAction({
       type: REQUEST_CLI_INSTRUCTIONS,
       data: false
     });
   },
 
-  showVersions: function () {
+  showVersions() {
     var host = Config.rootUrl.replace(/:[0-9]{0,4}$/, '');
     var url = host + '/pkgpanda/active.buildinfo.full.json';
 
     RequestUtil.json({
-      url: url,
-      success: function (response) {
+      url,
+      success(response) {
         AppDispatcher.handleSidebarAction({
           type: REQUEST_VERSIONS_SUCCESS,
           data: response
         });
       },
-      error: function (e) {
+      error(e) {
         AppDispatcher.handleSidebarAction({
           type: REQUEST_VERSIONS_ERROR,
           data: e.message
@@ -56,7 +56,7 @@ module.exports = {
     });
   },
 
-  sidebarWidthChange: function () {
+  sidebarWidthChange() {
     AppDispatcher.handleSidebarAction({
       type: REQUEST_SIDEBAR_WIDTH_CHANGE
     });

@@ -15,7 +15,7 @@ const TabsUtil = {
    * @param  {Function} getElement render function to render each element
    * @return {Array} of tabs to render
    */
-  getTabs: function (tabs, currentTab, getElement) {
+  getTabs(tabs, currentTab, getElement) {
     let tabSet = Object.keys(tabs);
 
     return tabSet.map(function (tab, index) {
@@ -37,7 +37,7 @@ const TabsUtil = {
    * @param  {Object} tabs - tabs with a key for each tab to render
    * @return {Object}      tabs Object with sorted insertion order
    */
-  sortTabs: function (tabs) {
+  sortTabs(tabs) {
     let comparator = (a, b) => b[1] - a[1];
 
     return Object.keys(tabs)

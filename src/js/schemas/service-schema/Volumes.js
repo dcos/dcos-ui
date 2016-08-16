@@ -16,7 +16,7 @@ const Volumes = {
       type: 'array',
       duplicable: true,
       addLabel: 'Add Local Volume',
-      getter: function (service) {
+      getter(service) {
         let containerSettings = service.getContainerSettings();
 
         if (containerSettings == null || containerSettings.volumes == null) {
@@ -55,7 +55,7 @@ const Volumes = {
       type: 'array',
       duplicable: true,
       addLabel: 'Add Container Volume',
-      getter: function (service) {
+      getter(service) {
         let containerSettings = service.getContainerSettings();
 
         if (containerSettings == null || containerSettings.volumes == null) {
@@ -104,7 +104,7 @@ const Volumes = {
       type: 'array',
       duplicable: true,
       addLabel: 'Add External Volume',
-      getter: function (service) {
+      getter(service) {
         let containerSettings = service.getContainerSettings();
 
         if (containerSettings == null || containerSettings.volumes == null) {

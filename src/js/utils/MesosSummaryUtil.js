@@ -3,7 +3,7 @@ var Maths = require('../utils/Maths');
 
 const MesosSummaryUtil = {
 
-  sumResources: function (resourceList) {
+  sumResources(resourceList) {
     return resourceList.reduce(function (memo, resource) {
       if (resource == null) {
         return memo;
@@ -17,7 +17,7 @@ const MesosSummaryUtil = {
     }, {cpus: 0, mem: 0, disk: 0});
   },
 
-  stateResourcesToResourceStates: function (stateResources) {
+  stateResourcesToResourceStates(stateResources) {
     // Transpose from [{date, resources, totalResources}, ...]
     // to {resource: [{date, value, percentage}, ...], resource: ...}
     let resources = {cpus: [], mem: [], disk: []};
@@ -44,13 +44,13 @@ const MesosSummaryUtil = {
     return resources;
   },
 
-  filterHostsByService: function (hosts, frameworkId) {
+  filterHostsByService(hosts, frameworkId) {
     return hosts.filter(function (host) {
       return host.framework_ids.includes(frameworkId);
     });
   },
 
-  getInitialStates: function () {
+  getInitialStates() {
     var currentDate = Date.now();
     // reverse date range!!!
     let reverseRange = [];
@@ -68,7 +68,7 @@ const MesosSummaryUtil = {
     });
   },
 
-  addTimestampsToData: function (data, timeStep) {
+  addTimestampsToData(data, timeStep) {
     var length = data.length;
     var timeNow = Date.now() + timeStep;
 

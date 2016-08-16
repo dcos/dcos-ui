@@ -71,7 +71,7 @@ class AddRepositoryFormModal extends mixin(StoreMixin) {
         showError: false,
         showLabel: false,
         writeType: 'input',
-        validation: function () { return true; },
+        validation() { return true; },
         value: ''
       },
       {
@@ -96,7 +96,7 @@ class AddRepositoryFormModal extends mixin(StoreMixin) {
         validationErrorText: `Must be a positive integer between 0 and ${numberOfRepositories} representing its priority. 0 is the highest and ${numberOfRepositories} denotes the lowest priority.`,
         showLabel: false,
         writeType: 'input',
-        validation: function (value) {
+        validation(value) {
           return ValidatorUtil.isDefined(value) &&
               ValidatorUtil.isNumberInRange(value, {max: numberOfRepositories});
         },

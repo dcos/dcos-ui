@@ -384,8 +384,8 @@ class SchemaForm extends mixin(StoreMixin, InternalStorageMixin) {
 
 SchemaForm.defaultProps = {
   className: 'multiple-form row',
-  getTriggerSubmit: function () {},
-  onChange: function () {},
+  getTriggerSubmit() {},
+  onChange() {},
   schema: {}
 };
 

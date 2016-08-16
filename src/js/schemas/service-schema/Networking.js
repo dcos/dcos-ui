@@ -18,7 +18,7 @@ const Networking = {
         {html: 'Host (Default)', id: 'host'},
         {html: 'Bridge', id: 'bridge'}
       ],
-      getter: function (service) {
+      getter(service) {
         let ipAddress = service.getIpAddress();
         if (ipAddress) {
 
@@ -33,7 +33,7 @@ const Networking = {
 
         return 'host';
       },
-      filterProperties: function (currentValue, definition, model) {
+      filterProperties(currentValue, definition, model) {
         // Hide this definition when model values dictate
         if (model.containerSettings
           && model.containerSettings.image != null
@@ -56,7 +56,7 @@ const Networking = {
       type: 'array',
       duplicable: true,
       addLabel: 'Add an endpoint',
-      getter: function (service) {
+      getter(service) {
         let container = service.getContainerSettings();
         let portMappings = null;
         if (container && container.docker && container.docker.portMappings) {
@@ -82,7 +82,7 @@ const Networking = {
           };
         });
       },
-      filterProperties: function (service = {}, instanceDefinition, model) {
+      filterProperties(service = {}, instanceDefinition, model) {
         let properties = Networking
           .properties
           .ports
@@ -139,7 +139,7 @@ const Networking = {
           lbPort: {
             title: 'LB Port',
             type: 'number',
-            externalValidator: function ({networking}, definition) {
+            externalValidator({networking}, definition) {
               const {[definition.name]: port} = networking;
 
               if (port === DISABLED_LB_PORT_FIELD_VALUE ||

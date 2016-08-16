@@ -18,13 +18,13 @@ var ResourceTimeSeriesChart = React.createClass({
     refreshRate: React.PropTypes.number.isRequired
   },
 
-  getDefaultProps: function () {
+  getDefaultProps() {
     return {
       colorIndex: 0
     };
   },
 
-  getData: function () {
+  getData() {
     var props = this.props;
     return [{
       name: 'Alloc',
@@ -33,7 +33,7 @@ var ResourceTimeSeriesChart = React.createClass({
     }];
   },
 
-  getHeadline: function (usedValue, totalValue) {
+  getHeadline(usedValue, totalValue) {
     if (this.props.mode === 'cpus') {
       return usedValue + ' of ' + totalValue + ' Shares';
     } else {
@@ -42,7 +42,7 @@ var ResourceTimeSeriesChart = React.createClass({
     }
   },
 
-  getChart: function () {
+  getChart() {
     var props = this.props;
 
     return (
@@ -56,7 +56,7 @@ var ResourceTimeSeriesChart = React.createClass({
     );
   },
 
-  render: function () {
+  render() {
     var props = this.props;
     var usedValue = Math.round(props.usedResources[props.mode]);
     var totalValue = Math.round(props.totalResources[props.mode]);

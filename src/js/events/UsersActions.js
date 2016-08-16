@@ -13,16 +13,16 @@ import AppDispatcher from './AppDispatcher';
 import Config from '../config/Config';
 
 const UsersActions = {
-  fetch: function () {
+  fetch() {
     RequestUtil.json({
       url: `${Config.rootUrl}${Config.acsAPIPrefix}/users`,
-      success: function (response) {
+      success(response) {
         AppDispatcher.handleServerAction({
           type: REQUEST_USERS_SUCCESS,
           data: response.array
         });
       },
-      error: function (xhr) {
+      error(xhr) {
         AppDispatcher.handleServerAction({
           type: REQUEST_USERS_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr)
@@ -31,7 +31,7 @@ const UsersActions = {
     });
   },
 
-  addUser: function (data) {
+  addUser(data) {
     let userID = data.uid;
     data = Util.omit(data, ['uid']);
 
@@ -45,13 +45,13 @@ const UsersActions = {
       url: `${Config.rootUrl}${Config.acsAPIPrefix}/users/${userID}`,
       method: 'PUT',
       data,
-      success: function () {
+      success() {
         AppDispatcher.handleServerAction({
           type: REQUEST_USER_CREATE_SUCCESS,
           userID
         });
       },
-      error: function (xhr) {
+      error(xhr) {
         AppDispatcher.handleServerAction({
           type: REQUEST_USER_CREATE_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr),
@@ -62,18 +62,18 @@ const UsersActions = {
     });
   },
 
-  deleteUser: function (userID) {
+  deleteUser(userID) {
     userID = encodeURIComponent(userID);
     RequestUtil.json({
       url: `${Config.rootUrl}${Config.acsAPIPrefix}/users/${userID}`,
       method: 'DELETE',
-      success: function () {
+      success() {
         AppDispatcher.handleServerAction({
           type: REQUEST_USER_DELETE_SUCCESS,
           userID
         });
       },
-      error: function (xhr) {
+      error(xhr) {
         AppDispatcher.handleServerAction({
           type: REQUEST_USER_DELETE_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr),

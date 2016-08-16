@@ -105,7 +105,7 @@ class MetronomeStore extends EventEmitter {
         change: METRONOME_JOBS_CHANGE,
         error: METRONOME_JOBS_ERROR
       },
-      unmountWhen: function () {
+      unmountWhen() {
         return true;
       },
       listenAlways: true

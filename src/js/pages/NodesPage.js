@@ -68,7 +68,7 @@ var NodesPage = React.createClass({
     // 'when a handler is about to render', i.e. on route change:
     // https://github.com/rackt/react-router/
     // blob/master/docs/api/components/RouteHandler.md
-    willTransitionTo: function () {
+    willTransitionTo() {
 
       SidebarActions.close();
     }
@@ -78,11 +78,11 @@ var NodesPage = React.createClass({
     router: React.PropTypes.func
   },
 
-  getInitialState: function () {
+  getInitialState() {
     return Object.assign({selectedResource: 'cpus'}, DEFAULT_FILTER_OPTIONS);
   },
 
-  componentWillMount: function () {
+  componentWillMount() {
     this.internalStorage_set(getMesosHosts(this.state));
     this.internalStorage_update({
       openNodePanel: false,
@@ -97,7 +97,7 @@ var NodesPage = React.createClass({
     ];
   },
 
-  componentDidMount: function () {
+  componentDidMount() {
     MesosSummaryStore.addChangeListener(
       EventTypes.MESOS_SUMMARY_CHANGE,
       this.onMesosStateChange
@@ -114,14 +114,14 @@ var NodesPage = React.createClass({
     });
   },
 
-  componentWillReceiveProps: function (nextProps) {
+  componentWillReceiveProps(nextProps) {
     this.internalStorage_update({
       openNodePanel: nextProps.params.nodeID != null,
       openTaskPanel: nextProps.params.taskID != null
     });
   },
 
-  componentWillUnmount: function () {
+  componentWillUnmount() {
     MesosSummaryStore.removeChangeListener(
       EventTypes.MESOS_SUMMARY_CHANGE,
       this.onMesosStateChange
@@ -133,12 +133,12 @@ var NodesPage = React.createClass({
     );
   },
 
-  onMesosStateChange: function () {
+  onMesosStateChange() {
     this.internalStorage_update(getMesosHosts(this.state));
     this.forceUpdate();
   },
 
-  resetFilter: function () {
+  resetFilter() {
     let state = Object.assign({}, DEFAULT_FILTER_OPTIONS);
 
     this.setState(state);
@@ -149,40 +149,40 @@ var NodesPage = React.createClass({
     }
   },
 
-  handleSearchStringChange: function (searchString) {
+  handleSearchStringChange(searchString) {
     var stateChanges = Object.assign({}, this.state, {
-      searchString: searchString
+      searchString
     });
 
     this.internalStorage_update(getMesosHosts(stateChanges));
-    this.setState({searchString: searchString});
+    this.setState({searchString});
   },
 
-  handleByServiceFilterChange: function (byServiceFilter) {
+  handleByServiceFilterChange(byServiceFilter) {
     if (byServiceFilter === '') {
       byServiceFilter = null;
     }
 
     var stateChanges = Object.assign({}, this.state, {
-      byServiceFilter: byServiceFilter
+      byServiceFilter
     });
 
     this.internalStorage_update(getMesosHosts(stateChanges));
-    this.setState({byServiceFilter: byServiceFilter});
+    this.setState({byServiceFilter});
   },
 
-  handleHealthFilterChange: function (healthFilter) {
+  handleHealthFilterChange(healthFilter) {
     this.internalStorage_update(getMesosHosts({healthFilter}));
     this.setState({healthFilter});
   },
 
-  onResourceSelectionChange: function (selectedResource) {
+  onResourceSelectionChange(selectedResource) {
     if (this.state.selectedResource !== selectedResource) {
-      this.setState({selectedResource: selectedResource});
+      this.setState({selectedResource});
     }
   },
 
-  getButtonContent: function (filterName, count) {
+  getButtonContent(filterName, count) {
     let dotClassSet = classNames({
       'dot': filterName !== 'all',
       'danger': filterName === 'unhealthy',
@@ -198,7 +198,7 @@ var NodesPage = React.createClass({
     );
   },
 
-  getFilterInputText: function () {
+  getFilterInputText() {
     var isVisible = /\/nodes\/list\/?/i.test(RouterLocation.getCurrentPath());
 
     if (!isVisible) {
@@ -214,7 +214,7 @@ var NodesPage = React.createClass({
     );
   },
 
-  getViewTypeRadioButtons: function (resetFilter) {
+  getViewTypeRadioButtons(resetFilter) {
     var listClassSet = classNames({
       'active': /\/nodes\/list\/?/i.test(RouterLocation.getCurrentPath()),
       'button button-stroke button-inverse': true
@@ -233,7 +233,7 @@ var NodesPage = React.createClass({
     );
   },
 
-  getHostsPageContent: function () {
+  getHostsPageContent() {
     let {byServiceFilter, healthFilter, searchString, selectedResource} = this.state;
     var data = this.internalStorage_get();
     let nodes = data.nodes || [];
@@ -292,7 +292,7 @@ var NodesPage = React.createClass({
     );
   },
 
-  getEmptyHostsPageContent: function () {
+  getEmptyHostsPageContent() {
     return (
       <AlertPanel
         title="Empty Datacenter"
@@ -304,7 +304,7 @@ var NodesPage = React.createClass({
     );
   },
 
-  getContents: function (isEmpty) {
+  getContents(isEmpty) {
     if (isEmpty) {
       return this.getEmptyHostsPageContent();
     } else {
@@ -312,7 +312,7 @@ var NodesPage = React.createClass({
     }
   },
 
-  render: function () {
+  render() {
     var data = this.internalStorage_get();
     let statesProcessed = MesosSummaryStore.get('statesProcessed');
     var isEmpty = statesProcessed && data.totalNodes === 0;

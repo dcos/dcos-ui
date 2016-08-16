@@ -7,11 +7,11 @@ var InternalStorageMixin = {
 
   internalStorage_data: {},
 
-  internalStorage_get: function () {
+  internalStorage_get() {
     return this.internalStorage_data;
   },
 
-  internalStorage_update: function (diff) {
+  internalStorage_update(diff) {
     if (typeof this.internalStorage_data !== 'object') {
       throw new Error('Can only update internalStorage_data if that is of type Object or Array.');
     }
@@ -19,7 +19,7 @@ var InternalStorageMixin = {
     this.internalStorage_data = Object.assign(this.internalStorage_get(), diff);
   },
 
-  internalStorage_set: function (data) {
+  internalStorage_set(data) {
     this.internalStorage_data = data;
   }
 

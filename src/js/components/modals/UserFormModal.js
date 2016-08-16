@@ -94,7 +94,7 @@ class UserFormModal extends mixin(StoreMixin) {
       showError: state.errorMsg,
       showLabel: false,
       writeType: 'input',
-      validation: function () { return true; },
+      validation() { return true; },
       value: ''
     }], props, state);
   }

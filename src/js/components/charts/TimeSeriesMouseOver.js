@@ -20,15 +20,15 @@ var TimeSeriesMouseOver = React.createClass({
     yCaption: React.PropTypes.string.isRequired
   },
 
-  componentDidMount: function () {
+  componentDidMount() {
     this.props.addMouseHandler(this.handleMouseMove, this.handleMouseOut);
   },
 
-  componentWillUnmount: function () {
+  componentWillUnmount() {
     this.props.removeMouseHandler(this.handleMouseMove, this.handleMouseOut);
   },
 
-  calculateMousePositionInGraph: function (e) {
+  calculateMousePositionInGraph(e) {
     var boundingBox = this.props.getBoundingBox();
     var mouse = {
       x: e.clientX || e.pageX,
@@ -48,7 +48,7 @@ var TimeSeriesMouseOver = React.createClass({
     return mouse;
   },
 
-  handleMouseMove: function (e) {
+  handleMouseMove(e) {
     var mouse = this.calculateMousePositionInGraph(e);
 
     // This means that mouse is out of bounds
@@ -120,7 +120,7 @@ var TimeSeriesMouseOver = React.createClass({
       .text(value || 0);
   },
 
-  handleMouseOut: function () {
+  handleMouseOut() {
     d3.select(this.refs.yMousePosition).interrupt()
       .style('stroke', 'rgba(255,255,255,0');
     d3.select(this.refs.xMousePosition).interrupt()
@@ -131,7 +131,7 @@ var TimeSeriesMouseOver = React.createClass({
       .text('');
   },
 
-  render: function () {
+  render() {
     var height = this.props.height;
 
     // dy=.71em, y=9 and x=-9, dy=.32em are magic numbers from looking at

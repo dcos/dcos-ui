@@ -38,7 +38,7 @@ describe('MesosLogView', function () {
     this.instance.setState = jasmine.createSpy('setState');
 
     MesosLogStore.get = jasmine.createSpy('MesosLogStore#get').and.returnValue({
-      getFullLog: function () {
+      getFullLog() {
         return 'foo';
       }
     });

@@ -16,14 +16,14 @@ var Chart = React.createClass({
     delayRender: React.PropTypes.bool
   },
 
-  getDefaultProps: function () {
+  getDefaultProps() {
     return {
       calcHeight: null,
       delayRender: false
     };
   },
 
-  componentWillMount: function () {
+  componentWillMount() {
     this.store_listeners = [
       {
         name: 'sidebar',
@@ -34,7 +34,7 @@ var Chart = React.createClass({
     this.internalStorage_set({width: null});
   },
 
-  componentDidMount: function () {
+  componentDidMount() {
     if (this.props.delayRender) {
       // As of right now this is used on the Side Panels
       // because they animate in we need to wait on calling
@@ -48,19 +48,19 @@ var Chart = React.createClass({
     window.addEventListener('resize', this.updateWidth);
   },
 
-  shouldComponentUpdate: function () {
+  shouldComponentUpdate() {
     return DOMUtils.isElementOnTop(ReactDOM.findDOMNode(this));
   },
 
-  componentWillUnmount: function () {
+  componentWillUnmount() {
     window.removeEventListener('resize', this.updateWidth);
   },
 
-  onSidebarStoreWidthChange: function () {
+  onSidebarStoreWidthChange() {
     this.updateWidth();
   },
 
-  updateWidth: function () {
+  updateWidth() {
     if (!this.isMounted()) {
       return;
     }
@@ -74,7 +74,7 @@ var Chart = React.createClass({
     }
   },
 
-  getChildren: function () {
+  getChildren() {
     var data = this.internalStorage_get();
     var width = data.width;
     var height = data.height;
@@ -91,19 +91,19 @@ var Chart = React.createClass({
         return children.map(function (child) {
           return React.cloneElement(
             child,
-            {width: width, height: height}
+            {width, height}
           );
         });
       } else {
         return React.cloneElement(
           children,
-          {width: width, height: height}
+          {width, height}
         );
       }
     }
   },
 
-  render: function () {
+  render() {
     // at the moment, 'chart' is used to inject the chart colour palette.
     // we should reclaim it as the rightful className of <Chart />
     return (

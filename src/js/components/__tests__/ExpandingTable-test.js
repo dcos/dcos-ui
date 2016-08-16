@@ -8,7 +8,7 @@ var ExpandingTable = require('../ExpandingTable');
 
 describe('ExpandingTable', function () {
   beforeEach(function () {
-    this.columns = [{heading: function () {}, prop: 'id'}];
+    this.columns = [{heading() {}, prop: 'id'}];
     this.rows = [{id: 'foo'}, {id: 'bar'}];
     this.container = document.createElement('div');
   });

@@ -35,9 +35,9 @@ let jobsRoutes = {
   name: 'jobs-page',
   handler: JobsPage,
   path: '/jobs/?',
-  buildBreadCrumb: function () {
+  buildBreadCrumb() {
     return {
-      getCrumbs: function () {
+      getCrumbs() {
         return [
           {
             label: 'Jobs',
@@ -57,7 +57,7 @@ let jobsRoutes = {
           handler: JobDetailPage,
           name: 'jobs-page-detail',
           path: ':id/?',
-          buildBreadCrumb: function () {
+          buildBreadCrumb() {
             return {
               parentCrumb: 'jobs-page',
               getCrumbs: buildJobCrumbs
@@ -69,10 +69,10 @@ let jobsRoutes = {
               path: 'tasks/:taskID/?',
               name: 'jobs-task-details',
               handler: TaskDetail,
-              buildBreadCrumb: function () {
+              buildBreadCrumb() {
                 return {
                   parentCrumb: 'jobs-page-detail',
-                  getCrumbs: function (router) {
+                  getCrumbs(router) {
                     return [
                       <TaskDetailBreadcrumb
                         parentRouter={router}
@@ -86,10 +86,10 @@ let jobsRoutes = {
                   type: DefaultRoute,
                   name: 'jobs-task-details-tab',
                   handler: TaskDetailsTab,
-                  buildBreadCrumb: function () {
+                  buildBreadCrumb() {
                     return {
                       parentCrumb: 'jobs-task-details',
-                      getCrumbs: function () { return []; }
+                      getCrumbs() { return []; }
                     };
                   },
                   title:'Details'
@@ -100,10 +100,10 @@ let jobsRoutes = {
                   path: 'files/?',
                   handler: TaskFilesTab,
                   logRouteName: 'jobs-task-details-logs',
-                  buildBreadCrumb: function () {
+                  buildBreadCrumb() {
                     return {
                       parentCrumb: 'jobs-task-details',
-                      getCrumbs: function () { return []; }
+                      getCrumbs() { return []; }
                     };
                   },
                   title:'Files'
@@ -114,10 +114,10 @@ let jobsRoutes = {
                   dontScroll: true,
                   path: 'logs/:filePath?/?:innerPath?/?',
                   handler: TaskLogsTab,
-                  buildBreadCrumb: function () {
+                  buildBreadCrumb() {
                     return {
                       parentCrumb: 'jobs-task-details',
-                      getCrumbs: function () { return []; }
+                      getCrumbs() { return []; }
                     };
                   },
                   title:'Logs'

@@ -588,7 +588,7 @@ class ServiceFormModal extends mixin(StoreMixin) {
 
 ServiceFormModal.defaultProps = {
   isEdit: false,
-  onClose: function () {},
+  onClose() {},
   open: false,
   id: null,
   service: null

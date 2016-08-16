@@ -11,11 +11,11 @@ describe('DOMUtils', function () {
       var el = {
         parentElement: {
           id: 'something-fake',
-          matches: function () {
+          matches() {
             return true;
           }
         },
-        matches: function () {
+        matches() {
           return false;
         }
       };
@@ -28,7 +28,7 @@ describe('DOMUtils', function () {
       'the element is not a child of the selection', function () {
       var el = {
         parentElement: null,
-        matches: function () {
+        matches() {
           return true;
         }
       };
@@ -42,12 +42,12 @@ describe('DOMUtils', function () {
       var el = {
         parentElement: {
           id: 'something-fake',
-          matches: function () {
+          matches() {
             return false;
           }
         },
         id: 'child-element',
-        matches: function () {
+        matches() {
           return true;
         }
       };
@@ -191,7 +191,7 @@ describe('DOMUtils', function () {
   describe('#isElementOnTop', function () {
     beforeEach(function () {
       this.element = {
-        getBoundingClientRect: function () {
+        getBoundingClientRect() {
           return {
             top: 100,
             left: 200,
@@ -199,7 +199,7 @@ describe('DOMUtils', function () {
             width: 40
           };
         },
-        contains: function (el) {
+        contains(el) {
           return this === el;
         }
       };
@@ -213,7 +213,7 @@ describe('DOMUtils', function () {
     it('should return false if element is not at coord', function () {
       global.document.elementFromPoint = function () {
         return {
-          contains: function () { return false; }
+          contains() { return false; }
         };
       };
 
@@ -234,13 +234,13 @@ describe('DOMUtils', function () {
   describe('#getDistanceFromTopOfParent', function () {
     beforeEach(function () {
       this.element = {
-        getBoundingClientRect: function () {
+        getBoundingClientRect() {
           return {
             top: 300
           };
         },
         parentNode: {
-          getBoundingClientRect: function () {
+          getBoundingClientRect() {
             return {
               top: 200
             };

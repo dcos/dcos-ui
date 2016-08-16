@@ -6,7 +6,7 @@ const DateUtil = {
    * @param  {Date|Number} ms number to convert to time string
    * @return {String} time string with the format 'MM-DD-YYYY [at] h:mma'
    */
-  msToDateStr: function (ms) {
+  msToDateStr(ms) {
     return moment(ms).format('MM-DD-YYYY [at] h:mma');
   },
 
@@ -15,7 +15,7 @@ const DateUtil = {
    * @param  {Date|Number} ms number to convert to UTC time string
    * @return {String} time string with the format 'YYYY-MM-DD[T]HH:mm:ss.SSS[Z]'
    */
-  msToUTCDate: function (ms) {
+  msToUTCDate(ms) {
     return moment(ms).utc().format('YYYY-MM-DD[T]HH:mm:ss.SSS[Z]');
   },
 
@@ -25,11 +25,11 @@ const DateUtil = {
    * @param  {Boolean} suppressRelativeTime whether to remove 'ago' from string
    * @return {String} time string relative from now
    */
-  msToRelativeTime: function (ms, suppressRelativeTime = false) {
+  msToRelativeTime(ms, suppressRelativeTime = false) {
     return moment(ms).fromNow(suppressRelativeTime);
   },
 
-  strToMs: function (str) {
+  strToMs(str) {
     if (str == null) {
       return null;
     }
@@ -37,7 +37,7 @@ const DateUtil = {
     return moment(str).valueOf();
   },
 
-  getDuration: function (time, formatKey = 'seconds') {
+  getDuration(time, formatKey = 'seconds') {
     return moment.duration(time, formatKey).humanize();
   }
 };

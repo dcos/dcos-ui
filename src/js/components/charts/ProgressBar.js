@@ -13,7 +13,7 @@ var ProgressBar = React.createClass({
     value: React.PropTypes.number.isRequired
   },
 
-  getDefaultProps: function () {
+  getDefaultProps() {
     return {
       colorIndex: 1,
       value: 0
@@ -24,20 +24,20 @@ var ProgressBar = React.createClass({
    * for animation purposes we want to always start at 0
    * then update the values when we receive props.
    **/
-  componentWillMount: function () {
+  componentWillMount() {
     this.internalStorage_set({value: 0});
   },
 
-  componentDidMount: function () {
+  componentDidMount() {
     this.internalStorage_set({value: this.props.value});
     this.forceUpdate();
   },
 
-  componentWillReceiveProps: function (nextProps) {
+  componentWillReceiveProps(nextProps) {
     this.internalStorage_set({value: nextProps.value});
   },
 
-  render: function () {
+  render() {
     var props = this.props;
     var data = this.internalStorage_get();
 
