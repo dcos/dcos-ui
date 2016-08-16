@@ -75,7 +75,6 @@
     // Airbnb overwrites
     "import/newline-after-import": "off",
     "import/no-extraneous-dependencies": "off",
-    "no-prototype-builtins": "off",
     "react/no-find-dom-node": "off",
     "prefer-spread": "off",
     "space-unary-ops": "off",

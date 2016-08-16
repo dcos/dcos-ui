@@ -40,7 +40,7 @@ const FormUtil = {
       definitionField.name = `${prop}[${id}].${definitionField.name}`;
 
       let propKey = FormUtil.getPropKey(definitionField.name);
-      if (model && model.hasOwnProperty(propKey)) {
+      if (model && Object.prototype.hasOwnProperty.call(model, propKey)) {
         definitionField.value = model[propKey];
       }
 
@@ -194,7 +194,7 @@ const FormUtil = {
     // If has a property called 'definition' and it is an array, call on each
     // individual field. This can happen for definitions from TabForms
     // (multiple definitions).
-    if (definition.hasOwnProperty('definition') &&
+    if (Object.prototype.hasOwnProperty.call(definition, 'definition') &&
       Array.isArray(definition.definition)) {
       FormUtil.forEachDefinition(definition.definition, callback);
       return;
@@ -203,7 +203,11 @@ const FormUtil = {
     // This means we're at the root of a multiple definition.
     if (!React.isValidElement(definition)) {
       Object.values(definition).forEach(function (nestedDefinition) {
-        if (nestedDefinition.hasOwnProperty('definition')) {
+        let isNested = Object.prototype.hasOwnProperty.call(
+          nestedDefinition,
+          'definition'
+        );
+        if (isNested) {
           FormUtil.forEachDefinition(nestedDefinition.definition, callback);
         }
       });
@@ -218,8 +222,8 @@ const FormUtil = {
    */
   isFieldDefinition(fieldDefinition) {
     return typeof fieldDefinition === 'object' && fieldDefinition != null &&
-      fieldDefinition.hasOwnProperty('name') &&
-      fieldDefinition.hasOwnProperty('fieldType');
+      Object.prototype.hasOwnProperty.call(fieldDefinition, 'name') &&
+      Object.prototype.hasOwnProperty.call(fieldDefinition, 'fieldType');
   }
 };
 

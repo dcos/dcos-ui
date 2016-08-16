@@ -26,8 +26,7 @@ const General = {
       getter(job) {
         let [schedule = {}] = job.getSchedules();
 
-        if (schedule.hasOwnProperty('enabled')) {
-
+        if (Object.prototype.hasOwnProperty.call(schedule, 'enabled')) {
           return schedule.enabled;
         }
 

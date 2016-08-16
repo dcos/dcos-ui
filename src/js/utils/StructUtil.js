@@ -38,7 +38,7 @@ let StructUtil = {
     if (obj instanceof Object) {
       copy = {};
       for (var attr in obj) {
-        if (obj.hasOwnProperty(attr)) {
+        if (Object.prototype.hasOwnProperty.call(obj, attr)) {
           copy[attr] = copyRawObject(obj[attr]);
         }
       }

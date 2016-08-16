@@ -35,7 +35,7 @@ class NotificationStore extends GetSetBaseStore {
   }
 
   deleteLocation(notificationMap, location, notificationID) {
-    if (!notificationMap.hasOwnProperty(location)) {
+    if (!Object.prototype.hasOwnProperty.call(notificationMap, location)) {
       return notificationMap;
     }
 
@@ -99,7 +99,7 @@ class NotificationStore extends GetSetBaseStore {
    */
   getNotificationCount(tabName) {
     let notificationMap = this.get('notificationMap');
-    if (!notificationMap.hasOwnProperty(tabName)) {
+    if (!Object.prototype.hasOwnProperty.call(notificationMap, tabName)) {
       return 0;
     }
 
