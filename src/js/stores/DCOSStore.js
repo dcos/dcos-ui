@@ -42,7 +42,7 @@ class DCOSStore extends EventEmitter {
       events: {
         change: DCOS_CHANGE
       },
-      unmountWhen: function () {
+      unmountWhen() {
         return true;
       },
       listenAlways: true

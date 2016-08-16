@@ -1,9 +1,9 @@
 var LocalStorageUtil = {
-  set: function () {
+  set() {
     return global.localStorage.setItem.apply(global.localStorage, arguments);
   },
 
-  get: function () {
+  get() {
     return global.localStorage.getItem.apply(global.localStorage, arguments);
   }
 };

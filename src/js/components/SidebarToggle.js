@@ -17,30 +17,30 @@ var SidebarToggle = React.createClass({
 
   mixins: [InternalStorageMixin],
 
-  componentWillMount: function () {
+  componentWillMount() {
     this.internalStorage_set(getSidebarState());
   },
 
-  componentDidMount: function () {
+  componentDidMount() {
     SidebarStore.addChangeListener(
       EventTypes.SIDEBAR_CHANGE,
       this.onSidebarStateChange
     );
   },
 
-  componentWillUnmount: function () {
+  componentWillUnmount() {
     SidebarStore.removeChangeListener(
       EventTypes.SIDEBAR_CHANGE,
       this.onSidebarStateChange
     );
   },
 
-  onSidebarStateChange: function () {
+  onSidebarStateChange() {
     this.internalStorage_set(getSidebarState());
     this.forceUpdate();
   },
 
-  onClick: function (e) {
+  onClick(e) {
     var data = this.internalStorage_get();
 
     e.preventDefault();
@@ -53,7 +53,7 @@ var SidebarToggle = React.createClass({
 
   },
 
-  render: function () {
+  render() {
     return (
       <div className="page-navigation-sidebar-toggle" onClick={this.onClick}>
         <span className="page-navigation-sidebar-toggle-icon icon icon-white

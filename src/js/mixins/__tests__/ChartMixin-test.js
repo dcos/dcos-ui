@@ -19,7 +19,7 @@ describe('ChartMixin', function () {
     }];
 
     this.props = {
-      data: data,
+      data,
       margin: {
         left: 0,
         right: 0,

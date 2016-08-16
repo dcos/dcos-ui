@@ -131,7 +131,7 @@ describe('AppReducer', function () {
     PluginSDK.dispatch({
       type: EventTypes.APP_STORE_CHANGE,
       storeID: 'foo',
-      data: data
+      data
     });
     var state = getApplicationState();
 

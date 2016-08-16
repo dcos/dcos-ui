@@ -79,7 +79,7 @@ class MesosSummaryStore extends GetSetBaseStore {
       },
 
       // When to remove listener
-      unmountWhen: function (store, event) {
+      unmountWhen(store, event) {
         if (event === 'success') {
           return store.get('statesProcessed');
         }

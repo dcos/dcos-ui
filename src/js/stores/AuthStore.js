@@ -33,7 +33,7 @@ class AuthStore extends GetSetBaseStore {
         logoutSuccess: AUTH_USER_LOGOUT_SUCCESS,
         logoutError: AUTH_USER_LOGOUT_ERROR
       },
-      unmountWhen: function () {
+      unmountWhen() {
         return true;
       },
       listenAlways: true

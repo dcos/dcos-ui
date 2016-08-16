@@ -19,10 +19,10 @@ let General = {
       focused: true,
       description: 'ID for the service',
       type: 'string',
-      getter: function (service) {
+      getter(service) {
         return service.getId();
       },
-      externalValidator: function ({general}, definition) {
+      externalValidator({general}, definition) {
         if (!ServiceValidatorUtil.isValidServiceID(general.id)) {
           definition.showError = 'ID must not be empty, must not contain ' +
             'whitespace, and should not contain any other characters than ' +
@@ -42,10 +42,10 @@ let General = {
           description: 'Amount of CPUs used for the service',
           type: 'number',
           default: 1,
-          getter: function (service) {
+          getter(service) {
             return `${service.getCpus() || this.default}`;
           },
-          externalValidator: function ({general}, definition) {
+          externalValidator({general}, definition) {
             if (!ResourceValidatorUtil.isValidCPUs(general.cpus)) {
               definition.showError = 'CPUs must be a number greater than ' +
                 `or equal to ${MesosConstants.MIN_CPUS}`;
@@ -60,10 +60,10 @@ let General = {
           title: 'Memory (MiB)',
           type: 'number',
           default: 128,
-          getter: function (service) {
+          getter(service) {
             return `${service.getMem() || this.default}`;
           },
-          externalValidator: function ({general}, definition) {
+          externalValidator({general}, definition) {
             if (!ResourceValidatorUtil.isValidMemory(general.mem)) {
               definition.showError = 'Memory must be a number greater than ' +
                 `or equal to ${MesosConstants.MIN_MEM}`;
@@ -78,10 +78,10 @@ let General = {
           title: 'Disk (MiB)',
           type: 'number',
           default: 0,
-          getter: function (service) {
+          getter(service) {
             return `${service.getDisk() || this.default}`;
           },
-          externalValidator: function ({general}, definition) {
+          externalValidator({general}, definition) {
             if (!ResourceValidatorUtil.isValidDisk(general.disk)) {
               definition.showError = 'Disk must be a non-negative number';
 
@@ -95,7 +95,7 @@ let General = {
           title: 'Instances',
           type: 'number',
           default: 1,
-          getter: function (service) {
+          getter(service) {
             return `${service.getInstancesCount() || this.default}`;
           }
         }
@@ -106,7 +106,7 @@ let General = {
       description: 'Command executed by the service',
       type: 'string',
       multiLine: true,
-      getter: function (service) {
+      getter(service) {
         return service.getCommand();
       }
     }

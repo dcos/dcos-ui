@@ -62,7 +62,7 @@ const pruneHealthCheckAttributes = function (healthCheckSchema, healthCheck) {
 };
 
 const ServiceUtil = {
-  createServiceFromFormModel: function (formModel, schema, isEdit = false, definition = {}) {
+  createServiceFromFormModel(formModel, schema, isEdit = false, definition = {}) {
 
     if (formModel != null) {
       let {
@@ -160,7 +160,7 @@ const ServiceUtil = {
           let externalVolumes = volumes.externalVolumes
             .map(function ({containerPath, externalName}) {
               return {
-                containerPath: containerPath,
+                containerPath,
                 external: {
                   name: externalName,
                   provider: 'dvdi',
@@ -392,12 +392,12 @@ const ServiceUtil = {
     return new Service(definition);
   },
 
-  createFormModelFromSchema: function (schema, service = new Service()) {
+  createFormModelFromSchema(schema, service = new Service()) {
 
     return getFindPropertiesRecursive(service, schema.properties);
   },
 
-  getAppDefinitionFromService: function (service) {
+  getAppDefinitionFromService(service) {
 
     let appDefinition = JSON.parse(service.toJSON());
 
@@ -454,7 +454,7 @@ const ServiceUtil = {
     return serviceName[serviceName.length - 1];
   },
 
-  convertServiceLabelsToArray: function (service) {
+  convertServiceLabelsToArray(service) {
     if (!(service instanceof Service)) {
       return [];
     }

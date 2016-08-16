@@ -176,7 +176,7 @@ describe('FormUtil', function () {
 
   describe('#isFieldDefinition', function () {
     it('returns false if it is not a definition', function () {
-      let result = FormUtil.isFieldDefinition({render: function () {}});
+      let result = FormUtil.isFieldDefinition({render() {}});
       expect(result).toEqual(false);
     });
 

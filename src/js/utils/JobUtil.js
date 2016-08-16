@@ -36,7 +36,7 @@ const getMatchingProperties = function (job, item) {
 };
 
 const JobUtil = {
-  createJobFromFormModel: function (formModel) {
+  createJobFromFormModel(formModel) {
     if (formModel == null) {
       return new Job();
     }
@@ -75,11 +75,11 @@ const JobUtil = {
     return new Job(spec);
   },
 
-  createFormModelFromSchema: function (schema, job = new Job()) {
+  createFormModelFromSchema(schema, job = new Job()) {
     return getMatchingProperties(job, schema.properties);
   },
 
-  createJobSpecFromJob: function (job) {
+  createJobSpecFromJob(job) {
     let spec = {};
 
     spec.id = job.getId() || null;

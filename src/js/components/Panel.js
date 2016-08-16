@@ -14,7 +14,7 @@ var Panel = React.createClass({
     footerClass: React.PropTypes.string
   },
 
-  getDefaultProps: function () {
+  getDefaultProps() {
     return {
       className: 'panel',
       contentClass: 'panel-content',
@@ -23,7 +23,7 @@ var Panel = React.createClass({
     };
   },
 
-  getNode: function (nodeName) {
+  getNode(nodeName) {
     let {props} = this;
     let node = props[nodeName];
     if (!node) {
@@ -37,7 +37,7 @@ var Panel = React.createClass({
     );
   },
 
-  render: function () {
+  render() {
     let {props} = this;
 
     return (

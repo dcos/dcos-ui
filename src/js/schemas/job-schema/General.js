@@ -14,7 +14,7 @@ const General = {
       title: 'ID',
       description: 'The job ID',
       type: 'string',
-      getter: function (job) {
+      getter(job) {
         return job.getId();
       }
     },
@@ -22,7 +22,7 @@ const General = {
       title: 'Description',
       description: 'Job description',
       type: 'string',
-      getter: function (job) {
+      getter(job) {
         return job.getDescription();
       }
     },
@@ -34,7 +34,7 @@ const General = {
           default: MesosConstants.MIN_CPUS,
           description: 'The amount of CPUs the job requires',
           type:'number',
-          getter: function (job) {
+          getter(job) {
             return `${job.getCpus() || ''}`;
           }
         },
@@ -42,7 +42,7 @@ const General = {
           title: 'Mem (MiB)',
           default: MesosConstants.MIN_MEM,
           type: 'number',
-          getter: function (job) {
+          getter(job) {
             return `${job.getMem() || ''}`;
           }
         },
@@ -50,7 +50,7 @@ const General = {
           title: 'Disk (MiB)',
           default: 0,
           type: 'number',
-          getter: function (job) {
+          getter(job) {
             return `${job.getDisk() || ''}`;
           }
         }
@@ -61,7 +61,7 @@ const General = {
       description: 'The command executed by the service',
       type: 'string',
       multiLine: true,
-      getter: function (job) {
+      getter(job) {
         return job.getCommand();
       }
     }

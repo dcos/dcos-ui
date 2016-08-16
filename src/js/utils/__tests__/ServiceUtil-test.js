@@ -615,7 +615,7 @@ describe('ServiceUtil', function () {
                 title: 'ID',
                 description: 'The id for the service',
                 type: 'string',
-                getter: function (service) {
+                getter(service) {
                   return service.getId();
                 }
               },
@@ -625,7 +625,7 @@ describe('ServiceUtil', function () {
                 description: 'The command which is executed by the service',
                 type: 'string',
                 multiLine: true,
-                getter: function (service) {
+                getter(service) {
                   return service.getCommand();
                 }
               }

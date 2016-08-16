@@ -332,7 +332,7 @@ class JobFormModal extends mixin(StoreMixin) {
 JobFormModal.defaultProps = {
   isEdit: false,
   job: new Job(),
-  onClose: function () {},
+  onClose() {},
   open: false
 };
 

@@ -16,16 +16,16 @@ var FilterByService = React.createClass({
     handleFilterChange: React.PropTypes.func
   },
 
-  getDefaultProps: function () {
+  getDefaultProps() {
     return {
       byServiceFilter: defaultId,
       services: [],
       totalHostsCount: 0,
-      handleFilterChange: function () {}
+      handleFilterChange() {}
     };
   },
 
-  handleItemSelection: function (obj) {
+  handleItemSelection(obj) {
     if (obj.id === defaultId) {
       this.props.handleFilterChange(null);
     } else {
@@ -33,7 +33,7 @@ var FilterByService = React.createClass({
     }
   },
 
-  getItemHtml: function (service) {
+  getItemHtml(service) {
     return (
       <span className="badge-container">
         <span>{service.get('name')}</span>
@@ -42,7 +42,7 @@ var FilterByService = React.createClass({
     );
   },
 
-  getDropdownItems: function () {
+  getDropdownItems() {
     // TODO (mlunoe, orlandohohmeier): Refactor after introducing new unified
     // service struct featuring frameworks and apps.
     let defaultItem = new Framework({
@@ -76,7 +76,7 @@ var FilterByService = React.createClass({
     });
   },
 
-  getSelectedId: function (id) {
+  getSelectedId(id) {
     if (id == null) {
       return defaultId;
     }
@@ -84,13 +84,13 @@ var FilterByService = React.createClass({
     return id;
   },
 
-  setDropdownValue: function (id) {
+  setDropdownValue(id) {
     this.dropdown.setState({
       selectedID: id
     });
   },
 
-  render: function () {
+  render() {
     return (
       <Dropdown
         buttonClassName="button button-inverse dropdown-toggle"

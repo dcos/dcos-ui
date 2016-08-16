@@ -21,19 +21,19 @@ var TimeSeriesLabel = React.createClass({
     y: React.PropTypes.string
   },
 
-  getDefaultProps: function () {
+  getDefaultProps() {
     return {
       y: ValueTypes.PERCENTAGE,
       colorIndex: 0
     };
   },
 
-  shouldComponentUpdate: function (nextProps) {
+  shouldComponentUpdate(nextProps) {
     // If equal, do not update
     return !deepEqual(this.props, nextProps);
   },
 
-  render: function () {
+  render() {
     var props = this.props;
 
     var percentageClassSet = classNames({

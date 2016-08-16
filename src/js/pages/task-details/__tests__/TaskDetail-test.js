@@ -34,7 +34,7 @@ describe('TaskDetail', function () {
       {params: this.params},
       this.container,
       {
-        getCurrentRoutes: function () {
+        getCurrentRoutes() {
           return [{name: 'services-task-details-tab'}];
         }
       }
@@ -167,7 +167,7 @@ describe('TaskDetail', function () {
         {params: this.params},
         this.container,
         {
-          getCurrentRoutes: function () {
+          getCurrentRoutes() {
             return [{name: 'services-task-details-tab'}];
           }
         }

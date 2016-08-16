@@ -158,7 +158,7 @@ class ServiceForm extends SchemaForm {
             return `$PORT${index}`;
           });
           portMapping = StringUtil.humanizeArray(portMapping, {
-            wrapValueFunction: function (value, index) {
+            wrapValueFunction(value, index) {
               return (
                 <strong key={index}>{value}</strong>
               );
@@ -305,7 +305,7 @@ class ServiceForm extends SchemaForm {
       let checkboxes = this.getExposeNetworkingCheckboxes();
       let label = {
         name: 'expose-endpoints',
-        render: function () {
+        render() {
           return <label key="expose-endpoints">Expose endpoints on host network</label>;
         }
       };
@@ -465,9 +465,9 @@ class ServiceForm extends SchemaForm {
 ServiceForm.defaultProps = {
   className: 'multiple-form row',
   defaultTab: '',
-  getTriggerSubmit: function () {},
-  onChange: function () {},
-  onTabChange: function () {},
+  getTriggerSubmit() {},
+  onChange() {},
+  onTabChange() {},
   schema: {}
 };
 

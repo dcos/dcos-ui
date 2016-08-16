@@ -109,8 +109,8 @@ class DisplayPackagesTable extends React.Component {
 }
 
 DisplayPackagesTable.defaultProps = {
-  onDeploy: function () {},
-  onDetailOpen: function () {}
+  onDeploy() {},
+  onDetailOpen() {}
 };
 
 DisplayPackagesTable.propTypes = {

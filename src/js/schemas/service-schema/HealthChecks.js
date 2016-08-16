@@ -11,7 +11,7 @@ let HealthChecks = {
       type: 'array',
       duplicable: true,
       addLabel: 'Add Another Health Check',
-      getter: function (service) {
+      getter(service) {
         let healthChecks = service.getHealthChecks();
 
         if (healthChecks == null) {
@@ -28,10 +28,10 @@ let HealthChecks = {
         return healthChecks;
       },
       deleteButtonTop: true,
-      getTitle: function (index = 1) {
+      getTitle(index = 1) {
         return `Health check #${index}`;
       },
-      filterProperties: function (service = {}, instanceDefinition) {
+      filterProperties(service = {}, instanceDefinition) {
         let properties = HealthChecks
           .properties
           .healthChecks
@@ -65,10 +65,10 @@ let HealthChecks = {
           command: {
             title: 'Command',
             type: 'string',
-            shouldShow: function (service) {
+            shouldShow(service) {
               return service.protocol === 'COMMAND';
             },
-            externalValidator: function ({healthChecks}, definition) {
+            externalValidator({healthChecks}, definition) {
               const index = FormUtil.getPropIndex(definition.name);
               const {[definition.name]: command} = healthChecks;
               const {[`healthChecks[${index}].protocol`]: protocol}
@@ -86,10 +86,10 @@ let HealthChecks = {
           path: {
             title: 'Path',
             type: 'string',
-            shouldShow: function (service) {
+            shouldShow(service) {
               return service.protocol == null || service.protocol === 'HTTP';
             },
-            externalValidator: function ({healthChecks}, definition) {
+            externalValidator({healthChecks}, definition) {
               const index = FormUtil.getPropIndex(definition.name);
               const {[definition.name]: path} = healthChecks;
               const {[`healthChecks[${index}].protocol`]: protocol}
@@ -108,7 +108,7 @@ let HealthChecks = {
             description: 'Grace period in seconds',
             title: 'Grace Period',
             type: 'number',
-            externalValidator: function ({healthChecks}, definition) {
+            externalValidator({healthChecks}, definition) {
               const {[definition.name]: gracePeriodSeconds} = healthChecks;
 
               if (ValidatorUtil.isDefined(gracePeriodSeconds) &&
@@ -125,7 +125,7 @@ let HealthChecks = {
             description: 'Interval in seconds',
             title: 'Interval',
             type: 'number',
-            externalValidator: function ({healthChecks}, definition) {
+            externalValidator({healthChecks}, definition) {
               const {[definition.name]: intervalSeconds} = healthChecks;
 
               if (ValidatorUtil.isDefined(intervalSeconds) &&
@@ -142,7 +142,7 @@ let HealthChecks = {
             description: 'Timeout in seconds',
             title: 'Timeout',
             type: 'number',
-            externalValidator: function ({healthChecks}, definition) {
+            externalValidator({healthChecks}, definition) {
               const {[definition.name]: timeoutSeconds} = healthChecks;
 
               if (ValidatorUtil.isDefined(timeoutSeconds) &&
@@ -159,7 +159,7 @@ let HealthChecks = {
           maxConsecutiveFailures: {
             title: 'Maximum Consecutive Failures',
             type: 'number',
-            externalValidator: function ({healthChecks}, definition) {
+            externalValidator({healthChecks}, definition) {
               const {[definition.name]: maxConsecutiveFailures} = healthChecks;
 
               if (ValidatorUtil.isDefined(maxConsecutiveFailures) &&
@@ -176,10 +176,10 @@ let HealthChecks = {
           port: {
             title: 'Port Number',
             type: 'number',
-            shouldShow: function (service) {
+            shouldShow(service) {
               return service.portType === 'PORT_NUMBER';
             },
-            externalValidator: function ({healthChecks}, definition) {
+            externalValidator({healthChecks}, definition) {
               const index = FormUtil.getPropIndex(definition.name);
               const {[definition.name]: port} = healthChecks;
               const {[`healthChecks[${index}].portType`]: type} = healthChecks;
@@ -199,10 +199,10 @@ let HealthChecks = {
           portIndex: {
             title: 'Port Index',
             type: 'number',
-            shouldShow: function (service) {
+            shouldShow(service) {
               return service.portType == null || service.portType === 'PORT_INDEX';
             },
-            externalValidator: function ({healthChecks, networking}, definition) {
+            externalValidator({healthChecks, networking}, definition) {
               const index = FormUtil.getPropIndex(definition.name);
               const {[definition.name]: portIndex} = healthChecks;
               const {[`healthChecks[${index}].portType`]: type} = healthChecks;
@@ -241,7 +241,7 @@ let HealthChecks = {
             label: 'Ignore HTTP Status Codes 100 to 199',
             showLabel: false,
             type: 'boolean',
-            shouldShow: function (service) {
+            shouldShow(service) {
               return service.protocol == null || service.protocol === 'HTTP';
             }
           }

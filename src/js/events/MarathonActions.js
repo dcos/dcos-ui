@@ -45,17 +45,17 @@ function buildURI(path) {
 }
 
 module.exports = {
-  createGroup: function (data) {
+  createGroup(data) {
     RequestUtil.json({
       url: buildURI('/groups'),
       method: 'POST',
       data,
-      success: function () {
+      success() {
         AppDispatcher.handleServerAction({
           type: REQUEST_MARATHON_GROUP_CREATE_SUCCESS
         });
       },
-      error: function (xhr) {
+      error(xhr) {
         AppDispatcher.handleServerAction({
           type: REQUEST_MARATHON_GROUP_CREATE_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr),
@@ -65,17 +65,17 @@ module.exports = {
     });
   },
 
-  deleteGroup: function (groupId) {
+  deleteGroup(groupId) {
     groupId = encodeURIComponent(groupId);
     RequestUtil.json({
       url: buildURI(`/groups/${groupId}`),
       method: 'DELETE',
-      success: function () {
+      success() {
         AppDispatcher.handleServerAction({
           type: REQUEST_MARATHON_GROUP_DELETE_SUCCESS
         });
       },
-      error: function (xhr) {
+      error(xhr) {
         AppDispatcher.handleServerAction({
           type: REQUEST_MARATHON_GROUP_DELETE_ERROR,
           data: RequestUtil.parseResponseBody(xhr),
@@ -85,7 +85,7 @@ module.exports = {
     });
   },
 
-  editGroup: function (data, force) {
+  editGroup(data, force) {
     let groupId = encodeURIComponent(data.id);
     let url = buildURI(`/groups/${groupId}`);
     data = Util.omit(data, ['id']);
@@ -98,12 +98,12 @@ module.exports = {
       url,
       method: 'PUT',
       data,
-      success: function () {
+      success() {
         AppDispatcher.handleServerAction({
           type: REQUEST_MARATHON_GROUP_EDIT_SUCCESS
         });
       },
-      error: function (xhr) {
+      error(xhr) {
         AppDispatcher.handleServerAction({
           type: REQUEST_MARATHON_GROUP_EDIT_ERROR,
           data: RequestUtil.parseResponseBody(xhr),
@@ -113,17 +113,17 @@ module.exports = {
     });
   },
 
-  createService: function (data) {
+  createService(data) {
     RequestUtil.json({
       url: buildURI('/apps'),
       method: 'POST',
       data,
-      success: function () {
+      success() {
         AppDispatcher.handleServerAction({
           type: REQUEST_MARATHON_SERVICE_CREATE_SUCCESS
         });
       },
-      error: function (xhr) {
+      error(xhr) {
         AppDispatcher.handleServerAction({
           type: REQUEST_MARATHON_SERVICE_CREATE_ERROR,
           data: RequestUtil.parseResponseBody(xhr),
@@ -133,16 +133,16 @@ module.exports = {
     });
   },
 
-  deleteService: function (serviceId) {
+  deleteService(serviceId) {
     RequestUtil.json({
       url: buildURI(`/apps/${serviceId}`),
       method: 'DELETE',
-      success: function () {
+      success() {
         AppDispatcher.handleServerAction({
           type: REQUEST_MARATHON_SERVICE_DELETE_SUCCESS
         });
       },
-      error: function (xhr) {
+      error(xhr) {
         AppDispatcher.handleServerAction({
           type: REQUEST_MARATHON_SERVICE_DELETE_ERROR,
           data: RequestUtil.parseResponseBody(xhr),
@@ -152,7 +152,7 @@ module.exports = {
     });
   },
 
-  editService: function (data, force) {
+  editService(data, force) {
     let url = buildURI(`/apps/${data.id}`);
 
     if (force === true) {
@@ -163,12 +163,12 @@ module.exports = {
       url,
       method: 'PUT',
       data,
-      success: function () {
+      success() {
         AppDispatcher.handleServerAction({
           type: REQUEST_MARATHON_SERVICE_EDIT_SUCCESS
         });
       },
-      error: function (xhr) {
+      error(xhr) {
         AppDispatcher.handleServerAction({
           type: REQUEST_MARATHON_SERVICE_EDIT_ERROR,
           data: RequestUtil.parseResponseBody(xhr),
@@ -178,7 +178,7 @@ module.exports = {
     });
   },
 
-  restartService: function (serviceId, force = false) {
+  restartService(serviceId, force = false) {
     let url = buildURI(`/apps/${serviceId}/restart`);
 
     if (force === true) {
@@ -189,12 +189,12 @@ module.exports = {
       url,
       method: 'POST',
       data: force,
-      success: function () {
+      success() {
         AppDispatcher.handleServerAction({
           type: REQUEST_MARATHON_SERVICE_RESTART_SUCCESS
         });
       },
-      error: function (xhr) {
+      error(xhr) {
         AppDispatcher.handleServerAction({
           type: REQUEST_MARATHON_SERVICE_RESTART_ERROR,
           data: RequestUtil.parseResponseBody(xhr),
@@ -220,23 +220,23 @@ module.exports = {
         ];
 
         RequestUtil.json({
-          url: url,
+          url,
           data: embed,
-          success: function (response) {
+          success(response) {
             AppDispatcher.handleServerAction({
               type: REQUEST_MARATHON_GROUPS_SUCCESS,
               data: MarathonUtil.parseGroups(response)
             });
             resolve();
           },
-          error: function (e) {
+          error(e) {
             AppDispatcher.handleServerAction({
               type: REQUEST_MARATHON_GROUPS_ERROR,
               data: e.message
             });
             reject();
           },
-          hangingRequestCallback: function () {
+          hangingRequestCallback() {
             AppDispatcher.handleServerAction({
               type: REQUEST_MARATHON_GROUPS_ONGOING
             });
@@ -253,21 +253,21 @@ module.exports = {
       return function () {
         RequestUtil.json({
           url: buildURI('/deployments'),
-          success: function (response) {
+          success(response) {
             AppDispatcher.handleServerAction({
               type: REQUEST_MARATHON_DEPLOYMENTS_SUCCESS,
               data: response
             });
             resolve();
           },
-          error: function (e) {
+          error(e) {
             AppDispatcher.handleServerAction({
               type: REQUEST_MARATHON_DEPLOYMENTS_ERROR,
               data: e.message
             });
             reject();
           },
-          hangingRequestCallback: function () {
+          hangingRequestCallback() {
             AppDispatcher.handleServerAction({
               type: REQUEST_MARATHON_DEPLOYMENTS_ONGOING
             });
@@ -278,16 +278,16 @@ module.exports = {
     {delayAfterCount: Config.delayAfterErrorCount}
   ),
 
-  fetchServiceVersion: function (serviceID, versionID) {
+  fetchServiceVersion(serviceID, versionID) {
     RequestUtil.json({
       url: buildURI(`/apps/${serviceID}/versions/${versionID}`),
-      success: function (response) {
+      success(response) {
         AppDispatcher.handleServerAction({
           type: REQUEST_MARATHON_SERVICE_VERSION_SUCCESS,
           data: {serviceID, versionID, version: response}
         });
       },
-      error: function (xhr) {
+      error(xhr) {
         AppDispatcher.handleServerAction({
           type: REQUEST_MARATHON_SERVICE_VERSION_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr)
@@ -296,17 +296,17 @@ module.exports = {
     });
   },
 
-  fetchServiceVersions: function (serviceID) {
+  fetchServiceVersions(serviceID) {
     RequestUtil.json({
       url: buildURI(`/apps/${serviceID}/versions`),
-      success: function (response) {
+      success(response) {
         let {versions} = response;
         AppDispatcher.handleServerAction({
           type: REQUEST_MARATHON_SERVICE_VERSIONS_SUCCESS,
           data: {serviceID, versions}
         });
       },
-      error: function (xhr) {
+      error(xhr) {
         AppDispatcher.handleServerAction({
           type: REQUEST_MARATHON_SERVICE_VERSIONS_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr)
@@ -315,16 +315,16 @@ module.exports = {
     });
   },
 
-  fetchMarathonInstanceInfo: function () {
+  fetchMarathonInstanceInfo() {
     RequestUtil.json({
       url: buildURI('/info'),
-      success: function (response) {
+      success(response) {
         AppDispatcher.handleServerAction({
           type: REQUEST_MARATHON_INSTANCE_INFO_SUCCESS,
           data: response
         });
       },
-      error: function (xhr) {
+      error(xhr) {
         AppDispatcher.handleServerAction({
           type: REQUEST_MARATHON_INSTANCE_INFO_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr)
@@ -339,21 +339,21 @@ module.exports = {
       return function () {
         RequestUtil.json({
           url: buildURI('/queue'),
-          success: function (response) {
+          success(response) {
             AppDispatcher.handleServerAction({
               type: REQUEST_MARATHON_QUEUE_SUCCESS,
               data: response
             });
             resolve();
           },
-          error: function (e) {
+          error(e) {
             AppDispatcher.handleServerAction({
               type: REQUEST_MARATHON_QUEUE_ERROR,
               data: e.message
             });
             reject();
           },
-          hangingRequestCallback: function () {
+          hangingRequestCallback() {
             AppDispatcher.handleServerAction({
               type: REQUEST_MARATHON_QUEUE_ONGOING
             });
@@ -364,17 +364,17 @@ module.exports = {
     {delayAfterCount: Config.delayAfterErrorCount}
   ),
 
-  revertDeployment: function (deploymentID) {
+  revertDeployment(deploymentID) {
     RequestUtil.json({
       url: buildURI(`/deployments/${deploymentID}`),
       method: 'DELETE',
-      success: function (response) {
+      success(response) {
         AppDispatcher.handleServerAction({
           type: REQUEST_MARATHON_DEPLOYMENT_ROLLBACK_SUCCESS,
           data: Object.assign({originalDeploymentID: deploymentID}, response)
         });
       },
-      error: function (xhr) {
+      error(xhr) {
         AppDispatcher.handleServerAction({
           type: REQUEST_MARATHON_DEPLOYMENT_ROLLBACK_ERROR,
           data: {
@@ -386,7 +386,7 @@ module.exports = {
     });
   },
 
-  killTasks: function (taskIDs, scaleTask) {
+  killTasks(taskIDs, scaleTask) {
     let params = '';
     if (scaleTask) {
       params = '?scale=true';
@@ -396,12 +396,12 @@ module.exports = {
       url: buildURI(`/tasks/delete${params}`),
       data: {ids: taskIDs},
       method: 'POST',
-      success: function () {
+      success() {
         AppDispatcher.handleServerAction({
           type: REQUEST_MARATHON_TASK_KILL_SUCCESS
         });
       },
-      error: function (xhr) {
+      error(xhr) {
         AppDispatcher.handleServerAction({
           type: REQUEST_MARATHON_TASK_KILL_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr)

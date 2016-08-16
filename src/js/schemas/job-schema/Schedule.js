@@ -12,7 +12,7 @@ const General = {
       title: 'ID',
       description: 'The schedule ID',
       type: 'string',
-      getter: function (job) {
+      getter(job) {
         let [schedule = {}] = job.getSchedules();
 
         return schedule.id;
@@ -23,7 +23,7 @@ const General = {
       showLabel: true,
       title: 'Enabled',
       type: 'boolean',
-      getter: function (job) {
+      getter(job) {
         let [schedule = {}] = job.getSchedules();
 
         if (schedule.hasOwnProperty('enabled')) {
@@ -42,7 +42,7 @@ const General = {
         </span>
       ),
       type: 'string',
-      getter: function (job) {
+      getter(job) {
         let [schedule = {}] = job.getSchedules();
 
         return schedule.cron;
@@ -52,7 +52,7 @@ const General = {
       title: 'Time Zone',
       description: 'Enter time zone in TZ format, e.g. America/New_York',
       type: 'string',
-      getter: function (job) {
+      getter(job) {
         let [schedule = {}] = job.getSchedules();
 
         return schedule.timezone;
@@ -64,7 +64,7 @@ const General = {
       'scheduled time for any reason. Missed jobs executions will be ' +
       'counted as failed ones.',
       type: 'number',
-      getter: function (job) {
+      getter(job) {
         let [schedule = {}] = job.getSchedules();
 
         return schedule.startingDeadlineSeconds;

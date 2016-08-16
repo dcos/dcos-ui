@@ -80,7 +80,7 @@ describe('NodeDetailPage', function () {
           version: '10',
           active: true,
           registered_time: 10,
-          sumTaskTypesByState: function () { return 1; }
+          sumTaskTypesByState() { return 1; }
         }
       ]
     });

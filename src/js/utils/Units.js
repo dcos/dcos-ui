@@ -1,7 +1,7 @@
 import Maths from './Maths';
 
 const Units = {
-  formatResource: function (resource, value) {
+  formatResource(resource, value) {
     value = Maths.round(value, 2);
 
     if (resource !== 'cpus') {
@@ -11,7 +11,7 @@ const Units = {
     return value;
   },
 
-  filesize: function (size, decimals, threshold, multiplier, units) {
+  filesize(size, decimals, threshold, multiplier, units) {
     size = size || 0;
     if (decimals == null) {
       decimals = 2;
@@ -49,7 +49,7 @@ const Units = {
     return filesize + ' ' + units[unitIndex];
   },
 
-  contractNumber: function (amount, options) {
+  contractNumber(amount, options) {
     if (amount == null) {
       return amount;
     }

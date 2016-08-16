@@ -82,7 +82,6 @@
     "react/no-render-return-value": "off",
     "no-extra-boolean-cast": "off",
     "react/no-unknown-property": "off",
-    "object-shorthand": "off",
     "no-var": "off",
     "arrow-body-style": "off",
     "object-curly-spacing": "off",

@@ -25,11 +25,11 @@ module.exports = Object.assign({}, Events.EventEmitter.prototype, {
   // Event store for filters
   filters: {},
 
-  addChangeListener: function (eventName, callback) {
+  addChangeListener(eventName, callback) {
     this.on(eventName, callback);
   },
 
-  removeChangeListener: function (eventName, callback) {
+  removeChangeListener(eventName, callback) {
     this.removeListener(eventName, callback);
   },
 

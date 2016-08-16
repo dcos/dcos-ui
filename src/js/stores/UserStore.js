@@ -33,7 +33,7 @@ class UserStore extends EventEmitter {
         deleteSuccess: USER_DELETE_SUCCESS,
         deleteError: USER_DELETE_ERROR
       },
-      unmountWhen: function () {
+      unmountWhen() {
         return true;
       },
       listenAlways: true

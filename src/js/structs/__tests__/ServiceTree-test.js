@@ -38,7 +38,7 @@ describe('ServiceTree', function () {
           new Framework({id: 'b'})
         ],
         filterProperties: {
-          id: function (item) {
+          id(item) {
             return item.getId();
           }
         }
@@ -141,7 +141,7 @@ describe('ServiceTree', function () {
           }
         ],
         filterProperties: {
-          id: function (item) {
+          id(item) {
             return item.getId();
           }
         }
@@ -210,7 +210,7 @@ describe('ServiceTree', function () {
           }
         ],
         filterProperties: {
-          id: function (item) {
+          id(item) {
             return item.getId();
           }
         }
@@ -269,7 +269,7 @@ describe('ServiceTree', function () {
           }
         ],
         filterProperties: {
-          id: function (item) {
+          id(item) {
             return item.getId();
           }
         }
@@ -750,7 +750,7 @@ describe('ServiceTree', function () {
           }
         ],
         filterProperties: {
-          id: function (item) {
+          id(item) {
             return item.getId();
           }
         }

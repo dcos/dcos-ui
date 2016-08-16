@@ -56,7 +56,7 @@ class TaskDirectoryStore extends GetSetBaseStore {
         success: TASK_DIRECTORY_CHANGE,
         error: TASK_DIRECTORY_ERROR
       },
-      unmountWhen: function () {
+      unmountWhen() {
         return true;
       },
       listenAlways: true

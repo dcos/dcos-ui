@@ -22,7 +22,7 @@ let matchesFn = (function () {
 })();
 
 var DOMUtils = {
-  appendScript: function (el, code) {
+  appendScript(el, code) {
     let scriptNode = document.createElement('script');
     scriptNode.type = 'text/javascript';
 
@@ -35,7 +35,7 @@ var DOMUtils = {
     el.appendChild(scriptNode);
   },
 
-  closest: function (el, selector) {
+  closest(el, selector) {
     var currentEl = el;
 
     while (currentEl && currentEl.parentElement !== null) {
@@ -49,11 +49,11 @@ var DOMUtils = {
     return null;
   },
 
-  getComputedWidth: function (obj) {
+  getComputedWidth(obj) {
     return DOMUtils.getComputedDimensions(obj).width;
   },
 
-  getComputedDimensions: function (obj) {
+  getComputedDimensions(obj) {
     var compstyle;
     if (typeof window.getComputedStyle === 'undefined') {
       compstyle = obj.currentStyle;
@@ -81,12 +81,12 @@ var DOMUtils = {
     );
 
     return {
-      width: width,
-      height: height
+      width,
+      height
     };
   },
 
-  getPageHeight: function () {
+  getPageHeight() {
     var body = document.body;
     var html = document.documentElement;
 
@@ -99,11 +99,11 @@ var DOMUtils = {
     );
   },
 
-  getDistanceFromTop: function (element) {
+  getDistanceFromTop(element) {
     return element.pageYOffset || element.scrollTop || 0;
   },
 
-  isTopFrame: function () {
+  isTopFrame() {
     try {
       return window.self === window.top;
     } catch (e) {
@@ -114,7 +114,7 @@ var DOMUtils = {
   // This will ease in and ease out of the transition.
   // Code was modified from this answer:
   // http://stackoverflow.com/questions/21474678/scrolltop-animation-without-jquery
-  scrollTo: function (container, scrollDuration, targetY) {
+  scrollTo(container, scrollDuration, targetY) {
     let scrollHeight = container.scrollHeight;
     let scrollStep = Math.PI / (scrollDuration / 15);
     let cosParameter = scrollHeight / 2;
@@ -138,7 +138,7 @@ var DOMUtils = {
     }
   },
 
-  whichTransitionEvent: function (el) {
+  whichTransitionEvent(el) {
     var transitions = {
       'transition': 'transitionend',
       'OTransition': 'oTransitionEnd',
@@ -153,7 +153,7 @@ var DOMUtils = {
     }
   },
 
-  isElementOnTop: function (el) {
+  isElementOnTop(el) {
     let {left, top, height, width} = el.getBoundingClientRect();
     let elAtPoint = global.document.elementFromPoint(
       // The coords of the middle of the element.
@@ -173,7 +173,7 @@ var DOMUtils = {
     return el === elAtPoint || el.contains(elAtPoint) || elAtPoint.contains(el);
   },
 
-  getDistanceFromTopOfParent: function (el) {
+  getDistanceFromTopOfParent(el) {
     let elTop = el.getBoundingClientRect().top;
 
     let parentNode = el.parentNode;

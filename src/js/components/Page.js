@@ -30,7 +30,7 @@ var Page = React.createClass({
     ])
   },
 
-  componentWillMount: function () {
+  componentWillMount() {
     this.store_listeners = [
       {
         name: 'sidebar',
@@ -39,18 +39,18 @@ var Page = React.createClass({
     ];
   },
 
-  componentDidMount: function () {
+  componentDidMount() {
     this.internalStorage_set({
       rendered: true
     });
     this.forceUpdate();
   },
 
-  onSidebarStoreWidthChange: function () {
+  onSidebarStoreWidthChange() {
     GeminiUtil.updateWithRef(this.refs.gemini);
   },
 
-  getChildren: function () {
+  getChildren() {
     var data = this.internalStorage_get();
     if (data.rendered === true) {
       return this.props.children;
@@ -58,7 +58,7 @@ var Page = React.createClass({
     return null;
   },
 
-  getNavigation: function (navigation) {
+  getNavigation(navigation) {
     if (!navigation) {
       return null;
     }
@@ -72,7 +72,7 @@ var Page = React.createClass({
     );
   },
 
-  getPageHeader: function (title, navigation) {
+  getPageHeader(title, navigation) {
     return (
       <div className="page-navigation">
         {this.getTitle(title)}
@@ -81,7 +81,7 @@ var Page = React.createClass({
     );
   },
 
-  getTitle: function (title) {
+  getTitle(title) {
     if (!title) {
       return null;
     }
@@ -102,7 +102,7 @@ var Page = React.createClass({
     );
   },
 
-  getContent: function () {
+  getContent() {
     let {dontScroll} = this.props;
     let contentClassSet = classNames('page-content inverse', {
       'flex-container-col flex-grow flex-shrink': dontScroll
@@ -137,7 +137,7 @@ var Page = React.createClass({
     );
   },
 
-  render: function () {
+  render() {
     let {className, navigation, dontScroll, title} = this.props;
 
     let classSet = classNames(

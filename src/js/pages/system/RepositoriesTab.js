@@ -31,7 +31,7 @@ class RepositoriesTab extends mixin(StoreMixin) {
       {
         name: 'cosmosPackages',
         events: ['repositoriesSuccess', 'repositoriesError'],
-        unmountWhen: function () {
+        unmountWhen() {
           return true;
         },
         listenAlways: true

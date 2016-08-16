@@ -117,7 +117,7 @@ class JobStopRunModal extends mixin(StoreMixin) {
 }
 
 JobStopRunModal.defaultProps = {
-  onSuccess: function () {}
+  onSuccess() {}
 };
 
 JobStopRunModal.propTypes = {

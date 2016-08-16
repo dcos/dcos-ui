@@ -144,7 +144,7 @@ class MarathonStore extends GetSetBaseStore {
         taskKillSuccess: MARATHON_TASK_KILL_SUCCESS,
         taskKillError: MARATHON_TASK_KILL_ERROR
       },
-      unmountWhen: function (store, event) {
+      unmountWhen(store, event) {
         if (event === 'appsSuccess') {
           return store.hasProcessedApps();
         }

@@ -75,7 +75,7 @@ class PackagesTable extends React.Component {
         headerClassName: getClassName,
         heading,
         prop: 'version',
-        render: function (prop, cosmosPackage) {
+        render(prop, cosmosPackage) {
           return cosmosPackage.getCurrentVersion();
         },
         sortable: false
@@ -83,7 +83,7 @@ class PackagesTable extends React.Component {
       {
         className: getClassName,
         headerClassName: getClassName,
-        heading: function () {},
+        heading() {},
         prop: 'uninstall',
         render: this.getUninstallButton,
         sortable: false

@@ -13,7 +13,7 @@ import {APP_STORE_CHANGE} from '../constants/EventTypes';
 
 var GetSetMixin = {
 
-  get: function (key) {
+  get(key) {
     if (typeof this.getSet_data === 'undefined') {
       return null;
     }
@@ -21,7 +21,7 @@ var GetSetMixin = {
     return this.getSet_data[key];
   },
 
-  set: function (data) {
+  set(data) {
     // Throw error if data is an array or is not an object
     if (!(typeof data === 'object' && !Array.isArray(data))) {
       throw new Error('Can only update getSet_data with data of type Object.');

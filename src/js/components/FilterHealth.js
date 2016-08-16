@@ -26,16 +26,16 @@ var FilterHealth = React.createClass({
     servicesLength: React.PropTypes.number.isRequired
   },
 
-  getDefaultProps: function () {
+  getDefaultProps() {
     return {
       countByHealth: {},
       healthFilter: null,
-      handleFilterChange: function () {},
+      handleFilterChange() {},
       servicesLength: 0
     };
   },
 
-  getCountByHealth: function (key) {
+  getCountByHealth(key) {
     var props = this.props;
     var count = 0;
     if (key === 'ALL') {
@@ -48,7 +48,7 @@ var FilterHealth = React.createClass({
     return count;
   },
 
-  getFilterButtons: function () {
+  getFilterButtons() {
     var mode = this.props.healthFilter;
 
     return Object.keys(buttonMap).map((key) => {
@@ -82,7 +82,7 @@ var FilterHealth = React.createClass({
     });
   },
 
-  render: function () {
+  render() {
     return (
       <div className="button-group flush-bottom">
         {this.getFilterButtons()}

@@ -16,7 +16,7 @@ let EnvironmentVariables = {
       type: 'array',
       duplicable: true,
       addLabel: 'Add Environment Variable',
-      getter: function (service) {
+      getter(service) {
         let variableMap = service.getEnvironmentVariables();
         if (variableMap == null) {
           return [];

@@ -6,7 +6,7 @@ DOMProperty.injection.injectDOMPropertyConfig({
   DOMAttributeNames: {
     fillRule: 'fill-rule'
   },
-  isCustomAttribute: function (attribute) {
+  isCustomAttribute(attribute) {
     return svgAttrs.includes(attribute);
   },
   Properties: {

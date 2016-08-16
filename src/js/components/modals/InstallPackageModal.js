@@ -600,7 +600,7 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
 }
 
 InstallPackageModal.defaultProps = {
-  onClose: function () {},
+  onClose() {},
   open: false
 };
 

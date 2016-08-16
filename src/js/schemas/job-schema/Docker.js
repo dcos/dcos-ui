@@ -11,7 +11,7 @@ const General = {
       title: 'Image',
       description: 'Name of your Docker image',
       type: 'string',
-      getter: function (job) {
+      getter(job) {
         return job.getDocker().image;
       }
     }

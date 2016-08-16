@@ -52,7 +52,7 @@ var ServicesTab = React.createClass({
     // 'when a handler is about to render', i.e. on route change:
     // https://github.com/rackt/react-router/
     // blob/master/docs/api/components/RouteHandler.md
-    willTransitionTo: function () {
+    willTransitionTo() {
       SidebarActions.close();
     }
   },
@@ -61,7 +61,7 @@ var ServicesTab = React.createClass({
     router: React.PropTypes.func
   },
 
-  getInitialState: function () {
+  getInitialState() {
     return Object.assign({}, DEFAULT_FILTER_OPTIONS, {
       marathonErrorCount: 0,
       isServiceGroupFormModalShown: false,
@@ -69,14 +69,14 @@ var ServicesTab = React.createClass({
     });
   },
 
-  componentWillMount: function () {
+  componentWillMount() {
     this.store_listeners = [
       {name: 'dcos', events: ['change']},
       {name: 'marathon', events: ['groupsSuccess', 'groupsError']}
     ];
   },
 
-  componentDidMount: function () {
+  componentDidMount() {
     let {state} = this;
     Object.keys(DEFAULT_FILTER_OPTIONS).forEach((saveStateKey) => {
       const queryParams = this.getQueryParamObject();
@@ -87,7 +87,7 @@ var ServicesTab = React.createClass({
     });
   },
 
-  componentWillReceiveProps: function () {
+  componentWillReceiveProps() {
     const queryParams = this.getQueryParamObject();
     const {state} = this;
 
@@ -102,30 +102,30 @@ var ServicesTab = React.createClass({
     });
   },
 
-  onMarathonStoreGroupsError: function () {
+  onMarathonStoreGroupsError() {
     this.setState({marathonErrorCount: this.state.marathonErrorCount + 1});
   },
 
-  onMarathonStoreGroupsSuccess: function () {
+  onMarathonStoreGroupsSuccess() {
     this.setState({marathonErrorCount: 0});
   },
 
-  handleCloseServiceFormModal: function () {
+  handleCloseServiceFormModal() {
     this.setState({isServiceFormModalShown: false});
   },
 
-  handleCloseGroupFormModal: function () {
+  handleCloseGroupFormModal() {
     this.setState({isServiceGroupFormModalShown: false});
   },
 
-  handleFilterChange: function (filterValues, filterType) {
+  handleFilterChange(filterValues, filterType) {
     var stateChanges = Object.assign({}, this.state);
     stateChanges[filterType] = filterValues;
 
     this.setState(stateChanges);
   },
 
-  handleOpenModal: function (id) {
+  handleOpenModal(id) {
     let modalStates = {
       isServiceFormModalShown: SERVICE_FORM_MODAL === id,
       isServiceGroupFormModalShown: SERVICE_GROUP_FORM_MODAL === id
@@ -134,7 +134,7 @@ var ServicesTab = React.createClass({
     this.setState(modalStates);
   },
 
-  resetFilterQueryParams: function () {
+  resetFilterQueryParams() {
     let router = this.context.router;
     let queryParams = router.getCurrentQuery();
 
@@ -145,12 +145,12 @@ var ServicesTab = React.createClass({
     router.transitionTo(router.getCurrentPathname(), {}, queryParams);
   },
 
-  resetFilter: function () {
+  resetFilter() {
     var state = Object.assign({}, this.state, DEFAULT_FILTER_OPTIONS);
     this.setState(state, this.resetFilterQueryParams);
   },
 
-  getAlertPanelFooter: function () {
+  getAlertPanelFooter() {
     return (
       <div className="button-collection flush-bottom">
         <button className="button button-stroke button-inverse"
@@ -165,7 +165,7 @@ var ServicesTab = React.createClass({
     );
   },
 
-  getNotFoundFooter: function () {
+  getNotFoundFooter() {
     return (
       <Link to="services-page" className="button button-stroke button-inverse">
         Go back to Services Page
@@ -173,7 +173,7 @@ var ServicesTab = React.createClass({
     );
   },
 
-  getServiceNotFound: function (id) {
+  getServiceNotFound(id) {
     return (
       <AlertPanel
         title="Not Found"
@@ -186,7 +186,7 @@ var ServicesTab = React.createClass({
     );
   },
 
-  getContents: function (item) {
+  getContents(item) {
     if (this.state.marathonErrorCount > 3) {
       return (
         <div className="container container-pod">
@@ -248,7 +248,7 @@ var ServicesTab = React.createClass({
     );
   },
 
-  getHeadline: function (services, filteredServices, hasFiltersApplied) {
+  getHeadline(services, filteredServices, hasFiltersApplied) {
     if (this.state.searchString) {
       return (
         <ul className="breadcrumb-style-headline list-unstyled list-inline inverse">
@@ -338,7 +338,7 @@ var ServicesTab = React.createClass({
     );
   },
 
-  render: function () {
+  render() {
     let {id} = this.props.params;
     id = decodeURIComponent(id);
     let {state} = this;

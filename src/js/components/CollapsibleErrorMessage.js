@@ -210,7 +210,7 @@ CollapsibleErrorMessage.defaultProps = {
   details: null,
   expanded: false,
   message: '',
-  onToggle: function () { }
+  onToggle() { }
 };
 
 CollapsibleErrorMessage.propTypes = {

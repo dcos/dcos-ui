@@ -34,7 +34,7 @@ class MesosLogStore extends GetSetBaseStore {
         success: MESOS_LOG_CHANGE,
         error: MESOS_LOG_REQUEST_ERROR
       },
-      unmountWhen: function () {
+      unmountWhen() {
         return true;
       },
       listenAlways: true,

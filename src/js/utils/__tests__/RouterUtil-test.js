@@ -87,7 +87,7 @@ describe('RouterUtil', function () {
           name: 'qux',
           path: 'qux/?',
           handler: this.handler,
-          buildBreadCrumb: function () {}
+          buildBreadCrumb() {}
         }
       ];
     });
@@ -148,19 +148,19 @@ describe('RouterUtil', function () {
           type: Route,
           name: 'foo',
           path: 'foo/?',
-          handler: function () {},
-          buildBreadCrumb: function () {},
+          handler() {},
+          buildBreadCrumb() {},
           children: [{
             type: Route,
             name: 'bar',
             path: 'bar/?',
-            handler: function () {},
+            handler() {},
             children: [{
               type: Route,
               name: 'baz',
               path: 'baz/?',
-              handler: function () {},
-              buildBreadCrumb: function () {}
+              handler() {},
+              buildBreadCrumb() {}
             }]
           }]
         }

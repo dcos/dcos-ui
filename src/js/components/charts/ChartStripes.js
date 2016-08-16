@@ -10,7 +10,7 @@ var ChartStripes = React.createClass({
     width: React.PropTypes.number.isRequired
   },
 
-  getStripes: function (props) {
+  getStripes(props) {
     var count = props.count;
     var width = props.width / (2 * count);
 
@@ -30,7 +30,7 @@ var ChartStripes = React.createClass({
     });
   },
 
-  render: function () {
+  render() {
     return (
       <g>
         {this.getStripes(this.props)}

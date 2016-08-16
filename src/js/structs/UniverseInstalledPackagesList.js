@@ -6,16 +6,16 @@ class UniverseInstalledPackagesList extends List {
     // Specify filter properties if not specified
     if (!options.filterProperties) {
       options.filterProperties = {
-        appId: function (item) {
+        appId(item) {
           return item.getAppId();
         },
-        description: function (item) {
+        description(item) {
           return item.getDescription();
         },
-        name: function (item) {
+        name(item) {
           return item.getName();
         },
-        tags: function (item) {
+        tags(item) {
           return item.getTags().join(' ');
         }
       };

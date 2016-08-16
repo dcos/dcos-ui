@@ -86,7 +86,7 @@ class KillTaskModal extends mixin(StoreMixin) {
 }
 
 KillTaskModal.defaultProps = {
-  onSuccess: function () {}
+  onSuccess() {}
 };
 
 KillTaskModal.propTypes = {

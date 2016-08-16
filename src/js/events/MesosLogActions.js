@@ -6,10 +6,10 @@ import Config from '../config/Config';
 
 const MesosLogActions = {
 
-  requestOffset: function (slaveID, path) {
+  requestOffset(slaveID, path) {
     RequestUtil.json({
       url: `${Config.rootUrl}/agent/${slaveID}/files/read?path=${path}&offset=-1`,
-      success: function (response) {
+      success(response) {
         AppDispatcher.handleServerAction({
           type: ActionTypes.REQUEST_MESOS_LOG_OFFSET_SUCCESS,
           data: response,
@@ -17,7 +17,7 @@ const MesosLogActions = {
           slaveID
         });
       },
-      error: function (xhr) {
+      error(xhr) {
         AppDispatcher.handleServerAction({
           type: ActionTypes.REQUEST_MESOS_LOG_OFFSET_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr),
@@ -28,10 +28,10 @@ const MesosLogActions = {
     });
   },
 
-  fetchLog: function (slaveID, path, offset, length) {
+  fetchLog(slaveID, path, offset, length) {
     RequestUtil.json({
       url: `${Config.rootUrl}/agent/${slaveID}/files/read?path=${path}&offset=${offset}&length=${length}`,
-      success: function (response) {
+      success(response) {
         AppDispatcher.handleServerAction({
           type: ActionTypes.REQUEST_MESOS_LOG_SUCCESS,
           data: response,
@@ -39,7 +39,7 @@ const MesosLogActions = {
           slaveID
         });
       },
-      error: function (xhr) {
+      error(xhr) {
         AppDispatcher.handleServerAction({
           type: ActionTypes.REQUEST_MESOS_LOG_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr),
@@ -50,10 +50,10 @@ const MesosLogActions = {
     });
   },
 
-  fetchPreviousLog: function (slaveID, path, offset, length) {
+  fetchPreviousLog(slaveID, path, offset, length) {
     RequestUtil.json({
       url: `${Config.rootUrl}/agent/${slaveID}/files/read?path=${path}&offset=${offset}&length=${length}`,
-      success: function (response) {
+      success(response) {
         AppDispatcher.handleServerAction({
           type: ActionTypes.REQUEST_PREVIOUS_MESOS_LOG_SUCCESS,
           data: response,
@@ -61,7 +61,7 @@ const MesosLogActions = {
           slaveID
         });
       },
-      error: function (xhr) {
+      error(xhr) {
         AppDispatcher.handleServerAction({
           type: ActionTypes.REQUEST_PREVIOUS_MESOS_LOG_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr),

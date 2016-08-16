@@ -36,7 +36,7 @@ class RepositoriesTable extends mixin(StoreMixin) {
     this.store_listeners = [{
       name: 'cosmosPackages',
       events: ['repositoryDeleteError', 'repositoryDeleteSuccess'],
-      unmountWhen: function () {
+      unmountWhen() {
         return true;
       },
       listenAlways: true
@@ -130,7 +130,7 @@ class RepositoriesTable extends mixin(StoreMixin) {
       {
         className: getClassName,
         headerClassName: getClassName,
-        heading: function () {},
+        heading() {},
         prop: 'removed',
         render: this.getRemoveButton,
         sortable: false

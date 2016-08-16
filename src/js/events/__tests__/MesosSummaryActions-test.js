@@ -8,8 +8,8 @@ import {Hooks} from 'PluginSDK';
 
 jest.setMock('react-router', {
   HashLocation: {
-    getCurrentPath: function () { return '/foo'; },
-    addChangeListener: function () {}
+    getCurrentPath() { return '/foo'; },
+    addChangeListener() {}
   }
 });
 
@@ -27,8 +27,8 @@ var TimeScales = require('../../constants/TimeScales');
 
 global.analytics = {
   initialized: true,
-  track: function () {},
-  log: function () {}
+  track() {},
+  log() {}
 };
 
 Hooks.addFilter('hasCapability', function () { return true; });

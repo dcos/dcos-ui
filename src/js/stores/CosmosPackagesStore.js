@@ -82,7 +82,7 @@ class CosmosPackagesStore extends GetSetBaseStore {
         repositoryDeleteSuccess: COSMOS_REPOSITORY_DELETE_SUCCESS,
         repositoryDeleteError: COSMOS_REPOSITORY_DELETE_ERROR
       },
-      unmountWhen: function (store, event) {
+      unmountWhen(store, event) {
         return event === 'availableSuccess';
       },
       listenAlways: false

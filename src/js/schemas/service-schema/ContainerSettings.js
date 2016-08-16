@@ -19,14 +19,14 @@ const ContainerSettings = {
           ),
           title: 'Container Image',
           type: 'string',
-          getter: function (service) {
+          getter(service) {
             let container = service.getContainerSettings();
             if (container && container.docker && container.docker.image) {
               return container.docker.image;
             }
             return null;
           },
-          externalValidator: function ({containerSettings}, definition) {
+          externalValidator({containerSettings}, definition) {
             const {image} = containerSettings;
 
             if (image == null ||
@@ -51,7 +51,7 @@ const ContainerSettings = {
           label: 'Extend runtime privileges',
           showLabel: false,
           type: 'boolean',
-          getter: function (service) {
+          getter(service) {
             let container = service.getContainerSettings();
             if (container && container.docker &&
               container.docker.privileged
@@ -65,7 +65,7 @@ const ContainerSettings = {
           label: 'Force pull image on launch',
           showLabel: false,
           type: 'boolean',
-          getter: function (service) {
+          getter(service) {
             let container = service.getContainerSettings();
             if (container && container.docker &&
               container.docker.forcePullImage
@@ -87,7 +87,7 @@ const ContainerSettings = {
       type: 'array',
       duplicable: true,
       addLabel: 'Add Parameter',
-      getter: function (service) {
+      getter(service) {
         let container = service.getContainerSettings();
         if (container && container.docker &&
           container.docker.parameters

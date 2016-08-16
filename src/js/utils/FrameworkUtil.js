@@ -17,7 +17,7 @@ const FrameworkUtil = {
    * @param {{DCOS_PACKAGE_METADATA:string}} labels
    * @returns {object} metadata
    */
-  getMetadataFromLabels: function (labels) {
+  getMetadataFromLabels(labels) {
     if (Util.findNestedPropertyInObject(labels, 'DCOS_PACKAGE_METADATA.length') == null) {
       return {};
     }

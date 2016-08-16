@@ -215,9 +215,9 @@ CheckboxTable.defaultProps = {
   columns: [],
   data: [],
   disabledItemsMap: {},
-  getColGroup: function () {},
+  getColGroup() {},
   labelClass: {},
-  onCheckboxChange: function () {},
+  onCheckboxChange() {},
   sortOrder: 'asc'
 };
 

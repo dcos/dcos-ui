@@ -35,9 +35,9 @@ let serviceRoutes = {
   name: 'services-page',
   handler: ServicesPage,
   path: '/services/?',
-  buildBreadCrumb: function () {
+  buildBreadCrumb() {
     return {
-      getCrumbs: function () {
+      getCrumbs() {
         return [
           {
             label: 'Services',
@@ -62,7 +62,7 @@ let serviceRoutes = {
           type: Route,
           name: 'services-detail',
           path: ':id/?',
-          buildBreadCrumb: function () {
+          buildBreadCrumb() {
             return {
               parentCrumb: 'services-page',
               getCrumbs: buildServiceCrumbs
@@ -76,10 +76,10 @@ let serviceRoutes = {
               name: 'service-volume-details',
               path: 'volumes/:volumeID/?',
               handler: VolumeDetail,
-              buildBreadCrumb: function () {
+              buildBreadCrumb() {
                 return {
                   parentCrumb: 'services-detail',
-                  getCrumbs: function (router) {
+                  getCrumbs(router) {
                     return [
                       {
                         label: router.getCurrentParams().volumeID
@@ -94,10 +94,10 @@ let serviceRoutes = {
               name: 'service-task-details-volume-details',
               path: 'tasks/:taskID/volumes/:volumeID/?',
               handler: VolumeDetail,
-              buildBreadCrumb: function () {
+              buildBreadCrumb() {
                 return {
                   parentCrumb: 'services-task-details-volumes',
-                  getCrumbs: function (router) {
+                  getCrumbs(router) {
                     return [
                       {
                         label: 'Volumes',
@@ -120,10 +120,10 @@ let serviceRoutes = {
               name: 'services-task-details',
               handler: TaskDetail,
               hideHeaderNavigation: true,
-              buildBreadCrumb: function () {
+              buildBreadCrumb() {
                 return {
                   parentCrumb: 'services-detail',
-                  getCrumbs: function (router) {
+                  getCrumbs(router) {
                     return [
                       <TaskDetailBreadcrumb
                         parentRouter={router}
@@ -138,10 +138,10 @@ let serviceRoutes = {
                   name: 'services-task-details-tab',
                   handler: TaskDetailsTab,
                   hideHeaderNavigation: true,
-                  buildBreadCrumb: function () {
+                  buildBreadCrumb() {
                     return {
                       parentCrumb: 'services-task-details',
-                      getCrumbs: function () { return []; }
+                      getCrumbs() { return []; }
                     };
                   },
                   title:'Details'
@@ -153,10 +153,10 @@ let serviceRoutes = {
                   handler: TaskFilesTab,
                   hideHeaderNavigation: true,
                   logRouteName: 'services-task-details-logs',
-                  buildBreadCrumb: function () {
+                  buildBreadCrumb() {
                     return {
                       parentCrumb: 'services-task-details',
-                      getCrumbs: function () { return []; }
+                      getCrumbs() { return []; }
                     };
                   },
                   title:'Files'
@@ -168,10 +168,10 @@ let serviceRoutes = {
                   path: 'logs/:filePath?/?:innerPath?/?',
                   handler: TaskLogsTab,
                   hideHeaderNavigation: true,
-                  buildBreadCrumb: function () {
+                  buildBreadCrumb() {
                     return {
                       parentCrumb: 'services-task-details',
-                      getCrumbs: function () { return []; }
+                      getCrumbs() { return []; }
                     };
                   },
                   title:'Logs'
@@ -181,10 +181,10 @@ let serviceRoutes = {
                   name: 'services-task-details-volumes',
                   path: 'volumes/?',
                   handler: VolumeTable,
-                  buildBreadCrumb: function () {
+                  buildBreadCrumb() {
                     return {
                       parentCrumb: 'services-task-details',
-                      getCrumbs: function () { return []; }
+                      getCrumbs() { return []; }
                     };
                   },
                   title:'Volumes'

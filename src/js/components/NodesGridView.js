@@ -22,7 +22,7 @@ var NodesGridView = React.createClass({
 
   mixins: [InternalStorageMixin],
 
-  getInitialState: function () {
+  getInitialState() {
     return {
       hiddenServices: [],
       mesosStateErrorCount: 0,
@@ -30,7 +30,7 @@ var NodesGridView = React.createClass({
     };
   },
 
-  componentWillMount: function () {
+  componentWillMount() {
     this.internalStorage_set({
       resourcesByFramework: {},
       serviceColors: {}
@@ -47,7 +47,7 @@ var NodesGridView = React.createClass({
     );
   },
 
-  componentWillUnmount: function () {
+  componentWillUnmount() {
     MesosStateStore.removeChangeListener(
       EventTypes.MESOS_STATE_CHANGE,
       this.onMesosStateChange
@@ -64,7 +64,7 @@ var NodesGridView = React.createClass({
    *
    * @param  {Object} props
    */
-  componentWillReceiveProps: function (props) {
+  componentWillReceiveProps(props) {
     let ids = props.services.map(function (service) {
       return service.id;
     });
@@ -77,7 +77,7 @@ var NodesGridView = React.createClass({
     }
   },
 
-  onMesosStateChange: function () {
+  onMesosStateChange() {
     var data = this.internalStorage_get();
     var resourcesByFramework = data.resourcesByFramework;
     // Maps the usage of each service per node
@@ -91,11 +91,11 @@ var NodesGridView = React.createClass({
     }
   },
 
-  onMesosStateRequestError: function () {
+  onMesosStateRequestError() {
     this.setState({mesosStateErrorCount: this.state.mesosStateErrorCount + 1});
   },
 
-  computeServiceColors: function (services) {
+  computeServiceColors(services) {
     var colors = {};
 
     services.forEach(function (service, index) {
@@ -110,7 +110,7 @@ var NodesGridView = React.createClass({
     this.internalStorage_update({serviceColors: colors});
   },
 
-  computeShownServices: function (services) {
+  computeShownServices(services) {
     var hidden = services.slice(MAX_SERVICES_TO_SHOW).map(function (service) {
       return service.id;
     });
@@ -118,15 +118,15 @@ var NodesGridView = React.createClass({
     this.internalStorage_update({hiddenServices: hidden});
   },
 
-  handleShowServices: function (e) {
+  handleShowServices(e) {
     this.setState({showServices: e.currentTarget.checked});
   },
 
-  hasLoadingError: function () {
+  hasLoadingError() {
     return this.state.mesosStateErrorCount >= 3;
   },
 
-  getLoadingScreen: function () {
+  getLoadingScreen() {
     var hasLoadingError = this.hasLoadingError();
     var errorMsg = null;
     if (hasLoadingError) {
@@ -151,7 +151,7 @@ var NodesGridView = React.createClass({
     );
   },
 
-  getActiveServiceIds: function (nodes) {
+  getActiveServiceIds(nodes) {
     var serviceIDs = {};
 
     nodes.forEach(function (node) {
@@ -163,7 +163,7 @@ var NodesGridView = React.createClass({
     return Object.keys(serviceIDs);
   },
 
-  getServicesList: function (props) {
+  getServicesList(props) {
     // Return a list of unique service IDs from the selected hosts.
     var activeServiceIds = this.getActiveServiceIds(props.hosts);
     var data = this.internalStorage_get();
@@ -206,7 +206,7 @@ var NodesGridView = React.createClass({
     );
   },
 
-  getNodesGrid: function () {
+  getNodesGrid() {
     var data = this.internalStorage_get();
     var props = this.props;
     var state = this.state;
@@ -241,7 +241,7 @@ var NodesGridView = React.createClass({
     );
   },
 
-  render: function () {
+  render() {
     var showLoading = this.hasLoadingError() ||
       Object.keys(MesosStateStore.get('lastMesosState')).length === 0;
 

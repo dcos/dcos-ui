@@ -269,10 +269,10 @@ class TaskTable extends React.Component {
 
     let statusClass = classNames({
       'dot': true,
-      inactive: !activeState,
-      success: success,
-      running: running,
-      danger: danger
+      'inactive': !activeState,
+      'success': success,
+      'running': running,
+      'danger': danger
     });
 
     return (

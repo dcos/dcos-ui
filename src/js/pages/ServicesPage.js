@@ -25,13 +25,13 @@ var ServicesPage = React.createClass({
     }
   },
 
-  getInitialState: function () {
+  getInitialState() {
     return {
       currentTab: 'services-page'
     };
   },
 
-  componentWillMount: function () {
+  componentWillMount() {
     this.store_listeners = [
       {name: 'notification', events: ['change']}
     ];
@@ -42,11 +42,11 @@ var ServicesPage = React.createClass({
     this.updateCurrentTab();
   },
 
-  componentDidUpdate: function () {
+  componentDidUpdate() {
     this.updateCurrentTab();
   },
 
-  updateCurrentTab: function () {
+  updateCurrentTab() {
     let routes = this.context.router.getCurrentRoutes();
     let currentTab = routes[routes.length - 1].name;
     // `services-page` tab also contains routes for 'services-details'
@@ -59,7 +59,7 @@ var ServicesPage = React.createClass({
     }
   },
 
-  getNavigation: function () {
+  getNavigation() {
     if (RouterUtil.shouldHideNavigation(this.context.router)) {
       return null;
     }
@@ -71,7 +71,7 @@ var ServicesPage = React.createClass({
     );
   },
 
-  render: function () {
+  render() {
     // Make sure to grow when logs are displayed
     let routes = this.context.router.getCurrentRoutes();
 

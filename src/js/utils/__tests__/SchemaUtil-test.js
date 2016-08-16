@@ -104,7 +104,7 @@ describe('SchemaUtil', function () {
               showError: false,
               showLabel: true,
               writeType: 'input',
-              validation: function () { return true; },
+              validation() { return true; },
               value: 'nameValue'
             },
             {
@@ -115,7 +115,7 @@ describe('SchemaUtil', function () {
               showError: false,
               showLabel: true,
               writeType: 'input',
-              validation: function () { return true; },
+              validation() { return true; },
               value: 'CPU Value'
             }
           ]
@@ -151,7 +151,7 @@ describe('SchemaUtil', function () {
                   showError: false,
                   showLabel: true,
                   writeType: 'input',
-                  validation: function () { return true; },
+                  validation() { return true; },
                   value: 'CPU Value'
                 }
               ]

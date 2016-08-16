@@ -16,14 +16,14 @@ var HostTimeSeriesChart = React.createClass({
     minMaxY: React.PropTypes.number
   },
 
-  getDefaultProps: function () {
+  getDefaultProps() {
     return {
       roundUpValue: 5,
       minMaxY: 10
     };
   },
 
-  getMaxY: function () {
+  getMaxY() {
     var props = this.props;
     var roundUpValue = props.roundUpValue;
     let slavesCounts = props.data.map(function (agent) {
@@ -41,7 +41,7 @@ var HostTimeSeriesChart = React.createClass({
     return maxY;
   },
 
-  getData: function (props) {
+  getData(props) {
     return [{
       name: 'Nodes',
       colorIndex: 4,
@@ -49,7 +49,7 @@ var HostTimeSeriesChart = React.createClass({
     }];
   },
 
-  getChart: function (props) {
+  getChart(props) {
     return (
       <Chart>
         <TimeSeriesChart
@@ -62,7 +62,7 @@ var HostTimeSeriesChart = React.createClass({
     );
   },
 
-  render: function () {
+  render() {
     var props = this.props;
 
     return (

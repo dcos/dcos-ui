@@ -164,8 +164,8 @@ FormModal.defaultProps = {
   ],
   disabled: false,
   extraFooterContent: null,
-  onChange: function () {},
-  onClose: function () {},
+  onChange() {},
+  onClose() {},
   open: false,
   modalProps: {}
 };

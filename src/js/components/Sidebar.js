@@ -45,11 +45,11 @@ var Sidebar = React.createClass({
     router: React.PropTypes.func
   },
 
-  getInitialState: function () {
+  getInitialState() {
     return {sidebarExpanded: true};
   },
 
-  componentDidMount: function () {
+  componentDidMount() {
     this.internalStorage_update({
       mesosInfo: MesosSummaryStore.get('states').lastSuccessful()
     });
@@ -62,7 +62,7 @@ var Sidebar = React.createClass({
     global.window.addEventListener('keydown', this.handleKeyPress, true);
   },
 
-  componentWillUnmount: function () {
+  componentWillUnmount() {
     MetadataStore.removeChangeListener(
       EventTypes.DCOS_METADATA_CHANGE,
       this.onDCOSMetadataChange
@@ -71,16 +71,16 @@ var Sidebar = React.createClass({
     global.window.removeEventListener('keydown', this.handleKeyPress, true);
   },
 
-  onDCOSMetadataChange: function () {
+  onDCOSMetadataChange() {
     this.forceUpdate();
   },
 
-  handleInstallCLI: function () {
+  handleInstallCLI() {
     SidebarActions.close();
     SidebarActions.openCliInstructions();
   },
 
-  handleKeyPress: function (event) {
+  handleKeyPress(event) {
     let nodeName = event.target.nodeName;
 
     if (event.keyCode === keyCodes.leftBracket
@@ -95,12 +95,12 @@ var Sidebar = React.createClass({
     }
   },
 
-  handleVersionClick: function () {
+  handleVersionClick() {
     SidebarActions.close();
     SidebarActions.showVersions();
   },
 
-  getMenuItems: function () {
+  getMenuItems() {
     let currentPath = this.context.router.getLocation().getCurrentPath();
 
     const menuItems = Hooks.applyFilter(
@@ -190,7 +190,7 @@ var Sidebar = React.createClass({
     return Hooks.applyFilter('sidebarFooter', footer, defaultButtonSet);
   },
 
-  render: function () {
+  render() {
     let sidebarClasses = classNames('sidebar', {
       'is-expanded': this.state.sidebarExpanded
     });

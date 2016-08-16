@@ -9,10 +9,10 @@ describe('QueryParamsMixin', function () {
 
     this.instance.context = {
       router: {
-        getCurrentPathname: function () {
+        getCurrentPathname() {
           return '/pathname';
         },
-        getCurrentQuery: function () {
+        getCurrentQuery() {
           return {
             stringValue: 'string',
             arrayValue: [

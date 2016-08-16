@@ -34,7 +34,7 @@ const FormUtil = {
    * @param {Array} definition Definition to copy.
    * @param {Object} model Default values to fill in field.
    */
-  getMultipleFieldDefinition: function (prop, id, definition, model) {
+  getMultipleFieldDefinition(prop, id, definition, model) {
     return definition.map(function (definitionField) {
       definitionField = Util.deepCopy(definitionField);
       definitionField.name = `${prop}[${id}].${definitionField.name}`;
@@ -55,7 +55,7 @@ const FormUtil = {
    * @return {Object} newModel the created model.
    * @param {Object} model Model to copy fields over from.
    */
-  modelToCombinedProps: function (model) {
+  modelToCombinedProps(model) {
     let propValues = {};
     model = Object.assign({}, model);
 
@@ -101,7 +101,7 @@ const FormUtil = {
    * @param {Number} id Id to match field.
    * @return {Boolean} isFieldInstanceOfProp If the field is an instance.
    */
-  isFieldInstanceOfProp: function (prop, field, id) {
+  isFieldInstanceOfProp(prop, field, id) {
     let isFieldArray = Array.isArray(field);
     let recursiveCheck = (nestedField) => {
       return this.isFieldInstanceOfProp(prop, nestedField, id);
@@ -121,7 +121,7 @@ const FormUtil = {
    * @param {Number} id Id to match when removing fields.
    * @return {undefined}
    */
-  removePropID: function (definition, prop, id) {
+  removePropID(definition, prop, id) {
     let fieldsToRemove = [];
     definition.forEach((field) => {
       if (this.isFieldInstanceOfProp(prop, field, id)) {
@@ -140,7 +140,7 @@ const FormUtil = {
    * @param {String} key String to parse for prop.
    * @return {String} prop
    */
-  getProp: function (key) {
+  getProp(key) {
     return key && key.split('[')[0];
   },
 
@@ -150,7 +150,7 @@ const FormUtil = {
    * @param {String} key String to parse for index.
    * @return {Number} index
    */
-  getPropIndex: function (key) {
+  getPropIndex(key) {
     if (key == null) {
       return null;
     }
@@ -165,7 +165,7 @@ const FormUtil = {
    * @param {String} key String to parse for prop key.
    * @return {String} prop key
    */
-  getPropKey: function (key) {
+  getPropKey(key) {
     return key && key.split('.')[1];
   },
 
@@ -175,7 +175,7 @@ const FormUtil = {
    * @param {Array|Object} definition Definition to iterate through.
    * @param {Function} callback Function that will receive the field definitions.
    */
-  forEachDefinition: function (definition, callback) {
+  forEachDefinition(definition, callback) {
     // This means the field is an individual field. Here we just set the error
     // to false.
     if (FormUtil.isFieldDefinition(definition)) {
@@ -216,7 +216,7 @@ const FormUtil = {
    * @param {Object} fieldDefinition Definition to check.
    * @return {Boolean} isFieldDefinition Whether it is a definition.
    */
-  isFieldDefinition: function (fieldDefinition) {
+  isFieldDefinition(fieldDefinition) {
     return typeof fieldDefinition === 'object' && fieldDefinition != null &&
       fieldDefinition.hasOwnProperty('name') &&
       fieldDefinition.hasOwnProperty('fieldType');

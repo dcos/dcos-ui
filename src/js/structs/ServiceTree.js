@@ -139,7 +139,7 @@ module.exports = class ServiceTree extends Tree {
 
       if (filter.id) {
         let filterProperties = Object.assign({}, this.getFilterProperties(), {
-          name: function (item) {
+          name(item) {
             return item.getName();
           }
         });

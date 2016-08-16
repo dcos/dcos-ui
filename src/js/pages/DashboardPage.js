@@ -50,7 +50,7 @@ var DashboardPage = React.createClass({
     // 'when a handler is about to render', i.e. on route change:
     // https://github.com/rackt/react-router/
     // blob/master/docs/api/components/RouteHandler.md
-    willTransitionTo: function () {
+    willTransitionTo() {
       SidebarActions.close();
     }
   },
@@ -59,14 +59,14 @@ var DashboardPage = React.createClass({
     router: React.PropTypes.func
   },
 
-  getDefaultProps: function () {
+  getDefaultProps() {
     return {
       componentsListLength: 5,
       servicesListLength: 5
     };
   },
 
-  componentWillMount: function () {
+  componentWillMount() {
     this.store_listeners = [
       {name: 'dcos', events: ['change']},
       {name: 'summary', events: ['success', 'error']},
@@ -80,15 +80,15 @@ var DashboardPage = React.createClass({
     this.internalStorage_update(getMesosState());
   },
 
-  onSummaryStoreError: function () {
+  onSummaryStoreError() {
     this.internalStorage_update(getMesosState());
   },
 
-  onSummaryStoreSuccess: function () {
+  onSummaryStoreSuccess() {
     this.internalStorage_update(getMesosState());
   },
 
-  getServicesList: function () {
+  getServicesList() {
     let services = DCOSStore.serviceTree.getServices().getItems();
 
     let sortedServices = services.sort(function (service, other) {
@@ -101,11 +101,11 @@ var DashboardPage = React.createClass({
     return sortedServices.slice(0, this.props.servicesListLength);
   },
 
-  getUnits: function () {
+  getUnits() {
     return UnitHealthStore.getUnits();
   },
 
-  getViewAllComponentsButton: function () {
+  getViewAllComponentsButton() {
     var componentCount = this.getUnits().getItems().length;
     if (!componentCount) {
       return null;
@@ -121,7 +121,7 @@ var DashboardPage = React.createClass({
     );
   },
 
-  getViewAllServicesBtn: function () {
+  getViewAllServicesBtn() {
     let servicesCount = DCOSStore.serviceTree.getServices().getItems().length;
     if (!servicesCount) {
       return null;
@@ -141,7 +141,7 @@ var DashboardPage = React.createClass({
     );
   },
 
-  getHeading: function (title) {
+  getHeading(title) {
     return (
       <h5 className="flush inverse">
         {title}
@@ -149,7 +149,7 @@ var DashboardPage = React.createClass({
     );
   },
 
-  render: function () {
+  render() {
     var data = this.internalStorage_get();
 
     return (

@@ -13,11 +13,11 @@ var VersionsModal = React.createClass({
     versionDump: React.PropTypes.object.isRequired
   },
 
-  onClose: function () {
+  onClose() {
     this.props.onClose();
   },
 
-  getContent: function () {
+  getContent() {
     var string = JSON.stringify(this.props.versionDump, null, 2);
     return (
       <div className="versions-modal-content">
@@ -26,7 +26,7 @@ var VersionsModal = React.createClass({
     );
   },
 
-  render: function () {
+  render() {
     return (
       <Modal
         maxHeightPercentage={0.9}

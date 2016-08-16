@@ -16,7 +16,7 @@ var QueryParamsMixin = {
     router: React.PropTypes.func
   },
 
-  getCurrentPathname: function () {
+  getCurrentPathname() {
     let {router} = this.context;
     let pathname = {};
 
@@ -27,7 +27,7 @@ var QueryParamsMixin = {
     return pathname;
   },
 
-  getQueryParamObject: function () {
+  getQueryParamObject() {
     let {router} = this.context;
 
     if (!router) {
@@ -37,7 +37,7 @@ var QueryParamsMixin = {
     return router.getCurrentQuery();
   },
 
-  setQueryParam: function (paramKey, paramValue) {
+  setQueryParam(paramKey, paramValue) {
     let {router} = this.context;
     let queryParams = router.getCurrentQuery();
 
@@ -54,7 +54,7 @@ var QueryParamsMixin = {
     router.transitionTo(router.getCurrentPathname(), {}, queryParams);
   },
 
-  decodeQueryParamArray: function (array) {
+  decodeQueryParamArray(array) {
     return array.split(';').map(function (segment) {
       return decodeURIComponent(segment);
     });

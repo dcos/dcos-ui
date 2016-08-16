@@ -36,11 +36,11 @@ function getAvailableColors() {
 }
 
 const ResourcesUtil = {
-  getDefaultResources: function () {
+  getDefaultResources() {
     return Object.keys(DefaultResourceTypes);
   },
 
-  getAvailableResources: function (excludeList = []) {
+  getAvailableResources(excludeList = []) {
     let item = CompositeState.getNodesList().getItems()[0];
 
     if (!item) {
@@ -63,7 +63,7 @@ const ResourcesUtil = {
     return resources;
   },
 
-  getAdditionalResources: function () {
+  getAdditionalResources() {
     let rest = this.getAvailableResources(this.getDefaultResources());
     // We sort so we get the same color in future calls to this method
     rest.sort();
@@ -71,7 +71,7 @@ const ResourcesUtil = {
     return rest;
   },
 
-  getResourceLabel: function (resource) {
+  getResourceLabel(resource) {
     if (DefaultResourceTypes[resource]) {
       return DefaultResourceTypes[resource].label;
     }
@@ -85,7 +85,7 @@ const ResourcesUtil = {
     }
   },
 
-  getResourceLabels: function () {
+  getResourceLabels() {
     let resources = this.getAvailableResources();
 
     return resources.reduce((memo, resource) => {
@@ -95,7 +95,7 @@ const ResourcesUtil = {
     }, {});
   },
 
-  getResourceColor: function (resource, opts = {}) {
+  getResourceColor(resource, opts = {}) {
     if (DefaultResourceTypes[resource]) {
       return DefaultResourceTypes[resource].colorID;
     }
@@ -115,7 +115,7 @@ const ResourcesUtil = {
     return opts.availableColors[index];
   },
 
-  getResourceColors: function () {
+  getResourceColors() {
     // Map the default ones first
     let map = this.getDefaultResources().reduce((memo, resource) => {
       memo[resource] = this.getResourceColor(resource);

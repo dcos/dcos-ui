@@ -14,13 +14,13 @@ var NotFoundPage = React.createClass({
     // 'when a handler is about to render', i.e. on route change:
     // https://github.com/rackt/react-router/
     // blob/master/docs/api/components/RouteHandler.md
-    willTransitionTo: function () {
+    willTransitionTo() {
 
       SidebarActions.close();
     }
   },
 
-  render: function () {
+  render() {
     return (
       <Page title="Page Not Found">
         <AlertPanel

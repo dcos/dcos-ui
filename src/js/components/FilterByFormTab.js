@@ -67,7 +67,7 @@ FilterByFormTab.propTypes = {
 
 FilterByFormTab.defaultProps = {
   currentTab: '',
-  handleFilterChange: function () {},
+  handleFilterChange() {},
   tabs: []
 };
 

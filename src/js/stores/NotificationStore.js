@@ -16,7 +16,7 @@ class NotificationStore extends GetSetBaseStore {
       events: {
         change: NOTIFICATION_CHANGE
       },
-      unmountWhen: function () {
+      unmountWhen() {
         return true;
       },
       listenAlways: true

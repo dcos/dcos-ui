@@ -27,7 +27,7 @@ class ToggleButton extends React.Component {
 
 ToggleButton.defaultProps = {
   checked: false,
-  onChange: function () {},
+  onChange() {},
   checkboxClassName: 'toggle-button'
 };
 

@@ -83,7 +83,7 @@ ServiceActionModal.contextTypes = {
 };
 
 ServiceActionModal.defaultProps = {
-  onSuccess: function () {}
+  onSuccess() {}
 };
 
 ServiceActionModal.propTypes = {

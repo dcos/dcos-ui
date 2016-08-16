@@ -22,7 +22,7 @@ let ResourceBarChart = React.createClass({
     totalResources: React.PropTypes.object.isRequired
   },
 
-  getDefaultProps: function () {
+  getDefaultProps() {
     return {
       itemCount: 0,
       totalResources: {},
@@ -32,7 +32,7 @@ let ResourceBarChart = React.createClass({
     };
   },
 
-  getData: function () {
+  getData() {
     let props = this.props;
 
     if (props.itemCount === 0) {
@@ -48,7 +48,7 @@ let ResourceBarChart = React.createClass({
     }];
   },
 
-  getMaxY: function () {
+  getMaxY() {
     if (this.props.totalResources[this.props.selectedResource]) {
       return 100;
     } else {
@@ -56,11 +56,11 @@ let ResourceBarChart = React.createClass({
     }
   },
 
-  handleSelectedResourceChange: function (selectedResource) {
+  handleSelectedResourceChange(selectedResource) {
     this.props.onResourceSelectionChange(selectedResource);
   },
 
-  getModeButtons: function () {
+  getModeButtons() {
     let selectedResource = this.props.selectedResource;
 
     let resourceColors = ResourcesUtil.getResourceColors();
@@ -82,7 +82,7 @@ let ResourceBarChart = React.createClass({
     });
   },
 
-  getBarChart: function () {
+  getBarChart() {
     return (
       <Chart calcHeight={function (w) { return w / WIDTH_HEIGHT_RATIO; }}>
         <BarChart
@@ -95,7 +95,7 @@ let ResourceBarChart = React.createClass({
     );
   },
 
-  getHeadline: function (resource) {
+  getHeadline(resource) {
     let label = ResourcesUtil.getResourceLabel(resource);
     let headline = `${label} Allocation Rate`;
 
@@ -111,7 +111,7 @@ let ResourceBarChart = React.createClass({
     );
   },
 
-  render: function () {
+  render() {
     return (
       <div className="chart panel panel-inverse">
         <div className="panel-header panel-header-large no-border flush-bottom">

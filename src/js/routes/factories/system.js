@@ -32,9 +32,9 @@ let RouteFactory = {
             name: 'system-overview-units',
             path: 'components/?',
             handler: UnitsHealthTab,
-            buildBreadCrumb: function () {
+            buildBreadCrumb() {
               return {
-                getCrumbs: function () {
+                getCrumbs() {
                   return [
                     {
                       label: 'System Components',
@@ -51,10 +51,10 @@ let RouteFactory = {
             path: 'components/:unitID/?',
             handler: UnitsHealthDetail,
             hideHeaderNavigation: true,
-            buildBreadCrumb: function () {
+            buildBreadCrumb() {
               return {
                 parentCrumb: 'system-overview-units',
-                getCrumbs: function (router) {
+                getCrumbs(router) {
                   return [
                     <UnitsHealthDetailBreadcrumb
                       parentRouter={router}
@@ -70,10 +70,10 @@ let RouteFactory = {
             path: 'components/:unitID/nodes/:unitNodeID/?',
             handler: UnitsHealthNodeDetail,
             hideHeaderNavigation: true,
-            buildBreadCrumb: function () {
+            buildBreadCrumb() {
               return {
                 parentCrumb: 'system-overview-units-unit-nodes-detail',
-                getCrumbs: function (router) {
+                getCrumbs(router) {
                   return [
                     <UnitsHealthNodeDetailBreadcrumb
                       parentRouter={router}
@@ -109,10 +109,10 @@ let RouteFactory = {
           name: 'system-organization-users',
           path: 'users/?',
           handler: UsersTab,
-          buildBreadCrumb: function () {
+          buildBreadCrumb() {
             return {
               parentCrumb: 'system-organization',
-              getCrumbs: function () {
+              getCrumbs() {
                 return [
                   {
                     label: 'Users',
@@ -146,9 +146,9 @@ let RouteFactory = {
       type: Route,
       name: 'system-organization',
       path: 'organization/?',
-      buildBreadCrumb: function () {
+      buildBreadCrumb() {
         return {
-          getCrumbs: function () {
+          getCrumbs() {
             return [
               {
                 label: 'Organization',
@@ -191,9 +191,9 @@ let RouteFactory = {
       path: 'system/?',
       handler: SystemPage,
       children: childRoutes,
-      buildBreadCrumb: function () {
+      buildBreadCrumb() {
         return {
-          getCrumbs: function () {
+          getCrumbs() {
             return [
               {
                 label: 'System',

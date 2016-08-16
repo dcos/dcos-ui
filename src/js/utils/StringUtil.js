@@ -4,7 +4,7 @@ import React from 'react';
 /* eslint-enable no-unused-vars */
 
 const StringUtil = {
-  arrayToJoinedString: function (array=[], separator = ', ') {
+  arrayToJoinedString(array=[], separator = ', ') {
     if (Array.isArray(array)) {
       return array.join(separator);
     }
@@ -12,7 +12,7 @@ const StringUtil = {
     return '';
   },
 
-  filterByString: function (objects, getter, searchString) {
+  filterByString(objects, getter, searchString) {
     var regex = StringUtil.escapeForRegExp(searchString);
     var searchPattern = new RegExp(regex, 'i');
 
@@ -27,15 +27,15 @@ const StringUtil = {
     });
   },
 
-  escapeForRegExp: function (str) {
+  escapeForRegExp(str) {
     return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&');
   },
 
-  isUrl: function (str) {
+  isUrl(str) {
     return !!str && /^https?:\/\/.+/.test(str);
   },
 
-  isEmail: function (str) {
+  isEmail(str) {
     // https://news.ycombinator.com/item?id=8360786
     return !!str &&
       str.length > 3 &&
@@ -43,7 +43,7 @@ const StringUtil = {
       str.indexOf('.') !== -1;
   },
 
-  pluralize: function (string, arity) {
+  pluralize(string, arity) {
     if (arity == null) {
       arity = 2;
     }
@@ -61,7 +61,7 @@ const StringUtil = {
     return string;
   },
 
-  capitalize: function (string) {
+  capitalize(string) {
     if (typeof string !== 'string') {
       return null;
     }
@@ -69,7 +69,7 @@ const StringUtil = {
     return string.charAt(0).toUpperCase() + string.slice(1, string.length);
   },
 
-  lowercase: function (string) {
+  lowercase(string) {
     if (typeof string !== 'string') {
       return null;
     }
@@ -77,7 +77,7 @@ const StringUtil = {
     return string.charAt(0).toLowerCase() + string.slice(1, string.length);
   },
 
-  humanizeArray: function (array, options) {
+  humanizeArray(array, options) {
     options = Object.assign({
       serialComma: true,
       wrapValueFunction: false
@@ -164,7 +164,7 @@ const StringUtil = {
    *                           word tokens.
    * @return {String}        - Human-readable title.
    */
-  idToTitle: function (id, splitBy=[], replace={}, removeConsecutive) {
+  idToTitle(id, splitBy=[], replace={}, removeConsecutive) {
 
     if (splitBy.length === 0) {
       return id.reduce((title, word, i, words) => {

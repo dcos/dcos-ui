@@ -29,7 +29,7 @@ var BarChart = React.createClass({
     width: React.PropTypes.number
   },
 
-  getDefaultProps: function () {
+  getDefaultProps() {
     return {
       axisConfiguration: {
         x: {hideMatch: false},
@@ -55,13 +55,13 @@ var BarChart = React.createClass({
     };
   },
 
-  shouldComponentUpdate: function (nextProps) {
+  shouldComponentUpdate(nextProps) {
     return this.props.height !== nextProps.height ||
       this.props.width !== nextProps.width ||
       !deepEqual(this.props.data, nextProps.data);
   },
 
-  componentWillMount: function () {
+  componentWillMount() {
     var props = this.props;
 
     var width = this.getWidth(props);
@@ -81,7 +81,7 @@ var BarChart = React.createClass({
     this.internalStorage_update(this.prepareValues(this.props));
   },
 
-  componentDidMount: function () {
+  componentDidMount() {
     var data = this.internalStorage_get();
     var props = this.props;
 
@@ -90,7 +90,7 @@ var BarChart = React.createClass({
     this.resetXAxis(props);
   },
 
-  componentWillReceiveProps: function (props) {
+  componentWillReceiveProps(props) {
     var width = this.getWidth(props);
     var xScale = this.getXScale(props.data, width, props.refreshRate);
     var yScale = this.getYScale(props);
@@ -100,18 +100,18 @@ var BarChart = React.createClass({
     this.renderAxis(props, xScale, yScale);
 
     this.internalStorage_update(Object.assign(this.prepareValues(props), {
-      xScale: xScale,
-      yScale: yScale
+      xScale,
+      yScale
     }));
 
     this.resetXAxis(props);
   },
 
-  componentDidUpdate: function () {
+  componentDidUpdate() {
     this.updateClipPath();
   },
 
-  createClipPath: function () {
+  createClipPath() {
     var data = this.internalStorage_get();
     var el = ReactDOM.findDOMNode(this);
 
@@ -124,7 +124,7 @@ var BarChart = React.createClass({
     this.updateClipPath();
   },
 
-  updateClipPath: function () {
+  updateClipPath() {
     var data = this.internalStorage_get();
     var props = this.props;
     var width = props.width - props.margin.left - props.margin.right;
@@ -132,24 +132,24 @@ var BarChart = React.createClass({
 
     d3.select('#' + data.clipPathID + ' rect')
       .attr({
-        width: width,
-        height: height
+        width,
+        height
       });
   },
 
-  getStack: function () {
+  getStack() {
     return d3.layout.stack()
       .values(function (d) { return d.values; })
       .x(function (d) { return d.date; });
   },
 
-  getYScale: function (props) {
+  getYScale(props) {
     return d3.scale.linear()
       .domain([0, props.maxY])
       .range([props.height, 0]);
   },
 
-  formatYAxis: function (ticks, maxY) {
+  formatYAxis(ticks, maxY) {
     var formatPercent = d3.scale.linear().tickFormat(ticks, '.0%');
     return (d) => {
       let axisConfiguration = this.props.axisConfiguration;
@@ -176,7 +176,7 @@ var BarChart = React.createClass({
     };
   },
 
-  renderAxis: function (props, xScale, yScale) {
+  renderAxis(props, xScale, yScale) {
     var length = props.width;
     var firstDataSet = props.data[0];
     if (firstDataSet != null) {
@@ -238,7 +238,7 @@ var BarChart = React.createClass({
       );
   },
 
-  prepareValues: function (props) {
+  prepareValues(props) {
     var data = this.internalStorage_get();
     var stackedData = data.stack(props.data);
     var valuesLength = 0;
@@ -250,13 +250,13 @@ var BarChart = React.createClass({
     }
 
     return {
-      valuesLength: valuesLength,
-      rectWidth: rectWidth,
-      stackedData: stackedData
+      valuesLength,
+      rectWidth,
+      stackedData
     };
   },
 
-  resetXAxis: function (props) {
+  resetXAxis(props) {
     var data = this.internalStorage_get();
     // here we reset the position of the axis to what it was before the animation started
     // the axis is reset right before we update the bar to the new value/position
@@ -268,7 +268,7 @@ var BarChart = React.createClass({
     }
   },
 
-  getBarList: function () {
+  getBarList() {
     var data = this.internalStorage_get();
     var props = this.props;
     var marginLeft = props.margin.left;
@@ -327,7 +327,7 @@ var BarChart = React.createClass({
     });
   },
 
-  render: function () {
+  render() {
     var data = this.internalStorage_get();
     var props = this.props;
     var margin = props.margin;

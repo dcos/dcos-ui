@@ -221,11 +221,11 @@ class TabForm extends mixin(InternalStorageMixin) {
 
 TabForm.defaultProps = {
   defaultTab: '',
-  getTriggerSubmit: function () {},
-  onChange: function () {},
-  onError: function () {},
-  onSubmit: function () {},
-  onTabClick: function () {}
+  getTriggerSubmit() {},
+  onChange() {},
+  onError() {},
+  onSubmit() {},
+  onTabClick() {}
 };
 
 const classPropType = React.PropTypes.oneOfType([

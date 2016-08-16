@@ -52,7 +52,7 @@ class VisibilityStore extends GetSetBaseStore {
       events: {
         change: VISIBILITY_CHANGE
       },
-      unmountWhen: function () {
+      unmountWhen() {
         return true;
       },
       listenAlways: true

@@ -57,7 +57,7 @@ class Typeahead extends FilterInputText {
 
 Typeahead.defaultProps = {
   emptyLabel: 'Nothing to show.',
-  onDropdownItemSelection: function () {},
+  onDropdownItemSelection() {},
   inverseStyle: false,
   items: [],
   selected: [],
