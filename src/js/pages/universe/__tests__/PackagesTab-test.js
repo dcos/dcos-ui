@@ -13,11 +13,13 @@ const ReactDOM = require('react-dom');
 const TestUtils = require('react-addons-test-utils');
 
 // Setting useFixtures for when we load CosmosPackagesStore/CosmosPackageActions
+/* eslint-disable import/newline-after-import */
 const Config = require('../../../config/Config');
 var configUseFixtures = Config.useFixtures;
 Config.useFixtures = true;
 const CosmosPackagesStore = require('../../../stores/CosmosPackagesStore');
 Config.useFixtures = configUseFixtures;
+/* eslint-enable import/newline-after-import */
 
 const PackagesTab = require('../PackagesTab');
 const UniversePackagesList = require('../../../structs/UniversePackagesList');
