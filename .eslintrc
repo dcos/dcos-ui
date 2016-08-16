@@ -83,7 +83,6 @@
     "no-extra-boolean-cast": "off",
     "jsx-quotes": ["error", "prefer-double"],
     "react/no-unknown-property": "off",
-    "object-shorthand": "off",
     "no-var": "off",
     "arrow-body-style": "off",
     "object-curly-spacing": "off",
