@@ -1,22 +1,14 @@
+jest.dontMock('../CollapsingString');
 jest.dontMock('../UserDropup');
+jest.dontMock('../../stores/AuthStore');
 
-import PluginTestUtils from 'PluginTestUtils';
 /* eslint-disable no-unused-vars */
 import React from 'react';
 /* eslint-enable no-unused-vars */
-var ReactDOM = require('react-dom');
+let ReactDOM = require('react-dom');
 
-PluginTestUtils.dontMock([
-  'AuthStore'
-]);
-
-let SDK = PluginTestUtils.getSDK('authentication', {enabled: true});
-
-require('../../SDK').setSDK(SDK);
-
-var UserDropup = require('../UserDropup');
-
-let AuthStore = SDK.get('AuthStore');
+let AuthStore = require('../../stores/AuthStore');
+let UserDropup = require('../UserDropup');
 
 describe('UserDropup', function () {
 
@@ -69,10 +61,10 @@ describe('UserDropup', function () {
 
   });
 
-  describe('#getModalMenu', function () {
+  describe('#getUserAccountMenuItems', function () {
 
     beforeEach(function () {
-      this.modalMenu = this.instance.getModalMenu([
+      this.modalMenu = this.instance.getUserAccountMenuItems([
         <div key="foo" />,
         <div key="bar" />
       ]);
