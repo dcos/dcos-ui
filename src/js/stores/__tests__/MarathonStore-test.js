@@ -166,7 +166,7 @@ describe('MarathonStore', function () {
       );
       var marathonApps = MarathonStore.get('apps');
 
-      for (var key in marathonApps) {
+      Object.keys(marathonApps).forEach(function (key) {
         var appHealth = marathonApps[key].health;
 
         if (key === 'marathon') {
@@ -176,7 +176,7 @@ describe('MarathonStore', function () {
           expect(appHealth.key).toEqual('NA');
           expect(appHealth.value).toEqual(HealthTypes.NA);
         }
-      }
+      });
     });
 
   });

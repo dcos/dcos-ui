@@ -178,7 +178,6 @@ describe('TaskDetail', function () {
     });
   });
 
-
   describe('#getBasicInfo', function () {
 
     it('should return null if task is null', function () {
@@ -188,11 +187,6 @@ describe('TaskDetail', function () {
     });
 
     it('should return an element if task is not null', function () {
-      let task = new Task({
-        id: 'fade',
-        state: 'TASK_RUNNING'
-      });
-
       let result = this.instance.getBasicInfo();
 
       expect(TestUtils.isElement(result)).toEqual(true);

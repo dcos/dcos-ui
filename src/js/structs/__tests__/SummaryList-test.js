@@ -80,9 +80,10 @@ describe('SummaryList', function () {
         metadata: {
           date: this.now + 1,
           successfulSnapshot: true,
-          serviceUsedResources: { cpus: 0, mem: 0, disk: 0 },
-          slaveUsedResources: { cpus: 0, mem: 0, disk: 0 },
-          slaveTotalResources: { cpus: 0, mem: 0, disk: 0 } }
+          serviceUsedResources: {cpus: 0, mem: 0, disk: 0},
+          slaveUsedResources: {cpus: 0, mem: 0, disk: 0},
+          slaveTotalResources: {cpus: 0, mem: 0, disk: 0}
+        }
       };
 
       expect(states.lastSuccessful()).toEqual(expectedState);
@@ -104,9 +105,10 @@ describe('SummaryList', function () {
         metadata: {
           date: this.now,
           successfulSnapshot: true,
-          serviceUsedResources: { cpus: 0, mem: 0, disk: 0 },
-          slaveUsedResources: { cpus: 0, mem: 0, disk: 0 },
-          slaveTotalResources: { cpus: 0, mem: 0, disk: 0 } }
+          serviceUsedResources: {cpus: 0, mem: 0, disk: 0},
+          slaveUsedResources: {cpus: 0, mem: 0, disk: 0},
+          slaveTotalResources: {cpus: 0, mem: 0, disk: 0}
+        }
       };
 
       expect(states.lastSuccessful()).toEqual(expectedState);
@@ -212,9 +214,9 @@ describe('SummaryList', function () {
       list.add(new StateSummary({successful: false, date: this.now}));
       let resources = list.getResourceStatesForServiceIDs();
       let expectedResult = {
-        cpus: [ { date: this.now, percentage: null, value: null } ],
-        mem: [ { date: this.now, percentage: null, value: null } ],
-        disk: [ { date: this.now, percentage: null, value: null } ]
+        cpus: [{date: this.now, percentage: null, value: null}],
+        mem: [{date: this.now, percentage: null, value: null}],
+        disk: [{date: this.now, percentage: null, value: null}]
       };
 
       expect(resources).toEqual(expectedResult);
@@ -322,9 +324,9 @@ describe('SummaryList', function () {
       list.add(new StateSummary({successful: false, date: this.now}));
       let resources = list.getResourceStatesForNodeIDs();
       let expectedResult = {
-        cpus: [ { date: this.now, percentage: null, value: null } ],
-        mem: [ { date: this.now, percentage: null, value: null } ],
-        disk: [ { date: this.now, percentage: null, value: null } ]
+        cpus: [{date: this.now, percentage: null, value: null}],
+        mem: [{date: this.now, percentage: null, value: null}],
+        disk: [{date: this.now, percentage: null, value: null}]
       };
 
       expect(resources).toEqual(expectedResult);

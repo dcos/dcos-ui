@@ -8,7 +8,7 @@ describe('MetronomeUtil', function () {
       function () {
         expect(function () {
           MetronomeUtil.parseJobs({id: '.malformed.id'});
-        }.bind(this)).toThrow();
+        }).toThrow();
       }
     );
 
@@ -16,7 +16,7 @@ describe('MetronomeUtil', function () {
       function () {
         expect(function () {
           MetronomeUtil.parseJobs({id: 'malformed.id.'});
-        }.bind(this)).toThrow();
+        }).toThrow();
       }
     );
 
@@ -133,7 +133,7 @@ describe('MetronomeUtil', function () {
             createdAt: '1990-01-02T12:10:59.571+0000',
             finishedAt: '1990-01-02T12:11:19.762+0000',
             id: '20160705121059J7cPJ'
-          }],
+          }]
         }
       });
     });

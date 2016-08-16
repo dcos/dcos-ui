@@ -21,7 +21,6 @@ var TestUtils = require('react-addons-test-utils');
 
 var InstallPackageModal = require('../InstallPackageModal');
 var JestUtil = require('../../../utils/JestUtil');
-var JestUtil = require('../../../utils/JestUtil');
 var packageDescribeFixture =
   require('../../../../../tests/_fixtures/cosmos/package-describe.json');
 var UniversePackage = require('../../../structs/UniversePackage');

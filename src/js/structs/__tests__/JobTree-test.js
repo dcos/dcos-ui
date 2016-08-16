@@ -47,7 +47,7 @@ describe('JobTree', function () {
         items: [
           {id: 'foo', items: []},
           {id: 'alpha'}
-        ],
+        ]
       });
     });
 

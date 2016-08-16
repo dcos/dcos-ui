@@ -48,7 +48,7 @@ describe('ServiceUtil', function () {
 
     describe('environmentVariables', function () {
 
-      it('should keep undefined values as ""', function() {
+      it('should keep undefined values as ""', function () {
         let service = ServiceUtil.createServiceFromFormModel({
           environmentVariables: {
             environmentVariables: [
@@ -331,7 +331,7 @@ describe('ServiceUtil', function () {
         it('adds the networkName field to the service', function () {
           let service = ServiceUtil.createServiceFromFormModel({
             containerSettings: {image: 'redis'},
-            networking: {networkType: 'prod', ports: [{}]},
+            networking: {networkType: 'prod', ports: [{}]}
           });
           expect(service.ipAddress.networkName).toEqual('prod');
         });
@@ -472,7 +472,7 @@ describe('ServiceUtil', function () {
             dockerVolumes: [{
               containerPath: 'home',
               hostPath: 'home',
-              mode: 'rw',
+              mode: 'rw'
             }]
           }
         };
@@ -518,7 +518,7 @@ describe('ServiceUtil', function () {
             dockerVolumes: [{
               containerPath: 'home',
               hostPath: 'home',
-              mode: 'rw',
+              mode: 'rw'
             }]
           }
         };

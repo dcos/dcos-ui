@@ -2,7 +2,6 @@ jest.dontMock('../AppDispatcher');
 jest.dontMock('../../config/Config');
 jest.dontMock('../../constants/ActionTypes');
 
-import {Hooks} from 'PluginSDK';
 import {RequestUtil} from 'mesosphere-shared-reactjs';
 
 var ActionTypes = require('../../constants/ActionTypes');

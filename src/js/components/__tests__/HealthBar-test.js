@@ -79,10 +79,12 @@ describe('#HealthBar', function () {
 
   describe('GetMappedTasksSummary', function () {
     it('should return a Mapped Array with all tasks', function () {
-      const expectedOutput = [{ className: 'healthy', value: 1 },
-      { className: 'unhealthy', value: 1 },
-      { className: 'unknown', value: 1 },
-      { className: 'staged', value: 1 } ];
+      const expectedOutput = [
+        {className: 'healthy', value: 1},
+        {className: 'unhealthy', value: 1},
+        {className: 'unknown', value: 1},
+        {className: 'staged', value: 1}
+      ];
       expect(this.instance.getMappedTasksSummary(testData))
         .toEqual(expectedOutput);
     });
@@ -97,10 +99,12 @@ describe('#HealthBar', function () {
           tasksStaged: 0
         };
 
-        const expectedOutput = [{ className: 'healthy', value: 3 },
-          { className: 'unhealthy', value: 1 },
-          { className: 'unknown', value: 0 },
-          { className: 'staged', value: 0 }];
+        const expectedOutput = [
+          {className: 'healthy', value: 3},
+          {className: 'unhealthy', value: 1},
+          {className: 'unknown', value: 0},
+          {className: 'staged', value: 0}
+        ];
         expect(this.instance.getMappedTasksSummary(input))
           .toEqual(expectedOutput);
       });
@@ -115,10 +119,12 @@ describe('#HealthBar', function () {
           tasksStaged: 0
         };
 
-        const expectedOutput = [{ className: 'healthy', value: 0 },
-          { className: 'unhealthy', value: 0 },
-          { className: 'unknown', value: 0 },
-          { className: 'staged', value: 0 }];
+        const expectedOutput = [
+          {className: 'healthy', value: 0},
+          {className: 'unhealthy', value: 0},
+          {className: 'unknown', value: 0},
+          {className: 'staged', value: 0}
+        ];
         expect(this.instance.getMappedTasksSummary(input))
           .toEqual(expectedOutput);
       });

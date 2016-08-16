@@ -213,7 +213,7 @@ describe('DOMUtils', function () {
     it('should return false if element is not at coord', function () {
       global.document.elementFromPoint = function () {
         return {
-          contains: function () {return false;}
+          contains: function () { return false; }
         };
       };
 

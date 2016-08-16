@@ -5,7 +5,7 @@ import ResourcesUtil from '../ResourcesUtil';
 
 function createFnWithResources(used_resources) {
   let instance = new Node({used_resources});
-  return function () {return new NodesList({items: [instance]});};
+  return function () { return new NodesList({items: [instance]}); };
 }
 
 describe('ResourcesUtil', function () {
@@ -23,13 +23,13 @@ describe('ResourcesUtil', function () {
   describe('#getAvailableResources', function () {
 
     beforeEach(function () {
-      CompositeState.getNodesList = function () {return new NodesList();};
-      CompositeState.getServicesList = function () {return [];};
+      CompositeState.getNodesList = function () { return new NodesList(); };
+      CompositeState.getServicesList = function () { return []; };
     });
 
     it('returns an array', function () {
       let resources = ResourcesUtil.getAvailableResources();
-      expect(Array.isArray(resources)).toBeTruthy;
+      expect(Array.isArray(resources)).toBeTruthy();
     });
 
     it('returns a set of default resources', function () {

@@ -44,7 +44,7 @@ describe('ServiceDetailTaskTab', function () {
   describe('#render', function () {
 
     it('renders task view', function () {
-      var taskView =  TestUtils
+      var taskView = TestUtils
         .findRenderedComponentWithType(this.instance, TaskView);
 
       expect(taskView).toBeDefined();

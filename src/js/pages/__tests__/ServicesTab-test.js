@@ -43,8 +43,7 @@ describe('ServicesTab', function () {
 
     it('are set to the default values if not stored', function () {
       ReactDOM.render(
-        JestUtil.stubRouterContext(ServicesTab, {params: {id: '/'}},
-        {
+        JestUtil.stubRouterContext(ServicesTab, {params: {id: '/'}}, {
           getCurrentRoutes: function () {
             return [{name: 'services-task-details-tab'}];
           }
@@ -67,8 +66,7 @@ describe('ServicesTab', function () {
         }
       });
       ReactDOM.render(
-        JestUtil.stubRouterContext(ServicesTab, {params: {id: '/'}},
-        {
+        JestUtil.stubRouterContext(ServicesTab, {params: {id: '/'}}, {
           getCurrentRoutes: function () {
             return [{name: 'services-task-details-tab'}];
           }
@@ -89,8 +87,7 @@ describe('ServicesTab', function () {
 
     it('renders the service table', function () {
       var instance = ReactDOM.render(
-        JestUtil.stubRouterContext(ServicesTab, {params: {id: '/'}},
-        {
+        JestUtil.stubRouterContext(ServicesTab, {params: {id: '/'}}, {
           getCurrentRoutes: function () {
             return [{name: 'services-task-details-tab'}];
           }
@@ -112,8 +109,7 @@ describe('ServicesTab', function () {
         }]
       });
       var instance = ReactDOM.render(
-        JestUtil.stubRouterContext(ServicesTab, {params: {id: '/gg'}},
-        {
+        JestUtil.stubRouterContext(ServicesTab, {params: {id: '/gg'}}, {
           getCurrentRoutes: function () {
             return [{name: 'services-task-details-tab'}];
           }
@@ -128,8 +124,7 @@ describe('ServicesTab', function () {
 
     it('renders the service detail', function () {
       var instance = ReactDOM.render(
-        JestUtil.stubRouterContext(ServicesTab, {params: {id: '/alpha'}},
-        {
+        JestUtil.stubRouterContext(ServicesTab, {params: {id: '/alpha'}}, {
           getCurrentRoutes: function () {
             return [{name: 'services-task-details-tab'}];
           }
@@ -145,8 +140,7 @@ describe('ServicesTab', function () {
     it('renders loading screen', function () {
       DCOSStore.dataProcessed = false;
       var instance = ReactDOM.render(
-        JestUtil.stubRouterContext(ServicesTab, {params: {id: '/'}},
-        {
+        JestUtil.stubRouterContext(ServicesTab, {params: {id: '/'}}, {
           getCurrentRoutes: function () {
             return [{name: 'services-task-details-tab'}];
           }
@@ -163,8 +157,7 @@ describe('ServicesTab', function () {
     it('renders correct empty panel', function () {
       DCOSStore.serviceTree = new ServiceTree({id: '/'});
       var instance = ReactDOM.render(
-        JestUtil.stubRouterContext(ServicesTab, {params: {}},
-        {
+        JestUtil.stubRouterContext(ServicesTab, {params: {}}, {
           getCurrentRoutes: function () {
             return [{name: 'services-task-details-tab'}];
           }

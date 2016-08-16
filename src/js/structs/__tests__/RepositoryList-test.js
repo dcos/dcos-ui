@@ -10,7 +10,7 @@ describe('RepositoryList', function () {
   beforeEach(function () {
     var items = [{foo: 'bar'}, {baz: 'qux'}];
     this.instance = new RepositoryList({items});
-  }),
+  });
 
   describe('#constructor', function () {
 

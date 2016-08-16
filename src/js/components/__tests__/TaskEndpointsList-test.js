@@ -7,7 +7,6 @@ var TestUtils = require('react-addons-test-utils');
 
 let Node = require('../../structs/Node');
 let TaskEndpointsList = require('../TaskEndpointsList');
-let Service = require('../../structs/Service');
 
 describe('TaskEndpointsList', function () {
 
@@ -29,7 +28,6 @@ describe('TaskEndpointsList', function () {
       expect(ReactDOM.findDOMNode(instance).textContent).toEqual('N/A');
     });
 
-
     it('returns N/A if task is undefined', function () {
       let instance = ReactDOM.render(
         <TaskEndpointsList />,
@@ -37,7 +35,6 @@ describe('TaskEndpointsList', function () {
       );
       expect(ReactDOM.findDOMNode(instance).textContent).toEqual('N/A');
     });
-
 
     it('returns a list of linked ipAddresses if ports is not defined', function () {
       let instance = ReactDOM.render(

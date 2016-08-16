@@ -69,7 +69,7 @@ describe('Deployment', function () {
 
       expect(deployment.isStarting()).toEqual(true);
     });
-    
+
     it('flags deployments which update services', function () {
       let deployment = new Deployment({
         id: 'deployment-id',

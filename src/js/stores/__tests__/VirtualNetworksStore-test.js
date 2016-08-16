@@ -2,12 +2,9 @@ jest.dontMock('../VirtualNetworksStore');
 jest.dontMock('../../events/AppDispatcher');
 jest.dontMock('../../events/VirtualNetworksActions');
 
-import PluginTestUtils from 'PluginTestUtils';
-
 const ActionTypes = require('../../constants/ActionTypes');
 const AppDispatcher = require('../../events/AppDispatcher');
 const EventTypes = require('../../constants/EventTypes');
-const Overlay = require('../../structs/Overlay');
 const OverlayList = require('../../structs/OverlayList');
 const VirtualNetworksStore = require('../VirtualNetworksStore');
 
@@ -82,7 +79,7 @@ describe('VirtualNetworksStore', function () {
         ]};
         AppDispatcher.handleServerAction({
           type: ActionTypes.REQUEST_VIRTUAL_NETWORKS_SUCCESS,
-          data,
+          data
         });
 
         expect(mockFn.calls.count()).toBe(1);

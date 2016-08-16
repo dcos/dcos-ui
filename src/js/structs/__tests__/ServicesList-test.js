@@ -53,9 +53,9 @@ describe('ServicesList', function () {
 
     it('filters by health', function () {
       let items = [
-        {name: 'marathon', getHealth: function () {return {value: 1}; }},
-        {name: 'metronome', getHealth: function () {return {value: 0}; }},
-        {name: 'marathon-user', getHealth: function () {return {value: 2}; }}
+        {name: 'marathon', getHealth: function () { return {value: 1}; }},
+        {name: 'metronome', getHealth: function () { return {value: 0}; }},
+        {name: 'marathon-user', getHealth: function () { return {value: 2}; }}
       ];
 
       let list = new ServicesList({items});

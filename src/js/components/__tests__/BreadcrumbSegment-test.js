@@ -11,7 +11,7 @@ let BreadcrumbSegmentLink = require('../BreadcrumbSegmentLink');
 describe('BreadcrumbSegment', function () {
 
   beforeEach(function () {
-    function parentRouter () {}
+    function parentRouter() {}
     parentRouter.namedRoutes = {
       'foo': {
         paramNames: ['bar']

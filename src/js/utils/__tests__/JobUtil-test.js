@@ -10,9 +10,7 @@ describe('JobUtil', function () {
 
     it('should return instance of Job', function () {
       const job = JobUtil.createJobFromFormModel({
-        general: {
-          id: 'test'
-        }
+        general: {id: 'test'}
       });
 
       expect(job).toEqual(jasmine.any(Job));
@@ -28,10 +26,7 @@ describe('JobUtil', function () {
 
     it('should convert form model to the corresponding job', function () {
       const job = JobUtil.createJobFromFormModel({
-        general: {
-          id: 'test',
-          cmd: 'sleep 1000;'
-        }
+        general: {id: 'test', cmd: 'sleep 1000;'}
       });
 
       expect(job.getId()).toEqual('test');
@@ -67,14 +62,10 @@ describe('JobUtil', function () {
         ]
       };
 
-      const job = new Job({
-        id: 'test',
-      });
+      const job = new Job({id: 'test'});
 
       expect(JobUtil.createFormModelFromSchema(schema, job)).toEqual({
-        general: {
-          id: 'test'
-        }
+        general: {id: 'test'}
       });
     });
   });
