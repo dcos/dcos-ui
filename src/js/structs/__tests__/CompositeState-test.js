@@ -1,5 +1,5 @@
-var CompositeState = require('../CompositeState');
-var NodesList = require('../NodesList');
+const CompositeState = require('../CompositeState');
+const NodesList = require('../NodesList');
 
 describe('CompositeState', function () {
 

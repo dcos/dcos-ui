@@ -1,6 +1,6 @@
 jest.dontMock('../Util');
 
-var Util = require('../Util');
+const Util = require('../Util');
 
 describe('Util', function () {
 

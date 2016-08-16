@@ -2,13 +2,13 @@ jest.dontMock('../AuthStore');
 jest.dontMock('../../events/AuthActions');
 jest.dontMock('../../mixins/GetSetMixin');
 
-var cookie = require('cookie');
-import {RequestUtil} from 'mesosphere-shared-reactjs';
+const cookie = require('cookie');
+const RequestUtil = require('mesosphere-shared-reactjs').RequestUtil;
 
-var ActionTypes = require('../../constants/ActionTypes');
-var EventTypes = require('../../constants/EventTypes');
-import AppDispatcher from '../../events/AppDispatcher';
-var AuthStore = require('../AuthStore');
+const ActionTypes = require('../../constants/ActionTypes');
+const EventTypes = require('../../constants/EventTypes');
+const AppDispatcher = require('../../events/AppDispatcher');
+const AuthStore = require('../AuthStore');
 
 const USER_COOKIE_KEY = 'dcos-acs-info-cookie';
 

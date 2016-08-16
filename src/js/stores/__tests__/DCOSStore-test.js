@@ -7,14 +7,14 @@ jest.dontMock('../../structs/ServiceTree');
 jest.dontMock('../../structs/SummaryList');
 jest.dontMock('../../structs/StateSummary');
 
-var DCOSStore = require('../DCOSStore');
-var MarathonStore = require('../MarathonStore');
-var MesosSummaryStore = require('../MesosSummaryStore');
-var NotificationStore = require('../NotificationStore');
-var DeploymentsList = require('../../structs/DeploymentsList');
-var ServiceTree = require('../../structs/ServiceTree');
-var SummaryList = require('../../structs/SummaryList');
-var StateSummary = require('../../structs/StateSummary');
+const DCOSStore = require('../DCOSStore');
+const MarathonStore = require('../MarathonStore');
+const MesosSummaryStore = require('../MesosSummaryStore');
+const NotificationStore = require('../NotificationStore');
+const DeploymentsList = require('../../structs/DeploymentsList');
+const ServiceTree = require('../../structs/ServiceTree');
+const SummaryList = require('../../structs/SummaryList');
+const StateSummary = require('../../structs/StateSummary');
 
 describe('DCOSStore', function () {
 

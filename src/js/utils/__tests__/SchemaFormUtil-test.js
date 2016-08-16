@@ -1,6 +1,6 @@
 jest.dontMock('../SchemaFormUtil');
 
-var SchemaFormUtil = require('../SchemaFormUtil');
+const SchemaFormUtil = require('../SchemaFormUtil');
 
 describe('SchemaFormUtil', function () {
   describe('#getDefinitionFromPath', function () {

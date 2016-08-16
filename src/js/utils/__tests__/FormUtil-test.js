@@ -1,6 +1,6 @@
 jest.dontMock('../FormUtil');
 
-let FormUtil = require('../FormUtil');
+const FormUtil = require('../FormUtil');
 
 describe('FormUtil', function () {
   describe('#getMultipleFieldDefinition', function () {

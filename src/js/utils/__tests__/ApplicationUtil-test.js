@@ -1,9 +1,9 @@
 jest.dontMock('../../stores/MesosSummaryStore');
 
-let ApplicationUtil = require('../ApplicationUtil');
-let Config = require('../../config/Config');
-let EventTypes = require('../../constants/EventTypes');
-let MesosSummaryStore = require('../../stores/MesosSummaryStore');
+const ApplicationUtil = require('../ApplicationUtil');
+const Config = require('../../config/Config');
+const EventTypes = require('../../constants/EventTypes');
+const MesosSummaryStore = require('../../stores/MesosSummaryStore');
 
 describe('ApplicationUtil', function () {
 

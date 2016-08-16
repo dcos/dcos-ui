@@ -2,8 +2,8 @@ jest.dontMock('../../utils/MesosSummaryUtil');
 jest.dontMock('../../utils/Maths');
 jest.dontMock('../../utils/Util');
 
-let SummaryList = require('../SummaryList');
-let StateSummary = require('../StateSummary');
+const SummaryList = require('../SummaryList');
+const StateSummary = require('../StateSummary');
 
 describe('SummaryList', function () {
 

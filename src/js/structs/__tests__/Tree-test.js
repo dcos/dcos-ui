@@ -1,6 +1,6 @@
-let Item = require('../Item');
-let List = require('../List');
-let Tree = require('../Tree');
+const Item = require('../Item');
+const List = require('../List');
+const Tree = require('../Tree');
 
 describe('Tree', function () {
 

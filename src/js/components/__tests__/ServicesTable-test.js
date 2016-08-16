@@ -4,11 +4,11 @@ jest.dontMock('../../mixins/GetSetMixin');
 jest.dontMock('../ServicesTable');
 
 /* eslint-disable no-unused-vars */
-var React = require('react');
+const React = require('react');
 /* eslint-enable no-unused-vars */
-var ReactDOM = require('react-dom');
-var ServicesTable = require('../ServicesTable');
-var Service = require('../../structs/Service');
+const ReactDOM = require('react-dom');
+const ServicesTable = require('../ServicesTable');
+const Service = require('../../structs/Service');
 
 describe('ServicesTable', function () {
 

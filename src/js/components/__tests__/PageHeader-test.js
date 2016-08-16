@@ -1,10 +1,10 @@
 jest.dontMock('../PageHeader');
 /* eslint-disable no-unused-vars */
-var React = require('react');
+const React = require('react');
 /* eslint-enable no-unused-vars */
-var ReactDOM = require('react-dom');
+const ReactDOM = require('react-dom');
 
-var PageHeader = require('../PageHeader');
+const PageHeader = require('../PageHeader');
 
 describe('PageHeader', function () {
   beforeEach(function () {

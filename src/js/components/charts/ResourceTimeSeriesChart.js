@@ -1,9 +1,9 @@
-var React = require('react');
+import React from 'react';
 
-var Chart = require('./Chart');
-var TimeSeriesChart = require('./TimeSeriesChart');
-var TimeSeriesLabel = require('./TimeSeriesLabel');
-var Units = require('../../utils/Units');
+import Chart from './Chart';
+import TimeSeriesChart from './TimeSeriesChart';
+import TimeSeriesLabel from './TimeSeriesLabel';
+import Units from '../../utils/Units';
 
 var ResourceTimeSeriesChart = React.createClass({
 

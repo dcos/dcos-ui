@@ -13,17 +13,17 @@ jest.dontMock('../../TabForm');
 jest.dontMock('../../../utils/Util');
 
 /* eslint-disable no-unused-vars */
-var React = require('react');
+const React = require('react');
 /* eslint-enable no-unused-vars */
-var ReactDOM = require('react-dom');
-import {RequestUtil} from 'mesosphere-shared-reactjs';
-var TestUtils = require('react-addons-test-utils');
+const ReactDOM = require('react-dom');
+const RequestUtil = require('mesosphere-shared-reactjs').RequestUtil;
+const TestUtils = require('react-addons-test-utils');
 
-var InstallPackageModal = require('../InstallPackageModal');
-var JestUtil = require('../../../utils/JestUtil');
+const InstallPackageModal = require('../InstallPackageModal');
+const JestUtil = require('../../../utils/JestUtil');
 var packageDescribeFixture =
   require('../../../../../tests/_fixtures/cosmos/package-describe.json');
-var UniversePackage = require('../../../structs/UniversePackage');
+const UniversePackage = require('../../../structs/UniversePackage');
 
 JestUtil.unMockStores(['CosmosPackagesStore']);
 

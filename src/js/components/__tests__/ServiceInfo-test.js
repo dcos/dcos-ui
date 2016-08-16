@@ -3,12 +3,12 @@ jest.dontMock('../PageHeader');
 jest.dontMock('../ServiceInfo');
 
 /* eslint-disable no-unused-vars */
-var React = require('react');
+const React = require('react');
 /* eslint-enable no-unused-vars */
-var ReactDOM = require('react-dom');
+const ReactDOM = require('react-dom');
 
-var Service = require('../../structs/Service');
-var ServiceInfo = require('../ServiceInfo');
+const Service = require('../../structs/Service');
+const ServiceInfo = require('../ServiceInfo');
 
 describe('ServiceInfo', function () {
 

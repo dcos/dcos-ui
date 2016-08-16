@@ -1,4 +1,4 @@
-var FrameworkConstants = require('../FrameworkConstants');
+const FrameworkConstants = require('../FrameworkConstants');
 
 describe('FrameworkConstants', function () {
 

@@ -1,9 +1,9 @@
-let HealthStatus = require('../../constants/HealthStatus');
-let Service = require('../Service');
-let VolumeList = require('../VolumeList');
-let ServiceImages = require('../../constants/ServiceImages');
-let ServiceStatus = require('../../constants/ServiceStatus');
-let TaskStats = require('../TaskStats');
+const HealthStatus = require('../../constants/HealthStatus');
+const Service = require('../Service');
+const VolumeList = require('../VolumeList');
+const ServiceImages = require('../../constants/ServiceImages');
+const ServiceStatus = require('../../constants/ServiceStatus');
+const TaskStats = require('../TaskStats');
 
 describe('Service', function () {
 

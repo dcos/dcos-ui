@@ -1,6 +1,6 @@
 jest.dontMock('../ContainerValidatorUtil');
 
-var ContainerValidatorUtil = require('../ContainerValidatorUtil');
+const ContainerValidatorUtil = require('../ContainerValidatorUtil');
 
 describe('ContainerValidatorUtil', function () {
 

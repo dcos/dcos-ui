@@ -1,10 +1,3 @@
-// Load in our CSS.
-// TODO - DCOS-6452 - remove component @imports from index.less and
-// require them in the component.js
-import '../styles/index.less';
-
-import PluginSDK from 'PluginSDK';
-
 import 'babel-polyfill';
 /* eslint-disable no-unused-vars */
 import React from 'react';
@@ -13,10 +6,13 @@ import ReactDOM from 'react-dom';
 import {RequestUtil} from 'mesosphere-shared-reactjs';
 import Router from 'react-router';
 import {Provider} from 'react-redux';
-
-require('./utils/MomentJSConfig');
-require('./utils/ReactSVG');
-
+import PluginSDK from 'PluginSDK';
+// Load in our CSS.
+// TODO - DCOS-6452 - remove component @imports from index.less and
+// require them in the component.js
+import '../styles/index.less';
+import './utils/MomentJSConfig';
+import './utils/ReactSVG';
 import {
   CONFIG_ERROR,
   PLUGINS_CONFIGURED

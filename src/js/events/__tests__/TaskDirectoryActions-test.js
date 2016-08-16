@@ -2,10 +2,10 @@ jest.dontMock('../TaskDirectoryActions');
 jest.dontMock('../AppDispatcher');
 jest.dontMock('../../config/Config');
 
-import {RequestUtil} from 'mesosphere-shared-reactjs';
+const RequestUtil = require('mesosphere-shared-reactjs').RequestUtil;
 
-var TaskDirectoryActions = require('../TaskDirectoryActions');
-var Config = require('../../config/Config');
+const TaskDirectoryActions = require('../TaskDirectoryActions');
+const Config = require('../../config/Config');
 
 describe('TaskDirectoryActions', function () {
 

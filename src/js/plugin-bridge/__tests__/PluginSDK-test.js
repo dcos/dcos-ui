@@ -4,10 +4,10 @@ jest.dontMock('../../mixins/GetSetMixin');
 jest.dontMock('../../stores/ConfigStore');
 jest.dontMock('../../utils/StructUtil');
 
-var deepEqual = require('deep-equal');
+const deepEqual = require('deep-equal');
 
-var PluginSDK = require('PluginSDK');
-var PluginTestUtils = require('PluginTestUtils');
+const PluginSDK = require('PluginSDK');
+const PluginTestUtils = require('PluginTestUtils');
 
 let Hooks = PluginSDK.Hooks;
 

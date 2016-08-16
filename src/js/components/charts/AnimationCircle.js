@@ -1,6 +1,6 @@
-var d3 = require('d3');
-var React = require('react');
-var ReactDOM = require('react-dom');
+import d3 from 'd3';
+import React from 'react';
+import ReactDOM from 'react-dom';
 
 var AnitmationCircle = React.createClass({
 

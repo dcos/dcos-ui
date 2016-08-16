@@ -1,10 +1,10 @@
-var React = require('react');
+import React from 'react';
 import {Tooltip} from 'reactjs-components';
 
-var Chart = require('./charts/Chart');
-var DialChart = require('./charts/DialChart');
+import Chart from './charts/Chart';
+import DialChart from './charts/DialChart';
 import Icon from './Icon';
-var ResourcesUtil = require('../utils/ResourcesUtil');
+import ResourcesUtil from '../utils/ResourcesUtil';
 
 var colors = {
   error: 2,

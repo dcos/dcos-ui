@@ -1,6 +1,6 @@
 jest.dontMock('../HostUtil');
 
-var HostUtil = require('../HostUtil');
+const HostUtil = require('../HostUtil');
 
 describe('HostUtil', function () {
 

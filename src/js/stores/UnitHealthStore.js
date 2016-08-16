@@ -1,3 +1,4 @@
+import PluginSDK from 'PluginSDK';
 import GetSetBaseStore from './GetSetBaseStore';
 import {
   SERVER_ACTION,
@@ -28,7 +29,6 @@ import HealthUnit from '../structs/HealthUnit';
 import HealthUnitsList from '../structs/HealthUnitsList';
 import Node from '../structs/Node';
 import NodesList from '../structs/NodesList';
-import PluginSDK from 'PluginSDK';
 import VisibilityStore from './VisibilityStore';
 
 let requestInterval = null;

@@ -1,21 +1,21 @@
+import PluginSDK from 'PluginSDK';
 import GetSetBaseStore from './GetSetBaseStore';
 
 import {
-  REQUEST_CLUSTER_CCID_ERROR,
-  REQUEST_CLUSTER_CCID_SUCCESS,
-  REQUEST_CONFIG_ERROR,
-  REQUEST_CONFIG_SUCCESS,
-  SERVER_ACTION
+REQUEST_CLUSTER_CCID_ERROR,
+REQUEST_CLUSTER_CCID_SUCCESS,
+REQUEST_CONFIG_ERROR,
+REQUEST_CONFIG_SUCCESS,
+SERVER_ACTION
 } from '../constants/ActionTypes';
 import AppDispatcher from '../events/AppDispatcher';
 import ConfigActions from '../events/ConfigActions';
 import {
-  CLUSTER_CCID_ERROR,
-  CLUSTER_CCID_SUCCESS,
-  CONFIG_ERROR,
-  CONFIG_LOADED
+CLUSTER_CCID_ERROR,
+CLUSTER_CCID_SUCCESS,
+CONFIG_ERROR,
+CONFIG_LOADED
 } from '../constants/EventTypes';
-import PluginSDK from 'PluginSDK';
 
 class ConfigStore extends GetSetBaseStore {
   constructor() {

@@ -1,5 +1,5 @@
-import ServicePlanBlock from '../ServicePlanBlock';
-import ServicePlanStatusTypes from '../../constants/ServicePlanStatusTypes';
+const ServicePlanBlock = require('../ServicePlanBlock');
+const ServicePlanStatusTypes = require('../../constants/ServicePlanStatusTypes');
 
 describe('ServicePlanBlock', function () {
 

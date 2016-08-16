@@ -1,11 +1,11 @@
 import classNames from 'classnames/dedupe';
-var GeminiScrollbar = require('react-gemini-scrollbar');
-var React = require('react');
+import GeminiScrollbar from 'react-gemini-scrollbar';
+import React from 'react';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import GeminiUtil from '../utils/GeminiUtil';
-var InternalStorageMixin = require('../mixins/InternalStorageMixin');
-var SidebarToggle = require('../components/SidebarToggle');
+import InternalStorageMixin from '../mixins/InternalStorageMixin';
+import SidebarToggle from '../components/SidebarToggle';
 
 var Page = React.createClass({
 

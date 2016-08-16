@@ -1,5 +1,6 @@
 jest.dontMock('../ChartMixin');
-var ChartMixin = require('../ChartMixin');
+
+const ChartMixin = require('../ChartMixin');
 
 describe('ChartMixin', function () {
 

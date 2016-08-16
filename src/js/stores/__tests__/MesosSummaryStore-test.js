@@ -7,8 +7,8 @@ jest.dontMock('../../utils/StringUtil');
 jest.dontMock('../../utils/StringUtil');
 jest.dontMock('../../utils/Util');
 
-var MesosSummaryStore = require('../MesosSummaryStore');
-var Framework = require('../../structs/Framework');
+const MesosSummaryStore = require('../MesosSummaryStore');
+const Framework = require('../../structs/Framework');
 
 MesosSummaryStore.init();
 

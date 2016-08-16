@@ -1,9 +1,9 @@
 jest.dontMock('../../constants/UnitHealthStatus');
 
-var HealthUnit = require('../../structs/HealthUnit');
-var UnitHealthStatus = require('../../constants/UnitHealthStatus');
-var UnitHealthUtil = require('../../utils/UnitHealthUtil');
-let NodesList = require('../../structs/NodesList');
+const HealthUnit = require('../../structs/HealthUnit');
+const UnitHealthStatus = require('../../constants/UnitHealthStatus');
+const UnitHealthUtil = require('../../utils/UnitHealthUtil');
+const NodesList = require('../../structs/NodesList');
 
 describe('UnitHealthUnit', function () {
 

@@ -1,6 +1,6 @@
 jest.dontMock('../MarathonUtil');
 
-var MarathonUtil = require('../MarathonUtil');
+const MarathonUtil = require('../MarathonUtil');
 
 describe('MarathonUtil', function () {
 

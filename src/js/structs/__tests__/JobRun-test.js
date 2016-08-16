@@ -1,5 +1,5 @@
-let JobRun = require('../JobRun');
-let JobTaskList = require('../JobTaskList');
+const JobRun = require('../JobRun');
+const JobTaskList = require('../JobTaskList');
 
 describe('JobRun', function () {
 

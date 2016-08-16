@@ -2,10 +2,10 @@ jest.dontMock('../UserStore');
 jest.dontMock('../../events/UsersActions');
 jest.dontMock('../../mixins/GetSetMixin');
 
-var UserStore = require('../UserStore');
-var ActionTypes = require('../../constants/ActionTypes');
-var AppDispatcher = require('../../events/AppDispatcher');
-var EventTypes = require('../../constants/EventTypes');
+const UserStore = require('../UserStore');
+const ActionTypes = require('../../constants/ActionTypes');
+const AppDispatcher = require('../../events/AppDispatcher');
+const EventTypes = require('../../constants/EventTypes');
 
 describe('UserStore', function () {
 

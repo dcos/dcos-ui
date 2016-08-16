@@ -1,4 +1,4 @@
-let Overlay = require('../Overlay');
+const Overlay = require('../Overlay');
 
 describe('Overlay', function () {
 

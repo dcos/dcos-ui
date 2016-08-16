@@ -1,4 +1,4 @@
-var GetSetBaseStore = require('../GetSetBaseStore');
+const GetSetBaseStore = require('../GetSetBaseStore');
 
 describe('GetSetBaseStore', function () {
 

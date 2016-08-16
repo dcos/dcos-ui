@@ -5,20 +5,20 @@ jest.mock('../../stores/UserSettingsStore');
 jest.mock('../../mixins/QueryParamsMixin');
 
 /* eslint-disable no-unused-vars */
-var React = require('react');
+const React = require('react');
 /* eslint-enable no-unused-vars */
-var ReactDOM = require('react-dom');
-var TestUtils = require('react-addons-test-utils');
-var JestUtil = require('../../utils/JestUtil');
+const ReactDOM = require('react-dom');
+const TestUtils = require('react-addons-test-utils');
+const JestUtil = require('../../utils/JestUtil');
 
-var AlertPanel = require('../../components/AlertPanel');
-var MetronomeUtil = require('../../utils/MetronomeUtil');
-var DCOSStore = require('../../stores/DCOSStore');
-var QueryParamsMixin = require('../../mixins/QueryParamsMixin');
-var JobsTab = require('../jobs/JobsTab');
-var JobTree = require('../../structs/JobTree');
-var JobsTable = require('../../pages/jobs/JobsTable');
-var UserSettingsStore = require('../../stores/UserSettingsStore');
+const AlertPanel = require('../../components/AlertPanel');
+const MetronomeUtil = require('../../utils/MetronomeUtil');
+const DCOSStore = require('../../stores/DCOSStore');
+const QueryParamsMixin = require('../../mixins/QueryParamsMixin');
+const JobsTab = require('../jobs/JobsTab');
+const JobTree = require('../../structs/JobTree');
+const JobsTable = require('../../pages/jobs/JobsTable');
+const UserSettingsStore = require('../../stores/UserSettingsStore');
 
 describe('JobsTab', function () {
 

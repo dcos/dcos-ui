@@ -3,16 +3,16 @@ jest.dontMock('../../utils/Util');
 jest.dontMock('../../utils/ResourcesUtil');
 jest.dontMock('../NodesGridDials');
 
-var deepEqual = require('deep-equal');
+const deepEqual = require('deep-equal');
 /* eslint-disable no-unused-vars */
-var React = require('react');
+const React = require('react');
 /* eslint-enable no-unused-vars */
-var ReactDOM = require('react-dom');
-var TestUtils = require('react-addons-test-utils');
+const ReactDOM = require('react-dom');
+const TestUtils = require('react-addons-test-utils');
 
-var NodesGridDials = require('../NodesGridDials');
-var ResourcesUtil = require('../../utils/ResourcesUtil');
-var Node = require('../../structs/Node');
+const NodesGridDials = require('../NodesGridDials');
+const ResourcesUtil = require('../../utils/ResourcesUtil');
+const Node = require('../../structs/Node');
 
 var mockHost = {
   id: 'foo',

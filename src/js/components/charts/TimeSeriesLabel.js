@@ -1,8 +1,8 @@
-var classNames = require('classnames');
+import classNames from 'classnames';
 import deepEqual from 'deep-equal';
-var React = require('react');
+import React from 'react';
 
-var ValueTypes = require('../../constants/ValueTypes');
+import ValueTypes from '../../constants/ValueTypes';
 
 var TimeSeriesLabel = React.createClass({
 

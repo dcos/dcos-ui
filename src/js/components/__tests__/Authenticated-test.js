@@ -2,13 +2,13 @@ jest.dontMock('../Authenticated');
 jest.dontMock('../../stores/AuthStore');
 jest.dontMock('../../events/AuthActions');
 
-import React from 'react';
-import ReactDOM from 'react-dom';
-import TestUtils from 'react-addons-test-utils';
+const React = require('react');
+const ReactDOM = require('react-dom');
+const TestUtils = require('react-addons-test-utils');
 
-let Authenticated = require('../Authenticated');
-let AuthStore = require('../../stores/AuthStore');
-import {Hooks} from 'PluginSDK';
+const Authenticated = require('../Authenticated');
+const AuthStore = require('../../stores/AuthStore');
+const Hooks = require('PluginSDK').Hooks;
 
 class FakeComponent extends React.Component {
   render() {

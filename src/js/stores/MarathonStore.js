@@ -1,3 +1,4 @@
+import PluginSDK from 'PluginSDK';
 import {
   REQUEST_MARATHON_DEPLOYMENT_ROLLBACK_ERROR,
   REQUEST_MARATHON_DEPLOYMENT_ROLLBACK_SUCCESS,
@@ -74,7 +75,6 @@ import {
   MARATHON_TASK_KILL_SUCCESS,
   VISIBILITY_CHANGE
 } from '../constants/EventTypes';
-import PluginSDK from 'PluginSDK';
 import Service from '../structs/Service';
 import ServiceImages from '../constants/ServiceImages';
 import ServiceTree from '../structs/ServiceTree';

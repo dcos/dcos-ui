@@ -1,11 +1,11 @@
-let Application = require('../Application');
-let Framework = require('../Framework');
-let HealthStatus = require('../../constants/HealthStatus');
-let HealthTypes = require('../../constants/HealthTypes');
-let Service = require('../Service');
-let ServiceTree = require('../ServiceTree');
-let ServiceStatus = require('../../constants/ServiceStatus');
-let VolumeList = require('../../structs/VolumeList');
+const Application = require('../Application');
+const Framework = require('../Framework');
+const HealthStatus = require('../../constants/HealthStatus');
+const HealthTypes = require('../../constants/HealthTypes');
+const Service = require('../Service');
+const ServiceTree = require('../ServiceTree');
+const ServiceStatus = require('../../constants/ServiceStatus');
+const VolumeList = require('../../structs/VolumeList');
 
 describe('ServiceTree', function () {
 

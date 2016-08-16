@@ -1,6 +1,6 @@
 jest.dontMock('../DateUtil');
 
-var DateUtil = require('../DateUtil');
+const DateUtil = require('../DateUtil');
 
 describe('DateUtil', function () {
   describe('#msToDateStr', function () {

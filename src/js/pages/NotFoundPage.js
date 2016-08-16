@@ -1,9 +1,9 @@
-var Link = require('react-router').Link;
-var React = require('react');
+import {Link} from 'react-router';
+import React from 'react';
 
-var AlertPanel = require('../components/AlertPanel');
-var Page = require('../components/Page');
-var SidebarActions = require('../events/SidebarActions');
+import AlertPanel from '../components/AlertPanel';
+import Page from '../components/Page';
+import SidebarActions from '../events/SidebarActions';
 
 var NotFoundPage = React.createClass({
 

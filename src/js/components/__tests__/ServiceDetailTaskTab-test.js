@@ -5,15 +5,15 @@ jest.dontMock('../ServiceDetailTaskTab');
 jest.dontMock('../TaskView');
 
 /* eslint-disable no-unused-vars */
-var React = require('react');
+const React = require('react');
 /* eslint-enable no-unused-vars */
-var ReactDOM = require('react-dom');
-var TestUtils = require('react-addons-test-utils');
-var JestUtil = require('../../utils/JestUtil');
+const ReactDOM = require('react-dom');
+const TestUtils = require('react-addons-test-utils');
+const JestUtil = require('../../utils/JestUtil');
 
-var Service = require('../../structs/Service');
-var ServiceDetailTaskTab = require('../ServiceDetailTaskTab');
-var TaskView = require('../TaskView');
+const Service = require('../../structs/Service');
+const ServiceDetailTaskTab = require('../ServiceDetailTaskTab');
+const TaskView = require('../TaskView');
 
 describe('ServiceDetailTaskTab', function () {
 

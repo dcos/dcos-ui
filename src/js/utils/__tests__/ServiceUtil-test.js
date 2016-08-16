@@ -2,8 +2,8 @@ jest.dontMock('../ServiceUtil');
 jest.dontMock('../../structs/Service');
 jest.dontMock('../../constants/VolumeConstants');
 
-var Service = require('../../structs/Service');
-var ServiceUtil = require('../ServiceUtil');
+const Service = require('../../structs/Service');
+const ServiceUtil = require('../ServiceUtil');
 
 describe('ServiceUtil', function () {
   describe('#createServiceFromFormModel', function () {

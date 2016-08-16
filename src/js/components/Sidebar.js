@@ -1,23 +1,22 @@
-var classNames = require('classnames');
-var GeminiScrollbar = require('react-gemini-scrollbar');
-var Link = require('react-router').Link;
-var React = require('react');
-var State = require('react-router').State;
+import classNames from 'classnames';
+import GeminiScrollbar from 'react-gemini-scrollbar';
+import {Link, State} from 'react-router';
+import React from 'react';
 import {Tooltip} from 'reactjs-components';
+import PluginSDK from 'PluginSDK';
 
 import ClusterHeader from './ClusterHeader';
 import Config from '../config/Config';
-var EventTypes = require('../constants/EventTypes');
+import EventTypes from '../constants/EventTypes';
 import Icon from './Icon';
 import IconDCOSLogoMark from './icons/IconDCOSLogoMark';
 import {keyCodes} from '../utils/KeyboardUtil';
-var InternalStorageMixin = require('../mixins/InternalStorageMixin');
-var MesosSummaryStore = require('../stores/MesosSummaryStore');
+import InternalStorageMixin from '../mixins/InternalStorageMixin';
+import MesosSummaryStore from '../stores/MesosSummaryStore';
 import MetadataStore from '../stores/MetadataStore';
 import NotificationStore from '../stores/NotificationStore';
-import PluginSDK from 'PluginSDK';
 import SaveStateMixin from '../mixins/SaveStateMixin';
-var SidebarActions = require('../events/SidebarActions');
+import SidebarActions from '../events/SidebarActions';
 
 let defaultMenuItems = [
   'dashboard',

@@ -1,8 +1,8 @@
 jest.dontMock('../../utils/LocalStorageUtil');
 jest.dontMock('../UserSettingsStore');
 
-var LocalStorageUtil = require('../../utils/LocalStorageUtil');
-var UserSettingsStore = require('../UserSettingsStore');
+const LocalStorageUtil = require('../../utils/LocalStorageUtil');
+const UserSettingsStore = require('../UserSettingsStore');
 
 describe('UserSettingsStore', function () {
   beforeEach(function () {

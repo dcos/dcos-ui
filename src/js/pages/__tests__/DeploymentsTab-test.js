@@ -6,17 +6,17 @@ jest.unmock('../../structs/DeploymentsList');
 jest.unmock('../../structs/Deployment');
 jest.unmock('../../mixins/GetSetMixin');
 
-import JestUtil from '../../utils/JestUtil';
+const JestUtil = require('../../utils/JestUtil');
 /* eslint-disable no-unused-vars */
-import React from 'react';
+const React = require('react');
 /* eslint-enable no-unused-vars */
-import ReactDOM from 'react-dom';
+const ReactDOM = require('react-dom');
 
-import DCOSStore from '../../stores/DCOSStore';
-import Deployment from '../../structs/Deployment';
-import DeploymentsTab from '../services/DeploymentsTab';
-import DeploymentsList from '../../structs/DeploymentsList';
-import Service from '../../structs/Service';
+const DCOSStore = require('../../stores/DCOSStore');
+const Deployment = require('../../structs/Deployment');
+const DeploymentsTab = require('../services/DeploymentsTab');
+const DeploymentsList = require('../../structs/DeploymentsList');
+const Service = require('../../structs/Service');
 
 describe('DeploymentsTab', function () {
 

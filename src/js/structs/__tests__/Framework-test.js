@@ -1,4 +1,4 @@
-let Framework = require('../Framework');
+const Framework = require('../Framework');
 
 describe('Framework', function () {
 

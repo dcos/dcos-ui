@@ -1,3 +1,4 @@
+import PluginSDK from 'PluginSDK';
 import {
   REQUEST_TASK_DIRECTORY_ERROR,
   REQUEST_TASK_DIRECTORY_SUCCESS,
@@ -11,7 +12,6 @@ import AppDispatcher from '../events/AppDispatcher';
 import Config from '../config/Config';
 import GetSetBaseStore from './GetSetBaseStore';
 import MesosStateStore from '../stores/MesosStateStore';
-import PluginSDK from 'PluginSDK';
 import TaskDirectory from '../structs/TaskDirectory';
 import TaskDirectoryActions from '../events/TaskDirectoryActions';
 

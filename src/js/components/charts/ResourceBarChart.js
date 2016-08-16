@@ -1,9 +1,9 @@
-const classNames = require('classnames');
-const React = require('react');
+import classNames from 'classnames';
+import React from 'react';
 
-const BarChart = require('./BarChart');
-const Chart = require('./Chart');
-const ResourcesUtil = require('../../utils/ResourcesUtil');
+import BarChart from './BarChart';
+import Chart from './Chart';
+import ResourcesUtil from '../../utils/ResourcesUtil';
 
 // number to fit design of width vs. height ratio
 const WIDTH_HEIGHT_RATIO = 4.5;

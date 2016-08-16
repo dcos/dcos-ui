@@ -1,6 +1,6 @@
 jest.dontMock('../TabsUtil');
 
-var TabsUtil = require('../TabsUtil');
+const TabsUtil = require('../TabsUtil');
 
 describe('TabsUtil', function () {
   describe('#getTabs', function () {

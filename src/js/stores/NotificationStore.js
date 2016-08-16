@@ -1,5 +1,5 @@
-import GetSetBaseStore from './GetSetBaseStore';
 import PluginSDK from 'PluginSDK';
+import GetSetBaseStore from './GetSetBaseStore';
 import {NOTIFICATION_CHANGE} from '../constants/EventTypes';
 
 class NotificationStore extends GetSetBaseStore {

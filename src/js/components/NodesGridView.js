@@ -1,12 +1,12 @@
-var classNames = require('classnames');
+import classNames from 'classnames';
 import deepEqual from 'deep-equal';
-var React = require('react');
+import React from 'react';
 
 import EventTypes from '../constants/EventTypes';
-var InternalStorageMixin = require('../mixins/InternalStorageMixin');
-var MesosStateStore = require('../stores/MesosStateStore');
-var NodesGridDials = require('./NodesGridDials');
-var RequestErrorMsg = require('./RequestErrorMsg');
+import InternalStorageMixin from '../mixins/InternalStorageMixin';
+import MesosStateStore from '../stores/MesosStateStore';
+import NodesGridDials from './NodesGridDials';
+import RequestErrorMsg from './RequestErrorMsg';
 var MAX_SERVICES_TO_SHOW = 8;
 var OTHER_SERVICES_COLOR = 8;
 

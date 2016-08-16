@@ -1,9 +1,9 @@
 jest.dontMock('../MesosStateStore');
 
-var Framework = require('../../structs/Framework');
-var MesosStateStore = require('../MesosStateStore');
-var Service = require('../../structs/Service');
-var Task = require('../../structs/Task');
+const Framework = require('../../structs/Framework');
+const MesosStateStore = require('../MesosStateStore');
+const Service = require('../../structs/Service');
+const Task = require('../../structs/Task');
 
 describe('MesosStateStore', function () {
 

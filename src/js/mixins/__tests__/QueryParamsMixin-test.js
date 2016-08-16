@@ -1,6 +1,6 @@
 jest.dontMock('../QueryParamsMixin');
 
-var QueryParamsMixin = require('../QueryParamsMixin');
+const QueryParamsMixin = require('../QueryParamsMixin');
 
 describe('QueryParamsMixin', function () {
 

@@ -1,7 +1,7 @@
 import {Route, Redirect, NotFoundRoute} from 'react-router';
+import {Hooks} from 'PluginSDK';
 
 import dashboard from './dashboard';
-import {Hooks} from 'PluginSDK';
 import Index from '../pages/Index';
 import Network from './factories/network';
 import nodes from './nodes';

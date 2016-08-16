@@ -1,4 +1,5 @@
 import deepEqual from 'deep-equal';
+import PluginSDK from 'PluginSDK';
 
 import {
   REQUEST_DCOS_METADATA,
@@ -13,7 +14,6 @@ import {
 } from '../constants/EventTypes';
 import GetSetBaseStore from './GetSetBaseStore';
 import MetadataActions from '../events/MetadataActions';
-import PluginSDK from 'PluginSDK';
 
 class MetadataStore extends GetSetBaseStore {
   constructor() {

@@ -8,17 +8,17 @@ jest.dontMock('../ServiceInfo');
 jest.dontMock('../../structs/Service');
 
 /* eslint-disable no-unused-vars */
-var React = require('react');
+const React = require('react');
 /* eslint-enable no-unused-vars */
-var ReactDOM = require('react-dom');
-var TestUtils = require('react-addons-test-utils');
-var JestUtil = require('../../utils/JestUtil');
+const ReactDOM = require('react-dom');
+const TestUtils = require('react-addons-test-utils');
+const JestUtil = require('../../utils/JestUtil');
 
-var Service = require('../../structs/Service');
-var ServiceDetail = require('../ServiceDetail');
-var ServiceDetailDebugTab = require('../ServiceDetailDebugTab');
-var ServiceDetailConfigurationTab = require('../ServiceDetailConfigurationTab');
-var ServiceDetailTaskTab = require('../ServiceDetailTaskTab');
+const Service = require('../../structs/Service');
+const ServiceDetail = require('../ServiceDetail');
+const ServiceDetailDebugTab = require('../ServiceDetailDebugTab');
+const ServiceDetailConfigurationTab = require('../ServiceDetailConfigurationTab');
+const ServiceDetailTaskTab = require('../ServiceDetailTaskTab');
 
 describe('ServiceDetail', function () {
 

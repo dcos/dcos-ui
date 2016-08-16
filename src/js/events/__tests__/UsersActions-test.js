@@ -3,12 +3,12 @@ jest.dontMock('../UsersActions');
 jest.dontMock('../../config/Config');
 jest.dontMock('../../constants/ActionTypes');
 
-import {RequestUtil} from 'mesosphere-shared-reactjs';
+const RequestUtil = require('mesosphere-shared-reactjs').RequestUtil;
 
-let ActionTypes = require('../../constants/ActionTypes');
-var AppDispatcher = require('../AppDispatcher');
-let Config = require('../../config/Config');
-let UsersActions = require('../UsersActions');
+const ActionTypes = require('../../constants/ActionTypes');
+const AppDispatcher = require('../AppDispatcher');
+const Config = require('../../config/Config');
+const UsersActions = require('../UsersActions');
 
 describe('UsersActions', function () {
 

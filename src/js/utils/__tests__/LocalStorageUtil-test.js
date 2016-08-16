@@ -1,6 +1,6 @@
 jest.dontMock('../LocalStorageUtil');
 
-var LocalStorageUtil = require('../LocalStorageUtil');
+const LocalStorageUtil = require('../LocalStorageUtil');
 
 describe('LocalStorageUtil', function () {
 

@@ -3,11 +3,11 @@ jest.dontMock('../../../mixins/ChartMixin');
 jest.dontMock('../../../mixins/InternalStorageMixin');
 
 /* eslint-disable no-unused-vars */
-var React = require('react');
+const React = require('react');
 /* eslint-enable no-unused-vars */
-var ReactDOM = require('react-dom');
+const ReactDOM = require('react-dom');
 
-var TimeSeriesChart = require('../TimeSeriesChart');
+const TimeSeriesChart = require('../TimeSeriesChart');
 
 describe('TimeSeriesChart', function () {
 

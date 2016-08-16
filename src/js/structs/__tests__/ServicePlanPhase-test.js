@@ -1,6 +1,6 @@
-import List from '../List';
-import ServicePlanPhase from '../ServicePlanPhase';
-import ServicePlanStatusTypes from '../../constants/ServicePlanStatusTypes';
+const List = require('../List');
+const ServicePlanPhase = require('../ServicePlanPhase');
+const ServicePlanStatusTypes = require('../../constants/ServicePlanStatusTypes');
 
 describe('ServicePlanPhase', function () {
 

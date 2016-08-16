@@ -1,12 +1,12 @@
 jest.dontMock('../ClickToSelect');
 
 /* eslint-disable no-unused-vars */
-let React = require('react');
+const React = require('react');
 /* eslint-enable no-unused-vars */
-let ReactDOM = require('react-dom');
-let TestUtils = require('react-addons-test-utils');
+const ReactDOM = require('react-dom');
+const TestUtils = require('react-addons-test-utils');
 
-let ClickToSelect = require('../ClickToSelect');
+const ClickToSelect = require('../ClickToSelect');
 
 describe('ClickToSelect', function () {
 

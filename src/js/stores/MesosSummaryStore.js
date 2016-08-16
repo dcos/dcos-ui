@@ -1,3 +1,4 @@
+import PluginSDK from 'PluginSDK';
 import {
   REQUEST_MESOS_HISTORY_ONGOING,
   REQUEST_SUMMARY_ERROR,
@@ -16,7 +17,6 @@ import {
 import GetSetBaseStore from './GetSetBaseStore';
 import MesosSummaryActions from '../events/MesosSummaryActions';
 import MesosSummaryUtil from '../utils/MesosSummaryUtil';
-import PluginSDK from 'PluginSDK';
 import StateSummary from '../structs/StateSummary';
 import SummaryList from '../structs/SummaryList';
 import TimeScales from '../constants/TimeScales';

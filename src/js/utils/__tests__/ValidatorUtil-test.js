@@ -1,7 +1,7 @@
 jest.dontMock('../ValidatorUtil');
 
 describe('ValidatorUtil', function () {
-  var ValidatorUtil = require('../ValidatorUtil');
+  const ValidatorUtil = require('../ValidatorUtil');
 
   describe('#isDefined', function () {
     it('should properly handle empty strings', function () {

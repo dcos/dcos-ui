@@ -1,3 +1,5 @@
+import PluginSDK from 'PluginSDK';
+
 import {
   SERVER_ACTION,
   REQUEST_HEALTH_NODE_ERROR,
@@ -29,7 +31,6 @@ import HealthUnitsList from '../structs/HealthUnitsList';
 import Node from '../structs/Node';
 import NodeHealthActions from '../events/NodeHealthActions';
 import NodesList from '../structs/NodesList';
-import PluginSDK from 'PluginSDK';
 import VisibilityStore from './VisibilityStore';
 
 let requestInterval = null;

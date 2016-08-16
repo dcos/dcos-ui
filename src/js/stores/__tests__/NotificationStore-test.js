@@ -1,8 +1,8 @@
 jest.dontMock('../../mixins/GetSetMixin');
 jest.dontMock('../NotificationStore');
 
-import {NOTIFICATION_CHANGE} from '../../constants/EventTypes';
-var NotificationStore = require('../NotificationStore');
+const NOTIFICATION_CHANGE = require('../../constants/EventTypes').NOTIFICATION_CHANGE;
+const NotificationStore = require('../NotificationStore');
 
 describe('NotificationStore', function () {
 

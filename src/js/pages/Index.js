@@ -1,20 +1,20 @@
-var classNames = require('classnames');
+import classNames from 'classnames';
 import deepEqual from 'deep-equal';
-var React = require('react');
-var RouteHandler = require('react-router').RouteHandler;
+import React from 'react';
+import {RouteHandler} from 'react-router';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
-var Config = require('../config/Config');
+import Config from '../config/Config';
 import ConfigStore from '../stores/ConfigStore';
 import EventTypes from '../constants/EventTypes';
-var InternalStorageMixin = require('../mixins/InternalStorageMixin');
-var MetadataStore = require('../stores/MetadataStore');
-var Modals = require('../components/Modals');
-var RequestErrorMsg = require('../components/RequestErrorMsg');
+import InternalStorageMixin from '../mixins/InternalStorageMixin';
+import MetadataStore from '../stores/MetadataStore';
+import Modals from '../components/Modals';
+import RequestErrorMsg from '../components/RequestErrorMsg';
 import ServerErrorModal from '../components/ServerErrorModal';
-var Sidebar = require('../components/Sidebar');
-var SidebarActions = require('../events/SidebarActions');
-var SidebarStore = require('../stores/SidebarStore');
+import Sidebar from '../components/Sidebar';
+import SidebarActions from '../events/SidebarActions';
+import SidebarStore from '../stores/SidebarStore';
 
 function getSidebarState() {
   return {

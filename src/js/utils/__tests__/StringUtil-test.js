@@ -1,6 +1,6 @@
 jest.dontMock('../StringUtil');
 
-var StringUtil = require('../StringUtil');
+const StringUtil = require('../StringUtil');
 
 describe('StringUtil', function () {
 

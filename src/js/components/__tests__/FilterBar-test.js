@@ -1,9 +1,9 @@
 jest.dontMock('../FilterBar');
 
-var React = require('react');
-var TestUtils = require('react-addons-test-utils');
+const React = require('react');
+const TestUtils = require('react-addons-test-utils');
 
-var FilterBar = require('../FilterBar');
+const FilterBar = require('../FilterBar');
 
 describe('FilterBar', function () {
 

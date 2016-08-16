@@ -1,9 +1,9 @@
-var React = require('react');
+import React from 'react';
 import ReactDOM from 'react-dom';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
-var DOMUtils = require('../../utils/DOMUtils');
-var InternalStorageMixin = require('../../mixins/InternalStorageMixin');
+import DOMUtils from '../../utils/DOMUtils';
+import InternalStorageMixin from '../../mixins/InternalStorageMixin';
 
 var Chart = React.createClass({
 

@@ -1,6 +1,6 @@
 jest.dontMock('../ResourceValidatorUtil');
 
-var ResourceValidatorUtil = require('../ResourceValidatorUtil');
+const ResourceValidatorUtil = require('../ResourceValidatorUtil');
 
 describe('ResourceValidatorUtil', function () {
 

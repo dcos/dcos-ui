@@ -5,23 +5,24 @@ jest.dontMock('../../../stores/MarathonStore');
 jest.dontMock('../../../stores/MesosStateStore');
 jest.dontMock('../../../stores/MesosSummaryStore');
 
-let JestUtil = require('../../../utils/JestUtil');
+const JestUtil = require('../../../utils/JestUtil');
 
 JestUtil.unMockStores(['MarathonStore', 'MesosStateStore', 'MesosSummaryStore', 'TaskDirectoryStore']);
-/* eslint-disable no-unused-vars */
-let React = require('react');
-/* eslint-enable no-unused-vars */
-let ReactDOM = require('react-dom');
-let TestUtils = require('react-addons-test-utils');
 
 /* eslint-disable no-unused-vars */
-let MesosSummaryStore = require('../../../stores/MesosSummaryStore');
+const React = require('react');
 /* eslint-enable no-unused-vars */
-let MesosStateStore = require('../../../stores/MesosStateStore');
-import Task from '../../../structs/Task';
-let TaskDirectory = require('../../../structs/TaskDirectory');
-let TaskDirectoryStore = require('../../../stores/TaskDirectoryStore');
-let TaskDetail = require('../TaskDetail');
+const ReactDOM = require('react-dom');
+const TestUtils = require('react-addons-test-utils');
+
+/* eslint-disable no-unused-vars */
+const MesosSummaryStore = require('../../../stores/MesosSummaryStore');
+/* eslint-enable no-unused-vars */
+const MesosStateStore = require('../../../stores/MesosStateStore');
+const Task = require('../../../structs/Task');
+const TaskDirectory = require('../../../structs/TaskDirectory');
+const TaskDirectoryStore = require('../../../stores/TaskDirectoryStore');
+const TaskDetail = require('../TaskDetail');
 
 describe('TaskDetail', function () {
   beforeEach(function () {

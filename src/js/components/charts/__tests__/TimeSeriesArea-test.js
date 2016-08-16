@@ -1,17 +1,17 @@
-var d3 = require('d3');
+const d3 = require('d3');
 /* eslint-disable no-unused-vars */
-var React = require('react');
+const React = require('react');
 /* eslint-enable no-unused-vars */
-var ReactDOM = require('react-dom');
-var TestUtils = require('react-addons-test-utils');
+const ReactDOM = require('react-dom');
+const TestUtils = require('react-addons-test-utils');
 
 jest.dontMock('./fixtures/MockTimeSeriesData.json');
 jest.dontMock('../../../mixins/ChartMixin');
 jest.dontMock('../TimeSeriesChart');
 jest.dontMock('../TimeSeriesArea');
 
-var MockTimeSeriesData = require('./fixtures/MockTimeSeriesData.json');
-var TimeSeriesArea = require('../TimeSeriesArea');
+const MockTimeSeriesData = require('./fixtures/MockTimeSeriesData.json');
+const TimeSeriesArea = require('../TimeSeriesArea');
 
 function checkPath(instance, props) {
   var area = TestUtils.findRenderedDOMComponentWithClass(

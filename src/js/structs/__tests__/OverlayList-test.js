@@ -1,5 +1,5 @@
-let Overlay = require('../Overlay');
-let OverlayList = require('../OverlayList');
+const Overlay = require('../Overlay');
+const OverlayList = require('../OverlayList');
 
 describe('OverlayList', function () {
 

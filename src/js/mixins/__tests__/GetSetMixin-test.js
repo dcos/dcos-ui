@@ -1,6 +1,6 @@
 jest.dontMock('../GetSetMixin');
 
-var GetSetMixin = require('../GetSetMixin');
+const GetSetMixin = require('../GetSetMixin');
 
 describe('GetSetMixin', function () {
 

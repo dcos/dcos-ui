@@ -2,10 +2,10 @@ jest.dontMock('../StructUtil');
 jest.dontMock('../../structs/List');
 jest.dontMock('../../structs/Item');
 
-var deepEqual = require('deep-equal');
-var Item = require('../../structs/Item');
-var List = require('../../structs/List');
-var StructUtil = require('../StructUtil');
+const deepEqual = require('deep-equal');
+const Item = require('../../structs/Item');
+const List = require('../../structs/List');
+const StructUtil = require('../StructUtil');
 
 describe('StructUtil', function () {
   describe('#copyRawObject', function () {

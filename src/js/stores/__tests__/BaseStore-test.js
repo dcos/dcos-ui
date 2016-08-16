@@ -1,4 +1,4 @@
-var BaseStore = require('../BaseStore');
+const BaseStore = require('../BaseStore');
 
 describe('BaseStore', function () {
 

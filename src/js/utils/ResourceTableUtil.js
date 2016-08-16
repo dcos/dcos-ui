@@ -1,12 +1,12 @@
-const classNames = require('classnames');
+import classNames from 'classnames';
 /* eslint-disable no-unused-vars */
-const React = require('react');
+import React from 'react';
 /* eslint-enable no-unused-vars */
 import {Tooltip} from 'reactjs-components';
 
-const HealthSorting = require('../constants/HealthSorting');
+import HealthSorting from '../constants/HealthSorting';
 import Icon from '../components/Icon';
-const MarathonStore = require('../stores/MarathonStore');
+import MarathonStore from '../stores/MarathonStore';
 import TableUtil from '../utils/TableUtil';
 import TimeAgo from '../components/TimeAgo';
 import Util from '../utils/Util';

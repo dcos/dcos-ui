@@ -7,20 +7,20 @@ jest.dontMock('../../../stores/CosmosPackagesStore');
 jest.dontMock('../../../../../tests/_fixtures/cosmos/packages-search.json');
 
 /* eslint-disable no-unused-vars */
-var React = require('react');
+const React = require('react');
 /* eslint-enable no-unused-vars */
-var ReactDOM = require('react-dom');
-var TestUtils = require('react-addons-test-utils');
+const ReactDOM = require('react-dom');
+const TestUtils = require('react-addons-test-utils');
 
 // Setting useFixtures for when we load CosmosPackagesStore/CosmosPackageActions
-var Config = require('../../../config/Config');
+const Config = require('../../../config/Config');
 var configUseFixtures = Config.useFixtures;
 Config.useFixtures = true;
-var CosmosPackagesStore = require('../../../stores/CosmosPackagesStore');
+const CosmosPackagesStore = require('../../../stores/CosmosPackagesStore');
 Config.useFixtures = configUseFixtures;
 
-var PackagesTab = require('../PackagesTab');
-var UniversePackagesList = require('../../../structs/UniversePackagesList');
+const PackagesTab = require('../PackagesTab');
+const UniversePackagesList = require('../../../structs/UniversePackagesList');
 
 describe('PackagesTab', function () {
 

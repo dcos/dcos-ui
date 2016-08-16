@@ -3,9 +3,9 @@ jest.dontMock('../List');
 jest.dontMock('../LogBuffer');
 jest.dontMock('../../utils/Util');
 
-let Item = require('../Item');
-let List = require('../List');
-let LogBuffer = require('../LogBuffer');
+const Item = require('../Item');
+const List = require('../List');
+const LogBuffer = require('../LogBuffer');
 
 const PAGE_SIZE = 8 * 4096; // 32kb of data or 8 'pages'
 

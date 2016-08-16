@@ -1,8 +1,8 @@
 jest.dontMock('../../mixins/GetSetMixin');
 jest.dontMock('../VisibilityStore');
 
-import {VISIBILITY_CHANGE} from '../../constants/EventTypes';
-var VisibilityStore = require('../VisibilityStore');
+const VISIBILITY_CHANGE = require('../../constants/EventTypes').VISIBILITY_CHANGE;
+const VisibilityStore = require('../VisibilityStore');
 
 describe('VisibilityStore', function () {
 

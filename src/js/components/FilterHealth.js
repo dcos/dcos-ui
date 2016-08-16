@@ -1,8 +1,8 @@
-var classNames = require('classnames');
-var React = require('react');
+import classNames from 'classnames';
+import React from 'react';
 
-var HealthLabels = require('../constants/HealthLabels');
-var HealthTypes = require('../constants/HealthTypes');
+import HealthLabels from '../constants/HealthLabels';
+import HealthTypes from '../constants/HealthTypes';
 
 const SELECTED_HEALTH_STATES = ['ALL', 'HEALTHY', 'UNHEALTHY'];
 let buttonMap = SELECTED_HEALTH_STATES.reduce(function (acc, health) {

@@ -1,11 +1,11 @@
 jest.dontMock('../StatusBar');
 
 /* eslint-disable no-unused-vars */
-var React = require('react');
+const React = require('react');
 /* eslint-enable no-unused-vars */
-let ReactDOM = require('react-dom');
+const ReactDOM = require('react-dom');
 
-let StatusBar = require('../StatusBar');
+const StatusBar = require('../StatusBar');
 
 const testData = [
   {

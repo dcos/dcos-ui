@@ -1,3 +1,5 @@
+import PluginSDK from 'PluginSDK';
+
 import {
   REQUEST_CLI_INSTRUCTIONS,
   REQUEST_SIDEBAR_CLOSE,
@@ -16,7 +18,6 @@ import {
 } from '../constants/EventTypes';
 import AppDispatcher from '../events/AppDispatcher';
 import GetSetBaseStore from './GetSetBaseStore';
-import PluginSDK from 'PluginSDK';
 
 class SidebarStore extends GetSetBaseStore {
   constructor() {

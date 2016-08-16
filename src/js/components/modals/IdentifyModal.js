@@ -1,9 +1,9 @@
-var classNames = require('classnames');
+import classNames from 'classnames';
 import {Modal} from 'reactjs-components';
-var React = require('react');
+import React from 'react';
 
 import Config from '../../config/Config';
-var InternalStorageMixin = require('../../mixins/InternalStorageMixin');
+import InternalStorageMixin from '../../mixins/InternalStorageMixin';
 import ValidatorUtil from '../../utils/ValidatorUtil';
 
 var IdentifyModal = React.createClass({

@@ -1,11 +1,11 @@
 jest.dontMock('../Panel');
 /* eslint-disable no-unused-vars */
-var React = require('react');
+const React = require('react');
 /* eslint-enable no-unused-vars */
-var ReactDOM = require('react-dom');
-var TestUtils = require('react-addons-test-utils');
+const ReactDOM = require('react-dom');
+const TestUtils = require('react-addons-test-utils');
 
-var Panel = require('../Panel');
+const Panel = require('../Panel');
 
 describe('Panel', function () {
   beforeEach(function () {

@@ -2,8 +2,8 @@ jest.dontMock('../Item');
 jest.dontMock('../RepositoryList');
 jest.dontMock('../../utils/Util');
 
-var Item = require('../Item');
-var RepositoryList = require('../RepositoryList');
+const Item = require('../Item');
+const RepositoryList = require('../RepositoryList');
 
 describe('RepositoryList', function () {
 

@@ -1,3 +1,4 @@
+import PluginSDK from 'PluginSDK';
 import {
   REQUEST_USERS_SUCCESS,
   REQUEST_USERS_ERROR,
@@ -9,7 +10,6 @@ import {
   USERS_REQUEST_ERROR
 } from '../constants/EventTypes';
 import GetSetBaseStore from './GetSetBaseStore';
-import PluginSDK from 'PluginSDK';
 import UsersActions from '../events/UsersActions';
 import UsersList from '../structs/UsersList';
 

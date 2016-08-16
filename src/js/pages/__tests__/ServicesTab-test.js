@@ -5,20 +5,20 @@ jest.mock('../../stores/UserSettingsStore');
 jest.mock('../../mixins/QueryParamsMixin');
 
 /* eslint-disable no-unused-vars */
-var React = require('react');
+const React = require('react');
 /* eslint-enable no-unused-vars */
-var ReactDOM = require('react-dom');
-var TestUtils = require('react-addons-test-utils');
-var JestUtil = require('../../utils/JestUtil');
+const ReactDOM = require('react-dom');
+const TestUtils = require('react-addons-test-utils');
+const JestUtil = require('../../utils/JestUtil');
 
-var AlertPanel = require('../../components/AlertPanel');
-var DCOSStore = require('../../stores/DCOSStore');
-var QueryParamsMixin = require('../../mixins/QueryParamsMixin');
-var ServicesTab = require('../services/ServicesTab');
-var ServiceTree = require('../../structs/ServiceTree');
-var ServiceDetail = require('../../components/ServiceDetail');
-var ServicesTable = require('../../components/ServicesTable');
-var UserSettingsStore = require('../../stores/UserSettingsStore');
+const AlertPanel = require('../../components/AlertPanel');
+const DCOSStore = require('../../stores/DCOSStore');
+const QueryParamsMixin = require('../../mixins/QueryParamsMixin');
+const ServicesTab = require('../services/ServicesTab');
+const ServiceTree = require('../../structs/ServiceTree');
+const ServiceDetail = require('../../components/ServiceDetail');
+const ServicesTable = require('../../components/ServicesTable');
+const UserSettingsStore = require('../../stores/UserSettingsStore');
 
 describe('ServicesTab', function () {
 

@@ -5,18 +5,18 @@ import {StoreMixin} from 'mesosphere-shared-reactjs';
 import ComponentList from '../components/ComponentList';
 import Config from '../config/Config';
 import DCOSStore from '../stores/DCOSStore';
-var HealthSorting = require('../constants/HealthSorting');
-var HostTimeSeriesChart = require('../components/charts/HostTimeSeriesChart');
+import HealthSorting from '../constants/HealthSorting';
+import HostTimeSeriesChart from '../components/charts/HostTimeSeriesChart';
 import Icon from '../components/Icon';
-var InternalStorageMixin = require('../mixins/InternalStorageMixin');
-var MesosSummaryStore = require('../stores/MesosSummaryStore');
-var Page = require('../components/Page');
-var Panel = require('../components/Panel');
-var ResourceTimeSeriesChart = require('../components/charts/ResourceTimeSeriesChart');
-var ServiceList = require('../components/ServiceList');
+import InternalStorageMixin from '../mixins/InternalStorageMixin';
+import MesosSummaryStore from '../stores/MesosSummaryStore';
+import Page from '../components/Page';
+import Panel from '../components/Panel';
+import ResourceTimeSeriesChart from '../components/charts/ResourceTimeSeriesChart';
+import ServiceList from '../components/ServiceList';
 import StringUtil from '../utils/StringUtil';
-var TasksChart = require('../components/charts/TasksChart');
-var SidebarActions = require('../events/SidebarActions');
+import TasksChart from '../components/charts/TasksChart';
+import SidebarActions from '../events/SidebarActions';
 import UnitHealthStore from '../stores/UnitHealthStore';
 
 function getMesosState() {

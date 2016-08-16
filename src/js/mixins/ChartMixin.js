@@ -1,4 +1,4 @@
-var d3 = require('d3');
+import d3 from 'd3';
 
 var ChartMixin = {
   getXScale(data = [], width, refreshRate) {

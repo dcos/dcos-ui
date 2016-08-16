@@ -1,4 +1,5 @@
 import {EventEmitter} from 'events';
+import PluginSDK from 'PluginSDK';
 
 import {
   REQUEST_METRONOME_JOB_CREATE_ERROR,
@@ -45,7 +46,6 @@ import Config from '../config/Config';
 import MetronomeActions from '../events/MetronomeActions';
 import Job from '../structs/Job';
 import JobTree from '../structs/JobTree';
-import PluginSDK from 'PluginSDK';
 import VisibilityStore from './VisibilityStore';
 
 let requestInterval;

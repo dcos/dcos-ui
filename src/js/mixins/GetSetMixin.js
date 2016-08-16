@@ -1,15 +1,13 @@
 /**
  * A mixin to create getter and setter functions for store data
  */
-
-var PluginSDK;
+import {APP_STORE_CHANGE} from '../constants/EventTypes';
 
 // Hack until we fix circular dependency - DCOS-5040
+var PluginSDK;
 if (global.__DEV__) {
   PluginSDK = require('PluginSDK');
 }
-
-import {APP_STORE_CHANGE} from '../constants/EventTypes';
 
 var GetSetMixin = {
 

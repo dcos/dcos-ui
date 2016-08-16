@@ -1,7 +1,7 @@
 import React from 'react';
+import PluginSDK from 'PluginSDK';
 
 import AuthStore from '../stores/AuthStore';
-import PluginSDK from 'PluginSDK';
 /*
  * Exports a higher-order component that checks if user is logged in using the
  * AuthStore. If the user is logged in, the component will render.

@@ -1,3 +1,4 @@
+import PluginSDK from 'PluginSDK';
 import {
   REQUEST_MESOS_LOG_ERROR,
   REQUEST_MESOS_LOG_OFFSET_ERROR,
@@ -19,7 +20,6 @@ import GetSetBaseStore from './GetSetBaseStore';
 import Item from '../structs/Item';
 import LogBuffer from '../structs/LogBuffer';
 import MesosLogActions from '../events/MesosLogActions';
-import PluginSDK from 'PluginSDK';
 
 const MAX_FILE_SIZE = 50000;
 

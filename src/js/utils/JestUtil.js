@@ -1,4 +1,4 @@
-const TestUtils = require('react-addons-test-utils');
+import TestUtils from 'react-addons-test-utils';
 import React from 'react';
 import ReactDOM from 'react-dom';
 

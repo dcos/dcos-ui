@@ -1,6 +1,6 @@
 jest.dontMock('../Maths');
 
-var Maths = require('../Maths');
+const Maths = require('../Maths');
 
 describe('Maths', function () {
 

@@ -7,13 +7,13 @@ jest.dontMock('./fixtures/MockAppMetadata');
 jest.dontMock('./fixtures/MockMarathonResponse.json');
 jest.dontMock('../../structs/DeploymentsList');
 
-import DeploymentsList from '../../structs/DeploymentsList';
-import EventTypes from '../../constants/EventTypes';
-var HealthLabels = require('../../constants/HealthLabels');
-var HealthTypes = require('../../constants/HealthTypes');
-var MarathonStore = require('../MarathonStore');
-var MockAppMetadata = require('./fixtures/MockAppMetadata');
-var MockMarathonResponse = require('./fixtures/MockMarathonResponse.json');
+const DeploymentsList = require('../../structs/DeploymentsList');
+const EventTypes = require('../../constants/EventTypes');
+const HealthLabels = require('../../constants/HealthLabels');
+const HealthTypes = require('../../constants/HealthTypes');
+const MarathonStore = require('../MarathonStore');
+const MockAppMetadata = require('./fixtures/MockAppMetadata');
+const MockMarathonResponse = require('./fixtures/MockMarathonResponse.json');
 
 // mock global string decoder
 global.atob = function () {

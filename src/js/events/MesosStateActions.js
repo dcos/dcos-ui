@@ -1,8 +1,8 @@
 import {RequestUtil} from 'mesosphere-shared-reactjs';
 
 import ActionTypes from '../constants/ActionTypes';
-var AppDispatcher = require('./AppDispatcher');
-var Config = require('../config/Config');
+import AppDispatcher from './AppDispatcher';
+import Config from '../config/Config';
 
 var MesosStateActions = {
 

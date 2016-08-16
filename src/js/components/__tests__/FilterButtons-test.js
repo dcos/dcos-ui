@@ -1,10 +1,10 @@
 jest.dontMock('../FilterButtons');
 /* eslint-disable no-unused-vars */
-var React = require('react');
+const React = require('react');
 /* eslint-enable no-unused-vars */
-var TestUtils = require('react-addons-test-utils');
+const TestUtils = require('react-addons-test-utils');
 
-var FilterButtons = require('../FilterButtons');
+const FilterButtons = require('../FilterButtons');
 
 describe('FilterButtons', function () {
 

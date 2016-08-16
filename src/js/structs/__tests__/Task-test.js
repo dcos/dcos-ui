@@ -1,5 +1,5 @@
-let ServiceImages = require('../../constants/ServiceImages');
-let Task = require('../Task');
+const ServiceImages = require('../../constants/ServiceImages');
+const Task = require('../Task');
 
 describe('Task', function () {
 

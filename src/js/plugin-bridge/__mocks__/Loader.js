@@ -1,4 +1,4 @@
-let path = require('path');
+import path from 'path';
 
 let _plugins = {};
 let _externalPlugins = {};
