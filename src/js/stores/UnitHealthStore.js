@@ -1,5 +1,5 @@
 import PluginSDK from 'PluginSDK';
-import GetSetBaseStore from './GetSetBaseStore';
+
 import {
   SERVER_ACTION,
   REQUEST_HEALTH_UNITS_SUCCESS,
@@ -24,11 +24,12 @@ import {
 } from '../constants/EventTypes';
 import AppDispatcher from '../events/AppDispatcher';
 import Config from '../config/Config';
-import UnitHealthActions from '../events/UnitHealthActions';
+import GetSetBaseStore from './GetSetBaseStore';
 import HealthUnit from '../structs/HealthUnit';
 import HealthUnitsList from '../structs/HealthUnitsList';
 import Node from '../structs/Node';
 import NodesList from '../structs/NodesList';
+import UnitHealthActions from '../events/UnitHealthActions';
 import VisibilityStore from './VisibilityStore';
 
 let requestInterval = null;

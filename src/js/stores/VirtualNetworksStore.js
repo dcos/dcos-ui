@@ -1,4 +1,5 @@
 import PluginSDK from 'PluginSDK';
+
 import AppDispatcher from '../events/AppDispatcher';
 import {
   VIRTUAL_NETWORKS_CHANGE,

@@ -1,4 +1,5 @@
 import PluginSDK from 'PluginSDK';
+
 import Config from '../config/Config';
 import GetSetBaseStore from './GetSetBaseStore';
 import {VISIBILITY_CHANGE} from '../constants/EventTypes';

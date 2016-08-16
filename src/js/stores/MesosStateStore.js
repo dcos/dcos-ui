@@ -1,11 +1,11 @@
 import PluginSDK from 'PluginSDK';
-import GetSetBaseStore from './GetSetBaseStore';
 
 import AppDispatcher from '../events/AppDispatcher';
 import ActionTypes from '../constants/ActionTypes';
 import CompositeState from '../structs/CompositeState';
 import Config from '../config/Config';
 import Framework from '../structs/Framework';
+import GetSetBaseStore from './GetSetBaseStore';
 import {
   MESOS_STATE_CHANGE,
   MESOS_STATE_REQUEST_ERROR,

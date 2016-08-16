@@ -1,4 +1,5 @@
 import PluginSDK from 'PluginSDK';
+
 import GetSetBaseStore from './GetSetBaseStore';
 import {NOTIFICATION_CHANGE} from '../constants/EventTypes';
 
