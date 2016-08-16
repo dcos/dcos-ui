@@ -1,3 +1,5 @@
+import PluginSDK from 'PluginSDK';
+
 import AppDispatcher from '../events/AppDispatcher';
 import {
   VIRTUAL_NETWORKS_CHANGE,
@@ -11,7 +13,6 @@ import {
 import BaseStore from './BaseStore';
 import Config from '../config/Config';
 import OverlayList from '../structs/OverlayList';
-import PluginSDK from 'PluginSDK';
 import VirtualNetworksActions from '../events/VirtualNetworksActions';
 
 let fetchInterval = null;

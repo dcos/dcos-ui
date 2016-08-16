@@ -1,18 +1,18 @@
-import GetSetBaseStore from './GetSetBaseStore';
+import PluginSDK from 'PluginSDK';
 
-var AppDispatcher = require('../events/AppDispatcher');
+import AppDispatcher from '../events/AppDispatcher';
 import ActionTypes from '../constants/ActionTypes';
 import CompositeState from '../structs/CompositeState';
-var Config = require('../config/Config');
+import Config from '../config/Config';
 import Framework from '../structs/Framework';
+import GetSetBaseStore from './GetSetBaseStore';
 import {
   MESOS_STATE_CHANGE,
   MESOS_STATE_REQUEST_ERROR,
   VISIBILITY_CHANGE
 } from '../constants/EventTypes';
-var MesosStateActions = require('../events/MesosStateActions');
-var MesosStateUtil = require('../utils/MesosStateUtil');
-import PluginSDK from 'PluginSDK';
+import MesosStateActions from '../events/MesosStateActions';
+import MesosStateUtil from '../utils/MesosStateUtil';
 import Task from '../structs/Task';
 import VisibilityStore from './VisibilityStore';
 

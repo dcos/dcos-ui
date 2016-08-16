@@ -1,6 +1,6 @@
-let moment = require('moment');
+const moment = require('moment');
 
-let JobRunList = require('../JobRunList');
+const JobRunList = require('../JobRunList');
 
 describe('JobRunList', function () {
 

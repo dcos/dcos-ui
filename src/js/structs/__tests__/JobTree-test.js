@@ -1,5 +1,5 @@
-let Job = require('../Job');
-let JobTree = require('../JobTree');
+const Job = require('../Job');
+const JobTree = require('../JobTree');
 
 describe('JobTree', function () {
 

@@ -1,4 +1,4 @@
-let Item = require('../Item');
+const Item = require('../Item');
 
 describe('Item', function () {
 

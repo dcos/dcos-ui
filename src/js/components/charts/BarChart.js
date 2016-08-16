@@ -1,12 +1,12 @@
-var classNames = require('classnames');
-var d3 = require('d3');
+import classNames from 'classnames';
+import d3 from 'd3';
 import deepEqual from 'deep-equal';
-var React = require('react');
-var ReactDOM = require('react-dom');
+import React from 'react';
+import ReactDOM from 'react-dom';
 
-var Bar = require('./Bar');
-var ChartMixin = require('../../mixins/ChartMixin');
-var InternalStorageMixin = require('../../mixins/InternalStorageMixin');
+import Bar from './Bar';
+import ChartMixin from '../../mixins/ChartMixin';
+import InternalStorageMixin from '../../mixins/InternalStorageMixin';
 import Util from '../../utils/Util';
 
 var BarChart = React.createClass({

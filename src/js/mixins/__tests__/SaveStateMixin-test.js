@@ -1,8 +1,8 @@
 jest.dontMock('../SaveStateMixin');
 jest.dontMock('../../stores/UserSettingsStore');
 
-var SaveStateMixin = require('../SaveStateMixin');
-var UserSettingsStore = require('../../stores/UserSettingsStore');
+const SaveStateMixin = require('../SaveStateMixin');
+const UserSettingsStore = require('../../stores/UserSettingsStore');
 
 describe('SaveStateMixin', function () {
 

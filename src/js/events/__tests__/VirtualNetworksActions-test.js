@@ -1,9 +1,9 @@
-import {RequestUtil} from 'mesosphere-shared-reactjs';
+const RequestUtil = require('mesosphere-shared-reactjs').RequestUtil;
 
-let ActionTypes = require('../../constants/ActionTypes');
-let Config = require('../../config/Config');
-let VirtualNetworksActions = require('../VirtualNetworksActions');
-var AppDispatcher = require('../AppDispatcher');
+const ActionTypes = require('../../constants/ActionTypes');
+const Config = require('../../config/Config');
+const VirtualNetworksActions = require('../VirtualNetworksActions');
+const AppDispatcher = require('../AppDispatcher');
 
 const {virtualNetworksApi} = Config;
 

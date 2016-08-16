@@ -1,4 +1,4 @@
-let JobTask = require('../JobTask');
+const JobTask = require('../JobTask');
 
 describe('Job', function () {
 

@@ -1,7 +1,7 @@
+import PluginSDK from 'PluginSDK';
 import JestUtil from '../utils/JestUtil';
 import Loader from './Loader';
 import PluginModules from './PluginModules';
-import PluginSDK from 'PluginSDK';
 
 /**
  * Loads whatever plugins are passed in. Could be Mocks

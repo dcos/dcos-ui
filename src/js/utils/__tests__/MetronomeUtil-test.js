@@ -1,4 +1,4 @@
-let MetronomeUtil = require('../MetronomeUtil');
+const MetronomeUtil = require('../MetronomeUtil');
 
 describe('MetronomeUtil', function () {
 

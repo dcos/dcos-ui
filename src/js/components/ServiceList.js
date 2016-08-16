@@ -1,12 +1,12 @@
 import classNames from 'classnames';
 import deepEqual from 'deep-equal';
 import {List, Tooltip} from 'reactjs-components';
-const React = require('react');
+import React from 'react';
 
 import Config from '../config/Config';
-const HealthLabels = require('../constants/HealthLabels');
-const HealthStatus = require('../constants/HealthStatus');
-const HealthTypesDescription = require('../constants/HealthTypesDescription');
+import HealthLabels from '../constants/HealthLabels';
+import HealthStatus from '../constants/HealthStatus';
+import HealthTypesDescription from '../constants/HealthTypesDescription';
 
 let ServiceList = React.createClass({
 

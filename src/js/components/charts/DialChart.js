@@ -1,9 +1,9 @@
-var d3 = require('d3');
-var React = require('react');
-var ReactDOM = require('react-dom');
+import d3 from 'd3';
+import React from 'react';
+import ReactDOM from 'react-dom';
 
-var DialSlice = require('./DialSlice');
-var InternalStorageMixin = require('../../mixins/InternalStorageMixin');
+import DialSlice from './DialSlice';
+import InternalStorageMixin from '../../mixins/InternalStorageMixin';
 
 // the data to render a single grey circle
 function getEmptyState() {

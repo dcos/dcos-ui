@@ -1,6 +1,7 @@
+import PluginSDK from 'PluginSDK';
+
 import Config from '../config/Config';
 import GetSetBaseStore from './GetSetBaseStore';
-import PluginSDK from 'PluginSDK';
 import {VISIBILITY_CHANGE} from '../constants/EventTypes';
 
 // Use visibility API to check if current tab is active or not

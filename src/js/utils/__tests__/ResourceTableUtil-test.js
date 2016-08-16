@@ -1,9 +1,9 @@
 jest.dontMock('../../constants/HealthSorting');
 jest.dontMock('../ResourceTableUtil');
 
-var MarathonStore = require('../../stores/MarathonStore');
-var ResourceTableUtil = require('../ResourceTableUtil');
-var Service = require('../../structs/Service');
+const MarathonStore = require('../../stores/MarathonStore');
+const ResourceTableUtil = require('../ResourceTableUtil');
+const Service = require('../../structs/Service');
 
 describe('ResourceTableUtil', function () {
   beforeEach(function () {

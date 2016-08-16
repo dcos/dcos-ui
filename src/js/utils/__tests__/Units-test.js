@@ -1,7 +1,7 @@
 jest.dontMock('../Maths');
 jest.dontMock('../Units');
 
-var Units = require('../Units');
+const Units = require('../Units');
 
 describe('Units', function () {
 

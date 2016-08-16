@@ -1,7 +1,7 @@
 jest.dontMock('../ServerErrorModal');
 jest.dontMock('../../mixins/GetSetMixin');
 
-import PluginTestUtils from 'PluginTestUtils';
+const PluginTestUtils = require('PluginTestUtils');
 
 PluginTestUtils.dontMock([
   'MarathonStore',
@@ -10,11 +10,11 @@ PluginTestUtils.dontMock([
 ]);
 
 /* eslint-disable no-unused-vars */
-var React = require('react');
+const React = require('react');
 /* eslint-enable no-unused-vars */
-var ReactDOM = require('react-dom');
+const ReactDOM = require('react-dom');
 
-var ServerErrorModal = require('../ServerErrorModal');
+const ServerErrorModal = require('../ServerErrorModal');
 
 describe('ServerErrorModal', function () {
   beforeEach(function () {

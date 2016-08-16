@@ -1,5 +1,5 @@
-var HealthUnit = require('../HealthUnit');
-var HealthUnitsList = require('../HealthUnitsList');
+const HealthUnit = require('../HealthUnit');
+const HealthUnitsList = require('../HealthUnitsList');
 
 describe('HealthUnitsList', function () {
 

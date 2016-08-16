@@ -2,8 +2,8 @@ jest.dontMock('../DirectoryItem');
 jest.dontMock('../TaskDirectory');
 jest.dontMock('../../utils/Util');
 
-var DirectoryItem = require('../DirectoryItem');
-var TaskDirectory = require('../TaskDirectory');
+const DirectoryItem = require('../DirectoryItem');
+const TaskDirectory = require('../TaskDirectory');
 
 describe('TaskDirectory', function () {
 

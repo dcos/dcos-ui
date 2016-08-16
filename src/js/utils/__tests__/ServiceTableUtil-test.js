@@ -1,9 +1,9 @@
 jest.dontMock('../ServiceTableUtil');
 jest.dontMock('../../structs/Service');
 
-var Service = require('../../structs/Service');
-var ServiceTableUtil = require('../ServiceTableUtil');
-var ServiceTree = require('../../structs/ServiceTree');
+const Service = require('../../structs/Service');
+const ServiceTableUtil = require('../ServiceTableUtil');
+const ServiceTree = require('../../structs/ServiceTree');
 
 describe('ServiceTableUtil', function () {
 

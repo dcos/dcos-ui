@@ -1,14 +1,14 @@
-var classNames = require('classnames');
+import classNames from 'classnames';
 import {Link} from 'react-router';
-var React = require('react');
+import React from 'react';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 import {Table, Tooltip} from 'reactjs-components';
 
-var HostTableHeaderLabels = require('../constants/HostTableHeaderLabels');
+import HostTableHeaderLabels from '../constants/HostTableHeaderLabels';
 import Icon from '../components/Icon';
-var InternalStorageMixin = require('../mixins/InternalStorageMixin');
-var ResourceTableUtil = require('../utils/ResourceTableUtil');
-var ProgressBar = require('./charts/ProgressBar');
+import InternalStorageMixin from '../mixins/InternalStorageMixin';
+import ResourceTableUtil from '../utils/ResourceTableUtil';
+import ProgressBar from './charts/ProgressBar';
 import StringUtil from '../utils/StringUtil';
 import TableUtil from '../utils/TableUtil';
 import UnitHealthUtil from '../utils/UnitHealthUtil';

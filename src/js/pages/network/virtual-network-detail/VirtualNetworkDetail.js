@@ -1,6 +1,6 @@
 import mixin from 'reactjs-mixin';
 /* eslint-disable no-unused-vars */
-const React = require('react');
+import React from 'react';
 /* eslint-enable no-unused-vars */
 import {RouteHandler} from 'react-router';
 import {StoreMixin} from 'mesosphere-shared-reactjs';

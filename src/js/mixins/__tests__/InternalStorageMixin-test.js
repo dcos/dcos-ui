@@ -1,6 +1,6 @@
 jest.dontMock('../InternalStorageMixin');
 
-var InternalStorageMixin = require('../InternalStorageMixin');
+const InternalStorageMixin = require('../InternalStorageMixin');
 
 describe('InternalStorageMixin', function () {
 

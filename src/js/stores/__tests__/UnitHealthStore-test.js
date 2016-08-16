@@ -5,15 +5,15 @@ jest.dontMock('../../events/UnitHealthActions');
 jest.dontMock('../../mixins/GetSetMixin');
 jest.dontMock('../../../../tests/_fixtures/unit-health/units.json');
 
-import {RequestUtil} from 'mesosphere-shared-reactjs';
+const RequestUtil = require('mesosphere-shared-reactjs').RequestUtil;
 
-var ActionTypes = require('../../constants/ActionTypes');
-var AppDispatcher = require('../../events/AppDispatcher');
-var Config = require('../../config/Config');
-var EventTypes = require('../../constants/EventTypes');
-var HealthUnitsList = require('../../structs/HealthUnitsList');
-var UnitHealthStore = require('../UnitHealthStore');
-var unitsFixture = require('../../../../tests/_fixtures/unit-health/units.json');
+const ActionTypes = require('../../constants/ActionTypes');
+const AppDispatcher = require('../../events/AppDispatcher');
+const Config = require('../../config/Config');
+const EventTypes = require('../../constants/EventTypes');
+const HealthUnitsList = require('../../structs/HealthUnitsList');
+const UnitHealthStore = require('../UnitHealthStore');
+const unitsFixture = require('../../../../tests/_fixtures/unit-health/units.json');
 
 describe('UnitHealthStore', function () {
 

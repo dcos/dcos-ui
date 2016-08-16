@@ -1,6 +1,6 @@
 jest.dontMock('../SchemaUtil');
 
-var SchemaUtil = require('../SchemaUtil');
+const SchemaUtil = require('../SchemaUtil');
 
 describe('SchemaUtil', function () {
   describe('#schemaToMultipleDefinition', function () {

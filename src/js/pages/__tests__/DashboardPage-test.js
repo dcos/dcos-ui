@@ -8,22 +8,22 @@ jest.dontMock('../../mixins/InternalStorageMixin');
 jest.dontMock('../../utils/Util');
 jest.dontMock('../../constants/HealthSorting');
 
-var JestUtil = require('../../utils/JestUtil');
+const JestUtil = require('../../utils/JestUtil');
 
 JestUtil.unMockStores(['MarathonStore', 'MesosSummaryStore']);
 /* eslint-disable no-unused-vars */
-var React = require('react');
+const React = require('react');
 /* eslint-enable no-unused-vars */
-var ReactDOM = require('react-dom');
+const ReactDOM = require('react-dom');
 
-var DashboardPage = require('../DashboardPage');
-var DCOSStore = require('../../stores/DCOSStore');
-var DeploymentsList = require('../../structs/DeploymentsList');
-var MarathonStore = require('../../stores/MarathonStore');
-var MesosSummaryStore = require('../../stores/MesosSummaryStore');
-var MockMarathonResponse = require('./fixtures/MockMarathonResponse.json');
-var ServiceTree = require('../../structs/ServiceTree');
-var SummaryList = require('../../structs/SummaryList');
+const DashboardPage = require('../DashboardPage');
+const DCOSStore = require('../../stores/DCOSStore');
+const DeploymentsList = require('../../structs/DeploymentsList');
+const MarathonStore = require('../../stores/MarathonStore');
+const MesosSummaryStore = require('../../stores/MesosSummaryStore');
+const MockMarathonResponse = require('./fixtures/MockMarathonResponse.json');
+const ServiceTree = require('../../structs/ServiceTree');
+const SummaryList = require('../../structs/SummaryList');
 
 MesosSummaryStore.get = function (key) {
   if (key === 'states') {

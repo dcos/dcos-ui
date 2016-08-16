@@ -6,19 +6,19 @@ jest.dontMock('../../../stores/CosmosPackagesStore');
 jest.dontMock('../../../../../tests/_fixtures/cosmos/package-describe.json');
 
 // Setting useFixtures for when we load CosmosPackagesStore/CosmosPackageActions
-var Config = require('../../../config/Config');
+const Config = require('../../../config/Config');
 var configUseFixtures = Config.useFixtures;
 Config.useFixtures = true;
 require('../../../stores/CosmosPackagesStore');
 Config.useFixtures = configUseFixtures;
 
 /* eslint-disable no-unused-vars */
-var React = require('react');
+const React = require('react');
 /* eslint-enable no-unused-vars */
-var ReactDOM = require('react-dom');
-var TestUtils = require('react-addons-test-utils');
+const ReactDOM = require('react-dom');
+const TestUtils = require('react-addons-test-utils');
 
-var PackageDetailTab = require('../PackageDetailTab');
+const PackageDetailTab = require('../PackageDetailTab');
 
 describe('PackageDetailTab', function () {
 

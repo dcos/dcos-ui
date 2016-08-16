@@ -1,7 +1,7 @@
 jest.dontMock('../../constants/ServiceImages');
 
-var ServiceImages = require('../../constants/ServiceImages');
-var UniversePackage = require('../UniversePackage');
+const ServiceImages = require('../../constants/ServiceImages');
+const UniversePackage = require('../UniversePackage');
 
 describe('UniversePackage', function () {
 

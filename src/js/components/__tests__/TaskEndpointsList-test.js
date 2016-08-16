@@ -1,12 +1,12 @@
 jest.dontMock('../TaskEndpointsList');
 /* eslint-disable no-unused-vars */
-var React = require('react');
+const React = require('react');
 /* eslint-enable no-unused-vars */
-var ReactDOM = require('react-dom');
-var TestUtils = require('react-addons-test-utils');
+const ReactDOM = require('react-dom');
+const TestUtils = require('react-addons-test-utils');
 
-let Node = require('../../structs/Node');
-let TaskEndpointsList = require('../TaskEndpointsList');
+const Node = require('../../structs/Node');
+const TaskEndpointsList = require('../TaskEndpointsList');
 
 describe('TaskEndpointsList', function () {
 

@@ -1,6 +1,6 @@
-import ServicePlan from '../ServicePlan';
-import ServicePlanPhases from '../ServicePlanPhases';
-import ServicePlanStatusTypes from '../../constants/ServicePlanStatusTypes';
+const ServicePlan = require('../ServicePlan');
+const ServicePlanPhases = require('../ServicePlanPhases');
+const ServicePlanStatusTypes = require('../../constants/ServicePlanStatusTypes');
 
 describe('ServicePlan', function () {
 

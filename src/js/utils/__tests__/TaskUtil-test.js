@@ -1,5 +1,5 @@
-let TaskUtil = require('../TaskUtil');
-let Node = require('../../structs/Node');
+const TaskUtil = require('../TaskUtil');
+const Node = require('../../structs/Node');
 
 describe('TaskUtil', function () {
 

@@ -1,9 +1,9 @@
 import {RequestUtil} from 'mesosphere-shared-reactjs';
+import {Hooks} from 'PluginSDK';
 
 import ActionTypes from '../constants/ActionTypes';
-var AppDispatcher = require('./AppDispatcher');
-import {Hooks} from 'PluginSDK';
-var Config = require('../config/Config');
+import AppDispatcher from './AppDispatcher';
+import Config from '../config/Config';
 
 var MetadataActions = {
 

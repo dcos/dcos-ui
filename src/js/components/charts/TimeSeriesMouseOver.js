@@ -1,7 +1,7 @@
-var d3 = require('d3');
-var React = require('react');
+import d3 from 'd3';
+import React from 'react';
 
-var Maths = require('../../utils/Maths');
+import Maths from '../../utils/Maths';
 
 var TimeSeriesMouseOver = React.createClass({
 

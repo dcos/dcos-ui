@@ -1,7 +1,7 @@
-import Icon from './Icon';
-
 import React from 'react';
 import classNames from 'classnames';
+
+import Icon from './Icon';
 
 /**
  * Methods to bind in 'this' context

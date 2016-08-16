@@ -1,8 +1,8 @@
 jest.dontMock('../TableUtil');
 
-var MarathonStore = require('../../stores/MarathonStore');
-var TableUtil = require('../TableUtil');
-var Util = require('../Util');
+const MarathonStore = require('../../stores/MarathonStore');
+const TableUtil = require('../TableUtil');
+const Util = require('../Util');
 
 describe('TableUtil', function () {
   beforeEach(function () {

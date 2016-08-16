@@ -1,9 +1,9 @@
 jest.dontMock('../RouterUtil');
 
-import {createRoutesFromReactChildren, Route, Redirect} from 'react-router';
-import ReactTestUtils from 'react-addons-test-utils';
+const ReactRouter = require('react-router');
+const ReactTestUtils = require('react-addons-test-utils');
 
-import RouterUtil from '../RouterUtil';
+const RouterUtil = require('../RouterUtil');
 
 describe('RouterUtil', function () {
 
@@ -16,7 +16,7 @@ describe('RouterUtil', function () {
     it('creates a react component', function () {
       let components = RouterUtil.createComponentsFromRoutes([
         {
-          type: Route,
+          type: ReactRouter.Route,
           name: 'foo-bar',
           path: 'foo/?',
           handler: this.handler
@@ -29,21 +29,21 @@ describe('RouterUtil', function () {
     it('creates a react component of correct type', function () {
       let components = RouterUtil.createComponentsFromRoutes([
         {
-          type: Route,
+          type: ReactRouter.Route,
           name: 'foo-bar',
           path: 'foo/?',
           handler: this.handler
         }
       ]);
 
-      expect(ReactTestUtils.isElementOfType(components[0], Route))
+      expect(ReactTestUtils.isElementOfType(components[0], ReactRouter.Route))
       .toBeTruthy();
     });
 
     it('sets props correctly', function () {
       let components = RouterUtil.createComponentsFromRoutes([
         {
-          type: Route,
+          type: ReactRouter.Route,
           name: 'foo-bar',
           path: 'foo/?',
           handler: this.handler
@@ -59,12 +59,12 @@ describe('RouterUtil', function () {
     it('creates child route components', function () {
       let components = RouterUtil.createComponentsFromRoutes([
         {
-          type: Route,
+          type: ReactRouter.Route,
           name: 'foo-bar',
           path: 'foo/?',
           handler: this.handler,
           children: [{
-            type: Redirect,
+            type: ReactRouter.Redirect,
             name: 'baz-qux',
             path: 'bar/?'
           }]
@@ -72,7 +72,8 @@ describe('RouterUtil', function () {
       ]);
       let component = components[0].props.children;
 
-      expect(ReactTestUtils.isElementOfType(component, Redirect)).toBeTruthy();
+      expect(ReactTestUtils.isElementOfType(component, ReactRouter.Redirect))
+          .toBeTruthy();
     });
 
   });
@@ -83,7 +84,7 @@ describe('RouterUtil', function () {
       this.handler = function () {};
       this.routeConfig = [
         {
-          type: Route,
+          type: ReactRouter.Route,
           name: 'qux',
           path: 'qux/?',
           handler: this.handler,
@@ -94,7 +95,7 @@ describe('RouterUtil', function () {
 
     it('sets route configurations', function () {
       let components = RouterUtil.createComponentsFromRoutes(this.routeConfig);
-      let routes = createRoutesFromReactChildren(components);
+      let routes = ReactRouter.createRoutesFromReactChildren(components);
 
       routes = RouterUtil.setRouteConfiguration(routes, this.routeConfig);
 
@@ -106,17 +107,17 @@ describe('RouterUtil', function () {
     it('sets route configurations for nested child', function () {
       let routeConfiguration = [
         {
-          type: Route,
+          type: ReactRouter.Route,
           name: 'foo',
           path: 'foo/?',
           handler: this.handler,
           children: [{
-            type: Route,
+            type: ReactRouter.Route,
             name: 'bar',
             path: 'bar/?',
             handler: this.handler,
             children: [{
-              type: Route,
+              type: ReactRouter.Route,
               name: 'baz',
               path: 'baz/?',
               handler: this.handler,
@@ -128,7 +129,7 @@ describe('RouterUtil', function () {
       let components = RouterUtil.createComponentsFromRoutes(
         routeConfiguration
       );
-      let routes = createRoutesFromReactChildren(components[0]);
+      let routes = ReactRouter.createRoutesFromReactChildren(components[0]);
 
       routes = RouterUtil.setRouteConfiguration(routes, routeConfiguration);
 
@@ -145,18 +146,18 @@ describe('RouterUtil', function () {
     it('builds routes correctly', function () {
       let routeConfiguration = [
         {
-          type: Route,
+          type: ReactRouter.Route,
           name: 'foo',
           path: 'foo/?',
           handler() {},
           buildBreadCrumb() {},
           children: [{
-            type: Route,
+            type: ReactRouter.Route,
             name: 'bar',
             path: 'bar/?',
             handler() {},
             children: [{
-              type: Route,
+              type: ReactRouter.Route,
               name: 'baz',
               path: 'baz/?',
               handler() {},
@@ -172,7 +173,8 @@ describe('RouterUtil', function () {
       let firstRoute = routes[0];
       expect(firstRoute.name).toEqual('foo');
       expect(firstRoute.handler).toEqual(routeConfiguration[0].handler);
-      expect(firstRoute.buildBreadCrumb).toEqual(routeConfiguration[0].buildBreadCrumb);
+      expect(firstRoute.buildBreadCrumb)
+          .toEqual(routeConfiguration[0].buildBreadCrumb);
       // Check middle route
       let secondRoute = routes[0].childRoutes[0];
       let secondRouteConfig = routeConfiguration[0].children[0];
@@ -184,7 +186,8 @@ describe('RouterUtil', function () {
       let thirdRouteConfig = routeConfiguration[0].children[0].children[0];
       expect(thirdRoute.name).toEqual('baz');
       expect(thirdRoute.handler).toEqual(thirdRouteConfig.handler);
-      expect(thirdRoute.buildBreadCrumb).toEqual(thirdRouteConfig.buildBreadCrumb);
+      expect(thirdRoute.buildBreadCrumb)
+          .toEqual(thirdRouteConfig.buildBreadCrumb);
     });
 
   });

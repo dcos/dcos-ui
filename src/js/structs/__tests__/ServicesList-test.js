@@ -1,8 +1,8 @@
 jest.dontMock('../../utils/StringUtil');
 jest.dontMock('../../utils/Util');
 
-let Framework = require('../Framework');
-let ServicesList = require('../ServicesList');
+const Framework = require('../Framework');
+const ServicesList = require('../ServicesList');
 
 describe('ServicesList', function () {
 

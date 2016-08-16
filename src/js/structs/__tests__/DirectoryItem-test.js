@@ -1,6 +1,6 @@
 jest.dontMock('../DirectoryItem');
 
-let DirectoryItem = require('../DirectoryItem');
+const DirectoryItem = require('../DirectoryItem');
 
 describe('DirectoryItem', function () {
 

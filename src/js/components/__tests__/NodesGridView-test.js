@@ -5,13 +5,13 @@ jest.dontMock('../NodesGridView');
 jest.dontMock('../../stores/MesosStateStore');
 jest.dontMock('../../utils/Util');
 /* eslint-disable no-unused-vars */
-var React = require('react');
+const React = require('react');
 /* eslint-enable no-unused-vars */
-var ReactDOM = require('react-dom');
+const ReactDOM = require('react-dom');
 
-var NodesGridView = require('../NodesGridView');
-var MesosStateStore = require('../../stores/MesosStateStore');
-var NodesList = require('../../structs/NodesList');
+const NodesGridView = require('../NodesGridView');
+const MesosStateStore = require('../../stores/MesosStateStore');
+const NodesList = require('../../structs/NodesList');
 
 MesosStateStore.addChangeListener = function () {};
 

@@ -1,4 +1,4 @@
-let MesosStateUtil = require('../MesosStateUtil');
+const MesosStateUtil = require('../MesosStateUtil');
 
 describe('MesosStateUtil', function () {
 

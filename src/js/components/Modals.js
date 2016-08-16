@@ -1,13 +1,13 @@
-var React = require('react');
-
-var CliInstallModal = require('./modals/CliInstallModal');
-import Config from '../config/Config';
-var ErrorModal = require('./modals/ErrorModal');
-import EventTypes from '../constants/EventTypes';
+import React from 'react';
 import {Hooks} from 'PluginSDK';
-var InternalStorageMixin = require('../mixins/InternalStorageMixin');
-var SidebarStore = require('../stores/SidebarStore');
-var VersionsModal = require('./modals/VersionsModal');
+
+import CliInstallModal from './modals/CliInstallModal';
+import Config from '../config/Config';
+import ErrorModal from './modals/ErrorModal';
+import EventTypes from '../constants/EventTypes';
+import InternalStorageMixin from '../mixins/InternalStorageMixin';
+import SidebarStore from '../stores/SidebarStore';
+import VersionsModal from './modals/VersionsModal';
 
 var Modals = React.createClass({
 

@@ -1,4 +1,4 @@
-import GetSetBaseStore from './GetSetBaseStore';
+import PluginSDK from 'PluginSDK';
 
 import {
   REQUEST_CLUSTER_CCID_ERROR,
@@ -15,7 +15,7 @@ import {
   CONFIG_ERROR,
   CONFIG_LOADED
 } from '../constants/EventTypes';
-import PluginSDK from 'PluginSDK';
+import GetSetBaseStore from './GetSetBaseStore';
 
 class ConfigStore extends GetSetBaseStore {
   constructor() {

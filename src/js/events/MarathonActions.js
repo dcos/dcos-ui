@@ -35,8 +35,8 @@ import {
   REQUEST_MARATHON_TASK_KILL_SUCCESS,
   REQUEST_MARATHON_TASK_KILL_ERROR
 } from '../constants/ActionTypes';
-var AppDispatcher = require('./AppDispatcher');
-var Config = require('../config/Config');
+import AppDispatcher from './AppDispatcher';
+import Config from '../config/Config';
 import MarathonUtil from '../utils/MarathonUtil';
 import Util from '../utils/Util';
 

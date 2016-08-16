@@ -1,3 +1,5 @@
+import PluginSDK from 'PluginSDK';
+
 import GetSetBaseStore from './GetSetBaseStore';
 import AppDispatcher from '../events/AppDispatcher';
 import CosmosPackagesActions from '../events/CosmosPackagesActions';
@@ -41,7 +43,6 @@ import {
 
   SERVER_ACTION
 } from '../constants/ActionTypes';
-import PluginSDK from 'PluginSDK';
 import RepositoryList from '../structs/RepositoryList';
 import UniverseInstalledPackagesList from
   '../structs/UniverseInstalledPackagesList';

@@ -1,6 +1,6 @@
 jest.dontMock('../ServiceValidatorUtil');
 
-var ServiceValidatorUtil = require('../ServiceValidatorUtil');
+const ServiceValidatorUtil = require('../ServiceValidatorUtil');
 
 describe('ServiceValidatorUtil', function () {
 

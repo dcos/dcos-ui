@@ -8,14 +8,14 @@ jest.dontMock('../../structs/Item');
 jest.dontMock('../../structs/List');
 jest.dontMock('../../utils/Util');
 
-import {RequestUtil} from 'mesosphere-shared-reactjs';
+const RequestUtil = require('mesosphere-shared-reactjs').RequestUtil;
 
-var ActionTypes = require('../../constants/ActionTypes');
-var AppDispatcher = require('../../events/AppDispatcher');
-var EventTypes = require('../../constants/EventTypes');
-var LogBuffer = require('../../structs/LogBuffer');
-var MesosLogActions = require('../../events/MesosLogActions');
-var MesosLogStore = require('../MesosLogStore');
+const ActionTypes = require('../../constants/ActionTypes');
+const AppDispatcher = require('../../events/AppDispatcher');
+const EventTypes = require('../../constants/EventTypes');
+const LogBuffer = require('../../structs/LogBuffer');
+const MesosLogActions = require('../../events/MesosLogActions');
+const MesosLogStore = require('../MesosLogStore');
 
 describe('MesosLogStore', function () {
 

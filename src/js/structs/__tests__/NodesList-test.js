@@ -3,8 +3,8 @@ jest.dontMock('../../utils/MesosSummaryUtil');
 jest.dontMock('../../utils/StringUtil');
 jest.dontMock('../../utils/Util');
 
-let Node = require('../Node');
-let NodesList = require('../NodesList');
+const Node = require('../Node');
+const NodesList = require('../NodesList');
 
 describe('NodesList', function () {
 

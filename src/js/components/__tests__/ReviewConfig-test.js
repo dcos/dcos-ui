@@ -1,11 +1,11 @@
 jest.dontMock('../ReviewConfig');
 
 /* eslint-disable no-unused-vars */
-var React = require('react');
+const React = require('react');
 /* eslint-enable no-unused-vars */
-var ReactDOM = require('react-dom');
+const ReactDOM = require('react-dom');
 
-var ReviewConfig = require('../ReviewConfig');
+const ReviewConfig = require('../ReviewConfig');
 
 describe('ReviewConfig', function () {
   beforeEach(function () {

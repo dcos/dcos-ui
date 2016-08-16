@@ -3,14 +3,14 @@ jest.dontMock('../../mixins/GetSetMixin');
 jest.dontMock('./fixtures/MockFrameworks');
 jest.dontMock('../../utils/Util');
 /* eslint-disable no-unused-vars */
-var React = require('react');
+const React = require('react');
 /* eslint-enable no-unused-vars */
-var ReactDOM = require('react-dom');
+const ReactDOM = require('react-dom');
 
-var FilterByService = require('../FilterByService');
-var MockFrameworks = require('./fixtures/MockFrameworks.json');
-var ServicesList = require('../../structs/ServicesList');
-var Framework = require('../../structs/Framework');
+const FilterByService = require('../FilterByService');
+const MockFrameworks = require('./fixtures/MockFrameworks.json');
+const ServicesList = require('../../structs/ServicesList');
+const Framework = require('../../structs/Framework');
 
 describe('FilterByService', function () {
 

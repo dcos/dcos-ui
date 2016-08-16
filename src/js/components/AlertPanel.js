@@ -1,7 +1,7 @@
-var classNames = require('classnames');
-var React = require('react');
+import classNames from 'classnames';
+import React from 'react';
 
-var Panel = require('./Panel');
+import Panel from './Panel';
 
 var AlertPanel = React.createClass({
 

@@ -1,15 +1,15 @@
 jest.dontMock('../CliInstallModal');
 jest.dontMock('../../../utils/DOMUtils');
 /* eslint-disable no-unused-vars */
-var React = require('react');
+const React = require('react');
 /* eslint-enable no-unused-vars */
-var ReactDOM = require('react-dom');
+const ReactDOM = require('react-dom');
 
-var JestUtil = require('../../../utils/JestUtil');
+const JestUtil = require('../../../utils/JestUtil');
 
 JestUtil.unMockStores(['MetadataStore']);
 
-var CliInstallModal = require('../CliInstallModal');
+const CliInstallModal = require('../CliInstallModal');
 
 // Set a new Getter. Navigator doesn't have a Setter.
 function setUserAgent(agent) {

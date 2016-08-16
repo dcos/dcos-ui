@@ -1,6 +1,6 @@
 jest.dontMock('../DOMUtils');
 
-var DOMUtils = require('../DOMUtils');
+const DOMUtils = require('../DOMUtils');
 
 describe('DOMUtils', function () {
 

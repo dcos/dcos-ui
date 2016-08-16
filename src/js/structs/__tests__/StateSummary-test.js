@@ -2,10 +2,10 @@ jest.dontMock('../Framework');
 jest.dontMock('../../utils/MesosSummaryUtil');
 jest.dontMock('../../utils/Util');
 
-let Framework = require('../Framework');
-let NodesList = require('../NodesList');
-let ServicesList = require('../ServicesList');
-let StateSummary = require('../StateSummary');
+const Framework = require('../Framework');
+const NodesList = require('../NodesList');
+const ServicesList = require('../ServicesList');
+const StateSummary = require('../StateSummary');
 
 describe('StateSummary', function () {
 

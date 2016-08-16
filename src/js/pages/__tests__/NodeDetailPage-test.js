@@ -9,22 +9,22 @@ jest.dontMock('../../components/TaskView');
 jest.dontMock('../../components/RequestErrorMsg');
 jest.dontMock('../../structs/CompositeState');
 
-var JestUtil = require('../../utils/JestUtil');
+const JestUtil = require('../../utils/JestUtil');
 
 JestUtil.unMockStores(['MesosSummaryStore', 'MesosStateStore']);
 /* eslint-disable no-unused-vars */
-var React = require('react');
+const React = require('react');
 /* eslint-enable no-unused-vars */
-var ReactDOM = require('react-dom');
-var TestUtils = require('react-addons-test-utils');
+const ReactDOM = require('react-dom');
+const TestUtils = require('react-addons-test-utils');
 
-var CompositeState = require('../../structs/CompositeState');
-var MesosStateStore = require('../../stores/MesosStateStore');
-var MesosSummaryActions = require('../../events/MesosSummaryActions');
-var MesosSummaryStore = require('../../stores/MesosSummaryStore');
-var Node = require('../../structs/Node');
-var NodesList = require('../../structs/NodesList');
-var NodeDetailPage = require('../nodes/NodeDetailPage');
+const CompositeState = require('../../structs/CompositeState');
+const MesosStateStore = require('../../stores/MesosStateStore');
+const MesosSummaryActions = require('../../events/MesosSummaryActions');
+const MesosSummaryStore = require('../../stores/MesosSummaryStore');
+const Node = require('../../structs/Node');
+const NodesList = require('../../structs/NodesList');
+const NodeDetailPage = require('../nodes/NodeDetailPage');
 
 describe('NodeDetailPage', function () {
   beforeEach(function () {

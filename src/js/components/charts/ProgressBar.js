@@ -1,6 +1,6 @@
-var React = require('react');
+import React from 'react';
 
-var InternalStorageMixin = require('../../mixins/InternalStorageMixin');
+import InternalStorageMixin from '../../mixins/InternalStorageMixin';
 
 var ProgressBar = React.createClass({
 

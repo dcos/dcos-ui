@@ -1,4 +1,5 @@
 import EventEmitter from 'events';
+import PluginSDK from 'PluginSDK';
 
 import AppDispatcher from '../events/AppDispatcher';
 import {
@@ -14,7 +15,6 @@ import {
   USER_DELETE_SUCCESS,
   USER_DELETE_ERROR
 } from '../constants/EventTypes';
-import PluginSDK from 'PluginSDK';
 import UsersActions from '../events/UsersActions';
 
 /**

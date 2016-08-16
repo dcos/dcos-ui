@@ -6,13 +6,13 @@ jest.dontMock('../TaskTable');
 jest.dontMock('moment');
 
 /* eslint-disable no-unused-vars */
-var React = require('react');
+const React = require('react');
 /* eslint-enable no-unused-vars */
-var ReactDOM = require('react-dom');
-var JestUtil = require('../../utils/JestUtil');
+const ReactDOM = require('react-dom');
+const JestUtil = require('../../utils/JestUtil');
 
-var MesosStateStore = require('../../stores/MesosStateStore');
-var TaskTable = require('../TaskTable');
+const MesosStateStore = require('../../stores/MesosStateStore');
+const TaskTable = require('../TaskTable');
 const Tasks = require('./fixtures/MockTasks.json').tasks;
 
 describe('TaskTable', function () {

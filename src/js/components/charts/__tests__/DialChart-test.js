@@ -3,12 +3,12 @@ jest.dontMock('../DialSlice');
 jest.dontMock('../../../mixins/InternalStorageMixin');
 jest.dontMock('classnames');
 /* eslint-disable no-unused-vars */
-var React = require('react');
+const React = require('react');
 /* eslint-enable no-unused-vars */
-var ReactDOM = require('react-dom');
-var TestUtils = require('react-addons-test-utils');
+const ReactDOM = require('react-dom');
+const TestUtils = require('react-addons-test-utils');
 
-var DialChart = require('../DialChart');
+const DialChart = require('../DialChart');
 
 var getInstanceWithProps = function (props, container) {
   return ReactDOM.render(

@@ -1,4 +1,4 @@
-import Deployment from '../Deployment';
+const Deployment = require('../Deployment');
 
 describe('Deployment', function () {
 

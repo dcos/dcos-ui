@@ -1,11 +1,11 @@
 jest.dontMock('../TasksChart');
 /* eslint-disable no-unused-vars */
-var React = require('react');
+const React = require('react');
 /* eslint-enable no-unused-vars */
-var ReactDOM = require('react-dom');
-var TestUtils = require('react-addons-test-utils');
+const ReactDOM = require('react-dom');
+const TestUtils = require('react-addons-test-utils');
 
-var TasksChart = require('../TasksChart');
+const TasksChart = require('../TasksChart');
 
 describe('TasksChart', function () {
 

@@ -1,5 +1,5 @@
-var UniversePackage = require('../UniversePackage');
-var UniverseInstalledPackagesList = require('../UniverseInstalledPackagesList');
+const UniversePackage = require('../UniversePackage');
+const UniverseInstalledPackagesList = require('../UniverseInstalledPackagesList');
 
 describe('UniverseInstalledPackagesList', function () {
 

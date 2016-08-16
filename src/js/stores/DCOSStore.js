@@ -1,4 +1,5 @@
 import {EventEmitter} from 'events';
+import PluginSDK, {Hooks} from 'PluginSDK';
 
 import {
   METRONOME_JOBS_CHANGE,
@@ -18,7 +19,6 @@ import MarathonStore from './MarathonStore';
 import MesosSummaryStore from './MesosSummaryStore';
 import MetronomeStore from '../stores/MetronomeStore';
 import NotificationStore from './NotificationStore';
-import PluginSDK, {Hooks} from 'PluginSDK';
 import ServiceTree from '../structs/ServiceTree';
 import SummaryList from '../structs/SummaryList';
 

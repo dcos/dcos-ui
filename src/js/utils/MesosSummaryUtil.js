@@ -1,5 +1,5 @@
-var Config = require('../config/Config');
-var Maths = require('../utils/Maths');
+import Config from '../config/Config';
+import Maths from '../utils/Maths';
 
 const MesosSummaryUtil = {
 

@@ -1,6 +1,6 @@
 /* eslint no-redeclare: 0 */
-var ConfigDev = require('./Config.dev.js');
-var ConfigTest = require('./Config.test.js');
+import ConfigDev from './Config.dev.js';
+import ConfigTest from './Config.test.js';
 
 var Config = {
   analyticsKey: '51ybGTeFEFU1xo6u10XMDrr6kATFyRyh',

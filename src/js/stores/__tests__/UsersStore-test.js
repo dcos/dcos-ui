@@ -2,16 +2,16 @@ jest.dontMock('../UsersStore');
 jest.dontMock('../../mixins/GetSetMixin');
 jest.dontMock('../../../../tests/_fixtures/acl/users-unicode.json');
 
-import {RequestUtil} from 'mesosphere-shared-reactjs';
+const RequestUtil = require('mesosphere-shared-reactjs').RequestUtil;
 
-var UsersStore = require('../UsersStore');
-var AppDispatcher = require('../../events/AppDispatcher');
-var ActionTypes = require('../../constants/ActionTypes');
-var EventTypes = require('../../constants/EventTypes');
-var UsersList = require('../../structs/UsersList');
-var Config = require('../../config/Config');
+const UsersStore = require('../UsersStore');
+const AppDispatcher = require('../../events/AppDispatcher');
+const ActionTypes = require('../../constants/ActionTypes');
+const EventTypes = require('../../constants/EventTypes');
+const UsersList = require('../../structs/UsersList');
+const Config = require('../../config/Config');
 
-var usersFixture = require('../../../../tests/_fixtures/acl/users-unicode.json');
+const usersFixture = require('../../../../tests/_fixtures/acl/users-unicode.json');
 
 describe('UsersStore', function () {
 

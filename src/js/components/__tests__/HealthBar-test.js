@@ -2,14 +2,14 @@ jest.dontMock('../HealthBar');
 jest.dontMock('../StatusBar');
 
 /* eslint-disable no-unused-vars */
-let React = require('react');
+const React = require('react');
 /* eslint-enable no-unused-vars */
-let ReactDOM = require('react-dom');
-let ReactTestUtils = require('react-addons-test-utils');
-let Tooltip = require('reactjs-components').Tooltip;
+const ReactDOM = require('react-dom');
+const ReactTestUtils = require('react-addons-test-utils');
+const Tooltip = require('reactjs-components').Tooltip;
 
-let HealthBar = require('../HealthBar');
-let StatusBar = require('../StatusBar');
+const HealthBar = require('../HealthBar');
+const StatusBar = require('../StatusBar');
 
 const testData = {
   tasksRunning: 3,

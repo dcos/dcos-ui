@@ -2,8 +2,8 @@ jest.dontMock('../UniversePackage');
 jest.dontMock('../UniversePackagesList');
 jest.dontMock('../../utils/Util');
 
-var UniversePackage = require('../UniversePackage');
-var UniversePackagesList = require('../UniversePackagesList');
+const UniversePackage = require('../UniversePackage');
+const UniversePackagesList = require('../UniversePackagesList');
 
 describe('UniversePackagesList', function () {
 

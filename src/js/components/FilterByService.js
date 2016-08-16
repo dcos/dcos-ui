@@ -1,6 +1,6 @@
-var React = require('react');
+import React from 'react';
+import {Dropdown} from 'reactjs-components';
 
-var Dropdown = require('reactjs-components').Dropdown;
 import Framework from '../structs/Framework';
 
 var defaultId = 'default';

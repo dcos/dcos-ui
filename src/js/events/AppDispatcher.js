@@ -1,4 +1,4 @@
-var Dispatcher = require('flux').Dispatcher;
+import {Dispatcher} from 'flux';
 
 import ActionTypes from '../constants/ActionTypes';
 

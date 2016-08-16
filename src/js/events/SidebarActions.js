@@ -10,7 +10,7 @@ import {
 } from '../constants/ActionTypes';
 import Config from '../config/Config';
 
-var AppDispatcher = require('./AppDispatcher');
+import AppDispatcher from './AppDispatcher';
 
 module.exports = {
 

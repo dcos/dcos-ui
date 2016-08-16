@@ -6,7 +6,7 @@ jest.dontMock('../../events/ConfigActions');
 jest.dontMock('../../mixins/GetSetMixin');
 jest.dontMock('../../stores/ConfigStore');
 
-var Hooks = require('../Hooks');
+const Hooks = require('../Hooks');
 
 describe('HooksAPI', function () {
 

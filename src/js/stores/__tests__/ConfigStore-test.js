@@ -3,8 +3,8 @@ jest.dontMock('../../mixins/GetSetMixin');
 jest.dontMock('../ConfigStore');
 jest.dontMock('../../constants/EventTypes');
 
-var EventTypes = require('../../constants/EventTypes');
-var ConfigStore = require('../ConfigStore');
+const EventTypes = require('../../constants/EventTypes');
+const ConfigStore = require('../ConfigStore');
 
 describe('ConfigStore', function () {
 

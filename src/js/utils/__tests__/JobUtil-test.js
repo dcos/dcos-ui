@@ -1,8 +1,8 @@
 jest.dontMock('../ServiceUtil');
 jest.dontMock('../../structs/Service');
 
-var Job = require('../../structs/Job');
-var JobUtil = require('../JobUtil');
+const Job = require('../../structs/Job');
+const JobUtil = require('../JobUtil');
 
 describe('JobUtil', function () {
 

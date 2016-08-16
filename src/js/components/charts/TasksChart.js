@@ -1,9 +1,9 @@
-var classNames = require('classnames');
+import classNames from 'classnames';
 import deepEqual from 'deep-equal';
-var React = require('react');
+import React from 'react';
 
-var Chart = require('./Chart');
-var DialChart = require('./DialChart');
+import Chart from './Chart';
+import DialChart from './DialChart';
 
 const TASKS_PER_ROW = 3;
 const TASK_INFO = {

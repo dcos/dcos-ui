@@ -4,7 +4,7 @@ jest.dontMock('../Maths');
 jest.dontMock('../MesosSummaryUtil');
 jest.dontMock('../Util');
 
-let MesosSummaryUtil = require('../MesosSummaryUtil');
+const MesosSummaryUtil = require('../MesosSummaryUtil');
 
 describe('MesosSummaryUtil', function () {
 

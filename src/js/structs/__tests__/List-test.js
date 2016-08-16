@@ -1,5 +1,5 @@
-let Item = require('../Item');
-let List = require('../List');
+const Item = require('../Item');
+const List = require('../List');
 
 describe('List', function () {
 

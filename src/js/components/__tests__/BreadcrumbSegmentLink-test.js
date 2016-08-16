@@ -1,11 +1,11 @@
 jest.dontMock('../BreadcrumbSegmentLink');
 
 /* eslint-disable no-unused-vars */
-let React = require('react');
+const React = require('react');
 /* eslint-enable no-unused-vars */
-let TestUtils = require('react-addons-test-utils');
+const TestUtils = require('react-addons-test-utils');
 
-let BreadcrumbSegmentLink = require('../BreadcrumbSegmentLink');
+const BreadcrumbSegmentLink = require('../BreadcrumbSegmentLink');
 
 describe('BreadcrumbSegmentLink', function () {
 

@@ -1,4 +1,5 @@
 import {RequestUtil} from 'mesosphere-shared-reactjs';
+import {Hooks} from 'PluginSDK';
 
 import {
   REQUEST_SUMMARY_HISTORY_SUCCESS,
@@ -7,10 +8,9 @@ import {
   REQUEST_SUMMARY_ERROR,
   REQUEST_SUMMARY_ONGOING
 } from '../constants/ActionTypes';
-var AppDispatcher = require('./AppDispatcher');
-var Config = require('../config/Config');
-import {Hooks} from 'PluginSDK';
-var TimeScales = require('../constants/TimeScales');
+import AppDispatcher from './AppDispatcher';
+import Config from '../config/Config';
+import TimeScales from '../constants/TimeScales';
 
 var _historyServiceOnline = true;
 

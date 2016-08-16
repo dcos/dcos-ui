@@ -4,7 +4,7 @@ jest.dontMock('../../config/Config');
 jest.dontMock('../MesosSummaryActions');
 jest.dontMock('../../constants/TimeScales');
 
-import {Hooks} from 'PluginSDK';
+const Hooks = require('PluginSDK').Hooks;
 
 jest.setMock('react-router', {
   HashLocation: {
@@ -13,17 +13,17 @@ jest.setMock('react-router', {
   }
 });
 
-import PluginTestUtils from 'PluginTestUtils';
-import {RequestUtil} from 'mesosphere-shared-reactjs';
+const PluginTestUtils = require('PluginTestUtils');
+const RequestUtil = require('mesosphere-shared-reactjs').RequestUtil;
 
 PluginTestUtils.loadPluginsByName({
   tracking: {enabled: true}
 });
 
-var AppDispatcher = require('../AppDispatcher');
-var Config = require('../../config/Config');
-var MesosSummaryActions = require('../MesosSummaryActions');
-var TimeScales = require('../../constants/TimeScales');
+const AppDispatcher = require('../AppDispatcher');
+const Config = require('../../config/Config');
+const MesosSummaryActions = require('../MesosSummaryActions');
+const TimeScales = require('../../constants/TimeScales');
 
 global.analytics = {
   initialized: true,

@@ -1,18 +1,18 @@
 jest.dontMock('../Highlight');
 jest.dontMock('../MesosLogView');
 
-var JestUtil = require('../../utils/JestUtil');
+const JestUtil = require('../../utils/JestUtil');
 
 JestUtil.unMockStores(['MesosLogStore']);
 /* eslint-disable no-unused-vars */
-var React = require('react');
+const React = require('react');
 /* eslint-enable no-unused-vars */
-var ReactDOM = require('react-dom');
-var TestUtils = require('react-addons-test-utils');
+const ReactDOM = require('react-dom');
+const TestUtils = require('react-addons-test-utils');
 
-var MesosLogStore = require('../../stores/MesosLogStore');
-var MesosLogView = require('../MesosLogView');
-var DOMUtil = require('../../utils/DOMUtils');
+const MesosLogStore = require('../../stores/MesosLogStore');
+const MesosLogView = require('../MesosLogView');
+const DOMUtil = require('../../utils/DOMUtils');
 
 describe('MesosLogView', function () {
   beforeEach(function () {

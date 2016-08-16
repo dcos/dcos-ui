@@ -1,9 +1,9 @@
-var React = require('react');
+import React from 'react';
 
 import EventTypes from '../constants/EventTypes';
-var InternalStorageMixin = require('../mixins/InternalStorageMixin');
-var SidebarActions = require('../events/SidebarActions');
-var SidebarStore = require('../stores/SidebarStore');
+import InternalStorageMixin from '../mixins/InternalStorageMixin';
+import SidebarActions from '../events/SidebarActions';
+import SidebarStore from '../stores/SidebarStore';
 
 function getSidebarState() {
   return {
