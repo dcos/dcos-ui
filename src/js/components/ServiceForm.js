@@ -80,11 +80,11 @@ class ServiceForm extends SchemaForm {
     return Object.keys(changes).some(function (changeKey) {
       let tab = FormUtil.getProp(changeKey);
 
-      return (tab in DUPLICABLE_FIELDS_TO_WATCH)
+      return ((tab in DUPLICABLE_FIELDS_TO_WATCH)
         && (DUPLICABLE_FIELDS_TO_WATCH[tab].fields.includes(propKey)
-        && DUPLICABLE_FIELDS_TO_WATCH[tab].forceUpdate)
-        || (fieldName in FIELDS_TO_WATCH
-        && FIELDS_TO_WATCH[fieldName].forceUpdate);
+        && DUPLICABLE_FIELDS_TO_WATCH[tab].forceUpdate))
+        || ((fieldName in FIELDS_TO_WATCH
+        && FIELDS_TO_WATCH[fieldName].forceUpdate));
 
     }) || (eventType === 'blur' && blurChange);
   }

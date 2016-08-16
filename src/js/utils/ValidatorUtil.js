@@ -1,6 +1,6 @@
 var ValidatorUtil = {
   isDefined(value) {
-    return value != null && value !== '' || typeof value === 'number';
+    return (value != null && value !== '') || typeof value === 'number';
   },
 
   isEmail(email) {

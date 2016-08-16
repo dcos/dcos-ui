@@ -269,11 +269,10 @@ class ServiceFormModal extends mixin(StoreMixin) {
   shouldDisableForm(service) {
     let containerSettings = service.getContainerSettings();
 
-    return containerSettings != null && containerSettings.type === 'MESOS' &&
-      ((containerSettings.docker &&
-      containerSettings.docker.image != null) ||
-      containerSettings.appc &&
-      containerSettings.appc.image != null);
+    return containerSettings != null && containerSettings.type === 'MESOS' && (
+      (containerSettings.docker && containerSettings.docker.image != null) ||
+      (containerSettings.appc && containerSettings.appc.image != null)
+    );
   }
 
   shouldForceUpdate(message = this.state.errorMessage) {

@@ -61,7 +61,7 @@ var TasksChart = React.createClass({
       if (numberOfTasks > TASKS_PER_ROW) {
         classes['column-mini-4'] = true;
       } else {
-        classes['column-mini-' + 12 / numberOfTasks] = true;
+        classes['column-mini-' + (12 / numberOfTasks)] = true;
       }
       var classSet = classNames(classes);
       return (

@@ -229,7 +229,7 @@ class MesosLogView extends mixin(StoreMixin) {
 
     if ((nodeDistanceFromTop > containerHeight + containerScrollTop) ||
       nodeDistanceFromTop < containerScrollTop) {
-      logContainer.scrollTop = nodeDistanceFromTop - containerHeight / 2;
+      logContainer.scrollTop = nodeDistanceFromTop - (containerHeight / 2);
     }
   }
 
