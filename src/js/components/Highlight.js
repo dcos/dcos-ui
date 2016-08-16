@@ -139,7 +139,7 @@ class Highlight extends mixin(InternalStorageMixin) {
    */
   highlightChildren(subject, search) {
     let children = [];
-    let {matchElement, watching} = this.props;
+    let {watching} = this.props;
     let remaining = subject;
     let highlightCount = 0;
 
@@ -164,9 +164,9 @@ class Highlight extends mixin(InternalStorageMixin) {
         highlightCount++;
 
         if (highlightCount === watching) {
-          children.push(this.renderWatchingHighlight(match, matchElement));
+          children.push(this.renderWatchingHighlight(match));
         } else {
-          children.push(this.renderHighlight(match, matchElement));
+          children.push(this.renderHighlight(match));
         }
       }
 
@@ -217,22 +217,20 @@ class Highlight extends mixin(InternalStorageMixin) {
    *
    * @param  {string} string
    *   A string value to wrap an element around.
-   * @param  {string} matchElement
-   *   A string value for the element to render.
    *
    * @return {ReactElement} element to render, when highlighted
    */
-  renderHighlight(string, matchElement) {
+  renderHighlight(string) {
     this.count++;
 
     return React.createElement(
-      matchElement,
+      this.props.matchElement,
       {key: this.count, className: this.props.matchClass},
       string
     );
   }
 
-  renderWatchingHighlight(string, matchElement) {
+  renderWatchingHighlight(string) {
     this.count++;
 
     return (
