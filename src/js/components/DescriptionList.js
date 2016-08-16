@@ -40,7 +40,7 @@ class DescriptionList extends React.Component {
       }
 
       // Check if we need to render a component in the dt
-      if (renderKeys.hasOwnProperty(key)) {
+      if (Object.prototype.hasOwnProperty.call(renderKeys, key)) {
         key = renderKeys[key];
       }
 

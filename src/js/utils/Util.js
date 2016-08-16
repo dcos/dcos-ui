@@ -8,7 +8,7 @@ const Util = {
    * @return {Integer}               A unique id.
    */
   uniqueID(id) {
-    if (!uniqueIDMap.hasOwnProperty(id)) {
+    if (!Object.prototype.hasOwnProperty.call(uniqueIDMap, id)) {
       uniqueIDMap[id] = 0;
     }
 

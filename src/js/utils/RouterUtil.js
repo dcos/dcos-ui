@@ -80,7 +80,7 @@ const RouterUtil = {
       // Transfer any property that is not already present on route,
       // but available in originalConfiguration
       Object.keys(originalConfiguration).forEach(function (prop) {
-        if (!route.hasOwnProperty(prop)) {
+        if (!Object.prototype.hasOwnProperty.call(route, prop)) {
           route[prop] = originalConfiguration[prop];
         }
       });
