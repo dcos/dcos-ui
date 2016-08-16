@@ -128,7 +128,7 @@ class MesosSummaryStore extends GetSetBaseStore {
   getInitialStates() {
     let initialStates = MesosSummaryUtil.getInitialStates().slice();
     let states = new SummaryList({maxLength: Config.historyLength});
-    initialStates.forEach(state => {
+    initialStates.forEach((state) => {
       states.addSnapshot(state, state.date, false);
     });
 

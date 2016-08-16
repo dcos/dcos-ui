@@ -21,7 +21,7 @@ class SidebarLabelsFilters extends mixin(QueryParamsMixin) {
   constructor() {
     super(...arguments);
 
-    METHODS_TO_BIND.forEach(method => {
+    METHODS_TO_BIND.forEach((method) => {
       this[method] = this[method].bind(this);
     });
 
@@ -175,7 +175,7 @@ class SidebarLabelsFilters extends mixin(QueryParamsMixin) {
     }
 
     if (stringify(nextSelectedLabels) !== stringify(selectedLabels)) {
-      let labels = nextSelectedLabels.map(label => {
+      let labels = nextSelectedLabels.map((label) => {
         return [label.key, label.value];
       });
 
@@ -193,7 +193,7 @@ class SidebarLabelsFilters extends mixin(QueryParamsMixin) {
     let nextSelectedLabels = [];
 
     if (selectedLabels != null) {
-      nextSelectedLabels = selectedLabels.map(label => {
+      nextSelectedLabels = selectedLabels.map((label) => {
         let [key, value] = this.decodeQueryParamArray(label);
 
         return {key, value};

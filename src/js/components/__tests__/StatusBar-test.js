@@ -191,7 +191,7 @@ describe('#StatusBar', function () {
             percentages.push(parseInt(el.style.width.replace('%', '')));
           });
           expect(percentages.length).toBe(2);
-          expect(percentages.filter(percent => percent < 7).length).toBe(0);
+          expect(percentages.filter((percent) => percent < 7).length).toBe(0);
         });
 
         it('should not have .bar elements < 7% width when using scale', function () {
@@ -220,7 +220,7 @@ describe('#StatusBar', function () {
             percentages.push(parseInt(el.style.width.replace('%', '')));
           });
           expect(percentages.length).toBe(3);
-          expect(percentages.filter(percent => percent < 7).length).toBe(0);
+          expect(percentages.filter((percent) => percent < 7).length).toBe(0);
         });
       });
   });

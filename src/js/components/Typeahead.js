@@ -46,7 +46,7 @@ class Typeahead extends FilterInputText {
           onInputChange={handleFilterChange}
           options={items}
           placeholder={placeholder}
-          ref={ref => { if (ref) { this.typeahead = ref.getInstance(); } }}
+          ref={(ref) => { if (ref) { this.typeahead = ref.getInstance(); } }}
           selected={selected}
           typeaheadMenuClassName="dropdown-menu-list"
           typeaheadMenuWrapperClassName="dropdown-menu" />

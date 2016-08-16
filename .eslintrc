@@ -33,11 +33,13 @@
   "extends": "airbnb",
 
   "rules": {
+    "arrow-parens": ["error", "always"],
     "eqeqeq": ["error", "smart"],
     "quotes": ["error", "single"],
     "indent": ["error", 2, {"SwitchCase": 1}],
     "camelcase": ["off", {"properties": "never"}],
     // "camelcase": ["error", {"properties": "always"}], This causes errors with mixin properties
+    "comma-dangle": ["error", "never"],
     "strict": ["error", "never"], // <-- fix
     "no-mixed-spaces-and-tabs": "error",
     "no-new": "off",
@@ -79,9 +81,8 @@
     "react/self-closing-comp": "off",
     "react/no-render-return-value": "off",
     "no-extra-boolean-cast": "off",
-    "react/no-unknown-property": "off",
     "jsx-quotes": ["error", "prefer-double"],
-    "comma-dangle": ["error", "never"],
+    "react/no-unknown-property": "off",
     "object-shorthand": "off",
     "no-var": "off",
     "arrow-body-style": "off",
