@@ -264,8 +264,8 @@ class TaskTable extends React.Component {
     let running = ['TASK_RUNNING', 'TASK_STARTING'].includes(state) && unknown;
     let success = healthy && state === 'TASK_RUNNING';
     let danger = (dangerState && !activeState &&
-      ['TASK_ERROR', 'TASK_FAILED'].includes(state)) || healthy === false &&
-      task.statuses.length !== 0 ;
+      ['TASK_ERROR', 'TASK_FAILED'].includes(state)) ||
+      (healthy === false && task.statuses.length !== 0);
 
     let statusClass = classNames({
       'dot': true,

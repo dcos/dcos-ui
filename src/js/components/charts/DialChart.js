@@ -131,7 +131,7 @@ var DialChart = React.createClass({
 
   getPosition() {
     return 'translate(' +
-      this.props.width / 2 + ',' + this.props.height / 2 + ')';
+      (this.props.width / 2) + ',' + (this.props.height / 2) + ')';
   },
 
   getWedges() {

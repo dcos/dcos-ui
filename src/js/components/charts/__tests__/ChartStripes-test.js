@@ -49,7 +49,7 @@ describe('ChartStripes', function () {
 
     stripes.forEach(function (stripe, i) {
       expect(parseInt(ReactDOM.findDOMNode(stripe).attributes.x.value, 10))
-        .toEqual(25 + i * 50);
+        .toEqual(25 + (i * 50));
     });
   });
 
@@ -79,7 +79,7 @@ describe('ChartStripes', function () {
 
     stripes.forEach(function (stripe, i) {
       expect(parseInt(ReactDOM.findDOMNode(stripe).attributes.x.value, 10))
-        .toEqual(30 + i * 60);
+        .toEqual(30 + (i * 60));
     });
   });
 

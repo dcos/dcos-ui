@@ -41,6 +41,16 @@
     // "camelcase": ["error", {"properties": "always"}], This causes errors with mixin properties
     "comma-dangle": ["error", "never"],
     "strict": ["error", "never"], // <-- fix
+    "no-mixed-operators": [2, {
+      groups: [
+        ["+", "-", "*", "/", "%", "**"],
+        ["&", "|", "^", "~", "<<", ">>", ">>>"],
+        ["==", "!=", "===", "!==", ">", ">=", "<", "<="],
+        ["&&", "||"],
+        ["in", "instanceof"]
+      ],
+      allowSamePrecedence: true
+    }],
     "no-mixed-spaces-and-tabs": "error",
     "no-new": "off",
     "no-trailing-spaces": ["error", { "skipBlankLines": false }],
@@ -66,7 +76,6 @@
     "import/newline-after-import": "off",
     "import/no-extraneous-dependencies": "off",
     "no-prototype-builtins": "off",
-    "no-mixed-operators": "off",
     "react/no-find-dom-node": "off",
     "prefer-spread": "off",
     "space-unary-ops": "off",

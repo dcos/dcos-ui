@@ -420,8 +420,7 @@ const ServiceUtil = {
 
     let containerSettings = service.getContainerSettings();
     if (containerSettings &&
-      (containerSettings.docker &&
-      containerSettings.docker.image ||
+      ((containerSettings.docker && containerSettings.docker.image) ||
       containerSettings.type === VolumeConstants.type.MESOS)
     ) {
       appDefinition.container = containerSettings;

@@ -48,9 +48,8 @@ class TaskLogsTab extends React.Component {
 
     if (nextTotalFound === 0) {
       updatedState.watching = 0;
-    } else if (this.state.watching === 0 ||
-      nextSearchString != null &&
-      this.state.searchString !== nextSearchString) {
+    } else if (this.state.watching === 0 || (nextSearchString != null &&
+        this.state.searchString !== nextSearchString)) {
       updatedState.watching = 1;
     }
 

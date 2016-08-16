@@ -106,7 +106,7 @@ var TimeSeriesMouseOver = React.createClass({
     value = Math.round(value);
 
     var characterWidth = 7;
-    var xPosition = mouse.x - value.toString().length * characterWidth;
+    var xPosition = mouse.x - (value.toString().length * characterWidth);
     if (value === 0) {
       xPosition += characterWidth / 2;
     } else {

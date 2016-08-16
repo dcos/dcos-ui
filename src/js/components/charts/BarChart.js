@@ -285,13 +285,15 @@ var BarChart = React.createClass({
     }
 
     return data.stackedData.map(function (service) {
-      let rectWidth = (chartWidth - marginLeft - marginRight) / (valuesLength - 1);
+      let rectWidth = (chartWidth - marginLeft - marginRight) /
+        (valuesLength - 1);
 
       return service.values.map(function (val, j) {
         let rectHeight, colorClass;
         let barMargin = 0;
         let shapeRendering = 'auto';
-        let posX = chartWidth - marginLeft - marginRight - rectWidth * (valuesLength - 1 - j);
+        let posX = chartWidth - marginLeft - marginRight -
+          (rectWidth * (valuesLength - 1 - j));
 
         if (val.percentage == null) {
           rectHeight = props.height - peaklineHeight;
@@ -300,7 +302,7 @@ var BarChart = React.createClass({
           // flush svg rect edges together
           shapeRendering = 'crispEdges';
         } else {
-          rectHeight = props.height * val[y] / props.maxY - peaklineHeight;
+          rectHeight = (props.height * val[y] / props.maxY) - peaklineHeight;
           colorClass = `path-color-${service.colorIndex}`;
 
           // Will increase the margin between bars as they become smaller

@@ -62,7 +62,7 @@ var Maths = {
    * @return {Number} An unmapped number between in the provided range
    **/
   unmapValue(value, stats) {
-    value = stats.min + value * (stats.max - stats.min);
+    value = stats.min + (value * (stats.max - stats.min));
 
     if (isNaN(value)) {
       return undefined;

@@ -157,8 +157,8 @@ var DOMUtils = {
     let {left, top, height, width} = el.getBoundingClientRect();
     let elAtPoint = global.document.elementFromPoint(
       // The coords of the middle of the element.
-      left + width / 2,
-      top + height / 2
+      left + (width / 2),
+      top + (height / 2)
     );
 
     // If elAtPoint is null, then the element is off the screen. We return true

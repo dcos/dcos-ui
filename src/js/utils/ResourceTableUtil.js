@@ -28,7 +28,7 @@ function leftAlignCaret(prop) {
 
 function getUpdatedTimestamp(model) {
   let lastStatus = Util.last(model.statuses);
-  return lastStatus && lastStatus.timestamp || null;
+  return (lastStatus && lastStatus.timestamp) || null;
 }
 
 var ResourceTableUtil = {

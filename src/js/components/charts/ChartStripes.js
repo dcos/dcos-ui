@@ -17,7 +17,7 @@ var ChartStripes = React.createClass({
     return Array(count).fill().map(function (v, i) {
       // indent with margin, start one width length in
       // and add two times width per step
-      var position = width + i * 2 * width;
+      var position = width + (i * 2 * width);
 
       return (
         <rect key={i}
