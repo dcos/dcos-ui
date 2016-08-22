@@ -308,6 +308,14 @@ class ServiceFormModal extends mixin(StoreMixin) {
     }
 
     if (this.state.jsonMode) {
+
+      // Handle service rename if this action renamed a field
+      if (this.props.isEdit && this.props.service && this.props.service.getId()) {
+        if (this.state.service.getId() !== this.props.service.getId()) {
+          this.state.service.handleRename( this.props.service.getId(), this.state.service.getId() );
+        }
+      }
+
       let jsonDefinition = JSON.parse(this.state.service.toJSON());
       jsonDefinition = cleanJSONdefinition(jsonDefinition);
       marathonAction(jsonDefinition, this.state.force);
@@ -332,9 +340,9 @@ class ServiceFormModal extends mixin(StoreMixin) {
       );
 
       // Handle service rename if this action renamed a field
-      if (this.props.isEdit && this.props.service && this.props.service.getName()) {
-        if (service.getName() !== this.props.service.getName()) {
-          service.handleRename( this.props.service.getName(), service.getName() );
+      if (this.props.isEdit && this.props.service && this.props.service.getId()) {
+        if (service.getId() !== this.props.service.getId()) {
+          service.handleRename( this.props.service.getId(), service.getId() );
         }
       }
 
