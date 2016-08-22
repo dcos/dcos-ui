@@ -68,11 +68,10 @@ describe('TaskTable', function () {
       expect(health).toEqual(true);
     });
 
-    it('returns null if neither status nor Marathon have task health data',
-        function () {
-          DCOSStore.serviceTree.getTaskFromTaskID.mockReturnValueOnce({
-            healthCheckResults: []
-          });
+    it('returns null if neither status nor Marathon have task health data', function () {
+      DCOSStore.serviceTree.getTaskFromTaskID.mockReturnValueOnce({
+        healthCheckResults: []
+      });
       var health = this.taskTable.getTaskHealth({statuses: []});
       expect(health).toBeNull();
     });
