@@ -48,7 +48,10 @@ class JobForm extends SchemaForm {
     let model = this.triggerTabFormSubmit();
     this.multipleDefinition = this.getNewDefinition(model);
     this.props.onChange(this.getDataTriple(model));
-    this.forceUpdate();
+    // Only update if schedule changed
+    if (scheduleEnabledChange) {
+      this.forceUpdate();
+    }
   }
 
   handleTabClick(tab) {
