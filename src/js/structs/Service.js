@@ -249,6 +249,27 @@ module.exports = class Service extends Item {
 
   }
 
+  handleRename( fromName, toName ) {
+    let portDefinitions = this.getPortDefinitions();
+
+    // Rename VIPs on portDefinitions
+    portDefinitions.forEach(function (portDef) {
+      if (portDef.labels) {
+        Object.keys(portDef.labels).forEach(function (labelName) {
+          if (labelName.substr(0, 4) === 'VIP_') {
+            let labelValue = portDef.labels[labelName];
+            let labelParts = labelValue.split(':');
+            if (labelParts[0] === fromName) {
+              portDef.labels[labelName] = toName + ':' + labelParts[1];
+              return;
+            }
+          }
+        });
+      }
+    });
+
+  }
+
   toJSON() {
     return JSON.stringify(this.get());
   }

@@ -145,6 +145,15 @@ class ServiceFormModal extends mixin(StoreMixin) {
     METHODS_TO_BIND.forEach((method) => {
       this[method] = this[method].bind(this);
     });
+
+    this.sourceService = null;
+
+  }
+
+  componentDidMount() {
+    if (this.props.service) {
+      this.sourceService = JSON.parse(this.props.service.toJSON());
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -329,6 +338,15 @@ class ServiceFormModal extends mixin(StoreMixin) {
         this.props.isEdit,
         JSON.parse(this.state.service.toJSON())
       );
+
+      // Handle service rename if this action renamed a field
+      if (this.props.isEdit && this.sourceService) {
+        let sourceName = this.sourceService['id'].split('/').pop();
+        if (service.getName() !== sourceName) {
+          service.handleRename( sourceName, service.getName() );
+        }
+      }
+
       this.setState({
         errorMessage: null,
         model,
