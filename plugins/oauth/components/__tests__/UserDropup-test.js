@@ -1,10 +1,10 @@
 jest.dontMock('../UserDropup');
 
-import PluginTestUtils from 'PluginTestUtils';
+const PluginTestUtils = require('PluginTestUtils');
 /* eslint-disable no-unused-vars */
-import React from 'react';
+const React = require('react');
 /* eslint-enable no-unused-vars */
-var ReactDOM = require('react-dom');
+const ReactDOM = require('react-dom');
 
 PluginTestUtils.dontMock([
   'AuthStore'

@@ -3,18 +3,18 @@ jest.dontMock('../hooks');
 
 jest.setMock('react-router', {
   HashLocation: {
-    getCurrentPath: function () { return '/foo'; },
-    addChangeListener: function () {}
+    getCurrentPath() { return '/foo'; },
+    addChangeListener() {}
   }
 });
 
-import PluginTestUtils from 'PluginTestUtils';
+const PluginTestUtils = require('PluginTestUtils');
 
 let SDK = PluginTestUtils.getSDK('tracking', {enabled: true});
 require('../SDK').setSDK(SDK);
 
-var TrackingHooks = require('../hooks');
-var DOMUtils = SDK.get('DOMUtils');
+const DOMUtils = SDK.get('DOMUtils');
+const TrackingHooks = require('../hooks');
 
 describe('TrackingHooks', function () {
 

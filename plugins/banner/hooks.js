@@ -17,7 +17,7 @@ module.exports = {
     dismissible: null
   },
 
-  initialize: function () {
+  initialize() {
     SDK.Hooks.addAction(
       'applicationRendered',
       this.applicationRendered.bind(this)
@@ -31,7 +31,7 @@ module.exports = {
     this.configure(SDK.config);
   },
 
-  configure: function (configuration) {
+  configure(configuration) {
     // Only merge keys that have a non-null value
     Object.keys(configuration).forEach((key) => {
       if (configuration[key] != null) {
@@ -40,7 +40,7 @@ module.exports = {
     });
   },
 
-  isEnabled: function () {
+  isEnabled() {
     let configuration = this.configuration;
 
     return configuration.headerTitle != null ||
@@ -48,12 +48,12 @@ module.exports = {
       configuration.footerContent != null;
   },
 
-  toggleFullContent: function () {
+  toggleFullContent() {
     let banner = document.querySelector('.banner-plugin-wrapper');
     banner.classList.toggle('display-full');
   },
 
-  applicationRendered: function () {
+  applicationRendered() {
     if (this.isEnabled() === false || !DOMUtils.isTopFrame()) {
       return;
     }
@@ -78,7 +78,7 @@ module.exports = {
     });
   },
 
-  applicationContents: function () {
+  applicationContents() {
     if (this.isEnabled() === false || !DOMUtils.isTopFrame()) {
       return null;
     }
@@ -97,7 +97,7 @@ module.exports = {
     );
   },
 
-  overlayNewWindowButton: function (button) {
+  overlayNewWindowButton(button) {
     if (this.isEnabled()) {
       return null;
     }
@@ -105,14 +105,14 @@ module.exports = {
     return button;
   },
 
-  getColorStyles: function () {
+  getColorStyles() {
     return {
       color: this.configuration.foregroundColor,
       backgroundColor: this.configuration.backgroundColor
     };
   },
 
-  getIcon: function () {
+  getIcon() {
     let imagePath = this.configuration.imagePath;
 
     if (imagePath == null || imagePath === '') {
@@ -130,7 +130,7 @@ module.exports = {
     );
   },
 
-  getTitle: function () {
+  getTitle() {
     let title = this.configuration.headerTitle;
 
     if (title == null || title === '') {
@@ -146,7 +146,7 @@ module.exports = {
     );
   },
 
-  getHeaderContent: function () {
+  getHeaderContent() {
     let content = this.configuration.headerContent;
 
     if (content == null || content === '') {
@@ -160,7 +160,7 @@ module.exports = {
     );
   },
 
-  getHeader: function () {
+  getHeader() {
     let icon = this.getIcon();
     let title = this.getTitle();
     let content = this.getHeaderContent();
@@ -193,7 +193,7 @@ module.exports = {
     );
   },
 
-  getFooter: function () {
+  getFooter() {
     let content = this.configuration.footerContent;
 
     if (content == null || content === '') {

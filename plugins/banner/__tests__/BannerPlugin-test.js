@@ -1,12 +1,11 @@
 jest.dontMock('../hooks');
 
 /* eslint-disable no-unused-vars */
-import React from 'react';
+const React = require('react');
 /* eslint-enable no-unused-vars */
-var ReactDOM = require('react-dom');
-var TestUtils = require('react-addons-test-utils');
-
-import PluginTestUtils from 'PluginTestUtils';
+const ReactDOM = require('react-dom');
+const TestUtils = require('react-addons-test-utils');
+const PluginTestUtils = require('PluginTestUtils');
 
 PluginTestUtils.dontMock([
   'Icon',
@@ -16,7 +15,8 @@ PluginTestUtils.dontMock([
 let SDK = PluginTestUtils.getSDK('banner', {enabled: true});
 require('../SDK').setSDK(SDK);
 
-var BannerPlugin = require('../hooks');
+const BannerPlugin = require('../hooks');
+
 var defaultConfiguration = BannerPlugin.configuration;
 
 describe('BannerPlugin', function () {
