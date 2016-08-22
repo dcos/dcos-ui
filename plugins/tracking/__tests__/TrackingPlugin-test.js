@@ -10,12 +10,11 @@ jest.setMock('react-router', {
 
 const PluginTestUtils = require('PluginTestUtils');
 
-const TrackingHooks = require('../hooks');
-
 let SDK = PluginTestUtils.getSDK('tracking', {enabled: true});
 require('../SDK').setSDK(SDK);
 
 const DOMUtils = SDK.get('DOMUtils');
+const TrackingHooks = require('../hooks');
 
 describe('TrackingHooks', function () {
 

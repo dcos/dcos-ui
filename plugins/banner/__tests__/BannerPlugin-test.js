@@ -7,8 +7,6 @@ const ReactDOM = require('react-dom');
 const TestUtils = require('react-addons-test-utils');
 const PluginTestUtils = require('PluginTestUtils');
 
-const BannerPlugin = require('../hooks');
-
 PluginTestUtils.dontMock([
   'Icon',
   'DOMUtils'
@@ -16,6 +14,8 @@ PluginTestUtils.dontMock([
 
 let SDK = PluginTestUtils.getSDK('banner', {enabled: true});
 require('../SDK').setSDK(SDK);
+
+const BannerPlugin = require('../hooks');
 
 var defaultConfiguration = BannerPlugin.configuration;
 
