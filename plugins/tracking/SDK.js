@@ -1,10 +1,10 @@
 let SDK;
 
 module.exports = {
-  getSDK: function () {
+  getSDK() {
     return SDK;
   },
-  setSDK: function (pluginSDK) {
+  setSDK(pluginSDK) {
     SDK = pluginSDK;
   }
 };

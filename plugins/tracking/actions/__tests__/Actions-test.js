@@ -2,24 +2,23 @@ jest.dontMock('../Actions');
 
 jest.setMock('react-router', {
   HashLocation: {
-    getCurrentPath: function () { return '/foo'; },
-    addChangeListener: function () {}
+    getCurrentPath() { return '/foo'; },
+    addChangeListener() {}
   }
 });
 
-import PluginTestUtils from 'PluginTestUtils';
+const PluginTestUtils = require('PluginTestUtils');
 
 let SDK = PluginTestUtils.getSDK('tracking', {enabled: true});
 require('../../SDK').setSDK(SDK);
+const Actions = require('../Actions');
 
 PluginTestUtils.dontMock(['Util']);
 
-var Actions = require('../Actions');
-
 global.analytics = {
   initialized: true,
-  page: function () {},
-  track: function () {}
+  page() {},
+  track() {}
 };
 
 var DCOS_METADATA = {
@@ -29,12 +28,12 @@ var DCOS_METADATA = {
 };
 
 var router = {
-  match: function () {
+  match() {
     return {
       routes: [
         {path: '/foo'}
       ]
-    }
+    };
   }
 };
 

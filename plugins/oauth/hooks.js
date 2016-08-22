@@ -46,10 +46,10 @@ module.exports = Object.assign({}, StoreMixin, {
   ],
 
   initialize() {
-    this.filters.forEach(filter => {
+    this.filters.forEach((filter) => {
       SDK.Hooks.addFilter(filter, this[filter].bind(this));
     });
-    this.actions.forEach(action => {
+    this.actions.forEach((action) => {
       SDK.Hooks.addAction(action, this[action].bind(this));
     });
     this.store_initializeListeners([{
