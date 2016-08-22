@@ -13,7 +13,7 @@ const Schedule = {
       showLabel: true,
       title: 'Run on a schedule',
       type: 'boolean',
-      getter: function (job) {
+      getter(job) {
         let [schedule] = job.getSchedules();
 
         return schedule != null;
