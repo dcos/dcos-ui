@@ -19,10 +19,24 @@ class JobForm extends SchemaForm {
     });
   }
 
+  componentWillMount() {
+    this.multipleDefinition = this.getNewDefinition();
+
+    this.props.getTriggerSubmit(this.handleExternalSubmit);
+  }
+
+  handleExternalSubmit() {
+    this.validateForm();
+    let model = this.triggerTabFormSubmit();
+
+    return this.getDataTriple(model);
+  }
+
   handleFormChange(formData, eventObj) {
     // Fire changes only on blur
     // and on schedule runOnSchedule checkbox change to show/hide fields
-    let scheduleEnabledChange = formData.hasOwnProperty('cron') &&
+    let scheduleEnabledChange =
+      Object.prototype.hasOwnProperty.call(formData, 'cron') &&
       eventObj.eventType === 'change' &&
       eventObj.fieldName === 'runOnSchedule';
     if (eventObj.eventType !== 'blur' && !scheduleEnabledChange) {
@@ -30,10 +44,10 @@ class JobForm extends SchemaForm {
     }
 
     this.validateForm();
-    // Update model before we update multipleDefinition
-    this.model = this.triggerTabFormSubmit();
-    this.multipleDefinition = this.getNewDefinition();
-    this.props.onChange(this.getDataTriple());
+    // Provide updated model to get new multipleDefinition
+    let model = this.triggerTabFormSubmit();
+    this.multipleDefinition = this.getNewDefinition(model);
+    this.props.onChange(this.getDataTriple(model));
     this.forceUpdate();
   }
 
@@ -41,13 +55,11 @@ class JobForm extends SchemaForm {
     this.props.onTabChange(tab);
   }
 
-  getNewDefinition() {
+  // Fallback to props model, if provided model is not defined,
+  // i.e. more up to date
+  getNewDefinition(model = this.props.model) {
     let multipleDefinition = super.getNewDefinition();
 
-    // This function gets called in componentWillMount, before model is defined
-    // to create multipleDefinition, so we fallback to props model,
-    // if this.model is not defined, i.e. more up to date
-    let model = this.model || this.props.model;
     let scheduleEnabled = model.schedule.runOnSchedule;
     if (!scheduleEnabled) {
       multipleDefinition.schedule.definition.forEach(function (definition) {
@@ -61,9 +73,11 @@ class JobForm extends SchemaForm {
     return multipleDefinition;
   }
 
-  getDataTriple() {
+  // Fallback to props model, if provided model is not defined,
+  // i.e. more up to date
+  getDataTriple(model = this.props.model) {
     return {
-      model: SchemaFormUtil.processFormModel(this.model, this.multipleDefinition)
+      model: SchemaFormUtil.processFormModel(model, this.getNewDefinition(model))
     };
   }
 
