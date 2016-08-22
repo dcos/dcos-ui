@@ -107,7 +107,10 @@ var ServicesTab = React.createClass({
   },
 
   onMarathonStoreGroupsSuccess() {
-    this.setState({marathonErrorCount: 0});
+    // Updating state on every success is costly
+    if (this.state.marathonErrorCount !== 0) {
+      this.setState({marathonErrorCount: 0});
+    }
   },
 
   handleCloseServiceFormModal() {
