@@ -28,11 +28,16 @@ class CosmosErrorMessage extends React.Component {
   }
 
   getMessage() {
-    let {type, message} = this.props.error;
+    let {error} = this.props;
+    if (!error) {
+      return 'An error occurred (Description missing)';
+    }
 
-    if (!REPOSITORY_ERRORS.includes(type)) {
-      // Return message
-      return message;
+    // Append reference to repository page, since repository related errors
+    // can occur at any request to Cosmos
+    let {type, message} = error;
+    if (REPOSITORY_ERRORS.includes(type)) {
+      message = this.appendRepositoryLink(message);
     }
 
     // Append reference to repository page, since repository related errors
@@ -42,7 +47,9 @@ class CosmosErrorMessage extends React.Component {
 
   getDetails() {
     let {error} = this.props;
-    let data = error.data || {};
+    if (!error) {
+      return null;
+    }
 
     // Check if this is a plain string
     if (typeof error === 'string') {
@@ -50,23 +57,39 @@ class CosmosErrorMessage extends React.Component {
 
     // Check if we should additionally append
     // the error details as an unordered list
-    } else if (data && data.errors) {
+    } else if (error.data && error.data.errors) {
+
+      // Check for invalid errors format
+      if (!Array.isArray(error.data.errors)) {
+        return [String(error.data.errors)];
+      }
 
       // Get an array of array of errors for every individual path
-      let errorsDetails = data.errors.map(function ({path, errors}) {
+      let errorsDetails = error.data.errors.map(function (errorDetail) {
+
+        // Bail early on unexpected error object format
+        if (!errorDetail) {
+          return [];
+        }
+        if (typeof errorDetail !== 'object') {
+          return [String(errorDetail)];
+        }
+
+        // Extract details
+        let {path = '/', errors = []} = errorDetail;
+        if (!errors || !Array.isArray(errors)) {
+          return [];
+        }
         return errors.map(function (error) {
           return (ErrorPaths[path] || path)+'.'+error;
         });
+
       });
 
       // Flatten elements in array and return
       return errorsDetails.reduce(function (a, b) {
         return a.concat(b);
       });
-
-    // Check if this just contains an error message
-    } else if (error.message) {
-      return [error.message];
 
     } else {
 
