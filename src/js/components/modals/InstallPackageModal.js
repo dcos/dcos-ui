@@ -24,6 +24,7 @@ const METHODS_TO_BIND = [
   'handleInstallPackage',
   'handleAdvancedFormChange',
   'handleModalClose',
+  'handleModalRef',
   'handleModalUpdateRequest',
   'handlePreinstallNotesToggle'
 ];
@@ -66,6 +67,9 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
     METHODS_TO_BIND.forEach((method) => {
       this[method] = this[method].bind(this);
     });
+
+    this.modalRef = undefined;
+
   }
 
   componentDidMount() {
@@ -195,9 +199,13 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
     this.setState({truncatedPreInstallNotes});
   }
 
+  handleModalRef(modal) {
+    this.modalRef = modal;
+  }
+
   handleModalUpdateRequest() {
-    if (this.refs.modal) {
-      this.refs.modal.forceUpdate();
+    if (this.modalRef) {
+      this.modalRef.forceUpdate();
     }
   }
 
@@ -581,7 +589,7 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
 
     return (
       <Modal
-        ref="modal"
+        ref={this.handleModalRef}
         backdropClass={backdropClasses}
         bodyClass=""
         closeByBackdropClick={!isAdvanced}

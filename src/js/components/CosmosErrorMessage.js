@@ -41,25 +41,40 @@ class CosmosErrorMessage extends React.Component {
   }
 
   getDetails() {
-    let {data} = this.props.error;
-    if (!data || !data.errors) {
-      // No errors
-      return null;
-    }
+    let {error} = this.props;
+    let data = error.data || {};
+
+    // Check if this is a plain string
+    if (typeof error === 'string') {
+      return [error];
+
     // Check if we should additionally append
     // the error details as an unordered list
+    } else if (data && data.errors) {
 
-    // Get an array of array of errors for every individual path
-    let errorsDetails = data.errors.map(function ({path, errors}) {
-      return errors.map(function (error) {
-        return (ErrorPaths[path] || path)+'.'+error;
+      // Get an array of array of errors for every individual path
+      let errorsDetails = data.errors.map(function ({path, errors}) {
+        return errors.map(function (error) {
+          return (ErrorPaths[path] || path)+'.'+error;
+        });
       });
-    });
 
-    // Flatten elements in array and return
-    return errorsDetails.reduce(function (a, b) {
-      return a.concat(b);
-    });
+      // Flatten elements in array and return
+      return errorsDetails.reduce(function (a, b) {
+        return a.concat(b);
+      });
+
+    // Check if this just contains an error message
+    } else if (error.message) {
+      return [error.message];
+
+    } else {
+
+      // No errors
+      return null;
+
+    }
+
   }
 
   appendRepositoryLink(message) {
