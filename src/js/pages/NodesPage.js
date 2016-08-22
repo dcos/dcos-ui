@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import React from 'react';
-import {Link, RouteHandler} from 'react-router';
+import {HashLocation, Link, RouteHandler} from 'react-router';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import AlertPanel from '../components/AlertPanel';
@@ -196,7 +196,7 @@ var NodesPage = React.createClass({
   },
 
   getFilterInputText() {
-    var isVisible = /\/nodes\/list\/?/i.test(RouterLocation.getCurrentPath());
+    var isVisible = /\/nodes\/list\/?/i.test(HashLocation.getCurrentPath());
 
     if (!isVisible) {
       return null;
@@ -213,12 +213,12 @@ var NodesPage = React.createClass({
 
   getViewTypeRadioButtons(resetFilter) {
     var listClassSet = classNames({
-      'active': /\/nodes\/list\/?/i.test(RouterLocation.getCurrentPath()),
+      'active': /\/nodes\/list\/?/i.test(HashLocation.getCurrentPath()),
       'button button-stroke button-inverse': true
     });
 
     var gridClassSet = classNames({
-      'active': /\/nodes\/grid\/?/i.test(RouterLocation.getCurrentPath()),
+      'active': /\/nodes\/grid\/?/i.test(HashLocation.getCurrentPath()),
       'button button-stroke button-inverse': true
     });
 
