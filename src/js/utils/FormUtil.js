@@ -11,16 +11,16 @@ function containsMultipleProp(prop, fieldColumn, id) {
   if (id) {
     return !!(
       fieldColumn &&
-      fieldColumn.name &&
-      fieldColumn.name.includes(`${prop}[${id}]`)
+      fieldColumn.id &&
+      fieldColumn.id.includes(`${prop}[${id}]`)
     );
   }
 
   return !!(
     fieldColumn &&
-    fieldColumn.name &&
-    fieldColumn.name.startsWith(`${prop}[`) &&
-    fieldColumn.name.includes(']')
+    fieldColumn.id &&
+    fieldColumn.id.startsWith(`${prop}[`) &&
+    fieldColumn.id.includes(']')
   );
 }
 
@@ -33,11 +33,15 @@ const FormUtil = {
    * @param {Number} id Number for the instance. ex: port[id].value
    * @param {Array} definition Definition to copy.
    * @param {Object} model Default values to fill in field.
+   * @param {Number} index To add to make name unique (should reuse same index).
    */
-  getMultipleFieldDefinition(prop, id, definition, model) {
+  getMultipleFieldDefinition(prop, id, definition, model, index = 0) {
     return definition.map(function (definitionField) {
       definitionField = Util.deepCopy(definitionField);
-      definitionField.name = `${prop}[${id}].${definitionField.name}`;
+      // Use index for key (aka. name), so we can reuse same key for same field,
+      // to not make react think it is a completely new field
+      definitionField.name = `${prop}[${index}].${definitionField.name}`;
+      definitionField.id = `${prop}[${id}].${definitionField.name}`;
 
       let propKey = FormUtil.getPropKey(definitionField.name);
       if (model && Object.prototype.hasOwnProperty.call(model, propKey)) {
