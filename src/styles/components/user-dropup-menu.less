@@ -133,6 +133,17 @@
   outline: none;
   width: 100%;
 
+  .icon {
+    flex-shrink: 0;
+  }
+
+  .user-description {
+    flex-shrink: 1;
+    overflow: hidden;
+    padding-right: @button-padding-horizontal * 2;
+    text-overflow: ellipsis;
+  }
+
   .user-account-menu-dropdown & {
     align-items: center;
     justify-content: center;
