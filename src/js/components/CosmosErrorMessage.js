@@ -102,7 +102,7 @@ CosmosErrorMessage.defaultProps = {
 CosmosErrorMessage.propTypes = {
   className: React.PropTypes.string,
   error: React.PropTypes.shape({
-    message: React.PropTypes.string,
+    message: React.PropTypes.node,
     type: React.PropTypes.string,
     data: React.PropTypes.object
   }),

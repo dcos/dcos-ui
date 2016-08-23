@@ -217,7 +217,7 @@ CollapsibleErrorMessage.propTypes = {
   className: React.PropTypes.string,
   details: React.PropTypes.array,
   expanded: React.PropTypes.bool,
-  message: React.PropTypes.string,
+  message: React.PropTypes.node,
   onToggle: React.PropTypes.func
 };
 
