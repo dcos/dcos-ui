@@ -79,11 +79,14 @@ class CosmosErrorMessage extends React.Component {
   }
 
   render() {
+    let {className, onResized, wrapperClass} = this.props;
+
     return (
-      <div className={this.props.wrapperClass}>
+      <div className={wrapperClass}>
         {this.getHeader()}
         <CollapsibleErrorMessage
-          onToggle={this.props.onResized}
+          className={className}
+          onToggle={onResized}
           message={this.getMessage()}
           details={this.getDetails()} />
       </div>
