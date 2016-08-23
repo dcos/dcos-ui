@@ -1,5 +1,5 @@
 import React from 'react';
-import classNames from 'classnames';
+import classNames from 'classnames/dedupe';
 
 import Icon from './Icon';
 
@@ -90,7 +90,7 @@ class CollapsibleErrorMessage extends React.Component {
     // Render
     return (
         <span
-          className="collapsible-toggle-label  clickable"
+          className="collapsible-toggle-label clickable"
           onClick={this.toggleExpanded} >
           (Show {moreLess})
         </span>
@@ -109,9 +109,7 @@ class CollapsibleErrorMessage extends React.Component {
     return details.map(function (message, i) {
       let msg = message.toString();
 
-      return (
-          <li key={i}>{msg}</li>
-        );
+      return <li key={i}>{msg}</li>;
     });
   }
 
@@ -130,17 +128,17 @@ class CollapsibleErrorMessage extends React.Component {
 
     // Render the fixed part of the message
     return (
-        <div className="collapsible-fixed">
-          <Icon
-            family="mini"
-            id="yield"
-            size="mini"
-            className="icon-alert icon-margin-right"
-            color="red" />
-          {message}
-          {this.getShowDetailsLink()}
-        </div>
-      );
+      <div className="collapsible-fixed">
+        <Icon
+          className="icon-alert icon-margin-right"
+          color="red"
+          family="mini"
+          id="yield"
+          size="mini" />
+        {message}
+        {this.getShowDetailsLink()}
+      </div>
+    );
   }
 
   /**
@@ -160,15 +158,14 @@ class CollapsibleErrorMessage extends React.Component {
     // Render the toggled part of the message
     // (Note: The nested div is used to float the contents when needed)
     return (
-        <div className="collapsible-toggled">
-          <div>
-            <ul>
-            {this.getDetailsListItems()}
-            </ul>
-          </div>
+      <div className="collapsible-toggled">
+        <div>
+          <ul>
+          {this.getDetailsListItems()}
+          </ul>
         </div>
-      );
-
+      </div>
+    );
   }
 
   /**
@@ -186,21 +183,18 @@ class CollapsibleErrorMessage extends React.Component {
 
     // Compile classes
     let className = classNames(
-      this.props.className,
       'collapsible-error-message',
-      {
-        'expanded': this.state.expanded
-      }
+      {'expanded': this.state.expanded},
+      this.props.className
     );
 
     // Render message component
     return (
-        <div className={className}>
-          {this.getFixedMessagePart()}
-          {this.getCollapsibleMessagePart()}
-        </div>
-      );
-
+      <div className={className}>
+        {this.getFixedMessagePart()}
+        {this.getCollapsibleMessagePart()}
+      </div>
+    );
   };
 
 };

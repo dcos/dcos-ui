@@ -30,42 +30,36 @@ class CosmosErrorMessage extends React.Component {
   getMessage() {
     let {type, message} = this.props.error;
 
-    // Append reference to repository page, since repository related errors
-    // can occur at any request to Cosmos
-    if (REPOSITORY_ERRORS.includes(type)) {
-      message = this.appendRepositoryLink(message);
+    if (!REPOSITORY_ERRORS.includes(type)) {
+      // Return message
+      return message;
     }
 
-    // Return message
-    return message;
+    // Append reference to repository page, since repository related errors
+    // can occur at any request to Cosmos
+    return this.appendRepositoryLink(message);
   }
 
   getDetails() {
     let {data} = this.props.error;
-
-    // Check if we should additionally append
-    // the error details as an unordered list
-    if (data && data.errors) {
-
-      // Get an array of array of errors for every individual path
-      let errorsDetails = data.errors.map(function ({path, errors}) {
-        return errors.map(function (error) {
-          return (ErrorPaths[path] || path)+'.'+error;
-        });
-      });
-
-      // Flatten elements in array and return
-      return errorsDetails.reduce(function (a, b) {
-        return a.concat(b);
-      });
-
-    } else {
-
+    if (!data || !data.errors) {
       // No errors
       return null;
-
     }
+    // Check if we should additionally append
+    // the error details as an unordered list
 
+    // Get an array of array of errors for every individual path
+    let errorsDetails = data.errors.map(function ({path, errors}) {
+      return errors.map(function (error) {
+        return (ErrorPaths[path] || path)+'.'+error;
+      });
+    });
+
+    // Flatten elements in array and return
+    return errorsDetails.reduce(function (a, b) {
+      return a.concat(b);
+    });
   }
 
   appendRepositoryLink(message) {
