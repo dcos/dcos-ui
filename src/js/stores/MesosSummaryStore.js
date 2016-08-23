@@ -1,8 +1,8 @@
 import PluginSDK from 'PluginSDK';
 
 import {
-  REQUEST_MESOS_HISTORY_ONGOING,
   REQUEST_SUMMARY_ERROR,
+  REQUEST_SUMMARY_HISTORY_ONGOING,
   REQUEST_SUMMARY_HISTORY_SUCCESS,
   REQUEST_SUMMARY_ONGOING,
   REQUEST_SUMMARY_SUCCESS,
@@ -107,7 +107,7 @@ class MesosSummaryStore extends GetSetBaseStore {
           this.processSummaryError();
           break;
         case REQUEST_SUMMARY_ONGOING:
-        case REQUEST_MESOS_HISTORY_ONGOING:
+        case REQUEST_SUMMARY_HISTORY_ONGOING:
           this.processSummaryError();
           break;
       }
@@ -253,10 +253,6 @@ class MesosSummaryStore extends GetSetBaseStore {
     if (!options.silent) {
       this.emit(MESOS_SUMMARY_REQUEST_ERROR);
     }
-  }
-
-  processOngoingRequest() {
-    // Handle ongoing request here.
   }
 
   get storeID() {

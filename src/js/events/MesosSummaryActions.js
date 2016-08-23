@@ -3,7 +3,7 @@ import {Hooks} from 'PluginSDK';
 
 import {
   REQUEST_SUMMARY_HISTORY_SUCCESS,
-  REQUEST_MESOS_HISTORY_ONGOING,
+  REQUEST_SUMMARY_HISTORY_ONGOING,
   REQUEST_SUMMARY_SUCCESS,
   REQUEST_SUMMARY_ERROR,
   REQUEST_SUMMARY_ONGOING
@@ -15,12 +15,17 @@ import TimeScales from '../constants/TimeScales';
 var _historyServiceOnline = true;
 
 function testHistoryServerResponse(response) {
+  // If response is a range, check the last element
+  let responseToTest = response;
+  if (Array.isArray(response)) {
+    responseToTest = response[response.length - 1];
+  }
   // If the response is an empty object, that means something is whack
   // Fall back to making requests to Mesos
   // TODO (DCOS-7764): This should be improved to validate against a schema
-  if (!Object.keys(response).length ||
-      !Array.isArray(response.frameworks) ||
-      !Array.isArray(response.slaves)) {
+  if (!Object.keys(responseToTest).length ||
+      !Array.isArray(responseToTest.frameworks) ||
+      !Array.isArray(responseToTest.slaves)) {
     _historyServiceOnline = false;
   }
 }
@@ -64,7 +69,7 @@ function requestFromHistoryServer(resolve, reject, timeScale = 'last') {
       requestFromMesos(resolve, reject);
     },
     hangingRequestCallback() {
-      AppDispatcher.handleServerAction({type: REQUEST_MESOS_HISTORY_ONGOING});
+      AppDispatcher.handleServerAction({type: REQUEST_SUMMARY_HISTORY_ONGOING});
     }
   });
 }
