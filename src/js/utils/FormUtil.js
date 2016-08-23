@@ -40,8 +40,8 @@ const FormUtil = {
       definitionField = Util.deepCopy(definitionField);
       // Use index for key (aka. name), so we can reuse same key for same field,
       // to not make react think it is a completely new field
-      definitionField.name = `${prop}[${index}].${definitionField.name}`;
       definitionField.id = `${prop}[${id}].${definitionField.name}`;
+      definitionField.name = `${prop}[${index}].${definitionField.name}`;
 
       let propKey = FormUtil.getPropKey(definitionField.name);
       if (model && Object.prototype.hasOwnProperty.call(model, propKey)) {
