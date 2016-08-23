@@ -1,12 +1,11 @@
-import {Dropdown, Modal} from 'reactjs-components';
+import classNames from 'classnames';
+import {Dropdown} from 'reactjs-components';
 import mixin from 'reactjs-mixin';
 import React from 'react';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
-import userURI from '../img/icon-user-default-64x64@2x.png';
 
-let SDK = require('../SDK').getSDK();
-
-let AuthStore = SDK.get('AuthStore');
+import AuthStore from '../stores/AuthStore';
+import userURI from '../../img/components/icons/icon-user-default-64x64@2x.png';
 
 const METHODS_TO_BIND = [
   'handleDropdownClose',
@@ -46,16 +45,21 @@ class UserDropup extends mixin(StoreMixin) {
 
   handleDropdownClose() {
     let open = this.state.open;
+    // Only close if we are open
     if (open) {
-      window.removeEventListener('resize', this.handleDropdownClose);
+      window.removeEventListener('click', this.handleDropdownClose);
       this.setState({open: false});
     }
   }
 
-  handleDropdownClick() {
+  handleDropdownClick(event) {
+    event.stopPropagation();
     let open = !this.state.open;
+
+    // We are using a custom event listener because the account menu slider
+    // needs to close whenever a click event occurs.
     if (open) {
-      window.addEventListener('resize', this.handleDropdownClose);
+      window.addEventListener('click', this.handleDropdownClose);
     }
 
     this.setState({open});
@@ -95,10 +99,10 @@ class UserDropup extends mixin(StoreMixin) {
     }));
   }
 
-  getModalMenu(menuItems) {
+  getUserAccountMenuItems(menuItems) {
     return menuItems.map(function (item) {
       return (
-        <li className="clickable" key={item.key}>
+        <li className="clickable flush-bottom" key={item.key}>
           {item}
         </li>
       );
@@ -109,15 +113,13 @@ class UserDropup extends mixin(StoreMixin) {
     let description;
     let userLabel;
 
-    if (user != null) {
+    if (user && !user.is_remote) {
       userLabel = user.description;
-
-      if (user.is_remote) {
-        userLabel = user.uid;
-      }
+    } else if (user && user.is_remote) {
+      userLabel = user.uid;
     }
 
-    if (userLabel != null) {
+    if (userLabel) {
       description = (
         <span className="user-description" title={userLabel}>
           {userLabel}
@@ -126,29 +128,26 @@ class UserDropup extends mixin(StoreMixin) {
     }
 
     return (
-      <div className="icon-buttons">
-        <a
-          className="user-dropdown button dropdown-toggle"
-          onClick={clickHandler}>
-          <span className="icon icon-medium icon-image-container
-            icon-user-container">
-            <img
-              className="clickable"
-              src={userURI} />
-          </span>
-          {description}
-        </a>
-      </div>
+      <a
+        className="user-account-menu-button button dropdown-toggle"
+        onClick={clickHandler}>
+        <span className="icon icon-medium icon-image-container
+          icon-user-container">
+          <img className="clickable" src={userURI} />
+        </span>
+        {description}
+      </a>
     );
   }
 
   getUserMenuItems() {
     let items = this.props.items.concat([
-      <a onClick={this.handleSignOut} key="button-sign-out" />
+      <a className="button button-link" onClick={this.handleSignOut} key="button-sign-out" />
     ]);
 
     return items.map((item) => {
-      // Override handlers for the tooltip.
+      // Monkeypatch the onClick to close the dropdown and remove mouse enter &
+      // leave events to prevent tooltip.
       let props = {
         onClick: this.handleMenuItemClick.bind(this, item.props.onClick),
         onMouseEnter: null,
@@ -161,48 +160,41 @@ class UserDropup extends mixin(StoreMixin) {
 
   render() {
     let user = AuthStore.getUser();
-    if (user == null) {
+
+    if (!user) {
       return null;
     }
 
-    let modalClasses = {
-      bodyClass: '',
-      containerClass: 'user-dropdown-menu dropdown',
-      modalClass: 'dropdown-menu',
-      scrollContainerClass: ''
-    };
-
+    let userAccountMenuClasses = classNames('user-account-menu-slider', {
+      'is-open': this.state.open
+    });
+    let userAccountMenuBackdropClasses = classNames(
+      'user-account-menu-slider-backdrop', {
+        'is-visible': this.state.open
+      });
     let userButton = this.getUserButton(user, this.handleDropdownClick);
     let userMenuItems = this.getUserMenuItems();
 
     return (
-      <div>
-        <Dropdown buttonClassName="sidebar-footer-user-dropdown-button"
+      <div className="user-account-menu-wrapper">
+        <div className={userAccountMenuBackdropClasses} />
+        <Dropdown buttonClassName="user-account-menu-dropdown-button"
           dropdownMenuClassName="dropdown-menu"
-          dropdownMenuListClassName="dropdown-menu-list"
+          dropdownMenuListClassName="dropdown-menu-list user-account-menu-list"
           items={this.getDropdownMenu(userMenuItems)}
           persistentID="default-item"
           scrollContainer=".gm-scroll-view"
           scrollContainerParentSelector=".gm-prevented"
           transition={true}
-          wrapperClassName="sidebar-footer-user-dropdown dropdown" />
-        <div className="open">
-          {userButton}
-        </div>
-        <Modal
-          maxHeightPercentage={0.9}
-          onClose={this.handleDropdownClose}
-          open={this.state.open}
-          showCloseButton={false}
-          showHeader={false}
-          showFooter={false}
-          transitionNameModal="user-dropdown-menu"
-          {...modalClasses}>
-          {userButton}
-          <ul className="dropdown-menu-list">
-            {this.getModalMenu(userMenuItems)}
+          wrapperClassName="user-account-menu-dropdown dropdown" />
+        <div className={userAccountMenuClasses}>
+          <div className="user-account-menu-slider-button">
+            {userButton}
+          </div>
+          <ul className="user-account-menu-slider-list user-account-menu-list list-unstyled flush-bottom">
+            {this.getUserAccountMenuItems(userMenuItems)}
           </ul>
-        </Modal>
+        </div>
       </div>
     );
   }
