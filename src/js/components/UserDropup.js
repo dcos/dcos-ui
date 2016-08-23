@@ -4,8 +4,8 @@ import mixin from 'reactjs-mixin';
 import React from 'react';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
-import userURI from '../../img/components/icons/icon-user-default-64x64@2x.png';
 import AuthStore from '../stores/AuthStore';
+import userURI from '../../img/components/icons/icon-user-default-64x64@2x.png';
 
 const METHODS_TO_BIND = [
   'handleDropdownClose',
