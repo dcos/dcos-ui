@@ -67,13 +67,13 @@ class TaskDirectoryStore extends GetSetBaseStore {
         return false;
       }
 
-      var action = payload.action;
-      switch (action.type) {
+      let {data, innerPath, taskID, type} = payload.action;
+      switch (type) {
         case REQUEST_TASK_DIRECTORY_SUCCESS:
-          this.processStateSuccess(action.data, action.innerPath);
+          this.processStateSuccess(data, innerPath, taskID);
           break;
         case REQUEST_TASK_DIRECTORY_ERROR:
-          this.processStateError();
+          this.processStateError(taskID);
           break;
       }
 
@@ -111,7 +111,7 @@ class TaskDirectoryStore extends GetSetBaseStore {
   getDirectory(task, deeperPath = '') {
     this.resetRequests();
     this.set({directory: null});
-    this.emit(TASK_DIRECTORY_CHANGE);
+    this.emit(TASK_DIRECTORY_CHANGE, task.id);
 
     startPolling(task, deeperPath);
   }
@@ -126,15 +126,15 @@ class TaskDirectoryStore extends GetSetBaseStore {
     this.getDirectory(task, path);
   }
 
-  processStateError() {
-    this.emit(TASK_DIRECTORY_ERROR);
+  processStateError(taskID) {
+    this.emit(TASK_DIRECTORY_ERROR, taskID);
   }
 
-  processStateSuccess(items, innerPath) {
+  processStateSuccess(items, innerPath, taskID) {
     // Only update when receiving response from what was requested
     if (this.get('innerPath') === innerPath) {
       this.set({directory: new TaskDirectory({items})});
-      this.emit(TASK_DIRECTORY_CHANGE);
+      this.emit(TASK_DIRECTORY_CHANGE, taskID);
     }
   }
 

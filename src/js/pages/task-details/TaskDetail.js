@@ -66,7 +66,15 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
 
       this.updateCurrentTab();
     }
+  }
 
+  componentWillReceiveProps(nextProps) {
+    super.componentWillReceiveProps(...arguments);
+
+    let {taskID} = this.props.params;
+    if (nextProps.params.taskID !== taskID) {
+      this.setState({directory: null});
+    }
   }
 
   updateCurrentTab() {
@@ -83,6 +91,28 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
   }
 
   onStateStoreSuccess() {
+    this.handleFetchDirectory();
+  }
+
+  onTaskDirectoryStoreError() {
+    this.setState({
+      taskDirectoryErrorCount: this.state.taskDirectoryErrorCount + 1
+    });
+  }
+
+  onTaskDirectoryStoreSuccess(taskID) {
+    if (this.props.params.taskID !== taskID) {
+      this.handleFetchDirectory();
+      return;
+    }
+
+    this.setState({
+      directory: TaskDirectoryStore.get('directory'),
+      taskDirectoryErrorCount: 0
+    });
+  }
+
+  handleFetchDirectory() {
     let {params} = this.props;
     let task = MesosStateStore.getTaskFromTaskID(params.taskID);
     // Declare undefined to not override default values in getDirectory
@@ -93,19 +123,6 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
     }
 
     TaskDirectoryStore.getDirectory(task, innerPath);
-  }
-
-  onTaskDirectoryStoreError() {
-    this.setState({
-      taskDirectoryErrorCount: this.state.taskDirectoryErrorCount + 1
-    });
-  }
-
-  onTaskDirectoryStoreSuccess() {
-    this.setState({
-      directory: TaskDirectoryStore.get('directory'),
-      taskDirectoryErrorCount: 0
-    });
   }
 
   getErrorScreen() {
