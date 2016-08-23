@@ -127,6 +127,6 @@ module.exports = class Job extends Item {
   }
 
   toJSON() {
-    return JSON.stringify(this.get());
+    return this.get();
   }
 };

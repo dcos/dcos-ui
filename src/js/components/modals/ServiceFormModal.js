@@ -223,7 +223,7 @@ class ServiceFormModal extends mixin(StoreMixin) {
         model,
         ServiceSchema,
         this.props.isEdit,
-        JSON.parse(this.state.service.toJSON())
+        this.state.service.get()
       );
       nextState.model = model;
       nextState.service = service;
@@ -297,7 +297,7 @@ class ServiceFormModal extends mixin(StoreMixin) {
     }
 
     if (this.state.jsonMode) {
-      let jsonDefinition = JSON.parse(this.state.service.toJSON());
+      let jsonDefinition = this.state.service.get();
       jsonDefinition = cleanJSONdefinition(jsonDefinition);
       marathonAction(jsonDefinition, this.state.force);
       this.setState({
@@ -317,7 +317,7 @@ class ServiceFormModal extends mixin(StoreMixin) {
         model,
         ServiceSchema,
         this.props.isEdit,
-        JSON.parse(this.state.service.toJSON())
+        this.state.service.get()
       );
       this.setState({
         errorMessage: null,

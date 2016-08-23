@@ -102,7 +102,7 @@ const JobUtil = {
   },
 
   createJobSpecFromJob(job) {
-    let spec = JSON.parse(job.toJSON());
+    let spec = JSON.parse(JSON.stringify(job));
 
     spec.id = job.getId() || null;
     spec.description = job.getDescription();
