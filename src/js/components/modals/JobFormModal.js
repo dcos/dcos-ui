@@ -8,14 +8,14 @@ import 'brace/mode/json';
 import 'brace/theme/monokai';
 import 'brace/ext/language_tools';
 
+import {cleanJSONspec} from '../../utils/CleanJSONUtil';
+import CollapsibleErrorMessage from '../CollapsibleErrorMessage';
 import MetronomeStore from '../../stores/MetronomeStore';
 import Job from '../../structs/Job';
-import JobConfig from '../../constants/JobConfig';
 import JobForm from '../JobForm';
 import JobUtil from '../../utils/JobUtil';
 import JobSchema from '../../schemas/JobSchema';
 import ToggleButton from '../ToggleButton';
-import CollapsibleErrorMessage from '../CollapsibleErrorMessage';
 
 const METHODS_TO_BIND = [
   'handleCancel',
@@ -53,16 +53,6 @@ const responseAttributePathToFieldIdMap = {
   '/schedules/{INDEX}/concurrencyPolicy': 'schedules/{INDEX}/concurrencyPolicy',
   '/schedules/{INDEX}/enabled': 'schedules/{INDEX}/enabled',
   '/labels': 'labels'
-};
-
-let cleanJSONspec = function (jsonDefinition) {
-  return Object.keys(jsonDefinition).filter(function (key) {
-    return !JobConfig.BLACKLIST.includes(key);
-  }).reduce(function (memo, key) {
-    memo[key] = jsonDefinition[key];
-
-    return memo;
-  }, {});
 };
 
 class JobFormModal extends mixin(StoreMixin) {

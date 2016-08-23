@@ -10,8 +10,9 @@ import 'brace/mode/json';
 import 'brace/theme/monokai';
 import 'brace/ext/language_tools';
 
-import ServiceConfig from '../../constants/ServiceConfig';
+import {cleanJSONdefinition} from '../../utils/CleanJSONUtil';
 import Config from '../../config/Config';
+import CollapsibleErrorMessage from '../CollapsibleErrorMessage';
 import Icon from '../Icon';
 import MarathonStore from '../../stores/MarathonStore';
 import ServiceForm from '../ServiceForm';
@@ -20,7 +21,6 @@ import ServiceUtil from '../../utils/ServiceUtil';
 import ServiceSchema from '../../schemas/ServiceSchema';
 import ToggleButton from '../ToggleButton';
 import ErrorPaths from '../../constants/ErrorPaths';
-import CollapsibleErrorMessage from '../CollapsibleErrorMessage';
 
 const METHODS_TO_BIND = [
   'getTriggerSubmit',
@@ -102,16 +102,6 @@ const responseAttributePathToFieldIdMap = Object.assign({
   '/uris': 'uris',
   '/user': 'user'
 }, ErrorPaths);
-
-var cleanJSONdefinition = function (jsonDefinition) {
-  return Object.keys(jsonDefinition).filter(function (key) {
-    return !ServiceConfig.BLACKLIST.includes(key);
-  }).reduce(function (memo, key) {
-    memo[key] = jsonDefinition[key];
-
-    return memo;
-  }, {});
-};
 
 class ServiceFormModal extends mixin(StoreMixin) {
   constructor() {
