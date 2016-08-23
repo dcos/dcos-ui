@@ -52,11 +52,11 @@ describe('Add Repository Form Modal', function () {
   it('closes modal after add is successful', function () {
     cy
       .get('.modal input')
-      .eq(0).type('Here we go!');
-    cy
+      .eq(0).type('Here we go!')
       .get('.modal input')
-      .eq(1).type('http://there-is-no-stopping.us');
-    cy
+      .eq(1).type('http://there-is-no-stopping.us')
+      .get('.modal input')
+      .eq(2).type('0')
       .get('.modal .modal-footer .button.button-success')
       .contains('Add')
       .click();
