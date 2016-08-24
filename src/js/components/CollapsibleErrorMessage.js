@@ -1,5 +1,5 @@
-import React from 'react';
 import classNames from 'classnames/dedupe';
+import React from 'react';
 
 import Icon from './Icon';
 
