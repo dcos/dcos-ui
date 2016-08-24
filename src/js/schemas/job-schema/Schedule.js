@@ -51,7 +51,11 @@ const Schedule = {
     },
     timezone: {
       title: 'Time Zone',
-      description: 'Enter time zone in TZ format, e.g. America/New_York',
+      description: (
+        <span>
+          Enter time zone in <a href="http://www.timezoneconverter.com/cgi-bin/zonehelp" target="_blank">TZ format</a>, e.g. America/New_York.
+        </span>
+      ),
       type: 'string',
       getter(job) {
         let [schedule = {}] = job.getSchedules();
