@@ -43,6 +43,20 @@ class NetworkPage extends mixin(TabsMixin) {
 
   componentWillMount() {
     super.componentWillMount(...arguments);
+
+    let networkPageReady = Hooks.applyFilter(
+      'networkPageReady', Promise.resolve({isReady: true})
+    );
+
+    if (!networkPageReady.isReady) {
+      // Set page ready once promise resolves
+      networkPageReady.then(() => {
+        this.setState({networkPageReady: true});
+        this.updateCurrentTab();
+      });
+    }
+
+    this.setState({networkPageReady: networkPageReady.isReady});
     this.updateCurrentTab();
   }
 
@@ -63,6 +77,19 @@ class NetworkPage extends mixin(TabsMixin) {
     );
 
     this.setState({currentTab});
+  }
+
+  getLoadingScreen() {
+    return (
+      <div className="container container-fluid container-pod text-align-center
+        vertical-center inverse">
+        <div className="row">
+          <div className="ball-scale">
+            <div />
+          </div>
+        </div>
+      </div>
+    );
   }
 
   getRoutedItem(tab) {
@@ -109,6 +136,16 @@ class NetworkPage extends mixin(TabsMixin) {
   }
 
   render() {
+    if (!this.state.networkPageReady) {
+      return (
+        <Page
+          title="Network"
+          navigation={this.getNavigation()}>
+          {this.getLoadingScreen()}
+        </Page>
+      );
+    }
+
     return (
       <Page
         title="Network"
