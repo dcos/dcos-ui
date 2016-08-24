@@ -69,8 +69,27 @@ const JobUtil = {
       disk: general.disk,
       docker
     };
+    // Only transfer schedule if checkbox is set, and create job with reasonable
+    // defaults
+    if (!schedule || schedule.runOnSchedule) {
+      let {
+        id = 'default',
+        enabled = true,
+        cron,
+        timezone,
+        concurrencyPolicy = 'ALLOW',
+        startingDeadlineSeconds
+      } = schedule || {};
 
-    spec.schedules = [schedule];
+      spec.schedules = [{
+        id,
+        enabled,
+        cron,
+        timezone,
+        concurrencyPolicy,
+        startingDeadlineSeconds
+      }];
+    }
 
     return new Job(spec);
   },
@@ -102,13 +121,25 @@ const JobUtil = {
       Object.assign(spec.run, {docker});
     }
 
-    let [schedule = {}] = job.getSchedules();
-
-    if (schedule.id != null || schedule.cron != null) {
-      if (schedule.concurrencyPolicy == null) {
-        schedule.concurrencyPolicy = 'ALLOW';
-      }
-      spec.schedules = [schedule];
+    let [schedule] = job.getSchedules();
+    if (schedule) {
+      let {
+        id = 'default',
+        enabled = true,
+        cron,
+        timezone,
+        concurrencyPolicy = 'ALLOW',
+        startingDeadlineSeconds
+      } = schedule;
+      // Transfer schedule as with reasonable defaults
+      spec.schedules = [{
+        id,
+        enabled,
+        cron,
+        timezone,
+        concurrencyPolicy,
+        startingDeadlineSeconds
+      }];
     }
 
     return spec;
