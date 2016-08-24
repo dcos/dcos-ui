@@ -6,6 +6,21 @@ import ServiceStatus from '../constants/ServiceStatus';
 import TaskStats from './TaskStats';
 import VolumeList from './VolumeList';
 
+function renamePortDefinition(fromName, toName, portDef) {
+  if (portDef.labels) {
+    Object.keys(portDef.labels).forEach(function (labelName) {
+      if (labelName.substr(0, 4) === 'VIP_') {
+        let labelValue = portDef.labels[labelName];
+        let labelParts = labelValue.split(':');
+        if (labelParts[0] === fromName) {
+          portDef.labels[labelName] = toName + ':' + labelParts[1];
+          return;
+        }
+      }
+    });
+  }
+}
+
 module.exports = class Service extends Item {
   getArguments() {
     return this.get('args');
@@ -246,6 +261,20 @@ module.exports = class Service extends Item {
     }
 
     return `${Config.rootUrl}/service/${serviceName}/`;
+
+  }
+
+  handleRename(fromName, toName) {
+
+    // Rename VIPs on portDefinitions
+    let portDefinitions = this.getPortDefinitions();
+    portDefinitions.forEach(renamePortDefinition.bind(this, fromName, toName));
+
+    // Rename VIPs on portMappings in a docker container
+    let container = this.getContainer();
+    if (container.docker && container.docker.portMappings) {
+      container.docker.portMappings.forEach(renamePortDefinition.bind(this, fromName, toName));
+    }
 
   }
 
