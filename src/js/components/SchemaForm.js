@@ -99,12 +99,14 @@ class SchemaForm extends mixin(StoreMixin, InternalStorageMixin) {
     // Default method.
   }
 
-  handleAddRow(prop, definition, newDefinition) {
+  handleAddRow(prop, definition, newDefinition, index) {
     let propID = Util.uniqueID(prop);
     newDefinition = FormUtil.getMultipleFieldDefinition(
       prop,
       propID,
-      newDefinition
+      newDefinition,
+      null,
+      index
     );
 
     let deleteButtonTop = Object.values(definition.itemShapes || {})
@@ -147,6 +149,7 @@ class SchemaForm extends mixin(StoreMixin, InternalStorageMixin) {
   }
 
   getAddNewRowButton(prop, generalDefinition, definition, labelText = '') {
+    let index = this.getIndexFromDefinition(generalDefinition);
     let label = 'Add New Line';
 
     if (labelText !== '') {
@@ -158,14 +161,30 @@ class SchemaForm extends mixin(StoreMixin, InternalStorageMixin) {
         <div className="row form-row-element">
           <a
             className="clickable row"
-            onClick={
-              this.handleAddRow.bind(this, prop, generalDefinition, definition)
-            }>
+            onClick={this.handleAddRow.bind(
+              this,
+              prop,
+              generalDefinition,
+              definition,
+              index
+            )}>
             + {label}
           </a>
         </div>
       </div>
     );
+  }
+
+  getIndexFromDefinition(definition) {
+    // This counts the number of arrays in the definition to determine
+    // the number of duplicable rows
+    return definition.reduce(function (total, item) {
+      if (Array.isArray(item)) {
+        return total + 1;
+      }
+
+      return total;
+    }, 0);
   }
 
   getRemoveRowButton(generalDefinition, prop, id, title = null) {

@@ -83,11 +83,9 @@ const Networking = {
         });
       },
       filterProperties(service = {}, instanceDefinition, model) {
-        let properties = Networking
-          .properties
-          .ports
-          .itemShape
-          .properties;
+        let {properties} = Networking.properties.ports.itemShape;
+        const disabledLBPortFieldValue = service.lbPort ||
+          DISABLED_LB_PORT_FIELD_VALUE;
 
         instanceDefinition.forEach(function (definition) {
           let prop = definition.name;
@@ -102,34 +100,37 @@ const Networking = {
             };
           }
 
-          const disabledLBPortFieldValue = service.lbPort ||
-            DISABLED_LB_PORT_FIELD_VALUE;
+          if (prop !== 'lbPort' || !model || !model.networking) {
+            return;
+          }
 
-          if (prop === 'lbPort' && model && model.networking) {
-            if (model.networking.networkType !== 'host') {
-              definition.showLabel = 'Container Port';
-              if (definition.value === DISABLED_LB_PORT_FIELD_VALUE) {
-                definition.value = null;
-              }
-            } else {
-              definition.showLabel = 'LB Port';
+          if (model.networking.networkType !== 'host') {
+            definition.showLabel = 'Container Port';
+            if (definition.value === DISABLED_LB_PORT_FIELD_VALUE) {
+              delete definition.value;
+              definition.disabled = false;
+              definition.className = 'form-control';
+              definition.fieldType = 'number';
+            }
+          }
 
-              if (service.discovery) {
-                // show as input
-                if (definition.value === DISABLED_LB_PORT_FIELD_VALUE) {
-                  definition.value = null;
-                  definition.disabled = false;
-                  definition.className = 'form-control';
-                  definition.fieldType = 'number';
-                }
-              } else {
-                // show as disabled
-                definition.value = disabledLBPortFieldValue;
-                definition.disabled = true;
-                definition.fieldType = 'text';
-                definition.className = 'form-control lb-port-input-field-disabled';
-              }
+          if (model.networking.networkType === 'host') {
+            definition.showLabel = 'LB Port';
 
+            // show as input
+            if (service.discovery && definition.value === DISABLED_LB_PORT_FIELD_VALUE) {
+              delete definition.value;
+              definition.disabled = false;
+              definition.className = 'form-control';
+              definition.fieldType = 'number';
+            }
+
+            // show as disabled
+            if (!service.discovery) {
+              definition.value = disabledLBPortFieldValue;
+              definition.disabled = true;
+              definition.fieldType = 'text';
+              definition.className = 'form-control lb-port-input-field-disabled';
             }
           }
         });
