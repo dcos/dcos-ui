@@ -176,6 +176,8 @@ class SchemaForm extends mixin(StoreMixin, InternalStorageMixin) {
   }
 
   getIndexFromDefinition(definition) {
+    // This counts the number of arrays in the definition to determine
+    // the number of duplicable rows
     return definition.reduce(function (total, item) {
       if (Array.isArray(item)) {
         return total + 1;
