@@ -100,7 +100,7 @@ class TaskView extends mixin(SaveStateMixin, StoreMixin) {
     this.setState({killAction: ''});
   }
 
-  handleSearchStringChange(searchString) {
+  handleSearchStringChange(searchString = '') {
     this.setState({searchString});
   }
 

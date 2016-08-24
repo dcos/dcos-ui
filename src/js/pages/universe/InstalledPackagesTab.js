@@ -19,7 +19,8 @@ class InstalledPackagesTab extends mixin(StoreMixin) {
 
     this.state = {
       hasError: false,
-      isLoading: true
+      isLoading: true,
+      searchString: ''
     };
 
     this.store_listeners = [
@@ -51,7 +52,7 @@ class InstalledPackagesTab extends mixin(StoreMixin) {
     this.setState({hasError: false, isLoading: false});
   }
 
-  handleSearchStringChange(searchString) {
+  handleSearchStringChange(searchString = '') {
     this.setState({searchString});
   }
 

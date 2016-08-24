@@ -43,7 +43,7 @@ class VirtualNetworksTabContent extends mixin(StoreMixin) {
     });
   }
 
-  handleSearchStringChange(searchString) {
+  handleSearchStringChange(searchString = '') {
     this.setState({searchString});
   }
 

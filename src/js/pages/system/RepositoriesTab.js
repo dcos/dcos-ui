@@ -24,7 +24,8 @@ class RepositoriesTab extends mixin(StoreMixin) {
     this.state = {
       addRepositoryModalOpen: false,
       hasError: false,
-      isLoading: true
+      isLoading: true,
+      searchString: ''
     };
 
     this.store_listeners = [
@@ -64,7 +65,7 @@ class RepositoriesTab extends mixin(StoreMixin) {
     this.setState({hasError: false, isLoading: false});
   }
 
-  handleSearchStringChange(searchString) {
+  handleSearchStringChange(searchString = '') {
     this.setState({searchString});
   }
 

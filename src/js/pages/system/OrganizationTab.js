@@ -102,7 +102,7 @@ class OrganizationTab extends mixin(InternalStorageMixin) {
     this.bulkCheck(isChecked);
   }
 
-  handleSearchStringChange(searchString) {
+  handleSearchStringChange(searchString = '') {
     this.setState({searchString});
     this.bulkCheck(false);
   }
