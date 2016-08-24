@@ -105,7 +105,7 @@ class SchemaForm extends mixin(StoreMixin, InternalStorageMixin) {
       prop,
       propID,
       newDefinition,
-      undefined,
+      null,
       index
     );
 
