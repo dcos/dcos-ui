@@ -291,7 +291,7 @@ let SchemaUtil = {
 
           if (secondLevelObject.title) {
             definitionForm.definition.push(
-              renderSubheader(secondLevelObject.title)
+              renderSubheader(secondLevelObject.title, secondLevelObject.description)
             );
           }
           definitionForm.definition.push(fieldDefinition);
