@@ -98,6 +98,58 @@ describe('ServiceUtil', function () {
 
     });
 
+    describe('labels', function () {
+
+      it('should keep undefined values as ""', function () {
+        let service = ServiceUtil.createServiceFromFormModel({
+          labels: {
+            labels: [
+              { key: 'a', value: 'correct' },
+              { key: 'b', value: undefined }
+            ]
+          }
+        });
+        expect(service.labels).toEqual({
+          a: 'correct',
+          b: ''
+        });
+      });
+
+      it('should not set items with no key', function () {
+        let service = ServiceUtil.createServiceFromFormModel(
+          {
+            labels: {
+              labels: [
+                {key: 'a', value: 'correct'},
+                {value: undefined}
+              ]
+            }
+          }
+        );
+        expect(service.labels).toEqual(
+          {
+            a: 'correct'
+          }
+        );
+      });
+
+      it('should keep null values as ""', function () {
+        let service = ServiceUtil.createServiceFromFormModel({
+          labels: {
+            labels: [
+              { key: 'a', value: 'correct' },
+              { key: 'b', value: null }
+            ]
+          }
+        });
+        expect(service.labels).toEqual({
+          a: 'correct',
+          b: ''
+        });
+      });
+
+    });
+
     describe('networking', function () {
 
       describe('host mode', function () {
