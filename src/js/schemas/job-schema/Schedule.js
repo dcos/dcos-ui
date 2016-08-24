@@ -28,12 +28,12 @@ const Schedule = {
         </span>
       ),
       type: 'string',
+      pattern: '^(\*|([0-9]|1[0-9]|2[0-9]|3[0-9]|4[0-9]|5[0-9])|\*\/([0-9]|1[0-9]|2[0-9]|3[0-9]|4[0-9]|5[0-9])) (\*|([0-9]|1[0-9]|2[0-3])|\*\/([0-9]|1[0-9]|2[0-3])) (\*|([1-9]|1[0-9]|2[0-9]|3[0-1])|\*\/([1-9]|1[0-9]|2[0-9]|3[0-1])) (\*|([1-9]|1[0-2])|\*\/([1-9]|1[0-2])) (\*|([0-6])|\*\/([0-6]))$',
       getter(job) {
         let [schedule = {}] = job.getSchedules();
 
         return schedule.cron;
-      },
-      validator: CRONValidatorUtil.testCronString
+      }
     },
     timezone: {
       title: 'Time Zone',
