@@ -2,6 +2,7 @@
 import React from 'react';
 /* eslint-enable no-unused-vars */
 
+import JobValidationUtil from '../../utils/JobValidationUtil';
 import MesosConstants from '../../constants/MesosConstants';
 
 const General = {
@@ -16,6 +17,17 @@ const General = {
       type: 'string',
       getter(job) {
         return job.getId();
+      },
+      externalValidator({general}, definition) {
+        if (!JobValidationUtil.isValidJobID(general.id)) {
+          definition.showError = 'ID must not be empty, must not contain ' +
+            'whitespace, and should not contain any other characters than ' +
+            'lowercase letters, digits, hyphens, ".", and ".."';
+
+          return false;
+        }
+
+        return true;
       }
     },
     description: {

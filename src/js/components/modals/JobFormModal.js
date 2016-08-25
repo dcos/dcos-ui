@@ -148,8 +148,7 @@ class JobFormModal extends mixin(StoreMixin) {
     let {job} = this.state;
 
     this.setState({
-      errorMessage: null,
-      job: JobUtil.createJobFromFormModel(model, job.get())
+      errorMessage: null
     });
   }
 
@@ -169,13 +168,17 @@ class JobFormModal extends mixin(StoreMixin) {
   }
 
   handleSubmit() {
-    let {isEdit, job} = this.props;
+    let {isEdit} = this.props;
+    let {jsonMode} = this.state;
 
     if (jsonMode) {
       try {
 
         // Parse JSON and create job object
         let job = new Job(JSON.parse(this.state.jsonDefinition));
+        this.setState({
+          job
+        });
 
         // Get job specifications in a correct state
         let jobSpec = JobUtil.createJobSpecFromJob(job);
@@ -203,25 +206,34 @@ class JobFormModal extends mixin(StoreMixin) {
 
     } else {
 
-      // Get job specifications in a correct state
+      let {isValidated, model} = this.triggerFormSubmit();
+      if (!isValidated) {
+
+        // If we are not validated display error
+        this.setState({
+          errorMessage: {
+            message: 'Please fix all the errors first',
+            details: null
+          }
+        });
+        return;
+
+      }
+
+      let job = JobUtil.createJobFromFormModel(model);
       let jobSpec = cleanJobJSON(
-        JobUtil.createJobSpecFromJob(this.state.job)
+        JobUtil.createJobSpecFromJob(job)
       );
+      this.setState({
+        job
+      });
 
       if (!isEdit) {
         MetronomeStore.createJob(jobSpec);
       } else {
-
-        // Get job specifications in a correct state
-        let jobSpec = JobUtil.createJobSpecFromJob(this.state.job);
-
-        if (!isEdit) {
-          MetronomeStore.createJob(jobSpec);
-        } else {
-          MetronomeStore.updateJob(job.getId(), jobSpec);
-        }
-
+        MetronomeStore.updateJob(job.getId(), jobSpec);
       }
+
     }
   }
 

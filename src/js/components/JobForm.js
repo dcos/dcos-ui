@@ -1,5 +1,6 @@
 import React from 'react';
 
+import FormUtil from '../utils/FormUtil';
 import SchemaForm from './SchemaForm';
 import SchemaFormUtil from '../utils/SchemaFormUtil';
 
@@ -26,10 +27,7 @@ class JobForm extends SchemaForm {
   }
 
   handleExternalSubmit() {
-    this.validateForm();
-    let model = this.triggerTabFormSubmit();
-
-    return this.getDataTriple(model);
+    return this.validateForm();
   }
 
   handleFormChange(formData, eventObj) {
@@ -56,6 +54,33 @@ class JobForm extends SchemaForm {
 
   handleTabClick(tab) {
     this.props.onTabChange(tab);
+  }
+
+  validateForm() {
+    let model = this.triggerTabFormSubmit();
+
+    let validated = true;
+    // Apply all validations.
+    FormUtil.forEachDefinition(this.multipleDefinition, function (definition) {
+      definition.showError = false;
+
+      if (typeof definition.externalValidator !== 'function') {
+        return;
+      }
+
+      let fieldValidated = definition.externalValidator(model, definition);
+      if (!fieldValidated) {
+        validated = false;
+      }
+    });
+
+    this.forceUpdate();
+
+    return {
+      isValidated: validated,
+      model: SchemaFormUtil.processFormModel(model, this.multipleDefinition),
+      definition: this.multipleDefinition
+    };
   }
 
   // Fallback to props model, if provided model is not defined,

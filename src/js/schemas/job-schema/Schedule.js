@@ -1,6 +1,8 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
 /* eslint-enable no-unused-vars */
+
+import JobValidationUtil from '../../utils/JobValidationUtil';
 import MetadataStore from '../../stores/MetadataStore';
 
 const Schedule = {
@@ -27,11 +29,23 @@ const Schedule = {
         </span>
       ),
       type: 'string',
-      pattern: '^(\\*|([0-9]|1[0-9]|2[0-9]|3[0-9]|4[0-9]|5[0-9])|\\*\\/([0-9]|1[0-9]|2[0-9]|3[0-9]|4[0-9]|5[0-9])) (\\*|([0-9]|1[0-9]|2[0-3])|\\*\\/([0-9]|1[0-9]|2[0-3])) (\\*|([1-9]|1[0-9]|2[0-9]|3[0-1])|\\*\\/([1-9]|1[0-9]|2[0-9]|3[0-1])) (\\*|([1-9]|1[0-2])|\\*\\/([1-9]|1[0-2])) (\\*|([0-6])|\\*\\/([0-6]))$',
       getter(job) {
         let [schedule = {}] = job.getSchedules();
 
         return schedule.cron;
+      },
+      externalValidator({schedule}, definition) {
+        if (!schedule.runOnSchedule) {
+          return true;
+        }
+
+        if (!JobValidationUtil.isValidCronSchedule(schedule.cron)) {
+          definition.showError = 'CRON Schedule must not be empty and it must '+
+          'follow the correct CRON format specifications';
+          return false;
+        }
+
+        return true;
       }
     },
     timezone: {
