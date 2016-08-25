@@ -79,12 +79,18 @@ class TaskTable extends React.Component {
     if (task.statuses == null) {
       return null;
     }
-    const healths = task.statuses.map((status) => status.healthy);
+    const healths = task.statuses.map(function (status) {
+      return status.healthy;
+    });
     const healthDataExists = healths.length > 0 && healths.every(
-      (health) => typeof health !== 'undefined'
+      function (health) {
+        return typeof health !== 'undefined';
+      }
     );
     if (healthDataExists) {
-      return healths.some((health) => health);
+      return healths.some(function (health) {
+        return health;
+      });
     }
 
     return null;
