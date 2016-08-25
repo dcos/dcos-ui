@@ -209,7 +209,7 @@ class ServiceFormModal extends mixin(StoreMixin) {
   }
 
   handleJSONChange(jsonDefinition) {
-    let service = Object.assign({}, this.state.service);
+    let {service} = this.state;
     try {
       service = new Service(JSON.parse(jsonDefinition));
     } catch (e) {
