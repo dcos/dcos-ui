@@ -1,4 +1,4 @@
-const JobValidationUtil = {
+const JobValidatorUtil = {
 
   isValidJobID(serviceID) {
     if (typeof serviceID !== 'string' || serviceID === '') {
@@ -25,4 +25,4 @@ const JobValidationUtil = {
 
 };
 
-module.exports = JobValidationUtil;
+module.exports = JobValidatorUtil;

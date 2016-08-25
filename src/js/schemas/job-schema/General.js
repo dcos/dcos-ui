@@ -2,8 +2,9 @@
 import React from 'react';
 /* eslint-enable no-unused-vars */
 
-import JobValidationUtil from '../../utils/JobValidationUtil';
+import JobValidatorUtil from '../../utils/JobValidatorUtil';
 import MesosConstants from '../../constants/MesosConstants';
+import ValidatorUtil from '../../utils/ValidatorUtil';
 
 const General = {
   title: 'General',
@@ -19,7 +20,7 @@ const General = {
         return job.getId();
       },
       externalValidator({general}, definition) {
-        if (!JobValidationUtil.isValidJobID(general.id)) {
+        if (!JobValidatorUtil.isValidJobID(general.id)) {
           definition.showError = 'ID must not be empty, must not contain ' +
             'whitespace, and should not contain any other characters than ' +
             'lowercase letters, digits, hyphens, ".", and ".."';
@@ -49,8 +50,19 @@ const General = {
           getter(job) {
             return `${job.getCpus() || ''}`;
           },
-          minimum: 0,
-          exclusiveMinimum: true
+          externalValidator({general}, definition) {
+            if (!ValidatorUtil.isNumber(general.cpus)) {
+              definition.showError = 'Expecting a number here';
+              return false;
+            }
+
+            if (general.cpus < MesosConstants.MIN_CPUS) {
+              definition.showError = 'CPUs must be at least '+
+                MesosConstants.MIN_CPUS;
+              return false;
+            }
+            return true;
+          }
         },
         mem: {
           title: 'Mem (MiB)',
@@ -59,7 +71,19 @@ const General = {
           getter(job) {
             return `${job.getMem() || ''}`;
           },
-          minimum: 32
+          externalValidator({general}, definition) {
+            if (!ValidatorUtil.isNumber(general.mem)) {
+              definition.showError = 'Expecting a number here';
+              return false;
+            }
+
+            if (general.mem < MesosConstants.MIN_MEM) {
+              definition.showError = 'Mem must be at least ' +
+                MesosConstants.MIN_MEM + ' MiB';
+              return false;
+            }
+            return true;
+          }
         },
         disk: {
           title: 'Disk (MiB)',
@@ -68,8 +92,22 @@ const General = {
           getter(job) {
             return `${job.getDisk() || ''}`;
           },
-          minimum: 0,
-          exclusiveMinimum: true
+          externalValidator({general}, definition) {
+            if (ValidatorUtil.isEmpty(general.disk)) {
+              return true;
+            }
+
+            if (!ValidatorUtil.isNumber(general.disk)) {
+              definition.showError = 'Expecting a number here';
+              return false;
+            }
+
+            if (general.disk < 0) {
+              definition.showError = 'Disk must be a positive integer';
+              return false;
+            }
+            return true;
+          }
         }
       }
     },

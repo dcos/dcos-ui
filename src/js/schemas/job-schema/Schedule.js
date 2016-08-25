@@ -2,8 +2,9 @@
 import React from 'react';
 /* eslint-enable no-unused-vars */
 
-import JobValidationUtil from '../../utils/JobValidationUtil';
+import JobValidatorUtil from '../../utils/JobValidatorUtil';
 import MetadataStore from '../../stores/MetadataStore';
+import ValidatorUtil from '../../utils/ValidatorUtil';
 
 const Schedule = {
   title: 'Schedule',
@@ -39,7 +40,7 @@ const Schedule = {
           return true;
         }
 
-        if (!JobValidationUtil.isValidCronSchedule(schedule.cron)) {
+        if (!JobValidatorUtil.isValidCronSchedule(schedule.cron)) {
           definition.showError = 'CRON Schedule must not be empty and it must '+
           'follow the correct CRON format specifications';
           return false;
@@ -69,8 +70,26 @@ const Schedule = {
 
         return schedule.startingDeadlineSeconds;
       },
-      minimum: 0,
-      exclusiveMinimum: true
+      externalValidator({schedule}, definition) {
+        if (!schedule.runOnSchedule) {
+          return true;
+        }
+
+        if (ValidatorUtil.isEmpty(schedule.startingDeadlineSeconds)) {
+          return true;
+        }
+
+        if (!ValidatorUtil.isNumber(schedule.startingDeadlineSeconds)) {
+          definition.showError = 'Expecting a number here';
+          return false;
+        }
+
+        if (schedule.startingDeadlineSeconds < 0) {
+          definition.showError = 'Starting Deadline must be a positive integer';
+          return false;
+        }
+        return true;
+      }
     }
   },
   required: ['cron']
