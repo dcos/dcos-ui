@@ -12,15 +12,15 @@ import NodeDetailTaskTab from '../pages/nodes/NodeDetailTaskTab';
 import NodesGridView from '../components/NodesGridView';
 import NodesOverview from '../pages/NodesOverview';
 import NodesPage from '../pages/NodesPage';
-import TaskDetail from '../pages/task-details/TaskDetail';
-import TaskDetailBreadcrumb from '../pages/nodes/breadcrumbs/TaskDetailBreadcrumb';
-import TaskDetailsTab from '../pages/task-details/TaskDetailsTab';
-import TaskFilesTab from '../pages/task-details/TaskFilesTab';
-import TaskLogsTab from '../pages/task-details/TaskLogsTab';
+import TaskDetail from '../../../plugins/services/src/js/pages/task-details/TaskDetail';
+import TaskDetailBreadcrumb from '../../../plugins/services/src/js/pages/nodes/breadcrumbs/TaskDetailBreadcrumb';
+import TaskDetailsTab from '../../../plugins/services/src/js/pages/task-details/TaskDetailsTab';
+import TaskFilesTab from '../../../plugins/services/src/js/pages/task-details/TaskFilesTab';
+import TaskLogsTab from '../../../plugins/services/src/js/pages/task-details/TaskLogsTab';
 import UnitsHealthNodeDetail from '../pages/system/UnitsHealthNodeDetail';
 import UnitsHealthDetailBreadcrumb from '../pages/system/breadcrumbs/UnitsHealthDetailBreadcrumb';
-import VolumeDetail from '../components/VolumeDetail';
-import VolumeTable from '../components/VolumeTable';
+import VolumeDetail from '../../../plugins/services/src/js/components/VolumeDetail';
+import VolumeTable from '../../../plugins/services/src/js/components/VolumeTable';
 
 let nodesRoutes = {
   type: Route,

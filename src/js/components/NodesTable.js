@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import {Link} from 'react-router';
 import React from 'react';
+import {ResourceTableUtil} from 'foundation-ui';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 import {Table, Tooltip} from 'reactjs-components';
 

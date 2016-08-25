@@ -1,11 +1,11 @@
+import {DCOSStore} from 'foundation-ui';
 import {Link} from 'react-router';
 import React from 'react';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import ComponentList from '../components/ComponentList';
 import Config from '../config/Config';
-import DCOSStore from '../stores/DCOSStore';
-import HealthSorting from '../constants/HealthSorting';
+import HealthSorting from '../../../plugins/services/src/js/constants/HealthSorting';
 import HostTimeSeriesChart from '../components/charts/HostTimeSeriesChart';
 import Icon from '../components/Icon';
 import InternalStorageMixin from '../mixins/InternalStorageMixin';
@@ -13,7 +13,7 @@ import MesosSummaryStore from '../stores/MesosSummaryStore';
 import Page from '../components/Page';
 import Panel from '../components/Panel';
 import ResourceTimeSeriesChart from '../components/charts/ResourceTimeSeriesChart';
-import ServiceList from '../components/ServiceList';
+import ServiceList from '../../../plugins/services/src/js/components/ServiceList';
 import StringUtil from '../utils/StringUtil';
 import TasksChart from '../components/charts/TasksChart';
 import SidebarActions from '../events/SidebarActions';

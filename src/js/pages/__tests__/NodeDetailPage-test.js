@@ -3,8 +3,6 @@ jest.dontMock('../../mixins/InternalStorageMixin');
 jest.dontMock('../../mixins/TabsMixin');
 jest.dontMock('../../stores/MesosSummaryStore');
 jest.dontMock('../nodes/NodeDetailPage');
-jest.dontMock('../../components/TaskTable');
-jest.dontMock('../../components/TaskView');
 jest.dontMock('../../components/RequestErrorMsg');
 jest.dontMock('../../structs/CompositeState');
 

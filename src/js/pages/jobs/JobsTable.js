@@ -2,12 +2,12 @@ import classNames from 'classnames';
 import {Link} from 'react-router';
 import prettycron from 'prettycron';
 import React from 'react';
+import {ResourceTableUtil} from 'foundation-ui';
 import {Table, Tooltip} from 'reactjs-components';
 
 import Icon from '../../components/Icon';
 import JobStates from '../../constants/JobStates';
 import JobTableHeaderLabels from '../../constants/JobTableHeaderLables';
-import ResourceTableUtil from '../../utils/ResourceTableUtil';
 import TableUtil from '../../utils/TableUtil';
 import Tree from '../../structs/Tree';
 
