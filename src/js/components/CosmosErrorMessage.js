@@ -30,7 +30,7 @@ class CosmosErrorMessage extends React.Component {
   getMessage() {
     let {error} = this.props;
     if (!error) {
-      return 'An error occurred (Description missing)';
+      return 'An unknown error occurred';
     }
 
     // Append reference to repository page, since repository related errors
