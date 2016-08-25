@@ -1,161 +1,188 @@
 & when (@user-dropdown-menu-enabled) {
 
-  @keyframes user-dropdown-menu-enter {
-    0% {
-      transform: translateY(100%);
-    }
-    100% {
-      transform: translateY(0);
+  .user-account-menu-wrapper {
+    border-top: 1px solid color-lighten(@neutral, 90%);
+    height: @user-account-menu-button-height;
+    position: relative;
+    width: 100%;
+    z-index: 2;
+  }
+
+  .user-account-menu-slider {
+    background: @white;
+    padding: 0;
+    position: relative;
+    transition: transform 0.25s;
+    z-index: 3;
+
+    &.is-open {
+      transform: translateY(@user-account-menu-height * -1);
     }
   }
 
-  @keyframes user-dropdown-menu-leave {
-    0% {
-      transform: translateY(0);
-    }
-    100% {
-      transform: translateY(100%);
-    }
-  }
+  .user-account-menu-slider-backdrop {
+    background: @modal-backdrop-background-color;
+    height: 100vh;
+    left: 0;
+    opacity: 0;
+    pointer-events: none;
+    position: fixed;
+    top: 0;
+    transition: opacity 0.25s, visibility 0.25s;
+    visibility: hidden;
+    // TODO: Fix this width.
+    width: 100%;
+    z-index: 1;
 
-  @keyframes user-dropdown-menu-fade-in {
-    0% {
-      opacity: 0;
-    }
-    100% {
+    &.is-visible {
       opacity: 1;
+      pointer-events: auto;
+      visibility: visible;
     }
   }
 
-  @keyframes user-dropdown-menu-fade-out {
-    0% {
-      opacity: 1;
-    }
-    100% {
-      opacity: 0;
-    }
+  .user-account-menu-slider-list {
+    padding: @user-account-slider-list-padding;
   }
 
-  .user-dropdown {
+  .user-account-menu-dropdown {
     display: none;
-
-    .canvas-sidebar-open & {
-      display: flex;
-    }
-  }
-
-  .user-dropdown-menu.dropdown {
-    bottom: 0;
-    display: block;
-    position: absolute;
-    width: @sidebar-width;
-    z-index: @z-index-user-dropdown-menu;
+    position: relative;
+    z-index: @z-index-user-account-menu-dropdown;
 
     .dropdown-menu {
-      border-radius: 0;
-      // Make sure that this element is not floated, so it has a height
-      float: none;
-      padding-left: 0;
-      padding-right: 0;
-      position: static;
-      transform-origin: bottom center;
-      width: 100%;
-
-      .dropdown-menu-list {
-        // Override dropdown menu margins
-        margin-left: 0;
-        margin-right: 0;
-        margin-top: 5px;
-      }
-
-      .icon-buttons {
-        display: flex;
-        flex-direction: row;
-
-        .button {
-          background-color: transparent;
-          border-bottom: 1px solid color-lighten(@black, 90);
-          border-top-width: 0;
-          border-left-width: 0;
-          border-radius: 0;
-          flex-grow: 1;
-          height: auto;
-
-          .icon {
-            opacity: 0.7;
-            transition: opacity 5s;
-
-            &:hover {
-              opacity: 1;
-            }
-
-          }
-
-          &:last-child {
-            border-right-width: 0;
-          }
-
-        }
-
-        .user-dropdown {
-          align-items: center;
-          display: flex;
-
-          .icon {
-            margin-right: (@base-spacing-unit * 0.25);
-          }
-
-          .user-description {
-            flex: 1;
-            text-align: left;
-            display: block;
-          }
-        }
-      }
+      margin-bottom: 8px;
+      margin-left: 8px;
     }
   }
 
-  .user-dropdown-menu-enter {
-    animation: user-dropdown-menu-fade-in 0.25s linear both, user-dropdown-menu-enter 0.25s linear both;
-  }
-
-  .user-dropdown-menu-leave {
-    animation: user-dropdown-menu-fade-out 0.25s linear both, user-dropdown-menu-leave 0.25s linear both;
-  }
-
-  .sidebar-footer-user-dropdown,
-  .sidebar-footer-user-dropdown-button {
+  .user-account-menu-dropdown-button {
+    appearance: none;
+    background: transparent;
+    border: none;
+    outline: none;
+    padding: 0;
     width: 100%;
   }
 
-  .sidebar-footer-user-dropdown {
-    display: none;
-    position: relative;
-    z-index: @z-index-sidebar-footer-user-dropdown;
-
-    .dropdown-menu {
-      left: 8px;
-      margin-bottom: 8px;
-    }
-  }
-
-  .sidebar-footer-user-dropdown-button {
+  .user-account-menu-button {
+    align-items: center;
     appearance: none;
     background: none;
     border: none;
-    border-top: 1px solid color-lighten(@neutral, 90%);
+    border-radius: 0;
+    display: flex;
+    height: @user-account-menu-button-height;
     outline: none;
-    padding: 0;
+    width: 100%;
+
+    .user-account-menu-dropdown & {
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+
+      &:after {
+        display: none;
+      }
+    }
+
+    .user-account-menu-slider & {
+      border-bottom: 1px solid color-lighten(@neutral, 90%);
+      padding: 0 0 0 @button-padding-left;
+    }
+
+    &:hover {
+      background: transparent;
+    }
+
+    &.dropdown-toggle {
+
+      &:after {
+        margin: 0;
+        position: absolute;
+        right: @button-padding-right;
+        top: 50%;
+        transform: translateY(-50%);
+
+        .user-account-menu-slider.is-open & {
+          transform: translateY(-50%) rotate(180deg);
+        }
+      }
+    }
+
+    .icon {
+
+      // Override Canvas specificity.
+      // TODO: See if this can be removed in CNVS upgrade.
+      &:first-child {
+        margin-right: @base-spacing-unit * 1/2;
+      }
+    }
   }
 
-  .user-dropdown-menu,
-  .sidebar-footer-user-dropdown {
+  .user-account-menu-list {
 
-    .tooltip-wrapper {
-      font-size: inherit;
+    .button {
+      border-radius: 0;
+      color: @dropdown-menu-list-color;
+      display: block;
+      font-size: @user-acount-menu-list-item-font-size;
+      line-height: @user-acount-menu-list-item-line-height;
       height: auto;
+      padding: @user-account-menu-list-item-padding;
       text-align: left;
+
+      &:hover {
+        background: @dropdown-menu-list-item-link-hover-background-color;
+      }
     }
+  }
+
+}
+
+& when (@user-dropdown-menu-enabled) and (@layout-screen-small-enabled) {
+
+  @media (min-width: @layout-screen-small-min-width) {
+
+    .user-account-menu-wrapper {
+      height: @user-account-menu-button-height-screen-small;
+    }
+
+    .user-account-menu-list {
+
+      .button {
+        font-size: @user-acount-menu-list-item-font-size-screen-small;
+        line-height: @user-acount-menu-list-item-line-height-screen-small;
+        padding: @user-account-menu-list-item-padding-screen-small;
+      }
+    }
+
+    .user-account-menu-slider {
+
+      &.is-open {
+        transform: translateY(@user-account-menu-height-screen-small * -1);
+      }
+    }
+
+    .user-account-menu-slider-backdrop {
+      // TODO: Apply the width of the sidebar at this screen size.
+    }
+
+    .user-account-menu-slider-list {
+      padding: @user-account-slider-list-padding-screen-small;
+    }
+
+    .user-account-menu-button {
+      height: @user-account-menu-button-height-screen-small;
+
+      .icon {
+
+        &:first-child {
+          margin-right: @base-spacing-unit-screen-small * 1/2;
+        }
+      }
+    }
+
   }
 
 }
@@ -164,24 +191,49 @@
 
   @media (min-width: @layout-screen-medium-min-width) {
 
-    .user-dropdown-menu.dropdown {
-      display: none;
-      margin-left: auto;
-      padding-left: 0;
-      width: auto;
-
-      .dropdown-menu {
-
-        .icon-buttons .user-dropdown .user-description {
-          display: none;
-        }
-
-      }
-
+    .user-account-menu-wrapper {
+      height: @user-account-menu-button-height-screen-medium;
     }
 
-    .sidebar-footer-user-dropdown {
-      display: block;
+    .user-account-menu-slider {
+      display: none;
+
+      &.is-open {
+        transform: translateY(@user-account-menu-height-screen-medium * -1);
+      }
+    }
+
+    .user-account-menu-slider-backdrop {
+      display: none;
+      // TODO: Apply the width of the sidebar at this screen size.
+    }
+
+    .user-account-menu-slider-list {
+      padding: @user-account-slider-list-padding-screen-medium;
+    }
+
+    .user-account-menu-button {
+      height: @user-account-menu-button-height-screen-medium;
+
+      .user-account-menu-slider & {
+        padding-left: @button-padding-left-screen-medium;
+      }
+
+      &:after {
+        right: @button-padding-right-screen-medium;
+      }
+
+      .icon {
+
+        &:first-child {
+          margin-right: @base-spacing-unit-screen-medium * 1/2;
+        }
+      }
+    }
+
+    .user-account-menu-dropdown {
+      display: flex;
+      width: 100%;
 
       .user-dropdown {
         display: block;
@@ -189,9 +241,16 @@
         &:after {
           display: none;
         }
-
       }
+    }
 
+    .user-account-menu-list {
+
+      .button {
+        font-size: @user-acount-menu-list-item-font-size-screen-medium;
+        line-height: @user-acount-menu-list-item-line-height-screen-medium;
+        padding: @user-account-menu-list-item-padding-screen-medium;
+      }
     }
 
   }
@@ -202,46 +261,60 @@
 
   @media (min-width: @layout-screen-large-min-width) {
 
-    .sidebar {
-
-      &.is-expanded {
-
-        .sidebar-footer-user-dropdown {
-          display: none;
-        }
-
-        .user-dropdown {
-          display: flex;
-        }
-
-      }
-
+    .user-account-menu-wrapper {
+      height: @user-account-menu-button-height-screen-large;
     }
 
-    .user-dropdown-menu {
+    .user-account-menu-slider {
+      display: block;
 
-      &.dropdown {
-        display: block;
-        width: @sidebar-width-screen-large;
+      &.is-open {
+        transform: translateY(@user-account-menu-height-screen-large * -1);
+      }
+    }
 
-        .dropdown-menu {
-          width: @sidebar-width-screen-large;
+    .user-account-menu-slider-backdrop {
+      display: block;
+      // TODO: Apply the width of the sidebar at this screen size.
+    }
 
-          .icon-buttons .user-dropdown {
-            .icon {
-              margin-right: (@base-spacing-unit-screen-large * 0.25);
-            }
+    .user-account-menu-slider-list {
+      padding: @user-account-slider-list-padding-screen-large;
+    }
 
-            .user-description {
-              display: block;
-            }
+    .user-account-menu-dropdown {
 
-          }
+      .sidebar.is-expanded & {
+        display: none;
+      }
+    }
 
-        }
+    .user-account-menu-button {
+      height: @user-account-menu-button-height-screen-large;
 
+      .user-account-menu-slider & {
+        padding-left: @button-padding-left-screen-large;
       }
 
+      &:after {
+        right: @button-padding-right-screen-large;
+      }
+
+      .icon {
+
+        &:first-child {
+          margin-right: @button-padding-right-screen-large;
+        }
+      }
+    }
+
+    .user-account-menu-list {
+
+      .button {
+        font-size: @user-acount-menu-list-item-font-size-screen-large;
+        line-height: @user-acount-menu-list-item-line-height-screen-large;
+        padding: @user-account-menu-list-item-padding-screen-large;
+      }
     }
 
   }
@@ -252,23 +325,51 @@
 
   @media (min-width: @layout-screen-jumbo-min-width) {
 
-    .user-dropdown-menu {
+    .user-account-menu-wrapper {
+      height: @user-account-menu-button-height-screen-jumbo;
+    }
 
-      &.dropdown {
-        display: block;
-        width: @sidebar-width-screen-jumbo;
+    .user-account-menu-slider {
 
-        .dropdown-menu {
-          width: @sidebar-width-screen-jumbo;
+      &.is-open {
+        transform: translateY(@user-account-menu-height-screen-jumbo * -1);
+      }
+    }
 
-          .icon-buttons .user-dropdown .icon {
-            margin-right: (@base-spacing-unit-screen-jumbo * 0.25);
-          }
+    .user-account-menu-slider-backdrop {
+      // TODO: Apply the width of the sidebar at this screen size.
+    }
 
-        }
+    .user-account-menu-slider-list {
+      padding: @user-account-slider-list-padding-screen-jumbo;
+    }
 
+    .user-account-menu-button {
+      height: @user-account-menu-button-height-screen-jumbo;
+
+      .user-account-menu-slider & {
+        padding-left: @button-padding-left-screen-jumbo;
       }
 
+      &:after {
+        right: @button-padding-right-screen-jumbo;
+      }
+
+      .icon {
+
+        &:first-child {
+          margin-right: @base-spacing-unit-screen-jumbo * 1/4;
+        }
+      }
+    }
+
+    .user-account-menu-list {
+
+      .button {
+        font-size: @user-acount-menu-list-item-font-size-screen-jumbo;
+        line-height: @user-acount-menu-list-item-line-height-screen-jumbo;
+        padding: @user-account-menu-list-item-padding-screen-jumbo;
+      }
     }
 
   }
