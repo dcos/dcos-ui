@@ -41,6 +41,7 @@ class TaskTable extends React.Component {
 
   getStatusValue(task) {
     let taskHealth = this.getTaskHealth(task);
+    // task status should only reflect health if taskHealth is defined
     if (taskHealth === true) {
       return 'Healthy';
     }
