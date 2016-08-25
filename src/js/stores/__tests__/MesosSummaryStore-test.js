@@ -1,13 +1,10 @@
 jest.dontMock('../MesosSummaryStore');
-jest.dontMock('./fixtures/MockAppMetadata');
-jest.dontMock('./fixtures/MockParsedAppMetadata');
 jest.dontMock('../../utils/MesosSummaryUtil');
-jest.dontMock('../../utils/StringUtil');
 jest.dontMock('../../utils/StringUtil');
 jest.dontMock('../../utils/Util');
 
 const MesosSummaryStore = require('../MesosSummaryStore');
-const Framework = require('../../structs/Framework');
+const Framework = require('../../../../plugins/services/src/js/structs/Framework');
 
 MesosSummaryStore.init();
 

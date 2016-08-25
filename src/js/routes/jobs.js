@@ -6,11 +6,11 @@ import React from 'react';
 import JobDetailPage from '../pages/jobs/JobDetailPage';
 import JobsPage from '../pages/JobsPage';
 import JobsTab from '../pages/jobs/JobsTab';
-import TaskDetail from '../pages/task-details/TaskDetail';
-import TaskDetailBreadcrumb from '../pages/nodes/breadcrumbs/TaskDetailBreadcrumb';
-import TaskDetailsTab from '../pages/task-details/TaskDetailsTab';
-import TaskFilesTab from '../pages/task-details/TaskFilesTab';
-import TaskLogsTab from '../pages/task-details/TaskLogsTab';
+import TaskDetail from '../../../plugins/services/src/js/pages/task-details/TaskDetail';
+import TaskDetailBreadcrumb from '../../../plugins/services/src/js/pages/nodes/breadcrumbs/TaskDetailBreadcrumb';
+import TaskDetailsTab from '../../../plugins/services/src/js/pages/task-details/TaskDetailsTab';
+import TaskFilesTab from '../../../plugins/services/src/js/pages/task-details/TaskFilesTab';
+import TaskLogsTab from '../../../plugins/services/src/js/pages/task-details/TaskLogsTab';
 
 function buildJobCrumbs(router) {
   let {id} = router.getCurrentParams();

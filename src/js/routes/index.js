@@ -12,6 +12,7 @@ import Organization from './factories/organization';
 import services from './services';
 import settings from './settings';
 import styles from './styles';
+import services from '../../../plugins/services/src/js/routes/services';
 import jobs from './jobs';
 import universe from './universe';
 
