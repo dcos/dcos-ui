@@ -262,7 +262,7 @@ tv4.addLanguage('en-us', {
   // String errors
   STRING_LENGTH_SHORT: 'Too short! Must be at least {minimum} characters long',
   STRING_LENGTH_LONG: 'Too long! Must be less than {maximum} characters long',
-  STRING_PATTERN: '',
+  STRING_PATTERN: 'Not in the expected format. Consult the documentation.',
 
   // Object errors
   OBJECT_PROPERTIES_MINIMUM: 'Too few properties defined ({propertyCount}), minimum {minimum}',
