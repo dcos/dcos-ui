@@ -1,135 +1,140 @@
-.form-control.form-control-group {
+& when (@typeahead-enabled) {
 
-  .typeahead {
+  .form-control.form-control-group {
 
-     .form-control {
+    .typeahead {
 
-       &.bootstrap-typeahead-input-hint {
-        // Overriding `!important`s in Canvas' .form-control-group
-        margin-bottom: 0 !important;
-        margin-top: 0 !important;
-      }
-    }
+       .form-control {
 
-    .dropdown-menu {
-      margin-left: -(@icon-mini-width + @form-control-default-border-width + 2 * floor(@form-control-padding-horizontal));
-      position: absolute;
-      width: calc(~"100% +" @icon-mini-width + @form-control-default-border-width + 3 * floor(@form-control-padding-horizontal));
-
-      .dropdown-menu-list {
-
-        // These extends are all copying dropdown styles from reactjs-components
-        li {
-          &:extend(.clickable);
-          &:extend(.dropdown-menu-list li.is-selectable all);
-
-          &.active {
-            &:extend(.dropdown-menu-list li.is-selectable:hover);
-          }
-
-          .highlight {
-            font-size: inherit;
-            line-height: inherit;
-          }
-        }
-      }
-    }
-
-    &.inverse {
-
-      .bootstrap-typeahead-input {
-
-        .bootstrap-typeahead-input-hint {
-          color: color-lighten(@gray, 30);
+         &.bootstrap-typeahead-input-hint {
+          // Overriding `!important`s in Canvas' .form-control-group
+          margin-bottom: 0 !important;
+          margin-top: 0 !important;
         }
       }
 
-      // These extends are all copying dropdown styles from reactjs-components
       .dropdown-menu {
-        &:extend(.dropdown-menu.inverse);
+        margin-left: calc(-1 * (@icon-mini-width + @form-control-border-width) ~" - " (-2 * @form-control-padding-left));
+        position: absolute;
+        width: calc(~"100% +" @icon-mini-width + @form-control-border-width ~" + " (3 * @form-control-padding-left));
 
         .dropdown-menu-list {
-          &:extend(.dropdown-menu-list.inverse);
 
+          // These extends are all copying dropdown styles from reactjs-components
           li {
-            &:extend(.dropdown.open .dropdown-menu.inverse li.is-selectable all);
+            &:extend(.clickable);
+            &:extend(.dropdown-menu-list li.is-selectable all);
 
             &.active {
-              &:extend(.dropdown.open .dropdown-menu.inverse li.is-selectable:hover);
+              &:extend(.dropdown-menu-list li.is-selectable:hover);
+            }
+
+            .highlight {
+              font-size: inherit;
+              line-height: inherit;
+            }
+          }
+        }
+      }
+
+      &.inverse {
+
+        .bootstrap-typeahead-input {
+
+          .bootstrap-typeahead-input-hint {
+            color: color-lighten(@gray, 30);
+          }
+        }
+
+        // These extends are all copying dropdown styles from reactjs-components
+        .dropdown-menu {
+          &:extend(.dropdown-menu.inverse);
+
+          .dropdown-menu-list {
+            &:extend(.dropdown-menu-list.inverse);
+
+            li {
+              &:extend(.dropdown.open .dropdown-menu.inverse li.is-selectable all);
+
+              &.active {
+                &:extend(.dropdown.open .dropdown-menu.inverse li.is-selectable:hover);
+              }
             }
           }
         }
       }
     }
-  }
 
-  &.form-control-inverse {
+    &.form-control-inverse {
 
-    .typeahead {
+      .typeahead {
 
-      .bootstrap-typeahead-input-main {
+        .bootstrap-typeahead-input-main {
 
-        &:extend(.form-control-inverse all);
-        &:extend(.filter-input-text all);
+          &:extend(.form-control-inverse all);
+          &:extend(.filter-input-text all);
+        }
       }
     }
   }
+
 }
 
-@media (min-width: @screen-mini) {
+& when (@typeahead-enabled) and (@layout-screen-small-enabled) {
 
-  .form-control-group.filter-input-text-group {
+  @media (min-width: @layout-screen-small-min-width) {
 
-    .typeahead {
+    .form-control-group.filter-input-text-group {
 
-      .dropdown-menu {
-        margin-left: -(@icon-mini-width + @form-control-default-border-width + 2 * floor(@form-control-padding-horizontal * @form-control-padding-horizontal-scale-screen-mini));
-        // We are matching the width of .filter-input-text-group
-        // as defined in reactjs-components
-        min-width: 100px;
+      .typeahead {
+
+        .dropdown-menu {
+          // We are matching the width of .filter-input-text-group
+          // as defined in reactjs-components
+          min-width: 100px;
+        }
       }
     }
   }
+
 }
 
-@media (min-width: @screen-small) {
 
-  .form-control-group.filter-input-text-group {
+@form-control-padding-left-screen-medium
 
-    .typeahead {
+& when (@typeahead-enabled) and (@layout-screen-medium-enabled) {
 
-      .dropdown-menu {
-        margin-left: -(@icon-mini-width + @form-control-default-border-width + 2 * floor(@form-control-padding-horizontal * @form-control-padding-horizontal-scale-screen-small));
-        // We are matching the width of .filter-input-text-group
-        // as defined in reactjs-components
-        min-width: 200px;
+  @media (min-width: @layout-screen-medium-min-width) {
+
+    .form-control-group.filter-input-text-group {
+
+      .typeahead {
+
+        .dropdown-menu {
+          margin-left: calc(-1 * (@icon-mini-width + @form-control-border-width) ~" - " (-2 * @form-control-padding-left-screen-medium));
+          // We are matching the width of .filter-input-text-group
+          // as defined in reactjs-components
+          min-width: 200px;
+        }
       }
     }
   }
+
 }
 
-@media (min-width: @screen-medium) {
+& when (@typeahead-enabled) and (@layout-screen-large-enabled) {
 
-  .form-control-group.filter-input-text-group {
+  @media (min-width: @layout-screen-large-min-width) {
 
-    .typeahead {
+    .form-control-group.filter-input-text-group {
 
-      .dropdown-menu {
-        margin-left: -(@icon-mini-width + @form-control-default-border-width + 2 * floor(@form-control-padding-horizontal * @form-control-padding-horizontal-scale-screen-medium));
+      .typeahead {
+
+        .dropdown-menu {
+          margin-left: calc(-1 * (@icon-mini-width + @form-control-border-width) ~" - " (-2 * @form-control-padding-left-screen-large));
+        }
       }
     }
   }
-}
 
-@media (min-width: @screen-large) {
-
-  .form-control-group.filter-input-text-group {
-
-    .typeahead {
-
-      .dropdown-menu {
-        margin-left: -(@icon-mini-width + @form-control-default-border-width + 2 * floor(@form-control-padding-horizontal * @form-control-padding-horizontal-scale-screen-large));
-      }
-    }
-  }
 }
