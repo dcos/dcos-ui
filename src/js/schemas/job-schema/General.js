@@ -1,8 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
 /* eslint-enable no-unused-vars */
-
-import MesosConstants from '../../constants/MesosConstants';
+import MesosConstants from '../../../../plugins/services/src/js/constants/MesosConstants';
 
 const General = {
   title: 'General',

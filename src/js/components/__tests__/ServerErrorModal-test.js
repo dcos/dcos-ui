@@ -4,7 +4,6 @@ jest.dontMock('../../mixins/GetSetMixin');
 const PluginTestUtils = require('PluginTestUtils');
 
 PluginTestUtils.dontMock([
-  'MarathonStore',
   'MesosStateStore',
   'MesosSummaryStore'
 ]);

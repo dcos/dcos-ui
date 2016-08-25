@@ -7,7 +7,7 @@ import Network from './factories/network';
 import nodes from './nodes';
 import NotFoundPage from '../pages/NotFoundPage';
 import System from './factories/system';
-import services from './services';
+import services from '../../../plugins/services/src/js/routes/services';
 import jobs from './jobs';
 import universe from './universe';
 

@@ -20,7 +20,7 @@ import PageHeader from '../../components/PageHeader';
 import StringUtil from '../../utils/StringUtil';
 import ResourceChart from '../../components/charts/ResourceChart';
 import TabsMixin from '../../mixins/TabsMixin';
-import TaskView from '../../components/TaskView';
+import TaskView from '../../../../plugins/services/src/js/components/TaskView';
 
 class NodeDetailPage extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
   constructor() {

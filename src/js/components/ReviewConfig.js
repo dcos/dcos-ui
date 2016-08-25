@@ -1,7 +1,7 @@
 import GeminiScrollbar from 'react-gemini-scrollbar';
 import React from 'react';
 
-import defaultServiceImage from '../../img/services/icon-service-default-small@2x.png';
+import defaultServiceImage from '../../../plugins/services/src/img/services/icon-service-default-small@2x.png';
 import DescriptionList from './DescriptionList';
 import GeminiUtil from '../utils/GeminiUtil';
 import Icon from './Icon';

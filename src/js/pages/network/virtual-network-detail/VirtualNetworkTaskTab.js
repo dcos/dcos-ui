@@ -14,7 +14,7 @@ import Icon from '../../../components/Icon';
 import MesosStateStore from '../../../stores/MesosStateStore';
 import Overlay from '../../../structs/Overlay';
 import RequestErrorMsg from '../../../components/RequestErrorMsg';
-import TaskUtil from '../../../utils/TaskUtil';
+import TaskUtil from '../../../../../plugins/services/src/js/utils/TaskUtil';
 import VirtualNetworkUtil from '../../../utils/VirtualNetworkUtil';
 import Util from '../../../utils/Util';
 

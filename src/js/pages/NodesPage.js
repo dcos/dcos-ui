@@ -9,7 +9,7 @@ import Config from '../config/Config';
 import EventTypes from '../constants/EventTypes';
 import FilterButtons from '../components/FilterButtons';
 import FilterBar from '../components/FilterBar';
-import FilterByService from '../components/FilterByService';
+import FilterByService from '../../../plugins/services/src/js/components/FilterByService';
 import FilterInputText from '../components/FilterInputText';
 import FilterHeadline from '../components/FilterHeadline';
 import Icon from '../components/Icon';

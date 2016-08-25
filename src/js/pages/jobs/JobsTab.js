@@ -1,3 +1,4 @@
+import {DCOSStore} from 'foundation-ui';
 import mixin from 'reactjs-mixin';
 import React from 'react';
 import {RouteHandler} from 'react-router';
@@ -5,7 +6,6 @@ import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import AlertPanel from '../../components/AlertPanel';
 import Breadcrumbs from '../../components/Breadcrumbs';
-import DCOSStore from '../../stores/DCOSStore';
 import FilterBar from '../../components/FilterBar';
 import FilterHeadline from '../../components/FilterHeadline';
 import Icon from '../../components/Icon';

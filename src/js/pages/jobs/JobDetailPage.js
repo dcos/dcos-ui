@@ -19,7 +19,7 @@ import PageHeader from '../../components/PageHeader';
 import RequestErrorMsg from '../../components/RequestErrorMsg';
 import StringUtil from '../../utils/StringUtil';
 import TabsMixin from '../../mixins/TabsMixin';
-import TaskStates from '../../constants/TaskStates';
+import TaskStates from '../../../../plugins/services/src/js/constants/TaskStates';
 
 const METHODS_TO_BIND = [
   'closeDialog',

@@ -1,13 +1,13 @@
 import classNames from 'classnames';
 import {Link} from 'react-router';
 import React from 'react';
+import {ResourceTableUtil} from 'foundation-ui';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 import {Table, Tooltip} from 'reactjs-components';
 
 import HostTableHeaderLabels from '../constants/HostTableHeaderLabels';
 import Icon from '../components/Icon';
 import InternalStorageMixin from '../mixins/InternalStorageMixin';
-import ResourceTableUtil from '../utils/ResourceTableUtil';
 import ProgressBar from './charts/ProgressBar';
 import StringUtil from '../utils/StringUtil';
 import TableUtil from '../utils/TableUtil';
