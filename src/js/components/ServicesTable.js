@@ -7,6 +7,7 @@ import {StoreMixin} from 'mesosphere-shared-reactjs';
 import EventTypes from '../constants/EventTypes';
 import HealthBar from './HealthBar';
 import Icon from './Icon';
+import Links from '../constants/Links';
 import MarathonStore from '../stores/MarathonStore';
 import NestedServiceLinks from '../components/NestedServiceLinks';
 import ResourceTableUtil from '../utils/ResourceTableUtil';
@@ -415,7 +416,15 @@ var ServicesTable = React.createClass({
         className,
         headerClassName: className,
         prop: 'status',
-        helpText: 'At-a-glance overview of the global application or group state',
+        helpText: (
+            <span>
+              {'At-a-glance overview of the global application or group state '}
+              <a
+                href={Links.statusHelpLink} target="_blank">
+                Read Me
+              </a>
+            </span>
+        ),
         render: this.renderStatus,
         sortable: true,
         sortFunction: ServiceTableUtil.propCompareFunctionFactory,

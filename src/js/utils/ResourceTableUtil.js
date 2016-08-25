@@ -113,6 +113,7 @@ var ResourceTableUtil = {
           <Tooltip
             content={this.helpText}
             wrapText={true}
+            interactive={true}
             wrapperClassName="tooltip-wrapper text-align-center table-header-help-icon">
             <Icon id="ring-question" size="mini" family="mini" color="grey" />
           </Tooltip>
