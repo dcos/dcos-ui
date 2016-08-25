@@ -51,52 +51,48 @@ class CosmosErrorMessage extends React.Component {
       return null;
     }
 
-    // Check if this is a plain string
+    // Return early if we have some well-known or an unknown type
     if (typeof error === 'string') {
       return [error];
+    } else if (typeof error !== 'object') {
+      return null;
+    }
 
-    // Check if we should additionally append
-    // the error details as an unordered list
-    } else if (error.data && error.data.errors) {
+    // Return early if important fields are missing, or they are not
+    // in the expected format
+    if (!error.data || !error.data.errors) {
+      return null;
+    }
+    if (!Array.isArray(error.data.errors)) {
+      return [String(error.data.errors)];
+    }
 
-      // Check for invalid errors format
-      if (!Array.isArray(error.data.errors)) {
-        return [String(error.data.errors)];
+    // Get an array of array of errors for every individual path
+    let errorsDetails = error.data.errors.map(function (errorDetail) {
+
+      // Return early on unexpected error object format
+      if (!errorDetail) {
+        return [];
+      }
+      if (typeof errorDetail !== 'object') {
+        return [String(errorDetail)];
       }
 
-      // Get an array of array of errors for every individual path
-      let errorsDetails = error.data.errors.map(function (errorDetail) {
-
-        // Bail early on unexpected error object format
-        if (!errorDetail) {
-          return [];
-        }
-        if (typeof errorDetail !== 'object') {
-          return [String(errorDetail)];
-        }
-
-        // Extract details
-        let {path = '/', errors = []} = errorDetail;
-        if (!errors || !Array.isArray(errors)) {
-          return [];
-        }
-        return errors.map(function (error) {
-          return (ErrorPaths[path] || path)+'.'+error;
-        });
-
+      // Extract details
+      let {path = '/', errors = []} = errorDetail;
+      if (!errors || !Array.isArray(errors)) {
+        return [];
+      }
+      return errors.map(function (error) {
+        return (ErrorPaths[path] || path)+'.'+error;
       });
 
-      // Flatten elements in array and return
-      return errorsDetails.reduce(function (a, b) {
-        return a.concat(b);
-      });
+    });
 
-    } else {
-
-      // No errors
-      return null;
-
-    }
+    // Flatten elements in array and return
+    return errorsDetails.reduce(function (a, b) {
+      return a.concat(b);
+    });
 
   }
 
