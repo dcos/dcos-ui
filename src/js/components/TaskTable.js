@@ -15,6 +15,7 @@ import TableUtil from '../utils/TableUtil';
 import Units from '../utils/Units';
 
 const METHODS_TO_BIND = [
+  'getStatusValue',
   'renderHeadline',
   'renderHost',
   'renderLog',
@@ -39,7 +40,60 @@ class TaskTable extends React.Component {
   }
 
   getStatusValue(task) {
+    let taskHealth = this.getTaskHealth(task);
+    // task status should only reflect health if taskHealth is defined
+    if (taskHealth === true) {
+      return 'Healthy';
+    }
+    if (taskHealth === false) {
+      return 'Unhealthy';
+    }
+
     return TaskStates[task.state].displayName;
+  }
+
+  getTaskHealth(task) {
+    let mesosTaskHealth = this.getTaskHealthFromMesos(task);
+    if (mesosTaskHealth !== null) {
+      return mesosTaskHealth;
+    }
+
+    return this.getTaskHealthFromMarathon(task);
+  }
+
+  getTaskHealthFromMarathon(task) {
+    const marathonTask = DCOSStore.serviceTree.getTaskFromTaskID(task.id);
+    if (marathonTask != null) {
+      const {healthCheckResults} = marathonTask;
+      if (healthCheckResults != null && healthCheckResults.length > 0) {
+        return healthCheckResults.every(function (result) {
+          return result.alive;
+        });
+      }
+    }
+
+    return null;
+  }
+
+  getTaskHealthFromMesos(task) {
+    if (task.statuses == null) {
+      return null;
+    }
+    const healths = task.statuses.map(function (status) {
+      return status.healthy;
+    });
+    const healthDataExists = healths.length > 0 && healths.every(
+      function (health) {
+        return typeof health !== 'undefined';
+      }
+    );
+    if (healthDataExists) {
+      return healths.some(function (health) {
+        return health;
+      });
+    }
+
+    return null;
   }
 
   getVersionValue(task) {
@@ -165,7 +219,7 @@ class TaskTable extends React.Component {
         <col style={{width: '40px'}} />
         <col />
         <col style={{width: '15%'}} className="hidden-mini" />
-        <col style={{width: '105px'}} />
+        <col style={{width: '115px'}} />
         <col style={{width: '40px'}} className="hidden-medium hidden-small hidden-mini" />
         <col style={{width: '85px'}} className="hidden-mini" />
         <col style={{width: '85px'}} className="hidden-mini" />
@@ -250,29 +304,21 @@ class TaskTable extends React.Component {
     let {state} = task;
 
     let dangerState = TaskStates[state].stateTypes.includes('failure');
-
-    let healthy = task.statuses.some(function (status) {
-      return status.healthy;
-    });
-
-    let unknown = task.statuses.length === 0 || task.statuses.some(function (status) {
-      return status.healthy == null;
-    });
-
     let activeState = TaskStates[state].stateTypes.includes('active');
 
-    let running = ['TASK_RUNNING', 'TASK_STARTING'].includes(state) && unknown;
-    let success = healthy && state === 'TASK_RUNNING';
-    let danger = (dangerState && !activeState &&
-      ['TASK_ERROR', 'TASK_FAILED'].includes(state)) ||
-      (healthy === false && task.statuses.length !== 0);
+    let healthy = this.getTaskHealth(task);
+    let unhealthy = (healthy === false);
+    let unknown = (healthy === null);
+
+    let failing = ['TASK_ERROR', 'TASK_FAILED'].includes(state);
+    let running = ['TASK_RUNNING', 'TASK_STARTING'].includes(state);
 
     let statusClass = classNames({
       'dot': true,
       'inactive': !activeState,
-      'success': success,
-      'running': running,
-      'danger': danger
+      'success': healthy && running,
+      'running': unknown && running,
+      'danger': dangerState || unhealthy || failing
     });
 
     return (
