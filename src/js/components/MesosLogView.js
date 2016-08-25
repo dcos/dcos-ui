@@ -201,7 +201,7 @@ class MesosLogView extends mixin(StoreMixin) {
   checkIfCloseToTop(container) {
     let distanceFromTop = DOMUtils.getDistanceFromTop(container);
     let logBuffer = MesosLogStore.get(this.props.filePath);
-    if (distanceFromTop < 2000 && !logBuffer.hasLoadedTop()) {
+    if (distanceFromTop < 2000 && !(logBuffer && logBuffer.hasLoadedTop())) {
       let {props} = this;
       MesosLogStore.getPreviousLogs(props.task.slave_id, props.filePath);
     }
@@ -333,7 +333,7 @@ class MesosLogView extends mixin(StoreMixin) {
 
   getLogPrepend() {
     let logBuffer = MesosLogStore.get(this.props.filePath);
-    if (logBuffer.hasLoadedTop()) {
+    if (!logBuffer || logBuffer.hasLoadedTop()) {
       return (
         <div className="text-align-center vertical-center inverse">
           (AT BEGINNING OF FILE)

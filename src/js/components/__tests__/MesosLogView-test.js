@@ -1,5 +1,7 @@
 jest.dontMock('../Highlight');
 jest.dontMock('../MesosLogView');
+jest.dontMock('../../structs/Item');
+jest.dontMock('../../structs/LogBuffer');
 
 const JestUtil = require('../../utils/JestUtil');
 
@@ -10,6 +12,8 @@ const React = require('react');
 const ReactDOM = require('react-dom');
 const TestUtils = require('react-addons-test-utils');
 
+const Item = require('../../structs/Item');
+const LogBuffer = require('../../structs/LogBuffer');
 const MesosLogStore = require('../../stores/MesosLogStore');
 const MesosLogView = require('../MesosLogView');
 const DOMUtil = require('../../utils/DOMUtils');
@@ -37,11 +41,10 @@ describe('MesosLogView', function () {
 
     this.instance.setState = jasmine.createSpy('setState');
 
-    MesosLogStore.get = jasmine.createSpy('MesosLogStore#get').and.returnValue({
-      getFullLog() {
-        return 'foo';
-      }
-    });
+    var logBuffer = new LogBuffer();
+    logBuffer.add(new Item({data: 'foo', offset: 100}));
+    MesosLogStore.get = jasmine.createSpy('MesosLogStore#get')
+      .and.returnValue(logBuffer);
   });
 
   afterEach(function () {
