@@ -270,7 +270,6 @@ class ServiceFormModal extends mixin(StoreMixin) {
     let containerSettings = service.getContainerSettings();
 
     let portDefinitions = service.getPortDefinitions();
-    let name = new RegExp(`${service.getId()}`, 'g');
 
     if (portDefinitions) {
       if (!portDefinitions.some(function (port) {
@@ -278,7 +277,7 @@ class ServiceFormModal extends mixin(StoreMixin) {
           return true;
         }
         return Object.keys(port.labels).some(function (key) {
-          return name.test(port.labels[key]);
+          return port.labels[key] === `${service.getId()}:${port.port}`;
         });
       })) {
         return true;
@@ -291,7 +290,8 @@ class ServiceFormModal extends mixin(StoreMixin) {
           return true;
         }
         return Object.keys(port.labels).some(function (key) {
-          return name.test(port.labels[key]);
+          return port.labels[key] === `${service.getId()}:` +
+            `${port.containerPort}`;
         });
       })) {
         return true;
