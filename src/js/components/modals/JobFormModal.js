@@ -141,7 +141,7 @@ class JobFormModal extends mixin(StoreMixin) {
     });
   }
 
-  createJobFromEditorContents() {
+  createJobFromEditorContents(keepValidationErrors = false) {
     let {jobJsonString, jsonMode} = this.state;
 
     if (jsonMode) {
@@ -198,7 +198,9 @@ class JobFormModal extends mixin(StoreMixin) {
             details: errorDetails
           }
         });
-        return null;
+        if (!keepValidationErrors) {
+          return null;
+        }
       }
 
       return job;
@@ -221,7 +223,9 @@ class JobFormModal extends mixin(StoreMixin) {
             details: null
           }
         });
-        return null;
+        if (!keepValidationErrors) {
+          return null;
+        }
       }
 
       return JobUtil.createJobFromFormModel(model);
@@ -235,7 +239,7 @@ class JobFormModal extends mixin(StoreMixin) {
   }
 
   handleInputModeToggle() {
-    let job = this.createJobFromEditorContents();
+    let job = this.createJobFromEditorContents(true);
     if (!job) { job = this.props.job; };
 
     if (this.state.jsonMode) {
