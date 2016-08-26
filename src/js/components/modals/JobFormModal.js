@@ -10,11 +10,13 @@ import 'brace/ext/language_tools';
 
 import {cleanJobJSON} from '../../utils/CleanJSONUtil';
 import CollapsibleErrorMessage from '../CollapsibleErrorMessage';
-import MetronomeStore from '../../stores/MetronomeStore';
+import FormUtil from '../../utils/FormUtil';
 import Job from '../../structs/Job';
 import JobForm from '../JobForm';
 import JobUtil from '../../utils/JobUtil';
 import JobSchema from '../../schemas/JobSchema';
+import MetronomeStore from '../../stores/MetronomeStore';
+import SchemaUtil from '../../utils/SchemaUtil';
 import ToggleButton from '../ToggleButton';
 
 const METHODS_TO_BIND = [
@@ -64,8 +66,9 @@ class JobFormModal extends mixin(StoreMixin) {
       defaultTab: '',
       errorMessage: null,
       job: new Job(),
-      jsonMode: false,
-      jsonDefinition: ''
+      jobFormModel: null,
+      jobJsonString: null,
+      jsonMode: false
     };
 
     this.store_listeners = [
@@ -128,113 +131,165 @@ class JobFormModal extends mixin(StoreMixin) {
   }
 
   resetState() {
+    let {job} = this.props;
     this.setState({
       defaultTab: '',
       errorMessage: null,
-      job: this.props.job,
-      jsonMode: false,
-      jsonDefinition: ''
+      jobFormModel: JobUtil.createFormModelFromSchema(JobSchema, job),
+      jobJsonString: JSON.stringify(cleanJobJSON(JobUtil.createJobSpecFromJob(job)), null, 2),
+      jsonMode: false
     });
   }
 
-  handleCancel() {
-    this.props.onClose();
-  }
-
-  handleFormChange({model}) {
-    if (!model) {
-      return;
-    }
-    let {job} = this.state;
-
-    this.setState({
-      errorMessage: null
-    });
-  }
-
-  handleInputModeToggle() {
-    this.setState({jsonMode: !this.state.jsonMode});
-  }
-
-  handleJSONEditorChange(jsonDefinition) {
-
-    // Keep the new JSON string in the JSON definition
-    // Validation will occur upon submission of the form
-    this.setState({
-      errorMessage: null,
-      jsonDefinition
-    });
-
-  }
-
-  handleSubmit() {
-    let {isEdit} = this.props;
-    let {jsonMode} = this.state;
+  createJobFromEditorContents() {
+    let {jobJsonString, jsonMode} = this.state;
 
     if (jsonMode) {
+
+      // Try to parse JSON string and detect errors
+      var jobDefinition = null;
       try {
-
-        // Parse JSON and create job object
-        let job = new Job(JSON.parse(this.state.jsonDefinition));
-        this.setState({
-          job
-        });
-
-        // Get job specifications in a correct state
-        let jobSpec = JobUtil.createJobSpecFromJob(job);
-
-        if (!isEdit) {
-          MetronomeStore.createJob(jobSpec);
-        } else {
-          MetronomeStore.updateJob(job.getId(), jobSpec);
-        }
-
-      } catch (error) {
-        // TODO: DCOS-7734 Handle error
-
-        // For now, display the parsing errors.
+        jobDefinition = JSON.parse(jobJsonString);
+      } catch (e) {
         this.setState({
           errorMessage: {
-            message: 'Please validate your JSON syntax',
-            'details': [
-              { path: '/', errors: [error] }
+            message: 'Invalid JSON syntax',
+            details: [
+              { path: '/', errors: [e.toString()] }
             ]
           }
         });
-
+        return null;
       }
+
+      // Really hackish way to validate the json string schema, trying to re-use
+      // as much code as possilbe without getting nasty.
+      let dummyItemRenderer = function () { return (<div></div>); };
+      let job = new Job(jobDefinition);
+      let formModel = JobUtil.createFormModelFromSchema(JobSchema, job);
+      let formMultiDef = SchemaUtil.schemaToMultipleDefinition({
+        schema: JobSchema,
+        renderSubheader: dummyItemRenderer,
+        renderLabel: dummyItemRenderer,
+        renderRemove: dummyItemRenderer,
+        renderAdd: dummyItemRenderer
+      });
+      let errorDetails = [];
+      FormUtil.forEachDefinition(formMultiDef, (definition) => {
+        definition.showError = false;
+
+        if (typeof definition.externalValidator !== 'function') {
+          return null;
+        }
+
+        let fieldValidated = definition.externalValidator(formModel, definition);
+        if (!fieldValidated) {
+          errorDetails.push({
+            path: '/', errors: [definition.showError]
+          });
+        }
+      });
+
+      // If we have errors, display them
+      if (errorDetails.length) {
+        this.setState({
+          errorMessage: {
+            message: 'There are errors in your JSON definition',
+            details: errorDetails
+          }
+        });
+        return null;
+      }
+
+      return job;
 
     } else {
 
-      let {isValidated, model} = this.triggerFormSubmit();
-      if (!isValidated) {
+      // Even though we have our model already in the state, we cannot
+      // perform validation on it's data. It's true that `onChange`
+      // returns validation information, but that's not the case when the
+      // user clicks the `submit` button without changing anything.
 
-        // If we are not validated display error
+      // Therefore we need to ask the SchemaForm to perform validation
+      // and return the model once again
+      let {model, isValidated} = this.triggerFormSubmit();
+
+      if (!isValidated) {
         this.setState({
           errorMessage: {
             message: 'Please fix all the errors first',
             details: null
           }
         });
-        return;
-
+        return null;
       }
 
-      let job = JobUtil.createJobFromFormModel(model);
-      let jobSpec = cleanJobJSON(
-        JobUtil.createJobSpecFromJob(job)
-      );
-      this.setState({
-        job
-      });
-
-      if (!isEdit) {
-        MetronomeStore.createJob(jobSpec);
-      } else {
-        MetronomeStore.updateJob(job.getId(), jobSpec);
-      }
+      return JobUtil.createJobFromFormModel(model);
 
     }
+
+  }
+
+  handleCancel() {
+    this.props.onClose();
+  }
+
+  handleInputModeToggle() {
+    let job = this.createJobFromEditorContents();
+    if (!job) { job = this.props.job; };
+
+    if (this.state.jsonMode) {
+      this.setState({
+        errorMessage: null,
+        jobFormModel: JobUtil.createFormModelFromSchema(JobSchema, job),
+        jsonMode: false
+      });
+
+    } else {
+      this.setState({
+        errorMessage: null,
+        jobJsonString: JSON.stringify(
+          cleanJobJSON(JobUtil.createJobSpecFromJob(job)),
+          null, 2
+        ),
+        jsonMode: true
+      });
+
+    }
+  }
+
+  handleFormChange({model}) {
+    if (!model) {
+      return;
+    }
+
+    this.setState({
+      errorMessage: null,
+      jobFormModel: model
+    });
+  }
+
+  handleJSONEditorChange(jsonDefinition) {
+    this.setState({
+      errorMessage: null,
+      jobJsonString: jsonDefinition
+    });
+  }
+
+  handleSubmit() {
+    let {isEdit} = this.props;
+    let job = this.createJobFromEditorContents();
+    if (!job) {
+      return;
+    }
+
+    let jobSpec = cleanJobJSON(JobUtil.createJobSpecFromJob(job));
+    if (!isEdit) {
+      MetronomeStore.createJob(jobSpec);
+    } else {
+      MetronomeStore.updateJob(job.getId(), jobSpec);
+    }
+
   }
 
   handleTabChange(tab) {
@@ -296,11 +351,9 @@ class JobFormModal extends mixin(StoreMixin) {
   }
 
   getModalContents() {
-    let {defaultTab, job, jsonMode} = this.state;
+    let {defaultTab, jobFormModel, jobJsonString, jsonMode} = this.state;
 
     if (jsonMode) {
-      let jobSpec = cleanJobJSON(JobUtil.createJobSpecFromJob(job));
-
       return (
         <Ace editorProps={{$blockScrolling: true}}
           mode="json"
@@ -309,12 +362,10 @@ class JobFormModal extends mixin(StoreMixin) {
           showPrintMargin={false}
           theme="monokai"
           height="462px"
-          value={JSON.stringify(jobSpec, null, 2)}
+          value={jobJsonString}
           width="100%" />
       );
     }
-
-    let formModel = JobUtil.createFormModelFromSchema(JobSchema, job);
 
     return (
       <JobForm
@@ -322,7 +373,7 @@ class JobFormModal extends mixin(StoreMixin) {
         onTabChange={this.handleTabChange}
         onChange={this.handleFormChange}
         getTriggerSubmit={this.handleTriggerSubmit}
-        model={formModel}
+        model={jobFormModel}
         isEdit={this.props.isEdit}
         schema={JobSchema} />
     );

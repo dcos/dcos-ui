@@ -222,8 +222,8 @@ class SchemaForm extends mixin(StoreMixin, InternalStorageMixin) {
     };
   }
 
-  getNewDefinition() {
-    let {model, schema} = this.props;
+  getNewDefinition(model = this.props.model) {
+    let {schema} = this.props;
     let definition = SchemaUtil.schemaToMultipleDefinition({
       schema,
       renderSubheader: this.getSubHeader,
