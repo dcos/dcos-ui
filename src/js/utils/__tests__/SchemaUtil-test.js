@@ -15,7 +15,7 @@ describe('SchemaUtil', function () {
                   type: 'string'
                 }
               },
-              title: "Application"
+              title: 'Application'
             }
           }
         };
