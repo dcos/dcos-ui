@@ -8,7 +8,7 @@ import 'brace/mode/json';
 import 'brace/theme/monokai';
 import 'brace/ext/language_tools';
 
-import {cleanJSONspec} from '../../utils/CleanJSONUtil';
+import {cleanJobJSON} from '../../utils/CleanJSONUtil';
 import CollapsibleErrorMessage from '../CollapsibleErrorMessage';
 import MetronomeStore from '../../stores/MetronomeStore';
 import Job from '../../structs/Job';
@@ -162,7 +162,7 @@ class JobFormModal extends mixin(StoreMixin) {
 
   handleSubmit() {
     let {isEdit, job} = this.props;
-    let jobSpec = cleanJSONspec(
+    let jobSpec = cleanJobJSON(
       JobUtil.createJobSpecFromJob(this.state.job)
     );
 
@@ -231,7 +231,7 @@ class JobFormModal extends mixin(StoreMixin) {
     let {defaultTab, job, jsonMode} = this.state;
 
     if (jsonMode) {
-      let jobSpec = cleanJSONspec(JobUtil.createJobSpecFromJob(job));
+      let jobSpec = cleanJobJSON(JobUtil.createJobSpecFromJob(job));
 
       return (
         <Ace editorProps={{$blockScrolling: true}}

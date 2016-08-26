@@ -1,11 +1,11 @@
 import JobConfig from '../constants/JobConfig';
 import ServiceConfig from '../constants/ServiceConfig';
 
-export function cleanJSONspec(jsonSpec) {
+export function cleanJobJSON(jsonSpec) {
   return cleanJSON(jsonSpec, JobConfig);
 }
 
-export function cleanJSONdefinition(jsonDefinition) {
+export function cleanServiceJSON(jsonDefinition) {
   return cleanJSON(jsonDefinition, ServiceConfig);
 }
 

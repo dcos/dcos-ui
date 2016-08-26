@@ -10,7 +10,7 @@ import 'brace/mode/json';
 import 'brace/theme/monokai';
 import 'brace/ext/language_tools';
 
-import {cleanJSONdefinition} from '../../utils/CleanJSONUtil';
+import {cleanServiceJSON} from '../../utils/CleanJSONUtil';
 import Config from '../../config/Config';
 import CollapsibleErrorMessage from '../CollapsibleErrorMessage';
 import Icon from '../Icon';
@@ -298,7 +298,7 @@ class ServiceFormModal extends mixin(StoreMixin) {
 
     if (this.state.jsonMode) {
       let jsonDefinition = this.state.service.get();
-      jsonDefinition = cleanJSONdefinition(jsonDefinition);
+      jsonDefinition = cleanServiceJSON(jsonDefinition);
       marathonAction(jsonDefinition, this.state.force);
       this.setState({
         errorMessage: null,
@@ -326,7 +326,7 @@ class ServiceFormModal extends mixin(StoreMixin) {
         service
       });
       marathonAction(
-        cleanJSONdefinition(ServiceUtil.getAppDefinitionFromService(service)),
+        cleanServiceJSON(ServiceUtil.getAppDefinitionFromService(service)),
         this.state.force
       );
     }
@@ -442,7 +442,7 @@ class ServiceFormModal extends mixin(StoreMixin) {
     let {defaultTab, jsonMode, service} = this.state;
 
     let jsonDefinition = JSON.stringify(
-      cleanJSONdefinition(service.get()),
+      cleanServiceJSON(service.get()),
       null,
       2
     );
