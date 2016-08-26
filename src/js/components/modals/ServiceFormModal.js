@@ -10,8 +10,9 @@ import 'brace/mode/json';
 import 'brace/theme/monokai';
 import 'brace/ext/language_tools';
 
-import ServiceConfig from '../../constants/ServiceConfig';
+import {cleanServiceJSON} from '../../utils/CleanJSONUtil';
 import Config from '../../config/Config';
+import CollapsibleErrorMessage from '../CollapsibleErrorMessage';
 import Icon from '../Icon';
 import MarathonStore from '../../stores/MarathonStore';
 import ServiceForm from '../ServiceForm';
@@ -20,7 +21,6 @@ import ServiceUtil from '../../utils/ServiceUtil';
 import ServiceSchema from '../../schemas/ServiceSchema';
 import ToggleButton from '../ToggleButton';
 import ErrorPaths from '../../constants/ErrorPaths';
-import CollapsibleErrorMessage from '../CollapsibleErrorMessage';
 
 const METHODS_TO_BIND = [
   'getTriggerSubmit',
@@ -102,16 +102,6 @@ const responseAttributePathToFieldIdMap = Object.assign({
   '/uris': 'uris',
   '/user': 'user'
 }, ErrorPaths);
-
-var cleanJSONdefinition = function (jsonDefinition) {
-  return Object.keys(jsonDefinition).filter(function (key) {
-    return !ServiceConfig.BLACKLIST.includes(key);
-  }).reduce(function (memo, key) {
-    memo[key] = jsonDefinition[key];
-
-    return memo;
-  }, {});
-};
 
 class ServiceFormModal extends mixin(StoreMixin) {
   constructor() {
@@ -244,7 +234,7 @@ class ServiceFormModal extends mixin(StoreMixin) {
         model,
         ServiceSchema,
         this.props.isEdit,
-        JSON.parse(this.state.service.toJSON())
+        this.state.service.get()
       );
       nextState.model = model;
       nextState.service = service;
@@ -349,8 +339,8 @@ class ServiceFormModal extends mixin(StoreMixin) {
     }
 
     if (this.state.jsonMode) {
-      let jsonDefinition = JSON.parse(this.state.service.toJSON());
-      jsonDefinition = cleanJSONdefinition(jsonDefinition);
+      let jsonDefinition = this.state.service.get();
+      jsonDefinition = cleanServiceJSON(jsonDefinition);
       marathonAction(jsonDefinition, this.state.force);
       this.setState({
         errorMessage: null,
@@ -369,7 +359,7 @@ class ServiceFormModal extends mixin(StoreMixin) {
         model,
         ServiceSchema,
         this.props.isEdit,
-        JSON.parse(this.state.service.toJSON())
+        this.state.service.get()
       );
       this.setState({
         errorMessage: null,
@@ -378,7 +368,7 @@ class ServiceFormModal extends mixin(StoreMixin) {
         service
       });
       marathonAction(
-        cleanJSONdefinition(ServiceUtil.getAppDefinitionFromService(service)),
+        cleanServiceJSON(ServiceUtil.getAppDefinitionFromService(service)),
         this.state.force
       );
     }
@@ -494,7 +484,7 @@ class ServiceFormModal extends mixin(StoreMixin) {
     let {defaultTab, jsonMode, service} = this.state;
 
     let jsonDefinition = JSON.stringify(
-      cleanJSONdefinition(service.get()),
+      cleanServiceJSON(service.get()),
       null,
       2
     );

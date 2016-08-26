@@ -254,6 +254,6 @@ module.exports = class Service extends Item {
   }
 
   toJSON() {
-    return JSON.stringify(this.get());
+    return this.get();
   }
 };

@@ -846,9 +846,14 @@ describe('Service', function () {
 
   describe('#toJSON', function () {
 
+    it('returns a object with the values in _itemData', function () {
+      let item = new Service({foo: 'bar', baz: 'qux'});
+      expect(item.toJSON()).toEqual({foo:'bar', baz:'qux'});
+    });
+
     it('returns a JSON string with the values in _itemData', function () {
       let item = new Service({foo: 'bar', baz: 'qux'});
-      expect(item.toJSON()).toEqual('{"foo":"bar","baz":"qux"}');
+      expect(JSON.stringify(item)).toEqual('{"foo":"bar","baz":"qux"}');
     });
 
   });

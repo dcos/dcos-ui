@@ -410,7 +410,7 @@ const ServiceUtil = {
 
   getAppDefinitionFromService(service) {
 
-    let appDefinition = JSON.parse(service.toJSON());
+    let appDefinition = JSON.parse(JSON.stringify(service));
 
     // General
     appDefinition.id = service.getId();

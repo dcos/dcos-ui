@@ -36,12 +36,11 @@ const getMatchingProperties = function (job, item) {
 };
 
 const JobUtil = {
-  createJobFromFormModel(formModel) {
+  createJobFromFormModel(formModel, spec = {}) {
     if (formModel == null) {
       return new Job();
     }
 
-    let spec = {};
     let {
       general = {
         id: null
@@ -62,13 +61,17 @@ const JobUtil = {
       }, {});
     }
 
-    spec.run = {
+    spec.run = Object.assign(spec.run || {}, {
       cmd: general.cmd,
       cpus: general.cpus,
       mem: general.mem,
-      disk: general.disk,
-      docker
-    };
+      disk: general.disk
+    });
+
+    if (docker && docker.image) {
+      Object.assign(spec.run, {docker});
+    }
+
     // Only transfer schedule if checkbox is set, and create job with reasonable
     // defaults
     if (!schedule || schedule.runOnSchedule) {
@@ -99,17 +102,17 @@ const JobUtil = {
   },
 
   createJobSpecFromJob(job) {
-    let spec = {};
+    let spec = JSON.parse(JSON.stringify(job));
 
     spec.id = job.getId() || null;
     spec.description = job.getDescription();
 
-    spec.run = {
+    spec.run = Object.assign(spec.run || {}, {
       cmd: job.getCommand(),
       cpus: job.getCpus(),
       mem: job.getMem(),
       disk: job.getDisk()
-    };
+    });
 
     let labels = job.getLabels();
     if (Object.keys(labels).length > 0) {
@@ -140,6 +143,8 @@ const JobUtil = {
         concurrencyPolicy,
         startingDeadlineSeconds
       }];
+    } else {
+      spec.schedules = [];
     }
 
     return spec;

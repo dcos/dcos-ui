@@ -8,13 +8,14 @@ import 'brace/mode/json';
 import 'brace/theme/monokai';
 import 'brace/ext/language_tools';
 
+import {cleanJobJSON} from '../../utils/CleanJSONUtil';
+import CollapsibleErrorMessage from '../CollapsibleErrorMessage';
 import MetronomeStore from '../../stores/MetronomeStore';
 import Job from '../../structs/Job';
 import JobForm from '../JobForm';
 import JobUtil from '../../utils/JobUtil';
 import JobSchema from '../../schemas/JobSchema';
 import ToggleButton from '../ToggleButton';
-import CollapsibleErrorMessage from '../CollapsibleErrorMessage';
 
 const METHODS_TO_BIND = [
   'handleCancel',
@@ -138,10 +139,11 @@ class JobFormModal extends mixin(StoreMixin) {
     if (!model) {
       return;
     }
+    let {job} = this.state;
 
     this.setState({
       errorMessage: null,
-      job: JobUtil.createJobFromFormModel(model)
+      job: JobUtil.createJobFromFormModel(model, job.get())
     });
   }
 
@@ -160,7 +162,9 @@ class JobFormModal extends mixin(StoreMixin) {
 
   handleSubmit() {
     let {isEdit, job} = this.props;
-    let jobSpec = JobUtil.createJobSpecFromJob(this.state.job);
+    let jobSpec = cleanJobJSON(
+      JobUtil.createJobSpecFromJob(this.state.job)
+    );
 
     if (!isEdit) {
       MetronomeStore.createJob(jobSpec);
@@ -227,7 +231,7 @@ class JobFormModal extends mixin(StoreMixin) {
     let {defaultTab, job, jsonMode} = this.state;
 
     if (jsonMode) {
-      let jobSpec = JobUtil.createJobSpecFromJob(job);
+      let jobSpec = cleanJobJSON(JobUtil.createJobSpecFromJob(job));
 
       return (
         <Ace editorProps={{$blockScrolling: true}}
