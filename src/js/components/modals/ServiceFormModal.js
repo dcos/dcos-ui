@@ -272,28 +272,30 @@ class ServiceFormModal extends mixin(StoreMixin) {
     let portDefinitions = service.getPortDefinitions();
 
     if (portDefinitions) {
-      if (!portDefinitions.some(function (port) {
+      let invalidVIP = !portDefinitions.some(function (port) {
         if (port.labels == null || Object.keys(port.labels).length === 0) {
           return true;
         }
         return Object.keys(port.labels).some(function (key) {
           return port.labels[key] === `${service.getId()}:${port.port}`;
         });
-      })) {
+      });
+      if (invalidVIP) {
         return true;
       }
     }
 
     if (containerSettings && containerSettings.docker && containerSettings.docker.portMappings) {
-      if (!containerSettings.docker.portMappings.some(function (port) {
+      let invalidVIPPortMappings = !containerSettings.docker.portMappings.some(function (port) {
         if (port.labels == null || Object.keys(port.labels).length === 0) {
           return true;
         }
         return Object.keys(port.labels).some(function (key) {
           return port.labels[key] === `${service.getId()}:` +
-            `${port.containerPort}`;
+              `${port.containerPort}`;
         });
-      })) {
+      });
+      if (invalidVIPPortMappings) {
         return true;
       }
     }
