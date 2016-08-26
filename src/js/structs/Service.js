@@ -1,7 +1,7 @@
 import Config from '../config/Config';
+import FrameworkUtil from '../utils/FrameworkUtil';
 import HealthStatus from '../constants/HealthStatus';
 import Item from './Item';
-import ServiceImages from '../constants/ServiceImages';
 import ServiceStatus from '../constants/ServiceStatus';
 import TaskStats from './TaskStats';
 import VolumeList from './VolumeList';
@@ -78,7 +78,7 @@ module.exports = class Service extends Item {
   }
 
   getImages() {
-    return this.get('images') || ServiceImages.NA_IMAGES;
+    return FrameworkUtil.getServiceImages(this.getMetadata().images);
   }
 
   getInstancesCount() {
@@ -107,6 +107,10 @@ module.exports = class Service extends Item {
 
   getMem() {
     return this.get('mem');
+  }
+
+  getMetadata() {
+    return FrameworkUtil.getMetadataFromLabels(this.getLabels());
   }
 
   getName() {

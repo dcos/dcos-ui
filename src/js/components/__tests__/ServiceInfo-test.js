@@ -23,8 +23,8 @@ describe('ServiceInfo', function () {
     tasksRunning: 2,
     tasksHealthy: 2,
     tasksUnhealthy: 0,
-    images: {
-      'icon-large': 'foo.png'
+    labels: {
+      'DCOS_PACKAGE_METADATA': 'eyJpbWFnZXMiOiB7ICJpY29uLXNtYWxsIjogImZvby1zbWFsbC5wbmciLCAiaWNvbi1tZWRpdW0iOiAiZm9vLW1lZGl1bS5wbmciLCAiaWNvbi1sYXJnZSI6ICJmb28tbGFyZ2UucG5nIn19'
     }
   });
 
@@ -49,7 +49,7 @@ describe('ServiceInfo', function () {
     it('renders image', function () {
       expect(
         this.node.querySelector('.icon img').src
-      ).toEqual('foo.png');
+      ).toEqual('foo-large.png');
     });
 
     it('renders app status, not health state', function () {

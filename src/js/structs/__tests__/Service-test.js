@@ -227,17 +227,15 @@ describe('Service', function () {
 
     it('returns correct images', function () {
       let service = new Service({
-        images: {
-          'icon-small': 'icon-small@2x.png',
-          'icon-medium': 'icon-medium@2x.png',
-          'icon-large': 'icon-large@2x.png'
+        labels: {
+          'DCOS_PACKAGE_METADATA': 'eyJpbWFnZXMiOiB7ICJpY29uLXNtYWxsIjogImZvby1zbWFsbC5wbmciLCAiaWNvbi1tZWRpdW0iOiAiZm9vLW1lZGl1bS5wbmciLCAiaWNvbi1sYXJnZSI6ICJmb28tbGFyZ2UucG5nIn19'
         }
       });
 
       expect(service.getImages()).toEqual({
-        'icon-small': 'icon-small@2x.png',
-        'icon-medium': 'icon-medium@2x.png',
-        'icon-large': 'icon-large@2x.png'
+        'icon-small': 'foo-small.png',
+        'icon-medium': 'foo-medium.png',
+        'icon-large': 'foo-large.png'
       });
     });
 

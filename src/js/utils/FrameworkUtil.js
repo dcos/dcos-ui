@@ -1,6 +1,8 @@
 import ServiceImages from '../constants/ServiceImages';
 import Util from '../utils/Util';
 
+// You might be tempted to merge FrameworkUtil into ServiceUtil, but that will
+// cause a circular dependency with ServiceUtil and struct/Service.
 const FrameworkUtil = {
   getImageSizeFromImagesObject(images, size) {
     if (images == null ||
