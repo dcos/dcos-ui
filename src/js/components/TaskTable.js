@@ -8,7 +8,6 @@ import Icon from './Icon';
 import DCOSStore from '../stores/DCOSStore';
 import ResourceTableUtil from '../utils/ResourceTableUtil';
 import TaskStates from '../constants/TaskStates';
-import TaskEndpointsList from './TaskEndpointsList';
 import TaskTableHeaderLabels from '../constants/TaskTableHeaderLabels';
 import TaskUtil from '../utils/TaskUtil';
 import TableUtil from '../utils/TableUtil';
@@ -280,12 +279,18 @@ class TaskTable extends React.Component {
     let node = CompositeState.getNodesList()
       .filter({ids: [task.slave_id]}).last();
 
+    if (!node) {
+      return 'N/A';
+    }
+
     return (
-      <TaskEndpointsList
-        key={task.id}
-        portLimit={3}
-        node={node}
-        task={task} />
+      <Link
+        className="emphasize clickable text-overflow"
+        to="node-detail"
+        params={{nodeID: task.slave_id}}
+        title={node.hostname}>
+        {node.hostname}
+      </Link>
     );
   }
 
