@@ -54,7 +54,8 @@ class CosmosErrorMessage extends React.Component {
     // Return early if we have some well-known or an unknown type
     if (typeof error === 'string') {
       return [error];
-    } else if (typeof error !== 'object') {
+    }
+    if (typeof error !== 'object') {
       return null;
     }
 
