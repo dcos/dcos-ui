@@ -269,6 +269,37 @@ class ServiceFormModal extends mixin(StoreMixin) {
   shouldDisableForm(service) {
     let containerSettings = service.getContainerSettings();
 
+    let portDefinitions = service.getPortDefinitions();
+
+    if (portDefinitions) {
+      let invalidVIP = !portDefinitions.some(function (port) {
+        if (port.labels == null || Object.keys(port.labels).length === 0) {
+          return true;
+        }
+        return Object.keys(port.labels).some(function (key) {
+          return port.labels[key] === `${service.getId()}:${port.port}`;
+        });
+      });
+      if (invalidVIP) {
+        return true;
+      }
+    }
+
+    if (containerSettings && containerSettings.docker && containerSettings.docker.portMappings) {
+      let invalidVIPPortMappings = !containerSettings.docker.portMappings.some(function (port) {
+        if (port.labels == null || Object.keys(port.labels).length === 0) {
+          return true;
+        }
+        return Object.keys(port.labels).some(function (key) {
+          return port.labels[key] === `${service.getId()}:` +
+              `${port.containerPort}`;
+        });
+      });
+      if (invalidVIPPortMappings) {
+        return true;
+      }
+    }
+
     return containerSettings != null && containerSettings.type === 'MESOS' && (
       (containerSettings.docker && containerSettings.docker.image != null) ||
       (containerSettings.appc && containerSettings.appc.image != null)
