@@ -216,7 +216,18 @@ const ServiceUtil = {
 
       if (labels != null && labels.labels != null) {
         definition.labels = labels.labels.reduce(function (memo, item) {
-          memo[item.key] = item.value;
+          if (item.key == null) {
+            return memo;
+          }
+
+          // The 'undefined' value is not rendered by the JSON.stringify,
+          // so make sure empty environment variables are not left unrendered
+          let value = item.value;
+          if (value == null) {
+            value = '';
+          }
+
+          memo[item.key] = value;
 
           return memo;
         }, {});
