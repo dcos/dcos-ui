@@ -100,4 +100,7 @@ class SidebarStore extends GetSetBaseStore {
 
 }
 
-module.exports = new SidebarStore();
+const store = new SidebarStore();
+store.setMaxListeners(1000);
+
+module.exports = store;
