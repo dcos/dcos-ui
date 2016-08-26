@@ -36,7 +36,7 @@ class HealthTab extends React.Component {
     this.setState({healthFilter: selectedHealth.id});
   }
 
-  handleSearchStringChange(searchString) {
+  handleSearchStringChange(searchString = '') {
     this.setState({searchString});
   }
 

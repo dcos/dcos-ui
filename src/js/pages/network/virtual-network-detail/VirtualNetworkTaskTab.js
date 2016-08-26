@@ -39,6 +39,7 @@ class VirtualNetworkTaskTab extends mixin(StoreMixin) {
 
     this.state = {
       errorMessage: null,
+      searchString: '',
       tasksDataReceived: false
     };
 
@@ -60,7 +61,7 @@ class VirtualNetworkTaskTab extends mixin(StoreMixin) {
     this.setState({tasksDataReceived: true, errorMessage: null});
   }
 
-  handleSearchStringChange(searchString) {
+  handleSearchStringChange(searchString = '') {
     this.setState({searchString});
   }
 

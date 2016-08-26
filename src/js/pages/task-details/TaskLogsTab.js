@@ -94,7 +94,7 @@ class TaskLogsTab extends React.Component {
     );
   }
 
-  handleSearchStringChange(searchString) {
+  handleSearchStringChange(searchString = '') {
     this.setState({searchString, watching: 1});
   }
 

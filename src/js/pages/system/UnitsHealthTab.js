@@ -52,7 +52,7 @@ class UnitsHealthTab extends mixin(StoreMixin) {
     UnitHealthStore.fetchUnits();
   }
 
-  handleSearchStringChange(searchString) {
+  handleSearchStringChange(searchString = '') {
     this.setState({searchString});
   }
 

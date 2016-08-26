@@ -26,7 +26,8 @@ class PackagesTab extends mixin(StoreMixin) {
     this.state = {
       errorMessage: false,
       installModalPackage: null,
-      isLoading: true
+      isLoading: true,
+      searchString: ''
     };
 
     this.store_listeners = [
@@ -69,7 +70,7 @@ class PackagesTab extends mixin(StoreMixin) {
     this.setState({installModalPackage: cosmosPackage});
   }
 
-  handleSearchStringChange(searchString) {
+  handleSearchStringChange(searchString = '') {
     this.setState({searchString});
   }
 

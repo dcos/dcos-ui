@@ -35,7 +35,9 @@ class FilterInputText extends React.Component {
   handleChange(event) {
     let {target} = event;
 
-    this.props.handleFilterChange(target.value, ServiceFilterTypes.TEXT);
+    // Make sure to never emit falsy values
+    let value = target.value || '';
+    this.props.handleFilterChange(value, ServiceFilterTypes.TEXT);
   }
 
   handleInputClear() {

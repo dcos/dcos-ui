@@ -72,7 +72,7 @@ class UnitsHealthDetail extends mixin(StoreMixin) {
     this.setState({healthFilter: selectedHealth.id});
   }
 
-  handleSearchStringChange(searchString) {
+  handleSearchStringChange(searchString = '') {
     this.setState({searchString});
   }
 

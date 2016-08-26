@@ -146,7 +146,7 @@ var NodesPage = React.createClass({
     }
   },
 
-  handleSearchStringChange(searchString) {
+  handleSearchStringChange(searchString = '') {
     var stateChanges = Object.assign({}, this.state, {
       searchString
     });
