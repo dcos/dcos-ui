@@ -1,4 +1,6 @@
+import Config from '../config/Config';
+
 export default {
-  statusHelpLink:'https://mesosphere.github.io/marathon/docs/marathon-ui' +
+  statusHelpLink:`${Config.marathonDocsURI}marathon-ui` +
     '.html#application-status-reference'
 };
