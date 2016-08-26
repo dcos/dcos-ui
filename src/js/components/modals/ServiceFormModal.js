@@ -210,16 +210,27 @@ class ServiceFormModal extends mixin(StoreMixin) {
 
   handleJSONChange(jsonDefinition) {
     let {service} = this.state;
+
     try {
       service = new Service(JSON.parse(jsonDefinition));
     } catch (e) {
 
     }
+
+    let warningMessage = null;
+
+    if (this.shouldDisableForm(service)) {
+      warningMessage = {
+        message: 'Your config contains attributes we currently only support ' +
+        'in the JSON mode.'
+      };
+    }
+
     this.setState(
       {
         service,
         errorMessage: null,
-        warningMessage: null
+        warningMessage
       }
     );
   }
