@@ -17,9 +17,17 @@ const JobValidatorUtil = {
       return false;
     }
 
-    // This regex also ensures that field values are in correct ranges
-    const cronPattern = /^(\*|([0-9]|1[0-9]|2[0-9]|3[0-9]|4[0-9]|5[0-9])|\*\/([0-9]|1[0-9]|2[0-9]|3[0-9]|4[0-9]|5[0-9])) (\*|([0-9]|1[0-9]|2[0-3])|\*\/([0-9]|1[0-9]|2[0-3])) (\*|([1-9]|1[0-9]|2[0-9]|3[0-1])|\*\/([1-9]|1[0-9]|2[0-9]|3[0-1])) (\*|([1-9]|1[0-2])|\*\/([1-9]|1[0-2])) (\*|([0-6])|\*\/([0-6]))$/;
-    return cronPattern.test(cronString);
+    // Expect exactly 5 components
+    var components = cronString.split(' ');
+    if (components.length !== 5) {
+      return false;
+    }
+
+    // Make sure each component contains valid characters
+    const cronComponentPattern = /^[0-9\*]+([0-9\-,\/\*])*$/;
+    return components.every(function (component) {
+      return cronComponentPattern.test(component);
+    });
 
   }
 
