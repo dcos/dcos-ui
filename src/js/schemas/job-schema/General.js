@@ -93,7 +93,7 @@ const General = {
             return `${job.getDisk() || ''}`;
           },
           externalValidator({general}, definition) {
-            if (ValidatorUtil.isEmpty(general.disk)) {
+            if (!ValidatorUtil.isDefined(general.disk)) {
               return true;
             }
 

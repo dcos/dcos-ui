@@ -26,7 +26,6 @@ class JobForm extends SchemaForm {
   }
 
   handleFormChange(formData, eventObj) {
-
     // Fire changes only on blur
     // and on schedule runOnSchedule checkbox change to show/hide fields
     let scheduleEnabledChange =
@@ -55,7 +54,6 @@ class JobForm extends SchemaForm {
     if (eventObj.fieldName === 'runOnSchedule') {
       this.forceUpdate();
     }
-
   }
 
   handleTabClick(tab) {

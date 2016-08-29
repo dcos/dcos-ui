@@ -143,7 +143,6 @@ class JobFormModal extends mixin(StoreMixin) {
 
   createJobFromEditorContents(keepValidationErrors = false) {
     let {jobJsonString, jsonMode} = this.state;
-
     if (jsonMode) {
 
       // Try to parse JSON string and detect errors
@@ -204,34 +203,30 @@ class JobFormModal extends mixin(StoreMixin) {
       }
 
       return job;
-
-    } else {
-
-      // Even though we have our model already in the state, we cannot
-      // perform validation on it's data. It's true that `onChange`
-      // returns validation information, but that's not the case when the
-      // user clicks the `submit` button without changing anything.
-
-      // Therefore we need to ask the SchemaForm to perform validation
-      // and return the model once again
-      let {model, isValidated} = this.triggerFormSubmit();
-
-      if (!isValidated) {
-        this.setState({
-          errorMessage: {
-            message: 'Please fix all the errors first',
-            details: null
-          }
-        });
-        if (!keepValidationErrors) {
-          return null;
-        }
-      }
-
-      return JobUtil.createJobFromFormModel(model);
-
     }
 
+    // Even though we have our model already in the state, we cannot
+    // perform validation on it's data. It's true that `onChange`
+    // returns validation information, but that's not the case when the
+    // user clicks the `submit` button without changing anything.
+
+    // Therefore we need to ask the SchemaForm to perform validation
+    // and return the model once again
+    let {model, isValidated} = this.triggerFormSubmit();
+
+    if (!isValidated) {
+      this.setState({
+        errorMessage: {
+          message: 'Please fix all the errors first',
+          details: null
+        }
+      });
+      if (!keepValidationErrors) {
+        return null;
+      }
+    }
+
+    return JobUtil.createJobFromFormModel(model);
   }
 
   handleCancel() {
@@ -293,7 +288,6 @@ class JobFormModal extends mixin(StoreMixin) {
     } else {
       MetronomeStore.updateJob(job.getId(), jobSpec);
     }
-
   }
 
   handleTabChange(tab) {

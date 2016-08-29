@@ -75,7 +75,7 @@ const Schedule = {
           return true;
         }
 
-        if (ValidatorUtil.isEmpty(schedule.startingDeadlineSeconds)) {
+        if (!ValidatorUtil.isDefined(schedule.startingDeadlineSeconds)) {
           return true;
         }
 
