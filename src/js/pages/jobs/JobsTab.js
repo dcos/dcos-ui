@@ -45,8 +45,12 @@ class JobsTab extends mixin(StoreMixin, QueryParamsMixin, SaveStateMixin) {
     this.saveState_properties = saveState_properties;
 
     this.store_listeners = [
-      {name: 'dcos', events: ['change']},
-      {name: 'metronome', events: ['change', 'jobCreateSuccess']}
+      {name: 'dcos', events: ['change'], suppressUpdate: false},
+      {
+        name: 'metronome',
+        events: ['change', 'jobCreateSuccess'],
+        suppressUpdate: false
+      }
     ];
 
     METHODS_TO_BIND.forEach((method) => {
