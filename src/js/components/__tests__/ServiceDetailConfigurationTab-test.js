@@ -7,13 +7,13 @@ const React = require('react');
 const ReactDOM = require('react-dom');
 const TestUtils = require('react-addons-test-utils');
 
-const Service = require('../../structs/Service');
+const Application = require('../../structs/Application');
 const ServiceDetailConfigurationTab = require('../ServiceDetailConfigurationTab');
 const ConfigurationView = require('../ConfigurationView');
 
 describe('ServiceDetailConfigurationTab', function () {
 
-  const service = new Service({
+  const service = new Application({
     id: '/test',
     healthChecks: [{path: '', protocol: 'HTTP'}],
     cpus: 1,
