@@ -36,7 +36,7 @@ class TaskDetailsTab extends React.Component {
       return null;
     }
 
-    let headerValueMapping = {'ID': mesosTask.id};
+    let headerValueMapping = {'Task ID': mesosTask.id};
     let services = CompositeState.getServiceList();
     let service = services.filter({ids: [mesosTask.framework_id]}).last();
     if (service != null) {
