@@ -11,13 +11,14 @@
     }
 
     .list-item {
+      align-items: center;
     	display: flex;
-      border-top: 1px solid @neutral;
+      border-bottom: 1px solid @panel-cell-border-bottom-color;
       margin: 0;
       padding: (@base-spacing-unit * 1/4) 0;
 
-      &:first-child {
-        border-top-color: transparent;
+      &:last-child {
+        border-bottom: none;
       }
     }
 
