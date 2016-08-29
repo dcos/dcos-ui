@@ -62,7 +62,8 @@ var ServicesTable = React.createClass({
         events: [
           'serviceRestartError',
           'serviceRestartSuccess'
-        ]
+        ],
+        suppressUpdate: true
       }
     ];
   },

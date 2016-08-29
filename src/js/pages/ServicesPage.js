@@ -33,7 +33,7 @@ var ServicesPage = React.createClass({
 
   componentWillMount() {
     this.store_listeners = [
-      {name: 'notification', events: ['change']}
+      {name: 'notification', events: ['change'], suppressUpdate: false}
     ];
     this.tabs_tabs = {
       'services-page': 'Services',

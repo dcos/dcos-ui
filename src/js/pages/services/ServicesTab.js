@@ -71,8 +71,15 @@ var ServicesTab = React.createClass({
 
   componentWillMount() {
     this.store_listeners = [
-      {name: 'dcos', events: ['change']},
-      {name: 'marathon', events: ['groupsSuccess', 'groupsError']}
+      {
+        name: 'dcos', events: ['change'],
+        suppressUpdate: false
+      },
+      {
+        name: 'marathon',
+        events: ['groupsSuccess', 'groupsError'],
+        suppressUpdate: true
+      }
     ];
   },
 
