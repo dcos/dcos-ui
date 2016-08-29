@@ -71,14 +71,12 @@ var TimeSeriesMouseOver = React.createClass({
     d3.select(this.refs.xMousePosition)
       .transition()
         .duration(50)
-        .style('stroke', 'rgba(255,255,255,0.5')
         .attr('x1', mouse.x)
         .attr('x2', mouse.x);
 
     d3.select(this.refs.yMousePosition)
       .transition()
         .duration(50)
-        .style('stroke', 'rgba(255,255,255,0.5')
         .attr('y1', props.yScale(firstDataSet.values[index][props.y]))
         .attr('y2', props.yScale(firstDataSet.values[index][props.y]));
 
@@ -121,14 +119,10 @@ var TimeSeriesMouseOver = React.createClass({
   },
 
   handleMouseOut() {
-    d3.select(this.refs.yMousePosition).interrupt()
-      .style('stroke', 'rgba(255,255,255,0');
-    d3.select(this.refs.xMousePosition).interrupt()
-      .style('stroke', 'rgba(255,255,255,0');
-    d3.select(this.refs.xAxisCurrent)
-      .text('');
-    d3.select(this.refs.yAxisCurrent)
-      .text('');
+    d3.select(this.refs.yMousePosition).interrupt();
+    d3.select(this.refs.xMousePosition).interrupt();
+    d3.select(this.refs.xAxisCurrent).text('');
+    d3.select(this.refs.yAxisCurrent).text('');
   },
 
   render() {
@@ -139,7 +133,7 @@ var TimeSeriesMouseOver = React.createClass({
     return (
       <g>
         <g className="x axis">
-          <text className="current-value" ref="xAxisCurrent"
+          <text className="current-value shadow" ref="xAxisCurrent"
             dy=".71em"
             y="9"
             transform={'translate(0,' + height + ')'}>
@@ -152,10 +146,10 @@ var TimeSeriesMouseOver = React.createClass({
             x="-9">
           </text>
         </g>
-        <line ref="xMousePosition"
+        <line className="chart-cursor-position-marker" ref="xMousePosition"
           y1={0}
           y2={height} />
-        <line ref="yMousePosition"
+        <line className="chart-cursor-position-marker" ref="yMousePosition"
           x1={0}
           x2={this.props.width} />
       </g>
