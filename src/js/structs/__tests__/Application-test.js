@@ -5,7 +5,7 @@ const ServiceStatus = require('../../constants/ServiceStatus');
 const TaskStats = require('../TaskStats');
 const VolumeList = require('../VolumeList');
 
-describe('Application', function () {
+describe('Service', function () {
 
   describe('#getArguments', function () {
 

@@ -114,6 +114,10 @@ module.exports = class Application extends Service {
     return FrameworkUtil.getMetadataFromLabels(this.getLabels());
   }
 
+  getName() {
+    return this.getId().split('/').pop();
+  }
+
   getPorts() {
     return this.get('ports');
   }
@@ -132,6 +136,15 @@ module.exports = class Application extends Service {
 
   getResidency() {
     return this.get('residency');
+  }
+
+  getStatus() {
+    const status = this.getServiceStatus();
+    if (status.displayName == null) {
+      return null;
+    }
+
+    return status.displayName;
   }
 
   getServiceStatus() {
