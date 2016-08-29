@@ -68,9 +68,9 @@ var DashboardPage = React.createClass({
 
   componentWillMount() {
     this.store_listeners = [
-      {name: 'dcos', events: ['change']},
-      {name: 'summary', events: ['success', 'error']},
-      {name: 'unitHealth', events: ['success', 'error']}
+      {name: 'dcos', events: ['change'], suppressUpdate: true },
+      {name: 'summary', events: ['success', 'error'], suppressUpdate: false},
+      {name: 'unitHealth', events: ['success', 'error'], suppressUpdate: false}
     ];
 
     this.internalStorage_set({
