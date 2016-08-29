@@ -8,6 +8,7 @@ import {StoreMixin} from 'mesosphere-shared-reactjs';
 import Breadcrumbs from '../../components/Breadcrumbs';
 import DCOSStore from '../../stores/DCOSStore';
 import InternalStorageMixin from '../../mixins/InternalStorageMixin';
+import Loader from '../../components/Loader';
 import MesosStateStore from '../../stores/MesosStateStore';
 import PageHeader from '../../components/PageHeader';
 import RequestErrorMsg from '../../components/RequestErrorMsg';
@@ -139,12 +140,8 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
 
   getLoadingScreen() {
     return (
-      <div className="container container-fluid container-pod text-align-center vertical-center inverse">
-        <div className="row">
-          <div className="ball-scale">
-            <div />
-          </div>
-        </div>
+      <div className="container container-fluid container-pod">
+        <Loader className="inverse" />
       </div>
     );
   }

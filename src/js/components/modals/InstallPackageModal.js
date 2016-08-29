@@ -10,6 +10,7 @@ import defaultServiceImage from '../../../img/services/icon-service-default-larg
 import Icon from '../Icon';
 import Image from '../Image';
 import InternalStorageMixin from '../../mixins/InternalStorageMixin';
+import Loader from '../Loader';
 import ReviewConfig from '../ReviewConfig';
 import SchemaForm from '../SchemaForm';
 import SchemaUtil from '../../utils/SchemaUtil';
@@ -237,12 +238,8 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
 
   getLoadingScreen() {
     return (
-      <div className="container-pod text-align-center vertical-center inverse">
-        <div className="row">
-          <div className="ball-scale">
-            <div />
-          </div>
-        </div>
+      <div className="container container-fluid container-pod">
+        <Loader className="inverse" />
       </div>
     );
   }

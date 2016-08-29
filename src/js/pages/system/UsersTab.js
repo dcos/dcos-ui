@@ -6,6 +6,7 @@ import React from 'react';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import UsersStore from '../../stores/UsersStore';
+import Loader from '../../components/Loader';
 import OrganizationTab from './OrganizationTab';
 import RequestErrorMsg from '../../components/RequestErrorMsg';
 import UserFormModal from '../../components/modals/UserFormModal';
@@ -89,13 +90,8 @@ class UsersTab extends mixin(StoreMixin) {
 
   getLoadingScreen() {
     return (
-      <div className="container container-fluid container-pod text-align-center
-        vertical-center inverse">
-        <div className="row">
-          <div className="ball-scale">
-            <div />
-          </div>
-        </div>
+      <div className="container container-fluid container-pod">
+        <Loader className="inverse" />
       </div>
     );
   }

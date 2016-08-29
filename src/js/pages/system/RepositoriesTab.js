@@ -8,6 +8,7 @@ import AddRepositoryFormModal from '../../components/modals/AddRepositoryFormMod
 import CosmosPackagesStore from '../../stores/CosmosPackagesStore';
 import FilterBar from '../../components/FilterBar';
 import FilterInputText from '../../components/FilterInputText';
+import Loader from '../../components/Loader';
 import RepositoriesTable from '../../components/RepositoriesTable';
 import RequestErrorMsg from '../../components/RequestErrorMsg';
 
@@ -72,12 +73,8 @@ class RepositoriesTab extends mixin(StoreMixin) {
 
   getLoadingScreen() {
     return (
-      <div className="container-pod text-align-center vertical-center inverse">
-        <div className="row">
-          <div className="ball-scale">
-            <div />
-          </div>
-        </div>
+      <div className="container container-fluid container-pod">
+        <Loader className="inverse" />
       </div>
     );
   }

@@ -7,6 +7,7 @@ import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import ConfigStore from '../../stores/ConfigStore';
 import DescriptionList from '../../components/DescriptionList';
+import Loader from '../../components/Loader';
 import MarathonStore from '../../stores/MarathonStore';
 
 module.exports = class OverviewDetailTab extends mixin(StoreMixin) {
@@ -37,11 +38,10 @@ module.exports = class OverviewDetailTab extends mixin(StoreMixin) {
 
   getLoading() {
     return (
-      <div className="loader-small ball-beat">
-        <div></div>
-        <div></div>
-        <div></div>
-      </div>
+      <Loader
+        className="inverse"
+        innerClassName="loader-small"
+        type="ballBeat" />
     );
   }
 

@@ -8,6 +8,7 @@ import FilterButtons from './FilterButtons';
 import FilterHeadline from './FilterHeadline';
 import FilterInputText from './FilterInputText';
 import KillTaskModal from './KillTaskModal';
+import Loader from './Loader';
 import MesosStateStore from '../stores/MesosStateStore';
 import RequestErrorMsg from './RequestErrorMsg';
 import SaveStateMixin from '../mixins/SaveStateMixin';
@@ -139,12 +140,8 @@ class TaskView extends mixin(SaveStateMixin, StoreMixin) {
     }
 
     return (
-      <div className="container container-pod container-fluid text-align-center vertical-center inverse">
-        <div className="row">
-          <div className="ball-scale">
-            <div />
-          </div>
-        </div>
+      <div className="container container-fluid container-pod">
+        <Loader className="inverse" />
       </div>
     );
   }

@@ -10,6 +10,7 @@ import defaultServiceImage from '../../../img/services/icon-service-default-larg
 import Image from '../../components/Image';
 import ImageViewer from '../../components/ImageViewer';
 import InstallPackageModal from '../../components/modals/InstallPackageModal';
+import Loader from '../../components/Loader';
 import RequestErrorMsg from '../../components/RequestErrorMsg';
 import StringUtil from '../../utils/StringUtil';
 
@@ -119,12 +120,8 @@ class PackageDetailTab extends mixin(StoreMixin) {
 
   getLoadingScreen() {
     return (
-      <div className="container-pod text-align-center vertical-center inverse">
-        <div className="row">
-          <div className="ball-scale">
-            <div />
-          </div>
-        </div>
+      <div className="container container-fluid container-pod">
+        <Loader className="inverse" />
       </div>
     );
   }

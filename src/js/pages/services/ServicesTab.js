@@ -9,6 +9,7 @@ import DCOSStore from '../../stores/DCOSStore';
 import FilterBar from '../../components/FilterBar';
 import FilterHeadline from '../../components/FilterHeadline';
 import Icon from '../../components/Icon';
+import Loader from '../../components/Loader';
 import QueryParamsMixin from '../../mixins/QueryParamsMixin';
 import RequestErrorMsg from '../../components/RequestErrorMsg';
 import SaveStateMixin from '../../mixins/SaveStateMixin';
@@ -208,12 +209,8 @@ var ServicesTab = React.createClass({
     // Render loading screen
     if (!DCOSStore.dataProcessed) {
       return (
-        <div className="container container-fluid container-pod text-align-center vertical-center inverse">
-          <div className="row">
-            <div className="ball-scale">
-              <div />
-            </div>
-          </div>
+        <div className="container container-fluid container-pod">
+          <Loader className="inverse" />
         </div>
       );
     }

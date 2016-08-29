@@ -4,6 +4,7 @@ import React from 'react';
 
 import EventTypes from '../constants/EventTypes';
 import InternalStorageMixin from '../mixins/InternalStorageMixin';
+import Loader from './Loader';
 import MesosStateStore from '../stores/MesosStateStore';
 import NodesGridDials from './NodesGridDials';
 import RequestErrorMsg from './RequestErrorMsg';
@@ -134,20 +135,14 @@ var NodesGridView = React.createClass({
       errorMsg = <RequestErrorMsg />;
     }
 
-    var loadingClassSet = classNames({
+    var loadingClassSet = classNames('inverse', {
       'hidden': hasLoadingError
     });
 
     return (
-      <div className="text-align-center vertical-center">
-        <div className="row">
-          <div className={loadingClassSet}>
-            <div className="ball-scale">
-              <div />
-            </div>
-          </div>
-          {errorMsg}
-        </div>
+      <div className="container container-fluid container-pod">
+        <Loader className={loadingClassSet} />
+        {errorMsg}
       </div>
     );
   },

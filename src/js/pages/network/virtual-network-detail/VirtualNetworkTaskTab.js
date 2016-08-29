@@ -11,6 +11,7 @@ import FilterBar from '../../../components/FilterBar';
 import FilterHeadline from '../../../components/FilterHeadline';
 import FilterInputText from '../../../components/FilterInputText';
 import Icon from '../../../components/Icon';
+import Loader from '../../../components/Loader';
 import MesosStateStore from '../../../stores/MesosStateStore';
 import Overlay from '../../../structs/Overlay';
 import RequestErrorMsg from '../../../components/RequestErrorMsg';
@@ -141,12 +142,8 @@ class VirtualNetworkTaskTab extends mixin(StoreMixin) {
 
   getLoadingScreen() {
     return (
-      <div className="container container-fluid container-pod text-align-center vertical-center inverse">
-        <div className="row">
-          <div className="ball-scale">
-            <div />
-          </div>
-        </div>
+      <div className="container container-fluid container-pod">
+        <Loader className="inverse" />
       </div>
     );
   }

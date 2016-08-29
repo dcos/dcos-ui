@@ -12,6 +12,7 @@ import CollapsingString from '../../components/CollapsingString';
 import DCOSStore from '../../stores/DCOSStore';
 import defaultServiceImage from '../../../img/services/icon-service-default-small@2x.png';
 import Icon from '../../components/Icon';
+import Loader from '../../components/Loader';
 import MarathonActions from '../../events/MarathonActions';
 import NestedServiceLinks from '../../components/NestedServiceLinks';
 import ResourceTableUtil from '../../utils/ResourceTableUtil';
@@ -316,12 +317,8 @@ class DeploymentsTab extends mixin(StoreMixin) {
 
   renderLoading() {
     return (
-      <div className="container container-fluid container-pod text-align-center vertical-center inverse">
-        <div className="row">
-          <div className="ball-scale">
-            <div />
-          </div>
-        </div>
+      <div className="container container-fluid container-pod">
+        <Loader className="inverse" />
       </div>
     );
   }

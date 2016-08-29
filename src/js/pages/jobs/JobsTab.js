@@ -13,6 +13,7 @@ import JobsTable from './JobsTable';
 import JobFilterTypes from '../../constants/JobFilterTypes';
 import JobSearchFilter from '../../components/JobSearchFilter';
 import JobTree from '../../structs/JobTree';
+import Loader from '../../components/Loader';
 import QueryParamsMixin from '../../mixins/QueryParamsMixin';
 import SaveStateMixin from '../../mixins/SaveStateMixin';
 import JobFormModal from '../../components/modals/JobFormModal';
@@ -177,13 +178,8 @@ class JobsTab extends mixin(StoreMixin, QueryParamsMixin, SaveStateMixin) {
     // Render loading screen
     if (!DCOSStore.dataProcessed) {
       return (
-        <div className="container container-fluid container-pod text-align-center
-            vertical-center inverse">
-          <div className="row">
-            <div className="ball-scale">
-              <div />
-            </div>
-          </div>
+        <div className="container container-fluid container-pod">
+          <Loader className="inverse" />
         </div>
       );
     }

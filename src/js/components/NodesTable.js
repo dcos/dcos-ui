@@ -7,6 +7,7 @@ import {Table, Tooltip} from 'reactjs-components';
 import NodesTableHeaderLabels from '../constants/NodesTableHeaderLabels';
 import Icon from '../components/Icon';
 import InternalStorageMixin from '../mixins/InternalStorageMixin';
+import Loader from '../components/Loader';
 import ResourceTableUtil from '../utils/ResourceTableUtil';
 import ProgressBar from './charts/ProgressBar';
 import StringUtil from '../utils/StringUtil';
@@ -78,13 +79,12 @@ var NodesTable = React.createClass({
   renderHealth(prop, node) {
     let requestReceived = this.internalStorage_get().nodeHealthResponseReceived;
 
-    if (!requestReceived) {
+    if (requestReceived) {
       return (
-        <div className="loader-small ball-beat">
-          <div></div>
-          <div></div>
-          <div></div>
-        </div>
+        <Loader
+          className="inverse"
+          innerClassName="loader-small"
+          type="ballBeat" />
       );
     }
 
