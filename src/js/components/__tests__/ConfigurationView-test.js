@@ -8,7 +8,7 @@ const React = require('react');
 const ReactDOM = require('react-dom');
 const TestUtils = require('react-addons-test-utils');
 
-const Service = require('../../structs/Service');
+const Application = require('../../structs/Application');
 const DCOSStore = require('../../stores/DCOSStore');
 const ConfigurationView = require('../ConfigurationView');
 const DescriptionList = require('../DescriptionList');
@@ -16,7 +16,7 @@ const DescriptionList = require('../DescriptionList');
 describe('ConfigurationView', function () {
 
   const versionID = '2016-05-02T16:07:32.583Z';
-  const service = new Service({
+  const service = new Application({
     id: '/test',
     healthChecks: [{path: '', protocol: 'HTTP'}],
     cpus: 1,
