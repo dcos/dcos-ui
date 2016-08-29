@@ -1,3 +1,4 @@
+// TODO: Audit all of these styles.
 & when (@charts-enabled) {
 
   .chart {
@@ -14,7 +15,7 @@
       display: block;
 
       .background {
-        fill: fade(@neutral, 80%);
+        fill: fade(@neutral, 5%);
       }
     }
 
@@ -22,21 +23,23 @@
     .grid-graph .tick,
     .axis line {
       fill: none;
-      stroke: fade(@white, 6%);
+      stroke: fade(@neutral, 6%);
       stroke-width: 1px;
       shape-rendering: crispEdges;
     }
 
     .axis text {
       fill: @chart-axis-text-color;
-    }
 
-    .axis text.current-value {
-      fill: @white;
-    }
+      &.current-value {
+        fill: @neutral;
 
-    .axis text.current-value.shadow {
-      text-shadow: 0px 0px 10px fade(@white, 6%);
+        &.shadow {
+          text-shadow: 0 0 4px @white, 0 0 4px @white;
+        }
+
+      }
+
     }
 
     .unsuccessful-block {
@@ -251,8 +254,13 @@
     }
 
     .unit {
-      fill: @white;
+      fill: @neutral;
       line-height: 1;
+
+      &.unit-primary {
+        font-size: 3rem;
+        font-weight: 300;
+      }
     }
 
     .unit-label {
@@ -508,7 +516,7 @@
         }
 
         .unit {
-          color: @white;
+          color: @neutral;
           font-size: 16px;
         }
 
@@ -533,6 +541,10 @@
 
   }
 
+  .chart-cursor-position-marker {
+    stroke: fade(@neutral, 15%);
+  }
+
 }
 
 & when (@charts-enabled) and (@layout-screen-small-enabled) {
@@ -541,7 +553,7 @@
 
     .chart {
 
-      .unit-bordered-horizontal-mini {
+      .unit-bordered-horizontal-small {
         border-right: 1px solid @chart-axis-color;
         margin-top: @base-spacing-unit-screen-small * 1/4;
 
@@ -585,7 +597,7 @@
 
     .chart {
 
-      .unit-bordered-horizontal-mini {
+      .unit-bordered-horizontal-small {
         margin-top: @base-spacing-unit-screen-medium * 1/4;
       }
 
@@ -619,7 +631,7 @@
 
     .chart {
 
-      .unit-bordered-horizontal-mini {
+      .unit-bordered-horizontal-small {
         margin-top: @base-spacing-unit-screen-large * 1/4;
       }
 
@@ -653,7 +665,7 @@
 
     .chart {
 
-      .unit-bordered-horizontal-mini {
+      .unit-bordered-horizontal-small {
         margin-top: @base-spacing-unit-screen-jumbo * 1/4;
       }
 
