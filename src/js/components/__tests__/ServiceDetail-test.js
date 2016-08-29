@@ -5,7 +5,7 @@ jest.dontMock('../ServiceDetailDebugTab');
 jest.dontMock('../ServiceDetailConfigurationTab');
 jest.dontMock('../ServiceDetailTaskTab');
 jest.dontMock('../ServiceInfo');
-jest.dontMock('../../structs/Service');
+jest.dontMock('../../structs/Application');
 
 /* eslint-disable no-unused-vars */
 const React = require('react');
@@ -14,7 +14,7 @@ const ReactDOM = require('react-dom');
 const TestUtils = require('react-addons-test-utils');
 const JestUtil = require('../../utils/JestUtil');
 
-const Service = require('../../structs/Service');
+const Application = require('../../structs/Application');
 const ServiceDetail = require('../ServiceDetail');
 const ServiceDetailDebugTab = require('../ServiceDetailDebugTab');
 const ServiceDetailConfigurationTab = require('../ServiceDetailConfigurationTab');
@@ -22,7 +22,7 @@ const ServiceDetailTaskTab = require('../ServiceDetailTaskTab');
 
 describe('ServiceDetail', function () {
 
-  const service = new Service({
+  const service = new Application({
     id: '/group/test',
     healthChecks: [{path: '', protocol: 'HTTP'}],
     deployments: [],
