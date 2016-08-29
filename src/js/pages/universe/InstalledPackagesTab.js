@@ -27,10 +27,6 @@ class InstalledPackagesTab extends mixin(StoreMixin) {
       {
         name: 'cosmosPackages',
         events: ['installedError', 'installedSuccess'],
-        unmountWhen() {
-          return true;
-        },
-        listenAlways: true
       }
     ];
 
