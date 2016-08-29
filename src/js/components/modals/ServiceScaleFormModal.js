@@ -40,7 +40,8 @@ class ServiceScaleFormModal extends mixin(StoreMixin) {
         name: 'marathon',
         events: [
           'serviceEditError',
-          'serviceEditSuccess'
+          'serviceEditSuccess',
+          'groupEditError'
         ]
       }
     ];
@@ -66,7 +67,15 @@ class ServiceScaleFormModal extends mixin(StoreMixin) {
     this.props.onClose();
   }
 
-  onMarathonStoreServiceEditError({message:errorMsg = '', details}) {
+  onMarathonStoreServiceEditError() {
+    this.onMarathonStoreServiceOrGroupEditError.apply(this, arguments);
+  }
+
+  onMarathonStoreGroupEditError() {
+    this.onMarathonStoreServiceOrGroupEditError.apply(this, arguments);
+  }
+
+  onMarathonStoreServiceOrGroupEditError({message:errorMsg = '', details}) {
     this.resetState();
     let hasDetails = details && details.length !== 0;
 
