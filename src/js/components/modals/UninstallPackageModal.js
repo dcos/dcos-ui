@@ -30,9 +30,6 @@ class UninstallPackageModal extends mixin(StoreMixin) {
       {
         name: 'cosmosPackages',
         events: ['uninstallError', 'uninstallSuccess'],
-        unmountWhen() {
-          return true;
-        },
         listenAlways: true
       }
     ];
