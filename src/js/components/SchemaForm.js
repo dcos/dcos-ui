@@ -276,7 +276,8 @@ class SchemaForm extends mixin(StoreMixin, InternalStorageMixin) {
 
   getSubHeader(name, description, levelsDeep) {
     let tooltip = null;
-    if (description) {
+    let subtitle = null;
+    if (description && levelsDeep > 0) {
       tooltip = (
         <Tooltip
           content={description}
@@ -290,10 +291,12 @@ class SchemaForm extends mixin(StoreMixin, InternalStorageMixin) {
             size="mini" />
         </Tooltip>
       );
+    } else if (description && levelsDeep === 0) {
+      subtitle = <p>{description}</p>;
     }
 
     let subheaderClasses = classNames({
-      h2: levelsDeep === 0,
+      h3: levelsDeep === 0,
       h5: levelsDeep !== 0
     }, 'form-header form-row-element flush-bottom flush-top');
 
@@ -305,6 +308,7 @@ class SchemaForm extends mixin(StoreMixin, InternalStorageMixin) {
             <div className={subheaderClasses}>
               {name}
             </div>
+            {subtitle}
           </div>
           {tooltip}
         </div>
