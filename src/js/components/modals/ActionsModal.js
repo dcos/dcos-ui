@@ -1,9 +1,5 @@
 import {Confirm, Dropdown} from 'reactjs-components';
-import mixin from 'reactjs-mixin';
-/* eslint-disable no-unused-vars */
 import React from 'react';
-/* eslint-enable no-unused-vars */
-import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import StringUtil from '../../utils/StringUtil';
 import Util from '../../utils/Util';
@@ -19,7 +15,7 @@ const METHODS_TO_BIND = [
 const DEFAULT_ID = 'DEFAULT';
 const ITEMS_DISPLAYED = 3;
 
-class ActionsModal extends mixin(StoreMixin) {
+class ActionsModal extends React.Component {
   constructor() {
     super(...arguments);
 
