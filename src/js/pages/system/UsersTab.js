@@ -27,7 +27,6 @@ class UsersTab extends mixin(StoreMixin) {
     super(...arguments);
 
     this.store_listeners = Hooks.applyFilter('usersTabStoreListeners', [
-      {name: 'marathon', events: ['appsSuccess']},
       {
         name: 'user',
         events: ['createSuccess', 'deleteSuccess'],
