@@ -40,7 +40,8 @@ class ServiceGroupFormModal extends mixin(StoreMixin) {
     this.store_listeners = [
       {
         name: 'marathon',
-        events: ['groupCreateSuccess', 'groupCreateError']
+        events: ['groupCreateSuccess', 'groupCreateError'],
+        suppressUpdate: true
       }
     ];
 

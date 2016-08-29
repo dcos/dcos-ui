@@ -42,7 +42,8 @@ class ServiceScaleFormModal extends mixin(StoreMixin) {
           'serviceEditError',
           'serviceEditSuccess',
           'groupEditError'
-        ]
+        ],
+        suppressUpdate: true
       }
     ];
 
