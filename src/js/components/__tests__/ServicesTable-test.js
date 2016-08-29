@@ -8,11 +8,11 @@ const React = require('react');
 /* eslint-enable no-unused-vars */
 const ReactDOM = require('react-dom');
 const ServicesTable = require('../ServicesTable');
-const Service = require('../../structs/Service');
+const Application = require('../../structs/Application');
 
 describe('ServicesTable', function () {
 
-  const healthyService = new Service({
+  const healthyService = new Application({
     healthChecks: [{path: '', protocol: 'HTTP'}],
     cpus: 1,
     mem: 2048,
