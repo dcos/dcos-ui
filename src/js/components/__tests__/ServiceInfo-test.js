@@ -7,12 +7,12 @@ const React = require('react');
 /* eslint-enable no-unused-vars */
 const ReactDOM = require('react-dom');
 
-const Service = require('../../structs/Service');
+const Application = require('../../structs/Application');
 const ServiceInfo = require('../ServiceInfo');
 
 describe('ServiceInfo', function () {
 
-  const service = new Service({
+  const service = new Application({
     id: '/group/test',
     healthChecks: [{path: '', protocol: 'HTTP'}],
     cpus: 1,

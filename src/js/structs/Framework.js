@@ -2,9 +2,9 @@ import {
   ROUTE_ACCESS_PREFIX,
   FRAMEWORK_ID_VALID_CHARACTERS
 } from '../constants/FrameworkConstants';
-import Service from './Service';
+import Application from './Application';
 
-module.exports = class Framework extends Service {
+module.exports = class Framework extends Application {
   getNodeIDs() {
     return this.get('slave_ids');
   }

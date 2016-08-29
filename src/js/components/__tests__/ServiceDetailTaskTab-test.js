@@ -10,13 +10,13 @@ const ReactDOM = require('react-dom');
 const TestUtils = require('react-addons-test-utils');
 const JestUtil = require('../../utils/JestUtil');
 
-const Service = require('../../structs/Service');
+const Application = require('../../structs/Application');
 const ServiceDetailTaskTab = require('../ServiceDetailTaskTab');
 const TaskView = require('../TaskView');
 
 describe('ServiceDetailTaskTab', function () {
 
-  const service = new Service({
+  const service = new Application({
     id: '/group/test',
     healthChecks: [{path: '', protocol: 'HTTP'}],
     cpus: 1,

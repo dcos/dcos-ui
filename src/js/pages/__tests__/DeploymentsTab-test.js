@@ -15,7 +15,7 @@ const DCOSStore = require('../../stores/DCOSStore');
 const Deployment = require('../../structs/Deployment');
 const DeploymentsTab = require('../services/DeploymentsTab');
 const DeploymentsList = require('../../structs/DeploymentsList');
-const Service = require('../../structs/Service');
+const Application = require('../../structs/Application');
 
 describe('DeploymentsTab', function () {
 
@@ -34,8 +34,8 @@ describe('DeploymentsTab', function () {
           totalSteps: 3,
           affectedApps: ['service-1', 'service-2'],
           affectedServices: [
-            new Service({id: '1', name: 'service-1', deployments: []}),
-            new Service({id: '2', name: 'service-2', deployments: []})
+            new Application({id: '1', name: 'service-1', deployments: []}),
+            new Application({id: '2', name: 'service-2', deployments: []})
           ]
         }
       ]
@@ -63,7 +63,7 @@ describe('DeploymentsTab', function () {
       let text = DeploymentsTab.prototype.getRollbackModalText(new Deployment({
         id: 'deployment-id',
         affectedApps: ['app1'],
-        affectedServices: [new Service({name: 'app1'})],
+        affectedServices: [new Application({name: 'app1'})],
         steps: [{actions: [{type: 'StartApplication'}]}]
       }));
       expect(text).toContain('remove the affected service');
@@ -73,7 +73,7 @@ describe('DeploymentsTab', function () {
       let text = DeploymentsTab.prototype.getRollbackModalText(new Deployment({
         id: 'deployment-id',
         affectedApps: ['app1'],
-        affectedServices: [new Service({name: 'app1'})],
+        affectedServices: [new Application({name: 'app1'})],
         steps: [{actions: [{type: 'ScaleApplication'}]}]
       }));
       expect(text).toContain('revert the affected service');
