@@ -28,7 +28,8 @@ class UnitsHealthDetail extends mixin(StoreMixin) {
     this.store_listeners = [
       {
         name: 'unitHealth',
-        events: ['unitSuccess', 'unitError', 'nodesSuccess', 'nodesError']
+        events: ['unitSuccess', 'unitError', 'nodesSuccess', 'nodesError'],
+        suppressUpdate: true
       }
     ];
 
