@@ -31,7 +31,11 @@ class PackagesTab extends mixin(StoreMixin) {
     };
 
     this.store_listeners = [
-      {name: 'cosmosPackages', events: ['availableError', 'availableSuccess']}
+      {
+        name: 'cosmosPackages',
+        events: ['availableError', 'availableSuccess'],
+        suppressUpdate: true
+      }
     ];
 
     METHODS_TO_BIND.forEach((method) => {

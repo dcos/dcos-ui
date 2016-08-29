@@ -36,7 +36,8 @@ class PackageDetailTab extends mixin(StoreMixin) {
           return !!CosmosPackagesStore.get('packageDetails');
         }
       },
-      listenAlways: false
+      listenAlways: false,
+      suppressUpdate: true
     }];
 
     METHODS_TO_BIND.forEach((method) => {
