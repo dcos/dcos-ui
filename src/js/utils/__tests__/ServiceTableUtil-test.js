@@ -1,13 +1,13 @@
 jest.dontMock('../ServiceTableUtil');
-jest.dontMock('../../structs/Service');
+jest.dontMock('../../structs/Application');
 
-const Service = require('../../structs/Service');
+const Application = require('../../structs/Application');
 const ServiceTableUtil = require('../ServiceTableUtil');
 const ServiceTree = require('../../structs/ServiceTree');
 
 describe('ServiceTableUtil', function () {
 
-  const healthyService = new Service({
+  const healthyService = new Application({
     id: '/healthy-service',
     healthChecks: [{path: '', protocol: 'HTTP'}],
     cpus: 2,
@@ -19,7 +19,7 @@ describe('ServiceTableUtil', function () {
     tasksUnhealthy: 0
   });
 
-  const unhealthyService = new Service({
+  const unhealthyService = new Application({
     id: '/unhealthy-service',
     healthChecks: [{path: '', protocol: 'HTTP'}],
     cpus: 1,
