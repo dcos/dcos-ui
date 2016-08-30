@@ -176,43 +176,43 @@ describe('ServiceUtil', function () {
           ]);
         });
 
-        it('should enforce the port when discovery is on', function () {
+        it('should enforce the port when loadBalanced is on', function () {
           let service = ServiceUtil.createServiceFromFormModel({
             networking: {
               networkType: 'host',
-              ports: [{lbPort: 1234, discovery: true}]
+              ports: [{lbPort: 1234, loadBalanced: true}]
             }
           });
           expect(service.portDefinitions[0].port).toEqual(1234);
         });
 
-        it('should not override the port to 0 when discovery is off',
+        it('should not override the port to 0 when loadBalanced is off',
           function () {
             let service = ServiceUtil.createServiceFromFormModel({
               networking: {
                 networkType: 'host',
-                ports: [{lbPort: 1234, discovery: false}]
+                ports: [{lbPort: 1234, loadBalanced: false}]
               }
             });
             expect(service.portDefinitions[0].port).toEqual(1234);
           });
 
-        it('should default the port to 0 when discovery is on', function () {
+        it('should default the port to 0 when loadBalanced is on', function () {
           let service = ServiceUtil.createServiceFromFormModel({
             networking: {
               networkType: 'host',
-              ports: [{discovery: true}]
+              ports: [{loadBalanced: true}]
             }
           });
           expect(service.portDefinitions[0].port).toEqual(0);
         });
 
-        it('should add a VIP label when discovery is on', function () {
+        it('should add a VIP label when loadBalanced is on', function () {
           let service = ServiceUtil.createServiceFromFormModel({
             general: {id: '/foo/bar'},
             networking: {
               networkType: 'host',
-              ports: [{lbPort: 1234, discovery: true}]
+              ports: [{lbPort: 1234, loadBalanced: true}]
             }
           });
           expect(service.portDefinitions[0].labels)
@@ -225,8 +225,8 @@ describe('ServiceUtil', function () {
             networking: {
               networkType: 'host',
               ports: [
-                {lbPort: 1234, discovery: true},
-                {lbPort: 4321, discovery: true}
+                {lbPort: 1234, loadBalanced: true},
+                {lbPort: 4321, loadBalanced: true}
               ]
             }
           });
@@ -324,7 +324,7 @@ describe('ServiceUtil', function () {
             .toEqual(1234);
         });
 
-        it('should not add a hostPort when discovery is off', function () {
+        it('should not add a hostPort when loadBalanced is off', function () {
           let service = ServiceUtil.createServiceFromFormModel({
             containerSettings: {image: 'redis'},
             networking: {
@@ -336,13 +336,13 @@ describe('ServiceUtil', function () {
             .not.toContain('hostPort');
         });
 
-        it('should add a VIP label when discovery is on', function () {
+        it('should add a VIP label when loadBalanced is on', function () {
           let service = ServiceUtil.createServiceFromFormModel({
             general: {id: '/foo/bar'},
             containerSettings: {image: 'redis'},
             networking: {
               networkType: 'bridge',
-              ports: [{lbPort: 1234, discovery: true}]
+              ports: [{lbPort: 1234, loadBalanced: true}]
             }
           });
           expect(service.container.docker.portMappings[0].labels)
@@ -413,7 +413,7 @@ describe('ServiceUtil', function () {
             .toEqual(1234);
         });
 
-        it('should not add a servicePort when discovery is off', function () {
+        it('should not add a servicePort when loadBalanced is off', function () {
           let service = ServiceUtil.createServiceFromFormModel({
             containerSettings: {image: 'redis'},
             networking: {
@@ -425,19 +425,19 @@ describe('ServiceUtil', function () {
             .not.toContain('servicePort');
         });
 
-        it('should add a servicePort when discovery is on', function () {
+        it('should add a servicePort when loadBalanced is on', function () {
           let service = ServiceUtil.createServiceFromFormModel({
             containerSettings: {image: 'redis'},
             networking: {
               networkType: 'user',
-              ports: [{lbPort: 1234, discovery: true}]
+              ports: [{lbPort: 1234, loadBalanced: true}]
             }
           });
           expect(service.container.docker.portMappings[0].servicePort)
             .toEqual(1234);
         });
 
-        it('should not add a VIP label when discovery is off', function () {
+        it('should not add a VIP label when loadBalanced is off', function () {
           let service = ServiceUtil.createServiceFromFormModel({
             containerSettings: {image: 'redis'},
             networking: {
@@ -449,13 +449,13 @@ describe('ServiceUtil', function () {
             .not.toContain('labels');
         });
 
-        it('should add the appropriate VIP label when discovery is on', function () {
+        it('should add the appropriate VIP label when loadBalanced is on', function () {
           let service = ServiceUtil.createServiceFromFormModel({
             containerSettings: {image: 'redis'},
             general: {id: '/foo/bar'},
             networking: {
               networkType: 'user',
-              ports: [{lbPort: 1234, discovery: true}]
+              ports: [{lbPort: 1234, loadBalanced: true}]
             }
           });
           expect(service.container.docker.portMappings[0].labels)

@@ -80,7 +80,7 @@ const Networking = {
             lbPort: portMapping.port || portMapping.containerPort,
             name: portMapping.name,
             protocol: portMapping.protocol,
-            discovery: portMapping.labels &&
+            loadBalanced: portMapping.labels &&
               Object.keys(portMapping.labels).length > 0,
             expose: portMapping.hostPort != null
           };
@@ -122,7 +122,7 @@ const Networking = {
             definition.showLabel = 'LB Port';
 
             // show as input
-            if (service.discovery && definition.value === DISABLED_LB_PORT_FIELD_VALUE) {
+            if (service.loadBalanced && definition.value === DISABLED_LB_PORT_FIELD_VALUE) {
               delete definition.value;
               definition.disabled = false;
               definition.className = 'form-control';
@@ -130,7 +130,7 @@ const Networking = {
             }
 
             // show as disabled
-            if (!service.discovery) {
+            if (!service.loadBalanced) {
               definition.value = disabledLBPortFieldValue;
               definition.disabled = true;
               definition.fieldType = 'text';
@@ -156,11 +156,13 @@ const Networking = {
                 'LB Port  must be a number between 0 and 65535.';
 
               return false;
-            }
+            },
+            formElementClass: {'column-3': false}
           },
           name: {
             title: 'Name',
-            type: 'string'
+            type: 'string',
+            formElementClass: {'column-3': true}
           },
           protocol: {
             title: 'Protocol',
@@ -169,12 +171,13 @@ const Networking = {
             default: 'tcp',
             options: ['tcp', 'udp', 'udp,tcp']
           },
-          discovery: {
-            label: 'Discovery',
+          loadBalanced: {
+            label: 'Load Balanced',
             showLabel: false,
-            title: 'Discovery',
+            title: 'Load Balanced',
             type: 'boolean',
-            className: 'form-row-element-mixed-label-presence'
+            className: 'form-row-element-mixed-label-presence',
+            formElementClass: {'column-3': false}
           }
         }
       }
