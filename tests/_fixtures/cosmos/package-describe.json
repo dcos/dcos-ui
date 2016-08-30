@@ -347,6 +347,70 @@
           "master"
         ],
         "type": "object"
+      },
+      "nested-properties": {
+        "description": "This is how nested properties looks. We can even have a title!",
+        "title": "Nested Properties",
+        "type": "object",
+        "properties": {
+          "level0": {
+            "description": "This is a top level property. levelsDeep === 0",
+            "title": "Configuration at Level 0",
+            "type": "object",
+            "properties": {
+              "level1": {
+                "description": "Many options, levelsDeep === 1",
+                "title": "Next Level Deep",
+                "type": "object",
+                "properties": {
+                  "enabled": {
+                    "type": "string",
+                    "default": "hello",
+                    "title": "Yes"
+                  },
+                  "level2": {
+                    "description": "levelsDeep === 2",
+                    "type": "object",
+                    "properties": {
+                      "potato": {
+                        "description": "Yet another level, levelsDeep === 3",
+                        "title": "Grammatical freedom",
+                        "type": "string",
+                        "properties": {
+                          "heavy-potato": {
+                            "description": "Yet another level, levelsDeep === 4",
+                            "title": "Heavy Potato",
+                            "default": "very heavy",
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "authentication": {
+                "description": "Mesos scheduler dcos-oauth configuration. levelsDeep === 1",
+                "type": "object",
+                "properties": {
+                  "secret-name": {
+                    "description": "Path to a service-account credential in the secret store. levelsDeep === 2",
+                    "title": "Secret Name!",
+                    "type": "string",
+                    "properties": {
+                      "many-options": {
+                        "default": "semicolon",
+                        "description": "Yet another level, levelsDeep === 3",
+                        "title": "Grammatical freedom",
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     },
     "required": [
