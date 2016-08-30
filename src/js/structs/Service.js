@@ -1,3 +1,4 @@
+import {cleanServiceJSON} from '../utils/CleanJSONUtil';
 import Item from './Item';
 import HealthStatus from '../constants/HealthStatus';
 import ServiceStatus from '../constants/ServiceStatus';
@@ -70,6 +71,6 @@ module.exports = class Service extends Item {
   }
 
   toJSON() {
-    return this.get();
+    return cleanServiceJSON(this.get());
   }
 };
