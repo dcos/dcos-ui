@@ -275,7 +275,6 @@ var ServicesTab = React.createClass({
       return (
         <FilterHeadline
           className="breadcrumb-style-headline"
-          inverseStyle={true}
           onReset={this.resetFilter}
           name="Service"
           currentLength={filteredServices.length}

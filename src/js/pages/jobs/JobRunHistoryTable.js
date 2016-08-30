@@ -316,7 +316,6 @@ class JobRunHistoryTable extends React.Component {
         <FilterBar rightAlignLastNChildren={rightAlignLastNChildren}>
           <FilterHeadline
             currentLength={totalRunCount}
-            inverseStyle={true}
             name="Run"
             onReset={function () {}}
             totalLength={totalRunCount} />

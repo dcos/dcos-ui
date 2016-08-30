@@ -57,7 +57,7 @@ var FilterHealth = React.createClass({
         health = null;
       }
       var classSet = classNames({
-        'button button-stroke button-inverse': true,
+        'button button-stroke': true,
         'active': mode === health
       });
 
@@ -72,9 +72,9 @@ var FilterHealth = React.createClass({
             key={key}
             className={classSet}
             onClick={this.props.handleFilterChange.bind(null, health)}>
-          <span className="button-align-content">
+          <span className="button-align-content label flush">
             <span className={dotClassSet}></span>
-            <span className="label">{buttonMap[key]}</span>
+            <span>{buttonMap[key]}</span>
             <span className="badge">{this.getCountByHealth(key)}</span>
           </span>
         </button>

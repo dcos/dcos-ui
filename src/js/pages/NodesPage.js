@@ -191,9 +191,9 @@ var NodesPage = React.createClass({
     });
 
     return (
-      <span className="button-align-content">
+      <span className="button-align-content label flush">
         <span className={dotClassSet}></span>
-        <span className="label">{StringUtil.capitalize(filterName)}</span>
+        <span>{StringUtil.capitalize(filterName)}</span>
         <span className="badge">{count || 0}</span>
       </span>
     );
@@ -210,18 +210,17 @@ var NodesPage = React.createClass({
       <FilterInputText
         className="flush-bottom"
         searchString={this.state.searchString}
-        handleFilterChange={this.handleSearchStringChange}
-        inverseStyle={true} />
+        handleFilterChange={this.handleSearchStringChange} />
     );
   },
 
   getViewTypeRadioButtons(resetFilter) {
-    var listClassSet = classNames({
-      'button button-stroke button-inverse': true
+    var listClassSet = classNames('button button-stroke', {
+      'active': /\/nodes\/list\/?/i.test(HashLocation.getCurrentPath())
     });
 
-    var gridClassSet = classNames({
-      'button button-stroke button-inverse': true
+    var gridClassSet = classNames('button button-stroke', {
+      'active': /\/nodes\/grid\/?/i.test(HashLocation.getCurrentPath())
     });
 
     return (
@@ -258,7 +257,6 @@ var NodesPage = React.createClass({
           onResourceSelectionChange={this.onResourceSelectionChange} />
         <FilterHeadline
           currentLength={nodesList.length}
-          inverseStyle={true}
           isFiltering={isFiltering}
           name="Node"
           onReset={this.resetFilter}
@@ -270,7 +268,6 @@ var NodesPage = React.createClass({
             filters={HEALTH_FILTER_BUTTONS}
             filterByKey="title"
             onFilterChange={this.handleHealthFilterChange}
-            inverseStyle={true}
             itemList={nodesHealth}
             selectedFilter={healthFilter} />
           <div className="form-group flush-bottom">

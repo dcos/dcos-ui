@@ -87,9 +87,9 @@ class UnitsHealthTab extends mixin(StoreMixin) {
     });
 
     return (
-      <span className="button-align-content">
+      <span className="button-align-content label flush">
         <span className={dotClassSet}></span>
-        <span className="label">{StringUtil.capitalize(filterName)}</span>
+        <span>{StringUtil.capitalize(filterName)}</span>
         <span className="badge">{count || 0}</span>
       </span>
     );
@@ -159,7 +159,6 @@ class UnitsHealthTab extends mixin(StoreMixin) {
         <div className="units-health-table-header">
           <FilterHeadline
             currentLength={visibleData.length}
-            inverseStyle={true}
             isFiltering={healthFilter !== 'all' || searchString !== ''}
             name="Component"
             onReset={this.resetFilter}
@@ -168,14 +167,12 @@ class UnitsHealthTab extends mixin(StoreMixin) {
             <FilterInputText
               className="flush-bottom"
               searchString={searchString}
-              handleFilterChange={this.handleSearchStringChange}
-              inverseStyle={true} />
+              handleFilterChange={this.handleSearchStringChange} />
             <FilterButtons
               renderButtonContent={this.getButtonContent}
               filters={['all', 'healthy', 'unhealthy']}
               filterByKey="title"
               onFilterChange={this.handleHealthFilterChange}
-              inverseStyle={true}
               itemList={dataHealth}
               selectedFilter={healthFilter} />
             <a href={UnitHealthStore.getDownloadURL()}

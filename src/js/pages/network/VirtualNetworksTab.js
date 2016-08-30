@@ -120,7 +120,6 @@ class VirtualNetworksTabContent extends mixin(StoreMixin) {
     return (
       <div>
         <FilterHeadline
-          inverseStyle={true}
           onReset={this.resetFilter}
           name="Virtual Network"
           currentLength={filteredOverlayList.getItems().length}
@@ -128,8 +127,7 @@ class VirtualNetworksTabContent extends mixin(StoreMixin) {
         <FilterBar>
           <FilterInputText
             searchString={searchString}
-            handleFilterChange={this.handleSearchStringChange}
-            inverseStyle={true} />
+            handleFilterChange={this.handleSearchStringChange} />
         </FilterBar>
         <VirtualNetworksTable overlays={filteredOverlayList} />
       </div>
