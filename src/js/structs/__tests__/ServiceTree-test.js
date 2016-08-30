@@ -2,7 +2,6 @@ const Application = require('../Application');
 const Framework = require('../Framework');
 const HealthStatus = require('../../constants/HealthStatus');
 const HealthTypes = require('../../constants/HealthTypes');
-const Service = require('../Service');
 const ServiceTree = require('../ServiceTree');
 const ServiceStatus = require('../../constants/ServiceStatus');
 const VolumeList = require('../../structs/VolumeList');
