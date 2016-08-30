@@ -83,6 +83,7 @@ class CosmosErrorMessage extends React.Component {
       if (!errors || !Array.isArray(errors)) {
         return [];
       }
+
       return errors.map(function (error) {
         return (ErrorPaths[path] || path)+'.'+error;
       });
