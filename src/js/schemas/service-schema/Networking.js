@@ -9,7 +9,11 @@ const DISABLED_LB_PORT_FIELD_VALUE = 'Not Enabled';
 const Networking = {
   type: 'object',
   title: 'Network',
-  description: 'Configure the networking for your service.',
+  description: (
+    <span>
+       Configure the networking for your service. We will automatically generate a Service Address to connect to for each of your load balanced endpoints. <a href="https://docs.mesosphere.com/1.8/usage/service-discovery/load-balancing-vips/virtual-ip-addresses/" target="_blank">Read more about load balancing</a>.
+    </span>
+  ),
   properties: {
     networkType: {
       fieldType: 'select',
