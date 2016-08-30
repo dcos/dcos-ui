@@ -6,6 +6,7 @@
     line-height: inherit;
     padding: 0 @base-spacing-unit * 0.25;
     background-color: @badge-background-color;
+    // TODO: Audit the need for this.
     border-radius: 1000px !important;
 
     &:empty {
@@ -44,17 +45,6 @@
       margin-left: 0.25 * @base-spacing-unit;
     }
 
-    // TODO: Audit the need for this white background color.
-    .inverse &,
-    &.inverse {
-
-      .badge {
-        background-color: @white;
-      }
-
-    }
-
-    // TODO: Audit the need for this white background color.
     &.badge-primary {
 
       .badge {

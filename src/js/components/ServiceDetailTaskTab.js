@@ -20,7 +20,7 @@ class ServiceDetailTaskTab extends mixin(StoreMixin) {
     let tasks = MesosStateStore.getTasksByService(this.props.service);
 
     return (
-      <TaskView tasks={tasks} inverseStyle={true}
+      <TaskView tasks={tasks}
         parentRouter={this.context.router} />
     );
   }

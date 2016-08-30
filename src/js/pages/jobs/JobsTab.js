@@ -110,7 +110,6 @@ class JobsTab extends mixin(StoreMixin, QueryParamsMixin, SaveStateMixin) {
     if (hasFiltersApplied) {
       return (
         <FilterHeadline
-          inverseStyle={true}
           onReset={this.resetFilter}
           name="Jobs"
           currentLength={filteredJobs.length}

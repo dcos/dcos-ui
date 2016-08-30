@@ -108,7 +108,7 @@ class FilterInputText extends React.Component {
     let {className, inputContainerClass, inverseStyle} = this.props;
     let {focus} = this.state;
 
-    let iconColor = 'white';
+    let iconColor = 'grey';
     let iconSearchClasses = classNames({
       'active': focus
     });

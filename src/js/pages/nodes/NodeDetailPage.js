@@ -157,7 +157,6 @@ class NodeDetailPage extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) 
     return (
       <div className="container container-fluid flush">
         <TaskView
-          inverseStyle={true}
           tasks={tasks}
           parentRouter={this.context.router}
           nodeID={nodeID} />
