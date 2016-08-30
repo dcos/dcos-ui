@@ -4,7 +4,6 @@ jest.dontMock('../../constants/VolumeConstants');
 
 const Application = require('../../structs/Application');
 const Framework = require('../../structs/Framework');
-const Service = require('../../structs/Service');
 const ServiceUtil = require('../ServiceUtil');
 
 describe('ServiceUtil', function () {
