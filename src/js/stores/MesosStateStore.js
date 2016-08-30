@@ -255,21 +255,20 @@ class MesosStateStore extends GetSetBaseStore {
     // the scheduler tasks or a list of Marathon application tasks.
     return frameworks.reduce(function (serviceTasks, framework) {
       let {tasks = [], completed_tasks = {}, name} = framework;
+
+      let allTasks = tasks.concat(completed_tasks).map(function (task) {
+        task.startedBy = name;
+        return task;
+      });
+
       // Include tasks from framework match, if service is a Framework
       if (service instanceof Framework && name === serviceName) {
-        return serviceTasks.concat(tasks, completed_tasks);
+        return serviceTasks.concat(allTasks);
       }
-
       // Filter marathon tasks by service name
       if (name === 'marathon') {
-        return tasks.concat(completed_tasks)
-          .filter(function ({name}) {
-            return name === mesosTaskName;
-          })
-          .map((task) => {
-            task.startedByMarathon = true;
-            return task;
-          })
+        return allTasks
+          .filter(({name}) => name === mesosTaskName)
           .concat(serviceTasks);
       }
 

@@ -51,7 +51,7 @@ describe('TaskTable', function () {
     });
 
     it('returns a map of disabled items', function () {
-      var tasks = [{id: '1', startedByMarathon: true}, {id: '2'}];
+      var tasks = [{id: '1', startedBy: 'marathon'}, {id: '2'}];
       expect(this.taskTable.getDisabledItemsMap(tasks)).toEqual({'2': true});
     });
   });

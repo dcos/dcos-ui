@@ -85,8 +85,8 @@ describe('MesosStateStore', function () {
       );
 
       expect(tasks).toEqual([
-        {name: 'beta', id: 'beta.1', startedByMarathon: true},
-        {name: '1'}
+        {name: 'beta', id: 'beta.1', startedBy: 'marathon'},
+        {name: '1', startedBy: 'beta'}
       ]);
     });
 
@@ -96,10 +96,10 @@ describe('MesosStateStore', function () {
           new Framework({id: '/spark', labels: {DCOS_PACKAGE_FRAMEWORK_NAME: 'spark'}})
         );
         expect(tasks).toEqual([
-          {name: 'spark', id: 'spark.1', startedByMarathon: true},
-          {name: '1'},
-          {name: '2'},
-          {name: '3'}
+          {name: 'spark', id: 'spark.1', startedBy: 'marathon'},
+          {name: '1', startedBy: 'spark'},
+          {name: '2', startedBy: 'spark'},
+          {name: '3', startedBy: 'spark'}
         ]);
       }
     );
@@ -109,9 +109,9 @@ describe('MesosStateStore', function () {
         new Service({id: '/alpha'})
       );
       expect(tasks).toEqual([
-        {name: 'alpha', id: 'alpha.1', startedByMarathon: true},
-        {name: 'alpha', id: 'alpha.2', startedByMarathon: true},
-        {name: 'alpha', id: 'alpha.3', startedByMarathon: true}
+        {name: 'alpha', id: 'alpha.1', startedBy: 'marathon'},
+        {name: 'alpha', id: 'alpha.2', startedBy: 'marathon'},
+        {name: 'alpha', id: 'alpha.3', startedBy: 'marathon'}
       ]);
     });
 
