@@ -8,7 +8,6 @@ import 'brace/mode/json';
 import 'brace/theme/monokai';
 import 'brace/ext/language_tools';
 
-import {cleanJobJSON} from '../../utils/CleanJSONUtil';
 import CollapsibleErrorMessage from '../CollapsibleErrorMessage';
 import FormUtil from '../../utils/FormUtil';
 import Job from '../../structs/Job';
@@ -286,7 +285,7 @@ class JobFormModal extends mixin(StoreMixin) {
       return;
     }
 
-    let jobSpec = cleanJobJSON(JobUtil.createJobSpecFromJob(job));
+    let jobSpec = JobUtil.createJobSpecFromJob(job);
 
     if (!this.props.isEdit) {
       MetronomeStore.createJob(jobSpec);

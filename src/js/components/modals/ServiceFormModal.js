@@ -10,7 +10,6 @@ import 'brace/mode/json';
 import 'brace/theme/monokai';
 import 'brace/ext/language_tools';
 
-import {cleanServiceJSON} from '../../utils/CleanJSONUtil';
 import Config from '../../config/Config';
 import CollapsibleErrorMessage from '../CollapsibleErrorMessage';
 import Icon from '../Icon';
@@ -339,9 +338,7 @@ class ServiceFormModal extends mixin(StoreMixin) {
     }
 
     if (this.state.jsonMode) {
-      let jsonDefinition = this.state.service.get();
-      jsonDefinition = cleanServiceJSON(jsonDefinition);
-      marathonAction(jsonDefinition, this.state.force);
+      marathonAction(this.state.service, this.state.force);
       this.setState({
         errorMessage: null,
         pendingRequest: true
@@ -368,7 +365,7 @@ class ServiceFormModal extends mixin(StoreMixin) {
         service
       });
       marathonAction(
-        cleanServiceJSON(ServiceUtil.getAppDefinitionFromService(service)),
+        ServiceUtil.getAppDefinitionFromService(service),
         this.state.force
       );
     }
@@ -483,11 +480,7 @@ class ServiceFormModal extends mixin(StoreMixin) {
   getModalContents() {
     let {defaultTab, jsonMode, service} = this.state;
 
-    let jsonDefinition = JSON.stringify(
-      cleanServiceJSON(service.get()),
-      null,
-      2
-    );
+    let jsonDefinition = JSON.stringify(service, null, 2);
 
     if (jsonMode) {
       let toolTipContent = (

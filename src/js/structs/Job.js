@@ -1,3 +1,4 @@
+import {cleanJobJSON} from '../utils/CleanJSONUtil';
 import DateUtil from '../utils/DateUtil';
 import Item from './Item';
 import JobRunList from './JobRunList';
@@ -127,6 +128,6 @@ module.exports = class Job extends Item {
   }
 
   toJSON() {
-    return this.get();
+    return cleanJobJSON(this.get());
   }
 };
