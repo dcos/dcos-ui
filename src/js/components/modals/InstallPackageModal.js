@@ -69,7 +69,6 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
     });
 
     this.modalRef = undefined;
-
   }
 
   componentDidMount() {
