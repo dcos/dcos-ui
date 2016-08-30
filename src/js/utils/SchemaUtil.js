@@ -100,6 +100,10 @@ function schemaToFieldDefinition(options) {
     definition.formElementClass = fieldProps.formElementClass;
   }
 
+  if (fieldProps.inputClass) {
+    definition.inputClass = fieldProps.inputClass;
+  }
+
   if (fieldProps.filterProperties) {
     definition.filterProperties = fieldProps.filterProperties;
   }
