@@ -28,11 +28,16 @@ class CosmosErrorMessage extends React.Component {
   }
 
   getMessage() {
-    let {type, message} = this.props.error;
+    let {error} = this.props;
+    if (!error) {
+      return 'An unknown error occurred';
+    }
 
-    if (!REPOSITORY_ERRORS.includes(type)) {
-      // Return message
-      return message;
+    // Append reference to repository page, since repository related errors
+    // can occur at any request to Cosmos
+    let {type, message} = error;
+    if (REPOSITORY_ERRORS.includes(type)) {
+      message = this.appendRepositoryLink(message);
     }
 
     // Append reference to repository page, since repository related errors
@@ -41,16 +46,44 @@ class CosmosErrorMessage extends React.Component {
   }
 
   getDetails() {
-    let {data} = this.props.error;
-    if (!data || !data.errors) {
-      // No errors
+    let {error} = this.props;
+    if (!error) {
       return null;
     }
-    // Check if we should additionally append
-    // the error details as an unordered list
+
+    // Return early if we have some well-known or an unknown type
+    if (typeof error === 'string') {
+      return [error];
+    }
+    if (typeof error !== 'object') {
+      return null;
+    }
+
+    // Return early if important fields are missing, or they are not
+    // in the expected format
+    if (!error.data || !error.data.errors) {
+      return null;
+    }
+    if (!Array.isArray(error.data.errors)) {
+      return [String(error.data.errors)];
+    }
 
     // Get an array of array of errors for every individual path
-    let errorsDetails = data.errors.map(function ({path, errors}) {
+    let errorsDetails = error.data.errors.map(function (errorDetail) {
+      // Return early on unexpected error object format
+      if (!errorDetail) {
+        return [];
+      }
+      if (typeof errorDetail !== 'object') {
+        return [String(errorDetail)];
+      }
+
+      // Extract details
+      let {path = '/', errors = []} = errorDetail;
+      if (!errors || !Array.isArray(errors)) {
+        return [];
+      }
+
       return errors.map(function (error) {
         return (ErrorPaths[path] || path)+'.'+error;
       });
