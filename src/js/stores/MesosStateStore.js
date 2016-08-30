@@ -257,7 +257,7 @@ class MesosStateStore extends GetSetBaseStore {
       let {tasks = [], completed_tasks = {}, name} = framework;
 
       let allTasks = tasks.concat(completed_tasks).map(function (task) {
-        task.startedBy = name;
+        task.scheduler = name;
         return task;
       });
 
