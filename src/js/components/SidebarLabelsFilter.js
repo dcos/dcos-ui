@@ -99,8 +99,8 @@ class SidebarLabelsFilters extends mixin(QueryParamsMixin) {
 
     return (
       <Dropdown
-        buttonClassName="button button-inverse dropdown-toggle button-wide button-split-content"
-        dropdownMenuClassName="dropdown-menu inverse"
+        buttonClassName="button dropdown-toggle button-split-content"
+        dropdownMenuClassName="dropdown-menu"
         dropdownMenuListClassName="dropdown-menu-list"
         dropdownMenuListItemClassName="clickable"
         items={labelOptions}
@@ -211,9 +211,7 @@ class SidebarLabelsFilters extends mixin(QueryParamsMixin) {
     }
 
     return (
-      <div className="side-list sidebar-filters hidden-medium hidden-small hidden-mini">
-        <div className="flex-box flex-align-right flush">
-        </div>
+      <div className="side-list sidebar-filters hidden-medium hidden-small pod flush-top flush-left">
         {this.getLabelsDropdown()}
         {this.getSelectedLabels()}
       </div>
