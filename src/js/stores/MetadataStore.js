@@ -88,11 +88,14 @@ class MetadataStore extends GetSetBaseStore {
   }
 
   buildDocsURI(path) {
+    return `${Config.documentationURI}/${this.version}${path}`;
+  }
+
+  get version() {
     let metadata = this.get('dcosMetadata');
     let version = (metadata && metadata.version) || 'latest';
     version = version.split('-')[0];
-    let docsVersion = version.replace(/(.*?)\.(.*?)\..*/, '$1.$2');
-    return `${Config.documentationURI}/${docsVersion}${path}`;
+    return version.replace(/(.*?)\.(.*?)\..*/, '$1.$2');
   }
 
   get storeID() {
