@@ -265,7 +265,12 @@ class MesosStateStore extends GetSetBaseStore {
         return tasks.concat(completed_tasks)
           .filter(function ({name}) {
             return name === mesosTaskName;
-          }).concat(serviceTasks);
+          })
+          .map((task) => {
+            task.startedByMarathon = true;
+            return task;
+          })
+          .concat(serviceTasks);
       }
 
       return serviceTasks;
