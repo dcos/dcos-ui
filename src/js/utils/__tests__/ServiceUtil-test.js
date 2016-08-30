@@ -58,8 +58,8 @@ describe('ServiceUtil', function () {
           }
         });
         expect(service.env).toEqual({
-          a: 'correct',
-          b: ''
+          A: 'correct',
+          B: ''
         });
       });
 
@@ -76,7 +76,7 @@ describe('ServiceUtil', function () {
         );
         expect(service.env).toEqual(
           {
-            a: 'correct'
+            A: 'correct'
           }
         );
       });
@@ -85,14 +85,14 @@ describe('ServiceUtil', function () {
         let service = ServiceUtil.createServiceFromFormModel({
           environmentVariables: {
             environmentVariables: [
-              { key: 'a', value: 'correct' },
-              { key: 'b', value: null }
+              { key: 'A', value: 'correct' },
+              { key: 'B', value: null }
             ]
           }
         });
         expect(service.env).toEqual({
-          a: 'correct',
-          b: ''
+          A: 'correct',
+          B: ''
         });
       });
 
