@@ -2,6 +2,8 @@
 
   .badge {
     color: @body-background-color;
+    font-size: inherit;
+    line-height: inherit;
     padding: 0 @base-spacing-unit * 0.25;
     background-color: @badge-background-color;
     border-radius: 1000px !important;
@@ -16,6 +18,7 @@
 
   }
 
+  // TODO: Audit the need for this white background color.
   .active {
 
     .badge {
@@ -28,19 +31,20 @@
     display: flex;
 
     & > *:first-child {
-      overflow: hidden;
-      white-space: nowrap;
-      text-overflow: ellipsis;
       flex-grow: 1;
+      overflow: hidden;
       text-align: left;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
 
     .badge {
-      margin-left: 0.25 * @base-spacing-unit;
-      flex-shrink: 0;
       align-self: center;
+      flex-shrink: 0;
+      margin-left: 0.25 * @base-spacing-unit;
     }
 
+    // TODO: Audit the need for this white background color.
     .inverse &,
     &.inverse {
 
@@ -50,6 +54,7 @@
 
     }
 
+    // TODO: Audit the need for this white background color.
     &.badge-primary {
 
       .badge {
@@ -59,6 +64,8 @@
 
     }
 
+    // TODO: This is specific to the packages view, so maybe move it there or
+    // find a better abstracted name.
     &.selected-badge {
       align-items: center;
       margin-top: @base-spacing-unit * 0.25;
@@ -97,10 +104,6 @@
   @media (min-width: @layout-screen-small-min-width) {
 
     .badge {
-      .property-variant(body, font-size, screen-small);
-      .property-variant(body, line-height, screen-small);
-      min-width: @base-spacing-unit-screen-small;
-      padding: 0 @base-spacing-unit-screen-small * 0.25;
 
       .badge-container & {
         margin-left: 0.25 * @base-spacing-unit-screen-small;
@@ -117,10 +120,6 @@
   @media (min-width: @layout-screen-medium-min-width) {
 
     .badge {
-      .property-variant(body, font-size, screen-medium);
-      .property-variant(body, line-height, screen-medium);
-      min-width: @base-spacing-unit-screen-medium;
-      padding: 0 @base-spacing-unit-screen-medium * 0.25;
 
       .badge-container & {
         margin-left: 0.25 * @base-spacing-unit-screen-medium;
@@ -137,10 +136,6 @@
   @media (min-width: @layout-screen-large-min-width) {
 
     .badge {
-      .property-variant(body, font-size, screen-large);
-      .property-variant(body, line-height, screen-large);
-      min-width: @base-spacing-unit-screen-large;
-      padding: 0 @base-spacing-unit-screen-large * 0.25;
 
       .badge-container & {
         margin-left: 0.25 * @base-spacing-unit-screen-large;
@@ -157,10 +152,6 @@
   @media (min-width: @layout-screen-jumbo-min-width) {
 
     .badge {
-      .property-variant(body, font-size, screen-jumbo);
-      .property-variant(body, line-height, screen-jumbo);
-      min-width: @base-spacing-unit-screen-jumbo;
-      padding: 0 @base-spacing-unit-screen-jumbo * 0.25;
 
       .badge-container & {
         margin-left: 0.25 * @base-spacing-unit-screen-jumbo;
