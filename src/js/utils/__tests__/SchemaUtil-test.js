@@ -14,7 +14,8 @@ describe('SchemaUtil', function () {
                 id: {
                   type: 'string'
                 }
-              }
+              },
+              title: 'Application'
             }
           }
         };
@@ -27,15 +28,11 @@ describe('SchemaUtil', function () {
       });
 
       it('sets the title of the definition', function () {
-        expect(this.result.application.title).toEqual('application');
+        expect(this.result.application.title).toEqual('Application');
       });
 
       it('creates a field for the property', function () {
         expect(this.result.application).not.toEqual(undefined);
-      });
-
-      it('sets the title correctly', function () {
-        expect(this.result.application.title).toEqual('application');
       });
 
       it('turns a schema to a definition', function () {
