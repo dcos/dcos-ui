@@ -77,13 +77,14 @@ class CheckboxTable extends React.Component {
   renderHeadingCheckbox() {
     let checked = false;
     let indeterminate = false;
-    let {allowMultipleSelect, checkedItemsMap, data} = this.props;
+    let {allowMultipleSelect, checkedItemsMap, disabledItemsMap, data} = this.props;
 
     if (!allowMultipleSelect) {
       return null;
     }
 
     let checkedItemsCount = Object.keys(checkedItemsMap).length;
+    let disabledItemsCount = Object.keys(disabledItemsMap).length;
 
     if (checkedItemsCount > 0) {
       indeterminate = true;
@@ -91,7 +92,7 @@ class CheckboxTable extends React.Component {
       checked = false;
     }
 
-    if (checkedItemsCount === data.length && checkedItemsCount !== 0) {
+    if (checkedItemsCount + disabledItemsCount === data.length && checkedItemsCount !== 0) {
       checked = true;
       indeterminate = false;
     }
