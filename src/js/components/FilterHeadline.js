@@ -28,26 +28,22 @@ class FilterHeadline extends React.Component {
       (isFiltering != null && !isFiltering);
     name = StringUtil.pluralize(name, totalLength);
 
-    let filteredClassSet = classNames({
-      'h4': true,
+    let filteredClassSet = classNames('h4', {
       'inverse': inverseStyle,
       'hidden': hideFilteredClasses
     });
 
-    let unfilteredClassSet = classNames({
-      'h4': true,
+    let unfilteredClassSet = classNames('h4', {
       'inverse': inverseStyle,
       'hidden': !hideFilteredClasses
     });
 
-    let anchorClassSet = classNames({
-      'h4 clickable': true,
+    let anchorClassSet = classNames('h4 clickable', {
       'inverse': inverseStyle,
       'hidden': hideFilteredClasses
     });
 
-    let listClassSet = classNames({
-      'list-unstyled list-inline': true,
+    let listClassSet = classNames('list list-unstyled list-inline', {
       'inverse': inverseStyle
     }, className);
 
@@ -57,7 +53,7 @@ class FilterHeadline extends React.Component {
           Showing {currentLength} of {totalLength} {name}
         </li>
         <li className={anchorClassSet} onClick={this.handleReset}>
-          <a className="small">
+          <a className="small flush">
             (Clear)
           </a>
         </li>

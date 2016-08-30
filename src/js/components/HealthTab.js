@@ -131,7 +131,6 @@ class HealthTab extends React.Component {
       <div>
         <FilterHeadline
           currentLength={visibleData.length}
-          inverseStyle={true}
           isFiltering={healthFilter !== 'all' || searchString !== ''}
           name={"Health Check"}
           onReset={this.resetFilter}
@@ -140,8 +139,7 @@ class HealthTab extends React.Component {
           <FilterInputText
             className="flush-bottom"
             searchString={searchString}
-            handleFilterChange={this.handleSearchStringChange}
-            inverseStyle={true} />
+            handleFilterChange={this.handleSearchStringChange} />
           <UnitHealthDropdown
             initialID="all"
             className="button dropdown-toggle text-align-left button-inverse"

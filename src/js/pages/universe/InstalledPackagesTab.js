@@ -87,8 +87,7 @@ class InstalledPackagesTab extends mixin(StoreMixin) {
             className="flex-grow"
             placeholder="Search"
             searchString={searchString}
-            handleFilterChange={this.handleSearchStringChange}
-            inverseStyle={true} />
+            handleFilterChange={this.handleSearchStringChange} />
         </div>
         <PackagesTable packages={packages} filter={searchString} />
       </div>
