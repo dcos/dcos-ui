@@ -3,6 +3,7 @@
 .idea/*
 !dist/
 dist/*
+cypress/*
 build/
 npm-debug.log
 node_modules/
