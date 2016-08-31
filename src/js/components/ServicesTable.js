@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import {Confirm, Dropdown, Table} from 'reactjs-components';
+import {Dropdown, Table} from 'reactjs-components';
 import {Link} from 'react-router';
 import React from 'react';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
@@ -14,6 +14,7 @@ import ResourceTableUtil from '../utils/ResourceTableUtil';
 import Service from '../structs/Service';
 import ServiceActionItem from '../constants/ServiceActionItem';
 import ServiceDestroyModal from './modals/ServiceDestroyModal';
+import ServiceRestartModal from './modals/ServiceRestartModal';
 import ServiceScaleFormModal from '../components/modals/ServiceScaleFormModal';
 import ServiceSuspendModal from './modals/ServiceSuspendModal';
 import ServiceTableHeaderLabels from '../constants/ServiceTableHeaderLabels';
@@ -49,8 +50,6 @@ var ServicesTable = React.createClass({
 
   getInitialState() {
     return {
-      disabledDialog: null,
-      errorMsg: null,
       serviceActionDialog: null,
       serviceToChange: null
     };
@@ -124,14 +123,6 @@ var ServicesTable = React.createClass({
     );
   },
 
-  onAcceptRestartConfirmDialog() {
-    let service = this.state.serviceToChange;
-
-    this.setState({disabledDialog: ServiceActionItem.RESTART}, () => {
-      MarathonStore.restartService(service.getId(), !!this.state.errorMsg);
-    });
-  },
-
   onMarathonAppsChange() {
     this.forceUpdate();
   },
@@ -145,56 +136,9 @@ var ServicesTable = React.createClass({
 
   closeDialog() {
     this.setState({
-      disabledDialog: null,
-      errorMsg: null,
       serviceActionDialog: null,
       serviceToChange: null
     });
-  },
-
-  getErrorMessage() {
-    let {errorMsg} = this.state;
-    if (!errorMsg) {
-      return null;
-    }
-    return (
-      <p className="text-danger flush-top">{errorMsg}</p>
-    );
-  },
-
-  getRestartConfirmDialog() {
-    const {state} = this;
-    let service = state.serviceToChange;
-    let serviceName = '';
-    let buttonText = 'Restart Service';
-
-    if (state.errorMsg) {
-      buttonText = 'Forcefully Restart Service';
-    }
-
-    if (service) {
-      serviceName = service.getId();
-    }
-
-    return (
-      <Confirm
-        disabled={state.disabledDialog === ServiceActionItem.RESTART}
-        open={state.serviceActionDialog === ServiceActionItem.RESTART}
-        onClose={this.closeDialog}
-        leftButtonText="Cancel"
-        leftButtonCallback={this.closeDialog}
-        rightButtonText={buttonText}
-        rightButtonClassName="button button-danger"
-        rightButtonCallback={this.onAcceptRestartConfirmDialog}>
-        <div className="container-pod flush-top container-pod-short-bottom">
-          <h2 className="text-danger text-align-center flush-top">Restart Service</h2>
-          <p>
-            Are you sure you want to restart <span className="emphasize">{serviceName}</span>?
-          </p>
-          {this.getErrorMessage()}
-        </div>
-      </Confirm>
-    );
   },
 
   getServiceScaleFormModal() {
@@ -490,10 +434,13 @@ var ServicesTable = React.createClass({
           onClose={this.onServiceDestroyModalClose}
           open={serviceActionDialog === ServiceActionItem.DESTROY}
           service={serviceToChange} />
-        {this.getRestartConfirmDialog()}
+        <ServiceRestartModal
+          onClose={this.closeDialog}
+          open={serviceActionDialog === ServiceActionItem.RESTART}
+          service={serviceToChange} />
         {this.getServiceScaleFormModal()}
         <ServiceSuspendModal
-          onClose={this.onServiceSuspendModalClose}
+          onClose={this.closeDialog}
           open={serviceActionDialog === ServiceActionItem.SUSPEND}
           service={serviceToChange} />
       </div>

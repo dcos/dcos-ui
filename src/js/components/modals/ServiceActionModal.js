@@ -48,7 +48,7 @@ class ServiceActionModal extends mixin(StoreMixin) {
   }
 
   closeDialog() {
-    this.setState({disabled: false});
+    this.setState({disabled: false, errorMsg: null});
     this.props.onClose();
   }
 
