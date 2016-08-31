@@ -48,19 +48,17 @@ const General = {
           description: 'The amount of CPUs the job requires',
           type:'number',
           getter(job) {
-            return `${job.getCpus() || ''}`;
+            return `${job.getCpus()}`;
           },
           externalValidator({general}, definition) {
-            if (!ValidatorUtil.isNumber(general.cpus)) {
-              definition.showError = 'Expecting a number here';
-              return false;
-            }
-
-            if (general.cpus < MesosConstants.MIN_CPUS) {
-              definition.showError = 'CPUs must be at least '+
+            if (!ValidatorUtil.isNumberInRange(general.cpus, {
+              min: MesosConstants.MIN_CPUS
+            })) {
+              definition.showError = 'CPUs must be a number at least equal to ' +
                 MesosConstants.MIN_CPUS;
               return false;
             }
+
             return true;
           }
         },
@@ -69,13 +67,13 @@ const General = {
           default: MesosConstants.MIN_MEM,
           type: 'number',
           getter(job) {
-            return `${job.getMem() || ''}`;
+            return `${job.getMem()}`;
           },
           externalValidator({general}, definition) {
             if (!ValidatorUtil.isNumberInRange(general.mem, {
               min: MesosConstants.MIN_MEM
             })) {
-              definition.showError = 'Mem must be a number and at least' +
+              definition.showError = 'Mem must be a number and at least ' +
                 MesosConstants.MIN_MEM + ' MiB';
               return false;
             }
@@ -88,10 +86,11 @@ const General = {
           default: 0,
           type: 'number',
           getter(job) {
-            return `${job.getDisk() || ''}`;
+            return `${job.getDisk()}`;
           },
           externalValidator({general}, definition) {
-            if (!ValidatorUtil.isNumberInRange(general.disk)) {
+            if (ValidatorUtil.isDefined(general.disk) &&
+               !ValidatorUtil.isNumberInRange(general.disk)) {
               definition.showError = 'Disk must be a positive number';
               return false;
             }

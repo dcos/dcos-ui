@@ -269,8 +269,7 @@ class JobFormModal extends mixin(StoreMixin) {
     }
 
     this.setState({
-      errorMessage: null,
-      jobFormModel: model
+      errorMessage: null
     });
   }
 
