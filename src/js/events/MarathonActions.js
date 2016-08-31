@@ -44,7 +44,7 @@ function buildURI(path) {
   return `${Config.rootUrl}${Config.marathonAPIPrefix}${path}`;
 }
 
-module.exports = {
+var MarathonActions = {
   createGroup(data) {
     RequestUtil.json({
       url: buildURI('/groups'),
@@ -418,3 +418,25 @@ module.exports = {
   }
 
 };
+
+if (Config.useFixtures) {
+  const groupsFixture = require('../../../tests/_fixtures/marathon-pods/groups.json');
+
+  if (!global.actionTypes) {
+    global.actionTypes = {};
+  }
+
+  global.actionTypes.MarathonActions = {
+    fetchGroups: {
+      event: 'success', success: {response: groupsFixture}
+    }
+  };
+
+  Object.keys(global.actionTypes.MarathonActions).forEach(function (method) {
+    MarathonActions[method] = RequestUtil.stubRequest(
+      MarathonActions, 'MarathonActions', method
+    );
+  });
+}
+
+module.exports = MarathonActions;
