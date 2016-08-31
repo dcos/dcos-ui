@@ -46,11 +46,19 @@ describe('MesosStateStore', function () {
               tasks: [
                 {name: 'spark', id: 'spark.1'},
                 {name: 'alpha', id: 'alpha.1'},
-                {name: 'alpha', id: 'alpha.2'}
+                {name: 'alpha', id: 'alpha.2'},
+                {name: 'beta', id: 'beta.1'}
               ],
               completed_tasks: [
                 {name: 'alpha', id: 'alpha.3'}
               ]
+            },
+            {
+              name: 'beta',
+              tasks: [
+                {name: '1'}
+              ],
+              completed_tasks: []
             },
             {
               name: 'spark',
@@ -71,16 +79,27 @@ describe('MesosStateStore', function () {
       MesosStateStore.get = this.get;
     });
 
+    it('should flag tasks started with marathon', function () {
+      var tasks = MesosStateStore.getTasksByService(
+        new Framework({id: '/beta', labels: {DCOS_PACKAGE_FRAMEWORK_NAME: 'beta'}})
+      );
+
+      expect(tasks).toEqual([
+        {name: 'beta', id: 'beta.1', scheduler: 'marathon'},
+        {name: '1', scheduler: 'beta'}
+      ]);
+    });
+
     it('should return matching framework tasks including scheduler tasks',
       function () {
         var tasks = MesosStateStore.getTasksByService(
           new Framework({id: '/spark', labels: {DCOS_PACKAGE_FRAMEWORK_NAME: 'spark'}})
         );
         expect(tasks).toEqual([
-          {name: 'spark', id: 'spark.1'},
-          {name: '1'},
-          {name: '2'},
-          {name: '3'}
+          {name: 'spark', id: 'spark.1', scheduler: 'marathon'},
+          {name: '1', scheduler: 'spark'},
+          {name: '2', scheduler: 'spark'},
+          {name: '3', scheduler: 'spark'}
         ]);
       }
     );
@@ -90,9 +109,9 @@ describe('MesosStateStore', function () {
         new Service({id: '/alpha'})
       );
       expect(tasks).toEqual([
-        {name: 'alpha', id: 'alpha.1'},
-        {name: 'alpha', id: 'alpha.2'},
-        {name: 'alpha', id: 'alpha.3'}
+        {name: 'alpha', id: 'alpha.1', scheduler: 'marathon'},
+        {name: 'alpha', id: 'alpha.2', scheduler: 'marathon'},
+        {name: 'alpha', id: 'alpha.3', scheduler: 'marathon'}
       ]);
     });
 
