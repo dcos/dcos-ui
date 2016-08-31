@@ -21,7 +21,7 @@ const METHODS_TO_BIND = [
 
 class MesosLogView extends mixin(StoreMixin) {
   constructor() {
-    super();
+    super(...arguments);
 
     this.state = {
       fullLog: null,
@@ -182,8 +182,8 @@ class MesosLogView extends mixin(StoreMixin) {
       previousScrollHeight = logContainer.scrollHeight;
     }
 
-    let logBuffer = MesosLogStore.get(filePath);
-    this.setState({fullLog: logBuffer.getFullLog()}, () => {
+    let fullLog = MesosLogStore.get(filePath).getFullLog();
+    this.setState({fullLog}, () => {
       // This allows the user to stay at the place of the log they were at
       // before the prepend.
       if (direction === 'prepend' && previousScrollHeight) {
@@ -200,7 +200,8 @@ class MesosLogView extends mixin(StoreMixin) {
 
   checkIfCloseToTop(container) {
     let distanceFromTop = DOMUtils.getDistanceFromTop(container);
-    if (distanceFromTop < 2000) {
+    let logBuffer = MesosLogStore.get(this.props.filePath);
+    if (distanceFromTop < 2000 && !(logBuffer && logBuffer.hasLoadedTop())) {
       let {props} = this;
       MesosLogStore.getPreviousLogs(props.task.slave_id, props.filePath);
     }
@@ -289,6 +290,7 @@ class MesosLogView extends mixin(StoreMixin) {
         className="flex-grow flush-bottom inverse prettyprint"
         ref="logContainer"
         onScroll={this.handleLogContainerScroll}>
+        {this.getLogPrepend()}
         <Highlight
           matchClass="highlight"
           matchElement="span"
@@ -326,6 +328,26 @@ class MesosLogView extends mixin(StoreMixin) {
         className="button button-inverse go-to-bottom-button">
         Go to bottom
       </button>
+    );
+  }
+
+  getLogPrepend() {
+    let logBuffer = MesosLogStore.get(this.props.filePath);
+    if (!logBuffer || logBuffer.hasLoadedTop()) {
+      return (
+        <div className="text-align-center vertical-center inverse">
+          (AT BEGINNING OF FILE)
+        </div>
+      );
+    }
+
+    // Show loader since we will start a request for more logs
+    return (
+      <div className="text-align-center vertical-center inverse">
+        <div className="inverse ball-scale">
+          <div />
+        </div>
+      </div>
     );
   }
 

@@ -110,6 +110,10 @@ class LogBuffer extends List {
     return this.configuration.start;
   }
 
+  hasLoadedTop() {
+    return this.configuration.start === 0;
+  }
+
   isInitialized() {
     return this.configuration.initialized;
   }

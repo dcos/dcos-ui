@@ -99,16 +99,17 @@ class TaskLogsTab extends React.Component {
   }
 
   handleViewChange(currentFile) {
+    let path = currentFile.get('path');
+    if (path === this.getSelectedFile().get('path')) {
+      // File path didn't change, let's not try to update path
+      return;
+    }
+
     let currentRoutes = this.context.router.getCurrentRoutes();
     let lastRoute = currentRoutes.pop();
-
     this.context.router.transitionTo(
       lastRoute.name,
-      Object.assign(
-        {},
-        this.props.params,
-        {filePath: encodeURIComponent(currentFile.get('path'))}
-      )
+      Object.assign({}, this.props.params, {filePath: encodeURIComponent(path)})
     );
   }
 
