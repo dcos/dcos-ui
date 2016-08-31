@@ -4,7 +4,6 @@ import React from 'react';
 
 import CollapsingString from '../../components/CollapsingString';
 import CheckboxTable from '../../components/CheckboxTable';
-import DateUtil from '../../utils/DateUtil';
 import ExpandingTable from '../../components/ExpandingTable';
 import FilterBar from '../../components/FilterBar';
 import FilterHeadline from '../../components/FilterHeadline';
