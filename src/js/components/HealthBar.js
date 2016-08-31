@@ -60,10 +60,10 @@ class HealthBar extends React.Component {
 
     // This filters overCapacity ou
     tasksSummary = Object.keys(tasksSummary)
-      .filter(function(key) {
+      .filter(function (key) {
         return key !== 'tasksOverCapacity';
       })
-      .reduce(function(memo, key) {
+      .reduce(function (memo, key) {
         memo[key] = tasksSummary[key];
         return memo;
       }, {});
