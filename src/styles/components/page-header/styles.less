@@ -1,190 +1,280 @@
+/* Page Header */
+
 & when (@page-header-enabled) {
 
-  // TODO: Audit this. Ashenden's page-header styles seem to cover most of this.
   .page-header {
-    display: flex;
-    margin-bottom: @base-spacing-unit;
+    .clearfix();
     position: relative;
-    flex-direction: column;
-    width: 100%;
 
-    &.has-tabs {
-
-      &:after {
-        background: @page-header-border-color;
-        bottom: -1px;
-        content: '';
-        height: 1px;
-        left: 0;
-        position: absolute;
-        right: @base-spacing-unit * -1;
-        width: auto;
-        z-index: @z-index-header-border;
-      }
-
-      .tabs {
-        position: relative;
-        z-index: @z-index-header-tabs;
-      }
+    &:before {
+      background-color: color-lighten(@neutral, 80);
+      bottom: 0;
+      content: '';
+      display: block;
+      height: 1px;
+      left: 0;
+      position: absolute;
+      width: 100%;
     }
+
+    .page-header-subheadline {
+
+      a {
+        text-decoration: none;
+      }
+
+    }
+
   }
 
-  .page-header-icon {
-    flex: 0 0 auto;
-    padding-right: @base-spacing-unit * 1/4;
+  .page-navigation-sidebar-toggle {
+    display: none;
   }
 
-  .page-header-content-primary,
-  .page-header-content-secondary {
-    display: flex;
-  }
-
-  .page-header-content-primary {
+  .page-header-heading {
     align-items: center;
     display: flex;
-    flex: 1 1 auto;
-    min-width: 0;
+    flex-wrap: wrap;
   }
 
-  .page-header-content-secondary {
-    flex: 0 1 auto;
-    margin-left: 0;
-    margin-top: @base-spacing-unit * 1/4;
-    padding-left: @base-spacing-unit;
+  .page-header-breadcrumbs {
+    flex: 1 1 0;
     white-space: nowrap;
 
-    &:last-child {
-      padding-right: 0;
+    & > li {
+      // Overriding specificity from CNVS. :(
+      display: inline-block !important;
+      float: none !important;
+      margin-right: @base-spacing-unit * 1/4;
+      vertical-align: middle;
+
+      &:last-child {
+        margin-right: 0;
+      }
+
     }
 
-    .button-collection {
-      margin-bottom: 0;
-    }
   }
 
-  .page-header-content-heading {
-    align-items: center;
-    display: flex;
-    margin-bottom: @base-spacing-unit * 1/2;
+  .page-header-breadcrumb-primary {
+
+    .icon {
+      margin-right: @base-spacing-unit * 1/8;
+    }
+
+    .dropdown {
+
+      .button {
+        border-radius: 0;
+        background: none;
+        border: 0;
+        padding: 0;
+      }
+
+    }
+
+  }
+
+  .page-header-actions {
+    flex: 0 0 auto;
+  }
+
+  /* Page Header Navigation */
+
+  .page-header-navigation {
+
+    & when not (@pod-margin-bottom = null) {
+
+      & when (@pod-short-margin-top-scale = null) {
+        margin-bottom: -@pod-margin-bottom;
+        padding-top: @pod-margin-bottom;
+      }
+
+      & when not (@pod-short-margin-top-scale = null) {
+        margin-bottom: -@pod-margin-bottom * @pod-short-margin-top-scale;
+        padding-top: @pod-margin-bottom * @pod-short-margin-top-scale;
+      }
+
+    }
+
+    .menu-tabbed {
+      margin-bottom: 0;
+    }
+
   }
 
 }
 
-& when (@layout-screen-small-enabled) {
+& when (@page-header-enabled) and (@layout-screen-small-enabled) {
 
   @media (min-width: @layout-screen-small-min-width) {
 
-    .page-header {
-      margin-bottom: @base-spacing-unit-screen-small;
+    .page-header-breadcrumbs {
 
-      &.has-tabs {
-
-        &:after {
-          right: @base-spacing-unit-screen-small * -1;
-        }
+      & > li {
+        margin-right: @base-spacing-unit-screen-small * 1/4;
       }
+
     }
 
-    .page-header-icon {
-      padding-right: @base-spacing-unit-screen-small * 1/4;
+    .page-header-breadcrumb-primary {
+
+      .icon {
+        margin-right: @base-spacing-unit-screen-small * 1/8;
+      }
+
     }
 
-    .page-header-content-secondary {
-      margin-top: @base-spacing-unit-screen-small * 1/4;
-    }
+    // Page Header Navigation
 
-    .page-header-content-heading {
-      margin-bottom: @base-spacing-unit-screen-small * 1/2;
+    .page-header-navigation {
+
+      & when not (@pod-margin-bottom-screen-small = null) {
+
+        & when (@pod-short-margin-top-scale = null) {
+          margin-bottom: -@pod-margin-bottom-screen-small;
+          padding-top: @pod-margin-bottom-screen-small;
+        }
+
+        & when not (@pod-short-margin-top-scale = null) {
+          margin-bottom: -@pod-margin-bottom-screen-small * @pod-short-margin-top-scale;
+          padding-top: @pod-margin-bottom-screen-small * @pod-short-margin-top-scale;
+        }
+
+      }
+
     }
 
   }
 
 }
 
-& when (@layout-screen-medium-enabled) {
+& when (@page-header-enabled) and (@layout-screen-medium-enabled) {
 
   @media (min-width: @layout-screen-medium-min-width) {
 
-    .page-header {
+    .page-header-breadcrumbs {
 
-      &.has-tabs {
-
-        &:after {
-          right: @base-spacing-unit-screen-medium * -1;
-        }
+      & > li {
+        margin-right: @base-spacing-unit-screen-medium * 1/4;
       }
+
     }
 
-    .page-header-icon {
-      padding-right: @base-spacing-unit-screen-medium * 1/4;
+    .page-header-breadcrumb-primary {
+
+      .icon {
+        margin-right: @base-spacing-unit-screen-medium * 1/8;
+      }
+
     }
 
-    .page-header-content-secondary {
-      margin-top: @base-spacing-unit-screen-medium * 1/4;
-    }
+    // Page Header Navigation
 
-    .page-header-content-heading {
-      margin-bottom: @base-spacing-unit-screen-medium * 1/2;
+    .page-header-navigation {
+
+      & when not (@pod-margin-bottom-screen-medium = null) {
+
+        & when (@pod-short-margin-top-scale = null) {
+          margin-bottom: -@pod-margin-bottom-screen-medium;
+          padding-top: @pod-margin-bottom-screen-medium;
+        }
+
+        & when not (@pod-short-margin-top-scale = null) {
+          margin-bottom: -@pod-margin-bottom-screen-medium * @pod-short-margin-top-scale;
+          padding-top: @pod-margin-bottom-screen-medium * @pod-short-margin-top-scale;
+        }
+
+      }
+
     }
 
   }
 
 }
 
-& when (@layout-screen-large-enabled) {
+& when (@page-header-enabled) and (@layout-screen-large-enabled) {
 
   @media (min-width: @layout-screen-large-min-width) {
 
-    .page-header {
+    .page-header-breadcrumbs {
 
-      &.has-tabs {
-
-        &:after {
-          right: @base-spacing-unit-screen-large * -1;
-        }
+      & > li {
+        margin-right: @base-spacing-unit-screen-large * 1/4;
       }
+
     }
 
-    .page-header-icon {
-      padding-right: @base-spacing-unit-screen-large * 1/4;
+    .page-header-breadcrumb-primary {
+
+      .icon {
+        margin-right: @base-spacing-unit-screen-large * 1/8;
+      }
+
     }
 
-    .page-header-content-secondary {
-      margin-top: @base-spacing-unit-screen-large * 1/4;
-    }
+    // Page Header Navigation
 
-    .page-header-content-heading {
-      margin-bottom: @base-spacing-unit-screen-large * 1/2;
+    .page-header-navigation {
+
+      & when not (@pod-margin-bottom-screen-large = null) {
+
+        & when (@pod-short-margin-top-scale = null) {
+          margin-bottom: -@pod-margin-bottom-screen-large;
+          padding-top: @pod-margin-bottom-screen-large;
+        }
+
+        & when not (@pod-short-margin-top-scale = null) {
+          margin-bottom: -@pod-margin-bottom-screen-large * @pod-short-margin-top-scale;
+          padding-top: @pod-margin-bottom-screen-large * @pod-short-margin-top-scale;
+        }
+
+      }
+
     }
 
   }
 
 }
 
-& when (@layout-screen-jumbo-enabled) {
+& when (@page-header-enabled) and (@layout-screen-jumbo-enabled) {
 
   @media (min-width: @layout-screen-jumbo-min-width) {
 
-    .page-header {
+    .page-header-breadcrumbs {
 
-      &.has-tabs {
-
-        &:after {
-          right: @base-spacing-unit-screen-jumbo * -1;
-        }
+      & > li {
+        margin-right: @base-spacing-unit-screen-jumbo * 1/4;
       }
+
     }
 
-    .page-header-icon {
-      padding-right: @base-spacing-unit-screen-jumbo * 1/4;
+    .page-header-breadcrumb-primary {
+
+      .icon {
+        margin-right: @base-spacing-unit-screen-jumbo * 1/8;
+      }
+
     }
 
-    .page-header-content-secondary {
-      margin-top: @base-spacing-unit-screen-jumbo * 1/4;
-    }
+    // Page Header Navigation
 
-    .page-header-content-heading {
-      margin-bottom: @base-spacing-unit-screen-jumbo * 1/2;
+    .page-header-navigation {
+
+      & when not (@pod-margin-bottom-screen-jumbo = null) {
+
+        & when (@pod-short-margin-top-scale = null) {
+          margin-bottom: -@pod-margin-bottom-screen-jumbo;
+          padding-top: @pod-margin-bottom-screen-jumbo;
+        }
+
+        & when not (@pod-short-margin-top-scale = null) {
+          margin-bottom: -@pod-margin-bottom-screen-jumbo * @pod-short-margin-top-scale;
+          padding-top: @pod-margin-bottom-screen-jumbo * @pod-short-margin-top-scale;
+        }
+
+      }
+
     }
 
   }
