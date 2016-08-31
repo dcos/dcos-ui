@@ -23,6 +23,7 @@ describe('ServiceInfo', function () {
     tasksRunning: 2,
     tasksHealthy: 2,
     tasksUnhealthy: 0,
+    instances: 2,
     labels: {
       'DCOS_PACKAGE_METADATA': 'eyJpbWFnZXMiOiB7ICJpY29uLXNtYWxsIjogImZvby1zbWFsbC5wbmciLCAiaWNvbi1tZWRpdW0iOiAiZm9vLW1lZGl1bS5wbmciLCAiaWNvbi1sYXJnZSI6ICJmb28tbGFyZ2UucG5nIn19'
     }
