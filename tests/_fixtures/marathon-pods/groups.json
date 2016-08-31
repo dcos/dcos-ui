@@ -1,0 +1,130 @@
+{
+  "apps": [
+    {
+      "id": "/sleep",
+      "cmd": "sleep 3000",
+      "args": null,
+      "user": null,
+      "env": {
+
+      },
+      "instances": 1,
+      "cpus": 0.1,
+      "mem": 16,
+      "disk": 0,
+      "executor": "",
+      "constraints": [
+
+      ],
+      "uris": [
+
+      ],
+      "storeUrls": [
+
+      ],
+      "ports": [
+        10000
+      ],
+      "requirePorts": false,
+      "backoffSeconds": 1,
+      "backoffFactor": 1.15,
+      "maxLaunchDelaySeconds": 3600,
+      "container": null,
+      "healthChecks": [
+
+      ],
+      "dependencies": [
+
+      ],
+      "upgradeStrategy": {
+        "minimumHealthCapacity": 1,
+        "maximumOverCapacity": 1
+      },
+      "labels": {
+
+      },
+      "acceptedResourceRoles": null,
+      "version": "2015-08-28T01:26:14.620Z",
+      "tasksStaged": 0,
+      "tasksRunning": 1,
+      "tasksHealthy": 0,
+      "tasksUnhealthy": 0,
+      "deployments": [
+
+      ]
+    }
+  ],
+  "groups": [
+
+  ],
+  "pods": [
+      {
+        "id": "/some/path/to/my/podABCD",
+        "spec": {
+          "id": "/some/path/to/my/podABCD",
+          "version": "2016-08-29T01:01:01.001",
+          "containers": [
+            {
+              "name": "my-web-app",
+              "image": { "kind": "DOCKER", "id": "jdef/my-web-service-abc:v1.1.1" },
+              "endpoints": [
+                {
+                  "name": "nginx",
+                  "containerPort": 8888,
+                  "hostPort": 0,
+                  "protocol": "http",
+                  "labels": [
+                    { "VIP0": "1.2.3.4:80" }
+                  ]
+                }
+              ],
+              "resources": { "cpus": 0.5, "mem": 64 }
+            }
+          ],
+          "scaling": {
+            "fixed": {
+              "instances": 10
+            }
+          },
+          "scheduling": {
+            "placement": {
+              "constraints": [
+                { "fieldName": "hostname", "operator": "UNIQUE" }
+              ],
+              "acceptedResourceRoles": ["slave_public"]
+            }
+          }
+        },
+        "status": "STABLE",
+        "statusSince": "2016-08-31T01:01:01.001",
+        "message": "All pod instances are running and in good health",
+        "lastUpdated": "2016-08-31T01:01:01.001",
+        "lastChanged": "2016-08-31T01:01:01.001",
+        "instances": [
+          {
+            "id": "pod-34590238602948",
+            "status": "STABLE",
+            "statusSince": "2016-08-31T01:01:01.001",
+            "agent": "node-123-123-123-123",
+            "resources": { "cpus": 0.6, "mem": 96 },
+            "lastUpdated": "2016-08-31T01:01:01.001",
+            "lastChanged": "2016-08-31T01:01:01.001",
+            "containers": [
+              {
+                "name": "my-web-app",
+                "status": "RUNNING",
+                "statusSince": "2016-08-31T01:01:01.001",
+                "containerId": "podtask-3490824906824564563456",
+                "endpoints": [
+                  { "name": "nginx", "allocatedHostPort": 31001 }
+                ],
+                "lastUpdated": "2016-08-31T01:01:01.001",
+                "lastChanged": "2016-08-31T01:01:01.001"
+              }
+            ]
+          }
+        ]
+      }
+  ],
+  "id": "/"
+}
