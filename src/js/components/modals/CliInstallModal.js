@@ -8,11 +8,11 @@ import Icon from '../Icon';
 import MetadataStore from '../../stores/MetadataStore';
 
 const METHODS_TO_BIND = ['onClose'];
-const osTypes = [
-  'Windows',
-  'OS X',
-  'Linux'
-];
+const osTypes = {
+  'Windows': 'windows',
+  'OS X': 'darwin',
+  'Linux': 'linux'
+};
 
 class CliInstallModal extends React.Component {
   constructor() {
@@ -60,11 +60,17 @@ class CliInstallModal extends React.Component {
     }
     let clusterUrl = `${protocol}://${hostname}${port}`;
     let {selectedOS} = this.state;
+    let {version} = MetadataStore;
+    // Prepend 'dcos-' to any version other than latest
+    if (version !== 'latest') {
+      version = `dcos-${version}`;
+    }
+    let downloadUrl = `https://downloads.dcos.io/binaries/cli/${osTypes[selectedOS]}/x86-64/${version}/dcos`;
     if (selectedOS === 'Windows') {
       return (
         <ol>
           <li>
-            Download and install: <a href="https://downloads.dcos.io/binaries/cli/windows/x86-64/0.4.10/dcos.exe">
+            Download and install: <a href={downloadUrl + '.exe'}>
               <Icon family="mini" id="download" size="mini" /> Download dcos.exe
             </a>.
           </li>
@@ -102,18 +108,13 @@ class CliInstallModal extends React.Component {
       );
     }
 
-    let cliInstallScriptUrl = 'https://downloads.dcos.io/binaries/cli/darwin/x86-64/0.4.10/dcos';
-    if (selectedOS === 'Linux') {
-      cliInstallScriptUrl = 'https://downloads.dcos.io/binaries/cli/linux/x86-64/0.4.10/dcos';
-    }
-
     return (
       <div>
         <p className="short-bottom">Copy and paste the code snippet into the terminal:</p>
         <div className="flush-top snippet-wrapper">
           <ClickToSelect>
             <pre className="prettyprint flush-bottom">
-              {`curl ${cliInstallScriptUrl} -o dcos && \n sudo mv dcos /usr/local/bin && \n sudo chmod +x /usr/local/bin/dcos && \n dcos config set core.dcos_url ${clusterUrl} && \n dcos`}
+              {`curl ${downloadUrl} -o dcos && \n sudo mv dcos /usr/local/bin && \n sudo chmod +x /usr/local/bin/dcos && \n dcos config set core.dcos_url ${clusterUrl} && \n dcos`}
             </pre>
           </ClickToSelect>
         </div>
@@ -124,7 +125,7 @@ class CliInstallModal extends React.Component {
   getOSButtons() {
     let {selectedOS} = this.state;
 
-    return osTypes.map((name, index) => {
+    return Object.keys(osTypes).map((name, index) => {
       let classSet = classNames({
         'button button-stroke': true,
         'active': name === selectedOS
