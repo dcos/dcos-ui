@@ -3,7 +3,7 @@ import {Link} from 'react-router';
 import {List} from 'reactjs-components';
 import React from 'react';
 
-import UnitHealthUtil from '../utils/UnitHealthUtil';
+import HealthTypes from '../constants/HealthTypes';
 
 class ComponentList extends React.Component {
 
@@ -45,9 +45,10 @@ class ComponentList extends React.Component {
   }
 
   getVisibleComponents(units, displayCount) {
-    let sortFunction = UnitHealthUtil.getHealthSortFunction;
-
-    units = units.sort(sortFunction('health'));
+    // HealthTypes gives the sorting weight.
+    units = units.sort(function (a, b) {
+      return HealthTypes[a.getHealth().title.toUpperCase()] - HealthTypes[b.getHealth().title.toUpperCase()];
+    });
 
     if (units.length > displayCount) {
       return units.slice(0, displayCount);
