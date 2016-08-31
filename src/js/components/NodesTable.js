@@ -79,7 +79,7 @@ var NodesTable = React.createClass({
   renderHealth(prop, node) {
     let requestReceived = this.internalStorage_get().nodeHealthResponseReceived;
 
-    if (requestReceived) {
+    if (!requestReceived) {
       return (
         <Loader
           className="inverse"
