@@ -138,17 +138,6 @@ class JobRunHistoryTable extends React.Component {
     let jobRuns = job.getJobRuns();
 
     return jobRuns.getItems().map(function (jobRun) {
-      let dateRunStarted = jobRun.getDateCreated();
-      let dateRunFinished = jobRun.getDateFinished();
-
-      if (dateRunStarted != null) {
-        dateRunStarted = DateUtil.msToRelativeTime(dateRunStarted);
-      }
-
-      if (dateRunFinished != null) {
-        dateRunFinished = DateUtil.msToRelativeTime(dateRunFinished);
-      }
-
       let children = jobRun.getTasks().getItems().map(function (jobTask) {
         return {
           taskID: jobTask.getTaskID(),
