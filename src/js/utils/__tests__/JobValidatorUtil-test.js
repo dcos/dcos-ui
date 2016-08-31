@@ -27,7 +27,7 @@ describe('JobValidatorUtil', function () {
       expect(JobValidatorUtil.isValidJobID('job(1)')).toBe(false);
     });
 
-    it('should properly handle multiple dots slashes', function () {
+    it('should properly handle multiple dots', function () {
       expect(JobValidatorUtil.isValidJobID('job..id')).toBe(false);
       expect(JobValidatorUtil.isValidJobID('job..id....')).toBe(false);
     });

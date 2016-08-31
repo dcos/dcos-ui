@@ -79,15 +79,11 @@ const Schedule = {
           return true;
         }
 
-        if (!ValidatorUtil.isNumber(schedule.startingDeadlineSeconds)) {
-          definition.showError = 'Expecting a number here';
-          return false;
+        if (!ValidatorUtil.isNumberInRange(schedule.startingDeadlineSeconds)) {
+          definition.showError = 'Expecting a positive number here';
+          return true;
         }
 
-        if (schedule.startingDeadlineSeconds < 0) {
-          definition.showError = 'Starting Deadline must be a positive integer';
-          return false;
-        }
         return true;
       }
     }

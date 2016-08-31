@@ -72,16 +72,14 @@ const General = {
             return `${job.getMem() || ''}`;
           },
           externalValidator({general}, definition) {
-            if (!ValidatorUtil.isNumber(general.mem)) {
-              definition.showError = 'Expecting a number here';
-              return false;
-            }
-
-            if (general.mem < MesosConstants.MIN_MEM) {
-              definition.showError = 'Mem must be at least ' +
+            if (!ValidatorUtil.isNumberInRange(general.mem, {
+              min: MesosConstants.MIN_MEM
+            })) {
+              definition.showError = 'Mem must be a number and at least' +
                 MesosConstants.MIN_MEM + ' MiB';
               return false;
             }
+
             return true;
           }
         },
@@ -93,19 +91,11 @@ const General = {
             return `${job.getDisk() || ''}`;
           },
           externalValidator({general}, definition) {
-            if (!ValidatorUtil.isDefined(general.disk)) {
-              return true;
-            }
-
-            if (!ValidatorUtil.isNumber(general.disk)) {
-              definition.showError = 'Expecting a number here';
+            if (!ValidatorUtil.isNumberInRange(general.disk)) {
+              definition.showError = 'Disk must be a positive number';
               return false;
             }
 
-            if (general.disk < 0) {
-              definition.showError = 'Disk must be a positive integer';
-              return false;
-            }
             return true;
           }
         }

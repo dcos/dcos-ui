@@ -89,7 +89,6 @@ class JobFormModal extends mixin(StoreMixin) {
     });
 
     this.triggerFormSubmit = undefined;
-
   }
 
   componentWillReceiveProps(nextProps) {
@@ -136,17 +135,23 @@ class JobFormModal extends mixin(StoreMixin) {
       defaultTab: '',
       errorMessage: null,
       jobFormModel: JobUtil.createFormModelFromSchema(JobSchema, job),
-      jobJsonString: JSON.stringify(cleanJobJSON(JobUtil.createJobSpecFromJob(job)), null, 2),
+      jobJsonString:
+        JSON.stringify(
+          cleanJobJSON(JobUtil.createJobSpecFromJob(job)),
+          null,
+          2
+        ),
       jsonMode: false
     });
   }
 
   createJobFromEditorContents(keepValidationErrors = false) {
     let {jobJsonString, jsonMode} = this.state;
+    let jobDefinition = null;
+
     if (jsonMode) {
 
       // Try to parse JSON string and detect errors
-      var jobDefinition = null;
       try {
         jobDefinition = JSON.parse(jobJsonString);
       } catch (e) {
@@ -174,6 +179,7 @@ class JobFormModal extends mixin(StoreMixin) {
         renderAdd: dummyItemRenderer
       });
       let errorDetails = [];
+
       FormUtil.forEachDefinition(formMultiDef, (definition) => {
         definition.showError = false;
 
@@ -181,7 +187,8 @@ class JobFormModal extends mixin(StoreMixin) {
           return null;
         }
 
-        let fieldValidated = definition.externalValidator(formModel, definition);
+        let fieldValidated = definition
+          .externalValidator(formModel, definition);
         if (!fieldValidated) {
           errorDetails.push({
             path: '/', errors: [definition.showError]
@@ -234,8 +241,7 @@ class JobFormModal extends mixin(StoreMixin) {
   }
 
   handleInputModeToggle() {
-    let job = this.createJobFromEditorContents(true);
-    if (!job) { job = this.props.job; };
+    let job = this.createJobFromEditorContents(true) || this.props.job;
 
     if (this.state.jsonMode) {
       this.setState({
@@ -276,14 +282,14 @@ class JobFormModal extends mixin(StoreMixin) {
   }
 
   handleSubmit() {
-    let {isEdit} = this.props;
     let job = this.createJobFromEditorContents();
     if (!job) {
       return;
     }
 
     let jobSpec = cleanJobJSON(JobUtil.createJobSpecFromJob(job));
-    if (!isEdit) {
+
+    if (!this.props.isEdit) {
       MetronomeStore.createJob(jobSpec);
     } else {
       MetronomeStore.updateJob(job.getId(), jobSpec);
@@ -300,12 +306,13 @@ class JobFormModal extends mixin(StoreMixin) {
 
   getErrorMessage() {
     let {errorMessage} = this.state;
+    let errorList = null;
+
     if (!errorMessage) {
       return null;
     }
 
     // Stringify error details
-    let errorList = null;
     if (errorMessage.details != null) {
       errorList = errorMessage.details.map(function ({path, errors}) {
         let fieldId = 'general';
@@ -321,16 +328,20 @@ class JobFormModal extends mixin(StoreMixin) {
           let resolvePath = responseAttributePathToFieldIdMap[
             path.replace(matches[0], placeholder)
           ];
+
           if (resolvePath != null) {
             fieldId = resolvePath.replace('{INDEX}', matches[1]);
           }
+
         } else {
           fieldId = responseAttributePathToFieldIdMap[path] || fieldId;
         }
+
         errors = errors.map(function (error) {
           if (serverResponseMappings[error]) {
             return serverResponseMappings[error];
           }
+
           return error;
         });
 
