@@ -20,6 +20,11 @@
       "name": "A Signal Service"
     },
     {
+      "id": "log-rotate",
+      "health": 3,
+      "name": "Log Rotate"
+    },
+    {
       "id": "dcos-history-service.service",
       "health": 0,
       "name": "History Service"
