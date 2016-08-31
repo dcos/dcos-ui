@@ -1,7 +1,7 @@
 import React from 'react';
 
+import FormUtil from '../utils/FormUtil';
 import SchemaForm from './SchemaForm';
-import SchemaFormUtil from '../utils/SchemaFormUtil';
 
 const METHODS_TO_BIND = [
   'handleFormChange',
@@ -25,13 +25,6 @@ class JobForm extends SchemaForm {
     this.props.getTriggerSubmit(this.handleExternalSubmit);
   }
 
-  handleExternalSubmit() {
-    this.validateForm();
-    let model = this.triggerTabFormSubmit();
-
-    return this.getDataTriple(model);
-  }
-
   handleFormChange(formData, eventObj) {
     // Fire changes only on blur
     // and on schedule runOnSchedule checkbox change to show/hide fields
@@ -43,19 +36,57 @@ class JobForm extends SchemaForm {
       return;
     }
 
-    this.validateForm();
-    // Provide updated model to get new multipleDefinition
-    let model = this.triggerTabFormSubmit();
-    this.multipleDefinition = this.getNewDefinition(model);
-    this.props.onChange(this.getDataTriple(model));
-    // Only update if schedule changed
-    if (scheduleEnabledChange) {
+    // Fetch the updated model from the <Form /> component
+    // nested deeper in the component tree.
+    this.model = this.triggerTabFormSubmit();
+
+    // Re-generate the definition in order to reset all errors.
+    // The first argument tells the `getNewDefinition` function to fuse
+    // the contents of the model into the definition.
+    this.multipleDefinition = this.getNewDefinition(this.model);
+
+    // Forward the onChange event to the parent
+    // The parent is responsible for updating the form with the new model
+    // in order to reflect the changes
+    this.props.onChange(this.getDataTriple());
+
+    // Force an update if we have clicked on the checkbox
+    if (eventObj.fieldName === 'runOnSchedule') {
       this.forceUpdate();
     }
   }
 
   handleTabClick(tab) {
     this.props.onTabChange(tab);
+  }
+
+  validateForm() {
+    let isValidated = true;
+    this.model = this.triggerTabFormSubmit();
+    this.multipleDefinition = this.getNewDefinition(this.model);
+
+    // Apply all validations.
+    FormUtil.forEachDefinition(this.multipleDefinition, (definition) => {
+      definition.showError = false;
+
+      if (typeof definition.externalValidator !== 'function') {
+        return;
+      }
+
+      let fieldValidated = definition.externalValidator(this.model, definition);
+      if (!fieldValidated) {
+        isValidated = false;
+      }
+    });
+
+    // Force an update only if we have changed validation state
+    if (this.isValidated !== isValidated) {
+      this.forceUpdate();
+    }
+
+    // Return validation status
+    this.isValidated = isValidated;
+    return isValidated;
   }
 
   // Fallback to props model, if provided model is not defined,
@@ -76,18 +107,6 @@ class JobForm extends SchemaForm {
     return multipleDefinition;
   }
 
-  // Fallback to props model, if provided model is not defined,
-  // i.e. more up to date
-  getDataTriple(model = this.props.model) {
-    return {
-      model: SchemaFormUtil.processFormModel(model, this.getNewDefinition(model))
-    };
-  }
-
-  validateForm() {
-    // TODO: Overwrite the default behaviour until DCOS-7669 is fixed.
-    return true;
-  }
 }
 
 JobForm.defaultProps = {

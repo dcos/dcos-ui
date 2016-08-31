@@ -2,7 +2,9 @@
 import React from 'react';
 /* eslint-enable no-unused-vars */
 
+import JobValidatorUtil from '../../utils/JobValidatorUtil';
 import MesosConstants from '../../constants/MesosConstants';
+import ValidatorUtil from '../../utils/ValidatorUtil';
 
 const General = {
   title: 'General',
@@ -16,6 +18,17 @@ const General = {
       type: 'string',
       getter(job) {
         return job.getId();
+      },
+      externalValidator({general}, definition) {
+        if (!JobValidatorUtil.isValidJobID(general.id)) {
+          definition.showError = 'ID must not be empty, must not contain ' +
+            'whitespace, and should not contain any other characters than ' +
+            'lowercase letters, digits, hyphens, ".", and ".."';
+
+          return false;
+        }
+
+        return true;
       }
     },
     description: {
@@ -35,7 +48,18 @@ const General = {
           description: 'The amount of CPUs the job requires',
           type:'number',
           getter(job) {
-            return `${job.getCpus() || ''}`;
+            return `${job.getCpus()}`;
+          },
+          externalValidator({general}, definition) {
+            if (!ValidatorUtil.isNumberInRange(general.cpus, {
+              min: MesosConstants.MIN_CPUS
+            })) {
+              definition.showError = 'CPUs must be a number at least equal to ' +
+                MesosConstants.MIN_CPUS;
+              return false;
+            }
+
+            return true;
           }
         },
         mem: {
@@ -43,7 +67,18 @@ const General = {
           default: MesosConstants.MIN_MEM,
           type: 'number',
           getter(job) {
-            return `${job.getMem() || ''}`;
+            return `${job.getMem()}`;
+          },
+          externalValidator({general}, definition) {
+            if (!ValidatorUtil.isNumberInRange(general.mem, {
+              min: MesosConstants.MIN_MEM
+            })) {
+              definition.showError = 'Mem must be a number and at least ' +
+                MesosConstants.MIN_MEM + ' MiB';
+              return false;
+            }
+
+            return true;
           }
         },
         disk: {
@@ -51,7 +86,16 @@ const General = {
           default: 0,
           type: 'number',
           getter(job) {
-            return `${job.getDisk() || ''}`;
+            return `${job.getDisk()}`;
+          },
+          externalValidator({general}, definition) {
+            if (ValidatorUtil.isDefined(general.disk) &&
+               !ValidatorUtil.isNumberInRange(general.disk)) {
+              definition.showError = 'Disk must be a positive number';
+              return false;
+            }
+
+            return true;
           }
         }
       }

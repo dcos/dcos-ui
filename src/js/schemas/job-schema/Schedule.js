@@ -1,7 +1,10 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
 /* eslint-enable no-unused-vars */
+
+import JobValidatorUtil from '../../utils/JobValidatorUtil';
 import MetadataStore from '../../stores/MetadataStore';
+import ValidatorUtil from '../../utils/ValidatorUtil';
 
 const Schedule = {
   title: 'Schedule',
@@ -31,6 +34,19 @@ const Schedule = {
         let [schedule = {}] = job.getSchedules();
 
         return schedule.cron;
+      },
+      externalValidator({schedule}, definition) {
+        if (!schedule.runOnSchedule) {
+          return true;
+        }
+
+        if (!JobValidatorUtil.isValidCronSchedule(schedule.cron)) {
+          definition.showError = 'CRON Schedule must not be empty and it must '+
+          'follow the correct CRON format specifications';
+          return false;
+        }
+
+        return true;
       }
     },
     timezone: {
@@ -53,6 +69,22 @@ const Schedule = {
         let [schedule = {}] = job.getSchedules();
 
         return schedule.startingDeadlineSeconds;
+      },
+      externalValidator({schedule}, definition) {
+        if (!schedule.runOnSchedule) {
+          return true;
+        }
+
+        if (!ValidatorUtil.isDefined(schedule.startingDeadlineSeconds)) {
+          return true;
+        }
+
+        if (!ValidatorUtil.isNumberInRange(schedule.startingDeadlineSeconds)) {
+          definition.showError = 'Expecting a positive number here';
+          return true;
+        }
+
+        return true;
       }
     }
   },

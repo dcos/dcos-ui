@@ -10,11 +10,13 @@ import 'brace/ext/language_tools';
 
 import {cleanJobJSON} from '../../utils/CleanJSONUtil';
 import CollapsibleErrorMessage from '../CollapsibleErrorMessage';
-import MetronomeStore from '../../stores/MetronomeStore';
+import FormUtil from '../../utils/FormUtil';
 import Job from '../../structs/Job';
 import JobForm from '../JobForm';
 import JobUtil from '../../utils/JobUtil';
 import JobSchema from '../../schemas/JobSchema';
+import MetronomeStore from '../../stores/MetronomeStore';
+import SchemaUtil from '../../utils/SchemaUtil';
 import ToggleButton from '../ToggleButton';
 
 const METHODS_TO_BIND = [
@@ -24,6 +26,7 @@ const METHODS_TO_BIND = [
   'handleInputModeToggle',
   'handleSubmit',
   'handleTabChange',
+  'handleTriggerSubmit',
   'onMetronomeStoreJobCreateSuccess',
   'onMetronomeStoreJobCreateError',
   'onMetronomeStoreJobUpdateSuccess',
@@ -63,6 +66,8 @@ class JobFormModal extends mixin(StoreMixin) {
       defaultTab: '',
       errorMessage: null,
       job: new Job(),
+      jobFormModel: null,
+      jobJsonString: null,
       jsonMode: false
     };
 
@@ -82,6 +87,8 @@ class JobFormModal extends mixin(StoreMixin) {
     METHODS_TO_BIND.forEach((method) => {
       this[method] = this[method].bind(this);
     });
+
+    this.triggerFormSubmit = undefined;
   }
 
   componentWillReceiveProps(nextProps) {
@@ -123,50 +130,165 @@ class JobFormModal extends mixin(StoreMixin) {
   }
 
   resetState() {
+    let {job} = this.props;
     this.setState({
       defaultTab: '',
       errorMessage: null,
-      job: this.props.job,
+      jobFormModel: JobUtil.createFormModelFromSchema(JobSchema, job),
+      jobJsonString:
+        JSON.stringify(
+          cleanJobJSON(JobUtil.createJobSpecFromJob(job)),
+          null,
+          2
+        ),
       jsonMode: false
     });
+  }
+
+  createJobFromEditorContents(keepValidationErrors = false) {
+    let {jobJsonString, jsonMode} = this.state;
+    let jobDefinition = null;
+
+    if (jsonMode) {
+
+      // Try to parse JSON string and detect errors
+      try {
+        jobDefinition = JSON.parse(jobJsonString);
+      } catch (e) {
+        this.setState({
+          errorMessage: {
+            message: 'Invalid JSON syntax',
+            details: [
+              { path: '/', errors: [e.toString()] }
+            ]
+          }
+        });
+        return null;
+      }
+
+      // Really hackish way to validate the json string schema, trying to re-use
+      // as much code as possilbe without getting nasty.
+      let dummyItemRenderer = function () { return (<div></div>); };
+      let job = new Job(jobDefinition);
+      let formModel = JobUtil.createFormModelFromSchema(JobSchema, job);
+      let formMultiDef = SchemaUtil.schemaToMultipleDefinition({
+        schema: JobSchema,
+        renderSubheader: dummyItemRenderer,
+        renderLabel: dummyItemRenderer,
+        renderRemove: dummyItemRenderer,
+        renderAdd: dummyItemRenderer
+      });
+      let errorDetails = [];
+
+      FormUtil.forEachDefinition(formMultiDef, (definition) => {
+        definition.showError = false;
+
+        if (typeof definition.externalValidator !== 'function') {
+          return null;
+        }
+
+        let fieldValidated = definition
+          .externalValidator(formModel, definition);
+        if (!fieldValidated) {
+          errorDetails.push({
+            path: '/', errors: [definition.showError]
+          });
+        }
+      });
+
+      // If we have errors, display them
+      if (errorDetails.length) {
+        this.setState({
+          errorMessage: {
+            message: 'There are errors in your JSON definition',
+            details: errorDetails
+          }
+        });
+        if (!keepValidationErrors) {
+          return null;
+        }
+      }
+
+      return job;
+    }
+
+    // Even though we have our model already in the state, we cannot
+    // perform validation on it's data. It's true that `onChange`
+    // returns validation information, but that's not the case when the
+    // user clicks the `submit` button without changing anything.
+
+    // Therefore we need to ask the SchemaForm to perform validation
+    // and return the model once again
+    let {model, isValidated} = this.triggerFormSubmit();
+
+    if (!isValidated) {
+      this.setState({
+        errorMessage: {
+          message: 'Please fix all the errors first',
+          details: null
+        }
+      });
+      if (!keepValidationErrors) {
+        return null;
+      }
+    }
+
+    return JobUtil.createJobFromFormModel(model);
   }
 
   handleCancel() {
     this.props.onClose();
   }
 
+  handleInputModeToggle() {
+    let job = this.createJobFromEditorContents(true) || this.props.job;
+
+    if (this.state.jsonMode) {
+      this.setState({
+        errorMessage: null,
+        jobFormModel: JobUtil.createFormModelFromSchema(JobSchema, job),
+        jsonMode: false
+      });
+
+    } else {
+      this.setState({
+        errorMessage: null,
+        jobJsonString: JSON.stringify(
+          cleanJobJSON(JobUtil.createJobSpecFromJob(job)),
+          null, 2
+        ),
+        jsonMode: true
+      });
+
+    }
+  }
+
   handleFormChange({model}) {
     if (!model) {
       return;
     }
-    let {job} = this.state;
 
     this.setState({
-      errorMessage: null,
-      job: JobUtil.createJobFromFormModel(model, job.get())
+      errorMessage: null
     });
   }
 
-  handleInputModeToggle() {
-    this.setState({jsonMode: !this.state.jsonMode});
-  }
-
   handleJSONEditorChange(jsonDefinition) {
-    try {
-      let job = new Job(JSON.parse(jsonDefinition));
-      this.setState({errorMessage: null, job});
-    } catch (error) {
-      // TODO: DCOS-7734 Handle error
-    }
+    this.setState({
+      errorMessage: null,
+      jobJsonString: jsonDefinition
+    });
   }
 
   handleSubmit() {
-    let {isEdit, job} = this.props;
-    let jobSpec = cleanJobJSON(
-      JobUtil.createJobSpecFromJob(this.state.job)
-    );
+    let job = this.createJobFromEditorContents();
+    if (!job) {
+      return;
+    }
 
-    if (!isEdit) {
+    let jobSpec = cleanJobJSON(JobUtil.createJobSpecFromJob(job));
+
+    if (!this.props.isEdit) {
       MetronomeStore.createJob(jobSpec);
     } else {
       MetronomeStore.updateJob(job.getId(), jobSpec);
@@ -177,14 +299,19 @@ class JobFormModal extends mixin(StoreMixin) {
     this.setState({defaultTab: tab});
   }
 
+  handleTriggerSubmit( submitFunction ) {
+    this.triggerFormSubmit = submitFunction;
+  }
+
   getErrorMessage() {
     let {errorMessage} = this.state;
+    let errorList = null;
+
     if (!errorMessage) {
       return null;
     }
 
     // Stringify error details
-    let errorList = null;
     if (errorMessage.details != null) {
       errorList = errorMessage.details.map(function ({path, errors}) {
         let fieldId = 'general';
@@ -200,16 +327,20 @@ class JobFormModal extends mixin(StoreMixin) {
           let resolvePath = responseAttributePathToFieldIdMap[
             path.replace(matches[0], placeholder)
           ];
+
           if (resolvePath != null) {
             fieldId = resolvePath.replace('{INDEX}', matches[1]);
           }
+
         } else {
           fieldId = responseAttributePathToFieldIdMap[path] || fieldId;
         }
+
         errors = errors.map(function (error) {
           if (serverResponseMappings[error]) {
             return serverResponseMappings[error];
           }
+
           return error;
         });
 
@@ -228,11 +359,9 @@ class JobFormModal extends mixin(StoreMixin) {
   }
 
   getModalContents() {
-    let {defaultTab, job, jsonMode} = this.state;
+    let {defaultTab, jobFormModel, jobJsonString, jsonMode} = this.state;
 
     if (jsonMode) {
-      let jobSpec = cleanJobJSON(JobUtil.createJobSpecFromJob(job));
-
       return (
         <Ace editorProps={{$blockScrolling: true}}
           mode="json"
@@ -241,19 +370,18 @@ class JobFormModal extends mixin(StoreMixin) {
           showPrintMargin={false}
           theme="monokai"
           height="462px"
-          value={JSON.stringify(jobSpec, null, 2)}
+          value={jobJsonString}
           width="100%" />
       );
     }
-
-    let formModel = JobUtil.createFormModelFromSchema(JobSchema, job);
 
     return (
       <JobForm
         defaultTab={defaultTab}
         onTabChange={this.handleTabChange}
         onChange={this.handleFormChange}
-        model={formModel}
+        getTriggerSubmit={this.handleTriggerSubmit}
+        model={jobFormModel}
         isEdit={this.props.isEdit}
         schema={JobSchema} />
     );
