@@ -8,7 +8,7 @@ import ServiceActionModal from './ServiceActionModal';
 
 class ServiceRestartModal extends ServiceActionModal {
   constructor() {
-    super();
+    super(...arguments);
 
     this.store_listeners = [
       {
