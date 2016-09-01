@@ -72,7 +72,7 @@ function parseApp(app) {
 
 function parsePod(pod) {
   let {id} = pod;
-  Object.defineProperty(app, '_type', {
+  Object.defineProperty(pod, '_type', {
     enumerable: false,
     configurable: false,
     writable: false,
