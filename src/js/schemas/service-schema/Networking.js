@@ -9,7 +9,11 @@ const DISABLED_LB_PORT_FIELD_VALUE = 'Not Enabled';
 const Networking = {
   type: 'object',
   title: 'Network',
-  description: 'Configure the networking for your service.',
+  description: (
+    <span>
+       Configure the networking for your service. We will automatically generate a Service Address to connect to for each of your load balanced endpoints. <a href="https://docs.mesosphere.com/1.8/usage/service-discovery/load-balancing-vips/virtual-ip-addresses/" target="_blank">Read more about load balancing</a>.
+    </span>
+  ),
   properties: {
     networkType: {
       fieldType: 'select',
@@ -76,7 +80,7 @@ const Networking = {
             lbPort: portMapping.port || portMapping.containerPort,
             name: portMapping.name,
             protocol: portMapping.protocol,
-            discovery: portMapping.labels &&
+            loadBalanced: portMapping.labels &&
               Object.keys(portMapping.labels).length > 0,
             expose: portMapping.hostPort != null
           };
@@ -118,7 +122,7 @@ const Networking = {
             definition.showLabel = 'LB Port';
 
             // show as input
-            if (service.discovery && definition.value === DISABLED_LB_PORT_FIELD_VALUE) {
+            if (service.loadBalanced && definition.value === DISABLED_LB_PORT_FIELD_VALUE) {
               delete definition.value;
               definition.disabled = false;
               definition.className = 'form-control';
@@ -126,7 +130,7 @@ const Networking = {
             }
 
             // show as disabled
-            if (!service.discovery) {
+            if (!service.loadBalanced) {
               definition.value = disabledLBPortFieldValue;
               definition.disabled = true;
               definition.fieldType = 'text';
@@ -152,11 +156,13 @@ const Networking = {
                 'LB Port  must be a number between 0 and 65535.';
 
               return false;
-            }
+            },
+            formElementClass: {'column-3': false}
           },
           name: {
             title: 'Name',
-            type: 'string'
+            type: 'string',
+            formElementClass: {'column-3': true}
           },
           protocol: {
             title: 'Protocol',
@@ -165,12 +171,13 @@ const Networking = {
             default: 'tcp',
             options: ['tcp', 'udp', 'udp,tcp']
           },
-          discovery: {
-            label: 'Discovery',
+          loadBalanced: {
+            label: 'Load Balanced',
             showLabel: false,
-            title: 'Discovery',
+            title: 'Load Balanced',
             type: 'boolean',
-            className: 'form-row-element-mixed-label-presence'
+            className: 'form-row-element-mixed-label-presence',
+            formElementClass: {'column-3': false}
           }
         }
       }

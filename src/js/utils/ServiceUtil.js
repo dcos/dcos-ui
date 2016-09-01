@@ -295,7 +295,7 @@ const ServiceUtil = {
 
         if (networking.ports != null) {
           networking.ports = networking.ports.filter(function (port) {
-            return port.name != null || port.lbPort != null || port.discovery;
+            return port.name != null || port.lbPort != null || port.loadBalanced;
           });
         }
 
@@ -311,7 +311,7 @@ const ServiceUtil = {
                 if (networkType === 'host') {
                   portMapping.port = 0;
                 }
-                if (port.discovery === true) {
+                if (port.loadBalanced === true) {
                   if (networkType === 'host') {
                     portMapping.port = lbPort;
                   }
@@ -350,7 +350,7 @@ const ServiceUtil = {
               // if (networkType === 'bridge') {
               //   portMapping.hostPort = lbPort;
               // }
-              if (port.discovery === true) {
+              if (port.loadBalanced === true) {
 
                 if (networkType !== 'bridge') {
                   portMapping.servicePort = lbPort;
@@ -371,7 +371,7 @@ const ServiceUtil = {
                   portMapping.hostPort = 0;
                 }
                 definition.container.docker.portMappings.push(portMapping);
-                // TODO - Add portDefinition to discovery field
+                // TODO - Add portDefinition to loadBalanced field
               }
             });
           }
