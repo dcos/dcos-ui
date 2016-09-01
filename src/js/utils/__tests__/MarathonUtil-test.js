@@ -296,6 +296,24 @@ describe('MarathonUtil', function () {
       expect(instance.items[0]).toEqual({id: '/alpha'});
     });
 
+    it('adds \'app\' type to apps', function () {
+      var instance = MarathonUtil.parseGroups({
+        id: '/',
+        apps: [{id: '/alpha'}]
+      });
+
+      expect(instance.items[0]._type).toEqual('app');
+    });
+
+    it('adds \'pod\' type to pods', function () {
+      var instance = MarathonUtil.parseGroups({
+        id: '/',
+        pods: [{id: '/alpha'}]
+      });
+
+      expect(instance.items[0]._type).toEqual('pod');
+    });
+
   });
 
 });
