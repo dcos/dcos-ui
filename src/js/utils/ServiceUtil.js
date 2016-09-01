@@ -1,4 +1,6 @@
 import {Hooks} from 'PluginSDK';
+import Application from '../structs/Application';
+import Framework from '../structs/Framework';
 import Service from '../structs/Service';
 import ValidatorUtil from '../utils/ValidatorUtil';
 import VolumeConstants from '../constants/VolumeConstants';
@@ -62,6 +64,16 @@ const pruneHealthCheckAttributes = function (healthCheckSchema, healthCheck) {
 };
 
 const ServiceUtil = {
+  createServiceFromDefinition(data) {
+    // Check the DCOS_PACKAGE_FRAMEWORK_NAME label to determine if the item
+    // should be converted to an Application or Framework instance.
+    if (data.labels && data.labels.DCOS_PACKAGE_FRAMEWORK_NAME) {
+      return new Framework(data);
+    } else {
+      return new Application(data);
+    }
+  },
+
   createServiceFromFormModel(formModel, schema, isEdit = false, definition = {}) {
 
     if (formModel != null) {
@@ -400,10 +412,10 @@ const ServiceUtil = {
       return memo;
     }, {});
 
-    return new Service(definition);
+    return ServiceUtil.createServiceFromDefinition(definition);
   },
 
-  createFormModelFromSchema(schema, service = new Service()) {
+  createFormModelFromSchema(schema, service = new Application()) {
 
     return getFindPropertiesRecursive(service, schema.properties);
   },

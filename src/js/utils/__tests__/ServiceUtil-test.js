@@ -2,10 +2,42 @@ jest.dontMock('../ServiceUtil');
 jest.dontMock('../../structs/Service');
 jest.dontMock('../../constants/VolumeConstants');
 
-const Service = require('../../structs/Service');
+const Application = require('../../structs/Application');
+const Framework = require('../../structs/Framework');
 const ServiceUtil = require('../ServiceUtil');
 
 describe('ServiceUtil', function () {
+  describe('#createServiceFromDefinition', function () {
+    it('should correctly create Application instances', function () {
+      let instance = ServiceUtil.createServiceFromDefinition({
+        id: '/test',
+        cmd: 'sleep 1000;',
+        cpus: null,
+        mem: null,
+        disk: null,
+        instances: null
+      });
+
+      expect(instance instanceof Application).toBeTruthy();
+    });
+
+    it('should correctly create Framework instances', function () {
+      let instance = ServiceUtil.createServiceFromDefinition({
+        id: '/test',
+        cmd: 'sleep 1000;',
+        cpus: null,
+        mem: null,
+        disk: null,
+        instances: null,
+        labels: {
+          DCOS_PACKAGE_FRAMEWORK_NAME: 'Test Framework'
+        }
+      });
+
+      expect(instance instanceof Framework).toBeTruthy();
+    });
+  });
+
   describe('#createServiceFromFormModel', function () {
     it('should convert to the correct Service', function () {
       let model = {
@@ -15,7 +47,7 @@ describe('ServiceUtil', function () {
         }
       };
 
-      let expectedService = new Service({
+      let expectedService = new Application({
         id: '/test',
         cmd: 'sleep 1000;',
         cpus: null,
@@ -31,7 +63,7 @@ describe('ServiceUtil', function () {
     it('should return empty service if null is provided', function () {
       let model = null;
 
-      let expectedService = new Service({});
+      let expectedService = new Application({});
 
       expect(ServiceUtil.createServiceFromFormModel(model))
         .toEqual(expectedService);
@@ -40,7 +72,7 @@ describe('ServiceUtil', function () {
     it('should return empty service if empty object is provided', function () {
       let model = {};
 
-      let expectedService = new Service({});
+      let expectedService = new Application({});
 
       expect(ServiceUtil.createServiceFromFormModel(model))
         .toEqual(expectedService);
@@ -489,7 +521,7 @@ describe('ServiceUtil', function () {
           }
         };
 
-        let expectedService = new Service({
+        let expectedService = new Application({
           container: {
             type: 'MESOS',
             volumes: [{
@@ -529,7 +561,7 @@ describe('ServiceUtil', function () {
           }
         };
 
-        let expectedService = new Service({
+        let expectedService = new Application({
           container: {
             type: 'DOCKER',
             docker: {
@@ -575,7 +607,7 @@ describe('ServiceUtil', function () {
           }
         };
 
-        let expectedService = new Service({
+        let expectedService = new Application({
           container: {
             type: 'DOCKER',
             docker: {
@@ -605,7 +637,7 @@ describe('ServiceUtil', function () {
           }
         };
 
-        let expectedService = new Service({
+        let expectedService = new Application({
           container: {
             type: 'MESOS',
             volumes: [
@@ -689,7 +721,7 @@ describe('ServiceUtil', function () {
         ]
       };
 
-      let service = new Service({
+      let service = new Application({
         id: '/test',
         cmd: 'sleep 1000;'
       });
@@ -705,7 +737,7 @@ describe('ServiceUtil', function () {
 
   describe('#getAppDefinitionFromService', function () {
     it('should create the correct appDefinition', function () {
-      let service = new Service({
+      let service = new Application({
         id: '/test',
         cmd: 'sleep 1000;'
       });
@@ -719,7 +751,7 @@ describe('ServiceUtil', function () {
 
   describe('#convertServiceLabelsToArray', function () {
     it('should return an array of key-value tuples', function () {
-      let service = new Service({
+      let service = new Application({
         id: '/test',
         cmd: 'sleep 1000;',
         labels: {
@@ -737,7 +769,7 @@ describe('ServiceUtil', function () {
     });
 
     it('should return an empty array if no labels are found', function () {
-      let service = new Service({
+      let service = new Application({
         id: '/test',
         cmd: 'sleep 1000;'
       });

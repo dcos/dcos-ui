@@ -2,7 +2,6 @@ const Application = require('../Application');
 const Framework = require('../Framework');
 const HealthStatus = require('../../constants/HealthStatus');
 const HealthTypes = require('../../constants/HealthTypes');
-const Service = require('../Service');
 const ServiceTree = require('../ServiceTree');
 const ServiceStatus = require('../../constants/ServiceStatus');
 const VolumeList = require('../../structs/VolumeList');
@@ -440,28 +439,28 @@ describe('ServiceTree', function () {
 
   describe('#getHealth', function () {
 
-    const healthyService = new Service({
+    const healthyService = new Application({
       healthChecks: [{path: '', protocol: 'HTTP'}],
       tasksStaged: 0,
       tasksRunning: 1,
       tasksHealthy: 1,
       tasksUnhealthy: 0
     });
-    const unhealthyService = new Service({
+    const unhealthyService = new Application({
       healthChecks: [{path: '', protocol: 'HTTP'}],
       tasksStaged: 0,
       tasksRunning: 1,
       tasksHealthy: 0,
       tasksUnhealthy: 1
     });
-    const idleService = new Service({
+    const idleService = new Application({
       healthChecks: [{path: '', protocol: 'HTTP'}],
       tasksStaged: 0,
       tasksRunning: 0,
       tasksHealthy: 0,
       tasksUnhealthy: 0
     });
-    const naService = new Service({
+    const naService = new Application({
       healthChecks: [],
       tasksStaged: 0,
       tasksRunning: 1,
@@ -567,12 +566,12 @@ describe('ServiceTree', function () {
     });
 
     it('returns correct resource data', function () {
-      this.instance.add(new Service({
+      this.instance.add(new Application({
         cpus: 1,
         mem: 2048,
         disk: 0
       }));
-      this.instance.add(new Service({
+      this.instance.add(new Application({
         cpus: 6,
         mem: 1024,
         disk: 6
@@ -594,7 +593,7 @@ describe('ServiceTree', function () {
     });
 
     it('returns correct number for instances for 0 instances', function () {
-      this.instance.add(new Service({
+      this.instance.add(new Application({
         instances: 0
       }));
 
@@ -602,7 +601,7 @@ describe('ServiceTree', function () {
     });
 
     it('returns correct number for instances for 1 instance', function () {
-      this.instance.add(new Service({
+      this.instance.add(new Application({
         instances: 1
       }));
 
@@ -610,11 +609,11 @@ describe('ServiceTree', function () {
     });
 
     it('returns correct number for instances for 5 instances', function () {
-      this.instance.add(new Service({
+      this.instance.add(new Application({
         instances: 3
       }));
 
-      this.instance.add(new Service({
+      this.instance.add(new Application({
         instances: 2
       }));
 
@@ -630,7 +629,7 @@ describe('ServiceTree', function () {
     });
 
     it('returns correct status for running tree', function () {
-      this.instance.add(new Service({
+      this.instance.add(new Application({
         tasksStaged: 0,
         tasksRunning: 1,
         tasksHealthy: 0,
@@ -644,7 +643,7 @@ describe('ServiceTree', function () {
     });
 
     it('returns correct status for suspended tree', function () {
-      this.instance.add(new Service({
+      this.instance.add(new Application({
         tasksStaged: 0,
         tasksRunning: 0,
         tasksHealthy: 0,
@@ -658,7 +657,7 @@ describe('ServiceTree', function () {
     });
 
     it('returns correct status for deploying tree', function () {
-      this.instance.add(new Service({
+      this.instance.add(new Application({
         tasksStaged: 0,
         tasksRunning: 15,
         tasksHealthy: 0,
@@ -680,7 +679,7 @@ describe('ServiceTree', function () {
     });
 
     it('returns correct status object for running tree', function () {
-      this.instance.add(new Service({
+      this.instance.add(new Application({
         tasksStaged: 0,
         tasksRunning: 1,
         tasksHealthy: 0,
@@ -694,7 +693,7 @@ describe('ServiceTree', function () {
     });
 
     it('returns correct status object for suspended tree', function () {
-      this.instance.add(new Service({
+      this.instance.add(new Application({
         tasksStaged: 0,
         tasksRunning: 0,
         tasksHealthy: 0,
@@ -708,7 +707,7 @@ describe('ServiceTree', function () {
     });
 
     it('returns correct status object for deploying tree', function () {
-      this.instance.add(new Service({
+      this.instance.add(new Application({
         tasksStaged: 0,
         tasksRunning: 15,
         tasksHealthy: 0,
@@ -771,14 +770,14 @@ describe('ServiceTree', function () {
     });
 
     it('returns correct task summary', function () {
-      this.instance.add(new Service({
+      this.instance.add(new Application({
         instances: 1,
         tasksStaged: 0,
         tasksRunning: 1,
         tasksHealthy: 1,
         tasksUnhealthy: 0
       }));
-      this.instance.add(new Service({
+      this.instance.add(new Application({
         instances: 19,
         tasksStaged: 1,
         tasksRunning: 18,
@@ -797,14 +796,14 @@ describe('ServiceTree', function () {
     });
 
     it('returns correct task summary for Over Capacity', function () {
-      this.instance.add(new Service({
+      this.instance.add(new Application({
         instances: 1,
         tasksStaged: 0,
         tasksRunning: 1,
         tasksHealthy: 1,
         tasksUnhealthy: 0
       }));
-      this.instance.add(new Service({
+      this.instance.add(new Application({
         instances: 10,
         tasksStaged: 1,
         tasksRunning: 18,
@@ -831,7 +830,7 @@ describe('ServiceTree', function () {
     });
 
     it('returns a VolumeList with all the volumes in the group', function () {
-      this.instance.add(new Service({
+      this.instance.add(new Application({
         id: '/persistent',
         volumes: [{
           containerPath: 'data',
@@ -840,7 +839,7 @@ describe('ServiceTree', function () {
         }]
       }));
 
-      this.instance.add(new Service({
+      this.instance.add(new Application({
         id: '/persistent2',
         volumes: [{
           containerPath: 'data',
@@ -867,7 +866,7 @@ describe('ServiceTree', function () {
         id: '/metronome'
       }));
 
-      this.instance.add(new Service({
+      this.instance.add(new Application({
         id: '/sleeper'
       }));
 
@@ -899,7 +898,7 @@ describe('ServiceTree', function () {
         }
       }));
 
-      this.instance.add(new Service({
+      this.instance.add(new Application({
         id: '/sleeper'
       }));
 
@@ -920,7 +919,7 @@ describe('ServiceTree', function () {
         }
       }));
 
-      this.instance.add(new Service({
+      this.instance.add(new Application({
         id: '/sleeper',
         labels: {
           'label_one': 'value_one',
