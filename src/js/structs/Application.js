@@ -7,6 +7,15 @@ import TaskStats from './TaskStats';
 import VolumeList from './VolumeList';
 
 module.exports = class Application extends Service {
+
+  //
+  // Tech-Debt: The spec-specific fileds should be separated to a
+  //            different class that subclasses from ServiceSpec.
+  //
+  getSpec() {
+    return this;
+  }
+
   getArguments() {
     return this.get('args');
   }
