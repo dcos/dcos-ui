@@ -1,5 +1,6 @@
 import Ace from 'react-ace';
 import classNames from 'classnames';
+import deepEqual from 'deep-equal';
 import {Hooks} from 'PluginSDK';
 import mixin from 'reactjs-mixin';
 import {Modal, Tooltip} from 'reactjs-components';
@@ -146,10 +147,25 @@ class ServiceFormModal extends mixin(StoreMixin) {
 
   shouldComponentUpdate(nextProps, nextState) {
     let {state, props} = this;
+
+    if ((typeof state.errorMessage !== typeof nextState.errorMessage) ||
+       ((typeof state.errorMessage === 'object') && !deepEqual(
+          state.errorMessage,
+          nextState.errorMessage)
+       )) {
+      return true;
+    }
+
+    if ((typeof state.warningMessage !== typeof nextState.warningMessage) ||
+       ((typeof state.warningMessage === 'object') && !deepEqual(
+          state.warningMessage,
+          nextState.warningMessage)
+       )) {
+      return true;
+    }
+
     return props.open !== nextProps.open ||
       state.jsonMode !== nextState.jsonMode ||
-      state.errorMessage !== nextState.errorMessage ||
-      state.warningMessage !== nextState.warningMessage ||
       state.pendingRequest !== nextState.pendingRequest;
   }
 
