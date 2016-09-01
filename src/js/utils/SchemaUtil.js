@@ -87,6 +87,10 @@ function schemaToFieldDefinition(options) {
     definition.options = fieldProps.options;
   }
 
+  if (fieldProps.helpBlock) {
+    definition.helpBlock = fieldProps.helpBlock;
+  }
+
   if (fieldProps.type === 'boolean') {
     definition.fieldType = 'checkbox';
     definition.checked = fieldProps.default || false;

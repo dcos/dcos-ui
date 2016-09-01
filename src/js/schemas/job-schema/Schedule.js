@@ -24,9 +24,9 @@ const Schedule = {
     },
     cron: {
       title: 'CRON Schedule',
-      description: (
+      helpBlock: (
         <span>
-          Use cron format to set your schedule, e.g. <i>0 0 20 * * *</i><br/><a href={MetadataStore.buildDocsURI('/usage/jobs/getting-started')} target="_blank">View documentation</a>.
+          Use cron format to set your schedule, e.g. <i>0 0 20 * * *</i>. <a href={MetadataStore.buildDocsURI('/usage/jobs/getting-started')} target="_blank">View documentation</a>.
         </span>
       ),
       type: 'string',
@@ -51,7 +51,11 @@ const Schedule = {
     },
     timezone: {
       title: 'Time Zone',
-      description: 'Enter time zone in TZ format, e.g. America/New_York',
+      description: (
+        <span>
+          Enter time zone in <a href="http://www.timezoneconverter.com/cgi-bin/zonehelp" target="_blank">TZ format</a>, e.g. America/New_York.
+        </span>
+      ),
       type: 'string',
       getter(job) {
         let [schedule = {}] = job.getSchedules();
