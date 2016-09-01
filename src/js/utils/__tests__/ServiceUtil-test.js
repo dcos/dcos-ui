@@ -7,9 +7,9 @@ const Framework = require('../../structs/Framework');
 const ServiceUtil = require('../ServiceUtil');
 
 describe('ServiceUtil', function () {
-  describe('#createSpecializationForDefinition', function () {
+  describe('#createServiceFromDefinition', function () {
     it('should correctly create Application instances', function () {
-      let instance = ServiceUtil.createSpecializationForDefinition({
+      let instance = ServiceUtil.createServiceFromDefinition({
         id: '/test',
         cmd: 'sleep 1000;',
         cpus: null,
@@ -22,7 +22,7 @@ describe('ServiceUtil', function () {
     });
 
     it('should correctly create Framework instances', function () {
-      let instance = ServiceUtil.createSpecializationForDefinition({
+      let instance = ServiceUtil.createServiceFromDefinition({
         id: '/test',
         cmd: 'sleep 1000;',
         cpus: null,
