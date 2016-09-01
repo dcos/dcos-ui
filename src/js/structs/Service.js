@@ -1,9 +1,10 @@
 import {cleanServiceJSON} from '../utils/CleanJSONUtil';
 import Item from './Item';
 import HealthStatus from '../constants/HealthStatus';
-import ServiceStatus from '../constants/ServiceStatus';
-import VolumeList from './VolumeList';
 import ServiceImages from '../constants/ServiceImages';
+import ServiceStatus from '../constants/ServiceStatus';
+import ServiceSpec from './ServiceSpec';
+import VolumeList from './VolumeList';
 
 module.exports = class Service extends Item {
   getId() {
@@ -12,6 +13,10 @@ module.exports = class Service extends Item {
 
   getName() {
     return this.getId().split('/').pop();
+  }
+
+  getSpec() {
+    return new ServiceSpec(this.get());
   }
 
   getHealth() {
