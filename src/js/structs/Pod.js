@@ -1,7 +1,7 @@
 import HealthStatus from '../constants/HealthStatus';
 import PodSpec from './PodSpec';
 import Service from './Service';
-import ServiceStatus from '../Constants/ServiceStatus';
+import ServiceStatus from '../constants/ServiceStatus';
 import ServiceImages from '../constants/ServiceImages';
 
 const PODSTATUS_TO_HEALTH_MAP = {
