@@ -68,7 +68,7 @@ const pruneHealthCheckAttributes = function (healthCheckSchema, healthCheck) {
 };
 
 const ServiceUtil = {
-  createSpecializationForDefinition(data) {
+  createServiceFromDefinition(data) {
     // Check the DCOS_PACKAGE_FRAMEWORK_NAME label to determine if the item
     // should be converted to an Application or Framework instance.
     if (data.labels && data.labels.DCOS_PACKAGE_FRAMEWORK_NAME) {
@@ -415,7 +415,7 @@ const ServiceUtil = {
       return memo;
     }, {});
 
-    return ServiceUtil.createSpecializationForDefinition(definition);
+    return ServiceUtil.createServiceFromDefinition(definition);
   },
 
   createFormModelFromSchema(schema, service = new Application()) {
