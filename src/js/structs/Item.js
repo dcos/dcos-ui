@@ -16,6 +16,6 @@ module.exports = class Item {
   }
 
   toJSON() {
-    return this._itemData;
+    return this.get();
   }
 };
