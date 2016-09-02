@@ -94,10 +94,18 @@ class ServiceInfo extends React.Component {
     let instancesCount = service.getInstancesCount();
     let runningTasksSubHeader = StringUtil.pluralize('Task', runningTasksCount);
     let overCapacity = '';
+    let disableToolTip = serviceStatus === 'Deploying';
 
     if (tasksSummary.tasksOverCapacity !== 0) {
       overCapacity =
           ` (over capacity by ${tasksSummary.tasksOverCapacity} tasks)`;
+    }
+
+    if (disableToolTip) {
+      tasksSummary = {
+        tasksStaged: instancesCount,
+        tasksRunning: 0
+      };
     }
 
     let subHeaderItems = [
@@ -114,8 +122,9 @@ class ServiceInfo extends React.Component {
       {
         label: (
           <HealthBar
+            disableToolTip={disableToolTip}
             tasksSummary={tasksSummary}
-            instancesCount={instancesCount} />
+            instancesCount={instancesCount}/>
         ),
         shouldShow: true
       }
