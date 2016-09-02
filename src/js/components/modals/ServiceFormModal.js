@@ -104,6 +104,12 @@ const responseAttributePathToFieldIdMap = Object.assign({
   '/user': 'user'
 }, ErrorPaths);
 
+function didMessageChange(prevMessage, newMessage) {
+  return  (typeof prevMessage !== typeof newMessage) ||
+         ((typeof prevMessage === 'object') &&
+          !deepEqual(prevMessage, newMessage));
+}
+
 class ServiceFormModal extends mixin(StoreMixin) {
   constructor() {
     super(...arguments);
@@ -147,26 +153,11 @@ class ServiceFormModal extends mixin(StoreMixin) {
 
   shouldComponentUpdate(nextProps, nextState) {
     let {state, props} = this;
-
-    if ((typeof state.errorMessage !== typeof nextState.errorMessage) ||
-       ((typeof state.errorMessage === 'object') && !deepEqual(
-          state.errorMessage,
-          nextState.errorMessage)
-       )) {
-      return true;
-    }
-
-    if ((typeof state.warningMessage !== typeof nextState.warningMessage) ||
-       ((typeof state.warningMessage === 'object') && !deepEqual(
-          state.warningMessage,
-          nextState.warningMessage)
-       )) {
-      return true;
-    }
-
     return props.open !== nextProps.open ||
       state.jsonMode !== nextState.jsonMode ||
-      state.pendingRequest !== nextState.pendingRequest;
+      state.pendingRequest !== nextState.pendingRequest ||
+      didMessageChange(state.errorMessage, nextState.errorMessage) ||
+      didMessageChange(state.warningMessage, nextState.warningMessage);
   }
 
   resetState(props = this.props) {
