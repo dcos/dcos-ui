@@ -289,26 +289,36 @@ var ServicesTable = React.createClass({
   },
 
   renderStatus(prop, service) {
-    let instanceCount = service.getInstancesCount();
+    let instancesCount = service.getInstancesCount();
     let serviceId = service.getId();
     let serviceStatus = service.getStatus();
     let serviceStatusClassSet = StatusMapping[serviceStatus] || '';
-    let taskSummary = service.getTasksSummary();
-    let {tasksRunning} = taskSummary;
+    let tasksSummary = service.getTasksSummary();
+    let {tasksRunning} = tasksSummary;
 
-    let conciseOverview = ` (${tasksRunning}/${instanceCount})`;
+    let disableToolTip = serviceStatus === 'Deploying';
+
+    let conciseOverview = ` (${tasksRunning}/${instancesCount})`;
     let verboseOverview = ` (${tasksRunning} ${StringUtil.pluralize('Task', tasksRunning)})`;
-    if (tasksRunning !== instanceCount) {
-      verboseOverview = ` (${tasksRunning} of ${instanceCount} Tasks)`;
+    if (tasksRunning !== instancesCount) {
+      verboseOverview = ` (${tasksRunning} of ${instancesCount} Tasks)`;
+    }
+
+    if (disableToolTip) {
+      tasksSummary = {
+        tasksStaged: instancesCount,
+        tasksRunning: 0
+      };
     }
 
     return (
       <div className="status-bar-wrapper">
         <span className="status-bar-indicator">
           <HealthBar
+            disableToolTip={disableToolTip}
             key={serviceId}
-            tasksSummary={taskSummary}
-            instancesCount={instanceCount} />
+            tasksSummary={tasksSummary}
+            instancesCount={instancesCount} />
         </span>
         <span className="status-bar-text">
           <span className={serviceStatusClassSet}>{serviceStatus}</span>
