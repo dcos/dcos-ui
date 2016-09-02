@@ -42,7 +42,10 @@ class HealthBar extends React.Component {
   renderToolTip() {
     let {tasksSummary, instancesCount} = this.props;
 
-    tasksSummary = this.getTaskList(tasksSummary, instancesCount);
+    tasksSummary = this.getTaskList(
+      tasksSummary,
+      Math.max(tasksSummary.tasksRunning, instancesCount)
+    );
 
     if (tasksSummary.length === 0) {
       return 'No Running Tasks';
