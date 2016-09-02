@@ -3,12 +3,6 @@ import VolumeStatus from '../constants/VolumeStatus';
 
 function parseApp(app) {
   let {id, tasks = [], container = {}} = app;
-  Object.defineProperty(app, '_type', {
-    enumerable: false,
-    configurable: false,
-    writable: false,
-    value: 'app'
-  });
 
   if (id == null || !id.startsWith('/') || id.endsWith('/')) {
     throw new Error(`Id (${id}) must start with a leading slash ("/") ` +
@@ -72,12 +66,6 @@ function parseApp(app) {
 
 function parsePod(pod) {
   let {id} = pod;
-  Object.defineProperty(pod, '_type', {
-    enumerable: false,
-    configurable: false,
-    writable: false,
-    value: 'pod'
-  });
 
   if (id == null || !id.startsWith('/') || id.endsWith('/')) {
     throw new Error(`Id (${id}) must start with a leading slash ("/") ` +

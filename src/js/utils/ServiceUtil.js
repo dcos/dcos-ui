@@ -64,11 +64,15 @@ const pruneHealthCheckAttributes = function (healthCheckSchema, healthCheck) {
   }, {});
 };
 
+function looksLikePod(data) {
+  // A pod definition contains a `containers` field, not found on the
+  // other definitions.
+  return Array.isArray(data.containers);
+}
+
 const ServiceUtil = {
   createServiceFromDefinition(data) {
-    // The _type attribute is introduced in the `MarathonUtil.parseGroups`
-    // function and is used to differentiate between `pod` and `app` types.
-    if (data._type === 'pod') {
+    if (looksLikePod(data)) {
       return new Pod(data);
     }
 
