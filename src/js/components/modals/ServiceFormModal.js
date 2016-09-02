@@ -1,5 +1,6 @@
 import Ace from 'react-ace';
 import classNames from 'classnames';
+import deepEqual from 'deep-equal';
 import {Hooks} from 'PluginSDK';
 import mixin from 'reactjs-mixin';
 import {Modal, Tooltip} from 'reactjs-components';
@@ -103,6 +104,12 @@ const responseAttributePathToFieldIdMap = Object.assign({
   '/user': 'user'
 }, ErrorPaths);
 
+function didMessageChange(prevMessage, newMessage) {
+  return (typeof prevMessage !== typeof newMessage) ||
+         ((typeof prevMessage === 'object') &&
+          !deepEqual(prevMessage, newMessage));
+}
+
 class ServiceFormModal extends mixin(StoreMixin) {
   constructor() {
     super(...arguments);
@@ -148,9 +155,9 @@ class ServiceFormModal extends mixin(StoreMixin) {
     let {state, props} = this;
     return props.open !== nextProps.open ||
       state.jsonMode !== nextState.jsonMode ||
-      state.errorMessage !== nextState.errorMessage ||
-      state.warningMessage !== nextState.warningMessage ||
-      state.pendingRequest !== nextState.pendingRequest;
+      state.pendingRequest !== nextState.pendingRequest ||
+      didMessageChange(state.errorMessage, nextState.errorMessage) ||
+      didMessageChange(state.warningMessage, nextState.warningMessage);
   }
 
   resetState(props = this.props) {
