@@ -105,7 +105,7 @@ const responseAttributePathToFieldIdMap = Object.assign({
 }, ErrorPaths);
 
 function didMessageChange(prevMessage, newMessage) {
-  return  (typeof prevMessage !== typeof newMessage) ||
+  return (typeof prevMessage !== typeof newMessage) ||
          ((typeof prevMessage === 'object') &&
           !deepEqual(prevMessage, newMessage));
 }
