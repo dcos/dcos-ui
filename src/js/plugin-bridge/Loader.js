@@ -4,6 +4,7 @@
 const requirePlugin = require.context('../../../plugins', true, /index/);
 const requireConfig = require.context('../config', false);
 const requireEvents = require.context('../events', false);
+const requireSystemPages = require.context('../pages/system', false);
 const requireStores = require.context('../stores', false);
 const requireStructs = require.context('../structs', false);
 const requireUtils = require.context('../utils', false);
@@ -91,6 +92,8 @@ function requireModule(dir, name) {
       return requireConstants(path);
     case 'events':
       return requireEvents(path);
+    case 'systemPages':
+      return requireSystemPages(path);
     case 'stores':
       return requireStores(path);
     case 'structs':

@@ -13,18 +13,6 @@ import SidebarActions from '../events/SidebarActions';
 import TabsUtil from '../utils/TabsUtil';
 import TabsMixin from '../mixins/TabsMixin';
 
-// Default Tabs
-let DEFAULT_SERVICES_TABS = {
-  'system-overview': {
-    content: 'Overview',
-    priority: 30
-  },
-  'system-organization': {
-    content: 'Organization',
-    priority: 20
-  }
-};
-
 let DEFAULT_OVERVIEW_TABS = {
   'system-overview-details': {
     content: 'Details',
@@ -40,31 +28,49 @@ let DEFAULT_OVERVIEW_TABS = {
   }
 };
 
-let DEFAULT_ORGANIZATION_TABS = {
-  'system-organization-users': {
-    content: 'Users',
-    priority: 50
-  }
-};
+let DEFAULT_ORGANIZATION_TABS = {};
 
 let SYSTEM_TABS;
+
+function getTabIfSubTabs(key, tabDefinition) {
+  if (!Object.keys(Hooks.applyFilter(`${key}-tabs`, {})).length) {
+    return {};
+  }
+
+  return {[key]: tabDefinition};
+}
 
 class SystemPage extends mixin(TabsMixin) {
   constructor() {
     super(...arguments);
 
-    // Get top level tabs
-    SYSTEM_TABS = TabsUtil.sortTabs(
-      Hooks.applyFilter('SystemTabs', DEFAULT_SERVICES_TABS)
-    );
     // Add filter to register default tab for Overview Tab
     Hooks.addFilter('system-overview-tabs', function (tabs) {
       return Object.assign(tabs, DEFAULT_OVERVIEW_TABS);
     });
+
+    // Check if organization tab
     // Add filter to register default tab for Organization Tab
     Hooks.addFilter('system-organization-tabs', function (tabs) {
       return Object.assign(tabs, DEFAULT_ORGANIZATION_TABS);
     });
+
+    // Default Tabs
+    let defaultSystemTabs = Object.assign({},
+      getTabIfSubTabs('system-overview', {
+        content: 'Overview',
+        priority: 30
+      }),
+      getTabIfSubTabs('system-organization', {
+        content: 'Organization',
+        priority: 20
+      })
+    );
+
+    // Get top level tabs
+    SYSTEM_TABS = TabsUtil.sortTabs(
+      Hooks.applyFilter('system-tabs', defaultSystemTabs)
+    );
 
     this.tabs_tabs = {};
     this.state = {};

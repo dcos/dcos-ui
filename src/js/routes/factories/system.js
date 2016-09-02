@@ -12,7 +12,6 @@ import UnitsHealthNodeDetail from '../../pages/system/UnitsHealthNodeDetail';
 import UnitsHealthDetailBreadcrumb from '../../pages/system/breadcrumbs/UnitsHealthDetailBreadcrumb';
 import UnitsHealthNodeDetailBreadcrumb from '../../pages/system/breadcrumbs/UnitsHealthNodeDetailBreadcrumb';
 import UnitsHealthTab from '../../pages/system/UnitsHealthTab';
-import UsersTab from '../../pages/system/UsersTab';
 
 let RouteFactory = {
 
@@ -103,70 +102,47 @@ let RouteFactory = {
   getOrganizationRoutes() {
     // Return filtered Routes
     return this.getFilteredRoutes(
-      Hooks.applyFilter('organizationRoutes', {
-        routes: [{
-          type: Route,
-          name: 'system-organization-users',
-          path: 'users/?',
-          handler: UsersTab,
-          buildBreadCrumb() {
-            return {
-              parentCrumb: 'system-organization',
-              getCrumbs() {
-                return [
-                  {
-                    label: 'Users',
-                    route: {to: 'system-organization-users'}
-                  }
-                ];
-              }
-            };
-          },
-          children: []
-        }],
-        redirect: {
-          type: Redirect,
-          from: '/system/organization/?',
-          to: 'system-organization-users'
-        }
-      })
+      Hooks.applyFilter('organizationRoutes')
     );
   },
 
   getSystemRoutes() {
-    let overviewRoute = {
+    let routes = [{
       type: Route,
       name: 'system-overview',
       path: 'overview/?',
       // Get children for Overview
       children: RouteFactory.getOverviewRoutes()
-    };
+    }];
 
-    let organizationRoute = {
-      type: Route,
-      name: 'system-organization',
-      path: 'organization/?',
-      buildBreadCrumb() {
-        return {
-          getCrumbs() {
-            return [
-              {
-                label: 'Organization',
-                route: {to: 'system-organization'}
-              }
-            ];
-          }
-        };
-      },
-      // Get children for Overview
-      children: RouteFactory.getOrganizationRoutes()
-    };
+    let organizationChildren = RouteFactory.getOrganizationRoutes();
+    if (organizationChildren) {
+      routes.push({
+        type: Route,
+        name: 'system-organization',
+        path: 'organization/?',
+        buildBreadCrumb() {
+          return {
+            getCrumbs() {
+              return [
+                {
+                  label: 'Organization',
+                  route: {to: 'system-organization'}
+                }
+              ];
+            }
+          };
+        },
+        // Get children for Overview
+        children: organizationChildren
+      });
+    }
 
     // Return filtered Routes
     return this.getFilteredRoutes(
       // Pass in Object so Plugins can mutate routes and the default redirect
       Hooks.applyFilter('systemRoutes', {
-        routes: [overviewRoute, organizationRoute],
+        routes,
         redirect: {
           type: Redirect,
           from: '/system/?',
@@ -177,20 +153,23 @@ let RouteFactory = {
   },
 
   getFilteredRoutes(filteredRoutes) {
+    if (!filteredRoutes) {
+      return;
+    }
+
     // Push redirect onto Routes Array
     return filteredRoutes.routes.concat([filteredRoutes.redirect]);
   },
 
   getRoutes() {
-
-    let childRoutes = this.getSystemRoutes();
+    let children = this.getSystemRoutes();
 
     return {
       type: Route,
       name: 'system',
       path: 'system/?',
       handler: SystemPage,
-      children: childRoutes,
+      children,
       buildBreadCrumb() {
         return {
           getCrumbs() {

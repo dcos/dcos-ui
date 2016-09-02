@@ -80,5 +80,8 @@ module.exports = {
   },
   config: {
     Config: 'Config'
+  },
+  systemPages: {
+    UsersTab: 'UsersTab'
   }
 };
