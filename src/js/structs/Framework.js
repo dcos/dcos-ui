@@ -21,6 +21,16 @@ module.exports = class Framework extends Service {
     return {value};
   }
 
+  getTasksSummary() {
+    let tasksSummary = super.getTasksSummary();
+
+    let tasksRunning = this.get('TASK_RUNNING') || 0;
+    tasksSummary.tasksRunning += tasksRunning;
+    tasksSummary.tasksUnknown += tasksRunning;
+
+    return tasksSummary;
+  }
+
   getName() {
     let labels = this.getLabels();
     if (labels && labels.DCOS_PACKAGE_FRAMEWORK_NAME) {
