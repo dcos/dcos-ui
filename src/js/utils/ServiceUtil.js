@@ -64,15 +64,13 @@ const pruneHealthCheckAttributes = function (healthCheckSchema, healthCheck) {
   }, {});
 };
 
-function looksLikePod(data) {
-  // A pod definition contains a `containers` field, not found on the
-  // other definitions.
-  return Array.isArray(data.containers);
-}
-
 const ServiceUtil = {
   createServiceFromDefinition(data) {
-    if (looksLikePod(data)) {
+
+    // Test if the data looks like a pod.
+    // A pod definition contains a `containers` field, not found on the
+    // other definitions.
+    if (Array.isArray(data.containers)) {
       return new Pod(data);
     }
 
