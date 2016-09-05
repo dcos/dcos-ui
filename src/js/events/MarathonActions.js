@@ -427,6 +427,9 @@ if (Config.useFixtures) {
   }
 
   global.actionTypes.MarathonActions = {
+    createService: {
+      event: 'success', success: {response: {}}
+    },
     fetchGroups: {
       event: 'success', success: {response: groupsFixture}
     }
