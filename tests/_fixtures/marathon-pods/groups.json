@@ -120,7 +120,7 @@
                   }
                 }
               },
-              "status": "DEGRADED",
+              "status": "STAGING",
               "statusSince": "2016-08-31T01:01:01.001",
               "message": "All pod instances are running and in good health",
               "lastUpdated": "2016-08-31T01:01:01.001",
@@ -145,12 +145,23 @@
                       ],
                       "lastUpdated": "2016-08-31T01:01:01.001",
                       "lastChanged": "2016-08-31T01:01:01.001"
+                    },
+                    {
+                      "name": "my-web-app",
+                      "status": "RUNNING",
+                      "statusSince": "2016-08-31T01:01:01.001",
+                      "containerId": "podtask-3490824906824564563456",
+                      "endpoints": [
+                        { "name": "nginx", "allocatedHostPort": 31003 }
+                      ],
+                      "lastUpdated": "2016-08-31T01:01:01.001",
+                      "lastChanged": "2016-08-31T01:01:01.001"
                     }
                   ]
                 },
                 {
                   "id": "pod-51373531528821",
-                  "status": "DEGRADED",
+                  "status": "STAGING",
                   "statusSince": "2016-08-41T01:01:01.001",
                   "agent": "node-123-123-123-123",
                   "resources": { "cpus": 0.6, "mem": 96 },
@@ -159,7 +170,7 @@
                   "containers": [
                     {
                       "name": "another-web-app",
-                      "status": "RUNNING",
+                      "status": "STAGING",
                       "statusSince": "2016-08-41T01:01:01.001",
                       "containerId": "podtask-6168613687221846724371",
                       "endpoints": [
