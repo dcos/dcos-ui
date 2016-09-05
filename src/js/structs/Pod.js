@@ -132,7 +132,6 @@ module.exports = class Pod extends Service {
       healthData[key]++;
     });
 
-    console.log(healthData);
     return healthData;
   }
 
