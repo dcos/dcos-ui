@@ -42,7 +42,10 @@ class HealthBar extends React.Component {
   renderToolTip() {
     let {tasksSummary, instancesCount} = this.props;
 
-    tasksSummary = this.getTaskList(tasksSummary, instancesCount);
+    tasksSummary = this.getTaskList(
+      tasksSummary,
+      Math.max(tasksSummary.tasksRunning, instancesCount)
+    );
 
     if (tasksSummary.length === 0) {
       return 'No Running Tasks';
@@ -52,10 +55,26 @@ class HealthBar extends React.Component {
   }
 
   render() {
-    let {tasksSummary, instancesCount} = this.props;
+    let {tasksSummary, instancesCount, isDeploying} = this.props;
 
     if (tasksSummary == null) {
       return null;
+    }
+
+    // This filters overCapacity ou
+    tasksSummary = Object.keys(tasksSummary)
+      .filter(function (key) {
+        return key !== 'tasksOverCapacity';
+      })
+      .reduce(function (memo, key) {
+        memo[key] = tasksSummary[key];
+        return memo;
+      }, {});
+
+    if (isDeploying) {
+      tasksSummary = {
+        tasksStaged: instancesCount
+      };
     }
 
     return (
@@ -69,10 +88,12 @@ class HealthBar extends React.Component {
 }
 
 HealthBar.defaultProps = {
+  isDeploying: false,
   instancesCount: null
 };
 
 HealthBar.propTypes = {
+  isDeploying: React.PropTypes.bool,
   instancesCount: React.PropTypes.number,
   tasksSummary: React.PropTypes.shape({
     tasksRunning: React.PropTypes.number,

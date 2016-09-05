@@ -93,6 +93,14 @@ class ServiceInfo extends React.Component {
     let runningTasksCount = tasksSummary.tasksRunning;
     let instancesCount = service.getInstancesCount();
     let runningTasksSubHeader = StringUtil.pluralize('Task', runningTasksCount);
+    let overCapacity = '';
+    let isDeploying = serviceStatus === 'Deploying';
+
+    if (tasksSummary.tasksOverCapacity > 0) {
+      overCapacity =
+          ` (over capacity by ${tasksSummary.tasksOverCapacity} tasks)`;
+    }
+
     let subHeaderItems = [
       {
         classes: `media-object-item ${serviceStatusClassSet}`,
@@ -101,14 +109,15 @@ class ServiceInfo extends React.Component {
       },
       {
         classes: 'media-object-item',
-        label: `${runningTasksCount} ${runningTasksSubHeader}`,
+        label: `${runningTasksCount} ${runningTasksSubHeader}` + overCapacity,
         shouldShow: runningTasksCount != null && runningTasksSubHeader != null
       },
       {
         label: (
           <HealthBar
+            isDeploying={isDeploying}
             tasksSummary={tasksSummary}
-            instancesCount={instancesCount} />
+            instancesCount={instancesCount}/>
         ),
         shouldShow: true
       }
