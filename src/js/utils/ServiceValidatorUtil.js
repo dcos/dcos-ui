@@ -48,8 +48,7 @@ const ServiceValidatorUtil = {
    * @returns {boolean} - True if the response refers to a pod
    */
   isApplicationResponse() {
-    // This is a placeholder for proper detection between application and
-    // pod response.
+    // TODO: Check how an application can be cleanly identified (DCOS-9618)
     return true;
   },
 
