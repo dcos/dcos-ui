@@ -5,6 +5,11 @@ import {
 import Application from './Application';
 
 module.exports = class Framework extends Application {
+  getSpec() {
+    // DCOS-9613: This should be properly implemented
+    return this;
+  }
+
   getNodeIDs() {
     return this.get('slave_ids');
   }
