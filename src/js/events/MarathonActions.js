@@ -469,6 +469,9 @@ if (Config.useFixtures) {
     deleteService: {
       event: 'success', success: {response: {}}
     },
+    editService: {
+      event: 'success', success: {response: {}}
+    },
     fetchGroups: {
       event: 'success', success: {response: groupsFixture}
     }
