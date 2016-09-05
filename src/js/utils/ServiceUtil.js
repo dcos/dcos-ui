@@ -1,8 +1,12 @@
 import {Hooks} from 'PluginSDK';
 import Application from '../structs/Application';
+import ApplicationSpec from '../structs/ApplicationSpec';
 import Framework from '../structs/Framework';
+import FrameworkSpec from '../structs/FrameworkSpec';
 import Pod from '../structs/Pod';
+import PodSpec from '../structs/PodSpec';
 import Service from '../structs/Service';
+import ServiceValidatorUtil from '../utils/ServiceValidatorUtil';
 import ValidatorUtil from '../utils/ValidatorUtil';
 import VolumeConstants from '../constants/VolumeConstants';
 
@@ -65,21 +69,28 @@ const pruneHealthCheckAttributes = function (healthCheckSchema, healthCheck) {
 };
 
 const ServiceUtil = {
-  createServiceFromDefinition(data) {
 
-    // Test if the data looks like a pod.
-    // A pod definition contains a `containers` field, not found on the
-    // other definitions.
-    if (data.spec && Array.isArray(data.spec.containers)) {
+  createServiceFromResponse(data) {
+    if (ServiceValidatorUtil.isPodResponse(data)) {
       return new Pod(data);
-    }
-
-    // Check the DCOS_PACKAGE_FRAMEWORK_NAME label to determine if the item
-    // should be converted to an Application or Framework instance.
-    if (data.labels && data.labels.DCOS_PACKAGE_FRAMEWORK_NAME) {
+    } else if (ServiceValidatorUtil.isFrameworkResponse(data)) {
       return new Framework(data);
-    } else {
+    } else if (ServiceValidatorUtil.isApplicationResponse(data)) {
       return new Application(data);
+    } else {
+      throw Error('Unknown service response: '+JSON.stringify(data));
+    }
+  },
+
+  createSpecFromDefinition(data) {
+    if (ServiceValidatorUtil.isPodSpecDefinition(data)) {
+      return new PodSpec(data);
+    } else if (ServiceValidatorUtil.isFrameworkSpecDefinition(data)) {
+      return new FrameworkSpec(data);
+    } else if (ServiceValidatorUtil.isApplicationSpecDefinition(data)) {
+      return new ApplicationSpec(data);
+    } else {
+      throw Error('Unknown service response: '+JSON.stringify(data));
     }
   },
 
@@ -421,7 +432,7 @@ const ServiceUtil = {
       return memo;
     }, {});
 
-    return ServiceUtil.createServiceFromDefinition(definition);
+    return ServiceUtil.createSpecFromDefinition(definition);
   },
 
   createFormModelFromSchema(schema, service = new Application()) {
