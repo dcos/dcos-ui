@@ -1,16 +1,9 @@
 import HealthStatus from '../constants/HealthStatus';
+import PodInstanceList from './PodInstanceList';
 import PodSpec from './PodSpec';
 import Service from './Service';
 import ServiceStatus from '../constants/ServiceStatus';
 import ServiceImages from '../constants/ServiceImages';
-
-const PODSTATUS_TO_HEALTH_MAP = {
-  DEGRADED: 'tasksUnhealthy',
-  PENDING: 'tasksUnknown',
-  STAGING: 'tasksStaged',
-  STABLE: 'tasksHealthy',
-  TERMINAL: 'tasksUnknown'
-};
 
 module.exports = class Pod extends Service {
   constructor() {
@@ -39,15 +32,20 @@ module.exports = class Pod extends Service {
    */
   getHealth() {
     switch (this.get('status')) {
-      // DEGRADED - The number of STABLE pod instances is less than the number of desired instances.
+      // DEGRADED - The number of STABLE pod instances is less than the number
+      // of desired instances.
       case 'DEGRADED':
         return HealthStatus.UNHEALTHY;
-      // STABLE   - All launched pod instances have started and, if health checks were specified, are all healthy.
+
+      // STABLE   - All launched pod instances have started and, if health
+      // checks were specified, are all healthy.
       case 'STABLE':
         return HealthStatus.HEALTHY;
+
       // TERMINAL - Marathon is tearing down all of the instances for this pod.
       case 'TERMINAL':
         return HealthStatus.NA;
+
       default:
         return HealthStatus.NA;
     }
@@ -64,20 +62,23 @@ module.exports = class Pod extends Service {
    * @override
    */
   getServiceStatus() {
-    switch (this.get('status')) {
-      // DEGRADED - The number of STABLE pod instances is less than the number of desired instances.
-      case 'DEGRADED':
-        return ServiceStatus.RUNNING;
-      // STABLE   - All launched pod instances have started and, if health checks were specified, are all healthy.
-      case 'STABLE':
-        return ServiceStatus.RUNNING;
-      // TERMINAL - Marathon is tearing down all of the instances for this pod.
-      case 'TERMINAL':
-        return ServiceStatus.WAITING;
+    let scalingInstances = this.getSpec().getScalingInstances();
+    let runningInstances = this.countRunningInstances();
+    let nonterminalInstances = this.countNonTerminalInstances();
 
-      default:
-        return ServiceStatus.NA;
+    if ((nonterminalInstances === 0) && (scalingInstances === 0)) {
+      return ServiceStatus.SUSPENDED;
     }
+
+    if (scalingInstances !== nonterminalInstances) {
+      return ServiceStatus.DEPLOYING;
+    }
+
+    if (runningInstances > 0) {
+      return ServiceStatus.RUNNING;
+    }
+
+    return ServiceStatus.NA;
   }
 
   /**
@@ -91,23 +92,49 @@ module.exports = class Pod extends Service {
    * @override
    */
   getInstancesCount() {
-    return this.getInstances().length;
+    // Apparently this means 'get total number of instances staged'
+    return this.getSpec().getScalingInstances();
   }
 
   /**
    * @override
    */
   getTasksSummary() {
-    let summary = this.getInstancesSummary();
-    let containersDefined = this.getSpec().getContainerCount();
+    let taskSummary = {
+      tasksHealthy: 0,
+      tasksUnhealthy: 0,
+      tasksStaged: 0,
+      tasksRunning: 0,
+      tasksUnknown: 0,
+      tasksOverCapacity: 0
+    };
 
-    summary.tasksRunning = this.getInstancesCount();
-    summary.tasksOverCapacity = Math.max(
-      0,
-      summary.tasksRunning - containersDefined
-    );
+    this.getInstanceList().mapItems(function (instance) {
+      if (instance.isRunning()) {
+        taskSummary.tasksRunning++;
+        if (instance.hasHealthChecks()) {
+          if (instance.isHealthy()) {
+            taskSummary.tasksHealthy++;
+          } else {
+            taskSummary.tasksUnhealthy++;
+          }
+        } else {
+          taskSummary.tasksUnknown++;
+        }
 
-    return summary;
+      } else if (instance.isStaging()) {
+        taskSummary.tasksStaged++;
+      }
+    });
+
+    let totalInstances = taskSummary.tasksStaged + taskSummary.tasksRunning;
+    let definedInstances = this.getSpec().getContainerCount();
+
+    if (totalInstances > definedInstances) {
+      taskSummary.tasksOverCapacity = totalInstances - definedInstances;
+    }
+
+    return taskSummary;
   }
 
   /**
@@ -117,26 +144,30 @@ module.exports = class Pod extends Service {
     return this.getSpec().getResourcesSummary();
   }
 
-  getInstancesSummary() {
-    let healthData = {
-      tasksHealthy: 0,
-      tasksStaged: 0,
-      tasksUnhealthy: 0,
-      tasksUnknown: 0
-    };
-
-    // Populate instance summary
-    this.getInstances().forEach(function (instance) {
-      let key = PODSTATUS_TO_HEALTH_MAP[instance.status];
-      if (!key) key = 'tasksUnknown';
-      healthData[key]++;
-    });
-
-    return healthData;
+  getInstanceList() {
+    return new PodInstanceList({items: this.get('instances') || []});
   }
 
-  getInstances() {
-    return this.get('instances') || [];
+  countRunningInstances() {
+    return this.getInstanceList().reduceItems(function (counter, instance) {
+      if (instance.isRunning()) {
+        return counter + 1;
+      }
+      return counter;
+    }, 0);
+  }
+
+  countNonTerminalInstances() {
+    return this.getInstanceList().reduceItems(function (counter, instance) {
+      if (!instance.isInStatus(['TERMINAL'])) {
+        return counter + 1;
+      }
+      return counter;
+    }, 0);
+  }
+
+  countTotalInstances() {
+    return (this.get('instances') || []).length;
   }
 
 };
