@@ -7,9 +7,8 @@ import TaskStats from './TaskStats';
 import VolumeList from './VolumeList';
 
 module.exports = class Application extends Service {
-  getSpec() {
-    // DCOS-9613: This should be properly implemented
-    return this;
+  getAcceptedResourceRoles() {
+    return this.get('acceptedResourceRoles');
   }
 
   getArguments() {
@@ -52,8 +51,9 @@ module.exports = class Application extends Service {
     return this.get('executor');
   }
 
-  getAcceptedResourceRoles() {
-    return this.get('acceptedResourceRoles');
+  getSpec() {
+    // DCOS-9613: This should be properly implemented
+    return this;
   }
 
   getHealth() {
