@@ -130,7 +130,7 @@ class ServiceDetail extends mixin(InternalStorageMixin, TabsMixin) {
         </div>
         <ServiceFormModal isEdit={true}
           open={serviceActionDialog === ServiceActionItem.EDIT}
-          service={service}
+          service={service.getSpec()}
           onClose={this.closeDialog} />
         <ServiceDestroyModal
           onClose={this.onServiceDestroyModalClose}

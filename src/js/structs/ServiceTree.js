@@ -46,7 +46,7 @@ module.exports = class ServiceTree extends Tree {
       }
 
       // Create the appropriate service according to definition
-      return ServiceUtil.createServiceFromDefinition(item);
+      return ServiceUtil.createServiceFromResponse(item);
 
     });
   }

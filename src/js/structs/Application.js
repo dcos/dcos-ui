@@ -7,12 +7,8 @@ import TaskStats from './TaskStats';
 import VolumeList from './VolumeList';
 
 module.exports = class Application extends Service {
-
-  //
-  // Tech-Debt: The spec-specific fileds should be separated to a
-  //            different class that subclasses from ServiceSpec.
-  //
   getSpec() {
+    // DCOS-9613: This should be properly implemented
     return this;
   }
 
