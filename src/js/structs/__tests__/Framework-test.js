@@ -126,4 +126,25 @@ describe('Framework', function () {
 
   });
 
+  describe('#getInstancesCount', function () {
+
+    it('returns correct instances', function () {
+      let service = new Framework({
+        instances: 1
+      });
+
+      expect(service.getInstancesCount()).toEqual(1);
+    });
+
+    it('returns correct instances with Framework data', function () {
+      let service = new Framework({
+        instances: 1,
+        TASK_RUNNING: 1
+      });
+
+      expect(service.getInstancesCount()).toEqual(2);
+    });
+
+  });
+
 });
