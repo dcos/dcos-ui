@@ -3,27 +3,6 @@ import PodContainerStatus from '../constants/PodContainerStatus';
 import StringUtil from '../utils/StringUtil';
 
 module.exports = class PodContainer extends Item {
-  getEndpoints() {
-    return this.get('endpoints') || [];
-  }
-
-  hasHealthChecks() {
-    // According to RAML specs:
-    //
-    // https://github.com/mesosphere/marathon/blob/feature/pods/docs/docs/rest-api/public/api/v2/types/container-status.raml#L49
-    // 'healthy: should only be present if a health check is defined for this endpoint'
-    //
-    return this.getEndpoints().some(function (ep) {
-      return ep.healthy !== undefined;
-    });
-  }
-
-  isHealthy() {
-    return this.getEndpoints().every(function (ep) {
-      return ep.healthy === undefined || ep.healthy;
-    });
-  }
-
   getContainerStatus() {
     switch (this.get('status')) {
       case 'RUNNING':
@@ -54,5 +33,26 @@ module.exports = class PodContainer extends Item {
           displayName: StringUtil.capitalize(this.get('status').toLowerCase())
         });
     }
+  }
+
+  getEndpoints() {
+    return this.get('endpoints') || [];
+  }
+
+  hasHealthChecks() {
+    // According to RAML specs:
+    //
+    // https://github.com/mesosphere/marathon/blob/feature/pods/docs/docs/rest-api/public/api/v2/types/container-status.raml#L49
+    // 'healthy: should only be present if a health check is defined for this endpoint'
+    //
+    return this.getEndpoints().some(function (ep) {
+      return ep.healthy !== undefined;
+    });
+  }
+
+  isHealthy() {
+    return this.getEndpoints().every(function (ep) {
+      return ep.healthy === undefined || ep.healthy;
+    });
   }
 };
