@@ -74,7 +74,7 @@ const ServiceUtil = {
     // Test if the data looks like a pod.
     // A pod definition contains a `containers` field, not found on the
     // other definitions.
-    if (Array.isArray(data.containers)) {
+    if (data.spec && Array.isArray(data.spec.containers)) {
       return new Pod(data);
     }
 
