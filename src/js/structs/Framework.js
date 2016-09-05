@@ -5,9 +5,17 @@ import {
 import Application from './Application';
 
 module.exports = class Framework extends Application {
-  getSpec() {
-    // DCOS-9613: This should be properly implemented
-    return this;
+  getInstancesCount() {
+    let tasksRunning = this.get('TASK_RUNNING') || 0;
+    return super.getInstancesCount() + tasksRunning;
+  }
+
+  getName() {
+    let labels = this.getLabels();
+    if (labels && labels.DCOS_PACKAGE_FRAMEWORK_NAME) {
+      return labels.DCOS_PACKAGE_FRAMEWORK_NAME;
+    }
+    return super.getName();
   }
 
   getNodeIDs() {
@@ -20,10 +28,9 @@ module.exports = class Framework extends Application {
     return ROUTE_ACCESS_PREFIX + (this.get('name') || '').replace(regexp, '');
   }
 
-  getUsageStats(resource) {
-    let value = this.get('used_resources')[resource];
-
-    return {value};
+  getSpec() {
+    // DCOS-9613: This should be properly implemented
+    return this;
   }
 
   getTasksSummary() {
@@ -36,16 +43,9 @@ module.exports = class Framework extends Application {
     return tasksSummary;
   }
 
-  getInstancesCount() {
-    let tasksRunning = this.get('TASK_RUNNING') || 0;
-    return super.getInstancesCount() + tasksRunning;
-  }
+  getUsageStats(resource) {
+    let value = this.get('used_resources')[resource];
 
-  getName() {
-    let labels = this.getLabels();
-    if (labels && labels.DCOS_PACKAGE_FRAMEWORK_NAME) {
-      return labels.DCOS_PACKAGE_FRAMEWORK_NAME;
-    }
-    return super.getName();
+    return {value};
   }
 };

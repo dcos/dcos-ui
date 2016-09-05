@@ -175,6 +175,7 @@ class ServiceDetailConfigurationTab extends React.Component {
     if (service.getVersion() !== selectedVersionID) {
       headline = `Previous Version (${localeVersion})`;
     }
+
     if (service != null) {
       serviceSpec = service.getSpec();
     }

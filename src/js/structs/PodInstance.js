@@ -44,28 +44,10 @@ module.exports = class PodInstance extends Item {
     }
   }
 
-  isInStatus(statusArray) {
-    let myStatus = this.get('status') || 'NA';
-    return statusArray.reduce(function (matched, status) {
-      if (matched) {
-        return true;
-      }
-      return status === myStatus;
-    }, false);
-  }
-
-  isRunning() {
-    let status = this.get('status');
-    return (status === 'STABLE') || (status === 'DEGRADED');
-  }
-
-  isTerminating() {
-    return this.get('status') === 'TERMINAL';
-  }
-
-  isStaging() {
-    let status = this.get('status');
-    return (status === 'PENDING') || (status === 'STAGING');
+  hasHealthChecks() {
+    return this.getContainers().some(function (container) {
+      return container.hasHealthChecks();
+    });
   }
 
   isHealthy() {
@@ -77,9 +59,17 @@ module.exports = class PodInstance extends Item {
     });
   }
 
-  hasHealthChecks() {
-    return this.getContainers().some(function (container) {
-      return container.hasHealthChecks();
-    });
+  isRunning() {
+    let status = this.get('status');
+    return (status === 'STABLE') || (status === 'DEGRADED');
+  }
+
+  isStaging() {
+    let status = this.get('status');
+    return (status === 'PENDING') || (status === 'STAGING');
+  }
+
+  isTerminating() {
+    return this.get('status') === 'TERMINAL';
   }
 };
