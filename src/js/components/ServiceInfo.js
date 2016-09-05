@@ -96,7 +96,7 @@ class ServiceInfo extends React.Component {
     let overCapacity = '';
     let isDeploying = serviceStatus === 'Deploying';
 
-    if (tasksSummary.tasksOverCapacity !== 0) {
+    if (tasksSummary.tasksOverCapacity > 0) {
       overCapacity =
           ` (over capacity by ${tasksSummary.tasksOverCapacity} tasks)`;
     }
