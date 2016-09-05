@@ -296,7 +296,7 @@ var ServicesTable = React.createClass({
     let tasksSummary = service.getTasksSummary();
     let {tasksRunning} = tasksSummary;
 
-    let disableToolTip = serviceStatus === 'Deploying';
+    let isDeploying = serviceStatus === 'Deploying';
 
     let conciseOverview = ` (${tasksRunning}/${instancesCount})`;
     let verboseOverview = ` (${tasksRunning} ${StringUtil.pluralize('Task', tasksRunning)})`;
@@ -304,18 +304,11 @@ var ServicesTable = React.createClass({
       verboseOverview = ` (${tasksRunning} of ${instancesCount} Tasks)`;
     }
 
-    if (disableToolTip) {
-      tasksSummary = {
-        tasksStaged: instancesCount,
-        tasksRunning: 0
-      };
-    }
-
     return (
       <div className="status-bar-wrapper">
         <span className="status-bar-indicator">
           <HealthBar
-            disableToolTip={disableToolTip}
+            isDeploying={isDeploying}
             key={serviceId}
             tasksSummary={tasksSummary}
             instancesCount={instancesCount} />

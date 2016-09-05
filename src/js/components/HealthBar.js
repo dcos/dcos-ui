@@ -55,7 +55,7 @@ class HealthBar extends React.Component {
   }
 
   render() {
-    let {tasksSummary, instancesCount, disableToolTip} = this.props;
+    let {tasksSummary, instancesCount, isDeploying} = this.props;
 
     if (tasksSummary == null) {
       return null;
@@ -71,12 +71,10 @@ class HealthBar extends React.Component {
         return memo;
       }, {});
 
-    if (disableToolTip) {
-      return (
-        <StatusBar
-          data={this.getMappedTasksSummary(tasksSummary)}
-          scale={instancesCount}/>
-      );
+    if (isDeploying) {
+      tasksSummary = {
+        tasksStaged: instancesCount
+      };
     }
 
     return (
@@ -90,12 +88,12 @@ class HealthBar extends React.Component {
 }
 
 HealthBar.defaultProps = {
-  disableToolTip: false,
+  isDeploying: false,
   instancesCount: null
 };
 
 HealthBar.propTypes = {
-  disableToolTip: React.PropTypes.bool,
+  isDeploying: React.PropTypes.bool,
   instancesCount: React.PropTypes.number,
   tasksSummary: React.PropTypes.shape({
     tasksRunning: React.PropTypes.number,
