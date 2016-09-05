@@ -1,6 +1,7 @@
 import {Hooks} from 'PluginSDK';
 import Application from '../structs/Application';
 import Framework from '../structs/Framework';
+import Pod from '../structs/Pod';
 import Service from '../structs/Service';
 import ValidatorUtil from '../utils/ValidatorUtil';
 import VolumeConstants from '../constants/VolumeConstants';
@@ -65,6 +66,14 @@ const pruneHealthCheckAttributes = function (healthCheckSchema, healthCheck) {
 
 const ServiceUtil = {
   createServiceFromDefinition(data) {
+
+    // Test if the data looks like a pod.
+    // A pod definition contains a `containers` field, not found on the
+    // other definitions.
+    if (data.spec && Array.isArray(data.spec.containers)) {
+      return new Pod(data);
+    }
+
     // Check the DCOS_PACKAGE_FRAMEWORK_NAME label to determine if the item
     // should be converted to an Application or Framework instance.
     if (data.labels && data.labels.DCOS_PACKAGE_FRAMEWORK_NAME) {
