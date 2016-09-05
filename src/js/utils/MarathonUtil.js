@@ -87,7 +87,8 @@ const MarathonUtil = {
     let items = [].concat(
       groups.map(this.parseGroups.bind(this)),
       apps.map(parseApp),
-      pods.map(parsePod));
+      pods.map(parsePod)
+    );
 
     return {id, items};
   }
