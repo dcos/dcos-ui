@@ -47,7 +47,7 @@ const ServiceValidatorUtil = {
    * @param {object} data - The server response
    * @returns {boolean} - True if the response refers to a pod
    */
-  isApplicationResponse(data) {
+  isApplicationResponse() {
     // This is a placeholder for proper detection between application and
     // pod response.
     return true;
