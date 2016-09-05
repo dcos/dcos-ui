@@ -4,12 +4,13 @@ jest.dontMock('../../constants/VolumeConstants');
 
 const Application = require('../../structs/Application');
 const Framework = require('../../structs/Framework');
+const Pod = require('../../structs/Pod');
 const ServiceUtil = require('../ServiceUtil');
 
 describe('ServiceUtil', function () {
-  describe('#createServiceFromDefinition', function () {
+  describe('#createServiceFromResponse', function () {
     it('should correctly create Application instances', function () {
-      let instance = ServiceUtil.createServiceFromDefinition({
+      let instance = ServiceUtil.createServiceFromResponse({
         id: '/test',
         cmd: 'sleep 1000;',
         cpus: null,
@@ -22,7 +23,7 @@ describe('ServiceUtil', function () {
     });
 
     it('should correctly create Framework instances', function () {
-      let instance = ServiceUtil.createServiceFromDefinition({
+      let instance = ServiceUtil.createServiceFromResponse({
         id: '/test',
         cmd: 'sleep 1000;',
         cpus: null,
@@ -35,6 +36,18 @@ describe('ServiceUtil', function () {
       });
 
       expect(instance instanceof Framework).toBeTruthy();
+    });
+
+    it('should correctly create Pod instances', function () {
+      let instance = ServiceUtil.createServiceFromResponse({
+        id: '/test',
+        spec: {
+          containers: []
+        },
+        instances: []
+      });
+
+      expect(instance instanceof Pod).toBeTruthy();
     });
   });
 
