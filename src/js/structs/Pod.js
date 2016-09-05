@@ -16,7 +16,14 @@ module.exports = class Pod extends Service {
   constructor() {
     super(...arguments);
 
-    // Create a spec singleton
+    // For performance reasons we are creating only a single
+    // instance of the pod spec (instead of creating a new
+    // instance every time the user calls `getSpec()`)
+    //
+    // The variable is prefixed because `Item` will expose
+    // all the properties it gets as a properties of this object
+    // and we want to avoid any naming collisions.
+    //
     this._spec = new PodSpec(this.get('spec'));
   }
 
