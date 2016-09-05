@@ -77,25 +77,33 @@ const ServiceUtil = {
   createServiceFromResponse(data) {
     if (ServiceValidatorUtil.isPodResponse(data)) {
       return new Pod(data);
-    } else if (ServiceValidatorUtil.isFrameworkResponse(data)) {
-      return new Framework(data);
-    } else if (ServiceValidatorUtil.isApplicationResponse(data)) {
-      return new Application(data);
-    } else {
-      throw Error('Unknown service response: '+JSON.stringify(data));
     }
+
+    if (ServiceValidatorUtil.isFrameworkResponse(data)) {
+      return new Framework(data);
+    }
+
+    if (ServiceValidatorUtil.isApplicationResponse(data)) {
+      return new Application(data);
+    }
+
+    throw Error('Unknown service response: '+JSON.stringify(data));
   },
 
   createSpecFromDefinition(data) {
     if (ServiceValidatorUtil.isPodSpecDefinition(data)) {
       return new PodSpec(data);
-    } else if (ServiceValidatorUtil.isFrameworkSpecDefinition(data)) {
-      return new FrameworkSpec(data);
-    } else if (ServiceValidatorUtil.isApplicationSpecDefinition(data)) {
-      return new ApplicationSpec(data);
-    } else {
-      throw Error('Unknown service response: '+JSON.stringify(data));
     }
+
+    if (ServiceValidatorUtil.isFrameworkSpecDefinition(data)) {
+      return new FrameworkSpec(data);
+    }
+
+    if (ServiceValidatorUtil.isApplicationSpecDefinition(data)) {
+      return new ApplicationSpec(data);
+    }
+
+    throw Error('Unknown service response: '+JSON.stringify(data));
   },
 
   createServiceFromFormModel(formModel, schema, isEdit = false, definition = {}) {

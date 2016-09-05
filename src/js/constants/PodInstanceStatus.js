@@ -1,5 +1,4 @@
-
-var POD_INSTANCE_STATUS = {
+const POD_INSTANCE_STATUS = {
   HEALTHY: {
     dotClassName: 'dot healthy',
     textClassName: 'task-status-running',

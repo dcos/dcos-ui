@@ -20,11 +20,26 @@ module.exports = class Pod extends Service {
     this._spec = new PodSpec(this.get('spec'));
   }
 
-  /**
-   * @override
-   */
-  getSpec() {
-    return this._spec;
+  countRunningInstances() {
+    return this.getInstanceList().reduceItems(function (counter, instance) {
+      if (instance.isRunning()) {
+        return counter + 1;
+      }
+      return counter;
+    }, 0);
+  }
+
+  countNonTerminalInstances() {
+    return this.getInstanceList().reduceItems(function (counter, instance) {
+      if (!instance.isTerminating()) {
+        return counter + 1;
+      }
+      return counter;
+    }, 0);
+  }
+
+  countTotalInstances() {
+    return (this.get('instances') || []).length;
   }
 
   /**
@@ -54,8 +69,34 @@ module.exports = class Pod extends Service {
   /**
    * @override
    */
+  getImages() {
+    return ServiceImages.NA_IMAGES;
+  }
+
+  /**
+   * @override
+   */
+  getInstancesCount() {
+    // Apparently this means 'get total number of scheduled instances'
+    return this.getSpec().getScalingInstances();
+  }
+
+  getInstanceList() {
+    return new PodInstanceList({items: this.get('instances') || []});
+  }
+
+  /**
+   * @override
+   */
   getLabels() {
     return this.getSpec().getLabels();
+  }
+
+  /**
+   * @override
+   */
+  getResources() {
+    return this.getSpec().getResourcesSummary();
   }
 
   /**
@@ -84,16 +125,8 @@ module.exports = class Pod extends Service {
   /**
    * @override
    */
-  getImages() {
-    return ServiceImages.NA_IMAGES;
-  }
-
-  /**
-   * @override
-   */
-  getInstancesCount() {
-    // Apparently this means 'get total number of instances staged'
-    return this.getSpec().getScalingInstances();
+  getSpec() {
+    return this._spec;
   }
 
   /**
@@ -136,38 +169,4 @@ module.exports = class Pod extends Service {
 
     return taskSummary;
   }
-
-  /**
-   * @override
-   */
-  getResources() {
-    return this.getSpec().getResourcesSummary();
-  }
-
-  getInstanceList() {
-    return new PodInstanceList({items: this.get('instances') || []});
-  }
-
-  countRunningInstances() {
-    return this.getInstanceList().reduceItems(function (counter, instance) {
-      if (instance.isRunning()) {
-        return counter + 1;
-      }
-      return counter;
-    }, 0);
-  }
-
-  countNonTerminalInstances() {
-    return this.getInstanceList().reduceItems(function (counter, instance) {
-      if (!instance.isInStatus(['TERMINAL'])) {
-        return counter + 1;
-      }
-      return counter;
-    }, 0);
-  }
-
-  countTotalInstances() {
-    return (this.get('instances') || []).length;
-  }
-
 };
