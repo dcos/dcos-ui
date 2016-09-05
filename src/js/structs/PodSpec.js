@@ -28,4 +28,26 @@ module.exports = class PodSpec extends ServiceSpec {
       disk: 0
     });
   }
+
+  getContainerSpec(name) {
+    let matches = this.getContainers().filter(function (container) {
+      return container.name === name;
+    });
+    if (!matches.length) {
+      return null;
+    }
+    return matches[0];
+  }
+
+  getVersion() {
+    return this.get('version');
+  }
+
+  getScalingInstances() {
+    let scaling = this.get('scaling') || {};
+    if (!scaling.fixed) {
+      return 1;
+    }
+    return scaling.fixed.instances || 1;
+  }
 };
