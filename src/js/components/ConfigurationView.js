@@ -137,15 +137,13 @@ class ConfigurationView extends mixin(StoreMixin) {
               'Path': healthCheck.path,
               'Port': healthCheck.port,
               'Port Index': healthCheck.portIndex,
-              'Port Type': healthCheck.portType || 'PORT_INDEX',
               'Ignore Http1xx': healthCheck.ignoreHttp1xx
             });
             break;
           case 'TCP':
             headerValueMapping = Object.assign(headerValueMapping, {
               'Port': healthCheck.port,
-              'Port Index': healthCheck.portIndex,
-              'Port Type': healthCheck.portType || 'PORT_INDEX'
+              'Port Index': healthCheck.portIndex
             });
             break;
         }

@@ -22,6 +22,10 @@ let HealthChecks = {
           if (check.protocol === 'COMMAND') {
             check.command = check.command.value;
           }
+          check.portType = 'PORT_INDEX';
+          if (check.port != null) {
+            check.portType = 'PORT_NUMBER';
+          }
           return check;
         });
 
