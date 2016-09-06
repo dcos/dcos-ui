@@ -58,8 +58,6 @@ class PodViewFilter extends React.Component {
       return null;
     }
 
-    console.log('>Statuses:', items.map(statusMapper));
-
     return (
         <FilterButtons
           renderButtonContent={this.getFilterButtonContent}
