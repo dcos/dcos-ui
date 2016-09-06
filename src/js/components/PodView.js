@@ -10,6 +10,7 @@ import ExpandingTable from './ExpandingTable';
 import Pod from '../structs/Pod';
 import PodTableHeaderLabels from '../constants/PodTableHeaderLabels';
 import PodInstanceStatus from '../constants/PodInstanceStatus';
+import PodUtil from '../utils/PodUtil';
 import PodViewFilter from './PodViewFilter';
 import SaveStateMixin from '../mixins/SaveStateMixin';
 import TimeAgo from './TimeAgo';
@@ -98,7 +99,8 @@ class PodView extends mixin(SaveStateMixin, StoreMixin) {
   getColumnClassName(prop, sortBy, row) {
     return classNames({
       'highlight': prop === sortBy.prop,
-      'clickable': row == null
+      'clickable': row == null,
+      'table-cell-task-dot': prop === 'status'
     });
   }
 
@@ -156,7 +158,7 @@ class PodView extends mixin(SaveStateMixin, StoreMixin) {
     ];
   }
 
-  getTableDataFor(instances) {
+  getTableDataFor(instances, filter) {
     let spec = this.props.pod.getSpec();
 
     return instances.getItems().map(function (instance) {
@@ -164,42 +166,50 @@ class PodView extends mixin(SaveStateMixin, StoreMixin) {
         cpus: 0, mem: 0, disk: 0, gpus: 0
       };
 
-      let children = instance.getContainers().map(function (container) {
-        let containerSpec = spec.getContainerSpec(container.name);
-        Object.keys(containerSpec.resources).forEach(function (key) {
-          resourcesSummary[key] = containerSpec.resources[key];
+      let children = instance.getContainers()
+        .filter(function (container) {
+          return PodUtil.isContainerMatchingText(container, filter.text);
+        })
+        .map(function (container) {
+          let containerSpec = spec.getContainerSpec(container.name);
+          Object.keys(containerSpec.resources).forEach(function (key) {
+            resourcesSummary[key] = containerSpec.resources[key];
+          });
+
+          return {
+            id: container.getId(),
+            name: container.getName(),
+            status: container.getContainerStatus(),
+            address: container.endpoints.reduce(function (components, ep) {
+              components.push(
+                <a className="text-muted"
+                  href={
+                    'http://' +
+                    instance.getAgentAddress() + ':' +
+                    ep.allocatedHostPort
+                  }
+                  target="_blank"
+                  title="Open in a new window">
+                  {':' + ep.allocatedHostPort}
+                </a>
+              );
+
+              return components;
+            }, []),
+            cpus: containerSpec.resources.cpus,
+            mem: containerSpec.resources.mem,
+            updated: container.getLastUpdated(),
+            version: ''
+          };
         });
 
-        return {
-          id: container.containerId,
-          name: container.name,
-          status: container.getContainerStatus(),
-          address: container.endpoints.reduce(function (components, ep) {
-            components.push(
-              <a className="text-muted"
-                href={'http://' + instance.agent + ':' + ep.allocatedHostPort}
-                target="_blank"
-                title="Open in a new window">
-                {':' + ep.allocatedHostPort}
-              </a>
-            );
-
-            return components;
-          }, []),
-          cpus: containerSpec.resources.cpus,
-          mem: containerSpec.resources.mem,
-          updated: container.lastUpdated,
-          version: ''
-        };
-      });
-
       return {
-        id: instance.id,
-        name: instance.id,
-        address: instance.agent,
+        id: instance.getId(),
+        name: instance.getName(),
+        address: instance.getAgentAddress(),
         cpus: resourcesSummary.cpus,
         mem: resourcesSummary.mem,
-        updated: instance.lastUpdated,
+        updated: instance.getLastUpdated(),
         status: instance.getInstanceStatus(),
         version: spec.getVersion(),
         children
@@ -285,7 +295,7 @@ class PodView extends mixin(SaveStateMixin, StoreMixin) {
 
   renderColumn_Updated(prop, row, rowOptions = {}) {
     return this.renderWithClickHandler(rowOptions, '', (
-        <TimeAgo time={new Date(row.updated)} />
+        <TimeAgo time={row.updated} />
       ));
   }
 
@@ -299,14 +309,18 @@ class PodView extends mixin(SaveStateMixin, StoreMixin) {
     var {inverseStyle, pod} = this.props;
     var {checkedItems, filter} = this.state;
     let allItems = pod.getInstanceList();
+    let filteredTextItems = allItems;
     let filteredItems = allItems;
 
     if (filter.text) {
-      filteredItems = filteredItems.filterItemsByText(filter.text);
+      filteredTextItems = allItems.filterItems((instance) => {
+        return PodUtil.isInstanceOrChildrenMatchingText(instance, filter.text);
+      });
+      filteredItems = filteredTextItems;
     }
 
     if (filter.status && (filter.status !== 'all')) {
-      filteredItems = filteredItems.filterItems((instance) => {
+      filteredItems = filteredTextItems.filterItems((instance) => {
         return this.getInstanceFilterStatus(instance) === filter.status;
       });
     }
@@ -316,7 +330,7 @@ class PodView extends mixin(SaveStateMixin, StoreMixin) {
         <PodViewFilter
           filter={filter}
           inverseStyle={inverseStyle}
-          items={allItems.getItems()}
+          items={filteredTextItems.getItems()}
           onFilterChange={this.handleFilterChange}
           statusChoices={['all', 'active', 'completed']}
           statusMapper={this.getInstanceFilterStatus}
@@ -333,7 +347,7 @@ class PodView extends mixin(SaveStateMixin, StoreMixin) {
           tableComponent={CheckboxTable}
           onCheckboxChange={this.handleItemCheck}
           sortBy={{prop: 'startedAt', order: 'desc'}}
-          data={this.getTableDataFor(filteredItems)}
+          data={this.getTableDataFor(filteredItems, filter)}
           />
       </div>
     );
