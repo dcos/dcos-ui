@@ -9,8 +9,8 @@ import CheckboxTable from './CheckboxTable';
 import ExpandingTable from './ExpandingTable';
 import Pod from '../structs/Pod';
 import PodTableHeaderLabels from '../constants/PodTableHeaderLabels';
-import PodContainerStatus from '../constants/PodContainerStatus';
 import PodInstanceStatus from '../constants/PodInstanceStatus';
+import PodViewFilter from './PodViewFilter';
 import SaveStateMixin from '../mixins/SaveStateMixin';
 import TimeAgo from './TimeAgo';
 import Units from '../utils/Units';
@@ -18,6 +18,7 @@ import Units from '../utils/Units';
 const METHODS_TO_BIND = [
   'getColGroup',
   'handleItemCheck',
+  'handleFilterChange',
   'renderColumn_Address',
   'renderColumn_ID',
   'renderColumn_Resource',
@@ -26,14 +27,16 @@ const METHODS_TO_BIND = [
   'renderColumn_Version'
 ];
 
-const STATUS_FILTER_BUTTONS = ['all', 'active', 'completed'];
-
 class PodView extends mixin(SaveStateMixin, StoreMixin) {
   constructor() {
     super();
 
     this.state = {
-      checkedItems: {}
+      checkedItems: {},
+      filter: {
+        text: '',
+        status: 'active'
+      }
     };
 
     this.saveState_properties = [
@@ -45,6 +48,10 @@ class PodView extends mixin(SaveStateMixin, StoreMixin) {
     METHODS_TO_BIND.forEach(function (method) {
       this[method] = this[method].bind(this);
     }, this);
+  }
+
+  handleFilterChange(filter) {
+    this.setState({filter});
   }
 
   handleItemCheck(idsChecked) {
@@ -149,8 +156,7 @@ class PodView extends mixin(SaveStateMixin, StoreMixin) {
     ];
   }
 
-  getData() {
-    let instances = this.props.pod.getInstanceList();
+  getTableDataFor(instances) {
     let spec = this.props.pod.getSpec();
 
     return instances.getItems().map(function (instance) {
@@ -165,16 +171,21 @@ class PodView extends mixin(SaveStateMixin, StoreMixin) {
         });
 
         return {
-          containerId: container.containerId,
+          id: container.containerId,
           name: container.name,
           status: container.getContainerStatus(),
-          address: container.endpoints.reduce(function (addressString, ep) {
-            if (addressString) {
-              addressString += ', ';
-            }
-            addressString += ':' + ep.allocatedHostPort;
-            return addressString;
-          }, ''),
+          address: container.endpoints.reduce(function (components, ep) {
+            components.push(
+              <a className="text-muted"
+                href={'http://' + instance.agent + ':' + ep.allocatedHostPort}
+                target="_blank"
+                title="Open in a new window">
+                {':' + ep.allocatedHostPort}
+              </a>
+            );
+
+            return components;
+          }, []),
           cpus: containerSpec.resources.cpus,
           mem: containerSpec.resources.mem,
           updated: container.lastUpdated,
@@ -197,6 +208,25 @@ class PodView extends mixin(SaveStateMixin, StoreMixin) {
 
   }
 
+  getInstanceFilterStatus(instance) {
+    let status = instance.getInstanceStatus();
+    switch (status) {
+      case PodInstanceStatus.STAGED:
+        return 'staged';
+
+      case PodInstanceStatus.HEALTHY:
+      case PodInstanceStatus.UNHEALTHY:
+      case PodInstanceStatus.RUNNING:
+        return 'active';
+
+      case PodInstanceStatus.KILLED:
+        return 'completed';
+
+      default:
+        return '';
+    }
+  }
+
   renderWithClickHandler(rowOptions, className, content) {
     return (
         <div onClick={rowOptions.clickHandler} className={className}>
@@ -208,11 +238,11 @@ class PodView extends mixin(SaveStateMixin, StoreMixin) {
   renderColumn_ID(prop, row, rowOptions = {}) {
     if (!rowOptions.isParent) {
       return (
-        <div className="job-run-history-task-id text-overflow">
+        <div className="pod-history-instance-id text-overflow">
           <Link
             className="emphasize clickable text-overflow"
             to="services-task-details"
-            params={{id: this.props.pod.getId(), taskID: row.containerId}}
+            params={{id: this.props.pod.getId(), taskID: row.id}}
             title={row.name}>
             <CollapsingString string={row.name} />
           </Link>
@@ -220,12 +250,12 @@ class PodView extends mixin(SaveStateMixin, StoreMixin) {
       );
     }
 
-    let classes = classNames('job-run-history-job-id is-expandable', {
+    let classes = classNames('pod-history-container-id is-expandable', {
       'is-expanded': rowOptions.isExpanded
     });
 
     return this.renderWithClickHandler(rowOptions, classes, (
-        <CollapsingString string={row.address} />
+        <CollapsingString string={row.id} />
     ));
   }
 
@@ -266,12 +296,36 @@ class PodView extends mixin(SaveStateMixin, StoreMixin) {
   }
 
   render() {
+    var {inverseStyle, pod} = this.props;
+    var {checkedItems, filter} = this.state;
+    let allItems = pod.getInstanceList();
+    let filteredItems = allItems;
+
+    if (filter.text) {
+      filteredItems = filteredItems.filterItemsByText(filter.text);
+    }
+
+    if (filter.status && (filter.status !== 'all')) {
+      filteredItems = filteredItems.filterItems((instance) => {
+        return this.getInstanceFilterStatus(instance) === filter.status;
+      });
+    }
+
     return (
+      <div>
+        <PodViewFilter
+          filter={filter}
+          inverseStyle={inverseStyle}
+          items={allItems.getItems()}
+          onFilterChange={this.handleFilterChange}
+          statusChoices={['all', 'active', 'completed']}
+          statusMapper={this.getInstanceFilterStatus}
+          />
         <ExpandingTable
           allowMultipleSelect={false}
-          className="job-run-history-table table table-hover inverse table-borderless-outer table-borderless-inner-columns flush-bottom"
-          childRowClassName="job-run-history-table-child"
-          checkedItemsMap={this.state.checkedItems}
+          className="pod-history-table table table-hover inverse table-borderless-outer table-borderless-inner-columns flush-bottom"
+          childRowClassName="pod-history-table-child"
+          checkedItemsMap={checkedItems}
           columns={this.getColumns()}
           colGroup={this.getColGroup()}
           getColGroup={this.getColGroup}
@@ -279,9 +333,10 @@ class PodView extends mixin(SaveStateMixin, StoreMixin) {
           tableComponent={CheckboxTable}
           onCheckboxChange={this.handleItemCheck}
           sortBy={{prop: 'startedAt', order: 'desc'}}
-          data={this.getData()}
+          data={this.getTableDataFor(filteredItems)}
           />
-      );
+      </div>
+    );
   }
 
 }
