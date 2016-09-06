@@ -9,6 +9,8 @@ import DCOSStore from '../../stores/DCOSStore';
 import FilterBar from '../../components/FilterBar';
 import FilterHeadline from '../../components/FilterHeadline';
 import Icon from '../../components/Icon';
+import Pod from '../../structs/Pod';
+import PodDetail from '../../components/PodDetail';
 import QueryParamsMixin from '../../mixins/QueryParamsMixin';
 import RequestErrorMsg from '../../components/RequestErrorMsg';
 import SaveStateMixin from '../../mixins/SaveStateMixin';
@@ -230,6 +232,11 @@ var ServicesTab = React.createClass({
       return (
         <RouteHandler service={item} />
       );
+    }
+
+    // Render Pod detail
+    if (item instanceof Pod) {
+      return (<PodDetail pod={item} />);
     }
 
     // Render service detail
