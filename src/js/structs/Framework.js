@@ -22,7 +22,7 @@ module.exports = class Framework extends Service {
   }
 
   getTasksSummary() {
-    let tasksSummary = super.getTasksSummary();
+    let tasksSummary = Object.assign({}, super.getTasksSummary());
 
     let tasksRunning = this.get('TASK_RUNNING') || 0;
     tasksSummary.tasksRunning += tasksRunning;
