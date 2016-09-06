@@ -39,6 +39,7 @@ import AppDispatcher from './AppDispatcher';
 import Config from '../config/Config';
 import MarathonUtil from '../utils/MarathonUtil';
 import Util from '../utils/Util';
+import PodSpec from '../structs/PodSpec';
 
 function buildURI(path) {
   return `${Config.rootUrl}${Config.marathonAPIPrefix}${path}`;
@@ -113,11 +114,25 @@ var MarathonActions = {
     });
   },
 
-  createService(data) {
+  /**
+   * Create a service (app, framework, or pod)
+   *
+   * @param {ServiceSpec} spec
+   */
+  createService(spec) {
+    // TODO (DCOS-9621): Validate input and only accept instances of ServiceSpec
+
+    // Always default to the `/apps` endpoint to create services
+    let url = buildURI('/apps');
+
+    if (spec instanceof PodSpec) {
+      url = buildURI('/pods');
+    }
+
     RequestUtil.json({
-      url: buildURI('/apps'),
+      url,
       method: 'POST',
-      data,
+      data: spec,
       success() {
         AppDispatcher.handleServerAction({
           type: REQUEST_MARATHON_SERVICE_CREATE_SUCCESS
@@ -205,77 +220,77 @@ var MarathonActions = {
   },
 
   fetchGroups: RequestUtil.debounceOnError(
-    Config.getRefreshRate(),
-    function (resolve, reject) {
-      return function () {
-        const url = buildURI('/groups');
-        const embed = [
-          {name: 'embed', value: 'group.groups'},
-          {name: 'embed', value: 'group.apps'},
-          {name: 'embed', value: 'group.apps.deployments'},
-          {name: 'embed', value: 'group.apps.counts'},
-          {name: 'embed', value: 'group.apps.tasks'},
-          {name: 'embed', value: 'group.apps.taskStats'},
-          {name: 'embed', value: 'group.apps.lastTaskFailure'}
-        ];
+      Config.getRefreshRate(),
+      function (resolve, reject) {
+        return function () {
+          const url = buildURI('/groups');
+          const embed = [
+            {name: 'embed', value: 'group.groups'},
+            {name: 'embed', value: 'group.apps'},
+            {name: 'embed', value: 'group.apps.deployments'},
+            {name: 'embed', value: 'group.apps.counts'},
+            {name: 'embed', value: 'group.apps.tasks'},
+            {name: 'embed', value: 'group.apps.taskStats'},
+            {name: 'embed', value: 'group.apps.lastTaskFailure'}
+          ];
 
-        RequestUtil.json({
-          url,
-          data: embed,
-          success(response) {
-            AppDispatcher.handleServerAction({
-              type: REQUEST_MARATHON_GROUPS_SUCCESS,
-              data: MarathonUtil.parseGroups(response)
-            });
-            resolve();
-          },
-          error(e) {
-            AppDispatcher.handleServerAction({
-              type: REQUEST_MARATHON_GROUPS_ERROR,
-              data: e.message
-            });
-            reject();
-          },
-          hangingRequestCallback() {
-            AppDispatcher.handleServerAction({
-              type: REQUEST_MARATHON_GROUPS_ONGOING
-            });
-          }
-        });
-      };
-    },
-    {delayAfterCount: Config.delayAfterErrorCount}
+          RequestUtil.json({
+            url,
+            data: embed,
+            success(response) {
+              AppDispatcher.handleServerAction({
+                type: REQUEST_MARATHON_GROUPS_SUCCESS,
+                data: MarathonUtil.parseGroups(response)
+              });
+              resolve();
+            },
+            error(e) {
+              AppDispatcher.handleServerAction({
+                type: REQUEST_MARATHON_GROUPS_ERROR,
+                data: e.message
+              });
+              reject();
+            },
+            hangingRequestCallback() {
+              AppDispatcher.handleServerAction({
+                type: REQUEST_MARATHON_GROUPS_ONGOING
+              });
+            }
+          });
+        };
+      },
+      {delayAfterCount: Config.delayAfterErrorCount}
   ),
 
   fetchDeployments: RequestUtil.debounceOnError(
-    Config.getRefreshRate(),
-    function (resolve, reject) {
-      return function () {
-        RequestUtil.json({
-          url: buildURI('/deployments'),
-          success(response) {
-            AppDispatcher.handleServerAction({
-              type: REQUEST_MARATHON_DEPLOYMENTS_SUCCESS,
-              data: response
-            });
-            resolve();
-          },
-          error(e) {
-            AppDispatcher.handleServerAction({
-              type: REQUEST_MARATHON_DEPLOYMENTS_ERROR,
-              data: e.message
-            });
-            reject();
-          },
-          hangingRequestCallback() {
-            AppDispatcher.handleServerAction({
-              type: REQUEST_MARATHON_DEPLOYMENTS_ONGOING
-            });
-          }
-        });
-      };
-    },
-    {delayAfterCount: Config.delayAfterErrorCount}
+      Config.getRefreshRate(),
+      function (resolve, reject) {
+        return function () {
+          RequestUtil.json({
+            url: buildURI('/deployments'),
+            success(response) {
+              AppDispatcher.handleServerAction({
+                type: REQUEST_MARATHON_DEPLOYMENTS_SUCCESS,
+                data: response
+              });
+              resolve();
+            },
+            error(e) {
+              AppDispatcher.handleServerAction({
+                type: REQUEST_MARATHON_DEPLOYMENTS_ERROR,
+                data: e.message
+              });
+              reject();
+            },
+            hangingRequestCallback() {
+              AppDispatcher.handleServerAction({
+                type: REQUEST_MARATHON_DEPLOYMENTS_ONGOING
+              });
+            }
+          });
+        };
+      },
+      {delayAfterCount: Config.delayAfterErrorCount}
   ),
 
   fetchServiceVersion(serviceID, versionID) {
@@ -334,34 +349,34 @@ var MarathonActions = {
   },
 
   fetchQueue: RequestUtil.debounceOnError(
-    Config.getRefreshRate(),
-    function (resolve, reject) {
-      return function () {
-        RequestUtil.json({
-          url: buildURI('/queue'),
-          success(response) {
-            AppDispatcher.handleServerAction({
-              type: REQUEST_MARATHON_QUEUE_SUCCESS,
-              data: response
-            });
-            resolve();
-          },
-          error(e) {
-            AppDispatcher.handleServerAction({
-              type: REQUEST_MARATHON_QUEUE_ERROR,
-              data: e.message
-            });
-            reject();
-          },
-          hangingRequestCallback() {
-            AppDispatcher.handleServerAction({
-              type: REQUEST_MARATHON_QUEUE_ONGOING
-            });
-          }
-        });
-      };
-    },
-    {delayAfterCount: Config.delayAfterErrorCount}
+      Config.getRefreshRate(),
+      function (resolve, reject) {
+        return function () {
+          RequestUtil.json({
+            url: buildURI('/queue'),
+            success(response) {
+              AppDispatcher.handleServerAction({
+                type: REQUEST_MARATHON_QUEUE_SUCCESS,
+                data: response
+              });
+              resolve();
+            },
+            error(e) {
+              AppDispatcher.handleServerAction({
+                type: REQUEST_MARATHON_QUEUE_ERROR,
+                data: e.message
+              });
+              reject();
+            },
+            hangingRequestCallback() {
+              AppDispatcher.handleServerAction({
+                type: REQUEST_MARATHON_QUEUE_ONGOING
+              });
+            }
+          });
+        };
+      },
+      {delayAfterCount: Config.delayAfterErrorCount}
   ),
 
   revertDeployment(deploymentID) {
@@ -436,9 +451,8 @@ if (Config.useFixtures) {
   };
 
   Object.keys(global.actionTypes.MarathonActions).forEach(function (method) {
-    MarathonActions[method] = RequestUtil.stubRequest(
-      MarathonActions, 'MarathonActions', method
-    );
+    MarathonActions[method] =
+        RequestUtil.stubRequest(MarathonActions, 'MarathonActions', method);
   });
 }
 
