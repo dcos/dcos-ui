@@ -20,7 +20,11 @@ class KillTaskModal extends mixin(StoreMixin) {
     super(...arguments);
 
     this.store_listeners = [
-      {name: 'marathon', events: ['taskKillSuccess'], suppressUpdate: true}
+      {
+        name: 'marathon',
+        events: ['taskKillSuccess', 'taskKillError'],
+        suppressUpdate: true
+      }
     ];
 
     this.state = {
@@ -32,9 +36,17 @@ class KillTaskModal extends mixin(StoreMixin) {
     });
   }
 
+  shouldForceUpdate(message = this.state.errorMsg) {
+    return message && /force=true/.test(message);
+  }
+
   handleButtonConfirm() {
     let {action, selectedItems} = this.props;
-    MarathonStore.killTasks(selectedItems, action === 'killAndScale');
+    MarathonStore.killTasks(
+        selectedItems,
+        action === 'killAndScale',
+        this.shouldForceUpdate(this.state.errorMsg)
+    );
     this.setState({pendingRequest: true});
   }
 
@@ -42,6 +54,13 @@ class KillTaskModal extends mixin(StoreMixin) {
     this.setState({pendingRequest: false});
     this.props.onClose();
     this.props.onSuccess();
+  }
+
+  onMarathonStoreTaskKillError(errorMsg) {
+    this.setState({
+      pendingRequest: false,
+      errorMsg
+    });
   }
 
   getModalContents() {
