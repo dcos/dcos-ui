@@ -149,13 +149,16 @@ class ServiceForm extends SchemaForm {
         let hostNetworkingDefinition = null;
         let {ports} = model.networking;
         let serviceAddressNetworkingDefinition = null;
+
         if (ports == null) {
           return null;
         }
-        let hasDiscovery = ports.some(function (port) {
-          return port.discovery;
+
+        let hasLoadBalanced = ports.some(function (port) {
+          return port.loadBalanced;
         });
-        if (!hasDiscovery) {
+
+        if (!hasLoadBalanced) {
           return null;
         }
 
