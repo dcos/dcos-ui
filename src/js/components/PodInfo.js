@@ -86,7 +86,8 @@ class PodInfo extends React.Component {
     let serviceStatusClassSet = StatusMapping[serviceStatus] || '';
     let runningTasksCount = tasksSummary.tasksRunning;
     let instancesCount = pod.getInstancesCount();
-    let runningTasksSubHeader = StringUtil.pluralize('Task', runningTasksCount);
+    let runningTasksSubHeader = StringUtil.pluralize('Instance',
+      runningTasksCount);
     let subHeaderItems = [
       {
         classes: `media-object-item ${serviceStatusClassSet}`,
