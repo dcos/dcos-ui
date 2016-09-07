@@ -1,4 +1,4 @@
-var HostTableHeaderLabels = {
+var NodesTableHeaderLabels = {
   health: 'HEALTH',
   cpus: 'CPU',
   disk: 'DISK',
@@ -7,4 +7,4 @@ var HostTableHeaderLabels = {
   'TASK_RUNNING': 'TASKS'
 };
 
-module.exports = HostTableHeaderLabels;
+module.exports = NodesTableHeaderLabels;
