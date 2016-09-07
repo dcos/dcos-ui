@@ -9,14 +9,12 @@ import MarathonStore from '../stores/MarathonStore';
 import Service from '../structs/Service';
 import ServiceActionItem from '../constants/ServiceActionItem';
 import ServiceDestroyModal from './modals/ServiceDestroyModal';
-import ServiceDetailConfigurationTab from './ServiceDetailConfigurationTab';
-import ServiceDetailDebugTab from './ServiceDetailDebugTab';
+import PodDetailDebugTab from './PodDetailDebugTab';
 import PodDetailInstancesTab from './PodDetailInstancesTab';
 import ServiceFormModal from './modals/ServiceFormModal';
 import ServiceSuspendModal from './modals/ServiceSuspendModal';
 import PodInfo from './PodInfo';
 import TabsMixin from '../mixins/TabsMixin';
-import VolumeTable from './VolumeTable';
 
 const METHODS_TO_BIND = [
   'closeDialog',
@@ -32,7 +30,6 @@ class PodDetail extends mixin(InternalStorageMixin, StoreMixin, TabsMixin) {
 
     this.tabs_tabs = {
       instances: 'Instances',
-      configuration: 'Configuration',
       debug: 'Debug'
     };
 
@@ -161,24 +158,9 @@ class PodDetail extends mixin(InternalStorageMixin, StoreMixin, TabsMixin) {
     );
   }
 
-  renderConfigurationTabView() {
-    return (
-      <ServiceDetailConfigurationTab service={this.props.pod} />
-    );
-  }
-
   renderDebugTabView() {
     return (
-      <ServiceDetailDebugTab service={this.props.pod}/>
-    );
-  }
-
-  renderVolumesTabView() {
-    return (
-      <VolumeTable
-        params={this.context.router.getCurrentParams()}
-        service={this.props.pod}
-        volumes={this.props.pod.getVolumes().getItems()} />
+      <PodDetailDebugTab pod={this.props.pod}/>
     );
   }
 

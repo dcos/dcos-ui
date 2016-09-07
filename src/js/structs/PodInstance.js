@@ -51,12 +51,20 @@ module.exports = class PodInstance extends Item {
     }
   }
 
+  getLastChanged() {
+    return new Date(this.get('lastChanged'));
+  }
+
   getLastUpdated() {
-    return new Date(this.get('getLastUpdated'));
+    return new Date(this.get('lastUpdated'));
   }
 
   getName() {
     return this.get('id') || '';
+  }
+
+  getStatusSince() {
+    return new Date(this.get('statusSince'));
   }
 
   hasHealthChecks() {

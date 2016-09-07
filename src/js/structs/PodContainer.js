@@ -43,8 +43,16 @@ module.exports = class PodContainer extends Item {
     return this.get('containerId') || '';
   }
 
+  getLastChanged() {
+    return new Date(this.get('lastChanged'));
+  }
+
   getLastUpdated() {
-    return new Date(this.get('getLastUpdated'));
+    return new Date(this.get('lastUpdated'));
+  }
+
+  getStatusSince() {
+    return new Date(this.get('statusSince'));
   }
 
   getName() {
