@@ -1,4 +1,4 @@
-import {Link, RouteHandler} from 'react-router';
+import {RouteHandler} from 'react-router';
 import mixin from 'reactjs-mixin';
 /* eslint-disable no-unused-vars */
 import React from 'react';
@@ -7,20 +7,14 @@ import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import Breadcrumbs from '../../components/Breadcrumbs';
 import CompositeState from '../../structs/CompositeState';
-import DateUtil from '../../utils/DateUtil';
-import DescriptionList from '../../components/DescriptionList';
-import HealthTab from '../../components/HealthTab';
-import Icon from '../../components/Icon';
 import InternalStorageMixin from '../../mixins/InternalStorageMixin';
 import MesosSummaryStore from '../../stores/MesosSummaryStore';
-import MesosStateStore from '../../stores/MesosStateStore';
 import NodeHealthStore from '../../stores/NodeHealthStore';
 import Page from '../../components/Page';
 import PageHeader from '../../components/PageHeader';
-import StringUtil from '../../utils/StringUtil';
 import ResourceChart from '../../components/charts/ResourceChart';
+import StringUtil from '../../utils/StringUtil';
 import TabsMixin from '../../mixins/TabsMixin';
-import TaskView from '../../components/TaskView';
 
 class NodeDetailPage extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
   constructor() {
@@ -32,15 +26,9 @@ class NodeDetailPage extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) 
       {name: 'nodeHealth', events: ['nodeSuccess', 'nodeError', 'unitsSuccess', 'unitsError']}
     ];
 
-    this.tabs_tabs = {
-      tasks: 'Tasks',
-      health: 'Health',
-      details: 'Details'
-    };
+    this.tabs_tabs = {};
 
-    this.state = {
-      currentTab: Object.keys(this.tabs_tabs).shift()
-    };
+    this.state = {};
   }
 
   componentWillMount() {
@@ -51,6 +39,29 @@ class NodeDetailPage extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) 
       this.internalStorage_update({node});
       NodeHealthStore.fetchNodeUnits(node.hostname);
     }
+
+    // TODO: DCOS-7871 Refactor the TabsMixin to generalize this solution:
+    let routes = this.context.router.getCurrentRoutes();
+    let currentRoute = routes.find(function (route) {
+      return route.name === 'node-detail';
+    });
+
+    if (currentRoute != null) {
+      this.tabs_tabs = currentRoute.children.reduce(function (tabs, {name, title}) {
+        // Only select routes with names that ends with tab
+        if (typeof name === 'string' && name.endsWith('-tab')) {
+          tabs[name] = title || name;
+        }
+
+        return tabs;
+      }, this.tabs_tabs);
+
+      this.updateCurrentTab();
+    }
+  }
+
+  componentWillReceiveProps() {
+    this.updateCurrentTab();
   }
 
   componentWillUpdate() {
@@ -61,17 +72,33 @@ class NodeDetailPage extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) 
       this.internalStorage_update({node});
       NodeHealthStore.fetchNodeUnits(node.hostname);
     }
+
   }
 
-  getBreadcrumbs(nodeID) {
+  updateCurrentTab() {
+    let routes = this.context.router.getCurrentRoutes();
+    let currentTab = routes[routes.length - 1].name;
+    if (currentTab != null) {
+      this.setState({currentTab});
+    }
+  }
+
+  getNode() {
+    return CompositeState.getNodesList().filter(
+      {ids: [this.props.params.nodeID]}
+    ).last();
+  }
+
+  getNotFound(nodeID) {
     return (
-      <h5 className="inverse">
-        <Link className="headline emphasize" to="nodes">
-          Nodes
-        </Link>
-        <Icon family="small" id="caret-right" size="small" />
-        {nodeID}
-      </h5>
+      <div className="container container-fluid container-pod text-align-center">
+        <h3 className="flush-top text-align-center">
+          Error finding node
+        </h3>
+        <p className="flush">
+          {`Did not find a node by the id "${nodeID}"`}
+        </p>
+      </div>
     );
   }
 
@@ -98,21 +125,24 @@ class NodeDetailPage extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) 
     );
   }
 
-  getNode() {
-    return CompositeState.getNodesList().filter(
-      {ids: [this.props.params.nodeID]}
-    ).last();
-  }
+  getPageHeader(node) {
+    // Hide when viewing task, volume or unit details
+    let {taskID, volumeID, unitID} = this.props.params;
+    if (taskID || volumeID || unitID) {
+      return null;
+    }
 
-  getNotFound(nodeID) {
     return (
-      <div className="container container-fluid container-pod text-align-center">
-        <h3 className="flush-top text-align-center">
-          Error finding node
-        </h3>
-        <p className="flush">
-          {`Did not find a node by the id "${nodeID}"`}
-        </p>
+      <div>
+        <Breadcrumbs />
+        <PageHeader
+          navigationTabs={this.getNavigation()}
+          subTitle={this.getSubHeader(node)}
+          title={node.hostname}>
+          <div className="container-pod container-pod-short flush-bottom">
+            {this.getCharts('Node', node)}
+          </div>
+        </PageHeader>
       </div>
     );
   }
@@ -136,111 +166,35 @@ class NodeDetailPage extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) 
     );
   }
 
-  renderHealthTabView() {
-    let node = this.internalStorage_get().node;
-    let units = NodeHealthStore.getUnits(node.hostname);
-
+  getNavigation() {
     return (
-      <div className="container container-fluid flush">
-        <HealthTab
-          node={node}
-          units={units}
-          parentRouter={this.context.router} />
-      </div>
-    );
-  }
-
-  renderTasksTabView() {
-    let nodeID = this.props.params.nodeID;
-    let tasks = MesosStateStore.getTasksFromNodeID(this.props.params.nodeID);
-
-    return (
-      <div className="container container-fluid flush">
-        <TaskView
-          inverseStyle={true}
-          tasks={tasks}
-          parentRouter={this.context.router}
-          nodeID={nodeID} />
-      </div>
-    );
-  }
-
-  renderDetailsTabView() {
-    let nodeID = this.props.params.nodeID;
-    let last = MesosSummaryStore.get('states').lastSuccessful();
-    let node = last.getNodesList().filter({ids: [nodeID]}).last();
-
-    if (node == null) {
-      return null;
-    }
-
-    let headerValueMapping = {
-      ID: node.id,
-      Active: StringUtil.capitalize(node.active.toString().toLowerCase()),
-      Registered: DateUtil.msToDateStr(
-        node.registered_time.toFixed(3) * 1000
-      ),
-      'Master Version': MesosStateStore.get('lastMesosState').version
-    };
-
-    return (
-      <div className="container container-fluid flush">
-        <DescriptionList
-          className="container container-fluid flush container-pod container-pod-super-short flush-top"
-          hash={headerValueMapping} />
-        <DescriptionList
-          className="container container-fluid flush container-pod container-pod-super-short flush-top"
-          hash={node.attributes}
-          headline="Attributes" />
-      </div>
+      <ul className="tabs list-inline flush-bottom container-pod container-pod-short-top inverse">
+        {this.tabs_getRoutedTabs(this.props)}
+      </ul>
     );
   }
 
   render() {
     let node = this.internalStorage_get().node;
-    let {params} = this.props;
+    let {nodeID} = this.props.params;
 
-    // TODO (DCOS-7580): Clean up NodeDetailPage routed and unrouted views
     if (!node) {
       return (
         <Page title="Nodes">
-          {this.getNotFound(params.nodeID)}
+          {this.getNotFound(nodeID)}
         </Page>
       );
     }
 
-    if (params.taskID || params.volumeID || params.unitID) {
-      // Make sure to grow when logs are displayed
-      let routes = this.context.router.getCurrentRoutes();
-
-      return (
-        <Page
-          dontScroll={routes[routes.length - 1].dontScroll}
-          title="Nodes">
-          <RouteHandler />
-        </Page>
-      );
-    }
-
-    let tabs = (
-      <ul className="tabs list-inline flush-bottom container-pod
-        container-pod-short-top inverse">
-        {this.tabs_getUnroutedTabs()}
-      </ul>
-    );
+    // Make sure to grow when logs are displayed
+    let routes = this.context.router.getCurrentRoutes();
 
     return (
-      <Page title="Nodes">
-        <Breadcrumbs />
-        <PageHeader
-          navigationTabs={tabs}
-          subTitle={this.getSubHeader(node)}
-          title={node.hostname}>
-          <div className="container-pod container-pod-short flush-bottom">
-            {this.getCharts('Node', node)}
-          </div>
-        </PageHeader>
-        {this.tabs_getTabView()}
+      <Page
+        dontScroll={routes[routes.length - 1].dontScroll}
+        title="Nodes">
+        {this.getPageHeader(node)}
+        <RouteHandler node={node} />
       </Page>
     );
   }

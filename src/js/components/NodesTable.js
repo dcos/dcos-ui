@@ -19,14 +19,6 @@ var NodesTable = React.createClass({
 
   mixins: [InternalStorageMixin, StoreMixin],
 
-  statics: {
-    routeConfig: {
-      label: 'Nodes',
-      icon: <Icon id="servers" />,
-      matches: /^\/nodes/
-    }
-  },
-
   propTypes: {
     hosts: React.PropTypes.array.isRequired
   },
