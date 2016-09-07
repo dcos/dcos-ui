@@ -12,6 +12,7 @@ import ServiceDetailTaskTab from './ServiceDetailTaskTab';
 import ServiceFormModal from './modals/ServiceFormModal';
 import ServiceInfo from './ServiceInfo';
 import ServiceRestartModal from './modals/ServiceRestartModal';
+import ServiceSchema from '../schemas/ServiceSchema';
 import ServiceSuspendModal from './modals/ServiceSuspendModal';
 import ServiceScaleFormModal from './modals/ServiceScaleFormModal';
 import TabsMixin from '../mixins/TabsMixin';

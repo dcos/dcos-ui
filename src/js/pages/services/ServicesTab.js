@@ -24,6 +24,7 @@ import Service from '../../structs/Service';
 import ServiceDetail from '../../components/ServiceDetail';
 import ServiceFilterTypes from '../../constants/ServiceFilterTypes';
 import ServiceFormModal from '../../components/modals/ServiceFormModal';
+import ServiceSchema from '../../schemas/ServiceSchema';
 import ServiceSearchFilter from '../../components/ServiceSearchFilter';
 import ServiceSidebarFilters from '../../components/ServiceSidebarFilters';
 import ServiceGroupFormModal from '../../components/modals/ServiceGroupFormModal';

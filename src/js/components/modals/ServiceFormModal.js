@@ -173,6 +173,7 @@ class ServiceFormModal extends mixin(StoreMixin) {
       jsonMode = true;
     }
 
+    console.log('state[resetState]:', serviceSpec);
     this.setState({
       defaultTab: '',
       warningMessage,
@@ -211,6 +212,7 @@ class ServiceFormModal extends mixin(StoreMixin) {
       };
     }
 
+    console.log('state[handleJSONChange]:', serviceSpec);
     this.setState(
       {
         serviceSpec,
@@ -228,7 +230,7 @@ class ServiceFormModal extends mixin(StoreMixin) {
       let {model} = this.triggerSubmit();
       serviceSpec = ServiceUtil.createSpecFromFormModel(
         model,
-        ServiceSchema,
+        this.props.schema,
         this.props.isEdit,
         this.props.service.getSpec().get() // Work on the original service spec
       );
@@ -357,7 +359,7 @@ class ServiceFormModal extends mixin(StoreMixin) {
       }
       let serviceSpec = ServiceUtil.createSpecFromFormModel(
         model,
-        ServiceSchema,
+        this.props.schema,
         this.props.isEdit,
         this.props.service.getSpec().get() // Work on the original service spec
       );
@@ -476,6 +478,7 @@ class ServiceFormModal extends mixin(StoreMixin) {
 
   getModalContents() {
     let {defaultTab, jsonMode, serviceSpec} = this.state;
+    let {service} = this.props;
 
     if (jsonMode) {
       let jsonDefinition = JSON.stringify(serviceSpec, null, 2);
@@ -526,7 +529,7 @@ class ServiceFormModal extends mixin(StoreMixin) {
         model={model}
         onChange={this.handleClearError}
         onTabChange={this.handleTabChange}
-        schema={ServiceSchema}/>
+        schema={this.props.schema}/>
     );
   }
 
@@ -613,7 +616,9 @@ ServiceFormModal.defaultProps = {
   isEdit: false,
   onClose() {},
   open: false,
-  service: null
+  id: null,
+  service: null,
+  schema: null
 };
 
 ServiceFormModal.propTypes = {
