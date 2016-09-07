@@ -265,7 +265,7 @@ class PodView extends mixin(SaveStateMixin, StoreMixin) {
     });
 
     return this.renderWithClickHandler(rowOptions, classes, (
-        <CollapsingString string={row.id} />
+      <CollapsingString string={row.id} />
     ));
   }
 
@@ -342,12 +342,13 @@ class PodView extends mixin(SaveStateMixin, StoreMixin) {
           checkedItemsMap={checkedItems}
           columns={this.getColumns()}
           colGroup={this.getColGroup()}
+          data={this.getTableDataFor(filteredItems, filter)}
+          expandAll={!!filter.text}
           getColGroup={this.getColGroup}
-          uniqueProperty="id"
-          tableComponent={CheckboxTable}
           onCheckboxChange={this.handleItemCheck}
           sortBy={{prop: 'startedAt', order: 'desc'}}
-          data={this.getTableDataFor(filteredItems, filter)}
+          tableComponent={CheckboxTable}
+          uniqueProperty="id"
           />
       </div>
     );
