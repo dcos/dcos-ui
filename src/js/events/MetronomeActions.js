@@ -54,7 +54,7 @@ const MetronomeActions = {
           data: [
             {name: 'embed', value: 'activeRuns'},
             {name: 'embed', value: 'schedules'},
-            {name: 'embed', value: 'history'}
+            {name: 'embed', value: 'historySummary'}
           ],
           success(response) {
             try {
