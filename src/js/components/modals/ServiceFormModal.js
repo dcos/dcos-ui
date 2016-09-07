@@ -11,6 +11,7 @@ import 'brace/mode/json';
 import 'brace/theme/monokai';
 import 'brace/ext/language_tools';
 
+import Application from '../../structs/Application';
 import Config from '../../config/Config';
 import CollapsibleErrorMessage from '../CollapsibleErrorMessage';
 import Icon from '../Icon';
@@ -160,21 +161,21 @@ class ServiceFormModal extends mixin(StoreMixin) {
   }
 
   resetState(props = this.props) {
-    let model = ServiceUtil.createFormModelFromSchema(ServiceSchema);
-    if (props.id) {
-      model.general.id = props.id;
-    }
-    let service = ServiceUtil.createServiceFromFormModel(
-      model,
-      ServiceSchema,
-      this.props.isEdit
-    );
+    let service;
     if (props.service) {
       service = props.service;
+    } else {
+      service = ServiceUtil.createServiceFromFormModel(
+        model,
+        ServiceSchema,
+        this.props.isEdit
+      );
     }
 
+    let model = ServiceUtil.createFormModelFromSchema(ServiceSchema, service);
     let warningMessage = null;
     let jsonMode = false;
+
     if (this.shouldDisableForm(service)) {
       warningMessage = {
         message: 'Your config contains attributes we currently only support ' +
@@ -208,7 +209,7 @@ class ServiceFormModal extends mixin(StoreMixin) {
     let {service} = this.state;
 
     try {
-      service = new Service(JSON.parse(jsonDefinition));
+      service = new Application(JSON.parse(jsonDefinition));
     } catch (e) {
 
     }
@@ -621,12 +622,10 @@ ServiceFormModal.defaultProps = {
   isEdit: false,
   onClose() {},
   open: false,
-  id: null,
   service: null
 };
 
 ServiceFormModal.propTypes = {
-  id: React.PropTypes.string,
   isEdit: React.PropTypes.bool,
   open: React.PropTypes.bool,
   onClose: React.PropTypes.func,
