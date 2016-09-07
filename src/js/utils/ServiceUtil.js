@@ -380,8 +380,10 @@ const ServiceUtil = {
         if (isContainerApp) {
           if (networkType === 'host') {
             definition.container.docker.network = 'HOST';
+            delete(definition.ipAddress);
           } else if (networkType === 'bridge') {
             definition.container.docker.network = 'BRIDGE';
+            delete(definition.ipAddress);
           } else {
             definition.container.docker.network = 'USER';
             definition.ipAddress = {networkName: networkType};
