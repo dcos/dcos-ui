@@ -7,7 +7,6 @@ import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import Breadcrumbs from '../../components/Breadcrumbs';
 import CompositeState from '../../structs/CompositeState';
-import InternalStorageMixin from '../../mixins/InternalStorageMixin';
 import MesosSummaryStore from '../../stores/MesosSummaryStore';
 import NodeHealthStore from '../../stores/NodeHealthStore';
 import Page from '../../components/Page';
@@ -16,7 +15,7 @@ import ResourceChart from '../../components/charts/ResourceChart';
 import StringUtil from '../../utils/StringUtil';
 import TabsMixin from '../../mixins/TabsMixin';
 
-class NodeDetailPage extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
+class NodeDetailPage extends mixin(TabsMixin, StoreMixin) {
   constructor() {
     super(...arguments);
 
@@ -28,15 +27,15 @@ class NodeDetailPage extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) 
 
     this.tabs_tabs = {};
 
-    this.state = {};
+    this.state = {node: null};
   }
 
   componentWillMount() {
     super.componentWillMount(...arguments);
 
-    let node = this.getNode();
+    let node = this.getNode(this.props);
     if (node) {
-      this.internalStorage_update({node});
+      this.setState({node});
       NodeHealthStore.fetchNodeUnits(node.hostname);
     }
 
@@ -60,19 +59,23 @@ class NodeDetailPage extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) 
     }
   }
 
-  componentWillReceiveProps() {
+  componentWillReceiveProps(nextProps) {
+    if (this.props.params.nodeID !== nextProps.params.nodeID) {
+      let node = this.getNode(nextProps);
+      this.setState({node});
+    }
+
     this.updateCurrentTab();
   }
 
   componentWillUpdate() {
     super.componentWillUpdate(...arguments);
 
-    let node = this.getNode();
-    if (node && !this.internalStorage_get().node) {
-      this.internalStorage_update({node});
+    let node = this.getNode(this.props);
+    if (node && !this.state.node) {
+      this.setState({node});
       NodeHealthStore.fetchNodeUnits(node.hostname);
     }
-
   }
 
   updateCurrentTab() {
@@ -83,10 +86,22 @@ class NodeDetailPage extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) 
     }
   }
 
-  getNode() {
+  getNode(props) {
     return CompositeState.getNodesList().filter(
-      {ids: [this.props.params.nodeID]}
+      {ids: [props.params.nodeID]}
     ).last();
+  }
+
+  getLoadingScreen() {
+    return (
+      <div className="container container-fluid container-pod text-align-center vertical-center inverse">
+        <div className="row">
+          <div className="ball-scale">
+            <div />
+          </div>
+        </div>
+      </div>
+    );
   }
 
   getNotFound(nodeID) {
@@ -175,7 +190,11 @@ class NodeDetailPage extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) 
   }
 
   render() {
-    let node = this.internalStorage_get().node;
+    if (!MesosSummaryStore.get('statesProcessed')) {
+      return this.getLoadingScreen();
+    }
+
+    let {node} = this.state;
     let {nodeID} = this.props.params;
 
     if (!node) {
