@@ -92,6 +92,14 @@ module.exports = class Pod extends Service {
     return this.getSpec().getLabels();
   }
 
+  getLastChanged() {
+    return new Date(this.get('lastChanged'));
+  }
+
+  getLastUpdated() {
+    return new Date(this.get('lastUpdated'));
+  }
+
   /**
    * @override
    */
@@ -127,6 +135,10 @@ module.exports = class Pod extends Service {
    */
   getSpec() {
     return this._spec;
+  }
+
+  getStatusSince() {
+    return new Date(this.get('statusSince'));
   }
 
   /**
