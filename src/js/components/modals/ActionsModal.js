@@ -116,27 +116,27 @@ class ActionsModal extends mixin(StoreMixin) {
   }
 
   getActionsModalContentsText() {
-    let {actionText, selectedItems} = this.props;
+    let {actionText, itemID, selectedItems} = this.props;
 
     let selectedItemsString = '';
     if (selectedItems.length === 1) {
-      selectedItemsString = selectedItems[0].description;
+      selectedItemsString = selectedItems[0][itemID];
     } else {
       // Truncate list of selected user/groups for ease of reading
       let selectedItemsShown = selectedItems.slice(0, ITEMS_DISPLAYED + 1);
 
       // Create a string concatenating n-1 items
       let selectedItemsShownMinusOne = selectedItemsShown.slice(0, -1);
-      let descriptions = selectedItemsShownMinusOne.map(function (item) {
-        return item.description;
+      let itemIDs = selectedItemsShownMinusOne.map(function (item) {
+        return item[itemID];
       });
-      descriptions.forEach(function (description) {
-        selectedItemsString += `${description}, `;
+      itemIDs.forEach(function (_itemID) {
+        selectedItemsString += `${_itemID}, `;
       });
 
       // Handle grammar for nth element and concatenate to list
       if (selectedItems.length <= ITEMS_DISPLAYED) {
-        selectedItemsString += `and ${Util.last(selectedItems).description} `;
+        selectedItemsString += `and ${Util.last(selectedItems)[itemID]} `;
       } else if (selectedItems.length === ITEMS_DISPLAYED + 1) {
         selectedItemsString += 'and 1 other ';
       } else {
