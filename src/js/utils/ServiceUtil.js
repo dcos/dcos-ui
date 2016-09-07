@@ -385,6 +385,7 @@ const ServiceUtil = {
           } else {
             definition.container.docker.network = 'USER';
             definition.ipAddress = {networkName: networkType};
+            delete(definition.portDefinitions);
           }
         }
       }
