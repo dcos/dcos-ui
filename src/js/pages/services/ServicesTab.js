@@ -3,6 +3,7 @@ import React from 'react';
 import {Link, RouteHandler} from 'react-router';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
+import Application from '../../structs/Application';
 import AlertPanel from '../../components/AlertPanel';
 import Breadcrumbs from '../../components/Breadcrumbs';
 import DCOSStore from '../../stores/DCOSStore';
@@ -377,7 +378,7 @@ var ServicesTab = React.createClass({
           parentGroupId={item.getId()}
           onClose={this.handleCloseGroupFormModal}/>
         <ServiceFormModal open={state.isServiceFormModalShown}
-          id={serviceId}
+          service={new Application({id: serviceId})}
           onClose={this.handleCloseServiceFormModal}/>
       </div>
     );
