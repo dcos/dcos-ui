@@ -4,6 +4,7 @@ import React from 'react';
 import FormUtil from '../utils/FormUtil';
 import HostUtil from '../utils/HostUtil';
 import Icon from './Icon';
+import Networking from '../constants/Networking';
 import SchemaForm from './SchemaForm';
 import SchemaFormUtil from '../utils/SchemaFormUtil';
 import SchemaUtil from '../utils/SchemaUtil';
@@ -66,7 +67,7 @@ class ServiceForm extends SchemaForm {
     Hooks.doAction('serviceFormMount', this);
     // Update definition and build model
     this.updateDefinitions();
-    this.bananas(true, 0);
+    this.recalculateFormModelAndRender(true, 0);
   }
 
   onVirtualNetworksStoreSuccess() {
@@ -98,7 +99,7 @@ class ServiceForm extends SchemaForm {
     );
 
     if (eventType === 'change' || shouldUpdateDefinition) {
-      this.bananas(shouldUpdateDefinition);
+      this.recalculateFormModelAndRender(shouldUpdateDefinition);
     }
 
     Hooks.doAction('serviceFormChange', ...arguments);
@@ -186,7 +187,7 @@ class ServiceForm extends SchemaForm {
         // Build out the hostname mappings
         let serviceAddress = HostUtil.stringToHostname(model.general.id);
         if (serviceAddress) {
-          serviceAddress += '.marathon.l4lb.thisdcos.directory';
+          serviceAddress += Networking.L4LB_ADDRESS;
 
           let addresses = ports.filter(function (port) {
             return !!port.lbPort;
@@ -332,21 +333,21 @@ class ServiceForm extends SchemaForm {
   }
 
   handleTabClick(tab) {
-    this.bananas(true, 0);
+    this.recalculateFormModelAndRender(true, 0);
     this.props.onTabChange(tab);
   }
 
   handleAddRow() {
     super.handleAddRow(...arguments);
-    this.bananas(true, 0);
+    this.recalculateFormModelAndRender(true, 0);
   }
 
   handleRemoveRow() {
     super.handleRemoveRow(...arguments);
-    this.bananas(true, 0);
+    this.recalculateFormModelAndRender(true, 0);
   }
 
-  bananas(shouldUpdateDefinition = false, delay = 50) {
+  recalculateFormModelAndRender(shouldUpdateDefinition = false, delay = 50) {
     if (this.timer) {
       clearTimeout(this.timer);
     }
