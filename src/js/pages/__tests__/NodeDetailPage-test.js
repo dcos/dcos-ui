@@ -93,7 +93,7 @@ describe('NodeDetailPage', function () {
         NodeDetailPage,
         {params: {nodeID: 'nonExistent', taskID: 'foo'}},
         {getCurrentRoutes() {
-          return [{name: 'node-detail', children: []}]
+          return [{name: 'node-detail', children: []}];
         }}
       ),
       this.container
@@ -134,19 +134,19 @@ describe('NodeDetailPage', function () {
 
     it('should return a node if node exists', function () {
       var wrapper = ReactDOM.render(
-      JestUtil.stubRouterContext(
-        NodeDetailPage,
-        {params: {nodeID: 'existingNode'}},
-        {getCurrentRoutes() {
-          return [{name: 'node-detail', children: []}]
-        }}
-      ),
-      this.container
-    );
-    var instance = TestUtils.findRenderedComponentWithType(
-      wrapper,
-      NodeDetailPage
-    );
+        JestUtil.stubRouterContext(
+          NodeDetailPage,
+          {params: {nodeID: 'existingNode'}},
+          {getCurrentRoutes() {
+            return [{name: 'node-detail', children: []}];
+          }}
+        ),
+        this.container
+      );
+      var instance = TestUtils.findRenderedComponentWithType(
+        wrapper,
+        NodeDetailPage
+      );
 
       var result = instance.getPageHeader(new Node());
       expect(TestUtils.isElement(result)).toEqual(true);
