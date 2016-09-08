@@ -415,11 +415,13 @@ class ServiceForm extends SchemaForm {
           return;
         }
 
-        let propID = FormUtil.getPropIndex(portDefinition[0].name);
+        const propID = FormUtil.getPropIndex(portDefinition[0].id);
+        const propName = FormUtil.getPropIndex(portDefinition[0].name);
 
         definitionGroup.push({
           fieldType: 'checkbox',
-          name: `ports[${propID}].expose`,
+          id: `ports[${propID}].expose`,
+          name: `ports[${propName}].expose`,
           placeholder: '',
           required: false,
           showError: false,
