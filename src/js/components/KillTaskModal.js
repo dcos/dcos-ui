@@ -36,6 +36,14 @@ class KillTaskModal extends mixin(StoreMixin) {
     });
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (this.props.open !== nextProps.open) {
+      this.setState({
+        errorMsg: null
+      });
+    }
+  }
+
   shouldForceUpdate(message = this.state.errorMsg) {
     return message && /force=true/.test(message);
   }
@@ -63,22 +71,44 @@ class KillTaskModal extends mixin(StoreMixin) {
     });
   }
 
+  getErrorMessage() {
+    let {errorMsg} = this.state;
+
+    if (!errorMsg) {
+      return null;
+    }
+
+    if (this.shouldForceUpdate(errorMsg)) {
+      return (
+          <h4 className="text-align-center text-danger flush-top">
+            App is currently locked by one or more deployments. Press the button
+            again to forcefully change and deploy the new configuration.
+          </h4>
+      );
+    }
+
+    return (
+        <p className="text-danger flush-top">{errorMsg}</p>
+    );
+  }
+
   getModalContents() {
     let selectedItemsLength = this.props.selectedItems.length;
     let action = ACTION_DISPLAY_NAMES[this.props.action] || '';
     let taskCountContent = `${selectedItemsLength} ${StringUtil.pluralize('Task', selectedItemsLength)}`;
 
     return (
-      <div className="container container-pod container-pod-short-top
-        text-align-center">
+      <div className={'container container-pod container-pod-short-top ' +
+        'text-align-center flush-bottom'}>
         <h2 className="text-danger text-align-center flush-top">
           {action} {StringUtil.pluralize('Task', selectedItemsLength)}
         </h2>
-        <p className="flush-bottom">
+        <p>
           You are about to {action.toLowerCase()} {taskCountContent}.
           <br />
           Are you sure you want to continue?
         </p>
+        {this.getErrorMessage()}
       </div>
     );
   }

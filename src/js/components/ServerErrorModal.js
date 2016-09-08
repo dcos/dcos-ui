@@ -57,11 +57,13 @@ module.exports = class ServerErrorModal extends mixin(StoreMixin) {
       throw 'No error message defined!';
     }
 
+    const isLocked = errorMessage && /force=true/.test(errorMessage);
+
     let errors = this.state.errors.concat([errorMessage]);
 
     this.setState({
       errors,
-      isOpen: true
+      isOpen: !isLocked
     });
   }
 
