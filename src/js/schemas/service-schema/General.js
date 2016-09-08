@@ -96,7 +96,13 @@ let General = {
           type: 'number',
           default: 1,
           getter(service) {
-            return `${service.getInstancesCount() || this.default}`;
+            let taskRunning = service.get('TASK_RUNNING') || 0;
+            let instances = service.getInstancesCount();
+            instances -= taskRunning;
+            if ((instances !== 0 && !instances) || instances < 0) {
+              instances = this.default;
+            }
+            return `${instances}`;
           }
         }
       }
