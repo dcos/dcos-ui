@@ -230,7 +230,7 @@ describe('Job', function () {
     it('returns an object with the time in ms', function () {
       let job = new Job({
         id: 'test.job',
-        history: {
+        historySummary: {
           lastSuccessAt: '1990-04-30T00:00:00Z',
           lastFailureAt: '1985-04-30T00:00:00Z'
         }
@@ -242,7 +242,7 @@ describe('Job', function () {
     it('returns the most recent status', function () {
       let job = new Job({
         id: 'test.job',
-        history: {
+        historySummary: {
           lastSuccessAt: '1990-04-30T00:00:00Z',
           lastFailureAt: '1985-04-30T00:00:00Z'
         }
@@ -254,7 +254,7 @@ describe('Job', function () {
     it('returns the most recent status', function () {
       let job = new Job({
         id: 'test.job',
-        history: {
+        historySummary: {
           lastSuccessAt: '1985-04-30T00:00:00Z',
           lastFailureAt: '1990-04-30T00:00:00Z'
         }
@@ -266,7 +266,7 @@ describe('Job', function () {
     it('returns N/A status if both are undefiend', function () {
       let job = new Job({
         id: 'test.job',
-        history: {}
+        historySummary: {}
       });
 
       expect(job.getLastRunStatus().status).toEqual('N/A');
@@ -276,7 +276,7 @@ describe('Job', function () {
     it('returns success if lastFailureAt is undefiend', function () {
       let job = new Job({
         id: 'test.job',
-        history: {
+        historySummary: {
           lastSuccessAt: '1990-04-30T00:00:00Z'
         }
       });
@@ -287,7 +287,7 @@ describe('Job', function () {
     it('returns success if lastSuccessAt is undefiend', function () {
       let job = new Job({
         id: 'test.job',
-        history: {
+        historySummary: {
           lastFailureAt: '1990-04-30T00:00:00Z'
         }
       });
