@@ -44,16 +44,16 @@ class KillTaskModal extends mixin(StoreMixin) {
     }
   }
 
-  shouldForceUpdate(message = this.state.errorMsg) {
+  shouldForceAction(message = this.state.errorMsg) {
     return message && /force=true/.test(message);
   }
 
   handleButtonConfirm() {
     let {action, selectedItems} = this.props;
     MarathonStore.killTasks(
-        selectedItems,
-        action === 'killAndScale',
-        this.shouldForceUpdate(this.state.errorMsg)
+      selectedItems,
+      action === 'killAndScale',
+      this.shouldForceAction()
     );
     this.setState({pendingRequest: true});
   }
@@ -78,17 +78,17 @@ class KillTaskModal extends mixin(StoreMixin) {
       return null;
     }
 
-    if (this.shouldForceUpdate(errorMsg)) {
+    if (this.shouldForceAction(errorMsg)) {
       return (
-          <h4 className="text-align-center text-danger flush-top">
-            App is currently locked by one or more deployments. Press the button
-            again to forcefully change and deploy the new configuration.
-          </h4>
+        <h4 className="text-align-center text-danger flush-top">
+          App is currently locked by one or more deployments. Press the button
+          again to forcefully change and deploy the new configuration.
+        </h4>
       );
     }
 
     return (
-        <p className="text-danger flush-top">{errorMsg}</p>
+      <p className="text-danger flush-top">{errorMsg}</p>
     );
   }
 
@@ -98,8 +98,7 @@ class KillTaskModal extends mixin(StoreMixin) {
     let taskCountContent = `${selectedItemsLength} ${StringUtil.pluralize('Task', selectedItemsLength)}`;
 
     return (
-      <div className={'container container-pod container-pod-short-top ' +
-        'text-align-center flush-bottom'}>
+      <div className={'container container-pod container-pod-short-top text-align-center flush-bottom'}>
         <h2 className="text-danger text-align-center flush-top">
           {action} {StringUtil.pluralize('Task', selectedItemsLength)}
         </h2>
@@ -115,6 +114,11 @@ class KillTaskModal extends mixin(StoreMixin) {
 
   render() {
     let {action, onClose, open} = this.props;
+    let buttonText = ACTION_DISPLAY_NAMES[action];
+
+    if (this.shouldForceAction()) {
+      buttonText = 'Force ' + buttonText;
+    }
 
     return (
       <Confirm
@@ -124,7 +128,7 @@ class KillTaskModal extends mixin(StoreMixin) {
         onClose={onClose}
         leftButtonText="Close"
         leftButtonCallback={onClose}
-        rightButtonText={ACTION_DISPLAY_NAMES[action]}
+        rightButtonText={buttonText}
         rightButtonClassName="button button-danger"
         rightButtonCallback={this.handleButtonConfirm}>
         {this.getModalContents()}
