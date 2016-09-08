@@ -47,7 +47,26 @@ class ComponentList extends React.Component {
   getVisibleComponents(units, displayCount) {
     // HealthTypes gives the sorting weight.
     units = units.sort(function (a, b) {
-      return HealthTypes[a.getHealth().title.toUpperCase()] - HealthTypes[b.getHealth().title.toUpperCase()];
+      let aHealth = a.getHealth().title.toUpperCase();
+      let bHealth = b.getHealth().title.toUpperCase();
+      let comparison = HealthTypes[aHealth] - HealthTypes[bHealth];
+
+      if (comparison === 0) {
+        let aTitle = a.getTitle();
+        let bTitle = b.getTitle();
+
+        if (aTitle > bTitle) {
+          return 1;
+        }
+
+        if (aTitle < bTitle) {
+          return -1;
+        }
+
+        return 0;
+      }
+
+      return comparison;
     });
 
     if (units.length > displayCount) {
