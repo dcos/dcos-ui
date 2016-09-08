@@ -386,10 +386,17 @@ module.exports = {
     });
   },
 
-  killTasks(taskIDs, scaleTask) {
-    let params = '';
+  killTasks(taskIDs, scaleTask, force) {
+    let params = [];
     if (scaleTask) {
-      params = '?scale=true';
+      params.push('scale=true');
+    }
+    if (force) {
+      params.push('force=true');
+    }
+
+    if (params.length > 0) {
+      params = `?${params.join('&')}`;
     }
 
     RequestUtil.json({

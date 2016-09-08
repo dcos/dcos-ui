@@ -260,7 +260,7 @@ class MarathonStore extends GetSetBaseStore {
           this.emit(MARATHON_TASK_KILL_SUCCESS);
           break;
         case REQUEST_MARATHON_TASK_KILL_ERROR:
-          this.emit(MARATHON_TASK_KILL_ERROR);
+          this.emit(MARATHON_TASK_KILL_ERROR, action.data);
           break;
       }
 
