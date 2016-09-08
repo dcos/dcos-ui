@@ -54,6 +54,10 @@ const pruneHealthCheckAttributes = function (healthCheckSchema, healthCheck) {
         return memo;
       }
 
+      if (prop === 'portType') {
+        return memo;
+      }
+
       memo[prop] = healthCheck[prop];
     }
 
