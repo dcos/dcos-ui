@@ -32,7 +32,8 @@ class VirtualNetworkDetail extends mixin(StoreMixin, TabsMixin) {
     this.store_listeners = [
       {
         name: 'virtualNetworks',
-        events: ['success', 'error']
+        events: ['success', 'error'],
+        suppressUpdate: true
       }
     ];
 

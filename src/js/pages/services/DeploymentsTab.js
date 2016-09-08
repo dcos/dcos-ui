@@ -58,10 +58,11 @@ class DeploymentsTab extends mixin(StoreMixin) {
 
     this.state = {};
     this.store_listeners = [
-      {name: 'dcos', events: ['change']},
+      {name: 'dcos', events: ['change'], suppressUpdate: false},
       {
         name: 'marathon',
-        events: ['deploymentRollbackSuccess', 'deploymentRollbackError']
+        events: ['deploymentRollbackSuccess', 'deploymentRollbackError'],
+        suppressUpdate: true
       }
     ];
 

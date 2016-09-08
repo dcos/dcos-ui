@@ -27,9 +27,13 @@ class NodeDetailPage extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) 
     super(...arguments);
 
     this.store_listeners = [
-      {name: 'summary', events: ['success']},
-      {name: 'state', events: ['success']},
-      {name: 'nodeHealth', events: ['nodeSuccess', 'nodeError', 'unitsSuccess', 'unitsError']}
+      {name: 'summary', events: ['success'], suppressUpdate: false},
+      {name: 'state', events: ['success'], suppressUpdate: false},
+      {
+        name: 'nodeHealth',
+        events: ['nodeSuccess', 'nodeError', 'unitsSuccess', 'unitsError'],
+        suppressUpdate: false
+      }
     ];
 
     this.tabs_tabs = {

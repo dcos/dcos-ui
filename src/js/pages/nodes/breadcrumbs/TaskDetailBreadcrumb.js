@@ -11,12 +11,10 @@ class TaskDetailBreadcrumb extends BreadcrumbSegment {
   }
 
   componentDidMount() {
-    super.componentDidMount();
     this.updateCrumbStatus();
   }
 
   componentWillReceiveProps() {
-    super.componentWillReceiveProps(...arguments);
     this.updateCrumbStatus();
   }
 

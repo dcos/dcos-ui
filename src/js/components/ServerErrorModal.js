@@ -32,7 +32,11 @@ module.exports = class ServerErrorModal extends mixin(StoreMixin) {
     };
 
     this.store_listeners = Hooks.applyFilter('serverErrorModalListeners', [
-      {name: 'marathon', events: ['taskKillError', 'serviceDeleteError']}
+      {
+        name: 'marathon',
+        events: ['taskKillError', 'serviceDeleteError'],
+        suppressUpdate: false
+      }
     ]);
 
     METHODS_TO_BIND.forEach((method) => {

@@ -38,7 +38,11 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
       {name: 'marathon', events: ['appsSuccess'], listenAlways: false},
       {name: 'state', events: ['success'], listenAlways: false},
       {name: 'summary', events: ['success'], listenAlways: false},
-      {name: 'taskDirectory', events: ['error', 'success']}
+      {
+        name: 'taskDirectory',
+        events: ['error', 'success'],
+        suppressUpdate: true
+      }
     ];
 
     METHODS_TO_BIND.forEach((method) => {
