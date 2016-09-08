@@ -32,7 +32,7 @@ let DEFAULT_ORGANIZATION_TABS = {};
 
 let SYSTEM_TABS;
 
-function getTabIfSubTabs(key, tabDefinition) {
+function getParentTabIfChildrenExist(key, tabDefinition) {
   if (!Object.keys(Hooks.applyFilter(`${key}-tabs`, {})).length) {
     return {};
   }
@@ -57,11 +57,11 @@ class SystemPage extends mixin(TabsMixin) {
 
     // Default Tabs
     let defaultSystemTabs = Object.assign({},
-      getTabIfSubTabs('system-overview', {
+      getParentTabIfChildrenExist('system-overview', {
         content: 'Overview',
         priority: 30
       }),
-      getTabIfSubTabs('system-organization', {
+      getParentTabIfChildrenExist('system-organization', {
         content: 'Organization',
         priority: 20
       })
