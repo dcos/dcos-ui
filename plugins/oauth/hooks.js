@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
 /* eslint-enable no-unused-vars */
-import {Route} from 'react-router';
+import {Redirect, Route} from 'react-router';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import LoginPage from './components/LoginPage';
@@ -16,7 +16,8 @@ let {
   ConfigStore,
   CookieUtils,
   RouterUtil,
-  UserDropup
+  UserDropup,
+  UsersTab
 } = SDK.get([
   'AccessDeniedPage',
   'ApplicationUtil',
@@ -25,10 +26,14 @@ let {
   'ConfigStore',
   'CookieUtils',
   'RouterUtil',
-  'UserDropup'
+  'UserDropup',
+  'UsersTab'
 ]);
 
 let configResponseCallback = null;
+let defaultOrganizationRoute = {
+  routes: []
+};
 
 module.exports = Object.assign({}, StoreMixin, {
   actions: [
@@ -40,9 +45,11 @@ module.exports = Object.assign({}, StoreMixin, {
   ],
 
   filters: [
-    'delayApplicationLoad',
-    'sidebarFooter',
     'applicationRoutes',
+    'delayApplicationLoad',
+    'organizationRoutes',
+    'sidebarFooter',
+    'system-organization-tabs',
     'serverErrorModalListeners'
   ],
 
@@ -146,6 +153,58 @@ module.exports = Object.assign({}, StoreMixin, {
       configResponseCallback();
       configResponseCallback = null;
     }
+  },
+
+  // Ensure user route under organization
+  organizationRoutes(routeDefinition = defaultOrganizationRoute) {
+    let userRoute = {
+      type: Route,
+      name: 'system-organization-users',
+      path: 'users/?',
+      handler: UsersTab,
+      buildBreadCrumb() {
+        return {
+          parentCrumb: 'system-organization',
+          getCrumbs() {
+            return [
+              {
+                label: 'Users',
+                route: {to: 'system-organization-users'}
+              }
+            ];
+          }
+        };
+      }
+    };
+    let usersRouteIndex = routeDefinition.routes.findIndex(function (route) {
+      return route.name === userRoute.name;
+    });
+    // Replace by new definition
+    if (usersRouteIndex !== -1) {
+      routeDefinition.routes.splice(usersRouteIndex, 1, userRoute);
+    }
+
+    // Add user route if not already present
+    if (usersRouteIndex === -1) {
+      routeDefinition.routes.push(userRoute);
+    }
+
+    routeDefinition.redirect = {
+      type: Redirect,
+      from: '/system/organization/?',
+      to: 'system-organization-users'
+    };
+
+    return routeDefinition;
+  },
+
+  'system-organization-tabs': function (tabs) {
+    return Object.assign({}, tabs, {
+      'system-organization-users': {
+        content: 'Users',
+        priority: 50
+      }
+    });
   },
 
   userLoginSuccess() {
