@@ -9,9 +9,10 @@ const React = require('react');
 /* eslint-enable no-unused-vars */
 const ReactDOM = require('react-dom');
 
-const NodesGridView = require('../NodesGridView');
-const MesosStateStore = require('../../stores/MesosStateStore');
-const NodesList = require('../../structs/NodesList');
+var CompositeState = require('../../structs/CompositeState');
+var NodesGridView = require('../NodesGridView');
+var MesosStateStore = require('../../stores/MesosStateStore');
+var NodesList = require('../../structs/NodesList');
 
 MesosStateStore.addChangeListener = function () {};
 
@@ -20,7 +21,16 @@ describe('NodesGridView', function () {
   describe('#getActiveServiceIds', function () {
 
     beforeEach(function () {
-      MesosStateStore.processStateSuccess({frameworks: []});
+      MesosStateStore.processStateSuccess({frameworks: [
+        {id: 'a', tasks: [], completed_tasks: []},
+        {id: 'b', tasks: [], completed_tasks: []},
+        {id: 'c', tasks: [], completed_tasks: []},
+        {id: 'd', tasks: [], completed_tasks: []},
+        {id: 'e', tasks: [], completed_tasks: []},
+        {id: 'f', tasks: [], completed_tasks: []},
+        {id: 'g', tasks: [], completed_tasks: []},
+        {id: 'z', tasks: [], completed_tasks: []}
+      ]});
       this.hosts = new NodesList({items: [
         {
           name: 'foo',
@@ -56,7 +66,7 @@ describe('NodesGridView', function () {
         <NodesGridView
           selectedResource={'mem'}
           hosts={this.hosts.getItems()}
-          services={[]}
+          services={CompositeState.getServiceList().getItems()}
           />,
         this.container
       );
