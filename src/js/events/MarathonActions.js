@@ -39,7 +39,9 @@ import AppDispatcher from './AppDispatcher';
 import Config from '../config/Config';
 import MarathonUtil from '../utils/MarathonUtil';
 import Util from '../utils/Util';
+import Pod from '../structs/Pod';
 import PodSpec from '../structs/PodSpec';
+import Service from '../structs/Service';
 
 function buildURI(path) {
   return `${Config.rootUrl}${Config.marathonAPIPrefix}${path}`;
@@ -148,9 +150,28 @@ var MarathonActions = {
     });
   },
 
-  deleteService(serviceId) {
+  /**
+   * Delete a service (app, framework, or pod)
+   *
+   * @param {Service} service - the service you want to delete
+   */
+  deleteService(service) {
+    if (!(service instanceof Service)) {
+      if (process.env.NODE_ENV !== 'production') {
+        throw new TypeError('service is not an instance of Service');
+      }
+
+      return;
+    }
+
+    let url = buildURI(`/apps/${service.getId()}`);
+
+    if (service instanceof Pod) {
+      url = buildURI(`/pods/${service.getId()}`);
+    }
+
     RequestUtil.json({
-      url: buildURI(`/apps/${serviceId}`),
+      url,
       method: 'DELETE',
       success() {
         AppDispatcher.handleServerAction({
