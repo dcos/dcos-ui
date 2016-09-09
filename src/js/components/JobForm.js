@@ -10,6 +10,14 @@ const METHODS_TO_BIND = [
 
 const SCHEDULE_FIELDS = ['cron', 'timezone', 'startingDeadlineSeconds'];
 
+const DUPLICABLE_FIELDS_TO_WATCH = {};
+
+const FIELDS_TO_WATCH = {
+  runOnSchedule: {
+    forceUpdate: true
+  }
+};
+
 class JobForm extends SchemaForm {
   constructor() {
     super(...arguments);
@@ -25,14 +33,30 @@ class JobForm extends SchemaForm {
     this.props.getTriggerSubmit(this.handleExternalSubmit);
   }
 
-  handleFormChange(formData, eventObj) {
-    // Fire changes only on blur
-    // and on schedule runOnSchedule checkbox change to show/hide fields
-    let scheduleEnabledChange =
-      Object.prototype.hasOwnProperty.call(formData, 'cron') &&
-      eventObj.eventType === 'change' &&
-      eventObj.fieldName === 'runOnSchedule';
-    if (eventObj.eventType !== 'blur' && !scheduleEnabledChange) {
+  shouldUpdateDefinition(changes, eventType, fieldName) {
+    let propKey = FormUtil.getPropKey(fieldName);
+    let blurChange = Object.values(DUPLICABLE_FIELDS_TO_WATCH).some(
+        function (item) {
+          return item.blurOnly && item.blurOnly.includes(propKey);
+        }
+    );
+
+    return Object.keys(changes).some(function (changeKey) {
+      let tab = FormUtil.getProp(changeKey);
+
+      return ((tab in DUPLICABLE_FIELDS_TO_WATCH)
+          && (DUPLICABLE_FIELDS_TO_WATCH[tab].fields.includes(propKey)
+          && DUPLICABLE_FIELDS_TO_WATCH[tab].forceUpdate))
+          || ((fieldName in FIELDS_TO_WATCH
+          && FIELDS_TO_WATCH[fieldName].forceUpdate));
+
+    }) || (eventType === 'blur' && blurChange);
+  }
+
+  handleFormChange(changes, eventObj) {
+    let {eventType, fieldName} = eventObj;
+
+    if (!this.shouldUpdateDefinition(changes, eventType, fieldName) ) {
       return;
     }
 
