@@ -71,7 +71,8 @@ class Loader extends React.Component {
 
 Loader.defaultProps = {
   className: '',
-  innerClassName: ''
+  innerClassName: '',
+  type: 'ballScale'
 };
 
 let classPropType = React.PropTypes.oneOfType([
@@ -82,7 +83,8 @@ let classPropType = React.PropTypes.oneOfType([
 
 Loader.propTypes = {
   className: classPropType,
-  innerClassName: classPropType
+  innerClassName: classPropType,
+  type: React.PropTypes.oneOf(['ballBeat', 'ballScale', 'ballSpinFadeLoader'])
 };
 
 module.exports = Loader;
