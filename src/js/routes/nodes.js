@@ -206,6 +206,24 @@ let nodesRoutes = {
         },
         {
           type: Route,
+          name: 'node-detail-health',
+          path: 'health/:unitNodeID/:unitID/?',
+          handler: UnitsHealthNodeDetail,
+          buildBreadCrumb() {
+            return {
+              parentCrumb: 'node-health-tab',
+              getCrumbs(router) {
+                return [
+                  <UnitsHealthDetailBreadcrumb
+                    parentRouter={router}
+                    routeName="node-detail-health" />
+                ];
+              }
+            };
+          }
+        },
+        {
+          type: Route,
           name: 'node-details-tab',
           path: 'details/?',
           title: 'Details',
@@ -218,24 +236,6 @@ let nodesRoutes = {
                   <NodeDetailBreadcrumb
                     parentRouter={router}
                     routeName="node-detail" />
-                ];
-              }
-            };
-          }
-        },
-        {
-          type: Route,
-          name: 'node-detail-health',
-          path: ':unitNodeID/:unitID/?',
-          handler: UnitsHealthNodeDetail,
-          buildBreadCrumb() {
-            return {
-              parentCrumb: 'node-health-tab',
-              getCrumbs(router) {
-                return [
-                  <UnitsHealthDetailBreadcrumb
-                    parentRouter={router}
-                    routeName="node-detail-health" />
                 ];
               }
             };
