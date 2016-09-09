@@ -14,8 +14,6 @@ class UnitsHealthDetailBreadcrumb extends BreadcrumbSegment {
   }
 
   componentDidMount() {
-    super.componentDidMount();
-
     let {unitID} = this.props.parentRouter.getCurrentParams();
     let unit = UnitHealthStore.getUnit(unitID);
 
