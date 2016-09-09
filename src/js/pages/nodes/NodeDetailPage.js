@@ -7,6 +7,7 @@ import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import Breadcrumbs from '../../components/Breadcrumbs';
 import CompositeState from '../../structs/CompositeState';
+import Loader from '../../components/Loader';
 import MesosSummaryStore from '../../stores/MesosSummaryStore';
 import NodeHealthStore from '../../stores/NodeHealthStore';
 import Page from '../../components/Page';
@@ -99,12 +100,8 @@ class NodeDetailPage extends mixin(TabsMixin, StoreMixin) {
   getLoadingScreen() {
     return (
       <Page title="Nodes">
-        <div className="container container-fluid container-pod horizontal-center vertical-center inverse">
-          <div className="row">
-            <div className="ball-scale">
-              <div />
-            </div>
-          </div>
+        <div className="container container-fluid container-pod">
+          <Loader className="inverse" />
         </div>
       </Page>
     );
