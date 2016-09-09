@@ -36,12 +36,11 @@ class ServiceDestroyModal extends ServiceActionModal {
 
     let {service} = this.props;
     let isGroup = service instanceof ServiceTree;
-    let serviceID = service.getId();
 
     if (isGroup) {
-      MarathonStore.deleteGroup(serviceID);
+      MarathonStore.deleteGroup(service.getId());
     } else {
-      MarathonStore.deleteService(serviceID);
+      MarathonStore.deleteService(service);
     }
   }
 
