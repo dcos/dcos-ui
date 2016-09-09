@@ -3,7 +3,6 @@ import CompositeState from '../../../structs/CompositeState';
 
 class NodeDetailBreadCrumb extends BreadcrumbSegment {
   componentDidMount() {
-    super.componentDidMount();
     this.updateCrumbSatus();
   }
 
