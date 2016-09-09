@@ -94,13 +94,15 @@ class NodeDetailPage extends mixin(TabsMixin, StoreMixin) {
 
   getLoadingScreen() {
     return (
-      <div className="container container-fluid container-pod text-align-center vertical-center inverse">
-        <div className="row">
-          <div className="ball-scale">
-            <div />
+      <Page title="Nodes">
+        <div className="container container-fluid container-pod horizontal-center vertical-center inverse">
+          <div className="row">
+            <div className="ball-scale">
+              <div />
+            </div>
           </div>
         </div>
-      </div>
+      </Page>
     );
   }
 
