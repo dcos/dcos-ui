@@ -150,8 +150,11 @@ class ConfigurationView extends mixin(StoreMixin) {
     );
   }
 
-  getPortDefinitionsSection({id, portDefinitions}) {
-    if (portDefinitions == null) {
+  getPortDefinitionsSection(config) {
+    let vipsPortSection = this.getVIPPortDefinitionsSection(config);
+    let {id, portDefinitions} = config;
+
+    if (vipsPortSection || portDefinitions == null) {
       return null;
     }
 
@@ -305,17 +308,12 @@ class ConfigurationView extends mixin(StoreMixin) {
       );
     }
 
-    let portsSection = this.getVIPPortDefinitionsSection(config);
-    if (!portsSection) {
-      portsSection = this.getPortDefinitionsSection(config);
-    }
-
     return (
       <div>
         <h4 className="inverse" title={versionID}>{headline}</h4>
         {this.getGenralSection(config)}
         {this.getDockerContainerSection(config)}
-        {portsSection}
+        {this.getPortDefinitionsSection(config)}
         {this.getHealthChecksSection(config)}
         {this.getLabelSection(config)}
         {this.getEnvironmentVariablesSection(config)}
