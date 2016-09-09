@@ -4,10 +4,13 @@ import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import DCOSStore from '../stores/DCOSStore';
 import DescriptionList from './DescriptionList';
+import HostUtil from '../utils/HostUtil';
+import Networking from '../constants/Networking';
 import Service from '../structs/Service';
 import StringUtil from '../utils/StringUtil';
 
 const sectionClassName = 'container-fluid container-pod container-pod-super-short flush flush-bottom';
+const serviceAddressKey = 'Service Address';
 
 function fetchVersion(service, versionID) {
   if (service.getVersions().get(versionID) == null) {
@@ -52,7 +55,7 @@ class ConfigurationView extends mixin(StoreMixin) {
     );
   }
 
-  getDockerContainerSection({container}) {
+  getDockerContainerSection({container, ipAddress}) {
     if (container == null || container.docker == null) {
       return null;
     }
@@ -64,15 +67,23 @@ class ConfigurationView extends mixin(StoreMixin) {
       return `${key} : ${value}`;
     });
 
+    let networkNameKey = 'Network Name';
     let headerValueMapping = {
       'Force Pull Image': docker.forcePullImage,
       'Image': docker.image,
       'Network': docker.network,
+      [networkNameKey]: null,
       'Parameters': StringUtil.arrayToJoinedString(
         parameters
       ),
       'Privileged': docker.privileged
     };
+
+    if (ipAddress) {
+      headerValueMapping[networkNameKey] = ipAddress.networkName;
+    } else {
+      delete headerValueMapping[networkNameKey];
+    }
 
     return (
       <DescriptionList className={sectionClassName}
@@ -81,22 +92,100 @@ class ConfigurationView extends mixin(StoreMixin) {
     );
   }
 
-  getPortDefinitionsSection({portDefinitions}) {
-    if (portDefinitions == null) {
+  buildHostName(id, port) {
+    let hostname = HostUtil.stringToHostname(id);
+    let address = `${hostname}${Networking.L4LB_ADDRESS}:${port}`;
+    return (
+      <a href={address} target="_blank">{address}</a>
+    );
+  }
+
+  getVIPPortDefinitionsSection({id, container}) {
+    if (container == null || container.docker == null ||
+      container.docker.portMappings == null) {
+      return null;
+    }
+
+    let portMappings = container.docker.portMappings.map(
+      (portMapping, index) => {
+        let headline = `Port Definition ${index + 1}`;
+
+        if (portMapping.name) {
+          headline += ` (${portMapping.name})`;
+        }
+
+        let hostPortKey = 'Exposed on Host Network';
+        let headerValueMapping = Object.assign(
+          {[serviceAddressKey]: null},
+          portMapping,
+          {[hostPortKey]: 'No'}
+        );
+
+        // Check if this port is load balanced
+        if (portMapping.containerPort) {
+          headerValueMapping[serviceAddressKey] =
+            this.buildHostName(id, portMapping.containerPort);
+        } else {
+          delete headerValueMapping[serviceAddressKey];
+        }
+
+        // The value of `hostPort` is typically 0
+        if (portMapping.hostPort) {
+          headerValueMapping[hostPortKey] = 'Yes';
+        }
+
+        return (
+          <DescriptionList className="nested-description-list"
+            hash={headerValueMapping}
+            headline={headline}
+            key={index} />
+        );
+      });
+
+    return (
+      <div className={sectionClassName}>
+        <h5 className="inverse flush-top">Port Definitions</h5>
+        {portMappings}
+      </div>
+    );
+  }
+
+  getPortDefinitionsSection(config) {
+    let vipsPortSection = this.getVIPPortDefinitionsSection(config);
+    let {id, portDefinitions} = config;
+
+    if (vipsPortSection || portDefinitions == null) {
       return null;
     }
 
     let portConfigurations = portDefinitions.map(
-      function (portDefinition, index) {
+      (portDefinition, index) => {
         let headline = `Port Definition ${index + 1}`;
 
         if (portDefinition.name) {
           headline += ` (${portDefinition.name})`;
         }
 
+        let headerValueMapping = Object.assign(
+          {[serviceAddressKey]: null},
+          portDefinition
+        );
+
+        // Check if this port is load balanced
+        let hasVIPLabel = portDefinition.labels &&
+          Object.keys(portDefinition.labels).find(function (key) {
+            return /^VIP_[0-9]+$/.test(key);
+          });
+        if (hasVIPLabel) {
+          headerValueMapping[serviceAddressKey] =
+            this.buildHostName(id, portDefinition.port);
+        } else {
+          delete headerValueMapping[serviceAddressKey];
+        }
+
         return (
           <DescriptionList className="nested-description-list"
-            hash={portDefinition}
+            hash={headerValueMapping}
             headline={headline}
             key={index} />
         );
