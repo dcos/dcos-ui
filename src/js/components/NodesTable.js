@@ -4,7 +4,7 @@ import React from 'react';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 import {Table, Tooltip} from 'reactjs-components';
 
-import HostTableHeaderLabels from '../constants/HostTableHeaderLabels';
+import NodesTableHeaderLabels from '../constants/NodesTableHeaderLabels';
 import Icon from '../components/Icon';
 import InternalStorageMixin from '../mixins/InternalStorageMixin';
 import ResourceTableUtil from '../utils/ResourceTableUtil';
@@ -13,19 +13,11 @@ import StringUtil from '../utils/StringUtil';
 import TableUtil from '../utils/TableUtil';
 import UnitHealthUtil from '../utils/UnitHealthUtil';
 
-var HostTable = React.createClass({
+var NodesTable = React.createClass({
 
-  displayName: 'HostTable',
+  displayName: 'NodesTable',
 
   mixins: [InternalStorageMixin, StoreMixin],
-
-  statics: {
-    routeConfig: {
-      label: 'Nodes',
-      icon: <Icon id="servers" />,
-      matches: /^\/nodes/
-    }
-  },
 
   propTypes: {
     hosts: React.PropTypes.array.isRequired
@@ -123,7 +115,7 @@ var HostTable = React.createClass({
 
   getColumns() {
     let className = ResourceTableUtil.getClassName;
-    let heading = ResourceTableUtil.renderHeading(HostTableHeaderLabels);
+    let heading = ResourceTableUtil.renderHeading(NodesTableHeaderLabels);
     let sortFunction = TableUtil.getSortFunction('hostname',
       function (node, prop) {
         if (prop === 'cpus' || prop === 'mem' || prop === 'disk') {
@@ -232,4 +224,4 @@ var HostTable = React.createClass({
   }
 });
 
-module.exports = HostTable;
+module.exports = NodesTable;

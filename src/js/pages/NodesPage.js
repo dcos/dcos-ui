@@ -61,12 +61,16 @@ var NodesPage = React.createClass({
   mixins: [InternalStorageMixin, StoreMixin],
 
   statics: {
+    routeConfig: {
+      label: 'Nodes',
+      icon: <Icon id="servers" />,
+      matches: /^\/nodes/
+    },
     // Static life cycle method from react router, that will be called
     // 'when a handler is about to render', i.e. on route change:
     // https://github.com/rackt/react-router/
     // blob/master/docs/api/components/RouteHandler.md
     willTransitionTo() {
-
       SidebarActions.close();
     }
   },
@@ -196,7 +200,7 @@ var NodesPage = React.createClass({
   },
 
   getFilterInputText() {
-    var isVisible = /\/nodes\/list\/?/i.test(HashLocation.getCurrentPath());
+    var isVisible = HashLocation.getCurrentPath().endsWith('/nodes/');
 
     if (!isVisible) {
       return null;
@@ -213,12 +217,10 @@ var NodesPage = React.createClass({
 
   getViewTypeRadioButtons(resetFilter) {
     var listClassSet = classNames({
-      'active': /\/nodes\/list\/?/i.test(HashLocation.getCurrentPath()),
       'button button-stroke button-inverse': true
     });
 
     var gridClassSet = classNames({
-      'active': /\/nodes\/grid\/?/i.test(HashLocation.getCurrentPath()),
       'button button-stroke button-inverse': true
     });
 

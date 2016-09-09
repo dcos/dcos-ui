@@ -53,6 +53,9 @@ describe('NodeDetailPage', function () {
           version: '1'
         };
       }
+      if (key === 'statesProcessed') {
+        return true;
+      }
 
     };
 
@@ -84,6 +87,21 @@ describe('NodeDetailPage', function () {
         }
       ]
     });
+
+    this.wrapper = ReactDOM.render(
+      JestUtil.stubRouterContext(
+        NodeDetailPage,
+        {params: {nodeID: 'nonExistent', taskID: 'foo'}},
+        {getCurrentRoutes() {
+          return [{name: 'node-detail', children: []}];
+        }}
+      ),
+      this.container
+    );
+    this.instance = TestUtils.findRenderedComponentWithType(
+      this.wrapper,
+      NodeDetailPage
+    );
   });
 
   afterEach(function () {
@@ -100,37 +118,37 @@ describe('NodeDetailPage', function () {
   describe('#getNode', function () {
 
     it('should store an instance of Node', function () {
-      var instance = ReactDOM.render(
-        <NodeDetailPage params={{nodeID: 'existingNode'}} />,
-        this.container
-      );
-
-      var node = instance.getNode();
+      var node = this.instance.getNode({params: {nodeID: 'existingNode'}});
       expect(node instanceof Node).toEqual(true);
-      instance = null;
+      this.instance = null;
     });
 
   });
 
-  describe('#renderDetailsTabView', function () {
+  describe('#getPageHeader', function () {
 
     it('should return null if node does not exist', function () {
-      var instance = ReactDOM.render(
-        <NodeDetailPage params={{nodeID: 'nonExistent'}} />,
-        this.container
-      );
-
-      var result = instance.renderDetailsTabView();
+      var result = this.instance.getPageHeader(new Node());
       expect(result).toEqual(null);
     });
 
     it('should return a node if node exists', function () {
-      var instance = ReactDOM.render(
-        <NodeDetailPage params={{nodeID: 'existingNode'}} />,
+      var wrapper = ReactDOM.render(
+        JestUtil.stubRouterContext(
+          NodeDetailPage,
+          {params: {nodeID: 'existingNode'}},
+          {getCurrentRoutes() {
+            return [{name: 'node-detail', children: []}];
+          }}
+        ),
         this.container
       );
+      var instance = TestUtils.findRenderedComponentWithType(
+        wrapper,
+        NodeDetailPage
+      );
 
-      var result = instance.renderDetailsTabView();
+      var result = instance.getPageHeader(new Node());
       expect(TestUtils.isElement(result)).toEqual(true);
     });
   });
