@@ -74,7 +74,7 @@
                 "version": "2016-08-29T01:01:01.001",
                 "containers": [
                   {
-                    "name": "my-web-app",
+                    "name": "nginx",
                     "image": { "kind": "DOCKER", "id": "jdef/my-web-service-abc:v1.1.1" },
                     "endpoints": [
                       {
@@ -90,7 +90,7 @@
                     "resources": { "cpus": 0.5, "mem": 64 }
                   },
                   {
-                    "name": "another-web-app",
+                    "name": "flask",
                     "image": { "kind": "DOCKER", "id": "jdef/my-web-service-def:v1.1.1" },
                     "endpoints": [
                       {
@@ -108,7 +108,7 @@
                 ],
                 "scaling": {
                   "fixed": {
-                    "instances": 10
+                    "instances": 2
                   }
                 },
                 "scheduling": {
@@ -136,7 +136,7 @@
                   "lastChanged": "2016-08-31T01:01:01.001",
                   "containers": [
                     {
-                      "name": "my-web-app",
+                      "name": "nginx",
                       "status": "RUNNING",
                       "statusSince": "2016-08-31T01:01:01.001",
                       "containerId": "podtask-3490824906824564563456",
@@ -147,12 +147,12 @@
                       "lastChanged": "2016-08-31T01:01:01.001"
                     },
                     {
-                      "name": "my-web-app",
+                      "name": "flask",
                       "status": "RUNNING",
                       "statusSince": "2016-08-31T01:01:01.001",
                       "containerId": "podtask-3490824906824564563456",
                       "endpoints": [
-                        { "name": "nginx", "allocatedHostPort": 31003 }
+                        { "name": "flask", "allocatedHostPort": 31003 }
                       ],
                       "lastUpdated": "2016-08-31T01:01:01.001",
                       "lastChanged": "2016-08-31T01:01:01.001"
@@ -169,7 +169,18 @@
                   "lastChanged": "2016-08-41T01:01:01.001",
                   "containers": [
                     {
-                      "name": "another-web-app",
+                      "name": "nginx",
+                      "status": "RUNNING",
+                      "statusSince": "2016-08-31T01:01:01.001",
+                      "containerId": "podtask-3490824906824564563456",
+                      "endpoints": [
+                        { "name": "nginx", "allocatedHostPort": 31001 }
+                      ],
+                      "lastUpdated": "2016-08-31T01:01:01.001",
+                      "lastChanged": "2016-08-31T01:01:01.001"
+                    },
+                    {
+                      "name": "flask",
                       "status": "STAGING",
                       "statusSince": "2016-08-41T01:01:01.001",
                       "containerId": "podtask-6168613687221846724371",
