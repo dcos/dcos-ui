@@ -122,9 +122,9 @@ class ConfigurationView extends mixin(StoreMixin) {
         );
 
         // Check if this port is load balanced
-        if (portMapping.servicePort) {
+        if (portMapping.containerPort) {
           headerValueMapping[serviceAddressKey] =
-            this.buildHostName(id, portMapping.servicePort);
+            this.buildHostName(id, portMapping.containerPort);
         } else {
           delete headerValueMapping[serviceAddressKey];
         }
@@ -305,13 +305,17 @@ class ConfigurationView extends mixin(StoreMixin) {
       );
     }
 
+    let portsSection = this.getVIPPortDefinitionsSection(config);
+    if (!portsSection) {
+      portsSection = this.getPortDefinitionsSection(config);
+    }
+
     return (
       <div>
         <h4 className="inverse" title={versionID}>{headline}</h4>
         {this.getGenralSection(config)}
         {this.getDockerContainerSection(config)}
-        {this.getVIPPortDefinitionsSection(config)}
-        {this.getPortDefinitionsSection(config)}
+        {portsSection}
         {this.getHealthChecksSection(config)}
         {this.getLabelSection(config)}
         {this.getEnvironmentVariablesSection(config)}
