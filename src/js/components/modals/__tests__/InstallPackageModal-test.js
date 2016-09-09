@@ -68,7 +68,7 @@ describe('InstallPackageModal', function () {
         this.instance.getModalContents(),
         this.container
       ));
-      var result = node.querySelectorAll('p')[4];
+      var result = node.querySelectorAll('p')[6];
       expect(result.textContent).toEqual('0.11.1');
     });
 

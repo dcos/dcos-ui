@@ -297,7 +297,8 @@ class SchemaForm extends mixin(StoreMixin, InternalStorageMixin) {
 
     let subheaderClasses = classNames({
       h3: levelsDeep === 0,
-      h5: levelsDeep !== 0
+      h4: levelsDeep === 1,
+      h5: levelsDeep >= 2
     }, 'form-header form-row-element flush-bottom flush-top');
 
     return (
