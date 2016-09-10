@@ -11,7 +11,7 @@ import StringUtil from '../utils/StringUtil';
 
 class PodInfo extends React.Component {
   constructor() {
-    super();
+    super(...arguments);
   }
 
   getActionButtons() {

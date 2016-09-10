@@ -20,12 +20,12 @@ const METHODS_TO_BIND = [
   'getColGroup',
   'handleItemCheck',
   'handleFilterChange',
-  'renderColumn_Address',
-  'renderColumn_ID',
-  'renderColumn_Resource',
-  'renderColumn_Status',
-  'renderColumn_Updated',
-  'renderColumn_Version'
+  'renderColumnAddress',
+  'renderColumnID',
+  'renderColumnResource',
+  'renderColumnStatus',
+  'renderColumnUpdated',
+  'renderColumnVersion'
 ];
 
 class PodView extends mixin(SaveStateMixin, StoreMixin) {
@@ -110,49 +110,49 @@ class PodView extends mixin(SaveStateMixin, StoreMixin) {
         className: this.getColumnClassName,
         heading: this.getColumnHeading,
         prop: 'name',
-        render: this.renderColumn_ID,
+        render: this.renderColumnID,
         sortable: true
       },
       {
         className: this.getColumnClassName,
         heading: this.getColumnHeading,
         prop: 'address',
-        render: this.renderColumn_Address,
+        render: this.renderColumnAddress,
         sortable: true
       },
       {
         className: this.getColumnClassName,
         heading: this.getColumnHeading,
         prop: 'status',
-        render: this.renderColumn_Status,
+        render: this.renderColumnStatus,
         sortable: true
       },
       {
         className: this.getColumnClassName,
         heading: this.getColumnHeading,
         prop: 'cpus',
-        render: this.renderColumn_Resource,
+        render: this.renderColumnResource,
         sortable: true
       },
       {
         className: this.getColumnClassName,
         heading: this.getColumnHeading,
         prop: 'mem',
-        render: this.renderColumn_Resource,
+        render: this.renderColumnResource,
         sortable: true
       },
       {
         className: this.getColumnClassName,
         heading: this.getColumnHeading,
         prop: 'updated',
-        render: this.renderColumn_Updated,
+        render: this.renderColumnUpdated,
         sortable: true
       },
       {
         className: this.getColumnClassName,
         heading: this.getColumnHeading,
         prop: 'version',
-        render: this.renderColumn_Version,
+        render: this.renderColumnVersion,
         sortable: true
       }
     ];
@@ -176,26 +176,24 @@ class PodView extends mixin(SaveStateMixin, StoreMixin) {
             resourcesSummary[key] = containerSpec.resources[key];
           });
 
+          let addressComponents = container.endpoints.reduce(function (components, ep) {
+            components.push(
+              <a className="text-muted"
+                href={`http://${instance.getAgentAddress()}:${ep.allocatedHostPort}`}
+                target="_blank"
+                title="Open in a new window">
+                {':' + ep.allocatedHostPort}
+              </a>
+            );
+
+            return components;
+          }, []);
+
           return {
             id: container.getId(),
             name: container.getName(),
             status: container.getContainerStatus(),
-            address: container.endpoints.reduce(function (components, ep) {
-              components.push(
-                <a className="text-muted"
-                  href={
-                    'http://' +
-                    instance.getAgentAddress() + ':' +
-                    ep.allocatedHostPort
-                  }
-                  target="_blank"
-                  title="Open in a new window">
-                  {':' + ep.allocatedHostPort}
-                </a>
-              );
-
-              return components;
-            }, []),
+            address: addressComponents,
             cpus: containerSpec.resources.cpus,
             mem: containerSpec.resources.mem,
             updated: container.getLastUpdated(),
@@ -245,7 +243,7 @@ class PodView extends mixin(SaveStateMixin, StoreMixin) {
       );
   }
 
-  renderColumn_ID(prop, row, rowOptions = {}) {
+  renderColumnID(prop, row, rowOptions = {}) {
     if (!rowOptions.isParent) {
       return (
         <div className="pod-history-instance-id text-overflow">
@@ -269,13 +267,13 @@ class PodView extends mixin(SaveStateMixin, StoreMixin) {
     ));
   }
 
-  renderColumn_Address(prop, row, rowOptions = {}) {
+  renderColumnAddress(prop, row, rowOptions = {}) {
     return this.renderWithClickHandler(rowOptions, '', (
         <CollapsingString string={row.address} />
       ));
   }
 
-  renderColumn_Status(prop, row, rowOptions = {}) {
+  renderColumnStatus(prop, row, rowOptions = {}) {
     let {status} = row;
     return this.renderWithClickHandler(rowOptions, '', (
         <span>
@@ -287,19 +285,19 @@ class PodView extends mixin(SaveStateMixin, StoreMixin) {
       ));
   }
 
-  renderColumn_Resource(prop, row, rowOptions = {}) {
+  renderColumnResource(prop, row, rowOptions = {}) {
     return this.renderWithClickHandler(rowOptions, '', (
         <span>{Units.formatResource(prop, row[prop])}</span>
       ));
   }
 
-  renderColumn_Updated(prop, row, rowOptions = {}) {
+  renderColumnUpdated(prop, row, rowOptions = {}) {
     return this.renderWithClickHandler(rowOptions, '', (
         <TimeAgo time={row.updated} />
       ));
   }
 
-  renderColumn_Version(prop, row, rowOptions = {}) {
+  renderColumnVersion(prop, row, rowOptions = {}) {
     return this.renderWithClickHandler(rowOptions, '', (
         <CollapsingString string={row.version} />
       ));

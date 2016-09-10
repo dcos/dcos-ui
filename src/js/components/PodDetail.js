@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import {Confirm} from 'reactjs-components';
 import mixin from 'reactjs-mixin';
 import React from 'react';
@@ -58,12 +59,6 @@ class PodDetail extends mixin(InternalStorageMixin, StoreMixin, TabsMixin) {
     });
   }
 
-  componentWillMount() {
-    if (this.props.mode === 'pod') {
-
-    }
-  }
-
   componentDidMount() {
     super.componentDidMount(...arguments);
   }
@@ -115,11 +110,13 @@ class PodDetail extends mixin(InternalStorageMixin, StoreMixin, TabsMixin) {
   getRestartConfirmDialog() {
     const {pod} = this.props;
     const {state} = this;
+    const isDisabled = state.disabledDialog === ServiceActionItem.RESTART;
+    const isOpen = state.serviceActionDialog === ServiceActionItem.RESTART;
 
     return (
       <Confirm
-        disabled={state.disabledDialog === ServiceActionItem.RESTART}
-        open={state.serviceActionDialog === ServiceActionItem.RESTART}
+        disabled={isDisabled}
+        open={isOpen}
         onClose={this.closeDialog}
         leftButtonText="Cancel"
         leftButtonCallback={this.closeDialog}
@@ -194,14 +191,20 @@ class PodDetail extends mixin(InternalStorageMixin, StoreMixin, TabsMixin) {
 
     return (
       <div className="flex-container-col">
-        <div className="container-pod
-          container-pod-divider-bottom-align-right
-          container-pod-short-top flush-bottom flush-top
-          service-detail-header media-object-spacing-wrapper
-          media-object-spacing-narrow">
+        <div className={classNames(
+          "container-pod",
+          "container-pod-divider-bottom-align-right"
+          "container-pod-short-top",
+          "flush-bottom",
+          "flush-top",
+          "media-object-spacing-wrapper",
+          "media-object-spacing-narrow",
+          "service-detail-header"
+          )}>
           <Breadcrumbs />
           <PodInfo onActionsItemSelection={this.onActionsItemSelection}
-            pod={pod} tabs={this.tabs_getUnroutedTabs()} />
+            pod={pod}
+            tabs={this.tabs_getUnroutedTabs()} />
           {this.tabs_getTabView()}
         </div>
         <ServiceFormModal isEdit={true}

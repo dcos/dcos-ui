@@ -17,7 +17,8 @@ class PodDetailInstancesTab extends mixin(StoreMixin) {
 
   render() {
     return (
-      <PodView pod={this.props.pod} inverseStyle={true}
+      <PodView pod={this.props.pod}
+        inverseStyle={true}
         parentRouter={this.context.router} />
     );
   }
