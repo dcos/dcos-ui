@@ -396,62 +396,124 @@ describe('MarathonActions', function () {
   });
 
   describe('#editService', function () {
-    const appDefiniton = {
-      id: '/test',
-      cmd: 'sleep 100;'
-    };
 
-    beforeEach(function () {
-      spyOn(RequestUtil, 'json');
-      MarathonActions.editService(appDefiniton);
-      this.configuration = RequestUtil.json.calls.mostRecent().args[0];
-    });
+    describe('app', function () {
+      const app = new Application({id: '/test'});
+      const spec = new ApplicationSpec({cmd: 'sleep 100;'});
 
-    it('calls #json from the RequestUtil', function () {
-      expect(RequestUtil.json).toHaveBeenCalled();
-    });
-
-    it('sends data to the correct URL', function () {
-      expect(this.configuration.url)
-        .toEqual(`${Config.rootUrl}/service/marathon/v2/apps//test`);
-    });
-
-    it('sends data to the correct URL with the force=true parameter',
-      function () {
-        MarathonActions.editService(appDefiniton, true);
+      beforeEach(function () {
+        spyOn(RequestUtil, 'json');
+        MarathonActions.editService(app, spec);
         this.configuration = RequestUtil.json.calls.mostRecent().args[0];
+      });
 
+      it('calls #json from the RequestUtil', function () {
+        expect(RequestUtil.json).toHaveBeenCalled();
+      });
+
+      it('sends data to the correct URL', function () {
         expect(this.configuration.url)
-          .toEqual(`${Config.rootUrl}/service/marathon/v2/apps//test?force=true`);
+            .toEqual(`${Config.rootUrl}/service/marathon/v2/apps//test`);
       });
 
-    it('uses PUT for the request method', function () {
-      expect(this.configuration.method).toEqual('PUT');
+      it('sends data to the' +
+          ' correct URL with the force=true parameter',
+          function () {
+            MarathonActions.editService(app, spec, true);
+            this.configuration = RequestUtil.json.calls.mostRecent().args[0];
+
+            expect(this.configuration.url)
+                .toEqual(`${Config.rootUrl}/service/marathon/v2/apps//test?force=true`);
+          });
+
+      it('uses PUT for the request method', function () {
+        expect(this.configuration.method).toEqual('PUT');
+      });
+
+      it('dispatches the correct action when successful', function () {
+        var id = AppDispatcher.register(function (payload) {
+          var action = payload.action;
+          AppDispatcher.unregister(id);
+          expect(action.type)
+              .toEqual(ActionTypes.REQUEST_MARATHON_SERVICE_EDIT_SUCCESS);
+        });
+
+        this.configuration.success({
+          'version': '2016-05-13T10:26:55.840Z',
+          'deploymentId': '6119207e-a146-44b4-9c6f-0e4227dc04a5'
+        });
+      });
+
+      it('dispatches the correct action when unsucessful', function () {
+        var id = AppDispatcher.register(function (payload) {
+          var action = payload.action;
+          AppDispatcher.unregister(id);
+          expect(action.type)
+              .toEqual(ActionTypes.REQUEST_MARATHON_SERVICE_EDIT_ERROR);
+        });
+
+        this.configuration.error({message: 'error', response: '{}'});
+      });
+
     });
 
-    it('dispatches the correct action when successful', function () {
-      var id = AppDispatcher.register(function (payload) {
-        var action = payload.action;
-        AppDispatcher.unregister(id);
-        expect(action.type)
-          .toEqual(ActionTypes.REQUEST_MARATHON_SERVICE_EDIT_SUCCESS);
+    describe('pods', function () {
+      const pod = new Pod({id: '/test'});
+      const spec = new PodSpec({cmd: 'sleep 100;'});
+
+      beforeEach(function () {
+        spyOn(RequestUtil, 'json');
+        MarathonActions.editService(pod, spec);
+        this.configuration = RequestUtil.json.calls.mostRecent().args[0];
       });
 
-      this.configuration.success({
-        'version': '2016-05-13T10:26:55.840Z',
-        'deploymentId': '6119207e-a146-44b4-9c6f-0e4227dc04a5'
-      });
-    });
-
-    it('dispatches the correct action when unsucessful', function () {
-      var id = AppDispatcher.register(function (payload) {
-        var action = payload.action;
-        AppDispatcher.unregister(id);
-        expect(action.type)
-          .toEqual(ActionTypes.REQUEST_MARATHON_SERVICE_EDIT_ERROR);
+      it('calls #json from the RequestUtil', function () {
+        expect(RequestUtil.json).toHaveBeenCalled();
       });
 
-      this.configuration.error({message: 'error', response: '{}'});
+      it('sends data to the correct URL', function () {
+        expect(this.configuration.url)
+            .toEqual(`${Config.rootUrl}/service/marathon/v2/pods//test`);
+      });
+
+      it('sends data to the correct URL with the force=true parameter',
+          function () {
+            MarathonActions.editService(pod, spec, true);
+            this.configuration = RequestUtil.json.calls.mostRecent().args[0];
+
+            expect(this.configuration.url)
+                .toEqual(`${Config.rootUrl}/service/marathon/v2/pods//test?force=true`);
+          });
+
+      it('uses PUT for the request method', function () {
+        expect(this.configuration.method).toEqual('PUT');
+      });
+
+      it('dispatches the correct action when successful', function () {
+        var id = AppDispatcher.register(function (payload) {
+          var action = payload.action;
+          AppDispatcher.unregister(id);
+          expect(action.type)
+              .toEqual(ActionTypes.REQUEST_MARATHON_SERVICE_EDIT_SUCCESS);
+        });
+
+        this.configuration.success({
+          'version': '2016-05-13T10:26:55.840Z',
+          'deploymentId': '6119207e-a146-44b4-9c6f-0e4227dc04a5'
+        });
+      });
+
+      it('dispatches the correct action when unsucessful', function () {
+        var id = AppDispatcher.register(function (payload) {
+          var action = payload.action;
+          AppDispatcher.unregister(id);
+          expect(action.type)
+              .toEqual(ActionTypes.REQUEST_MARATHON_SERVICE_EDIT_ERROR);
+        });
+
+        this.configuration.error({message: 'error', response: '{}'});
+      });
+
     });
 
   });

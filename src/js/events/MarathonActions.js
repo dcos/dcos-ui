@@ -188,8 +188,28 @@ var MarathonActions = {
     });
   },
 
-  editService(data, force) {
-    let url = buildURI(`/apps/${data.id}`);
+  /**
+   * Edit service (app, framework, or pod)
+   *
+   * @param {Service} service - the service you wish to edit
+   * @param {ServiceSpec} spec - the new service spec
+   * @param {Boolean} force - force deploy change
+   */
+  editService(service, spec, force) {
+    // TODO (DCOS-9621): Only accept instances of ServiceSpec for spec
+    if (!(service instanceof Service)) {
+      if (process.env.NODE_ENV !== 'production') {
+        throw new TypeError('service is not an instance of Service');
+      }
+
+      return;
+    }
+
+    let url = buildURI(`/apps/${service.getId()}`);
+
+    if (service instanceof Pod) {
+      url = buildURI(`/pods/${service.getId()}`);
+    }
 
     if (force === true) {
       url += '?force=true';
@@ -198,7 +218,7 @@ var MarathonActions = {
     RequestUtil.json({
       url,
       method: 'PUT',
-      data,
+      data:spec,
       success() {
         AppDispatcher.handleServerAction({
           type: REQUEST_MARATHON_SERVICE_EDIT_SUCCESS
