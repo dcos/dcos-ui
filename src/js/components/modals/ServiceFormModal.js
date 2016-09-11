@@ -332,14 +332,16 @@ class ServiceFormModal extends mixin(StoreMixin) {
   }
 
   handleSubmit() {
+    const {force, serviceSpec} = this.state;
+    const {isEdit, service} = this.props;
     let marathonAction = MarathonStore.createService;
 
-    if (this.props.isEdit) {
-      marathonAction = MarathonStore.editService;
+    if (isEdit) {
+      marathonAction = MarathonStore.editService.bind(MarathonStore, service);
     }
 
     if (this.state.jsonMode) {
-      marathonAction(this.state.serviceSpec, this.state.force);
+      marathonAction(service, serviceSpec, force);
       this.setState({
         errorMessage: null,
         pendingRequest: true
@@ -360,7 +362,7 @@ class ServiceFormModal extends mixin(StoreMixin) {
         this.props.service.getSpec().get() // Work on the original service spec
       );
       marathonAction(
-        ServiceUtil.getDefinitionFromSpec(serviceSpec),
+        serviceSpec,
         this.state.force
       );
     }

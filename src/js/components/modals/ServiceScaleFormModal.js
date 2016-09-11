@@ -106,8 +106,7 @@ class ServiceScaleFormModal extends mixin(StoreMixin) {
           scaleBy: parseInt(instances, 10)
         });
       } else {
-        MarathonStore.editService({
-          id: service.id,
+        MarathonStore.editService(service, {
           instances: parseInt(instances, 10)
         }, this.shouldForceUpdate(this.state.errorMsg));
       }

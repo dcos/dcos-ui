@@ -53,12 +53,14 @@ class ServiceDetailConfigurationTab extends React.Component {
   }
 
   handleApplyButtonClick() {
-    let serviceConfiguration =
-      this.props.service.getVersions().get(this.state.selectedVersionID);
+    let {service} = this.props;
 
-    MarathonStore.editService(
-      ServiceUtil.getDefinitionFromSpec(
-        new ApplicationSpec(serviceConfiguration)
+    let serviceConfiguration =
+        service.getVersions().get(this.state.selectedVersionID);
+
+    MarathonStore.editService(service,
+      ServiceUtil.getAppDefinitionFromService(
+          new ApplicationSpec(serviceConfiguration)
       )
     );
   }

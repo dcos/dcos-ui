@@ -42,7 +42,7 @@ class ServiceSuspendModal extends ServiceActionModal {
     if (isGroup) {
       MarathonStore.editGroup({id: serviceID, scaleBy: 0}, forceUpdate);
     } else {
-      MarathonStore.editService({id: serviceID, instances: 0}, forceUpdate);
+      MarathonStore.editService(service, {instances: 0}, forceUpdate);
     }
   }
 
