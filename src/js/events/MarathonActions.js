@@ -234,8 +234,20 @@ var MarathonActions = {
     });
   },
 
-  restartService(serviceId, force = false) {
-    let url = buildURI(`/apps/${serviceId}/restart`);
+  restartService(service, force = false) {
+    if (!(service instanceof Service)) {
+      if (process.env.NODE_ENV !== 'production') {
+        throw new TypeError('service is not an instance of Service');
+      }
+
+      return;
+    }
+
+    let url = buildURI(`/apps/${service.getId()}/restart`);
+
+    if (service instanceof Pod) {
+      url = buildURI(`/pods/${service.getId()}/restart`);
+    }
 
     if (force === true) {
       url += '?force=true';
