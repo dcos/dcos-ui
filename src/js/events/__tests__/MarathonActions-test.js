@@ -519,56 +519,116 @@ describe('MarathonActions', function () {
   });
 
   describe('#restartService', function () {
-    beforeEach(function () {
-      spyOn(RequestUtil, 'json');
-      MarathonActions.restartService('/foo');
-      this.configuration = RequestUtil.json.calls.mostRecent().args[0];
-    });
 
-    it('calls #json from the RequestUtil', function () {
-      expect(RequestUtil.json).toHaveBeenCalled();
-    });
+    describe('app', function () {
+      const app = new Application({id: '/test'});
 
-    it('sends data to the correct URL', function () {
-      expect(this.configuration.url)
-        .toEqual(`${Config.rootUrl}/service/marathon/v2/apps//foo/restart`);
-    });
-
-    it('sends data to the correct URL with the force=true parameter',
-      function () {
-        MarathonActions.restartService('/foo', true);
+      beforeEach(function () {
+        spyOn(RequestUtil, 'json');
+        MarathonActions.restartService(app);
         this.configuration = RequestUtil.json.calls.mostRecent().args[0];
+      });
 
+      it('calls #json from the RequestUtil', function () {
+        expect(RequestUtil.json).toHaveBeenCalled();
+      });
+
+      it('sends data to the correct URL', function () {
         expect(this.configuration.url)
-          .toEqual(`${Config.rootUrl}/service/marathon/v2/apps//foo/restart?force=true`);
+            .toEqual(`${Config.rootUrl}/service/marathon/v2/apps//test/restart`);
       });
 
-    it('uses POST for the request method', function () {
-      expect(this.configuration.method).toEqual('POST');
-    });
+      it('sends data to the correct URL with the force=true parameter',
+          function () {
+            MarathonActions.restartService(app, true);
+            this.configuration = RequestUtil.json.calls.mostRecent().args[0];
 
-    it('dispatches the correct action when successful', function () {
-      var id = AppDispatcher.register(function (payload) {
-        var action = payload.action;
-        AppDispatcher.unregister(id);
-        expect(action.type)
-          .toEqual(ActionTypes.REQUEST_MARATHON_SERVICE_RESTART_SUCCESS);
+            expect(this.configuration.url)
+                .toEqual(`${Config.rootUrl}/service/marathon/v2/apps//test/restart?force=true`);
+          });
+
+      it('uses POST for the request method', function () {
+        expect(this.configuration.method).toEqual('POST');
       });
 
-      this.configuration.success({});
-    });
+      it('dispatches the correct action when successful', function () {
+        var id = AppDispatcher.register(function (payload) {
+          var action = payload.action;
+          AppDispatcher.unregister(id);
+          expect(action.type)
+              .toEqual(ActionTypes.REQUEST_MARATHON_SERVICE_RESTART_SUCCESS);
+        });
 
-    it('dispatches the correct action when unsucessful', function () {
-      var id = AppDispatcher.register(function (payload) {
-        var action = payload.action;
-        AppDispatcher.unregister(id);
-        expect(action.type)
-          .toEqual(ActionTypes.REQUEST_MARATHON_SERVICE_RESTART_ERROR);
+        this.configuration.success({});
       });
 
-      this.configuration.error({message: 'error', response: '{}'});
+      it('dispatches the correct action when unsucessful', function () {
+        var id = AppDispatcher.register(function (payload) {
+          var action = payload.action;
+          AppDispatcher.unregister(id);
+          expect(action.type)
+              .toEqual(ActionTypes.REQUEST_MARATHON_SERVICE_RESTART_ERROR);
+        });
+
+        this.configuration.error({message: 'error', response: '{}'});
+      });
+
     });
 
+    describe('pods', function () {
+      const pod = new Pod({id: '/test'});
+
+      beforeEach(function () {
+        spyOn(RequestUtil, 'json');
+        MarathonActions.restartService(pod);
+        this.configuration = RequestUtil.json.calls.mostRecent().args[0];
+      });
+
+      it('calls #json from the RequestUtil', function () {
+        expect(RequestUtil.json).toHaveBeenCalled();
+      });
+
+      it('sends data to the correct URL', function () {
+        expect(this.configuration.url)
+            .toEqual(`${Config.rootUrl}/service/marathon/v2/pods//test/restart`);
+      });
+
+      it('sends data to the correct URL with the force=true parameter',
+          function () {
+            MarathonActions.restartService(pod, true);
+            this.configuration = RequestUtil.json.calls.mostRecent().args[0];
+
+            expect(this.configuration.url)
+                .toEqual(`${Config.rootUrl}/service/marathon/v2/pods//test/restart?force=true`);
+          });
+
+      it('uses POST for the request method', function () {
+        expect(this.configuration.method).toEqual('POST');
+      });
+
+      it('dispatches the correct action when successful', function () {
+        var id = AppDispatcher.register(function (payload) {
+          var action = payload.action;
+          AppDispatcher.unregister(id);
+          expect(action.type)
+              .toEqual(ActionTypes.REQUEST_MARATHON_SERVICE_RESTART_SUCCESS);
+        });
+
+        this.configuration.success({});
+      });
+
+      it('dispatches the correct action when unsucessful', function () {
+        var id = AppDispatcher.register(function (payload) {
+          var action = payload.action;
+          AppDispatcher.unregister(id);
+          expect(action.type)
+              .toEqual(ActionTypes.REQUEST_MARATHON_SERVICE_RESTART_ERROR);
+        });
+
+        this.configuration.error({message: 'error', response: '{}'});
+      });
+
+    });
   });
 
   describe('#fetchDeployments', function () {
