@@ -113,7 +113,7 @@ class TaskDirectoryStore extends GetSetBaseStore {
     this.set({directory: null});
     // Make sure to update innerPath if different before fetching
     if (this.get('innerPath') !== innerPath) {
-      this.set({innerPath: innerPath});
+      this.set({innerPath});
     }
 
     this.emit(TASK_DIRECTORY_CHANGE, task.id);
