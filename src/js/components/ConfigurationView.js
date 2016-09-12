@@ -6,6 +6,7 @@ import DCOSStore from '../stores/DCOSStore';
 import DescriptionList from './DescriptionList';
 import HostUtil from '../utils/HostUtil';
 import Networking from '../constants/Networking';
+import Loader from './Loader';
 import Service from '../structs/Service';
 import StringUtil from '../utils/StringUtil';
 
@@ -298,12 +299,8 @@ class ConfigurationView extends mixin(StoreMixin) {
     // Render loading screen
     if (config == null) {
       return (
-        <div className="container container-pod text-align-center vertical-center inverse">
-          <div className="row">
-            <div className="ball-scale">
-              <div />
-            </div>
-          </div>
+        <div className="container container-fluid container-pod">
+          <Loader className="inverse" />
         </div>
       );
     }

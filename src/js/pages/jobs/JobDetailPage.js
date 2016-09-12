@@ -9,17 +9,18 @@ import {RouteHandler} from 'react-router';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import Breadcrumbs from '../../components/Breadcrumbs';
-import TimeAgo from '../../components/TimeAgo';
 import Icon from '../../components/Icon';
 import JobConfiguration from './JobConfiguration';
 import JobFormModal from '../../components/modals/JobFormModal';
 import JobRunHistoryTable from './JobRunHistoryTable';
+import Loader from '../../components/Loader';
 import MetronomeStore from '../../stores/MetronomeStore';
 import PageHeader from '../../components/PageHeader';
 import RequestErrorMsg from '../../components/RequestErrorMsg';
 import StringUtil from '../../utils/StringUtil';
 import TabsMixin from '../../mixins/TabsMixin';
 import TaskStates from '../../constants/TaskStates';
+import TimeAgo from '../../components/TimeAgo';
 
 const METHODS_TO_BIND = [
   'closeDialog',
@@ -261,13 +262,8 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
 
   getLoadingScreen() {
     return (
-      <div className="container container-fluid container-pod text-align-center
-        vertical-center inverse">
-        <div className="row">
-          <div className="ball-scale">
-            <div />
-          </div>
-        </div>
+      <div className="container container-fluid container-pod">
+        <Loader className="inverse" />
       </div>
     );
   }

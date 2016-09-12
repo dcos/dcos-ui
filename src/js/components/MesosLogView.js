@@ -6,6 +6,7 @@ import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import DOMUtils from '../utils/DOMUtils';
 import Highlight from './Highlight';
+import Loader from './Loader';
 import MesosLogStore from '../stores/MesosLogStore';
 import RequestErrorMsg from './RequestErrorMsg';
 import TaskDirectoryStore from '../stores/TaskDirectoryStore';
@@ -304,15 +305,7 @@ class MesosLogView extends mixin(StoreMixin) {
   }
 
   getLoadingScreen() {
-    return (
-      <div className="container-pod text-align-center vertical-center inverse">
-        <div className="row">
-          <div className="ball-scale">
-            <div />
-          </div>
-        </div>
-      </div>
-    );
+    return <Loader className="inverse" />;
   }
 
   getGoToBottomButton() {
@@ -343,10 +336,11 @@ class MesosLogView extends mixin(StoreMixin) {
 
     // Show loader since we will start a request for more logs
     return (
-      <div className="text-align-center vertical-center inverse">
-        <div className="inverse ball-scale">
-          <div />
-        </div>
+      <div className="container container-fluid container-pod flush-top">
+        <Loader
+          className="inverse"
+          innerClassName="loader-small"
+          type="ballSpinFadeLoader" />
       </div>
     );
   }

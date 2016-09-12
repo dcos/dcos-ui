@@ -6,6 +6,7 @@ import React from 'react';
 import {Hooks} from 'PluginSDK';
 
 import Icon from '../components/Icon';
+import Loader from '../components/Loader';
 import Page from '../components/Page';
 import RouterUtil from '../utils/RouterUtil';
 import SidebarActions from '../events/SidebarActions';
@@ -81,13 +82,8 @@ class NetworkPage extends mixin(TabsMixin) {
 
   getLoadingScreen() {
     return (
-      <div className="container container-fluid container-pod text-align-center
-        vertical-center inverse">
-        <div className="row">
-          <div className="ball-scale">
-            <div />
-          </div>
-        </div>
+      <div className="container container-fluid container-pod">
+        <Loader className="inverse" />
       </div>
     );
   }

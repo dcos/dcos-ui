@@ -9,6 +9,7 @@ import FilterBar from '../../components/FilterBar';
 import FilterHeadline from '../../components/FilterHeadline';
 import FilterInputText from '../../components/FilterInputText';
 import Icon from '../../components/Icon';
+import Loader from '../../components/Loader';
 import PageHeader from '../../components/PageHeader';
 import RequestErrorMsg from '../../components/RequestErrorMsg';
 import UnitHealthDropdown from '../../components/UnitHealthDropdown';
@@ -87,12 +88,8 @@ class UnitsHealthDetail extends mixin(StoreMixin) {
 
   getLoadingScreen() {
     return (
-      <div className="container-pod text-align-center vertical-center inverse">
-        <div className="row">
-          <div className="ball-scale">
-            <div />
-          </div>
-        </div>
+      <div className="container container-fluid container-pod">
+        <Loader className="inverse" />
       </div>
     );
   }

@@ -1,7 +1,9 @@
 jest.dontMock('../InstallPackageModal');
 jest.dontMock('../../CosmosErrorMessage');
+jest.dontMock('../../Loader');
 jest.dontMock('../../ReviewConfig');
 jest.dontMock('../../SchemaForm');
+jest.dontMock('../../TabForm');
 jest.dontMock('../../../stores/CosmosPackagesStore');
 jest.dontMock('../../../mixins/InternalStorageMixin');
 jest.dontMock('../../../mixins/TabsMixin');
@@ -9,7 +11,6 @@ jest.dontMock('../../../utils/FormUtil');
 jest.dontMock('../../../utils/GeminiUtil');
 jest.dontMock('../../../utils/SchemaFormUtil');
 jest.dontMock('../../../utils/SchemaUtil');
-jest.dontMock('../../TabForm');
 jest.dontMock('../../../utils/Util');
 
 /* eslint-disable no-unused-vars */

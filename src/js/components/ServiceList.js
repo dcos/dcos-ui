@@ -7,6 +7,7 @@ import Config from '../config/Config';
 import HealthLabels from '../constants/HealthLabels';
 import HealthStatus from '../constants/HealthStatus';
 import HealthTypesDescription from '../constants/HealthTypesDescription';
+import Loader from './Loader';
 
 let ServiceList = React.createClass({
 
@@ -72,11 +73,10 @@ let ServiceList = React.createClass({
       let healthLabel = HealthLabels[state.key];
       if (!healthProcessed) {
         healthLabel = (
-          <div className="loader-small ball-beat">
-            <div></div>
-            <div></div>
-            <div></div>
-          </div>
+          <Loader
+            className="inverse"
+            innerClassName="loader-small"
+            type="ballBeat" />
         );
       }
 

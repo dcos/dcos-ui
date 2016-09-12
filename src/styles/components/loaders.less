@@ -1,23 +1,20 @@
-.inverse .ball-scale > div {
-  background-color: @text-muted-color;
-}
-.loader-small {
-  &.ball-beat {
-    min-width: 36px;
 
-    > div {
-      width: 4px;
-      height: 4px;
-      margin: 0 2px 2px 0;
-
-      &:last-child {
-        margin-right: 0;
-      }
-    }
+.loader {
+  &.inverse .ball-scale > div {
+    background-color: @text-muted-color;
   }
 
-  & > div {
-    height: 8px;
-    width: 8px;
+  .ball-scale {
+    height: 69px;
+    width: 69px;
+  }
+
+  .loader-small {
+    transform: scale(0.5, 0.5);
+
+    &.ball-scale {
+      height: 34.5px;
+      width: 34.5px;
+    }
   }
 }
