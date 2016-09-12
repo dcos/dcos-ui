@@ -40,10 +40,12 @@ class ExpandingTable extends React.Component {
   getRenderer(column) {
     // Get the column's #render method if it exists. Otherwise use our default.
     let renderFn = column.render || this.defaultRenderer;
+    let {expandAll} = this.props;
 
     return (prop, row) => {
       let hasChildren = !!row.children;
-      let isExpanded = !!this.state.expandedRows[this.getRowID(row)];
+      let isExpanded = !!this.state.expandedRows[this.getRowID(row)]
+                       || expandAll;
 
       // Render the column's top-level item.
       let cellContent = [
@@ -100,11 +102,13 @@ class ExpandingTable extends React.Component {
 
 ExpandingTable.defaultProps = {
   childRowClassName: 'text-overflow',
+  expandAll: false,
   tableComponent: Table
 };
 
 ExpandingTable.propTypes = {
   childRowClassName: React.PropTypes.string,
+  expandAll: React.PropTypes.bool,
   tableComponent: React.PropTypes.func
 };
 
