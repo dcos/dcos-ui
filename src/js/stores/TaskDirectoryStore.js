@@ -18,24 +18,24 @@ import TaskDirectoryActions from '../events/TaskDirectoryActions';
 var requestInterval = null;
 var activeXHR = null;
 
-function fetchState(task, deeperPath) {
+function fetchState(task, innerPath) {
   let node = MesosStateStore.getNodeFromID(task.slave_id);
   activeXHR = TaskDirectoryActions.fetchNodeState(
     task,
     node,
     function (response) {
       activeXHR = TaskDirectoryActions
-        .fetchDirectory(task, deeperPath, response);
+        .fetchDirectory(task, innerPath, response);
     }
   );
 }
 
-function startPolling(task, deeperPath) {
+function startPolling(task, innerPath) {
   if (requestInterval == null) {
-    fetchState(task, deeperPath);
+    fetchState(task, innerPath);
 
     requestInterval = setInterval(
-      fetchState.bind(this, task, deeperPath), Config.getRefreshRate()
+      fetchState.bind(this, task, innerPath), Config.getRefreshRate()
     );
   }
 }
@@ -107,23 +107,27 @@ class TaskDirectoryStore extends GetSetBaseStore {
     }
   }
 
-  // Default deeperPath to empty string so it matches with default innerPath
-  getDirectory(task, deeperPath = '') {
+  // Default innerPath to empty string so it matches with default innerPath
+  fetchDirectory(task, innerPath = '') {
     this.resetRequests();
     this.set({directory: null});
-    this.emit(TASK_DIRECTORY_CHANGE, task.id);
+    // Make sure to update innerPath if different before fetching
+    if (this.get('innerPath') !== innerPath) {
+      this.set({innerPath});
+    }
 
-    startPolling(task, deeperPath);
+    this.emit(TASK_DIRECTORY_CHANGE, task.id);
+    startPolling(task, innerPath);
   }
 
   addPath(task, path) {
     this.set({innerPath: this.get('innerPath') + '/' + path});
-    this.getDirectory(task, this.get('innerPath'));
+    this.fetchDirectory(task, this.get('innerPath'));
   }
 
   setPath(task, path) {
     this.set({innerPath: path});
-    this.getDirectory(task, path);
+    this.fetchDirectory(task, path);
   }
 
   processStateError(taskID) {

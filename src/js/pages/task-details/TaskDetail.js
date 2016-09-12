@@ -111,23 +111,22 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
       return;
     }
 
-    this.setState({
-      directory: TaskDirectoryStore.get('directory'),
-      taskDirectoryErrorCount: 0
-    });
+    let directory = TaskDirectoryStore.get('directory');
+    this.setState({directory, taskDirectoryErrorCount: 0});
   }
 
   handleFetchDirectory() {
     let {params} = this.props;
     let task = MesosStateStore.getTaskFromTaskID(params.taskID);
-    // Declare undefined to not override default values in getDirectory
+    // Declare undefined to not override default values in fetchDirectory
     let innerPath;
 
     if (params.innerPath != null) {
       innerPath = decodeURIComponent(params.innerPath);
     }
 
-    TaskDirectoryStore.getDirectory(task, innerPath);
+    TaskDirectoryStore.fetchDirectory(task, innerPath);
+    this.setState({directory: null});
   }
 
   getErrorScreen() {

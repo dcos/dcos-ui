@@ -43,7 +43,7 @@ describe('TaskDetail', function () {
     this.instance.setState = jasmine.createSpy('setState');
     this.instance.getErrorScreen = jasmine.createSpy('getErrorScreen');
     // Store original versions
-    this.storeGetDirectory = TaskDirectoryStore.getDirectory;
+    this.storeGetDirectory = TaskDirectoryStore.fetchDirectory;
     this.storeGet = MesosStateStore.get;
     this.storeChangeListener = MesosStateStore.addChangeListener;
     // Create mock functions
@@ -60,14 +60,14 @@ describe('TaskDetail', function () {
       });
     };
 
-    TaskDirectoryStore.getDirectory = jasmine.createSpy('getDirectory');
+    TaskDirectoryStore.fetchDirectory = jasmine.createSpy('getDirectory');
   });
 
   afterEach(function () {
     // Restore original functions
     MesosStateStore.get = this.storeGet;
     MesosStateStore.addChangeListener = this.storeChangeListener;
-    TaskDirectoryStore.getDirectory = this.storeGetDirectory;
+    TaskDirectoryStore.fetchDirectory = this.storeGetDirectory;
 
     ReactDOM.unmountComponentAtNode(this.container);
   });
@@ -76,7 +76,7 @@ describe('TaskDetail', function () {
 
     it('should call getDirectory after onStateStoreSuccess is called', function () {
       this.instance.onStateStoreSuccess();
-      expect(TaskDirectoryStore.getDirectory).toHaveBeenCalled();
+      expect(TaskDirectoryStore.fetchDirectory).toHaveBeenCalled();
     });
 
   });
