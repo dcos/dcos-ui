@@ -3,7 +3,6 @@ jest.dontMock('../../stores/DCOSStore');
 jest.dontMock('../../stores/MarathonStore');
 jest.dontMock('../../stores/UnitHealthStore');
 jest.dontMock('./fixtures/MockMarathonResponse.json');
-jest.dontMock('../../mixins/GetSetMixin');
 jest.dontMock('../../mixins/InternalStorageMixin');
 jest.dontMock('../../utils/Util');
 jest.dontMock('../../constants/HealthSorting');

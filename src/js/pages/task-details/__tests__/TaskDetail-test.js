@@ -1,6 +1,5 @@
 jest.dontMock('../TaskFilesTab');
 jest.dontMock('../TaskDetail');
-jest.dontMock('../../../mixins/GetSetMixin');
 jest.dontMock('../../../stores/MarathonStore');
 jest.dontMock('../../../stores/MesosStateStore');
 jest.dontMock('../../../stores/MesosSummaryStore');

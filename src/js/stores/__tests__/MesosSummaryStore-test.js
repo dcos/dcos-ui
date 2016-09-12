@@ -1,4 +1,3 @@
-jest.dontMock('../../mixins/GetSetMixin');
 jest.dontMock('../MesosSummaryStore');
 jest.dontMock('./fixtures/MockAppMetadata');
 jest.dontMock('./fixtures/MockParsedAppMetadata');

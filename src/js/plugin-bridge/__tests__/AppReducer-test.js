@@ -1,6 +1,5 @@
 jest.dontMock('../AppReducer');
 jest.dontMock('../../config/Config');
-jest.dontMock('../../mixins/GetSetMixin');
 jest.dontMock('../../stores/ConfigStore');
 
 const deepEqual = require('deep-equal');

@@ -1,5 +1,4 @@
 jest.dontMock('../../components/charts/Chart');
-jest.dontMock('../../mixins/GetSetMixin');
 jest.dontMock('../../mixins/InternalStorageMixin');
 jest.dontMock('../../mixins/TabsMixin');
 jest.dontMock('../../stores/MesosSummaryStore');

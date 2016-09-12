@@ -3,7 +3,6 @@ jest.dontMock('../../config/Config');
 jest.dontMock('../../constants/EventTypes');
 jest.dontMock('../../events/AppDispatcher');
 jest.dontMock('../../events/ConfigActions');
-jest.dontMock('../../mixins/GetSetMixin');
 jest.dontMock('../../stores/ConfigStore');
 
 const Hooks = require('../Hooks');

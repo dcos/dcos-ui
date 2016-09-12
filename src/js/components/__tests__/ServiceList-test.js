@@ -1,4 +1,3 @@
-jest.dontMock('../../mixins/GetSetMixin');
 jest.dontMock('../../structs/ServiceTree');
 jest.dontMock('../ServiceList');
 jest.dontMock('../../stores/MarathonStore');

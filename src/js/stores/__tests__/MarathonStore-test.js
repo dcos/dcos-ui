@@ -1,6 +1,5 @@
 jest.dontMock('../../constants/EventTypes');
 jest.dontMock('../../constants/HealthLabels');
-jest.dontMock('../../mixins/GetSetMixin');
 jest.dontMock('../MarathonStore');
 jest.dontMock('../../constants/EventTypes');
 jest.dontMock('./fixtures/MockAppMetadata');
