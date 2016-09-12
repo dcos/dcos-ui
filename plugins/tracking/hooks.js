@@ -12,22 +12,23 @@ let segmentScript = `!function(){var analytics=window.analytics=window.analytics
 
 module.exports = {
   filters: [
-    'userFormModalFooter'
+    {filter: 'userFormModalFooter'}
   ],
 
   actions: [
-    'pluginsConfigured',
-    'userLoginSuccess',
-    'userLogoutSuccess',
-    'applicationRouter'
+    {action: 'pluginsConfigured'},
+    {action: 'userLoginSuccess'},
+    {action: 'userLogoutSuccess', priority: 10},
+    {action: 'applicationRouter'}
   ],
 
   initialize() {
-    this.filters.forEach((filter) => {
-      SDK.Hooks.addFilter(filter, this[filter].bind(this));
+    console.log('init tracking');
+    this.filters.forEach(({filter, priority}) => {
+      SDK.Hooks.addFilter(filter, this[filter].bind(this), priority);
     });
-    this.actions.forEach((action) => {
-      SDK.Hooks.addAction(action, this[action].bind(this));
+    this.actions.forEach(({action, priority}) => {
+      SDK.Hooks.addAction(action, this[action].bind(this), priority);
     });
 
     Actions.initialize();
