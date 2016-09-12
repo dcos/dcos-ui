@@ -20,7 +20,7 @@ const POD_INSTANCE_STATUS = {
     displayName: 'Staging'
   },
   KILLED: {
-    dotClassName: 'dot inactive danger',
+    dotClassName: 'dot inactive',
     textClassName: '',
     displayName: 'Killed'
   },

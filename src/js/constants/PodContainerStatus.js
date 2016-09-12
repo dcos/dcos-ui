@@ -20,19 +20,19 @@ const POD_CONTAINER_STATUS = {
     displayName: 'Error'
   },
   FAILED: {
-    dotClassName: 'dot danger',
+    dotClassName: 'dot inactive danger',
     textClassName: 'task-status-error',
     displayName: 'Failed'
   },
   KILLED: {
-    dotClassName: 'dot inactive danger',
+    dotClassName: 'dot inactive',
     textClassName: '',
     displayName: 'Killed'
   },
   FINISHED: {
-    dotClassName: 'dot inactive danger',
+    dotClassName: 'dot inactive',
     textClassName: '',
-    displayName: 'Killed'
+    displayName: 'Finished'
   },
   NA: {
     dotClassName: 'dot inactive unknown',
