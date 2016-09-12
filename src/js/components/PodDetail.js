@@ -192,14 +192,14 @@ class PodDetail extends mixin(InternalStorageMixin, StoreMixin, TabsMixin) {
     return (
       <div className="flex-container-col">
         <div className={classNames(
-          "container-pod",
-          "container-pod-divider-bottom-align-right"
-          "container-pod-short-top",
-          "flush-bottom",
-          "flush-top",
-          "media-object-spacing-wrapper",
-          "media-object-spacing-narrow",
-          "service-detail-header"
+          'container-pod',
+          'container-pod-divider-bottom-align-right',
+          'container-pod-short-top',
+          'flush-bottom',
+          'flush-top',
+          'media-object-spacing-wrapper',
+          'media-object-spacing-narrow',
+          'service-detail-header'
           )}>
           <Breadcrumbs />
           <PodInfo onActionsItemSelection={this.onActionsItemSelection}
