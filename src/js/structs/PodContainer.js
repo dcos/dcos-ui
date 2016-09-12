@@ -39,6 +39,18 @@ module.exports = class PodContainer extends Item {
     return this.get('endpoints') || [];
   }
 
+  getId() {
+    return this.get('containerId') || '';
+  }
+
+  getLastUpdated() {
+    return new Date(this.get('getLastUpdated'));
+  }
+
+  getName() {
+    return this.get('name') || '';
+  }
+
   hasHealthChecks() {
     // According to RAML specs:
     //
