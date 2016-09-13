@@ -39,7 +39,6 @@ class ActionsModal extends React.Component {
   }
 
   componentWillUpdate(nextProps, nextState) {
-    super.componentWillUpdate(...arguments);
     let {requestsRemaining, requestErrors} = nextState;
     if (requestsRemaining === 0 && !requestErrors.length) {
       this.handleButtonCancel();
@@ -47,7 +46,6 @@ class ActionsModal extends React.Component {
   }
 
   componentDidUpdate() {
-    super.componentDidUpdate(...arguments);
     let {requestsRemaining} = this.state;
 
     if (requestsRemaining === 0) {
