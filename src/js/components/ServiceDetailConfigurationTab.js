@@ -168,17 +168,12 @@ class ServiceDetailConfigurationTab extends React.Component {
   render() {
     let {service} = this.props;
     let {selectedVersionID, serviceToEdit} = this.state;
-    let serviceSpec = null;
 
     let localeVersion = new Date(selectedVersionID).toLocaleString();
     let headline = `Current Version (${localeVersion})`;
 
     if (service.getVersion() !== selectedVersionID) {
       headline = `Previous Version (${localeVersion})`;
-    }
-
-    if (service != null) {
-      serviceSpec = service.getSpec();
     }
 
     return (
@@ -190,7 +185,7 @@ class ServiceDetailConfigurationTab extends React.Component {
           versionID={selectedVersionID} />
         <ServiceFormModal isEdit={true}
           open={serviceToEdit != null}
-          service={serviceSpec}
+          service={service}
           onClose={this.handleCloseServiceFormModal} />
       </div>
     );
