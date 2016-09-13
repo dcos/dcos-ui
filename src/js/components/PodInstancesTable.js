@@ -284,7 +284,6 @@ class PodInstancesTable extends React.Component {
   render() {
     let {instances, pod} = this.props;
     let {checkedItems} = this.state;
-    let podSpec = this.props.pod.getSpec();
 
     // If custom list of instances is not provided, use the default instances
     // from the pod
@@ -301,7 +300,7 @@ class PodInstancesTable extends React.Component {
           checkedItemsMap={checkedItems}
           columns={this.getColumns()}
           colGroup={this.getColGroup()}
-          data={this.getTableDataFor(instances, podSpec)}
+          data={this.getTableDataFor(instances)}
           getColGroup={this.getColGroup}
           onCheckboxChange={this.handleItemCheck}
           sortBy={{prop: 'startedAt', order: 'desc'}}
