@@ -1,6 +1,7 @@
 import HealthStatus from '../constants/HealthStatus';
 import PodInstanceList from './PodInstanceList';
 import PodSpec from './PodSpec';
+import PodTerminationHistoryList from './PodTerminationHistoryList';
 import Service from './Service';
 import ServiceStatus from '../constants/ServiceStatus';
 import ServiceImages from '../constants/ServiceImages';
@@ -92,6 +93,14 @@ module.exports = class Pod extends Service {
     return this.getSpec().getLabels();
   }
 
+  getLastChanged() {
+    return new Date(this.get('lastChanged'));
+  }
+
+  getLastUpdated() {
+    return new Date(this.get('lastUpdated'));
+  }
+
   /**
    * @override
    */
@@ -169,4 +178,11 @@ module.exports = class Pod extends Service {
 
     return taskSummary;
   }
+
+  getTerminationHistoryList() {
+    return new PodTerminationHistoryList({
+      items: this.get('terminationHistory') || []
+    });
+  }
+
 };
