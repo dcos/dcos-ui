@@ -3,6 +3,7 @@ jest.dontMock('../../structs/Service');
 jest.dontMock('../../constants/VolumeConstants');
 
 const Application = require('../../structs/Application');
+const ApplicationSpec = require('../../structs/ApplicationSpec');
 const Framework = require('../../structs/Framework');
 const Pod = require('../../structs/Pod');
 const ServiceUtil = require('../ServiceUtil');
@@ -51,7 +52,7 @@ describe('ServiceUtil', function () {
     });
   });
 
-  describe('#createServiceFromFormModel', function () {
+  describe('#createSpecFromFormModel', function () {
     it('should convert to the correct Service', function () {
       let model = {
         general: {
@@ -69,7 +70,7 @@ describe('ServiceUtil', function () {
         instances: null
       });
 
-      expect(ServiceUtil.createServiceFromFormModel(model))
+      expect(ServiceUtil.createSpecFromFormModel(model))
         .toEqual(expectedService);
     });
 
@@ -78,7 +79,7 @@ describe('ServiceUtil', function () {
 
       let expectedService = new Application({});
 
-      expect(ServiceUtil.createServiceFromFormModel(model))
+      expect(ServiceUtil.createSpecFromFormModel(model))
         .toEqual(expectedService);
     });
 
@@ -87,14 +88,14 @@ describe('ServiceUtil', function () {
 
       let expectedService = new Application({});
 
-      expect(ServiceUtil.createServiceFromFormModel(model))
+      expect(ServiceUtil.createSpecFromFormModel(model))
         .toEqual(expectedService);
     });
 
     describe('environmentVariables', function () {
 
       it('should keep undefined values as ""', function () {
-        let service = ServiceUtil.createServiceFromFormModel({
+        let service = ServiceUtil.createSpecFromFormModel({
           environmentVariables: {
             environmentVariables: [
               { key: 'a', value: 'correct' },
@@ -109,7 +110,7 @@ describe('ServiceUtil', function () {
       });
 
       it('should not set items with no key', function () {
-        let service = ServiceUtil.createServiceFromFormModel(
+        let service = ServiceUtil.createSpecFromFormModel(
           {
             environmentVariables: {
               environmentVariables: [
@@ -127,7 +128,7 @@ describe('ServiceUtil', function () {
       });
 
       it('should keep null values as ""', function () {
-        let service = ServiceUtil.createServiceFromFormModel({
+        let service = ServiceUtil.createSpecFromFormModel({
           environmentVariables: {
             environmentVariables: [
               { key: 'A', value: 'correct' },
@@ -146,7 +147,7 @@ describe('ServiceUtil', function () {
     describe('labels', function () {
 
       it('should keep undefined values as ""', function () {
-        let service = ServiceUtil.createServiceFromFormModel({
+        let service = ServiceUtil.createSpecFromFormModel({
           labels: {
             labels: [
               { key: 'a', value: 'correct' },
@@ -161,7 +162,7 @@ describe('ServiceUtil', function () {
       });
 
       it('should not set items with no key', function () {
-        let service = ServiceUtil.createServiceFromFormModel(
+        let service = ServiceUtil.createSpecFromFormModel(
           {
             labels: {
               labels: [
@@ -179,7 +180,7 @@ describe('ServiceUtil', function () {
       });
 
       it('should keep null values as ""', function () {
-        let service = ServiceUtil.createServiceFromFormModel({
+        let service = ServiceUtil.createSpecFromFormModel({
           labels: {
             labels: [
               { key: 'a', value: 'correct' },
@@ -200,7 +201,7 @@ describe('ServiceUtil', function () {
       describe('host mode', function () {
 
         it('should not add a portDefinitions field if no ports were passed in', function () {
-          let service = ServiceUtil.createServiceFromFormModel({
+          let service = ServiceUtil.createSpecFromFormModel({
             networking: {
               networkType: 'host',
               ports: []
@@ -210,7 +211,7 @@ describe('ServiceUtil', function () {
         });
 
         it('should convert the supplied network fields', function () {
-          let service = ServiceUtil.createServiceFromFormModel({
+          let service = ServiceUtil.createSpecFromFormModel({
             networking: {
               networkType: 'host',
               ports: [{protocol: 'udp', name: 'foo'}]
@@ -222,7 +223,7 @@ describe('ServiceUtil', function () {
         });
 
         it('should enforce the port when loadBalanced is on', function () {
-          let service = ServiceUtil.createServiceFromFormModel({
+          let service = ServiceUtil.createSpecFromFormModel({
             networking: {
               networkType: 'host',
               ports: [{lbPort: 1234, loadBalanced: true}]
@@ -233,7 +234,7 @@ describe('ServiceUtil', function () {
 
         it('should not override the port to 0 when loadBalanced is off',
           function () {
-            let service = ServiceUtil.createServiceFromFormModel({
+            let service = ServiceUtil.createSpecFromFormModel({
               networking: {
                 networkType: 'host',
                 ports: [{lbPort: 1234, loadBalanced: false}]
@@ -243,7 +244,7 @@ describe('ServiceUtil', function () {
           });
 
         it('should default the port to 0 when loadBalanced is on', function () {
-          let service = ServiceUtil.createServiceFromFormModel({
+          let service = ServiceUtil.createSpecFromFormModel({
             networking: {
               networkType: 'host',
               ports: [{loadBalanced: true}]
@@ -253,7 +254,7 @@ describe('ServiceUtil', function () {
         });
 
         it('should add a VIP label when loadBalanced is on', function () {
-          let service = ServiceUtil.createServiceFromFormModel({
+          let service = ServiceUtil.createSpecFromFormModel({
             general: {id: '/foo/bar'},
             networking: {
               networkType: 'host',
@@ -265,7 +266,7 @@ describe('ServiceUtil', function () {
         });
 
         it('increments the VIP index', function () {
-          let service = ServiceUtil.createServiceFromFormModel({
+          let service = ServiceUtil.createSpecFromFormModel({
             general: {id: '/foo/bar'},
             networking: {
               networkType: 'host',
@@ -281,7 +282,7 @@ describe('ServiceUtil', function () {
 
         it('should not add any port definitions if ports is emoty',
           function () {
-            let service = ServiceUtil.createServiceFromFormModel({
+            let service = ServiceUtil.createSpecFromFormModel({
               networking: {
                 networkType: 'host',
                 ports: [{}]
@@ -295,7 +296,7 @@ describe('ServiceUtil', function () {
 
       describe('host mode (with docker)', function () {
         beforeEach(function () {
-          this.service = ServiceUtil.createServiceFromFormModel({
+          this.service = ServiceUtil.createSpecFromFormModel({
             containerSettings: {image: 'redis'},
             networking: {
               networkType: 'host',
@@ -321,7 +322,7 @@ describe('ServiceUtil', function () {
       describe('bridge mode (with docker)', function () {
 
         beforeEach(function () {
-          this.serviceEmptyPorts = ServiceUtil.createServiceFromFormModel({
+          this.serviceEmptyPorts = ServiceUtil.createSpecFromFormModel({
             containerSettings: {image: 'redis'},
             networking: {
               networkType: 'bridge',
@@ -331,7 +332,7 @@ describe('ServiceUtil', function () {
         });
 
         it('should not add a portMappings field if no ports were passed in', function () {
-          let service = ServiceUtil.createServiceFromFormModel({
+          let service = ServiceUtil.createSpecFromFormModel({
             containerSettings: {image: 'redis'},
             networking: {networkType: 'bridge'}
           });
@@ -345,7 +346,7 @@ describe('ServiceUtil', function () {
         });
 
         it('should convert the supplied string fields', function () {
-          let service = ServiceUtil.createServiceFromFormModel({
+          let service = ServiceUtil.createSpecFromFormModel({
             containerSettings: {image: 'redis'},
             networking: {
               networkType: 'bridge',
@@ -358,7 +359,7 @@ describe('ServiceUtil', function () {
         });
 
         it('should add the specified containerPort', function () {
-          let service = ServiceUtil.createServiceFromFormModel({
+          let service = ServiceUtil.createSpecFromFormModel({
             containerSettings: {image: 'redis'},
             networking: {
               networkType: 'bridge',
@@ -370,7 +371,7 @@ describe('ServiceUtil', function () {
         });
 
         it('should not add a hostPort when loadBalanced is off', function () {
-          let service = ServiceUtil.createServiceFromFormModel({
+          let service = ServiceUtil.createSpecFromFormModel({
             containerSettings: {image: 'redis'},
             networking: {
               networkType: 'bridge',
@@ -382,7 +383,7 @@ describe('ServiceUtil', function () {
         });
 
         it('should add a VIP label when loadBalanced is on', function () {
-          let service = ServiceUtil.createServiceFromFormModel({
+          let service = ServiceUtil.createSpecFromFormModel({
             general: {id: '/foo/bar'},
             containerSettings: {image: 'redis'},
             networking: {
@@ -395,7 +396,7 @@ describe('ServiceUtil', function () {
         });
 
         it('sets the docker network property correctly', function () {
-          let service = ServiceUtil.createServiceFromFormModel({
+          let service = ServiceUtil.createSpecFromFormModel({
             containerSettings: {image: 'redis'},
             networking: {networkType: 'bridge'}
           });
@@ -404,7 +405,7 @@ describe('ServiceUtil', function () {
 
         it('should not add any port definitions if ports is emoty',
           function () {
-            let service = ServiceUtil.createServiceFromFormModel({
+            let service = ServiceUtil.createSpecFromFormModel({
               networking: {
                 networkType: 'host',
                 ports: [{}]
@@ -418,7 +419,7 @@ describe('ServiceUtil', function () {
 
       describe('user mode', function () {
         it('sets the docker network property correctly', function () {
-          let service = ServiceUtil.createServiceFromFormModel({
+          let service = ServiceUtil.createSpecFromFormModel({
             containerSettings: {image: 'redis'},
             networking: {networkType: 'prod'}
           });
@@ -426,7 +427,7 @@ describe('ServiceUtil', function () {
         });
 
         it('adds the networkName field to the service', function () {
-          let service = ServiceUtil.createServiceFromFormModel({
+          let service = ServiceUtil.createSpecFromFormModel({
             containerSettings: {image: 'redis'},
             networking: {networkType: 'prod', ports: [{}]}
           });
@@ -434,7 +435,7 @@ describe('ServiceUtil', function () {
         });
 
         it('should convert the supplied string fields', function () {
-          let service = ServiceUtil.createServiceFromFormModel({
+          let service = ServiceUtil.createSpecFromFormModel({
             containerSettings: {image: 'redis'},
             networking: {
               networkType: 'user',
@@ -447,7 +448,7 @@ describe('ServiceUtil', function () {
         });
 
         it('should add the specified containerPort', function () {
-          let service = ServiceUtil.createServiceFromFormModel({
+          let service = ServiceUtil.createSpecFromFormModel({
             containerSettings: {image: 'redis'},
             networking: {
               networkType: 'user',
@@ -459,7 +460,7 @@ describe('ServiceUtil', function () {
         });
 
         it('should not add a servicePort when loadBalanced is off', function () {
-          let service = ServiceUtil.createServiceFromFormModel({
+          let service = ServiceUtil.createSpecFromFormModel({
             containerSettings: {image: 'redis'},
             networking: {
               networkType: 'user',
@@ -471,7 +472,7 @@ describe('ServiceUtil', function () {
         });
 
         it('should add a servicePort when loadBalanced is on', function () {
-          let service = ServiceUtil.createServiceFromFormModel({
+          let service = ServiceUtil.createSpecFromFormModel({
             containerSettings: {image: 'redis'},
             networking: {
               networkType: 'user',
@@ -483,7 +484,7 @@ describe('ServiceUtil', function () {
         });
 
         it('should not add a VIP label when loadBalanced is off', function () {
-          let service = ServiceUtil.createServiceFromFormModel({
+          let service = ServiceUtil.createSpecFromFormModel({
             containerSettings: {image: 'redis'},
             networking: {
               networkType: 'user',
@@ -495,7 +496,7 @@ describe('ServiceUtil', function () {
         });
 
         it('should add the appropriate VIP label when loadBalanced is on', function () {
-          let service = ServiceUtil.createServiceFromFormModel({
+          let service = ServiceUtil.createSpecFromFormModel({
             containerSettings: {image: 'redis'},
             general: {id: '/foo/bar'},
             networking: {
@@ -509,7 +510,7 @@ describe('ServiceUtil', function () {
 
         it('should not add any port definitions if ports is emoty',
           function () {
-            let service = ServiceUtil.createServiceFromFormModel({
+            let service = ServiceUtil.createSpecFromFormModel({
               containerSettings: {image: 'redis'},
               networking: {
                 networkType: 'user',
@@ -552,7 +553,7 @@ describe('ServiceUtil', function () {
           }
         });
 
-        expect(ServiceUtil.createServiceFromFormModel(model))
+        expect(ServiceUtil.createSpecFromFormModel(model))
           .toEqual(expectedService);
       });
 
@@ -602,7 +603,7 @@ describe('ServiceUtil', function () {
           }
         });
 
-        expect(ServiceUtil.createServiceFromFormModel(model))
+        expect(ServiceUtil.createSpecFromFormModel(model))
           .toEqual(expectedService);
       });
 
@@ -636,7 +637,7 @@ describe('ServiceUtil', function () {
           }
         });
 
-        expect(ServiceUtil.createServiceFromFormModel(model))
+        expect(ServiceUtil.createSpecFromFormModel(model))
           .toEqual(expectedService);
       });
 
@@ -670,14 +671,14 @@ describe('ServiceUtil', function () {
           updateStrategy: {maximumOverCapacity: 0, minimumHealthCapacity: 0}
         });
 
-        expect(ServiceUtil.createServiceFromFormModel(model))
+        expect(ServiceUtil.createSpecFromFormModel(model))
           .toEqual(expectedService);
       });
     });
 
     describe('container settings', function () {
       beforeEach(function () {
-        this.service = ServiceUtil.createServiceFromFormModel({
+        this.service = ServiceUtil.createSpecFromFormModel({
           containerSettings: {
             image: 'redis',
             parameters: [
@@ -723,7 +724,7 @@ describe('ServiceUtil', function () {
                 type: 'string',
                 multiLine: true,
                 getter(service) {
-                  return service.getCommand();
+                  return service.getSpec().getCommand();
                 }
               }
             }
@@ -748,14 +749,14 @@ describe('ServiceUtil', function () {
     });
   });
 
-  describe('#getAppDefinitionFromService', function () {
-    it('should create the correct appDefinition', function () {
-      let service = new Application({
+  describe('#getDefinitionFromSpec', function () {
+    it('should create the correct definition for ApplicationSpec', function () {
+      let service = new ApplicationSpec({
         id: '/test',
         cmd: 'sleep 1000;'
       });
 
-      expect(ServiceUtil.getAppDefinitionFromService(service)).toEqual({
+      expect(ServiceUtil.getDefinitionFromSpec(service)).toEqual({
         id: '/test',
         cmd: 'sleep 1000;'
       });

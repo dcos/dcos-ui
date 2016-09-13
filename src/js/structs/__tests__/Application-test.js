@@ -7,76 +7,6 @@ const VolumeList = require('../VolumeList');
 
 describe('Service', function () {
 
-  describe('#getArguments', function () {
-
-    it('returns array', function () {
-      let service = new Application({
-        args: []
-      });
-
-      expect(Array.isArray(service.getArguments())).toBeTruthy();
-    });
-
-    it('returns correct arguments', function () {
-      let service = new Application({
-        args: [
-          '--name \'etcd0\'',
-          '--advertise-client-urls \'http://192.168.33.10:2379\''
-        ]
-      });
-
-      expect(service.getArguments()).toEqual([
-        '--name \'etcd0\'',
-        '--advertise-client-urls \'http://192.168.33.10:2379\''
-      ]);
-    });
-
-  });
-
-  describe('#getCommand', function () {
-
-    it('returns correct command', function () {
-      let service = new Application({
-        cmd: 'sleep 999'
-      });
-
-      expect(service.getCommand()).toEqual('sleep 999');
-    });
-
-  });
-
-  describe('#getContainer', function () {
-
-    it('returns correct container data', function () {
-      let service = new Application({
-        container: {
-          type: 'DOCKER',
-          volumes: [],
-          docker: {
-            image: 'mesosphere/marathon:latest',
-            network: 'HOST',
-            privileged: false,
-            parameters: [],
-            forcePullImage: false
-          }
-        }
-      });
-
-      expect(service.getContainer()).toEqual({
-        type: 'DOCKER',
-        volumes: [],
-        docker: {
-          image: 'mesosphere/marathon:latest',
-          network: 'HOST',
-          privileged: false,
-          parameters: [],
-          forcePullImage: false
-        }
-      });
-    });
-
-  });
-
   describe('#getDeployments', function () {
     it('should return an empty array', function () {
       let service = new Application({
@@ -97,30 +27,6 @@ describe('Service', function () {
         {id: '4d08fc0d-d450-4a3e-9c85-464ffd7565f7'}
       ]);
     });
-  });
-
-  describe('#getEnvironmentVariables', function () {
-
-    it('returns correct command', function () {
-      let service = new Application({
-        env: {secretName: 'test'}
-      });
-
-      expect(service.getEnvironmentVariables()).toEqual({secretName: 'test'});
-    });
-
-  });
-
-  describe('#getExecuter', function () {
-
-    it('returns correct command', function () {
-      let service = new Application({
-        executor: '//cmd'
-      });
-
-      expect(service.getExecutor()).toEqual('//cmd');
-    });
-
   });
 
   describe('#getHealth', function () {
@@ -191,18 +97,6 @@ describe('Service', function () {
 
         expect(service.getHealth()).toEqual(HealthStatus.NA);
       });
-  });
-
-  describe('#getHealthChecks', function () {
-
-    it('returns correct health check data', function () {
-      let service = new Application({
-        healthChecks: [{path: '', protocol: 'HTTP'}]
-      });
-
-      expect(service.getHealthChecks()).toEqual([{path: '', protocol: 'HTTP'}]);
-    });
-
   });
 
   describe('#getId', function () {
@@ -548,100 +442,6 @@ describe('Service', function () {
 
   });
 
-  describe('#getFetch', function () {
-
-    beforeEach(function () {
-      this.instance = new Application({
-        fetch: [{
-          uri: 'http://resource/uri',
-          extract: true,
-          executable: false,
-          cache: false
-        }]
-      });
-    });
-
-    it('returns array', function () {
-      expect(Array.isArray(this.instance.getFetch())).toBeTruthy();
-    });
-
-    it('returns correct uris', function () {
-      expect(this.instance.getFetch()).toEqual([{
-        uri: 'http://resource/uri',
-        extract: true,
-        executable: false,
-        cache: false
-      }]);
-    });
-
-  });
-
-  describe('#getConstraints', function () {
-
-    beforeEach(function () {
-      this.instance = new Application({
-        'constraints': [
-          [
-            'hostname',
-            'LIKE',
-            'test'
-          ],
-          [
-            'hostname',
-            'UNLIKE',
-            'no-test'
-          ]
-        ]
-      });
-    });
-
-    it('returns array', function () {
-      expect(Array.isArray(this.instance.getConstraints())).toBeTruthy();
-    });
-
-    it('returns correct constraints', function () {
-      expect(this.instance.getConstraints()).toEqual([
-        [
-          'hostname',
-          'LIKE',
-          'test'
-        ],
-        [
-          'hostname',
-          'UNLIKE',
-          'no-test'
-        ]
-      ]);
-    });
-
-  });
-
-  describe('#getUser', function () {
-
-    it('returns correct user', function () {
-      let service = new Application({
-        user: 'sudo'
-      });
-
-      expect(service.getUser()).toEqual('sudo');
-    });
-
-  });
-
-  describe('#getAcceptedResourceRoles', function () {
-
-    it('returns correct user', function () {
-      let service = new Application({
-        acceptedResourceRoles: [
-          'public_slave'
-        ]
-      });
-
-      expect(service.getAcceptedResourceRoles()).toEqual(['public_slave']);
-    });
-
-  });
-
   describe('#getVersion', function () {
 
     it('returns correct version', function () {
@@ -688,36 +488,6 @@ describe('Service', function () {
 
   });
 
-  describe('#getCpus', function () {
-    it('returns the correct cpus', function () {
-      let service = new Application({
-        cpus: 0.5
-      });
-
-      expect(service.getCpus()).toEqual(0.5);
-    });
-  });
-
-  describe('#getDisk', function () {
-    it('returns the correct disk', function () {
-      let service = new Application({
-        disk: 125
-      });
-
-      expect(service.getDisk()).toEqual(125);
-    });
-  });
-
-  describe('#getMem', function () {
-    it('returns the correct mem', function () {
-      let service = new Application({
-        mem: 49
-      });
-
-      expect(service.getMem()).toEqual(49);
-    });
-  });
-
   describe('#getVolumes', function () {
 
     it('returns volume list', function () {
@@ -742,46 +512,6 @@ describe('Service', function () {
       expect(service.getVolumes().getItems().length).toEqual(0);
     });
 
-  });
-
-  describe('#getResidency', function () {
-    it('should return the right residency value', function () {
-      let service = new Application({
-        residency: {
-          relaunchEscalationTimeoutSeconds: 10,
-          taskLostBehavior: 'WAIT_FOREVER'
-        }
-      });
-
-      expect(service.getResidency()).toEqual({
-        relaunchEscalationTimeoutSeconds: 10,
-        taskLostBehavior: 'WAIT_FOREVER'
-      });
-    });
-  });
-
-  describe('#getUpdateStrategy', function () {
-    it('should return the right updateStrategy value', function () {
-      let service = new Application({
-        updateStrategy: {
-          maximunOverCapacity: 0,
-          minimumHealthCapacity: 0
-        }
-      });
-
-      expect(service.getUpdateStrategy()).toEqual({
-        maximunOverCapacity: 0,
-        minimumHealthCapacity: 0
-      });
-    });
-  });
-
-  describe('#getIpAddress', function () {
-    it('should return the right ipAddress value', function () {
-      let service = new Application({ipAddress:{networkName: 'd-overlay-1'}});
-
-      expect(service.getIpAddress()).toEqual({networkName: 'd-overlay-1'});
-    });
   });
 
   describe('#getWebURL', function () {

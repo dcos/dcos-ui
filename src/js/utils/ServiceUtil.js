@@ -106,7 +106,7 @@ const ServiceUtil = {
     throw Error('Unknown service response: '+JSON.stringify(data));
   },
 
-  createServiceFromFormModel(formModel, schema, isEdit = false, definition = {}) {
+  createSpecFromFormModel(formModel, schema, isEdit = false, definition = {}) {
 
     if (formModel != null) {
       let {
@@ -451,55 +451,23 @@ const ServiceUtil = {
     return getFindPropertiesRecursive(service, schema.properties);
   },
 
-  getAppDefinitionFromService(service) {
+  getDefinitionFromSpec(spec) {
+    let definition = spec.toJSON();
 
-    let appDefinition = JSON.parse(JSON.stringify(service));
+    if (spec instanceof ApplicationSpec) {
 
-    // General
-    appDefinition.id = service.getId();
-    appDefinition.cpus = service.getCpus();
-    appDefinition.mem = service.getMem();
-    appDefinition.disk = service.getDisk();
-    appDefinition.instances = service.getInstancesCount();
-    appDefinition.cmd = service.getCommand();
+      // TODO: It looks that this hook operates over Application (Service)
+      //       instances, therefore we are creating an Application instance
+      //       but perhaps it's OK to pass the ApplicationSpec?
+      Hooks.applyFilter(
+        'serviceToAppDefinition',
+        definition,
+        new Application(definition)
+      );
 
-    // Optional
-    appDefinition.executor = service.getExecutor();
-    appDefinition.fetch = service.getFetch();
-    appDefinition.constraints = service.getConstraints();
-    appDefinition.acceptedResourceRoles = service.getAcceptedResourceRoles();
-    appDefinition.user = service.getUser();
-    appDefinition.labels = service.getLabels();
-    appDefinition.healthChecks = service.getHealthChecks();
-
-    let containerSettings = service.getContainerSettings();
-    if (containerSettings &&
-      ((containerSettings.docker && containerSettings.docker.image) ||
-      containerSettings.type === VolumeConstants.type.MESOS)
-    ) {
-      appDefinition.container = containerSettings;
-
-      if (appDefinition.container.type === VolumeConstants.type.MESOS) {
-        delete(appDefinition.container.docker);
-      }
     }
 
-    appDefinition.updateStrategy = service.getUpdateStrategy();
-    appDefinition.residency = service.getResidency();
-    appDefinition.ipAddress = service.getIpAddress();
-
-    // Environment Variables
-    appDefinition.env = service.getEnvironmentVariables();
-
-    appDefinition.portDefinitions = service.getPortDefinitions();
-
-    Hooks.applyFilter(
-      'serviceToAppDefinition',
-      appDefinition,
-      service
-    );
-
-    return appDefinition;
+    return definition;
   },
 
   getServiceNameFromTaskID(taskID) {
