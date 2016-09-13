@@ -107,7 +107,8 @@ class TaskTable extends React.Component {
   getClassName(prop, sortBy, row) {
     return classNames({
       'text-align-right': RIGHT_ALIGN_PROPS.includes(prop),
-      'hidden-mini': ['host', 'status', 'cpus', 'mem'].includes(prop),
+      'hidden-mini': ['name', 'host', 'status', 'cpus', 'mem'].includes(prop),
+      'hidden-small': prop === 'name',
       'hidden-medium hidden-small hidden-mini':
         ['version', 'log'].includes(prop),
       'highlight': prop === sortBy.prop,
@@ -126,6 +127,15 @@ class TaskTable extends React.Component {
         headerClassName: className,
         heading,
         prop: 'id',
+        render: this.renderHeadline,
+        sortable: true,
+        sortFunction
+      },
+      {
+        className,
+        headerClassName: className,
+        heading,
+        prop: 'name',
         render: this.renderHeadline,
         sortable: true,
         sortFunction
@@ -217,7 +227,8 @@ class TaskTable extends React.Component {
       <colgroup>
         <col style={{width: '40px'}} />
         <col />
-        <col style={{width: '15%'}} className="hidden-mini" />
+        <col style={{width: '10%'}} className="hidden-mini  hidden-small" />
+        <col style={{width: '150px'}} className="hidden-mini" />
         <col style={{width: '115px'}} />
         <col style={{width: '40px'}} className="hidden-medium hidden-small hidden-mini" />
         <col style={{width: '85px'}} className="hidden-mini" />
@@ -238,7 +249,7 @@ class TaskTable extends React.Component {
   }
 
   renderHeadline(prop, task) {
-    let title = task.id;
+    let title = task[prop];
     let params = this.props.parentRouter.getCurrentParams();
     let routeParams = Object.assign({taskID: task.id}, params);
 
