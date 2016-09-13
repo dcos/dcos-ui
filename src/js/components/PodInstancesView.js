@@ -14,9 +14,8 @@ class PodDetailInstancesTab extends mixin(StoreMixin) {
   render() {
     return (
       <PodInstancesTable
-        instances={this.props.pod.getInstanceList()}
         inverseStyle={true}
-        podSpec={this.props.pod.getSpec()} />
+        pod={this.props.pod} />
     );
   }
 }
