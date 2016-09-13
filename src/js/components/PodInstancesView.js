@@ -2,20 +2,29 @@ import React from 'react';
 
 import Pod from '../structs/Pod';
 import PodInstancesTable from './PodInstancesTable';
+import PodInstanceStatus from '../constants/PodInstanceStatus';
+import PodUtil from '../utils/PodUtil';
 import PodViewFilter from './PodViewFilter';
+
+const METHODS_TO_BIND = [
+  'handleFilterChange'
+];
 
 class PodDetailInstancesView extends React.Component {
 
   constructor() {
     super(...arguments);
 
-    this.setState({
+    this.state = {
       filter: {
         text: '',
-        status: ''
+        status: 'active'
       }
-    });
+    };
 
+    METHODS_TO_BIND.forEach(function (method) {
+      this[method] = this[method].bind(this);
+    }, this);
   }
 
   getInstanceFilterStatus(instance) {
@@ -73,7 +82,7 @@ class PodDetailInstancesView extends React.Component {
           />
         <PodInstancesTable
           filterText={filter.text}
-          items={filteredItems}
+          instances={filteredItems}
           inverseStyle={true}
           pod={this.props.pod}
           />

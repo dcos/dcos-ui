@@ -9,6 +9,7 @@ import Pod from '../structs/Pod';
 import PodInstanceList from '../structs/PodInstanceList';
 import PodInstanceStatus from '../constants/PodInstanceStatus';
 import PodTableHeaderLabels from '../constants/PodTableHeaderLabels';
+import PodUtil from '../utils/PodUtil';
 import TimeAgo from './TimeAgo';
 import Units from '../utils/Units';
 
@@ -259,14 +260,13 @@ class PodInstancesTable extends React.Component {
   }
 
   renderColumnAddress(prop, row, rowOptions = {}) {
-    if (rowOptions.isParent) {
-      return this.renderWithClickHandler(rowOptions, (
-        <CollapsingString string={row.address} />
-      ));
+    if (!rowOptions.isParent) {
+      return this.renderWithClickHandler(rowOptions, row.address);
     }
 
-    // On the child elements, the addresses is an array of one or more links
-    return this.renderWithClickHandler(rowOptions, row.address);
+    return this.renderWithClickHandler(rowOptions, (
+      <CollapsingString string={row.address} />
+    ));
   }
 
   renderColumnStatus(prop, row, rowOptions = {}) {
@@ -305,7 +305,7 @@ class PodInstancesTable extends React.Component {
 
     // If custom list of instances is not provided, use the default instances
     // from the pod
-    if (!instances) {
+    if (instances == null) {
       instances = pod.getInstanceList();
     }
 
