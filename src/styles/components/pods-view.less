@@ -1,12 +1,12 @@
-.pod-history-table {
+.pod-instances-table {
 
   tbody {
-    line-height: @table-header-cell-text-line-height;
+    line-height: 1.8;
   }
 
 }
 
-.pod-history-container-id {
+.pod-instances-container-id {
   color: @white;
   margin: @base-spacing-unit * -1/4 0;
   padding: @base-spacing-unit * 1/4 @base-spacing-unit * 1/2;
@@ -35,7 +35,7 @@
   }
 }
 
-.pod-history-instance-id {
+.pod-instances-instance-id {
   font-weight: normal;
   padding-left: @base-spacing-unit * 1.25;
   position: relative;
@@ -62,11 +62,11 @@
   }
 }
 
-.pod-history-table-child {
+.pod-instances-table-child {
 
   &:last-child {
 
-    .pod-history-instance-id {
+    .pod-instances-instance-id {
 
       &:after {
         height: 50%;
@@ -79,8 +79,8 @@
 
   @media (min-width: @screen-mini) {
 
-    .pod-history-table tbody {
-      line-height: @table-header-cell-text-line-height-scale-screen-mini;
+    .pod-instances-table tbody {
+      line-height: @table-header-cell-text-line-height-scale-screen-mini * 1.8;
     }
 
   }
@@ -91,8 +91,8 @@
 
   @media (min-width: @screen-small) {
 
-    .pod-history-table tbody {
-      line-height: @table-header-cell-text-line-height-scale-screen-small;
+    .pod-instances-table tbody {
+      line-height: @table-header-cell-text-line-height-scale-screen-small * 1.8;
     }
 
   }
@@ -103,8 +103,8 @@
 
   @media (min-width: @screen-medium) {
 
-    .pod-history-table tbody {
-      line-height: @table-header-cell-text-line-height-scale-screen-medium;
+    .pod-instances-table tbody {
+      line-height: @table-header-cell-text-line-height-scale-screen-medium * 1.8;
     }
 
   }
@@ -116,8 +116,8 @@
 
   @media (min-width: @screen-large) {
 
-    .pod-history-table tbody {
-      line-height: @table-header-cell-text-line-height-scale-screen-large;
+    .pod-instances-table tbody {
+      line-height: @table-header-cell-text-line-height-scale-screen-large * 1.8;
     }
 
   }

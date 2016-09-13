@@ -224,7 +224,7 @@ class PodInstancesTable extends React.Component {
   renderColumnID(prop, row, rowOptions = {}) {
     if (!rowOptions.isParent) {
       return (
-        <div className="pod-history-instance-id text-overflow">
+        <div className="pod-instances-instance-id text-overflow">
           <Link
             className="emphasize clickable text-overflow"
             to="services-task-details"
@@ -236,7 +236,7 @@ class PodInstancesTable extends React.Component {
       );
     }
 
-    let classes = classNames('pod-history-container-id is-expandable', {
+    let classes = classNames('pod-instances-container-id is-expandable', {
       'is-expanded': rowOptions.isExpanded
     });
 
@@ -296,8 +296,8 @@ class PodInstancesTable extends React.Component {
       <div>
         <ExpandingTable
           allowMultipleSelect={false}
-          className="pod-history-table table table-hover inverse table-borderless-outer table-borderless-inner-columns flush-bottom"
-          childRowClassName="pod-history-table-child"
+          className="pod-instances-table table table-hover inverse table-borderless-outer table-borderless-inner-columns flush-bottom"
+          childRowClassName="pod-instances-table-child"
           checkedItemsMap={checkedItems}
           columns={this.getColumns()}
           colGroup={this.getColGroup()}
