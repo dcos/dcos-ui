@@ -160,15 +160,12 @@ class ServiceFormModal extends mixin(StoreMixin) {
       didMessageChange(state.warningMessage, nextState.warningMessage);
   }
 
-  resetState(props = this.props) {
-    let service;
-    if (props.service) {
-      service = props.service;
-    } else {
+  resetState({service, isEdit} = this.props) {
+    if (!service) {
       service = ServiceUtil.createServiceFromFormModel(
         model,
         ServiceSchema,
-        this.props.isEdit
+        isEdit
       );
     }
 
