@@ -60,14 +60,14 @@ class PodViewFilter extends React.Component {
     }
 
     return (
-        <FilterButtons
-          renderButtonContent={this.getFilterButtonContent}
-          filters={statusChoices}
-          onFilterChange={this.handleStatusFilterChange}
-          inverseStyle={inverseStyle}
-          itemList={items.map(statusMapper)}
-          selectedFilter={filter.status} />
-      );
+      <FilterButtons
+        renderButtonContent={this.getFilterButtonContent}
+        filters={statusChoices}
+        onFilterChange={this.handleStatusFilterChange}
+        inverseStyle={inverseStyle}
+        itemList={items.map(statusMapper)}
+        selectedFilter={filter.status} />
+    );
   }
 
   render() {
@@ -75,16 +75,16 @@ class PodViewFilter extends React.Component {
     let children = this.getChildrenArray();
 
     return (
-        <FilterBar rightAlignLastNChildren={children.length}>
-          <FilterInputText
-            className="flush-bottom"
-            searchString={filter.text}
-            handleFilterChange={this.handleSearchStringChange}
-            inverseStyle={inverseStyle} />
-          {this.getFilterButtons()}
-          {children}
-        </FilterBar>
-      );
+      <FilterBar rightAlignLastNChildren={children.length}>
+        <FilterInputText
+          className="flush-bottom"
+          searchString={filter.text}
+          handleFilterChange={this.handleSearchStringChange}
+          inverseStyle={inverseStyle} />
+        {this.getFilterButtons()}
+        {children}
+      </FilterBar>
+    );
   }
 }
 
