@@ -33,8 +33,6 @@ class ActionsModal extends React.Component {
   }
 
   componentWillMount() {
-    super.componentWillMount();
-
     this.setState({
       requestsRemaining: this.props.selectedItems.length
     });
