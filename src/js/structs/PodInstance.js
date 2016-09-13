@@ -4,12 +4,19 @@ import PodInstanceStatus from '../constants/PodInstanceStatus';
 import StringUtil from '../utils/StringUtil';
 
 module.exports = class PodInstance extends Item {
+  getAgentAddress() {
+    return this.get('agent') || '';
+  }
 
   getContainers() {
     let containers = this.get('containers') || [];
     return containers.map((container) => {
       return new PodContainer(container);
     });
+  }
+
+  getId() {
+    return this.get('id') || '';
   }
 
   getInstanceStatus() {
@@ -42,6 +49,14 @@ module.exports = class PodInstance extends Item {
           displayName: StringUtil.capitalize(this.get('status').toLowerCase())
         });
     }
+  }
+
+  getLastChanged() {
+    return new Date(this.get('lastChanged'));
+  }
+
+  getLastUpdated() {
+    return new Date(this.get('lastUpdated'));
   }
 
   hasHealthChecks() {
