@@ -59,10 +59,6 @@ module.exports = class PodInstance extends Item {
     return new Date(this.get('lastUpdated'));
   }
 
-  getName() {
-    return this.get('id') || '';
-  }
-
   hasHealthChecks() {
     return this.getContainers().some(function (container) {
       return container.hasHealthChecks();
