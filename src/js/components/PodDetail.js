@@ -3,6 +3,7 @@ import React from 'react';
 
 import Breadcrumbs from './Breadcrumbs';
 import Pod from '../structs/Pod';
+import PodInstancesView from './PodInstancesView';
 import PodHeader from './PodHeader';
 import TabsMixin from '../mixins/TabsMixin';
 
@@ -49,10 +50,8 @@ class PodDetail extends mixin(TabsMixin) {
   renderInstancesTabView() {
     let {pod} = this.props;
     return (
-      <pre>
-      &lt;PodInstancesView pod={pod.getId()} /&gt;
-      </pre>
-    );
+        <PodInstancesView pod={pod} />
+      );
   }
 
   render() {

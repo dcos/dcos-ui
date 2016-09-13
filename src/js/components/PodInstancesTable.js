@@ -5,6 +5,7 @@ import {Link} from 'react-router';
 import CollapsingString from './CollapsingString';
 import CheckboxTable from './CheckboxTable';
 import ExpandingTable from './ExpandingTable';
+import PodSpec from '../structs/PodSpec';
 import PodTableHeaderLabels from '../constants/PodTableHeaderLabels';
 import PodInstanceStatus from '../constants/PodInstanceStatus';
 import TimeAgo from './TimeAgo';
@@ -137,9 +138,7 @@ class PodInstancesTable extends React.Component {
     ];
   }
 
-  getTableDataFor(instances) {
-    let spec = this.props.pod.getSpec();
-
+  getTableDataFor(instances, podSpec) {
     return instances.getItems().map(function (instance) {
       let resourcesSummary = {
         cpus: 0, mem: 0, disk: 0, gpus: 0
@@ -147,7 +146,7 @@ class PodInstancesTable extends React.Component {
 
       let children = instance.getContainers()
         .map(function (container) {
-          let containerSpec = spec.getContainerSpec(container.name);
+          let containerSpec = podSpec.getContainerSpec(container.name);
           Object.keys(containerSpec.resources).forEach(function (key) {
             resourcesSummary[key] = containerSpec.resources[key];
           });
@@ -185,7 +184,7 @@ class PodInstancesTable extends React.Component {
         mem: resourcesSummary.mem,
         updated: instance.getLastUpdated(),
         status: instance.getInstanceStatus(),
-        version: spec.getVersion(),
+        version: podSpec.getVersion(),
         children
       };
     });
@@ -280,7 +279,7 @@ class PodInstancesTable extends React.Component {
   }
 
   render() {
-    var {instances} = this.props;
+    var {instances, podSpec} = this.props;
     var {checkedItems} = this.state;
 
     return (
@@ -292,7 +291,7 @@ class PodInstancesTable extends React.Component {
           checkedItemsMap={checkedItems}
           columns={this.getColumns()}
           colGroup={this.getColGroup()}
-          data={this.getTableDataFor(instances)}
+          data={this.getTableDataFor(instances, podSpec)}
           getColGroup={this.getColGroup}
           onCheckboxChange={this.handleItemCheck}
           sortBy={{prop: 'startedAt', order: 'desc'}}
@@ -307,12 +306,14 @@ class PodInstancesTable extends React.Component {
 
 PodInstancesTable.defaultProps = {
   instances: [],
-  inverseStyle: false
+  inverseStyle: false,
+  podSpec: null
 };
 
 PodInstancesTable.propTypes = {
   instances: React.PropTypes.array,
-  inverseStyle: React.PropTypes.bool
+  inverseStyle: React.PropTypes.bool,
+  podSpec: React.PropTypes.instanceOf(PodSpec)
 };
 
 module.exports = PodInstancesTable;
