@@ -1,11 +1,9 @@
-import mixin from 'reactjs-mixin';
 import React from 'react';
-import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import Pod from '../structs/Pod';
 import PodInstancesTable from './PodInstancesTable';
 
-class PodDetailInstancesTab extends mixin(StoreMixin) {
+class PodDetailInstancesTab extends React.Component {
 
   constructor() {
     super(...arguments);
