@@ -4,10 +4,12 @@ import React from 'react';
 import Breadcrumbs from './Breadcrumbs';
 import Pod from '../structs/Pod';
 import PodInstancesView from './PodInstancesView';
+import PodActionItem from '../constants/PodActionItem';
 import PodHeader from './PodHeader';
 import TabsMixin from '../mixins/TabsMixin';
 
 const METHODS_TO_BIND = [
+  'handleAction'
 ];
 
 class PodDetail extends mixin(TabsMixin) {
@@ -27,6 +29,22 @@ class PodDetail extends mixin(TabsMixin) {
     METHODS_TO_BIND.forEach((method) => {
       this[method] = this[method].bind(this);
     });
+  }
+
+  handleAction(action) {
+    switch (action.id) {
+      case PodActionItem.SCALE:
+        console.debug('Scale');
+        break;
+
+      case PodActionItem.EDIT:
+        console.debug('Edit');
+        break;
+
+      case PodActionItem.DESTROY:
+        console.debug('Destroy');
+        break;
+    }
   }
 
   renderConfigurationTabView() {
@@ -62,7 +80,7 @@ class PodDetail extends mixin(TabsMixin) {
         <div className="container-pod container-pod-divider-bottom-align-right container-pod-short-top flush-bottom flush-top media-object-spacing-wrapper media-object-spacing-narrow">
           <Breadcrumbs />
           <PodHeader
-            onDeploy={this.onActionDeploy}
+            onAction={this.handleAction}
             pod={pod}
             tabs={this.tabs_getUnroutedTabs()} />
           {this.tabs_getTabView()}

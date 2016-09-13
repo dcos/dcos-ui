@@ -1,9 +1,11 @@
+import {Dropdown} from 'reactjs-components';
 import React from 'react';
 
 import HealthBar from './HealthBar';
 import PageHeader from './PageHeader';
 import Pod from '../structs/Pod';
 import StatusMapping from '../constants/StatusMapping';
+import PodActionItem from '../constants/PodActionItem';
 import StringUtil from '../utils/StringUtil';
 
 class PodInfo extends React.Component {
@@ -12,11 +14,46 @@ class PodInfo extends React.Component {
   }
 
   getActionButtons() {
+    const dropdownItems = [
+      // This item is used as a label to the dropdown
+      {
+        className: 'hidden',
+        id: '__MORE__',
+        html: '',
+        selectedHtml: 'More'
+      },
+      {
+        id: PodActionItem.DESTROY,
+        html: <span className="text-danger">Destroy</span>
+      }
+    ];
+
     let actionButtons = [
+      <button className="button flush-bottom  button-primary"
+        key="action-button-scale"
+        onClick={() =>
+          this.props.onAction({id: PodActionItem.SCALE})}>
+        Scale
+      </button>,
       <button className="button flush-bottom button-stroke button-inverse"
-        key="action-button-edit">
-        Placeholder
-      </button>
+        key="action-button-edit"
+        onClick={() =>
+          this.props.onAction({id: PodActionItem.EDIT})}>
+        Edit
+      </button>,
+      <Dropdown
+        key="actions-dropdown"
+        anchorRight={true}
+        buttonClassName="button button-stroke button-inverse dropdown-toggle"
+        dropdownMenuClassName="dropdown-menu"
+        dropdownMenuListClassName="dropdown-menu-list"
+        dropdownMenuListItemClassName="clickable"
+        wrapperClassName="dropdown flush-bottom"
+        items={dropdownItems}
+        persistentID="__MORE__"
+        onItemSelection={this.props.onAction}
+        transition={true}
+        transitionName="dropdown-menu" />
     ];
 
     return actionButtons;
@@ -93,7 +130,14 @@ class PodInfo extends React.Component {
   }
 }
 
+PodInfo.defaultProps = {
+  onAction() { },
+  pod: null,
+  tabs: []
+};
+
 PodInfo.propTypes = {
+  onAction: React.PropTypes.func,
   pod: React.PropTypes.instanceOf(Pod).isRequired,
   tabs: React.PropTypes.array
 };
