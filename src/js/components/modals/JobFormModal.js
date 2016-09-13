@@ -9,6 +9,7 @@ import 'brace/theme/monokai';
 import 'brace/ext/language_tools';
 
 import CollapsibleErrorMessage from '../CollapsibleErrorMessage';
+import {cleanJobJSON} from '../../utils/CleanJSONUtil';
 import FormUtil from '../../utils/FormUtil';
 import Job from '../../structs/Job';
 import JobForm from '../JobForm';
