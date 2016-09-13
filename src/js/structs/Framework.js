@@ -3,6 +3,8 @@ import {
   FRAMEWORK_ID_VALID_CHARACTERS
 } from '../constants/FrameworkConstants';
 import Application from './Application';
+import {cleanServiceJSON} from '../utils/CleanJSONUtil';
+import FrameworkSpec from './FrameworkSpec';
 
 module.exports = class Framework extends Application {
   getInstancesCount() {
@@ -29,8 +31,7 @@ module.exports = class Framework extends Application {
   }
 
   getSpec() {
-    // DCOS-9613: This should be properly implemented
-    return this;
+    return new FrameworkSpec(cleanServiceJSON(this.get()));
   }
 
   getTasksSummary() {

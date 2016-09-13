@@ -1,3 +1,5 @@
+import ApplicationSpec from './ApplicationSpec';
+import {cleanServiceJSON} from '../utils/CleanJSONUtil';
 import Config from '../config/Config';
 import FrameworkUtil from '../utils/FrameworkUtil';
 import HealthStatus from '../constants/HealthStatus';
@@ -7,57 +9,28 @@ import TaskStats from './TaskStats';
 import VolumeList from './VolumeList';
 
 module.exports = class Application extends Service {
-  getAcceptedResourceRoles() {
-    return this.get('acceptedResourceRoles');
-  }
 
-  getArguments() {
-    return this.get('args');
-  }
-
-  getCommand() {
-    return this.get('cmd');
-  }
-
-  getContainerSettings() {
-    return this.get('container');
-  }
-
-  getCpus() {
-    return this.get('cpus');
-  }
-
-  getContainer() {
-    return this.get('container');
-  }
-
-  getConstraints() {
-    return this.get('constraints');
-  }
+  // getContainer() {
+  //   return this.get('container');
+  // }
 
   getDeployments() {
     return this.get('deployments');
   }
 
-  getDisk() {
-    return this.get('disk');
-  }
-
-  getEnvironmentVariables() {
-    return this.get('env');
-  }
-
-  getExecutor() {
-    return this.get('executor');
-  }
-
+  /**
+   * @override
+   */
   getSpec() {
-    // DCOS-9613: This should be properly implemented
-    return this;
+    return new ApplicationSpec(cleanServiceJSON(this.get()));
   }
 
+  /**
+   * @override
+   */
   getHealth() {
     let {tasksHealthy, tasksUnhealthy, tasksRunning} = this.getTasksSummary();
+    let healthChecks = this.getSpec().getHealthChecks();
 
     if (tasksUnhealthy > 0) {
       return HealthStatus.UNHEALTHY;
@@ -67,31 +40,32 @@ module.exports = class Application extends Service {
       return HealthStatus.HEALTHY;
     }
 
-    if (this.getHealthChecks() && tasksRunning === 0) {
+    if (healthChecks && tasksRunning === 0) {
       return HealthStatus.IDLE;
     }
 
     return HealthStatus.NA;
   }
 
-  getHealthChecks() {
-    return this.get('healthChecks');
-  }
-
+  /**
+   * @override
+   */
   getImages() {
     return FrameworkUtil.getServiceImages(this.getMetadata().images);
   }
 
+  /**
+   * @override
+   */
   getInstancesCount() {
     return this.get('instances');
   }
 
-  getIpAddress() {
-    return this.get('ipAddress');
-  }
-
+  /**
+   * @override
+   */
   getLabels() {
-    return this.get('labels');
+    return this.getSpec().getLabels();
   }
 
   getLastConfigChange() {
@@ -106,10 +80,6 @@ module.exports = class Application extends Service {
     return this.get('lastTaskFailure');
   }
 
-  getMem() {
-    return this.get('mem');
-  }
-
   getMetadata() {
     return FrameworkUtil.getMetadataFromLabels(this.getLabels());
   }
@@ -122,10 +92,9 @@ module.exports = class Application extends Service {
     return this.get('ports');
   }
 
-  getPortDefinitions() {
-    return this.get('portDefinitions');
-  }
-
+  /**
+   * @override
+   */
   getResources() {
     return {
       cpus: this.get('cpus'),
@@ -147,6 +116,9 @@ module.exports = class Application extends Service {
     return status.displayName;
   }
 
+  /**
+   * @override
+   */
   getServiceStatus() {
     let {tasksRunning} = this.getTasksSummary();
     let deployments = this.getDeployments();
@@ -178,6 +150,9 @@ module.exports = class Application extends Service {
     return ServiceStatus.NA;
   }
 
+  /**
+   * @override
+   */
   getTasksSummary() {
     let healthData = {
       tasksHealthy: this.get('tasksHealthy'),
@@ -202,20 +177,8 @@ module.exports = class Application extends Service {
     return new TaskStats(this.get('taskStats'));
   }
 
-  getFetch() {
-    return this.get('fetch');
-  }
-
   getQueue() {
     return this.get('queue');
-  }
-
-  getUpdateStrategy() {
-    return this.get('updateStrategy');
-  }
-
-  getUser() {
-    return this.get('user');
   }
 
   getVersion() {
@@ -233,10 +196,16 @@ module.exports = class Application extends Service {
     return {lastConfigChangeAt, lastScalingAt, currentVersionID};
   }
 
+  /**
+   * @override
+   */
   getVolumes() {
     return new VolumeList({items: this.get('volumes') || []});
   }
 
+  /**
+   * @override
+   */
   getWebURL() {
     let {
       DCOS_SERVICE_NAME,
