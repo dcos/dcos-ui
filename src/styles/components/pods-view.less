@@ -1,0 +1,125 @@
+.pod-history-table {
+
+  tbody {
+    line-height: @table-header-cell-text-line-height;
+  }
+
+}
+
+.pod-history-container-id {
+  color: @white;
+  margin: @base-spacing-unit * -1/4 0;
+  padding: @base-spacing-unit * 1/4 @base-spacing-unit * 1/2;
+
+  &.is-expandable {
+    cursor: pointer;
+    position: relative;
+
+    &:before {
+      content: '';
+      border-left: 5px solid @white;
+      border-top: 4px solid transparent;
+      border-bottom: 4px solid transparent;
+      left: 0;
+      position: absolute;
+      transform: translateY(-50%);
+      top: 50%;
+    }
+  }
+
+  &.is-expanded {
+
+    &:before {
+      transform: translateY(-50%) rotate(90deg);
+    }
+  }
+}
+
+.pod-history-instance-id {
+  font-weight: normal;
+  padding-left: @base-spacing-unit * 1.25;
+  position: relative;
+
+  &:before,
+  &:after {
+    background: color-lighten(@neutral, 10);
+    content: '';
+    height: 100%;
+    left: @base-spacing-unit * 3/4 + 1px;
+    position: absolute;
+    top: 0;
+    width: 1px;
+  }
+
+  &:before {
+    height: 1px;
+    top: 50%;
+    width: @base-spacing-unit * 3/10;
+  }
+
+  a {
+    display: inline-block;
+  }
+}
+
+.pod-history-table-child {
+
+  &:last-child {
+
+    .pod-history-instance-id {
+
+      &:after {
+        height: 50%;
+      }
+    }
+  }
+}
+
+& when (@screen-mini-enabled) {
+
+  @media (min-width: @screen-mini) {
+
+    .pod-history-table tbody {
+      line-height: @table-header-cell-text-line-height-scale-screen-mini;
+    }
+
+  }
+
+}
+
+& when (@screen-small-enabled) {
+
+  @media (min-width: @screen-small) {
+
+    .pod-history-table tbody {
+      line-height: @table-header-cell-text-line-height-scale-screen-small;
+    }
+
+  }
+
+}
+
+& when (@screen-medium-enabled) {
+
+  @media (min-width: @screen-medium) {
+
+    .pod-history-table tbody {
+      line-height: @table-header-cell-text-line-height-scale-screen-medium;
+    }
+
+  }
+
+}
+
+
+& when (@screen-large-enabled) {
+
+  @media (min-width: @screen-large) {
+
+    .pod-history-table tbody {
+      line-height: @table-header-cell-text-line-height-scale-screen-large;
+    }
+
+  }
+
+}
