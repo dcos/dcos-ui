@@ -5,9 +5,10 @@ import {Link} from 'react-router';
 import CollapsingString from './CollapsingString';
 import CheckboxTable from './CheckboxTable';
 import ExpandingTable from './ExpandingTable';
-import PodSpec from '../structs/PodSpec';
-import PodTableHeaderLabels from '../constants/PodTableHeaderLabels';
+import Pod from '../structs/Pod';
+import PodInstanceList from '../structs/PodInstanceList';
 import PodInstanceStatus from '../constants/PodInstanceStatus';
+import PodTableHeaderLabels from '../constants/PodTableHeaderLabels';
 import TimeAgo from './TimeAgo';
 import Units from '../utils/Units';
 
@@ -138,7 +139,9 @@ class PodInstancesTable extends React.Component {
     ];
   }
 
-  getTableDataFor(instances, podSpec) {
+  getTableDataFor(instances) {
+    let podSpec = this.props.pod.getSpec();
+
     return instances.getItems().map(function (instance) {
       let resourcesSummary = {
         cpus: 0, mem: 0, disk: 0, gpus: 0
@@ -279,8 +282,15 @@ class PodInstancesTable extends React.Component {
   }
 
   render() {
-    var {instances, podSpec} = this.props;
-    var {checkedItems} = this.state;
+    let {instances, pod} = this.props;
+    let {checkedItems} = this.state;
+    let podSpec = this.props.pod.getSpec();
+
+    // If custom list of instances is not provided, use the default instances
+    // from the pod
+    if (!instances) {
+      instances = pod.getInstanceList();
+    }
 
     return (
       <div>
@@ -305,15 +315,15 @@ class PodInstancesTable extends React.Component {
 }
 
 PodInstancesTable.defaultProps = {
-  instances: [],
+  instances: null,
   inverseStyle: false,
-  podSpec: null
+  pod: null
 };
 
 PodInstancesTable.propTypes = {
-  instances: React.PropTypes.array,
+  instances: React.PropTypes.instanceOf(PodInstanceList),
   inverseStyle: React.PropTypes.bool,
-  podSpec: React.PropTypes.instanceOf(PodSpec)
+  pod: React.PropTypes.instanceOf(Pod).isRequired
 };
 
 module.exports = PodInstancesTable;
