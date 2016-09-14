@@ -18,6 +18,7 @@ const ServicesTab = require('../services/ServicesTab');
 const ServiceTree = require('../../structs/ServiceTree');
 const ServiceDetail = require('../../components/ServiceDetail');
 const ServicesTable = require('../../components/ServicesTable');
+const PodDetail = require('../../components/PodDetail');
 const UserSettingsStore = require('../../stores/UserSettingsStore');
 
 describe('ServicesTab', function () {
@@ -27,6 +28,11 @@ describe('ServicesTab', function () {
       id: '/',
       items: [{
         id: '/alpha'
+      }, {
+        id: '/pod',
+        spec: {
+          containers: []
+        }
       }]
     });
     DCOSStore.dataProcessed = true;
@@ -84,6 +90,21 @@ describe('ServicesTab', function () {
   });
 
   describe('#render', function () {
+
+    it('renders the pod detail view when passed a pod', function () {
+      var instance = ReactDOM.render(
+        JestUtil.stubRouterContext(ServicesTab, {params: {id: '/pod'}}, {
+          getCurrentRoutes() {
+            return [{name: 'services-task-details-tab'}];
+          }
+        }),
+        this.container
+      );
+
+      expect(
+        TestUtils.findRenderedComponentWithType(instance, PodDetail)
+      ).toBeDefined();
+    });
 
     it('renders the service table', function () {
       var instance = ReactDOM.render(
