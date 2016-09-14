@@ -418,5 +418,10 @@ class DeploymentsTab extends mixin(StoreMixin) {
 
 }
 
+DeploymentsTab.routeConfig = {
+  label: 'Deployments',
+  matches: /^\/services\/deployments/
+};
+
 module.exports = DeploymentsTab;
 

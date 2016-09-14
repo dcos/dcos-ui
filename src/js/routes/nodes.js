@@ -23,7 +23,23 @@ import VolumeTable from '../components/VolumeTable';
 
 let nodesRoutes = {
   type: Route,
-  name: 'nodes',
+  name: 'nodes-page',
+  path: '/nodes/?',
+  handler: NodesPage,
+  category: 'resources',
+  isInSidebar: true,
+  buildBreadCrumb() {
+    return {
+      getCrumbs() {
+        return [
+          {
+            label: 'Nodes',
+            route: {to: 'nodes-page'}
+          }
+        ];
+      }
+    };
+  },
   children: [
     {
       type: Route,

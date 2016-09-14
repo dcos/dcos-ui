@@ -95,4 +95,9 @@ class InstalledPackagesTab extends mixin(StoreMixin) {
   }
 }
 
+InstalledPackagesTab.routeConfig = {
+  label: 'Installed',
+  matches: /^\/universe\/installed-packages/
+};
+
 module.exports = InstalledPackagesTab;

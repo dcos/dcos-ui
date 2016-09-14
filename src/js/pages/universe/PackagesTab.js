@@ -245,4 +245,9 @@ PackagesTab.contextTypes = {
   router: React.PropTypes.func
 };
 
+PackagesTab.routeConfig = {
+  label: 'Packages',
+  matches: /^\/universe\/packages/
+};
+
 module.exports = PackagesTab;

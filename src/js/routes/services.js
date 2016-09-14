@@ -1,4 +1,4 @@
-import {DefaultRoute, Route} from 'react-router';
+import {DefaultRoute, Redirect, Route} from 'react-router';
 /* eslint-disable no-unused-vars */
 import React from 'react';
 /* eslint-enable no-unused-vars */
@@ -35,6 +35,8 @@ let serviceRoutes = {
   name: 'services-page',
   handler: ServicesPage,
   path: '/services/?',
+  category: 'root',
+  isInSidebar: true,
   buildBreadCrumb() {
     return {
       getCrumbs() {
@@ -50,13 +52,10 @@ let serviceRoutes = {
   children: [
     {
       type: Route,
-      name: 'services-deployments',
-      path: 'deployments/',
-      handler: DeploymentsTab
-    },
-    {
-      type: Route,
       handler: ServicesTab,
+      name: 'services-overview',
+      path: 'overview/',
+      isInSidebar: true,
       children: [
         {
           type: Route,
@@ -194,6 +193,18 @@ let serviceRoutes = {
           ]
         }
       ]
+    },
+    {
+      type: Route,
+      name: 'services-deployments',
+      path: 'deployments/',
+      handler: DeploymentsTab,
+      isInSidebar: true
+    },
+    {
+      type: Redirect,
+      from: '/services/?',
+      to: 'services-overview'
     }
   ]
 };

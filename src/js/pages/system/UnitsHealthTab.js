@@ -60,7 +60,7 @@ class UnitsHealthTab extends mixin(StoreMixin) {
   renderUnit(prop, unit) {
     return (
       <div className="text-overflow">
-        <Link to="system-overview-units-unit-nodes-detail"
+        <Link to="components-overview-units-unit-nodes-detail"
           params={{unitID: unit.get('id')}}
           className="table-cell-emphasized">
           {unit.getTitle()}
@@ -197,5 +197,10 @@ class UnitsHealthTab extends mixin(StoreMixin) {
     );
   }
 }
+
+UnitsHealthTab.routeConfig = {
+  label: 'Components',
+  matches: /^\/components\/overview/
+};
 
 module.exports = UnitsHealthTab;
