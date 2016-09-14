@@ -88,12 +88,16 @@ class MetadataStore extends GetSetBaseStore {
   }
 
   buildDocsURI(path) {
-    return `${Config.documentationURI}/${this.version}${path}`;
+    return `${Config.documentationURI}/${this.parsedVersion}${path}`;
   }
 
   get version() {
     let metadata = this.get('dcosMetadata');
-    let version = (metadata && metadata.version) || 'latest';
+    return metadata && metadata.version;
+  }
+
+  get parsedVersion() {
+    let version = (this.version) || 'latest';
     version = version.split('-')[0];
     return version.replace(/(.*?)\.(.*?)\..*/, '$1.$2');
   }
