@@ -19,6 +19,10 @@ module.exports = class PodInstance extends Item {
     return this.get('id') || '';
   }
 
+  getName() {
+    return this.getId();
+  }
+
   getInstanceStatus() {
     switch (this.get('status')) {
       case 'PENDING':
