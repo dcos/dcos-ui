@@ -20,17 +20,23 @@
     }
 
     &.over-capacity {
-      background-color: @over-capacity-color;
+      animation: candy-stripe 1s linear infinite;
+      background-size: 16px 16px;
+      background-image: linear-gradient(-45deg, color-lighten(@green, -30) 0,
+        color-lighten(@green, -30) 25%, color-lighten(@green, -50) 25%,
+        color-lighten(@green, -50) 50%, color-lighten(@green, -30) 50%,
+        color-lighten(@green, -30) 75%, color-lighten(@green, -50) 75%,
+        color-lighten(@green, -50) 100%);
     }
 
     &.staged {
       animation: candy-stripe 1s linear infinite;
       background-size: 16px 16px;
       background-image: linear-gradient(-45deg, color-lighten(@neutral, 10) 0,
-      color-lighten(@neutral, 10) 25%, color-lighten(@neutral, -10) 25%,
-      color-lighten(@neutral, -10) 50%, color-lighten(@neutral, 10) 50%,
-      color-lighten(@neutral, 10) 75%, color-lighten(@neutral, -10) 75%,
-      color-lighten(@neutral, -10) 100%);
+        color-lighten(@neutral, 10) 25%, color-lighten(@neutral, -10) 25%,
+        color-lighten(@neutral, -10) 50%, color-lighten(@neutral, 10) 50%,
+        color-lighten(@neutral, 10) 75%, color-lighten(@neutral, -10) 75%,
+        color-lighten(@neutral, -10) 100%);
     }
 
     &.success {

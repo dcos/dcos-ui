@@ -51,7 +51,6 @@ class JobSearchFilter extends mixin(QueryParamsMixin) {
       <FilterInputText
         className="flush-bottom"
         handleFilterChange={this.setSearchString}
-        inverseStyle={true}
         placeholder="Search"
         searchString={this.state.searchString} />
     );

@@ -110,8 +110,7 @@ class RepositoriesTab extends mixin(StoreMixin) {
             className="flush-bottom"
             placeholder="Search"
             searchString={searchString}
-            handleFilterChange={this.handleSearchStringChange}
-            inverseStyle={true} />
+            handleFilterChange={this.handleSearchStringChange} />
           <button
             className="button button-success"
             onClick={this.handleOpenAddRepository}>

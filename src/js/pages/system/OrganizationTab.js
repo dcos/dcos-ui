@@ -401,7 +401,6 @@ class OrganizationTab extends mixin(InternalStorageMixin) {
       <div className="flex-container-col">
         <div className={`${itemName}s-table-header`}>
           <FilterHeadline
-            inverseStyle={true}
             onReset={this.resetFilter}
             name={capitalizedItemName}
             currentLength={visibleItems.length}
@@ -410,8 +409,7 @@ class OrganizationTab extends mixin(InternalStorageMixin) {
             <FilterInputText
               className="flush-bottom"
               searchString={this.state.searchString}
-              handleFilterChange={this.handleSearchStringChange}
-              inverseStyle={true} />
+              handleFilterChange={this.handleSearchStringChange} />
             {actionDropdown}
             {actionsModal}
             <a

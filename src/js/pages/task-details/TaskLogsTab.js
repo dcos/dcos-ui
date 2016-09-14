@@ -317,7 +317,6 @@ class TaskLogsTab extends React.Component {
             searchString={this.state.searchString}
             sideText={this.getSearchCount()}
             handleFilterChange={this.handleSearchStringChange}
-            inverseStyle={true}
             inputContainerClass={inputContainerClassSet} />
           {this.getSearchButtons()}
           {this.getSelectionComponent(selectedLogFile)}

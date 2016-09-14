@@ -177,8 +177,8 @@ class TaskView extends mixin(SaveStateMixin, StoreMixin) {
 
   getButtonContent(filterName, count) {
     return (
-      <span className="button-align-content">
-        <span className="label">{StringUtil.capitalize(filterName)}</span>
+      <span className="button-align-content label flush">
+        <span>{StringUtil.capitalize(filterName)}</span>
         <span className="badge">{count || 0}</span>
       </span>
     );

@@ -168,7 +168,6 @@ class UnitsHealthDetail extends mixin(StoreMixin) {
         <FilterHeadline
           currentLength={visibleData.length}
           isFiltering={healthFilter !== 'all' || searchString !== ''}
-          inverseStyle={true}
           name="Health Check"
           onReset={this.resetFilter}
           totalLength={nodes.getItems().length} />
@@ -177,8 +176,7 @@ class UnitsHealthDetail extends mixin(StoreMixin) {
             <FilterInputText
               className="flush-bottom"
               searchString={searchString}
-              handleFilterChange={this.handleSearchStringChange}
-              inverseStyle={true} />
+              handleFilterChange={this.handleSearchStringChange} />
           </div>
           <UnitHealthDropdown
             className="button dropdown-toggle text-align-left button-inverse"

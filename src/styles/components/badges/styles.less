@@ -6,6 +6,7 @@
     line-height: inherit;
     padding: 0 @base-spacing-unit * 0.25;
     background-color: @badge-background-color;
+    // TODO: Audit the need for this.
     border-radius: 1000px !important;
 
     &:empty {
@@ -14,15 +15,6 @@
 
     &.inverse {
       background-color: @badge-background-color-inverse;
-    }
-
-  }
-
-  // TODO: Audit the need for this white background color.
-  .active {
-
-    .badge {
-      background-color: @white;
     }
 
   }
@@ -44,17 +36,6 @@
       margin-left: 0.25 * @base-spacing-unit;
     }
 
-    // TODO: Audit the need for this white background color.
-    .inverse &,
-    &.inverse {
-
-      .badge {
-        background-color: @white;
-      }
-
-    }
-
-    // TODO: Audit the need for this white background color.
     &.badge-primary {
 
       .badge {
@@ -81,20 +62,6 @@
 
     }
 
-  }
-
-}
-
-.dot {
-
-  &.over-capacity {
-    animation: candy-stripe 1s linear infinite;
-    background-size: 16px 16px;
-    background-image: linear-gradient(-45deg, color-lighten(@green, -30) 0,
-      color-lighten(@green, -30) 25%, color-lighten(@green, -50) 25%,
-      color-lighten(@green, -50) 50%, color-lighten(@green, -30) 50%,
-      color-lighten(@green, -30) 75%, color-lighten(@green, -50) 75%,
-      color-lighten(@green, -50) 100%);
   }
 
 }
