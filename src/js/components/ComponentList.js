@@ -9,22 +9,17 @@ class ComponentList extends React.Component {
 
   getComponentListContent(units) {
     return units.map(function (unit) {
-
       let health = unit.getHealth();
-      let healthClasses = classNames(
-        'h4 inverse flush-top flush-bottom text-align-right',
-        health.classNames
-      );
+      let healthClasses = classNames('text-align-right', health.classNames);
 
       return {
         content: [
           {
-            className: 'dashboard-health-list-item-description',
+            className: 'dashboard-health-list-item-description text-overflow',
             content: (
               <Link to="system-overview-units-unit-nodes-detail"
                 params={{unitID: unit.get('id')}}
-                className="dashboard-health-list-item-cell h4 inverse flush-top
-                  flush-bottom clickable text-overflow">
+                className="dashboard-health-list-item-cell emphasis">
                 {unit.getTitle()}
               </Link>
             ),
@@ -58,9 +53,9 @@ class ComponentList extends React.Component {
 
   getErrorMessage() {
     return (
-      <div className="vertical-center">
-        <h3 className="flush-top inverse text-align-center">Components Not Found</h3>
-        <p className="inverse flush text-align-center">An error has occurred.</p>
+      <div className="flex-item-align-center">
+        <h3 className="flush-top text-align-center">Components Not Found</h3>
+        <p className="flush text-align-center">An error has occurred.</p>
       </div>
     );
   }

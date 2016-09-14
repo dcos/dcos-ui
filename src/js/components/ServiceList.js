@@ -80,21 +80,17 @@ let ServiceList = React.createClass({
         );
       }
 
-      let classSet = classNames(
-        'tooltip-wrapper h4 inverse flush-top flush-bottom',
-        state.classNames
-      );
+      let classSet = classNames('tooltip-wrapper', state.classNames);
 
       return {
         content: [
           {
-            className: 'dashboard-health-list-item-description',
+            className: 'dashboard-health-list-item-description text-overflow',
             content: (
               <a key="title"
                 onClick={this.handleServiceClick.bind(this, service)}
                 href={service.getWebURL()}
-                className="dashboard-health-list-item-cell h4 inverse flush-top
-                  flush-bottom clickable text-overflow">
+                className="dashboard-health-list-item-cell emphasis">
                 {service.getName()}
               </a>
             ),
@@ -117,9 +113,9 @@ let ServiceList = React.createClass({
 
   getNoServicesMessage() {
     return (
-      <div className="vertical-center">
-        <h3 className="flush-top inverse text-align-center">No Services Running</h3>
-        <p className="inverse flush text-align-center">Use the {Config.productName} command line tools to find and install services.</p>
+      <div className="flex-item-align-center">
+        <h3 className="flush-top text-align-center">No Services Running</h3>
+        <p className="flush text-align-center">Use the {Config.productName} command line tools to find and install services.</p>
       </div>
     );
   },
