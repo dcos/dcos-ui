@@ -61,15 +61,7 @@ class PodDetail extends mixin(TabsMixin) {
 
     return (
       <div className="flex-container-col">
-        <div className={classNames(
-          'container-pod',
-          'container-pod-divider-bottom-align-right',
-          'container-pod-short-top',
-          'flush-bottom',
-          'flush-top',
-          'media-object-spacing-wrapper',
-          'media-object-spacing-narrow'
-          )}>
+        <div className="container-pod container-pod-divider-bottom-align-right container-pod-short-top flush-bottom flush-top media-object-spacing-wrapper media-object-spacing-narrow">
           <Breadcrumbs />
           <PodHeader
             onDeploy={this.onActionDeploy}
