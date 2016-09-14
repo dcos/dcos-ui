@@ -103,7 +103,7 @@ var NodesTable = React.createClass({
     );
   },
 
-  renderStats: function (prop, node) {
+  renderStats(prop, node) {
     var value = node.getUsageStats(prop).percentage;
 
     return (
