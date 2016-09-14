@@ -217,9 +217,7 @@ class DeploymentsTab extends mixin(StoreMixin) {
     ];
 
     return (
-      <StatusBar
-        className="progress-bar flex-box status-bar deployment-status-bar"
-        data={data} />
+      <StatusBar className="progress-bar-large" data={data} />
     );
   }
 

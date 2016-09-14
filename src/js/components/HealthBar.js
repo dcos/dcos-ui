@@ -80,6 +80,7 @@ class HealthBar extends React.Component {
     return (
       <Tooltip interactive={true} content={this.renderToolTip()}>
         <StatusBar
+          className="progress-bar-large"
           data={this.getMappedTasksSummary(tasksSummary)}
           scale={instancesCount}/>
       </Tooltip>

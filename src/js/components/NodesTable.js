@@ -107,12 +107,11 @@ var NodesTable = React.createClass({
     var value = node.getUsageStats(prop).percentage;
 
     return (
-      <span className="spread-content">
+      <span className="inline-progress-bar-wrapper">
         <StatusBar
           data={[{value, className: COLOR_CLASSNAMES[prop]}]}
-          scale={100}
-          style={{transform: `scaleX(${value / 100})`}} />
-        <span>{value}%</span>
+          scale={100} />
+        <span className="label">{value}%</span>
       </span>
     );
   },
@@ -216,7 +215,7 @@ var NodesTable = React.createClass({
   render() {
     return (
       <Table
-        className="host-table table inverse table-borderless-outer table-borderless-inner-columns flush-bottom"
+        className="node-table table inverse table-borderless-outer table-borderless-inner-columns flush-bottom"
         columns={this.getColumns()}
         colGroup={this.getColGroup()}
         containerSelector=".gm-scroll-view"

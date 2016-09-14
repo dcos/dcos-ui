@@ -12,24 +12,28 @@
   align-items: center;
   display: flex;
   flex-direction: row;
-  padding-right: @base-spacing-unit * 0.5;
+
+  > .label {
+    padding-left: @base-spacing-unit * 0.5;
+  }
 }
 
 .progress-bar {
   background-color: @neutral;
   border-radius: @table-header-border-radius;
-  display: inline-block;
-  height: @progress-bar-height;
-  line-height: @body-text-line-height;
+  display: inline-flex;
+  height: @base-spacing-unit * 1/6;
+  line-height: @base-spacing-unit * 1/6;
   overflow: hidden;
-  width: @progress-bar-width;
+  text-align: left;
+  width: @base-spacing-unit * 2;
 
   .bar {
+    background-color: currentColor;
     box-shadow: 1px 0px 0px 0px @body-background-color;
+    display: inline-block;
     height: 100%;
-    transform: scaleX(0);
-    transform-origin: 0;
-    transition: transform 600ms;
+    transition: width 600ms;
     width: 100%;
 
     &.color-1 {
@@ -44,14 +48,14 @@
       background-color: @blue;
     }
 
-    &.over-capacity {
+    &.staged {
       animation: candy-stripe 1s linear infinite;
       background-size: 16px 16px;
-      background-image: linear-gradient(-45deg, color-lighten(@green, -30) 0,
-      color-lighten(@green, -30) 25%, color-lighten(@green, -50) 25%,
-      color-lighten(@green, -50) 50%, color-lighten(@green, -30) 50%,
-      color-lighten(@green, -30) 75%, color-lighten(@green, -50) 75%,
-      color-lighten(@green, -50) 100%);
+      background-image: linear-gradient(-45deg, color-lighten(@neutral, 10) 0,
+      color-lighten(@neutral, 10) 25%, color-lighten(@neutral, -10) 25%,
+      color-lighten(@neutral, -10) 50%, color-lighten(@neutral, 10) 50%,
+      color-lighten(@neutral, 10) 75%, color-lighten(@neutral, -10) 75%,
+      color-lighten(@neutral, -10) 100%);
     }
 
     &.color-4, &.healthy {
@@ -66,95 +70,34 @@
       background-color: @yellow;
     }
 
-    &.staged {
+    &.over-capacity {
       animation: candy-stripe 1s linear infinite;
       background-size: 16px 16px;
-      background-image: linear-gradient(-45deg, color-lighten(@neutral, 10) 0,
-      color-lighten(@neutral, 10) 25%, color-lighten(@neutral, -10) 25%,
-      color-lighten(@neutral, -10) 50%, color-lighten(@neutral, 10) 50%,
-      color-lighten(@neutral, 10) 75%, color-lighten(@neutral, -10) 75%,
-      color-lighten(@neutral, -10) 100%);
+      background-image: linear-gradient(-45deg, color-lighten(@green, -30) 0,
+      color-lighten(@green, -30) 25%, color-lighten(@green, -50) 25%,
+      color-lighten(@green, -50) 50%, color-lighten(@green, -30) 50%,
+      color-lighten(@green, -30) 75%, color-lighten(@green, -50) 75%,
+      color-lighten(@green, -50) 100%);
     }
 
+
+  }
+
+  &.progress-bar-large {
+    height: @base-spacing-unit * 1/3;
+    line-height: @base-spacing-unit * 1/3;
   }
 }
 
-.spread-content {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-left: @base-spacing-unit * 0.5;
-}
+& when (@screen-small-enabled) {
 
-.upgrade-progress-bar {
-  display: block;
-  margin-right: @base-spacing-unit * 2/3;
-  width: 216px;
-
-  &.is-ongoing,
-  &.is-waiting {
-
-    .progress-bar-fill {
-      animation: candy-stripe 1s linear infinite;
-      background-size: 16px 16px;
-      background-image: linear-gradient(-45deg, color-lighten(@green, 10) 0,
-        color-lighten(@green, 10) 25%, color-lighten(@green, -10) 25%,
-        color-lighten(@green, -10) 50%, color-lighten(@green, 10) 50%,
-        color-lighten(@green, 10) 75%, color-lighten(@green, -10) 75%,
-        color-lighten(@green, -10) 100%);
-    }
-  }
-
-  &.is-waiting {
-
-    .progress-bar-label {
-      color: @white;
-    }
-  }
-
-  &.is-paused {
-
-    .progress-bar-fill {
-      background: color-lighten(@neutral, 40);
-    }
-  }
-
-  .progress-bar-header {
-    display: flex;
-    margin-bottom: @base-spacing-unit * 1/6;
-
-    &,
-    .emphasize {
-      color: currentColor;
-      font-size: @body-text-font-size * 0.95;
-    }
-
-    .progress-bar-label {
-      flex: 1 1 auto;
-    }
-
-    .progress-bar-label-action {
-      flex: 0 0 auto;
-      text-align: right;
-
-      a {
-        text-decoration: underline;
+  @media (min-width: @screen-small) {
+    .progress-bar {
+      &.progress-bar-large {
+        width: @base-spacing-unit * 4;
       }
     }
+
   }
 
-  .progress-bar-fill-wrapper,
-  .progress-bar-fill {
-    height: 7px;
-  }
-
-  .progress-bar-fill-wrapper {
-    background: @neutral;
-    border-radius: 10px;
-    overflow: hidden;
-  }
-
-  .progress-bar-fill {
-    transition: width 600ms;
-  }
 }
