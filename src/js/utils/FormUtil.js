@@ -11,16 +11,16 @@ function containsMultipleProp(prop, fieldColumn, id) {
   if (id) {
     return !!(
       fieldColumn &&
-      fieldColumn.id &&
-      fieldColumn.id.includes(`${prop}[${id}]`)
+      fieldColumn.name &&
+      fieldColumn.name.includes(`${prop}[${id}]`)
     );
   }
 
   return !!(
     fieldColumn &&
-    fieldColumn.id &&
-    fieldColumn.id.startsWith(`${prop}[`) &&
-    fieldColumn.id.includes(']')
+    fieldColumn.name &&
+    fieldColumn.name.startsWith(`${prop}[`) &&
+    fieldColumn.name.includes(']')
   );
 }
 
@@ -38,10 +38,10 @@ const FormUtil = {
   getMultipleFieldDefinition(prop, id, definition, model, index = 0) {
     return definition.map(function (definitionField) {
       definitionField = Util.deepCopy(definitionField);
-      // Use index for key (aka. name), so we can reuse same key for same field,
+      // Use index for key, so we can reuse same key for same field,
       // to not make react think it is a completely new field
-      definitionField.id = `${prop}[${id}].${definitionField.name}`;
-      definitionField.name = `${prop}[${index}].${definitionField.name}`;
+      definitionField.key = `${prop}[${index}].${definitionField.name}`;
+      definitionField.name = `${prop}[${id}].${definitionField.name}`;
 
       let propKey = FormUtil.getPropKey(definitionField.name);
       if (model && Object.prototype.hasOwnProperty.call(model, propKey)) {
