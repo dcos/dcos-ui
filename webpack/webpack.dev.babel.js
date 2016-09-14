@@ -1,6 +1,7 @@
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import StringReplacePlugin from 'string-replace-webpack-plugin';
+import StyleLintPlugin from 'stylelint-webpack-plugin';
 import WebpackNotifierPlugin from 'webpack-notifier';
 
 import packageInfo from '../package';
@@ -81,6 +82,13 @@ module.exports = Object.assign({}, webpackConfig, {
 
     new HtmlWebpackPlugin({
       template: './src/index.html',
+    }),
+
+    new StyleLintPlugin({
+      configFile: '.stylelintrc',
+      files: '**/*.less',
+      syntax: 'less',
+      failOnError: false
     }),
 
     new ExtractTextPlugin('./[name].css'),
