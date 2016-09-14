@@ -1,5 +1,4 @@
 jest.dontMock('../CollapsingString');
-jest.dontMock('../../mixins/GetSetMixin');
 jest.dontMock('../../stores/MesosStateStore');
 jest.dontMock('../ServiceDetailTaskTab');
 jest.dontMock('../TaskView');

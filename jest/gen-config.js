@@ -52,7 +52,6 @@ var config = {
     'mixins/index',
     'src/js/config/',
     'src/js/constants',
-    'src/js/mixins/PluginGetSetMixin',
     'src/js/plugin-bridge/AppReducer',
     'src/js/plugin-bridge/Hooks',
     'src/js/plugin-bridge/middleware',

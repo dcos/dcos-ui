@@ -1,4 +1,3 @@
-jest.dontMock('../../mixins/GetSetMixin');
 jest.dontMock('../NotificationStore');
 
 const NOTIFICATION_CHANGE = require('../../constants/EventTypes').NOTIFICATION_CHANGE;

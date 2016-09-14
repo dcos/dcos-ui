@@ -1,6 +1,5 @@
 jest.dontMock('../CollapsingString');
 jest.dontMock('../../constants/HealthStatus');
-jest.dontMock('../../mixins/GetSetMixin');
 jest.dontMock('../ServicesTable');
 
 /* eslint-disable no-unused-vars */

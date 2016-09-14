@@ -1,5 +1,4 @@
 jest.dontMock('../../constants/EventTypes');
-jest.dontMock('../../mixins/GetSetMixin');
 jest.dontMock('../ConfigStore');
 jest.dontMock('../../constants/EventTypes');
 

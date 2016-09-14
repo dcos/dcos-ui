@@ -4,7 +4,6 @@ jest.unmock('../services/DeploymentsTab');
 jest.unmock('../../components/TimeAgo');
 jest.unmock('../../structs/DeploymentsList');
 jest.unmock('../../structs/Deployment');
-jest.unmock('../../mixins/GetSetMixin');
 
 const JestUtil = require('../../utils/JestUtil');
 /* eslint-disable no-unused-vars */

@@ -1,5 +1,4 @@
 jest.dontMock('../FilterByService');
-jest.dontMock('../../mixins/GetSetMixin');
 jest.dontMock('./fixtures/MockFrameworks');
 jest.dontMock('../../utils/Util');
 /* eslint-disable no-unused-vars */

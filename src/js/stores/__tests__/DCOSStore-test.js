@@ -1,7 +1,6 @@
 jest.mock('../MarathonStore');
 jest.mock('../MesosSummaryStore');
 jest.dontMock('../DCOSStore');
-jest.dontMock('../../mixins/GetSetMixin');
 jest.dontMock('../../structs/DeploymentsList');
 jest.dontMock('../../structs/ServiceTree');
 jest.dontMock('../../structs/SummaryList');

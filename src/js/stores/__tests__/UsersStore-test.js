@@ -1,5 +1,4 @@
 jest.dontMock('../UsersStore');
-jest.dontMock('../../mixins/GetSetMixin');
 jest.dontMock('../../../../tests/_fixtures/acl/users-unicode.json');
 
 const RequestUtil = require('mesosphere-shared-reactjs').RequestUtil;

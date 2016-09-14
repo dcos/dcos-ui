@@ -2,7 +2,6 @@ jest.dontMock('../CosmosPackagesStore');
 jest.dontMock('../../config/Config');
 jest.dontMock('../../events/AppDispatcher');
 jest.dontMock('../../events/CosmosPackagesActions');
-jest.dontMock('../../mixins/GetSetMixin');
 jest.dontMock('./fixtures/MockPackageDescribeResponse.json');
 jest.dontMock('./fixtures/MockPackagesListResponse.json');
 jest.dontMock('./fixtures/MockPackagesSearchResponse.json');

@@ -2,7 +2,6 @@ jest.dontMock('../MesosLogStore');
 jest.dontMock('../../config/Config');
 jest.dontMock('../../events/AppDispatcher');
 jest.dontMock('../../events/MesosLogActions');
-jest.dontMock('../../mixins/GetSetMixin');
 jest.dontMock('../../structs/LogBuffer');
 jest.dontMock('../../structs/Item');
 jest.dontMock('../../structs/List');

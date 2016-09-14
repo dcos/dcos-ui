@@ -1,5 +1,4 @@
 jest.dontMock('../ServerErrorModal');
-jest.dontMock('../../mixins/GetSetMixin');
 
 const PluginTestUtils = require('PluginTestUtils');
 

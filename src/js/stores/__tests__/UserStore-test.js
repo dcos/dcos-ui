@@ -1,6 +1,5 @@
 jest.dontMock('../UserStore');
 jest.dontMock('../../events/UsersActions');
-jest.dontMock('../../mixins/GetSetMixin');
 
 const UserStore = require('../UserStore');
 const ActionTypes = require('../../constants/ActionTypes');
