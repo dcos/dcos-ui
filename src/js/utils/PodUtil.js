@@ -20,7 +20,7 @@ var PodUtil = {
    * Returns true if the container instance matches
    * the free-text given.
    *
-   * @param {PodInstance} instance - The Container to test
+   * @param {PodInstance} instance - The instance to test
    * @param {string} text - The text to test against
    * @returns {boolean} - Returns true if the test passes
    */
