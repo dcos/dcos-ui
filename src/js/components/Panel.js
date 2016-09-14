@@ -1,6 +1,8 @@
 import classNames from 'classnames/dedupe';
 import React from 'react';
 
+import Util from '../utils/Util';
+
 const defaultClasses = {
   panel: 'panel',
   content: 'panel-content panel-cell panel-cell-narrow panel-cell-short panel-cell-borderless',
@@ -48,7 +50,8 @@ var Panel = React.createClass({
     let panelClasses = classNames(defaultClasses.panel, props.className);
 
     return (
-      <div className={panelClasses}>
+      <div className={panelClasses}
+        {...Util.omit(props, ['children', 'className', 'heading', 'footer'])}>
         {this.getNode('heading')}
         <div className={contentClasses}>
           {props.children}
