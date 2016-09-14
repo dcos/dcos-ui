@@ -107,7 +107,7 @@ var NodesTable = React.createClass({
     var value = node.getUsageStats(prop).percentage;
 
     return (
-      <span className="inline-status-bar-wrapper">
+      <span className="status-bar-with-label-wrapper">
         <StatusBar
           data={[{value, className: COLOR_CLASSNAMES[prop]}]}
           scale={100} />
