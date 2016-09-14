@@ -113,9 +113,9 @@ let ServiceList = React.createClass({
 
   getNoServicesMessage() {
     return (
-      <div className="vertical-center">
-        <h3 className="flush-top inverse text-align-center">No Services Running</h3>
-        <p className="inverse flush text-align-center">Use the {Config.productName} command line tools to find and install services.</p>
+      <div className="flex-item-align-center">
+        <h3 className="flush-top text-align-center">No Services Running</h3>
+        <p className="flush text-align-center">Use the {Config.productName} command line tools to find and install services.</p>
       </div>
     );
   },
