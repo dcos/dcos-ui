@@ -8,7 +8,7 @@
   }
 }
 
-.inline-progress-bar-wrapper {
+.inline-status-bar-wrapper {
   align-items: center;
   display: flex;
   flex-direction: row;
@@ -18,7 +18,7 @@
   }
 }
 
-.progress-bar {
+.status-bar {
   background-color: @neutral;
   border-radius: @table-header-border-radius;
   display: inline-flex;
@@ -83,7 +83,7 @@
 
   }
 
-  &.progress-bar-large {
+  &.status-bar-large {
     height: @base-spacing-unit * 1/3;
     line-height: @base-spacing-unit * 1/3;
   }
@@ -92,8 +92,8 @@
 & when (@screen-small-enabled) {
 
   @media (min-width: @screen-small) {
-    .progress-bar {
-      &.progress-bar-large {
+    .status-bar {
+      &.status-bar-large {
         width: @base-spacing-unit * 4;
       }
     }

@@ -96,10 +96,10 @@ describe('#StatusBar', function () {
   });
 
   describe('className', function () {
-    it('should contain progress-bar (default)', function () {
+    it('should contain status-bar (default)', function () {
       expect(
         this.container.querySelector('div')
-          .classList.contains('progress-bar')
+          .classList.contains('status-bar')
       ).toBeTruthy();
     });
 

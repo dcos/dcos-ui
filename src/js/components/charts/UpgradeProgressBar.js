@@ -32,13 +32,13 @@ class UpgradeProgressBar extends React.Component {
 }
 
 UpgradeProgressBar.defaultProps = {
-  className: 'upgrade-progress-bar',
-  headerClassName: 'progress-bar-header',
-  fillClassName: 'progress-bar-fill',
-  fillWrapperClassName: 'progress-bar-fill-wrapper',
-  labelActionClassName: 'progress-bar-label-action',
-  labelClassName: 'progress-bar-label',
-  labelContentClassName: 'progress-bar-label-content',
+  className: 'upgrade-status-bar',
+  headerClassName: 'status-bar-header',
+  fillClassName: 'status-bar-fill',
+  fillWrapperClassName: 'status-bar-fill-wrapper',
+  labelActionClassName: 'status-bar-label-action',
+  labelClassName: 'status-bar-label',
+  labelContentClassName: 'status-bar-label-content',
   layoutClassName: '',
   progress: 100
 };

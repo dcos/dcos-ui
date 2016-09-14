@@ -107,7 +107,7 @@ class StatusBar extends React.Component {
       return null;
     }
 
-    let classes = classNames('progress-bar flex-box', className);
+    let classes = classNames('status-bar flex-box', className);
 
     return (
       <div className={classes}>{this.getBars(data)}</div>
