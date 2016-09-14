@@ -1,6 +1,7 @@
 const Labels = {
   type: 'object',
   title: 'Labels',
+  description: 'Attach metadata to jobs to expose additional information to other jobs.',
   properties: {
     items: {
       type: 'array',

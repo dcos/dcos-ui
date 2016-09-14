@@ -53,9 +53,15 @@ const JobUtil = {
     spec.id = general.id;
     spec.description = general.description;
 
-    if (Array.isArray(labels.items)) {
+    if (labels != null && labels.items != null) {
       spec.labels = labels.items.reduce(function (memo, {key, value}) {
-        memo[key] = value || null;
+        if (key == null) {
+          return memo;
+        }
+
+        // The 'undefined' value is not rendered by the JSON.stringify,
+        // so make sure empty environment variables are not left unrendered
+        memo[key] = value || '';
 
         return memo;
       }, {});
