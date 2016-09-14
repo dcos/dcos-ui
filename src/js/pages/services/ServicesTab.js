@@ -316,7 +316,7 @@ var ServicesTab = React.createClass({
     }
 
     return (
-      <div className="flex-box flush flex-mobile-column">
+      <div className="flex">
         <ServiceSidebarFilters
           handleFilterChange={this.handleFilterChange}
           services={allServices} />
