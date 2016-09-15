@@ -1,8 +1,5 @@
-import Framework from './Framework';
+import ApplicationSpec from './ApplicationSpec';
 
-module.exports = class FrameworkSpec extends Framework {
-
-    // DCOS-9613: Should be properly implemented instead of
-    //            just extending framework
+module.exports = class FrameworkSpec extends ApplicationSpec {
 
 };

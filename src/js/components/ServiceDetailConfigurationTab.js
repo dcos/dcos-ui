@@ -5,6 +5,7 @@ import ConfigurationView from './ConfigurationView';
 import DCOSStore from '../stores/DCOSStore';
 import MarathonStore from '../stores/MarathonStore';
 import Service from '../structs/Service';
+import ApplicationSpec from '../structs/ApplicationSpec';
 import ServiceFormModal from './modals/ServiceFormModal';
 import ServiceUtil from '../utils/ServiceUtil';
 
@@ -56,8 +57,8 @@ class ServiceDetailConfigurationTab extends React.Component {
       this.props.service.getVersions().get(this.state.selectedVersionID);
 
     MarathonStore.editService(
-      ServiceUtil.getAppDefinitionFromService(
-        new Service(serviceConfiguration)
+      ServiceUtil.getDefinitionFromSpec(
+        new ApplicationSpec(serviceConfiguration)
       )
     );
   }
