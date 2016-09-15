@@ -13,7 +13,6 @@ const JestUtil = require('../../utils/JestUtil');
 /* eslint-disable no-unused-vars */
 const React = require('react');
 /* eslint-enable no-unused-vars */
-const ReactDOMServer = require('react-dom/server');
 const TestUtils = require('react-addons-test-utils');
 
 const PodInstancesTable = require('../PodInstancesTable');
@@ -24,15 +23,20 @@ const PodFixture = require('./fixtures/PodFixture');
 
 describe('PodInstancesTable', function () {
 
-  let fixture = Util.deepCopy(PodFixture);
-
   // Fix the dates in order to test the relative date field
+  let fixture = Util.deepCopy(PodFixture);
   fixture.instances[0].lastUpdated = new Date(Date.now() - (86400000 * 1)).toString();
   fixture.instances[0].lastChanged = new Date(Date.now() - (86400000 * 2)).toString();
   fixture.instances[0].containers[0].lastUpdated = new Date(Date.now() - (86400000 * 3)).toString();
   fixture.instances[0].containers[0].lastChanged = new Date(Date.now() - (86400000 * 4)).toString();
   fixture.instances[0].containers[1].lastUpdated = new Date(Date.now() - (86400000 * 5)).toString();
   fixture.instances[0].containers[1].lastChanged = new Date(Date.now() - (86400000 * 6)).toString();
+  fixture.instances[1].lastUpdated = new Date(Date.now() - (86400000 * 7)).toString();
+  fixture.instances[1].lastChanged = new Date(Date.now() - (86400000 * 8)).toString();
+  fixture.instances[1].containers[0].lastUpdated = new Date(Date.now() - (86400000 * 9)).toString();
+  fixture.instances[1].containers[0].lastChanged = new Date(Date.now() - (86400000 * 10)).toString();
+  fixture.instances[1].containers[1].lastUpdated = new Date(Date.now() - (86400000 * 11)).toString();
+  fixture.instances[1].containers[1].lastChanged = new Date(Date.now() - (86400000 * 12)).toString();
 
   const pod = new Pod(fixture);
 
@@ -51,7 +55,8 @@ describe('PodInstancesTable', function () {
             '.collapsing-string-full-string'), []);
 
       expect(names).toEqual([
-        'instance-1'
+        'instance-1',
+        'instance-2'
       ]);
     });
 
@@ -62,7 +67,8 @@ describe('PodInstancesTable', function () {
             '.collapsing-string-full-string'), []);
 
       expect(names).toEqual([
-        'agent-1'
+        'agent-1',
+        'agent-2'
       ]);
     });
 
@@ -73,6 +79,7 @@ describe('PodInstancesTable', function () {
             []);
 
       expect(names).toEqual([
+        'Running',
         'Running'
       ]);
     });
@@ -84,6 +91,7 @@ describe('PodInstancesTable', function () {
           .map(JestUtil.mapTextContent);
 
       expect(names).toEqual([
+        '1',
         '1'
       ]);
     });
@@ -95,6 +103,7 @@ describe('PodInstancesTable', function () {
           .map(JestUtil.mapTextContent);
 
       expect(names).toEqual([
+        '128 MiB',
         '128 MiB'
       ]);
     });
@@ -106,7 +115,8 @@ describe('PodInstancesTable', function () {
           .map(JestUtil.mapTextContent);
 
       expect(names).toEqual([
-        'a day ago'
+        'a day ago',
+        '7 days ago'
       ]);
     });
 
@@ -117,10 +127,68 @@ describe('PodInstancesTable', function () {
           .map(JestUtil.mapTextContent);
 
       expect(names).toEqual([
+        '2016-08-29T01:01:01.0012016-08-29T01:01:01.001',
         '2016-08-29T01:01:01.0012016-08-29T01:01:01.001'
       ]);
     });
 
+  });
+
+  describe('#render (sort-ascending)', function () {
+
+    beforeEach(function () {
+      // Create a stub router context because when the items are expanded
+      // the are creating <Link /> instances.
+      let component = JestUtil.stubRouterContext(PodInstancesTable,
+        {pod}, {service: pod});
+      this.instance = TestUtils.renderIntoDocument(component);
+
+      // 1 click on the header (ascending)
+      let columnHeader = TestUtils.scryRenderedDOMComponentsWithClass(
+          this.instance, 'column-name')[0];
+      TestUtils.Simulate.click(columnHeader);
+    });
+
+    it('should properly sort the name column', function () {
+      var names = TestUtils.scryRenderedDOMComponentsWithClass(
+          this.instance, 'column-name')
+          .reduce(JestUtil.reduceTextContentOfSelector(
+            '.collapsing-string-full-string'), []);
+
+      expect(names).toEqual([
+        'instance-1',
+        'instance-2'
+      ]);
+    });
+  });
+
+  describe('#render (sort-descending)', function () {
+
+    beforeEach(function () {
+      // Create a stub router context because when the items are expanded
+      // the are creating <Link /> instances.
+      let component = JestUtil.stubRouterContext(PodInstancesTable,
+        {pod}, {service: pod});
+      this.instance = TestUtils.renderIntoDocument(component);
+
+      // 2 clicks on the header (descending)
+      let columnHeader = TestUtils.scryRenderedDOMComponentsWithClass(
+          this.instance, 'column-name')[0];
+      TestUtils.Simulate.click(columnHeader);
+      TestUtils.Simulate.click(columnHeader);
+    });
+
+    it('should properly sort the name column', function () {
+      var names = TestUtils.scryRenderedDOMComponentsWithClass(
+          this.instance, 'column-name')
+          .reduce(JestUtil.reduceTextContentOfSelector(
+            '.collapsing-string-full-string'), []);
+
+      expect(names).toEqual([
+        'instance-2',
+        'instance-1'
+      ]);
+    });
   });
 
   describe('#render (expanded)', function () {
@@ -153,6 +221,9 @@ describe('PodInstancesTable', function () {
       expect(names).toEqual([
         'instance-1',
         'container-1',
+        'container-2',
+        'instance-2',
+        'container-1',
         'container-2'
       ]);
     });
@@ -165,11 +236,14 @@ describe('PodInstancesTable', function () {
       let ports = columns.reduce(JestUtil.reduceTextContentOfSelector('a'), []);
 
       expect(agents).toEqual([
-        'agent-1'
+        'agent-1',
+        'agent-2'
       ]);
       expect(ports).toEqual([
         ':31001',
-        ':31002'
+        ':31002',
+        ':31011',
+        ':31012'
       ]);
     });
 
@@ -179,6 +253,9 @@ describe('PodInstancesTable', function () {
           .reduce(JestUtil.reduceTextContentOfSelector('.status-text'), []);
 
       expect(names).toEqual([
+        'Running',
+        'Running',
+        'Running',
         'Running',
         'Running',
         'Running'
@@ -194,6 +271,9 @@ describe('PodInstancesTable', function () {
       expect(names).toEqual([
         '1',
         '0.5',
+        '0.5',
+        '1',
+        '0.5',
         '0.5'
       ]);
     });
@@ -205,6 +285,9 @@ describe('PodInstancesTable', function () {
           .reduce(JestUtil.reduceTextContentOfSelector('div > div > span'), []);
 
       expect(names).toEqual([
+        '128 MiB',
+        '64 MiB',
+        '64 MiB',
         '128 MiB',
         '64 MiB',
         '64 MiB'
@@ -220,7 +303,10 @@ describe('PodInstancesTable', function () {
       expect(names).toEqual([
         'a day ago',
         '3 days ago',
-        '5 days ago'
+        '5 days ago',
+        '7 days ago',
+        '9 days ago',
+        '11 days ago'
       ]);
     });
 
@@ -231,6 +317,7 @@ describe('PodInstancesTable', function () {
           .map(JestUtil.mapTextContent);
 
       expect(names).toEqual([
+        '2016-08-29T01:01:01.0012016-08-29T01:01:01.001',
         '2016-08-29T01:01:01.0012016-08-29T01:01:01.001'
       ]);
     });

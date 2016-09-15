@@ -74,7 +74,7 @@ const JestUtil = {
       tag = [tag];
     }
 
-    return function(element) {
+    return function (element) {
       return tag.reduce(function (isAccepted, tagName) {
         if (element.tagName !== tagName) {
           return false;
