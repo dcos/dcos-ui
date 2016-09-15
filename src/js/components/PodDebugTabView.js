@@ -24,18 +24,19 @@ class PodDebugTabView extends React.Component {
           <span>
             {startedAt.toString()} (<TimeAgo time={startedAt} />)
           </span>
-        ),
-        'Containers': (
-          <PodContainerTerminationTable containers={item.getContainers()} />
         )
       };
 
       return (
         <div key={index}>
-          <h6>
+          <h5 className="inverse flush-top">
             Terminated at {terminatedAt.toString()} (<TimeAgo time={terminatedAt} />)
-          </h6>
+          </h5>
           <DescriptionList hash={terminationValueMapping} />
+          <h5 className="inverse flush-top">
+            Containers
+          </h5>
+          <PodContainerTerminationTable containers={item.getContainers()} />
         </div>
       );
     });
@@ -59,13 +60,13 @@ class PodDebugTabView extends React.Component {
   render() {
     return (
       <div>
-        <h5 className="inverse flush-top">
+        <h4 className="inverse flush-top">
           Last Changes
-        </h5>
+        </h4>
         {this.getLastVersionChange()}
-        <h5 className="inverse flush-top">
+        <h4 className="inverse flush-top">
           Last Terminations
-        </h5>
+        </h4>
         {this.getTerminationHistory()}
       </div>
     );
