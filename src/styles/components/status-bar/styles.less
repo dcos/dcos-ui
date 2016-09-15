@@ -22,7 +22,7 @@
 
   .status-bar {
     background-color: @neutral;
-    border-radius: @table-header-border-radius;
+    border-radius: 100px;
     display: inline-flex;
     height: @base-spacing-unit * 1/6;
     line-height: @base-spacing-unit * 1/6;
@@ -90,9 +90,9 @@
     }
   }
 
-  & when (@screen-small-enabled) {
+  & when (@layout-screen-small-enabled) {
 
-    @media (min-width: @screen-small) {
+    @media (min-width: @layout-screen-small-min-width) {
       .status-bar {
         &.status-bar-large {
           width: @base-spacing-unit * 4;
