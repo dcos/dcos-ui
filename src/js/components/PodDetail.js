@@ -11,6 +11,8 @@ import PodActionItem from '../constants/PodActionItem';
 import PodDebugTabView from './PodDebugTabView';
 import PodHeader from './PodHeader';
 import PodInstancesView from './PodInstancesView';
+import PodConfigurationTabView from './PodConfigurationTabView';
+import PodHeader from './PodHeader';
 import TabsMixin from '../mixins/TabsMixin';
 
 const METHODS_TO_BIND = [
@@ -68,9 +70,7 @@ class PodDetail extends mixin(TabsMixin) {
     let {pod} = this.props;
 
     return (
-      <pre>
-        &lt;PodConfigurationView pod={pod.getId()} /&gt;
-      </pre>
+      <PodConfigurationTabView pod={pod} />
     );
   }
 
