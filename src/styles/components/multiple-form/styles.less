@@ -6,9 +6,9 @@
     padding-right: 0;
   }
 
-/*
- * Inline Form Elements
- */
+  /*
+   * Inline Form Elements
+   */
 
   .form-element-inline {
     display: inline-block;
@@ -30,7 +30,6 @@
       .form-element-inline-icon {
         flex: none;
       }
-
     }
 
     .form-row-read {
@@ -39,9 +38,7 @@
         // The 16px offsets the width of the inline edit icon
         margin-left: @base-spacing-unit * 1/2 + 16px;
       }
-
     }
-
   }
 
   .permission-form {
@@ -72,56 +69,14 @@
         }
       }
 
-      &:after, &:before {
+      &:after,
+      &:before {
         display: none;
       }
     }
   }
 
   .multiple-form-modal {
-
-    .multiple-form {
-
-      .form-row-element-mixed-label-presence {
-        .property-variant(form-control, line-height, height, null, null);
-        padding-top: @modal-form-label-line-height + @label-margin-bottom;
-
-        &.form-row-element {
-          margin-bottom: 0;
-          padding-bottom: 0;
-        }
-      }
-    }
-
-    .form-header {
-      color: @neutral;
-    }
-
-    form {
-      margin-bottom: @base-spacing-unit;
-
-      &:last-child {
-        margin-bottom: 0;
-      }
-
-      .icon.icon-error {
-        transform: rotate(180deg);
-        opacity: 0.5;
-
-        &:hover {
-          opacity: 1;
-        }
-      }
-
-      .checkbox .form-group label {
-        padding-left: 0;
-      }
-    }
-
-    dl {
-      margin: 0;
-      margin-bottom: @base-spacing-unit * 0.4;
-    }
 
     .multiple-form {
       display: flex;
@@ -156,7 +111,6 @@
         &:first-child {
           border-bottom: 1px solid color-lighten(@neutral, 80);
         }
-
       }
 
       .multiple-form-right-column {
@@ -165,6 +119,45 @@
         padding: 0;
       }
 
+      .form-row-element-mixed-label-presence {
+        .property-variant(form-control, line-height, height, null, null);
+        padding-top: @modal-form-label-line-height + @label-margin-bottom;
+
+        &.form-row-element {
+          margin-bottom: 0;
+          padding-bottom: 0;
+        }
+      }
+    }
+
+    .form-header {
+      color: @neutral;
+    }
+
+    form {
+      margin-bottom: @base-spacing-unit;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+
+      .icon.icon-error {
+        opacity: 0.5;
+        transform: rotate(180deg);
+
+        &:hover {
+          opacity: 1;
+        }
+      }
+
+      .checkbox .form-group label {
+        padding-left: 0;
+      }
+    }
+
+    dl {
+      margin: 0;
+      margin-bottom: @base-spacing-unit * 0.4;
     }
 
     .form-panel {
@@ -178,19 +171,18 @@
         flex-direction: column;
 
         .form-row-element {
-          padding-left: 0px;
-          padding-right: 0px;
+          padding-left: 0;
+          padding-right: 0;
           width: auto;
         }
       }
     }
 
     // Override column padding.
-    [class*="column-"] {
+    [class*='column-'] {
       padding-left: @multiple-form-modal-column-padding-horizontal;
       padding-right: @multiple-form-modal-column-padding-horizontal;
     }
-
   }
 
   .duplicable-row-title-wrapper {
@@ -214,7 +206,8 @@
 
     .disabled {
       opacity: 0.5;
-      .toggle-button:checked + span:before{
+
+      .toggle-button:checked + span:before {
         background-color: @gray;
         border-color: @gray;
       }
@@ -243,7 +236,8 @@
         flex-wrap: wrap-reverse;
         width: 100%;
 
-        .header-left, .header-right {
+        .header-left,
+        .header-right {
           display: inline-flex;
           flex: 0 0 auto;
           flex-wrap: wrap;
@@ -260,7 +254,6 @@
       .header-full-width {
         margin: @modal-header-padding-top -@modal-header-padding-right -@modal-header-padding-bottom -@modal-header-padding-left;
       }
-
     }
 
     .modal-header-title {
@@ -273,111 +266,93 @@
       color: currentColor;
       font-weight: 300;
     }
-
   }
 
-}
+  & when (@layout-screen-small-enabled) {
 
-& when (@multiple-form-enabled) and (@layout-screen-small-enabled) {
+    @media (min-width: @layout-screen-small-min-width) {
 
-  @media (min-width: @layout-screen-small-min-width) {
+      .multiple-form-modal {
 
-    .multiple-form-modal {
+        .multiple-form {
+          flex-direction: row;
 
-      .multiple-form {
-        flex-direction: row;
+          .multiple-form-left-column {
+            border-right: 1px solid color-lighten(@neutral, 80);
+            // Take up full height of container to
+            height: 100%;
+            max-height: 100%;
+            // Override gemini width styles
+            width: 33%;
 
-        .multiple-form-left-column {
-          border-right: 1px solid color-lighten(@neutral, 80);
-          // Take up full height of container to
-          height: 100%;
-          max-height: 100%;
-          // Override gemini width styles
-          width: 33%;
-
-          &:first-child {
-            border-bottom: none;
+            &:first-child {
+              border-bottom: none;
+            }
           }
 
+          .multiple-form-right-column {
+            // Override gemini width styles
+            width: 67%;
+          }
+
+          .form-row-element-mixed-label-presence {
+            .property-variant(form-control, line-height, height, null, screen-small);
+          }
         }
 
-        .multiple-form-right-column {
-          // Override gemini width styles
-          width: 67%;
-        }
+        .modal-header {
 
-        .form-row-element-mixed-label-presence {
-          .property-variant(form-control, line-height, height, null, screen-small);
+          .header-full-width {
+            margin: @modal-header-padding-top-screen-small -@modal-header-padding-right-screen-small -@modal-header-padding-bottom-screen-small -@modal-header-padding-left-screen-small;
+          }
         }
-
       }
-
-      .modal-header {
-
-        .header-full-width {
-          margin: @modal-header-padding-top-screen-small -@modal-header-padding-right-screen-small -@modal-header-padding-bottom-screen-small -@modal-header-padding-left-screen-small;
-        }
-
-      }
-
     }
-
   }
 
-}
+  & when (@layout-screen-medium-enabled) {
 
-& when (@multiple-form-enabled) and (@layout-screen-medium-enabled) {
+    @media (min-width: @layout-screen-medium-min-width) {
 
-  @media (min-width: @layout-screen-medium-min-width) {
+      .multiple-form-modal {
 
-    .multiple-form-modal {
+        .multiple-form {
 
-      .multiple-form {
-
-        .form-row-element-mixed-label-presence {
-          .property-variant(form-control, line-height, height, null, screen-medium);
+          .form-row-element-mixed-label-presence {
+            .property-variant(form-control, line-height, height, null, screen-medium);
+          }
         }
 
-      }
+        .modal-header {
 
-      .modal-header {
-
-        .header-full-width {
-          margin: @modal-header-padding-top-screen-medium -@modal-header-padding-right-screen-medium -@modal-header-padding-bottom-screen-medium -@modal-header-padding-left-screen-medium;
+          .header-full-width {
+            margin: @modal-header-padding-top-screen-medium -@modal-header-padding-right-screen-medium -@modal-header-padding-bottom-screen-medium -@modal-header-padding-left-screen-medium;
+          }
         }
-
       }
-
     }
-
   }
 
-}
+  & when (@layout-screen-large-enabled) {
 
-& when (@multiple-form-enabled) and (@layout-screen-large-enabled) {
+    @media (min-width: @layout-screen-large-min-width) {
 
-  @media (min-width: @layout-screen-large-min-width) {
+      .multiple-form-modal {
 
-    .multiple-form-modal {
+        .multiple-form {
 
-      .multiple-form {
-
-        .form-row-element-mixed-label-presence {
-          .property-variant(form-control, line-height, height, null, screen-large);
+          .form-row-element-mixed-label-presence {
+            .property-variant(form-control, line-height, height, null, screen-large);
+          }
         }
 
-      }
+        .modal-header {
 
-      .modal-header {
-
-        .header-full-width {
-          margin: @modal-header-padding-top-screen-large -@modal-header-padding-right-screen-large -@modal-header-padding-bottom-screen-large -@modal-header-padding-left-screen-large;
+          .header-full-width {
+            margin: @modal-header-padding-top-screen-large -@modal-header-padding-right-screen-large -@modal-header-padding-bottom-screen-large -@modal-header-padding-left-screen-large;
+          }
         }
-
       }
-
     }
-
   }
-
 }

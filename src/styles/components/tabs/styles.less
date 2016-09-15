@@ -14,15 +14,17 @@
     .tab-item {
       align-items: stretch;
       display: flex;
-      margin: 0px;
+      margin: 0;
       margin-right: @base-spacing-unit * 0.5;
 
       &:last-child {
-        margin-right: 0px;
+        margin-right: 0;
       }
 
       &.active {
+
         .tab-item-label {
+
           &:after {
             opacity: 1;
           }
@@ -53,7 +55,7 @@
           content: '';
           display: block;
           height: 3px;
-          left: 0px;
+          left: 0;
           opacity: 0;
           position: absolute;
           width: 100%;
@@ -67,9 +69,7 @@
         .tab-item-label-text {
           position: relative;
         }
-
       }
-
     }
 
     &.inverse {
@@ -78,6 +78,7 @@
         color: color-lighten(@neutral, 40);
 
         .tab-item-label {
+
           &:hover {
             color: color-lighten(@neutral, 60);
           }
@@ -97,7 +98,6 @@
   .badge-container .tab-item-label {
     line-height: 1em;
   }
-
 }
 
 & when (@tabs-enabled) and (@layout-screen-small-enabled) {
@@ -117,17 +117,11 @@
             &:after {
               bottom: @base-spacing-unit-screen-small * -0.5 - 1;
             }
-
           }
-
         }
-
       }
-
     }
-
   }
-
 }
 
 & when (@tabs-enabled) and (@layout-screen-medium-enabled) {
@@ -142,13 +136,9 @@
         .tab-item-label {
           padding-bottom: @base-spacing-unit-screen-medium * 0.5;
         }
-
       }
-
     }
-
   }
-
 }
 
 & when (@tabs-enabled) and (@layout-screen-large-enabled) {
@@ -163,11 +153,7 @@
         .tab-item-label {
           padding-bottom: @base-spacing-unit-screen-large * 0.5;
         }
-
       }
-
     }
-
   }
-
 }

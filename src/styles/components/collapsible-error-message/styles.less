@@ -25,7 +25,6 @@
         margin-left: 5px;
         width: 81px;
       }
-
     }
 
     //
@@ -52,7 +51,8 @@
     &.error-for-modal {
 
       // Both fixed and toggled parts share the same styling
-      .collapsible-fixed, .collapsible-toggled > div {
+      .collapsible-fixed,
+      .collapsible-toggled > div {
         background: color-lighten(@danger-color, 90);
       }
 
@@ -69,19 +69,17 @@
 
       // That moves down to the toggled part when expanded
       &.expanded {
+
         .collapsible-fixed {
           // We don't hide the border because this will
           // introduce 1 px shift in the bottom content
           border-bottom: color-lighten(@danger-color, 90) 1px solid;
         }
+
         .collapsible-toggled > div {
           border-bottom: @danger-color 1px solid;
         }
       }
-
     }
-
-
   }
-
 }

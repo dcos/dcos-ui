@@ -34,9 +34,7 @@
           transform: translate(-50%, -100%);
           transition: transform 350ms ease-in, opacity 350ms ease-in;
         }
-
       }
-
     }
 
     // TODO: https://github.com/dcos/dcos-ui/pull/741#discussion_r71219594
@@ -52,7 +50,6 @@
       &.button-fixed-width-small {
         width: @base-spacing-unit * 3;
       }
-
     }
 
     &-up-arrow,
@@ -65,7 +62,6 @@
         display: inline-block;
         vertical-align: middle;
       }
-
     }
 
     &-up-arrow {
@@ -73,7 +69,6 @@
       &:after {
         border-bottom: 6px solid color-lighten(@neutral, 10);
       }
-
     }
 
     &-down-arrow {
@@ -81,9 +76,7 @@
       &:after {
         border-top: 6px solid color-lighten(@neutral, 10);
       }
-
     }
-
   }
 
   .button-collection {
@@ -103,11 +96,8 @@
         &:last-child {
           margin-bottom: 0;
         }
-
       }
-
     }
-
   }
 
   // TODO: https://github.com/dcos/dcos-ui/pull/741#discussion_r71220271
@@ -132,9 +122,7 @@
         display: inline-block;
         float: none;
       }
-
     }
-
   }
 
   // TODO: Audit the need for this.
@@ -169,14 +157,12 @@
       align-self: center;
       flex: 0 0 auto;
     }
-
   }
 
   // TODO: Audit the need for this.
   .button-inverse .badge {
     background-color: @white;
   }
-
 }
 
 & when (@buttons-enabled) and (@layout-screen-small-enabled) {
@@ -190,9 +176,7 @@
         &.button-fixed-width-small {
           width: @base-spacing-unit-screen-small * 3;
         }
-
       }
-
     }
 
     .button-collection {
@@ -201,7 +185,6 @@
         margin-bottom: @button-collection-margin-vertical-screen-small;
         margin-right: @button-collection-margin-horizontal-screen-small;
       }
-
     }
 
     .button-group {
@@ -214,11 +197,8 @@
       .badge {
         margin-left: @base-spacing-unit-screen-small * 0.25;
       }
-
     }
-
   }
-
 }
 
 & when (@buttons-enabled) and (@layout-screen-medium-enabled) {
@@ -232,9 +212,7 @@
         &.button-fixed-width-small {
           width: @base-spacing-unit-screen-medium * 3;
         }
-
       }
-
     }
 
     .button-collection {
@@ -243,7 +221,6 @@
         margin-bottom: @button-collection-margin-vertical-screen-medium;
         margin-right: @button-collection-margin-horizontal-screen-medium;
       }
-
     }
 
     .button-group {
@@ -256,11 +233,8 @@
       .badge {
         margin-left: @base-spacing-unit-screen-medium * 0.15;
       }
-
     }
-
   }
-
 }
 
 & when (@buttons-enabled) and (@layout-screen-large-enabled) {
@@ -274,9 +248,7 @@
         &.button-fixed-width-small {
           width: @base-spacing-unit-screen-large * 3;
         }
-
       }
-
     }
 
     .button-collection {
@@ -285,7 +257,6 @@
         margin-bottom: @button-collection-margin-vertical-screen-large;
         margin-right: @button-collection-margin-horizontal-screen-large;
       }
-
     }
 
     .button-group {
@@ -298,11 +269,8 @@
       .badge {
         margin-left: @base-spacing-unit-screen-large * 0.15;
       }
-
     }
-
   }
-
 }
 
 & when (@buttons-enabled) and (@layout-screen-jumbo-enabled) {
@@ -316,9 +284,7 @@
         &.button-fixed-width-small {
           width: @base-spacing-unit-screen-jumbo * 3;
         }
-
       }
-
     }
 
     .button-collection {
@@ -327,7 +293,6 @@
         margin-bottom: @button-collection-margin-vertical-screen-jumbo;
         margin-right: @button-collection-margin-horizontal-screen-jumbo;
       }
-
     }
 
     .button-group {
@@ -340,9 +305,6 @@
       .badge {
         margin-left: @base-spacing-unit-screen-jumbo * 0.15;
       }
-
     }
-
   }
-
 }

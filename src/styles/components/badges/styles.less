@@ -1,13 +1,13 @@
 & when (@badges-enabled) {
 
   .badge {
+    background-color: @badge-background-color;
+    // TODO: Audit the need for this.
+    border-radius: 1000px !important;
     color: @body-background-color;
     font-size: inherit;
     line-height: inherit;
     padding: 0 @base-spacing-unit * 0.25;
-    background-color: @badge-background-color;
-    // TODO: Audit the need for this.
-    border-radius: 1000px !important;
 
     &:empty {
       display: none;
@@ -16,7 +16,6 @@
     &.inverse {
       background-color: @badge-background-color-inverse;
     }
-
   }
 
   .badge-container {
@@ -42,7 +41,6 @@
         background-color: @purple;
         color: color-lighten(@white, 40);
       }
-
     }
 
     // TODO: This is specific to the packages view, so maybe move it there or
@@ -59,11 +57,8 @@
         flex-grow: 0;
         padding: @base-spacing-unit * 0.15 @base-spacing-unit * 2/3 @base-spacing-unit * 0.15 @base-spacing-unit * 2/3;
       }
-
     }
-
   }
-
 }
 
 & when (@badges-enabled) and (@layout-screen-small-enabled) {
@@ -75,11 +70,8 @@
       .badge-container & {
         margin-left: 0.25 * @base-spacing-unit-screen-small;
       }
-
     }
-
   }
-
 }
 
 & when (@badges-enabled) and (@layout-screen-medium-enabled) {
@@ -91,11 +83,8 @@
       .badge-container & {
         margin-left: 0.25 * @base-spacing-unit-screen-medium;
       }
-
     }
-
   }
-
 }
 
 & when (@badges-enabled) and (@layout-screen-large-enabled) {
@@ -107,11 +96,8 @@
       .badge-container & {
         margin-left: 0.25 * @base-spacing-unit-screen-large;
       }
-
     }
-
   }
-
 }
 
 & when (@badges-enabled) and (@layout-screen-jumbo-enabled) {
@@ -123,9 +109,6 @@
       .badge-container & {
         margin-left: 0.25 * @base-spacing-unit-screen-jumbo;
       }
-
     }
-
   }
-
 }

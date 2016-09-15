@@ -9,15 +9,17 @@
       position: relative;
 
       &:before {
+        border: @toggle-border-width solid rgba(0, 0, 0, 0.2);
         border-radius: @toggle-height;
-        border: @toggle-border-width solid rgba(0, 0, 0, 0.2) ;
         content: '';
         display: block;
         height: @toggle-height;
         position: absolute;
         right: 0;
         top: 0;
-        transition: border-color @toggle-transition-speed, background-color @toggle-transition-speed;
+        transition:
+          border-color @toggle-transition-speed,
+          background-color @toggle-transition-speed;
         width: @toggle-width;
       }
 
@@ -25,7 +27,7 @@
         background-color: @white;
         border-radius: @toggle-height;
         box-shadow: 0 @toggle-border-width @toggle-border-width @toggle-border-width rgba(0, 0, 0, 0.1);
-        content: " ";
+        content: '';
         display: block;
         height: @toggle-height - @toggle-border-width * 2;
         position: absolute;
@@ -49,7 +51,6 @@
       }
     }
   }
-
 }
 
 & when (@toggle-button-enabled) and (@layout-screen-small-enabled) {
@@ -61,11 +62,8 @@
       & + span {
         padding-right: @toggle-width + @base-spacing-unit-screen-small / 2;
       }
-
     }
-
   }
-
 }
 
 & when (@toggle-button-enabled) and (@layout-screen-medium-enabled) {
@@ -77,11 +75,8 @@
       & + span {
         padding-right: @toggle-width + @base-spacing-unit-screen-medium / 2;
       }
-
     }
-
   }
-
 }
 
 & when (@toggle-button-enabled) and (@layout-screen-large-enabled) {
@@ -93,11 +88,8 @@
       & + span {
         padding-right: @toggle-width + @base-spacing-unit-screen-large / 2;
       }
-
     }
-
   }
-
 }
 
 & when (@toggle-button-enabled) and (@layout-screen-jumbo-enabled) {
@@ -109,9 +101,6 @@
       & + span {
         padding-right: @toggle-width + @base-spacing-unit-screen-jumbo / 2;
       }
-
     }
-
   }
-
 }
