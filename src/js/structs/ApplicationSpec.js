@@ -1,7 +1,12 @@
+import {cleanServiceJSON} from '../utils/CleanJSONUtil';
 import ServiceSpec from './ServiceSpec';
 import VolumeConstants from '../constants/VolumeConstants';
 
 module.exports = class ApplicationSpec extends ServiceSpec {
+  constructor(spec) {
+    super(cleanServiceJSON(spec));
+  }
+
   getAcceptedResourceRoles() {
     return this.get('acceptedResourceRoles');
   }

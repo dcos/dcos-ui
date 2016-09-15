@@ -1,5 +1,4 @@
 import ApplicationSpec from './ApplicationSpec';
-import {cleanServiceJSON} from '../utils/CleanJSONUtil';
 import Config from '../config/Config';
 import FrameworkUtil from '../utils/FrameworkUtil';
 import HealthStatus from '../constants/HealthStatus';
@@ -9,11 +8,6 @@ import TaskStats from './TaskStats';
 import VolumeList from './VolumeList';
 
 module.exports = class Application extends Service {
-
-  // getContainer() {
-  //   return this.get('container');
-  // }
-
   getDeployments() {
     return this.get('deployments');
   }
@@ -22,7 +16,7 @@ module.exports = class Application extends Service {
    * @override
    */
   getSpec() {
-    return new ApplicationSpec(cleanServiceJSON(this.get()));
+    return new ApplicationSpec(this.get());
   }
 
   /**
