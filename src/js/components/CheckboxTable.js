@@ -52,9 +52,7 @@ class CheckboxTable extends React.Component {
 
   bulkCheck(isChecked) {
     let checkedIDs = [];
-    let {data, onCheckboxChange, uniqueProperty, disabledItemsMap} = this.props;
-
-    data = data.filter((datum) => !disabledItemsMap[datum[uniqueProperty]]);
+    let {data, onCheckboxChange, uniqueProperty} = this.props;
 
     if (isChecked) {
       data.forEach(function (datum) {
@@ -77,14 +75,13 @@ class CheckboxTable extends React.Component {
   renderHeadingCheckbox() {
     let checked = false;
     let indeterminate = false;
-    let {allowMultipleSelect, checkedItemsMap, disabledItemsMap, data} = this.props;
+    let {allowMultipleSelect, checkedItemsMap, data} = this.props;
 
     if (!allowMultipleSelect) {
       return null;
     }
 
     let checkedItemsCount = Object.keys(checkedItemsMap).length;
-    let disabledItemsCount = Object.keys(disabledItemsMap).length;
 
     if (checkedItemsCount > 0) {
       indeterminate = true;
@@ -92,7 +89,7 @@ class CheckboxTable extends React.Component {
       checked = false;
     }
 
-    if (checkedItemsCount + disabledItemsCount === data.length && checkedItemsCount !== 0) {
+    if (checkedItemsCount === data.length && checkedItemsCount !== 0) {
       checked = true;
       indeterminate = false;
     }
