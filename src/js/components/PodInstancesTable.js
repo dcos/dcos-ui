@@ -78,7 +78,7 @@ class PodInstancesTable extends React.Component {
   }
 
   getColumnClassName(prop, sortBy, row) {
-    return classNames({
+    return classNames(`column-${prop}`, {
       'highlight': prop === sortBy.prop,
       'clickable': row == null,
       'table-cell-task-dot': prop === 'status'
@@ -151,13 +151,14 @@ class PodInstancesTable extends React.Component {
         .map(function (container) {
           let containerSpec = podSpec.getContainerSpec(container.name);
           Object.keys(containerSpec.resources).forEach(function (key) {
-            resourcesSummary[key] = containerSpec.resources[key];
+            resourcesSummary[key] += containerSpec.resources[key];
           });
 
-          let addressComponents = container.endpoints.reduce(function (components, ep) {
+          let addressComponents = container.endpoints.reduce(function (components, ep, i) {
             components.push(
               <a className="text-muted"
                 href={`http://${instance.getAgentAddress()}:${ep.allocatedHostPort}`}
+                key={i}
                 target="_blank"
                 title="Open in a new window">
                 {':' + ep.allocatedHostPort}
@@ -246,9 +247,14 @@ class PodInstancesTable extends React.Component {
   }
 
   renderColumnAddress(prop, row, rowOptions = {}) {
-    return this.renderWithClickHandler(rowOptions, '', (
-        <CollapsingString string={row.address} />
-      ));
+    if (rowOptions.isParent) {
+      return this.renderWithClickHandler(rowOptions, '', (
+          <CollapsingString string={row.address} />
+        ));
+    }
+
+    // On the child elements, the addresses is an array of one or more links
+    return this.renderWithClickHandler(rowOptions, '', row.address);
   }
 
   renderColumnStatus(prop, row, rowOptions = {}) {
@@ -256,7 +262,7 @@ class PodInstancesTable extends React.Component {
     return this.renderWithClickHandler(rowOptions, '', (
         <span>
           <span className={status.dotClassName}></span>
-          <span className={status.textClassName}>
+          <span className={`status-text ${status.textClassName}`}>
             {status.displayName}
           </span>
         </span>
