@@ -9,10 +9,16 @@ import Icon from '../components/Icon';
 import InternalStorageMixin from '../mixins/InternalStorageMixin';
 import Loader from '../components/Loader';
 import ResourceTableUtil from '../utils/ResourceTableUtil';
-import ProgressBar from './charts/ProgressBar';
+import StatusBar from '../components/StatusBar';
 import StringUtil from '../utils/StringUtil';
 import TableUtil from '../utils/TableUtil';
 import UnitHealthUtil from '../utils/UnitHealthUtil';
+
+const COLOR_CLASSNAMES = {
+  cpus: 'color-1',
+  mem: 'color-2',
+  disk: 'color-3'
+};
 
 var NodesTable = React.createClass({
 
@@ -98,17 +104,14 @@ var NodesTable = React.createClass({
   },
 
   renderStats(prop, node) {
-    var colorMapping = {
-      cpus: 1,
-      mem: 2,
-      disk: 3
-    };
-
     var value = node.getUsageStats(prop).percentage;
+
     return (
-      <span className="spread-content">
-        <ProgressBar value={value}
-          colorIndex={colorMapping[prop]} /> <span>{value}%</span>
+      <span className="status-bar-with-label-wrapper">
+        <StatusBar
+          data={[{value, className: COLOR_CLASSNAMES[prop]}]}
+          scale={100} />
+        <span className="label">{value}%</span>
       </span>
     );
   },
@@ -212,7 +215,7 @@ var NodesTable = React.createClass({
   render() {
     return (
       <Table
-        className="table inverse table-borderless-outer table-borderless-inner-columns flush-bottom"
+        className="node-table table inverse table-borderless-outer table-borderless-inner-columns flush-bottom"
         columns={this.getColumns()}
         colGroup={this.getColGroup()}
         containerSelector=".gm-scroll-view"

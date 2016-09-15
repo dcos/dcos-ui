@@ -1,5 +1,5 @@
 import React from 'react';
-import classNames from 'classnames';
+import classNames from 'classnames/dedupe';
 
 // Size of largest portion to give to smallest portion. We have a max of 5
 // status types so we want to keep this growth ratio relatively small.
@@ -79,25 +79,23 @@ class StatusBar extends React.Component {
     stealPortion(barSizes, indexesLessThanThreshold, unassignedPortion);
 
     return data.map(function (status, index) {
-      let {className} = status;
+      let {className, style = {}} = status;
       let scale = barSizes[index];
 
       if (className == null) {
         className = `element-${index}`;
       }
 
-      className = classNames(className, 'bar');
+      className = classNames('bar', className);
 
       if (scale === 0) {
         return null;
       }
 
-      let style = {
-        width: `${scale}%`
-      };
+      style.width = `${scale}%`;
 
       return (
-        <div style={style} key={index} className={className}></div>
+        <span style={style} key={index} className={className} />
       );
     });
   }
@@ -109,19 +107,24 @@ class StatusBar extends React.Component {
       return null;
     }
 
+    let classes = classNames('status-bar flex-box', className);
+
     return (
-      <div className={className}>{this.getBars(data)}</div>
+      <div className={classes}>{this.getBars(data)}</div>
     );
   }
 }
 
 StatusBar.defaultProps = {
-  className: 'progress-bar flex-box upgrade-progress-bar status-bar',
   scale: 0
 };
 
 StatusBar.propTypes = {
-  className: React.PropTypes.string,
+  className: React.PropTypes.oneOfType([
+    React.PropTypes.array,
+    React.PropTypes.object,
+    React.PropTypes.string
+  ]),
   scale: React.PropTypes.number,
   data: React.PropTypes.arrayOf(
     React.PropTypes.shape({
