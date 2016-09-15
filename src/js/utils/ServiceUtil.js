@@ -455,14 +455,10 @@ const ServiceUtil = {
     let definition = spec.toJSON();
 
     if (spec instanceof ApplicationSpec) {
-
-      // TODO: It looks that this hook operates over Application (Service)
-      //       instances, therefore we are creating an Application instance
-      //       but perhaps it's OK to pass the ApplicationSpec?
       Hooks.applyFilter(
         'serviceToAppDefinition',
         definition,
-        new Application(definition)
+        spec
       );
 
     }
