@@ -9,32 +9,48 @@ describe('ApplicationUtil', function () {
 
   describe('#invokeAfterPageLoad', function () {
 
+    beforeEach(function () {
+      // Clean up application timers.
+      jasmine.clock().uninstall();
+      // Install our custom jasmine timers.
+      jasmine.clock().install();
+      jasmine.clock().mockDate(new Date(2016, 3, 19));
+    });
+
+    afterEach(function () {
+      // Clean up application timers.
+      jasmine.clock().uninstall();
+    });
+
     it('should call callback right away', function () {
-      let spy = jest.fn();
+      let handler = jasmine.createSpy('handler');
       let now = Date.now();
 
       global.getPageLoadedTime = function () {
         return now - Config.applicationRenderDelay;
       };
 
-      ApplicationUtil.invokeAfterPageLoad(spy);
+      ApplicationUtil.invokeAfterPageLoad(handler);
 
-      expect(setTimeout.mock.calls[0][0]).toEqual(spy);
-      expect(setTimeout.mock.calls[0][1]).toEqual(undefined);
+      jasmine.clock().tick();
+      expect(handler).toHaveBeenCalled();
     });
 
     it('should call after time has elapsed', function () {
-      let spy = jest.fn();
+      let handler = jasmine.createSpy('handler');
       let now = Date.now();
 
       global.getPageLoadedTime = function () {
         return now;
       };
 
-      ApplicationUtil.invokeAfterPageLoad(spy);
+      ApplicationUtil.invokeAfterPageLoad(handler);
 
-      expect(setTimeout.mock.calls[0][0]).toEqual(spy);
-      expect(setTimeout.mock.calls[0][1]).toBeCloseTo(1000, 100);
+      // Ensure that it's not called before the time has elapsed, tick the
+      // timers and then check if it was called
+      expect(handler).not.toHaveBeenCalled();
+      jasmine.clock().tick(Config.applicationRenderDelay);
+      expect(handler).toHaveBeenCalled();
     });
 
   });
@@ -42,11 +58,11 @@ describe('ApplicationUtil', function () {
   describe('#beginTemporaryPolling', function () {
 
     it('calls callback once event is emitted', function () {
-      let spy = jest.fn();
-      ApplicationUtil.beginTemporaryPolling(spy);
-      expect(spy).not.toBeCalled();
+      let handler = jasmine.createSpy('handler');
+      ApplicationUtil.beginTemporaryPolling(handler);
+      expect(handler).not.toBeCalled();
       MesosSummaryStore.emit(EventTypes.MESOS_SUMMARY_CHANGE);
-      expect(spy).toBeCalled();
+      expect(handler).toBeCalled();
     });
 
   });
