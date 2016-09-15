@@ -69,16 +69,15 @@ class PodDetail extends mixin(TabsMixin) {
 
     return (
       <pre>
-      &lt;PodConfigurationView pod={pod.getId()} /&gt;
+        &lt;PodConfigurationView pod={pod.getId()} /&gt;
       </pre>
     );
   }
 
   renderDebugTabView() {
     let {pod} = this.props;
-    return (
-      <PodDebugTabView pod={pod} />
-    );
+
+    return <PodDebugTabView pod={pod} />
   }
 
   renderInstancesTabView() {
@@ -120,7 +119,6 @@ class PodDetail extends mixin(TabsMixin) {
           service={pod} />
 
       </div>
-
     );
   }
 }

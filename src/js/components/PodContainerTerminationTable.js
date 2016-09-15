@@ -111,15 +111,14 @@ class PodContainerTerminationTable extends React.Component {
 
   render() {
     return (
-        <Table
-          className={this.props.className}
-          columns={this.getColumns()}
-          colGroup={this.getColGroup()}
-          data={this.props.containers}
-          itemHeight={TableUtil.getRowHeight()}
-          sortBy={{prop: 'ID', order: 'desc'}}
-          />
-      );
+      <Table
+        className={this.props.className}
+        columns={this.getColumns()}
+        colGroup={this.getColGroup()}
+        data={this.props.containers}
+        itemHeight={TableUtil.getRowHeight()}
+        sortBy={{prop: 'ID', order: 'desc'}} />
+    );
   };
 };
 

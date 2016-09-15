@@ -10,8 +10,8 @@ class PodDebugTabView extends React.Component {
     let history = this.props.pod.getTerminationHistoryList().getItems();
     if (!history.length) {
       return (
-          <div>(No data)</div>
-        );
+        <div>(No data)</div>
+      );
     }
 
     return history.map(function (item, index) {
