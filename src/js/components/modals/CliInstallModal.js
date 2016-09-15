@@ -60,7 +60,7 @@ class CliInstallModal extends React.Component {
     }
     let clusterUrl = `${protocol}://${hostname}${port}`;
     let {selectedOS} = this.state;
-    let {version} = MetadataStore;
+    let version = MetadataStore.parsedVersion;
     // Prepend 'dcos-' to any version other than latest
     if (version !== 'latest') {
       version = `dcos-${version}`;
