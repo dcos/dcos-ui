@@ -59,12 +59,12 @@ const JestUtil = {
    * const TestUtils = require('react-addons-test-utils');
    *
    * var componentInstance = TestUtils.renderIntoDocument(
-   *     <MyTableComponent />
-   *   );
+   *   <MyTableComponent />
+   * );
    *
    * var nameTDs = TestUtils.scryRenderedDOMComponentsWithClass(
-   *       componentInstance, 'table-column-name')
-   *       .filter(filterByTagName('TD'));
+   *   componentInstance, 'table-column-name'
+   * ).filter(filterByTagName('TD'));
    *
    * @param {array|string} tag - One or mor tagNames to match
    * @returns {function} Returns a callback function to be passed on .filter()
@@ -79,6 +79,7 @@ const JestUtil = {
         if (element.tagName !== tagName) {
           return false;
         }
+
         return isAccepted;
       }, true);
     };
@@ -92,12 +93,13 @@ const JestUtil = {
    * const TestUtils = require('react-addons-test-utils');
    *
    * var componentInstance = TestUtils.renderIntoDocument(
-   *     <MyTableComponent />
-   *   );
+   *   <MyTableComponent />
+   * );
    *
    * var nameTDContents = TestUtils.scryRenderedDOMComponentsWithClass(
-   *       componentInstance, 'table-column-name')
-   *       .map(mapTextContent);
+   *   componentInstance,
+   *   'table-column-name'
+   * ).map(mapTextContent);
    *
    * @param {DOMElement} element - The DOM element for which to get the contnet
    * @returns {string} The text content
@@ -150,15 +152,16 @@ const JestUtil = {
    * const TestUtils = require('react-addons-test-utils');
    *
    * var componentInstance = TestUtils.renderIntoDocument(
-   *     <MyTableComponent />
-   *   );
+   *   <MyTableComponent />
+   * );
    *
    * var names = TestUtils.scryRenderedDOMComponentsWithClass(
-   *       componentInstance, 'table-column-name')
-   *       .reduce(reduceTextContentOfSelector(
-   *          '.collapsing-string-full-string'),
-   *          []
-   *       );
+   *   componentInstance,
+   *   'table-column-name'
+   * ).reduce(
+   *   reduceTextContentOfSelector('.collapsing-string-full-string'),
+   *   []
+   * );
    *
    * @param {string} selector - The CSS selector to match children
    * @returns {function} Returns a callback function to be passed on .reduce()
@@ -173,6 +176,7 @@ const JestUtil = {
       Array.prototype.slice.call(stringContents).forEach(function (stringElement) {
         strings.push(stringElement.textContent);
       });
+
       return strings;
     };
   },
