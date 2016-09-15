@@ -3,12 +3,7 @@ import React from 'react';
 import Pod from '../structs/Pod';
 import PodInstancesTable from './PodInstancesTable';
 
-class PodDetailInstancesTab extends React.Component {
-
-  constructor() {
-    super(...arguments);
-  }
-
+class PodDetailInstancesView extends React.Component {
   render() {
     return (
       <PodInstancesTable
@@ -18,12 +13,12 @@ class PodDetailInstancesTab extends React.Component {
   }
 }
 
-PodDetailInstancesTab.contextTypes = {
+PodDetailInstancesView.contextTypes = {
   router: React.PropTypes.func
 };
 
-PodDetailInstancesTab.propTypes = {
+PodDetailInstancesView.propTypes = {
   pod: React.PropTypes.instanceOf(Pod)
 };
 
-module.exports = PodDetailInstancesTab;
+module.exports = PodDetailInstancesView;
