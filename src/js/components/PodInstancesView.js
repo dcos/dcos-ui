@@ -10,7 +10,7 @@ const METHODS_TO_BIND = [
   'handleFilterChange'
 ];
 
-class PodDetailInstancesView extends React.Component {
+class PodInstancesView extends React.Component {
 
   constructor() {
     super(...arguments);
@@ -91,12 +91,12 @@ class PodDetailInstancesView extends React.Component {
   }
 }
 
-PodDetailInstancesView.contextTypes = {
+PodInstancesView.contextTypes = {
   router: React.PropTypes.func
 };
 
-PodDetailInstancesView.propTypes = {
+PodInstancesView.propTypes = {
   pod: React.PropTypes.instanceOf(Pod)
 };
 
-module.exports = PodDetailInstancesView;
+module.exports = PodInstancesView;
