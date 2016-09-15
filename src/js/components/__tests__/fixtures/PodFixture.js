@@ -80,9 +80,42 @@ module.exports = {
           'name': 'container-2',
           'status': 'RUNNING',
           'statusSince': '2016-08-31T01:01:01.001',
-          'containerId': 'container-id-1',
+          'containerId': 'container-id-2',
           'endpoints': [
             { 'name': 'nginx', 'allocatedHostPort': 31002 }
+          ],
+          'lastUpdated': '2016-08-31T01:01:01.001',
+          'lastChanged': '2016-08-31T01:01:01.001'
+        }
+      ]
+    },
+    {
+      'id': 'instance-2',
+      'status': 'STABLE',
+      'statusSince': '2016-08-31T01:01:01.001',
+      'agent': 'agent-2',
+      'resources': { 'cpus': 1.0, 'mem': 128 },
+      'lastUpdated': '2016-08-31T01:01:01.001',
+      'lastChanged': '2016-08-31T01:01:01.001',
+      'containers': [
+        {
+          'name': 'container-1',
+          'status': 'RUNNING',
+          'statusSince': '2016-08-31T01:01:01.001',
+          'containerId': 'container-id-3',
+          'endpoints': [
+            { 'name': 'nginx', 'allocatedHostPort': 31011 }
+          ],
+          'lastUpdated': '2016-08-31T01:01:01.001',
+          'lastChanged': '2016-08-31T01:01:01.001'
+        },
+        {
+          'name': 'container-2',
+          'status': 'RUNNING',
+          'statusSince': '2016-08-31T01:01:01.001',
+          'containerId': 'container-id-4',
+          'endpoints': [
+            { 'name': 'nginx', 'allocatedHostPort': 31012 }
           ],
           'lastUpdated': '2016-08-31T01:01:01.001',
           'lastChanged': '2016-08-31T01:01:01.001'
