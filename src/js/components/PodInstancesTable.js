@@ -25,15 +25,15 @@ const METHODS_TO_BIND = [
 
 class PodInstancesTable extends React.Component {
   constructor() {
-    super();
+    super(...arguments);
 
     this.state = {
       checkedItems: {}
     };
 
-    METHODS_TO_BIND.forEach(function (method) {
+    METHODS_TO_BIND.forEach((method) => {
       this[method] = this[method].bind(this);
-    }, this);
+    });
   }
 
   handleItemCheck(idsChecked) {
@@ -139,53 +139,57 @@ class PodInstancesTable extends React.Component {
     ];
   }
 
+  getContainersWithResources(constainers = []) {
+    let resourcesSum = {
+      cpus: 0, mem: 0, disk: 0, gpus: 0
+    };
+
+    let children = constainers.map(function (container) {
+      let containerSpec = podSpec.getContainerSpec(container.name);
+      Object.keys(containerSpec.resources).forEach(function (key) {
+        resourcesSum[key] += containerSpec.resources[key];
+      });
+
+      let addressComponents = container.endpoints.map(function (endpoint) {
+        return (
+          <a className="text-muted"
+            href={`http://${instance.getAgentAddress()}:${endpoint.allocatedHostPort}`}
+            target="_blank"
+            title="Open in a new window">
+            {':' + endpoint.allocatedHostPort}
+          </a>
+        );
+      });
+
+      return {
+        id: container.getId(),
+        name: container.getName(),
+        status: container.getContainerStatus(),
+        address: addressComponents,
+        cpus: containerSpec.resources.cpus,
+        mem: containerSpec.resources.mem,
+        updated: container.getLastUpdated(),
+        version: ''
+      };
+    });
+
+    return {children, resourcesSum};
+  }
+
   getTableDataFor(instances) {
     let podSpec = this.props.pod.getSpec();
 
     return instances.getItems().map(function (instance) {
-      let resourcesSummary = {
-        cpus: 0, mem: 0, disk: 0, gpus: 0
-      };
-
-      let children = instance.getContainers()
-        .map(function (container) {
-          let containerSpec = podSpec.getContainerSpec(container.name);
-          Object.keys(containerSpec.resources).forEach(function (key) {
-            resourcesSummary[key] += containerSpec.resources[key];
-          });
-
-          let addressComponents = container.endpoints.reduce(function (components, ep, i) {
-            components.push(
-              <a className="text-muted"
-                href={`http://${instance.getAgentAddress()}:${ep.allocatedHostPort}`}
-                key={i}
-                target="_blank"
-                title="Open in a new window">
-                {':' + ep.allocatedHostPort}
-              </a>
-            );
-
-            return components;
-          }, []);
-
-          return {
-            id: container.getId(),
-            name: container.getName(),
-            status: container.getContainerStatus(),
-            address: addressComponents,
-            cpus: containerSpec.resources.cpus,
-            mem: containerSpec.resources.mem,
-            updated: container.getLastUpdated(),
-            version: ''
-          };
-        });
+      let {children, resourcesSum} = this.getContainersWithResources(
+        instance.getContainers()
+      );
 
       return {
         id: instance.getId(),
         name: instance.getName(),
         address: instance.getAgentAddress(),
-        cpus: resourcesSummary.cpus,
-        mem: resourcesSummary.mem,
+        cpus: resourcesSum.cpus,
+        mem: resourcesSum.mem,
         updated: instance.getLastUpdated(),
         status: instance.getInstanceStatus(),
         version: podSpec.getVersion(),
@@ -216,10 +220,10 @@ class PodInstancesTable extends React.Component {
 
   renderWithClickHandler(rowOptions, className, content) {
     return (
-        <div onClick={rowOptions.clickHandler} className={className}>
-          {content}
-        </div>
-      );
+      <div onClick={rowOptions.clickHandler} className={className}>
+        {content}
+      </div>
+    );
   }
 
   renderColumnID(prop, row, rowOptions = {}) {
@@ -249,8 +253,8 @@ class PodInstancesTable extends React.Component {
   renderColumnAddress(prop, row, rowOptions = {}) {
     if (rowOptions.isParent) {
       return this.renderWithClickHandler(rowOptions, '', (
-          <CollapsingString string={row.address} />
-        ));
+        <CollapsingString string={row.address} />
+      ));
     }
 
     // On the child elements, the addresses is an array of one or more links
@@ -260,31 +264,31 @@ class PodInstancesTable extends React.Component {
   renderColumnStatus(prop, row, rowOptions = {}) {
     let {status} = row;
     return this.renderWithClickHandler(rowOptions, '', (
-        <span>
-          <span className={status.dotClassName}></span>
-          <span className={`status-text ${status.textClassName}`}>
-            {status.displayName}
-          </span>
+      <span>
+        <span className={status.dotClassName}></span>
+        <span className={`status-text ${status.textClassName}`}>
+          {status.displayName}
         </span>
-      ));
+      </span>
+    ));
   }
 
   renderColumnResource(prop, row, rowOptions = {}) {
     return this.renderWithClickHandler(rowOptions, '', (
-        <span>{Units.formatResource(prop, row[prop])}</span>
-      ));
+      <span>{Units.formatResource(prop, row[prop])}</span>
+    ));
   }
 
   renderColumnUpdated(prop, row, rowOptions = {}) {
     return this.renderWithClickHandler(rowOptions, '', (
-        <TimeAgo time={row.updated} />
-      ));
+      <TimeAgo time={row.updated} />
+    ));
   }
 
   renderColumnVersion(prop, row, rowOptions = {}) {
     return this.renderWithClickHandler(rowOptions, '', (
-        <CollapsingString string={row.version} />
-      ));
+      <CollapsingString string={row.version} />
+    ));
   }
 
   render() {
@@ -298,22 +302,19 @@ class PodInstancesTable extends React.Component {
     }
 
     return (
-      <div>
-        <ExpandingTable
-          allowMultipleSelect={false}
-          className="pod-instances-table table table-hover inverse table-borderless-outer table-borderless-inner-columns flush-bottom"
-          childRowClassName="pod-instances-table-child"
-          checkedItemsMap={checkedItems}
-          columns={this.getColumns()}
-          colGroup={this.getColGroup()}
-          data={this.getTableDataFor(instances)}
-          getColGroup={this.getColGroup}
-          onCheckboxChange={this.handleItemCheck}
-          sortBy={{prop: 'startedAt', order: 'desc'}}
-          tableComponent={CheckboxTable}
-          uniqueProperty="id"
-          />
-      </div>
+      <ExpandingTable
+        allowMultipleSelect={false}
+        className="pod-instances-table table table-hover inverse table-borderless-outer table-borderless-inner-columns flush-bottom"
+        childRowClassName="pod-instances-table-child"
+        checkedItemsMap={checkedItems}
+        columns={this.getColumns()}
+        colGroup={this.getColGroup()}
+        data={this.getTableDataFor(instances)}
+        getColGroup={this.getColGroup}
+        onCheckboxChange={this.handleItemCheck}
+        sortBy={{prop: 'startedAt', order: 'desc'}}
+        tableComponent={CheckboxTable}
+        uniqueProperty="id" />
     );
   }
 
