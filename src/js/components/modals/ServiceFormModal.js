@@ -226,7 +226,7 @@ class ServiceFormModal extends mixin(StoreMixin) {
 
     if (!this.state.jsonMode) {
       let {model} = this.triggerSubmit();
-      serviceSpec = ServiceUtil.createServiceFromFormModel(
+      serviceSpec = ServiceUtil.createSpecFromFormModel(
         model,
         ServiceSchema,
         this.props.isEdit,
@@ -353,14 +353,14 @@ class ServiceFormModal extends mixin(StoreMixin) {
       if (!isValidated) {
         return;
       }
-      let serviceSpec = ServiceUtil.createServiceFromFormModel(
+      let serviceSpec = ServiceUtil.createSpecFromFormModel(
         model,
         ServiceSchema,
         this.props.isEdit,
         this.props.service.getSpec().get() // Work on the original service spec
       );
       marathonAction(
-        ServiceUtil.getAppDefinitionFromSpec(serviceSpec),
+        ServiceUtil.getDefinitionFromSpec(serviceSpec),
         this.state.force
       );
     }
