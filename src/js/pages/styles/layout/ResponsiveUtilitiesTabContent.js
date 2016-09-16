@@ -155,7 +155,7 @@ class ResponsiveUtilitiesTabContent extends React.Component {
             </thead>
             <tbody>
               <tr>
-                <td scope="row"><code>.hidden-mini-down</code></td>
+                <td><code>.hidden-mini-down</code></td>
                 <td className="is-hidden">Hidden</td>
                 <td className="is-visible">Visible</td>
                 <td className="is-visible">Visible</td>
@@ -163,7 +163,7 @@ class ResponsiveUtilitiesTabContent extends React.Component {
                 <td className="is-visible">Visible</td>
               </tr>
               <tr>
-                <td scope="row"><code>.hidden-small-down</code></td>
+                <td><code>.hidden-small-down</code></td>
                 <td className="is-hidden">Hidden</td>
                 <td className="is-hidden">Hidden</td>
                 <td className="is-visible">Visible</td>
@@ -171,7 +171,7 @@ class ResponsiveUtilitiesTabContent extends React.Component {
                 <td className="is-visible">Visible</td>
               </tr>
               <tr>
-                <td scope="row"><code>.hidden-medium-down</code></td>
+                <td><code>.hidden-medium-down</code></td>
                 <td className="is-hidden">Hidden</td>
                 <td className="is-hidden">Hidden</td>
                 <td className="is-hidden">Hidden</td>
@@ -179,7 +179,7 @@ class ResponsiveUtilitiesTabContent extends React.Component {
                 <td className="is-visible">Visible</td>
               </tr>
               <tr>
-                <td scope="row"><code>.hidden-large-down</code></td>
+                <td><code>.hidden-large-down</code></td>
                 <td className="is-hidden">Hidden</td>
                 <td className="is-hidden">Hidden</td>
                 <td className="is-hidden">Hidden</td>
@@ -187,7 +187,7 @@ class ResponsiveUtilitiesTabContent extends React.Component {
                 <td className="is-visible">Visible</td>
               </tr>
               <tr>
-                <td scope="row"><code>.hidden-jumbo-down</code></td>
+                <td><code>.hidden-jumbo-down</code></td>
                 <td className="is-hidden">Hidden</td>
                 <td className="is-hidden">Hidden</td>
                 <td className="is-hidden">Hidden</td>
@@ -195,7 +195,7 @@ class ResponsiveUtilitiesTabContent extends React.Component {
                 <td className="is-hidden">Hidden</td>
               </tr>
               <tr>
-                <td scope="row"><code>.hidden-mini-up</code></td>
+                <td><code>.hidden-mini-up</code></td>
                 <td className="is-hidden">Hidden</td>
                 <td className="is-hidden">Hidden</td>
                 <td className="is-hidden">Hidden</td>
@@ -203,7 +203,7 @@ class ResponsiveUtilitiesTabContent extends React.Component {
                 <td className="is-hidden">Hidden</td>
               </tr>
               <tr>
-                <td scope="row"><code>.hidden-small-up</code></td>
+                <td><code>.hidden-small-up</code></td>
                 <td className="is-visible">Visible</td>
                 <td className="is-hidden">Hidden</td>
                 <td className="is-hidden">Hidden</td>
@@ -211,7 +211,7 @@ class ResponsiveUtilitiesTabContent extends React.Component {
                 <td className="is-hidden">Hidden</td>
               </tr>
               <tr>
-                <td scope="row"><code>.hidden-medium-up</code></td>
+                <td><code>.hidden-medium-up</code></td>
                 <td className="is-visible">Visible</td>
                 <td className="is-visible">Visible</td>
                 <td className="is-hidden">Hidden</td>
@@ -219,7 +219,7 @@ class ResponsiveUtilitiesTabContent extends React.Component {
                 <td className="is-hidden">Hidden</td>
               </tr>
               <tr>
-                <td scope="row"><code>.hidden-large-up</code></td>
+                <td><code>.hidden-large-up</code></td>
                 <td className="is-visible">Visible</td>
                 <td className="is-visible">Visible</td>
                 <td className="is-visible">Visible</td>
@@ -227,7 +227,7 @@ class ResponsiveUtilitiesTabContent extends React.Component {
                 <td className="is-hidden">Hidden</td>
               </tr>
               <tr>
-                <td scope="row"><code>.hidden-jumbo-up</code></td>
+                <td><code>.hidden-jumbo-up</code></td>
                 <td className="is-visible">Visible</td>
                 <td className="is-visible">Visible</td>
                 <td className="is-visible">Visible</td>

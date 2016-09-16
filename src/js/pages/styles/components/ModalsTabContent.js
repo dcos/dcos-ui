@@ -6,7 +6,7 @@ class ModalsTabContent extends React.Component {
   render() {
 
     let codeBlockModalExample =
-`<a href="#" className="button" data-toggle="modal" data-target="#myModal">Show Modal</a>
+`<button className="button" data-toggle="modal" data-target="#myModal">Show Modal</button>
 
 <div className="modal fade" id="myModal">
   …
@@ -123,17 +123,17 @@ class ModalsTabContent extends React.Component {
 
                   <div className="button-collection flush-bottom flex flex-direction-top-to-bottom flex-align-items-stretch-screen-small flex-direction-left-to-right-screen-small flex-justify-items-space-between-screen-medium">
 
-                    <a href="#" className="button button-primary flex-item-order-1-screen-small flex-item-grow-1-screen-small flex-item-basis-none-screen-small flex-item-align-end-screen-medium flex-item-grow-0-screen-medium flex-item-basis-auto-screen-medium">
+                    <button className="button button-primary flex-item-order-1-screen-small flex-item-grow-1-screen-small flex-item-basis-none-screen-small flex-item-align-end-screen-medium flex-item-grow-0-screen-medium flex-item-basis-auto-screen-medium">
 
                       Submit
 
-                    </a>
+                    </button>
 
-                    <a href="#" className="button flex-item-order-0-screen-small flex-item-grow-1-screen-small flex-item-basis-none-screen-small flex-item-align-start-screen-medium flex-item-grow-0-screen-medium flex-item-basis-auto-screen-medium">
+                    <button className="button flex-item-order-0-screen-small flex-item-grow-1-screen-small flex-item-basis-none-screen-small flex-item-align-start-screen-medium flex-item-grow-0-screen-medium flex-item-basis-auto-screen-medium">
 
                       Close
 
-                    </a>
+                    </button>
 
                   </div>
 
@@ -165,7 +165,7 @@ class ModalsTabContent extends React.Component {
 
             <div className="panel-cell">
 
-              <a href="#" className="button" data-toggle="modal" data-target="#myModal">Show Modal</a>
+              <button className="button" data-toggle="modal" data-target="#myModal">Show Modal</button>
 
               <div className="modal fade" id="myModal">
 
@@ -233,17 +233,17 @@ class ModalsTabContent extends React.Component {
 
                   <div className="button-collection flush-bottom flex flex-direction-top-to-bottom flex-align-items-stretch-screen-small flex-direction-left-to-right-screen-small flex-justify-items-space-between-screen-medium">
 
-                    <a href="#" className="button button-primary flex-item-order-1-screen-small flex-item-grow-1-screen-small flex-item-basis-none-screen-small flex-item-align-end-screen-medium flex-item-grow-0-screen-medium flex-item-basis-auto-screen-medium">
+                    <button className="button button-primary flex-item-order-1-screen-small flex-item-grow-1-screen-small flex-item-basis-none-screen-small flex-item-align-end-screen-medium flex-item-grow-0-screen-medium flex-item-basis-auto-screen-medium">
 
                       Submit
 
-                    </a>
+                    </button>
 
-                    <a href="#" className="button flex-item-order-0-screen-small flex-item-grow-1-screen-small flex-item-basis-none-screen-small flex-item-align-start-screen-medium flex-item-grow-0-screen-medium flex-item-basis-auto-screen-medium" data-dismiss="modal">
+                    <button className="button flex-item-order-0-screen-small flex-item-grow-1-screen-small flex-item-basis-none-screen-small flex-item-align-start-screen-medium flex-item-grow-0-screen-medium flex-item-basis-auto-screen-medium" data-dismiss="modal">
 
                       Close
 
-                    </a>
+                    </button>
 
                   </div>
 
@@ -383,17 +383,17 @@ class ModalsTabContent extends React.Component {
 
                       <div className="button-collection flush-bottom flex flex-direction-top-to-bottom flex-align-items-stretch-screen-small flex-direction-left-to-right-screen-small">
 
-                        <a href="#" className="button flex-item-align-start-screen-medium flex-item-grow-1-screen-small flex-item-basis-none-screen-small">
+                        <button className="button flex-item-align-start-screen-medium flex-item-grow-1-screen-small flex-item-basis-none-screen-small">
 
                           Close
 
-                        </a>
+                        </button>
 
-                        <a href="#" className="button button-primary flex-item-align-end-screen-medium flex-item-grow-1-screen-small flex-item-basis-none-screen-small">
+                        <button className="button button-primary flex-item-align-end-screen-medium flex-item-grow-1-screen-small flex-item-basis-none-screen-small">
 
                           Submit
 
-                        </a>
+                        </button>
 
                       </div>
 
@@ -465,17 +465,17 @@ class ModalsTabContent extends React.Component {
 
                       <div className="button-collection flush-bottom flex flex-direction-top-to-bottom flex-align-items-stretch-screen-small flex-direction-left-to-right-screen-small flex-justify-items-space-between-screen-medium">
 
-                        <a href="#" className="button flex-item-align-start-screen-medium flex-item-grow-1-screen-small flex-item-basis-none-screen-small flex-item-grow-0-screen-medium flex-item-basis-auto-screen-medium">
+                        <button className="button flex-item-align-start-screen-medium flex-item-grow-1-screen-small flex-item-basis-none-screen-small flex-item-grow-0-screen-medium flex-item-basis-auto-screen-medium">
 
                           Close
 
-                        </a>
+                        </button>
 
-                        <a href="#" className="button button-primary flex-item-align-end-screen-medium flex-item-grow-1-screen-small flex-item-basis-none-screen-small flex-item-grow-0-screen-medium flex-item-basis-auto-screen-medium">
+                        <button className="button button-primary flex-item-align-end-screen-medium flex-item-grow-1-screen-small flex-item-basis-none-screen-small flex-item-grow-0-screen-medium flex-item-basis-auto-screen-medium">
 
                           Submit
 
-                        </a>
+                        </button>
 
                       </div>
 

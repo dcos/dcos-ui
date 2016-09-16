@@ -8,12 +8,12 @@ class ButtonCollectionsTabContent extends React.Component {
     let codeBlockButtonCollection =
 `<!-- Button: Collection -->
 <div class="button-collection">
-  <a href="#" class="button button-primary">
+  <button class="button button-primary">
     Primary Button
-  </a>
-  <a href="#" class="button">
+  </button>
+  <button class="button">
     Button
-  </a>
+  </button>
 </div>`;
     let codeBlockButtonCollectionVerticalAlignment =
 `<!-- Button Collection: Align Top-->
@@ -47,17 +47,17 @@ class ButtonCollectionsTabContent extends React.Component {
 
             <div className="button-collection flush-bottom">
 
-              <a href="#" className="button button-primary">
+              <button className="button button-primary">
 
                 Primary Button
 
-              </a>
+              </button>
 
-              <a href="#" className="button">
+              <button className="button">
 
                 Button
 
-              </a>
+              </button>
 
             </div>
 
@@ -95,103 +95,103 @@ class ButtonCollectionsTabContent extends React.Component {
 
               <div className="button-collection button-collection-align-vertical-top">
 
-                <a href="#" className="button button-jumbo">
+                <button className="button button-jumbo">
 
                   Jumbo
 
-                </a>
+                </button>
 
-                <a href="#" className="button button-large">
+                <button className="button button-large">
 
                   Large
 
-                </a>
+                </button>
 
-                <a href="#" className="button">
+                <button className="button">
 
                   Default
 
-                </a>
+                </button>
 
-                <a href="#" className="button button-small">
+                <button className="button button-small">
 
                   Small
 
-                </a>
+                </button>
 
-                <a href="#" className="button button-mini">
+                <button className="button button-mini">
 
                   Mini
 
-                </a>
+                </button>
 
               </div>
 
               <div className="button-collection button-collection-align-vertical-middle">
 
-                <a href="#" className="button button-jumbo">
+                <button className="button button-jumbo">
 
                   Jumbo
 
-                </a>
+                </button>
 
-                <a href="#" className="button button-large">
+                <button className="button button-large">
 
                   Large
 
-                </a>
+                </button>
 
-                <a href="#" className="button">
+                <button className="button">
 
                   Default
 
-                </a>
+                </button>
 
-                <a href="#" className="button button-small">
+                <button className="button button-small">
 
                   Small
 
-                </a>
+                </button>
 
-                <a href="#" className="button button-mini">
+                <button className="button button-mini">
 
                   Mini
 
-                </a>
+                </button>
 
               </div>
 
               <div className="button-collection button-collection-align-vertical-bottom flush-bottom">
 
-                <a href="#" className="button button-jumbo">
+                <button className="button button-jumbo">
 
                   Jumbo
 
-                </a>
+                </button>
 
-                <a href="#" className="button button-large">
+                <button className="button button-large">
 
                   Large
 
-                </a>
+                </button>
 
-                <a href="#" className="button">
+                <button className="button">
 
                   Default
 
-                </a>
+                </button>
 
-                <a href="#" className="button button-small">
+                <button className="button button-small">
 
                   Small
 
-                </a>
+                </button>
 
-                <a href="#" className="button button-mini">
+                <button className="button button-mini">
 
                   Mini
 
-                </a>
+                </button>
 
               </div>
 

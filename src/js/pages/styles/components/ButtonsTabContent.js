@@ -7,135 +7,135 @@ class ButtonTabContent extends React.Component {
   render() {
 
     let codeBlockButton =
-`<a href="#" class="button">
+`<button class="button">
   Simple Button
-</a>`;
+</button>`;
     let codeBlockButtonSizes =
 `<!-- Button: Jumbo -->
-<a href="#" class="button button-jumbo">
+<button class="button button-jumbo">
   Jumbo
-</a>
+</button>
 
 <!-- Button: Large -->
-<a href="#" class="button button-large">
+<button class="button button-large">
   Large
-</a>
+</button>
 
 <!-- Button: Default -->
-<a href="#" class="button">
+<button class="button">
   Default
-</a>
+</button>
 
 <!-- Button: Small -->
-<a href="#" class="button button-small">
+<button class="button button-small">
   Small
-</a>
+</button>
 
 <!-- Button: Mini -->
-<a href="#" class="button button-mini">
+<button class="button button-mini">
   Mini
-</a>`;
+</button>`;
     let codeBlockButtonStates =
 `<!-- Button: Default -->
-<a href="#" class="button">
+<button class="button">
   Default
-</a>
+</button>
 
 <!-- Button: Primary -->
-<a href="#" class="button button-primary">
+<button class="button button-primary">
   Primary
-</a>
+</button>
 
 <!-- Button: Success -->
-<a href="#" class="button button-success">
+<button class="button button-success">
   Success
-</a>
+</button>
 
 <!-- Button: Warning -->
-<a href="#" class="button button-warning">
+<button class="button button-warning">
   Warning
-</a>
+</button>
 
 <!-- Button: Danger -->
-<a href="#" class="button button-danger">
+<button class="button button-danger">
   Danger
-</a>`;
+</button>`;
     let codeBlockButtonTypesRounded =
 `<!-- Button: Default -->
-<a href="#" class="button button-rounded">
+<button class="button button-rounded">
   Default
-</a>
+</button>
 
 <!-- Button: Primary -->
-<a href="#" class="button button-rounded button-primary">
+<button class="button button-rounded button-primary">
   Primary
-</a>`;
+</button>`;
     let codeBlockButtonTypesOutline =
 `<!-- Button: Default -->
-<a href="#" class="button button-outline">
+<button class="button button-outline">
   Default
-</a>
+</button>
 
 <!-- Button: Primary -->
-<a href="#" class="button button-primary-outline">
+<button class="button button-primary-outline">
   Primary
-</a>`;
+</button>`;
     let codeBlockButtonTypesLink =
 `<!-- Button: Default -->
-<a href="#" class="button button-link">
+<button class="button button-link">
   Default
-</a>
+</button>
 
 <!-- Button: Primary -->
-<a href="#" class="button button-primary-link">
+<button class="button button-primary-link">
   Primary
-</a>`;
+</button>`;
     let codeBlockButtonTypesCombined =
 `<!-- Button: Default -->
-<a href="#" class="button button-outline button-rounded">
+<button class="button button-outline button-rounded">
   Default
-</a>
+</button>
 
 <!-- Button: Primary -->
-<a href="#" class="button button-primary-outline button-rounded">
+<button class="button button-primary-outline button-rounded">
   Primary
-</a>`;
+</button>`;
     let codeBlockButtonInverseStyling =
-`<a href="#" class="button button-inverse">
+`<button class="button button-inverse">
   Default
-</a>`;
+</button>`;
     let codeBlockButtonWide =
-`<a href="#" class="button button-wide">
+`<button class="button button-wide">
   Wide Button
-</a>`;
+</button>`;
     let codeBlockButtonNarrow =
-`<a href="#" class="button button-narrow">
+`<button class="button button-narrow">
   Narrow Button
-</a>`;
+</button>`;
     let codeBlockButtonBlock =
-`<a href="#" class="button button-block">
+`<button class="button button-block">
   Block Button
-</a>`;
+</button>`;
     let codeBlockButtonBlockResponsive =
 `<!-- Block Button: When Smaller than Screen Mini-->
-<a href="#" class="button button-block button-block-below-screen-small">
+<button class="button button-block button-block-below-screen-small">
   Block Button (Mini)
-</a>
+</button>
 
 <!-- Block Button: When Smaller than Screen Small-->
-<a href="#" class="button button-block button-block-below-screen-medium">
+<button class="button button-block button-block-below-screen-medium">
   Block Button (Small)
-</a>
+</button>
 
 <!-- Block Button: When Smaller than Screen Medium-->
-<a href="#" class="button button-block button-block-below-screen-large">
+<button class="button button-block button-block-below-screen-large">
   Block Button (Medium)
-</a>
+</button>
 
 <!-- Block Button: When Smaller than Screen Large-->
-<a href="#" class="button button-block button-block-below-screen-jumbo">
+<button class="button button-block button-block-below-screen-jumbo">
   Block Button (Large)
-</a>`;
+</button>`;
     let codeBlockButtonDropdowns =
 `<div class="button-group">
   <button type="button" class="button dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
@@ -144,19 +144,19 @@ class ButtonTabContent extends React.Component {
   <span class="dropdown-menu" role="menu">
     <ul class="dropdown-menu-list">
       <li>
-        <a href="#">
+        <button>
           Action
-        </a>
+        </button>
       </li>
       <li>
-        <a href="#">
+        <button>
           Another action
-        </a>
+        </button>
       </li>
       <li>
-        <a href="#">
+        <button>
           Something else here
-        </a>
+        </button>
       </li>
     </ul>
   </span>
@@ -238,10 +238,10 @@ class ButtonTabContent extends React.Component {
 </div>`;
     let codeBlockButtonContent =
 `<!-- Button: Default -->
-<a href="#" class="button">
+<button class="button">
   <i class="icon icon-mini"></i>
   <span>Button</span>
-</a>`;
+</button>`;
 
     return (
 
@@ -257,11 +257,11 @@ class ButtonTabContent extends React.Component {
 
           <div className="panel-cell">
 
-            <a href="#" className="button">
+            <button className="button">
 
               Simple Button
 
-            </a>
+            </button>
 
           </div>
 
@@ -297,35 +297,35 @@ class ButtonTabContent extends React.Component {
 
               <div className="button-collection button-collection-align-middle flush">
 
-                <a href="#" className="button button-jumbo">
+                <button className="button button-jumbo">
 
                   Jumbo
 
-                </a>
+                </button>
 
-                <a href="#" className="button button-large">
+                <button className="button button-large">
 
                   Large
 
-                </a>
+                </button>
 
-                <a href="#" className="button">
+                <button className="button">
 
                   Default
 
-                </a>
+                </button>
 
-                <a href="#" className="button button-small">
+                <button className="button button-small">
 
                   Small
 
-                </a>
+                </button>
 
-                <a href="#" className="button button-mini">
+                <button className="button button-mini">
 
                   Mini
 
-                </a>
+                </button>
 
               </div>
 
@@ -365,35 +365,35 @@ class ButtonTabContent extends React.Component {
 
               <div className="button-collection flush-bottom">
 
-                <a href="#" className="button">
+                <button className="button">
 
                   Default
 
-                </a>
+                </button>
 
-                <a href="#" className="button button-primary">
+                <button className="button button-primary">
 
                   Primary
 
-                </a>
+                </button>
 
-                <a href="#" className="button button-success">
+                <button className="button button-success">
 
                   Success
 
-                </a>
+                </button>
 
-                <a href="#" className="button button-warning">
+                <button className="button button-warning">
 
                   Warning
 
-                </a>
+                </button>
 
-                <a href="#" className="button button-danger">
+                <button className="button button-danger">
 
                   Danger
 
-                </a>
+                </button>
 
               </div>
 
@@ -447,35 +447,35 @@ class ButtonTabContent extends React.Component {
 
                 <div className="button-collection flush-bottom">
 
-                  <a href="#" className="button button-rounded">
+                  <button className="button button-rounded">
 
                     Default
 
-                  </a>
+                  </button>
 
-                  <a href="#" className="button button-rounded button-primary">
+                  <button className="button button-rounded button-primary">
 
                     Primary
 
-                  </a>
+                  </button>
 
-                  <a href="#" className="button button-rounded button-success">
+                  <button className="button button-rounded button-success">
 
                     Success
 
-                  </a>
+                  </button>
 
-                  <a href="#" className="button button-rounded button-warning">
+                  <button className="button button-rounded button-warning">
 
                     Warning
 
-                  </a>
+                  </button>
 
-                  <a href="#" className="button button-rounded button-danger">
+                  <button className="button button-rounded button-danger">
 
                     Danger
 
-                  </a>
+                  </button>
 
                 </div>
 
@@ -515,35 +515,35 @@ class ButtonTabContent extends React.Component {
 
                 <div className="button-collection flush-bottom">
 
-                  <a href="#" className="button button-outline">
+                  <button className="button button-outline">
 
                     Default
 
-                  </a>
+                  </button>
 
-                  <a href="#" className="button button-primary-outline">
+                  <button className="button button-primary-outline">
 
                     Primary
 
-                  </a>
+                  </button>
 
-                  <a href="#" className="button button-success-outline">
+                  <button className="button button-success-outline">
 
                     Success
 
-                  </a>
+                  </button>
 
-                  <a href="#" className="button button-warning-outline">
+                  <button className="button button-warning-outline">
 
                     Warning
 
-                  </a>
+                  </button>
 
-                  <a href="#" className="button button-danger-outline">
+                  <button className="button button-danger-outline">
 
                     Danger
 
-                  </a>
+                  </button>
 
                 </div>
 
@@ -583,35 +583,35 @@ class ButtonTabContent extends React.Component {
 
                 <div className="button-collection flush-bottom">
 
-                  <a href="#" className="button button-link">
+                  <button className="button button-link">
 
                     Default
 
-                  </a>
+                  </button>
 
-                  <a href="#" className="button button-primary-link">
+                  <button className="button button-primary-link">
 
                     Primary
 
-                  </a>
+                  </button>
 
-                  <a href="#" className="button button-success-link">
+                  <button className="button button-success-link">
 
                     Success
 
-                  </a>
+                  </button>
 
-                  <a href="#" className="button button-warning-link">
+                  <button className="button button-warning-link">
 
                     Warning
 
-                  </a>
+                  </button>
 
-                  <a href="#" className="button button-danger-link">
+                  <button className="button button-danger-link">
 
                     Danger
 
-                  </a>
+                  </button>
 
                 </div>
 
@@ -651,35 +651,35 @@ class ButtonTabContent extends React.Component {
 
                 <div className="button-collection flush-bottom">
 
-                  <a href="#" className="button button-outline button-rounded">
+                  <button className="button button-outline button-rounded">
 
                     Default
 
-                  </a>
+                  </button>
 
-                  <a href="#" className="button button-primary-outline button-rounded">
+                  <button className="button button-primary-outline button-rounded">
 
                     Primary
 
-                  </a>
+                  </button>
 
-                  <a href="#" className="button button-success-outline button-rounded">
+                  <button className="button button-success-outline button-rounded">
 
                     Success
 
-                  </a>
+                  </button>
 
-                  <a href="#" className="button button-warning-outline button-rounded">
+                  <button className="button button-warning-outline button-rounded">
 
                     Warning
 
-                  </a>
+                  </button>
 
-                  <a href="#" className="button button-danger-outline button-rounded">
+                  <button className="button button-danger-outline button-rounded">
 
                     Danger
 
-                  </a>
+                  </button>
 
                 </div>
 
@@ -721,103 +721,103 @@ class ButtonTabContent extends React.Component {
 
               <div className="button-collection">
 
-                <a href="#" className="button button-inverse">
+                <button className="button button-inverse">
 
                   Default
 
-                </a>
+                </button>
 
-                <a href="#" className="button button-primary button-inverse">
+                <button className="button button-primary button-inverse">
 
                   Primary
 
-                </a>
+                </button>
 
-                <a href="#" className="button button-success button-inverse">
+                <button className="button button-success button-inverse">
 
                   Success
 
-                </a>
+                </button>
 
-                <a href="#" className="button button-warning button-inverse">
+                <button className="button button-warning button-inverse">
 
                   Warning
 
-                </a>
+                </button>
 
-                <a href="#" className="button button-danger button-inverse">
+                <button className="button button-danger button-inverse">
 
                   Danger
 
-                </a>
+                </button>
 
               </div>
 
               <div className="button-collection">
 
-                <a href="#" className="button button-outline button-inverse">
+                <button className="button button-outline button-inverse">
 
                   Default
 
-                </a>
+                </button>
 
-                <a href="#" className="button button-primary-outline button-inverse">
+                <button className="button button-primary-outline button-inverse">
 
                   Primary
 
-                </a>
+                </button>
 
-                <a href="#" className="button button-success-outline button-inverse">
+                <button className="button button-success-outline button-inverse">
 
                   Success
 
-                </a>
+                </button>
 
-                <a href="#" className="button button-warning-outline button-inverse">
+                <button className="button button-warning-outline button-inverse">
 
                   Warning
 
-                </a>
+                </button>
 
-                <a href="#" className="button button-danger-outline button-inverse">
+                <button className="button button-danger-outline button-inverse">
 
                   Danger
 
-                </a>
+                </button>
 
               </div>
 
               <div className="button-collection flush-bottom">
 
-                <a href="#" className="button button-link button-inverse">
+                <button className="button button-link button-inverse">
 
                   Default
 
-                </a>
+                </button>
 
-                <a href="#" className="button button-primary-link button-inverse">
+                <button className="button button-primary-link button-inverse">
 
                   Primary
 
-                </a>
+                </button>
 
-                <a href="#" className="button button-success-link button-inverse">
+                <button className="button button-success-link button-inverse">
 
                   Success
 
-                </a>
+                </button>
 
-                <a href="#" className="button button-warning-link button-inverse">
+                <button className="button button-warning-link button-inverse">
 
                   Warning
 
-                </a>
+                </button>
 
-                <a href="#" className="button button-danger-link button-inverse">
+                <button className="button button-danger-link button-inverse">
 
                   Danger
 
-                </a>
+                </button>
 
               </div>
 
@@ -857,17 +857,17 @@ class ButtonTabContent extends React.Component {
 
               <div className="button-collection button-collection-align-middle flush-bottom">
 
-                <a href="#" className="button button-wide">
+                <button className="button button-wide">
 
                   Wide Button
 
-                </a>
+                </button>
 
-                <a href="#" className="button button-primary button-wide">
+                <button className="button button-primary button-wide">
 
                   Wide Button
 
-                </a>
+                </button>
 
               </div>
 
@@ -907,17 +907,17 @@ class ButtonTabContent extends React.Component {
 
               <div className="button-collection button-collection-align-middle flush-bottom">
 
-                <a href="#" className="button button-narrow">
+                <button className="button button-narrow">
 
                   Narrow Button
 
-                </a>
+                </button>
 
-                <a href="#" className="button button-primary button-narrow">
+                <button className="button button-primary button-narrow">
 
                   Narrow Button
 
-                </a>
+                </button>
 
               </div>
 
@@ -957,17 +957,17 @@ class ButtonTabContent extends React.Component {
 
               <div className="button-collection button-collection-align-middle flush-bottom">
 
-                <a href="#" className="button button-block">
+                <button className="button button-block">
 
                   Block Button
 
-                </a>
+                </button>
 
-                <a href="#" className="button button-primary button-block">
+                <button className="button button-primary button-block">
 
                   Block Button
 
-                </a>
+                </button>
 
               </div>
 
@@ -1005,29 +1005,29 @@ class ButtonTabContent extends React.Component {
 
                 <div className="button-collection button-collection-align-middle flush-bottom">
 
-                  <a href="#" className="button button-block button-block-below-screen-small">
+                  <button className="button button-block button-block-below-screen-small">
 
                     Block Button (Mini)
 
-                  </a>
+                  </button>
 
-                  <a href="#" className="button button-block button-block-below-screen-medium">
+                  <button className="button button-block button-block-below-screen-medium">
 
                     Block Button (Small)
 
-                  </a>
+                  </button>
 
-                  <a href="#" className="button button-block button-block-below-screen-large">
+                  <button className="button button-block button-block-below-screen-large">
 
                     Block Button (Medium)
 
-                  </a>
+                  </button>
 
-                  <a href="#" className="button button-block button-block-below-screen-jumbo">
+                  <button className="button button-block button-block-below-screen-jumbo">
 
                     Block Button (Large)
 
-                  </a>
+                  </button>
 
                 </div>
 
@@ -1095,31 +1095,31 @@ class ButtonTabContent extends React.Component {
 
                       <li>
 
-                        <a href="#">
+                        <button>
 
                           Action
 
-                        </a>
+                        </button>
 
                       </li>
 
                       <li>
 
-                        <a href="#">
+                        <button>
 
                           Another action
 
-                        </a>
+                        </button>
 
                       </li>
 
                       <li>
 
-                        <a href="#">
+                        <button>
 
                           Something else here
 
-                        </a>
+                        </button>
 
                       </li>
 
@@ -1179,31 +1179,31 @@ class ButtonTabContent extends React.Component {
 
                         <li>
 
-                          <a href="#">
+                          <button>
 
                             Action
 
-                          </a>
+                          </button>
 
                         </li>
 
                         <li>
 
-                          <a href="#">
+                          <button>
 
                             Another action
 
-                          </a>
+                          </button>
 
                         </li>
 
                         <li>
 
-                          <a href="#">
+                          <button>
 
                             Something else here
 
-                          </a>
+                          </button>
 
                         </li>
 
@@ -1227,31 +1227,31 @@ class ButtonTabContent extends React.Component {
 
                         <li>
 
-                          <a href="#">
+                          <button>
 
                             Action
 
-                          </a>
+                          </button>
 
                         </li>
 
                         <li>
 
-                          <a href="#">
+                          <button>
 
                             Another action
 
-                          </a>
+                          </button>
 
                         </li>
 
                         <li>
 
-                          <a href="#">
+                          <button>
 
                             Something else here
 
-                          </a>
+                          </button>
 
                         </li>
 
@@ -1275,31 +1275,31 @@ class ButtonTabContent extends React.Component {
 
                         <li>
 
-                          <a href="#">
+                          <button>
 
                             Action
 
-                          </a>
+                          </button>
 
                         </li>
 
                         <li>
 
-                          <a href="#">
+                          <button>
 
                             Another action
 
-                          </a>
+                          </button>
 
                         </li>
 
                         <li>
 
-                          <a href="#">
+                          <button>
 
                             Something else here
 
-                          </a>
+                          </button>
 
                         </li>
 
@@ -1323,31 +1323,31 @@ class ButtonTabContent extends React.Component {
 
                         <li>
 
-                          <a href="#">
+                          <button>
 
                             Action
 
-                          </a>
+                          </button>
 
                         </li>
 
                         <li>
 
-                          <a href="#">
+                          <button>
 
                             Another action
 
-                          </a>
+                          </button>
 
                         </li>
 
                         <li>
 
-                          <a href="#">
+                          <button>
 
                             Something else here
 
-                          </a>
+                          </button>
 
                         </li>
 
@@ -1371,31 +1371,31 @@ class ButtonTabContent extends React.Component {
 
                         <li>
 
-                          <a href="#">
+                          <button>
 
                             Action
 
-                          </a>
+                          </button>
 
                         </li>
 
                         <li>
 
-                          <a href="#">
+                          <button>
 
                             Another action
 
-                          </a>
+                          </button>
 
                         </li>
 
                         <li>
 
-                          <a href="#">
+                          <button>
 
                             Something else here
 
-                          </a>
+                          </button>
 
                         </li>
 
@@ -1457,31 +1457,31 @@ class ButtonTabContent extends React.Component {
 
                         <li>
 
-                          <a href="#">
+                          <button>
 
                             Action
 
-                          </a>
+                          </button>
 
                         </li>
 
                         <li>
 
-                          <a href="#">
+                          <button>
 
                             Another action
 
-                          </a>
+                          </button>
 
                         </li>
 
                         <li>
 
-                          <a href="#">
+                          <button>
 
                             Something else here
 
-                          </a>
+                          </button>
 
                         </li>
 
@@ -1505,31 +1505,31 @@ class ButtonTabContent extends React.Component {
 
                         <li>
 
-                          <a href="#">
+                          <button>
 
                             Action
 
-                          </a>
+                          </button>
 
                         </li>
 
                         <li>
 
-                          <a href="#">
+                          <button>
 
                             Another action
 
-                          </a>
+                          </button>
 
                         </li>
 
                         <li>
 
-                          <a href="#">
+                          <button>
 
                             Something else here
 
-                          </a>
+                          </button>
 
                         </li>
 
@@ -1553,31 +1553,31 @@ class ButtonTabContent extends React.Component {
 
                         <li>
 
-                          <a href="#">
+                          <button>
 
                             Action
 
-                          </a>
+                          </button>
 
                         </li>
 
                         <li>
 
-                          <a href="#">
+                          <button>
 
                             Another action
 
-                          </a>
+                          </button>
 
                         </li>
 
                         <li>
 
-                          <a href="#">
+                          <button>
 
                             Something else here
 
-                          </a>
+                          </button>
 
                         </li>
 
@@ -1601,31 +1601,31 @@ class ButtonTabContent extends React.Component {
 
                         <li>
 
-                          <a href="#">
+                          <button>
 
                             Action
 
-                          </a>
+                          </button>
 
                         </li>
 
                         <li>
 
-                          <a href="#">
+                          <button>
 
                             Another action
 
-                          </a>
+                          </button>
 
                         </li>
 
                         <li>
 
-                          <a href="#">
+                          <button>
 
                             Something else here
 
-                          </a>
+                          </button>
 
                         </li>
 
@@ -1649,31 +1649,31 @@ class ButtonTabContent extends React.Component {
 
                         <li>
 
-                          <a href="#">
+                          <button>
 
                             Action
 
-                          </a>
+                          </button>
 
                         </li>
 
                         <li>
 
-                          <a href="#">
+                          <button>
 
                             Another action
 
-                          </a>
+                          </button>
 
                         </li>
 
                         <li>
 
-                          <a href="#">
+                          <button>
 
                             Something else here
 
-                          </a>
+                          </button>
 
                         </li>
 
@@ -1697,31 +1697,31 @@ class ButtonTabContent extends React.Component {
 
                         <li>
 
-                          <a href="#">
+                          <button>
 
                             Action
 
-                          </a>
+                          </button>
 
                         </li>
 
                         <li>
 
-                          <a href="#">
+                          <button>
 
                             Another action
 
-                          </a>
+                          </button>
 
                         </li>
 
                         <li>
 
-                          <a href="#">
+                          <button>
 
                             Something else here
 
-                          </a>
+                          </button>
 
                         </li>
 
@@ -1745,31 +1745,31 @@ class ButtonTabContent extends React.Component {
 
                         <li>
 
-                          <a href="#">
+                          <button>
 
                             Action
 
-                          </a>
+                          </button>
 
                         </li>
 
                         <li>
 
-                          <a href="#">
+                          <button>
 
                             Another action
 
-                          </a>
+                          </button>
 
                         </li>
 
                         <li>
 
-                          <a href="#">
+                          <button>
 
                             Something else here
 
-                          </a>
+                          </button>
 
                         </li>
 
@@ -1973,7 +1973,7 @@ class ButtonTabContent extends React.Component {
 
               <div className="button-collection flush-bottom">
 
-                <a href="#" className="button">
+                <button className="button">
 
                   <Icon id="plus" size="mini" family="mini" />
 
@@ -1983,9 +1983,9 @@ class ButtonTabContent extends React.Component {
 
                   </span>
 
-                </a>
+                </button>
 
-                <a href="#" className="button">
+                <button className="button">
 
                   <span>
 
@@ -1995,7 +1995,7 @@ class ButtonTabContent extends React.Component {
 
                   <Icon id="arrow-right" size="mini" family="mini" />
 
-                </a>
+                </button>
 
               </div>
 

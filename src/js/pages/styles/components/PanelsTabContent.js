@@ -395,11 +395,11 @@ class PanelsTabContent extends React.Component {
 
                       <div className="panel-cell panel-cell-short text-align-center">
 
-                        <a href="#" className="button button-primary">
+                        <button className="button button-primary">
 
                           Learn More &rarr;
 
-                        </a>
+                        </button>
 
                       </div>
 
@@ -447,11 +447,11 @@ class PanelsTabContent extends React.Component {
 
                             <div className="layout-box-item layout-box-item-content text-align-center">
 
-                              <a href="#" className="button button-primary">
+                              <button className="button button-primary">
 
                                 Learn More &rarr;
 
-                              </a>
+                              </button>
 
                             </div>
 
@@ -889,11 +889,11 @@ class PanelsTabContent extends React.Component {
 
                       <div className="panel-cell panel-cell-light panel-cell-short text-align-center">
 
-                        <a href="#" className="button button-success button-rounded">
+                        <button className="button button-success button-rounded">
 
                           Apply Today &rarr;
 
-                        </a>
+                        </button>
 
                       </div>
 
