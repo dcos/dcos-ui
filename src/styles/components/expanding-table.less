@@ -1,12 +1,11 @@
-.pod-instances-table {
+.expanding-table {
 
   tbody {
-    line-height: @body-text-line-height * 1.8;
+    line-height: 1.8;
   }
-
 }
 
-.pod-instances-container-id {
+.expanding-table-primary-cell {
   color: @white;
   margin: @base-spacing-unit * -1/4 0;
   padding: @base-spacing-unit * 1/4 @base-spacing-unit * 1/2;
@@ -35,7 +34,7 @@
   }
 }
 
-.pod-instances-instance-id {
+.expanding-table-primary-cell-heading {
   font-weight: normal;
   padding-left: @base-spacing-unit * 1.25;
   position: relative;
@@ -62,11 +61,11 @@
   }
 }
 
-.pod-instances-table-child {
+.expanding-table-child {
 
   &:last-child {
 
-    .pod-instances-instance-id {
+    .expanding-table-primary-cell-heading {
 
       &:after {
         height: 50%;
@@ -79,36 +78,39 @@
 
   @media (min-width: @screen-mini) {
 
-    .pod-instances-table tbody {
-      line-height: @table-header-cell-text-line-height-scale-screen-mini * 1.8;
+    .expanding-table {
+
+      tbody {
+        line-height: @table-header-cell-text-line-height-scale-screen-mini * 1.8;
+      }
     }
-
   }
-
 }
 
 & when (@screen-small-enabled) {
 
   @media (min-width: @screen-small) {
 
-    .pod-instances-table tbody {
-      line-height: @table-header-cell-text-line-height-scale-screen-small * 1.8;
+    .expanding-table {
+
+      tbody {
+        line-height: @table-header-cell-text-line-height-scale-screen-small * 1.8;
+      }
     }
-
   }
-
 }
 
 & when (@screen-medium-enabled) {
 
   @media (min-width: @screen-medium) {
 
-    .pod-instances-table tbody {
-      line-height: @table-header-cell-text-line-height-scale-screen-medium * 1.8;
+    .expanding-table {
+
+      tbody {
+        line-height: @table-header-cell-text-line-height-scale-screen-medium * 1.8;
+      }
     }
-
   }
-
 }
 
 
@@ -116,10 +118,11 @@
 
   @media (min-width: @screen-large) {
 
-    .pod-instances-table tbody {
-      line-height: @table-header-cell-text-line-height-scale-screen-large * 1.8;
+    .expanding-table {
+
+      tbody {
+        line-height: @table-header-cell-text-line-height-scale-screen-large * 1.8;
+      }
     }
-
   }
-
 }
