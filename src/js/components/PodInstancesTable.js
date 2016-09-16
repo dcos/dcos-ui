@@ -139,21 +139,23 @@ class PodInstancesTable extends React.Component {
     ];
   }
 
-  getContainersWithResources(constainers = []) {
+  getContainersWithResources(podSpec, instance) {
     let resourcesSum = {
       cpus: 0, mem: 0, disk: 0, gpus: 0
     };
 
-    let children = constainers.map(function (container) {
+    let containers = instance.getContainers();
+    let children = containers.map(function (container) {
       let containerSpec = podSpec.getContainerSpec(container.name);
       Object.keys(containerSpec.resources).forEach(function (key) {
         resourcesSum[key] += containerSpec.resources[key];
       });
 
-      let addressComponents = container.endpoints.map(function (endpoint) {
+      let addressComponents = container.endpoints.map(function (endpoint, i) {
         return (
           <a className="text-muted"
             href={`http://${instance.getAgentAddress()}:${endpoint.allocatedHostPort}`}
+            key={i}
             target="_blank"
             title="Open in a new window">
             {':' + endpoint.allocatedHostPort}
@@ -179,9 +181,9 @@ class PodInstancesTable extends React.Component {
   getTableDataFor(instances) {
     let podSpec = this.props.pod.getSpec();
 
-    return instances.getItems().map(function (instance) {
+    return instances.getItems().map((instance) => {
       let {children, resourcesSum} = this.getContainersWithResources(
-        instance.getContainers()
+        podSpec, instance
       );
 
       return {
