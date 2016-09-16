@@ -164,12 +164,7 @@ const JestUtil = {
    */
   reduceTextContentOfSelector(selector) {
     return function (strings, element) {
-      let matchedElements = Array.prototype.slice.call(
-          element.querySelectorAll(selector)
-        );
-      if (!matchedElements.length) {
-        return strings;
-      }
+      let matchedElements = Array.from(element.querySelectorAll(selector));
 
       matchedElements.forEach(function (stringElement) {
         strings.push(stringElement.textContent);
