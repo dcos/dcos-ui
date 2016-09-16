@@ -145,9 +145,7 @@ class PodInstancesTable extends React.Component {
       cpus: 0, mem: 0, disk: 0, gpus: 0
     };
 
-    let children = containers.filter(function (container) {
-      return PodUtil.isContainerMatchingText(container, filterText);
-    }).map(function (container) {
+    let children = containers.map(function (container) {
       let containerSpec = podSpec.getContainerSpec(container.name);
       Object.keys(containerSpec.resources).forEach(function (key) {
         resourcesSum[key] += containerSpec.resources[key];
@@ -180,7 +178,7 @@ class PodInstancesTable extends React.Component {
     return {children, resourcesSum};
   }
 
-  getTableDataFor(instances) {
+  getTableDataFor(instances, filterText) {
     let podSpec = this.props.pod.getSpec();
 
     return instances.getItems().map((instance) => {
