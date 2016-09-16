@@ -2,6 +2,57 @@ const MesosStateUtil = require('../MesosStateUtil');
 
 describe('MesosStateUtil', function () {
 
+  describe('#assignSchedulerNameToTasks', function () {
+    it('should assign a scheduler name to all tasks', function () {
+      const state = {
+        frameworks: [
+          {
+            name: 'marathon',
+            tasks: [
+              {name: 'spark', id: 'spark.1'},
+              {name: 'alpha', id: 'alpha.1'},
+            ],
+            completed_tasks: [
+              {name: 'alpha', id: 'alpha.2'}
+            ]
+          },
+          {
+            name: 'spark',
+            tasks: [
+              {name: '1'}
+            ],
+            completed_tasks: [
+              {name: '2'}
+            ]
+          }
+        ]
+      };
+
+      expect(MesosStateUtil.assignSchedulerNameToTasks(state)).toEqual({frameworks: [
+        {
+          name: 'marathon',
+          tasks: [
+            {name: 'spark', id: 'spark.1', scheduler: 'marathon'},
+            {name: 'alpha', id: 'alpha.1', scheduler: 'marathon'}
+          ],
+          completed_tasks: [
+            {name: 'alpha', id: 'alpha.2', scheduler: 'marathon'}
+          ]
+        },
+        {
+          name: 'spark',
+          tasks: [
+            {name: '1', scheduler: 'spark'}
+          ],
+          completed_tasks: [
+            {name: '2', scheduler: 'spark'}
+          ]
+        }
+      ]});
+    });
+
+  });
+
   describe('#getTasksFromVirtualNetworkName', function () {
 
     beforeEach(function () {
