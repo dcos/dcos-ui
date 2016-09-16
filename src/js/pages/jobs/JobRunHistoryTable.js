@@ -205,7 +205,7 @@ class JobRunHistoryTable extends React.Component {
       let id = this.props.job.getId();
 
       return (
-        <div className="job-run-history-task-id text-overflow">
+        <div className="expanding-table-primary-cell-heading text-overflow">
           <Link
             className="emphasize clickable text-overflow"
             to="jobs-task-details"
@@ -233,7 +233,7 @@ class JobRunHistoryTable extends React.Component {
       );
 
     if (row.children && row.children.length > 0) {
-      let classes = classNames('job-run-history-job-id is-expandable', {
+      let classes = classNames('expanding-table-primary-cell is-expandable', {
         'is-expanded': rowOptions.isExpanded
       });
       let {clickHandler} = rowOptions;
@@ -246,7 +246,7 @@ class JobRunHistoryTable extends React.Component {
     }
 
     return (
-      <div className="job-run-history-job-id">
+      <div className="expanding-table-primary-cell">
         {cellContent}
       </div>
     );
@@ -324,8 +324,8 @@ class JobRunHistoryTable extends React.Component {
         </FilterBar>
         <ExpandingTable
           allowMultipleSelect={false}
-          className="job-run-history-table table table-hover inverse table-borderless-outer table-borderless-inner-columns flush-bottom"
-          childRowClassName="job-run-history-table-child"
+          className="job-run-history-table expanding-table table table-hover inverse table-borderless-outer table-borderless-inner-columns flush-bottom"
+          childRowClassName="expanding-table-child"
           columns={this.getColumns()}
           colGroup={this.getColGroup()}
           data={this.getData(job)}
