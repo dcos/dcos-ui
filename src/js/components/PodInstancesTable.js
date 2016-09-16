@@ -321,8 +321,7 @@ class PodInstancesTable extends React.Component {
         onCheckboxChange={this.handleItemCheck}
         sortBy={{prop: 'startedAt', order: 'desc'}}
         tableComponent={CheckboxTable}
-        uniqueProperty="id"
-        />
+        uniqueProperty="id" />
     );
   }
 

@@ -11,7 +11,6 @@ const METHODS_TO_BIND = [
 ];
 
 class PodInstancesView extends React.Component {
-
   constructor() {
     super(...arguments);
 
@@ -78,14 +77,12 @@ class PodInstancesView extends React.Component {
           items={filteredTextItems.getItems()}
           onFilterChange={this.handleFilterChange}
           statusChoices={['all', 'active', 'completed']}
-          statusMapper={this.getInstanceFilterStatus}
-          />
+          statusMapper={this.getInstanceFilterStatus} />
         <PodInstancesTable
           filterText={filter.text}
           instances={filteredItems}
           inverseStyle={true}
-          pod={this.props.pod}
-          />
+          pod={this.props.pod} />
       </div>
     );
   }
