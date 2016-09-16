@@ -2,7 +2,33 @@ import Util from './Util';
 
 const RESOURCE_KEYS = ['cpus', 'disk', 'mem'];
 
+function setSchedulerName(name, tasks) {
+  return tasks.map(function (task) {
+    let newTask = Object.assign({}, task);
+
+    newTask.scheduler = name;
+
+    return newTask;
+  });
+}
+
 const MesosStateUtil = {
+
+  assignSchedulerNameToTasks(state) {
+    let newState = Object.assign({}, state);
+
+    newState.frameworks = state.frameworks.map(function (framework) {
+      let newFramework = Object.assign({}, framework);
+      let {tasks = [], completed_tasks = [], name} = framework;
+
+      newFramework.tasks = setSchedulerName(name, tasks);
+      newFramework.completed_tasks = setSchedulerName(name, completed_tasks);
+
+      return newFramework;
+    });
+
+    return newState;
+  },
 
   /**
    * @param  {Object} state A document of mesos state
