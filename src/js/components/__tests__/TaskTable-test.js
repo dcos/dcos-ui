@@ -65,7 +65,6 @@ describe('TaskTable', function () {
       ];
       expect(this.taskTable.getDisabledItemsMap(tasks)).toEqual({'2': true});
     });
-
   });
 
   describe('#getTaskHealth', function () {
