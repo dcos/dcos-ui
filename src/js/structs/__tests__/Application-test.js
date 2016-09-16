@@ -5,7 +5,7 @@ const ServiceStatus = require('../../constants/ServiceStatus');
 const TaskStats = require('../TaskStats');
 const VolumeList = require('../VolumeList');
 
-describe('Service', function () {
+describe('Application', function () {
 
   describe('#getDeployments', function () {
     it('should return an empty array', function () {
