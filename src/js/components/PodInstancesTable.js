@@ -220,7 +220,7 @@ class PodInstancesTable extends React.Component {
     }
   }
 
-  renderWithClickHandler(rowOptions, className, content) {
+  renderWithClickHandler(rowOptions, content, className) {
     return (
       <div onClick={rowOptions.clickHandler} className={className}>
         {content}
@@ -247,25 +247,27 @@ class PodInstancesTable extends React.Component {
       'is-expanded': rowOptions.isExpanded
     });
 
-    return this.renderWithClickHandler(rowOptions, classes, (
-      <CollapsingString string={row.id} />
-    ));
+    return this.renderWithClickHandler(
+      rowOptions,
+      (<CollapsingString string={row.id} />),
+      classes
+    );
   }
 
   renderColumnAddress(prop, row, rowOptions = {}) {
     if (rowOptions.isParent) {
-      return this.renderWithClickHandler(rowOptions, '', (
+      return this.renderWithClickHandler(rowOptions, (
         <CollapsingString string={row.address} />
       ));
     }
 
     // On the child elements, the addresses is an array of one or more links
-    return this.renderWithClickHandler(rowOptions, '', row.address);
+    return this.renderWithClickHandler(rowOptions, row.address);
   }
 
   renderColumnStatus(prop, row, rowOptions = {}) {
     let {status} = row;
-    return this.renderWithClickHandler(rowOptions, '', (
+    return this.renderWithClickHandler(rowOptions, (
       <span>
         <span className={status.dotClassName}></span>
         <span className={`status-text ${status.textClassName}`}>
@@ -276,19 +278,19 @@ class PodInstancesTable extends React.Component {
   }
 
   renderColumnResource(prop, row, rowOptions = {}) {
-    return this.renderWithClickHandler(rowOptions, '', (
+    return this.renderWithClickHandler(rowOptions, (
       <span>{Units.formatResource(prop, row[prop])}</span>
     ));
   }
 
   renderColumnUpdated(prop, row, rowOptions = {}) {
-    return this.renderWithClickHandler(rowOptions, '', (
+    return this.renderWithClickHandler(rowOptions, (
       <TimeAgo time={row.updated} />
     ));
   }
 
   renderColumnVersion(prop, row, rowOptions = {}) {
-    return this.renderWithClickHandler(rowOptions, '', (
+    return this.renderWithClickHandler(rowOptions, (
       <CollapsingString string={row.version} />
     ));
   }
