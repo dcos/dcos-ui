@@ -10,7 +10,7 @@ describe('MesosStateUtil', function () {
             name: 'marathon',
             tasks: [
               {name: 'spark', id: 'spark.1'},
-              {name: 'alpha', id: 'alpha.1'},
+              {name: 'alpha', id: 'alpha.1'}
             ],
             completed_tasks: [
               {name: 'alpha', id: 'alpha.2'}
