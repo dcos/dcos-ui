@@ -87,8 +87,7 @@ module.exports = Object.assign({}, webpackConfig, {
     new StyleLintPlugin({
       configFile: '.stylelintrc',
       files: '**/*.less',
-      syntax: 'less',
-      failOnError: false
+      syntax: 'less'
     }),
 
     new ExtractTextPlugin('./[name].css'),
