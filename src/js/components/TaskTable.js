@@ -239,6 +239,15 @@ class TaskTable extends React.Component {
     );
   }
 
+  getDisabledItemsMap(tasks) {
+    return tasks
+      .filter((task) => task.scheduler !== 'marathon')
+      .reduce((acc, task) => {
+        acc[task.id] = true;
+        return acc;
+      }, {});
+  }
+
   renderHeadline(prop, task) {
     let title = task[prop];
     let params = this.props.parentRouter.getCurrentParams();
@@ -376,6 +385,7 @@ class TaskTable extends React.Component {
         className={className}
         columns={this.getColumns()}
         data={tasks.slice()}
+        disabledItemsMap={this.getDisabledItemsMap(tasks)}
         getColGroup={this.getColGroup}
         onCheckboxChange={onCheckboxChange}
         sortBy={{prop: 'updated', order: 'desc'}}
