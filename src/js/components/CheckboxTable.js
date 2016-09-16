@@ -92,7 +92,7 @@ class CheckboxTable extends React.Component {
       checked = false;
     }
 
-    if (checkedItemsCount + disabledItemsCount >= data.length && checkedItemsCount !== 0) {
+    if (checkedItemsCount + disabledItemsCount === data.length && checkedItemsCount !== 0) {
       checked = true;
       indeterminate = false;
     }
