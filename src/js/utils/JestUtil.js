@@ -75,13 +75,9 @@ const JestUtil = {
     }
 
     return function (element) {
-      return tag.reduce(function (isAccepted, tagName) {
-        if (element.tagName !== tagName) {
-          return false;
-        }
-
-        return isAccepted;
-      }, true);
+      return tag.some(function (tagName) {
+        return (element.tagName === tagName);
+      });
     };
   },
 
@@ -168,12 +164,14 @@ const JestUtil = {
    */
   reduceTextContentOfSelector(selector) {
     return function (strings, element) {
-      let stringContents = element.querySelectorAll(selector);
-      if (!stringContents) {
+      let matchedElements = Array.prototype.slice.call(
+          element.querySelectorAll(selector)
+        );
+      if (!matchedElements.length) {
         return strings;
       }
 
-      Array.prototype.slice.call(stringContents).forEach(function (stringElement) {
+      matchedElements.forEach(function (stringElement) {
         strings.push(stringElement.textContent);
       });
 
