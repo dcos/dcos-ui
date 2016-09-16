@@ -38,13 +38,13 @@ class PodDebugTabView extends React.Component {
           <h4 className="inverse flush-top">
             Last Termination (<TimeAgo time={terminatedAt} />)
           </h4>
-          );
+        );
       } else {
         headline = (
           <h4 className="inverse flush-top">
             Terminated at {terminatedAt.toString()} (<TimeAgo time={terminatedAt} />)
           </h4>
-          );
+        );
       }
 
       return (
