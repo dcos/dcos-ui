@@ -2,7 +2,7 @@ const PodActionItem = {
   EDIT: 'edit',
   DESTROY: 'destroy',
   SCALE: 'scale',
-  SUSPED: 'suspend'
+  SUSPEND: 'suspend'
 };
 
 module.exports = PodActionItem;
