@@ -446,9 +446,9 @@ const ServiceUtil = {
     return ServiceUtil.createSpecFromDefinition(definition);
   },
 
-  createFormModelFromSchema(schema, service = new Application()) {
+  createFormModelFromSchema(schema, serviceSpec = new ApplicationSpec()) {
 
-    return getFindPropertiesRecursive(service, schema.properties);
+    return getFindPropertiesRecursive(serviceSpec, schema.properties);
   },
 
   getDefinitionFromSpec(spec) {
