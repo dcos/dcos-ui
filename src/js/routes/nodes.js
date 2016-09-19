@@ -42,35 +42,15 @@ let nodesRoutes = {
   },
   children: [
     {
+      type: DefaultRoute,
+      name: 'nodes-list',
+      handler: NodesTable
+    },
+    {
       type: Route,
-      name: 'nodes-page',
-      path: '/nodes/?',
-      handler: NodesPage,
-      buildBreadCrumb() {
-        return {
-          getCrumbs() {
-            return [
-              {
-                label: 'Nodes',
-                route: {to: 'nodes-page'}
-              }
-            ];
-          }
-        };
-      },
-      children: [
-        {
-          type: DefaultRoute,
-          name: 'nodes-list',
-          handler: NodesTable
-        },
-        {
-          type: Route,
-          name: 'nodes-grid',
-          path: 'grid/?',
-          handler: NodesGridView
-        }
-      ]
+      name: 'nodes-grid',
+      path: 'grid/?',
+      handler: NodesGridView
     },
     {
       type: Route,

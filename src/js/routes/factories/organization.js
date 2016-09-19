@@ -51,8 +51,6 @@ let RouteFactory = {
   getRoutes() {
     let children = this.getOrganizationRoutes();
 
-    console.log(children);
-
     return {
       type: Route,
       id: 'organization',
