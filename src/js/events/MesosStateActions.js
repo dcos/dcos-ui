@@ -16,7 +16,7 @@ var MesosStateActions = {
           success(response) {
             AppDispatcher.handleServerAction({
               type: ActionTypes.REQUEST_MESOS_STATE_SUCCESS,
-              data: MesosStateUtil.assignSchedulerNameToTasks(response)
+              data: MesosStateUtil.flagMarathonTasks(response)
             });
             resolve();
           },
