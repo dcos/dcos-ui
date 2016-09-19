@@ -55,4 +55,8 @@ module.exports = class PodSpec extends ServiceSpec {
   getVersion() {
     return this.get('version') || '';
   }
+
+  getUser() {
+    return this.get('user') || '';
+  }
 };
