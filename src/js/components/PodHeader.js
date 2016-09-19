@@ -1,3 +1,4 @@
+import classNames from 'classnames/dedupe';
 import {Dropdown} from 'reactjs-components';
 import React from 'react';
 
@@ -14,6 +15,8 @@ class PodInfo extends React.Component {
   }
 
   getActionButtons() {
+    var {pod} = this.props;
+
     const dropdownItems = [
       // This item is used as a label to the dropdown
       {
@@ -21,6 +24,13 @@ class PodInfo extends React.Component {
         id: '__MORE__',
         html: '',
         selectedHtml: 'More'
+      },
+      {
+        className: classNames({
+          hidden: pod.getInstancesCount() === 0
+        }),
+        id: PodActionItem.SUSPEND,
+        html: 'Suspend'
       },
       {
         id: PodActionItem.DESTROY,

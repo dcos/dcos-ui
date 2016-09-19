@@ -2,6 +2,10 @@ import mixin from 'reactjs-mixin';
 import React from 'react';
 
 import Breadcrumbs from './Breadcrumbs';
+import ServiceDestroyModal from './modals/ServiceDestroyModal';
+import ServiceFormModal from './modals/ServiceFormModal';
+import ServiceScaleFormModal from './modals/ServiceScaleFormModal';
+import ServiceSuspendModal from './modals/ServiceSuspendModal';
 import Pod from '../structs/Pod';
 import PodInstancesView from './PodInstancesView';
 import PodActionItem from '../constants/PodActionItem';
@@ -9,7 +13,8 @@ import PodHeader from './PodHeader';
 import TabsMixin from '../mixins/TabsMixin';
 
 const METHODS_TO_BIND = [
-  'handleAction'
+  'handleAction',
+  'handleCloseDialog'
 ];
 
 class PodDetail extends mixin(TabsMixin) {
@@ -23,7 +28,8 @@ class PodDetail extends mixin(TabsMixin) {
     };
 
     this.state = {
-      currentTab: Object.keys(this.tabs_tabs).shift()
+      currentTab: Object.keys(this.tabs_tabs).shift(),
+      activeActionDialog: null
     };
 
     METHODS_TO_BIND.forEach((method) => {
@@ -33,18 +39,28 @@ class PodDetail extends mixin(TabsMixin) {
 
   handleAction(action) {
     switch (action.id) {
-      case PodActionItem.SCALE:
-        console.debug('Scale');
-        break;
-
-      case PodActionItem.EDIT:
-        console.debug('Edit');
-        break;
-
       case PodActionItem.DESTROY:
-        console.debug('Destroy');
+      case PodActionItem.EDIT:
+      case PodActionItem.SCALE:
+      case PodActionItem.SUSPEND:
+
+        this.setState({
+          activeActionDialog: action.id
+        });
         break;
+
+      default:
+        if (process.env.NODE_ENV !== 'production') {
+          throw new TypeError('Trying to handle an unknown action:', action.id);
+        }
+
     }
+  }
+
+  handleCloseDialog() {
+    this.setState({
+      activeActionDialog: null
+    });
   }
 
   renderConfigurationTabView() {
@@ -74,6 +90,7 @@ class PodDetail extends mixin(TabsMixin) {
 
   render() {
     const {pod} = this.props;
+    const {activeActionDialog} = this.state;
 
     return (
       <div className="flex-container-col">
@@ -85,6 +102,24 @@ class PodDetail extends mixin(TabsMixin) {
             tabs={this.tabs_getUnroutedTabs()} />
           {this.tabs_getTabView()}
         </div>
+
+        <ServiceScaleFormModal
+          onClose={this.handleCloseDialog}
+          open={activeActionDialog === PodActionItem.SCALE}
+          service={pod} />
+        <ServiceDestroyModal
+          onClose={this.handleCloseDialog}
+          open={activeActionDialog === PodActionItem.DESTROY}
+          service={pod} />
+        <ServiceSuspendModal
+          onClose={this.handleCloseDialog}
+          open={activeActionDialog === PodActionItem.SUSPEND}
+          service={pod} />
+        <ServiceFormModal
+          onClose={this.handleCloseDialog}
+          open={activeActionDialog === PodActionItem.EDIT}
+          service={pod} />
+
       </div>
 
     );
