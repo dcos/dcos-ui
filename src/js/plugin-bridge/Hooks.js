@@ -17,109 +17,129 @@ function addListener(store, hook, listener, priority = 10) {
 
   store[hook][priority].push(listener);
 }
+/*
+ * Example usage:
+ *
+ * import Hooks from './Hooks';
+ * const hooks = new Hooks();
+ *
+ * // Register actions and filters;
+ * hooks.addAction('someAction', function actionHandler() {
+ *   // Do something on action fired
+ * });
+ * hooks.addFilter('someFilter', function filterHandler(value) {
+ *   // Change value on filter applied
+ *   return value.replace('some', 'someChanged');
+ * });
+ *
+ * // Call actions and filters
+ * hooks.doAction('someAction');
+ * hooks.applyFilter('someFilter', 'someValue');
+ */
+module.exports = function () {
+  return Object.assign({}, Events.EventEmitter.prototype, {
+    // Event store for actions
+    actions: {},
 
-module.exports = Object.assign({}, Events.EventEmitter.prototype, {
-  // Event store for actions
-  actions: {},
+    // Event store for filters
+    filters: {},
 
-  // Event store for filters
-  filters: {},
+    addChangeListener(eventName, callback) {
+      this.on(eventName, callback);
+    },
 
-  addChangeListener(eventName, callback) {
-    this.on(eventName, callback);
-  },
+    removeChangeListener(eventName, callback) {
+      this.removeListener(eventName, callback);
+    },
 
-  removeChangeListener(eventName, callback) {
-    this.removeListener(eventName, callback);
-  },
+    notifyPluginsLoaded() {
+      this.doAction('pluginsConfigured');
+      this.emit(PLUGINS_CONFIGURED);
+    },
 
-  notifyPluginsLoaded() {
-    this.doAction('pluginsConfigured');
-    this.emit(PLUGINS_CONFIGURED);
-  },
+    /**
+     * Attaches listener for filter
+     *
+     * @param  {String} hook The event id to listen for
+     * @param  {Function} listener Callback to fire when event executes
+     * @param  {Number} priority Priority for listener
+     */
+    addFilter(hook, listener, priority) {
+      addListener(this.filters, hook, listener, priority);
+    },
 
-  /**
-   * Attaches listener for filter
-   *
-   * @param  {String} hook The event id to listen for
-   * @param  {Function} listener Callback to fire when event executes
-   * @param  {Number} priority Priority for listener
-   */
-  addFilter(hook, listener, priority) {
-    addListener(this.filters, hook, listener, priority);
-  },
+    /**
+     * Will apply all filters for a given hook
+     * If more arguments are passed to the function these arguments will
+     * be passed down to the listeners. But we only expect `value` to be
+     * modified.
+     *
+     * @param  {String} hook An event identifier
+     * @param  {Mixed} value The value that is being filtered
+     * @return {Mixed} The filtered value after all hooked functions are applied
+     */
+    applyFilter(hook, value, ...args) {
+      let listeners = this.filters[hook];
 
-  /**
-   * Will apply all filters for a given hook
-   * If more arguments are passed to the function these arguments will
-   * be passed down to the listeners. But we only expect `value` to be
-   * modified.
-   *
-   * @param  {String} hook An event identifier
-   * @param  {Mixed} value The value that is being filtered
-   * @return {Mixed} The filtered value after all hooked functions are applied
-   */
-  applyFilter(hook, value, ...args) {
-    let listeners = this.filters[hook];
+      // If there's no listeners, then return early
+      if (listeners == null || listeners.length === 0) {
+        return value;
+      }
 
-    // If there's no listeners, then return early
-    if (listeners == null || listeners.length === 0) {
+      // Sort the listeners by priority
+      let priorities = Object.keys(listeners);
+      priorities.sort();
+
+      priorities.forEach(function (priority) {
+        // Call all listeners
+        listeners[priority].forEach(function (listener) {
+          // Creates new arguments array to call the listener with
+          let groupedArgs = args.slice();
+          groupedArgs.unshift(value);
+          value = listener.apply(null, groupedArgs);
+        });
+      });
+
       return value;
-    }
+    },
 
-    // Sort the listeners by priority
-    let priorities = Object.keys(listeners);
-    priorities.sort();
+    /**
+     * Attaches listener for action
+     *
+     * @param  {String} hook The event id to listen for
+     * @param  {Function} listener Callback to fire when event executes
+     * @param  {Number} priority Priority for listener
+     */
+    addAction(hook, listener, priority) {
+      addListener(this.actions, hook, listener, priority);
+    },
 
-    priorities.forEach(function (priority) {
-      // Call all listeners
-      listeners[priority].forEach(function (listener) {
-        // Creates new arguments array to call the listener with
-        let groupedArgs = args.slice();
-        groupedArgs.unshift(value);
-        value = listener.apply(null, groupedArgs);
+    /**
+     * Will apply all filters for a given hook
+     * If more arguments are passed to the function these arguments will
+     * be passed down to the listeners. But we only expect `value` to be
+     * modified.
+     *
+     * @param  {String} hook An event identifier
+     */
+    doAction(hook, ...args) {
+      let listeners = this.actions[hook];
+
+      // If there's no listeners, then return early
+      if (listeners == null || listeners.length === 0) {
+        return;
+      }
+
+      // Sort the listeners by priority
+      let priorities = Object.keys(listeners);
+      priorities.sort();
+
+      priorities.forEach(function (priority) {
+        // Call all listeners
+        listeners[priority].forEach(function (listener) {
+          listener.apply(null, args);
+        });
       });
-    });
-
-    return value;
-  },
-
-  /**
-   * Attaches listener for action
-   *
-   * @param  {String} hook The event id to listen for
-   * @param  {Function} listener Callback to fire when event executes
-   * @param  {Number} priority Priority for listener
-   */
-  addAction(hook, listener, priority) {
-    addListener(this.actions, hook, listener, priority);
-  },
-
-  /**
-   * Will apply all filters for a given hook
-   * If more arguments are passed to the function these arguments will
-   * be passed down to the listeners. But we only expect `value` to be
-   * modified.
-   *
-   * @param  {String} hook An event identifier
-   */
-  doAction(hook, ...args) {
-    let listeners = this.actions[hook];
-
-    // If there's no listeners, then return early
-    if (listeners == null || listeners.length === 0) {
-      return;
     }
-
-    // Sort the listeners by priority
-    let priorities = Object.keys(listeners);
-    priorities.sort();
-
-    priorities.forEach(function (priority) {
-      // Call all listeners
-      listeners[priority].forEach(function (listener) {
-        listener.apply(null, args);
-      });
-    });
-  }
-});
+  });
+};
