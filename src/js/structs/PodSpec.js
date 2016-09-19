@@ -53,6 +53,6 @@ module.exports = class PodSpec extends ServiceSpec {
   }
 
   getVersion() {
-    return this.get('version');
+    return this.get('version') || '';
   }
 };
