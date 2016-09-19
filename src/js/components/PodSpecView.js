@@ -31,9 +31,11 @@ class PodSpecView extends React.Component {
     Object.keys(environment).forEach(function (key) {
       let value = environment[key];
       if (typeof value === 'object' && !Array.isArray(value) && value !== null) {
-        environment[key] = <KeyIconLink
-          url={`#${value.secret}`}
-          text={value.secret} />;
+        environment[key] = (
+          <KeyIconLink
+            url={`#${value.secret}`}
+            text={value.secret} />
+        );
       }
     });
 
@@ -58,9 +60,11 @@ class PodSpecView extends React.Component {
     Object.keys(secrets).forEach(function (key) {
       let value = secrets[key];
       if (typeof value === 'object' && !Array.isArray(value) && value !== null) {
-        secrets[key] = <KeyIconLink
-          url={`#${value.source}`}
-          text={value.source} />;
+        secrets[key] = (
+          <KeyIconLink
+            url={`#${value.source}`}
+            text={value.source} />
+        );
       }
     });
 
