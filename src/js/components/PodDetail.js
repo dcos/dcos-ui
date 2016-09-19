@@ -7,9 +7,10 @@ import ServiceFormModal from './modals/ServiceFormModal';
 import ServiceScaleFormModal from './modals/ServiceScaleFormModal';
 import ServiceSuspendModal from './modals/ServiceSuspendModal';
 import Pod from '../structs/Pod';
-import PodInstancesView from './PodInstancesView';
 import PodActionItem from '../constants/PodActionItem';
+import PodDebugTabView from './PodDebugTabView';
 import PodHeader from './PodHeader';
+import PodInstancesView from './PodInstancesView';
 import TabsMixin from '../mixins/TabsMixin';
 
 const METHODS_TO_BIND = [
@@ -65,27 +66,24 @@ class PodDetail extends mixin(TabsMixin) {
 
   renderConfigurationTabView() {
     let {pod} = this.props;
+
     return (
       <pre>
-      &lt;PodConfigurationView pod={pod.getId()} /&gt;
+        &lt;PodConfigurationView pod={pod.getId()} /&gt;
       </pre>
     );
   }
 
   renderDebugTabView() {
     let {pod} = this.props;
-    return (
-      <pre>
-      &lt;PodDebugTabView pod={pod.getId()} /&gt;
-      </pre>
-    );
+
+    return (<PodDebugTabView pod={pod} />);
   }
 
   renderInstancesTabView() {
     let {pod} = this.props;
-    return (
-        <PodInstancesView pod={pod} />
-      );
+
+    return (<PodInstancesView pod={pod} />);
   }
 
   render() {
@@ -121,7 +119,6 @@ class PodDetail extends mixin(TabsMixin) {
           service={pod} />
 
       </div>
-
     );
   }
 }
