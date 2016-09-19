@@ -2,12 +2,19 @@ import mixin from 'reactjs-mixin';
 import React from 'react';
 
 import Breadcrumbs from './Breadcrumbs';
+import ServiceDestroyModal from './modals/ServiceDestroyModal';
+import ServiceFormModal from './modals/ServiceFormModal';
+import ServiceScaleFormModal from './modals/ServiceScaleFormModal';
+import ServiceSuspendModal from './modals/ServiceSuspendModal';
 import Pod from '../structs/Pod';
 import PodInstancesView from './PodInstancesView';
+import PodActionItem from '../constants/PodActionItem';
 import PodHeader from './PodHeader';
 import TabsMixin from '../mixins/TabsMixin';
 
 const METHODS_TO_BIND = [
+  'handleAction',
+  'handleCloseDialog'
 ];
 
 class PodDetail extends mixin(TabsMixin) {
@@ -21,11 +28,38 @@ class PodDetail extends mixin(TabsMixin) {
     };
 
     this.state = {
-      currentTab: Object.keys(this.tabs_tabs).shift()
+      currentTab: Object.keys(this.tabs_tabs).shift(),
+      activeActionDialog: null
     };
 
     METHODS_TO_BIND.forEach((method) => {
       this[method] = this[method].bind(this);
+    });
+  }
+
+  handleAction(action) {
+    switch (action.id) {
+      case PodActionItem.DESTROY:
+      case PodActionItem.EDIT:
+      case PodActionItem.SCALE:
+      case PodActionItem.SUSPEND:
+
+        this.setState({
+          activeActionDialog: action.id
+        });
+        break;
+
+      default:
+        if (process.env.NODE_ENV !== 'production') {
+          throw new TypeError('Trying to handle an unknown action:', action.id);
+        }
+
+    }
+  }
+
+  handleCloseDialog() {
+    this.setState({
+      activeActionDialog: null
     });
   }
 
@@ -56,17 +90,36 @@ class PodDetail extends mixin(TabsMixin) {
 
   render() {
     const {pod} = this.props;
+    const {activeActionDialog} = this.state;
 
     return (
       <div className="flex-container-col">
         <div className="container-pod container-pod-divider-bottom-align-right container-pod-short-top flush-bottom flush-top media-object-spacing-wrapper media-object-spacing-narrow">
           <Breadcrumbs />
           <PodHeader
-            onDeploy={this.onActionDeploy}
+            onAction={this.handleAction}
             pod={pod}
             tabs={this.tabs_getUnroutedTabs()} />
           {this.tabs_getTabView()}
         </div>
+
+        <ServiceScaleFormModal
+          onClose={this.handleCloseDialog}
+          open={activeActionDialog === PodActionItem.SCALE}
+          service={pod} />
+        <ServiceDestroyModal
+          onClose={this.handleCloseDialog}
+          open={activeActionDialog === PodActionItem.DESTROY}
+          service={pod} />
+        <ServiceSuspendModal
+          onClose={this.handleCloseDialog}
+          open={activeActionDialog === PodActionItem.SUSPEND}
+          service={pod} />
+        <ServiceFormModal
+          onClose={this.handleCloseDialog}
+          open={activeActionDialog === PodActionItem.EDIT}
+          service={pod} />
+
       </div>
 
     );
