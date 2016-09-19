@@ -2,6 +2,9 @@ module.exports = {
   'spec': {
     'id': '/podABCD',
     'version': '2016-08-29T01:01:01.001',
+    'labels': {
+      'POD_LABEL': 'foo'
+    },
     'containers': [
       {
         'name': 'container-1',
@@ -12,9 +15,9 @@ module.exports = {
             'containerPort': 8888,
             'hostPort': 0,
             'protocol': 'http',
-            'labels': [
-              { 'VIP0': '1.2.3.4:80' }
-            ]
+            'labels': {
+              'VIP0': '1.2.3.4:80'
+            }
           }
         ],
         'resources': { 'cpus': 0.5, 'mem': 64 }
@@ -28,9 +31,9 @@ module.exports = {
             'containerPort': 8888,
             'hostPort': 0,
             'protocol': 'http',
-            'labels': [
-              { 'VIP0': '1.2.3.4:80' }
-            ]
+            'labels': {
+              'VIP0': '1.2.3.4:80'
+            }
           }
         ],
         'resources': { 'cpus': 0.5, 'mem': 64 }

@@ -17,7 +17,7 @@ module.exports = class PodSpec extends ServiceSpec {
   }
 
   getLabels() {
-    return this.get('labels');
+    return this.get('labels') || {};
   }
 
   getResourcesSummary() {
