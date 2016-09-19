@@ -142,4 +142,18 @@ describe('PodSpec', function () {
 
   });
 
+  describe('#getUser', function () {
+
+    it('should return the correct value', function () {
+      let podSpec = new PodSpec(PodFixture.spec);
+
+      expect(podSpec.getUser()).toEqual('root');
+    });
+
+    it('should return the correct default value', function () {
+      let podSpec = new PodSpec();
+      expect(podSpec.getUser()).toBeFalsy();
+    });
+
+  });
 });

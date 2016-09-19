@@ -72,6 +72,7 @@
               "spec": {
                 "id": "/some/group-with-pods/podEFGH",
                 "version": "2016-08-29T01:01:01.001",
+                "user": "user_name",
                 "containers": [
                   {
                     "name": "nginx",

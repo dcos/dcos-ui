@@ -83,6 +83,11 @@ class PodSpecView extends React.Component {
       hash.version = version;
     }
 
+    let user = spec.getUser();
+    if (user) {
+      hash.user = user;
+    }
+
     return <DescriptionList hash={hash} />;
   }
 

@@ -2,6 +2,7 @@ module.exports = {
   'spec': {
     'id': '/podABCD',
     'version': '2016-08-29T01:01:01.001',
+    'user': 'root',
     'labels': {
       'POD_LABEL': 'foo'
     },
