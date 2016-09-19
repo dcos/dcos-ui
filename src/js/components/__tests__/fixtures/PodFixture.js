@@ -121,6 +121,39 @@ module.exports = {
           'lastChanged': '2016-08-31T01:01:01.001'
         }
       ]
+    },
+    {
+      'id': 'instance-3',
+      'status': 'STAGING',
+      'statusSince': '2016-08-31T01:01:01.001',
+      'agent': 'agent-3',
+      'resources': { 'cpus': 1.0, 'mem': 128 },
+      'lastUpdated': '2016-08-31T01:01:01.001',
+      'lastChanged': '2016-08-31T01:01:01.001',
+      'containers': [
+        {
+          'name': 'container-1',
+          'status': 'STAGING',
+          'statusSince': '2016-08-31T01:01:01.001',
+          'containerId': 'container-id-5',
+          'endpoints': [
+            { 'name': 'nginx', 'allocatedHostPort': 31021 }
+          ],
+          'lastUpdated': '2016-08-31T01:01:01.001',
+          'lastChanged': '2016-08-31T01:01:01.001'
+        },
+        {
+          'name': 'container-2',
+          'status': 'STAGING',
+          'statusSince': '2016-08-31T01:01:01.001',
+          'containerId': 'container-id-6',
+          'endpoints': [
+            { 'name': 'nginx', 'allocatedHostPort': 31022 }
+          ],
+          'lastUpdated': '2016-08-31T01:01:01.001',
+          'lastChanged': '2016-08-31T01:01:01.001'
+        }
+      ]
     }
   ]
 };

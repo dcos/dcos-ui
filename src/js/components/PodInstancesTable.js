@@ -9,6 +9,7 @@ import Pod from '../structs/Pod';
 import PodInstanceList from '../structs/PodInstanceList';
 import PodInstanceStatus from '../constants/PodInstanceStatus';
 import PodTableHeaderLabels from '../constants/PodTableHeaderLabels';
+import PodUtil from '../utils/PodUtil';
 import TimeAgo from './TimeAgo';
 import Units from '../utils/Units';
 
@@ -139,12 +140,11 @@ class PodInstancesTable extends React.Component {
     ];
   }
 
-  getContainersWithResources(podSpec, instance) {
+  getContainersWithResources(podSpec, containers, agentAddress) {
     let resourcesSum = {
       cpus: 0, mem: 0, disk: 0, gpus: 0
     };
 
-    let containers = instance.getContainers();
     let children = containers.map(function (container) {
       let containerSpec = podSpec.getContainerSpec(container.name);
       Object.keys(containerSpec.resources).forEach(function (key) {
@@ -154,7 +154,7 @@ class PodInstancesTable extends React.Component {
       let addressComponents = container.endpoints.map(function (endpoint, i) {
         return (
           <a className="text-muted"
-            href={`http://${instance.getAgentAddress()}:${endpoint.allocatedHostPort}`}
+            href={`http://${agentAddress}:${endpoint.allocatedHostPort}`}
             key={i}
             target="_blank"
             title="Open in a new window">
@@ -178,12 +178,15 @@ class PodInstancesTable extends React.Component {
     return {children, resourcesSum};
   }
 
-  getTableDataFor(instances) {
+  getTableDataFor(instances, filterText) {
     let podSpec = this.props.pod.getSpec();
 
     return instances.getItems().map((instance) => {
+      let containers = instance.getContainers().filter(function (container) {
+        return PodUtil.isContainerMatchingText(container, filterText);
+      });
       let {children, resourcesSum} = this.getContainersWithResources(
-        podSpec, instance
+        podSpec, containers, instance.getAgentAddress()
       );
 
       return {
@@ -255,14 +258,13 @@ class PodInstancesTable extends React.Component {
   }
 
   renderColumnAddress(prop, row, rowOptions = {}) {
-    if (rowOptions.isParent) {
-      return this.renderWithClickHandler(rowOptions, (
-        <CollapsingString string={row.address} />
-      ));
+    if (!rowOptions.isParent) {
+      return this.renderWithClickHandler(rowOptions, row.address);
     }
 
-    // On the child elements, the addresses is an array of one or more links
-    return this.renderWithClickHandler(rowOptions, row.address);
+    return this.renderWithClickHandler(rowOptions, (
+      <CollapsingString string={row.address} />
+    ));
   }
 
   renderColumnStatus(prop, row, rowOptions = {}) {
@@ -296,12 +298,12 @@ class PodInstancesTable extends React.Component {
   }
 
   render() {
-    let {instances, pod} = this.props;
+    let {instances, pod, filterText} = this.props;
     let {checkedItems} = this.state;
 
     // If custom list of instances is not provided, use the default instances
     // from the pod
-    if (!instances) {
+    if (instances == null) {
       instances = pod.getInstanceList();
     }
 
@@ -313,7 +315,8 @@ class PodInstancesTable extends React.Component {
         checkedItemsMap={checkedItems}
         columns={this.getColumns()}
         colGroup={this.getColGroup()}
-        data={this.getTableDataFor(instances)}
+        data={this.getTableDataFor(instances, filterText)}
+        expandAll={!!filterText}
         getColGroup={this.getColGroup}
         onCheckboxChange={this.handleItemCheck}
         sortBy={{prop: 'startedAt', order: 'desc'}}
@@ -325,12 +328,14 @@ class PodInstancesTable extends React.Component {
 }
 
 PodInstancesTable.defaultProps = {
+  filterText: '',
   instances: null,
   inverseStyle: false,
   pod: null
 };
 
 PodInstancesTable.propTypes = {
+  filterText: React.PropTypes.string,
   instances: React.PropTypes.instanceOf(PodInstanceList),
   inverseStyle: React.PropTypes.bool,
   pod: React.PropTypes.instanceOf(Pod).isRequired
