@@ -36,7 +36,7 @@ function addListener(store, hook, listener, priority = 10) {
  * hooks.doAction('someAction');
  * hooks.applyFilter('someFilter', 'someValue');
  */
-module.exports = function () {
+module.exports = function Hooks() {
   return Object.assign({}, Events.EventEmitter.prototype, {
     // Event store for actions
     actions: {},
