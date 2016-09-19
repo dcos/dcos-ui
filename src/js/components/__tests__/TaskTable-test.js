@@ -45,6 +45,17 @@ describe('TaskTable', function () {
 
   });
 
+  describe('#getDisabledItemsMap', function () {
+    beforeEach(function () {
+      this.taskTable = new TaskTable();
+    });
+
+    it('returns a map of disabled items', function () {
+      var tasks = [{id: '1', isStartedByMarathon: true}, {id: '2'}];
+      expect(this.taskTable.getDisabledItemsMap(tasks)).toEqual({'2': true});
+    });
+  });
+
   describe('#getTaskHealth', function () {
 
     beforeEach(function () {

@@ -3,6 +3,7 @@ import {RequestUtil} from 'mesosphere-shared-reactjs';
 import ActionTypes from '../constants/ActionTypes';
 import AppDispatcher from './AppDispatcher';
 import Config from '../config/Config';
+import MesosStateUtil from '../utils/MesosStateUtil';
 
 var MesosStateActions = {
 
@@ -15,7 +16,7 @@ var MesosStateActions = {
           success(response) {
             AppDispatcher.handleServerAction({
               type: ActionTypes.REQUEST_MESOS_STATE_SUCCESS,
-              data: response
+              data: MesosStateUtil.flagMarathonTasks(response)
             });
             resolve();
           },

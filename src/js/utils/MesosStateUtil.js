@@ -2,7 +2,28 @@ import Util from './Util';
 
 const RESOURCE_KEYS = ['cpus', 'disk', 'mem'];
 
+function setIsStartedByMarathonFlag(name, tasks) {
+  return tasks.map(function (task) {
+    return Object.assign({isStartedByMarathon: name === 'marathon'}, task);
+  });
+}
+
 const MesosStateUtil = {
+
+  flagMarathonTasks(state) {
+    let newState = Object.assign({}, state);
+
+    newState.frameworks = state.frameworks.map(function (framework) {
+      let {tasks = [], completed_tasks = [], name} = framework;
+
+      return Object.assign({}, framework, {
+        tasks: setIsStartedByMarathonFlag(name, tasks),
+        completed_tasks: setIsStartedByMarathonFlag(name, completed_tasks)
+      });
+    });
+
+    return newState;
+  },
 
   /**
    * @param  {Object} state A document of mesos state
