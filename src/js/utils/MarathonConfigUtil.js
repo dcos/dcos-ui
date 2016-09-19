@@ -37,7 +37,6 @@ var MarathonConfigUtil = {
   },
 
   getPortDefinitionGroups(id, portDefinitions, createLink = defaultCreateLink) {
-    console.log('Mapping', portDefinitions);
     return portDefinitions.map(function (portDefinition, index) {
       let headline = `Port Definition ${index + 1}`;
 
