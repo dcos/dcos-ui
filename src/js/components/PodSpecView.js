@@ -54,6 +54,29 @@ class PodSpecView extends React.Component {
     );
   }
 
+  getSecretsDetails() {
+    let {spec} = this.props;
+    let secrets = Object.assign({}, spec.getSecrets());
+
+    if (Object.keys(secrets).length === 0) {
+      return null;
+    }
+
+    Object.keys(secrets).forEach(function (key) {
+      let {source} = secrets[key];
+      secrets[key] = source;
+    });
+
+    return (
+      <div>
+        <h4 className="inverse flush-top">
+          Secrets
+        </h4>
+        <DescriptionList hash={secrets} />
+      </div>
+    );
+  }
+
   getLabelsDetails() {
     let {spec} = this.props;
     let labels = spec.getLabels();
@@ -102,6 +125,7 @@ class PodSpecView extends React.Component {
         {this.getGeneralDetails()}
         {this.getLabelsDetails()}
         {this.getEnvironmentDetails()}
+        {this.getSecretsDetails()}
       </div>
       );
   }

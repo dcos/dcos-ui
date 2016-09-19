@@ -156,4 +156,20 @@ describe('PodSpec', function () {
     });
 
   });
+
+  describe('#getSecrets', function () {
+
+    it('should return the correct value', function () {
+      let podSpec = new PodSpec(PodFixture.spec);
+
+      expect(podSpec.getSecrets()).toEqual(PodFixture.spec.secrets);
+    });
+
+    it('should return the correct default value', function () {
+      let podSpec = new PodSpec();
+      expect(podSpec.getSecrets()).toEqual({});
+    });
+
+  });
+
 });

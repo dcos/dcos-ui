@@ -12,6 +12,11 @@ module.exports = {
         'secret': 'baz'
       }
     },
+    'secrets': {
+      'pod_secret_1': {
+        'source': 'bar_source'
+      }
+    },
     'containers': [
       {
         'name': 'container-1',

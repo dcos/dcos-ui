@@ -52,6 +52,10 @@ module.exports = class PodSpec extends ServiceSpec {
     return scaling.fixed.instances;
   }
 
+  getSecrets() {
+    return this.get('secrets') || {};
+  }
+
   getVersion() {
     return this.get('version') || '';
   }

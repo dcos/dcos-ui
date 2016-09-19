@@ -73,6 +73,12 @@
                 "id": "/some/group-with-pods/podEFGH",
                 "version": "2016-08-29T01:01:01.001",
                 "user": "user_name",
+                "environment": {
+                  "FOO": "bar",
+                  "SECRET": {
+                    "secret": "name_of_the_secret"
+                  }
+                },
                 "containers": [
                   {
                     "name": "nginx",
@@ -107,10 +113,9 @@
                     "resources": { "cpus": 0.5, "mem": 64 }
                   }
                 ],
-                "environment": {
-                  "FOO": "bar",
-                  "SECRET": {
-                    "secret": "name_of_the_secret"
+                "secrets": {
+                  "secret_1": {
+                    "source": "secret_source"
                   }
                 },
                 "labels": {
