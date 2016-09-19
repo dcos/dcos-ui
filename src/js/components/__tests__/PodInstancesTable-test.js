@@ -37,6 +37,12 @@ describe('PodInstancesTable', function () {
   fixture.instances[1].containers[0].lastChanged = new Date(Date.now() - (86400000 * 10)).toString();
   fixture.instances[1].containers[1].lastUpdated = new Date(Date.now() - (86400000 * 11)).toString();
   fixture.instances[1].containers[1].lastChanged = new Date(Date.now() - (86400000 * 12)).toString();
+  fixture.instances[2].lastUpdated = new Date(Date.now() - (86400000 * 13)).toString();
+  fixture.instances[2].lastChanged = new Date(Date.now() - (86400000 * 14)).toString();
+  fixture.instances[2].containers[0].lastUpdated = new Date(Date.now() - (86400000 * 15)).toString();
+  fixture.instances[2].containers[0].lastChanged = new Date(Date.now() - (86400000 * 16)).toString();
+  fixture.instances[2].containers[1].lastUpdated = new Date(Date.now() - (86400000 * 17)).toString();
+  fixture.instances[2].containers[1].lastChanged = new Date(Date.now() - (86400000 * 18)).toString();
 
   const pod = new Pod(fixture);
 
@@ -57,7 +63,8 @@ describe('PodInstancesTable', function () {
 
         expect(names).toEqual([
           'instance-1',
-          'instance-2'
+          'instance-2',
+          'instance-3'
         ]);
       });
 
@@ -69,7 +76,8 @@ describe('PodInstancesTable', function () {
 
         expect(names).toEqual([
           'agent-1',
-          'agent-2'
+          'agent-2',
+          'agent-3'
         ]);
       });
 
@@ -81,7 +89,8 @@ describe('PodInstancesTable', function () {
 
         expect(names).toEqual([
           'Running',
-          'Running'
+          'Running',
+          'Staging'
         ]);
       });
 
@@ -92,6 +101,7 @@ describe('PodInstancesTable', function () {
             .map(JestUtil.mapTextContent);
 
         expect(names).toEqual([
+          '1',
           '1',
           '1'
         ]);
@@ -105,6 +115,7 @@ describe('PodInstancesTable', function () {
 
         expect(names).toEqual([
           '128 MiB',
+          '128 MiB',
           '128 MiB'
         ]);
       });
@@ -117,7 +128,8 @@ describe('PodInstancesTable', function () {
 
         expect(names).toEqual([
           'a day ago',
-          '7 days ago'
+          '7 days ago',
+          '13 days ago'
         ]);
       });
 
@@ -128,6 +140,7 @@ describe('PodInstancesTable', function () {
             .map(JestUtil.mapTextContent);
 
         expect(names).toEqual([
+          '2016-08-29T01:01:01.0012016-08-29T01:01:01.001',
           '2016-08-29T01:01:01.0012016-08-29T01:01:01.001',
           '2016-08-29T01:01:01.0012016-08-29T01:01:01.001'
         ]);
@@ -156,7 +169,8 @@ describe('PodInstancesTable', function () {
 
         expect(names).toEqual([
           'instance-1',
-          'instance-2'
+          'instance-2',
+          'instance-3'
         ]);
       });
     });
@@ -183,6 +197,7 @@ describe('PodInstancesTable', function () {
               '.collapsing-string-full-string'), []);
 
         expect(names).toEqual([
+          'instance-3',
           'instance-2',
           'instance-1'
         ]);
@@ -198,7 +213,7 @@ describe('PodInstancesTable', function () {
           {pod}, {service: pod});
         this.instance = TestUtils.renderIntoDocument(component);
 
-        // Expand all table rows by clicking on them
+        // Expand all table rows by clicking on each one of them
         TestUtils.scryRenderedDOMComponentsWithClass(
             this.instance, 'column-name'
         ).forEach(function (element) {
@@ -221,6 +236,9 @@ describe('PodInstancesTable', function () {
           'container-2',
           'instance-2',
           'container-1',
+          'container-2',
+          'instance-3',
+          'container-1',
           'container-2'
         ]);
       });
@@ -234,13 +252,16 @@ describe('PodInstancesTable', function () {
 
         expect(agents).toEqual([
           'agent-1',
-          'agent-2'
+          'agent-2',
+          'agent-3'
         ]);
         expect(ports).toEqual([
           ':31001',
           ':31002',
           ':31011',
-          ':31012'
+          ':31012',
+          ':31021',
+          ':31022'
         ]);
       });
 
@@ -255,7 +276,10 @@ describe('PodInstancesTable', function () {
           'Running',
           'Running',
           'Running',
-          'Running'
+          'Running',
+          'Staging',
+          'Staging',
+          'Staging'
         ]);
       });
 
@@ -266,6 +290,9 @@ describe('PodInstancesTable', function () {
             .reduce(JestUtil.reduceTextContentOfSelector('div > div > span'), []);
 
         expect(names).toEqual([
+          '1',
+          '0.5',
+          '0.5',
           '1',
           '0.5',
           '0.5',
@@ -287,6 +314,9 @@ describe('PodInstancesTable', function () {
           '64 MiB',
           '128 MiB',
           '64 MiB',
+          '64 MiB',
+          '128 MiB',
+          '64 MiB',
           '64 MiB'
         ]);
       });
@@ -303,7 +333,10 @@ describe('PodInstancesTable', function () {
           '5 days ago',
           '7 days ago',
           '9 days ago',
-          '11 days ago'
+          '11 days ago',
+          '13 days ago',
+          '15 days ago',
+          '17 days ago'
         ]);
       });
 
@@ -314,6 +347,7 @@ describe('PodInstancesTable', function () {
             .map(JestUtil.mapTextContent);
 
         expect(names).toEqual([
+          '2016-08-29T01:01:01.0012016-08-29T01:01:01.001',
           '2016-08-29T01:01:01.0012016-08-29T01:01:01.001',
           '2016-08-29T01:01:01.0012016-08-29T01:01:01.001'
         ]);
