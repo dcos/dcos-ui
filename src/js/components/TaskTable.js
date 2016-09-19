@@ -242,7 +242,7 @@ class TaskTable extends React.Component {
   getDisabledItemsMap(tasks) {
     return tasks
       .filter(function (task) {
-        return task.scheduler !== 'marathon';
+        return !task.isStartedByMarathon;
       })
       .reduce(function (acc, task) {
         acc[task.id] = true;

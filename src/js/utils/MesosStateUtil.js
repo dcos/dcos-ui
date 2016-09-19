@@ -2,29 +2,24 @@ import Util from './Util';
 
 const RESOURCE_KEYS = ['cpus', 'disk', 'mem'];
 
-function setSchedulerName(name, tasks) {
+function setIsStartedByMarathonFlag(name, tasks) {
   return tasks.map(function (task) {
-    let newTask = Object.assign({}, task);
-
-    newTask.scheduler = name;
-
-    return newTask;
+    return Object.assign({isStartedByMarathon: name === 'marathon'}, task);
   });
 }
 
 const MesosStateUtil = {
 
-  assignSchedulerNameToTasks(state) {
+  flagMarathonTasks(state) {
     let newState = Object.assign({}, state);
 
     newState.frameworks = state.frameworks.map(function (framework) {
-      let newFramework = Object.assign({}, framework);
       let {tasks = [], completed_tasks = [], name} = framework;
 
-      newFramework.tasks = setSchedulerName(name, tasks);
-      newFramework.completed_tasks = setSchedulerName(name, completed_tasks);
-
-      return newFramework;
+      return Object.assign({}, framework, {
+        tasks: setIsStartedByMarathonFlag(name, tasks),
+        completed_tasks: setIsStartedByMarathonFlag(name, completed_tasks)
+      });
     });
 
     return newState;

@@ -3,7 +3,7 @@ const MesosStateUtil = require('../MesosStateUtil');
 describe('MesosStateUtil', function () {
 
   describe('#assignSchedulerNameToTasks', function () {
-    it('should assign a scheduler name to all tasks', function () {
+    it('should assign a isStartedByMarathon flag to all tasks', function () {
       const state = {
         frameworks: [
           {
@@ -28,24 +28,24 @@ describe('MesosStateUtil', function () {
         ]
       };
 
-      expect(MesosStateUtil.assignSchedulerNameToTasks(state)).toEqual({frameworks: [
+      expect(MesosStateUtil.flagMarathonTasks(state)).toEqual({frameworks: [
         {
           name: 'marathon',
           tasks: [
-            {name: 'spark', id: 'spark.1', scheduler: 'marathon'},
-            {name: 'alpha', id: 'alpha.1', scheduler: 'marathon'}
+            {name: 'spark', id: 'spark.1', isStartedByMarathon: true},
+            {name: 'alpha', id: 'alpha.1', isStartedByMarathon: true}
           ],
           completed_tasks: [
-            {name: 'alpha', id: 'alpha.2', scheduler: 'marathon'}
+            {name: 'alpha', id: 'alpha.2', isStartedByMarathon: true}
           ]
         },
         {
           name: 'spark',
           tasks: [
-            {name: '1', scheduler: 'spark'}
+            {name: '1', isStartedByMarathon: false}
           ],
           completed_tasks: [
-            {name: '2', scheduler: 'spark'}
+            {name: '2', isStartedByMarathon: false}
           ]
         }
       ]});
