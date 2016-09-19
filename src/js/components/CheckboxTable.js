@@ -79,22 +79,27 @@ class CheckboxTable extends React.Component {
   renderHeadingCheckbox() {
     let checked = false;
     let indeterminate = false;
-    let {allowMultipleSelect, checkedItemsMap, disabledItemsMap, data} = this.props;
+    let {
+      allowMultipleSelect,
+      checkedItemsMap,
+      disabledItemsMap,
+      data
+    } = this.props;
 
     if (!allowMultipleSelect) {
       return null;
     }
 
-    let checkedItemsCount = Object.keys(checkedItemsMap).length;
-    let disabledItemsCount = Object.keys(disabledItemsMap).length;
+    let checkedCount = Object.keys(checkedItemsMap).length;
+    let disabledCount = Object.keys(disabledItemsMap).length;
 
-    if (checkedItemsCount > 0) {
+    if (checkedCount > 0) {
       indeterminate = true;
     } else {
       checked = false;
     }
 
-    if (checkedItemsCount + disabledItemsCount === data.length && checkedItemsCount !== 0) {
+    if (disabledCount + checkedCount === data.length && checkedCount !== 0) {
       checked = true;
       indeterminate = false;
     }
