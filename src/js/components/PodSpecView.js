@@ -1,7 +1,7 @@
 import React from 'react';
 
 import DescriptionList from './DescriptionList';
-import EnvVarSecretLink from './EnvVarSecretLink';
+import KeyIconLink from './KeyIconLink';
 import PodSpec from '../structs/PodSpec';
 import PodContainerSpecView from './PodContainerSpecView';
 
@@ -31,7 +31,9 @@ class PodSpecView extends React.Component {
     Object.keys(environment).forEach(function (key) {
       let value = environment[key];
       if (typeof value === 'object' && !Array.isArray(value) && value !== null) {
-        environment[key] = <EnvVarSecretLink {...value} />;
+        environment[key] = <KeyIconLink
+          url={`#${value.secret}`}
+          text={value.secret} />;
       }
     });
 

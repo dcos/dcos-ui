@@ -1,26 +1,27 @@
 import React from 'react';
 import Icon from './Icon';
 
-class EnvVarSecretLink extends React.Component {
+class KeyIconLink extends React.Component {
   render() {
-    let {secret} = this.props;
+    let {url, text} = this.props;
 
     return (
-      <a href={`#valut/${secret}`}>
+      <a href={url}>
         <Icon
           className="icon-margin-right"
             color="white"
             family="mini"
             id="key"
             size="mini" />
-          {secret}
+          {text}
       </a>
     );
   }
 };
 
-EnvVarSecretLink.propTypes = {
-  secret: React.PropTypes.string.isRequired
+KeyIconLink.propTypes = {
+  url: React.PropTypes.string.isRequired,
+  text: React.PropTypes.string.isRequired
 };
 
-module.exports = EnvVarSecretLink;
+module.exports = KeyIconLink;
