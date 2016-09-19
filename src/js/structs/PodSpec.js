@@ -1,4 +1,5 @@
 import ServiceSpec from './ServiceSpec';
+import ValidatorUtil from '../utils/ValidatorUtil';
 
 module.exports = class PodSpec extends ServiceSpec {
 
@@ -41,7 +42,10 @@ module.exports = class PodSpec extends ServiceSpec {
     if (!scaling.fixed) {
       return 1;
     }
-    return scaling.fixed.instances || 1;
+    if (!ValidatorUtil.isNumber(scaling.fixed.instances)) {
+      return 1;
+    }
+    return scaling.fixed.instances;
   }
 
   getVersion() {
