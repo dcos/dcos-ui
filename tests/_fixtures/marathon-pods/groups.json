@@ -112,6 +112,9 @@
                     "secret": "name_of_the_secret"
                   }
                 },
+                "labels": {
+                  "label_1": "value"
+                },
                 "scaling": {
                   "fixed": {
                     "instances": 2

@@ -54,6 +54,24 @@ class PodSpecView extends React.Component {
     );
   }
 
+  getLabelsDetails() {
+    let {spec} = this.props;
+    let labels = spec.getLabels();
+
+    if (Object.keys(labels).length === 0) {
+      return null;
+    }
+
+    return (
+      <div>
+        <h4 className="inverse flush-top">
+          Labels
+        </h4>
+        <DescriptionList hash={labels} />
+      </div>
+    );
+  }
+
   getGeneralDetails() {
     let {spec} = this.props;
     let hash = {
@@ -72,6 +90,7 @@ class PodSpecView extends React.Component {
           General
         </h4>
         {this.getGeneralDetails()}
+        {this.getLabelsDetails()}
         {this.getEnvironmentDetails()}
       </div>
       );
