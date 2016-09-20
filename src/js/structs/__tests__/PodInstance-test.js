@@ -63,6 +63,21 @@ describe('PodInstance', function () {
 
   });
 
+  describe('#getStatusString', function () {
+
+    it('should return the normalized status string', function () {
+      let podInstance = new PodInstance({ status: 'sTaBlE' });
+
+      expect(podInstance.getStatusString()).toEqual('STABLE');
+    });
+
+    it('should return the correct default value', function () {
+      let podInstance = new PodInstance();
+      expect(podInstance.getStatusString()).toEqual('');
+    });
+
+  });
+
   describe('#getInstanceStatus', function () {
 
     it('should correctly detect container in PENDING state', function () {

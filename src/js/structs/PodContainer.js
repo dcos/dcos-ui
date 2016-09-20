@@ -4,7 +4,7 @@ import StringUtil from '../utils/StringUtil';
 
 module.exports = class PodContainer extends Item {
   getContainerStatus() {
-    switch (this.get('status')) {
+    switch (this.getStatusString()) {
       case 'RUNNING':
         if (this.hasHealthChecks()) {
           if (this.isHealthy()) {
@@ -30,7 +30,7 @@ module.exports = class PodContainer extends Item {
 
       default:
         return Object.assign(Object.create(PodContainerStatus.NA), {
-          displayName: StringUtil.capitalize(this.get('status').toLowerCase())
+          displayName: StringUtil.capitalize(this.getStatusString().toLowerCase())
         });
     }
   }
@@ -53,6 +53,10 @@ module.exports = class PodContainer extends Item {
 
   getName() {
     return this.get('name') || '';
+  }
+
+  getStatusString() {
+    return (this.get('status') || '').toUpperCase();
   }
 
   hasHealthChecks() {

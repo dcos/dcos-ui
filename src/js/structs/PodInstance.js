@@ -24,7 +24,7 @@ module.exports = class PodInstance extends Item {
   }
 
   getInstanceStatus() {
-    switch (this.get('status')) {
+    switch (this.getStatusString()) {
       case 'PENDING':
         return PodInstanceStatus.STAGED;
 
@@ -50,7 +50,7 @@ module.exports = class PodInstance extends Item {
 
       default:
         return Object.assign(Object.create(PodInstanceStatus.NA), {
-          displayName: StringUtil.capitalize(this.get('status').toLowerCase())
+          displayName: StringUtil.capitalize(this.getStatusString().toLowerCase())
         });
     }
   }
@@ -61,6 +61,10 @@ module.exports = class PodInstance extends Item {
 
   getLastUpdated() {
     return new Date(this.get('lastUpdated'));
+  }
+
+  getStatusString() {
+    return (this.get('status') || '').toUpperCase();
   }
 
   hasHealthChecks() {
@@ -84,7 +88,7 @@ module.exports = class PodInstance extends Item {
   }
 
   isHealthy() {
-    if (this.get('status') !== 'STABLE') {
+    if (this.getStatusString() !== 'STABLE') {
       return false;
     }
     return this.getContainers().every(function (container) {
@@ -93,16 +97,16 @@ module.exports = class PodInstance extends Item {
   }
 
   isRunning() {
-    let status = this.get('status');
+    let status = this.getStatusString();
     return (status === 'STABLE') || (status === 'DEGRADED');
   }
 
   isStaging() {
-    let status = this.get('status');
+    let status = this.getStatusString();
     return (status === 'PENDING') || (status === 'STAGING');
   }
 
   isTerminating() {
-    return this.get('status') === 'TERMINAL';
+    return this.getStatusString() === 'TERMINAL';
   }
 };
