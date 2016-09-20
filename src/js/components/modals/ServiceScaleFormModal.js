@@ -5,6 +5,7 @@ import React from 'react';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import FormModal from '../FormModal';
+import MarathonSpecUtil from '../../utils/MarathonSpecUtil';
 import MarathonStore from '../../stores/MarathonStore';
 import Pod from '../../structs/Pod';
 import ServiceTree from '../../structs/ServiceTree';
@@ -107,16 +108,11 @@ class ServiceScaleFormModal extends mixin(StoreMixin) {
           scaleBy: parseInt(instances, 10)
         });
       } else if (service instanceof Pod) {
-        let spec = Object.assign({}, service.getSpec().get(),
-          {
-            scaling: {
-              kind: 'fixed',
-              instances: parseInt(instances, 10)
-            }
-          }
-        );
-        MarathonStore.editService(service, spec,
-          this.shouldForceUpdate(this.state.errorMsg));
+        MarathonStore.editService(service,
+          MarathonSpecUtil.Pods.setFixedScaling(
+            service.getSpec(),
+            parseInt(instances, 10)
+          ), this.shouldForceUpdate(this.state.errorMsg));
       } else {
         MarathonStore.editService(service, {
           instances: parseInt(instances, 10)

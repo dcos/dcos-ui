@@ -3,6 +3,7 @@ import {Confirm} from 'reactjs-components';
 import React from 'react';
 /* eslint-enable no-unused-vars */
 
+import MarathonSpecUtil from '../../utils/MarathonSpecUtil';
 import MarathonStore from '../../stores/MarathonStore';
 import Pod from '../../structs/Pod';
 import ServiceTree from '../../structs/ServiceTree';
@@ -44,15 +45,9 @@ class ServiceSuspendModal extends ServiceActionModal {
     if (isGroup) {
       MarathonStore.editGroup({id: serviceID, scaleBy: 0}, forceUpdate);
     } else if (isPod) {
-      let spec = Object.assign({}, service.getSpec().get(),
-        {
-          scaling: {
-            kind: 'fixed',
-            instances: 0
-          }
-        }
-      );
-      MarathonStore.editService(service, spec, forceUpdate);
+      MarathonStore.editService(service,
+        MarathonSpecUtil.Pods.setFixedScaling(service.getSpec(), 0),
+        forceUpdate );
     } else {
       MarathonStore.editService(service, {instances: 0}, forceUpdate);
     }
