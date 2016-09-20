@@ -1,5 +1,5 @@
 import ApplicationSpec from './ApplicationSpec';
-import Config from '../config/Config';
+import Config from '../../../../../src/js/config/Config';
 import FrameworkUtil from '../utils/FrameworkUtil';
 import HealthStatus from '../constants/HealthStatus';
 import Service from './Service';

@@ -15,7 +15,7 @@ import Loader from '../../../../../../src/js/components/Loader';
 import Icon from '../../../../../../src/js/components/Icon';
 import MarathonActions from '../../events/MarathonActions';
 import NestedServiceLinks from '../../../../../../src/js/components/NestedServiceLinks';
-import StatusBar from '../../components/StatusBar';
+import StatusBar from '../../../../../../src/js/components/StatusBar';
 import StringUtil from '../../../../../../src/js/utils/StringUtil';
 import TimeAgo from '../../../../../../src/js/components/TimeAgo';
 

@@ -1,6 +1,6 @@
-import Item from './Item';
+import Item from '../../../../../src/js/structs/Item';
 import PodContainerStatus from '../constants/PodContainerStatus';
-import StringUtil from '../utils/StringUtil';
+import StringUtil from '../../../../../src/js/utils/StringUtil';
 
 module.exports = class PodContainer extends Item {
   getContainerStatus() {

@@ -1,9 +1,9 @@
 import React from 'react';
 
-import DescriptionList from './DescriptionList';
+import DescriptionList from '../../../../../src/js/components/DescriptionList';
 import Pod from '../structs/Pod';
 import PodContainerTerminationTable from './PodContainerTerminationTable';
-import TimeAgo from './TimeAgo';
+import TimeAgo from '../../../../../src/js/components/TimeAgo';
 
 class PodDebugTabView extends React.Component {
   getTerminationHistory() {

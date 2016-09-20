@@ -1,4 +1,4 @@
-import Item from './Item';
+import Item from '../../../../../src/js/structs/Item';
 
 module.exports = class PodContainerTerminationHistory extends Item {
   getId() {

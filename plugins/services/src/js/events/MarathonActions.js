@@ -488,7 +488,7 @@ var MarathonActions = {
 };
 
 if (Config.useFixtures) {
-  const groupsFixture = require('../../../tests/_fixtures/marathon-pods/groups.json');
+  const groupsFixture = require('../../../../../tests/_fixtures/marathon-pods/groups.json');
 
   if (!global.actionTypes) {
     global.actionTypes = {};

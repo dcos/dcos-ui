@@ -2,16 +2,16 @@ import classNames from 'classnames';
 import React from 'react';
 import {Link} from 'react-router';
 
-import CollapsingString from './CollapsingString';
-import CheckboxTable from './CheckboxTable';
-import ExpandingTable from './ExpandingTable';
+import CollapsingString from '../../../../../src/js/components/CollapsingString';
+import CheckboxTable from '../../../../../src/js/components/CheckboxTable';
+import ExpandingTable from '../../../../../src/js/components/ExpandingTable';
 import Pod from '../structs/Pod';
 import PodInstanceList from '../structs/PodInstanceList';
 import PodInstanceStatus from '../constants/PodInstanceStatus';
 import PodTableHeaderLabels from '../constants/PodTableHeaderLabels';
 import PodUtil from '../utils/PodUtil';
-import TimeAgo from './TimeAgo';
-import Units from '../utils/Units';
+import TimeAgo from '../../../../../src/js/components/TimeAgo';
+import Units from '../../../../../src/js/utils/Units';
 
 const METHODS_TO_BIND = [
   'getColGroup',

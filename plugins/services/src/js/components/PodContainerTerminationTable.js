@@ -1,9 +1,9 @@
 import classNames from 'classnames';
 import React from 'react';
+import {ResourceTableUtil} from 'foundation-ui';
 import {Table} from 'reactjs-components';
 
-import ResourceTableUtil from '../../../plugins/services/src/js/utils/ResourceTableUtil';
-import TableUtil from '../../../plugins/services/src/js/utils/TableUtil';
+import TableUtil from '../../../../../src/js/utils/TableUtil';
 
 const METHODS_TO_BIND = [
   'getColumnHeading',

@@ -1,4 +1,4 @@
-import List from './List';
+import List from '../../../../../src/js/structs/List';
 import PodTerminationHistory from './PodTerminationHistory';
 
 class PodTerminationHistoryList extends List {};
