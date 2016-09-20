@@ -11,7 +11,6 @@ import 'brace/mode/json';
 import 'brace/theme/monokai';
 import 'brace/ext/language_tools';
 
-import ServiceConfig from '../../constants/ServiceConfig';
 import Config from '../../../../../../src/js/config/Config';
 import Icon from '../../../../../../src/js/components/Icon';
 import MarathonStore from '../../stores/MarathonStore';

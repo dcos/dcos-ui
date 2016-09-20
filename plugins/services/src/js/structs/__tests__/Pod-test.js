@@ -1,9 +1,9 @@
-jest.dontMock('../../../../tests/_fixtures/pods/PodFixture');
+jest.dontMock('../../../../../../tests/_fixtures/pods/PodFixture');
 
 const Pod = require('../Pod');
 
 const HealthStatus = require('../../constants/HealthStatus');
-const PodFixture = require('../../../../tests/_fixtures/pods/PodFixture');
+const PodFixture = require('../../../../../../tests/_fixtures/pods/PodFixture');
 const ServiceImages = require('../../constants/ServiceImages');
 const ServiceStatus = require('../../constants/ServiceStatus');
 

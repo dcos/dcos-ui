@@ -3,7 +3,7 @@ import {
   FRAMEWORK_ID_VALID_CHARACTERS
 } from '../constants/FrameworkConstants';
 import Application from './Application';
-import {cleanServiceJSON} from '../utils/CleanJSONUtil';
+import {cleanServiceJSON} from '../../../../../src/js/utils/CleanJSONUtil';
 import FrameworkSpec from './FrameworkSpec';
 
 module.exports = class Framework extends Application {

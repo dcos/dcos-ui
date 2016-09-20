@@ -1,4 +1,4 @@
-import {cleanServiceJSON} from '../utils/CleanJSONUtil';
+import {cleanServiceJSON} from '../../../../../src/js/utils/CleanJSONUtil';
 import ServiceSpec from './ServiceSpec';
 import VolumeConstants from '../constants/VolumeConstants';
 
