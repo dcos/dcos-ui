@@ -17,6 +17,10 @@ module.exports = class PodSpec extends ServiceSpec {
     return this.getContainers().length;
   }
 
+  getEnvironment() {
+    return this.get('environment') || {};
+  }
+
   getLabels() {
     return this.get('labels') || {};
   }

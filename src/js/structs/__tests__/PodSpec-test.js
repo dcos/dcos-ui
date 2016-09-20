@@ -127,4 +127,19 @@ describe('PodSpec', function () {
 
   });
 
+  describe('#getEnvironment', function () {
+
+    it('should return the correct value', function () {
+      let podSpec = new PodSpec(PodFixture.spec);
+
+      expect(podSpec.getEnvironment()).toEqual(PodFixture.spec.environment);
+    });
+
+    it('should return the correct default value', function () {
+      let podSpec = new PodSpec();
+      expect(podSpec.getEnvironment()).toEqual({});
+    });
+
+  });
+
 });

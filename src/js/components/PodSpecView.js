@@ -2,6 +2,7 @@ import React from 'react';
 
 import DescriptionList from './DescriptionList';
 import PodSpec from '../structs/PodSpec';
+import Icon from './Icon';
 
 const METHODS_TO_BIND = [
 ];
@@ -16,6 +17,41 @@ class PodSpecView extends React.Component {
     METHODS_TO_BIND.forEach((method) => {
       this[method] = this[method].bind(this);
     });
+  }
+
+  getEnvironmentDetails() {
+    let {spec} = this.props;
+    let environment = Object.assign({}, spec.getEnvironment());
+
+    if (Object.keys(environment).length === 0) {
+      return null;
+    }
+
+    Object.keys(environment).forEach(function (key) {
+      let value = environment[key];
+      if (typeof value === 'object' && !Array.isArray(value) &&
+          value !== null) {
+        environment[key] = (
+          <span>
+            <Icon
+              className="icon-margin-right"
+              color="white"
+              family="mini"
+              id="key"
+              size="mini" /> {value.secret}
+          </span>
+        );
+      }
+    });
+
+    return (
+      <div>
+        <h4 className="inverse flush-top">
+          Environment variables
+        </h4>
+        <DescriptionList hash={environment} />
+      </div>
+    );
   }
 
   getGeneralDetails() {
@@ -35,7 +71,8 @@ class PodSpecView extends React.Component {
         <h4 className="inverse flush-top">
           General
         </h4>
-        {this.getGeneralDetails(spec)}
+        {this.getGeneralDetails()}
+        {this.getEnvironmentDetails()}
       </div>
       );
   }

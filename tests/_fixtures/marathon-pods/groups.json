@@ -106,6 +106,12 @@
                     "resources": { "cpus": 0.5, "mem": 64 }
                   }
                 ],
+                "environment": {
+                  "FOO": "bar",
+                  "SECRET": {
+                    "secret": "name_of_the_secret"
+                  }
+                },
                 "scaling": {
                   "fixed": {
                     "instances": 2

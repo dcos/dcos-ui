@@ -5,6 +5,12 @@ module.exports = {
     'labels': {
       'POD_LABEL': 'foo'
     },
+    'environment': {
+      'FOO': 'bar',
+      'SECRET_BAR': {
+        'secret': 'baz'
+      }
+    },
     'containers': [
       {
         'name': 'container-1',
