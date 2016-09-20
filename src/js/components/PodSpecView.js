@@ -1,7 +1,6 @@
 import React from 'react';
 
 import DescriptionList from './DescriptionList';
-import KeyIconLink from './KeyIconLink';
 import PodSpec from '../structs/PodSpec';
 import PodContainerSpecView from './PodContainerSpecView';
 import PodNetworkSpecView from './PodNetworkSpecView';
@@ -23,7 +22,7 @@ class PodSpecView extends React.Component {
 
   getEnvironmentDetails() {
     let {spec} = this.props;
-    let environment = Object.assign({}, spec.getEnvironment());
+    let environment = spec.getEnvironment();
 
     if (Object.keys(environment).length === 0) {
       return null;
@@ -32,11 +31,7 @@ class PodSpecView extends React.Component {
     Object.keys(environment).forEach(function (key) {
       let value = environment[key];
       if (typeof value === 'object' && !Array.isArray(value) && value !== null) {
-        environment[key] = (
-          <KeyIconLink
-            url={`#${value.secret}`}
-            text={value.secret} />
-        );
+        environment[key] = value.secret;
       }
     });
 
@@ -52,7 +47,7 @@ class PodSpecView extends React.Component {
 
   getSecretsDetails() {
     let {spec} = this.props;
-    let secrets = Object.assign({}, spec.getSecrets());
+    let secrets = spec.getSecrets();
 
     if (Object.keys(secrets).length === 0) {
       return null;
@@ -61,11 +56,7 @@ class PodSpecView extends React.Component {
     Object.keys(secrets).forEach(function (key) {
       let value = secrets[key];
       if (typeof value === 'object' && !Array.isArray(value) && value !== null) {
-        secrets[key] = (
-          <KeyIconLink
-            url={`#${value.source}`}
-            text={value.source} />
-        );
+        secrets[key] = value.source;
       }
     });
 
