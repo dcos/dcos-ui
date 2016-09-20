@@ -39,12 +39,15 @@ import AppDispatcher from './AppDispatcher';
 import Config from '../config/Config';
 import MarathonUtil from '../utils/MarathonUtil';
 import Util from '../utils/Util';
+import Pod from '../structs/Pod';
+import PodSpec from '../structs/PodSpec';
+import Service from '../structs/Service';
 
 function buildURI(path) {
   return `${Config.rootUrl}${Config.marathonAPIPrefix}${path}`;
 }
 
-module.exports = {
+var MarathonActions = {
   createGroup(data) {
     RequestUtil.json({
       url: buildURI('/groups'),
@@ -113,11 +116,25 @@ module.exports = {
     });
   },
 
-  createService(data) {
+  /**
+   * Create a service (app, framework, or pod)
+   *
+   * @param {ServiceSpec} spec
+   */
+  createService(spec) {
+    // TODO (DCOS-9621): Validate input and only accept instances of ServiceSpec
+
+    // Always default to the `/apps` endpoint to create services
+    let url = buildURI('/apps');
+
+    if (spec instanceof PodSpec) {
+      url = buildURI('/pods');
+    }
+
     RequestUtil.json({
-      url: buildURI('/apps'),
+      url,
       method: 'POST',
-      data,
+      data: spec,
       success() {
         AppDispatcher.handleServerAction({
           type: REQUEST_MARATHON_SERVICE_CREATE_SUCCESS
@@ -133,9 +150,28 @@ module.exports = {
     });
   },
 
-  deleteService(serviceId) {
+  /**
+   * Delete a service (app, framework, or pod)
+   *
+   * @param {Service} service - the service you want to delete
+   */
+  deleteService(service) {
+    if (!(service instanceof Service)) {
+      if (process.env.NODE_ENV !== 'production') {
+        throw new TypeError('service is not an instance of Service');
+      }
+
+      return;
+    }
+
+    let url = buildURI(`/apps/${service.getId()}`);
+
+    if (service instanceof Pod) {
+      url = buildURI(`/pods/${service.getId()}`);
+    }
+
     RequestUtil.json({
-      url: buildURI(`/apps/${serviceId}`),
+      url,
       method: 'DELETE',
       success() {
         AppDispatcher.handleServerAction({
@@ -152,8 +188,28 @@ module.exports = {
     });
   },
 
-  editService(data, force) {
-    let url = buildURI(`/apps/${data.id}`);
+  /**
+   * Edit service (app, framework, or pod)
+   *
+   * @param {Service} service - the service you wish to edit
+   * @param {ServiceSpec} spec - the new service spec
+   * @param {Boolean} force - force deploy change
+   */
+  editService(service, spec, force) {
+    // TODO (DCOS-9621): Only accept instances of ServiceSpec for spec
+    if (!(service instanceof Service)) {
+      if (process.env.NODE_ENV !== 'production') {
+        throw new TypeError('service is not an instance of Service');
+      }
+
+      return;
+    }
+
+    let url = buildURI(`/apps/${service.getId()}`);
+
+    if (service instanceof Pod) {
+      url = buildURI(`/pods/${service.getId()}`);
+    }
 
     if (force === true) {
       url += '?force=true';
@@ -162,7 +218,7 @@ module.exports = {
     RequestUtil.json({
       url,
       method: 'PUT',
-      data,
+      data:spec,
       success() {
         AppDispatcher.handleServerAction({
           type: REQUEST_MARATHON_SERVICE_EDIT_SUCCESS
@@ -178,8 +234,20 @@ module.exports = {
     });
   },
 
-  restartService(serviceId, force = false) {
-    let url = buildURI(`/apps/${serviceId}/restart`);
+  restartService(service, force = false) {
+    if (!(service instanceof Service)) {
+      if (process.env.NODE_ENV !== 'production') {
+        throw new TypeError('service is not an instance of Service');
+      }
+
+      return;
+    }
+
+    let url = buildURI(`/apps/${service.getId()}/restart`);
+
+    if (service instanceof Pod) {
+      url = buildURI(`/pods/${service.getId()}/restart`);
+    }
 
     if (force === true) {
       url += '?force=true';
@@ -205,77 +273,77 @@ module.exports = {
   },
 
   fetchGroups: RequestUtil.debounceOnError(
-    Config.getRefreshRate(),
-    function (resolve, reject) {
-      return function () {
-        const url = buildURI('/groups');
-        const embed = [
-          {name: 'embed', value: 'group.groups'},
-          {name: 'embed', value: 'group.apps'},
-          {name: 'embed', value: 'group.apps.deployments'},
-          {name: 'embed', value: 'group.apps.counts'},
-          {name: 'embed', value: 'group.apps.tasks'},
-          {name: 'embed', value: 'group.apps.taskStats'},
-          {name: 'embed', value: 'group.apps.lastTaskFailure'}
-        ];
+      Config.getRefreshRate(),
+      function (resolve, reject) {
+        return function () {
+          const url = buildURI('/groups');
+          const embed = [
+            {name: 'embed', value: 'group.groups'},
+            {name: 'embed', value: 'group.apps'},
+            {name: 'embed', value: 'group.apps.deployments'},
+            {name: 'embed', value: 'group.apps.counts'},
+            {name: 'embed', value: 'group.apps.tasks'},
+            {name: 'embed', value: 'group.apps.taskStats'},
+            {name: 'embed', value: 'group.apps.lastTaskFailure'}
+          ];
 
-        RequestUtil.json({
-          url,
-          data: embed,
-          success(response) {
-            AppDispatcher.handleServerAction({
-              type: REQUEST_MARATHON_GROUPS_SUCCESS,
-              data: MarathonUtil.parseGroups(response)
-            });
-            resolve();
-          },
-          error(e) {
-            AppDispatcher.handleServerAction({
-              type: REQUEST_MARATHON_GROUPS_ERROR,
-              data: e.message
-            });
-            reject();
-          },
-          hangingRequestCallback() {
-            AppDispatcher.handleServerAction({
-              type: REQUEST_MARATHON_GROUPS_ONGOING
-            });
-          }
-        });
-      };
-    },
-    {delayAfterCount: Config.delayAfterErrorCount}
+          RequestUtil.json({
+            url,
+            data: embed,
+            success(response) {
+              AppDispatcher.handleServerAction({
+                type: REQUEST_MARATHON_GROUPS_SUCCESS,
+                data: MarathonUtil.parseGroups(response)
+              });
+              resolve();
+            },
+            error(e) {
+              AppDispatcher.handleServerAction({
+                type: REQUEST_MARATHON_GROUPS_ERROR,
+                data: e.message
+              });
+              reject();
+            },
+            hangingRequestCallback() {
+              AppDispatcher.handleServerAction({
+                type: REQUEST_MARATHON_GROUPS_ONGOING
+              });
+            }
+          });
+        };
+      },
+      {delayAfterCount: Config.delayAfterErrorCount}
   ),
 
   fetchDeployments: RequestUtil.debounceOnError(
-    Config.getRefreshRate(),
-    function (resolve, reject) {
-      return function () {
-        RequestUtil.json({
-          url: buildURI('/deployments'),
-          success(response) {
-            AppDispatcher.handleServerAction({
-              type: REQUEST_MARATHON_DEPLOYMENTS_SUCCESS,
-              data: response
-            });
-            resolve();
-          },
-          error(e) {
-            AppDispatcher.handleServerAction({
-              type: REQUEST_MARATHON_DEPLOYMENTS_ERROR,
-              data: e.message
-            });
-            reject();
-          },
-          hangingRequestCallback() {
-            AppDispatcher.handleServerAction({
-              type: REQUEST_MARATHON_DEPLOYMENTS_ONGOING
-            });
-          }
-        });
-      };
-    },
-    {delayAfterCount: Config.delayAfterErrorCount}
+      Config.getRefreshRate(),
+      function (resolve, reject) {
+        return function () {
+          RequestUtil.json({
+            url: buildURI('/deployments'),
+            success(response) {
+              AppDispatcher.handleServerAction({
+                type: REQUEST_MARATHON_DEPLOYMENTS_SUCCESS,
+                data: response
+              });
+              resolve();
+            },
+            error(e) {
+              AppDispatcher.handleServerAction({
+                type: REQUEST_MARATHON_DEPLOYMENTS_ERROR,
+                data: e.message
+              });
+              reject();
+            },
+            hangingRequestCallback() {
+              AppDispatcher.handleServerAction({
+                type: REQUEST_MARATHON_DEPLOYMENTS_ONGOING
+              });
+            }
+          });
+        };
+      },
+      {delayAfterCount: Config.delayAfterErrorCount}
   ),
 
   fetchServiceVersion(serviceID, versionID) {
@@ -334,34 +402,34 @@ module.exports = {
   },
 
   fetchQueue: RequestUtil.debounceOnError(
-    Config.getRefreshRate(),
-    function (resolve, reject) {
-      return function () {
-        RequestUtil.json({
-          url: buildURI('/queue'),
-          success(response) {
-            AppDispatcher.handleServerAction({
-              type: REQUEST_MARATHON_QUEUE_SUCCESS,
-              data: response
-            });
-            resolve();
-          },
-          error(e) {
-            AppDispatcher.handleServerAction({
-              type: REQUEST_MARATHON_QUEUE_ERROR,
-              data: e.message
-            });
-            reject();
-          },
-          hangingRequestCallback() {
-            AppDispatcher.handleServerAction({
-              type: REQUEST_MARATHON_QUEUE_ONGOING
-            });
-          }
-        });
-      };
-    },
-    {delayAfterCount: Config.delayAfterErrorCount}
+      Config.getRefreshRate(),
+      function (resolve, reject) {
+        return function () {
+          RequestUtil.json({
+            url: buildURI('/queue'),
+            success(response) {
+              AppDispatcher.handleServerAction({
+                type: REQUEST_MARATHON_QUEUE_SUCCESS,
+                data: response
+              });
+              resolve();
+            },
+            error(e) {
+              AppDispatcher.handleServerAction({
+                type: REQUEST_MARATHON_QUEUE_ERROR,
+                data: e.message
+              });
+              reject();
+            },
+            hangingRequestCallback() {
+              AppDispatcher.handleServerAction({
+                type: REQUEST_MARATHON_QUEUE_ONGOING
+              });
+            }
+          });
+        };
+      },
+      {delayAfterCount: Config.delayAfterErrorCount}
   ),
 
   revertDeployment(deploymentID) {
@@ -418,3 +486,36 @@ module.exports = {
   }
 
 };
+
+if (Config.useFixtures) {
+  const groupsFixture = require('../../../tests/_fixtures/marathon-pods/groups.json');
+
+  if (!global.actionTypes) {
+    global.actionTypes = {};
+  }
+
+  global.actionTypes.MarathonActions = {
+    createService: {
+      event: 'success', success: {response: {}}
+    },
+    deleteService: {
+      event: 'success', success: {response: {}}
+    },
+    editService: {
+      event: 'success', success: {response: {}}
+    },
+    restartService: {
+      event: 'success', success: {response: {}}
+    },
+    fetchGroups: {
+      event: 'success', success: {response: groupsFixture}
+    }
+  };
+
+  Object.keys(global.actionTypes.MarathonActions).forEach(function (method) {
+    MarathonActions[method] =
+        RequestUtil.stubRequest(MarathonActions, 'MarathonActions', method);
+  });
+}
+
+module.exports = MarathonActions;

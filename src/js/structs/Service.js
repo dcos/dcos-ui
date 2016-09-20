@@ -1,140 +1,34 @@
-import Config from '../config/Config';
-import FrameworkUtil from '../utils/FrameworkUtil';
-import HealthStatus from '../constants/HealthStatus';
+import {cleanServiceJSON} from '../utils/CleanJSONUtil';
 import Item from './Item';
+import HealthStatus from '../constants/HealthStatus';
+import ServiceImages from '../constants/ServiceImages';
 import ServiceStatus from '../constants/ServiceStatus';
-import TaskStats from './TaskStats';
+import ServiceSpec from './ServiceSpec';
 import VolumeList from './VolumeList';
 
 module.exports = class Service extends Item {
-  getArguments() {
-    return this.get('args');
-  }
-
-  getCommand() {
-    return this.get('cmd');
-  }
-
-  getContainerSettings() {
-    return this.get('container');
-  }
-
-  getCpus() {
-    return this.get('cpus');
-  }
-
-  getContainer() {
-    return this.get('container');
-  }
-
-  getConstraints() {
-    return this.get('constraints');
-  }
-
-  getDeployments() {
-    return this.get('deployments');
-  }
-
-  getDisk() {
-    return this.get('disk');
-  }
-
-  getEnvironmentVariables() {
-    return this.get('env');
-  }
-
-  getExecutor() {
-    return this.get('executor');
-  }
-
-  getAcceptedResourceRoles() {
-    return this.get('acceptedResourceRoles');
-  }
-
-  getHealth() {
-    let {tasksHealthy, tasksUnhealthy, tasksRunning} = this.getTasksSummary();
-
-    if (tasksUnhealthy > 0) {
-      return HealthStatus.UNHEALTHY;
-    }
-
-    if (tasksRunning > 0 && tasksHealthy === tasksRunning) {
-      return HealthStatus.HEALTHY;
-    }
-
-    if (this.getHealthChecks() && tasksRunning === 0) {
-      return HealthStatus.IDLE;
-    }
-
-    return HealthStatus.NA;
-  }
-
-  getHealthChecks() {
-    return this.get('healthChecks');
-  }
-
   getId() {
     return this.get('id') || '';
-  }
-
-  getImages() {
-    return FrameworkUtil.getServiceImages(this.getMetadata().images);
-  }
-
-  getInstancesCount() {
-    return this.get('instances');
-  }
-
-  getIpAddress() {
-    return this.get('ipAddress');
-  }
-
-  getLabels() {
-    return this.get('labels');
-  }
-
-  getLastConfigChange() {
-    return this.getVersionInfo().lastConfigChangeAt;
-  }
-
-  getLastScaled() {
-    return this.getVersionInfo().lastScalingAt;
-  }
-
-  getLastTaskFailure() {
-    return this.get('lastTaskFailure');
-  }
-
-  getMem() {
-    return this.get('mem');
-  }
-
-  getMetadata() {
-    return FrameworkUtil.getMetadataFromLabels(this.getLabels());
   }
 
   getName() {
     return this.getId().split('/').pop();
   }
 
-  getPorts() {
-    return this.get('ports');
+  getSpec() {
+    return new ServiceSpec(this.get());
   }
 
-  getPortDefinitions() {
-    return this.get('portDefinitions');
+  getHealth() {
+    return HealthStatus.NA;
   }
 
-  getResources() {
-    return {
-      cpus: this.get('cpus'),
-      mem: this.get('mem'),
-      disk: this.get('disk')
-    };
+  getLabels() {
+    return {};
   }
 
-  getResidency() {
-    return this.get('residency');
+  getVolumes() {
+    return new VolumeList({items: []});
   }
 
   getStatus() {
@@ -147,113 +41,41 @@ module.exports = class Service extends Item {
   }
 
   getServiceStatus() {
-    let {tasksRunning} = this.getTasksSummary();
-    let deployments = this.getDeployments();
-    let queue = this.getQueue();
-
-    let instances = this.getInstancesCount();
-    if (instances === 0 &&
-      tasksRunning === 0
-    ) {
-      return ServiceStatus.SUSPENDED;
-    }
-
-    if (queue != null && queue.delay) {
-      if (queue.delay.overdue) {
-        return ServiceStatus.WAITING;
-      }
-
-      return ServiceStatus.DELAYED;
-    }
-
-    if (deployments != null && deployments.length > 0) {
-      return ServiceStatus.DEPLOYING;
-    }
-
-    if (tasksRunning > 0) {
-      return ServiceStatus.RUNNING;
-    }
-
     return ServiceStatus.NA;
   }
 
-  getTasksSummary() {
-    let healthData = {
-      tasksHealthy: this.get('tasksHealthy'),
-      tasksStaged: this.get('tasksStaged'),
-      tasksUnhealthy: this.get('tasksUnhealthy'),
-      tasksUnknown: Math.max(0, this.get('tasksRunning') -
-        this.get('tasksHealthy') - this.get('tasksUnhealthy'))
-    };
-
-    let tasksSum = Object.keys(healthData).reduce(function (sum, healthItem) {
-      return sum + healthData[healthItem];
-    }, 0);
-
-    healthData.tasksOverCapacity =
-      Math.max(0, tasksSum - this.getInstancesCount());
-
-    healthData.tasksRunning = this.get('tasksRunning');
-    return healthData;
-  }
-
-  getTaskStats() {
-    return new TaskStats(this.get('taskStats'));
-  }
-
-  getFetch() {
-    return this.get('fetch');
-  }
-
-  getQueue() {
-    return this.get('queue');
-  }
-
-  getUpdateStrategy() {
-    return this.get('updateStrategy');
-  }
-
-  getUser() {
-    return this.get('user');
-  }
-
-  getVersion() {
-    return this.get('version');
-  }
-
-  getVersions() {
-    return this.get('versions') || new Map();
-  }
-
-  getVersionInfo() {
-    let currentVersionID = this.get('version');
-    let {lastConfigChangeAt, lastScalingAt} = this.get('versionInfo');
-
-    return {lastConfigChangeAt, lastScalingAt, currentVersionID};
-  }
-
-  getVolumes() {
-    return new VolumeList({items: this.get('volumes') || []});
+  getImages() {
+    return ServiceImages.NA_IMAGES;
   }
 
   getWebURL() {
-    let {
-      DCOS_SERVICE_NAME,
-      DCOS_SERVICE_PORT_INDEX,
-      DCOS_SERVICE_SCHEME
-    } = this.getLabels() || {};
+    return null;
+  }
 
-    let serviceName = encodeURIComponent(DCOS_SERVICE_NAME);
+  getInstancesCount() {
+    return 0;
+  }
 
-    if (!serviceName || !DCOS_SERVICE_PORT_INDEX || !DCOS_SERVICE_SCHEME) {
-      return null;
-    }
+  getTasksSummary() {
+    return {
+      tasksHealthy: 0,
+      tasksStaged: 0,
+      tasksUnhealthy: 0,
+      tasksUnknown: 0,
+      tasksOverCapacity: 0,
+      tasksRunning: 0
+    };
+  }
 
-    return `${Config.rootUrl}/service/${serviceName}/`;
-
+  getResources() {
+    return {
+      cpus: 0,
+      mem: 0,
+      disk: 0
+    };
   }
 
   toJSON() {
-    return this.get();
+    return cleanServiceJSON(this.get());
   }
 };

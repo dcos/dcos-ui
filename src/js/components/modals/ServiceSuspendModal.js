@@ -4,6 +4,7 @@ import React from 'react';
 /* eslint-enable no-unused-vars */
 
 import MarathonStore from '../../stores/MarathonStore';
+import Pod from '../../structs/Pod';
 import ServiceTree from '../../structs/ServiceTree';
 import ServiceActionModal from './ServiceActionModal';
 
@@ -42,7 +43,7 @@ class ServiceSuspendModal extends ServiceActionModal {
     if (isGroup) {
       MarathonStore.editGroup({id: serviceID, scaleBy: 0}, forceUpdate);
     } else {
-      MarathonStore.editService({id: serviceID, instances: 0}, forceUpdate);
+      MarathonStore.editService(service, {instances: 0}, forceUpdate);
     }
   }
 
@@ -50,6 +51,10 @@ class ServiceSuspendModal extends ServiceActionModal {
     const {open, service} = this.props;
     let itemText = 'Service';
     let serviceName = '';
+
+    if (service instanceof Pod) {
+      itemText = 'Pod';
+    }
 
     if (service instanceof ServiceTree) {
       itemText = 'Group';

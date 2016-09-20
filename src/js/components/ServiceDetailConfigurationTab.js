@@ -5,6 +5,7 @@ import ConfigurationView from './ConfigurationView';
 import DCOSStore from '../stores/DCOSStore';
 import MarathonStore from '../stores/MarathonStore';
 import Service from '../structs/Service';
+import ApplicationSpec from '../structs/ApplicationSpec';
 import ServiceFormModal from './modals/ServiceFormModal';
 import ServiceUtil from '../utils/ServiceUtil';
 
@@ -52,12 +53,14 @@ class ServiceDetailConfigurationTab extends React.Component {
   }
 
   handleApplyButtonClick() {
-    let serviceConfiguration =
-      this.props.service.getVersions().get(this.state.selectedVersionID);
+    let {service} = this.props;
 
-    MarathonStore.editService(
+    let serviceConfiguration =
+        service.getVersions().get(this.state.selectedVersionID);
+
+    MarathonStore.editService(service,
       ServiceUtil.getAppDefinitionFromService(
-        new Service(serviceConfiguration)
+          new ApplicationSpec(serviceConfiguration)
       )
     );
   }
@@ -67,7 +70,7 @@ class ServiceDetailConfigurationTab extends React.Component {
       this.props.service.getVersions().get(this.state.selectedVersionID);
 
     this.setState({
-      serviceToEdit: new Service(serviceConfiguration)
+      serviceToEdit: ServiceUtil.createServiceFromResponse(serviceConfiguration)
     });
   }
 
@@ -164,9 +167,25 @@ class ServiceDetailConfigurationTab extends React.Component {
      );
   }
 
+  getServiceFormModal() {
+    let {serviceToEdit} = this.state;
+
+    if (serviceToEdit == null) {
+      return null;
+    }
+
+    return (
+        <ServiceFormModal
+            isEdit={true}
+            open={true}
+            service={serviceToEdit}
+            onClose={this.handleCloseServiceFormModal} />
+    );
+  }
+
   render() {
     let {service} = this.props;
-    let {selectedVersionID, serviceToEdit} = this.state;
+    let {selectedVersionID} = this.state;
 
     let localeVersion = new Date(selectedVersionID).toLocaleString();
     let headline = `Current Version (${localeVersion})`;
@@ -182,10 +201,7 @@ class ServiceDetailConfigurationTab extends React.Component {
           headline={headline}
           service={service}
           versionID={selectedVersionID} />
-        <ServiceFormModal isEdit={true}
-          open={serviceToEdit != null}
-          service={serviceToEdit}
-          onClose={this.handleCloseServiceFormModal} />
+        {this.getServiceFormModal()}
       </div>
     );
   }

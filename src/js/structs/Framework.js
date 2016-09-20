@@ -2,9 +2,24 @@ import {
   ROUTE_ACCESS_PREFIX,
   FRAMEWORK_ID_VALID_CHARACTERS
 } from '../constants/FrameworkConstants';
-import Service from './Service';
+import Application from './Application';
+import {cleanServiceJSON} from '../utils/CleanJSONUtil';
+import FrameworkSpec from './FrameworkSpec';
 
-module.exports = class Framework extends Service {
+module.exports = class Framework extends Application {
+  getInstancesCount() {
+    let tasksRunning = this.get('TASK_RUNNING') || 0;
+    return super.getInstancesCount() + tasksRunning;
+  }
+
+  getName() {
+    let labels = this.getLabels();
+    if (labels && labels.DCOS_PACKAGE_FRAMEWORK_NAME) {
+      return labels.DCOS_PACKAGE_FRAMEWORK_NAME;
+    }
+    return super.getName();
+  }
+
   getNodeIDs() {
     return this.get('slave_ids');
   }
@@ -15,10 +30,8 @@ module.exports = class Framework extends Service {
     return ROUTE_ACCESS_PREFIX + (this.get('name') || '').replace(regexp, '');
   }
 
-  getUsageStats(resource) {
-    let value = this.get('used_resources')[resource];
-
-    return {value};
+  getSpec() {
+    return new FrameworkSpec(cleanServiceJSON(this.get()));
   }
 
   getTasksSummary() {
@@ -31,16 +44,9 @@ module.exports = class Framework extends Service {
     return tasksSummary;
   }
 
-  getInstancesCount() {
-    let tasksRunning = this.get('TASK_RUNNING') || 0;
-    return super.getInstancesCount() + tasksRunning;
-  }
+  getUsageStats(resource) {
+    let value = this.get('used_resources')[resource];
 
-  getName() {
-    let labels = this.getLabels();
-    if (labels && labels.DCOS_PACKAGE_FRAMEWORK_NAME) {
-      return labels.DCOS_PACKAGE_FRAMEWORK_NAME;
-    }
-    return super.getName();
+    return {value};
   }
 };

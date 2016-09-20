@@ -51,6 +51,58 @@ const JestUtil = {
       return true;
     }
   },
+  /**
+   * Generates a callback function to a filter() call that will
+   * keep only DOMElements matching the given tag name(s)
+   *
+   * @example <caption>How to use filterByTagName</caption>
+   * const TestUtils = require('react-addons-test-utils');
+   *
+   * var componentInstance = TestUtils.renderIntoDocument(
+   *   <MyTableComponent />
+   * );
+   *
+   * var nameTDs = TestUtils.scryRenderedDOMComponentsWithClass(
+   *   componentInstance, 'table-column-name'
+   * ).filter(filterByTagName('TD'));
+   *
+   * @param {array|string} tag - One or mor tagNames to match
+   * @returns {function} Returns a callback function to be passed on .filter()
+   */
+  filterByTagName(tag) {
+    if (!Array.isArray(tag)) {
+      tag = [tag];
+    }
+
+    return function (element) {
+      return tag.some(function (tagName) {
+        return (element.tagName === tagName);
+      });
+    };
+  },
+
+  /**
+   * Helper callback function to be used when you want the text contents
+   * of an array of DOMElements.
+   *
+   * @example <caption>How to use mapTextContent</caption>
+   * const TestUtils = require('react-addons-test-utils');
+   *
+   * var componentInstance = TestUtils.renderIntoDocument(
+   *   <MyTableComponent />
+   * );
+   *
+   * var nameTDContents = TestUtils.scryRenderedDOMComponentsWithClass(
+   *   componentInstance,
+   *   'table-column-name'
+   * ).map(mapTextContent);
+   *
+   * @param {DOMElement} element - The DOM element for which to get the contnet
+   * @returns {string} The text content
+   */
+  mapTextContent(element) {
+    return element.textContent;
+  },
 
   /**
    * Helper to stub router context, based on
@@ -85,6 +137,41 @@ const JestUtil = {
     }
 
     return React.createElement(WrappedComponent);
+  },
+
+  /**
+   * Generates a callback function to a reduce() call that will
+   * find and return the textContent of DOM element(s) matching
+   * the given selector
+   *
+   * @example <caption>How to use reduceTextContentOfSelector</caption>
+   * const TestUtils = require('react-addons-test-utils');
+   *
+   * var componentInstance = TestUtils.renderIntoDocument(
+   *   <MyTableComponent />
+   * );
+   *
+   * var names = TestUtils.scryRenderedDOMComponentsWithClass(
+   *   componentInstance,
+   *   'table-column-name'
+   * ).reduce(
+   *   reduceTextContentOfSelector('.collapsing-string-full-string'),
+   *   []
+   * );
+   *
+   * @param {string} selector - The CSS selector to match children
+   * @returns {function} Returns a callback function to be passed on .reduce()
+   */
+  reduceTextContentOfSelector(selector) {
+    return function (strings, element) {
+      let matchedElements = Array.from(element.querySelectorAll(selector));
+
+      matchedElements.forEach(function (stringElement) {
+        strings.push(stringElement.textContent);
+      });
+
+      return strings;
+    };
   },
 
   /**

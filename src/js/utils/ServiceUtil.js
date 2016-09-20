@@ -1,5 +1,12 @@
 import {Hooks} from 'PluginSDK';
+import Application from '../structs/Application';
+import ApplicationSpec from '../structs/ApplicationSpec';
+import Framework from '../structs/Framework';
+import FrameworkSpec from '../structs/FrameworkSpec';
+import Pod from '../structs/Pod';
+import PodSpec from '../structs/PodSpec';
 import Service from '../structs/Service';
+import ServiceValidatorUtil from '../utils/ServiceValidatorUtil';
 import ValidatorUtil from '../utils/ValidatorUtil';
 import VolumeConstants from '../constants/VolumeConstants';
 
@@ -66,7 +73,40 @@ const pruneHealthCheckAttributes = function (healthCheckSchema, healthCheck) {
 };
 
 const ServiceUtil = {
-  createServiceFromFormModel(formModel, schema, isEdit = false, definition = {}) {
+
+  createServiceFromResponse(data) {
+    if (ServiceValidatorUtil.isPodResponse(data)) {
+      return new Pod(data);
+    }
+
+    if (ServiceValidatorUtil.isFrameworkResponse(data)) {
+      return new Framework(data);
+    }
+
+    if (ServiceValidatorUtil.isApplicationResponse(data)) {
+      return new Application(data);
+    }
+
+    throw Error('Unknown service response: '+JSON.stringify(data));
+  },
+
+  createSpecFromDefinition(data) {
+    if (ServiceValidatorUtil.isPodSpecDefinition(data)) {
+      return new PodSpec(data);
+    }
+
+    if (ServiceValidatorUtil.isFrameworkSpecDefinition(data)) {
+      return new FrameworkSpec(data);
+    }
+
+    if (ServiceValidatorUtil.isApplicationSpecDefinition(data)) {
+      return new ApplicationSpec(data);
+    }
+
+    throw Error('Unknown service response: '+JSON.stringify(data));
+  },
+
+  createSpecFromFormModel(formModel, schema, isEdit = false, definition = {}) {
 
     if (formModel != null) {
       let {
@@ -403,63 +443,27 @@ const ServiceUtil = {
       return memo;
     }, {});
 
-    return new Service(definition);
+    return ServiceUtil.createSpecFromDefinition(definition);
   },
 
-  createFormModelFromSchema(schema, service = new Service()) {
+  createFormModelFromSchema(schema, service = new Application()) {
 
     return getFindPropertiesRecursive(service, schema.properties);
   },
 
-  getAppDefinitionFromService(service) {
+  getDefinitionFromSpec(spec) {
+    let definition = spec.toJSON();
 
-    let appDefinition = JSON.parse(JSON.stringify(service));
+    if (spec instanceof ApplicationSpec) {
+      Hooks.applyFilter(
+        'serviceToAppDefinition',
+        definition,
+        spec
+      );
 
-    // General
-    appDefinition.id = service.getId();
-    appDefinition.cpus = service.getCpus();
-    appDefinition.mem = service.getMem();
-    appDefinition.disk = service.getDisk();
-    appDefinition.instances = service.getInstancesCount();
-    appDefinition.cmd = service.getCommand();
-
-    // Optional
-    appDefinition.executor = service.getExecutor();
-    appDefinition.fetch = service.getFetch();
-    appDefinition.constraints = service.getConstraints();
-    appDefinition.acceptedResourceRoles = service.getAcceptedResourceRoles();
-    appDefinition.user = service.getUser();
-    appDefinition.labels = service.getLabels();
-    appDefinition.healthChecks = service.getHealthChecks();
-
-    let containerSettings = service.getContainerSettings();
-    if (containerSettings &&
-      ((containerSettings.docker && containerSettings.docker.image) ||
-      containerSettings.type === VolumeConstants.type.MESOS)
-    ) {
-      appDefinition.container = containerSettings;
-
-      if (appDefinition.container.type === VolumeConstants.type.MESOS) {
-        delete(appDefinition.container.docker);
-      }
     }
 
-    appDefinition.updateStrategy = service.getUpdateStrategy();
-    appDefinition.residency = service.getResidency();
-    appDefinition.ipAddress = service.getIpAddress();
-
-    // Environment Variables
-    appDefinition.env = service.getEnvironmentVariables();
-
-    appDefinition.portDefinitions = service.getPortDefinitions();
-
-    Hooks.applyFilter(
-      'serviceToAppDefinition',
-      appDefinition,
-      service
-    );
-
-    return appDefinition;
+    return definition;
   },
 
   getServiceNameFromTaskID(taskID) {

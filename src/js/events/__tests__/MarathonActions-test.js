@@ -7,9 +7,13 @@ const Hooks = require('PluginSDK').Hooks;
 const RequestUtil = require('mesosphere-shared-reactjs').RequestUtil;
 
 const ActionTypes = require('../../constants/ActionTypes');
+const Application = require('../../structs/Application');
+const ApplicationSpec = require('../../structs/ApplicationSpec');
 const AppDispatcher = require('../AppDispatcher');
 const Config = require('../../config/Config');
 const MarathonActions = require('../MarathonActions');
+const Pod = require('../../structs/Pod');
+const PodSpec = require('../../structs/PodSpec');
 
 Hooks.addFilter('hasCapability', function () { return true; });
 
@@ -176,220 +180,455 @@ describe('MarathonActions', function () {
   });
 
   describe('#createService', function () {
-    const appDefiniton = {
-      id: '/test',
-      cmd: 'sleep 100;'
-    };
 
-    beforeEach(function () {
-      spyOn(RequestUtil, 'json');
-      MarathonActions.createService(appDefiniton);
-      this.configuration = RequestUtil.json.calls.mostRecent().args[0];
-    });
+    describe('app', function () {
 
-    it('calls #json from the RequestUtil', function () {
-      expect(RequestUtil.json).toHaveBeenCalled();
-    });
-
-    it('sends data to the correct URL', function () {
-      expect(this.configuration.url)
-        .toEqual(`${Config.rootUrl}/service/marathon/v2/apps`);
-    });
-
-    it('uses POST for the request method', function () {
-      expect(this.configuration.method).toEqual('POST');
-    });
-
-    it('dispatches the correct action when successful', function () {
-      var id = AppDispatcher.register(function (payload) {
-        var action = payload.action;
-        AppDispatcher.unregister(id);
-        expect(action.type)
-          .toEqual(ActionTypes.REQUEST_MARATHON_SERVICE_CREATE_SUCCESS);
+      beforeEach(function () {
+        spyOn(RequestUtil, 'json');
+        MarathonActions.createService(new ApplicationSpec({
+          id: '/test',
+          cmd: 'sleep 100;'
+        }));
+        this.configuration = RequestUtil.json.calls.mostRecent().args[0];
       });
 
-      this.configuration.success({
-        'version': '2016-05-13T10:26:55.840Z',
-        'deploymentId': '6119207e-a146-44b4-9c6f-0e4227dc04a5'
+      it('calls #json from the RequestUtil', function () {
+        expect(RequestUtil.json).toHaveBeenCalled();
       });
+
+      it('sends data to the correct URL', function () {
+        expect(this.configuration.url)
+            .toEqual(`${Config.rootUrl}/service/marathon/v2/apps`);
+      });
+
+      it('sends data to the correct URL', function () {
+        expect(this.configuration.url)
+            .toEqual(`${Config.rootUrl}/service/marathon/v2/apps`);
+      });
+
+      it('uses POST for the request method', function () {
+        expect(this.configuration.method).toEqual('POST');
+      });
+
+      it('dispatches the correct action when successful', function () {
+        var id = AppDispatcher.register(function (payload) {
+          var action = payload.action;
+          AppDispatcher.unregister(id);
+          expect(action.type)
+              .toEqual(ActionTypes.REQUEST_MARATHON_SERVICE_CREATE_SUCCESS);
+        });
+
+        this.configuration.success({
+          'version': '2016-05-13T10:26:55.840Z',
+          'deploymentId': '6119207e-a146-44b4-9c6f-0e4227dc04a5'
+        });
+      });
+
+      it('dispatches the correct action when unsucessful', function () {
+        var id = AppDispatcher.register(function (payload) {
+          var action = payload.action;
+          AppDispatcher.unregister(id);
+          expect(action.type)
+              .toEqual(ActionTypes.REQUEST_MARATHON_SERVICE_CREATE_ERROR);
+        });
+
+        this.configuration.error({message: 'error', response: '{}'});
+      });
+
     });
 
-    it('dispatches the correct action when unsucessful', function () {
-      var id = AppDispatcher.register(function (payload) {
-        var action = payload.action;
-        AppDispatcher.unregister(id);
-        expect(action.type)
-          .toEqual(ActionTypes.REQUEST_MARATHON_SERVICE_CREATE_ERROR);
+    describe('pod', function () {
+
+      beforeEach(function () {
+        spyOn(RequestUtil, 'json');
+        MarathonActions.createService(new PodSpec({
+          id: '/test',
+          cmd: 'sleep 100;'
+        }));
+        this.configuration = RequestUtil.json.calls.mostRecent().args[0];
       });
 
-      this.configuration.error({message: 'error', response: '{}'});
+      it('calls #json from the RequestUtil', function () {
+        expect(RequestUtil.json).toHaveBeenCalled();
+      });
+
+      it('sends data to the correct URL', function () {
+        expect(this.configuration.url)
+            .toEqual(`${Config.rootUrl}/service/marathon/v2/pods`);
+      });
+
+      it('sends data to the correct URL', function () {
+        expect(this.configuration.url)
+            .toEqual(`${Config.rootUrl}/service/marathon/v2/pods`);
+      });
+
+      it('uses POST for the request method', function () {
+        expect(this.configuration.method).toEqual('POST');
+      });
+
+      it('dispatches the correct action when successful', function () {
+        var id = AppDispatcher.register(function (payload) {
+          var action = payload.action;
+          AppDispatcher.unregister(id);
+          expect(action.type)
+              .toEqual(ActionTypes.REQUEST_MARATHON_SERVICE_CREATE_SUCCESS);
+        });
+
+        this.configuration.success({
+          'version': '2016-05-13T10:26:55.840Z',
+          'deploymentId': '6119207e-a146-44b4-9c6f-0e4227dc04a5'
+        });
+      });
+
+      it('dispatches the correct action when unsucessful', function () {
+        var id = AppDispatcher.register(function (payload) {
+          var action = payload.action;
+          AppDispatcher.unregister(id);
+          expect(action.type)
+              .toEqual(ActionTypes.REQUEST_MARATHON_SERVICE_CREATE_ERROR);
+        });
+
+        this.configuration.error({message: 'error', response: '{}'});
+      });
+
     });
 
   });
 
   describe('#deleteService', function () {
-    const appDefiniton = {
-      id: '/test'
-    };
 
-    beforeEach(function () {
-      spyOn(RequestUtil, 'json');
-      MarathonActions.deleteService(appDefiniton.id);
-      this.configuration = RequestUtil.json.calls.mostRecent().args[0];
-    });
+    describe('app', function () {
 
-    it('calls #json from the RequestUtil', function () {
-      expect(RequestUtil.json).toHaveBeenCalled();
-    });
-
-    it('sends data to the correct URL', function () {
-      expect(this.configuration.url)
-        .toEqual(`${Config.rootUrl}/service/marathon/v2/apps//test`);
-    });
-
-    it('uses DELETE for the request method', function () {
-      expect(this.configuration.method).toEqual('DELETE');
-    });
-
-    it('dispatches the correct action when successful', function () {
-      var id = AppDispatcher.register(function (payload) {
-        var action = payload.action;
-        AppDispatcher.unregister(id);
-        expect(action.type)
-          .toEqual(ActionTypes.REQUEST_MARATHON_SERVICE_DELETE_SUCCESS);
+      beforeEach(function () {
+        spyOn(RequestUtil, 'json');
+        MarathonActions.deleteService(new Application({id: '/test'}));
+        this.configuration = RequestUtil.json.calls.mostRecent().args[0];
       });
 
-      this.configuration.success({
-        'version': '2016-05-13T10:26:55.840Z',
-        'deploymentId': '6119207e-a146-44b4-9c6f-0e4227dc04a5'
+      it('calls #json from the RequestUtil', function () {
+        expect(RequestUtil.json).toHaveBeenCalled();
       });
+
+      it('sends data to the correct URL', function () {
+        expect(this.configuration.url)
+            .toEqual(`${Config.rootUrl}/service/marathon/v2/apps//test`);
+      });
+
+      it('uses DELETE for the request method', function () {
+        expect(this.configuration.method).toEqual('DELETE');
+      });
+
+      it('dispatches the correct action when successful', function () {
+        var id = AppDispatcher.register(function (payload) {
+          var action = payload.action;
+          AppDispatcher.unregister(id);
+          expect(action.type)
+              .toEqual(ActionTypes.REQUEST_MARATHON_SERVICE_DELETE_SUCCESS);
+        });
+
+        this.configuration.success({
+          'version': '2016-05-13T10:26:55.840Z',
+          'deploymentId': '6119207e-a146-44b4-9c6f-0e4227dc04a5'
+        });
+      });
+
+      it('dispatches the correct action when unsucessful', function () {
+        var id = AppDispatcher.register(function (payload) {
+          var action = payload.action;
+          AppDispatcher.unregister(id);
+          expect(action.type)
+              .toEqual(ActionTypes.REQUEST_MARATHON_SERVICE_DELETE_ERROR);
+        });
+
+        this.configuration.error({message: 'error', response: '{}'});
+      });
+
     });
 
-    it('dispatches the correct action when unsucessful', function () {
-      var id = AppDispatcher.register(function (payload) {
-        var action = payload.action;
-        AppDispatcher.unregister(id);
-        expect(action.type)
-          .toEqual(ActionTypes.REQUEST_MARATHON_SERVICE_DELETE_ERROR);
+    describe('pod', function () {
+
+      beforeEach(function () {
+        spyOn(RequestUtil, 'json');
+        MarathonActions.deleteService(new Pod({id: '/test'}));
+        this.configuration = RequestUtil.json.calls.mostRecent().args[0];
       });
 
-      this.configuration.error({message: 'error', response: '{}'});
+      it('calls #json from the RequestUtil', function () {
+        expect(RequestUtil.json).toHaveBeenCalled();
+      });
+
+      it('sends data to the correct URL', function () {
+        expect(this.configuration.url)
+            .toEqual(`${Config.rootUrl}/service/marathon/v2/pods//test`);
+      });
+
+      it('uses DELETE for the request method', function () {
+        expect(this.configuration.method).toEqual('DELETE');
+      });
+
+      it('dispatches the correct action when successful', function () {
+        var id = AppDispatcher.register(function (payload) {
+          var action = payload.action;
+          AppDispatcher.unregister(id);
+          expect(action.type)
+              .toEqual(ActionTypes.REQUEST_MARATHON_SERVICE_DELETE_SUCCESS);
+        });
+
+        this.configuration.success({
+          'version': '2016-05-13T10:26:55.840Z',
+          'deploymentId': '6119207e-a146-44b4-9c6f-0e4227dc04a5'
+        });
+      });
+
+      it('dispatches the correct action when unsucessful', function () {
+        var id = AppDispatcher.register(function (payload) {
+          var action = payload.action;
+          AppDispatcher.unregister(id);
+          expect(action.type)
+              .toEqual(ActionTypes.REQUEST_MARATHON_SERVICE_DELETE_ERROR);
+        });
+
+        this.configuration.error({message: 'error', response: '{}'});
+      });
+
     });
 
   });
 
   describe('#editService', function () {
-    const appDefiniton = {
-      id: '/test',
-      cmd: 'sleep 100;'
-    };
 
-    beforeEach(function () {
-      spyOn(RequestUtil, 'json');
-      MarathonActions.editService(appDefiniton);
-      this.configuration = RequestUtil.json.calls.mostRecent().args[0];
-    });
+    describe('app', function () {
+      const app = new Application({id: '/test'});
+      const spec = new ApplicationSpec({cmd: 'sleep 100;'});
 
-    it('calls #json from the RequestUtil', function () {
-      expect(RequestUtil.json).toHaveBeenCalled();
-    });
-
-    it('sends data to the correct URL', function () {
-      expect(this.configuration.url)
-        .toEqual(`${Config.rootUrl}/service/marathon/v2/apps//test`);
-    });
-
-    it('sends data to the correct URL with the force=true parameter',
-      function () {
-        MarathonActions.editService(appDefiniton, true);
+      beforeEach(function () {
+        spyOn(RequestUtil, 'json');
+        MarathonActions.editService(app, spec);
         this.configuration = RequestUtil.json.calls.mostRecent().args[0];
+      });
 
+      it('calls #json from the RequestUtil', function () {
+        expect(RequestUtil.json).toHaveBeenCalled();
+      });
+
+      it('sends data to the correct URL', function () {
         expect(this.configuration.url)
-          .toEqual(`${Config.rootUrl}/service/marathon/v2/apps//test?force=true`);
+            .toEqual(`${Config.rootUrl}/service/marathon/v2/apps//test`);
       });
 
-    it('uses PUT for the request method', function () {
-      expect(this.configuration.method).toEqual('PUT');
+      it('sends data to the' +
+          ' correct URL with the force=true parameter',
+          function () {
+            MarathonActions.editService(app, spec, true);
+            this.configuration = RequestUtil.json.calls.mostRecent().args[0];
+
+            expect(this.configuration.url)
+                .toEqual(`${Config.rootUrl}/service/marathon/v2/apps//test?force=true`);
+          });
+
+      it('uses PUT for the request method', function () {
+        expect(this.configuration.method).toEqual('PUT');
+      });
+
+      it('dispatches the correct action when successful', function () {
+        var id = AppDispatcher.register(function (payload) {
+          var action = payload.action;
+          AppDispatcher.unregister(id);
+          expect(action.type)
+              .toEqual(ActionTypes.REQUEST_MARATHON_SERVICE_EDIT_SUCCESS);
+        });
+
+        this.configuration.success({
+          'version': '2016-05-13T10:26:55.840Z',
+          'deploymentId': '6119207e-a146-44b4-9c6f-0e4227dc04a5'
+        });
+      });
+
+      it('dispatches the correct action when unsucessful', function () {
+        var id = AppDispatcher.register(function (payload) {
+          var action = payload.action;
+          AppDispatcher.unregister(id);
+          expect(action.type)
+              .toEqual(ActionTypes.REQUEST_MARATHON_SERVICE_EDIT_ERROR);
+        });
+
+        this.configuration.error({message: 'error', response: '{}'});
+      });
+
     });
 
-    it('dispatches the correct action when successful', function () {
-      var id = AppDispatcher.register(function (payload) {
-        var action = payload.action;
-        AppDispatcher.unregister(id);
-        expect(action.type)
-          .toEqual(ActionTypes.REQUEST_MARATHON_SERVICE_EDIT_SUCCESS);
+    describe('pods', function () {
+      const pod = new Pod({id: '/test'});
+      const spec = new PodSpec({cmd: 'sleep 100;'});
+
+      beforeEach(function () {
+        spyOn(RequestUtil, 'json');
+        MarathonActions.editService(pod, spec);
+        this.configuration = RequestUtil.json.calls.mostRecent().args[0];
       });
 
-      this.configuration.success({
-        'version': '2016-05-13T10:26:55.840Z',
-        'deploymentId': '6119207e-a146-44b4-9c6f-0e4227dc04a5'
-      });
-    });
-
-    it('dispatches the correct action when unsucessful', function () {
-      var id = AppDispatcher.register(function (payload) {
-        var action = payload.action;
-        AppDispatcher.unregister(id);
-        expect(action.type)
-          .toEqual(ActionTypes.REQUEST_MARATHON_SERVICE_EDIT_ERROR);
+      it('calls #json from the RequestUtil', function () {
+        expect(RequestUtil.json).toHaveBeenCalled();
       });
 
-      this.configuration.error({message: 'error', response: '{}'});
+      it('sends data to the correct URL', function () {
+        expect(this.configuration.url)
+            .toEqual(`${Config.rootUrl}/service/marathon/v2/pods//test`);
+      });
+
+      it('sends data to the correct URL with the force=true parameter',
+          function () {
+            MarathonActions.editService(pod, spec, true);
+            this.configuration = RequestUtil.json.calls.mostRecent().args[0];
+
+            expect(this.configuration.url)
+                .toEqual(`${Config.rootUrl}/service/marathon/v2/pods//test?force=true`);
+          });
+
+      it('uses PUT for the request method', function () {
+        expect(this.configuration.method).toEqual('PUT');
+      });
+
+      it('dispatches the correct action when successful', function () {
+        var id = AppDispatcher.register(function (payload) {
+          var action = payload.action;
+          AppDispatcher.unregister(id);
+          expect(action.type)
+              .toEqual(ActionTypes.REQUEST_MARATHON_SERVICE_EDIT_SUCCESS);
+        });
+
+        this.configuration.success({
+          'version': '2016-05-13T10:26:55.840Z',
+          'deploymentId': '6119207e-a146-44b4-9c6f-0e4227dc04a5'
+        });
+      });
+
+      it('dispatches the correct action when unsucessful', function () {
+        var id = AppDispatcher.register(function (payload) {
+          var action = payload.action;
+          AppDispatcher.unregister(id);
+          expect(action.type)
+              .toEqual(ActionTypes.REQUEST_MARATHON_SERVICE_EDIT_ERROR);
+        });
+
+        this.configuration.error({message: 'error', response: '{}'});
+      });
+
     });
 
   });
 
   describe('#restartService', function () {
-    beforeEach(function () {
-      spyOn(RequestUtil, 'json');
-      MarathonActions.restartService('/foo');
-      this.configuration = RequestUtil.json.calls.mostRecent().args[0];
-    });
 
-    it('calls #json from the RequestUtil', function () {
-      expect(RequestUtil.json).toHaveBeenCalled();
-    });
+    describe('app', function () {
+      const app = new Application({id: '/test'});
 
-    it('sends data to the correct URL', function () {
-      expect(this.configuration.url)
-        .toEqual(`${Config.rootUrl}/service/marathon/v2/apps//foo/restart`);
-    });
-
-    it('sends data to the correct URL with the force=true parameter',
-      function () {
-        MarathonActions.restartService('/foo', true);
+      beforeEach(function () {
+        spyOn(RequestUtil, 'json');
+        MarathonActions.restartService(app);
         this.configuration = RequestUtil.json.calls.mostRecent().args[0];
+      });
 
+      it('calls #json from the RequestUtil', function () {
+        expect(RequestUtil.json).toHaveBeenCalled();
+      });
+
+      it('sends data to the correct URL', function () {
         expect(this.configuration.url)
-          .toEqual(`${Config.rootUrl}/service/marathon/v2/apps//foo/restart?force=true`);
+            .toEqual(`${Config.rootUrl}/service/marathon/v2/apps//test/restart`);
       });
 
-    it('uses POST for the request method', function () {
-      expect(this.configuration.method).toEqual('POST');
-    });
+      it('sends data to the correct URL with the force=true parameter',
+          function () {
+            MarathonActions.restartService(app, true);
+            this.configuration = RequestUtil.json.calls.mostRecent().args[0];
 
-    it('dispatches the correct action when successful', function () {
-      var id = AppDispatcher.register(function (payload) {
-        var action = payload.action;
-        AppDispatcher.unregister(id);
-        expect(action.type)
-          .toEqual(ActionTypes.REQUEST_MARATHON_SERVICE_RESTART_SUCCESS);
+            expect(this.configuration.url)
+                .toEqual(`${Config.rootUrl}/service/marathon/v2/apps//test/restart?force=true`);
+          });
+
+      it('uses POST for the request method', function () {
+        expect(this.configuration.method).toEqual('POST');
       });
 
-      this.configuration.success({});
-    });
+      it('dispatches the correct action when successful', function () {
+        var id = AppDispatcher.register(function (payload) {
+          var action = payload.action;
+          AppDispatcher.unregister(id);
+          expect(action.type)
+              .toEqual(ActionTypes.REQUEST_MARATHON_SERVICE_RESTART_SUCCESS);
+        });
 
-    it('dispatches the correct action when unsucessful', function () {
-      var id = AppDispatcher.register(function (payload) {
-        var action = payload.action;
-        AppDispatcher.unregister(id);
-        expect(action.type)
-          .toEqual(ActionTypes.REQUEST_MARATHON_SERVICE_RESTART_ERROR);
+        this.configuration.success({});
       });
 
-      this.configuration.error({message: 'error', response: '{}'});
+      it('dispatches the correct action when unsucessful', function () {
+        var id = AppDispatcher.register(function (payload) {
+          var action = payload.action;
+          AppDispatcher.unregister(id);
+          expect(action.type)
+              .toEqual(ActionTypes.REQUEST_MARATHON_SERVICE_RESTART_ERROR);
+        });
+
+        this.configuration.error({message: 'error', response: '{}'});
+      });
+
     });
 
+    describe('pods', function () {
+      const pod = new Pod({id: '/test'});
+
+      beforeEach(function () {
+        spyOn(RequestUtil, 'json');
+        MarathonActions.restartService(pod);
+        this.configuration = RequestUtil.json.calls.mostRecent().args[0];
+      });
+
+      it('calls #json from the RequestUtil', function () {
+        expect(RequestUtil.json).toHaveBeenCalled();
+      });
+
+      it('sends data to the correct URL', function () {
+        expect(this.configuration.url)
+            .toEqual(`${Config.rootUrl}/service/marathon/v2/pods//test/restart`);
+      });
+
+      it('sends data to the correct URL with the force=true parameter',
+          function () {
+            MarathonActions.restartService(pod, true);
+            this.configuration = RequestUtil.json.calls.mostRecent().args[0];
+
+            expect(this.configuration.url)
+                .toEqual(`${Config.rootUrl}/service/marathon/v2/pods//test/restart?force=true`);
+          });
+
+      it('uses POST for the request method', function () {
+        expect(this.configuration.method).toEqual('POST');
+      });
+
+      it('dispatches the correct action when successful', function () {
+        var id = AppDispatcher.register(function (payload) {
+          var action = payload.action;
+          AppDispatcher.unregister(id);
+          expect(action.type)
+              .toEqual(ActionTypes.REQUEST_MARATHON_SERVICE_RESTART_SUCCESS);
+        });
+
+        this.configuration.success({});
+      });
+
+      it('dispatches the correct action when unsucessful', function () {
+        var id = AppDispatcher.register(function (payload) {
+          var action = payload.action;
+          AppDispatcher.unregister(id);
+          expect(action.type)
+              .toEqual(ActionTypes.REQUEST_MARATHON_SERVICE_RESTART_ERROR);
+        });
+
+        this.configuration.error({message: 'error', response: '{}'});
+      });
+
+    });
   });
 
   describe('#fetchDeployments', function () {

@@ -29,10 +29,9 @@ class ServiceRestartModal extends ServiceActionModal {
     super.handleConfirmClick();
 
     let {service} = this.props;
-    let serviceID = service.getId();
     let forceUpdate = this.shouldForceUpdate(this.state.errorMsg);
 
-    MarathonStore.restartService(serviceID, forceUpdate);
+    MarathonStore.restartService(service, forceUpdate);
   }
 
   render() {

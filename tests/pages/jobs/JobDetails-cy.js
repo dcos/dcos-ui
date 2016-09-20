@@ -50,7 +50,7 @@ describe('Job Details', function () {
         // Four rows, two for the virtual list padding and two for the data.
         cy.get('.job-run-history-table tbody tr:nth-child(2)').as('tableRow');
 
-        cy.get('@tableRow').find('td:first-child .job-run-history-table-child')
+        cy.get('@tableRow').find('td:first-child .expanding-table-child')
           .should(function ($children) {
             expect($children.length).to.equal(0);
           }
@@ -61,12 +61,12 @@ describe('Job Details', function () {
     it('expands the table row when clicking a job run', function () {
       cy.get('.job-run-history-table tbody tr').as('tableRow');
 
-      cy.get('@tableRow').find('.job-run-history-job-id').first().click();
+      cy.get('@tableRow').find('.expanding-table-primary-cell').first().click();
 
-      cy.get('@tableRow').find('.job-run-history-job-id').first()
+      cy.get('@tableRow').find('.expanding-table-primary-cell').first()
         .should('have.class', 'is-expanded');
 
-      cy.get('@tableRow').find('td:nth-child(2) .job-run-history-table-child')
+      cy.get('@tableRow').find('td:nth-child(2) .expanding-table-child')
         .should(function ($children) {
           expect($children.length).to.equal(2);
         }
@@ -82,7 +82,7 @@ describe('Job Details', function () {
       cy.get('@tableRowA').click();
       cy.get('@tableRowB').click();
 
-      cy.get('.job-run-history-table .job-run-history-table-child')
+      cy.get('.job-run-history-table .expanding-table-child')
         .should(function ($children) {
           // Four table columns, two table rows, each with two children.
           // 4 * 2 * 2 = 16

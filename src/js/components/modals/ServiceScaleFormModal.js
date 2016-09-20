@@ -6,6 +6,7 @@ import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import FormModal from '../FormModal';
 import MarathonStore from '../../stores/MarathonStore';
+import Pod from '../../structs/Pod';
 import ServiceTree from '../../structs/ServiceTree';
 
 const METHODS_TO_BIND = [
@@ -106,8 +107,7 @@ class ServiceScaleFormModal extends mixin(StoreMixin) {
           scaleBy: parseInt(instances, 10)
         });
       } else {
-        MarathonStore.editService({
-          id: service.id,
+        MarathonStore.editService(service, {
           instances: parseInt(instances, 10)
         }, this.shouldForceUpdate(this.state.errorMsg));
       }
@@ -160,6 +160,10 @@ class ServiceScaleFormModal extends mixin(StoreMixin) {
   getHeader() {
     let headerText = 'Service';
 
+    if (this.props.service instanceof Pod) {
+      headerText = 'Pod';
+    }
+
     if (this.props.service instanceof ServiceTree) {
       headerText = 'Group';
     }
@@ -189,14 +193,13 @@ class ServiceScaleFormModal extends mixin(StoreMixin) {
 
     return (
       <FormModal
-        ref="form"
         buttonDefinition={buttonDefinition}
+        definition={this.getScaleFormDefinition()}
         disabled={state.disableForm}
         onClose={props.onClose}
         onSubmit={this.handleScaleSubmit}
         onChange={this.resetState}
-        open={props.open}
-        definition={this.getScaleFormDefinition()}>
+        open={props.open} >
         {this.getHeader()}
         {this.getBodyText()}
         {this.getErrorMessage()}

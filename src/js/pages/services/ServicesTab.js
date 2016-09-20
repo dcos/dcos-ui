@@ -3,6 +3,7 @@ import React from 'react';
 import {Link, RouteHandler} from 'react-router';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
+import Application from '../../structs/Application';
 import AlertPanel from '../../components/AlertPanel';
 import Breadcrumbs from '../../components/Breadcrumbs';
 import DCOSStore from '../../stores/DCOSStore';
@@ -10,6 +11,8 @@ import FilterBar from '../../components/FilterBar';
 import FilterHeadline from '../../components/FilterHeadline';
 import Icon from '../../components/Icon';
 import Loader from '../../components/Loader';
+import Pod from '../../structs/Pod';
+import PodDetail from '../../components/PodDetail';
 import QueryParamsMixin from '../../mixins/QueryParamsMixin';
 import RequestErrorMsg from '../../components/RequestErrorMsg';
 import SaveStateMixin from '../../mixins/SaveStateMixin';
@@ -229,6 +232,11 @@ var ServicesTab = React.createClass({
       );
     }
 
+    // Render Pod detail
+    if (item instanceof Pod) {
+      return (<PodDetail pod={item} />);
+    }
+
     // Render service detail
     if (item instanceof Service) {
       return (<ServiceDetail service={item} />);
@@ -377,7 +385,7 @@ var ServicesTab = React.createClass({
           parentGroupId={item.getId()}
           onClose={this.handleCloseGroupFormModal}/>
         <ServiceFormModal open={state.isServiceFormModalShown}
-          id={serviceId}
+          service={new Application({id: serviceId})}
           onClose={this.handleCloseServiceFormModal}/>
       </div>
     );

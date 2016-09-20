@@ -4,6 +4,7 @@ import React from 'react';
 /* eslint-enable no-unused-vars */
 
 import MarathonStore from '../../stores/MarathonStore';
+import Pod from '../../structs/Pod';
 import ServiceTree from '../../structs/ServiceTree';
 import ServiceActionModal from './ServiceActionModal';
 
@@ -36,12 +37,11 @@ class ServiceDestroyModal extends ServiceActionModal {
 
     let {service} = this.props;
     let isGroup = service instanceof ServiceTree;
-    let serviceID = service.getId();
 
     if (isGroup) {
-      MarathonStore.deleteGroup(serviceID);
+      MarathonStore.deleteGroup(service.getId());
     } else {
-      MarathonStore.deleteService(serviceID);
+      MarathonStore.deleteService(service);
     }
   }
 
@@ -49,6 +49,10 @@ class ServiceDestroyModal extends ServiceActionModal {
     const {open, service} = this.props;
     let itemText = 'Service';
     let serviceName = '';
+
+    if (service instanceof Pod) {
+      itemText = 'Pod';
+    }
 
     if (service instanceof ServiceTree) {
       itemText = 'Group';
