@@ -146,7 +146,9 @@
                 "scaling": {
                   "fixed": {
                     "instances": 2
-                  }
+                  },
+                  "kind": "fixed",
+                  "instances": 2
                 },
                 "scheduling": {
                   "placement": {
