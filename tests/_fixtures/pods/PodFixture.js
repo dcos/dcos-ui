@@ -58,9 +58,8 @@ module.exports = {
       }
     ],
     'scaling': {
-      'fixed': {
-        'instances': 10
-      }
+      'kind': 'fixed',
+      'instances': 10
     },
     'scheduling': {
       'placement': {

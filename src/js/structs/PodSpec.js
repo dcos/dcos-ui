@@ -46,7 +46,7 @@ module.exports = class PodSpec extends ServiceSpec {
   }
 
   getScalingInstances() {
-    let scaling = this.get('scaling') || {};
+    let scaling = this.get('scaling') || {kind: 'fixed', instances: 1};
     if (process.env.NODE_ENV !== 'production') {
       if (scaling.kind !== 'fixed') {
         throw new TypeError('Unknown scaling type (expecting fixed)');

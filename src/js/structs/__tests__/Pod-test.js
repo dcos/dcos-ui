@@ -121,9 +121,8 @@ describe('Pod', function () {
       let pod = new Pod({
         spec: {
           scaling: {
-            fixed: {
-              instances: 0
-            }
+            kind: 'fixed',
+            instances: 0
           }
         },
         instances: [
@@ -137,9 +136,8 @@ describe('Pod', function () {
       let pod = new Pod({
         spec: {
           scaling: {
-            fixed: {
-              instances: 2
-            }
+            kind: 'fixed',
+            instances: 2
           }
         },
         instances: [
@@ -153,9 +151,8 @@ describe('Pod', function () {
       let pod = new Pod({
         spec: {
           scaling: {
-            fixed: {
-              instances: 1
-            }
+            kind: 'fixed',
+            instances: 1
           }
         },
         instances: [
@@ -169,9 +166,8 @@ describe('Pod', function () {
       let pod = new Pod({
         spec: {
           scaling: {
-            fixed: {
-              instances: 1
-            }
+            kind: 'fixed',
+            instances: 1
           }
         },
         instances: [
@@ -189,9 +185,8 @@ describe('Pod', function () {
       let pod = new Pod({
         spec: {
           scaling: {
-            fixed: {
-              instances: 1
-            }
+            kind: 'fixed',
+            instances: 1
           },
           containers: [
             { }
@@ -226,9 +221,8 @@ describe('Pod', function () {
       let pod = new Pod({
         spec: {
           scaling: {
-            fixed: {
-              instances: 1
-            }
+            kind: 'fixed',
+            instances: 1
           },
           containers: [
             { }
@@ -263,9 +257,8 @@ describe('Pod', function () {
       let pod = new Pod({
         spec: {
           scaling: {
-            fixed: {
-              instances: 1
-            }
+            kind: 'fixed',
+            instances: 1
           },
           containers: [
             { }
@@ -300,9 +293,8 @@ describe('Pod', function () {
       let pod = new Pod({
         spec: {
           scaling: {
-            fixed: {
-              instances: 1
-            }
+            kind: 'fixed',
+            instances: 1
           },
           containers: [
             { }
@@ -337,9 +329,8 @@ describe('Pod', function () {
       let pod = new Pod({
         spec: {
           scaling: {
-            fixed: {
-              instances: 1
-            }
+            kind: 'fixed',
+            instances: 1
           },
           containers: [
             { }
