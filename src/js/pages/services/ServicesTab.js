@@ -392,4 +392,9 @@ var ServicesTab = React.createClass({
 
 });
 
+ServicesTab.routeConfig = {
+  label: 'Services',
+  matches: /^\/services\/overview/
+};
+
 module.exports = ServicesTab;

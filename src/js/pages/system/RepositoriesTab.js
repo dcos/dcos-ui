@@ -122,4 +122,9 @@ class RepositoriesTab extends mixin(StoreMixin) {
   }
 }
 
+RepositoriesTab.routeConfig = {
+  label: 'Repositories',
+  matches: /^\/settings\/repositories/
+};
+
 module.exports = RepositoriesTab;

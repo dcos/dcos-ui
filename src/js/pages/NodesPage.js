@@ -322,4 +322,10 @@ var NodesPage = React.createClass({
 
 });
 
+NodesPage.routeConfig = {
+  label: 'Nodes',
+  icon: <Icon id="servers-inverse" size="small" family="small" />,
+  matches: /^\/nodes/
+};
+
 module.exports = NodesPage;
