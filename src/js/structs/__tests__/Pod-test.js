@@ -115,6 +115,21 @@ describe('Pod', function () {
 
   });
 
+  describe('#getStatusString', function () {
+
+    it('should return the normalized status string', function () {
+      let pod = new Pod({ status: 'rUnNiNG' });
+
+      expect(pod.getStatusString()).toEqual('RUNNING');
+    });
+
+    it('should return the correct default value', function () {
+      let pod = new Pod();
+      expect(pod.getStatusString()).toEqual('');
+    });
+
+  });
+
   describe('#getServiceStatus', function () {
 
     it('should properly detect SUSPENDED', function () {

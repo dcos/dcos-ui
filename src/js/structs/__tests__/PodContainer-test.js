@@ -201,6 +201,21 @@ describe('PodContainer', function () {
 
   });
 
+  describe('#getStatusString', function () {
+
+    it('should return the normalized status string', function () {
+      let podContainer = new PodContainer({ status: 'rUnNiNG' });
+
+      expect(podContainer.getStatusString()).toEqual('RUNNING');
+    });
+
+    it('should return the correct default value', function () {
+      let podContainer = new PodContainer();
+      expect(podContainer.getStatusString()).toEqual('');
+    });
+
+  });
+
   describe('#hasHealthChecks', function () {
 
     it('should return false if no health checks defined', function () {

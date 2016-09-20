@@ -47,7 +47,7 @@ module.exports = class Pod extends Service {
    * @override
    */
   getHealth() {
-    switch (this.get('status')) {
+    switch (this.getStatusString()) {
       // DEGRADED - The number of STABLE pod instances is less than the number
       // of desired instances.
       case 'DEGRADED':
@@ -136,6 +136,10 @@ module.exports = class Pod extends Service {
    */
   getSpec() {
     return this._spec;
+  }
+
+  getStatusString() {
+    return (this.get('status') || '').toUpperCase();
   }
 
   /**
