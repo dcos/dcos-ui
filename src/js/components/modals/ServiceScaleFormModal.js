@@ -106,6 +106,17 @@ class ServiceScaleFormModal extends mixin(StoreMixin) {
           id: service.id,
           scaleBy: parseInt(instances, 10)
         });
+      } else if (service instanceof Pod) {
+        let spec = Object.assign({}, service.getSpec().get(),
+          {
+            scaling: {
+              kind: 'fixed',
+              instances: parseInt(instances, 10)
+            }
+          }
+        );
+        MarathonStore.editService(service, spec,
+          this.shouldForceUpdate(this.state.errorMsg));
       } else {
         MarathonStore.editService(service, {
           instances: parseInt(instances, 10)

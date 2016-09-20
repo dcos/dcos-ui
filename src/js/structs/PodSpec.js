@@ -47,13 +47,17 @@ module.exports = class PodSpec extends ServiceSpec {
 
   getScalingInstances() {
     let scaling = this.get('scaling') || {};
-    if (!scaling.fixed) {
+    if (process.env.NODE_ENV !== 'production') {
+      if (scaling.kind !== 'fixed') {
+        throw new TypeError('Unknown scaling type (expecting fixed)');
+      }
+    }
+
+    if (!ValidatorUtil.isNumber(scaling.instances)) {
       return 1;
     }
-    if (!ValidatorUtil.isNumber(scaling.fixed.instances)) {
-      return 1;
-    }
-    return scaling.fixed.instances;
+
+    return scaling.instances;
   }
 
   getSecrets() {
