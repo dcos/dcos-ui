@@ -341,7 +341,7 @@ class ServiceFormModal extends mixin(StoreMixin) {
     }
 
     if (this.state.jsonMode) {
-      marathonAction(service, serviceSpec, force);
+      marathonAction(serviceSpec, force);
       this.setState({
         errorMessage: null,
         pendingRequest: true
