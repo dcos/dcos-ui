@@ -172,4 +172,19 @@ describe('PodSpec', function () {
 
   });
 
+  describe('#getVolumes', function () {
+
+    it('should return the correct value', function () {
+      let podSpec = new PodSpec(PodFixture.spec);
+
+      expect(podSpec.getVolumes()).toEqual(PodFixture.spec.volumes);
+    });
+
+    it('should return the correct default value', function () {
+      let podSpec = new PodSpec();
+      expect(podSpec.getVolumes()).toEqual([]);
+    });
+
+  });
+
 });

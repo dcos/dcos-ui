@@ -6,6 +6,12 @@ module.exports = {
     'labels': {
       'POD_LABEL': 'foo'
     },
+    'volumes': [
+      {
+        'name': 'volume_1',
+        'host': '/mnt/volume_1'
+      }
+    ],
     'environment': {
       'FOO': 'bar',
       'SECRET_BAR': {

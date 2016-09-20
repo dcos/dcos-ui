@@ -121,6 +121,15 @@
                 "labels": {
                   "label_1": "value"
                 },
+                "volumes": [
+                  {
+                    "name": "volume_1",
+                    "host": "/mnt/volume_1"
+                  },
+                  {
+                    "name": "volume_2"
+                  }
+                ],
                 "scaling": {
                   "fixed": {
                     "instances": 2
