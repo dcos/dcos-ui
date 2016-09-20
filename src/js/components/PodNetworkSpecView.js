@@ -59,7 +59,7 @@ class PodNetworkSpecView extends React.Component {
             size="mini" />
           {network.name}
         </h5>
-        <div className="pod-config-resource-group">
+        <div className="pod-config-network-group">
           {this.getGeneralDetails()}
           {this.getLabelSection()}
         </div>

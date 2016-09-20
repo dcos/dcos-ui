@@ -89,7 +89,7 @@ class PodContainerSpecView extends React.Component {
             size="mini" />
           {container.name}
         </h5>
-        <div className="pod-config-resource-group">
+        <div className="pod-config-container-group">
           {this.getGeneralDetails()}
           {this.getEndpointsSection()}
         </div>
