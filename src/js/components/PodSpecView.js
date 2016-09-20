@@ -30,7 +30,8 @@ class PodSpecView extends React.Component {
 
     Object.keys(environment).forEach(function (key) {
       let value = environment[key];
-      if (typeof value === 'object' && !Array.isArray(value) && value !== null) {
+      if (typeof value === 'object' && !Array.isArray(value) &&
+          value !== null) {
         environment[key] = value.secret;
       }
     });
