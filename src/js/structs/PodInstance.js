@@ -64,7 +64,21 @@ module.exports = class PodInstance extends Item {
   }
 
   hasHealthChecks() {
-    return this.getContainers().some(function (container) {
+    // If for any reason any of the containers has at least 1 health
+    // check that is failing, assume that we have leath checks
+    if (!this.isHealthy()) {
+      return true;
+    }
+
+    // If we have no containers, return false
+    let containers = this.getContainers();
+    if (!containers.length) {
+      return false;
+    }
+
+    // Otherwise ALL container must have health checks in order to be
+    // considered healthy.
+    return containers.every(function (container) {
       return container.hasHealthChecks();
     });
   }
