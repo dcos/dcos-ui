@@ -7,9 +7,10 @@ import NodesTable from '../components/NodesTable';
 import NodeDetailBreadcrumb from '../pages/nodes/breadcrumbs/NodeDetailBreadcrumb';
 import NodeDetailPage from '../pages/nodes/NodeDetailPage';
 import NodeDetailTab from '../pages/nodes/NodeDetailTab';
-import NodeDetailTaskTab from '../pages/nodes/NodeDetailTaskTab';
 import NodeDetailHealthTab from '../pages/nodes/NodeDetailHealthTab';
+import NodeDetailTaskTab from '../pages/nodes/NodeDetailTaskTab';
 import NodesGridView from '../components/NodesGridView';
+import NodesOverview from '../pages/NodesOverview';
 import NodesPage from '../pages/NodesPage';
 import TaskDetail from '../pages/task-details/TaskDetail';
 import TaskDetailBreadcrumb from '../pages/nodes/breadcrumbs/TaskDetailBreadcrumb';
@@ -42,15 +43,22 @@ let nodesRoutes = {
   },
   children: [
     {
-      type: DefaultRoute,
-      name: 'nodes-list',
-      handler: NodesTable
-    },
-    {
       type: Route,
-      name: 'nodes-grid',
-      path: 'grid/?',
-      handler: NodesGridView
+      name: 'nodes-overview',
+      handler: NodesOverview,
+      children: [
+        {
+          type: DefaultRoute,
+          name: 'nodes-list',
+          handler: NodesTable
+        },
+        {
+          type: Route,
+          name: 'nodes-grid',
+          path: 'grid/?',
+          handler: NodesGridView
+        }
+      ]
     },
     {
       type: Route,
@@ -243,6 +251,11 @@ let nodesRoutes = {
           to: 'node-tasks-tab'
         }
       ]
+    },
+    {
+      type: Redirect,
+      path: '/nodes/?',
+      to: 'nodes-overview'
     }
   ]
 };
