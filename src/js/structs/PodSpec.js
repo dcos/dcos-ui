@@ -41,6 +41,10 @@ module.exports = class PodSpec extends ServiceSpec {
     });
   }
 
+  getScaling() {
+    return this.get('scaling') || {};
+  }
+
   getScalingInstances() {
     let scaling = this.get('scaling') || {};
     if (!scaling.fixed) {

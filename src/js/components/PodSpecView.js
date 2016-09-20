@@ -54,6 +54,24 @@ class PodSpecView extends React.Component {
     );
   }
 
+  getScalingDetails() {
+    let {spec} = this.props;
+    let scaling = spec.getScaling();
+
+    if (Object.keys(scaling).length === 0) {
+      return null;
+    }
+
+    return (
+      <div>
+        <h4 className="inverse flush-top">
+          Scaling
+        </h4>
+        <DescriptionList hash={scaling} />
+      </div>
+    );
+  }
+
   getSecretsDetails() {
     let {spec} = this.props;
     let secrets = Object.assign({}, spec.getSecrets());
@@ -155,6 +173,7 @@ class PodSpecView extends React.Component {
         {this.getEnvironmentDetails()}
         {this.getSecretsDetails()}
         {this.getVolumesDetails()}
+        {this.getScalingDetails()}
       </div>
       );
   }

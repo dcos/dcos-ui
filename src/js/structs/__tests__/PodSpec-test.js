@@ -157,6 +157,21 @@ describe('PodSpec', function () {
 
   });
 
+  describe('#getScaling', function () {
+
+    it('should return the correct value', function () {
+      let podSpec = new PodSpec(PodFixture.spec);
+
+      expect(podSpec.getScaling()).toEqual(PodFixture.spec.scaling);
+    });
+
+    it('should return the correct default value', function () {
+      let podSpec = new PodSpec();
+      expect(podSpec.getScaling()).toEqual({});
+    });
+
+  });
+
   describe('#getSecrets', function () {
 
     it('should return the correct value', function () {
