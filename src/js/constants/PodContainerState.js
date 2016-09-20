@@ -6,9 +6,9 @@
 //       the current values are assumed to be correct (DCOS-9852).
 //
 module.exports = {
-  RUNNING: 'RUNNING',
-  ERROR: 'ERROR',
-  FAILED: 'FAILED',
-  FINISHED: 'FINISHED',
-  KILLED: 'KILLED'
+  RUNNING: 'running',
+  ERROR: 'error',
+  FAILED: 'failed',
+  FINISHED: 'finished',
+  KILLED: 'killed'
 };
