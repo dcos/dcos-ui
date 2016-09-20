@@ -39,7 +39,6 @@ class PodContainerSpecView extends React.Component {
       return null;
     }
 
-    console.log('Labels:', container.labels);
     return (
       <div>
         <h5 className="inverse flush-top">Labels</h5>
