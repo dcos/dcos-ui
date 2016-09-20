@@ -4,6 +4,7 @@ import DescriptionList from './DescriptionList';
 import KeyIconLink from './KeyIconLink';
 import PodSpec from '../structs/PodSpec';
 import PodContainerSpecView from './PodContainerSpecView';
+import PodNetworkSpecView from './PodNetworkSpecView';
 
 const METHODS_TO_BIND = [
 ];
@@ -96,6 +97,30 @@ class PodSpecView extends React.Component {
     );
   }
 
+  getNetworksDetails() {
+    let {spec} = this.props;
+    let networks = spec.getNetworks();
+
+    if (networks.length === 0) {
+      return null;
+    }
+
+    return (
+      <div>
+        <h4 className="inverse flush-top">
+          Networks
+        </h4>
+        {networks.map(function (network, i) {
+          return (
+            <PodNetworkSpecView
+              key={i}
+              network={network} />
+          );
+        })}
+      </div>
+    );
+  }
+
   getGeneralDetails() {
     let {spec} = this.props;
     let hash = {
@@ -155,6 +180,8 @@ class PodSpecView extends React.Component {
         {this.getLabelsDetails()}
         {this.getEnvironmentDetails()}
         {this.getSecretsDetails()}
+        {this.getVolumesDetails()}
+        {this.getNetworksDetails()}
         <h4 className="inverse flush-top">
           Containers
         </h4>
@@ -166,7 +193,6 @@ class PodSpecView extends React.Component {
                 container={container} />
             );
         })}
-        {this.getVolumesDetails()}
       </div>
       );
   }

@@ -130,6 +130,19 @@
                     "name": "volume_2"
                   }
                 ],
+                "networks": [
+                  {
+                    "name": "network_1",
+                    "mode": "host",
+                    "labels": {
+                      "network_label_1_name": "network_label_1"
+                    }
+                  },
+                  {
+                    "name": "network_2",
+                    "mode": "container"
+                  }
+                ],
                 "scaling": {
                   "fixed": {
                     "instances": 2
