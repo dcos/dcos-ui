@@ -5,7 +5,7 @@ import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import HostUtil from '../utils/HostUtil';
 import Networking from '../../../../../src/js/constants/Networking';
-import Loader from '../../../../../src/js/Loader';
+import Loader from '../../../../../src/js/components/Loader';
 import DescriptionList from '../../../../../src/js/components/DescriptionList';
 import Service from '../structs/Service';
 import StringUtil from '../../../../../src/js/utils/StringUtil';

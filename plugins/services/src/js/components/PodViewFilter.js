@@ -1,9 +1,9 @@
 import React from 'react';
 
-import FilterBar from './FilterBar';
-import FilterButtons from './FilterButtons';
-import FilterInputText from './FilterInputText';
-import StringUtil from '../utils/StringUtil';
+import FilterBar from '../../../../../src/js/components/FilterBar';
+import FilterButtons from '../../../../../src/js/components/FilterButtons';
+import FilterInputText from '../../../../../src/js/components/FilterInputText';
+import StringUtil from '../../../../../src/js/utils/StringUtil';
 
 const METHODS_TO_BIND = [
   'getFilterButtonContent',

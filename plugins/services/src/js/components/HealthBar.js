@@ -3,7 +3,7 @@ import React from 'react';
 import {Tooltip} from 'reactjs-components';
 
 import HealthBarStates from '../constants/HealthBarStates';
-import StatusBar from './StatusBar';
+import StatusBar from '../../../../../src/js/components/StatusBar';
 
 class HealthBar extends React.Component {
 
