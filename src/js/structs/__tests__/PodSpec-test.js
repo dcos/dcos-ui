@@ -202,4 +202,19 @@ describe('PodSpec', function () {
 
   });
 
+  describe('#getNetworks', function () {
+
+    it('should return the correct value', function () {
+      let podSpec = new PodSpec(PodFixture.spec);
+
+      expect(podSpec.getNetworks()).toEqual(PodFixture.spec.networks);
+    });
+
+    it('should return the correct default value', function () {
+      let podSpec = new PodSpec();
+      expect(podSpec.getNetworks()).toEqual([]);
+    });
+
+  });
+
 });

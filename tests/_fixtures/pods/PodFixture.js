@@ -23,6 +23,15 @@ module.exports = {
         'source': 'bar_source'
       }
     },
+    'networks': [
+      {
+        'name': 'network_1',
+        'mode': 'host',
+        'labels': {
+          'network_label_1_name': 'network_label_1'
+        }
+      }
+    ],
     'containers': [
       {
         'name': 'container-1',
