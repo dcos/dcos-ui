@@ -22,7 +22,7 @@ class PodSpecView extends React.Component {
 
   getEnvironmentDetails() {
     let {spec} = this.props;
-    let environment = spec.getEnvironment();
+    let environment = Object.assign({}, spec.getEnvironment());
 
     if (Object.keys(environment).length === 0) {
       return null;
@@ -65,7 +65,7 @@ class PodSpecView extends React.Component {
 
   getSecretsDetails() {
     let {spec} = this.props;
-    let secrets = spec.getSecrets();
+    let secrets = Object.assign({}, spec.getSecrets());
 
     if (Object.keys(secrets).length === 0) {
       return null;
