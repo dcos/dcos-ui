@@ -1,8 +1,9 @@
 import React from 'react';
 
 import DescriptionList from './DescriptionList';
-import Icon from './Icon';
 import PodSpec from '../structs/PodSpec';
+import PodContainerSpecView from './PodContainerSpecView';
+import Icon from './Icon';
 
 class PodSpecView extends React.Component {
   getEnvironmentDetails() {
@@ -160,6 +161,17 @@ class PodSpecView extends React.Component {
         {this.getSecretsDetails()}
         {this.getVolumesDetails()}
         {this.getScalingDetails()}
+        <h4 className="inverse flush-top">
+          Containers
+        </h4>
+        {spec.getContainers().map(function (container, i) {
+          return (
+              <PodContainerSpecView
+                key={i}
+                className="nested-description-list"
+                container={container} />
+            );
+        })}
       </div>
     );
   }
