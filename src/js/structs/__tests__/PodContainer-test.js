@@ -22,7 +22,7 @@ describe('PodContainer', function () {
 
     it('should correctly detect container in ERROR state', function () {
       let podContainer = new PodContainer({
-        status: 'error'
+        status: 'TASK_ERROR'
       });
 
       // It has no health checks, so it returns ERROR
@@ -32,7 +32,7 @@ describe('PodContainer', function () {
 
     it('should correctly detect container in FAILED state', function () {
       let podContainer = new PodContainer({
-        status: 'failed'
+        status: 'TASK_FAILED'
       });
 
       // It has no health checks, so it returns FAILED
@@ -42,7 +42,7 @@ describe('PodContainer', function () {
 
     it('should correctly detect container in FINISHED state', function () {
       let podContainer = new PodContainer({
-        status: 'finished'
+        status: 'TASK_FINISHED'
       });
 
       // It has no health checks, so it returns FINISHED
@@ -52,7 +52,7 @@ describe('PodContainer', function () {
 
     it('should correctly detect container in KILLED state', function () {
       let podContainer = new PodContainer({
-        status: 'killed'
+        status: 'TASK_KILLED'
       });
 
       // It has no health checks, so it returns KILLED
@@ -62,7 +62,7 @@ describe('PodContainer', function () {
 
     it('should correctly detect container in RUNNING state', function () {
       let podContainer = new PodContainer({
-        status: 'running'
+        status: 'TASK_RUNNING'
       });
 
       // It has no health checks, so it returns RUNNING
@@ -72,7 +72,7 @@ describe('PodContainer', function () {
 
     it('should correctly detect container in HEALTHY state', function () {
       let podContainer = new PodContainer({
-        status: 'running',
+        status: 'TASK_RUNNING',
         endpoints: [
           {
             name: 'nginx',
@@ -89,7 +89,7 @@ describe('PodContainer', function () {
 
     it('should correctly detect container in UNHEALTHY state', function () {
       let podContainer = new PodContainer({
-        status: 'running',
+        status: 'TASK_RUNNING',
         endpoints: [
           {
             name: 'nginx',
@@ -117,6 +117,16 @@ describe('PodContainer', function () {
       // It has no health checks, so it returns KILLED
       expect(podContainer.getContainerStatus().displayName)
         .toEqual('Totallyrandom');
+    });
+
+    it('should strop TASK_ prefix from marathon states', function () {
+      let podContainer = new PodContainer({
+        status: 'TASK_TOTALLY_RANDOM'
+      });
+
+      // It has no health checks, so it returns KILLED
+      expect(podContainer.getContainerStatus().displayName)
+        .toEqual('Totally random');
     });
 
   });

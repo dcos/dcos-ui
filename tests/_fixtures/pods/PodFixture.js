@@ -70,7 +70,7 @@ module.exports = {
       'containers': [
         {
           'name': 'container-1',
-          'status': 'running',
+          'status': 'TASK_RUNNING',
           'statusSince': '2016-08-31T01:01:01.001',
           'containerId': 'container-id-1',
           'endpoints': [
@@ -81,7 +81,7 @@ module.exports = {
         },
         {
           'name': 'container-2',
-          'status': 'running',
+          'status': 'TASK_RUNNING',
           'statusSince': '2016-08-31T01:01:01.001',
           'containerId': 'container-id-2',
           'endpoints': [
@@ -103,7 +103,7 @@ module.exports = {
       'containers': [
         {
           'name': 'container-1',
-          'status': 'running',
+          'status': 'TASK_RUNNING',
           'statusSince': '2016-08-31T01:01:01.001',
           'containerId': 'container-id-3',
           'endpoints': [
@@ -114,7 +114,7 @@ module.exports = {
         },
         {
           'name': 'container-2',
-          'status': 'running',
+          'status': 'TASK_RUNNING',
           'statusSince': '2016-08-31T01:01:01.001',
           'containerId': 'container-id-4',
           'endpoints': [
@@ -136,7 +136,7 @@ module.exports = {
       'containers': [
         {
           'name': 'container-1',
-          'status': 'staging',
+          'status': 'TASK_STAGING',
           'statusSince': '2016-08-31T01:01:01.001',
           'containerId': 'container-id-5',
           'endpoints': [
@@ -147,7 +147,7 @@ module.exports = {
         },
         {
           'name': 'container-2',
-          'status': 'staging',
+          'status': 'TASK_STAGING',
           'statusSince': '2016-08-31T01:01:01.001',
           'containerId': 'container-id-6',
           'endpoints': [

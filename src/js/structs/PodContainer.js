@@ -30,8 +30,14 @@ module.exports = class PodContainer extends Item {
         return PodContainerStatus.KILLED;
 
       default:
+        let statusString = this.get('status') || '';
+        if (statusString.startsWith('TASK_')) {
+          statusString = statusString.substr(5);
+        }
+        statusString = statusString.replace(/_/g, ' ');
+
         return Object.assign(Object.create(PodContainerStatus.NA), {
-          displayName: StringUtil.capitalize(this.get('status').toLowerCase())
+          displayName: StringUtil.capitalize(statusString.toLowerCase())
         });
     }
   }
