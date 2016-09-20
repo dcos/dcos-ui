@@ -1,11 +1,12 @@
 import Item from './Item';
 import PodContainerStatus from '../constants/PodContainerStatus';
+import PodContainerState from '../constants/PodContainerState';
 import StringUtil from '../utils/StringUtil';
 
 module.exports = class PodContainer extends Item {
   getContainerStatus() {
     switch (this.get('status')) {
-      case 'RUNNING':
+      case PodContainerState.RUNNING:
         if (this.hasHealthChecks()) {
           if (this.isHealthy()) {
             return PodContainerStatus.HEALTHY;
@@ -16,16 +17,16 @@ module.exports = class PodContainer extends Item {
           return PodContainerStatus.RUNNING;
         }
 
-      case 'ERROR':
+      case PodContainerState.ERROR:
         return PodContainerStatus.ERROR;
 
-      case 'FAILED':
+      case PodContainerState.FAILED:
         return PodContainerStatus.FAILED;
 
-      case 'FINISHED':
+      case PodContainerState.FINISHED:
         return PodContainerStatus.FINISHED;
 
-      case 'KILLED':
+      case PodContainerState.KILLED:
         return PodContainerStatus.KILLED;
 
       default:

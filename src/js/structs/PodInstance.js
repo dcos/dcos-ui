@@ -1,6 +1,7 @@
 import Item from './Item';
 import PodContainer from './PodContainer';
 import PodInstanceStatus from '../constants/PodInstanceStatus';
+import PodState from '../constants/PodState';
 import StringUtil from '../utils/StringUtil';
 
 module.exports = class PodInstance extends Item {
@@ -25,13 +26,13 @@ module.exports = class PodInstance extends Item {
 
   getInstanceStatus() {
     switch (this.get('status')) {
-      case 'PENDING':
+      case PodState.PENDING:
         return PodInstanceStatus.STAGED;
 
-      case 'STAGING':
+      case PodState.STAGING:
         return PodInstanceStatus.STAGED;
 
-      case 'STABLE':
+      case PodState.STABLE:
         if (this.hasHealthChecks()) {
           if (this.isHealthy()) {
             return PodInstanceStatus.HEALTHY;
@@ -42,10 +43,10 @@ module.exports = class PodInstance extends Item {
           return PodInstanceStatus.RUNNING;
         }
 
-      case 'DEGRADED':
+      case PodState.DEGRADED:
         return PodInstanceStatus.UNHEALTHY;
 
-      case 'TERMINAL':
+      case PodState.TERMINAL:
         return PodInstanceStatus.KILLED;
 
       default:
@@ -84,7 +85,7 @@ module.exports = class PodInstance extends Item {
   }
 
   isHealthy() {
-    if (this.get('status') !== 'STABLE') {
+    if (this.get('status') !== PodState.STABLE) {
       return false;
     }
     return this.getContainers().every(function (container) {
@@ -94,15 +95,15 @@ module.exports = class PodInstance extends Item {
 
   isRunning() {
     let status = this.get('status');
-    return (status === 'STABLE') || (status === 'DEGRADED');
+    return (status === PodState.STABLE) || (status === PodState.DEGRADED);
   }
 
   isStaging() {
     let status = this.get('status');
-    return (status === 'PENDING') || (status === 'STAGING');
+    return (status === PodState.PENDING) || (status === PodState.STAGING);
   }
 
   isTerminating() {
-    return this.get('status') === 'TERMINAL';
+    return this.get('status') === PodState.TERMINAL;
   }
 };

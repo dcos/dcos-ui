@@ -1,6 +1,7 @@
 import HealthStatus from '../constants/HealthStatus';
 import PodInstanceList from './PodInstanceList';
 import PodSpec from './PodSpec';
+import PodState from '../constants/PodState';
 import PodTerminationHistoryList from './PodTerminationHistoryList';
 import Service from './Service';
 import ServiceStatus from '../constants/ServiceStatus';
@@ -50,16 +51,16 @@ module.exports = class Pod extends Service {
     switch (this.get('status')) {
       // DEGRADED - The number of STABLE pod instances is less than the number
       // of desired instances.
-      case 'DEGRADED':
+      case PodState.DEGRADED:
         return HealthStatus.UNHEALTHY;
 
       // STABLE   - All launched pod instances have started and, if health
       // checks were specified, are all healthy.
-      case 'STABLE':
+      case PodState.STABLE:
         return HealthStatus.HEALTHY;
 
       // TERMINAL - Marathon is tearing down all of the instances for this pod.
-      case 'TERMINAL':
+      case PodState.TERMINAL:
         return HealthStatus.NA;
 
       default:
