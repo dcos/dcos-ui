@@ -115,6 +115,34 @@ class PodSpecView extends React.Component {
     return <DescriptionList hash={hash} />;
   }
 
+  getVolumesDetails() {
+    let {spec} = this.props;
+    let volumes = spec.getVolumes().map(function (volume) {
+      return {
+        [volume.name]: volume.host || '-'
+      };
+    });
+
+    if (volumes.length === 0) {
+      return null;
+    }
+
+    return (
+      <div>
+        <h4 className="inverse flush-top">
+          Volumes
+        </h4>
+        {volumes.map(function (volume, i) {
+          return (
+            <DescriptionList
+              key={i}
+              hash={volume} />
+          );
+        })}
+      </div>
+    );
+  }
+
   render() {
     let {spec} = this.props;
 
@@ -138,6 +166,7 @@ class PodSpecView extends React.Component {
                 container={container} />
             );
         })}
+        {this.getVolumesDetails()}
       </div>
       );
   }
