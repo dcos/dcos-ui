@@ -73,10 +73,8 @@ class PodSpecView extends React.Component {
     }
 
     Object.keys(secrets).forEach(function (key) {
-      let value = secrets[key];
-      if (typeof value === 'object' && !Array.isArray(value) && value !== null) {
-        secrets[key] = value.source;
-      }
+      let {source} = secrets[key];
+      secrets[key] = source;
     });
 
     return (
