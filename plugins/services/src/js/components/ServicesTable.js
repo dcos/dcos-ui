@@ -8,7 +8,6 @@ import {StoreMixin} from 'mesosphere-shared-reactjs';
 import HealthBar from './HealthBar';
 import Links from '../../../../../src/js/constants/Links';
 import Icon from '../../../../../src/js/components/Icon';
-import MarathonStore from '../stores/MarathonStore';
 import NestedServiceLinks from '../../../../../src/js/components/NestedServiceLinks';
 import Service from '../structs/Service';
 import ServiceActionItem from '../constants/ServiceActionItem';

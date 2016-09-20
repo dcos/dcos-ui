@@ -2,8 +2,8 @@ import classNames from 'classnames';
 import React from 'react';
 import {Table} from 'reactjs-components';
 
-import ResourceTableUtil from '../utils/ResourceTableUtil';
-import TableUtil from '../utils/TableUtil';
+import ResourceTableUtil from '../../../plugins/services/src/js/utils/ResourceTableUtil';
+import TableUtil from '../../../plugins/services/src/js/utils/TableUtil';
 
 const METHODS_TO_BIND = [
   'getColumnHeading',

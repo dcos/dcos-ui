@@ -7,7 +7,7 @@ import Config from '../../../../../src/js/config/Config';
 import HealthLabels from '../constants/HealthLabels';
 import HealthStatus from '../constants/HealthStatus';
 import HealthTypesDescription from '../constants/HealthTypesDescription';
-import Loader from './Loader';
+import Loader from '../../../../../src/js/components/Loader';
 
 let ServiceList = React.createClass({
 

@@ -1,6 +1,5 @@
 import {cleanServiceJSON} from '../../../../../src/js/utils/CleanJSONUtil';
 import HealthStatus from '../constants/HealthStatus';
-import Config from '../../../../../src/js/config/Config';
 import Item from '../../../../../src/js/structs/Item';
 
 import ServiceImages from '../constants/ServiceImages';

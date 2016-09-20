@@ -3,7 +3,6 @@ import mixin from 'reactjs-mixin';
 import React from 'react';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
-import DCOSStore from '../stores/DCOSStore';
 import HostUtil from '../utils/HostUtil';
 import Networking from '../../../../../src/js/constants/Networking';
 import Loader from '../../../../../src/js/Loader';

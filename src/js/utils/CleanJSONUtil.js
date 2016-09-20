@@ -1,5 +1,6 @@
+
 import JobConfig from '../constants/JobConfig';
-import ServiceConfig from '../constants/ServiceConfig';
+import ServiceConfig from '../../../plugins/services/src/js/constants/ServiceConfig';
 
 export function cleanJobJSON(jsonSpec) {
   return cleanJSON(jsonSpec, JobConfig);

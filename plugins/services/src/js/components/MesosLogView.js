@@ -6,7 +6,7 @@ import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import DOMUtils from '../../../../../src/js/utils/DOMUtils';
 import Highlight from './Highlight';
-import Loader from './Loader';
+import Loader from '../../../../../src/js/components/Loader';
 import MesosLogStore from '../stores/MesosLogStore';
 import RequestErrorMsg from '../../../../../src/js/components/RequestErrorMsg';
 import TaskDirectoryStore from '../stores/TaskDirectoryStore';

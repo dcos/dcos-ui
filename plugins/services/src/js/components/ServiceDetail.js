@@ -3,7 +3,6 @@ import React from 'react';
 
 import Breadcrumbs from '../../../../../src/js/components/Breadcrumbs';
 import InternalStorageMixin from '../../../../../src/js/mixins/InternalStorageMixin';
-import MarathonStore from '../stores/MarathonStore';
 import Service from '../structs/Service';
 import ServiceActionItem from '../constants/ServiceActionItem';
 import ServiceDestroyModal from './modals/ServiceDestroyModal';

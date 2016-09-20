@@ -9,7 +9,6 @@ import NodesTableHeaderLabels from '../constants/NodesTableHeaderLabels';
 import Icon from '../components/Icon';
 import InternalStorageMixin from '../mixins/InternalStorageMixin';
 import Loader from '../components/Loader';
-import ResourceTableUtil from '../utils/ResourceTableUtil';
 import StatusBar from '../components/StatusBar';
 import StringUtil from '../utils/StringUtil';
 import TableUtil from '../utils/TableUtil';

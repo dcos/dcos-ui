@@ -3,11 +3,11 @@ import {Dropdown} from 'reactjs-components';
 import React from 'react';
 
 import HealthBar from './HealthBar';
-import PageHeader from './PageHeader';
+import PageHeader from '../../../../../src/js/components/PageHeader';
 import Pod from '../structs/Pod';
 import StatusMapping from '../constants/StatusMapping';
 import PodActionItem from '../constants/PodActionItem';
-import StringUtil from '../utils/StringUtil';
+import StringUtil from '../../../../../src/js/utils/StringUtil';
 
 class PodInfo extends React.Component {
   constructor() {
