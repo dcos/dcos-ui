@@ -22,7 +22,7 @@ describe('PodContainer', function () {
 
     it('should correctly detect container in ERROR state', function () {
       let podContainer = new PodContainer({
-        status: 'ERROR'
+        status: 'error'
       });
 
       // It has no health checks, so it returns ERROR
@@ -32,7 +32,7 @@ describe('PodContainer', function () {
 
     it('should correctly detect container in FAILED state', function () {
       let podContainer = new PodContainer({
-        status: 'FAILED'
+        status: 'failed'
       });
 
       // It has no health checks, so it returns FAILED
@@ -42,7 +42,7 @@ describe('PodContainer', function () {
 
     it('should correctly detect container in FINISHED state', function () {
       let podContainer = new PodContainer({
-        status: 'FINISHED'
+        status: 'finished'
       });
 
       // It has no health checks, so it returns FINISHED
@@ -52,7 +52,7 @@ describe('PodContainer', function () {
 
     it('should correctly detect container in KILLED state', function () {
       let podContainer = new PodContainer({
-        status: 'KILLED'
+        status: 'killed'
       });
 
       // It has no health checks, so it returns KILLED
@@ -62,7 +62,7 @@ describe('PodContainer', function () {
 
     it('should correctly detect container in RUNNING state', function () {
       let podContainer = new PodContainer({
-        status: 'RUNNING'
+        status: 'running'
       });
 
       // It has no health checks, so it returns RUNNING
@@ -72,7 +72,7 @@ describe('PodContainer', function () {
 
     it('should correctly detect container in HEALTHY state', function () {
       let podContainer = new PodContainer({
-        status: 'RUNNING',
+        status: 'running',
         endpoints: [
           {
             name: 'nginx',
@@ -89,7 +89,7 @@ describe('PodContainer', function () {
 
     it('should correctly detect container in UNHEALTHY state', function () {
       let podContainer = new PodContainer({
-        status: 'RUNNING',
+        status: 'running',
         endpoints: [
           {
             name: 'nginx',
@@ -111,7 +111,7 @@ describe('PodContainer', function () {
 
     it('should pass through unknown states', function () {
       let podContainer = new PodContainer({
-        status: 'TOTALLYRANDOM'
+        status: 'totallyrandom'
       });
 
       // It has no health checks, so it returns KILLED

@@ -53,7 +53,7 @@ module.exports = {
       }
     }
   },
-  'status': 'STABLE',
+  'status': 'stable',
   'statusSince': '2016-08-31T01:01:01.001',
   'message': 'All pod instances are running and in good health',
   'lastUpdated': '2016-08-31T01:01:01.001',
@@ -61,7 +61,7 @@ module.exports = {
   'instances': [
     {
       'id': 'instance-1',
-      'status': 'STABLE',
+      'status': 'stable',
       'statusSince': '2016-08-31T01:01:01.001',
       'agent': 'agent-1',
       'resources': { 'cpus': 1.0, 'mem': 128 },
@@ -70,7 +70,7 @@ module.exports = {
       'containers': [
         {
           'name': 'container-1',
-          'status': 'RUNNING',
+          'status': 'running',
           'statusSince': '2016-08-31T01:01:01.001',
           'containerId': 'container-id-1',
           'endpoints': [
@@ -81,7 +81,7 @@ module.exports = {
         },
         {
           'name': 'container-2',
-          'status': 'RUNNING',
+          'status': 'running',
           'statusSince': '2016-08-31T01:01:01.001',
           'containerId': 'container-id-2',
           'endpoints': [
@@ -94,7 +94,7 @@ module.exports = {
     },
     {
       'id': 'instance-2',
-      'status': 'STABLE',
+      'status': 'stable',
       'statusSince': '2016-08-31T01:01:01.001',
       'agent': 'agent-2',
       'resources': { 'cpus': 1.0, 'mem': 128 },
@@ -103,7 +103,7 @@ module.exports = {
       'containers': [
         {
           'name': 'container-1',
-          'status': 'RUNNING',
+          'status': 'running',
           'statusSince': '2016-08-31T01:01:01.001',
           'containerId': 'container-id-3',
           'endpoints': [
@@ -114,7 +114,7 @@ module.exports = {
         },
         {
           'name': 'container-2',
-          'status': 'RUNNING',
+          'status': 'running',
           'statusSince': '2016-08-31T01:01:01.001',
           'containerId': 'container-id-4',
           'endpoints': [
@@ -127,7 +127,7 @@ module.exports = {
     },
     {
       'id': 'instance-3',
-      'status': 'STAGING',
+      'status': 'staging',
       'statusSince': '2016-08-31T01:01:01.001',
       'agent': 'agent-3',
       'resources': { 'cpus': 1.0, 'mem': 128 },
@@ -136,7 +136,7 @@ module.exports = {
       'containers': [
         {
           'name': 'container-1',
-          'status': 'STAGING',
+          'status': 'staging',
           'statusSince': '2016-08-31T01:01:01.001',
           'containerId': 'container-id-5',
           'endpoints': [
@@ -147,7 +147,7 @@ module.exports = {
         },
         {
           'name': 'container-2',
-          'status': 'STAGING',
+          'status': 'staging',
           'statusSince': '2016-08-31T01:01:01.001',
           'containerId': 'container-id-6',
           'endpoints': [

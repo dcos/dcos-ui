@@ -63,12 +63,12 @@ describe('Pod', function () {
   describe('#getHealth', function () {
 
     it('should return the correct value when DEGRADED', function () {
-      let pod = new Pod({ status: 'DEGRADED' });
+      let pod = new Pod({ status: 'degraded' });
       expect(pod.getHealth()).toEqual(HealthStatus.UNHEALTHY);
     });
 
     it('should return the correct value when STABLE', function () {
-      let pod = new Pod({ status: 'STABLE' });
+      let pod = new Pod({ status: 'stable' });
       expect(pod.getHealth()).toEqual(HealthStatus.HEALTHY);
     });
 
@@ -143,7 +143,7 @@ describe('Pod', function () {
           }
         },
         instances: [
-          { status: 'STABLE' }
+          { status: 'stable' }
         ]
       });
       expect(pod.getServiceStatus()).toEqual(ServiceStatus.DEPLOYING);
@@ -159,7 +159,7 @@ describe('Pod', function () {
           }
         },
         instances: [
-          { status: 'STABLE' }
+          { status: 'stable' }
         ]
       });
       expect(pod.getServiceStatus()).toEqual(ServiceStatus.RUNNING);
@@ -175,7 +175,7 @@ describe('Pod', function () {
           }
         },
         instances: [
-          { status: 'PENDING' }
+          { status: 'pending' }
         ]
       });
       expect(pod.getServiceStatus()).toEqual(ServiceStatus.NA);
@@ -199,10 +199,10 @@ describe('Pod', function () {
         },
         instances: [
           {
-            status: 'STABLE',
+            status: 'stable',
             containers: [
               {
-                status: 'STABLE',
+                status: 'stable',
                 endpoints: [
                   { name: 'nginx', healthy: true }
                 ]
@@ -236,10 +236,10 @@ describe('Pod', function () {
         },
         instances: [
           {
-            status: 'STABLE',
+            status: 'stable',
             containers: [
               {
-                status: 'STABLE',
+                status: 'stable',
                 endpoints: [
                   { name: 'nginx', healthy: false }
                 ]
@@ -273,10 +273,10 @@ describe('Pod', function () {
         },
         instances: [
           {
-            status: 'STABLE',
+            status: 'stable',
             containers: [
               {
-                status: 'STABLE',
+                status: 'stable',
                 endpoints: [
                   { name: 'nginx' }
                 ]
@@ -310,10 +310,10 @@ describe('Pod', function () {
         },
         instances: [
           {
-            status: 'PENDING',
+            status: 'pending',
             containers: [
               {
-                status: 'PENDING',
+                status: 'pending',
                 endpoints: [
                   { name: 'nginx' }
                 ]
@@ -347,10 +347,10 @@ describe('Pod', function () {
         },
         instances: [
           {
-            status: 'STABLE',
+            status: 'stable',
             containers: [
               {
-                status: 'STABLE',
+                status: 'stable',
                 endpoints: [
                   { name: 'nginx' }
                 ]
@@ -358,10 +358,10 @@ describe('Pod', function () {
             ]
           },
           {
-            status: 'STABLE',
+            status: 'stable',
             containers: [
               {
-                status: 'STABLE',
+                status: 'stable',
                 endpoints: [
                   { name: 'nginx' }
                 ]

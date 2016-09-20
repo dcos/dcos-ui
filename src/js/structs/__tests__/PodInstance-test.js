@@ -67,7 +67,7 @@ describe('PodInstance', function () {
 
     it('should correctly detect container in PENDING state', function () {
       let podInstance = new PodInstance({
-        status: 'PENDING'
+        status: 'pending'
       });
 
       expect(podInstance.getInstanceStatus())
@@ -76,7 +76,7 @@ describe('PodInstance', function () {
 
     it('should correctly detect container in STAGING state', function () {
       let podInstance = new PodInstance({
-        status: 'STAGING'
+        status: 'staging'
       });
 
       expect(podInstance.getInstanceStatus())
@@ -85,7 +85,7 @@ describe('PodInstance', function () {
 
     it('should correctly detect container in DEGRADED state', function () {
       let podInstance = new PodInstance({
-        status: 'DEGRADED'
+        status: 'degraded'
       });
 
       expect(podInstance.getInstanceStatus())
@@ -94,7 +94,7 @@ describe('PodInstance', function () {
 
     it('should correctly detect container in TERMINAL state', function () {
       let podInstance = new PodInstance({
-        status: 'TERMINAL'
+        status: 'terminal'
       });
 
       expect(podInstance.getInstanceStatus())
@@ -103,7 +103,7 @@ describe('PodInstance', function () {
 
     it('should correctly detect container in STABLE state', function () {
       let podInstance = new PodInstance({
-        status: 'STABLE'
+        status: 'stable'
       });
 
       // No health checks, returns RUNNING
@@ -113,7 +113,7 @@ describe('PodInstance', function () {
 
     it('should correctly detect container in UNHEALTHY state', function () {
       let podInstance = new PodInstance({
-        status: 'STABLE',
+        status: 'stable',
         containers: [
           {
             endpoints: [
@@ -130,7 +130,7 @@ describe('PodInstance', function () {
 
     it('should correctly detect container in HEALTHY state', function () {
       let podInstance = new PodInstance({
-        status: 'STABLE',
+        status: 'stable',
         containers: [
           {
             endpoints: [
@@ -183,7 +183,7 @@ describe('PodInstance', function () {
 
     it('should return true if all container have health checks', function () {
       let podInstance = new PodInstance({
-        status: 'STABLE',
+        status: 'stable',
         containers: [
           {
             endpoints: [
@@ -205,7 +205,7 @@ describe('PodInstance', function () {
 
     it('should return false if even one container has no checks', function () {
       let podInstance = new PodInstance({
-        status: 'STABLE',
+        status: 'stable',
         containers: [
           {
             endpoints: [
@@ -227,7 +227,7 @@ describe('PodInstance', function () {
 
     it('should return true if instance state is not STABLE', function () {
       let podInstance = new PodInstance({
-        status: 'DEGRADED',
+        status: 'degraded',
         containers: [
           {
             endpoints: [
@@ -250,7 +250,7 @@ describe('PodInstance', function () {
 
     it('should return true if even one container is failing', function () {
       let podInstance = new PodInstance({
-        status: 'STABLE',
+        status: 'stable',
         containers: [
           {
             endpoints: [
@@ -272,7 +272,7 @@ describe('PodInstance', function () {
 
     it('should return false if there are no containers', function () {
       let podInstance = new PodInstance({
-        status: 'STABLE',
+        status: 'stable',
         containers: []
       });
 
@@ -285,7 +285,7 @@ describe('PodInstance', function () {
 
     it('should return true if all container are healthy', function () {
       let podInstance = new PodInstance({
-        status: 'STABLE',
+        status: 'stable',
         containers: [
           {
             endpoints: [
@@ -307,7 +307,7 @@ describe('PodInstance', function () {
 
     it('should return true even if containers have no checks', function () {
       let podInstance = new PodInstance({
-        status: 'STABLE',
+        status: 'stable',
         containers: [
           {
             endpoints: [
@@ -329,7 +329,7 @@ describe('PodInstance', function () {
 
     it('should return false if at least 1 container is unhealthy', function () {
       let podInstance = new PodInstance({
-        status: 'DEGRADED',
+        status: 'degraded',
         containers: [
           {
             endpoints: [
@@ -351,7 +351,7 @@ describe('PodInstance', function () {
 
     it('should return false on unhealthy container even on udnef', function () {
       let podInstance = new PodInstance({
-        status: 'STABLE',
+        status: 'stable',
         containers: [
           {
             endpoints: [
@@ -373,7 +373,7 @@ describe('PodInstance', function () {
 
     it('should return true if there are no containers', function () {
       let podInstance = new PodInstance({
-        status: 'STABLE',
+        status: 'stable',
         containers: []
       });
 
@@ -385,17 +385,17 @@ describe('PodInstance', function () {
   describe('#isRunning', function () {
 
     it('should return true when status is STABLE', function () {
-      let podInstance = new PodInstance({ status: 'STABLE' });
+      let podInstance = new PodInstance({ status: 'stable' });
       expect(podInstance.isRunning()).toBeTruthy();
     });
 
     it('should return true when status is DEGRADED', function () {
-      let podInstance = new PodInstance({ status: 'DEGRADED' });
+      let podInstance = new PodInstance({ status: 'degraded' });
       expect(podInstance.isRunning()).toBeTruthy();
     });
 
     it('should return false if not DEGRADED or STABLE', function () {
-      let podInstance = new PodInstance({ status: 'TERMINAL' });
+      let podInstance = new PodInstance({ status: 'terminal' });
       expect(podInstance.isRunning()).toBeFalsy();
     });
 
@@ -404,17 +404,17 @@ describe('PodInstance', function () {
   describe('#isStaging', function () {
 
     it('should return true when status is PENDING', function () {
-      let podInstance = new PodInstance({ status: 'PENDING' });
+      let podInstance = new PodInstance({ status: 'pending' });
       expect(podInstance.isStaging()).toBeTruthy();
     });
 
     it('should return true when status is STAGING', function () {
-      let podInstance = new PodInstance({ status: 'STAGING' });
+      let podInstance = new PodInstance({ status: 'staging' });
       expect(podInstance.isStaging()).toBeTruthy();
     });
 
     it('should return false if not STAGING or PENDING', function () {
-      let podInstance = new PodInstance({ status: 'TERMINAL' });
+      let podInstance = new PodInstance({ status: 'terminal' });
       expect(podInstance.isStaging()).toBeFalsy();
     });
 
@@ -423,12 +423,12 @@ describe('PodInstance', function () {
   describe('#isTerminating', function () {
 
     it('should return true when status is TERMINAL', function () {
-      let podInstance = new PodInstance({ status: 'TERMINAL' });
+      let podInstance = new PodInstance({ status: 'terminal' });
       expect(podInstance.isTerminating()).toBeTruthy();
     });
 
     it('should return false if not TERMINAL', function () {
-      let podInstance = new PodInstance({ status: 'RUNNING' });
+      let podInstance = new PodInstance({ status: 'running' });
       expect(podInstance.isTerminating()).toBeFalsy();
     });
 
