@@ -4,6 +4,7 @@ import DescriptionList from './DescriptionList';
 import PodSpec from '../structs/PodSpec';
 import PodContainerSpecView from './PodContainerSpecView';
 import PodNetworkSpecView from './PodNetworkSpecView';
+import Icon from './Icon';
 
 const METHODS_TO_BIND = [
 ];
@@ -32,7 +33,16 @@ class PodSpecView extends React.Component {
       let value = environment[key];
       if (typeof value === 'object' && !Array.isArray(value) &&
           value !== null) {
-        environment[key] = value.secret;
+        environment[key] = (
+          <span>
+            <Icon
+              className="icon-margin-right"
+              color="white"
+              family="mini"
+              id="key"
+              size="mini" /> {value.secret}
+          </span>
+        );
       }
     });
 
