@@ -116,6 +116,7 @@ class PodDetail extends mixin(TabsMixin) {
         <ServiceFormModal
           onClose={this.handleCloseDialog}
           open={activeActionDialog === PodActionItem.EDIT}
+          isEdit={true}
           service={pod} />
 
       </div>
