@@ -44,6 +44,7 @@ var config = {
     'deep-equal',
     'events',
     'flux',
+    'foundation-ui',
     'jasmine-reporters',
     'localStorage',
     'mesosphere-shared-reactjs',
