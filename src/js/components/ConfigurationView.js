@@ -155,7 +155,11 @@ class ConfigurationView extends mixin(StoreMixin) {
     let vipsPortSection = this.getVIPPortDefinitionsSection(config);
     let {id, portDefinitions} = config;
 
-    if (vipsPortSection || portDefinitions == null) {
+    if (vipsPortSection) {
+      return vipsPortSection;
+    }
+
+    if (portDefinitions == null) {
       return null;
     }
 
