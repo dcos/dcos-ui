@@ -127,4 +127,93 @@ describe('PodSpec', function () {
 
   });
 
+  describe('#getEnvironment', function () {
+
+    it('should return the correct value', function () {
+      let podSpec = new PodSpec(PodFixture.spec);
+
+      expect(podSpec.getEnvironment()).toEqual(PodFixture.spec.environment);
+    });
+
+    it('should return the correct default value', function () {
+      let podSpec = new PodSpec();
+      expect(podSpec.getEnvironment()).toEqual({});
+    });
+
+  });
+
+  describe('#getNetworks', function () {
+
+    it('should return the correct value', function () {
+      let podSpec = new PodSpec(PodFixture.spec);
+
+      expect(podSpec.getNetworks()).toEqual(PodFixture.spec.networks);
+    });
+
+    it('should return the correct default value', function () {
+      let podSpec = new PodSpec();
+      expect(podSpec.getNetworks()).toEqual([]);
+    });
+
+  });
+
+  describe('#getScaling', function () {
+
+    it('should return the correct value', function () {
+      let podSpec = new PodSpec(PodFixture.spec);
+
+      expect(podSpec.getScaling()).toEqual(PodFixture.spec.scaling);
+    });
+
+    it('should return the correct default value', function () {
+      let podSpec = new PodSpec();
+      expect(podSpec.getScaling()).toEqual({});
+    });
+
+  });
+
+  describe('#getSecrets', function () {
+
+    it('should return the correct value', function () {
+      let podSpec = new PodSpec(PodFixture.spec);
+
+      expect(podSpec.getSecrets()).toEqual(PodFixture.spec.secrets);
+    });
+
+    it('should return the correct default value', function () {
+      let podSpec = new PodSpec();
+      expect(podSpec.getSecrets()).toEqual({});
+    });
+
+  });
+
+  describe('#getVolumes', function () {
+
+    it('should return the correct value', function () {
+      let podSpec = new PodSpec(PodFixture.spec);
+
+      expect(podSpec.getVolumes()).toEqual(PodFixture.spec.volumes);
+    });
+
+    it('should return the correct default value', function () {
+      let podSpec = new PodSpec();
+      expect(podSpec.getVolumes()).toEqual([]);
+    });
+
+  });
+
+  describe('#getUser', function () {
+
+    it('should return the correct value', function () {
+      let podSpec = new PodSpec(PodFixture.spec);
+
+      expect(podSpec.getUser()).toEqual('root');
+    });
+
+    it('should return the correct default value', function () {
+      let podSpec = new PodSpec();
+      expect(podSpec.getUser()).toBeFalsy();
+    });
+
+  });
 });
