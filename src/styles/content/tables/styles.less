@@ -9,13 +9,11 @@
         .table-display-on-row-hover {
           visibility: visible;
         }
-
       }
 
       .table-display-on-row-hover {
         visibility: hidden;
       }
-
     }
 
     th {
@@ -40,13 +38,12 @@
 
     .table-cell-emphasized {
       color: @table-cell-highlight-color;
-      font-weight: bold;
+      font-weight: 700;
     }
 
     .flush-left {
       padding-left: 0;
     }
-
   }
 
   .table-hide-header {
@@ -54,7 +51,6 @@
     thead {
       display: none;
     }
-
   }
 
   .table-cell-flex-box {
@@ -82,8 +78,8 @@
 
   // TODO: Should this match the CNVS padding size conventions?
   .table-cell-short {
-    padding-top: @table-cell-padding-top * 3/4;
     padding-bottom: @table-cell-padding-bottom * 3/4;
+    padding-top: @table-cell-padding-top * 3/4;
   }
 
   // When VirtualList is used, the first and last rows in tbody are the
@@ -98,11 +94,7 @@
           border-bottom: none;
           border-radius: 0 0 @table-border-radius @table-border-radius;
         }
-
       }
-
     }
-
   }
-
 }

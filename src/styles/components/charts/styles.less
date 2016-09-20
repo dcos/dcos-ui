@@ -7,8 +7,8 @@
     transform: translateZ(0);
 
     .chart-chart {
-      position: relative;
       flex-grow: 1;
+      position: relative;
     }
 
     svg {
@@ -23,9 +23,9 @@
     .grid-graph .tick,
     .axis line {
       fill: none;
+      shape-rendering: crispedges;
       stroke: fade(@neutral, 6%);
       stroke-width: 1px;
-      shape-rendering: crispEdges;
     }
 
     .axis text {
@@ -37,16 +37,14 @@
         &.shadow {
           text-shadow: 0 0 4px @white, 0 0 4px @white;
         }
-
       }
-
     }
 
     .unsuccessful-block {
       fill: @black;
     }
 
-    [class*="path-color"] .unsuccessful-block {
+    [class*='path-color'] .unsuccessful-block {
       fill: inherit;
       fill-opacity: 1;
     }
@@ -95,7 +93,6 @@
         opacity: 0.2;
         stroke: @label-muted-color;
       }
-
     }
 
     .area {
@@ -104,8 +101,8 @@
     }
 
     .arc path {
-      stroke-width: 4px;
       stroke: @panel-background-color;
+      stroke-width: 4px;
     }
 
     .line {
@@ -139,13 +136,12 @@
       &.path-color-6 {
         stroke: @pink;
       }
-
     }
 
     .barchart {
 
       .bar {
-        stroke-width: 0px;
+        stroke-width: 0;
 
         line {
           fill-opacity: 1;
@@ -153,11 +149,9 @@
 
           &.hidden,
           &.invisble {
-            stroke-width: 0px;
+            stroke-width: 0;
           }
-
         }
-
       }
 
       .axis {
@@ -175,13 +169,11 @@
           path {
             stroke: @neutral;
           }
-
         }
 
         line {
           display: none;
         }
-
       }
 
       .grid-graph {
@@ -189,9 +181,8 @@
         .grid.y {
 
           .tick:first-child line {
-            stroke-dasharray: 0,0;
+            stroke-dasharray: 0, 0;
           }
-
         }
 
         &.inverse line {
@@ -200,11 +191,9 @@
 
         line {
           stroke: @neutral;
-          stroke-dasharray: 4,4;
+          stroke-dasharray: 4, 4;
         }
-
       }
-
     }
 
     .timeseries-chart {
@@ -218,7 +207,6 @@
         top: 0;
         transform: translateZ(0);
       }
-
     }
 
     .timeseries-chart,
@@ -233,11 +221,8 @@
           .domain {
             display: none;
           }
-
         }
-
       }
-
     }
 
     .unit-bordered-horizontal {
@@ -250,7 +235,6 @@
       .panel-inverse & {
         border-color: @chart-axis-color-inverse;
       }
-
     }
 
     .unit {
@@ -293,7 +277,6 @@
       &.path-color-6 {
         color: @pink;
       }
-
     }
 
     .text-danger {
@@ -307,7 +290,6 @@
     .text-muted {
       fill: @label-muted-color;
     }
-
   }
 
   .dropdown-chart-details {
@@ -337,9 +319,7 @@
         em {
           color: color-lighten(@neutral, 20);
         }
-
       }
-
     }
 
     .graph-legend {
@@ -358,14 +338,11 @@
           color: color-lighten(@black, 40);
         }
 
-        &:first {
-          margin-left: 0px;
+        &:first-child {
+          margin-left: 0;
         }
-
       }
-
     }
-
   }
 
   .dygraph-chart {
@@ -373,10 +350,10 @@
     z-index: @z-index-dygraph-chart;
 
     .dygraph-hover-label {
-      background-color: #171A22;
+      background-color: #171a22;
       border: 1px solid #000;
       border-radius: 4px;
-      color: #9B9FA8;
+      color: #9b9fa8;
       font-size: 0.9rem;
       padding: 6px 8px;
       pointer-events: none;
@@ -404,15 +381,10 @@
               margin-right: 4px;
               width: 8px;
             }
-
           }
-
         }
-
       }
-
     }
-
   }
 
   .chart-dialchart {
@@ -420,8 +392,8 @@
 
     .description {
       display: flex;
-      height: 100%;
       flex-direction: column;
+      height: 100%;
       justify-content: center;
       left: 0;
       position: absolute;
@@ -432,14 +404,12 @@
       .icon {
         display: inline-block;
       }
-
     }
-
   }
 
-  /**********************************/
-  /*  Specific to Nodes Grid View   */
-  /**********************************/
+  /*
+   * Specific to Nodes Grid View
+   */
   .nodes-grid-dials {
     display: flex;
     flex-flow: row wrap;
@@ -457,181 +427,181 @@
 
         // Remove stroke when dials are in small containers
         .arc path {
-          stroke-width: 1px;
           stroke: @panel-background-color;
+          stroke-width: 1px;
         }
 
         .arc {
+
           &.path-color-0 {
-            stroke: @resource-cpu-color;
             fill: @resource-cpu-color;
+            stroke: @resource-cpu-color;
           }
 
           &.path-color-1 {
-            stroke: @yellow;
             fill: @yellow;
+            stroke: @yellow;
           }
 
           &.path-color-2 {
-            stroke: @red;
             fill: @red;
+            stroke: @red;
           }
 
           &.path-color-3 {
-            stroke: @resource-disk-color;
             fill: @resource-disk-color;
+            stroke: @resource-disk-color;
           }
 
           &.path-color-4 {
-            stroke: @green;
             fill: @green;
+            stroke: @green;
           }
 
           &.path-color-5 {
-            stroke: @orange;
             fill: @orange;
+            stroke: @orange;
           }
 
           &.path-color-6 {
-            stroke: @resource-mem-color;
             fill: @resource-mem-color;
+            stroke: @resource-mem-color;
           }
 
           &.path-color-7 {
-            stroke: @cyan;
             fill: @cyan;
+            stroke: @cyan;
           }
 
           &.path-color-8 {
-            stroke: @unique-color-1;
             fill: @unique-color-1;
+            stroke: @unique-color-1;
           }
 
           &.path-color-9 {
-            stroke: @unique-color-2;
             fill: @unique-color-2;
+            stroke: @unique-color-2;
           }
 
           &.path-color-10 {
-            stroke: @unique-color-3;
             fill: @unique-color-3;
+            stroke: @unique-color-3;
           }
 
           &.path-color-11 {
-            stroke: @unique-color-4;
             fill: @unique-color-4;
+            stroke: @unique-color-4;
           }
 
           &.path-color-12 {
-            stroke: @unique-color-5;
             fill: @unique-color-5;
+            stroke: @unique-color-5;
           }
 
           &.path-color-13 {
-            stroke: @unique-color-6;
             fill: @unique-color-6;
+            stroke: @unique-color-6;
           }
 
           &.path-color-14 {
-            stroke: @unique-color-7;
             fill: @unique-color-7;
+            stroke: @unique-color-7;
           }
 
           &.path-color-15 {
-            stroke: @unique-color-8;
             fill: @unique-color-8;
+            stroke: @unique-color-8;
           }
 
           &.path-color-16 {
-            stroke: @unique-color-9;
             fill: @unique-color-9;
+            stroke: @unique-color-9;
           }
 
           &.path-color-17 {
-            stroke: @unique-color-10;
             fill: @unique-color-10;
+            stroke: @unique-color-10;
           }
 
           &.path-color-18 {
-            stroke: @unique-color-11;
             fill: @unique-color-11;
+            stroke: @unique-color-11;
           }
 
           &.path-color-19 {
-            stroke: @unique-color-12;
             fill: @unique-color-12;
+            stroke: @unique-color-12;
           }
 
           &.path-color-20 {
-            stroke: @unique-color-13;
             fill: @unique-color-13;
+            stroke: @unique-color-13;
           }
 
           &.path-color-21 {
-            stroke: @unique-color-14;
             fill: @unique-color-14;
+            stroke: @unique-color-14;
           }
 
           &.path-color-22 {
-            stroke: @unique-color-15;
             fill: @unique-color-15;
+            stroke: @unique-color-15;
           }
 
           &.path-color-23 {
-            stroke: @unique-color-16;
             fill: @unique-color-16;
+            stroke: @unique-color-16;
           }
 
           &.path-color-24 {
-            stroke: @unique-color-17;
             fill: @unique-color-17;
+            stroke: @unique-color-17;
           }
 
           &.path-color-25 {
-            stroke: @unique-color-18;
             fill: @unique-color-18;
+            stroke: @unique-color-18;
           }
 
           &.path-color-26 {
-            stroke: @unique-color-19;
             fill: @unique-color-19;
+            stroke: @unique-color-19;
           }
 
           &.path-color-27 {
-            stroke: @unique-color-20;
             fill: @unique-color-20;
+            stroke: @unique-color-20;
           }
 
           &.path-color-28 {
-            stroke: @unique-color-21;
             fill: @unique-color-21;
+            stroke: @unique-color-21;
           }
 
           &.path-color-29 {
-            stroke: @unique-color-22;
             fill: @unique-color-22;
+            stroke: @unique-color-22;
           }
 
           &.path-color-30 {
-            stroke: @unique-color-23;
             fill: @unique-color-23;
+            stroke: @unique-color-23;
           }
 
           &.path-color-31 {
-            stroke: @unique-color-24;
             fill: @unique-color-24;
+            stroke: @unique-color-24;
           }
 
           &.path-color-32 {
-            stroke: color-lighten(@neutral, 40);
             fill: color-lighten(@neutral, 40);
+            stroke: color-lighten(@neutral, 40);
           }
 
           &.path-color-unused {
-            stroke: color-lighten(@neutral, 5);
             fill: color-lighten(@neutral, 5);
+            stroke: color-lighten(@neutral, 5);
           }
-
         }
 
         .unit {
@@ -647,9 +617,7 @@
           position: relative;
           top: -2px;
         }
-
       }
-
     }
 
     .nodes-grid-dials-spacer {
@@ -657,13 +625,11 @@
       margin-right: ceil(@base-spacing-unit * 1/3);
       width: ceil(@base-spacing-unit * (3 + 1/3));
     }
-
   }
 
   .chart-cursor-position-marker {
     stroke: fade(@neutral, 15%);
   }
-
 }
 
 & when (@charts-enabled) and (@layout-screen-small-enabled) {
@@ -683,9 +649,7 @@
         .panel-inverse & {
           border-color: @chart-axis-color-inverse;
         }
-
       }
-
     }
 
     .nodes-grid-dials {
@@ -703,11 +667,8 @@
         margin-right: ceil(@base-spacing-unit-screen-small * 1/3);
         width: ceil(@base-spacing-unit-screen-small * (3 + 1/3));
       }
-
     }
-
   }
-
 }
 
 & when (@charts-enabled) and (@layout-screen-medium-enabled) {
@@ -719,7 +680,6 @@
       .unit-bordered-horizontal-small {
         margin-top: @base-spacing-unit-screen-medium * 1/4;
       }
-
     }
 
     .nodes-grid-dials {
@@ -728,8 +688,8 @@
 
       .nodes-grid-dials-item {
         height: ceil(@base-spacing-unit-screen-medium * (3 + 1/3));
-        margin-right: ceil(@base-spacing-unit-screen-medium * 1/3);
         margin-bottom: ceil(@base-spacing-unit-screen-medium * 1/3);
+        margin-right: ceil(@base-spacing-unit-screen-medium * 1/3);
         width: ceil(@base-spacing-unit-screen-medium * (3 + 1/3));
       }
 
@@ -737,11 +697,8 @@
         margin-right: ceil(@base-spacing-unit-screen-medium * 1/3);
         width: ceil(@base-spacing-unit-screen-medium * (3 + 1/3));
       }
-
     }
-
   }
-
 }
 
 & when (@charts-enabled) and (@layout-screen-large-enabled) {
@@ -753,7 +710,6 @@
       .unit-bordered-horizontal-small {
         margin-top: @base-spacing-unit-screen-large * 1/4;
       }
-
     }
 
     .nodes-grid-dials {
@@ -762,8 +718,8 @@
 
       .nodes-grid-dials-item {
         height: ceil(@base-spacing-unit-screen-large * (3 + 1/3));
-        margin-right: ceil(@base-spacing-unit-screen-large * 1/3);
         margin-bottom: ceil(@base-spacing-unit-screen-large * 1/3);
+        margin-right: ceil(@base-spacing-unit-screen-large * 1/3);
         width: ceil(@base-spacing-unit-screen-large * (3 + 1/3));
       }
 
@@ -771,11 +727,8 @@
         margin-right: ceil(@base-spacing-unit-screen-large * 1/3);
         width: ceil(@base-spacing-unit-screen-large * (3 + 1/3));
       }
-
     }
-
   }
-
 }
 
 & when (@charts-enabled) and (@layout-screen-jumbo-enabled) {
@@ -787,7 +740,6 @@
       .unit-bordered-horizontal-small {
         margin-top: @base-spacing-unit-screen-jumbo * 1/4;
       }
-
     }
 
     .nodes-grid-dials {
@@ -796,8 +748,8 @@
 
       .nodes-grid-dials-item {
         height: ceil(@base-spacing-unit-screen-jumbo * (3 + 1/3));
-        margin-right: ceil(@base-spacing-unit-screen-jumbo * 1/3);
         margin-bottom: ceil(@base-spacing-unit-screen-jumbo * 1/3);
+        margin-right: ceil(@base-spacing-unit-screen-jumbo * 1/3);
         width: ceil(@base-spacing-unit-screen-jumbo * (3 + 1/3));
       }
 
@@ -805,9 +757,6 @@
         margin-right: ceil(@base-spacing-unit-screen-jumbo * 1/3);
         width: ceil(@base-spacing-unit-screen-jumbo * (3 + 1/3));
       }
-
     }
-
   }
-
 }

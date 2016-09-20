@@ -2,16 +2,13 @@
 & when (@side-tabs-enabled) {
 
   .sidebar-tabs {
-
     padding-top: @base-spacing-unit * 0.5;
-
-    // Sidebar Menu Item
 
     .sidebar-menu-item {
       color: color-lighten(@neutral, 50);
-      padding-right: @base-spacing-unit * 0.5;
-      padding-left: @base-spacing-unit;
       margin-bottom: @base-spacing-unit * 0.15;
+      padding-left: @base-spacing-unit;
+      padding-right: @base-spacing-unit * 0.5;
       position: relative;
 
       &.has-errors {
@@ -32,7 +29,6 @@
         &:after {
           display: none;
         }
-
       }
 
       a {
@@ -51,7 +47,6 @@
           color: color-lighten(@neutral, 50);
           text-decoration: none;
         }
-
       }
 
       &.selection-header {
@@ -59,13 +54,9 @@
         a {
           color: @purple;
         }
-
       }
-
     }
-
   }
-
 }
 
 & when (@side-tabs-enabled) and (@layout-screen-small-enabled) {
@@ -82,14 +73,11 @@
         font-style: @heading-h3-font-style;
         font-weight: @heading-h3-font-weight;
         line-height: @heading-h3-line-height;
-        text-transform: @heading-h3-text-transform;
         text-shadow: @heading-h3-text-shadow;
+        text-transform: @heading-h3-text-transform;
       }
-
     }
-
   }
-
 }
 
 & when (@side-tabs-enabled) and (@layout-screen-medium-enabled) {
@@ -106,13 +94,8 @@
           a {
             color: @purple;
           }
-
         }
-
       }
-
     }
-
   }
-
 }

@@ -15,17 +15,14 @@
         &:active {
           color: color-lighten(@neutral, 30);
         }
-
       }
-
     }
 
     .icon {
-      opacity: 0.3;
-      margin-right: @base-spacing-unit * 0.5;
       margin-left: @base-spacing-unit * 0.5;
+      margin-right: @base-spacing-unit * 0.5;
+      opacity: 0.3;
     }
-
   }
 
   .breadcrumb {
@@ -53,12 +50,10 @@
           cursor: default;
           margin: 0;
 
-          &::before {
-            content: "";
+          &:before {
+            content: '';
           }
-
         }
-
       }
 
       a {
@@ -73,8 +68,8 @@
 
       .icon {
         height: @base-spacing-unit;
-        margin-right: @base-spacing-unit * 0.5;
         margin-left: @base-spacing-unit * 0.5;
+        margin-right: @base-spacing-unit * 0.5;
         opacity: 0.5;
         width: 14px;
       }
@@ -99,11 +94,8 @@
           &:hover {
             color: color-lighten(@neutral, 90);
           }
-
         }
-
       }
-
     }
 
     &.collapsed {
@@ -111,8 +103,8 @@
       a {
         width: 0.75em;
 
-        &::before {
-          content: "...";
+        &:before {
+          content: '...';
           display: inline-block;
           width: 0.75em;
         }
@@ -124,13 +116,11 @@
         a {
           width: auto;
 
-          &::before {
-            content: "";
+          &:before {
+            content: '';
             width: auto;
           }
-
         }
-
       }
 
       li:last-child {
@@ -142,11 +132,8 @@
         a {
           text-overflow: ellipsis;
         }
-
       }
-
     }
-
   }
 
   .breadcrumb-style-headline {
@@ -156,9 +143,7 @@
       font-size: 1.2rem;
       line-height: @base-spacing-unit;
     }
-
   }
-
 }
 
 & when (@breadcrumbs-enabled) and (@layout-screen-small-enabled) {
@@ -170,12 +155,10 @@
       &.inverse {
 
         .icon {
-          margin-right: @base-spacing-unit-screen-small * 0.5;
           margin-left: @base-spacing-unit-screen-small * 0.5;
+          margin-right: @base-spacing-unit-screen-small * 0.5;
         }
-
       }
-
     }
 
     .breadcrumb {
@@ -187,16 +170,12 @@
 
         .icon {
           height: @base-spacing-unit-screen-small;
-          margin-right: @base-spacing-unit-screen-small * 0.5;
           margin-left: @base-spacing-unit-screen-small * 0.5;
+          margin-right: @base-spacing-unit-screen-small * 0.5;
         }
-
       }
-
     }
-
   }
-
 }
 
 & when (@breadcrumbs-enabled) and (@layout-screen-medium-enabled) {
@@ -208,12 +187,10 @@
       &.inverse {
 
         .icon {
-          margin-right: @base-spacing-unit-screen-medium * 0.5;
           margin-left: @base-spacing-unit-screen-medium * 0.5;
+          margin-right: @base-spacing-unit-screen-medium * 0.5;
         }
-
       }
-
     }
 
     .breadcrumb {
@@ -225,16 +202,12 @@
 
         .icon {
           height: @base-spacing-unit-screen-medium;
-          margin-right: @base-spacing-unit-screen-medium * 0.5;
           margin-left: @base-spacing-unit-screen-medium * 0.5;
+          margin-right: @base-spacing-unit-screen-medium * 0.5;
         }
-
       }
-
     }
-
   }
-
 }
 
 & when (@breadcrumbs-enabled) and (@layout-screen-large-enabled) {
@@ -246,12 +219,10 @@
       &.inverse {
 
         .icon {
-          margin-right: @base-spacing-unit-screen-large * 0.5;
           margin-left: @base-spacing-unit-screen-large * 0.5;
+          margin-right: @base-spacing-unit-screen-large * 0.5;
         }
-
       }
-
     }
 
     .breadcrumb {
@@ -263,16 +234,12 @@
 
         .icon {
           height: @base-spacing-unit-screen-large;
-          margin-right: @base-spacing-unit-screen-large * 0.5;
           margin-left: @base-spacing-unit-screen-large * 0.5;
+          margin-right: @base-spacing-unit-screen-large * 0.5;
         }
-
       }
-
     }
-
   }
-
 }
 
 & when (@breadcrumbs-enabled) and (@layout-screen-jumbo-enabled) {
@@ -284,12 +251,10 @@
       &.inverse {
 
         .icon {
-          margin-right: @base-spacing-unit-screen-jumbo * 0.5;
           margin-left: @base-spacing-unit-screen-jumbo * 0.5;
+          margin-right: @base-spacing-unit-screen-jumbo * 0.5;
         }
-
       }
-
     }
 
     .breadcrumb {
@@ -301,14 +266,10 @@
 
         .icon {
           height: @base-spacing-unit-screen-jumbo;
-          margin-right: @base-spacing-unit-screen-jumbo * 0.5;
           margin-left: @base-spacing-unit-screen-jumbo * 0.5;
+          margin-right: @base-spacing-unit-screen-jumbo * 0.5;
         }
-
       }
-
     }
-
   }
-
 }

@@ -1,27 +1,23 @@
 /* Example Flex Container */
 
 .example-flex-container {
-
-  position: relative;
-  margin-top: -@grid-gutter-width * 0.5;
   margin-left: -@grid-gutter-width * 0.5;
-
+  margin-top: -@grid-gutter-width * 0.5;
+  position: relative;
 }
 
 /* Example Flex Item */
 
 .example-flex-item {
-
-  height: 50px;
-  background: #9fc4ea;
-  display: flex;
   align-items: center;
-  justify-content: center;
+  background: #9fc4ea;
   color: color-lighten(#9fc4ea, -70);
+  display: flex;
   font-weight: 600;
-  margin-top: @grid-gutter-width * 0.5;
+  height: 50;
+  justify-content: center;
   margin-left: @grid-gutter-width * 0.5;
-
+  margin-top: @grid-gutter-width * 0.5;
 }
 
 /* Flex Direction */
@@ -29,35 +25,24 @@
 .example-flex-direction {
 
   .example-flex-item {
-
-    height: 50px;
-
+    height: 50;
   }
 
   .example-flex-item-1 {
-
     width: 15%;
-
   }
 
   .example-flex-item-2 {
-
     width: 30%;
-
   }
 
   .example-flex-item-3 {
-
     width: 10%;
-
   }
 
   .example-flex-item-4 {
-
     width: 15%;
-
   }
-
 }
 
 /* Flex Wrap Items */
@@ -65,35 +50,24 @@
 .example-flex-wrap-items {
 
   .example-flex-item-1 {
-
     flex-basis: 20%;
-
   }
 
   .example-flex-item-2 {
-
     flex-basis: 30%;
-
   }
 
   .example-flex-item-3 {
-
     flex-basis: 20%;
-
   }
 
   .example-flex-item-4 {
-
     flex-basis: 40%;
-
   }
 
   .example-flex-item-5 {
-
     flex-basis: 20%;
-
   }
-
 }
 
 /* Flex Align Items */
@@ -101,71 +75,50 @@
 .example-flex-align-items {
 
   .example-flex-item-1 {
-
-    height: 50px;
+    height: 50;
     width: 15%;
-
   }
 
   .example-flex-item-2 {
-
-    height: 90px;
+    height: 90;
     width: 15%;
-
   }
 
   .example-flex-item-3 {
-
-    height: 30px;
+    height: 30;
     width: 15%;
-
   }
 
   .example-flex-item-4 {
-
-    height: 50px;
+    height: 50;
     width: 15%;
-
   }
-
 }
 
 /* Flex Align Content */
 
 .example-flex-align-content {
-
-  height: 180px;
+  height: 180;
 
   .example-flex-item-1 {
-
     flex-basis: 20%;
-
   }
 
   .example-flex-item-2 {
-
     flex-basis: 30%;
-
   }
 
   .example-flex-item-3 {
-
     flex-basis: 20%;
-
   }
 
   .example-flex-item-4 {
-
     flex-basis: 40%;
-
   }
 
   .example-flex-item-5 {
-
     flex-basis: 20%;
-
   }
-
 }
 
 /* Flex Item Align */
@@ -173,33 +126,24 @@
 .example-flex-item-align {
 
   .example-flex-item-1 {
-
-    height: 50px;
+    height: 50;
     width: 15%;
-
   }
 
   .example-flex-item-2 {
-
-    height: 90px;
+    height: 90;
     width: 15%;
-
   }
 
   .example-flex-item-3 {
-
-    height: 30px;
+    height: 30;
     width: 15%;
-
   }
 
   .example-flex-item-4 {
-
-    height: 50px;
+    height: 50;
     width: 15%;
-
   }
-
 }
 
 /* Flex Item Order */
@@ -207,35 +151,24 @@
 .example-flex-item-order {
 
   .example-flex-item {
-
-    height: 50px;
-
+    height: 50;
   }
 
   .example-flex-item-1 {
-
     width: 15%;
-
   }
 
   .example-flex-item-2 {
-
     width: 30%;
-
   }
 
   .example-flex-item-3 {
-
     width: 10%;
-
   }
 
   .example-flex-item-4 {
-
     width: 15%;
-
   }
-
 }
 
 /* Flex Basis */
@@ -243,11 +176,8 @@
 .example-flex-item-basis {
 
   .example-flex-item {
-
-    height: 50px;
-
+    height: 50;
   }
-
 }
 
 /* Flex Responsive */
@@ -255,11 +185,8 @@
 .example-flex-responsive {
 
   .example-flex-item {
-
-    height: 50px;
-
+    height: 50;
   }
-
 }
 
 & when (@layout-screen-small-enabled) {
@@ -269,23 +196,17 @@
     // Example Flex Container
 
     .example-flex-container {
-
-      margin-top: -@grid-gutter-width-screen-small * 0.5;
       margin-left: -@grid-gutter-width-screen-small * 0.5;
-
+      margin-top: -@grid-gutter-width-screen-small * 0.5;
     }
 
     // Example Flex Item
 
     .example-flex-item {
-
-      margin-top: @grid-gutter-width-screen-small * 0.5;
       margin-left: @grid-gutter-width-screen-small * 0.5;
-
+      margin-top: @grid-gutter-width-screen-small * 0.5;
     }
-
   }
-
 }
 
 /* Flex Direction */
@@ -293,35 +214,24 @@
 .example-flex-justify-items {
 
   .example-flex-item {
-
-    height: 50px;
-
+    height: 50;
   }
 
   .example-flex-item-1 {
-
     width: 15%;
-
   }
 
   .example-flex-item-2 {
-
     width: 20%;
-
   }
 
   .example-flex-item-3 {
-
     width: 10%;
-
   }
 
   .example-flex-item-4 {
-
     width: 15%;
-
   }
-
 }
 
 & when (@layout-screen-medium-enabled) {
@@ -331,23 +241,17 @@
     // Example Flex Container
 
     .example-flex-container {
-
-      margin-top: -@grid-gutter-width-screen-medium * 0.5;
       margin-left: -@grid-gutter-width-screen-medium * 0.5;
-
+      margin-top: -@grid-gutter-width-screen-medium * 0.5;
     }
 
     // Example Flex Item
 
     .example-flex-item {
-
-      margin-top: @grid-gutter-width-screen-medium * 0.5;
       margin-left: @grid-gutter-width-screen-medium * 0.5;
-
+      margin-top: @grid-gutter-width-screen-medium * 0.5;
     }
-
   }
-
 }
 
 & when (@layout-screen-large-enabled) {
@@ -357,23 +261,17 @@
     // Example Flex Container
 
     .example-flex-container {
-
-      margin-top: -@grid-gutter-width-screen-large * 0.5;
       margin-left: -@grid-gutter-width-screen-large * 0.5;
-
+      margin-top: -@grid-gutter-width-screen-large * 0.5;
     }
 
     // Example Flex Item
 
     .example-flex-item {
-
-      margin-top: @grid-gutter-width-screen-large * 0.5;
       margin-left: @grid-gutter-width-screen-large * 0.5;
-
+      margin-top: @grid-gutter-width-screen-large * 0.5;
     }
-
   }
-
 }
 
 & when (@layout-screen-jumbo-enabled) {
@@ -381,23 +279,16 @@
   @media (min-width: @layout-screen-jumbo-min-width) {
 
     // Example Flex Container
-
     .example-flex-container {
-
-      margin-top: -@grid-gutter-width-screen-jumbo * 0.5;
       margin-left: -@grid-gutter-width-screen-jumbo * 0.5;
-
+      margin-top: -@grid-gutter-width-screen-jumbo * 0.5;
     }
 
     // Example Flex Item
 
     .example-flex-item {
-
-      margin-top: @grid-gutter-width-screen-jumbo * 0.5;
       margin-left: @grid-gutter-width-screen-jumbo * 0.5;
-
+      margin-top: @grid-gutter-width-screen-jumbo * 0.5;
     }
-
   }
-
 }

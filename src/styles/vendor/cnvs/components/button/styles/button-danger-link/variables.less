@@ -8,7 +8,7 @@
 
 // Normal
 
-@button-danger-link-color:                                                      color-lighten(@red, 0);
+@button-danger-link-color:                                                      @red;
 @button-danger-link-font-family:                                                null;
 @button-danger-link-font-style:                                                 null;
 @button-danger-link-font-weight:                                                null;
@@ -20,7 +20,7 @@
 @button-danger-link-background-gradient-color-top:                              null;
 @button-danger-link-background-gradient-color-bottom:                           null;
 @button-danger-link-border-width:                                               1px;
-@button-danger-link-border-color:                                               hsla(hue(color-lighten(@red, 0)), saturation(color-lighten(@red, 0)), lightness(color-lighten(@red, 0)), 0.0);
+@button-danger-link-border-color:                                               fade(@red, 0%);
 @button-danger-link-border-style:                                               solid;
 @button-danger-link-border-top-width:                                           null;
 @button-danger-link-border-top-color:                                           null;
@@ -50,7 +50,7 @@
 @button-danger-link-hover-background-gradient-color-top:                        null;
 @button-danger-link-hover-background-gradient-color-bottom:                     null;
 @button-danger-link-hover-border-width:                                         null;
-@button-danger-link-hover-border-color:                                         hsla(hue(color-lighten(@red, -20)), saturation(color-lighten(@red, -20)), lightness(color-lighten(@red, -20)), 0.0);
+@button-danger-link-hover-border-color:                                         fade(color-lighten(@red, -20), 0%);
 @button-danger-link-hover-border-style:                                         null;
 @button-danger-link-hover-border-top-width:                                     null;
 @button-danger-link-hover-border-top-color:                                     null;
@@ -80,7 +80,7 @@
 @button-danger-link-active-background-gradient-color-top:                       null;
 @button-danger-link-active-background-gradient-color-bottom:                    null;
 @button-danger-link-active-border-width:                                        null;
-@button-danger-link-active-border-color:                                        hsla(hue(color-lighten(@red, -40)), saturation(color-lighten(@red, -40)), lightness(color-lighten(@red, -40)), 0.0);;
+@button-danger-link-active-border-color:                                        fade(color-lighten(@red, -40), 0%);
 @button-danger-link-active-border-style:                                        null;
 @button-danger-link-active-border-top-width:                                    null;
 @button-danger-link-active-border-top-color:                                    null;
@@ -173,7 +173,7 @@
 @button-danger-link-inverse-background-gradient-color-top:                      null;
 @button-danger-link-inverse-background-gradient-color-bottom:                   null;
 @button-danger-link-inverse-border-width:                                       1px;
-@button-danger-link-inverse-border-color:                                       hsla(hue(color-lighten(@red, 0)), saturation(color-lighten(@red, 0)), lightness(color-lighten(@red, 0)), 0.0);
+@button-danger-link-inverse-border-color:                                       fade(@red, 0%);
 @button-danger-link-inverse-border-style:                                       solid;
 @button-danger-link-inverse-border-top-width:                                   null;
 @button-danger-link-inverse-border-top-color:                                   null;
@@ -203,7 +203,7 @@
 @button-danger-link-inverse-hover-background-gradient-color-top:                null;
 @button-danger-link-inverse-hover-background-gradient-color-bottom:             null;
 @button-danger-link-inverse-hover-border-width:                                 null;
-@button-danger-link-inverse-hover-border-color:                                 hsla(hue(color-lighten(@red, 20)), saturation(color-lighten(@red, 20)), lightness(color-lighten(@red, 20)), 0.0);
+@button-danger-link-inverse-hover-border-color:                                 fade(color-lighten(@red, 20), 0%);
 @button-danger-link-inverse-hover-border-style:                                 null;
 @button-danger-link-inverse-hover-border-top-width:                             null;
 @button-danger-link-inverse-hover-border-top-color:                             null;
@@ -233,7 +233,7 @@
 @button-danger-link-inverse-active-background-gradient-color-top:               null;
 @button-danger-link-inverse-active-background-gradient-color-bottom:            null;
 @button-danger-link-inverse-active-border-width:                                null;
-@button-danger-link-inverse-active-border-color:                                hsla(hue(color-lighten(@red, -20)), saturation(color-lighten(@red, -20)), lightness(color-lighten(@red, -20)), 0.0);;
+@button-danger-link-inverse-active-border-color:                                fade(color-lighten(@red, -20), 0%);
 @button-danger-link-inverse-active-border-style:                                null;
 @button-danger-link-inverse-active-border-top-width:                            null;
 @button-danger-link-inverse-active-border-top-color:                            null;

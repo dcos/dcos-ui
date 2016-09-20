@@ -2,53 +2,15 @@
 
 td.is-visible,
 td.is-hidden {
-
   text-align: center;
-
 }
 
 td.is-visible {
-
   background: color-lighten(@green, 90);
   color: @green;
-
 }
 
 td.is-hidden {
-
   background: color-lighten(@neutral, 99);
   color: color-lighten(@neutral, 75);
-
-}
-
-& when (@layout-screen-small-enabled) {
-
-  @media (min-width: @layout-screen-small-min-width) {
-
-  }
-
-}
-
-& when (@layout-screen-medium-enabled) {
-
-  @media (min-width: @layout-screen-medium-min-width) {
-
-  }
-
-}
-
-& when (@layout-screen-large-enabled) {
-
-  @media (min-width: @layout-screen-large-min-width) {
-
-  }
-
-}
-
-& when (@layout-screen-jumbo-enabled) {
-
-  @media (min-width: @layout-screen-jumbo-min-width) {
-
-  }
-
 }
