@@ -2,7 +2,7 @@ jest.dontMock('../../structs/Pod');
 jest.dontMock('../../structs/PodInstanceList');
 jest.dontMock('../../structs/PodInstance');
 jest.dontMock('../../structs/PodContainer');
-jest.dontMock('./fixtures/PodFixture');
+jest.dontMock('../../../../tests/_fixtures/pods/PodFixture');
 jest.dontMock('../CheckboxTable');
 jest.dontMock('../CollapsingString');
 jest.dontMock('../ExpandingTable');
@@ -24,7 +24,7 @@ const PodInstancesView = require('../PodInstancesView');
 const Pod = require('../../structs/Pod');
 const Util = require('../../utils/Util');
 
-const PodFixture = require('./fixtures/PodFixture');
+const PodFixture = require('../../../../tests/_fixtures/pods/PodFixture');
 
 describe('PodInstancesView', function () {
 

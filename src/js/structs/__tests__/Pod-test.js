@@ -36,7 +36,7 @@ describe('Pod', function () {
 
     it('should return the correct value', function () {
       let pod = new Pod(PodFixture);
-      expect(pod.countNonTerminalInstances()).toEqual(2);
+      expect(pod.countNonTerminalInstances()).toEqual(3);
     });
 
     it('should return the correct default value', function () {
@@ -50,7 +50,7 @@ describe('Pod', function () {
 
     it('should return the correct value', function () {
       let pod = new Pod(PodFixture);
-      expect(pod.countTotalInstances()).toEqual(2);
+      expect(pod.countTotalInstances()).toEqual(3);
     });
 
     it('should return the correct default value', function () {
