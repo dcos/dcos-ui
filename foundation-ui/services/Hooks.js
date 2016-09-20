@@ -1,7 +1,3 @@
-import Events from 'events';
-
-import {PLUGINS_CONFIGURED} from '../constants/EventTypes';
-
 function addListener(store, hook, listener, priority = 10) {
   if (typeof priority !== 'number') {
     priority = 10;
@@ -16,6 +12,23 @@ function addListener(store, hook, listener, priority = 10) {
   }
 
   store[hook][priority].push(listener);
+}
+
+function removeListener(store, hook, listener, priority = 10) {
+  if (typeof priority !== 'number') {
+    priority = 10;
+  }
+
+  if (store == null || store[hook] == null || !Array.isArray(store[hook][priority])) {
+    return;
+  }
+
+  let listeners = store[hook][priority];
+  let index = listeners.indexOf(listener);
+  if (index > -1) {
+    listeners.splice(index, 1);
+    store[hook][priority] = listeners;
+  }
 }
 /*
  * Example usage:
@@ -37,25 +50,12 @@ function addListener(store, hook, listener, priority = 10) {
  * hooks.applyFilter('someFilter', 'someValue');
  */
 module.exports = function Hooks() {
-  return Object.assign({}, Events.EventEmitter.prototype, {
+  return {
     // Event store for actions
     actions: {},
 
     // Event store for filters
     filters: {},
-
-    addChangeListener(eventName, callback) {
-      this.on(eventName, callback);
-    },
-
-    removeChangeListener(eventName, callback) {
-      this.removeListener(eventName, callback);
-    },
-
-    notifyPluginsLoaded() {
-      this.doAction('pluginsConfigured');
-      this.emit(PLUGINS_CONFIGURED);
-    },
 
     /**
      * Attaches listener for filter
@@ -66,6 +66,10 @@ module.exports = function Hooks() {
      */
     addFilter(hook, listener, priority) {
       addListener(this.filters, hook, listener, priority);
+    },
+
+    removeFilter(hook, listener, priority) {
+      removeListener(this.filters, hook, listener, priority);
     },
 
     /**
@@ -114,6 +118,10 @@ module.exports = function Hooks() {
       addListener(this.actions, hook, listener, priority);
     },
 
+    removeAction(hook, listener, priority) {
+      removeListener(this.actions, hook, listener, priority);
+    },
+
     /**
      * Will apply all filters for a given hook
      * If more arguments are passed to the function these arguments will
@@ -141,5 +149,5 @@ module.exports = function Hooks() {
         });
       });
     }
-  });
+  };
 };

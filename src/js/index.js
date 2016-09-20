@@ -14,8 +14,7 @@ import '../styles/index.less';
 import './utils/MomentJSConfig';
 import './utils/ReactSVG';
 import {
-  CONFIG_ERROR,
-  PLUGINS_CONFIGURED
+  CONFIG_ERROR
 } from './constants/EventTypes';
 import appRoutes from './routes/index';
 import Config from './config/Config';
@@ -81,7 +80,7 @@ RequestUtil.json = function (options = {}) {
   }
 
   function onPluginsLoaded() {
-    PluginSDK.Hooks.removeChangeListener(PLUGINS_CONFIGURED, onPluginsLoaded);
+    PluginSDK.Hooks.removeAction('pluginsConfigured', onPluginsLoaded);
     ConfigStore.removeChangeListener(CONFIG_ERROR, onConfigurationError);
     renderApplication();
   }
@@ -104,7 +103,7 @@ RequestUtil.json = function (options = {}) {
   }
 
   // Plugins events
-  PluginSDK.Hooks.addChangeListener(PLUGINS_CONFIGURED, onPluginsLoaded);
+  PluginSDK.Hooks.addAction('pluginsConfigured', onPluginsLoaded);
   ConfigStore.addChangeListener(CONFIG_ERROR, onConfigurationError);
 
   // Load configuration

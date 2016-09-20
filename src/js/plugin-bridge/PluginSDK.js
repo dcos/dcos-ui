@@ -1,4 +1,5 @@
 import {createStore, combineReducers, applyMiddleware, compose} from 'redux';
+import {Hooks} from 'foundation-ui';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import {APPLICATION} from '../constants/PluginConstants';
@@ -7,7 +8,6 @@ import ActionsPubSub from './middleware/ActionsPubSub';
 import AppReducer from './AppReducer';
 import AppHooks from './AppHooks';
 import Config from '../config/Config';
-import Hooks from './Hooks';
 import PluginSDKStruct from './PluginSDKStruct';
 import Loader from './Loader';
 import PluginModules from './PluginModules';
@@ -98,7 +98,9 @@ const initialize = function (pluginsConfig) {
 
   // Allows plugins to do things before the application ever renders
   let promises = hooks.applyFilter('pluginsLoadedCheck', []);
-  Promise.all(promises).then(hooks.notifyPluginsLoaded.bind(hooks));
+  Promise.all(promises).then(function () {
+    hooks.doAction('pluginsConfigured');
+  });
 };
 
 /**
