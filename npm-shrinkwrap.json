@@ -6714,6 +6714,11 @@
         }
       }
     },
+    "stylelint-config-dcos": {
+      "version": "0.0.1",
+      "from": "stylelint-config-dcos@latest",
+      "resolved": "https://registry.npmjs.org/stylelint-config-dcos/-/stylelint-config-dcos-0.0.1.tgz"
+    },
     "stylelint-config-standard": {
       "version": "13.0.0",
       "from": "stylelint-config-standard@latest",
