@@ -14,21 +14,22 @@ function addListener(store, hook, listener, priority = 10) {
   store[hook][priority].push(listener);
 }
 
-function removeListener(store, hook, listener, priority = 10) {
-  if (typeof priority !== 'number') {
-    priority = 10;
-  }
-
-  if (store == null || store[hook] == null || !Array.isArray(store[hook][priority])) {
+function removeListener(store, hook, listener) {
+  if (store == null || typeof store[hook] !== 'object') {
     return;
   }
 
-  let listeners = store[hook][priority];
-  let index = listeners.indexOf(listener);
-  if (index > -1) {
-    listeners.splice(index, 1);
-    store[hook][priority] = listeners;
-  }
+  // Find and remove listener in hook values
+  Object.values(store[hook]).forEach(function (listeners) {
+    if (!Array.isArray(listeners)) {
+      return;
+    }
+
+    let index = listeners.indexOf(listener);
+    if (index > -1) {
+      listeners.splice(index, 1);
+    }
+  });
 }
 /*
  * Example usage:
@@ -68,8 +69,14 @@ module.exports = function Hooks() {
       addListener(this.filters, hook, listener, priority);
     },
 
-    removeFilter(hook, listener, priority) {
-      removeListener(this.filters, hook, listener, priority);
+    /**
+     * Removes listener for filter
+     *
+     * @param  {String} hook The event id to listen for
+     * @param  {Function} listener Callback to fire when event executes
+     */
+    removeFilter(hook, listener) {
+      removeListener(this.filters, hook, listener);
     },
 
     /**
@@ -118,8 +125,14 @@ module.exports = function Hooks() {
       addListener(this.actions, hook, listener, priority);
     },
 
-    removeAction(hook, listener, priority) {
-      removeListener(this.actions, hook, listener, priority);
+    /**
+     * Removes listener for action
+     *
+     * @param  {String} hook The event id to listen for
+     * @param  {Function} listener Callback to fire when event executes
+     */
+    removeAction(hook, listener) {
+      removeListener(this.actions, hook, listener);
     },
 
     /**
