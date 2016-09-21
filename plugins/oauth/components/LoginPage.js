@@ -100,7 +100,6 @@ class LoginPage extends mixin(StoreMixin) {
             src={location} />
         </div>
         <Modal
-          maxHeightPercentage={0.9}
           onClose={this.handleModalClose}
           open={this.state.showClusterError}
           showCloseButton={true}
