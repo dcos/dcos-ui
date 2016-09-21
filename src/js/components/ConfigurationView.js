@@ -7,7 +7,7 @@ import DescriptionList from './DescriptionList';
 import Loader from './Loader';
 import Service from '../structs/Service';
 import StringUtil from '../utils/StringUtil';
-import MarathonConfigUtil from '../utils/MarathonConfigUtil';
+import ServiceConfigUtil from '../utils/ServiceConfigUtil';
 
 const sectionClassName = 'container-fluid container-pod container-pod-super-short flush flush-bottom';
 
@@ -99,7 +99,7 @@ class ConfigurationView extends mixin(StoreMixin) {
       return null;
     }
 
-    let portConfigurations = MarathonConfigUtil.getPortDefinitionGroups(
+    let portConfigurations = ServiceConfigUtil.getPortDefinitionGroups(
         id, portDefinitions, function (content, linkTo) {
           return <a href={linkTo} target="_blank">{content}</a>;
         }

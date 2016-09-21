@@ -12,7 +12,7 @@ function defaultCreateLink(contents) {
   return contents;
 }
 
-var MarathonConfigUtil = {
+var ServiceConfigUtil = {
 
   getCommandString(container) {
 
@@ -70,4 +70,4 @@ var MarathonConfigUtil = {
 
 };
 
-module.exports = MarathonConfigUtil;
+module.exports = ServiceConfigUtil;
