@@ -1,7 +1,6 @@
 import React from 'react';
 
 import DescriptionList from './DescriptionList';
-import Icon from './Icon';
 import MarathonConfigUtil from '../utils/MarathonConfigUtil';
 
 const METHODS_TO_BIND = [
@@ -80,15 +79,9 @@ class PodContainerSpecView extends React.Component {
     return (
       <div className="pod-config-container">
         <h5 className="inverse flush-top">
-          <Icon
-            className="icon-margin-right"
-            color="white"
-            family="mini"
-            id="gears"
-            size="mini" />
           {container.name}
         </h5>
-        <div className="pod-config-container-group">
+        <div>
           {this.getGeneralDetails()}
           {this.getEndpointsSection()}
         </div>
