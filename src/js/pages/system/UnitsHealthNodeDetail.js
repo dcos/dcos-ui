@@ -4,13 +4,11 @@ import React from 'react';
 /* eslint-enable no-unused-vars */
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
-import Breadcrumbs from '../../components/Breadcrumbs';
-import {documentationURI} from '../../config/Config';
-import Icon from '../../components/Icon';
 import Loader from '../../components/Loader';
-import PageHeader from '../../components/PageHeader';
 import RequestErrorMsg from '../../components/RequestErrorMsg';
 import UnitHealthStore from '../../stores/UnitHealthStore';
+import UnitsHealthNodeDetailPanel from
+  './units-health-node-detail/UnitsHealthNodeDetailPanel';
 import UnitSummaries from '../../constants/UnitSummaries';
 
 class UnitsHealthNodeDetail extends mixin(StoreMixin) {
@@ -33,8 +31,7 @@ class UnitsHealthNodeDetail extends mixin(StoreMixin) {
   }
 
   componentDidMount() {
-    super.componentDidMount();
-
+    super.componentDidMount(...arguments);
     let {unitID, unitNodeID} = this.props.params;
 
     UnitHealthStore.fetchUnit(unitID);
@@ -57,23 +54,6 @@ class UnitsHealthNodeDetail extends mixin(StoreMixin) {
     this.setState({hasError: true});
   }
 
-  getSubTitle(unit, node) {
-    let healthStatus = node.getHealth();
-
-    return (
-      <ul className="list-inline flush-bottom">
-        <li>
-          <span className={healthStatus.classNames}>
-            {healthStatus.title}
-          </span>
-        </li>
-        <li>
-          {node.get('host_ip')}
-        </li>
-      </ul>
-    );
-  }
-
   getErrorNotice() {
     return (
       <div className="container container-pod">
@@ -86,34 +66,6 @@ class UnitsHealthNodeDetail extends mixin(StoreMixin) {
     return (
       <div className="container container-fluid container-pod">
         <Loader className="inverse" />
-      </div>
-    );
-  }
-
-  getNodeInfo(node, unit) {
-    let unitSummary = UnitSummaries[unit.get('id')] || {};
-    let unitDocsURL = unitSummary.getDocumentationURI &&
-      unitSummary.getDocumentationURI();
-
-    if (!unitDocsURL) {
-      unitDocsURL = documentationURI;
-    }
-
-    return (
-      <div className="flex-container-col flex-grow">
-        <span className="h4 inverse flush-top">Summary</span>
-        <p className="inverse">
-          {unitSummary.summary}
-        </p>
-        <p className="inverse">
-          <a href={unitDocsURL} target="_blank">
-            View Documentation
-          </a>
-        </p>
-        <span className="h4 inverse">Output</span>
-        <pre className="flex-grow flush-bottom">
-          {node.getOutput()}
-        </pre>
       </div>
     );
   }
@@ -133,19 +85,23 @@ class UnitsHealthNodeDetail extends mixin(StoreMixin) {
     let node = UnitHealthStore.getNode(unitNodeID);
     let unit = UnitHealthStore.getUnit(unitID);
 
+    let healthStatus = node.getHealth();
+
+    let unitSummary = UnitSummaries[unit.get('id')] || {};
+    let unitDocsURL = unitSummary.getDocumentationURI &&
+        unitSummary.getDocumentationURI();
+
     return (
-      <div className="flex-container-col">
-        <Breadcrumbs />
-        <PageHeader
-          icon={<Icon color="white" id="heart-pulse" size="large" />}
-          subTitle={this.getSubTitle(unit, node)}
-          title={`${unit.getTitle()} Health Check`} />
-        <div className="flex-container-col flex-grow no-overflow">
-          {this.getNodeInfo(node, unit)}
-        </div>
-      </div>
+      <UnitsHealthNodeDetailPanel
+        docsURL={unitDocsURL}
+        healthStatus={healthStatus.title}
+        healthStatusClassNames={healthStatus.classNames}
+        hostIP={node.get('host_ip')}
+        pageHeaderTitle={`${unit.getTitle()} Health Check`}
+        output={node.getOutput()}
+        summary={unitSummary.summary} />
     );
   }
-};
-
+}
 module.exports = UnitsHealthNodeDetail;
+
