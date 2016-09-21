@@ -21,7 +21,8 @@ var Panel = React.createClass({
     // classes
     contentClass: React.PropTypes.string,
     headingClass: React.PropTypes.string,
-    footerClass: React.PropTypes.string
+    footerClass: React.PropTypes.string,
+    onClick: React.PropTypes.func
   },
 
   getNode(nodeName) {
@@ -50,8 +51,7 @@ var Panel = React.createClass({
     let panelClasses = classNames(defaultClasses.panel, props.className);
 
     return (
-      <div className={panelClasses}
-        {...Util.omit(props, ['children', 'className', 'heading', 'footer'])}>
+      <div className={panelClasses} onClick={this.props.onClick}>
         {this.getNode('heading')}
         <div className={contentClasses}>
           {props.children}
