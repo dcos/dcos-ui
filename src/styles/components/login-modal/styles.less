@@ -3,36 +3,43 @@
   .modal {
 
     &.login-modal {
+      overflow: visible;
 
-      .modal-content {
-        height: auto;
-        overflow: visible;
-        position: relative;
-
-        .container {
-          width: 100%;
-        }
+      .modal-header,
+      .modal-body,
+      .modal-footer {
+        box-shadow: none;
       }
 
       .modal-header {
-        background: transparent;
         height: 144px;
         padding: 0;
-
-        .container {
-          padding: 0;
-        }
       }
 
-      .dcos-logo {
+      .modal-body {
+        height: auto;
+        position: relative;
+      }
+
+      .modal-footer {
+        padding-top: 0;
+        position: relative;
+      }
+
+      .login-modal-product-logo {
         left: 50%;
         position: absolute;
         top: -55px;
         transform: translateX(-50%);
       }
 
-      .login-modal-heading {
-        color: @neutral;
+      .login-modal-product-name {
+        bottom: @base-spacing-unit * -2;
+        font-size: 0.9rem;
+        left: 50%;
+        position: absolute;
+        transform: translateX(-50%);
+        width: 100%;
       }
     }
   }
