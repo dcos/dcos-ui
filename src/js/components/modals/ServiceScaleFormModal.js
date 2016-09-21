@@ -5,10 +5,10 @@ import React from 'react';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import FormModal from '../FormModal';
-import MarathonSpecUtil from '../../utils/MarathonSpecUtil';
 import MarathonStore from '../../stores/MarathonStore';
 import Pod from '../../structs/Pod';
 import ServiceTree from '../../structs/ServiceTree';
+import ServiceSpecUtil from '../../utils/ServiceSpecUtil';
 
 const METHODS_TO_BIND = [
   'handleScaleSubmit',
@@ -109,7 +109,7 @@ class ServiceScaleFormModal extends mixin(StoreMixin) {
         });
       } else if (service instanceof Pod) {
         MarathonStore.editService(service,
-          MarathonSpecUtil.Pods.setFixedScaling(
+          ServiceSpecUtil.setFixedScaling(
             service.getSpec(),
             parseInt(instances, 10)
           ), this.shouldForceUpdate(this.state.errorMsg));

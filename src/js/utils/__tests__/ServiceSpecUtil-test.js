@@ -1,10 +1,10 @@
-jest.dontMock('../MarathonSpecUtil');
+jest.dontMock('../ServiceSpecUtil');
 jest.dontMock('../../structs/PodSpec');
 
 const PodSpec = require('../../structs/PodSpec');
-const MarathonSpecUtil = require('../MarathonSpecUtil');
+const ServiceSpecUtil = require('../ServiceSpecUtil');
 
-describe('MarathonSpecUtil', function () {
+describe('ServiceSpecUtil', function () {
 
   describe('Pods', function () {
 
@@ -12,7 +12,7 @@ describe('MarathonSpecUtil', function () {
 
       it('should properly create missing sections', function () {
         var spec = new PodSpec({ });
-        var newSpec = MarathonSpecUtil.Pods.setFixedScaling(spec, 10);
+        var newSpec = ServiceSpecUtil.setFixedScaling(spec, 10);
         expect(newSpec.scaling).toEqual({
           kind: 'fixed',
           instances: 10
@@ -27,7 +27,7 @@ describe('MarathonSpecUtil', function () {
             maxInstances: 50
           }
         });
-        var newSpec = MarathonSpecUtil.Pods.setFixedScaling(spec, 10);
+        var newSpec = ServiceSpecUtil.setFixedScaling(spec, 10);
         expect(newSpec.scaling).toEqual({
           kind: 'fixed',
           instances: 10,
@@ -43,7 +43,7 @@ describe('MarathonSpecUtil', function () {
             miscFieldThatWillBeDropped: ':('
           }
         });
-        var newSpec = MarathonSpecUtil.Pods.setFixedScaling(spec, 10);
+        var newSpec = ServiceSpecUtil.setFixedScaling(spec, 10);
         expect(newSpec.scaling).toEqual({
           kind: 'fixed',
           instances: 10
