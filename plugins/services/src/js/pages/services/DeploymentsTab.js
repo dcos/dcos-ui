@@ -10,7 +10,7 @@ import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import AlertPanel from '../../../../../../src/js/components/AlertPanel';
 import CollapsingString from '../../../../../../src/js/components/CollapsingString';
-import defaultServiceImage from '../../../img/services/icon-service-default-small@2x.png';
+import defaultServiceImage from '../../../img/icon-service-default-small@2x.png';
 import Loader from '../../../../../../src/js/components/Loader';
 import Icon from '../../../../../../src/js/components/Icon';
 import MarathonActions from '../../events/MarathonActions';
