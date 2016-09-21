@@ -12,6 +12,13 @@ function defaultCreateLink(contents) {
   return contents;
 }
 
+function hasVIPLabel(portDefinition) {
+  return portDefinition.labels &&
+    Object.keys(portDefinition.labels).find(function (key) {
+      return /^VIP_[0-9]+$/.test(key);
+    });
+}
+
 var ServiceConfigUtil = {
 
   getCommandString(container) {
@@ -38,31 +45,21 @@ var ServiceConfigUtil = {
 
   getPortDefinitionGroups(id, portDefinitions, createLink = defaultCreateLink) {
     return portDefinitions.map(function (portDefinition, index) {
+      let hash = Object.assign({}, portDefinition);
       let headline = `Port Definition ${index + 1}`;
 
       if (portDefinition.name) {
         headline += ` (${portDefinition.name})`;
       }
 
-      let headerValueMapping = Object.assign(
-        {[serviceAddressKey]: null},
-        portDefinition
-      );
-
       // Check if this port is load balanced
-      let hasVIPLabel = portDefinition.labels &&
-        Object.keys(portDefinition.labels).find(function (key) {
-          return /^VIP_[0-9]+$/.test(key);
-        });
-      if (hasVIPLabel) {
+      if (hasVIPLabel(portDefinition)) {
         let link = buildHostName(id, portDefinition.port);
-        headerValueMapping[serviceAddressKey] = createLink(link, link);
-      } else {
-        delete headerValueMapping[serviceAddressKey];
+        hash[serviceAddressKey] = createLink(link, link);
       }
 
       return {
-        hash: headerValueMapping,
+        hash,
         headline
       };
     });
