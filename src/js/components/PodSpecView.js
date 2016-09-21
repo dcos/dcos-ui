@@ -161,8 +161,6 @@ class PodSpecView extends React.Component {
   }
 
   render() {
-    let {spec} = this.props;
-
     return (
       <div>
         <h4 className="inverse flush-top">
