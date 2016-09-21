@@ -1,7 +1,6 @@
 import React from 'react';
 
 import DescriptionList from './DescriptionList';
-import Icon from './Icon';
 
 const METHODS_TO_BIND = [
 ];
@@ -53,15 +52,9 @@ class PodNetworkSpecView extends React.Component {
     return (
       <div className="pod-config-network">
         <h5 className="inverse flush-top">
-          <Icon
-            className="icon-margin-right"
-            color="white"
-            family="mini"
-            id="network"
-            size="mini" />
           {network.name}
         </h5>
-        <div className="pod-config-resource-group pod-config-resource-group-network">
+        <div>
           {this.getGeneralDetails()}
           {this.getLabelSection()}
         </div>
