@@ -1,6 +1,8 @@
 import classNames from 'classnames/dedupe';
 import React from 'react';
 
+import Util from '../utils/Util';
+
 const defaultClasses = {
   panel: 'panel',
   content: 'panel-content panel-cell panel-cell-narrow panel-cell-short panel-cell-borderless',
@@ -19,7 +21,8 @@ var Panel = React.createClass({
     // classes
     contentClass: React.PropTypes.string,
     headingClass: React.PropTypes.string,
-    footerClass: React.PropTypes.string
+    footerClass: React.PropTypes.string,
+    onClick: React.PropTypes.func
   },
 
   getNode(nodeName) {
@@ -48,7 +51,7 @@ var Panel = React.createClass({
     let panelClasses = classNames(defaultClasses.panel, props.className);
 
     return (
-      <div className={panelClasses}>
+      <div className={panelClasses} onClick={this.props.onClick}>
         {this.getNode('heading')}
         <div className={contentClasses}>
           {props.children}
