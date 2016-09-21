@@ -201,9 +201,6 @@ class NodeDetailPage extends mixin(TabsMixin, StoreMixin) {
       return this.getNotFound(nodeID);
     }
 
-    // Make sure to grow when logs are displayed
-    let routes = this.context.router.getCurrentRoutes();
-
     return (
       <div>
         {this.getPageHeader(node)}

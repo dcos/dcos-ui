@@ -1,8 +1,6 @@
 import classNames from 'classnames/dedupe';
 import React from 'react';
 
-import Util from '../utils/Util';
-
 const defaultClasses = {
   panel: 'panel',
   content: 'panel-content panel-cell panel-cell-narrow panel-cell-short panel-cell-borderless',
