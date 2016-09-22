@@ -50,10 +50,22 @@ describe('TaskTable', function () {
       this.taskTable = new TaskTable();
     });
 
-    it('returns a map of disabled items', function () {
-      var tasks = [{id: '1', isStartedByMarathon: true}, {id: '2'}];
+    it('treats tasks started not by Marathon as disabled', function () {
+      var tasks = [
+        {id: '1', state: 'TASK_STARTING', isStartedByMarathon: true},
+        {id: '2', state: 'TASK_STARTING'}
+      ];
       expect(this.taskTable.getDisabledItemsMap(tasks)).toEqual({'2': true});
     });
+
+    it('it treats completed tasks as disabled', function () {
+      var tasks = [
+        {id: '1', state: 'TASK_STARTING', isStartedByMarathon: true},
+        {id: '2', state: 'TASK_FINISHED', isStartedByMarathon: true}
+      ];
+      expect(this.taskTable.getDisabledItemsMap(tasks)).toEqual({'2': true});
+    });
+
   });
 
   describe('#getTaskHealth', function () {
