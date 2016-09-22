@@ -1,24 +1,10 @@
 import React from 'react';
 
 import DescriptionList from './DescriptionList';
-import PodSpec from '../structs/PodSpec';
 import Icon from './Icon';
-
-const METHODS_TO_BIND = [
-];
+import PodSpec from '../structs/PodSpec';
 
 class PodSpecView extends React.Component {
-  constructor() {
-    super(...arguments);
-
-    this.state = {
-    };
-
-    METHODS_TO_BIND.forEach((method) => {
-      this[method] = this[method].bind(this);
-    });
-  }
-
   getEnvironmentDetails() {
     let {spec} = this.props;
     let environment = Object.assign({}, spec.getEnvironment());
@@ -173,12 +159,8 @@ class PodSpecView extends React.Component {
         {this.getVolumesDetails()}
         {this.getScalingDetails()}
       </div>
-      );
+    );
   }
-};
-
-PodSpecView.contextTypes = {
-  router: React.PropTypes.func
 };
 
 PodSpecView.propTypes = {
