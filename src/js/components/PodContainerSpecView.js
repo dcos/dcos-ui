@@ -68,10 +68,8 @@ class PodContainerSpecView extends React.Component {
         <h5 className="inverse flush-top">
           {container.name}
         </h5>
-        <div>
-          {this.getGeneralDetails()}
-          {this.getEndpointsSection()}
-        </div>
+        {this.getGeneralDetails()}
+        {this.getEndpointsSection()}
       </div>
     );
   }
