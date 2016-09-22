@@ -104,18 +104,18 @@ class PodSpecView extends React.Component {
   getGeneralDetails() {
     let {spec} = this.props;
     let hash = {
-      'ID': spec.getId()
+      ID: spec.getId(),
+      version: spec.getVersion(),
+      user: spec.getUser()
     };
 
-    let version = spec.getVersion();
-    if (version) {
-      hash.version = version;
-    }
+    hash = Object.keys(hash).filter(function (key) {
+      return hash[key];
+    }).reduce(function (memo, key) {
+      memo[key] = hash[key];
 
-    let user = spec.getUser();
-    if (user) {
-      hash.user = user;
-    }
+      return memo;
+    }, {});
 
     return <DescriptionList hash={hash} />;
   }
