@@ -4,13 +4,13 @@ import React from 'react';
 
 import CheckboxTable from './CheckboxTable';
 import CompositeState from '../structs/CompositeState';
-import Icon from './Icon';
 import DCOSStore from '../stores/DCOSStore';
+import Icon from './Icon';
 import ResourceTableUtil from '../utils/ResourceTableUtil';
+import TableUtil from '../utils/TableUtil';
 import TaskStates from '../constants/TaskStates';
 import TaskTableHeaderLabels from '../constants/TaskTableHeaderLabels';
 import TaskUtil from '../utils/TaskUtil';
-import TableUtil from '../utils/TableUtil';
 import Units from '../utils/Units';
 
 const METHODS_TO_BIND = [
