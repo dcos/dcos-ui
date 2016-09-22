@@ -54,6 +54,15 @@ describe('TaskTable', function () {
       var tasks = [{id: '1', scheduler: 'marathon'}, {id: '2'}];
       expect(this.taskTable.getDisabledItemsMap(tasks)).toEqual({'2': true});
     });
+
+    it('it treats completed tasks as disabled', function () {
+      var tasks = [
+        {id: '1', state: 'TASK_STARTING', isStartedByMarathon: true},
+        {id: '2', state: 'TASK_FINISHED', isStartedByMarathon: true}
+      ];
+      expect(this.taskTable.getDisabledItemsMap(tasks)).toEqual({'2': true});
+    });
+
   });
 
   describe('#getTaskHealth', function () {
