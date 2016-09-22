@@ -117,7 +117,7 @@ module.exports = Object.assign({}, webpackConfig, {
       },
       {
         test: /\.less$/,
-        loader: 'style!css!postcss!less'
+        loader: 'style?sourceMap!css?sourceMap!postcss?sourceMap!less?sourceMap'
       },
       {
         test: /\.png$/,
