@@ -43,7 +43,7 @@ class PodContainerSpecView extends React.Component {
         <h5 className="inverse flush-top">Labels</h5>
         <DescriptionList hash={container.labels} />
       </div>
-      );
+    );
   }
 
   getEndpointsSection() {
@@ -63,7 +63,7 @@ class PodContainerSpecView extends React.Component {
             hash={hash}
             headline={headline}
             key={index} />
-          );
+        );
       });
 
     return (
@@ -71,7 +71,7 @@ class PodContainerSpecView extends React.Component {
         <h5 className="inverse flush-top">Port Definitions</h5>
         {portConfigurations}
       </div>
-      );
+    );
   }
 
   render() {
@@ -86,7 +86,7 @@ class PodContainerSpecView extends React.Component {
           {this.getEndpointsSection()}
         </div>
       </div>
-      );
+    );
   }
 };
 
