@@ -26,8 +26,9 @@ function removeListener(store, hook, listener) {
     }
 
     let index = listeners.indexOf(listener);
-    if (index > -1) {
+    while (index > -1) {
       listeners.splice(index, 1);
+      index = listeners.indexOf(listener, index);
     }
   });
 }
