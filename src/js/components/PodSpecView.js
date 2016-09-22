@@ -149,6 +149,19 @@ class PodSpecView extends React.Component {
     );
   }
 
+  getContainersSection() {
+    let {spec} = this.props;
+
+    return spec.getContainers().map(function (container, i) {
+      return (
+        <PodContainerSpecView
+          key={i}
+          className="nested-description-list"
+          container={container} />
+      );
+    });
+  }
+
   render() {
     return (
       <div>
@@ -164,14 +177,7 @@ class PodSpecView extends React.Component {
         <h4 className="inverse flush-top">
           Containers
         </h4>
-        {spec.getContainers().map(function (container, i) {
-          return (
-            <PodContainerSpecView
-              key={i}
-              className="nested-description-list"
-              container={container} />
-          );
-        })}
+        {this.getContainersSection()}
       </div>
     );
   }
