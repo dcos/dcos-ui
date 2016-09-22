@@ -28,14 +28,14 @@ var ServiceConfigUtil = {
 
     // Pods approach
     // https://github.com/mesosphere/marathon/blob/feature/pods/docs/docs/rest-api/public/api/v2/types/podContainer.raml#L61
-    if (container.exec && container.exec.command) {
-      let {command} = container.exec;
-      if (command.shell) {
-        return command.shell;
-      }
-      if (command.argv) {
-        return command.argv.join(' ');
-      }
+    let {shell, argv} =
+      Util.findNestedPropertyInObject(container, 'exec.command') || {};
+
+    if (shell) {
+      return shell;
+    }
+    if (Array.isArray(argv)) {
+      return argv.join(' ');
     }
 
     return null;
