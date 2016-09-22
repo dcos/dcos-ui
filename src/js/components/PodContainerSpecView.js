@@ -33,8 +33,8 @@ class PodContainerSpecView extends React.Component {
   }
 
   getEndpointsSection() {
-    let {container} = this.props;
-    let {id, endpoints} = container;
+    let {container: {id, endpoints}} = this.props;
+
     if (!endpoints || !endpoints.length) {
       return null;
     }
