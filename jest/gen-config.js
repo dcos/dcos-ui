@@ -3,7 +3,7 @@
  */
 var fs = require('fs');
 var path = require('path');
-var testPaths = ['src', 'plugins'];
+var testPaths = ['src', 'plugins', 'foundation-ui'];
 
 if (process.env.npm_config_externalplugins) {
   testPaths.push(process.env.npm_config_externalplugins);
@@ -44,6 +44,7 @@ var config = {
     'deep-equal',
     'events',
     'flux',
+    'foundation-ui',
     'jasmine-reporters',
     'localStorage',
     'mesosphere-shared-reactjs',

@@ -1,4 +1,5 @@
 import {createStore, combineReducers, applyMiddleware, compose} from 'redux';
+import {Hooks} from 'foundation-ui';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import {APPLICATION} from '../constants/PluginConstants';
@@ -7,11 +8,11 @@ import ActionsPubSub from './middleware/ActionsPubSub';
 import AppReducer from './AppReducer';
 import AppHooks from './AppHooks';
 import Config from '../config/Config';
-import Hooks from './Hooks';
 import PluginSDKStruct from './PluginSDKStruct';
 import Loader from './Loader';
 import PluginModules from './PluginModules';
 
+const hooks = new Hooks();
 const initialState = {};
 const middleware = [ActionsPubSub.pub];
 const PLUGIN_ENV_CACHE = [];
@@ -96,8 +97,10 @@ const initialize = function (pluginsConfig) {
   replaceStoreReducers();
 
   // Allows plugins to do things before the application ever renders
-  let promises = Hooks.applyFilter('pluginsLoadedCheck', []);
-  Promise.all(promises).then(Hooks.notifyPluginsLoaded.bind(Hooks));
+  let promises = hooks.applyFilter('pluginsLoadedCheck', []);
+  Promise.all(promises).then(function () {
+    hooks.doAction('pluginsConfigured');
+  });
 };
 
 /**
@@ -264,7 +267,7 @@ const getSDK = function (pluginID, config) {
     addStoreConfig,
     dispatch: createDispatcher(pluginID),
     Store: StoreAPI,
-    Hooks,
+    Hooks: hooks,
     pluginID,
     onDispatch,
     constants

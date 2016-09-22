@@ -81,6 +81,7 @@ module.exports = {
     root: path.resolve(__dirname),
     extensions: ['', '.js'],
     alias: {
+      'foundation-ui': 'foundation-ui',
       PluginSDK: 'src/js/plugin-bridge/PluginSDK',
       PluginTestUtils: 'src/js/plugin-bridge/PluginTestUtils'
     }
