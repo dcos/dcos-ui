@@ -21,12 +21,12 @@ function hasVIPLabel(labels={}) {
 
 var ServiceConfigUtil = {
   getCommandString(container) {
-    // Pre-pods approach
+    // Generic Service
     if (container.cmd) {
       return container.cmd;
     }
 
-    // Pods approach
+    // Pod
     // https://github.com/mesosphere/marathon/blob/feature/pods/docs/docs/rest-api/public/api/v2/types/podContainer.raml#L61
     let {shell, argv} =
       Util.findNestedPropertyInObject(container, 'exec.command') || {};
