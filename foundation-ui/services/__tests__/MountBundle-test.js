@@ -2,7 +2,6 @@ jest.dontMock('../MountBundle');
 /* eslint-disable no-unused-vars */
 const React = require('react');
 /* eslint-enable no-unused-vars */
-const ReactDOM = require('react-dom');
 const TestUtils = require('react-addons-test-utils');
 
 const JestUtil = require('../../../src/js/utils/JestUtil');
@@ -90,7 +89,7 @@ describe('MountBundle', function () {
 
     afterEach(function () {
       MountService.removeListener('foo', this.getReplacement);
-    })
+    });
 
     it('should render replacement', function () {
       var result = TestUtils.renderIntoDocument(
