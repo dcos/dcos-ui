@@ -1,11 +1,11 @@
 import Item from './Item';
 import PodContainerStatus from '../constants/PodContainerStatus';
-import StringUtil from '../utils/StringUtil';
+import PodContainerState from '../constants/PodContainerState';
 
 module.exports = class PodContainer extends Item {
   getContainerStatus() {
     switch (this.get('status')) {
-      case 'RUNNING':
+      case PodContainerState.RUNNING:
         if (this.hasHealthChecks()) {
           if (this.isHealthy()) {
             return PodContainerStatus.HEALTHY;
@@ -15,23 +15,26 @@ module.exports = class PodContainer extends Item {
         } else {
           return PodContainerStatus.RUNNING;
         }
-
-      case 'ERROR':
-        return PodContainerStatus.ERROR;
-
-      case 'FAILED':
-        return PodContainerStatus.FAILED;
-
-      case 'FINISHED':
+      case PodContainerState.STAGING:
+        return PodContainerStatus.STAGING;
+      case PodContainerState.STARTING:
+        return PodContainerStatus.STARTING;
+      case PodContainerState.STARTED:
+        return PodContainerStatus.STARTED;
+      case PodContainerState.KILLING:
+        return PodContainerStatus.KILLING;
+      case PodContainerState.FINISHED:
         return PodContainerStatus.FINISHED;
-
-      case 'KILLED':
+      case PodContainerState.KILLED:
         return PodContainerStatus.KILLED;
-
+      case PodContainerState.FAILED:
+        return PodContainerStatus.FAILED;
+      case PodContainerState.LOST:
+        return PodContainerStatus.LOST;
+      case PodContainerState.ERROR:
+        return PodContainerStatus.ERROR;
       default:
-        return Object.assign(Object.create(PodContainerStatus.NA), {
-          displayName: StringUtil.capitalize(this.get('status').toLowerCase())
-        });
+        return PodContainerStatus.NA;
     }
   }
 

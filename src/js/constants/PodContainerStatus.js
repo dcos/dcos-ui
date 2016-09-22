@@ -1,4 +1,24 @@
 const POD_CONTAINER_STATUS = {
+  CREATED: {
+    dotClassName: 'dot inactive unknown',
+    textClassName: '',
+    displayName: 'Created'
+  },
+  STAGING: {
+    dotClassName: 'dot inactive unknown',
+    textClassName: '',
+    displayName: 'Staging'
+  },
+  STARTING: {
+    dotClassName: 'dot inactive unknown',
+    textClassName: '',
+    displayName: 'Starting'
+  },
+  STARTED: {
+    dotClassName: 'dot inactive unknown',
+    textClassName: '',
+    displayName: 'Started'
+  },
   HEALTHY: {
     dotClassName: 'dot healthy',
     textClassName: 'task-status-running',
@@ -24,6 +44,11 @@ const POD_CONTAINER_STATUS = {
     textClassName: 'task-status-error',
     displayName: 'Failed'
   },
+  KILLING: {
+    dotClassName: 'dot danger',
+    textClassName: '',
+    displayName: 'Killing'
+  },
   KILLED: {
     dotClassName: 'dot inactive danger',
     textClassName: '',
@@ -33,6 +58,11 @@ const POD_CONTAINER_STATUS = {
     dotClassName: 'dot inactive danger',
     textClassName: '',
     displayName: 'Killed'
+  },
+  LOST: {
+    dotClassName: 'dot inactive danger',
+    textClassName: '',
+    displayName: 'Lost'
   },
   NA: {
     dotClassName: 'dot inactive unknown',

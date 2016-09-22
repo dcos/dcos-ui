@@ -1,6 +1,7 @@
 import Item from './Item';
 import PodContainer from './PodContainer';
 import PodInstanceStatus from '../constants/PodInstanceStatus';
+import PodInstanceState from '../constants/PodInstanceState';
 import StringUtil from '../utils/StringUtil';
 
 module.exports = class PodInstance extends Item {
@@ -25,13 +26,13 @@ module.exports = class PodInstance extends Item {
 
   getInstanceStatus() {
     switch (this.get('status')) {
-      case 'PENDING':
+      case PodInstanceState.PENDING:
         return PodInstanceStatus.STAGED;
 
-      case 'STAGING':
+      case PodInstanceState.STAGING:
         return PodInstanceStatus.STAGED;
 
-      case 'STABLE':
+      case PodInstanceState.STABLE:
         if (this.hasHealthChecks()) {
           if (this.isHealthy()) {
             return PodInstanceStatus.HEALTHY;
@@ -42,10 +43,10 @@ module.exports = class PodInstance extends Item {
           return PodInstanceStatus.RUNNING;
         }
 
-      case 'DEGRADED':
+      case PodInstanceState.DEGRADED:
         return PodInstanceStatus.UNHEALTHY;
 
-      case 'TERMINAL':
+      case PodInstanceState.TERMINAL:
         return PodInstanceStatus.KILLED;
 
       default:
@@ -84,7 +85,7 @@ module.exports = class PodInstance extends Item {
   }
 
   isHealthy() {
-    if (this.get('status') !== 'STABLE') {
+    if (this.get('status') !== PodInstanceState.STABLE) {
       return false;
     }
     return this.getContainers().every(function (container) {
@@ -94,15 +95,17 @@ module.exports = class PodInstance extends Item {
 
   isRunning() {
     let status = this.get('status');
-    return (status === 'STABLE') || (status === 'DEGRADED');
+    return (status === PodInstanceState.STABLE) ||
+           (status === PodInstanceState.DEGRADED);
   }
 
   isStaging() {
     let status = this.get('status');
-    return (status === 'PENDING') || (status === 'STAGING');
+    return (status === PodInstanceState.PENDING) ||
+           (status === PodInstanceState.STAGING);
   }
 
   isTerminating() {
-    return this.get('status') === 'TERMINAL';
+    return this.get('status') === PodInstanceState.TERMINAL;
   }
 };
