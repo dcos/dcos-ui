@@ -5,8 +5,10 @@ function ServiceFactory(hooks) {
   return {
     on(mountId /* , callback */) {
       hooks.addFilter(...arguments);
-      // Call all actions registered for mountId. This will call an action all all Mounts
-      // with this mountId and have them update state by running a new filter (which will include the newly added filter)
+      // Call all actions registered for mountId.
+      // This will call an action for all Mounts with this mountId
+      // and have them update state by running a new filter
+      // (which will include the newly added filter)
       hooks.doAction(mountId);
     },
 
