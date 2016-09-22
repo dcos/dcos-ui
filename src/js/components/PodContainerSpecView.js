@@ -3,21 +3,7 @@ import React from 'react';
 import DescriptionList from './DescriptionList';
 import MarathonConfigUtil from '../utils/MarathonConfigUtil';
 
-const METHODS_TO_BIND = [
-];
-
 class PodContainerSpecView extends React.Component {
-  constructor() {
-    super(...arguments);
-
-    this.state = {
-    };
-
-    METHODS_TO_BIND.forEach((method) => {
-      this[method] = this[method].bind(this);
-    });
-  }
-
   getGeneralDetails() {
     let {container} = this.props;
     let {cpus, mem, disk} = container.resources;
