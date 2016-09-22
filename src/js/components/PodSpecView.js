@@ -1,9 +1,9 @@
 import React from 'react';
 
 import DescriptionList from './DescriptionList';
-import PodSpec from '../structs/PodSpec';
-import PodContainerSpecView from './PodContainerSpecView';
 import Icon from './Icon';
+import PodContainerSpecView from './PodContainerSpecView';
+import PodSpec from '../structs/PodSpec';
 
 class PodSpecView extends React.Component {
   getEnvironmentDetails() {
