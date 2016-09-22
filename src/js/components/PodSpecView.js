@@ -61,24 +61,24 @@ class PodSpecView extends React.Component {
   }
 
   getSecretsDetails() {
-    let {spec} = this.props;
-    let secrets = Object.assign({}, spec.getSecrets());
+    let secrets = this.props.spec.getSecrets();
 
     if (Object.keys(secrets).length === 0) {
       return null;
     }
 
-    Object.keys(secrets).forEach(function (key) {
-      let {source} = secrets[key];
-      secrets[key] = source;
-    });
+    let hash = Object.keys(secrets).reduce(function (memo, key) {
+      memo[key] = secrets[key].source;
+
+      return memo;
+    }, {});
 
     return (
       <div>
         <h4 className="inverse flush-top">
           Secrets
         </h4>
-        <DescriptionList hash={secrets} />
+        <DescriptionList hash={hash} />
       </div>
     );
   }
