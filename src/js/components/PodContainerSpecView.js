@@ -1,7 +1,7 @@
 import React from 'react';
 
 import DescriptionList from './DescriptionList';
-import MarathonConfigUtil from '../utils/MarathonConfigUtil';
+import ServiceConfigUtil from '../utils/ServiceConfigUtil';
 
 class PodContainerSpecView extends React.Component {
   getGeneralDetails() {
@@ -12,7 +12,7 @@ class PodContainerSpecView extends React.Component {
       'CPUs': cpus,
       'Memory (MiB)': mem,
       'Disk Space (Mib)': disk,
-      'Command': MarathonConfigUtil.getCommandString(container)
+      'Command': ServiceConfigUtil.getCommandString(container)
     };
 
     return <DescriptionList hash={hash} />;
@@ -39,7 +39,7 @@ class PodContainerSpecView extends React.Component {
       return null;
     }
 
-    let portConfigurations = MarathonConfigUtil.getPortDefinitionGroups(
+    let portConfigurations = ServiceConfigUtil.getPortDefinitionGroups(
         id, endpoints, function (content, linkTo) {
           return <a href={linkTo} target="_blank">{content}</a>;
         }
