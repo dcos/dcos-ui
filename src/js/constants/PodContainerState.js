@@ -6,9 +6,14 @@
  *       the current values are assumed to be correct (DCOS-9852).
  */
 module.exports = {
+  STAGING: 'TASK_STAGING',
+  STARTING: 'TASK_STARTING',
+  STARTED: 'TASK_STARTED',
   RUNNING: 'TASK_RUNNING',
-  ERROR: 'TASK_ERROR',
-  FAILED: 'TASK_FAILED',
+  KILLING: 'TASK_KILLING',
   FINISHED: 'TASK_FINISHED',
-  KILLED: 'TASK_KILLED'
+  KILLED: 'TASK_KILLED',
+  FAILED: 'TASK_FAILED',
+  LOST: 'TASK_LOST',
+  ERROR: 'TASK_ERROR'
 };

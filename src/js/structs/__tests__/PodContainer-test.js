@@ -109,24 +109,24 @@ describe('PodContainer', function () {
         .toEqual(PodContainerStatus.UNHEALTHY);
     });
 
-    it('should pass through unknown states', function () {
+    it('should properly handle  unknown states', function () {
       let podContainer = new PodContainer({
         status: 'totallyrandom'
       });
 
       // It has no health checks, so it returns KILLED
       expect(podContainer.getContainerStatus().displayName)
-        .toEqual('Totallyrandom');
+        .toEqual('N/A');
     });
 
-    it('should strop TASK_ prefix from marathon states', function () {
+    it('should properly handle unknown states', function () {
       let podContainer = new PodContainer({
         status: 'TASK_TOTALLY_RANDOM'
       });
 
       // It has no health checks, so it returns KILLED
       expect(podContainer.getContainerStatus().displayName)
-        .toEqual('Totally random');
+        .toEqual('N/A');
     });
 
   });

@@ -1,7 +1,6 @@
 import Item from './Item';
 import PodContainerStatus from '../constants/PodContainerStatus';
 import PodContainerState from '../constants/PodContainerState';
-import StringUtil from '../utils/StringUtil';
 
 module.exports = class PodContainer extends Item {
   getContainerStatus() {
@@ -16,29 +15,26 @@ module.exports = class PodContainer extends Item {
         } else {
           return PodContainerStatus.RUNNING;
         }
-
-      case PodContainerState.ERROR:
-        return PodContainerStatus.ERROR;
-
-      case PodContainerState.FAILED:
-        return PodContainerStatus.FAILED;
-
+      case PodContainerState.STAGING:
+        return PodContainerStatus.STAGING;
+      case PodContainerState.STARTING:
+        return PodContainerStatus.STARTING;
+      case PodContainerState.STARTED:
+        return PodContainerStatus.STARTED;
+      case PodContainerState.KILLING:
+        return PodContainerStatus.KILLING;
       case PodContainerState.FINISHED:
         return PodContainerStatus.FINISHED;
-
       case PodContainerState.KILLED:
         return PodContainerStatus.KILLED;
-
+      case PodContainerState.FAILED:
+        return PodContainerStatus.FAILED;
+      case PodContainerState.LOST:
+        return PodContainerStatus.LOST;
+      case PodContainerState.ERROR:
+        return PodContainerStatus.ERROR;
       default:
-        let statusString = this.get('status') || '';
-        if (statusString.startsWith('TASK_')) {
-          statusString = statusString.substr(5);
-        }
-        statusString = statusString.replace(/_/g, ' ');
-
-        return Object.assign(Object.create(PodContainerStatus.NA), {
-          displayName: StringUtil.capitalize(statusString.toLowerCase())
-        });
+        return PodContainerStatus.NA;
     }
   }
 
