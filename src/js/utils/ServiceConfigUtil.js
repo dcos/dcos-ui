@@ -1,5 +1,6 @@
 import HostUtil from '../utils/HostUtil';
 import Networking from '../constants/Networking';
+import Util from '../utils/Util';
 
 const serviceAddressKey = 'Service Address';
 
@@ -12,11 +13,10 @@ function defaultCreateLink(contents) {
   return contents;
 }
 
-function hasVIPLabel(portDefinition) {
-  return portDefinition.labels &&
-    Object.keys(portDefinition.labels).find(function (key) {
-      return /^VIP_[0-9]+$/.test(key);
-    });
+function hasVIPLabel(labels={}) {
+  return Object.keys(labels).find(function (key) {
+    return /^VIP_[0-9]+$/.test(key);
+  });
 }
 
 var ServiceConfigUtil = {
@@ -51,7 +51,7 @@ var ServiceConfigUtil = {
       }
 
       // Check if this port is load balanced
-      if (hasVIPLabel(portDefinition)) {
+      if (hasVIPLabel(portDefinition.labels)) {
         let link = buildHostName(id, portDefinition.port);
         hash[serviceAddressKey] = createLink(link, link);
       }
