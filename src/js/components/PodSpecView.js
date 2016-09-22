@@ -6,18 +6,18 @@ import PodSpec from '../structs/PodSpec';
 
 class PodSpecView extends React.Component {
   getEnvironmentDetails() {
-    let {spec} = this.props;
-    let environment = Object.assign({}, spec.getEnvironment());
+    let environment = this.props.spec.getEnvironment();
 
     if (Object.keys(environment).length === 0) {
       return null;
     }
 
-    Object.keys(environment).forEach(function (key) {
+    let hash = Object.keys(environment).reduce(function (memo, key) {
       let value = environment[key];
+
       if (typeof value === 'object' && !Array.isArray(value) &&
           value !== null) {
-        environment[key] = (
+        memo[key] = (
           <span>
             <Icon
               className="icon-margin-right"
@@ -28,14 +28,16 @@ class PodSpecView extends React.Component {
           </span>
         );
       }
-    });
+
+      return memo;
+    }, {});
 
     return (
       <div>
         <h4 className="inverse flush-top">
           Environment variables
         </h4>
-        <DescriptionList hash={environment} />
+        <DescriptionList hash={hash} />
       </div>
     );
   }
