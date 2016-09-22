@@ -166,11 +166,11 @@ class PodSpecView extends React.Component {
         </h4>
         {spec.getContainers().map(function (container, i) {
           return (
-              <PodContainerSpecView
-                key={i}
-                className="nested-description-list"
-                container={container} />
-            );
+            <PodContainerSpecView
+              key={i}
+              className="nested-description-list"
+              container={container} />
+          );
         })}
       </div>
     );
