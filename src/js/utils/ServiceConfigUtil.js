@@ -20,9 +20,7 @@ function hasVIPLabel(portDefinition) {
 }
 
 var ServiceConfigUtil = {
-
   getCommandString(container) {
-
     // Pre-pods approach
     if (container.cmd) {
       return container.cmd;
