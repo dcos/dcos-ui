@@ -234,7 +234,7 @@ describe('ServiceUtil', function () {
             .toEqual({VIP_1: '/foo/bar:4321'});
         });
 
-        it('should not add any port definitions if ports is emoty',
+        it('should not add any port definitions if ports is empty',
           function () {
             let service = ServiceUtil.createServiceFromFormModel({
               networking: {
