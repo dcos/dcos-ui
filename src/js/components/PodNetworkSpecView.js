@@ -1,6 +1,7 @@
 import React from 'react';
 
 import DescriptionList from './DescriptionList';
+import Icon from './Icon';
 
 class PodNetworkSpecView extends React.Component {
   getGeneralDetails() {
@@ -43,9 +44,15 @@ class PodNetworkSpecView extends React.Component {
     return (
       <div className="pod-config-network">
         <h5 className="inverse flush-top">
+          <Icon
+            className="icon-margin-right"
+            color="white"
+            family="mini"
+            id="network"
+            size="mini" />
           {name}
         </h5>
-        <div>
+        <div className="pod-config-resource-group">
           {this.getGeneralDetails()}
           {this.getLabelSection()}
         </div>

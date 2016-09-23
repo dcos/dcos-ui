@@ -3,6 +3,7 @@ import React from 'react';
 import DescriptionList from './DescriptionList';
 import EnvironmentList from './EnvironmentList';
 import ServiceConfigUtil from '../utils/ServiceConfigUtil';
+import Icon from './Icon';
 import Util from '../utils/Util';
 
 class PodContainerSpecView extends React.Component {
@@ -153,13 +154,21 @@ class PodContainerSpecView extends React.Component {
     return (
       <div className="pod-config-container">
         <h5 className="inverse flush-top">
+          <Icon
+            className="icon-margin-right"
+            color="white"
+            family="mini"
+            id="gears"
+            size="mini" />
           {name}
         </h5>
-        {this.getGeneralDetails()}
-        {this.getEnvironmentSection()}
-        {this.getArtifactsSection()}
-        {this.getVolumesSection()}
-        {this.getEndpointsSection()}
+        <div className="pod-config-resource-group">
+          {this.getGeneralDetails()}
+          {this.getEnvironmentSection()}
+          {this.getArtifactsSection()}
+          {this.getVolumesSection()}
+          {this.getEndpointsSection()}
+        </div>
       </div>
     );
   }
