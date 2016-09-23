@@ -5762,6 +5762,11 @@
       "from": "react-addons-css-transition-group@0.14.7",
       "resolved": "https://registry.npmjs.org/react-addons-css-transition-group/-/react-addons-css-transition-group-0.14.7.tgz"
     },
+    "react-addons-pure-render-mixin": {
+      "version": "0.14.7",
+      "from": "react-addons-pure-render-mixin@0.14.7",
+      "resolved": "https://registry.npmjs.org/react-addons-pure-render-mixin/-/react-addons-pure-render-mixin-0.14.7.tgz"
+    },
     "react-addons-test-utils": {
       "version": "0.14.7",
       "from": "react-addons-test-utils@0.14.7",
