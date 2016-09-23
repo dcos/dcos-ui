@@ -1,5 +1,6 @@
 import {Dropdown} from 'reactjs-components';
 import mixin from 'reactjs-mixin';
+import PureRenderMixin from 'react-addons-pure-render-mixin';
 import React from 'react';
 
 import InternalStorageMixin from '../mixins/InternalStorageMixin';
@@ -11,9 +12,11 @@ const DEFAULT_ITEM = {
   selectedHtml: 'All Health Checks'
 };
 
-class UnitHealthDropdown extends mixin(InternalStorageMixin) {
-  componentWillMount() {
-    this.internalStorage_set({dropdownItems: this.getDropdownItems()});
+class UnitHealthDropdown extends React.Component {
+  constructor() {
+    super(...arguments);
+    this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate;
+    this.state = {dropdownItems: this.getDropdownItems()};
   }
 
   getDropdownItems() {
