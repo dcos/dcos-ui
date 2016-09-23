@@ -1,7 +1,7 @@
 import React from 'react';
 
 import DescriptionList from './DescriptionList';
-import Icon from './Icon';
+import EnvironmentList from './EnvironmentList';
 import PodContainerSpecView from './PodContainerSpecView';
 import PodSpec from '../structs/PodSpec';
 
@@ -9,39 +9,16 @@ class PodSpecView extends React.Component {
   getEnvironmentDetails() {
     let environment = this.props.spec.getEnvironment();
 
-    if (Object.keys(environment).length === 0) {
+    if (!environment || Object.keys(environment).length === 0) {
       return null;
     }
-
-    let hash = Object.keys(environment).reduce(function (memo, key) {
-      let value = environment[key];
-
-      if (
-        typeof value === 'object' &&
-        !Array.isArray(value) &&
-        value !== null
-      ) {
-        memo[key] = (
-          <span>
-            <Icon
-              className="icon-margin-right"
-              color="white"
-              family="mini"
-              id="key"
-              size="mini" /> {value.secret}
-          </span>
-        );
-      }
-
-      return memo;
-    }, {});
 
     return (
       <div>
         <h4 className="inverse flush-top">
           Environment variables
         </h4>
-        <DescriptionList hash={hash} />
+        <EnvironmentList environment={environment} />
       </div>
     );
   }
