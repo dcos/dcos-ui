@@ -18,9 +18,10 @@ class PodContainerSpecView extends React.Component {
     return <DescriptionList hash={hash} />;
   }
 
-  getLabelSection() {
-    let {container} = this.props;
-    if (!container.labels || !Object.keys(container.labels).length) {
+  getEnvironmentSection() {
+    let {container: {environment={}}} = this.props;
+
+    if (Object.keys(environment).length === 0) {
       return null;
     }
 
@@ -33,9 +34,9 @@ class PodContainerSpecView extends React.Component {
   }
 
   getEndpointsSection() {
-    let {container: {id, endpoints}} = this.props;
+    let {container: {id, endpoints=[]}} = this.props;
 
-    if (!endpoints || !endpoints.length) {
+    if (!endpoints.length) {
       return null;
     }
 
