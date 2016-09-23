@@ -483,6 +483,18 @@ describe('ServiceUtil', function () {
           }
         );
 
+        it('should not add a hostPort when loadBalanced is off', function () {
+          let service = ServiceUtil.createSpecFromFormModel({
+            containerSettings: {image: 'redis'},
+            networking: {
+              networkType: 'user',
+              ports: [{lbPort: 1234}]
+            }
+          });
+          expect(Object.keys(service.container.docker.portMappings[0]))
+              .not.toContain('hostPort');
+        });
+
         it('should add a servicePort when loadBalanced is on', function () {
           let service = ServiceUtil.createSpecFromFormModel({
             containerSettings: {image: 'redis'},
