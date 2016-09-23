@@ -1,5 +1,7 @@
 import {Confirm, Dropdown} from 'reactjs-components';
+import mixin from 'reactjs-mixin';
 import React from 'react';
+import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import StringUtil from '../../utils/StringUtil';
 import Util from '../../utils/Util';
@@ -15,7 +17,7 @@ const METHODS_TO_BIND = [
 const DEFAULT_ID = 'DEFAULT';
 const ITEMS_DISPLAYED = 3;
 
-class ActionsModal extends React.Component {
+class ActionsModal extends mixin(StoreMixin) {
   constructor() {
     super(...arguments);
 
@@ -40,6 +42,7 @@ class ActionsModal extends React.Component {
 
   componentWillUpdate(nextProps, nextState) {
     let {requestsRemaining, requestErrors} = nextState;
+
     if (requestsRemaining === 0 && !requestErrors.length) {
       this.handleButtonCancel();
     }
@@ -128,7 +131,10 @@ class ActionsModal extends React.Component {
 
       // Handle grammar for nth element and concatenate to list
       if (selectedItems.length <= ITEMS_DISPLAYED) {
-        selectedItemsString += `and ${Util.last(selectedItems)[itemID]} `;
+        // SelectedItems may be 0 length and Util.last will retun null
+        if (selectedItems.length > 0) {
+          selectedItemsString += `and ${Util.last(selectedItems)[itemID]} `;
+        }
       } else if (selectedItems.length === ITEMS_DISPLAYED + 1) {
         selectedItemsString += 'and 1 other ';
       } else {
