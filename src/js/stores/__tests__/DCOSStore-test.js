@@ -409,7 +409,7 @@ describe('DCOSStore', function () {
       MesosSummaryStore.__setKeyResponse('states', new SummaryList({
         items: [new StateSummary({
           snapshot: {
-            frameworks: [{id: 'alpha-id', name: 'alpha', bar: 'baz'}]
+            frameworks: [{id: 'alpha-id', name: 'alpha', bar: 'bar'}]
           },
           successful: true
         })]
