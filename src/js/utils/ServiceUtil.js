@@ -390,6 +390,11 @@ const ServiceUtil = {
               let lbPort = parseInt(port.lbPort || 0, 10);
               portMapping.containerPort = lbPort;
 
+              if (networkType === 'bridge') {
+                portMapping.hostPort = port.hostPort;
+                portMapping.servicePort = port.servicePort;
+              }
+
               if (port.loadBalanced === true) {
 
                 if (networkType !== 'bridge') {

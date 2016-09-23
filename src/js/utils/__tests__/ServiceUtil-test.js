@@ -1,5 +1,6 @@
 jest.dontMock('../ServiceUtil');
 jest.dontMock('../../structs/Service');
+jest.dontMock('../../schemas/ServiceSchema');
 jest.dontMock('../../constants/VolumeConstants');
 
 const Application = require('../../structs/Application');
@@ -7,6 +8,7 @@ const ApplicationSpec = require('../../structs/ApplicationSpec');
 const Framework = require('../../structs/Framework');
 const Pod = require('../../structs/Pod');
 const ServiceUtil = require('../ServiceUtil');
+const ServiceSchema = require('../../schemas/ServiceSchema');
 
 describe('ServiceUtil', function () {
   describe('#createServiceFromResponse', function () {
@@ -380,16 +382,93 @@ describe('ServiceUtil', function () {
             .toEqual(1234);
         });
 
-        it('should not add a hostPort when loadBalanced is off', function () {
-          let service = ServiceUtil.createSpecFromFormModel({
-            containerSettings: {image: 'redis'},
+        it('should not remove host port', function () {
+          const definition = {
+            container: {
+              docker: {
+                image: 'docker/image',
+                portMappings: [
+                  {
+                    containerPort: 514,
+                    servicePort: 10000,
+                    hostPort: 5514
+                  }
+                ],
+                network: 'BRIDGE'
+              }
+            }
+          };
+
+          const model = {
+            containerSettings:{
+              forcePullImage: true,
+              image: 'docker/image',
+              parameters: null,
+              privileged: undefined
+            },
             networking: {
               networkType: 'bridge',
-              ports: [{lbPort: 1234}]
+              ports: [{
+                expose: true,
+                lbPort: 514,
+                hostPort: 5514,
+                loadBalanced: undefined,
+                name: undefined,
+                protocol: undefined
+              }]
             }
-          });
-          expect(Object.keys(service.container.docker.portMappings[0]))
-            .not.toContain('hostPort');
+          };
+
+          let spec = ServiceUtil.createSpecFromFormModel(model,
+              ServiceSchema, false, definition);
+
+          expect(spec.getContainerSettings().docker.portMappings[0].hostPort)
+              .toEqual(5514);
+        });
+
+        it('should not remove service port', function () {
+          const definition = {
+            container: {
+              docker: {
+                image: 'docker/image',
+                portMappings: [
+                  {
+                    containerPort: 514,
+                    servicePort: 10000,
+                    hostPort: 5514
+                  }
+                ],
+                network: 'BRIDGE'
+              }
+            }
+          };
+
+          const model = {
+            containerSettings:{
+              forcePullImage: true,
+              image: 'docker/image',
+              parameters: null,
+              privileged: undefined
+            },
+            networking: {
+              networkType: 'bridge',
+              ports: [{
+                expose: true,
+                lbPort: 514,
+                hostPort: 5514,
+                servicePort: 10000,
+                loadBalanced: undefined,
+                name: undefined,
+                protocol: undefined
+              }]
+            }
+          };
+
+          let spec = ServiceUtil.createSpecFromFormModel(model,
+              ServiceSchema, false, definition);
+
+          expect(spec.getContainerSettings().docker.portMappings[0].servicePort)
+              .toEqual(10000);
         });
 
         it('should add a VIP label when loadBalanced is on', function () {

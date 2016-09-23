@@ -79,6 +79,8 @@ const Networking = {
           return {
             lbPort: portMapping.port || portMapping.containerPort,
             name: portMapping.name,
+            hostPort: portMapping.hostPort,
+            servicePort: portMapping.servicePort,
             protocol: portMapping.protocol,
             loadBalanced: portMapping.labels &&
               Object.keys(portMapping.labels).length > 0,
@@ -157,19 +159,30 @@ const Networking = {
 
               return false;
             },
-            formElementClass: {'column-3': false}
+            formElementClass: {'column-2': false}
           },
           name: {
             title: 'Name',
             type: 'string',
-            formElementClass: {'column-3': true}
+            formElementClass: {'column-2': false, 'column-3': true}
           },
           protocol: {
             title: 'Protocol',
             type: 'string',
             fieldType: 'select',
             default: 'tcp',
-            options: ['tcp', 'udp', 'udp,tcp']
+            options: ['tcp', 'udp', 'udp,tcp'],
+            formElementClass: {'column-2': false, 'column-3': true}
+          },
+          hostPort: {
+            title: 'Host Port',
+            type: 'number',
+            formElementClass: {'hidden': true}
+          },
+          servicePort: {
+            title: 'Service Port',
+            type: 'number',
+            formElementClass: {'hidden': true}
           },
           loadBalanced: {
             label: 'Load Balanced',
@@ -177,7 +190,7 @@ const Networking = {
             title: 'Load Balanced',
             type: 'boolean',
             className: 'form-row-element-mixed-label-presence',
-            formElementClass: {'column-3': false}
+            formElementClass: {'column-2': false}
           }
         }
       }
