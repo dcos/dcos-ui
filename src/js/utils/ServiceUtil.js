@@ -368,7 +368,7 @@ const ServiceUtil = {
               if (!['host', 'bridge'].includes(networkType)) {
 
                 if (port.expose) {
-                  portMapping.hostPort = 0;
+                  portMapping.hostPort = port.hostPort || 0;
                 }
                 definition.container.docker.portMappings.push(portMapping);
                 // TODO - Add portDefinition to loadBalanced field
