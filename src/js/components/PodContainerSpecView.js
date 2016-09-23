@@ -75,10 +75,6 @@ class PodContainerSpecView extends React.Component {
   }
 };
 
-PodContainerSpecView.contextTypes = {
-  router: React.PropTypes.func
-};
-
 PodContainerSpecView.propTypes = {
   container: React.PropTypes.object
 };
