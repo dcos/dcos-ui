@@ -1,9 +1,7 @@
 import {Dropdown} from 'reactjs-components';
-import mixin from 'reactjs-mixin';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import React from 'react';
 
-import InternalStorageMixin from '../mixins/InternalStorageMixin';
 import UnitHealthStatus from '../constants/UnitHealthStatus';
 
 const DEFAULT_ITEM = {
@@ -44,6 +42,7 @@ class UnitHealthDropdown extends React.Component {
 
   render() {
     let {className, dropdownMenuClassName, initialID, onHealthSelection} = this.props;
+    let {dropdownItems} = this.state;
 
     return (
       <Dropdown
@@ -51,7 +50,7 @@ class UnitHealthDropdown extends React.Component {
         dropdownMenuClassName={dropdownMenuClassName}
         dropdownMenuListClassName="dropdown-menu-list"
         initialID={initialID}
-        items={this.internalStorage_get().dropdownItems}
+        items={dropdownItems}
         onItemSelection={onHealthSelection}
         ref={(ref) => this.dropdown = ref}
         scrollContainer=".gm-scroll-view"
