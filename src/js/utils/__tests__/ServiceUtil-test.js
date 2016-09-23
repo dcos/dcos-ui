@@ -471,6 +471,56 @@ describe('ServiceUtil', function () {
             .not.toContain('servicePort');
         });
 
+        it('should not overwrite host port', function () {
+          const model = {
+            containerSettings:{
+              forcePullImage: true,
+              image: 'docker/image',
+              parameters: null,
+              privileged: undefined
+            },
+            networking: {
+              networkType: 'user',
+              ports: [{
+                expose: true,
+                lbPort: 514,
+                hostPort: 5514,
+                loadBalanced: true
+              }]
+            }
+          };
+
+          let service = ServiceUtil.createSpecFromFormModel(model);
+
+          expect(service.getContainerSettings().docker.portMappings[0].hostPort)
+              .toEqual(5514);
+        });
+
+        it('should default host port to `0` (zero)', function () {
+          const model = {
+            containerSettings:{
+              forcePullImage: true,
+              image: 'docker/image',
+              parameters: null,
+              privileged: undefined
+            },
+            networking: {
+              networkType: 'user',
+              ports: [{
+                expose: true,
+                lbPort: 514,
+                hostPort: undefined,
+                loadBalanced: true
+              }]
+            }
+          };
+
+          let service = ServiceUtil.createSpecFromFormModel(model);
+
+          expect(service.getContainerSettings().docker.portMappings[0].hostPort)
+              .toEqual(0);
+        });
+
         it('should add a servicePort when loadBalanced is on', function () {
           let service = ServiceUtil.createSpecFromFormModel({
             containerSettings: {image: 'redis'},
