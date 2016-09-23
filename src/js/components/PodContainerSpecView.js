@@ -1,21 +1,75 @@
 import React from 'react';
 
 import DescriptionList from './DescriptionList';
+import EnvironmentList from './EnvironmentList';
 import ServiceConfigUtil from '../utils/ServiceConfigUtil';
 
 class PodContainerSpecView extends React.Component {
-  getGeneralDetails() {
-    let {container} = this.props;
-    let {cpus, mem, disk} = container.resources;
-    let hash = {
-      'Name': container.name,
-      'CPUs': cpus,
-      'Memory (MiB)': mem,
-      'Disk Space (Mib)': disk,
-      'Command': ServiceConfigUtil.getCommandString(container)
+  getArtifactsSection() {
+    let {container: {artifacts=[]}} = this.props;
+
+    if (artifacts.length === 0) {
+      return null;
+    }
+
+    let keysMapping = {
+      uri: 'URI',
+      extract: 'Extract',
+      executable: 'Executable',
+      cache: 'Cache',
+      destPath: 'Destination Path'
     };
 
-    return <DescriptionList hash={hash} />;
+    let nodes = artifacts.map(function (artifact, i) {
+      return (
+        <DescriptionList
+          key={i}
+          hash={artifact}
+          renderKeys={keysMapping} />
+      );
+    });
+
+    return (
+      <div>
+        <h5 className="inverse flush-top">
+          Artifacts
+        </h5>
+        {nodes}
+      </div>
+    );
+  }
+
+  getGeneralDetails() {
+    let hash = Object.assign({}, this.props.container);
+
+    // Handled separately
+    delete hash.endpoints;
+    delete hash.artifacts;
+    delete hash.volumeMounts;
+    delete hash.environment;
+
+    // Unwrap command
+    if (hash.exec) {
+      hash.command = ServiceConfigUtil.getCommandString(hash);
+      delete hash.exec;
+    }
+
+    let keysMapping = {
+      name: 'Name',
+      cpus: 'CPUs',
+      gpus: 'GPUs',
+      mem: 'Memory (MiB)',
+      disk: 'Disk Space (Mib)',
+      command: 'Command',
+      gracePeriodSeconds: 'Grace Period (seconds)',
+      intervalSeconds: 'Interval (seconds)',
+      maxConsecutiveFailures: 'Max Consecutive Failures',
+      timeoutSeconds: 'Timeout (seconds)',
+      delaySeconds: 'Delay (seconds)',
+      killGracePeriodSeconds: 'SIGKILL Grace Period (seconds)'
+    };
+
+    return <DescriptionList hash={hash} renderKeys={keysMapping} />;
   }
 
   getEnvironmentSection() {
@@ -27,8 +81,8 @@ class PodContainerSpecView extends React.Component {
 
     return (
       <div>
-        <h5 className="inverse flush-top">Labels</h5>
-        <DescriptionList hash={container.labels} />
+        <h5 className="inverse flush-top">Environment Variables</h5>
+        <EnvironmentList environment={environment} />
       </div>
     );
   }
@@ -61,6 +115,38 @@ class PodContainerSpecView extends React.Component {
     );
   }
 
+  getVolumesSection() {
+    let {container: {volumeMounts=[]}} = this.props;
+
+    if (volumeMounts.length === 0) {
+      return null;
+    }
+
+    let keysMapping = {
+      name: 'Name',
+      mountPath: 'Mount Path',
+      readOnly: 'Read Only'
+    };
+
+    let nodes = volumeMounts.map(function (volumeMount, i) {
+      return (
+        <DescriptionList
+          key={i}
+          hash={volumeMount}
+          renderKeys={keysMapping} />
+      );
+    });
+
+    return (
+      <div>
+        <h5 className="inverse flush-top">
+          Volume Mounts
+        </h5>
+        {nodes}
+      </div>
+    );
+  }
+
   render() {
     let {container: {name}} = this.props;
 
@@ -70,6 +156,9 @@ class PodContainerSpecView extends React.Component {
           {name}
         </h5>
         {this.getGeneralDetails()}
+        {this.getEnvironmentSection()}
+        {this.getArtifactsSection()}
+        {this.getVolumesSection()}
         {this.getEndpointsSection()}
       </div>
     );
