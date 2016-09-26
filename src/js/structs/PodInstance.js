@@ -6,7 +6,7 @@ import StringUtil from '../utils/StringUtil';
 
 module.exports = class PodInstance extends Item {
   getAgentAddress() {
-    return this.get('agent') || '';
+    return this.get('agentHostname') || '';
   }
 
   getContainers() {
