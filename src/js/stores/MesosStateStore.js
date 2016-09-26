@@ -157,6 +157,19 @@ class MesosStateStore extends GetSetBaseStore {
     return null;
   }
 
+  getNodeFromHostname(hostname) {
+    let nodes = this.get('lastMesosState').slaves;
+    console.log('Looking node with hostname:', hostname, 'in:', nodes);
+
+    if (nodes) {
+      return nodes.find(function (node) {
+        return node.hostname === hostname;
+      });
+    }
+
+    return null;
+  }
+
   getTasksFromNodeID(nodeID) {
     let services = this.get('lastMesosState').frameworks || [];
     let memberTasks = {};
