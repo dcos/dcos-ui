@@ -1,4 +1,5 @@
 import classNames from 'classnames';
+import deepEqual from 'deep-equal';
 import React from 'react';
 import {Link} from 'react-router';
 import {Table} from 'reactjs-components';
@@ -61,6 +62,29 @@ class PodInstancesTable extends React.Component {
     this.forceUpdate();
   }
 
+  componentWillReceiveProps(nextProps) {
+    let {checkedItems} = this.state;
+    let prevInstances = this.props.instances.getItems();
+    let nextInstances = nextProps.instances.getItems();
+    let shouldUpdate = false;
+
+    if (!deepEqual(prevInstances, nextInstances)) {
+      if (Object.keys(checkedItems).length) {
+        this.triggerSelectionChange(checkedItems, nextProps.instances);
+      }
+    }
+  }
+
+  triggerSelectionChange(checkedItems, instances) {
+    let checkedItemInstances = instances.getItems().filter(
+      function (item) {
+        return checkedItems[item.getId()];
+      }
+    );
+    console.log(checkedItemInstances);
+    this.props.onSelectionChange( checkedItemInstances );
+  }
+
   handleItemCheck(idsChecked) {
     let checkedItems = {};
 
@@ -68,6 +92,8 @@ class PodInstancesTable extends React.Component {
       checkedItems[id] = true;
     });
     this.setState({checkedItems});
+
+    this.triggerSelectionChange(checkedItems, this.props.instances);
   }
 
   getColGroup() {
@@ -391,7 +417,7 @@ class PodInstancesTable extends React.Component {
 
     return (
       <ExpandingTable
-        allowMultipleSelect={false}
+        allowMultipleSelect={true}
         className="pod-instances-table expanding-table table table-hover inverse table-borderless-outer table-borderless-inner-columns flush-bottom"
         childRowClassName="expanding-table-child"
         checkedItemsMap={checkedItems}
@@ -414,6 +440,7 @@ PodInstancesTable.defaultProps = {
   filterText: '',
   instances: null,
   inverseStyle: false,
+  onSelectionChange() { },
   pod: null
 };
 
@@ -421,6 +448,7 @@ PodInstancesTable.propTypes = {
   filterText: React.PropTypes.string,
   instances: React.PropTypes.instanceOf(PodInstanceList),
   inverseStyle: React.PropTypes.bool,
+  onSelectionChange: React.PropTypes.func,
   pod: React.PropTypes.instanceOf(Pod).isRequired
 };
 
