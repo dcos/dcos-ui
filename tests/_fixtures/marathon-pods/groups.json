@@ -131,11 +131,8 @@
                   }
                 ],
                 "scaling": {
-                  "fixed": {
-                    "instances": 2
-                  },
                   "kind": "fixed",
-                  "instances": 2
+                  "instances": 10
                 },
                 "scheduling": {
                   "placement": {
@@ -253,9 +250,8 @@
             }
           ],
           "scaling": {
-            "fixed": {
-              "instances": 10
-            }
+            "kind": "fixed",
+            "instances": 10
           },
           "scheduling": {
             "placement": {

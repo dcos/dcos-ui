@@ -7,6 +7,7 @@ import MarathonStore from '../../stores/MarathonStore';
 import Pod from '../../structs/Pod';
 import ServiceTree from '../../structs/ServiceTree';
 import ServiceActionModal from './ServiceActionModal';
+import ServiceSpecUtil from '../../utils/ServiceSpecUtil';
 
 class ServiceSuspendModal extends ServiceActionModal {
   constructor() {
@@ -43,7 +44,10 @@ class ServiceSuspendModal extends ServiceActionModal {
     if (isGroup) {
       MarathonStore.editGroup({id: serviceID, scaleBy: 0}, forceUpdate);
     } else {
-      MarathonStore.editService(service, {instances: 0}, forceUpdate);
+      MarathonStore.editService(service,
+        ServiceSpecUtil.setServiceInstances(service.getSpec(), 0),
+        this.shouldForceUpdate(this.state.errorMsg)
+      );
     }
   }
 
