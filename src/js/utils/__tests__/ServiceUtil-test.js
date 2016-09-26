@@ -1,5 +1,6 @@
 jest.dontMock('../ServiceUtil');
 jest.dontMock('../../structs/Service');
+jest.dontMock('../../schemas/ServiceSchema');
 jest.dontMock('../../constants/VolumeConstants');
 
 const Application = require('../../structs/Application');
@@ -7,6 +8,7 @@ const ApplicationSpec = require('../../structs/ApplicationSpec');
 const Framework = require('../../structs/Framework');
 const Pod = require('../../structs/Pod');
 const ServiceUtil = require('../ServiceUtil');
+const ServiceSchema = require('../../schemas/ServiceSchema');
 
 describe('ServiceUtil', function () {
   describe('#createServiceFromResponse', function () {
@@ -200,15 +202,17 @@ describe('ServiceUtil', function () {
 
       describe('host mode', function () {
 
-        it('should not add a portDefinitions field if no ports were passed in', function () {
-          let service = ServiceUtil.createSpecFromFormModel({
-            networking: {
-              networkType: 'host',
-              ports: []
-            }
-          });
-          expect(service.portDefinitions).not.toBeDefined();
-        });
+        it('should not add a portDefinitions field if no ports were passed in',
+          function () {
+            let service = ServiceUtil.createSpecFromFormModel({
+              networking: {
+                networkType: 'host',
+                ports: []
+              }
+            });
+            expect(service.portDefinitions).not.toBeDefined();
+          }
+        );
 
         it('should convert the supplied network fields', function () {
           let service = ServiceUtil.createSpecFromFormModel({
@@ -241,7 +245,8 @@ describe('ServiceUtil', function () {
               }
             });
             expect(service.portDefinitions[0].port).toEqual(1234);
-          });
+          }
+        );
 
         it('should default the port to 0 when loadBalanced is on', function () {
           let service = ServiceUtil.createSpecFromFormModel({
@@ -280,7 +285,7 @@ describe('ServiceUtil', function () {
             .toEqual({VIP_1: '/foo/bar:4321'});
         });
 
-        it('should not add any port definitions if ports is emoty',
+        it('should not add any port definitions if ports is empty',
           function () {
             let service = ServiceUtil.createSpecFromFormModel({
               networking: {
@@ -309,9 +314,12 @@ describe('ServiceUtil', function () {
           expect(this.service.portDefinitions).toBeDefined();
         });
 
-        it('should not add a portMappings field to the docker definition', function () {
-          expect(this.service.container.docker.portMappings).not.toBeDefined();
-        });
+        it('should not add a portMappings field to the docker definition',
+            function () {
+              expect(this.service.container.docker.portMappings)
+                  .not.toBeDefined();
+            }
+        );
 
         it('sets the docker network property correctly', function () {
           expect(this.service.container.docker.network).toEqual('HOST');
@@ -331,19 +339,23 @@ describe('ServiceUtil', function () {
           });
         });
 
-        it('should not add a portMappings field if no ports were passed in', function () {
-          let service = ServiceUtil.createSpecFromFormModel({
-            containerSettings: {image: 'redis'},
-            networking: {networkType: 'bridge'}
-          });
-          expect(Object.keys(service.container.docker))
-            .not.toContain('portMappings');
-        });
+        it('should not add a portMappings field if no ports were passed in',
+          function () {
+            let service = ServiceUtil.createSpecFromFormModel({
+              containerSettings: {image: 'redis'},
+              networking: {networkType: 'bridge'}
+            });
+            expect(Object.keys(service.container.docker))
+                .not.toContain('portMappings');
+          }
+        );
 
-        it('should not add a portDefinitions field to the app config', function () {
-          expect(Object.keys(this.serviceEmptyPorts))
-            .not.toContain('portDefinitions');
-        });
+        it('should not add a portDefinitions field to the app config',
+            function () {
+              expect(Object.keys(this.serviceEmptyPorts))
+                  .not.toContain('portDefinitions');
+            }
+        );
 
         it('should convert the supplied string fields', function () {
           let service = ServiceUtil.createSpecFromFormModel({
@@ -370,16 +382,93 @@ describe('ServiceUtil', function () {
             .toEqual(1234);
         });
 
-        it('should not add a hostPort when loadBalanced is off', function () {
-          let service = ServiceUtil.createSpecFromFormModel({
-            containerSettings: {image: 'redis'},
+        it('should not remove host port', function () {
+          const definition = {
+            container: {
+              docker: {
+                image: 'docker/image',
+                portMappings: [
+                  {
+                    containerPort: 514,
+                    servicePort: 10000,
+                    hostPort: 5514
+                  }
+                ],
+                network: 'BRIDGE'
+              }
+            }
+          };
+
+          const model = {
+            containerSettings:{
+              forcePullImage: true,
+              image: 'docker/image',
+              parameters: null,
+              privileged: undefined
+            },
             networking: {
               networkType: 'bridge',
-              ports: [{lbPort: 1234}]
+              ports: [{
+                expose: true,
+                lbPort: 514,
+                hostPort: 5514,
+                loadBalanced: undefined,
+                name: undefined,
+                protocol: undefined
+              }]
             }
-          });
-          expect(Object.keys(service.container.docker.portMappings[0]))
-            .not.toContain('hostPort');
+          };
+
+          let spec = ServiceUtil.createSpecFromFormModel(model,
+              ServiceSchema, false, definition);
+
+          expect(spec.getContainerSettings().docker.portMappings[0].hostPort)
+              .toEqual(5514);
+        });
+
+        it('should not remove service port', function () {
+          const definition = {
+            container: {
+              docker: {
+                image: 'docker/image',
+                portMappings: [
+                  {
+                    containerPort: 514,
+                    servicePort: 10000,
+                    hostPort: 5514
+                  }
+                ],
+                network: 'BRIDGE'
+              }
+            }
+          };
+
+          const model = {
+            containerSettings:{
+              forcePullImage: true,
+              image: 'docker/image',
+              parameters: null,
+              privileged: undefined
+            },
+            networking: {
+              networkType: 'bridge',
+              ports: [{
+                expose: true,
+                lbPort: 514,
+                hostPort: 5514,
+                servicePort: 10000,
+                loadBalanced: undefined,
+                name: undefined,
+                protocol: undefined
+              }]
+            }
+          };
+
+          let spec = ServiceUtil.createSpecFromFormModel(model,
+              ServiceSchema, false, definition);
+
+          expect(spec.getContainerSettings().docker.portMappings[0].servicePort)
+              .toEqual(10000);
         });
 
         it('should add a VIP label when loadBalanced is on', function () {
@@ -459,7 +548,21 @@ describe('ServiceUtil', function () {
             .toEqual(1234);
         });
 
-        it('should not add a servicePort when loadBalanced is off', function () {
+        it('should not add a servicePort when loadBalanced is off',
+          function () {
+            let service = ServiceUtil.createSpecFromFormModel({
+              containerSettings: {image: 'redis'},
+              networking: {
+                networkType: 'user',
+                ports: [{lbPort: 1234}]
+              }
+            });
+            expect(Object.keys(service.container.docker.portMappings[0]))
+                .not.toContain('servicePort');
+          }
+        );
+
+        it('should not add a hostPort when loadBalanced is off', function () {
           let service = ServiceUtil.createSpecFromFormModel({
             containerSettings: {image: 'redis'},
             networking: {
@@ -468,7 +571,7 @@ describe('ServiceUtil', function () {
             }
           });
           expect(Object.keys(service.container.docker.portMappings[0]))
-            .not.toContain('servicePort');
+              .not.toContain('hostPort');
         });
 
         it('should add a servicePort when loadBalanced is on', function () {
@@ -495,18 +598,20 @@ describe('ServiceUtil', function () {
             .not.toContain('labels');
         });
 
-        it('should add the appropriate VIP label when loadBalanced is on', function () {
-          let service = ServiceUtil.createSpecFromFormModel({
-            containerSettings: {image: 'redis'},
-            general: {id: '/foo/bar'},
-            networking: {
-              networkType: 'user',
-              ports: [{lbPort: 1234, loadBalanced: true}]
-            }
-          });
-          expect(service.container.docker.portMappings[0].labels)
-            .toEqual({VIP_0: '/foo/bar:1234'});
-        });
+        it('should add the appropriate VIP label when loadBalanced is on',
+          function () {
+            let service = ServiceUtil.createSpecFromFormModel({
+              containerSettings: {image: 'redis'},
+              general: {id: '/foo/bar'},
+              networking: {
+                networkType: 'user',
+                ports: [{lbPort: 1234, loadBalanced: true}]
+              }
+            });
+            expect(service.container.docker.portMappings[0].labels)
+                .toEqual({VIP_0: '/foo/bar:1234'});
+          }
+        );
 
         it('should not add any port definitions if ports is emoty',
           function () {
@@ -693,8 +798,10 @@ describe('ServiceUtil', function () {
       });
 
       it('should convert parameters to an array of objects', function () {
-        expect(this.service.container.docker.parameters[0].key).toEqual('key-a');
-        expect(this.service.container.docker.parameters[0].value).toEqual('value-a');
+        expect(this.service.container.docker.parameters[0].key)
+            .toEqual('key-a');
+        expect(this.service.container.docker.parameters[0].value)
+            .toEqual('value-a');
       });
     });
   });
