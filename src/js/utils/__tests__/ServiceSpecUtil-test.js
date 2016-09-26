@@ -60,11 +60,11 @@ describe('ServiceSpecUtil', function () {
 
     });
 
-    describe('#scaleServiceSpec', function () {
+    describe('#setServiceInstances', function () {
 
       it('should properly operate on PodSpec', function () {
         var spec = new PodSpec({ });
-        var newSpec = ServiceSpecUtil.scaleServiceSpec(spec, 10);
+        var newSpec = ServiceSpecUtil.setServiceInstances(spec, 10);
 
         expect(newSpec instanceof PodSpec).toBeTruthy();
         expect(newSpec.get().scaling).toEqual({
@@ -93,11 +93,11 @@ describe('ServiceSpecUtil', function () {
 
     });
 
-    describe('#scaleServiceSpec', function () {
+    describe('#setServiceInstances', function () {
 
       it('should properly operate on ApplicationSpec', function () {
         var spec = new ApplicationSpec({ });
-        var newSpec = ServiceSpecUtil.scaleServiceSpec(spec, 10);
+        var newSpec = ServiceSpecUtil.setServiceInstances(spec, 10);
 
         expect(newSpec instanceof ApplicationSpec).toBeTruthy();
         expect(newSpec.get()).toEqual({
@@ -125,11 +125,11 @@ describe('ServiceSpecUtil', function () {
 
     });
 
-    describe('#scaleServiceSpec', function () {
+    describe('#setServiceInstances', function () {
 
       it('should properly operate on FrameworkSpec', function () {
         var spec = new FrameworkSpec({ });
-        var newSpec = ServiceSpecUtil.scaleServiceSpec(spec, 10);
+        var newSpec = ServiceSpecUtil.setServiceInstances(spec, 10);
 
         expect(newSpec instanceof FrameworkSpec).toBeTruthy();
         expect(newSpec.get()).toEqual({

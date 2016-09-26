@@ -66,7 +66,7 @@ var ServiceSpecUtil = {
    * @param {number} instancesCount - The new number of instances
    * @returns {PodSpec|ApplicationSpec|FrameworkSpec} - Returns a new instance
    */
-  scaleServiceSpec(spec, instancesCount) {
+  setServiceInstances(spec, instancesCount) {
     if (spec instanceof PodSpec) {
       return ServiceSpecUtil.setPodFixedScaling(spec, instancesCount);
     } else if (spec instanceof FrameworkSpec) {

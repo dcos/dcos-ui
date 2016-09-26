@@ -109,7 +109,7 @@ class ServiceScaleFormModal extends mixin(StoreMixin) {
         });
       } else {
         MarathonStore.editService(service,
-          ServiceSpecUtil.scaleServiceSpec(
+          ServiceSpecUtil.setServiceInstances(
             service.getSpec(),
             parseInt(instances, 10)
           ), this.shouldForceUpdate(this.state.errorMsg));

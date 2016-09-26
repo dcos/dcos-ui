@@ -45,7 +45,7 @@ class ServiceSuspendModal extends ServiceActionModal {
       MarathonStore.editGroup({id: serviceID, scaleBy: 0}, forceUpdate);
     } else {
       MarathonStore.editService(service,
-        ServiceSpecUtil.scaleServiceSpec(service.getSpec(), 0),
+        ServiceSpecUtil.setServiceInstances(service.getSpec(), 0),
         this.shouldForceUpdate(this.state.errorMsg)
       );
     }
