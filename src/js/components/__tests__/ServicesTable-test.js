@@ -65,7 +65,6 @@ describe('ServicesTable', function () {
       expect(ReactDOM.findDOMNode(disksCell).textContent).toEqual('0 B');
     });
 
-
     it('should render sum of resources/stats cpus property', function () {
       const application = new Application({
         healthChecks: [{path: '', protocol: 'HTTP'}],
