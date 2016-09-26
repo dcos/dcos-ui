@@ -476,7 +476,7 @@ class ServiceForm extends SchemaForm {
 }
 
 ServiceForm.defaultProps = {
-  className: 'multiple-form row',
+  className: 'multiple-form',
   defaultTab: '',
   getTriggerSubmit() {},
   onChange() {},

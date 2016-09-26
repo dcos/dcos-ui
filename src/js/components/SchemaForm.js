@@ -392,12 +392,12 @@ class SchemaForm extends mixin(StoreMixin, InternalStorageMixin) {
 
   render() {
     return (
-      <div>
+      <div className="tab-form-wrapper">
         {this.getFormHeader()}
         <TabForm
           defaultTab={this.props.defaultTab}
           definition={this.multipleDefinition}
-          formRowClass="flex-box"
+          formRowClass="flex"
           getTriggerSubmit={this.getTriggerTabFormSubmit}
           onChange={this.handleFormChange}
           onTabClick={this.handleTabClick} />
@@ -407,7 +407,7 @@ class SchemaForm extends mixin(StoreMixin, InternalStorageMixin) {
 }
 
 SchemaForm.defaultProps = {
-  className: 'multiple-form row',
+  className: 'multiple-form',
   getTriggerSubmit() {},
   onChange() {},
   schema: {}

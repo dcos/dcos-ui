@@ -16,18 +16,19 @@ var ErrorModal = React.createClass({
   },
 
   render() {
+    let header = (
+      <h5 className="modal-header-title text-align-center flush-top flush-bottom">
+        Looks Like Something is Wrong
+      </h5>
+    );
+
     return (
       <Modal
-        maxHeightPercentage={0.9}
         modalClass="modal"
         onClose={this.onClose}
         open={this.props.open}
-        showCloseButton={false}
         showHeader={true}
-        showFooter={false}
-        subHeader=""
-        titleClass="modal-header-title text-align-center flush-top flush-bottom"
-        titleText="Looks Like Something is Wrong">
+        header={header}>
         {this.props.errorMsg}
       </Modal>
     );

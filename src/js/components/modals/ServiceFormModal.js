@@ -445,7 +445,7 @@ class ServiceFormModal extends mixin(StoreMixin) {
 
   getFooter() {
     let {pendingRequest} = this.state;
-    let deployButtonClassNames = classNames('button button-large flush-bottom',
+    let deployButtonClassNames = classNames('button button-large',
       {
         'button-success': !pendingRequest,
         'disabled': pendingRequest
@@ -455,7 +455,7 @@ class ServiceFormModal extends mixin(StoreMixin) {
     return (
       <div className="button-collection flush-bottom">
         <button
-          className="button button-large flush-top flush-bottom"
+          className="button button-large"
           onClick={this.handleCancel}>
           Cancel
         </button>
@@ -525,7 +525,7 @@ class ServiceFormModal extends mixin(StoreMixin) {
   }
 
   getToggleButton() {
-    let classSet = 'modal-form-title-label';
+    let classSet = 'modal-form-title-label flush-bottom';
     let {jsonLockReason} = this.state;
 
     if (jsonLockReason) {
@@ -534,7 +534,7 @@ class ServiceFormModal extends mixin(StoreMixin) {
 
     let toggleButton = (<ToggleButton
       className={classSet}
-      checkboxClassName="modal-form-title-toggle-button toggle-button"
+      checkboxClassName="toggle-button"
       checked={this.state.jsonMode}
       onChange={this.handleJSONToggle}>
       JSON mode
@@ -556,18 +556,18 @@ class ServiceFormModal extends mixin(StoreMixin) {
   }
 
   render() {
-    let titleText = 'Deploy New Service';
+    let headerText = 'Deploy New Service';
 
     if (this.props.isEdit) {
-      titleText = 'Edit Service';
+      headerText = 'Edit Service';
     }
 
-    let title = (
-      <div>
+    let header = (
+      <div className="modal-header-title">
         <div className="header-flex">
           <div className="header-left">
             <span className="h4 flush-top flush-bottom text-color-neutral">
-              {titleText}
+              {headerText}
             </span>
           </div>
           <div className="header-right">
@@ -583,17 +583,14 @@ class ServiceFormModal extends mixin(StoreMixin) {
     return (
       <Modal
         backdropClass="modal-backdrop default-cursor"
-        maxHeightPercentage={.9}
-        bodyClass=""
         modalWrapperClass="multiple-form-modal modal-form"
         open={this.props.open}
-        showCloseButton={false}
         showHeader={true}
         footer={this.getFooter()}
-        scrollContainerClass=""
-        titleText={title}
-        titleClass="modal-header-title flush-top flush-bottom"
-        showFooter={true}>
+        header={header}
+        scrollContainerClass="multiple-form-modal-body"
+        showFooter={true}
+        useGemini={false}>
         {this.getModalContents()}
       </Modal>
     );

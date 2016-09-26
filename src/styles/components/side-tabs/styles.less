@@ -1,15 +1,33 @@
 // TODO: Audit the naming of this.
 & when (@side-tabs-enabled) {
 
-  .sidebar-tabs {
+  .multiple-form-modal-sidebar-tabs {
     padding-top: @base-spacing-unit * 0.5;
 
-    .sidebar-menu-item {
+    .multiple-form-modal-sidebar-menu {
+
+      &.is-hidden {
+        display: none;
+      }
+    }
+
+    .multiple-form-modal-sidebar-menu-item {
       color: color-lighten(@neutral, 50);
+      display: block;
+      font-size: 1.125rem;
       margin-bottom: @base-spacing-unit * 0.15;
-      padding-left: @base-spacing-unit;
-      padding-right: @base-spacing-unit * 0.5;
+      padding: @base-spacing-unit * 0.3 @base-spacing-unit * 1.5 @base-spacing-unit * 0.3 @base-spacing-unit;
       position: relative;
+
+      &:hover {
+        color: color-lighten(@neutral, 30);
+        text-decoration: none;
+      }
+
+      &:active {
+        color: color-lighten(@neutral, 50);
+        text-decoration: none;
+      }
 
       &.has-errors {
         background-color: color-lighten(@red, 90);
@@ -31,50 +49,8 @@
         }
       }
 
-      a {
-        color: color-lighten(@neutral, 50);
-        display: block;
-        padding-bottom: (@base-spacing-unit * 0.3);
-        padding-right: @base-spacing-unit;
-        padding-top: (@base-spacing-unit * 0.3);
-
-        &:hover {
-          color: color-lighten(@neutral, 30);
-          text-decoration: none;
-        }
-
-        &:active {
-          color: color-lighten(@neutral, 50);
-          text-decoration: none;
-        }
-      }
-
-      &.selection-header {
-
-        a {
-          color: @purple;
-        }
-      }
-    }
-  }
-}
-
-& when (@side-tabs-enabled) and (@layout-screen-small-enabled) {
-
-  @media (min-width: @layout-screen-small-min-width) {
-
-    .sidebar-tabs {
-
-      // TODO: Audit the need for this.
-      .sidebar-menu-item {
-        color: @heading-h3-color;
-        font-family: @heading-h3-font-family;
-        font-size: @heading-h3-font-size;
-        font-style: @heading-h3-font-style;
-        font-weight: @heading-h3-font-weight;
-        line-height: @heading-h3-line-height;
-        text-shadow: @heading-h3-text-shadow;
-        text-transform: @heading-h3-text-transform;
+      &.multiple-form-modal-sidebar-collapsed-header {
+        color: @purple;
       }
     }
   }
@@ -84,16 +60,26 @@
 
   @media (min-width: @layout-screen-medium-min-width) {
 
-    .sidebar-tabs {
+    .multiple-form-modal-sidebar-tabs {
 
-      .sidebar-menu-item {
+      .multiple-form-modal-sidebar-menu {
+
+        // We want to show the sidebar menu at this screen size, even if it has
+        // been hidden by the dropdown.
+        &.is-hidden {
+          display: block;
+        }
+      }
+
+      .multiple-form-modal-sidebar-menu-item {
+
+        &.multiple-form-modal-sidebar-collapsed-header {
+          display: none;
+        }
 
         &.selected {
           border-right: 3px solid @purple;
-
-          a {
-            color: @purple;
-          }
+          color: @purple;
         }
       }
     }
