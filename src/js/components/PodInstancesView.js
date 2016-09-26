@@ -5,9 +5,11 @@ import PodInstancesTable from './PodInstancesTable';
 import PodInstanceStatus from '../constants/PodInstanceStatus';
 import PodUtil from '../utils/PodUtil';
 import PodViewFilter from './PodViewFilter';
+import FilterHeadline from './FilterHeadline';
 
 const METHODS_TO_BIND = [
-  'handleFilterChange'
+  'handleFilterChange',
+  'handleFilterReset'
 ];
 
 class PodInstancesView extends React.Component {
@@ -49,6 +51,15 @@ class PodInstancesView extends React.Component {
     this.setState({filter});
   }
 
+  handleFilterReset() {
+    this.setState({
+      filter: {
+        text: '',
+        status: 'all'
+      }
+    });
+  }
+
   render() {
     var {pod} = this.props;
     var {filter} = this.state;
@@ -71,6 +82,14 @@ class PodInstancesView extends React.Component {
 
     return (
       <div>
+        <FilterHeadline
+          currentLength={filteredItems.getItems().length}
+          inverseStyle={true}
+          isFiltering={filter.text || (filter.status !== 'all')}
+          name="Pod"
+          onReset={this.handleFilterReset}
+          totalLength={allItems.getItems().length}
+          />
         <PodViewFilter
           filter={filter}
           inverseStyle={true}
