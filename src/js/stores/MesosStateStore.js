@@ -159,7 +159,6 @@ class MesosStateStore extends GetSetBaseStore {
 
   getNodeFromHostname(hostname) {
     let nodes = this.get('lastMesosState').slaves;
-    console.log('Looking node with hostname:', hostname, 'in:', nodes);
 
     if (nodes) {
       return nodes.find(function (node) {
