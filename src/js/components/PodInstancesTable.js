@@ -66,7 +66,10 @@ class PodInstancesTable extends React.Component {
     let {checkedItems} = this.state;
     let prevInstances = this.props.instances.getItems();
     let nextInstances = nextProps.instances.getItems();
-    let shouldUpdate = false;
+
+    // When the `instances` property is changed and we have selected
+    // items, re-trigger selection change in order to remove checked
+    // entries that are no longer preset.
 
     if (!deepEqual(prevInstances, nextInstances)) {
       if (Object.keys(checkedItems).length) {
