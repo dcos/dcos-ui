@@ -17,6 +17,10 @@ module.exports = class PodSpec extends ServiceSpec {
     return this.getContainers().length;
   }
 
+  getEnvironment() {
+    return this.get('environment') || {};
+  }
+
   getLabels() {
     return this.get('labels') || {};
   }
@@ -37,6 +41,10 @@ module.exports = class PodSpec extends ServiceSpec {
     });
   }
 
+  getScaling() {
+    return this.get('scaling') || {};
+  }
+
   getScalingInstances() {
     let scaling = this.get('scaling') || {};
     if (!scaling.fixed) {
@@ -48,7 +56,19 @@ module.exports = class PodSpec extends ServiceSpec {
     return scaling.fixed.instances;
   }
 
+  getSecrets() {
+    return this.get('secrets') || {};
+  }
+
   getVersion() {
-    return this.get('version');
+    return this.get('version') || '';
+  }
+
+  getVolumes() {
+    return this.get('volumes') || [];
+  }
+
+  getUser() {
+    return this.get('user') || '';
   }
 };

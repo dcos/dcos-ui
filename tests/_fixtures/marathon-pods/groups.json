@@ -72,6 +72,13 @@
               "spec": {
                 "id": "/some/group-with-pods/podEFGH",
                 "version": "2016-08-29T01:01:01.001",
+                "user": "user_name",
+                "environment": {
+                  "FOO": "bar",
+                  "SECRET": {
+                    "secret": "name_of_the_secret"
+                  }
+                },
                 "containers": [
                   {
                     "name": "nginx",
@@ -106,10 +113,29 @@
                     "resources": { "cpus": 0.5, "mem": 64 }
                   }
                 ],
+                "secrets": {
+                  "secret_1": {
+                    "source": "secret_source"
+                  }
+                },
+                "labels": {
+                  "label_1": "value"
+                },
+                "volumes": [
+                  {
+                    "name": "volume_1",
+                    "host": "/mnt/volume_1"
+                  },
+                  {
+                    "name": "volume_2"
+                  }
+                ],
                 "scaling": {
                   "fixed": {
                     "instances": 2
-                  }
+                  },
+                  "kind": "fixed",
+                  "instances": 2
                 },
                 "scheduling": {
                   "placement": {
