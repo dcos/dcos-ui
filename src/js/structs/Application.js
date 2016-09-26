@@ -52,7 +52,7 @@ module.exports = class Application extends Service {
    * @override
    */
   getInstancesCount() {
-    return this.get('instances');
+    return this.get('instances') || 0;
   }
 
   /**
