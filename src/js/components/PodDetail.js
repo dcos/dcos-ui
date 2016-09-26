@@ -2,16 +2,16 @@ import mixin from 'reactjs-mixin';
 import React from 'react';
 
 import Breadcrumbs from './Breadcrumbs';
+import Pod from '../structs/Pod';
+import PodActionItem from '../constants/PodActionItem';
+import PodConfigurationTabView from './PodConfigurationTabView';
+import PodDebugTabView from './PodDebugTabView';
+import PodHeader from './PodHeader';
+import PodInstancesView from './PodInstancesView';
 import ServiceDestroyModal from './modals/ServiceDestroyModal';
 import ServiceFormModal from './modals/ServiceFormModal';
 import ServiceScaleFormModal from './modals/ServiceScaleFormModal';
 import ServiceSuspendModal from './modals/ServiceSuspendModal';
-import Pod from '../structs/Pod';
-import PodActionItem from '../constants/PodActionItem';
-import PodDebugTabView from './PodDebugTabView';
-import PodInstancesView from './PodInstancesView';
-import PodConfigurationTabView from './PodConfigurationTabView';
-import PodHeader from './PodHeader';
 import TabsMixin from '../mixins/TabsMixin';
 
 const METHODS_TO_BIND = [
