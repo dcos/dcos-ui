@@ -21,7 +21,7 @@ describe('PodInstance', function () {
   describe('#getAgentAddress', function () {
 
     it('should return the correct value', function () {
-      let podInstance = new PodInstance({ agent: 'agent-1234' });
+      let podInstance = new PodInstance({ agentHostname: 'agent-1234' });
 
       expect(podInstance.getAgentAddress()).toEqual('agent-1234');
     });
