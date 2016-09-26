@@ -107,16 +107,12 @@ class ServiceScaleFormModal extends mixin(StoreMixin) {
           id: service.id,
           scaleBy: parseInt(instances, 10)
         });
-      } else if (service instanceof Pod) {
+      } else {
         MarathonStore.editService(service,
-          ServiceSpecUtil.setFixedScaling(
+          ServiceSpecUtil.scaleServiceSpec(
             service.getSpec(),
             parseInt(instances, 10)
           ), this.shouldForceUpdate(this.state.errorMsg));
-      } else {
-        MarathonStore.editService(service, {
-          instances: parseInt(instances, 10)
-        }, this.shouldForceUpdate(this.state.errorMsg));
       }
     });
   }

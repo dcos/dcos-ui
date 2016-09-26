@@ -1,6 +1,8 @@
 jest.dontMock('../ServiceSpecUtil');
 jest.dontMock('../../structs/PodSpec');
 
+const ApplicationSpec = require('../../structs/ApplicationSpec');
+const FrameworkSpec = require('../../structs/FrameworkSpec');
 const PodSpec = require('../../structs/PodSpec');
 const ServiceSpecUtil = require('../ServiceSpecUtil');
 
@@ -8,12 +10,14 @@ describe('ServiceSpecUtil', function () {
 
   describe('Pods', function () {
 
-    describe('#setFixedScaling', function () {
+    describe('#setPodFixedScaling', function () {
 
       it('should properly create missing sections', function () {
         var spec = new PodSpec({ });
-        var newSpec = ServiceSpecUtil.setFixedScaling(spec, 10);
-        expect(newSpec.scaling).toEqual({
+        var newSpec = ServiceSpecUtil.setPodFixedScaling(spec, 10);
+
+        expect(newSpec instanceof PodSpec).toBeTruthy();
+        expect(newSpec.get().scaling).toEqual({
           kind: 'fixed',
           instances: 10
         });
@@ -27,8 +31,10 @@ describe('ServiceSpecUtil', function () {
             maxInstances: 50
           }
         });
-        var newSpec = ServiceSpecUtil.setFixedScaling(spec, 10);
-        expect(newSpec.scaling).toEqual({
+        var newSpec = ServiceSpecUtil.setPodFixedScaling(spec, 10);
+
+        expect(newSpec instanceof PodSpec).toBeTruthy();
+        expect(newSpec.get().scaling).toEqual({
           kind: 'fixed',
           instances: 10,
           maxInstances: 50
@@ -43,9 +49,90 @@ describe('ServiceSpecUtil', function () {
             miscFieldThatWillBeDropped: ':('
           }
         });
-        var newSpec = ServiceSpecUtil.setFixedScaling(spec, 10);
-        expect(newSpec.scaling).toEqual({
+        var newSpec = ServiceSpecUtil.setPodFixedScaling(spec, 10);
+
+        expect(newSpec instanceof PodSpec).toBeTruthy();
+        expect(newSpec.get().scaling).toEqual({
           kind: 'fixed',
+          instances: 10
+        });
+      });
+
+    });
+
+    describe('#scaleServiceSpec', function () {
+
+      it('should properly operate on PodSpec', function () {
+        var spec = new PodSpec({ });
+        var newSpec = ServiceSpecUtil.scaleServiceSpec(spec, 10);
+
+        expect(newSpec instanceof PodSpec).toBeTruthy();
+        expect(newSpec.get().scaling).toEqual({
+          kind: 'fixed',
+          instances: 10
+        });
+      });
+
+    });
+
+  });
+
+  describe('Application', function () {
+
+    describe('#setApplicationInstances', function () {
+
+      it('should properly create missing sections', function () {
+        var spec = new ApplicationSpec({ });
+        var newSpec = ServiceSpecUtil.setApplicationInstances(spec, 10);
+
+        expect(newSpec instanceof ApplicationSpec).toBeTruthy();
+        expect(newSpec.get()).toEqual({
+          instances: 10
+        });
+      });
+
+    });
+
+    describe('#scaleServiceSpec', function () {
+
+      it('should properly operate on ApplicationSpec', function () {
+        var spec = new ApplicationSpec({ });
+        var newSpec = ServiceSpecUtil.scaleServiceSpec(spec, 10);
+
+        expect(newSpec instanceof ApplicationSpec).toBeTruthy();
+        expect(newSpec.get()).toEqual({
+          instances: 10
+        });
+      });
+
+    });
+
+  });
+
+  describe('Framework', function () {
+
+    describe('#setFrameworkInstances', function () {
+
+      it('should properly create missing sections', function () {
+        var spec = new FrameworkSpec({ });
+        var newSpec = ServiceSpecUtil.setFrameworkInstances(spec, 10);
+
+        expect(newSpec instanceof FrameworkSpec).toBeTruthy();
+        expect(newSpec.get()).toEqual({
+          instances: 10
+        });
+      });
+
+    });
+
+    describe('#scaleServiceSpec', function () {
+
+      it('should properly operate on FrameworkSpec', function () {
+        var spec = new FrameworkSpec({ });
+        var newSpec = ServiceSpecUtil.scaleServiceSpec(spec, 10);
+
+        expect(newSpec instanceof FrameworkSpec).toBeTruthy();
+        expect(newSpec.get()).toEqual({
           instances: 10
         });
       });

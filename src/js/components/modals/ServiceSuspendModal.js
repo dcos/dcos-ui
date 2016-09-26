@@ -38,18 +38,16 @@ class ServiceSuspendModal extends ServiceActionModal {
 
     let {service} = this.props;
     let isGroup = service instanceof ServiceTree;
-    let isPod = service instanceof Pod;
     let serviceID = service.getId();
     let forceUpdate = this.shouldForceUpdate(this.state.errorMsg);
 
     if (isGroup) {
       MarathonStore.editGroup({id: serviceID, scaleBy: 0}, forceUpdate);
-    } else if (isPod) {
-      MarathonStore.editService(service,
-        ServiceSpecUtil.setFixedScaling(service.getSpec(), 0),
-        forceUpdate );
     } else {
-      MarathonStore.editService(service, {instances: 0}, forceUpdate);
+      MarathonStore.editService(service,
+        ServiceSpecUtil.scaleServiceSpec(service.getSpec(), 0),
+        this.shouldForceUpdate(this.state.errorMsg)
+      );
     }
   }
 
