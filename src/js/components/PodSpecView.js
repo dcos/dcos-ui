@@ -46,8 +46,7 @@ class PodSpecView extends React.Component {
   }
 
   getScalingDetails() {
-    let {spec} = this.props;
-    let scaling = spec.getScaling();
+    let scaling = this.props.spec.getScaling();
 
     if (Object.keys(scaling).length === 0) {
       return null;
@@ -87,8 +86,7 @@ class PodSpecView extends React.Component {
   }
 
   getLabelsDetails() {
-    let {spec} = this.props;
-    let labels = spec.getLabels();
+    let labels = this.props.spec.getLabels();
 
     if (Object.keys(labels).length === 0) {
       return null;
@@ -124,8 +122,7 @@ class PodSpecView extends React.Component {
   }
 
   getVolumesDetails() {
-    let {spec} = this.props;
-    let volumes = spec.getVolumes().map(function (volume) {
+    let volumes = this.props.spec.getVolumes().map(function (volume) {
       return {
         [volume.name]: volume.host || '-'
       };
