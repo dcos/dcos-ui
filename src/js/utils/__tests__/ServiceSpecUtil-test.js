@@ -10,11 +10,11 @@ describe('ServiceSpecUtil', function () {
 
   describe('Pods', function () {
 
-    describe('#setPodFixedScaling', function () {
+    describe('#setPodInstances', function () {
 
       it('should properly create missing sections', function () {
         var spec = new PodSpec({ });
-        var newSpec = ServiceSpecUtil.setPodFixedScaling(spec, 10);
+        var newSpec = ServiceSpecUtil.setPodInstances(spec, 10);
 
         expect(newSpec instanceof PodSpec).toBeTruthy();
         expect(newSpec.get().scaling).toEqual({
@@ -31,7 +31,7 @@ describe('ServiceSpecUtil', function () {
             maxInstances: 50
           }
         });
-        var newSpec = ServiceSpecUtil.setPodFixedScaling(spec, 10);
+        var newSpec = ServiceSpecUtil.setPodInstances(spec, 10);
 
         expect(newSpec instanceof PodSpec).toBeTruthy();
         expect(newSpec.get().scaling).toEqual({
@@ -49,7 +49,7 @@ describe('ServiceSpecUtil', function () {
             miscFieldThatWillBeDropped: ':('
           }
         });
-        var newSpec = ServiceSpecUtil.setPodFixedScaling(spec, 10);
+        var newSpec = ServiceSpecUtil.setPodInstances(spec, 10);
 
         expect(newSpec instanceof PodSpec).toBeTruthy();
         expect(newSpec.get().scaling).toEqual({

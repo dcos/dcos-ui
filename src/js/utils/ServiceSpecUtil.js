@@ -14,7 +14,7 @@ var ServiceSpecUtil = {
    * @param {number} instancesCount - The new number of instances
    * @returns {PodSpec} - Returns a new PodSpec instance
    */
-  setPodFixedScaling(spec, instancesCount) {
+  setPodInstances(spec, instancesCount) {
     var newSpec = Util.deepCopy(spec.get());
     if (!newSpec.scaling) {
       newSpec.scaling = {};
@@ -68,7 +68,7 @@ var ServiceSpecUtil = {
    */
   setServiceInstances(spec, instancesCount) {
     if (spec instanceof PodSpec) {
-      return ServiceSpecUtil.setPodFixedScaling(spec, instancesCount);
+      return ServiceSpecUtil.setPodInstances(spec, instancesCount);
     } else if (spec instanceof FrameworkSpec) {
       return ServiceSpecUtil.setFrameworkInstances(spec, instancesCount);
     } else if (spec instanceof ApplicationSpec) {
