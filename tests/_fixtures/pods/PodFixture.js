@@ -34,7 +34,7 @@ module.exports = {
             'hostPort': 0,
             'protocol': 'http',
             'labels': {
-              'VIP0': '1.2.3.4:80'
+              'VIP_0': '1.2.3.4:80'
             }
           }
         ],
@@ -50,7 +50,7 @@ module.exports = {
             'hostPort': 0,
             'protocol': 'http',
             'labels': {
-              'VIP0': '1.2.3.4:80'
+              'VIP_0': '1.2.3.4:80'
             }
           }
         ],

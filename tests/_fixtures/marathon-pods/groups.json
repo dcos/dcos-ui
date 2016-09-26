@@ -90,7 +90,7 @@
                         "hostPort": 0,
                         "protocol": "http",
                         "labels": [
-                          { "VIP0": "1.2.3.4:80" }
+                          { "VIP_0": "1.2.3.4:80" }
                         ]
                       }
                     ],
@@ -106,7 +106,7 @@
                         "hostPort": 0,
                         "protocol": "http",
                         "labels": [
-                          { "VIP0": "1.2.3.5:80" }
+                          { "VIP_0": "1.2.3.5:80" }
                         ]
                       }
                     ],
@@ -245,7 +245,7 @@
                   "hostPort": 0,
                   "protocol": "http",
                   "labels": [
-                    { "VIP0": "1.2.3.4:80" }
+                    { "VIP_0": "1.2.3.4:80" }
                   ]
                 }
               ],
