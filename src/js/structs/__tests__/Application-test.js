@@ -145,6 +145,12 @@ describe('Application', function () {
       expect(service.getInstancesCount()).toEqual(1);
     });
 
+    it('returns 0 instances if instances is not present', function () {
+      let service = new Application({});
+
+      expect(service.getInstancesCount()).toEqual(0);
+    });
+
   });
 
   describe('#getLabels', function () {

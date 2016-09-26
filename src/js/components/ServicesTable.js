@@ -304,9 +304,13 @@ var ServicesTable = React.createClass({
   },
 
   renderStats(prop, service) {
+    let instancesCount = service.getInstancesCount();
+    let resource = service.getResources()[prop];
+
+    let value = resource * instancesCount;
     return (
       <span>
-        {Units.formatResource(prop, service.getResources()[prop])}
+        {Units.formatResource(prop, value)}
       </span>
     );
   },
