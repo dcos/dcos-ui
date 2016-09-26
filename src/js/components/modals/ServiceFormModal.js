@@ -230,7 +230,7 @@ class ServiceFormModal extends mixin(StoreMixin) {
         model,
         ServiceSchema,
         this.props.isEdit,
-        this.props.service.getSpec().get() // Work on the original service spec
+        serviceSpec.get()
       );
     }
 
