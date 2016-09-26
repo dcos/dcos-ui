@@ -32,17 +32,15 @@
 @import 'variables/variables-z-index.less';
 
 /*
- * Utilities
- */
-
-// @import 'utilities/responsive-utilities.less';
-
-/*
  * Layout
  */
 
 @import 'layout/variables.less';
 @import 'layout/styles.less';
+
+// Alignment Utilities
+
+@import 'layout/alignment-utilities/styles.less';
 
 // Header
 
@@ -61,9 +59,14 @@
 
 @import 'layout/page-body/styles.less';
 
-// @import 'layout/iframes.less';
+// Iframes
+
+@import 'layout/iframes/styles.less';
+
+// Responsive Utilities
+
+@import 'layout/responsive-utilities/styles.less';
 // @import 'layout/media-object.less';
-// @import 'layout/modal.less';
 // @import 'layout/overlay.less';
 
 /*
@@ -224,15 +227,30 @@
 @import 'components/log-view/variables.less';
 @import 'components/log-view/styles.less';
 
-// Login Modal
-
-@import 'components/login-modal/variables.less';
-@import 'components/login-modal/styles.less';
-
 // Media
 
 @import 'components/media/variables.less';
 @import 'components/media/styles.less';
+
+// Modal
+
+@import 'components/modal/variables.less';
+@import 'components/modal/styles.less';
+
+// Login Modal
+
+@import 'components/modal/login/variables.less';
+@import 'components/modal/login/styles.less';
+
+// Image Viewer Modal
+
+@import 'components/modal/image-viewer/variables.less';
+@import 'components/modal/image-viewer/styles.less';
+
+// Install Package Modal
+
+@import 'components/modal/install-package/variables.less';
+@import 'components/modal/install-package/styles.less';
 
 // Multiple Form
 
@@ -340,7 +358,14 @@
 
 @import 'views/dashboard/variables.less';
 @import 'views/dashboard/styles.less';
+
+// Layout
+
 @import 'views/layout/container/styles.less';
 @import 'views/layout/flex/styles.less';
 @import 'views/layout/divider/styles.less';
-@import 'views/layout/responsive-utilities/styles.less';
+
+// Packages
+
+@import 'views/packages/variables.less';
+@import 'views/packages/styles.less';

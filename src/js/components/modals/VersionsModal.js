@@ -27,18 +27,19 @@ var VersionsModal = React.createClass({
   },
 
   render() {
+    let header = (
+      <h5 configlassName="modal-header-title text-align-center flush-top flush-bottom">
+        {Config.productName} Info
+      </h5>
+    );
+
     return (
       <Modal
-        maxHeightPercentage={0.9}
         onClose={this.onClose}
         open={this.props.open}
-        showCloseButton={false}
         showHeader={true}
-        showFooter={false}
-        size="large"
-        titleClass="modal-header-title text-align-center flush-top
-          flush-bottom"
-        titleText={`${Config.productName} Info`}>
+        header={header}
+        size="large">
         <ClickToSelect>
           {this.getContent()}
         </ClickToSelect>

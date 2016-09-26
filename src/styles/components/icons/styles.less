@@ -89,6 +89,11 @@
         color: color-lighten(@neutral, 70%);
       }
     }
+
+    .button &,
+    button & {
+      flex: 0 0 auto;
+    }
   }
 
   & when (@icon-tiny-enabled) {
@@ -102,40 +107,40 @@
   & when (@icon-mini-enabled) {
 
     .icon.icon-mini {
-      max-height: @icon-mini-height;
-      max-width: @icon-mini-width;
+      height: @icon-mini-height;
+      width: @icon-mini-width;
     }
   }
 
   & when (@icon-small-enabled) {
 
     .icon.icon-small {
-      max-height: @icon-small-height;
-      max-width: @icon-small-width;
+      height: @icon-small-height;
+      width: @icon-small-width;
     }
   }
 
   & when (@icon-medium-enabled) {
 
     .icon.icon-medium {
-      max-height: @icon-medium-height;
-      max-width: @icon-medium-width;
+      height: @icon-medium-height;
+      width: @icon-medium-width;
     }
   }
 
   & when (@icon-large-enabled) {
 
     .icon.icon-large {
-      max-height: @icon-large-height;
-      max-width: @icon-large-width;
+      height: @icon-large-height;
+      width: @icon-large-width;
     }
   }
 
   & when (@icon-jumbo-enabled) {
 
     .icon.icon-jumbo {
-      max-height: @icon-jumbo-height;
-      max-width: @icon-jumbo-width;
+      height: @icon-jumbo-height;
+      width: @icon-jumbo-width;
     }
   }
 

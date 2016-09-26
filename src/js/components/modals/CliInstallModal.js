@@ -166,19 +166,18 @@ class CliInstallModal extends React.Component {
       'flush-bottom': !subHeaderContent
     });
 
+    let header = <h5 className={titleClass}>{title}</h5>;
+
     return (
       <Modal
         footer={footer}
-        maxHeightPercentage={0.9}
         modalClass="modal"
         onClose={this.onClose}
         open={open}
-        showCloseButton={false}
         showHeader={true}
         showFooter={showFooter}
         subHeader={this.getSubHeader()}
-        titleClass={titleClass}
-        titleText={title}>
+        header={header}>
         {this.getContent()}
       </Modal>
     );

@@ -1,0 +1,13 @@
+& when (@packages-view-enabled) {
+
+  // Remove the bottom margin on the last element in the package notes.
+  .install-package-modal-package-notes {
+
+    & > * {
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+}

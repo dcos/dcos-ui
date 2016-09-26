@@ -1,0 +1,176 @@
+& when (@image-viewer-modal-enabled) {
+
+  .modal-image-viewer {
+    background: transparent;
+    max-width: 100%;
+    overflow: visible;
+    user-select: none;
+    width: 100%;
+
+    .modal-content {
+      background: transparent;
+      border-radius: 0;
+      overflow: hidden;
+    }
+
+    .modal-header {
+      background: transparent;
+      border-radius: 0;
+      padding: 0;
+    }
+
+    .modal-footer {
+      border-radius: 0;
+      padding: 0;
+      position: static;
+    }
+
+    .fill-image {
+      display: block;
+      height: auto;
+      width: 100%;
+    }
+  }
+
+  .modal-image-viewer-arrow-container {
+    background: linear-gradient(to right, #000, fade(#000, 0%) 75%);
+    color: fade(@white, 60%);
+    display: block;
+    height: 100%;
+    left: -25%;
+    position: absolute;
+    top: 0;
+    width: 50%;
+
+    &:hover {
+      color: @white;
+    }
+
+    .arrow {
+      left: 50%;
+      position: absolute;
+      top: 50%;
+    }
+
+    &.forward {
+      background: linear-gradient(to left, #000, fade(#000, 0%) 75%);
+      left: auto;
+      right: -25%;
+
+      .arrow {
+        left: auto;
+        right: 50%;
+      }
+    }
+  }
+}
+
+& when (@layout-screen-small-enabled) {
+
+  @media (max-width: @layout-screen-small-max-width) {
+
+    .modal-close {
+      display: none;
+    }
+  }
+
+  @media (min-width: @layout-screen-small-min-width) {
+
+    .modal-image-viewer {
+      max-height: 80%;
+      max-width: 80%;
+      min-width: @modal-width-screen-small;
+      width: auto;
+    }
+
+    .modal-image-viewer-arrow-container {
+      background: none;
+
+      .arrow {
+        left: auto;
+        right: calc(~'50% + @{base-spacing-unit-screen-small}');
+      }
+
+      &.forward {
+        background: none;
+
+        .arrow {
+          left: calc(~'50% + @{base-spacing-unit-screen-small}');
+          right: auto;
+        }
+      }
+    }
+  }
+}
+
+& when (@layout-screen-medium-enabled) {
+
+  @media (min-width: @layout-screen-medium-min-width) {
+
+    .modal-image-viewer {
+      min-width: @modal-width-screen-medium;
+    }
+
+    .modal-image-viewer-arrow-container {
+
+      .arrow {
+        right: calc(~'50% + @{base-spacing-unit-screen-medium}');
+      }
+
+      &.forward {
+
+        .arrow {
+          left: calc(~'50% + @{base-spacing-unit-screen-medium}');
+        }
+      }
+    }
+  }
+}
+
+& when (@layout-screen-large-enabled) {
+
+  @media (min-width: @layout-screen-large-min-width) {
+
+    .modal-image-viewer {
+      min-width: @modal-width-screen-large;
+    }
+
+    .modal-image-viewer-arrow-container {
+
+      .arrow {
+        right: calc(~'50% + @{base-spacing-unit-screen-large}');
+      }
+
+      &.forward {
+
+        .arrow {
+          left: calc(~'50% + @{base-spacing-unit-screen-large}');
+        }
+      }
+    }
+  }
+}
+
+& when (@layout-screen-jumbo-enabled) {
+
+  @media (min-width: @layout-screen-jumbo-min-width) {
+
+    .modal-image-viewer {
+      min-width: @modal-width-screen-jumbo;
+    }
+
+    .modal-image-viewer-arrow-container {
+
+      .arrow {
+        right: calc(~'50% + @{base-spacing-unit-screen-jumbo}');
+      }
+
+      &.forward {
+
+        .arrow {
+          left: calc(~'50% + @{base-spacing-unit-screen-jumbo}');
+        }
+      }
+    }
+  }
+}
