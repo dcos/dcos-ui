@@ -1,11 +1,11 @@
 import React from 'react';
 
+import FilterHeadline from './FilterHeadline';
 import Pod from '../structs/Pod';
 import PodInstancesTable from './PodInstancesTable';
 import PodInstanceStatus from '../constants/PodInstanceStatus';
 import PodUtil from '../utils/PodUtil';
 import PodViewFilter from './PodViewFilter';
-import FilterHeadline from './FilterHeadline';
 
 const METHODS_TO_BIND = [
   'handleFilterChange',
