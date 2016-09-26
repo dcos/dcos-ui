@@ -150,10 +150,9 @@ class AddRepositoryFormModal extends mixin(StoreMixin) {
         onChange={this.resetState}
         onClose={props.onClose}
         onSubmit={this.handleAddRepository}
-        open={props.open}
-        titleText="Add Repository">
+        open={props.open}>
         <h2 className={headerClasses}>
-          Add Repository
+          Add Repository?
         </h2>
         {this.getErrorMessage()}
       </FormModal>

@@ -53,6 +53,14 @@ var IdentifyModal = React.createClass({
     );
   },
 
+  getHeader() {
+    return (
+      <h5 className="modal-header-title text-align-center flush-top">
+        {Config.productName}
+      </h5>
+    );
+  },
+
   getSubHeader() {
     return (
       <p className="text-align-center inverse">
@@ -79,16 +87,13 @@ var IdentifyModal = React.createClass({
       <Modal
         closeByBackdropClick={false}
         footer={this.getFooter()}
-        maxHeightPercentage={0.9}
+        header={this.getHeader()}
         modalClass="modal"
         modalClassName="login-modal"
         open={this.props.open}
-        showCloseButton={false}
         showHeader={true}
         showFooter={true}
-        subHeader={this.getSubHeader()}
-        titleClass="modal-header-title text-align-center flush-top"
-        titleText={Config.productName}>
+        subHeader={this.getSubHeader()}>
         <form className="flush-bottom"
           onSubmit={this.handleSubmit}>
           <div className={emailClassSet}>

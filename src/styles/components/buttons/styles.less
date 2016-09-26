@@ -8,6 +8,7 @@
     transform: translateX(-50%);
   }
 
+  // TODO: Name this animation specifically.
   .button {
 
     &-enter,
@@ -89,12 +90,13 @@
     }
 
     &.button-collection-stacked {
+      margin: 0;
 
       .button {
-        margin-right: 0;
+        margin-left: 0;
 
-        &:last-child {
-          margin-bottom: 0;
+        &:first-child {
+          margin-top: 0;
         }
       }
     }

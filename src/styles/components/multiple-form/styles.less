@@ -42,17 +42,30 @@
   }
 
   .permission-form {
-    min-height: 325px;
+
+    .modal-body-wrapper {
+      flex-basis: 325px;
+      max-height: 325px;
+    }
   }
 
-  .review-config,
-  .multiple-form {
-    height: 462px;
-  }
+  .multiple-form-modal {
 
-  .multiple-form-modal,
-  .permission-form-modal,
-  .review-config {
+    .modal-body-wrapper {
+      flex-basis: 462px;
+      max-height: 462px;
+
+      .multiple-form-modal-body {
+        height: 100%;
+        position: absolute;
+        width: 100%;
+      }
+
+      .tab-form-wrapper,
+      .multiple-form {
+        height: 100%;
+      }
+    }
 
     .button-collection {
       display: flex;
@@ -74,9 +87,6 @@
         display: none;
       }
     }
-  }
-
-  .multiple-form-modal {
 
     .multiple-form {
       display: flex;
@@ -116,12 +126,12 @@
       .multiple-form-right-column {
         // Make right column scroll
         flex: 1 1;
-        padding: 0;
+        padding-left: 0;
       }
 
       .form-row-element-mixed-label-presence {
         .property-variant(form-control, line-height, height, null, null);
-        padding-top: @modal-form-label-line-height + @label-margin-bottom;
+        padding-top: calc(@modal-form-label-line-height ~' + ' @label-margin-bottom);
 
         &.form-row-element {
           margin-bottom: 0;
@@ -161,11 +171,8 @@
     }
 
     .form-panel {
-      padding: @base-spacing-unit @base-spacing-unit @base-spacing-unit * 1/3 @base-spacing-unit;
-
-      & > .form > *:last-child {
-        padding-bottom: @base-spacing-unit;
-      }
+      // Mimic the padding from .modal-body.
+      .element-spacing(modal-body, null, null);
 
       & > .form > .healthChecks {
         flex-direction: column;
@@ -174,6 +181,18 @@
           padding-left: 0;
           padding-right: 0;
           width: auto;
+        }
+      }
+    }
+
+    .row {
+      margin-left: @multiple-form-modal-column-padding-horizontal * -1;
+      margin-right: @multiple-form-modal-column-padding-horizontal * -1;
+
+      &:last-child {
+
+        .form-row-element {
+          padding-bottom: 0;
         }
       }
     }
@@ -274,6 +293,37 @@
 
       .multiple-form-modal {
 
+        .modal-header {
+
+          .header-full-width {
+            margin: @modal-header-padding-top-screen-small -@modal-header-padding-right-screen-small -@modal-header-padding-bottom-screen-small -@modal-header-padding-left-screen-small;
+          }
+        }
+
+        .multiple-form {
+
+          .multiple-form-left-column {
+
+            .form-row-element-mixed-label-presence {
+              .property-variant(form-control, line-height, height, null, screen-small);
+            }
+          }
+        }
+
+        .form-panel {
+          // Mimic the padding from .modal-body.
+          .element-spacing(modal-body, null, screen-small);
+        }
+      }
+    }
+  }
+
+  & when (@layout-screen-medium-enabled) {
+
+    @media (min-width: @layout-screen-medium-min-width) {
+
+      .multiple-form-modal {
+
         .multiple-form {
           flex-direction: row;
 
@@ -296,30 +346,8 @@
           }
 
           .form-row-element-mixed-label-presence {
-            .property-variant(form-control, line-height, height, null, screen-small);
-          }
-        }
-
-        .modal-header {
-
-          .header-full-width {
-            margin: @modal-header-padding-top-screen-small -@modal-header-padding-right-screen-small -@modal-header-padding-bottom-screen-small -@modal-header-padding-left-screen-small;
-          }
-        }
-      }
-    }
-  }
-
-  & when (@layout-screen-medium-enabled) {
-
-    @media (min-width: @layout-screen-medium-min-width) {
-
-      .multiple-form-modal {
-
-        .multiple-form {
-
-          .form-row-element-mixed-label-presence {
             .property-variant(form-control, line-height, height, null, screen-medium);
+            padding-top: calc(@modal-form-label-line-height ~' + ' @label-margin-bottom-screen-medium);
           }
         }
 
@@ -328,6 +356,11 @@
           .header-full-width {
             margin: @modal-header-padding-top-screen-medium -@modal-header-padding-right-screen-medium -@modal-header-padding-bottom-screen-medium -@modal-header-padding-left-screen-medium;
           }
+        }
+
+        .form-panel {
+          // Mimic the padding from .modal-body.
+          .element-spacing(modal-body, null, screen-medium);
         }
       }
     }
@@ -343,6 +376,7 @@
 
           .form-row-element-mixed-label-presence {
             .property-variant(form-control, line-height, height, null, screen-large);
+            padding-top: calc(@modal-form-label-line-height ~' + ' @label-margin-bottom-screen-large);
           }
         }
 
@@ -351,6 +385,39 @@
           .header-full-width {
             margin: @modal-header-padding-top-screen-large -@modal-header-padding-right-screen-large -@modal-header-padding-bottom-screen-large -@modal-header-padding-left-screen-large;
           }
+        }
+
+        .form-panel {
+          // Mimic the padding from .modal-body.
+          .element-spacing(modal-body, null, screen-large);
+        }
+      }
+    }
+  }
+
+  & when (@layout-screen-jumbo-enabled) {
+
+    @media (min-width: @layout-screen-jumbo-min-width) {
+
+      .multiple-form-modal {
+
+        .multiple-form {
+
+          .form-row-element-mixed-label-presence {
+            .property-variant(form-control, line-height, height, null, screen-jumbo);
+          }
+        }
+
+        .modal-header {
+
+          .header-full-width {
+            margin: @modal-header-padding-top-screen-jumbo -@modal-header-padding-right-screen-jumbo -@modal-header-padding-bottom-screen-jumbo -@modal-header-padding-left-screen-jumbo;
+          }
+        }
+
+        .form-panel {
+          // Mimic the padding from .modal-body.
+          .element-spacing(modal-body, null, screen-jumbo);
         }
       }
     }
