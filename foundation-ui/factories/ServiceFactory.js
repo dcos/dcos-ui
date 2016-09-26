@@ -3,19 +3,19 @@
  */
 function ServiceFactory(hooks) {
   return {
-    on(mountId /* , callback */) {
-      hooks.addFilter(...arguments);
-      // Call all actions registered for mountId.
-      // This will call an action for all Mounts with this mountId
+    on(id, callback, priority) {
+      hooks.addFilter(id, callback, priority);
+      // Call all actions registered for id.
+      // This will call an action for all Mounts with this id
       // and have them update state by running a new filter
       // (which will include the newly added filter)
-      hooks.doAction(mountId);
+      hooks.doAction(id);
     },
 
-    removeListener(mountId /* , callback */) {
-      hooks.removeFilter(...arguments);
+    removeListener(id, callback) {
+      hooks.removeFilter(id, callback);
       // Have Mount's run filter again so removed filter will be excluded
-      hooks.doAction(mountId);
+      hooks.doAction(id);
     }
   };
 }
