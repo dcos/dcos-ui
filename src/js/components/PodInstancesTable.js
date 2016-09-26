@@ -4,7 +4,9 @@ import {Link} from 'react-router';
 
 import CollapsingString from './CollapsingString';
 import CheckboxTable from './CheckboxTable';
+import EventTypes from '../constants/EventTypes';
 import ExpandingTable from './ExpandingTable';
+import MesosStateStore from '../stores/MesosStateStore';
 import Pod from '../structs/Pod';
 import PodInstanceList from '../structs/PodInstanceList';
 import PodInstanceStatus from '../constants/PodInstanceStatus';
@@ -16,6 +18,7 @@ import Units from '../utils/Units';
 const METHODS_TO_BIND = [
   'getColGroup',
   'handleItemCheck',
+  'handleMesosStateChange',
   'renderColumnAddress',
   'renderColumnID',
   'renderColumnResource',
@@ -35,6 +38,24 @@ class PodInstancesTable extends React.Component {
     METHODS_TO_BIND.forEach((method) => {
       this[method] = this[method].bind(this);
     });
+  }
+
+  componentWillMount() {
+    MesosStateStore.addChangeListener(
+      EventTypes.MESOS_STATE_CHANGE,
+      this.handleMesosStateChange
+    );
+  }
+
+  componentWillUnmount() {
+    MesosStateStore.removeChangeListener(
+      EventTypes.MESOS_STATE_CHANGE,
+      this.handleMesosStateChange
+    );
+  }
+
+  handleMesosStateChange() {
+    this.forceUpdate();
   }
 
   handleItemCheck(idsChecked) {
@@ -158,7 +179,7 @@ class PodInstancesTable extends React.Component {
             key={i}
             target="_blank"
             title="Open in a new window">
-            {':' + endpoint.allocatedHostPort}
+            {endpoint.allocatedHostPort}
           </a>
         );
       });
@@ -238,7 +259,10 @@ class PodInstancesTable extends React.Component {
           <Link
             className="emphasize clickable text-overflow"
             to="services-task-details"
-            params={{id: this.props.pod.getId(), taskID: row.id}}
+            params={{
+              id: encodeURIComponent(this.props.pod.getId()),
+              taskID: row.id
+            }}
             title={row.name}>
             <CollapsingString string={row.name} />
           </Link>
@@ -258,13 +282,28 @@ class PodInstancesTable extends React.Component {
   }
 
   renderColumnAddress(prop, row, rowOptions = {}) {
-    if (!rowOptions.isParent) {
-      return this.renderWithClickHandler(rowOptions, row.address);
+    let {address} = row;
+
+    if (rowOptions.isParent) {
+      let agent = MesosStateStore.getNodeFromHostname(address);
+      if (!agent) {
+        return this.renderWithClickHandler(rowOptions, (
+          <CollapsingString string={address} />
+        ));
+      }
+
+      return this.renderWithClickHandler(rowOptions, (
+          <Link
+            className="emphasize clickable text-overflow"
+            to="node-tasks-tab"
+            params={{nodeID: agent.id}}
+            title={address}>
+            <CollapsingString string={address} />
+          </Link>
+        ));
     }
 
-    return this.renderWithClickHandler(rowOptions, (
-      <CollapsingString string={row.address} />
-    ));
+    return this.renderWithClickHandler(rowOptions, address);
   }
 
   renderColumnStatus(prop, row, rowOptions = {}) {
