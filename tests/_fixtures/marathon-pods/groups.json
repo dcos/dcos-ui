@@ -142,9 +142,9 @@
                         "containerPort": 8888,
                         "hostPort": 0,
                         "protocol": "http",
-                        "labels": [
-                          { "VIP_0": "1.2.3.4:80" }
-                        ]
+                        "labels": { 
+                          "VIP_0": "1.2.3.4:80" 
+                        }
                       }
                     ] 
                   },
@@ -157,9 +157,9 @@
                         "containerPort": 8080,
                         "hostPort": 0,
                         "protocol": "http",
-                        "labels": [
-                          { "VIP_0": "1.2.3.5:80" }
-                        ]
+                        "labels": {
+                          "VIP_0": "1.2.3.5:80"
+                        }
                       }
                     ],
                     "resources": { "cpus": 0.5, "mem": 64 }
@@ -293,9 +293,9 @@
                   "containerPort": 8888,
                   "hostPort": 0,
                   "protocol": "http",
-                  "labels": [
-                    { "VIP_0": "1.2.3.4:80" }
-                  ]
+                  "labels": {
+                    "VIP_0": "1.2.3.4:80"
+                  }
                 }
               ],
               "resources": { "cpus": 0.5, "mem": 64 }
