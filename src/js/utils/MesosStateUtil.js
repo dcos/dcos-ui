@@ -83,8 +83,56 @@ const MesosStateUtil = {
         ) === overlayName;
       }));
     }, []);
-  }
+  },
 
+  /**
+   * @param {{frameworks:array, completed_frameworks:array}} state
+   * @param {{id:string, executor_id:string, framework_id:string}} task
+   * @param {string} path
+   * @returns {string} task path
+   */
+  getTaskPath(state, task, path = '') {
+    let taskPath = '';
+
+    if (state == null || task == null) {
+      return taskPath;
+    }
+
+    const {id:taskID, framework_id:frameworkID, executor_id:executorID} = task;
+    const framework =
+        MesosStateUtil.getFramework(state, frameworkID);
+
+    if (framework == null) {
+      return taskPath;
+    }
+
+    // Find matching executor or task to construct the task path
+    [].concat(framework.executors, framework.completed_executors)
+        .every(function (executor) {
+          // Find app/framework executor
+          if (executor != null &&
+              (executor.id === executorID || executor.id === taskID)) {
+            taskPath = `${executor.directory}/${path}`;
+            return false;
+          }
+
+          // Find pod task and executor
+          return [].concat(executor.tasks, executor.completed_tasks)
+              .every(function (task) {
+                if (task != null && task.id === taskID) {
+                  // For a detail documentation on how to construct the path
+                  // please see: https://reviews.apache.org/r/52376/
+                  taskPath =
+                      `${executor.directory}/tasks/${task.id}/${path}`;
+                  return false;
+                }
+
+                return true;
+              });
+        });
+
+    return taskPath;
+  }
 };
 
 module.exports = MesosStateUtil;

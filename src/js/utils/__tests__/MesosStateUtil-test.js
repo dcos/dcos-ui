@@ -131,4 +131,134 @@ describe('MesosStateUtil', function () {
 
   });
 
+  describe('#getTaskPath', function () {
+
+    describe('app/framework tasks', function () {
+      const state = {
+        frameworks: [
+          {
+            id: 'framework-123',
+            name: 'test-1',
+            executors: [
+              {
+                id: 'executor-foo',
+                directory: 'foo'
+              }
+            ],
+            completed_executors: [{
+              id: 'executor-bar',
+              directory: 'bar'
+            }]
+          }
+        ]
+      };
+
+      it('gets the task path for a running task', function () {
+        const task = {
+          id: 'executor-foo',
+          framework_id: 'framework-123',
+          executor_id: 'executor-bar'
+        };
+
+        expect(MesosStateUtil.getTaskPath(state, task)).toEqual('foo/');
+      });
+
+      it('gets the task path form a completed task', function () {
+        const task = {
+          id: 'executor-bar',
+          framework_id: 'framework-123',
+          executor_id: 'executor-bar'
+        };
+
+        expect(MesosStateUtil.getTaskPath(state, task)).toEqual('bar/');
+      });
+
+      it('gets the task path for a task with unknown executor id', function () {
+        const task = {
+          id: 'executor-bar',
+          framework_id: 'framework-123'
+        };
+
+        expect(MesosStateUtil.getTaskPath(state, task)).toEqual('bar/');
+      });
+
+      it('appends provided path', function () {
+        const task = {
+          id: 'executor-bar',
+          framework_id: 'framework-123'
+        };
+
+        expect(MesosStateUtil.getTaskPath(state, task, 'test'))
+            .toEqual('bar/test');
+      });
+
+    });
+
+    describe('pod tasks', function () {
+      const state = {
+        frameworks: [
+          {
+            id: 'framework-123',
+            name: 'test-1',
+            executors: [
+              {
+                id: 'executor-foo',
+                directory: 'foo',
+                completed_tasks: [{id: 'task-foo-completed'}],
+                tasks: [{id: 'task-foo-running'}]
+              }
+            ],
+            completed_executors: [{
+              id: 'executor-bar',
+              directory: 'bar',
+              completed_tasks: [{id: 'task-bar-completed'}]
+            }]
+          }
+        ]
+      };
+
+      it('gets the task path for a running task', function () {
+        const task = {
+          id: 'task-foo-running',
+          framework_id: 'framework-123'
+        };
+
+        expect(MesosStateUtil.getTaskPath(state, task))
+            .toEqual('foo/tasks/task-foo-running/');
+      });
+
+      it('gets the task path form a completed task', function () {
+        const task = {
+          id: 'task-foo-completed',
+          framework_id: 'framework-123'
+        };
+
+        expect(MesosStateUtil.getTaskPath(state, task))
+            .toEqual('foo/tasks/task-foo-completed/');
+      });
+
+      it('gets the task path form a completed executor', function () {
+        const task = {
+          id: 'task-bar-completed',
+          framework_id: 'framework-123'
+        };
+
+        expect(MesosStateUtil.getTaskPath(state, task))
+            .toEqual('bar/tasks/task-bar-completed/');
+      });
+
+      it('appends provided path', function () {
+        const task = {
+          id: 'task-foo-running',
+          framework_id: 'framework-123'
+        };
+
+        expect(MesosStateUtil.getTaskPath(state, task, 'test'))
+            .toEqual('foo/tasks/task-foo-running/test');
+      });
+
+    });
+
+  });
+
 });
