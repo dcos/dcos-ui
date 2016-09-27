@@ -68,10 +68,16 @@ var MarathonActions = {
     });
   },
 
-  deleteGroup(groupId) {
+  deleteGroup(groupId, force) {
     groupId = encodeURIComponent(groupId);
+    let url = buildURI(`/groups/${groupId}`);
+
+    if (force === true) {
+      url += '?force=true';
+    }
+
     RequestUtil.json({
-      url: buildURI(`/groups/${groupId}`),
+      url,
       method: 'DELETE',
       success() {
         AppDispatcher.handleServerAction({
@@ -154,8 +160,9 @@ var MarathonActions = {
    * Delete a service (app, framework, or pod)
    *
    * @param {Service} service - the service you want to delete
+   * @param {Boolean} force - force delete even if deploying
    */
-  deleteService(service) {
+  deleteService(service, force) {
     if (!(service instanceof Service)) {
       if (process.env.NODE_ENV !== 'production') {
         throw new TypeError('service is not an instance of Service');
@@ -168,6 +175,10 @@ var MarathonActions = {
 
     if (service instanceof Pod) {
       url = buildURI(`/pods/${service.getId()}`);
+    }
+
+    if (force === true) {
+      url += '?force=true';
     }
 
     RequestUtil.json({
