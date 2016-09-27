@@ -70,7 +70,6 @@ class PodInstancesTable extends React.Component {
   getColGroup() {
     return (
       <colgroup>
-        <col style={{width: '40px'}} />
         <col />
         <col style={{width: '120px'}} />
         <col style={{width: '120px'}} />
