@@ -2,6 +2,7 @@ import Framework from './Framework';
 import HealthSorting from '../constants/HealthSorting';
 import HealthStatus from '../constants/HealthStatus';
 import List from './List';
+import Pod from './Pod';
 import Service from './Service';
 import ServiceOther from '../constants/ServiceOther';
 import ServiceStatus from '../constants/ServiceStatus';
@@ -212,6 +213,12 @@ module.exports = class ServiceTree extends Tree {
               let volumes = service.getVolumes();
 
               if (volumes.list && volumes.list.length > 0) {
+                memo.push(service);
+              }
+            }
+
+            if (parseInt(otherKey, 10) === ServiceOther.PODS.key) {
+              if (service instanceof Pod) {
                 memo.push(service);
               }
             }

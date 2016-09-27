@@ -2,6 +2,7 @@ import React from 'react';
 
 import ServiceFilterTypes from '../constants/ServiceFilterTypes';
 import Framework from '../structs/Framework';
+import Pod from '../structs/Pod';
 import HealthTypes from '../constants/HealthTypes';
 import ServiceOther from '../constants/ServiceOther';
 import ServiceOtherTypes from '../constants/ServiceOtherTypes';
@@ -18,6 +19,7 @@ const PropTypes = React.PropTypes;
 function getCountByFilters(services) {
   const universeKey = ServiceOther.UNIVERSE.key;
   const volumesKey = ServiceOther.VOLUMES.key;
+  const podsKey = ServiceOther.PODS.key;
 
   return services.reduce(function (memo, service) {
     if (service instanceof ServiceTree) {
@@ -44,6 +46,14 @@ function getCountByFilters(services) {
         memo.otherCount[universeKey] = 1;
       } else {
         memo.otherCount[universeKey]++;
+      }
+    }
+
+    if (service instanceof Pod) {
+      if (memo.otherCount[podsKey] === undefined) {
+        memo.otherCount[podsKey] = 1;
+      } else {
+        memo.otherCount[podsKey]++;
       }
     }
 

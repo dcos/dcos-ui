@@ -1,6 +1,7 @@
 var ServiceOtherLabels = {
   UNIVERSE: 'Universe',
-  VOLUMES: 'Volumes'
+  VOLUMES: 'Volumes',
+  PODS: 'Pods'
 };
 
 module.exports = ServiceOtherLabels;
