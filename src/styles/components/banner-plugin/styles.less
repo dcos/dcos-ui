@@ -1,0 +1,193 @@
+& when (@banner-plugin-enabled) {
+
+  .banner-plugin-wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+
+    // Let the iframe take up the remaining height
+    #banner-plugin-iframe {
+      flex: 1 1 auto;
+      height: 100%;
+      width: 100%;
+    }
+
+    .icon-info path {
+      fill-rule: evenodd;
+      stroke-width: 1;
+    }
+
+    footer,
+    header {
+      flex: 0 1 auto;
+      line-height: @base-spacing-unit;
+
+      // Setting padding on all children, since we can't use margin or padding on
+      // parent due to use of flexbox
+      & > * {
+        padding: @base-spacing-unit * 0.35;
+      }
+
+      .title,
+      .icon {
+        margin-right: @base-spacing-unit * 0.35;
+      }
+
+      .content,
+      .title,
+      .icon,
+      .title,
+      .banner-plugin-info-icon {
+        display: inline-block;
+        vertical-align: middle;
+      }
+
+      // Make sure to use ellipsis on content more than container
+      .content {
+        overflow: hidden;
+        text-align: right;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+    }
+
+    // Elements where we want text centered and take up full with
+    footer .content {
+      text-align: center;
+      width: 100%;
+    }
+
+    // Let content and banner-plugin-info-icon take up remaining width
+    .flex-container {
+      display: flex;
+      flex-direction: row;
+
+      .banner-plugin-info-icon,
+      .content {
+        flex: 1;
+        text-align: right;
+      }
+    }
+
+    // Display top level content in column on small and below
+    header.flex-container {
+      flex-direction: column;
+    }
+
+    // Show full content in header and footer
+    &.display-full {
+
+      header,
+      footer {
+
+        .content {
+          display: block !important;
+          overflow: visible;
+          text-align: center;
+          white-space: normal;
+        }
+      }
+    }
+  }
+}
+
+& when (@banner-plugin-enabled) and (@layout-screen-small-enabled) {
+
+  @media (min-width: @layout-screen-small-min-width) {
+
+    .banner-plugin-wrapper {
+
+      footer,
+      header {
+
+        // Setting padding on all children, since we can't use margin or
+        // padding on parent due to use of flexbox
+        & > * {
+          padding: @base-spacing-unit-screen-small * 0.35;
+        }
+      }
+
+      .title,
+      .icon {
+        margin-right: @base-spacing-unit-screen-small * 0.35;
+      }
+    }
+  }
+}
+
+& when (@banner-plugin-enabled) and (@layout-screen-medium-enabled) {
+
+  @media (min-width: @layout-screen-medium-min-width) {
+
+    .banner-plugin-wrapper {
+
+      // Make sure to display top level content in row on anything above medium
+      header.flex-container {
+        flex-direction: row;
+      }
+
+      footer,
+      header {
+
+        // Setting padding on all children, since we can't use margin or
+        // padding on parent due to use of flexbox
+        & > * {
+          padding: @base-spacing-unit-screen-medium * 0.35;
+        }
+      }
+
+      .title,
+      .icon {
+        margin-right: @base-spacing-unit-screen-medium * 0.35;
+      }
+    }
+  }
+}
+
+& when (@banner-plugin-enabled) and (@layout-screen-large-enabled) {
+
+  @media (min-width: @layout-screen-large-min-width) {
+
+    .banner-plugin-wrapper {
+
+      footer,
+      header {
+
+        // Setting padding on all children, since we can't use margin or
+        // padding on parent due to use of flexbox
+        & > * {
+          padding: @base-spacing-unit-screen-large * 0.35;
+        }
+      }
+
+      .title,
+      .icon {
+        margin-right: @base-spacing-unit-screen-large * 0.35;
+      }
+    }
+  }
+}
+
+& when (@banner-plugin-enabled) and (@layout-screen-jumbo-enabled) {
+
+  @media (min-width: @layout-screen-jumbo-min-width) {
+
+    .banner-plugin-wrapper {
+
+      footer,
+      header {
+
+        // Setting padding on all children, since we can't use margin or
+        // padding on parent due to use of flexbox
+        & > * {
+          padding: @base-spacing-unit-screen-jumbo * 0.35;
+        }
+      }
+
+      .title,
+      .icon {
+        margin-right: @base-spacing-unit-screen-jumbo * 0.35;
+      }
+    }
+  }
+}

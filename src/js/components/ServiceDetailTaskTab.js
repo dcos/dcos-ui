@@ -22,7 +22,6 @@ class ServiceDetailTaskTab extends mixin(StoreMixin) {
     return (
       <TaskView
         tasks={tasks}
-        inverseStyle={true}
         label="Instance"
         parentRouter={this.context.router} />
     );

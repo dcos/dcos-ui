@@ -88,7 +88,7 @@ class VirtualNetworkTaskTab extends mixin(StoreMixin) {
 
   getClassName(prop, sortBy) {
     return classNames({
-      'highlight': prop === sortBy.prop
+      'active': prop === sortBy.prop
     });
   }
 
@@ -272,7 +272,6 @@ class VirtualNetworkTaskTab extends mixin(StoreMixin) {
     return (
       <div>
         <FilterHeadline
-          inverseStyle={true}
           onReset={this.resetFilter}
           name="Task"
           currentLength={filteredTasks.length}
@@ -280,8 +279,7 @@ class VirtualNetworkTaskTab extends mixin(StoreMixin) {
         <FilterBar>
           <FilterInputText
             searchString={searchString}
-            handleFilterChange={this.handleSearchStringChange}
-            inverseStyle={true} />
+            handleFilterChange={this.handleSearchStringChange} />
         </FilterBar>
         <Table
           className="table inverse table-borderless-outer table-borderless-inner-columns flush-bottom"

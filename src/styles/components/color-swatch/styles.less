@@ -1,0 +1,336 @@
+& when (@color-swatch-enabled) {
+
+  .color-swatches {
+
+    & when not (@pod-margin-bottom = null) and not (@pod-short-margin-bottom-scale = null) {
+      margin-bottom: -@pod-margin-bottom * @pod-short-margin-bottom-scale;
+    }
+  }
+
+  .color-swatch {
+
+    .color-swatch-cell {
+      background: @neutral;
+      border-radius: 6px;
+      box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
+      display: block;
+      height: 50px;
+      width: 100%;
+    }
+
+    &.white {
+
+      .color-swatch-cell {
+        background: @white;
+      }
+    }
+
+    &.black {
+
+      .color-swatch-cell {
+        background: @black;
+      }
+    }
+
+    &.neutral {
+
+      .color-swatch-cell {
+        background: @neutral;
+      }
+    }
+
+    &.purple {
+
+      .color-swatch-cell {
+        background: @purple;
+      }
+    }
+
+    &.blue {
+
+      .color-swatch-cell {
+        background: @blue;
+      }
+    }
+
+    &.red {
+
+      .color-swatch-cell {
+        background: @red;
+      }
+    }
+
+    &.orange {
+
+      .color-swatch-cell {
+        background: @orange;
+      }
+    }
+
+    &.yellow {
+
+      .color-swatch-cell {
+        background: @yellow;
+      }
+    }
+
+    &.green {
+
+      .color-swatch-cell {
+        background: @green;
+      }
+    }
+
+    &.pink {
+
+      .color-swatch-cell {
+        background: @pink;
+      }
+    }
+
+    &.cyan {
+
+      .color-swatch-cell {
+        background: @cyan;
+      }
+    }
+
+    &.orchid {
+
+      .color-swatch-cell {
+        background: @orchid;
+      }
+    }
+  }
+
+  .color-blend {
+    .clearfix();
+    border-radius: 6px;
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
+    display: block;
+    height: 50px;
+    overflow: hidden;
+    width: 100%;
+
+    .color-blend-base {
+      display: block;
+      float: left;
+      height: 100%;
+      width: 20%;
+    }
+
+    &.neutral {
+      background: @neutral;
+    }
+
+    &.purple {
+      background: @purple;
+    }
+
+    &.blue {
+      background: @blue;
+    }
+
+    .color-blend-spectrum {
+      display: block;
+      float: left;
+      height: 100%;
+      width: 80%;
+
+      .color-blend-spectrum-cell {
+        display: block;
+        float: left;
+        height: 50%;
+        width: (100% / 19);
+
+        &.color-blend-spectrum-cell-lighten {
+          background: @white;
+        }
+
+        &.color-blend-spectrum-cell-darken {
+          background: @black;
+        }
+
+        &.color-blend-spectrum-cell-5 {
+          opacity: 0.05;
+        }
+
+        &.color-blend-spectrum-cell-10 {
+          opacity: 0.1;
+        }
+
+        &.color-blend-spectrum-cell-15 {
+          opacity: 0.15;
+        }
+
+        &.color-blend-spectrum-cell-20 {
+          opacity: 0.2;
+        }
+
+        &.color-blend-spectrum-cell-25 {
+          opacity: 0.25;
+        }
+
+        &.color-blend-spectrum-cell-30 {
+          opacity: 0.3;
+        }
+
+        &.color-blend-spectrum-cell-35 {
+          opacity: 0.35;
+        }
+
+        &.color-blend-spectrum-cell-40 {
+          opacity: 0.4;
+        }
+
+        &.color-blend-spectrum-cell-45 {
+          opacity: 0.45;
+        }
+
+        &.color-blend-spectrum-cell-50 {
+          opacity: 0.5;
+        }
+
+        &.color-blend-spectrum-cell-55 {
+          opacity: 0.55;
+        }
+
+        &.color-blend-spectrum-cell-60 {
+          opacity: 0.6;
+        }
+
+        &.color-blend-spectrum-cell-65 {
+          opacity: 0.65;
+        }
+
+        &.color-blend-spectrum-cell-70 {
+          opacity: 0.7;
+        }
+
+        &.color-blend-spectrum-cell-75 {
+          opacity: 0.75;
+        }
+
+        &.color-blend-spectrum-cell-80 {
+          opacity: 0.8;
+        }
+
+        &.color-blend-spectrum-cell-85 {
+          opacity: 0.85;
+        }
+
+        &.color-blend-spectrum-cell-90 {
+          opacity: 0.9;
+        }
+
+        &.color-blend-spectrum-cell-95 {
+          opacity: 0.95;
+        }
+
+        &.color-blend-spectrum-cell-100 {
+          opacity: 1;
+        }
+      }
+    }
+  }
+}
+
+& when (@layout-screen-small-enabled) {
+
+  @media (min-width: @layout-screen-small-min-width) {
+
+    & when (@color-swatch-enabled) {
+
+      .color-swatches {
+
+        & when not (@pod-margin-bottom-screen-small = null) and not (@pod-short-margin-bottom-scale = null) {
+          margin-bottom: -@pod-margin-bottom-screen-small * @pod-short-margin-bottom-scale;
+        }
+      }
+
+      .color-swatch {
+
+        .color-swatch-cell {
+          height: 60px;
+        }
+      }
+
+      .color-blend {
+        height: 60px;
+      }
+    }
+  }
+}
+
+& when (@layout-screen-medium-enabled) {
+
+  @media (min-width: @layout-screen-medium-min-width) {
+
+    & when (@color-swatch-enabled) {
+
+      .color-swatches {
+
+        & when not (@pod-margin-bottom-screen-medium = null) and not (@pod-short-margin-bottom-scale = null) {
+          margin-bottom: -@pod-margin-bottom-screen-medium * @pod-short-margin-bottom-scale;
+        }
+      }
+
+      .color-swatch {
+
+        .color-swatch-cell {
+          height: 60px;
+        }
+      }
+    }
+  }
+}
+
+& when (@layout-screen-large-enabled) {
+
+  @media (min-width: @layout-screen-large-min-width) {
+
+    & when (@color-swatch-enabled) {
+
+      .color-swatches {
+
+        & when not (@pod-margin-bottom-screen-large = null) and not (@pod-short-margin-bottom-scale = null) {
+          margin-bottom: -@pod-margin-bottom-screen-large * @pod-short-margin-bottom-scale;
+        }
+      }
+
+      .color-swatch {
+
+        .color-swatch-cell {
+          height: 80px;
+        }
+      }
+
+      .color-blend {
+        height: 80px;
+      }
+    }
+  }
+}
+
+& when (@layout-screen-jumbo-enabled) {
+
+  @media (min-width: @layout-screen-jumbo-min-width) {
+
+    & when (@color-swatch-enabled) {
+
+      .color-swatches {
+
+        & when not (@pod-margin-bottom-screen-jumbo = null) and not (@pod-short-margin-bottom-scale = null) {
+          margin-bottom: -@pod-margin-bottom-screen-jumbo * @pod-short-margin-bottom-scale;
+        }
+      }
+
+      .color-swatch {
+
+        .color-swatch-cell {
+          height: 80px;
+        }
+      }
+    }
+  }
+}

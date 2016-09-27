@@ -35,6 +35,8 @@ let jobsRoutes = {
   name: 'jobs-page',
   handler: JobsPage,
   path: '/jobs/?',
+  category: 'root',
+  isInSidebar: true,
   buildBreadCrumb() {
     return {
       getCrumbs() {

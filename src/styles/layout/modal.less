@@ -11,9 +11,11 @@
 }
 
 .modal-generic-error {
+
   .modal-backdrop {
     z-index: @z-index-modal-backdrop;
   }
+
   .modal-container {
     z-index: @z-index-modal-container;
   }
@@ -71,7 +73,7 @@
     }
 
     .arrow-container {
-      background: linear-gradient(to right, rgba(0,0,0,1), rgba(0,0,0,0) 75%);
+      background: linear-gradient(to right, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0) 75%);
       color: rgba(255, 255, 255, 0.6);
       display: block;
       height: 100%;
@@ -81,7 +83,7 @@
       width: 50%;
 
       &:hover {
-        color: rgba(255, 255, 255, 1.0);
+        color: @white;
       }
 
       .arrow {
@@ -91,7 +93,7 @@
       }
 
       &.forward {
-        background: linear-gradient(to left, rgba(0,0,0,1), rgba(0,0,0,0) 75%);
+        background: linear-gradient(to left, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0) 75%);
         left: auto;
         right: -25%;
 
@@ -101,11 +103,10 @@
         }
       }
     }
-
   }
 
   .modal-header {
-    border-radius: @modal-border-radius @modal-border-radius 0px 0px;
+    border-radius: @modal-border-radius @modal-border-radius 0 0;
 
     &.modal-header-white {
       background-color: @modal-content-background-color;
@@ -136,20 +137,20 @@
       padding-top: @base-spacing-unit;
 
       &.modal-content-inner-tall {
-        padding-top: @modal-content-inner-tall-padding-top;
         padding-bottom: @modal-content-inner-tall-padding-bottom;
+        padding-top: @modal-content-inner-tall-padding-top;
       }
     }
   }
 
   .modal-footer {
     background-color: @modal-footer-background-color;
-    border-radius: 0px 0px @modal-border-radius @modal-border-radius;
+    border-radius: 0 0 @modal-border-radius @modal-border-radius;
   }
 
   .sub-footer {
     bottom: @base-spacing-unit * -2;
-    font-size: @body-text-font-size * 9/10;
+    font-size: @body-text-font-size * 9 / 10;
     left: 50%;
     position: absolute;
     transform: translateX(-50%);
@@ -160,11 +161,11 @@
     margin-left: 0;
     margin-right: 0;
 
-    [class*="column-"]:first-child {
+    [class*='column-']:first-child {
       padding-left: 0;
     }
 
-    [class*="column-"]:last-child {
+    [class*='column-']:last-child {
       padding-right: 0;
     }
 
@@ -180,6 +181,7 @@
 
 // Modal specific styles
 .install-cli-modal-content {
+
   h4 {
     color: @black;
   }
@@ -192,8 +194,8 @@
       background-color: @modal-header-background-color;
       border-radius: 5px;
       color: color-lighten(@black, 40);
-      padding: 10px;
       overflow-x: auto;
+      padding: 10px;
     }
   }
 }
@@ -210,14 +212,29 @@
   margin-left: 0;
 }
 
-
 & when (@screen-mini-enabled) {
+
+  @media (min-width: @screen-mini) {
+
+    .modal.modal-large {
+      width: 500px;
+
+      .modal-content {
+
+        pre {
+          max-height: 500px;
+        }
+      }
+    }
+  }
+
   @media (max-width: @screen-small) {
     // Use max-width so we don't need to reset to default styles
     .modal {
-     &.modal-image-viewer {
-        right: 0;
+
+      &.modal-image-viewer {
         left: 0;
+        right: 0;
       }
 
       .modal-close {
@@ -227,24 +244,12 @@
   }
 }
 
-
-& when (@screen-mini-enabled) {
-  @media (min-width: @screen-mini) {
-    .modal.modal-large {
-      width: 500px;
-
-      .modal-content {
-        pre {
-          max-height: 500px;
-        }
-      }
-    }
-  }
-}
-
 & when (@screen-small-enabled) {
+
   @media (min-width: @screen-small) {
+
     .modal {
+
       .modal-content.modal-content-inner {
         padding-top: @base-spacing-unit-screen-small;
       }
@@ -253,6 +258,7 @@
         width: 700px;
 
         .modal-content {
+
           pre {
             max-height: 500px;
           }
@@ -270,14 +276,14 @@
 
           .arrow {
             left: auto;
-            right: calc(~"50% + 2 * @{base-spacing-unit-screen-small}");
+            right: calc(~'50% + 2 * @{base-spacing-unit-screen-small}');
           }
 
           &.forward {
             background: none;
 
             .arrow {
-              left: calc(~"50% + 2 * @{base-spacing-unit-screen-small}");
+              left: calc(~'50% + 2 * @{base-spacing-unit-screen-small}');
               right: auto;
             }
           }
@@ -288,8 +294,11 @@
 }
 
 & when (@screen-medium-enabled) {
+
   @media (min-width: @screen-medium) {
+
     .modal {
+
       .modal-content.modal-content-inner {
         padding-top: @base-spacing-unit-screen-medium;
       }
@@ -298,6 +307,7 @@
         width: 800px;
 
         .modal-content {
+
           pre {
             max-height: 600px;
           }
@@ -308,8 +318,11 @@
 }
 
 & when (@screen-large-enabled) {
+
   @media (min-width: @screen-large) {
+
     .modal {
+
       .modal-content.modal-content-inner {
         padding-top: @base-spacing-unit-screen-small;
       }

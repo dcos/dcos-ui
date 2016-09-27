@@ -138,4 +138,9 @@ UsersTab.propTypes = {
   params: React.PropTypes.object
 };
 
+UsersTab.routeConfig = {
+  label: 'Users',
+  matches: /^\/organization\/users/
+};
+
 module.exports = UsersTab;

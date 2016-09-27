@@ -142,11 +142,11 @@
                         "containerPort": 8888,
                         "hostPort": 0,
                         "protocol": "http",
-                        "labels": { 
-                          "VIP_0": "1.2.3.4:80" 
+                        "labels": {
+                          "VIP_0": "1.2.3.4:80"
                         }
                       }
-                    ] 
+                    ]
                   },
                   {
                     "name": "flask",

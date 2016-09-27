@@ -45,7 +45,7 @@ class UniversePage extends mixin(TabsMixin) {
     }
 
     return (
-      <ul className="tabs list-inline flush-bottom inverse">
+      <ul className="menu-tabbed inverse">
         {this.tabs_getRoutedTabs()}
       </ul>
     );
@@ -67,8 +67,8 @@ UniversePage.contextTypes = {
 };
 
 UniversePage.routeConfig = {
-  label: 'Universe',
-  icon: <Icon id="packages" />,
+  label: 'Packages',
+  icon: <Icon id="packages-inverse" size="small" family="small" />,
   matches: /^\/universe/
 };
 

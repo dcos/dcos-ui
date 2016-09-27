@@ -7,9 +7,10 @@ import NodesTable from '../components/NodesTable';
 import NodeDetailBreadcrumb from '../pages/nodes/breadcrumbs/NodeDetailBreadcrumb';
 import NodeDetailPage from '../pages/nodes/NodeDetailPage';
 import NodeDetailTab from '../pages/nodes/NodeDetailTab';
-import NodeDetailTaskTab from '../pages/nodes/NodeDetailTaskTab';
 import NodeDetailHealthTab from '../pages/nodes/NodeDetailHealthTab';
+import NodeDetailTaskTab from '../pages/nodes/NodeDetailTaskTab';
 import NodesGridView from '../components/NodesGridView';
+import NodesOverview from '../pages/NodesOverview';
 import NodesPage from '../pages/NodesPage';
 import TaskDetail from '../pages/task-details/TaskDetail';
 import TaskDetailBreadcrumb from '../pages/nodes/breadcrumbs/TaskDetailBreadcrumb';
@@ -23,25 +24,28 @@ import VolumeTable from '../components/VolumeTable';
 
 let nodesRoutes = {
   type: Route,
-  name: 'nodes',
+  name: 'nodes-page',
+  path: '/nodes/?',
+  handler: NodesPage,
+  category: 'resources',
+  isInSidebar: true,
+  buildBreadCrumb() {
+    return {
+      getCrumbs() {
+        return [
+          {
+            label: 'Nodes',
+            route: {to: 'nodes-page'}
+          }
+        ];
+      }
+    };
+  },
   children: [
     {
       type: Route,
-      name: 'nodes-page',
-      path: '/nodes/?',
-      handler: NodesPage,
-      buildBreadCrumb() {
-        return {
-          getCrumbs() {
-            return [
-              {
-                label: 'Nodes',
-                route: {to: 'nodes-page'}
-              }
-            ];
-          }
-        };
-      },
+      name: 'nodes-overview',
+      handler: NodesOverview,
       children: [
         {
           type: DefaultRoute,
@@ -247,6 +251,11 @@ let nodesRoutes = {
           to: 'node-tasks-tab'
         }
       ]
+    },
+    {
+      type: Redirect,
+      path: '/nodes/?',
+      to: 'nodes-overview'
     }
   ]
 };

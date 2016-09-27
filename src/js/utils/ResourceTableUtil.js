@@ -37,7 +37,7 @@ var ResourceTableUtil = {
       'text-align-right': leftAlignCaret(prop)
         || prop === 'TASK_RUNNING' || prop === 'action',
       'hidden-mini': leftAlignCaret(prop),
-      'highlight': prop === sortBy.prop,
+      'active': prop === sortBy.prop,
       'clickable': row == null // this is a header
     });
   },

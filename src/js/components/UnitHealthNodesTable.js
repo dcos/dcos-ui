@@ -87,7 +87,7 @@ class UnitHealthNodesTable extends React.Component {
 
     return (
       <Link className="emphasize clickable text-overflow" params={params}
-        to="system-overview-units-unit-nodes-node-detail">
+        to="components-overview-units-unit-nodes-node-detail">
         {linkText}
       </Link>
     );

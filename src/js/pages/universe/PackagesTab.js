@@ -227,8 +227,7 @@ class PackagesTab extends mixin(StoreMixin) {
             className="flex-grow"
             placeholder="Search"
             searchString={state.searchString}
-            handleFilterChange={this.handleSearchStringChange}
-            inverseStyle={true} />
+            handleFilterChange={this.handleSearchStringChange} />
         </div>
         {this.getSelectedPackagesGrid(gridPackages)}
         {this.getPackagesTable(tablePackages)}
@@ -244,6 +243,11 @@ class PackagesTab extends mixin(StoreMixin) {
 
 PackagesTab.contextTypes = {
   router: React.PropTypes.func
+};
+
+PackagesTab.routeConfig = {
+  label: 'Packages',
+  matches: /^\/universe\/packages/
 };
 
 module.exports = PackagesTab;
