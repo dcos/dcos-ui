@@ -3,6 +3,7 @@ import {RequestUtil} from 'mesosphere-shared-reactjs';
 import ActionTypes from '../constants/ActionTypes';
 import AppDispatcher from './AppDispatcher';
 import Config from '../config/Config';
+import MesosStateUtil from '../utils/MesosStateUtil';
 
 function findWithID(stateObject, listProps, id) {
   let searchItem;
@@ -104,7 +105,7 @@ var TaskDirectoryActions = {
   ),
 
   fetchDirectory(task, innerPath, nodeState) {
-    let path = TaskDirectoryActions.getInnerPath(nodeState, task, innerPath);
+    let path = MesosStateUtil.getTaskPath(nodeState, task, innerPath);
     if (path == null) {
       AppDispatcher.handleServerAction({
         type: ActionTypes.REQUEST_TASK_DIRECTORY_ERROR
