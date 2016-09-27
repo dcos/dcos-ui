@@ -171,7 +171,7 @@ module.exports = class Pod extends Service {
     });
 
     let totalInstances = taskSummary.tasksStaged + taskSummary.tasksRunning;
-    let definedInstances = this.getSpec().getContainerCount();
+    let definedInstances = this.getSpec().getScalingInstances();
 
     if (totalInstances > definedInstances) {
       taskSummary.tasksOverCapacity = totalInstances - definedInstances;
