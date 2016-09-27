@@ -82,25 +82,26 @@ class PodSpecView extends React.Component {
   }
 
   getNetworksDetails() {
-    let {spec} = this.props;
-    let networks = spec.getNetworks();
+    let networks = this.props.spec.getNetworks();
 
     if (networks.length === 0) {
       return null;
     }
+
+    let nodes = networks.map(function (network, i) {
+      return (
+        <PodNetworkSpecView
+          key={i}
+          network={network} />
+      );
+    });
 
     return (
       <div>
         <h4 className="inverse flush-top">
           Networks
         </h4>
-        {networks.map(function (network, i) {
-          return (
-            <PodNetworkSpecView
-              key={i}
-              network={network} />
-          );
-        })}
+        {nodes}
       </div>
     );
   }
