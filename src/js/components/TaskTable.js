@@ -282,9 +282,9 @@ class TaskTable extends React.Component {
     let params = this.props.parentRouter.getCurrentParams();
     let routeParams = Object.assign({taskID: task.id}, params);
 
-    let linkTo = 'services-task-details-logs';
+    let linkTo = 'services-task-details-files-viewer';
     if (params.nodeID != null) {
-      linkTo = 'nodes-task-details-logs';
+      linkTo = 'nodes-task-details-files-viewer';
     }
 
     return (

@@ -9,7 +9,7 @@ import ServicesTab from '../pages/services/ServicesTab';
 import TaskDetail from '../pages/task-details/TaskDetail';
 import TaskDetailsTab from '../pages/task-details/TaskDetailsTab';
 import TaskFilesTab from '../pages/task-details/TaskFilesTab';
-import TaskLogsTab from '../pages/task-details/TaskLogsTab';
+import TaskFileViewer from '../pages/task-details/TaskFileViewer';
 import TaskDetailBreadcrumb from '../pages/nodes/breadcrumbs/TaskDetailBreadcrumb';
 import VolumeDetail from '../components/VolumeDetail';
 import VolumeTable from '../components/VolumeTable';
@@ -136,7 +136,6 @@ let serviceRoutes = {
                   type: DefaultRoute,
                   name: 'services-task-details-tab',
                   handler: TaskDetailsTab,
-                  hideHeaderNavigation: true,
                   buildBreadCrumb() {
                     return {
                       parentCrumb: 'services-task-details',
@@ -147,34 +146,45 @@ let serviceRoutes = {
                 },
                 {
                   type: Route,
-                  name: 'services-task-details-files',
                   path: 'files/?',
-                  handler: TaskFilesTab,
-                  hideHeaderNavigation: true,
-                  logRouteName: 'services-task-details-logs',
-                  buildBreadCrumb() {
-                    return {
-                      parentCrumb: 'services-task-details',
-                      getCrumbs() { return []; }
-                    };
-                  },
-                  title:'Files'
+                  name: 'services-task-details-files',
+                  title:'Files',
+                  children: [
+                    {
+                      type: DefaultRoute,
+                      name: 'services-task-details-files-directory',
+                      handler: TaskFilesTab,
+                      fileViewerRouteName: 'services-task-details-files-viewer',
+                      buildBreadCrumb() {
+                        return {
+                          parentCrumb: 'services-task-details',
+                          getCrumbs() { return []; }
+                        };
+                      }
+                    },
+                    {
+                      type: Route,
+                      name: 'services-task-details-files-viewer',
+                      path: 'view/:filePath?/?:innerPath?/?',
+                      handler: TaskFileViewer,
+                      dontScroll: true,
+                      buildBreadCrumb() {
+                        return {
+                          parentCrumb: 'services-task-details',
+                          getCrumbs() { return []; }
+                        };
+                      }
+                    }
+                  ]
                 },
-                {
-                  type: Route,
-                  name: 'services-task-details-logs',
-                  dontScroll: true,
-                  path: 'logs/:filePath?/?:innerPath?/?',
-                  handler: TaskLogsTab,
-                  hideHeaderNavigation: true,
-                  buildBreadCrumb() {
-                    return {
-                      parentCrumb: 'services-task-details',
-                      getCrumbs() { return []; }
-                    };
-                  },
-                  title:'Logs'
-                },
+                // {
+                //   type: Route,
+                //   name: 'services-task-details-logs',
+                //   dontScroll: true,
+                //   path: 'logs/:filePath?/?:innerPath?/?',
+                //   handler: TaskLogsTab,
+                //   title:'Logs'
+                // },
                 {
                   type: Route,
                   name: 'services-task-details-volumes',

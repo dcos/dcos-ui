@@ -16,7 +16,7 @@ import TaskDetail from '../pages/task-details/TaskDetail';
 import TaskDetailBreadcrumb from '../pages/nodes/breadcrumbs/TaskDetailBreadcrumb';
 import TaskDetailsTab from '../pages/task-details/TaskDetailsTab';
 import TaskFilesTab from '../pages/task-details/TaskFilesTab';
-import TaskLogsTab from '../pages/task-details/TaskLogsTab';
+import TaskFileViewer from '../pages/task-details/TaskFileViewer';
 import UnitsHealthNodeDetail from '../pages/system/UnitsHealthNodeDetail';
 import UnitsHealthDetailBreadcrumb from '../pages/system/breadcrumbs/UnitsHealthDetailBreadcrumb';
 import VolumeDetail from '../components/VolumeDetail';
@@ -108,45 +108,55 @@ let nodesRoutes = {
               type: DefaultRoute,
               name: 'nodes-task-details-tab',
               handler: TaskDetailsTab,
-              hideHeaderNavigation: true,
+              title:'Details',
               buildBreadCrumb() {
                 return {
                   parentCrumb: 'nodes-task-details',
                   getCrumbs() { return []; }
                 };
-              },
-              title: 'Details'
+              }
             },
             {
               type: Route,
               name: 'nodes-task-details-files',
               path: 'files/?',
-              handler: TaskFilesTab,
-              hideHeaderNavigation: true,
-              logRouteName: 'nodes-task-details-logs',
-              buildBreadCrumb() {
-                return {
-                  parentCrumb: 'nodes-task-details',
-                  getCrumbs() { return []; }
-                };
-              },
-              title: 'Files'
+              title:'Files',
+              children: [
+                {
+                  type: DefaultRoute,
+                  name: 'nodes-task-details-files-directory',
+                  handler: TaskFilesTab,
+                  fileViewerRouteName: 'nodes-task-details-files-viewer',
+                  buildBreadCrumb() {
+                    return {
+                      parentCrumb: 'nodes-task-details',
+                      getCrumbs() { return []; }
+                    };
+                  }
+                },
+                {
+                  type: Route,
+                  name: 'nodes-task-details-files-viewer',
+                  path: 'view/:filePath?/?:innerPath?/?',
+                  handler: TaskFileViewer,
+                  dontScroll: true,
+                  buildBreadCrumb() {
+                    return {
+                      parentCrumb: 'nodes-task-details',
+                      getCrumbs() { return []; }
+                    };
+                  }
+                }
+              ]
             },
-            {
-              type: Route,
-              name: 'nodes-task-details-logs',
-              dontScroll: true,
-              path: 'logs/:filePath?/?:innerPath?/?',
-              handler: TaskLogsTab,
-              hideHeaderNavigation: true,
-              buildBreadCrumb() {
-                return {
-                  parentCrumb: 'nodes-task-details',
-                  getCrumbs() { return []; }
-                };
-              },
-              title: 'Logs'
-            },
+            // {
+            //   type: Route,
+            //   name: 'nodes-task-details-logs',
+            //   dontScroll: true,
+            //   path: 'logs/:filePath?/?:innerPath?/?',
+            //   handler: TaskLogsTab,
+            //   title:'Logs'
+            // },
             {
               type: Route,
               name: 'nodes-task-details-volumes',
