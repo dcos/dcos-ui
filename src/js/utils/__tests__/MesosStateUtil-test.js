@@ -2,7 +2,7 @@ const MesosStateUtil = require('../MesosStateUtil');
 
 describe('MesosStateUtil', function () {
 
-  describe('#assignSchedulerNameToTasks', function () {
+  describe('#flagMarathonTasks', function () {
     it('should assign a isStartedByMarathon flag to all tasks', function () {
       const state = {
         frameworks: [
