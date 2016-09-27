@@ -7,9 +7,9 @@ import Util from '../utils/Util';
 
 class PodContainerSpecView extends React.Component {
   getArtifactsSection() {
-    let {container: {artifacts=[]}} = this.props;
+    let {container: {artifacts}} = this.props;
 
-    if (artifacts.length === 0) {
+    if (!artifacts || artifacts.length === 0) {
       return null;
     }
 
@@ -73,9 +73,9 @@ class PodContainerSpecView extends React.Component {
   }
 
   getEnvironmentSection() {
-    let {container: {environment={}}} = this.props;
+    let {container: {environment}} = this.props;
 
-    if (Object.keys(environment).length === 0) {
+    if (!environment || Object.keys(environment).length === 0) {
       return null;
     }
 
@@ -88,9 +88,9 @@ class PodContainerSpecView extends React.Component {
   }
 
   getEndpointsSection() {
-    let {container: {id, endpoints=[]}} = this.props;
+    let {container: {id, endpoints}} = this.props;
 
-    if (!endpoints.length) {
+    if (!endpoints || !endpoints.length) {
       return null;
     }
 
@@ -116,9 +116,9 @@ class PodContainerSpecView extends React.Component {
   }
 
   getVolumesSection() {
-    let {container: {volumeMounts=[]}} = this.props;
+    let {container: {volumeMounts}} = this.props;
 
-    if (volumeMounts.length === 0) {
+    if (!volumeMounts || volumeMounts.length === 0) {
       return null;
     }
 
