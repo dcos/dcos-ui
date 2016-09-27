@@ -17,7 +17,7 @@ const METHODS_TO_BIND = [
   'handleKeyDown'
 ];
 
-class TaskLogsTab extends React.Component {
+class TaskFileViewer extends React.Component {
   constructor() {
     super();
 
@@ -337,18 +337,18 @@ class TaskLogsTab extends React.Component {
   }
 }
 
-TaskLogsTab.contextTypes = {
+TaskFileViewer.contextTypes = {
   router: React.PropTypes.func
 };
 
-TaskLogsTab.propTypes = {
+TaskFileViewer.propTypes = {
   directory: React.PropTypes.object,
   selectedLogFile: React.PropTypes.object,
   task: React.PropTypes.object
 };
 
-TaskLogsTab.defaultProps = {
+TaskFileViewer.defaultProps = {
   task: {}
 };
 
-module.exports = TaskLogsTab;
+module.exports = TaskFileViewer;
