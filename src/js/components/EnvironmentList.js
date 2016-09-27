@@ -26,7 +26,8 @@ class EnvironmentList extends React.Component {
               color="white"
               family="mini"
               id="key"
-              size="mini" /> {value.secret}
+              size="mini" />
+            {value.secret}
           </span>
         );
       }
