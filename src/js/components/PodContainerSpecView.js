@@ -166,7 +166,7 @@ class PodContainerSpecView extends React.Component {
 };
 
 PodContainerSpecView.propTypes = {
-  container: React.PropTypes.object
+  container: React.PropTypes.object.isRequired
 };
 
 module.exports = PodContainerSpecView;
