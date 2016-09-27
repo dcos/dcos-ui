@@ -3,7 +3,7 @@
 & when (@page-header-enabled) {
 
   .page-header {
-    .clearfix();
+    flex: 0 1 auto;
     position: relative;
 
     &:before {
@@ -16,64 +16,21 @@
       position: absolute;
       width: 100%;
     }
-
-    .page-header-subheadline {
-
-      a {
-        text-decoration: none;
-      }
-    }
   }
 
+  // TODO: Remove this if we aren't going to use it.
   .page-navigation-sidebar-toggle {
     display: none;
   }
 
-  .page-header-heading {
+  .page-header-content-section {
     align-items: center;
     display: flex;
-    flex-wrap: wrap;
   }
 
-  .page-header-breadcrumbs {
-    flex: 1 1 0;
-    white-space: nowrap;
-
-    & > li {
-      // Overriding specificity from CNVS. :(
-      display: inline-block !important;
-      float: none !important;
-      margin-right: @base-spacing-unit * 1/4;
-      vertical-align: middle;
-
-      &:last-child {
-        margin-right: 0;
-      }
-    }
-  }
-
-  .page-header-breadcrumb-primary {
-
-    .icon {
-      margin-right: @base-spacing-unit * 1/8;
-    }
-
-    .dropdown {
-
-      .button {
-        background: none;
-        border: 0;
-        border-radius: 0;
-        padding: 0;
-      }
-    }
-  }
-
-  .page-header-actions {
-    flex: 0 0 auto;
-  }
-
-  .page-header-navigation {
+  .page-header-content-section-secondary {
+    align-items: flex-start;
+    display: flex;
 
     & when not (@pod-margin-bottom = null) {
 
@@ -92,27 +49,80 @@
       margin-bottom: 0;
     }
   }
+
+  .page-header-content-section-secondary-detail {
+    margin-left: auto;
+  }
+
+  .page-header-breadcrumbs {
+    align-items: center;
+    display: flex;
+    flex: 1 1 auto;
+    min-width: 0;
+
+    // This extra classname is necessary to override specificity from CNVS.
+    &.list-inline {
+
+      & > li {
+        display: inline-block;
+        float: none;
+        line-height: 2rem;
+        margin-right: @base-spacing-unit * 1/4;
+        vertical-align: middle;
+
+        &:last-child {
+          margin-right: 0;
+        }
+      }
+    }
+  }
+
+  .page-header-breadcrumb-primary {
+    flex: 0 0 auto;
+
+    .icon {
+      margin-right: @base-spacing-unit * 1/8;
+    }
+
+    .dropdown {
+
+      .button {
+        background: none;
+        border: 0;
+        border-radius: 0;
+        padding: 0;
+      }
+    }
+  }
+
+  .page-header-breadcrumb-secondary {
+    flex: 0 1 auto;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    &:last-child {
+      flex: 0 0 auto;
+      min-width: auto;
+      overflow: visible;
+    }
+  }
+
+  .page-header-breadcrumb-caret {
+    flex: 0 0 auto;
+  }
+
+  .page-header-actions {
+    flex: 0 0 auto;
+  }
 }
 
 & when (@page-header-enabled) and (@layout-screen-small-enabled) {
 
   @media (min-width: @layout-screen-small-min-width) {
 
-    .page-header-breadcrumbs {
-
-      & > li {
-        margin-right: @base-spacing-unit-screen-small * 1/4;
-      }
-    }
-
-    .page-header-breadcrumb-primary {
-
-      .icon {
-        margin-right: @base-spacing-unit-screen-small * 1/8;
-      }
-    }
-
-    .page-header-navigation {
+    .page-header-content-section-secondary {
 
       & when not (@pod-margin-bottom-screen-small = null) {
 
@@ -127,6 +137,23 @@
         }
       }
     }
+
+    .page-header-breadcrumbs {
+
+      &.list-inline {
+
+        & > li {
+          margin-right: @base-spacing-unit-screen-small * 1/4;
+        }
+      }
+    }
+
+    .page-header-breadcrumb-primary {
+
+      .icon {
+        margin-right: @base-spacing-unit-screen-small * 1/8;
+      }
+    }
   }
 }
 
@@ -134,21 +161,7 @@
 
   @media (min-width: @layout-screen-medium-min-width) {
 
-    .page-header-breadcrumbs {
-
-      & > li {
-        margin-right: @base-spacing-unit-screen-medium * 1/4;
-      }
-    }
-
-    .page-header-breadcrumb-primary {
-
-      .icon {
-        margin-right: @base-spacing-unit-screen-medium * 1/8;
-      }
-    }
-
-    .page-header-navigation {
+    .page-header-content-section-secondary {
 
       & when not (@pod-margin-bottom-screen-medium = null) {
 
@@ -163,6 +176,23 @@
         }
       }
     }
+
+    .page-header-breadcrumbs {
+
+      &.list-inline {
+
+        & > li {
+          margin-right: @base-spacing-unit-screen-medium * 1/4;
+        }
+      }
+    }
+
+    .page-header-breadcrumb-primary {
+
+      .icon {
+        margin-right: @base-spacing-unit-screen-medium * 1/8;
+      }
+    }
   }
 }
 
@@ -170,21 +200,7 @@
 
   @media (min-width: @layout-screen-large-min-width) {
 
-    .page-header-breadcrumbs {
-
-      & > li {
-        margin-right: @base-spacing-unit-screen-large * 1/4;
-      }
-    }
-
-    .page-header-breadcrumb-primary {
-
-      .icon {
-        margin-right: @base-spacing-unit-screen-large * 1/8;
-      }
-    }
-
-    .page-header-navigation {
+    .page-header-content-section-secondary {
 
       & when not (@pod-margin-bottom-screen-large = null) {
 
@@ -199,6 +215,23 @@
         }
       }
     }
+
+    .page-header-breadcrumbs {
+
+      &.list-inline {
+
+        & > li {
+          margin-right: @base-spacing-unit-screen-large * 1/4;
+        }
+      }
+    }
+
+    .page-header-breadcrumb-primary {
+
+      .icon {
+        margin-right: @base-spacing-unit-screen-large * 1/8;
+      }
+    }
   }
 }
 
@@ -206,21 +239,7 @@
 
   @media (min-width: @layout-screen-jumbo-min-width) {
 
-    .page-header-breadcrumbs {
-
-      & > li {
-        margin-right: @base-spacing-unit-screen-jumbo * 1/4;
-      }
-    }
-
-    .page-header-breadcrumb-primary {
-
-      .icon {
-        margin-right: @base-spacing-unit-screen-jumbo * 1/8;
-      }
-    }
-
-    .page-header-navigation {
+    .page-header-content-section-secondary {
 
       & when not (@pod-margin-bottom-screen-jumbo = null) {
 
@@ -233,6 +252,23 @@
           margin-bottom: -@pod-margin-bottom-screen-jumbo * @pod-short-margin-top-scale;
           padding-top: @pod-margin-bottom-screen-jumbo * @pod-short-margin-top-scale;
         }
+      }
+    }
+
+    .page-header-breadcrumbs {
+
+      &.list-inline {
+
+        & > li {
+          margin-right: @base-spacing-unit-screen-jumbo * 1/4;
+        }
+      }
+    }
+
+    .page-header-breadcrumb-primary {
+
+      .icon {
+        margin-right: @base-spacing-unit-screen-jumbo * 1/8;
       }
     }
   }
