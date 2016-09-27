@@ -9,6 +9,10 @@ var SERVICE_OTHER = {
   VOLUMES: {
     key: ServiceOtherTypes.VOLUMES,
     displayName: ServiceOtherLabels.VOLUMES
+  },
+  PODS: {
+    key: ServiceOtherTypes.PODS,
+    displayName: ServiceOtherLabels.PODS
   }
 };
 
