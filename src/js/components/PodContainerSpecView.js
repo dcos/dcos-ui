@@ -153,7 +153,7 @@ class PodContainerSpecView extends React.Component {
     return (
       <div className="pod-config-container">
         <h5 className="inverse flush-top">
-          {container.name}
+          {name}
         </h5>
         {this.getGeneralDetails()}
         {this.getEnvironmentSection()}
