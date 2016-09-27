@@ -5,27 +5,6 @@ import AppDispatcher from './AppDispatcher';
 import Config from '../config/Config';
 import MesosStateUtil from '../utils/MesosStateUtil';
 
-function findWithID(stateObject, listProps, id) {
-  let searchItem;
-  let length = listProps.length;
-
-  for (let i = 0; i < length; i++) {
-    let array = stateObject[listProps[i]];
-
-    if (array) {
-      searchItem = array.find(function (element) {
-        return element.id === id;
-      });
-
-      if (searchItem) {
-        return searchItem;
-      }
-    }
-  }
-
-  return null;
-}
-
 var TaskDirectoryActions = {
   getDownloadURL(nodeID, path) {
     return `${Config.rootUrl}/agent/${nodeID}/files/download?` +
@@ -44,34 +23,6 @@ var TaskDirectoryActions = {
     }
 
     return `${Config.rootUrl}/agent/${task.slave_id}/${nodePID}/state`;
-  },
-
-  getInnerPath(nodeState, task, innerPath) {
-    innerPath = innerPath || '';
-
-    // Search frameworks
-    let framework = findWithID(
-      nodeState,
-      ['frameworks', 'completed_frameworks'],
-      task.framework_id
-    );
-
-    if (!framework) {
-      return null;
-    }
-
-    // Search executors
-    let executor = findWithID(
-      framework,
-      ['executors', 'completed_executors'],
-      task.executor_id || task.id // Fallback to task id, if no executor id
-    );
-
-    if (!executor) {
-      return null;
-    }
-
-    return `${executor.directory}/${innerPath}`;
   },
 
   fetchNodeState: RequestUtil.debounceOnError(
