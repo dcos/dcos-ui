@@ -1,7 +1,7 @@
 jest.dontMock('../../../components/Icon');
 jest.dontMock('../../../components/MesosLogView');
 jest.dontMock('../../../components/RequestErrorMsg');
-jest.dontMock('../TaskLogsTab');
+jest.dontMock('../TaskFileViewer');
 jest.dontMock('../../../components/FilterBar');
 
 const JestUtil = require('../../../utils/JestUtil');
@@ -16,14 +16,14 @@ const React = require('react');
 const ReactDOM = require('react-dom');
 
 const TaskDirectoryActions = require('../../../events/TaskDirectoryActions');
-const TaskLogsTab = require('../TaskLogsTab');
+const TaskFileViewer = require('../TaskFileViewer');
 
-describe('TaskLogsTab', function () {
+describe('TaskFileViewer', function () {
 
   beforeEach(function () {
     this.container = document.createElement('div');
     this.instance = ReactDOM.render(
-      <TaskLogsTab
+      <TaskFileViewer
         directory={new TaskDirectory({items: [{nlink: 1, path: '/stdout'}]})}
         params={{filePath: 'undefined'}}
         selectedLogFile={new DirectoryItem({nlink: 1, path: '/stdout'})}
@@ -40,7 +40,7 @@ describe('TaskLogsTab', function () {
 
     it('should set button disabled when file is not found', function () {
       this.instance = ReactDOM.render(
-        <TaskLogsTab
+        <TaskFileViewer
           directory={new TaskDirectory({items: [{nlink: 1, path: ''}]})}
           params={{filePath: 'undefined'}}
           task={{slave_id: 'foo'}} />,
@@ -72,7 +72,7 @@ describe('TaskLogsTab', function () {
 
     it('renders stderr when view is changed', function () {
       this.instance = ReactDOM.render(
-        <TaskLogsTab
+        <TaskFileViewer
           directory={new TaskDirectory({items: [
             {nlink: 1, path: '/stdout'},
             {nlink: 1, path: '/stderr'}
