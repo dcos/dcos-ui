@@ -12,7 +12,7 @@ import VirtualNetworkDetailsTab from '../../pages/network/virtual-network-detail
 import TaskDetail from '../../pages/task-details/TaskDetail';
 import TaskDetailsTab from '../../pages/task-details/TaskDetailsTab';
 import TaskFilesTab from '../../pages/task-details/TaskFilesTab';
-import TaskLogsTab from '../../pages/task-details/TaskLogsTab';
+import TaskFileViewer from '../../pages/task-details/TaskFileViewer';
 
 let RouteFactory = {
   getNetworkRoutes() {
@@ -89,8 +89,8 @@ let RouteFactory = {
       },
       {
         type: Route,
-        name: 'virtual-networks-tab-detail-tasks-detail',
         path: 'virtual-networks/:overlayName/tasks/:taskID/?',
+        name: 'virtual-networks-tab-detail-tasks-detail',
         handler: TaskDetail,
         hideHeaderNavigation: true,
         buildBreadCrumb() {
@@ -107,44 +107,57 @@ let RouteFactory = {
             name: 'virtual-networks-tab-detail-tasks-details-tab',
             handler: TaskDetailsTab,
             hideHeaderNavigation: true,
+            title:'Details',
             buildBreadCrumb() {
               return {
                 parentCrumb: 'virtual-networks-tab-detail-tasks-detail',
                 getCrumbs() { return []; }
               };
-            },
-            title: 'Details'
+            }
           },
           {
             type: Route,
             name: 'virtual-networks-tab-detail-tasks-details-files',
             path: 'files/?',
-            handler: TaskFilesTab,
-            hideHeaderNavigation: true,
-            logRouteName: 'virtual-networks-tab-detail-tasks-details-logs',
-            buildBreadCrumb() {
-              return {
-                parentCrumb: 'virtual-networks-tab-detail-tasks-detail',
-                getCrumbs() { return []; }
-              };
-            },
-            title: 'Files'
-          },
-          {
-            type: Route,
-            name: 'virtual-networks-tab-detail-tasks-details-logs',
-            dontScroll: true,
-            path: 'logs/:filePath?/?:innerPath?/?',
-            handler: TaskLogsTab,
-            hideHeaderNavigation: true,
-            buildBreadCrumb() {
-              return {
-                parentCrumb: 'virtual-networks-tab-detail-tasks-detail',
-                getCrumbs() { return []; }
-              };
-            },
-            title: 'Logs'
+            title:'Files',
+            children: [
+              {
+                type: DefaultRoute,
+                name: 'virtual-networks-tab-detail-tasks-details-files-directory',
+                hideHeaderNavigation: true,
+                handler: TaskFilesTab,
+                fileViewerRouteName: 'virtual-networks-tab-detail-tasks-details-files-viewer',
+                buildBreadCrumb() {
+                  return {
+                    parentCrumb: 'virtual-networks-tab-detail-tasks-detail',
+                    getCrumbs() { return []; }
+                  };
+                }
+              },
+              {
+                type: Route,
+                path: 'view/:filePath?/?:innerPath?/?',
+                hideHeaderNavigation: true,
+                name: 'virtual-networks-tab-detail-tasks-details-files-viewer',
+                handler: TaskFileViewer,
+                dontScroll: true,
+                buildBreadCrumb() {
+                  return {
+                    parentCrumb: 'virtual-networks-tab-detail-tasks-detail',
+                    getCrumbs() { return []; }
+                  };
+                }
+              }
+            ]
           }
+          // {
+          //   type: Route,
+          //   name: 'virtual-networks-tab-detail-tasks-details-logs',
+          //   dontScroll: true,
+          //   path: 'logs/:filePath?/?:innerPath?/?',
+          //   handler: TaskLogsTab,
+          //   title:'Logs'
+          // }
         ]
       }
     ];

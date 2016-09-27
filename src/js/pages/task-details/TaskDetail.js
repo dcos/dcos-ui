@@ -10,6 +10,7 @@ import DCOSStore from '../../stores/DCOSStore';
 import DetailViewHeader from '../../components/DetailViewHeader';
 import InternalStorageMixin from '../../mixins/InternalStorageMixin';
 import Loader from '../../components/Loader';
+import ManualBreadcrumbs from '../../components/ManualBreadcrumbs';
 import MesosStateStore from '../../stores/MesosStateStore';
 import RequestErrorMsg from '../../components/RequestErrorMsg';
 import StatusMapping from '../../constants/StatusMapping';
@@ -18,6 +19,7 @@ import TaskDirectoryStore from '../../stores/TaskDirectoryStore';
 import TaskStates from '../../constants/TaskStates';
 
 const METHODS_TO_BIND = [
+  'handleBreadcrumbClick',
   'onTaskDirectoryStoreError',
   'onTaskDirectoryStoreSuccess'
 ];
@@ -129,6 +131,17 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
     this.setState({directory: null});
   }
 
+  handleBreadcrumbClick(path) {
+    let {router} = this.context;
+    let {params} = this.props;
+    let task = MesosStateStore.getTaskFromTaskID(params.taskID);
+    TaskDirectoryStore.setPath(task, path);
+    // Transition to parent route, which uses a default route
+    let currentRoutes = router.getCurrentRoutes();
+    let {name} = currentRoutes[currentRoutes.length - 2];
+    router.transitionTo(name, params);
+  }
+
   getErrorScreen() {
     return (
       <div className="pod">
@@ -165,6 +178,7 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
   }
 
   handleOpenLogClick(selectedLogFile) {
+    let {router} = this.context;
     let params = Object.assign(
       {},
       this.props.params,
@@ -173,9 +187,9 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
         innerPath: encodeURIComponent(TaskDirectoryStore.get('innerPath'))
       }
     );
-    let currentRoutes = this.context.router.getCurrentRoutes();
-    let {logRouteName} = currentRoutes[currentRoutes.length - 1];
-    this.context.router.transitionTo(logRouteName, params);
+    let currentRoutes = router.getCurrentRoutes();
+    let {fileViewerRouteName} = currentRoutes[currentRoutes.length - 1];
+    router.transitionTo(fileViewerRouteName, params);
   }
 
   getBasicInfo() {
@@ -195,6 +209,7 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
       {filePath},
       this.props.params
     );
+
     let tabsArray = this.tabs_getRoutedTabs({params}) || [];
 
     if (!this.hasVolumes(service)) {
@@ -249,6 +264,31 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
     );
   }
 
+  getBreadcrumbs() {
+    let innerPath = TaskDirectoryStore.get('innerPath').split('/');
+    let onClickPath = '';
+    let crumbs = innerPath.map((directoryItem, index) => {
+      let textValue = directoryItem;
+
+      // First breadcrumb is always 'Working Directory'.
+      if (index === 0) {
+        textValue = 'Working Directory';
+      } else {
+        onClickPath += ('/' + directoryItem);
+      }
+
+      return {
+        className: 'clickable',
+        label: textValue,
+        onClick: this.handleBreadcrumbClick.bind(this, onClickPath)
+      };
+    });
+
+    return (
+      <ManualBreadcrumbs crumbs={crumbs} />
+    );
+  }
+
   getSubView() {
     let task = MesosStateStore.getTaskFromTaskID(this.props.params.taskID);
     let {directory, selectedLogFile} = this.state;
@@ -261,12 +301,17 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
     }
 
     return (
-      <RouteHandler
-        directory={directory}
-        onOpenLogClick={this.handleOpenLogClick.bind(this)}
-        selectedLogFile={selectedLogFile}
-        service={this.getService()}
-        task={task} />
+      <div className="flex-container-col flex-grow flex-shrink">
+        <div className="flex-box control-group">
+          {this.getBreadcrumbs()}
+        </div>
+        <RouteHandler
+          directory={directory}
+          onOpenLogClick={this.handleOpenLogClick.bind(this)}
+          selectedLogFile={selectedLogFile}
+          service={this.getService()}
+          task={task} />
+      </div>
     );
   }
 
