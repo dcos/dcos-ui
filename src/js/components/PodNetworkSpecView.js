@@ -34,7 +34,7 @@ class PodNetworkSpecView extends React.Component {
           className="nested-description-list"
           hash={labels} />
       </div>
-      );
+    );
   }
 
   render() {
@@ -50,7 +50,7 @@ class PodNetworkSpecView extends React.Component {
           {this.getLabelSection()}
         </div>
       </div>
-      );
+    );
   }
 };
 
