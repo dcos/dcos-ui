@@ -26,6 +26,19 @@ const MesosStateUtil = {
   },
 
   /**
+   * @param {{frameworks:array,completed_frameworks:array}} state
+   * @param {string} frameworkID
+   * @returns {{executors:Array, completed_executors:Array}|null} framework
+   */
+  getFramework(state, frameworkID) {
+    const {frameworks, completed_frameworks} = state;
+    return [].concat(frameworks, completed_frameworks).find(
+        function (framework) {
+          return framework.id === frameworkID;
+        });
+  },
+
+  /**
    * @param  {Object} state A document of mesos state
    * @param  {Array} filter Allows us to filter by framework id
    *   All other frameworks will be put into an 'other' category

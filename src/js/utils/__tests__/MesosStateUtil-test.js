@@ -53,6 +53,38 @@ describe('MesosStateUtil', function () {
 
   });
 
+  describe('#getFramework', function () {
+    const state = {
+      frameworks: [
+        {
+          id: 'framework-123',
+          name: 'test-1'
+        }
+      ],
+      completed_frameworks: [
+        {
+          id: 'framework-abc',
+          name: 'test-2'
+        }
+      ]
+    };
+
+    it('should return the matching framework', function () {
+      expect(MesosStateUtil.getFramework(state, 'framework-123').name)
+          .toEqual('test-1');
+    });
+
+    it('should return the matching "completed" framework', function () {
+      expect(MesosStateUtil.getFramework(state, 'framework-abc').name)
+          .toEqual('test-2');
+    });
+
+    it('should return nothing if no matching framework was found', function () {
+      expect(MesosStateUtil.getFramework(state, 'unknown')).not.toBeDefined();
+    });
+
+  });
+
   describe('#getTasksFromVirtualNetworkName', function () {
 
     beforeEach(function () {
