@@ -2,37 +2,28 @@ import React from 'react';
 
 import DescriptionList from './DescriptionList';
 
-const METHODS_TO_BIND = [
-];
-
 class PodNetworkSpecView extends React.Component {
-  constructor() {
-    super(...arguments);
-
-    this.state = {
+  getGeneralDetails() {
+    let {network: {name, mode}} = this.props;
+    let hash = {
+      Name: name,
+      Mode: mode
     };
 
-    METHODS_TO_BIND.forEach((method) => {
-      this[method] = this[method].bind(this);
-    });
-  }
+    hash = Object.keys(hash).filter(function (key) {
+      return hash[key];
+    }).reduce(function (memo, key) {
+      memo[key] = hash[key];
 
-  getGeneralDetails() {
-    let {network} = this.props;
-    let hash = {};
-    if (network.name) {
-      hash['Name'] = network.name;
-    }
-    if (network.mode) {
-      hash['Mode'] = network.mode;
-    }
+      return memo;
+    }, {});
 
     return <DescriptionList hash={hash} />;
   }
 
   getLabelSection() {
-    let {network} = this.props;
-    if (!network.labels || !Object.keys(network.labels).length) {
+    let {network: labels} = this.props;
+    if (!labels || !Object.keys(labels).length) {
       return null;
     }
 
@@ -41,18 +32,18 @@ class PodNetworkSpecView extends React.Component {
         <h5 className="inverse flush-top">Labels</h5>
         <DescriptionList
           className="nested-description-list"
-          hash={network.labels} />
+          hash={labels} />
       </div>
       );
   }
 
   render() {
-    let {network} = this.props;
+    let {network: {name}} = this.props;
 
     return (
       <div className="pod-config-network">
         <h5 className="inverse flush-top">
-          {network.name}
+          {name}
         </h5>
         <div>
           {this.getGeneralDetails()}
@@ -63,12 +54,8 @@ class PodNetworkSpecView extends React.Component {
   }
 };
 
-PodNetworkSpecView.contextTypes = {
-  router: React.PropTypes.func
-};
-
 PodNetworkSpecView.propTypes = {
-  network: React.PropTypes.object
+  network: React.PropTypes.object.isRequired
 };
 
 module.exports = PodNetworkSpecView;
