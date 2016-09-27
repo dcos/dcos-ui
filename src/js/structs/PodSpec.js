@@ -25,6 +25,10 @@ module.exports = class PodSpec extends ServiceSpec {
     return this.get('labels') || {};
   }
 
+  getNetworks() {
+    return this.get('networks') || [];
+  }
+
   getResourcesSummary() {
     return this.getContainers().reduce(function (resources, container) {
 

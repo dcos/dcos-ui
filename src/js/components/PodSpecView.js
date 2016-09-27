@@ -4,6 +4,7 @@ import DescriptionList from './DescriptionList';
 import EnvironmentList from './EnvironmentList';
 import PodContainerSpecView from './PodContainerSpecView';
 import PodSpec from '../structs/PodSpec';
+import PodNetworkSpecView from './PodNetworkSpecView';
 
 class PodSpecView extends React.Component {
   getEnvironmentDetails() {
@@ -80,6 +81,31 @@ class PodSpecView extends React.Component {
     );
   }
 
+  getNetworksDetails() {
+    let networks = this.props.spec.getNetworks();
+
+    if (networks.length === 0) {
+      return null;
+    }
+
+    let nodes = networks.map(function (network, i) {
+      return (
+        <PodNetworkSpecView
+          key={i}
+          network={network} />
+      );
+    });
+
+    return (
+      <div>
+        <h4 className="inverse flush-top">
+          Networks
+        </h4>
+        {nodes}
+      </div>
+    );
+  }
+
   getGeneralDetails() {
     let {spec} = this.props;
     let hash = {
@@ -151,6 +177,7 @@ class PodSpecView extends React.Component {
         {this.getSecretsDetails()}
         {this.getVolumesDetails()}
         {this.getScalingDetails()}
+        {this.getNetworksDetails()}
         <h4 className="inverse flush-top">
           Containers
         </h4>
