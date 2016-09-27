@@ -1,9 +1,9 @@
 import classNames from 'classnames';
 import React from 'react';
 import {Link} from 'react-router';
+import {Table} from 'reactjs-components';
 
 import CollapsingString from './CollapsingString';
-import CheckboxTable from './CheckboxTable';
 import EventTypes from '../constants/EventTypes';
 import ExpandingTable from './ExpandingTable';
 import MesosStateStore from '../stores/MesosStateStore';
@@ -359,7 +359,7 @@ class PodInstancesTable extends React.Component {
         getColGroup={this.getColGroup}
         onCheckboxChange={this.handleItemCheck}
         sortBy={{prop: 'startedAt', order: 'desc'}}
-        tableComponent={CheckboxTable}
+        tableComponent={Table}
         uniqueProperty="id" />
     );
   }
