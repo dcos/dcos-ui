@@ -47,7 +47,7 @@ class VolumeTable extends React.Component {
 
   getColumnClassName(prop, sortBy, row) {
     return classNames({
-      'highlight': prop === sortBy.prop,
+      'active': prop === sortBy.prop,
       'clickable': row == null
     });
   }

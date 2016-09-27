@@ -1,18 +1,22 @@
 import {Route, Redirect, NotFoundRoute} from 'react-router';
 import {Hooks} from 'PluginSDK';
 
+import cluster from './cluster';
+import components from './components';
 import dashboard from './dashboard';
 import Index from '../pages/Index';
 import Network from './factories/network';
 import nodes from './nodes';
 import NotFoundPage from '../pages/NotFoundPage';
-import System from './factories/system';
+import Organization from './factories/organization';
 import services from './services';
+import settings from './settings';
+import styles from './styles';
 import jobs from './jobs';
 import universe from './universe';
 
 // Modules that produce routes
-let routeFactories = [System, Network];
+let routeFactories = [Organization, Network];
 
 function getApplicationRoutes() {
   // Statically defined routes
@@ -22,6 +26,10 @@ function getApplicationRoutes() {
     jobs,
     nodes,
     universe,
+    cluster,
+    components,
+    settings,
+    styles,
     {
       type: Redirect,
       from: '/',

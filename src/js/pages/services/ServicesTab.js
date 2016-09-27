@@ -283,7 +283,6 @@ var ServicesTab = React.createClass({
       return (
         <FilterHeadline
           className="breadcrumb-style-headline"
-          inverseStyle={true}
           onReset={this.resetFilter}
           name="Service"
           currentLength={filteredServices.length}
@@ -328,7 +327,7 @@ var ServicesTab = React.createClass({
     }
 
     return (
-      <div className="flex-box flush flex-mobile-column">
+      <div className="flex">
         <ServiceSidebarFilters
           handleFilterChange={this.handleFilterChange}
           services={allServices} />
@@ -392,5 +391,10 @@ var ServicesTab = React.createClass({
   }
 
 });
+
+ServicesTab.routeConfig = {
+  label: 'Services',
+  matches: /^\/services\/overview/
+};
 
 module.exports = ServicesTab;

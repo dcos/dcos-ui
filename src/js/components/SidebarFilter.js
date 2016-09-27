@@ -108,7 +108,7 @@ class SidebarFilter extends mixin(QueryParamsMixin) {
 
     return (
       <Link
-        className="small"
+        className="sidebar-filters-header-clear small flush"
         to={currentPathname}
         query={query}
         params={params}>
@@ -123,15 +123,15 @@ class SidebarFilter extends mixin(QueryParamsMixin) {
 
     if (count) {
       badge = (
-        <span className="badge text-muted inverse text-align-center">
+        <span className="badge">
           {count}
         </span>
       );
     }
 
     return (
-      <span className="flex-box flush flex-align-items-center">
-        <span className="label flex-grow">{filterLabel}</span>
+      <span className="sidebar-filters-item-label badge-container">
+        <span>{filterLabel}</span>
         {badge}
       </span>
     );
@@ -155,25 +155,18 @@ class SidebarFilter extends mixin(QueryParamsMixin) {
         let checked = selectedNodes.indexOf(value.toString()) > -1;
         let isActive = this.getCountByValue(filterLabel) > 0;
 
-        let labelClassSet = classNames(
-          'side-list-item form-row-element form-element-checkbox inverse',
-          'row row-flex flex-align-items-center vertical-center flush clickable',
-          {
-            'filter-active': isActive,
-            'filter-inactive': !isActive,
-            'filter-checked': checked
-          }
-        );
+        let labelClassSet = classNames({
+          'filter-active': isActive,
+          'filter-inactive': !isActive,
+          'filter-checked': checked
+        });
 
         return {
           checked,
-          checkboxLabelClass: 'form-element-checkbox-label flex-grow',
           value: checked,
           fieldType: 'checkbox',
-          formElementClass: 'form-row-element checkbox flush',
           name: filterLabel,
-          label:
-            this.getFormLabel(filterLabels[filterLabel], filterLabel),
+          label: this.getFormLabel(filterLabels[filterLabel], filterLabel),
           labelClass: labelClassSet
         };
       });
@@ -204,7 +197,7 @@ class SidebarFilter extends mixin(QueryParamsMixin) {
     }
 
     return (
-      <h6 className="flush-top flex-grow">{title}</h6>
+      <h6 className="sidebar-filters-header-title flush">{title}</h6>
     );
   }
 
@@ -212,8 +205,8 @@ class SidebarFilter extends mixin(QueryParamsMixin) {
     let {props} = this;
 
     return (
-      <div className="side-list sidebar-filters hidden-medium hidden-small hidden-mini">
-        <div className="flex-box flex-align-right flush">
+      <div className="side-list sidebar-filters hidden-medium hidden-small pod flush-top flush-left">
+        <div className="sidebar-filters-header label">
           {this.getTitle()}
           {this.getClearLinkForFilter(props.filterType)}
         </div>

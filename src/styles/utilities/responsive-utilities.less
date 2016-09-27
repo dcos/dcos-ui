@@ -2,7 +2,6 @@
 // Responsive: Utility classes
 // --------------------------------------------------
 
-
 // IE10 in Windows (Phone) 8
 //
 // Support for responsive views via media queries is kind of borked in IE10, for
@@ -22,15 +21,25 @@
 // More easily include all the states for responsive-utilities.less.
 .responsive-visibility() {
   display: block !important;
-  table&  { display: table; }
-  tr&     { display: table-row !important; }
-  th&,
-  td&     { display: table-cell !important; }
+
+  table & {
+    display: table;
+  }
+
+  tr & {
+    display: table-row !important;
+  }
+
+  th &,
+  td & {
+    display: table-cell !important;
+  }
 }
 
 .responsive-invisibility() {
   display: none !important;
 }
+
 // Visibility utilities
 // Note: Deprecated .visible-mini, .visible-small, .visible-medium, and .visible-large as of v3.2.0
 .visible-mini,
@@ -51,155 +60,192 @@
 .visible-medium-inline-block,
 .visible-large-block,
 .visible-large-inline,
-.visible-large-inline-block
+.visible-large-inline-block,
 .visible-x-large-block,
 .visible-x-large-inline,
 .visible-x-large-inline-block {
   display: none !important;
 }
 
-
 .visible-inline {
   display: inline;
-  -ms-display: inline;
-  -moz-display: inline;
-  -webkit-display: inline;
 }
 
 .visible-block {
   display: block;
-  -ms-display: block;
-  -moz-display: block;
-  -webkit-display: block;
 }
 
-.visible-mini {
-  @media (max-width: @screen-mini-max) {
+@media (max-width: @screen-mini-max) {
+
+  .visible-mini {
     .responsive-visibility();
   }
 }
-.visible-mini-block {
-  @media (max-width: @screen-mini-max) {
+
+@media (max-width: @screen-mini-max) {
+
+  .visible-mini-block {
     display: block !important;
   }
 }
-.visible-mini-inline {
-  @media (max-width: @screen-mini-max) {
+
+@media (max-width: @screen-mini-max) {
+
+  .visible-mini-inline {
     display: inline !important;
   }
 }
-.visible-mini-inline-block {
-  @media (max-width: @screen-mini-max) {
+
+@media (max-width: @screen-mini-max) {
+
+  .visible-mini-inline-block {
     display: inline-block !important;
   }
 }
 
-.visible-small {
-  @media (min-width: @screen-small) and (max-width: @screen-small-max) {
+@media (min-width: @screen-small) and (max-width: @screen-small-max) {
+
+  .visible-small {
     .responsive-visibility();
   }
 }
-.visible-small-block {
-  @media (min-width: @screen-small) and (max-width: @screen-small-max) {
+
+@media (min-width: @screen-small) and (max-width: @screen-small-max) {
+
+  .visible-small-block {
     display: block !important;
   }
 }
-.visible-small-inline {
-  @media (min-width: @screen-small) and (max-width: @screen-small-max) {
+
+@media (min-width: @screen-small) and (max-width: @screen-small-max) {
+
+  .visible-small-inline {
     display: inline !important;
   }
 }
-.visible-small-inline-block {
-  @media (min-width: @screen-small) and (max-width: @screen-small-max) {
+
+@media (min-width: @screen-small) and (max-width: @screen-small-max) {
+
+  .visible-small-inline-block {
     display: inline-block !important;
   }
 }
 
-.visible-medium {
-  @media (min-width: @screen-medium) and (max-width: @screen-medium-max) {
+@media (min-width: @screen-medium) and (max-width: @screen-medium-max) {
+
+  .visible-medium {
     .responsive-visibility();
   }
 }
-.visible-medium-block {
-  @media (min-width: @screen-medium) and (max-width: @screen-medium-max) {
+
+@media (min-width: @screen-medium) and (max-width: @screen-medium-max) {
+
+  .visible-medium-block {
     display: block !important;
   }
 }
-.visible-medium-inline {
-  @media (min-width: @screen-medium) and (max-width: @screen-medium-max) {
+
+@media (min-width: @screen-medium) and (max-width: @screen-medium-max) {
+
+  .visible-medium-inline {
     display: inline !important;
   }
 }
-.visible-medium-inline-block {
-  @media (min-width: @screen-medium) and (max-width: @screen-medium-max) {
+
+@media (min-width: @screen-medium) and (max-width: @screen-medium-max) {
+
+  .visible-medium-inline-block {
     display: inline-block !important;
   }
 }
 
-.visible-large {
-  @media (min-width: @screen-large) {
+@media (min-width: @screen-large) {
+
+  .visible-large {
     .responsive-visibility();
   }
 }
-.visible-large-block {
-  @media (min-width: @screen-large) {
+
+@media (min-width: @screen-large) {
+
+  .visible-large-block {
     display: block !important;
   }
 }
-.visible-large-inline {
-  @media (min-width: @screen-large) {
+
+@media (min-width: @screen-large) {
+
+  .visible-large-inline {
     display: inline !important;
   }
 }
-.visible-large-inline-block {
-  @media (min-width: @screen-large) {
+
+@media (min-width: @screen-large) {
+
+  .visible-large-inline-block {
     display: inline-block !important;
   }
 }
 
-.visible-x-large {
-  @media (min-width: @screen-x-large) {
+@media (min-width: @screen-x-large) {
+
+  .visible-x-large {
     .responsive-visibility();
   }
 }
-.visible-x-large-block {
-  @media (min-width: @screen-x-large) {
+
+@media (min-width: @screen-x-large) {
+
+  .visible-x-large-block {
     display: block !important;
   }
 }
-.visible-x-large-inline {
-  @media (min-width: @screen-x-large) {
+
+@media (min-width: @screen-x-large) {
+
+  .visible-x-large-inline {
     display: inline !important;
   }
 }
-.visible-x-large-inline-block {
-  @media (min-width: @screen-x-large) {
+
+@media (min-width: @screen-x-large) {
+
+  .visible-x-large-inline-block {
     display: inline-block !important;
   }
 }
 
-.hidden-mini {
-  @media (max-width: @screen-mini-max) {
+@media (max-width: @screen-mini-max) {
+
+  .hidden-mini {
     .responsive-invisibility();
   }
 }
-.hidden-small {
-  @media (min-width: @screen-small) and (max-width: @screen-small-max) {
+
+@media (min-width: @screen-small) and (max-width: @screen-small-max) {
+
+  .hidden-small {
     .responsive-invisibility();
   }
 }
-.hidden-medium {
-  @media (min-width: @screen-medium) and (max-width: @screen-medium-max) {
+
+@media (min-width: @screen-medium) and (max-width: @screen-medium-max) {
+
+  .hidden-medium {
     .responsive-invisibility();
   }
 }
-.hidden-large {
-  @media (min-width: @screen-large) {
+
+@media (min-width: @screen-large) {
+
+  .hidden-large {
     .responsive-invisibility();
   }
 }
-.hidden-x-large {
-  @media (min-width: @screen-x-large) {
+
+@media (min-width: @screen-x-large) {
+
+  .hidden-x-large {
     .responsive-invisibility();
   }
 }

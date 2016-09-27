@@ -60,9 +60,9 @@ class UnitsHealthTab extends mixin(StoreMixin) {
   renderUnit(prop, unit) {
     return (
       <div className="text-overflow">
-        <Link to="system-overview-units-unit-nodes-detail"
+        <Link to="components-overview-units-unit-nodes-detail"
           params={{unitID: unit.get('id')}}
-          className="headline">
+          className="table-cell-emphasized">
           {unit.getTitle()}
         </Link>
       </div>
@@ -87,9 +87,9 @@ class UnitsHealthTab extends mixin(StoreMixin) {
     });
 
     return (
-      <span className="button-align-content">
+      <span className="button-align-content label flush">
         <span className={dotClassSet}></span>
-        <span className="label">{StringUtil.capitalize(filterName)}</span>
+        <span>{StringUtil.capitalize(filterName)}</span>
         <span className="badge">{count || 0}</span>
       </span>
     );
@@ -159,7 +159,6 @@ class UnitsHealthTab extends mixin(StoreMixin) {
         <div className="units-health-table-header">
           <FilterHeadline
             currentLength={visibleData.length}
-            inverseStyle={true}
             isFiltering={healthFilter !== 'all' || searchString !== ''}
             name="Component"
             onReset={this.resetFilter}
@@ -168,14 +167,12 @@ class UnitsHealthTab extends mixin(StoreMixin) {
             <FilterInputText
               className="flush-bottom"
               searchString={searchString}
-              handleFilterChange={this.handleSearchStringChange}
-              inverseStyle={true} />
+              handleFilterChange={this.handleSearchStringChange} />
             <FilterButtons
               renderButtonContent={this.getButtonContent}
               filters={['all', 'healthy', 'unhealthy']}
               filterByKey="title"
               onFilterChange={this.handleHealthFilterChange}
-              inverseStyle={true}
               itemList={dataHealth}
               selectedFilter={healthFilter} />
             <a href={UnitHealthStore.getDownloadURL()}
@@ -184,7 +181,7 @@ class UnitsHealthTab extends mixin(StoreMixin) {
             </a>
           </FilterBar>
         </div>
-        <div className="page-content-fill flex-grow flex-container-col">
+        <div className="page-body-content-fill flex-grow flex-container-col">
           <Table
             className="table inverse table-borderless-outer
               table-borderless-inner-columns flush-bottom"
@@ -200,5 +197,10 @@ class UnitsHealthTab extends mixin(StoreMixin) {
     );
   }
 }
+
+UnitsHealthTab.routeConfig = {
+  label: 'Components',
+  matches: /^\/components\/overview/
+};
 
 module.exports = UnitsHealthTab;

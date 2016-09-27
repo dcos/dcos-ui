@@ -1,0 +1,50 @@
+& when (@description-list-enabled) {
+
+  dl > dd {
+    color: @heading-h5-inverse-muted-color;
+  }
+
+  .nested-description-list {
+    margin-left: @base-spacing-unit * 0.5;
+  }
+}
+
+& when (@description-list-enabled) and (@layout-screen-small-enabled) {
+
+  @media (min-width: @layout-screen-small-min-width) {
+
+    .nested-description-list {
+      margin-left: @base-spacing-unit-screen-small * 0.5;
+    }
+  }
+}
+
+& when (@description-list-enabled) and (@layout-screen-medium-enabled) {
+
+  @media (min-width: @layout-screen-medium-min-width) {
+
+    .nested-description-list {
+      margin-left: @base-spacing-unit-screen-medium * 0.5;
+    }
+  }
+}
+
+& when (@description-list-enabled) and (@layout-screen-large-enabled) {
+
+  @media (min-width: @layout-screen-large-min-width) {
+
+    .nested-description-list {
+      margin-left: @base-spacing-unit-screen-large * 0.5;
+    }
+  }
+}
+
+& when (@description-list-enabled) and (@layout-screen-jumbo-enabled) {
+
+  @media (min-width: @layout-screen-jumbo-min-width) {
+
+    .nested-description-list {
+      margin-left: @base-spacing-unit-screen-jumbo * 0.5;
+    }
+  }
+}
