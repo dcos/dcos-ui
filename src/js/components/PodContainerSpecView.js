@@ -3,6 +3,7 @@ import React from 'react';
 import DescriptionList from './DescriptionList';
 import EnvironmentList from './EnvironmentList';
 import ServiceConfigUtil from '../utils/ServiceConfigUtil';
+import Util from '../utils/Util';
 
 class PodContainerSpecView extends React.Component {
   getArtifactsSection() {
@@ -40,13 +41,12 @@ class PodContainerSpecView extends React.Component {
   }
 
   getGeneralDetails() {
-    let hash = Object.assign({}, this.props.container);
-
-    // Handled separately
-    delete hash.endpoints;
-    delete hash.artifacts;
-    delete hash.volumeMounts;
-    delete hash.environment;
+    let hash = Util.omit(this.props.container, [
+      'endpoints',
+      'artifacts',
+      'volumeMounts',
+      'environment'
+    ]);
 
     // Unwrap command
     if (hash.exec) {
