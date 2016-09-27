@@ -7,7 +7,7 @@ xdescribe('Install Package Modal', function () {
         universePackages: true
       })
       .visitUrl({url: '/universe'})
-      .get('.page-content .button.button-success')
+      .get('.page-body-content .button.button-success')
       .eq(0)
       .click();
   });

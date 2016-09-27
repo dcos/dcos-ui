@@ -175,6 +175,8 @@ let RouteFactory = {
       name: 'network',
       path: 'network/?',
       handler: NetworkPage,
+      category: 'resources',
+      isInSidebar: true,
       children
     };
   }

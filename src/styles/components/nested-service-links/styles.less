@@ -1,0 +1,85 @@
+& when (@nested-service-links-enabled) {
+
+  // TODO: Revisit the need for this specificity.
+  table > tbody > tr > td {
+
+    &.nested-service-link-container {
+      padding-bottom: @base-spacing-unit * 0.5;
+      padding-top: @base-spacing-unit * 0.5;
+    }
+
+    .service-link {
+
+      &.inverse {
+
+        a {
+          color: color-lighten(@neutral, 30);
+
+          &:hover {
+            color: color-lighten(@neutral, 60);
+          }
+        }
+      }
+    }
+  }
+}
+
+& when (@nested-service-links-enabled) and (@layout-screen-small-enabled) {
+
+  @media (min-width: @layout-screen-small-min-width) {
+
+    // TODO: Revisit the need for this specificity.
+    table > tbody > tr > td {
+
+      &.nested-service-link-container {
+        padding-bottom: @base-spacing-unit-screen-small * 0.5;
+        padding-top: @base-spacing-unit-screen-small * 0.5;
+      }
+    }
+  }
+}
+
+& when (@nested-service-links-enabled) and (@layout-screen-medium-enabled) {
+
+  @media (min-width: @layout-screen-medium-min-width) {
+
+    // TODO: Revisit the need for this specificity.
+    table > tbody > tr > td {
+
+      &.nested-service-link-container {
+        padding-bottom: @base-spacing-unit-screen-medium * 0.5;
+        padding-top: @base-spacing-unit-screen-medium * 0.5;
+      }
+    }
+  }
+}
+
+& when (@nested-service-links-enabled) and (@layout-screen-large-enabled) {
+
+  @media (min-width: @layout-screen-large-min-width) {
+
+    // TODO: Revisit the need for this specificity.
+    table > tbody > tr > td {
+
+      &.nested-service-link-container {
+        padding-bottom: @base-spacing-unit-screen-large * 0.5;
+        padding-top: @base-spacing-unit-screen-large * 0.5;
+      }
+    }
+  }
+}
+
+& when (@nested-service-links-enabled) and (@layout-screen-jumbo-enabled) {
+
+  @media (min-width: @layout-screen-jumbo-min-width) {
+
+    // TODO: Revisit the need for this specificity.
+    table > tbody > tr > td {
+
+      &.nested-service-link-container {
+        padding-bottom: @base-spacing-unit-screen-jumbo * 0.5;
+        padding-top: @base-spacing-unit-screen-jumbo * 0.5;
+      }
+    }
+  }
+}

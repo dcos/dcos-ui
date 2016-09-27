@@ -1,0 +1,15 @@
+& when (@code-enabled) {
+
+  & when (@code-block-prettyprint-enabled) {
+
+    pre.prettyprint {
+      border: @code-block-prettyprint-border-width @code-block-prettyprint-border-style @code-block-prettyprint-border-color;
+      border-radius: @code-border-radius;
+      border-style: @code-block-prettyprint-border-style;
+
+      &.inverse {
+        border-color: @code-block-prettyprint-border-color-inverse;
+      }
+    }
+  }
+}

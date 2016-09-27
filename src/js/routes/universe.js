@@ -10,12 +10,15 @@ let universeRoutes = {
   name: 'universe',
   path: 'universe/?',
   handler: UniversePage,
+  category: 'root',
+  isInSidebar: true,
   children: [
     {
       type: Route,
       name: 'universe-packages',
       path: 'packages/?',
       handler: PackagesTab,
+      isInSidebar: true,
       buildBreadCrumb() {
         return {
           getCrumbs() {
@@ -59,7 +62,8 @@ let universeRoutes = {
       type: Route,
       name: 'universe-installed-packages',
       path: 'installed-packages/?',
-      handler: InstalledPackagesTab
+      handler: InstalledPackagesTab,
+      isInSidebar: true
     },
     {
       type: Redirect,

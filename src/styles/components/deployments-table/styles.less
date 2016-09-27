@@ -1,0 +1,66 @@
+& when (@deployments-table-enabled) {
+
+  .deployments-table {
+
+    td {
+      vertical-align: top;
+    }
+
+    // TODO: Apply this more globally.
+    .deployment-services-list,
+    .deployment-start-time,
+    .deployment-step,
+    .deployment-status-list,
+    .deployment-rollback {
+      font-size: 1rem;
+    }
+
+    .deployment-id {
+      .text-overflow;
+      margin-bottom: 8px;
+    }
+
+    .deployment-service-icon {
+      flex-shrink: 0;
+      margin: 0 8px;
+    }
+
+    .deployment-service-name {
+      .text-overflow;
+    }
+
+    .deployment-location-list {
+      padding-top: 25px;
+    }
+
+    .deployment-location-list li,
+    .deployment-status-list li {
+      margin-bottom: 0;
+    }
+
+    .deployment-breadcrumb {
+
+      .deployment-breadcrumb-service-id {
+        display: none;
+      }
+
+      .deployment-breadcrumb-crumb {
+        font-size: 1rem;
+        line-height: 32px;
+      }
+    }
+  }
+
+  .deployment-step {
+    display: inline-block;
+    margin-bottom: 8px;
+    margin-left: @base-spacing-unit * 0.25;
+  }
+
+  .deployment-status-list {
+
+    li {
+      line-height: 32px;
+    }
+  }
+}

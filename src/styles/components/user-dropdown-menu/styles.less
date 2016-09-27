@@ -1,0 +1,368 @@
+& when (@user-dropdown-menu-enabled) {
+
+  .user-account-menu-wrapper {
+    border-top: 1px solid color-lighten(@neutral, 90%);
+    height: @user-account-menu-button-height;
+    position: relative;
+    width: 100%;
+    z-index: 2;
+  }
+
+  .user-account-menu-slider {
+    background: @white;
+    padding: 0;
+    position: relative;
+    transition: transform 0.25s;
+    z-index: 3;
+
+    &.is-open {
+      transform: translateY(@user-account-menu-height * -1);
+    }
+  }
+
+  .user-account-menu-slider-backdrop {
+    background: @modal-backdrop-background-color;
+    height: 100vh;
+    left: 0;
+    opacity: 0;
+    pointer-events: none;
+    position: fixed;
+    top: 0;
+    transition: opacity 0.25s, visibility 0.25s;
+    visibility: hidden;
+    // TODO: Fix this width.
+    width: 100%;
+    z-index: 1;
+
+    &.is-visible {
+      opacity: 1;
+      pointer-events: auto;
+      visibility: visible;
+    }
+  }
+
+  .user-account-menu-slider-list {
+    padding: @user-account-slider-list-padding;
+  }
+
+  .user-account-menu-dropdown {
+    display: none;
+    position: relative;
+    z-index: @z-index-user-account-menu-dropdown;
+
+    .dropdown-menu {
+      margin-bottom: 8px;
+      margin-left: 8px;
+    }
+  }
+
+  .user-account-menu-dropdown-button {
+    appearance: none;
+    background: transparent;
+    border: none;
+    outline: none;
+    padding: 0;
+    width: 100%;
+  }
+
+  .user-account-menu-button {
+    align-items: center;
+    appearance: none;
+    background: none;
+    border: none;
+    border-radius: 0;
+    display: flex;
+    height: @user-account-menu-button-height;
+    outline: none;
+    width: 100%;
+
+    .user-account-menu-dropdown & {
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+
+      &:after {
+        display: none;
+      }
+    }
+
+    .user-account-menu-slider & {
+      border-bottom: 1px solid color-lighten(@neutral, 90%);
+      padding: 0 0 0 @button-padding-left;
+    }
+
+    &:hover {
+      background: transparent;
+    }
+
+    &.dropdown-toggle {
+
+      &:after {
+        margin: 0;
+        position: absolute;
+        right: @button-padding-right;
+        top: 50%;
+        transform: translateY(-50%);
+
+        .user-account-menu-slider.is-open & {
+          transform: translateY(-50%) rotate(180deg);
+        }
+      }
+    }
+
+    .icon {
+
+      // Override Canvas specificity.
+      // TODO: See if this can be removed in CNVS upgrade.
+      &:first-child {
+        margin-right: @base-spacing-unit * 1/2;
+      }
+    }
+  }
+
+  .user-account-menu-list {
+
+    .button {
+      border-radius: 0;
+      color: @dropdown-menu-list-color;
+      display: block;
+      font-size: @user-acount-menu-list-item-font-size;
+      height: auto;
+      line-height: @user-acount-menu-list-item-line-height;
+      padding: @user-account-menu-list-item-padding;
+      text-align: left;
+
+      &:hover {
+        background: @dropdown-menu-list-item-link-hover-background-color;
+      }
+    }
+  }
+}
+
+& when (@user-dropdown-menu-enabled) and (@layout-screen-small-enabled) {
+
+  @media (min-width: @layout-screen-small-min-width) {
+
+    .user-account-menu-wrapper {
+      height: @user-account-menu-button-height-screen-small;
+    }
+
+    .user-account-menu-list {
+
+      .button {
+        font-size: @user-acount-menu-list-item-font-size-screen-small;
+        line-height: @user-acount-menu-list-item-line-height-screen-small;
+        padding: @user-account-menu-list-item-padding-screen-small;
+      }
+    }
+
+    .user-account-menu-slider {
+
+      &.is-open {
+        transform: translateY(@user-account-menu-height-screen-small * -1);
+      }
+    }
+
+    .user-account-menu-slider-backdrop {
+      // TODO: Apply the width of the sidebar at this screen size.
+    }
+
+    .user-account-menu-slider-list {
+      padding: @user-account-slider-list-padding-screen-small;
+    }
+
+    .user-account-menu-button {
+      height: @user-account-menu-button-height-screen-small;
+
+      .icon {
+
+        &:first-child {
+          margin-right: @base-spacing-unit-screen-small * 1/2;
+        }
+      }
+    }
+  }
+}
+
+& when (@user-dropdown-menu-enabled) and (@layout-screen-medium-enabled) {
+
+  @media (min-width: @layout-screen-medium-min-width) {
+
+    .user-account-menu-wrapper {
+      height: @user-account-menu-button-height-screen-medium;
+    }
+
+    .user-account-menu-slider {
+      display: none;
+
+      &.is-open {
+        transform: translateY(@user-account-menu-height-screen-medium * -1);
+      }
+    }
+
+    .user-account-menu-slider-backdrop {
+      display: none;
+      // TODO: Apply the width of the sidebar at this screen size.
+    }
+
+    .user-account-menu-slider-list {
+      padding: @user-account-slider-list-padding-screen-medium;
+    }
+
+    .user-account-menu-button {
+      height: @user-account-menu-button-height-screen-medium;
+
+      .user-account-menu-slider & {
+        padding-left: @button-padding-left-screen-medium;
+      }
+
+      &:after {
+        right: @button-padding-right-screen-medium;
+      }
+
+      .icon {
+
+        &:first-child {
+          margin-right: @base-spacing-unit-screen-medium * 1/2;
+        }
+      }
+    }
+
+    .user-account-menu-dropdown {
+      display: flex;
+      width: 100%;
+
+      .user-dropdown {
+        display: block;
+
+        &:after {
+          display: none;
+        }
+      }
+    }
+
+    .user-account-menu-list {
+
+      .button {
+        font-size: @user-acount-menu-list-item-font-size-screen-medium;
+        line-height: @user-acount-menu-list-item-line-height-screen-medium;
+        padding: @user-account-menu-list-item-padding-screen-medium;
+      }
+    }
+  }
+}
+
+& when (@user-dropdown-menu-enabled) and (@layout-screen-large-enabled) {
+
+  @media (min-width: @layout-screen-large-min-width) {
+
+    .user-account-menu-wrapper {
+      height: @user-account-menu-button-height-screen-large;
+    }
+
+    .user-account-menu-slider {
+      display: block;
+
+      &.is-open {
+        transform: translateY(@user-account-menu-height-screen-large * -1);
+      }
+    }
+
+    .user-account-menu-slider-backdrop {
+      display: block;
+      // TODO: Apply the width of the sidebar at this screen size.
+    }
+
+    .user-account-menu-slider-list {
+      padding: @user-account-slider-list-padding-screen-large;
+    }
+
+    .user-account-menu-dropdown {
+
+      .sidebar.is-expanded & {
+        display: none;
+      }
+    }
+
+    .user-account-menu-button {
+      height: @user-account-menu-button-height-screen-large;
+
+      .user-account-menu-slider & {
+        padding-left: @button-padding-left-screen-large;
+      }
+
+      &:after {
+        right: @button-padding-right-screen-large;
+      }
+
+      .icon {
+
+        &:first-child {
+          margin-right: @button-padding-right-screen-large;
+        }
+      }
+    }
+
+    .user-account-menu-list {
+
+      .button {
+        font-size: @user-acount-menu-list-item-font-size-screen-large;
+        line-height: @user-acount-menu-list-item-line-height-screen-large;
+        padding: @user-account-menu-list-item-padding-screen-large;
+      }
+    }
+  }
+}
+
+& when (@user-dropdown-menu-enabled) and (@layout-screen-jumbo-enabled) {
+
+  @media (min-width: @layout-screen-jumbo-min-width) {
+
+    .user-account-menu-wrapper {
+      height: @user-account-menu-button-height-screen-jumbo;
+    }
+
+    .user-account-menu-slider {
+
+      &.is-open {
+        transform: translateY(@user-account-menu-height-screen-jumbo * -1);
+      }
+    }
+
+    .user-account-menu-slider-backdrop {
+      // TODO: Apply the width of the sidebar at this screen size.
+    }
+
+    .user-account-menu-slider-list {
+      padding: @user-account-slider-list-padding-screen-jumbo;
+    }
+
+    .user-account-menu-button {
+      height: @user-account-menu-button-height-screen-jumbo;
+
+      .user-account-menu-slider & {
+        padding-left: @button-padding-left-screen-jumbo;
+      }
+
+      &:after {
+        right: @button-padding-right-screen-jumbo;
+      }
+
+      .icon {
+
+        &:first-child {
+          margin-right: @base-spacing-unit-screen-jumbo * 1/4;
+        }
+      }
+    }
+
+    .user-account-menu-list {
+
+      .button {
+        font-size: @user-acount-menu-list-item-font-size-screen-jumbo;
+        line-height: @user-acount-menu-list-item-line-height-screen-jumbo;
+        padding: @user-account-menu-list-item-padding-screen-jumbo;
+      }
+    }
+  }
+}

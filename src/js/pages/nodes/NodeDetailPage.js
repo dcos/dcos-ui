@@ -10,7 +10,6 @@ import CompositeState from '../../structs/CompositeState';
 import Loader from '../../components/Loader';
 import MesosSummaryStore from '../../stores/MesosSummaryStore';
 import NodeHealthStore from '../../stores/NodeHealthStore';
-import Page from '../../components/Page';
 import PageHeader from '../../components/PageHeader';
 import ResourceChart from '../../components/charts/ResourceChart';
 import StringUtil from '../../utils/StringUtil';
@@ -99,11 +98,9 @@ class NodeDetailPage extends mixin(TabsMixin, StoreMixin) {
 
   getLoadingScreen() {
     return (
-      <Page title="Nodes">
-        <div className="container container-fluid container-pod">
-          <Loader className="inverse" />
-        </div>
-      </Page>
+      <div className="container container-fluid container-pod">
+        <Loader className="inverse" />
+      </div>
     );
   }
 
@@ -201,23 +198,14 @@ class NodeDetailPage extends mixin(TabsMixin, StoreMixin) {
     let {nodeID} = this.props.params;
 
     if (!node) {
-      return (
-        <Page title="Nodes">
-          {this.getNotFound(nodeID)}
-        </Page>
-      );
+      return this.getNotFound(nodeID);
     }
 
-    // Make sure to grow when logs are displayed
-    let routes = this.context.router.getCurrentRoutes();
-
     return (
-      <Page
-        dontScroll={routes[routes.length - 1].dontScroll}
-        title="Nodes">
+      <div>
         {this.getPageHeader(node)}
         <RouteHandler node={node} />
-      </Page>
+      </div>
     );
   }
 }

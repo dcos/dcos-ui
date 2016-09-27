@@ -49,7 +49,7 @@ class TaskDirectoryTable extends React.Component {
     if (directoryItem.isLogFile()) {
       openLogView = (
         <div
-          className="table-cell-icon table-cell-icon-mini table-display-on-row-hover fade-in-on-hover clickable"
+          className="table-cell-icon table-display-on-row-hover fade-in-on-hover clickable"
           onClick={this.props.onOpenLogClick.bind(this, directoryItem, this.props.directoryPath)}>
           <Icon
             className="icon-margin-left"
@@ -63,7 +63,7 @@ class TaskDirectoryTable extends React.Component {
 
     return (
       <div className="flex-box flex-box-align-vertical-center table-cell-flex-box">
-        <div className="table-cell-icon table-cell-icon-mini">
+        <div className="table-cell-icon">
           <Icon
             className="icon-margin-right"
             color="grey"
@@ -101,7 +101,7 @@ class TaskDirectoryTable extends React.Component {
 
     return classNames({
       'text-align-right': propsToRight.includes(prop),
-      'highlight': prop === sortBy.prop && isHeader,
+      'active': prop === sortBy.prop && isHeader,
       'clickable': isHeader
     });
   }

@@ -1,0 +1,85 @@
+& when (@collapsible-error-message-enabled) {
+
+  //
+  // The CollapsibleErrorMessage is a component used on top
+  // of forms or on other places to display a main error
+  // message and a toggled drop-down with the error details
+  //
+  .collapsible-error-message {
+
+    // Default global styles
+    color: @danger-color;
+
+    //
+    // Global styles for the fixed part
+    //
+    .collapsible-fixed {
+
+      // Some default padding
+      padding: (@base-spacing-unit / 2) @base-spacing-unit;
+      text-align: center;
+
+      // Label styling
+      .collapsible-toggle-label {
+        display: inline-block;
+        margin-left: 5px;
+        width: 81px;
+      }
+    }
+
+    //
+    // Global styles for the toggling part
+    //
+    .collapsible-toggled {
+      position: relative;
+
+      // Prepare for floating the toggled part by
+      // simply adding position: absolute
+      > div {
+        left: 0;
+        padding: (@base-spacing-unit / 2) @base-spacing-unit;
+        width: 100%;
+      }
+    }
+
+    /////////////////////////////////////////////////////////
+
+    //
+    // Use this style for modals where the toggling part just
+    // floats below the fixed error message.
+    //
+    &.error-for-modal {
+
+      // Both fixed and toggled parts share the same styling
+      .collapsible-fixed,
+      .collapsible-toggled > div {
+        background: color-lighten(@danger-color, 90);
+      }
+
+      // The toggling part should be floating above the modal
+      .collapsible-toggled > div {
+        position: absolute;
+        z-index: @z-index-errormsg-floater-modal;
+      }
+
+      // Add a red line below the fixed part
+      .collapsible-fixed {
+        border-bottom: @danger-color 1px solid;
+      }
+
+      // That moves down to the toggled part when expanded
+      &.expanded {
+
+        .collapsible-fixed {
+          // We don't hide the border because this will
+          // introduce 1 px shift in the bottom content
+          border-bottom: color-lighten(@danger-color, 90) 1px solid;
+        }
+
+        .collapsible-toggled > div {
+          border-bottom: @danger-color 1px solid;
+        }
+      }
+    }
+  }
+}

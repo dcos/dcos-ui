@@ -106,15 +106,15 @@ module.exports = {
                 let baseDir = path.resolve('src/img/components/icons');
                 let files = glob.sync('**/*.svg', {cwd: baseDir});
 
-                files.forEach(function(file){
+                files.forEach(function (file) {
                   svgSpriter.add(new vinyl({
                     path: path.join(baseDir, file),
                     base: baseDir,
                     contents: fs.readFileSync(path.join(baseDir, file))
                   }));
-                })
+                });
 
-                svgSpriter.compile(function(error, result, data){
+                svgSpriter.compile(function (error, result, data) {
                   content = result.symbol.sprite.contents.toString();
                 });
 
@@ -147,6 +147,10 @@ module.exports = {
       {
         test: /\.(ico|icns)$/,
         loader: 'file?name=./[hash]-[name].[ext]',
+      },
+      {
+        test: /\.(ttf|woff)$/,
+        loader: 'file?name=./fonts/source-sans-pro/[name].[ext]'
       }
     ],
     postLoaders: [

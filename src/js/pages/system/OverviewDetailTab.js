@@ -10,7 +10,7 @@ import DescriptionList from '../../components/DescriptionList';
 import Loader from '../../components/Loader';
 import MarathonStore from '../../stores/MarathonStore';
 
-module.exports = class OverviewDetailTab extends mixin(StoreMixin) {
+class OverviewDetailTab extends mixin(StoreMixin) {
   constructor() {
     super(...arguments);
 
@@ -109,3 +109,10 @@ module.exports = class OverviewDetailTab extends mixin(StoreMixin) {
     );
   }
 };
+
+OverviewDetailTab.routeConfig = {
+  label: 'Overview',
+  matches: /^\/cluster\/details/
+};
+
+module.exports = OverviewDetailTab;

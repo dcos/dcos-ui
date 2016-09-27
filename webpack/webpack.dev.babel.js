@@ -1,6 +1,7 @@
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import StringReplacePlugin from 'string-replace-webpack-plugin';
+import StyleLintPlugin from 'stylelint-webpack-plugin';
 import WebpackNotifierPlugin from 'webpack-notifier';
 
 import packageInfo from '../package';
@@ -83,6 +84,12 @@ module.exports = Object.assign({}, webpackConfig, {
       template: './src/index.html',
     }),
 
+    new StyleLintPlugin({
+      configFile: '.stylelintrc',
+      files: '**/*.less',
+      syntax: 'less'
+    }),
+
     new ExtractTextPlugin('./[name].css'),
 
     new WebpackNotifierPlugin({alwaysNotify: true})
@@ -109,7 +116,7 @@ module.exports = Object.assign({}, webpackConfig, {
       },
       {
         test: /\.less$/,
-        loader: 'style!css!postcss!less'
+        loader: 'style?sourceMap!css?sourceMap!postcss?sourceMap!less?sourceMap'
       },
       {
         test: /\.png$/,

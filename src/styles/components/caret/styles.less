@@ -1,0 +1,19 @@
+& when (@caret-enabled) {
+
+  .caret {
+    border-left: @caret-width-base solid transparent;
+    border-right: @caret-width-base solid transparent;
+    border-top: @caret-width-base dashed;
+    display: inline-block;
+    height: 0;
+    margin-left: @base-spacing-unit * 0.25;
+    margin-right: @base-spacing-unit * 0.25;
+    vertical-align: middle;
+    width: 0;
+
+    &.dropup {
+      border-bottom: @caret-width-base solid;
+      border-top: 0;
+    }
+  }
+}
