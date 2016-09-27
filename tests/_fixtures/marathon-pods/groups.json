@@ -83,18 +83,70 @@
                   {
                     "name": "nginx",
                     "image": { "kind": "DOCKER", "id": "jdef/my-web-service-abc:v1.1.1" },
+                    "resources": { "cpus": 0.5, "mem": 64, "disk": 0.5, "gpus": 2 },
+                    "exec": {
+                      "command": {
+                        "argv": ["sleep", "100"]
+                      }
+                    },
+                    "environment": {
+                      "FOO": "bar",
+                      "SECRET": {
+                        "secret": "name_of_the_secret"
+                      }
+                    },
+                    "user": "root",
+                    "labels": {
+                      "label_1": "value"
+                    },
+                    "lifecycle": {
+                      "killGracePeriodSeconds": 1.5
+                    },
+                    "healthCheck": {
+                      "http": {
+                        "endpoint": "0.0.0.0",
+                        "path": "/ping",
+                        "scheme": "HTTPS"
+                      },
+                      "tcp": {
+                        "endpoint": "endpoint_name"
+                      },
+                      "command": {
+                        "shell": "ping 0.0.0.0"
+                      },
+                      "gracePeriodSeconds": 10,
+                      "intervalSeconds": 40,
+                      "maxConsecutiveFailures": 2,
+                      "timeoutSeconds": 10,
+                      "delaySeconds": 5
+                    },
+                    "artifacts": [
+                      {
+                        "uri": "http://download.me/file.tgz",
+                        "extract": true,
+                        "executable": true,
+                        "cache": false,
+                        "destPath": "/tmp/path"
+                      }
+                    ],
+                    "volumeMounts": [
+                      {
+                        "name": "Volume Name",
+                        "mountPath": "/mnt/volume_1",
+                        "readOnly": false
+                      }
+                    ],
                     "endpoints": [
                       {
                         "name": "nginx",
                         "containerPort": 8888,
                         "hostPort": 0,
                         "protocol": "http",
-                        "labels": [
-                          { "VIP_0": "1.2.3.4:80" }
-                        ]
+                        "labels": { 
+                          "VIP_0": "1.2.3.4:80" 
+                        }
                       }
-                    ],
-                    "resources": { "cpus": 0.5, "mem": 64 }
+                    ] 
                   },
                   {
                     "name": "flask",
@@ -105,9 +157,9 @@
                         "containerPort": 8080,
                         "hostPort": 0,
                         "protocol": "http",
-                        "labels": [
-                          { "VIP_0": "1.2.3.5:80" }
-                        ]
+                        "labels": {
+                          "VIP_0": "1.2.3.5:80"
+                        }
                       }
                     ],
                     "resources": { "cpus": 0.5, "mem": 64 }
@@ -241,9 +293,9 @@
                   "containerPort": 8888,
                   "hostPort": 0,
                   "protocol": "http",
-                  "labels": [
-                    { "VIP_0": "1.2.3.4:80" }
-                  ]
+                  "labels": {
+                    "VIP_0": "1.2.3.4:80"
+                  }
                 }
               ],
               "resources": { "cpus": 0.5, "mem": 64 }
