@@ -11,6 +11,7 @@ import {
 import AppDispatcher from './AppDispatcher';
 import Config from '../config/Config';
 import TimeScales from '../constants/TimeScales';
+import MesosSummaryUtil from '../utils/MesosSummaryUtil';
 
 var _historyServiceOnline = true;
 
@@ -104,12 +105,22 @@ var MesosSummaryActions = {
     function (resolve, reject) {
 
       return function (timeScale) {
-        let canAccessHistoryServer = Hooks.applyFilter(
+        let canAccessHistoryAPI = Hooks.applyFilter(
           'hasCapability', false, 'historyServiceAPI'
         );
 
-        if (!_historyServiceOnline || !canAccessHistoryServer) {
-          requestFromMesos(resolve, reject);
+        if (!_historyServiceOnline || !canAccessHistoryAPI) {
+          let canAccessMesosAPI = Hooks.applyFilter(
+            'hasCapability', false, 'mesosAPI'
+          );
+          if (canAccessMesosAPI) {
+            requestFromMesos(resolve, reject);
+          } else {
+            AppDispatcher.handleServerAction({
+              type: REQUEST_SUMMARY_SUCCESS,
+              data: MesosSummaryUtil.getEmptyState()
+            });
+          }
         } else {
           requestFromHistoryServer(resolve, reject, timeScale);
         }
