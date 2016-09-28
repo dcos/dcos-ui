@@ -47,6 +47,13 @@ class UniversePackage extends Item {
     );
   }
 
+  getMetadata() {
+    return Util.findNestedPropertyInObject(
+      this.get('marathon'),
+      'v2AppMustacheTemplate'
+    );
+  }
+
   getName() {
     return this.get('name');
   }

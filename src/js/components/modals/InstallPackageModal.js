@@ -11,6 +11,7 @@ import Icon from '../Icon';
 import Image from '../Image';
 import InternalStorageMixin from '../../mixins/InternalStorageMixin';
 import Loader from '../Loader';
+import MetadataStore from '../../stores/MetadataStore';
 import ReviewConfig from '../ReviewConfig';
 import SchemaForm from '../SchemaForm';
 import SchemaUtil from '../../utils/SchemaUtil';
@@ -258,15 +259,13 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
             wrapperClass="" />
         </div>
         <div className="modal-footer">
-          <div className="container">
-            <div className="button-collection horizontal-center flush-bottom">
-              <button
-                disabled={!cosmosPackage || pendingRequest}
-                className="button flush-bottom button-wide"
-                onClick={this.handleChangeTab.bind(this, 'advancedInstall')}>
-                Edit Configuration
-              </button>
-            </div>
+          <div className="button-collection horizontal-center flush-bottom">
+            <button
+              disabled={!cosmosPackage || pendingRequest}
+              className="button flush-bottom button-wide"
+              onClick={this.handleChangeTab.bind(this, 'advancedInstall')}>
+              Edit Configuration
+            </button>
           </div>
         </div>
       </div>
@@ -365,21 +364,19 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
           </div>
         </div>
         <div className="modal-footer">
-          <div className="container">
-            <div className="button-collection horizontal-center flush-bottom">
-              <button
-                disabled={!cosmosPackage || pendingRequest || descriptionError}
-                className="button button-success flush-bottom button-wide flush-top flush-bottom"
-                onClick={this.handleInstallPackage}>
-                {buttonText}
-              </button>
-              <button
-                disabled={!cosmosPackage || pendingRequest}
-                className="button flush-bottom button-link button-primary clickable"
-                onClick={this.handleChangeTab.bind(this, 'advancedInstall')}>
-                Advanced Installation
-              </button>
-            </div>
+          <div className="button-collection horizontal-center flush-bottom">
+            <button
+              disabled={!cosmosPackage || pendingRequest || descriptionError}
+              className="button button-success flush-bottom button-wide flush-top flush-bottom"
+              onClick={this.handleInstallPackage}>
+              {buttonText}
+            </button>
+            <button
+              disabled={!cosmosPackage || pendingRequest}
+              className="button flush-bottom button-link button-primary clickable"
+              onClick={this.handleChangeTab.bind(this, 'advancedInstall')}>
+              Advanced Installation
+            </button>
           </div>
         </div>
       </div>
@@ -394,20 +391,18 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
     // the hidden class in render
     return (
       <div className="modal-footer">
-        <div className="container">
-          <div className="button-collection flush-bottom">
-            <button
-              className="button button-large flush-top flush-bottom"
-              onClick={this.handleChangeTab.bind(this, 'defaultInstall')}>
-              Back
-            </button>
-            <button
-              disabled={!cosmosPackage || pendingRequest || hasFormErrors}
-              className="button button-large button-success flush-bottom"
-              onClick={this.handleChangeTab.bind(this, 'reviewAdvancedConfig')}>
-              Review and Install
-            </button>
-          </div>
+        <div className="button-collection flush-bottom">
+          <button
+            className="button button-large flush-top flush-bottom"
+            onClick={this.handleChangeTab.bind(this, 'defaultInstall')}>
+            Back
+          </button>
+          <button
+            disabled={!cosmosPackage || pendingRequest || hasFormErrors}
+            className="button button-large button-success flush-bottom"
+            onClick={this.handleChangeTab.bind(this, 'reviewAdvancedConfig')}>
+            Review and Install
+          </button>
         </div>
       </div>
     );
@@ -433,20 +428,18 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
           packageVersion={version}
           configuration={this.getPackageConfiguration()} />
         <div className="modal-footer">
-          <div className="container">
-            <div className="button-collection flush-bottom">
-              <button
-                className="button button-large flush-top flush-bottom"
-                onClick={this.handleChangeTab.bind(this, 'advancedInstall')}>
-                Back
-              </button>
-              <button
-                disabled={!cosmosPackage || pendingRequest}
-                className="button button-success flush-bottom button-large"
-                onClick={this.handleInstallPackage}>
-                {buttonText}
-              </button>
-            </div>
+          <div className="button-collection flush-bottom">
+            <button
+              className="button button-large flush-top flush-bottom"
+              onClick={this.handleChangeTab.bind(this, 'advancedInstall')}>
+              Back
+            </button>
+            <button
+              disabled={!cosmosPackage || pendingRequest}
+              className="button button-success flush-bottom button-large"
+              onClick={this.handleInstallPackage}>
+              {buttonText}
+            </button>
           </div>
         </div>
       </div>
@@ -475,15 +468,13 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
           </div>
         </div>
         <div className="modal-footer">
-          <div className="container">
-            <div className="button-collection horizontal-center flush-bottom">
-              <button
-                disabled={!cosmosPackage || pendingRequest}
-                className="button button-success flush-bottom button-wide"
-                onClick={this.props.onClose}>
-                OK
-              </button>
-            </div>
+          <div className="button-collection horizontal-center flush-bottom">
+            <button
+              disabled={!cosmosPackage || pendingRequest}
+              className="button button-success flush-bottom button-wide"
+              onClick={this.props.onClose}>
+              OK
+            </button>
           </div>
         </div>
       </div>
@@ -513,14 +504,44 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
           </p>
         </div>
         <div className="modal-footer">
-          <div className="container">
-            <div className="button-collection horizontal-center flush-bottom">
-              <button
-                className="button flush-bottom button-wide"
-                onClick={this.handleModalClose}>
-                Close
-              </button>
+          <div className="button-collection horizontal-center flush-bottom">
+            <button
+              className="button flush-bottom button-wide"
+              onClick={this.handleModalClose}>
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  getCLIPackageInfo(cosmosPackage) {
+    return (
+      <div>
+        <div className="modal-content">
+          <div className="modal-content-inner modal-content-inner-tall horizontal-center">
+            <div className="icon icon-jumbo icon-image-container icon-app-container">
+              <Image
+                fallbackSrc={defaultServiceImage}
+                src={cosmosPackage.getIcons()['icon-large']} />
             </div>
+            <p className="h2 short-top short-bottom">
+              {cosmosPackage.getName()}
+            </p>
+            <p>CLI only package</p>
+            <p className="flush-bottom">
+              This package can only be installed using the CLI. See the <a href={MetadataStore.buildDocsURI('/usage/managing-services/install/#installing-a-service-using-the-cli')} target="_blank">documentation</a>.
+            </p>
+          </div>
+        </div>
+        <div className="modal-footer">
+          <div className="button-collection horizontal-center flush-bottom">
+            <button
+              className="button flush-bottom button-wide"
+              onClick={this.handleModalClose}>
+              Close
+            </button>
           </div>
         </div>
       </div>
@@ -531,6 +552,11 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
     let {currentTab, schemaIncorrect} = this.state;
     let {isLoading} = this.internalStorage_get();
     let cosmosPackage = CosmosPackagesStore.getPackageDetails();
+
+    // CLI only package
+    if (cosmosPackage && !cosmosPackage.getMetadata()) {
+      return this.getCLIPackageInfo(cosmosPackage);
+    }
 
     if (schemaIncorrect) {
       return this.getIncorrectSchemaWarning(cosmosPackage);
