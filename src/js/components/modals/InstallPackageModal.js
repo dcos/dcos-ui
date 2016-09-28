@@ -6,7 +6,7 @@ import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import CosmosErrorMessage from '../CosmosErrorMessage';
 import CosmosPackagesStore from '../../stores/CosmosPackagesStore';
-import defaultServiceImage from '../../../img/services/icon-service-default-large@2x.png';
+import defaultServiceImage from '../../../../plugins/services/src/img/icon-service-default-large@2x.png';
 import Icon from '../Icon';
 import Image from '../Image';
 import InternalStorageMixin from '../../mixins/InternalStorageMixin';

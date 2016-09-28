@@ -2,7 +2,6 @@
 module.exports = {
   constants: {
     EventTypes: 'EventTypes',
-    FrameworkConstants: 'FrameworkConstants',
     HTTPStatusCodes: 'HTTPStatusCodes'
   },
   events: {
@@ -13,7 +12,6 @@ module.exports = {
     BaseStore: 'BaseStore',
     ConfigStore: 'ConfigStore',
     CosmosPackagesStore: 'CosmosPackagesStore',
-    MarathonStore: 'MarathonStore',
     MetadataStore: 'MetadataStore',
     NotificationStore: 'NotificationStore',
     UsersStore: 'UsersStore',
@@ -34,7 +32,6 @@ module.exports = {
     FormUtil: 'FormUtil',
     LocalStorageUtil: 'LocalStorageUtil',
     Maths: 'Maths',
-    ResourceTableUtil: 'ResourceTableUtil',
     RouterUtil: 'RouterUtil',
     StringUtil: 'StringUtil',
     TableUtil: 'TableUtil',

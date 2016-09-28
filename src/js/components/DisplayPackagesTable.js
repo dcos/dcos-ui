@@ -3,7 +3,7 @@ import {Table} from 'reactjs-components';
 import React from 'react';
 /* eslint-enable no-unused-vars */
 
-import defaultServiceImage from '../../img/services/icon-service-default-medium@2x.png';
+import defaultServiceImage from '../../../plugins/services/src/img/icon-service-default-medium@2x.png';
 import Image from './Image';
 
 const METHODS_TO_BIND = [

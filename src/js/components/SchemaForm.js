@@ -4,7 +4,7 @@ import React from 'react';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 import {Tooltip} from 'reactjs-components';
 
-import defaultServiceImage from '../../img/services/icon-service-default-small@2x.png';
+import defaultServiceImage from '../../../plugins/services/src/img/icon-service-default-small@2x.png';
 import FormUtil from '../utils/FormUtil';
 import GeminiUtil from '../utils/GeminiUtil';
 import Icon from './Icon';

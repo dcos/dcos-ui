@@ -1,5 +1,3 @@
-jest.dontMock('../../constants/TaskStates');
-
 const Node = require('../Node');
 
 describe('Node', function () {

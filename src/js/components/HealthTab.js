@@ -1,10 +1,10 @@
 import React from 'react';
+import {ResourceTableUtil} from 'foundation-ui';
 import {Table} from 'reactjs-components';
 
 import FilterBar from './FilterBar';
 import FilterHeadline from './FilterHeadline';
 import FilterInputText from './FilterInputText';
-import ResourceTableUtil from '../utils/ResourceTableUtil';
 import StringUtil from '../utils/StringUtil';
 import TableUtil from '../utils/TableUtil';
 import UnitHealthDropdown from './UnitHealthDropdown';

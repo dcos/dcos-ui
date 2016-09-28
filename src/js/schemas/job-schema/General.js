@@ -1,10 +1,9 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
 /* eslint-enable no-unused-vars */
-
 import JobValidatorUtil from '../../utils/JobValidatorUtil';
-import MesosConstants from '../../constants/MesosConstants';
 import ValidatorUtil from '../../utils/ValidatorUtil';
+import MesosConstants from '../../../../plugins/services/src/js/constants/MesosConstants';
 
 const General = {
   title: 'General',

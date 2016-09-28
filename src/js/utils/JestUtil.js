@@ -4,12 +4,9 @@ import ReactDOM from 'react-dom';
 
 let stores = {
   CosmosPackagesStore: '../stores/CosmosPackagesStore',
-  MarathonStore: '../stores/MarathonStore',
-  MesosLogStore: '../stores/MesosLogStore',
   MesosStateStore: '../stores/MesosStateStore',
   MesosSummaryStore: '../stores/MesosSummaryStore',
-  MetadataStore: '../stores/MetadataStore',
-  TaskDirectoryStore: '../stores/TaskDirectoryStore'
+  MetadataStore: '../stores/MetadataStore'
 };
 
 // Private router stub
