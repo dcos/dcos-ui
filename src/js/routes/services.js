@@ -37,18 +37,6 @@ let serviceRoutes = {
   path: '/services/?',
   category: 'root',
   isInSidebar: true,
-  buildBreadCrumb() {
-    return {
-      getCrumbs() {
-        return [
-          {
-            label: 'Services',
-            route: {to: 'services-page'}
-          }
-        ];
-      }
-    };
-  },
   children: [
     {
       type: Route,
@@ -56,6 +44,18 @@ let serviceRoutes = {
       name: 'services-overview',
       path: 'overview/',
       isInSidebar: true,
+      buildBreadCrumb() {
+        return {
+          getCrumbs() {
+            return [
+              {
+                label: 'Services',
+                route: {to: 'services-page'}
+              }
+            ];
+          }
+        };
+      },
       children: [
         {
           type: Route,
@@ -63,7 +63,7 @@ let serviceRoutes = {
           path: ':id/?',
           buildBreadCrumb() {
             return {
-              parentCrumb: 'services-page',
+              parentCrumb: 'services-overview',
               getCrumbs: buildServiceCrumbs
             };
           },
@@ -77,7 +77,7 @@ let serviceRoutes = {
               handler: VolumeDetail,
               buildBreadCrumb() {
                 return {
-                  parentCrumb: 'services-detail',
+                  parentCrumb: 'services-overview',
                   getCrumbs(router) {
                     return [
                       {
@@ -121,7 +121,7 @@ let serviceRoutes = {
               hideHeaderNavigation: true,
               buildBreadCrumb() {
                 return {
-                  parentCrumb: 'services-detail',
+                  parentCrumb: 'services-overview',
                   getCrumbs(router) {
                     return [
                       <TaskDetailBreadcrumb
