@@ -1,4 +1,5 @@
 import classNames from 'classnames';
+import PureRenderMixin from 'react-addons-pure-render-mixin';
 import React, {PropTypes} from 'react';
 
 import StringUtil from '../utils/StringUtil';
@@ -10,6 +11,7 @@ const METHODS_TO_BIND = [
 class FilterHeadline extends React.Component {
   constructor() {
     super(...arguments);
+    this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate;
 
     METHODS_TO_BIND.forEach((method) => {
       this[method] = this[method].bind(this);

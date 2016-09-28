@@ -1,3 +1,4 @@
+import PureRenderMixin from 'react-addons-pure-render-mixin';
 import React from 'react';
 import {ResourceTableUtil} from 'foundation-ui';
 import {Table} from 'reactjs-components';
@@ -21,6 +22,7 @@ const METHODS_TO_BIND = [
 class HealthTab extends React.Component {
   constructor() {
     super(...arguments);
+    this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate;
 
     this.state = {
       healthFilter: 'all',
