@@ -1,8 +1,8 @@
 import {Link} from 'react-router';
 import React from 'react';
+import {ResourceTableUtil} from 'foundation-ui';
 import {Table} from 'reactjs-components';
 
-import ResourceTableUtil from '../utils/ResourceTableUtil';
 import StringUtil from '../utils/StringUtil';
 import TableUtil from '../utils/TableUtil';
 import UnitHealthUtil from '../utils/UnitHealthUtil';

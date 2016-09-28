@@ -1,12 +1,12 @@
 import classNames from 'classnames';
 import React from 'react';
+import {ResourceTableUtil} from 'foundation-ui';
 import {Table} from 'reactjs-components';
 
 import CosmosPackagesStore from '../stores/CosmosPackagesStore';
-import defaultServiceImage from '../../img/services/icon-service-default-small@2x.png';
+import defaultServiceImage from '../../../plugins/services/src/img/icon-service-default-small@2x.png';
 import Image from './Image';
 import PackagesTableHeaderLabels from '../constants/PackagesTableHeaderLabels';
-import ResourceTableUtil from '../utils/ResourceTableUtil';
 import TableUtil from '../utils/TableUtil';
 import UninstallPackageModal from './modals/UninstallPackageModal';
 import UniversePackagesList from '../structs/UniversePackagesList';
