@@ -53,13 +53,16 @@ function __requireModule(dir, name) {
   if (name in Mocks) {
     return Mocks[name];
   }
+
   if (dir === 'internalPlugin') {
     return require(path.resolve(pluginsDir, name));
   }
+
   if (dir === 'externalPlugin') {
     return require(path.resolve(externalPluginsDir, name));
   }
-  return require(`../../${dir}/${name}`);
+
+  return require(path.resolve('./src/js', `${dir}/${name}`));
 }
 
 // Add custom methods for testing
