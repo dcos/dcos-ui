@@ -193,7 +193,8 @@ module.exports = {
       PluginSDK: absPath('src/js/plugin-bridge/PluginSDK'),
       PluginTestUtils: absPath('src/js/plugin-bridge/PluginTestUtils'),
       EXTERNAL_PLUGINS: externalPluginsDir,
-      PLUGINS: absPath('plugins')
+      PLUGINS: absPath('plugins'),
+      'foundation-ui': absPath('foundation-ui/src/index')
     },
     extensions: ['', '.js', '.less', '.css'],
     root: [absPath(), absPath('node_modules')]

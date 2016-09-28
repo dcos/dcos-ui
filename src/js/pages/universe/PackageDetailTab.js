@@ -6,7 +6,7 @@ import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import Breadcrumbs from '../../components/Breadcrumbs';
 import CosmosPackagesStore from '../../stores/CosmosPackagesStore';
-import defaultServiceImage from '../../../img/services/icon-service-default-large@2x.png';
+import defaultServiceImage from '../../../../plugins/services/src/img/icon-service-default-large@2x.png';
 import Image from '../../components/Image';
 import ImageViewer from '../../components/ImageViewer';
 import InstallPackageModal from '../../components/modals/InstallPackageModal';

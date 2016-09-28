@@ -1,10 +1,10 @@
-jest.dontMock('../Framework');
+jest.dontMock('../../../../plugins/services/src/js/structs/Framework');
 jest.dontMock('../../utils/MesosSummaryUtil');
 jest.dontMock('../../utils/Util');
 
-const Framework = require('../Framework');
+const Framework = require('../../../../plugins/services/src/js/structs/Framework');
 const NodesList = require('../NodesList');
-const ServicesList = require('../ServicesList');
+const ServicesList = require('../../../../plugins/services/src/js/structs/ServicesList');
 const StateSummary = require('../StateSummary');
 
 describe('StateSummary', function () {

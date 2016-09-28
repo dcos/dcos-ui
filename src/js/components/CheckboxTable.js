@@ -1,8 +1,8 @@
 import classNames from 'classnames';
 import {Form, Table} from 'reactjs-components';
 import React from 'react';
+import {ResourceTableUtil} from 'foundation-ui';
 
-import ResourceTableUtil from '../utils/ResourceTableUtil';
 import TableUtil from '../utils/TableUtil';
 
 const PropTypes = React.PropTypes;

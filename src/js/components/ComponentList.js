@@ -3,7 +3,7 @@ import {Link} from 'react-router';
 import {List} from 'reactjs-components';
 import React from 'react';
 
-import HealthTypes from '../constants/HealthTypes';
+import HealthTypes from '../../../plugins/services/src/js/constants/HealthTypes';
 
 class ComponentList extends React.Component {
 

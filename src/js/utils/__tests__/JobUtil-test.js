@@ -1,6 +1,3 @@
-jest.dontMock('../ServiceUtil');
-jest.dontMock('../../structs/Service');
-
 const Job = require('../../structs/Job');
 const JobUtil = require('../JobUtil');
 

@@ -10,7 +10,7 @@ import FilterHeadline from '../../components/FilterHeadline';
 import Icon from '../../components/Icon';
 import JobStates from '../../constants/JobStates';
 import JobStopRunModal from '../../components/modals/JobStopRunModal';
-import TaskStates from '../../constants/TaskStates';
+import TaskStates from '../../../../plugins/services/src/js/constants/TaskStates';
 import TimeAgo from '../../components/TimeAgo';
 
 const METHODS_TO_BIND = [
