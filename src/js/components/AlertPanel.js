@@ -1,4 +1,4 @@
-import classNames from 'classnames';
+import classNames from 'classnames/dedupe';
 import React from 'react';
 
 import Panel from './Panel';
@@ -17,14 +17,24 @@ var AlertPanel = React.createClass({
     iconClassName: React.PropTypes.string
   },
 
+  getHeading() {
+    return (
+      <div>
+        {this.getIcon()}
+        {this.getTitle()}
+      </div>
+    );
+  },
+
   getTitle() {
     return (
-      <h3 className="inverse flush-top">
+      <h3 className="flush" key="heading">
         {this.props.title}
       </h3>
     );
   },
 
+  // TODO: Use iconIDs instead of icon classes.
   getIcon() {
     let {icon, iconClassName} = this.props;
 
@@ -37,27 +47,39 @@ var AlertPanel = React.createClass({
     }
 
     return (
-      <i className={iconClassName}></i>
+      <i className={iconClassName} key="icon"></i>
     );
   },
 
   render() {
-    let classes = classNames('container container-fluid container-pod',
-      'flush-bottom', this.props.className);
+    let classes = classNames(
+      'panel alert-panel text-align-center flush-bottom',
+      this.props.className
+    );
 
     return (
-      <div className={classes}>
-        <Panel ref="panel"
-          className="panel panel-inverse vertical-center horizontal-center
-            text-align-center flush-bottom alert-panel"
-          footer={this.props.footer}
-          footerClass="panel-footer flush-top"
-          heading={this.getIcon()}
-          headingClass="panel-header no-border flush-bottom">
-          {this.getTitle()}
-          {this.props.children}
-        </Panel>
-      </div>
+      <Panel ref="panel"
+        className={classes}
+        contentClass={{
+          'panel-cell-narrow': false,
+          'panel-cell-short': false
+        }}
+        footer={this.props.footer}
+        footerClass={{
+          'panel-cell-narrow': false,
+          'panel-cell-short': false
+        }}
+        heading={this.getHeading()}
+        headingClass={[
+          'panel-cell-borderless flush-bottom',
+          {
+            'panel-cell-narrow': false,
+            'panel-cell-shorter': false,
+            'panel-cell-light': false
+          }
+        ]}>
+        {this.props.children}
+      </Panel>
     );
   }
 });
