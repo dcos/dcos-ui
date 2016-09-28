@@ -19,7 +19,7 @@ const METHODS_TO_BIND = [
 
 class TaskFileViewer extends React.Component {
   constructor() {
-    super();
+    super(...arguments);
 
     this.state = {
       currentFile: null,
