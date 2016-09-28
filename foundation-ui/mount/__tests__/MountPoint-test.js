@@ -11,7 +11,7 @@ describe('MountPoint', function () {
 
   it('should render the children by default', function () {
     var result = JestUtil.renderAndFindTag((
-      <MountPoint mountId="foo">
+      <MountPoint id="foo">
         <h1>foo</h1>
       </MountPoint>
     ), 'h1');
@@ -21,7 +21,7 @@ describe('MountPoint', function () {
 
   it('should be able to render without children', function () {
     var result = JestUtil.renderAndFindTag((
-      <MountPoint mountId="foo" />
+      <MountPoint id="foo" />
     ), 'div');
 
     expect(TestUtils.isDOMComponent(result)).toEqual(true);
@@ -29,7 +29,7 @@ describe('MountPoint', function () {
 
   it('should not wrap a single child', function () {
     var result = TestUtils.renderIntoDocument(
-      <MountPoint mountId="foo">
+      <MountPoint id="foo">
         <h1>foo</h1>
       </MountPoint>
     );
@@ -40,7 +40,7 @@ describe('MountPoint', function () {
 
   it('should wrap multiple children', function () {
     var result = TestUtils.renderIntoDocument(
-      <MountPoint mountId="foo">
+      <MountPoint id="foo">
         <h1>foo</h1>
         <h2>bar</h2>
       </MountPoint>
@@ -52,7 +52,7 @@ describe('MountPoint', function () {
 
   it('should wrap single child with alwaysWrap=true', function () {
     var result = TestUtils.renderIntoDocument(
-      <MountPoint mountId="foo" alwaysWrap={true}>
+      <MountPoint id="foo" alwaysWrap={true}>
         <h1>foo</h1>
       </MountPoint>
     );
@@ -63,7 +63,7 @@ describe('MountPoint', function () {
 
   it('should wrap children in passed down wrapperComponent', function () {
     var result = TestUtils.renderIntoDocument(
-      <MountPoint mountId="foo" wrapperComponent="span" alwaysWrap={true}>
+      <MountPoint id="foo" wrapperComponent="span" alwaysWrap={true}>
         <h1>foo</h1>
       </MountPoint>
     );
@@ -78,9 +78,9 @@ describe('MountPoint', function () {
 
     it('should gather contexts down the mountChain', function () {
       var instance = TestUtils.renderIntoDocument(
-        <MountPoint mountId="foo">
-          <MountPoint mountId="bar">
-            <MountPoint mountId="baz" alwaysWrap={true} wrapperComponent="h1" />
+        <MountPoint id="foo">
+          <MountPoint id="bar">
+            <MountPoint id="baz" alwaysWrap={true} wrapperComponent="h1" />
           </MountPoint>
         </MountPoint>
       );
