@@ -32,7 +32,7 @@ class ServiceActionModal extends mixin(StoreMixin) {
     });
   }
 
-  onError({message:errorMsg}) {
+  onError(errorMsg) {
     this.setState({
       disabled: false,
       errorMsg
@@ -66,8 +66,8 @@ class ServiceActionModal extends mixin(StoreMixin) {
     if (this.shouldForceUpdate(errorMsg)) {
       return (
         <h4 className="text-align-center text-danger flush-top">
-          App is currently locked by one or more deployments. Press the button
-          again to forcefully change and deploy the new configuration.
+          Resource currently locked by one or more deployments. Press the button
+          again to force this action.
         </h4>
       );
     }

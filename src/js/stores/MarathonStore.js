@@ -160,6 +160,7 @@ class MarathonStore extends GetSetBaseStore {
       }
 
       var action = payload.action;
+
       switch (action.type) {
         case REQUEST_MARATHON_INSTANCE_INFO_ERROR:
           this.emit(MARATHON_INSTANCE_INFO_ERROR, action.data);
@@ -174,11 +175,7 @@ class MarathonStore extends GetSetBaseStore {
           this.emit(MARATHON_GROUP_CREATE_SUCCESS);
           break;
         case REQUEST_MARATHON_GROUP_DELETE_ERROR:
-          let groupErrorMessage = action.data;
-          if (!Object.keys(groupErrorMessage).length) {
-            groupErrorMessage = 'Error destroying group';
-          }
-          this.emit(MARATHON_GROUP_DELETE_ERROR, groupErrorMessage);
+          this.emit(MARATHON_GROUP_DELETE_ERROR, action.data);
           break;
         case REQUEST_MARATHON_GROUP_DELETE_SUCCESS:
           this.emit(MARATHON_GROUP_DELETE_SUCCESS);
@@ -196,11 +193,7 @@ class MarathonStore extends GetSetBaseStore {
           this.emit(MARATHON_SERVICE_CREATE_SUCCESS);
           break;
         case REQUEST_MARATHON_SERVICE_DELETE_ERROR:
-          let message = action.data;
-          if (!Object.keys(message).length) {
-            message = 'Error destroying service';
-          }
-          this.emit(MARATHON_SERVICE_DELETE_ERROR, message);
+          this.emit(MARATHON_SERVICE_DELETE_ERROR, action.data);
           break;
         case REQUEST_MARATHON_SERVICE_DELETE_SUCCESS:
           this.emit(MARATHON_SERVICE_DELETE_SUCCESS);
