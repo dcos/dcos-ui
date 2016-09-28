@@ -12,6 +12,7 @@ import PodInstanceList from '../structs/PodInstanceList';
 import PodInstanceStatus from '../constants/PodInstanceStatus';
 import PodTableHeaderLabels from '../constants/PodTableHeaderLabels';
 import PodUtil from '../utils/PodUtil';
+import TableUtil from '../utils/TableUtil';
 import TimeAgo from './TimeAgo';
 import Units from '../utils/Units';
 
@@ -356,8 +357,9 @@ class PodInstancesTable extends React.Component {
         data={this.getTableDataFor(instances, filterText)}
         expandAll={!!filterText}
         getColGroup={this.getColGroup}
+        itemHeight={TableUtil.getRowHeight()}
         onCheckboxChange={this.handleItemCheck}
-        sortBy={{prop: 'startedAt', order: 'desc'}}
+        sortBy={{prop: 'name', order: 'asc'}}
         tableComponent={Table}
         uniqueProperty="id" />
     );
