@@ -126,7 +126,7 @@ let RouteFactory = {
                 name: 'virtual-networks-tab-detail-tasks-details-files-directory',
                 hideHeaderNavigation: true,
                 handler: TaskFilesTab,
-                fileViewerRouteName: 'virtual-networks-tab-detail-tasks-details-files-viewer',
+                fileViewerRouteName: 'virtual-networks-tab-detail-tasks-details-file-viewer',
                 buildBreadCrumb() {
                   return {
                     parentCrumb: 'virtual-networks-tab-detail-tasks-detail',
@@ -138,7 +138,7 @@ let RouteFactory = {
                 type: Route,
                 path: 'view/:filePath?/?:innerPath?/?',
                 hideHeaderNavigation: true,
-                name: 'virtual-networks-tab-detail-tasks-details-files-viewer',
+                name: 'virtual-networks-tab-detail-tasks-details-file-viewer',
                 handler: TaskFileViewer,
                 dontScroll: true,
                 buildBreadCrumb() {
