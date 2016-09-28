@@ -56,7 +56,7 @@ module.exports = class ServerErrorModal extends mixin(StoreMixin) {
     });
   }
 
-  handleServerError({message:errorMessage}) {
+  handleServerError(errorMessage) {
     if (!errorMessage) {
       throw 'No error message defined!';
     }

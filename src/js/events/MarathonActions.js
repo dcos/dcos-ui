@@ -87,7 +87,7 @@ var MarathonActions = {
       error(xhr) {
         AppDispatcher.handleServerAction({
           type: REQUEST_MARATHON_GROUP_DELETE_ERROR,
-          data: RequestUtil.parseResponseBody(xhr),
+          data: RequestUtil.getErrorFromXHR(xhr),
           xhr
         });
       }
@@ -192,7 +192,7 @@ var MarathonActions = {
       error(xhr) {
         AppDispatcher.handleServerAction({
           type: REQUEST_MARATHON_SERVICE_DELETE_ERROR,
-          data: RequestUtil.parseResponseBody(xhr),
+          data: RequestUtil.getErrorFromXHR(xhr),
           xhr
         });
       }

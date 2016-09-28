@@ -32,7 +32,7 @@ class ServiceActionModal extends mixin(StoreMixin) {
     });
   }
 
-  onError({message:errorMsg}) {
+  onError(errorMsg) {
     this.setState({
       disabled: false,
       errorMsg
