@@ -88,29 +88,31 @@ class PodContainerSpecView extends React.Component {
   }
 
   getEndpointsSection() {
-    let {container: {id, endpoints}} = this.props;
+    let {container: {endpoints}} = this.props;
 
     if (!endpoints || !endpoints.length) {
       return null;
     }
 
-    let portConfigurations = ServiceConfigUtil.getPortDefinitionGroups(
-        id, endpoints, function (content, linkTo) {
-          return <a href={linkTo} target="_blank">{content}</a>;
-        }
-      ).map(function ({hash, headline}, index) {
-        return (
-          <DescriptionList className="nested-description-list"
-            hash={hash}
-            headline={headline}
-            key={index} />
-        );
-      });
+    let nodes = endpoints.map(function (endpoint, index) {
+      let headline = `Endpoint ${index + 1}`;
+
+      if (endpoint.name) {
+        headline += ` (${endpoint.name})`;
+      }
+
+      return (
+        <DescriptionList className="nested-description-list"
+          hash={endpoint}
+          headline={headline}
+          key={index} />
+      );
+    });
 
     return (
       <div>
-        <h5 className="inverse flush-top">Port Definitions</h5>
-        {portConfigurations}
+        <h5 className="inverse flush-top">Endpoints</h5>
+        {nodes}
       </div>
     );
   }
