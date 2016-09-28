@@ -1,7 +1,7 @@
 import React from 'react';
 
-import DescriptionList from './DescriptionList';
-import EnvironmentList from './EnvironmentList';
+import DescriptionList from '../../../../../src/js/components/DescriptionList';
+import EnvironmentList from '../../../../../src/js/components/EnvironmentList';
 import PodContainerSpecView from './PodContainerSpecView';
 import PodSpec from '../structs/PodSpec';
 import PodNetworkSpecView from './PodNetworkSpecView';

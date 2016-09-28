@@ -1,9 +1,9 @@
 import React from 'react';
 
-import EventTypes from '../constants/EventTypes';
-import FilterHeadline from './FilterHeadline';
+import EventTypes from '../../../../../src/js/constants/EventTypes';
+import FilterHeadline from '../../../../../src/js/components/FilterHeadline';
 import KillPodInstanceModal from './modals/KillPodInstanceModal';
-import MesosStateStore from '../stores/MesosStateStore';
+import MesosStateStore from '../../../../../src/js/stores/MesosStateStore';
 import Pod from '../structs/Pod';
 import PodInstancesTable from './PodInstancesTable';
 import PodInstanceStatus from '../constants/PodInstanceStatus';
