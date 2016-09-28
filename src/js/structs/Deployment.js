@@ -21,7 +21,10 @@ module.exports = class Deployment extends Item {
    * @return {Array.<string>} an array of app IDs affected by this deployment.
    */
   getAffectedServiceIds() {
-    return this.get('affectedApps');
+    let affectedApps = this.get('affectedApps') || [];
+    let affectedPods = this.get('affectedPods') || [];
+
+    return [].concat(affectedApps, affectedPods);
   }
 
   /**
