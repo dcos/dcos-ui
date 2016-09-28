@@ -1,16 +1,14 @@
 import React, {PropTypes} from 'react';
 
-import Hooks from './Hooks';
-import ServiceFactory from '../factories/ServiceFactory';
+import hooks from './hooks';
 
-const hooks = new Hooks();
 const METHODS_TO_BIND = [
   'updateState'
 ];
 
 /*
  * Example usage;
- * import {Mount, MountService} from 'foundation-ui/services/MountBundle';
+ * import {MountPoint, MountService} from 'foundation-ui/mount';
  *
  * class ServiceDetailPlugin {
  *   getContents(children, props) {
@@ -26,15 +24,15 @@ const METHODS_TO_BIND = [
  * class MyComponent extends React.Component {
  *   render() {
  *     return (
- *       <Mount mountId="serviceDetail">
+ *       <MountPoint mountId="serviceDetail">
  *         // What to show when serviceDetail doesn't mount
  *         <EmptyPage />
- *       </Mount>
+ *       </MountPoint>
  *     );
  *   }
  * };
  */
-class Mount extends React.Component {
+class MountPoint extends React.Component {
   constructor() {
     super(...arguments);
 
@@ -44,10 +42,10 @@ class Mount extends React.Component {
   }
 
   getChildContext() {
-    // Get context passed down from parent Mount if one exists
+    // Get context passed down from parent MountPoint if one exists
     // and add to it so we can create a render tree chain of nested mountIds.
     // This should just be an Array of string mountIds. We can use the mountIds
-    // to look up each Mount Component on the page and see debug info about it
+    // to look up each MountPoint Component on the page and see debug info about it
     // like which package inserted the component, what the priorities were for
     // each component if multiple components were registered for a mountId etc.
     const {mountChain = []} = this.context || {};
@@ -74,8 +72,8 @@ class Mount extends React.Component {
 
   updateState(props = this.props) {
     let {children, mountId} = props;
-    let blackList = ['children', ...Object.keys(Mount.propTypes)];
-    // Filter props consumed by Mount to create childProps
+    let blackList = ['children', ...Object.keys(MountPoint.propTypes)];
+    // Filter props consumed by MountPoint to create childProps
     let childProps = Object.keys(props).filter(function (key) {
       return !blackList.includes(key);
     }).reduce(function (memo, key) {
@@ -120,28 +118,25 @@ class Mount extends React.Component {
   }
 }
 
-// Consume mountChain from parent Mount(s)
-Mount.contextTypes = {
+// Consume mountChain from parent MountPoint(s)
+MountPoint.contextTypes = {
   mountChain: PropTypes.array
 };
 
-// Pass down mointChain context to children Mount(s)
-Mount.childContextTypes = {
+// Pass down mointChain context to children MountPoint(s)
+MountPoint.childContextTypes = {
   mountChain: PropTypes.array
 };
 
-Mount.defaultProps = {
+MountPoint.defaultProps = {
   wrapperComponent: 'div',
   alwaysWrap: false
 };
 
-Mount.propTypes = {
+MountPoint.propTypes = {
   mountId: PropTypes.string.isRequired,
   wrapperComponent: PropTypes.node,
   alwaysWrap: PropTypes.bool
 };
 
-module.exports = {
-  Mount,
-  MountService: new ServiceFactory(hooks)
-};
+module.exports = MountPoint;
