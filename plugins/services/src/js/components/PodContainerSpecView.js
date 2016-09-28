@@ -1,9 +1,9 @@
 import React from 'react';
 
-import DescriptionList from './DescriptionList';
-import EnvironmentList from './EnvironmentList';
+import DescriptionList from '../../../../../src/js/components/DescriptionList';
+import EnvironmentList from '../../../../../src/js/components/EnvironmentList';
 import ServiceConfigUtil from '../utils/ServiceConfigUtil';
-import Util from '../utils/Util';
+import Util from '../../../../../src/js/utils/Util';
 
 class PodContainerSpecView extends React.Component {
   getArtifactsSection() {

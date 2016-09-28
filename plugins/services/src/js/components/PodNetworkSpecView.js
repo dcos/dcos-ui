@@ -1,6 +1,6 @@
 import React from 'react';
 
-import DescriptionList from './DescriptionList';
+import DescriptionList from '../../../../../src/js/components/DescriptionList';
 
 class PodNetworkSpecView extends React.Component {
   getGeneralDetails() {
