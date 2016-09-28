@@ -1,20 +1,20 @@
-jest.dontMock('../ServiceFactory');
-jest.dontMock('../../services/Hooks');
+jest.dontMock('../Service');
+jest.dontMock('../../Hooks');
 /* eslint-disable no-unused-vars */
 const React = require('react');
 /* eslint-enable no-unused-vars */
 
-const Hooks = require('../../services/Hooks');
-const ServiceFactory = require('../ServiceFactory');
+const Hooks = require('../../Hooks');
+const Service = require('../Service');
 
-describe('ServiceFactory', function () {
+describe('Service', function () {
 
   beforeEach(function () {
     this.hooks = new Hooks();
     this.hooks.addFilter = jasmine.createSpy('addFilter');
     this.hooks.removeFilter = jasmine.createSpy('removeFilter');
     this.hooks.doAction = jasmine.createSpy('doAction');
-    this.service = new ServiceFactory(this.hooks);
+    this.service = new Service(this.hooks);
   });
 
   it('calls addFilter and doAction when on is invoked', function () {
