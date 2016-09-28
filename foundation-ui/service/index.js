@@ -1,7 +1,4 @@
-/*
-  Service Factory
- */
-function ServiceFactory(hooks) {
+function Service(hooks) {
   return {
     on(id, callback, priority) {
       hooks.addFilter(id, callback, priority);
@@ -20,4 +17,4 @@ function ServiceFactory(hooks) {
   };
 }
 
-module.exports = ServiceFactory;
+module.exports = Service;
