@@ -6,8 +6,13 @@ const METHODS_TO_BIND = [
   'updateState'
 ];
 
-/*
- * Example usage;
+/**
+ * A component to use as a mount point for changing default behavior by packages
+ * or events.
+ * Use MountService to listen for events and return changed or new content to be
+ * displayed at the mount point at a given id.
+ *
+ * @example
  * import {MountPoint, MountService} from 'foundation-ui/mount';
  *
  * class ServiceDetailPlugin {
