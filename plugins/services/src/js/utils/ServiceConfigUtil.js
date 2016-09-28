@@ -1,6 +1,6 @@
 import HostUtil from '../utils/HostUtil';
-import Networking from '../constants/Networking';
-import Util from '../utils/Util';
+import Networking from '../../../../../src/js/constants/Networking';
+import Util from '../../../../../src/js/utils/Util';
 
 const serviceAddressKey = 'Service Address';
 

@@ -1,10 +1,10 @@
+import {DCOSStore} from 'foundation-ui';
 import mixin from 'reactjs-mixin';
 import React from 'react';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
-import DCOSStore from '../stores/DCOSStore';
-import DescriptionList from './DescriptionList';
-import Loader from './Loader';
+import DescriptionList from '../../../../../src/js/components/DescriptionList';
+import Loader from '../../../../../src/js/components/Loader';
 import Service from '../structs/Service';
 import StringUtil from '../utils/StringUtil';
 import ServiceConfigUtil from '../utils/ServiceConfigUtil';
