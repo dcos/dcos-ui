@@ -1,147 +1,76 @@
 & when (@breadcrumbs-enabled) {
 
-  .breadcrumbs {
-
-    &.inverse {
-
-      a {
-        color: inherit;
-
-        &:hover {
-          color: color-lighten(@neutral, 20);
-          text-decoration: none;
-        }
-
-        &:active {
-          color: color-lighten(@neutral, 30);
-        }
-      }
-    }
-
-    .icon {
-      margin-left: @base-spacing-unit * 0.5;
-      margin-right: @base-spacing-unit * 0.5;
-      opacity: 0.3;
-    }
-  }
-
   .breadcrumb {
-    .property-variant(body, font-size);
     display: flex;
     flex: 0 0 auto;
-    line-height: @base-spacing-unit;
-    list-style: none !important;
-    margin: 0;
-    padding-bottom: @base-spacing-unit * 2/3;
-    padding-top: 0; // this + container-pod-short-top = 26px;
 
     li {
+      color: inherit;
       display: flex;
       margin: 0;
 
-      & + li:before {
-        display: none; /* override Bootstrap */
-      }
-
-      &:last-child {
-
-        a {
-          color: color-lighten(@neutral, 20);
-          cursor: default;
-          margin: 0;
-
-          &:before {
-            content: '';
-          }
-        }
-      }
-
-      a {
-        color: @neutral;
-        overflow: hidden;
-        white-space: nowrap;
-
-        &:hover {
-          color: color-lighten(@neutral, 10);
-        }
-      }
-
+      // We want to make sure the icon conforms exactly to the height of the
+      // breadcrumb items around it.
       .icon {
-        height: @base-spacing-unit;
-        margin-left: @base-spacing-unit * 0.5;
-        margin-right: @base-spacing-unit * 0.5;
+        display: block;
+        height: @heading-h4-line-height;
+        margin-left: @base-spacing-unit * 0.25;
+        margin-right: @base-spacing-unit * 0.25;
         opacity: 0.5;
         width: 14px;
       }
     }
 
-    &.inverse {
+    a {
+      color: @neutral;
+      overflow: hidden;
+      text-decoration: none;
+      white-space: nowrap;
 
-      a {
-        color: color-lighten(@neutral, 30);
-
-        &:hover {
-          color: color-lighten(@neutral, 60);
-        }
-      }
-
-      li:last-child {
-
-        a {
-          color: color-lighten(@neutral, 90);
-          text-decoration: none;
-
-          &:hover {
-            color: color-lighten(@neutral, 90);
-          }
-        }
+      &:hover {
+        color: color-lighten(@neutral, 10);
       }
     }
 
     &.collapsed {
 
       a {
-        width: 0.75em;
+        display: block;
+        width: 0.75rem;
 
         &:before {
           content: '...';
           display: inline-block;
-          width: 0.75em;
+          width: 0.75rem;
         }
       }
 
-      li:first-child,
-      li:last-child {
+      li {
 
-        a {
-          width: auto;
+        &:first-child,
+        &:last-child {
 
-          &:before {
-            content: '';
+          a {
             width: auto;
+
+            &:before {
+              content: '';
+              width: auto;
+            }
+          }
+        }
+
+        &:last-child {
+          flex: 1;
+          // min-width is necessary to resolve Firefox flexbox bug
+          // (https://bugzilla.mozilla.org/show_bug.cgi?id=823483)
+          min-width: 0;
+
+          a {
+            text-overflow: ellipsis;
           }
         }
       }
-
-      li:last-child {
-        flex: 1;
-        // min-width is necessary to resolve Firefox flexbox bug
-        // (https://bugzilla.mozilla.org/show_bug.cgi?id=823483)
-        min-width: 0;
-
-        a {
-          text-overflow: ellipsis;
-        }
-      }
-    }
-  }
-
-  .breadcrumb-style-headline {
-    margin-bottom: @base-spacing-unit * 2/3;
-
-    .h4 {
-      font-size: 1.2rem;
-      line-height: @base-spacing-unit;
     }
   }
 }
@@ -150,28 +79,13 @@
 
   @media (min-width: @layout-screen-small-min-width) {
 
-    .breadcrumbs {
-
-      &.inverse {
-
-        .icon {
-          margin-left: @base-spacing-unit-screen-small * 0.5;
-          margin-right: @base-spacing-unit-screen-small * 0.5;
-        }
-      }
-    }
-
     .breadcrumb {
-      .property-variant(body, font-size, screen-small);
-      line-height: @base-spacing-unit-screen-small;
-      padding-bottom: @base-spacing-unit-screen-small * 2/3;
 
       li {
 
         .icon {
-          height: @base-spacing-unit-screen-small;
-          margin-left: @base-spacing-unit-screen-small * 0.5;
-          margin-right: @base-spacing-unit-screen-small * 0.5;
+          margin-left: @base-spacing-unit-screen-small * 0.25;
+          margin-right: @base-spacing-unit-screen-small * 0.25;
         }
       }
     }
@@ -182,28 +96,13 @@
 
   @media (min-width: @layout-screen-medium-min-width) {
 
-    .breadcrumbs {
-
-      &.inverse {
-
-        .icon {
-          margin-left: @base-spacing-unit-screen-medium * 0.5;
-          margin-right: @base-spacing-unit-screen-medium * 0.5;
-        }
-      }
-    }
-
     .breadcrumb {
-      .property-variant(body, font-size, screen-medium);
-      line-height: @base-spacing-unit-screen-medium;
-      padding-bottom: @base-spacing-unit-screen-medium * 2/3;
 
       li {
 
         .icon {
-          height: @base-spacing-unit-screen-medium;
-          margin-left: @base-spacing-unit-screen-medium * 0.5;
-          margin-right: @base-spacing-unit-screen-medium * 0.5;
+          margin-left: @base-spacing-unit-screen-medium * 0.25;
+          margin-right: @base-spacing-unit-screen-medium * 0.25;
         }
       }
     }
@@ -214,28 +113,13 @@
 
   @media (min-width: @layout-screen-large-min-width) {
 
-    .breadcrumbs {
-
-      &.inverse {
-
-        .icon {
-          margin-left: @base-spacing-unit-screen-large * 0.5;
-          margin-right: @base-spacing-unit-screen-large * 0.5;
-        }
-      }
-    }
-
     .breadcrumb {
-      .property-variant(body, font-size, screen-large);
-      line-height: @base-spacing-unit-screen-large;
-      padding-bottom: @base-spacing-unit-screen-large * 2/3;
 
       li {
 
         .icon {
-          height: @base-spacing-unit-screen-large;
-          margin-left: @base-spacing-unit-screen-large * 0.5;
-          margin-right: @base-spacing-unit-screen-large * 0.5;
+          margin-left: @base-spacing-unit-screen-large * 0.25;
+          margin-right: @base-spacing-unit-screen-large * 0.25;
         }
       }
     }
@@ -246,28 +130,13 @@
 
   @media (min-width: @layout-screen-jumbo-min-width) {
 
-    .breadcrumbs {
-
-      &.inverse {
-
-        .icon {
-          margin-left: @base-spacing-unit-screen-jumbo * 0.5;
-          margin-right: @base-spacing-unit-screen-jumbo * 0.5;
-        }
-      }
-    }
-
     .breadcrumb {
-      .property-variant(body, font-size, screen-jumbo);
-      line-height: @base-spacing-unit-screen-jumbo;
-      padding-bottom: @base-spacing-unit-screen-jumbo * 2/3;
 
       li {
 
         .icon {
-          height: @base-spacing-unit-screen-jumbo;
-          margin-left: @base-spacing-unit-screen-jumbo * 0.5;
-          margin-right: @base-spacing-unit-screen-jumbo * 0.5;
+          margin-left: @base-spacing-unit-screen-jumbo * 0.25;
+          margin-right: @base-spacing-unit-screen-jumbo * 0.25;
         }
       }
     }
