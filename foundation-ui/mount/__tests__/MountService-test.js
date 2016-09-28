@@ -22,7 +22,7 @@ describe('MountService', function () {
 
   it('should render replacement', function () {
     var result = TestUtils.renderIntoDocument(
-      <MountPoint mountId="foo">
+      <MountPoint id="foo">
         <h1>foo</h1>
       </MountPoint>
     );
@@ -37,7 +37,7 @@ describe('MountService', function () {
 
   it('should restore default after removeListener is called', function () {
     var result = TestUtils.renderIntoDocument(
-      <MountPoint mountId="foo">
+      <MountPoint id="foo">
         <h1>foo</h1>
       </MountPoint>
     );
