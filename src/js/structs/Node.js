@@ -1,5 +1,5 @@
 import Item from './Item';
-import TaskStates from '../constants/TaskStates';
+import TaskStates from '../../../plugins/services/src/js/constants/TaskStates';
 import UnitHealthUtil from '../utils/UnitHealthUtil';
 
 class Node extends Item {

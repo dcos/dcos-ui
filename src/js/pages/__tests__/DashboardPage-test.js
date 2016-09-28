@@ -1,27 +1,26 @@
+jest.dontMock('foundation-ui');
 jest.dontMock('../DashboardPage');
-jest.dontMock('../../stores/DCOSStore');
-jest.dontMock('../../stores/MarathonStore');
+jest.dontMock('../../../../foundation-ui/src/js/stores/DCOSStore');
 jest.dontMock('../../stores/UnitHealthStore');
 jest.dontMock('./fixtures/MockMarathonResponse.json');
 jest.dontMock('../../mixins/InternalStorageMixin');
 jest.dontMock('../../utils/Util');
-jest.dontMock('../../constants/HealthSorting');
 
 const JestUtil = require('../../utils/JestUtil');
 
-JestUtil.unMockStores(['MarathonStore', 'MesosSummaryStore']);
+JestUtil.unMockStores(['MesosSummaryStore']);
 /* eslint-disable no-unused-vars */
 const React = require('react');
 /* eslint-enable no-unused-vars */
 const ReactDOM = require('react-dom');
 
 const DashboardPage = require('../DashboardPage');
-const DCOSStore = require('../../stores/DCOSStore');
-const DeploymentsList = require('../../structs/DeploymentsList');
-const MarathonStore = require('../../stores/MarathonStore');
+const DCOSStore = require('foundation-ui').DCOSStore;
+const DeploymentsList = require('../../../../plugins/services/src/js/structs/DeploymentsList');
+const MarathonStore = require('../../../../plugins/services/src/js/stores/MarathonStore');
 const MesosSummaryStore = require('../../stores/MesosSummaryStore');
 const MockMarathonResponse = require('./fixtures/MockMarathonResponse.json');
-const ServiceTree = require('../../structs/ServiceTree');
+const ServiceTree = require('../../../../plugins/services/src/js/structs/ServiceTree');
 const SummaryList = require('../../structs/SummaryList');
 
 MesosSummaryStore.get = function (key) {

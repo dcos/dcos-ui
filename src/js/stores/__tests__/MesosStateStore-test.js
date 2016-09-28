@@ -1,11 +1,11 @@
 jest.dontMock('../MesosStateStore');
 
-const Application = require('../../structs/Application');
-const Framework = require('../../structs/Framework');
+const MesosStateUtil = require('../../../../plugins/services/src/js/utils/MesosStateUtil');
+const Pod = require('../../../../plugins/services/src/js/structs/Pod');
+const Framework = require('../../../../plugins/services/src/js/structs/Framework');
 const MesosStateStore = require('../MesosStateStore');
-const MesosStateUtil = require('../../utils/MesosStateUtil');
-const Pod = require('../../structs/Pod');
-const Task = require('../../structs/Task');
+const Application = require('../../../../plugins/services/src/js/structs/Application');
+const Task = require('../../../../plugins/services/src/js/structs/Task');
 
 const MESOS_STATE_WITH_HISTORY = require('../../utils/__tests__/fixtures/MesosStateWithHistory');
 

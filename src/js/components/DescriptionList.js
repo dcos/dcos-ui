@@ -1,6 +1,12 @@
+import PureRenderMixin from 'react-addons-pure-render-mixin';
 import React from 'react';
 
 class DescriptionList extends React.Component {
+  constructor() {
+    super(...arguments);
+    this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate;
+  }
+
   getHeadline() {
     let {headline, headlineClassName} = this.props;
     if (!headline) {

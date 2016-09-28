@@ -3,7 +3,6 @@ jest.dontMock('../ServerErrorModal');
 const PluginTestUtils = require('PluginTestUtils');
 
 PluginTestUtils.dontMock([
-  'MarathonStore',
   'MesosStateStore',
   'MesosSummaryStore'
 ]);

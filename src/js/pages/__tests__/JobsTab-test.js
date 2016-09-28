@@ -13,7 +13,7 @@ const JestUtil = require('../../utils/JestUtil');
 
 const AlertPanel = require('../../components/AlertPanel');
 const MetronomeUtil = require('../../utils/MetronomeUtil');
-const DCOSStore = require('../../stores/DCOSStore');
+const DCOSStore = require('foundation-ui').DCOSStore;
 const QueryParamsMixin = require('../../mixins/QueryParamsMixin');
 const JobsTab = require('../jobs/JobsTab');
 const JobTree = require('../../structs/JobTree');

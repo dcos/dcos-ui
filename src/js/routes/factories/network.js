@@ -9,10 +9,11 @@ import VirtualNetworksTab from '../../pages/network/VirtualNetworksTab';
 import VirtualNetworkDetail from '../../pages/network/virtual-network-detail/VirtualNetworkDetail';
 import VirtualNetworkTaskTab from '../../pages/network/virtual-network-detail/VirtualNetworkTaskTab';
 import VirtualNetworkDetailsTab from '../../pages/network/virtual-network-detail/VirtualNetworkDetailsTab';
-import TaskDetail from '../../pages/task-details/TaskDetail';
-import TaskDetailsTab from '../../pages/task-details/TaskDetailsTab';
-import TaskFilesTab from '../../pages/task-details/TaskFilesTab';
-import TaskFileViewer from '../../pages/task-details/TaskFileViewer';
+
+import TaskDetail from '../../../../plugins/services/src/js/pages/task-details/TaskDetail';
+import TaskDetailsTab from '../../../../plugins/services/src/js/pages/task-details/TaskDetailsTab';
+import TaskFilesTab from '../../../../plugins/services/src/js/pages/task-details/TaskFilesTab';
+import TaskFileViewer from '../../../../plugins/services/src/js/pages/task-details/TaskFileViewer';
 
 let RouteFactory = {
   getNetworkRoutes() {
