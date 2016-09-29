@@ -155,11 +155,9 @@ describe('PodInstancesTable', function () {
           {pod}, {service: pod});
         this.instance = TestUtils.renderIntoDocument(component);
 
-        // 2 clicks on the header (ascending), becaue
-        // we are sorting by name by default.
+        // 1 click on the header (ascending)
         let columnHeader = TestUtils.scryRenderedDOMComponentsWithClass(
             this.instance, 'column-name')[0];
-        TestUtils.Simulate.click(columnHeader);
         TestUtils.Simulate.click(columnHeader);
       });
 
@@ -185,9 +183,10 @@ describe('PodInstancesTable', function () {
           {pod}, {service: pod});
         this.instance = TestUtils.renderIntoDocument(component);
 
-        // 1 click on the header (descending)
+        // 2 clicks on the header (descending)
         let columnHeader = TestUtils.scryRenderedDOMComponentsWithClass(
             this.instance, 'column-name')[0];
+        TestUtils.Simulate.click(columnHeader);
         TestUtils.Simulate.click(columnHeader);
       });
 
