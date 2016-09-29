@@ -32,6 +32,8 @@ import {
   REQUEST_MARATHON_SERVICE_VERSIONS_SUCCESS,
   REQUEST_MARATHON_TASK_KILL_ERROR,
   REQUEST_MARATHON_TASK_KILL_SUCCESS,
+  REQUEST_MARATHON_POD_INSTANCE_KILL_ERROR,
+  REQUEST_MARATHON_POD_INSTANCE_KILL_SUCCESS,
   SERVER_ACTION
 } from '../constants/ActionTypes';
 import AppDispatcher from '../events/AppDispatcher';
@@ -74,6 +76,8 @@ import {
   MARATHON_SERVICE_VERSIONS_ERROR,
   MARATHON_TASK_KILL_ERROR,
   MARATHON_TASK_KILL_SUCCESS,
+  MARATHON_POD_INSTANCE_KILL_SUCCESS,
+  MARATHON_POD_INSTANCE_KILL_ERROR,
   VISIBILITY_CHANGE
 } from '../constants/EventTypes';
 import Service from '../structs/Service';
@@ -143,7 +147,9 @@ class MarathonStore extends GetSetBaseStore {
         serviceRestartError: MARATHON_SERVICE_RESTART_ERROR,
         serviceRestartSuccess: MARATHON_SERVICE_RESTART_SUCCESS,
         taskKillSuccess: MARATHON_TASK_KILL_SUCCESS,
-        taskKillError: MARATHON_TASK_KILL_ERROR
+        taskKillError: MARATHON_TASK_KILL_ERROR,
+        podInstanceKillSuccess: MARATHON_POD_INSTANCE_KILL_SUCCESS,
+        podInstanceKillError: MARATHON_POD_INSTANCE_KILL_ERROR
       },
       unmountWhen(store, event) {
         if (event === 'appsSuccess') {
@@ -255,6 +261,12 @@ class MarathonStore extends GetSetBaseStore {
         case REQUEST_MARATHON_TASK_KILL_ERROR:
           this.emit(MARATHON_TASK_KILL_ERROR, action.data);
           break;
+        case REQUEST_MARATHON_POD_INSTANCE_KILL_SUCCESS:
+          this.emit(MARATHON_POD_INSTANCE_KILL_SUCCESS);
+          break;
+        case REQUEST_MARATHON_POD_INSTANCE_KILL_ERROR:
+          this.emit(MARATHON_POD_INSTANCE_KILL_ERROR, action.data);
+          break;
       }
 
       return true;
@@ -344,6 +356,10 @@ class MarathonStore extends GetSetBaseStore {
 
   fetchMarathonInstanceInfo() {
     return MarathonActions.fetchMarathonInstanceInfo(...arguments);
+  }
+
+  killPodInstances() {
+    return MarathonActions.killPodInstances(...arguments);
   }
 
   killTasks() {

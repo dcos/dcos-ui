@@ -33,7 +33,9 @@ import {
   REQUEST_MARATHON_SERVICE_VERSIONS_SUCCESS,
   REQUEST_MARATHON_SERVICE_VERSIONS_ERROR,
   REQUEST_MARATHON_TASK_KILL_SUCCESS,
-  REQUEST_MARATHON_TASK_KILL_ERROR
+  REQUEST_MARATHON_TASK_KILL_ERROR,
+  REQUEST_MARATHON_POD_INSTANCE_KILL_ERROR,
+  REQUEST_MARATHON_POD_INSTANCE_KILL_SUCCESS
 } from '../constants/ActionTypes';
 import AppDispatcher from './AppDispatcher';
 import Config from '../config/Config';
@@ -495,6 +497,41 @@ var MarathonActions = {
         });
       }
     });
+  },
+
+  killPodInstances(pod, instanceIDs, force) {
+    let podID = encodeURIComponent(pod.getId());
+    let params = '';
+
+    if (!(pod instanceof Pod)) {
+      if (process.env.NODE_ENV !== 'production') {
+        throw new TypeError('pod is not an instance of Pod');
+      }
+
+      return;
+    }
+
+    if (force) {
+      params = '?force=true';
+    }
+
+    RequestUtil.json({
+      url: buildURI(`/pods/${podID}::instances${params}`),
+      data: {ids: instanceIDs},
+      method: 'DELETE',
+      success() {
+        AppDispatcher.handleServerAction({
+          type: REQUEST_MARATHON_POD_INSTANCE_KILL_SUCCESS
+        });
+      },
+      error(xhr) {
+        AppDispatcher.handleServerAction({
+          type: REQUEST_MARATHON_POD_INSTANCE_KILL_ERROR,
+          data: RequestUtil.getErrorFromXHR(xhr)
+        });
+      }
+    });
+
   }
 
 };
