@@ -29,10 +29,8 @@ describe('ServicesTab', function () {
       id: '/',
       items: [{
         id: '/alpha',
-        instances: 1
       }, {
         id: '/pod',
-        instances: 1,
         spec: {
           containers: []
         }
