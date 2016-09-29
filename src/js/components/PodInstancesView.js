@@ -1,6 +1,7 @@
 import React from 'react';
 
 import FilterHeadline from './FilterHeadline';
+import KillPodInstanceModal from './modals/KillPodInstanceModal';
 import Pod from '../structs/Pod';
 import PodInstancesTable from './PodInstancesTable';
 import PodInstanceStatus from '../constants/PodInstanceStatus';
@@ -8,6 +9,7 @@ import PodUtil from '../utils/PodUtil';
 import PodViewFilter from './PodViewFilter';
 
 const METHODS_TO_BIND = [
+  'handleCloseKillDialog',
   'handleFilterChange',
   'handleFilterReset',
   'handleSelectionChange',
@@ -24,7 +26,8 @@ class PodInstancesView extends React.Component {
         text: '',
         status: 'active'
       },
-      selectedItems: []
+      selectedItems: [],
+      activeKillDialogAction: ''
     };
 
     METHODS_TO_BIND.forEach(function (method) {
@@ -72,6 +75,12 @@ class PodInstancesView extends React.Component {
     );
   }
 
+  handleCloseKillDialog() {
+    this.setState({
+      activeKillDialogAction: ''
+    });
+  }
+
   handleFilterChange(filter) {
     this.setState({filter});
   }
@@ -86,11 +95,15 @@ class PodInstancesView extends React.Component {
   }
 
   handleKillClick() {
-
+    this.setState({
+      activeKillDialogAction: 'kill'
+    });
   }
 
   handleKillAndScaleClick() {
-
+    this.setState({
+      activeKillDialogAction: 'killAndScale'
+    });
   }
 
   handleSelectionChange(selectedItems) {
@@ -99,7 +112,7 @@ class PodInstancesView extends React.Component {
 
   render() {
     var {pod} = this.props;
-    var {filter} = this.state;
+    var {activeKillDialogAction, filter, selectedItems} = this.state;
     let allItems = pod.getInstanceList();
     let filteredTextItems = allItems;
     let filteredItems = allItems;
@@ -142,6 +155,12 @@ class PodInstancesView extends React.Component {
           inverseStyle={true}
           onSelectionChange={this.handleSelectionChange}
           pod={this.props.pod} />
+        <KillPodInstanceModal
+          action={activeKillDialogAction}
+          onClose={this.handleCloseKillDialog}
+          open={!!activeKillDialogAction}
+          pod={pod}
+          selectedItems={selectedItems} />
       </div>
     );
   }
