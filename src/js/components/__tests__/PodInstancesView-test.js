@@ -110,6 +110,21 @@ describe('PodInstancesView', function () {
           'container-1'
         ]);
       });
+
+      it('should always show instance total resources', function () {
+        var mem = TestUtils.scryRenderedDOMComponentsWithClass(
+            this.instance, 'column-mem')
+            .filter(JestUtil.filterByTagName('TD'))
+            .reduce(JestUtil.reduceTextContentOfSelector(
+              'span'), []);
+
+        expect(mem).toEqual([
+          '128 MiB',
+          '64 MiB',
+          '128 MiB',
+          '64 MiB'
+        ]);
+      });
     });
 
     describe('show all', function () {

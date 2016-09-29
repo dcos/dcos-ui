@@ -179,6 +179,27 @@ describe('PodInstance', function () {
 
   });
 
+  describe('#getResources', function () {
+
+    it('should return the correct value', function () {
+      let podInstance = new PodInstance({
+        resources: { cpus: 0.5, mem: 64 }
+      });
+
+      expect(podInstance.getResources()).toEqual({
+        cpus: 0.5, mem: 64, disk: 0, gpus: 0
+      });
+    });
+
+    it('should return the correct default value', function () {
+      let podInstance = new PodInstance();
+      expect(podInstance.getResources()).toEqual({
+        cpus: 0, mem: 0, disk: 0, gpus: 0
+      });
+    });
+
+  });
+
   describe('#hasHealthChecks', function () {
 
     it('should return true if all container have health checks', function () {
