@@ -510,6 +510,13 @@ var MarathonActions = {
 
       return;
     }
+    if (!Array.isArray(instanceIDs)) {
+      if (process.env.NODE_ENV !== 'production') {
+        throw new TypeError('instanceIDs is not an array');
+      }
+
+      return;
+    }
 
     if (force) {
       params = '?force=true';
@@ -517,7 +524,7 @@ var MarathonActions = {
 
     RequestUtil.json({
       url: buildURI(`/pods/${podID}::instances${params}`),
-      data: {ids: instanceIDs},
+      data: instanceIDs,
       method: 'DELETE',
       success() {
         AppDispatcher.handleServerAction({
