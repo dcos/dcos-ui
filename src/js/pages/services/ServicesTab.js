@@ -192,7 +192,7 @@ var ServicesTab = React.createClass({
       <AlertPanel
         title="Not Found"
         footer={this.getNotFoundFooter()}
-        icon={<Icon id="services" color="white" size="jumbo" />}>
+        icon={<Icon id="services" color="neutral" size="jumbo" />}>
         <p className="flush-bottom">
           {`Service '${id}' was not found.`}
         </p>
@@ -253,7 +253,7 @@ var ServicesTab = React.createClass({
         <AlertPanel
           title="No Services Deployed"
           footer={this.getAlertPanelFooter()}
-          icon={<Icon id="services" color="white" size="jumbo" />}>
+          icon={<Icon id="services" color="neutral" size="jumbo" />}>
           <p className="flush-bottom">
             Create groups to organize your services or
             deploy a new service.
