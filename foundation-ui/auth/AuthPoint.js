@@ -1,17 +1,17 @@
 import React, {PropTypes} from 'react';
 
-import Hooks from '../services/Hooks';
-import ServiceFactory from '../factories/ServiceFactory';
+import hooks from './hooks';
 
-const hooks = new Hooks();
 const METHODS_TO_BIND = [
   'updateState'
 ];
 
-/*
- * Example usage:
+/**
+ * AuthPoint is used to wrap around certain UI components that are not
+ * accessible to users with limited previliges.
  *
- * import {Authorize, Authorization} from 'foundation-ui/services/AuthorizeBundle';
+ * @example
+ * import {AuthPoint, AuthService} from 'foundation-ui/auth';
  *
  * class AuthenticationPlugin {
  *   permissions: [
@@ -28,17 +28,17 @@ const METHODS_TO_BIND = [
  *
  *   initialize() {
  *     this.permissions.forEach(function (permission) {
- *       Authorization.on(permission, this.checkPermission(permission));
+ *       AuthService.on(permission, this.checkPermission(permission));
  *     })
  *   }
  *
  *   onPermissionChange() {
  *     // Resubscribe
  *     this.permissions.forEach(function (permission) {
- *       Authorization.removeListener(permission, this.checkPermission(permission));
+ *       AuthService.removeListener(permission, this.checkPermission(permission));
  *     })
  *     this.permissions.forEach(function (permission) {
- *       Authorization.on(permission, this.checkPermission(permission));
+ *       AuthService.on(permission, this.checkPermission(permission));
  *     })
  *   }
  * }
@@ -46,15 +46,15 @@ const METHODS_TO_BIND = [
  * class MyComponent extends React.Component {
  *   render() {
  *     return (
- *       <Authorize authId="dcos:ui:sidebar-tabs">
+ *       <AuthPoint id="dcos:ui:sidebar-tabs">
  *         // Will not be shown if myCallback (above) returns false.
  *         <SystemTab />
- *       </Authorize>
+ *       </AuthPoint>
  *     );
  *   }
  * };
  */
-class Authorize extends React.Component {
+class AuthPoint extends React.Component {
   constructor() {
     super(...arguments);
 
@@ -65,21 +65,21 @@ class Authorize extends React.Component {
 
   componentWillMount() {
     this.updateState();
-    // Register for changes in Authorize specific to this authId.
-    // Whenever Authorize has a change it will end up invoking updateState
+    // Register for changes in AuthPoint specific to this id.
+    // Whenever AuthPoint has a change it will end up invoking updateState
     // so we can get the newly filtered children.
-    hooks.addAction(this.props.authId, this.updateState);
+    hooks.addAction(this.props.id, this.updateState);
   }
 
   componentWillUnmount() {
     // Hooks will need ability to remove previously added actions.
-    hooks.removeAction(this.props.authId, this.updateState);
+    hooks.removeAction(this.props.id, this.updateState);
   }
 
   updateState() {
-    let {authId, defaultValue} = this.props;
+    let {id, defaultValue} = this.props;
     // Looking for a Boolean
-    const authorized = !!hooks.applyFilter(authId, defaultValue);
+    const authorized = !!hooks.applyFilter(id, defaultValue);
 
     this.setState({authorized});
   }
@@ -94,18 +94,15 @@ class Authorize extends React.Component {
   }
 }
 
-Authorize.defaultProps = {
+AuthPoint.defaultProps = {
   replacementComponent: null,
   defaultValue: false
 };
 
-Authorize.propTypes = {
-  authId: PropTypes.string.isRequired,
+AuthPoint.propTypes = {
+  id: PropTypes.string.isRequired,
   defaultValue: PropTypes.bool,
   replacementComponent: PropTypes.node
 };
 
-module.exports = {
-  Authorization: new ServiceFactory(hooks),
-  Authorize
-};
+module.exports = AuthPoint;
