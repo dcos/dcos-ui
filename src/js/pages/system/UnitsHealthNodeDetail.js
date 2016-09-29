@@ -5,10 +5,10 @@ import React from 'react';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import Breadcrumbs from '../../components/Breadcrumbs';
+import DetailViewHeader from '../../components/DetailViewHeader';
 import {documentationURI} from '../../config/Config';
 import Icon from '../../components/Icon';
 import Loader from '../../components/Loader';
-import PageHeader from '../../components/PageHeader';
 import RequestErrorMsg from '../../components/RequestErrorMsg';
 import UnitHealthStore from '../../stores/UnitHealthStore';
 import UnitSummaries from '../../constants/UnitSummaries';
@@ -136,7 +136,7 @@ class UnitsHealthNodeDetail extends mixin(StoreMixin) {
     return (
       <div className="flex-container-col">
         <Breadcrumbs />
-        <PageHeader
+        <DetailViewHeader
           icon={<Icon color="neutral" id="heart-pulse" size="large" />}
           subTitle={this.getSubTitle(unit, node)}
           title={`${unit.getTitle()} Health Check`} />
