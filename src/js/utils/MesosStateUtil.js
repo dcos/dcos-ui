@@ -33,9 +33,9 @@ const MesosStateUtil = {
   getFramework(state, frameworkID) {
     const {frameworks, completed_frameworks} = state;
     return [].concat(frameworks, completed_frameworks).find(
-        function (framework) {
-          return framework != null && framework.id === frameworkID;
-        });
+      function (framework) {
+        return framework != null && framework.id === frameworkID;
+      });
   },
 
   /**
@@ -118,17 +118,17 @@ const MesosStateUtil = {
 
           // Find pod task and executor
           return [].concat(executor.tasks, executor.completed_tasks)
-              .every(function (task) {
-                if (task != null && task.id === taskID) {
-                  // For a detail documentation on how to construct the path
-                  // please see: https://reviews.apache.org/r/52376/
-                  taskPath =
-                      `${executor.directory}/tasks/${task.id}/${path}`;
-                  return false;
-                }
+            .every(function (task) {
+              if (task != null && task.id === taskID) {
+                // For a detail documentation on how to construct the path
+                // please see: https://reviews.apache.org/r/52376/
+                taskPath =
+                    `${executor.directory}/tasks/${task.id}/${path}`;
+                return false;
+              }
 
-                return true;
-              });
+              return true;
+            });
         });
 
     return taskPath;
