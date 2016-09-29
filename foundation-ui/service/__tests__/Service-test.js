@@ -1,10 +1,10 @@
 jest.dontMock('../Service');
-jest.dontMock('../../Hooks');
+jest.dontMock('../../hooks');
 /* eslint-disable no-unused-vars */
 const React = require('react');
 /* eslint-enable no-unused-vars */
 
-const Hooks = require('../../Hooks');
+const Hooks = require('../../hooks');
 const Service = require('../Service');
 
 describe('Service', function () {
