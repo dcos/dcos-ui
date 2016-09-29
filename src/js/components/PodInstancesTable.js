@@ -6,6 +6,7 @@ import {Table} from 'reactjs-components';
 import CollapsingString from './CollapsingString';
 import EventTypes from '../constants/EventTypes';
 import ExpandingTable from './ExpandingTable';
+import Icon from './Icon';
 import MesosStateStore from '../stores/MesosStateStore';
 import Pod from '../structs/Pod';
 import PodInstanceList from '../structs/PodInstanceList';
@@ -22,6 +23,7 @@ const METHODS_TO_BIND = [
   'handleMesosStateChange',
   'renderColumnAddress',
   'renderColumnID',
+  'renderColumnLogs',
   'renderColumnResource',
   'renderColumnStatus',
   'renderColumnUpdated',
@@ -76,6 +78,7 @@ class PodInstancesTable extends React.Component {
         <col style={{width: '120px'}} />
         <col style={{width: '64px'}} />
         <col style={{width: '86px'}} />
+        <col style={{width: '86px'}} />
         <col style={{width: '160px'}} />
         <col style={{width: '160px'}} />
       </colgroup>
@@ -129,6 +132,13 @@ class PodInstancesTable extends React.Component {
         prop: 'status',
         render: this.renderColumnStatus,
         sortable: true
+      },
+      {
+        className: this.getColumnClassName,
+        heading: this.getColumnHeading,
+        prop: 'logs',
+        render: this.renderColumnLogs,
+        sortable: false
       },
       {
         className: this.getColumnClassName,
@@ -278,6 +288,32 @@ class PodInstancesTable extends React.Component {
       rowOptions,
       (<CollapsingString string={row.id} />),
       classes
+    );
+  }
+
+  renderColumnLogs(prop, row, rowOptions = {}) {
+    if (rowOptions.isParent) {
+      // Because elements are just stacked we need a spacer
+      return <span>&nbsp;</span>;
+    }
+
+    let {name, id} = row;
+
+    return (
+      <Link
+        className="emphasize clickable text-overflow"
+        to="services-task-details-logs"
+        params={{
+          id: encodeURIComponent(this.props.pod.getId()),
+          taskID: id
+        }}
+        title={name}>
+        <Icon
+          color="grey"
+          id="page"
+          size="mini"
+          family="mini" />
+      </Link>
     );
   }
 
