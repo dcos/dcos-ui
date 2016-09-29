@@ -155,7 +155,6 @@ class PodInstancesTabView extends React.Component {
       <div>
         <FilterHeadline
           currentLength={filteredItems.getItems().length}
-          inverseStyle={true}
           isFiltering={filter.text || (filter.status !== 'all')}
           name="Instance"
           onReset={this.handleFilterReset}
@@ -163,7 +162,6 @@ class PodInstancesTabView extends React.Component {
           />
         <PodViewFilter
           filter={filter}
-          inverseStyle={true}
           items={filteredTextItems.getItems()}
           onFilterChange={this.handleFilterChange}
           statusChoices={['all', 'active', 'completed']}
@@ -173,7 +171,6 @@ class PodInstancesTabView extends React.Component {
         <PodInstancesTable
           filterText={filter.text}
           instances={filteredItems}
-          inverseStyle={true}
           onSelectionChange={this.handleSelectionChange}
           pod={this.props.pod} />
         <KillPodInstanceModal

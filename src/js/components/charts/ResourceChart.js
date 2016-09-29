@@ -77,7 +77,6 @@ class ResourceChart extends React.Component {
           <BarChart
             axisConfiguration={axisConfiguration}
             data={resourceData}
-            inverseStyle={true}
             margin={{top: 0, left: 43, right: 10, bottom: 40}}
             maxY={maxY}
             refreshRate={Config.getRefreshRate()}
