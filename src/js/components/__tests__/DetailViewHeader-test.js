@@ -1,12 +1,12 @@
-jest.dontMock('../PageHeader');
+jest.dontMock('../DetailViewHeader');
 /* eslint-disable no-unused-vars */
 const React = require('react');
 /* eslint-enable no-unused-vars */
 const ReactDOM = require('react-dom');
 
-const PageHeader = require('../PageHeader');
+const DetailViewHeader = require('../DetailViewHeader');
 
-describe('PageHeader', function () {
+describe('DetailViewHeader', function () {
   beforeEach(function () {
     this.container = document.createElement('div');
   });
@@ -20,7 +20,7 @@ describe('PageHeader', function () {
     it('allows classes to be added', function () {
       let className = 'foo';
       let instance = ReactDOM.render(
-        <PageHeader className={className} />,
+        <DetailViewHeader className={className} />,
         this.container
       );
       let node = ReactDOM.findDOMNode(instance);
@@ -32,7 +32,7 @@ describe('PageHeader', function () {
         'container': false
       };
       let instance = ReactDOM.render(
-        <PageHeader className={className} />,
+        <DetailViewHeader className={className} />,
         this.container
       );
       let node = ReactDOM.findDOMNode(instance);

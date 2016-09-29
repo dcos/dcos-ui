@@ -5,12 +5,12 @@ import React from 'react';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import Breadcrumbs from '../../components/Breadcrumbs';
+import DetailViewHeader from '../../components/DetailViewHeader';
 import FilterBar from '../../components/FilterBar';
 import FilterHeadline from '../../components/FilterHeadline';
 import FilterInputText from '../../components/FilterInputText';
 import Icon from '../../components/Icon';
 import Loader from '../../components/Loader';
-import PageHeader from '../../components/PageHeader';
 import RequestErrorMsg from '../../components/RequestErrorMsg';
 import UnitHealthDropdown from '../../components/UnitHealthDropdown';
 import UnitHealthNodesTable from '../../components/UnitHealthNodesTable';
@@ -159,7 +159,7 @@ class UnitsHealthDetail extends mixin(StoreMixin) {
     return (
       <div className="flex-container-col">
         <Breadcrumbs />
-        <PageHeader
+        <DetailViewHeader
           icon={<Icon color="neutral" id="shapes" size="large" />}
           subTitle={this.getSubTitle(unit)}
           title={unit.getTitle()} />
