@@ -1,276 +1,203 @@
 & when (@menu-tabbed-enabled) {
 
-  // Menu Tabbed
   .menu-tabbed {
-    .element-spacing(menu-tabbed, null, null);
+    margin-bottom: @menu-tabbed-margin-bottom;
+    margin-top: @menu-tabbed-margin-top;
     padding: 0;
     position: relative;
 
     // Layout Variants
     &.short {
-      .element-spacing(menu-tabbed, short, null);
+      margin-bottom: @menu-tabbed-margin-bottom * @menu-tabbed-short-margin-bottom-scale;
+      margin-top: @menu-tabbed-margin-top * @menu-tabbed-short-margin-top-scale;
     }
 
     &.tall {
-      .element-spacing(menu-tabbed, tall, null);
+      margin-bottom: @menu-tabbed-margin-bottom * @menu-tabbed-tall-margin-bottom-scale;
+      margin-top: @menu-tabbed-margin-top * @menu-tabbed-tall-margin-top-scale;
+    }
+  }
+
+  .menu-tabbed-item {
+    cursor: pointer;
+    display: inline-block;
+    margin: 0 @menu-tabbed-item-margin-right 0 0;
+    padding: 0;
+
+    &:last-child {
+      margin-right: 0;
     }
 
-    // Menu Tabbed Item
-    li {
-      .element-shape-style(menu-tabbed-item);
-      .element-spacing(menu-tabbed-item, null, null);
-      .element-text-size(menu-tabbed-item, null);
-      .element-text-style(menu-tabbed-item);
-      .property-variant(menu-tabbed-item, opacity);
-      display: inline-block;
-      position: relative;
+    &:before {
+      display: none;
+    }
 
-      &:last-child {
-        margin-right: 0;
-      }
+    &.selected,
+    &.active {
 
-      &:before {
-        display: none;
-      }
-
-      a {
-        .element-shape-style(menu-tabbed-item-link);
-        .element-spacing(menu-tabbed-item-link, null, null);
-        .element-text-size(menu-tabbed-item-link, null);
-        .element-text-style(menu-tabbed-item-link);
-        .property-variant(menu-tabbed-item-link, opacity);
-        position: relative;
+      .menu-tabbed-item-label {
+        color: @menu-tabbed-item-link-selected-color;
 
         &:after {
-          .property-variant(menu-tabbed-item-link, background-color, color, null, null);
-          bottom: 0;
-          content: '';
-          display: none;
-          height: 2px;
-          left: 0;
-          position: absolute;
-          width: 100%;
-        }
-
-        &:hover {
-          .element-shape-style(menu-tabbed-item-link-hover);
-          .element-text-style(menu-tabbed-item-link-hover);
-          .property-variant(menu-tabbed-item-link-hover, opacity);
-
-          &:after {
-            .property-variant(menu-tabbed-item-link-hover, background-color, color, null, null);
-          }
-        }
-
-        &:active {
-          .element-shape-style(menu-tabbed-item-link-active);
-          .element-text-style(menu-tabbed-item-link-active);
-          .property-variant(menu-tabbed-item-link-active, opacity);
-
-          &:after {
-            .property-variant(menu-tabbed-item-link-active, background-color, color, null, null);
-          }
-        }
-
-        &.selected,
-        &.active {
-          .element-shape-style(menu-tabbed-item-link-selected);
-          .element-text-style(menu-tabbed-item-link-selected);
-          .property-variant(menu-tabbed-item-link-selected, opacity);
-
-          &:after {
-            display: block;
-            .property-variant(menu-tabbed-item-link-selected, background-color, color, null, null);
-          }
+          background: @menu-tabbed-item-link-selected-color;
+          display: block;
         }
       }
     }
+  }
 
-    // Inverse
-    &.inverse {
+  .menu-tabbed-item-label {
+    color: @menu-tabbed-item-link-color;
+    display: block;
+    font-weight: @menu-tabbed-item-link-font-weight;
+    padding-bottom: @menu-tabbed-item-link-padding-bottom;
+    position: relative;
+    text-decoration: @menu-tabbed-item-link-text-decoration;
 
-      // Menu Tabbed Item
-      li {
-        .element-shape-style(menu-tabbed-item-inverse);
-        .element-text-style(menu-tabbed-item-inverse);
-        .property-variant(menu-tabbed-item-inverse, opacity);
+    &:hover {
+      color: @menu-tabbed-item-link-hover-color;
+      text-decoration: @menu-tabbed-item-link-text-decoration;
 
-        a {
-          .element-shape-style(menu-tabbed-item-link-inverse);
-          .element-text-style(menu-tabbed-item-link-inverse);
-          .property-variant(menu-tabbed-item-link-inverse, opacity);
+      &:after {
+        background: @menu-tabbed-item-link-hover-color;
+      }
+    }
 
-          &:after {
-            .property-variant(menu-tabbed-item-link-inverse, background-color, color, null, null);
-          }
+    &:active {
+      color: @menu-tabbed-item-link-active-color;
 
-          &:hover {
-            .element-shape-style(menu-tabbed-item-link-inverse-hover);
-            .element-text-style(menu-tabbed-item-link-inverse-hover);
-            .property-variant(menu-tabbed-item-link-inverse-hover, opacity);
+      &:after {
+        background: @menu-tabbed-item-link-active-color;
+      }
+    }
 
-            &:after {
-              .property-variant(menu-tabbed-item-link-inverse-hover, background-color, color, null, null);
-            }
-          }
+    &:after {
+      background-color: @menu-tabbed-item-link-color;
+      bottom: 0;
+      content: '';
+      display: none;
+      height: 2px;
+      left: 0;
+      position: absolute;
+      width: 100%;
+    }
 
-          &:active {
-            .element-shape-style(menu-tabbed-item-link-inverse-active);
-            .element-text-style(menu-tabbed-item-link-inverse-active);
-            .property-variant(menu-tabbed-item-link-inverse-active, opacity);
+    &.selected,
+    &.active {
+      color: @menu-tabbed-item-link-selected-color;
 
-            &:after {
-              .property-variant(menu-tabbed-item-link-inverse-active, background-color, color, null, null);
-            }
-          }
-
-          &.selected {
-            .element-shape-style(menu-tabbed-item-link-inverse-selected);
-            .element-text-style(menu-tabbed-item-link-inverse-selected);
-            .property-variant(menu-tabbed-item-link-inverse-selected, opacity);
-
-            &:after {
-              .property-variant(menu-tabbed-item-link-inverse-selected, background-color, color, null, null);
-            }
-          }
-        }
+      &:after {
+        background: @menu-tabbed-item-link-selected-color;
+        display: block;
       }
     }
   }
 }
 
-& when (@layout-screen-small-enabled) {
+& when (@menu-tabbed-enabled) and (@layout-screen-small-enabled) {
 
   @media (min-width: @layout-screen-small-min-width) {
 
-    & when (@menu-tabbed-enabled) and (@menu-tabbed-screen-small-enabled) {
+    .menu-tabbed {
+      margin-bottom: @menu-tabbed-margin-bottom-screen-small;
 
-      // Menu Tabbed
-      .menu-tabbed {
-        .element-spacing(menu-tabbed, null, screen-small);
-
-        // Layout Variants
-        &.short {
-          .element-spacing(menu-tabbed, short, screen-small);
-        }
-
-        &.tall {
-          .element-spacing(menu-tabbed, tall, screen-small);
-        }
-
-        // Menu Tabbed Item
-        li {
-          .element-spacing(menu-tabbed-item, null, screen-small);
-          .element-text-size(menu-tabbed-item, screen-small);
-
-          a {
-            .element-spacing(menu-tabbed-item-link, null, screen-small);
-            .element-text-size(menu-tabbed-item-link, screen-small);
-          }
-        }
+      // Layout Variants
+      &.short {
+        margin-bottom: @menu-tabbed-margin-bottom-screen-small * @menu-tabbed-short-margin-bottom-scale;
       }
+
+      &.tall {
+        margin-bottom: @menu-tabbed-margin-bottom-screen-small * @menu-tabbed-tall-margin-bottom-scale;
+      }
+    }
+
+    .menu-tabbed-item {
+      margin-right: @menu-tabbed-item-margin-right-screen-small;
+    }
+
+    .menu-tabbed-item-label {
+      padding-bottom: @menu-tabbed-item-link-padding-bottom-screen-small;
     }
   }
 }
 
-& when (@layout-screen-medium-enabled) {
+& when (@menu-tabbed-enabled) and (@layout-screen-medium-enabled) {
 
   @media (min-width: @layout-screen-medium-min-width) {
 
-    & when (@menu-tabbed-enabled) and (@menu-tabbed-screen-medium-enabled) {
+    .menu-tabbed {
+      margin-bottom: @menu-tabbed-margin-bottom-screen-medium;
 
-      // Menu Tabbed
-      .menu-tabbed {
-        .element-spacing(menu-tabbed, null, screen-medium);
-
-        // Layout Variants
-        &.short {
-          .element-spacing(menu-tabbed, short, screen-medium);
-        }
-
-        &.tall {
-          .element-spacing(menu-tabbed, tall, screen-medium);
-        }
-
-        // Menu Tabbed Item
-        li {
-          .element-spacing(menu-tabbed-item, null, screen-medium);
-          .element-text-size(menu-tabbed-item, screen-medium);
-
-          a {
-            .element-spacing(menu-tabbed-item-link, null, screen-medium);
-            .element-text-size(menu-tabbed-item-link, screen-medium);
-          }
-        }
+      // Layout Variants
+      &.short {
+        margin-bottom: @menu-tabbed-margin-bottom-screen-medium * @menu-tabbed-short-margin-bottom-scale;
       }
+
+      &.tall {
+        margin-bottom: @menu-tabbed-margin-bottom-screen-medium * @menu-tabbed-tall-margin-bottom-scale;
+      }
+    }
+
+    .menu-tabbed-item {
+      margin-right: @menu-tabbed-item-margin-right-screen-medium;
+    }
+
+    .menu-tabbed-item-label {
+      padding-bottom: @menu-tabbed-item-link-padding-bottom-screen-medium;
     }
   }
 }
 
-& when (@layout-screen-large-enabled) {
+& when (@menu-tabbed-enabled) and (@layout-screen-large-enabled) {
 
   @media (min-width: @layout-screen-large-min-width) {
 
-    & when (@menu-tabbed-enabled) and (@menu-tabbed-screen-large-enabled) {
+    .menu-tabbed {
+      margin-bottom: @menu-tabbed-margin-bottom-screen-large;
 
-      // Menu Tabbed
-      .menu-tabbed {
-        .element-spacing(menu-tabbed, null, screen-large);
-
-        // Layout Variants
-        &.short {
-          .element-spacing(menu-tabbed, short, screen-large);
-        }
-
-        &.tall {
-          .element-spacing(menu-tabbed, tall, screen-large);
-        }
-
-        // Menu Tabbed Item
-        li {
-          .element-spacing(menu-tabbed-item, null, screen-large);
-          .element-text-size(menu-tabbed-item, screen-large);
-
-          a {
-            .element-spacing(menu-tabbed-item-link, null, screen-large);
-            .element-text-size(menu-tabbed-item-link, screen-large);
-          }
-        }
+      // Layout Variants
+      &.short {
+        margin-bottom: @menu-tabbed-margin-bottom-screen-large * @menu-tabbed-short-margin-bottom-scale;
       }
+
+      &.tall {
+        margin-bottom: @menu-tabbed-margin-bottom-screen-large * @menu-tabbed-tall-margin-bottom-scale;
+      }
+    }
+
+    .menu-tabbed-item {
+      margin-right: @menu-tabbed-item-margin-right-screen-large;
+    }
+
+    .menu-tabbed-item-label {
+      padding-bottom: @menu-tabbed-item-link-padding-bottom-screen-large;
     }
   }
 }
 
-& when (@layout-screen-jumbo-enabled) {
+& when (@menu-tabbed-enabled) and (@layout-screen-jumbo-enabled) {
 
   @media (min-width: @layout-screen-jumbo-min-width) {
 
-    & when (@menu-tabbed-enabled) and (@menu-tabbed-screen-jumbo-enabled) {
+    .menu-tabbed {
+      margin-bottom: @menu-tabbed-margin-bottom-screen-jumbo;
 
-      // Menu Tabbed
-      .menu-tabbed {
-        .element-spacing(menu-tabbed, null, screen-jumbo);
-
-        // Layout Variants
-        &.short {
-          .element-spacing(menu-tabbed, short, screen-jumbo);
-        }
-
-        &.tall {
-          .element-spacing(menu-tabbed, tall, screen-jumbo);
-        }
-
-        // Menu Tabbed Item
-        li {
-          .element-spacing(menu-tabbed-item, null, screen-jumbo);
-          .element-text-size(menu-tabbed-item, screen-jumbo);
-
-          a {
-            .element-spacing(menu-tabbed-item-link, null, screen-jumbo);
-            .element-text-size(menu-tabbed-item-link, screen-jumbo);
-          }
-        }
+      // Layout Variants
+      &.short {
+        margin-bottom: @menu-tabbed-margin-bottom-screen-jumbo * @menu-tabbed-short-margin-bottom-scale;
       }
+
+      &.tall {
+        margin-bottom: @menu-tabbed-margin-bottom-screen-jumbo * @menu-tabbed-tall-margin-bottom-scale;
+      }
+    }
+
+    .menu-tabbed-item {
+      margin-right: @menu-tabbed-item-margin-right-screen-jumbo;
+    }
+
+    .menu-tabbed-item-label {
+      padding-bottom: @menu-tabbed-item-link-padding-bottom-screen-jumbo;
     }
   }
 }

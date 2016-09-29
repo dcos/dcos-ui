@@ -62,14 +62,14 @@ const TabsMixin = {
    */
   tabs_getUnroutedItem(props = {}, tab) {
     let attributes = Util.omit(props, ['classNames']);
-    let tabLabelClass = classNames({'tab-item-label': true}, props.classNames);
+    let tabLabelClass = classNames('menu-tabbed-item-label', props.classNames);
 
     return (
       <span
         className={tabLabelClass}
         onClick={this.tabs_handleTabClick.bind(this, tab)}
         {...attributes}>
-        <span className="tab-item-label-text">
+        <span className="menu-tabbed-item-label-text">
           {this.tabs_tabs[tab]}
         </span>
       </span>
@@ -101,7 +101,10 @@ const TabsMixin = {
   tabs_getRoutedItem(props = {}, tab) {
     let attributes = Util.omit(props, ['classNames']);
     let notificationCount = NotificationStore.getNotificationCount(tab);
-    let tabLabelClass = classNames({'tab-item-label': true}, props.classNames);
+    let tabLabelClass = classNames(
+      'menu-tabbed-item-label badge-container',
+      props.classNames
+    );
 
     if (notificationCount > 0) {
       return (
@@ -110,11 +113,11 @@ const TabsMixin = {
           className={tabLabelClass}
           onClick={this.tabs_handleTabClick.bind(this, tab)}
           {...attributes}>
-          <span className="tab-item-label-text">
+          <span className="menu-tabbed-item-label-text badge-container-text">
             {this.tabs_tabs[tab]}
           </span>
-          <span className="badge-container badge-primary">
-            <span className="badge text-align-center">{notificationCount}</span>
+          <span className="badge-container-badge text-align-center">
+            {notificationCount}
           </span>
         </Link>
       );
@@ -126,7 +129,7 @@ const TabsMixin = {
         className={tabLabelClass}
         onClick={this.tabs_handleTabClick.bind(this, tab)}
         {...attributes}>
-        <span className="tab-item-label-text">
+        <span className="menu-tabbed-item-label-text">
           {this.tabs_tabs[tab]}
         </span>
       </Link>

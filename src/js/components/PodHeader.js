@@ -143,7 +143,7 @@ class PodHeader extends React.Component {
     }
 
     const tabs = (
-      <ul className="tabs list-inline flush-bottom container-pod container-pod-short-top">
+      <ul className="menu-tabbed">
         {this.props.tabs}
       </ul>
     );
