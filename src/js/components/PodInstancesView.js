@@ -84,7 +84,6 @@ class PodInstancesView extends React.Component {
       <div>
         <FilterHeadline
           currentLength={filteredItems.getItems().length}
-          inverseStyle={true}
           isFiltering={filter.text || (filter.status !== 'all')}
           name="Pod"
           onReset={this.handleFilterReset}
@@ -92,7 +91,6 @@ class PodInstancesView extends React.Component {
           />
         <PodViewFilter
           filter={filter}
-          inverseStyle={true}
           items={filteredTextItems.getItems()}
           onFilterChange={this.handleFilterChange}
           statusChoices={['all', 'active', 'completed']}
@@ -100,7 +98,6 @@ class PodInstancesView extends React.Component {
         <PodInstancesTable
           filterText={filter.text}
           instances={filteredItems}
-          inverseStyle={true}
           pod={this.props.pod} />
       </div>
     );

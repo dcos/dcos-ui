@@ -12,7 +12,6 @@ class NodeDetailTaskTab extends React.Component {
     return (
       <div className="container container-fluid flush">
         <TaskView
-          inverseStyle={true}
           tasks={tasks}
           parentRouter={this.context.router}
           nodeID={nodeID} />
