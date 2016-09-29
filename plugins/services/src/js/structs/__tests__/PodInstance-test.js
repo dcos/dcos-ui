@@ -1,9 +1,9 @@
-jest.dontMock('../../../../tests/_fixtures/pods/PodFixture');
+jest.dontMock('../../../../../../tests/_fixtures/pods/PodFixture');
 
 const PodInstance = require('../PodInstance');
 const PodInstanceStatus = require('../../constants/PodInstanceStatus');
 
-const PodFixture = require('../../../../tests/_fixtures/pods/PodFixture');
+const PodFixture = require('../../../../../../tests/_fixtures/pods/PodFixture');
 
 describe('PodInstance', function () {
 

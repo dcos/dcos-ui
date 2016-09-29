@@ -2,19 +2,19 @@ jest.dontMock('../../structs/Pod');
 jest.dontMock('../../structs/PodInstanceList');
 jest.dontMock('../../structs/PodInstance');
 jest.dontMock('../../structs/PodContainer');
-jest.dontMock('../../../../tests/_fixtures/pods/PodFixture');
-jest.dontMock('../CheckboxTable');
-jest.dontMock('../CollapsingString');
-jest.dontMock('../ExpandingTable');
+jest.dontMock('../../../../../../tests/_fixtures/pods/PodFixture');
+jest.dontMock('../../../../../../src/js/components/CheckboxTable');
+jest.dontMock('../../../../../../src/js/components/CollapsingString');
+jest.dontMock('../../../../../../src/js/components/ExpandingTable');
+jest.dontMock('../../../../../../src/js/components/FilterBar');
+jest.dontMock('../../../../../../src/js/components/FilterInputText');
+jest.dontMock('../../../../../../src/js/components/FilterButtons');
+jest.dontMock('../../../../../../src/js/components/TimeAgo');
 jest.dontMock('../PodViewFilter');
-jest.dontMock('../FilterBar');
-jest.dontMock('../FilterInputText');
 jest.dontMock('../PodInstancesTabView');
 jest.dontMock('../PodInstancesTable');
-jest.dontMock('../FilterButtons');
-jest.dontMock('../TimeAgo');
 
-const JestUtil = require('../../utils/JestUtil');
+const JestUtil = require('../../../../../../src/js/utils/JestUtil');
 /* eslint-disable no-unused-vars */
 const React = require('react');
 /* eslint-enable no-unused-vars */
@@ -22,9 +22,9 @@ const TestUtils = require('react-addons-test-utils');
 
 const PodInstancesTabView = require('../PodInstancesTabView');
 const Pod = require('../../structs/Pod');
-const Util = require('../../utils/Util');
+const Util = require('../../../../../../src/js/utils/Util');
 
-const PodFixture = require('../../../../tests/_fixtures/pods/PodFixture');
+const PodFixture = require('../../../../../../tests/_fixtures/pods/PodFixture');
 
 describe('PodInstancesTabView', function () {
 

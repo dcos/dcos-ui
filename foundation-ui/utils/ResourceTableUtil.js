@@ -4,12 +4,12 @@ import React from 'react';
 /* eslint-enable no-unused-vars */
 import {Tooltip} from 'reactjs-components';
 
-import HealthSorting from '../../../../plugins/services/src/js/constants/HealthSorting';
-import Icon from '../../../../src/js/components/Icon';
-import MarathonStore from '../../../../plugins/services/src/js/stores/MarathonStore';
-import TableUtil from '../../../../src/js/utils/TableUtil';
-import TimeAgo from '../../../../src/js/components/TimeAgo';
-import Util from '../../../../src/js/utils/Util';
+import HealthSorting from '../../plugins/services/src/js/constants/HealthSorting';
+import Icon from '../../src/js/components/Icon';
+import MarathonStore from '../../plugins/services/src/js/stores/MarathonStore';
+import TableUtil from '../../src/js/utils/TableUtil';
+import TimeAgo from '../../src/js/components/TimeAgo';
+import Util from '../../src/js/utils/Util';
 
 const LEFT_ALIGN_PROPS = [
   'cpus',
