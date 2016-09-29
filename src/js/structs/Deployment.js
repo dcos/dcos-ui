@@ -24,7 +24,7 @@ module.exports = class Deployment extends Item {
     let affectedApps = this.get('affectedApps') || [];
     let affectedPods = this.get('affectedPods') || [];
 
-    return [].concat(affectedApps, affectedPods);
+    return affectedApps.concat(affectedPods);
   }
 
   /**
