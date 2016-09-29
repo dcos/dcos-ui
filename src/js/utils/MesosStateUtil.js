@@ -34,7 +34,7 @@ const MesosStateUtil = {
     const {frameworks, completed_frameworks} = state;
     return [].concat(frameworks, completed_frameworks).find(
         function (framework) {
-          return framework.id === frameworkID;
+          return framework != null && framework.id === frameworkID;
         });
   },
 
