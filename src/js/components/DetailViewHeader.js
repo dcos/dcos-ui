@@ -3,7 +3,7 @@ import React from 'react';
 
 import CollapsingString from './CollapsingString';
 
-class PageHeader extends React.Component {
+class DetailViewHeader extends React.Component {
 
   getIcon() {
     let {icon, iconClassName} = this.props;
@@ -15,7 +15,7 @@ class PageHeader extends React.Component {
     let iconClasses = classNames('icon icon-large', iconClassName);
 
     return (
-      <div className="page-header-icon">
+      <div className="detail-view-header-icon">
         <div className={iconClasses}>
           {icon}
         </div>
@@ -79,42 +79,42 @@ class PageHeader extends React.Component {
     let {
       children,
       className,
-      pageHeaderContentWrapperClassNames,
-      pageHeaderContentHeadingClassNames,
+      detailViewHeaderContentWrapperClassNames,
+      detailViewHeaderContentHeadingClassNames,
       navigationTabs
     } = this.props;
 
-    let pageHeaderClasses = classNames(
-      'page-header flex-no-shrink',
+    let detailViewHeaderClasses = classNames(
+      'detail-view-header flex-no-shrink',
       {'has-tabs': !!navigationTabs},
       className
     );
 
-    let pageHeaderContentWrapperClasses = classNames(
-      'page-header-content-wrapper',
-      pageHeaderContentWrapperClassNames
+    let detailViewHeaderContentWrapperClasses = classNames(
+      'detail-view-header-content-wrapper',
+      detailViewHeaderContentWrapperClassNames
     );
 
-    let pageHeaderContentHeadingClasses = classNames(
-      'page-header-content-heading',
-      pageHeaderContentHeadingClassNames
+    let detailViewHeaderContentHeadingClasses = classNames(
+      'detail-view-header-content-heading',
+      detailViewHeaderContentHeadingClassNames
     );
 
     return (
-      <div className={pageHeaderClasses}>
-        <div className={pageHeaderContentWrapperClasses}>
-          <div className={pageHeaderContentHeadingClasses}>
-            <div className="page-header-content-primary">
+      <div className={detailViewHeaderClasses}>
+        <div className={detailViewHeaderContentWrapperClasses}>
+          <div className={detailViewHeaderContentHeadingClasses}>
+            <div className="detail-view-header-content-primary">
               {this.getIcon()}
-              <div className="page-header-title">
+              <div className="detail-view-header-title">
                 {this.getTitle()}
               </div>
             </div>
-            <div className="page-header-content-secondary">
+            <div className="detail-view-header-content-secondary">
               {this.renderActionButtons()}
             </div>
           </div>
-          <div className="page-header-sub-heading">
+          <div className="detail-view-header-sub-heading">
             {this.getSubTitle()}
           </div>
         </div>
@@ -131,11 +131,11 @@ const classPropType = React.PropTypes.oneOfType([
   React.PropTypes.string
 ]);
 
-PageHeader.defaultProps = {
+DetailViewHeader.defaultProps = {
   actionButtons: []
 };
 
-PageHeader.propTypes = {
+DetailViewHeader.propTypes = {
   actionButtons: React.PropTypes.arrayOf(React.PropTypes.element),
   icon: React.PropTypes.node,
   navigationTabs: React.PropTypes.node,
@@ -143,11 +143,12 @@ PageHeader.propTypes = {
   title: React.PropTypes.string,
 
   className: classPropType,
-  pageHeaderClassNames: classPropType,
-  pageHeaderContentWrapperClassNames: classPropType,
+  detailViewHeaderClassNames: classPropType,
+  detailViewHeaderContentHeadingClassNames: classPropType,
+  detailViewHeaderContentWrapperClassNames: classPropType,
   titleClassName: classPropType,
   iconClassName: classPropType,
   subTitleClassName: classPropType
 };
 
-module.exports = PageHeader;
+module.exports = DetailViewHeader;
