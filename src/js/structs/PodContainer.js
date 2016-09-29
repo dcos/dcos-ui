@@ -59,13 +59,12 @@ module.exports = class PodContainer extends Item {
   }
 
   getResources() {
-    let resources = this.get('resources') || {};
     return Object.assign({
       cpus: 0,
       mem: 0,
       gpus: 0,
       disk: 0
-    }, resources);
+    }, this.get('resources'));
   }
 
   hasHealthChecks() {
