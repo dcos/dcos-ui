@@ -64,10 +64,11 @@ const MesosStateUtil = {
       let tasks = framework.tasks || [];
 
       return memo.concat(tasks.filter(function (task) {
-        return Util.findNestedPropertyInObject(
-          task,
-          'container.network_infos.0.name'
-        ) === overlayName;
+        let appPath = 'container.network_infos.0.name';
+        let podPath = 'statuses.0.container_status.network_infos.0.name';
+
+        return Util.findNestedPropertyInObject(task, appPath) === overlayName
+            || Util.findNestedPropertyInObject(task, podPath) === overlayName;
       }));
     }, []);
   }
