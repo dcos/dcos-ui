@@ -11,7 +11,7 @@ describe('Installed Packages Tab', function () {
 
   it('activates the correct tab', function () {
     cy
-      .get('.tabs .tab-item.active .tab-item-label')
+      .get('.menu-tabbed .menu-tabbed-item.active .menu-tabbed-item-label')
       .should('contain', 'Repositories');
   });
 

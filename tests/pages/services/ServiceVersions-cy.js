@@ -10,7 +10,7 @@ describe('Service Versions', function () {
       cy.visitUrl({url: '/services/%2Fsleep/'});
       cy.wait(1500);
       cy.get('.page-body-content').within(function () {
-        cy.get('.tab-item .tab-item-label-text')
+        cy.get('.menu-tabbed-item .menu-tabbed-item-label-text')
           .contains('Configuration').click();
           cy.wait(1000);
       });

@@ -11,7 +11,7 @@ describe('Volumes', function () {
 
     beforeEach(function () {
       cy.visitUrl({url: '/services/%2Fsleep/'});
-      cy.get('.page-body-content .tabs').contains('Volumes').click();
+      cy.get('.page-body-content .menu-tabbed').contains('Volumes').click();
     });
 
     it('shows the correct number of volumes in the table', function () {
@@ -40,7 +40,7 @@ describe('Volumes', function () {
 
     beforeEach(function () {
       cy.visitUrl({url: '/services/%2Fsleep/'});
-      cy.get('.page-body-content .tabs').contains('Volumes').click();
+      cy.get('.page-body-content .menu-tabbed').contains('Volumes').click();
       cy.get('.table tbody tr a').contains('foo-bar#data-1#624f5b52-2e5e-11e6-8e49-a6a5a4687c4d').click();
     });
 

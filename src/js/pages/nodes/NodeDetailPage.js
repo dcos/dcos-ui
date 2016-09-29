@@ -183,7 +183,7 @@ class NodeDetailPage extends mixin(TabsMixin, StoreMixin) {
 
   getNavigation() {
     return (
-      <ul className="tabs list-inline flush-bottom container-pod container-pod-short-top">
+      <ul className="menu-tabbed">
         {this.tabs_getRoutedTabs(this.props)}
       </ul>
     );
