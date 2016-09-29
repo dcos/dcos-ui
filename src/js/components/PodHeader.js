@@ -93,6 +93,7 @@ class PodInfo extends React.Component {
         label: (
           <HealthBar
             tasksSummary={tasksSummary}
+            isDeploying={!!tasksSummary.tasksStaged}
             instancesCount={instancesCount} />
         ),
         shouldShow: true
