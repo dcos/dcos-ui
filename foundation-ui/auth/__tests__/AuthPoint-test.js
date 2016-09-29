@@ -1,162 +1,66 @@
-jest.dontMock('../AuthorizeBundle');
+jest.dontMock('../AuthPoint');
+jest.dontMock('../AuthService');
 /* eslint-disable no-unused-vars */
 const React = require('react');
 /* eslint-enable no-unused-vars */
 const ReactDOM = require('react-dom');
 const TestUtils = require('react-addons-test-utils');
 
-const Authorize = require('../AuthorizeBundle').Authorize;
-const Authorization = require('../AuthorizeBundle').Authorization;
+const AuthPoint = require('../AuthPoint');
+const AuthService = require('../AuthService');
 
-describe('AuthorizeBundle', function () {
+describe('AuthPoint', function () {
 
-  describe('Authorize', function () {
-
-    beforeEach(function () {
-      this.container = document.createElement('div');
-      this.returnTrue = function () { return true; };
-      Authorization.on('foo', this.returnTrue);
-    });
-
-    afterEach(function () {
-      Authorization.removeListener('foo', this.returnTrue);
-      ReactDOM.unmountComponentAtNode(this.container);
-    });
-
-    it('should render children when authorized', function () {
-      ReactDOM.render(
-        <Authorize authId="foo">
-          <h1>foo</h1>
-        </Authorize>,
-        this.container
-      );
-
-      var result = this.container.querySelector('h1');
-
-      expect(TestUtils.isDOMComponent(result)).toEqual(true);
-    });
-
-    it('should render replacementComponent when unauthorized', function () {
-      ReactDOM.render(
-        <Authorize authId="bar" replacementComponent={<h2>bar</h2>}>
-          <h1>foo</h1>
-        </Authorize>,
-        this.container
-      );
-
-      var result = this.container.querySelector('h2');
-
-      expect(TestUtils.isDOMComponent(result)).toEqual(true);
-    });
-
-    it('should change defaultValue when provided', function () {
-      ReactDOM.render(
-        <Authorize
-          authId="bar"
-          defaultValue={true}>
-          <h1>foo</h1>
-        </Authorize>,
-        this.container
-      );
-
-      var result = this.container.querySelector('h1');
-
-      expect(TestUtils.isDOMComponent(result)).toEqual(true);
-    });
-
+  beforeEach(function () {
+    this.container = document.createElement('div');
+    this.returnTrue = function () { return true; };
+    AuthService.on('foo', this.returnTrue);
   });
 
-  describe('Authorization', function () {
+  afterEach(function () {
+    AuthService.removeListener('foo', this.returnTrue);
+    ReactDOM.unmountComponentAtNode(this.container);
+  });
 
-    beforeEach(function () {
-      this.container = document.createElement('div');
-      this.authorizationHandler = jasmine.createSpy('authorizationHandler');
-      Authorization.on('foo', this.authorizationHandler);
-    });
+  it('should render children when authorized', function () {
+    ReactDOM.render(
+      <AuthPoint id="foo">
+        <h1>foo</h1>
+      </AuthPoint>,
+      this.container
+    );
 
-    afterEach(function () {
-      Authorization.removeListener('foo', this.authorizationHandler);
-      ReactDOM.unmountComponentAtNode(this.container);
-    });
+    var result = this.container.querySelector('h1');
 
-    it('should call handler', function () {
-      ReactDOM.render(
-        <Authorize authId="foo">
-          <h1>foo</h1>
-        </Authorize>,
-        this.container
-      );
+    expect(TestUtils.isDOMComponent(result)).toEqual(true);
+  });
 
-      // Called once when rendering
-      expect(this.authorizationHandler.calls.count()).toEqual(1);
-    });
+  it('should render replacementComponent when unauthorized', function () {
+    ReactDOM.render(
+      <AuthPoint id="bar" replacementComponent={<h2>bar</h2>}>
+        <h1>foo</h1>
+      </AuthPoint>,
+      this.container
+    );
 
-    it('should not call handler after removal', function () {
-      // Fire doAction once before removal
-      ReactDOM.render(
-        <Authorize authId="foo">
-          <h1>foo</h1>
-        </Authorize>,
-        this.container
-      );
+    var result = this.container.querySelector('h2');
 
-      Authorization.removeListener('foo', this.authorizationHandler);
-      // Fire doAction again after removal
-      ReactDOM.render(
-        <Authorize authId="foo">
-          <h1>foo</h1>
-        </Authorize>,
-        this.container
-      );
-      ReactDOM.render(
-        <Authorize authId="foo">
-          <h1>foo</h1>
-        </Authorize>,
-        this.container
-      );
-      ReactDOM.render(
-        <Authorize authId="foo">
-          <h1>foo</h1>
-        </Authorize>,
-        this.container
-      );
+    expect(TestUtils.isDOMComponent(result)).toEqual(true);
+  });
 
-      // Called once when rendering
-      expect(this.authorizationHandler.calls.count()).toEqual(1);
-    });
+  it('should change defaultValue when provided', function () {
+    ReactDOM.render(
+      <AuthPoint
+        id="bar"
+        defaultValue={true}>
+        <h1>foo</h1>
+      </AuthPoint>,
+      this.container
+    );
 
-    it('should not call handler from render if removed before', function () {
-      // Remove listener before rendering
-      Authorization.removeListener('foo', this.authorizationHandler);
-      // Fire doAction again after removal
-      ReactDOM.render(
-        <Authorize authId="foo">
-          <h1>foo</h1>
-        </Authorize>,
-        this.container
-      );
-      ReactDOM.render(
-        <Authorize authId="foo">
-          <h1>foo</h1>
-        </Authorize>,
-        this.container
-      );
-      ReactDOM.render(
-        <Authorize authId="foo">
-          <h1>foo</h1>
-        </Authorize>,
-        this.container
-      );
-      ReactDOM.render(
-        <Authorize authId="foo">
-          <h1>foo</h1>
-        </Authorize>,
-        this.container
-      );
+    var result = this.container.querySelector('h1');
 
-      expect(this.authorizationHandler).not.toHaveBeenCalled();
-    });
-
+    expect(TestUtils.isDOMComponent(result)).toEqual(true);
   });
 
 });
