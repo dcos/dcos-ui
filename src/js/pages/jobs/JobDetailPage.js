@@ -9,13 +9,13 @@ import {RouteHandler} from 'react-router';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import Breadcrumbs from '../../components/Breadcrumbs';
+import DetailViewHeader from '../../components/DetailViewHeader';
 import Icon from '../../components/Icon';
 import JobConfiguration from './JobConfiguration';
 import JobFormModal from '../../components/modals/JobFormModal';
 import JobRunHistoryTable from './JobRunHistoryTable';
 import Loader from '../../components/Loader';
 import MetronomeStore from '../../stores/MetronomeStore';
-import PageHeader from '../../components/PageHeader';
 import RequestErrorMsg from '../../components/RequestErrorMsg';
 import StringUtil from '../../utils/StringUtil';
 import TabsMixin from '../../mixins/TabsMixin';
@@ -378,7 +378,7 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
     return (
       <div>
         <Breadcrumbs />
-        <PageHeader
+        <DetailViewHeader
           actionButtons={this.getActionButtons()}
           icon={<Icon color="neutral" id="page-code" size="large" />}
           navigationTabs={this.getNavigationTabs()}

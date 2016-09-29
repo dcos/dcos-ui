@@ -1,5 +1,5 @@
 jest.dontMock('../CollapsingString');
-jest.dontMock('../PageHeader');
+jest.dontMock('../DetailViewHeader');
 jest.dontMock('../ServiceDetail');
 jest.dontMock('../ServiceDetailDebugTab');
 jest.dontMock('../ServiceDetailConfigurationTab');
