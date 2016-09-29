@@ -70,7 +70,7 @@ class VirtualNetworksTabContent extends mixin(StoreMixin) {
     return (
       <AlertPanel
         title="No Networks Detected"
-        icon={<Icon id="network-hierarchical" color="white" size="jumbo" />}>
+        icon={<Icon id="network-hierarchical" color="neutral" size="jumbo" />}>
         <p className="flush">
           Virtual Networks have to be configured at cluster creation time.
         </p>

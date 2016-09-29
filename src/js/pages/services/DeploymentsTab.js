@@ -307,7 +307,7 @@ class DeploymentsTab extends mixin(StoreMixin) {
     return (
       <AlertPanel
         title="No Deployments"
-        icon={<Icon id="services" color="white" size="jumbo" />}>
+        icon={<Icon id="services" color="neutral" size="jumbo" />}>
         <p className="flush">Active deployments will be shown here.</p>
       </AlertPanel>
     );
