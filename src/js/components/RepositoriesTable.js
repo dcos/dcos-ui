@@ -210,7 +210,7 @@ class RepositoriesTable extends mixin(StoreMixin) {
     return (
       <div>
         <Table
-          className="table inverse table-borderless-outer table-borderless-inner-columns flush-bottom"
+          className="table table-borderless-outer table-borderless-inner-columns flush-bottom"
           columns={this.getColumns()}
           colGroup={this.getColGroup()}
           data={props.repositories.getItems().slice()}

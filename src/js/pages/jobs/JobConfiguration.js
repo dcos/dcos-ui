@@ -85,7 +85,7 @@ class JobConfiguration extends React.Component {
 
     return (
       <div>
-        <h4 className="inverse">Configuration</h4>
+        <h4>Configuration</h4>
         {this.getGenralSection(job)}
         {this.getScheduleSection(job)}
         {this.getDockerContainerSection(job)}

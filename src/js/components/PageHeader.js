@@ -31,7 +31,7 @@ class PageHeader extends React.Component {
     }
 
     let titleClasses = classNames(
-      'h1 flush inverse',
+      'h1 flush',
       titleClassName
     );
 

@@ -254,7 +254,7 @@ var ServicesTable = React.createClass({
       <Dropdown
         key="actions-dropdown"
         anchorRight={true}
-        buttonClassName="button button-mini dropdown-toggle button-link button-inverse table-display-on-row-hover"
+        buttonClassName="button button-mini dropdown-toggle button-link table-display-on-row-hover"
         dropdownMenuClassName="dropdown-menu"
         dropdownMenuListClassName="dropdown-menu-list"
         dropdownMenuListItemClassName="clickable"
@@ -411,7 +411,7 @@ var ServicesTable = React.createClass({
       <div>
         <Table
           buildRowOptions={this.getRowAttributes}
-          className="table service-table inverse table-borderless-outer table-borderless-inner-columns flush-bottom"
+          className="table service-table table-borderless-outer table-borderless-inner-columns flush-bottom"
           columns={this.getColumns()}
           colGroup={this.getColGroup()}
           data={this.props.services.slice()}

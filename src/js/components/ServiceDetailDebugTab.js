@@ -88,15 +88,15 @@ class ServiceDetailDebugTab extends React.Component {
   render() {
     return (
       <div>
-        <h5 className="inverse flush-top">
+        <h5 className="flush-top">
           Last Changes
         </h5>
         {this.getLastVersionChange()}
-        <h5 className="inverse flush-top">
+        <h5 className="flush-top">
           Last Task Failure
         </h5>
         {this.getLastTaskFailureInfo()}
-        <h5 className="inverse flush-top">
+        <h5 className="flush-top">
           Task Statistics
         </h5>
         {this.getTaskStats()}

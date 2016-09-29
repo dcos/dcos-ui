@@ -215,7 +215,7 @@ var NodesTable = React.createClass({
   render() {
     return (
       <Table
-        className="node-table table inverse table-borderless-outer table-borderless-inner-columns flush-bottom"
+        className="node-table table table-borderless-outer table-borderless-inner-columns flush-bottom"
         columns={this.getColumns()}
         colGroup={this.getColGroup()}
         containerSelector=".gm-scroll-view"

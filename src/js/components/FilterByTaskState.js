@@ -17,7 +17,7 @@ class FilterByTaskState extends React.Component {
 
   getItemHtml(item) {
     return (
-      <span className="inverse">
+      <span>
         <span>{item.name}</span>
       </span>
     );

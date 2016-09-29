@@ -239,7 +239,7 @@ class VirtualNetworkTaskTab extends mixin(StoreMixin) {
       return (
         <div key={index} className="table-cell-value">
           <div className="table-cell-details-secondary flex-box flex-box-align-vertical-center table-cell-flex-box">
-            <div className="text-overflow service-link inverse">
+            <div className="text-overflow service-link">
               {this.getTaskLink(id, mapping.container_port, title)}
               {mapTo}
             </div>
@@ -282,7 +282,7 @@ class VirtualNetworkTaskTab extends mixin(StoreMixin) {
             handleFilterChange={this.handleSearchStringChange} />
         </FilterBar>
         <Table
-          className="table inverse table-borderless-outer table-borderless-inner-columns flush-bottom"
+          className="table table-borderless-outer table-borderless-inner-columns flush-bottom"
           columns={this.getColumns()}
           colGroup={this.getColGroup()}
           data={filteredTasks} />

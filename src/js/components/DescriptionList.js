@@ -72,7 +72,7 @@ DescriptionList.defaultProps = {
   className: '',
   ddClassName: 'column-9 text-overflow-break-word',
   dtClassName: 'column-3 text-mute text-overflow-break-word',
-  headlineClassName: 'inverse flush-top',
+  headlineClassName: 'flush-top',
   key: '',
   renderKeys: {}
 };

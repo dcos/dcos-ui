@@ -241,7 +241,7 @@ class JobsTable extends React.Component {
   render() {
     return (
       <Table
-        className="table inverse table-borderless-outer table-borderless-inner-columns flush-bottom"
+        className="table table-borderless-outer table-borderless-inner-columns flush-bottom"
         colGroup={this.getColGroup()}
         columns={this.getColumns()}
         data={this.getData()}
