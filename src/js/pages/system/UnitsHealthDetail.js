@@ -177,7 +177,7 @@ class UnitsHealthDetail extends mixin(StoreMixin) {
               handleFilterChange={this.handleSearchStringChange} />
           </div>
           <UnitHealthDropdown
-            className="button dropdown-toggle text-align-left button-inverse"
+            className="button dropdown-toggle text-align-left"
             dropdownMenuClassName="dropdown-menu inverse"
             initialID="all"
             onHealthSelection={this.handleHealthSelection}

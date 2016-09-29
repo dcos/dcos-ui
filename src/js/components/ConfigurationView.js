@@ -114,7 +114,7 @@ class ConfigurationView extends mixin(StoreMixin) {
 
     return (
       <div className={sectionClassName}>
-        <h5 className="inverse flush-top">Port Definitions</h5>
+        <h5 className="flush-top">Port Definitions</h5>
         {portConfigurations}
       </div>
     );
@@ -168,7 +168,7 @@ class ConfigurationView extends mixin(StoreMixin) {
 
     return (
       <div className={sectionClassName}>
-        <h5 className="inverse flush-top">Health Checks</h5>
+        <h5 className="flush-top">Health Checks</h5>
         {healthCheckConfigurations}
       </div>
     );
@@ -227,7 +227,7 @@ class ConfigurationView extends mixin(StoreMixin) {
 
     return (
       <div>
-        <h4 className="inverse" title={versionID}>{headline}</h4>
+        <h4 title={versionID}>{headline}</h4>
         {this.getGenralSection(config)}
         {this.getDockerContainerSection(config)}
         {this.getPortDefinitionsSection(config)}

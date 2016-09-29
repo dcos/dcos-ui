@@ -112,7 +112,7 @@ class PackageDetailTab extends mixin(StoreMixin) {
       <div
         className="container-pod container-pod-super-short-bottom flush-top"
         key={key}>
-        <h5 className="inverse flush-top">{label}</h5>
+        <h5 className="flush-top">{label}</h5>
         {value}
       </div>
     );
@@ -227,7 +227,7 @@ class PackageDetailTab extends mixin(StoreMixin) {
                 </div>
               </div>
               <div className="media-object-item">
-                <h1 className="inverse flush">
+                <h1 className="flush">
                   {name}
                 </h1>
                 <p>{this.getSelectedBadge(cosmosPackage, version)}</p>

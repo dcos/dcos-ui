@@ -85,7 +85,7 @@ class PackagesTab extends mixin(StoreMixin) {
     return (
       <CosmosErrorMessage
         error={errorMessage}
-        headerClass="h3 text-align-center flush-top inverse" />
+        headerClass="h3 text-align-center flush-top" />
     );
   }
 
@@ -135,10 +135,10 @@ class PackagesTab extends mixin(StoreMixin) {
             footerClass="panel-footer tall-bottom horizontal-center no-border-top flush-top"
             onClick={this.handleDetailOpen.bind(this, cosmosPackage)}>
             {this.getIcon(cosmosPackage)}
-            <div className="h2 inverse short">
+            <div className="h2 short">
               {cosmosPackage.getName()}
             </div>
-            <p className="inverse flush">
+            <p className="flush">
               {cosmosPackage.getCurrentVersion()}
             </p>
           </Panel>
@@ -150,7 +150,7 @@ class PackagesTab extends mixin(StoreMixin) {
   getBorderedTitle(title) {
     return (
       <div className="container-pod container-pod-divider-bottom container-pod-divider-inverse flush-bottom flush-top">
-        <h4 className="inverse">{title}</h4>
+        <h4>{title}</h4>
       </div>
     );
   }

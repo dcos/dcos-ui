@@ -349,7 +349,7 @@ class PodInstancesTable extends React.Component {
     return (
       <ExpandingTable
         allowMultipleSelect={false}
-        className="pod-instances-table expanding-table table table-hover inverse table-borderless-outer table-borderless-inner-columns flush-bottom"
+        className="pod-instances-table expanding-table table table-hover table-borderless-outer table-borderless-inner-columns flush-bottom"
         childRowClassName="expanding-table-child"
         checkedItemsMap={checkedItems}
         columns={this.getColumns()}

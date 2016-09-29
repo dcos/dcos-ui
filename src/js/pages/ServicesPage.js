@@ -65,7 +65,7 @@ var ServicesPage = React.createClass({
     }
 
     return (
-      <ul className="menu-tabbed inverse">
+      <ul className="menu-tabbed">
         {this.tabs_getRoutedTabs()}
       </ul>
     );

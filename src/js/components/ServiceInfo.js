@@ -40,13 +40,13 @@ class ServiceInfo extends React.Component {
     }];
 
     let actionButtons = [
-      <button className="button flush-bottom  button-primary"
+      <button className="button flush-bottom button-primary"
         key="action-button-scale"
         onClick={() =>
           this.props.onActionsItemSelection({id: ServiceActionItem.SCALE})}>
         Scale
       </button>,
-      <button className="button flush-bottom button-stroke button-inverse"
+      <button className="button flush-bottom button-stroke"
         key="action-button-edit"
         onClick={() =>
           this.props.onActionsItemSelection({id: ServiceActionItem.EDIT})}>
@@ -55,7 +55,7 @@ class ServiceInfo extends React.Component {
       <Dropdown
         key="actions-dropdown"
         anchorRight={true}
-        buttonClassName="button button-stroke button-inverse dropdown-toggle"
+        buttonClassName="button button-stroke dropdown-toggle"
         dropdownMenuClassName="dropdown-menu"
         dropdownMenuListClassName="dropdown-menu-list"
         dropdownMenuListItemClassName="clickable"
@@ -147,8 +147,7 @@ class ServiceInfo extends React.Component {
     }
 
     const tabs = (
-      <ul className="menu-tabbed container-pod
-        container-pod-short-top inverse">
+      <ul className="menu-tabbed container-pod container-pod-short-top">
         {this.props.tabs}
       </ul>
     );

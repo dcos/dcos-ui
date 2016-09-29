@@ -21,10 +21,10 @@ class TaskDetailsTab extends React.Component {
 
     return (
       <div>
-        <h5 className="flush-top inverse">
+        <h5 className="flush-top">
           Container Configuration
         </h5>
-        <pre className="mute prettyprint flush-bottom inverse">
+        <pre className="mute prettyprint flush-bottom">
           {JSON.stringify(task.container, null, 4)}
         </pre>
       </div>
@@ -116,7 +116,7 @@ class TaskDetailsTab extends React.Component {
                 <Icon color={iconColor} id={iconID} />
               </div>
               <div className="media-object-item">
-                <h4 className="flush-top flush-bottom inverse">
+                <h4 className="flush-top flush-bottom">
                   {resourceValue}
                 </h4>
                 <span className={`side-panel-resource-label

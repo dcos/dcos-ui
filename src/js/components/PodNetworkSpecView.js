@@ -29,7 +29,7 @@ class PodNetworkSpecView extends React.Component {
 
     return (
       <div>
-        <h5 className="inverse flush-top">Labels</h5>
+        <h5 className="flush-top">Labels</h5>
         <DescriptionList
           className="nested-description-list"
           hash={labels} />
@@ -42,7 +42,7 @@ class PodNetworkSpecView extends React.Component {
 
     return (
       <div className="pod-config-network">
-        <h5 className="inverse flush-top">
+        <h5 className="flush-top">
           {name}
         </h5>
         <div>

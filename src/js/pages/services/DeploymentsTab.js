@@ -327,11 +327,11 @@ class DeploymentsTab extends mixin(StoreMixin) {
 
     return (
       <div>
-        <h4 className="inverse">
+        <h4>
           {deploymentsCount} Active {deploymentsLabel}
         </h4>
         <Table
-          className="table inverse table-borderless-outer table-borderless-inner-columns flush-bottom deployments-table"
+          className="table table-borderless-outer table-borderless-inner-columns flush-bottom deployments-table"
           columns={this.getColumns()}
           colGroup={this.getColGroup()}
           data={deploymentsItems.slice()} />

@@ -57,7 +57,7 @@ class ResourceChart extends React.Component {
               <Icon color={iconColor} id={iconID} />
             </div>
             <div className="media-object-item">
-              <h4 className="flush-top flush-bottom inverse">
+              <h4 className="flush-top flush-bottom">
                 {resourceValue}
               </h4>
               <span className={`side-panel-resource-label

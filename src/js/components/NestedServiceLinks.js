@@ -152,9 +152,7 @@ class NestedServiceLinks extends React.Component {
 }
 
 NestedServiceLinks.defaultProps = {
-  taskID: null,
-  className: 'inverse',
-  minorLinkClassName: 'inverse'
+  taskID: null
 };
 
 const classPropType = PropTypes.oneOfType([

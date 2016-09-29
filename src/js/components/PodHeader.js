@@ -45,7 +45,7 @@ class PodInfo extends React.Component {
           this.props.onAction({id: PodActionItem.SCALE})}>
         Scale
       </button>,
-      <button className="button flush-bottom button-stroke button-inverse"
+      <button className="button flush-bottom button-stroke"
         key="action-button-edit"
         onClick={() =>
           this.props.onAction({id: PodActionItem.EDIT})}>
@@ -54,7 +54,7 @@ class PodInfo extends React.Component {
       <Dropdown
         key="actions-dropdown"
         anchorRight={true}
-        buttonClassName="button button-stroke button-inverse dropdown-toggle"
+        buttonClassName="button button-stroke dropdown-toggle"
         dropdownMenuClassName="dropdown-menu"
         dropdownMenuListClassName="dropdown-menu-list"
         dropdownMenuListItemClassName="clickable"
@@ -123,7 +123,7 @@ class PodInfo extends React.Component {
     }
 
     const tabs = (
-      <ul className="tabs list-inline flush-bottom container-pod container-pod-short-top inverse">
+      <ul className="tabs list-inline flush-bottom container-pod container-pod-short-top">
         {this.props.tabs}
       </ul>
     );

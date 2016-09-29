@@ -173,7 +173,7 @@ class TaskLogsTab extends React.Component {
       let name = item.getName();
 
       let classes = classNames({
-        'button button-stroke button-inverse': true,
+        'button button-stroke': true,
         'active': name === selectedName
       });
 
@@ -245,7 +245,7 @@ class TaskLogsTab extends React.Component {
 
     return (
       <Dropdown
-        buttonClassName="button button-inverse dropdown-toggle"
+        buttonClassName="button dropdown-toggle"
         dropdownMenuClassName="dropdown-menu"
         dropdownMenuListClassName="dropdown-menu-list"
         dropdownMenuListItemClassName="clickable"
@@ -284,11 +284,11 @@ class TaskLogsTab extends React.Component {
     }
 
     return (
-      <div className="button-group button-group-directions button-inverse">
+      <div className="button-group button-group-directions">
         <div onClick={this.changeWatching.bind(this, 'previous')}
-          className="button button-default button-up-arrow button-stroke button-inverse" />
+          className="button button-default button-up-arrow button-stroke" />
         <div onClick={this.changeWatching.bind(this, 'next')}
-          className="button button-default button-down-arrow button-stroke  button-inverse" />
+          className="button button-default button-down-arrow button-stroke" />
       </div>
     );
   }
@@ -323,7 +323,7 @@ class TaskLogsTab extends React.Component {
           {this.getSelectionComponent(selectedLogFile)}
           <Tooltip anchor="end" content={'Download log file'}>
             <a
-              className="button button-stroke button-inverse"
+              className="button button-stroke"
               disabled={!filePath}
               href=
                 {TaskDirectoryActions.getDownloadURL(task.slave_id, filePath)}>
