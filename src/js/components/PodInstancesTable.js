@@ -168,6 +168,8 @@ class PodInstancesTable extends React.Component {
 
     let children = containers.map(function (container) {
       let containerResources = container.getResources();
+
+      // TODO: Remove the following 4 lines when DCOS-10098 is addressed
       let containerSpec = podSpec.getContainerSpec(container.name);
       if (containerSpec) {
         containerResources = containerSpec.resources;
