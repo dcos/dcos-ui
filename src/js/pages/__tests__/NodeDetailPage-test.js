@@ -124,10 +124,10 @@ describe('NodeDetailPage', function () {
 
   });
 
-  describe('#getPageHeader', function () {
+  describe('#getDetailViewHeader', function () {
 
     it('should return null if node does not exist', function () {
-      var result = this.instance.getPageHeader(new Node());
+      var result = this.instance.getDetailViewHeader(new Node());
       expect(result).toEqual(null);
     });
 
@@ -147,7 +147,7 @@ describe('NodeDetailPage', function () {
         NodeDetailPage
       );
 
-      var result = instance.getPageHeader(new Node());
+      var result = instance.getDetailViewHeader(new Node());
       expect(TestUtils.isElement(result)).toEqual(true);
     });
   });

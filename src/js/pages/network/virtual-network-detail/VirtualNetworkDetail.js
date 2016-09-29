@@ -6,9 +6,9 @@ import {RouteHandler} from 'react-router';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import Breadcrumbs from '../../../components/Breadcrumbs';
+import DetailViewHeader from '../../../components/DetailViewHeader';
 import Icon from '../../../components/Icon';
 import Loader from '../../../components/Loader';
-import PageHeader from '../../../components/PageHeader';
 import RequestErrorMsg from '../../../components/RequestErrorMsg';
 import TabsMixin from '../../../mixins/TabsMixin';
 import VirtualNetworksStore from '../../../stores/VirtualNetworksStore';
@@ -89,7 +89,7 @@ class VirtualNetworkDetail extends mixin(StoreMixin, TabsMixin) {
     );
 
     return (
-      <PageHeader
+      <DetailViewHeader
         icon={overlayIcon}
         subTitle={overlay.getSubnet()}
         navigationTabs={tabs}

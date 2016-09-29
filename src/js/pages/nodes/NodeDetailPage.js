@@ -7,10 +7,10 @@ import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import Breadcrumbs from '../../components/Breadcrumbs';
 import CompositeState from '../../structs/CompositeState';
+import DetailViewHeader from '../../components/DetailViewHeader';
 import Loader from '../../components/Loader';
 import MesosSummaryStore from '../../stores/MesosSummaryStore';
 import NodeHealthStore from '../../stores/NodeHealthStore';
-import PageHeader from '../../components/PageHeader';
 import ResourceChart from '../../components/charts/ResourceChart';
 import StringUtil from '../../utils/StringUtil';
 import TabsMixin from '../../mixins/TabsMixin';
@@ -140,7 +140,7 @@ class NodeDetailPage extends mixin(TabsMixin, StoreMixin) {
     );
   }
 
-  getPageHeader(node) {
+  getDetailViewHeader(node) {
     // Hide when viewing task, volume or unit details
     let {taskID, volumeID, unitID} = this.props.params;
     if (taskID || volumeID || unitID) {
@@ -150,14 +150,14 @@ class NodeDetailPage extends mixin(TabsMixin, StoreMixin) {
     return (
       <div>
         <Breadcrumbs />
-        <PageHeader
+        <DetailViewHeader
           navigationTabs={this.getNavigation()}
           subTitle={this.getSubHeader(node)}
           title={node.hostname}>
           <div className="pod pod-short flush-right flush-bottom flush-left">
             {this.getCharts('Node', node)}
           </div>
-        </PageHeader>
+        </DetailViewHeader>
       </div>
     );
   }
@@ -203,7 +203,7 @@ class NodeDetailPage extends mixin(TabsMixin, StoreMixin) {
 
     return (
       <div>
-        {this.getPageHeader(node)}
+        {this.getDetailViewHeader(node)}
         <RouteHandler node={node} />
       </div>
     );

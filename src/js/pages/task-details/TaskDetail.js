@@ -7,10 +7,10 @@ import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import Breadcrumbs from '../../components/Breadcrumbs';
 import DCOSStore from '../../stores/DCOSStore';
+import DetailViewHeader from '../../components/DetailViewHeader';
 import InternalStorageMixin from '../../mixins/InternalStorageMixin';
 import Loader from '../../components/Loader';
 import MesosStateStore from '../../stores/MesosStateStore';
-import PageHeader from '../../components/PageHeader';
 import RequestErrorMsg from '../../components/RequestErrorMsg';
 import StatusMapping from '../../constants/StatusMapping';
 import TabsMixin from '../../mixins/TabsMixin';
@@ -219,7 +219,7 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
     let serviceStatusClassSet = StatusMapping[serviceStatus] || '';
 
     return (
-      <PageHeader
+      <DetailViewHeader
         icon={taskIcon}
         iconClassName="icon-app-container  icon-image-container"
         subTitle={serviceStatus}

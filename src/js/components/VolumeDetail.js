@@ -3,8 +3,8 @@ import React from 'react';
 
 import Breadcrumbs from '../components/Breadcrumbs';
 import DescriptionList from './DescriptionList';
+import DetailViewHeader from './DetailViewHeader';
 import DCOSStore from '../stores/DCOSStore';
-import PageHeader from './PageHeader';
 import VolumeStatus from '../constants/VolumeStatus';
 
 class VolumeDetail extends React.Component {
@@ -61,7 +61,7 @@ class VolumeDetail extends React.Component {
     return (
       <div>
         <Breadcrumbs />
-        <PageHeader
+        <DetailViewHeader
           subTitle={this.renderSubHeader(volume)}
           title={volume.getId()} />
         {pageContent}
