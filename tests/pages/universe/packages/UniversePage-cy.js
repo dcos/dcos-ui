@@ -28,7 +28,7 @@ describe('Universe Page', function () {
   it('goes to the Packages Details tab when panel is clicked', function () {
     cy
       .visitUrl({url: '/universe'})
-      .get('.h2.inverse')
+      .get('.h2')
       .contains('arangodb')
       .click();
     cy.hash().should('match', /universe\/packages\/arangodb/);

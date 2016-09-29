@@ -53,7 +53,7 @@ class ClusterHeader extends mixin(StoreMixin) {
     return (
       <div className="header-subtitle"
         title={ip}>
-        <p className="hostname text-overflow inverse flush">
+        <p className="hostname text-overflow flush">
           {ip}
         </p>
         <span className="header-subtitle-action">

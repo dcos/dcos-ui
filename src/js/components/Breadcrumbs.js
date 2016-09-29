@@ -58,7 +58,6 @@ Breadcrumbs.contextTypes = {
 };
 
 Breadcrumbs.defaultProps = {
-  breadcrumbClasses: 'inverse',
   // Remove root '/' by default
   shift: 0
 };

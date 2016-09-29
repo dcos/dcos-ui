@@ -53,7 +53,7 @@ class PodHeader extends React.Component {
         onClick={this.props.onScale}>
         Scale
       </button>,
-      <button className="button flush-bottom button-stroke button-inverse"
+      <button className="button flush-bottom button-stroke"
         key="action-button-edit"
         onClick={this.props.onEdit}>
         Edit
@@ -61,7 +61,7 @@ class PodHeader extends React.Component {
       <Dropdown
         key="actions-dropdown"
         anchorRight={true}
-        buttonClassName="button button-stroke button-inverse dropdown-toggle"
+        buttonClassName="button button-stroke dropdown-toggle"
         dropdownMenuClassName="dropdown-menu"
         dropdownMenuListClassName="dropdown-menu-list"
         dropdownMenuListItemClassName="clickable"
@@ -143,7 +143,7 @@ class PodHeader extends React.Component {
     }
 
     const tabs = (
-      <ul className="tabs list-inline flush-bottom container-pod container-pod-short-top inverse">
+      <ul className="tabs list-inline flush-bottom container-pod container-pod-short-top">
         {this.props.tabs}
       </ul>
     );

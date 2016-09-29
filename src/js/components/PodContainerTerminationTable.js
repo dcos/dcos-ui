@@ -123,7 +123,7 @@ class PodContainerTerminationTable extends React.Component {
 };
 
 PodContainerTerminationTable.defaultProps = {
-  className: 'inverse table table-borderless-outer table-borderless-inner-columns flush-bottom',
+  className: 'table table-borderless-outer table-borderless-inner-columns flush-bottom',
   containers: []
 };
 

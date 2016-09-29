@@ -69,7 +69,7 @@ class DisplayPackagesTable extends React.Component {
             </div>
           </div>
           <div className="media-object-item">
-            <h2 className="inverse flush">
+            <h2 className="flush">
               {name}
             </h2>
             <p className="flush-bottom">
@@ -100,7 +100,7 @@ class DisplayPackagesTable extends React.Component {
   render() {
     return (
       <Table
-        className="table table-hover table-hide-header inverse table-borderless-outer table-borderless-inner-columns flush-bottom"
+        className="table table-hover table-hide-header table-borderless-outer table-borderless-inner-columns flush-bottom"
         columns={this.getColumns()}
         colGroup={this.getColGroup()}
         data={this.props.packages.getItems().slice()} />
