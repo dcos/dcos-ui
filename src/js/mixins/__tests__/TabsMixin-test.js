@@ -35,14 +35,14 @@ describe('TabsMixin', function () {
 
     it('should remove existing className', function () {
       expect(TabsMixin.tabs_getUnroutedItem(
-        {classNames: {'tab-item-label': false}},
+        {classNames: {'menu-tabbed-item-label': false}},
         'foo'
       ).props.className).toEqual('');
     });
 
     it('should add custom class to link', function () {
       expect(this.instance.props.className)
-        .toEqual('tab-item-label foo');
+        .toEqual('menu-tabbed-item-label foo');
     });
   });
 
@@ -66,14 +66,14 @@ describe('TabsMixin', function () {
 
     it('should remove existing className', function () {
       expect(TabsMixin.tabs_getUnroutedItem(
-        {classNames: {'tab-item-label': false}},
+        {classNames: {'menu-tabbed-item-label': false}},
         'baz'
       ).props.className).toEqual('');
     });
 
     it('should add custom class to span', function () {
       expect(this.instance.props.className)
-        .toEqual('tab-item-label hux');
+        .toEqual('menu-tabbed-item-label hux');
     });
   });
 

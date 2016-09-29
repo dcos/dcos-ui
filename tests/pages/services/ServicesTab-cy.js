@@ -26,13 +26,13 @@ describe('ServicesTab', function () {
     });
 
     it('should have an active services tab', function () {
-      cy.get('.tab-item-label.active .tab-item-label-text').contains('Services')
+      cy.get('.menu-tabbed-item-label.active .menu-tabbed-item-label-text').contains('Services')
         .should('to.have.length', 1);
     });
 
     it('should be able to go to deployments tab', function () {
-      cy.get('.tab-item-label').contains('Deployments').click();
-      cy.get('.tab-item-label.active .tab-item-label-text')
+      cy.get('.menu-tabbed-item-label').contains('Deployments').click();
+      cy.get('.menu-tabbed-item-label.active .menu-tabbed-item-label-text')
         .contains('Deployments').should('to.have.length', 1);
     });
   });

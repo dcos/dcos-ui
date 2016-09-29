@@ -270,7 +270,7 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
 
   getNavigationTabs() {
     return (
-      <ul className="tabs tall list-inline flush-bottom">
+      <ul className="menu-tabbed">
         {this.tabs_getUnroutedTabs()}
       </ul>
     );

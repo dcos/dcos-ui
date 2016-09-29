@@ -9,7 +9,7 @@ describe('Service Form Modal', function () {
     });
 
     it('has the right active navigation entry', function () {
-      cy.get('.page-navigation-list .tab-item.active')
+      cy.get('.page-navigation-list .menu-tabbed-item.active')
         .should('to.have.text', 'Services');
     });
 
