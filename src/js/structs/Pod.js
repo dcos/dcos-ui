@@ -177,10 +177,6 @@ module.exports = class Pod extends Service {
       taskSummary.tasksOverCapacity = totalInstances - definedInstances;
     }
 
-    if (totalInstances < definedInstances) {
-      taskSummary.tasksStaged += definedInstances - totalInstances;
-    }
-
     return taskSummary;
   }
 

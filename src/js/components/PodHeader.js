@@ -5,6 +5,7 @@ import React from 'react';
 import HealthBar from './HealthBar';
 import PageHeader from './PageHeader';
 import Pod from '../structs/Pod';
+import ServiceStatus from '../constants/ServiceStatus';
 import StatusMapping from '../constants/StatusMapping';
 import PodActionItem from '../constants/PodActionItem';
 import StringUtil from '../utils/StringUtil';
@@ -71,9 +72,9 @@ class PodInfo extends React.Component {
 
   getSubHeader(pod) {
     let serviceHealth = pod.getHealth();
-    let serviceStatus = pod.getStatus();
+    let serviceStatus = pod.getServiceStatus();
     let tasksSummary = pod.getTasksSummary();
-    let serviceStatusClassSet = StatusMapping[serviceStatus] || '';
+    let serviceStatusClassSet = StatusMapping[serviceStatus.displayName] || '';
     let runningTasksCount = tasksSummary.tasksRunning;
     let instancesCount = pod.getInstancesCount();
     let runningTasksSubHeader = StringUtil.pluralize('Instance',
@@ -81,7 +82,7 @@ class PodInfo extends React.Component {
     let subHeaderItems = [
       {
         classes: `media-object-item ${serviceStatusClassSet}`,
-        label: serviceStatus,
+        label: serviceStatus.displayName,
         shouldShow: serviceHealth.key != null
       },
       {
@@ -93,7 +94,7 @@ class PodInfo extends React.Component {
         label: (
           <HealthBar
             tasksSummary={tasksSummary}
-            isDeploying={!!tasksSummary.tasksStaged}
+            isDeploying={serviceStatus === ServiceStatus.DEPLOYING}
             instancesCount={instancesCount} />
         ),
         shouldShow: true
