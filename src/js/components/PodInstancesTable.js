@@ -74,13 +74,13 @@ class PodInstancesTable extends React.Component {
     return (
       <colgroup>
         <col />
-        <col style={{width: '120px'}} />
-        <col style={{width: '120px'}} />
-        <col style={{width: '64px'}} />
-        <col style={{width: '86px'}} />
-        <col style={{width: '86px'}} />
-        <col style={{width: '160px'}} />
-        <col style={{width: '160px'}} />
+        <col />
+        <col className="hidden-mini" />
+        <col className="hidden-mini" />
+        <col className="hidden-mini" />
+        <col className="hidden-mini" />
+        <col />
+        <col className="hidden-medium hidden-small hidden-mini" />
       </colgroup>
     );
   }
