@@ -229,14 +229,14 @@ class PodInstancesTable extends React.Component {
       let children = this.getContainersWithResources(
         podSpec, containers, instance.getAgentAddress()
       );
-      let resourcesSum = instance.getResources();
+      let {cpus, mem} = instance.getResources();
 
       return {
         id: instance.getId(),
         name: instance.getName(),
         address: instance.getAgentAddress(),
-        cpus: resourcesSum.cpus,
-        mem: resourcesSum.mem,
+        cpus,
+        mem,
         updated: instance.getLastUpdated(),
         status: instance.getInstanceStatus(),
         version: podSpec.getVersion(),
