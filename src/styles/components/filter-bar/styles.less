@@ -52,6 +52,16 @@
     max-width: 100%;
     padding-bottom: @filter-bar-item-spacing-vertical;
   }
+
+  .filter-headline {
+
+    &.list {
+
+      li {
+        color: inherit;
+      }
+    }
+  }
 }
 
 & when (@filter-bar-enabled) and (@layout-screen-small-enabled) {
