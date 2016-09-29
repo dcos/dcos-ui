@@ -58,6 +58,16 @@ module.exports = class PodContainer extends Item {
     return this.get('name') || '';
   }
 
+  getResources() {
+    let resources = this.get('resources') || {};
+    return Object.assign({
+      cpus: 0,
+      mem: 0,
+      gpus: 0,
+      disk: 0
+    }, resources);
+  }
+
   hasHealthChecks() {
     // According to RAML specs:
     //
