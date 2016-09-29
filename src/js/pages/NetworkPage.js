@@ -90,9 +90,7 @@ class NetworkPage extends mixin(TabsMixin) {
 
   getRoutedItem(tab) {
     return (
-      <Link
-        to={tab}
-        className="tab-item-label flush">
+      <Link to={tab} className="menu-tabbed-item-label flush">
         {NETWORK_TABS[tab]}
       </Link>
     );

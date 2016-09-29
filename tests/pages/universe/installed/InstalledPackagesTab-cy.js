@@ -11,7 +11,7 @@ xdescribe('Installed Packages Tab', function () {
 
   it('activates the correct tab', function () {
     cy
-      .get('.page-navigation-list .tab-item.active .tab-item-label')
+      .get('.page-navigation-list .menu-tabbed-item.active .menu-tabbed-item-label')
       .should('contain', 'Installed');
   });
 
