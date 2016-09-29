@@ -44,12 +44,13 @@ describe('Deployment', function () {
     it('returns the populated list of services if it is up-to-date', function () {
       let deployment = new Deployment({
         affectedApps: ['app1', 'app2'],
+        affectedPods: ['pod1', 'pod2'],
         affectedServices: [
-          {id: 'app1'}, {id: 'app2'}
+          {id: 'app1'}, {id: 'app2'}, {id: 'pod1'}, {id: 'pod2'}
         ]
       });
       let affectedServices = deployment.getAffectedServices();
-      expect(affectedServices.length).toEqual(2);
+      expect(affectedServices.length).toEqual(4);
     });
   });
 
