@@ -1,6 +1,6 @@
 jest.dontMock('../Highlight');
 jest.dontMock('../MesosLogView');
-jest.dontMock('../../structs/Item');
+jest.dontMock('../../../../../../src/js/structs/Item');
 jest.dontMock('../../structs/LogBuffer');
 
 /* eslint-disable no-unused-vars */
@@ -9,7 +9,7 @@ const React = require('react');
 const ReactDOM = require('react-dom');
 const TestUtils = require('react-addons-test-utils');
 
-const Item = require('../../structs/Item');
+const Item = require('../../../../../../src/js/structs/Item');
 const LogBuffer = require('../../structs/LogBuffer');
 const MesosLogStore = require('../../stores/MesosLogStore');
 const MesosLogView = require('../MesosLogView');

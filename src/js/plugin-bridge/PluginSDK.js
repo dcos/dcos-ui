@@ -1,5 +1,4 @@
 import {createStore, combineReducers, applyMiddleware, compose} from 'redux';
-import {Hooks} from 'foundation-ui';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import {APPLICATION} from '../constants/PluginConstants';
@@ -8,6 +7,7 @@ import ActionsPubSub from './middleware/ActionsPubSub';
 import AppReducer from './AppReducer';
 import AppHooks from './AppHooks';
 import Config from '../config/Config';
+import Hooks from './Hooks';
 import PluginSDKStruct from './PluginSDKStruct';
 import Loader from './Loader';
 import PluginModules from './PluginModules';
