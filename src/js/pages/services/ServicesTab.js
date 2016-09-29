@@ -167,7 +167,7 @@ var ServicesTab = React.createClass({
   getAlertPanelFooter() {
     return (
       <div className="button-collection flush-bottom">
-        <button className="button button-stroke button-inverse"
+        <button className="button button-stroke"
           onClick={() => this.handleOpenModal(SERVICE_GROUP_FORM_MODAL)}>
           Create Group
         </button>
@@ -181,7 +181,7 @@ var ServicesTab = React.createClass({
 
   getNotFoundFooter() {
     return (
-      <Link to="services-page" className="button button-stroke button-inverse">
+      <Link to="services-page" className="button button-stroke">
         Go back to Services Page
       </Link>
     );
@@ -335,7 +335,7 @@ var ServicesTab = React.createClass({
           <FilterBar rightAlignLastNChildren={2}>
             <ServiceSearchFilter
               handleFilterChange={this.handleFilterChange} />
-            <button className="button button-stroke button-inverse"
+            <button className="button button-stroke"
               onClick={() => this.handleOpenModal(SERVICE_GROUP_FORM_MODAL)}>
               Create Group
             </button>

@@ -185,20 +185,20 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
 
     return [
       <button
-        className="button button-inverse button-stroke"
+        className="button button-stroke"
         key="edit"
         onClick={this.handleEditButtonClick}>
         Edit
       </button>,
       <button
-        className="button button-inverse button-stroke"
+        className="button button-stroke"
         key="run-now"
         onClick={this.handleRunNowButtonClick}>
         Run Now
       </button>,
       <Dropdown
         anchorRight={true}
-        buttonClassName="dropdown-toggle button button-inverse button-stroke"
+        buttonClassName="dropdown-toggle button button-stroke"
         dropdownMenuClassName="dropdown-menu"
         dropdownMenuListClassName="dropdown-menu-list"
         dropdownMenuListItemClassName="clickable"
@@ -254,7 +254,7 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
 
   getErrorScreen() {
     return (
-      <div className="container container-fluid container-pod text-align-center vertical-center inverse">
+      <div className="container container-fluid container-pod text-align-center vertical-center">
         <RequestErrorMsg />
       </div>
     );
@@ -270,7 +270,7 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
 
   getNavigationTabs() {
     return (
-      <ul className="tabs tall list-inline flush-bottom inverse">
+      <ul className="tabs tall list-inline flush-bottom">
         {this.tabs_getUnroutedTabs()}
       </ul>
     );

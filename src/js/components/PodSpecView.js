@@ -16,7 +16,7 @@ class PodSpecView extends React.Component {
 
     return (
       <div>
-        <h4 className="inverse flush-top">
+        <h4 className="flush-top">
           Environment variables
         </h4>
         <EnvironmentList environment={environment} />
@@ -33,7 +33,7 @@ class PodSpecView extends React.Component {
 
     return (
       <div>
-        <h4 className="inverse flush-top">
+        <h4 className="flush-top">
           Scaling
         </h4>
         <DescriptionList hash={scaling} />
@@ -56,7 +56,7 @@ class PodSpecView extends React.Component {
 
     return (
       <div>
-        <h4 className="inverse flush-top">
+        <h4 className="flush-top">
           Secrets
         </h4>
         <DescriptionList hash={hash} />
@@ -73,7 +73,7 @@ class PodSpecView extends React.Component {
 
     return (
       <div>
-        <h4 className="inverse flush-top">
+        <h4 className="flush-top">
           Labels
         </h4>
         <DescriptionList hash={labels} />
@@ -98,7 +98,7 @@ class PodSpecView extends React.Component {
 
     return (
       <div>
-        <h4 className="inverse flush-top">
+        <h4 className="flush-top">
           Networks
         </h4>
         {nodes}
@@ -138,7 +138,7 @@ class PodSpecView extends React.Component {
 
     return (
       <div>
-        <h4 className="inverse flush-top">
+        <h4 className="flush-top">
           Volumes
         </h4>
         {volumes.map(function (volume, i) {
@@ -168,7 +168,7 @@ class PodSpecView extends React.Component {
   render() {
     return (
       <div>
-        <h4 className="inverse flush-top">
+        <h4 className="flush-top">
           General
         </h4>
         {this.getGeneralDetails()}
@@ -178,7 +178,7 @@ class PodSpecView extends React.Component {
         {this.getVolumesDetails()}
         {this.getScalingDetails()}
         {this.getNetworksDetails()}
-        <h4 className="inverse flush-top">
+        <h4 className="flush-top">
           Containers
         </h4>
         {this.getContainersSection()}

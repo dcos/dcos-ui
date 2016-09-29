@@ -63,7 +63,7 @@ var IdentifyModal = React.createClass({
 
   getSubHeader() {
     return (
-      <p className="text-align-center inverse">
+      <p className="text-align-center">
         Your feedback means a lot to us. Please provide an email address below
         that we can use to respond to your comments and suggestions.
       </p>

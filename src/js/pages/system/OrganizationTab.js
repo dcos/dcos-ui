@@ -246,7 +246,7 @@ class OrganizationTab extends mixin(InternalStorageMixin) {
     if (dropdownItems.length === 1) {
       return (
         <button
-          className="button button-inverse"
+          className="button"
           onClick={this.handleActionSelection.bind(this, dropdownItems[0])}>
           {dropdownItems[0].html}
         </button>
@@ -256,7 +256,7 @@ class OrganizationTab extends mixin(InternalStorageMixin) {
     return (
       <li>
         <Dropdown
-          buttonClassName="button button-inverse dropdown-toggle"
+          buttonClassName="button dropdown-toggle"
           dropdownMenuClassName="dropdown-menu inverse"
           dropdownMenuListClassName="dropdown-menu-list"
           dropdownMenuListItemClassName="clickable"

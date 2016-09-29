@@ -142,14 +142,14 @@ class HealthTab extends React.Component {
             handleFilterChange={this.handleSearchStringChange} />
           <UnitHealthDropdown
             initialID="all"
-            className="button dropdown-toggle text-align-left button-inverse"
-            dropdownMenuClassName="dropdown-menu inverse"
+            className="button dropdown-toggle text-align-left"
+            dropdownMenuClassName="dropdown-menu"
             onHealthSelection={this.handleHealthSelection}
             ref={(ref) => this.healthFilter = ref} />
         </FilterBar>
         <Table
           className="table table-borderless-outer
-            table-borderless-inner-columns flush-bottom inverse"
+            table-borderless-inner-columns flush-bottom"
           columns={this.getColumns()}
           colGroup={this.getColGroup()}
           containerSelector=".gm-scroll-view"

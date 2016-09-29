@@ -32,7 +32,7 @@ class PodContainerSpecView extends React.Component {
 
     return (
       <div>
-        <h5 className="inverse flush-top">
+        <h5 className="flush-top">
           Artifacts
         </h5>
         {nodes}
@@ -81,7 +81,7 @@ class PodContainerSpecView extends React.Component {
 
     return (
       <div>
-        <h5 className="inverse flush-top">Environment Variables</h5>
+        <h5 className="flush-top">Environment Variables</h5>
         <EnvironmentList environment={environment} />
       </div>
     );
@@ -111,7 +111,7 @@ class PodContainerSpecView extends React.Component {
 
     return (
       <div>
-        <h5 className="inverse flush-top">Endpoints</h5>
+        <h5 className="flush-top">Endpoints</h5>
         {nodes}
       </div>
     );
@@ -141,7 +141,7 @@ class PodContainerSpecView extends React.Component {
 
     return (
       <div>
-        <h5 className="inverse flush-top">
+        <h5 className="flush-top">
           Volume Mounts
         </h5>
         {nodes}
@@ -154,7 +154,7 @@ class PodContainerSpecView extends React.Component {
 
     return (
       <div className="pod-config-container">
-        <h5 className="inverse flush-top">
+        <h5 className="flush-top">
           {name}
         </h5>
         {this.getGeneralDetails()}

@@ -92,7 +92,7 @@ class NetworkPage extends mixin(TabsMixin) {
     return (
       <Link
         to={tab}
-        className="tab-item-label inverse flush">
+        className="tab-item-label flush">
         {NETWORK_TABS[tab]}
       </Link>
     );
@@ -107,7 +107,7 @@ class NetworkPage extends mixin(TabsMixin) {
     let currentRoute = routes[routes.length - 1].name;
 
     return (
-      <ul className="menu-tabbed inverse">
+      <ul className="menu-tabbed">
         {TabsUtil.getTabs(NETWORK_TABS, currentRoute, this.getRoutedItem)}
       </ul>
     );
@@ -123,7 +123,7 @@ class NetworkPage extends mixin(TabsMixin) {
     return (
       <div className="container-pod container-pod-short flush-top">
         <div className="container-pod container-pod-divider-bottom container-pod-divider-inverse container-pod-divider-bottom-align-right flush-top flush-bottom">
-          <ul className="menu-tabbed inverse">
+          <ul className="menu-tabbed">
             {subTabs}
           </ul>
         </div>

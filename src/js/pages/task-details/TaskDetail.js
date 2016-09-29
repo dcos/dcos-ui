@@ -131,7 +131,7 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
 
   getErrorScreen() {
     return (
-      <div className="container container-fluid container-pod text-align-center vertical-center inverse">
+      <div className="container container-fluid container-pod text-align-center vertical-center">
         <RequestErrorMsg />
       </div>
     );
@@ -209,7 +209,7 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
     }
 
     let navigationTabs = (
-      <ul className="menu-tabbed container-pod container-pod-short-top inverse">
+      <ul className="menu-tabbed container-pod container-pod-short-top">
         {tabsArray}
       </ul>
     );

@@ -10,7 +10,7 @@ class PodConfigurationTabView extends React.Component {
 
     return (
       <div>
-        <h3 className="inverse flush-top">
+        <h3 className="flush-top">
           Current Version ({localeVersion})
         </h3>
         <PodSpecView spec={spec} />
