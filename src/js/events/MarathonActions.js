@@ -15,6 +15,8 @@ import {
   REQUEST_MARATHON_DEPLOYMENTS_ONGOING,
   REQUEST_MARATHON_DEPLOYMENT_ROLLBACK_ERROR,
   REQUEST_MARATHON_DEPLOYMENT_ROLLBACK_SUCCESS,
+  REQUEST_MARATHON_POD_INSTANCE_KILL_ERROR,
+  REQUEST_MARATHON_POD_INSTANCE_KILL_SUCCESS,
   REQUEST_MARATHON_QUEUE_SUCCESS,
   REQUEST_MARATHON_QUEUE_ERROR,
   REQUEST_MARATHON_QUEUE_ONGOING,
@@ -33,9 +35,7 @@ import {
   REQUEST_MARATHON_SERVICE_VERSIONS_SUCCESS,
   REQUEST_MARATHON_SERVICE_VERSIONS_ERROR,
   REQUEST_MARATHON_TASK_KILL_SUCCESS,
-  REQUEST_MARATHON_TASK_KILL_ERROR,
-  REQUEST_MARATHON_POD_INSTANCE_KILL_ERROR,
-  REQUEST_MARATHON_POD_INSTANCE_KILL_SUCCESS
+  REQUEST_MARATHON_TASK_KILL_ERROR
 } from '../constants/ActionTypes';
 import AppDispatcher from './AppDispatcher';
 import Config from '../config/Config';
@@ -502,21 +502,6 @@ var MarathonActions = {
   killPodInstances(pod, instanceIDs, force) {
     let podID = encodeURIComponent(pod.getId());
     let params = '';
-
-    if (!(pod instanceof Pod)) {
-      if (process.env.NODE_ENV !== 'production') {
-        throw new TypeError('pod is not an instance of Pod');
-      }
-
-      return;
-    }
-    if (!Array.isArray(instanceIDs)) {
-      if (process.env.NODE_ENV !== 'production') {
-        throw new TypeError('instanceIDs is not an array');
-      }
-
-      return;
-    }
 
     if (force) {
       params = '?force=true';
