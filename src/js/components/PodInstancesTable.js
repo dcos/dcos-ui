@@ -177,9 +177,16 @@ class PodInstancesTable extends React.Component {
     };
 
     let children = containers.map(function (container) {
+      let containerResources = container.getResources();
+
+      // TODO: Remove the following 4 lines when DCOS-10098 is addressed
       let containerSpec = podSpec.getContainerSpec(container.name);
-      Object.keys(containerSpec.resources).forEach(function (key) {
-        resourcesSum[key] += containerSpec.resources[key];
+      if (containerSpec) {
+        containerResources = containerSpec.resources;
+      }
+
+      Object.keys(containerResources).forEach(function (key) {
+        resourcesSum[key] += containerResources[key];
       });
 
       let addressComponents = container.endpoints.map(function (endpoint, i) {
@@ -199,8 +206,8 @@ class PodInstancesTable extends React.Component {
         name: container.getName(),
         status: container.getContainerStatus(),
         address: addressComponents,
-        cpus: containerSpec.resources.cpus,
-        mem: containerSpec.resources.mem,
+        cpus: containerResources.cpus,
+        mem: containerResources.mem,
         updated: container.getLastUpdated(),
         version: ''
       };
