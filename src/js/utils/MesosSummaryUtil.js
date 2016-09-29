@@ -54,18 +54,25 @@ const MesosSummaryUtil = {
     var currentDate = Date.now();
     // reverse date range!!!
     let reverseRange = [];
+
     for (let i = Config.historyLength; i > 0; i--) {
       reverseRange.push(-i);
     }
+
     return reverseRange.map(function (i) {
-      return {
-        date: currentDate + (i * Config.getRefreshRate()),
-        frameworks: [],
-        slaves: [],
-        used_resources: {cpus: 0, mem: 0, disk: 0},
-        total_resources: {cpus: 0, mem: 0, disk: 0}
-      };
+      return Object.assign(MesosSummaryUtil.getEmptyState(), {
+        date: currentDate + (i * Config.getRefreshRate())
+      });
     });
+  },
+
+  getEmptyState() {
+    return {
+      frameworks: [],
+      slaves: [],
+      used_resources: {cpus: 0, mem: 0, disk: 0},
+      total_resources: {cpus: 0, mem: 0, disk: 0}
+    };
   },
 
   addTimestampsToData(data, timeStep) {
