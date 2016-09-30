@@ -218,6 +218,12 @@ module.exports = class ServiceTree extends Tree {
             }
 
             if (parseInt(otherKey, 10) === ServiceOther.PODS.key) {
+              if (service instanceof ServiceTree) {
+                memo = memo.concat(
+                  service.filterItemsByFilter({other: [otherKey]}).getItems()
+                );
+              }
+
               if (service instanceof Pod) {
                 memo.push(service);
               }
