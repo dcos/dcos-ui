@@ -16,6 +16,8 @@ import {
   REQUEST_MARATHON_GROUPS_SUCCESS,
   REQUEST_MARATHON_INSTANCE_INFO_ERROR,
   REQUEST_MARATHON_INSTANCE_INFO_SUCCESS,
+  REQUEST_MARATHON_POD_INSTANCE_KILL_ERROR,
+  REQUEST_MARATHON_POD_INSTANCE_KILL_SUCCESS,
   REQUEST_MARATHON_QUEUE_ERROR,
   REQUEST_MARATHON_QUEUE_SUCCESS,
   REQUEST_MARATHON_SERVICE_CREATE_ERROR,
@@ -58,6 +60,8 @@ import {
   MARATHON_GROUPS_ERROR,
   MARATHON_INSTANCE_INFO_ERROR,
   MARATHON_INSTANCE_INFO_SUCCESS,
+  MARATHON_POD_INSTANCE_KILL_SUCCESS,
+  MARATHON_POD_INSTANCE_KILL_ERROR,
   MARATHON_QUEUE_CHANGE,
   MARATHON_QUEUE_ERROR,
   MARATHON_SERVICE_CREATE_ERROR,
@@ -134,6 +138,8 @@ class MarathonStore extends GetSetBaseStore {
         groupEditError: MARATHON_GROUP_EDIT_ERROR,
         groupsSuccess: MARATHON_GROUPS_CHANGE,
         groupsError: MARATHON_GROUPS_ERROR,
+        podInstanceKillSuccess: MARATHON_POD_INSTANCE_KILL_SUCCESS,
+        podInstanceKillError: MARATHON_POD_INSTANCE_KILL_ERROR,
         serviceCreateError: MARATHON_SERVICE_CREATE_ERROR,
         serviceCreateSuccess: MARATHON_SERVICE_CREATE_SUCCESS,
         serviceDeleteError: MARATHON_SERVICE_DELETE_ERROR,
@@ -255,6 +261,12 @@ class MarathonStore extends GetSetBaseStore {
         case REQUEST_MARATHON_TASK_KILL_ERROR:
           this.emit(MARATHON_TASK_KILL_ERROR, action.data);
           break;
+        case REQUEST_MARATHON_POD_INSTANCE_KILL_SUCCESS:
+          this.emit(MARATHON_POD_INSTANCE_KILL_SUCCESS);
+          break;
+        case REQUEST_MARATHON_POD_INSTANCE_KILL_ERROR:
+          this.emit(MARATHON_POD_INSTANCE_KILL_ERROR, action.data);
+          break;
       }
 
       return true;
@@ -344,6 +356,10 @@ class MarathonStore extends GetSetBaseStore {
 
   fetchMarathonInstanceInfo() {
     return MarathonActions.fetchMarathonInstanceInfo(...arguments);
+  }
+
+  killPodInstances() {
+    return MarathonActions.killPodInstances(...arguments);
   }
 
   killTasks() {

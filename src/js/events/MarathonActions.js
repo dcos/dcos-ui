@@ -15,6 +15,8 @@ import {
   REQUEST_MARATHON_DEPLOYMENTS_ONGOING,
   REQUEST_MARATHON_DEPLOYMENT_ROLLBACK_ERROR,
   REQUEST_MARATHON_DEPLOYMENT_ROLLBACK_SUCCESS,
+  REQUEST_MARATHON_POD_INSTANCE_KILL_ERROR,
+  REQUEST_MARATHON_POD_INSTANCE_KILL_SUCCESS,
   REQUEST_MARATHON_QUEUE_SUCCESS,
   REQUEST_MARATHON_QUEUE_ERROR,
   REQUEST_MARATHON_QUEUE_ONGOING,
@@ -495,6 +497,33 @@ var MarathonActions = {
         });
       }
     });
+  },
+
+  killPodInstances(pod, instanceIDs, force) {
+    let podID = encodeURIComponent(pod.getId());
+    let params = '';
+
+    if (force) {
+      params = '?force=true';
+    }
+
+    RequestUtil.json({
+      url: buildURI(`/pods/${podID}::instances${params}`),
+      data: instanceIDs,
+      method: 'DELETE',
+      success() {
+        AppDispatcher.handleServerAction({
+          type: REQUEST_MARATHON_POD_INSTANCE_KILL_SUCCESS
+        });
+      },
+      error(xhr) {
+        AppDispatcher.handleServerAction({
+          type: REQUEST_MARATHON_POD_INSTANCE_KILL_ERROR,
+          data: RequestUtil.getErrorFromXHR(xhr)
+        });
+      }
+    });
+
   }
 
 };
