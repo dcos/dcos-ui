@@ -62,12 +62,17 @@ class PodDebugTabView extends React.Component {
 
   getLastVersionChange() {
     let {pod} = this.props;
-    let lastChanged = pod.getLastChanged();
+    let lastUpdated = pod.getLastUpdated();
+
+    // Note to reader: `getLastChanged` refers to the last changes that happend
+    // to the pod (such as state changes or instance changes), but we are
+    // interested in the last configuration update, for which we are using the
+    // `getLastUpdate` function.
 
     let LastVersionChangeValueMapping = {
       'Configuration': (
         <span>
-          {lastChanged.toString()} (<TimeAgo time={lastChanged} />)
+          {lastUpdated.toString()} (<TimeAgo time={lastUpdated} />)
         </span>
       )
     };
