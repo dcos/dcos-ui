@@ -65,10 +65,16 @@ module.exports = {
     });
   },
 
-  deleteGroup(groupId) {
+  deleteGroup(groupId, force) {
     groupId = encodeURIComponent(groupId);
+    let url = buildURI(`/groups/${groupId}`);
+
+    if (force === true) {
+      url += '?force=true';
+    }
+
     RequestUtil.json({
-      url: buildURI(`/groups/${groupId}`),
+      url,
       method: 'DELETE',
       success() {
         AppDispatcher.handleServerAction({
@@ -133,9 +139,15 @@ module.exports = {
     });
   },
 
-  deleteService(serviceId) {
+  deleteService(serviceId, force) {
+    let url = buildURI(`/apps/${serviceId}`);
+
+    if (force === true) {
+      url += '?force=true';
+    }
+
     RequestUtil.json({
-      url: buildURI(`/apps/${serviceId}`),
+      url,
       method: 'DELETE',
       success() {
         AppDispatcher.handleServerAction({

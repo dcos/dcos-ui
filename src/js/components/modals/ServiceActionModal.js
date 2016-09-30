@@ -56,6 +56,18 @@ class ServiceActionModal extends mixin(StoreMixin) {
     return message && /force=true/.test(message);
   }
 
+  isGroup() {
+    return this.props.service instanceof ServiceTree;
+  }
+
+  getServiceType() {
+    if (this.isGroup()) {
+      return 'Group';
+    } else {
+      return 'Service';
+    }
+  }
+
   getErrorMessage() {
     let {errorMsg} = this.state;
 
@@ -66,8 +78,8 @@ class ServiceActionModal extends mixin(StoreMixin) {
     if (this.shouldForceUpdate(errorMsg)) {
       return (
         <h4 className="text-align-center text-danger flush-top">
-          App is currently locked by one or more deployments. Press the button
-          again to forcefully change and deploy the new configuration.
+          {this.getServiceType()} is currently locked by one or more deployments.
+          Press the button again to forcefully change and deploy the new configuration.
         </h4>
       );
     }
