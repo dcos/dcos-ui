@@ -36,7 +36,7 @@ var FilterByService = React.createClass({
   getItemHtml(service) {
     return (
       <span className="badge-container">
-        <span>{service.get('name')}</span>
+        <span className="badge-container-text">{service.get('name')}</span>
         <span className="badge">{service.getNodeIDs().length}</span>
       </span>
     );
@@ -66,9 +66,7 @@ var FilterByService = React.createClass({
 
       if (service.get('id') === defaultId) {
         item.selectedHtml = (
-          <span className="badge-container">
-            <span>Filter by Service</span>
-          </span>
+          <span>Filter by Service</span>
         );
       }
 

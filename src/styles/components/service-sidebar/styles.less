@@ -56,24 +56,21 @@
       }
     }
 
-    .badge {
+    .label-pill {
 
-      &.label-pill {
+      .pill-wrap {
+        padding: 0 @base-spacing-unit 0 @base-spacing-unit / 4;
+      }
 
-        .pill-wrap {
-          padding: 0 @base-spacing-unit 0 @base-spacing-unit / 4;
-        }
+      .remove-filter {
+        background-color: transparent;
+        position: absolute;
+        right: 0;
+        z-index: 2;
 
-        .remove-filter {
-          background-color: transparent;
-          position: absolute;
-          right: 0;
-          z-index: 2;
-
-          &:hover {
-            color: @neutral;
-            text-decoration: none;
-          }
+        &:hover {
+          color: @neutral;
+          text-decoration: none;
         }
       }
     }
@@ -84,7 +81,7 @@
 
   @media (min-width: @layout-screen-small-min-width) {
 
-    .badge.label-pill {
+    .label-pill {
 
       .pill-wrap {
         padding: 0 @base-spacing-unit-screen-small 0 @base-spacing-unit-screen-small / 4;
@@ -97,7 +94,7 @@
 
   @media (min-width: @layout-screen-medium-min-width) {
 
-    .badge.label-pill {
+    .label-pill {
 
       .pill-wrap {
         padding: 0 @base-spacing-unit-screen-medium 0 @base-spacing-unit-screen-medium / 4;
@@ -110,7 +107,7 @@
 
   @media (min-width: @layout-screen-large-min-width) {
 
-    .badge.label-pill {
+    .label-pill {
 
       .pill-wrap {
         padding: 0 @base-spacing-unit-screen-large 0 @base-spacing-unit-screen-large / 4;
@@ -123,7 +120,7 @@
 
   @media (min-width: @layout-screen-jumbo-min-width) {
 
-    .badge.label-pill {
+    .label-pill {
 
       .pill-wrap {
         padding: 0 @base-spacing-unit-screen-jumbo 0 @base-spacing-unit-screen-jumbo / 4;
