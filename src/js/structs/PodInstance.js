@@ -66,6 +66,7 @@ module.exports = class PodInstance extends Item {
 
   getResources() {
     let resources = this.get('resources') || {};
+
     return Object.assign({
       cpus: 0,
       mem: 0,
