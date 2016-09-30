@@ -372,4 +372,32 @@ describe('Util', function () {
 
   });
 
+  describe('#filterEmptyValues', function () {
+    it('filters empty values from an Object', function () {
+      let expectedObject = {
+        ooleanFalse: false,
+        booleanTrue: true,
+        string: 'string',
+        array: [1, 2, 3],
+        object: {a: 1},
+        number: 123
+      };
+
+      expect(Util.filterEmptyValues({
+        booleanFalse: false,
+        booleanTrue: true,
+        emptyString: '',
+        string: 'string',
+        emptyArray: [],
+        array: [1, 2, 3],
+        emptyObject: {},
+        object: {a: 1},
+        number: 123,
+        nullValue: null,
+        undefinedValue: undefined
+      }), expectedObject);
+    });
+
+  });
+
 });

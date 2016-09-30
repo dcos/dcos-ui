@@ -1,3 +1,5 @@
+import ValidatorUtil from './ValidatorUtil';
+
 let uniqueIDMap = {};
 
 const Util = {
@@ -178,6 +180,21 @@ const Util = {
     }
 
     return copy;
+  },
+
+  /**
+   * Removes keys with empty values from an Object
+   *
+   * @param {Object} obj Object to filter
+   * @return {Object} Copy of a filtered obj
+   */
+  filterEmptyValues(obj) {
+    return Object.keys(obj).filter(function (key) {
+      return !ValidatorUtil.isEmpty(obj[key]);
+    }).reduce(function (memo, key) {
+      memo[key] = obj[key];
+      return memo;
+    }, {});
   }
 };
 
