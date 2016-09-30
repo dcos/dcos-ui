@@ -63,11 +63,6 @@ class PodInstancesView extends React.Component {
       <div className="button-collection flush-bottom">
         <div
           className="button button-stroke button-danger"
-          onClick={this.handleKillAndScaleClick}>
-          Kill and Scale
-        </div>
-        <div
-          className="button button-stroke button-danger"
           onClick={this.handleKillClick}>
           Kill
         </div>
