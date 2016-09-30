@@ -163,14 +163,6 @@ var MarathonActions = {
    * @param {Boolean} force - force delete even if deploying
    */
   deleteService(service, force) {
-    if (!(service instanceof Service)) {
-      if (process.env.NODE_ENV !== 'production') {
-        throw new TypeError('service is not an instance of Service');
-      }
-
-      return;
-    }
-
     let url = buildURI(`/apps/${service.getId()}`);
 
     if (service instanceof Pod) {
