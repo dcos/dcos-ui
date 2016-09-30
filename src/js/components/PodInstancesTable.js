@@ -183,10 +183,6 @@ class PodInstancesTable extends React.Component {
   }
 
   getContainersWithResources(podSpec, containers, agentAddress) {
-    let resourcesSum = {
-      cpus: 0, mem: 0, disk: 0, gpus: 0
-    };
-
     let children = containers.map(function (container) {
       let containerResources = container.getResources();
 
@@ -195,10 +191,6 @@ class PodInstancesTable extends React.Component {
       if (containerSpec) {
         containerResources = containerSpec.resources;
       }
-
-      Object.keys(containerResources).forEach(function (key) {
-        resourcesSum[key] += containerResources[key];
-      });
 
       let addressComponents = container.endpoints.map(function (endpoint, i) {
         return (
@@ -224,7 +216,7 @@ class PodInstancesTable extends React.Component {
       };
     });
 
-    return {children, resourcesSum};
+    return children;
   }
 
   getTableDataFor(instances, filterText) {
@@ -234,16 +226,17 @@ class PodInstancesTable extends React.Component {
       let containers = instance.getContainers().filter(function (container) {
         return PodUtil.isContainerMatchingText(container, filterText);
       });
-      let {children, resourcesSum} = this.getContainersWithResources(
+      let children = this.getContainersWithResources(
         podSpec, containers, instance.getAgentAddress()
       );
+      let {cpus, mem} = instance.getResources();
 
       return {
         id: instance.getId(),
         name: instance.getName(),
         address: instance.getAgentAddress(),
-        cpus: resourcesSum.cpus,
-        mem: resourcesSum.mem,
+        cpus,
+        mem,
         updated: instance.getLastUpdated(),
         status: instance.getInstanceStatus(),
         version: podSpec.getVersion(),

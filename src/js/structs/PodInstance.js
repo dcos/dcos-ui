@@ -64,6 +64,17 @@ module.exports = class PodInstance extends Item {
     return new Date(this.get('lastUpdated'));
   }
 
+  getResources() {
+    let resources = this.get('resources') || {};
+
+    return Object.assign({
+      cpus: 0,
+      mem: 0,
+      gpus: 0,
+      disk: 0
+    }, resources);
+  }
+
   hasHealthChecks() {
     // If for any reason any of the containers has at least 1 health
     // check that is failing, assume that we have leath checks
