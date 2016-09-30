@@ -83,7 +83,6 @@ class PodInstancesTable extends React.Component {
         return checkedItems[item.getId()];
       }
     );
-    console.log(checkedItemInstances);
     this.props.onSelectionChange( checkedItemInstances );
   }
 
