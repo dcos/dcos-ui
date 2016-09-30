@@ -74,13 +74,13 @@ class PodInstancesTable extends React.Component {
     return (
       <colgroup>
         <col />
-        <col style={{width: '120px'}} />
-        <col style={{width: '120px'}} />
-        <col style={{width: '64px'}} />
-        <col style={{width: '86px'}} />
-        <col style={{width: '86px'}} />
-        <col style={{width: '160px'}} />
-        <col style={{width: '160px'}} />
+        <col className="hidden-mini" />
+        <col className="hidden-mini" />
+        <col className="hidden-mini" />
+        <col className="hidden-mini" />
+        <col className="hidden-mini" />
+        <col />
+        <col className="hidden-medium hidden-small hidden-mini" />
       </colgroup>
     );
   }
@@ -103,10 +103,21 @@ class PodInstancesTable extends React.Component {
   }
 
   getColumnClassName(prop, sortBy, row) {
+    let hiddenMiniCols = [
+      'address',
+      'status',
+      'logs',
+      'cpus',
+      'mem',
+      'version'
+    ];
+
     return classNames(`column-${prop}`, {
       'highlight': prop === sortBy.prop,
       'clickable': row == null,
-      'table-cell-task-dot': prop === 'status'
+      'table-cell-task-dot': prop === 'status',
+      'hidden-medium hidden-small': prop === 'version',
+      'hidden-mini': hiddenMiniCols.includes(prop)
     });
   }
 
