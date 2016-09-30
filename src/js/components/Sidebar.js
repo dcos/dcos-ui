@@ -204,11 +204,11 @@ var Sidebar = React.createClass({
 
       if (notificationCount > 0) {
         sidebarText = (
-          <span className="sidebar-menu-item-label badge-container badge-primary">
-            <span className="sidebar-menu-item-label-text">
+          <span className="sidebar-menu-item-label badge-container">
+            <span className="sidebar-menu-item-label-text badge-container-text">
               {route.handler.routeConfig.label}
             </span>
-            <span className="badge text-align-center">{notificationCount}</span>
+            <span className="badge">{notificationCount}</span>
           </span>
         );
       }

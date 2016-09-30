@@ -100,38 +100,37 @@ const TabsMixin = {
    */
   tabs_getRoutedItem(props = {}, tab) {
     let attributes = Util.omit(props, ['classNames']);
+    let badge = null;
     let notificationCount = NotificationStore.getNotificationCount(tab);
-    let tabLabelClass = classNames(
-      'menu-tabbed-item-label badge-container',
+    let hasNotification = notificationCount > 0;
+    let tabLabelClasses = classNames(
+      'menu-tabbed-item-label',
+      {'badge-container': hasNotification},
       props.classNames
     );
+    let textClasses = classNames(
+      'menu-tabbed-item-label-text',
+      {'badge-container-text': hasNotification}
+    );
 
-    if (notificationCount > 0) {
-      return (
-        <Link
-          to={tab}
-          className={tabLabelClass}
-          onClick={this.tabs_handleTabClick.bind(this, tab)}
-          {...attributes}>
-          <span className="menu-tabbed-item-label-text badge-container-text">
-            {this.tabs_tabs[tab]}
-          </span>
-          <span className="badge-container-badge text-align-center">
-            {notificationCount}
-          </span>
-        </Link>
+    if (hasNotification) {
+      badge = (
+        <span className="badge">
+          {notificationCount}
+        </span>
       );
     }
 
     return (
       <Link
         to={tab}
-        className={tabLabelClass}
+        className={tabLabelClasses}
         onClick={this.tabs_handleTabClick.bind(this, tab)}
         {...attributes}>
-        <span className="menu-tabbed-item-label-text">
+        <span className={textClasses}>
           {this.tabs_tabs[tab]}
         </span>
+        {badge}
       </Link>
     );
   },

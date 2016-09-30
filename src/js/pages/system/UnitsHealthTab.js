@@ -87,9 +87,11 @@ class UnitsHealthTab extends mixin(StoreMixin) {
     });
 
     return (
-      <span className="button-align-content label flush">
-        <span className={dotClassSet}></span>
-        <span>{StringUtil.capitalize(filterName)}</span>
+      <span className="badge-container button-align-content label flush">
+        <span className="badge-container-text">
+          <span className={dotClassSet}></span>
+          <span>{StringUtil.capitalize(filterName)}</span>
+        </span>
         <span className="badge">{count || 0}</span>
       </span>
     );
