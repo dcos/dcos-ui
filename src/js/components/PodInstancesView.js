@@ -86,7 +86,7 @@ class PodInstancesView extends React.Component {
           currentLength={filteredItems.getItems().length}
           inverseStyle={true}
           isFiltering={filter.text || (filter.status !== 'all')}
-          name="Pod"
+          name="Instance"
           onReset={this.handleFilterReset}
           totalLength={allItems.getItems().length}
           />
