@@ -109,7 +109,7 @@ class ConfigurationView extends mixin(StoreMixin) {
             hash={hash}
             headline={headline}
             key={index} />
-          );
+        );
       });
 
     return (
