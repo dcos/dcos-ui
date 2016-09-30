@@ -92,10 +92,9 @@ class ConfigurationView extends mixin(StoreMixin) {
   }
 
   getPortDefinitionsSection(config) {
-    let {id, container, portDefinitions} = config;
+    let {id, portDefinitions} = config;
 
-    if (portDefinitions == null || !(container == null || container.docker == null
-        || container.docker.portMappings == null)) {
+    if (portDefinitions == null) {
       return null;
     }
 
