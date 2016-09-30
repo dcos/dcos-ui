@@ -22,7 +22,7 @@ class PodNetworkSpecView extends React.Component {
   }
 
   getLabelSection() {
-    let {network: labels} = this.props;
+    let {network: {labels}} = this.props;
     if (!labels || !Object.keys(labels).length) {
       return null;
     }
