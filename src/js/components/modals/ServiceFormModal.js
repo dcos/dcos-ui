@@ -23,6 +23,8 @@ import ServiceUtil from '../../utils/ServiceUtil';
 import ToggleButton from '../ToggleButton';
 import ErrorPaths from '../../constants/ErrorPaths';
 
+const SupportedOnlyInJSONText = 'Your config contains attributes we currently only support in the JSON mode.';
+
 const METHODS_TO_BIND = [
   'getTriggerSubmit',
   'handleCancel',
@@ -157,25 +159,22 @@ class ServiceFormModal extends mixin(StoreMixin) {
       state.jsonMode !== nextState.jsonMode ||
       state.pendingRequest !== nextState.pendingRequest ||
       didMessageChange(state.errorMessage, nextState.errorMessage) ||
-      didMessageChange(state.warningMessage, nextState.warningMessage);
+      didMessageChange(state.jsonLockReason, nextState.jsonLockReason);
   }
 
   resetState(props = this.props) {
     let serviceSpec = props.service.getSpec();
 
-    let warningMessage = null;
+    let jsonLockReason = null;
     let jsonMode = false;
     if (this.shouldDisableForm(serviceSpec)) {
-      warningMessage = {
-        message: 'Your config contains attributes we currently only support ' +
-        'in the JSON mode.'
-      };
+      jsonLockReason = SupportedOnlyInJSONText;
       jsonMode = true;
     }
 
     this.setState({
       defaultTab: '',
-      warningMessage,
+      jsonLockReason,
       errorMessage: null,
       force: false,
       jsonMode,
@@ -202,20 +201,17 @@ class ServiceFormModal extends mixin(StoreMixin) {
     } catch (e) {
     }
 
-    let warningMessage = null;
+    let jsonLockReason = null;
 
     if (this.shouldDisableForm(serviceSpec)) {
-      warningMessage = {
-        message: 'Your config contains attributes we currently only support ' +
-        'in the JSON mode.'
-      };
+      jsonLockReason = SupportedOnlyInJSONText;
     }
 
     this.setState(
       {
         serviceSpec,
         errorMessage: null,
-        warningMessage
+        jsonLockReason
       }
     );
   }
@@ -236,10 +232,8 @@ class ServiceFormModal extends mixin(StoreMixin) {
 
     nextState.serviceSpec = serviceSpec;
     if (this.shouldDisableForm(serviceSpec)) {
-      nextState.warningMessage = {
-        message: 'Your config contains attributes we currently only support ' +
-        'in the JSON mode.'
-      };
+      nextState.jsonLockReason = SupportedOnlyInJSONText;
+
     } else {
       nextState.jsonMode = !this.state.jsonMode;
     }
@@ -532,34 +526,30 @@ class ServiceFormModal extends mixin(StoreMixin) {
 
   getToggleButton() {
     let classSet = 'modal-form-title-label';
+    let {jsonLockReason} = this.state;
 
-    if (this.shouldDisableForm(this.state.serviceSpec)) {
+    if (jsonLockReason) {
       classSet = `${classSet} disabled`;
     }
 
-    return (<ToggleButton
+    let toggleButton = (<ToggleButton
       className={classSet}
       checkboxClassName="modal-form-title-toggle-button toggle-button"
       checked={this.state.jsonMode}
       onChange={this.handleJSONToggle}>
       JSON mode
     </ToggleButton>);
-  }
 
-  getWarningMessage() {
-    let {warningMessage} = this.state;
-    if (!warningMessage) {
-      return null;
+    if (!jsonLockReason) {
+      return toggleButton;
     }
 
     return (
-      <div>
-        <div className="warning-field">
-          <div className="text-align-center flush-top">
-            {warningMessage.message}
-          </div>
-        </div>
-      </div>
+      <Tooltip
+        content={jsonLockReason}
+        interactive={true}>
+        {toggleButton}
+      </Tooltip>
     );
   }
 
@@ -584,7 +574,6 @@ class ServiceFormModal extends mixin(StoreMixin) {
         </div>
         <div className="header-full-width">
           {this.getErrorMessage()}
-          {this.getWarningMessage()}
         </div>
       </div>
     );
