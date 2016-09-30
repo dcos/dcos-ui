@@ -23,7 +23,7 @@ import ServiceUtil from '../../utils/ServiceUtil';
 import ToggleButton from '../ToggleButton';
 import ErrorPaths from '../../constants/ErrorPaths';
 
-const SupportedOnlyInJSONText = 'Your config contains attributes we currently only support in the JSON mode.';
+const SUPPORTED_ONLY_IN_JSON_TEXT = 'Your config contains attributes we currently only support in the JSON mode.';
 
 const METHODS_TO_BIND = [
   'getTriggerSubmit',
@@ -168,7 +168,7 @@ class ServiceFormModal extends mixin(StoreMixin) {
     let jsonLockReason = null;
     let jsonMode = false;
     if (this.shouldDisableForm(serviceSpec)) {
-      jsonLockReason = SupportedOnlyInJSONText;
+      jsonLockReason = SUPPORTED_ONLY_IN_JSON_TEXT;
       jsonMode = true;
     }
 
@@ -204,7 +204,7 @@ class ServiceFormModal extends mixin(StoreMixin) {
     let jsonLockReason = null;
 
     if (this.shouldDisableForm(serviceSpec)) {
-      jsonLockReason = SupportedOnlyInJSONText;
+      jsonLockReason = SUPPORTED_ONLY_IN_JSON_TEXT;
     }
 
     this.setState(
@@ -232,7 +232,7 @@ class ServiceFormModal extends mixin(StoreMixin) {
 
     nextState.serviceSpec = serviceSpec;
     if (this.shouldDisableForm(serviceSpec)) {
-      nextState.jsonLockReason = SupportedOnlyInJSONText;
+      nextState.jsonLockReason = SUPPORTED_ONLY_IN_JSON_TEXT;
 
     } else {
       nextState.jsonMode = !this.state.jsonMode;
@@ -547,7 +547,9 @@ class ServiceFormModal extends mixin(StoreMixin) {
     return (
       <Tooltip
         content={jsonLockReason}
-        interactive={true}>
+        interactive={true}
+        maxWidth={320}
+        wrapText={true} >
         {toggleButton}
       </Tooltip>
     );
