@@ -2,15 +2,19 @@
 
   .badge {
     background-color: @badge-background-color;
-    // TODO: Audit the need for this.
-    border-radius: 1000px !important;
+    border-radius: ceil(@badge-height);
     color: @body-background-color;
-    font-size: inherit;
-    line-height: inherit;
-    padding: 0 @base-spacing-unit * 0.25;
+    font-size: 80%;
+    height: @badge-height;
+    line-height: @badge-height;
+    padding: 0 @badge-padding-horizontal;
 
-    &:empty {
-      display: none;
+    &.badge-large {
+      border-radius: ceil(@badge-large-height);
+      font-size: 90%;
+      height: @badge-large-height;
+      line-height: @badge-large-height;
+      padding: 0 @badge-large-padding-horizontal;
     }
 
     &.inverse {
@@ -19,44 +23,16 @@
   }
 
   .badge-container {
+    align-items: baseline;
     display: flex;
 
-    & > *:first-child {
-      flex-grow: 1;
-      overflow: hidden;
-      text-align: left;
-      text-overflow: ellipsis;
-      white-space: nowrap;
+    .badge-container-text {
+      flex: 1 1 auto;
     }
 
     .badge {
-      align-self: center;
-      flex-shrink: 0;
+      flex: 0 0 auto;
       margin-left: 0.25 * @base-spacing-unit;
-    }
-
-    &.badge-primary {
-
-      .badge {
-        background-color: @purple;
-        color: color-lighten(@white, 40);
-      }
-    }
-
-    // TODO: This is specific to the packages view, so maybe move it there or
-    // find a better abstracted name.
-    &.selected-badge {
-      align-items: center;
-      margin-top: @base-spacing-unit * 0.25;
-
-      & > *:last-child {
-        margin-left: @base-spacing-unit * 0.5;
-      }
-
-      .badge {
-        flex-grow: 0;
-        padding: @base-spacing-unit * 0.15 @base-spacing-unit * 2/3 @base-spacing-unit * 0.15 @base-spacing-unit * 2/3;
-      }
     }
   }
 }
@@ -66,8 +42,22 @@
   @media (min-width: @layout-screen-small-min-width) {
 
     .badge {
+      border-radius: ceil(@badge-height-screen-small);
+      height: @badge-height-screen-small;
+      line-height: @badge-height-screen-small;
+      padding: 0 @badge-padding-horizontal-screen-small;
 
-      .badge-container & {
+      &.badge-large {
+        border-radius: ceil(@badge-large-height-screen-small);
+        height: @badge-large-height-screen-small;
+        line-height: @badge-large-height-screen-small;
+        padding: 0 @badge-large-padding-horizontal-screen-small;
+      }
+    }
+
+    .badge-container {
+
+      .badge {
         margin-left: 0.25 * @base-spacing-unit-screen-small;
       }
     }
@@ -79,8 +69,22 @@
   @media (min-width: @layout-screen-medium-min-width) {
 
     .badge {
+      border-radius: ceil(@badge-height-screen-medium);
+      height: @badge-height-screen-medium;
+      line-height: @badge-height-screen-medium;
+      padding: 0 @badge-padding-horizontal-screen-medium;
 
-      .badge-container & {
+      &.badge-large {
+        border-radius: ceil(@badge-large-height-screen-medium);
+        height: @badge-large-height-screen-medium;
+        line-height: @badge-large-height-screen-medium;
+        padding: 0 @badge-large-padding-horizontal-screen-medium;
+      }
+    }
+
+    .badge-container {
+
+      .badge {
         margin-left: 0.25 * @base-spacing-unit-screen-medium;
       }
     }
@@ -92,8 +96,22 @@
   @media (min-width: @layout-screen-large-min-width) {
 
     .badge {
+      border-radius: ceil(@badge-height-screen-large);
+      height: @badge-height-screen-large;
+      line-height: @badge-height-screen-large;
+      padding: 0 @badge-padding-horizontal-screen-large;
 
-      .badge-container & {
+      &.badge-large {
+        border-radius: ceil(@badge-large-height-screen-large);
+        height: @badge-large-height-screen-large;
+        line-height: @badge-large-height-screen-large;
+        padding: 0 @badge-large-padding-horizontal-screen-large;
+      }
+    }
+
+    .badge-container {
+
+      .badge {
         margin-left: 0.25 * @base-spacing-unit-screen-large;
       }
     }
@@ -105,8 +123,22 @@
   @media (min-width: @layout-screen-jumbo-min-width) {
 
     .badge {
+      border-radius: ceil(@badge-height-screen-jumbo);
+      height: @badge-height-screen-jumbo;
+      line-height: @badge-height-screen-jumbo;
+      padding: 0 @badge-padding-horizontal-screen-jumbo;
 
-      .badge-container & {
+      &.badge-large {
+        border-radius: ceil(@badge-large-height-screen-jumbo);
+        height: @badge-large-height-screen-jumbo;
+        line-height: @badge-large-height-screen-jumbo;
+        padding: 0 @badge-large-padding-horizontal-screen-jumbo;
+      }
+    }
+
+    .badge-container {
+
+      .badge {
         margin-left: 0.25 * @base-spacing-unit-screen-jumbo;
       }
     }

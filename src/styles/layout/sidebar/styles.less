@@ -1,8 +1,10 @@
+// TODO: Reduce the specificity, remove the mixin declarations in favor of
+// normal styles.
 & when (@sidebar-enabled) {
 
   // Sidebar
   .sidebar {
-    background: color-lighten(@neutral, -40);
+    background: @sidebar-background-color;
   }
 
   // TODO: Fix this positioning.
@@ -66,6 +68,7 @@
       }
 
       .icon {
+        flex: 0 0 auto;
         margin-right: 12px;
       }
 
@@ -77,6 +80,7 @@
         }
       }
 
+      // TODO: Give these elements classes, don't select more than one.
       & > a,
       & > span {
         .element-shape-style(sidebar-menu-item-link);
@@ -85,6 +89,7 @@
         .property-variant(sidebar-menu-item, height);
         align-items: center;
         display: flex;
+        flex: 1 1 auto;
         text-decoration: none !important;
         transition: background-color 0.15s ease;
 
@@ -124,6 +129,10 @@
         & > a:active {
           .element-shape-style(sidebar-menu-item-link-selected);
           .element-text-style(sidebar-menu-item-link-selected);
+        }
+
+        .badge {
+          background: @sidebar-background-color;
         }
       }
 
@@ -185,6 +194,10 @@
           }
         }
       }
+    }
+
+    .sidebar-menu-item-label {
+      width: 100%;
     }
   }
 }
