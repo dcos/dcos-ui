@@ -154,7 +154,7 @@ class NodeDetailPage extends mixin(TabsMixin, StoreMixin) {
           navigationTabs={this.getNavigation()}
           subTitle={this.getSubHeader(node)}
           title={node.hostname}>
-          <div className="container-pod container-pod-short flush-bottom">
+          <div className="pod pod-short flush-right flush-bottom flush-left">
             {this.getCharts('Node', node)}
           </div>
         </PageHeader>

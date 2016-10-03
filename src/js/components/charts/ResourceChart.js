@@ -50,11 +50,7 @@ class ResourceChart extends React.Component {
     maxY = Math.min(100, maxY); // Don't let it be greater than 100%
 
     return (
-      <div key={resource} className="column-12
-        flex-box-align-vertical-center
-        container-pod
-        container-pod-super-short
-        flush-top">
+      <div key={resource} className="column-12">
         <div className="media-object-spacing-wrapper media-object-spacing-narrow media-object-offset">
           <div className="media-object media-object-align-middle">
             <div className="media-object-item">
@@ -102,7 +98,7 @@ class ResourceChart extends React.Component {
 }
 
 ResourceChart.defaultProps = {
-  className: 'column-12 column-mini-4'
+  className: 'column-12 column-small-4'
 };
 
 ResourceChart.propTypes = {
