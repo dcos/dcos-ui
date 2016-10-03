@@ -67,7 +67,7 @@ let ResourceBarChart = React.createClass({
     let resourceLabels = ResourcesUtil.getResourceLabels();
 
     return ResourcesUtil.getDefaultResources().map((resource) => {
-      let classSet = classNames('button button-stroke button-inverse', {
+      let classSet = classNames('button button-stroke', {
         'active': selectedResource === resource
       });
 
@@ -101,10 +101,10 @@ let ResourceBarChart = React.createClass({
 
     return (
       <div>
-        <h4 className="flush inverse">
+        <h4 className="flush">
           {headline}
         </h4>
-        <p className="flush inverse">
+        <p className="flush">
           {this.props.itemCount + ' Total ' + this.props.resourceType}
         </p>
       </div>
@@ -115,15 +115,15 @@ let ResourceBarChart = React.createClass({
     return (
       <div className="pod flush-top flush-right flush-left">
         <div className="chart panel">
-          <div className="panel-header panel-header-large no-border flush-bottom">
+          <div className="panel-cell panel-header panel-cell-borderless text-align-center">
             <div className="panel-options button-group">
               {this.getModeButtons()}
             </div>
-            <div className="inverse">
+            <div>
               {this.getHeadline(this.props.selectedResource)}
             </div>
           </div>
-          <div className="panel-content" ref="panelContent">
+          <div className="panel-cell panel-content" ref="panelContent">
             {this.getBarChart()}
           </div>
         </div>
