@@ -27,7 +27,23 @@
   }
 
   .panel-grid {
+    align-content: stretch;
+    align-items: stretch;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
     margin-bottom: -1 * @panel-grid-margin-vertical;
+
+    .panel-grid-item {
+      display: flex;
+      flex: 0 0 auto;
+      float: none;
+
+      .panel {
+        flex: 1;
+      }
+    }
 
     .panel {
       margin-bottom: @panel-grid-margin-vertical;
