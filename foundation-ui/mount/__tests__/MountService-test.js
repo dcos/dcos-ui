@@ -5,7 +5,6 @@ const React = require('react');
 /* eslint-enable no-unused-vars */
 const TestUtils = require('react-addons-test-utils');
 
-
 const MountPoint = require('../MountPoint');
 const MountService = require('../MountService');
 
@@ -18,7 +17,7 @@ describe('MountService', function () {
       this.listenerAction = jasmine.createSpy('listenerAction');
       MountService.register('foo', this.registerAction, 11);
       MountService.addListener('foo', this.listenerAction, 11);
-    })
+    });
 
     afterEach(function () {
       MountService.removeListener('foo', this.listenerAction);
@@ -103,7 +102,7 @@ describe('MountService', function () {
       var registerAndGetContent = function () {
         MountService.register('foo', this.getNonElement);
         MountService.getContent('foo');
-      }
+      };
 
       expect(registerAndGetContent).toThrow();
     });
