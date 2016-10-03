@@ -553,7 +553,7 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
     let {isLoading} = this.internalStorage_get();
     let cosmosPackage = CosmosPackagesStore.getPackageDetails();
 
-    if (cosmosPackage && !cosmosPackage.isCLIOnly()) {
+    if (cosmosPackage && cosmosPackage.isCLIOnly()) {
       return this.getCLIPackageInfo(cosmosPackage);
     }
 
