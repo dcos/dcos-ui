@@ -11,6 +11,7 @@ import Image from '../../components/Image';
 import ImageViewer from '../../components/ImageViewer';
 import InstallPackageModal from '../../components/modals/InstallPackageModal';
 import Loader from '../../components/Loader';
+import MetadataStore from '../../stores/MetadataStore';
 import RequestErrorMsg from '../../components/RequestErrorMsg';
 import StringUtil from '../../utils/StringUtil';
 
@@ -172,6 +173,25 @@ class PackageDetailTab extends mixin(StoreMixin) {
     return versionTag;
   }
 
+  getInstallButton(cosmosPackage) {
+    if (cosmosPackage.isCLIOnly()) {
+      return (
+        <div>
+          <p>CLI Only Package</p>
+          <p>This package can only be installed using the CLI. See the <a href={MetadataStore.buildDocsURI('/usage/managing-services/install/#installing-a-service-using-the-cli')} target="_blank">documentation</a>.</p>
+        </div>
+      );
+    }
+
+    return (
+      <button
+        className="button button-success"
+        onClick={this.handleInstallModalOpen}>
+        Install Package
+      </button>
+    );
+  }
+
   render() {
     let {props, state} = this;
 
@@ -231,11 +251,7 @@ class PackageDetailTab extends mixin(StoreMixin) {
                   {name}
                 </h1>
                 <p>{this.getSelectedBadge(cosmosPackage, version)}</p>
-                <button
-                  className="button button-success"
-                  onClick={this.handleInstallModalOpen}>
-                  Install Package
-                </button>
+                {this.getInstallButton(cosmosPackage)}
               </div>
             </div>
           </div>
