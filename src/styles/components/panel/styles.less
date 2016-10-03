@@ -5,6 +5,21 @@
     flex: 0 0 auto;
   }
 
+  .panel-header {
+
+    .panel-options {
+
+      &.button-group {
+        display: flex;
+        justify-content: center;
+
+        .button {
+          flex: 1 0 auto;
+        }
+      }
+    }
+  }
+
   .panel-content {
     display: flex;
     flex: 1 1 auto;
@@ -23,6 +38,19 @@
 & when (@panel-enabled) and (@layout-screen-small-enabled) {
 
   @media (min-width: @layout-screen-small-min-width) {
+
+    .panel-header {
+
+      .panel-options {
+
+        &.button-group {
+
+          .button {
+            flex: 0 0 auto;
+          }
+        }
+      }
+    }
 
     .panel-grid {
       margin-bottom: -1 * @panel-grid-margin-vertical-screen-small;
@@ -52,6 +80,15 @@
 
   @media (min-width: @layout-screen-large-min-width) {
 
+    .panel-header {
+
+      .panel-options {
+        left: @panel-cell-padding-left-screen-large;
+        position: absolute;
+        top: @panel-cell-padding-top-screen-large;
+      }
+    }
+
     .panel-grid {
       margin-bottom: -1 * @panel-grid-margin-vertical-screen-large;
 
@@ -65,6 +102,14 @@
 & when (@panel-enabled) and (@layout-screen-jumbo-enabled) {
 
   @media (min-width: @layout-screen-jumbo-min-width) {
+
+    .panel-header {
+
+      .panel-options {
+        left: @panel-cell-padding-left-screen-jumbo;
+        top: @panel-cell-padding-top-screen-jumbo;
+      }
+    }
 
     .panel-grid {
       margin-bottom: -1 * @panel-grid-margin-vertical-screen-jumbo;
