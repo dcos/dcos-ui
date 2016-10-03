@@ -17,9 +17,21 @@ var Panel = React.createClass({
     footer: React.PropTypes.node,
 
     // classes
-    contentClass: React.PropTypes.string,
-    headingClass: React.PropTypes.string,
-    footerClass: React.PropTypes.string,
+    contentClass: React.PropTypes.oneOfType([
+      React.PropTypes.array,
+      React.PropTypes.object,
+      React.PropTypes.string
+    ]),
+    headingClass: React.PropTypes.oneOfType([
+      React.PropTypes.array,
+      React.PropTypes.object,
+      React.PropTypes.string
+    ]),
+    footerClass: React.PropTypes.oneOfType([
+      React.PropTypes.array,
+      React.PropTypes.object,
+      React.PropTypes.string
+    ]),
     onClick: React.PropTypes.func
   },
 
