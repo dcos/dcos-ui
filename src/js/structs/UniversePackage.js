@@ -58,10 +58,6 @@ class UniversePackage extends Item {
     );
   }
 
-  isSelected() {
-    return this.get('selected');
-  }
-
   getLicenses() {
     return this.get('licenses') || [];
   }
@@ -92,6 +88,17 @@ class UniversePackage extends Item {
 
   getTags() {
     return this.get('tags') || [];
+  }
+
+  isCLIOnly() {
+    return !Util.findNestedPropertyInObject(
+      this.get('marathon'),
+      'v2AppMustacheTemplate'
+    );
+  }
+
+  isSelected() {
+    return this.get('selected');
   }
 }
 
