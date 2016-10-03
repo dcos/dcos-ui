@@ -47,13 +47,6 @@ class UniversePackage extends Item {
     );
   }
 
-  getMetadata() {
-    return Util.findNestedPropertyInObject(
-      this.get('marathon'),
-      'v2AppMustacheTemplate'
-    );
-  }
-
   getName() {
     return this.get('name');
   }
@@ -63,10 +56,6 @@ class UniversePackage extends Item {
       this.get('resource'),
       'images.screenshots'
     );
-  }
-
-  isSelected() {
-    return this.get('selected');
   }
 
   getLicenses() {
@@ -99,6 +88,17 @@ class UniversePackage extends Item {
 
   getTags() {
     return this.get('tags') || [];
+  }
+
+  isCLIOnly() {
+    return !Util.findNestedPropertyInObject(
+      this.get('marathon'),
+      'v2AppMustacheTemplate'
+    );
+  }
+
+  isSelected() {
+    return this.get('selected');
   }
 }
 

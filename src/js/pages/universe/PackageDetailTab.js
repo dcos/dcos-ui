@@ -175,10 +175,10 @@ class PackageDetailTab extends mixin(StoreMixin) {
 
   getInstallButton(cosmosPackage) {
     // CLI only package
-    if (!cosmosPackage.getMetadata()) {
+    if (!cosmosPackage.isCLIOnly()) {
       return (
         <div>
-          <p>CLI only package</p>
+          <p>CLI Only Package</p>
           <p>This package can only be installed using the CLI. See the <a href={MetadataStore.buildDocsURI('/usage/managing-services/install/#installing-a-service-using-the-cli')} target="_blank">documentation</a>.</p>
         </div>
       );

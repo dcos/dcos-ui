@@ -529,7 +529,7 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
             <p className="h2 short-top short-bottom">
               {cosmosPackage.getName()}
             </p>
-            <p>CLI only package</p>
+            <p>CLI Only Package</p>
             <p className="flush-bottom">
               This package can only be installed using the CLI. See the <a href={MetadataStore.buildDocsURI('/usage/managing-services/install/#installing-a-service-using-the-cli')} target="_blank">documentation</a>.
             </p>
@@ -554,7 +554,7 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
     let cosmosPackage = CosmosPackagesStore.getPackageDetails();
 
     // CLI only package
-    if (cosmosPackage && !cosmosPackage.getMetadata()) {
+    if (cosmosPackage && !cosmosPackage.isCLIOnly()) {
       return this.getCLIPackageInfo(cosmosPackage);
     }
 
