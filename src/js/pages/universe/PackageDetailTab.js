@@ -174,7 +174,6 @@ class PackageDetailTab extends mixin(StoreMixin) {
   }
 
   getInstallButton(cosmosPackage) {
-    // CLI only package
     if (!cosmosPackage.isCLIOnly()) {
       return (
         <div>
