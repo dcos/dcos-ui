@@ -1,6 +1,6 @@
 import React, {PropTypes} from 'react';
 
-import hooks from './hooks';
+import MountService from './MountService';
 
 const METHODS_TO_BIND = [
   'updateState'
@@ -60,10 +60,7 @@ class MountPoint extends React.Component {
 
   componentWillMount() {
     this.updateState();
-    // Register for changes in MountService specific to this id.
-    // Whenever MountService has a change it will end up invoking updateState
-    // so we can get the newly filtered children.
-    hooks.addAction(this.props.id, this.updateState);
+    MountService.addListener(this.props.id, this.updateState);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -72,7 +69,7 @@ class MountPoint extends React.Component {
   }
 
   componentWillUnmount() {
-    hooks.removeAction(this.props.id, this.updateState);
+    MountService.removeListener(this.props.id, this.updateState);
   }
 
   updateState(props = this.props) {
@@ -87,7 +84,7 @@ class MountPoint extends React.Component {
       return memo;
     }, {});
 
-    let filteredChildren = hooks.applyFilter(
+    let filteredChildren = MountService.getContent(
       id,
       React.Children.toArray(children),
       childProps
