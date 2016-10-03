@@ -126,12 +126,13 @@ class PackagesTab extends mixin(StoreMixin) {
     return packages.getItems().map((cosmosPackage, index) => {
       return (
         <div
-          className="panel-grid-item column-12 column-small-6 column-medium-4 column-large-3 clickable"
+          className="grid-item column-mini-6 column-medium-4 column-large-3"
           key={index}>
           <Panel
-            contentClass="horizontal-center"
+            className="panel clickable"
+            contentClass="panel-content short-bottom tall-top horizontal-center"
             footer={this.getButton(cosmosPackage)}
-            footerClass="horizontal-center"
+            footerClass="panel-footer tall-bottom horizontal-center no-border-top flush-top"
             onClick={this.handleDetailOpen.bind(this, cosmosPackage)}>
             {this.getIcon(cosmosPackage)}
             <div className="h2 inverse short">
@@ -163,7 +164,7 @@ class PackagesTab extends mixin(StoreMixin) {
       <div className="clearfix">
         {this.getBorderedTitle('Selected Packages', true)}
         <div className="container-pod container-pod-short">
-          <div className="panel-grid row">
+          <div className="grid row">
             {this.getSelectedPackages(packages)}
           </div>
         </div>
