@@ -375,7 +375,7 @@ describe('Util', function () {
   describe('#filterEmptyValues', function () {
     it('filters empty values from an Object', function () {
       let expectedObject = {
-        ooleanFalse: false,
+        booleanFalse: false,
         booleanTrue: true,
         string: 'string',
         array: [1, 2, 3],
