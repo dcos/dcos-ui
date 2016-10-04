@@ -194,7 +194,7 @@ class RepositoriesTable extends mixin(StoreMixin) {
     }
 
     return (
-      <div className="container-pod container-pod-short text-align-center">
+      <div className="text-align-center">
         <h3 className="flush-top">Are you sure?</h3>
         <p>
           {`Repository (${repositoryLabel}) will be removed from ${Config.productName}. You will not be able to install any packages belonging to that repository anymore.`}
@@ -218,8 +218,6 @@ class RepositoriesTable extends mixin(StoreMixin) {
         <Confirm
           closeByBackdropClick={true}
           disabled={state.pendingRequest}
-          footerContainerClass="container container-pod container-pod-short
-            container-pod-fluid flush-top flush-bottom"
           open={!!state.repositoryToRemove}
           onClose={this.handleDeleteCancel}
           leftButtonCallback={this.handleDeleteCancel}

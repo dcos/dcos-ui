@@ -103,7 +103,7 @@ class VirtualNetworkDetail extends mixin(StoreMixin, TabsMixin) {
 
   getLoadingScreen() {
     return (
-      <div className="container container-fluid container-pod">
+      <div className="pod">
         <Loader />
       </div>
     );
@@ -124,7 +124,7 @@ class VirtualNetworkDetail extends mixin(StoreMixin, TabsMixin) {
     });
 
     return (
-      <div className="flex-container-col flex-grow flex-shrink container-pod container-pod-divider-bottom-align-right container-pod-short-top flush-bottom flush-top">
+      <div>
         <Breadcrumbs />
         {this.getBasicInfo(overlay)}
         <RouteHandler overlay={overlay} />

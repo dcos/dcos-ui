@@ -64,7 +64,7 @@ class ImageViewer extends React.Component {
     }
 
     return (
-      <div className="container-pod container-pod-short-bottom flush-top">
+      <div className="pod pod-short flush-top flush-right flush-left">
         <h5 className="flush-top">Media</h5>
         <div className="media-object-spacing-wrapper media-object-offset">
           <div className="media-object flex-box flex-box-wrap">

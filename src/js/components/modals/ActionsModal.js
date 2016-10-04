@@ -100,7 +100,7 @@ class ActionsModal extends mixin(StoreMixin) {
     let {requestErrors, validationError} = this.state;
 
     return (
-      <div className="container-pod container-pod-short text-align-center">
+      <div className="text-align-center">
         <h3 className="flush-top">{actionText.title}</h3>
         <p>{this.getActionsModalContentsText()}</p>
         {this.getDropdown(itemType)}
@@ -160,21 +160,19 @@ class ActionsModal extends mixin(StoreMixin) {
     }
 
     return (
-      <div className="container container-pod container-pod-super-short">
-        <Dropdown
-          buttonClassName="button dropdown-toggle"
-          dropdownMenuClassName="dropdown-menu"
-          dropdownMenuListClassName="dropdown-menu-list"
-          dropdownMenuListItemClassName="clickable"
-          initialID={DEFAULT_ID}
-          items={this.getDropdownItems(itemType)}
-          onItemSelection={this.handleItemSelection}
-          scrollContainer=".gm-scroll-view"
-          scrollContainerParentSelector=".gm-prevented"
-          transition={true}
-          transitionName="dropdown-menu"
-          wrapperClassName="dropdown text-align-left" />
-      </div>
+      <Dropdown
+        buttonClassName="button dropdown-toggle"
+        dropdownMenuClassName="dropdown-menu"
+        dropdownMenuListClassName="dropdown-menu-list"
+        dropdownMenuListItemClassName="clickable"
+        initialID={DEFAULT_ID}
+        items={this.getDropdownItems(itemType)}
+        onItemSelection={this.handleItemSelection}
+        scrollContainer=".gm-scroll-view"
+        scrollContainerParentSelector=".gm-prevented"
+        transition={true}
+        transitionName="dropdown-menu"
+        wrapperClassName="dropdown text-align-left" />
     );
   }
 
@@ -213,8 +211,6 @@ class ActionsModal extends mixin(StoreMixin) {
     return (
       <Confirm
         disabled={this.state.pendingRequest}
-        footerContainerClass="container container-pod container-pod-short
-          container-pod-fluid flush-top flush-bottom"
         open={!!action}
         onClose={this.handleButtonCancel}
         leftButtonCallback={this.handleButtonCancel}

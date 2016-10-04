@@ -121,11 +121,7 @@ class NestedServiceLinks extends React.Component {
       minorLinkWrapperClassName
     } = this.props;
 
-    let classes = classNames(
-      'container container-fluid container-pod',
-      'flush flush-top flush-bottom',
-      className
-    );
+    let classes = classNames(className);
 
     let majorLinkClasses = classNames(
       'text-overflow',

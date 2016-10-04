@@ -10,12 +10,10 @@ class NodeDetailTaskTab extends React.Component {
     let tasks = MesosStateStore.getTasksFromNodeID(nodeID);
 
     return (
-      <div className="container container-fluid flush">
-        <TaskView
-          tasks={tasks}
-          parentRouter={this.context.router}
-          nodeID={nodeID} />
-      </div>
+      <TaskView
+        tasks={tasks}
+        parentRouter={this.context.router}
+        nodeID={nodeID} />
     );
   }
 }

@@ -90,16 +90,13 @@ class PodDetail extends mixin(TabsMixin) {
     const {activeActionDialog} = this.state;
 
     return (
-      <div className="flex-container-col">
-        <div className="container-pod container-pod-divider-bottom-align-right container-pod-short-top flush-bottom flush-top media-object-spacing-wrapper media-object-spacing-narrow">
-          <Breadcrumbs />
-          <PodHeader
-            onAction={this.handleAction}
-            pod={pod}
-            tabs={this.tabs_getUnroutedTabs()} />
-          {this.tabs_getTabView()}
-        </div>
-
+      <div>
+        <Breadcrumbs />
+        <PodHeader
+          onAction={this.handleAction}
+          pod={pod}
+          tabs={this.tabs_getUnroutedTabs()} />
+        {this.tabs_getTabView()}
         <ServiceScaleFormModal
           onClose={this.handleCloseDialog}
           open={activeActionDialog === PodActionItem.SCALE}
@@ -117,7 +114,6 @@ class PodDetail extends mixin(TabsMixin) {
           open={activeActionDialog === PodActionItem.EDIT}
           isEdit={true}
           service={pod} />
-
       </div>
     );
   }

@@ -82,7 +82,7 @@ class NetworkPage extends mixin(TabsMixin) {
 
   getLoadingScreen() {
     return (
-      <div className="container container-fluid container-pod">
+      <div className="pod">
         <Loader />
       </div>
     );
@@ -119,12 +119,10 @@ class NetworkPage extends mixin(TabsMixin) {
     }
 
     return (
-      <div className="container-pod container-pod-short flush-top">
-        <div className="container-pod container-pod-divider-bottom container-pod-divider-inverse container-pod-divider-bottom-align-right flush-top flush-bottom">
-          <ul className="menu-tabbed">
-            {subTabs}
-          </ul>
-        </div>
+      <div className="pod pod-short flush-top flush-right flush-left">
+        <ul className="menu-tabbed">
+          {subTabs}
+        </ul>
       </div>
     );
   }
