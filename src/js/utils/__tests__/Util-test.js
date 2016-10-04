@@ -395,7 +395,7 @@ describe('Util', function () {
         number: 123,
         nullValue: null,
         undefinedValue: undefined
-      }), expectedObject);
+      })).toEqual(expectedObject);
     });
 
   });
