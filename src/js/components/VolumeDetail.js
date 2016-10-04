@@ -61,7 +61,7 @@ class VolumeDetail extends React.Component {
     return (
       <div>
         <Breadcrumbs />
-        <DetailViewHeader
+        <PageHeader
           subTitle={this.renderSubHeader(volume)}
           title={volume.getId()} />
         {pageContent}
