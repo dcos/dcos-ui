@@ -51,15 +51,13 @@ class ServiceRestartModal extends ServiceActionModal {
         rightButtonText="Restart Service"
         rightButtonClassName="button button-danger"
         rightButtonCallback={this.handleConfirmClick}>
-        <div className="container-pod flush-top container-pod-short-bottom">
-          <h2 className="text-align-center flush-top">
-            Restart Service
-          </h2>
-          <p>
-            Are you sure you want to restart <span className="emphasize">{serviceName}</span>?
-          </p>
-          {this.getErrorMessage()}
-        </div>
+        <h2 className="text-align-center flush-top">
+          Restart Service
+        </h2>
+        <p>
+          Are you sure you want to restart <span className="emphasize">{serviceName}</span>?
+        </p>
+        {this.getErrorMessage()}
       </Confirm>
     );
   }

@@ -98,7 +98,7 @@ class NodeDetailPage extends mixin(TabsMixin, StoreMixin) {
 
   getLoadingScreen() {
     return (
-      <div className="container container-fluid container-pod">
+      <div className="pod">
         <Loader />
       </div>
     );
@@ -106,7 +106,7 @@ class NodeDetailPage extends mixin(TabsMixin, StoreMixin) {
 
   getNotFound(nodeID) {
     return (
-      <div className="container container-fluid container-pod text-align-center">
+      <div className="pod text-align-center">
         <h3 className="flush-top text-align-center">
           Error finding node
         </h3>

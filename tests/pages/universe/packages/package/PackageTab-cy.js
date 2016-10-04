@@ -16,8 +16,9 @@ describe('Package Detail Tab', function () {
   });
 
   it('displays marathon package details', function () {
+
     cy
-      .get('.page-body-content .gm-scroll-view .container-pod.container-pod-super-short-bottom.flush-top p')
+      .get('.page-body-content .gm-scroll-view .pod p')
       .as('information');
 
     cy

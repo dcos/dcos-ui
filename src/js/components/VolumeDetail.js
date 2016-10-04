@@ -61,11 +61,7 @@ class VolumeDetail extends React.Component {
     return (
       <div>
         <Breadcrumbs />
-        <PageHeader
-          dividerClassName={{
-            'container-pod-divider-bottom': false,
-            'flush-bottom': true
-          }}
+        <DetailViewHeader
           subTitle={this.renderSubHeader(volume)}
           title={volume.getId()} />
         {pageContent}

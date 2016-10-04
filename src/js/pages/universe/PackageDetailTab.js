@@ -110,8 +110,7 @@ class PackageDetailTab extends mixin(StoreMixin) {
     }
 
     return (
-      <div
-        className="container-pod container-pod-super-short-bottom flush-top"
+      <div className="pod pod-shorter flush-top flush-right flush-left"
         key={key}>
         <h5 className="flush-top">{label}</h5>
         {value}
@@ -121,7 +120,7 @@ class PackageDetailTab extends mixin(StoreMixin) {
 
   getLoadingScreen() {
     return (
-      <div className="container container-fluid container-pod">
+      <div className="pod">
         <Loader />
       </div>
     );
@@ -237,15 +236,13 @@ class PackageDetailTab extends mixin(StoreMixin) {
     return (
       <div>
         <Breadcrumbs />
-        <div className="container-pod container-pod-divider-bottom container-pod-divider-inverse flush-top flush-bottom">
-          <div className="media-object-spacing-wrapper">
-            <div className="media-object media-object-align-middle">
-              <div className="media-object-item">
-                <div className="icon icon-huge icon-image-container icon-app-container icon-default-white">
-                  <Image
-                    fallbackSrc={defaultServiceImage}
-                    src={cosmosPackage.getIcons()['icon-large']} />
-                </div>
+        <div className="media-object-spacing-wrapper">
+          <div className="media-object media-object-align-middle">
+            <div className="media-object-item">
+              <div className="icon icon-huge icon-image-container icon-app-container icon-default-white">
+                <Image
+                  fallbackSrc={defaultServiceImage}
+                  src={cosmosPackage.getIcons()['icon-large']} />
               </div>
               <div className="media-object-item">
                 <h1 className="flush">
@@ -255,9 +252,20 @@ class PackageDetailTab extends mixin(StoreMixin) {
                 {this.getInstallButton(cosmosPackage)}
               </div>
             </div>
+            <div className="media-object-item">
+              <h1 className="flush">
+                {name}
+              </h1>
+              <p>{this.getSelectedBadge(cosmosPackage, version)}</p>
+              <button
+                className="button button-success"
+                onClick={this.handleInstallModalOpen}>
+                Install Package
+              </button>
+            </div>
           </div>
         </div>
-        <div className="container-pod container-pod-short">
+        <div className="pod pod-short flush-right flush-left">
           {this.getItems(definition, this.getItem)}
           <ImageViewer images={cosmosPackage.getScreenshots()} />
         </div>

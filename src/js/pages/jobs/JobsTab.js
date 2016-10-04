@@ -177,7 +177,7 @@ class JobsTab extends mixin(StoreMixin, QueryParamsMixin, SaveStateMixin) {
     // Render loading screen
     if (!DCOSStore.dataProcessed) {
       return (
-        <div className="container container-fluid container-pod">
+        <div className="pod">
           <Loader />
         </div>
       );

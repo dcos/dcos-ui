@@ -10,12 +10,10 @@ class NodeDetailHealthTab extends React.Component {
     let units = NodeHealthStore.getUnits(node.hostname);
 
     return (
-      <div className="container container-fluid flush">
-        <HealthTab
-          node={node}
-          units={units}
-          parentRouter={this.context.router} />
-      </div>
+      <HealthTab
+        node={node}
+        units={units}
+        parentRouter={this.context.router} />
     );
   }
 }

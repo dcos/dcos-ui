@@ -91,8 +91,8 @@ module.exports = {
               replacement: function () {
                 return (
                   '<div id="canvas">' +
-                    '<div class="application-loading-indicator container ' +
-                      'container-pod vertical-center">' +
+                    '<div class="application-loading-indicator pod ' +
+                      'vertical-center">' +
                       bootstrap.HTML +
                     '</div>' +
                   '</div>'

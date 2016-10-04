@@ -98,7 +98,7 @@ class KillTaskModal extends mixin(StoreMixin) {
     let taskCountContent = `${selectedItemsLength} ${StringUtil.pluralize('Task', selectedItemsLength)}`;
 
     return (
-      <div className={'container container-pod container-pod-short-top text-align-center flush-bottom'}>
+      <div className={'pod pod-short flush-right flush-bottom flush-left text-align-center'}>
         <h2 className="text-danger text-align-center flush-top">
           {action} {StringUtil.pluralize('Task', selectedItemsLength)}
         </h2>

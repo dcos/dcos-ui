@@ -117,17 +117,11 @@ class ServiceDetail extends mixin(InternalStorageMixin, TabsMixin) {
     let {serviceActionDialog} = this.state;
 
     return (
-      <div className="flex-container-col">
-        <div className="container-pod
-          container-pod-divider-bottom-align-right
-          container-pod-short-top flush-bottom flush-top
-          service-detail-header media-object-spacing-wrapper
-          media-object-spacing-narrow">
-          <Breadcrumbs />
-          <ServiceInfo onActionsItemSelection={this.onActionsItemSelection}
-            service={service} tabs={this.tabs_getUnroutedTabs()} />
-          {this.tabs_getTabView()}
-        </div>
+      <div>
+        <Breadcrumbs />
+        <ServiceInfo onActionsItemSelection={this.onActionsItemSelection}
+          service={service} tabs={this.tabs_getUnroutedTabs()} />
+        {this.tabs_getTabView()}
         <ServiceFormModal isEdit={true}
           open={serviceActionDialog === ServiceActionItem.EDIT}
           service={service}

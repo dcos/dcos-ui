@@ -315,7 +315,7 @@ class DeploymentsTab extends mixin(StoreMixin) {
 
   renderLoading() {
     return (
-      <div className="container container-fluid container-pod">
+      <div className="pod">
         <Loader />
       </div>
     );
@@ -352,15 +352,13 @@ class DeploymentsTab extends mixin(StoreMixin) {
         <Confirm
           closeByBackdropClick={true}
           disabled={!!awaitingRevertDeploymentResponse}
-          footerContainerClass="container container-pod container-pod-short
-            container-pod-fluid flush-top flush-bottom"
           onClose={this.handleRollbackCancel}
           leftButtonCallback={this.handleRollbackCancel}
           leftButtonText="Cancel"
           rightButtonClassName="button button-danger"
           rightButtonCallback={this.handleRollbackConfirm}
           rightButtonText="Continue Rollback">
-          <div className="container-pod container-pod-short text-align-center">
+          <div className="text-align-center">
             <h3 className="flush-top">You're About To Rollback The Deployment</h3>
             <p>{this.getRollbackModalText(deploymentToRollback)}</p>
             {this.renderRollbackError(deploymentRollbackError)}

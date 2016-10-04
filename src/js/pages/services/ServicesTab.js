@@ -203,7 +203,7 @@ var ServicesTab = React.createClass({
   getContents(item) {
     if (this.state.marathonErrorCount > 3) {
       return (
-        <div className="container container-pod">
+        <div className="pod">
           <RequestErrorMsg />
         </div>
       );
@@ -212,7 +212,7 @@ var ServicesTab = React.createClass({
     // Render loading screen
     if (!DCOSStore.dataProcessed) {
       return (
-        <div className="container container-fluid container-pod">
+        <div className="pod">
           <Loader />
         </div>
       );
