@@ -192,7 +192,7 @@ var ServicesTable = React.createClass({
           params={{id}}>
           {this.getImage(service)}
         </Link>
-        <span className="flex-shrink flex-grow text-overflow">
+        <span className="table-cell-value">
           {this.getServiceLink(service)}
           {this.getOpenInNewWindowLink(service)}
         </span>
