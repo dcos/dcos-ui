@@ -60,7 +60,6 @@ class TaskDetailsTab extends React.Component {
 
     return (
       <DescriptionList
-        className="container container-fluid flush container-pod container-pod-super-short flush-top"
         hash={headerValueMapping}
         headline="Configuration" />
     );
@@ -80,7 +79,6 @@ class TaskDetailsTab extends React.Component {
 
     return (
       <DescriptionList
-        className="container container-fluid flush container-pod container-pod-super-short flush-top"
         hash={labelMapping}
         headline="Labels" />
     );
@@ -135,8 +133,8 @@ class TaskDetailsTab extends React.Component {
     let {task} = this.props;
 
     return (
-      <div className="container container-fluid flush">
-        <div className="media-object-spacing-wrapper container-pod container-pod-super-short flush-top flush-bottom">
+      <div>
+        <div className="media-object-spacing-wrapper">
           <div className="media-object">
             {this.getResources(task)}
           </div>

@@ -3,8 +3,6 @@ import React from 'react';
 import DescriptionList from '../../components/DescriptionList';
 import Job from '../../structs/Job';
 
-const SECTION_CLASS_NAME = 'container-fluid container-pod container-pod-super-short flush flush-bottom';
-
 class JobConfiguration extends React.Component {
 
   getSchedule(job) {
@@ -28,7 +26,7 @@ class JobConfiguration extends React.Component {
     };
 
     return (
-      <DescriptionList className={SECTION_CLASS_NAME}
+      <DescriptionList
         hash={headerValueMapping}
         headline="General" />
     );
@@ -49,7 +47,7 @@ class JobConfiguration extends React.Component {
     };
 
     return (
-      <DescriptionList className={SECTION_CLASS_NAME}
+      <DescriptionList
         hash={headerValueMapping}
         headline="Schedule" />
     );
@@ -66,7 +64,7 @@ class JobConfiguration extends React.Component {
     };
 
     return (
-      <DescriptionList className={SECTION_CLASS_NAME}
+      <DescriptionList
         hash={headerValueMapping}
         headline="Docker Container" />
     );
@@ -74,7 +72,7 @@ class JobConfiguration extends React.Component {
 
   getLabelSection(job) {
     return (
-      <DescriptionList className={SECTION_CLASS_NAME}
+      <DescriptionList
         hash={job.getLabels()}
         headline="Labels" />
     );

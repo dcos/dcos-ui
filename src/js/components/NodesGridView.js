@@ -140,7 +140,7 @@ var NodesGridView = React.createClass({
     });
 
     return (
-      <div className="container container-fluid container-pod">
+      <div className="pod flush-left flush-right">
         <Loader className={loadingClassSet} />
         {errorMsg}
       </div>

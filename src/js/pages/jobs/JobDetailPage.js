@@ -230,11 +230,11 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
     }
 
     let content = (
-      <div className="container-pod flush-top container-pod-short-bottom">
+      <div>
         <h2 className="text-danger text-align-center flush-top">
           Destroy Job
         </h2>
-        {message}
+        <p>{message}</p>
       </div>
     );
 
@@ -254,7 +254,7 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
 
   getErrorScreen() {
     return (
-      <div className="container container-fluid container-pod text-align-center vertical-center">
+      <div className="pod">
         <RequestErrorMsg />
       </div>
     );
@@ -262,7 +262,7 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
 
   getLoadingScreen() {
     return (
-      <div className="container container-fluid container-pod">
+      <div className="pod">
         <Loader />
       </div>
     );

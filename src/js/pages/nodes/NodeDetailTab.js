@@ -20,12 +20,12 @@ class NodeDetailTab extends React.Component {
     };
 
     return (
-      <div className="container container-fluid flush">
+      <div>
         <DescriptionList
-          className="container container-fluid flush container-pod container-pod-super-short flush-top"
+          className="pod pod-short flush-top flush-right flush-left"
           hash={headerValueMapping} />
         <DescriptionList
-          className="container container-fluid flush container-pod container-pod-super-short flush-top"
+          className="pod pod-short flush-top flush-right flush-left"
           hash={node.attributes}
           headline="Attributes" />
       </div>

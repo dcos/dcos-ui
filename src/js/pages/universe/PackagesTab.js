@@ -111,7 +111,7 @@ class PackagesTab extends mixin(StoreMixin) {
 
   getLoadingScreen() {
     return (
-      <div className="container container-fluid container-pod">
+      <div className="pod">
         <Loader />
       </div>
     );
@@ -147,12 +147,8 @@ class PackagesTab extends mixin(StoreMixin) {
     });
   }
 
-  getBorderedTitle(title) {
-    return (
-      <div className="container-pod container-pod-divider-bottom container-pod-divider-inverse flush-bottom flush-top">
-        <h4>{title}</h4>
-      </div>
-    );
+  getTitle(title) {
+    return <h4>{title}</h4>;
   }
 
   getSelectedPackagesGrid(packages) {
@@ -162,8 +158,8 @@ class PackagesTab extends mixin(StoreMixin) {
 
     return (
       <div className="clearfix">
-        {this.getBorderedTitle('Selected Packages', true)}
-        <div className="container-pod container-pod-short">
+        {this.getTitle('Selected Packages', true)}
+        <div className="pod pod-short flush-right flush-left">
           <div className="panel-grid row">
             {this.getSelectedPackages(packages)}
           </div>
@@ -184,7 +180,7 @@ class PackagesTab extends mixin(StoreMixin) {
 
     return (
       <div>
-        {this.getBorderedTitle(title, false)}
+        {this.getTitle(title, false)}
         <DisplayPackagesTable
           onDeploy={this.handleInstallModalOpen.bind(this)}
           onDetailOpen={this.handleDetailOpen.bind(this)}

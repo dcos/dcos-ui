@@ -98,7 +98,7 @@ module.exports = class ServerErrorModal extends mixin(StoreMixin) {
     });
 
     return (
-      <div className="container container-pod container-pod-short">
+      <div className="pod pod-short flush-right flush-left">
         {errorMessages}
       </div>
     );

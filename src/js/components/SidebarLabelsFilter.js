@@ -149,7 +149,7 @@ class SidebarLabelsFilters extends mixin(QueryParamsMixin) {
     }
 
     const labelsListClassNames = classNames(
-      'container-pod container-pod-super-super-short flush-bottom list-unstyled'
+      'pod pod-shorter flush-right flush-bottom flush-left list-unstyled'
     );
 
     return (
