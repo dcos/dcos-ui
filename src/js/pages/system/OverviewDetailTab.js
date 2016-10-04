@@ -81,7 +81,7 @@ class OverviewDetailTab extends mixin(StoreMixin) {
 
   buildDescriptionList(hash, addSpacing) {
     let headlineClassName = classNames({
-      'h4 inverse': true,
+      'h4': true,
       'flush-top': !addSpacing
     });
 
