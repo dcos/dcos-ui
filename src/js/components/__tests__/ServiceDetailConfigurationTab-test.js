@@ -1,5 +1,5 @@
 jest.dontMock('../ServiceDetailConfigurationTab');
-jest.dontMock('../ConfigurationView');
+jest.dontMock('../ServiceSpecView');
 
 /* eslint-disable no-unused-vars */
 const React = require('react');
@@ -9,7 +9,7 @@ const TestUtils = require('react-addons-test-utils');
 
 const Application = require('../../structs/Application');
 const ServiceDetailConfigurationTab = require('../ServiceDetailConfigurationTab');
-const ConfigurationView = require('../ConfigurationView');
+const ServiceSpecView = require('../ServiceSpecView');
 
 describe('ServiceDetailConfigurationTab', function () {
 
@@ -42,10 +42,10 @@ describe('ServiceDetailConfigurationTab', function () {
   describe('#render', function () {
 
     it('renders correct id', function () {
-      var configurationView = TestUtils
-        .findRenderedComponentWithType(this.instance, ConfigurationView);
+      var ServiceSpecView = TestUtils
+        .findRenderedComponentWithType(this.instance, ServiceSpecView);
 
-      expect(configurationView).toBeDefined();
+      expect(ServiceSpecView).toBeDefined();
     });
 
   });
