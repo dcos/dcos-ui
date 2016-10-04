@@ -233,7 +233,7 @@ class JobRunHistoryTable extends React.Component {
       );
 
     if (row.children && row.children.length > 0) {
-      let classes = classNames('job-run-history-job-id table-cell-emphasized is-expandable', {
+      let classes = classNames('expanding-table-primary-cell table-cell-emphasized is-expandable', {
         'is-expanded': rowOptions.isExpanded
       });
       let {clickHandler} = rowOptions;
@@ -323,7 +323,7 @@ class JobRunHistoryTable extends React.Component {
         </FilterBar>
         <ExpandingTable
           allowMultipleSelect={false}
-          className="job-run-history-table expanding-table table table-hover table-borderless-outer table-borderless-inner-columns flush-bottom"
+          className="expanding-table table table-hover table-borderless-outer table-borderless-inner-columns flush-bottom"
           childRowClassName="expanding-table-child"
           columns={this.getColumns()}
           colGroup={this.getColGroup()}
