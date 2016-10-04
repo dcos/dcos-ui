@@ -45,7 +45,7 @@ class DescriptionList extends React.Component {
       }
 
       return (
-        <dl key={index} className="flex-box row">
+        <dl key={index} className="flex row">
           <dt className={dtClassName}>{key}</dt>
           <dd className={ddClassName}>{value}</dd>
         </dl>
