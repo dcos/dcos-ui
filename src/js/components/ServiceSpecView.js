@@ -10,7 +10,7 @@ import StringUtil from '../utils/StringUtil';
 import ServiceConfigUtil from '../utils/ServiceConfigUtil';
 import Util from '../utils/Util';
 
-const sectionClassName = 'container-fluid container-pod container-pod-super-short flush flush-bottom';
+const sectionClassName = 'pod pod-short flush-right flush-bottom flush-left';
 
 function fetchVersion(service, versionID) {
   if (service.getVersions().get(versionID) == null) {
@@ -219,7 +219,7 @@ class ServiceSpecView extends mixin(StoreMixin) {
     // Render loading screen
     if (config == null) {
       return (
-        <div className="container container-fluid container-pod">
+        <div className="pod">
           <Loader />
         </div>
       );

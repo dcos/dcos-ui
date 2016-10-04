@@ -120,7 +120,7 @@ var Index = React.createClass({
     }
 
     return (
-      <div className="container container-pod vertical-center">
+      <div className="pod flush-right flush-left vertical-center">
         {this.getErrorScreen(showErrorScreen)}
       </div>
     );

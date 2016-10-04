@@ -103,10 +103,8 @@ class StylesPage extends mixin(TabsMixin) {
       <Page
         title="Styles"
         navigation={this.getNavigation()}>
-        <div className="container-pod container-pod-short flush-top">
-          <div className="container-pod container-pod-divider-bottom container-pod-divider-inverse container-pod-divider-bottom-align-right flush-top flush-bottom">
-            {this.getSubNavigation()}
-          </div>
+        <div className="pod pod-short flush-top flush-right flush-left">
+          {this.getSubNavigation()}
         </div>
         <RouteHandler currentTab={this.state.currentTab} />
       </Page>
