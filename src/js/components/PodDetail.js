@@ -7,7 +7,7 @@ import PodActionItem from '../constants/PodActionItem';
 import PodConfigurationTabView from './PodConfigurationTabView';
 import PodDebugTabView from './PodDebugTabView';
 import PodHeader from './PodHeader';
-import PodInstancesView from './PodInstancesView';
+import PodInstancesTabView from './PodInstancesTabView';
 import ServiceDestroyModal from './modals/ServiceDestroyModal';
 import ServiceFormModal from './modals/ServiceFormModal';
 import ServiceScaleFormModal from './modals/ServiceScaleFormModal';
@@ -82,7 +82,7 @@ class PodDetail extends mixin(TabsMixin) {
   renderInstancesTabView() {
     let {pod} = this.props;
 
-    return (<PodInstancesView pod={pod} />);
+    return (<PodInstancesTabView pod={pod} />);
   }
 
   render() {
