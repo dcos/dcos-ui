@@ -134,7 +134,7 @@ class JobForm extends SchemaForm {
 }
 
 JobForm.defaultProps = {
-  className: 'multiple-form row',
+  className: 'multiple-form',
   defaultTab: '',
   getTriggerSubmit() {},
   isEdit: false,

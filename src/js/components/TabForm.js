@@ -137,7 +137,7 @@ class TabForm extends mixin(InternalStorageMixin) {
   getSideContent(multipleDefinition) {
     let {currentTab} = this.state;
     let classes = classNames(
-      'column-mini-12 column-small-4 multiple-form-left-column',
+      'multiple-form-left-column',
       this.props.navigationContentClassNames
     );
 
@@ -155,7 +155,7 @@ class TabForm extends mixin(InternalStorageMixin) {
     let currentTab = this.state.currentTab;
     let multipleDefinition = this.props.definition;
     let multipleDefinitionClasses = classNames(
-      'multiple-form-right-column column-mini-12 column-small-8',
+      'multiple-form-right-column',
       this.props.formContentClassNames
     );
     let formRowClass = this.props.formRowClass;
@@ -208,7 +208,7 @@ class TabForm extends mixin(InternalStorageMixin) {
   }
 
   render() {
-    let classNameSet = classNames('multiple-form row', this.props.className);
+    let classNameSet = classNames('multiple-form', this.props.className);
 
     return (
       <div className={classNameSet}>

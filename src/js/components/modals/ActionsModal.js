@@ -213,7 +213,6 @@ class ActionsModal extends mixin(StoreMixin) {
     return (
       <Confirm
         disabled={this.state.pendingRequest}
-        dynamicHeight={false}
         footerContainerClass="container container-pod container-pod-short
           container-pod-fluid flush-top flush-bottom"
         open={!!action}

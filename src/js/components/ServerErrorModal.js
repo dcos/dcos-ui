@@ -105,19 +105,22 @@ module.exports = class ServerErrorModal extends mixin(StoreMixin) {
   }
 
   render() {
+    let header = (
+      <h5 className="modal-header-title text-align-center flush">
+        An error has occurred
+      </h5>
+    );
+
     return (
       <Modal
         modalWrapperClass="modal-generic-error"
         modalClass="modal"
-        maxHeightPercentage={0.9}
         onClose={this.handleModalClose}
         open={this.state.isOpen}
-        showCloseButton={false}
         showHeader={true}
         showFooter={true}
         footer={this.getFooter()}
-        titleClass="modal-header-title text-align-center flush"
-        titleText="An error has occurred">
+        header={header}>
         {this.getContent()}
       </Modal>
     );

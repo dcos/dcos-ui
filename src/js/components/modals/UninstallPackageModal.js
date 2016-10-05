@@ -136,13 +136,18 @@ class UninstallPackageModal extends mixin(StoreMixin) {
       return this.getEmptyNode();
     }
 
+    let errorMessage = this.getErrorMessage();
+    let paragraphTagClasses = classNames({
+      'flush-bottom': errorMessage == null
+    });
+
     return (
-      <div className="container-pod container-pod-short text-align-center">
+      <div className="text-align-center">
         <h3 className="flush-top">Are you sure?</h3>
-        <p>
+        <p className={paragraphTagClasses}>
           {`${cosmosPackage.getAppIdName()} will be uninstalled from ${Config.productName}. All tasks belonging to this package will be killed.`}
         </p>
-        {this.getErrorMessage()}
+        {errorMessage}
       </div>
     );
   }

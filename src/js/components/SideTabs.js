@@ -22,6 +22,16 @@ class SideTabs extends React.Component {
     onTabClick(title);
   }
 
+  getSelectedTabTitle(selectedTab, tabs) {
+    let selectedTabDefinition = tabs.find(function (tab) {
+      return tab.selectValue === selectedTab;
+    });
+
+    if (selectedTabDefinition) {
+      return selectedTabDefinition.title;
+    }
+  }
+
   getTabs() {
     let {selectedTab, tabs} = this.props;
 
@@ -34,7 +44,7 @@ class SideTabs extends React.Component {
       }, false);
 
       // Prepare classes
-      let classes = classNames('sidebar-menu-item clickable visible-block', {
+      let classes = classNames('multiple-form-modal-sidebar-menu-item clickable visible-block', {
         'selected': selectValue === selectedTab || title === selectedTab,
         'has-errors': hasErrors
       });
@@ -44,29 +54,28 @@ class SideTabs extends React.Component {
           className={classes}
           key={index}
           onClick={this.handleTabClick.bind(this, selectValue)}>
-          <a>{title}</a>
+          {title}
         </li>
       );
     });
   }
 
   render() {
-    let {props: {className, selectedTab}, state: {dropdownOpen}} = this;
+    let {props: {className, selectedTab, tabs}, state: {dropdownOpen}} = this;
 
-    let classes = classNames('list-unstyled visible-block', {
-      'hidden-mini': !dropdownOpen
+    let classes = classNames('list-unstyled multiple-form-modal-sidebar-menu', {
+      'is-hidden': !dropdownOpen
     });
+
     let caretClasses = classNames('caret caret--desc caret--visible', {
       'dropup': dropdownOpen
     });
 
     return (
       <div className={className}>
-        <span className="sidebar-menu-item selection-header clickable visible-mini" onClick={this.handleTabClick.bind(this, selectedTab)}>
-          <a>
-            {selectedTab}
-            <span className={caretClasses} />
-          </a>
+        <span className="multiple-form-modal-sidebar-menu-item multiple-form-modal-sidebar-collapsed-header clickable visible-mini" onClick={this.handleTabClick.bind(this, selectedTab)}>
+          {this.getSelectedTabTitle(selectedTab, tabs)}
+          <span className={caretClasses} />
         </span>
         <ul className={classes}>
           {this.getTabs()}
@@ -77,7 +86,7 @@ class SideTabs extends React.Component {
 }
 
 SideTabs.defaultProps = {
-  className: 'sidebar-tabs',
+  className: 'multiple-form-modal-sidebar-tabs',
   onTabClick() {},
   tabs: []
 };

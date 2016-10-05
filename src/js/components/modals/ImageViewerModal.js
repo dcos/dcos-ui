@@ -93,7 +93,7 @@ class ImageViewerModal extends React.Component {
       <div onKeyPress={this.handleKeyPress}>
         <span
           onClick={this.handleClick.bind(this, 'left')}
-          className="clickable arrow-container">
+          className="modal-image-viewer-arrow-container clickable backward">
           <Icon
             className="arrow"
             color="white"
@@ -102,7 +102,7 @@ class ImageViewerModal extends React.Component {
             size="small" />
         </span>
         <span
-          className="clickable arrow-container forward"
+          className="modal-image-viewer-arrow-container clickable forward"
           onClick={this.handleClick.bind(this, 'left')}>
           <Icon
             className="arrow"
@@ -117,6 +117,7 @@ class ImageViewerModal extends React.Component {
 
   render() {
     let {props, state} = this;
+    let closeIcon = <Icon family="mini" id="close" size="mini" />;
     let modalClasses = classNames('modal modal-image-viewer', {
       hidden: state.isLoadingImage
     });
@@ -124,14 +125,13 @@ class ImageViewerModal extends React.Component {
     return (
       <Modal
         footer={this.getFooter()}
-        maxHeightPercentage={0.9}
         modalClass={modalClasses}
         onClose={props.onClose}
         open={props.open}
         scrollContainerClass=""
-        showCloseButton={true}
+        closeButton={closeIcon}
         showFooter={props.images && props.images.length > 1}
-        showHeader={true}
+        showHeader={false}
         useGemini={false}>
         {this.getSelectedImage()}
       </Modal>
