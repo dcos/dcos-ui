@@ -3,7 +3,6 @@ jest.dontMock('../AuthService');
 /* eslint-disable no-unused-vars */
 const React = require('react');
 /* eslint-enable no-unused-vars */
-const ReactDOM = require('react-dom');
 const TestUtils = require('react-addons-test-utils');
 
 const AuthPoint = require('../AuthPoint');
@@ -15,7 +14,7 @@ describe('AuthService', function () {
 
     beforeEach(function () {
       this.registerAction = jasmine.createSpy('registerAction')
-        .and.callFake(function() { return true; });
+        .and.callFake(function () { return true; });
       this.listenerAction = jasmine.createSpy('listenerAction');
       AuthService.register('foo', this.registerAction, 11);
       AuthService.addListener('foo', this.listenerAction, 11);

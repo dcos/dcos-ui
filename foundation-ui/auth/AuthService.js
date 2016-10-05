@@ -1,5 +1,3 @@
-import React from 'react';
-
 import Hooks from '../hooks';
 
 const hooks = Hooks();
@@ -89,6 +87,7 @@ const AuthService = {
    * @param  {Boolean} defaultValue if no filter modifies value,
    * this will be returned
    * undefined or null
+   * @param  {Object} props to pass to filter function
    * @return  {Boolean} wether the component is authorized or not
    */
   isAuthorized(permission, defaultValue, props) {
