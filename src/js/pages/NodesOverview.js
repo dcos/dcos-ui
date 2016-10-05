@@ -291,7 +291,7 @@ var NodesOverview = React.createClass({
     return (
       <AlertPanel
         title="Empty Datacenter"
-        icon={<Icon id="servers-inverse" color="white" size="jumbo" />}>
+        icon={<Icon id="servers" color="neutral" size="jumbo" />}>
         <p className="flush-bottom">
           Your datacenter is looking pretty empty. We don't see any nodes other than your master.
         </p>
