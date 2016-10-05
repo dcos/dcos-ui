@@ -1,6 +1,6 @@
 import React, {PropTypes} from 'react';
 
-import hooks from './hooks';
+import AuthService from './AuthService';
 
 const METHODS_TO_BIND = [
   'updateState'
@@ -28,17 +28,7 @@ const METHODS_TO_BIND = [
  *
  *   initialize() {
  *     this.permissions.forEach(function (permission) {
- *       AuthService.on(permission, this.checkPermission(permission));
- *     })
- *   }
- *
- *   onPermissionChange() {
- *     // Resubscribe
- *     this.permissions.forEach(function (permission) {
- *       AuthService.removeListener(permission, this.checkPermission(permission));
- *     })
- *     this.permissions.forEach(function (permission) {
- *       AuthService.on(permission, this.checkPermission(permission));
+ *       AuthService.register(permission, this.checkPermission.bind(this, permission));
  *     })
  *   }
  * }
@@ -47,7 +37,7 @@ const METHODS_TO_BIND = [
  *   render() {
  *     return (
  *       <AuthPoint id="dcos:ui:sidebar-tabs">
- *         // Will not be shown if myCallback (above) returns false.
+ *         // Will not be shown if checkPermission (above) returns false.
  *         <SystemTab />
  *       </AuthPoint>
  *     );
@@ -68,18 +58,33 @@ class AuthPoint extends React.Component {
     // Register for changes in AuthPoint specific to this id.
     // Whenever AuthPoint has a change it will end up invoking updateState
     // so we can get the newly filtered children.
-    hooks.addAction(this.props.id, this.updateState);
+    AuthService.addListener(this.props.id, this.updateState);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    // Update mount contents when new props are received
+    this.updateState(nextProps);
   }
 
   componentWillUnmount() {
     // Hooks will need ability to remove previously added actions.
-    hooks.removeAction(this.props.id, this.updateState);
+    AuthService.removeListener(this.props.id, this.updateState);
   }
 
-  updateState() {
-    let {id, defaultValue} = this.props;
+  updateState(props = this.props) {
+    let {defaultValue, id} = props;
+    let blackList = ['children', ...Object.keys(AuthPoint.propTypes)];
+    // Filter props consumed by AuthPoint to create childProps
+    let childProps = Object.keys(props).filter(function (key) {
+      return !blackList.includes(key);
+    }).reduce(function (memo, key) {
+      memo[key] = props[key];
+
+      return memo;
+    }, {});
+
     // Looking for a Boolean
-    const authorized = !!hooks.applyFilter(id, defaultValue);
+    const authorized = AuthService.isAuthorized(id, defaultValue, childProps);
 
     this.setState({authorized});
   }
@@ -96,7 +101,8 @@ class AuthPoint extends React.Component {
 
 AuthPoint.defaultProps = {
   replacementComponent: null,
-  defaultValue: false
+  // If nothing registers we want to have everything authorized
+  defaultValue: true
 };
 
 AuthPoint.propTypes = {
