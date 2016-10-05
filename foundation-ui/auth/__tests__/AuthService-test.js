@@ -4,99 +4,124 @@ jest.dontMock('../AuthService');
 const React = require('react');
 /* eslint-enable no-unused-vars */
 const ReactDOM = require('react-dom');
+const TestUtils = require('react-addons-test-utils');
 
 const AuthPoint = require('../AuthPoint');
 const AuthService = require('../AuthService');
 
 describe('AuthService', function () {
 
-  beforeEach(function () {
-    this.container = document.createElement('div');
-    this.authorizationHandler = jasmine.createSpy('authorizationHandler');
-    AuthService.register('foo', this.authorizationHandler);
+  describe('hooks', function () {
+
+    beforeEach(function () {
+      this.registerAction = jasmine.createSpy('registerAction')
+        .and.callFake(function() { return true; });
+      this.listenerAction = jasmine.createSpy('listenerAction');
+      AuthService.register('foo', this.registerAction, 11);
+      AuthService.addListener('foo', this.listenerAction, 11);
+    });
+
+    afterEach(function () {
+      AuthService.removeListener('foo', this.listenerAction);
+      AuthService.unregister('foo', this.registerAction);
+    });
+
+    it('calls registered filter when isAuthorized is called', function () {
+      AuthService.isAuthorized('foo', false, {foo: 'bar'});
+      expect(this.registerAction).toHaveBeenCalledWith(false, {foo: 'bar'});
+    });
+
+    it('doesn\'t call filter when not registered anymore', function () {
+      AuthService.unregister('foo', this.registerAction);
+      AuthService.isAuthorized('foo', false, {foo: 'bar'});
+      expect(this.registerAction).not.toHaveBeenCalled();
+    });
+
+    it('calls action when something registers', function () {
+      AuthService.register('foo', this.registerAction, 10);
+      expect(this.listenerAction).toHaveBeenCalled();
+    });
+
+    it('calls action when something unregisters', function () {
+      AuthService.unregister('foo', this.registerAction, 10);
+      expect(this.listenerAction).toHaveBeenCalled();
+    });
+
+    it('doesn\'t call action before anything registers or unregisters', function () {
+      expect(this.listenerAction).not.toHaveBeenCalled();
+    });
+
   });
 
-  afterEach(function () {
-    AuthService.unregister('foo', this.authorizationHandler);
-    ReactDOM.unmountComponentAtNode(this.container);
-  });
+  describe('AuthPoint', function () {
 
-  it('should call handler', function () {
-    ReactDOM.render(
-      <AuthPoint id="foo">
-        <h1>foo</h1>
-      </AuthPoint>,
-      this.container
-    );
+    beforeEach(function () {
+      this.returnFalse = function returnFalse() {
+        return false;
+      };
+      this.getNonBoolean = function getNonBoolean() {
+        return {foo: 'bar'};
+      };
+    });
 
-    // Called once when rendering
-    expect(this.authorizationHandler.calls.count()).toEqual(1);
-  });
+    afterEach(function () {
+      AuthService.unregister('foo', this.returnFalse);
+      AuthService.unregister('foo', this.getNonBoolean);
+    });
 
-  it('should not call handler after removal', function () {
-    // Fire doAction once before removal
-    ReactDOM.render(
-      <AuthPoint id="foo">
-        <h1>foo</h1>
-      </AuthPoint>,
-      this.container
-    );
+    it('should render replacement', function () {
+      var result = TestUtils.renderIntoDocument(
+        <AuthPoint id="foo" replacementComponent={<h2>bar</h2>}>
+          <h1>foo</h1>
+        </AuthPoint>
+      );
 
-    AuthService.removeListener('foo', this.authorizationHandler);
-    // Fire doAction again after removal
-    ReactDOM.render(
-      <AuthPoint id="foo">
-        <h1>foo</h1>
-      </AuthPoint>,
-      this.container
-    );
-    ReactDOM.render(
-      <AuthPoint id="foo">
-        <h1>foo</h1>
-      </AuthPoint>,
-      this.container
-    );
-    ReactDOM.render(
-      <AuthPoint id="foo">
-        <h1>foo</h1>
-      </AuthPoint>,
-      this.container
-    );
+      AuthService.register('foo', this.returnFalse);
 
-    // Called once when rendering
-    expect(this.authorizationHandler.calls.count()).toEqual(1);
-  });
+      expect(TestUtils.scryRenderedDOMComponentsWithTag(result, 'H2').length)
+        .toEqual(1);
+      expect(TestUtils.scryRenderedDOMComponentsWithTag(result, 'H1').length)
+        .toEqual(0);
+    });
 
-  it('should not call handler from render if removed before', function () {
-    // Remove listener before rendering
-    AuthService.removeListener('foo', this.authorizationHandler);
-    // Fire doAction again after removal
-    ReactDOM.render(
-      <AuthPoint id="foo">
-        <h1>foo</h1>
-      </AuthPoint>,
-      this.container
-    );
-    ReactDOM.render(
-      <AuthPoint id="foo">
-        <h1>foo</h1>
-      </AuthPoint>,
-      this.container
-    );
-    ReactDOM.render(
-      <AuthPoint id="foo">
-        <h1>foo</h1>
-      </AuthPoint>,
-      this.container
-    );
-    ReactDOM.render(
-      <AuthPoint id="foo">
-        <h1>foo</h1>
-      </AuthPoint>,
-      this.container
-    );
+    it('should render nothing', function () {
+      var result = TestUtils.renderIntoDocument(
+        <AuthPoint id="foo">
+          <h1>foo</h1>
+        </AuthPoint>
+      );
 
-    expect(this.authorizationHandler).not.toHaveBeenCalled();
+      AuthService.register('foo', this.returnFalse);
+
+      expect(TestUtils.scryRenderedDOMComponentsWithTag(result, 'H1').length)
+        .toEqual(0);
+    });
+
+    it('should restore default after unregister is called', function () {
+      var result = TestUtils.renderIntoDocument(
+        <AuthPoint id="foo" replacementComponent={<h2>bar</h2>}>
+          <h1>foo</h1>
+        </AuthPoint>
+      );
+
+      AuthService.register('foo', this.returnFalse);
+      AuthService.unregister('foo', this.returnFalse);
+
+      expect(TestUtils.scryRenderedDOMComponentsWithTag(result, 'H2').length)
+        .toEqual(0);
+      expect(TestUtils.scryRenderedDOMComponentsWithTag(result, 'H1').length)
+        .toEqual(1);
+    });
+
+    it('should throw when filter doesn\'t yield a boolean', function () {
+      var registerAndCallIsAuthorized = function () {
+        AuthService.register('foo', this.getNonBoolean);
+        AuthService.isAuthorized('foo');
+      };
+
+      expect(registerAndCallIsAuthorized).toThrow();
+    });
+
   });
 
 });
