@@ -38,6 +38,7 @@ const MountService = {
    * @param  {String} id of MointPoint to register package for
    * @param  {Function} callback to call when content is being fetched
    * @param  {Number} priority to register package callback with
+   * [-Infinity; Infinity]
    */
   register(id, callback, priority) {
     hooks.addFilter(id, callback, priority);
@@ -59,7 +60,7 @@ const MountService = {
     hooks.doAction(id);
   },
 
-  // Mount API
+  // MountPoint API
   /**
    * Register for changes in MountService specific to the given id.
    * Whenever MountService has a change it invoke callback
