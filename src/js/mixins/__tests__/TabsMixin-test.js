@@ -42,7 +42,7 @@ describe('TabsMixin', function () {
 
     it('should add custom class to link', function () {
       expect(this.instance.props.className)
-        .toEqual('menu-tabbed-item-label badge-container foo');
+        .toEqual('menu-tabbed-item-label foo');
     });
   });
 
