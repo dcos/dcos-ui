@@ -14,15 +14,16 @@ describe('AuthPoint', function () {
   beforeEach(function () {
     this.container = document.createElement('div');
     this.returnTrue = function () { return true; };
-    AuthService.on('foo', this.returnTrue);
+    this.returnFalse = function () { return false; };
   });
 
   afterEach(function () {
-    AuthService.removeListener('foo', this.returnTrue);
+    AuthService.unregister('foo', this.returnTrue);
     ReactDOM.unmountComponentAtNode(this.container);
   });
 
   it('should render children when authorized', function () {
+    AuthService.register('foo', this.returnTrue);
     ReactDOM.render(
       <AuthPoint id="foo">
         <h1>foo</h1>
@@ -36,8 +37,9 @@ describe('AuthPoint', function () {
   });
 
   it('should render replacementComponent when unauthorized', function () {
+    AuthService.register('foo', this.returnFalse);
     ReactDOM.render(
-      <AuthPoint id="bar" replacementComponent={<h2>bar</h2>}>
+      <AuthPoint id="foo" replacementComponent={<h2>bar</h2>}>
         <h1>foo</h1>
       </AuthPoint>,
       this.container
@@ -50,9 +52,7 @@ describe('AuthPoint', function () {
 
   it('should change defaultValue when provided', function () {
     ReactDOM.render(
-      <AuthPoint
-        id="bar"
-        defaultValue={true}>
+      <AuthPoint id="foo" defaultValue={false}>
         <h1>foo</h1>
       </AuthPoint>,
       this.container
@@ -60,7 +60,7 @@ describe('AuthPoint', function () {
 
     var result = this.container.querySelector('h1');
 
-    expect(TestUtils.isDOMComponent(result)).toEqual(true);
+    expect(TestUtils.isDOMComponent(result)).toEqual(false);
   });
 
 });

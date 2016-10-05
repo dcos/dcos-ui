@@ -13,11 +13,11 @@ describe('AuthService', function () {
   beforeEach(function () {
     this.container = document.createElement('div');
     this.authorizationHandler = jasmine.createSpy('authorizationHandler');
-    AuthService.on('foo', this.authorizationHandler);
+    AuthService.register('foo', this.authorizationHandler);
   });
 
   afterEach(function () {
-    AuthService.removeListener('foo', this.authorizationHandler);
+    AuthService.unregister('foo', this.authorizationHandler);
     ReactDOM.unmountComponentAtNode(this.container);
   });
 
