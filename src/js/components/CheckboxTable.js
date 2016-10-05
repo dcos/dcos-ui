@@ -106,6 +106,7 @@ class CheckboxTable extends React.Component {
 
     return (
       <Form
+        className="table-form-checkbox"
         formGroupClass="form-group flush-bottom"
         definition={[
           {
@@ -138,6 +139,7 @@ class CheckboxTable extends React.Component {
 
     return (
       <Form
+        className="table-form-checkbox"
         formGroupClass="form-group flush-bottom"
         definition={[{
           checked,
