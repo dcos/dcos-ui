@@ -38,6 +38,7 @@ const AuthService = {
    * @param  {String} permission of MointPoint to register package for
    * @param  {Function} callback to call when content is being fetched
    * @param  {Number} priority to register package callback with
+   * [-Infinity; Infinity]
    */
   register(permission, callback, priority) {
     hooks.addFilter(permission, callback, priority);
@@ -59,11 +60,11 @@ const AuthService = {
     hooks.doAction(permission);
   },
 
-  // Mount API
+  // AuthPoint API
   /**
    * Register for changes in AuthService specific to the given permission.
    * Whenever AuthService has a change it invoke callback
-   * so we can get the newly filtered children.
+   * so we can get the newly filtered authorized value.
    * @param {String} permission to listen for events
    * @param {Function} callback to call when event fires
    * @param {Number} priority of callback [-Infinity; Infinity]
@@ -73,7 +74,8 @@ const AuthService = {
   },
 
   /**
-   * Removes listener for changes in AuthService specific to the given permission.
+   * Removes listener for changes in AuthService specific to the given
+   * permission.
    * @param  {String} permission listener is registered with
    * @param  {Function} callback registered with the permission
    */
@@ -82,18 +84,14 @@ const AuthService = {
   },
 
   /**
-   * Function to retrieve content for a given permission
+   * Function to retrieve whether user is authorized for a given permission
    * @param  {String} permission
-   * @param  {Component} content to be displayed if filter returns
+   * @param  {Boolean} defaultValue if no filter modifies value,
+   * this will be returned
    * undefined or null
-   * @return  {Component} content to be displayed in AuthPoint
+   * @return  {Boolean} wether the component is authorized or not
    */
   isAuthorized(permission, defaultValue, props) {
-    // Some logic like looking at a cache of user permissions and determining
-    // if they should see this component.
-    // if (!acls.contains(permission)) {
-    //   return null;
-    // }
     let filteredValue = hooks.applyFilter(permission, defaultValue, props);
     if (process.env.NODE_ENV !== 'production') {
       if (typeof filteredValue !== 'boolean') {
