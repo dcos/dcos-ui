@@ -126,9 +126,10 @@ class PackagesTab extends mixin(StoreMixin) {
     return packages.getItems().map((cosmosPackage, index) => {
       return (
         <div
-          className="panel-grid-item column-12 column-small-6 column-medium-4 column-large-3 clickable"
+          className="panel-grid-item column-12 column-small-6 column-medium-4 column-large-3"
           key={index}>
           <Panel
+            className="clickable"
             contentClass="horizontal-center"
             footer={this.getButton(cosmosPackage)}
             footerClass="horizontal-center"
