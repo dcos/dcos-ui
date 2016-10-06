@@ -55,6 +55,9 @@ var PodUtil = {
    * @returns {PodInstanceList} The new array of PodInstance objects
    */
   mergeHistoricalInstanceList(podInstances, historicalInstances) {
+    if (!historicalInstances) {
+      return podInstances;
+    }
 
     // De-compose PodInstances into plain objects, so we always operate
     // with plain objects
