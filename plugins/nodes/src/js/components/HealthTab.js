@@ -2,13 +2,13 @@ import React from 'react';
 import {ResourceTableUtil} from 'foundation-ui';
 import {Table} from 'reactjs-components';
 
-import FilterBar from './FilterBar';
-import FilterHeadline from './FilterHeadline';
-import FilterInputText from './FilterInputText';
-import StringUtil from '../utils/StringUtil';
-import TableUtil from '../utils/TableUtil';
-import UnitHealthDropdown from './UnitHealthDropdown';
-import UnitHealthUtil from '../utils/UnitHealthUtil';
+import FilterBar from '../../../../../src/js/components/FilterBar';
+import FilterHeadline from '../../../../../src/js/components/FilterHeadline';
+import FilterInputText from '../../../../../src/js/components/FilterInputText';
+import StringUtil from '../../../../../src/js/utils/StringUtil';
+import TableUtil from '../../../../../src/js/utils/TableUtil';
+import UnitHealthDropdown from '../../../../../src/js/components/UnitHealthDropdown';
+import UnitHealthUtil from '../../../../../src/js/utils/UnitHealthUtil';
 
 const METHODS_TO_BIND = [
   'handleHealthSelection',
