@@ -77,7 +77,7 @@ let serviceRoutes = {
               handler: VolumeDetail,
               buildBreadCrumb() {
                 return {
-                  parentCrumb: 'services-overview',
+                  parentCrumb: 'services-detail',
                   getCrumbs(router) {
                     return [
                       {
@@ -121,7 +121,7 @@ let serviceRoutes = {
               hideHeaderNavigation: true,
               buildBreadCrumb() {
                 return {
-                  parentCrumb: 'services-overview',
+                  parentCrumb: 'services-detail',
                   getCrumbs(router) {
                     return [
                       <TaskDetailBreadcrumb
