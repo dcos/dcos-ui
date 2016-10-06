@@ -274,7 +274,7 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
       if (index === 0) {
         textValue = 'Working Directory';
       } else {
-        onClickPath += ('/' + directoryItem);
+        onClickPath += `/${directoryItem}`;
       }
 
       return {
