@@ -37,6 +37,24 @@ var QueryParamsMixin = {
     return router.getCurrentQuery();
   },
 
+  resetQueryParams(params) {
+    const {router} = this.context;
+    if (!router) {
+      return;
+    }
+
+    const queryParams = router.getCurrentQuery();
+    if (params == null) {
+      params = Object.keys(queryParams);
+    }
+
+    params.forEach(function (param) {
+      delete queryParams[param];
+    });
+
+    router.transitionTo(router.getCurrentPathname(), {}, queryParams);
+  },
+
   setQueryParam(paramKey, paramValue) {
     let {router} = this.context;
     let queryParams = router.getCurrentQuery();
