@@ -1,0 +1,30 @@
+& when (@services-view-enabled) {
+
+  .services-sidebar {
+    flex: 1 1 auto;
+  }
+
+  .services-table {
+    flex: 1 1 auto;
+  }
+}
+
+& when (@services-view-enabled) and (@layout-screen-large-enabled) {
+
+  @media (min-width: @layout-screen-large-min-width) {
+
+    .services-sidebar {
+      max-width: @service-sidebar-width-screen-large;
+    }
+  }
+}
+
+& when (@services-view-enabled) and (@layout-screen-jumbo-enabled) {
+
+  @media (min-width: @layout-screen-jumbo-min-width) {
+
+    .services-sidebar {
+      max-width: @service-sidebar-width-screen-jumbo;
+    }
+  }
+}
