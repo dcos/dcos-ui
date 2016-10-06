@@ -5,15 +5,15 @@ import React from 'react';
 /* eslint-enable no-unused-vars */
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
-import Breadcrumbs from '../../components/Breadcrumbs';
-import CompositeState from '../../structs/CompositeState';
-import DetailViewHeader from '../../components/DetailViewHeader';
-import Loader from '../../components/Loader';
-import MesosSummaryStore from '../../stores/MesosSummaryStore';
+import Breadcrumbs from '../../../../../../src/js/components/Breadcrumbs';
+import CompositeState from '../../../../../../src/js/structs/CompositeState';
+import DetailViewHeader from '../../../../../../src/js/components/DetailViewHeader';
+import Loader from '../../../../../../src/js/components/Loader';
+import MesosSummaryStore from '../../../../../../src/js/stores/MesosSummaryStore';
 import NodeHealthStore from '../../stores/NodeHealthStore';
-import ResourceChart from '../../components/charts/ResourceChart';
-import StringUtil from '../../utils/StringUtil';
-import TabsMixin from '../../mixins/TabsMixin';
+import ResourceChart from '../../../../../../src/js/components/charts/ResourceChart';
+import StringUtil from '../../../../../../src/js/utils/StringUtil';
+import TabsMixin from '../../../../../../src/js/mixins/TabsMixin';
 
 class NodeDetailPage extends mixin(TabsMixin, StoreMixin) {
   constructor() {

@@ -5,14 +5,14 @@ import {ResourceTableUtil} from 'foundation-ui';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 import {Table, Tooltip} from 'reactjs-components';
 
-import NodesTableHeaderLabels from '../constants/NodesTableHeaderLabels';
-import Icon from '../components/Icon';
-import InternalStorageMixin from '../mixins/InternalStorageMixin';
-import Loader from '../components/Loader';
-import StatusBar from '../components/StatusBar';
-import StringUtil from '../utils/StringUtil';
-import TableUtil from '../utils/TableUtil';
-import UnitHealthUtil from '../utils/UnitHealthUtil';
+import NodesTableHeaderLabels from '../../../../../src/js/constants/NodesTableHeaderLabels';
+import Icon from '../../../../../src/js/components/Icon';
+import InternalStorageMixin from '../../../../../src/js/mixins/InternalStorageMixin';
+import Loader from '../../../../../src/js/components/Loader';
+import StatusBar from '../../../../../src/js/components/StatusBar';
+import StringUtil from '../../../../../src/js/utils/StringUtil';
+import TableUtil from '../../../../../src/js/utils/TableUtil';
+import UnitHealthUtil from '../../../../../src/js/utils/UnitHealthUtil';
 
 const COLOR_CLASSNAMES = {
   cpus: 'color-1',

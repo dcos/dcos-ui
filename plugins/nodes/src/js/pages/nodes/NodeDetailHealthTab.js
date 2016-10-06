@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Node from '../../structs/Node';
+import Node from '../../../../../../src/js/structs/Node';
 import NodeHealthStore from '../../stores/NodeHealthStore';
 import HealthTab from '../../components/HealthTab';
 

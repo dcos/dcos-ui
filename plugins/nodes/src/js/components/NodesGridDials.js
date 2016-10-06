@@ -1,10 +1,10 @@
 import React from 'react';
 import {Tooltip} from 'reactjs-components';
 
-import Chart from './charts/Chart';
-import DialChart from './charts/DialChart';
-import Icon from './Icon';
-import ResourcesUtil from '../utils/ResourcesUtil';
+import Chart from '../../../../../src/js/components/charts/Chart';
+import DialChart from '../../../../../src/js/components/charts/DialChart';
+import Icon from '../../../../../src/js/components/Icon';
+import ResourcesUtil from '../../../../../src/js/utils/ResourcesUtil';
 
 var colors = {
   error: 2,
