@@ -219,7 +219,7 @@ class PodInstancesTable extends React.Component {
         containerResources = containerSpec.resources;
       }
 
-      let addressComponents = container.endpoints.map(function (endpoint, i) {
+      let addressComponents = container.getEndpoints().map(function (endpoint, i) {
         return (
           <a className="text-muted"
             href={`http://${agentAddress}:${endpoint.allocatedHostPort}`}
