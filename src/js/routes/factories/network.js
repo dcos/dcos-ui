@@ -150,14 +150,6 @@ let RouteFactory = {
               }
             ]
           }
-          // {
-          //   type: Route,
-          //   name: 'virtual-networks-tab-detail-tasks-details-logs',
-          //   dontScroll: true,
-          //   path: 'logs/:filePath?/?:innerPath?/?',
-          //   handler: TaskLogsTab,
-          //   title:'Logs'
-          // }
         ]
       }
     ];

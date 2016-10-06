@@ -177,14 +177,6 @@ let serviceRoutes = {
                     }
                   ]
                 },
-                // {
-                //   type: Route,
-                //   name: 'services-task-details-logs',
-                //   dontScroll: true,
-                //   path: 'logs/:filePath?/?:innerPath?/?',
-                //   handler: TaskLogsTab,
-                //   title:'Logs'
-                // },
                 {
                   type: Route,
                   name: 'services-task-details-volumes',
