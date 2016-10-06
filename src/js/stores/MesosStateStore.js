@@ -133,6 +133,12 @@ class MesosStateStore extends GetSetBaseStore {
     );
   }
 
+  getPodHistoricalInstances(pod) {
+    return MesosStateUtil.getPodHistoricalInstances(
+      this.get('lastMesosState'), pod
+    );
+  }
+
   getServiceFromName(name) {
     let services = this.get('lastMesosState').frameworks;
 
