@@ -60,4 +60,49 @@ describe('PodUtil', function () {
         .toBeFalsy();
     });
   });
+
+  describe('#mergeHistoricalInstanceList', function () {
+    it('should properly append new instances', function () {
+      let instances = this.pod.getInstanceList();
+      let historicalInstances = [
+        {
+          'id': 'pod-a2',
+          'containers': [
+            {
+              'name': 'container-c1'
+            }
+          ]
+        }
+      ];
+
+      instances = PodUtil.mergeHistoricalInstanceList(instances,
+        historicalInstances);
+
+      expect(instances.getItems().length).toEqual(2);
+      expect(instances.getItems()[1].get()).toEqual(historicalInstances[0]);
+    });
+
+    it('should properly append new containers on existing items', function () {
+      let instances = this.pod.getInstanceList();
+      let historicalInstances = [
+        {
+          'id': 'pod-a1',
+          'containers': [
+            {
+              'name': 'container-c3'
+            }
+          ]
+        }
+      ];
+
+      instances = PodUtil.mergeHistoricalInstanceList(instances,
+        historicalInstances);
+
+      expect(instances.getItems().length).toEqual(1);
+      expect(instances.getItems()[0].getContainers().length).toEqual(3);
+      expect(instances.getItems()[0].getContainers()[2].get())
+        .toEqual(historicalInstances[0].containers[0]);
+    });
+  });
+
 });

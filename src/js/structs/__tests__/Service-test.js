@@ -14,6 +14,18 @@ describe('Service', function () {
 
   });
 
+  describe('#getMesosId', function () {
+
+    it('returns correct id', function () {
+      let service = new Service({
+        id: '/test/cmd'
+      });
+
+      expect(service.getMesosId()).toEqual('cmd.test');
+    });
+
+  });
+
   describe('#toJSON', function () {
 
     it('returns a object with the values in _itemData', function () {

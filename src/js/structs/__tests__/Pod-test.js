@@ -106,6 +106,18 @@ describe('Pod', function () {
 
   });
 
+  describe('#getMesosId', function () {
+
+    it('returns correct id', function () {
+      let pod = new Pod({
+        id: '/test/cmd'
+      });
+
+      expect(pod.getMesosId()).toEqual('test_cmd');
+    });
+
+  });
+
   describe('#getResources', function () {
 
     it('should pass-through from specs', function () {

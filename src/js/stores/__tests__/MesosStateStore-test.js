@@ -1,9 +1,13 @@
 jest.dontMock('../MesosStateStore');
 
+const Application = require('../../structs/Application');
 const Framework = require('../../structs/Framework');
 const MesosStateStore = require('../MesosStateStore');
-const Application = require('../../structs/Application');
+const MesosStateUtil = require('../../utils/MesosStateUtil');
+const Pod = require('../../structs/Pod');
 const Task = require('../../structs/Task');
+
+const MESOS_STATE_WITH_HISTORY = require('../../utils/__tests__/fixtures/MesosStateWithHistory');
 
 describe('MesosStateStore', function () {
 
@@ -204,6 +208,26 @@ describe('MesosStateStore', function () {
     it('shouldn\'t find a task', function () {
       var result = MesosStateStore.getSchedulerTaskFromServiceName('bar');
       expect(result).toEqual(undefined);
+    });
+  });
+
+  describe('#getPodHistoricalInstances', function () {
+    beforeEach(function () {
+      this.get = MesosStateStore.get;
+      MesosStateStore.get = () => {
+        return MESOS_STATE_WITH_HISTORY;
+      };
+    });
+
+    afterEach(function () {
+      MesosStateStore.get = this.get;
+    });
+
+    it('should pass-through to MesosStateUtil.getPodHistoricalInstances', function () {
+      var pod = new Pod({id: '/pod-p0'});
+      var result = MesosStateStore.getPodHistoricalInstances(pod);
+      var expected = MesosStateUtil.getPodHistoricalInstances(MESOS_STATE_WITH_HISTORY, pod);
+      expect(result).toEqual(expected);
     });
   });
 });
