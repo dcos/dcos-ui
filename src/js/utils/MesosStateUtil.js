@@ -136,10 +136,9 @@ const MesosStateUtil = {
               //
               // NOTE: We are creating a Date object from this value, so we
               //       should be OK with the timestamp
-              // TODO: What happens to the timezone?
               //
-              lastChanged: lastStatus.timestamp,
-              lastUpdated: lastStatus.timestamp
+              lastChanged: lastStatus.timestamp * 1000,
+              lastUpdated: lastStatus.timestamp * 1000
             }, task));
           }
         }
