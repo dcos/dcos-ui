@@ -19,7 +19,7 @@ function getDefaultMessage() {
 
   return (
     <p className="inverse text-align-center flush-bottom">
-      You can also join us on our {slackLink} or send us an email at {supportLink}.
+      You can join us on our {slackLink} or send us an email at {supportLink}.
     </p>
   );
 }
