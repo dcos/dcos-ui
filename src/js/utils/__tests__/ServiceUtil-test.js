@@ -562,6 +562,33 @@ describe('ServiceUtil', function () {
           }
         );
 
+        it('should not overwrite service port',
+          function () {
+            const model = {
+              containerSettings: {
+                forcePullImage: true,
+                image: 'docker/image',
+                parameters: null,
+                privileged: undefined
+              },
+              networking: {
+                networkType: 'user',
+                ports: [{
+                  expose: true,
+                  lbPort: 514,
+                  servicePort: 5514,
+                  loadBalanced: true
+                }]
+              }
+            };
+
+            let service = ServiceUtil.createSpecFromFormModel(model);
+
+            expect(service.getContainerSettings().docker.portMappings[0].servicePort)
+                .toEqual(5514);
+          }
+        );
+
         it('should not add a hostPort when loadBalanced is off', function () {
           let service = ServiceUtil.createSpecFromFormModel({
             containerSettings: {image: 'redis'},

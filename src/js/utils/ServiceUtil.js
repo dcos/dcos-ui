@@ -390,16 +390,17 @@ const ServiceUtil = {
               let lbPort = parseInt(port.lbPort || 0, 10);
               portMapping.containerPort = lbPort;
 
-              if (networkType === 'bridge') {
+              if (ValidatorUtil.isDefined(port.hostPort)) {
                 portMapping.hostPort = port.hostPort;
+              }
+
+              if (ValidatorUtil.isDefined(port.servicePort)) {
                 portMapping.servicePort = port.servicePort;
+              } else if (port.loadBalanced === true && networkType !== 'bridge') {
+                portMapping.servicePort = lbPort;
               }
 
               if (port.loadBalanced === true) {
-
-                if (networkType !== 'bridge') {
-                  portMapping.servicePort = lbPort;
-                }
                 portMapping.labels = {};
                 if (general != null) {
                   portMapping.labels[`VIP_${index}`] = `${general.id}:${lbPort}`;
