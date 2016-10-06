@@ -10,7 +10,7 @@ import {
   REQUEST_HEALTH_NODE_UNIT_SUCCESS,
   REQUEST_HEALTH_NODES_ERROR,
   REQUEST_HEALTH_NODES_SUCCESS
-} from '../constants/ActionTypes';
+} from '../../../../../src/js/constants/ActionTypes';
 import {
   HEALTH_NODE_ERROR,
   HEALTH_NODE_SUCCESS,
@@ -21,17 +21,17 @@ import {
   HEALTH_NODES_CHANGE,
   HEALTH_NODES_ERROR,
   VISIBILITY_CHANGE
-} from '../constants/EventTypes';
-import AppDispatcher from '../events/AppDispatcher';
-import CompositeState from '../structs/CompositeState';
-import Config from '../config/Config';
-import GetSetBaseStore from './GetSetBaseStore';
-import HealthUnit from '../structs/HealthUnit';
-import HealthUnitsList from '../structs/HealthUnitsList';
-import Node from '../structs/Node';
-import NodeHealthActions from '../events/NodeHealthActions';
-import NodesList from '../structs/NodesList';
-import VisibilityStore from './VisibilityStore';
+} from '../../../../../src/js/constants/EventTypes';
+import AppDispatcher from '../../../../../src/js/events/AppDispatcher';
+import CompositeState from '../../../../../src/js/structs/CompositeState';
+import Config from '../../../../../src/js/config/Config';
+import GetSetBaseStore from '../../../../../src/js/stores/GetSetBaseStore';
+import HealthUnit from '../../../../../src/js/structs/HealthUnit';
+import HealthUnitsList from '../../../../../src/js/structs/HealthUnitsList';
+import Node from '../../../../../src/js/structs/Node';
+import NodeHealthActions from '../../../../../src/js/events/NodeHealthActions';
+import NodesList from '../../../../../src/js/structs/NodesList';
+import VisibilityStore from '../../../../../src/js/stores/VisibilityStore';
 
 let requestInterval = null;
 

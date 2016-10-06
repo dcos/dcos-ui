@@ -2,12 +2,12 @@ import classNames from 'classnames';
 import deepEqual from 'deep-equal';
 import React from 'react';
 
-import EventTypes from '../constants/EventTypes';
-import InternalStorageMixin from '../mixins/InternalStorageMixin';
-import Loader from './Loader';
-import MesosStateStore from '../stores/MesosStateStore';
+import EventTypes from '../../../../../src/js/constants/EventTypes';
+import InternalStorageMixin from '../../../../../src/js/mixins/InternalStorageMixin';
+import Loader from '../../../../../src/js/components/Loader';
+import MesosStateStore from '../../../../../src/js/stores/MesosStateStore';
 import NodesGridDials from './NodesGridDials';
-import RequestErrorMsg from './RequestErrorMsg';
+import RequestErrorMsg from '../../../../../src/js/components/RequestErrorMsg';
 
 var MAX_SERVICES_TO_SHOW = 32;
 var OTHER_SERVICES_COLOR = 32;
