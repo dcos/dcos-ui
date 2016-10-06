@@ -2,13 +2,6 @@
 
   .dropdown {
 
-    &.open {
-
-      .dropdown-menu {
-        z-index: @z-index-dropdown;
-      }
-    }
-
     &.dropdown-wide {
 
       &,
@@ -100,6 +93,7 @@
     // Overrides default Canvas styles.
     float: initial;
     left: initial;
+    z-index: @z-index-dropdown;
   }
 
   .dropdown-menu-list {
