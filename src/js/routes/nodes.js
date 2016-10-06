@@ -149,14 +149,6 @@ let nodesRoutes = {
                 }
               ]
             },
-            // {
-            //   type: Route,
-            //   name: 'nodes-task-details-logs',
-            //   dontScroll: true,
-            //   path: 'logs/:filePath?/?:innerPath?/?',
-            //   handler: TaskLogsTab,
-            //   title:'Logs'
-            // },
             {
               type: Route,
               name: 'nodes-task-details-volumes',

@@ -124,14 +124,6 @@ let jobsRoutes = {
                     }
                   ]
                 }
-                // {
-                //   type: Route,
-                //   name: 'jobs-task-details-logs',
-                //   dontScroll: true,
-                //   path: 'logs/:filePath?/?:innerPath?/?',
-                //   handler: TaskLogsTab,
-                //   title:'Logs'
-                // }
               ]
             }
           ]
