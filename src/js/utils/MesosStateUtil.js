@@ -1,6 +1,12 @@
+import PodContainerState from '../constants/PodContainerState';
+import PodInstanceState from '../constants/PodInstanceState';
 import Util from './Util';
 
 const RESOURCE_KEYS = ['cpus', 'disk', 'mem'];
+
+// This is the actual regex marathon uses from:
+// https://github.com/mesosphere/marathon/blob/feature/pods/src/main/scala/mesosphere/marathon/core/task/Task.scala#L134
+const POD_TASK_REGEX = /^(.+)\.(instance-|marathon-)([^_\.]+)[\._]([^_\.]+)$/;
 
 function setIsStartedByMarathonFlag(name, tasks) {
   return tasks.map(function (task) {
@@ -84,6 +90,107 @@ const MesosStateUtil = {
             || Util.findNestedPropertyInObject(task, podPath) === overlayName;
       }));
     }, []);
+  },
+
+  /**
+   * Return historical instances (killed, terminated, failed etc.) for the given
+   * pod by digging into the marathon state.
+   *
+   * @param {Object} state - The mesos state response
+   * @param {Pod} pod - The related pod
+   * @returns {Array} The array of historical instances
+   */
+  getPodHistoricalInstances(state, pod) {
+    const interestingStates = [
+      PodContainerState.LOST, PodContainerState.KILLED,
+      PodContainerState.ERROR, PodContainerState.FINISHED
+    ];
+    let frameworks = state.frameworks || [];
+    let marathonFramework = frameworks.find(function (framework) {
+      return framework.name === 'marathon';
+    });
+
+    if (!marathonFramework) {
+      return [];
+    }
+
+    let instancesMap = marathonFramework.completed_tasks.reduce(
+      function (memo, task) {
+        if (POD_TASK_REGEX.test(task.id)) {
+          let [, podID, , instanceID] = POD_TASK_REGEX.exec(task.id);
+          if (podID === pod.getMesosId()) {
+            let containerArray = memo[instanceID];
+            if (containerArray === undefined) {
+              containerArray = memo[instanceID] = [];
+            }
+
+            // Ignore tasks that are not of interest
+            if (interestingStates.indexOf(task.state) === -1) {
+              return memo;
+            }
+
+            // The last status can give us information about the time the
+            // container was last updated, so we need the latest status item
+            let lastStatus = task.statuses.reduce(function (memo, status) {
+              if (!memo || (status.timestamp > memo.timestamp)) {
+                return status;
+              }
+              return memo;
+            }, null);
+
+            // Add additional fields to the task structure in order to make it
+            // as close as possible to something a PodContainer will understand.
+            containerArray.push(Object.assign({
+              containerId: task.id,
+              //
+              // NOTE: We are creating a Date object from this value, so we
+              //       should be OK with the timestamp
+              // TODO: What happens to the timezone?
+              //
+              lastChanged: lastStatus.timestamp,
+              lastUpdated: lastStatus.timestamp
+            }, task));
+          }
+        }
+
+        return memo;
+      }, {}
+    );
+
+    // Try to compose actual PodInstance structures from the information we
+    // have so far. Obviously we don't have any details, but we can populate
+    // most of the UI-interesting fields by summarising container details
+    return Object.keys(instancesMap).map(function (instanceId) {
+      let containers = instancesMap[instanceId];
+      let summaryProperties = containers.reduce(function (memo, instance) {
+        let {resources={}, lastChanged=0} = instance;
+
+        memo.resources.cpus += resources.cpus || 0;
+        memo.resources.mem += resources.mem || 0;
+        memo.resources.gpus += resources.gpus || 0;
+        memo.resources.disk += resources.disk || 0;
+
+        // TODO: Currently both lastChanged and lastUpdated are pointing to the
+        //       same timestamp. Is there any way to get more information?
+        if (lastChanged > memo.lastChanged) {
+          memo.lastChanged = lastChanged;
+          memo.lastUpdated = lastChanged;
+        }
+
+        return memo;
+      }, {
+        resources: { cpus:0, mem:0, gpus:0, disk:0 },
+        lastChanged: 0,
+        lastUpdated: 0
+      });
+
+      // Compose something as close as possible to what `PodInstance` understand
+      return Object.assign({
+        id: instanceId,
+        status: PodInstanceState.TERMINAL,
+        containers
+      }, summaryProperties);
+    });
   },
 
   /**
