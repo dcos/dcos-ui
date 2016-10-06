@@ -94,7 +94,7 @@ var ServicesTable = React.createClass({
     }
 
     return (
-      <a className="table-display-on-row-hover"
+      <a className="table-cell-icon table-display-on-row-hover"
         href={service.getWebURL()}
         target="_blank"
         title="Open in a new window">
@@ -192,7 +192,7 @@ var ServicesTable = React.createClass({
           params={{id}}>
           {this.getImage(service)}
         </Link>
-        <span className="table-cell-value">
+        <span className="table-cell-value table-cell-flex-box">
           {this.getServiceLink(service)}
           {this.getOpenInNewWindowLink(service)}
         </span>
