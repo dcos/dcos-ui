@@ -1,12 +1,11 @@
-import PodContainerState from '../constants/PodContainerState';
 import PodInstanceState from '../constants/PodInstanceState';
 import Util from './Util';
 
 const RESOURCE_KEYS = ['cpus', 'disk', 'mem'];
 
-// This is the actual regex marathon uses from:
+// Based on the regex marathon uses here:
 // https://github.com/mesosphere/marathon/blob/feature/pods/src/main/scala/mesosphere/marathon/core/task/Task.scala#L134
-const POD_TASK_REGEX = /^(.+)\.(instance-|marathon-)([^_\.]+)[\._]([^_\.]+)$/;
+const POD_TASK_REGEX = /^(.+)\.(?:instance-|marathon-)([^_\.]+)[\._]([^_\.]+)$/;
 
 function setIsStartedByMarathonFlag(name, tasks) {
   return tasks.map(function (task) {
@@ -101,10 +100,6 @@ const MesosStateUtil = {
    * @returns {Array} The array of historical instances
    */
   getPodHistoricalInstances(state, pod) {
-    const interestingStates = [
-      PodContainerState.LOST, PodContainerState.KILLED,
-      PodContainerState.ERROR, PodContainerState.FINISHED
-    ];
     let frameworks = state.frameworks || [];
     let marathonFramework = frameworks.find(function (framework) {
       return framework.name === 'marathon';
@@ -117,16 +112,11 @@ const MesosStateUtil = {
     let instancesMap = marathonFramework.completed_tasks.reduce(
       function (memo, task) {
         if (POD_TASK_REGEX.test(task.id)) {
-          let [, podID, , instanceID] = POD_TASK_REGEX.exec(task.id);
+          let [, podID, instanceID] = POD_TASK_REGEX.exec(task.id);
           if (podID === pod.getMesosId()) {
             let containerArray = memo[instanceID];
             if (containerArray === undefined) {
               containerArray = memo[instanceID] = [];
-            }
-
-            // Ignore tasks that are not of interest
-            if (interestingStates.indexOf(task.state) === -1) {
-              return memo;
             }
 
             // The last status can give us information about the time the
@@ -142,6 +132,7 @@ const MesosStateUtil = {
             // as close as possible to something a PodContainer will understand.
             containerArray.push(Object.assign({
               containerId: task.id,
+              status: task.state,
               //
               // NOTE: We are creating a Date object from this value, so we
               //       should be OK with the timestamp
