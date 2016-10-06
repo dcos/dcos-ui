@@ -48,6 +48,7 @@ module.exports = class Pod extends Service {
    * Return the normalized pod ID, used as a prefix in the marathon framework
    * state, as fetched from Mesos state.
    *
+   * @override
    * @returns {String} The normalized mesos ID
    */
   getMesosId() {
