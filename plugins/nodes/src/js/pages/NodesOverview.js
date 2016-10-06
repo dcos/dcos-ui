@@ -1,26 +1,21 @@
 import classNames from 'classnames';
 import React from 'react';
-import {HashLocation, Link, RouteHandler} from 'react-router';
+import {HashLocation, Link} from 'react-router';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import AlertPanel from '../../../../../src/js/components/AlertPanel';
 import CompositeState from '../../../../../src/js/structs/CompositeState';
 import Config from '../../../../../src/js/config/Config';
 import EventTypes from '../../../../../src/js/constants/EventTypes';
-import FilterButtons from '../../../../../src/js/components/FilterButtons';
-import FilterBar from '../../../../../src/js/components/FilterBar';
-import FilterByService from '../../../../services/src/js/components/FilterByService';
 import FilterInputText from '../../../../../src/js/components/FilterInputText';
-import FilterHeadline from '../../../../../src/js/components/FilterHeadline';
+import HostsPageContent from './nodes-overview/HostsPageContent';
 import Icon from '../../../../../src/js/components/Icon';
 import InternalStorageMixin from '../../../../../src/js/mixins/InternalStorageMixin';
 import MesosSummaryStore from '../../../../../src/js/stores/MesosSummaryStore';
-import ResourceBarChart from '../../../../../src/js/components/charts/ResourceBarChart';
 import SidebarActions from '../../../../../src/js/events/SidebarActions';
 import StringUtil from '../../../../../src/js/utils/StringUtil';
 
 const NODES_DISPLAY_LIMIT = 300;
-const HEALTH_FILTER_BUTTONS = ['all', 'healthy', 'unhealthy'];
 
 function getMesosHosts(state) {
   let states = MesosSummaryStore.get('states');
@@ -143,10 +138,6 @@ var NodesOverview = React.createClass({
 
     this.setState(state);
     this.internalStorage_update(getMesosHosts(state));
-
-    if (this.serviceFilter !== null && this.serviceFilter.dropdown !== null) {
-      this.serviceFilter.setDropdownValue('default');
-    }
   },
 
   handleSearchStringChange(searchString = '') {
@@ -247,45 +238,27 @@ var NodesOverview = React.createClass({
       searchString !== '';
 
     return (
-      <div>
-        <ResourceBarChart
-          itemCount={data.nodes.length}
-          resources={data.totalHostsResources}
-          totalResources={data.totalResources}
-          refreshRate={data.refreshRate}
-          resourceType="Nodes"
-          selectedResource={selectedResource}
-          onResourceSelectionChange={this.onResourceSelectionChange} />
-        <FilterHeadline
-          currentLength={nodesList.length}
-          isFiltering={isFiltering}
-          name="Node"
-          onReset={this.resetFilter}
-          totalLength={data.totalNodes} />
-        <FilterBar rightAlignLastNChildren={1}>
-          {this.getFilterInputText()}
-          <FilterButtons
-            renderButtonContent={this.getButtonContent}
-            filters={HEALTH_FILTER_BUTTONS}
-            filterByKey="title"
-            onFilterChange={this.handleHealthFilterChange}
-            itemList={nodesHealth}
-            selectedFilter={healthFilter} />
-          <div className="form-group flush-bottom">
-            <FilterByService
-              byServiceFilter={byServiceFilter}
-              handleFilterChange={this.handleByServiceFilterChange}
-              ref={(ref) => this.serviceFilter = ref}
-              services={data.services}
-              totalHostsCount={data.totalNodes} />
-          </div>
-          {this.getViewTypeRadioButtons(this.resetFilter)}
-        </FilterBar>
-        <RouteHandler
-          selectedResource={selectedResource}
-          hosts={nodesList}
-          services={data.services} />
-      </div>
+      <HostsPageContent
+        nodeCount={data.nodes.length}
+        totalHostsResources={data.totalHostsResources}
+        totalResources={data.totalResources}
+        refreshRate={data.refreshRate}
+        selectedResource={selectedResource}
+        onResourceSelectionChange={this.onResourceSelectionChange}
+        filteredNodeCount={nodesList.length}
+        isFiltering={isFiltering}
+        onResetFilter={this.resetFilter}
+        totalNodeCount={data.totalNodes}
+        filterInputText={this.getFilterInputText()}
+        filterButtonContent={this.getButtonContent}
+        onFilterChange={this.handleHealthFilterChange}
+        filterItemList={nodesHealth}
+        selectedFilter={healthFilter}
+        byServiceFilter={byServiceFilter}
+        handleFilterChange={this.handleByServiceFilterChange}
+        services={data.services}
+        viewTypeRadioButtons={this.getViewTypeRadioButtons(this.resetFilter)}
+        hosts={nodesList} />
     );
   },
 
