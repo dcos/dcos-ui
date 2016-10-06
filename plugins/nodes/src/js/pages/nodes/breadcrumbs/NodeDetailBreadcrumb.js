@@ -1,5 +1,5 @@
-import BreadcrumbSegment from '../../../components/BreadcrumbSegment';
-import CompositeState from '../../../structs/CompositeState';
+import BreadcrumbSegment from '../../../../../../../src/js/components/BreadcrumbSegment';
+import CompositeState from '../../../../../../../src/js/structs/CompositeState';
 
 class NodeDetailBreadCrumb extends BreadcrumbSegment {
   componentDidMount() {

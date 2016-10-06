@@ -1,8 +1,8 @@
 import React from 'react';
 
-import MesosStateStore from '../../stores/MesosStateStore';
-import Node from '../../structs/Node';
-import TaskView from '../../../../plugins/services/src/js/components/TaskView';
+import MesosStateStore from '../../../../../../src/js/stores/MesosStateStore';
+import Node from '../../../../../../src/js/structs/Node';
+import TaskView from '../../../../../services/src/js/components/TaskView';
 
 class NodeDetailTaskTab extends React.Component {
   render() {
