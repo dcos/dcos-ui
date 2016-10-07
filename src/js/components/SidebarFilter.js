@@ -120,6 +120,11 @@ class SidebarFilter extends mixin(QueryParamsMixin) {
   getFormLabel(filterLabel, filterValue) {
     let badge = null;
     let count = this.getCountByValue(filterValue);
+    let filterLabelClasses = classNames(
+      'sidebar-filters-item-label',
+      {'badge-container': count}
+    );
+    let filterLabelTextClasses = classNames({'badge-container-text': count});
 
     if (count) {
       badge = (
@@ -130,8 +135,8 @@ class SidebarFilter extends mixin(QueryParamsMixin) {
     }
 
     return (
-      <span className="sidebar-filters-item-label badge-container">
-        <span>{filterLabel}</span>
+      <span className={filterLabelClasses}>
+        <span className={filterLabelTextClasses}>{filterLabel}</span>
         {badge}
       </span>
     );

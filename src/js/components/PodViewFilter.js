@@ -34,8 +34,8 @@ class PodViewFilter extends React.Component {
 
   getFilterButtonContent(filterName, count) {
     return (
-      <span className="button-align-content">
-        <span className="label">{StringUtil.capitalize(filterName)}</span>
+      <span className="button-align-content badge-container">
+        <span className="badge-container-text label">{StringUtil.capitalize(filterName)}</span>
         <span className="badge">{count || 0}</span>
       </span>
     );
