@@ -61,7 +61,7 @@ class InstalledPackagesTab extends mixin(StoreMixin) {
   getLoadingScreen() {
     return (
       <div className="container container-fluid container-pod">
-        <Loader className="inverse" />
+        <Loader />
       </div>
     );
   }

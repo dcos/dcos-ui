@@ -183,7 +183,7 @@ class UnitsHealthTab extends mixin(StoreMixin) {
         </div>
         <div className="page-body-content-fill flex-grow flex-container-col">
           <Table
-            className="table inverse table-borderless-outer
+            className="table table-borderless-outer
               table-borderless-inner-columns flush-bottom"
             columns={this.getColumns()}
             colGroup={this.getColGroup()}

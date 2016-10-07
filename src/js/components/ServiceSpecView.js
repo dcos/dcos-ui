@@ -220,7 +220,7 @@ class ServiceSpecView extends mixin(StoreMixin) {
     if (config == null) {
       return (
         <div className="container container-fluid container-pod">
-          <Loader className="inverse" />
+          <Loader />
         </div>
       );
     }
