@@ -161,7 +161,7 @@ class TaskTable extends React.Component {
         sortFunction
       },
       {
-        cacheCell: true,
+        cacheCell: false,
         className,
         headerClassName: className,
         heading,
