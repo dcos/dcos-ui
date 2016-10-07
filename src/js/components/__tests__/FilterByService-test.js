@@ -39,10 +39,7 @@ describe('FilterByService', function () {
     var node = ReactDOM.findDOMNode(this.instance);
     var buttonNode = node.querySelector('.dropdown-toggle');
 
-    var badgeNode = ReactDOM.findDOMNode(buttonNode);
-    var text = badgeNode.querySelector('.badge-container');
-
-    expect(text.textContent)
+    expect(buttonNode.textContent)
       .toEqual('Filter by Service');
   });
 
