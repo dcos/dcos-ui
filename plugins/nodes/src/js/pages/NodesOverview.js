@@ -12,6 +12,7 @@ import HostsPageContent from './nodes-overview/HostsPageContent';
 import Icon from '../../../../../src/js/components/Icon';
 import InternalStorageMixin from '../../../../../src/js/mixins/InternalStorageMixin';
 import MesosSummaryStore from '../../../../../src/js/stores/MesosSummaryStore';
+import QueryParamsMixin from '../../../../../src/js/mixins/QueryParamsMixin';
 import SidebarActions from '../../../../../src/js/events/SidebarActions';
 import StringUtil from '../../../../../src/js/utils/StringUtil';
 
@@ -52,7 +53,7 @@ var NodesOverview = React.createClass({
 
   displayName: 'NodesOverview',
 
-  mixins: [InternalStorageMixin, StoreMixin],
+  mixins: [InternalStorageMixin, QueryParamsMixin, StoreMixin],
 
   statics: {
     routeConfig: {
@@ -70,7 +71,7 @@ var NodesOverview = React.createClass({
   },
 
   contextTypes: {
-    router: React.PropTypes.func
+    router: React.PropTypes.func.isRequired
   },
 
   getInitialState() {
@@ -138,6 +139,8 @@ var NodesOverview = React.createClass({
 
     this.setState(state);
     this.internalStorage_update(getMesosHosts(state));
+
+    this.resetQueryParams(['searchString', 'filterService', 'filterHealth']);
   },
 
   handleSearchStringChange(searchString = '') {
@@ -147,6 +150,7 @@ var NodesOverview = React.createClass({
 
     this.internalStorage_update(getMesosHosts(stateChanges));
     this.setState({searchString});
+    this.setQueryParam('searchString', searchString);
   },
 
   handleByServiceFilterChange(byServiceFilter) {
@@ -160,11 +164,13 @@ var NodesOverview = React.createClass({
 
     this.internalStorage_update(getMesosHosts(stateChanges));
     this.setState({byServiceFilter});
+    this.setQueryParam('filterService', byServiceFilter);
   },
 
   handleHealthFilterChange(healthFilter) {
     this.internalStorage_update(getMesosHosts({healthFilter}));
     this.setState({healthFilter});
+    this.setQueryParam('filterHealth', healthFilter);
   },
 
   onResourceSelectionChange(selectedResource) {
