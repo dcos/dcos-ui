@@ -82,8 +82,7 @@ class JobStopRunModal extends mixin(StoreMixin) {
     let selectedItemsLength = selectedItems.length;
 
     return (
-      <div className="container container-pod container-pod-short-top
-        text-align-center">
+      <div className="text-align-center">
         {this.getContentHeader(selectedItems, selectedItemsLength)}
         {this.getConfirmTextBody(selectedItems, selectedItemsLength)}
       </div>

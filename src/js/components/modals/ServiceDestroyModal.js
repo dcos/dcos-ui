@@ -72,13 +72,11 @@ class ServiceDestroyModal extends ServiceActionModal {
         rightButtonText={`Destroy ${itemText}`}
         rightButtonClassName="button button-danger"
         rightButtonCallback={this.handleConfirmClick}>
-        <div className="container-pod flush-top container-pod-short-bottom">
-          <h2 className="text-danger text-align-center flush-top">
-            Destroy {itemText}
-          </h2>
-          <p>Destroying <span className="emphasize">{serviceName}</span> is irreversible. Are you sure you want to continue?</p>
-          {this.getErrorMessage()}
-        </div>
+        <h2 className="text-danger text-align-center flush-top">
+          Destroy {itemText}
+        </h2>
+        <p>Destroying <span className="emphasize">{serviceName}</span> is irreversible. Are you sure you want to continue?</p>
+        {this.getErrorMessage()}
       </Confirm>
     );
   }

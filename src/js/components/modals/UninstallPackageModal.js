@@ -113,7 +113,7 @@ class UninstallPackageModal extends mixin(StoreMixin) {
     let notes = cosmosPackage.getPostUninstallNotes();
 
     return (
-      <div className="container-pod container-pod-short text-align-center">
+      <div className="pod pod-short flush-right flush-left text-align-center">
         <span className="text-success">
           <Icon id="ring-check" size="jumbo" />
         </span>
@@ -167,8 +167,6 @@ class UninstallPackageModal extends mixin(StoreMixin) {
       <Confirm
         closeByBackdropClick={true}
         disabled={pendingUninstallRequest}
-        footerContainerClass="container container-pod container-pod-short
-          container-pod-fluid flush-top flush-bottom"
         open={open}
         onClose={handleClose}
         leftButtonCallback={handleClose}

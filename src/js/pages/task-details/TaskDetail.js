@@ -131,7 +131,7 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
 
   getErrorScreen() {
     return (
-      <div className="container container-fluid container-pod text-align-center vertical-center">
+      <div className="pod">
         <RequestErrorMsg />
       </div>
     );
@@ -139,7 +139,7 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
 
   getLoadingScreen() {
     return (
-      <div className="container container-fluid container-pod">
+      <div className="pod">
         <Loader />
       </div>
     );
@@ -238,7 +238,7 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
 
   getNotFound(item, itemID) {
     return (
-      <div className="container container-fluid container-pod text-align-center">
+      <div className="pod flush-right flush-left text-align-center">
         <h3 className="flush-top text-align-center">
           {`Error finding ${item}`}
         </h3>
@@ -282,7 +282,7 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
     }
 
     return (
-      <div className="flex-container-col flex-grow flex-shrink container-pod container-pod-divider-bottom-align-right container-pod-short-top flush-bottom flush-top">
+      <div>
         <Breadcrumbs />
         {this.getBasicInfo()}
         {this.getSubView()}

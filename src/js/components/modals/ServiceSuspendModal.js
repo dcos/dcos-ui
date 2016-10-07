@@ -76,15 +76,13 @@ class ServiceSuspendModal extends ServiceActionModal {
         leftButtonCallback={this.handleCloseClick}
         rightButtonText={`Suspend ${itemText}`}
         rightButtonCallback={this.handleConfirmClick}>
-        <div className="container-pod flush-top container-pod-short-bottom">
-          <h2 className="text-align-center flush-top">
-            Suspend {itemText}
-          </h2>
-          <p>
-            Are you sure you want to suspend <span className="emphasize">{serviceName}</span> by scaling to 0 instances?
-          </p>
-          {this.getErrorMessage()}
-        </div>
+        <h2 className="text-align-center flush-top">
+          Suspend {itemText}
+        </h2>
+        <p>
+          Are you sure you want to suspend <span className="emphasize">{serviceName}</span> by scaling to 0 instances?
+        </p>
+        {this.getErrorMessage()}
       </Confirm>
     );
   }
