@@ -9,7 +9,6 @@ import Icon from './Icon';
 import Links from '../constants/Links';
 import NestedServiceLinks from '../components/NestedServiceLinks';
 import ResourceTableUtil from '../utils/ResourceTableUtil';
-import Pod from '../structs/Pod';
 import Service from '../structs/Service';
 import ServiceActionItem from '../constants/ServiceActionItem';
 import ServiceDestroyModal from './modals/ServiceDestroyModal';
@@ -279,15 +278,11 @@ var ServicesTable = React.createClass({
     let {tasksRunning} = tasksSummary;
 
     let isDeploying = serviceStatus === 'Deploying';
-    let taskString = 'Task';
-    if (service instanceof Pod) {
-      taskString = 'Instance';
-    }
 
     let conciseOverview = ` (${tasksRunning}/${instancesCount})`;
-    let verboseOverview = ` (${tasksRunning} ${StringUtil.pluralize(taskString, tasksRunning)})`;
+    let verboseOverview = ` (${tasksRunning} ${StringUtil.pluralize('Intance', tasksRunning)})`;
     if (tasksRunning !== instancesCount) {
-      verboseOverview = ` (${tasksRunning} of ${instancesCount} ${taskString})`;
+      verboseOverview = ` (${tasksRunning} of ${instancesCount} Instances)`;
     }
 
     return (

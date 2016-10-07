@@ -99,19 +99,19 @@ describe('ServiceDetail', function () {
 
   });
 
-  describe('#renderTasksTabView', function () {
+  describe('#renderInstancesTabView', function () {
 
     it('renders task tab', function () {
-      var tasksTabView = ReactDOM.render(
-        this.instance.renderTasksTabView(),
+      var instancesTabView = ReactDOM.render(
+        this.instance.renderInstancesTabView(),
         this.container
       );
-      var serviceDetailTaskTab = TestUtils.findRenderedComponentWithType(
-        tasksTabView,
+      var serviceDetailInstancesTab = TestUtils.findRenderedComponentWithType(
+        instancesTabView,
         ServiceDetailTaskTab
       );
 
-      expect(serviceDetailTaskTab).toBeDefined();
+      expect(serviceDetailInstancesTab).toBeDefined();
 
     });
 
