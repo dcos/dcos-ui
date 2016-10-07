@@ -144,4 +144,9 @@ class VirtualNetworksTabContent extends mixin(StoreMixin) {
   }
 }
 
+VirtualNetworksTabContent.routeConfig = {
+  label: 'Virtual Networks',
+  matches: /^\/network\/virtual-networks/
+};
+
 module.exports = VirtualNetworksTabContent;
