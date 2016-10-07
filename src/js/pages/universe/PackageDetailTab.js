@@ -224,17 +224,6 @@ class PackageDetailTab extends mixin(StoreMixin) {
                   fallbackSrc={defaultServiceImage}
                   src={cosmosPackage.getIcons()['icon-large']} />
               </div>
-              <div className="media-object-item">
-                <h1 className="flush">
-                  {name}
-                </h1>
-                <p>{this.getSelectedBadge(cosmosPackage, version)}</p>
-                <button
-                  className="button button-success"
-                  onClick={this.handleInstallModalOpen}>
-                  Install Package
-                </button>
-              </div>
             </div>
             <div className="media-object-item">
               <h1 className="flush">
