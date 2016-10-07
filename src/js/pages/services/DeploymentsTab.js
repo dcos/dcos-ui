@@ -327,7 +327,7 @@ class DeploymentsTab extends mixin(StoreMixin) {
 
     return (
       <div>
-        <h4>
+        <h4 className="flush-top">
           {deploymentsCount} Active {deploymentsLabel}
         </h4>
         <Table
