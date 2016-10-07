@@ -141,7 +141,7 @@ class TaskView extends mixin(SaveStateMixin, StoreMixin) {
 
     return (
       <div className="container container-fluid container-pod">
-        <Loader className="inverse" />
+        <Loader />
       </div>
     );
   }

@@ -85,7 +85,7 @@ class UnitsHealthNodeDetail extends mixin(StoreMixin) {
   getLoadingScreen() {
     return (
       <div className="container container-fluid container-pod">
-        <Loader className="inverse" />
+        <Loader />
       </div>
     );
   }
@@ -101,16 +101,16 @@ class UnitsHealthNodeDetail extends mixin(StoreMixin) {
 
     return (
       <div className="flex-container-col flex-grow">
-        <span className="h4 inverse flush-top">Summary</span>
-        <p className="inverse">
+        <span className="h4 flush-top">Summary</span>
+        <p>
           {unitSummary.summary}
         </p>
-        <p className="inverse">
+        <p>
           <a href={unitDocsURL} target="_blank">
             View Documentation
           </a>
         </p>
-        <span className="h4 inverse">Output</span>
+        <span className="h4">Output</span>
         <pre className="flex-grow flush-bottom">
           {node.getOutput()}
         </pre>

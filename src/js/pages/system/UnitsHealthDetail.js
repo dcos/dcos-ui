@@ -89,7 +89,7 @@ class UnitsHealthDetail extends mixin(StoreMixin) {
   getLoadingScreen() {
     return (
       <div className="container container-fluid container-pod">
-        <Loader className="inverse" />
+        <Loader />
       </div>
     );
   }
@@ -178,7 +178,7 @@ class UnitsHealthDetail extends mixin(StoreMixin) {
           </div>
           <UnitHealthDropdown
             className="button dropdown-toggle text-align-left"
-            dropdownMenuClassName="dropdown-menu inverse"
+            dropdownMenuClassName="dropdown-menu"
             initialID="all"
             onHealthSelection={this.handleHealthSelection}
             ref={(ref) => this.healthFilter = ref} />

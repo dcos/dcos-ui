@@ -178,7 +178,7 @@ class JobsTab extends mixin(StoreMixin, QueryParamsMixin, SaveStateMixin) {
     if (!DCOSStore.dataProcessed) {
       return (
         <div className="container container-fluid container-pod">
-          <Loader className="inverse" />
+          <Loader />
         </div>
       );
     }
