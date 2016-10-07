@@ -2,7 +2,6 @@ import mixin from 'reactjs-mixin';
 /* eslint-disable no-unused-vars */
 import React from 'react';
 /* eslint-enable no-unused-vars */
-import {RouteHandler} from 'react-router';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import Breadcrumbs from '../../../components/Breadcrumbs';
@@ -127,7 +126,7 @@ class VirtualNetworkDetail extends mixin(StoreMixin, TabsMixin) {
       <div className="flex-container-col flex-grow flex-shrink container-pod container-pod-divider-bottom-align-right container-pod-short-top flush-bottom flush-top">
         <Breadcrumbs />
         {this.getBasicInfo(overlay)}
-        <RouteHandler overlay={overlay} />
+        {React.cloneElement(this.props.children, {overlay})}
       </div>
     );
   }

@@ -51,7 +51,7 @@ var QueryParamsMixin = {
       delete queryParams[paramKey];
     }
 
-    router.transitionTo(router.getCurrentPathname(), {}, queryParams);
+    router.push(router.getCurrentPathname(), {}, queryParams);
   },
 
   decodeQueryParamArray(array) {

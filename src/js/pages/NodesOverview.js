@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import React from 'react';
-import {HashLocation, Link, RouteHandler} from 'react-router';
+import {HashLocation, Link} from 'react-router';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import AlertPanel from '../components/AlertPanel';
@@ -279,10 +279,10 @@ var NodesOverview = React.createClass({
           </div>
           {this.getViewTypeRadioButtons(this.resetFilter)}
         </FilterBar>
-        <RouteHandler
-          selectedResource={selectedResource}
-          hosts={nodesList}
-          services={data.services} />
+        {React.cloneElement(this.props.children, {
+          selectedResource,
+          hosts: nodesList,
+          services: data.services})}
       </div>
     );
   },

@@ -7,8 +7,8 @@ let settingsRoutes = {
   type: Route,
   id: 'settings',
   name: 'settings',
-  path: 'settings/?',
-  handler: SettingsPage,
+  path: 'settings',
+  component: SettingsPage,
   category: 'system',
   isInSidebar: true,
   children: [
@@ -16,14 +16,14 @@ let settingsRoutes = {
       type: Route,
       id: 'settings-repositories',
       name: 'settings-repositories',
-      path: 'repositories/?',
-      handler: RepositoriesTab,
+      path: 'repositories',
+      component: RepositoriesTab,
       isInSidebar: true
     },
     {
       type: Redirect,
-      from: '/settings/?',
-      to: 'settings-repositories'
+      from: '/settings',
+      to: '/settings/repositories'
     }
   ]
 };

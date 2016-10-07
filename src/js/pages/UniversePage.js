@@ -2,7 +2,6 @@ import mixin from 'reactjs-mixin';
 /* eslint-disable no-unused-vars */
 import React from 'react';
 /* eslint-enable no-unused-vars */
-import {RouteHandler} from 'react-router';
 
 import Icon from '../components/Icon';
 import Page from '../components/Page';
@@ -56,7 +55,7 @@ class UniversePage extends mixin(TabsMixin) {
       <Page
         title="Universe"
         navigation={this.getNavigation()}>
-        <RouteHandler />
+        {this.props.children}
       </Page>
     );
   }

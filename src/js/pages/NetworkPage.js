@@ -1,4 +1,4 @@
-import {Link, RouteHandler} from 'react-router';
+import {Link} from 'react-router';
 import mixin from 'reactjs-mixin';
 /* eslint-disable no-unused-vars */
 import React from 'react';
@@ -147,7 +147,7 @@ class NetworkPage extends mixin(TabsMixin) {
         title="Network"
         navigation={this.getNavigation()}>
         {this.getSubNavigation()}
-        <RouteHandler currentTab={this.state.currentTab} />
+        {React.cloneElement(this.props.children, {currentTab: this.state.currentTab})}
       </Page>
     );
   }

@@ -29,7 +29,7 @@ var NodesGridDials = React.createClass({
 
   handleDialClick(nodeID) {
     // Using handler, since Link in arrays cannot get router context
-    this.context.router.transitionTo('node-detail', {nodeID});
+    this.context.router.push('node-detail', {nodeID});
   },
 
   getServiceSlicesConfig(node) {

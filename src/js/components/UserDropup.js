@@ -200,10 +200,6 @@ class UserDropup extends mixin(StoreMixin) {
   }
 }
 
-UserDropup.contextTypes = {
-  router: React.PropTypes.func
-};
-
 UserDropup.defaultProps = {
   items: []
 };

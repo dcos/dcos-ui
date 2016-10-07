@@ -1,4 +1,3 @@
-import {RouteHandler} from 'react-router';
 import React from 'react';
 
 import Icon from '../components/Icon';
@@ -8,7 +7,7 @@ class NodesPage extends React.Component {
   render() {
     return (
       <Page title="Nodes">
-        <RouteHandler />
+        {this.props.children}
       </Page>
     );
   }

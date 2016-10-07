@@ -16,8 +16,8 @@ let RouteFactory = {
           type: Route,
           id: 'organization-users',
           name: 'organization-users',
-          path: 'users/?',
-          handler: UsersTab,
+          path: 'users',
+          component: UsersTab,
           isInSidebar: true,
           buildBreadCrumb() {
             return {
@@ -36,7 +36,7 @@ let RouteFactory = {
         }],
         redirect: {
           type: Redirect,
-          from: '/organization/?',
+          from: '/organization',
           to: 'organization-users'
         }
       })
@@ -55,8 +55,8 @@ let RouteFactory = {
       type: Route,
       id: 'organization',
       name: 'organization',
-      path: 'organization/?',
-      handler: OrganizationPage,
+      path: 'organization',
+      component: OrganizationPage,
       category: 'system',
       isInSidebar: true,
       children,

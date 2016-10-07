@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
 /* eslint-enable no-unused-vars */
-import {Redirect, Route} from 'react-router';
+import {Redirect, Route, hashHistory} from 'react-router';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import LoginPage from './components/LoginPage';
@@ -66,8 +66,11 @@ module.exports = Object.assign({}, StoreMixin, {
     }]);
   },
 
-  redirectToLogin(transition) {
-    transition.redirect('/login');
+  redirectToLogin(nextState, replace) {
+    replace({
+      pathname: '/login',
+      state: { nextPathname: nextState.location.pathname }
+    });
   },
 
   AJAXRequestError(xhr) {
@@ -116,24 +119,20 @@ module.exports = Object.assign({}, StoreMixin, {
   },
 
   applicationRoutes(routes) {
-    // Override handler of index to be 'authenticated'
-    routes[0].children.forEach(function (child) {
-      if (child.id === 'index') {
-        child.handler = new Authenticated(child.handler);
-      }
-    });
+    // Override component of index to be 'authenticated'
+    let indexRoute = routes[0];
+    indexRoute.component = new Authenticated(indexRoute.component);
+    indexRoute.onEnter = Authenticated(indexRoute.component).willTransitionTo;
 
     // Add access denied and login pages
     routes[0].children.unshift(
       {
-        type: Route,
-        name: 'access-denied',
+        component: AccessDeniedPage,
         path: 'access-denied',
-        handler: AccessDeniedPage
+        type: Route
       },
       {
-        handler: LoginPage,
-        name: 'login',
+        component: LoginPage,
         path: 'login',
         type: Route
       }
@@ -160,8 +159,8 @@ module.exports = Object.assign({}, StoreMixin, {
     let userRoute = {
       type: Route,
       name: 'system-organization-users',
-      path: 'users/?',
-      handler: UsersTab,
+      path: 'users',
+      component: UsersTab,
       buildBreadCrumb() {
         return {
           parentCrumb: 'system-organization',
@@ -191,7 +190,7 @@ module.exports = Object.assign({}, StoreMixin, {
 
     routeDefinition.redirect = {
       type: Redirect,
-      from: '/system/organization/?',
+      from: '/system/organization',
       to: 'system-organization-users'
     };
 
@@ -218,10 +217,10 @@ module.exports = Object.assign({}, StoreMixin, {
 
         if (loginRedirectRoute) {
           // Go to redirect route if it is present
-          this.applicationRouter.transitionTo(loginRedirectRoute);
+          hashHistory.push(loginRedirectRoute);
         } else {
           // Go to home
-          this.applicationRouter.transitionTo('/');
+          hashHistory.push('/');
         }
       });
     }

@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import React from 'react';
-import {Link, RouteHandler} from 'react-router';
+import {Link} from 'react-router';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import Application from '../../structs/Application';
@@ -156,7 +156,7 @@ var ServicesTab = React.createClass({
       delete queryParams[filterKey];
     });
 
-    router.transitionTo(router.getCurrentPathname(), {}, queryParams);
+    router.push(router.getCurrentPathname(), {}, queryParams);
   },
 
   resetFilter() {
@@ -227,9 +227,7 @@ var ServicesTab = React.createClass({
 
     // TODO (DCOS-7580): Clean up ServicesTab routed and unrouted views
     if (this.props.params.taskID || this.props.params.volumeID) {
-      return (
-        <RouteHandler service={item} />
-      );
+      return React.cloneElement(this.props.children, {service: item});
     }
 
     // Render Pod detail

@@ -18,7 +18,7 @@ class LoginPage extends mixin(StoreMixin) {
     super.componentWillMount();
 
     if (AuthStore.getUser()) {
-      this.context.router.transitionTo('/');
+      this.context.router.push('/');
     }
 
     this.store_listeners = [
@@ -80,7 +80,7 @@ class LoginPage extends mixin(StoreMixin) {
   navigateToAccessDenied() {
     let router = this.context.router;
 
-    router.transitionTo('/access-denied');
+    router.push('/access-denied');
   }
 
   render() {

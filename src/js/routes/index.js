@@ -1,4 +1,4 @@
-import {Route, Redirect, NotFoundRoute} from 'react-router';
+import {Route, Redirect} from 'react-router';
 import {Hooks} from 'PluginSDK';
 
 import cluster from './cluster';
@@ -32,12 +32,13 @@ function getApplicationRoutes() {
     styles,
     {
       type: Redirect,
-      from: '/',
-      to: Hooks.applyFilter('applicationRedirectRoute', 'dashboard')
+      path: '/',
+      to: Hooks.applyFilter('applicationRedirectRoute', '/dashboard')
     },
     {
-      type: NotFoundRoute,
-      handler: NotFoundPage
+      type: Route,
+      path: '*',
+      component: NotFoundPage
     }
   ];
 
@@ -54,7 +55,7 @@ function getApplicationRoutes() {
         {
           type: Route,
           id: 'index',
-          handler: Index,
+          component: Index,
           children: routes
         }
       ]

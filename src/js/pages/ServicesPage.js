@@ -1,5 +1,4 @@
 import React from 'react';
-import {RouteHandler} from 'react-router';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import Icon from '../components/Icon';
@@ -80,7 +79,7 @@ var ServicesPage = React.createClass({
         navigation={this.getNavigation()}
         dontScroll={routes[routes.length - 1].dontScroll}
         title="Services">
-        <RouteHandler />
+        {this.props.children}
       </Page>
     );
   }

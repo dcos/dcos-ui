@@ -1,4 +1,4 @@
-import {DefaultRoute, Route} from 'react-router';
+import {IndexRoute, Route} from 'react-router';
 /* eslint-disable no-unused-vars */
 import React from 'react';
 /* eslint-enable no-unused-vars */
@@ -33,8 +33,8 @@ function buildJobCrumbs(router) {
 let jobsRoutes = {
   type: Route,
   name: 'jobs-page',
-  handler: JobsPage,
-  path: '/jobs/?',
+  component: JobsPage,
+  path: '/jobs',
   category: 'root',
   isInSidebar: true,
   buildBreadCrumb() {
@@ -52,13 +52,13 @@ let jobsRoutes = {
   children: [
     {
       type: Route,
-      handler: JobsTab,
+      component: JobsTab,
       children: [
         {
           type: Route,
-          handler: JobDetailPage,
+          component: JobDetailPage,
           name: 'jobs-page-detail',
-          path: ':id/?',
+          path: ':id',
           buildBreadCrumb() {
             return {
               parentCrumb: 'jobs-page',
@@ -68,9 +68,9 @@ let jobsRoutes = {
           children:[
             {
               type: Route,
-              path: 'tasks/:taskID/?',
+              path: 'tasks/:taskID',
               name: 'jobs-task-details',
-              handler: TaskDetail,
+              component: TaskDetail,
               buildBreadCrumb() {
                 return {
                   parentCrumb: 'jobs-page-detail',
@@ -85,9 +85,9 @@ let jobsRoutes = {
               },
               children: [
                 {
-                  type: DefaultRoute,
+                  type: IndexRoute,
                   name: 'jobs-task-details-tab',
-                  handler: TaskDetailsTab,
+                  component: TaskDetailsTab,
                   buildBreadCrumb() {
                     return {
                       parentCrumb: 'jobs-task-details',
@@ -99,8 +99,8 @@ let jobsRoutes = {
                 {
                   type: Route,
                   name: 'jobs-task-details-files',
-                  path: 'files/?',
-                  handler: TaskFilesTab,
+                  path: 'files',
+                  component: TaskFilesTab,
                   logRouteName: 'jobs-task-details-logs',
                   buildBreadCrumb() {
                     return {
@@ -114,8 +114,8 @@ let jobsRoutes = {
                   type: Route,
                   name: 'jobs-task-details-logs',
                   dontScroll: true,
-                  path: 'logs/:filePath?/?:innerPath?/?',
-                  handler: TaskLogsTab,
+                  path: 'logs/:filePath?/?:innerPath?',
+                  component: TaskLogsTab,
                   buildBreadCrumb() {
                     return {
                       parentCrumb: 'jobs-task-details',

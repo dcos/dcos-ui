@@ -13,16 +13,16 @@ import UnitsHealthTab from '../pages/system/UnitsHealthTab';
 let componentsRoutes = {
   type: Route,
   name: 'components',
-  path: 'components/?',
-  handler: ComponentsPage,
+  path: 'components',
+  component: ComponentsPage,
   category: 'system',
   isInSidebar: true,
   children: [
     {
       type: Route,
       name: 'components-overview-units',
-      path: 'overview/?',
-      handler: UnitsHealthTab,
+      path: 'overview',
+      component: UnitsHealthTab,
       buildBreadCrumb() {
         return {
           getCrumbs() {
@@ -39,8 +39,8 @@ let componentsRoutes = {
     {
       type: Route,
       name: 'components-overview-units-unit-nodes-detail',
-      path: 'components/:unitID/?',
-      handler: UnitsHealthDetail,
+      path: 'components/:unitID',
+      component: UnitsHealthDetail,
       hideHeaderNavigation: true,
       buildBreadCrumb() {
         return {
@@ -58,8 +58,8 @@ let componentsRoutes = {
     {
       type: Route,
       name: 'components-overview-units-unit-nodes-node-detail',
-      path: 'components/:unitID/nodes/:unitNodeID/?',
-      handler: UnitsHealthNodeDetail,
+      path: 'components/:unitID/nodes/:unitNodeID',
+      component: UnitsHealthNodeDetail,
       hideHeaderNavigation: true,
       buildBreadCrumb() {
         return {
@@ -77,7 +77,7 @@ let componentsRoutes = {
     },
     {
       type: Redirect,
-      from: '/components/?',
+      from: '/components',
       to: 'components-overview-units'
     }
   ]

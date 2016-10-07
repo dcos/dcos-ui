@@ -2,7 +2,6 @@ import mixin from 'reactjs-mixin';
 /* eslint-disable no-unused-vars */
 import React from 'react';
 /* eslint-enable no-unused-vars */
-import {RouteHandler} from 'react-router';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import Breadcrumbs from '../../components/Breadcrumbs';
@@ -57,7 +56,7 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
     // TODO: DCOS-7871 Refactor the TabsMixin to generalize this solution:
     let routes = this.context.router.getCurrentRoutes();
     let currentRoute = routes.find(function (route) {
-      return route.handler === TaskDetail;
+      return route.component === TaskDetail;
     });
 
     if (currentRoute != null) {
@@ -175,7 +174,7 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
     );
     let currentRoutes = this.context.router.getCurrentRoutes();
     let {logRouteName} = currentRoutes[currentRoutes.length - 1];
-    this.context.router.transitionTo(logRouteName, params);
+    this.context.router.push(logRouteName, params);
   }
 
   getBasicInfo() {
@@ -260,14 +259,13 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
       return this.getLoadingScreen();
     }
 
-    return (
-      <RouteHandler
-        directory={directory}
-        onOpenLogClick={this.handleOpenLogClick.bind(this)}
-        selectedLogFile={selectedLogFile}
-        service={this.getService()}
-        task={task} />
-    );
+    return React.cloneElement(this.props.children, {
+      directory,
+      selectedLogFile,
+      task,
+      onOpenLogClick: this.handleOpenLogClick.bind(this),
+      service: this.getService()
+    });
   }
 
   render() {

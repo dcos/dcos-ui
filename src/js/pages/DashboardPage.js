@@ -16,7 +16,6 @@ import ResourceTimeSeriesChart from '../components/charts/ResourceTimeSeriesChar
 import ServiceList from '../components/ServiceList';
 import StringUtil from '../utils/StringUtil';
 import TasksChart from '../components/charts/TasksChart';
-import SidebarActions from '../events/SidebarActions';
 import UnitHealthStore from '../stores/UnitHealthStore';
 
 function getMesosState() {
@@ -44,19 +43,7 @@ var DashboardPage = React.createClass({
       label: 'Dashboard',
       icon: <Icon id="graph-inverse" size="small" family="small" />,
       matches: /^\/dashboard/
-    },
-
-    // Static life cycle method from react router, that will be called
-    // 'when a handler is about to render', i.e. on route change:
-    // https://github.com/rackt/react-router/
-    // blob/master/docs/api/components/RouteHandler.md
-    willTransitionTo() {
-      SidebarActions.close();
     }
-  },
-
-  contextTypes: {
-    router: React.PropTypes.func
   },
 
   getDefaultProps() {

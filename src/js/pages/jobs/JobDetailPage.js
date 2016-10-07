@@ -5,7 +5,6 @@ import prettycron from 'prettycron';
 /* eslint-disable no-unused-vars */
 import React from 'react';
 /* eslint-enable no-unused-vars */
-import {RouteHandler} from 'react-router';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import Breadcrumbs from '../../components/Breadcrumbs';
@@ -104,7 +103,7 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
 
   onMetronomeStoreJobDeleteSuccess() {
     this.closeDialog();
-    this.context.router.transitionTo('jobs-page');
+    this.context.router.push('jobs-page');
   }
 
   onMetronomeStoreJobDetailError() {
@@ -370,7 +369,7 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
     }
 
     if (this.props.params.taskID) {
-      return <RouteHandler />;
+      return this.props.children;
     }
 
     let job = MetronomeStore.getJob(this.props.params.id);

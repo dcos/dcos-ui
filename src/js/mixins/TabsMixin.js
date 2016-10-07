@@ -45,7 +45,7 @@ import NotificationStore from '../stores/NotificationStore';
  *     return (
  *       <Page
  *         navigation={this.getNavigation()}>
- *         <RouteHandler />
+ *         {this.props.children}
  *       </Page>
  *     );
  *   }

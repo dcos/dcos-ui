@@ -1,4 +1,3 @@
-import {RouteHandler} from 'react-router';
 import mixin from 'reactjs-mixin';
 /* eslint-disable no-unused-vars */
 import React from 'react';
@@ -204,7 +203,7 @@ class NodeDetailPage extends mixin(TabsMixin, StoreMixin) {
     return (
       <div>
         {this.getPageHeader(node)}
-        <RouteHandler node={node} />
+        {React.cloneElement(this.props.children, {node})}
       </div>
     );
   }

@@ -59,7 +59,7 @@ class ServiceDetail extends mixin(InternalStorageMixin, TabsMixin) {
 
   onServiceDestroyModalClose() {
     this.closeDialog();
-    this.context.router.transitionTo('services-page');
+    this.context.router.push('services-page');
   }
 
   closeDialog() {

@@ -8,16 +8,16 @@ import UniversePage from '../pages/UniversePage';
 let universeRoutes = {
   type: Route,
   name: 'universe',
-  path: 'universe/?',
-  handler: UniversePage,
+  path: 'universe',
+  component: UniversePage,
   category: 'root',
   isInSidebar: true,
   children: [
     {
       type: Route,
       name: 'universe-packages',
-      path: 'packages/?',
-      handler: PackagesTab,
+      path: 'packages',
+      component: PackagesTab,
       isInSidebar: true,
       buildBreadCrumb() {
         return {
@@ -36,7 +36,7 @@ let universeRoutes = {
       type: Route,
       name: 'universe-packages-detail',
       path: 'packages/:packageName?',
-      handler: PackageDetailTab,
+      component: PackageDetailTab,
       hideHeaderNavigation: true,
       buildBreadCrumb() {
         return {
@@ -61,13 +61,13 @@ let universeRoutes = {
     {
       type: Route,
       name: 'universe-installed-packages',
-      path: 'installed-packages/?',
-      handler: InstalledPackagesTab,
+      path: 'installed-packages',
+      component: InstalledPackagesTab,
       isInSidebar: true
     },
     {
       type: Redirect,
-      from: '/universe/?',
+      from: '/universe',
       to: 'universe-packages'
     }
   ]

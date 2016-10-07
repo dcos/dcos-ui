@@ -2,7 +2,6 @@ import mixin from 'reactjs-mixin';
 /* eslint-disable no-unused-vars */
 import React from 'react';
 /* eslint-enable no-unused-vars */
-import {RouteHandler} from 'react-router';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import AlertPanel from '../../components/AlertPanel';
@@ -138,7 +137,7 @@ class VirtualNetworksTabContent extends mixin(StoreMixin) {
     return (
       <div>
         {this.getContent()}
-        <RouteHandler />
+        {this.props.children}
       </div>
     );
   }

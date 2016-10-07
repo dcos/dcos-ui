@@ -1,6 +1,5 @@
 import mixin from 'reactjs-mixin';
 import React from 'react';
-import {RouteHandler} from 'react-router';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import AlertPanel from '../../components/AlertPanel';
@@ -95,7 +94,7 @@ class JobsTab extends mixin(StoreMixin, QueryParamsMixin, SaveStateMixin) {
       delete queryParams[filterKey];
     });
 
-    router.transitionTo(router.getCurrentPathname(), {}, queryParams);
+    router.push(router.getCurrentPathname(), {}, queryParams);
   }
 
   resetFilter() {
@@ -188,9 +187,7 @@ class JobsTab extends mixin(StoreMixin, QueryParamsMixin, SaveStateMixin) {
     }
 
     if (this.props.params.id) {
-      return (
-        <RouteHandler />
-      );
+      return this.props.children;
     }
 
     // Render empty panel

@@ -1,5 +1,5 @@
 import qs from 'query-string';
-import {createRoutesFromReactChildren} from 'react-router';
+import {createRoutes} from 'react-router';
 import React from 'react';
 
 import Util from './Util';
@@ -102,7 +102,7 @@ const RouterUtil = {
    */
   buildRoutes(originalRoutes) {
     let elementRoutes = RouterUtil.createComponentsFromRoutes(originalRoutes);
-    let routes = createRoutesFromReactChildren(elementRoutes[0]);
+    let routes = createRoutes(elementRoutes[0]);
 
     return RouterUtil.setRouteConfiguration(routes, originalRoutes);
   },

@@ -107,7 +107,7 @@ class TaskLogsTab extends React.Component {
 
     let currentRoutes = this.context.router.getCurrentRoutes();
     let lastRoute = currentRoutes.pop();
-    this.context.router.transitionTo(
+    this.context.router.push(
       lastRoute.name,
       Object.assign({}, this.props.params, {filePath: encodeURIComponent(path)})
     );

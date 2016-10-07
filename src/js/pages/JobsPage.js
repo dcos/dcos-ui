@@ -1,5 +1,4 @@
 import React from 'react';
-import {RouteHandler} from 'react-router';
 
 import Icon from '../components/Icon';
 import Page from '../components/Page';
@@ -13,7 +12,7 @@ class JobsPage extends React.Component {
       <Page
         dontScroll={routes[routes.length - 1].dontScroll}
         title="Jobs">
-        <RouteHandler />
+        {this.props.children}
       </Page>
     );
   }

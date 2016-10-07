@@ -1,4 +1,4 @@
-import {Link, RouteHandler} from 'react-router';
+import {Link} from 'react-router';
 import mixin from 'reactjs-mixin';
 import React from 'react';
 
@@ -110,7 +110,7 @@ class StylesPage extends mixin(TabsMixin) {
             {this.getSubNavigation()}
           </div>
         </div>
-        <RouteHandler currentTab={this.state.currentTab} />
+        {React.createElement(this.props.children, {currentTab: this.state.currentTab})}
       </Page>
     );
   }

@@ -68,7 +68,7 @@ var ServicesTable = React.createClass({
 
   onServiceDestroyModalClose() {
     this.closeDialog();
-    this.context.router.transitionTo('services-page');
+    this.context.router.push('services-page');
   },
 
   onServiceSuspendModalClose() {

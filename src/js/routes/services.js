@@ -1,4 +1,4 @@
-import {DefaultRoute, Redirect, Route} from 'react-router';
+import {IndexRoute, Redirect, Route} from 'react-router';
 /* eslint-disable no-unused-vars */
 import React from 'react';
 /* eslint-enable no-unused-vars */
@@ -33,14 +33,14 @@ function buildServiceCrumbs(router) {
 let serviceRoutes = {
   type: Route,
   name: 'services-page',
-  handler: ServicesPage,
-  path: '/services/?',
+  component: ServicesPage,
+  path: '/services',
   category: 'root',
   isInSidebar: true,
   children: [
     {
       type: Route,
-      handler: ServicesTab,
+      component: ServicesTab,
       name: 'services-overview',
       path: 'overview/',
       isInSidebar: true,
@@ -60,7 +60,7 @@ let serviceRoutes = {
         {
           type: Route,
           name: 'services-detail',
-          path: ':id/?',
+          path: ':id',
           buildBreadCrumb() {
             return {
               parentCrumb: 'services-overview',
@@ -73,8 +73,8 @@ let serviceRoutes = {
             {
               type: Route,
               name: 'service-volume-details',
-              path: 'volumes/:volumeID/?',
-              handler: VolumeDetail,
+              path: 'volumes/:volumeID',
+              component: VolumeDetail,
               buildBreadCrumb() {
                 return {
                   parentCrumb: 'services-overview',
@@ -91,8 +91,8 @@ let serviceRoutes = {
             {
               type: Route,
               name: 'service-task-details-volume-details',
-              path: 'tasks/:taskID/volumes/:volumeID/?',
-              handler: VolumeDetail,
+              path: 'tasks/:taskID/volumes/:volumeID',
+              component: VolumeDetail,
               buildBreadCrumb() {
                 return {
                   parentCrumb: 'services-task-details-volumes',
@@ -115,9 +115,9 @@ let serviceRoutes = {
             },
             {
               type: Route,
-              path: 'tasks/:taskID/?',
+              path: 'tasks/:taskID',
               name: 'services-task-details',
-              handler: TaskDetail,
+              component: TaskDetail,
               hideHeaderNavigation: true,
               buildBreadCrumb() {
                 return {
@@ -133,9 +133,9 @@ let serviceRoutes = {
               },
               children: [
                 {
-                  type: DefaultRoute,
+                  type: IndexRoute,
                   name: 'services-task-details-tab',
-                  handler: TaskDetailsTab,
+                  component: TaskDetailsTab,
                   hideHeaderNavigation: true,
                   buildBreadCrumb() {
                     return {
@@ -148,8 +148,8 @@ let serviceRoutes = {
                 {
                   type: Route,
                   name: 'services-task-details-files',
-                  path: 'files/?',
-                  handler: TaskFilesTab,
+                  path: 'files',
+                  component: TaskFilesTab,
                   hideHeaderNavigation: true,
                   logRouteName: 'services-task-details-logs',
                   buildBreadCrumb() {
@@ -164,8 +164,8 @@ let serviceRoutes = {
                   type: Route,
                   name: 'services-task-details-logs',
                   dontScroll: true,
-                  path: 'logs/:filePath?/?:innerPath?/?',
-                  handler: TaskLogsTab,
+                  path: 'logs/:filePath?/?:innerPath?',
+                  component: TaskLogsTab,
                   hideHeaderNavigation: true,
                   buildBreadCrumb() {
                     return {
@@ -178,8 +178,8 @@ let serviceRoutes = {
                 {
                   type: Route,
                   name: 'services-task-details-volumes',
-                  path: 'volumes/?',
-                  handler: VolumeTable,
+                  path: 'volumes',
+                  component: VolumeTable,
                   buildBreadCrumb() {
                     return {
                       parentCrumb: 'services-task-details',
@@ -198,13 +198,13 @@ let serviceRoutes = {
       type: Route,
       name: 'services-deployments',
       path: 'deployments/',
-      handler: DeploymentsTab,
+      component: DeploymentsTab,
       isInSidebar: true
     },
     {
       type: Redirect,
-      from: '/services/?',
-      to: 'services-overview'
+      path: '/services',
+      to: '/services/overview'
     }
   ]
 };

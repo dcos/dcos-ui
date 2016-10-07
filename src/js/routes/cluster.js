@@ -1,4 +1,4 @@
-import {Route, Redirect} from 'react-router';
+import {Route, IndexRoute} from 'react-router';
 
 import ClusterPage from '../pages/ClusterPage';
 import OverviewDetailTab from '../pages/system/OverviewDetailTab';
@@ -6,21 +6,16 @@ import OverviewDetailTab from '../pages/system/OverviewDetailTab';
 let clusterRoutes = {
   type: Route,
   name: 'cluster',
-  path: 'cluster/?',
-  handler: ClusterPage,
+  path: 'cluster',
+  component: ClusterPage,
   category: 'system',
   isInSidebar: true,
   children: [
     {
-      type: Route,
-      handler: OverviewDetailTab,
+      type: IndexRoute,
+      component: OverviewDetailTab,
       name: 'cluster-overview',
-      path: 'overview/?'
-    },
-    {
-      type: Redirect,
-      from: '/cluster/?',
-      to: 'cluster-overview'
+      path: 'overview'
     }
   ]
 };

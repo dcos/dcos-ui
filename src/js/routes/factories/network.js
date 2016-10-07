@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, {PropTypes} from 'react';
 /* eslint-enable no-unused-vars */
-import {DefaultRoute, Route, Redirect} from 'react-router';
+import {IndexRoute, Route, Redirect} from 'react-router';
 
 import {Hooks} from 'PluginSDK';
 import NetworkPage from '../../pages/NetworkPage';
@@ -20,8 +20,8 @@ let RouteFactory = {
       {
         type: Route,
         name: 'virtual-networks-tab',
-        path: 'virtual-networks/?',
-        handler: VirtualNetworksTab,
+        path: 'virtual-networks',
+        component: VirtualNetworksTab,
         buildBreadCrumb() {
           return {
             getCrumbs() {
@@ -36,13 +36,13 @@ let RouteFactory = {
       {
         type: Route,
         name: 'virtual-networks-tab-detail',
-        path: 'virtual-networks/:overlayName/?',
-        handler: VirtualNetworkDetail,
+        path: 'virtual-networks/:overlayName',
+        component: VirtualNetworkDetail,
         children: [
           {
-            type: DefaultRoute,
+            type: IndexRoute,
             name: 'virtual-networks-tab-detail-tasks',
-            handler: VirtualNetworkTaskTab,
+            component: VirtualNetworkTaskTab,
             hideHeaderNavigation: true,
             buildBreadCrumb() {
               return {
@@ -64,8 +64,8 @@ let RouteFactory = {
           {
             type: Route,
             name: 'virtual-networks-tab-detail-details',
-            path: 'details/?',
-            handler: VirtualNetworkDetailsTab,
+            path: 'details',
+            component: VirtualNetworkDetailsTab,
             hideHeaderNavigation: true,
             buildBreadCrumb() {
               return {
@@ -89,8 +89,8 @@ let RouteFactory = {
       {
         type: Route,
         name: 'virtual-networks-tab-detail-tasks-detail',
-        path: 'virtual-networks/:overlayName/tasks/:taskID/?',
-        handler: TaskDetail,
+        path: 'virtual-networks/:overlayName/tasks/:taskID',
+        component: TaskDetail,
         hideHeaderNavigation: true,
         buildBreadCrumb() {
           return {
@@ -102,9 +102,9 @@ let RouteFactory = {
         },
         children: [
           {
-            type: DefaultRoute,
+            type: IndexRoute,
             name: 'virtual-networks-tab-detail-tasks-details-tab',
-            handler: TaskDetailsTab,
+            component: TaskDetailsTab,
             hideHeaderNavigation: true,
             buildBreadCrumb() {
               return {
@@ -117,8 +117,8 @@ let RouteFactory = {
           {
             type: Route,
             name: 'virtual-networks-tab-detail-tasks-details-files',
-            path: 'files/?',
-            handler: TaskFilesTab,
+            path: 'files',
+            component: TaskFilesTab,
             hideHeaderNavigation: true,
             logRouteName: 'virtual-networks-tab-detail-tasks-details-logs',
             buildBreadCrumb() {
@@ -133,8 +133,8 @@ let RouteFactory = {
             type: Route,
             name: 'virtual-networks-tab-detail-tasks-details-logs',
             dontScroll: true,
-            path: 'logs/:filePath?/?:innerPath?/?',
-            handler: TaskLogsTab,
+            path: 'logs/:filePath?/?:innerPath?',
+            component: TaskLogsTab,
             hideHeaderNavigation: true,
             buildBreadCrumb() {
               return {
@@ -155,7 +155,7 @@ let RouteFactory = {
         routes: virtualNetworksRoute,
         redirect: {
           type: Redirect,
-          from: '/network/?',
+          from: '/network',
           to: 'virtual-networks-tab'
         }
       })
@@ -173,8 +173,8 @@ let RouteFactory = {
     return {
       type: Route,
       name: 'network',
-      path: 'network/?',
-      handler: NetworkPage,
+      path: 'network',
+      component: NetworkPage,
       category: 'resources',
       isInSidebar: true,
       children
