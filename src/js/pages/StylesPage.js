@@ -69,9 +69,7 @@ class StylesPage extends mixin(TabsMixin) {
 
   getRoutedItem(tab) {
     return (
-      <Link
-        to={tab}
-        className="tab-item-label flush">
+      <Link to={tab} className="menu-tabbed-item-label flush">
         {STYLES_TABS[tab]}
       </Link>
     );

@@ -95,14 +95,14 @@ describe('Job Details', function () {
 
   context('Configuration Tab', function () {
     it('renders the correct amount of job configuration details', function () {
-      cy.get('.page-body-content .tabs .tab-item').contains('Configuration').click();
+      cy.get('.page-body-content .menu-tabbed .menu-tabbed-item').contains('Configuration').click();
       cy.get('.page-body-content dl').should(function ($elements) {
         expect($elements.length).to.equal(15);
       });
     });
 
     it('renders the job configuration data', function () {
-      cy.get('.page-body-content .tabs .tab-item').contains('Configuration').click();
+      cy.get('.page-body-content .menu-tabbed .menu-tabbed-item').contains('Configuration').click();
       cy.get('.page-body-content dl').should('contain', 'Command');
       cy.get('.page-body-content dl').should('contain', '/foo');
       cy.get('.page-body-content dl').should('contain', 'Schedule');

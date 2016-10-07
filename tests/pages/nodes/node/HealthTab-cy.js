@@ -13,7 +13,7 @@ describe('Node Health Tab [0fa]', function () {
     it('navigates to health tab [0fc]', function () {
       cy.visitUrl({url: '/nodes', identify: true, fakeAnalytics: true});
       cy.get('tr a').eq(0).click();
-      cy.get('.tab-item').contains('Health').click();
+      cy.get('.menu-tabbed-item').contains('Health').click();
 
       // Store hash for later use
       cy.hash().should(function (currentHash) {
@@ -32,7 +32,7 @@ describe('Node Health Tab [0fa]', function () {
     beforeEach(function () {
       cy.visitUrl({url: nodeDetailHash, identify: true, fakeAnalytics: true});
 
-      cy.get('.tab-item').contains('Health').click();
+      cy.get('.menu-tabbed-item').contains('Health').click();
 
       cy.get('.page-body-content .form-control input[type=\'text\']').as('filterTextbox');
       cy.get('button').contains('Health Checks').as('filterHealth');
