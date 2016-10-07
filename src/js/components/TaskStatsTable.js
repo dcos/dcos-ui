@@ -32,7 +32,7 @@ class TaskStatsTable extends React.Component {
     return classNames({
       'active': prop === sortBy.prop,
       'text-align-right': shouldAlignRight,
-      'hidden-mini': taskStatus.includes(prop)
+      'hidden-small-down': taskStatus.includes(prop)
     });
   }
 
@@ -104,10 +104,10 @@ class TaskStatsTable extends React.Component {
     return (
       <colgroup>
         <col style={{width: '20%'}} />
-        <col style={{width: '95px'}} className="hidden-mini" />
-        <col style={{width: '90px'}} className="hidden-mini" />
-        <col style={{width: '105px'}} className="hidden-mini" />
-        <col style={{width: '90px'}} className="hidden-mini" />
+        <col style={{width: '95px'}} className="hidden-small-down" />
+        <col style={{width: '90px'}} className="hidden-small-down" />
+        <col style={{width: '105px'}} className="hidden-small-down" />
+        <col style={{width: '90px'}} className="hidden-small-down" />
         <col />
       </colgroup>
     );

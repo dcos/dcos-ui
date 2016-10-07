@@ -296,8 +296,8 @@ var ServicesTable = React.createClass({
         </span>
         <span className="status-bar-text">
           <span className={serviceStatusClassSet}>{serviceStatus}</span>
-          <span className="visible-x-large-inline">{verboseOverview}</span>
-          <span className="hidden-x-large">{conciseOverview}</span>
+          <span className="hidden-large-down">{verboseOverview}</span>
+          <span className="hidden-jumbo-up">{conciseOverview}</span>
         </span>
       </div>
     );
@@ -318,7 +318,7 @@ var ServicesTable = React.createClass({
   renderStatsHeading(prop, sortBy, row) {
     let isHeader = row == null;
 
-    return classNames('flush-left text-align-right hidden-mini hidden-small', {
+    return classNames('flush-left text-align-right hidden-small-down', {
       'active': prop === sortBy.prop,
       'clickable': isHeader
     });
@@ -397,9 +397,9 @@ var ServicesTable = React.createClass({
       <colgroup>
         <col />
         <col className="status-bar-column"/>
-        <col className="hidden-mini hidden-small" style={{width: '85px'}} />
-        <col className="hidden-mini hidden-small" style={{width: '75px'}} />
-        <col className="hidden-mini hidden-small" style={{width: '85px'}} />
+        <col className="hidden-small-down" style={{width: '85px'}} />
+        <col className="hidden-small-down" style={{width: '75px'}} />
+        <col className="hidden-small-down" style={{width: '85px'}} />
       </colgroup>
     );
   },

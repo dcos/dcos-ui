@@ -210,7 +210,7 @@ class SidebarFilter extends mixin(QueryParamsMixin) {
     let {props} = this;
 
     return (
-      <div className="side-list sidebar-filters hidden-medium hidden-small pod flush-top flush-left">
+      <div className="side-list sidebar-filters pod flush-top flush-left">
         <div className="sidebar-filters-header label">
           {this.getTitle()}
           {this.getClearLinkForFilter(props.filterType)}
