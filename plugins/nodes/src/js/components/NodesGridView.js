@@ -1,11 +1,8 @@
 import classNames from 'classnames';
-import deepEqual from 'deep-equal';
+import PureRenderMixin from 'react-addons-pure-render-mixin';
 import React from 'react';
 
-import EventTypes from '../../../../../src/js/constants/EventTypes';
-import InternalStorageMixin from '../../../../../src/js/mixins/InternalStorageMixin';
 import Loader from '../../../../../src/js/components/Loader';
-import MesosStateStore from '../../../../../src/js/stores/MesosStateStore';
 import NodesGridDials from './NodesGridDials';
 import RequestErrorMsg from '../../../../../src/js/components/RequestErrorMsg';
 
@@ -16,120 +13,31 @@ var NodesGridView = React.createClass({
 
   displayName: 'NodesGridView',
 
+  mixins: [PureRenderMixin],
+
   propTypes: {
+    hasLoadingError: React.PropTypes.bool,
+    hiddenServices: React.PropTypes.array,
     hosts: React.PropTypes.array.isRequired,
+    lastMesosStateWasEmpty: React.PropTypes.bool,
+    nodeHealthResponseReceived: React.PropTypes.bool,
+    onShowServices: React.PropTypes.func.isRequired,
+    resourcesByFramework: React.PropTypes.object.isRequired,
     selectedResource: React.PropTypes.string.isRequired,
-    services: React.PropTypes.array.isRequired
+    serviceColors: React.PropTypes.object.isRequired,
+    services: React.PropTypes.array.isRequired,
+    showServices: React.PropTypes.bool
   },
 
-  mixins: [InternalStorageMixin],
-
-  getInitialState() {
-    return {
-      hiddenServices: [],
-      mesosStateErrorCount: 0,
-      showServices: false
-    };
-  },
-
-  componentWillMount() {
-    this.internalStorage_set({
-      resourcesByFramework: {},
-      serviceColors: {}
-    });
-
-    MesosStateStore.addChangeListener(
-      EventTypes.MESOS_STATE_CHANGE,
-      this.onMesosStateChange
-    );
-
-    MesosStateStore.addChangeListener(
-      EventTypes.MESOS_STATE_REQUEST_ERROR,
-      this.onMesosStateRequestError
-    );
-  },
-
-  componentWillUnmount() {
-    MesosStateStore.removeChangeListener(
-      EventTypes.MESOS_STATE_CHANGE,
-      this.onMesosStateChange
-    );
-
-    MesosStateStore.removeChangeListener(
-      EventTypes.MESOS_STATE_REQUEST_ERROR,
-      this.onMesosStateRequestError
-    );
-  },
-
-  /**
-   * Updates metadata on services when services are added/removed
-   *
-   * @param  {Object} props
-   */
-  componentWillReceiveProps(props) {
-    let ids = props.services.map(function (service) {
-      return service.id;
-    });
-
-    let serviceColors = this.internalStorage_get().serviceColors;
-
-    if (!deepEqual(Object.keys(serviceColors), ids)) {
-      this.computeServiceColors(props.services);
-      this.computeShownServices(props.services);
-    }
-  },
-
-  onMesosStateChange() {
-    var data = this.internalStorage_get();
-    var resourcesByFramework = data.resourcesByFramework;
-    // Maps the usage of each service per node
-    // This can change at anytime. This info is only available at /state
-    var slaves = MesosStateStore.getHostResourcesByFramework(
-      data.hiddenServices
-    );
-
-    if (!deepEqual(resourcesByFramework, slaves)) {
-      this.internalStorage_update({resourcesByFramework: slaves});
-    }
-  },
-
-  onMesosStateRequestError() {
-    this.setState({mesosStateErrorCount: this.state.mesosStateErrorCount + 1});
-  },
-
-  computeServiceColors(services) {
-    var colors = {};
-
-    services.forEach(function (service, index) {
-      // Drop all others into the same 'other' color
-      if (index < MAX_SERVICES_TO_SHOW) {
-        colors[service.id] = index;
-      } else {
-        colors.other = OTHER_SERVICES_COLOR;
-      }
-    });
-
-    this.internalStorage_update({serviceColors: colors});
-  },
-
-  computeShownServices(services) {
-    var hidden = services.slice(MAX_SERVICES_TO_SHOW).map(function (service) {
-      return service.id;
-    });
-
-    this.internalStorage_update({hiddenServices: hidden});
-  },
-
-  handleShowServices(e) {
-    this.setState({showServices: e.currentTarget.checked});
-  },
-
-  hasLoadingError() {
-    return this.state.mesosStateErrorCount >= 3;
+  defaultProps: {
+    hasLoadingError: false,
+    hiddenServices: [],
+    nodeHealthResponseReceived: false,
+    showServices: false
   },
 
   getLoadingScreen() {
-    var hasLoadingError = this.hasLoadingError();
+    var {hasLoadingError} = this.props;
     var errorMsg = null;
     if (hasLoadingError) {
       errorMsg = <RequestErrorMsg />;
@@ -156,7 +64,6 @@ var NodesGridView = React.createClass({
   getServicesList(props) {
     // Return a list of unique service IDs from the selected hosts.
     var activeServiceIds = this.getActiveServiceIds();
-    var data = this.internalStorage_get();
 
     // Filter out inactive services
     var items = props.services.filter(function (service) {
@@ -166,7 +73,7 @@ var NodesGridView = React.createClass({
     .slice(0, MAX_SERVICES_TO_SHOW)
     // Return view definition
     .map(function (service) {
-      var color = data.serviceColors[service.id];
+      var color = props.serviceColors[service.id];
       var className = `service-legend-color service-color-${color}`;
 
       return (
@@ -197,13 +104,11 @@ var NodesGridView = React.createClass({
   },
 
   getNodesGrid() {
-    var data = this.internalStorage_get();
-    var props = this.props;
-    var state = this.state;
+    var {props} = this;
 
     var classSet = classNames({
       'side-list nodes-grid-legend': true,
-      'disabled': !state.showServices
+      'disabled': !props.showServices
     });
 
     return (
@@ -213,8 +118,8 @@ var NodesGridView = React.createClass({
           <label className="show-services-label h5 flush-top">
             <input type="checkbox"
               name="nodes-grid-show-services"
-              checked={state.showServices}
-              onChange={this.handleShowServices} />
+              checked={props.showServices}
+              onChange={props.onShowServices} />
             Show Services by Share
           </label>
 
@@ -224,18 +129,21 @@ var NodesGridView = React.createClass({
         <NodesGridDials
           hosts={props.hosts}
           selectedResource={props.selectedResource}
-          serviceColors={data.serviceColors}
-          resourcesByFramework={data.resourcesByFramework}
-          showServices={state.showServices} />
+          serviceColors={props.serviceColors}
+          resourcesByFramework={props.resourcesByFramework}
+          showServices={props.showServices} />
       </div>
     );
   },
 
   render() {
-    var showLoading = this.hasLoadingError() ||
-      Object.keys(MesosStateStore.get('lastMesosState')).length === 0;
+    const {
+      hasLoadingError,
+      lastMesosStateWasEmpty,
+      nodeHealthResponseReceived
+    } = this.props;
 
-    if (showLoading) {
+    if (hasLoadingError || lastMesosStateWasEmpty || !nodeHealthResponseReceived) {
       return this.getLoadingScreen();
     } else {
       return this.getNodesGrid();
