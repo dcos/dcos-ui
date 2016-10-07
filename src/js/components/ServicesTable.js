@@ -99,7 +99,7 @@ var ServicesTable = React.createClass({
         target="_blank"
         title="Open in a new window">
         <Icon
-          color="white"
+          color="neutral"
           className="icon-margin-left icon-margin-left-wide"
           family="mini"
           id="open-external"
@@ -220,7 +220,7 @@ var ServicesTable = React.createClass({
             id="gear"
             size="mini"
             className="icon-alert icon-margin-right"
-            color="white" />
+            color="neutral" />
         )
       },
       {

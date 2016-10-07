@@ -68,7 +68,7 @@ var NodesTable = React.createClass({
             id="yield"
             size="mini"
             className="icon-alert icon-margin-right"
-            color="white" />
+            color="neutral" />
           {headline}
         </Tooltip>
       );
