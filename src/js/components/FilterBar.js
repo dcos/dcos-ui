@@ -1,6 +1,12 @@
+import PureRenderMixin from 'react-addons-pure-render-mixin';
 import React from 'react';
 
 class FilterBar extends React.Component {
+
+  constructor() {
+    super(...arguments);
+    this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate;
+  }
 
   getFilterBarLeft(filterItems, rightAlignCount) {
     if (filterItems.length === rightAlignCount) {
