@@ -211,7 +211,7 @@ class SidebarLabelsFilters extends mixin(QueryParamsMixin) {
     }
 
     return (
-      <div className="side-list sidebar-filters hidden-medium hidden-small pod flush-top flush-left">
+      <div className="side-list sidebar-filters pod flush-top flush-left">
         {this.getLabelsDropdown()}
         {this.getSelectedLabels()}
       </div>

@@ -154,7 +154,7 @@ module.exports = {
     }
 
     return (
-      <span className="content hidden-mini" title={content}>
+      <span className="content hidden-small-down" title={content}>
         {content}
       </span>
     );
@@ -179,7 +179,7 @@ module.exports = {
             {title}
           </span>
           <span
-            className="banner-plugin-info-icon clickable hidden-small hidden-medium hidden-large"
+            className="banner-plugin-info-icon clickable hidden-medium-up"
             onClick={this.toggleFullContent}>
             <Icon
               family="mini"
