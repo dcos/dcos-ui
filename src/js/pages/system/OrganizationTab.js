@@ -144,7 +144,7 @@ class OrganizationTab extends mixin(InternalStorageMixin) {
           disabled,
           value: checked,
           fieldType: 'checkbox',
-          labelClass: 'form-row-element form-element-checkbox inverse',
+          labelClass: 'form-row-element form-element-checkbox',
           name: rowID,
           showLabel: false
         }]}
@@ -177,7 +177,7 @@ class OrganizationTab extends mixin(InternalStorageMixin) {
             value: checked,
             fieldType: 'checkbox',
             indeterminate,
-            labelClass: 'form-row-element form-element-checkbox inverse',
+            labelClass: 'form-row-element form-element-checkbox',
             name: 'headingCheckbox',
             showLabel: false
           }
@@ -257,7 +257,7 @@ class OrganizationTab extends mixin(InternalStorageMixin) {
       <li>
         <Dropdown
           buttonClassName="button dropdown-toggle"
-          dropdownMenuClassName="dropdown-menu inverse"
+          dropdownMenuClassName="dropdown-menu"
           dropdownMenuListClassName="dropdown-menu-list"
           dropdownMenuListItemClassName="clickable"
           initialID={initialID}
@@ -422,7 +422,7 @@ class OrganizationTab extends mixin(InternalStorageMixin) {
         <div className="page-body-content-fill flex-grow flex-container-col">
           <Table
             buildRowOptions={this.getTableRowOptions}
-            className="table inverse table-borderless-outer
+            className="table table-borderless-outer
               table-borderless-inner-columns flush-bottom"
             columns={this.getColumns()}
             colGroup={this.getColGroup()}

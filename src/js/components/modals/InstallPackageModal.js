@@ -240,7 +240,7 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
   getLoadingScreen() {
     return (
       <div className="modal-content-loading-indicator">
-        <Loader className="inverse" />
+        <Loader />
       </div>
     );
   }

@@ -316,7 +316,7 @@ class DeploymentsTab extends mixin(StoreMixin) {
   renderLoading() {
     return (
       <div className="container container-fluid container-pod">
-        <Loader className="inverse" />
+        <Loader />
       </div>
     );
   }

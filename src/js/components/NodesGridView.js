@@ -135,7 +135,7 @@ var NodesGridView = React.createClass({
       errorMsg = <RequestErrorMsg />;
     }
 
-    var loadingClassSet = classNames('inverse', {
+    var loadingClassSet = classNames({
       'hidden': hasLoadingError
     });
 

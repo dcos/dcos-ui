@@ -39,7 +39,6 @@ class OverviewDetailTab extends mixin(StoreMixin) {
   getLoading() {
     return (
       <Loader
-        className="inverse"
         innerClassName="loader-small"
         type="ballBeat" />
     );
