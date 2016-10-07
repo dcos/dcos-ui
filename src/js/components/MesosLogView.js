@@ -288,7 +288,7 @@ class MesosLogView extends mixin(StoreMixin) {
 
     return (
       <pre
-        className="flex-grow flush-bottom inverse prettyprint"
+        className="flex-grow flush-bottom prettyprint"
         ref="logContainer"
         onScroll={this.handleLogContainerScroll}>
         {this.getLogPrepend()}
@@ -305,7 +305,7 @@ class MesosLogView extends mixin(StoreMixin) {
   }
 
   getLoadingScreen() {
-    return <Loader className="inverse" />;
+    return <Loader />;
   }
 
   getGoToBottomButton() {
@@ -318,7 +318,7 @@ class MesosLogView extends mixin(StoreMixin) {
     return (
       <button
         onClick={this.handleGoToBottom}
-        className="button button-inverse go-to-bottom-button">
+        className="button go-to-bottom-button">
         Go to bottom
       </button>
     );
@@ -328,7 +328,7 @@ class MesosLogView extends mixin(StoreMixin) {
     let logBuffer = MesosLogStore.get(this.props.filePath);
     if (!logBuffer || logBuffer.hasLoadedTop()) {
       return (
-        <div className="text-align-center vertical-center inverse">
+        <div className="text-align-center vertical-center">
           (AT BEGINNING OF FILE)
         </div>
       );
@@ -338,7 +338,6 @@ class MesosLogView extends mixin(StoreMixin) {
     return (
       <div className="container container-fluid container-pod flush-top">
         <Loader
-          className="inverse"
           innerClassName="loader-small"
           type="ballSpinFadeLoader" />
       </div>

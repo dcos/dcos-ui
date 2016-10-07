@@ -41,7 +41,7 @@ class CliInstallModal extends React.Component {
     }
 
     return (
-      <p className="text-align-center inverse flush-bottom">
+      <p className="text-align-center flush-bottom">
         {this.props.subHeaderContent}
       </p>
     );

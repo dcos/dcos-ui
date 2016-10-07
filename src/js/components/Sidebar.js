@@ -101,7 +101,7 @@ var Sidebar = React.createClass({
 
         if (group.category !== 'root') {
           heading = (
-            <h6 className="sidebar-section-header inverse">
+            <h6 className="sidebar-section-header">
               {group.category}
             </h6>
           );
@@ -282,7 +282,7 @@ var Sidebar = React.createClass({
           </div>
         </header>
         <GeminiScrollbar autoshow={true}
-          className="navigation flex-item-grow-1 flex-item-shrink-1 inverse gm-scrollbar-container-flex">
+          className="navigation flex-item-grow-1 flex-item-shrink-1 gm-scrollbar-container-flex">
           <div className="navigation-inner pod pod-short pod-narrow">
             {this.getNavigationSections()}
           </div>

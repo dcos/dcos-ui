@@ -90,7 +90,7 @@ class VirtualNetworksTable extends React.Component {
   render() {
     return (
       <Table
-        className="table inverse table-borderless-outer table-borderless-inner-columns flush-bottom"
+        className="table table-borderless-outer table-borderless-inner-columns flush-bottom"
         columns={this.getColumns()}
         colGroup={this.getColGroup()}
         data={this.props.overlays.getItems()} />

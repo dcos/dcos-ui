@@ -11,7 +11,7 @@ class PodDebugTabView extends React.Component {
     if (!history.length) {
       return (
         <div>
-          <h4 className="inverse flush-top">
+          <h4 className="flush-top">
             Last Terminations
           </h4>
           <p>(No data)</p>
@@ -35,13 +35,13 @@ class PodDebugTabView extends React.Component {
 
       if (index === 0) {
         headline = (
-          <h4 className="inverse flush-top">
+          <h4 className="flush-top">
             Last Termination (<TimeAgo time={terminatedAt} />)
           </h4>
         );
       } else {
         headline = (
-          <h4 className="inverse flush-top">
+          <h4 className="flush-top">
             Terminated at {terminatedAt.toString()} (<TimeAgo time={terminatedAt} />)
           </h4>
         );
@@ -51,7 +51,7 @@ class PodDebugTabView extends React.Component {
         <div key={index}>
           {headline}
           <DescriptionList hash={terminationValueMapping} />
-          <h5 className="inverse flush-top">
+          <h5 className="flush-top">
             Containers
           </h5>
           <PodContainerTerminationTable containers={item.getContainers()} />
@@ -78,7 +78,7 @@ class PodDebugTabView extends React.Component {
   render() {
     return (
       <div>
-        <h4 className="inverse flush-top">
+        <h4 className="flush-top">
           Last Changes
         </h4>
         {this.getLastVersionChange()}

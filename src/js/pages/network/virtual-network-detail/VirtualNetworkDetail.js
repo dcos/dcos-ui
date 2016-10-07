@@ -83,7 +83,7 @@ class VirtualNetworkDetail extends mixin(StoreMixin, TabsMixin) {
     let overlayIcon = <Icon id="network" size="large" color="neutral" />;
 
     let tabs = (
-      <ul className="menu-tabbed container-pod container-pod-short-top inverse">
+      <ul className="menu-tabbed container-pod container-pod-short-top">
         {this.tabs_getRoutedTabs({params: this.props.params})}
       </ul>
     );
@@ -104,7 +104,7 @@ class VirtualNetworkDetail extends mixin(StoreMixin, TabsMixin) {
   getLoadingScreen() {
     return (
       <div className="container container-fluid container-pod">
-        <Loader className="inverse" />
+        <Loader />
       </div>
     );
   }

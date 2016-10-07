@@ -39,7 +39,6 @@ class OverviewDetailTab extends mixin(StoreMixin) {
   getLoading() {
     return (
       <Loader
-        className="inverse"
         innerClassName="loader-small"
         type="ballBeat" />
     );
@@ -81,7 +80,7 @@ class OverviewDetailTab extends mixin(StoreMixin) {
 
   buildDescriptionList(hash, addSpacing) {
     let headlineClassName = classNames({
-      'h4 inverse': true,
+      'h4': true,
       'flush-top': !addSpacing
     });
 

@@ -122,11 +122,11 @@ class SidebarLabelsFilters extends mixin(QueryParamsMixin) {
     }
 
     const labelClassName = classNames(
-      'label-pill badge text-muted text-overflow inverse'
+      'label-pill badge text-muted text-overflow'
     );
 
     const removeLabelClassNames = classNames(
-      'badge text-muted inverse clickable text-align-center remove-filter'
+      'badge text-muted clickable text-align-center remove-filter'
     );
 
     let labelNodes = selectedLabels.map(({key, value}, i) => {

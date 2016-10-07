@@ -110,13 +110,13 @@ class ServiceDetailConfigurationTab extends React.Component {
     }
 
     return [(
-      <button className="button button-stroke button-inverse"
+      <button className="button button-stroke"
         key="version-button-edit"
         onClick={() => this.handleEditButtonClick()}>
         Edit
       </button>
     ), (
-      <button className="button button-stroke button-inverse"
+      <button className="button button-stroke"
         key="version-button-apply"
         onClick={() => this.handleApplyButtonClick()}>
         Apply
@@ -151,8 +151,8 @@ class ServiceDetailConfigurationTab extends React.Component {
 
     return (
       <Dropdown
-        buttonClassName="button button-inverse dropdown-toggle button-split-content"
-        dropdownMenuClassName="dropdown-menu inverse"
+        buttonClassName="button dropdown-toggle button-split-content"
+        dropdownMenuClassName="dropdown-menu"
         dropdownMenuListClassName="dropdown-menu-list"
         dropdownMenuListItemClassName="clickable"
         items={versionItems}

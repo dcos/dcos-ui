@@ -74,7 +74,6 @@ let ServiceList = React.createClass({
       if (!healthProcessed) {
         healthLabel = (
           <Loader
-            className="inverse"
             innerClassName="loader-small"
             type="ballBeat" />
         );

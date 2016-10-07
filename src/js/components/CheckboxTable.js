@@ -71,7 +71,7 @@ class CheckboxTable extends React.Component {
 
   getLabelClass() {
     return classNames(
-      'form-row-element form-element-checkbox inverse',
+      'form-row-element form-element-checkbox',
       this.props.labelClass
     );
   }
@@ -182,7 +182,7 @@ class CheckboxTable extends React.Component {
     let columns = this.getColumns();
 
     let tableClassSet = classNames(
-      'table inverse table-borderless-outer table-borderless-inner-columns',
+      'table table-borderless-outer table-borderless-inner-columns',
       'flush-bottom',
       className
     );
