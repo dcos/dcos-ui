@@ -66,18 +66,21 @@ var PodUtil = {
       return memo;
     }, {});
 
-    historicalInstances.forEach(function (instance) {
-      let podInstance = podInstancesMap[instance.id];
+    // Then merge historical instance information in the pod instance map
+    podInstancesMap = historicalInstances.reduce(function (memo, instance) {
+      let podInstance = memo[instance.id];
       if (podInstance === undefined) {
-        podInstancesMap[instance.id] = instance;
-        return;
+        memo[instance.id] = instance;
+        return memo;
       }
 
       podInstance.containers = [].concat(
           podInstance.containers,
           instance.containers
         );
-    });
+
+      return memo;
+    }, podInstancesMap);
 
     // Re-compose PodInstances from plain objects
     let instances = Object.values(podInstancesMap).map(function (instance) {
