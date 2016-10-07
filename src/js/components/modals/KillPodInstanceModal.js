@@ -43,6 +43,12 @@ class KillPodInstanceModal extends mixin(StoreMixin) {
         errorMsg: null
       });
     }
+
+    if (process.env.NODE_ENV !== 'production') {
+      if (ACTION_DISPLAY_NAMES[nextProps.action] === undefined) {
+        throw new TypeError(`Action ${nextProps.action} is not known}`);
+      }
+    }
   }
 
   shouldForceAction(message = this.state.errorMsg) {
@@ -99,11 +105,11 @@ class KillPodInstanceModal extends mixin(StoreMixin) {
 
   getModalContents() {
     let selectedItemsLength = this.props.selectedItems.length;
-    let action = ACTION_DISPLAY_NAMES[this.props.action] || '';
+    let action = ACTION_DISPLAY_NAMES[this.props.action];
     let instanceCountContent = `${selectedItemsLength} ${StringUtil.pluralize('Instance', selectedItemsLength)}`;
 
     return (
-      <div className={'container container-pod container-pod-short-top text-align-center flush-bottom'}>
+      <div className="container container-pod container-pod-short-top text-align-center flush-bottom">
         <h2 className="text-danger text-align-center flush-top">
           {action} {StringUtil.pluralize('Instance', selectedItemsLength)}
         </h2>
@@ -122,7 +128,7 @@ class KillPodInstanceModal extends mixin(StoreMixin) {
     let buttonText = ACTION_DISPLAY_NAMES[action];
 
     if (this.shouldForceAction()) {
-      buttonText = 'Force ' + buttonText;
+      buttonText = `Force ${buttonText}`;
     }
 
     return (
