@@ -80,7 +80,7 @@ class ServiceSidebarFilters extends React.Component {
     } = getCountByFilters(props.services);
 
     return (
-      <div className="flex-no-shrink">
+      <div className="services-sidebar hidden-small-down pod flush-top flush-bottom flush-left">
         <SidebarFilter
           countByValue={healthCount}
           filterType={ServiceFilterTypes.HEALTH}

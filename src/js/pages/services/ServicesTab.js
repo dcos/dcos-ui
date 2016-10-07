@@ -330,7 +330,7 @@ var ServicesTab = React.createClass({
         <ServiceSidebarFilters
           handleFilterChange={this.handleFilterChange}
           services={allServices} />
-        <div className="flex-grow">
+        <div className="services-table">
           {this.getHeadline(allServices, filteredServices, hasFiltersApplied)}
           <FilterBar rightAlignLastNChildren={2}>
             <ServiceSearchFilter
