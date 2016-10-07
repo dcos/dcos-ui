@@ -47,7 +47,7 @@ const METHODS_TO_BIND = [
 function columnClassNameGetter(prop, sortBy, row) {
   let classSet = ResourceTableUtil.getClassName(prop, sortBy, row);
   if (COLLAPSING_COLUMNS.includes(prop)) {
-    return classNames(classSet, 'hidden-mini');
+    return classNames(classSet, 'hidden-small-down');
   }
   return classSet;
 }
@@ -295,10 +295,10 @@ class DeploymentsTab extends mixin(StoreMixin) {
     return (
       <colgroup>
         <col style={{width: '300px'}} />
-        <col className="hidden-mini" />
-        <col className="hidden-mini" style={{width: '120px'}} />
+        <col className="hidden-small-down" />
+        <col className="hidden-small-down" style={{width: '120px'}} />
         <col style={{width: '240px'}} />
-        <col className="hidden-mini" style={{width: '160px'}} />
+        <col className="hidden-small-down" style={{width: '160px'}} />
       </colgroup>
     );
   }
