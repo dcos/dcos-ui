@@ -1,8 +1,9 @@
 import classNames from 'classnames';
+import deepEqual from 'deep-equal';
 import React from 'react';
 import {Link} from 'react-router';
-import {Table} from 'reactjs-components';
 
+import CheckboxTable from './CheckboxTable';
 import CollapsingString from './CollapsingString';
 import EventTypes from '../constants/EventTypes';
 import ExpandingTable from './ExpandingTable';
@@ -13,7 +14,6 @@ import PodInstanceList from '../structs/PodInstanceList';
 import PodInstanceStatus from '../constants/PodInstanceStatus';
 import PodTableHeaderLabels from '../constants/PodTableHeaderLabels';
 import PodUtil from '../utils/PodUtil';
-import TableUtil from '../utils/TableUtil';
 import TimeAgo from './TimeAgo';
 import Units from '../utils/Units';
 
@@ -61,6 +61,30 @@ class PodInstancesTable extends React.Component {
     this.forceUpdate();
   }
 
+  componentWillReceiveProps(nextProps) {
+    let {checkedItems} = this.state;
+    let prevInstances = this.props.instances.getItems();
+    let nextInstances = nextProps.instances.getItems();
+
+    // When the `instances` property is changed and we have selected
+    // items, re-trigger selection change in order to remove checked
+    // entries that are no longer present.
+
+    if (Object.keys(checkedItems).length &&
+       !deepEqual(prevInstances, nextInstances)) {
+      this.triggerSelectionChange(checkedItems, nextProps.instances);
+    }
+  }
+
+  triggerSelectionChange(checkedItems, instances) {
+    let checkedItemInstances = instances.getItems().filter(
+      function (item) {
+        return checkedItems[item.getId()];
+      }
+    );
+    this.props.onSelectionChange(checkedItemInstances);
+  }
+
   handleItemCheck(idsChecked) {
     let checkedItems = {};
 
@@ -68,11 +92,14 @@ class PodInstancesTable extends React.Component {
       checkedItems[id] = true;
     });
     this.setState({checkedItems});
+
+    this.triggerSelectionChange(checkedItems, this.props.instances);
   }
 
   getColGroup() {
     return (
       <colgroup>
+        <col style={{width: '40px'}} />
         <col />
         <col className="hidden-mini" />
         <col className="hidden-mini" />
@@ -395,7 +422,7 @@ class PodInstancesTable extends React.Component {
 
     return (
       <ExpandingTable
-        allowMultipleSelect={false}
+        allowMultipleSelect={true}
         className="pod-instances-table expanding-table table table-hover inverse table-borderless-outer table-borderless-inner-columns flush-bottom"
         childRowClassName="expanding-table-child"
         checkedItemsMap={checkedItems}
@@ -404,10 +431,9 @@ class PodInstancesTable extends React.Component {
         data={this.getTableDataFor(instances, filterText)}
         expandAll={!!filterText}
         getColGroup={this.getColGroup}
-        itemHeight={TableUtil.getRowHeight()}
         onCheckboxChange={this.handleItemCheck}
         sortBy={{prop: 'name', order: 'asc'}}
-        tableComponent={Table}
+        tableComponent={CheckboxTable}
         uniqueProperty="id" />
     );
   }
@@ -418,6 +444,7 @@ PodInstancesTable.defaultProps = {
   filterText: '',
   instances: null,
   inverseStyle: false,
+  onSelectionChange() { },
   pod: null
 };
 
@@ -425,6 +452,7 @@ PodInstancesTable.propTypes = {
   filterText: React.PropTypes.string,
   instances: React.PropTypes.instanceOf(PodInstanceList),
   inverseStyle: React.PropTypes.bool,
+  onSelectionChange: React.PropTypes.func,
   pod: React.PropTypes.instanceOf(Pod).isRequired
 };
 

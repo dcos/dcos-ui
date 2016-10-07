@@ -9,7 +9,10 @@ import PodViewFilter from './PodViewFilter';
 
 const METHODS_TO_BIND = [
   'handleFilterChange',
-  'handleFilterReset'
+  'handleFilterReset',
+  'handleSelectionChange',
+  'handleKillClick',
+  'handleKillAndScaleClick'
 ];
 
 class PodInstancesView extends React.Component {
@@ -20,7 +23,8 @@ class PodInstancesView extends React.Component {
       filter: {
         text: '',
         status: 'active'
-      }
+      },
+      selectedItems: []
     };
 
     METHODS_TO_BIND.forEach(function (method) {
@@ -47,6 +51,27 @@ class PodInstancesView extends React.Component {
     }
   }
 
+  getKillButtons() {
+    if (!this.state.selectedItems.length) {
+      return null;
+    }
+
+    return (
+      <div className="button-collection flush-bottom">
+        <div
+          className="button button-stroke button-danger"
+          onClick={this.handleKillAndScaleClick}>
+          Kill and Scale
+        </div>
+        <div
+          className="button button-stroke button-danger"
+          onClick={this.handleKillClick}>
+          Kill
+        </div>
+      </div>
+    );
+  }
+
   handleFilterChange(filter) {
     this.setState({filter});
   }
@@ -58,6 +83,18 @@ class PodInstancesView extends React.Component {
         status: 'all'
       }
     });
+  }
+
+  handleKillClick() {
+
+  }
+
+  handleKillAndScaleClick() {
+
+  }
+
+  handleSelectionChange(selectedItems) {
+    this.setState({selectedItems});
   }
 
   render() {
@@ -96,11 +133,14 @@ class PodInstancesView extends React.Component {
           items={filteredTextItems.getItems()}
           onFilterChange={this.handleFilterChange}
           statusChoices={['all', 'active', 'completed']}
-          statusMapper={this.getInstanceFilterStatus} />
+          statusMapper={this.getInstanceFilterStatus}>
+          {this.getKillButtons()}
+        </PodViewFilter>
         <PodInstancesTable
           filterText={filter.text}
           instances={filteredItems}
           inverseStyle={true}
+          onSelectionChange={this.handleSelectionChange}
           pod={this.props.pod} />
       </div>
     );

@@ -60,10 +60,7 @@ class PodViewFilter extends React.Component {
 
   render() {
     let {children, filter, inverseStyle} = this.props;
-    let childrenCount = 0;
-    if (Array.isArray(children)) {
-      childrenCount = children.length;
-    }
+    let childrenCount = React.Children.count(children);
 
     return (
       <FilterBar rightAlignLastNChildren={childrenCount}>
