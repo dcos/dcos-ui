@@ -9,7 +9,7 @@ import NodeDetailPage from '../pages/nodes/NodeDetailPage';
 import NodeDetailTab from '../pages/nodes/NodeDetailTab';
 import NodeDetailHealthTab from '../pages/nodes/NodeDetailHealthTab';
 import NodeDetailTaskTab from '../pages/nodes/NodeDetailTaskTab';
-import NodesGridView from '../components/NodesGridView';
+import NodesGridContainer from '../pages/nodes/nodes-grid/NodesGridContainer';
 import NodesOverview from '../pages/NodesOverview';
 import NodesPage from '../pages/NodesPage';
 
@@ -57,7 +57,7 @@ let nodesRoutes = {
           type: Route,
           name: 'nodes-grid',
           path: 'grid/?',
-          handler: NodesGridView
+          handler: NodesGridContainer
         }
       ]
     },
