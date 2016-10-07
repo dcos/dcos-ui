@@ -331,4 +331,45 @@ describe('MesosStateUtil', function () {
 
   });
 
+  describe('#isPodTaskId', function () {
+
+    it('should correctly match pod (PodDefinition) task ID', function () {
+      expect(MesosStateUtil
+        .isPodTaskId('podname.instance-instancename.taskname')).toBeTruthy();
+    });
+
+    it('should not match marathon (AppDefinition) task ID', function () {
+      expect(MesosStateUtil
+        .isPodTaskId('podname.marathon-instancename.taskname')).toBeFalsy();
+    });
+
+    it('should not match anything else that looks close', function () {
+      expect(MesosStateUtil
+        .isPodTaskId('podname.marathon-instancename')).toBeFalsy();
+      expect(MesosStateUtil
+        .isPodTaskId('marathon-instancename.taskname')).toBeFalsy();
+      expect(MesosStateUtil
+        .isPodTaskId('podname.marathon-instancename.taskname.junk'))
+        .toBeFalsy();
+      expect(MesosStateUtil
+        .isPodTaskId('junk.podname.marathon-instancename.taskname'))
+        .toBeFalsy();
+    });
+
+  });
+
+  describe('#decomposePodTaskId', function () {
+
+    it('should correctly de-compose', function () {
+      expect(MesosStateUtil
+        .decomposePodTaskId('podname.instance-instancename.taskname'))
+        .toEqual({
+          podID: 'podname',
+          instanceID: 'instancename',
+          taskName: 'taskname'
+        });
+    });
+
+  });
+
 });

@@ -3,9 +3,12 @@ import Util from './Util';
 
 const RESOURCE_KEYS = ['cpus', 'disk', 'mem'];
 
-// Based on the regex marathon uses here:
+// Based on the regex that marathon uses to validate task IDs,
+// but keeping only the 'instance-' prefix, that refers to pods.
+// The 'marathon-' prefix is used for task launched because of an AppDefinition.
+//
 // https://github.com/mesosphere/marathon/blob/feature/pods/src/main/scala/mesosphere/marathon/core/task/Task.scala#L134
-const POD_TASK_REGEX = /^(.+)\.(?:instance-|marathon-)([^_\.]+)[\._]([^_\.]+)$/;
+const POD_TASK_REGEX = /^(.+)\.instance-([^_\.]+)[\._]([^_\.]+)$/;
 
 function setIsStartedByMarathonFlag(name, tasks) {
   return tasks.map(function (task) {
@@ -14,6 +17,21 @@ function setIsStartedByMarathonFlag(name, tasks) {
 }
 
 const MesosStateUtil = {
+
+  /**
+   * De-compose the given task id into it's primitive components
+   *
+   * @param {String} taskID - The task ID to decompose
+   * @returns {{podID, instanceID}} Returns the ID components
+   */
+  decomposePodTaskId(taskID) {
+    let [, podID, instanceID, taskName] = POD_TASK_REGEX.exec(taskID);
+    return {
+      podID,
+      instanceID,
+      taskName
+    };
+  },
 
   flagMarathonTasks(state) {
     let newState = Object.assign({}, state);
@@ -111,8 +129,8 @@ const MesosStateUtil = {
 
     let instancesMap = marathonFramework.completed_tasks.reduce(
       function (memo, task) {
-        if (POD_TASK_REGEX.test(task.id)) {
-          let [, podID, instanceID] = POD_TASK_REGEX.exec(task.id);
+        if (MesosStateUtil.isPodTaskId(task.id)) {
+          let {podID, instanceID} = MesosStateUtil.decomposePodTaskId(task.id);
           if (podID === pod.getMesosId()) {
             let containerArray = memo[instanceID];
             if (containerArray === undefined) {
@@ -230,6 +248,16 @@ const MesosStateUtil = {
         });
 
     return taskPath;
+  },
+
+  /**
+   * Check if the given string looks like a pod task ID
+   *
+   * @param {String} taskID - The task ID to test
+   * @returns {Boolean} Returns true if the function passes the test
+   */
+  isPodTaskId(taskID) {
+    return POD_TASK_REGEX.test(taskID);
   }
 };
 
