@@ -3,7 +3,7 @@ import {DefaultRoute, Redirect, Route} from 'react-router';
 import React from 'react';
 /* eslint-enable no-unused-vars */
 
-import NodesTable from '../components/NodesTable';
+import NodesTableContainer from '../pages/nodes/nodes-table/NodesTableContainer';
 import NodeDetailBreadcrumb from '../pages/nodes/breadcrumbs/NodeDetailBreadcrumb';
 import NodeDetailPage from '../pages/nodes/NodeDetailPage';
 import NodeDetailTab from '../pages/nodes/NodeDetailTab';
@@ -51,7 +51,7 @@ let nodesRoutes = {
         {
           type: DefaultRoute,
           name: 'nodes-list',
-          handler: NodesTable
+          handler: NodesTableContainer
         },
         {
           type: Route,
