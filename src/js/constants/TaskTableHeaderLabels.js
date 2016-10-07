@@ -3,8 +3,8 @@ var TaskTableHeaderLabels = {
   disk: 'DISK',
   host: 'HOST',
   mem: 'MEM',
-  id: 'TASK ID',
-  name: 'TASK NAME',
+  id: 'ID',
+  name: 'NAME',
   status: 'STATUS',
   updated: 'UPDATED',
   version: 'VERSION'

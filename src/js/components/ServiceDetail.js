@@ -28,7 +28,7 @@ class ServiceDetail extends mixin(InternalStorageMixin, TabsMixin) {
     super(...arguments);
 
     this.tabs_tabs = {
-      tasks: 'Tasks',
+      tasks: 'Instances',
       configuration: 'Configuration',
       debug: 'Debug'
     };
@@ -106,7 +106,7 @@ class ServiceDetail extends mixin(InternalStorageMixin, TabsMixin) {
     );
   }
 
-  renderTasksTabView() {
+  renderInstancesTabView() {
     return (
       <ServiceDetailTaskTab service={this.props.service} />
     );

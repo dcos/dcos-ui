@@ -280,9 +280,9 @@ var ServicesTable = React.createClass({
     let isDeploying = serviceStatus === 'Deploying';
 
     let conciseOverview = ` (${tasksRunning}/${instancesCount})`;
-    let verboseOverview = ` (${tasksRunning} ${StringUtil.pluralize('Task', tasksRunning)})`;
+    let verboseOverview = ` (${tasksRunning} ${StringUtil.pluralize('Intance', tasksRunning)})`;
     if (tasksRunning !== instancesCount) {
-      verboseOverview = ` (${tasksRunning} of ${instancesCount} Tasks)`;
+      verboseOverview = ` (${tasksRunning} of ${instancesCount} Instances)`;
     }
 
     return (
