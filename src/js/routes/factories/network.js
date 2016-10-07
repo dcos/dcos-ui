@@ -22,6 +22,7 @@ let RouteFactory = {
         name: 'virtual-networks-tab',
         path: 'virtual-networks/?',
         handler: VirtualNetworksTab,
+        isInSidebar: true,
         buildBreadCrumb() {
           return {
             getCrumbs() {
