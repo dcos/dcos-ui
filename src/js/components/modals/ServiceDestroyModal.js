@@ -4,8 +4,6 @@ import React from 'react';
 /* eslint-enable no-unused-vars */
 
 import MarathonStore from '../../stores/MarathonStore';
-import Pod from '../../structs/Pod';
-import ServiceTree from '../../structs/ServiceTree';
 import ServiceActionModal from './ServiceActionModal';
 
 class ServiceDestroyModal extends ServiceActionModal {
@@ -36,29 +34,19 @@ class ServiceDestroyModal extends ServiceActionModal {
     super.handleConfirmClick();
 
     let {service} = this.props;
-    let isGroup = service instanceof ServiceTree;
+    let forceUpdate = this.shouldForceUpdate();
 
-    if (isGroup) {
-      MarathonStore.deleteGroup(service.getId(),
-        this.shouldForceUpdate(this.state.errorMsg));
+    if (this.isGroup()) {
+      MarathonStore.deleteGroup(service.getId(), forceUpdate);
     } else {
-      MarathonStore.deleteService(service,
-        this.shouldForceUpdate(this.state.errorMsg));
+      MarathonStore.deleteService(service, forceUpdate);
     }
   }
 
   render() {
     const {open, service} = this.props;
-    let itemText = 'Service';
+    let itemText = this.getServiceType();
     let serviceName = '';
-
-    if (service instanceof Pod) {
-      itemText = 'Pod';
-    }
-
-    if (service instanceof ServiceTree) {
-      itemText = 'Group';
-    }
 
     if (service) {
       serviceName = service.getId();

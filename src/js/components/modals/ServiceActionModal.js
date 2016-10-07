@@ -4,6 +4,7 @@ import React from 'react';
 /* eslint-enable no-unused-vars */
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
+import Pod from '../../structs/Pod';
 import Service from '../../structs/Service';
 import ServiceTree from '../../structs/ServiceTree';
 
@@ -56,6 +57,24 @@ class ServiceActionModal extends mixin(StoreMixin) {
     return message && /force=true/.test(message);
   }
 
+  isGroup() {
+    return this.props.service instanceof ServiceTree;
+  }
+
+  isPod() {
+    return this.props.service instanceof Pod;
+  }
+
+  getServiceType() {
+    if (this.isGroup()) {
+      return 'Group';
+    } else if (this.isPod()) {
+      return 'Pod';
+    } else {
+      return 'Service';
+    }
+  }
+
   getErrorMessage() {
     let {errorMsg} = this.state;
 
@@ -66,7 +85,7 @@ class ServiceActionModal extends mixin(StoreMixin) {
     if (this.shouldForceUpdate(errorMsg)) {
       return (
         <h4 className="text-align-center text-danger flush-top">
-          Resource currently locked by one or more deployments. Press the button
+          {this.getServiceType()} is currently locked by one or more deployments. Press the button
           again to force this action.
         </h4>
       );
