@@ -1,13 +1,12 @@
 import classNames from 'classnames';
 import {Link} from 'react-router';
+import PureRenderMixin from 'react-addons-pure-render-mixin';
 import React from 'react';
 import {ResourceTableUtil} from 'foundation-ui';
-import {StoreMixin} from 'mesosphere-shared-reactjs';
 import {Table, Tooltip} from 'reactjs-components';
 
 import NodesTableHeaderLabels from '../../../../../src/js/constants/NodesTableHeaderLabels';
 import Icon from '../../../../../src/js/components/Icon';
-import InternalStorageMixin from '../../../../../src/js/mixins/InternalStorageMixin';
 import Loader from '../../../../../src/js/components/Loader';
 import StatusBar from '../../../../../src/js/components/StatusBar';
 import StringUtil from '../../../../../src/js/utils/StringUtil';
@@ -24,7 +23,7 @@ var NodesTable = React.createClass({
 
   displayName: 'NodesTable',
 
-  mixins: [InternalStorageMixin, StoreMixin],
+  mixins: [PureRenderMixin],
 
   propTypes: {
     hosts: React.PropTypes.array.isRequired
@@ -34,27 +33,6 @@ var NodesTable = React.createClass({
     return {
       hosts: []
     };
-  },
-
-  componentWillMount() {
-    this.internalStorage_set({
-      nodeHealthResponseReceived: false
-    });
-
-    this.store_listeners = [
-      {
-        name: 'nodeHealth',
-        events: ['success'],
-        listenAlways: false
-      }
-    ];
-  },
-
-  onNodeHealthStoreSuccess() {
-    this.internalStorage_set({
-      nodeHealthResponseReceived: true
-    });
-    this.forceUpdate();
   },
 
   renderHeadline(prop, node) {
@@ -83,7 +61,7 @@ var NodesTable = React.createClass({
   },
 
   renderHealth(prop, node) {
-    let requestReceived = this.internalStorage_get().nodeHealthResponseReceived;
+    let requestReceived = this.props.nodeHealthResponseReceived;
 
     if (!requestReceived) {
       return (
