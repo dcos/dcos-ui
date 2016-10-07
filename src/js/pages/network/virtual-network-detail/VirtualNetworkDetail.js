@@ -104,7 +104,7 @@ class VirtualNetworkDetail extends mixin(StoreMixin, TabsMixin) {
   getLoadingScreen() {
     return (
       <div className="container container-fluid container-pod">
-        <Loader className="inverse" />
+        <Loader />
       </div>
     );
   }

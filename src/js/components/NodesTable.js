@@ -88,7 +88,6 @@ var NodesTable = React.createClass({
     if (!requestReceived) {
       return (
         <Loader
-          className="inverse"
           innerClassName="loader-small"
           type="ballBeat" />
       );

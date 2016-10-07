@@ -213,7 +213,7 @@ var ServicesTab = React.createClass({
     if (!DCOSStore.dataProcessed) {
       return (
         <div className="container container-fluid container-pod">
-          <Loader className="inverse" />
+          <Loader />
         </div>
       );
     }

@@ -305,7 +305,7 @@ class MesosLogView extends mixin(StoreMixin) {
   }
 
   getLoadingScreen() {
-    return <Loader className="inverse" />;
+    return <Loader />;
   }
 
   getGoToBottomButton() {
@@ -338,7 +338,6 @@ class MesosLogView extends mixin(StoreMixin) {
     return (
       <div className="container container-fluid container-pod flush-top">
         <Loader
-          className="inverse"
           innerClassName="loader-small"
           type="ballSpinFadeLoader" />
       </div>
