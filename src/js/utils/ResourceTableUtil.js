@@ -36,7 +36,7 @@ var ResourceTableUtil = {
     return classNames({
       'text-align-right': leftAlignCaret(prop)
         || prop === 'TASK_RUNNING' || prop === 'action',
-      'hidden-mini': leftAlignCaret(prop),
+      'hidden-small-down': leftAlignCaret(prop),
       'active': prop === sortBy.prop,
       'clickable': row == null // this is a header
     });
