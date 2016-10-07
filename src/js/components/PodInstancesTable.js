@@ -68,12 +68,11 @@ class PodInstancesTable extends React.Component {
 
     // When the `instances` property is changed and we have selected
     // items, re-trigger selection change in order to remove checked
-    // entries that are no longer preset.
+    // entries that are no longer present.
 
-    if (!deepEqual(prevInstances, nextInstances)) {
-      if (Object.keys(checkedItems).length) {
-        this.triggerSelectionChange(checkedItems, nextProps.instances);
-      }
+    if (Object.keys(checkedItems).length &&
+       !deepEqual(prevInstances, nextInstances)) {
+      this.triggerSelectionChange(checkedItems, nextProps.instances);
     }
   }
 
@@ -83,7 +82,7 @@ class PodInstancesTable extends React.Component {
         return checkedItems[item.getId()];
       }
     );
-    this.props.onSelectionChange( checkedItemInstances );
+    this.props.onSelectionChange(checkedItemInstances);
   }
 
   handleItemCheck(idsChecked) {
