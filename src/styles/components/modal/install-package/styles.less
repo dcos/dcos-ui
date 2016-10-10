@@ -13,9 +13,9 @@
         flex-basis: 677px;
         max-height: none;
 
-        // TODO Add class to this div.
-        & > div {
+        .modal-install-package-scroll-container {
           flex: 1 1 auto;
+          max-width: 100%;
           min-height: 0;
           position: relative;
         }
@@ -30,6 +30,7 @@
       .modal-install-package-body-and-header {
         display: flex;
         flex: 1 1 auto;
+        flex-direction: column;
         height: 100%;
         min-height: 0;
         position: relative;
@@ -39,21 +40,21 @@
           flex: 1;
           flex-direction: column;
           height: 100%;
+        }
 
-          .modal-header {
-            flex: 0 0 auto;
-          }
+        .modal-header {
+          flex: 0 0 auto;
+        }
 
-          .multiple-form {
-            display: flex;
-            flex: 1 1 auto;
-            min-height: 0;
-          }
+        .multiple-form {
+          display: flex;
+          flex: 1 1 auto;
+          min-height: 0;
+        }
 
-          .multiple-form-right-column {
-            flex: 1 1 auto;
-            min-height: 0;
-          }
+        .multiple-form-right-column {
+          flex: 1 1 auto;
+          min-height: 0;
         }
       }
 
