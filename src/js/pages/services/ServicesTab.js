@@ -372,7 +372,7 @@ var ServicesTab = React.createClass({
     // Make sure to grow when logs are displayed
     let routes = this.context.router.getCurrentRoutes();
     let classes = classNames({
-      'flex-container-col flex-grow flex-shrink': routes[routes.length - 1].dontScroll
+      'flex flex-item-grow-1 flex-item-shrink-1 flex-direction-top-to-bottom': routes[routes.length - 1].dontScroll
     });
 
     return (

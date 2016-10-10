@@ -11,16 +11,12 @@
   // TODO: Name this animation specifically.
   .button {
 
+    &-leave,
     &-enter,
     &-appear {
       opacity: 0.01;
       transform: translate(-50%, -100%);
       transition: transform 350ms ease-in, opacity 350ms ease-in;
-
-      &-leave {
-        opacity: 1;
-        transform: translate(-50%, 0);
-      }
 
       &.button {
 
@@ -36,6 +32,11 @@
           transition: transform 350ms ease-in, opacity 350ms ease-in;
         }
       }
+    }
+
+    &-leave {
+      opacity: 1;
+      transform: translate(-50%, 0);
     }
 
     // TODO: https://github.com/dcos/dcos-ui/pull/741#discussion_r71219594
@@ -55,13 +56,17 @@
 
     &-up-arrow,
     &-down-arrow {
+      position: relative;
 
       &:after {
         border-left: 5px solid transparent;
         border-right: 5px solid transparent;
         content: '';
         display: inline-block;
-        vertical-align: middle;
+        left: 50%;
+        position: absolute;
+        top: 50%;
+        transform: translateX(-50%) translateY(-50%);
       }
     }
 
