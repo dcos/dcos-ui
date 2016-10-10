@@ -306,7 +306,7 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
 
     if (scheduleText != null) {
       nodes.push(
-        <p className="text-overflow" key="schedule-text">
+        <p className="text-overflow flush" key="schedule-text">
           <Icon
             className="icon-margin-right"
             key="schedule-icon"
