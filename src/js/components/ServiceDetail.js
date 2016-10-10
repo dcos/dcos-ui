@@ -140,7 +140,6 @@ class ServiceDetail extends mixin(InternalStorageMixin, TabsMixin) {
           open={serviceActionDialog === ServiceActionItem.SUSPEND}
           service={service} />
       </div>
-
     );
   }
 }
