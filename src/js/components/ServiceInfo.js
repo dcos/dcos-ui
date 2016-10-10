@@ -121,9 +121,7 @@ class ServiceInfo extends React.Component {
         ),
         shouldShow: true
       }
-    ];
-
-    return subHeaderItems.map(function (item, index) {
+    ].map(function (item, index) {
       if (!item.shouldShow) {
         return null;
       }
@@ -134,6 +132,14 @@ class ServiceInfo extends React.Component {
         </span>
       );
     });
+
+    return (
+      <div className="media-object-spacing-wrapper media-object-spacing-narrow media-object-offset">
+        <div className="media-object">
+          {subHeaderItems}
+        </div>
+      </div>
+    );
   }
 
   render() {
