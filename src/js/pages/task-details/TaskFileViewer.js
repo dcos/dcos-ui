@@ -272,7 +272,7 @@ class TaskFileViewer extends React.Component {
     }
 
     return (
-      <span className="search-count mute">
+      <span className="search-count small flush text-muted">
         {`${watching} out of ${totalFound}`}
       </span>
     );
