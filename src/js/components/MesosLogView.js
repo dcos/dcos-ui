@@ -288,7 +288,7 @@ class MesosLogView extends mixin(StoreMixin) {
 
     return (
       <pre
-        className="flex-grow flush-bottom prettyprint"
+        className="flex-item-grow-1 flush-bottom prettyprint"
         ref="logContainer"
         onScroll={this.handleLogContainerScroll}>
         {this.getLogPrepend()}
@@ -318,7 +318,7 @@ class MesosLogView extends mixin(StoreMixin) {
     return (
       <button
         onClick={this.handleGoToBottom}
-        className="button go-to-bottom-button">
+        className="button button-inverse go-to-bottom-button">
         Go to bottom
       </button>
     );
@@ -328,7 +328,7 @@ class MesosLogView extends mixin(StoreMixin) {
     let logBuffer = MesosLogStore.get(this.props.filePath);
     if (!logBuffer || logBuffer.hasLoadedTop()) {
       return (
-        <div className="text-align-center vertical-center">
+        <div className="text-align-center">
           (AT BEGINNING OF FILE)
         </div>
       );
@@ -356,7 +356,7 @@ class MesosLogView extends mixin(StoreMixin) {
     }
 
     return (
-      <div className="log-view flex-grow flex-shrink flex-container-col">
+      <div className="log-view flex flex-item-grow-1 flex-item-shrink-1">
         {this.getLog()}
         <ReactCSSTransitionGroup
           transitionAppear={true}
