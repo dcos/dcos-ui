@@ -306,10 +306,10 @@ class TaskFileViewer extends React.Component {
     });
 
     return (
-      <div className="flex-container-col flex-grow flex-shrink">
+      <div className="flex flex-direction-top-to-bottom flex-item-grow-1 flex-item-shrink-1">
         <FilterBar
-          className="filter-bar flex-no-wrap-small control-group form-group flex-no-shrink flush-bottom"
-          leftChildrenClass="filter-bar-left filter-bar-search-container flex-no-wrap flex-grow flex-shrink"
+          className="filter-bar control-group form-group flex-wrap-items-none-screen-small flex-item-shrink-0 flush-bottom"
+          leftChildrenClass="filter-bar-left filter-bar-search-container flex-wrap-items-none flex-item-grow-1 flex-item-shrink-1"
           rightAlignLastNChildren={2}>
           <FilterInputText
             ref="filterInput"

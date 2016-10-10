@@ -85,7 +85,7 @@ class DetailViewHeader extends React.Component {
     } = this.props;
 
     let detailViewHeaderClasses = classNames(
-      'detail-view-header flex-no-shrink',
+      'detail-view-header flex-item-shrink-0',
       {'has-tabs': !!navigationTabs},
       className
     );
