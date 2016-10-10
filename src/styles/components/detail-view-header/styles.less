@@ -11,17 +11,20 @@
 
       &:after {
         background: @detail-view-header-border;
-        bottom: -1px;
+        bottom: 0;
         content: '';
         height: 1px;
         position: absolute;
         width: 100%;
+        z-index: @z-index-header-border;
       }
+    }
 
-      .tabs {
-        position: relative;
-        z-index: @z-index-header-tabs;
-      }
+    .menu-tabbed {
+      margin-bottom: 0;
+      margin-top: @base-spacing-unit;
+      position: relative;
+      z-index: @z-index-header-tabs;
     }
   }
 
@@ -76,6 +79,10 @@
 
     .detail-view-header {
       margin-bottom: @base-spacing-unit-screen-small;
+
+      .menu-tabbed {
+        margin-top: @base-spacing-unit-screen-small;
+      }
     }
 
     .detail-view-header-icon {
@@ -90,6 +97,10 @@
 
     .detail-view-header {
       margin-bottom: @base-spacing-unit-screen-medium;
+
+      .menu-tabbed {
+        margin-top: @base-spacing-unit-screen-medium;
+      }
     }
 
     .detail-view-header-content-secondary {
@@ -107,6 +118,13 @@
 
   @media (min-width: @layout-screen-large-min-width) {
 
+    .detail-view-header {
+
+      .menu-tabbed {
+        margin-top: @base-spacing-unit-screen-large;
+      }
+    }
+
     .detail-view-header-icon {
       padding-right: @base-spacing-unit-screen-large * 1/4;
     }
@@ -116,6 +134,13 @@
 & when (@detail-view-header-enabled) and (@layout-screen-jumbo-enabled) {
 
   @media (min-width: @layout-screen-jumbo-min-width) {
+
+    .detail-view-header {
+
+      .menu-tabbed {
+        margin-top: @base-spacing-unit-screen-jumbo;
+      }
+    }
 
     .detail-view-header-icon {
       padding-right: @base-spacing-unit-screen-jumbo * 1/4;
