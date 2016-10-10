@@ -92,15 +92,15 @@ class FilterInputText extends React.Component {
     });
 
     return (
-      <span className="form-control-group-add-on form-control-group-add-on-append">
+      <span className="form-control-group-add-on">
         {sideText}
         <a onClick={this.handleInputClear}>
-        <Icon
-          family="mini"
-          id="ring-close"
-          size="mini"
-          className={iconClassNames}
-          color={color} />
+          <Icon
+            family="mini"
+            id="ring-close"
+            size="mini"
+            className={iconClassNames}
+            color={color} />
         </a>
       </span>
     );
