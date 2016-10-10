@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import GeminiScrollbar from 'react-gemini-scrollbar';
 import React from 'react';
 
@@ -33,7 +34,7 @@ class ReviewConfig extends React.Component {
     };
 
     return (
-      <div className="modal-header modal-header-padding-narrow modal-header-bottom-border modal-header-white flex-no-shrink">
+      <div className="modal-header flex-item-shrink-0">
         <div className="row">
           <div className="column-4">
             <div className="media-object-spacing-wrapper media-object-spacing-narrow media-object-offset">
@@ -70,8 +71,10 @@ class ReviewConfig extends React.Component {
     );
   }
 
-  getFieldTitle(title) {
-    return <h3 key={`${title}-header`}>{title}</h3>;
+  getFieldTitle(title, index) {
+    let classes = classNames({'flush-top': index === 0});
+
+    return <h3 className={classes} key={`${title}-header`}>{title}</h3>;
   }
 
   getFieldSubheader(title) {
@@ -85,7 +88,7 @@ class ReviewConfig extends React.Component {
 
     fields.forEach((field, i) => {
       var fieldObj = configuration[field];
-      elementsToRender.push(this.getFieldTitle(field));
+      elementsToRender.push(this.getFieldTitle(field, i));
 
       Object.keys(fieldObj).forEach((fieldKey) => {
         let fieldValue = fieldObj[fieldKey];
@@ -127,8 +130,8 @@ class ReviewConfig extends React.Component {
     return (
       <div className={this.props.className}>
         {this.getHeader()}
-        <GeminiScrollbar ref="gemini" className="review-config modal-content" autoshow={true}>
-          <div className="modal-body flush-top flush-bottom flex-grow">
+        <GeminiScrollbar autoshow={true} className="review-config" ref="gemini">
+          <div className="modal-body flush-top flush-bottom">
             {this.getDefinitionReview()}
           </div>
         </GeminiScrollbar>
@@ -138,7 +141,7 @@ class ReviewConfig extends React.Component {
 }
 
 ReviewConfig.defaultProps = {
-  className: 'flex-container-col'
+  className: 'modal-install-package-body-and-header'
 };
 
 ReviewConfig.propTypes = {
