@@ -421,7 +421,7 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
     }
 
     return (
-      <div>
+      <div className="flex flex-direction-top-to-bottom flex-item-grow-1 flex-item-shrink-1">
         <ReviewConfig
           packageIcon={cosmosPackage.getIcons()['icon-small']}
           packageName={name}
@@ -430,13 +430,13 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
         <div className="modal-footer">
           <div className="button-collection flush">
             <button
-              className="button button-large button-wide flush"
+              className="button button-large flush"
               onClick={this.handleChangeTab.bind(this, 'advancedInstall')}>
               Back
             </button>
             <button
               disabled={!cosmosPackage || pendingRequest}
-              className="button button-success button-large button-wide flush"
+              className="button button-success button-large flush"
               onClick={this.handleInstallPackage}>
               {buttonText}
             </button>
@@ -607,10 +607,6 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
       'multiple-form-modal modal-form': isAdvanced
     });
 
-    let modalScrollContainerClass = classNames({
-      '': isAdvanced
-    });
-
     return (
       <Modal
         ref={this.handleModalRef}
@@ -620,7 +616,7 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
         modalWrapperClass={modalWrapperClasses}
         onClose={this.handleModalClose}
         open={props.open}
-        scrollContainerClass={modalScrollContainerClass}
+        scrollContainerClass="modal-install-package-scroll-container"
         showFooter={false}
         useGemini={false}>
         {this.getModalContents()}
