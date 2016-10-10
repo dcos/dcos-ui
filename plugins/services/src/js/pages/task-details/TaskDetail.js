@@ -21,6 +21,7 @@ import TaskStates from '../../constants/TaskStates';
 
 const METHODS_TO_BIND = [
   'handleBreadcrumbClick',
+  'handleOpenLogClick',
   'onTaskDirectoryStoreError',
   'onTaskDirectoryStoreSuccess'
 ];
@@ -29,7 +30,9 @@ const HIDE_BREADCRUMBS = [
   '/jobs/:id/tasks/:taskID/details',
   '/network/virtual-networks/:overlayName/tasks/:taskID/details',
   '/nodes/:nodeID/tasks/:taskID/details',
-  '/services/overview/:id/tasks/:taskID/details'
+  '/services/overview/:id/tasks/:taskID/details',
+  '/services/overview/:id/tasks/:taskID/logs',
+  '/services/overview/:id/tasks/:taskID/logs/:fileName'
 ];
 
 class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
@@ -328,7 +331,7 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
           directory,
           selectedLogFile,
           task,
-          onOpenLogClick: this.handleOpenLogClick.bind(this),
+          onOpenLogClick: this.handleOpenLogClick,
           service: this.getService()
         })}
       </div>
