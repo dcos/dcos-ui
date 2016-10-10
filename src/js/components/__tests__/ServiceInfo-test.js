@@ -1,5 +1,5 @@
 jest.dontMock('../CollapsingString');
-jest.dontMock('../PageHeader');
+jest.dontMock('../DetailViewHeader');
 jest.dontMock('../ServiceInfo');
 
 /* eslint-disable no-unused-vars */
@@ -55,13 +55,13 @@ describe('ServiceInfo', function () {
 
     it('renders app status, not health state', function () {
       expect(
-        this.node.querySelector('.page-header-sub-heading').children[0].children[0].textContent
+        this.node.querySelector('.detail-view-header-sub-heading').children[0].children[0].textContent
       ).toEqual('Running');
     });
 
     it('renders number of running tasks', function () {
       expect(
-        this.node.querySelector('.page-header-sub-heading').children[0].children[1].textContent
+        this.node.querySelector('.detail-view-header-sub-heading').children[0].children[1].textContent
       ).toEqual('2 Tasks');
     });
 

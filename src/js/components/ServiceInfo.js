@@ -2,8 +2,8 @@ import classNames from 'classnames';
 import {Dropdown} from 'reactjs-components';
 import React from 'react';
 
+import DetailViewHeader from './DetailViewHeader';
 import HealthBar from './HealthBar';
-import PageHeader from './PageHeader';
 import Service from '../structs/Service';
 import ServiceActionItem from '../constants/ServiceActionItem';
 import StatusMapping from '../constants/StatusMapping';
@@ -153,7 +153,7 @@ class ServiceInfo extends React.Component {
     );
 
     return (
-      <PageHeader
+      <DetailViewHeader
         actionButtons={this.getActionButtons()}
         icon={serviceIcon}
         iconClassName="icon-image-container icon-app-container"

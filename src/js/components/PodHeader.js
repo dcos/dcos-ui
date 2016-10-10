@@ -2,8 +2,8 @@ import classNames from 'classnames/dedupe';
 import {Dropdown} from 'reactjs-components';
 import React from 'react';
 
+import DetailViewHeader from './DetailViewHeader';
 import HealthBar from './HealthBar';
-import PageHeader from './PageHeader';
 import Pod from '../structs/Pod';
 import StatusMapping from '../constants/StatusMapping';
 import PodActionItem from '../constants/PodActionItem';
@@ -129,7 +129,7 @@ class PodInfo extends React.Component {
     );
 
     return (
-      <PageHeader
+      <DetailViewHeader
         actionButtons={this.getActionButtons()}
         icon={podIcon}
         iconClassName="icon-image-container icon-app-container"
