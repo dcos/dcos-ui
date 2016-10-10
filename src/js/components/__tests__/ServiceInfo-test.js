@@ -55,13 +55,13 @@ describe('ServiceInfo', function () {
 
     it('renders app status, not health state', function () {
       expect(
-        this.node.querySelector('.detail-view-header-sub-heading').children[0].children[0].textContent
+        this.node.querySelector('.detail-view-header-sub-heading .media-object-item:first-child').textContent
       ).toEqual('Running');
     });
 
     it('renders number of running tasks', function () {
       expect(
-        this.node.querySelector('.detail-view-header-sub-heading').children[0].children[1].textContent
+        this.node.querySelector('.detail-view-header-sub-heading .media-object-item:nth-child(2)').textContent
       ).toEqual('2 Tasks');
     });
 
