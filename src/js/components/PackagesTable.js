@@ -106,7 +106,7 @@ class PackagesTable extends React.Component {
     let name = cosmosPackage.getAppIdName();
 
     return (
-      <div className="package-table-heading flex-box flex-box-align-vertical-center table-cell-flex-box">
+      <div className="package-table-heading table-cell-emphasized flex-box flex-box-align-vertical-center table-cell-flex-box">
         <span className="icon icon-margin-right icon-small icon-image-container icon-app-container">
           <Image
             fallbackSrc={defaultServiceImage}
