@@ -127,7 +127,7 @@ class TaskTable extends React.Component {
         headerClassName: className,
         heading,
         prop: 'id',
-        render: this.renderHeadline,
+        render: this.renderHeadline({primary: true}),
         sortable: true,
         sortFunction
       },
@@ -136,7 +136,7 @@ class TaskTable extends React.Component {
         headerClassName: className,
         heading,
         prop: 'name',
-        render: this.renderHeadline,
+        render: this.renderHeadline({secondary: true}),
         sortable: true,
         sortFunction
       },
@@ -251,30 +251,37 @@ class TaskTable extends React.Component {
       }, {});
   }
 
-  renderHeadline(prop, task) {
-    let title = task[prop];
-    let params = this.props.parentRouter.getCurrentParams();
-    let routeParams = Object.assign({taskID: task.id}, params);
+  renderHeadline(options) {
+    let anchorClasses = classNames('text-overflow', {
+      'table-cell-link-primary': options.primary,
+      'table-cell-link-secondary': options.secondary
+    });
 
-    let linkTo = 'services-task-details';
-    if (params.nodeID != null) {
-      linkTo = 'nodes-task-details';
-    }
+    return (prop, task) => {
+      let title = task[prop];
+      let params = this.props.parentRouter.getCurrentParams();
+      let routeParams = Object.assign({taskID: task.id}, params);
 
-    return (
-      <div className="flex-box flex-box-align-vertical-center
-        table-cell-flex-box">
-        <div className="table-cell-value flex-box flex-box-col">
-          <Link
-            className="emphasize clickable text-overflow"
-            to={linkTo}
-            params={routeParams}
-            title={title}>
-            {title}
-          </Link>
+      let linkTo = 'services-task-details';
+      if (params.nodeID != null) {
+        linkTo = 'nodes-task-details';
+      }
+
+      return (
+        <div className="flex-box flex-box-align-vertical-center
+          table-cell-flex-box">
+          <div className="table-cell-value flex-box flex-box-col">
+            <Link
+              className={anchorClasses}
+              to={linkTo}
+              params={routeParams}
+              title={title}>
+              {title}
+            </Link>
+          </div>
         </div>
-      </div>
-    );
+      );
+    };
   }
 
   renderLog(prop, task) {
@@ -289,7 +296,6 @@ class TaskTable extends React.Component {
 
     return (
       <Link
-        className="emphasize clickable text-overflow"
         to={linkTo}
         params={routeParams}
         title={title}>
@@ -308,7 +314,7 @@ class TaskTable extends React.Component {
 
     return (
       <Link
-        className="emphasize clickable text-overflow"
+        className="table-cell-link-secondary text-overflow"
         to="node-detail"
         params={{nodeID: task.slave_id}}
         title={node.hostname}>

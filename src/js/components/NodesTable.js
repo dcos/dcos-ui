@@ -75,7 +75,7 @@ var NodesTable = React.createClass({
     }
 
     return (
-      <Link className="table-cell-emphasized" params={{nodeID: node.get('id')}}
+      <Link className="table-cell-link-primary" params={{nodeID: node.get('id')}}
         to="node-detail">
         {headline}
       </Link>

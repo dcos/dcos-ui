@@ -130,7 +130,7 @@ class DeploymentsTab extends mixin(StoreMixin) {
 
       return (
         <dd key={`service_${id}`}>
-          <Link to="services-detail" params={{id}} className="deployment-service-name">
+          <Link to="services-detail" params={{id}} className="deployment-service-name table-cell-link-primary">
             <span className="icon icon-small icon-image-container icon-app-container deployment-service-icon">
               <img src={image} />
             </span>
@@ -149,8 +149,8 @@ class DeploymentsTab extends mixin(StoreMixin) {
           <NestedServiceLinks
             serviceID={service.getId()}
             className="deployment-breadcrumb"
-            majorLinkClassName="deployment-breadcrumb-service-id"
-            minorLinkWrapperClassName="deployment-breadcrumb-crumb" />
+            majorLinkClassName="deployment-breadcrumb-service-id table-cell-link-secondary"
+            minorLinkWrapperClassName="deployment-breadcrumb-crumb table-cell-link-secondary" />
         </li>
       );
     });

@@ -148,7 +148,7 @@ class VirtualNetworkTaskTab extends mixin(StoreMixin) {
     );
   }
 
-  getTaskLink(taskID, value, title) {
+  getTaskLink(taskID, value, title, hierarchy = {}) {
     if (!value) {
       value = taskID;
     }
@@ -157,9 +157,14 @@ class VirtualNetworkTaskTab extends mixin(StoreMixin) {
       title = taskID;
     }
 
+    let classes = classNames({
+      'table-cell-link-primary': hierarchy.primary,
+      'table-cell-link-secondary': hierarchy.secondary
+    });
+
     return (
       <Link
-        className="clickable"
+        className={classes}
         key={value}
         params={{overlayName: this.props.overlay.getName(), taskID}}
         title={title}
@@ -204,7 +209,7 @@ class VirtualNetworkTaskTab extends mixin(StoreMixin) {
   }
 
   renderID(prop, task) {
-    return this.getTaskLink(task.id);
+    return this.getTaskLink(task.id, null, null, {primary: true});
   }
 
   renderPorts(prop, task) {
@@ -231,7 +236,12 @@ class VirtualNetworkTaskTab extends mixin(StoreMixin) {
               family="tiny"
               id="caret-right"
               size="tiny" />
-            {this.getTaskLink(id, `${mapping.host_port} (${mapping.protocol})`, title)}
+            {this.getTaskLink(
+              id,
+              `${mapping.host_port} (${mapping.protocol})`,
+              title,
+              {secondary: true}
+            )}
           </span>
         );
       }
@@ -240,7 +250,12 @@ class VirtualNetworkTaskTab extends mixin(StoreMixin) {
         <div key={index} className="table-cell-value">
           <div className="table-cell-details-secondary flex-box flex-box-align-vertical-center table-cell-flex-box">
             <div className="text-overflow service-link">
-              {this.getTaskLink(id, mapping.container_port, title)}
+              {this.getTaskLink(
+                id,
+                mapping.container_port,
+                title,
+                {secondary: true}
+              )}
               {mapTo}
             </div>
           </div>
