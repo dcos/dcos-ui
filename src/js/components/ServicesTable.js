@@ -150,7 +150,7 @@ var ServicesTable = React.createClass({
 
     return (
       <Link to="services-detail"
-        className="table-cell-emphasized"
+        className="table-cell-link-primary"
         params={{id}}>
         <span className="text-overflow">
           {service.getName()}

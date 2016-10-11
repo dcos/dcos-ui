@@ -44,6 +44,20 @@
     .flush-left {
       padding-left: 0;
     }
+
+    .table-cell-link-primary,
+    .table-cell-link-secondary {
+      color: @table-cell-highlight-color;
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    .table-cell-link-primary {
+      font-weight: 700;
+    }
   }
 
   .table-hide-header {

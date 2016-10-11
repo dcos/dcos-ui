@@ -9,8 +9,13 @@
 
   .expanding-table-primary-cell {
     color: @neutral;
+    font-weight: 700;
     margin: @base-spacing-unit * -1/4 0;
     padding: @base-spacing-unit * 1/4 @base-spacing-unit * 1/2;
+
+    &:hover {
+      text-decoration: underline;
+    }
 
     &.is-expandable {
       cursor: pointer;

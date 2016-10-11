@@ -86,7 +86,7 @@ class UnitHealthNodesTable extends React.Component {
     let params = Object.assign({}, this.props.params, {unitNodeID: node.get('host_ip')});
 
     return (
-      <Link className="emphasize clickable text-overflow" params={params}
+      <Link className="table-cell-link-primary text-overflow" params={params}
         to="components-overview-units-unit-nodes-node-detail">
         {linkText}
       </Link>
