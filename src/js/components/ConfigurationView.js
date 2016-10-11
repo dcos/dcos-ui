@@ -8,6 +8,7 @@ import Loader from './Loader';
 import Service from '../structs/Service';
 import StringUtil from '../utils/StringUtil';
 import ServiceConfigUtil from '../utils/ServiceConfigUtil';
+import Util from '../utils/Util';
 
 const sectionClassName = 'container-fluid container-pod container-pod-super-short flush flush-bottom';
 
@@ -66,23 +67,23 @@ class ConfigurationView extends mixin(StoreMixin) {
       return `${key} : ${value}`;
     });
 
-    let networkNameKey = 'Network Name';
+    let portMappings = docker.portMappings || [];
+    portMappings = portMappings.reduce(function (memo, mapping, index) {
+      memo[`Port mapping ${index + 1}`] = mapping;
+      return memo;
+    }, {});
+
     let headerValueMapping = {
       'Force Pull Image': docker.forcePullImage,
       'Image': docker.image,
       'Network': docker.network,
-      [networkNameKey]: null,
-      'Parameters': StringUtil.arrayToJoinedString(
-        parameters
-      ),
+      'Network Name': ipAddress && ipAddress.networkName,
+      'Parameters': StringUtil.arrayToJoinedString(parameters),
+      'Port Mappings': portMappings,
       'Privileged': docker.privileged
     };
 
-    if (ipAddress) {
-      headerValueMapping[networkNameKey] = ipAddress.networkName;
-    } else {
-      delete headerValueMapping[networkNameKey];
-    }
+    headerValueMapping = Util.filterEmptyValues(headerValueMapping);
 
     return (
       <DescriptionList className={sectionClassName}
@@ -92,10 +93,9 @@ class ConfigurationView extends mixin(StoreMixin) {
   }
 
   getPortDefinitionsSection(config) {
-    let {id, container, portDefinitions} = config;
+    let {id, portDefinitions} = config;
 
-    if (portDefinitions == null || !(container == null || container.docker == null
-        || container.docker.portMappings == null)) {
+    if (portDefinitions == null) {
       return null;
     }
 
@@ -109,7 +109,7 @@ class ConfigurationView extends mixin(StoreMixin) {
             hash={hash}
             headline={headline}
             key={index} />
-          );
+        );
       });
 
     return (
