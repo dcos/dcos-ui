@@ -154,10 +154,8 @@ class RepositoriesTable extends mixin(StoreMixin) {
 
   getHeadline(prop, repository) {
     return (
-      <div className="flex-box flex-box-align-vertical-center table-cell-flex-box">
-        <span className="text-overflow">
-          {repository.get('name')}
-        </span>
+      <div className="table-cell-emphasized text-overflow">
+        {repository.get('name')}
       </div>
     );
   }

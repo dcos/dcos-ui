@@ -207,7 +207,7 @@ class JobRunHistoryTable extends React.Component {
       return (
         <div className="expanding-table-primary-cell-heading text-overflow">
           <Link
-            className="emphasize clickable text-overflow"
+            className="table-cell-link-secondary text-overflow"
             to="jobs-task-details"
             params={{id, taskID}}
             title={taskID}>
@@ -233,7 +233,7 @@ class JobRunHistoryTable extends React.Component {
       );
 
     if (row.children && row.children.length > 0) {
-      let classes = classNames('expanding-table-primary-cell table-cell-emphasized is-expandable', {
+      let classes = classNames('expanding-table-primary-cell is-expandable', {
         'is-expanded': rowOptions.isExpanded
       });
       let {clickHandler} = rowOptions;

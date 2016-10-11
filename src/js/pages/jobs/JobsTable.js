@@ -171,7 +171,7 @@ class JobsTable extends React.Component {
           {itemImage}
         </Link>
         <Link to="jobs-page-detail"
-          className="table-cell-emphasized table-cell-value flex-box flex-box-col"
+          className="table-cell-link-primary table-cell-value flex-box flex-box-col"
           params={{id}}>
           <span className="text-overflow">
             {name}
