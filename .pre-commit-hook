@@ -1,0 +1,11 @@
+#!/bin/sh
+
+set -e
+
+echo "Pre-commit checks..."
+
+npm run lint;
+
+if [ "undefined" != `npm config get externalplugins` ]; then
+  npm run lint-plugins;
+fi
