@@ -13,7 +13,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/mesosphere/dcos-ui"
+    "url": "https://github.com/dcos/dcos-ui"
   },
   "license": "Apache-2.0",
   "engines": {
