@@ -30,7 +30,8 @@ class PodInstancesView extends React.Component {
         status: 'active'
       },
       selectedItems: [],
-      activeKillDialogAction: ''
+      killDialogOpen: false,
+      killDialogAction: 'kill'
     };
 
     METHODS_TO_BIND.forEach(function (method) {
@@ -89,7 +90,7 @@ class PodInstancesView extends React.Component {
 
   handleCloseKillDialog() {
     this.setState({
-      activeKillDialogAction: ''
+      killDialogOpen: false
     });
   }
 
@@ -108,13 +109,15 @@ class PodInstancesView extends React.Component {
 
   handleKillClick() {
     this.setState({
-      activeKillDialogAction: 'kill'
+      killDialogAction: 'kill',
+      killDialogOpen: true
     });
   }
 
   handleKillAndScaleClick() {
     this.setState({
-      activeKillDialogAction: 'killAndScale'
+      killDialogAction: 'killAndScale',
+      killDialogOpen: true
     });
   }
 
@@ -128,7 +131,7 @@ class PodInstancesView extends React.Component {
 
   render() {
     var {pod} = this.props;
-    var {activeKillDialogAction, filter, selectedItems} = this.state;
+    var {filter, killDialogOpen, killDialogAction, selectedItems} = this.state;
     let historicalInstances = MesosStateStore.getPodHistoricalInstances(pod);
     let allItems = PodUtil.mergeHistoricalInstanceList(
       pod.getInstanceList(), historicalInstances);
@@ -174,9 +177,9 @@ class PodInstancesView extends React.Component {
           onSelectionChange={this.handleSelectionChange}
           pod={this.props.pod} />
         <KillPodInstanceModal
-          action={activeKillDialogAction}
+          action={killDialogAction}
           onClose={this.handleCloseKillDialog}
-          open={!!activeKillDialogAction}
+          open={killDialogOpen}
           pod={pod}
           selectedItems={selectedItems} />
       </div>
