@@ -133,6 +133,12 @@ class MesosStateStore extends GetSetBaseStore {
     );
   }
 
+  getPodHistoricalInstances(pod) {
+    return MesosStateUtil.getPodHistoricalInstances(
+      this.get('lastMesosState'), pod
+    );
+  }
+
   getServiceFromName(name) {
     let services = this.get('lastMesosState').frameworks;
 
@@ -256,7 +262,7 @@ class MesosStateStore extends GetSetBaseStore {
     let serviceName = service.getName();
 
     // Convert serviceId to Mesos task name
-    let mesosTaskName = service.getId().split('/').slice(1).reverse().join('.');
+    let mesosTaskName = service.getMesosId();
 
     if (!serviceName || !mesosTaskName || !frameworks) {
       return [];

@@ -11,6 +11,10 @@ module.exports = class Service extends Item {
     return this.get('id') || '';
   }
 
+  getMesosId() {
+    return this.getId().split('/').slice(1).reverse().join('.');
+  }
+
   getName() {
     return this.getId().split('/').pop();
   }

@@ -1,7 +1,9 @@
 import React from 'react';
 
+import EventTypes from '../constants/EventTypes';
 import FilterHeadline from './FilterHeadline';
 import KillPodInstanceModal from './modals/KillPodInstanceModal';
+import MesosStateStore from '../stores/MesosStateStore';
 import Pod from '../structs/Pod';
 import PodInstancesTable from './PodInstancesTable';
 import PodInstanceStatus from '../constants/PodInstanceStatus';
@@ -12,9 +14,10 @@ const METHODS_TO_BIND = [
   'handleCloseKillDialog',
   'handleFilterChange',
   'handleFilterReset',
-  'handleSelectionChange',
   'handleKillClick',
-  'handleKillAndScaleClick'
+  'handleKillAndScaleClick',
+  'handleMesosStateChange',
+  'handleSelectionChange'
 ];
 
 class PodInstancesView extends React.Component {
@@ -70,6 +73,20 @@ class PodInstancesView extends React.Component {
     );
   }
 
+  componentWillMount() {
+    MesosStateStore.addChangeListener(
+      EventTypes.MESOS_STATE_CHANGE,
+      this.handleMesosStateChange
+    );
+  }
+
+  componentWillUnmount() {
+    MesosStateStore.removeChangeListener(
+      EventTypes.MESOS_STATE_CHANGE,
+      this.handleMesosStateChange
+    );
+  }
+
   handleCloseKillDialog() {
     this.setState({
       activeKillDialogAction: ''
@@ -105,10 +122,16 @@ class PodInstancesView extends React.Component {
     this.setState({selectedItems});
   }
 
+  handleMesosStateChange() {
+    this.forceUpdate();
+  }
+
   render() {
     var {pod} = this.props;
     var {activeKillDialogAction, filter, selectedItems} = this.state;
-    let allItems = pod.getInstanceList();
+    let historicalInstances = MesosStateStore.getPodHistoricalInstances(pod);
+    let allItems = PodUtil.mergeHistoricalInstanceList(
+      pod.getInstanceList(), historicalInstances);
     let filteredTextItems = allItems;
     let filteredItems = allItems;
 

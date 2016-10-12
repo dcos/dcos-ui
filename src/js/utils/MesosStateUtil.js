@@ -1,6 +1,14 @@
+import PodInstanceState from '../constants/PodInstanceState';
 import Util from './Util';
 
 const RESOURCE_KEYS = ['cpus', 'disk', 'mem'];
+
+// Based on the regex that marathon uses to validate task IDs,
+// but keeping only the 'instance-' prefix, that refers to pods.
+// The 'marathon-' prefix is used for task launched because of an AppDefinition.
+//
+// https://github.com/mesosphere/marathon/blob/feature/pods/src/main/scala/mesosphere/marathon/core/task/Task.scala#L134
+const POD_TASK_REGEX = /^(.+)\.instance-([^_\.]+)[\._]([^_\.]+)$/;
 
 function setIsStartedByMarathonFlag(name, tasks) {
   return tasks.map(function (task) {
@@ -9,6 +17,21 @@ function setIsStartedByMarathonFlag(name, tasks) {
 }
 
 const MesosStateUtil = {
+
+  /**
+   * De-compose the given task id into it's primitive components
+   *
+   * @param {String} taskID - The task ID to decompose
+   * @returns {{podID, instanceID}} Returns the ID components
+   */
+  decomposePodTaskId(taskID) {
+    let [, podID, instanceID, taskName] = POD_TASK_REGEX.exec(taskID);
+    return {
+      podID,
+      instanceID,
+      taskName
+    };
+  },
 
   flagMarathonTasks(state) {
     let newState = Object.assign({}, state);
@@ -87,6 +110,98 @@ const MesosStateUtil = {
   },
 
   /**
+   * Return historical instances (killed, terminated, failed etc.) for the given
+   * pod by digging into the marathon state.
+   *
+   * @param {Object} state - The mesos state response
+   * @param {Pod} pod - The related pod
+   * @returns {Array} The array of historical instances
+   */
+  getPodHistoricalInstances(state, pod) {
+    let frameworks = state.frameworks || [];
+    let marathonFramework = frameworks.find(function (framework) {
+      return framework.name === 'marathon';
+    });
+
+    if (!marathonFramework) {
+      return [];
+    }
+
+    let instancesMap = marathonFramework.completed_tasks.reduce(
+      function (memo, task) {
+        if (MesosStateUtil.isPodTaskId(task.id)) {
+          let {podID, instanceID} = MesosStateUtil.decomposePodTaskId(task.id);
+          if (podID === pod.getMesosId()) {
+            let containerArray = memo[instanceID];
+            if (containerArray === undefined) {
+              containerArray = memo[instanceID] = [];
+            }
+
+            // The last status can give us information about the time the
+            // container was last updated, so we need the latest status item
+            let lastStatus = task.statuses.reduce(function (memo, status) {
+              if (!memo || (status.timestamp > memo.timestamp)) {
+                return status;
+              }
+              return memo;
+            }, null);
+
+            // Add additional fields to the task structure in order to make it
+            // as close as possible to something a PodContainer will understand.
+            containerArray.push(Object.assign({
+              containerId: task.id,
+              status: task.state,
+              //
+              // NOTE: We are creating a Date object from this value, so we
+              //       should be OK with the timestamp
+              //
+              lastChanged: lastStatus.timestamp * 1000,
+              lastUpdated: lastStatus.timestamp * 1000
+            }, task));
+          }
+        }
+
+        return memo;
+      }, {}
+    );
+
+    // Try to compose actual PodInstance structures from the information we
+    // have so far. Obviously we don't have any details, but we can populate
+    // most of the UI-interesting fields by summarising container details
+    return Object.keys(instancesMap).map(function (instanceId) {
+      let containers = instancesMap[instanceId];
+      let summaryProperties = containers.reduce(function (memo, instance) {
+        let {resources={}, lastChanged=0} = instance;
+
+        memo.resources.cpus += resources.cpus || 0;
+        memo.resources.mem += resources.mem || 0;
+        memo.resources.gpus += resources.gpus || 0;
+        memo.resources.disk += resources.disk || 0;
+
+        // TODO: Currently both lastChanged and lastUpdated are pointing to the
+        //       same timestamp. Is there any way to get more information?
+        if (lastChanged > memo.lastChanged) {
+          memo.lastChanged = lastChanged;
+          memo.lastUpdated = lastChanged;
+        }
+
+        return memo;
+      }, {
+        resources: { cpus:0, mem:0, gpus:0, disk:0 },
+        lastChanged: 0,
+        lastUpdated: 0
+      });
+
+      // Compose something as close as possible to what `PodInstance` understand
+      return Object.assign({
+        id: instanceId,
+        status: PodInstanceState.TERMINAL,
+        containers
+      }, summaryProperties);
+    });
+  },
+
+  /**
    * @param {{frameworks:array, completed_frameworks:array}} state
    * @param {{id:string, executor_id:string, framework_id:string}} task
    * @param {string} path
@@ -133,6 +248,16 @@ const MesosStateUtil = {
         });
 
     return taskPath;
+  },
+
+  /**
+   * Check if the given string looks like a pod task ID
+   *
+   * @param {String} taskID - The task ID to test
+   * @returns {Boolean} Returns true if the function passes the test
+   */
+  isPodTaskId(taskID) {
+    return POD_TASK_REGEX.test(taskID);
   }
 };
 
