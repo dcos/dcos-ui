@@ -42,10 +42,10 @@ describe('ServiceDetailConfigurationTab', function () {
   describe('#render', function () {
 
     it('renders correct id', function () {
-      var ServiceSpecView = TestUtils
+      var serviceSpecView = TestUtils
         .findRenderedComponentWithType(this.instance, ServiceSpecView);
 
-      expect(ServiceSpecView).toBeDefined();
+      expect(serviceSpecView).toBeDefined();
     });
 
   });
