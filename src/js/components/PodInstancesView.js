@@ -174,7 +174,7 @@ class PodInstancesView extends React.Component {
           onSelectionChange={this.handleSelectionChange}
           pod={this.props.pod} />
         <KillPodInstanceModal
-          action={activeKillDialogAction}
+          action={activeKillDialogAction || 'kill'}
           onClose={this.handleCloseKillDialog}
           open={!!activeKillDialogAction}
           pod={pod}
