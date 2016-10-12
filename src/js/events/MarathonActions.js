@@ -500,7 +500,7 @@ var MarathonActions = {
     }
 
     RequestUtil.json({
-      url: buildURI(`/pods/${podID}::instance${params}`),
+      url: buildURI(`/pods/${podID}::instances${params}`),
       data: instanceIDs,
       method: 'DELETE',
       success() {
