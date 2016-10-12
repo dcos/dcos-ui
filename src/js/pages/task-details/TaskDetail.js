@@ -24,6 +24,10 @@ const METHODS_TO_BIND = [
   'onTaskDirectoryStoreSuccess'
 ];
 
+const HIDE_BREADCRUMBS = [
+  'services-task-details-tab'
+];
+
 class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
   constructor() {
     super(...arguments);
@@ -265,6 +269,12 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
   }
 
   getBreadcrumbs() {
+    let routes = this.context.router.getCurrentRoutes();
+    let {name} = routes[routes.length - 1];
+    if (HIDE_BREADCRUMBS.includes(name)) {
+      return null;
+    }
+
     let innerPath = TaskDirectoryStore.get('innerPath').split('/');
     let onClickPath = '';
     let crumbs = innerPath.map((directoryItem, index) => {
