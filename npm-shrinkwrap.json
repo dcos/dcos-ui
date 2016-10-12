@@ -971,11 +971,6 @@
       "from": "caniuse-db@>=1.0.30000444 <2.0.0",
       "resolved": "https://registry.npmjs.org/caniuse-db/-/caniuse-db-1.0.30000466.tgz"
     },
-    "canvas-ui": {
-      "version": "0.2.1",
-      "from": "canvas-ui@0.2.1",
-      "resolved": "https://registry.npmjs.org/canvas-ui/-/canvas-ui-0.2.1.tgz"
-    },
     "capture-stack-trace": {
       "version": "1.0.0",
       "from": "capture-stack-trace@>=1.0.0 <2.0.0",
