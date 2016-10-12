@@ -301,8 +301,8 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
     }
 
     return (
-      <div className="flex-container-col flex-grow flex-shrink">
-        <div className="flex-box control-group">
+      <div className="flex flex-direction-top-to-bottom flex-item-grow-1 flex-item-shrink-1">
+        <div className="flex control-group">
           {this.getBreadcrumbs()}
         </div>
         <RouteHandler
