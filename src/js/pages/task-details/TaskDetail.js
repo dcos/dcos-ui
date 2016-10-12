@@ -81,11 +81,13 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
 
   componentWillReceiveProps(nextProps) {
     super.componentWillReceiveProps(...arguments);
-
-    let {taskID} = this.props.params;
-    if (nextProps.params.taskID !== taskID) {
+    let {innerPath, taskID} = this.props.params;
+    if (nextProps.params.innerPath !== innerPath ||
+      nextProps.params.taskID !== taskID) {
       this.setState({directory: null});
     }
+
+    this.updateCurrentTab();
   }
 
   updateCurrentTab() {
