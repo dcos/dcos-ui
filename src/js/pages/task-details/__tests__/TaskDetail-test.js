@@ -142,6 +142,9 @@ describe('TaskDetail', function () {
     });
 
     it('ignores getErrorScreen when error has not occurred', function () {
+      // Let innerPath return something
+      TaskDirectoryStore.get = jasmine.createSpy('TaskDirectoryStore#get')
+        .and.returnValue('');
       this.instance.state = {
         directory: new TaskDirectory({items: [{nlink: 1, path: '/stdout'}]})
       };

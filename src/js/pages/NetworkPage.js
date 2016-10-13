@@ -138,10 +138,14 @@ class NetworkPage extends mixin(TabsMixin) {
       );
     }
 
+    // Make sure to grow when logs are displayed
+    let routes = this.context.router.getCurrentRoutes();
+
     return (
       <Page
         title="Network"
-        navigation={this.getNavigation()}>
+        navigation={this.getNavigation()}
+        dontScroll={routes[routes.length - 1].dontScroll}>
         {this.getSubNavigation()}
         <RouteHandler currentTab={this.state.currentTab} />
       </Page>
