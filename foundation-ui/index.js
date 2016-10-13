@@ -1,4 +1,4 @@
-import Hooks from './services/Hooks';
+import Hooks from './hooks';
 
 module.exports = {
   Hooks
