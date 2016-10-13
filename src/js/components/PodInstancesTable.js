@@ -246,6 +246,16 @@ class PodInstancesTable extends React.Component {
     return children;
   }
 
+  getDisabledItemsMap(instanceList) {
+    return instanceList.reduceItems(function (memo, instance) {
+      if (!instance.isRunning()) {
+        memo[instance.getId()] = true;
+      }
+
+      return memo;
+    }, {});
+  }
+
   getTableDataFor(instances, filterText) {
     let podSpec = this.props.pod.getSpec();
 
@@ -429,6 +439,7 @@ class PodInstancesTable extends React.Component {
         columns={this.getColumns()}
         colGroup={this.getColGroup()}
         data={this.getTableDataFor(instances, filterText)}
+        disabledItemsMap={this.getDisabledItemsMap(instances)}
         expandAll={!!filterText}
         getColGroup={this.getColGroup}
         onCheckboxChange={this.handleItemCheck}
