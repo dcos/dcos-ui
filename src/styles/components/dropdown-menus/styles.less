@@ -54,6 +54,7 @@
 
     &.dropdown-toggle-transparent {
       background: transparent;
+      border: none;
       height: auto;
       padding: 0;
 
@@ -65,13 +66,15 @@
     &.dropdown-toggle-caret-align-top {
 
       &:after {
-        margin-left: @base-spacing-unit * 1/3;
-        margin-top: @base-spacing-unit * -4/3;
+        align-self: flex-start;
+        margin-top: @base-spacing-unit * 1/4;
       }
     }
 
+    // TODO: Remove this when CNVS doesn't use the !important tag.
+    // https://github.com/mesosphere/canvas/issues/24
     .dropdown-toggle-label {
-      display: inline-block;
+      display: inline-block !important;
     }
 
     .dropdown-toggle-label-primary,
@@ -84,6 +87,7 @@
     }
 
     .dropdown-toggle-label-secondary {
+      color: @label-muted-color;
       font-size: 0.9rem;
       font-weight: 400;
     }
