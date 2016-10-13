@@ -415,8 +415,14 @@ class PodInstancesTable extends React.Component {
   }
 
   renderColumnVersion(prop, row, rowOptions = {}) {
+    if (!row.version) {
+      return null;
+    }
+
+    let localeVersion = new Date(row.version).toLocaleString();
+
     return this.renderWithClickHandler(rowOptions, (
-      <CollapsingString string={row.version} />
+      <span>{localeVersion}</span>
     ));
   }
 
