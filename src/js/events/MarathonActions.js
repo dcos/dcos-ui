@@ -492,8 +492,12 @@ var MarathonActions = {
   },
 
   killPodInstances(pod, instanceIDs, force) {
-    let podID = pod.getId().substr(1);
+    let podID = pod.getId();
     let params = '';
+
+    if (podID[0] === '/') {
+      podID = podID.substr(1);
+    }
 
     if (force) {
       params = '?force=true';
