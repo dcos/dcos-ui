@@ -15,7 +15,10 @@ import ServiceSuspendModal from './modals/ServiceSuspendModal';
 import TabsMixin from '../mixins/TabsMixin';
 
 const METHODS_TO_BIND = [
-  'handleAction',
+  'handleActionDestroy',
+  'handleActionEdit',
+  'handleActionScale',
+  'handleActionSuspend',
   'handleCloseDialog'
 ];
 
@@ -39,24 +42,32 @@ class PodDetail extends mixin(TabsMixin) {
     });
   }
 
-  handleAction(action) {
-    switch (action.id) {
-      case PodActionItem.DESTROY:
-      case PodActionItem.EDIT:
-      case PodActionItem.SCALE:
-      case PodActionItem.SUSPEND:
+  handleActionDestroy() {
+    this.setState({
+      activeActionDialog: PodActionItem.DESTROY
+    });
 
-        this.setState({
-          activeActionDialog: action.id
-        });
-        break;
+  }
 
-      default:
-        if (process.env.NODE_ENV !== 'production') {
-          throw new TypeError('Trying to handle an unknown action:', action.id);
-        }
+  handleActionEdit() {
+    this.setState({
+      activeActionDialog: PodActionItem.EDIT
+    });
 
-    }
+  }
+
+  handleActionScale() {
+    this.setState({
+      activeActionDialog: PodActionItem.SCALE
+    });
+
+  }
+
+  handleActionSuspend() {
+    this.setState({
+      activeActionDialog: PodActionItem.SUSPEND
+    });
+
   }
 
   handleCloseDialog() {
@@ -94,7 +105,10 @@ class PodDetail extends mixin(TabsMixin) {
         <div className="container-pod container-pod-divider-bottom-align-right container-pod-short-top flush-bottom flush-top media-object-spacing-wrapper media-object-spacing-narrow">
           <Breadcrumbs />
           <PodHeader
-            onAction={this.handleAction}
+            onDestroy={this.handleActionDestroy}
+            onEdit={this.handleActionEdit}
+            onScale={this.handleActionScale}
+            onSuspend={this.handleActionSuspend}
             pod={pod}
             tabs={this.tabs_getUnroutedTabs()} />
           {this.tabs_getTabView()}
