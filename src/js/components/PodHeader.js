@@ -10,9 +10,17 @@ import StatusMapping from '../constants/StatusMapping';
 import PodActionItem from '../constants/PodActionItem';
 import StringUtil from '../utils/StringUtil';
 
-class PodInfo extends React.Component {
+let METHODS_TO_BIND = [
+  'handleDropdownAction'
+];
+
+class PodHeader extends React.Component {
   constructor() {
     super(...arguments);
+
+    METHODS_TO_BIND.forEach((method) => {
+      this[method] = this[method].bind(this);
+    });
   }
 
   getActionButtons() {
@@ -42,14 +50,12 @@ class PodInfo extends React.Component {
     let actionButtons = [
       <button className="button flush-bottom  button-primary"
         key="action-button-scale"
-        onClick={() =>
-          this.props.onAction({id: PodActionItem.SCALE})}>
+        onClick={this.props.onScale}>
         Scale
       </button>,
       <button className="button flush-bottom button-stroke button-inverse"
         key="action-button-edit"
-        onClick={() =>
-          this.props.onAction({id: PodActionItem.EDIT})}>
+        onClick={this.props.onEdit}>
         Edit
       </button>,
       <Dropdown
@@ -62,12 +68,24 @@ class PodInfo extends React.Component {
         wrapperClassName="dropdown flush-bottom"
         items={dropdownItems}
         persistentID="__MORE__"
-        onItemSelection={this.props.onAction}
+        onItemSelection={this.handleDropdownAction}
         transition={true}
         transitionName="dropdown-menu" />
     ];
 
     return actionButtons;
+  }
+
+  handleDropdownAction(action) {
+    switch (action.id) {
+      case PodActionItem.SUSPEND:
+        this.props.onSuspend();
+        break;
+
+      case PodActionItem.DESTROY:
+        this.props.onDestroy();
+        break;
+    }
   }
 
   getSubHeader(pod) {
@@ -142,16 +160,22 @@ class PodInfo extends React.Component {
   }
 }
 
-PodInfo.defaultProps = {
-  onAction() { },
+PodHeader.defaultProps = {
+  onDestroy() { },
+  onEdit() { },
+  onScale() { },
+  onSuspend() { },
   pod: null,
   tabs: []
 };
 
-PodInfo.propTypes = {
-  onAction: React.PropTypes.func,
+PodHeader.propTypes = {
+  onDestroy: React.PropTypes.func,
+  onEdit: React.PropTypes.func,
+  onScale: React.PropTypes.func,
+  onSuspend: React.PropTypes.func,
   pod: React.PropTypes.instanceOf(Pod).isRequired,
   tabs: React.PropTypes.array
 };
 
-module.exports = PodInfo;
+module.exports = PodHeader;
