@@ -1,7 +1,6 @@
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import StringReplacePlugin from 'string-replace-webpack-plugin';
-import StyleLintPlugin from 'stylelint-webpack-plugin';
 import WebpackNotifierPlugin from 'webpack-notifier';
 
 import packageInfo from '../package';
@@ -35,12 +34,6 @@ let entry = [
   './src/js/index.js'
 ];
 
-let eslintExclusion = /node_modules/;
-
-if (process.env.REACTJS_COMPONENTS_LOCAL) {
-  eslintExclusion = /node_modules|reactjs-components/;
-}
-
 if (environment === 'development') {
   entry.push('webpack/hot/only-dev-server');
   devtool = '#inline-eval-cheap-source-map';
@@ -63,12 +56,6 @@ if (process.env.REACTJS_COMPONENTS_LOCAL) {
   reactHotLoader = '';
 }
 
-let preLoaders = webpackConfig.module.preLoaders.concat([{
-    test: /\.js$/,
-    loader: 'eslint-loader',
-    exclude: eslintExclusion
-  }]);
-
 module.exports = Object.assign({}, webpackConfig, {
   entry,
   devtool,
@@ -81,13 +68,7 @@ module.exports = Object.assign({}, webpackConfig, {
     new StringReplacePlugin(),
 
     new HtmlWebpackPlugin({
-      template: './src/index.html',
-    }),
-
-    new StyleLintPlugin({
-      configFile: '.stylelintrc',
-      files: '**/*.less',
-      syntax: 'less'
+      template: './src/index.html'
     }),
 
     new ExtractTextPlugin('./[name].css'),
@@ -95,7 +76,7 @@ module.exports = Object.assign({}, webpackConfig, {
     new WebpackNotifierPlugin({alwaysNotify: true})
   ],
   module: {
-    preLoaders,
+    preLoaders: webpackConfig.module.preLoaders,
     loaders: webpackConfig.module.loaders.concat([
       {
         test: /\.js$/,
