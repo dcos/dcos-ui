@@ -18,7 +18,7 @@ function fetchVersion(service, versionID) {
   }
 }
 
-class ConfigurationView extends mixin(StoreMixin) {
+class ServiceSpecView extends mixin(StoreMixin) {
   constructor() {
     super(...arguments);
 
@@ -240,14 +240,14 @@ class ConfigurationView extends mixin(StoreMixin) {
   }
 }
 
-ConfigurationView.defaultProps = {
+ServiceSpecView.defaultProps = {
   headline: 'Configuration'
 };
 
-ConfigurationView.propTypes = {
+ServiceSpecView.propTypes = {
   headline: React.PropTypes.string,
   service: React.PropTypes.instanceOf(Service).isRequired,
   versionID: React.PropTypes.string.isRequired
 };
 
-module.exports = ConfigurationView;
+module.exports = ServiceSpecView;

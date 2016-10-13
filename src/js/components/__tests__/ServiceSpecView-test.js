@@ -1,5 +1,5 @@
 jest.dontMock('../CollapsingString');
-jest.dontMock('../ConfigurationView');
+jest.dontMock('../ServiceSpecView');
 jest.dontMock('../DescriptionList');
 
 /* eslint-disable no-unused-vars */
@@ -10,10 +10,10 @@ const TestUtils = require('react-addons-test-utils');
 
 const Application = require('../../structs/Application');
 const DCOSStore = require('../../stores/DCOSStore');
-const ConfigurationView = require('../ConfigurationView');
+const ServiceSpecView = require('../ServiceSpecView');
 const DescriptionList = require('../DescriptionList');
 
-describe('ConfigurationView', function () {
+describe('ServiceSpecView', function () {
 
   const versionID = '2016-05-02T16:07:32.583Z';
   const service = new Application({
@@ -32,7 +32,7 @@ describe('ConfigurationView', function () {
   beforeEach(function () {
     this.container = document.createElement('div');
     this.instance = ReactDOM.render(
-      <ConfigurationView service={service}
+      <ServiceSpecView service={service}
         versionID={versionID} />,
       this.container
     );
@@ -52,7 +52,7 @@ describe('ConfigurationView', function () {
       let versionID = '2016-05-02T17:07:32.583Z';
 
       this.instance = ReactDOM.render(
-        <ConfigurationView service={service}
+        <ServiceSpecView service={service}
           versionID={versionID} />,
         this.container
       );
@@ -62,7 +62,7 @@ describe('ConfigurationView', function () {
 
     it('should not fetch the version if its already loaded', function () {
       this.instance = ReactDOM.render(
-        <ConfigurationView service={service}
+        <ServiceSpecView service={service}
           versionID={versionID} />,
         this.container
       );

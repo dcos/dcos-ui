@@ -1,7 +1,7 @@
 import {Dropdown} from 'reactjs-components';
 import React from 'react';
 
-import ConfigurationView from './ConfigurationView';
+import ServiceSpecView from './ServiceSpecView';
 import DCOSStore from '../stores/DCOSStore';
 import MarathonStore from '../stores/MarathonStore';
 import Service from '../structs/Service';
@@ -197,7 +197,7 @@ class ServiceDetailConfigurationTab extends React.Component {
     return (
       <div className="tab">
         {this.getVersionsActions()}
-        <ConfigurationView
+        <ServiceSpecView
           headline={headline}
           service={service}
           versionID={selectedVersionID} />
