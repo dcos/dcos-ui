@@ -17,8 +17,8 @@ class NodesGridContainer extends mixin(StoreMixin, QueryParamsMixin) {
     super(...arguments);
 
     this.state = {
-      filters: {health: 'all', name: '', service: null},
       filteredNodes: [],
+      filters: {health: 'all', name: '', service: null},
       hasLoadingError: false,
       hiddenServices: [],
       lastMesosStateWasEmpty: true,
@@ -30,14 +30,14 @@ class NodesGridContainer extends mixin(StoreMixin, QueryParamsMixin) {
     };
     this.store_listeners = [
       {
-        name: 'nodeHealth',
         events: ['success'],
         listenAlways: false,
+        name: 'nodeHealth',
         suppressUpdate: true
       },
       {
-        name: 'state',
         events: ['success', 'error'],
+        name: 'state',
         suppressUpdate: true
       }
     ];
@@ -138,9 +138,9 @@ class NodesGridContainer extends mixin(StoreMixin, QueryParamsMixin) {
       hiddenServices,
       lastMesosStateWasEmpty,
       nodeHealthResponseReceived,
+      resourcesByFramework,
       serviceColors,
-      showServices,
-      resourcesByFramework
+      showServices
     } = this.state;
 
     const {services, selectedResource} = this.props;
@@ -150,8 +150,8 @@ class NodesGridContainer extends mixin(StoreMixin, QueryParamsMixin) {
         hiddenServices={hiddenServices}
         hosts={filteredNodes}
         lastMesosStateWasEmpty={lastMesosStateWasEmpty}
-        onShowServices={this.handleShowServices}
         nodeHealthResponseReceived={nodeHealthResponseReceived}
+        onShowServices={this.handleShowServices}
         resourcesByFramework={resourcesByFramework}
         selectedResource={selectedResource}
         serviceColors={serviceColors}

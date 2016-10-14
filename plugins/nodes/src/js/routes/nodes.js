@@ -3,23 +3,23 @@ import {DefaultRoute, Redirect, Route} from 'react-router';
 import React from 'react';
 /* eslint-enable no-unused-vars */
 
-import NodesTableContainer from '../pages/nodes/nodes-table/NodesTableContainer';
 import NodeDetailBreadcrumb from '../pages/nodes/breadcrumbs/NodeDetailBreadcrumb';
+import NodeDetailHealthTab from '../pages/nodes/NodeDetailHealthTab';
 import NodeDetailPage from '../pages/nodes/NodeDetailPage';
 import NodeDetailTab from '../pages/nodes/NodeDetailTab';
-import NodeDetailHealthTab from '../pages/nodes/NodeDetailHealthTab';
 import NodeDetailTaskTab from '../pages/nodes/NodeDetailTaskTab';
 import NodesGridContainer from '../pages/nodes/nodes-grid/NodesGridContainer';
 import NodesOverview from '../pages/NodesOverview';
 import NodesPage from '../pages/NodesPage';
 
+import NodesTableContainer from '../pages/nodes/nodes-table/NodesTableContainer';
 import TaskDetail from '../../../../services/src/js/pages/task-details/TaskDetail';
 import TaskDetailBreadcrumb from '../../../../services/src/js/pages/nodes/breadcrumbs/TaskDetailBreadcrumb';
 import TaskDetailsTab from '../../../../services/src/js/pages/task-details/TaskDetailsTab';
-import TaskFilesTab from '../../../../services/src/js/pages/task-details/TaskFilesTab';
 import TaskFileViewer from '../../../../services/src/js/pages/task-details/TaskFileViewer';
-import UnitsHealthNodeDetail from '../../../../../src/js/pages/system/UnitsHealthNodeDetail';
+import TaskFilesTab from '../../../../services/src/js/pages/task-details/TaskFilesTab';
 import UnitsHealthDetailBreadcrumb from '../../../../../src/js/pages/system/breadcrumbs/UnitsHealthDetailBreadcrumb';
+import UnitsHealthNodeDetail from '../../../../../src/js/pages/system/UnitsHealthNodeDetail';
 import VolumeDetail from '../../../../services/src/js/components/VolumeDetail';
 import VolumeTable from '../../../../services/src/js/components/VolumeTable';
 
