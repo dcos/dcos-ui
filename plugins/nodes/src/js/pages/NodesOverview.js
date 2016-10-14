@@ -35,10 +35,10 @@ function getMesosHosts(state) {
 
   return {
     nodes: filteredNodes,
-    totalNodes: nodes.getItems().length,
     refreshRate: Config.getRefreshRate(),
     services: lastState.getServiceList().getItems(),
     totalHostsResources: states.getResourceStatesForNodeIDs(nodeIDs),
+    totalNodes: nodes.getItems().length,
     totalResources: lastState.getSlaveTotalResources()
   };
 }
@@ -245,34 +245,34 @@ var NodesOverview = React.createClass({
 
     return (
       <HostsPageContent
-        nodeCount={data.nodes.length}
-        totalHostsResources={data.totalHostsResources}
-        totalResources={data.totalResources}
-        refreshRate={data.refreshRate}
-        selectedResource={selectedResource}
-        onResourceSelectionChange={this.onResourceSelectionChange}
-        filteredNodeCount={nodesList.length}
-        isFiltering={isFiltering}
-        onResetFilter={this.resetFilter}
-        totalNodeCount={data.totalNodes}
-        filterInputText={this.getFilterInputText()}
-        filterButtonContent={this.getButtonContent}
-        onFilterChange={this.handleHealthFilterChange}
-        filterItemList={nodesHealth}
-        selectedFilter={healthFilter}
         byServiceFilter={byServiceFilter}
+        filterButtonContent={this.getButtonContent}
+        filterInputText={this.getFilterInputText()}
+        filterItemList={nodesHealth}
+        filteredNodeCount={nodesList.length}
         handleFilterChange={this.handleByServiceFilterChange}
+        hosts={nodesList}
+        isFiltering={isFiltering}
+        nodeCount={data.nodes.length}
+        onFilterChange={this.handleHealthFilterChange}
+        onResetFilter={this.resetFilter}
+        onResourceSelectionChange={this.onResourceSelectionChange}
+        refreshRate={data.refreshRate}
+        selectedFilter={healthFilter}
+        selectedResource={selectedResource}
         services={data.services}
-        viewTypeRadioButtons={this.getViewTypeRadioButtons(this.resetFilter)}
-        hosts={nodesList} />
+        totalHostsResources={data.totalHostsResources}
+        totalNodeCount={data.totalNodes}
+        totalResources={data.totalResources}
+        viewTypeRadioButtons={this.getViewTypeRadioButtons(this.resetFilter)} />
     );
   },
 
   getEmptyHostsPageContent() {
     return (
       <AlertPanel
-        title="Empty Datacenter"
-        icon={<Icon id="servers" color="neutral" size="jumbo" />}>
+        icon={<Icon id="servers" color="neutral" size="jumbo" />}
+        title="Empty Datacenter">
         <p className="flush-bottom">
           Your datacenter is looking pretty empty. We don't see any nodes other than your master.
         </p>

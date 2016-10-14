@@ -5,9 +5,9 @@ import React from 'react';
 import {ResourceTableUtil} from 'foundation-ui';
 import {Table, Tooltip} from 'reactjs-components';
 
-import NodesTableHeaderLabels from '../../../../../src/js/constants/NodesTableHeaderLabels';
 import Icon from '../../../../../src/js/components/Icon';
 import Loader from '../../../../../src/js/components/Loader';
+import NodesTableHeaderLabels from '../../../../../src/js/constants/NodesTableHeaderLabels';
 import StatusBar from '../../../../../src/js/components/StatusBar';
 import StringUtil from '../../../../../src/js/utils/StringUtil';
 import TableUtil from '../../../../../src/js/utils/TableUtil';
@@ -42,11 +42,11 @@ var NodesTable = React.createClass({
       headline = (
         <Tooltip anchor="start" content="Connection to node lost">
           <Icon
+            className="icon-alert icon-margin-right"
+            color="neutral"
             family="mini"
             id="yield"
-            size="mini"
-            className="icon-alert icon-margin-right"
-            color="neutral" />
+            size="mini" />
           {headline}
         </Tooltip>
       );
@@ -192,14 +192,14 @@ var NodesTable = React.createClass({
   render() {
     return (
       <Table
+        buildRowOptions={this.getRowAttributes}
         className="node-table table table-borderless-outer table-borderless-inner-columns flush-bottom"
-        columns={this.getColumns()}
         colGroup={this.getColGroup()}
+        columns={this.getColumns()}
         containerSelector=".gm-scroll-view"
         data={this.props.hosts.slice()}
         itemHeight={TableUtil.getRowHeight()}
-        sortBy={{ prop: 'health', order: 'asc' }}
-        buildRowOptions={this.getRowAttributes} />
+        sortBy={{ prop: 'health', order: 'asc' }} />
     );
   }
 });
