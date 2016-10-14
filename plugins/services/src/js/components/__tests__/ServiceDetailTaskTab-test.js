@@ -26,7 +26,7 @@ describe('ServiceDetailTaskTab', function () {
     tasksRunning: 2,
     tasksHealthy: 2,
     tasksUnhealthy: 0
-  })
+  });
 
   beforeEach(function () {
     this.container = document.createElement('div');

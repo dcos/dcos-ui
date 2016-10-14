@@ -1,6 +1,6 @@
-jest.dontMock('../CollapsingString');
+jest.dontMock('../../../../../../src/js/components/CollapsingString');
 jest.dontMock('../ServiceSpecView');
-jest.dontMock('../DescriptionList');
+jest.dontMock('../../../../../../src/js/components/DescriptionList');
 
 /* eslint-disable no-unused-vars */
 const React = require('react');
@@ -9,9 +9,9 @@ const ReactDOM = require('react-dom');
 const TestUtils = require('react-addons-test-utils');
 
 const Application = require('../../structs/Application');
-const DCOSStore = require('../../stores/DCOSStore');
+const DCOSStore = require('foundation-ui').DCOSStore;
 const ServiceSpecView = require('../ServiceSpecView');
-const DescriptionList = require('../DescriptionList');
+const DescriptionList = require('../../../../../../src/js/components/DescriptionList');
 
 describe('ServiceSpecView', function () {
 
