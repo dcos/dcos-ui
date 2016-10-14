@@ -27,7 +27,7 @@ const METHODS_TO_BIND = [
   'renderStats',
   'renderStatus',
   'renderStatsHeading'
-];
+    ];
 
 class ServicesTable extends React.Component {
   constructor() {
@@ -77,7 +77,7 @@ class ServicesTable extends React.Component {
         modalHandlers.deleteService({service});
         break;
     };
-  }
+    }
 
   getServiceLink(service) {
     const id = encodeURIComponent(service.getId());

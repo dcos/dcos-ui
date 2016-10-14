@@ -1,4 +1,4 @@
-import {DefaultRoute, Redirect, Route, RouteHandler} from 'react-router';
+import {DefaultRoute, Redirect, Route} from 'react-router';
 /* eslint-disable no-unused-vars */
 import React from 'react';
 /* eslint-enable no-unused-vars */
@@ -58,8 +58,8 @@ let serviceRoutes = {
         {
           type: Route,
           path: ':id',
-          handler() {
-            return <RouteHandler />;
+          component({children}) {
+            return children;
           },
           buildBreadCrumb() {
             return {
@@ -90,8 +90,8 @@ let serviceRoutes = {
             {
               type: Route,
               path: 'tasks',
-              handler() {
-                return <RouteHandler />;
+              component({children}) {
+                return children;
               },
               children: [
                 {

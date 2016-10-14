@@ -38,11 +38,11 @@ class TaskTable extends React.Component {
 
   getStatusValue(task) {
     return task.health;
-  }
+    }
 
   getVersionValue(task) {
     return task.version || null;
-  }
+    }
 
   getClassName(prop, sortBy, row) {
     return classNames({
