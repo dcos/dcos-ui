@@ -90,7 +90,7 @@ describe('NodeDetailPage', function () {
         NodeDetailPage,
         {params: {nodeID: 'nonExistent', taskID: 'foo'}},
         {getCurrentRoutes() {
-          return [{name: 'node-detail', children: []}];
+          return [{path: '/nodes/:nodeID', children: []}];
         }}
       ),
       this.container
@@ -135,7 +135,7 @@ describe('NodeDetailPage', function () {
           NodeDetailPage,
           {params: {nodeID: 'existingNode'}},
           {getCurrentRoutes() {
-            return [{name: 'node-detail', children: []}];
+            return [{path: '/nodes/:nodeID', children: []}];
           }}
         ),
         this.container

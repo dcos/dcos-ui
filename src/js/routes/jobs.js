@@ -26,16 +26,15 @@ function buildJobCrumbs(router) {
 
     return {
       label: id,
-      route: {to: 'jobs-page-detail', params: {id: aggregateIDs}}
+      route: {to: '/jobs/:id', params: {id: aggregateIDs}}
     };
   });
 }
 
 let jobsRoutes = {
   type: Route,
-  name: 'jobs-page',
   handler: JobsPage,
-  path: '/jobs/?',
+  path: 'jobs',
   category: 'root',
   isInSidebar: true,
   buildBreadCrumb() {
@@ -44,7 +43,7 @@ let jobsRoutes = {
         return [
           {
             label: 'Jobs',
-            route: {to: 'jobs-page'}
+            route: {to: '/jobs'}
           }
         ];
       }
@@ -58,29 +57,27 @@ let jobsRoutes = {
         {
           type: Route,
           handler: JobDetailPage,
-          name: 'jobs-page-detail',
-          path: ':id/?',
+          path: ':id',
           buildBreadCrumb() {
             return {
-              parentCrumb: 'jobs-page',
+              parentCrumb: '/jobs',
               getCrumbs: buildJobCrumbs
             };
           },
-          children: [
+          children:[
             {
               type: Route,
-              path: 'tasks/:taskID/?',
-              name: 'jobs-task-details',
+              path: 'tasks/:taskID',
               handler: TaskDetail,
               hideHeaderNavigation: true,
               buildBreadCrumb() {
                 return {
-                  parentCrumb: 'jobs-page-detail',
+                  parentCrumb: '/jobs/:id',
                   getCrumbs(router) {
                     return [
                       <TaskDetailBreadcrumb
                         parentRouter={router}
-                        routeName="jobs-task-details" />
+                        routePath="/jobs/:id/tasks/:taskID" />
                     ];
                   }
                 };
@@ -88,42 +85,38 @@ let jobsRoutes = {
               children: [
                 {
                   type: DefaultRoute,
-                  name: 'jobs-task-details-tab',
                   handler: TaskDetailsTab,
+                  buildBreadCrumb() {
+                    return {
+                      parentCrumb: '/jobs/:id/tasks/:taskID',
+                      getCrumbs() { return []; }
+                    };
+                  },
                   title:'Details'
                 },
                 {
                   type: Route,
-                  name: 'jobs-task-details-files',
-                  path: 'files/?',
-                  title:'Files',
-                  children: [
-                    {
-                      type: DefaultRoute,
-                      name: 'jobs-task-details-files-directory',
-                      handler: TaskFilesTab,
-                      fileViewerRouteName: 'jobs-task-details-files-viewer',
-                      buildBreadCrumb() {
-                        return {
-                          parentCrumb: 'jobs-task-details',
-                          getCrumbs() { return []; }
-                        };
-                      }
-                    },
-                    {
-                      type: Route,
-                      path: 'view/:filePath?/?:innerPath?/?',
-                      name: 'jobs-task-details-files-viewer',
-                      handler: TaskFileViewer,
-                      dontScroll: true,
-                      buildBreadCrumb() {
-                        return {
-                          parentCrumb: 'jobs-task-details',
-                          getCrumbs() { return []; }
-                        };
-                      }
-                    }
-                  ]
+                  path: 'files',
+                  handler: TaskFilesTab,
+                  fileViewerRoutePath: '/jobs/:id/tasks/:taskID/view/:filePath?/?:innerPath?',
+                  buildBreadCrumb() {
+                    return {
+                      parentCrumb: '/jobs/:id/tasks/:taskID',
+                      getCrumbs() { return []; }
+                    };
+                  }
+                },
+                {
+                  type: Route,
+                  path: 'view/:filePath?/?:innerPath?',
+                  handler: TaskFileViewer,
+                  dontScroll: true,
+                  buildBreadCrumb() {
+                    return {
+                      parentCrumb: '/jobs/:id/tasks/:taskID',
+                      getCrumbs() { return []; }
+                    };
+                  }
                 }
               ]
             }

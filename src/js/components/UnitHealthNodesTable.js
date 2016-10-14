@@ -87,7 +87,7 @@ class UnitHealthNodesTable extends React.Component {
 
     return (
       <Link className="table-cell-link-primary text-overflow" params={params}
-        to="components-overview-units-unit-nodes-node-detail">
+        to="/components/:unitID/nodes/:unitNodeID">
         {linkText}
       </Link>
     );

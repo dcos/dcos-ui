@@ -104,7 +104,7 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
 
   onMetronomeStoreJobDeleteSuccess() {
     this.closeDialog();
-    this.context.router.transitionTo('jobs-page');
+    this.context.router.transitionTo('/jobs');
   }
 
   onMetronomeStoreJobDetailError() {

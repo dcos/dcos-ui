@@ -117,7 +117,7 @@ class HealthTab extends React.Component {
     return (
       <a
         className="emphasize clickable text-overflow"
-        onClick={() => { this.props.parentRouter.transitionTo('node-detail-health', params); }}
+        onClick={() => { this.props.parentRouter.transitionTo('/nodes/:nodeID/health/:unitNodeID/:unitID', params); }}
         title={healthCheckName}>
         {healthCheckName}
       </a>

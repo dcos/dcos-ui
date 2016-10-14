@@ -32,7 +32,7 @@ class VolumeDetail extends React.Component {
     let service = null;
     let volume = null;
 
-    if (currentRoute.name === 'service-volume-details') {
+    if (currentRoute.path === '/services/overview/:id/volumes/:volumeID') {
       let id = decodeURIComponent(params.id);
       service = serviceTree.findItemById(id);
     } else {

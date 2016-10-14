@@ -35,7 +35,7 @@ describe('TaskDetail', function () {
       this.container,
       {
         getCurrentRoutes() {
-          return [{name: 'services-task-details-tab'}];
+          return [{path: '/services/overview/:id/tasks/:taskID'}];
         }
       }
     );
@@ -171,7 +171,7 @@ describe('TaskDetail', function () {
         this.container,
         {
           getCurrentRoutes() {
-            return [{name: 'services-task-details-tab'}];
+            return [{path: '/services/overview/:id/tasks/:taskID'}];
           }
         }
       );

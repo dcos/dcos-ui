@@ -126,15 +126,13 @@ module.exports = Object.assign({}, StoreMixin, {
     // Add access denied and login pages
     routes[0].children.unshift(
       {
-        type: Route,
-        name: 'access-denied',
-        path: 'access-denied',
-        handler: AccessDeniedPage
+        handler: AccessDeniedPage,
+        path: '/access-denied',
+        type: Route
       },
       {
         handler: LoginPage,
-        name: 'login',
-        path: 'login',
+        path: '/login',
         type: Route
       }
     );
@@ -159,17 +157,16 @@ module.exports = Object.assign({}, StoreMixin, {
   organizationRoutes(routeDefinition = defaultOrganizationRoute) {
     let userRoute = {
       type: Route,
-      name: 'system-organization-users',
-      path: 'users/?',
+      path: 'users',
       handler: UsersTab,
       buildBreadCrumb() {
         return {
-          parentCrumb: 'system-organization',
+          parentCrumb: '/organization',
           getCrumbs() {
             return [
               {
                 label: 'Users',
-                route: {to: 'system-organization-users'}
+                route: {to: '/organization/users'}
               }
             ];
           }
@@ -191,8 +188,8 @@ module.exports = Object.assign({}, StoreMixin, {
 
     routeDefinition.redirect = {
       type: Redirect,
-      from: '/system/organization/?',
-      to: 'system-organization-users'
+      from: '/organization',
+      to: '/organization/users'
     };
 
     return routeDefinition;
@@ -200,7 +197,7 @@ module.exports = Object.assign({}, StoreMixin, {
 
   'system-organization-tabs': function (tabs) {
     return Object.assign({}, tabs, {
-      'system-organization-users': {
+      '/organization/users': {
         content: 'Users',
         priority: 50
       }
