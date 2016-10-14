@@ -117,8 +117,8 @@ var NodesGridView = React.createClass({
         <div className={classSet}>
           <label className="show-services-label h5 flush-top">
             <input type="checkbox"
-              name="nodes-grid-show-services"
               checked={props.showServices}
+              name="nodes-grid-show-services"
               onChange={props.onShowServices} />
             Show Services by Share
           </label>
@@ -128,9 +128,9 @@ var NodesGridView = React.createClass({
 
         <NodesGridDials
           hosts={props.hosts}
+          resourcesByFramework={props.resourcesByFramework}
           selectedResource={props.selectedResource}
           serviceColors={props.serviceColors}
-          resourcesByFramework={props.resourcesByFramework}
           showServices={props.showServices} />
       </div>
     );

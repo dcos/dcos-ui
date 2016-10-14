@@ -12,15 +12,15 @@ class NodesTableContainer extends mixin(StoreMixin, QueryParamsMixin) {
     super(...arguments);
 
     this.state = {
-      filters: {health: 'all', name: '', service: null},
       filteredNodes: [],
+      filters: {health: 'all', name: '', service: null},
       nodeHealthResponseReceived: false
     };
     this.store_listeners = [
       {
-        name: 'nodeHealth',
         events: ['success'],
         listenAlways: false,
+        name: 'nodeHealth',
         suppressUpdate: true
       }
     ];
@@ -53,8 +53,8 @@ class NodesTableContainer extends mixin(StoreMixin, QueryParamsMixin) {
 
   onNodeHealthStoreSuccess() {
     this.setState({
-      nodeHealthResponseReceived: true,
-      filteredNodes: this.getFilteredNodes()
+      filteredNodes: this.getFilteredNodes(),
+      nodeHealthResponseReceived: true
     });
   }
 
@@ -63,8 +63,8 @@ class NodesTableContainer extends mixin(StoreMixin, QueryParamsMixin) {
 
     return (
       <NodesTable
-        nodeHealthResponseReceived={nodeHealthResponseReceived}
-        hosts={filteredNodes} />
+        hosts={filteredNodes}
+        nodeHealthResponseReceived={nodeHealthResponseReceived} />
     );
   }
 }
