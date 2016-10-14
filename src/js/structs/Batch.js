@@ -42,11 +42,6 @@
 
 class Batch {
 
-  /**
-   * Initialize a new, empty immutable batch
-   *
-   * This constructor is accepting no arguments.
-   */
   constructor() {
     const context = {instance:this, batch:[]};
 
