@@ -61,7 +61,7 @@ var NodesTable = React.createClass({
   },
 
   renderHealth(prop, node) {
-    let requestReceived = this.props.nodeHealthResponseReceived;
+    let requestReceived = this.props.receivedNodeHealthResponse;
 
     if (!requestReceived) {
       return (
