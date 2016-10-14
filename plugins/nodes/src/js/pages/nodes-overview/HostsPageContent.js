@@ -33,36 +33,36 @@ class HostsPageContent extends React.Component {
 
   render() {
     const {
-      nodeCount,
-      totalHostsResources,
-      totalResources,
-      refreshRate,
-      selectedResource,
-      onResourceSelectionChange,
-      filteredNodeCount,
-      isFiltering,
-      totalNodeCount,
-      filterInputText,
-      filterButtonContent,
-      onFilterChange,
-      filterItemList,
-      selectedFilter,
       byServiceFilter,
+      filterButtonContent,
+      filterInputText,
+      filterItemList,
+      filteredNodeCount,
       handleFilterChange,
+      hosts,
+      isFiltering,
+      nodeCount,
+      onFilterChange,
+      onResourceSelectionChange,
+      refreshRate,
+      selectedFilter,
+      selectedResource,
       services,
-      viewTypeRadioButtons,
-      hosts
+      totalHostsResources,
+      totalNodeCount,
+      totalResources,
+      viewTypeRadioButtons
     } = this.props;
     return (
       <div>
         <ResourceBarChart
           itemCount={nodeCount}
-          resources={totalHostsResources}
-          totalResources={totalResources}
+          onResourceSelectionChange={onResourceSelectionChange}
           refreshRate={refreshRate}
           resourceType="Nodes"
+          resources={totalHostsResources}
           selectedResource={selectedResource}
-          onResourceSelectionChange={onResourceSelectionChange} />
+          totalResources={totalResources} />
         <FilterHeadline
           currentLength={filteredNodeCount}
           isFiltering={isFiltering}
@@ -72,11 +72,11 @@ class HostsPageContent extends React.Component {
         <FilterBar rightAlignLastNChildren={1}>
           {filterInputText}
           <FilterButtons
-            renderButtonContent={filterButtonContent}
-            filters={HEALTH_FILTER_BUTTONS}
             filterByKey="title"
-            onFilterChange={onFilterChange}
+            filters={HEALTH_FILTER_BUTTONS}
             itemList={filterItemList}
+            onFilterChange={onFilterChange}
+            renderButtonContent={filterButtonContent}
             selectedFilter={selectedFilter} />
           <div className="form-group flush-bottom">
             <FilterByService
@@ -89,8 +89,8 @@ class HostsPageContent extends React.Component {
           {viewTypeRadioButtons}
         </FilterBar>
         <RouteHandler
-          selectedResource={selectedResource}
           hosts={hosts}
+          selectedResource={selectedResource}
           services={services} />
       </div>
     );
@@ -98,26 +98,26 @@ class HostsPageContent extends React.Component {
 }
 
 HostsPageContent.propTypes = {
-  nodeCount: React.PropTypes.number.isRequired,
-  totalHostsResources: React.PropTypes.object.isRequired,
-  totalResources: React.PropTypes.object.isRequired,
-  refreshRate: React.PropTypes.number.isRequired,
-  selectedResource: React.PropTypes.string.isRequired,
-  onResourceSelectionChange: React.PropTypes.func.isRequired,
-  filteredNodeCount: React.PropTypes.number.isRequired,
-  isFiltering: React.PropTypes.bool,
-  onResetFilter: React.PropTypes.func.isRequired,
-  totalNodeCount: React.PropTypes.number.isRequired,
-  filterInputText: React.PropTypes.node,
-  filterButtonContent: React.PropTypes.func,
-  onFilterChange: React.PropTypes.func,
-  filterItemList: React.PropTypes.array.isRequired,
-  selectedFilter: React.PropTypes.string,
   byServiceFilter: React.PropTypes.string,
+  filterButtonContent: React.PropTypes.func,
+  filterInputText: React.PropTypes.node,
+  filterItemList: React.PropTypes.array.isRequired,
+  filteredNodeCount: React.PropTypes.number.isRequired,
   handleFilterChange: React.PropTypes.func.isRequired,
+  hosts: React.PropTypes.array.isRequired,
+  isFiltering: React.PropTypes.bool,
+  nodeCount: React.PropTypes.number.isRequired,
+  onFilterChange: React.PropTypes.func,
+  onResetFilter: React.PropTypes.func.isRequired,
+  onResourceSelectionChange: React.PropTypes.func.isRequired,
+  refreshRate: React.PropTypes.number.isRequired,
+  selectedFilter: React.PropTypes.string,
+  selectedResource: React.PropTypes.string.isRequired,
   services: React.PropTypes.array.isRequired,
-  viewTypeRadioButtons: React.PropTypes.node.isRequired,
-  hosts: React.PropTypes.array.isRequired
+  totalHostsResources: React.PropTypes.object.isRequired,
+  totalNodeCount: React.PropTypes.number.isRequired,
+  totalResources: React.PropTypes.object.isRequired,
+  viewTypeRadioButtons: React.PropTypes.node.isRequired
 };
 
 module.exports = HostsPageContent;
