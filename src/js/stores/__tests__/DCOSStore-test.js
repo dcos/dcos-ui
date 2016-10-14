@@ -7,6 +7,7 @@ jest.dontMock('../../structs/SummaryList');
 jest.dontMock('../../structs/StateSummary');
 
 const DCOSStore = require('../DCOSStore');
+const EventTypes = require('../../constants/EventTypes');
 const MarathonStore = require('../MarathonStore');
 const MesosSummaryStore = require('../MesosSummaryStore');
 const NotificationStore = require('../NotificationStore');
@@ -38,6 +39,46 @@ describe('DCOSStore', function () {
     it('should expose an empty deployments list', function () {
       expect(DCOSStore.deploymentsList.getItems().length).toEqual(0);
     });
+  });
+
+  describe('#emit', function () {
+
+    beforeEach(function () {
+      // Clean up application timers.
+      jasmine.clock().uninstall();
+      // Install our custom jasmine timers.
+      jasmine.clock().install();
+      jasmine.clock().mockDate(new Date(2016, 3, 19));
+    });
+
+    it('calls arbitrary event handler directly', function () {
+      let handler = jasmine.createSpy('handler');
+      DCOSStore.on('direct', handler);
+      DCOSStore.emit('direct');
+      expect(handler).toHaveBeenCalled();
+    });
+
+    it('debounces change event handler calls', function () {
+      let handler = jasmine.createSpy('handler');
+      DCOSStore.on(EventTypes.DCOS_CHANGE, handler);
+      DCOSStore.emit(EventTypes.DCOS_CHANGE);
+      jasmine.clock().tick(250);
+      expect(handler).toHaveBeenCalled();
+    });
+
+    it('debounce calls change event handler only once after consecutive calls',
+      function () {
+        let handler = jasmine.createSpy('handler');
+        DCOSStore.on(EventTypes.DCOS_CHANGE, handler);
+        DCOSStore.emit(EventTypes.DCOS_CHANGE);
+        expect(handler).not.toHaveBeenCalled();
+        DCOSStore.emit(EventTypes.DCOS_CHANGE);
+        expect(handler).not.toHaveBeenCalled();
+        jasmine.clock().tick(250);
+        expect(handler).toHaveBeenCalled();
+      }
+    );
+
   });
 
   describe('#onMarathonDeploymentsChange', function () {

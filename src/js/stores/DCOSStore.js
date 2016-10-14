@@ -32,6 +32,8 @@ const METHODS_TO_BIND = [
   'onMesosSummaryChange'
 ];
 
+const EVENT_DEBOUNCE_TIME = 250;
+
 class DCOSStore extends EventEmitter {
   constructor() {
     super(...arguments);
@@ -63,6 +65,8 @@ class DCOSStore extends EventEmitter {
       mesos: new SummaryList(),
       dataProcessed: false
     };
+
+    this.debouncedEvents = new Map();
   }
 
   getProxyListeners() {
@@ -175,6 +179,18 @@ class DCOSStore extends EventEmitter {
       });
 
     this.emit(DCOS_CHANGE);
+  }
+
+  emit(eventType) {
+    // Debounce specified events
+    if ([DCOS_CHANGE].includes(eventType)) {
+      clearTimeout(this.debouncedEvents.get(eventType));
+      this.debouncedEvents.set(eventType,
+          setTimeout(super.emit.bind(this, ...arguments), EVENT_DEBOUNCE_TIME));
+      return;
+    }
+
+    super.emit(eventType);
   }
 
   onMarathonGroupsChange() {
