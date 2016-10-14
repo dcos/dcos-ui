@@ -1,8 +1,8 @@
 jest.dontMock('../NodeHealthStore');
-jest.dontMock('../../config/Config');
-jest.dontMock('../../events/AppDispatcher');
-jest.dontMock('../../events/UnitHealthActions');
-jest.dontMock('../../../../tests/_fixtures/unit-health/nodes.json');
+jest.dontMock('../../../../../../src/js/config/Config');
+jest.dontMock('../../../../../../src/js/events/AppDispatcher');
+jest.dontMock('../../../../../../src/js/events/UnitHealthActions');
+jest.dontMock('../../../../../../tests/_fixtures/unit-health/nodes.json');
 
 const RequestUtil = require('mesosphere-shared-reactjs').RequestUtil;
 
