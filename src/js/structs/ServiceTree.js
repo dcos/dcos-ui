@@ -80,14 +80,7 @@ module.exports = class ServiceTree extends Tree {
   }
 
   getServiceFromTaskID(taskID) {
-    let serviceName = ServiceUtil.getServiceNameFromTaskID(taskID);
-    let service = this.findServiceByName(serviceName);
-
-    if (service == null) {
-      return null;
-    }
-
-    return new Service(service.get());
+    return this.findServiceByName(ServiceUtil.getServiceNameFromTaskID(taskID));
   }
 
   getTaskFromTaskID(taskID) {
