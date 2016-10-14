@@ -4,10 +4,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import DirectoryItem from '../../structs/DirectoryItem';
-import FilterBar from '../../components/FilterBar';
-import FilterInputText from '../../components/FilterInputText';
-import Icon from '../../components/Icon';
-import KeyboardUtil from '../../utils/KeyboardUtil';
+import FilterBar from '../../../../../../src/js/components/FilterBar';
+import FilterInputText from '../../../../../../src/js/components/FilterInputText';
+import Icon from '../../../../../../src/js/components/Icon';
+import KeyboardUtil from '../../../../../../src/js/utils/KeyboardUtil';
 import MesosLogView from '../../components/MesosLogView';
 import TaskDirectoryActions from '../../events/TaskDirectoryActions';
 
