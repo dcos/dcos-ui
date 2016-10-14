@@ -114,7 +114,7 @@ var DashboardPage = React.createClass({
     var componentCountWord = StringUtil.pluralize('Component', componentCount);
 
     return (
-      <Link to="components-overview-units"
+      <Link to="/components/overview"
         className="button button-rounded button-stroke">
         {`View all ${componentCount} ${componentCountWord}`}
       </Link>
@@ -134,7 +134,7 @@ var DashboardPage = React.createClass({
     textContent += 'Services';
 
     return (
-      <Link to="services-page"
+      <Link to="/services"
         className="button button-rounded button-stroke">
         {textContent}
       </Link>

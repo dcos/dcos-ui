@@ -26,164 +26,141 @@ import StylesPage from '../pages/StylesPage';
 
 let stylesRoutes = {
   type: Route,
-  name: 'styles',
-  path: 'styles/?',
+  path: 'styles',
   handler: StylesPage,
   children: [
     {
       type: Route,
-      name: 'styles-layout-tab',
-      path: 'layout/?',
+      path: 'layout',
       children: [
         {
           type: Route,
-          name: 'styles-layout-containers',
-          path: 'containers/?',
+          path: 'containers',
           handler: ContainersTabContent
         },
         {
           type: Route,
-          name: 'styles-layout-grid',
-          path: 'grid/?',
+          path: 'grid',
           handler: GridTabContent
         },
         {
           type: Route,
-          name: 'styles-layout-pods',
-          path: 'pods/?',
+          path: 'pods',
           handler: PodsTabContent
         },
         {
           type: Route,
-          name: 'styles-layout-flex',
-          path: 'flex/?',
+          path: 'flex',
           handler: FlexTabContent
         },
         {
           type: Route,
-          name: 'styles-layout-dividers',
-          path: 'dividers/?',
+          path: 'dividers',
           handler: DividersTabContent
         },
         {
           type: Route,
-          name: 'styles-layout-responsive-utilities',
-          path: 'responsive-utilities/?',
+          path: 'responsive-utilities',
           handler: ResponsiveUtilitiesTabContent
         },
         {
           type: Redirect,
           from: '/styles/layout/?',
-          to: 'styles-layout-containers'
+          to: '/styles/layout/containers'
         }
       ]
     },
     {
       type: Route,
-      name: 'styles-content-tab',
-      path: 'content/?',
+      path: 'content',
       children: [
         {
           type: Route,
-          name: 'styles-content-typography',
-          path: 'typography/?',
+          path: 'typography',
           handler: TypographyTabContent
         },
         {
           type: Route,
-          name: 'styles-content-tables',
-          path: 'tables/?',
+          path: 'tables',
           handler: TablesTabContent
         },
         {
           type: Route,
-          name: 'styles-content-colors',
-          path: 'colors/?',
+          path: 'colors',
           handler: ColorsTabContent
         },
         {
           type: Route,
-          name: 'styles-content-code',
-          path: 'code/?',
+          path: 'code',
           handler: CodeTabContent
         },
         {
           type: Route,
-          name: 'styles-content-images',
-          path: 'images/?',
+          path: 'images',
           handler: ImagesTabContent
         },
         {
           type: Redirect,
           from: '/styles/content/?',
-          to: 'styles-content-typography'
+          to: '/styles/content/typography'
         }
       ]
     },
     {
       type: Route,
-      name: 'styles-components-tab',
-      path: 'components/?',
+      path: 'components',
       children: [
         {
           type: Route,
-          name: 'styles-components-buttons',
-          path: 'buttons/?',
+          path: 'buttons',
           handler: ButtonsTabContent
         },
         {
           type: Route,
-          name: 'styles-components-button-collections',
-          path: 'button-collections/?',
+          path: 'button-collections',
           handler: ButtonCollectionsTabContent
         },
         {
           type: Route,
-          name: 'styles-components-button-groups',
-          path: 'button-groups/?',
+          path: 'button-groups',
           handler: ButtonGroupsTabContent
         },
         {
           type: Route,
-          name: 'styles-components-dropdowns',
-          path: 'dropdowns/?',
+          path: 'dropdowns',
           handler: DropdownsTabContent
         },
         {
           type: Route,
-          name: 'styles-components-forms',
-          path: 'forms/?',
+          path: 'forms',
           handler: FormsTabContent
         },
         {
           type: Route,
-          name: 'styles-components-icons',
-          path: 'icons/?',
+          path: 'icons',
           handler: IconsTabContent
         },
         {
           type: Route,
-          name: 'styles-components-modals',
-          path: 'modals/?',
+          path: 'modals',
           handler: ModalsTabContent
         },
         {
           type: Route,
-          name: 'styles-components-panels',
-          path: 'panels/?',
+          path: 'panels',
           handler: PanelsTabContent
         },
         {
           type: Redirect,
           from: '/styles/components/?',
-          to: 'styles-components-buttons'
+          to: '/styles/components/buttons'
         }
       ]
     },
     {
       type: Redirect,
       from: '/styles/?',
-      to: 'styles-layout-tab'
+      to: '/styles/layout'
     }
   ]
 };

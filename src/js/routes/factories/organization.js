@@ -14,19 +14,17 @@ let RouteFactory = {
       Hooks.applyFilter('organizationRoutes', {
         routes: [{
           type: Route,
-          id: 'organization-users',
-          name: 'organization-users',
-          path: 'users/?',
+          path: 'users',
           handler: UsersTab,
           isInSidebar: true,
           buildBreadCrumb() {
             return {
-              parentCrumb: 'system-organization',
+              parentCrumb: '/organization',
               getCrumbs() {
                 return [
                   {
                     label: 'Users',
-                    route: {to: 'organization-users'}
+                    route: {to: '/organization/users'}
                   }
                 ];
               }
@@ -36,8 +34,8 @@ let RouteFactory = {
         }],
         redirect: {
           type: Redirect,
-          from: '/organization/?',
-          to: 'organization-users'
+          from: '/organization',
+          to: '/organization/users'
         }
       })
     );
@@ -53,9 +51,7 @@ let RouteFactory = {
 
     return {
       type: Route,
-      id: 'organization',
-      name: 'organization',
-      path: 'organization/?',
+      path: 'organization',
       handler: OrganizationPage,
       category: 'system',
       isInSidebar: true,
@@ -66,7 +62,7 @@ let RouteFactory = {
             return [
               {
                 label: 'Organization',
-                route: {to: 'organization'}
+                route: {to: '/organization'}
               }
             ];
           }

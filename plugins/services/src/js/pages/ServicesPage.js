@@ -27,7 +27,7 @@ var ServicesPage = React.createClass({
 
   getInitialState() {
     return {
-      currentTab: 'services-page'
+      currentTab: '/services/overview'
     };
   },
 
@@ -36,8 +36,8 @@ var ServicesPage = React.createClass({
       {name: 'notification', events: ['change'], suppressUpdate: false}
     ];
     this.tabs_tabs = {
-      'services-page': 'Services',
-      'services-deployments': 'Deployments'
+      '/services/overview': 'Services',
+      '/services/deployments': 'Deployments'
     };
     this.updateCurrentTab();
   },
@@ -48,10 +48,10 @@ var ServicesPage = React.createClass({
 
   updateCurrentTab() {
     let routes = this.context.router.getCurrentRoutes();
-    let currentTab = routes[routes.length - 1].name;
-    // `services-page` tab also contains routes for 'services-details'
-    if (currentTab === 'services-detail' || currentTab == null) {
-      currentTab = 'services-page';
+    let currentTab = routes[routes.length - 1].path;
+    // `/services/overview` tab also contains routes for '/services/overview/:id'
+    if (currentTab === '/services/overview/:id' || currentTab == null) {
+      currentTab = '/services/overview';
     }
 
     if (this.state.currentTab !== currentTab) {

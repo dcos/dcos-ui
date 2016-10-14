@@ -60,7 +60,7 @@ class PackagesTab extends mixin(StoreMixin) {
   handleDetailOpen(cosmosPackage, event) {
     event.stopPropagation();
     this.context.router.transitionTo(
-      'universe-packages-detail',
+      '/universe/packages/:packageName',
       {packageName: cosmosPackage.getName()},
       {version: cosmosPackage.getCurrentVersion()}
     );

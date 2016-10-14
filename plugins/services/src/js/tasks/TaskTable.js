@@ -201,9 +201,9 @@ class TaskTable extends React.Component {
       let params = this.context.router.getCurrentParams();
       let routeParams = Object.assign({taskID: task.id}, params);
 
-      let linkTo = 'services-task-details';
+      let linkTo = '/services/overview/:id/tasks/:taskID';
       if (params.nodeID != null) {
-        linkTo = 'nodes-task-details';
+        linkTo = '/nodes/:nodeID/tasks/:taskID';
       }
 
       return (
@@ -228,11 +228,10 @@ class TaskTable extends React.Component {
     let params = this.context.router.getCurrentParams();
     let routeParams = Object.assign({taskID: task.id}, params);
 
-    let linkTo = 'services-task-details-files-viewer';
+    let linkTo = '/services/overview/:id/tasks/:taskID/view';
     if (params.nodeID != null) {
-      linkTo = 'nodes-task-details-files-viewer';
+      linkTo = '/nodes/:nodeID/tasks/:taskID/view';
     }
-
     return (
       <Link
         to={linkTo}
@@ -251,7 +250,7 @@ class TaskTable extends React.Component {
     return (
       <Link
         className="table-cell-link-secondary text-overflow"
-        to="node-detail"
+        to="/nodes/:nodeID"
         params={{nodeID: task.slave_id}}
         title={task.hostname}>
         {task.hostname}

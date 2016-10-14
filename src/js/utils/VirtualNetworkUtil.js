@@ -14,7 +14,7 @@ const VirtualNetworkUtil = {
         icon={<Icon id="network-hierarchical" color="neutral" size="jumbo" />}>
         <p className="flush">
           {'Could not find the requested virtual network. Go to '}
-          <Link to="virtual-networks-tab">
+          <Link to="/network/virtual-networks">
             Virtual Networks
           </Link> overview to see all virtual networks.
         </p>

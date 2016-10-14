@@ -208,7 +208,7 @@ class JobRunHistoryTable extends React.Component {
         <div className="expanding-table-primary-cell-heading text-overflow">
           <Link
             className="table-cell-link-secondary text-overflow"
-            to="jobs-task-details"
+            to="/jobs/:id/tasks/:taskID"
             params={{id, taskID}}
             title={taskID}>
             <CollapsingString endLength={15} string={taskID} />

@@ -55,12 +55,12 @@ class VirtualNetworkDetail extends mixin(StoreMixin, TabsMixin) {
 
   updateCurrentTab() {
     let routes = this.context.router.getCurrentRoutes();
-    let currentTab = routes[routes.length - 1].name;
+    let currentTab = routes[routes.length - 1].path;
 
     // Virtual Network Detail Tabs
     this.tabs_tabs = {
-      'virtual-networks-tab-detail-tasks': 'Tasks',
-      'virtual-networks-tab-detail-details': 'Details'
+      '/network/virtual-networks/:overlayName': 'Tasks',
+      '/network/virtual-networks/:overlayName/details': 'Details'
     };
 
     this.setState({currentTab});

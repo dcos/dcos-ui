@@ -20,8 +20,7 @@ let RouteFactory = {
     let virtualNetworksRoute = [
       {
         type: Route,
-        name: 'virtual-networks-tab',
-        path: 'virtual-networks/?',
+        path: 'virtual-networks',
         handler: VirtualNetworksTab,
         isInSidebar: true,
         buildBreadCrumb() {
@@ -29,7 +28,7 @@ let RouteFactory = {
             getCrumbs() {
               return [{
                 label: 'Virtual Networks',
-                route: {to: 'virtual-networks-tab'}
+                route: {to: '/network/virtual-networks'}
               }];
             }
           };
@@ -37,25 +36,23 @@ let RouteFactory = {
       },
       {
         type: Route,
-        name: 'virtual-networks-tab-detail',
-        path: 'virtual-networks/:overlayName/?',
+        path: 'virtual-networks/:overlayName',
         handler: VirtualNetworkDetail,
         children: [
           {
             type: DefaultRoute,
-            name: 'virtual-networks-tab-detail-tasks',
             handler: VirtualNetworkTaskTab,
             hideHeaderNavigation: true,
             buildBreadCrumb() {
               return {
-                parentCrumb: 'virtual-networks-tab',
+                parentCrumb: '/network/virtual-networks',
                 getCrumbs(router) {
                   let {overlayName} = router.getCurrentParams();
 
                   return [{
                     label: overlayName,
                     route: {
-                      to: 'virtual-networks-tab-detail-tasks',
+                      to: '/network/virtual-networks/:overlayName',
                       params: {overlayName}
                     }
                   }];
@@ -65,20 +62,19 @@ let RouteFactory = {
           },
           {
             type: Route,
-            name: 'virtual-networks-tab-detail-details',
-            path: 'details/?',
+            path: 'details',
             handler: VirtualNetworkDetailsTab,
             hideHeaderNavigation: true,
             buildBreadCrumb() {
               return {
-                parentCrumb: 'virtual-networks-tab',
+                parentCrumb: '/network/virtual-networks',
                 getCrumbs(router) {
                   let {overlayName} = router.getCurrentParams();
 
                   return [{
                     label: overlayName,
                     route: {
-                      to: 'virtual-networks-tab-detail-details',
+                      to: '/network/virtual-networks/:overlayName',
                       params: {overlayName}
                     }
                   }];
@@ -90,13 +86,12 @@ let RouteFactory = {
       },
       {
         type: Route,
-        path: 'virtual-networks/:overlayName/tasks/:taskID/?',
-        name: 'virtual-networks-tab-detail-tasks-detail',
+        path: 'virtual-networks/:overlayName/tasks/:taskID',
         handler: TaskDetail,
         hideHeaderNavigation: true,
         buildBreadCrumb() {
           return {
-            parentCrumb: 'virtual-networks-tab-detail-tasks',
+            parentCrumb: '/network/virtual-networks/:overlayName/tasks',
             getCrumbs(router) {
               return [{label: router.getCurrentParams().taskID}];
             }
@@ -105,46 +100,42 @@ let RouteFactory = {
         children: [
           {
             type: DefaultRoute,
-            name: 'virtual-networks-tab-detail-tasks-details-tab',
             handler: TaskDetailsTab,
             hideHeaderNavigation: true,
             title:'Details',
             buildBreadCrumb() {
               return {
-                parentCrumb: 'virtual-networks-tab-detail-tasks-detail',
+                parentCrumb: '/network/virtual-networks/:overlayName/tasks/:taskID',
                 getCrumbs() { return []; }
               };
             }
           },
           {
             type: Route,
-            name: 'virtual-networks-tab-detail-tasks-details-files',
-            path: 'files/?',
+            path: 'files',
             title:'Files',
             children: [
               {
                 type: DefaultRoute,
-                name: 'virtual-networks-tab-detail-tasks-details-files-directory',
                 hideHeaderNavigation: true,
                 handler: TaskFilesTab,
-                fileViewerRouteName: 'virtual-networks-tab-detail-tasks-details-file-viewer',
+                fileViewerRoutePath: '/network/virtual-networks/:overlayName/tasks/:taskID/view',
                 buildBreadCrumb() {
                   return {
-                    parentCrumb: 'virtual-networks-tab-detail-tasks-detail',
+                    parentCrumb: '/network/virtual-networks/:overlayName/tasks/:taskID',
                     getCrumbs() { return []; }
                   };
                 }
               },
               {
                 type: Route,
-                path: 'view/:filePath?/?:innerPath?/?',
+                path: 'view/?:filePath?/?:innerPath?',
                 hideHeaderNavigation: true,
-                name: 'virtual-networks-tab-detail-tasks-details-file-viewer',
                 handler: TaskFileViewer,
                 dontScroll: true,
                 buildBreadCrumb() {
                   return {
-                    parentCrumb: 'virtual-networks-tab-detail-tasks-detail',
+                    parentCrumb: '/network/virtual-networks/:overlayName/tasks/:taskID',
                     getCrumbs() { return []; }
                   };
                 }
@@ -162,8 +153,8 @@ let RouteFactory = {
         routes: virtualNetworksRoute,
         redirect: {
           type: Redirect,
-          from: '/network/?',
-          to: 'virtual-networks-tab'
+          from: '/network',
+          to: '/network/virtual-networks'
         }
       })
     );
@@ -179,8 +170,7 @@ let RouteFactory = {
 
     return {
       type: Route,
-      name: 'network',
-      path: 'network/?',
+      path: 'network',
       handler: NetworkPage,
       category: 'resources',
       isInSidebar: true,
