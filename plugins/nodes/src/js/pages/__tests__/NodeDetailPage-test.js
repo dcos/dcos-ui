@@ -1,10 +1,10 @@
-jest.dontMock('../../components/charts/Chart');
-jest.dontMock('../../mixins/InternalStorageMixin');
-jest.dontMock('../../mixins/TabsMixin');
-jest.dontMock('../../stores/MesosSummaryStore');
+jest.dontMock('../../../../../../src/js/components/charts/Chart');
+jest.dontMock('../../../../../../src/js/mixins/InternalStorageMixin');
+jest.dontMock('../../../../../../src/js/mixins/TabsMixin');
+jest.dontMock('../../../../../../src/js/stores/MesosSummaryStore');
 jest.dontMock('../nodes/NodeDetailPage');
-jest.dontMock('../../components/RequestErrorMsg');
-jest.dontMock('../../structs/CompositeState');
+jest.dontMock('../../../../../../src/js/components/RequestErrorMsg');
+jest.dontMock('../../../../../../src/js/structs/CompositeState');
 
 const JestUtil = require('../../../../../../src/js/utils/JestUtil');
 
