@@ -19,8 +19,8 @@ var NodesGridView = React.createClass({
     hasLoadingError: React.PropTypes.bool,
     hiddenServices: React.PropTypes.array,
     hosts: React.PropTypes.array.isRequired,
-    lastMesosStateWasEmpty: React.PropTypes.bool,
-    nodeHealthResponseReceived: React.PropTypes.bool,
+    receivedEmptyMesosState: React.PropTypes.bool,
+    receivedNodeHealthResponse: React.PropTypes.bool,
     onShowServices: React.PropTypes.func.isRequired,
     resourcesByFramework: React.PropTypes.object.isRequired,
     selectedResource: React.PropTypes.string.isRequired,
@@ -32,7 +32,7 @@ var NodesGridView = React.createClass({
   defaultProps: {
     hasLoadingError: false,
     hiddenServices: [],
-    nodeHealthResponseReceived: false,
+    receivedNodeHealthResponse: false,
     showServices: false
   },
 
@@ -139,11 +139,11 @@ var NodesGridView = React.createClass({
   render() {
     const {
       hasLoadingError,
-      lastMesosStateWasEmpty,
-      nodeHealthResponseReceived
+      receivedEmptyMesosState,
+      receivedNodeHealthResponse
     } = this.props;
 
-    if (hasLoadingError || lastMesosStateWasEmpty || !nodeHealthResponseReceived) {
+    if (hasLoadingError || receivedEmptyMesosState || !receivedNodeHealthResponse) {
       return this.getLoadingScreen();
     } else {
       return this.getNodesGrid();

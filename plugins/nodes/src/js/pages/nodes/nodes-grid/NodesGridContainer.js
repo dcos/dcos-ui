@@ -21,9 +21,9 @@ class NodesGridContainer extends mixin(StoreMixin, QueryParamsMixin) {
       filters: {health: 'all', name: '', service: null},
       hasLoadingError: false,
       hiddenServices: [],
-      lastMesosStateWasEmpty: true,
       mesosStateErrorCount: 0,
-      nodeHealthResponseReceived: false,
+      receivedEmptyMesosState: true,
+      receivedNodeHealthResponse: false,
       resourcesByFramework: {},
       serviceColors: {},
       showServices: false
@@ -111,8 +111,8 @@ class NodesGridContainer extends mixin(StoreMixin, QueryParamsMixin) {
   onStateStoreSuccess() {
     const {hiddenServices} = this.state;
     const resourcesByFramework = MesosStateStore.getHostResourcesByFramework(hiddenServices);
-    const lastMesosStateWasEmpty = Object.keys(MesosStateStore.get('lastMesosState')).length === 0;
-    this.setState({resourcesByFramework, lastMesosStateWasEmpty});
+    const receivedEmptyMesosState = Object.keys(MesosStateStore.get('lastMesosState')).length === 0;
+    this.setState({resourcesByFramework, receivedEmptyMesosState});
   }
 
   onStateStoreError() {
@@ -126,8 +126,8 @@ class NodesGridContainer extends mixin(StoreMixin, QueryParamsMixin) {
 
   onNodeHealthStoreSuccess() {
     this.setState({
-      nodeHealthResponseReceived: true,
-      filteredNodes: this.getFilteredNodes()
+      filteredNodes: this.getFilteredNodes(),
+      receivedNodeHealthResponse: true
     });
   }
 
@@ -136,8 +136,8 @@ class NodesGridContainer extends mixin(StoreMixin, QueryParamsMixin) {
       filteredNodes,
       hasLoadingError,
       hiddenServices,
-      lastMesosStateWasEmpty,
-      nodeHealthResponseReceived,
+      receivedEmptyMesosState,
+      receivedNodeHealthResponse,
       resourcesByFramework,
       serviceColors,
       showServices
@@ -149,8 +149,8 @@ class NodesGridContainer extends mixin(StoreMixin, QueryParamsMixin) {
         hasLoadingError={hasLoadingError}
         hiddenServices={hiddenServices}
         hosts={filteredNodes}
-        lastMesosStateWasEmpty={lastMesosStateWasEmpty}
-        nodeHealthResponseReceived={nodeHealthResponseReceived}
+        receivedEmptyMesosState={receivedEmptyMesosState}
+        receivedNodeHealthResponse={receivedNodeHealthResponse}
         onShowServices={this.handleShowServices}
         resourcesByFramework={resourcesByFramework}
         selectedResource={selectedResource}
