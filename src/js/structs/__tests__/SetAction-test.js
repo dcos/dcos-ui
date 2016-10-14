@@ -1,6 +1,6 @@
 let ActionSet = require('../SetAction');
 
-describe('ActionSet', function () {
+describe('SetAction', function () {
   describe('#constructor', function () {
     it('should have the SET type', function () {
       let action = new ActionSet(0, 0);

@@ -1,9 +1,9 @@
 import Action from './Action';
 
-class ActionSet extends Action {
+class SetAction extends Action {
   constructor(path, value) {
     super(path, value, 'SET');
   }
 }
 
-module.exports = ActionSet;
+module.exports = SetAction;
