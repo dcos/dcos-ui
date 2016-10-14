@@ -71,7 +71,7 @@ class VirtualNetworksTable extends React.Component {
         className="table-cell-link-primary"
         params={{overlayName}}
         title={overlayName}
-        to="virtual-networks-tab-detail">
+        to="/network/virtual-networks/:overlayName">
         {overlayName}
       </Link>
     );

@@ -108,7 +108,7 @@ class TaskFileViewer extends React.Component {
     let currentRoutes = this.context.router.getCurrentRoutes();
     let lastRoute = currentRoutes.pop();
     this.context.router.transitionTo(
-      lastRoute.name,
+      lastRoute.path,
       Object.assign({}, this.props.params, {filePath: encodeURIComponent(path)})
     );
   }

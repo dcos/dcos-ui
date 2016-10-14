@@ -23,8 +23,10 @@ class BreadcrumbSegment extends React.Component {
    * @return {String} Crumb label
    */
   getBackupCrumbLabel() {
-    let {parentRouter, routeName} = this.props;
-    let route = parentRouter.namedRoutes[routeName];
+    let {parentRouter, routePath} = this.props;
+    let route = parentRouter.getCurrentRoutes().find(function (eachRoute) {
+      return eachRoute.path === routePath;
+    });
     let lastParam = route.paramNames[route.paramNames.length - 1];
     let currentParamValue = parentRouter.getCurrentParams()[lastParam];
 
@@ -41,7 +43,7 @@ class BreadcrumbSegment extends React.Component {
     }
 
     let route = {
-      to: this.props.routeName,
+      to: this.props.routePath,
       params: this.props.parentRouter.getCurrentParams()
     };
 
@@ -53,7 +55,7 @@ class BreadcrumbSegment extends React.Component {
 
 BreadcrumbSegment.propTypes = {
   parentRouter: PropTypes.func.isRequired,
-  routeName: PropTypes.string.isRequired
+  routePath: PropTypes.string.isRequired
 };
 
 module.exports = BreadcrumbSegment;

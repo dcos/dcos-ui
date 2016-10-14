@@ -93,7 +93,7 @@ class ServicesTable extends React.Component {
     }
 
     return (
-      <Link to="services-detail"
+      <Link to="/services/overview/:id"
         className="table-cell-link-primary"
         params={{id}}>
         <span className="text-overflow">
@@ -131,7 +131,7 @@ class ServicesTable extends React.Component {
     return (
       <div className="service-table-heading flex-box
         flex-box-align-vertical-center table-cell-flex-box">
-        <Link to="services-page"
+        <Link to="/services/overview/:id"
           className="table-cell-icon"
           params={{id}}>
           {this.getImage(service)}
@@ -340,7 +340,7 @@ class ServicesTable extends React.Component {
     return (
       <colgroup>
         <col />
-        <col className="status-bar-column" />
+        <col className="status-bar-column"/>
         <col className="hidden-small-down" style={{width: '65px'}} />
         <col className="hidden-small-down" style={{width: '75px'}} />
         <col className="hidden-small-down" style={{width: '65px'}} />
@@ -350,15 +350,15 @@ class ServicesTable extends React.Component {
 
   render() {
     return (
-      <Table
-        buildRowOptions={this.getRowAttributes}
-        className="table service-table table-borderless-outer table-borderless-inner-columns flush-bottom"
-        columns={this.getColumns()}
-        colGroup={this.getColGroup()}
-        data={this.props.services.slice()}
-        itemHeight={TableUtil.getRowHeight()}
-        containerSelector=".gm-scroll-view"
-        sortBy={{prop: 'name', order: 'asc'}} />
+        <Table
+          buildRowOptions={this.getRowAttributes}
+          className="table service-table table-borderless-outer table-borderless-inner-columns flush-bottom"
+          columns={this.getColumns()}
+          colGroup={this.getColGroup()}
+          data={this.props.services.slice()}
+          itemHeight={TableUtil.getRowHeight()}
+          containerSelector=".gm-scroll-view"
+          sortBy={{prop: 'name', order: 'asc'}} />
     );
   }
 };

@@ -17,7 +17,7 @@ class ComponentList extends React.Component {
           {
             className: 'dashboard-health-list-item-description text-overflow',
             content: (
-              <Link to="components-overview-units-unit-nodes-detail"
+              <Link to="/components/:unitID"
                 params={{unitID: unit.get('id')}}
                 className="dashboard-health-list-item-cell emphasis">
                 {unit.getTitle()}

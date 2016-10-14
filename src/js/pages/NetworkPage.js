@@ -14,7 +14,7 @@ import TabsUtil from '../utils/TabsUtil';
 import TabsMixin from '../mixins/TabsMixin';
 
 let DEFAULT_NETWORK_TABS = {
-  'virtual-networks-tab': {
+  '/network/virtual-networks': {
     content: 'Virtual Networks',
     priority: 10
   }
@@ -68,7 +68,7 @@ class NetworkPage extends mixin(TabsMixin) {
 
   updateCurrentTab() {
     let routes = this.context.router.getCurrentRoutes();
-    let currentTab = routes[routes.length - 1].name;
+    let currentTab = routes[routes.length - 1].path;
 
     // Get top level Tab
     let topLevelTab = currentTab.split('-').slice(0, 2).join('-');
@@ -102,7 +102,7 @@ class NetworkPage extends mixin(TabsMixin) {
     }
 
     let routes = this.context.router.getCurrentRoutes();
-    let currentRoute = routes[routes.length - 1].name;
+    let currentRoute = routes[routes.length - 1].path;
 
     return (
       <ul className="menu-tabbed">
