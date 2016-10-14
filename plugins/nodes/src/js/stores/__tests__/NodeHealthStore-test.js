@@ -1,18 +1,18 @@
 jest.dontMock('../NodeHealthStore');
-jest.dontMock('../../config/Config');
-jest.dontMock('../../events/AppDispatcher');
-jest.dontMock('../../events/UnitHealthActions');
-jest.dontMock('../../../../tests/_fixtures/unit-health/nodes.json');
+jest.dontMock('../../../../../../src/js/config/Config');
+jest.dontMock('../../../../../../src/js/events/AppDispatcher');
+jest.dontMock('../../../../../../src/js/events/UnitHealthActions');
+jest.dontMock('../../../../../../tests/_fixtures/unit-health/nodes.json');
 
 const RequestUtil = require('mesosphere-shared-reactjs').RequestUtil;
 
-const ActionTypes = require('../../constants/ActionTypes');
-const AppDispatcher = require('../../events/AppDispatcher');
-const Config = require('../../config/Config');
-const EventTypes = require('../../constants/EventTypes');
-const NodesList = require('../../structs/NodesList');
+const ActionTypes = require('../../../../../../src/js/constants/ActionTypes');
+const AppDispatcher = require('../../../../../../src/js/events/AppDispatcher');
+const Config = require('../../../../../../src/js/config/Config');
+const EventTypes = require('../../../../../../src/js/constants/EventTypes');
+const NodesList = require('../../../../../../src/js/structs/NodesList');
 const NodeHealthStore = require('../NodeHealthStore');
-const nodesFixture = require('../../../../tests/_fixtures/unit-health/nodes.json');
+const nodesFixture = require('../../../../../../tests/_fixtures/unit-health/nodes.json');
 
 describe('NodeHealthStore', function () {
 

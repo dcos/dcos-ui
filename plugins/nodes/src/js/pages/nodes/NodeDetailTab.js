@@ -1,11 +1,11 @@
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import React from 'react';
 
-import DateUtil from '../../utils/DateUtil';
-import DescriptionList from '../../components/DescriptionList';
-import MesosStateStore from '../../stores/MesosStateStore';
-import Node from '../../structs/Node';
-import StringUtil from '../../utils/StringUtil';
+import DateUtil from '../../../../../../src/js/utils/DateUtil';
+import DescriptionList from '../../../../../../src/js/components/DescriptionList';
+import MesosStateStore from '../../../../../../src/js/stores/MesosStateStore';
+import Node from '../../../../../../src/js/structs/Node';
+import StringUtil from '../../../../../../src/js/utils/StringUtil';
 
 class NodeDetailTab extends React.Component {
   constructor() {
