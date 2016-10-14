@@ -1,5 +1,5 @@
 const MesosStateUtil = require('../MesosStateUtil');
-const Pod = require('../../structs/Pod');
+const Pod = require('../../../../plugins/services/src/js/structs/Pod');
 
 const MESOS_STATE_WITH_HISTORY = require('./fixtures/MesosStateWithHistory');
 
