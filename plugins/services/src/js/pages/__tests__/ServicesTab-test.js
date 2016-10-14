@@ -28,7 +28,7 @@ describe('ServicesTab', function () {
     DCOSStore.serviceTree = new ServiceTree({
       id: '/',
       items: [{
-        id: '/alpha',
+        id: '/alpha'
       }, {
         id: '/pod',
         spec: {

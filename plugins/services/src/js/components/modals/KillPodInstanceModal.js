@@ -5,7 +5,7 @@ import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import MarathonStore from '../../stores/MarathonStore';
 import Pod from '../../structs/Pod';
-import StringUtil from '../../utils/StringUtil';
+import StringUtil from '../../../../../../src/js/utils/StringUtil';
 
 const METHODS_TO_BIND = [
   'handleButtonConfirm'

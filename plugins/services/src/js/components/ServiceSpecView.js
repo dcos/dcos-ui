@@ -6,9 +6,9 @@ import {StoreMixin} from 'mesosphere-shared-reactjs';
 import DescriptionList from '../../../../../src/js/components/DescriptionList';
 import Loader from '../../../../../src/js/components/Loader';
 import Service from '../structs/Service';
-import StringUtil from '../utils/StringUtil';
+import StringUtil from '../../../../../src/js/utils/StringUtil';
 import ServiceConfigUtil from '../utils/ServiceConfigUtil';
-import Util from '../utils/Util';
+import Util from '../../../../../src/js/utils/Util';
 
 const sectionClassName = 'pod pod-short flush-right flush-bottom flush-left';
 
