@@ -140,12 +140,12 @@ class HealthTab extends React.Component {
         <FilterBar>
           <FilterInputText
             className="flush-bottom"
-            searchString={searchString}
-            handleFilterChange={this.handleSearchStringChange} />
+            handleFilterChange={this.handleSearchStringChange}
+            searchString={searchString} />
           <UnitHealthDropdown
-            initialID="all"
             className="button dropdown-toggle text-align-left"
             dropdownMenuClassName="dropdown-menu"
+            initialID="all"
             onHealthSelection={this.handleHealthSelection}
             ref={(ref) => this.healthFilter = ref} />
         </FilterBar>
