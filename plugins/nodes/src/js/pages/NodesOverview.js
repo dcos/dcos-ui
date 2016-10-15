@@ -1,26 +1,22 @@
 import classNames from 'classnames';
 import React from 'react';
-import {HashLocation, Link, RouteHandler} from 'react-router';
+import {HashLocation, Link} from 'react-router';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import AlertPanel from '../../../../../src/js/components/AlertPanel';
 import CompositeState from '../../../../../src/js/structs/CompositeState';
 import Config from '../../../../../src/js/config/Config';
 import EventTypes from '../../../../../src/js/constants/EventTypes';
-import FilterButtons from '../../../../../src/js/components/FilterButtons';
-import FilterBar from '../../../../../src/js/components/FilterBar';
-import FilterByService from '../../../../services/src/js/components/FilterByService';
 import FilterInputText from '../../../../../src/js/components/FilterInputText';
-import FilterHeadline from '../../../../../src/js/components/FilterHeadline';
+import HostsPageContent from './nodes-overview/HostsPageContent';
 import Icon from '../../../../../src/js/components/Icon';
 import InternalStorageMixin from '../../../../../src/js/mixins/InternalStorageMixin';
 import MesosSummaryStore from '../../../../../src/js/stores/MesosSummaryStore';
-import ResourceBarChart from '../../../../../src/js/components/charts/ResourceBarChart';
+import QueryParamsMixin from '../../../../../src/js/mixins/QueryParamsMixin';
 import SidebarActions from '../../../../../src/js/events/SidebarActions';
 import StringUtil from '../../../../../src/js/utils/StringUtil';
 
 const NODES_DISPLAY_LIMIT = 300;
-const HEALTH_FILTER_BUTTONS = ['all', 'healthy', 'unhealthy'];
 
 function getMesosHosts(state) {
   let states = MesosSummaryStore.get('states');
@@ -39,10 +35,10 @@ function getMesosHosts(state) {
 
   return {
     nodes: filteredNodes,
-    totalNodes: nodes.getItems().length,
     refreshRate: Config.getRefreshRate(),
     services: lastState.getServiceList().getItems(),
     totalHostsResources: states.getResourceStatesForNodeIDs(nodeIDs),
+    totalNodes: nodes.getItems().length,
     totalResources: lastState.getSlaveTotalResources()
   };
 }
@@ -57,7 +53,7 @@ var NodesOverview = React.createClass({
 
   displayName: 'NodesOverview',
 
-  mixins: [InternalStorageMixin, StoreMixin],
+  mixins: [InternalStorageMixin, QueryParamsMixin, StoreMixin],
 
   statics: {
     routeConfig: {
@@ -75,7 +71,7 @@ var NodesOverview = React.createClass({
   },
 
   contextTypes: {
-    router: React.PropTypes.func
+    router: React.PropTypes.func.isRequired
   },
 
   getInitialState() {
@@ -144,9 +140,7 @@ var NodesOverview = React.createClass({
     this.setState(state);
     this.internalStorage_update(getMesosHosts(state));
 
-    if (this.serviceFilter !== null && this.serviceFilter.dropdown !== null) {
-      this.serviceFilter.setDropdownValue('default');
-    }
+    this.resetQueryParams(['searchString', 'filterService', 'filterHealth']);
   },
 
   handleSearchStringChange(searchString = '') {
@@ -156,6 +150,7 @@ var NodesOverview = React.createClass({
 
     this.internalStorage_update(getMesosHosts(stateChanges));
     this.setState({searchString});
+    this.setQueryParam('searchString', searchString);
   },
 
   handleByServiceFilterChange(byServiceFilter) {
@@ -169,11 +164,13 @@ var NodesOverview = React.createClass({
 
     this.internalStorage_update(getMesosHosts(stateChanges));
     this.setState({byServiceFilter});
+    this.setQueryParam('filterService', byServiceFilter);
   },
 
   handleHealthFilterChange(healthFilter) {
     this.internalStorage_update(getMesosHosts({healthFilter}));
     this.setState({healthFilter});
+    this.setQueryParam('filterHealth', healthFilter);
   },
 
   onResourceSelectionChange(selectedResource) {
@@ -247,53 +244,35 @@ var NodesOverview = React.createClass({
       searchString !== '';
 
     return (
-      <div>
-        <ResourceBarChart
-          itemCount={data.nodes.length}
-          resources={data.totalHostsResources}
-          totalResources={data.totalResources}
-          refreshRate={data.refreshRate}
-          resourceType="Nodes"
-          selectedResource={selectedResource}
-          onResourceSelectionChange={this.onResourceSelectionChange} />
-        <FilterHeadline
-          currentLength={nodesList.length}
-          isFiltering={isFiltering}
-          name="Node"
-          onReset={this.resetFilter}
-          totalLength={data.totalNodes} />
-        <FilterBar rightAlignLastNChildren={1}>
-          {this.getFilterInputText()}
-          <FilterButtons
-            renderButtonContent={this.getButtonContent}
-            filters={HEALTH_FILTER_BUTTONS}
-            filterByKey="title"
-            onFilterChange={this.handleHealthFilterChange}
-            itemList={nodesHealth}
-            selectedFilter={healthFilter} />
-          <div className="form-group flush-bottom">
-            <FilterByService
-              byServiceFilter={byServiceFilter}
-              handleFilterChange={this.handleByServiceFilterChange}
-              ref={(ref) => this.serviceFilter = ref}
-              services={data.services}
-              totalHostsCount={data.totalNodes} />
-          </div>
-          {this.getViewTypeRadioButtons(this.resetFilter)}
-        </FilterBar>
-        <RouteHandler
-          selectedResource={selectedResource}
-          hosts={nodesList}
-          services={data.services} />
-      </div>
+      <HostsPageContent
+        byServiceFilter={byServiceFilter}
+        filterButtonContent={this.getButtonContent}
+        filterInputText={this.getFilterInputText()}
+        filterItemList={nodesHealth}
+        filteredNodeCount={nodesList.length}
+        handleFilterChange={this.handleByServiceFilterChange}
+        hosts={nodesList}
+        isFiltering={isFiltering}
+        nodeCount={data.nodes.length}
+        onFilterChange={this.handleHealthFilterChange}
+        onResetFilter={this.resetFilter}
+        onResourceSelectionChange={this.onResourceSelectionChange}
+        refreshRate={data.refreshRate}
+        selectedFilter={healthFilter}
+        selectedResource={selectedResource}
+        services={data.services}
+        totalHostsResources={data.totalHostsResources}
+        totalNodeCount={data.totalNodes}
+        totalResources={data.totalResources}
+        viewTypeRadioButtons={this.getViewTypeRadioButtons(this.resetFilter)} />
     );
   },
 
   getEmptyHostsPageContent() {
     return (
       <AlertPanel
-        title="Empty Datacenter"
-        icon={<Icon id="servers" color="neutral" size="jumbo" />}>
+        icon={<Icon id="servers" color="neutral" size="jumbo" />}
+        title="Empty Datacenter">
         <p className="flush-bottom">
           Your datacenter is looking pretty empty. We don't see any nodes other than your master.
         </p>

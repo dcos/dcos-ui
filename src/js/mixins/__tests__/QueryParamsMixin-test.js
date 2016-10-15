@@ -109,4 +109,26 @@ describe('QueryParamsMixin', function () {
     expect(route).toEqual({});
     expect(queryParams).toEqual(queryObject);
   });
+
+  describe('#resetQueryParams', function () {
+
+    it('should reset all params by default', function () {
+      this.instance.resetQueryParams();
+      expect(this.instance.context.router.transitionTo)
+        .toHaveBeenCalledWith('/pathname', {}, {});
+    });
+
+    it('should reset only specified params, when present', function () {
+      this.instance.resetQueryParams(['arrayValue']);
+      expect(this.instance.context.router.transitionTo)
+        .toHaveBeenCalledWith('/pathname', {}, {stringValue: 'string'});
+    });
+
+    it('should exit cleanly when called without a router', function () {
+      expect(this.instance.resetQueryParams.bind({context: {}}))
+          .not.toThrow();
+    });
+
+  });
+
 });
