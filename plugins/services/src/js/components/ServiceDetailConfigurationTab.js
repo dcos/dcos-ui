@@ -175,11 +175,11 @@ class ServiceDetailConfigurationTab extends React.Component {
     }
 
     return (
-        <ServiceFormModal
-            isEdit={true}
-            open={true}
-            service={serviceToEdit}
-            onClose={this.handleCloseServiceFormModal} />
+      <ServiceFormModal
+        isEdit={true}
+        open={true}
+        service={serviceToEdit}
+        onClose={this.handleCloseServiceFormModal} />
     );
   }
 

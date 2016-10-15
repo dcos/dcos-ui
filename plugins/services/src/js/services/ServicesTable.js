@@ -1,20 +1,15 @@
 import classNames from 'classnames';
 import {Dropdown, Table} from 'reactjs-components';
 import {Link} from 'react-router';
-import React from 'react';
+import React, {PropTypes} from 'react';
 import {ResourceTableUtil} from 'foundation-ui';
-import {StoreMixin} from 'mesosphere-shared-reactjs';
 
-import HealthBar from './HealthBar';
+import HealthBar from '../components/HealthBar';
 import Links from '../../../../../src/js/constants/Links';
 import Icon from '../../../../../src/js/components/Icon';
 import NestedServiceLinks from '../../../../../src/js/components/NestedServiceLinks';
 import Service from '../structs/Service';
 import ServiceActionItem from '../constants/ServiceActionItem';
-import ServiceDestroyModal from './modals/ServiceDestroyModal';
-import ServiceRestartModal from './modals/ServiceRestartModal';
-import ServiceScaleFormModal from '../components/modals/ServiceScaleFormModal';
-import ServiceSuspendModal from './modals/ServiceSuspendModal';
 import ServiceTableHeaderLabels from '../constants/ServiceTableHeaderLabels';
 import ServiceTableUtil from '../utils/ServiceTableUtil';
 import ServiceTree from '../structs/ServiceTree';
@@ -26,65 +21,22 @@ const StatusMapping = {
   'Running': 'running-state'
 };
 
-var ServicesTable = React.createClass({
-  displayName: 'ServicesTable',
+const METHODS_TO_BIND = [
+  'onActionsItemSelection',
+  'renderHeadline',
+  'renderStats',
+  'renderStatus',
+  'renderStatsHeading'
+];
 
-  defaultProps: {
-    isFiltered: false
-  },
+class ServicesTable extends React.Component {
+  constructor() {
+    super(...arguments);
 
-  propTypes: {
-    isFiltered: React.PropTypes.bool,
-    services: React.PropTypes.array.isRequired
-  },
-
-  mixins: [StoreMixin],
-
-  getDefaultProps() {
-    return {
-      services: []
-    };
-  },
-
-  getInitialState() {
-    return {
-      serviceActionDialog: null,
-      serviceToChange: null
-    };
-  },
-
-  componentWillMount() {
-    this.store_listeners = [
-      {
-        name: 'marathon',
-        events: [
-          'serviceRestartError',
-          'serviceRestartSuccess'
-        ],
-        suppressUpdate: true
-      }
-    ];
-  },
-
-  onServiceDestroyModalClose() {
-    this.closeDialog();
-    this.context.router.transitionTo('services-page');
-  },
-
-  onServiceSuspendModalClose() {
-    this.closeDialog();
-  },
-
-  onMarathonStoreServiceRestartSuccess() {
-    this.closeDialog();
-  },
-
-  onMarathonStoreServiceRestartError({message: errorMsg}) {
-    this.setState({
-      disabledDialog: null,
-      errorMsg
+    METHODS_TO_BIND.forEach((method) => {
+      this[method] = this[method].bind(this);
     });
-  },
+  }
 
   getOpenInNewWindowLink(service) {
     // This might be a serviceTree and therefore we need this check
@@ -106,34 +58,26 @@ var ServicesTable = React.createClass({
           size="mini" />
       </a>
     );
-  },
+  }
 
   onActionsItemSelection(service, actionItem) {
-    this.setState({
-      serviceToChange: service,
-      serviceActionDialog: actionItem.id
-    });
-  },
+    const {modalHandlers} = this.context;
 
-  closeDialog() {
-    this.setState({
-      serviceActionDialog: null,
-      serviceToChange: null
-    });
-  },
-
-  getServiceScaleFormModal() {
-    if (!this.state.serviceToChange) {
-      return null;
-    }
-
-    return (
-      <ServiceScaleFormModal
-        open={this.state.serviceActionDialog === ServiceActionItem.SCALE}
-        service={this.state.serviceToChange}
-        onClose={this.closeDialog} />
-    );
-  },
+    switch (actionItem.id) {
+      case ServiceActionItem.SCALE:
+        modalHandlers.scaleService({service});
+        break;
+      case ServiceActionItem.RESTART:
+        modalHandlers.restartService({service});
+        break;
+      case ServiceActionItem.SUSPEND:
+        modalHandlers.suspendService({service});
+        break;
+      case ServiceActionItem.DESTROY:
+        modalHandlers.deleteService({service});
+        break;
+    };
+  }
 
   getServiceLink(service) {
     const id = encodeURIComponent(service.getId());
@@ -157,7 +101,7 @@ var ServicesTable = React.createClass({
         </span>
       </Link>
     );
-  },
+  }
 
   getImage(service) {
     if (service instanceof ServiceTree) {
@@ -179,7 +123,7 @@ var ServicesTable = React.createClass({
         <img src={service.getImages()['icon-small']}/>
       </span>
     );
-  },
+  }
 
   renderHeadline(prop, service) {
     const id = encodeURIComponent(service.getId());
@@ -199,7 +143,7 @@ var ServicesTable = React.createClass({
         {this.renderServiceActions(service)}
       </div>
     );
-  },
+  }
 
   renderServiceActions(service) {
     let isGroup = service instanceof ServiceTree;
@@ -267,7 +211,7 @@ var ServicesTable = React.createClass({
         transition={true}
         transitionName="dropdown-menu" />
     );
-  },
+  }
 
   renderStatus(prop, service) {
     let instancesCount = service.getInstancesCount();
@@ -301,7 +245,7 @@ var ServicesTable = React.createClass({
         </span>
       </div>
     );
-  },
+  }
 
   renderStats(prop, service) {
     let instancesCount = service.getInstancesCount();
@@ -313,7 +257,7 @@ var ServicesTable = React.createClass({
         {Units.formatResource(prop, value)}
       </span>
     );
-  },
+  }
 
   renderStatsHeading(prop, sortBy, row) {
     let isHeader = row == null;
@@ -322,7 +266,7 @@ var ServicesTable = React.createClass({
       'active': prop === sortBy.prop,
       'clickable': isHeader
     });
-  },
+  }
 
   getColumns() {
     let className = ResourceTableUtil.getClassName;
@@ -390,7 +334,7 @@ var ServicesTable = React.createClass({
         heading
       }
     ];
-  },
+  }
 
   getColGroup() {
     return (
@@ -402,42 +346,40 @@ var ServicesTable = React.createClass({
         <col className="hidden-small-down" style={{width: '65px'}} />
       </colgroup>
     );
-  },
+  }
 
   render() {
-    let {serviceActionDialog, serviceToChange} = this.state;
-
     return (
-      <div>
-        <Table
-          buildRowOptions={this.getRowAttributes}
-          className="table service-table table-borderless-outer table-borderless-inner-columns flush-bottom"
-          columns={this.getColumns()}
-          colGroup={this.getColGroup()}
-          data={this.props.services.slice()}
-          itemHeight={TableUtil.getRowHeight()}
-          containerSelector=".gm-scroll-view"
-          sortBy={{prop: 'name', order: 'asc'}} />
-        <ServiceDestroyModal
-          onClose={this.onServiceDestroyModalClose}
-          open={serviceActionDialog === ServiceActionItem.DESTROY}
-          service={serviceToChange} />
-        <ServiceRestartModal
-          onClose={this.closeDialog}
-          open={serviceActionDialog === ServiceActionItem.RESTART}
-          service={serviceToChange} />
-        {this.getServiceScaleFormModal()}
-        <ServiceSuspendModal
-          onClose={this.closeDialog}
-          open={serviceActionDialog === ServiceActionItem.SUSPEND}
-          service={serviceToChange} />
-      </div>
+      <Table
+        buildRowOptions={this.getRowAttributes}
+        className="table service-table table-borderless-outer table-borderless-inner-columns flush-bottom"
+        columns={this.getColumns()}
+        colGroup={this.getColGroup()}
+        data={this.props.services.slice()}
+        itemHeight={TableUtil.getRowHeight()}
+        containerSelector=".gm-scroll-view"
+        sortBy={{prop: 'name', order: 'asc'}} />
     );
   }
-});
+};
 
 ServicesTable.contextTypes = {
-  router: React.PropTypes.func
+  modalHandlers: PropTypes.shape({
+    scaleService: PropTypes.func,
+    restartService: PropTypes.func,
+    suspendService: PropTypes.func,
+    deleteService: PropTypes.func
+  }).isRequired
+};
+
+ServicesTable.defaultProps = {
+  isFiltered: false,
+  services: []
+};
+
+ServicesTable.propTypes = {
+  isFiltered: PropTypes.bool,
+  services: PropTypes.array
 };
 
 module.exports = ServicesTable;

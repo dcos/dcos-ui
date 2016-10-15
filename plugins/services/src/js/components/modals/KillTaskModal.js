@@ -2,7 +2,6 @@ import {Confirm} from 'reactjs-components';
 import React, {PropTypes} from 'react';
 import PureRender from 'react-addons-pure-render-mixin';
 
-import Pod from '../../structs/Pod';
 import StringUtil from '../../../../../../src/js/utils/StringUtil';
 
 const ACTION_DISPLAY_NAMES = {
@@ -10,7 +9,7 @@ const ACTION_DISPLAY_NAMES = {
   killAndScale: 'Kill and Scale'
 };
 
-class KillPodInstanceModal extends React.Component {
+class KillTaskModal extends React.Component {
   constructor() {
     super(...arguments);
 
@@ -55,16 +54,16 @@ class KillPodInstanceModal extends React.Component {
 
   getModalContents() {
     let selectedItemsLength = this.props.selectedItems.length;
-    let action = ACTION_DISPLAY_NAMES[this.props.action];
-    let instanceCountContent = `${selectedItemsLength} ${StringUtil.pluralize('Instance', selectedItemsLength)}`;
+    let action = ACTION_DISPLAY_NAMES[this.props.action] || '';
+    let taskCountContent = `${selectedItemsLength} ${StringUtil.pluralize('Task', selectedItemsLength)}`;
 
     return (
-      <div className="container container-pod container-pod-short-top text-align-center flush-bottom">
+      <div className={'pod pod-short flush-right flush-bottom flush-left text-align-center'}>
         <h2 className="text-danger text-align-center flush-top">
-          {action} {StringUtil.pluralize('Instance', selectedItemsLength)}
+          {action} {StringUtil.pluralize('Task', selectedItemsLength)}
         </h2>
         <p>
-          You are about to {action.toLowerCase()} {instanceCountContent}.
+          You are about to {action.toLowerCase()} {taskCountContent}.
           <br />
           Are you sure you want to continue?
         </p>
@@ -77,24 +76,21 @@ class KillPodInstanceModal extends React.Component {
     const {
       action,
       isPending,
-      killPodInstances,
+      killTasks,
       onClose,
       open,
-      pod,
       selectedItems
     } = this.props;
 
     let buttonText = ACTION_DISPLAY_NAMES[action];
 
     if (this.shouldForceUpdate()) {
-      buttonText = `Force ${buttonText}`;
+      buttonText = 'Force ' + buttonText;
     }
 
-    const killAction = () => killPodInstances(
-      pod,
-      selectedItems.map(function (item) {
-        return item.id;
-      }),
+    const killTasksAction = () => killTasks(
+      selectedItems,
+      action === 'killAndScale',
       this.shouldForceUpdate()
     );
 
@@ -108,27 +104,26 @@ class KillPodInstanceModal extends React.Component {
         leftButtonCallback={onClose}
         rightButtonText={buttonText}
         rightButtonClassName="button button-danger"
-        rightButtonCallback={killAction}>
+        rightButtonCallback={killTasksAction}>
         {this.getModalContents()}
       </Confirm>
     );
   }
 }
 
-KillPodInstanceModal.defaultProps = {
+KillTaskModal.defaultProps = {
   action: 'kill',
   selectedItems: []
 };
 
-KillPodInstanceModal.propTypes = {
+KillTaskModal.propTypes = {
   action: PropTypes.string,
   errors: PropTypes.string,
-  killPodInstances: PropTypes.func.isRequired,
+  killTasks: PropTypes.func.isRequired,
   isPending: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired,
-  pod: PropTypes.instanceOf(Pod),
   selectedItems: PropTypes.array
 };
 
-module.exports = KillPodInstanceModal;
+module.exports = KillTaskModal;

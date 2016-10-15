@@ -2,10 +2,8 @@ import Ace from 'react-ace';
 import classNames from 'classnames';
 import deepEqual from 'deep-equal';
 import {Hooks} from 'PluginSDK';
-import mixin from 'reactjs-mixin';
 import {Modal, Tooltip} from 'reactjs-components';
-import React from 'react';
-import {StoreMixin} from 'mesosphere-shared-reactjs';
+import React, {PropTypes} from 'react';
 
 import 'brace/mode/json';
 import 'brace/theme/monokai';
@@ -13,7 +11,6 @@ import 'brace/ext/language_tools';
 
 import Config from '../../../../../../src/js/config/Config';
 import Icon from '../../../../../../src/js/components/Icon';
-import MarathonStore from '../../stores/MarathonStore';
 import PodSpec from '../../structs/PodSpec';
 import Service from '../../structs/Service';
 import ServiceForm from '../ServiceForm';
@@ -27,16 +24,10 @@ const SUPPORTED_ONLY_IN_JSON_TEXT = 'Your config contains attributes we currentl
 
 const METHODS_TO_BIND = [
   'getTriggerSubmit',
-  'handleCancel',
-  'handleClearError',
   'handleJSONChange',
   'handleJSONToggle',
   'handleSubmit',
-  'handleTabChange',
-  'onMarathonStoreServiceCreateError',
-  'onMarathonStoreServiceCreateSuccess',
-  'onMarathonStoreServiceEditError',
-  'onMarathonStoreServiceEditSuccess'
+  'handleTabChange'
 ];
 
 const serverResponseMappings = {
@@ -112,30 +103,15 @@ function didMessageChange(prevMessage, newMessage) {
           !deepEqual(prevMessage, newMessage));
 }
 
-class ServiceFormModal extends mixin(StoreMixin) {
+class ServiceFormModal extends React.Component {
   constructor() {
     super(...arguments);
 
     this.state = {
       defaultTab: '',
-      errorMessage: null,
       jsonMode: false,
-      pendingRequest: false,
       serviceSpec: null
     };
-
-    this.store_listeners = [
-      {
-        name: 'marathon',
-        events: [
-          'serviceCreateError',
-          'serviceCreateSuccess',
-          'serviceEditError',
-          'serviceEditSuccess'
-        ],
-        suppressUpdate: true
-      }
-    ];
 
     METHODS_TO_BIND.forEach((method) => {
       this[method] = this[method].bind(this);
@@ -147,9 +123,19 @@ class ServiceFormModal extends mixin(StoreMixin) {
   }
 
   componentWillReceiveProps(nextProps) {
-    super.componentWillReceiveProps(...arguments);
     if (!this.props.open && nextProps.open) {
       this.resetState(nextProps);
+    }
+  }
+
+  componentWillUpdate(nextProps) {
+    const requestCompleted = this.props.isPending
+      && !nextProps.isPending;
+
+    const shouldClose = requestCompleted && !nextProps.errors;
+
+    if (shouldClose) {
+      this.props.onClose();
     }
   }
 
@@ -157,8 +143,8 @@ class ServiceFormModal extends mixin(StoreMixin) {
     let {state, props} = this;
     return props.open !== nextProps.open ||
       state.jsonMode !== nextState.jsonMode ||
-      state.pendingRequest !== nextState.pendingRequest ||
-      didMessageChange(state.errorMessage, nextState.errorMessage) ||
+      props.isPending !== nextProps.isPending ||
+      didMessageChange(props.errors, nextProps.errors) ||
       didMessageChange(state.jsonLockReason, nextState.jsonLockReason);
   }
 
@@ -175,21 +161,9 @@ class ServiceFormModal extends mixin(StoreMixin) {
     this.setState({
       defaultTab: '',
       jsonLockReason,
-      errorMessage: null,
-      force: false,
       jsonMode,
-      pendingRequest: false,
       serviceSpec
-    });
-  }
-
-  handleClearError() {
-    if (this.state.errorMessage == null) {
-      return;
-    }
-    this.setState({
-      errorMessage: null
-    });
+    }, this.props.clearError);
   }
 
   handleJSONChange(jsonDefinition) {
@@ -207,13 +181,10 @@ class ServiceFormModal extends mixin(StoreMixin) {
       jsonLockReason = SUPPORTED_ONLY_IN_JSON_TEXT;
     }
 
-    this.setState(
-      {
-        serviceSpec,
-        errorMessage: null,
-        jsonLockReason
-      }
-    );
+    this.setState({
+      serviceSpec,
+      jsonLockReason
+    }, this.props.clearError);
   }
 
   handleJSONToggle() {
@@ -243,18 +214,6 @@ class ServiceFormModal extends mixin(StoreMixin) {
 
   handleTabChange(tab) {
     this.setState({defaultTab: tab});
-  }
-
-  onMarathonStoreServiceCreateSuccess() {
-    this.resetState();
-    this.props.onClose();
-  }
-
-  onMarathonStoreServiceCreateError(errorMessage) {
-    this.setState({
-      errorMessage,
-      pendingRequest: false
-    });
   }
 
   shouldDisableForm(serviceSpec) {
@@ -301,45 +260,25 @@ class ServiceFormModal extends mixin(StoreMixin) {
     );
   }
 
-  shouldForceUpdate(message = this.state.errorMessage) {
+  shouldForceUpdate(message = this.props.errors) {
     return message && message.message && /force=true/.test(message.message);
   }
 
-  onMarathonStoreServiceEditSuccess() {
-    this.props.onClose();
-    this.resetState();
-  }
-
-  onMarathonStoreServiceEditError(errorMessage) {
-    if (!this.props.open) {
-      return;
-    }
-    this.setState({
-      errorMessage,
-      force: this.shouldForceUpdate(errorMessage),
-      pendingRequest: false
-    });
-  }
-
-  handleCancel() {
-    this.props.onClose();
-  }
-
   handleSubmit() {
-    const {force, serviceSpec} = this.state;
-    const {isEdit, service} = this.props;
-    let marathonAction = MarathonStore.createService;
-
-    if (isEdit) {
-      marathonAction = MarathonStore.editService.bind(MarathonStore, service);
-    }
+    const {serviceSpec} = this.state;
+    const {
+      isEdit,
+      marathonAction,
+      service
+    } = this.props;
 
     if (this.state.jsonMode) {
-      marathonAction(serviceSpec, force);
-      this.setState({
-        errorMessage: null,
-        pendingRequest: true
-      });
+      marathonAction(
+        service,
+        serviceSpec,
+        this.shouldForceUpdate()
+      );
+
       return;
     }
 
@@ -349,15 +288,18 @@ class ServiceFormModal extends mixin(StoreMixin) {
       if (!isValidated) {
         return;
       }
+
       let serviceSpec = ServiceUtil.createSpecFromFormModel(
         model,
         ServiceSchema,
-        this.props.isEdit,
-        this.props.service.getSpec().get() // Work on the original service spec
+        isEdit,
+        service.getSpec().get() // Work on the original service spec
       );
+
       marathonAction(
+        service,
         serviceSpec,
-        this.state.force
+        this.shouldForceUpdate()
       );
     }
   }
@@ -367,19 +309,21 @@ class ServiceFormModal extends mixin(StoreMixin) {
   }
 
   getErrorMessage() {
-    let {errorMessage} = this.state;
-    if (!errorMessage) {
+    // Assign to non-conflicting variable
+    let errorDetails = this.props.errors;
+
+    if (!errorDetails) {
       return null;
     }
 
     // Stringify error details
     let errorList = null;
-    if (errorMessage.details != null) {
+    if (errorDetails.details != null) {
       let responseMap = Hooks.applyFilter(
         'serviceFormErrorResponseMap',
         responseAttributePathToFieldIdMap
       );
-      errorList = errorMessage.details.map(function ({path, errors}) {
+      errorList = errorDetails.details.map(function ({path, errors}) {
         let fieldId = 'general';
 
         // Check if attributePath contains an index like path(0)/attribute
@@ -418,7 +362,7 @@ class ServiceFormModal extends mixin(StoreMixin) {
       });
     }
 
-    if (this.shouldForceUpdate(errorMessage)) {
+    if (this.shouldForceUpdate()) {
       return (
         <CollapsibleErrorMessage
           className="error-for-modal"
@@ -431,7 +375,7 @@ class ServiceFormModal extends mixin(StoreMixin) {
       <CollapsibleErrorMessage
         className="error-for-modal"
         details={errorList}
-        message={errorMessage.message} />
+        message={errorDetails.message} />
     );
 
   }
@@ -444,11 +388,15 @@ class ServiceFormModal extends mixin(StoreMixin) {
   }
 
   getFooter() {
-    let {pendingRequest} = this.state;
+    const {
+      onClose,
+      isPending
+    } = this.props;
+
     let deployButtonClassNames = classNames('button button-large',
       {
-        'button-success': !pendingRequest,
-        'disabled': pendingRequest
+        'button-success': !isPending,
+        'disabled': isPending
       }
     );
 
@@ -456,7 +404,7 @@ class ServiceFormModal extends mixin(StoreMixin) {
       <div className="button-collection flush-bottom">
         <button
           className="button button-large"
-          onClick={this.handleCancel}>
+          onClick={onClose}>
           Cancel
         </button>
         <button
@@ -469,7 +417,11 @@ class ServiceFormModal extends mixin(StoreMixin) {
   }
 
   getModalContents() {
-    let {defaultTab, jsonMode, serviceSpec} = this.state;
+    const {
+      defaultTab,
+      jsonMode,
+      serviceSpec
+    } = this.state;
 
     if (jsonMode) {
       let jsonDefinition = JSON.stringify(serviceSpec, null, 2);
@@ -518,7 +470,7 @@ class ServiceFormModal extends mixin(StoreMixin) {
         defaultTab={defaultTab}
         getTriggerSubmit={this.getTriggerSubmit}
         model={model}
-        onChange={this.handleClearError}
+        onChange={this.props.clearError}
         onTabChange={this.handleTabChange}
         schema={ServiceSchema}/>
     );
@@ -532,13 +484,15 @@ class ServiceFormModal extends mixin(StoreMixin) {
       classSet = `${classSet} disabled`;
     }
 
-    let toggleButton = (<ToggleButton
-      className={classSet}
-      checkboxClassName="toggle-button"
-      checked={this.state.jsonMode}
-      onChange={this.handleJSONToggle}>
-      JSON mode
-    </ToggleButton>);
+    let toggleButton = (
+      <ToggleButton
+        className={classSet}
+        checkboxClassName="toggle-button"
+        checked={this.state.jsonMode}
+        onChange={this.handleJSONToggle}>
+        JSON mode
+      </ToggleButton>
+    );
 
     if (!jsonLockReason) {
       return toggleButton;
@@ -605,10 +559,16 @@ ServiceFormModal.defaultProps = {
 };
 
 ServiceFormModal.propTypes = {
-  isEdit: React.PropTypes.bool,
-  open: React.PropTypes.bool,
-  onClose: React.PropTypes.func,
-  service: React.PropTypes.instanceOf(Service).isRequired
+  errors: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.string
+  ]),
+  isEdit: PropTypes.bool,
+  isPending: PropTypes.bool.isRequired,
+  marathonAction: PropTypes.func.isRequired,
+  open: PropTypes.bool,
+  onClose: PropTypes.func,
+  service: PropTypes.instanceOf(Service).isRequired
 };
 
 module.exports = ServiceFormModal;
