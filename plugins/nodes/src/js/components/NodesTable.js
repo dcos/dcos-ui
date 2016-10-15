@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import {Link} from 'react-router';
-import PureRenderMixin from 'react-addons-pure-render-mixin';
+import PureRender from 'react-addons-pure-render-mixin';
 import React from 'react';
 import {ResourceTableUtil} from 'foundation-ui';
 import {Table, Tooltip} from 'reactjs-components';
@@ -23,7 +23,7 @@ var NodesTable = React.createClass({
 
   displayName: 'NodesTable',
 
-  mixins: [PureRenderMixin],
+  mixins: [PureRender],
 
   propTypes: {
     hosts: React.PropTypes.array.isRequired

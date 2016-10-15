@@ -1,5 +1,5 @@
 import {Dropdown} from 'reactjs-components';
-import PureRenderMixin from 'react-addons-pure-render-mixin';
+import PureRender from 'react-addons-pure-render-mixin';
 import React from 'react';
 
 import UnitHealthStatus from '../constants/UnitHealthStatus';
@@ -13,7 +13,7 @@ const DEFAULT_ITEM = {
 class UnitHealthDropdown extends React.Component {
   constructor() {
     super(...arguments);
-    this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate;
+    this.shouldComponentUpdate = PureRender.shouldComponentUpdate.bind(this);
     this.state = {dropdownItems: this.getDropdownItems()};
   }
 

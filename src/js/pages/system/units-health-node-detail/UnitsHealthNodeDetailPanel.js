@@ -1,4 +1,4 @@
-import PureRenderMixin from 'react-addons-pure-render-mixin';
+import PureRender from 'react-addons-pure-render-mixin';
 import React from 'react';
 
 import Breadcrumbs from '../../../components/Breadcrumbs';
@@ -10,7 +10,7 @@ class UnitsHealthNodeDetailPanel extends React.Component {
 
   constructor() {
     super(...arguments);
-    this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate;
+    this.shouldComponentUpdate = PureRender.shouldComponentUpdate.bind(this);
   }
 
   renderSubTitle() {

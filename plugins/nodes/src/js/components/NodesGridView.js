@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import PureRenderMixin from 'react-addons-pure-render-mixin';
+import PureRender from 'react-addons-pure-render-mixin';
 import React from 'react';
 
 import Loader from '../../../../../src/js/components/Loader';
@@ -13,7 +13,7 @@ var NodesGridView = React.createClass({
 
   displayName: 'NodesGridView',
 
-  mixins: [PureRenderMixin],
+  mixins: [PureRender],
 
   propTypes: {
     hasLoadingError: React.PropTypes.bool,
