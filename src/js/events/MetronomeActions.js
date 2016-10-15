@@ -49,6 +49,15 @@ const MetronomeActions = {
     Config.getRefreshRate(),
     function (resolve, reject) {
       return function () {
+
+        const handleError = function (e) {
+          AppDispatcher.handleServerAction({
+            type: REQUEST_METRONOME_JOBS_ERROR,
+            data: e.message
+          });
+          reject();
+        };
+
         RequestUtil.json({
           url: `${Config.metronomeAPI}/v1/jobs`,
           data: [
@@ -65,16 +74,10 @@ const MetronomeActions = {
               });
               resolve();
             } catch (error) {
-              this.error(error);
+              handleError(error);
             }
           },
-          error(e) {
-            AppDispatcher.handleServerAction({
-              type: REQUEST_METRONOME_JOBS_ERROR,
-              data: e.message
-            });
-            reject();
-          },
+          error: handleError,
           hangingRequestCallback() {
             AppDispatcher.handleServerAction({
               type: REQUEST_METRONOME_JOBS_ONGOING
