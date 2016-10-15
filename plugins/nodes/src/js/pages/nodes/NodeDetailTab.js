@@ -1,4 +1,4 @@
-import PureRenderMixin from 'react-addons-pure-render-mixin';
+import PureRender from 'react-addons-pure-render-mixin';
 import React from 'react';
 
 import DateUtil from '../../../../../../src/js/utils/DateUtil';
@@ -10,7 +10,7 @@ import StringUtil from '../../../../../../src/js/utils/StringUtil';
 class NodeDetailTab extends React.Component {
   constructor() {
     super(...arguments);
-    this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate;
+    this.shouldComponentUpdate = PureRender.shouldComponentUpdate.bind(this);
   }
 
   render() {
