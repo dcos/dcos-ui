@@ -72,6 +72,11 @@ var ServicesPage = React.createClass({
   },
 
   render() {
+    const {
+      params,
+      query
+    } = this.props;
+
     // Make sure to grow when logs are displayed
     let routes = this.context.router.getCurrentRoutes();
 
@@ -80,7 +85,7 @@ var ServicesPage = React.createClass({
         navigation={this.getNavigation()}
         dontScroll={routes[routes.length - 1].dontScroll}
         title="Services">
-        <RouteHandler />
+        <RouteHandler params={params} query={query} />
       </Page>
     );
   }

@@ -1,10 +1,8 @@
 import classNames from 'classnames';
 import {Dropdown} from 'reactjs-components';
-import mixin from 'reactjs-mixin';
 import React from 'react';
 
 import Icon from '../../../../../src/js/components/Icon';
-import QueryParamsMixin from '../../../../../src/js/mixins/QueryParamsMixin';
 import Service from '../structs/Service';
 import ServiceTree from '../structs/ServiceTree';
 import ServiceUtil from '../utils/ServiceUtil';
@@ -17,7 +15,7 @@ const METHODS_TO_BIND = [
   'updateSelectedLabels'
 ];
 
-class SidebarLabelsFilters extends mixin(QueryParamsMixin) {
+class SidebarLabelsFilters extends React.Component {
   constructor() {
     super(...arguments);
 
@@ -34,13 +32,13 @@ class SidebarLabelsFilters extends mixin(QueryParamsMixin) {
   componentWillMount() {
     this.setState({
       availableLabels: this.getAvailableLabels(this.props.services)
-    }, this.updateSelectedLabels());
+    }, this.updateSelectedLabels);
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState({
       availableLabels: this.getAvailableLabels(nextProps.services)
-    }, this.updateSelectedLabels());
+    }, this.updateSelectedLabels);
   }
 
   getAvailableLabels(services) {
@@ -161,7 +159,6 @@ class SidebarLabelsFilters extends mixin(QueryParamsMixin) {
 
   handleActionSelection({key, value}) {
     const {selectedLabels} = this.state;
-    const stringify = JSON.stringify;
     let nextSelectedLabels = selectedLabels.slice();
 
     let labelIndex = selectedLabels.findIndex(function (item) {
@@ -171,37 +168,22 @@ class SidebarLabelsFilters extends mixin(QueryParamsMixin) {
     if (labelIndex > -1) {
       nextSelectedLabels.splice(labelIndex, 1);
     } else {
-      nextSelectedLabels = nextSelectedLabels.concat([{key, value}]);
+      nextSelectedLabels.push({key, value});
     }
 
-    if (stringify(nextSelectedLabels) !== stringify(selectedLabels)) {
-      let labels = nextSelectedLabels.map((label) => {
-        return [label.key, label.value];
-      });
-
-      this.setQueryParam(ServiceFilterTypes.LABELS, labels);
-      this.props.handleFilterChange(labels, ServiceFilterTypes.LABELS);
-    }
+    this.props.handleFilterChange(
+      ServiceFilterTypes.LABELS,
+      nextSelectedLabels
+    );
   }
 
   updateSelectedLabels() {
     const state = this.state;
     const stringify = JSON.stringify;
-    let {router} = this.context;
-    let query = Object.assign({}, router.getCurrentQuery());
-    let selectedLabels = query[ServiceFilterTypes.LABELS];
-    let nextSelectedLabels = [];
+    let selectedLabels = this.props.filters[ServiceFilterTypes.LABELS] || [];
 
-    if (selectedLabels != null) {
-      nextSelectedLabels = selectedLabels.map((label) => {
-        let [key, value] = this.decodeQueryParamArray(label);
-
-        return {key, value};
-      });
-    }
-
-    if (stringify(nextSelectedLabels) !== stringify(state.selectedLabels)) {
-      this.setState({selectedLabels: nextSelectedLabels});
+    if (stringify(selectedLabels) !== stringify(state.selectedLabels)) {
+      this.setState({selectedLabels});
     }
   }
 
@@ -220,7 +202,8 @@ class SidebarLabelsFilters extends mixin(QueryParamsMixin) {
 }
 
 SidebarLabelsFilters.propTypes = {
-  handleFilterChange: PropTypes.func.isRequired,
+  handleFilterChange: React.PropTypes.func.isRequired,
+  filters: React.PropTypes.object.isRequired,
   services: PropTypes.array.isRequired
 };
 

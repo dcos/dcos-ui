@@ -1,58 +1,63 @@
 import {Confirm} from 'reactjs-components';
-/* eslint-disable no-unused-vars */
-import React from 'react';
-/* eslint-enable no-unused-vars */
+import React, {PropTypes} from 'react';
+import PureRender from 'react-addons-pure-render-mixin';
 
-import MarathonStore from '../../stores/MarathonStore';
 import Pod from '../../structs/Pod';
+import Service from '../../structs/Service';
 import ServiceTree from '../../structs/ServiceTree';
-import ServiceActionModal from './ServiceActionModal';
-import ServiceSpecUtil from '../../utils/ServiceSpecUtil';
 
-class ServiceSuspendModal extends ServiceActionModal {
+class ServiceSuspendModal extends React.Component {
   constructor() {
     super(...arguments);
 
-    this.store_listeners = [
-      {
-        name: 'marathon',
-        events: [
-          'serviceEditError',
-          'serviceEditSuccess',
-          'groupEditError',
-          'groupEditSuccess'
-        ],
-        suppressUpdate: true
-      }
-    ];
-
-    this.onMarathonStoreServiceEditError = this.onError;
-    this.onMarathonStoreServiceEditSuccess = this.closeDialog;
-    this.onMarathonStoreGroupEditError = this.onError;
-    this.onMarathonStoreGroupEditSuccess =
-      this.onMarathonStoreServiceEditSuccess;
+    this.shouldComponentUpdate = PureRender.shouldComponentUpdate.bind(this);
   }
 
-  handleConfirmClick() {
-    super.handleConfirmClick();
+  componentWillUpdate(nextProps) {
+    const requestCompleted = this.props.isPending
+      && !nextProps.isPending;
 
-    let {service} = this.props;
-    let isGroup = service instanceof ServiceTree;
-    let serviceID = service.getId();
-    let forceUpdate = this.shouldForceUpdate(this.state.errorMsg);
+    const shouldClose = requestCompleted && !nextProps.errors;
 
-    if (isGroup) {
-      MarathonStore.editGroup({id: serviceID, scaleBy: 0}, forceUpdate);
-    } else {
-      MarathonStore.editService(service,
-        ServiceSpecUtil.setServiceInstances(service.getSpec(), 0),
-        this.shouldForceUpdate(this.state.errorMsg)
-      );
+    if (shouldClose) {
+      this.props.onClose();
     }
   }
 
+  shouldForceUpdate() {
+    return this.props.errors && /force=true/.test(this.props.errors);
+  }
+
+  getErrorMessage() {
+    let {errors} = this.props;
+
+    if (!errors) {
+      return null;
+    }
+
+    if (this.shouldForceUpdate()) {
+      return (
+        <h4 className="text-align-center text-danger flush-top">
+          App is currently locked by one or more deployments. Press the button
+          again to forcefully change and deploy the new configuration.
+        </h4>
+      );
+    }
+
+    return (
+      <p className="text-danger flush-top">{errors}</p>
+    );
+  }
+
   render() {
-    const {open, service} = this.props;
+    const {
+      isPending,
+      onClose,
+      open,
+      service,
+      suspendItem
+    } = this.props;
+
     let itemText = 'Service';
     let serviceName = '';
 
@@ -70,12 +75,12 @@ class ServiceSuspendModal extends ServiceActionModal {
 
     return (
       <Confirm
-        disabled={this.state.disabled}
+        disabled={isPending}
         open={open}
-        onClose={this.handleCloseClick}
-        leftButtonCallback={this.handleCloseClick}
+        onClose={onClose}
+        leftButtonCallback={onClose}
         rightButtonText={`Suspend ${itemText}`}
-        rightButtonCallback={this.handleConfirmClick}>
+        rightButtonCallback={() => suspendItem(this.shouldForceUpdate())}>
         <h2 className="text-align-center flush-top">
           Suspend {itemText}
         </h2>
@@ -87,5 +92,17 @@ class ServiceSuspendModal extends ServiceActionModal {
     );
   }
 }
+
+ServiceSuspendModal.propTypes = {
+  suspendItem: PropTypes.func.isRequired,
+  errors: PropTypes.string,
+  isPending: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
+  open: PropTypes.bool.isRequired,
+  service: PropTypes.oneOfType([
+    PropTypes.instanceOf(ServiceTree),
+    PropTypes.instanceOf(Service)
+  ]).isRequired
+};
 
 module.exports = ServiceSuspendModal;

@@ -7,7 +7,7 @@ import FilterBar from '../../../../../src/js/components/FilterBar';
 import FilterButtons from '../../../../../src/js/components/FilterButtons';
 import FilterHeadline from '../../../../../src/js/components/FilterHeadline';
 import FilterInputText from '../../../../../src/js/components/FilterInputText';
-import KillTaskModal from './KillTaskModal';
+import KillTaskModal from './modals/KillTaskModal';
 import Loader from '../../../../../src/js/components/Loader';
 import MesosStateStore from '../../../../../src/js/stores/MesosStateStore';
 import RequestErrorMsg from '../../../../../src/js/components/RequestErrorMsg';

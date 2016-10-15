@@ -15,7 +15,7 @@ import ServiceRestartModal from './modals/ServiceRestartModal';
 import ServiceSuspendModal from './modals/ServiceSuspendModal';
 import ServiceScaleFormModal from './modals/ServiceScaleFormModal';
 import TabsMixin from '../../../../../src/js/mixins/TabsMixin';
-import VolumeTable from './VolumeTable';
+import VolumeTable from '../components/VolumeTable';
 
 const METHODS_TO_BIND = [
   'closeDialog',
