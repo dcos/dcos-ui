@@ -1,4 +1,4 @@
-import PureRenderMixin from 'react-addons-pure-render-mixin';
+import PureRender from 'react-addons-pure-render-mixin';
 import React from 'react';
 import {RouteHandler} from 'react-router';
 
@@ -16,7 +16,7 @@ class HostsPageContent extends React.Component {
 
   constructor() {
     super(...arguments);
-    this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate;
+    this.shouldComponentUpdate = PureRender.shouldComponentUpdate.bind(this);
 
     METHODS_TO_BIND.forEach((method) => {
       this[method] = this[method].bind(this);

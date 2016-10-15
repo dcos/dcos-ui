@@ -1,4 +1,4 @@
-import PureRenderMixin from 'react-addons-pure-render-mixin';
+import PureRender from 'react-addons-pure-render-mixin';
 import React from 'react';
 import {ResourceTableUtil} from 'foundation-ui';
 import {Table} from 'reactjs-components';
@@ -23,7 +23,7 @@ class HealthTab extends React.Component {
   constructor() {
     super(...arguments);
 
-    this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate;
+    this.shouldComponentUpdate = PureRender.shouldComponentUpdate.bind(this);
     this.state = {
       healthFilter: 'all',
       searchString: ''
