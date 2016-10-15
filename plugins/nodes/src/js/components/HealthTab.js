@@ -1,3 +1,4 @@
+import PureRenderMixin from 'react-addons-pure-render-mixin';
 import React from 'react';
 import {ResourceTableUtil} from 'foundation-ui';
 import {Table} from 'reactjs-components';
@@ -22,6 +23,7 @@ class HealthTab extends React.Component {
   constructor() {
     super(...arguments);
 
+    this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate;
     this.state = {
       healthFilter: 'all',
       searchString: ''
@@ -138,12 +140,12 @@ class HealthTab extends React.Component {
         <FilterBar>
           <FilterInputText
             className="flush-bottom"
-            searchString={searchString}
-            handleFilterChange={this.handleSearchStringChange} />
+            handleFilterChange={this.handleSearchStringChange}
+            searchString={searchString} />
           <UnitHealthDropdown
-            initialID="all"
             className="button dropdown-toggle text-align-left"
             dropdownMenuClassName="dropdown-menu"
+            initialID="all"
             onHealthSelection={this.handleHealthSelection}
             ref={(ref) => this.healthFilter = ref} />
         </FilterBar>
