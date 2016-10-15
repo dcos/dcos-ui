@@ -2,7 +2,7 @@ import {cleanJobJSON} from '../utils/CleanJSONUtil';
 import DateUtil from '../utils/DateUtil';
 import Item from './Item';
 import JobRunList from './JobRunList';
-import MesosConstants from '../constants/MesosConstants';
+import MesosConstants from '../../../plugins/services/src/js/constants/MesosConstants';
 
 module.exports = class Job extends Item {
   getActiveRuns() {

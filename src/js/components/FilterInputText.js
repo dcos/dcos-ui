@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import React, {PropTypes} from 'react';
 
 import Icon from './Icon';
-import ServiceFilterTypes from '../constants/ServiceFilterTypes';
+import ServiceFilterTypes from '../../../plugins/services/src/js/constants/ServiceFilterTypes';
 
 let METHODS_TO_BIND = [
   'handleBlur',

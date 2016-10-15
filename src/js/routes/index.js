@@ -6,12 +6,12 @@ import components from './components';
 import dashboard from './dashboard';
 import Index from '../pages/Index';
 import Network from './factories/network';
-import nodes from './nodes';
+import nodes from '../../../plugins/nodes/src/js/routes/nodes';
 import NotFoundPage from '../pages/NotFoundPage';
 import Organization from './factories/organization';
-import services from './services';
 import settings from './settings';
 import styles from './styles';
+import services from '../../../plugins/services/src/js/routes/services';
 import jobs from './jobs';
 import universe from './universe';
 

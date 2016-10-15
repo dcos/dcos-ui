@@ -8,7 +8,7 @@ import {StoreMixin} from 'mesosphere-shared-reactjs';
 import ConfigStore from '../../stores/ConfigStore';
 import DescriptionList from '../../components/DescriptionList';
 import Loader from '../../components/Loader';
-import MarathonStore from '../../stores/MarathonStore';
+import MarathonStore from '../../../../plugins/services/src/js/stores/MarathonStore';
 
 class OverviewDetailTab extends mixin(StoreMixin) {
   constructor() {

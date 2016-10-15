@@ -1,4 +1,4 @@
-import PodInstanceState from '../constants/PodInstanceState';
+import PodInstanceState from '../../../plugins/services/src/js/constants/PodInstanceState';
 import Util from './Util';
 
 const RESOURCE_KEYS = ['cpus', 'disk', 'mem'];
