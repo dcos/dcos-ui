@@ -5,7 +5,7 @@ import React from 'react';
 
 import DeploymentsTab from '../pages/services/DeploymentsTab';
 import ServicesPage from '../pages/ServicesPage';
-import ServicesTab from '../pages/services/ServicesTab';
+import ServicesContainer from '../services/ServicesContainer';
 import TaskDetail from '../pages/task-details/TaskDetail';
 import TaskDetailsTab from '../pages/task-details/TaskDetailsTab';
 import TaskFilesTab from '../pages/task-details/TaskFilesTab';
@@ -40,7 +40,7 @@ let serviceRoutes = {
   children: [
     {
       type: Route,
-      handler: ServicesTab,
+      handler: ServicesContainer,
       name: 'services-overview',
       path: 'overview/',
       isInSidebar: true,

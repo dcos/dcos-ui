@@ -1,129 +1,61 @@
-import mixin from 'reactjs-mixin';
-/* eslint-disable no-unused-vars */
-import React from 'react';
-/* eslint-enable no-unused-vars */
-import {StoreMixin} from 'mesosphere-shared-reactjs';
+import React, {PropTypes} from 'react';
+import PureRender from 'react-addons-pure-render-mixin';
 
 import FormModal from '../../../../../../src/js/components/FormModal';
-import MarathonStore from '../../stores/MarathonStore';
 import Pod from '../../structs/Pod';
+import Service from '../../structs/Service';
 import ServiceTree from '../../structs/ServiceTree';
-import ServiceSpecUtil from '../../utils/ServiceSpecUtil';
 
-const METHODS_TO_BIND = [
-  'handleScaleSubmit',
-  'resetState'
-];
-
-const buttonDefinition = [
-  {
-    text: 'Cancel',
-    className: 'button button-medium',
-    isClose: true
-  },
-  {
-    text: 'Scale Service',
-    className: 'button button-primary button-medium',
-    isSubmit: true
-  }
-];
-
-class ServiceScaleFormModal extends mixin(StoreMixin) {
+class ServiceScaleFormModal extends React.Component {
   constructor() {
     super(...arguments);
 
     this.state = {
-      disableForm: false,
       errorMsg: null
     };
 
-    this.store_listeners = [
-      {
-        name: 'marathon',
-        events: [
-          'serviceEditError',
-          'serviceEditSuccess',
-          'groupEditError'
-        ],
-        suppressUpdate: true
-      }
-    ];
-
-    METHODS_TO_BIND.forEach((method) => {
-      this[method] = this[method].bind(this);
-    });
+    this.shouldComponentUpdate = PureRender.shouldComponentUpdate.bind(this);
   }
 
-  resetState() {
-    this.setState({
-      disableForm: false,
-      errorMsg: null
-    });
-  }
+  componentWillUpdate(nextProps) {
+    const requestCompleted = this.props.isPending
+      && !nextProps.isPending;
 
-  shouldForceUpdate(message = this.state.errorMsg) {
-    return message && /force=true/.test(message);
-  }
+    const shouldClose = requestCompleted && !nextProps.errors;
 
-  onMarathonStoreServiceEditSuccess() {
-    this.resetState();
-    this.props.onClose();
-  }
+    if (shouldClose) {
+      this.props.onClose();
+    }
 
-  onMarathonStoreServiceEditError() {
-    this.onMarathonStoreServiceOrGroupEditError.apply(this, arguments);
-  }
-
-  onMarathonStoreGroupEditError() {
-    this.onMarathonStoreServiceOrGroupEditError.apply(this, arguments);
-  }
-
-  onMarathonStoreServiceOrGroupEditError({message:errorMsg = '', details}) {
-    this.resetState();
-    let hasDetails = details && details.length !== 0;
-
-    if (hasDetails) {
-      this.setState({
-        errorMsg: details.reduce(function (memo, error) {
-
-          return `${memo} ${error.errors.join(' ')}`;
-        }, '')
-      });
-
+    let {errors} = nextProps;
+    if (!errors) {
       return;
     }
 
-    this.setState({
-      errorMsg
-    });
+    let {message: errorMsg = '', details} = errors;
+    let hasDetails = details && details.length !== 0;
+
+    if (hasDetails) {
+      errorMsg = details.reduce(function (memo, error) {
+        return `${memo} ${error.errors.join(' ')}`;
+      }, '');
+    }
+
+    this.setState({errorMsg});
   }
 
-  handleScaleSubmit({instances}) {
-    let {service} = this.props;
-
-    this.setState({disableForm: true}, () => {
-      if (service instanceof ServiceTree) {
-        MarathonStore.editGroup({
-          id: service.id,
-          scaleBy: parseInt(instances, 10)
-        });
-      } else {
-        MarathonStore.editService(service,
-          ServiceSpecUtil.setServiceInstances(
-            service.getSpec(),
-            parseInt(instances, 10)
-          ), this.shouldForceUpdate(this.state.errorMsg));
-      }
-    });
+  shouldForceUpdate() {
+    return this.state.errorMsg && /force=true/.test(this.state.errorMsg);
   }
 
   getErrorMessage() {
-    let {errorMsg} = this.state;
+    const {errorMsg = null} = this.state;
+
     if (!errorMsg) {
       return null;
     }
 
-    if (this.shouldForceUpdate(errorMsg)) {
+    if (this.shouldForceUpdate()) {
       return (
         <h4 className="text-align-center text-danger flush-top">
             App is currently locked by one or more deployments. Press the button
@@ -140,6 +72,7 @@ class ServiceScaleFormModal extends mixin(StoreMixin) {
   getScaleFormDefinition() {
     let {service} = this.props;
     let instancesCount = service.getInstancesCount();
+
     if (service instanceof ServiceTree) {
       instancesCount = '1.0';
     }
@@ -180,6 +113,7 @@ class ServiceScaleFormModal extends mixin(StoreMixin) {
 
   getBodyText() {
     let bodyText = 'How many instances would you like to scale to?';
+
     if (this.props.service instanceof ServiceTree) {
       bodyText = 'By which factor would you like to scale all applications within this group?';
     }
@@ -192,17 +126,39 @@ class ServiceScaleFormModal extends mixin(StoreMixin) {
   }
 
   render() {
-    let {props, state} = this;
+    const {
+      clearError,
+      isPending,
+      onClose,
+      open
+    } = this.props;
+
+    const buttonDefinition = [
+      {
+        text: 'Cancel',
+        className: 'button button-medium',
+        isClose: true
+      },
+      {
+        text: 'Scale Service',
+        className: 'button button-primary button-medium',
+        isSubmit: true
+      }
+    ];
+
+    const onSubmit = (model) => {
+      this.props.scaleItem(model.instances, this.shouldForceUpdate());
+    };
 
     return (
       <FormModal
         buttonDefinition={buttonDefinition}
         definition={this.getScaleFormDefinition()}
-        disabled={state.disableForm}
-        onClose={props.onClose}
-        onSubmit={this.handleScaleSubmit}
-        onChange={this.resetState}
-        open={props.open} >
+        disabled={isPending}
+        onClose={onClose}
+        onSubmit={onSubmit}
+        onChange={clearError}
+        open={open} >
         {this.getHeader()}
         {this.getBodyText()}
         {this.getErrorMessage()}
@@ -212,7 +168,18 @@ class ServiceScaleFormModal extends mixin(StoreMixin) {
 }
 
 ServiceScaleFormModal.propTypes = {
-  service: React.PropTypes.object.isRequired
+  scaleItem: PropTypes.func.isRequired,
+  errors: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.string
+  ]),
+  isPending: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
+  open: PropTypes.bool.isRequired,
+  service: PropTypes.oneOfType([
+    PropTypes.instanceOf(ServiceTree),
+    PropTypes.instanceOf(Service)
+  ]).isRequired
 };
 
 module.exports = ServiceScaleFormModal;
