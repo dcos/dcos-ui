@@ -1,4 +1,4 @@
-import PureRenderMixin from 'react-addons-pure-render-mixin';
+import PureRender from 'react-addons-pure-render-mixin';
 import React from 'react';
 
 import {documentationURI} from '../../../config/Config';
@@ -7,7 +7,7 @@ class NodeInfoPanel extends React.Component {
 
   constructor() {
     super(...arguments);
-    this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate;
+    this.shouldComponentUpdate = PureRender.shouldComponentUpdate.bind(this);
   }
 
   render() {
