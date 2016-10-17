@@ -9,7 +9,7 @@ const idReducer = function (state = '', action) {
 describe('ReducerUtil', function () {
   describe('#combineReducers', function () {
 
-    beforeEach(function() {
+    beforeEach(function () {
 
       this.items = [
         {
@@ -31,13 +31,13 @@ describe('ReducerUtil', function () {
     it('should work with a simple reducer object', function () {
       const state = this.items.reduce(this.reducers, {});
 
-      expect(state).toEqual({id:'foo'});
+      expect(state).toEqual({id: 'foo'});
     });
 
     it('should not remove exisiting values', function () {
       const state = this.items.reduce(this.reducers, {bar: 'bar'});
 
-      expect(state).toEqual({id:'foo', bar: 'bar'});
+      expect(state).toEqual({id: 'foo', bar: 'bar'});
     });
 
     it('should use context', function () {
@@ -72,10 +72,12 @@ describe('ReducerUtil', function () {
 
       const state = array.reduce(reducers, {});
 
-      array = [{
-        path: ['id'],
-        value: 'bar'
-      }];
+      array = [
+        {
+          path: ['id'],
+          value: 'bar'
+        }
+      ];
 
       const secondState = array.reduce(reducers, {});
 
@@ -85,8 +87,9 @@ describe('ReducerUtil', function () {
 
     it('should properly apply a set of user actions', function () {
       let dockerReduce = ReducerUtil.combineReducers({
-        id: function(state = undefined, action) {
-          if (action.action === 'SET' && action.path.join('.') === 'container.docker') {
+        id(state = undefined, action) {
+          if (action.action === 'SET' &&
+            action.path.join('.') === 'container.docker') {
             return action.value;
           }
           return state;
@@ -94,22 +97,22 @@ describe('ReducerUtil', function () {
       });
 
       let reducers = ReducerUtil.combineReducers({
-        id: function (state = '', action) {
+        id(state = '', action) {
           if (action.action === 'SET' &&
-              action.path.join('') === 'id') {
+            action.path.join('') === 'id') {
             state = action.value;
           }
           return state;
         },
-        cmd: function (state = undefined, action) {
+        cmd(state = undefined, action) {
           if (action.action === 'SET' &&
-              action.path.join('') === 'cmd') {
+            action.path.join('') === 'cmd') {
             state = action.value;
           }
           return state;
         },
         container: ReducerUtil.combineReducers({
-          docker: function(state = undefined, action) {
+          docker(state = undefined, action) {
             if (action.action === 'SET' &&
               action.path.join('.') === 'container.docker') {
               return dockerReduce(state, action);
@@ -141,10 +144,10 @@ describe('ReducerUtil', function () {
       ];
 
       state = actions.reduce(
-          function (state, action) {
-            state = reducers(state, action);
-            return state;
-          }, state
+        function (state, action) {
+          state = reducers(state, action);
+          return state;
+        }, state
       );
 
       expect(state).toEqual(

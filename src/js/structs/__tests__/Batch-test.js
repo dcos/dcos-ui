@@ -1,7 +1,7 @@
 const Batch = require('../Batch');
 
 describe('Batch', function () {
-  beforeEach(function() {
+  beforeEach(function () {
     this.batch = new Batch();
   });
 
@@ -26,7 +26,7 @@ describe('Batch', function () {
 
     it('should iterate correctly over a batch with 1 item', function () {
       let newBatch = this.batch.add({action: 'a'});
-      let actions = newBatch.reduce(function(actions, item) {
+      let actions = newBatch.reduce(function (actions, item) {
         actions.push(item.action);
         return actions;
       }, []);
@@ -36,10 +36,10 @@ describe('Batch', function () {
 
     it('should iterate correctly over a batch with 3 item', function () {
       let newBatch = this.batch
-          .add({action: 'a'})
-          .add({action: 'b'})
-          .add({action: 'c'});
-      let actions = newBatch.reduce(function(actions, item) {
+        .add({action: 'a'})
+        .add({action: 'b'})
+        .add({action: 'c'});
+      let actions = newBatch.reduce(function (actions, item) {
         actions.push(item.action);
         return actions;
       }, []);
