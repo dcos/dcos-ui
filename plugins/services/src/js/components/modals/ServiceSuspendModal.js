@@ -2,6 +2,7 @@ import {Confirm} from 'reactjs-components';
 import React, {PropTypes} from 'react';
 import PureRender from 'react-addons-pure-render-mixin';
 
+import AppLockedMessage from './AppLockedMessage';
 import Pod from '../../structs/Pod';
 import Service from '../../structs/Service';
 import ServiceTree from '../../structs/ServiceTree';
@@ -36,12 +37,7 @@ class ServiceSuspendModal extends React.Component {
     }
 
     if (this.shouldForceUpdate()) {
-      return (
-        <h4 className="text-align-center text-danger flush-top">
-          App is currently locked by one or more deployments. Press the button
-          again to forcefully change and deploy the new configuration.
-        </h4>
-      );
+      return <AppLockedMessage />;
     }
 
     return (

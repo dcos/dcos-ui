@@ -323,7 +323,7 @@ const actionPropTypes = PropTypes.shape({
 }).isRequired;
 
 ServiceModals.propTypes = {
-  actionErrors: PropTypes.object,
+  actionErrors: PropTypes.object.isRequired,
   actions: actionPropTypes,
   clearError: PropTypes.func.isRequired,
   onClose: PropTypes.func.isRequired,

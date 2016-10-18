@@ -24,17 +24,10 @@ describe('ServicesTable', function () {
     tasksUnhealthy: 0
   });
 
-  const modals = {
-    scaleService() {},
-    restartService() {},
-    suspendService() {},
-    deleteService() {}
-  };
-
   beforeEach(function () {
     this.container = document.createElement('div');
     this.instance = ReactDOM.render(
-      <ServicesTable modals={modals} />,
+      <ServicesTable />,
       this.container
     );
   });

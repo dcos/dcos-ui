@@ -2,6 +2,7 @@ import {Confirm} from 'reactjs-components';
 import React, {PropTypes} from 'react';
 import PureRender from 'react-addons-pure-render-mixin';
 
+import AppLockedMessage from './AppLockedMessage';
 import StringUtil from '../../../../../../src/js/utils/StringUtil';
 
 const ACTION_DISPLAY_NAMES = {
@@ -39,12 +40,7 @@ class KillTaskModal extends React.Component {
     }
 
     if (this.shouldForceUpdate()) {
-      return (
-        <h4 className="text-align-center text-danger flush-top">
-          App is currently locked by one or more deployments. Press the button
-          again to forcefully change and deploy the new configuration.
-        </h4>
-      );
+      return <AppLockedMessage />;
     }
 
     return (
@@ -119,8 +115,8 @@ KillTaskModal.defaultProps = {
 KillTaskModal.propTypes = {
   action: PropTypes.string,
   errors: PropTypes.string,
-  killTasks: PropTypes.func.isRequired,
   isPending: PropTypes.bool.isRequired,
+  killTasks: PropTypes.func.isRequired,
   onClose: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired,
   selectedItems: PropTypes.array
