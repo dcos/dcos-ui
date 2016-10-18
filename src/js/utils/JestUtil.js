@@ -101,7 +101,7 @@ const JestUtil = {
    * @returns {string} The text content
    */
   mapTextContent(element) {
-    return element.textContent;
+    return element.textContent.trim();
   },
 
   /**
