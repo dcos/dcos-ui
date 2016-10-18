@@ -5,6 +5,8 @@ import React from 'react';
 import ServiceFilterTypes from '../constants/ServiceFilterTypes';
 import ServiceStatusTypes from '../constants/ServiceStatusTypes';
 
+const METHODS_TO_BIND = ['handleFormChange'];
+
 class SidebarFilter extends React.Component {
   constructor() {
     super(...arguments);
@@ -12,6 +14,10 @@ class SidebarFilter extends React.Component {
     this.state = {
       selectedNodes: []
     };
+
+    METHODS_TO_BIND.forEach((method) => {
+      this[method] = this[method].bind(this);
+    });
   }
 
   componentDidMount() {
@@ -173,7 +179,7 @@ class SidebarFilter extends React.Component {
         formGroupClass="form-group flush"
         formRowClass="row"
         definition={definition}
-        onChange={(model, e) => { this.handleFormChange(model, e); }} />
+        onChange={this.handleFormChange} />
     );
   }
 
