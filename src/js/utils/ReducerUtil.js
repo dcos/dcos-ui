@@ -24,8 +24,8 @@ module.exports = {
    */
   combineReducers(reducers = {}) {
     let reducerKeys = Object.keys(reducers).filter(
-      function (reducer) {
-        return typeof reducers[reducer] === 'function';
+      function (reducerKey) {
+        return typeof reducers[reducerKey] === 'function';
       }
     );
 
