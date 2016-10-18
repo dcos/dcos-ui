@@ -133,7 +133,6 @@ class ServicesContainer extends React.Component {
       filters: {},
       isLoading: true,
       lastUpdate: 0,
-      openModalId: null,
       pendingActions: {
         groupCreate: false,
         groupDelete: false,

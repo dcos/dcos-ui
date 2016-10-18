@@ -2,6 +2,7 @@ import {Confirm} from 'reactjs-components';
 import React, {PropTypes} from 'react';
 import PureRender from 'react-addons-pure-render-mixin';
 
+import AppLockedMessage from './AppLockedMessage';
 import Service from '../../structs/Service';
 import ServiceTree from '../../structs/ServiceTree';
 
@@ -35,12 +36,7 @@ class ServiceRestartModal extends React.Component {
     }
 
     if (this.shouldForceUpdate()) {
-      return (
-        <h4 className="text-align-center text-danger flush-top">
-          App is currently locked by one or more deployments. Press the button
-          again to forcefully change and deploy the new configuration.
-        </h4>
-      );
+      return <AppLockedMessage />;
     }
 
     return (
@@ -85,11 +81,11 @@ class ServiceRestartModal extends React.Component {
 }
 
 ServiceRestartModal.propTypes = {
-  restartService: PropTypes.func.isRequired,
   errors: PropTypes.string,
   isPending: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired,
+  restartService: PropTypes.func.isRequired,
   service: PropTypes.oneOfType([
     PropTypes.instanceOf(ServiceTree),
     PropTypes.instanceOf(Service)

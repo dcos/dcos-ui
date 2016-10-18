@@ -2,6 +2,7 @@ import {Confirm} from 'reactjs-components';
 import React, {PropTypes} from 'react';
 import PureRender from 'react-addons-pure-render-mixin';
 
+import AppLockedMessage from './AppLockedMessage';
 import Pod from '../../structs/Pod';
 import StringUtil from '../../../../../../src/js/utils/StringUtil';
 
@@ -40,12 +41,7 @@ class KillPodInstanceModal extends React.Component {
     }
 
     if (this.shouldForceUpdate()) {
-      return (
-        <h4 className="text-align-center text-danger flush-top">
-          App is currently locked by one or more deployments. Press the button
-          again to forcefully change and deploy the new configuration.
-        </h4>
-      );
+      return <AppLockedMessage />;
     }
 
     return (
@@ -123,11 +119,11 @@ KillPodInstanceModal.defaultProps = {
 KillPodInstanceModal.propTypes = {
   action: PropTypes.string,
   errors: PropTypes.string,
-  killPodInstances: PropTypes.func.isRequired,
   isPending: PropTypes.bool.isRequired,
+  killPodInstances: PropTypes.func.isRequired,
   onClose: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired,
-  pod: PropTypes.instanceOf(Pod),
+  pod: PropTypes.instanceOf(Pod).isRequired,
   selectedItems: PropTypes.array
 };
 
