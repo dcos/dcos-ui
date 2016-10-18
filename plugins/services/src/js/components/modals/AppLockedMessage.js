@@ -5,7 +5,7 @@ import React from 'react';
 const AppLockedMessage = function () {
   return (
     <h4 className="text-align-center text-danger flush-top">
-      App is currently locked by one or more deployments. Press the button
+      Service is currently locked by one or more deployments. Press the button
       again to forcefully change and deploy the new configuration.
     </h4>
   );
