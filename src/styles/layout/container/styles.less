@@ -1,0 +1,49 @@
+& when (@container-enabled) {
+
+  .container {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: @container-width;
+    width: 100%;
+  }
+}
+
+& when (@container-enabled) and (@layout-screen-small-enabled) {
+
+  @media (min-width: @layout-screen-small-min-width) {
+
+    .container {
+      max-width: @container-width-screen-small;
+    }
+  }
+}
+
+& when (@container-enabled) and (@layout-screen-medium-enabled) {
+
+  @media (min-width: @layout-screen-medium-min-width) {
+
+    .container {
+      max-width: @container-width-screen-medium;
+    }
+  }
+}
+
+& when (@container-enabled) and (@layout-screen-large-enabled) {
+
+  @media (min-width: @layout-screen-large-min-width) {
+
+    .container {
+      max-width: @container-width-screen-large;
+    }
+  }
+}
+
+& when (@container-enabled) and (@layout-screen-jumbo-enabled) {
+
+  @media (min-width: @layout-screen-jumbo-min-width) {
+
+    .container {
+      max-width: @container-width-screen-jumbo;
+    }
+  }
+}
