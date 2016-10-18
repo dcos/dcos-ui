@@ -1,42 +1,42 @@
-const Action = require('../Action');
+const FormAction = require('../FormAction');
 
-describe('Action', function () {
+describe('FormAction', function () {
   describe('#constructor', function () {
     it('should have the type SET', function () {
-      const action = new Action(0, 0);
-      expect(action.type).toEqual('SET');
+      const formAction = new FormAction(0, 0);
+      expect(formAction.type).toEqual('SET');
     });
 
     it('should have the type DEL', function () {
-      const action = new Action(0, 0, 'DEL');
-      expect(action.type).toEqual('DEL');
+      const formAction = new FormAction(0, 0, 'DEL');
+      expect(formAction.type).toEqual('DEL');
     });
 
     it('type should not be writeable', function () {
-      const action = new Action(0, 0);
-      expect(() => action.type = 'EVIL DELETE').toThrowError();
+      const formAction = new FormAction(0, 0);
+      expect(() => formAction.type = 'EVIL DELETE').toThrowError();
     });
 
     it('Should have the value which has been set', function () {
       const value = 'test';
-      const action = new Action(0, value);
-      expect(action.value).toEqual(value);
+      const formAction = new FormAction(0, value);
+      expect(formAction.value).toEqual(value);
     });
 
     it('value should not be writeable', function () {
-      const action = new Action(0, 0);
-      expect(() => action.value = 'EVIL value').toThrowError();
+      const formAction = new FormAction(0, 0);
+      expect(() => formAction.value = 'EVIL value').toThrowError();
     });
 
     it('Should have the path which has been set', function () {
       const path = 'path';
-      const action = new Action(path, 0);
-      expect(action.path).toEqual(path);
+      const formAction = new FormAction(path, 0);
+      expect(formAction.path).toEqual(path);
     });
 
     it('path should not be writeable', function () {
-      const action = new Action(0, 0);
-      expect(() => action.path = 'EVIL path').toThrowError();
+      const formAction = new FormAction(0, 0);
+      expect(() => formAction.path = 'EVIL path').toThrowError();
     });
 
   });

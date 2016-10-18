@@ -1,15 +1,15 @@
-let ActionSet = require('../SetAction');
+let SetFormAction = require('../SetFormAction');
 
-describe('SetAction', function () {
+describe('SetFormAction', function () {
   describe('#constructor', function () {
     it('should have the SET type', function () {
-      let action = new ActionSet(0, 0);
-      expect(action.type).toEqual('SET');
+      let setFormAction = new SetFormAction(0, 0);
+      expect(setFormAction.type).toEqual('SET');
     });
 
     it('type should not be writeable', function () {
-      let action = new ActionSet(0, 0);
-      expect(() => action.type = 'EVIL').toThrowError();
+      let setFormAction = new SetFormAction(0, 0);
+      expect(() => setFormAction.type = 'EVIL').toThrowError();
     });
   });
 });
