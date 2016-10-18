@@ -4,14 +4,14 @@ import React from 'react';
 import Breadcrumbs from '../../../../../src/js/components/Breadcrumbs';
 import Pod from '../structs/Pod';
 import PodActionItem from '../constants/PodActionItem';
-import PodConfigurationTabView from './PodConfigurationTabView';
-import PodDebugTabView from './PodDebugTabView';
-import PodHeader from './PodHeader';
-import PodInstancesTabView from './PodInstancesTabView';
-import ServiceDestroyModal from './modals/ServiceDestroyModal';
-import ServiceFormModal from './modals/ServiceFormModal';
-import ServiceScaleFormModal from './modals/ServiceScaleFormModal';
-import ServiceSuspendModal from './modals/ServiceSuspendModal';
+import PodConfigurationTabView from '../components/PodConfigurationTabView';
+import PodDebugTabView from '../components/PodDebugTabView';
+import PodHeader from '../components/PodHeader';
+import PodInstancesTabView from '../components/PodInstancesTabView';
+import ServiceDestroyModal from '../components/modals/ServiceDestroyModal';
+import ServiceFormModal from '../components/modals/ServiceFormModal';
+import ServiceScaleFormModal from '../components/modals/ServiceScaleFormModal';
+import ServiceSuspendModal from '../components/modals/ServiceSuspendModal';
 import TabsMixin from '../../../../../src/js/mixins/TabsMixin';
 
 const METHODS_TO_BIND = [

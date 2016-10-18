@@ -1,3 +1,6 @@
+/*
+THIS FILE WILL BE DELETED. LEAVING HERE FOR REFERENCE
+
 import classNames from 'classnames';
 import {DCOSStore} from 'foundation-ui';
 import React from 'react';
@@ -7,7 +10,7 @@ import {StoreMixin} from 'mesosphere-shared-reactjs';
 import Application from '../../structs/Application';
 import Loader from '../../../../../../src/js/components/Loader';
 import Pod from '../../structs/Pod';
-import PodDetail from '../../components/PodDetail';
+import PodDetail from '../../pod-detail/PodDetail';
 import AlertPanel from '../../../../../../src/js/components/AlertPanel';
 import Breadcrumbs from '../../../../../../src/js/components/Breadcrumbs';
 import FilterBar from '../../../../../../src/js/components/FilterBar';
@@ -397,3 +400,4 @@ ServicesTab.routeConfig = {
 };
 
 module.exports = ServicesTab;
+*/
