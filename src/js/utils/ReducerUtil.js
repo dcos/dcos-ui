@@ -46,8 +46,14 @@ module.exports = {
           context.set(reducer, {});
         }
 
-        state[key] =
-          reducer.call(context.get(reducer), state[key], action);
+        // This will call the reducer function with a context, and passes
+        // the current state of the field plus the action against a reducer
+        // function.
+        // This will result in the same as
+        // reducer.bind(context.get(reducer))(state[key], action);
+        // but it will not copy the function, which in this case is a huge
+        // increase in performance.
+        state[key] = reducer.call(context.get(reducer), state[key], action);
       }
 
       return state;
