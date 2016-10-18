@@ -41,7 +41,6 @@
  */
 
 class Batch {
-
   constructor() {
     const context = {instance:this, batch:[]};
 
@@ -62,6 +61,7 @@ class Batch {
    */
   add(item) {
     this.batch.push(item);
+
     return this.instance;
   };
 

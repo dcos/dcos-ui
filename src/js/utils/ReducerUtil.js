@@ -33,12 +33,12 @@ module.exports = {
     let context = new WeakMap();
 
     return function (state = {}, action, index = 0) {
-      let i = reducerKeys.length;
+      let reducerIndex = reducerKeys.length;
 
       // As the while is faster then the Array.prototype.forEach and this
       // function can potentially be called more often we choose while here.
-      while (--i >= 0) {
-        let key = reducerKeys[i];
+      while (--reducerIndex >= 0) {
+        let key = reducerKeys[reducerIndex];
 
         let reducer = reducers[key];
 
@@ -47,8 +47,9 @@ module.exports = {
         }
 
         state[key] =
-          reducer.call(context.get(reducer), state[key], action, state);
+          reducer.call(context.get(reducer), state[key], action);
       }
+
       return state;
     };
   }
