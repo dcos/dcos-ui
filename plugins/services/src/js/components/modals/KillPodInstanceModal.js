@@ -113,6 +113,7 @@ class KillPodInstanceModal extends React.Component {
 
 KillPodInstanceModal.defaultProps = {
   action: 'kill',
+  pod: new Pod(),
   selectedItems: []
 };
 
@@ -123,7 +124,7 @@ KillPodInstanceModal.propTypes = {
   killPodInstances: PropTypes.func.isRequired,
   onClose: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired,
-  pod: PropTypes.instanceOf(Pod).isRequired,
+  pod: PropTypes.instanceOf(Pod),
   selectedItems: PropTypes.array
 };
 
