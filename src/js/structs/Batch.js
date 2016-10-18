@@ -42,6 +42,9 @@
 
 class Batch {
   constructor() {
+    // This creates a context for the functions which have access to the batch
+    // variable and also access to the instance. So `this` can be returned and
+    // functions could be chained.
     const context = {instance:this, batch:[]};
 
     this.add = this.add.bind(context);
