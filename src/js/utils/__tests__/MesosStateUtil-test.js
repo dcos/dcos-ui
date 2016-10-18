@@ -208,13 +208,15 @@ describe('MesosStateUtil', function () {
                 id: 'executor-foo',
                 directory: 'foo',
                 completed_tasks: [{id: 'task-foo-completed'}],
-                tasks: [{id: 'task-foo-running'}]
+                tasks: [{id: 'task-foo-running'}],
+                type: 'DEFAULT'
               }
             ],
             completed_executors: [{
               id: 'executor-bar',
               directory: 'bar',
-              completed_tasks: [{id: 'task-bar-completed'}]
+              completed_tasks: [{id: 'task-bar-completed'}],
+              type: 'DEFAULT'
             }]
           }
         ]
@@ -223,6 +225,7 @@ describe('MesosStateUtil', function () {
       it('gets the task path for a running task', function () {
         const task = {
           id: 'task-foo-running',
+          executor_id: 'executor-foo',
           framework_id: 'framework-123'
         };
 
@@ -233,6 +236,7 @@ describe('MesosStateUtil', function () {
       it('gets the task path form a completed task', function () {
         const task = {
           id: 'task-foo-completed',
+          executor_id: 'executor-foo',
           framework_id: 'framework-123'
         };
 
@@ -243,6 +247,7 @@ describe('MesosStateUtil', function () {
       it('gets the task path form a completed executor', function () {
         const task = {
           id: 'task-bar-completed',
+          executor_id: 'executor-bar',
           framework_id: 'framework-123'
         };
 
@@ -253,6 +258,7 @@ describe('MesosStateUtil', function () {
       it('appends provided path', function () {
         const task = {
           id: 'task-foo-running',
+          executor_id: 'executor-foo',
           framework_id: 'framework-123'
         };
 
