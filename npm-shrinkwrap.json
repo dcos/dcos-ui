@@ -1151,9 +1151,9 @@
       "resolved": "https://registry.npmjs.org/closest/-/closest-0.0.1.tgz"
     },
     "cnvs": {
-      "version": "1.0.5",
-      "from": "cnvs@1.0.5",
-      "resolved": "https://registry.npmjs.org/cnvs/-/cnvs-1.0.5.tgz"
+      "version": "1.0.7",
+      "from": "cnvs@1.0.7",
+      "resolved": "https://registry.npmjs.org/cnvs/-/cnvs-1.0.7.tgz"
     },
     "co": {
       "version": "3.1.0",
