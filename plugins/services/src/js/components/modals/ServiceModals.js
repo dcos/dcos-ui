@@ -4,8 +4,6 @@ import ActionKeys from '../../constants/ActionKeys';
 import Application from '../../structs/Application';
 import ServiceTree from '../../structs/ServiceTree';
 
-import KillPodInstanceModal from './KillPodInstanceModal';
-import KillTaskModal from './KillTaskModal';
 import ServiceActionItem from '../../constants/ServiceActionItem';
 import ServiceDestroyModal from './ServiceDestroyModal';
 import ServiceFormModal from './ServiceFormModal';
@@ -16,54 +14,6 @@ import ServiceSpecUtil from '../../utils/ServiceSpecUtil';
 import ServiceSuspendModal from './ServiceSuspendModal';
 
 class ServiceModals extends React.Component {
-
-  getKillPodInstancesModal() {
-    const {
-      actions,
-      actionErrors,
-      clearError,
-      onClose,
-      modalProps,
-      pendingActions
-    } = this.props;
-
-    const key = ActionKeys.POD_INSTANCES_KILL;
-
-    return (
-      <KillPodInstanceModal
-        killPodInstances={actions.killPodInstances}
-        clearError={() => clearError(key)}
-        isPending={!!pendingActions[key]}
-        errors={actionErrors[key]}
-        open={modalProps.id === ServiceActionItem.KILL_POD_INSTANCES}
-        onClose={onClose}
-        {...modalProps} />
-    );
-  }
-
-  getKillTasksModal() {
-    const {
-      actions,
-      actionErrors,
-      clearError,
-      onClose,
-      modalProps,
-      pendingActions
-    } = this.props;
-
-    const key = ActionKeys.KILL_TASKS;
-
-    return (
-      <KillTaskModal
-        killTasks={actions.killTasks}
-        clearError={() => clearError(key)}
-        isPending={!!pendingActions[key]}
-        errors={actionErrors[key]}
-        open={modalProps.id === ServiceActionItem.KILL_TASKS}
-        onClose={onClose}
-        {...modalProps} />
-    );
-  }
 
   getGroupModal() {
     const {
@@ -86,7 +36,7 @@ class ServiceModals extends React.Component {
         errors={actionErrors[key]}
         parentGroupId={service.getId()}
         open={modalProps.id === ServiceActionItem.CREATE_GROUP}
-        onClose={onClose} />
+        onClose={() => onClose(key)} />
     );
   }
 
@@ -123,7 +73,7 @@ class ServiceModals extends React.Component {
         marathonAction={createService}
         open={modalProps.id === ServiceActionItem.CREATE}
         service={new Application({id: baseId})}
-        onClose={onClose} />
+        onClose={() => onClose(key)} />
     );
   }
 
@@ -138,7 +88,7 @@ class ServiceModals extends React.Component {
 
     const {service} = modalProps;
     const isGroup = service instanceof ServiceTree;
-    const key = ActionKeys.SERVICE_CREATE;
+    const key = ActionKeys.SERVICE_EDIT;
     const editService = (updatedService, serviceSpec, force) => {
       this.props.actions.editService(updatedService, serviceSpec, force);
     };
@@ -147,7 +97,7 @@ class ServiceModals extends React.Component {
 
     // Pass in a fake Application to keep the PropTypes happy when
     // this modal isn't active.
-    if (isGroup && modalProps !== ServiceActionItem.EDIT) {
+    if (isGroup && modalProps.id !== ServiceActionItem.EDIT) {
       serviceToEdit = new Application({id: '/'});
     }
 
@@ -160,7 +110,7 @@ class ServiceModals extends React.Component {
         marathonAction={editService}
         open={modalProps.id === ServiceActionItem.EDIT}
         service={serviceToEdit}
-        onClose={onClose} />
+        onClose={() => onClose(key)} />
     );
   }
 
@@ -189,7 +139,7 @@ class ServiceModals extends React.Component {
         errors={actionErrors[key]}
         isPending={!!pendingActions[key]}
         open={modalProps.id === ServiceActionItem.DESTROY}
-        onClose={onClose}
+        onClose={() => onClose(key)}
         service={service} />
     );
   }
@@ -212,7 +162,7 @@ class ServiceModals extends React.Component {
         isPending={!!pendingActions[key]}
         errors={actionErrors[key]}
         open={modalProps.id === ServiceActionItem.RESTART}
-        onClose={onClose}
+        onClose={() => onClose(key)}
         service={service} />
     );
   }
@@ -250,7 +200,7 @@ class ServiceModals extends React.Component {
         errors={actionErrors[key]}
         isPending={!!pendingActions[key]}
         open={modalProps.id === ServiceActionItem.SCALE}
-        onClose={onClose}
+        onClose={() => onClose(key)}
         service={service} />
     );
   }
@@ -287,7 +237,7 @@ class ServiceModals extends React.Component {
         errors={actionErrors[key]}
         isPending={!!pendingActions[key]}
         open={modalProps.id === ServiceActionItem.SUSPEND}
-        onClose={onClose}
+        onClose={() => onClose(key)}
         service={service} />
     );
   }
@@ -295,8 +245,6 @@ class ServiceModals extends React.Component {
   render() {
     return (
       <div>
-        {this.getKillPodInstancesModal()}
-        {this.getKillTasksModal()}
         {this.getGroupModal()}
         {this.getCreateModal()}
         {this.getEditModal()}
@@ -310,7 +258,6 @@ class ServiceModals extends React.Component {
 }
 
 const actionPropTypes = PropTypes.shape({
-  killPodInstances: PropTypes.func,
   revertDeployment: PropTypes.func,
   createGroup: PropTypes.func,
   deleteGroup: PropTypes.func,
@@ -318,8 +265,7 @@ const actionPropTypes = PropTypes.shape({
   createService: PropTypes.func,
   deleteService: PropTypes.func,
   editService: PropTypes.func,
-  restartService: PropTypes.func,
-  killTasks: PropTypes.func
+  restartService: PropTypes.func
 }).isRequired;
 
 ServiceModals.propTypes = {

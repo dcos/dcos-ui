@@ -1,28 +1,23 @@
-import {DCOSStore} from 'foundation-ui';
 import {Dropdown} from 'reactjs-components';
 import React from 'react';
 
 import ServiceSpecView from './ServiceSpecView';
-import MarathonStore from '../stores/MarathonStore';
 import Service from '../structs/Service';
 import ApplicationSpec from '../structs/ApplicationSpec';
-import ServiceFormModal from './modals/ServiceFormModal';
 import ServiceUtil from '../utils/ServiceUtil';
 
 const METHODS_TO_BIND = [
   'handleApplyButtonClick',
   'handleEditButtonClick',
-  'handleCloseServiceFormModal',
   'handleVersionSelection'
 ];
 
-class ServiceDetailConfigurationTab extends React.Component {
+class ServiceConfiguration extends React.Component {
   constructor() {
     super(...arguments);
 
     this.state = {
-      selectedVersionID: null,
-      serviceToEdit: null
+      selectedVersionID: null
     };
 
     METHODS_TO_BIND.forEach((method) => {
@@ -31,35 +26,38 @@ class ServiceDetailConfigurationTab extends React.Component {
   }
 
   componentWillMount() {
-    let {service} = this.props;
-
     this.setState({
-      selectedVersionID: service.getVersion()
+      selectedVersionID: this.props.service.getVersion()
     });
-    DCOSStore.fetchServiceVersions(service.getId());
   }
 
   componentWillReceiveProps({service:nextService}) {
-    let {service} = this.props;
-
-    if (service.getVersion() === nextService.getVersion()) {
+    if (nextService.getVersion() === this.props.service.getVersion()) {
       return;
     }
 
     this.setState({
       selectedVersionID: nextService.getVersion()
     });
-    DCOSStore.fetchServiceVersions(service.getId());
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    const {service} = this.props;
+    const {selectedVersionID} = this.state;
+
+    return nextProps.service.getVersion() !== service.getVersion()
+      || nextProps.service.getVersions() !== service.getVersions()
+      || nextState.selectedVersionID !== selectedVersionID;
   }
 
   handleApplyButtonClick() {
-    let {service} = this.props;
+    let {editService, service} = this.props;
+    let {selectedVersionID} = this.state;
 
-    let serviceConfiguration =
-        service.getVersions().get(this.state.selectedVersionID);
+    let serviceConfiguration = service.getVersions().get(selectedVersionID);
 
-    MarathonStore.editService(service,
-      ServiceUtil.getAppDefinitionFromService(
+    editService(service,
+      ServiceUtil.getDefinitionFromSpec(
           new ApplicationSpec(serviceConfiguration)
       )
     );
@@ -69,15 +67,9 @@ class ServiceDetailConfigurationTab extends React.Component {
     let serviceConfiguration =
       this.props.service.getVersions().get(this.state.selectedVersionID);
 
-    this.setState({
-      serviceToEdit: ServiceUtil.createServiceFromResponse(serviceConfiguration)
-    });
-  }
+    const service = ServiceUtil.createServiceFromResponse(serviceConfiguration);
 
-  handleCloseServiceFormModal() {
-    this.setState({
-      serviceToEdit: null
-    });
+    this.context.modalHandlers.editService({service});
   }
 
   handleVersionSelection(versionItem) {
@@ -167,22 +159,6 @@ class ServiceDetailConfigurationTab extends React.Component {
      );
   }
 
-  getServiceFormModal() {
-    let {serviceToEdit} = this.state;
-
-    if (serviceToEdit == null) {
-      return null;
-    }
-
-    return (
-      <ServiceFormModal
-        isEdit={true}
-        open={true}
-        service={serviceToEdit}
-        onClose={this.handleCloseServiceFormModal} />
-    );
-  }
-
   render() {
     let {service} = this.props;
     let {selectedVersionID} = this.state;
@@ -201,15 +177,21 @@ class ServiceDetailConfigurationTab extends React.Component {
           headline={headline}
           service={service}
           versionID={selectedVersionID} />
-        {this.getServiceFormModal()}
       </div>
     );
   }
 
 }
 
-ServiceDetailConfigurationTab.propTypes = {
+ServiceConfiguration.contextTypes = {
+  modalHandlers: React.PropTypes.shape({
+    editService: React.PropTypes.func.isRequired
+  }).isRequired
+};
+
+ServiceConfiguration.propTypes = {
+  editService: React.PropTypes.func.isRequired,
   service: React.PropTypes.instanceOf(Service).isRequired
 };
 
-module.exports = ServiceDetailConfigurationTab;
+module.exports = ServiceConfiguration;

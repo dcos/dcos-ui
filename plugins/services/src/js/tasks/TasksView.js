@@ -1,16 +1,12 @@
 import classNames from 'classnames';
 import mixin from 'reactjs-mixin';
 import React from 'react';
-import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import FilterBar from '../../../../../src/js/components/FilterBar';
 import FilterButtons from '../../../../../src/js/components/FilterButtons';
 import FilterHeadline from '../../../../../src/js/components/FilterHeadline';
 import FilterInputText from '../../../../../src/js/components/FilterInputText';
-import KillTaskModal from './modals/KillTaskModal';
-import Loader from '../../../../../src/js/components/Loader';
-import MesosStateStore from '../../../../../src/js/stores/MesosStateStore';
-import RequestErrorMsg from '../../../../../src/js/components/RequestErrorMsg';
+import GraphQLTaskUtil from '../utils/GraphQLTaskUtil';
 import SaveStateMixin from '../../../../../src/js/mixins/SaveStateMixin';
 import StringUtil from '../../../../../src/js/utils/StringUtil';
 import TaskStates from '../constants/TaskStates';
@@ -18,38 +14,24 @@ import TaskTable from './TaskTable';
 
 const METHODS_TO_BIND = [
   'handleItemCheck',
-  'handleKillClose',
-  'handleKillSuccess',
   'handleSearchStringChange',
   'handleStatusFilterChange',
-  'onStateStoreSuccess',
-  'onStateStoreError',
   'resetFilter'
 ];
 
 const STATUS_FILTER_BUTTONS = ['all', 'active', 'completed'];
 
-class TaskView extends mixin(SaveStateMixin, StoreMixin) {
+class TasksView extends mixin(SaveStateMixin) {
   constructor() {
     super();
 
     this.state = {
       checkedItems: {},
-      killAction: '',
-      mesosStateErrorCount: 0,
       searchString: '',
       filterByStatus: 'active'
     };
 
     this.saveState_properties = ['filterByStatus'];
-
-    this.store_listeners = [
-      {
-        name: 'state',
-        events: ['success', 'error'],
-        suppressUpdate: true
-      }
-    ];
 
     METHODS_TO_BIND.forEach(function (method) {
       this[method] = this[method].bind(this);
@@ -57,7 +39,7 @@ class TaskView extends mixin(SaveStateMixin, StoreMixin) {
   }
 
   componentWillMount() {
-    this.saveState_key = `taskView#${this.props.itemID}`;
+    this.saveState_key = `tasksView#${this.props.itemID}`;
     super.componentWillMount();
   }
 
@@ -74,16 +56,6 @@ class TaskView extends mixin(SaveStateMixin, StoreMixin) {
     this.setState({checkedItems});
   }
 
-  onStateStoreSuccess() {
-    if (this.state.mesosStateErrorCount !== 0) {
-      this.setState({mesosStateErrorCount: 0});
-    }
-  }
-
-  onStateStoreError() {
-    this.setState({mesosStateErrorCount: this.state.mesosStateErrorCount + 1});
-  }
-
   handleItemCheck(idsChecked) {
     let checkedItems = {};
     idsChecked.forEach(function (id) {
@@ -94,11 +66,16 @@ class TaskView extends mixin(SaveStateMixin, StoreMixin) {
   }
 
   handleKillClick(killAction) {
-    this.setState({killAction});
-  }
+    const {checkedItems} = this.state;
 
-  handleKillClose() {
-    this.setState({killAction: ''});
+    if (!Object.keys(checkedItems).length) {
+      return;
+    }
+
+    this.context.modalHandlers.killTasks({
+      action: killAction,
+      selectedItems: Object.keys(checkedItems)
+    });
   }
 
   handleSearchStringChange(searchString = '') {
@@ -107,14 +84,6 @@ class TaskView extends mixin(SaveStateMixin, StoreMixin) {
 
   handleStatusFilterChange(filterByStatus) {
     this.setState({filterByStatus});
-  }
-
-  handleKillSuccess() {
-    this.setState({checkedItems: {}, killAction: ''});
-  }
-
-  hasLoadingError() {
-    return this.state.mesosStateErrorCount >= 5;
   }
 
   getFilteredTasks() {
@@ -134,20 +103,8 @@ class TaskView extends mixin(SaveStateMixin, StoreMixin) {
     return tasks;
   }
 
-  getLoadingScreen() {
-    if (this.hasLoadingError()) {
-      return <RequestErrorMsg />;
-    }
-
-    return (
-      <div className="pod">
-        <Loader />
-      </div>
-    );
-  }
-
   getTaskTable(tasks, checkedItems) {
-    let {inverseStyle, parentRouter} = this.props;
+    let {inverseStyle} = this.props;
 
     let classSet = classNames({
       'table table-borderless-outer table-borderless-inner-columns': true,
@@ -160,7 +117,6 @@ class TaskView extends mixin(SaveStateMixin, StoreMixin) {
         checkedItemsMap={checkedItems}
         className={classSet}
         onCheckboxChange={this.handleItemCheck}
-        parentRouter={parentRouter}
         tasks={tasks} />
     );
   }
@@ -204,25 +160,7 @@ class TaskView extends mixin(SaveStateMixin, StoreMixin) {
     );
   }
 
-  getKillTaskModal(checkedItems, hasCheckedTasks) {
-    if (!hasCheckedTasks) {
-      return null;
-    }
-
-    let {killAction} = this.state;
-    let tasks = Object.keys(checkedItems);
-
-    return (
-      <KillTaskModal
-        action={killAction}
-        selectedItems={tasks}
-        onClose={this.handleKillClose}
-        onSuccess={this.handleKillSuccess}
-        open={!!killAction} />
-    );
-  }
-
-  getContent() {
+  render() {
     let {inverseStyle, label, tasks} = this.props;
     let {checkedItems, filterByStatus, searchString} = this.state;
     let filteredTasks = this.getFilteredTasks();
@@ -242,6 +180,8 @@ class TaskView extends mixin(SaveStateMixin, StoreMixin) {
     if (hasCheckedTasks) {
       rightAlignLastNChildren = 1;
     }
+
+    filteredTasks = filteredTasks.map(GraphQLTaskUtil.mergeData);
 
     return (
       <div className="flex-container-col flex-grow">
@@ -268,36 +208,29 @@ class TaskView extends mixin(SaveStateMixin, StoreMixin) {
           {this.getKillButtons(hasCheckedTasks)}
         </FilterBar>
         {this.getTaskTable(filteredTasks, checkedItems)}
-        {this.getKillTaskModal(checkedItems, hasCheckedTasks)}
       </div>
     );
   }
-
-  render() {
-    var showLoading = this.hasLoadingError() ||
-      Object.keys(MesosStateStore.get('lastMesosState')).length === 0;
-
-    if (showLoading) {
-      return this.getLoadingScreen();
-    } else {
-      return this.getContent();
-    }
-  }
 }
 
-TaskView.defaultProps = {
+TasksView.contextTypes = {
+  modalHandlers: React.PropTypes.shape({
+    killTasks: React.PropTypes.func.isRequired
+  }).isRequired
+};
+
+TasksView.defaultProps = {
   inverseStyle: false,
   itemID: '',
   label: 'Task',
   tasks: []
 };
 
-TaskView.propTypes = {
+TasksView.propTypes = {
   inverseStyle: React.PropTypes.bool,
   itemID: React.PropTypes.string,
   label: React.PropTypes.string,
-  parentRouter: React.PropTypes.func,
   tasks: React.PropTypes.array
 };
 
-module.exports = TaskView;
+module.exports = TasksView;
