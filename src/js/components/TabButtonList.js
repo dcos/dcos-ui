@@ -1,7 +1,7 @@
 import classNames from 'classnames/dedupe';
 import React from 'react';
 
-class TabButtons extends React.Component {
+class TabButtonList extends React.Component {
   getChildren() {
     let {activeTab, children, onChange} = this.props;
 
@@ -34,7 +34,7 @@ class TabButtons extends React.Component {
   }
 }
 
-TabButtons.propTypes = {
+TabButtonList.propTypes = {
   activeTab: React.PropTypes.string,
   children: React.PropTypes.node,
   className: React.PropTypes.oneOf([
@@ -46,4 +46,4 @@ TabButtons.propTypes = {
   vertical: React.PropTypes.bool
 };
 
-module.exports = TabButtons;
+module.exports = TabButtonList;

@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import React from 'react';
 
-class TabViews extends React.Component {
+class TabViewList extends React.Component {
   getChildren() {
     let {activeTab, children} = this.props;
 
@@ -25,7 +25,7 @@ class TabViews extends React.Component {
   }
 }
 
-TabViews.propTypes = {
+TabViewList.propTypes = {
   activeTab: React.PropTypes.string,
   children: React.PropTypes.node,
   className: React.PropTypes.oneOf([
@@ -35,4 +35,4 @@ TabViews.propTypes = {
   ])
 };
 
-module.exports = TabViews;
+module.exports = TabViewList;
