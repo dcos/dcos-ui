@@ -48,7 +48,13 @@ module.exports = class ApplicationSpec extends ServiceSpec {
   }
 
   getHealthChecks() {
-    return this.get('healthChecks');
+    let healthChecks = this.get('healthChecks') || [];
+
+    // "Clone" health checks to ensure that no one is accidentally altering the
+    // properties.
+    return healthChecks.map(function (healthCheck) {
+      return Object.assign({}, healthCheck);
+    });
   }
 
   getInstancesCount() {
