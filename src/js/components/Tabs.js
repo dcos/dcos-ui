@@ -1,7 +1,7 @@
 import classNames from 'classnames/dedupe';
 import React from 'react';
 
-import TabButtons from './TabButtons';
+import TabButtonList from './TabButtonList';
 
 const METHODS_TO_BIND = ['handleTabChange'];
 
@@ -24,7 +24,7 @@ class Tabs extends React.Component {
     return React.Children.map(props.children, (tabElement) => {
       let newTabProps = {activeTab: state.activeTab};
 
-      if (tabElement.type === TabButtons) {
+      if (tabElement.type === TabButtonList) {
         newTabProps.onChange = handleTabChange;
         newTabProps.vertical = props.vertical;
       }

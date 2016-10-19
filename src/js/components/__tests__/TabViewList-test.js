@@ -1,22 +1,22 @@
 jest.dontMock('../TabView');
-jest.dontMock('../TabViews');
+jest.dontMock('../TabViewList');
 
 const React = require('react');
 const ReactDOM = require('react-dom');
 const TestUtils = require('react-addons-test-utils');
 
 const TabView = require('../TabView');
-const TabViews = require('../TabViews');
+const TabViewList = require('../TabViewList');
 
-describe('TabViews', function () {
+describe('TabViewList', function () {
 
   it('should return content of first child if no activeTab is defined', function () {
     this.instance = TestUtils.renderIntoDocument(
-      <TabViews>
+      <TabViewList>
         <TabView id="foo">foo</TabView>
         <TabView id="bar">bar</TabView>
         <TabView id="baz">baz</TabView>
-      </TabViews>
+      </TabViewList>
     );
 
     let node = ReactDOM.findDOMNode(this.instance);
@@ -25,11 +25,11 @@ describe('TabViews', function () {
 
   it('should return content of activeTab when defined', function () {
     this.instance = TestUtils.renderIntoDocument(
-      <TabViews activeTab="bar">
+      <TabViewList activeTab="bar">
         <TabView id="foo">foo</TabView>
         <TabView id="bar">bar</TabView>
         <TabView id="baz">baz</TabView>
-      </TabViews>
+      </TabViewList>
     );
 
     let node = ReactDOM.findDOMNode(this.instance);

@@ -1,33 +1,33 @@
 jest.dontMock('../TabButton');
-jest.dontMock('../TabButtons');
+jest.dontMock('../TabButtonList');
 jest.dontMock('../Tabs');
 jest.dontMock('../TabView');
-jest.dontMock('../TabViews');
+jest.dontMock('../TabViewList');
 
 const React = require('react');
 const ReactDOM = require('react-dom');
 const TestUtils = require('react-addons-test-utils');
 
 const TabButton = require('../TabButton');
-const TabButtons = require('../TabButtons');
+const TabButtonList = require('../TabButtonList');
 const Tabs = require('../Tabs');
 const TabView = require('../TabView');
-const TabViews = require('../TabViews');
+const TabViewList = require('../TabViewList');
 
-describe('TabButtons', function () {
+describe('Tabs', function () {
 
   beforeEach(function () {
     this.instance = TestUtils.renderIntoDocument(
       <Tabs vertical={true}>
-        <TabButtons>
+        <TabButtonList>
           <TabButton id="foo" label="Foo">
             <TabButton id="bar" label="Bar" />
             <TabButton id="baz" label="Baz">
               <TabButton id="qux" label="Qux" />
             </TabButton>
           </TabButton>
-        </TabButtons>
-        <TabViews>
+        </TabButtonList>
+        <TabViewList>
           <TabView id="foo">
             Foo
           </TabView>
@@ -40,7 +40,7 @@ describe('TabButtons', function () {
           <TabView id="qux">
             Qux
           </TabView>
-        </TabViews>
+        </TabViewList>
       </Tabs>
     );
   });
@@ -61,20 +61,20 @@ describe('TabButtons', function () {
     // Click on the 'Foo' tab.
     TestUtils.Simulate.click(tabButtons[0].querySelector('.menu-tabbed-item-label'));
 
-    let tabViewsInstance = TestUtils.scryRenderedComponentsWithType(this.instance, TabViews)[0];
-    let tabButtonsInstance = TestUtils.scryRenderedComponentsWithType(this.instance, TabButtons)[0];
+    let tabViewsInstance = TestUtils.scryRenderedComponentsWithType(this.instance, TabViewList)[0];
+    let tabButtonsInstance = TestUtils.scryRenderedComponentsWithType(this.instance, TabButtonList)[0];
 
     expect(tabViewsInstance.props.activeTab).toEqual('foo');
     expect(tabButtonsInstance.props.activeTab).toEqual('foo');
   });
 
-  it('should pass the change handler to TabButtons', function () {
-    let tabButtonsInstance = TestUtils.scryRenderedComponentsWithType(this.instance, TabButtons)[0];
+  it('should pass the change handler to TabButtonList', function () {
+    let tabButtonsInstance = TestUtils.scryRenderedComponentsWithType(this.instance, TabButtonList)[0];
     expect(tabButtonsInstance.props.onChange).toEqual(this.instance.handleTabChange);
   });
 
-  it('should pass the vertical prop to TabButtons', function () {
-    let tabButtonsInstance = TestUtils.scryRenderedComponentsWithType(this.instance, TabButtons)[0];
+  it('should pass the vertical prop to TabButtonList', function () {
+    let tabButtonsInstance = TestUtils.scryRenderedComponentsWithType(this.instance, TabButtonList)[0];
     expect(tabButtonsInstance.props.vertical).toEqual(true);
   });
 

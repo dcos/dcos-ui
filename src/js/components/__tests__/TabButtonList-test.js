@@ -1,13 +1,13 @@
 jest.dontMock('../TabButton');
-jest.dontMock('../TabButtons');
+jest.dontMock('../TabButtonList');
 
 const React = require('react');
 const TestUtils = require('react-addons-test-utils');
 
 const TabButton = require('../TabButton');
-const TabButtons = require('../TabButtons');
+const TabButtonList = require('../TabButtonList');
 
-describe('TabButtons', function () {
+describe('TabButtonList', function () {
 
   beforeEach(function () {
     this.changeHandler = jasmine.createSpy('change handler');
@@ -15,11 +15,11 @@ describe('TabButtons', function () {
 
   it('should pass onChange as click handler for each TabButton instance', function () {
     this.instance = TestUtils.renderIntoDocument(
-      <TabButtons onChange={this.changeHandler}>
+      <TabButtonList onChange={this.changeHandler}>
         <TabButton id="foo" />
         <TabButton id="bar" />
         <TabButton id="baz" />
-      </TabButtons>
+      </TabButtonList>
     );
 
     let instances = TestUtils.scryRenderedComponentsWithType(this.instance, TabButton);
@@ -31,11 +31,11 @@ describe('TabButtons', function () {
 
   it('should set only first child to active if no active tab is defined', function () {
     this.instance = TestUtils.renderIntoDocument(
-      <TabButtons>
+      <TabButtonList>
         <TabButton id="foo" />
         <TabButton id="bar" />
         <TabButton id="baz" />
-      </TabButtons>
+      </TabButtonList>
     );
 
     let instances = TestUtils.scryRenderedComponentsWithType(this.instance, TabButton);
@@ -51,11 +51,11 @@ describe('TabButtons', function () {
 
   it('should pass active prop to instance whose ID matches activeTab', function () {
     this.instance = TestUtils.renderIntoDocument(
-      <TabButtons activeTab="bar">
+      <TabButtonList activeTab="bar">
         <TabButton id="foo" />
         <TabButton id="bar" />
         <TabButton id="baz" />
-      </TabButtons>
+      </TabButtonList>
     );
 
     let instances = TestUtils.scryRenderedComponentsWithType(this.instance, TabButton);
