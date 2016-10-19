@@ -11,6 +11,7 @@ import ServiceTree from '../structs/ServiceTree';
 import ServiceTreeView from './ServiceTreeView';
 
 import AppDispatcher from '../../../../../src/js/events/AppDispatcher';
+import ContainerUtil from '../../../../../src/js/utils/ContainerUtil';
 import Icon from '../../../../../src/js/components/Icon';
 import Loader from '../../../../../src/js/components/Loader';
 import RequestErrorMsg from '../../../../../src/js/components/RequestErrorMsg';
@@ -411,45 +412,21 @@ class ServicesContainer extends React.Component {
     // Re-fetch data - this will end up being a single Relay request
   }
   /**
-   * Sets or clears error for actionType
-   * @param  {String} actionType
-   * @param  {Any} error
-   * @return {Object} updated action errors
-   */
-  adjustActionErrors(actionType, error) {
-    const {actionErrors} = this.state;
-    // Set error for actionType
-    return Object.assign(
-      {},
-      actionErrors,
-      {[actionType]: error}
-    );
-  }
-  /**
-   * Sets pending action to true/false
-   * @param  {String}  actionType
-   * @param  {Boolean} isPending
-   * @return {Object} updated pending actions
-   */
-  adjustPendingActions(actionType, isPending) {
-    const {pendingActions} = this.state;
-
-    return Object.assign(
-      {},
-      pendingActions,
-      {[actionType]: isPending}
-    );
-  }
-  /**
    * Sets the actionType to pending in state which will in turn be pushed
    * to children components as a prop. Also clears any existing error for
    * the actionType
    * @param {String} actionType
    */
   setPendingAction(actionType) {
+    const {actionErrors, pendingActions} = this.state;
+
     this.setState({
-      actionErrors: this.adjustActionErrors(actionType, null),
-      pendingActions: this.adjustPendingActions(actionType, true)
+      actionErrors: ContainerUtil.adjustActionErrors(
+        actionErrors, actionType, null
+      ),
+      pendingActions: ContainerUtil.adjustPendingActions(
+        pendingActions, actionType, true
+      )
     });
   }
   /**
@@ -460,9 +437,15 @@ class ServicesContainer extends React.Component {
    * @param  {Any} error
    */
   unsetPendingAction(actionType, error = null) {
+    const {actionErrors, pendingActions} = this.state;
+
     this.setState({
-      actionErrors: this.adjustActionErrors(actionType, error),
-      pendingActions: this.adjustPendingActions(actionType, false)
+      actionErrors: ContainerUtil.adjustActionErrors(
+        actionErrors, actionType, error
+      ),
+      pendingActions: ContainerUtil.adjustPendingActions(
+        pendingActions, actionType, false
+      )
     });
     // Fetch new data if action was successful
     if (!error) {
@@ -471,8 +454,12 @@ class ServicesContainer extends React.Component {
   }
 
   clearActionError(actionType) {
+    const {actionErrors} = this.state;
+
     this.setState({
-      actionErrors: this.adjustActionErrors(actionType, null)
+      actionErrors: ContainerUtil.adjustActionErrors(
+        actionErrors, actionType, null
+      )
     });
   }
 
