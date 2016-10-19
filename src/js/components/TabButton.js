@@ -1,11 +1,15 @@
 import classNames from 'classnames/dedupe';
 import React from 'react';
 
+const METHODS_TO_BIND = ['handleClick'];
+
 class TabButton extends React.Component {
   constructor() {
-    super();
+    super(...arguments);
 
-    this.handleClick = this.handleClick.bind(this);
+    METHODS_TO_BIND.forEach((method) => {
+      this[method] = this[method].bind(this);
+    });
   }
 
   getChildren() {
