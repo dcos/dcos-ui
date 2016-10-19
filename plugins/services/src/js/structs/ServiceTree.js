@@ -181,8 +181,8 @@ module.exports = class ServiceTree extends Tree {
             }
 
             let hasLabel = serviceLabels.some(function (serviceLabel) {
-              return serviceLabel.key === label[0] &&
-                serviceLabel.value === label[1];
+              return serviceLabel.key === label.key &&
+                serviceLabel.value === label.value;
             });
 
             if (hasLabel) {
@@ -254,7 +254,16 @@ module.exports = class ServiceTree extends Tree {
       }
     }
 
-    return new this.constructor(Object.assign({}, this, {items: services}));
+    const {uniques} = services.reduce(function (memo, service) {
+      if (!(service.getId() in memo.serviceIds)) {
+        memo.serviceIds[service.getId()] = true;
+        memo.uniques.push(service);
+      }
+
+      return memo;
+    }, {uniques: [], serviceIds: {}});
+
+    return new this.constructor(Object.assign({}, this, {items: uniques}));
   }
 
   getInstancesCount() {

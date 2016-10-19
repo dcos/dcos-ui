@@ -2,9 +2,9 @@ jest.dontMock('../../../../../../src/js/components/CollapsingString');
 jest.dontMock('../../../../../../src/js/components/DetailViewHeader');
 jest.dontMock('../../../../../../src/js/stores/MesosStateStore');
 jest.dontMock('../ServiceDetail');
-jest.dontMock('../ServiceDetailDebugTab');
-jest.dontMock('../ServiceDetailConfigurationTab');
-jest.dontMock('../ServiceDetailTaskTab');
+jest.dontMock('../../components/ServiceDetailDebugTab');
+jest.dontMock('../../components/ServiceDetailConfigurationTab');
+jest.dontMock('../../components/ServiceDetailTaskTab');
 jest.dontMock('../ServiceInfo');
 jest.dontMock('../../structs/Application');
 
@@ -17,9 +17,9 @@ const JestUtil = require('../../../../../../src/js/utils/JestUtil');
 
 const Application = require('../../structs/Application');
 const ServiceDetail = require('../ServiceDetail');
-const ServiceDetailDebugTab = require('../ServiceDetailDebugTab');
-const ServiceDetailConfigurationTab = require('../ServiceDetailConfigurationTab');
-const ServiceDetailTaskTab = require('../ServiceDetailTaskTab');
+const ServiceDetailDebugTab = require('../../components/ServiceDetailDebugTab');
+const ServiceDetailConfigurationTab = require('../../components/ServiceDetailConfigurationTab');
+const ServiceDetailTaskTab = require('../../components/ServiceDetailTaskTab');
 
 describe('ServiceDetail', function () {
 

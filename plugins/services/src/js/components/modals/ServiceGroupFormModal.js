@@ -1,90 +1,50 @@
-import mixin from 'reactjs-mixin';
-/* eslint-disable no-unused-vars */
-import React from 'react';
-/* eslint-enable no-unused-vars */
-import {StoreMixin} from 'mesosphere-shared-reactjs';
+import React, {PropTypes} from 'react';
+import PureRender from 'react-addons-pure-render-mixin';
 
 import FormModal from '../../../../../../src/js/components/FormModal';
-import MarathonStore from '../../stores/MarathonStore';
 import ServiceValidatorUtil from '../../utils/ServiceValidatorUtil';
 
 const METHODS_TO_BIND = [
-  'handleNewGroupSubmit',
-  'onMarathonStoreGroupCreateSuccess',
-  'onMarathonStoreGroupCreateError',
-  'resetState'
+  'handleNewGroupSubmit'
 ];
 
-const buttonDefinition = [
-  {
-    text: 'Cancel',
-    className: 'button button-medium',
-    isClose: true
-  },
-  {
-    text: 'Create Group',
-    className: 'button button-success button-medium',
-    isSubmit: true
-  }
-];
-
-class ServiceGroupFormModal extends mixin(StoreMixin) {
+class ServiceGroupFormModal extends React.Component {
   constructor() {
-    super();
-
-    this.state = {
-      disableNewGroup: false,
-      errorMsg: null
-    };
-
-    this.store_listeners = [
-      {
-        name: 'marathon',
-        events: ['groupCreateSuccess', 'groupCreateError'],
-        suppressUpdate: true
-      }
-    ];
+    super(...arguments);
 
     METHODS_TO_BIND.forEach((method) => {
       this[method] = this[method].bind(this);
     });
+
+    this.shouldComponentUpdate = PureRender.shouldComponentUpdate.bind(this);
   }
 
-  resetState() {
-    this.setState({
-      disableNewGroup: false,
-      errorMsg: null
-    });
-  }
+  componentWillUpdate(nextProps) {
+    const requestCompleted = this.props.isPending
+      && !nextProps.isPending;
 
-  onMarathonStoreGroupCreateSuccess() {
-    this.resetState();
-    this.props.onClose();
-  }
+    const shouldClose = requestCompleted && !nextProps.errors;
 
-  onMarathonStoreGroupCreateError(errorMsg) {
-    this.setState({
-      disableNewGroup: false,
-      errorMsg
-    });
+    if (shouldClose) {
+      this.props.onClose();
+    }
   }
 
   handleNewGroupSubmit(model) {
     let {parentGroupId} = this.props;
 
-    this.setState({disableNewGroup: true});
-    MarathonStore.createGroup(Object.assign({}, model,
+    this.props.createGroup(Object.assign({}, model,
       {id: `${parentGroupId}/${model.id}`})
     );
   }
 
   getErrorMessage() {
-    let {errorMsg} = this.state;
-    if (!errorMsg) {
+    let {errors} = this.props;
+    if (!errors) {
       return null;
     }
     return (
-      <h4 className="text-align-center text-danger flush-top">{errorMsg}</h4>
+      <h4 className="text-align-center text-danger flush-top">{errors}</h4>
     );
   }
 
@@ -107,24 +67,43 @@ class ServiceGroupFormModal extends mixin(StoreMixin) {
   }
 
   render() {
-    let {props, state} = this;
+    const {
+      clearError,
+      isPending,
+      onClose,
+      open,
+      parentGroupId
+    } = this.props;
+
+    const buttonDefinition = [
+      {
+        text: 'Cancel',
+        className: 'button button-medium',
+        isClose: true
+      },
+      {
+        text: 'Create Group',
+        className: 'button button-success button-medium',
+        isSubmit: true
+      }
+    ];
 
     return (
       <FormModal
         ref="form"
         buttonDefinition={buttonDefinition}
-        disabled={state.disableNewGroup}
-        onClose={props.onClose}
+        disabled={isPending}
+        onClose={onClose}
         onSubmit={this.handleNewGroupSubmit}
-        onChange={this.resetState}
-        open={props.open}
+        onChange={clearError}
+        open={open}
         definition={this.getNewGroupFormDefinition()}>
         <h2 className="modal-header-title text-align-center flush-top">
           Create Group
         </h2>
         <p className="text-align-center flush-top">
           {'Enter a path for the new group under '}
-          <span className="emphasize">{props.parentGroupId}</span>
+          <span className="emphasize">{parentGroupId}</span>
         </p>
         {this.getErrorMessage()}
       </FormModal>
@@ -133,7 +112,12 @@ class ServiceGroupFormModal extends mixin(StoreMixin) {
 }
 
 ServiceGroupFormModal.propTypes = {
-  parentGroupId: React.PropTypes.string
+  clearError: PropTypes.func.isRequired,
+  createGroup: PropTypes.func.isRequired,
+  errors: PropTypes.string,
+  isPending: PropTypes.bool.isRequired,
+  parentGroupId: PropTypes.string,
+  onClose: PropTypes.func.isRequired
 };
 
 module.exports = ServiceGroupFormModal;

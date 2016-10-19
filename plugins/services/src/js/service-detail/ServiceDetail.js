@@ -5,17 +5,17 @@ import Breadcrumbs from '../../../../../src/js/components/Breadcrumbs';
 import InternalStorageMixin from '../../../../../src/js/mixins/InternalStorageMixin';
 import Service from '../structs/Service';
 import ServiceActionItem from '../constants/ServiceActionItem';
-import ServiceDestroyModal from './modals/ServiceDestroyModal';
-import ServiceDetailConfigurationTab from './ServiceDetailConfigurationTab';
-import ServiceDetailDebugTab from './ServiceDetailDebugTab';
-import ServiceDetailTaskTab from './ServiceDetailTaskTab';
-import ServiceFormModal from './modals/ServiceFormModal';
+import ServiceDestroyModal from '../components/modals/ServiceDestroyModal';
+import ServiceDetailConfigurationTab from '../components/ServiceDetailConfigurationTab';
+import ServiceDetailDebugTab from '../components/ServiceDetailDebugTab';
+import ServiceDetailTaskTab from '../components/ServiceDetailTaskTab';
+import ServiceFormModal from '../components/modals/ServiceFormModal';
 import ServiceInfo from './ServiceInfo';
-import ServiceRestartModal from './modals/ServiceRestartModal';
-import ServiceSuspendModal from './modals/ServiceSuspendModal';
-import ServiceScaleFormModal from './modals/ServiceScaleFormModal';
+import ServiceRestartModal from '../components/modals/ServiceRestartModal';
+import ServiceSuspendModal from '../components/modals/ServiceSuspendModal';
+import ServiceScaleFormModal from '../components/modals/ServiceScaleFormModal';
 import TabsMixin from '../../../../../src/js/mixins/TabsMixin';
-import VolumeTable from './VolumeTable';
+import VolumeTable from '../components/VolumeTable';
 
 const METHODS_TO_BIND = [
   'closeDialog',

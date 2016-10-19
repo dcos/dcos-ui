@@ -1,52 +1,60 @@
 import {Confirm} from 'reactjs-components';
-/* eslint-disable no-unused-vars */
-import React from 'react';
-/* eslint-enable no-unused-vars */
+import React, {PropTypes} from 'react';
+import PureRender from 'react-addons-pure-render-mixin';
 
-import MarathonStore from '../../stores/MarathonStore';
-import ServiceActionModal from './ServiceActionModal';
+import Pod from '../../structs/Pod';
+import Service from '../../structs/Service';
+import ServiceTree from '../../structs/ServiceTree';
 
-class ServiceDestroyModal extends ServiceActionModal {
+class ServiceDestroyModal extends React.Component {
   constructor() {
     super(...arguments);
 
-    this.store_listeners = [
-      {
-        name: 'marathon',
-        events: [
-          'serviceDeleteError',
-          'serviceDeleteSuccess',
-          'groupDeleteError',
-          'groupDeleteSuccess'
-        ],
-        suppressUpdate: true
-      }
-    ];
-
-    this.onMarathonStoreServiceDeleteError = this.onError;
-    this.onMarathonStoreServiceDeleteSuccess = this.closeDialog;
-    this.onMarathonStoreGroupDeleteError = this.onError;
-    this.onMarathonStoreGroupDeleteSuccess =
-      this.onMarathonStoreServiceDeleteSuccess;
+    this.shouldComponentUpdate = PureRender.shouldComponentUpdate.bind(this);
   }
 
-  handleConfirmClick() {
-    super.handleConfirmClick();
+  componentWillUpdate(nextProps) {
+    const requestCompleted = this.props.isPending
+      && !nextProps.isPending;
 
-    let {service} = this.props;
-    let forceUpdate = this.shouldForceUpdate();
+    const shouldClose = requestCompleted && !nextProps.errors;
 
-    if (this.isGroup()) {
-      MarathonStore.deleteGroup(service.getId(), forceUpdate);
-    } else {
-      MarathonStore.deleteService(service, forceUpdate);
+    if (shouldClose) {
+      this.props.onClose();
     }
   }
 
+  getErrorMessage() {
+    let {errors} = this.props;
+
+    if (!errors) {
+      return null;
+    }
+
+    return (
+      <p className="text-danger flush-top">{errors}</p>
+    );
+  }
+
   render() {
-    const {open, service} = this.props;
-    let itemText = this.getServiceType();
+    const {
+      deleteItem,
+      isPending,
+      onClose,
+      open,
+      service
+    } = this.props;
+
+    let itemText = 'Service';
     let serviceName = '';
+
+    if (service instanceof Pod) {
+      itemText = 'Pod';
+    }
+
+    if (service instanceof ServiceTree) {
+      itemText = 'Group';
+    }
 
     if (service) {
       serviceName = service.getId();
@@ -54,22 +62,36 @@ class ServiceDestroyModal extends ServiceActionModal {
 
     return (
       <Confirm
-        disabled={this.state.disabled}
+        disabled={isPending}
         open={open}
-        onClose={this.handleCloseClick}
+        onClose={onClose}
         leftButtonText="Cancel"
-        leftButtonCallback={this.handleCloseClick}
+        leftButtonCallback={onClose}
         rightButtonText={`Destroy ${itemText}`}
         rightButtonClassName="button button-danger"
-        rightButtonCallback={this.handleConfirmClick}>
-        <h2 className="text-danger text-align-center flush-top">
-          Destroy {itemText}
-        </h2>
-        <p>Destroying <span className="emphasize">{serviceName}</span> is irreversible. Are you sure you want to continue?</p>
-        {this.getErrorMessage()}
+        rightButtonCallback={deleteItem}>
+        <div className="container-pod flush-top container-pod-short-bottom">
+          <h2 className="text-danger text-align-center flush-top">
+            Destroy {itemText}
+          </h2>
+          <p>Destroying <span className="emphasize">{serviceName}</span> is irreversible. Are you sure you want to continue?</p>
+          {this.getErrorMessage()}
+        </div>
       </Confirm>
     );
   }
 }
+
+ServiceDestroyModal.propTypes = {
+  deleteItem: PropTypes.func.isRequired,
+  errors: PropTypes.string,
+  isPending: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
+  open: PropTypes.bool.isRequired,
+  service: PropTypes.oneOfType([
+    PropTypes.instanceOf(ServiceTree),
+    PropTypes.instanceOf(Service)
+  ]).isRequired
+};
 
 module.exports = ServiceDestroyModal;

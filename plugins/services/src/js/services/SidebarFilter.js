@@ -1,20 +1,23 @@
 import classNames from 'classnames';
 import {Form} from 'reactjs-components';
-import {Link} from 'react-router';
-import mixin from 'reactjs-mixin';
 import React from 'react';
 
-import QueryParamsMixin from '../../../../../src/js/mixins/QueryParamsMixin';
 import ServiceFilterTypes from '../constants/ServiceFilterTypes';
 import ServiceStatusTypes from '../constants/ServiceStatusTypes';
 
-class SidebarFilter extends mixin(QueryParamsMixin) {
+const METHODS_TO_BIND = ['handleFormChange'];
+
+class SidebarFilter extends React.Component {
   constructor() {
-    super();
+    super(...arguments);
 
     this.state = {
       selectedNodes: []
     };
+
+    METHODS_TO_BIND.forEach((method) => {
+      this[method] = this[method].bind(this);
+    });
   }
 
   componentDidMount() {
@@ -35,48 +38,41 @@ class SidebarFilter extends mixin(QueryParamsMixin) {
     }
   }
 
+  clearFilters() {
+    this.setState({selectedNodes: []});
+    this.props.handleFilterChange(this.props.filterType, []);
+  }
+
   setFilterNode(filterValue) {
     let selectedNodes = this.state.selectedNodes.slice(0);
 
     selectedNodes.push(filterValue);
 
-    this.setQueryParam(this.props.filterType, selectedNodes);
+    this.setState(
+      {selectedNodes},
+      this.props.handleFilterChange(this.props.filterType, selectedNodes)
+    );
   }
 
   unsetFilterNode(filterValue) {
-    let {state} = this;
-    let selectedNodes = [];
+    let selectedNodes = this.state.selectedNodes.filter(function (node) {
+      return node !== filterValue;
+    });
 
-    let index = state.selectedNodes
-      .indexOf(filterValue.toString());
-
-    if (index !== -1) {
-      selectedNodes = state.selectedNodes.slice(0);
-      selectedNodes.splice(index, 1);
-    }
-
-    this.setQueryParam(this.props.filterType, selectedNodes);
+    this.setState(
+      {selectedNodes},
+      this.props.handleFilterChange(this.props.filterType, selectedNodes)
+    );
   }
 
   updateFilterStatus() {
     let {props, state} = this;
-    let {filterType, filterValues} = props;
-    let selectedNodes = this.getQueryParamObject()[filterType] || [];
+    let {filterType, filters} = props;
+    let selectedNodes = filters[filterType] || [];
     let stringify = JSON.stringify;
 
-    if (!Array.isArray(selectedNodes)) {
-      selectedNodes = decodeURIComponent(selectedNodes)
-        .split(',')
-        .filter(function (filterValue) {
-          let existingNode =
-            Object.values(filterValues).indexOf(parseInt(filterValue, 10));
-          return existingNode !== -1;
-        });
-    }
-
     if (stringify(selectedNodes) !== stringify(state.selectedNodes)) {
-      this.setState({selectedNodes},
-        this.props.handleFilterChange.bind(null, selectedNodes, filterType));
+      this.setState({selectedNodes});
     }
   }
 
@@ -91,29 +87,20 @@ class SidebarFilter extends mixin(QueryParamsMixin) {
     return count;
   }
 
-  getClearLinkForFilter(filterQueryParamKey) {
-    let {router} = this.context;
-    let currentPathname = router.getCurrentPathname();
-    let query = Object.assign({}, router.getCurrentQuery());
-    let params = router.getCurrentParams();
+  getClearLinkForFilter() {
+    let {filters, filterType} = this.props;
 
-    if (query[filterQueryParamKey] == null ||
-      query[filterQueryParamKey].length === 0) {
+    if (filters[filterType] == null ||
+      filters[filterType].length === 0) {
       return null;
     }
 
-    if (query[filterQueryParamKey] != null) {
-      delete query[filterQueryParamKey];
-    }
-
     return (
-      <Link
+      <a
         className="sidebar-filters-header-clear small flush"
-        to={currentPathname}
-        query={query}
-        params={params}>
+        onClick={() => { this.clearFilters(); }}>
         (Clear)
-      </Link>
+      </a>
     );
   }
 
@@ -142,7 +129,7 @@ class SidebarFilter extends mixin(QueryParamsMixin) {
     );
   }
 
-  getHealthCheckboxes() {
+  getCheckboxes() {
     let {filterLabels, filterType, filterValues} = this.props;
     let {selectedNodes} = this.state;
 
@@ -157,7 +144,9 @@ class SidebarFilter extends mixin(QueryParamsMixin) {
       })
       .map((filterLabel) => {
         let value = filterValues[filterLabel];
-        let checked = selectedNodes.indexOf(value.toString()) > -1;
+        let checked = selectedNodes.indexOf(value.toString()) > -1
+          || selectedNodes.indexOf(value) > -1;
+
         let isActive = this.getCountByValue(filterLabel) > 0;
 
         let labelClassSet = classNames({
@@ -177,11 +166,11 @@ class SidebarFilter extends mixin(QueryParamsMixin) {
       });
   }
 
-  getHealthNodes() {
+  getForm() {
     let definition = [{
       fieldType: 'checkbox',
-      name: 'healthNodes',
-      value: this.getHealthCheckboxes(),
+      name: 'filterNodes',
+      value: this.getCheckboxes(),
       writeType: 'input'
     }];
 
@@ -190,7 +179,7 @@ class SidebarFilter extends mixin(QueryParamsMixin) {
         formGroupClass="form-group flush"
         formRowClass="row"
         definition={definition}
-        onChange={this.handleFormChange.bind(this)} />
+        onChange={this.handleFormChange} />
     );
   }
 
@@ -207,15 +196,13 @@ class SidebarFilter extends mixin(QueryParamsMixin) {
   }
 
   render() {
-    let {props} = this;
-
     return (
       <div className="side-list sidebar-filters pod flush-top flush-left">
         <div className="sidebar-filters-header label">
           {this.getTitle()}
-          {this.getClearLinkForFilter(props.filterType)}
+          {this.getClearLinkForFilter()}
         </div>
-        {this.getHealthNodes()}
+        {this.getForm()}
       </div>
     );
   }
@@ -223,6 +210,7 @@ class SidebarFilter extends mixin(QueryParamsMixin) {
 
 SidebarFilter.propTypes = {
   countByValue: React.PropTypes.object.isRequired,
+  filters: React.PropTypes.object.isRequired,
   filterLabels: React.PropTypes.object.isRequired,
   filterType: React.PropTypes.string.isRequired,
   filterValues: React.PropTypes.object.isRequired,

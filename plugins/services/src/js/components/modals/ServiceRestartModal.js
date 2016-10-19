@@ -1,41 +1,58 @@
 import {Confirm} from 'reactjs-components';
-/* eslint-disable no-unused-vars */
-import React from 'react';
-/* eslint-enable no-unused-vars */
+import React, {PropTypes} from 'react';
+import PureRender from 'react-addons-pure-render-mixin';
 
-import MarathonStore from '../../stores/MarathonStore';
-import ServiceActionModal from './ServiceActionModal';
+import AppLockedMessage from './AppLockedMessage';
+import Service from '../../structs/Service';
+import ServiceTree from '../../structs/ServiceTree';
 
-class ServiceRestartModal extends ServiceActionModal {
+class ServiceRestartModal extends React.Component {
   constructor() {
     super(...arguments);
 
-    this.store_listeners = [
-      {
-        name: 'marathon',
-        events: [
-          'serviceRestartError',
-          'serviceRestartSuccess'
-        ],
-        suppressUpdate: true
-      }
-    ];
-
-    this.onMarathonStoreServiceRestartError = this.onError;
-    this.onMarathonStoreServiceRestartSuccess = this.closeDialog;
+    this.shouldComponentUpdate = PureRender.shouldComponentUpdate.bind(this);
   }
 
-  handleConfirmClick() {
-    super.handleConfirmClick();
+  componentWillUpdate(nextProps) {
+    const requestCompleted = this.props.isPending
+      && !nextProps.isPending;
 
-    let {service} = this.props;
-    let forceUpdate = this.shouldForceUpdate(this.state.errorMsg);
+    const shouldClose = requestCompleted && !nextProps.errors;
 
-    MarathonStore.restartService(service, forceUpdate);
+    if (shouldClose) {
+      this.props.onClose();
+    }
+  }
+
+  shouldForceUpdate() {
+    return this.props.errors && /force=true/.test(this.props.errors);
+  }
+
+  getErrorMessage() {
+    let {errors} = this.props;
+
+    if (!errors) {
+      return null;
+    }
+
+    if (this.shouldForceUpdate()) {
+      return <AppLockedMessage />;
+    }
+
+    return (
+      <p className="text-danger flush-top">{errors}</p>
+    );
   }
 
   render() {
-    const {open, service} = this.props;
+    const {
+      isPending,
+      onClose,
+      open,
+      service,
+      restartService
+    } = this.props;
+
     let serviceName = '';
 
     if (service) {
@@ -44,13 +61,13 @@ class ServiceRestartModal extends ServiceActionModal {
 
     return (
       <Confirm
-        disabled={this.state.disabled}
+        disabled={isPending}
         open={open}
-        onClose={this.handleCloseClick}
-        leftButtonCallback={this.handleCloseClick}
+        onClose={onClose}
+        leftButtonCallback={onClose}
         rightButtonText="Restart Service"
         rightButtonClassName="button button-danger"
-        rightButtonCallback={this.handleConfirmClick}>
+        rightButtonCallback={() => restartService(service, this.shouldForceUpdate())}>
         <h2 className="text-align-center flush-top">
           Restart Service
         </h2>
@@ -62,5 +79,17 @@ class ServiceRestartModal extends ServiceActionModal {
     );
   }
 }
+
+ServiceRestartModal.propTypes = {
+  errors: PropTypes.string,
+  isPending: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
+  open: PropTypes.bool.isRequired,
+  restartService: PropTypes.func.isRequired,
+  service: PropTypes.oneOfType([
+    PropTypes.instanceOf(ServiceTree),
+    PropTypes.instanceOf(Service)
+  ]).isRequired
+};
 
 module.exports = ServiceRestartModal;
