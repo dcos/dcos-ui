@@ -1,3 +1,4 @@
+import ExecutorTypes from '../constants/ExecutorTypes';
 import PodInstanceState from '../constants/PodInstanceState';
 import Util from './Util';
 
@@ -225,26 +226,25 @@ const MesosStateUtil = {
     // Find matching executor or task to construct the task path
     [].concat(framework.executors, framework.completed_executors)
         .every(function (executor) {
-          // Find app/framework executor
-          if (executor != null &&
-              (executor.id === executorID || executor.id === taskID)) {
+          if (executor.id === executorID || executor.id === taskID) {
+
+            // Use the executor task path construct if it's a "pod" / TaskGroup
+            // executor (type: DEFAULT), otherwise fallback to the default
+            // app/framework behavior.
+            if (executor.type === ExecutorTypes.DEFAULT) {
+              // For a detail documentation on how to construct the task path
+              // please see: https://reviews.apache.org/r/52376/
+              taskPath = `${executor.directory}/tasks/${taskID}/${path}`;
+              return false;
+            }
+
+            // Simply use the executors directory for "apps" and "frameworks",
+            // as well as any other executor
             taskPath = `${executor.directory}/${path}`;
             return false;
           }
 
-          // Find pod task and executor
-          return [].concat(executor.tasks, executor.completed_tasks)
-            .every(function (task) {
-              if (task != null && task.id === taskID) {
-                // For a detail documentation on how to construct the path
-                // please see: https://reviews.apache.org/r/52376/
-                taskPath =
-                    `${executor.directory}/tasks/${task.id}/${path}`;
-                return false;
-              }
-
-              return true;
-            });
+          return true;
         });
 
     return taskPath;
