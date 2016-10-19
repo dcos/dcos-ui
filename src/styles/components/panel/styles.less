@@ -49,6 +49,13 @@
       margin-bottom: @panel-grid-margin-vertical;
     }
   }
+
+  .panel-interactive {
+
+    &:hover {
+      box-shadow: 0 0 0 2px @purple;
+    }
+  }
 }
 
 & when (@panel-enabled) and (@layout-screen-small-enabled) {
