@@ -3,15 +3,14 @@ import React from 'react';
 
 class FullScreenModalHeader extends React.Component {
   render() {
-    let {props: {children, className}} = this;
-
-    let titleClasses = classNames(
+    let {children, className} = this.props;
+    let classes = classNames(
       'modal-full-screen-header-title h3 flush',
       className
     );
 
     return (
-      <div className={titleClasses}>
+      <div className={classes}>
         {children}
       </div>
     );

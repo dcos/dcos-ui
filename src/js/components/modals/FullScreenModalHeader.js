@@ -3,7 +3,7 @@ import React from 'react';
 
 class FullScreenModalHeader extends React.Component {
   render() {
-    let {props: {children, className}} = this;
+    let {children, className} = this.props;
     let classes = classNames('modal-full-screen-header pod', className);
 
     return (
