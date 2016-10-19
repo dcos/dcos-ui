@@ -3,15 +3,19 @@ import React from 'react';
 
 import TabButtons from './TabButtons';
 
+const METHODS_TO_BIND = ['handleTabChange'];
+
 class Tabs extends React.Component {
   constructor() {
-    super();
+    super(...arguments);
 
     this.state = {
       activeTab: null
     };
 
-    this.handleTabChange = this.handleTabChange.bind(this);
+    METHODS_TO_BIND.forEach((method) => {
+      this[method] = this[method].bind(this);
+    });
   }
 
   getChildren() {
