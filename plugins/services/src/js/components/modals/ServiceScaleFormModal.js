@@ -26,9 +26,13 @@ class ServiceScaleFormModal extends React.Component {
     if (shouldClose) {
       this.props.onClose();
     }
+  }
 
+  componentWillReceiveProps(nextProps) {
     let {errors} = nextProps;
     if (!errors) {
+      this.setState({errorMsg: null});
+
       return;
     }
 
@@ -39,6 +43,10 @@ class ServiceScaleFormModal extends React.Component {
       errorMsg = details.reduce(function (memo, error) {
         return `${memo} ${error.errors.join(' ')}`;
       }, '');
+    }
+
+    if (!errorMsg || !errorMsg.length) {
+      errorMsg = null;
     }
 
     this.setState({errorMsg});

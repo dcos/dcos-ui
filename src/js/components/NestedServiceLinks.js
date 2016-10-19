@@ -96,7 +96,7 @@ class NestedServiceLinks extends React.Component {
     } else {
       label = this.getServicePathParts().pop();
       params = {id: encodeURIComponent(serviceID)};
-      routeName = 'services-detail';
+      routeName = 'services-page';
     }
 
     return (
