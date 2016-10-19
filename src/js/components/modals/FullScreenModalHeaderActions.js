@@ -1,7 +1,7 @@
 import classNames from 'classnames/dedupe';
 import React from 'react';
 
-class FullScreenModalHeader extends React.Component {
+class FullScreenModalHeaderActions extends React.Component {
   getActions() {
     let {actions} = this.props;
 
@@ -46,7 +46,7 @@ const classProps = React.PropTypes.oneOfType([
   React.PropTypes.string
 ]);
 
-FullScreenModalHeader.propTypes = {
+FullScreenModalHeaderActions.propTypes = {
   actions: React.PropTypes.arrayOf(
     React.PropTypes.shape({
       className: classProps,
@@ -58,4 +58,4 @@ FullScreenModalHeader.propTypes = {
   type: React.PropTypes.oneOf(['primary', 'secondary']).isRequired
 };
 
-module.exports = FullScreenModalHeader;
+module.exports = FullScreenModalHeaderActions;
