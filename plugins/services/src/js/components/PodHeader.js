@@ -117,9 +117,7 @@ class PodHeader extends React.Component {
         ),
         shouldShow: true
       }
-    ];
-
-    return subHeaderItems.map(function (item, index) {
+    ].map(function (item, index) {
       if (!item.shouldShow) {
         return null;
       }
@@ -130,6 +128,12 @@ class PodHeader extends React.Component {
         </span>
       );
     });
+
+    return (
+      <div className="media-object-spacing-wrapper media-object-spacing-narrow media-object-offset">
+        {subHeaderItems}
+      </div>
+    );
   }
 
   render() {
