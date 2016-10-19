@@ -1,7 +1,7 @@
 import classNames from 'classnames/dedupe';
 import React from 'react';
 
-class FullScreenModalHeader extends React.Component {
+class FullScreenModalHeaderTitle extends React.Component {
   render() {
     let {children, className} = this.props;
     let classes = classNames(
@@ -23,9 +23,9 @@ const classProps = React.PropTypes.oneOfType([
   React.PropTypes.string
 ]);
 
-FullScreenModalHeader.propTypes = {
+FullScreenModalHeaderTitle.propTypes = {
   children: React.PropTypes.node.isRequired,
   className: classProps
 };
 
-module.exports = FullScreenModalHeader;
+module.exports = FullScreenModalHeaderTitle;
