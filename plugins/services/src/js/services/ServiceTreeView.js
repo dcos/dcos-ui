@@ -17,8 +17,8 @@ class ServiceTreeView extends React.Component {
 
     if (services.filters.searchString) {
       return (
-        <ul className="breadcrumb-style-headline list-unstyled list-inline inverse">
-          <li className="h4 inverse">
+        <ul className="breadcrumb-style-headline list-unstyled list-inline">
+          <li className="h4">
             Showing results for "{services.filters.searchString}"
           </li>
           <li className="h4 clickable" onClick={this.props.clearFilters}>
@@ -68,7 +68,7 @@ class ServiceTreeView extends React.Component {
               <ServiceSearchFilter
                 handleFilterChange={this.props.handleFilterChange}
                 filters={services.filters || {}} />
-              <button className="button button-stroke button-inverse"
+              <button className="button button-stroke"
                 onClick={modalHandlers.createGroup}>
                 Create Group
               </button>

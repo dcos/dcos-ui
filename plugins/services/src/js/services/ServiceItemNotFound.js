@@ -8,7 +8,7 @@ const ServiceItemNotFound = function ({ message }) {
 
   const icon = <Icon id="services" color="white" size="jumbo" />;
   const footer = (
-    <Link to="/services" className="button button-stroke button-inverse">
+    <Link to="/services" className="button button-stroke">
       Go back to Services Page
     </Link>
   );
