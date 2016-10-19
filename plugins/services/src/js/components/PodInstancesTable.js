@@ -316,7 +316,7 @@ class PodInstancesTable extends React.Component {
       return (
         <div className="expanding-table-primary-cell-heading text-overflow">
           <Link
-            className="emphasize clickable text-overflow"
+            className="table-cell-link-secondary text-overflow"
             to="/services/overview/:id/tasks/:taskID"
             params={{
               id: encodeURIComponent(this.props.pod.getId()),
@@ -350,7 +350,6 @@ class PodInstancesTable extends React.Component {
 
     return (
       <Link
-        className="emphasize clickable text-overflow"
         to="/services/overview/tasks/:taskID/view"
         params={{
           id: encodeURIComponent(this.props.pod.getId()),
@@ -379,7 +378,7 @@ class PodInstancesTable extends React.Component {
 
       return this.renderWithClickHandler(rowOptions, (
           <Link
-            className="emphasize clickable text-overflow"
+            className="table-cell-link-secondary text-overflow"
             to="/nodes/:nodeID"
             params={{nodeID: agent.id}}
             title={address}>
