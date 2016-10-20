@@ -19,11 +19,12 @@ class ServiceTasksContainer extends mixin(StoreMixin) {
     super(...arguments);
 
     this.state = {
+      lastUpdate: 0,
       mesosStateErrorCount: 0
     };
 
     this.store_listeners = [
-      {name: 'state', events: ['success', 'error']}
+      {name: 'state', events: ['success', 'error'], suppressUpdate: true}
     ];
 
     METHODS_TO_BIND.forEach((method) => {
@@ -32,8 +33,14 @@ class ServiceTasksContainer extends mixin(StoreMixin) {
   }
 
   onStateStoreSuccess() {
-    if (this.state.mesosStateErrorCount !== 0) {
-      this.setState({mesosStateErrorCount: 0});
+    // Throttle updates
+    if (Date.now() - this.state.lastUpdate > 1000
+      || this.state.mesosStateErrorCount !== 0) {
+
+      this.setState({
+        lastUpdate: Date.now(),
+        mesosStateErrorCount: 0
+      });
     }
   }
 
