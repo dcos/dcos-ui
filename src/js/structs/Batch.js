@@ -77,7 +77,7 @@ class Batch {
    * @param {any} data - The initial state of the reduce function
    * @returns {any} - The resulting state of the reduce function
    */
-  reduce(callback, data = {}) {
+  reduce(callback, data) {
     return this.batch.reduce(callback, data);
   };
 
