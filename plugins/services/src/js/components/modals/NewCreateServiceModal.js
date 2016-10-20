@@ -1,12 +1,12 @@
 import React from 'react';
 
-import FullScreenModal from './FullScreenModal';
-import FullScreenModalHeader from './FullScreenModalHeader';
-import FullScreenModalHeaderActions from './FullScreenModalHeaderActions';
-import FullScreenModalHeaderTitle from './FullScreenModalHeaderTitle';
+import FullScreenModal from '../../../../../../src/js/components/modals/FullScreenModal';
+import FullScreenModalHeader from '../../../../../../src/js/components/modals/FullScreenModalHeader';
+import FullScreenModalHeaderActions from '../../../../../../src/js/components/modals/FullScreenModalHeaderActions';
+import FullScreenModalHeaderTitle from '../../../../../../src/js/components/modals/FullScreenModalHeaderTitle';
 import NewCreateServiceModalServicePicker from './NewCreateServiceModalServicePicker';
 import NewCreateServiceModalForm from './NewCreateServiceModalForm';
-import Util from '../../utils/Util';
+import Util from '../../../../../../src/js/utils/Util';
 
 const METHODS_TO_BIND = ['handleServiceSelection'];
 

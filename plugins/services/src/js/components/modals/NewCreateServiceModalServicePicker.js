@@ -4,11 +4,11 @@ import React from 'react';
 /* eslint-enable no-unused-vars */
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
-import CosmosPackagesStore from '../../stores/CosmosPackagesStore';
-import defaultServiceImage from '../../../../plugins/services/src/img/icon-service-default-medium@2x.png';
-import Image from '../Image';
-import Loader from '../Loader';
-import Panel from '../Panel';
+import CosmosPackagesStore from '../../../../../../src/js/stores/CosmosPackagesStore';
+import defaultServiceImage from '../../../img/icon-service-default-medium@2x.png';
+import Image from '../../../../../../src/js/components/Image';
+import Loader from '../../../../../../src/js/components/Loader';
+import Panel from '../../../../../../src/js/components/Panel';
 
 class NewCreateServiceModalServicePicker extends mixin(StoreMixin) {
   constructor() {
