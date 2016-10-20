@@ -127,7 +127,7 @@ const JestUtil = {
     Date.prototype.getTimezoneOffset = function () {
       return timezoneOffset;
     };
-    Date.prototype.toLocaleString = function (locale=undefined, options={}) {
+    Date.prototype.toLocaleString = function (locale = undefined, options = {}) {
       options.timeZone = options.timeZone || timezone;
       return defaultToLocaleString.call(this, locale, options);
     };
