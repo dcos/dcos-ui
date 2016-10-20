@@ -1,5 +1,6 @@
 import {DCOSStore} from 'foundation-ui';
 import React, {PropTypes} from 'react';
+import {RouteHandler} from 'react-router';
 
 import ActionKeys from '../constants/ActionKeys';
 import MarathonActions from '../events/MarathonActions';
@@ -527,6 +528,11 @@ class ServicesContainer extends React.Component {
   }
 
   render() {
+    // TODO react-router: Temp hack if we are deeper than overview/:id we should render child routes
+    if (Object.keys(this.props.params).length > 1) {
+      return <RouteHandler />;
+    }
+
     const {
       fetchErrors,
       filters,
