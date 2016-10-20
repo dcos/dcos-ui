@@ -1,29 +1,21 @@
 import mixin from 'reactjs-mixin';
-import React from 'react';
+import React, {PropTypes} from 'react';
 
 import Breadcrumbs from '../../../../../src/js/components/Breadcrumbs';
-import InternalStorageMixin from '../../../../../src/js/mixins/InternalStorageMixin';
 import Service from '../structs/Service';
 import ServiceActionItem from '../constants/ServiceActionItem';
-import ServiceDestroyModal from '../components/modals/ServiceDestroyModal';
-import ServiceDetailConfigurationTab from '../components/ServiceDetailConfigurationTab';
-import ServiceDetailDebugTab from '../components/ServiceDetailDebugTab';
-import ServiceDetailTaskTab from '../components/ServiceDetailTaskTab';
-import ServiceFormModal from '../components/modals/ServiceFormModal';
+import ServiceConfigurationContainer from '../service-configuration/ServiceConfigurationContainer';
+import ServiceDebugContainer from '../service-debug/ServiceDebugContainer';
 import ServiceInfo from './ServiceInfo';
-import ServiceRestartModal from '../components/modals/ServiceRestartModal';
-import ServiceSuspendModal from '../components/modals/ServiceSuspendModal';
-import ServiceScaleFormModal from '../components/modals/ServiceScaleFormModal';
+import ServiceTasksContainer from '../tasks/ServiceTasksContainer';
 import TabsMixin from '../../../../../src/js/mixins/TabsMixin';
 import VolumeTable from '../components/VolumeTable';
 
 const METHODS_TO_BIND = [
-  'closeDialog',
-  'onActionsItemSelection',
-  'onServiceDestroyModalClose'
+  'onActionsItemSelection'
 ];
 
-class ServiceDetail extends mixin(InternalStorageMixin, TabsMixin) {
+class ServiceDetail extends mixin(TabsMixin) {
   constructor() {
     super(...arguments);
 
@@ -34,8 +26,7 @@ class ServiceDetail extends mixin(InternalStorageMixin, TabsMixin) {
     };
 
     this.state = {
-      currentTab: Object.keys(this.tabs_tabs).shift(),
-      serviceActionDialog: null
+      currentTab: Object.keys(this.tabs_tabs).shift()
     };
 
     METHODS_TO_BIND.forEach((method) => {
@@ -53,26 +44,27 @@ class ServiceDetail extends mixin(InternalStorageMixin, TabsMixin) {
     this.checkForVolumes();
   }
 
-  onActionsItemSelection(item) {
-    this.setState({serviceActionDialog: item.id});
-  }
+  onActionsItemSelection(actionItem) {
+    const {modalHandlers} = this.context;
+    const {service} = this.props;
 
-  onServiceDestroyModalClose() {
-    this.closeDialog();
-    this.context.router.transitionTo('services-page');
-  }
-
-  closeDialog() {
-    this.setState({serviceActionDialog: null});
-  }
-
-  getServiceScaleFormModal() {
-    return (
-      <ServiceScaleFormModal
-        open={this.state.serviceActionDialog === ServiceActionItem.SCALE}
-        service={this.props.service}
-        onClose={this.closeDialog} />
-    );
+    switch (actionItem.id) {
+      case ServiceActionItem.EDIT:
+        modalHandlers.editService({service});
+        break;
+      case ServiceActionItem.SCALE:
+        modalHandlers.scaleService({service});
+        break;
+      case ServiceActionItem.RESTART:
+        modalHandlers.restartService({service});
+        break;
+      case ServiceActionItem.SUSPEND:
+        modalHandlers.suspendService({service});
+        break;
+      case ServiceActionItem.DESTROY:
+        modalHandlers.deleteService({service});
+        break;
+    };
   }
 
   checkForVolumes() {
@@ -87,20 +79,21 @@ class ServiceDetail extends mixin(InternalStorageMixin, TabsMixin) {
 
   renderConfigurationTabView() {
     return (
-      <ServiceDetailConfigurationTab service={this.props.service} />
+      <ServiceConfigurationContainer
+        actions={this.props.actions}
+        service={this.props.service} />
     );
   }
 
   renderDebugTabView() {
     return (
-      <ServiceDetailDebugTab service={this.props.service}/>
+      <ServiceDebugContainer service={this.props.service}/>
     );
   }
 
   renderVolumesTabView() {
     return (
       <VolumeTable
-        params={this.context.router.getCurrentParams()}
         service={this.props.service}
         volumes={this.props.service.getVolumes().getItems()} />
     );
@@ -108,13 +101,12 @@ class ServiceDetail extends mixin(InternalStorageMixin, TabsMixin) {
 
   renderInstancesTabView() {
     return (
-      <ServiceDetailTaskTab service={this.props.service} />
+      <ServiceTasksContainer service={this.props.service} />
     );
   }
 
   render() {
     const {service} = this.props;
-    let {serviceActionDialog} = this.state;
 
     return (
       <div>
@@ -122,34 +114,23 @@ class ServiceDetail extends mixin(InternalStorageMixin, TabsMixin) {
         <ServiceInfo onActionsItemSelection={this.onActionsItemSelection}
           service={service} tabs={this.tabs_getUnroutedTabs()} />
         {this.tabs_getTabView()}
-        <ServiceFormModal isEdit={true}
-          open={serviceActionDialog === ServiceActionItem.EDIT}
-          service={service}
-          onClose={this.closeDialog} />
-        <ServiceDestroyModal
-          onClose={this.onServiceDestroyModalClose}
-          open={serviceActionDialog === ServiceActionItem.DESTROY}
-          service={service} />
-        <ServiceRestartModal
-          onClose={this.closeDialog}
-          open={serviceActionDialog === ServiceActionItem.RESTART}
-          service={service} />
-        {this.getServiceScaleFormModal()}
-        <ServiceSuspendModal
-          onClose={this.closeDialog}
-          open={serviceActionDialog === ServiceActionItem.SUSPEND}
-          service={service} />
       </div>
     );
   }
 }
 
 ServiceDetail.contextTypes = {
-  router: React.PropTypes.func
+  modalHandlers: PropTypes.shape({
+    scaleService: PropTypes.func,
+    restartService: PropTypes.func,
+    suspendService: PropTypes.func,
+    deleteService: PropTypes.func
+  }).isRequired
 };
 
 ServiceDetail.propTypes = {
-  service: React.PropTypes.instanceOf(Service)
+  actions: PropTypes.object.isRequired,
+  service: PropTypes.instanceOf(Service)
 };
 
 module.exports = ServiceDetail;

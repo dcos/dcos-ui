@@ -2,9 +2,9 @@ jest.dontMock('../../../../../../src/js/components/CollapsingString');
 jest.dontMock('../../../../../../src/js/components/DetailViewHeader');
 jest.dontMock('../../../../../../src/js/stores/MesosStateStore');
 jest.dontMock('../ServiceDetail');
-jest.dontMock('../../components/ServiceDetailDebugTab');
-jest.dontMock('../../components/ServiceDetailConfigurationTab');
-jest.dontMock('../../components/ServiceDetailTaskTab');
+jest.dontMock('../../service-debug/ServiceDebugContainer');
+jest.dontMock('../../service-configuration/ServiceConfigurationContainer');
+jest.dontMock('../../tasks/ServiceTasksContainer');
 jest.dontMock('../ServiceInfo');
 jest.dontMock('../../structs/Application');
 
@@ -17,9 +17,9 @@ const JestUtil = require('../../../../../../src/js/utils/JestUtil');
 
 const Application = require('../../structs/Application');
 const ServiceDetail = require('../ServiceDetail');
-const ServiceDetailDebugTab = require('../../components/ServiceDetailDebugTab');
-const ServiceDetailConfigurationTab = require('../../components/ServiceDetailConfigurationTab');
-const ServiceDetailTaskTab = require('../../components/ServiceDetailTaskTab');
+const ServiceDebugContainer = require('../../service-debug/ServiceDebugContainer');
+const ServiceConfigurationContainer = require('../../service-configuration/ServiceConfigurationContainer');
+const ServiceTasksContainer = require('../../tasks/ServiceTasksContainer');
 
 describe('ServiceDetail', function () {
 
@@ -73,12 +73,12 @@ describe('ServiceDetail', function () {
         this.instance.renderConfigurationTabView(),
         this.container
       );
-      var serviceDetailTaskTab = TestUtils.findRenderedComponentWithType(
+      var ServiceTasksContainer = TestUtils.findRenderedComponentWithType(
         configurationTabView,
-        ServiceDetailConfigurationTab
+        ServiceConfigurationContainer
       );
 
-      expect(serviceDetailTaskTab).toBeDefined();
+      expect(ServiceTasksContainer).toBeDefined();
 
     });
 
@@ -91,12 +91,12 @@ describe('ServiceDetail', function () {
         this.instance.renderDebugTabView(),
         this.container
       );
-      var serviceDetailDebugTab = TestUtils.findRenderedComponentWithType(
+      var serviceDebugContainer = TestUtils.findRenderedComponentWithType(
         debugTabView,
-        ServiceDetailDebugTab
+        ServiceDebugContainer
       );
 
-      expect(serviceDetailDebugTab).toBeDefined();
+      expect(serviceDebugContainer).toBeDefined();
     });
 
   });
@@ -110,7 +110,7 @@ describe('ServiceDetail', function () {
       );
       var serviceDetailInstancesTab = TestUtils.findRenderedComponentWithType(
         instancesTabView,
-        ServiceDetailTaskTab
+        ServiceTasksContainer
       );
 
       expect(serviceDetailInstancesTab).toBeDefined();

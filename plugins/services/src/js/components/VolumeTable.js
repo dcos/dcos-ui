@@ -132,20 +132,21 @@ class VolumeTable extends React.Component {
     let id = row[prop];
     let params = {volumeID: global.encodeURIComponent(id)};
     let routes = this.context.router.getCurrentRoutes();
+    let routeParams = this.context.router.getCurrentParams();
     let currentRouteName = routes[routes.length - 1].name;
     let routeName = null;
 
     if (currentRouteName === 'services-detail') {
       routeName = 'service-volume-details';
-      params.id = this.props.params.id;
+      params.id = routeParams.id;
     } else if (currentRouteName === 'services-task-details-volumes') {
       routeName = 'service-task-details-volume-details';
-      params.id = this.props.params.id;
-      params.taskID = this.props.params.taskID;
+      params.id = routeParams.id;
+      params.taskID = routeParams.taskID;
     } else if (currentRouteName === 'nodes-task-details-volumes') {
       routeName = 'item-volume-detail';
-      params.nodeID = this.props.params.nodeID;
-      params.taskID = this.props.params.taskID;
+      params.nodeID = routeParams.nodeID;
+      params.taskID = routeParams.taskID;
     }
 
     return <Link to={routeName} params={params}>{id}</Link>;

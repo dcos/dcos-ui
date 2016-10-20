@@ -5,7 +5,7 @@ import Service from '../structs/Service';
 import TaskStatsTable from './TaskStatsTable';
 import TimeAgo from '../../../../../src/js/components/TimeAgo';
 
-class ServiceDetailDebugTab extends React.Component {
+class ServiceDebugContainer extends React.Component {
   getValueText(value) {
     if (value == null || value === '') {
       return (
@@ -105,12 +105,12 @@ class ServiceDetailDebugTab extends React.Component {
   }
 }
 
-ServiceDetailDebugTab.contextTypes = {
+ServiceDebugContainer.contextTypes = {
   router: React.PropTypes.func
 };
 
-ServiceDetailDebugTab.propTypes = {
+ServiceDebugContainer.propTypes = {
   service: React.PropTypes.instanceOf(Service)
 };
 
-module.exports = ServiceDetailDebugTab;
+module.exports = ServiceDebugContainer;

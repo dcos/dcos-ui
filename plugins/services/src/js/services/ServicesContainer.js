@@ -3,7 +3,9 @@ import React, {PropTypes} from 'react';
 
 import ActionKeys from '../constants/ActionKeys';
 import MarathonActions from '../events/MarathonActions';
+import Service from '../structs/Service';
 import ServiceActionItem from '../constants/ServiceActionItem';
+import ServiceDetail from '../service-detail/ServiceDetail';
 import ServiceItemNotFound from './ServiceItemNotFound';
 import ServiceModals from '../components/modals/ServiceModals';
 import ServicesUtil from '../utils/ServicesUtil';
@@ -33,9 +35,6 @@ import {
   REQUEST_MARATHON_GROUP_EDIT_ERROR,
   REQUEST_MARATHON_GROUP_EDIT_SUCCESS,
 
-  REQUEST_MARATHON_POD_INSTANCE_KILL_ERROR,
-  REQUEST_MARATHON_POD_INSTANCE_KILL_SUCCESS,
-
   REQUEST_MARATHON_SERVICE_CREATE_ERROR,
   REQUEST_MARATHON_SERVICE_CREATE_SUCCESS,
 
@@ -46,10 +45,7 @@ import {
   REQUEST_MARATHON_SERVICE_EDIT_SUCCESS,
 
   REQUEST_MARATHON_SERVICE_RESTART_ERROR,
-  REQUEST_MARATHON_SERVICE_RESTART_SUCCESS,
-
-  REQUEST_MARATHON_TASK_KILL_ERROR,
-  REQUEST_MARATHON_TASK_KILL_SUCCESS
+  REQUEST_MARATHON_SERVICE_RESTART_SUCCESS
 } from '../constants/ActionTypes';
 
 import {
@@ -119,7 +115,6 @@ const METHODS_TO_BIND = [
   'deleteService',
   'editService',
   'restartService',
-  'killTasks',
   'onStoreChange',
   'setQueryParams'
 ];
@@ -134,17 +129,7 @@ class ServicesContainer extends React.Component {
       filters: {},
       isLoading: true,
       lastUpdate: 0,
-      pendingActions: {
-        groupCreate: false,
-        groupDelete: false,
-        groupEdit: false,
-        revertDeployment: false,
-        serviceCreate: false,
-        serviceDelete: false,
-        serviceEdit: false,
-        serviceRestart: false,
-        taskKill: false
-      }
+      pendingActions: {}
     };
 
     METHODS_TO_BIND.forEach((method) => {
@@ -250,18 +235,6 @@ class ServicesContainer extends React.Component {
     return MarathonActions.restartService(...arguments);
   }
 
-  killPodInstances() {
-    this.setPendingAction(ActionKeys.POD_INSTANCES_KILL);
-
-    return MarathonActions.killPodInstances(...arguments);
-  }
-
-  killTasks() {
-    this.setPendingAction(ActionKeys.TASK_KILL);
-
-    return MarathonActions.killTasks(...arguments);
-  }
-
   handleServerAction(payload) {
     const {action} = payload;
 
@@ -311,13 +284,6 @@ class ServicesContainer extends React.Component {
         this.unsetPendingAction(ActionKeys.SERVICE_CREATE);
         break;
 
-      case REQUEST_MARATHON_POD_INSTANCE_KILL_ERROR:
-        this.unsetPendingAction(ActionKeys.POD_INSTANCES_KILL, action.data);
-        break;
-      case REQUEST_MARATHON_POD_INSTANCE_KILL_SUCCESS:
-        this.unsetPendingAction(ActionKeys.POD_INSTANCES_KILL);
-        break;
-
       case REQUEST_MARATHON_SERVICE_DELETE_ERROR:
         this.unsetPendingAction(ActionKeys.SERVICE_DELETE, action.data);
         break;
@@ -338,22 +304,13 @@ class ServicesContainer extends React.Component {
       case REQUEST_MARATHON_SERVICE_RESTART_SUCCESS:
         this.unsetPendingAction(ActionKeys.SERVICE_RESTART);
         break;
-
-      case REQUEST_MARATHON_TASK_KILL_ERROR:
-        this.unsetPendingAction(ActionKeys.TASK_KILL, action.data);
-        break;
-      case REQUEST_MARATHON_TASK_KILL_SUCCESS:
-        this.unsetPendingAction(ActionKeys.TASK_KILL);
-        break;
     }
   }
 
-  handleModalClose() {
-    // Clear any existing errors for open modal
-    if (this.state.modal.id) {
-      this.clearActionError(this.state.modal.id);
+  handleModalClose(key) {
+    if (key) {
+      this.clearActionError(key);
     }
-
     this.setState({modal: {}});
   }
 
@@ -447,6 +404,7 @@ class ServicesContainer extends React.Component {
         pendingActions, actionType, false
       )
     });
+
     // Fetch new data if action was successful
     if (!error) {
       this.fetchData();
@@ -496,11 +454,7 @@ class ServicesContainer extends React.Component {
       deleteService: (props) => set(ServiceActionItem.DESTROY, props),
       restartService: (props) => set(ServiceActionItem.RESTART, props),
       scaleService: (props) => set(ServiceActionItem.SCALE, props),
-      suspendService: (props) => set(ServiceActionItem.SUSPEND, props),
-      // Task/Instance modals
-      killTasks: (props) => set(ServiceActionItem.KILL_TASKS, props),
-      killPodInstances: (props) => set(
-        ServiceActionItem.KILL_POD_INSTANCES, props)
+      suspendService: (props) => set(ServiceActionItem.SUSPEND, props)
     };
   }
 
@@ -513,9 +467,7 @@ class ServicesContainer extends React.Component {
       createService: this.createService,
       deleteService: this.deleteService,
       editService: this.editService,
-      restartService: this.restartService,
-      killPodInstances: this.killPodInstances,
-      killTasks: this.killTasks
+      restartService: this.restartService
     };
   }
 
@@ -605,7 +557,16 @@ class ServicesContainer extends React.Component {
       return <RequestErrorMsg />;
     }
 
-    // PLACEHOLDER for ServiceDetail & PodDetail
+    if (item instanceof Service) {
+      return (
+        <div>
+          <ServiceDetail
+            actions={this.getActions()}
+            service={item} />
+          {this.getModals(item)}
+        </div>
+      );
+    }
 
     // Show Tree
     if (item instanceof ServiceTree) {
@@ -651,9 +612,7 @@ ServicesContainer.childContextTypes = {
     deleteService: PropTypes.func,
     restartService: PropTypes.func,
     scaleService: PropTypes.func,
-    suspendService: PropTypes.func,
-    killTasks: PropTypes.func,
-    killPodInstances: PropTypes.func
+    suspendService: PropTypes.func
   })
 };
 

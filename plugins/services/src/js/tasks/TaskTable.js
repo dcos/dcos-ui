@@ -1,10 +1,9 @@
 import classNames from 'classnames';
-import {DCOSStore, ResourceTableUtil} from 'foundation-ui';
+import {ResourceTableUtil} from 'foundation-ui';
 import {Link} from 'react-router';
 import React from 'react';
 
 import CheckboxTable from '../../../../../src/js/components/CheckboxTable';
-import CompositeState from '../../../../../src/js/structs/CompositeState';
 import Icon from '../../../../../src/js/components/Icon';
 import TableUtil from '../../../../../src/js/utils/TableUtil';
 import TaskStates from '../constants/TaskStates';
@@ -28,9 +27,9 @@ class TaskTable extends React.Component {
   constructor() {
     super(...arguments);
 
-    METHODS_TO_BIND.forEach(function (method) {
+    METHODS_TO_BIND.forEach((method) => {
       this[method] = this[method].bind(this);
-    }, this);
+    });
   }
 
   getStatValue(task, prop) {
@@ -38,69 +37,11 @@ class TaskTable extends React.Component {
   }
 
   getStatusValue(task) {
-    let taskHealth = this.getTaskHealth(task);
-    // task status should only reflect health if taskHealth is defined
-    if (taskHealth === true) {
-      return 'Healthy';
-    }
-    if (taskHealth === false) {
-      return 'Unhealthy';
-    }
-
-    return TaskStates[task.state].displayName;
-  }
-
-  getTaskHealth(task) {
-    let mesosTaskHealth = this.getTaskHealthFromMesos(task);
-    if (mesosTaskHealth !== null) {
-      return mesosTaskHealth;
-    }
-
-    return this.getTaskHealthFromMarathon(task);
-  }
-
-  getTaskHealthFromMarathon(task) {
-    const marathonTask = DCOSStore.serviceTree.getTaskFromTaskID(task.id);
-    if (marathonTask != null) {
-      const {healthCheckResults} = marathonTask;
-      if (healthCheckResults != null && healthCheckResults.length > 0) {
-        return healthCheckResults.every(function (result) {
-          return result.alive;
-        });
-      }
-    }
-
-    return null;
-  }
-
-  getTaskHealthFromMesos(task) {
-    if (task.statuses == null) {
-      return null;
-    }
-    const healths = task.statuses.map(function (status) {
-      return status.healthy;
-    });
-    const healthDataExists = healths.length > 0 && healths.every(
-      function (health) {
-        return typeof health !== 'undefined';
-      }
-    );
-    if (healthDataExists) {
-      return healths.some(function (health) {
-        return health;
-      });
-    }
-
-    return null;
+    return task.health;
   }
 
   getVersionValue(task) {
-    let marathonTask = DCOSStore.serviceTree.getTaskFromTaskID(task.id);
-    if (marathonTask == null) {
-      return null;
-    }
-
-    return marathonTask.version;
+    return task.version || null;
   }
 
   getClassName(prop, sortBy, row) {
@@ -257,7 +198,7 @@ class TaskTable extends React.Component {
 
     return (prop, task) => {
       let title = task[prop];
-      let params = this.props.parentRouter.getCurrentParams();
+      let params = this.context.router.getCurrentParams();
       let routeParams = Object.assign({taskID: task.id}, params);
 
       let linkTo = 'services-task-details';
@@ -284,7 +225,7 @@ class TaskTable extends React.Component {
 
   renderLog(prop, task) {
     let title = task.name || task.id;
-    let params = this.props.parentRouter.getCurrentParams();
+    let params = this.context.router.getCurrentParams();
     let routeParams = Object.assign({taskID: task.id}, params);
 
     let linkTo = 'services-task-details-files-viewer';
@@ -303,10 +244,7 @@ class TaskTable extends React.Component {
   }
 
   renderHost(prop, task) {
-    let node = CompositeState.getNodesList()
-      .filter({ids: [task.slave_id]}).last();
-
-    if (!node) {
+    if (!task.hostname) {
       return 'N/A';
     }
 
@@ -315,8 +253,8 @@ class TaskTable extends React.Component {
         className="table-cell-link-secondary text-overflow"
         to="node-detail"
         params={{nodeID: task.slave_id}}
-        title={node.hostname}>
-        {node.hostname}
+        title={task.hostname}>
+        {task.hostname}
       </Link>
     );
   }
@@ -338,7 +276,7 @@ class TaskTable extends React.Component {
     let dangerState = TaskStates[state].stateTypes.includes('failure');
     let activeState = TaskStates[state].stateTypes.includes('active');
 
-    let healthy = this.getTaskHealth(task);
+    let healthy = task.health;
     let unhealthy = (healthy === false);
     let unknown = (healthy === null);
 
@@ -403,14 +341,14 @@ class TaskTable extends React.Component {
   }
 }
 
+TaskTable.contextTypes = {
+  router: React.PropTypes.func.isRequired
+};
+
 TaskTable.propTypes = {
   checkedItemsMap: React.PropTypes.object,
   className: React.PropTypes.string,
   onCheckboxChange: React.PropTypes.func,
-  parentRouter: React.PropTypes.oneOfType([
-    React.PropTypes.func,
-    React.PropTypes.object
-  ]).isRequired,
   tasks: React.PropTypes.array.isRequired
 };
 

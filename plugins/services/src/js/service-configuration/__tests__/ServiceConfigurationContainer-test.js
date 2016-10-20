@@ -1,4 +1,4 @@
-jest.dontMock('../ServiceDetailConfigurationTab');
+jest.dontMock('../ServiceConfigurationContainer');
 jest.dontMock('../ServiceSpecView');
 
 /* eslint-disable no-unused-vars */
@@ -8,10 +8,10 @@ const ReactDOM = require('react-dom');
 const TestUtils = require('react-addons-test-utils');
 
 const Application = require('../../structs/Application');
-const ServiceDetailConfigurationTab = require('../ServiceDetailConfigurationTab');
+const ServiceConfigurationContainer = require('../ServiceConfigurationContainer');
 const ServiceSpecView = require('../ServiceSpecView');
 
-describe('ServiceDetailConfigurationTab', function () {
+describe('ServiceConfigurationContainer', function () {
 
   const service = new Application({
     id: '/test',
@@ -28,9 +28,12 @@ describe('ServiceDetailConfigurationTab', function () {
   });
 
   beforeEach(function () {
+    const actions = {editService: () => {}};
     this.container = document.createElement('div');
     this.instance = ReactDOM.render(
-      <ServiceDetailConfigurationTab service={service} />,
+      <ServiceConfigurationContainer
+        actions={actions}
+        service={service} />,
       this.container
     );
   });

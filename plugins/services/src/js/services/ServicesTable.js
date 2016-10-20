@@ -131,7 +131,7 @@ class ServicesTable extends React.Component {
     return (
       <div className="service-table-heading flex-box
         flex-box-align-vertical-center table-cell-flex-box">
-        <Link to="services-detail"
+        <Link to="services-page"
           className="table-cell-icon"
           params={{id}}>
           {this.getImage(service)}
