@@ -9,7 +9,6 @@ class FullScreenModal extends React.Component {
 
     return (
       <Modal modalClass="modal modal-full-screen"
-        scrollContainerClass="modal-body flex flex-item-grow-1"
         showHeader={true}
         showFooter={false}
         transitionNameModal="modal-full-screen"
