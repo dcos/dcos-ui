@@ -48,6 +48,14 @@ describe('PodInstancesTable', function () {
 
   describe('#render', function () {
 
+    beforeEach(function () {
+      JestUtil.mockTimezone('Europe/Berlin');
+    });
+
+    afterEach(function () {
+      JestUtil.unmockTimezone();
+    });
+
     describe('collapsed table', function () {
       beforeEach(function () {
         this.instance = TestUtils.renderIntoDocument(
