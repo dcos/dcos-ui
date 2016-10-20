@@ -20,7 +20,7 @@ import TaskFileViewer from '../../../../services/src/js/pages/task-details/TaskF
 import TaskFilesTab from '../../../../services/src/js/pages/task-details/TaskFilesTab';
 import UnitsHealthDetailBreadcrumb from '../../../../../src/js/pages/system/breadcrumbs/UnitsHealthDetailBreadcrumb';
 import UnitsHealthNodeDetail from '../../../../../src/js/pages/system/UnitsHealthNodeDetail';
-import VolumeDetail from '../../../../services/src/js/components/VolumeDetail';
+import TaskVolumeContainer from '../../../../services/src/js/volume-detail/TaskVolumeContainer';
 import VolumeTable from '../../../../services/src/js/components/VolumeTable';
 
 let nodesRoutes = {
@@ -176,7 +176,7 @@ let nodesRoutes = {
         {
           type: Route,
           path: 'tasks/:taskID/volumes/:volumeID',
-          component: VolumeDetail,
+          component: TaskVolumeContainer,
           buildBreadCrumb() {
             return {
               parentCrumb: '/nodes/:nodeID',

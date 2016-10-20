@@ -9,7 +9,7 @@ import PodDetail from '../pod-detail/PodDetail';
 import Service from '../structs/Service';
 import ServiceActionItem from '../constants/ServiceActionItem';
 import ServiceDetail from '../service-detail/ServiceDetail';
-import ServiceItemNotFound from './ServiceItemNotFound';
+import ServiceItemNotFound from '../components/ServiceItemNotFound';
 import ServiceModals from '../components/modals/ServiceModals';
 import ServicesUtil from '../utils/ServicesUtil';
 import ServiceTree from '../structs/ServiceTree';
