@@ -1,15 +1,16 @@
+const TransactionTypes = require('../../constants/TransactionTypes');
+
 const Transaction = require('../Transaction');
 
 describe('Transaction', function () {
   describe('#constructor', function () {
     it('should have the type SET', function () {
       const transaction = new Transaction(0, 0);
-      expect(transaction.type).toEqual('SET');
+      expect(transaction.type).toEqual(TransactionTypes.SET);
     });
 
-    it('should have the type DEL', function () {
-      const transaction = new Transaction(0, 0, 'DEL');
-      expect(transaction.type).toEqual('DEL');
+    it('should throw a Error for random type', function () {
+      expect(()=>new Transaction(0, 0, 'DEL')).toThrowError(TypeError);
     });
 
     it('type should not be writeable', function () {
