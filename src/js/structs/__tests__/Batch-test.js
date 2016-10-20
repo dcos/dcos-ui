@@ -15,18 +15,13 @@ describe('Batch', function () {
       }).not.toThrow();
     });
 
-    it('should return a Batch', function () {
-      let newBatch = this.batch.add({action: 'a'});
-      expect(newBatch instanceof Batch).toBeTruthy();
-    });
-
   });
 
   describe('#reduce', function () {
 
     it('should iterate correctly over a batch with 1 item', function () {
-      let newBatch = this.batch.add({action: 'a'});
-      let actions = newBatch.reduce(function (actions, item) {
+      this.batch.add({action: 'a'});
+      let actions = this.batch.reduce(function (actions, item) {
         actions.push(item.action);
         return actions;
       }, []);
@@ -35,11 +30,10 @@ describe('Batch', function () {
     });
 
     it('should iterate correctly over a batch with 3 item', function () {
-      let newBatch = this.batch
-        .add({action: 'a'})
-        .add({action: 'b'})
-        .add({action: 'c'});
-      let actions = newBatch.reduce(function (actions, item) {
+      this.batch.add({action: 'a'});
+      this.batch.add({action: 'b'});
+      this.batch.add({action: 'c'});
+      let actions = this.batch.reduce(function (actions, item) {
         actions.push(item.action);
         return actions;
       }, []);

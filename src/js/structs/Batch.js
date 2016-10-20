@@ -42,14 +42,11 @@
 
 class Batch {
   constructor() {
-    // This creates a context for the functions which have access to the batch
-    // variable and also access to the instance. So `this` can be returned and
-    // functions could be chained.
-    const context = {instance:this, batch:[]};
+    const batch = [];
 
-    this.add = this.add.bind(context);
+    this.add = this.add.bind(batch);
 
-    this.reduce = this.reduce.bind(context);
+    this.reduce = this.reduce.bind(batch);
   }
 
   /**
@@ -59,13 +56,10 @@ class Batch {
    *       this will change in the future, so use this function assuming
    *       it will return the new batch you should operate upon!
    *
-   * @param {Action} item
-   * @returns {Batch} Returns the instance for the batch for chaining.
+   * @param {Action|Object} item
    */
   add(item) {
-    this.batch.push(item);
-
-    return this.instance;
+    this.push(item);
   };
 
   /**
@@ -74,11 +68,11 @@ class Batch {
    * This interface is exactly the same as the native Array.reduce function.
    *
    * @param {function(state, item)} callback - The callback function to use
-   * @param {any} data - The initial state of the reduce function
+   * @param {*} data - The initial state of the reduce function
    * @returns {any} - The resulting state of the reduce function
    */
   reduce(callback, data) {
-    return this.batch.reduce(callback, data);
+    return this.reduce(callback, data);
   };
 
 }
