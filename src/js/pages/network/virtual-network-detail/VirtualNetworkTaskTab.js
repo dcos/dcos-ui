@@ -168,7 +168,7 @@ class VirtualNetworkTaskTab extends mixin(StoreMixin) {
         key={value}
         params={{overlayName: this.props.overlay.getName(), taskID}}
         title={title}
-        to="virtual-networks-tab-detail-tasks-detail">
+        to="/network/virtual-networks/:overlayName/tasks/:taskID">
         {value}
       </Link>
     );

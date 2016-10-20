@@ -46,16 +46,14 @@ class NodeDetailPage extends mixin(TabsMixin, StoreMixin) {
     // TODO: DCOS-7871 Refactor the TabsMixin to generalize this solution:
     let routes = this.context.router.getCurrentRoutes();
     let currentRoute = routes.find(function (route) {
-      return route.name === 'node-detail';
+      return route.handler === NodeDetailPage;
     });
 
     if (currentRoute != null) {
-      this.tabs_tabs = currentRoute.children.reduce(function (tabs, {name, title}) {
-        // Only select routes with names that ends with tab
-        if (typeof name === 'string' && name.endsWith('-tab')) {
-          tabs[name] = title || name;
-        }
-
+      this.tabs_tabs = currentRoute.childRoutes.filter(function ({isTab}) {
+        return !!isTab;
+      }).reduce(function (tabs, {path, title}) {
+        tabs[path] = title;
         return tabs;
       }, this.tabs_tabs);
 
@@ -84,7 +82,7 @@ class NodeDetailPage extends mixin(TabsMixin, StoreMixin) {
 
   updateCurrentTab() {
     let routes = this.context.router.getCurrentRoutes();
-    let currentTab = routes[routes.length - 1].name;
+    let currentTab = routes[routes.length - 1].path;
     if (currentTab != null) {
       this.setState({currentTab});
     }

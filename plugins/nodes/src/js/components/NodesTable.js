@@ -54,7 +54,7 @@ var NodesTable = React.createClass({
 
     return (
       <Link className="table-cell-link-primary" params={{nodeID: node.get('id')}}
-        to="node-detail">
+        to="/nodes/:nodeID">
         {headline}
       </Link>
     );

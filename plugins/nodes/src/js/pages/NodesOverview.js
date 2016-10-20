@@ -213,18 +213,20 @@ var NodesOverview = React.createClass({
   },
 
   getViewTypeRadioButtons(resetFilter) {
+    let isGridActive = /\/nodes\/grid\/?/i.test(HashLocation.getCurrentPath());
+
     var listClassSet = classNames('button button-stroke', {
-      'active': /\/nodes\/list\/?/i.test(HashLocation.getCurrentPath())
+      'active': !isGridActive
     });
 
     var gridClassSet = classNames('button button-stroke', {
-      'active': /\/nodes\/grid\/?/i.test(HashLocation.getCurrentPath())
+      'active': isGridActive
     });
 
     return (
       <div className="button-group flush-bottom">
-        <Link className={listClassSet} onClick={resetFilter} to="nodes-list">List</Link>
-        <Link className={gridClassSet} onClick={resetFilter} to="nodes-grid">Grid</Link>
+        <Link className={listClassSet} onClick={resetFilter} to="/nodes">List</Link>
+        <Link className={gridClassSet} onClick={resetFilter} to="/nodes/grid">Grid</Link>
       </div>
     );
   },

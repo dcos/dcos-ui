@@ -1,4 +1,4 @@
-import {DefaultRoute, Redirect, Route} from 'react-router';
+import {DefaultRoute, Route} from 'react-router';
 /* eslint-disable no-unused-vars */
 import React from 'react';
 /* eslint-enable no-unused-vars */
@@ -25,8 +25,7 @@ import VolumeTable from '../../../../services/src/js/components/VolumeTable';
 
 let nodesRoutes = {
   type: Route,
-  name: 'nodes-page',
-  path: '/nodes/?',
+  path: 'nodes',
   handler: NodesPage,
   category: 'resources',
   isInSidebar: true,
@@ -36,7 +35,7 @@ let nodesRoutes = {
         return [
           {
             label: 'Nodes',
-            route: {to: 'nodes-page'}
+            route: {to: '/nodes'}
           }
         ];
       }
@@ -45,61 +44,55 @@ let nodesRoutes = {
   children: [
     {
       type: Route,
-      name: 'nodes-overview',
       handler: NodesOverview,
       children: [
         {
           type: DefaultRoute,
-          name: 'nodes-list',
           handler: NodesTableContainer
         },
         {
           type: Route,
-          name: 'nodes-grid',
-          path: 'grid/?',
+          path: 'grid',
           handler: NodesGridContainer
         }
       ]
     },
     {
       type: Route,
-      name: 'node-detail',
-      path: '/nodes/:nodeID/?',
+      path: ':nodeID',
       handler: NodeDetailPage,
+      buildBreadCrumb() {
+        return {
+          parentCrumb: '/nodes',
+          getCrumbs(router) {
+            return [
+              <NodeDetailBreadcrumb
+                parentRouter={router}
+                routePath="/nodes/:nodeID" />
+            ];
+          }
+        };
+      },
       children: [
         {
-          type: Route,
-          name: 'node-tasks-tab',
+          type: DefaultRoute,
+          isTab: true,
           title: 'Tasks',
-          path: 'tasks/?',
-          handler: NodeDetailTaskTab,
-          buildBreadCrumb() {
-            return {
-              parentCrumb: 'nodes-page',
-              getCrumbs(router) {
-                return [
-                  <NodeDetailBreadcrumb
-                    parentRouter={router}
-                    routeName="node-detail" />
-                ];
-              }
-            };
-          }
+          handler: NodeDetailTaskTab
         },
         {
           type: Route,
-          path: 'tasks/:taskID/?',
-          name: 'nodes-task-details',
+          path: 'tasks/:taskID',
           handler: TaskDetail,
           hideHeaderNavigation: true,
           buildBreadCrumb() {
             return {
-              parentCrumb: 'node-tasks-tab',
+              parentCrumb: '/nodes/:nodeID',
               getCrumbs(router) {
                 return [
                   <TaskDetailBreadcrumb
                     parentRouter={router}
-                    routeName="nodes-task-details" />
+                    routePath="/nodes/:nodeID/tasks/:taskID" />
                 ];
               }
             };
@@ -107,57 +100,55 @@ let nodesRoutes = {
           children: [
             {
               type: DefaultRoute,
-              name: 'nodes-task-details-tab',
               handler: TaskDetailsTab,
-              title:'Details',
+              title: 'Details',
+              isTab: true,
+              hideHeaderNavigation: true,
               buildBreadCrumb() {
                 return {
-                  parentCrumb: 'nodes-task-details',
+                  parentCrumb: '/nodes/:nodeID/tasks/:taskID',
                   getCrumbs() { return []; }
                 };
               }
             },
             {
               type: Route,
-              name: 'nodes-task-details-files',
-              path: 'files/?',
-              title:'Files',
-              children: [
-                {
-                  type: DefaultRoute,
-                  name: 'nodes-task-details-files-directory',
-                  handler: TaskFilesTab,
-                  fileViewerRouteName: 'nodes-task-details-files-viewer',
-                  buildBreadCrumb() {
-                    return {
-                      parentCrumb: 'nodes-task-details',
-                      getCrumbs() { return []; }
-                    };
-                  }
-                },
-                {
-                  type: Route,
-                  name: 'nodes-task-details-files-viewer',
-                  path: 'view/:filePath?/?:innerPath?/?',
-                  handler: TaskFileViewer,
-                  dontScroll: true,
-                  buildBreadCrumb() {
-                    return {
-                      parentCrumb: 'nodes-task-details',
-                      getCrumbs() { return []; }
-                    };
-                  }
-                }
-              ]
+              path: 'files',
+              isTab: true,
+              handler: TaskFilesTab,
+              title: 'Files',
+              hideHeaderNavigation: true,
+              fileViewerRoutePath: '/nodes/:nodeID/tasks/:taskID/view/?:filePath?/?:innerPath?',
+              buildBreadCrumb() {
+                return {
+                  parentCrumb: '/nodes/:nodeID/tasks/:taskID',
+                  getCrumbs() { return []; }
+                };
+              }
             },
             {
               type: Route,
-              name: 'nodes-task-details-volumes',
-              path: 'volumes/:volumeID?',
+              handler: TaskFileViewer,
+              dontScroll: true,
+              title: 'Logs',
+              isTab: true,
+              path: 'view/?:filePath?/?:innerPath?',
+              hideHeaderNavigation: true,
+              buildBreadCrumb() {
+                return {
+                  parentCrumb: '/nodes/:nodeID/tasks/:taskID',
+                  getCrumbs() { return []; }
+                };
+              }
+            },
+            {
+              type: Route,
+              path: 'volumes/?:volumeID?',
+              isTab: true,
               handler: VolumeTable,
               buildBreadCrumb() {
                 return {
-                  parentCrumb: 'nodes-task-details',
+                  parentCrumb: '/nodes/:nodeID/tasks/:taskID',
                   getCrumbs() { return []; }
                 };
               },
@@ -169,19 +160,18 @@ let nodesRoutes = {
         // in the nodes-task-details route.
         {
           type: Route,
-          name: 'item-volume-detail',
-          path: 'tasks/:taskID/volumes/:volumeID/?',
+          path: 'tasks/:taskID/volumes/:volumeID',
           handler: VolumeDetail,
           buildBreadCrumb() {
             return {
-              parentCrumb: 'node-detail',
+              parentCrumb: '/nodes/:nodeID',
               getCrumbs(router) {
                 return [
                   {
                     label: 'Volumes',
                     route: {
                       params: router.getCurrentParams(),
-                      to: 'nodes-task-details-volumes'
+                      to: '/nodes/:nodeID/tasks/:taskID/volumes/:volumeID'
                     }
                   },
                   {
@@ -194,18 +184,18 @@ let nodesRoutes = {
         },
         {
           type: Route,
-          name: 'node-health-tab',
-          path: 'health/?',
+          path: 'health',
           title: 'Health',
+          isTab: true,
           handler: NodeDetailHealthTab,
           buildBreadCrumb() {
             return {
-              parentCrumb: 'nodes-page',
+              parentCrumb: '/nodes',
               getCrumbs(router) {
                 return [
                   <NodeDetailBreadcrumb
                     parentRouter={router}
-                    routeName="node-detail" />
+                    routePath="/nodes/:nodeID" />
                 ];
               }
             };
@@ -213,17 +203,16 @@ let nodesRoutes = {
         },
         {
           type: Route,
-          name: 'node-detail-health',
-          path: 'health/:unitNodeID/:unitID/?',
+          path: 'health/:unitNodeID/:unitID',
           handler: UnitsHealthNodeDetail,
           buildBreadCrumb() {
             return {
-              parentCrumb: 'node-health-tab',
+              parentCrumb: '/nodes/health',
               getCrumbs(router) {
                 return [
                   <UnitsHealthDetailBreadcrumb
                     parentRouter={router}
-                    routeName="node-detail-health" />
+                    routePath="/nodes/:nodeID/health/:unitNodeID/:unitID" />
                 ];
               }
             };
@@ -231,34 +220,24 @@ let nodesRoutes = {
         },
         {
           type: Route,
-          name: 'node-details-tab',
-          path: 'details/?',
+          path: 'details',
           title: 'Details',
+          isTab: true,
           handler: NodeDetailTab,
           buildBreadCrumb() {
             return {
-              parentCrumb: 'nodes-page',
+              parentCrumb: '/nodes',
               getCrumbs(router) {
                 return [
                   <NodeDetailBreadcrumb
                     parentRouter={router}
-                    routeName="node-detail" />
+                    routePath="/nodes/:nodeID" />
                 ];
               }
             };
           }
-        },
-        {
-          type: Redirect,
-          from: '/nodes/:nodeID/?',
-          to: 'node-tasks-tab'
         }
       ]
-    },
-    {
-      type: Redirect,
-      path: '/nodes/?',
-      to: 'nodes-overview'
     }
   ]
 };

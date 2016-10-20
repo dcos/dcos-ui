@@ -25,7 +25,7 @@ const METHODS_TO_BIND = [
 ];
 
 const HIDE_BREADCRUMBS = [
-  'services-task-details-tab'
+  '/services/overview/:id/tasks/:taskID'
 ];
 
 class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
@@ -67,10 +67,10 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
     });
 
     if (currentRoute != null) {
-      this.tabs_tabs = currentRoute.children.reduce(function (tabs, {name, title}) {
-        if (name !== null) {
-          tabs[name] = title || name;
-        }
+      this.tabs_tabs = currentRoute.childRoutes.filter(function ({isTab}) {
+        return !!isTab;
+      }).reduce(function (tabs, {path, title}) {
+        tabs[path] = title || path;
 
         return tabs;
       }, this.tabs_tabs);
@@ -92,7 +92,7 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
 
   updateCurrentTab() {
     let routes = this.context.router.getCurrentRoutes();
-    let currentTab = routes[routes.length - 1].name;
+    let currentTab = routes[routes.length - 1].path;
     if (currentTab != null) {
       this.setState({currentTab});
     }
@@ -144,8 +144,8 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
     TaskDirectoryStore.setPath(task, path);
     // Transition to parent route, which uses a default route
     let currentRoutes = router.getCurrentRoutes();
-    let {name} = currentRoutes[currentRoutes.length - 2];
-    router.transitionTo(name, params);
+    let {path: parentPath} = currentRoutes[currentRoutes.length - 2];
+    router.transitionTo(parentPath, params);
   }
 
   getErrorScreen() {
@@ -194,8 +194,8 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
       }
     );
     let currentRoutes = router.getCurrentRoutes();
-    let {fileViewerRouteName} = currentRoutes[currentRoutes.length - 1];
-    router.transitionTo(fileViewerRouteName, params);
+    let {fileViewerRoutePath} = currentRoutes[currentRoutes.length - 1];
+    router.transitionTo(fileViewerRoutePath, params);
   }
 
   getBasicInfo() {
@@ -220,8 +220,8 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
 
     if (!this.hasVolumes(service)) {
       tabsArray = tabsArray.filter(function (tab) {
-        if (tab.key === 'nodes-task-details-volumes'
-          || tab.key === 'services-task-details-volumes') {
+        if (tab.key === '/nodes/:nodeID/tasks/:taskID/volumes/?:volumeID?'
+          || tab.key === '/services/overview/:id/tasks/:taskID/volumes') {
           return false;
         }
 
@@ -242,7 +242,7 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
     return (
       <DetailViewHeader
         icon={taskIcon}
-        iconClassName="icon-app-container icon-image-container"
+        iconClassName="icon-app-container  icon-image-container"
         subTitle={serviceStatus}
         subTitleClassName={serviceStatusClassSet}
         navigationTabs={navigationTabs}
@@ -272,8 +272,8 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
 
   getBreadcrumbs() {
     let routes = this.context.router.getCurrentRoutes();
-    let {name} = routes[routes.length - 1];
-    if (HIDE_BREADCRUMBS.includes(name)) {
+    let {path} = routes[routes.length - 1];
+    if (HIDE_BREADCRUMBS.includes(path)) {
       return null;
     }
 
@@ -317,12 +317,12 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
         <div className="flex flex-item-shrink-0 control-group">
           {this.getBreadcrumbs()}
         </div>
-        <RouteHandler
-          directory={directory}
-          onOpenLogClick={this.handleOpenLogClick.bind(this)}
-          selectedLogFile={selectedLogFile}
-          service={this.getService()}
-          task={task} />
+      <RouteHandler
+        directory={directory}
+        onOpenLogClick={this.handleOpenLogClick.bind(this)}
+        selectedLogFile={selectedLogFile}
+        service={this.getService()}
+        task={task} />
       </div>
     );
   }

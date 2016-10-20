@@ -95,7 +95,7 @@ var Sidebar = React.createClass({
         return route.id === 'index';
       });
 
-    return this.getMenuGroupsFromChildren(indexRoute.children)
+    return this.getMenuGroupsFromChildren(indexRoute.childRoutes)
       .map((group, index) => {
         let heading = null;
 
@@ -117,14 +117,14 @@ var Sidebar = React.createClass({
       });
   },
 
-  getGroupSubmenu({children = []}, {currentPath, isParentActive}) {
+  getGroupSubmenu({childRoutes = []}, {currentPath, isParentActive}) {
     let submenu = null;
     let isChildActive = false;
 
     if (isParentActive) {
-      let menuItems = children.reduce(function (childRoutes, currentChild) {
+      let menuItems = childRoutes.reduce(function (childRoutes, currentChild) {
         if (currentChild.isInSidebar) {
-          let routeLabel = currentChild.name;
+          let routeLabel = currentChild.path;
           let isActive = false;
 
           // Get the route label defined on the route's handler.
@@ -142,7 +142,7 @@ var Sidebar = React.createClass({
 
           childRoutes.push(
             <li className={menuItemClasses} key={routeLabel}>
-              <Link to={currentChild.name}>{routeLabel}</Link>
+              <Link to={currentChild.path}>{routeLabel}</Link>
             </li>
           );
         }
@@ -189,8 +189,8 @@ var Sidebar = React.createClass({
         route.handler.routeConfig.icon,
         {className: 'sidebar-menu-item-icon icon icon-small'}
       );
-      let hasChildren = route.children && route.children.length !== 0;
-      let notificationCount = NotificationStore.getNotificationCount(route.name);
+      let hasChildren = route.childRoutes && route.childRoutes.length !== 0;
+      let notificationCount = NotificationStore.getNotificationCount(route.path);
       let isParentActive = route.handler.routeConfig.matches.test(currentPath);
       let {isChildActive, submenu} = this.getGroupSubmenu(route, {
         currentPath,
@@ -221,7 +221,7 @@ var Sidebar = React.createClass({
 
       return (
         <li className={itemClassSet} key={index}>
-          <Link to={route.name}>{icon}{sidebarText}</Link>
+          <Link to={route.path}>{icon}{sidebarText}</Link>
           {submenu}
         </li>
       );

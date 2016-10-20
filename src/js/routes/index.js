@@ -33,7 +33,7 @@ function getApplicationRoutes() {
     {
       type: Redirect,
       from: '/',
-      to: Hooks.applyFilter('applicationRedirectRoute', 'dashboard')
+      to: Hooks.applyFilter('applicationRedirectRoute', '/dashboard')
     },
     {
       type: NotFoundRoute,
@@ -48,7 +48,6 @@ function getApplicationRoutes() {
   return [
     {
       type: Route,
-      name: 'home',
       path: '/',
       children: [
         {
