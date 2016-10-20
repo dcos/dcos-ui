@@ -104,8 +104,8 @@ class NodesGridContainer extends mixin(StoreMixin, QueryParamsMixin) {
     this.setState({filters, filteredNodes}, callback);
   }
 
-  handleShowServices(e) {
-    this.setState({showServices: e.currentTarget.checked});
+  handleShowServices(value) {
+    this.setState({showServices: value});
   }
 
   onStateStoreSuccess() {
