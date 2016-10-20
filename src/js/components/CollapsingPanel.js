@@ -4,15 +4,19 @@ import React from 'react';
 import CollapsingPanelContent from './CollapsingPanelContent';
 import CollapsingPanelHeader from './CollapsingPanelHeader';
 
+const METHODS_TO_BIND = ['handleHeadingClick'];
+
 class CollapsingPanel extends React.Component {
   constructor() {
-    super();
+    super(...arguments);
 
     this.state = {
       isExpanded: false
     };
 
-    this.handleHeadingClick = this.handleHeadingClick.bind(this);
+    METHODS_TO_BIND.forEach((method) => {
+      this[method] = this[method].bind(this);
+    });
   }
 
   handleHeadingClick() {
