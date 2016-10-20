@@ -92,7 +92,7 @@ class NewCreateServiceModalServicePicker extends mixin(StoreMixin) {
 
   getServiceDeployOptions() {
     return (
-      <div>
+      <div className="container">
         <div className="pod pod-taller flush-top flush-right flush-left">
           <h3 className="short flush-top">
             Run your own Service
@@ -174,7 +174,7 @@ class NewCreateServiceModalServicePicker extends mixin(StoreMixin) {
   render() {
     if (this.state.isLoading) {
       return (
-        <div className="pod">
+        <div className="flex-item-grow-1">
           <Loader className="inverse" />
         </div>
       );

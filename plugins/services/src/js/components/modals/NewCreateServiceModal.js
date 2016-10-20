@@ -6,15 +6,17 @@ import FullScreenModalHeaderActions from '../../../../../../src/js/components/mo
 import FullScreenModalHeaderTitle from '../../../../../../src/js/components/modals/FullScreenModalHeaderTitle';
 import NewCreateServiceModalServicePicker from './NewCreateServiceModalServicePicker';
 import NewCreateServiceModalForm from './NewCreateServiceModalForm';
+import ToggleButton from '../../../../../../src/js/components/ToggleButton';
 import Util from '../../../../../../src/js/utils/Util';
 
-const METHODS_TO_BIND = ['handleServiceSelection'];
+const METHODS_TO_BIND = ['handleJSONToggle', 'handleServiceSelection'];
 
 class NewServiceFormModal extends React.Component {
   constructor() {
     super(...arguments);
 
     this.state = {
+      isJSONModeActive: false,
       servicePickerActive: true,
       serviceFormActive: false
     };
@@ -24,8 +26,11 @@ class NewServiceFormModal extends React.Component {
     });
   }
 
-  handleServiceSelection(service) {
-    console.log(service);
+  handleJSONToggle() {
+    this.setState({isJSONModeActive: !this.state.isJSONModeActive});
+  }
+
+  handleServiceSelection() {
     this.setState({
       servicePickerActive: false,
       serviceFormActive: true
@@ -54,7 +59,10 @@ class NewServiceFormModal extends React.Component {
       );
     }
 
-    return <NewCreateServiceModalForm />;
+    return (
+      <NewCreateServiceModalForm
+        isJSONModeActive={this.state.isJSONModeActive} />
+    );
   }
 
   getPrimaryActions() {
@@ -64,7 +72,19 @@ class NewServiceFormModal extends React.Component {
 
     return [
       {
-        className: 'button-primary',
+        node: (
+          <ToggleButton
+            className="flush"
+            checkboxClassName="toggle-button"
+            checked={this.state.isJSONModeActive}
+            onChange={this.handleJSONToggle}
+            key="json-editor">
+            JSON Editor
+          </ToggleButton>
+        )
+      },
+      {
+        className: 'button-primary flush-vertical',
         clickHandler: () => console.log('Review...'),
         label: 'Review & Run'
       }
