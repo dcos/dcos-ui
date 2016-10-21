@@ -1469,7 +1469,7 @@ class FormTabContent extends React.Component {
 }
 
 FormTabContent.contextTypes = {
-  router: React.PropTypes.func
+  router: React.PropTypes.object
 };
 
 FormTabContent.willTransitionTo = function () {

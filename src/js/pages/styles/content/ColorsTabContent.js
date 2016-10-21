@@ -712,7 +712,7 @@ color: color-lighten(@purple, -50);`;
 }
 
 ColorsTabContent.contextTypes = {
-  router: React.PropTypes.func
+  router: React.PropTypes.object
 };
 
 ColorsTabContent.willTransitionTo = function () {

@@ -51,7 +51,7 @@ class PackageDetailTab extends mixin(StoreMixin) {
     super.componentDidMount(...arguments);
 
     let {packageName} = this.props.params;
-    let {version} = this.props.query;
+    let {version} = this.props.location.query;
     // Fetch package description
     CosmosPackagesStore.fetchPackageDescription(packageName, version);
   }
@@ -235,7 +235,7 @@ class PackageDetailTab extends mixin(StoreMixin) {
 
     return (
       <div>
-        <Breadcrumbs />
+        <Breadcrumbs routes={this.props.routes} params={this.props.params} />
         <div className="media-object-spacing-wrapper">
           <div className="media-object media-object-align-middle">
             <div className="media-object-item">

@@ -31,7 +31,7 @@ class TaskDetailBreadcrumb extends BreadcrumbSegment {
   }
 
   getTaskName() {
-    let {taskID} = this.props.parentRouter.getCurrentParams();
+    let {taskID} = this.props.params;
 
     if (MesosStateStore.get('lastMesosState').slaves == null) {
       return null;

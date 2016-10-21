@@ -13,7 +13,7 @@ class PageHeaderTabs extends React.Component {
 
       return (
         <li className={classes} key={index}>
-          <Link className={linkClasses} to={tab.routeName}>
+          <Link className={linkClasses} to={tab.routePath}>
             <span className="tab-item-label-text">
               {tab.label}
             </span>
@@ -39,7 +39,7 @@ PageHeaderTabs.propTypes = {
     React.PropTypes.shape({
       isActive: React.PropTypes.bool,
       label: React.PropTypes.node.isRequired,
-      routeName: React.PropTypes.string.isRequired
+      routePath: React.PropTypes.string.isRequired
     })
   )
 };

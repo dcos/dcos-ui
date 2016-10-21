@@ -2022,7 +2022,7 @@ class ButtonTabContent extends React.Component {
 }
 
 ButtonTabContent.contextTypes = {
-  router: React.PropTypes.func
+  router: React.PropTypes.object
 };
 
 ButtonTabContent.willTransitionTo = function () {

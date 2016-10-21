@@ -83,11 +83,12 @@ class UnitHealthNodesTable extends React.Component {
   }
 
   getNodeLink(node, linkText) {
-    let params = Object.assign({}, this.props.params, {unitNodeID: node.get('host_ip')});
+    let {unitID} = this.props.params;
+    let unitNodeID = node.get('host_ip');
 
     return (
-      <Link className="table-cell-link-primary text-overflow" params={params}
-        to="/components/:unitID/nodes/:unitNodeID">
+      <Link className="table-cell-link-primary text-overflow"
+        to={`/components/${unitID}/nodes/${unitNodeID}`}>
         {linkText}
       </Link>
     );

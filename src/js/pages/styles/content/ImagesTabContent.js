@@ -9,7 +9,7 @@ class ImagesTabContent extends React.Component {
 }
 
 ImagesTabContent.contextTypes = {
-  router: React.PropTypes.func
+  router: React.PropTypes.object
 };
 
 ImagesTabContent.willTransitionTo = function () {

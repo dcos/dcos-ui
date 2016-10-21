@@ -1907,7 +1907,7 @@ class TablesTabContent extends React.Component {
 }
 
 TablesTabContent.contextTypes = {
-  router: React.PropTypes.func
+  router: React.PropTypes.object
 };
 
 TablesTabContent.willTransitionTo = function () {

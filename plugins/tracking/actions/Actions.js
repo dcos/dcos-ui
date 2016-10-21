@@ -1,6 +1,6 @@
 import deepEqual from 'deep-equal';
 import md5 from 'md5';
-import {HashLocation} from 'react-router';
+import {hashHistory} from 'react-router';
 
 let SDK = require('../SDK').getSDK();
 
@@ -78,10 +78,10 @@ var Actions = {
     this.lastLogDate = this.createdAt;
     this.stintID = md5(`session_${this.createdAt}`);
 
-    this.setActivePage(HashLocation.getCurrentPath());
+    this.setActivePage(hashHistory.location || '');
 
-    HashLocation.addChangeListener(Util.debounce(function (data) {
-      Actions.setActivePage(data.path);
+    hashHistory.listen(Util.debounce(function (data) {
+      Actions.setActivePage(data.pathname);
     }, 200));
 
     // Poll to deplete queue

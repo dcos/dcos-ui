@@ -21,7 +21,7 @@ const TabsUtil = {
     return tabSet.map(function (tab, index) {
       let tabClass = classNames({
         'menu-tabbed-item': true,
-        'active': currentTab.startsWith(tab)
+        'active': !!currentTab && currentTab.startsWith(tab)
       });
 
       return (

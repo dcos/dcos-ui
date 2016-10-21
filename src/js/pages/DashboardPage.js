@@ -56,7 +56,7 @@ var DashboardPage = React.createClass({
   },
 
   contextTypes: {
-    router: React.PropTypes.func
+    router: React.PropTypes.object
   },
 
   getDefaultProps() {

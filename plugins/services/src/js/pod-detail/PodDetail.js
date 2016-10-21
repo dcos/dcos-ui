@@ -102,7 +102,7 @@ class PodDetail extends mixin(TabsMixin) {
 
     return (
       <div>
-        <Breadcrumbs />
+        <Breadcrumbs routes={this.props.routes} params={this.props.params} />
         <PodHeader
           onAction={this.handleAction}
           pod={pod}
@@ -131,7 +131,7 @@ class PodDetail extends mixin(TabsMixin) {
 }
 
 PodDetail.contextTypes = {
-  router: React.PropTypes.func
+  router: React.PropTypes.object
 };
 
 PodDetail.propTypes = {

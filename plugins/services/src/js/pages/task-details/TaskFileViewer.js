@@ -105,9 +105,10 @@ class TaskFileViewer extends React.Component {
       return;
     }
 
-    let currentRoutes = this.context.router.getCurrentRoutes();
+    let currentRoutes = this.props.routes;
     let lastRoute = currentRoutes.pop();
-    this.context.router.transitionTo(
+    // TODO: won't work with react-router 2.8.1 because `lastRoute.path` won't be absolute path
+    this.context.router.push(
       lastRoute.path,
       Object.assign({}, this.props.params, {filePath: encodeURIComponent(path)})
     );
@@ -338,7 +339,7 @@ class TaskFileViewer extends React.Component {
 }
 
 TaskFileViewer.contextTypes = {
-  router: React.PropTypes.func
+  router: React.PropTypes.object
 };
 
 TaskFileViewer.propTypes = {

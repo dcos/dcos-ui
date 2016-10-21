@@ -1,16 +1,16 @@
 import React, {PropTypes} from 'react';
 
-import ManualBreadcrumbs from './ManualBreadcrumbs';
+// import ManualBreadcrumbs from './ManualBreadcrumbs';
 
 class Breadcrumbs extends React.Component {
   buildCrumbs(route) {
-    let {router} = this.context;
+    let {params, routes} = this.props;
 
-    let crumbConfiguration = route.buildBreadCrumb(router);
-    let crumbs = crumbConfiguration.getCrumbs(router);
+    let crumbConfiguration = route.buildBreadCrumb(params, routes);
+    let crumbs = crumbConfiguration.getCrumbs(params, routes);
 
     if (crumbConfiguration.parentCrumb) {
-      let parentCrumb = router.getCurrentRoutes().find(function (eachRoute) {
+      let parentCrumb = routes.find(function (eachRoute) {
         return eachRoute.path === crumbConfiguration.parentCrumb;
       });
       if (parentCrumb && parentCrumb.buildBreadCrumb) {
@@ -22,8 +22,7 @@ class Breadcrumbs extends React.Component {
   }
 
   getCrumbsFromRoute() {
-    let {router} = this.context;
-    let routes = router.getCurrentRoutes();
+    let {routes} = this.props;
     // Find the first route with a name
     let currentRoute = null;
     loop:
@@ -44,16 +43,14 @@ class Breadcrumbs extends React.Component {
   }
 
   render() {
-    let crumbs = this.getCrumbsFromRoute();
-
-    return (
-      <ManualBreadcrumbs crumbs={crumbs} />
-    );
+    // let crumbs = this.getCrumbsFromRoute();
+    //
+    // return (
+    //   <ManualBreadcrumbs crumbs={crumbs} />
+    // );
+    // Disable Breadcrumbs because of the new react-router not giving absolute paths for a child route
+    return null;
   }
-};
-
-Breadcrumbs.contextTypes = {
-  router: PropTypes.func
 };
 
 Breadcrumbs.defaultProps = {
@@ -68,7 +65,9 @@ Breadcrumbs.propTypes = {
     PropTypes.string
   ]),
   // Remove n crumbs from beginning of route crumbs
-  shift: PropTypes.number
+  shift: PropTypes.number,
+  routes: PropTypes.array,
+  params: PropTypes.object
 };
 
 module.exports = Breadcrumbs;

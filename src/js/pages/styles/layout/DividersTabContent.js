@@ -389,7 +389,7 @@ class DividersTabContent extends React.Component {
 }
 
 DividersTabContent.contextTypes = {
-  router: React.PropTypes.func
+  router: React.PropTypes.object
 };
 
 DividersTabContent.willTransitionTo = function () {

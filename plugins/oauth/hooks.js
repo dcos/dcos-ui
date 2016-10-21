@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
 /* eslint-enable no-unused-vars */
-import {Redirect, Route} from 'react-router';
+import {Redirect, Route, hashHistory} from 'react-router';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import LoginPage from './components/LoginPage';
@@ -126,12 +126,12 @@ module.exports = Object.assign({}, StoreMixin, {
     // Add access denied and login pages
     routes[0].children.unshift(
       {
-        handler: AccessDeniedPage,
+        component: AccessDeniedPage,
         path: '/access-denied',
         type: Route
       },
       {
-        handler: LoginPage,
+        component: LoginPage,
         path: '/login',
         type: Route
       }
@@ -158,7 +158,7 @@ module.exports = Object.assign({}, StoreMixin, {
     let userRoute = {
       type: Route,
       path: 'users',
-      handler: UsersTab,
+      component: UsersTab,
       buildBreadCrumb() {
         return {
           parentCrumb: '/organization',
@@ -215,10 +215,10 @@ module.exports = Object.assign({}, StoreMixin, {
 
         if (loginRedirectRoute) {
           // Go to redirect route if it is present
-          this.applicationRouter.transitionTo(loginRedirectRoute);
+          hashHistory.push(loginRedirectRoute);
         } else {
           // Go to home
-          this.applicationRouter.transitionTo('/');
+          hashHistory.push('/');
         }
       });
     }

@@ -60,12 +60,17 @@ class ServiceTasksContainer extends mixin(StoreMixin) {
 
     let tasks = MesosStateStore.getTasksByService(this.props.service);
 
-    return <TasksContainer tasks={tasks} />;
+    return (
+      <TasksContainer
+        params={this.props.params}
+        tasks={tasks} />
+    );
   }
 }
 
 ServiceTasksContainer.propTypes = {
-  service: React.PropTypes.instanceOf(Service)
+  service: React.PropTypes.instanceOf(Service),
+  params: React.PropTypes.object.isRequired
 };
 
 module.exports = ServiceTasksContainer;

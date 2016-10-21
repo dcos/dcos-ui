@@ -130,25 +130,21 @@ class VolumeTable extends React.Component {
 
   renderIDColumn(prop, row) {
     let id = row[prop];
-    let params = {volumeID: global.encodeURIComponent(id)};
-    let routes = this.context.router.getCurrentRoutes();
-    let currentRoutePath = routes[routes.length - 1].path;
+    let {nodeID, taskID} = this.props.params;
+    let volumeID = global.encodeURIComponent(id);
+    let routes = this.props.routes;
+    let currentroutePath = routes[routes.length - 1].path;
     let routePath = null;
 
-    if (currentRoutePath === '/services/overview/:id') {
-      routePath = '/services/overview/:id/volumes/:volumeID';
-      params.id = this.props.params.id;
-    } else if (currentRoutePath === '/services/overview/:id/tasks/:taskID/volumes') {
-      routePath = '/services/overview/:id/tasks/:taskID/volumes/:volumeID';
-      params.id = this.props.params.id;
-      params.taskID = this.props.params.taskID;
-    } else if (currentRoutePath === '/nodes/:nodeID/tasks/:taskID/volumes') {
-      routePath = '/nodes/:nodeID/tasks/:taskID/volumes/:volumeID';
-      params.nodeID = this.props.params.nodeID;
-      params.taskID = this.props.params.taskID;
+    if (currentroutePath === '/services/overview/:id') {
+      routePath = `/services/overview/${this.props.params.id}/volumes/${volumeID}`;
+    } else if (currentroutePath === '/services/overview/:id/tasks/:taskID/volumes') {
+      routePath = `/services/overview/${this.props.params.id}/tasks/${taskID}/volumes/${volumeID}`;
+    } else if (currentroutePath === '/nodes/:nodeID/tasks/:taskID/volumes') {
+      routePath = `/nodes/${nodeID}/tasks/${taskID}/volumes/${volumeID}`;
     }
 
-    return <Link to={routePath} params={params}>{id}</Link>;
+    return <Link to={routePath}>{id}</Link>;
   }
 
   renderStatusColumn(prop, row) {
@@ -179,11 +175,13 @@ class VolumeTable extends React.Component {
 }
 
 VolumeTable.propTypes = {
-  volumes: React.PropTypes.arrayOf(React.PropTypes.instanceOf(Volume))
+  volumes: React.PropTypes.arrayOf(React.PropTypes.instanceOf(Volume)),
+  params: React.PropTypes.object.isRequired,
+  routes: React.PropTypes.array.isRequired
 };
 
 VolumeTable.contextTypes = {
-  router: React.PropTypes.func
+  router: React.PropTypes.object
 };
 
 module.exports = VolumeTable;

@@ -106,7 +106,7 @@ class ServiceDebugContainer extends React.Component {
 }
 
 ServiceDebugContainer.contextTypes = {
-  router: React.PropTypes.func
+  router: React.PropTypes.object
 };
 
 ServiceDebugContainer.propTypes = {

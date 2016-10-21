@@ -124,7 +124,7 @@ class ContainersTabContent extends React.Component {
 }
 
 ContainersTabContent.contextTypes = {
-  router: React.PropTypes.func
+  router: React.PropTypes.object
 };
 
 ContainersTabContent.willTransitionTo = function () {

@@ -94,7 +94,7 @@ class PodDebugTabView extends React.Component {
 }
 
 PodDebugTabView.contextTypes = {
-  router: React.PropTypes.func
+  router: React.PropTypes.object
 };
 
 PodDebugTabView.propTypes = {
