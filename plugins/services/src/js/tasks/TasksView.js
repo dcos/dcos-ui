@@ -212,7 +212,7 @@ class TasksView extends mixin(SaveStateMixin) {
       </div>
     );
   }
-    }
+}
 
 TasksView.contextTypes = {
   modalHandlers: React.PropTypes.shape({
