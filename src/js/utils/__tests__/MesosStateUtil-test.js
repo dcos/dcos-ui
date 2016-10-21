@@ -278,8 +278,8 @@ describe('MesosStateUtil', function () {
       let instances = MesosStateUtil.getPodHistoricalInstances(state, pod);
 
       expect(instances.length).toEqual(2);
-      expect(instances[0].id).toEqual('inst-a1');
-      expect(instances[1].id).toEqual('inst-a2');
+      expect(instances[0].id).toEqual('pod-p0.instance-inst-a1');
+      expect(instances[1].id).toEqual('pod-p0.instance-inst-a2');
     });
 
     it('should add `containerID` property on containers', function () {
