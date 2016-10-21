@@ -3,7 +3,7 @@ import mixin from 'reactjs-mixin';
 /* eslint-disable no-unused-vars */
 import React from 'react';
 /* eslint-enable no-unused-vars */
-import {RouteHandler} from 'react-router';
+
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import Breadcrumbs from '../../../../../../src/js/components/Breadcrumbs';
@@ -61,7 +61,7 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
     super.componentWillMount(...arguments);
 
     // TODO: DCOS-7871 Refactor the TabsMixin to generalize this solution:
-    let routes = this.context.router.getCurrentRoutes();
+    let routes = this.props.routes;
     let currentRoute = routes.find(function (route) {
       return route.handler === TaskDetail;
     });
@@ -91,7 +91,7 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
   }
 
   updateCurrentTab() {
-    let routes = this.context.router.getCurrentRoutes();
+    let routes = this.props.routes;
     let currentTab = routes[routes.length - 1].path;
     if (currentTab != null) {
       this.setState({currentTab});
@@ -143,8 +143,8 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
     let task = MesosStateStore.getTaskFromTaskID(params.taskID);
     TaskDirectoryStore.setPath(task, path);
     // Transition to parent route, which uses a default route
-    let currentRoutes = router.getCurrentRoutes();
-    let {path: parentPath} = currentRoutes[currentRoutes.length - 2];
+    // TODO: not gonna work with react-router as route.path is not absolute
+    let {path: parentPath} = router.routes[currentRoutes.length - 2];
     router.transitionTo(parentPath, params);
   }
 
@@ -195,6 +195,7 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
     );
     let currentRoutes = router.getCurrentRoutes();
     let {fileViewerRoutePath} = currentRoutes[currentRoutes.length - 1];
+    // TODO: not gonna work with react-router as route.path is not absolute
     router.transitionTo(fileViewerRoutePath, params);
   }
 
@@ -271,7 +272,7 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
   }
 
   getBreadcrumbs() {
-    let routes = this.context.router.getCurrentRoutes();
+    let routes = this.props.routes;
     let {path} = routes[routes.length - 1];
     if (HIDE_BREADCRUMBS.includes(path)) {
       return null;
@@ -317,12 +318,13 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
         <div className="flex flex-item-shrink-0 control-group">
           {this.getBreadcrumbs()}
         </div>
-      <RouteHandler
-        directory={directory}
-        onOpenLogClick={this.handleOpenLogClick.bind(this)}
-        selectedLogFile={selectedLogFile}
-        service={this.getService()}
-        task={task} />
+        {this.props.children && React.cloneElement(this.props.children, {
+          directory,
+          selectedLogFile,
+          task,
+          onOpenLogClick: this.handleOpenLogClick.bind(this),
+          service: this.getService()
+        })}
       </div>
     );
   }
@@ -340,7 +342,7 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
 
     return (
       <div className="flex flex-direction-top-to-bottom flex-item-grow-1 flex-item-shrink-1">
-        <Breadcrumbs />
+        <Breadcrumbs routes={this.props.routes} params={this.props.params} />
         {this.getBasicInfo()}
         {this.getSubView()}
       </div>
@@ -349,7 +351,7 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
 }
 
 TaskDetail.contextTypes = {
-  router: React.PropTypes.func
+  router: React.PropTypes.object
 };
 
 TaskDetail.propTypes = {

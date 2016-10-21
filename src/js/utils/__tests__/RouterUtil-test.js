@@ -10,15 +10,16 @@ describe('RouterUtil', function () {
   describe('#createComponentsFromRoutes', function () {
 
     beforeEach(function () {
-      this.handler = function () {};
+      this.component = function () {};
     });
 
     it('creates a react component', function () {
       let components = RouterUtil.createComponentsFromRoutes([
         {
           type: ReactRouter.Route,
-          path: 'foo',
-          handler: this.handler
+          name: 'foo-bar',
+          path: 'foo/?',
+          component: this.component
         }
       ]);
 
@@ -29,8 +30,9 @@ describe('RouterUtil', function () {
       let components = RouterUtil.createComponentsFromRoutes([
         {
           type: ReactRouter.Route,
-          path: 'foo',
-          handler: this.handler
+          name: 'foo-bar',
+          path: 'foo/?',
+          component: this.component
         }
       ]);
 
@@ -42,14 +44,16 @@ describe('RouterUtil', function () {
       let components = RouterUtil.createComponentsFromRoutes([
         {
           type: ReactRouter.Route,
-          path: 'foo',
-          handler: this.handler
+          name: 'foo-bar',
+          path: 'foo/?',
+          component: this.component
         }
       ]);
       let props = components[0].props;
 
-      expect(props.handler).toEqual(this.handler);
-      expect(props.path).toEqual('foo');
+      expect(props.component).toEqual(this.component);
+      expect(props.name).toEqual('foo-bar');
+      expect(props.path).toEqual('foo/?');
     });
 
     it('creates child route components', function () {
@@ -57,7 +61,7 @@ describe('RouterUtil', function () {
         {
           type: ReactRouter.Route,
           path: 'foo',
-          handler: this.handler,
+          component: this.component,
           children: [{
             type: ReactRouter.Redirect,
             path: 'bar',
@@ -76,12 +80,12 @@ describe('RouterUtil', function () {
   describe('#setRouteConfiguration', function () {
 
     beforeEach(function () {
-      this.handler = function () {};
+      this.component = function () {};
       this.routeConfig = [
         {
           type: ReactRouter.Route,
           path: 'qux',
-          handler: this.handler,
+          component: this.component,
           buildBreadCrumb() {}
         }
       ];
@@ -89,7 +93,7 @@ describe('RouterUtil', function () {
 
     it('sets route configurations', function () {
       let components = RouterUtil.createComponentsFromRoutes(this.routeConfig);
-      let routes = ReactRouter.createRoutesFromReactChildren(components);
+      let routes = ReactRouter.createRoutes(components);
 
       routes = RouterUtil.setRouteConfiguration(routes, this.routeConfig);
 
@@ -103,15 +107,15 @@ describe('RouterUtil', function () {
         {
           type: ReactRouter.Route,
           path: 'foo',
-          handler: this.handler,
+          component: this.component,
           children: [{
             type: ReactRouter.Route,
             path: 'bar',
-            handler: this.handler,
+            component: this.component,
             children: [{
               type: ReactRouter.Route,
               path: 'baz',
-              handler: this.handler,
+              component: this.component,
               children: this.routeConfig // This is what we target
             }]
           }]
@@ -120,7 +124,7 @@ describe('RouterUtil', function () {
       let components = RouterUtil.createComponentsFromRoutes(
         routeConfiguration
       );
-      let routes = ReactRouter.createRoutesFromReactChildren(components[0]);
+      let routes = ReactRouter.createRoutes(components[0]);
 
       routes = RouterUtil.setRouteConfiguration(routes, routeConfiguration);
 
@@ -139,16 +143,16 @@ describe('RouterUtil', function () {
         {
           type: ReactRouter.Route,
           path: 'foo',
-          handler() {},
+          component() {},
           buildBreadCrumb() {},
           children: [{
             type: ReactRouter.Route,
             path: 'bar',
-            handler() {},
+            component() {},
             children: [{
               type: ReactRouter.Route,
               path: 'baz',
-              handler() {},
+              component() {},
               buildBreadCrumb() {}
             }]
           }]
@@ -160,20 +164,20 @@ describe('RouterUtil', function () {
       // Check first route
       let firstRoute = routes[0];
       expect(firstRoute.path).toEqual('/foo');
-      expect(firstRoute.handler).toEqual(routeConfiguration[0].handler);
+      expect(firstRoute.component).toEqual(routeConfiguration[0].component);
       expect(firstRoute.buildBreadCrumb)
           .toEqual(routeConfiguration[0].buildBreadCrumb);
       // Check middle route
       let secondRoute = routes[0].childRoutes[0];
       let secondRouteConfig = routeConfiguration[0].children[0];
       expect(secondRoute.path).toEqual('/foo/bar');
-      expect(secondRoute.handler).toEqual(secondRouteConfig.handler);
+      expect(secondRoute.component).toEqual(secondRouteConfig.component);
       expect(secondRoute.buildBreadCrumb).toEqual(undefined);
       // Check last route
       let thirdRoute = routes[0].childRoutes[0].childRoutes[0];
       let thirdRouteConfig = routeConfiguration[0].children[0].children[0];
       expect(thirdRoute.path).toEqual('/foo/bar/baz');
-      expect(thirdRoute.handler).toEqual(thirdRouteConfig.handler);
+      expect(thirdRoute.component).toEqual(thirdRouteConfig.component);
       expect(thirdRoute.buildBreadCrumb)
           .toEqual(thirdRouteConfig.buildBreadCrumb);
     });

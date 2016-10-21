@@ -20,7 +20,7 @@ class NodeDetailBreadCrumb extends BreadcrumbSegment {
   }
 
   getHostname() {
-    let {nodeID} = this.props.parentRouter.getCurrentParams();
+    let {nodeID} = this.props.params;
     let node = CompositeState.getNodesList().filter(
       {ids: [nodeID]}
     ).last();

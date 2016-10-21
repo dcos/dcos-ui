@@ -11,8 +11,8 @@ let stores = {
 
 // Private router stub
 class RouterStub {
-  static makePath() {}
-  static makeHref() {}
+  static createPath() {}
+  static createHref() {}
   static transitionTo() {}
   static replaceWith() {}
   static goBack() {}
@@ -145,7 +145,7 @@ const JestUtil = {
 
       static get childContextTypes() {
         return {
-          router: React.PropTypes.func,
+          router: React.PropTypes.object,
           routeDepth: React.PropTypes.number
         };
       }

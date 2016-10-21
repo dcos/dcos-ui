@@ -190,6 +190,7 @@ class TasksContainer extends React.Component {
     return (
       <div>
         <TasksView
+          params={this.props.params}
           tasks={this.props.tasks}
           label="Instance" />
         {this.getModals()}
@@ -208,7 +209,8 @@ TasksContainer.childContextTypes = {
 };
 
 TasksContainer.propTypes = {
-  tasks: PropTypes.array.isRequired
+  tasks: PropTypes.array.isRequired,
+  params: PropTypes.object.isRequired
 };
 
 module.exports = TasksContainer;

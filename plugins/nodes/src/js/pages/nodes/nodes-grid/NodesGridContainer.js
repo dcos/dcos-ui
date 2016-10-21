@@ -47,7 +47,7 @@ class NodesGridContainer extends mixin(StoreMixin, QueryParamsMixin) {
   }
 
   componentWillReceiveProps(props) {
-    const {services, query} = props;
+    const {services, location: {query}} = props;
     let ids = services.map(function (service) {
       return service.id;
     });
@@ -162,7 +162,7 @@ class NodesGridContainer extends mixin(StoreMixin, QueryParamsMixin) {
 }
 
 NodesGridContainer.contextTypes = {
-  router: React.PropTypes.func.isRequired,
+  router: React.PropTypes.object.isRequired,
   selectedResource: React.PropTypes.string
 };
 

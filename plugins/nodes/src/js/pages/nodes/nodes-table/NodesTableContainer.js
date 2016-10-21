@@ -26,9 +26,7 @@ class NodesTableContainer extends mixin(StoreMixin, QueryParamsMixin) {
     ];
   }
 
-  componentWillReceiveProps(router) {
-    let {query} = router;
-
+  componentWillReceiveProps({location: {query}}) {
     const filters = {
       health: query.filterHealth || 'all',
       name: query.searchString || '',
@@ -68,9 +66,5 @@ class NodesTableContainer extends mixin(StoreMixin, QueryParamsMixin) {
     );
   }
 }
-
-NodesTableContainer.contextTypes = {
-  router: React.PropTypes.func.isRequired
-};
 
 module.exports = NodesTableContainer;

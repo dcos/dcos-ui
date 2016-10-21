@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, {PropTypes} from 'react';
 /* eslint-enable no-unused-vars */
-import {DefaultRoute, Route, Redirect} from 'react-router';
+import {IndexRoute, Route, Redirect} from 'react-router';
 
 import {Hooks} from 'PluginSDK';
 import NetworkPage from '../../pages/NetworkPage';
@@ -21,7 +21,7 @@ let RouteFactory = {
       {
         type: Route,
         path: 'virtual-networks',
-        handler: VirtualNetworksTab,
+        component: VirtualNetworksTab,
         isInSidebar: true,
         buildBreadCrumb() {
           return {
@@ -37,17 +37,18 @@ let RouteFactory = {
       {
         type: Route,
         path: 'virtual-networks/:overlayName',
-        handler: VirtualNetworkDetail,
+        component: VirtualNetworkDetail,
         children: [
           {
-            type: DefaultRoute,
-            handler: VirtualNetworkTaskTab,
+            type: IndexRoute,
+            component: VirtualNetworkTaskTab,
+            tab: 'virtual-networks/:overlayName',
             hideHeaderNavigation: true,
             buildBreadCrumb() {
               return {
                 parentCrumb: '/network/virtual-networks',
-                getCrumbs(router) {
-                  let {overlayName} = router.getCurrentParams();
+                getCrumbs(params) {
+                  let {overlayName} = params;
 
                   return [{
                     label: overlayName,
@@ -63,13 +64,13 @@ let RouteFactory = {
           {
             type: Route,
             path: 'details',
-            handler: VirtualNetworkDetailsTab,
+            component: VirtualNetworkDetailsTab,
             hideHeaderNavigation: true,
             buildBreadCrumb() {
               return {
                 parentCrumb: '/network/virtual-networks',
-                getCrumbs(router) {
-                  let {overlayName} = router.getCurrentParams();
+                getCrumbs(params) {
+                  let {overlayName} = params;
 
                   return [{
                     label: overlayName,
@@ -87,20 +88,20 @@ let RouteFactory = {
       {
         type: Route,
         path: 'virtual-networks/:overlayName/tasks/:taskID',
-        handler: TaskDetail,
+        component: TaskDetail,
         hideHeaderNavigation: true,
         buildBreadCrumb() {
           return {
             parentCrumb: '/network/virtual-networks/:overlayName/tasks',
-            getCrumbs(router) {
-              return [{label: router.getCurrentParams().taskID}];
+            getCrumbs(params) {
+              return [{label: params.taskID}];
             }
           };
         },
         children: [
           {
-            type: DefaultRoute,
-            handler: TaskDetailsTab,
+            type: IndexRoute,
+            component: TaskDetailsTab,
             hideHeaderNavigation: true,
             title:'Details',
             buildBreadCrumb() {
@@ -116,9 +117,9 @@ let RouteFactory = {
             title:'Files',
             children: [
               {
-                type: DefaultRoute,
+                type: IndexRoute,
                 hideHeaderNavigation: true,
-                handler: TaskFilesTab,
+                component: TaskFilesTab,
                 fileViewerRoutePath: '/network/virtual-networks/:overlayName/tasks/:taskID/view',
                 buildBreadCrumb() {
                   return {
@@ -131,7 +132,7 @@ let RouteFactory = {
                 type: Route,
                 path: 'view/?:filePath?/?:innerPath?',
                 hideHeaderNavigation: true,
-                handler: TaskFileViewer,
+                component: TaskFileViewer,
                 dontScroll: true,
                 buildBreadCrumb() {
                   return {
@@ -147,35 +148,32 @@ let RouteFactory = {
     ];
 
     // Return filtered Routes
-    return this.getFilteredRoutes(
-      // Pass in Object so Plugins can mutate routes and the default redirect
-      Hooks.applyFilter('networkRoutes', {
-        routes: virtualNetworksRoute,
-        redirect: {
-          type: Redirect,
-          from: '/network',
-          to: '/network/virtual-networks'
-        }
-      })
-    );
-  },
-
-  getFilteredRoutes(filteredRoutes) {
-    // Push redirect onto Routes Array
-    return filteredRoutes.routes.concat([filteredRoutes.redirect]);
+    // Pass in Object so Plugins can mutate routes and the default redirect
+    return Hooks.applyFilter('networkRoutes', {
+      routes: virtualNetworksRoute,
+      redirect: {
+        type: Redirect,
+        from: '/network',
+        to: '/network/virtual-networks'
+      }
+    });
   },
 
   getRoutes() {
-    let children = this.getNetworkRoutes();
+    let {routes, redirect} = this.getNetworkRoutes();
 
-    return {
-      type: Route,
-      path: 'network',
-      handler: NetworkPage,
-      category: 'resources',
-      isInSidebar: true,
-      children
-    };
+    return [
+      // Redirect should always go before path, otherwise router won't ever reach it
+      redirect,
+      {
+        type: Route,
+        path: 'network',
+        component: NetworkPage,
+        category: 'resources',
+        isInSidebar: true,
+        children: routes
+      }
+    ];
   }
 };
 

@@ -1124,7 +1124,7 @@ class TypographyTabContent extends React.Component {
 }
 
 TypographyTabContent.contextTypes = {
-  router: React.PropTypes.func
+  router: React.PropTypes.object
 };
 
 TypographyTabContent.willTransitionTo = function () {

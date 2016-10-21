@@ -59,11 +59,12 @@ class PackagesTab extends mixin(StoreMixin) {
 
   handleDetailOpen(cosmosPackage, event) {
     event.stopPropagation();
-    this.context.router.transitionTo(
-      '/universe/packages/:packageName',
-      {packageName: cosmosPackage.getName()},
-      {version: cosmosPackage.getCurrentVersion()}
-    );
+    this.context.router.push({
+      pathname: `/universe/packages/${cosmosPackage.getName()}`,
+      query: {
+        version: cosmosPackage.getCurrentVersion()
+      }
+    });
   }
 
   handleInstallModalClose() {
@@ -238,7 +239,7 @@ class PackagesTab extends mixin(StoreMixin) {
 }
 
 PackagesTab.contextTypes = {
-  router: React.PropTypes.func
+  router: React.PropTypes.object
 };
 
 PackagesTab.routeConfig = {

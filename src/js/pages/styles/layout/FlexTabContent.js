@@ -1598,7 +1598,7 @@ class FlexTabContent extends React.Component {
 }
 
 FlexTabContent.contextTypes = {
-  router: React.PropTypes.func
+  router: React.PropTypes.object
 };
 
 FlexTabContent.willTransitionTo = function () {

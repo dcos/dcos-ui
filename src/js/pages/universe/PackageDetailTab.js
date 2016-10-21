@@ -50,7 +50,7 @@ class PackageDetailTab extends mixin(StoreMixin) {
     super.componentDidMount(...arguments);
 
     let {packageName} = this.props.params;
-    let {version} = this.props.query;
+    let {version} = this.props.location.query;
     // Fetch package description
     CosmosPackagesStore.fetchPackageDescription(packageName, version);
   }
@@ -243,15 +243,15 @@ class PackageDetailTab extends mixin(StoreMixin) {
                   src={cosmosPackage.getIcons()['icon-large']} />
               </div>
             </div>
-            <div className="media-object-item">
-              <h1 className="flush">
-                {name}
-              </h1>
-              <p>{this.getSelectedBadge(cosmosPackage, version)}</p>
-              {this.getInstallButton(cosmosPackage)}
+              <div className="media-object-item">
+                <h1 className="flush">
+                  {name}
+                </h1>
+                <p>{this.getSelectedBadge(cosmosPackage, version)}</p>
+                {this.getInstallButton(cosmosPackage)}
+              </div>
             </div>
-          </div>
-        </div>
+            </div>
         <div className="pod pod-short flush-right flush-left">
           {this.getItems(definition, this.getItem)}
           <ImageViewer images={cosmosPackage.getScreenshots()} />

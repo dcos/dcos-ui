@@ -1,5 +1,6 @@
 import PureRender from 'react-addons-pure-render-mixin';
 import React from 'react';
+import {hashHistory} from 'react-router';
 import {ResourceTableUtil} from 'foundation-ui';
 import {Table} from 'reactjs-components';
 
@@ -109,15 +110,14 @@ class HealthTab extends React.Component {
 
   renderUnitHealthCheck(prop, unit) {
     let healthCheckName = unit.getTitle();
-    let router = this.props.parentRouter;
-    let params = Object.assign({}, router.getCurrentParams());
-    params.unitNodeID = this.props.node.get('hostname');
-    params.unitID = unit.get('id');
+    let {nodeID} = this.props.parentRouter.params;
+    let unitNodeID = this.props.node.get('hostname');
+    let unitID = unit.get('id');
 
     return (
       <a
         className="emphasize clickable text-overflow"
-        onClick={() => { this.props.parentRouter.transitionTo('/nodes/:nodeID/health/:unitNodeID/:unitID', params); }}
+        onClick={() => { hashHistory.push(`/nodes/${nodeID}/health/${unitNodeID}/${unitID}`); }}
         title={healthCheckName}>
         {healthCheckName}
       </a>

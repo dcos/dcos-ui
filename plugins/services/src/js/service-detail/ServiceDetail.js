@@ -94,6 +94,8 @@ class ServiceDetail extends mixin(TabsMixin) {
   renderVolumesTabView() {
     return (
       <VolumeTable
+        params={this.props.params}
+        routes={this.props.routes}
         service={this.props.service}
         volumes={this.props.service.getVolumes().getItems()} />
     );
@@ -101,7 +103,9 @@ class ServiceDetail extends mixin(TabsMixin) {
 
   renderInstancesTabView() {
     return (
-      <ServiceTasksContainer service={this.props.service} />
+      <ServiceTasksContainer
+        params={this.props.params}
+        service={this.props.service} />
     );
   }
 
@@ -110,7 +114,7 @@ class ServiceDetail extends mixin(TabsMixin) {
 
     return (
       <div>
-        <Breadcrumbs />
+        <Breadcrumbs routes={this.props.routes} params={this.props.params} />
         <ServiceInfo onActionsItemSelection={this.onActionsItemSelection}
           service={service} tabs={this.tabs_getUnroutedTabs()} />
         {this.tabs_getTabView()}
@@ -130,6 +134,7 @@ ServiceDetail.contextTypes = {
 
 ServiceDetail.propTypes = {
   actions: PropTypes.object.isRequired,
+  params: PropTypes.object.isRequired,
   service: PropTypes.instanceOf(Service)
 };
 

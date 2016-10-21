@@ -1,4 +1,3 @@
-import {RouteHandler} from 'react-router';
 import mixin from 'reactjs-mixin';
 /* eslint-disable no-unused-vars */
 import React from 'react';
@@ -29,7 +28,11 @@ class NodeDetailPage extends mixin(TabsMixin, StoreMixin) {
       }
     ];
 
-    this.tabs_tabs = {};
+    this.tabs_tabs = {
+      '/nodes/:nodeID/tasks': 'Tasks',
+      '/nodes/:nodeID/health': 'Health',
+      '/nodes/:nodeID/details': 'Details'
+    };
 
     this.state = {node: null};
   }
@@ -44,11 +47,10 @@ class NodeDetailPage extends mixin(TabsMixin, StoreMixin) {
     }
 
     // TODO: DCOS-7871 Refactor the TabsMixin to generalize this solution:
-    let routes = this.context.router.getCurrentRoutes();
+    let routes = this.props.routes;
     let currentRoute = routes.find(function (route) {
-      return route.handler === NodeDetailPage;
+      return route.component === NodeDetailPage;
     });
-
     if (currentRoute != null) {
       this.tabs_tabs = currentRoute.childRoutes.filter(function ({isTab}) {
         return !!isTab;
@@ -56,9 +58,8 @@ class NodeDetailPage extends mixin(TabsMixin, StoreMixin) {
         tabs[path] = title;
         return tabs;
       }, this.tabs_tabs);
-
-      this.updateCurrentTab();
     }
+    this.updateCurrentTab();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -81,7 +82,7 @@ class NodeDetailPage extends mixin(TabsMixin, StoreMixin) {
   }
 
   updateCurrentTab() {
-    let routes = this.context.router.getCurrentRoutes();
+    let routes = this.props.routes;
     let currentTab = routes[routes.length - 1].path;
     if (currentTab != null) {
       this.setState({currentTab});
@@ -147,7 +148,7 @@ class NodeDetailPage extends mixin(TabsMixin, StoreMixin) {
 
     return (
       <div>
-        <Breadcrumbs />
+        <Breadcrumbs routes={this.props.routes} params={this.props.params} />
         <DetailViewHeader
           navigationTabs={this.getNavigation()}
           subTitle={this.getSubHeader(node)}
@@ -202,14 +203,14 @@ class NodeDetailPage extends mixin(TabsMixin, StoreMixin) {
     return (
       <div>
         {this.getDetailViewHeader(node)}
-        <RouteHandler node={node} />
+        {this.props.children && React.cloneElement(this.props.children, { node })}
       </div>
     );
   }
 }
 
 NodeDetailPage.contextTypes = {
-  router: React.PropTypes.func
+  router: React.PropTypes.object
 };
 
 module.exports = NodeDetailPage;

@@ -9,7 +9,7 @@ class DropdownsTabContent extends React.Component {
 }
 
 DropdownsTabContent.contextTypes = {
-  router: React.PropTypes.func
+  router: React.PropTypes.object
 };
 
 DropdownsTabContent.willTransitionTo = function () {

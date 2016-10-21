@@ -219,7 +219,7 @@ class ButtonCollectionsTabContent extends React.Component {
 }
 
 ButtonCollectionsTabContent.contextTypes = {
-  router: React.PropTypes.func
+  router: React.PropTypes.object
 };
 
 ButtonCollectionsTabContent.willTransitionTo = function () {

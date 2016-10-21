@@ -1,4 +1,4 @@
-import {Route, Redirect, NotFoundRoute} from 'react-router';
+import {Route, Redirect} from 'react-router';
 import {Hooks} from 'PluginSDK';
 
 import cluster from './cluster';
@@ -20,7 +20,7 @@ let routeFactories = [Organization, Network];
 
 function getApplicationRoutes() {
   // Statically defined routes
-  let routes = [
+  let routes = [].concat(
     dashboard,
     services,
     jobs,
@@ -29,36 +29,38 @@ function getApplicationRoutes() {
     cluster,
     components,
     settings,
-    styles,
+    styles
+  );
+
+  routeFactories.forEach(function (routeFactory) {
+    routes = routes.concat(routeFactory.getRoutes());
+  });
+
+  routes = [
+    {
+      type: Route,
+      children: [
+        {
+          type: Route,
+          id: 'index',
+          component: Index,
+          children: routes
+        }
+      ]
+    },
     {
       type: Redirect,
       from: '/',
       to: Hooks.applyFilter('applicationRedirectRoute', '/dashboard')
     },
     {
-      type: NotFoundRoute,
-      handler: NotFoundPage
-    }
-  ];
-
-  routeFactories.forEach(function (routeFactory) {
-    routes.push(routeFactory.getRoutes());
-  });
-
-  return [
-    {
       type: Route,
-      path: '/',
-      children: [
-        {
-          type: Route,
-          id: 'index',
-          handler: Index,
-          children: routes
-        }
-      ]
+      path: '*',
+      component: NotFoundPage
     }
   ];
+
+  return routes;
 }
 
 function getRoutes() {

@@ -158,7 +158,7 @@ class UnitsHealthDetail extends mixin(StoreMixin) {
 
     return (
       <div className="flex-container-col">
-        <Breadcrumbs />
+        <Breadcrumbs routes={this.props.routes} params={this.props.params} />
         <DetailViewHeader
           icon={<Icon color="neutral" id="shapes" size="large" />}
           subTitle={this.getSubTitle(unit)}

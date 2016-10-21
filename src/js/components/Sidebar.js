@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import GeminiScrollbar from 'react-gemini-scrollbar';
-import {Link, State} from 'react-router';
+import {Link} from 'react-router';
 import React from 'react';
 import {Tooltip} from 'reactjs-components';
 import PluginSDK from 'PluginSDK';
@@ -26,10 +26,10 @@ var Sidebar = React.createClass({
 
   saveState_properties: ['sidebarExpanded'],
 
-  mixins: [SaveStateMixin, State, InternalStorageMixin],
+  mixins: [SaveStateMixin, InternalStorageMixin],
 
   contextTypes: {
-    router: React.PropTypes.func
+    router: React.PropTypes.object
   },
 
   getInitialState() {
@@ -88,9 +88,7 @@ var Sidebar = React.createClass({
   },
 
   getNavigationSections() {
-    let currentPath = this.context.router.getLocation().getCurrentPath();
-
-    let indexRoute = this.context.router.getCurrentRoutes()
+    let indexRoute = this.props.routes
       .find(function (route) {
         return route.id === 'index';
       });
@@ -111,13 +109,13 @@ var Sidebar = React.createClass({
           <div className="sidebar-section pod pod-shorter flush-top flush-left flush-right"
             key={index}>
             {heading}
-            {this.getNavigationGroup(group, currentPath)}
+            {this.getNavigationGroup(group, this.props.location.pathname)}
           </div>
         );
       });
   },
 
-  getGroupSubmenu({childRoutes = []}, {currentPath, isParentActive}) {
+  getGroupSubmenu({path, childRoutes = []}, {currentPath, isParentActive}) {
     let submenu = null;
     let isChildActive = false;
 
@@ -127,10 +125,10 @@ var Sidebar = React.createClass({
           let routeLabel = currentChild.path;
           let isActive = false;
 
-          // Get the route label defined on the route's handler.
-          if (currentChild.handler && currentChild.handler.routeConfig) {
-            routeLabel = currentChild.handler.routeConfig.label;
-            isActive = currentChild.handler.routeConfig.matches
+          // Get the route label defined on the route's component.
+          if (currentChild.component && currentChild.component.routeConfig) {
+            routeLabel = currentChild.component.routeConfig.label;
+            isActive = currentChild.component.routeConfig.matches
               .test(currentPath);
           }
 
@@ -142,7 +140,7 @@ var Sidebar = React.createClass({
 
           childRoutes.push(
             <li className={menuItemClasses} key={routeLabel}>
-              <Link to={currentChild.path}>{routeLabel}</Link>
+              <Link to={`/${path}/${currentChild.path}`}>{routeLabel}</Link>
             </li>
           );
         }
@@ -186,19 +184,19 @@ var Sidebar = React.createClass({
   getNavigationGroup(group, currentPath) {
     let groupMenuItems = group.routes.map((route, index) => {
       let icon = React.cloneElement(
-        route.handler.routeConfig.icon,
+        route.component.routeConfig.icon,
         {className: 'sidebar-menu-item-icon icon icon-small'}
       );
       let hasChildren = route.childRoutes && route.childRoutes.length !== 0;
       let notificationCount = NotificationStore.getNotificationCount(route.path);
-      let isParentActive = route.handler.routeConfig.matches.test(currentPath);
+      let isParentActive = route.component.routeConfig.matches.test(currentPath);
       let {isChildActive, submenu} = this.getGroupSubmenu(route, {
         currentPath,
         isParentActive
       });
       let sidebarText = (
         <span className="sidebar-menu-item-label">
-          {route.handler.routeConfig.label}
+          {route.component.routeConfig.label}
         </span>
       );
 
@@ -206,7 +204,7 @@ var Sidebar = React.createClass({
         sidebarText = (
           <span className="sidebar-menu-item-label badge-container">
             <span className="sidebar-menu-item-label-text badge-container-text">
-              {route.handler.routeConfig.label}
+              {route.component.routeConfig.label}
             </span>
             <span className="badge">{notificationCount}</span>
           </span>

@@ -312,7 +312,7 @@ class GridTabContent extends React.Component {
 }
 
 GridTabContent.contextTypes = {
-  router: React.PropTypes.func
+  router: React.PropTypes.object
 };
 
 GridTabContent.willTransitionTo = function () {

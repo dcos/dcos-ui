@@ -11,25 +11,16 @@ const BreadcrumbSegmentLink = require('../BreadcrumbSegmentLink');
 describe('BreadcrumbSegment', function () {
 
   beforeEach(function () {
-    function parentRouter() {}
-    parentRouter.getCurrentRoutes = function () {
-      return (
-        [{
-          path:'foo',
-          paramNames: ['bar']
-        }]
-      );
-    };
-    parentRouter.getCurrentParams = function () {
-      return {bar: 'baz'};
-    };
-
-    this.parentRouter = parentRouter;
+    this.routes = [{
+      path:'foo',
+      paramNames: ['bar']
+    }];
+    this.params = {bar: 'baz'};
   });
 
   it('renders the label', function () {
     let instance = TestUtils.renderIntoDocument(
-      <BreadcrumbSegment routePath="foo" parentRouter={this.parentRouter} />
+      <BreadcrumbSegment routePath="foo" routes={this.routes} params={this.params} />
     );
 
     expect(instance.getBackupCrumbLabel()).toEqual('baz');
@@ -37,7 +28,7 @@ describe('BreadcrumbSegment', function () {
 
   it('renders the link', function () {
     let instance = TestUtils.renderIntoDocument(
-      <BreadcrumbSegment routePath="foo" parentRouter={this.parentRouter} />
+      <BreadcrumbSegment routePath="foo" routes={this.routes} params={this.params} />
     );
 
     let node = TestUtils.findRenderedComponentWithType(

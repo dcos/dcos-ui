@@ -185,7 +185,7 @@ class PodInstancesTabView extends React.Component {
 }
 
 PodInstancesTabView.contextTypes = {
-  router: React.PropTypes.func
+  router: React.PropTypes.object
 };
 
 PodInstancesTabView.propTypes = {

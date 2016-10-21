@@ -12,8 +12,7 @@ class NestedServiceLinks extends React.Component {
         <div className={minorLinkClasses}>
           <Link
             className={minorLinkAnchorClasses}
-            to="/services/overview/:id"
-              params={params}
+            to={`/services/overview/${params.id}`}
               title={label}>
             {label}
           </Link>
@@ -77,7 +76,6 @@ class NestedServiceLinks extends React.Component {
 
   getMajorLink() {
     let label;
-    let params;
     let {majorLinkAnchorClassName, serviceID, taskID} = this.props;
     let routePath;
 
@@ -88,22 +86,16 @@ class NestedServiceLinks extends React.Component {
 
     if (taskID != null) {
       label = taskID;
-      params = {
-        id: serviceID,
-        taskID
-      };
-      routePath = '/services/overview/:id/tasks/:taskID';
+      routePath = `/services/overview/${serviceID}/tasks/${taskID}`;
     } else {
       label = this.getServicePathParts().pop();
-      params = {id: encodeURIComponent(serviceID)};
-      routePath = '/services/overview/:id';
+      routePath = `/services/overview/${encodeURIComponent(serviceID)}`;
     }
 
     return (
       <Link
         className={anchorClasses}
         to={routePath}
-        params={params}
         title={label}>
         <span className="text-overflow">
           {label}
