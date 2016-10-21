@@ -208,6 +208,21 @@ describe('ApplicationSpec', function () {
       expect(service.getHealthChecks()).toEqual([{path: '', protocol: 'HTTP'}]);
     });
 
+    it('returns "cloned" objects, so that no one is accidentally mutating them',
+      function () {
+        let service = new ApplicationSpec({
+          healthChecks: [{command: {value:'exit 0;'}, protocol: 'COMMAND'}]
+        });
+
+        service.getHealthChecks()[0].command = undefined;
+
+        expect(service.getHealthChecks()).toEqual([{
+          command: {value: 'exit 0;'},
+          protocol: 'COMMAND'
+        }]);
+      }
+    );
+
   });
 
   describe('#getInstancesCount', function () {
