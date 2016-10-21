@@ -13,6 +13,10 @@ describe('Transaction', function () {
       expect(()=>new Transaction(0, 0, 'DEL')).toThrowError(TypeError);
     });
 
+    it('should accept SET constant', function () {
+      expect(()=>new Transaction(0, 0, TransactionTypes.SET)).not.toThrowError();
+    });
+
     it('type should not be writeable', function () {
       const transaction = new Transaction(0, 0);
       expect(() => transaction.type = 'EVIL DELETE').toThrowError();
