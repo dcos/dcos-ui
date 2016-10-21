@@ -88,7 +88,6 @@ describe('QueryParamsMixin', function () {
       ],
       stringValue: 'string'
     };
-    console.log(this.instance.props);
 
     this.instance.setQueryParam('nestedArray', [
       [1, 2, 3],

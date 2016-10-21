@@ -50,9 +50,6 @@ const RouterUtil = {
         let children = RouterUtil.createComponentsFromRoutes(route.children);
         args = args.concat(children);
       }
-      if (args[0] === undefined) {
-        console.error('!!! RouterUtil', args);
-      }
       return React.createElement(...args);
     });
   },
