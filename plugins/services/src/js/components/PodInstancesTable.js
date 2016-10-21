@@ -311,18 +311,17 @@ class PodInstancesTable extends React.Component {
     );
   }
 
-  renderColumnID(prop, row, rowOptions = {}) {
+  renderColumnID(prop, {id: taskID, name: taskName}, rowOptions = {}) {
     if (!rowOptions.isParent) {
       let id = encodeURIComponent(this.props.pod.getId());
-      let taskID = row.id;
 
       return (
         <div className="expanding-table-primary-cell-heading text-overflow">
           <Link
             className="table-cell-link-secondary text-overflow"
             to={`/services/overview/${id}/tasks/${taskID}`}
-            title={row.name}>
-            <CollapsingString string={row.name} />
+            title={taskName}>
+            <CollapsingString string={taskName} />
           </Link>
         </div>
       );
@@ -334,7 +333,7 @@ class PodInstancesTable extends React.Component {
 
     return this.renderWithClickHandler(
       rowOptions,
-      (<CollapsingString string={row.id} />),
+      (<CollapsingString string={taskID} />),
       classes
     );
   }

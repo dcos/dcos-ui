@@ -14,8 +14,7 @@ import TaskDetailBreadcrumb from '../pages/nodes/breadcrumbs/TaskDetailBreadcrum
 import VolumeDetail from '../components/VolumeDetail';
 import VolumeTable from '../components/VolumeTable';
 
-function buildServiceCrumbs(params) {
-  let {id} = params;
+function buildServiceCrumbs({id}) {
   id = decodeURIComponent(id).replace(/^\//, '');
   let ids = id.split('/');
   let aggregateIDs = '';
