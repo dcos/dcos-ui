@@ -48,6 +48,14 @@ describe('PodInstancesTable', function () {
 
   describe('#render', function () {
 
+    beforeEach(function () {
+      JestUtil.mockTimezone('Europe/Berlin');
+    });
+
+    afterEach(function () {
+      JestUtil.unmockTimezone();
+    });
+
     describe('collapsed table', function () {
       beforeEach(function () {
         this.instance = TestUtils.renderIntoDocument(
@@ -140,9 +148,9 @@ describe('PodInstancesTable', function () {
             .map(JestUtil.mapTextContent);
 
         expect(names).toEqual([
-          '2016-08-29T01:01:01.0012016-08-29T01:01:01.001',
-          '2016-08-29T01:01:01.0012016-08-29T01:01:01.001',
-          '2016-08-29T01:01:01.0012016-08-29T01:01:01.001'
+          '8/29/2016, 3:01:01 AM',
+          '8/29/2016, 3:01:01 AM',
+          '8/29/2016, 3:01:01 AM'
         ]);
       });
     });
@@ -347,9 +355,9 @@ describe('PodInstancesTable', function () {
             .map(JestUtil.mapTextContent);
 
         expect(names).toEqual([
-          '2016-08-29T01:01:01.0012016-08-29T01:01:01.001',
-          '2016-08-29T01:01:01.0012016-08-29T01:01:01.001',
-          '2016-08-29T01:01:01.0012016-08-29T01:01:01.001'
+          '8/29/2016, 3:01:01 AM',
+          '8/29/2016, 3:01:01 AM',
+          '8/29/2016, 3:01:01 AM'
         ]);
       });
     });
