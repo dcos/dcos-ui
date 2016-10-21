@@ -5,7 +5,7 @@ import Icon from './Icon';
 
 class PageHeaderBreadcrumbs extends React.Component {
   getBreadcrumbSubMenuItem(menuItem) {
-    let {iconID, label, routeName} = menuItem;
+    let {iconID, label, routePath} = menuItem;
 
     if (iconID) {
       return {
@@ -17,11 +17,11 @@ class PageHeaderBreadcrumbs extends React.Component {
             {label}
           </h3>
         ),
-        routeName
+        routePath
       };
     }
 
-    return {id: routeName, html: label, routeName};
+    return {id: routePath, html: label, routePath};
   }
 
   getCaret(index) {
@@ -116,7 +116,7 @@ PageHeaderBreadcrumbs.propTypes = {
         React.PropTypes.shape({
           iconID: React.PropTypes.string,
           label: React.PropTypes.node.isRequired,
-          routeName: React.PropTypes.string.isRequired
+          routePath: React.PropTypes.string.isRequired
         })
       ),
       suffix: React.PropTypes.node
