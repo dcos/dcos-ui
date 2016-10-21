@@ -1,12 +1,19 @@
 & when (@menu-tabbed-enabled) {
 
+  .menu-tabbed-container-vertical {
+    display: flex;
+    flex: 1 1 auto;
+
+    .menu-tabbed-content {
+      flex: 1 1 auto;
+    }
+  }
+
   .menu-tabbed {
     margin-bottom: @menu-tabbed-margin-bottom;
     margin-top: @menu-tabbed-margin-top;
-    padding: 0;
     position: relative;
 
-    // Layout Variants
     &.short {
       margin-bottom: @menu-tabbed-margin-bottom * @menu-tabbed-short-margin-bottom-scale;
       margin-top: @menu-tabbed-margin-top * @menu-tabbed-short-margin-top-scale;
@@ -18,10 +25,59 @@
     }
   }
 
+  .menu-tabbed-vertical {
+    flex: 0 1 @menu-tabbed-vertical-width;
+    margin-bottom: 0;
+    margin-right: @menu-tabbed-vertical-margin-right;
+    position: relative;
+
+    &:after {
+      background: @menu-tabbed-border;
+      bottom: 0;
+      content: '';
+      height: 100%;
+      position: absolute;
+      right: 0;
+      width: 1px;
+      z-index: @z-index-header-border;
+    }
+
+    .menu-tabbed-item {
+      display: block;
+      margin-bottom: 0;
+      margin-right: 0;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+
+      .menu-tabbed-item {
+        margin-left: @menu-tabbed-vertical-item-margin-left;
+
+        .menu-tabbed-item-label {
+          margin-left: @menu-tabbed-vertical-item-margin-left * -1;
+          padding-left: @menu-tabbed-vertical-item-margin-left;
+        }
+      }
+    }
+
+    .menu-tabbed-item-label {
+      padding-bottom: @menu-tabbed-vertical-item-link-padding-bottom;
+      padding-top: @menu-tabbed-vertical-item-link-padding-top;
+
+      &:after {
+        bottom: 0;
+        height: 100%;
+        left: auto;
+        right: 0;
+        width: 2px;
+      }
+    }
+  }
+
   .menu-tabbed-item {
-    cursor: pointer;
     display: inline-block;
-    margin: 0 @menu-tabbed-item-margin-right 0 0;
+    margin-right: @menu-tabbed-horizontal-item-margin-right;
     padding: 0;
 
     &:last-child {
@@ -35,7 +91,7 @@
     &.selected,
     &.active {
 
-      .menu-tabbed-item-label {
+      & > .menu-tabbed-item-label {
         color: @menu-tabbed-item-link-selected-color;
 
         &:after {
@@ -48,9 +104,10 @@
 
   .menu-tabbed-item-label {
     color: @menu-tabbed-item-link-color;
+    cursor: pointer;
     display: block;
     font-weight: @menu-tabbed-item-link-font-weight;
-    padding-bottom: @menu-tabbed-item-link-padding-bottom;
+    padding-bottom: @menu-tabbed-horizontal-item-link-padding-bottom;
     position: relative;
     text-decoration: @menu-tabbed-item-link-text-decoration;
 
@@ -80,6 +137,7 @@
       left: 0;
       position: absolute;
       width: 100%;
+      z-index: @z-index-menu-tabbed-item-active-indicator;
     }
 
     &.selected,
@@ -101,7 +159,6 @@
     .menu-tabbed {
       margin-bottom: @menu-tabbed-margin-bottom-screen-small;
 
-      // Layout Variants
       &.short {
         margin-bottom: @menu-tabbed-margin-bottom-screen-small * @menu-tabbed-short-margin-bottom-scale;
       }
@@ -111,12 +168,34 @@
       }
     }
 
+    .menu-tabbed-vertical {
+      flex-basis: @menu-tabbed-vertical-width-screen-small;
+      margin-right: @menu-tabbed-vertical-margin-right-screen-small;
+
+      .menu-tabbed-item {
+
+        .menu-tabbed-item {
+          margin-left: @menu-tabbed-vertical-item-margin-left-screen-small;
+
+          .menu-tabbed-item-label {
+            margin-left: @menu-tabbed-vertical-item-margin-left-screen-small * -1;
+            padding-left: @menu-tabbed-vertical-item-margin-left-screen-small;
+          }
+        }
+      }
+
+      .menu-tabbed-item-label {
+        padding-bottom: @menu-tabbed-vertical-item-link-padding-bottom-screen-small;
+        padding-top: @menu-tabbed-vertical-item-link-padding-top-screen-small;
+      }
+    }
+
     .menu-tabbed-item {
-      margin-right: @menu-tabbed-item-margin-right-screen-small;
+      margin-right: @menu-tabbed-horizontal-item-margin-right-screen-small;
     }
 
     .menu-tabbed-item-label {
-      padding-bottom: @menu-tabbed-item-link-padding-bottom-screen-small;
+      padding-bottom: @menu-tabbed-horizontal-item-link-padding-bottom-screen-small;
     }
   }
 }
@@ -125,10 +204,31 @@
 
   @media (min-width: @layout-screen-medium-min-width) {
 
+    .menu-tabbed-vertical {
+      flex-basis: @menu-tabbed-vertical-width-screen-medium;
+      margin-right: @menu-tabbed-vertical-margin-right-screen-medium;
+
+      .menu-tabbed-item {
+
+        .menu-tabbed-item {
+          margin-left: @menu-tabbed-vertical-item-margin-left-screen-medium;
+
+          .menu-tabbed-item-label {
+            margin-left: @menu-tabbed-vertical-item-margin-left-screen-medium * -1;
+            padding-left: @menu-tabbed-vertical-item-margin-left-screen-medium;
+          }
+        }
+      }
+
+      .menu-tabbed-item-label {
+        padding-bottom: @menu-tabbed-vertical-item-link-padding-bottom-screen-medium;
+        padding-top: @menu-tabbed-vertical-item-link-padding-top-screen-medium;
+      }
+    }
+
     .menu-tabbed {
       margin-bottom: @menu-tabbed-margin-bottom-screen-medium;
 
-      // Layout Variants
       &.short {
         margin-bottom: @menu-tabbed-margin-bottom-screen-medium * @menu-tabbed-short-margin-bottom-scale;
       }
@@ -139,11 +239,11 @@
     }
 
     .menu-tabbed-item {
-      margin-right: @menu-tabbed-item-margin-right-screen-medium;
+      margin-right: @menu-tabbed-horizontal-item-margin-right-screen-medium;
     }
 
     .menu-tabbed-item-label {
-      padding-bottom: @menu-tabbed-item-link-padding-bottom-screen-medium;
+      padding-bottom: @menu-tabbed-horizontal-item-link-padding-bottom-screen-medium;
     }
   }
 }
@@ -152,10 +252,31 @@
 
   @media (min-width: @layout-screen-large-min-width) {
 
+    .menu-tabbed-vertical {
+      flex-basis: @menu-tabbed-vertical-width-screen-large;
+      margin-right: @menu-tabbed-vertical-margin-right-screen-large;
+
+      .menu-tabbed-item {
+
+        .menu-tabbed-item {
+          margin-left: @menu-tabbed-vertical-item-margin-left-screen-large;
+
+          .menu-tabbed-item-label {
+            margin-left: @menu-tabbed-vertical-item-margin-left-screen-large * -1;
+            padding-left: @menu-tabbed-vertical-item-margin-left-screen-large;
+          }
+        }
+      }
+
+      .menu-tabbed-item-label {
+        padding-bottom: @menu-tabbed-vertical-item-link-padding-bottom-screen-large;
+        padding-top: @menu-tabbed-vertical-item-link-padding-top-screen-large;
+      }
+    }
+
     .menu-tabbed {
       margin-bottom: @menu-tabbed-margin-bottom-screen-large;
 
-      // Layout Variants
       &.short {
         margin-bottom: @menu-tabbed-margin-bottom-screen-large * @menu-tabbed-short-margin-bottom-scale;
       }
@@ -166,11 +287,11 @@
     }
 
     .menu-tabbed-item {
-      margin-right: @menu-tabbed-item-margin-right-screen-large;
+      margin-right: @menu-tabbed-horizontal-item-margin-right-screen-large;
     }
 
     .menu-tabbed-item-label {
-      padding-bottom: @menu-tabbed-item-link-padding-bottom-screen-large;
+      padding-bottom: @menu-tabbed-horizontal-item-link-padding-bottom-screen-large;
     }
   }
 }
@@ -179,10 +300,31 @@
 
   @media (min-width: @layout-screen-jumbo-min-width) {
 
+    .menu-tabbed-vertical {
+      flex-basis: @menu-tabbed-vertical-width-screen-jumbo;
+      margin-right: @menu-tabbed-vertical-margin-right-screen-jumbo;
+
+      .menu-tabbed-item {
+
+        .menu-tabbed-item {
+          margin-left: @menu-tabbed-vertical-item-margin-left-screen-jumbo;
+
+          .menu-tabbed-item-label {
+            margin-left: @menu-tabbed-vertical-item-margin-left-screen-jumbo * -1;
+            padding-left: @menu-tabbed-vertical-item-margin-left-screen-jumbo;
+          }
+        }
+      }
+
+      .menu-tabbed-item-label {
+        padding-bottom: @menu-tabbed-vertical-item-link-padding-bottom-screen-jumbo;
+        padding-top: @menu-tabbed-vertical-item-link-padding-top-screen-jumbo;
+      }
+    }
+
     .menu-tabbed {
       margin-bottom: @menu-tabbed-margin-bottom-screen-jumbo;
 
-      // Layout Variants
       &.short {
         margin-bottom: @menu-tabbed-margin-bottom-screen-jumbo * @menu-tabbed-short-margin-bottom-scale;
       }
@@ -193,11 +335,11 @@
     }
 
     .menu-tabbed-item {
-      margin-right: @menu-tabbed-item-margin-right-screen-jumbo;
+      margin-right: @menu-tabbed-horizontal-item-margin-right-screen-jumbo;
     }
 
     .menu-tabbed-item-label {
-      padding-bottom: @menu-tabbed-item-link-padding-bottom-screen-jumbo;
+      padding-bottom: @menu-tabbed-horizontal-item-link-padding-bottom-screen-jumbo;
     }
   }
 }
