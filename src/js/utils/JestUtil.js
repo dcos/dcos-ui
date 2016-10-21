@@ -31,6 +31,10 @@ class RouterStub {
   static setRouteComponentAtDepth() {}
 }
 
+// Default prototype functions when mocking timezone
+const defaultGetTimezoneOffset = Date.prototype.getTimezoneOffset;
+const defaultToLocaleString = Date.prototype.toLocaleString;
+
 const JestUtil = {
   renderAndFindTag(instance, tag) {
     var result = TestUtils.renderIntoDocument(instance);
@@ -102,6 +106,32 @@ const JestUtil = {
    */
   mapTextContent(element) {
     return element.textContent.trim();
+  },
+
+  /**
+   * Mock a different timezone by overriding relevant Date primitive
+   * prototype functions.
+   *
+   * This function will mock Date.getTimezoneOffset and Date.toLocaleString
+   *
+   * @param {String} timezone - The IANA timezone string (ex. Europe/Athens) or 'UTC'
+   */
+  mockTimezone(timezone) {
+    let date = new Date();
+    let timezoneOffset = (
+          new Date(date.toLocaleString(undefined, {timeZone: 'UTC'}))
+        - new Date(date.toLocaleString(undefined, {timeZone: timezone}))
+      ) / 1000 / 60;
+
+    /* eslint-disable no-extend-native */
+    Date.prototype.getTimezoneOffset = function () {
+      return timezoneOffset;
+    };
+    Date.prototype.toLocaleString = function (locale = undefined, options = {}) {
+      options.timeZone = options.timeZone || timezone;
+      return defaultToLocaleString.call(this, locale, options);
+    };
+    /* eslint-enable no-extend-native */
   },
 
   /**
@@ -189,6 +219,17 @@ const JestUtil = {
         this.stubRouterContext(Component, props, routerStubs),
         container
       ), Component);
+  },
+
+  /**
+   * Restore the original version of the Date prototype functions, overwriten
+   * by the mockTimezone function.
+   */
+  unmockTimezone() {
+    /* eslint-disable no-extend-native */
+    Date.prototype.getTimezoneOffset = defaultGetTimezoneOffset;
+    Date.prototype.toLocaleString = defaultToLocaleString;
+    /* eslint-enable no-extend-native */
   }
 
 };
