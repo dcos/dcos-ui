@@ -10,7 +10,7 @@ class PageHeaderTabs extends React.Component {
       let {isActive} = tab;
       let classes = classNames('tab-item', {active: isActive});
       let linkClasses = classNames('tab-item-label', {active: isActive});
-
+      // TODO react-router: routeName ??? Should it be routePath?
       return (
         <li className={classes} key={index}>
           <Link className={linkClasses} to={tab.routeName}>

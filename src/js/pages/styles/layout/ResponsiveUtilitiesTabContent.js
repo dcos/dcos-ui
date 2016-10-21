@@ -295,7 +295,7 @@ class ResponsiveUtilitiesTabContent extends React.Component {
 }
 
 ResponsiveUtilitiesTabContent.contextTypes = {
-  router: React.PropTypes.func
+  router: React.PropTypes.object
 };
 
 ResponsiveUtilitiesTabContent.willTransitionTo = function () {

@@ -1,5 +1,5 @@
 import qs from 'query-string';
-import {createRoutesFromReactChildren} from 'react-router';
+import {createRoutes} from 'react-router';
 import React from 'react';
 
 import Util from './Util';
@@ -50,7 +50,9 @@ const RouterUtil = {
         let children = RouterUtil.createComponentsFromRoutes(route.children);
         args = args.concat(children);
       }
-
+      if (args[0] === undefined) {
+        console.error('!!! RouterUtil', args);
+      }
       return React.createElement(...args);
     });
   },
@@ -102,19 +104,17 @@ const RouterUtil = {
    */
   buildRoutes(originalRoutes) {
     let elementRoutes = RouterUtil.createComponentsFromRoutes(originalRoutes);
-    let routes = createRoutesFromReactChildren(elementRoutes[0]);
+    let routes = createRoutes(elementRoutes[0]);
 
     return RouterUtil.setRouteConfiguration(routes, originalRoutes);
   },
 
   /**
    * Checks if a page should hide the header navigation tabs
-   * @param  {Object} router instance of react-router
+   * @param  {Array} routes instance of react-router
    * @return {Bool} should hide Page Navigation
    */
-  shouldHideNavigation(router) {
-    let routes = router.getCurrentRoutes();
-
+  shouldHideNavigation(routes) {
     return !!routes[routes.length - 1].hideHeaderNavigation;
   }
 

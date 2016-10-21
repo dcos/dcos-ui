@@ -2,7 +2,6 @@ import mixin from 'reactjs-mixin';
 /* eslint-disable no-unused-vars */
 import React from 'react';
 /* eslint-enable no-unused-vars */
-import {RouteHandler} from 'react-router';
 
 import Icon from '../components/Icon';
 import Page from '../components/Page';
@@ -27,7 +26,7 @@ class UniversePage extends mixin(TabsMixin) {
   }
 
   updateCurrentTab() {
-    let routes = this.context.router.getCurrentRoutes();
+    let routes = this.props.routes;
     let currentTab = routes[routes.length - 1].path;
 
     // Universe Tabs
@@ -40,7 +39,7 @@ class UniversePage extends mixin(TabsMixin) {
   }
 
   getNavigation() {
-    if (RouterUtil.shouldHideNavigation(this.context.router)) {
+    if (RouterUtil.shouldHideNavigation(this.props.routes)) {
       return null;
     }
 
@@ -56,14 +55,14 @@ class UniversePage extends mixin(TabsMixin) {
       <Page
         title="Universe"
         navigation={this.getNavigation()}>
-        <RouteHandler />
+        {this.props.children}
       </Page>
     );
   }
 }
 
 UniversePage.contextTypes = {
-  router: React.PropTypes.func
+  router: React.PropTypes.object
 };
 
 UniversePage.routeConfig = {

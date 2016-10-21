@@ -6,22 +6,21 @@ describe('QueryParamsMixin', function () {
 
   beforeEach(function () {
     this.instance = QueryParamsMixin;
-
+    this.instance.props = {
+      location: {
+        pathname: '/pathname',
+        query: {
+          stringValue: 'string',
+          arrayValue: [
+            'value1',
+            'value2'
+          ]
+        }
+      }
+    };
     this.instance.context = {
       router: {
-        getCurrentPathname() {
-          return '/pathname';
-        },
-        getCurrentQuery() {
-          return {
-            stringValue: 'string',
-            arrayValue: [
-              'value1',
-              'value2'
-            ]
-          };
-        },
-        transitionTo: jasmine.createSpy()
+        push: jasmine.createSpy()
       }
     };
   });
@@ -59,15 +58,14 @@ describe('QueryParamsMixin', function () {
 
     this.instance.setQueryParam('paramKey', 'paramValue');
 
-    let transitionTo = this.instance.context.router.transitionTo;
+    let push = this.instance.context.router.push;
 
-    expect(transitionTo.calls.count()).toEqual(1);
+    expect(push.calls.count()).toEqual(1);
 
-    let [pathname, route, queryParams] = transitionTo.calls.first().args;
+    let {pathname, query} = push.calls.first().args[0];
 
     expect(pathname).toEqual('/pathname');
-    expect(route).toEqual({});
-    expect(queryParams).toEqual(queryObject);
+    expect(query).toEqual(queryObject);
   });
 
   it('decodes an arrayString given in the query params', function () {
@@ -90,6 +88,7 @@ describe('QueryParamsMixin', function () {
       ],
       stringValue: 'string'
     };
+    console.log(this.instance.props);
 
     this.instance.setQueryParam('nestedArray', [
       [1, 2, 3],
@@ -99,29 +98,28 @@ describe('QueryParamsMixin', function () {
       'non-array'
     ]);
 
-    let transitionTo = this.instance.context.router.transitionTo;
+    let push = this.instance.context.router.push;
 
-    expect(transitionTo.calls.count()).toEqual(1);
+    expect(push.calls.count()).toEqual(1);
 
-    let [pathname, route, queryParams] = transitionTo.calls.first().args;
+    let {pathname, query} = push.calls.first().args[0];
 
     expect(pathname).toEqual('/pathname');
-    expect(route).toEqual({});
-    expect(queryParams).toEqual(queryObject);
+    expect(query).toEqual(queryObject);
   });
 
   describe('#resetQueryParams', function () {
 
     it('should reset all params by default', function () {
       this.instance.resetQueryParams();
-      expect(this.instance.context.router.transitionTo)
-        .toHaveBeenCalledWith('/pathname', {}, {});
+      expect(this.instance.context.router.push)
+        .toHaveBeenCalledWith({pathname: '/pathname', query: {}});
     });
 
     it('should reset only specified params, when present', function () {
       this.instance.resetQueryParams(['arrayValue']);
-      expect(this.instance.context.router.transitionTo)
-        .toHaveBeenCalledWith('/pathname', {}, {stringValue: 'string'});
+      expect(this.instance.context.router.push)
+        .toHaveBeenCalledWith({pathname: '/pathname', query: {stringValue: 'string'}});
     });
 
     it('should exit cleanly when called without a router', function () {

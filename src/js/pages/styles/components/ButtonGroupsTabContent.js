@@ -648,7 +648,7 @@ class ButtonGroupsTabContent extends React.Component {
 }
 
 ButtonGroupsTabContent.contextTypes = {
-  router: React.PropTypes.func
+  router: React.PropTypes.object
 };
 
 ButtonGroupsTabContent.willTransitionTo = function () {

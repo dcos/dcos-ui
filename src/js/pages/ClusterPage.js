@@ -1,4 +1,4 @@
-import {RouteHandler} from 'react-router';
+
 import React from 'react';
 
 import Icon from '../components/Icon';
@@ -8,7 +8,7 @@ class ClusterPage extends React.Component {
   render() {
     return (
       <Page title="Cluster">
-        <RouteHandler />
+        {this.props.children}
       </Page>
     );
   }

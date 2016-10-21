@@ -162,13 +162,14 @@ class VirtualNetworkTaskTab extends mixin(StoreMixin) {
       'table-cell-link-secondary': hierarchy.secondary
     });
 
+    let overlayName = this.props.overlay.getName();
+
     return (
       <Link
         className={classes}
         key={value}
-        params={{overlayName: this.props.overlay.getName(), taskID}}
         title={title}
-        to="/network/virtual-networks/:overlayName/tasks/:taskID">
+        to={`/network/virtual-networks/${overlayName}/tasks/${taskID}`}>
         {value}
       </Link>
     );
@@ -307,7 +308,7 @@ class VirtualNetworkTaskTab extends mixin(StoreMixin) {
 }
 
 VirtualNetworkTaskTab.contextTypes = {
-  router: React.PropTypes.func
+  router: React.PropTypes.object
 };
 
 VirtualNetworkTaskTab.propTypes = {

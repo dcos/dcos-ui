@@ -93,9 +93,9 @@ class ServicesTable extends React.Component {
     }
 
     return (
-      <Link to="/services/overview/:id"
+      <Link
         className="table-cell-link-primary"
-        params={{id}}>
+        to={`/services/overview/${id}`}>
         <span className="text-overflow">
           {service.getName()}
         </span>
@@ -131,9 +131,9 @@ class ServicesTable extends React.Component {
     return (
       <div className="service-table-heading flex-box
         flex-box-align-vertical-center table-cell-flex-box">
-        <Link to="/services/overview/:id"
+        <Link
           className="table-cell-icon"
-          params={{id}}>
+          to={`/services/overview/${id}`}>
           {this.getImage(service)}
         </Link>
         <span className="table-cell-value table-cell-flex-box">

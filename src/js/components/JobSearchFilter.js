@@ -58,7 +58,8 @@ class JobSearchFilter extends mixin(QueryParamsMixin) {
 };
 
 JobSearchFilter.propTypes = {
-  handleFilterChange: React.PropTypes.func.isRequired
+  handleFilterChange: React.PropTypes.func.isRequired,
+  location: React.PropTypes.object.isRequired
 };
 
 module.exports = JobSearchFilter;

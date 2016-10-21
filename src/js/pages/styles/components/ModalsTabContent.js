@@ -510,7 +510,7 @@ class ModalsTabContent extends React.Component {
 }
 
 ModalsTabContent.contextTypes = {
-  router: React.PropTypes.func
+  router: React.PropTypes.object
 };
 
 ModalsTabContent.willTransitionTo = function () {

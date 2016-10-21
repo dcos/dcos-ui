@@ -491,7 +491,7 @@ class PodsTabContent extends React.Component {
 }
 
 PodsTabContent.contextTypes = {
-  router: React.PropTypes.func
+  router: React.PropTypes.object
 };
 
 PodsTabContent.willTransitionTo = function () {

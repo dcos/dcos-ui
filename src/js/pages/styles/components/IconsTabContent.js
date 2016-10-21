@@ -530,7 +530,7 @@ class IconsTabContent extends React.Component {
 }
 
 IconsTabContent.contextTypes = {
-  router: React.PropTypes.func
+  router: React.PropTypes.object
 };
 
 IconsTabContent.willTransitionTo = function () {

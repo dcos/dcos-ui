@@ -60,8 +60,7 @@ class UnitsHealthTab extends mixin(StoreMixin) {
   renderUnit(prop, unit) {
     return (
       <div className="text-overflow">
-        <Link to="/components/:unitID"
-          params={{unitID: unit.get('id')}}
+        <Link to={`/components/${unit.get('id')}`}
           className="table-cell-link-primary">
           {unit.getTitle()}
         </Link>

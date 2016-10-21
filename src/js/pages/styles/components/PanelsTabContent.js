@@ -927,7 +927,7 @@ class PanelsTabContent extends React.Component {
 }
 
 PanelsTabContent.contextTypes = {
-  router: React.PropTypes.func
+  router: React.PropTypes.object
 };
 
 PanelsTabContent.willTransitionTo = function () {

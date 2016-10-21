@@ -1,7 +1,7 @@
 import {DCOSStore} from 'foundation-ui';
 import mixin from 'reactjs-mixin';
 import React from 'react';
-import {RouteHandler} from 'react-router';
+
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import AlertPanel from '../../components/AlertPanel';
@@ -10,7 +10,6 @@ import FilterBar from '../../components/FilterBar';
 import FilterHeadline from '../../components/FilterHeadline';
 import Icon from '../../components/Icon';
 import JobsTable from './JobsTable';
-import JobFilterTypes from '../../constants/JobFilterTypes';
 import JobSearchFilter from '../../components/JobSearchFilter';
 import JobTree from '../../structs/JobTree';
 import Loader from '../../components/Loader';
@@ -88,14 +87,14 @@ class JobsTab extends mixin(StoreMixin, QueryParamsMixin, SaveStateMixin) {
   }
 
   resetFilterQueryParams() {
-    let router = this.context.router;
-    let queryParams = router.getCurrentQuery();
+    let {location: {pathname}} = this.props;
+    let query = Object.assign({}, location.query);
 
-    Object.values(JobFilterTypes).forEach(function (filterKey) {
-      delete queryParams[filterKey];
+    Object.values(ServiceFilterTypes).forEach(function (filterKey) {
+      delete query[filterKey];
     });
 
-    router.transitionTo(router.getCurrentPathname(), {}, queryParams);
+    this.context.router.push({ pathname, query });
   }
 
   resetFilter() {
@@ -124,7 +123,7 @@ class JobsTab extends mixin(StoreMixin, QueryParamsMixin, SaveStateMixin) {
 
     // Breadcrumbs here
     return (
-      <Breadcrumbs />
+      <Breadcrumbs routes={this.props.routes} params={this.props.params} />
     );
   }
 
@@ -151,7 +150,9 @@ class JobsTab extends mixin(StoreMixin, QueryParamsMixin, SaveStateMixin) {
       <div className="flex-grow">
         {this.getHeadline(item, filteredJobs)}
         <FilterBar rightAlignLastNChildren={1}>
-          <JobSearchFilter handleFilterChange={this.handleFilterChange} />
+          <JobSearchFilter
+            handleFilterChange={this.handleFilterChange}
+            location={this.props.location} />
           <button className="button button-success"
             onClick={this.handleOpenJobFormModal}>
             New Job
@@ -188,9 +189,7 @@ class JobsTab extends mixin(StoreMixin, QueryParamsMixin, SaveStateMixin) {
     }
 
     if (this.props.params.id) {
-      return (
-        <RouteHandler />
-      );
+      return this.props.children;
     }
 
     // Render empty panel
@@ -225,7 +224,7 @@ class JobsTab extends mixin(StoreMixin, QueryParamsMixin, SaveStateMixin) {
 }
 
 JobsTab.contextTypes = {
-  router: React.PropTypes.func
+  router: React.PropTypes.object
 };
 
 module.exports = JobsTab;

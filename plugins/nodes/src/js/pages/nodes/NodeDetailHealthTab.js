@@ -13,13 +13,13 @@ class NodeDetailHealthTab extends React.Component {
       <HealthTab
         node={node}
         units={units}
-        parentRouter={this.context.router} />
+        parentRouter={{params: this.props.params}} />
     );
   }
 }
 
 NodeDetailHealthTab.contextTypes = {
-  router: React.PropTypes.func
+  router: React.PropTypes.object
 };
 
 NodeDetailHealthTab.propTypes = {

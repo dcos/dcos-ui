@@ -14,7 +14,7 @@ class UnitsHealthNodeDetailBreadcrumb extends BreadcrumbSegment {
   }
 
   componentDidMount() {
-    let {unitID, unitNodeID} = this.props.parentRouter.getCurrentParams();
+    let {unitID, unitNodeID} = this.props.parentRouter.params;
     let node = UnitHealthStore.getNode(unitNodeID);
 
     if (node.get('host_ip')) {
@@ -31,7 +31,7 @@ class UnitsHealthNodeDetailBreadcrumb extends BreadcrumbSegment {
   }
 
   getCrumbLabel() {
-    let {unitNodeID} = this.props.parentRouter.getCurrentParams();
+    let {unitNodeID} = this.props.parentRouter.params;
     let node = UnitHealthStore.getNode(unitNodeID);
 
     return node.get('host_ip');

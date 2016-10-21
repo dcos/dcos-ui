@@ -2,7 +2,7 @@ import mixin from 'reactjs-mixin';
 /* eslint-disable no-unused-vars */
 import React from 'react';
 /* eslint-enable no-unused-vars */
-import {RouteHandler} from 'react-router';
+
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import Breadcrumbs from '../../../components/Breadcrumbs';
@@ -54,7 +54,7 @@ class VirtualNetworkDetail extends mixin(StoreMixin, TabsMixin) {
   }
 
   updateCurrentTab() {
-    let routes = this.context.router.getCurrentRoutes();
+    let routes = this.props.routes;
     let currentTab = routes[routes.length - 1].path;
 
     // Virtual Network Detail Tabs
@@ -125,16 +125,16 @@ class VirtualNetworkDetail extends mixin(StoreMixin, TabsMixin) {
 
     return (
       <div>
-        <Breadcrumbs />
+        <Breadcrumbs routes={this.props.routes} params={this.props.params} />
         {this.getBasicInfo(overlay)}
-        <RouteHandler overlay={overlay} />
+        {React.cloneElement(this.props.children, { overlay })}
       </div>
     );
   }
 }
 
 VirtualNetworkDetail.contextTypes = {
-  router: React.PropTypes.func
+  router: React.PropTypes.object
 };
 
 module.exports = VirtualNetworkDetail;

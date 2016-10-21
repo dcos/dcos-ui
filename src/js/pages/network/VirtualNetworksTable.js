@@ -69,9 +69,8 @@ class VirtualNetworksTable extends React.Component {
     return (
       <Link
         className="table-cell-link-primary"
-        params={{overlayName}}
         title={overlayName}
-        to="/network/virtual-networks/:overlayName">
+        to={`/network/virtual-networks/${overlayName}`}>
         {overlayName}
       </Link>
     );
@@ -99,7 +98,7 @@ class VirtualNetworksTable extends React.Component {
 }
 
 VirtualNetworksTable.contextTypes = {
-  router: React.PropTypes.func
+  router: React.PropTypes.object
 };
 
 VirtualNetworksTable.propTypes = {

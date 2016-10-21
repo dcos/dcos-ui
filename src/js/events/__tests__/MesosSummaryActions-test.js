@@ -7,9 +7,9 @@ jest.dontMock('../../constants/TimeScales');
 const Hooks = require('PluginSDK').Hooks;
 
 jest.setMock('react-router', {
-  HashLocation: {
-    getCurrentPath() { return '/foo'; },
-    addChangeListener() {}
+  hashHistory: {
+    location: { pathname: '/foo' },
+    listen() {}
   }
 });
 

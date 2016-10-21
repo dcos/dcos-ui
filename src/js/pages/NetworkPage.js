@@ -1,4 +1,4 @@
-import {Link, RouteHandler} from 'react-router';
+import {Link} from 'react-router';
 import mixin from 'reactjs-mixin';
 /* eslint-disable no-unused-vars */
 import React from 'react';
@@ -67,11 +67,12 @@ class NetworkPage extends mixin(TabsMixin) {
   }
 
   updateCurrentTab() {
-    let routes = this.context.router.getCurrentRoutes();
-    let currentTab = routes[routes.length - 1].path;
-
+    let routes = this.props.routes;
+    let currentRoute = routes[routes.length - 1];
+    // TODO react-router: kinda hack to workaround IndexRoute not having path
+    let currentTab = currentRoute.path || currentRoute.tab;
     // Get top level Tab
-    let topLevelTab = currentTab.split('-').slice(0, 2).join('-');
+    let topLevelTab = currentTab.split('/').slice(0, 1)[0];
     // Get top level tabs
     this.tabs_tabs = TabsUtil.sortTabs(
       Hooks.applyFilter(`${topLevelTab}-subtabs`, {})
@@ -97,23 +98,25 @@ class NetworkPage extends mixin(TabsMixin) {
   }
 
   getNavigation() {
-    if (RouterUtil.shouldHideNavigation(this.context.router)) {
+    if (RouterUtil.shouldHideNavigation(this.props.routes)) {
       return null;
     }
 
-    let routes = this.context.router.getCurrentRoutes();
-    let currentRoute = routes[routes.length - 1].path;
+    let routes = this.props.routes;
+    let currentRoute = routes[routes.length - 1];
+    // TODO react-router: kinda hack to workaround IndexRoute not having path
+    let currentTab = currentRoute.path || currentRoute.tab;
 
     return (
       <ul className="menu-tabbed">
-        {TabsUtil.getTabs(NETWORK_TABS, currentRoute, this.getRoutedItem)}
+        {TabsUtil.getTabs(NETWORK_TABS, currentTab, this.getRoutedItem)}
       </ul>
     );
   }
 
   getSubNavigation() {
     let subTabs = this.tabs_getRoutedTabs();
-    if (RouterUtil.shouldHideNavigation(this.context.router) ||
+    if (RouterUtil.shouldHideNavigation(this.props.routes) ||
       !subTabs.length) {
       return null;
     }
@@ -139,22 +142,22 @@ class NetworkPage extends mixin(TabsMixin) {
     }
 
     // Make sure to grow when logs are displayed
-    let routes = this.context.router.getCurrentRoutes();
-
+    let routes = this.props.routes;
+    let {currentTab} = this.state;
     return (
       <Page
         title="Network"
         navigation={this.getNavigation()}
         dontScroll={routes[routes.length - 1].dontScroll}>
         {this.getSubNavigation()}
-        <RouteHandler currentTab={this.state.currentTab} />
+        {React.cloneElement(this.props.children, { currentTab })}
       </Page>
     );
   }
 }
 
 NetworkPage.contextTypes = {
-  router: React.PropTypes.func
+  router: React.PropTypes.object
 };
 
 NetworkPage.routeConfig = {

@@ -19,7 +19,7 @@ let ServiceList = React.createClass({
   },
 
   contextTypes: {
-    router: React.PropTypes.func
+    router: React.PropTypes.object
   },
 
   getDefaultProps() {
@@ -41,13 +41,10 @@ let ServiceList = React.createClass({
       (event.ctrlKey || event.shiftKey || event.metaKey)) {
       return;
     }
-
+    let id = encodeURIComponent(service.getId());
     // Modifier key not pressed or service didn't have a web URL, open detail
     event.preventDefault();
-    this.context.router.transitionTo(
-      '/services/overview/:id',
-      {id: encodeURIComponent(service.getId())}
-    );
+    this.context.router.push(`/services/overview/${id}`);
   },
 
   getServices(services, healthProcessed) {

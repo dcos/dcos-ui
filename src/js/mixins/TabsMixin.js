@@ -1,5 +1,5 @@
 import classNames from 'classnames/dedupe';
-import {Link} from 'react-router';
+import {Link, formatPattern} from 'react-router';
 /* eslint-disable no-unused-vars */
 import React from 'react';
 /* eslint-enable no-unused-vars */
@@ -45,7 +45,7 @@ import NotificationStore from '../stores/NotificationStore';
  *     return (
  *       <Page
  *         navigation={this.getNavigation()}>
- *         <RouteHandler />
+ *         {this.props.children}
  *       </Page>
  *     );
  *   }
@@ -123,7 +123,7 @@ const TabsMixin = {
 
     return (
       <Link
-        to={tab}
+        to={formatPattern(tab, attributes.params)}
         className={tabLabelClasses}
         onClick={this.tabs_handleTabClick.bind(this, tab)}
         {...attributes}>

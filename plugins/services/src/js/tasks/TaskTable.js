@@ -38,11 +38,11 @@ class TaskTable extends React.Component {
 
   getStatusValue(task) {
     return task.health;
-    }
+  }
 
   getVersionValue(task) {
     return task.version || null;
-    }
+  }
 
   getClassName(prop, sortBy, row) {
     return classNames({
@@ -198,12 +198,11 @@ class TaskTable extends React.Component {
 
     return (prop, task) => {
       let title = task[prop];
-      let params = this.context.router.getCurrentParams();
-      let routeParams = Object.assign({taskID: task.id}, params);
+      let {id, nodeID} = this.props.params;
 
-      let linkTo = '/services/overview/:id/tasks/:taskID';
-      if (params.nodeID != null) {
-        linkTo = '/nodes/:nodeID/tasks/:taskID';
+      let linkTo = `/services/overview/${encodeURIComponent(id)}/tasks/${task.id}`;
+      if (nodeID != null) {
+        linkTo = `/nodes/${nodeID}/tasks/${task.id}`;
       }
 
       return (
@@ -213,7 +212,6 @@ class TaskTable extends React.Component {
             <Link
               className={anchorClasses}
               to={linkTo}
-              params={routeParams}
               title={title}>
               {title}
             </Link>
@@ -225,17 +223,16 @@ class TaskTable extends React.Component {
 
   renderLog(prop, task) {
     let title = task.name || task.id;
-    let params = this.context.router.getCurrentParams();
-    let routeParams = Object.assign({taskID: task.id}, params);
+    let {id, nodeID} = this.props.params;
 
-    let linkTo = '/services/overview/:id/tasks/:taskID/view';
-    if (params.nodeID != null) {
-      linkTo = '/nodes/:nodeID/tasks/:taskID/view';
+    let linkTo = `/services/overview/${id}/tasks/${task.id}/view`;
+    if (nodeID != null) {
+      linkTo = `/nodes/${nodeID}/tasks/${task.id}/view`;
     }
+
     return (
       <Link
         to={linkTo}
-        params={routeParams}
         title={title}>
         <Icon color="grey" id="page" size="mini" family="mini" />
       </Link>
@@ -250,8 +247,7 @@ class TaskTable extends React.Component {
     return (
       <Link
         className="table-cell-link-secondary text-overflow"
-        to="/nodes/:nodeID"
-        params={{nodeID: task.slave_id}}
+        to={`/nodes/${task.slave_id}`}
         title={task.hostname}>
         {task.hostname}
       </Link>
@@ -341,13 +337,14 @@ class TaskTable extends React.Component {
 }
 
 TaskTable.contextTypes = {
-  router: React.PropTypes.func.isRequired
+  router: React.PropTypes.object.isRequired
 };
 
 TaskTable.propTypes = {
   checkedItemsMap: React.PropTypes.object,
   className: React.PropTypes.string,
   onCheckboxChange: React.PropTypes.func,
+  params: React.PropTypes.object.isRequired,
   tasks: React.PropTypes.array.isRequired
 };
 
