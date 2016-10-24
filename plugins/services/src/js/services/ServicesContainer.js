@@ -634,7 +634,7 @@ ServicesContainer.contextTypes = {
 ServicesContainer.routeConfig = {
   label: 'Services',
   icon: <Icon id="services-inverse" size="small" family="small" />,
-  matches: /^\/services/
+  matches: /^\/services\/overview/
 };
 
 module.exports = ServicesContainer;
