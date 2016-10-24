@@ -5,7 +5,7 @@ jest.dontMock('../../../src/js/structs/SummaryList');
 jest.dontMock('../../../src/js/structs/StateSummary');
 
 const DCOSStore = require('../DCOSStore');
-const EventTypes = require('../../../../../src/js/constants/EventTypes');
+const EventTypes = require('../../../src/js/constants/EventTypes');
 const MarathonStore = require('../../../plugins/services/src/js/stores/MarathonStore');
 const MesosSummaryStore = require('../../../src/js/stores/MesosSummaryStore');
 const NotificationStore = require('../../../src/js/stores/NotificationStore');
