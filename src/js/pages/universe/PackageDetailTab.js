@@ -6,7 +6,7 @@ import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import Breadcrumbs from '../../components/Breadcrumbs';
 import CosmosPackagesStore from '../../stores/CosmosPackagesStore';
-import defaultServiceImage from '../../../img/services/icon-service-default-large@2x.png';
+import defaultServiceImage from '../../../../plugins/services/src/img/icon-service-default-large@2x.png';
 import Image from '../../components/Image';
 import ImageViewer from '../../components/ImageViewer';
 import InstallPackageModal from '../../components/modals/InstallPackageModal';
@@ -110,10 +110,9 @@ class PackageDetailTab extends mixin(StoreMixin) {
     }
 
     return (
-      <div
-        className="container-pod container-pod-super-short-bottom flush-top"
+      <div className="pod pod-shorter flush-top flush-right flush-left"
         key={key}>
-        <h5 className="inverse flush-top">{label}</h5>
+        <h5 className="flush-top">{label}</h5>
         {value}
       </div>
     );
@@ -121,8 +120,8 @@ class PackageDetailTab extends mixin(StoreMixin) {
 
   getLoadingScreen() {
     return (
-      <div className="container container-fluid container-pod">
-        <Loader className="inverse" />
+      <div className="pod">
+        <Loader />
       </div>
     );
   }
@@ -160,9 +159,10 @@ class PackageDetailTab extends mixin(StoreMixin) {
     );
 
     if (cosmosPackage.isSelected()) {
+      // TODO: Convert this to .pill-label.
       return (
-        <span className="badge-container badge-primary selected-badge">
-          <span className="badge flush">
+        <span className="badge-container selected-badge">
+          <span className="badge badge-large flush">
             Selected
           </span>
           {versionTag}
@@ -236,27 +236,36 @@ class PackageDetailTab extends mixin(StoreMixin) {
     return (
       <div>
         <Breadcrumbs />
-        <div className="container-pod container-pod-divider-bottom container-pod-divider-inverse flush-top flush-bottom">
-          <div className="media-object-spacing-wrapper">
-            <div className="media-object media-object-align-middle">
-              <div className="media-object-item">
-                <div className="icon icon-huge icon-image-container icon-app-container icon-default-white">
-                  <Image
-                    fallbackSrc={defaultServiceImage}
-                    src={cosmosPackage.getIcons()['icon-large']} />
-                </div>
+        <div className="media-object-spacing-wrapper">
+          <div className="media-object media-object-align-middle">
+            <div className="media-object-item">
+              <div className="icon icon-huge icon-image-container icon-app-container icon-default-white">
+                <Image
+                  fallbackSrc={defaultServiceImage}
+                  src={cosmosPackage.getIcons()['icon-large']} />
               </div>
               <div className="media-object-item">
-                <h1 className="inverse flush">
+                <h1 className="flush">
                   {name}
                 </h1>
                 <p>{this.getSelectedBadge(cosmosPackage, version)}</p>
                 {this.getInstallButton(cosmosPackage)}
               </div>
             </div>
+            <div className="media-object-item">
+              <h1 className="flush">
+                {name}
+              </h1>
+              <p>{this.getSelectedBadge(cosmosPackage, version)}</p>
+              <button
+                className="button button-success"
+                onClick={this.handleInstallModalOpen}>
+                Install Package
+              </button>
+            </div>
           </div>
         </div>
-        <div className="container-pod container-pod-short">
+        <div className="pod pod-short flush-right flush-left">
           {this.getItems(definition, this.getItem)}
           <ImageViewer images={cosmosPackage.getScreenshots()} />
         </div>

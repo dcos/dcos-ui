@@ -1,0 +1,49 @@
+& when (@pod-instances-table-enabled) {
+
+  .pod-instances-table {
+
+    td {
+      vertical-align: top;
+    }
+
+    .column-logs {
+      padding-left: 0;
+    }
+
+    .column-checkbox {
+      width: 40px;
+    }
+
+    .column-name {
+      min-width: 150px;
+      width: 100%;
+    }
+
+    .column-address {
+      max-width: 300px;
+      min-width: 120px;
+    }
+
+    .column-status {
+      min-width: 120px;
+      width: 120px;
+    }
+
+    .column-cpus {
+      width: 64px;
+    }
+
+    .column-version {
+      max-width: 300px;
+      min-width: 160px;
+    }
+
+    // TODO: Fix the specificity of table-cell-task-dot so this isn't necessary.
+    &.table {
+
+      .table-cell-task-dot {
+        max-width: none;
+      }
+    }
+  }
+}

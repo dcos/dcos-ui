@@ -7,22 +7,23 @@ import UniversePage from '../pages/UniversePage';
 
 let universeRoutes = {
   type: Route,
-  name: 'universe',
-  path: 'universe/?',
+  path: 'universe',
   handler: UniversePage,
+  category: 'root',
+  isInSidebar: true,
   children: [
     {
       type: Route,
-      name: 'universe-packages',
-      path: 'packages/?',
+      path: 'packages',
       handler: PackagesTab,
+      isInSidebar: true,
       buildBreadCrumb() {
         return {
           getCrumbs() {
             return [
               {
                 label: 'Packages',
-                route: {to: 'universe-packages'}
+                route: {to: '/universe/packages'}
               }
             ];
           }
@@ -31,13 +32,12 @@ let universeRoutes = {
     },
     {
       type: Route,
-      name: 'universe-packages-detail',
       path: 'packages/:packageName?',
       handler: PackageDetailTab,
       hideHeaderNavigation: true,
       buildBreadCrumb() {
         return {
-          parentCrumb: 'universe-packages',
+          parentCrumb: '/universe/packages',
           getCrumbs(router) {
             let params = router.getCurrentParams();
 
@@ -45,7 +45,7 @@ let universeRoutes = {
               {
                 label: params.packageName,
                 route: {
-                  to: 'universe-packages-detail',
+                  to: '/universe/packages/:packageName',
                   params,
                   query: router.getCurrentQuery()
                 }
@@ -57,14 +57,14 @@ let universeRoutes = {
     },
     {
       type: Route,
-      name: 'universe-installed-packages',
-      path: 'installed-packages/?',
-      handler: InstalledPackagesTab
+      path: 'installed-packages',
+      handler: InstalledPackagesTab,
+      isInSidebar: true
     },
     {
       type: Redirect,
-      from: '/universe/?',
-      to: 'universe-packages'
+      from: '/universe',
+      to: '/universe/packages'
     }
   ]
 };

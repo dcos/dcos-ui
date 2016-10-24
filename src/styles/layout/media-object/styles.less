@@ -1,0 +1,617 @@
+& when (@media-object-enabled) {
+
+  .media-object {
+    display: flex;
+    width: 100%;
+
+    &.media-object-wrap-reverse {
+      flex-wrap: wrap-reverse;
+    }
+
+    &.media-object-wrap {
+      flex-wrap: wrap;
+    }
+
+    &.media-object-inline {
+      display: inline-flex;
+      max-width: 100%;
+      padding-right: @base-spacing-unit;
+      width: auto;
+    }
+
+    .media-object-item {
+      flex: 0 0 auto;
+      max-width: 100%;
+
+      &.media-object-item-shrink {
+        flex-shrink: 1;
+      }
+
+      &.media-object-item-grow {
+        flex: 1 0 auto;
+      }
+
+      &.media-object-item-fill {
+        width: 25%;
+
+        .media-object-item-fill-image {
+          background-position: center;
+          background-size: cover;
+
+          &:before {
+            content: '';
+            display: block;
+            padding-bottom: 100% * 9/16;
+          }
+        }
+      }
+
+      &.media-object-item-align-right {
+        margin-left: auto;
+
+        &:last-child {
+          padding-right: 0;
+        }
+
+        & > .media-object-item {
+
+          &:last-child {
+            // This overrides all of the specificity applied by the classes
+            // below.
+            padding-right: 0 !important;
+          }
+        }
+      }
+
+      &:last-child {
+        padding-right: 0;
+      }
+    }
+
+    &.media-object-align-top {
+      align-items: flex-start;
+    }
+
+    &.media-object-align-middle {
+      align-items: center;
+    }
+
+    &.media-object-align-bottom {
+      align-items: flex-end;
+    }
+  }
+}
+
+.media-object-spacing-wrapper {
+  display: block;
+
+  .media-object-item {
+    padding-bottom: @base-spacing-unit * 1/2;
+    padding-right: @base-spacing-unit * 1/2;
+
+    & > .dropdown-menu.down {
+      top: calc(~'100% - '@base-spacing-unit * 1 / 2);
+    }
+  }
+
+  &.media-object-spacing-wrapper-inline {
+    display: inline-block;
+  }
+
+  &.media-object-spacing-narrow {
+
+    .media-object-item {
+      padding-bottom: @base-spacing-unit * 1/4;
+      padding-right: @base-spacing-unit * 1/4;
+
+      & > .dropdown-menu.down {
+        top: calc(~'100% - '@base-spacing-unit * 1 / 4);
+      }
+    }
+  }
+
+  &.media-object-spacing-super-narrow {
+    margin-bottom: -@base-spacing-unit * 1/8;
+    margin-right: -@base-spacing-unit * 1/8;
+
+    .media-object-item {
+      padding-bottom: @base-spacing-unit * 1/8;
+      padding-right: @base-spacing-unit * 1/8;
+
+      & > .dropdown-menu.down {
+        top: calc(~'100% - '@base-spacing-unit * 1 / 8);
+      }
+    }
+  }
+
+  &.media-object-spacing-wide {
+
+    .media-object-item {
+      padding-bottom: @base-spacing-unit * 3/4;
+      padding-right: @base-spacing-unit * 3/4;
+
+      & > .dropdown-menu.down {
+        top: calc(~'100% - '@base-spacing-unit * 3 / 4);
+      }
+    }
+  }
+
+  &,
+  &.media-object-spacing-narrow,
+  &.media-object-spacing-wide {
+
+    .media-object-item {
+
+      &:last-child {
+        padding-right: 0;
+      }
+    }
+  }
+
+  &.media-object-offset {
+    margin-bottom: -@base-spacing-unit * 1/2;
+    margin-right: -@base-spacing-unit * 1/2;
+
+    .media-object-item {
+
+      &:last-child {
+        padding-bottom: @base-spacing-unit * 1/2;
+        padding-right: @base-spacing-unit * 1/2;
+      }
+    }
+
+    &.media-object-spacing-narrow {
+      margin-bottom: -@base-spacing-unit * 1/4;
+      margin-right: -@base-spacing-unit * 1/4;
+
+      .media-object-item {
+
+        &:last-child {
+          padding-bottom: @base-spacing-unit * 1/4;
+          padding-right: @base-spacing-unit * 1/4;
+        }
+      }
+    }
+
+    &.media-object-spacing-wide {
+      margin-bottom: -@base-spacing-unit * 3/4;
+      margin-right: -@base-spacing-unit * 3/4;
+
+      .media-object-item {
+
+        &:last-child {
+          padding-bottom: @base-spacing-unit * 3/4;
+          padding-right: @base-spacing-unit * 3/4;
+        }
+      }
+    }
+  }
+}
+
+& when (@media-object-enabled) and (@layout-screen-small-enabled) {
+
+  @media (min-width: @layout-screen-small-min-width) {
+
+    .media-object-spacing-wrapper {
+
+      .media-object-item {
+        padding-bottom: @base-spacing-unit-screen-small * 1/2;
+        padding-right: @base-spacing-unit-screen-small * 1/2;
+
+        & > .dropdown-menu.down {
+          top: calc(~'100% - '@base-spacing-unit-screen-small * 1 / 2);
+        }
+      }
+
+      &.media-object-spacing-narrow {
+
+        .media-object-item {
+          padding-bottom: @base-spacing-unit-screen-small * 1/4;
+          padding-right: @base-spacing-unit-screen-small * 1/4;
+
+          & > .dropdown-menu.down {
+            top: calc(~'100% - '@base-spacing-unit-screen-small * 1 / 4);
+          }
+        }
+      }
+
+      &.media-object-spacing-super-narrow {
+        margin-bottom: -@base-spacing-unit-screen-small * 1/8;
+        margin-right: -@base-spacing-unit-screen-small * 1/8;
+
+        .media-object-item {
+          padding-bottom: @base-spacing-unit-screen-small * 1/8;
+          padding-right: @base-spacing-unit-screen-small * 1/8;
+
+          & > .dropdown-menu.down {
+            top: calc(~'100% - '@base-spacing-unit-screen-small * 1 / 8);
+          }
+        }
+      }
+
+      &.media-object-spacing-wide {
+
+        .media-object-item {
+          padding-bottom: @base-spacing-unit-screen-small * 3/4;
+          padding-right: @base-spacing-unit-screen-small * 3/4;
+
+          & > .dropdown-menu.down {
+            top: calc(~'100% - '@base-spacing-unit-screen-small * 3 / 4);
+          }
+        }
+      }
+
+      &,
+      &.media-object-spacing-narrow,
+      &.media-object-spacing-wide {
+
+        .media-object-item {
+
+          &:last-child {
+            padding-right: 0;
+          }
+        }
+      }
+
+      &.media-object-offset {
+        margin-bottom: -@base-spacing-unit-screen-small * 1/2;
+        margin-right: -@base-spacing-unit-screen-small * 1/2;
+
+        .media-object-item {
+
+          &:last-child {
+            padding-bottom: @base-spacing-unit-screen-small * 1/2;
+            padding-right: @base-spacing-unit-screen-small * 1/2;
+          }
+        }
+
+        &.media-object-spacing-narrow {
+          margin-bottom: -@base-spacing-unit-screen-small * 1/4;
+          margin-right: -@base-spacing-unit-screen-small * 1/4;
+
+          .media-object-item {
+
+            &:last-child {
+              padding-bottom: @base-spacing-unit-screen-small * 1/4;
+              padding-right: @base-spacing-unit-screen-small * 1/4;
+            }
+          }
+        }
+
+        &.media-object-spacing-wide {
+          margin-bottom: -@base-spacing-unit-screen-small * 3/4;
+          margin-right: -@base-spacing-unit-screen-small * 3/4;
+
+          .media-object-item {
+
+            &:last-child {
+              padding-bottom: @base-spacing-unit-screen-small * 3/4;
+              padding-right: @base-spacing-unit-screen-small * 3/4;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+& when (@media-object-enabled) and (@layout-screen-medium-enabled) {
+
+  @media (min-width: @layout-screen-medium-min-width) {
+
+    .media-object-spacing-wrapper {
+
+      .media-object-item {
+        padding-bottom: @base-spacing-unit-screen-medium * 1/2;
+        padding-right: @base-spacing-unit-screen-medium * 1/2;
+
+        & > .dropdown-menu.down {
+          top: calc(~'100% - '@base-spacing-unit-screen-medium * 1 / 2);
+        }
+      }
+
+      &.media-object-spacing-narrow {
+
+        .media-object-item {
+          padding-bottom: @base-spacing-unit-screen-medium * 1/4;
+          padding-right: @base-spacing-unit-screen-medium * 1/4;
+
+          & > .dropdown-menu.down {
+            top: calc(~'100% - '@base-spacing-unit-screen-medium * 1 / 4);
+          }
+        }
+      }
+
+      &.media-object-spacing-super-narrow {
+        margin-bottom: -@base-spacing-unit-screen-medium * 1/8;
+        margin-right: -@base-spacing-unit-screen-medium * 1/8;
+
+        .media-object-item {
+          padding-bottom: @base-spacing-unit-screen-medium * 1/8;
+          padding-right: @base-spacing-unit-screen-medium * 1/8;
+
+          & > .dropdown-menu.down {
+            top: calc(~'100% - '@base-spacing-unit-screen-medium * 1 / 8);
+          }
+        }
+      }
+
+      &.media-object-spacing-wide {
+
+        .media-object-item {
+          padding-bottom: @base-spacing-unit-screen-medium * 3/4;
+          padding-right: @base-spacing-unit-screen-medium * 3/4;
+
+          & > .dropdown-menu.down {
+            top: calc(~'100% - '@base-spacing-unit-screen-medium * 3 / 4);
+          }
+        }
+      }
+
+      &,
+      &.media-object-spacing-narrow,
+      &.media-object-spacing-wide {
+
+        .media-object-item {
+
+          &:last-child {
+            padding-right: 0;
+          }
+        }
+      }
+
+      &.media-object-offset {
+        margin-bottom: -@base-spacing-unit-screen-medium * 1/2;
+        margin-right: -@base-spacing-unit-screen-medium * 1/2;
+
+        .media-object-item {
+
+          &:last-child {
+            padding-bottom: @base-spacing-unit-screen-medium * 1/2;
+            padding-right: @base-spacing-unit-screen-medium * 1/2;
+          }
+        }
+
+        &.media-object-spacing-narrow {
+          margin-bottom: -@base-spacing-unit-screen-medium * 1/4;
+          margin-right: -@base-spacing-unit-screen-medium * 1/4;
+
+          .media-object-item {
+
+            &:last-child {
+              padding-bottom: @base-spacing-unit-screen-medium * 1/4;
+              padding-right: @base-spacing-unit-screen-medium * 1/4;
+            }
+          }
+        }
+
+        &.media-object-spacing-wide {
+          margin-bottom: -@base-spacing-unit-screen-medium * 3/4;
+          margin-right: -@base-spacing-unit-screen-medium * 3/4;
+
+          .media-object-item {
+
+            &:last-child {
+              padding-bottom: @base-spacing-unit-screen-medium * 3/4;
+              padding-right: @base-spacing-unit-screen-medium * 3/4;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+& when (@media-object-enabled) and (@layout-screen-large-enabled) {
+
+  @media (min-width: @layout-screen-large-min-width) {
+
+    .media-object-spacing-wrapper {
+
+      .media-object-item {
+        padding-bottom: @base-spacing-unit-screen-large * 1/2;
+        padding-right: @base-spacing-unit-screen-large * 1/2;
+
+        & > .dropdown-menu.down {
+          top: calc(~'100% - '@base-spacing-unit-screen-large * 1 / 2);
+        }
+      }
+
+      &.media-object-spacing-narrow {
+
+        .media-object-item {
+          padding-bottom: @base-spacing-unit-screen-large * 1/4;
+          padding-right: @base-spacing-unit-screen-large * 1/4;
+
+          & > .dropdown-menu.down {
+            top: calc(~'100% - '@base-spacing-unit-screen-large * 1 / 4);
+          }
+        }
+      }
+
+      &.media-object-spacing-super-narrow {
+        margin-bottom: -@base-spacing-unit-screen-large * 1/8;
+        margin-right: -@base-spacing-unit-screen-large * 1/8;
+
+        .media-object-item {
+          padding-bottom: @base-spacing-unit-screen-large * 1/8;
+          padding-right: @base-spacing-unit-screen-large * 1/8;
+
+          & > .dropdown-menu.down {
+            top: calc(~'100% - '@base-spacing-unit-screen-large * 1 / 8);
+          }
+        }
+      }
+
+      &.media-object-spacing-wide {
+
+        .media-object-item {
+          padding-bottom: @base-spacing-unit-screen-large * 3/4;
+          padding-right: @base-spacing-unit-screen-large * 3/4;
+
+          & > .dropdown-menu.down {
+            top: calc(~'100% - '@base-spacing-unit-screen-large * 3 / 4);
+          }
+        }
+      }
+
+      &,
+      &.media-object-spacing-narrow,
+      &.media-object-spacing-wide {
+
+        .media-object-item {
+
+          &:last-child {
+            padding-right: 0;
+          }
+        }
+      }
+
+      &.media-object-offset {
+        margin-bottom: -@base-spacing-unit-screen-large * 1/2;
+        margin-right: -@base-spacing-unit-screen-large * 1/2;
+
+        .media-object-item {
+
+          &:last-child {
+            padding-bottom: @base-spacing-unit-screen-large * 1/2;
+            padding-right: @base-spacing-unit-screen-large * 1/2;
+          }
+        }
+
+        &.media-object-spacing-narrow {
+          margin-bottom: -@base-spacing-unit-screen-large * 1/4;
+          margin-right: -@base-spacing-unit-screen-large * 1/4;
+
+          .media-object-item {
+
+            &:last-child {
+              padding-bottom: @base-spacing-unit-screen-large * 1/4;
+              padding-right: @base-spacing-unit-screen-large * 1/4;
+            }
+          }
+        }
+
+        &.media-object-spacing-wide {
+          margin-bottom: -@base-spacing-unit-screen-large * 3/4;
+          margin-right: -@base-spacing-unit-screen-large * 3/4;
+
+          .media-object-item {
+
+            &:last-child {
+              padding-bottom: @base-spacing-unit-screen-large * 3/4;
+              padding-right: @base-spacing-unit-screen-large * 3/4;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+& when (@media-object-enabled) and (@layout-screen-jumbo-enabled) {
+
+  @media (min-width: @layout-screen-jumbo-min-width) {
+
+    .media-object-spacing-wrapper {
+
+      .media-object-item {
+        padding-bottom: @base-spacing-unit-screen-jumbo * 1/2;
+        padding-right: @base-spacing-unit-screen-jumbo * 1/2;
+
+        & > .dropdown-menu.down {
+          top: calc(~'100% - '@base-spacing-unit-screen-jumbo * 1 / 2);
+        }
+      }
+
+      &.media-object-spacing-narrow {
+
+        .media-object-item {
+          padding-bottom: @base-spacing-unit-screen-jumbo * 1/4;
+          padding-right: @base-spacing-unit-screen-jumbo * 1/4;
+
+          & > .dropdown-menu.down {
+            top: calc(~'100% - '@base-spacing-unit-screen-jumbo * 1 / 4);
+          }
+        }
+      }
+
+      &.media-object-spacing-super-narrow {
+        margin-bottom: -@base-spacing-unit-screen-jumbo * 1/8;
+        margin-right: -@base-spacing-unit-screen-jumbo * 1/8;
+
+        .media-object-item {
+          padding-bottom: @base-spacing-unit-screen-jumbo * 1/8;
+          padding-right: @base-spacing-unit-screen-jumbo * 1/8;
+
+          & > .dropdown-menu.down {
+            top: calc(~'100% - '@base-spacing-unit-screen-jumbo * 1 / 8);
+          }
+        }
+      }
+
+      &.media-object-spacing-wide {
+
+        .media-object-item {
+          padding-bottom: @base-spacing-unit-screen-jumbo * 3/4;
+          padding-right: @base-spacing-unit-screen-jumbo * 3/4;
+
+          & > .dropdown-menu.down {
+            top: calc(~'100% - '@base-spacing-unit-screen-jumbo * 3 / 4);
+          }
+        }
+      }
+
+      &,
+      &.media-object-spacing-narrow,
+      &.media-object-spacing-wide {
+
+        .media-object-item {
+
+          &:last-child {
+            padding-right: 0;
+          }
+        }
+      }
+
+      &.media-object-offset {
+        margin-bottom: -@base-spacing-unit-screen-jumbo * 1/2;
+        margin-right: -@base-spacing-unit-screen-jumbo * 1/2;
+
+        .media-object-item {
+
+          &:last-child {
+            padding-bottom: @base-spacing-unit-screen-jumbo * 1/2;
+            padding-right: @base-spacing-unit-screen-jumbo * 1/2;
+          }
+        }
+
+        &.media-object-spacing-narrow {
+          margin-bottom: -@base-spacing-unit-screen-jumbo * 1/4;
+          margin-right: -@base-spacing-unit-screen-jumbo * 1/4;
+
+          .media-object-item {
+
+            &:last-child {
+              padding-bottom: @base-spacing-unit-screen-jumbo * 1/4;
+              padding-right: @base-spacing-unit-screen-jumbo * 1/4;
+            }
+          }
+        }
+
+        &.media-object-spacing-wide {
+          margin-bottom: -@base-spacing-unit-screen-jumbo * 3/4;
+          margin-right: -@base-spacing-unit-screen-jumbo * 3/4;
+
+          .media-object-item {
+
+            &:last-child {
+              padding-bottom: @base-spacing-unit-screen-jumbo * 3/4;
+              padding-right: @base-spacing-unit-screen-jumbo * 3/4;
+            }
+          }
+        }
+      }
+    }
+  }
+}

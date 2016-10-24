@@ -91,7 +91,7 @@ class FormModal extends React.Component {
 
   getFooter() {
     return (
-      <div className="button-collection text-align-center flush-bottom">
+      <div className="button-collection text-align-center flush">
         {this.getButtons()}
         {this.props.extraFooterContent}
       </div>
@@ -107,14 +107,9 @@ class FormModal extends React.Component {
   }
 
   getContent() {
-    let contentClasses = classNames(
-      'container container-pod flush-top flush-bottom',
-      this.props.contentClasses
-    );
-
     return (
       <div ref="form-wrapper"
-        className={contentClasses}>
+        className={classNames(this.props.contentClasses)}>
         {this.props.children}
         <Form
           className={this.getClassName(!!this.props.contentFooter)}
@@ -132,11 +127,9 @@ class FormModal extends React.Component {
     return (
       <Modal
         closeByBackdropClick={!this.props.disabled}
-        maxHeightPercentage={0.9}
         modalClass="modal form-modal"
         onClose={this.props.onClose}
         open={this.props.open}
-        showCloseButton={false}
         showHeader={false}
         showFooter={true}
         footer={this.getFooter()}

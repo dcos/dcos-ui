@@ -6,7 +6,7 @@ import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import CosmosErrorMessage from '../../components/CosmosErrorMessage';
 import CosmosPackagesStore from '../../stores/CosmosPackagesStore';
-import defaultServiceImage from '../../../img/services/icon-service-default-medium@2x.png';
+import defaultServiceImage from '../../../../plugins/services/src/img/icon-service-default-medium@2x.png';
 import DisplayPackagesTable from '../../components/DisplayPackagesTable';
 import FilterInputText from '../../components/FilterInputText';
 import Image from '../../components/Image';
@@ -60,7 +60,7 @@ class PackagesTab extends mixin(StoreMixin) {
   handleDetailOpen(cosmosPackage, event) {
     event.stopPropagation();
     this.context.router.transitionTo(
-      'universe-packages-detail',
+      '/universe/packages/:packageName',
       {packageName: cosmosPackage.getName()},
       {version: cosmosPackage.getCurrentVersion()}
     );
@@ -85,7 +85,7 @@ class PackagesTab extends mixin(StoreMixin) {
     return (
       <CosmosErrorMessage
         error={errorMessage}
-        headerClass="h3 text-align-center flush-top inverse" />
+        headerClass="h3 text-align-center flush-top" />
     );
   }
 
@@ -111,8 +111,8 @@ class PackagesTab extends mixin(StoreMixin) {
 
   getLoadingScreen() {
     return (
-      <div className="container container-fluid container-pod">
-        <Loader className="inverse" />
+      <div className="pod">
+        <Loader />
       </div>
     );
   }
@@ -126,19 +126,19 @@ class PackagesTab extends mixin(StoreMixin) {
     return packages.getItems().map((cosmosPackage, index) => {
       return (
         <div
-          className="grid-item column-mini-6 column-medium-4 column-large-3"
+          className="panel-grid-item column-12 column-small-6 column-medium-4 column-large-3"
           key={index}>
           <Panel
-            className="panel panel-inverse clickable"
-            contentClass="panel-content short-bottom tall-top horizontal-center"
+            className="clickable"
+            contentClass="horizontal-center"
             footer={this.getButton(cosmosPackage)}
-            footerClass="panel-footer tall-bottom horizontal-center no-border-top flush-top"
+            footerClass="horizontal-center"
             onClick={this.handleDetailOpen.bind(this, cosmosPackage)}>
             {this.getIcon(cosmosPackage)}
-            <div className="h2 inverse short">
+            <div className="h2 short">
               {cosmosPackage.getName()}
             </div>
-            <p className="inverse flush">
+            <p className="flush">
               {cosmosPackage.getCurrentVersion()}
             </p>
           </Panel>
@@ -147,12 +147,8 @@ class PackagesTab extends mixin(StoreMixin) {
     });
   }
 
-  getBorderedTitle(title) {
-    return (
-      <div className="container-pod container-pod-divider-bottom container-pod-divider-inverse flush-bottom flush-top">
-        <h4 className="inverse">{title}</h4>
-      </div>
-    );
+  getTitle(title) {
+    return <h4>{title}</h4>;
   }
 
   getSelectedPackagesGrid(packages) {
@@ -162,9 +158,9 @@ class PackagesTab extends mixin(StoreMixin) {
 
     return (
       <div className="clearfix">
-        {this.getBorderedTitle('Selected Packages', true)}
-        <div className="container-pod container-pod-short">
-          <div className="grid row">
+        {this.getTitle('Selected Packages', true)}
+        <div className="pod pod-short flush-right flush-left">
+          <div className="panel-grid row">
             {this.getSelectedPackages(packages)}
           </div>
         </div>
@@ -184,7 +180,7 @@ class PackagesTab extends mixin(StoreMixin) {
 
     return (
       <div>
-        {this.getBorderedTitle(title, false)}
+        {this.getTitle(title, false)}
         <DisplayPackagesTable
           onDeploy={this.handleInstallModalOpen.bind(this)}
           onDetailOpen={this.handleDetailOpen.bind(this)}
@@ -227,8 +223,7 @@ class PackagesTab extends mixin(StoreMixin) {
             className="flex-grow"
             placeholder="Search"
             searchString={state.searchString}
-            handleFilterChange={this.handleSearchStringChange}
-            inverseStyle={true} />
+            handleFilterChange={this.handleSearchStringChange} />
         </div>
         {this.getSelectedPackagesGrid(gridPackages)}
         {this.getPackagesTable(tablePackages)}
@@ -244,6 +239,11 @@ class PackagesTab extends mixin(StoreMixin) {
 
 PackagesTab.contextTypes = {
   router: React.PropTypes.func
+};
+
+PackagesTab.routeConfig = {
+  label: 'Packages',
+  matches: /^\/universe\/packages/
 };
 
 module.exports = PackagesTab;

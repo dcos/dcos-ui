@@ -1,172 +1,405 @@
-/* -----------------------------------------------------------------------------
---------------------------------------------------------------------------------
---------------------------------------------------------------------------------
+/*
+ * Vendors
+ */
 
-main.less
+@import '../../node_modules/cnvs/styles/canvas.less'; // Source CNVS
+@import 'vendor/cnvs/styles.less'; // CNVS Overrides
+@import 'vendor/loaders.less';
+@import (inline) '../../node_modules/gemini-scrollbar/gemini-scrollbar.css';
 
---------------------------------------------------------------------------------
---------------------------------------------------------------------------------
------------------------------------------------------------------------------ */
+/*
+ * Reactjs-component Styling
+ */
 
+@import '../../node_modules/reactjs-components/lib/Dropdown/styles.less';
+@import '../../node_modules/reactjs-components/lib/Form/variables.less';
+@import '../../node_modules/reactjs-components/lib/Form/styles.less';
+@import '../../node_modules/reactjs-components/lib/Modal/variables.less';
+@import '../../node_modules/reactjs-components/lib/Modal/styles.less';
+@import '../../node_modules/reactjs-components/lib/Table/styles.less';
+@import '../../node_modules/reactjs-components/lib/Tooltip/variables.less';
+@import '../../node_modules/reactjs-components/lib/Tooltip/styles.less';
+@import '../../node_modules/reactjs-components/lib/List/styles.less';
 
+/*
+ * Variables
+ */
 
+@import 'variables/variables-colors.less';
+@import 'variables/variables-resources.less';
+@import 'variables/variables-layout.less';
+@import 'variables/variables-unique-colors.less';
+@import 'variables/variables-z-index.less';
 
+/*
+ * Layout
+ */
 
+@import 'layout/variables.less';
+@import 'layout/styles.less';
 
-/* -----------------------------------------------------------------------------
---------------------------------------------------------------------------------
+// Alignment Utilities
 
-Vendors
+@import 'layout/alignment-utilities/styles.less';
 
---------------------------------------------------------------------------------
------------------------------------------------------------------------------ */
+// Container
 
-@import "../../node_modules/canvas-ui/canvas.less";
-@import "vendor/loaders.less";
-@import (inline) "../../node_modules/gemini-scrollbar/gemini-scrollbar.css";
+@import 'layout/container/variables.less';
+@import 'layout/container/styles.less';
 
+// Header
 
+@import 'layout/header/styles.less';
 
+// Iframes
 
+@import 'layout/iframes/styles.less';
 
+// Media Object
 
-/* -----------------------------------------------------------------------------
---------------------------------------------------------------------------------
+@import 'layout/media-object/variables.less';
+@import 'layout/media-object/styles.less';
 
-Reactjs-component Styling
+// Page
 
---------------------------------------------------------------------------------
------------------------------------------------------------------------------ */
+@import 'layout/page/styles.less';
 
-@import "../../node_modules/reactjs-components/lib/Dropdown/dropdown.less";
-@import "../../node_modules/reactjs-components/lib/Form/form.less";
-@import "../../node_modules/reactjs-components/lib/Modal/variables-modal.less";
-@import "../../node_modules/reactjs-components/lib/Modal/modal.less";
-@import "../../node_modules/reactjs-components/lib/Table/table.less";
-@import "../../node_modules/reactjs-components/lib/Tooltip/tooltip.less";
+// Page Content
 
+@import 'layout/page-body/styles.less';
 
+// Sidebar
 
+@import 'layout/sidebar/variables.less';
+@import 'layout/sidebar/styles.less';
 
+// @import 'layout/overlay.less';
 
+/*
+ * Content
+ */
 
-/* -----------------------------------------------------------------------------
---------------------------------------------------------------------------------
+// Fonts
 
-Variables
+@import 'content/fonts/variables.less';
+@import 'content/fonts/styles.less';
 
---------------------------------------------------------------------------------
------------------------------------------------------------------------------ */
+// Tables
 
-@import "variables/variables-buttons.less";
-@import "variables/variables-code.less";
-@import "variables/variables-config.less";
-@import "variables/variables-label.less";
-@import "variables/variables-layout.less";
-@import "variables/variables-modal.less";
-@import "variables/variables-panel.less";
-@import "variables/variables-resources.less";
-@import "variables/variables-tables.less";
-@import "variables/variables-toggle-button.less";
-@import "variables/variables-typography.less";
-@import "variables/variables-unique-colors.less";
-@import "variables/variables-z-index.less";
+@import 'content/tables/variables.less';
+@import 'content/tables/styles.less';
 
+/*
+ * Components
+ */
 
+// Fill
 
+@import 'components/fill/variables.less';
+@import 'components/fill/styles.less';
 
+// Menu (Tabbed)
 
+@import 'components/menu-tabbed/variables.less';
+@import 'components/menu-tabbed/styles.less';
 
-/* -----------------------------------------------------------------------------
---------------------------------------------------------------------------------
+// Scrollbar
 
-Utilities
+@import 'components/scrollbar/variables.less';
+@import 'components/scrollbar/styles.less';
 
---------------------------------------------------------------------------------
------------------------------------------------------------------------------ */
+// Layout Box
 
-@import "utilities/mixins-layout.less";
-@import "utilities/responsive-utilities.less";
+@import 'components/layout-box/variables.less';
+@import 'components/layout-box/styles.less';
 
+// Ace Editor
 
+@import 'components/ace-editor/variables.less';
+@import 'components/ace-editor/styles.less';
 
+// Application Loading Indicator
 
+@import 'components/application-loading-indicator/variables.less';
+@import 'components/application-loading-indicator/styles.less';
 
+// Badges
 
-/* -----------------------------------------------------------------------------
---------------------------------------------------------------------------------
+@import 'components/badges/variables.less';
+@import 'components/badges/styles.less';
 
-Layout
+// Banner Plugin
 
---------------------------------------------------------------------------------
------------------------------------------------------------------------------ */
+@import 'components/banner-plugin/variables.less';
+@import 'components/banner-plugin/styles.less';
 
-@import "layout/foundation.less";
-@import "layout/grid.less";
-@import "layout/iframes.less";
-@import "layout/media-object.less";
-@import "layout/modal.less";
-@import "layout/overlay.less";
-@import "layout/panel.less";
-@import "layout/page.less";
-@import "layout/sidebar.less";
+// Breadcrumbs
 
+@import 'components/breadcrumbs/variables.less';
+@import 'components/breadcrumbs/styles.less';
 
+// Buttons
 
+@import 'components/buttons/variables.less';
+@import 'components/buttons/styles.less';
 
+// Caret
 
+@import 'components/caret/variables.less';
+@import 'components/caret/styles.less';
 
-/* -----------------------------------------------------------------------------
---------------------------------------------------------------------------------
+// Charts
 
-Components
+@import 'components/charts/variables.less';
+@import 'components/charts/styles.less';
 
---------------------------------------------------------------------------------
------------------------------------------------------------------------------ */
+// Checkbox Table
 
-@import "components/ace-editor.less";
-@import "components/application-loading-indicator.less";
-@import "components/badges.less";
-@import "components/banner-plugin.less";
-@import "components/breadcrumbs.less";
-@import "components/buttons.less";
-@import "components/caret.less";
-@import "components/charts/index.less";
-@import "components/charts/dialchart.less";
-@import "components/code.less";
-@import "components/collapsible-error-message.less";
-@import "components/collapsing-string.less";
-@import "components/dashboard-health-list.less";
-@import "components/deployments-table.less";
-@import "components/description-list.less";
-@import "components/dropdown-menus.less";
-@import "components/expanding-table.less";
-@import "components/form-elements.less";
-@import "components/filter-bar.less";
-@import "components/icons.less";
-@import "components/jobs-view.less";
-@import "components/list.less";
-@import "components/loaders.less";
-@import "components/log-view.less";
-@import "components/login-modal.less";
-@import "components/media.less";
-@import "components/multiple-form.less";
-@import "components/nested-service-links.less";
-@import "components/nodes-grid-view.less";
-@import "components/page-header.less";
-@import "components/pod-instances-table.less";
-@import "components/scrollbar.less";
-@import "components/secret-value.less";
-@import "components/service-sidebar.less";
-@import "components/service-table.less";
-@import "components/side-list.less";
-@import "components/side-tabs.less";
-@import "components/status-bar.less";
-@import "components/tables.less";
-@import "components/tabs.less";
-@import "components/toggle-button.less";
-@import "components/tooltip.less";
-@import "components/tree-list.less";
-@import "components/typeahead.less";
-@import "components/typography.less";
-@import "components/user-dropup-menu.less";
+@import 'components/checkbox-table/variables.less';
+@import 'components/checkbox-table/styles.less';
+
+// Code
+
+@import 'components/code/variables.less';
+@import 'components/code/styles.less';
+
+// Collapsing String
+
+@import 'components/collapsing-string/variables.less';
+@import 'components/collapsing-string/styles.less';
+
+// Collapsible Error Message
+
+@import 'components/collapsible-error-message/variables.less';
+@import 'components/collapsible-error-message/styles.less';
+
+// Dashboard Health List
+
+@import 'components/dashboard-health-list/variables.less';
+@import 'components/dashboard-health-list/styles.less';
+
+// Deployments Table
+
+@import 'components/deployments-table/variables.less';
+@import 'components/deployments-table/styles.less';
+
+// Description List
+
+@import 'components/description-list/variables.less';
+@import 'components/description-list/styles.less';
+
+// Detail View Header
+
+@import 'components/detail-view-header/variables.less';
+@import 'components/detail-view-header/styles.less';
+
+// Dropdown Menus
+
+@import 'components/dropdown-menus/variables.less';
+@import 'components/dropdown-menus/styles.less';
+
+// Expanding Table
+
+@import 'components/expanding-table/variables.less';
+@import 'components/expanding-table/styles.less';
+
+// Fill
+
+@import 'components/color-swatch/variables.less';
+@import 'components/color-swatch/styles.less';
+
+// Filter Bar
+
+@import 'components/filter-bar/variables.less';
+@import 'components/filter-bar/styles.less';
+
+// Form Elements
+
+@import 'components/form-elements/variables.less';
+@import 'components/form-elements/styles.less';
+
+// Icons
+
+@import 'components/icons/variables.less';
+@import 'components/icons/styles.less';
+
+// Jobs View
+
+@import 'components/jobs-view/variables.less';
+@import 'components/jobs-view/styles.less';
+
+// List
+
+@import 'components/list/variables.less';
+@import 'components/list/styles.less';
+
+// Loaders
+
+@import 'components/loaders/variables.less';
+@import 'components/loaders/styles.less';
+
+// Log View
+
+@import 'components/log-view/variables.less';
+@import 'components/log-view/styles.less';
+
+// Media
+
+@import 'components/media/variables.less';
+@import 'components/media/styles.less';
+
+// Modal
+
+@import 'components/modal/variables.less';
+@import 'components/modal/styles.less';
+
+// Full Screen Modal
+
+@import 'components/modal/full-screen/variables.less';
+@import 'components/modal/full-screen/styles.less';
+
+// Login Modal
+
+@import 'components/modal/login/variables.less';
+@import 'components/modal/login/styles.less';
+
+// Image Viewer Modal
+
+@import 'components/modal/image-viewer/variables.less';
+@import 'components/modal/image-viewer/styles.less';
+
+// Install Package Modal
+
+@import 'components/modal/install-package/variables.less';
+@import 'components/modal/install-package/styles.less';
+
+// Multiple Form
+
+@import 'components/multiple-form/variables.less';
+@import 'components/multiple-form/styles.less';
+
+// Nested Service Links
+
+@import 'components/nested-service-links/variables.less';
+@import 'components/nested-service-links/styles.less';
+
+// Nodes Grid View
+
+@import 'components/nodes-grid-view/variables.less';
+@import 'components/nodes-grid-view/styles.less';
+
+// Page Header
+
+@import 'components/page-header/variables.less';
+@import 'components/page-header/styles.less';
+
+// Panel
+
+@import 'components/panel/variables.less';
+@import 'components/panel/styles.less';
+
+// Collapsing Panel
+
+@import 'components/panel/collapsing/variables.less';
+@import 'components/panel/collapsing/styles.less';
+
+// Pod Instances Table
+
+@import 'components/pod-instances-table/variables.less';
+@import 'components/pod-instances-table/styles.less';
+
+// Secret Value
+
+@import 'components/secret-value/variables.less';
+@import 'components/secret-value/styles.less';
+
+// Service Sidebar
+
+@import 'components/service-sidebar/variables.less';
+@import 'components/service-sidebar/styles.less';
+
+// Service Table
+
+@import 'components/service-table/variables.less';
+@import 'components/service-table/styles.less';
+
+// Side List
+
+@import 'components/side-list/variables.less';
+@import 'components/side-list/styles.less';
+
+// Side Tabs
+
+@import 'components/side-tabs/variables.less';
+@import 'components/side-tabs/styles.less';
+
+// Status Bar
+
+@import 'components/status-bar/variables.less';
+@import 'components/status-bar/styles.less';
+
+// Status Dots
+
+@import 'components/status-dots/variables.less';
+@import 'components/status-dots/styles.less';
+
+// Toggle Button
+
+@import 'components/toggle-button/variables.less';
+@import 'components/toggle-button/styles.less';
+
+// Tooltip
+
+@import 'components/tooltip/variables.less';
+@import 'components/tooltip/styles.less';
+
+// Tree List
+
+@import 'components/tree-list/variables.less';
+@import 'components/tree-list/styles.less';
+
+// Typeahead
+
+@import 'components/typeahead/variables.less';
+@import 'components/typeahead/styles.less';
+
+// Typography
+
+@import 'components/typography/variables.less';
+@import 'components/typography/styles.less';
+
+// User Dropdown Menu
+
+@import 'components/user-dropdown-menu/variables.less';
+@import 'components/user-dropdown-menu/styles.less';
+
+/*
+ * Views
+ */
+
+// Dashboard
+
+@import 'views/dashboard/variables.less';
+@import 'views/dashboard/styles.less';
+
+// TODO: Remove the style guide.
+// Style Guide
+
+@import 'views/layout/container/styles.less';
+@import 'views/layout/flex/styles.less';
+@import 'views/layout/divider/styles.less';
+
+// Packages
+
+@import 'views/packages/variables.less';
+@import 'views/packages/styles.less';
+
+// TODO: Remove the style guide.
+// Responsive Utilities
+
+@import 'views/responsive-utilities/styles.less';
+
+// Services
+
+@import 'views/services/variables.less';
+@import 'views/services/styles.less';

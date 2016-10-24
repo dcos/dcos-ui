@@ -15,7 +15,7 @@ import Loader from '../../../components/Loader';
 import MesosStateStore from '../../../stores/MesosStateStore';
 import Overlay from '../../../structs/Overlay';
 import RequestErrorMsg from '../../../components/RequestErrorMsg';
-import TaskUtil from '../../../utils/TaskUtil';
+import TaskUtil from '../../../../../plugins/services/src/js/utils/TaskUtil';
 import VirtualNetworkUtil from '../../../utils/VirtualNetworkUtil';
 import Util from '../../../utils/Util';
 
@@ -88,7 +88,7 @@ class VirtualNetworkTaskTab extends mixin(StoreMixin) {
 
   getClassName(prop, sortBy) {
     return classNames({
-      'highlight': prop === sortBy.prop
+      'active': prop === sortBy.prop
     });
   }
 
@@ -142,13 +142,13 @@ class VirtualNetworkTaskTab extends mixin(StoreMixin) {
 
   getLoadingScreen() {
     return (
-      <div className="container container-fluid container-pod">
-        <Loader className="inverse" />
+      <div className="pod">
+        <Loader />
       </div>
     );
   }
 
-  getTaskLink(taskID, value, title) {
+  getTaskLink(taskID, value, title, hierarchy = {}) {
     if (!value) {
       value = taskID;
     }
@@ -157,13 +157,18 @@ class VirtualNetworkTaskTab extends mixin(StoreMixin) {
       title = taskID;
     }
 
+    let classes = classNames({
+      'table-cell-link-primary': hierarchy.primary,
+      'table-cell-link-secondary': hierarchy.secondary
+    });
+
     return (
       <Link
-        className="clickable"
+        className={classes}
         key={value}
         params={{overlayName: this.props.overlay.getName(), taskID}}
         title={title}
-        to="virtual-networks-tab-detail-tasks-detail">
+        to="/network/virtual-networks/:overlayName/tasks/:taskID">
         {value}
       </Link>
     );
@@ -204,7 +209,7 @@ class VirtualNetworkTaskTab extends mixin(StoreMixin) {
   }
 
   renderID(prop, task) {
-    return this.getTaskLink(task.id);
+    return this.getTaskLink(task.id, null, null, {primary: true});
   }
 
   renderPorts(prop, task) {
@@ -231,7 +236,12 @@ class VirtualNetworkTaskTab extends mixin(StoreMixin) {
               family="tiny"
               id="caret-right"
               size="tiny" />
-            {this.getTaskLink(id, `${mapping.host_port} (${mapping.protocol})`, title)}
+            {this.getTaskLink(
+              id,
+              `${mapping.host_port} (${mapping.protocol})`,
+              title,
+              {secondary: true}
+            )}
           </span>
         );
       }
@@ -239,8 +249,13 @@ class VirtualNetworkTaskTab extends mixin(StoreMixin) {
       return (
         <div key={index} className="table-cell-value">
           <div className="table-cell-details-secondary flex-box flex-box-align-vertical-center table-cell-flex-box">
-            <div className="text-overflow service-link inverse">
-              {this.getTaskLink(id, mapping.container_port, title)}
+            <div className="text-overflow service-link">
+              {this.getTaskLink(
+                id,
+                mapping.container_port,
+                title,
+                {secondary: true}
+              )}
               {mapTo}
             </div>
           </div>
@@ -272,7 +287,6 @@ class VirtualNetworkTaskTab extends mixin(StoreMixin) {
     return (
       <div>
         <FilterHeadline
-          inverseStyle={true}
           onReset={this.resetFilter}
           name="Task"
           currentLength={filteredTasks.length}
@@ -280,11 +294,10 @@ class VirtualNetworkTaskTab extends mixin(StoreMixin) {
         <FilterBar>
           <FilterInputText
             searchString={searchString}
-            handleFilterChange={this.handleSearchStringChange}
-            inverseStyle={true} />
+            handleFilterChange={this.handleSearchStringChange} />
         </FilterBar>
         <Table
-          className="table inverse table-borderless-outer table-borderless-inner-columns flush-bottom"
+          className="table table-borderless-outer table-borderless-inner-columns flush-bottom"
           columns={this.getColumns()}
           colGroup={this.getColGroup()}
           data={filteredTasks} />

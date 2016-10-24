@@ -1,6 +1,12 @@
+import PureRender from 'react-addons-pure-render-mixin';
 import React from 'react';
 
 class DescriptionList extends React.Component {
+  constructor() {
+    super(...arguments);
+    this.shouldComponentUpdate = PureRender.shouldComponentUpdate.bind(this);
+  }
+
   getHeadline() {
     let {headline, headlineClassName} = this.props;
     if (!headline) {
@@ -45,7 +51,7 @@ class DescriptionList extends React.Component {
       }
 
       return (
-        <dl key={index} className="flex-box row">
+        <dl key={index} className="flex row">
           <dt className={dtClassName}>{key}</dt>
           <dd className={ddClassName}>{value}</dd>
         </dl>
@@ -72,7 +78,7 @@ DescriptionList.defaultProps = {
   className: '',
   ddClassName: 'column-9 text-overflow-break-word',
   dtClassName: 'column-3 text-mute text-overflow-break-word',
-  headlineClassName: 'inverse flush-top',
+  headlineClassName: 'flush-top',
   key: '',
   renderKeys: {}
 };

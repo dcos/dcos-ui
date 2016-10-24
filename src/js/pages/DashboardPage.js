@@ -1,11 +1,11 @@
+import {DCOSStore} from 'foundation-ui';
 import {Link} from 'react-router';
 import React from 'react';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import ComponentList from '../components/ComponentList';
 import Config from '../config/Config';
-import DCOSStore from '../stores/DCOSStore';
-import HealthSorting from '../constants/HealthSorting';
+import HealthSorting from '../../../plugins/services/src/js/constants/HealthSorting';
 import HostTimeSeriesChart from '../components/charts/HostTimeSeriesChart';
 import Icon from '../components/Icon';
 import InternalStorageMixin from '../mixins/InternalStorageMixin';
@@ -13,7 +13,7 @@ import MesosSummaryStore from '../stores/MesosSummaryStore';
 import Page from '../components/Page';
 import Panel from '../components/Panel';
 import ResourceTimeSeriesChart from '../components/charts/ResourceTimeSeriesChart';
-import ServiceList from '../components/ServiceList';
+import ServiceList from '../../../plugins/services/src/js/components/ServiceList';
 import StringUtil from '../utils/StringUtil';
 import TasksChart from '../components/charts/TasksChart';
 import SidebarActions from '../events/SidebarActions';
@@ -42,7 +42,7 @@ var DashboardPage = React.createClass({
   statics: {
     routeConfig: {
       label: 'Dashboard',
-      icon: <Icon id="gauge" />,
+      icon: <Icon id="graph-inverse" size="small" family="small" />,
       matches: /^\/dashboard/
     },
 
@@ -114,8 +114,8 @@ var DashboardPage = React.createClass({
     var componentCountWord = StringUtil.pluralize('Component', componentCount);
 
     return (
-      <Link to="system-overview-units"
-        className="button button-wide button-inverse more-button">
+      <Link to="/components/overview"
+        className="button button-rounded button-stroke">
         {`View all ${componentCount} ${componentCountWord}`}
       </Link>
     );
@@ -134,8 +134,8 @@ var DashboardPage = React.createClass({
     textContent += 'Services';
 
     return (
-      <Link to="services-page"
-        className="button button-wide button-inverse more-button">
+      <Link to="/services"
+        className="button button-rounded button-stroke">
         {textContent}
       </Link>
     );
@@ -143,23 +143,23 @@ var DashboardPage = React.createClass({
 
   getHeading(title) {
     return (
-      <h5 className="flush inverse">
+      <h6 className="flush text-align-center">
         {title}
-      </h5>
+      </h6>
     );
   },
 
   render() {
+    let columnClasses = 'column-12 column-small-6 column-large-4';
     var data = this.internalStorage_get();
 
     return (
       <Page title="Dashboard">
-        <div className="grid row">
-          <div className="grid-item column-mini-6 column-large-4 column-x-large-3">
+        <div className="panel-grid row">
+          <div className={columnClasses}>
             <Panel
-              className="panel panel-inverse dashboard-panel dashboard-panel-resource-chart"
-              heading={this.getHeading('CPU Allocation')}
-              headingClass="panel-header panel-header-bottom-border inverse short-top short-bottom">
+              className="dashboard-panel dashboard-panel-chart dashboard-panel-chart-timeseries panel"
+              heading={this.getHeading('CPU Allocation')}>
               <ResourceTimeSeriesChart
                 colorIndex={0}
                 usedResourcesStates={data.usedResourcesStates}
@@ -169,11 +169,10 @@ var DashboardPage = React.createClass({
                 refreshRate={Config.getRefreshRate()} />
             </Panel>
           </div>
-          <div className="grid-item column-mini-6 column-large-4 column-x-large-3">
+          <div className={columnClasses}>
             <Panel
-              className="panel panel-inverse dashboard-panel dashboard-panel-resource-chart"
-              heading={this.getHeading('Memory Allocation')}
-              headingClass="panel-header panel-header-bottom-border inverse short-top short-bottom">
+              className="dashboard-panel dashboard-panel-chart dashboard-panel-chart-timeseries panel"
+              heading={this.getHeading('Memory Allocation')}>
               <ResourceTimeSeriesChart
                 colorIndex={6}
                 usedResourcesStates={data.usedResourcesStates}
@@ -183,11 +182,10 @@ var DashboardPage = React.createClass({
                 refreshRate={Config.getRefreshRate()} />
             </Panel>
           </div>
-          <div className="grid-item column-mini-6 column-large-4 column-x-large-3">
+          <div className={columnClasses}>
             <Panel
-              className="panel panel-inverse dashboard-panel dashboard-panel-resource-chart"
-              heading={this.getHeading('Disk Allocation')}
-              headingClass="panel-header panel-header-bottom-border inverse short-top short-bottom">
+              className="dashboard-panel dashboard-panel-chart dashboard-panel-chart-timeseries panel"
+              heading={this.getHeading('Disk Allocation')}>
               <ResourceTimeSeriesChart
                 colorIndex={3}
                 usedResourcesStates={data.usedResourcesStates}
@@ -197,41 +195,39 @@ var DashboardPage = React.createClass({
                 refreshRate={Config.getRefreshRate()} />
             </Panel>
           </div>
-          <div className="grid-item column-mini-6 column-large-4 column-x-large-3">
+          <div className={columnClasses}>
             <Panel
-              className="panel panel-inverse dashboard-panel dashboard-panel-list dashboard-panel-list-service-health allow-overflow"
+              className="dashboard-panel dashboard-panel-list dashboard-panel-list-service-health allow-overflow panel"
               heading={this.getHeading('Services Health')}
-              headingClass="panel-header panel-header-bottom-border inverse short-top short-bottom">
+              footer={this.getViewAllServicesBtn()}
+              footerClass="text-align-center">
               <ServiceList
                 healthProcessed={DCOSStore.dataProcessed}
                 services={this.getServicesList()} />
-              {this.getViewAllServicesBtn()}
             </Panel>
           </div>
-          <div className="grid-item column-mini-6 column-large-4 column-x-large-3">
+          <div className={columnClasses}>
             <Panel
-              className="panel panel-inverse dashboard-panel"
-              heading={this.getHeading('Tasks')}
-              headingClass="panel-header panel-header-bottom-border inverse short-top short-bottom">
+              className="dashboard-panel dashboard-panel-chart panel"
+              heading={this.getHeading('Tasks')}>
               <TasksChart tasks={data.tasks} />
             </Panel>
           </div>
-          <div className="grid-item column-mini-6 column-large-4 column-x-large-3">
+          <div className={columnClasses}>
             <Panel
-              className="panel panel-inverse dashboard-panel dashboard-panel-list dashboard-panel-list-component-health"
+              className="dashboard-panel dashboard-panel-list dashboard-panel-list-component-health panel"
               heading={this.getHeading('Component Health')}
-              headingClass="panel-header panel-header-bottom-border inverse short-top short-bottom">
+              footer={this.getViewAllComponentsButton()}
+              footerClass="text-align-center">
               <ComponentList
                 displayCount={this.props.componentsListLength}
                 units={this.getUnits()} />
-              {this.getViewAllComponentsButton()}
             </Panel>
           </div>
-          <div className="grid-item column-mini-6 column-large-4 column-x-large-3">
+          <div className={columnClasses}>
             <Panel
-              className="panel panel-inverse dashboard-panel dashboard-panel-resource-chart"
-              heading={this.getHeading('Nodes')}
-              headingClass="panel-header panel-header-bottom-border inverse short-top short-bottom">
+              className="dashboard-panel dashboard-panel-chart dashboard-panel-chart-timeseries panel"
+              heading={this.getHeading('Nodes')}>
               <HostTimeSeriesChart
                 data={data.activeNodes}
                 currentValue={data.hostCount}

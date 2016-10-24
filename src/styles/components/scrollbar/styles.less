@@ -1,0 +1,78 @@
+& when (@scrollbar-enabled) {
+
+  // Gemini Scrollbar
+  .gm-scrollbar {
+    border-radius: 4px;
+    bottom: 3px;
+    right: 3px;
+    z-index: @gemini-scrollbar-handle;
+
+    &.-vertical {
+      top: 3px;
+      width: 6px;
+    }
+
+    &.-horizontal {
+      height: 6px;
+      left: 3px;
+    }
+
+    .thumb {
+      background-color: color-lighten(@neutral, 0);
+      opacity: 0.3;
+      transition: opacity 0.2s ease;
+
+      &:hover {
+        background-color: color-lighten(@neutral, 0);
+        opacity: 0.7;
+      }
+
+      &:active {
+        background-color: color-lighten(@neutral, 0);
+        opacity: 0.7;
+      }
+    }
+  }
+
+  .gm-prevented {
+    overflow: auto;
+  }
+
+  .gm-scrollbar-container {
+
+    &.inverse {
+
+      .gm-scrollbar {
+
+        .thumb {
+          background-color: color-lighten(@white, 0);
+          opacity: 0.3;
+
+          &:hover {
+            background-color: color-lighten(@white, 0);
+            opacity: 0.7;
+          }
+
+          &:active {
+            background-color: color-lighten(@white, 0);
+            opacity: 0.7;
+          }
+        }
+      }
+    }
+  }
+
+  .gm-scrollbar-container-flex {
+    position: relative;
+
+    .gm-scroll-view {
+      height: 100%;
+      position: absolute;
+      width: 100%;
+
+      & > * {
+        position: relative;
+      }
+    }
+  }
+}

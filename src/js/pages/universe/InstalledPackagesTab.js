@@ -60,8 +60,8 @@ class InstalledPackagesTab extends mixin(StoreMixin) {
 
   getLoadingScreen() {
     return (
-      <div className="container container-fluid container-pod">
-        <Loader className="inverse" />
+      <div className="pod">
+        <Loader />
       </div>
     );
   }
@@ -87,13 +87,17 @@ class InstalledPackagesTab extends mixin(StoreMixin) {
             className="flex-grow"
             placeholder="Search"
             searchString={searchString}
-            handleFilterChange={this.handleSearchStringChange}
-            inverseStyle={true} />
+            handleFilterChange={this.handleSearchStringChange} />
         </div>
         <PackagesTable packages={packages} filter={searchString} />
       </div>
     );
   }
 }
+
+InstalledPackagesTab.routeConfig = {
+  label: 'Installed',
+  matches: /^\/universe\/installed-packages/
+};
 
 module.exports = InstalledPackagesTab;

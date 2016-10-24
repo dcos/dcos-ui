@@ -127,7 +127,7 @@ class ManualBreadcrumbs extends React.Component {
 
   wrapListItem(breadcrumb, key) {
     return (
-      <li key={key}>
+      <li className="flush" key={key}>
         {breadcrumb}
       </li>
     );
@@ -147,7 +147,7 @@ class ManualBreadcrumbs extends React.Component {
 
   getBreadcrumbDivider(key) {
     return (
-      <li key={key} >
+      <li className="flush" key={key} >
         <Icon family="small" id="caret-right" size="small" />
       </li>
     );
@@ -178,7 +178,7 @@ class ManualBreadcrumbs extends React.Component {
 
   render() {
     let classSet = classNames(
-      'list-unstyled breadcrumb',
+      'breadcrumb list list-inline list-unstyled h4 flush-top flush-left',
       {collapsed: this.state.collapsed},
       this.props.breadcrumbClasses
     );
@@ -192,7 +192,6 @@ class ManualBreadcrumbs extends React.Component {
 }
 
 ManualBreadcrumbs.defaultProps = {
-  breadcrumbClasses: 'inverse',
   crumbs: []
 };
 

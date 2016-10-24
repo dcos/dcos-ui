@@ -1,0 +1,80 @@
+& when (@service-table-enabled) {
+
+  .service-table {
+    table-layout: fixed;
+
+    // We don't want the status bar to increase the height of the table row
+    // when it wraps to two lines.
+    .status-bar-wrapper {
+      line-height: 1;
+    }
+
+    .status-bar-column {
+      width: @base-spacing-unit * 5;
+    }
+
+    .status-bar-indicator {
+      margin-right: @base-spacing-unit * 1/2;
+    }
+
+    .status-bar-text {
+      white-space: nowrap;
+    }
+  }
+}
+
+& when (@service-table-enabled) and (@layout-screen-small-enabled) {
+
+  @media (min-width: @layout-screen-small-min-width) {
+
+    .service-table {
+
+      .status-bar-column {
+        width: @base-spacing-unit * 7;
+      }
+    }
+  }
+}
+
+& when (@service-table-enabled) and (@layout-screen-medium-enabled) {
+
+  @media (min-width: @layout-screen-medium-min-width) {
+
+    .service-table {
+
+      .status-bar-column {
+        width: @base-spacing-unit * 9;
+      }
+
+      .status-bar-wrapper {
+        white-space: nowrap;
+      }
+    }
+  }
+}
+
+& when (@service-table-enabled) and (@layout-screen-large-enabled) {
+
+  @media (min-width: @layout-screen-large-min-width) {
+
+    .service-table {
+
+      .status-bar-column {
+        width: @base-spacing-unit * 10;
+      }
+    }
+  }
+}
+
+& when (@service-table-enabled) and (@layout-screen-jumbo-enabled) {
+
+  @media (min-width: @layout-screen-jumbo-min-width) {
+
+    .service-table {
+
+      .status-bar-column {
+        width: @base-spacing-unit * 10.5;
+      }
+    }
+  }
+}

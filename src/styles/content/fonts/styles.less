@@ -1,0 +1,121 @@
+/*
+ * fonts/styles.less
+ */
+
+& when (@fonts-enabled) {
+
+  @charset 'UTF-8';
+
+  & when (@fonts-source-sans-pro-enabled) {
+
+    @font-face {
+      font-family: 'Source Sans Pro';
+      font-style: normal;
+      font-weight: 200;
+      src:
+        local('Source Sans Pro Extra Light'),
+        local('Source-Sans–Pro-Extra-Light'),
+        url('@{fonts-path}source-sans-pro/SourceSansPro-ExtraLight.woff') format('woff'),
+        url('@{fonts-path}source-sans-pro/SourceSansPro-ExtraLight.ttf') format('truetype');
+    }
+
+    @font-face {
+      font-family: 'Source Sans Pro';
+      font-style: italic;
+      font-weight: 200;
+      src:
+        local('Source Sans Pro Extra Light Italic'),
+        local('Source-Sans–Pro-Extra-Light-Italic'),
+        url('@{fonts-path}source-sans-pro/SourceSansPro-ExtraLightItalic.woff') format('woff'),
+        url('@{fonts-path}source-sans-pro/SourceSansPro-ExtraLightItalic.ttf') format('truetype');
+    }
+
+    @font-face {
+      font-family: 'Source Sans Pro';
+      font-style: normal;
+      font-weight: 300;
+      src:
+        local('Source Sans Pro Light'),
+        local('Source-Sans–Pro-Light'),
+        url('@{fonts-path}source-sans-pro/SourceSansPro-Light.woff') format('woff'),
+        url('@{fonts-path}source-sans-pro/SourceSansPro-Light.ttf') format('truetype');
+    }
+
+    @font-face {
+      font-family: 'Source Sans Pro';
+      font-style: italic;
+      font-weight: 300;
+      src:
+        local('Source Sans Pro Light Italic'),
+        local('Source-Sans–Pro-Light-Italic'),
+        url('@{fonts-path}source-sans-pro/SourceSansPro-LightItalic.woff') format('woff'),
+        url('@{fonts-path}source-sans-pro/SourceSansPro-LightItalic.ttf') format('truetype');
+    }
+
+    @font-face {
+      font-family: 'Source Sans Pro';
+      font-style: normal;
+      font-weight: 400;
+      src:
+        local('Source Sans Pro Regular'),
+        local('Source-Sans–Pro-Regular'),
+        url('@{fonts-path}source-sans-pro/SourceSansPro-Regular.woff') format('woff'),
+        url('@{fonts-path}source-sans-pro/SourceSansPro-Regular.ttf') format('truetype');
+    }
+
+    @font-face {
+      font-family: 'Source Sans Pro';
+      font-style: italic;
+      font-weight: 400;
+      src:
+        local('Source Sans Pro Italic'),
+        local('Source-Sans–Pro-Italic'),
+        url('@{fonts-path}source-sans-pro/SourceSansPro-Italic.woff') format('woff'),
+        url('@{fonts-path}source-sans-pro/SourceSansPro-Italic.ttf') format('truetype');
+    }
+
+    @font-face {
+      font-family: 'Source Sans Pro';
+      font-style: normal;
+      font-weight: 600;
+      src:
+        local('Source Sans Pro Semibold'),
+        local('Source-Sans–Pro-Semibold'),
+        url('@{fonts-path}source-sans-pro/SourceSansPro-Semibold.woff') format('woff'),
+        url('@{fonts-path}source-sans-pro/SourceSansPro-Semibold.ttf') format('truetype');
+    }
+
+    @font-face {
+      font-family: 'Source Sans Pro';
+      font-style: italic;
+      font-weight: 600;
+      src:
+        local('Source Sans Pro Semibold Italic'),
+        local('Source-Sans–Pro-Semibold-Italic'),
+        url('@{fonts-path}source-sans-pro/SourceSansPro-SemiboldItalic.woff') format('woff'),
+        url('@{fonts-path}source-sans-pro/SourceSansPro-SemiboldItalic.ttf') format('truetype');
+    }
+
+    @font-face {
+      font-family: 'Source Sans Pro';
+      font-style: normal;
+      font-weight: 700;
+      src:
+        local('Source Sans Pro Bold'),
+        local('Source-Sans–Pro-Bold'),
+        url('@{fonts-path}source-sans-pro/SourceSansPro-Bold.woff') format('woff'),
+        url('@{fonts-path}source-sans-pro/SourceSansPro-Bold.ttf') format('truetype');
+    }
+
+    @font-face {
+      font-family: 'Source Sans Pro';
+      font-style: italic;
+      font-weight: 700;
+      src:
+        local('Source Sans Pro Bold Italic'),
+        local('Source-Sans–Pro-Bold-Italic'),
+        url('@{fonts-path}source-sans-pro/SourceSansPro-BoldItalic.woff') format('woff'),
+        url('@{fonts-path}source-sans-pro/SourceSansPro-BoldItalic.ttf') format('truetype');
+    }
+  }
+}

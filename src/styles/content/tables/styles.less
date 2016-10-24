@@ -1,0 +1,115 @@
+& when (@table-enabled) {
+
+  .table {
+
+    tr {
+
+      &:hover {
+
+        .table-display-on-row-hover {
+          visibility: visible;
+        }
+      }
+
+      .table-display-on-row-hover {
+        visibility: hidden;
+      }
+    }
+
+    th {
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      vertical-align: middle;
+    }
+
+    td {
+      // This property is necessary for table cells to respect the text-overflow
+      // property. http://stackoverflow.com/questions/9789723/css-text-overflow-in-a-table-cell
+      max-width: 0;
+    }
+
+    .table-header-title {
+      vertical-align: middle;
+    }
+
+    .table-header-help-icon {
+      margin-left: @base-spacing-unit * 0.25;
+    }
+
+    .table-cell-emphasized {
+      color: @table-cell-highlight-color;
+      font-weight: 700;
+    }
+
+    .flush-left {
+      padding-left: 0;
+    }
+
+    .table-cell-link-primary,
+    .table-cell-link-secondary {
+      color: @table-cell-highlight-color;
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    .table-cell-link-primary {
+      font-weight: 700;
+    }
+  }
+
+  .table-hide-header {
+
+    thead {
+      display: none;
+    }
+  }
+
+  .table-cell-flex-box {
+    align-items: center;
+    display: flex;
+  }
+
+  .table-cell-icon {
+    flex: 0 0 auto;
+  }
+
+  .table-cell-value {
+    flex: 1 1 auto;
+    // This property is necessary for table cells to respect the text-overflow
+    // property. http://stackoverflow.com/questions/9789723/css-text-overflow-in-a-table-cell
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  // TODO: Is there a better way to handle this?
+  .table-cell-details-secondary {
+    font-size: 0.85rem;
+    line-height: 1.16rem;
+  }
+
+  // TODO: Should this match the CNVS padding size conventions?
+  .table-cell-short {
+    padding-bottom: @table-cell-padding-bottom * 3/4;
+    padding-top: @table-cell-padding-top * 3/4;
+  }
+
+  // When VirtualList is used, the first and last rows in tbody are the
+  // spacer cells.
+  .table-virtual-list {
+
+    tr {
+
+      &:nth-last-child(2) {
+
+        td {
+          border-bottom: none;
+          border-radius: 0 0 @table-border-radius @table-border-radius;
+        }
+      }
+    }
+  }
+}

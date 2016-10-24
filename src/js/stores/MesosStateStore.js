@@ -4,7 +4,7 @@ import AppDispatcher from '../events/AppDispatcher';
 import ActionTypes from '../constants/ActionTypes';
 import CompositeState from '../structs/CompositeState';
 import Config from '../config/Config';
-import Framework from '../structs/Framework';
+import Framework from '../../../plugins/services/src/js/structs/Framework';
 import GetSetBaseStore from './GetSetBaseStore';
 import {
   MESOS_STATE_CHANGE,
@@ -13,7 +13,7 @@ import {
 } from '../constants/EventTypes';
 import MesosStateActions from '../events/MesosStateActions';
 import MesosStateUtil from '../utils/MesosStateUtil';
-import Task from '../structs/Task';
+import Task from '../../../plugins/services/src/js/structs/Task';
 import VisibilityStore from './VisibilityStore';
 
 var requestInterval = null;

@@ -1,0 +1,311 @@
+@button-outline-enabled: true;
+
+/*
+ * Styling
+ */
+
+/* Default */
+
+// Normal
+
+@button-outline-color: color-lighten(@neutral, 20);
+@button-outline-font-family: null;
+@button-outline-font-style: null;
+@button-outline-font-weight: null;
+@button-outline-text-transform: null;
+@button-outline-text-shadow: null;
+@button-outline-text-decoration: null;
+@button-outline-text-rendering: null;
+@button-outline-background-color: transparent;
+@button-outline-background-gradient-color-top: null;
+@button-outline-background-gradient-color-bottom: null;
+@button-outline-border-width: 1px;
+@button-outline-border-color: color-lighten(@neutral, 85);
+@button-outline-border-style: solid;
+@button-outline-border-top-width: null;
+@button-outline-border-top-color: null;
+@button-outline-border-top-style: null;
+@button-outline-border-right-width: null;
+@button-outline-border-right-color: null;
+@button-outline-border-right-style: null;
+@button-outline-border-bottom-width: null;
+@button-outline-border-bottom-color: null;
+@button-outline-border-bottom-style: null;
+@button-outline-border-left-width: null;
+@button-outline-border-left-color: null;
+@button-outline-border-left-style: null;
+@button-outline-shadow: null;
+
+// Hover
+
+@button-outline-hover-color: color-lighten(@neutral, -20);
+@button-outline-hover-font-family: null;
+@button-outline-hover-font-style: null;
+@button-outline-hover-font-weight: null;
+@button-outline-hover-text-transform: null;
+@button-outline-hover-text-shadow: null;
+@button-outline-hover-text-decoration: none;
+@button-outline-hover-text-rendering: null;
+@button-outline-hover-background-color: color-lighten(@neutral, 85);
+@button-outline-hover-background-gradient-color-top: null;
+@button-outline-hover-background-gradient-color-bottom: null;
+@button-outline-hover-border-width: null;
+@button-outline-hover-border-color: color-lighten(@neutral, 85);
+@button-outline-hover-border-style: null;
+@button-outline-hover-border-top-width: null;
+@button-outline-hover-border-top-color: null;
+@button-outline-hover-border-top-style: null;
+@button-outline-hover-border-right-width: null;
+@button-outline-hover-border-right-color: null;
+@button-outline-hover-border-right-style: null;
+@button-outline-hover-border-bottom-width: null;
+@button-outline-hover-border-bottom-color: null;
+@button-outline-hover-border-bottom-style: null;
+@button-outline-hover-border-left-width: null;
+@button-outline-hover-border-left-color: null;
+@button-outline-hover-border-left-style: null;
+@button-outline-hover-shadow: null;
+
+// Active
+
+@button-outline-active-color: color-lighten(@neutral, 20);
+@button-outline-active-font-family: null;
+@button-outline-active-font-style: null;
+@button-outline-active-font-weight: null;
+@button-outline-active-text-transform: null;
+@button-outline-active-text-shadow: null;
+@button-outline-active-text-decoration: null;
+@button-outline-active-text-rendering: null;
+@button-outline-active-background-color: color-lighten(@neutral, 65);
+@button-outline-active-background-gradient-color-top: null;
+@button-outline-active-background-gradient-color-bottom: null;
+@button-outline-active-border-width: null;
+@button-outline-active-border-color: color-lighten(@neutral, 65);
+@button-outline-active-border-style: null;
+@button-outline-active-border-top-width: null;
+@button-outline-active-border-top-color: null;
+@button-outline-active-border-top-style: null;
+@button-outline-active-border-right-width: null;
+@button-outline-active-border-right-color: null;
+@button-outline-active-border-right-style: null;
+@button-outline-active-border-bottom-width: null;
+@button-outline-active-border-bottom-color: null;
+@button-outline-active-border-bottom-style: null;
+@button-outline-active-border-left-width: null;
+@button-outline-active-border-left-color: null;
+@button-outline-active-border-left-style: null;
+@button-outline-active-shadow: null;
+
+// Selected
+
+@button-outline-selected-color: color-lighten(@neutral, 40);
+@button-outline-selected-font-family: null;
+@button-outline-selected-font-style: null;
+@button-outline-selected-font-weight: null;
+@button-outline-selected-text-transform: null;
+@button-outline-selected-text-shadow: null;
+@button-outline-selected-text-decoration: none;
+@button-outline-selected-text-rendering: null;
+@button-outline-selected-background-color: color-lighten(@neutral, 85);
+@button-outline-selected-background-gradient-color-top: null;
+@button-outline-selected-background-gradient-color-bottom: null;
+@button-outline-selected-border-width: null;
+@button-outline-selected-border-color: color-lighten(@neutral, 85);
+@button-outline-selected-border-style: null;
+@button-outline-selected-border-top-width: null;
+@button-outline-selected-border-top-color: null;
+@button-outline-selected-border-top-style: null;
+@button-outline-selected-border-right-width: null;
+@button-outline-selected-border-right-color: null;
+@button-outline-selected-border-right-style: null;
+@button-outline-selected-border-bottom-width: null;
+@button-outline-selected-border-bottom-color: null;
+@button-outline-selected-border-bottom-style: null;
+@button-outline-selected-border-left-width: null;
+@button-outline-selected-border-left-color: null;
+@button-outline-selected-border-left-style: null;
+@button-outline-selected-shadow: null;
+
+// Disabled
+
+@button-outline-disabled-opacity: 0.5;
+@button-outline-disabled-color: null;
+@button-outline-disabled-font-family: null;
+@button-outline-disabled-font-style: null;
+@button-outline-disabled-font-weight: null;
+@button-outline-disabled-text-transform: null;
+@button-outline-disabled-text-shadow: null;
+@button-outline-disabled-text-decoration: null;
+@button-outline-disabled-text-rendering: null;
+@button-outline-disabled-background-color: null;
+@button-outline-disabled-background-gradient-color-top: null;
+@button-outline-disabled-background-gradient-color-bottom: null;
+@button-outline-disabled-border-width: null;
+@button-outline-disabled-border-color: null;
+@button-outline-disabled-border-style: null;
+@button-outline-disabled-border-top-width: null;
+@button-outline-disabled-border-top-color: null;
+@button-outline-disabled-border-top-style: null;
+@button-outline-disabled-border-right-width: null;
+@button-outline-disabled-border-right-color: null;
+@button-outline-disabled-border-right-style: null;
+@button-outline-disabled-border-bottom-width: null;
+@button-outline-disabled-border-bottom-color: null;
+@button-outline-disabled-border-bottom-style: null;
+@button-outline-disabled-border-left-width: null;
+@button-outline-disabled-border-left-color: null;
+@button-outline-disabled-border-left-style: null;
+@button-outline-disabled-shadow: null;
+
+/* Inverse */
+
+// Normal
+
+@button-outline-inverse-color: @white;
+@button-outline-inverse-font-family: null;
+@button-outline-inverse-font-style: null;
+@button-outline-inverse-font-weight: null;
+@button-outline-inverse-text-transform: null;
+@button-outline-inverse-text-shadow: null;
+@button-outline-inverse-text-decoration: null;
+@button-outline-inverse-text-rendering: null;
+@button-outline-inverse-background-color: transparent;
+@button-outline-inverse-background-gradient-color-top: null;
+@button-outline-inverse-background-gradient-color-bottom: null;
+@button-outline-inverse-border-width: null;
+@button-outline-inverse-border-color: color-lighten(@neutral, 10);
+@button-outline-inverse-border-style: null;
+@button-outline-inverse-border-top-width: null;
+@button-outline-inverse-border-top-color: null;
+@button-outline-inverse-border-top-style: null;
+@button-outline-inverse-border-right-width: null;
+@button-outline-inverse-border-right-color: null;
+@button-outline-inverse-border-right-style: null;
+@button-outline-inverse-border-bottom-width: null;
+@button-outline-inverse-border-bottom-color: null;
+@button-outline-inverse-border-bottom-style: null;
+@button-outline-inverse-border-left-width: null;
+@button-outline-inverse-border-left-color: null;
+@button-outline-inverse-border-left-style: null;
+@button-outline-inverse-shadow: null;
+
+// Hover
+
+@button-outline-inverse-hover-color: @white;
+@button-outline-inverse-hover-font-family: null;
+@button-outline-inverse-hover-font-style: null;
+@button-outline-inverse-hover-font-weight: null;
+@button-outline-inverse-hover-text-transform: null;
+@button-outline-inverse-hover-text-shadow: null;
+@button-outline-inverse-hover-text-decoration: none;
+@button-outline-inverse-hover-text-rendering: null;
+@button-outline-inverse-hover-background-color: color-lighten(@neutral, 10);
+@button-outline-inverse-hover-background-gradient-color-top: null;
+@button-outline-inverse-hover-background-gradient-color-bottom: null;
+@button-outline-inverse-hover-border-width: null;
+@button-outline-inverse-hover-border-color: color-lighten(@neutral, 10);
+@button-outline-inverse-hover-border-style: null;
+@button-outline-inverse-hover-border-top-width: null;
+@button-outline-inverse-hover-border-top-color: null;
+@button-outline-inverse-hover-border-top-style: null;
+@button-outline-inverse-hover-border-right-width: null;
+@button-outline-inverse-hover-border-right-color: null;
+@button-outline-inverse-hover-border-right-style: null;
+@button-outline-inverse-hover-border-bottom-width: null;
+@button-outline-inverse-hover-border-bottom-color: null;
+@button-outline-inverse-hover-border-bottom-style: null;
+@button-outline-inverse-hover-border-left-width: null;
+@button-outline-inverse-hover-border-left-color: null;
+@button-outline-inverse-hover-border-left-style: null;
+@button-outline-inverse-hover-shadow: null;
+
+// Active
+
+@button-outline-inverse-active-color: @white;
+@button-outline-inverse-active-font-family: null;
+@button-outline-inverse-active-font-style: null;
+@button-outline-inverse-active-font-weight: null;
+@button-outline-inverse-active-text-transform: null;
+@button-outline-inverse-active-text-shadow: null;
+@button-outline-inverse-active-text-decoration: null;
+@button-outline-inverse-active-text-rendering: null;
+@button-outline-inverse-active-background-color: color-lighten(@neutral, 0);
+@button-outline-inverse-active-background-gradient-color-top: null;
+@button-outline-inverse-active-background-gradient-color-bottom: null;
+@button-outline-inverse-active-border-width: null;
+@button-outline-inverse-active-border-color: color-lighten(@neutral, 0);
+@button-outline-inverse-active-border-style: null;
+@button-outline-inverse-active-border-top-width: null;
+@button-outline-inverse-active-border-top-color: null;
+@button-outline-inverse-active-border-top-style: null;
+@button-outline-inverse-active-border-right-width: null;
+@button-outline-inverse-active-border-right-color: null;
+@button-outline-inverse-active-border-right-style: null;
+@button-outline-inverse-active-border-bottom-width: null;
+@button-outline-inverse-active-border-bottom-color: null;
+@button-outline-inverse-active-border-bottom-style: null;
+@button-outline-inverse-active-border-left-width: null;
+@button-outline-inverse-active-border-left-color: null;
+@button-outline-inverse-active-border-left-style: null;
+@button-outline-inverse-active-shadow: null;
+
+// Selected
+
+@button-outline-inverse-selected-color: color-lighten(@neutral, 80);
+@button-outline-inverse-selected-font-family: null;
+@button-outline-inverse-selected-font-style: null;
+@button-outline-inverse-selected-font-weight: null;
+@button-outline-inverse-selected-text-transform: null;
+@button-outline-inverse-selected-text-shadow: null;
+@button-outline-inverse-selected-text-decoration: none;
+@button-outline-inverse-selected-text-rendering: null;
+@button-outline-inverse-selected-background-color: color-lighten(@neutral, 10);
+@button-outline-inverse-selected-background-gradient-color-top: null;
+@button-outline-inverse-selected-background-gradient-color-bottom: null;
+@button-outline-inverse-selected-border-width: null;
+@button-outline-inverse-selected-border-color: color-lighten(@neutral, 10);
+@button-outline-inverse-selected-border-style: null;
+@button-outline-inverse-selected-border-top-width: null;
+@button-outline-inverse-selected-border-top-color: null;
+@button-outline-inverse-selected-border-top-style: null;
+@button-outline-inverse-selected-border-right-width: null;
+@button-outline-inverse-selected-border-right-color: null;
+@button-outline-inverse-selected-border-right-style: null;
+@button-outline-inverse-selected-border-bottom-width: null;
+@button-outline-inverse-selected-border-bottom-color: null;
+@button-outline-inverse-selected-border-bottom-style: null;
+@button-outline-inverse-selected-border-left-width: null;
+@button-outline-inverse-selected-border-left-color: null;
+@button-outline-inverse-selected-border-left-style: null;
+@button-outline-inverse-selected-shadow: null;
+
+// Disabled
+
+@button-outline-inverse-disabled-opacity: 0.5;
+@button-outline-inverse-disabled-color: null;
+@button-outline-inverse-disabled-font-family: null;
+@button-outline-inverse-disabled-font-style: null;
+@button-outline-inverse-disabled-font-weight: null;
+@button-outline-inverse-disabled-text-transform: null;
+@button-outline-inverse-disabled-text-shadow: null;
+@button-outline-inverse-disabled-text-decoration: null;
+@button-outline-inverse-disabled-text-rendering: null;
+@button-outline-inverse-disabled-background-color: null;
+@button-outline-inverse-disabled-background-gradient-color-top: null;
+@button-outline-inverse-disabled-background-gradient-color-bottom: null;
+@button-outline-inverse-disabled-border-width: null;
+@button-outline-inverse-disabled-border-color: null;
+@button-outline-inverse-disabled-border-style: null;
+@button-outline-inverse-disabled-border-top-width: null;
+@button-outline-inverse-disabled-border-top-color: null;
+@button-outline-inverse-disabled-border-top-style: null;
+@button-outline-inverse-disabled-border-right-width: null;
+@button-outline-inverse-disabled-border-right-color: null;
+@button-outline-inverse-disabled-border-right-style: null;
+@button-outline-inverse-disabled-border-bottom-width: null;
+@button-outline-inverse-disabled-border-bottom-color: null;
+@button-outline-inverse-disabled-border-bottom-style: null;
+@button-outline-inverse-disabled-border-left-width: null;
+@button-outline-inverse-disabled-border-left-color: null;
+@button-outline-inverse-disabled-border-left-style: null;
+@button-outline-inverse-disabled-shadow: null;

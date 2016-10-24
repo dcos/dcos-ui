@@ -34,7 +34,7 @@ module.exports = class ServerErrorModal extends mixin(StoreMixin) {
     this.store_listeners = Hooks.applyFilter('serverErrorModalListeners', [
       {
         name: 'marathon',
-        events: ['taskKillError', 'serviceDeleteError'],
+        events: ['serviceDeleteError'],
         suppressUpdate: false
       }
     ]);
@@ -98,26 +98,29 @@ module.exports = class ServerErrorModal extends mixin(StoreMixin) {
     });
 
     return (
-      <div className="container container-pod container-pod-short">
+      <div className="pod pod-short flush-right flush-left">
         {errorMessages}
       </div>
     );
   }
 
   render() {
+    let header = (
+      <h5 className="modal-header-title text-align-center flush">
+        An error has occurred
+      </h5>
+    );
+
     return (
       <Modal
         modalWrapperClass="modal-generic-error"
         modalClass="modal"
-        maxHeightPercentage={0.9}
         onClose={this.handleModalClose}
         open={this.state.isOpen}
-        showCloseButton={false}
         showHeader={true}
         showFooter={true}
         footer={this.getFooter()}
-        titleClass="modal-header-title text-align-center flush"
-        titleText="An error has occurred">
+        header={header}>
         {this.getContent()}
       </Modal>
     );

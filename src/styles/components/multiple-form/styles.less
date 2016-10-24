@@ -1,0 +1,424 @@
+& when (@multiple-form-enabled) {
+
+  .lb-port-input-field-disabled {
+    border: 0;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  /*
+   * Inline Form Elements
+   */
+
+  .form-element-inline {
+    display: inline-block;
+
+    & + .form-element-inline {
+      margin-left: @base-spacing-unit;
+    }
+  }
+
+  .horizontal-center {
+
+    .form-element-inline {
+      border-radius: 0;
+
+      .form-element-inline-text {
+        flex: none;
+      }
+
+      .form-element-inline-icon {
+        flex: none;
+      }
+    }
+
+    .form-row-read {
+
+      .form-element-inline-text {
+        // The 16px offsets the width of the inline edit icon
+        margin-left: @base-spacing-unit * 1/2 + 16px;
+      }
+    }
+  }
+
+  .permission-form {
+
+    .modal-body-wrapper {
+      flex-basis: 325px;
+      max-height: 325px;
+    }
+  }
+
+  .multiple-form-modal {
+
+    .modal-body-wrapper {
+      flex-basis: 462px;
+      max-height: 462px;
+
+      .multiple-form-modal-body {
+        height: 100%;
+        position: absolute;
+        width: 100%;
+      }
+
+      .tab-form-wrapper,
+      .multiple-form {
+        height: 100%;
+      }
+    }
+
+    .button-collection {
+      display: flex;
+      justify-content: space-between;
+
+      .button {
+
+        &:first-child {
+          align-self: flex-start;
+        }
+
+        &:last-child {
+          align-self: flex-end;
+        }
+      }
+
+      &:after,
+      &:before {
+        display: none;
+      }
+    }
+
+    .multiple-form {
+      display: flex;
+      flex-direction: column;
+
+      .form-row-element {
+        padding-bottom: @base-spacing-unit * 2/3;
+
+        &.hidden-form-element {
+          display: none;
+        }
+      }
+
+      .duplicable-row-title-wrapper {
+
+        .form-row-element-mixed-label-presence {
+          padding: 0;
+        }
+      }
+
+      .media-object-item {
+        padding-bottom: 0;
+      }
+
+      .multiple-form-left-column {
+        flex: 0 0 auto;
+        height: auto;
+        max-height: 300px;
+        overflow: auto;
+        padding-right: 0;
+
+        &:first-child {
+          border-bottom: 1px solid color-lighten(@neutral, 80);
+        }
+      }
+
+      .multiple-form-right-column {
+        // Make right column scroll
+        flex: 1 1;
+        padding-left: 0;
+      }
+
+      .form-row-element-mixed-label-presence {
+        .property-variant(form-control, line-height, height, null, null);
+        padding-top: calc(@modal-form-label-line-height ~' + ' @label-margin-bottom);
+
+        &.form-row-element {
+          margin-bottom: 0;
+          padding-bottom: 0;
+        }
+      }
+    }
+
+    .form-header {
+      color: @neutral;
+    }
+
+    form {
+      margin-bottom: @base-spacing-unit;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+
+      .icon.icon-error {
+        opacity: 0.5;
+        transform: rotate(180deg);
+
+        &:hover {
+          opacity: 1;
+        }
+      }
+
+      .checkbox .form-group label {
+        padding-left: 0;
+      }
+    }
+
+    dl {
+      margin: 0;
+      margin-bottom: @base-spacing-unit * 0.4;
+    }
+
+    .form-panel {
+      // Mimic the padding from .modal-body.
+      .element-spacing(modal-body, null, null);
+
+      & > .form > .healthChecks {
+        flex-direction: column;
+
+        .form-row-element {
+          padding-left: 0;
+          padding-right: 0;
+          width: auto;
+        }
+      }
+    }
+
+    .row {
+      margin-left: @multiple-form-modal-column-padding-horizontal * -1;
+      margin-right: @multiple-form-modal-column-padding-horizontal * -1;
+
+      &:last-child {
+
+        .form-row-element {
+          padding-bottom: 0;
+        }
+      }
+    }
+
+    // Override column padding.
+    [class*='column-'] {
+      padding-left: @multiple-form-modal-column-padding-horizontal;
+      padding-right: @multiple-form-modal-column-padding-horizontal;
+    }
+  }
+
+  .duplicable-row-title-wrapper {
+    display: flex;
+
+    .duplicable-row-title-container {
+      align-self: center;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+
+      .duplicable-row-title {
+        align-self: flex-start;
+        color: @heading-h3-color;
+        font-size: @label-font-size * 1.2;
+      }
+    }
+  }
+
+  .modal-form {
+
+    .disabled {
+      opacity: 0.5;
+
+      .toggle-button:checked + span:before {
+        background-color: @gray;
+        border-color: @gray;
+      }
+    }
+
+    .warning-field {
+      background: color-lighten(@yellow, 30);
+      border-bottom: @yellow 1px solid;
+      padding: (@base-spacing-unit / 2) @base-spacing-unit;
+    }
+
+    label {
+      line-height: @modal-form-label-line-height;
+      white-space: nowrap;
+
+      svg {
+        display: block;
+      }
+    }
+
+    .modal-header {
+
+      .header-flex {
+        display: flex;
+        flex-wrap: wrap-reverse;
+        width: 100%;
+
+        .header-left,
+        .header-right {
+          display: inline-flex;
+          flex: 0 0 auto;
+          flex-wrap: wrap;
+          max-width: 100%;
+          width: auto;
+        }
+
+        .header-right {
+          margin-left: auto;
+          padding-right: 0;
+        }
+      }
+
+      .header-full-width {
+        margin: @modal-header-padding-top -@modal-header-padding-right -@modal-header-padding-bottom -@modal-header-padding-left;
+      }
+    }
+
+    .modal-header-title {
+      color: @heading-h3-color;
+      font-size: @label-font-size;
+      line-height: @label-line-height;
+    }
+
+    .modal-form-title-label {
+      color: currentColor;
+      font-weight: 300;
+    }
+  }
+
+  & when (@layout-screen-small-enabled) {
+
+    @media (min-width: @layout-screen-small-min-width) {
+
+      .multiple-form-modal {
+
+        .modal-header {
+
+          .header-full-width {
+            margin: @modal-header-padding-top-screen-small -@modal-header-padding-right-screen-small -@modal-header-padding-bottom-screen-small -@modal-header-padding-left-screen-small;
+          }
+        }
+
+        .multiple-form {
+
+          .multiple-form-left-column {
+
+            .form-row-element-mixed-label-presence {
+              .property-variant(form-control, line-height, height, null, screen-small);
+            }
+          }
+        }
+
+        .form-panel {
+          // Mimic the padding from .modal-body.
+          .element-spacing(modal-body, null, screen-small);
+        }
+      }
+    }
+  }
+
+  & when (@layout-screen-medium-enabled) {
+
+    @media (min-width: @layout-screen-medium-min-width) {
+
+      .multiple-form-modal {
+
+        .multiple-form {
+          flex-direction: row;
+
+          .multiple-form-left-column {
+            border-right: 1px solid color-lighten(@neutral, 80);
+            // Take up full height of container to
+            height: 100%;
+            max-height: 100%;
+            // Override gemini width styles
+            width: 33%;
+
+            &:first-child {
+              border-bottom: none;
+            }
+          }
+
+          .multiple-form-right-column {
+            // Override gemini width styles
+            width: 67%;
+          }
+
+          .form-row-element-mixed-label-presence {
+            .property-variant(form-control, line-height, height, null, screen-medium);
+            padding-top: calc(@modal-form-label-line-height ~' + ' @label-margin-bottom-screen-medium);
+          }
+        }
+
+        .modal-header {
+
+          .header-full-width {
+            margin: @modal-header-padding-top-screen-medium -@modal-header-padding-right-screen-medium -@modal-header-padding-bottom-screen-medium -@modal-header-padding-left-screen-medium;
+          }
+        }
+
+        .form-panel {
+          // Mimic the padding from .modal-body.
+          .element-spacing(modal-body, null, screen-medium);
+        }
+      }
+    }
+  }
+
+  & when (@layout-screen-large-enabled) {
+
+    @media (min-width: @layout-screen-large-min-width) {
+
+      .multiple-form-modal {
+
+        .multiple-form {
+
+          .form-row-element-mixed-label-presence {
+            .property-variant(form-control, line-height, height, null, screen-large);
+            padding-top: calc(@modal-form-label-line-height ~' + ' @label-margin-bottom-screen-large);
+          }
+        }
+
+        .modal-header {
+
+          .header-full-width {
+            margin: @modal-header-padding-top-screen-large -@modal-header-padding-right-screen-large -@modal-header-padding-bottom-screen-large -@modal-header-padding-left-screen-large;
+          }
+        }
+
+        .form-panel {
+          // Mimic the padding from .modal-body.
+          .element-spacing(modal-body, null, screen-large);
+        }
+      }
+    }
+  }
+
+  & when (@layout-screen-jumbo-enabled) {
+
+    @media (min-width: @layout-screen-jumbo-min-width) {
+
+      .multiple-form-modal {
+
+        .multiple-form {
+
+          .form-row-element-mixed-label-presence {
+            .property-variant(form-control, line-height, height, null, screen-jumbo);
+          }
+        }
+
+        .modal-header {
+
+          .header-full-width {
+            margin: @modal-header-padding-top-screen-jumbo -@modal-header-padding-right-screen-jumbo -@modal-header-padding-bottom-screen-jumbo -@modal-header-padding-left-screen-jumbo;
+          }
+        }
+
+        .form-panel {
+          // Mimic the padding from .modal-body.
+          .element-spacing(modal-body, null, screen-jumbo);
+        }
+      }
+    }
+  }
+}

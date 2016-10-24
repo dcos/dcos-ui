@@ -1,5 +1,5 @@
 import Item from './Item';
-import FrameworkUtil from '../utils/FrameworkUtil';
+import FrameworkUtil from '../../../plugins/services/src/js/utils/FrameworkUtil';
 import Util from '../utils/Util';
 
 class UniversePackage extends Item {

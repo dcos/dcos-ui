@@ -73,8 +73,8 @@ class RepositoriesTab extends mixin(StoreMixin) {
 
   getLoadingScreen() {
     return (
-      <div className="container container-fluid container-pod">
-        <Loader className="inverse" />
+      <div className="pod">
+        <Loader />
       </div>
     );
   }
@@ -105,8 +105,7 @@ class RepositoriesTab extends mixin(StoreMixin) {
             className="flush-bottom"
             placeholder="Search"
             searchString={searchString}
-            handleFilterChange={this.handleSearchStringChange}
-            inverseStyle={true} />
+            handleFilterChange={this.handleSearchStringChange} />
           <button
             className="button button-success"
             onClick={this.handleOpenAddRepository}>
@@ -122,5 +121,10 @@ class RepositoriesTab extends mixin(StoreMixin) {
     );
   }
 }
+
+RepositoriesTab.routeConfig = {
+  label: 'Repositories',
+  matches: /^\/settings\/repositories/
+};
 
 module.exports = RepositoriesTab;

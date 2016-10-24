@@ -1,0 +1,143 @@
+& when (@typography-enabled) {
+
+  .unit {
+    font-weight: 100;
+    margin-bottom: 0;
+
+    sup {
+      font-size: 45%;
+      top: 0;
+      vertical-align: super;
+    }
+  }
+
+  .text-danger,
+  .text-danger.inverse {
+    color: @danger-color;
+  }
+
+  .text-warning,
+  .text-warning.inverse {
+    color: @warning-color;
+  }
+
+  .text-success,
+  .text-success.inverse {
+    color: @success-color;
+  }
+
+  .text-neutral {
+    color: @neutral-color;
+  }
+
+  .text-muted,
+  .text-muted.inverse {
+    color: @muted-color;
+  }
+
+  .text-super-muted {
+
+    &.inverse {
+      color: color-lighten(@neutral, 10);
+    }
+  }
+
+  .text-color-white {
+    color: @white;
+  }
+
+  .text-color-0,
+  .text-color-0.inverse {
+    color: @purple;
+  }
+
+  .text-color-1,
+  .text-color-1.inverse {
+    color: @blue;
+  }
+
+  .text-color-2,
+  .text-color-2.inverse {
+    color: @red;
+  }
+
+  .text-color-3,
+  .text-color-3.inverse {
+    color: @blue;
+  }
+
+  .text-color-4,
+  .text-color-4.inverse {
+    color: @yellow;
+  }
+
+  .text-color-5,
+  .text-color-5.inverse {
+    color: @green;
+  }
+
+  .text-color-6,
+  .text-color-6.inverse {
+    color: @pink;
+  }
+
+  .text-color-7,
+  .text-color-7.inverse {
+    color: @cyan;
+  }
+
+  .text-color-8,
+  .text-color-8.inverse {
+    color: color-lighten(@neutral, 40);
+  }
+
+  .text-color-neutral {
+    color: @neutral;
+  }
+
+  .task-status-running,
+  .task-status-starting {
+    color: @neutral;
+  }
+
+  .task-status-staging {
+    color: @yellow;
+  }
+
+  .task-status-error,
+  .task-status-failed,
+  .text-error-state {
+    color: @danger-color;
+  }
+
+  body .service-running-state {
+    color: @link-color;
+  }
+
+  .text-small {
+    font-size: 0.7rem;
+  }
+
+  a.small {
+    color: @purple;
+  }
+
+  .text-overflow {
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .text-overflow-break-word {
+    hyphens: auto;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    word-wrap: break-word;
+  }
+
+  // TODO: Audit the need for this upper-cased class.
+  .upper-cased {
+    text-transform: uppercase;
+  }
+}

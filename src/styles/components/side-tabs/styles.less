@@ -1,0 +1,87 @@
+// TODO: Audit the naming of this.
+& when (@side-tabs-enabled) {
+
+  .multiple-form-modal-sidebar-tabs {
+    padding-top: @base-spacing-unit * 0.5;
+
+    .multiple-form-modal-sidebar-menu {
+
+      &.is-hidden {
+        display: none;
+      }
+    }
+
+    .multiple-form-modal-sidebar-menu-item {
+      color: color-lighten(@neutral, 50);
+      display: block;
+      font-size: 1.125rem;
+      margin-bottom: @base-spacing-unit * 0.15;
+      padding: @base-spacing-unit * 0.3 @base-spacing-unit * 1.5 @base-spacing-unit * 0.3 @base-spacing-unit;
+      position: relative;
+
+      &:hover {
+        color: color-lighten(@neutral, 30);
+        text-decoration: none;
+      }
+
+      &:active {
+        color: color-lighten(@neutral, 50);
+        text-decoration: none;
+      }
+
+      &.has-errors {
+        background-color: color-lighten(@red, 90);
+      }
+
+      &:after {
+        bottom: 0;
+        content: '';
+        height: 1px;
+        left: @grid-gutter-width;
+        position: absolute;
+        right: @grid-gutter-width;
+      }
+
+      &:last-child {
+
+        &:after {
+          display: none;
+        }
+      }
+
+      &.multiple-form-modal-sidebar-collapsed-header {
+        color: @purple;
+      }
+    }
+  }
+}
+
+& when (@side-tabs-enabled) and (@layout-screen-medium-enabled) {
+
+  @media (min-width: @layout-screen-medium-min-width) {
+
+    .multiple-form-modal-sidebar-tabs {
+
+      .multiple-form-modal-sidebar-menu {
+
+        // We want to show the sidebar menu at this screen size, even if it has
+        // been hidden by the dropdown.
+        &.is-hidden {
+          display: block;
+        }
+      }
+
+      .multiple-form-modal-sidebar-menu-item {
+
+        &.multiple-form-modal-sidebar-collapsed-header {
+          display: none;
+        }
+
+        &.selected {
+          border-right: 3px solid @purple;
+          color: @purple;
+        }
+      }
+    }
+  }
+}

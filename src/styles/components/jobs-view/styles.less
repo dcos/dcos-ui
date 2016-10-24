@@ -1,0 +1,48 @@
+& when (@jobs-view-enabled) {
+
+  .job-details-header-status {
+    display: inline-block;
+    font-weight: 700;
+    margin-right: @base-spacing-unit * 1/2;
+  }
+}
+
+& when (@layout-screen-small-enabled) {
+
+  @media (min-width: @layout-screen-small-min-width) {
+
+    .job-details-header-status {
+      margin-right: @base-spacing-unit-screen-small * 1/2;
+    }
+  }
+}
+
+& when (@layout-screen-medium-enabled) {
+
+  @media (min-width: @layout-screen-medium-min-width) {
+
+    .job-details-header-status {
+      margin-right: @base-spacing-unit-screen-medium * 1/2;
+    }
+  }
+}
+
+& when (@layout-screen-large-enabled) {
+
+  @media (min-width: @layout-screen-large-min-width) {
+
+    .job-details-header-status {
+      margin-right: @base-spacing-unit-screen-large * 1/2;
+    }
+  }
+}
+
+& when (@layout-screen-jumbo-enabled) {
+
+  @media (min-width: @layout-screen-jumbo-min-width) {
+
+    .job-details-header-status {
+      margin-right: @base-spacing-unit-screen-jumbo * 1/2;
+    }
+  }
+}

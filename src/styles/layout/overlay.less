@@ -1,28 +1,10 @@
-/* -----------------------------------------------------------------------------
---------------------------------------------------------------------------------
---------------------------------------------------------------------------------
+// TODO: Remove this, this isn't being used anywhere.
 
-overlay.less
-
---------------------------------------------------------------------------------
---------------------------------------------------------------------------------
------------------------------------------------------------------------------ */
-
-
-
-
-
-
-/* -----------------------------------------------------------------------------
---------------------------------------------------------------------------------
-
-Overlay
-
---------------------------------------------------------------------------------
------------------------------------------------------------------------------ */
+/*
+ * Overlay
+ */
 
 .overlay {
-
   background: @white;
   height: 100%;
   position: absolute;
@@ -30,115 +12,78 @@ Overlay
   width: 100%;
   z-index: @z-index-overlay;
 
-  > .overlay-container {
-
+  & > .overlay-container {
     display: flex;
     flex-direction: column;
     height: 100%;
     justify-content: flex-end;
-
   }
 
-  /* -----------------------------------------------------------------------------
-  Overlay Content
-  ----------------------------------------------------------------------------- */
-
+  // Overlay Content
   .overlay-content {
-
     border: 0;
     flex: 3 3 100%;
     width: 100%;
-
   }
 
-  /* -----------------------------------------------------------------------------
-  Overlay Header
-  ----------------------------------------------------------------------------- */
-
+  // Overlay Header
   .overlay-header {
-
+    background-color: @purple;
+    box-shadow: inset 0 -1px 0 0 rgba(0, 0, 0, 0.1);
     display: block;
     position: relative;
     z-index: @z-index-overlay-header;
-    background-color: @purple;
-    box-shadow: inset 0px -1px 0px 0px rgba(0, 0, 0, 0.1);
 
-    > .overlay-header-container {
-
+    & > .overlay-header-container {
       align-items: center;
       display: flex;
-      justify-content: space-between;
       flex-direction: row;
-
+      justify-content: space-between;
     }
 
-    /* -----------------------------------------------------------------------------
-    Overlay Header Content
-    ----------------------------------------------------------------------------- */
-
+    // Overlay Header Content
     .overlay-header-content {
-
-      flex-grow: 2;
       flex-basis: 0;
+      flex-grow: 2;
 
       .overlay-header-content-title {
-
         color: @white;
         font-family: @heading-h3-text-font-family;
         font-size: @heading-h3-text-font-size;
         font-style: @heading-h3-text-font-style;
         font-weight: @heading-h3-text-font-weight;
         line-height: @heading-h3-text-line-height;
-        text-transform: @heading-h3-text-transform;
         text-shadow: @heading-h3-text-shadow;
-
+        text-transform: @heading-h3-text-transform;
       }
 
       .overlay-header-content-subtitle {
-
         color: rgba(255, 255, 255, 0.6);
         font-family: @body-text-font-family;
         font-size: @body-text-font-size;
         font-style: @body-text-font-style;
         font-weight: @body-text-font-weight;
-        line-height: @body-text-line-height;;
-        text-transform: @body-text-transform;
+        line-height: @body-text-line-height;
         text-shadow: @body-text-shadow;
-
+        text-transform: @body-text-transform;
       }
-
     }
 
-    /* -----------------------------------------------------------------------------
-    Overlay Header Actions
-    ----------------------------------------------------------------------------- */
-
+    // Overlay Header Actions
     .overlay-header-actions {
-
-      flex-grow: 1;
       flex-basis: 0;
-
-      &.overlay-header-actions-primary {
-
-      }
+      flex-grow: 1;
 
       &.overlay-header-actions-secondary {
-
         text-align: right;
-
       }
-
     }
 
-    /* -----------------------------------------------------------------------------
-    Overlay Header Action
-    ----------------------------------------------------------------------------- */
-
+    // Overlay Header Action
     .overlay-header-action {
-
+      color: @white;
       cursor: pointer;
       display: inline-block;
-      color: @white;
       font-family: @button-default-text-font-family;
       font-size: @button-text-font-size;
       font-style: @button-default-text-font-style;
@@ -146,437 +91,218 @@ Overlay
       line-height: @button-text-line-height;
 
       .icon {
-
         margin-right: @base-spacing-unit * 0.25;
+        opacity: 0.6;
         vertical-align: middle;
-        .opacity(0.6);
 
         &:last-child {
-
-          margin-right: 0px;
           margin-left: @base-spacing-unit * 0.25;
-
+          margin-right: 0;
         }
-
       }
 
       span {
-
         vertical-align: middle;
-
       }
 
       &:hover {
 
         .icon {
-
-          .opacity(1.0);
-
+          opacity: 1;
         }
-
       }
-
     }
-
   }
-
 }
-
-
-
-
-
 
 & when (@screen-mini-enabled) {
 
-  /* -----------------------------------------------------------------------------
-  --------------------------------------------------------------------------------
-
-  Screen Size: Mini (@screen-mini) and above
-
-  --------------------------------------------------------------------------------
-  ----------------------------------------------------------------------------- */
-
   @media (min-width: @screen-mini) {
-
-    /* -----------------------------------------------------------------------------
-    --------------------------------------------------------------------------------
-
-    Overlay
-
-    --------------------------------------------------------------------------------
-    ----------------------------------------------------------------------------- */
 
     .overlay {
 
-      /* -----------------------------------------------------------------------------
-      --------------------------------------------------------------------------------
-
-      Overlay Header
-
-      --------------------------------------------------------------------------------
-      ----------------------------------------------------------------------------- */
-
       .overlay-header {
 
-        /* -----------------------------------------------------------------------------
-        Overlay Header Content
-        ----------------------------------------------------------------------------- */
-
+        // Overlay Header Content
         .overlay-header-content {
 
           & when (@heading-h3-text-scale-screen-mini) {
 
             .overlay-header-content-title {
-
               font-size: @heading-h3-text-font-size * @heading-h3-text-font-size-scale-screen-mini;
               line-height: @heading-h3-text-line-height * @heading-h3-text-line-height-scale-screen-mini;
-
             }
-
           }
 
           & when (@body-text-scale-screen-mini) {
 
             .overlay-header-content-subtitle {
-
               font-size: @body-text-font-size * @body-text-font-size-scale-screen-mini;
               line-height: @body-text-line-height * @body-text-line-height-scale-screen-mini;
-
             }
-
           }
-
         }
 
-        /* -----------------------------------------------------------------------------
-        Overlay Header Action
-        ----------------------------------------------------------------------------- */
-
+        // Overlay Header Action
         .overlay-header-action {
 
           & when (@button-scale-screen-mini-enabled) {
-
             font-size: @button-text-font-size * @button-text-font-size-scale-screen-mini;
             line-height: @button-text-line-height * @button-text-line-height-scale-screen-mini;
-
           }
-
         }
-
       }
-
     }
-
   }
-
 }
-
-
-
-
-
 
 & when (@screen-small-enabled) {
 
-  /* -----------------------------------------------------------------------------
-  --------------------------------------------------------------------------------
-
-  Screen Size: Small (@screen-small) and above
-
-  --------------------------------------------------------------------------------
-  ----------------------------------------------------------------------------- */
-
   @media (min-width: @screen-small) {
-
-    /* -----------------------------------------------------------------------------
-    --------------------------------------------------------------------------------
-
-    Overlay
-
-    --------------------------------------------------------------------------------
-    ----------------------------------------------------------------------------- */
 
     .overlay {
 
-      /* -----------------------------------------------------------------------------
-      --------------------------------------------------------------------------------
-
-      Overlay Header
-
-      --------------------------------------------------------------------------------
-      ----------------------------------------------------------------------------- */
-
       .overlay-header {
 
-        /* -----------------------------------------------------------------------------
-        Overlay Header Content
-        ----------------------------------------------------------------------------- */
-
+        // Overlay Header Content
         .overlay-header-content {
 
           & when (@heading-h3-text-scale-screen-small) {
 
             .overlay-header-content-title {
-
               font-size: @heading-h3-text-font-size * @heading-h3-text-font-size-scale-screen-small;
               line-height: @heading-h3-text-line-height * @heading-h3-text-line-height-scale-screen-small;
-
             }
-
           }
 
           & when (@body-text-scale-screen-small) {
 
             .overlay-header-content-subtitle {
-
               font-size: @body-text-font-size * @body-text-font-size-scale-screen-small;
               line-height: @body-text-line-height * @body-text-line-height-scale-screen-small;
-
             }
-
           }
-
         }
 
-        /* -----------------------------------------------------------------------------
-        Overlay Header Action
-        ----------------------------------------------------------------------------- */
+        // Overlay Header Action
 
         .overlay-header-action {
 
           & when (@button-scale-screen-small-enabled) {
-
             font-size: @button-text-font-size * @button-text-font-size-scale-screen-small;
             line-height: @button-text-line-height * @button-text-line-height-scale-screen-small;
-
           }
 
           .icon {
-
             margin-right: @base-spacing-unit-screen-small * 0.125;
 
             &:last-child {
-
-              margin-right: 0px;
               margin-left: @base-spacing-unit-screen-small * 0.125;
-
+              margin-right: 0;
             }
-
           }
-
         }
-
       }
-
     }
-
   }
-
 }
-
-
-
-
-
 
 & when (@screen-medium-enabled) {
 
-  /* -----------------------------------------------------------------------------
-  --------------------------------------------------------------------------------
-
-  Screen Size: Medium (@screen-medium) and above
-
-  --------------------------------------------------------------------------------
-  ----------------------------------------------------------------------------- */
-
   @media (min-width: @screen-medium) {
-
-    /* -----------------------------------------------------------------------------
-    --------------------------------------------------------------------------------
-
-    Overlay
-
-    --------------------------------------------------------------------------------
-    ----------------------------------------------------------------------------- */
 
     .overlay {
 
-      /* -----------------------------------------------------------------------------
-      --------------------------------------------------------------------------------
-
-      Overlay Header
-
-      --------------------------------------------------------------------------------
-      ----------------------------------------------------------------------------- */
-
       .overlay-header {
 
-        /* -----------------------------------------------------------------------------
-        Overlay Header Content
-        ----------------------------------------------------------------------------- */
-
+        // Overlay Header Content
         .overlay-header-content {
 
           & when (@heading-h3-text-scale-screen-medium) {
 
             .overlay-header-content-title {
-
               font-size: @heading-h3-text-font-size * @heading-h3-text-font-size-scale-screen-medium;
               line-height: @heading-h3-text-line-height * @heading-h3-text-line-height-scale-screen-medium;
-
             }
-
           }
 
           & when (@body-text-scale-screen-medium) {
 
             .overlay-header-content-subtitle {
-
               font-size: @body-text-font-size * @body-text-font-size-scale-screen-medium;
               line-height: @body-text-line-height * @body-text-line-height-scale-screen-medium;
-
             }
-
           }
-
         }
 
-        /* -----------------------------------------------------------------------------
-        Overlay Header Action
-        ----------------------------------------------------------------------------- */
-
+        // Overlay Header Action
         .overlay-header-action {
 
           & when (@button-scale-screen-medium-enabled) {
-
             font-size: @button-text-font-size * @button-text-font-size-scale-screen-medium;
             line-height: @button-text-line-height * @button-text-line-height-scale-screen-medium;
-
           }
 
           .icon {
-
             margin-right: @base-spacing-unit-screen-medium * 0.125;
 
             &:last-child {
-
-              margin-right: 0px;
               margin-left: @base-spacing-unit-screen-medium * 0.125;
-
+              margin-right: 0;
             }
-
           }
-
         }
-
       }
-
     }
-
   }
-
 }
-
-
-
-
-
 
 & when (@screen-large) {
 
-  /* -----------------------------------------------------------------------------
-  --------------------------------------------------------------------------------
-
-  Screen Size: large (@screen-large) and above
-
-  --------------------------------------------------------------------------------
-  ----------------------------------------------------------------------------- */
-
   @media (min-width: @screen-large) {
-
-    /* -----------------------------------------------------------------------------
-    --------------------------------------------------------------------------------
-
-    Overlay
-
-    --------------------------------------------------------------------------------
-    ----------------------------------------------------------------------------- */
 
     .overlay {
 
-      /* -----------------------------------------------------------------------------
-      --------------------------------------------------------------------------------
-
-      Overlay Header
-
-      --------------------------------------------------------------------------------
-      ----------------------------------------------------------------------------- */
-
       .overlay-header {
 
-        /* -----------------------------------------------------------------------------
-        Overlay Header Content
-        ----------------------------------------------------------------------------- */
-
+        // Overlay Header Content
         .overlay-header-content {
 
           & when (@heading-h3-screen-large) {
 
             .overlay-header-content-title {
-
               font-size: @heading-h3-text-font-size * @heading-h3-text-font-size-scale-screen-large;
               line-height: @heading-h3-text-line-height * @heading-h3-text-line-height-scale-screen-large;
-
             }
-
           }
 
           & when (@body-screen-large) {
 
             .overlay-header-content-subtitle {
-
               font-size: @body-text-font-size * @body-text-font-size-scale-screen-large;
               line-height: @body-text-line-height * @body-text-line-height-scale-screen-large;
-
             }
-
           }
-
         }
 
-        /* -----------------------------------------------------------------------------
-        Overlay Header Action
-        ----------------------------------------------------------------------------- */
+        & when (@button-scale-screen-large-enabled) {
 
-        .overlay-header-action {
-
-          & when (@button-scale-screen-large-enabled) {
-
+          // Overlay Header Action
+          .overlay-header-action {
             font-size: @button-text-font-size * @button-text-font-size-scale-screen-large;
             line-height: @button-text-line-height * @button-text-line-height-scale-screen-large;
-
           }
 
           .icon {
-
             margin-right: @base-spacing-unit-screen-large * 0.125;
 
             &:last-child {
-
-              margin-right: 0px;
               margin-left: @base-spacing-unit-screen-large * 0.125;
-
+              margin-right: 0;
             }
-
           }
-
         }
-
       }
-
     }
-
   }
-
 }

@@ -11,13 +11,14 @@ describe('Package Detail Tab', function () {
 
   it('displays package information on package page', function () {
     cy
-      .get('.page-content h1')
+      .get('.page-body-content h1')
       .should('contain', 'marathon');
   });
 
   it('displays marathon package details', function () {
+
     cy
-      .get('.page-content .gm-scroll-view .container-pod.container-pod-super-short-bottom.flush-top p')
+      .get('.page-body-content .gm-scroll-view .pod p')
       .as('information');
 
     cy

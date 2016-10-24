@@ -1,0 +1,35 @@
+& when (@tree-list-enabled) {
+
+  .tree-list {
+
+    dd {
+      align-items: center;
+      border-left: 1px solid @tree-list-border-color;
+      display: flex;
+      margin-bottom: 0;
+      margin-left: 12px;
+
+      &:before {
+        align-self: flex-start;
+        background: none;
+        border-bottom: 1px solid @tree-list-border-color;
+        border-radius: 0;
+        content: '';
+        display: inline-block;
+        flex-shrink: 0;
+        height: 20px;
+        margin: 0 0 12px;
+        position: static;
+        width: 20px;
+      }
+
+      &:last-child {
+        border-left: 0;
+
+        &:before {
+          border-left: 1px solid @tree-list-border-color;
+        }
+      }
+    }
+  }
+}

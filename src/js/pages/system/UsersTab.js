@@ -90,8 +90,8 @@ class UsersTab extends mixin(StoreMixin) {
 
   getLoadingScreen() {
     return (
-      <div className="container container-fluid container-pod">
-        <Loader className="inverse" />
+      <div className="pod">
+        <Loader />
       </div>
     );
   }
@@ -136,6 +136,11 @@ class UsersTab extends mixin(StoreMixin) {
 
 UsersTab.propTypes = {
   params: React.PropTypes.object
+};
+
+UsersTab.routeConfig = {
+  label: 'Users',
+  matches: /^\/organization\/users/
 };
 
 module.exports = UsersTab;

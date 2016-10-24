@@ -1,0 +1,80 @@
+/* Foundation */
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  width: 100%;
+}
+
+#application > div {
+  height: 100%;
+}
+
+#application,
+.canvas {
+  height: 100%;
+  overflow: hidden;
+}
+
+::selection {
+  background: color-lighten(@purple, 0);
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+.default-cursor {
+  cursor: auto;
+}
+
+.clear {
+  clear: both;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.allow-overflow {
+  overflow: visible;
+}
+
+.no-overflow {
+  overflow: hidden;
+}
+
+.no-overflow-horizontal {
+  overflow-x: hidden;
+}
+
+.highlight {
+  background-color: color-lighten(@yellow, 60);
+  color: @neutral;
+
+  &.selected {
+    background-color: @yellow;
+  }
+}
+
+.fade-in-on-hover {
+  opacity: 0.2;
+
+  &:hover {
+    opacity: 0.6;
+  }
+}
+
+/* Scrollable Container */
+
+.container-scrollable {
+  flex: 1;
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  & > .gm-scrollbar-container {
+    height: 100%;
+  }
+}

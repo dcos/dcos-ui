@@ -1,0 +1,117 @@
+& when (@dropdown-menu-enabled) {
+
+  .dropdown {
+
+    &.dropdown-wide {
+
+      &,
+      .dropdown-toggle {
+        display: block;
+        width: 100%;
+      }
+    }
+  }
+
+  .dropdown-toggle {
+    white-space: nowrap;
+
+    &.button-split-content {
+
+      &:after {
+        display: none;
+      }
+
+      .button-split-content-wrapper {
+
+        .button-split-content-item {
+
+          &:first-child {
+            flex-grow: 1;
+          }
+        }
+
+        &:after {
+          &:extend(.button.dropdown-toggle:after all);
+          margin-top: 0;
+        }
+      }
+
+      &.button-inverse {
+
+        .button-split-content-wrapper {
+
+          &:after {
+            &:extend(.button.button-inverse.dropdown-toggle:after all);
+            margin-top: 0;
+          }
+        }
+      }
+    }
+
+    .badge-container {
+      display: inline-flex;
+    }
+
+    &.dropdown-toggle-transparent {
+      background: transparent;
+      border: none;
+      height: auto;
+      padding: 0;
+
+      &:hover {
+        background: transparent;
+      }
+    }
+
+    &.dropdown-toggle-caret-align-top {
+
+      &:after {
+        align-self: flex-start;
+        margin-top: @base-spacing-unit * 1/4;
+      }
+    }
+
+    // TODO: Remove this when CNVS doesn't use the !important tag.
+    // https://github.com/mesosphere/canvas/issues/24
+    .dropdown-toggle-label {
+      display: inline-block !important;
+    }
+
+    .dropdown-toggle-label-primary,
+    .dropdown-toggle-label-secondary {
+      display: block;
+    }
+
+    .dropdown-toggle-label-primary {
+      line-height: 1.2;
+    }
+
+    .dropdown-toggle-label-secondary {
+      color: @label-muted-color;
+      font-size: 0.9rem;
+      font-weight: 400;
+    }
+  }
+
+  .dropdown-menu {
+    // Overrides default Canvas styles.
+    float: initial;
+    left: initial;
+    z-index: @z-index-dropdown;
+  }
+
+  .dropdown-menu-list {
+
+    li.clickable {
+      cursor: pointer;
+    }
+  }
+
+  .dropdown-menu-down-leave {
+    z-index: @z-index-dropdown;
+  }
+
+  .dropdown-menu-up-leave {
+    z-index: @z-index-dropdown;
+  }
+}

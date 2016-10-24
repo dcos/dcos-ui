@@ -14,7 +14,7 @@ import TabsUtil from '../utils/TabsUtil';
 import TabsMixin from '../mixins/TabsMixin';
 
 let DEFAULT_NETWORK_TABS = {
-  'virtual-networks-tab': {
+  '/network/virtual-networks': {
     content: 'Virtual Networks',
     priority: 10
   }
@@ -68,7 +68,7 @@ class NetworkPage extends mixin(TabsMixin) {
 
   updateCurrentTab() {
     let routes = this.context.router.getCurrentRoutes();
-    let currentTab = routes[routes.length - 1].name;
+    let currentTab = routes[routes.length - 1].path;
 
     // Get top level Tab
     let topLevelTab = currentTab.split('-').slice(0, 2).join('-');
@@ -82,17 +82,15 @@ class NetworkPage extends mixin(TabsMixin) {
 
   getLoadingScreen() {
     return (
-      <div className="container container-fluid container-pod">
-        <Loader className="inverse" />
+      <div className="pod">
+        <Loader />
       </div>
     );
   }
 
   getRoutedItem(tab) {
     return (
-      <Link
-        to={tab}
-        className="tab-item-label inverse flush">
+      <Link to={tab} className="menu-tabbed-item-label flush">
         {NETWORK_TABS[tab]}
       </Link>
     );
@@ -104,10 +102,10 @@ class NetworkPage extends mixin(TabsMixin) {
     }
 
     let routes = this.context.router.getCurrentRoutes();
-    let currentRoute = routes[routes.length - 1].name;
+    let currentRoute = routes[routes.length - 1].path;
 
     return (
-      <ul className="tabs list-inline flush-bottom inverse">
+      <ul className="menu-tabbed">
         {TabsUtil.getTabs(NETWORK_TABS, currentRoute, this.getRoutedItem)}
       </ul>
     );
@@ -121,12 +119,10 @@ class NetworkPage extends mixin(TabsMixin) {
     }
 
     return (
-      <div className="container-pod container-pod-short flush-top">
-        <div className="container-pod container-pod-divider-bottom container-pod-divider-inverse container-pod-divider-bottom-align-right flush-top flush-bottom">
-          <ul className="tabs list-inline flush-bottom inverse">
-            {subTabs}
-          </ul>
-        </div>
+      <div className="pod pod-short flush-top flush-right flush-left">
+        <ul className="menu-tabbed">
+          {subTabs}
+        </ul>
       </div>
     );
   }
@@ -142,10 +138,14 @@ class NetworkPage extends mixin(TabsMixin) {
       );
     }
 
+    // Make sure to grow when logs are displayed
+    let routes = this.context.router.getCurrentRoutes();
+
     return (
       <Page
         title="Network"
-        navigation={this.getNavigation()}>
+        navigation={this.getNavigation()}
+        dontScroll={routes[routes.length - 1].dontScroll}>
         {this.getSubNavigation()}
         <RouteHandler currentTab={this.state.currentTab} />
       </Page>
@@ -158,8 +158,8 @@ NetworkPage.contextTypes = {
 };
 
 NetworkPage.routeConfig = {
-  label: 'Network',
-  icon: <Icon id="network-hierarchical" />,
+  label: 'Networking',
+  icon: <Icon id="network-hierarchical-inverse" size="small" family="small" />,
   matches: /^\/network/
 };
 

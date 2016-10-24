@@ -1,0 +1,311 @@
+@button-link-enabled: true;
+
+/*
+ * Styling
+ */
+
+/* Default */
+
+// Normal
+
+@button-link-color: color-lighten(@neutral, 20);
+@button-link-font-family: null;
+@button-link-font-style: null;
+@button-link-font-weight: null;
+@button-link-text-transform: null;
+@button-link-text-shadow: null;
+@button-link-text-decoration: null;
+@button-link-text-rendering: null;
+@button-link-background-color: transparent;
+@button-link-background-gradient-color-top: null;
+@button-link-background-gradient-color-bottom: null;
+@button-link-border-width: 1px;
+@button-link-border-color: rgba(0, 0, 0, 0);
+@button-link-border-style: solid;
+@button-link-border-top-width: null;
+@button-link-border-top-color: null;
+@button-link-border-top-style: null;
+@button-link-border-right-width: null;
+@button-link-border-right-color: null;
+@button-link-border-right-style: null;
+@button-link-border-bottom-width: null;
+@button-link-border-bottom-color: null;
+@button-link-border-bottom-style: null;
+@button-link-border-left-width: null;
+@button-link-border-left-color: null;
+@button-link-border-left-style: null;
+@button-link-shadow: null;
+
+// Hover
+
+@button-link-hover-color: color-lighten(@neutral, -20);
+@button-link-hover-font-family: null;
+@button-link-hover-font-style: null;
+@button-link-hover-font-weight: null;
+@button-link-hover-text-transform: null;
+@button-link-hover-text-shadow: null;
+@button-link-hover-text-decoration: underline;
+@button-link-hover-text-rendering: null;
+@button-link-hover-background-color: transparent;
+@button-link-hover-background-gradient-color-top: null;
+@button-link-hover-background-gradient-color-bottom: null;
+@button-link-hover-border-width: null;
+@button-link-hover-border-color: rgba(0, 0, 0, 0);
+@button-link-hover-border-style: null;
+@button-link-hover-border-top-width: null;
+@button-link-hover-border-top-color: null;
+@button-link-hover-border-top-style: null;
+@button-link-hover-border-right-width: null;
+@button-link-hover-border-right-color: null;
+@button-link-hover-border-right-style: null;
+@button-link-hover-border-bottom-width: null;
+@button-link-hover-border-bottom-color: null;
+@button-link-hover-border-bottom-style: null;
+@button-link-hover-border-left-width: null;
+@button-link-hover-border-left-color: null;
+@button-link-hover-border-left-style: null;
+@button-link-hover-shadow: null;
+
+// Active
+
+@button-link-active-color: color-lighten(@neutral, 20);
+@button-link-active-font-family: null;
+@button-link-active-font-style: null;
+@button-link-active-font-weight: null;
+@button-link-active-text-transform: null;
+@button-link-active-text-shadow: null;
+@button-link-active-text-decoration: null;
+@button-link-active-text-rendering: null;
+@button-link-active-background-color: transparent;
+@button-link-active-background-gradient-color-top: null;
+@button-link-active-background-gradient-color-bottom: null;
+@button-link-active-border-width: null;
+@button-link-active-border-color: rgba(0, 0, 0, 0);
+@button-link-active-border-style: null;
+@button-link-active-border-top-width: null;
+@button-link-active-border-top-color: null;
+@button-link-active-border-top-style: null;
+@button-link-active-border-right-width: null;
+@button-link-active-border-right-color: null;
+@button-link-active-border-right-style: null;
+@button-link-active-border-bottom-width: null;
+@button-link-active-border-bottom-color: null;
+@button-link-active-border-bottom-style: null;
+@button-link-active-border-left-width: null;
+@button-link-active-border-left-color: null;
+@button-link-active-border-left-style: null;
+@button-link-active-shadow: null;
+
+// Selected
+
+@button-link-selected-color: @button-link-active-color;
+@button-link-selected-font-family: @button-link-active-font-family;
+@button-link-selected-font-style: @button-link-active-font-style;
+@button-link-selected-font-weight: @button-link-active-font-weight;
+@button-link-selected-text-transform: @button-link-active-text-transform;
+@button-link-selected-text-shadow: @button-link-active-text-shadow;
+@button-link-selected-text-decoration: @button-link-active-text-decoration;
+@button-link-selected-text-rendering: @button-link-active-text-rendering;
+@button-link-selected-background-color: @button-link-active-background-color;
+@button-link-selected-background-gradient-color-top: @button-link-active-background-gradient-color-top;
+@button-link-selected-background-gradient-color-bottom: @button-link-active-background-gradient-color-bottom;
+@button-link-selected-border-width: @button-link-active-border-width;
+@button-link-selected-border-color: @button-link-active-border-color;
+@button-link-selected-border-style: @button-link-active-border-style;
+@button-link-selected-border-top-width: @button-link-active-border-top-width;
+@button-link-selected-border-top-color: @button-link-active-border-top-color;
+@button-link-selected-border-top-style: @button-link-active-border-top-style;
+@button-link-selected-border-right-width: @button-link-active-border-right-width;
+@button-link-selected-border-right-color: @button-link-active-border-right-color;
+@button-link-selected-border-right-style: @button-link-active-border-right-style;
+@button-link-selected-border-bottom-width: @button-link-active-border-bottom-width;
+@button-link-selected-border-bottom-color: @button-link-active-border-bottom-color;
+@button-link-selected-border-bottom-style: @button-link-active-border-bottom-style;
+@button-link-selected-border-left-width: @button-link-active-border-left-width;
+@button-link-selected-border-left-color: @button-link-active-border-left-color;
+@button-link-selected-border-left-style: @button-link-active-border-left-style;
+@button-link-selected-shadow: @button-link-active-shadow;
+
+// Disabled
+
+@button-link-disabled-opacity: 0.5;
+@button-link-disabled-color: null;
+@button-link-disabled-font-family: null;
+@button-link-disabled-font-style: null;
+@button-link-disabled-font-weight: null;
+@button-link-disabled-text-transform: null;
+@button-link-disabled-text-shadow: null;
+@button-link-disabled-text-decoration: null;
+@button-link-disabled-text-rendering: null;
+@button-link-disabled-background-color: null;
+@button-link-disabled-background-gradient-color-top: null;
+@button-link-disabled-background-gradient-color-bottom: null;
+@button-link-disabled-border-width: null;
+@button-link-disabled-border-color: null;
+@button-link-disabled-border-style: null;
+@button-link-disabled-border-top-width: null;
+@button-link-disabled-border-top-color: null;
+@button-link-disabled-border-top-style: null;
+@button-link-disabled-border-right-width: null;
+@button-link-disabled-border-right-color: null;
+@button-link-disabled-border-right-style: null;
+@button-link-disabled-border-bottom-width: null;
+@button-link-disabled-border-bottom-color: null;
+@button-link-disabled-border-bottom-style: null;
+@button-link-disabled-border-left-width: null;
+@button-link-disabled-border-left-color: null;
+@button-link-disabled-border-left-style: null;
+@button-link-disabled-shadow: null;
+
+/* Inverse */
+
+// Normal
+
+@button-link-inverse-color: color-lighten(@neutral, 85);
+@button-link-inverse-font-family: null;
+@button-link-inverse-font-style: null;
+@button-link-inverse-font-weight: null;
+@button-link-inverse-text-transform: null;
+@button-link-inverse-text-shadow: null;
+@button-link-inverse-text-decoration: null;
+@button-link-inverse-text-rendering: null;
+@button-link-inverse-background-color: transparent;
+@button-link-inverse-background-gradient-color-top: null;
+@button-link-inverse-background-gradient-color-bottom: null;
+@button-link-inverse-border-width: 1px;
+@button-link-inverse-border-color: rgba(0, 0, 0, 0);
+@button-link-inverse-border-style: solid;
+@button-link-inverse-border-top-width: null;
+@button-link-inverse-border-top-color: null;
+@button-link-inverse-border-top-style: null;
+@button-link-inverse-border-right-width: null;
+@button-link-inverse-border-right-color: null;
+@button-link-inverse-border-right-style: null;
+@button-link-inverse-border-bottom-width: null;
+@button-link-inverse-border-bottom-color: null;
+@button-link-inverse-border-bottom-style: null;
+@button-link-inverse-border-left-width: null;
+@button-link-inverse-border-left-color: null;
+@button-link-inverse-border-left-style: null;
+@button-link-inverse-shadow: null;
+
+// Hover
+
+@button-link-inverse-hover-color: @white;
+@button-link-inverse-hover-font-family: null;
+@button-link-inverse-hover-font-style: null;
+@button-link-inverse-hover-font-weight: null;
+@button-link-inverse-hover-text-transform: null;
+@button-link-inverse-hover-text-shadow: null;
+@button-link-inverse-hover-text-decoration: underline;
+@button-link-inverse-hover-text-rendering: null;
+@button-link-inverse-hover-background-color: transparent;
+@button-link-inverse-hover-background-gradient-color-top: null;
+@button-link-inverse-hover-background-gradient-color-bottom: null;
+@button-link-inverse-hover-border-width: null;
+@button-link-inverse-hover-border-color: rgba(0, 0, 0, 0);
+@button-link-inverse-hover-border-style: null;
+@button-link-inverse-hover-border-top-width: null;
+@button-link-inverse-hover-border-top-color: null;
+@button-link-inverse-hover-border-top-style: null;
+@button-link-inverse-hover-border-right-width: null;
+@button-link-inverse-hover-border-right-color: null;
+@button-link-inverse-hover-border-right-style: null;
+@button-link-inverse-hover-border-bottom-width: null;
+@button-link-inverse-hover-border-bottom-color: null;
+@button-link-inverse-hover-border-bottom-style: null;
+@button-link-inverse-hover-border-left-width: null;
+@button-link-inverse-hover-border-left-color: null;
+@button-link-inverse-hover-border-left-style: null;
+@button-link-inverse-hover-shadow: null;
+
+// Active
+
+@button-link-inverse-active-color: color-lighten(@neutral, 65);
+@button-link-inverse-active-font-family: null;
+@button-link-inverse-active-font-style: null;
+@button-link-inverse-active-font-weight: null;
+@button-link-inverse-active-text-transform: null;
+@button-link-inverse-active-text-shadow: null;
+@button-link-inverse-active-text-decoration: null;
+@button-link-inverse-active-text-rendering: null;
+@button-link-inverse-active-background-color: transparent;
+@button-link-inverse-active-background-gradient-color-top: null;
+@button-link-inverse-active-background-gradient-color-bottom: null;
+@button-link-inverse-active-border-width: null;
+@button-link-inverse-active-border-color: rgba(0, 0, 0, 0);
+@button-link-inverse-active-border-style: null;
+@button-link-inverse-active-border-top-width: null;
+@button-link-inverse-active-border-top-color: null;
+@button-link-inverse-active-border-top-style: null;
+@button-link-inverse-active-border-right-width: null;
+@button-link-inverse-active-border-right-color: null;
+@button-link-inverse-active-border-right-style: null;
+@button-link-inverse-active-border-bottom-width: null;
+@button-link-inverse-active-border-bottom-color: null;
+@button-link-inverse-active-border-bottom-style: null;
+@button-link-inverse-active-border-left-width: null;
+@button-link-inverse-active-border-left-color: null;
+@button-link-inverse-active-border-left-style: null;
+@button-link-inverse-active-shadow: null;
+
+// Selected
+
+@button-link-inverse-selected-color: @button-link-inverse-active-color;
+@button-link-inverse-selected-font-family: @button-link-inverse-active-font-family;
+@button-link-inverse-selected-font-style: @button-link-inverse-active-font-style;
+@button-link-inverse-selected-font-weight: @button-link-inverse-active-font-weight;
+@button-link-inverse-selected-text-transform: @button-link-inverse-active-text-transform;
+@button-link-inverse-selected-text-shadow: @button-link-inverse-active-text-shadow;
+@button-link-inverse-selected-text-decoration: @button-link-inverse-active-text-decoration;
+@button-link-inverse-selected-text-rendering: @button-link-inverse-active-text-rendering;
+@button-link-inverse-selected-background-color: @button-link-inverse-active-background-color;
+@button-link-inverse-selected-background-gradient-color-top: @button-link-inverse-active-background-gradient-color-top;
+@button-link-inverse-selected-background-gradient-color-bottom: @button-link-inverse-active-background-gradient-color-bottom;
+@button-link-inverse-selected-border-width: @button-link-inverse-active-border-width;
+@button-link-inverse-selected-border-color: @button-link-inverse-active-border-color;
+@button-link-inverse-selected-border-style: @button-link-inverse-active-border-style;
+@button-link-inverse-selected-border-top-width: @button-link-inverse-active-border-top-width;
+@button-link-inverse-selected-border-top-color: @button-link-inverse-active-border-top-color;
+@button-link-inverse-selected-border-top-style: @button-link-inverse-active-border-top-style;
+@button-link-inverse-selected-border-right-width: @button-link-inverse-active-border-right-width;
+@button-link-inverse-selected-border-right-color: @button-link-inverse-active-border-right-color;
+@button-link-inverse-selected-border-right-style: @button-link-inverse-active-border-right-style;
+@button-link-inverse-selected-border-bottom-width: @button-link-inverse-active-border-bottom-width;
+@button-link-inverse-selected-border-bottom-color: @button-link-inverse-active-border-bottom-color;
+@button-link-inverse-selected-border-bottom-style: @button-link-inverse-active-border-bottom-style;
+@button-link-inverse-selected-border-left-width: @button-link-inverse-active-border-left-width;
+@button-link-inverse-selected-border-left-color: @button-link-inverse-active-border-left-color;
+@button-link-inverse-selected-border-left-style: @button-link-inverse-active-border-left-style;
+@button-link-inverse-selected-shadow: @button-link-inverse-active-shadow;
+
+// Disabled
+
+@button-link-inverse-disabled-opacity: 0.5;
+@button-link-inverse-disabled-color: null;
+@button-link-inverse-disabled-font-family: null;
+@button-link-inverse-disabled-font-style: null;
+@button-link-inverse-disabled-font-weight: null;
+@button-link-inverse-disabled-text-transform: null;
+@button-link-inverse-disabled-text-shadow: null;
+@button-link-inverse-disabled-text-decoration: null;
+@button-link-inverse-disabled-text-rendering: null;
+@button-link-inverse-disabled-background-color: null;
+@button-link-inverse-disabled-background-gradient-color-top: null;
+@button-link-inverse-disabled-background-gradient-color-bottom: null;
+@button-link-inverse-disabled-border-width: null;
+@button-link-inverse-disabled-border-color: null;
+@button-link-inverse-disabled-border-style: null;
+@button-link-inverse-disabled-border-top-width: null;
+@button-link-inverse-disabled-border-top-color: null;
+@button-link-inverse-disabled-border-top-style: null;
+@button-link-inverse-disabled-border-right-width: null;
+@button-link-inverse-disabled-border-right-color: null;
+@button-link-inverse-disabled-border-right-style: null;
+@button-link-inverse-disabled-border-bottom-width: null;
+@button-link-inverse-disabled-border-bottom-color: null;
+@button-link-inverse-disabled-border-bottom-style: null;
+@button-link-inverse-disabled-border-left-width: null;
+@button-link-inverse-disabled-border-left-color: null;
+@button-link-inverse-disabled-border-left-style: null;
+@button-link-inverse-disabled-shadow: null;

@@ -3,20 +3,19 @@ import React, {PropTypes} from 'react';
 import ManualBreadcrumbs from './ManualBreadcrumbs';
 
 class Breadcrumbs extends React.Component {
-  buildCrumbs(routeName) {
+  buildCrumbs(route) {
     let {router} = this.context;
-    let {namedRoutes} = router;
-    let route = namedRoutes[routeName];
-
-    if (!route || !route.buildBreadCrumb) {
-      return [];
-    }
 
     let crumbConfiguration = route.buildBreadCrumb(router);
     let crumbs = crumbConfiguration.getCrumbs(router);
 
     if (crumbConfiguration.parentCrumb) {
-      crumbs = this.buildCrumbs(crumbConfiguration.parentCrumb).concat(crumbs);
+      let parentCrumb = router.getCurrentRoutes().find(function (eachRoute) {
+        return eachRoute.path === crumbConfiguration.parentCrumb;
+      });
+      if (parentCrumb && parentCrumb.buildBreadCrumb) {
+        crumbs = this.buildCrumbs(parentCrumb).concat(crumbs);
+      }
     }
 
     return crumbs;
@@ -29,7 +28,7 @@ class Breadcrumbs extends React.Component {
     let currentRoute = null;
     loop:
     for (var i = routes.length - 1; i >= 0; i--) {
-      if (routes[i].name) {
+      if (routes[i].buildBreadCrumb) {
         currentRoute = routes[i];
         break loop;
       }
@@ -39,7 +38,7 @@ class Breadcrumbs extends React.Component {
       return [];
     }
 
-    let crumbs = this.buildCrumbs(currentRoute.name);
+    let crumbs = this.buildCrumbs(currentRoute);
 
     return crumbs.slice(this.props.shift);
   }
@@ -58,7 +57,6 @@ Breadcrumbs.contextTypes = {
 };
 
 Breadcrumbs.defaultProps = {
-  breadcrumbClasses: 'inverse',
   // Remove root '/' by default
   shift: 0
 };

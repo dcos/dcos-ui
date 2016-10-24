@@ -1,0 +1,36 @@
+@badges-enabled: true;
+
+/*
+ * Badge Styles
+ */
+
+@badge-background-color: @button-primary-active-background-color;
+@badge-background-color-inverse: rgba(255, 255, 255, 0.05);
+
+// We round these values to prevent non-integers, which prevents proper vertical
+// centering in flex elements.
+@badge-height: round(@base-spacing-unit * 1/2);
+@badge-height-screen-small: round(@base-spacing-unit-screen-small * 1/2);
+@badge-height-screen-medium: round(@base-spacing-unit-screen-medium * 1/3);
+@badge-height-screen-large: round(@base-spacing-unit-screen-large * 1/3);
+@badge-height-screen-jumbo: round(@base-spacing-unit-screen-jumbo * 1/3);
+
+@badge-padding-horizontal: @base-spacing-unit * 1/6;
+@badge-padding-horizontal-screen-small: @base-spacing-unit-screen-small * 1/6;
+@badge-padding-horizontal-screen-medium: @base-spacing-unit-screen-medium * 1/6;
+@badge-padding-horizontal-screen-large: @base-spacing-unit-screen-large * 1/6;
+@badge-padding-horizontal-screen-jumbo: @base-spacing-unit-screen-jumbo * 1/6;
+
+// Large Variant
+
+@badge-large-height: @base-spacing-unit * 1/2;
+@badge-large-height-screen-small: @base-spacing-unit-screen-small * 1/2;
+@badge-large-height-screen-medium: @base-spacing-unit-screen-medium * 1/2;
+@badge-large-height-screen-large: @base-spacing-unit-screen-large * 1/2;
+@badge-large-height-screen-jumbo: @base-spacing-unit-screen-jumbo * 1/2;
+
+@badge-large-padding-horizontal: @base-spacing-unit * 1/4;
+@badge-large-padding-horizontal-screen-small: @base-spacing-unit-screen-small * 1/4;
+@badge-large-padding-horizontal-screen-medium: @base-spacing-unit-screen-medium * 1/4;
+@badge-large-padding-horizontal-screen-large: @base-spacing-unit-screen-large * 1/4;
+@badge-large-padding-horizontal-screen-jumbo: @base-spacing-unit-screen-jumbo * 1/4;

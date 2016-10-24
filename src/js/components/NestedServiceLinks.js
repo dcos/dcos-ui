@@ -6,11 +6,13 @@ import Icon from './Icon';
 
 class NestedServiceLinks extends React.Component {
 
-  getMinorLink(label, params, key, classes) {
+  getMinorLink(label, params, key, minorLinkClasses, minorLinkAnchorClasses) {
     return (
       <div key={key} className="table-cell-value">
-        <div className={classes}>
-          <Link to="services-detail"
+        <div className={minorLinkClasses}>
+          <Link
+            className={minorLinkAnchorClasses}
+            to="/services/overview/:id"
               params={params}
               title={label}>
             {label}
@@ -33,10 +35,14 @@ class NestedServiceLinks extends React.Component {
 
   getMinorLinks() {
     let componentKey = 0;
-    let {minorLinkClassName, taskID} = this.props;
+    let {minorLinkClassName, minorLinkAnchorClassName, taskID} = this.props;
     let minorLinkClasses = classNames(
       'text-overflow service-link',
       minorLinkClassName
+    );
+    let minorLinkAnchorClasses = classNames(
+      'table-cell-link-secondary',
+      minorLinkAnchorClassName
     );
     let nestedGroups = this.getServicePathParts();
     let popCount = 1;
@@ -50,7 +56,13 @@ class NestedServiceLinks extends React.Component {
       let id = encodeURIComponent(nestedGroups.slice(0, index + 1).join('/'));
 
       components.push(
-        this.getMinorLink(part, {id}, componentKey++, minorLinkClasses)
+        this.getMinorLink(
+          part,
+          {id},
+          componentKey++,
+          minorLinkClasses,
+          minorLinkAnchorClasses
+        )
       );
 
       if (index !== nestedGroups.length - 1) {
@@ -66,8 +78,13 @@ class NestedServiceLinks extends React.Component {
   getMajorLink() {
     let label;
     let params;
-    let {serviceID, taskID} = this.props;
-    let routeName;
+    let {majorLinkAnchorClassName, serviceID, taskID} = this.props;
+    let routePath;
+
+    let anchorClasses = classNames(
+      'table-cell-link-primary',
+      majorLinkAnchorClassName
+    );
 
     if (taskID != null) {
       label = taskID;
@@ -75,15 +92,17 @@ class NestedServiceLinks extends React.Component {
         id: serviceID,
         taskID
       };
-      routeName = 'services-task-details';
+      routePath = '/services/overview/:id/tasks/:taskID';
     } else {
       label = this.getServicePathParts().pop();
       params = {id: encodeURIComponent(serviceID)};
-      routeName = 'services-detail';
+      routePath = '/services/overview/:id';
     }
 
     return (
-      <Link to={routeName}
+      <Link
+        className={anchorClasses}
+        to={routePath}
         params={params}
         title={label}>
         <span className="text-overflow">
@@ -99,10 +118,17 @@ class NestedServiceLinks extends React.Component {
       this.props.minorLinkClassName
     );
 
+    let minorLinkAnchorClasses = classNames(
+      'table-cell-link-secondary',
+      this.props.minorLinkAnchorClassName
+    );
+
     return (
        <div key={key} className="table-cell-value">
         <div className={minorLinkClasses}>
-          <Link to="services-page" title="services">
+          <Link className={minorLinkAnchorClasses}
+            to="/services"
+            title="services">
             Services
           </Link>
         </div>
@@ -121,11 +147,7 @@ class NestedServiceLinks extends React.Component {
       minorLinkWrapperClassName
     } = this.props;
 
-    let classes = classNames(
-      'container container-fluid container-pod',
-      'flush flush-top flush-bottom',
-      className
-    );
+    let classes = classNames(className);
 
     let majorLinkClasses = classNames(
       'text-overflow',
@@ -152,9 +174,7 @@ class NestedServiceLinks extends React.Component {
 }
 
 NestedServiceLinks.defaultProps = {
-  taskID: null,
-  className: 'inverse',
-  minorLinkClassName: 'inverse'
+  taskID: null
 };
 
 const classPropType = PropTypes.oneOfType([
@@ -168,7 +188,9 @@ NestedServiceLinks.propTypes = {
   taskID: PropTypes.string,
   // Classes
   className: classPropType,
+  majorLinkAnchorClassName: classPropType,
   majorLinkClassName: classPropType,
+  minorLinkAnchorClassName: classPropType,
   minorLinkClassName: classPropType,
   minorLinkWrapperClassName: classPropType
 };

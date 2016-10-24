@@ -4,13 +4,13 @@ import mixin from 'reactjs-mixin';
 /* eslint-disable no-unused-vars */
 import React from 'react';
 /* eslint-enable no-unused-vars */
+import {ResourceTableUtil} from 'foundation-ui';
 
 import BulkOptions from '../../constants/BulkOptions';
 import FilterBar from '../../components/FilterBar';
 import FilterHeadline from '../../components/FilterHeadline';
 import FilterInputText from '../../components/FilterInputText';
 import InternalStorageMixin from '../../mixins/InternalStorageMixin';
-import ResourceTableUtil from '../../utils/ResourceTableUtil';
 import StringUtil from '../../utils/StringUtil';
 import TableUtil from '../../utils/TableUtil';
 import UsersActionsModal from '../../components/modals/UsersActionsModal';
@@ -144,7 +144,7 @@ class OrganizationTab extends mixin(InternalStorageMixin) {
           disabled,
           value: checked,
           fieldType: 'checkbox',
-          labelClass: 'form-row-element form-element-checkbox inverse',
+          labelClass: 'form-row-element form-element-checkbox',
           name: rowID,
           showLabel: false
         }]}
@@ -177,7 +177,7 @@ class OrganizationTab extends mixin(InternalStorageMixin) {
             value: checked,
             fieldType: 'checkbox',
             indeterminate,
-            labelClass: 'form-row-element form-element-checkbox inverse',
+            labelClass: 'form-row-element form-element-checkbox',
             name: 'headingCheckbox',
             showLabel: false
           }
@@ -246,7 +246,7 @@ class OrganizationTab extends mixin(InternalStorageMixin) {
     if (dropdownItems.length === 1) {
       return (
         <button
-          className="button button-inverse"
+          className="button"
           onClick={this.handleActionSelection.bind(this, dropdownItems[0])}>
           {dropdownItems[0].html}
         </button>
@@ -256,8 +256,8 @@ class OrganizationTab extends mixin(InternalStorageMixin) {
     return (
       <li>
         <Dropdown
-          buttonClassName="button button-inverse dropdown-toggle"
-          dropdownMenuClassName="dropdown-menu inverse"
+          buttonClassName="button dropdown-toggle"
+          dropdownMenuClassName="dropdown-menu"
           dropdownMenuListClassName="dropdown-menu-list"
           dropdownMenuListItemClassName="clickable"
           initialID={initialID}
@@ -401,7 +401,6 @@ class OrganizationTab extends mixin(InternalStorageMixin) {
       <div className="flex-container-col">
         <div className={`${itemName}s-table-header`}>
           <FilterHeadline
-            inverseStyle={true}
             onReset={this.resetFilter}
             name={capitalizedItemName}
             currentLength={visibleItems.length}
@@ -410,8 +409,7 @@ class OrganizationTab extends mixin(InternalStorageMixin) {
             <FilterInputText
               className="flush-bottom"
               searchString={this.state.searchString}
-              handleFilterChange={this.handleSearchStringChange}
-              inverseStyle={true} />
+              handleFilterChange={this.handleSearchStringChange} />
             {actionDropdown}
             {actionsModal}
             <a
@@ -421,10 +419,10 @@ class OrganizationTab extends mixin(InternalStorageMixin) {
             </a>
           </FilterBar>
         </div>
-        <div className="page-content-fill flex-grow flex-container-col">
+        <div className="page-body-content-fill flex-grow flex-container-col">
           <Table
             buildRowOptions={this.getTableRowOptions}
-            className="table inverse table-borderless-outer
+            className="table table-borderless-outer
               table-borderless-inner-columns flush-bottom"
             columns={this.getColumns()}
             colGroup={this.getColGroup()}

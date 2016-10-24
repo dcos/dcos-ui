@@ -1,5 +1,5 @@
 import React from 'react';
-import ErrorPaths from '../constants/ErrorPaths';
+import ErrorPaths from '../../../plugins/services/src/js/constants/ErrorPaths';
 import CollapsibleErrorMessage from './CollapsibleErrorMessage';
 
 const REPOSITORY_ERRORS = [

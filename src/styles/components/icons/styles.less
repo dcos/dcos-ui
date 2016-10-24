@@ -1,0 +1,254 @@
+& when (@icon-enabled) {
+
+  .icon {
+
+    svg {
+      display: block;
+    }
+
+    &.icon-image-container {
+      overflow: hidden;
+
+      img {
+        display: block;
+        height: auto;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+      }
+    }
+
+    &.icon-app-container {
+      border-radius: 20%;
+      position: relative;
+
+      &:after {
+        border-radius: 20%;
+        box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
+        content: '';
+        display: block;
+        height: 100%;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+      }
+    }
+
+    &.icon-user-container,
+    &.icon-group-container {
+      border-radius: 100%;
+      position: relative;
+
+      &:after {
+        border-radius: 100%;
+        box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.3);
+        content: '';
+        display: block;
+        height: 100%;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+      }
+    }
+
+    &-default-white {
+      background-color: @icon-default-background-white;
+    }
+
+    &.icon-margin-right {
+      margin-right: @base-spacing-unit * 0.25;
+
+      &.icon-margin-right-wide {
+        margin-right: @base-spacing-unit * 0.5;
+      }
+    }
+
+    &.icon-margin-left {
+      margin-left: @base-spacing-unit * 0.25;
+      margin-right: 0;
+
+      &.icon-margin-left-wide {
+        margin-left: @base-spacing-unit * 0.5;
+      }
+    }
+
+    &.icon-neutral {
+      color: @neutral;
+    }
+
+    &.icon-grey {
+      color: color-lighten(@neutral, 30%);
+
+      &.inverse {
+        color: color-lighten(@neutral, 70%);
+      }
+    }
+
+    &.icon-light-grey {
+      color: color-lighten(@neutral, 60%);
+    }
+
+    .button &,
+    button & {
+      flex: 0 0 auto;
+    }
+  }
+
+  & when (@icon-tiny-enabled) {
+
+    .icon.icon-tiny {
+      height: @icon-tiny-height;
+      width: @icon-tiny-width;
+    }
+  }
+
+  & when (@icon-mini-enabled) {
+
+    .icon.icon-mini {
+      height: @icon-mini-height;
+      width: @icon-mini-width;
+    }
+  }
+
+  & when (@icon-small-enabled) {
+
+    .icon.icon-small {
+      height: @icon-small-height;
+      width: @icon-small-width;
+    }
+  }
+
+  & when (@icon-medium-enabled) {
+
+    .icon.icon-medium {
+      height: @icon-medium-height;
+      width: @icon-medium-width;
+    }
+  }
+
+  & when (@icon-large-enabled) {
+
+    .icon.icon-large {
+      height: @icon-large-height;
+      width: @icon-large-width;
+    }
+  }
+
+  & when (@icon-jumbo-enabled) {
+
+    .icon.icon-jumbo {
+      height: @icon-jumbo-height;
+      width: @icon-jumbo-width;
+    }
+  }
+
+  & when (@icon-huge-enabled) {
+
+    .icon.icon-huge {
+      height: @icon-huge-height;
+      width: @icon-huge-width;
+    }
+  }
+}
+
+& when (@icon-enabled) and (@layout-screen-small-enabled) {
+
+  @media (min-width: @layout-screen-small-min-width) {
+
+    .icon {
+
+      &.icon-margin-right {
+        margin-right: @base-spacing-unit-screen-small * 0.25;
+
+        &.icon-margin-right-wide {
+          margin-right: @base-spacing-unit-screen-small * 0.5;
+        }
+      }
+
+      &.icon-margin-left {
+        margin-left: @base-spacing-unit-screen-small * 0.25;
+
+        &.icon-margin-left-wide {
+          margin-left: @base-spacing-unit-screen-small * 0.5;
+        }
+      }
+    }
+  }
+}
+
+& when (@icon-enabled) and (@layout-screen-medium-enabled) {
+
+  @media (min-width: @layout-screen-medium-min-width) {
+
+    .icon {
+
+      &.icon-margin-right {
+        margin-right: @base-spacing-unit-screen-medium * 0.25;
+
+        &.icon-margin-right-wide {
+          margin-right: @base-spacing-unit-screen-medium 0.5;
+        }
+      }
+
+      &.icon-margin-left {
+        margin-left: @base-spacing-unit-screen-medium * 0.25;
+
+        &.icon-margin-left-wide {
+          margin-left: @base-spacing-unit-screen-medium * 0.5;
+        }
+      }
+    }
+  }
+}
+
+& when (@icon-enabled) and (@layout-screen-large-enabled) {
+
+  @media (min-width: @layout-screen-large-min-width) {
+
+    .icon {
+
+      &.icon-margin-right {
+        margin-right: @base-spacing-unit-screen-large * 0.25;
+
+        &.icon-margin-right-wide {
+          margin-right: @base-spacing-unit-screen-large 0.5;
+        }
+      }
+
+      &.icon-margin-left {
+        margin-left: @base-spacing-unit-screen-large * 0.25;
+
+        &.icon-margin-left-wide {
+          margin-left: @base-spacing-unit-screen-large * 0.5;
+        }
+      }
+    }
+  }
+}
+
+& when (@icon-enabled) and (@layout-screen-jumbo-enabled) {
+
+  @media (min-width: @layout-screen-jumbo-min-width) {
+
+    .icon {
+
+      &.icon-margin-right {
+        margin-right: @base-spacing-unit-screen-jumbo * 0.25;
+
+        &.icon-margin-right-wide {
+          margin-right: @base-spacing-unit-screen-jumbo 0.5;
+        }
+      }
+
+      &.icon-margin-left {
+        margin-left: @base-spacing-unit-screen-jumbo * 0.25;
+
+        &.icon-margin-left-wide {
+          margin-left: @base-spacing-unit-screen-jumbo * 0.5;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,144 @@
+& when (@breadcrumbs-enabled) {
+
+  .breadcrumb {
+    display: flex;
+    flex: 0 0 auto;
+
+    li {
+      color: inherit;
+      display: flex;
+      margin: 0;
+
+      // We want to make sure the icon conforms exactly to the height of the
+      // breadcrumb items around it.
+      .icon {
+        display: block;
+        height: @heading-h4-line-height;
+        margin-left: @base-spacing-unit * 0.25;
+        margin-right: @base-spacing-unit * 0.25;
+        opacity: 0.5;
+        width: 14px;
+      }
+    }
+
+    a {
+      color: @neutral;
+      overflow: hidden;
+      text-decoration: none;
+      white-space: nowrap;
+
+      &:hover {
+        color: color-lighten(@neutral, 10);
+      }
+    }
+
+    &.collapsed {
+
+      a {
+        display: block;
+        width: 0.75rem;
+
+        &:before {
+          content: '...';
+          display: inline-block;
+          width: 0.75rem;
+        }
+      }
+
+      li {
+
+        &:first-child,
+        &:last-child {
+
+          a {
+            width: auto;
+
+            &:before {
+              content: '';
+              width: auto;
+            }
+          }
+        }
+
+        &:last-child {
+          flex: 1;
+          // min-width is necessary to resolve Firefox flexbox bug
+          // (https://bugzilla.mozilla.org/show_bug.cgi?id=823483)
+          min-width: 0;
+
+          a {
+            text-overflow: ellipsis;
+          }
+        }
+      }
+    }
+  }
+}
+
+& when (@breadcrumbs-enabled) and (@layout-screen-small-enabled) {
+
+  @media (min-width: @layout-screen-small-min-width) {
+
+    .breadcrumb {
+
+      li {
+
+        .icon {
+          margin-left: @base-spacing-unit-screen-small * 0.25;
+          margin-right: @base-spacing-unit-screen-small * 0.25;
+        }
+      }
+    }
+  }
+}
+
+& when (@breadcrumbs-enabled) and (@layout-screen-medium-enabled) {
+
+  @media (min-width: @layout-screen-medium-min-width) {
+
+    .breadcrumb {
+
+      li {
+
+        .icon {
+          margin-left: @base-spacing-unit-screen-medium * 0.25;
+          margin-right: @base-spacing-unit-screen-medium * 0.25;
+        }
+      }
+    }
+  }
+}
+
+& when (@breadcrumbs-enabled) and (@layout-screen-large-enabled) {
+
+  @media (min-width: @layout-screen-large-min-width) {
+
+    .breadcrumb {
+
+      li {
+
+        .icon {
+          margin-left: @base-spacing-unit-screen-large * 0.25;
+          margin-right: @base-spacing-unit-screen-large * 0.25;
+        }
+      }
+    }
+  }
+}
+
+& when (@breadcrumbs-enabled) and (@layout-screen-jumbo-enabled) {
+
+  @media (min-width: @layout-screen-jumbo-min-width) {
+
+    .breadcrumb {
+
+      li {
+
+        .icon {
+          margin-left: @base-spacing-unit-screen-jumbo * 0.25;
+          margin-right: @base-spacing-unit-screen-jumbo * 0.25;
+        }
+      }
+    }
+  }
+}

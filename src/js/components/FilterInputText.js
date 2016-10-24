@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import React, {PropTypes} from 'react';
 
 import Icon from './Icon';
-import ServiceFilterTypes from '../constants/ServiceFilterTypes';
+import ServiceFilterTypes from '../../../plugins/services/src/js/constants/ServiceFilterTypes';
 
 let METHODS_TO_BIND = [
   'handleBlur',
@@ -92,15 +92,15 @@ class FilterInputText extends React.Component {
     });
 
     return (
-      <span className="form-control-group-add-on form-control-group-add-on-append">
+      <span className="form-control-group-add-on">
         {sideText}
         <a onClick={this.handleInputClear}>
-        <Icon
-          family="mini"
-          id="ring-close"
-          size="mini"
-          className={iconClassNames}
-          color={color} />
+          <Icon
+            family="mini"
+            id="ring-close"
+            size="mini"
+            className={iconClassNames}
+            color={color} />
         </a>
       </span>
     );
@@ -110,7 +110,7 @@ class FilterInputText extends React.Component {
     let {className, inputContainerClass, inverseStyle} = this.props;
     let {focus} = this.state;
 
-    let iconColor = 'white';
+    let iconColor = 'grey';
     let iconSearchClasses = classNames({
       'active': focus
     });

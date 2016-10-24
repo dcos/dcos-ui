@@ -10,7 +10,7 @@ import FilterHeadline from '../../components/FilterHeadline';
 import Icon from '../../components/Icon';
 import JobStates from '../../constants/JobStates';
 import JobStopRunModal from '../../components/modals/JobStopRunModal';
-import TaskStates from '../../constants/TaskStates';
+import TaskStates from '../../../../plugins/services/src/js/constants/TaskStates';
 import TimeAgo from '../../components/TimeAgo';
 
 const METHODS_TO_BIND = [
@@ -94,7 +94,7 @@ class JobRunHistoryTable extends React.Component {
 
   getColumnClassName(prop, sortBy, row) {
     return classNames({
-      'highlight': prop === sortBy.prop,
+      'active': prop === sortBy.prop,
       'clickable': row == null
     });
   }
@@ -207,8 +207,8 @@ class JobRunHistoryTable extends React.Component {
       return (
         <div className="expanding-table-primary-cell-heading text-overflow">
           <Link
-            className="emphasize clickable text-overflow"
-            to="jobs-task-details"
+            className="table-cell-link-secondary text-overflow"
+            to="/jobs/:id/tasks/:taskID"
             params={{id, taskID}}
             title={taskID}>
             <CollapsingString endLength={15} string={taskID} />
@@ -316,7 +316,6 @@ class JobRunHistoryTable extends React.Component {
         <FilterBar rightAlignLastNChildren={rightAlignLastNChildren}>
           <FilterHeadline
             currentLength={totalRunCount}
-            inverseStyle={true}
             name="Run"
             onReset={function () {}}
             totalLength={totalRunCount} />
@@ -324,7 +323,7 @@ class JobRunHistoryTable extends React.Component {
         </FilterBar>
         <ExpandingTable
           allowMultipleSelect={false}
-          className="job-run-history-table expanding-table table table-hover inverse table-borderless-outer table-borderless-inner-columns flush-bottom"
+          className="expanding-table table table-hover table-borderless-outer table-borderless-inner-columns flush-bottom"
           childRowClassName="expanding-table-child"
           columns={this.getColumns()}
           colGroup={this.getColGroup()}

@@ -1,0 +1,41 @@
+// Container (Fixed)
+
+.layout-box.containers-fixed {
+  margin: 0 auto;
+}
+
+& when (@layout-screen-medium-enabled) {
+
+  @media (min-width: @layout-screen-medium-min-width) {
+
+    // Container (Fixed)
+    .layout-box.containers-fixed,
+    .layout-box.containers-fixed .container {
+      width: 400px !important;
+    }
+  }
+}
+
+& when (@layout-screen-large-enabled) {
+
+  @media (min-width: @layout-screen-large-min-width) {
+
+    // Container (Fixed)
+    .layout-box.containers-fixed,
+    .layout-box.containers-fixed .container {
+      width: 500px !important;
+    }
+  }
+}
+
+& when (@layout-screen-jumbo-enabled) {
+
+  @media (min-width: @layout-screen-jumbo-min-width) {
+
+    // Container (Fixed)
+    .layout-box.containers-fixed,
+    .layout-box.containers-fixed .container {
+      width: 680px !important;
+    }
+  }
+}

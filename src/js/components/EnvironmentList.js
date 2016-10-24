@@ -23,7 +23,7 @@ class EnvironmentList extends React.Component {
           <span>
             <Icon
               className="icon-margin-right"
-              color="white"
+              color="neutral"
               family="mini"
               id="key"
               size="mini" />

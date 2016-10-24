@@ -1,0 +1,489 @@
+// TODO: Reduce the specificity, remove the mixin declarations in favor of
+// normal styles.
+& when (@sidebar-enabled) {
+
+  // Sidebar
+  .sidebar {
+    background: @sidebar-background-color;
+  }
+
+  // TODO: Fix this positioning.
+  // Navigation
+  .navigation {
+    left: -100%;
+    position: fixed;
+    width: 100%;
+  }
+
+  // Sidebar Section
+  .sidebar-section {
+    .element-spacing(sidebar-section, short, screen-medium);
+
+    &:last-of-type {
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    // Sidebar Section Header
+    .sidebar-section-header {
+      .element-shape-style(sidebar-section-header);
+      .element-spacing(sidebar-section-header, null, null);
+      .element-text-size(sidebar-section-header, null);
+      .element-text-style(sidebar-section-header);
+      .property-variant(sidebar-section-header, height);
+      align-items: center;
+      display: flex;
+
+      &:empty {
+        display: none;
+      }
+    }
+  }
+
+  // Sidebar Menu
+  .sidebar-menu {
+    .clearfix();
+    .element-shape-style(sidebar-menu);
+    margin-bottom: 0;
+
+    li {
+      .element-shape-style(sidebar-menu-item);
+      .element-spacing(sidebar-menu-item, null, null);
+      .element-text-size(sidebar-menu-item, null);
+      .element-text-style(sidebar-menu-item);
+      .property-variant(sidebar-menu-item, min-height, height, null, null);
+      display: block;
+      transition: background-color 0.15s ease;
+
+      &:empty {
+        display: none;
+      }
+
+      &:before {
+        display: none;
+      }
+
+      &:first-child {
+        margin-top: 0;
+      }
+
+      .icon {
+        flex: 0 0 auto;
+        margin-right: 12px;
+      }
+
+      & > *:not(a):not(span) {
+        .property-variant(sidebar-menu-item-content, margin-right, padding-horizontal, null, null);
+
+        &:last-child {
+          margin-right: 0;
+        }
+      }
+
+      // TODO: Give these elements classes, don't select more than one.
+      & > a,
+      & > span {
+        .element-shape-style(sidebar-menu-item-link);
+        .element-spacing(sidebar-menu-item-link, null, null);
+        .element-text-style(sidebar-menu-item-link);
+        .property-variant(sidebar-menu-item, height);
+        align-items: center;
+        display: flex;
+        flex: 1 1 auto;
+        text-decoration: none !important;
+        transition: background-color 0.15s ease;
+
+        & > * {
+          .property-variant(sidebar-menu-item-content, margin-right, padding-horizontal, null, null);
+
+          &:last-child {
+            margin-right: 0;
+          }
+        }
+      }
+
+      & > a {
+
+        &:hover {
+          .element-shape-style(sidebar-menu-item-link-hover);
+          .element-text-style(sidebar-menu-item-link-hover);
+          cursor: pointer;
+        }
+
+        &:active {
+          .element-shape-style(sidebar-menu-item-link-active);
+          .element-text-style(sidebar-menu-item-link-active);
+        }
+      }
+
+      &.selected:not(.open) {
+        .element-shape-style(sidebar-menu-item-selected);
+      }
+
+      &.selected,
+      &.selected.open {
+        .element-text-style(sidebar-menu-item-selected);
+
+        & > a,
+        & > a:hover,
+        & > a:active {
+          .element-shape-style(sidebar-menu-item-link-selected);
+          .element-text-style(sidebar-menu-item-link-selected);
+        }
+
+        .badge {
+          background: @sidebar-background-color;
+        }
+      }
+
+      &.open {
+        .element-shape-style(sidebar-submenu);
+        .element-text-style(sidebar-menu-item-open);
+
+        & > span,
+        & > a {
+          .element-shape-style(sidebar-menu-item-open);
+          .element-text-style(sidebar-menu-item-open);
+        }
+      }
+
+      & > ul {
+        .element-spacing(sidebar-submenu, null, null);
+
+        li {
+          .element-shape-style(sidebar-submenu-item);
+          .element-spacing(sidebar-submenu-item, null, null);
+          .element-text-size(sidebar-submenu-item, null);
+          .element-text-style(sidebar-submenu-item);
+          .property-variant(sidebar-submenu-item, min-height, height, null, null);
+          display: block;
+
+          &.selected {
+
+            & > a,
+            & > a:hover,
+            & > a:active {
+              .element-shape-style(sidebar-submenu-item-link-selected);
+              .element-text-style(sidebar-submenu-item-link-selected);
+            }
+          }
+
+          & > span,
+          & > a {
+            .element-shape-style(sidebar-submenu-item-link);
+            .element-spacing(sidebar-submenu-item-link, null, null);
+            .element-text-style(sidebar-submenu-item-link);
+            .property-variant(sidebar-submenu-item, height);
+            align-items: center;
+            display: flex;
+            text-decoration: none !important;
+          }
+
+          & > a {
+
+            &:hover {
+              .element-shape-style(sidebar-submenu-item-link-hover);
+              .element-text-style(sidebar-submenu-item-link-hover);
+              cursor: pointer;
+            }
+
+            &:active {
+              .element-shape-style(sidebar-submenu-item-link-active);
+              .element-text-style(sidebar-submenu-item-link-active);
+            }
+          }
+        }
+      }
+    }
+
+    .sidebar-menu-item-label {
+      width: 100%;
+    }
+  }
+}
+
+& when (@layout-screen-small-enabled) {
+
+  @media (min-width: @layout-screen-small-min-width) {
+
+    & when (@sidebar-enabled) and (@sidebar-screen-small-enabled) {
+
+      // Sidebar Section
+      .sidebar-section {
+        .element-spacing(sidebar-section, null, screen-small);
+
+        // Sidebar Section Header
+        .sidebar-section-header {
+          .element-spacing(sidebar-section-header, null, screen-small);
+          .element-text-size(sidebar-section-header, screen-small);
+          .property-variant(sidebar-section-header, height, null, screen-small);
+        }
+      }
+
+      // Sidebar Menu
+      .sidebar-menu {
+
+        li {
+          .element-spacing(sidebar-menu-item, null, screen-small);
+          .element-text-size(sidebar-submenu-item, screen-small);
+          .property-variant(sidebar-menu-item, min-height, height, null, screen-small);
+
+          & > *:not(a):not(span) {
+            .property-variant(sidebar-menu-item-content, margin-right, padding-horizontal, null, screen-small);
+          }
+
+          & > span,
+          & > a {
+            .element-spacing(sidebar-menu-item-link, null, screen-small);
+            .property-variant(sidebar-menu-item, height, null, screen-small);
+
+            & > * {
+              .property-variant(sidebar-menu-item-content, margin-right, padding-horizontal, null, screen-small);
+            }
+          }
+
+          & > ul {
+            .element-spacing(sidebar-submenu, null, screen-small);
+
+            li {
+              .element-spacing(sidebar-submenu-item, null, screen-small);
+              .element-text-size(sidebar-submenu-item, screen-small);
+              .property-variant(sidebar-submenu-item, min-height, height, null, screen-small);
+
+              & > span,
+              & > a {
+                .element-spacing(sidebar-submenu-item-link, null, screen-small);
+                .property-variant(sidebar-submenu-item, height, null, screen-small);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+& when (@layout-screen-medium-enabled) {
+
+  @media (min-width: @layout-screen-medium-min-width) {
+
+    & when (@sidebar-enabled) and (@sidebar-screen-medium-enabled) {
+
+      // Sidebar
+      .sidebar {
+        flex-basis: @sidebar-width;
+      }
+
+      // Navigation
+      .navigation {
+        left: auto;
+        position: relative;
+        width: auto;
+      }
+
+      // Sidebar Section
+      .sidebar-section {
+        .element-spacing(sidebar-section, null, screen-medium);
+
+        // Sidebar Section Header
+        .sidebar-section-header {
+          .element-spacing(sidebar-section-header, null, screen-medium);
+          .element-text-size(sidebar-section-header, screen-medium);
+          .property-variant(sidebar-section-header, height, null, screen-medium);
+        }
+      }
+
+      // Sidebar Menu
+      .sidebar-menu {
+
+        li {
+          .element-spacing(sidebar-menu-item, null, screen-medium);
+          .element-text-size(sidebar-submenu-item, screen-medium);
+          .property-variant(sidebar-menu-item, min-height, height, null, screen-medium);
+
+          & > *:not(a):not(span) {
+            .property-variant(sidebar-menu-item-content, margin-right, padding-horizontal, null, screen-medium);
+          }
+
+          & > span,
+          & > a {
+            .element-spacing(sidebar-menu-item-link, null, screen-medium);
+            .property-variant(sidebar-menu-item, height, null, screen-medium);
+
+            & > * {
+              .property-variant(sidebar-menu-item-content, margin-right, padding-horizontal, null, screen-medium);
+            }
+          }
+
+          & > ul {
+            .element-spacing(sidebar-submenu, null, screen-medium);
+
+            li {
+              .element-spacing(sidebar-submenu-item, null, screen-medium);
+              .element-text-size(sidebar-submenu-item, screen-medium);
+              .property-variant(sidebar-submenu-item, min-height, height, null, screen-medium);
+
+              & > span,
+              & > a {
+                .element-spacing(sidebar-submenu-item-link, null, screen-medium);
+                .property-variant(sidebar-submenu-item, height, null, screen-medium);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+& when (@layout-screen-large-enabled) {
+
+  @media (min-width: @layout-screen-large-min-width) {
+
+    & when (@sidebar-enabled) and (@sidebar-screen-large-enabled) {
+
+      // Sidebar
+      .sidebar {
+        flex-basis: @sidebar-width-screen-large;
+      }
+
+      // Sidebar Section
+      .sidebar-section {
+        .element-spacing(sidebar-section, null, screen-large);
+
+        // Sidebar Section Header
+        .sidebar-section-header {
+          .element-spacing(sidebar-section-header, null, screen-large);
+          .element-text-size(sidebar-section-header, screen-large);
+          .property-variant(sidebar-section-header, height, null, screen-large);
+        }
+      }
+
+      // Sidebar Menu
+      .sidebar-menu {
+
+        li {
+          .element-spacing(sidebar-menu-item, null, screen-large);
+          .element-text-size(sidebar-menu-item, screen-large);
+          .property-variant(sidebar-menu-item, min-height, height, null, screen-large);
+
+          & > *:not(a):not(span) {
+            .property-variant(sidebar-menu-item-content, margin-right, padding-horizontal, null, screen-large);
+          }
+
+          & > span,
+          & > a {
+            .element-spacing(sidebar-menu-item-link, null, screen-large);
+            .property-variant(sidebar-menu-item, height, null, screen-large);
+
+            & > * {
+              .property-variant(sidebar-menu-item-content, margin-right, padding-horizontal, null, screen-large);
+            }
+          }
+
+          & > ul {
+            .element-spacing(sidebar-submenu, null, screen-large);
+
+            li {
+              .element-spacing(sidebar-submenu-item, null, screen-large);
+              .element-text-size(sidebar-submenu-item, screen-large);
+              .property-variant(sidebar-submenu-item, min-height, height, null, screen-large);
+
+              & > span,
+              & > a {
+                .element-spacing(sidebar-submenu-item-link, null, screen-large);
+                .property-variant(sidebar-submenu-item, height, null, screen-large);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // TODO: Remove in 1.9
+  @media (min-width: @layout-screen-medium-min-height) {
+
+    & when (@sidebar-enabled) and (@sidebar-screen-medium-enabled) {
+
+      .sidebar {
+
+        &.is-expanded {
+
+          .sidebar-content {
+
+            .sidebar-logo-container {
+              display: none;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+& when (@layout-screen-jumbo-enabled) {
+
+  @media (min-width: @layout-screen-jumbo-min-width) {
+
+    & when (@sidebar-enabled) and (@sidebar-screen-jumbo-enabled) {
+
+      // Sidebar
+      .sidebar {
+        flex-basis: @sidebar-width-screen-jumbo;
+      }
+
+      // Sidebar Section
+      .sidebar-section {
+        .element-spacing(sidebar-section, null, screen-jumbo);
+
+        // Sidebar Section Header
+        .sidebar-section-header {
+          .element-spacing(sidebar-section-header, null, screen-jumbo);
+          .element-text-size(sidebar-section-header, screen-jumbo);
+          .property-variant(sidebar-section-header, height, null, screen-jumbo);
+        }
+      }
+
+      // Sidebar Menu
+      .sidebar-menu {
+
+        li {
+          .element-spacing(sidebar-menu-item, null, screen-jumbo);
+          .element-text-size(sidebar-menu-item, screen-jumbo);
+          .property-variant(sidebar-menu-item, min-height, height, null, screen-jumbo);
+
+          & > *:not(a):not(span) {
+            .property-variant(sidebar-menu-item-content, margin-right, padding-horizontal, null, screen-jumbo);
+          }
+
+          & > span,
+          & > a {
+            .element-spacing(sidebar-menu-item-link, null, screen-jumbo);
+            .property-variant(sidebar-menu-item, height, null, screen-jumbo);
+
+            & > * {
+              .property-variant(sidebar-menu-item-content, margin-right, padding-horizontal, null, screen-jumbo);
+            }
+          }
+
+          & > ul {
+            .element-spacing(sidebar-submenu, null, screen-jumbo);
+
+            li {
+              .element-spacing(sidebar-submenu-item, null, screen-jumbo);
+              .element-text-size(sidebar-submenu-item, screen-jumbo);
+              .property-variant(sidebar-submenu-item, min-height, height, null, screen-jumbo);
+
+              & > span,
+              & > a {
+                .element-spacing(sidebar-submenu-item-link, null, screen-jumbo);
+                .property-variant(sidebar-submenu-item, height, null, screen-jumbo);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

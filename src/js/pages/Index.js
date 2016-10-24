@@ -120,7 +120,7 @@ var Index = React.createClass({
     }
 
     return (
-      <div className="container container-pod vertical-center">
+      <div className="pod flush-right flush-left vertical-center">
         {this.getErrorScreen(showErrorScreen)}
       </div>
     );
@@ -131,17 +131,16 @@ var Index = React.createClass({
     let showErrorScreen =
       this.state.configErrorCount >= Config.delayAfterErrorCount;
 
-    var classSet = classNames({
-      'canvas-sidebar-open': data.isOpen
-    });
+    var classSet = classNames('flex flex-direction-top-to-bottom',
+      'flex-direction-left-to-right-screen-medium', {
+        'canvas-sidebar-open': data.isOpen
+      });
 
     return (
-      <div>
-        <div id="canvas" className={classSet}>
-          {this.getScreenOverlays(showErrorScreen)}
-          <Sidebar />
-          <RouteHandler />
-        </div>
+      <div className={classSet}>
+        {this.getScreenOverlays(showErrorScreen)}
+        <Sidebar />
+        <RouteHandler />
         <Modals
           showErrorModal={this.state.showErrorModal}
           modalErrorMsg={this.state.modalErrorMsg} />

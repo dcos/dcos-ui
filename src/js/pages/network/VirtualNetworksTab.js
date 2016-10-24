@@ -70,7 +70,7 @@ class VirtualNetworksTabContent extends mixin(StoreMixin) {
     return (
       <AlertPanel
         title="No Networks Detected"
-        icon={<Icon id="network-hierarchical" color="white" size="jumbo" />}>
+        icon={<Icon id="network-hierarchical" color="neutral" size="jumbo" />}>
         <p className="flush">
           Virtual Networks have to be configured at cluster creation time.
         </p>
@@ -95,8 +95,8 @@ class VirtualNetworksTabContent extends mixin(StoreMixin) {
 
   getLoadingScreen() {
     return (
-      <div className="container container-fluid container-pod">
-        <Loader className="inverse" />
+      <div className="pod">
+        <Loader />
       </div>
     );
   }
@@ -120,7 +120,6 @@ class VirtualNetworksTabContent extends mixin(StoreMixin) {
     return (
       <div>
         <FilterHeadline
-          inverseStyle={true}
           onReset={this.resetFilter}
           name="Virtual Network"
           currentLength={filteredOverlayList.getItems().length}
@@ -128,8 +127,7 @@ class VirtualNetworksTabContent extends mixin(StoreMixin) {
         <FilterBar>
           <FilterInputText
             searchString={searchString}
-            handleFilterChange={this.handleSearchStringChange}
-            inverseStyle={true} />
+            handleFilterChange={this.handleSearchStringChange} />
         </FilterBar>
         <VirtualNetworksTable overlays={filteredOverlayList} />
       </div>
@@ -145,5 +143,10 @@ class VirtualNetworksTabContent extends mixin(StoreMixin) {
     );
   }
 }
+
+VirtualNetworksTabContent.routeConfig = {
+  label: 'Virtual Networks',
+  matches: /^\/network\/virtual-networks/
+};
 
 module.exports = VirtualNetworksTabContent;

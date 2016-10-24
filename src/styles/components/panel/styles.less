@@ -1,0 +1,138 @@
+& when (@panel-enabled) {
+
+  .panel-header,
+  .panel-footer {
+    flex: 0 0 auto;
+  }
+
+  .panel-header {
+
+    .panel-options {
+
+      &.button-group {
+        display: flex;
+        justify-content: center;
+
+        .button {
+          flex: 1 0 auto;
+        }
+      }
+    }
+  }
+
+  .panel-content {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+  }
+
+  .panel-grid {
+    align-content: stretch;
+    align-items: stretch;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    margin-bottom: -1 * @panel-grid-margin-vertical;
+
+    .panel-grid-item {
+      display: flex;
+      flex: 0 0 auto;
+      float: none;
+
+      .panel {
+        flex: 1;
+      }
+    }
+
+    .panel {
+      margin-bottom: @panel-grid-margin-vertical;
+    }
+  }
+}
+
+& when (@panel-enabled) and (@layout-screen-small-enabled) {
+
+  @media (min-width: @layout-screen-small-min-width) {
+
+    .panel-header {
+
+      .panel-options {
+
+        &.button-group {
+
+          .button {
+            flex: 0 0 auto;
+          }
+        }
+      }
+    }
+
+    .panel-grid {
+      margin-bottom: -1 * @panel-grid-margin-vertical-screen-small;
+
+      .panel {
+        margin-bottom: @panel-grid-margin-vertical-screen-small;
+      }
+    }
+  }
+}
+
+& when (@panel-enabled) and (@layout-screen-medium-enabled) {
+
+  @media (min-width: @layout-screen-medium-min-width) {
+
+    .panel-grid {
+      margin-bottom: -1 * @panel-grid-margin-vertical-screen-medium;
+
+      .panel {
+        margin-bottom: @panel-grid-margin-vertical-screen-medium;
+      }
+    }
+  }
+}
+
+& when (@panel-enabled) and (@layout-screen-large-enabled) {
+
+  @media (min-width: @layout-screen-large-min-width) {
+
+    .panel-header {
+
+      .panel-options {
+        left: @panel-cell-padding-left-screen-large;
+        position: absolute;
+        top: @panel-cell-padding-top-screen-large;
+      }
+    }
+
+    .panel-grid {
+      margin-bottom: -1 * @panel-grid-margin-vertical-screen-large;
+
+      .panel {
+        margin-bottom: @panel-grid-margin-vertical-screen-large;
+      }
+    }
+  }
+}
+
+& when (@panel-enabled) and (@layout-screen-jumbo-enabled) {
+
+  @media (min-width: @layout-screen-jumbo-min-width) {
+
+    .panel-header {
+
+      .panel-options {
+        left: @panel-cell-padding-left-screen-jumbo;
+        top: @panel-cell-padding-top-screen-jumbo;
+      }
+    }
+
+    .panel-grid {
+      margin-bottom: -1 * @panel-grid-margin-vertical-screen-jumbo;
+
+      .panel {
+        margin-bottom: @panel-grid-margin-vertical-screen-jumbo;
+      }
+    }
+  }
+}

@@ -1,0 +1,47 @@
+// TODO: Rename this file.
+& when (@media-enabled) {
+
+  .image-rounded-corners {
+    border-radius: @base-spacing-unit * 1/8;
+  }
+}
+
+& when (@media-enabled) and (@layout-screen-small-enabled) {
+
+  @media (min-width: @layout-screen-small-min-width) {
+
+    .image-rounded-corners {
+      border-radius: @base-spacing-unit-screen-small * 1/8;
+    }
+  }
+}
+
+& when (@media-enabled) and (@layout-screen-medium-enabled) {
+
+  @media (min-width: @layout-screen-medium-min-width) {
+
+    .image-rounded-corners {
+      border-radius: @base-spacing-unit-screen-medium * 1/8;
+    }
+  }
+}
+
+& when (@media-enabled) and (@layout-screen-large-enabled) {
+
+  @media (min-width: @layout-screen-large-min-width) {
+
+    .image-rounded-corners {
+      border-radius: @base-spacing-unit-screen-large * 1/8;
+    }
+  }
+}
+
+& when (@media-enabled) and (@layout-screen-jumbo-enabled) {
+
+  @media (min-width: @layout-screen-jumbo-min-width) {
+
+    .image-rounded-corners {
+      border-radius: @base-spacing-unit-screen-jumbo * 1/8;
+    }
+  }
+}

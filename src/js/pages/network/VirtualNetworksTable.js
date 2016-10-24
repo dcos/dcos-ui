@@ -14,7 +14,7 @@ const headerMapping = {
 class VirtualNetworksTable extends React.Component {
   getClassName(prop, sortBy) {
     return classNames({
-      'highlight': prop === sortBy.prop
+      'active': prop === sortBy.prop
     });
   }
 
@@ -68,10 +68,10 @@ class VirtualNetworksTable extends React.Component {
 
     return (
       <Link
-        className="clickable"
+        className="table-cell-link-primary"
         params={{overlayName}}
         title={overlayName}
-        to="virtual-networks-tab-detail">
+        to="/network/virtual-networks/:overlayName">
         {overlayName}
       </Link>
     );
@@ -90,7 +90,7 @@ class VirtualNetworksTable extends React.Component {
   render() {
     return (
       <Table
-        className="table inverse table-borderless-outer table-borderless-inner-columns flush-bottom"
+        className="table table-borderless-outer table-borderless-inner-columns flush-bottom"
         columns={this.getColumns()}
         colGroup={this.getColGroup()}
         data={this.props.overlays.getItems()} />

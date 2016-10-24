@@ -1,3 +1,4 @@
+import {DCOSStore} from 'foundation-ui';
 import mixin from 'reactjs-mixin';
 import React from 'react';
 import {RouteHandler} from 'react-router';
@@ -5,7 +6,6 @@ import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import AlertPanel from '../../components/AlertPanel';
 import Breadcrumbs from '../../components/Breadcrumbs';
-import DCOSStore from '../../stores/DCOSStore';
 import FilterBar from '../../components/FilterBar';
 import FilterHeadline from '../../components/FilterHeadline';
 import Icon from '../../components/Icon';
@@ -115,7 +115,6 @@ class JobsTab extends mixin(StoreMixin, QueryParamsMixin, SaveStateMixin) {
     if (hasFiltersApplied) {
       return (
         <FilterHeadline
-          inverseStyle={true}
           onReset={this.resetFilter}
           name="Jobs"
           currentLength={filteredJobs.length}
@@ -178,8 +177,8 @@ class JobsTab extends mixin(StoreMixin, QueryParamsMixin, SaveStateMixin) {
     // Render loading screen
     if (!DCOSStore.dataProcessed) {
       return (
-        <div className="container container-fluid container-pod">
-          <Loader className="inverse" />
+        <div className="pod">
+          <Loader />
         </div>
       );
     }
@@ -199,7 +198,7 @@ class JobsTab extends mixin(StoreMixin, QueryParamsMixin, SaveStateMixin) {
       <AlertPanel
         title="No Jobs Created"
         footer={this.getAlertPanelFooter()}
-        icon={<Icon id="pages-code" color="white" size="jumbo" />}>
+        icon={<Icon id="pages-code" color="neutral" size="jumbo" />}>
         <p className="flush-bottom">
           Create both one-off or scheduled jobs to perform tasks at a predefined
           interval.

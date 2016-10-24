@@ -1,4 +1,5 @@
 import classNames from 'classnames';
+import PureRender from 'react-addons-pure-render-mixin';
 import React, {PropTypes} from 'react';
 
 import StringUtil from '../utils/StringUtil';
@@ -10,6 +11,7 @@ const METHODS_TO_BIND = [
 class FilterHeadline extends React.Component {
   constructor() {
     super(...arguments);
+    this.shouldComponentUpdate = PureRender.shouldComponentUpdate.bind(this);
 
     METHODS_TO_BIND.forEach((method) => {
       this[method] = this[method].bind(this);
@@ -28,26 +30,22 @@ class FilterHeadline extends React.Component {
       (isFiltering != null && !isFiltering);
     name = StringUtil.pluralize(name, totalLength);
 
-    let filteredClassSet = classNames({
-      'h4': true,
+    let filteredClassSet = classNames('flush', {
       'inverse': inverseStyle,
       'hidden': hideFilteredClasses
     });
 
-    let unfilteredClassSet = classNames({
-      'h4': true,
+    let unfilteredClassSet = classNames('flush', {
       'inverse': inverseStyle,
       'hidden': !hideFilteredClasses
     });
 
-    let anchorClassSet = classNames({
-      'h4 clickable': true,
+    let anchorClassSet = classNames('clickable flush-top', {
       'inverse': inverseStyle,
       'hidden': hideFilteredClasses
     });
 
-    let listClassSet = classNames({
-      'list-unstyled list-inline': true,
+    let listClassSet = classNames('filter-headline list list-unstyled list-inline h4 flush-left flush-top', {
       'inverse': inverseStyle
     }, className);
 
@@ -57,7 +55,7 @@ class FilterHeadline extends React.Component {
           Showing {currentLength} of {totalLength} {name}
         </li>
         <li className={anchorClassSet} onClick={this.handleReset}>
-          <a className="small">
+          <a className="small flush">
             (Clear)
           </a>
         </li>

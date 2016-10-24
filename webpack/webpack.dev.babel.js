@@ -34,12 +34,6 @@ let entry = [
   './src/js/index.js'
 ];
 
-let eslintExclusion = /node_modules/;
-
-if (process.env.REACTJS_COMPONENTS_LOCAL) {
-  eslintExclusion = /node_modules|reactjs-components/;
-}
-
 if (environment === 'development') {
   entry.push('webpack/hot/only-dev-server');
   devtool = '#inline-eval-cheap-source-map';
@@ -62,12 +56,6 @@ if (process.env.REACTJS_COMPONENTS_LOCAL) {
   reactHotLoader = '';
 }
 
-let preLoaders = webpackConfig.module.preLoaders.concat([{
-    test: /\.js$/,
-    loader: 'eslint-loader',
-    exclude: eslintExclusion
-  }]);
-
 module.exports = Object.assign({}, webpackConfig, {
   entry,
   devtool,
@@ -80,7 +68,7 @@ module.exports = Object.assign({}, webpackConfig, {
     new StringReplacePlugin(),
 
     new HtmlWebpackPlugin({
-      template: './src/index.html',
+      template: './src/index.html'
     }),
 
     new ExtractTextPlugin('./[name].css'),
@@ -88,7 +76,7 @@ module.exports = Object.assign({}, webpackConfig, {
     new WebpackNotifierPlugin({alwaysNotify: true})
   ],
   module: {
-    preLoaders,
+    preLoaders: webpackConfig.module.preLoaders,
     loaders: webpackConfig.module.loaders.concat([
       {
         test: /\.js$/,
@@ -109,7 +97,7 @@ module.exports = Object.assign({}, webpackConfig, {
       },
       {
         test: /\.less$/,
-        loader: 'style!css!postcss!less'
+        loader: 'style?sourceMap!css?sourceMap!postcss?sourceMap!less?sourceMap'
       },
       {
         test: /\.png$/,

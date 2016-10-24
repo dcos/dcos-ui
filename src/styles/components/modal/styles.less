@@ -1,0 +1,52 @@
+& when (@modal-enabled) {
+
+  .modal {
+    z-index: @z-index-modal-container;
+
+    // We need the extra specificity here, so we have to nest.
+    .modal-header,
+    .modal-footer {
+      flex: 0 0 auto;
+    }
+  }
+
+  .modal-backdrop {
+    z-index: @z-index-modal-backdrop;
+  }
+
+  .modal-body-wrapper {
+    display: flex;
+  }
+
+  .modal-body {
+    flex: 1 1 auto;
+  }
+
+  .modal-close {
+    appearance: none;
+    background: transparent;
+    border: 0;
+    height: @base-spacing-unit;
+    position: absolute;
+    right: @base-spacing-unit * -1.5;
+    top: @base-spacing-unit * -1.5;
+    width: @base-spacing-unit;
+
+    &:hover,
+    &:active {
+      background: transparent;
+
+      .icon {
+        color: @white;
+      }
+    }
+
+    .icon {
+      color: fade(@white, 80%);
+    }
+  }
+
+  .modal-content-loading-indicator {
+    height: 165px;
+  }
+}

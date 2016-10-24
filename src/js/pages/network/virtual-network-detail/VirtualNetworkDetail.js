@@ -6,9 +6,9 @@ import {RouteHandler} from 'react-router';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import Breadcrumbs from '../../../components/Breadcrumbs';
+import DetailViewHeader from '../../../components/DetailViewHeader';
 import Icon from '../../../components/Icon';
 import Loader from '../../../components/Loader';
-import PageHeader from '../../../components/PageHeader';
 import RequestErrorMsg from '../../../components/RequestErrorMsg';
 import TabsMixin from '../../../mixins/TabsMixin';
 import VirtualNetworksStore from '../../../stores/VirtualNetworksStore';
@@ -55,12 +55,12 @@ class VirtualNetworkDetail extends mixin(StoreMixin, TabsMixin) {
 
   updateCurrentTab() {
     let routes = this.context.router.getCurrentRoutes();
-    let currentTab = routes[routes.length - 1].name;
+    let currentTab = routes[routes.length - 1].path;
 
     // Virtual Network Detail Tabs
     this.tabs_tabs = {
-      'virtual-networks-tab-detail-tasks': 'Tasks',
-      'virtual-networks-tab-detail-details': 'Details'
+      '/network/virtual-networks/:overlayName': 'Tasks',
+      '/network/virtual-networks/:overlayName/details': 'Details'
     };
 
     this.setState({currentTab});
@@ -80,16 +80,16 @@ class VirtualNetworkDetail extends mixin(StoreMixin, TabsMixin) {
       return VirtualNetworkUtil.getEmptyNetworkScreen();
     }
 
-    let overlayIcon = <Icon id="network" size="large" color="white" />;
+    let overlayIcon = <Icon id="network" size="large" color="neutral" />;
 
     let tabs = (
-      <ul className="tabs list-inline flush-bottom container-pod container-pod-short-top inverse">
+      <ul className="menu-tabbed">
         {this.tabs_getRoutedTabs({params: this.props.params})}
       </ul>
     );
 
     return (
-      <PageHeader
+      <DetailViewHeader
         icon={overlayIcon}
         subTitle={overlay.getSubnet()}
         navigationTabs={tabs}
@@ -103,8 +103,8 @@ class VirtualNetworkDetail extends mixin(StoreMixin, TabsMixin) {
 
   getLoadingScreen() {
     return (
-      <div className="container container-fluid container-pod">
-        <Loader className="inverse" />
+      <div className="pod">
+        <Loader />
       </div>
     );
   }
@@ -124,7 +124,7 @@ class VirtualNetworkDetail extends mixin(StoreMixin, TabsMixin) {
     });
 
     return (
-      <div className="flex-container-col flex-grow flex-shrink container-pod container-pod-divider-bottom-align-right container-pod-short-top flush-bottom flush-top">
+      <div>
         <Breadcrumbs />
         {this.getBasicInfo(overlay)}
         <RouteHandler overlay={overlay} />

@@ -1,0 +1,98 @@
+& when (@tooltip-enabled) {
+
+  .tooltip {
+    z-index: @z-index-tooltip;
+
+    .tooltip-content {
+      background: @tooltip-background-color;
+      border-radius: 2px;
+      color: @white;
+      padding: 0.8rem 1rem;
+
+      &:after {
+        border-color: @tooltip-background-color;
+      }
+
+      .tooltip-line-item {
+        padding-bottom: @base-spacing-unit / 6;
+        padding-top: @base-spacing-unit / 6;
+      }
+    }
+  }
+}
+
+& when (@tooltip-enabled) and (@layout-screen-small-enabled) {
+
+  @media (min-width: @layout-screen-small-min-width) {
+
+    .tooltip {
+
+      .tooltip-content {
+
+        .tooltip-line-item {
+          padding-bottom: @base-spacing-unit-screen-small / 6;
+          padding-top: @base-spacing-unit-screen-small / 6;
+        }
+      }
+    }
+  }
+}
+
+& when (@tooltip-enabled) and (@layout-screen-medium-enabled) {
+
+  @media (min-width: @layout-screen-medium-min-width) {
+
+    .tooltip {
+
+      .tooltip-content {
+
+        .tooltip-line-item {
+          padding-bottom: @base-spacing-unit-screen-medium / 6;
+          padding-top: @base-spacing-unit-screen-medium / 6;
+        }
+      }
+    }
+  }
+}
+
+& when (@tooltip-enabled) and (@layout-screen-large-enabled) {
+
+  @media (min-width: @layout-screen-large-min-width) {
+
+    .tooltip {
+
+      .tooltip-content {
+
+        .tooltip-line-item {
+          padding-bottom: @base-spacing-unit-screen-large / 6;
+          padding-top: @base-spacing-unit-screen-large / 6;
+        }
+      }
+    }
+  }
+}
+
+& when (@tooltip-enabled) and (@layout-screen-jumbo-enabled) {
+
+  @media (min-width: @layout-screen-jumbo-min-width) {
+
+    .tooltip {
+
+      .tooltip-content {
+
+        .tooltip-line-item {
+          padding-bottom: @base-spacing-unit-screen-jumbo / 6;
+          padding-top: @base-spacing-unit-screen-jumbo / 6;
+        }
+      }
+    }
+  }
+}
+
+// TODO: Audit the need for this.
+.json-editor-help {
+  position: absolute;
+  right: @base-spacing-unit;
+  top: @base-spacing-unit;
+  z-index: 100;
+}

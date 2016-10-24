@@ -1,0 +1,30 @@
+& when (@application-loading-indicator-enabled) {
+
+  @keyframes application-loading-indicator-pulse {
+
+    0% {
+      opacity: 0.4;
+    }
+
+    50% {
+      opacity: 0.15;
+    }
+
+    100% {
+      opacity: 0.4;
+    }
+  }
+
+  .application-loading-indicator {
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+
+    .icon-logo-mark {
+      animation: application-loading-indicator-pulse 2s ease infinite;
+      fill: @white;
+      max-width: 60px;
+      opacity: 0.4;
+    }
+  }
+}

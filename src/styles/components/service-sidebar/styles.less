@@ -1,0 +1,130 @@
+& when (@service-sidebar-enabled) {
+
+  .sidebar-filters {
+
+    .sidebar-filters-header {
+      align-items: center;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .sidebar-filters-header-title {
+      flex: 1 1 auto;
+    }
+
+    .sidebar-filters-header-clear {
+      flex: 0 0 auto;
+      text-transform: none;
+    }
+
+    .filter-inactive {
+
+      .form-element-checkbox-label {
+        opacity: 0.5;
+      }
+    }
+
+    .form-element-checkbox {
+      cursor: pointer;
+      display: flex;
+
+      &:hover {
+        color: @neutral;
+      }
+
+      .form-element-checkbox-decoy {
+        flex: 0 0 auto;
+      }
+
+      .form-element-checkbox-label {
+        flex: 1 1 auto;
+      }
+    }
+
+    .dropdown {
+
+      &.dropdown-wide {
+
+        .dropdown-menu {
+          max-width: 500px;
+          width: 100%;
+
+          .text-overflow {
+            max-width: none;
+          }
+        }
+      }
+    }
+
+    .label-pill {
+
+      .pill-wrap {
+        padding: 0 @base-spacing-unit 0 @base-spacing-unit / 4;
+      }
+
+      .remove-filter {
+        background-color: transparent;
+        position: absolute;
+        right: 0;
+        z-index: 2;
+
+        &:hover {
+          color: @neutral;
+          text-decoration: none;
+        }
+      }
+    }
+  }
+}
+
+& when (@service-sidebar-enabled) and (@layout-screen-small-enabled) {
+
+  @media (min-width: @layout-screen-small-min-width) {
+
+    .label-pill {
+
+      .pill-wrap {
+        padding: 0 @base-spacing-unit-screen-small 0 @base-spacing-unit-screen-small / 4;
+      }
+    }
+  }
+}
+
+& when (@service-sidebar-enabled) and (@layout-screen-medium-enabled) {
+
+  @media (min-width: @layout-screen-medium-min-width) {
+
+    .label-pill {
+
+      .pill-wrap {
+        padding: 0 @base-spacing-unit-screen-medium 0 @base-spacing-unit-screen-medium / 4;
+      }
+    }
+  }
+}
+
+& when (@service-sidebar-enabled) and (@layout-screen-large-enabled) {
+
+  @media (min-width: @layout-screen-large-min-width) {
+
+    .label-pill {
+
+      .pill-wrap {
+        padding: 0 @base-spacing-unit-screen-large 0 @base-spacing-unit-screen-large / 4;
+      }
+    }
+  }
+}
+
+& when (@service-sidebar-enabled) and (@layout-screen-jumbo-enabled) {
+
+  @media (min-width: @layout-screen-jumbo-min-width) {
+
+    .label-pill {
+
+      .pill-wrap {
+        padding: 0 @base-spacing-unit-screen-jumbo 0 @base-spacing-unit-screen-jumbo / 4;
+      }
+    }
+  }
+}

@@ -1,8 +1,8 @@
 import classNames from 'classnames';
 import {Form, Table} from 'reactjs-components';
 import React from 'react';
+import {ResourceTableUtil} from 'foundation-ui';
 
-import ResourceTableUtil from '../utils/ResourceTableUtil';
 import TableUtil from '../utils/TableUtil';
 
 const PropTypes = React.PropTypes;
@@ -71,7 +71,7 @@ class CheckboxTable extends React.Component {
 
   getLabelClass() {
     return classNames(
-      'form-row-element form-element-checkbox inverse',
+      'form-row-element form-element-checkbox',
       this.props.labelClass
     );
   }
@@ -106,6 +106,7 @@ class CheckboxTable extends React.Component {
 
     return (
       <Form
+        className="table-form-checkbox"
         formGroupClass="form-group flush-bottom"
         definition={[
           {
@@ -138,6 +139,7 @@ class CheckboxTable extends React.Component {
 
     return (
       <Form
+        className="table-form-checkbox"
         formGroupClass="form-group flush-bottom"
         definition={[{
           checked,
@@ -180,7 +182,7 @@ class CheckboxTable extends React.Component {
     let columns = this.getColumns();
 
     let tableClassSet = classNames(
-      'table inverse table-borderless-outer table-borderless-inner-columns',
+      'table table-borderless-outer table-borderless-inner-columns',
       'flush-bottom',
       className
     );

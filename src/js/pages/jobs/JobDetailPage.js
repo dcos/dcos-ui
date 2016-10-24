@@ -9,18 +9,18 @@ import {RouteHandler} from 'react-router';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import Breadcrumbs from '../../components/Breadcrumbs';
+import DetailViewHeader from '../../components/DetailViewHeader';
 import Icon from '../../components/Icon';
 import JobConfiguration from './JobConfiguration';
 import JobFormModal from '../../components/modals/JobFormModal';
 import JobRunHistoryTable from './JobRunHistoryTable';
 import Loader from '../../components/Loader';
 import MetronomeStore from '../../stores/MetronomeStore';
-import PageHeader from '../../components/PageHeader';
 import RequestErrorMsg from '../../components/RequestErrorMsg';
 import StringUtil from '../../utils/StringUtil';
 import TabsMixin from '../../mixins/TabsMixin';
-import TaskStates from '../../constants/TaskStates';
 import TimeAgo from '../../components/TimeAgo';
+import TaskStates from '../../../../plugins/services/src/js/constants/TaskStates';
 
 const METHODS_TO_BIND = [
   'closeDialog',
@@ -104,7 +104,7 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
 
   onMetronomeStoreJobDeleteSuccess() {
     this.closeDialog();
-    this.context.router.transitionTo('jobs-page');
+    this.context.router.transitionTo('/jobs');
   }
 
   onMetronomeStoreJobDetailError() {
@@ -185,20 +185,20 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
 
     return [
       <button
-        className="button button-inverse button-stroke"
+        className="button button-stroke"
         key="edit"
         onClick={this.handleEditButtonClick}>
         Edit
       </button>,
       <button
-        className="button button-inverse button-stroke"
+        className="button button-stroke"
         key="run-now"
         onClick={this.handleRunNowButtonClick}>
         Run Now
       </button>,
       <Dropdown
         anchorRight={true}
-        buttonClassName="dropdown-toggle button button-inverse button-stroke"
+        buttonClassName="dropdown-toggle button button-stroke"
         dropdownMenuClassName="dropdown-menu"
         dropdownMenuListClassName="dropdown-menu-list"
         dropdownMenuListItemClassName="clickable"
@@ -230,11 +230,11 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
     }
 
     let content = (
-      <div className="container-pod flush-top container-pod-short-bottom">
+      <div>
         <h2 className="text-danger text-align-center flush-top">
           Destroy Job
         </h2>
-        {message}
+        <p>{message}</p>
       </div>
     );
 
@@ -254,7 +254,7 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
 
   getErrorScreen() {
     return (
-      <div className="container container-fluid container-pod text-align-center vertical-center inverse">
+      <div className="pod">
         <RequestErrorMsg />
       </div>
     );
@@ -262,15 +262,15 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
 
   getLoadingScreen() {
     return (
-      <div className="container container-fluid container-pod">
-        <Loader className="inverse" />
+      <div className="pod">
+        <Loader />
       </div>
     );
   }
 
   getNavigationTabs() {
     return (
-      <ul className="tabs tall list-inline flush-bottom inverse">
+      <ul className="menu-tabbed">
         {this.tabs_getUnroutedTabs()}
       </ul>
     );
@@ -306,7 +306,7 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
 
     if (scheduleText != null) {
       nodes.push(
-        <p className="text-overflow" key="schedule-text">
+        <p className="text-overflow flush" key="schedule-text">
           <Icon
             className="icon-margin-right"
             key="schedule-icon"
@@ -378,9 +378,9 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
     return (
       <div>
         <Breadcrumbs />
-        <PageHeader
+        <DetailViewHeader
           actionButtons={this.getActionButtons()}
-          icon={<Icon color="white" id="page-code" size="large" />}
+          icon={<Icon color="neutral" id="page-code" size="large" />}
           navigationTabs={this.getNavigationTabs()}
           subTitle={this.getSubTitle(job)}
           subTitleClassName={{emphasize: false}}

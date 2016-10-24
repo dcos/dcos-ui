@@ -1,0 +1,332 @@
+& when (@nodes-grid-view-enabled) {
+
+  .nodes-grid {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    z-index: @z-index-nodes-grid;
+
+    .nodes-grid-legend {
+      display: flex;
+      flex-basis: 225px;
+      flex-direction: column;
+      flex-shrink: 0;
+      transition: opacity 0.5s;
+
+      &.disabled .nodes-grid-service-list {
+        opacity: 0.5;
+      }
+
+      .show-services-label {
+        color: @white;
+        margin-right: @base-spacing-unit;
+        padding-bottom: @base-spacing-unit / 1.5;
+        user-select: none;
+
+        input {
+          margin-right: @base-spacing-unit / 3;
+          outline: none;
+        }
+      }
+
+      .nodes-grid-service-list {
+        color: @white;
+        margin-right: @base-spacing-unit;
+        width: 225px;
+
+        & > li {
+          line-height: 1.2 * @base-spacing-unit;
+        }
+
+        .service-legend-color {
+          background-color: @white;
+          border-radius: 4px;
+          display: inline-block;
+          height: @base-spacing-unit / 3;
+          margin-right: @base-spacing-unit / 3;
+          width: @base-spacing-unit / 3;
+
+          &.service-color-0 {
+            background-color: @resource-cpu-color;
+          }
+
+          &.service-color-1 {
+            background-color: @yellow;
+          }
+
+          &.service-color-2 {
+            background-color: @red;
+          }
+
+          &.service-color-3 {
+            background-color: @resource-disk-color;
+          }
+
+          &.service-color-4 {
+            background-color: @green;
+          }
+
+          &.service-color-5 {
+            background-color: @orange;
+          }
+
+          &.service-color-6 {
+            background-color: @resource-mem-color;
+          }
+
+          &.service-color-7 {
+            background-color: @cyan;
+          }
+
+          &.service-color-8 {
+            background-color: @unique-color-1;
+          }
+
+          &.service-color-9 {
+            background-color: @unique-color-2;
+          }
+
+          &.service-color-10 {
+            background-color: @unique-color-3;
+          }
+
+          &.service-color-11 {
+            background-color: @unique-color-4;
+          }
+
+          &.service-color-12 {
+            background-color: @unique-color-5;
+          }
+
+          &.service-color-13 {
+            background-color: @unique-color-6;
+          }
+
+          &.service-color-14 {
+            background-color: @unique-color-7;
+          }
+
+          &.service-color-15 {
+            background-color: @unique-color-8;
+          }
+
+          &.service-color-16 {
+            background-color: @unique-color-9;
+          }
+
+          &.service-color-17 {
+            background-color: @unique-color-10;
+          }
+
+          &.service-color-18 {
+            background-color: @unique-color-11;
+          }
+
+          &.service-color-19 {
+            background-color: @unique-color-12;
+          }
+
+          &.service-color-20 {
+            background-color: @unique-color-13;
+          }
+
+          &.service-color-21 {
+            background-color: @unique-color-14;
+          }
+
+          &.service-color-22 {
+            background-color: @unique-color-15;
+          }
+
+          &.service-color-23 {
+            background-color: @unique-color-16;
+          }
+
+          &.service-color-24 {
+            background-color: @unique-color-17;
+          }
+
+          &.service-color-25 {
+            background-color: @unique-color-18;
+          }
+
+          &.service-color-26 {
+            background-color: @unique-color-19;
+          }
+
+          &.service-color-27 {
+            background-color: @unique-color-20;
+          }
+
+          &.service-color-28 {
+            background-color: @unique-color-21;
+          }
+
+          &.service-color-29 {
+            background-color: @unique-color-22;
+          }
+
+          &.service-color-30 {
+            background-color: @unique-color-23;
+          }
+
+          &.service-color-31 {
+            background-color: @unique-color-24;
+          }
+
+          &.service-color-32 {
+            background-color: color-lighten(@neutral, 40);
+          }
+
+          &.service-color-unused {
+            background-color: color-lighten(@neutral, 5);
+          }
+        }
+
+        a {
+          color: @white;
+        }
+      }
+    }
+  }
+}
+
+& when (@layout-screen-small-enabled) {
+
+  @media (min-width: @layout-screen-small-min-width) {
+
+    .nodes-grid {
+
+      .nodes-grid-legend {
+
+        .show-services-label {
+          margin-right: @base-spacing-unit-screen-small;
+          padding-bottom: @base-spacing-unit-screen-small / 1.5;
+
+          input {
+            margin-right: @base-spacing-unit-screen-small / 3;
+          }
+        }
+
+        .nodes-grid-service-list {
+          margin-right: @base-spacing-unit-screen-small;
+
+          & > li {
+            line-height: 1.2 * @base-spacing-unit-screen-small;
+          }
+
+          .service-legend-color {
+            height: @base-spacing-unit-screen-small / 3;
+            margin-right: @base-spacing-unit-screen-small / 3;
+            width: @base-spacing-unit-screen-small / 3;
+          }
+        }
+      }
+    }
+  }
+}
+
+& when (@layout-screen-medium-enabled) {
+
+  @media (min-width: @layout-screen-medium-min-width) {
+
+    .nodes-grid {
+
+      .nodes-grid-legend {
+
+        .show-services-label {
+          margin-right: @base-spacing-unit-screen-medium;
+          padding-bottom: @base-spacing-unit-screen-medium / 1.5;
+
+          input {
+            margin-right: @base-spacing-unit-screen-medium / 3;
+          }
+        }
+
+        .nodes-grid-service-list {
+          margin-right: @base-spacing-unit-screen-medium;
+
+          & > li {
+            line-height: 1.2 * @base-spacing-unit-screen-medium;
+          }
+
+          .service-legend-color {
+            height: @base-spacing-unit-screen-medium / 3;
+            margin-right: @base-spacing-unit-screen-medium / 3;
+            width: @base-spacing-unit-screen-medium / 3;
+          }
+        }
+      }
+    }
+  }
+}
+
+& when (@layout-screen-large-enabled) {
+
+  @media (min-width: @layout-screen-large-min-width) {
+
+    .nodes-grid {
+
+      .nodes-grid-legend {
+
+        .show-services-label {
+          margin-right: @base-spacing-unit-screen-large;
+          padding-bottom: @base-spacing-unit-screen-large / 1.5;
+
+          input {
+            margin-right: @base-spacing-unit-screen-large / 3;
+          }
+        }
+
+        .nodes-grid-service-list {
+          margin-right: @base-spacing-unit-screen-large;
+
+          & > li {
+            line-height: 1.2 * @base-spacing-unit-screen-large;
+          }
+
+          .service-legend-color {
+            height: @base-spacing-unit-screen-large / 3;
+            margin-right: @base-spacing-unit-screen-large / 3;
+            width: @base-spacing-unit-screen-large / 3;
+          }
+        }
+      }
+    }
+  }
+}
+
+& when (@layout-screen-jumbo-enabled) {
+
+  @media (min-width: @layout-screen-jumbo-min-width) {
+
+    .nodes-grid {
+
+      .nodes-grid-legend {
+
+        .show-services-label {
+          margin-right: @base-spacing-unit-screen-jumbo;
+          padding-bottom: @base-spacing-unit-screen-jumbo / 1.5;
+
+          input {
+            margin-right: @base-spacing-unit-screen-jumbo / 3;
+          }
+        }
+
+        .nodes-grid-service-list {
+          margin-right: @base-spacing-unit-screen-jumbo;
+
+          & > li {
+            line-height: 1.2 * @base-spacing-unit-screen-jumbo;
+          }
+
+          .service-legend-color {
+            height: @base-spacing-unit-screen-jumbo / 3;
+            margin-right: @base-spacing-unit-screen-jumbo / 3;
+            width: @base-spacing-unit-screen-jumbo / 3;
+          }
+        }
+      }
+    }
+  }
+}

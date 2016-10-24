@@ -8,9 +8,9 @@ import {StoreMixin} from 'mesosphere-shared-reactjs';
 import ConfigStore from '../../stores/ConfigStore';
 import DescriptionList from '../../components/DescriptionList';
 import Loader from '../../components/Loader';
-import MarathonStore from '../../stores/MarathonStore';
+import MarathonStore from '../../../../plugins/services/src/js/stores/MarathonStore';
 
-module.exports = class OverviewDetailTab extends mixin(StoreMixin) {
+class OverviewDetailTab extends mixin(StoreMixin) {
   constructor() {
     super(...arguments);
 
@@ -39,7 +39,6 @@ module.exports = class OverviewDetailTab extends mixin(StoreMixin) {
   getLoading() {
     return (
       <Loader
-        className="inverse"
         innerClassName="loader-small"
         type="ballBeat" />
     );
@@ -81,7 +80,7 @@ module.exports = class OverviewDetailTab extends mixin(StoreMixin) {
 
   buildDescriptionList(hash, addSpacing) {
     let headlineClassName = classNames({
-      'h4 inverse': true,
+      'h4': true,
       'flush-top': !addSpacing
     });
 
@@ -109,3 +108,10 @@ module.exports = class OverviewDetailTab extends mixin(StoreMixin) {
     );
   }
 };
+
+OverviewDetailTab.routeConfig = {
+  label: 'Overview',
+  matches: /^\/cluster\/details/
+};
+
+module.exports = OverviewDetailTab;

@@ -1,0 +1,36 @@
+& when (@collapsing-string-enabled) {
+
+  .collapsing-string {
+    display: block;
+    min-width: 0;
+    position: relative;
+    white-space: nowrap;
+  }
+
+  .collapsing-string-full-string {
+    left: 0;
+    position: absolute;
+    top: 0;
+    visibility: hidden;
+  }
+
+  .collapsing-string-truncated-wrapper {
+    display: flex;
+  }
+
+  .collapsing-string-truncated-start,
+  .collapsing-string-truncated-end {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .collapsing-string-truncated-start {
+    flex: 0 1 auto;
+    min-width: 0;
+  }
+
+  .collapsing-string-truncated-end {
+    flex: 0 0 auto;
+    max-width: 100%;
+  }
+}

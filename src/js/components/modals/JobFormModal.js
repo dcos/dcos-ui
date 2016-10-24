@@ -396,12 +396,12 @@ class JobFormModal extends mixin(StoreMixin) {
     return (
       <div className="button-collection flush-bottom">
         <button
-          className="button button-large flush-top flush-bottom"
+          className="button button-large"
           onClick={this.handleCancel}>
           Cancel
         </button>
         <button
-          className="button button-large button-success flush-bottom"
+          className="button button-large button-success"
           onClick={this.handleSubmit}>
           {submitLabel}
         </button>
@@ -425,8 +425,8 @@ class JobFormModal extends mixin(StoreMixin) {
           </div>
           <div className="header-right">
             <ToggleButton
-              className="modal-form-title-label"
-              checkboxClassName="modal-form-title-toggle-button toggle-button"
+              className="modal-form-title-label flush-bottom"
+              checkboxClassName="toggle-button"
               checked={this.state.jsonMode}
               onChange={this.handleInputModeToggle}>
               JSON mode
@@ -444,17 +444,14 @@ class JobFormModal extends mixin(StoreMixin) {
     return (
       <Modal
         backdropClass="modal-backdrop default-cursor"
-        maxHeightPercentage={.9}
-        bodyClass=""
         modalWrapperClass="multiple-form-modal modal-form"
         open={this.props.open}
-        scrollContainerClass=""
-        showCloseButton={false}
+        scrollContainerClass="multiple-form-modal-body"
         showHeader={true}
         footer={this.getModalFooter()}
-        titleText={this.getModalTitle()}
-        titleClass="modal-header-title flush-top flush-bottom"
-        showFooter={true}>
+        header={this.getModalTitle()}
+        showFooter={true}
+        useGemini={false}>
         {this.getModalContents()}
       </Modal>
     );

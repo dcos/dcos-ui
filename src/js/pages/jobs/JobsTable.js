@@ -2,12 +2,12 @@ import classNames from 'classnames';
 import {Link} from 'react-router';
 import prettycron from 'prettycron';
 import React from 'react';
+import {ResourceTableUtil} from 'foundation-ui';
 import {Table, Tooltip} from 'reactjs-components';
 
 import Icon from '../../components/Icon';
 import JobStates from '../../constants/JobStates';
 import JobTableHeaderLabels from '../../constants/JobTableHeaderLables';
-import ResourceTableUtil from '../../utils/ResourceTableUtil';
 import TableUtil from '../../utils/TableUtil';
 import Tree from '../../structs/Tree';
 
@@ -165,13 +165,13 @@ class JobsTable extends React.Component {
     return (
       <div className="job-table-heading flex-box
         flex-box-align-vertical-center table-cell-flex-box">
-        <Link to="jobs-page-detail"
+        <Link to="/jobs/:id"
           className="table-cell-icon"
           params={{id}}>
           {itemImage}
         </Link>
-        <Link to="jobs-page-detail"
-          className="headline table-cell-value flex-box flex-box-col"
+        <Link to="/jobs/:id"
+          className="table-cell-link-primary table-cell-value flex-box flex-box-col"
           params={{id}}>
           <span className="text-overflow">
             {name}
@@ -241,7 +241,7 @@ class JobsTable extends React.Component {
   render() {
     return (
       <Table
-        className="table inverse table-borderless-outer table-borderless-inner-columns flush-bottom"
+        className="table table-borderless-outer table-borderless-inner-columns flush-bottom"
         colGroup={this.getColGroup()}
         columns={this.getColumns()}
         data={this.getData()}

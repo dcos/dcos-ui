@@ -3,7 +3,7 @@ import React from 'react';
 
 /*
  * Example usage:
- * <Loader className="inverse" type="ballSpinFadeLoader" />
+ * <Loader type="ballSpinFadeLoader" />
  */
 
 // Available types:

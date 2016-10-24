@@ -1,4 +1,3 @@
-jest.dontMock('../../stores/MarathonStore');
 jest.dontMock('../../utils/MesosSummaryUtil');
 jest.dontMock('../../utils/StringUtil');
 jest.dontMock('../../utils/Util');

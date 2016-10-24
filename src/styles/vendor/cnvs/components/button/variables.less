@@ -1,0 +1,498 @@
+@button-enabled: true;
+
+/*
+ * Responsive Scaling
+ */
+
+@button-screen-small-enabled: true;
+@button-screen-medium-enabled: true;
+@button-screen-large-enabled: true;
+@button-screen-jumbo-enabled: true;
+
+/*
+ * Styling
+ */
+
+/* Default */
+
+// Normal
+
+@button-color: color-lighten(@neutral, 0);
+@button-font-family: @font-family-sans-serif;
+@button-font-style: null;
+@button-font-weight: 400;
+@button-text-transform: null;
+@button-text-shadow: null;
+@button-text-decoration: none;
+@button-text-rendering: optimizeLegibility;
+@button-background-color: color-lighten(@neutral, 85);
+@button-background-gradient-color-top: null;
+@button-background-gradient-color-bottom: null;
+@button-border-width: 1px;
+@button-border-color: color-lighten(@neutral, 85);
+@button-border-style: solid;
+@button-border-top-width: null;
+@button-border-top-color: null;
+@button-border-top-style: null;
+@button-border-right-width: null;
+@button-border-right-color: null;
+@button-border-right-style: null;
+@button-border-bottom-width: null;
+@button-border-bottom-color: null;
+@button-border-bottom-style: null;
+@button-border-left-width: null;
+@button-border-left-color: null;
+@button-border-left-style: null;
+@button-shadow: null;
+
+// Hover
+
+@button-hover-color: color-lighten(@neutral, -20);
+@button-hover-font-family: null;
+@button-hover-font-style: null;
+@button-hover-font-weight: null;
+@button-hover-text-transform: null;
+@button-hover-text-shadow: null;
+@button-hover-text-decoration: none;
+@button-hover-text-rendering: null;
+@button-hover-background-color: color-lighten(@neutral, 80);
+@button-hover-background-gradient-color-top: null;
+@button-hover-background-gradient-color-bottom: null;
+@button-hover-border-width: null;
+@button-hover-border-color: color-lighten(@neutral, 80);
+@button-hover-border-style: null;
+@button-hover-border-top-width: null;
+@button-hover-border-top-color: null;
+@button-hover-border-top-style: null;
+@button-hover-border-right-width: null;
+@button-hover-border-right-color: null;
+@button-hover-border-right-style: null;
+@button-hover-border-bottom-width: null;
+@button-hover-border-bottom-color: null;
+@button-hover-border-bottom-style: null;
+@button-hover-border-left-width: null;
+@button-hover-border-left-color: null;
+@button-hover-border-left-style: null;
+@button-hover-shadow: null;
+
+// Active
+
+@button-active-color: color-lighten(@neutral, 20);
+@button-active-font-family: null;
+@button-active-font-style: null;
+@button-active-font-weight: null;
+@button-active-text-transform: null;
+@button-active-text-shadow: null;
+@button-active-text-decoration: null;
+@button-active-text-rendering: null;
+@button-active-background-color: color-lighten(@neutral, 65);
+@button-active-background-gradient-color-top: null;
+@button-active-background-gradient-color-bottom: null;
+@button-active-border-width: null;
+@button-active-border-color: color-lighten(@neutral, 65);
+@button-active-border-style: null;
+@button-active-border-top-width: null;
+@button-active-border-top-color: null;
+@button-active-border-top-style: null;
+@button-active-border-right-width: null;
+@button-active-border-right-color: null;
+@button-active-border-right-style: null;
+@button-active-border-bottom-width: null;
+@button-active-border-bottom-color: null;
+@button-active-border-bottom-style: null;
+@button-active-border-left-width: null;
+@button-active-border-left-color: null;
+@button-active-border-left-style: null;
+@button-active-shadow: null;
+
+// Selected
+
+@button-selected-color: color-lighten(@neutral, 20);
+@button-selected-font-family: null;
+@button-selected-font-style: null;
+@button-selected-font-weight: null;
+@button-selected-text-transform: null;
+@button-selected-text-shadow: null;
+@button-selected-text-decoration: null;
+@button-selected-text-rendering: null;
+@button-selected-background-color: color-lighten(@neutral, 70);
+@button-selected-background-gradient-color-top: null;
+@button-selected-background-gradient-color-bottom: null;
+@button-selected-border-width: null;
+@button-selected-border-color: color-lighten(@neutral, 70);
+@button-selected-border-style: null;
+@button-selected-border-top-width: null;
+@button-selected-border-top-color: null;
+@button-selected-border-top-style: null;
+@button-selected-border-right-width: null;
+@button-selected-border-right-color: null;
+@button-selected-border-right-style: null;
+@button-selected-border-bottom-width: null;
+@button-selected-border-bottom-color: null;
+@button-selected-border-bottom-style: null;
+@button-selected-border-left-width: null;
+@button-selected-border-left-color: null;
+@button-selected-border-left-style: null;
+@button-selected-shadow: null;
+
+// Disabled
+
+@button-disabled-opacity: 0.5;
+@button-disabled-color: @button-color;
+@button-disabled-font-family: @button-font-family;
+@button-disabled-font-style: @button-font-style;
+@button-disabled-font-weight: @button-font-weight;
+@button-disabled-text-transform: @button-text-transform;
+@button-disabled-text-shadow: @button-text-shadow;
+@button-disabled-text-decoration: @button-text-decoration;
+@button-disabled-text-rendering: @button-text-rendering;
+@button-disabled-background-color: @button-background-color;
+@button-disabled-background-gradient-color-top: @button-background-gradient-color-top;
+@button-disabled-background-gradient-color-bottom: @button-background-gradient-color-bottom;
+@button-disabled-border-width: @button-border-width;
+@button-disabled-border-color: @button-border-color;
+@button-disabled-border-style: @button-border-style;
+@button-disabled-border-top-width: @button-border-top-width;
+@button-disabled-border-top-color: @button-border-top-color;
+@button-disabled-border-top-style: @button-border-top-style;
+@button-disabled-border-right-width: @button-border-right-width;
+@button-disabled-border-right-color: @button-border-right-color;
+@button-disabled-border-right-style: @button-border-right-style;
+@button-disabled-border-bottom-width: @button-border-bottom-width;
+@button-disabled-border-bottom-color: @button-border-bottom-color;
+@button-disabled-border-bottom-style: @button-border-bottom-style;
+@button-disabled-border-left-width: @button-border-left-width;
+@button-disabled-border-left-color: @button-border-left-color;
+@button-disabled-border-left-style: @button-border-left-style;
+@button-disabled-shadow: @button-shadow;
+
+/* Inverse */
+
+// Normal
+
+@button-inverse-color: @white;
+@button-inverse-font-family: null;
+@button-inverse-font-style: null;
+@button-inverse-font-weight: null;
+@button-inverse-text-transform: null;
+@button-inverse-text-shadow: null;
+@button-inverse-text-decoration: null;
+@button-inverse-text-rendering: null;
+@button-inverse-background-color: color-lighten(@neutral, 10);
+@button-inverse-background-gradient-color-top: null;
+@button-inverse-background-gradient-color-bottom: null;
+@button-inverse-border-width: null;
+@button-inverse-border-color: color-lighten(@neutral, 10);
+@button-inverse-border-style: null;
+@button-inverse-border-top-width: null;
+@button-inverse-border-top-color: null;
+@button-inverse-border-top-style: null;
+@button-inverse-border-right-width: null;
+@button-inverse-border-right-color: null;
+@button-inverse-border-right-style: null;
+@button-inverse-border-bottom-width: null;
+@button-inverse-border-bottom-color: null;
+@button-inverse-border-bottom-style: null;
+@button-inverse-border-left-width: null;
+@button-inverse-border-left-color: null;
+@button-inverse-border-left-style: null;
+@button-inverse-shadow: null;
+
+// Hover
+
+@button-inverse-hover-color: @white;
+@button-inverse-hover-font-family: null;
+@button-inverse-hover-font-style: null;
+@button-inverse-hover-font-weight: null;
+@button-inverse-hover-text-transform: null;
+@button-inverse-hover-text-shadow: null;
+@button-inverse-hover-text-decoration: none;
+@button-inverse-hover-text-rendering: null;
+@button-inverse-hover-background-color: color-lighten(@neutral, 15);
+@button-inverse-hover-background-gradient-color-top: null;
+@button-inverse-hover-background-gradient-color-bottom: null;
+@button-inverse-hover-border-width: null;
+@button-inverse-hover-border-color: color-lighten(@neutral, 15);
+@button-inverse-hover-border-style: null;
+@button-inverse-hover-border-top-width: null;
+@button-inverse-hover-border-top-color: null;
+@button-inverse-hover-border-top-style: null;
+@button-inverse-hover-border-right-width: null;
+@button-inverse-hover-border-right-color: null;
+@button-inverse-hover-border-right-style: null;
+@button-inverse-hover-border-bottom-width: null;
+@button-inverse-hover-border-bottom-color: null;
+@button-inverse-hover-border-bottom-style: null;
+@button-inverse-hover-border-left-width: null;
+@button-inverse-hover-border-left-color: null;
+@button-inverse-hover-border-left-style: null;
+@button-inverse-hover-shadow: null;
+
+// Active
+
+@button-inverse-active-color: color-lighten(@neutral, 60);
+@button-inverse-active-font-family: null;
+@button-inverse-active-font-style: null;
+@button-inverse-active-font-weight: null;
+@button-inverse-active-text-transform: null;
+@button-inverse-active-text-shadow: null;
+@button-inverse-active-text-decoration: null;
+@button-inverse-active-text-rendering: null;
+@button-inverse-active-background-color: color-lighten(@neutral, 0);
+@button-inverse-active-background-gradient-color-top: null;
+@button-inverse-active-background-gradient-color-bottom: null;
+@button-inverse-active-border-width: null;
+@button-inverse-active-border-color: color-lighten(@neutral, 0);
+@button-inverse-active-border-style: null;
+@button-inverse-active-border-top-width: null;
+@button-inverse-active-border-top-color: null;
+@button-inverse-active-border-top-style: null;
+@button-inverse-active-border-right-width: null;
+@button-inverse-active-border-right-color: null;
+@button-inverse-active-border-right-style: null;
+@button-inverse-active-border-bottom-width: null;
+@button-inverse-active-border-bottom-color: null;
+@button-inverse-active-border-bottom-style: null;
+@button-inverse-active-border-left-width: null;
+@button-inverse-active-border-left-color: null;
+@button-inverse-active-border-left-style: null;
+@button-inverse-active-shadow: null;
+
+// Selected
+
+@button-inverse-selected-color: color-lighten(@neutral, 70);
+@button-inverse-selected-font-family: null;
+@button-inverse-selected-font-style: null;
+@button-inverse-selected-font-weight: null;
+@button-inverse-selected-text-transform: null;
+@button-inverse-selected-text-shadow: null;
+@button-inverse-selected-text-decoration: null;
+@button-inverse-selected-text-rendering: null;
+@button-inverse-selected-background-color: color-lighten(@neutral, 5);
+@button-inverse-selected-background-gradient-color-top: null;
+@button-inverse-selected-background-gradient-color-bottom: null;
+@button-inverse-selected-border-width: null;
+@button-inverse-selected-border-color: color-lighten(@neutral, 5);
+@button-inverse-selected-border-style: null;
+@button-inverse-selected-border-top-width: null;
+@button-inverse-selected-border-top-color: null;
+@button-inverse-selected-border-top-style: null;
+@button-inverse-selected-border-right-width: null;
+@button-inverse-selected-border-right-color: null;
+@button-inverse-selected-border-right-style: null;
+@button-inverse-selected-border-bottom-width: null;
+@button-inverse-selected-border-bottom-color: null;
+@button-inverse-selected-border-bottom-style: null;
+@button-inverse-selected-border-left-width: null;
+@button-inverse-selected-border-left-color: null;
+@button-inverse-selected-border-left-style: null;
+@button-inverse-selected-shadow: null;
+
+// Disabled
+
+@button-inverse-disabled-opacity: 0.5;
+@button-inverse-disabled-color: @button-inverse-color;
+@button-inverse-disabled-font-family: @button-inverse-font-family;
+@button-inverse-disabled-font-style: @button-inverse-font-style;
+@button-inverse-disabled-font-weight: @button-inverse-font-weight;
+@button-inverse-disabled-text-transform: @button-inverse-text-transform;
+@button-inverse-disabled-text-shadow: @button-inverse-text-shadow;
+@button-inverse-disabled-text-decoration: @button-inverse-text-decoration;
+@button-inverse-disabled-text-rendering: @button-inverse-text-rendering;
+@button-inverse-disabled-background-color: @button-inverse-background-color;
+@button-inverse-disabled-background-gradient-color-top: @button-inverse-background-gradient-color-top;
+@button-inverse-disabled-background-gradient-color-bottom: @button-inverse-background-gradient-color-bottom;
+@button-inverse-disabled-border-width: @button-inverse-border-width;
+@button-inverse-disabled-border-color: @button-inverse-border-color;
+@button-inverse-disabled-border-style: @button-inverse-border-style;
+@button-inverse-disabled-border-top-width: @button-inverse-border-top-width;
+@button-inverse-disabled-border-top-color: @button-inverse-border-top-color;
+@button-inverse-disabled-border-top-style: @button-inverse-border-top-style;
+@button-inverse-disabled-border-right-width: @button-inverse-border-right-width;
+@button-inverse-disabled-border-right-color: @button-inverse-border-right-color;
+@button-inverse-disabled-border-right-style: @button-inverse-border-right-style;
+@button-inverse-disabled-border-bottom-width: @button-inverse-border-bottom-width;
+@button-inverse-disabled-border-bottom-color: @button-inverse-border-bottom-color;
+@button-inverse-disabled-border-bottom-style: @button-inverse-border-bottom-style;
+@button-inverse-disabled-border-left-width: @button-inverse-border-left-width;
+@button-inverse-disabled-border-left-color: @button-inverse-border-left-color;
+@button-inverse-disabled-border-left-style: @button-inverse-border-left-style;
+@button-inverse-disabled-shadow: @button-inverse-shadow;
+
+/*
+ * Text Size
+ */
+
+// Font Size
+
+@button-font-size: 1rem;
+@button-font-size-screen-small: null;
+@button-font-size-screen-medium: null;
+@button-font-size-screen-large: null;
+@button-font-size-screen-jumbo: null;
+
+// Line Height
+
+@button-line-height: @button-font-size * 1.1;
+@button-line-height-screen-small: null;
+@button-line-height-screen-medium: null;
+@button-line-height-screen-large: null;
+@button-line-height-screen-jumbo: null;
+
+/*
+ * Layout
+ */
+
+// Height
+
+@button-height: 34px;
+@button-height-screen-small: null;
+@button-height-screen-medium: null;
+@button-height-screen-large: 38px;
+@button-height-screen-jumbo: null;
+
+// Border Radius
+
+@button-border-radius: 4px;
+@button-border-radius-screen-small: null;
+@button-border-radius-screen-medium: null;
+@button-border-radius-screen-large: null;
+@button-border-radius-screen-jumbo: null;
+
+// Dropdown Caret Width
+
+@button-dropdown-caret-width: 9px;
+@button-dropdown-caret-width-screen-small: null;
+@button-dropdown-caret-width-screen-medium: 1.1 * @button-dropdown-caret-width;
+@button-dropdown-caret-width-screen-large: 1.2 * @button-dropdown-caret-width;
+@button-dropdown-caret-width-screen-jumbo: null;
+
+// Dropdown Caret Height
+
+@button-dropdown-caret-height: 5px;
+@button-dropdown-caret-height-screen-small: null;
+@button-dropdown-caret-height-screen-medium: 1.1 * @button-dropdown-caret-height;
+@button-dropdown-caret-height-screen-large: 1.2 * @button-dropdown-caret-height;
+@button-dropdown-caret-height-screen-jumbo: null;
+
+// Margin Top
+
+@button-dropdown-caret-margin-top: 2px;
+@button-dropdown-caret-margin-top-screen-small: null;
+@button-dropdown-caret-margin-top-screen-medium: null;
+@button-dropdown-caret-margin-top-screen-large: null;
+@button-dropdown-caret-margin-top-screen-jumbo: null;
+
+// Margin Top
+
+@button-dropdown-caret-margin-left: 1.25rem * 0.25;
+@button-dropdown-caret-margin-left-screen-small: null;
+@button-dropdown-caret-margin-left-screen-medium: 1.1 * @button-dropdown-caret-margin-left;
+@button-dropdown-caret-margin-left-screen-large: 1.2 * @button-dropdown-caret-margin-left;
+@button-dropdown-caret-margin-left-screen-jumbo: null;
+
+// Button Content Padding Horizontal
+
+@button-content-padding-horizontal: 1.25rem * 0.25;
+@button-content-padding-horizontal-screen-small: null;
+@button-content-padding-horizontal-screen-medium: 1.1 * @button-content-padding-horizontal;
+@button-content-padding-horizontal-screen-large: 1.2 * @button-content-padding-horizontal;
+@button-content-padding-horizontal-screen-jumbo: null;
+
+/* Margin */
+
+// Margin Top
+
+@button-margin-top: null;
+@button-margin-top-screen-small: null;
+@button-margin-top-screen-medium: null;
+@button-margin-top-screen-large: null;
+@button-margin-top-screen-jumbo: null;
+
+// Margin Bottom
+
+@button-margin-bottom: null;
+@button-margin-bottom-screen-small: null;
+@button-margin-bottom-screen-medium: null;
+@button-margin-bottom-screen-large: null;
+@button-margin-bottom-screen-jumbo: null;
+
+// Margin Left
+
+@button-margin-left: null;
+@button-margin-left-screen-small: null;
+@button-margin-left-screen-medium: null;
+@button-margin-left-screen-large: null;
+@button-margin-left-screen-jumbo: null;
+
+// Margin Right
+
+@button-margin-right: null;
+@button-margin-right-screen-small: null;
+@button-margin-right-screen-medium: null;
+@button-margin-right-screen-large: null;
+@button-margin-right-screen-jumbo: null;
+
+/* Padding */
+
+// Padding Top
+
+@button-padding-top: null;
+@button-padding-top-screen-small: null;
+@button-padding-top-screen-medium: null;
+@button-padding-top-screen-large: null;
+@button-padding-top-screen-jumbo: null;
+
+// Padding Bottom
+
+@button-padding-bottom: null;
+@button-padding-bottom-screen-small: null;
+@button-padding-bottom-screen-medium: null;
+@button-padding-bottom-screen-large: null;
+@button-padding-bottom-screen-jumbo: null;
+
+// Padding Left
+
+@button-padding-left: 1.25rem;
+@button-padding-left-screen-small: null;
+@button-padding-left-screen-medium: 1.1 * @button-padding-left;
+@button-padding-left-screen-large: 1.2 * @button-padding-left;
+@button-padding-left-screen-jumbo: null;
+
+// Padding Right
+
+@button-padding-right: 1.25rem;
+@button-padding-right-screen-small: null;
+@button-padding-right-screen-medium: 1.1 * @button-padding-right;
+@button-padding-right-screen-large: 1.2 * @button-padding-right;
+@button-padding-right-screen-jumbo: null;
+
+/* Layout Variants */
+
+// Narrow
+
+@button-narrow-margin-top-scale: null;
+@button-narrow-margin-bottom-scale: null;
+@button-narrow-margin-left-scale: null;
+@button-narrow-margin-right-scale: null;
+
+@button-narrow-padding-top-scale: null;
+@button-narrow-padding-bottom-scale: null;
+@button-narrow-padding-left-scale: 0.5;
+@button-narrow-padding-right-scale: 0.5;
+
+// Wide
+
+@button-wide-margin-top-scale: null;
+@button-wide-margin-bottom-scale: null;
+@button-wide-margin-left-scale: null;
+@button-wide-margin-right-scale: null;
+
+@button-wide-padding-top-scale: null;
+@button-wide-padding-bottom-scale: null;
+@button-wide-padding-left-scale: 2;
+@button-wide-padding-right-scale: 2;
+
+/* Rounded Button */
+
+@button-rounded-padding-horizontal-scale: 1.2;

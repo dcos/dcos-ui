@@ -4,6 +4,7 @@ import mixin from 'reactjs-mixin';
 /* eslint-disable no-unused-vars */
 import React from 'react';
 /* eslint-enable no-unused-vars */
+import {ResourceTableUtil} from 'foundation-ui';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import CollapsingString from './CollapsingString';
@@ -11,7 +12,6 @@ import Config from '../config/Config';
 import CosmosPackagesStore from '../stores/CosmosPackagesStore';
 import List from '../structs/List';
 import RepositoriesTableHeaderLabels from '../constants/RepositoriesTableHeaderLabels';
-import ResourceTableUtil from '../utils/ResourceTableUtil';
 import TableUtil from '../utils/TableUtil';
 
 const METHODS_TO_BIND = [
@@ -77,7 +77,7 @@ class RepositoriesTable extends mixin(StoreMixin) {
 
   getClassName(prop, sortBy, row) {
     return classNames({
-      'highlight': prop === sortBy.prop,
+      'active': prop === sortBy.prop,
       'clickable': row == null, // this is a header
       'text-align-right': prop === 'priority'
     });
@@ -154,10 +154,8 @@ class RepositoriesTable extends mixin(StoreMixin) {
 
   getHeadline(prop, repository) {
     return (
-      <div className="flex-box flex-box-align-vertical-center table-cell-flex-box">
-        <span className="text-overflow">
-          {repository.get('name')}
-        </span>
+      <div className="table-cell-emphasized text-overflow">
+        {repository.get('name')}
       </div>
     );
   }
@@ -194,7 +192,7 @@ class RepositoriesTable extends mixin(StoreMixin) {
     }
 
     return (
-      <div className="container-pod container-pod-short text-align-center">
+      <div className="text-align-center">
         <h3 className="flush-top">Are you sure?</h3>
         <p>
           {`Repository (${repositoryLabel}) will be removed from ${Config.productName}. You will not be able to install any packages belonging to that repository anymore.`}
@@ -210,7 +208,7 @@ class RepositoriesTable extends mixin(StoreMixin) {
     return (
       <div>
         <Table
-          className="table inverse table-borderless-outer table-borderless-inner-columns flush-bottom"
+          className="table table-borderless-outer table-borderless-inner-columns flush-bottom"
           columns={this.getColumns()}
           colGroup={this.getColGroup()}
           data={props.repositories.getItems().slice()}
@@ -218,8 +216,6 @@ class RepositoriesTable extends mixin(StoreMixin) {
         <Confirm
           closeByBackdropClick={true}
           disabled={state.pendingRequest}
-          footerContainerClass="container container-pod container-pod-short
-            container-pod-fluid flush-top flush-bottom"
           open={!!state.repositoryToRemove}
           onClose={this.handleDeleteCancel}
           leftButtonCallback={this.handleDeleteCancel}

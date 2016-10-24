@@ -1,0 +1,25 @@
+& when (@layout-box-enabled) {
+
+  // Layout Box
+  .layout-box {
+    .clearfix();
+    background: #facd9a;
+    display: block;
+
+    .layout-box-item {
+      display: block;
+
+      &.layout-box-item-padding {
+        background: #c2dfb6;
+      }
+
+      &.layout-box-item-content {
+        background: #9fc4ea;
+
+        &.layout-box-item-content-fixed-height {
+          height: 100px;
+        }
+      }
+    }
+  }
+}

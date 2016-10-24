@@ -1,5 +1,7 @@
-import Hooks from './services/Hooks';
+import DCOSStore from './stores/DCOSStore';
+import ResourceTableUtil from './utils/ResourceTableUtil';
 
 module.exports = {
-  Hooks
+  DCOSStore,
+  ResourceTableUtil
 };

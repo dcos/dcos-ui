@@ -1,0 +1,64 @@
+@user-dropdown-menu-enabled: true;
+
+// TODO: Remove the small and jumbo media queries;
+@user-account-menu-button-height: calc(@button-height ~' - ' @body-line-height ~' + ' @icon-large-width);
+@user-account-menu-button-height-screen-small: @user-account-menu-button-height;
+@user-account-menu-button-height-screen-medium: calc(@button-height-screen-medium ~' - ' @body-line-height ~' + ' @icon-large-width);
+@user-account-menu-button-height-screen-large: calc(@button-height-screen-large ~' - ' @body-line-height-screen-large ~' + ' @icon-large-width);
+@user-account-menu-button-height-screen-jumbo: @user-account-menu-button-height-screen-large;
+
+// TODO: Remove these media queries;
+@user-acount-menu-list-item-font-size: @dropdown-menu-list-item-font-size;
+@user-acount-menu-list-item-font-size-screen-small: @dropdown-menu-list-item-font-size;
+@user-acount-menu-list-item-font-size-screen-medium: @dropdown-menu-list-item-font-size;
+@user-acount-menu-list-item-font-size-screen-large: @dropdown-menu-list-item-font-size;
+@user-acount-menu-list-item-font-size-screen-jumbo: @dropdown-menu-list-item-font-size;
+
+@user-acount-menu-list-item-line-height: @dropdown-menu-list-item-line-height;
+@user-acount-menu-list-item-line-height-screen-small: @dropdown-menu-list-item-line-height;
+@user-acount-menu-list-item-line-height-screen-medium: @dropdown-menu-list-item-line-height;
+@user-acount-menu-list-item-line-height-screen-large: @dropdown-menu-list-item-line-height;
+@user-acount-menu-list-item-line-height-screen-jumbo: @dropdown-menu-list-item-line-height;
+
+// TODO: Test that these values are valid.
+@user-account-menu-list-item-padding-vertical: 0.5rem;
+@user-account-menu-list-item-padding-horizontal: 0.25rem;
+@user-account-menu-list-item-padding-vertical-screen-small: @user-account-menu-list-item-padding-vertical;
+@user-account-menu-list-item-padding-horizontal-screen-small: @user-account-menu-list-item-padding-horizontal;
+@user-account-menu-list-item-padding-vertical-screen-medium: @user-account-menu-list-item-padding-vertical;
+@user-account-menu-list-item-padding-horizontal-screen-medium: @user-account-menu-list-item-padding-horizontal;
+@user-account-menu-list-item-padding-vertical-screen-large: @user-account-menu-list-item-padding-vertical;
+@user-account-menu-list-item-padding-horizontal-screen-large: @user-account-menu-list-item-padding-horizontal;
+@user-account-menu-list-item-padding-vertical-screen-jumbo: @user-account-menu-list-item-padding-vertical;
+@user-account-menu-list-item-padding-horizontal-screen-jumbo: @user-account-menu-list-item-padding-horizontal;
+
+@user-account-menu-list-item-padding: @user-account-menu-list-item-padding-vertical @user-account-menu-list-item-padding-horizontal;
+@user-account-menu-list-item-padding-screen-small: @user-account-menu-list-item-padding-vertical-screen-small @user-account-menu-list-item-padding-horizontal-screen-small;
+@user-account-menu-list-item-padding-screen-medium: @user-account-menu-list-item-padding-vertical-screen-medium @user-account-menu-list-item-padding-horizontal-screen-medium;
+@user-account-menu-list-item-padding-screen-large: @user-account-menu-list-item-padding-vertical-screen-large @user-account-menu-list-item-padding-horizontal-screen-large;
+@user-account-menu-list-item-padding-screen-jumbo: @user-account-menu-list-item-padding-vertical-screen-jumbo @user-account-menu-list-item-padding-horizontal-screen-jumbo;
+
+@user-account-slider-list-padding-vertical: @base-spacing-unit * 1/4;
+@user-account-slider-list-padding-horizontal: 0;
+@user-account-slider-list-padding-vertical-screen-small: @base-spacing-unit-screen-small * 1/4;
+@user-account-slider-list-padding-horizontal-screen-small: 0;
+@user-account-slider-list-padding-vertical-screen-medium: @base-spacing-unit-screen-medium * 1/4;
+@user-account-slider-list-padding-horizontal-screen-medium: 0;
+@user-account-slider-list-padding-vertical-screen-large: @base-spacing-unit-screen-large * 1/8;
+@user-account-slider-list-padding-horizontal-screen-large: 0;
+@user-account-slider-list-padding-vertical-screen-jumbo: @base-spacing-unit-screen-jumbo * 1/8;
+@user-account-slider-list-padding-horizontal-screen-jumbo: 0;
+
+@user-account-slider-list-padding: @user-account-slider-list-padding-vertical @user-account-slider-list-padding-horizontal;
+@user-account-slider-list-padding-screen-small: @user-account-slider-list-padding-vertical-screen-small @user-account-slider-list-padding-horizontal-screen-small;
+@user-account-slider-list-padding-screen-medium: @user-account-slider-list-padding-vertical-screen-medium @user-account-slider-list-padding-horizontal-screen-medium;
+@user-account-slider-list-padding-screen-large: @user-account-slider-list-padding-vertical-screen-large @user-account-slider-list-padding-horizontal-screen-large;
+@user-account-slider-list-padding-screen-jumbo: @user-account-slider-list-padding-vertical-screen-jumbo @user-account-slider-list-padding-horizontal-screen-jumbo;
+
+@user-account-menu-items: 3;
+
+@user-account-menu-height: @user-account-menu-items * (@user-acount-menu-list-item-line-height + @user-account-menu-list-item-padding-vertical * 2) + @user-account-slider-list-padding-vertical * 2;
+@user-account-menu-height-screen-small: @user-account-menu-items * (@user-acount-menu-list-item-line-height-screen-small + @user-account-menu-list-item-padding-vertical-screen-small * 2) + @user-account-slider-list-padding-vertical-screen-small * 2;
+@user-account-menu-height-screen-medium: @user-account-menu-items * (@user-acount-menu-list-item-line-height-screen-medium + @user-account-menu-list-item-padding-vertical-screen-medium * 2) + @user-account-slider-list-padding-vertical-screen-medium * 2;
+@user-account-menu-height-screen-large: @user-account-menu-items * (@user-acount-menu-list-item-line-height-screen-large + @user-account-menu-list-item-padding-vertical-screen-large * 2) + @user-account-slider-list-padding-vertical-screen-large * 2;
+@user-account-menu-height-screen-jumbo: @user-account-menu-items * (@user-acount-menu-list-item-line-height-screen-jumbo + @user-account-menu-list-item-padding-vertical-screen-jumbo * 2) + @user-account-slider-list-padding-vertical-screen-jumbo * 2;

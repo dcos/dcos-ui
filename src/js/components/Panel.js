@@ -1,4 +1,12 @@
+import classNames from 'classnames/dedupe';
 import React from 'react';
+
+const defaultClasses = {
+  panel: 'panel',
+  content: 'panel-content panel-cell panel-cell-narrow panel-cell-short panel-cell-borderless',
+  footer: 'panel-footer panel-cell panel-cell-narrow panel-cell-short flush-top',
+  heading: 'panel-header panel-cell panel-cell-light panel-cell-narrow panel-cell-shorter'
+};
 
 var Panel = React.createClass({
 
@@ -9,29 +17,39 @@ var Panel = React.createClass({
     footer: React.PropTypes.node,
 
     // classes
-    contentClass: React.PropTypes.string,
-    headingClass: React.PropTypes.string,
-    footerClass: React.PropTypes.string
-  },
-
-  getDefaultProps() {
-    return {
-      className: 'panel',
-      contentClass: 'panel-content',
-      footerClass: 'panel-footer',
-      headingClass: 'panel-header'
-    };
+    contentClass: React.PropTypes.oneOfType([
+      React.PropTypes.array,
+      React.PropTypes.object,
+      React.PropTypes.string
+    ]),
+    headingClass: React.PropTypes.oneOfType([
+      React.PropTypes.array,
+      React.PropTypes.object,
+      React.PropTypes.string
+    ]),
+    footerClass: React.PropTypes.oneOfType([
+      React.PropTypes.array,
+      React.PropTypes.object,
+      React.PropTypes.string
+    ]),
+    onClick: React.PropTypes.func
   },
 
   getNode(nodeName) {
     let {props} = this;
     let node = props[nodeName];
+
     if (!node) {
       return null;
     }
 
+    let classes = classNames(
+      defaultClasses[nodeName],
+      props[nodeName + 'Class']
+    );
+
     return (
-      <div className={props[nodeName + 'Class']}>
+      <div className={classes}>
         {node}
       </div>
     );
@@ -39,11 +57,13 @@ var Panel = React.createClass({
 
   render() {
     let {props} = this;
+    let contentClasses = classNames(defaultClasses.content, props.contentClass);
+    let panelClasses = classNames(defaultClasses.panel, props.className);
 
     return (
-      <div {...props}>
+      <div className={panelClasses} onClick={this.props.onClick}>
         {this.getNode('heading')}
-        <div className={props.contentClass}>
+        <div className={contentClasses}>
           {props.children}
         </div>
         {this.getNode('footer')}

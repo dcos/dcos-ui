@@ -4,7 +4,7 @@ import React from 'react';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 import {Tooltip} from 'reactjs-components';
 
-import defaultServiceImage from '../../img/services/icon-service-default-small@2x.png';
+import defaultServiceImage from '../../../plugins/services/src/img/icon-service-default-small@2x.png';
 import FormUtil from '../utils/FormUtil';
 import GeminiUtil from '../utils/GeminiUtil';
 import Icon from './Icon';
@@ -392,12 +392,12 @@ class SchemaForm extends mixin(StoreMixin, InternalStorageMixin) {
 
   render() {
     return (
-      <div>
+      <div className="tab-form-wrapper">
         {this.getFormHeader()}
         <TabForm
           defaultTab={this.props.defaultTab}
           definition={this.multipleDefinition}
-          formRowClass="flex-box"
+          formRowClass="flex"
           getTriggerSubmit={this.getTriggerTabFormSubmit}
           onChange={this.handleFormChange}
           onTabClick={this.handleTabClick} />
@@ -407,7 +407,7 @@ class SchemaForm extends mixin(StoreMixin, InternalStorageMixin) {
 }
 
 SchemaForm.defaultProps = {
-  className: 'multiple-form row',
+  className: 'multiple-form',
   getTriggerSubmit() {},
   onChange() {},
   schema: {}

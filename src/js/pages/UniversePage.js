@@ -28,12 +28,12 @@ class UniversePage extends mixin(TabsMixin) {
 
   updateCurrentTab() {
     let routes = this.context.router.getCurrentRoutes();
-    let currentTab = routes[routes.length - 1].name;
+    let currentTab = routes[routes.length - 1].path;
 
     // Universe Tabs
     this.tabs_tabs = {
-      'universe-packages': 'Packages',
-      'universe-installed-packages': 'Installed'
+      '/universe/packages': 'Packages',
+      '/universe/installed-packages': 'Installed'
     };
 
     this.setState({currentTab});
@@ -45,7 +45,7 @@ class UniversePage extends mixin(TabsMixin) {
     }
 
     return (
-      <ul className="tabs list-inline flush-bottom inverse">
+      <ul className="menu-tabbed">
         {this.tabs_getRoutedTabs()}
       </ul>
     );
@@ -67,8 +67,8 @@ UniversePage.contextTypes = {
 };
 
 UniversePage.routeConfig = {
-  label: 'Universe',
-  icon: <Icon id="packages" />,
+  label: 'Packages',
+  icon: <Icon id="packages-inverse" size="small" family="small" />,
   matches: /^\/universe/
 };
 

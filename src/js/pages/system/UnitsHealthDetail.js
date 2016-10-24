@@ -5,12 +5,12 @@ import React from 'react';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import Breadcrumbs from '../../components/Breadcrumbs';
+import DetailViewHeader from '../../components/DetailViewHeader';
 import FilterBar from '../../components/FilterBar';
 import FilterHeadline from '../../components/FilterHeadline';
 import FilterInputText from '../../components/FilterInputText';
 import Icon from '../../components/Icon';
 import Loader from '../../components/Loader';
-import PageHeader from '../../components/PageHeader';
 import RequestErrorMsg from '../../components/RequestErrorMsg';
 import UnitHealthDropdown from '../../components/UnitHealthDropdown';
 import UnitHealthNodesTable from '../../components/UnitHealthNodesTable';
@@ -80,7 +80,7 @@ class UnitsHealthDetail extends mixin(StoreMixin) {
 
   getErrorNotice() {
     return (
-      <div className="container container-pod">
+      <div className="pod">
         <RequestErrorMsg />
       </div>
     );
@@ -88,8 +88,8 @@ class UnitsHealthDetail extends mixin(StoreMixin) {
 
   getLoadingScreen() {
     return (
-      <div className="container container-fluid container-pod">
-        <Loader className="inverse" />
+      <div className="pod">
+        <Loader />
       </div>
     );
   }
@@ -159,14 +159,13 @@ class UnitsHealthDetail extends mixin(StoreMixin) {
     return (
       <div className="flex-container-col">
         <Breadcrumbs />
-        <PageHeader
-          icon={<Icon color="white" id="shapes" size="large" />}
+        <DetailViewHeader
+          icon={<Icon color="neutral" id="shapes" size="large" />}
           subTitle={this.getSubTitle(unit)}
           title={unit.getTitle()} />
         <FilterHeadline
           currentLength={visibleData.length}
           isFiltering={healthFilter !== 'all' || searchString !== ''}
-          inverseStyle={true}
           name="Health Check"
           onReset={this.resetFilter}
           totalLength={nodes.getItems().length} />
@@ -175,12 +174,11 @@ class UnitsHealthDetail extends mixin(StoreMixin) {
             <FilterInputText
               className="flush-bottom"
               searchString={searchString}
-              handleFilterChange={this.handleSearchStringChange}
-              inverseStyle={true} />
+              handleFilterChange={this.handleSearchStringChange} />
           </div>
           <UnitHealthDropdown
-            className="button dropdown-toggle text-align-left button-inverse"
-            dropdownMenuClassName="dropdown-menu inverse"
+            className="button dropdown-toggle text-align-left"
+            dropdownMenuClassName="dropdown-menu"
             initialID="all"
             onHealthSelection={this.handleHealthSelection}
             ref={(ref) => this.healthFilter = ref} />

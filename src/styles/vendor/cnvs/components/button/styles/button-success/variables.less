@@ -1,0 +1,311 @@
+@button-success-enabled: true;
+
+/*
+ * Styling
+ */
+
+/* Default */
+
+// Normal
+
+@button-success-color: @white;
+@button-success-font-family: null;
+@button-success-font-style: null;
+@button-success-font-weight: null;
+@button-success-text-transform: null;
+@button-success-text-shadow: null;
+@button-success-text-decoration: null;
+@button-success-text-rendering: null;
+@button-success-background-color: color-lighten(@green, 0);
+@button-success-background-gradient-color-top: null;
+@button-success-background-gradient-color-bottom: null;
+@button-success-border-width: null;
+@button-success-border-color: color-lighten(@green, 0);
+@button-success-border-style: null;
+@button-success-border-top-width: null;
+@button-success-border-top-color: null;
+@button-success-border-top-style: null;
+@button-success-border-right-width: null;
+@button-success-border-right-color: null;
+@button-success-border-right-style: null;
+@button-success-border-bottom-width: null;
+@button-success-border-bottom-color: null;
+@button-success-border-bottom-style: null;
+@button-success-border-left-width: null;
+@button-success-border-left-color: null;
+@button-success-border-left-style: null;
+@button-success-shadow: null;
+
+// Hover
+
+@button-success-hover-color: @white;
+@button-success-hover-font-family: null;
+@button-success-hover-font-style: null;
+@button-success-hover-font-weight: null;
+@button-success-hover-text-transform: null;
+@button-success-hover-text-shadow: null;
+@button-success-hover-text-decoration: null;
+@button-success-hover-text-rendering: null;
+@button-success-hover-background-color: color-lighten(@green, -10);
+@button-success-hover-background-gradient-color-top: null;
+@button-success-hover-background-gradient-color-bottom: null;
+@button-success-hover-border-width: null;
+@button-success-hover-border-color: color-lighten(@green, -10);
+@button-success-hover-border-style: null;
+@button-success-hover-border-top-width: null;
+@button-success-hover-border-top-color: null;
+@button-success-hover-border-top-style: null;
+@button-success-hover-border-right-width: null;
+@button-success-hover-border-right-color: null;
+@button-success-hover-border-right-style: null;
+@button-success-hover-border-bottom-width: null;
+@button-success-hover-border-bottom-color: null;
+@button-success-hover-border-bottom-style: null;
+@button-success-hover-border-left-width: null;
+@button-success-hover-border-left-color: null;
+@button-success-hover-border-left-style: null;
+@button-success-hover-shadow: null;
+
+// Active
+
+@button-success-active-color: color-lighten(@green, 80);
+@button-success-active-font-family: null;
+@button-success-active-font-style: null;
+@button-success-active-font-weight: null;
+@button-success-active-text-transform: null;
+@button-success-active-text-shadow: null;
+@button-success-active-text-decoration: null;
+@button-success-active-text-rendering: null;
+@button-success-active-background-color: color-lighten(@green, -25);
+@button-success-active-background-gradient-color-top: null;
+@button-success-active-background-gradient-color-bottom: null;
+@button-success-active-border-width: null;
+@button-success-active-border-color: color-lighten(@green, -25);
+@button-success-active-border-style: null;
+@button-success-active-border-top-width: null;
+@button-success-active-border-top-color: null;
+@button-success-active-border-top-style: null;
+@button-success-active-border-right-width: null;
+@button-success-active-border-right-color: null;
+@button-success-active-border-right-style: null;
+@button-success-active-border-bottom-width: null;
+@button-success-active-border-bottom-color: null;
+@button-success-active-border-bottom-style: null;
+@button-success-active-border-left-width: null;
+@button-success-active-border-left-color: null;
+@button-success-active-border-left-style: null;
+@button-success-active-shadow: null;
+
+// Selected
+
+@button-success-selected-color: color-lighten(@green, 70);
+@button-success-selected-font-family: null;
+@button-success-selected-font-style: null;
+@button-success-selected-font-weight: null;
+@button-success-selected-text-transform: null;
+@button-success-selected-text-shadow: null;
+@button-success-selected-text-decoration: null;
+@button-success-selected-text-rendering: null;
+@button-success-selected-background-color: color-lighten(@green, -15);
+@button-success-selected-background-gradient-color-top: null;
+@button-success-selected-background-gradient-color-bottom: null;
+@button-success-selected-border-width: null;
+@button-success-selected-border-color: color-lighten(@green, -15);
+@button-success-selected-border-style: null;
+@button-success-selected-border-top-width: null;
+@button-success-selected-border-top-color: null;
+@button-success-selected-border-top-style: null;
+@button-success-selected-border-right-width: null;
+@button-success-selected-border-right-color: null;
+@button-success-selected-border-right-style: null;
+@button-success-selected-border-bottom-width: null;
+@button-success-selected-border-bottom-color: null;
+@button-success-selected-border-bottom-style: null;
+@button-success-selected-border-left-width: null;
+@button-success-selected-border-left-color: null;
+@button-success-selected-border-left-style: null;
+@button-success-selected-shadow: null;
+
+// Disabled
+
+@button-success-disabled-opacity: 0.5;
+@button-success-disabled-color: null;
+@button-success-disabled-font-family: null;
+@button-success-disabled-font-style: null;
+@button-success-disabled-font-weight: null;
+@button-success-disabled-text-transform: null;
+@button-success-disabled-text-shadow: null;
+@button-success-disabled-text-decoration: null;
+@button-success-disabled-text-rendering: null;
+@button-success-disabled-background-color: null;
+@button-success-disabled-background-gradient-color-top: null;
+@button-success-disabled-background-gradient-color-bottom: null;
+@button-success-disabled-border-width: null;
+@button-success-disabled-border-color: null;
+@button-success-disabled-border-style: null;
+@button-success-disabled-border-top-width: null;
+@button-success-disabled-border-top-color: null;
+@button-success-disabled-border-top-style: null;
+@button-success-disabled-border-right-width: null;
+@button-success-disabled-border-right-color: null;
+@button-success-disabled-border-right-style: null;
+@button-success-disabled-border-bottom-width: null;
+@button-success-disabled-border-bottom-color: null;
+@button-success-disabled-border-bottom-style: null;
+@button-success-disabled-border-left-width: null;
+@button-success-disabled-border-left-color: null;
+@button-success-disabled-border-left-style: null;
+@button-success-disabled-shadow: null;
+
+/* Inverse */
+
+// Normal
+
+@button-success-inverse-color: @white;
+@button-success-inverse-font-family: null;
+@button-success-inverse-font-style: null;
+@button-success-inverse-font-weight: null;
+@button-success-inverse-text-transform: null;
+@button-success-inverse-text-shadow: null;
+@button-success-inverse-text-decoration: null;
+@button-success-inverse-text-rendering: null;
+@button-success-inverse-background-color: color-lighten(@green, 0);
+@button-success-inverse-background-gradient-color-top: null;
+@button-success-inverse-background-gradient-color-bottom: null;
+@button-success-inverse-border-width: null;
+@button-success-inverse-border-color: color-lighten(@green, 0);
+@button-success-inverse-border-style: null;
+@button-success-inverse-border-top-width: null;
+@button-success-inverse-border-top-color: null;
+@button-success-inverse-border-top-style: null;
+@button-success-inverse-border-right-width: null;
+@button-success-inverse-border-right-color: null;
+@button-success-inverse-border-right-style: null;
+@button-success-inverse-border-bottom-width: null;
+@button-success-inverse-border-bottom-color: null;
+@button-success-inverse-border-bottom-style: null;
+@button-success-inverse-border-left-width: null;
+@button-success-inverse-border-left-color: null;
+@button-success-inverse-border-left-style: null;
+@button-success-inverse-shadow: null;
+
+// Hover
+
+@button-success-inverse-hover-color: @white;
+@button-success-inverse-hover-font-family: null;
+@button-success-inverse-hover-font-style: null;
+@button-success-inverse-hover-font-weight: null;
+@button-success-inverse-hover-text-transform: null;
+@button-success-inverse-hover-text-shadow: null;
+@button-success-inverse-hover-text-decoration: null;
+@button-success-inverse-hover-text-rendering: null;
+@button-success-inverse-hover-background-color: color-lighten(@green, 5);
+@button-success-inverse-hover-background-gradient-color-top: null;
+@button-success-inverse-hover-background-gradient-color-bottom: null;
+@button-success-inverse-hover-border-width: null;
+@button-success-inverse-hover-border-color: color-lighten(@green, 5);
+@button-success-inverse-hover-border-style: null;
+@button-success-inverse-hover-border-top-width: null;
+@button-success-inverse-hover-border-top-color: null;
+@button-success-inverse-hover-border-top-style: null;
+@button-success-inverse-hover-border-right-width: null;
+@button-success-inverse-hover-border-right-color: null;
+@button-success-inverse-hover-border-right-style: null;
+@button-success-inverse-hover-border-bottom-width: null;
+@button-success-inverse-hover-border-bottom-color: null;
+@button-success-inverse-hover-border-bottom-style: null;
+@button-success-inverse-hover-border-left-width: null;
+@button-success-inverse-hover-border-left-color: null;
+@button-success-inverse-hover-border-left-style: null;
+@button-success-inverse-hover-shadow: null;
+
+// Active
+
+@button-success-inverse-active-color: color-lighten(@green, 80);
+@button-success-inverse-active-font-family: null;
+@button-success-inverse-active-font-style: null;
+@button-success-inverse-active-font-weight: null;
+@button-success-inverse-active-text-transform: null;
+@button-success-inverse-active-text-shadow: null;
+@button-success-inverse-active-text-decoration: null;
+@button-success-inverse-active-text-rendering: null;
+@button-success-inverse-active-background-color: color-lighten(@green, -25);
+@button-success-inverse-active-background-gradient-color-top: null;
+@button-success-inverse-active-background-gradient-color-bottom: null;
+@button-success-inverse-active-border-width: null;
+@button-success-inverse-active-border-color: color-lighten(@green, -25);
+@button-success-inverse-active-border-style: null;
+@button-success-inverse-active-border-top-width: null;
+@button-success-inverse-active-border-top-color: null;
+@button-success-inverse-active-border-top-style: null;
+@button-success-inverse-active-border-right-width: null;
+@button-success-inverse-active-border-right-color: null;
+@button-success-inverse-active-border-right-style: null;
+@button-success-inverse-active-border-bottom-width: null;
+@button-success-inverse-active-border-bottom-color: null;
+@button-success-inverse-active-border-bottom-style: null;
+@button-success-inverse-active-border-left-width: null;
+@button-success-inverse-active-border-left-color: null;
+@button-success-inverse-active-border-left-style: null;
+@button-success-inverse-active-shadow: null;
+
+// Selected
+
+@button-success-inverse-selected-color: color-lighten(@green, 70);
+@button-success-inverse-selected-font-family: null;
+@button-success-inverse-selected-font-style: null;
+@button-success-inverse-selected-font-weight: null;
+@button-success-inverse-selected-text-transform: null;
+@button-success-inverse-selected-text-shadow: null;
+@button-success-inverse-selected-text-decoration: null;
+@button-success-inverse-selected-text-rendering: null;
+@button-success-inverse-selected-background-color: color-lighten(@green, -15);
+@button-success-inverse-selected-background-gradient-color-top: null;
+@button-success-inverse-selected-background-gradient-color-bottom: null;
+@button-success-inverse-selected-border-width: null;
+@button-success-inverse-selected-border-color: color-lighten(@green, -15);
+@button-success-inverse-selected-border-style: null;
+@button-success-inverse-selected-border-top-width: null;
+@button-success-inverse-selected-border-top-color: null;
+@button-success-inverse-selected-border-top-style: null;
+@button-success-inverse-selected-border-right-width: null;
+@button-success-inverse-selected-border-right-color: null;
+@button-success-inverse-selected-border-right-style: null;
+@button-success-inverse-selected-border-bottom-width: null;
+@button-success-inverse-selected-border-bottom-color: null;
+@button-success-inverse-selected-border-bottom-style: null;
+@button-success-inverse-selected-border-left-width: null;
+@button-success-inverse-selected-border-left-color: null;
+@button-success-inverse-selected-border-left-style: null;
+@button-success-inverse-selected-shadow: null;
+
+// Disabled
+
+@button-success-inverse-disabled-opacity: null;
+@button-success-inverse-disabled-color: null;
+@button-success-inverse-disabled-font-family: null;
+@button-success-inverse-disabled-font-style: null;
+@button-success-inverse-disabled-font-weight: null;
+@button-success-inverse-disabled-text-transform: null;
+@button-success-inverse-disabled-text-shadow: null;
+@button-success-inverse-disabled-text-decoration: null;
+@button-success-inverse-disabled-text-rendering: null;
+@button-success-inverse-disabled-background-color: null;
+@button-success-inverse-disabled-background-gradient-color-top: null;
+@button-success-inverse-disabled-background-gradient-color-bottom: null;
+@button-success-inverse-disabled-border-width: null;
+@button-success-inverse-disabled-border-color: null;
+@button-success-inverse-disabled-border-style: null;
+@button-success-inverse-disabled-border-top-width: null;
+@button-success-inverse-disabled-border-top-color: null;
+@button-success-inverse-disabled-border-top-style: null;
+@button-success-inverse-disabled-border-right-width: null;
+@button-success-inverse-disabled-border-right-color: null;
+@button-success-inverse-disabled-border-right-style: null;
+@button-success-inverse-disabled-border-bottom-width: null;
+@button-success-inverse-disabled-border-bottom-color: null;
+@button-success-inverse-disabled-border-bottom-style: null;
+@button-success-inverse-disabled-border-left-width: null;
+@button-success-inverse-disabled-border-left-color: null;
+@button-success-inverse-disabled-border-left-style: null;
+@button-success-inverse-disabled-shadow: null;

@@ -1,0 +1,311 @@
+@button-success-link-enabled: true;
+
+/*
+ * Styling
+ */
+
+/* Default */
+
+// Normal
+
+@button-success-link-color: color-lighten(@green, 0);
+@button-success-link-font-family: null;
+@button-success-link-font-style: null;
+@button-success-link-font-weight: null;
+@button-success-link-text-transform: null;
+@button-success-link-text-shadow: null;
+@button-success-link-text-decoration: null;
+@button-success-link-text-rendering: null;
+@button-success-link-background-color: transparent;
+@button-success-link-background-gradient-color-top: null;
+@button-success-link-background-gradient-color-bottom: null;
+@button-success-link-border-width: 1px;
+@button-success-link-border-color: fade(@green, 0%);
+@button-success-link-border-style: solid;
+@button-success-link-border-top-width: null;
+@button-success-link-border-top-color: null;
+@button-success-link-border-top-style: null;
+@button-success-link-border-right-width: null;
+@button-success-link-border-right-color: null;
+@button-success-link-border-right-style: null;
+@button-success-link-border-bottom-width: null;
+@button-success-link-border-bottom-color: null;
+@button-success-link-border-bottom-style: null;
+@button-success-link-border-left-width: null;
+@button-success-link-border-left-color: null;
+@button-success-link-border-left-style: null;
+@button-success-link-shadow: null;
+
+// Hover
+
+@button-success-link-hover-color: color-lighten(@green, -20);
+@button-success-link-hover-font-family: null;
+@button-success-link-hover-font-style: null;
+@button-success-link-hover-font-weight: null;
+@button-success-link-hover-text-transform: null;
+@button-success-link-hover-text-shadow: null;
+@button-success-link-hover-text-decoration: underline;
+@button-success-link-hover-text-rendering: null;
+@button-success-link-hover-background-color: transparent;
+@button-success-link-hover-background-gradient-color-top: null;
+@button-success-link-hover-background-gradient-color-bottom: null;
+@button-success-link-hover-border-width: null;
+@button-success-link-hover-border-color: fade(color-lighten(@green, -20), 0%);
+@button-success-link-hover-border-style: null;
+@button-success-link-hover-border-top-width: null;
+@button-success-link-hover-border-top-color: null;
+@button-success-link-hover-border-top-style: null;
+@button-success-link-hover-border-right-width: null;
+@button-success-link-hover-border-right-color: null;
+@button-success-link-hover-border-right-style: null;
+@button-success-link-hover-border-bottom-width: null;
+@button-success-link-hover-border-bottom-color: null;
+@button-success-link-hover-border-bottom-style: null;
+@button-success-link-hover-border-left-width: null;
+@button-success-link-hover-border-left-color: null;
+@button-success-link-hover-border-left-style: null;
+@button-success-link-hover-shadow: null;
+
+// Active
+
+@button-success-link-active-color: color-lighten(@green, -40);
+@button-success-link-active-font-family: null;
+@button-success-link-active-font-style: null;
+@button-success-link-active-font-weight: null;
+@button-success-link-active-text-transform: null;
+@button-success-link-active-text-shadow: null;
+@button-success-link-active-text-decoration: null;
+@button-success-link-active-text-rendering: null;
+@button-success-link-active-background-color: transparent;
+@button-success-link-active-background-gradient-color-top: null;
+@button-success-link-active-background-gradient-color-bottom: null;
+@button-success-link-active-border-width: null;
+@button-success-link-active-border-color: fade(color-lighten(@green, -40), 0%);
+@button-success-link-active-border-style: null;
+@button-success-link-active-border-top-width: null;
+@button-success-link-active-border-top-color: null;
+@button-success-link-active-border-top-style: null;
+@button-success-link-active-border-right-width: null;
+@button-success-link-active-border-right-color: null;
+@button-success-link-active-border-right-style: null;
+@button-success-link-active-border-bottom-width: null;
+@button-success-link-active-border-bottom-color: null;
+@button-success-link-active-border-bottom-style: null;
+@button-success-link-active-border-left-width: null;
+@button-success-link-active-border-left-color: null;
+@button-success-link-active-border-left-style: null;
+@button-success-link-active-shadow: null;
+
+// Selected
+
+@button-success-link-selected-color: @button-success-link-active-color;
+@button-success-link-selected-font-family: @button-success-link-active-font-family;
+@button-success-link-selected-font-style: @button-success-link-active-font-style;
+@button-success-link-selected-font-weight: @button-success-link-active-font-weight;
+@button-success-link-selected-text-transform: @button-success-link-active-text-transform;
+@button-success-link-selected-text-shadow: @button-success-link-active-text-shadow;
+@button-success-link-selected-text-decoration: @button-success-link-active-text-decoration;
+@button-success-link-selected-text-rendering: @button-success-link-active-text-rendering;
+@button-success-link-selected-background-color: @button-success-link-active-background-color;
+@button-success-link-selected-background-gradient-color-top: @button-success-link-active-background-gradient-color-top;
+@button-success-link-selected-background-gradient-color-bottom: @button-success-link-active-background-gradient-color-bottom;
+@button-success-link-selected-border-width: @button-success-link-active-border-width;
+@button-success-link-selected-border-color: @button-success-link-active-border-color;
+@button-success-link-selected-border-style: @button-success-link-active-border-style;
+@button-success-link-selected-border-top-width: @button-success-link-active-border-top-width;
+@button-success-link-selected-border-top-color: @button-success-link-active-border-top-color;
+@button-success-link-selected-border-top-style: @button-success-link-active-border-top-style;
+@button-success-link-selected-border-right-width: @button-success-link-active-border-right-width;
+@button-success-link-selected-border-right-color: @button-success-link-active-border-right-color;
+@button-success-link-selected-border-right-style: @button-success-link-active-border-right-style;
+@button-success-link-selected-border-bottom-width: @button-success-link-active-border-bottom-width;
+@button-success-link-selected-border-bottom-color: @button-success-link-active-border-bottom-color;
+@button-success-link-selected-border-bottom-style: @button-success-link-active-border-bottom-style;
+@button-success-link-selected-border-left-width: @button-success-link-active-border-left-width;
+@button-success-link-selected-border-left-color: @button-success-link-active-border-left-color;
+@button-success-link-selected-border-left-style: @button-success-link-active-border-left-style;
+@button-success-link-selected-shadow: @button-success-link-active-shadow;
+
+// Disabled
+
+@button-success-link-disabled-opacity: 0.5;
+@button-success-link-disabled-color: null;
+@button-success-link-disabled-font-family: null;
+@button-success-link-disabled-font-style: null;
+@button-success-link-disabled-font-weight: null;
+@button-success-link-disabled-text-transform: null;
+@button-success-link-disabled-text-shadow: null;
+@button-success-link-disabled-text-decoration: null;
+@button-success-link-disabled-text-rendering: null;
+@button-success-link-disabled-background-color: null;
+@button-success-link-disabled-background-gradient-color-top: null;
+@button-success-link-disabled-background-gradient-color-bottom: null;
+@button-success-link-disabled-border-width: null;
+@button-success-link-disabled-border-color: null;
+@button-success-link-disabled-border-style: null;
+@button-success-link-disabled-border-top-width: null;
+@button-success-link-disabled-border-top-color: null;
+@button-success-link-disabled-border-top-style: null;
+@button-success-link-disabled-border-right-width: null;
+@button-success-link-disabled-border-right-color: null;
+@button-success-link-disabled-border-right-style: null;
+@button-success-link-disabled-border-bottom-width: null;
+@button-success-link-disabled-border-bottom-color: null;
+@button-success-link-disabled-border-bottom-style: null;
+@button-success-link-disabled-border-left-width: null;
+@button-success-link-disabled-border-left-color: null;
+@button-success-link-disabled-border-left-style: null;
+@button-success-link-disabled-shadow: null;
+
+/* Inverse */
+
+// Normal
+
+@button-success-link-inverse-color: color-lighten(@green, 0);
+@button-success-link-inverse-font-family: null;
+@button-success-link-inverse-font-style: null;
+@button-success-link-inverse-font-weight: null;
+@button-success-link-inverse-text-transform: null;
+@button-success-link-inverse-text-shadow: null;
+@button-success-link-inverse-text-decoration: null;
+@button-success-link-inverse-text-rendering: null;
+@button-success-link-inverse-background-color: transparent;
+@button-success-link-inverse-background-gradient-color-top: null;
+@button-success-link-inverse-background-gradient-color-bottom: null;
+@button-success-link-inverse-border-width: 1px;
+@button-success-link-inverse-border-color: fade(@green, 0%);
+@button-success-link-inverse-border-style: solid;
+@button-success-link-inverse-border-top-width: null;
+@button-success-link-inverse-border-top-color: null;
+@button-success-link-inverse-border-top-style: null;
+@button-success-link-inverse-border-right-width: null;
+@button-success-link-inverse-border-right-color: null;
+@button-success-link-inverse-border-right-style: null;
+@button-success-link-inverse-border-bottom-width: null;
+@button-success-link-inverse-border-bottom-color: null;
+@button-success-link-inverse-border-bottom-style: null;
+@button-success-link-inverse-border-left-width: null;
+@button-success-link-inverse-border-left-color: null;
+@button-success-link-inverse-border-left-style: null;
+@button-success-link-inverse-shadow: null;
+
+// Hover
+
+@button-success-link-inverse-hover-color: color-lighten(@green, 20);
+@button-success-link-inverse-hover-font-family: null;
+@button-success-link-inverse-hover-font-style: null;
+@button-success-link-inverse-hover-font-weight: null;
+@button-success-link-inverse-hover-text-transform: null;
+@button-success-link-inverse-hover-text-shadow: null;
+@button-success-link-inverse-hover-text-decoration: underline;
+@button-success-link-inverse-hover-text-rendering: null;
+@button-success-link-inverse-hover-background-color: transparent;
+@button-success-link-inverse-hover-background-gradient-color-top: null;
+@button-success-link-inverse-hover-background-gradient-color-bottom: null;
+@button-success-link-inverse-hover-border-width: null;
+@button-success-link-inverse-hover-border-color: fade(color-lighten(@green, 20), 0%);
+@button-success-link-inverse-hover-border-style: null;
+@button-success-link-inverse-hover-border-top-width: null;
+@button-success-link-inverse-hover-border-top-color: null;
+@button-success-link-inverse-hover-border-top-style: null;
+@button-success-link-inverse-hover-border-right-width: null;
+@button-success-link-inverse-hover-border-right-color: null;
+@button-success-link-inverse-hover-border-right-style: null;
+@button-success-link-inverse-hover-border-bottom-width: null;
+@button-success-link-inverse-hover-border-bottom-color: null;
+@button-success-link-inverse-hover-border-bottom-style: null;
+@button-success-link-inverse-hover-border-left-width: null;
+@button-success-link-inverse-hover-border-left-color: null;
+@button-success-link-inverse-hover-border-left-style: null;
+@button-success-link-inverse-hover-shadow: null;
+
+// Active
+
+@button-success-link-inverse-active-color: color-lighten(@green, -20);
+@button-success-link-inverse-active-font-family: null;
+@button-success-link-inverse-active-font-style: null;
+@button-success-link-inverse-active-font-weight: null;
+@button-success-link-inverse-active-text-transform: null;
+@button-success-link-inverse-active-text-shadow: null;
+@button-success-link-inverse-active-text-decoration: null;
+@button-success-link-inverse-active-text-rendering: null;
+@button-success-link-inverse-active-background-color: transparent;
+@button-success-link-inverse-active-background-gradient-color-top: null;
+@button-success-link-inverse-active-background-gradient-color-bottom: null;
+@button-success-link-inverse-active-border-width: null;
+@button-success-link-inverse-active-border-color: fade(color-lighten(@green, -20), 0%);
+@button-success-link-inverse-active-border-style: null;
+@button-success-link-inverse-active-border-top-width: null;
+@button-success-link-inverse-active-border-top-color: null;
+@button-success-link-inverse-active-border-top-style: null;
+@button-success-link-inverse-active-border-right-width: null;
+@button-success-link-inverse-active-border-right-color: null;
+@button-success-link-inverse-active-border-right-style: null;
+@button-success-link-inverse-active-border-bottom-width: null;
+@button-success-link-inverse-active-border-bottom-color: null;
+@button-success-link-inverse-active-border-bottom-style: null;
+@button-success-link-inverse-active-border-left-width: null;
+@button-success-link-inverse-active-border-left-color: null;
+@button-success-link-inverse-active-border-left-style: null;
+@button-success-link-inverse-active-shadow: null;
+
+// Selected
+
+@button-success-link-inverse-selected-color: @button-success-link-inverse-active-color;
+@button-success-link-inverse-selected-font-family: @button-success-link-inverse-active-font-family;
+@button-success-link-inverse-selected-font-style: @button-success-link-inverse-active-font-style;
+@button-success-link-inverse-selected-font-weight: @button-success-link-inverse-active-font-weight;
+@button-success-link-inverse-selected-text-transform: @button-success-link-inverse-active-text-transform;
+@button-success-link-inverse-selected-text-shadow: @button-success-link-inverse-active-text-shadow;
+@button-success-link-inverse-selected-text-decoration: @button-success-link-inverse-active-text-decoration;
+@button-success-link-inverse-selected-text-rendering: @button-success-link-inverse-active-text-rendering;
+@button-success-link-inverse-selected-background-color: @button-success-link-inverse-active-background-color;
+@button-success-link-inverse-selected-background-gradient-color-top: @button-success-link-inverse-active-background-gradient-color-top;
+@button-success-link-inverse-selected-background-gradient-color-bottom: @button-success-link-inverse-active-background-gradient-color-bottom;
+@button-success-link-inverse-selected-border-width: @button-success-link-inverse-active-border-width;
+@button-success-link-inverse-selected-border-color: @button-success-link-inverse-active-border-color;
+@button-success-link-inverse-selected-border-style: @button-success-link-inverse-active-border-style;
+@button-success-link-inverse-selected-border-top-width: @button-success-link-inverse-active-border-top-width;
+@button-success-link-inverse-selected-border-top-color: @button-success-link-inverse-active-border-top-color;
+@button-success-link-inverse-selected-border-top-style: @button-success-link-inverse-active-border-top-style;
+@button-success-link-inverse-selected-border-right-width: @button-success-link-inverse-active-border-right-width;
+@button-success-link-inverse-selected-border-right-color: @button-success-link-inverse-active-border-right-color;
+@button-success-link-inverse-selected-border-right-style: @button-success-link-inverse-active-border-right-style;
+@button-success-link-inverse-selected-border-bottom-width: @button-success-link-inverse-active-border-bottom-width;
+@button-success-link-inverse-selected-border-bottom-color: @button-success-link-inverse-active-border-bottom-color;
+@button-success-link-inverse-selected-border-bottom-style: @button-success-link-inverse-active-border-bottom-style;
+@button-success-link-inverse-selected-border-left-width: @button-success-link-inverse-active-border-left-width;
+@button-success-link-inverse-selected-border-left-color: @button-success-link-inverse-active-border-left-color;
+@button-success-link-inverse-selected-border-left-style: @button-success-link-inverse-active-border-left-style;
+@button-success-link-inverse-selected-shadow: @button-success-link-inverse-active-shadow;
+
+// Disabled
+
+@button-success-link-inverse-disabled-opacity: 0.5;
+@button-success-link-inverse-disabled-color: null;
+@button-success-link-inverse-disabled-font-family: null;
+@button-success-link-inverse-disabled-font-style: null;
+@button-success-link-inverse-disabled-font-weight: null;
+@button-success-link-inverse-disabled-text-transform: null;
+@button-success-link-inverse-disabled-text-shadow: null;
+@button-success-link-inverse-disabled-text-decoration: null;
+@button-success-link-inverse-disabled-text-rendering: null;
+@button-success-link-inverse-disabled-background-color: null;
+@button-success-link-inverse-disabled-background-gradient-color-top: null;
+@button-success-link-inverse-disabled-background-gradient-color-bottom: null;
+@button-success-link-inverse-disabled-border-width: null;
+@button-success-link-inverse-disabled-border-color: null;
+@button-success-link-inverse-disabled-border-style: null;
+@button-success-link-inverse-disabled-border-top-width: null;
+@button-success-link-inverse-disabled-border-top-color: null;
+@button-success-link-inverse-disabled-border-top-style: null;
+@button-success-link-inverse-disabled-border-right-width: null;
+@button-success-link-inverse-disabled-border-right-color: null;
+@button-success-link-inverse-disabled-border-right-style: null;
+@button-success-link-inverse-disabled-border-bottom-width: null;
+@button-success-link-inverse-disabled-border-bottom-color: null;
+@button-success-link-inverse-disabled-border-bottom-style: null;
+@button-success-link-inverse-disabled-border-left-width: null;
+@button-success-link-inverse-disabled-border-left-color: null;
+@button-success-link-inverse-disabled-border-left-style: null;
+@button-success-link-inverse-disabled-shadow: null;

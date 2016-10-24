@@ -1,0 +1,66 @@
+& when (@install-package-modal-enabled) {
+
+  .modal {
+
+    &.modal-install-package-advanced-view {
+
+      .multiple-form-modal-body {
+        display: flex;
+      }
+
+      .modal-body-wrapper {
+        display: flex;
+        flex-basis: 677px;
+        max-height: none;
+
+        .modal-install-package-scroll-container {
+          flex: 1 1 auto;
+          max-width: 100%;
+          min-height: 0;
+          position: relative;
+        }
+      }
+
+      .modal-install-package-tab-form-wrapper {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+      }
+
+      .modal-install-package-body-and-header {
+        display: flex;
+        flex: 1 1 auto;
+        flex-direction: column;
+        height: 100%;
+        min-height: 0;
+        position: relative;
+
+        .tab-form-wrapper {
+          display: flex;
+          flex: 1;
+          flex-direction: column;
+          height: 100%;
+        }
+
+        .modal-header {
+          flex: 0 0 auto;
+        }
+
+        .multiple-form {
+          display: flex;
+          flex: 1 1 auto;
+          min-height: 0;
+        }
+
+        .multiple-form-right-column {
+          flex: 1 1 auto;
+          min-height: 0;
+        }
+      }
+
+      .modal-footer {
+        flex: 0 0 auto;
+      }
+    }
+  }
+}

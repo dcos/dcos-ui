@@ -1,0 +1,129 @@
+& when (@status-dots-enabled) {
+
+  .dot {
+    background-color: color-lighten(@neutral, 90);
+    border-radius: 100%;
+    height: 8px;
+    width: 8px;
+
+    &.danger {
+      background-color: @danger-color;
+    }
+
+    &.healthy {
+      background-color: @healthy-color;
+    }
+
+    &.inactive {
+      background-color: transparent;
+      border: 1px solid currentColor;
+    }
+
+    &.over-capacity {
+      animation: candy-stripe 1s linear infinite;
+      background-image:
+        linear-gradient(-45deg,
+        color-lighten(@green, -20) 0,
+        color-lighten(@green, -20) 25%,
+        @green 25%,
+        @green 50%,
+        color-lighten(@green, -20) 50%,
+        color-lighten(@green, -20) 75%,
+        @green 75%,
+        @green 100%);
+      background-size: 16px 16px;
+    }
+
+    &.staged {
+      animation: candy-stripe 1s linear infinite;
+      background-image:
+        linear-gradient(-45deg,
+        color-lighten(@neutral, 90) 0,
+        color-lighten(@neutral, 90) 25%,
+        color-lighten(@neutral, 80) 25%,
+        color-lighten(@neutral, 80) 50%,
+        color-lighten(@neutral, 90) 50%,
+        color-lighten(@neutral, 90) 75%,
+        color-lighten(@neutral, 80) 75%,
+        color-lighten(@neutral, 80) 100%);
+      background-size: 16px 16px;
+    }
+
+    &.success {
+      background-color: @success-color;
+    }
+
+    &.unhealthy {
+      background-color: @unhealthy-color;
+    }
+
+    &.unknown {
+      background-color: @unknown-color;
+    }
+
+    .table & {
+      display: inline-block;
+      margin-right: @base-spacing-unit * 0.25;
+    }
+  }
+}
+
+& when (@status-dots-enabled) and (@layout-screen-small-enabled) {
+
+  @media (min-width: @layout-screen-small-min-width) {
+
+    .dot {
+      height: 9px;
+      width: 9px;
+
+      .table & {
+        margin-right: @base-spacing-unit-screen-small * 0.25;
+      }
+    }
+  }
+}
+
+& when (@status-dots-enabled) and (@layout-screen-medium-enabled) {
+
+  @media (min-width: @layout-screen-medium-min-width) {
+
+    .dot {
+      height: 10px;
+      width: 10px;
+
+      .table & {
+        margin-right: @base-spacing-unit-screen-medium * 0.25;
+      }
+    }
+  }
+}
+
+& when (@status-dots-enabled) and (@layout-screen-large-enabled) {
+
+  @media (min-width: @layout-screen-large-min-width) {
+
+    .dot {
+      height: 11px;
+      width: 11px;
+
+      .table & {
+        margin-right: @base-spacing-unit-screen-large * 0.25;
+      }
+    }
+  }
+}
+
+& when (@status-dots-enabled) and (@layout-screen-jumbo-enabled) {
+
+  @media (min-width: @layout-screen-jumbo-min-width) {
+
+    .dot {
+      height: 12px;
+      width: 12px;
+
+      .table & {
+        margin-right: @base-spacing-unit-screen-jumbo * 0.25;
+      }
+    }
+  }
+}

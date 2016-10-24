@@ -1,0 +1,275 @@
+/* Page Header */
+
+& when (@page-header-enabled) {
+
+  .page-header {
+    flex: 0 1 auto;
+    position: relative;
+
+    &:before {
+      background-color: color-lighten(@neutral, 80);
+      bottom: 0;
+      content: '';
+      display: block;
+      height: 1px;
+      left: 0;
+      position: absolute;
+      width: 100%;
+    }
+  }
+
+  // TODO: Remove this if we aren't going to use it.
+  .page-navigation-sidebar-toggle {
+    display: none;
+  }
+
+  .page-header-content-section {
+    align-items: center;
+    display: flex;
+  }
+
+  .page-header-navigation {
+    align-items: flex-start;
+    display: flex;
+
+    & when not (@pod-margin-bottom = null) {
+
+      & when (@pod-short-margin-top-scale = null) {
+        margin-bottom: -@pod-margin-bottom;
+        padding-top: @pod-margin-bottom;
+      }
+
+      & when not (@pod-short-margin-top-scale = null) {
+        margin-bottom: -@pod-margin-bottom * @pod-short-margin-top-scale;
+        padding-top: @pod-margin-bottom * @pod-short-margin-top-scale;
+      }
+    }
+
+    .menu-tabbed {
+      margin-bottom: 0;
+    }
+  }
+
+  .page-header-content-section-secondary-detail {
+    margin-left: auto;
+  }
+
+  .page-header-breadcrumbs {
+    align-items: center;
+    display: flex;
+    flex: 1 1 auto;
+    min-width: 0;
+
+    // This extra classname is necessary to override specificity from CNVS.
+    &.list-inline {
+
+      & > li {
+        display: inline-block;
+        float: none;
+        line-height: 2rem;
+        margin-right: @base-spacing-unit * 1/4;
+        vertical-align: middle;
+
+        &:last-child {
+          margin-right: 0;
+        }
+      }
+    }
+  }
+
+  .page-header-breadcrumb-primary {
+    flex: 0 0 auto;
+
+    .icon {
+      margin-right: @base-spacing-unit * 1/8;
+    }
+
+    .dropdown {
+
+      .button {
+        background: none;
+        border: 0;
+        border-radius: 0;
+        padding: 0;
+      }
+    }
+  }
+
+  .page-header-breadcrumb-secondary {
+    flex: 0 1 auto;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    &:last-child {
+      flex: 0 0 auto;
+      min-width: auto;
+      overflow: visible;
+    }
+  }
+
+  .page-header-breadcrumb-caret {
+    flex: 0 0 auto;
+  }
+
+  .page-header-actions {
+    flex: 0 0 auto;
+  }
+}
+
+& when (@page-header-enabled) and (@layout-screen-small-enabled) {
+
+  @media (min-width: @layout-screen-small-min-width) {
+
+    .page-header-navigation {
+
+      & when not (@pod-margin-bottom-screen-small = null) {
+
+        & when (@pod-short-margin-top-scale = null) {
+          margin-bottom: -@pod-margin-bottom-screen-small;
+          padding-top: @pod-margin-bottom-screen-small;
+        }
+
+        & when not (@pod-short-margin-top-scale = null) {
+          margin-bottom: -@pod-margin-bottom-screen-small * @pod-short-margin-top-scale;
+          padding-top: @pod-margin-bottom-screen-small * @pod-short-margin-top-scale;
+        }
+      }
+    }
+
+    .page-header-breadcrumbs {
+
+      &.list-inline {
+
+        & > li {
+          margin-right: @base-spacing-unit-screen-small * 1/4;
+        }
+      }
+    }
+
+    .page-header-breadcrumb-primary {
+
+      .icon {
+        margin-right: @base-spacing-unit-screen-small * 1/8;
+      }
+    }
+  }
+}
+
+& when (@page-header-enabled) and (@layout-screen-medium-enabled) {
+
+  @media (min-width: @layout-screen-medium-min-width) {
+
+    .page-header-navigation {
+
+      & when not (@pod-margin-bottom-screen-medium = null) {
+
+        & when (@pod-short-margin-top-scale = null) {
+          margin-bottom: -@pod-margin-bottom-screen-medium;
+          padding-top: @pod-margin-bottom-screen-medium;
+        }
+
+        & when not (@pod-short-margin-top-scale = null) {
+          margin-bottom: -@pod-margin-bottom-screen-medium * @pod-short-margin-top-scale;
+          padding-top: @pod-margin-bottom-screen-medium * @pod-short-margin-top-scale;
+        }
+      }
+    }
+
+    .page-header-breadcrumbs {
+
+      &.list-inline {
+
+        & > li {
+          margin-right: @base-spacing-unit-screen-medium * 1/4;
+        }
+      }
+    }
+
+    .page-header-breadcrumb-primary {
+
+      .icon {
+        margin-right: @base-spacing-unit-screen-medium * 1/8;
+      }
+    }
+  }
+}
+
+& when (@page-header-enabled) and (@layout-screen-large-enabled) {
+
+  @media (min-width: @layout-screen-large-min-width) {
+
+    .page-header-navigation {
+
+      & when not (@pod-margin-bottom-screen-large = null) {
+
+        & when (@pod-short-margin-top-scale = null) {
+          margin-bottom: -@pod-margin-bottom-screen-large;
+          padding-top: @pod-margin-bottom-screen-large;
+        }
+
+        & when not (@pod-short-margin-top-scale = null) {
+          margin-bottom: -@pod-margin-bottom-screen-large * @pod-short-margin-top-scale;
+          padding-top: @pod-margin-bottom-screen-large * @pod-short-margin-top-scale;
+        }
+      }
+    }
+
+    .page-header-breadcrumbs {
+
+      &.list-inline {
+
+        & > li {
+          margin-right: @base-spacing-unit-screen-large * 1/4;
+        }
+      }
+    }
+
+    .page-header-breadcrumb-primary {
+
+      .icon {
+        margin-right: @base-spacing-unit-screen-large * 1/8;
+      }
+    }
+  }
+}
+
+& when (@page-header-enabled) and (@layout-screen-jumbo-enabled) {
+
+  @media (min-width: @layout-screen-jumbo-min-width) {
+
+    .page-header-navigation {
+
+      & when not (@pod-margin-bottom-screen-jumbo = null) {
+
+        & when (@pod-short-margin-top-scale = null) {
+          margin-bottom: -@pod-margin-bottom-screen-jumbo;
+          padding-top: @pod-margin-bottom-screen-jumbo;
+        }
+
+        & when not (@pod-short-margin-top-scale = null) {
+          margin-bottom: -@pod-margin-bottom-screen-jumbo * @pod-short-margin-top-scale;
+          padding-top: @pod-margin-bottom-screen-jumbo * @pod-short-margin-top-scale;
+        }
+      }
+    }
+
+    .page-header-breadcrumbs {
+
+      &.list-inline {
+
+        & > li {
+          margin-right: @base-spacing-unit-screen-jumbo * 1/4;
+        }
+      }
+    }
+
+    .page-header-breadcrumb-primary {
+
+      .icon {
+        margin-right: @base-spacing-unit-screen-jumbo * 1/8;
+      }
+    }
+  }
+}

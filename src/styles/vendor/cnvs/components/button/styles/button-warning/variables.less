@@ -1,0 +1,311 @@
+@button-warning-enabled: true;
+
+/*
+ * Styling
+ */
+
+/* Default */
+
+// Normal
+
+@button-warning-color: @white;
+@button-warning-font-family: null;
+@button-warning-font-style: null;
+@button-warning-font-weight: null;
+@button-warning-text-transform: null;
+@button-warning-text-shadow: null;
+@button-warning-text-decoration: null;
+@button-warning-text-rendering: null;
+@button-warning-background-color: color-lighten(@yellow, 0);
+@button-warning-background-gradient-color-top: null;
+@button-warning-background-gradient-color-bottom: null;
+@button-warning-border-width: null;
+@button-warning-border-color: color-lighten(@yellow, 0);
+@button-warning-border-style: null;
+@button-warning-border-top-width: null;
+@button-warning-border-top-color: null;
+@button-warning-border-top-style: null;
+@button-warning-border-right-width: null;
+@button-warning-border-right-color: null;
+@button-warning-border-right-style: null;
+@button-warning-border-bottom-width: null;
+@button-warning-border-bottom-color: null;
+@button-warning-border-bottom-style: null;
+@button-warning-border-left-width: null;
+@button-warning-border-left-color: null;
+@button-warning-border-left-style: null;
+@button-warning-shadow: null;
+
+// Hover
+
+@button-warning-hover-color: @white;
+@button-warning-hover-font-family: null;
+@button-warning-hover-font-style: null;
+@button-warning-hover-font-weight: null;
+@button-warning-hover-text-transform: null;
+@button-warning-hover-text-shadow: null;
+@button-warning-hover-text-decoration: null;
+@button-warning-hover-text-rendering: null;
+@button-warning-hover-background-color: color-lighten(@yellow, -10);
+@button-warning-hover-background-gradient-color-top: null;
+@button-warning-hover-background-gradient-color-bottom: null;
+@button-warning-hover-border-width: null;
+@button-warning-hover-border-color: color-lighten(@yellow, -10);
+@button-warning-hover-border-style: null;
+@button-warning-hover-border-top-width: null;
+@button-warning-hover-border-top-color: null;
+@button-warning-hover-border-top-style: null;
+@button-warning-hover-border-right-width: null;
+@button-warning-hover-border-right-color: null;
+@button-warning-hover-border-right-style: null;
+@button-warning-hover-border-bottom-width: null;
+@button-warning-hover-border-bottom-color: null;
+@button-warning-hover-border-bottom-style: null;
+@button-warning-hover-border-left-width: null;
+@button-warning-hover-border-left-color: null;
+@button-warning-hover-border-left-style: null;
+@button-warning-hover-shadow: null;
+
+// Active
+
+@button-warning-active-color: color-lighten(@yellow, 80);
+@button-warning-active-font-family: null;
+@button-warning-active-font-style: null;
+@button-warning-active-font-weight: null;
+@button-warning-active-text-transform: null;
+@button-warning-active-text-shadow: null;
+@button-warning-active-text-decoration: null;
+@button-warning-active-text-rendering: null;
+@button-warning-active-background-color: color-lighten(@yellow, -25);
+@button-warning-active-background-gradient-color-top: null;
+@button-warning-active-background-gradient-color-bottom: null;
+@button-warning-active-border-width: null;
+@button-warning-active-border-color: color-lighten(@yellow, -25);
+@button-warning-active-border-style: null;
+@button-warning-active-border-top-width: null;
+@button-warning-active-border-top-color: null;
+@button-warning-active-border-top-style: null;
+@button-warning-active-border-right-width: null;
+@button-warning-active-border-right-color: null;
+@button-warning-active-border-right-style: null;
+@button-warning-active-border-bottom-width: null;
+@button-warning-active-border-bottom-color: null;
+@button-warning-active-border-bottom-style: null;
+@button-warning-active-border-left-width: null;
+@button-warning-active-border-left-color: null;
+@button-warning-active-border-left-style: null;
+@button-warning-active-shadow: null;
+
+// Selected
+
+@button-warning-selected-color: color-lighten(@yellow, 70);
+@button-warning-selected-font-family: null;
+@button-warning-selected-font-style: null;
+@button-warning-selected-font-weight: null;
+@button-warning-selected-text-transform: null;
+@button-warning-selected-text-shadow: null;
+@button-warning-selected-text-decoration: null;
+@button-warning-selected-text-rendering: null;
+@button-warning-selected-background-color: color-lighten(@yellow, -15);
+@button-warning-selected-background-gradient-color-top: null;
+@button-warning-selected-background-gradient-color-bottom: null;
+@button-warning-selected-border-width: null;
+@button-warning-selected-border-color: color-lighten(@yellow, -15);
+@button-warning-selected-border-style: null;
+@button-warning-selected-border-top-width: null;
+@button-warning-selected-border-top-color: null;
+@button-warning-selected-border-top-style: null;
+@button-warning-selected-border-right-width: null;
+@button-warning-selected-border-right-color: null;
+@button-warning-selected-border-right-style: null;
+@button-warning-selected-border-bottom-width: null;
+@button-warning-selected-border-bottom-color: null;
+@button-warning-selected-border-bottom-style: null;
+@button-warning-selected-border-left-width: null;
+@button-warning-selected-border-left-color: null;
+@button-warning-selected-border-left-style: null;
+@button-warning-selected-shadow: null;
+
+// Disabled
+
+@button-warning-disabled-opacity: 0.5;
+@button-warning-disabled-color: null;
+@button-warning-disabled-font-family: null;
+@button-warning-disabled-font-style: null;
+@button-warning-disabled-font-weight: null;
+@button-warning-disabled-text-transform: null;
+@button-warning-disabled-text-shadow: null;
+@button-warning-disabled-text-decoration: null;
+@button-warning-disabled-text-rendering: null;
+@button-warning-disabled-background-color: null;
+@button-warning-disabled-background-gradient-color-top: null;
+@button-warning-disabled-background-gradient-color-bottom: null;
+@button-warning-disabled-border-width: null;
+@button-warning-disabled-border-color: null;
+@button-warning-disabled-border-style: null;
+@button-warning-disabled-border-top-width: null;
+@button-warning-disabled-border-top-color: null;
+@button-warning-disabled-border-top-style: null;
+@button-warning-disabled-border-right-width: null;
+@button-warning-disabled-border-right-color: null;
+@button-warning-disabled-border-right-style: null;
+@button-warning-disabled-border-bottom-width: null;
+@button-warning-disabled-border-bottom-color: null;
+@button-warning-disabled-border-bottom-style: null;
+@button-warning-disabled-border-left-width: null;
+@button-warning-disabled-border-left-color: null;
+@button-warning-disabled-border-left-style: null;
+@button-warning-disabled-shadow: null;
+
+/* Inverse */
+
+// Normal
+
+@button-warning-inverse-color: @white;
+@button-warning-inverse-font-family: null;
+@button-warning-inverse-font-style: null;
+@button-warning-inverse-font-weight: null;
+@button-warning-inverse-text-transform: null;
+@button-warning-inverse-text-shadow: null;
+@button-warning-inverse-text-decoration: null;
+@button-warning-inverse-text-rendering: null;
+@button-warning-inverse-background-color: color-lighten(@yellow, 0);
+@button-warning-inverse-background-gradient-color-top: null;
+@button-warning-inverse-background-gradient-color-bottom: null;
+@button-warning-inverse-border-width: null;
+@button-warning-inverse-border-color: color-lighten(@yellow, 0);
+@button-warning-inverse-border-style: null;
+@button-warning-inverse-border-top-width: null;
+@button-warning-inverse-border-top-color: null;
+@button-warning-inverse-border-top-style: null;
+@button-warning-inverse-border-right-width: null;
+@button-warning-inverse-border-right-color: null;
+@button-warning-inverse-border-right-style: null;
+@button-warning-inverse-border-bottom-width: null;
+@button-warning-inverse-border-bottom-color: null;
+@button-warning-inverse-border-bottom-style: null;
+@button-warning-inverse-border-left-width: null;
+@button-warning-inverse-border-left-color: null;
+@button-warning-inverse-border-left-style: null;
+@button-warning-inverse-shadow: null;
+
+// Hover
+
+@button-warning-inverse-hover-color: @white;
+@button-warning-inverse-hover-font-family: null;
+@button-warning-inverse-hover-font-style: null;
+@button-warning-inverse-hover-font-weight: null;
+@button-warning-inverse-hover-text-transform: null;
+@button-warning-inverse-hover-text-shadow: null;
+@button-warning-inverse-hover-text-decoration: null;
+@button-warning-inverse-hover-text-rendering: null;
+@button-warning-inverse-hover-background-color: color-lighten(@yellow, 5);
+@button-warning-inverse-hover-background-gradient-color-top: null;
+@button-warning-inverse-hover-background-gradient-color-bottom: null;
+@button-warning-inverse-hover-border-width: null;
+@button-warning-inverse-hover-border-color: color-lighten(@yellow, 5);
+@button-warning-inverse-hover-border-style: null;
+@button-warning-inverse-hover-border-top-width: null;
+@button-warning-inverse-hover-border-top-color: null;
+@button-warning-inverse-hover-border-top-style: null;
+@button-warning-inverse-hover-border-right-width: null;
+@button-warning-inverse-hover-border-right-color: null;
+@button-warning-inverse-hover-border-right-style: null;
+@button-warning-inverse-hover-border-bottom-width: null;
+@button-warning-inverse-hover-border-bottom-color: null;
+@button-warning-inverse-hover-border-bottom-style: null;
+@button-warning-inverse-hover-border-left-width: null;
+@button-warning-inverse-hover-border-left-color: null;
+@button-warning-inverse-hover-border-left-style: null;
+@button-warning-inverse-hover-shadow: null;
+
+// Active
+
+@button-warning-inverse-active-color: color-lighten(@yellow, 80);
+@button-warning-inverse-active-font-family: null;
+@button-warning-inverse-active-font-style: null;
+@button-warning-inverse-active-font-weight: null;
+@button-warning-inverse-active-text-transform: null;
+@button-warning-inverse-active-text-shadow: null;
+@button-warning-inverse-active-text-decoration: null;
+@button-warning-inverse-active-text-rendering: null;
+@button-warning-inverse-active-background-color: color-lighten(@yellow, -25);
+@button-warning-inverse-active-background-gradient-color-top: null;
+@button-warning-inverse-active-background-gradient-color-bottom: null;
+@button-warning-inverse-active-border-width: null;
+@button-warning-inverse-active-border-color: color-lighten(@yellow, -25);
+@button-warning-inverse-active-border-style: null;
+@button-warning-inverse-active-border-top-width: null;
+@button-warning-inverse-active-border-top-color: null;
+@button-warning-inverse-active-border-top-style: null;
+@button-warning-inverse-active-border-right-width: null;
+@button-warning-inverse-active-border-right-color: null;
+@button-warning-inverse-active-border-right-style: null;
+@button-warning-inverse-active-border-bottom-width: null;
+@button-warning-inverse-active-border-bottom-color: null;
+@button-warning-inverse-active-border-bottom-style: null;
+@button-warning-inverse-active-border-left-width: null;
+@button-warning-inverse-active-border-left-color: null;
+@button-warning-inverse-active-border-left-style: null;
+@button-warning-inverse-active-shadow: null;
+
+// Selected
+
+@button-warning-inverse-selected-color: color-lighten(@yellow, 70);
+@button-warning-inverse-selected-font-family: null;
+@button-warning-inverse-selected-font-style: null;
+@button-warning-inverse-selected-font-weight: null;
+@button-warning-inverse-selected-text-transform: null;
+@button-warning-inverse-selected-text-shadow: null;
+@button-warning-inverse-selected-text-decoration: null;
+@button-warning-inverse-selected-text-rendering: null;
+@button-warning-inverse-selected-background-color: color-lighten(@yellow, -15);
+@button-warning-inverse-selected-background-gradient-color-top: null;
+@button-warning-inverse-selected-background-gradient-color-bottom: null;
+@button-warning-inverse-selected-border-width: null;
+@button-warning-inverse-selected-border-color: color-lighten(@yellow, -15);
+@button-warning-inverse-selected-border-style: null;
+@button-warning-inverse-selected-border-top-width: null;
+@button-warning-inverse-selected-border-top-color: null;
+@button-warning-inverse-selected-border-top-style: null;
+@button-warning-inverse-selected-border-right-width: null;
+@button-warning-inverse-selected-border-right-color: null;
+@button-warning-inverse-selected-border-right-style: null;
+@button-warning-inverse-selected-border-bottom-width: null;
+@button-warning-inverse-selected-border-bottom-color: null;
+@button-warning-inverse-selected-border-bottom-style: null;
+@button-warning-inverse-selected-border-left-width: null;
+@button-warning-inverse-selected-border-left-color: null;
+@button-warning-inverse-selected-border-left-style: null;
+@button-warning-inverse-selected-shadow: null;
+
+// Disabled
+
+@button-warning-inverse-disabled-opacity: null;
+@button-warning-inverse-disabled-color: null;
+@button-warning-inverse-disabled-font-family: null;
+@button-warning-inverse-disabled-font-style: null;
+@button-warning-inverse-disabled-font-weight: null;
+@button-warning-inverse-disabled-text-transform: null;
+@button-warning-inverse-disabled-text-shadow: null;
+@button-warning-inverse-disabled-text-decoration: null;
+@button-warning-inverse-disabled-text-rendering: null;
+@button-warning-inverse-disabled-background-color: null;
+@button-warning-inverse-disabled-background-gradient-color-top: null;
+@button-warning-inverse-disabled-background-gradient-color-bottom: null;
+@button-warning-inverse-disabled-border-width: null;
+@button-warning-inverse-disabled-border-color: null;
+@button-warning-inverse-disabled-border-style: null;
+@button-warning-inverse-disabled-border-top-width: null;
+@button-warning-inverse-disabled-border-top-color: null;
+@button-warning-inverse-disabled-border-top-style: null;
+@button-warning-inverse-disabled-border-right-width: null;
+@button-warning-inverse-disabled-border-right-color: null;
+@button-warning-inverse-disabled-border-right-style: null;
+@button-warning-inverse-disabled-border-bottom-width: null;
+@button-warning-inverse-disabled-border-bottom-color: null;
+@button-warning-inverse-disabled-border-bottom-style: null;
+@button-warning-inverse-disabled-border-left-width: null;
+@button-warning-inverse-disabled-border-left-color: null;
+@button-warning-inverse-disabled-border-left-style: null;
+@button-warning-inverse-disabled-shadow: null;
