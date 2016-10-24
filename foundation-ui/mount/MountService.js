@@ -1,8 +1,13 @@
 import React from 'react';
 
-import Hooks from '../hooks';
-
-const hooks = Hooks();
+const hooks = {
+  addAction() {},
+  addFilter() {},
+  applyFilter() {},
+  doAction() {},
+  removeAction() {},
+  removeFilter() {}
+};
 
 /**
  * MountService relies on a single instance of Hooks.
