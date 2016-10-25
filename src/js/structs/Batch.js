@@ -13,22 +13,22 @@
  *   constructor() {
  *     super();
  *     this.state = {
- *        actionBatch: new Batch()
+ *        batch: new Batch()
  *     }
  *   }
  *
  *   handleAction() {
- *     this.setState({
- *        actionBatch: this.state.actionBatch.add({
- *           action: 'set',
+ *     let {batch} = this.state;
+ *     batch.add({
+ *           type: 'set',
  *           key: 'foo',
  *           value: 'bar'
- *        })
- *     })
+ *        });
+ *     this.setState({batch});
  *   }
  *
  *   render() {
- *      let data = this.state.actionBatch.reduce(
+ *      let data = this.state.batch.reduce(
  *            applyActionsToDataCallback,
  *            this.props.data
  *         );
@@ -52,7 +52,7 @@ class Batch {
   /**
    * Add an action to the batch.
    *
-   * @param {Action|Object} item
+   * @param {Object} item
    */
   add(item) {
     this.push(item);
