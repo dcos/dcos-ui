@@ -65,16 +65,17 @@ class MountPoint extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     // Update mount contents when new props are received
-    this.updateState(nextProps);
+    this.updateState(this.state.children, nextProps);
   }
 
   componentWillUnmount() {
     MountService.removeListener(this.props.id, this.updateState);
   }
 
-  updateState(props = this.props) {
-    let {children, id} = props;
-    let blackList = ['children', ...Object.keys(MountPoint.propTypes)];
+  updateState(registeredChildren, props = this.props) {
+    let {limit} = props;
+    let children = React.Children.toArray(props.children);
+    let blackList = Object.keys(MountPoint.propTypes);
     // Filter props consumed by MountPoint to create childProps
     let childProps = Object.keys(props).filter(function (key) {
       return !blackList.includes(key);
@@ -84,13 +85,18 @@ class MountPoint extends React.Component {
       return memo;
     }, {});
 
-    let filteredChildren = MountService.getContent(
-      id,
-      React.Children.toArray(children),
-      childProps
-    );
+    // There are no components registered
+    if (Array.isArray(registeredChildren) && registeredChildren.length) {
+      children = registeredChildren;
+    }
 
-    this.setState({children: filteredChildren});
+    let newChildren = children.slice(-limit).map((child, key) => {
+      return React.cloneElement(child, Object.assign({key}, childProps));
+    });
+
+    console.log(newChildren);
+
+    this.setState({children: newChildren});
   }
 
   render() {
@@ -131,14 +137,17 @@ MountPoint.childContextTypes = {
 };
 
 MountPoint.defaultProps = {
-  wrapperComponent: 'div',
-  alwaysWrap: false
+  alwaysWrap: false,
+  limit: 1,
+  wrapperComponent: 'div'
 };
 
 MountPoint.propTypes = {
+  alwaysWrap: PropTypes.bool,
+  limit: PropTypes.number,
+  children: PropTypes.element,
   id: PropTypes.string.isRequired,
-  wrapperComponent: PropTypes.node,
-  alwaysWrap: PropTypes.bool
+  wrapperComponent: PropTypes.node
 };
 
 module.exports = MountPoint;
