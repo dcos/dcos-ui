@@ -1,13 +1,13 @@
 const ReducerUtil = require('../ReducerUtil');
 
-const idReducer = function (state = '', action) {
-  if (action.path.join('') === 'id') {
-    state = action.value;
-  }
-  return state;
-};
 describe('ReducerUtil', function () {
   describe('#combineReducers', function () {
+    const idReducer = function (state = '', action) {
+      if (action.path.join('') === 'id') {
+        state = action.value;
+      }
+      return state;
+    };
 
     beforeEach(function () {
 
