@@ -4855,6 +4855,11 @@
       "from": "mute-stream@0.0.5",
       "resolved": "https://registry.npmjs.org/mute-stream/-/mute-stream-0.0.5.tgz"
     },
+    "nan": {
+      "version": "2.4.0",
+      "from": "nan@>=2.3.0 <3.0.0",
+      "resolved": "https://registry.npmjs.org/nan/-/nan-2.4.0.tgz"
+    },
     "natural-compare": {
       "version": "1.4.0",
       "from": "natural-compare@>=1.4.0 <2.0.0",
@@ -5820,9 +5825,9 @@
       "resolved": "https://registry.npmjs.org/react-transform-hmr/-/react-transform-hmr-1.0.4.tgz"
     },
     "reactjs-components": {
-      "version": "0.16.0-beta.0",
-      "from": "reactjs-components@0.16.0-beta.0",
-      "resolved": "https://registry.npmjs.org/reactjs-components/-/reactjs-components-0.16.0-beta.0.tgz"
+      "version": "0.16.0-beta.2",
+      "from": "reactjs-components@0.16.0-beta.2",
+      "resolved": "https://registry.npmjs.org/reactjs-components/-/reactjs-components-0.16.0-beta.2.tgz"
     },
     "reactjs-mixin": {
       "version": "0.0.2",
