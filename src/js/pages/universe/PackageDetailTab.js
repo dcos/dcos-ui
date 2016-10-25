@@ -161,7 +161,7 @@ class PackageDetailTab extends mixin(StoreMixin) {
       // TODO: Convert this to .pill-label.
       return (
         <span className="badge-container selected-badge">
-          <span className="badge badge-large flush">
+          <span className="badge badge-large flush-left">
             Selected
           </span>
           {versionTag}
