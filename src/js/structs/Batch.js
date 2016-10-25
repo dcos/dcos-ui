@@ -50,11 +50,7 @@ class Batch {
   }
 
   /**
-   * Add an action to the batch, and return the new batch
-   *
-   * NOTE: This is currently mutating the underlying batch array, but
-   *       this will change in the future, so use this function assuming
-   *       it will return the new batch you should operate upon!
+   * Add an action to the batch.
    *
    * @param {Action|Object} item
    */
@@ -63,7 +59,7 @@ class Batch {
   };
 
   /**
-   * Apply the given reducer function to the data provided.
+   * Apply the given reducer function to the batch containing the provided data.
    *
    * This interface is exactly the same as the native Array.reduce function.
    *
