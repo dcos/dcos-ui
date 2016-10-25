@@ -6,7 +6,7 @@ import Icon from '../../../../../src/js/components/Icon';
 
 const ServiceItemNotFound = function ({ message }) {
 
-  const icon = <Icon id="services" color="white" size="jumbo" />;
+  const icon = <Icon id="services" color="neutral" size="jumbo" />;
   const footer = (
     <Link to="/services" className="button button-stroke button-inverse">
       Go back to Services Page

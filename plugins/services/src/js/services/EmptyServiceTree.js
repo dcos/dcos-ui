@@ -5,7 +5,7 @@ import Icon from '../../../../../src/js/components/Icon';
 
 const EmptyServiceTree = function ({ onCreateGroup, onCreateService }) {
 
-  const icon = <Icon id="services" color="white" size="jumbo" />;
+  const icon = <Icon id="services" color="neutral" size="jumbo" />;
   const footer = (
    <div className="button-collection flush-bottom">
       <button className="button button-stroke button-inverse"
