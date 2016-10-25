@@ -1,4 +1,4 @@
-class FormAction {
+class Transaction {
   constructor(path, value, type = 'SET') {
     Object.defineProperties(this, {
       path: {
@@ -18,4 +18,4 @@ class FormAction {
 
 }
 
-module.exports = FormAction;
+module.exports = Transaction;
