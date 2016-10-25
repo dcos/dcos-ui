@@ -10,4 +10,63 @@
       }
     }
   }
+
+  .selected-badge {
+
+    .badge {
+      margin-right: @base-spacing-unit * 1/4;
+    }
+  }
+}
+
+& when (@packages-view-enabled) and (@layout-screen-small-enabled) {
+
+  @media (min-width: @layout-screen-small-min-width) {
+
+    .selected-badge {
+
+      .badge {
+        margin-right: @base-spacing-unit-screen-small * 1/4;
+      }
+    }
+  }
+}
+
+& when (@packages-view-enabled) and (@layout-screen-medium-enabled) {
+
+  @media (min-width: @layout-screen-medium-min-width) {
+
+    .selected-badge {
+
+      .badge {
+        margin-right: @base-spacing-unit-screen-medium * 1/4;
+      }
+    }
+  }
+}
+
+& when (@packages-view-enabled) and (@layout-screen-large-enabled) {
+
+  @media (min-width: @layout-screen-large-min-width) {
+
+    .selected-badge {
+
+      .badge {
+        margin-right: @base-spacing-unit-screen-large * 1/4;
+      }
+    }
+  }
+}
+
+& when (@packages-view-enabled) and (@layout-screen-jumbo-enabled) {
+
+  @media (min-width: @layout-screen-jumbo-min-width) {
+
+    .selected-badge {
+
+      .badge {
+        margin-right: @base-spacing-unit-screen-jumbo * 1/4;
+      }
+    }
+  }
 }

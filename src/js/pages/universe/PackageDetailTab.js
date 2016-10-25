@@ -4,7 +4,6 @@ import React from 'react';
 /* eslint-enable no-unused-vars */
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
-import Breadcrumbs from '../../components/Breadcrumbs';
 import CosmosPackagesStore from '../../stores/CosmosPackagesStore';
 import defaultServiceImage from '../../../../plugins/services/src/img/icon-service-default-large@2x.png';
 import Image from '../../components/Image';
@@ -235,7 +234,6 @@ class PackageDetailTab extends mixin(StoreMixin) {
 
     return (
       <div>
-        <Breadcrumbs />
         <div className="media-object-spacing-wrapper">
           <div className="media-object media-object-align-middle">
             <div className="media-object-item">
@@ -244,24 +242,13 @@ class PackageDetailTab extends mixin(StoreMixin) {
                   fallbackSrc={defaultServiceImage}
                   src={cosmosPackage.getIcons()['icon-large']} />
               </div>
-              <div className="media-object-item">
-                <h1 className="flush">
-                  {name}
-                </h1>
-                <p>{this.getSelectedBadge(cosmosPackage, version)}</p>
-                {this.getInstallButton(cosmosPackage)}
-              </div>
             </div>
             <div className="media-object-item">
               <h1 className="flush">
                 {name}
               </h1>
               <p>{this.getSelectedBadge(cosmosPackage, version)}</p>
-              <button
-                className="button button-success"
-                onClick={this.handleInstallModalOpen}>
-                Install Package
-              </button>
+              {this.getInstallButton(cosmosPackage)}
             </div>
           </div>
         </div>
