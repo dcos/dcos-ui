@@ -159,12 +159,12 @@ const Networking = {
 
               return false;
             },
-            formElementClass: {'column-2': false}
+            formElementClass: {'column-2': false, 'column-3': true, 'form-control-force-narrow': true}
           },
           name: {
             title: 'Name',
             type: 'string',
-            formElementClass: {'column-2': false, 'column-3': true}
+            formElementClass: {'column-2': false, 'column-3': true, 'form-control-force-narrow': true}
           },
           protocol: {
             title: 'Protocol',
@@ -172,7 +172,7 @@ const Networking = {
             fieldType: 'select',
             default: 'tcp',
             options: ['tcp', 'udp', 'udp,tcp'],
-            formElementClass: {'column-2': false, 'column-3': true}
+            formElementClass: {'column-2': false, 'column-3': true, 'form-control-force-narrow': true}
           },
           hostPort: {
             title: 'Host Port',
