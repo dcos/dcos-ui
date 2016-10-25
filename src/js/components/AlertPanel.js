@@ -17,18 +17,9 @@ var AlertPanel = React.createClass({
     iconClassName: React.PropTypes.string
   },
 
-  getHeading() {
-    return (
-      <div>
-        {this.getIcon()}
-        {this.getTitle()}
-      </div>
-    );
-  },
-
   getTitle() {
     return (
-      <h3 className="flush" key="heading">
+      <h3 className="flush-top" key="heading">
         {this.props.title}
       </h3>
     );
@@ -69,7 +60,7 @@ var AlertPanel = React.createClass({
           'panel-cell-narrow': false,
           'panel-cell-short': false
         }}
-        heading={this.getHeading()}
+        heading={this.getIcon()}
         headingClass={[
           'panel-cell-borderless flush-bottom',
           {
@@ -78,6 +69,7 @@ var AlertPanel = React.createClass({
             'panel-cell-light': false
           }
         ]}>
+        {this.getTitle()}
         {this.props.children}
       </Panel>
     );
