@@ -44,8 +44,8 @@ let componentsRoutes = {
           getCrumbs(params) {
             return [
               <UnitsHealthDetailBreadcrumb
-              parentRouter={params}
-              routePath="/components/:unitID" />
+                params={params}
+                routePath="/components/:unitID" />
             ];
           }
         };
@@ -62,9 +62,8 @@ let componentsRoutes = {
           getCrumbs(params) {
             return [
               <UnitsHealthNodeDetailBreadcrumb
-              parentRouter={params}
-              routePath="/components/:unitID/nodes/:unitNodeID"
-              />
+                params={params}
+                routePath="/components/:unitID/nodes/:unitNodeID" />
             ];
           }
         };

@@ -13,7 +13,7 @@ class NodeDetailHealthTab extends React.Component {
       <HealthTab
         node={node}
         units={units}
-        parentRouter={{params: this.props.params}} />
+        params={this.props.params} />
     );
   }
 }

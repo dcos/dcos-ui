@@ -110,7 +110,7 @@ class HealthTab extends React.Component {
 
   renderUnitHealthCheck(prop, unit) {
     let healthCheckName = unit.getTitle();
-    let {nodeID} = this.props.parentRouter.params;
+    let {nodeID} = this.props.params;
     let unitNodeID = this.props.node.get('hostname');
     let unitID = unit.get('id');
 
@@ -166,7 +166,8 @@ class HealthTab extends React.Component {
 
 HealthTab.propTypes = {
   node: React.PropTypes.object.isRequired,
-  units: React.PropTypes.object.isRequired
+  units: React.PropTypes.object.isRequired,
+  params: React.PropTypes.object.isRequired
 };
 
 module.exports = HealthTab;

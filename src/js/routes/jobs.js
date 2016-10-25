@@ -76,7 +76,7 @@ let jobsRoutes = {
               getCrumbs(params) {
                 return [
                   <TaskDetailBreadcrumb
-                    parentRouter={params}
+                    params={params}
                     routePath="/jobs/:id/tasks/:taskID" />
                 ];
               }
