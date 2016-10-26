@@ -8,7 +8,7 @@ const EmptyServiceTree = function ({ onCreateGroup, onCreateService }) {
   const icon = <Icon id="services" color="neutral" size="jumbo" />;
   const footer = (
    <div className="button-collection flush-bottom">
-      <button className="button button-stroke button-inverse"
+      <button className="button button-stroke"
         onClick={onCreateGroup}>
         Create Group
       </button>

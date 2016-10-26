@@ -15,16 +15,16 @@ class NodeInfoPanel extends React.Component {
 
     return (
       <div className="flex-container-col flex-grow">
-        <span className="h4 inverse flush-top">Summary</span>
-        <p className="inverse">
+        <span className="h4 flush-top">Summary</span>
+        <p>
           {summary}
         </p>
-        <p className="inverse">
+        <p>
           <a href={docsURL} target="_blank">
             View Documentation
           </a>
         </p>
-        <span className="h4 inverse">Output</span>
+        <span className="h4">Output</span>
         <pre className="flex-grow flush-bottom">
           {output}
         </pre>
