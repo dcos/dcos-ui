@@ -115,7 +115,7 @@ let ResourceBarChart = React.createClass({
     return (
       <div className="pod flush-top flush-right flush-left">
         <div className="chart panel">
-          <div className="panel-cell panel-header panel-cell-borderless text-align-center">
+          <div className="panel-cell panel-header panel-cell-borderless flush-bottom text-align-center">
             <div className="panel-options button-group">
               {this.getModeButtons()}
             </div>

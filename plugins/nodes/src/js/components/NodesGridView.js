@@ -1,4 +1,5 @@
 import classNames from 'classnames';
+import {Form} from 'reactjs-components';
 import PureRender from 'react-addons-pure-render-mixin';
 import React from 'react';
 
@@ -34,6 +35,10 @@ var NodesGridView = React.createClass({
     hiddenServices: [],
     receivedNodeHealthResponse: false,
     showServices: false
+  },
+
+  handleCheckboxChange(model) {
+    this.props.onShowServices(model.showServices);
   },
 
   getLoadingScreen() {
@@ -74,7 +79,7 @@ var NodesGridView = React.createClass({
     // Return view definition
     .map(function (service) {
       var color = props.serviceColors[service.id];
-      var className = `service-legend-color service-color-${color}`;
+      var className = `dot service-color-${color}`;
 
       return (
         <li key={service.id}>
@@ -115,14 +120,17 @@ var NodesGridView = React.createClass({
       <div className="nodes-grid">
 
         <div className={classSet}>
-          <label className="show-services-label h5 flush-top">
-            <input type="checkbox"
-              checked={props.showServices}
-              name="nodes-grid-show-services"
-              onChange={props.onShowServices} />
-            Show Services by Share
+          <label className="show-services-label h5 tall flush-top">
+            <Form
+              definition={[{
+                fieldType: 'checkbox',
+                name: 'showServices',
+                checked: props.showServices,
+                label: 'Show Services by Share',
+                value: props.showServices
+              }]}
+              onChange={this.handleCheckboxChange} />
           </label>
-
           {this.getServicesList(props)}
         </div>
 
