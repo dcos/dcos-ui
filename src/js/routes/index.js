@@ -50,7 +50,7 @@ function getApplicationRoutes() {
     },
     {
       type: Redirect,
-      from: '/',
+      path: '/',
       to: Hooks.applyFilter('applicationRedirectRoute', '/dashboard')
     },
     {

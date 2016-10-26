@@ -101,7 +101,7 @@ const RouterUtil = {
    */
   buildRoutes(originalRoutes) {
     let elementRoutes = RouterUtil.createComponentsFromRoutes(originalRoutes);
-    let routes = createRoutes(elementRoutes[0]);
+    let routes = createRoutes(elementRoutes);
 
     return RouterUtil.setRouteConfiguration(routes, originalRoutes);
   },

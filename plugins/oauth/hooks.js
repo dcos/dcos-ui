@@ -119,7 +119,7 @@ module.exports = Object.assign({}, StoreMixin, {
     // Override handler of index to be 'authenticated'
     routes[0].children.forEach(function (child) {
       if (child.id === 'index') {
-        child.handler = new Authenticated(child.handler);
+        child.component = new Authenticated(child.component);
       }
     });
 
