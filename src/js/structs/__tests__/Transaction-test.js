@@ -10,11 +10,12 @@ describe('Transaction', function () {
     });
 
     it('should throw a Error for random type', function () {
-      expect(()=>new Transaction(0, 0, 'DEL')).toThrowError(TypeError);
+      expect(() => new Transaction(0, 0, 'DEL')).toThrowError(TypeError);
     });
 
     it('should accept SET constant', function () {
-      expect(()=>new Transaction(0, 0, TransactionTypes.SET)).not.toThrowError();
+      expect(() => new Transaction(0, 0, TransactionTypes.SET))
+        .not.toThrowError();
     });
 
     it('type should not be writeable', function () {

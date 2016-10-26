@@ -1,9 +1,9 @@
-import FormActionTypes from '../constants/TransactionTypes';
+import TransactionTypes from '../constants/TransactionTypes';
 
-const validTypes = Object.values(FormActionTypes);
+const validTypes = Object.values(TransactionTypes);
 
 class Transaction {
-  constructor(path, value, type = FormActionTypes.SET) {
+  constructor(path, value, type = TransactionTypes.SET) {
     if (!validTypes.includes(type)) {
       throw new TypeError(`Only the following types are allowed: ${validTypes}`);
     }
