@@ -11,15 +11,18 @@ class Transaction {
     Object.defineProperties(this, {
       path: {
         value: path,
-        writable: false
+        writable: false,
+        enumerable: true
       },
       value: {
         value,
-        writable: false
+        writable: false,
+        enumerable: true
       },
       type: {
         value: type,
-        writable: false
+        writable: false,
+        enumerable: true
       }
     });
   }
