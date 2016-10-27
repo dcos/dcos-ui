@@ -38,7 +38,6 @@ let defaultOrganizationRoute = {
 module.exports = Object.assign({}, StoreMixin, {
   actions: [
     'AJAXRequestError',
-    'applicationRouter',
     'userLoginSuccess',
     'userLogoutSuccess',
     'redirectToLogin'
@@ -89,10 +88,6 @@ module.exports = Object.assign({}, StoreMixin, {
     if (xhr.status === 403 && !onLoginPage && !onAccessDeniedPage) {
       global.location.href = '#/access-denied';
     }
-  },
-
-  applicationRouter(router) {
-    this.applicationRouter = router;
   },
 
   sidebarFooter(value, defaultButtonSet) {
