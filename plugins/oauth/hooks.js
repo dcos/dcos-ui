@@ -115,6 +115,7 @@ module.exports = Object.assign({}, StoreMixin, {
     routes[0].children.forEach(function (child) {
       if (child.id === 'index') {
         child.component = new Authenticated(child.component);
+        child.onEnter = Authenticated.willTransitionTo;
       }
     });
 

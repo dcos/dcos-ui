@@ -46,6 +46,14 @@ const RouterUtil = {
     return routes.map(function (route) {
       let args = [route.type, Util.omit(route, ['type', 'children'])];
 
+      if (
+          route.component &&
+          route.component.willTransitionTo &&
+          !route.onEnter
+        ) {
+        route.onEnter = route.component.willTransitionTo;
+      }
+
       if (route.children) {
         let children = RouterUtil.createComponentsFromRoutes(route.children);
         args = args.concat(children);
