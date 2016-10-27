@@ -80,7 +80,7 @@ RequestUtil.json = function (options = {}) {
         //   );
         // });
         //
-        // PluginSDK.Hooks.doAction('applicationRouter', router);
+        PluginSDK.Hooks.doAction('routes', routes);
       }
     }
   }

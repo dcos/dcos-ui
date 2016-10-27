@@ -1,17 +1,27 @@
 import deepEqual from 'deep-equal';
 import md5 from 'md5';
-import {hashHistory} from 'react-router';
+import {hashHistory, match} from 'react-router';
 
 let SDK = require('../SDK').getSDK();
 
 let {Config, Util} = SDK.get(['Config', 'Util']);
+
+function reconstructPath(routes) {
+  let path = routes.filter(function (route) {
+    return !!route.path;
+  }).map(function (route) {
+    return route.path;
+  }).join('/');
+
+  return `/${path}`;
+}
 
 var Actions = {
   previousFakePageLog: '',
 
   dcosMetadata: null,
 
-  applicationRouter: null,
+  routes: null,
 
   logQueue: [],
 
@@ -65,8 +75,8 @@ var Actions = {
     }
   },
 
-  setApplicationRouter(applicationRouter) {
-    this.applicationRouter = applicationRouter;
+  setRoutes(routes) {
+    this.routes = routes;
 
     if (this.canLog()) {
       this.drainQueue();
@@ -78,10 +88,8 @@ var Actions = {
     this.lastLogDate = this.createdAt;
     this.stintID = md5(`session_${this.createdAt}`);
 
-    this.setActivePage(hashHistory.location || '');
-
-    hashHistory.listen(Util.debounce(function (data) {
-      Actions.setActivePage(data.pathname);
+    hashHistory.listen(Util.debounce(function (location) {
+      Actions.setActivePage(location.pathname + location.search);
     }, 200));
 
     // Poll to deplete queue
@@ -101,7 +109,7 @@ var Actions = {
     return !!(global.analytics
       && global.analytics.initialized
       && this.dcosMetadata != null
-      && this.applicationRouter != null);
+      && this.routes != null);
   },
 
   drainQueue() {
@@ -182,25 +190,33 @@ var Actions = {
       return;
     }
 
-    let pathIsString = typeof path === 'string';
-    let match = pathIsString && this.applicationRouter.match(path);
-    if (match) {
-      let route = match.routes[match.routes.length - 1];
-      let pathMatcher = route.path;
+    if (typeof path === 'string') {
+      match({ history: hashHistory, routes: this.routes },
+        (error, redirectLocation, nextState) => {
+          if (!error && nextState) {
+            let pathMatcher = reconstructPath(nextState.routes);
+            if (nextState.params) {
+              Object.keys(nextState.params).forEach(function (param) {
+                pathMatcher = pathMatcher.replace(`:${param}?`, `[${param}]`);
+                pathMatcher = pathMatcher.replace(`:${param}`, `[${param}]`);
+              });
+            }
 
-      if (route.paramNames && route.paramNames.length) {
-        route.paramNames.forEach(function (param) {
-          pathMatcher = pathMatcher.replace(`:${param}?`, `[${param}]`);
-          pathMatcher = pathMatcher.replace(`:${param}`, `[${param}]`);
-        });
-      }
+            // Replaces '/?/' and '/?' with '/'
+            path = pathMatcher.replace(/\/\?\/?/g, '/');
+          } else {
+            path = '/unknown';
+          }
 
-      // Replaces '/?/' and '/?' with '/'
-      path = pathMatcher.replace(/\/\?\/?/g, '/');
-    } else if (pathIsString) {
-      path = '/unknown';
+          this.submitToAnalytics(path);
+        }
+      );
     }
 
+    this.submitToAnalytics(path);
+  },
+
+  submitToAnalytics(path) {
     global.analytics.page(Object.assign(
       this.getLogData(),
       this.getAnonymizingKeys().page,

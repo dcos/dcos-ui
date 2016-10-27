@@ -31,7 +31,7 @@ module.exports = {
     'pluginsConfigured',
     'userLoginSuccess',
     'userLogoutSuccess',
-    'applicationRouter'
+    'routes'
   ],
 
   initialize() {
@@ -71,8 +71,8 @@ module.exports = {
     Actions.identify(AuthStore.getUser().uid);
   },
 
-  applicationRouter(applicationRouter) {
-    Actions.setApplicationRouter(applicationRouter);
+  routes(routes) {
+    Actions.setRoutes(routes);
   },
 
   userLogoutSuccess() {
