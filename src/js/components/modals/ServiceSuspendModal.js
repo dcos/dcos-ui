@@ -26,11 +26,33 @@ class ServiceSuspendModal extends ServiceActionModal {
       }
     ];
 
-    this.onMarathonStoreServiceEditError = this.onError;
     this.onMarathonStoreServiceEditSuccess = this.closeDialog;
-    this.onMarathonStoreGroupEditError = this.onError;
-    this.onMarathonStoreGroupEditSuccess =
-      this.onMarathonStoreServiceEditSuccess;
+    this.onMarathonStoreGroupEditSuccess = this.closeDialog;
+  }
+
+  onMarathonStoreServiceEditError() {
+    this.onMarathonStoreServiceOrGroupEditError.apply(this, arguments);
+  }
+
+  onMarathonStoreGroupEditError() {
+    this.onMarathonStoreServiceOrGroupEditError.apply(this, arguments);
+  }
+
+  onMarathonStoreServiceOrGroupEditError({message:errorMsg = '', details}) {
+    let hasDetails = details && details.length !== 0;
+
+    if (hasDetails) {
+      this.setState({
+        errorMsg: details.reduce(function (memo, error) {
+
+          return `${memo} ${error.errors.join(' ')}`;
+        }, '')
+      });
+
+      return;
+    }
+
+    this.onError(errorMsg);
   }
 
   handleConfirmClick() {
