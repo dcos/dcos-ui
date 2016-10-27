@@ -117,8 +117,10 @@ describe('QueryParamsMixin', function () {
 
     it('should reset only specified params, when present', function () {
       this.instance.resetQueryParams(['arrayValue']);
-      expect(this.instance.context.router.push)
-        .toHaveBeenCalledWith({pathname: '/pathname', query: {stringValue: 'string'}});
+      expect(this.instance.context.router.push).toHaveBeenCalledWith({
+        pathname: '/pathname',
+        query: {stringValue: 'string'}
+      });
     });
 
     it('should exit cleanly when called without a router', function () {

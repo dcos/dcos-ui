@@ -20,8 +20,12 @@ describe('ServicesContainer', function () {
       push: jasmine.createSpy()
     };
     this.wrapper = ReactDOM.render(
-      JestUtil.stubRouterContext(
-        ServicesContainer, {location: { query: {}, pathname: '/test'}, params: {}}, this.routerStubs
+      JestUtil.stubRouterContext(ServicesContainer,
+        {
+          location: { query: {}, pathname: '/test'},
+          params: {}
+        },
+        this.routerStubs
       ),
       this.container
     );

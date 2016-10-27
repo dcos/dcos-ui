@@ -136,7 +136,10 @@ describe('NodeDetailPage', function () {
       var wrapper = ReactDOM.render(
         JestUtil.stubRouterContext(
           NodeDetailPage,
-          {params: {nodeID: 'existingNode'}, routes: [{path: '/nodes/:nodeID', children: []}]},
+          {
+            params: {nodeID: 'existingNode'},
+            routes: [{path: '/nodes/:nodeID', children: []}]
+          },
           {}
         ),
         this.container

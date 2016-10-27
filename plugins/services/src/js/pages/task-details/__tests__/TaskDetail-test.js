@@ -31,7 +31,10 @@ describe('TaskDetail', function () {
     };
     this.instance = JestUtil.renderWithStubbedRouter(
       TaskDetail,
-      {params: this.params, routes: [{path: '/services/overview/:id/tasks/:taskID'}]},
+      {
+        params: this.params,
+        routes: [{path: '/services/overview/:id/tasks/:taskID'}]
+      },
       this.container,
       {}
     );
@@ -163,7 +166,10 @@ describe('TaskDetail', function () {
 
       let instance = JestUtil.renderWithStubbedRouter(
         TaskDetail,
-        {params: this.params, routes: [{path: '/services/overview/:id/tasks/:taskID'}]},
+        {
+          params: this.params,
+          routes: [{path: '/services/overview/:id/tasks/:taskID'}]
+        },
         this.container,
         {}
       );
