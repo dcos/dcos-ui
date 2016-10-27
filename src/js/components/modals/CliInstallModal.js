@@ -18,9 +18,12 @@ class CliInstallModal extends React.Component {
   constructor() {
     super(...arguments);
 
-    this.state = {
-      selectedOS: browserInfo().os
-    };
+    let selectedOS = browserInfo().os;
+    if (!Object.keys(osTypes).includes(selectedOS)) {
+      selectedOS = 'Linux';
+    }
+
+    this.state = {selectedOS};
 
     METHODS_TO_BIND.forEach((method) => {
       this[method] = this[method].bind(this);
