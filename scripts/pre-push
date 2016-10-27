@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+SCRIPT_PATH="$(dirname "$0")/$(dirname "$(readlink "$0")")"
+
+# Import utils
+source ${SCRIPT_PATH}/utils/message
+
+title "Run pre-push hook..."
+
+header "Run test..."
+npm run test -- -b
