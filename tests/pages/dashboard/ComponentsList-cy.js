@@ -39,8 +39,9 @@ describe('ComponentsList [10b]', function () {
     });
 
     it('navigates to unit health page [10c]', function () {
-      cy.get('.more-button').contains('Components').click();
-      cy.hash().should('match', /system\/overview\/components/);
+      cy.get('.dashboard-panel-list-component-health .button')
+        .contains('Components').click();
+      cy.hash().should('match', /components\/overview/);
     });
 
   });

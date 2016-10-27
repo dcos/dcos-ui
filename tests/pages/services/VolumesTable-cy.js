@@ -10,28 +10,28 @@ describe('Volumes', function () {
   context('Volumes Table', function () {
 
     beforeEach(function () {
-      cy.visitUrl({url: '/services/%2Fsleep/'});
+      cy.visitUrl({url: '/services/overview/%2Fsleep'});
       cy.get('.page-body-content .menu-tabbed').contains('Volumes').click();
     });
 
     it('shows the correct number of volumes in the table', function () {
       cy.get('.table tbody tr').should(function ($rows) {
-          // 3 rows of volumes + 2 rows for VirtualList = 5 rows total.
-          expect($rows.length).to.equal(5);
-        });
+        // 3 rows of volumes + 2 rows for VirtualList = 5 rows total.
+        expect($rows.length).to.equal(5);
+      });
     });
 
     it('renders the correct IDs in the table', function () {
       cy.get('.table tbody tr').should(function ($rows) {
-          var children = $rows[1].children;
-          expect(children[0].textContent).to.equal('foo-bar#data-1#624f5b52-2e5e-11e6-8e49-a6a5a4687c4d');
-          expect(children[1].textContent).to.equal('10.0.1.117');
-          expect(children[2].textContent).to.equal('Persistent');
-          expect(children[3].textContent).to.equal('data-1');
-          expect(children[4].textContent).to.equal('100');
-          expect(children[5].textContent).to.equal('RW');
-          expect(children[6].textContent).to.equal('Attached');
-        });
+        var children = $rows[1].children;
+        expect(children[0].textContent).to.equal('foo-bar#data-1#624f5b52-2e5e-11e6-8e49-a6a5a4687c4d');
+        expect(children[1].textContent).to.equal('10.0.1.117');
+        expect(children[2].textContent).to.equal('Persistent');
+        expect(children[3].textContent).to.equal('data-1');
+        expect(children[4].textContent).to.equal('100');
+        expect(children[5].textContent).to.equal('RW');
+        expect(children[6].textContent).to.equal('Attached');
+      });
     });
 
   });
@@ -39,7 +39,7 @@ describe('Volumes', function () {
   context('Volume Details', function () {
 
     beforeEach(function () {
-      cy.visitUrl({url: '/services/%2Fsleep/'});
+      cy.visitUrl({url: '/services/overview/%2Fsleep'});
       cy.get('.page-body-content .menu-tabbed').contains('Volumes').click();
       cy.get('.table tbody tr a').contains('foo-bar#data-1#624f5b52-2e5e-11e6-8e49-a6a5a4687c4d').click();
     });
@@ -49,11 +49,11 @@ describe('Volumes', function () {
     });
 
     it('displays the correct status in the header', function () {
-      cy.get('.page-header-sub-heading .emphasize').should('contain', 'Attached');
+      cy.get('.detail-view-header-sub-heading .emphasize').should('contain', 'Attached');
     });
 
     it('displays the details of the volume', function () {
-      cy.get('.page-body-content dl.flex-box').should(function ($descriptionListEls) {
+      cy.get('.page-body-content dl').should(function ($descriptionListEls) {
         expect($descriptionListEls[0].children[1].textContent).to.equal('data-1');
         expect($descriptionListEls[1].children[1].textContent).to.equal('RW');
         expect($descriptionListEls[2].children[1].textContent).to.equal('100');

@@ -12,21 +12,21 @@ describe('Job Details', function () {
   context('Job Details Header', function () {
 
     it('renders the proper job name', function () {
-      cy.get('.page-header-title').should('contain',
+      cy.get('.detail-view-header-title').should('contain',
         'Foo Description');
     });
 
     it('renders the proper job status', function () {
-      cy.get('.page-header-sub-heading').should('contain', 'Failed');
+      cy.get('.job-details-header-status').should('contain', 'Failed');
     });
 
     it('renders the pretty cron schedule', function () {
-      cy.get('.page-header-sub-heading')
+      cy.get('.detail-view-header-sub-heading')
         .should('contain', 'Scheduled 01:00 on the 6th in Sep');
     });
 
     it('renders the relative time of the longest running task', function () {
-      cy.get('.page-header-sub-heading').should('contain', '32 years ago');
+      cy.get('.detail-view-header-sub-heading').should('contain', '32 years ago');
     });
 
   });
@@ -39,16 +39,16 @@ describe('Job Details', function () {
     });
 
     it('renders the correct number of jobs in the table', function () {
-      cy.get('.job-run-history-table tbody tr').should(function ($rows) {
+      cy.get('.page table tbody tr').should(function ($rows) {
         // Four rows, two for the virtual list padding and two for the data.
         expect($rows.length).to.equal(15);
       });
     });
 
     it('does not show table children when row is not expanded', function () {
-      cy.get('.job-run-history-table tbody tr').should(function ($rows) {
+      cy.get('.page table tbody tr').should(function ($rows) {
         // Four rows, two for the virtual list padding and two for the data.
-        cy.get('.job-run-history-table tbody tr:nth-child(2)').as('tableRow');
+        cy.get('.page table tbody tr:nth-child(2)').as('tableRow');
 
         cy.get('@tableRow').find('td:first-child .expanding-table-child')
           .should(function ($children) {
@@ -59,7 +59,7 @@ describe('Job Details', function () {
     });
 
     it('expands the table row when clicking a job run', function () {
-      cy.get('.job-run-history-table tbody tr').as('tableRow');
+      cy.get('.page table tbody tr').as('tableRow');
 
       cy.get('@tableRow').find('.expanding-table-primary-cell').first().click();
 
@@ -74,7 +74,7 @@ describe('Job Details', function () {
     });
 
     it('expands a second table row when clicking another job run', function () {
-      cy.get('.job-run-history-table tbody tr .is-expandable')
+      cy.get('.page table tbody tr .is-expandable')
         .as('tableRows');
       cy.get('@tableRows').first().as('tableRowA');
       cy.get('@tableRows').last().as('tableRowB');
@@ -82,7 +82,7 @@ describe('Job Details', function () {
       cy.get('@tableRowA').click();
       cy.get('@tableRowB').click();
 
-      cy.get('.job-run-history-table .expanding-table-child')
+      cy.get('.page table .expanding-table-child')
         .should(function ($children) {
           // Four table columns, two table rows, each with two children.
           // 4 * 2 * 2 = 16

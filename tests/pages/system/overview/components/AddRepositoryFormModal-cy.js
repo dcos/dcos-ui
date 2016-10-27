@@ -6,7 +6,7 @@ describe('Add Repository Form Modal', function () {
         mesos: '1-task-healthy',
         universePackages: true
       })
-      .visitUrl({url: '/system/overview/repositories'})
+      .visitUrl({url: '/settings/repositories'})
       .get('.page-body-content .button.button-success')
       .contains('Add Repository')
       .click();

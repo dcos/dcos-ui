@@ -1,11 +1,10 @@
 describe('Node Health Tab [0fa]', function () {
-  var nodeDetailHash;
 
   beforeEach(function () {
     cy.configureCluster({
       mesos: '1-task-healthy',
       nodeHealth: true
-    })
+    });
   });
 
   context('Navigate to tab [0fb]', function () {
@@ -14,11 +13,6 @@ describe('Node Health Tab [0fa]', function () {
       cy.visitUrl({url: '/nodes', identify: true, fakeAnalytics: true});
       cy.get('tr a').eq(0).click();
       cy.get('.menu-tabbed-item').contains('Health').click();
-
-      // Store hash for later use
-      cy.hash().should(function (currentHash) {
-        nodeDetailHash = currentHash;
-      });
 
       cy.hash().should('match', /nodes\/[a-zA-Z0-9-]+/);
       cy.get('.page-body-content .h4').should(function ($title) {
@@ -30,8 +24,8 @@ describe('Node Health Tab [0fa]', function () {
   context('Health Tab [0fd]', function () {
 
     beforeEach(function () {
-      cy.visitUrl({url: nodeDetailHash, identify: true, fakeAnalytics: true});
-
+      cy.visitUrl({url: '/nodes', identify: true, fakeAnalytics: true});
+      cy.get('tr a').eq(0).click();
       cy.get('.menu-tabbed-item').contains('Health').click();
 
       cy.get('.page-body-content .form-control input[type=\'text\']').as('filterTextbox');
@@ -41,7 +35,7 @@ describe('Node Health Tab [0fa]', function () {
     it('filters by health [0fe]', function () {
       cy.get('.page-body-content td .text-success').should(function ($healthyRows) {
         cy.get('@filterHealth').click();
-        cy.get('.dropdown').find('li').contains('Healthy').click();
+        cy.get('.dropdown-menu').find('li').contains('Healthy').click();
         // Healthy rows should remain
         cy.get('.page-body-content td .text-success').should(function ($row) {
           expect($row.length).to.equal($healthyRows.length);

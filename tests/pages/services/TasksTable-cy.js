@@ -9,8 +9,8 @@ describe('Tasks Table', function () {
     });
 
     it('displays task detail page on task click', function () {
-      cy.visitUrl({url: '/services/%2Fcassandra/'});
-      cy.get('a[title="server-0_10ab666b-cf9b-44eb-bc53-b6dba1b7c737"]')
+      cy.visitUrl({url: '/services/overview/%2Fcassandra'});
+      cy.get('a[title="server-0_10a"]')
         .click();
       cy.get('.page-body-content .h1 .collapsing-string-full-string')
         .should('to.have.text', 'server-0');
@@ -20,7 +20,7 @@ describe('Tasks Table', function () {
 
       beforeEach(function () {
         cy.visitUrl({
-          url: '/services/%2Fcassandra/tasks/server-0_10ab666b-cf9b-44eb-bc53-b6dba1b7c737/'
+          url: '/services/overview/%2Fcassandra/tasks/server-0_10a'
         });
         cy.get('.page-body-content .menu-tabbed-item-label').contains('Files').click();
       });

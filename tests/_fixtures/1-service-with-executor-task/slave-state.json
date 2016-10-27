@@ -83,9 +83,9 @@
             
           ],
           "container": "6ce1f063-3838-49b9-b6aa-428127094507",
-          "directory": "/var/lib/mesos/agent/slaves/b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S2/frameworks/b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001/executors/server-0_10ab666b-cf9b-44eb-bc53-b6dba1b7c737_executor/runs/6ce1f063-3838-49b9-b6aa-428127094507",
-          "id": "server-0_10ab666b-cf9b-44eb-bc53-b6dba1b7c737_executor",
-          "name": "server-0_10ab666b-cf9b-44eb-bc53-b6dba1b7c737_executor",
+          "directory": "/var/lib/mesos/agent/slaves/b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S2/frameworks/b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001/executors/server-0_10a_executor/runs/6ce1f063-3838-49b9-b6aa-428127094507",
+          "id": "server-0_10a_executor",
+          "name": "server-0_10a_executor",
           "queued_tasks": [
             
           ],
@@ -98,9 +98,9 @@
           "source": "",
           "tasks": [
             {
-              "executor_id": "server-0_10ab666b-cf9b-44eb-bc53-b6dba1b7c737_executor",
+              "executor_id": "server-0_10a_executor",
               "framework_id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001",
-              "id": "server-0_10ab666b-cf9b-44eb-bc53-b6dba1b7c737",
+              "id": "server-0_10a",
               "name": "server-0",
               "resources": {
                 "cpus": 0.5,

@@ -7,13 +7,13 @@ describe('Service Versions', function () {
         nodeHealth: true
       });
 
-      cy.visitUrl({url: '/services/%2Fsleep/'});
-      cy.wait(1500);
+      cy.visitUrl({url: '/services/overview/%2Fsleep'});
       cy.get('.page-body-content').within(function () {
         cy.get('.menu-tabbed-item .menu-tabbed-item-label-text')
           .contains('Configuration').click();
-          cy.wait(1000);
       });
+
+      cy.get('.page-body-content .tab .dropdown').as('dropdown');
     });
 
     it('opens the current service version on default', function () {
@@ -22,24 +22,21 @@ describe('Service Versions', function () {
     });
 
     it('renders the version dropdown with the current locale version as default',
-    function () {
-      cy.get('.page-body-content .dropdown .button span')
-        .contains(new Date('2015-08-28T01:26:14.620Z').toLocaleString())
-        .should('to.have.length', 1);
-    });
+      function () {
+        cy.get('.page-body-content .dropdown .button span')
+          .contains(new Date('2015-08-28T01:26:14.620Z').toLocaleString())
+          .should('to.have.length', 1);
+      }
+    );
 
     it('renders the selected service version', function () {
-      cy.get('.page-body-content .dropdown .button span')
+      cy.get('@dropdown').get('.button span')
         .contains(new Date('2015-08-28T01:26:14.620Z').toLocaleString())
         .parent()
         .click();
 
-      cy.wait(1500);
-
-      cy.get('.page-body-content .dropdown .dropdown-menu-list ul li:eq(1)')
+      cy.get('@dropdown').get('.dropdown-menu-list ul li:eq(1)')
         .click();
-
-      cy.wait(1500);
 
       cy.get('.page-body-content h4')
         .contains('Previous Version (' +
@@ -53,23 +50,19 @@ describe('Service Versions', function () {
           method: 'PUT',
           url: /marathon\/v2\/apps\/\/sleep/,
           response: {
-            "deploymentId": "5ed4c0c5-9ff8-4a6f-a0cd-f57f59a34b43",
-            "version": "2015-09-29T15:59:51.164Z"
+            'deploymentId': '5ed4c0c5-9ff8-4a6f-a0cd-f57f59a34b43',
+            'version': '2015-09-29T15:59:51.164Z'
           },
           delay: 500
         });
 
-      cy.get('.page-body-content .dropdown .button span')
+      cy.get('@dropdown').get('.button span')
         .contains(new Date('2015-08-28T01:26:14.620Z').toLocaleString())
         .parent()
         .click();
 
-      cy.wait(1500);
-
-      cy.get('.page-body-content .dropdown .dropdown-menu-list ul li:eq(1)')
+      cy.get('@dropdown').get('.dropdown-menu-list ul li:eq(1)')
         .click();
-
-      cy.wait(1500);
 
       cy.get('.page-body-content h4')
         .contains('Previous Version (' +
@@ -81,17 +74,13 @@ describe('Service Versions', function () {
     });
 
     it('opens correct edit modal of the selected service version', function () {
-      cy.get('.page-body-content .dropdown .button span')
+      cy.get('@dropdown').get('.button span')
         .contains(new Date('2015-08-28T01:26:14.620Z').toLocaleString())
         .parent()
         .click();
 
-      cy.wait(1500);
-
-      cy.get('.page-body-content .dropdown .dropdown-menu-list ul li:eq(1)')
+      cy.get('@dropdown').get('.dropdown-menu-list ul li:eq(1)')
         .click();
-
-      cy.wait(1500);
 
       cy.get('.page-body-content h4')
         .contains('Previous Version (' +
@@ -101,8 +90,8 @@ describe('Service Versions', function () {
       cy.get('.page-body-content .tab button.button')
         .contains('Edit').click();
 
-      cy.get('.modal .form-panel textarea[name="cmd"]')
-        .should('to.have.value', 'sleep 1000');
+      cy.get('.modal .form-panel [name="cmd"]')
+        .contains('sleep 1000');
     });
   });
 

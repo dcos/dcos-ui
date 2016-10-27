@@ -18,7 +18,7 @@ describe('Package Detail Tab', function () {
   it('displays marathon package details', function () {
 
     cy
-      .get('.page-body-content .gm-scroll-view .pod p')
+      .get('.page-body-content .pod p')
       .as('information');
 
     cy

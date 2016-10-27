@@ -8,18 +8,18 @@ describe('Universe Page', function () {
   });
 
   it('goes to Universe page when tab is clicked', function () {
-    cy
-      .visitUrl({url: '/'})
-      .get('.sidebar-menu-item')
-      .contains('Universe')
+    cy.visitUrl({url: '/universe/packages', logIn: true});
+
+    cy.get('.navigation .sidebar-menu-item')
+      .contains('Packages')
       .click();
     cy.hash().should('match', /universe\/packages/);
   });
 
   it('goes to Packages tab when tab is clicked', function () {
-    cy
-      .visitUrl({url: '/universe'})
-      .get('.menu-tabbed-item-label')
+    cy.visitUrl({url: '/universe/packages', logIn: true});
+
+    cy.get('.menu-tabbed-item-label')
       .contains('Packages')
       .click();
     cy.hash().should('match', /universe\/packages/);

@@ -1,4 +1,4 @@
-describe('Deployments Tab', function () {
+xdescribe('Deployments Tab', function () {
   context('Tab highlighting', function () {
     beforeEach(function () {
       cy.configureCluster({

@@ -173,7 +173,7 @@
         "lastConfigChangeAt": "2016-02-23T14:58:51.659Z"
       },
       "tasksStaged": 0,
-      "tasksRunning": 1,
+      "tasksRunning": 0,
       "tasksHealthy": 1,
       "tasksUnhealthy": 0,
       "deployments": [
