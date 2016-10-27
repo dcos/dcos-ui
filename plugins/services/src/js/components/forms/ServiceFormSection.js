@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 
-import TabView from '../TabView';
-import ReducerUtil  from '../../utils/ReducerUtil';
+import TabView from '../../../../../../src/js/components/TabView';
+import ReducerUtil from '../../../../../../src/js/utils/ReducerUtil';
 
-class GeneralSection extends Component {
+class ServiceFormSection extends Component {
   componentWillMount() {
     this.props.onAddReducer({
       id: ReducerUtil.simpleReducer('id', '/'),
@@ -150,13 +150,13 @@ class GeneralSection extends Component {
   }
 }
 
-GeneralSection.defaultProps = {
+ServiceFormSection.defaultProps = {
   onAddReducer: (a) => a
 };
 
-GeneralSection.propTypes = {
+ServiceFormSection.propTypes = {
   onAddReducer: React.PropTypes.func,
   data: React.PropTypes.object
 };
 
-module.exports = GeneralSection;
+module.exports = ServiceFormSection;

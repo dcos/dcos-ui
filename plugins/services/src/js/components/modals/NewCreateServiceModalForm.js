@@ -2,9 +2,9 @@ import Ace from 'react-ace';
 import classNames from 'classnames';
 import React from 'react';
 
-import Action from '../../../../../../src/js/structs/FormAction';
+import Transaction from '../../../../../../src/js/structs/Transaction';
 import Batch from '../../../../../../src/js/structs/Batch';
-import GeneralSection from '../../../../../../src/js/components/form/GeneralSection';
+import ServiceFormSection from '../forms/ServiceFormSection';
 import ReducerUtil from '../../../../../../src/js/utils/ReducerUtil';
 import Tabs from '../../../../../../src/js/components/Tabs';
 import TabButton from '../../../../../../src/js/components/TabButton';
@@ -52,7 +52,7 @@ class NewCreateServiceModalForm extends React.Component {
     let {batch} = this.state;
     let value = event.target.value;
     let path = event.target.getAttribute('name');
-    batch.add(new Action(path.split(','), value));
+    batch.add(new Transaction(path.split(','), value));
 
     this.setState({batch});
   }
@@ -92,7 +92,7 @@ class NewCreateServiceModalForm extends React.Component {
                 </TabButton>
               </TabButtonList>
                 <TabViewList>
-                  <GeneralSection data={data} onAddReducer={this.handleAddReducer} />
+                  <ServiceFormSection data={data} onAddReducer={this.handleAddReducer} />
                   <TabView id="container-1">
                     Container 1 Content
                   </TabView>
