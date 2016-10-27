@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+# Import utils
+source ${0%/*}/utils/git
+
+# Install git hooks
+${0%/*}/validate-engine-versions && install_hooks "pre-commit"
+
+exit 0
