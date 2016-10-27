@@ -115,7 +115,7 @@
     "check-env": "./scripts/validate-engine-versions",
     "clean": "rm -rf dist",
     "shrinkwrap": "npm shrinkwrap --dev && ./node_modules/.bin/gulp fixShrinkwrap",
-    "preinstall": "npm run check-env && if [ -d \".git/hooks\" ]; then cp .pre-commit-hook .git/hooks/pre-commit; fi",
+    "preinstall": "./scripts/pre-install",
     "prebuild-assets": "./node_modules/.bin/gulp checkDependencies && npm install compression-webpack-plugin@latest",
     "build-assets": "npm run clean && NODE_ENV=production webpack --config ./webpack/webpack.production.babel.js",
     "postbuild-assets": "rm -rf node_modules/compression-webpack-plugin",
