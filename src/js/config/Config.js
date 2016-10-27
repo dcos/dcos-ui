@@ -48,9 +48,4 @@ if (Config.environment === 'development') {
   Config.useFixtures = false;
 }
 
-Config.setOverrides = function (overrides) {
-  this.rootUrl = overrides.rootUrl || this.rootUrl;
-  this.historyServer = overrides.historyServer || this.historyServer;
-};
-
 module.exports = Config;

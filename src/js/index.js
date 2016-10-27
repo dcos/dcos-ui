@@ -17,7 +17,6 @@ import {
   CONFIG_ERROR
 } from './constants/EventTypes';
 import appRoutes from './routes/index';
-// import Config from './config/Config';
 import ConfigStore from './stores/ConfigStore';
 import RequestErrorMsg from './components/RequestErrorMsg';
 import RouterUtil from './utils/RouterUtil';
@@ -71,15 +70,7 @@ RequestUtil.json = function (options = {}) {
             <Router history={hashHistory} routes={routes} />
           </Provider>
         );
-        // let router = Router.run(routes, function (Handler, state) {
-        //   Config.setOverrides(state.query);
-        //   renderAppToDOM(
-        //     <Provider store={PluginSDK.Store}>
-        //       <Handler state={state} />
-        //     </Provider>
-        //   );
-        // });
-        //
+
         PluginSDK.Hooks.doAction('routes', routes);
       }
     }
