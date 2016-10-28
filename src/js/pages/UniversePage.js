@@ -21,13 +21,13 @@ class UniversePage extends mixin(TabsMixin) {
     this.updateCurrentTab();
   }
 
-  componentWillReceiveProps() {
-    this.updateCurrentTab();
+  componentWillReceiveProps(nextProps) {
+    this.updateCurrentTab(nextProps);
   }
 
-  updateCurrentTab() {
-    let routes = this.props.routes;
-    let currentTab = routes[routes.length - 1].path;
+  updateCurrentTab(nextProps) {
+    let {routes} = nextProps || this.props;
+    let currentTab = RouterUtil.reconstructPathFromRoutes(routes);
 
     // Universe Tabs
     this.tabs_tabs = {

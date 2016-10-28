@@ -46,8 +46,7 @@ var ServicesPage = React.createClass({
   },
 
   updateCurrentTab() {
-    let routes = this.props.routes;
-    let currentTab = routes[routes.length - 1].path;
+    let currentTab = RouterUtil.reconstructPathFromRoutes(this.props.routes);
     // `/services/overview` tab also contains routes for '/services/overview/:id'
     if (currentTab === '/services/overview/:id' || currentTab == null) {
       currentTab = '/services/overview';

@@ -2,19 +2,11 @@ import deepEqual from 'deep-equal';
 import md5 from 'md5';
 import {hashHistory, match} from 'react-router';
 
+import RouterUtil from '../../../src/js/utils/RouterUtil';
+
 let SDK = require('../SDK').getSDK();
 
 let {Config, Util} = SDK.get(['Config', 'Util']);
-
-function reconstructPath(routes) {
-  let path = routes.filter(function (route) {
-    return !!route.path;
-  }).map(function (route) {
-    return route.path;
-  }).join('/');
-
-  return `/${path}`;
-}
 
 var Actions = {
   previousFakePageLog: '',
@@ -194,7 +186,7 @@ var Actions = {
       match({ history: hashHistory, routes: this.routes },
         (error, redirectLocation, nextState) => {
           if (!error && nextState) {
-            let pathMatcher = reconstructPath(nextState.routes);
+            let pathMatcher = RouterUtil.reconstructPathFromRoutes(nextState.routes);
             if (nextState.params) {
               Object.keys(nextState.params).forEach(function (param) {
                 pathMatcher = pathMatcher.replace(`:${param}?`, `[${param}]`);

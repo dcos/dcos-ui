@@ -13,6 +13,7 @@ import NodeHealthStore from '../../stores/NodeHealthStore';
 import ResourceChart from '../../../../../../src/js/components/charts/ResourceChart';
 import StringUtil from '../../../../../../src/js/utils/StringUtil';
 import TabsMixin from '../../../../../../src/js/mixins/TabsMixin';
+import RouterUtil from '../../../../../../src/js/utils/RouterUtil';
 
 class NodeDetailPage extends mixin(TabsMixin, StoreMixin) {
   constructor() {
@@ -68,7 +69,7 @@ class NodeDetailPage extends mixin(TabsMixin, StoreMixin) {
       this.setState({node});
     }
 
-    this.updateCurrentTab();
+    this.updateCurrentTab(nextProps);
   }
 
   componentWillUpdate() {
@@ -81,9 +82,9 @@ class NodeDetailPage extends mixin(TabsMixin, StoreMixin) {
     }
   }
 
-  updateCurrentTab() {
-    let routes = this.props.routes;
-    let currentTab = routes[routes.length - 1].path;
+  updateCurrentTab(nextProps) {
+    let {routes} = nextProps || this.props;
+    let currentTab = RouterUtil.reconstructPathFromRoutes(routes);
     if (currentTab != null) {
       this.setState({currentTab});
     }

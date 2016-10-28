@@ -66,11 +66,13 @@ class NetworkPage extends mixin(TabsMixin) {
     this.updateCurrentTab(nextProps);
   }
 
-  updateCurrentTab(props) {
-    let currentTab = props.routes[3].path;
+  updateCurrentTab(nextProps) {
+    let {routes} = nextProps || this.props;
+    let currentTab = RouterUtil.reconstructPathFromRoutes(routes);
+    let topLevelTab = currentTab.split('/')[2];
 
     this.tabs_tabs = TabsUtil.sortTabs(
-      Hooks.applyFilter(`${currentTab}-subtabs`, {})
+      Hooks.applyFilter(`${topLevelTab}-subtabs`, {})
     );
 
     this.setState({currentTab});
@@ -93,11 +95,13 @@ class NetworkPage extends mixin(TabsMixin) {
   }
 
   getNavigation() {
-    if (RouterUtil.shouldHideNavigation(this.props.routes)) {
+    let {routes} = this.props;
+
+    if (RouterUtil.shouldHideNavigation(routes)) {
       return null;
     }
 
-    let currentTab = this.props.routes[3].path;
+    let currentTab = RouterUtil.reconstructPathFromRoutes(routes);
 
     return (
       <ul className="menu-tabbed">
