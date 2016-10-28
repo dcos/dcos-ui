@@ -53,29 +53,24 @@ class NetworkPage extends mixin(TabsMixin) {
       // Set page ready once promise resolves
       networkPageReady.then(() => {
         this.setState({networkPageReady: true});
-        this.updateCurrentTab();
+        this.updateCurrentTab(this.props);
       });
     }
 
     this.setState({networkPageReady: networkPageReady.isReady});
-    this.updateCurrentTab();
+    this.updateCurrentTab(this.props);
   }
 
-  componentWillReceiveProps() {
+  componentWillReceiveProps(nextProps) {
     super.componentWillReceiveProps(...arguments);
-    this.updateCurrentTab();
+    this.updateCurrentTab(nextProps);
   }
 
-  updateCurrentTab() {
-    let routes = this.props.routes;
-    let currentRoute = routes[routes.length - 1];
-    // TODO react-router: kinda hack to workaround IndexRoute not having path
-    let currentTab = currentRoute.path || currentRoute.tab;
-    // Get top level Tab
-    let topLevelTab = currentTab.split('/').slice(0, 1)[0];
-    // Get top level tabs
+  updateCurrentTab(props) {
+    let currentTab = props.routes[3].path;
+
     this.tabs_tabs = TabsUtil.sortTabs(
-      Hooks.applyFilter(`${topLevelTab}-subtabs`, {})
+      Hooks.applyFilter(`${currentTab}-subtabs`, {})
     );
 
     this.setState({currentTab});
@@ -102,10 +97,7 @@ class NetworkPage extends mixin(TabsMixin) {
       return null;
     }
 
-    let routes = this.props.routes;
-    let currentRoute = routes[routes.length - 1];
-    // TODO react-router: kinda hack to workaround IndexRoute not having path
-    let currentTab = currentRoute.path || currentRoute.tab;
+    let currentTab = this.props.routes[3].path;
 
     return (
       <ul className="menu-tabbed">
