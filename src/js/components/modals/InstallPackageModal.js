@@ -239,7 +239,7 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
 
   getLoadingScreen() {
     return (
-      <div className="modal-content-loading-indicator">
+      <div className="modal-content-loading-indicator vertical-center">
         <Loader />
       </div>
     );
