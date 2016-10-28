@@ -1,0 +1,146 @@
+& when (@configuration-map-enabled) {
+
+  .configuration-map {
+
+    &-section {
+
+      .configuration-map {
+
+        &-heading {
+
+          &:first-child {
+            margin-top: 0;
+          }
+        }
+      }
+    }
+
+    &-heading {
+
+      &-primary {
+        border-bottom: 1px solid @configuration-map-border-color;
+        padding-bottom: @base-spacing-unit * 1/4;
+      }
+    }
+
+    &-row {
+      border-bottom: 1px solid @configuration-map-border-color;
+      display: flex;
+
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+
+    &-label,
+    &-value {
+      padding: @base-spacing-unit * 1/4 0;
+    }
+
+    &-label {
+      flex: 0 0 @base-spacing-unit * 8;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    &-value {
+      flex: 1 1 auto;
+
+      &-stacked {
+        padding: 0;
+
+        .configuration-map {
+
+          &-value {
+            border-bottom: 1px dotted @configuration-map-border-color;
+            display: block;
+
+            &:last-child {
+              border-bottom: none;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+& when (@configuration-map-enabled) and (@layout-screen-small-enabled) {
+
+  @media (min-width: @layout-screen-small-min-width) {
+
+    .configuration-map {
+
+      &-heading {
+
+        &-primary {
+          padding-bottom: @base-spacing-unit-screen-small * 1/4;
+        }
+      }
+
+      &-label {
+        flex-basis: @base-spacing-unit-screen-small * 8;
+      }
+    }
+  }
+}
+
+& when (@configuration-map-enabled) and (@layout-screen-medium-enabled) {
+
+  @media (min-width: @layout-screen-medium-min-width) {
+
+    .configuration-map {
+
+      &-heading {
+
+        &-primary {
+          padding-bottom: @base-spacing-unit-screen-medium * 1/4;
+        }
+      }
+
+      &-label {
+        flex-basis: @base-spacing-unit-screen-medium * 8;
+      }
+    }
+  }
+}
+
+& when (@configuration-map-enabled) and (@layout-screen-large-enabled) {
+
+  @media (min-width: @layout-screen-large-min-width) {
+
+    .configuration-map {
+
+      &-heading {
+
+        &-primary {
+          padding-bottom: @base-spacing-unit-screen-large * 1/4;
+        }
+      }
+
+      &-label {
+        flex-basis: @base-spacing-unit-screen-large * 8;
+      }
+    }
+  }
+}
+
+& when (@configuration-map-enabled) and (@layout-screen-jumbo-enabled) {
+
+  @media (min-width: @layout-screen-jumbo-min-width) {
+
+    .configuration-map {
+
+      &-heading {
+
+        &-primary {
+          padding-bottom: @base-spacing-unit-screen-jumbo * 1/4;
+        }
+      }
+
+      &-label {
+        flex-basis: @base-spacing-unit-screen-jumbo * 8;
+      }
+    }
+  }
+}
