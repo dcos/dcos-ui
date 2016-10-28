@@ -49,6 +49,17 @@ describe('List', function () {
 
   });
 
+  describe('#combine', function () {
+
+    it('discards duplicate items', function () {
+      let list1 = new List({items: [1, 2, 3, 4]});
+      let list2 = new List({items: [5, 6, 7, 1]});
+      let list3 = list1.combine(list2);
+      expect(list3.getItems()).toEqual([1, 2, 3, 4, 5, 6, 7]);
+    });
+
+  });
+
   describe('#add', function () {
 
     it('adds an item', function () {

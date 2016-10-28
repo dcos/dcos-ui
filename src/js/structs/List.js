@@ -66,6 +66,26 @@ module.exports = class List {
   }
 
   /**
+   * Return a new list with the items currently present in this list and
+   * the list on the first argument, without duplicates.
+   *
+   * @param {List} list - The list to combine with this list
+   * @returns {List} Returns a new list with the combined items
+   */
+  combine(list) {
+    let myItems = this.getItems();
+    let newItems = list.reduceItems(function (items, item) {
+      if (myItems.indexOf(item) === -1) {
+        items.push(item);
+      }
+
+      return items;
+    }, []);
+
+    return new this.constructor({items: myItems.concat(newItems)});
+  }
+
+  /**
    * @param {function} callback Function to test each element of the array,
    * taking three arguments: item, index, list. Return true to keep the item,
    * false otherwise.
