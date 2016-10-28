@@ -16,7 +16,7 @@ class ServiceSidebarFilters extends React.Component {
     const {countByValue, filters} = props;
 
     return (
-      <div className="services-sidebar hidden-medium-down pod flush-top flush-bottom flush-left">
+      <div className="services-sidebar hidden-large-down pod flush-top flush-bottom flush-left">
         <SidebarFilter
           countByValue={countByValue.filterHealth}
           filters={filters}
