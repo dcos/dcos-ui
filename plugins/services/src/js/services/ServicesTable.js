@@ -94,11 +94,9 @@ class ServicesTable extends React.Component {
 
     return (
       <Link
-        className="table-cell-link-primary"
+        className="table-cell-link-primary text-overflow"
         to={`/services/overview/${id}`}>
-        <span className="text-overflow">
-          {service.getName()}
-        </span>
+        {service.getName()}
       </Link>
     );
   }
