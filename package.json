@@ -87,7 +87,7 @@
     "jasmine-reporters": "2.1.1",
     "jest-cli": "16.0.2",
     "jest-webpack-alias": "3.3.0",
-    "jison-loader": "^1.0.0",
+    "jison-loader": "1.0.0",
     "json-loader": "0.5.4",
     "less": "2.6.1",
     "less-loader": "2.2.3",
