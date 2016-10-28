@@ -94,11 +94,7 @@ class VirtualNetworksTabContent extends mixin(StoreMixin) {
   }
 
   getLoadingScreen() {
-    return (
-      <div className="pod">
-        <Loader />
-      </div>
-    );
+    return <Loader />;
   }
 
   getContent() {

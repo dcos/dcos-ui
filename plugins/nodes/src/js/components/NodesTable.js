@@ -64,11 +64,7 @@ var NodesTable = React.createClass({
     let requestReceived = this.props.receivedNodeHealthResponse;
 
     if (!requestReceived) {
-      return (
-        <Loader
-          innerClassName="loader-small"
-          type="ballBeat" />
-      );
+      return <Loader innerClassName="loader-small" type="ballBeat" />;
     }
 
     let health = node.getHealth();

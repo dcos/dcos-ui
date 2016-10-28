@@ -49,7 +49,7 @@ var NodesGridView = React.createClass({
     }
 
     var loadingClassSet = classNames({
-      'hidden': hasLoadingError
+      hidden: hasLoadingError
     });
 
     return (

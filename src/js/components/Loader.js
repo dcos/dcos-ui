@@ -45,7 +45,7 @@ let typeMap = {
 class Loader extends React.Component {
   getDivs(length) {
     return Array.from({length}).map(function (_, index) {
-      return <div key={index} />;
+      return <div className="loader-element" key={index} />;
     });
   }
 
@@ -53,7 +53,7 @@ class Loader extends React.Component {
     let {className, innerClassName, type} = this.props;
     let config = typeMap[type] || typeMap.ballScale;
     let classes = classNames(
-      'loader horizontal-center vertical-center',
+      'loader horizontal-center',
       className
     );
 

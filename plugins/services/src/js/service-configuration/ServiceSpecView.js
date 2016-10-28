@@ -218,11 +218,7 @@ class ServiceSpecView extends mixin(StoreMixin) {
 
     // Render loading screen
     if (config == null) {
-      return (
-        <div className="pod">
-          <Loader />
-        </div>
-      );
+      return <Loader />;
     }
 
     return (
