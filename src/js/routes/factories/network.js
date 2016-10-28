@@ -42,7 +42,6 @@ let RouteFactory = {
           {
             type: IndexRoute,
             component: VirtualNetworkTaskTab,
-            tab: 'virtual-networks/:overlayName',
             hideHeaderNavigation: true,
             buildBreadCrumb() {
               return {
