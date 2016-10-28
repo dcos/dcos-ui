@@ -1,7 +1,14 @@
 .loader {
 
-  &.inverse .ball-scale > div {
-    background-color: @muted-color;
+  .loader-element {
+    background: @loaders-elements-backgroud;
+  }
+
+  .inverse {
+
+    .loader-element {
+      background: @loaders-elements-backgroud-inverse;
+    }
   }
 
   .ball-scale {
