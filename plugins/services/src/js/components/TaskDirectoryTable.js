@@ -30,7 +30,7 @@ class TaskDirectoryTable extends React.Component {
       iconID = 'folder';
       label = (
         <a
-          className="emphasize clickable"
+          className="table-cell-link-primary"
           onClick={this.handleTaskClick.bind(this, value)}>
           {value}
         </a>
@@ -38,7 +38,7 @@ class TaskDirectoryTable extends React.Component {
     } else {
       label = (
         <a
-          className="emphasize"
+          className="table-cell-link-primary"
           href={TaskDirectoryActions.getDownloadURL(nodeID, filePath)}>
           {value}
         </a>
