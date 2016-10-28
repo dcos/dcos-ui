@@ -184,4 +184,17 @@ describe('RouterUtil', function () {
 
   });
 
+  describe('#reconstructPathFromRoutes', function () {
+    it('constructs path correctly', function () {
+      let routes = [
+        {path: 'foo'},
+        {path: ':id'},
+        {path: ':bar/baz'}
+      ];
+      let path = RouterUtil.reconstructPathFromRoutes(routes);
+      expect(path).toEqual('/foo/:id/:bar/baz');
+    });
+
+  });
+
 });

@@ -121,6 +121,21 @@ const RouterUtil = {
    */
   shouldHideNavigation(routes) {
     return !!routes[routes.length - 1].hideHeaderNavigation;
+  },
+
+  /**
+   * Builds absolute path from routes array
+   * @param {Array} routes - an array of current routes react-rouer gives you
+   * @returns {String} path - absolute path pattern
+   */
+  reconstructPathFromRoutes(routes) {
+    let path = routes.filter(function (route) {
+      return !!route.path;
+    }).map(function (route) {
+      return route.path;
+    }).join('/');
+
+    return `/${path}`;
   }
 
 };
