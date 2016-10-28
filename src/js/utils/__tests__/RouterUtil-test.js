@@ -17,8 +17,7 @@ describe('RouterUtil', function () {
       let components = RouterUtil.createComponentsFromRoutes([
         {
           type: ReactRouter.Route,
-          name: 'foo-bar',
-          path: 'foo/?',
+          path: 'foo',
           handler: this.handler
         }
       ]);
@@ -30,8 +29,7 @@ describe('RouterUtil', function () {
       let components = RouterUtil.createComponentsFromRoutes([
         {
           type: ReactRouter.Route,
-          name: 'foo-bar',
-          path: 'foo/?',
+          path: 'foo',
           handler: this.handler
         }
       ]);
@@ -44,29 +42,25 @@ describe('RouterUtil', function () {
       let components = RouterUtil.createComponentsFromRoutes([
         {
           type: ReactRouter.Route,
-          name: 'foo-bar',
-          path: 'foo/?',
+          path: 'foo',
           handler: this.handler
         }
       ]);
       let props = components[0].props;
 
       expect(props.handler).toEqual(this.handler);
-      expect(props.name).toEqual('foo-bar');
-      expect(props.path).toEqual('foo/?');
+      expect(props.path).toEqual('foo');
     });
 
     it('creates child route components', function () {
       let components = RouterUtil.createComponentsFromRoutes([
         {
           type: ReactRouter.Route,
-          name: 'foo-bar',
-          path: 'foo/?',
+          path: 'foo',
           handler: this.handler,
           children: [{
             type: ReactRouter.Redirect,
-            name: 'baz-qux',
-            path: 'bar/?'
+            path: 'bar',
           }]
         }
       ]);
@@ -85,8 +79,7 @@ describe('RouterUtil', function () {
       this.routeConfig = [
         {
           type: ReactRouter.Route,
-          name: 'qux',
-          path: 'qux/?',
+          path: 'qux',
           handler: this.handler,
           buildBreadCrumb() {}
         }
@@ -108,18 +101,15 @@ describe('RouterUtil', function () {
       let routeConfiguration = [
         {
           type: ReactRouter.Route,
-          name: 'foo',
-          path: 'foo/?',
+          path: 'foo',
           handler: this.handler,
           children: [{
             type: ReactRouter.Route,
-            name: 'bar',
-            path: 'bar/?',
+            path: 'bar',
             handler: this.handler,
             children: [{
               type: ReactRouter.Route,
-              name: 'baz',
-              path: 'baz/?',
+              path: 'baz',
               handler: this.handler,
               children: this.routeConfig // This is what we target
             }]
@@ -147,19 +137,16 @@ describe('RouterUtil', function () {
       let routeConfiguration = [
         {
           type: ReactRouter.Route,
-          name: 'foo',
-          path: 'foo/?',
+          path: 'foo',
           handler() {},
           buildBreadCrumb() {},
           children: [{
             type: ReactRouter.Route,
-            name: 'bar',
-            path: 'bar/?',
+            path: 'bar',
             handler() {},
             children: [{
               type: ReactRouter.Route,
-              name: 'baz',
-              path: 'baz/?',
+              path: 'baz',
               handler() {},
               buildBreadCrumb() {}
             }]
@@ -171,20 +158,20 @@ describe('RouterUtil', function () {
 
       // Check first route
       let firstRoute = routes[0];
-      expect(firstRoute.name).toEqual('foo');
+      expect(firstRoute.path).toEqual('/foo');
       expect(firstRoute.handler).toEqual(routeConfiguration[0].handler);
       expect(firstRoute.buildBreadCrumb)
           .toEqual(routeConfiguration[0].buildBreadCrumb);
       // Check middle route
       let secondRoute = routes[0].childRoutes[0];
       let secondRouteConfig = routeConfiguration[0].children[0];
-      expect(secondRoute.name).toEqual('bar');
+      expect(secondRoute.path).toEqual('/foo/bar');
       expect(secondRoute.handler).toEqual(secondRouteConfig.handler);
       expect(secondRoute.buildBreadCrumb).toEqual(undefined);
       // Check last route
       let thirdRoute = routes[0].childRoutes[0].childRoutes[0];
       let thirdRouteConfig = routeConfiguration[0].children[0].children[0];
-      expect(thirdRoute.name).toEqual('baz');
+      expect(thirdRoute.path).toEqual('/foo/bar/baz');
       expect(thirdRoute.handler).toEqual(thirdRouteConfig.handler);
       expect(thirdRoute.buildBreadCrumb)
           .toEqual(thirdRouteConfig.buildBreadCrumb);
