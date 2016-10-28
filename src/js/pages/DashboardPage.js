@@ -203,7 +203,7 @@ var DashboardPage = React.createClass({
               heading={this.getHeading('Services Health')}
               headingClass="panel-header panel-header-bottom-border inverse short-top short-bottom">
               <ServiceList
-                healthProcessed={DCOSStore.dataProcessed}
+                healthProcessed={DCOSStore.serviceDataReceived}
                 services={this.getServicesList()} />
               {this.getViewAllServicesBtn()}
             </Panel>

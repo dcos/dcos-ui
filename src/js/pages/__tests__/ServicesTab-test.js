@@ -29,7 +29,7 @@ describe('ServicesTab', function () {
         id: '/alpha'
       }]
     });
-    DCOSStore.dataProcessed = true;
+    DCOSStore.serviceDataReceived = true;
     this.container = document.createElement('div');
   });
 
@@ -138,7 +138,7 @@ describe('ServicesTab', function () {
     });
 
     it('renders loading screen', function () {
-      DCOSStore.dataProcessed = false;
+      DCOSStore.serviceDataReceived = false;
       var instance = ReactDOM.render(
         JestUtil.stubRouterContext(ServicesTab, {params: {id: '/'}}, {
           getCurrentRoutes() {
