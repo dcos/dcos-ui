@@ -52,10 +52,24 @@ describe('List', function () {
   describe('#combine', function () {
 
     it('discards duplicate items', function () {
-      let list1 = new List({items: [1, 2, 3, 4]});
-      let list2 = new List({items: [5, 6, 7, 1]});
+      const [A, B, C, D, E] = [{}, {}, {}, {}, {}];
+      let list1 = new List({items: [A, B, C]});
+      let list2 = new List({items: [E, C, A, D]});
       let list3 = list1.combine(list2);
-      expect(list3.getItems()).toEqual([1, 2, 3, 4, 5, 6, 7]);
+      expect(list3.getItems()).toEqual([A, B, C, E, D]);
+    });
+
+    it('can operate on the same objects more than one time', function () {
+      const [A, B, C, D, E, F, G] = [{}, {}, {}, {}, {}, {}, {}];
+      let list1 = new List({items: [A, B, C]});
+      let list2 = new List({items: [E, C, A, D]});
+      let list3 = new List({items: [A, D, F, G]});
+
+      let list4 = list1.combine(list2);
+      let list5 = list4.combine(list3);
+
+      expect(list4.getItems()).toEqual([A, B, C, E, D]);
+      expect(list5.getItems()).toEqual([A, B, C, E, D, F, G]);
     });
 
   });
