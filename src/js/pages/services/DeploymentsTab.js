@@ -406,7 +406,7 @@ class DeploymentsTab extends mixin(StoreMixin) {
 
   render() {
     let deployments = DCOSStore.deploymentsList.getItems();
-    let loading = !DCOSStore.dataProcessed;
+    let loading = !DCOSStore.serviceDataReceived;
 
     if (loading) {
       return this.renderLoading();

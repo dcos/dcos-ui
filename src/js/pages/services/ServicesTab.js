@@ -207,7 +207,7 @@ var ServicesTab = React.createClass({
     }
 
     // Render loading screen
-    if (!DCOSStore.dataProcessed) {
+    if (!DCOSStore.serviceDataReceived) {
       return (
         <div className="container container-fluid container-pod">
           <Loader className="inverse" />

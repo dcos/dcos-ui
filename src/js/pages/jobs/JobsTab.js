@@ -176,7 +176,7 @@ class JobsTab extends mixin(StoreMixin, QueryParamsMixin, SaveStateMixin) {
 
   getContents(item) {
     // Render loading screen
-    if (!DCOSStore.dataProcessed) {
+    if (!DCOSStore.jobDataReceived) {
       return (
         <div className="container container-fluid container-pod">
           <Loader className="inverse" />
