@@ -61,6 +61,7 @@ describe('RouterUtil', function () {
           children: [{
             type: ReactRouter.Redirect,
             path: 'bar',
+            to: 'baz'
           }]
         }
       ]);
