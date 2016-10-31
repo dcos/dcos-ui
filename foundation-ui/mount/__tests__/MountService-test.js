@@ -3,9 +3,6 @@ jest.dontMock('../MountService');
 /* eslint-disable no-unused-vars */
 const React = require('react');
 /* eslint-enable no-unused-vars */
-const TestUtils = require('react-addons-test-utils');
-
-const MountPoint = require('../MountPoint');
 const MountService = require('../MountService');
 
 describe('MountService', function () {
@@ -47,64 +44,6 @@ describe('MountService', function () {
 
     it('doesn\'t call action before anything registers or unregisters', function () {
       expect(this.listenerAction).not.toHaveBeenCalled();
-    });
-
-  });
-
-  xdescribe('MountPoint', function () {
-
-    beforeEach(function () {
-      this.getReplacement = function getReplacement() {
-        return <h2>bar</h2>;
-      };
-      this.getNonElement = function getNonElement() {
-        return {foo: 'bar'};
-      };
-    });
-
-    afterEach(function () {
-      MountService.unregisterComponent('foo', this.getReplacement);
-      MountService.unregisterComponent('foo', this.getNonElement);
-    });
-
-    it('should render replacement', function () {
-      var result = TestUtils.renderIntoDocument(
-        <MountPoint id="foo">
-          <h1>foo</h1>
-        </MountPoint>
-      );
-
-      MountService.registerComponent('foo', this.getReplacement);
-
-      expect(TestUtils.scryRenderedDOMComponentsWithTag(result, 'H2').length)
-        .toEqual(1);
-      expect(TestUtils.scryRenderedDOMComponentsWithTag(result, 'H1').length)
-        .toEqual(0);
-    });
-
-    it('should restore default after unregister is called', function () {
-      var result = TestUtils.renderIntoDocument(
-        <MountPoint id="foo">
-          <h1>foo</h1>
-        </MountPoint>
-      );
-
-      MountService.registerComponent('foo', this.getReplacement);
-      MountService.unregisterComponent('foo', this.getReplacement);
-
-      expect(TestUtils.scryRenderedDOMComponentsWithTag(result, 'H2').length)
-        .toEqual(0);
-      expect(TestUtils.scryRenderedDOMComponentsWithTag(result, 'H1').length)
-        .toEqual(1);
-    });
-
-    it('should throw when filter doesn\'t yield a valid element', function () {
-      var registerAndGetContent = function () {
-        MountService.registerComponent('foo', this.getNonElement);
-        MountService.getContent('foo');
-      };
-
-      expect(registerAndGetContent).toThrow();
     });
 
   });
