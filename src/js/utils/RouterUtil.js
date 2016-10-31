@@ -85,6 +85,22 @@ const RouterUtil = {
 
   /**
    * Builds absolute path from routes array
+   * React router v2.8.1 provides routes prop to a component that bound to a <Route />
+   * this.props.routes contains a plain list of all routes React router hits.
+   * So for for /foo/:id with the following set of routes
+   * <Route path="foo">
+   *   <Route path=":id">
+   *     <IndexRoute />
+   *     ...
+   *   </Route>
+   * </Route>
+   * React router will provide the following array
+   * [
+   *   {type: Route, path: 'foo'},
+   *   {type: Route, path: ':id'},
+   *   {type: IndexRoute}
+   * ]
+   * so we should filter all the routes that have `path` and join them to get the absolute path pattern
    * @param {Array} routes - an array of current routes react-router gives you
    * @returns {String} path - absolute path pattern
    */
