@@ -77,65 +77,6 @@ describe('RouterUtil', function () {
 
   });
 
-  describe('#setRouteConfiguration', function () {
-
-    beforeEach(function () {
-      this.component = function () {};
-      this.routeConfig = [
-        {
-          type: ReactRouter.Route,
-          path: 'qux',
-          component: this.component,
-          buildBreadCrumb() {}
-        }
-      ];
-    });
-
-    it('sets route configurations', function () {
-      let components = RouterUtil.createComponentsFromRoutes(this.routeConfig);
-      let routes = ReactRouter.createRoutes(components);
-
-      routes = RouterUtil.setRouteConfiguration(routes, this.routeConfig);
-
-      expect(routes[0].buildBreadCrumb).toEqual(
-        this.routeConfig[0].buildBreadCrumb
-      );
-    });
-
-    it('sets route configurations for nested child', function () {
-      let routeConfiguration = [
-        {
-          type: ReactRouter.Route,
-          path: 'foo',
-          component: this.component,
-          children: [{
-            type: ReactRouter.Route,
-            path: 'bar',
-            component: this.component,
-            children: [{
-              type: ReactRouter.Route,
-              path: 'baz',
-              component: this.component,
-              children: this.routeConfig // This is what we target
-            }]
-          }]
-        }
-      ];
-      let components = RouterUtil.createComponentsFromRoutes(
-        routeConfiguration
-      );
-      let routes = ReactRouter.createRoutes(components[0]);
-
-      routes = RouterUtil.setRouteConfiguration(routes, routeConfiguration);
-
-      expect(
-        routes[0].childRoutes[0].childRoutes[0].childRoutes[0].buildBreadCrumb
-      )
-      .toEqual(this.routeConfig[0].buildBreadCrumb);
-    });
-
-  });
-
   describe('#buildRoutes', function () {
 
     it('builds routes correctly', function () {
