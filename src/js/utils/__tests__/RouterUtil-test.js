@@ -17,8 +17,7 @@ describe('RouterUtil', function () {
       let components = RouterUtil.createComponentsFromRoutes([
         {
           type: ReactRouter.Route,
-          name: 'foo-bar',
-          path: 'foo/?',
+          path: 'foo',
           component: this.component
         }
       ]);
@@ -30,8 +29,7 @@ describe('RouterUtil', function () {
       let components = RouterUtil.createComponentsFromRoutes([
         {
           type: ReactRouter.Route,
-          name: 'foo-bar',
-          path: 'foo/?',
+          path: 'foo',
           component: this.component
         }
       ]);
@@ -44,16 +42,14 @@ describe('RouterUtil', function () {
       let components = RouterUtil.createComponentsFromRoutes([
         {
           type: ReactRouter.Route,
-          name: 'foo-bar',
-          path: 'foo/?',
+          path: 'foo',
           component: this.component
         }
       ]);
       let props = components[0].props;
 
       expect(props.component).toEqual(this.component);
-      expect(props.name).toEqual('foo-bar');
-      expect(props.path).toEqual('foo/?');
+      expect(props.path).toEqual('foo');
     });
 
     it('creates child route components', function () {
@@ -104,20 +100,20 @@ describe('RouterUtil', function () {
 
       // Check first route
       let firstRoute = routes[0];
-      expect(firstRoute.path).toEqual('/foo');
+      expect(firstRoute.path).toEqual('foo');
       expect(firstRoute.component).toEqual(routeConfiguration[0].component);
       expect(firstRoute.buildBreadCrumb)
           .toEqual(routeConfiguration[0].buildBreadCrumb);
       // Check middle route
       let secondRoute = routes[0].childRoutes[0];
       let secondRouteConfig = routeConfiguration[0].children[0];
-      expect(secondRoute.path).toEqual('/foo/bar');
+      expect(secondRoute.path).toEqual('bar');
       expect(secondRoute.component).toEqual(secondRouteConfig.component);
       expect(secondRoute.buildBreadCrumb).toEqual(undefined);
       // Check last route
       let thirdRoute = routes[0].childRoutes[0].childRoutes[0];
       let thirdRouteConfig = routeConfiguration[0].children[0].children[0];
-      expect(thirdRoute.path).toEqual('/foo/bar/baz');
+      expect(thirdRoute.path).toEqual('baz');
       expect(thirdRoute.component).toEqual(thirdRouteConfig.component);
       expect(thirdRoute.buildBreadCrumb)
           .toEqual(thirdRouteConfig.buildBreadCrumb);
