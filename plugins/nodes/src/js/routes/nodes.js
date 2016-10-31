@@ -87,6 +87,11 @@ let nodesRoutes = {
           component: NodeDetailTaskTab
         },
         {
+          type: Redirect,
+          path: '/nodes/:nodeID/tasks/:taskID',
+          to: '/nodes/:nodeID/tasks/:taskID/details'
+        },
+        {
           type: Route,
           path: 'tasks/:taskID',
           component: TaskDetail,
@@ -106,9 +111,11 @@ let nodesRoutes = {
           },
           children: [
             {
-              type: IndexRoute,
+              type: Route,
               component: TaskDetailsTab,
+              hideHeaderNavigation: true,
               title: 'Details',
+              path: 'details',
               isTab: true,
               hideHeaderNavigation: true,
               buildBreadCrumb() {
@@ -125,7 +132,7 @@ let nodesRoutes = {
               component: TaskFilesTab,
               title: 'Files',
               hideHeaderNavigation: true,
-              fileViewerRoutePath: '/nodes/:nodeID/tasks/:taskID/view/?:filePath?/?:innerPath?',
+              fileViewerRoutePath: '/nodes/:nodeID/tasks/:taskID/view(/:filePath(/:innerPath))',
               buildBreadCrumb() {
                 return {
                   parentCrumb: '/nodes/:nodeID/tasks/:taskID',
@@ -139,7 +146,7 @@ let nodesRoutes = {
               dontScroll: true,
               title: 'Logs',
               isTab: true,
-              path: 'view/?:filePath?/?:innerPath?',
+              path: 'view(/:filePath(/:innerPath))',
               hideHeaderNavigation: true,
               buildBreadCrumb() {
                 return {
@@ -150,7 +157,8 @@ let nodesRoutes = {
             },
             {
               type: Route,
-              path: 'volumes/?:volumeID?',
+              path: 'volumes(/:volumeID)',
+              hideHeaderNavigation: true,
               isTab: true,
               component: VolumeTable,
               buildBreadCrumb() {

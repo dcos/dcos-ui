@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import {Dropdown, Tooltip} from 'reactjs-components';
 import React from 'react';
+import {formatPattern} from 'react-router';
 import ReactDOM from 'react-dom';
 
 import DirectoryItem from '../../structs/DirectoryItem';
@@ -10,6 +11,7 @@ import Icon from '../../../../../../src/js/components/Icon';
 import KeyboardUtil from '../../../../../../src/js/utils/KeyboardUtil';
 import MesosLogView from '../../components/MesosLogView';
 import TaskDirectoryActions from '../../events/TaskDirectoryActions';
+import RouterUtil from '../../../../../../src/js/utils/RouterUtil';
 
 const METHODS_TO_BIND = [
   'handleSearchStringChange',
@@ -99,19 +101,18 @@ class TaskFileViewer extends React.Component {
   }
 
   handleViewChange(currentFile) {
+    let {params, routes} = this.props;
     let path = currentFile.get('path');
     if (path === this.getSelectedFile().get('path')) {
       // File path didn't change, let's not try to update path
       return;
     }
 
-    let currentRoutes = this.props.routes;
-    let lastRoute = currentRoutes.pop();
-    // TODO: won't work with react-router 2.8.1 because `lastRoute.path` won't be absolute path
-    this.context.router.push(
-      lastRoute.path,
-      Object.assign({}, this.props.params, {filePath: encodeURIComponent(path)})
-    );
+    let routePath = RouterUtil.reconstructPathFromRoutes(routes);
+    this.context.router.push(formatPattern(
+      routePath,
+      Object.assign({}, params, {filePath: encodeURIComponent(path)})
+    ));
   }
 
   handleCountChange(totalFound) {

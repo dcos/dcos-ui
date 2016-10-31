@@ -1,4 +1,4 @@
-import {IndexRoute, Redirect, Route} from 'react-router';
+import {Redirect, Route} from 'react-router';
 /* eslint-disable no-unused-vars */
 import React from 'react';
 /* eslint-enable no-unused-vars */
@@ -100,6 +100,11 @@ let serviceRoutes = [
                 },
                 children: [
                   {
+                    type: Redirect,
+                    path: '/services/overview/:id/tasks/:taskID',
+                    to: '/services/overview/:id/tasks/:taskID/details'
+                  },
+                  {
                     type: Route,
                     path: ':taskID',
                     component: TaskDetail,
@@ -119,25 +124,12 @@ let serviceRoutes = [
                     },
                     children: [
                       {
-                        type: IndexRoute,
+                        type: Route,
                         component: TaskDetailsTab,
-                        isTab: true,
-                        title:'Details',
-                        buildBreadCrumb() {
-                          return {
-                            parentCrumb: '/services/overview/:id/tasks/:taskID',
-                            getCrumbs() { return []; }
-                          };
-                        }
-                      },
-                      {
-                        type: Route,
-                        path: 'files',
-                        title:'Files',
-                        component: TaskFilesTab,
-                        isTab: true,
                         hideHeaderNavigation: true,
-                        fileViewerRoutePath: '/services/overview/:id/tasks/:taskID/view/?:filePath?/?:innerPath?',
+                        isTab: true,
+                        path: 'details',
+                        title: 'Details',
                         buildBreadCrumb() {
                           return {
                             parentCrumb: '/services/overview/:id/tasks/:taskID',
@@ -146,12 +138,28 @@ let serviceRoutes = [
                         }
                       },
                       {
+                        component: TaskFilesTab,
+                        fileViewerRoutePath: '/services/overview/:id/tasks/:taskID/view(/:filePath(/:innerPath))',
+                        hideHeaderNavigation: true,
+                        isTab: true,
+                        path: 'files',
+                        title: 'Files',
                         type: Route,
-                        dontScroll: true,
+                        buildBreadCrumb() {
+                          return {
+                            parentCrumb: '/services/overview/:id/tasks/:taskID',
+                            getCrumbs() { return []; }
+                          };
+                        }
+                      },
+                      {
                         component: TaskFileViewer,
-                        title:'Logs',
-                        path: 'view/?:filePath?/?:innerPath?',
+                        hideHeaderNavigation: true,
+                        dontScroll: true,
                         isTab: true,
+                        path: 'view(/:filePath(/:innerPath))',
+                        title: 'Logs',
+                        type: Route,
                         buildBreadCrumb() {
                           return {
                             parentCrumb: '/services/overview/:id/tasks/:taskID',
@@ -160,11 +168,12 @@ let serviceRoutes = [
                         }
                       },
                       {
-                        type: Route,
-                        path: 'volumes',
                         component: VolumeTable,
+                        hideHeaderNavigation: true,
                         isTab: true,
-                        title:'Volumes',
+                        path: 'volumes',
+                        title: 'Volumes',
+                        type: Route,
                         buildBreadCrumb() {
                           return {
                             parentCrumb: '/services/overview/:id/tasks/:taskID',
@@ -174,6 +183,7 @@ let serviceRoutes = [
                       },
                       {
                         type: Route,
+                        hideHeaderNavigation: true,
                         path: 'volumes/:volumeID',
                         component: VolumeDetail,
                         buildBreadCrumb() {

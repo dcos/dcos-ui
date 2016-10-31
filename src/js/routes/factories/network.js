@@ -85,6 +85,11 @@ let RouteFactory = {
         ]
       },
       {
+        type: Redirect,
+        path: '/network/virtual-networks/:overlayName/tasks/:taskID',
+        to: '/network/virtual-networks/:overlayName/tasks/:taskID/details'
+      },
+      {
         type: Route,
         path: 'virtual-networks/:overlayName/tasks/:taskID',
         component: TaskDetail,
@@ -99,10 +104,12 @@ let RouteFactory = {
         },
         children: [
           {
-            type: IndexRoute,
             component: TaskDetailsTab,
             hideHeaderNavigation: true,
-            title:'Details',
+            isTab: true,
+            path: 'details',
+            title: 'Details',
+            type: Route,
             buildBreadCrumb() {
               return {
                 parentCrumb: '/network/virtual-networks/:overlayName/tasks/:taskID',
@@ -111,36 +118,34 @@ let RouteFactory = {
             }
           },
           {
-            type: Route,
+            component: TaskFilesTab,
+            fileViewerRoutePath: '/network/virtual-networks/:overlayName/tasks/:taskID/view(/:filePath(/:innerPath))',
+            hideHeaderNavigation: true,
+            isTab: true,
             path: 'files',
-            title:'Files',
-            children: [
-              {
-                type: IndexRoute,
-                hideHeaderNavigation: true,
-                component: TaskFilesTab,
-                fileViewerRoutePath: '/network/virtual-networks/:overlayName/tasks/:taskID/view',
-                buildBreadCrumb() {
-                  return {
-                    parentCrumb: '/network/virtual-networks/:overlayName/tasks/:taskID',
-                    getCrumbs() { return []; }
-                  };
-                }
-              },
-              {
-                type: Route,
-                path: 'view/?:filePath?/?:innerPath?',
-                hideHeaderNavigation: true,
-                component: TaskFileViewer,
-                dontScroll: true,
-                buildBreadCrumb() {
-                  return {
-                    parentCrumb: '/network/virtual-networks/:overlayName/tasks/:taskID',
-                    getCrumbs() { return []; }
-                  };
-                }
-              }
-            ]
+            title: 'Files',
+            type: Route,
+            buildBreadCrumb() {
+              return {
+                parentCrumb: '/network/virtual-networks/:overlayName/tasks/:taskID',
+                getCrumbs() { return []; }
+              };
+            }
+          },
+          {
+            component: TaskFileViewer,
+            hideHeaderNavigation: true,
+            dontScroll: true,
+            isTab: true,
+            path: 'view(/:filePath(/:innerPath))',
+            title: 'Logs',
+            type: Route,
+            buildBreadCrumb() {
+              return {
+                parentCrumb: '/network/virtual-networks/:overlayName/tasks/:taskID',
+                getCrumbs() { return []; }
+              };
+            }
           }
         ]
       }

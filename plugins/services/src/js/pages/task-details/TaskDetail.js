@@ -2,6 +2,7 @@ import {DCOSStore} from 'foundation-ui';
 import mixin from 'reactjs-mixin';
 /* eslint-disable no-unused-vars */
 import React from 'react';
+import {formatPattern} from 'react-router';
 /* eslint-enable no-unused-vars */
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
@@ -12,6 +13,7 @@ import Loader from '../../../../../../src/js/components/Loader';
 import ManualBreadcrumbs from '../../../../../../src/js/components/ManualBreadcrumbs';
 import MesosStateStore from '../../../../../../src/js/stores/MesosStateStore';
 import RequestErrorMsg from '../../../../../../src/js/components/RequestErrorMsg';
+import RouterUtil from '../../../../../../src/js/utils/RouterUtil';
 import StatusMapping from '../../constants/StatusMapping';
 import TabsMixin from '../../../../../../src/js/mixins/TabsMixin';
 import TaskDirectoryStore from '../../stores/TaskDirectoryStore';
@@ -24,7 +26,10 @@ const METHODS_TO_BIND = [
 ];
 
 const HIDE_BREADCRUMBS = [
-  '/services/overview/:id/tasks/:taskID'
+  '/jobs/:id/tasks/:taskID/details',
+  '/network/virtual-networks/:overlayName/tasks/:taskID/details',
+  '/nodes/:nodeID/tasks/:taskID/details',
+  '/services/overview/:id/tasks/:taskID/details'
 ];
 
 class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
@@ -59,17 +64,27 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
   componentWillMount() {
     super.componentWillMount(...arguments);
 
-    // TODO: DCOS-7871 Refactor the TabsMixin to generalize this solution:
-    let routes = this.props.routes;
-    let currentRoute = routes.find(function (route) {
-      return route.handler === TaskDetail;
-    });
+    let {routes} = this.props;
 
-    if (currentRoute != null) {
-      this.tabs_tabs = currentRoute.childRoutes.filter(function ({isTab}) {
+    // TODO: DCOS-7871 Refactor the TabsMixin to generalize this solution:
+    let topRouteIndex = routes.findIndex(function ({component}) {
+      return component === TaskDetail;
+    });
+    let topRoute = routes[topRouteIndex];
+
+    let parentRoutes = routes.slice(0, topRouteIndex + 1);
+    let parentPath = RouterUtil.reconstructPathFromRoutes(parentRoutes);
+
+    if (topRoute != null) {
+      this.tabs_tabs = topRoute.childRoutes.filter(function ({isTab}) {
         return !!isTab;
       }).reduce(function (tabs, {path, title}) {
-        tabs[path] = title || path;
+        let key = parentPath;
+        if (path) {
+          key = `${parentPath}/${path}`;
+        }
+
+        tabs[key] = title || path;
 
         return tabs;
       }, this.tabs_tabs);
@@ -86,12 +101,12 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
       this.setState({directory: null});
     }
 
-    this.updateCurrentTab();
+    this.updateCurrentTab(nextProps);
   }
 
-  updateCurrentTab() {
-    let routes = this.props.routes;
-    let currentTab = routes[routes.length - 1].path;
+  updateCurrentTab(nextProps) {
+    let {routes} = nextProps || this.props;
+    let currentTab = RouterUtil.reconstructPathFromRoutes(routes);
     if (currentTab != null) {
       this.setState({currentTab});
     }
@@ -138,13 +153,12 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
 
   handleBreadcrumbClick(path) {
     let {router} = this.context;
-    let {params} = this.props;
+    let {params, routes} = this.props;
     let task = MesosStateStore.getTaskFromTaskID(params.taskID);
     TaskDirectoryStore.setPath(task, path);
     // Transition to parent route, which uses a default route
-    // TODO: not gonna work with react-router as route.path is not absolute
-    let {path: parentPath} = router.routes[currentRoutes.length - 2];
-    router.transitionTo(parentPath, params);
+    let parentPath = RouterUtil.reconstructPathFromRoutes(routes);
+    router.push(formatPattern(parentPath, params));
   }
 
   getErrorScreen() {
@@ -165,7 +179,6 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
 
   getService() {
     let {params, service = null} = this.props;
-
     // Get the service from the taskID if it wasn't explicitly passed.
     if (!!params.taskID && service === null) {
       service = DCOSStore.serviceTree.getServiceFromTaskID(params.taskID);
@@ -184,6 +197,7 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
 
   handleOpenLogClick(selectedLogFile) {
     let {router} = this.context;
+    let routes = this.props.routes;
     let params = Object.assign(
       {},
       this.props.params,
@@ -192,10 +206,8 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
         innerPath: encodeURIComponent(TaskDirectoryStore.get('innerPath'))
       }
     );
-    let currentRoutes = router.getCurrentRoutes();
-    let {fileViewerRoutePath} = currentRoutes[currentRoutes.length - 1];
-    // TODO: not gonna work with react-router as route.path is not absolute
-    router.transitionTo(fileViewerRoutePath, params);
+    let {fileViewerRoutePath} = routes[currentRoutes.length - 1];
+    router.push(formatPattern(fileViewerRoutePath, params));
   }
 
   getBasicInfo() {
@@ -220,7 +232,7 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
 
     if (!this.hasVolumes(service)) {
       tabsArray = tabsArray.filter(function (tab) {
-        if (tab.key === '/nodes/:nodeID/tasks/:taskID/volumes/?:volumeID?'
+        if (tab.key === '/nodes/:nodeID/tasks/:taskID/volumes(/:volumeID)'
           || tab.key === '/services/overview/:id/tasks/:taskID/volumes') {
           return false;
         }
@@ -271,8 +283,7 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
   }
 
   getBreadcrumbs() {
-    let routes = this.props.routes;
-    let {path} = routes[routes.length - 1];
+    let path = RouterUtil.reconstructPathFromRoutes(this.props.routes);
     if (HIDE_BREADCRUMBS.includes(path)) {
       return null;
     }
@@ -354,7 +365,8 @@ TaskDetail.contextTypes = {
 };
 
 TaskDetail.propTypes = {
-  params: React.PropTypes.object
+  params: React.PropTypes.object,
+  routes: React.PropTypes.array
 };
 
 module.exports = TaskDetail;
