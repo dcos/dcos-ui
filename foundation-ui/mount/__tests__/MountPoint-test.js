@@ -38,18 +38,6 @@ describe('MountPoint', function () {
       .toEqual([]);
   });
 
-  it('should wrap multiple children', function () {
-    var result = TestUtils.renderIntoDocument(
-      <MountPoint id="foo">
-        <h1>foo</h1>
-        <h2>bar</h2>
-      </MountPoint>
-    );
-
-    expect(TestUtils.scryRenderedDOMComponentsWithTag(result, 'DIV').length)
-      .toEqual(1);
-  });
-
   it('should wrap single child with alwaysWrap=true', function () {
     var result = TestUtils.renderIntoDocument(
       <MountPoint id="foo" alwaysWrap={true}>

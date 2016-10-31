@@ -31,7 +31,7 @@ class MountService extends EventEmitter {
    * @param  {Number} priority to register package callback with
    * [-Infinity; Infinity]
    */
-  register(id, component, priority) {
+  registerComponent(id, component, priority) {
     if (process.env.NODE_ENV !== 'production') {
       if (component != null && !React.isValidElement(component)) {
         throw new Error(`Provided component ${component} of type '${typeof component}' for mount id: '${id}' is not a valid element. Mount content may only be null, undefined or a valid element.`);
@@ -62,7 +62,7 @@ class MountService extends EventEmitter {
    * @param  {String} id listener is registered with
    * @param  {React.Component} component registered with listener
    */
-  unregister(id, component) {
+  unregisterComponent(id, component) {
     let components = componentStore[id];
     if (!components) {
       return;
