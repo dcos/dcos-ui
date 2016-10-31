@@ -85,7 +85,7 @@ const RouterUtil = {
 
   /**
    * Builds absolute path from routes array
-   * @param {Array} routes - an array of current routes react-rouer gives you
+   * @param {Array} routes - an array of current routes react-router gives you
    * @returns {String} path - absolute path pattern
    */
   reconstructPathFromRoutes(routes) {
