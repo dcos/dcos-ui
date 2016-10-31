@@ -3,7 +3,7 @@
  */
 var fs = require('fs');
 var path = require('path');
-var testPaths = ['src', 'plugins', 'foundation-ui'];
+var testPaths = ['src', 'plugins', 'foundation-ui', 'graphql'];
 
 if (process.env.npm_config_externalplugins) {
   testPaths.push(process.env.npm_config_externalplugins);
@@ -38,10 +38,12 @@ var config = {
     'babel-runtime',
     'browser-info',
     'classnames',
+    'clone',
     'd3',
     'deep-equal',
     'events',
     'flux',
+    'graphql/store',
     'jasmine-reporters',
     'localStorage',
     'mesosphere-shared-reactjs',

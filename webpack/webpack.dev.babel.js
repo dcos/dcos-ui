@@ -88,6 +88,9 @@ module.exports = Object.assign({}, webpackConfig, {
           presets: [
             'babel-preset-es2015',
             'babel-preset-react'
+          ].map(require.resolve),
+          plugins: [
+            '../graphql/scripts/babelRelayPlugin'
           ].map(require.resolve)
         })
       },
@@ -109,11 +112,11 @@ module.exports = Object.assign({}, webpackConfig, {
       },
       {
         test: /\.gif$/,
-        loader: 'file?name=./[hash]-[name].[ext]&limit=100000&mimetype=image/gif',
+        loader: 'file?name=./[hash]-[name].[ext]&limit=100000&mimetype=image/gif'
       },
       {
         test: /\.jpg$/,
-        loader: 'file?name=./[hash]-[name].[ext]',
+        loader: 'file?name=./[hash]-[name].[ext]'
       },
       // Replace @@variables
       {
@@ -123,7 +126,7 @@ module.exports = Object.assign({}, webpackConfig, {
           replacements: [
             {
               pattern: /@@(\w+)/ig,
-              replacement: function (match, key) {
+              replacement(match, key) {
                 return REPLACEMENT_VARS[key];
               }
             }
