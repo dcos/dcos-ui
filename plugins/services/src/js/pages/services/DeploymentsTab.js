@@ -14,6 +14,7 @@ import defaultServiceImage from '../../../img/icon-service-default-small@2x.png'
 import Loader from '../../../../../../src/js/components/Loader';
 import Icon from '../../../../../../src/js/components/Icon';
 import MarathonActions from '../../events/MarathonActions';
+import ModalHeading from '../../../../../../src/js/components/modals/ModalHeading';
 import NestedServiceLinks from '../../../../../../src/js/components/NestedServiceLinks';
 import StatusBar from '../../../../../../src/js/components/StatusBar';
 import StringUtil from '../../../../../../src/js/utils/StringUtil';
@@ -342,19 +343,26 @@ class DeploymentsTab extends mixin(StoreMixin) {
       deploymentRollbackError
     } = this.state;
 
+    let heading = (
+      <ModalHeading>
+        You're About To Rollback The Deployment
+      </ModalHeading>
+    );
+
     if (deploymentToRollback != null) {
       return (
         <Confirm
           closeByBackdropClick={true}
           disabled={!!awaitingRevertDeploymentResponse}
+          header={heading}
           onClose={this.handleRollbackCancel}
           leftButtonCallback={this.handleRollbackCancel}
           leftButtonText="Cancel"
           rightButtonClassName="button button-danger"
           rightButtonCallback={this.handleRollbackConfirm}
-          rightButtonText="Continue Rollback">
+          rightButtonText="Continue Rollback"
+          showHeader={true}>
           <div className="text-align-center">
-            <h3 className="flush-top">You're About To Rollback The Deployment</h3>
             <p>{this.getRollbackModalText(deploymentToRollback)}</p>
             {this.renderRollbackError(deploymentRollbackError)}
           </div>

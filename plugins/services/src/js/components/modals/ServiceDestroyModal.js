@@ -2,6 +2,7 @@ import {Confirm} from 'reactjs-components';
 import React, {PropTypes} from 'react';
 import PureRender from 'react-addons-pure-render-mixin';
 
+import ModalHeading from '../../../../../../src/js/components/modals/ModalHeading';
 import Pod from '../../structs/Pod';
 import Service from '../../structs/Service';
 import ServiceTree from '../../structs/ServiceTree';
@@ -60,23 +61,28 @@ class ServiceDestroyModal extends React.Component {
       serviceName = service.getId();
     }
 
+    let heading = (
+      <ModalHeading className="text-danger">
+        Destroy {itemText}
+      </ModalHeading>
+    );
+
     return (
       <Confirm
         disabled={isPending}
+        header={heading}
         open={open}
         onClose={onClose}
         leftButtonText="Cancel"
         leftButtonCallback={onClose}
         rightButtonText={`Destroy ${itemText}`}
         rightButtonClassName="button button-danger"
-        rightButtonCallback={deleteItem}>
-        <div className="container-pod flush-top container-pod-short-bottom">
-          <h2 className="text-danger text-align-center flush-top">
-            Destroy {itemText}
-          </h2>
-          <p>Destroying <span className="emphasize">{serviceName}</span> is irreversible. Are you sure you want to continue?</p>
-          {this.getErrorMessage()}
-        </div>
+        rightButtonCallback={deleteItem}
+        showHeader={true}>
+        <p>
+          Destroying <span className="emphasize">{serviceName}</span> is irreversible. Are you sure you want to continue?
+        </p>
+        {this.getErrorMessage()}
       </Confirm>
     );
   }

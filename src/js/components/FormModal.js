@@ -133,8 +133,7 @@ class FormModal extends React.Component {
         showHeader={false}
         showFooter={true}
         footer={this.getFooter()}
-        titleClass="modal-header-title text-align-center flush-top
-          flush-bottom"
+        titleClass="text-align-center flush"
         {...this.props.modalProps}>
         {this.getContent()}
       </Modal>

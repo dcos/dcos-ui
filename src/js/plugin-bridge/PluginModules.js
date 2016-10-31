@@ -66,6 +66,7 @@ module.exports = {
     Icon: 'Icon',
     Loader: 'Loader',
     MesosphereLogo: 'icons/MesosphereLogo',
+    ModalHeading: 'modals/ModalHeading',
     NestedServiceLinks: 'NestedServiceLinks',
     Page: 'Page',
     RequestErrorMsg: 'RequestErrorMsg',

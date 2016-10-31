@@ -4,6 +4,7 @@ import React from 'react';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import MetronomeStore from '../../stores/MetronomeStore';
+import ModalHeading from '../modals/ModalHeading';
 
 const METHODS_TO_BIND = [
   'handleButtonConfirm'
@@ -55,9 +56,9 @@ class JobStopRunModal extends mixin(StoreMixin) {
     }
 
     return (
-      <h2 className="flush-top text-align-center" key="confirmHeader">
+      <ModalHeading key="confirmHeader">
         {`Are you sure you want to stop ${headerContent}?`}
-      </h2>
+      </ModalHeading>
     );
   }
 
@@ -83,7 +84,6 @@ class JobStopRunModal extends mixin(StoreMixin) {
 
     return (
       <div className="text-align-center">
-        {this.getContentHeader(selectedItems, selectedItemsLength)}
         {this.getConfirmTextBody(selectedItems, selectedItemsLength)}
       </div>
     );
@@ -92,6 +92,7 @@ class JobStopRunModal extends mixin(StoreMixin) {
   render() {
     let {onClose, open, selectedItems} = this.props;
     let rightButtonText = 'Stop Job Run';
+    let selectedItemsLength = selectedItems.length;
 
     if (selectedItems.length > 1) {
       rightButtonText = 'Stop Job Runs';
@@ -101,13 +102,15 @@ class JobStopRunModal extends mixin(StoreMixin) {
       <Confirm
         closeByBackdropClick={true}
         disabled={this.state.pendingRequest}
+        header={this.getContentHeader(selectedItems, selectedItemsLength)}
         open={open}
         onClose={onClose}
         leftButtonText="Close"
         leftButtonCallback={onClose}
         rightButtonText={rightButtonText}
         rightButtonClassName="button button-danger"
-        rightButtonCallback={this.handleButtonConfirm}>
+        rightButtonCallback={this.handleButtonConfirm}
+        showHeader={true}>
         {this.getModalContents()}
       </Confirm>
     );

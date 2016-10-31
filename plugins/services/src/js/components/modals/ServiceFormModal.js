@@ -11,6 +11,7 @@ import 'brace/ext/language_tools';
 
 import Config from '../../../../../../src/js/config/Config';
 import Icon from '../../../../../../src/js/components/Icon';
+import ModalHeading from '../../../../../../src/js/components/modals/ModalHeading';
 import PodSpec from '../../structs/PodSpec';
 import Service from '../../structs/Service';
 import ServiceForm from '../ServiceForm';
@@ -517,12 +518,12 @@ class ServiceFormModal extends React.Component {
     }
 
     let header = (
-      <div className="modal-header-title">
+      <div>
         <div className="header-flex">
           <div className="header-left">
-            <span className="h4 flush-top flush-bottom text-color-neutral">
+            <ModalHeading align="left" level={4}>
               {headerText}
-            </span>
+            </ModalHeading>
           </div>
           <div className="header-right">
             {this.getToggleButton()}

@@ -1,4 +1,3 @@
-import classNames from 'classnames';
 import mixin from 'reactjs-mixin';
 /* eslint-disable no-unused-vars */
 import React from 'react';
@@ -7,6 +6,7 @@ import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import CosmosPackagesStore from '../../stores/CosmosPackagesStore';
 import FormModal from '../FormModal';
+import ModalHeading from '../modals/ModalHeading';
 import ValidatorUtil from '../../utils/ValidatorUtil';
 
 const METHODS_TO_BIND = [
@@ -137,23 +137,21 @@ class AddRepositoryFormModal extends mixin(StoreMixin) {
   render() {
     let {props, state} = this;
 
-    let headerClasses = classNames(
-      'modal-header-title text-align-center flush-top',
-      {'short-bottom': this.state.errorMsg}
-    );
-
     return (
       <FormModal
         definition={this.getAddRepositoryFormDefinition()}
         disabled={state.disableButtons}
         buttonDefinition={this.getButtonDefinition()}
+        modalProps={{
+          header: (
+            <ModalHeading>Add Repository</ModalHeading>
+          ),
+          showHeader: true
+        }}
         onChange={this.resetState}
         onClose={props.onClose}
         onSubmit={this.handleAddRepository}
         open={props.open}>
-        <h2 className={headerClasses}>
-          Add Repository?
-        </h2>
         {this.getErrorMessage()}
       </FormModal>
     );

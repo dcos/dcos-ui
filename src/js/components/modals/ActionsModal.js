@@ -3,6 +3,7 @@ import mixin from 'reactjs-mixin';
 import React from 'react';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
+import ModalHeading from './ModalHeading';
 import StringUtil from '../../utils/StringUtil';
 import Util from '../../utils/Util';
 
@@ -96,12 +97,11 @@ class ActionsModal extends mixin(StoreMixin) {
   }
 
   getActionsModalContents() {
-    let {actionText, itemType} = this.props;
+    let {itemType} = this.props;
     let {requestErrors, validationError} = this.state;
 
     return (
       <div className="text-align-center">
-        <h3 className="flush-top">{actionText.title}</h3>
         <p>{this.getActionsModalContentsText()}</p>
         {this.getDropdown(itemType)}
         {this.getErrorMessage(validationError)}
@@ -208,14 +208,22 @@ class ActionsModal extends mixin(StoreMixin) {
       return null;
     }
 
+    let heading = (
+      <ModalHeading>
+        {this.props.actionText.title}
+      </ModalHeading>
+    );
+
     return (
       <Confirm
         disabled={this.state.pendingRequest}
+        header={heading}
         open={!!action}
         onClose={this.handleButtonCancel}
         leftButtonCallback={this.handleButtonCancel}
         rightButtonCallback={this.handleButtonConfirm}
         rightButtonText={StringUtil.capitalize(action)}
+        showHeader={true}
         useGemini={false}
         {...props}>
         {this.getActionsModalContents()}

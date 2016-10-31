@@ -16,6 +16,7 @@ import JobForm from '../JobForm';
 import JobUtil from '../../utils/JobUtil';
 import JobSchema from '../../schemas/JobSchema';
 import MetronomeStore from '../../stores/MetronomeStore';
+import ModalHeading from '../modals/ModalHeading';
 import SchemaUtil from '../../utils/SchemaUtil';
 import ToggleButton from '../ToggleButton';
 
@@ -419,9 +420,9 @@ class JobFormModal extends mixin(StoreMixin) {
       <div>
         <div className="header-flex">
           <div className="header-left">
-            <span className="h4 flush-top flush-bottom text-color-neutral">
+            <ModalHeading align="left" level={4}>
               {heading}
-            </span>
+            </ModalHeading>
           </div>
           <div className="header-right">
             <ToggleButton

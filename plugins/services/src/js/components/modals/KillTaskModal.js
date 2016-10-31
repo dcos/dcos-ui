@@ -3,6 +3,7 @@ import React, {PropTypes} from 'react';
 import PureRender from 'react-addons-pure-render-mixin';
 
 import AppLockedMessage from './AppLockedMessage';
+import ModalHeading from '../../../../../../src/js/components/modals/ModalHeading';
 import StringUtil from '../../../../../../src/js/utils/StringUtil';
 
 const ACTION_DISPLAY_NAMES = {
@@ -88,10 +89,7 @@ class KillTaskModal extends React.Component {
     let taskCountContent = `${selectedItemsLength} ${StringUtil.pluralize('Task', selectedItemsLength)}`;
 
     return (
-      <div className={'pod pod-short flush-right flush-bottom flush-left text-align-center'}>
-        <h2 className="text-danger text-align-center flush-top">
-          {action} {StringUtil.pluralize('Task', selectedItemsLength)}
-        </h2>
+      <div className="text-align-center">
         <p>
           You are about to {action.toLowerCase()} {taskCountContent}.
           <br />
@@ -124,17 +122,25 @@ class KillTaskModal extends React.Component {
       this.shouldForceUpdate()
     );
 
+    let header = (
+      <ModalHeading className="text-danger">
+        {ACTION_DISPLAY_NAMES[action]} {StringUtil.pluralize('Task', selectedItems.length)}
+      </ModalHeading>
+    );
+
     return (
       <Confirm
         closeByBackdropClick={true}
         disabled={isPending}
+        header={header}
         open={open}
         onClose={onClose}
         leftButtonText="Close"
         leftButtonCallback={onClose}
         rightButtonText={buttonText}
         rightButtonClassName="button button-danger"
-        rightButtonCallback={killTasksAction}>
+        rightButtonCallback={killTasksAction}
+        showHeader={true}>
         {this.getModalContents()}
       </Confirm>
     );

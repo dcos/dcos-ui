@@ -2,6 +2,7 @@ import React, {PropTypes} from 'react';
 import PureRender from 'react-addons-pure-render-mixin';
 
 import FormModal from '../../../../../../src/js/components/FormModal';
+import ModalHeading from '../../../../../../src/js/components/modals/ModalHeading';
 import ServiceValidatorUtil from '../../utils/ServiceValidatorUtil';
 
 const METHODS_TO_BIND = [
@@ -93,14 +94,15 @@ class ServiceGroupFormModal extends React.Component {
         ref="form"
         buttonDefinition={buttonDefinition}
         disabled={isPending}
+        modalProps={{
+          header: <ModalHeading>Create Group</ModalHeading>,
+          showHeader: true
+        }}
         onClose={onClose}
         onSubmit={this.handleNewGroupSubmit}
         onChange={clearError}
         open={open}
         definition={this.getNewGroupFormDefinition()}>
-        <h2 className="modal-header-title text-align-center flush-top">
-          Create Group
-        </h2>
         <p className="text-align-center flush-top">
           {'Enter a path for the new group under '}
           <span className="emphasize">{parentGroupId}</span>

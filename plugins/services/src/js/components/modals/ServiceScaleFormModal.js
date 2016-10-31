@@ -2,6 +2,7 @@ import React, {PropTypes} from 'react';
 import PureRender from 'react-addons-pure-render-mixin';
 
 import FormModal from '../../../../../../src/js/components/FormModal';
+import ModalHeading from '../../../../../../src/js/components/modals/ModalHeading';
 import Pod from '../../structs/Pod';
 import Service from '../../structs/Service';
 import ServiceTree from '../../structs/ServiceTree';
@@ -113,9 +114,7 @@ class ServiceScaleFormModal extends React.Component {
     }
 
     return (
-      <h2 className="modal-header-title text-align-center flush-top">
-        Scale {headerText}
-      </h2>
+      <ModalHeading>Scale {headerText}</ModalHeading>
     );
   }
 
@@ -162,12 +161,15 @@ class ServiceScaleFormModal extends React.Component {
       <FormModal
         buttonDefinition={buttonDefinition}
         definition={this.getScaleFormDefinition()}
+        modalProps={{
+          header: this.getHeader(),
+          showHeader: true
+        }}
         disabled={isPending}
         onClose={onClose}
         onSubmit={onSubmit}
         onChange={clearError}
         open={open} >
-        {this.getHeader()}
         {this.getBodyText()}
         {this.getErrorMessage()}
       </FormModal>

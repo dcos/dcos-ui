@@ -3,6 +3,7 @@ import React, {PropTypes} from 'react';
 import PureRender from 'react-addons-pure-render-mixin';
 
 import AppLockedMessage from './AppLockedMessage';
+import ModalHeading from '../../../../../../src/js/components/modals/ModalHeading';
 import Service from '../../structs/Service';
 import ServiceTree from '../../structs/ServiceTree';
 
@@ -53,6 +54,11 @@ class ServiceRestartModal extends React.Component {
       restartService
     } = this.props;
 
+    let heading = (
+      <ModalHeading>
+        Restart Service
+      </ModalHeading>
+    );
     let serviceName = '';
 
     if (service) {
@@ -62,15 +68,14 @@ class ServiceRestartModal extends React.Component {
     return (
       <Confirm
         disabled={isPending}
+        header={heading}
         open={open}
         onClose={onClose}
         leftButtonCallback={onClose}
         rightButtonText="Restart Service"
         rightButtonClassName="button button-danger"
-        rightButtonCallback={() => restartService(service, this.shouldForceUpdate())}>
-        <h2 className="text-align-center flush-top">
-          Restart Service
-        </h2>
+        rightButtonCallback={() => restartService(service, this.shouldForceUpdate())}
+        showHeader={true}>
         <p>
           Are you sure you want to restart <span className="emphasize">{serviceName}</span>?
         </p>
