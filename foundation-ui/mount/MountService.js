@@ -26,22 +26,22 @@ class MountService extends EventEmitter {
   // Package API
   /**
    * Registers package for updates on this MountPoint id
-   * @param  {String} id of MointPoint to register package for
+   * @param  {String} role of MointPoint to register package for
    * @param  {React.Component} component to call when content is being fetched
    * @param  {Number} priority to register package callback with
    * [-Infinity; Infinity]
    */
-  registerComponent(id, component, priority) {
+  registerComponent(role, component, priority) {
     if (process.env.NODE_ENV !== 'production') {
       if (component != null && !React.isValidElement(component)) {
-        throw new Error(`Provided component ${component} of type '${typeof component}' for mount id: '${id}' is not a valid element. Mount content may only be null, undefined or a valid element.`);
+        throw new Error(`Provided component ${component} of type '${typeof component}' for role: '${role}' is not a valid element. Mount content may only be null, undefined or a valid element.`);
       }
       // TODO: warning registered with same priority
     }
 
-    let components = componentStore[id];
+    let components = componentStore[role];
     if (!components) {
-      components = componentStore[id] = [];
+      components = componentStore[role] = [];
     }
     components.push({priority, component});
     components.sort(function (a, b) {
@@ -54,16 +54,16 @@ class MountService extends EventEmitter {
     let elements = components.map(function (item) {
       return item.component;
     });
-    this.emit(id, elements);
+    this.emit(role, elements);
   }
 
   /**
    * Unregisters package for updates on this MountPoint id
-   * @param  {String} id listener is registered with
+   * @param  {String} role listener is registered with
    * @param  {React.Component} component registered with listener
    */
-  unregisterComponent(id, component) {
-    let components = componentStore[id];
+  unregisterComponent(role, component) {
+    let components = componentStore[role];
     if (!components) {
       return;
     }
@@ -92,7 +92,7 @@ class MountService extends EventEmitter {
     let elements = components.map(function (item) {
       return item.component;
     });
-    this.emit(id, elements);
+    this.emit(role, elements);
   }
 }
 

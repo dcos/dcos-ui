@@ -55,12 +55,12 @@ class MountPoint extends React.Component {
     // each component if multiple components were registered for a id etc.
     const {mountChain = []} = this.context || {};
 
-    return {mountChain: [...mountChain, this.props.id]};
+    return {mountChain: [...mountChain, this.props.role]};
   }
 
   componentWillMount() {
     this.updateState();
-    MountService.addListener(this.props.id, this.updateState);
+    MountService.addListener(this.props.role, this.updateState);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -69,7 +69,7 @@ class MountPoint extends React.Component {
   }
 
   componentWillUnmount() {
-    MountService.removeListener(this.props.id, this.updateState);
+    MountService.removeListener(this.props.role, this.updateState);
   }
 
   updateState(registeredChildren, props = this.props) {
@@ -146,7 +146,7 @@ MountPoint.propTypes = {
   alwaysWrap: PropTypes.bool,
   limit: PropTypes.number,
   children: PropTypes.element,
-  id: PropTypes.string.isRequired,
+  role: PropTypes.string.isRequired,
   wrapperComponent: PropTypes.node
 };
 
