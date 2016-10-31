@@ -23,7 +23,7 @@ let componentStore = {};
  * MountService.addListener('myID', updateContent);
  */
 class MountService extends EventEmitter {
-  // Package API
+
   /**
    * Registers package for updates on this MountPoint id
    * @param  {String} role of MointPoint to register package for
