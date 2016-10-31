@@ -1,4 +1,5 @@
 import React from 'react';
+import {routerShape} from 'react-router';
 
 import DescriptionList from '../../../../../src/js/components/DescriptionList';
 import Pod from '../structs/Pod';
@@ -94,7 +95,7 @@ class PodDebugTabView extends React.Component {
 }
 
 PodDebugTabView.contextTypes = {
-  router: React.PropTypes.object
+  router: routerShape
 };
 
 PodDebugTabView.propTypes = {

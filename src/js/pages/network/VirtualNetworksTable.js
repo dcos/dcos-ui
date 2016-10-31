@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import {Link} from 'react-router';
+import {routerShape, Link} from 'react-router';
 import React from 'react';
 import {Table} from 'reactjs-components';
 
@@ -98,7 +98,7 @@ class VirtualNetworksTable extends React.Component {
 }
 
 VirtualNetworksTable.contextTypes = {
-  router: React.PropTypes.object
+  router: routerShape
 };
 
 VirtualNetworksTable.propTypes = {

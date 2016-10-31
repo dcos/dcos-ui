@@ -2,6 +2,7 @@ import mixin from 'reactjs-mixin';
 /* eslint-disable no-unused-vars */
 import React from 'react';
 /* eslint-enable no-unused-vars */
+import {routerShape} from 'react-router';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import Breadcrumbs from '../../../../../../src/js/components/Breadcrumbs';
@@ -211,7 +212,7 @@ class NodeDetailPage extends mixin(TabsMixin, StoreMixin) {
 }
 
 NodeDetailPage.contextTypes = {
-  router: React.PropTypes.object
+  router: routerShape
 };
 
 module.exports = NodeDetailPage;

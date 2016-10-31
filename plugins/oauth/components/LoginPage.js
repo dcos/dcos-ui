@@ -1,4 +1,5 @@
 import React from 'react';
+import {routerShape} from 'react-router';
 import mixin from 'reactjs-mixin';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 import {Modal} from 'reactjs-components';
@@ -118,7 +119,7 @@ class LoginPage extends mixin(StoreMixin) {
 }
 
 LoginPage.contextTypes = {
-  router: React.PropTypes.object
+  router: routerShape
 };
 
 module.exports = LoginPage;

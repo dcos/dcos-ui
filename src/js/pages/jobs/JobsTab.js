@@ -1,6 +1,7 @@
 import {DCOSStore} from 'foundation-ui';
 import mixin from 'reactjs-mixin';
 import React from 'react';
+import {routerShape} from 'react-router';
 
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
@@ -224,7 +225,7 @@ class JobsTab extends mixin(StoreMixin, QueryParamsMixin, SaveStateMixin) {
 }
 
 JobsTab.contextTypes = {
-  router: React.PropTypes.object
+  router: routerShape
 };
 
 module.exports = JobsTab;

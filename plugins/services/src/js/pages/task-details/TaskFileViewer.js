@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import {Dropdown, Tooltip} from 'reactjs-components';
 import React from 'react';
-import {formatPattern} from 'react-router';
+import {routerShape, formatPattern} from 'react-router';
 import ReactDOM from 'react-dom';
 
 import DirectoryItem from '../../structs/DirectoryItem';
@@ -340,7 +340,7 @@ class TaskFileViewer extends React.Component {
 }
 
 TaskFileViewer.contextTypes = {
-  router: React.PropTypes.object
+  router: routerShape
 };
 
 TaskFileViewer.propTypes = {

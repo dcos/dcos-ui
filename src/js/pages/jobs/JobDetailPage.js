@@ -5,6 +5,7 @@ import prettycron from 'prettycron';
 /* eslint-disable no-unused-vars */
 import React from 'react';
 /* eslint-enable no-unused-vars */
+import {routerShape} from 'react-router';
 
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
@@ -397,7 +398,7 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
 }
 
 JobDetailPage.contextTypes = {
-  router: React.PropTypes.object
+  router: routerShape
 };
 
 module.exports = JobDetailPage;

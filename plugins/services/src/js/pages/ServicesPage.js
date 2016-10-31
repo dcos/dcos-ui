@@ -1,4 +1,5 @@
 import React from 'react';
+import {routerShape} from 'react-router';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import Icon from '../../../../../src/js/components/Icon';
@@ -9,7 +10,7 @@ import TabsMixin from '../../../../../src/js/mixins/TabsMixin';
 var ServicesPage = React.createClass({
 
   contextTypes: {
-    router: React.PropTypes.object
+    router: routerShape
   },
 
   mixins: [TabsMixin, StoreMixin],

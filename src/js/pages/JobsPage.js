@@ -1,4 +1,5 @@
 import React from 'react';
+import {routerShape} from 'react-router';
 
 import Icon from '../components/Icon';
 import Page from '../components/Page';
@@ -18,7 +19,7 @@ class JobsPage extends React.Component {
 }
 
 JobsPage.contextTypes = {
-  router: React.PropTypes.object
+  router: routerShape
 };
 
 JobsPage.routeConfig = {

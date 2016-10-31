@@ -1,4 +1,5 @@
 import React from 'react';
+import {routerShape} from 'react-router';
 import SidebarActions from '../../../events/SidebarActions';
 
 class ImagesTabContent extends React.Component {
@@ -9,7 +10,7 @@ class ImagesTabContent extends React.Component {
 }
 
 ImagesTabContent.contextTypes = {
-  router: React.PropTypes.object
+  router: routerShape
 };
 
 ImagesTabContent.willTransitionTo = function () {

@@ -1,4 +1,5 @@
 import React from 'react';
+import {routerShape} from 'react-router';
 
 import MesosStateStore from '../../../../../../src/js/stores/MesosStateStore';
 import Node from '../../../../../../src/js/structs/Node';
@@ -18,7 +19,7 @@ class NodeDetailTaskTab extends React.Component {
 }
 
 NodeDetailTaskTab.contextTypes = {
-  router: React.PropTypes.object
+  router: routerShape
 };
 
 NodeDetailTaskTab.propTypes = {

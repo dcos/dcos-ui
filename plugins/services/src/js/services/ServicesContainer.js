@@ -1,5 +1,6 @@
 import {DCOSStore} from 'foundation-ui';
 import React, {PropTypes} from 'react';
+import {routerShape} from 'react-router';
 
 import ActionKeys from '../constants/ActionKeys';
 import MarathonActions from '../events/MarathonActions';
@@ -630,7 +631,7 @@ ServicesContainer.propTypes = {
 };
 
 ServicesContainer.contextTypes = {
-  router: React.PropTypes.object
+  router: routerShape
 };
 
 ServicesContainer.routeConfig = {

@@ -1,6 +1,7 @@
 import deepEqual from 'deep-equal';
 import mixin from 'reactjs-mixin';
 import React from 'react';
+import {routerShape} from 'react-router';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import CompositeState from '../../../../../../../src/js/structs/CompositeState';
@@ -162,7 +163,7 @@ class NodesGridContainer extends mixin(StoreMixin, QueryParamsMixin) {
 }
 
 NodesGridContainer.contextTypes = {
-  router: React.PropTypes.object.isRequired,
+  router: routerShape.isRequired,
   selectedResource: React.PropTypes.string
 };
 

@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import deepEqual from 'deep-equal';
 import {List, Tooltip} from 'reactjs-components';
 import React from 'react';
+import {routerShape} from 'react-router';
 
 import Config from '../../../../../src/js/config/Config';
 import HealthLabels from '../constants/HealthLabels';
@@ -19,7 +20,7 @@ let ServiceList = React.createClass({
   },
 
   contextTypes: {
-    router: React.PropTypes.object
+    router: routerShape
   },
 
   getDefaultProps() {

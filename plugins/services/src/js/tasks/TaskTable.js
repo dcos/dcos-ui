@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import {ResourceTableUtil} from 'foundation-ui';
-import {Link} from 'react-router';
+import {routerShape, Link} from 'react-router';
 import React from 'react';
 
 import CheckboxTable from '../../../../../src/js/components/CheckboxTable';
@@ -337,7 +337,7 @@ class TaskTable extends React.Component {
 }
 
 TaskTable.contextTypes = {
-  router: React.PropTypes.object.isRequired
+  router: routerShape.isRequired
 };
 
 TaskTable.propTypes = {

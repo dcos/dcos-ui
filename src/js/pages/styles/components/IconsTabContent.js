@@ -1,4 +1,5 @@
 import React from 'react';
+import {routerShape} from 'react-router';
 
 // import IconAdd from '../../../../img/icons/icon-add.svg?name=IconAdd';
 import SidebarActions from '../../../events/SidebarActions';
@@ -530,7 +531,7 @@ class IconsTabContent extends React.Component {
 }
 
 IconsTabContent.contextTypes = {
-  router: React.PropTypes.object
+  router: routerShape
 };
 
 IconsTabContent.willTransitionTo = function () {

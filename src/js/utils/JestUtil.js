@@ -1,6 +1,7 @@
 import TestUtils from 'react-addons-test-utils';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {routerShape} from 'react-router';
 
 let stores = {
   CosmosPackagesStore: '../stores/CosmosPackagesStore',
@@ -145,7 +146,7 @@ const JestUtil = {
 
       static get childContextTypes() {
         return {
-          router: React.PropTypes.object,
+          router: routerShape,
           routeDepth: React.PropTypes.number
         };
       }

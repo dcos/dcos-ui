@@ -1,5 +1,6 @@
 import mixin from 'reactjs-mixin';
 import React from 'react';
+import {routerShape} from 'react-router';
 
 import Breadcrumbs from '../../../../../src/js/components/Breadcrumbs';
 import Pod from '../structs/Pod';
@@ -131,7 +132,7 @@ class PodDetail extends mixin(TabsMixin) {
 }
 
 PodDetail.contextTypes = {
-  router: React.PropTypes.object
+  router: routerShape
 };
 
 PodDetail.propTypes = {

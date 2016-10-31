@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import GeminiScrollbar from 'react-gemini-scrollbar';
-import {Link} from 'react-router';
+import {routerShape, Link} from 'react-router';
 import React from 'react';
 import {Tooltip} from 'reactjs-components';
 import PluginSDK from 'PluginSDK';
@@ -29,7 +29,7 @@ var Sidebar = React.createClass({
   mixins: [SaveStateMixin, InternalStorageMixin],
 
   contextTypes: {
-    router: React.PropTypes.object
+    router: routerShape
   },
 
   getInitialState() {

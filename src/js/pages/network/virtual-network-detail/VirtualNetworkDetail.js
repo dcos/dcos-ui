@@ -2,6 +2,7 @@ import mixin from 'reactjs-mixin';
 /* eslint-disable no-unused-vars */
 import React from 'react';
 /* eslint-enable no-unused-vars */
+import {routerShape} from 'react-router';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import Breadcrumbs from '../../../components/Breadcrumbs';
@@ -132,7 +133,7 @@ class VirtualNetworkDetail extends mixin(StoreMixin, TabsMixin) {
 }
 
 VirtualNetworkDetail.contextTypes = {
-  router: React.PropTypes.object
+  router: routerShape
 };
 
 module.exports = VirtualNetworkDetail;

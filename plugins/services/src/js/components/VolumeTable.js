@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import {Link} from 'react-router';
+import {Link, routerShape} from 'react-router';
 import React from 'react';
 import {Table} from 'reactjs-components';
 
@@ -181,7 +181,7 @@ VolumeTable.propTypes = {
 };
 
 VolumeTable.contextTypes = {
-  router: React.PropTypes.object
+  router: routerShape
 };
 
 module.exports = VolumeTable;

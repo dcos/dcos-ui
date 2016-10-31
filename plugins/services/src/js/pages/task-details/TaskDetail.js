@@ -2,7 +2,7 @@ import {DCOSStore} from 'foundation-ui';
 import mixin from 'reactjs-mixin';
 /* eslint-disable no-unused-vars */
 import React from 'react';
-import {formatPattern} from 'react-router';
+import {routerShape, formatPattern} from 'react-router';
 /* eslint-enable no-unused-vars */
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
@@ -361,7 +361,7 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
 }
 
 TaskDetail.contextTypes = {
-  router: React.PropTypes.object
+  router: routerShape
 };
 
 TaskDetail.propTypes = {

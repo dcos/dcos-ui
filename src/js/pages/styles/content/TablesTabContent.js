@@ -1,4 +1,5 @@
 import React from 'react';
+import {routerShape} from 'react-router';
 import SidebarActions from '../../../events/SidebarActions';
 
 class TablesTabContent extends React.Component {
@@ -1907,7 +1908,7 @@ class TablesTabContent extends React.Component {
 }
 
 TablesTabContent.contextTypes = {
-  router: React.PropTypes.object
+  router: routerShape
 };
 
 TablesTabContent.willTransitionTo = function () {

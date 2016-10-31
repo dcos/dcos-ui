@@ -1,4 +1,5 @@
 import React from 'react';
+import {routerShape} from 'react-router';
 import SidebarActions from '../../../events/SidebarActions';
 // JSON.stringify(this.props.versionDump, null, 2)`
 
@@ -1124,7 +1125,7 @@ class TypographyTabContent extends React.Component {
 }
 
 TypographyTabContent.contextTypes = {
-  router: React.PropTypes.object
+  router: routerShape
 };
 
 TypographyTabContent.willTransitionTo = function () {

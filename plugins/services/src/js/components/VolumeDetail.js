@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import {DCOSStore} from 'foundation-ui';
 import React from 'react';
+import {routerShape} from 'react-router';
 
 import Breadcrumbs from '../../../../../src/js/components/Breadcrumbs';
 import DescriptionList from '../../../../../src/js/components/DescriptionList';
@@ -75,7 +76,7 @@ VolumeDetail.propTypes = {
 };
 
 VolumeDetail.contextTypes = {
-  router: React.PropTypes.object
+  router: routerShape
 };
 
 module.exports = VolumeDetail;

@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import React from 'react';
-import {Link} from 'react-router';
+import {Link, routerShape} from 'react-router';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import AlertPanel from '../../../../../src/js/components/AlertPanel';
@@ -71,7 +71,7 @@ var NodesOverview = React.createClass({
   },
 
   contextTypes: {
-    router: React.PropTypes.object.isRequired
+    router: routerShape.isRequired
   },
 
   getInitialState() {

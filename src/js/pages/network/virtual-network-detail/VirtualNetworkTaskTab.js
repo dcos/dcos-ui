@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import {Link} from 'react-router';
+import {routerShape, Link} from 'react-router';
 import mixin from 'reactjs-mixin';
 /* eslint-disable no-unused-vars */
 import React from 'react';
@@ -308,7 +308,7 @@ class VirtualNetworkTaskTab extends mixin(StoreMixin) {
 }
 
 VirtualNetworkTaskTab.contextTypes = {
-  router: React.PropTypes.object
+  router: routerShape
 };
 
 VirtualNetworkTaskTab.propTypes = {

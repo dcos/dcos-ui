@@ -1,4 +1,4 @@
-import {Link} from 'react-router';
+import {routerShape, Link} from 'react-router';
 import mixin from 'reactjs-mixin';
 import React from 'react';
 
@@ -115,7 +115,7 @@ class StylesPage extends mixin(TabsMixin) {
 }
 
 StylesPage.contextTypes = {
-  router: React.PropTypes.object
+  router: routerShape
 };
 
 StylesPage.routeConfig = {

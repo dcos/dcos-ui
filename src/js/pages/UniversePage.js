@@ -2,6 +2,7 @@ import mixin from 'reactjs-mixin';
 /* eslint-disable no-unused-vars */
 import React from 'react';
 /* eslint-enable no-unused-vars */
+import {routerShape} from 'react-router';
 
 import Icon from '../components/Icon';
 import Page from '../components/Page';
@@ -62,7 +63,7 @@ class UniversePage extends mixin(TabsMixin) {
 }
 
 UniversePage.contextTypes = {
-  router: React.PropTypes.object
+  router: routerShape
 };
 
 UniversePage.routeConfig = {

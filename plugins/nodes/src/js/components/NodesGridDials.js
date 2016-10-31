@@ -1,4 +1,5 @@
 import React from 'react';
+import {routerShape} from 'react-router';
 import {Tooltip} from 'reactjs-components';
 
 import Chart from '../../../../../src/js/components/charts/Chart';
@@ -24,7 +25,7 @@ var NodesGridDials = React.createClass({
   },
 
   contextTypes: {
-    router: React.PropTypes.object
+    router: routerShape
   },
 
   handleDialClick(nodeID) {

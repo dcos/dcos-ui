@@ -1,4 +1,5 @@
 import React from 'react';
+import {routerShape} from 'react-router';
 import SidebarActions from '../../../events/SidebarActions';
 
 class ColorsTabContent extends React.Component {
@@ -712,7 +713,7 @@ color: color-lighten(@purple, -50);`;
 }
 
 ColorsTabContent.contextTypes = {
-  router: React.PropTypes.object
+  router: routerShape
 };
 
 ColorsTabContent.willTransitionTo = function () {

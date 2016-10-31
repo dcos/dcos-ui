@@ -1,4 +1,5 @@
 import React from 'react';
+import {routerShape} from 'react-router';
 import SidebarActions from '../../../events/SidebarActions';
 
 class PodsTabContent extends React.Component {
@@ -491,7 +492,7 @@ class PodsTabContent extends React.Component {
 }
 
 PodsTabContent.contextTypes = {
-  router: React.PropTypes.object
+  router: routerShape
 };
 
 PodsTabContent.willTransitionTo = function () {

@@ -1,4 +1,5 @@
 import React from 'react';
+import {routerShape} from 'react-router';
 import SidebarActions from '../../../events/SidebarActions';
 import Icon from '../../../components/Icon';
 
@@ -2022,7 +2023,7 @@ class ButtonTabContent extends React.Component {
 }
 
 ButtonTabContent.contextTypes = {
-  router: React.PropTypes.object
+  router: routerShape
 };
 
 ButtonTabContent.willTransitionTo = function () {

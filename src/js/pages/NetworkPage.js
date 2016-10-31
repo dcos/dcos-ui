@@ -1,4 +1,4 @@
-import {Link} from 'react-router';
+import {routerShape, Link} from 'react-router';
 import mixin from 'reactjs-mixin';
 /* eslint-disable no-unused-vars */
 import React from 'react';
@@ -153,7 +153,7 @@ class NetworkPage extends mixin(TabsMixin) {
 }
 
 NetworkPage.contextTypes = {
-  router: React.PropTypes.object
+  router: routerShape
 };
 
 NetworkPage.routeConfig = {
