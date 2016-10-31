@@ -13,9 +13,7 @@ class FullScreenModal extends React.Component {
         showFooter={false}
         transitionNameModal="modal-full-screen"
         {...Util.omit(props, Object.keys(FullScreenModal.propTypes))}>
-        <div className="container flex flex-direction-top-to-bottom">
-          {props.children}
-        </div>
+        {props.children}
       </Modal>
     );
   }
