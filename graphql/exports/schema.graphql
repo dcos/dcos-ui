@@ -1,0 +1,201 @@
+schema {
+  query: Cluster
+}
+
+# An agent in the cluster
+type Agent {
+  # The ID of an object
+  id: String!
+
+  # Hostname for the Agent
+  hostname: String
+
+  # Tasks associated with an Agent
+  tasks(after: String, first: Int, before: String, last: Int): TaskConnection
+}
+
+# A connection to a list of Agents.
+type AgentConnection {
+  # Information to aid in pagination.
+  pageInfo: PageInfo!
+
+  # A list of edges.
+  edges: [AgentEdge]
+}
+
+# An edge in a connection.
+type AgentEdge {
+  # The item at the end of the edge
+  node: Agent
+
+  # A cursor for use in pagination
+  cursor: String!
+}
+
+# An Application
+type Application {
+  # The ID of an object
+  id: String!
+
+  # The ID of parent group
+  parentId: String
+
+  # Summary of Tasks contained in Application
+  taskStatus: TaskStatus!
+
+  # Tasks associated with a Service
+  tasks(after: String, first: Int, before: String, last: Int): TaskConnection
+}
+
+type Cluster {
+  agent(
+    # The ID of the Agent
+    id: String!
+  ): Agent
+
+  # Agents in the cluster
+  agents(after: String, first: Int, before: String, last: Int): AgentConnection
+  group(
+    # The ID of the Group
+    id: String
+  ): Group
+}
+
+# A Framework
+type Framework {
+  # The ID of an object
+  id: String!
+
+  # Name of Framework
+  name: String!
+
+  # The ID of parent group
+  parentId: String
+
+  # Summary of Tasks contained in Framework
+  taskStatus: TaskStatus!
+
+  # Tasks associated with a Framework
+  tasks(after: String, first: Int, before: String, last: Int): TaskConnection
+}
+
+# A Group
+type Group {
+  # The ID of an object
+  id: String!
+
+  # The ID of parent group
+  parentId: String
+
+  # Summary of Tasks contained in Group
+  taskStatus: TaskStatus!
+
+  # Flat list of nested group contents
+  contents(groupId: String, after: String, first: Int, before: String, last: Int): GroupContentConnection
+}
+
+# Union which resolves to one of Group, Application or Framework
+union GroupContent = Group | Application | Framework
+
+# A connection to a list of nested Groups.
+type GroupContentConnection {
+  # Information to aid in pagination.
+  pageInfo: PageInfo!
+
+  # A list of edges.
+  edges: [GroupContentEdge]
+}
+
+# An edge in a connection.
+type GroupContentEdge {
+  # The item at the end of the edge
+  node: GroupContent
+
+  # A cursor for use in pagination
+  cursor: String!
+}
+
+enum HEALTH {
+  Healthy
+  Unhealthy
+  Created
+  Staging
+  Starting
+  Started
+  Running
+  Killing
+  Finished
+  Killed
+  Failed
+  Lost
+  Error
+}
+
+# Information about pagination in a connection.
+type PageInfo {
+  # When paginating forwards, are there more items?
+  hasNextPage: Boolean!
+
+  # When paginating backwards, are there more items?
+  hasPreviousPage: Boolean!
+
+  # When paginating backwards, the cursor to continue.
+  startCursor: String
+
+  # When paginating forwards, the cursor to continue.
+  endCursor: String
+}
+
+# A Task
+type Task {
+  # The ID of an object
+  id: String!
+
+  # Task name
+  name: String!
+
+  # Status of Task
+  health: HEALTH!
+
+  # Agent task belongs to
+  agent: Agent!
+}
+
+# A connection to a list of Tasks.
+type TaskConnection {
+  # Information to aid in pagination.
+  pageInfo: PageInfo!
+
+  # A list of edges.
+  edges: [TaskEdge]
+}
+
+# An edge in a connection.
+type TaskEdge {
+  # The item at the end of the edge
+  node: Task
+
+  # A cursor for use in pagination
+  cursor: String!
+}
+
+# A summary of task states for a group or service
+type TaskStatus {
+  # Number of tasks in Health state
+  healthy: Int!
+
+  # Number of tasks over capacity
+  overCapacity: Int!
+
+  # Number of tasks in Running state
+  running: Int!
+
+  # Number of tasks Staged
+  staged: Int!
+
+  # Number of tasks Unhealthy
+  unhealthy: Int!
+
+  # Number of tasks in unknown state
+  unknown: Int!
+}
