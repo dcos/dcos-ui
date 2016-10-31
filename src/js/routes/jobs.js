@@ -56,78 +56,84 @@ let jobsRoutes = {
     },
     {
       type: Route,
-      component: JobDetailPage,
-      path: ':id',
-      buildBreadCrumb() {
-        return {
-          parentCrumb: '/jobs',
-          getCrumbs: buildJobCrumbs
-        };
-      },
-      children:[
-        {
-          type: Redirect,
-          path: '/jobs/:id/tasks/:taskID',
-          to: '/jobs/:id/tasks/:taskID/details'
-        },
+      component: JobsTab,
+      children: [
         {
           type: Route,
-          path: 'tasks/:taskID',
-          component: TaskDetail,
-          hideHeaderNavigation: true,
+          component: JobDetailPage,
+          path: ':id',
           buildBreadCrumb() {
             return {
-              parentCrumb: '/jobs/:id',
-              getCrumbs(params) {
-                return [
-                  <TaskDetailBreadcrumb
-                    params={params}
-                    routePath="/jobs/:id/tasks/:taskID" />
-                ];
-              }
+              parentCrumb: '/jobs',
+              getCrumbs: buildJobCrumbs
             };
           },
-          children: [
+          children:[
             {
-              component: TaskDetailsTab,
-              isTab: true,
-              path: 'details',
-              title: 'Details',
-              type: Route,
-              buildBreadCrumb() {
-                return {
-                  parentCrumb: '/jobs/:id/tasks/:taskID',
-                  getCrumbs() { return []; }
-                };
-              }
+              type: Redirect,
+              path: '/jobs/:id/tasks/:taskID',
+              to: '/jobs/:id/tasks/:taskID/details'
             },
             {
-              component: TaskFilesTab,
-              fileViewerRoutePath: '/jobs/:id/tasks/:taskID/view(/:filePath(/:innerPath))',
-              isTab: true,
-              path: 'files',
-              title: 'Files',
               type: Route,
+              path: 'tasks/:taskID',
+              component: TaskDetail,
+              hideHeaderNavigation: true,
               buildBreadCrumb() {
                 return {
-                  parentCrumb: '/jobs/:id/tasks/:taskID',
-                  getCrumbs() { return []; }
+                  parentCrumb: '/jobs/:id',
+                  getCrumbs(params) {
+                    return [
+                      <TaskDetailBreadcrumb
+                        params={params}
+                        routePath="/jobs/:id/tasks/:taskID" />
+                    ];
+                  }
                 };
-              }
-            },
-            {
-              component: TaskFileViewer,
-              dontScroll: true,
-              isTab: true,
-              path: 'view(/:filePath(/:innerPath))',
-              title: 'Logs',
-              type: Route,
-              buildBreadCrumb() {
-                return {
-                  parentCrumb: '/jobs/:id/tasks/:taskID',
-                  getCrumbs() { return []; }
-                };
-              }
+              },
+              children: [
+                {
+                  component: TaskDetailsTab,
+                  isTab: true,
+                  path: 'details',
+                  title: 'Details',
+                  type: Route,
+                  buildBreadCrumb() {
+                    return {
+                      parentCrumb: '/jobs/:id/tasks/:taskID',
+                      getCrumbs() { return []; }
+                    };
+                  }
+                },
+                {
+                  component: TaskFilesTab,
+                  fileViewerRoutePath: '/jobs/:id/tasks/:taskID/view(/:filePath(/:innerPath))',
+                  isTab: true,
+                  path: 'files',
+                  title: 'Files',
+                  type: Route,
+                  buildBreadCrumb() {
+                    return {
+                      parentCrumb: '/jobs/:id/tasks/:taskID',
+                      getCrumbs() { return []; }
+                    };
+                  }
+                },
+                {
+                  component: TaskFileViewer,
+                  dontScroll: true,
+                  isTab: true,
+                  path: 'view(/:filePath(/:innerPath))',
+                  title: 'Logs',
+                  type: Route,
+                  buildBreadCrumb() {
+                    return {
+                      parentCrumb: '/jobs/:id/tasks/:taskID',
+                      getCrumbs() { return []; }
+                    };
+                  }
+                }
+              ]
             }
           ]
         }
