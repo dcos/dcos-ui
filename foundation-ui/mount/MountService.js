@@ -27,7 +27,7 @@ class MountService extends EventEmitter {
   /**
    * Registers package for updates on this MountPoint id
    * @param  {String} id of MointPoint to register package for
-   * @param  {Function} callback to call when content is being fetched
+   * @param  {React.Component} component to call when content is being fetched
    * @param  {Number} priority to register package callback with
    * [-Infinity; Infinity]
    */
@@ -60,7 +60,7 @@ class MountService extends EventEmitter {
   /**
    * Unregisters package for updates on this MountPoint id
    * @param  {String} id listener is registered with
-   * @param  {Function} callback registered with listener
+   * @param  {React.Component} component registered with listener
    */
   unregister(id, component) {
     let components = componentStore[id];
