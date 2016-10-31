@@ -11,23 +11,17 @@ let stores = {
 };
 
 // Private router stub
-class RouterStub {
-  static createPath() {}
-  static createHref() {}
-  static transitionTo() {}
-  static replaceWith() {}
-  static goBack() {}
-  static getCurrentPath() {}
-  static getCurrentRoutes() {}
-  static getCurrentPathname() {}
-  static getCurrentParams() { return {}; }
-  static getCurrentQuery() { return {}; }
-  static getLocation() {}
-  static isActive() {}
-  static getRouteAtDepth() {}
-  static setRouteComponentAtDepth() {}
-  static setRouteComponentAtDepth() {}
-}
+const RouterStub = {
+  push() {},
+  replace() {},
+  go() {},
+  goBack() {},
+  goForward() {},
+  setRouteLeaveHook() {},
+  createPath() {},
+  createHref() {},
+  isActive() {}
+};
 
 // Default prototype functions when mocking timezone
 const defaultGetTimezoneOffset = Date.prototype.getTimezoneOffset;
