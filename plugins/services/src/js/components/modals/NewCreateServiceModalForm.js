@@ -31,7 +31,6 @@ class NewCreateServiceModalForm extends React.Component {
     super(...arguments);
 
     let batch = new Batch();
-    batch.add({action: 'INIT'});
 
     let jsonParserReducers = ParserUtil.combineParsers(JSONParserReducers);
     let jsonConfigReducers = ReducerUtil.combineReducers(JSONConfigReducers);
@@ -67,7 +66,6 @@ class NewCreateServiceModalForm extends React.Component {
       let {jsonParserReducers, jsonValue, validationReducers} = this.state;
       let appConfig = JSON.parse(jsonValue);
       let batch = new Batch();
-      batch.add({action: 'INIT'});
 
       // Run validation reducers on appConfig with new on minimal batch
       let errors = Util.filterEmptyValues(
@@ -79,6 +77,7 @@ class NewCreateServiceModalForm extends React.Component {
         batch.add(item);
       });
 
+      // This will essentially flush the batch
       this.setState({appConfig: {}, batch, errors});
     } catch (event) {
       // TODO: handle error
@@ -94,7 +93,6 @@ class NewCreateServiceModalForm extends React.Component {
   handleJSONChange(jsonValue) {
     try {
       let batch = new Batch();
-      batch.add({action: 'INIT'});
       let parsedData = JSON.parse(jsonValue);
       let appConfig = batch.reduce(this.state.jsonConfigReducers, parsedData);
       this.setState({appConfig, batch, jsonValue});
@@ -105,27 +103,18 @@ class NewCreateServiceModalForm extends React.Component {
   }
 
   handleFormBlur() {
-    let {
-      appConfig,
-      batch,
-      jsonConfigReducers,
-      validationReducers
-    } = this.state;
+    let {validationReducers} = this.state;
 
     // Create temporary finalized appConfig
-    let tempAppConfig = batch.reduce(jsonConfigReducers, appConfig);
+    let appConfig = this.getAppConfig();
 
-    // Create minimal batch with one event for validation reducers
-    let tempBatch = new Batch();
-    tempBatch.add({action: 'INIT'});
-
-    // Run validation reducers on tempAppConfig
+    // Run validation reducers on appConfig
     let errors = Util.filterEmptyValues(
-      tempBatch.reduce(validationReducers, tempAppConfig)
+      new Batch().reduce(validationReducers, appConfig)
     );
 
     // Create new jsonValue
-    let jsonValue = JSON.stringify(tempAppConfig, null, 2);
+    let jsonValue = JSON.stringify(appConfig, null, 2);
     this.setState({errors, jsonValue});
   }
 
@@ -147,6 +136,12 @@ class NewCreateServiceModalForm extends React.Component {
     }
 
     this.setState(newState);
+  }
+
+  getAppConfig() {
+    let {appConfig, batch, jsonConfigReducers} = this.state;
+
+    return batch.reduce(jsonConfigReducers, appConfig);
   }
 
   render() {
