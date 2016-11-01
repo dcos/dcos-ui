@@ -206,7 +206,7 @@ class TaskDetail extends mixin(InternalStorageMixin, TabsMixin, StoreMixin) {
         innerPath: encodeURIComponent(TaskDirectoryStore.get('innerPath'))
       }
     );
-    let {fileViewerRoutePath} = routes[currentRoutes.length - 1];
+    let {fileViewerRoutePath} = routes[routes.length - 1];
     router.push(formatPattern(fileViewerRoutePath, params));
   }
 
