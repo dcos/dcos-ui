@@ -10,9 +10,9 @@ import AuthStore from '../stores/AuthStore';
 module.exports = function (ComposedComponent) {
   return class Authenticated extends React.Component {
 
-    static willTransitionTo(transition) {
+    static willTransitionTo(nextState, replace) {
       if (!AuthStore.isLoggedIn()) {
-        PluginSDK.Hooks.doAction('redirectToLogin', transition);
+        PluginSDK.Hooks.doAction('redirectToLogin', nextState, replace);
       }
     }
 
