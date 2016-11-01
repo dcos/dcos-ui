@@ -16,6 +16,7 @@ const UsersActions = {
   fetch() {
     RequestUtil.json({
       url: `${Config.rootUrl}${Config.acsAPIPrefix}/users`,
+      timeout: null,
       success(response) {
         AppDispatcher.handleServerAction({
           type: REQUEST_USERS_SUCCESS,
@@ -43,6 +44,7 @@ const UsersActions = {
 
     RequestUtil.json({
       url: `${Config.rootUrl}${Config.acsAPIPrefix}/users/${userID}`,
+      timeout: null,
       method: 'PUT',
       data,
       success() {
@@ -66,6 +68,7 @@ const UsersActions = {
     userID = encodeURIComponent(userID);
     RequestUtil.json({
       url: `${Config.rootUrl}${Config.acsAPIPrefix}/users/${userID}`,
+      timeout: null,
       method: 'DELETE',
       success() {
         AppDispatcher.handleServerAction({
