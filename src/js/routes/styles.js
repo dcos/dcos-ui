@@ -24,145 +24,147 @@ import ImagesTabContent from '../pages/styles/content/ImagesTabContent';
 
 import StylesPage from '../pages/StylesPage';
 
-let stylesRoutes = {
-  type: Route,
-  path: 'styles',
-  handler: StylesPage,
-  children: [
-    {
-      type: Route,
-      path: 'layout',
-      children: [
-        {
-          type: Route,
-          path: 'containers',
-          handler: ContainersTabContent
-        },
-        {
-          type: Route,
-          path: 'grid',
-          handler: GridTabContent
-        },
-        {
-          type: Route,
-          path: 'pods',
-          handler: PodsTabContent
-        },
-        {
-          type: Route,
-          path: 'flex',
-          handler: FlexTabContent
-        },
-        {
-          type: Route,
-          path: 'dividers',
-          handler: DividersTabContent
-        },
-        {
-          type: Route,
-          path: 'responsive-utilities',
-          handler: ResponsiveUtilitiesTabContent
-        },
-        {
-          type: Redirect,
-          from: '/styles/layout/?',
-          to: '/styles/layout/containers'
-        }
-      ]
-    },
-    {
-      type: Route,
-      path: 'content',
-      children: [
-        {
-          type: Route,
-          path: 'typography',
-          handler: TypographyTabContent
-        },
-        {
-          type: Route,
-          path: 'tables',
-          handler: TablesTabContent
-        },
-        {
-          type: Route,
-          path: 'colors',
-          handler: ColorsTabContent
-        },
-        {
-          type: Route,
-          path: 'code',
-          handler: CodeTabContent
-        },
-        {
-          type: Route,
-          path: 'images',
-          handler: ImagesTabContent
-        },
-        {
-          type: Redirect,
-          from: '/styles/content/?',
-          to: '/styles/content/typography'
-        }
-      ]
-    },
-    {
-      type: Route,
-      path: 'components',
-      children: [
-        {
-          type: Route,
-          path: 'buttons',
-          handler: ButtonsTabContent
-        },
-        {
-          type: Route,
-          path: 'button-collections',
-          handler: ButtonCollectionsTabContent
-        },
-        {
-          type: Route,
-          path: 'button-groups',
-          handler: ButtonGroupsTabContent
-        },
-        {
-          type: Route,
-          path: 'dropdowns',
-          handler: DropdownsTabContent
-        },
-        {
-          type: Route,
-          path: 'forms',
-          handler: FormsTabContent
-        },
-        {
-          type: Route,
-          path: 'icons',
-          handler: IconsTabContent
-        },
-        {
-          type: Route,
-          path: 'modals',
-          handler: ModalsTabContent
-        },
-        {
-          type: Route,
-          path: 'panels',
-          handler: PanelsTabContent
-        },
-        {
-          type: Redirect,
-          from: '/styles/components/?',
-          to: '/styles/components/buttons'
-        }
-      ]
-    },
-    {
-      type: Redirect,
-      from: '/styles/?',
-      to: '/styles/layout'
-    }
-  ]
-};
+let stylesRoutes = [
+  {
+    type: Redirect,
+    from: '/styles',
+    to: '/styles/layout'
+  },
+  {
+    type: Route,
+    path: 'styles',
+    component: StylesPage,
+    children: [
+      {
+        type: Redirect,
+        from: '/styles/layout',
+        to: '/styles/layout/containers'
+      },
+      {
+        type: Route,
+        path: 'layout',
+        children: [
+          {
+            type: Route,
+            path: 'containers',
+            component: ContainersTabContent
+          },
+          {
+            type: Route,
+            path: 'grid',
+            component: GridTabContent
+          },
+          {
+            type: Route,
+            path: 'pods',
+            component: PodsTabContent
+          },
+          {
+            type: Route,
+            path: 'flex',
+            component: FlexTabContent
+          },
+          {
+            type: Route,
+            path: 'dividers',
+            component: DividersTabContent
+          },
+          {
+            type: Route,
+            path: 'responsive-utilities',
+            component: ResponsiveUtilitiesTabContent
+          }
+        ]
+      },
+      {
+        type: Redirect,
+        from: '/styles/content',
+        to: '/styles/content/typography'
+      },
+      {
+        type: Route,
+        path: 'content',
+        children: [
+          {
+            type: Route,
+            path: 'typography',
+            component: TypographyTabContent
+          },
+          {
+            type: Route,
+            path: 'tables',
+            component: TablesTabContent
+          },
+          {
+            type: Route,
+            path: 'colors',
+            component: ColorsTabContent
+          },
+          {
+            type: Route,
+            path: 'code',
+            component: CodeTabContent
+          },
+          {
+            type: Route,
+            path: 'images',
+            component: ImagesTabContent
+          }
+        ]
+      },
+      {
+        type: Redirect,
+        from: '/styles/components',
+        to: '/styles/components/buttons'
+      },
+      {
+        type: Route,
+        path: 'components',
+        children: [
+          {
+            type: Route,
+            path: 'buttons',
+            component: ButtonsTabContent
+          },
+          {
+            type: Route,
+            path: 'button-collections',
+            component: ButtonCollectionsTabContent
+          },
+          {
+            type: Route,
+            path: 'button-groups',
+            component: ButtonGroupsTabContent
+          },
+          {
+            type: Route,
+            path: 'dropdowns',
+            component: DropdownsTabContent
+          },
+          {
+            type: Route,
+            path: 'forms',
+            component: FormsTabContent
+          },
+          {
+            type: Route,
+            path: 'icons',
+            component: IconsTabContent
+          },
+          {
+            type: Route,
+            path: 'modals',
+            component: ModalsTabContent
+          },
+          {
+            type: Route,
+            path: 'panels',
+            component: PanelsTabContent
+          }
+        ]
+      }
+    ]
+  }
+];
 
 module.exports = stylesRoutes;

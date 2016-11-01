@@ -1,4 +1,5 @@
 import React from 'react';
+import {routerShape} from 'react-router';
 import SidebarActions from '../../../events/SidebarActions';
 
 class CodeTabContent extends React.Component {
@@ -9,7 +10,7 @@ class CodeTabContent extends React.Component {
 }
 
 CodeTabContent.contextTypes = {
-  router: React.PropTypes.func
+  router: routerShape
 };
 
 CodeTabContent.willTransitionTo = function () {

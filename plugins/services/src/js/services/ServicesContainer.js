@@ -1,6 +1,6 @@
 import {DCOSStore} from 'foundation-ui';
 import React, {PropTypes} from 'react';
-import {RouteHandler} from 'react-router';
+import {routerShape} from 'react-router';
 
 import ActionKeys from '../constants/ActionKeys';
 import MarathonActions from '../events/MarathonActions';
@@ -168,7 +168,7 @@ class ServicesContainer extends React.Component {
 
   propsToState(props) {
     const itemId = decodeURIComponent(props.params.id || '/');
-    const filters = this.getFiltersFromQuery(props.query);
+    const filters = this.getFiltersFromQuery(props.location.query);
 
     this.setState({
       itemId,
@@ -428,6 +428,7 @@ class ServicesContainer extends React.Component {
 
   setQueryParams() {
     const {router} = this.context;
+    const {location: {pathname}} = this.props;
     let filters = Object.assign({}, this.state.filters);
     // Transform labels filter so it is easily decoded again
     if (filters.filterLabels) {
@@ -436,7 +437,7 @@ class ServicesContainer extends React.Component {
       });
     }
 
-    router.transitionTo(router.getCurrentPathname(), {}, filters);
+    router.push({pathname, query: filters});
   }
 
   getModalHandlers() {
@@ -530,7 +531,7 @@ class ServicesContainer extends React.Component {
   render() {
     // TODO react-router: Temp hack if we are deeper than overview/:id we should render child routes
     if (Object.keys(this.props.params).length > 1) {
-      return <RouteHandler />;
+      return this.props.children;
     }
 
     const {
@@ -568,6 +569,8 @@ class ServicesContainer extends React.Component {
         <div>
           <ServiceDetail
             actions={this.getActions()}
+            params={this.props.params}
+            routes={this.props.routes}
             service={item} />
           {this.getModals(item)}
         </div>
@@ -624,11 +627,11 @@ ServicesContainer.childContextTypes = {
 
 ServicesContainer.propTypes = {
   params: PropTypes.object.isRequired,
-  query: PropTypes.object.isRequired
+  location: PropTypes.object.isRequired
 };
 
 ServicesContainer.contextTypes = {
-  router: React.PropTypes.func
+  router: routerShape
 };
 
 ServicesContainer.routeConfig = {

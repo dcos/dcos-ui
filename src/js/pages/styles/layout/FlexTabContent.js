@@ -1,4 +1,5 @@
 import React from 'react';
+import {routerShape} from 'react-router';
 import SidebarActions from '../../../events/SidebarActions';
 
 class FlexTabContent extends React.Component {
@@ -1598,7 +1599,7 @@ class FlexTabContent extends React.Component {
 }
 
 FlexTabContent.contextTypes = {
-  router: React.PropTypes.func
+  router: routerShape
 };
 
 FlexTabContent.willTransitionTo = function () {

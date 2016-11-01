@@ -104,7 +104,7 @@ class TasksView extends mixin(SaveStateMixin) {
   }
 
   getTaskTable(tasks, checkedItems) {
-    let {inverseStyle} = this.props;
+    let {inverseStyle, params} = this.props;
 
     let classSet = classNames({
       'table table-borderless-outer table-borderless-inner-columns': true,
@@ -116,6 +116,7 @@ class TasksView extends mixin(SaveStateMixin) {
       <TaskTable
         checkedItemsMap={checkedItems}
         className={classSet}
+        params={params}
         onCheckboxChange={this.handleItemCheck}
         tasks={tasks} />
     );
@@ -227,6 +228,7 @@ TasksView.defaultProps = {
 };
 
 TasksView.propTypes = {
+  params: React.PropTypes.object.isRequired,
   inverseStyle: React.PropTypes.bool,
   itemID: React.PropTypes.string,
   label: React.PropTypes.string,

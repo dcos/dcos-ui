@@ -1,5 +1,5 @@
 import {DCOSStore} from 'foundation-ui';
-import {Link} from 'react-router';
+import {routerShape, Link} from 'react-router';
 import React from 'react';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
@@ -56,7 +56,7 @@ var DashboardPage = React.createClass({
   },
 
   contextTypes: {
-    router: React.PropTypes.func
+    router: routerShape
   },
 
   getDefaultProps() {
@@ -114,7 +114,7 @@ var DashboardPage = React.createClass({
     var componentCountWord = StringUtil.pluralize('Component', componentCount);
 
     return (
-      <Link to="/components/overview"
+      <Link to="/components"
         className="button button-rounded button-stroke">
         {`View all ${componentCount} ${componentCountWord}`}
       </Link>

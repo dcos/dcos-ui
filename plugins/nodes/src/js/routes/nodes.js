@@ -1,4 +1,4 @@
-import {DefaultRoute, Route} from 'react-router';
+import {IndexRoute, Route, Redirect} from 'react-router';
 /* eslint-disable no-unused-vars */
 import React from 'react';
 /* eslint-enable no-unused-vars */
@@ -26,7 +26,7 @@ import VolumeTable from '../../../../services/src/js/components/VolumeTable';
 let nodesRoutes = {
   type: Route,
   path: 'nodes',
-  handler: NodesPage,
+  component: NodesPage,
   category: 'resources',
   isInSidebar: true,
   buildBreadCrumb() {
@@ -44,64 +44,78 @@ let nodesRoutes = {
   children: [
     {
       type: Route,
-      handler: NodesOverview,
+      component: NodesOverview,
       children: [
         {
-          type: DefaultRoute,
-          handler: NodesTableContainer
+          type: IndexRoute,
+          component: NodesTableContainer
         },
         {
           type: Route,
           path: 'grid',
-          handler: NodesGridContainer
+          component: NodesGridContainer
         }
       ]
     },
     {
+      type: Redirect,
+      from: '/nodes/:nodeID',
+      to: '/nodes/:nodeID/tasks'
+    },
+    {
       type: Route,
       path: ':nodeID',
-      handler: NodeDetailPage,
+      component: NodeDetailPage,
       buildBreadCrumb() {
         return {
           parentCrumb: '/nodes',
-          getCrumbs(router) {
+          getCrumbs(params, routes) {
             return [
               <NodeDetailBreadcrumb
-                parentRouter={router}
-                routePath="/nodes/:nodeID" />
+                params={params}
+                routes={routes}
+                routePath=":nodeID" />
             ];
           }
         };
       },
       children: [
         {
-          type: DefaultRoute,
-          isTab: true,
+          type: Route,
           title: 'Tasks',
-          handler: NodeDetailTaskTab
+          path: 'tasks',
+          component: NodeDetailTaskTab
+        },
+        {
+          type: Redirect,
+          path: '/nodes/:nodeID/tasks/:taskID',
+          to: '/nodes/:nodeID/tasks/:taskID/details'
         },
         {
           type: Route,
           path: 'tasks/:taskID',
-          handler: TaskDetail,
+          component: TaskDetail,
           hideHeaderNavigation: true,
           buildBreadCrumb() {
             return {
               parentCrumb: '/nodes/:nodeID',
-              getCrumbs(router) {
+              getCrumbs(params, routes) {
                 return [
                   <TaskDetailBreadcrumb
-                    parentRouter={router}
-                    routePath="/nodes/:nodeID/tasks/:taskID" />
+                    params={params}
+                    routes={routes}
+                    routePath=":taskID" />
                 ];
               }
             };
           },
           children: [
             {
-              type: DefaultRoute,
-              handler: TaskDetailsTab,
+              type: Route,
+              component: TaskDetailsTab,
+              hideHeaderNavigation: true,
               title: 'Details',
+              path: 'details',
               isTab: true,
               hideHeaderNavigation: true,
               buildBreadCrumb() {
@@ -115,10 +129,10 @@ let nodesRoutes = {
               type: Route,
               path: 'files',
               isTab: true,
-              handler: TaskFilesTab,
+              component: TaskFilesTab,
               title: 'Files',
               hideHeaderNavigation: true,
-              fileViewerRoutePath: '/nodes/:nodeID/tasks/:taskID/view/?:filePath?/?:innerPath?',
+              fileViewerRoutePath: '/nodes/:nodeID/tasks/:taskID/view(/:filePath(/:innerPath))',
               buildBreadCrumb() {
                 return {
                   parentCrumb: '/nodes/:nodeID/tasks/:taskID',
@@ -128,11 +142,11 @@ let nodesRoutes = {
             },
             {
               type: Route,
-              handler: TaskFileViewer,
+              component: TaskFileViewer,
               dontScroll: true,
               title: 'Logs',
               isTab: true,
-              path: 'view/?:filePath?/?:innerPath?',
+              path: 'view(/:filePath(/:innerPath))',
               hideHeaderNavigation: true,
               buildBreadCrumb() {
                 return {
@@ -143,9 +157,10 @@ let nodesRoutes = {
             },
             {
               type: Route,
-              path: 'volumes/?:volumeID?',
+              path: 'volumes(/:volumeID)',
+              hideHeaderNavigation: true,
               isTab: true,
-              handler: VolumeTable,
+              component: VolumeTable,
               buildBreadCrumb() {
                 return {
                   parentCrumb: '/nodes/:nodeID/tasks/:taskID',
@@ -161,21 +176,21 @@ let nodesRoutes = {
         {
           type: Route,
           path: 'tasks/:taskID/volumes/:volumeID',
-          handler: VolumeDetail,
+          component: VolumeDetail,
           buildBreadCrumb() {
             return {
               parentCrumb: '/nodes/:nodeID',
-              getCrumbs(router) {
+              getCrumbs(params) {
                 return [
                   {
                     label: 'Volumes',
                     route: {
-                      params: router.getCurrentParams(),
+                      params,
                       to: '/nodes/:nodeID/tasks/:taskID/volumes/:volumeID'
                     }
                   },
                   {
-                    label: router.getCurrentParams().volumeID
+                    label: params.volumeID
                   }
                 ];
               }
@@ -186,16 +201,16 @@ let nodesRoutes = {
           type: Route,
           path: 'health',
           title: 'Health',
-          isTab: true,
-          handler: NodeDetailHealthTab,
+          component: NodeDetailHealthTab,
           buildBreadCrumb() {
             return {
               parentCrumb: '/nodes',
-              getCrumbs(router) {
+              getCrumbs(params, routes) {
                 return [
                   <NodeDetailBreadcrumb
-                    parentRouter={router}
-                    routePath="/nodes/:nodeID" />
+                    params={params}
+                    routes={routes}
+                    routePath=":nodeID" />
                 ];
               }
             };
@@ -204,15 +219,16 @@ let nodesRoutes = {
         {
           type: Route,
           path: 'health/:unitNodeID/:unitID',
-          handler: UnitsHealthNodeDetail,
+          component: UnitsHealthNodeDetail,
           buildBreadCrumb() {
             return {
               parentCrumb: '/nodes/health',
-              getCrumbs(router) {
+              getCrumbs(params, routes) {
                 return [
                   <UnitsHealthDetailBreadcrumb
-                    parentRouter={router}
-                    routePath="/nodes/:nodeID/health/:unitNodeID/:unitID" />
+                    params={params}
+                    routes={routes}
+                    routePath=":unitID" />
                 ];
               }
             };
@@ -222,16 +238,16 @@ let nodesRoutes = {
           type: Route,
           path: 'details',
           title: 'Details',
-          isTab: true,
-          handler: NodeDetailTab,
+          component: NodeDetailTab,
           buildBreadCrumb() {
             return {
               parentCrumb: '/nodes',
-              getCrumbs(router) {
+              getCrumbs(params, routes) {
                 return [
                   <NodeDetailBreadcrumb
-                    parentRouter={router}
-                    routePath="/nodes/:nodeID" />
+                    params={params}
+                    routes={routes}
+                    routePath=":nodeID" />
                 ];
               }
             };

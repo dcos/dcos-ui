@@ -1,4 +1,5 @@
 import React from 'react';
+import {routerShape} from 'react-router';
 import mixin from 'reactjs-mixin';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 import {Modal} from 'reactjs-components';
@@ -18,7 +19,7 @@ class LoginPage extends mixin(StoreMixin) {
     super.componentWillMount();
 
     if (AuthStore.getUser()) {
-      this.context.router.transitionTo('/');
+      this.context.router.push('/');
     }
 
     this.store_listeners = [
@@ -80,7 +81,7 @@ class LoginPage extends mixin(StoreMixin) {
   navigateToAccessDenied() {
     let router = this.context.router;
 
-    router.transitionTo('/access-denied');
+    router.replace('/access-denied');
   }
 
   render() {
@@ -118,8 +119,7 @@ class LoginPage extends mixin(StoreMixin) {
 }
 
 LoginPage.contextTypes = {
-  router: React.PropTypes.func
+  router: routerShape
 };
 
 module.exports = LoginPage;
-

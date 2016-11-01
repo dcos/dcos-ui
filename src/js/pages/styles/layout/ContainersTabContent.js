@@ -1,4 +1,5 @@
 import React from 'react';
+import {routerShape} from 'react-router';
 import SidebarActions from '../../../events/SidebarActions';
 
 class ContainersTabContent extends React.Component {
@@ -124,7 +125,7 @@ class ContainersTabContent extends React.Component {
 }
 
 ContainersTabContent.contextTypes = {
-  router: React.PropTypes.func
+  router: routerShape
 };
 
 ContainersTabContent.willTransitionTo = function () {

@@ -52,9 +52,12 @@ var NodesTable = React.createClass({
       );
     }
 
+    let nodeID = node.get('id');
+
     return (
-      <Link className="table-cell-link-primary" params={{nodeID: node.get('id')}}
-        to="/nodes/:nodeID">
+      <Link
+        className="table-cell-link-primary"
+        to={`/nodes/${nodeID}`}>
         {headline}
       </Link>
     );

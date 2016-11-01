@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import deepEqual from 'deep-equal';
 import {List, Tooltip} from 'reactjs-components';
 import React from 'react';
+import {routerShape} from 'react-router';
 
 import Config from '../../../../../src/js/config/Config';
 import HealthLabels from '../constants/HealthLabels';
@@ -19,7 +20,7 @@ let ServiceList = React.createClass({
   },
 
   contextTypes: {
-    router: React.PropTypes.func
+    router: routerShape
   },
 
   getDefaultProps() {
@@ -41,13 +42,10 @@ let ServiceList = React.createClass({
       (event.ctrlKey || event.shiftKey || event.metaKey)) {
       return;
     }
-
+    let id = encodeURIComponent(service.getId());
     // Modifier key not pressed or service didn't have a web URL, open detail
     event.preventDefault();
-    this.context.router.transitionTo(
-      '/services/overview/:id',
-      {id: encodeURIComponent(service.getId())}
-    );
+    this.context.router.push(`/services/overview/${id}`);
   },
 
   getServices(services, healthProcessed) {

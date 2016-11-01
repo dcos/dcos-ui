@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import {Dropdown} from 'reactjs-components';
 import mixin from 'reactjs-mixin';
 import React from 'react';
+import {routerShape} from 'react-router';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import AuthStore from '../stores/AuthStore';
@@ -201,7 +202,7 @@ class UserDropup extends mixin(StoreMixin) {
 }
 
 UserDropup.contextTypes = {
-  router: React.PropTypes.func
+  router: routerShape
 };
 
 UserDropup.defaultProps = {

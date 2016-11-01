@@ -31,13 +31,12 @@ describe('TaskDetail', function () {
     };
     this.instance = JestUtil.renderWithStubbedRouter(
       TaskDetail,
-      {params: this.params},
-      this.container,
       {
-        getCurrentRoutes() {
-          return [{path: '/services/overview/:id/tasks/:taskID'}];
-        }
-      }
+        params: this.params,
+        routes: [{path: '/services/overview/:id/tasks/:taskID'}]
+      },
+      this.container,
+      {}
     );
     this.instance.setState = jasmine.createSpy('setState');
     this.instance.getErrorScreen = jasmine.createSpy('getErrorScreen');
@@ -167,13 +166,12 @@ describe('TaskDetail', function () {
 
       let instance = JestUtil.renderWithStubbedRouter(
         TaskDetail,
-        {params: this.params},
-        this.container,
         {
-          getCurrentRoutes() {
-            return [{path: '/services/overview/:id/tasks/:taskID'}];
-          }
-        }
+          params: this.params,
+          routes: [{path: '/services/overview/:id/tasks/:taskID'}]
+        },
+        this.container,
+        {}
       );
 
       let node = ReactDOM.findDOMNode(instance);

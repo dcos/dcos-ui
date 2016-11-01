@@ -35,7 +35,7 @@ class UnitsHealthNodeDetailPanel extends React.Component {
 
     return (
       <div className="flex-container-col">
-        <Breadcrumbs />
+        <Breadcrumbs routes={this.props.routes} params={this.props.params} />
         <DetailViewHeader
           icon={<Icon color="neutral" id="heart-pulse" size="large" />}
           subTitle={this.renderSubTitle()}

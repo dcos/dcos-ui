@@ -1,4 +1,4 @@
-import {Link, RouteHandler} from 'react-router';
+import {routerShape, Link} from 'react-router';
 import mixin from 'reactjs-mixin';
 /* eslint-disable no-unused-vars */
 import React from 'react';
@@ -53,26 +53,24 @@ class NetworkPage extends mixin(TabsMixin) {
       // Set page ready once promise resolves
       networkPageReady.then(() => {
         this.setState({networkPageReady: true});
-        this.updateCurrentTab();
+        this.updateCurrentTab(this.props);
       });
     }
 
     this.setState({networkPageReady: networkPageReady.isReady});
-    this.updateCurrentTab();
+    this.updateCurrentTab(this.props);
   }
 
-  componentWillReceiveProps() {
+  componentWillReceiveProps(nextProps) {
     super.componentWillReceiveProps(...arguments);
-    this.updateCurrentTab();
+    this.updateCurrentTab(nextProps);
   }
 
-  updateCurrentTab() {
-    let routes = this.context.router.getCurrentRoutes();
-    let currentTab = routes[routes.length - 1].path;
+  updateCurrentTab(nextProps) {
+    let {routes} = nextProps || this.props;
+    let currentTab = RouterUtil.reconstructPathFromRoutes(routes);
+    let topLevelTab = currentTab.split('/')[2];
 
-    // Get top level Tab
-    let topLevelTab = currentTab.split('-').slice(0, 2).join('-');
-    // Get top level tabs
     this.tabs_tabs = TabsUtil.sortTabs(
       Hooks.applyFilter(`${topLevelTab}-subtabs`, {})
     );
@@ -97,23 +95,24 @@ class NetworkPage extends mixin(TabsMixin) {
   }
 
   getNavigation() {
-    if (RouterUtil.shouldHideNavigation(this.context.router)) {
+    let {routes} = this.props;
+
+    if (RouterUtil.shouldHideNavigation(routes)) {
       return null;
     }
 
-    let routes = this.context.router.getCurrentRoutes();
-    let currentRoute = routes[routes.length - 1].path;
+    let currentTab = RouterUtil.reconstructPathFromRoutes(routes);
 
     return (
       <ul className="menu-tabbed">
-        {TabsUtil.getTabs(NETWORK_TABS, currentRoute, this.getRoutedItem)}
+        {TabsUtil.getTabs(NETWORK_TABS, currentTab, this.getRoutedItem)}
       </ul>
     );
   }
 
   getSubNavigation() {
     let subTabs = this.tabs_getRoutedTabs();
-    if (RouterUtil.shouldHideNavigation(this.context.router) ||
+    if (RouterUtil.shouldHideNavigation(this.props.routes) ||
       !subTabs.length) {
       return null;
     }
@@ -139,22 +138,22 @@ class NetworkPage extends mixin(TabsMixin) {
     }
 
     // Make sure to grow when logs are displayed
-    let routes = this.context.router.getCurrentRoutes();
-
+    let routes = this.props.routes;
+    let {currentTab} = this.state;
     return (
       <Page
         title="Network"
         navigation={this.getNavigation()}
         dontScroll={routes[routes.length - 1].dontScroll}>
         {this.getSubNavigation()}
-        <RouteHandler currentTab={this.state.currentTab} />
+        {React.cloneElement(this.props.children, { currentTab })}
       </Page>
     );
   }
 }
 
 NetworkPage.contextTypes = {
-  router: React.PropTypes.func
+  router: routerShape
 };
 
 NetworkPage.routeConfig = {

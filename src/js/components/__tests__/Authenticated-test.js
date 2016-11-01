@@ -39,12 +39,10 @@ describe('Authenticated', function () {
 
   it('should reditect to /login if user is not logged in', function () {
     this.callback = jasmine.createSpy();
-    Hooks.addAction('redirectToLogin', function (transition) {
-      transition.redirect('/login');
+    Hooks.addAction('redirectToLogin', function (nextState, replace) {
+      replace('/login');
     });
-    this.instance.willTransitionTo({
-      redirect: this.callback
-    });
+    this.instance.willTransitionTo(null, this.callback);
     expect(this.callback).toHaveBeenCalledWith('/login');
   });
 
@@ -53,9 +51,7 @@ describe('Authenticated', function () {
       return true;
     };
     this.callback = jasmine.createSpy();
-    this.instance.willTransitionTo({
-      redirect: this.callback
-    });
+    this.instance.willTransitionTo(null, this.callback);
     expect(this.callback).not.toHaveBeenCalled();
   });
 

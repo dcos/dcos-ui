@@ -14,7 +14,7 @@ class UnitsHealthDetailBreadcrumb extends BreadcrumbSegment {
   }
 
   componentDidMount() {
-    let {unitID} = this.props.parentRouter.getCurrentParams();
+    let {unitID} = this.props.params;
     let unit = UnitHealthStore.getUnit(unitID);
 
     if (unit.get('id')) {
@@ -31,7 +31,7 @@ class UnitsHealthDetailBreadcrumb extends BreadcrumbSegment {
   }
 
   getCrumbLabel() {
-    let {unitID} = this.props.parentRouter.getCurrentParams();
+    let {unitID} = this.props.params;
     let unit = UnitHealthStore.getUnit(unitID);
 
     return unit.getTitle();

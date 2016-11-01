@@ -1,4 +1,5 @@
 import React from 'react';
+import {routerShape} from 'react-router';
 
 import DescriptionList from '../../../../../src/js/components/DescriptionList';
 import Service from '../structs/Service';
@@ -106,7 +107,7 @@ class ServiceDebugContainer extends React.Component {
 }
 
 ServiceDebugContainer.contextTypes = {
-  router: React.PropTypes.func
+  router: routerShape
 };
 
 ServiceDebugContainer.propTypes = {

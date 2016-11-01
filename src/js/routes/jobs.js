@@ -1,4 +1,4 @@
-import {DefaultRoute, Route} from 'react-router';
+import {Redirect, IndexRoute, Route} from 'react-router';
 /* eslint-disable no-unused-vars */
 import React from 'react';
 /* eslint-enable no-unused-vars */
@@ -13,8 +13,8 @@ import TaskDetailsTab from '../../../plugins/services/src/js/pages/task-details/
 import TaskFilesTab from '../../../plugins/services/src/js/pages/task-details/TaskFilesTab';
 import TaskFileViewer from '../../../plugins/services/src/js/pages/task-details/TaskFileViewer';
 
-function buildJobCrumbs(router) {
-  let {id} = router.getCurrentParams();
+function buildJobCrumbs() {
+  let {id} = params;
   let ids = id.split('.');
   let aggregateIDs = '';
 
@@ -33,7 +33,7 @@ function buildJobCrumbs(router) {
 
 let jobsRoutes = {
   type: Route,
-  handler: JobsPage,
+  component: JobsPage,
   path: 'jobs',
   category: 'root',
   isInSidebar: true,
@@ -51,12 +51,16 @@ let jobsRoutes = {
   },
   children: [
     {
+      type: IndexRoute,
+      component: JobsTab
+    },
+    {
       type: Route,
-      handler: JobsTab,
+      component: JobsTab,
       children: [
         {
           type: Route,
-          handler: JobDetailPage,
+          component: JobDetailPage,
           path: ':id',
           buildBreadCrumb() {
             return {
@@ -66,17 +70,22 @@ let jobsRoutes = {
           },
           children:[
             {
+              type: Redirect,
+              path: '/jobs/:id/tasks/:taskID',
+              to: '/jobs/:id/tasks/:taskID/details'
+            },
+            {
               type: Route,
               path: 'tasks/:taskID',
-              handler: TaskDetail,
+              component: TaskDetail,
               hideHeaderNavigation: true,
               buildBreadCrumb() {
                 return {
                   parentCrumb: '/jobs/:id',
-                  getCrumbs(router) {
+                  getCrumbs(params) {
                     return [
                       <TaskDetailBreadcrumb
-                        parentRouter={router}
+                        params={params}
                         routePath="/jobs/:id/tasks/:taskID" />
                     ];
                   }
@@ -84,21 +93,11 @@ let jobsRoutes = {
               },
               children: [
                 {
-                  type: DefaultRoute,
-                  handler: TaskDetailsTab,
-                  buildBreadCrumb() {
-                    return {
-                      parentCrumb: '/jobs/:id/tasks/:taskID',
-                      getCrumbs() { return []; }
-                    };
-                  },
-                  title:'Details'
-                },
-                {
+                  component: TaskDetailsTab,
+                  isTab: true,
+                  path: 'details',
+                  title: 'Details',
                   type: Route,
-                  path: 'files',
-                  handler: TaskFilesTab,
-                  fileViewerRoutePath: '/jobs/:id/tasks/:taskID/view/:filePath?/?:innerPath?',
                   buildBreadCrumb() {
                     return {
                       parentCrumb: '/jobs/:id/tasks/:taskID',
@@ -107,10 +106,26 @@ let jobsRoutes = {
                   }
                 },
                 {
+                  component: TaskFilesTab,
+                  fileViewerRoutePath: '/jobs/:id/tasks/:taskID/view(/:filePath(/:innerPath))',
+                  isTab: true,
+                  path: 'files',
+                  title: 'Files',
                   type: Route,
-                  path: 'view/:filePath?/?:innerPath?',
-                  handler: TaskFileViewer,
+                  buildBreadCrumb() {
+                    return {
+                      parentCrumb: '/jobs/:id/tasks/:taskID',
+                      getCrumbs() { return []; }
+                    };
+                  }
+                },
+                {
+                  component: TaskFileViewer,
                   dontScroll: true,
+                  isTab: true,
+                  path: 'view(/:filePath(/:innerPath))',
+                  title: 'Logs',
+                  type: Route,
                   buildBreadCrumb() {
                     return {
                       parentCrumb: '/jobs/:id/tasks/:taskID',

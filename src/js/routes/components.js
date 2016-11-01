@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
 /* eslint-enable no-unused-vars */
-import {Route, DefaultRoute} from 'react-router';
+import {Route, IndexRoute} from 'react-router';
 
 import ComponentsPage from '../pages/ComponentsPage';
 import UnitsHealthDetail from '../pages/system/UnitsHealthDetail';
@@ -13,7 +13,7 @@ import UnitsHealthTab from '../pages/system/UnitsHealthTab';
 let componentsRoutes = {
   type: Route,
   path: 'components',
-  handler: ComponentsPage,
+  component: ComponentsPage,
   category: 'system',
   isInSidebar: true,
   buildBreadCrumb() {
@@ -30,50 +30,44 @@ let componentsRoutes = {
   },
   children: [
     {
-      type: DefaultRoute,
-      handler: UnitsHealthTab
+      type: IndexRoute,
+      component: UnitsHealthTab
     },
     {
       type: Route,
       path: ':unitID',
+      component: UnitsHealthDetail,
       hideHeaderNavigation: true,
       buildBreadCrumb() {
         return {
           parentCrumb: '/components',
-          getCrumbs(router) {
+          getCrumbs(params) {
             return [
               <UnitsHealthDetailBreadcrumb
-              parentRouter={router}
-              routePath="/components/:unitID" />
+                params={params}
+                routePath="/components/:unitID" />
             ];
           }
         };
-      },
-      children: [
-        {
-          type: DefaultRoute,
-          handler: UnitsHealthDetail
-        },
-        {
-          type: Route,
-          path: 'nodes/:unitNodeID',
-          handler: UnitsHealthNodeDetail,
-          hideHeaderNavigation: true,
-          buildBreadCrumb() {
-            return {
-              parentCrumb: '/components/:unitID',
-              getCrumbs(router) {
-                return [
-                  <UnitsHealthNodeDetailBreadcrumb
-                  parentRouter={router}
-                  routePath="/components/:unitID/nodes/:unitNodeID"
-                  />
-                ];
-              }
-            };
+      }
+    },
+    {
+      type: Route,
+      path: ':unitID/nodes/:unitNodeID',
+      component: UnitsHealthNodeDetail,
+      hideHeaderNavigation: true,
+      buildBreadCrumb() {
+        return {
+          parentCrumb: '/components/:unitID',
+          getCrumbs(params) {
+            return [
+              <UnitsHealthNodeDetailBreadcrumb
+                params={params}
+                routePath="/components/:unitID/nodes/:unitNodeID" />
+            ];
           }
-        }
-      ]
+        };
+      }
     }
   ]
 };

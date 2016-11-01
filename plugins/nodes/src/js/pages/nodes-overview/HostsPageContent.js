@@ -1,6 +1,5 @@
 import PureRender from 'react-addons-pure-render-mixin';
 import React from 'react';
-import {RouteHandler} from 'react-router';
 
 import FilterBar from '../../../../../../src/js/components/FilterBar';
 import FilterButtons from '../../../../../../src/js/components/FilterButtons';
@@ -34,6 +33,7 @@ class HostsPageContent extends React.Component {
   render() {
     const {
       byServiceFilter,
+      children,
       filterButtonContent,
       filterInputText,
       filterItemList,
@@ -88,10 +88,11 @@ class HostsPageContent extends React.Component {
           </div>
           {viewTypeRadioButtons}
         </FilterBar>
-        <RouteHandler
-          hosts={hosts}
-          selectedResource={selectedResource}
-          services={services} />
+        {React.cloneElement(children, {
+          hosts,
+          selectedResource,
+          services
+        })}
       </div>
     );
   }

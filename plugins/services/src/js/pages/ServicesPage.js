@@ -1,5 +1,5 @@
 import React from 'react';
-import {RouteHandler} from 'react-router';
+import {routerShape} from 'react-router';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import Icon from '../../../../../src/js/components/Icon';
@@ -10,7 +10,7 @@ import TabsMixin from '../../../../../src/js/mixins/TabsMixin';
 var ServicesPage = React.createClass({
 
   contextTypes: {
-    router: React.PropTypes.func
+    router: routerShape
   },
 
   mixins: [TabsMixin, StoreMixin],
@@ -47,8 +47,7 @@ var ServicesPage = React.createClass({
   },
 
   updateCurrentTab() {
-    let routes = this.context.router.getCurrentRoutes();
-    let currentTab = routes[routes.length - 1].path;
+    let currentTab = RouterUtil.reconstructPathFromRoutes(this.props.routes);
     // `/services/overview` tab also contains routes for '/services/overview/:id'
     if (currentTab === '/services/overview/:id' || currentTab == null) {
       currentTab = '/services/overview';
@@ -60,7 +59,7 @@ var ServicesPage = React.createClass({
   },
 
   getNavigation() {
-    if (RouterUtil.shouldHideNavigation(this.context.router)) {
+    if (RouterUtil.shouldHideNavigation(this.props.routes)) {
       return null;
     }
 
@@ -72,20 +71,15 @@ var ServicesPage = React.createClass({
   },
 
   render() {
-    const {
-      params,
-      query
-    } = this.props;
-
     // Make sure to grow when logs are displayed
-    let routes = this.context.router.getCurrentRoutes();
+    let routes = this.props.routes;
 
     return (
       <Page
         navigation={this.getNavigation()}
         dontScroll={routes[routes.length - 1].dontScroll}
         title="Services">
-        <RouteHandler params={params} query={query} />
+        {this.props.children}
       </Page>
     );
   }

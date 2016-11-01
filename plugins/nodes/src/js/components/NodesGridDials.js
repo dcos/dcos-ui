@@ -1,4 +1,5 @@
 import React from 'react';
+import {routerShape} from 'react-router';
 import {Tooltip} from 'reactjs-components';
 
 import Chart from '../../../../../src/js/components/charts/Chart';
@@ -24,12 +25,12 @@ var NodesGridDials = React.createClass({
   },
 
   contextTypes: {
-    router: React.PropTypes.func
+    router: routerShape
   },
 
   handleDialClick(nodeID) {
     // Using handler, since Link in arrays cannot get router context
-    this.context.router.transitionTo('/nodes/:nodeID', {nodeID});
+    this.context.router.push(`/nodes/${nodeID}`);
   },
 
   getServiceSlicesConfig(node) {

@@ -21,14 +21,6 @@ describe('TaskTable', function () {
     DCOSStore.serviceTree = {
       getTaskFromTaskID: jest.fn()
     };
-    this.parentRouter = {
-      getCurrentRoutes() {
-        return [{name: 'home'}, {name: 'dashboard'}, {name: 'service-detail'}];
-      },
-      getCurrentParams() {
-        return [{nodeID: 'thing'}];
-      }
-    };
 
     this.container = document.createElement('div');
 
@@ -36,7 +28,7 @@ describe('TaskTable', function () {
       JestUtil.stubRouterContext(
         TaskTable, {
           tasks: Tasks,
-          parentRouter: this.parentRouter
+          params: {nodeID: 'thing'}
         }
       ),
       this.container

@@ -1,4 +1,5 @@
 import React from 'react';
+import {routerShape} from 'react-router';
 
 import EventTypes from '../../../../../src/js/constants/EventTypes';
 import FilterHeadline from '../../../../../src/js/components/FilterHeadline';
@@ -185,7 +186,7 @@ class PodInstancesTabView extends React.Component {
 }
 
 PodInstancesTabView.contextTypes = {
-  router: React.PropTypes.func
+  router: routerShape
 };
 
 PodInstancesTabView.propTypes = {

@@ -1,4 +1,4 @@
-import React from 'react';
+import {routerShape} from 'react-router';
 
 function encodeValuesToURIComponents(values) {
   if (!Array.isArray(values)) {
@@ -13,63 +13,55 @@ function encodeValuesToURIComponents(values) {
 
 var QueryParamsMixin = {
   contextTypes: {
-    router: React.PropTypes.func
+    router: routerShape
   },
 
   getCurrentPathname() {
-    let {router} = this.context;
-    let pathname = {};
-
-    if (router) {
-      pathname = router.getCurrentPathname();
-    }
-
-    return pathname;
+    let {pathname} = this.props.location;
+    return pathname || {};
   },
 
   getQueryParamObject() {
-    let {router} = this.context;
-
-    if (!router) {
-      return {};
-    }
-
-    return router.getCurrentQuery();
+    let {query} = this.props.location;
+    return query || {};
   },
 
   resetQueryParams(params) {
-    const {router} = this.context;
+    let {router} = this.context;
     if (!router) {
       return;
     }
 
-    const queryParams = router.getCurrentQuery();
+    let {location} = this.props;
+    let query = Object.assign({}, location.query);
+
     if (params == null) {
-      params = Object.keys(queryParams);
+      params = Object.keys(query);
     }
 
     params.forEach(function (param) {
-      delete queryParams[param];
+      delete query[param];
     });
 
-    router.transitionTo(router.getCurrentPathname(), {}, queryParams);
+    router.push({pathname: location.pathname, query});
   },
 
   setQueryParam(paramKey, paramValue) {
     let {router} = this.context;
-    let queryParams = router.getCurrentQuery();
+    let {location} = this.props;
+    let query = Object.assign({}, location.query);
 
     if (paramValue != null && paramValue.length !== 0) {
       let encodedFilter = encodeValuesToURIComponents(paramValue);
 
-      Object.assign(queryParams, {
+      query = Object.assign(query, {
         [paramKey]: encodedFilter
       });
     } else {
-      delete queryParams[paramKey];
+      delete query[paramKey];
     }
 
-    router.transitionTo(router.getCurrentPathname(), {}, queryParams);
+    router.push({pathname: location.pathname, query});
   },
 
   decodeQueryParamArray(array) {

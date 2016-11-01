@@ -17,11 +17,15 @@ describe('ServicesContainer', function () {
       getCurrentPathname() {
         return 'test';
       },
-      transitionTo: jasmine.createSpy()
+      push: jasmine.createSpy()
     };
     this.wrapper = ReactDOM.render(
-      JestUtil.stubRouterContext(
-        ServicesContainer, {params: {}, query: {}}, this.routerStubs
+      JestUtil.stubRouterContext(ServicesContainer,
+        {
+          location: { query: {}, pathname: '/test'},
+          params: {}
+        },
+        this.routerStubs
       ),
       this.container
     );
@@ -40,19 +44,19 @@ describe('ServicesContainer', function () {
     it('updates window location with correct query params', function () {
       this.instance.handleFilterChange('filterOther', [1, 3]);
 
-      expect(this.routerStubs.transitionTo.calls.mostRecent().args)
-        .toEqual(['test', {}, {filterOther: [1, 3]}]);
+      expect(this.routerStubs.push.calls.mostRecent().args)
+        .toEqual([{pathname: '/test', query: {filterOther: [1, 3]}}]);
 
       this.instance.handleFilterChange('filterLabels', [
         {key: 'a', value: 'b'},
         {key: 'b', value: 'c'}
       ]);
 
-      expect(this.routerStubs.transitionTo.calls.mostRecent().args)
-        .toEqual(['test', {}, {
+      expect(this.routerStubs.push.calls.mostRecent().args)
+        .toEqual([{pathname: '/test', query: {
           filterLabels: ['a;b', 'b;c'],
           filterOther: [1, 3]
-        }]);
+        }}]);
     });
 
   });

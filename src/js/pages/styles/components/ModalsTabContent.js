@@ -1,4 +1,5 @@
 import React from 'react';
+import {routerShape} from 'react-router';
 import SidebarActions from '../../../events/SidebarActions';
 
 class ModalsTabContent extends React.Component {
@@ -510,7 +511,7 @@ class ModalsTabContent extends React.Component {
 }
 
 ModalsTabContent.contextTypes = {
-  router: React.PropTypes.func
+  router: routerShape
 };
 
 ModalsTabContent.willTransitionTo = function () {

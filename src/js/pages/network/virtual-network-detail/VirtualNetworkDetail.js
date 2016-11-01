@@ -2,7 +2,7 @@ import mixin from 'reactjs-mixin';
 /* eslint-disable no-unused-vars */
 import React from 'react';
 /* eslint-enable no-unused-vars */
-import {RouteHandler} from 'react-router';
+import {routerShape} from 'react-router';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import Breadcrumbs from '../../../components/Breadcrumbs';
@@ -10,6 +10,7 @@ import DetailViewHeader from '../../../components/DetailViewHeader';
 import Icon from '../../../components/Icon';
 import Loader from '../../../components/Loader';
 import RequestErrorMsg from '../../../components/RequestErrorMsg';
+import RouterUtil from '../../../utils/RouterUtil';
 import TabsMixin from '../../../mixins/TabsMixin';
 import VirtualNetworksStore from '../../../stores/VirtualNetworksStore';
 import VirtualNetworkUtil from '../../../utils/VirtualNetworkUtil';
@@ -28,7 +29,11 @@ class VirtualNetworkDetail extends mixin(StoreMixin, TabsMixin) {
       receivedVirtualNetworks: false
     };
 
-    this.tabs_tabs = {};
+    // Virtual Network Detail Tabs
+    this.tabs_tabs = {
+      '/network/virtual-networks/:overlayName': 'Tasks',
+      '/network/virtual-networks/:overlayName/details': 'Details'
+    };
 
     this.store_listeners = [
       {
@@ -48,20 +53,14 @@ class VirtualNetworkDetail extends mixin(StoreMixin, TabsMixin) {
     this.updateCurrentTab();
   }
 
-  componentWillReceiveProps() {
+  componentWillReceiveProps(nextProps) {
     super.componentWillReceiveProps(...arguments);
-    this.updateCurrentTab();
+    this.updateCurrentTab(nextProps);
   }
 
-  updateCurrentTab() {
-    let routes = this.context.router.getCurrentRoutes();
-    let currentTab = routes[routes.length - 1].path;
-
-    // Virtual Network Detail Tabs
-    this.tabs_tabs = {
-      '/network/virtual-networks/:overlayName': 'Tasks',
-      '/network/virtual-networks/:overlayName/details': 'Details'
-    };
+  updateCurrentTab(nextProps) {
+    let {routes} = nextProps || this.props;
+    let currentTab = RouterUtil.reconstructPathFromRoutes(routes);
 
     this.setState({currentTab});
   }
@@ -125,16 +124,16 @@ class VirtualNetworkDetail extends mixin(StoreMixin, TabsMixin) {
 
     return (
       <div>
-        <Breadcrumbs />
+        <Breadcrumbs routes={this.props.routes} params={this.props.params} />
         {this.getBasicInfo(overlay)}
-        <RouteHandler overlay={overlay} />
+        {React.cloneElement(this.props.children, { overlay })}
       </div>
     );
   }
 }
 
 VirtualNetworkDetail.contextTypes = {
-  router: React.PropTypes.func
+  router: routerShape
 };
 
 module.exports = VirtualNetworkDetail;

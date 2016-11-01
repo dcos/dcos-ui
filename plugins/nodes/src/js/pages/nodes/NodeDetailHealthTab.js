@@ -1,4 +1,5 @@
 import React from 'react';
+import {routerShape} from 'react-router';
 
 import Node from '../../../../../../src/js/structs/Node';
 import NodeHealthStore from '../../stores/NodeHealthStore';
@@ -13,13 +14,13 @@ class NodeDetailHealthTab extends React.Component {
       <HealthTab
         node={node}
         units={units}
-        parentRouter={this.context.router} />
+        params={this.props.params} />
     );
   }
 }
 
 NodeDetailHealthTab.contextTypes = {
-  router: React.PropTypes.func
+  router: routerShape
 };
 
 NodeDetailHealthTab.propTypes = {

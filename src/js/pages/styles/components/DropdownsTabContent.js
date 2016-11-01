@@ -1,4 +1,5 @@
 import React from 'react';
+import {routerShape} from 'react-router';
 import SidebarActions from '../../../events/SidebarActions';
 
 class DropdownsTabContent extends React.Component {
@@ -9,7 +10,7 @@ class DropdownsTabContent extends React.Component {
 }
 
 DropdownsTabContent.contextTypes = {
-  router: React.PropTypes.func
+  router: routerShape
 };
 
 DropdownsTabContent.willTransitionTo = function () {

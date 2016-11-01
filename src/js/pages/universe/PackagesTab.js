@@ -2,6 +2,7 @@ import mixin from 'reactjs-mixin';
 /* eslint-disable no-unused-vars */
 import React from 'react';
 /* eslint-enable no-unused-vars */
+import {routerShape} from 'react-router';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import CosmosErrorMessage from '../../components/CosmosErrorMessage';
@@ -59,11 +60,12 @@ class PackagesTab extends mixin(StoreMixin) {
 
   handleDetailOpen(cosmosPackage, event) {
     event.stopPropagation();
-    this.context.router.transitionTo(
-      '/universe/packages/:packageName',
-      {packageName: cosmosPackage.getName()},
-      {version: cosmosPackage.getCurrentVersion()}
-    );
+    this.context.router.push({
+      pathname: `/universe/packages/${cosmosPackage.getName()}`,
+      query: {
+        version: cosmosPackage.getCurrentVersion()
+      }
+    });
   }
 
   handleInstallModalClose() {
@@ -238,7 +240,7 @@ class PackagesTab extends mixin(StoreMixin) {
 }
 
 PackagesTab.contextTypes = {
-  router: React.PropTypes.func
+  router: routerShape
 };
 
 PackagesTab.routeConfig = {

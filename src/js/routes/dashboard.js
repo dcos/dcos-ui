@@ -6,7 +6,7 @@ let dashboardRoutes = {
   category: 'root',
   type: Route,
   path: 'dashboard',
-  handler: DashboardPage,
+  component: DashboardPage,
   isInSidebar: true
 };
 

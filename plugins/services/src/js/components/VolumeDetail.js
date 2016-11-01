@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import {DCOSStore} from 'foundation-ui';
 import React from 'react';
+import {routerShape} from 'react-router';
 
 import Breadcrumbs from '../../../../../src/js/components/Breadcrumbs';
 import DescriptionList from '../../../../../src/js/components/DescriptionList';
@@ -24,7 +25,7 @@ class VolumeDetail extends React.Component {
 
   render() {
     let {params} = this.props;
-    let routes = this.context.router.getCurrentRoutes();
+    let routes = this.props.routes;
     let currentRoute = routes[routes.length - 1];
     let {serviceTree} = DCOSStore;
 
@@ -60,7 +61,7 @@ class VolumeDetail extends React.Component {
 
     return (
       <div>
-        <Breadcrumbs />
+        <Breadcrumbs routes={this.props.routes} params={this.props.params} />
         <DetailViewHeader
           subTitle={this.renderSubHeader(volume)}
           title={volume.getId()} />
@@ -75,7 +76,7 @@ VolumeDetail.propTypes = {
 };
 
 VolumeDetail.contextTypes = {
-  router: React.PropTypes.func
+  router: routerShape
 };
 
 module.exports = VolumeDetail;

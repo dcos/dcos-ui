@@ -1,4 +1,5 @@
 import React from 'react';
+import {routerShape} from 'react-router';
 import SidebarActions from '../../../events/SidebarActions';
 import Icon from '../../../components/Icon';
 
@@ -1469,7 +1470,7 @@ class FormTabContent extends React.Component {
 }
 
 FormTabContent.contextTypes = {
-  router: React.PropTypes.func
+  router: routerShape
 };
 
 FormTabContent.willTransitionTo = function () {

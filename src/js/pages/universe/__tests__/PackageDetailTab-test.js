@@ -29,7 +29,7 @@ describe('PackageDetailTab', function () {
     this.instance = ReactDOM.render(
       <PackageDetailTab
         params={{packageName: 'marathon'}}
-        query={{version: 1}} />,
+        location={{query: {version: 1}}} />,
       this.container
     );
   });

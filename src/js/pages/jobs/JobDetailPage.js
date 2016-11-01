@@ -5,7 +5,8 @@ import prettycron from 'prettycron';
 /* eslint-disable no-unused-vars */
 import React from 'react';
 /* eslint-enable no-unused-vars */
-import {RouteHandler} from 'react-router';
+import {routerShape} from 'react-router';
+
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import Breadcrumbs from '../../components/Breadcrumbs';
@@ -104,7 +105,7 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
 
   onMetronomeStoreJobDeleteSuccess() {
     this.closeDialog();
-    this.context.router.transitionTo('/jobs');
+    this.context.router.push('/jobs');
   }
 
   onMetronomeStoreJobDetailError() {
@@ -370,14 +371,14 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
     }
 
     if (this.props.params.taskID) {
-      return <RouteHandler />;
+      return this.props.children;
     }
 
     let job = MetronomeStore.getJob(this.props.params.id);
 
     return (
       <div>
-        <Breadcrumbs />
+        <Breadcrumbs routes={this.props.routes} params={this.props.params} />
         <DetailViewHeader
           actionButtons={this.getActionButtons()}
           icon={<Icon color="neutral" id="page-code" size="large" />}
@@ -397,7 +398,7 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
 }
 
 JobDetailPage.contextTypes = {
-  router: React.PropTypes.func
+  router: routerShape
 };
 
 module.exports = JobDetailPage;

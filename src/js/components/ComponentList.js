@@ -11,14 +11,14 @@ class ComponentList extends React.Component {
     return units.map(function (unit) {
       let health = unit.getHealth();
       let healthClasses = classNames('text-align-right', health.classNames);
+      let unitID = unit.get('id');
 
       return {
         content: [
           {
             className: 'dashboard-health-list-item-description text-overflow',
             content: (
-              <Link to="/components/:unitID"
-                params={{unitID: unit.get('id')}}
+              <Link to={`/components/${unitID}`}
                 className="dashboard-health-list-item-cell emphasis">
                 {unit.getTitle()}
               </Link>

@@ -1,4 +1,5 @@
 import React from 'react';
+import {routerShape} from 'react-router';
 import SidebarActions from '../../../events/SidebarActions';
 
 class GridTabContent extends React.Component {
@@ -312,7 +313,7 @@ class GridTabContent extends React.Component {
 }
 
 GridTabContent.contextTypes = {
-  router: React.PropTypes.func
+  router: routerShape
 };
 
 GridTabContent.willTransitionTo = function () {

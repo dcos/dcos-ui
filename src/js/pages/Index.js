@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import deepEqual from 'deep-equal';
 import React from 'react';
-import {RouteHandler} from 'react-router';
+
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import Config from '../config/Config';
@@ -139,8 +139,10 @@ var Index = React.createClass({
     return (
       <div className={classSet}>
         {this.getScreenOverlays(showErrorScreen)}
-        <Sidebar />
-        <RouteHandler />
+        <Sidebar
+          routes={this.props.routes}
+          location={this.props.location} />
+        {this.props.children}
         <Modals
           showErrorModal={this.state.showErrorModal}
           modalErrorMsg={this.state.modalErrorMsg} />

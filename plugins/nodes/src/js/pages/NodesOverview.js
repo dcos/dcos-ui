@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import React from 'react';
-import {HashLocation, Link} from 'react-router';
+import {Link, routerShape} from 'react-router';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import AlertPanel from '../../../../../src/js/components/AlertPanel';
@@ -71,7 +71,7 @@ var NodesOverview = React.createClass({
   },
 
   contextTypes: {
-    router: React.PropTypes.func.isRequired
+    router: routerShape.isRequired
   },
 
   getInitialState() {
@@ -198,7 +198,7 @@ var NodesOverview = React.createClass({
   },
 
   getFilterInputText() {
-    var isVisible = HashLocation.getCurrentPath().endsWith('/nodes/');
+    var isVisible = this.props.location.pathname.endsWith('/nodes/');
 
     if (!isVisible) {
       return null;
@@ -213,7 +213,7 @@ var NodesOverview = React.createClass({
   },
 
   getViewTypeRadioButtons(resetFilter) {
-    let isGridActive = /\/nodes\/grid\/?/i.test(HashLocation.getCurrentPath());
+    let isGridActive = /\/nodes\/grid\/?/i.test(this.props.location.pathname);
 
     var listClassSet = classNames('button button-stroke', {
       'active': !isGridActive
@@ -266,7 +266,9 @@ var NodesOverview = React.createClass({
         totalHostsResources={data.totalHostsResources}
         totalNodeCount={data.totalNodes}
         totalResources={data.totalResources}
-        viewTypeRadioButtons={this.getViewTypeRadioButtons(this.resetFilter)} />
+        viewTypeRadioButtons={this.getViewTypeRadioButtons(this.resetFilter)}>
+        {this.props.children}
+      </HostsPageContent>
     );
   },
 

@@ -311,19 +311,17 @@ class PodInstancesTable extends React.Component {
     );
   }
 
-  renderColumnID(prop, row, rowOptions = {}) {
+  renderColumnID(prop, {id: taskID, name: taskName}, rowOptions = {}) {
     if (!rowOptions.isParent) {
+      let id = encodeURIComponent(this.props.pod.getId());
+
       return (
         <div className="expanding-table-primary-cell-heading text-overflow">
           <Link
             className="table-cell-link-secondary text-overflow"
-            to="/services/overview/:id/tasks/:taskID"
-            params={{
-              id: encodeURIComponent(this.props.pod.getId()),
-              taskID: row.id
-            }}
-            title={row.name}>
-            <CollapsingString string={row.name} />
+            to={`/services/overview/${id}/tasks/${taskID}`}
+            title={taskName}>
+            <CollapsingString string={taskName} />
           </Link>
         </div>
       );
@@ -335,7 +333,7 @@ class PodInstancesTable extends React.Component {
 
     return this.renderWithClickHandler(
       rowOptions,
-      (<CollapsingString string={row.id} />),
+      (<CollapsingString string={taskID} />),
       classes
     );
   }
@@ -346,16 +344,13 @@ class PodInstancesTable extends React.Component {
       return <span>&nbsp;</span>;
     }
 
-    let {name, id} = row;
+    let id = encodeURIComponent(this.props.pod.getId());
+    let taskID = row.id;
 
     return (
       <Link
-        to="/services/overview/tasks/:taskID/view"
-        params={{
-          id: encodeURIComponent(this.props.pod.getId()),
-          taskID: id
-        }}
-        title={name}>
+        to={`/services/overview/${id}/tasks/${taskID}/view`}
+        title={row.name}>
         <Icon
           color="grey"
           id="page"
@@ -379,8 +374,7 @@ class PodInstancesTable extends React.Component {
       return this.renderWithClickHandler(rowOptions, (
           <Link
             className="table-cell-link-secondary text-overflow"
-            to="/nodes/:nodeID"
-            params={{nodeID: agent.id}}
+            to={`/nodes/${agent.id}`}
             title={address}>
             <CollapsingString string={address} />
           </Link>

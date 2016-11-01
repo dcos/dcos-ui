@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
 /* eslint-enable no-unused-vars */
-import {Redirect, Route} from 'react-router';
+import {Redirect, Route, hashHistory} from 'react-router';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import LoginPage from './components/LoginPage';
@@ -38,7 +38,6 @@ let defaultOrganizationRoute = {
 module.exports = Object.assign({}, StoreMixin, {
   actions: [
     'AJAXRequestError',
-    'applicationRouter',
     'userLoginSuccess',
     'userLogoutSuccess',
     'redirectToLogin'
@@ -66,8 +65,8 @@ module.exports = Object.assign({}, StoreMixin, {
     }]);
   },
 
-  redirectToLogin(transition) {
-    transition.redirect('/login');
+  redirectToLogin(nextState, replace) {
+    replace('/login');
   },
 
   AJAXRequestError(xhr) {
@@ -89,10 +88,6 @@ module.exports = Object.assign({}, StoreMixin, {
     if (xhr.status === 403 && !onLoginPage && !onAccessDeniedPage) {
       global.location.href = '#/access-denied';
     }
-  },
-
-  applicationRouter(router) {
-    this.applicationRouter = router;
   },
 
   sidebarFooter(value, defaultButtonSet) {
@@ -119,19 +114,20 @@ module.exports = Object.assign({}, StoreMixin, {
     // Override handler of index to be 'authenticated'
     routes[0].children.forEach(function (child) {
       if (child.id === 'index') {
-        child.handler = new Authenticated(child.handler);
+        child.component = new Authenticated(child.component);
+        child.onEnter = child.component.willTransitionTo;
       }
     });
 
     // Add access denied and login pages
     routes[0].children.unshift(
       {
-        handler: AccessDeniedPage,
+        component: AccessDeniedPage,
         path: '/access-denied',
         type: Route
       },
       {
-        handler: LoginPage,
+        component: LoginPage,
         path: '/login',
         type: Route
       }
@@ -158,7 +154,7 @@ module.exports = Object.assign({}, StoreMixin, {
     let userRoute = {
       type: Route,
       path: 'users',
-      handler: UsersTab,
+      component: UsersTab,
       buildBreadCrumb() {
         return {
           parentCrumb: '/organization',
@@ -215,10 +211,10 @@ module.exports = Object.assign({}, StoreMixin, {
 
         if (loginRedirectRoute) {
           // Go to redirect route if it is present
-          this.applicationRouter.transitionTo(loginRedirectRoute);
+          hashHistory.push(loginRedirectRoute);
         } else {
           // Go to home
-          this.applicationRouter.transitionTo('/');
+          hashHistory.push('/');
         }
       });
     }

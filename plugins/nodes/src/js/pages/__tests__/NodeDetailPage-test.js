@@ -88,10 +88,13 @@ describe('NodeDetailPage', function () {
     this.wrapper = ReactDOM.render(
       JestUtil.stubRouterContext(
         NodeDetailPage,
-        {params: {nodeID: 'nonExistent', taskID: 'foo'}},
-        {getCurrentRoutes() {
-          return [{path: '/nodes/:nodeID', children: []}];
-        }}
+        {
+          params: {
+            nodeID: 'nonExistent',
+            taskID: 'foo'
+          },
+          routes: [{path: '/nodes/:nodeID', children: []}]},
+        {}
       ),
       this.container
     );
@@ -133,10 +136,11 @@ describe('NodeDetailPage', function () {
       var wrapper = ReactDOM.render(
         JestUtil.stubRouterContext(
           NodeDetailPage,
-          {params: {nodeID: 'existingNode'}},
-          {getCurrentRoutes() {
-            return [{path: '/nodes/:nodeID', children: []}];
-          }}
+          {
+            params: {nodeID: 'existingNode'},
+            routes: [{path: '/nodes/:nodeID', children: []}]
+          },
+          {}
         ),
         this.container
       );

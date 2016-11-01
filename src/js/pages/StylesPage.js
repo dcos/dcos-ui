@@ -1,4 +1,4 @@
-import {Link, RouteHandler} from 'react-router';
+import {routerShape, Link} from 'react-router';
 import mixin from 'reactjs-mixin';
 import React from 'react';
 
@@ -57,7 +57,7 @@ class StylesPage extends mixin(TabsMixin) {
   }
 
   updateCurrentTab() {
-    let routes = this.context.router.getCurrentRoutes();
+    let routes = this.props.routes;
     let currentTab = routes[routes.length - 1].path;
     // Get top level Tab
     let topLevelTab = currentTab.split('/').slice(0, 3).join('/');
@@ -76,7 +76,7 @@ class StylesPage extends mixin(TabsMixin) {
   }
 
   getNavigation() {
-    let routes = this.context.router.getCurrentRoutes();
+    let routes = this.props.routes;
     let currentRoute = routes[routes.length - 2].path;
 
     return (
@@ -99,6 +99,8 @@ class StylesPage extends mixin(TabsMixin) {
   }
 
   render() {
+    let {currentTab} = this.state;
+
     return (
       <Page
         title="Styles"
@@ -106,14 +108,14 @@ class StylesPage extends mixin(TabsMixin) {
         <div className="pod pod-short flush-top flush-right flush-left">
           {this.getSubNavigation()}
         </div>
-        <RouteHandler currentTab={this.state.currentTab} />
+        {React.cloneElement(this.props.children, { currentTab })}
       </Page>
     );
   }
 }
 
 StylesPage.contextTypes = {
-  router: React.PropTypes.func
+  router: routerShape
 };
 
 StylesPage.routeConfig = {
