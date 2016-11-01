@@ -1,20 +1,10 @@
 import React, {Component} from 'react';
 
-import Action from '../../structs/Action';
-
 class GeneralSection extends Component {
-  handleChange(path) {
-    let onChange = this.props.onChange;
-    return function (event) {
-      let value = event.target.value;
-      onChange(new Action(path, value));
-    };
-  };
-
   render() {
     let data = this.props.data;
     return (
-        <form className="form flush-bottom">
+        <div className="form flush-bottom">
           <div className="form-row-element"><h2
               className="form-header flush-top short-bottom">
             General</h2><p className="flush-bottom"><span><span>Configure your container service here or </span><a
@@ -31,7 +21,7 @@ class GeneralSection extends Component {
                     className="icon icon-grey icon-mini"><use
                     href="#icon-mini--ring-question"/></svg><noscript></noscript></div></div></span></label><input
                   className="form-control" name="id" placeholder="" type="text"
-                  onChange={this.handleChange(['id'])}
+                  onChange={()=>{}}
                   value={data.id}/>
               </div>
             </div>
@@ -48,7 +38,7 @@ class GeneralSection extends Component {
                     href="#icon-mini--ring-question"/></svg><noscript></noscript></div></div></span></label><input
                   className="form-control" name="cpus" placeholder=""
                   type="number"
-                  onChange={this.handleChange(['cpus'])}
+                  onChange={()=>{}}
                   value={data.cpus}/>
               </div>
             </div>
@@ -57,7 +47,7 @@ class GeneralSection extends Component {
                 <label className="">Memory
                   (MiB)</label><input className="form-control" name="mem"
                   placeholder="" type="number"
-                  onChange={this.handleChange(['mem'])}
+                  onChange={()=>{}}
                   value={data.mem}/>
               </div>
             </div>
@@ -67,7 +57,7 @@ class GeneralSection extends Component {
                 >Disk
                   (MiB)</label><input className="form-control" name="disk"
                   placeholder="" type="number"
-                  onChange={this.handleChange(['disk'])}
+                  onChange={()=>{}}
                   value={data.disk}/>
               </div>
             </div>
@@ -79,7 +69,7 @@ class GeneralSection extends Component {
                 >Instances</label><input
                   className="form-control" name="instances" placeholder=""
                   type="number"
-                  onChange={this.handleChange(['instances'])}
+                  onChange={()=>{console.log('first level');}}
                   value={data.instances}/>
               </div>
             </div>
@@ -97,26 +87,24 @@ class GeneralSection extends Component {
                 <div className="content-editable-wrapper" style={{height:'100px'}}>
                   <textarea className="content-editable form-control" name="cmd"
                       placeholder="" type="textarea"
-                      onChange={this.handleChange(['cmd'])}
                       value={data.cmd}
+                      onChange={()=>{}}
                       style={{minHeight:'100px'}}/>
                 </div>
               </div>
             </div>
           </div>
-        </form>
+        </div>
     );
   }
 }
 
 GeneralSection.defaultProps = {
-  data: {id: ''},
-  onChange: () => {}
+  data: {id: ''}
 };
 
 GeneralSection.propTypes = {
-  data: React.PropTypes.object,
-  onChange: React.PropTypes.func.isRequired
+  data: React.PropTypes.object
 };
 
 module.exports = GeneralSection;
