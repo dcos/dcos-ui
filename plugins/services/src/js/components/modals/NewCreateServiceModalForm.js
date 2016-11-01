@@ -104,7 +104,7 @@ class NewCreateServiceModalForm extends React.Component {
     }
   }
 
-  handleFormBlur(event) {
+  handleFormBlur() {
     let {
       appConfig,
       batch,
@@ -135,13 +135,18 @@ class NewCreateServiceModalForm extends React.Component {
     let value = event.target.value;
     let path = event.target.getAttribute('name');
     batch.add(new Transaction(path.split('.'), value));
-        batch.reduce(jsonConfigReducers, appConfig),
+    let newState = {batch};
 
-    let jsonValue = JSON.stringify(
-      null,
-      2
-    );
-    this.setState({batch, jsonValue});
+    // Only update the jsonValue if we have a valid value
+    if (event.target.validity.valid) {
+      newState.jsonValue = JSON.stringify(
+        batch.reduce(jsonConfigReducers, appConfig),
+        null,
+        2
+      );
+    }
+
+    this.setState(newState);
   }
 
   render() {
