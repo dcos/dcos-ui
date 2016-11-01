@@ -1,4 +1,5 @@
-/* description: Parses end executes mathematical expressions. */
+/* Description: Parses and generates AST + Combined Filter Function from a    */
+/*              common filter description language.                           */
 
 %{
 const {Merge, Operator} = require('../../js/utils/DSLParserUtil');
