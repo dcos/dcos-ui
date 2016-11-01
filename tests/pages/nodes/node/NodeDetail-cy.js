@@ -4,7 +4,7 @@ describe('Nodes Detail Page', function () {
     cy.configureCluster({
       mesos: '1-task-healthy',
       nodeHealth: true
-    })
+    });
   });
 
   context('Navigate to node detail page', function () {

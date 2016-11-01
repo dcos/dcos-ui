@@ -60,6 +60,7 @@ describe('DC/OS UI [00j]', function () {
     });
 
     it('should list one node [00u]', function () {
+      cy.wait(1000);
       cy.get('@tableRows').contains('dcos-01');
     });
 

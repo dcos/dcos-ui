@@ -1,4 +1,4 @@
-describe('Tracking Plugin Enabled [02w]', function () {
+xdescribe('Tracking Plugin Enabled [02w]', function () {
 
   beforeEach(function () {
     cy.configureCluster({
@@ -11,7 +11,7 @@ describe('Tracking Plugin Enabled [02w]', function () {
 
   context('Sidebar [02x]', function () {
 
-    xit('should not disable cli in instructions [0df]', function () {
+    it('should not disable cli in instructions [0df]', function () {
       cy.get('.sidebar-footer').find('.button').last().click();
 
       cy.get('.install-cli-modal-content pre')
