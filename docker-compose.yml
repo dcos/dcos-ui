@@ -1,0 +1,10 @@
+version: '2'
+
+services:
+  cypress:
+    build:
+      context: .
+      dockerfile: ./Dockerfile.dev
+    volumes:
+      - ./:/usr/src/dcos-ui
+    working_dir: /usr/src
