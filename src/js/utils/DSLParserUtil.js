@@ -14,7 +14,9 @@ import {FilterNode, CombinerNode} from '../structs/DSLASTNodes';
  * in this context, while the `resultset` is an instance of `List` or `Tree` on
  * which the filers have to be applied.
  *
+ * @private
  * @this CombinerNode
+ *
  * @param {function} [filter1] - The first child filter function (auto-bound)
  * @param {function} [filter2] - The second child filter function (auto-bound)
  * @param {Object} filters - An object containing the valid filters that can be used
@@ -22,7 +24,7 @@ import {FilterNode, CombinerNode} from '../structs/DSLASTNodes';
  *
  * @returns {List} - Returns the filtered resultset
  */
-function combine_fn(filter1, filter2, filters, resultset) {
+function combineTemplateFn(filter1, filter2, filters, resultset) {
   let intermediateResultset;
 
   switch (this.combinerType) {
@@ -57,13 +59,15 @@ function combine_fn(filter1, filter2, filters, resultset) {
  * in this context, while the `resultset` is an instance of `List` or `Tree` on
  * which the filers have to be applied.
  *
+ * @private
  * @this FilterNode
+ *
  * @param {Object} filters - An object containing the valid filters that can be used
  * @param {List} resultset - An instance of List or Tree containing the items to filter
  *
  * @returns {List} - Returns the filtered resultset
  */
-function filter_fn(filters, resultset) {
+function filterTemplateFn(filters, resultset) {
 
   // TODO: Lookup in `filters` object one or more valid filters that can be
   //       applied on the bound token. We can use the `this.filterType` and
@@ -76,99 +80,119 @@ function filter_fn(filters, resultset) {
 /**
  * The following functions are used by the JISON parser in order to parse
  * the expression into a properly nested set of functions and AST nodes.
+ *
+ * @name DSLParserUtil
  */
 module.exports = {
 
   /**
-   * Combines two filter functions using the AND operator
+   * Namespace for the merge operator
    *
-   * @param {Function} f1 - The first operation function
-   * @param {Function} f2 - The second operation function
-   *
-   * @returns {Function} Returns a combined filter function
+   * @namesapce
    */
-  merge_and(f1, f2) {
-    let ast = new CombinerNode(DSLCombinerTypes.AND, f1.ast, f2.ast);
+  Merge: {
 
-    return {
-      filter: combine_fn.bind(ast, f1.filter, f2.filter),
-      ast
-    };
+    /**
+     * Combines two filter functions using the AND operator
+     *
+     * @param {Function} f1 - The first operation function
+     * @param {Function} f2 - The second operation function
+     *
+     * @returns {Function} Returns a combined filter function
+     */
+    and(f1, f2) {
+      let ast = new CombinerNode(DSLCombinerTypes.AND, f1.ast, f2.ast);
+
+      return {
+        filter: combineTemplateFn.bind(ast, f1.filter, f2.filter),
+        ast
+      };
+    },
+
+    /**
+     * Combines two filter functions using the OR operator
+     *
+     * @param {Function} f1 - The first operation function
+     * @param {Function} f2 - The second operation function
+     *
+     * @returns {Function} Returns a combined filter function
+     */
+    or(f1, f2) {
+      let ast = new CombinerNode(DSLCombinerTypes.OR, f1.ast, f2.ast);
+
+      return {
+        filter: combineTemplateFn.bind(ast, f1.filter, f2.filter),
+        ast
+      };
+    }
+
   },
 
   /**
-   * Combines two filter functions using the OR operator
+   * Operator namespace
    *
-   * @param {Function} f1 - The first operation function
-   * @param {Function} f2 - The second operation function
-   *
-   * @returns {Function} Returns a combined filter function
+   * @namesapce
    */
-  merge_or(f1, f2) {
-    let ast = new CombinerNode(DSLCombinerTypes.OR, f1.ast, f2.ast);
+  Operator: {
 
-    return {
-      filter: combine_fn.bind(ast, f1.filter, f2.filter),
-      ast
-    };
-  },
+    /**
+     * Return filter function for an attribute operator
+     *
+     * @param {String} label - The attribute label
+     * @param {String} text - The attribute value
+     * @param {Number} lstart - The starting position of the label token
+     * @param {Number} lend - The ending position of the label token
+     * @param {Number} vstart - The starting position of the value token
+     * @param {Number} vend - The ending position of the value token
+     *
+     * @returns {Function} Returns a filter function
+     */
+    attrib(label, text, lstart, lend, vstart, vend) {
+      let ast = new FilterNode(lstart, lend, DSLFilterTypes.ATTRIB, {text, label});
+      ast.position.push([vstart, vend]);
 
-  /**
-   * Return filter function for an attribute operator
-   *
-   * @param {String} label - The attribute label
-   * @param {String} text - The attribute value
-   * @param {Number} lstart - The starting position of the label token
-   * @param {Number} lend - The ending position of the label token
-   * @param {Number} vstart - The starting position of the value token
-   * @param {Number} vend - The ending position of the value token
-   *
-   * @returns {Function} Returns a filter function
-   */
-  op_attrib(label, text, lstart, lend, vstart, vend) {
-    let ast = new FilterNode(lstart, lend, DSLFilterTypes.ATTRIB, {text, label});
-    ast.position.push([vstart, vend]);
+      return {
+        filter: filterTemplateFn.bind(ast),
+        ast
+      };
+    },
 
-    return {
-      filter: filter_fn.bind(ast),
-      ast
-    };
-  },
+    /**
+     * Return a filter function for exact string matching
+     *
+     * @param {String} text - The fuzzy filter text input
+     * @param {Number} start - The starting position of the filter token
+     * @param {Number} end - The ending position of the filter token
+     *
+     * @returns {Function} Returns a filter function
+     */
+    exact(text, start, end) {
+      let ast = new FilterNode(start, end, DSLFilterTypes.EXACT, {text});
 
-  /**
-   * Return a filter function for exact string matching
-   *
-   * @param {String} text - The fuzzy filter text input
-   * @param {Number} start - The starting position of the filter token
-   * @param {Number} end - The ending position of the filter token
-   *
-   * @returns {Function} Returns a filter function
-   */
-  op_exact(text, start, end) {
-    let ast = new FilterNode(start, end, DSLFilterTypes.EXACT, {text});
+      return {
+        filter: filterTemplateFn.bind(ast),
+        ast
+      };
+    },
 
-    return {
-      filter: filter_fn.bind(ast),
-      ast
-    };
-  },
+    /**
+     * Return a filter function for fuzzy-text matching
+     *
+     * @param {String} text - The fuzzy filter text input
+     * @param {Number} start - The starting position of the filter token
+     * @param {Number} end - The ending position of the filter token
+     *
+     * @returns {Function} Returns a filter function
+     */
+    fuzzy(text, start, end) {
+      let ast = new FilterNode(start, end, DSLFilterTypes.FUZZY, {text});
 
-  /**
-   * Return a filter function for fuzzy-text matching
-   *
-   * @param {String} text - The fuzzy filter text input
-   * @param {Number} start - The starting position of the filter token
-   * @param {Number} end - The ending position of the filter token
-   *
-   * @returns {Function} Returns a filter function
-   */
-  op_fuzzy(text, start, end) {
-    let ast = new FilterNode(start, end, DSLFilterTypes.FUZZY, {text});
+      return {
+        filter: filterTemplateFn.bind(ast),
+        ast
+      };
+    }
 
-    return {
-      filter: filter_fn.bind(ast),
-      ast
-    };
   }
 
 };

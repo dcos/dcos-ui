@@ -1,8 +1,7 @@
 /* description: Parses end executes mathematical expressions. */
 
 %{
-const {merge_and, merge_or, op_fuzzy, op_attrib, op_exact}
-    = require('../../js/utils/DSLParserUtil');
+const {Merge, Operator} = require('../../js/utils/DSLParserUtil');
 %}
 
 /* lexical grammar */
@@ -42,27 +41,27 @@ lv  /* Label value(s) as an array */
 
 e   /* Operators */
     : e WS e
-        {$$ = merge_and($1, $3);}
+        {$$ = Merge.and($1, $3);}
     | e COMMA e
-        {$$ = merge_or($1, $3);}
+        {$$ = Merge.or($1, $3);}
 
     | '(' e ')'
         {$$ = $2;}
 
     /* Simple operands */
     | LITERAL
-        {$$ = op_fuzzy(yytext, @1.first_column, @1.last_column);}
+        {$$ = Operator.fuzzy(yytext, @1.first_column, @1.last_column);}
     | STRING
-        {$$ = op_exact(yytext, @1.first_column, @1.last_column);}
+        {$$ = Operator.exact(yytext, @1.first_column, @1.last_column);}
 
     /* Label operand */
     | LABEL lv
         /* NOTE: We expand the comma-separated list of values as individual
                  label:value tokens, combined with an OR operator */
         {$$ = $2.reduce(function (last_fn, v) {
-            let fn = op_attrib($1, v.text, @1.first_column, @1.last_column, v.start, v.end);
+            let fn = Operator.attrib($1, v.text, @1.first_column, @1.last_column, v.start, v.end);
             if (last_fn) {
-                return merge_or(last_fn, fn);
+                return Merge.or(last_fn, fn);
             } else {
                 return fn;
             }
