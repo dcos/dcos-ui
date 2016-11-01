@@ -77,8 +77,10 @@ module.exports = {
     return function (state = defaultState, {path, type, value}) {
       let parsedValue = parseInt(value);
       if (type === TransactionTypes.SET && path.join() === needle && !isNaN(parsedValue)) {
-        return `Error: ${needle} cannot be "${value}"`;
+        return parsedValue;
       }
+
+      return state;
     };
   },
 
@@ -86,16 +88,20 @@ module.exports = {
     return function (state = defaultState, {path, type, value}) {
       let parsedValue = parseFloat(value);
       if (type === TransactionTypes.SET && path.join() === needle && !isNaN(parsedValue)) {
-        return `Error: ${needle} cannot be "${value}"`;
+        return parsedValue;
       }
+
+      return state;
     };
   },
 
   simpleStringReducer(needle, defaultState = '') {
     return function (state = defaultState, {path, type, value}) {
       if (type === TransactionTypes.SET && path.join() === needle && typeof value !== 'string') {
-        return `Error: ${needle} cannot be of type "${typeof value}"`;
+        return parsedValue;
       }
+
+      return state;
     };
   }
 };
