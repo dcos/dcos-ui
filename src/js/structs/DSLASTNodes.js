@@ -33,7 +33,7 @@ class CombinerNode extends ASTNode {
   constructor(combinerType, child1, child2) {
     super(
       child1.position[0][0],
-      child2.position[child2.position.length-1][1],
+      child2.position[child2.position.length - 1][1],
       [child1, child2]
     );
 
