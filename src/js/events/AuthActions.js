@@ -12,6 +12,7 @@ import Config from '../config/Config';
 const AuthActions = {
   login(credentials) {
     RequestUtil.json({
+      timeout: null,
       url: `${Config.rootUrl}${Config.acsAPIPrefix}/auth/login`,
       method: 'POST',
       data: credentials,
@@ -32,6 +33,7 @@ const AuthActions = {
 
   logout() {
     RequestUtil.json({
+      timeout: null,
       url: `${Config.rootUrl}${Config.acsAPIPrefix}/auth/logout`,
       success() {
         AppDispatcher.handleServerAction({
