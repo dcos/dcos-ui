@@ -104,16 +104,16 @@ class NewCreateServiceModalForm extends React.Component {
     }
   }
 
-  handleFormBlur() {
+  handleFormBlur(event) {
     let {
       appConfig,
       batch,
-      inputConfigReducers,
+      jsonConfigReducers,
       validationReducers
     } = this.state;
 
     // Create temporary finalized appConfig
-    let tempAppConfig = batch.reduce(inputConfigReducers, appConfig);
+    let tempAppConfig = batch.reduce(jsonConfigReducers, appConfig);
 
     // Create minimal batch with one event for validation reducers
     let tempBatch = new Batch();
@@ -130,13 +130,14 @@ class NewCreateServiceModalForm extends React.Component {
   }
 
   handleFormChange(event) {
-    let {batch, inputConfigReducers, appConfig} = this.state;
+    let {batch, jsonConfigReducers, appConfig} = this.state;
+
     let value = event.target.value;
     let path = event.target.getAttribute('name');
     batch.add(new Transaction(path.split('.'), value));
+        batch.reduce(jsonConfigReducers, appConfig),
 
     let jsonValue = JSON.stringify(
-      batch.reduce(inputConfigReducers, appConfig),
       null,
       2
     );

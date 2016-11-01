@@ -76,8 +76,12 @@ module.exports = {
   simpleIntReducer(needle, defaultState = '') {
     return function (state = defaultState, {path, type, value}) {
       let parsedValue = parseInt(value);
-      if (type === TransactionTypes.SET && path.join() === needle && !isNaN(parsedValue)) {
-        return parsedValue;
+      if (type === TransactionTypes.SET && path.join() === needle) {
+        if (!isNaN(parsedValue)) {
+          return parsedValue;
+        }
+
+        return value;
       }
 
       return state;
@@ -87,18 +91,12 @@ module.exports = {
   simpleFloatReducer(needle, defaultState = '') {
     return function (state = defaultState, {path, type, value}) {
       let parsedValue = parseFloat(value);
-      if (type === TransactionTypes.SET && path.join() === needle && !isNaN(parsedValue)) {
-        return parsedValue;
-      }
+      if (type === TransactionTypes.SET && path.join() === needle) {
+        if (!isNaN(parsedValue)) {
+          return parsedValue;
+        }
 
-      return state;
-    };
-  },
-
-  simpleStringReducer(needle, defaultState = '') {
-    return function (state = defaultState, {path, type, value}) {
-      if (type === TransactionTypes.SET && path.join() === needle && typeof value !== 'string') {
-        return parsedValue;
+        return value;
       }
 
       return state;
