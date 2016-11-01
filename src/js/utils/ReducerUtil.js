@@ -67,7 +67,34 @@ module.exports = {
       if (type === TransactionTypes.SET && path.join() === needle) {
         return value;
       }
+
       return state;
+    };
+  },
+
+  simpleIntReducer(needle, defaultState = '') {
+    return function (state = defaultState, {path, type, value}) {
+      let parsedValue = parseInt(value);
+      if (type === TransactionTypes.SET && path.join() === needle && !isNaN(parsedValue)) {
+        return `Error: ${needle} cannot be "${value}"`;
+      }
+    };
+  },
+
+  simpleFloatReducer(needle, defaultState = '') {
+    return function (state = defaultState, {path, type, value}) {
+      let parsedValue = parseFloat(value);
+      if (type === TransactionTypes.SET && path.join() === needle && !isNaN(parsedValue)) {
+        return `Error: ${needle} cannot be "${value}"`;
+      }
+    };
+  },
+
+  simpleStringReducer(needle, defaultState = '') {
+    return function (state = defaultState, {path, type, value}) {
+      if (type === TransactionTypes.SET && path.join() === needle && typeof value !== 'string') {
+        return `Error: ${needle} cannot be of type "${typeof value}"`;
+      }
     };
   }
 };

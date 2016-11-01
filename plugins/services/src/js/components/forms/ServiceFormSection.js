@@ -1,149 +1,90 @@
 import React, {Component} from 'react';
 
-import TabView from '../../../../../../src/js/components/TabView';
+import Batch from '../../../../../../src/js/structs/Batch';
+import FieldInput from '../../../../../../src/js/components/form/FieldInput';
+import FieldTextarea from '../../../../../../src/js/components/form/FieldTextarea';
 import ReducerUtil from '../../../../../../src/js/utils/ReducerUtil';
+import TabView from '../../../../../../src/js/components/TabView';
 
 class ServiceFormSection extends Component {
-  componentWillMount() {
-    this.props.onAddReducer({
+  constructor() {
+    super(...arguments);
+
+    let reducers = ReducerUtil.combineReducers({
       id: ReducerUtil.simpleReducer('id', '/'),
-      cpus: ReducerUtil.simpleReducer('cpus', 1),
+      cpus: ReducerUtil.simpleReducer('cpus', 0.01),
       mem: ReducerUtil.simpleReducer('mem', 128),
       disk: ReducerUtil.simpleReducer('disk', 0),
       instances: ReducerUtil.simpleReducer('instances', 1),
       cmd: ReducerUtil.simpleReducer('cmd', '')
     });
-  }
 
+    this.state = {reducers};
+  }
   render() {
-    let {data} = this.props;
+    let {batch, data} = this.props;
+    let reducedData = batch.reduce(this.state.reducers, data);
 
     return (
       <TabView id="services">
         <div className="form flush-bottom">
           <div className="form-row-element">
             <h2 className="form-header flush-top short-bottom">
-              General
+              Services
             </h2>
             <p className="flush-bottom">
-                <span>Configure your container service here or </span>
-                <a href="#/universe">install from Universe</a>.
+              Configure your service below. Start by giving your service a name.
             </p>
           </div>
-          <div className="row flex-box general">
-            <div className="form-row-element column-12 form-row-input">
-              <div className="form-group flush">
-                <label>
-                  <span className="media-object-spacing-wrapper media-object-spacing-narrow">
-                    <div className="media-object media-object-inline">
-                      <span className="media-object-item">ID *</span>
-                      <div className="tooltip-wrapper media-object-item">
-                        <svg className="icon icon-grey icon-mini">
-                          <use href="#icon-mini--ring-question" />
-                        </svg>
-                      </div>
-                    </div>
-                  </span>
-                </label>
-                <input
-                  className="form-control"
-                  name="id"
-                  placeholder=""
-                  type="text"
-                  onChange={()=>{}}
-                  value={data.id} />
-              </div>
+
+          <div className="flex row">
+            <div className="column-8">
+              <FieldInput
+                helpBlock="Give your service a unique name, e.g. my-service."
+                label="SERVICE NAME *"
+                name="id"
+                type="text"
+                value={reducedData.id} />
+            </div>
+
+            <div className="column-4">
+              <FieldInput
+                label="INSTANCES"
+                name="instances"
+                type="number"
+                value={reducedData.instances} />
             </div>
           </div>
-          <div className="row flex-box general">
-            <div className="form-row-element column-3 form-row-input">
-              <div className="form-group flush">
-                <label>
-                  <span className="media-object-spacing-wrapper media-object-spacing-narrow">
-                    <div className="media-object media-object-inline">
-                      <span className="media-object-item">CPUs</span>
-                      <div className="tooltip-wrapper media-object-item">
-                        <svg className="icon icon-grey icon-mini">
-                          <use href="#icon-mini--ring-question" />
-                        </svg>
-                      </div>
-                    </div>
-                  </span>
-                </label>
-                <input
-                  className="form-control"
-                  name="cpus"
-                  placeholder=""
-                  type="number"
-                  onChange={()=>{}}
-                  value={data.cpus} />
-              </div>
+
+          <div className="flex row">
+            <div className="column-4">
+              <FieldInput
+                label="CPUs *"
+                name="cpus"
+                type="number"
+                step="0.01"
+                value={reducedData.cpus} />
             </div>
-            <div className="form-row-element column-3 form-row-input">
-              <div className="form-group flush">
-                <label className="">
-                  Memory (MiB)
-                </label>
-                <input
-                  className="form-control"
-                  name="mem"
-                  placeholder=""
-                  type="number"
-                  onChange={()=>{}}
-                  value={data.mem} />
-              </div>
+            <div className="column-4">
+              <FieldInput
+                label="MEMORY (MiB) *"
+                name="mem"
+                type="number"
+                value={reducedData.mem} />
             </div>
-            <div className="form-row-element column-3 form-row-input">
-              <div className="form-group flush">
-                <label className="">Disk (MiB)</label>
-                <input className="form-control"
-                  name="disk"
-                  placeholder="" type="number"
-                  onChange={()=>{}}
-                  value={data.disk} />
-              </div>
-            </div>
-            <div className="form-row-element column-3 form-row-input">
-              <div className="form-group flush">
-                <label className="">Instances</label>
-                <input
-                  className="form-control"
-                  name="instances"
-                  placeholder=""
-                  type="number"
-                  onChange={()=>{}}
-                  value={data.instances} />
-              </div>
+            <div className="column-4">
+              <FieldInput
+                label="DISK (MiB)"
+                name="disk"
+                type="number"
+                value={reducedData.disk} />
             </div>
           </div>
-          <div className="row flex-box general">
-            <div className="form-row-element column-12 form-row-input">
-              <div className="form-group flush">
-                <label>
-                  <span className="media-object-spacing-wrapper media-object-spacing-narrow">
-                    <div className="media-object media-object-inline">
-                      <span className="media-object-item">Command</span>
-                      <div className="tooltip-wrapper media-object-item">
-                        <svg className="icon icon-grey icon-mini">
-                          <use href="#icon-mini--ring-question" />
-                        </svg>
-                      </div>
-                    </div>
-                  </span>
-                </label>
-                <div className="content-editable-wrapper" style={{height:'100px'}}>
-                  <textarea
-                    className="content-editable form-control"
-                    name="cmd"
-                    placeholder=""
-                    type="textarea"
-                    value={data.cmd}
-                    onChange={()=>{}}
-                    style={{minHeight:'100px'}} />
-                </div>
-              </div>
-            </div>
-          </div>
+
+          <FieldTextarea
+            label="Command"
+            name="cmd"
+            value={reducedData.cmd} />
         </div>
       </TabView>
     );
@@ -151,11 +92,11 @@ class ServiceFormSection extends Component {
 }
 
 ServiceFormSection.defaultProps = {
-  onAddReducer: (a) => a
+  data: {}
 };
 
 ServiceFormSection.propTypes = {
-  onAddReducer: React.PropTypes.func,
+  batch: React.PropTypes.instanceOf(Batch).isRequired,
   data: React.PropTypes.object
 };
 
