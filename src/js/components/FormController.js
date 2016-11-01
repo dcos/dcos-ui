@@ -7,7 +7,7 @@ import GeneralSection from './form/GeneralSection';
 
 class FormController extends Component {
   constructor() {
-    super();
+    super(...arguments);
     this.reducers = ReducerUtil.combineReducers({
       id: ReducerUtil.simpleReducer('id', '/'),
       cpus: ReducerUtil.simpleReducer('cpus', 1),
@@ -45,20 +45,20 @@ class FormController extends Component {
     // Testing purpose
     if (this.state.json) {
       return (
-          <div>
-            <div onClick={this.toggleJSON.bind(this)}>JSON MOde</div>
-            <pre>
+        <div>
+          <div onClick={this.toggleJSON.bind(this)}>JSON MOde</div>
+          <pre>
             {JSON.stringify(data, null, 2)}
           </pre>
-          </div>
+        </div>
       );
     }
 
     return (
-        <form onChange={(e) => this.addEvent(e)}>
-          <div onClick={this.toggleJSON.bind(this)}>JSON MOde</div>
-          <GeneralSection data={data}/>
-        </form>
+      <form onChange={(e) => this.addEvent(e)}>
+        <div onClick={this.toggleJSON.bind(this)}>JSON Mode</div>
+        <GeneralSection data={data} />
+      </form>
     );
   }
 }
