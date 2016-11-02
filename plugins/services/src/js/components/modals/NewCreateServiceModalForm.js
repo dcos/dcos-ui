@@ -63,9 +63,26 @@ class NewCreateServiceModalForm extends React.Component {
   }
 
   handleJSONBlur() {
+    let {
+      errors,
+      jsonParserReducers,
+      jsonValue,
+      validationReducers
+    } = this.state;
+    let newState = {};
+    let appConfig;
+
     try {
-      let {jsonParserReducers, jsonValue, validationReducers} = this.state;
-      let appConfig = JSON.parse(jsonValue);
+      appConfig = JSON.parse(jsonValue);
+    } catch (event) {
+      // TODO: handle error
+      newState.errors = Object.assign(errors, {
+        jsonEditor: 'JSON value is not valid json.'
+      });
+    }
+
+    if (appConfig) {
+      // Flush batch
       let batch = new Batch();
 
       // Run validation reducers on appConfig with new on minimal batch
@@ -78,29 +95,30 @@ class NewCreateServiceModalForm extends React.Component {
         batch.add(item);
       });
 
-      // This will essentially flush the batch
-      this.setState({appConfig: {}, batch, errors});
-    } catch (event) {
-      // TODO: handle error
-      let errors = Object.assign(
-        {},
-        this.state.errors,
-        {jsonEditor: 'JSON value is not valid json.'}
-      );
-      this.setState({errors});
+      // Update batch, errors and appConfig
+      Object.assign(newState, {batch, errors, appConfig: {}});
     }
+
+    this.setState(newState);
   }
 
   handleJSONChange(jsonValue) {
+    let newState = {jsonValue};
+    let parsedData;
+
     try {
-      let batch = new Batch();
-      let parsedData = JSON.parse(jsonValue);
-      let appConfig = batch.reduce(this.state.jsonConfigReducers, parsedData);
-      this.setState({appConfig, batch, jsonValue});
+      parsedData = JSON.parse(jsonValue);
     } catch (event) {
       // Not valid json, let's wait with firing event for new data
-      this.setState({jsonValue});
     }
+
+    if (parsedData) {
+      let batch = new Batch();
+      let appConfig = batch.reduce(this.state.jsonConfigReducers, parsedData);
+      Object.assign(newState, {batch, appConfig});
+    }
+
+    this.setState(newState);
   }
 
   handleFormBlur() {
