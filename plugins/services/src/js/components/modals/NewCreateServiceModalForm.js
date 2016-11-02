@@ -5,8 +5,8 @@ import React from 'react';
 import Batch from '../../../../../../src/js/structs/Batch';
 import JSONConfigReducers from '../../reducers/JSONConfigReducers';
 import JSONParserReducers from '../../reducers/JSONParserReducers';
-import ParserUtil from '../../../../../../src/js/utils/ParserUtil';
-import ReducerUtil from '../../../../../../src/js/utils/ReducerUtil';
+import {combineParsers} from '../../../../../../src/js/utils/ParserUtil';
+import {combineReducers} from '../../../../../../src/js/utils/ReducerUtil';
 import ServiceFormSection from '../forms/ServiceFormSection';
 import TabButton from '../../../../../../src/js/components/TabButton';
 import TabButtonList from '../../../../../../src/js/components/TabButtonList';
@@ -27,34 +27,26 @@ const SECTIONS = [
   ServiceFormSection
 ];
 
+const jsonParserReducers = combineParsers(JSONParserReducers);
+const jsonConfigReducers = combineReducers(JSONConfigReducers);
+const inputConfigReducers = combineReducers(
+  Object.assign({}, ...SECTIONS.map((item) => item.configReducers))
+);
+const validationReducers = combineReducers(
+  Object.assign({}, ...SECTIONS.map((item) => item.validationReducers))
+);
+
 class NewCreateServiceModalForm extends React.Component {
   constructor() {
     super(...arguments);
 
     let batch = new Batch();
 
-    let jsonParserReducers = ParserUtil.combineParsers(JSONParserReducers);
-    let jsonConfigReducers = ReducerUtil.combineReducers(JSONConfigReducers);
-    let inputConfigReducers = ReducerUtil.combineReducers(
-      Object.assign({}, ...SECTIONS.map((item) => {
-        return item.configReducers;
-      }))
-    );
-    let validationReducers = ReducerUtil.combineReducers(
-      Object.assign({}, ...SECTIONS.map((item) => {
-        return item.validationReducers;
-      }))
-    );
-
     this.state = {
       appConfig: {},
       batch,
       errors: {},
-      inputConfigReducers,
-      jsonConfigReducers,
-      jsonValue: JSON.stringify(batch.reduce(jsonConfigReducers, {}), null, 2),
-      jsonParserReducers,
-      validationReducers
+      jsonValue: JSON.stringify(batch.reduce(jsonConfigReducers, {}), null, 2)
     };
 
     METHODS_TO_BIND.forEach((method) => {
@@ -63,12 +55,7 @@ class NewCreateServiceModalForm extends React.Component {
   }
 
   handleJSONBlur() {
-    let {
-      errors,
-      jsonParserReducers,
-      jsonValue,
-      validationReducers
-    } = this.state;
+    let {errors, jsonValue} = this.state;
     let newState = {};
     let appConfig;
 
@@ -114,7 +101,7 @@ class NewCreateServiceModalForm extends React.Component {
 
     if (parsedData) {
       let batch = new Batch();
-      let appConfig = batch.reduce(this.state.jsonConfigReducers, parsedData);
+      let appConfig = batch.reduce(jsonConfigReducers, parsedData);
       Object.assign(newState, {batch, appConfig});
     }
 
@@ -122,7 +109,6 @@ class NewCreateServiceModalForm extends React.Component {
   }
 
   handleFormBlur() {
-    let {validationReducers} = this.state;
 
     // Create temporary finalized appConfig
     let appConfig = this.getAppConfig();
@@ -138,7 +124,7 @@ class NewCreateServiceModalForm extends React.Component {
   }
 
   handleFormChange(event) {
-    let {batch, jsonConfigReducers, appConfig} = this.state;
+    let {batch, appConfig} = this.state;
 
     let value = event.target.value;
     let path = event.target.getAttribute('name');
@@ -158,13 +144,13 @@ class NewCreateServiceModalForm extends React.Component {
   }
 
   getAppConfig() {
-    let {appConfig, batch, jsonConfigReducers} = this.state;
+    let {appConfig, batch} = this.state;
 
     return batch.reduce(jsonConfigReducers, appConfig);
   }
 
   render() {
-    let {appConfig, batch, errors, inputConfigReducers, jsonValue} = this.state;
+    let {appConfig, batch, errors, jsonValue} = this.state;
     let {isJSONModeActive} = this.props;
     let data = batch.reduce(inputConfigReducers, appConfig);
 

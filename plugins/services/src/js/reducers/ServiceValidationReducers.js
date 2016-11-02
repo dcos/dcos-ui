@@ -1,8 +1,8 @@
-import ServiceValidatorUtil from '../utils/ServiceValidatorUtil';
+import {isValidServiceID} from '../utils/ServiceValidatorUtil';
 
 module.exports = {
   id(state) {
-    if (!ServiceValidatorUtil.isValidServiceID(state)) {
+    if (!isValidServiceID(state)) {
       return `Error: id cannot be "${state}"`;
     }
   },
