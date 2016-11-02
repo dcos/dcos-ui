@@ -160,21 +160,95 @@ describe('ReducerUtil', function () {
       );
     });
   });
+
   describe('#simpleReducer', function () {
     it('should return a function', function () {
       expect(typeof ReducerUtil.simpleReducer()).toBe('function');
     });
-    it('should return the default state if action has not the right path',
-      function () {
-        const simpleReducer = ReducerUtil.simpleReducer('path', 'default');
-        const action = {
-          path: ['something', 'else'],
-          type: TransactionType.SET,
-          value: 'something'
-        };
-        expect(simpleReducer(undefined, action)).toEqual('default');
-      });
+
+    it('should return default state if path doesn\'t match', function () {
+      const simpleReducer = ReducerUtil.simpleReducer('path', 'default');
+      const action = {
+        path: ['something', 'else'],
+        type: TransactionType.SET,
+        value: 'something'
+      };
+      expect(simpleReducer(undefined, action)).toEqual('default');
+    });
   });
+
+  describe('#simpleIntReducer', function () {
+    it('should return a function', function () {
+      expect(typeof ReducerUtil.simpleIntReducer()).toBe('function');
+    });
+
+    it('returns default state if path doesn\'t match', function () {
+      const simpleIntReducer = ReducerUtil.simpleIntReducer('baz', 'default');
+      const action = {
+        path: ['foo', 'bar'],
+        type: TransactionType.SET,
+        value: 'quis'
+      };
+      expect(simpleIntReducer(undefined, action)).toEqual('default');
+    });
+
+    it('returns string if cannot be parsed to integer', function () {
+      const simpleIntReducer = ReducerUtil.simpleIntReducer('foo,bar', 'default');
+      const action = {
+        path: ['foo', 'bar'],
+        type: TransactionType.SET,
+        value: 'a1bc'
+      };
+      expect(simpleIntReducer(undefined, action)).toEqual('a1bc');
+    });
+
+    it('returns number if value can be parsed to integer', function () {
+      const simpleIntReducer = ReducerUtil.simpleIntReducer('foo,bar', 'default');
+      const action = {
+        path: ['foo', 'bar'],
+        type: TransactionType.SET,
+        value: '1.0'
+      };
+      expect(simpleIntReducer(undefined, action)).toEqual(1);
+    });
+  });
+
+  describe('#simpleFloatReducer', function () {
+    it('should return a function', function () {
+      expect(typeof ReducerUtil.simpleFloatReducer()).toBe('function');
+    });
+
+    it('returns default state if path doesn\'t match', function () {
+      const simpleFloatReducer = ReducerUtil.simpleFloatReducer('baz', 'default');
+      const action = {
+        path: ['foo', 'bar'],
+        type: TransactionType.SET,
+        value: 'quis'
+      };
+      expect(simpleFloatReducer(undefined, action)).toEqual('default');
+    });
+
+    it('returns string if cannot be parsed to float', function () {
+      const simpleFloatReducer = ReducerUtil.simpleFloatReducer('foo,bar', 'default');
+      const action = {
+        path: ['foo', 'bar'],
+        type: TransactionType.SET,
+        value: 'a1.05bc'
+      };
+      expect(simpleFloatReducer(undefined, action)).toEqual('a1.05bc');
+    });
+
+    it('returns number if value can be parsed to float', function () {
+      const simpleFloatReducer = ReducerUtil.simpleFloatReducer('foo,bar', 'default');
+      const action = {
+        path: ['foo', 'bar'],
+        type: TransactionType.SET,
+        value: '1.05'
+      };
+      expect(simpleFloatReducer(undefined, action)).toEqual(1.05);
+    });
+  });
+
   it('should return the old state if action does not fit', function () {
     const simpleReducer = ReducerUtil.simpleReducer('path', 'default');
     const action = {
@@ -184,6 +258,7 @@ describe('ReducerUtil', function () {
     };
     expect(simpleReducer('old', action)).toEqual('old');
   });
+
   it('should return the new state if action does fit', function () {
     const simpleReducer = ReducerUtil.simpleReducer('path', 'default');
     const action = {
