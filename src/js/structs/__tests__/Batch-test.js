@@ -26,7 +26,7 @@ describe('Batch', function () {
         return actions;
       }, []);
 
-      expect(actions).toEqual(['a']);
+      expect(actions).toEqual(['INIT', 'a']);
     });
 
     it('should iterate correctly over a batch with 3 item', function () {
@@ -38,7 +38,7 @@ describe('Batch', function () {
         return actions;
       }, []);
 
-      expect(actions).toEqual(['a', 'b', 'c']);
+      expect(actions).toEqual(['INIT', 'a', 'b', 'c']);
     });
 
   });
