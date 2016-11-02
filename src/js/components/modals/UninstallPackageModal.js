@@ -171,7 +171,6 @@ class UninstallPackageModal extends mixin(StoreMixin) {
         onClose={handleClose}
         leftButtonCallback={handleClose}
         leftButtonText="Close"
-        rightButtonClassName={rightButtonClassName}
         rightButtonCallback={this.handleUninstallPackage}
         rightButtonClassName={rightButtonClassName}
         rightButtonText="Uninstall">
