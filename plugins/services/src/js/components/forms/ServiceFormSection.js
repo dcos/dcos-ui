@@ -1,12 +1,50 @@
 import React, {Component} from 'react';
+import {Tooltip} from 'reactjs-components';
 
 import FieldInput from '../../../../../../src/js/components/form/FieldInput';
 import FieldTextarea from '../../../../../../src/js/components/form/FieldTextarea';
+import Icon from '../../../../../../src/js/components/Icon';
 import ServiceConfigReducers from '../../reducers/ServiceConfigReducers';
 import ServiceValidationReducers from '../../reducers/ServiceValidationReducers';
 import TabView from '../../../../../../src/js/components/TabView';
 
 class ServiceFormSection extends Component {
+  getCMDLabel() {
+    let content = (
+      <span>
+        {"The command value will be wrapped by the underlying Mesos executor via /bin/sh -c ${cmd}. "}
+        <a href="https://mesosphere.github.io/marathon/docs/application-basics.html" target="_blank">
+          More information
+        </a>.
+      </span>
+    );
+
+    return (
+      <label>
+        {"Command "}
+        <Tooltip
+          content={content}
+          interactive={true}
+          wrapText={true}
+          maxWidth={300}
+          scrollContainer=".gm-scroll-view">
+            <Icon color="grey" id="ring-question" size="mini" family="mini" />
+        </Tooltip>
+      </label>
+    );
+  }
+
+  getIDHelpBlock() {
+    return (
+      <span>
+        {"Include the path to your service, if applicable. E.g. /dev/tools/my-service. "}
+        <a href="https://mesosphere.github.io/marathon/docs/application-groups.html" target="_blank">
+          More information
+        </a>.
+      </span>
+    );
+  }
+
   render() {
     let {data, errors} = this.props;
 
@@ -26,8 +64,8 @@ class ServiceFormSection extends Component {
             <div className="column-8">
               <FieldInput
                 error={errors.id}
-                helpBlock="Give your service a unique name, e.g. my-service."
-                label="SERVICE NAME *"
+                helpBlock={this.getIDHelpBlock()}
+                label={<label>SERVICE NAME <span className="text-danger">*</span></label>}
                 name="id"
                 type="text"
                 value={data.id} />
@@ -36,8 +74,9 @@ class ServiceFormSection extends Component {
             <div className="column-4">
               <FieldInput
                 error={errors.instances}
-                label="INSTANCES"
+                label={<label>INSTANCES <span className="text-danger">*</span></label>}
                 name="instances"
+                min={0}
                 type="number"
                 value={data.instances} />
             </div>
@@ -47,7 +86,7 @@ class ServiceFormSection extends Component {
             <div className="column-4">
               <FieldInput
                 error={errors.cpus}
-                label="CPUs *"
+                label={<label>CPUs <span className="text-danger">*</span></label>}
                 name="cpus"
                 type="number"
                 step="0.01"
@@ -56,7 +95,7 @@ class ServiceFormSection extends Component {
             <div className="column-4">
               <FieldInput
                 error={errors.mem}
-                label="MEMORY (MiB) *"
+                label={<label>MEMORY (MiB) <span className="text-danger">*</span></label>}
                 name="mem"
                 type="number"
                 value={data.mem} />
@@ -73,7 +112,8 @@ class ServiceFormSection extends Component {
 
           <FieldTextarea
             error={errors.cmd}
-            label="Command"
+            helpBlock="A shell command for your container to execute."
+            label={this.getCMDLabel()}
             name="cmd"
             value={data.cmd} />
         </div>
