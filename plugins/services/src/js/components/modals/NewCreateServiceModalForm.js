@@ -11,6 +11,7 @@ import ServiceFormSection from '../forms/ServiceFormSection';
 import TabButton from '../../../../../../src/js/components/TabButton';
 import TabButtonList from '../../../../../../src/js/components/TabButtonList';
 import Tabs from '../../../../../../src/js/components/Tabs';
+import TabView from '../../../../../../src/js/components/TabView';
 import TabViewList from '../../../../../../src/js/components/TabViewList';
 import Transaction from '../../../../../../src/js/structs/Transaction';
 import Util from '../../../../../../src/js/utils/Util';
@@ -166,7 +167,9 @@ class NewCreateServiceModalForm extends React.Component {
                 <TabButton id="services" label="Services" />
               </TabButtonList>
               <TabViewList>
-                <ServiceFormSection errors={errors} data={data} />
+                <TabView id="services">
+                  <ServiceFormSection errors={errors} data={data} />
+                </TabView>
               </TabViewList>
             </Tabs>
           </form>
