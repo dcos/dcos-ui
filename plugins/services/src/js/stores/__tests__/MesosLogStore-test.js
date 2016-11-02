@@ -113,10 +113,12 @@ describe('MesosLogStore', function () {
 
     it('should return all of the log items it was given', function () {
       let items = this.logBuffer.getItems();
+      jest.runAllTimers();
       expect(items.length).toEqual(2);
     });
 
     it('should return the full log of items it was given', function () {
+      jest.runAllTimers();
       expect(this.logBuffer.getFullLog()).toEqual('foobar');
     });
 
