@@ -55,6 +55,12 @@ class FieldInput extends React.Component {
     );
   }
 
+  getElement(attributes) {
+    return (
+      <input {...attributes} />
+    );
+  }
+
   render() {
     let {
       error,
@@ -70,7 +76,7 @@ class FieldInput extends React.Component {
     return (
       <div className={classes}>
         {this.getLabel()}
-        <input {...attributes} />
+        {this.getElement(attributes)}
         {this.getHelpBlock()}
         {this.getErrorMsg()}
       </div>

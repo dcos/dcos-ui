@@ -1,30 +1,11 @@
-import classNames from 'classnames/dedupe';
 import React from 'react';
 
 import FieldInput from './FieldInput';
-import Util from '../../utils/Util';
 
 class FieldTextarea extends FieldInput {
-  render() {
-    let {
-      error,
-      formGroupClass,
-      formGroupErrorClass
-    } = this.props;
-    let attributes = Util.omit(this.props, Object.keys(FieldInput.propTypes));
-
-    let classes = classNames(
-      {[formGroupErrorClass]: !!error},
-      formGroupClass
-    );
-
+  getElement(attributes) {
     return (
-      <div className={classes}>
-        {this.getLabel()}
-        <textarea {...attributes} />
-        {this.getHelpBlock()}
-        {this.getErrorMsg()}
-      </div>
+      <textarea {...attributes} />
     );
   }
 }
