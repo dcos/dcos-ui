@@ -1,4 +1,5 @@
 const ReducerUtil = require('../ReducerUtil');
+const TransactionType = require('../../constants/TransactionTypes');
 
 describe('ReducerUtil', function () {
   describe('#combineReducers', function () {
@@ -158,6 +159,39 @@ describe('ReducerUtil', function () {
         }
       );
     });
+  });
+  describe('#simpleReducer', function () {
+    it('should return a function', function () {
+      expect(typeof ReducerUtil.simpleReducer()).toBe('function');
+    });
+    it('should return the default state if action has not the right path',
+      function () {
+        const simpleReducer = ReducerUtil.simpleReducer('path', 'default');
+        const action = {
+          path: ['something', 'else'],
+          type: TransactionType.SET,
+          value: 'something'
+        };
+        expect(simpleReducer(undefined, action)).toEqual('default');
+      });
+  });
+  it('should return the old state if action does not fit', function () {
+    const simpleReducer = ReducerUtil.simpleReducer('path', 'default');
+    const action = {
+      path: ['something', 'else'],
+      type: TransactionType.SET,
+      value: 'something'
+    };
+    expect(simpleReducer('old', action)).toEqual('old');
+  });
+  it('should return the new state if action does fit', function () {
+    const simpleReducer = ReducerUtil.simpleReducer('path', 'default');
+    const action = {
+      path: ['path'],
+      type: TransactionType.SET,
+      value: 'new value'
+    };
+    expect(simpleReducer('old', action)).toEqual('new value');
   });
 });
 

@@ -1,3 +1,5 @@
+import TransactionTypes from '../constants/TransactionTypes';
+
 module.exports = {
   /**
    * This function is heavily inspired by the combineReducer function from
@@ -56,6 +58,15 @@ module.exports = {
         state[key] = reducer.call(context.get(reducer), state[key], action);
       }
 
+      return state;
+    };
+  },
+
+  simpleReducer(needle, defaultState = '') {
+    return function (state = defaultState, {path, type, value}) {
+      if (type === TransactionTypes.SET && path.join() === needle) {
+        return value;
+      }
       return state;
     };
   }
