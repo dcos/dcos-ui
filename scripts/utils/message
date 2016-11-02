@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+PURPLE='\033[0;35m'
+BLUE='\033[0;34m'
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+NC='\033[0m'
+
+title() {
+  echo -e ">${PURPLE}" $@ "${NC}"
+}
+
+
+header() {
+  echo -e "#${BLUE}" $@ "${NC}"
+}
+
+info() {
+  echo -e "!${GREEN}" $@ "${NC}"
+}
+
+warning() {
+  echo -e "!${RED}" $@ "${NC}"
+}
