@@ -1,0 +1,20 @@
+language: node_js
+
+node_js:
+  - 4.4.4
+
+install:
+  - npm set progress=false
+  - npm install -g npm@3.9.1
+  - npm install
+  - npm run scaffold
+  - npm install -g  cypress-cli
+
+before_script:
+  - npm --no-color run build-assets
+  - npm install express http-proxy-middleware
+  - curl -O https://gist.githubusercontent.com/rcorral/3d741b077032ea8a4489337f189f4829/raw/655f27be94430d44ad23ea42eae75de03e8223c4/dcos-ui-proxy.js
+  - node dcos-ui-proxy.js -- --silent &
+
+script:
+  - cypress ci
