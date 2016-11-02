@@ -1,8 +1,10 @@
 #!/usr/bin/env bash
 
+SCRIPT_PATH="$(dirname "$0")/$(dirname "$(readlink "$0")")"
+
 # Import utils
-source ${0%/*}/utils/git
-source ${0%/*}/utils/message
+source ${SCRIPT_PATH}/utils/git
+source ${SCRIPT_PATH}/utils/message
 
 title "Run pre-commit hook..."
 

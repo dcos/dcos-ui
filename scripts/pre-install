@@ -1,9 +1,11 @@
 #!/usr/bin/env bash
 
-# Import utils
-source ${0%/*}/utils/git
+SCRIPT_PATH="$(dirname "$0")/$(dirname "$(readlink "$0")")"
 
-# Install git hooks
-${0%/*}/validate-engine-versions && install_hooks "pre-commit"
+# Import utils
+source ${SCRIPT_PATH}/utils/git
+
+# Validate node and npm version and install git hooks
+${SCRIPT_PATH}/validate-engine-versions && install_hooks "pre-commit"
 
 exit 0
