@@ -4,6 +4,8 @@ import {routerShape} from 'react-router';
 
 import ActionKeys from '../constants/ActionKeys';
 import MarathonActions from '../events/MarathonActions';
+import Pod from '../structs/Pod';
+import PodDetail from '../pod-detail/PodDetail';
 import Service from '../structs/Service';
 import ServiceActionItem from '../constants/ServiceActionItem';
 import ServiceDetail from '../service-detail/ServiceDetail';
@@ -562,6 +564,17 @@ class ServicesContainer extends React.Component {
     // API Failures
     if (fetchError) {
       return <RequestErrorMsg />;
+    }
+
+    if (item instanceof Pod) {
+      return (
+        <div>
+          <PodDetail
+            actions={this.getActions()}
+            pod={item} />
+          {this.getModals(item)}
+        </div>
+      );
     }
 
     if (item instanceof Service) {

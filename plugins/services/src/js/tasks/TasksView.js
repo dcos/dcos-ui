@@ -162,7 +162,7 @@ class TasksView extends mixin(SaveStateMixin) {
   }
 
   render() {
-    let {inverseStyle, label, tasks} = this.props;
+    let {inverseStyle, tasks} = this.props;
     let {checkedItems, filterByStatus, searchString} = this.state;
     let filteredTasks = this.getFilteredTasks();
 
@@ -191,7 +191,7 @@ class TasksView extends mixin(SaveStateMixin) {
           inverseStyle={inverseStyle}
           isFiltering={filterByStatus !== 'all' || searchString !== ''}
           onReset={this.resetFilter}
-          name={label}
+          name={'Task'}
           totalLength={tasks.length} />
         <FilterBar rightAlignLastNChildren={rightAlignLastNChildren}>
           <FilterInputText
@@ -223,7 +223,6 @@ TasksView.contextTypes = {
 TasksView.defaultProps = {
   inverseStyle: false,
   itemID: '',
-  label: 'Task',
   tasks: []
 };
 
@@ -231,7 +230,6 @@ TasksView.propTypes = {
   params: React.PropTypes.object.isRequired,
   inverseStyle: React.PropTypes.bool,
   itemID: React.PropTypes.string,
-  label: React.PropTypes.string,
   tasks: React.PropTypes.array
 };
 

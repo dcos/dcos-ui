@@ -1,27 +1,23 @@
 import React from 'react';
 import {routerShape} from 'react-router';
 
-import EventTypes from '../../../../../src/js/constants/EventTypes';
 import FilterHeadline from '../../../../../src/js/components/FilterHeadline';
-import KillPodInstanceModal from './modals/KillPodInstanceModal';
-import MesosStateStore from '../../../../../src/js/stores/MesosStateStore';
 import Pod from '../structs/Pod';
+import PodInstanceList from '../structs/PodInstanceList';
 import PodInstancesTable from './PodInstancesTable';
 import PodInstanceStatus from '../constants/PodInstanceStatus';
 import PodUtil from '../utils/PodUtil';
 import PodViewFilter from './PodViewFilter';
 
 const METHODS_TO_BIND = [
-  'handleCloseKillDialog',
   'handleFilterChange',
   'handleFilterReset',
   'handleKillClick',
   'handleKillAndScaleClick',
-  'handleMesosStateChange',
   'handleSelectionChange'
 ];
 
-class PodInstancesTabView extends React.Component {
+class PodInstancesView extends React.Component {
   constructor() {
     super(...arguments);
 
@@ -30,14 +26,12 @@ class PodInstancesTabView extends React.Component {
         text: '',
         status: 'active'
       },
-      selectedItems: [],
-      killDialogOpen: false,
-      killDialogAction: 'kill'
+      selectedItems: []
     };
 
-    METHODS_TO_BIND.forEach(function (method) {
+    METHODS_TO_BIND.forEach((method) => {
       this[method] = this[method].bind(this);
-    }, this);
+    });
   }
 
   getInstanceFilterStatus(instance) {
@@ -75,26 +69,6 @@ class PodInstancesTabView extends React.Component {
     );
   }
 
-  componentWillMount() {
-    MesosStateStore.addChangeListener(
-      EventTypes.MESOS_STATE_CHANGE,
-      this.handleMesosStateChange
-    );
-  }
-
-  componentWillUnmount() {
-    MesosStateStore.removeChangeListener(
-      EventTypes.MESOS_STATE_CHANGE,
-      this.handleMesosStateChange
-    );
-  }
-
-  handleCloseKillDialog() {
-    this.setState({
-      killDialogOpen: false
-    });
-  }
-
   handleFilterChange(filter) {
     this.setState({filter});
   }
@@ -109,16 +83,28 @@ class PodInstancesTabView extends React.Component {
   }
 
   handleKillClick() {
-    this.setState({
-      killDialogAction: 'kill',
-      killDialogOpen: true
+    const {selectedItems} = this.state;
+
+    if (!selectedItems.length) {
+      return;
+    }
+
+    this.context.modalHandlers.killPodInstances({
+      action: 'kill',
+      selectedItems
     });
   }
 
   handleKillAndScaleClick() {
-    this.setState({
-      killDialogAction: 'killAndScale',
-      killDialogOpen: true
+    const {selectedItems} = this.state;
+
+    if (!selectedItems.length) {
+      return;
+    }
+
+    this.context.modalHandlers.killPodInstances({
+      action: 'killAndScale',
+      selectedItems
     });
   }
 
@@ -126,21 +112,15 @@ class PodInstancesTabView extends React.Component {
     this.setState({selectedItems});
   }
 
-  handleMesosStateChange() {
-    this.forceUpdate();
-  }
-
   render() {
-    var {pod} = this.props;
-    var {filter, killDialogOpen, killDialogAction, selectedItems} = this.state;
-    let historicalInstances = MesosStateStore.getPodHistoricalInstances(pod);
-    let allItems = PodUtil.mergeHistoricalInstanceList(
-      pod.getInstanceList(), historicalInstances);
-    let filteredTextItems = allItems;
-    let filteredItems = allItems;
+    const {filter} = this.state;
+    const {instances} = this.props;
+
+    let filteredTextItems = instances;
+    let filteredItems = instances;
 
     if (filter.text) {
-      filteredTextItems = allItems.filterItems((instance) => {
+      filteredTextItems = instances.filterItems((instance) => {
         return PodUtil.isInstanceOrChildrenMatchingText(instance, filter.text);
       });
       filteredItems = filteredTextItems;
@@ -159,7 +139,7 @@ class PodInstancesTabView extends React.Component {
           isFiltering={filter.text || (filter.status !== 'all')}
           name="Instance"
           onReset={this.handleFilterReset}
-          totalLength={allItems.getItems().length}
+          totalLength={instances.getItems().length}
           />
         <PodViewFilter
           filter={filter}
@@ -174,23 +154,21 @@ class PodInstancesTabView extends React.Component {
           instances={filteredItems}
           onSelectionChange={this.handleSelectionChange}
           pod={this.props.pod} />
-        <KillPodInstanceModal
-          action={killDialogAction}
-          onClose={this.handleCloseKillDialog}
-          open={killDialogOpen}
-          pod={pod}
-          selectedItems={selectedItems} />
       </div>
     );
   }
 }
 
-PodInstancesTabView.contextTypes = {
+PodInstancesView.contextTypes = {
+  modalHandlers: React.PropTypes.shape({
+    killPodInstances: React.PropTypes.func.isRequired
+  }).isRequired,
   router: routerShape
 };
 
-PodInstancesTabView.propTypes = {
-  pod: React.PropTypes.instanceOf(Pod)
+PodInstancesView.propTypes = {
+  instances: React.PropTypes.instanceOf(PodInstanceList).isRequired,
+  pod: React.PropTypes.instanceOf(Pod).isRequired
 };
 
-module.exports = PodInstancesTabView;
+module.exports = PodInstancesView;

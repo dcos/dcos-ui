@@ -11,7 +11,7 @@ jest.dontMock('../../../../../../src/js/components/FilterInputText');
 jest.dontMock('../../../../../../src/js/components/FilterButtons');
 jest.dontMock('../../../../../../src/js/components/TimeAgo');
 jest.dontMock('../PodViewFilter');
-jest.dontMock('../PodInstancesTabView');
+jest.dontMock('../PodInstancesContainer');
 jest.dontMock('../PodInstancesTable');
 
 const JestUtil = require('../../../../../../src/js/utils/JestUtil');
@@ -20,13 +20,13 @@ const React = require('react');
 /* eslint-enable no-unused-vars */
 const TestUtils = require('react-addons-test-utils');
 
-const PodInstancesTabView = require('../PodInstancesTabView');
+const PodInstancesContainer = require('../PodInstancesContainer');
 const Pod = require('../../structs/Pod');
 const Util = require('../../../../../../src/js/utils/Util');
 
 const PodFixture = require('../../../../../../tests/_fixtures/pods/PodFixture');
 
-describe('PodInstancesTabView', function () {
+describe('PodInstancesContainer', function () {
 
   // Fix the dates in order to test the relative date field
   let fixture = Util.deepCopy(PodFixture);
@@ -52,7 +52,7 @@ describe('PodInstancesTabView', function () {
       beforeEach(function () {
         // Create a stub router context because when the items are expanded
         // the are creating <Link /> instances.
-        let component = JestUtil.stubRouterContext(PodInstancesTabView,
+        let component = JestUtil.stubRouterContext(PodInstancesContainer,
           {pod}, {service: pod});
         this.instance = TestUtils.renderIntoDocument(component);
 
@@ -80,7 +80,7 @@ describe('PodInstancesTabView', function () {
       beforeEach(function () {
         // Create a stub router context because when the items are expanded
         // the are creating <Link /> instances.
-        let component = JestUtil.stubRouterContext(PodInstancesTabView,
+        let component = JestUtil.stubRouterContext(PodInstancesContainer,
           {pod}, {service: pod});
         this.instance = TestUtils.renderIntoDocument(component);
 
@@ -132,7 +132,7 @@ describe('PodInstancesTabView', function () {
       beforeEach(function () {
         // Create a stub router context because when the items are expanded
         // the are creating <Link /> instances.
-        let component = JestUtil.stubRouterContext(PodInstancesTabView,
+        let component = JestUtil.stubRouterContext(PodInstancesContainer,
           {pod}, {service: pod});
         this.instance = TestUtils.renderIntoDocument(component);
 
@@ -163,7 +163,7 @@ describe('PodInstancesTabView', function () {
       beforeEach(function () {
         // Create a stub router context because when the items are expanded
         // the are creating <Link /> instances.
-        let component = JestUtil.stubRouterContext(PodInstancesTabView,
+        let component = JestUtil.stubRouterContext(PodInstancesContainer,
           {pod}, {service: pod});
         this.instance = TestUtils.renderIntoDocument(component);
 
