@@ -338,7 +338,7 @@ class MesosLogView extends mixin(StoreMixin) {
     return (
       <Loader
         className="pod pod-tall-bottom flush-right flush-left"
-        innerClassName="loader-small"
+        size="small"
         type="ballSpinFadeLoader" />
     );
   }

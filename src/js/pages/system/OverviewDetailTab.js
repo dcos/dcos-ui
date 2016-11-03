@@ -37,11 +37,7 @@ class OverviewDetailTab extends mixin(StoreMixin) {
   }
 
   getLoading() {
-    return (
-      <Loader
-        innerClassName="loader-small"
-        type="ballBeat" />
-    );
+    return <Loader size="small" type="ballBeat" />;
   }
 
   getClusterDetailsHash() {
