@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
 import {Tooltip} from 'reactjs-components';
 
+import FieldError from '../../../../../../src/js/components/form/FieldError';
+import FieldHelp from '../../../../../../src/js/components/form/FieldHelp';
 import FieldInput from '../../../../../../src/js/components/form/FieldInput';
 import FieldLabel from '../../../../../../src/js/components/form/FieldLabel';
-import FieldHelp from '../../../../../../src/js/components/form/FieldHelp';
-import FieldError from '../../../../../../src/js/components/form/FieldError';
-import FormGroup from '../../../../../../src/js/components/form/FormGroup';
 import FieldTextarea from '../../../../../../src/js/components/form/FieldTextarea';
+import FormGroup from '../../../../../../src/js/components/form/FormGroup';
 import Icon from '../../../../../../src/js/components/Icon';
 import ServiceConfigReducers from '../../reducers/ServiceConfigReducers';
 import ServiceValidationReducers from '../../reducers/ServiceValidationReducers';
@@ -15,7 +15,7 @@ class ServiceFormSection extends Component {
   getCMDLabel() {
     let content = (
       <span>
-        {"The command value will be wrapped by the underlying Mesos executor via /bin/sh -c ${cmd}. "}
+        {'The command value will be wrapped by the underlying Mesos executor via /bin/sh -c ${cmd}. '}
         <a href="https://mesosphere.github.io/marathon/docs/application-basics.html" target="_blank">
           More information
         </a>.
@@ -24,7 +24,7 @@ class ServiceFormSection extends Component {
 
     return (
       <FieldLabel>
-        {"Command "}
+        {'Command '}
         <Tooltip
           content={content}
           interactive={true}
@@ -40,7 +40,7 @@ class ServiceFormSection extends Component {
   getIDHelpBlock() {
     return (
       <span>
-        {"Include the path to your service, if applicable. E.g. /dev/tools/my-service. "}
+        {'Include the path to your service, if applicable. E.g. /dev/tools/my-service. '}
         <a href="https://mesosphere.github.io/marathon/docs/application-groups.html" target="_blank">
           More information
         </a>.
@@ -65,7 +65,7 @@ class ServiceFormSection extends Component {
         <div className="flex row">
           <FormGroup className="column-8" hasError={Boolean(errors.id)}>
             <FieldLabel>
-              SERVICE NAME <span className="text-danger">*</span>
+              Service Name <span className="text-danger">*</span>
             </FieldLabel>
             <FieldInput
               name="id"
@@ -77,7 +77,7 @@ class ServiceFormSection extends Component {
 
           <FormGroup className="column-4" hasError={Boolean(errors.instances)}>
             <FieldLabel>
-              INSTANCES <span className="text-danger">*</span>
+              Instances <span className="text-danger">*</span>
             </FieldLabel>
             <FieldInput
               name="instances"
@@ -102,7 +102,7 @@ class ServiceFormSection extends Component {
           </FormGroup>
           <FormGroup className="column-4" hasError={Boolean(errors.mem)}>
             <FieldLabel>
-              MEMORY (MiB) <span className="text-danger">*</span>
+              Memory (MiB) <span className="text-danger">*</span>
             </FieldLabel>
             <FieldInput
               name="mem"
@@ -111,7 +111,7 @@ class ServiceFormSection extends Component {
             <FieldError>{errors.mem}</FieldError>
           </FormGroup>
           <FormGroup className="column-4" hasError={Boolean(errors.disk)}>
-            <FieldLabel>DISK (MiB)</FieldLabel>
+            <FieldLabel>Disk (MiB)</FieldLabel>
             <FieldInput
               name="disk"
               type="number"
@@ -123,10 +123,12 @@ class ServiceFormSection extends Component {
         <FormGroup hasError={Boolean(errors.cmd)}>
           <FieldTextarea
             error={errors.cmd}
-            helpBlock="A shell command for your container to execute."
             FieldLabel={this.getCMDLabel()}
             name="cmd"
             value={data.cmd} />
+            <FieldHelp>
+              A shell command for your container to execute.
+            </FieldHelp>
           <FieldError>{errors.cmd}</FieldError>
         </FormGroup>
       </div>

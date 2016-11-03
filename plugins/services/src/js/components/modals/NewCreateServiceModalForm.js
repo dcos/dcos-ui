@@ -3,10 +3,10 @@ import classNames from 'classnames';
 import React from 'react';
 
 import Batch from '../../../../../../src/js/structs/Batch';
-import JSONConfigReducers from '../../reducers/JSONConfigReducers';
-import JSONParserReducers from '../../reducers/JSONParserReducers';
 import {combineParsers} from '../../../../../../src/js/utils/ParserUtil';
 import {combineReducers} from '../../../../../../src/js/utils/ReducerUtil';
+import JSONConfigReducers from '../../reducers/JSONConfigReducers';
+import JSONParserReducers from '../../reducers/JSONParserReducers';
 import ServiceFormSection from '../forms/ServiceFormSection';
 import TabButton from '../../../../../../src/js/components/TabButton';
 import TabButtonList from '../../../../../../src/js/components/TabButtonList';
@@ -72,12 +72,12 @@ class NewCreateServiceModalForm extends React.Component {
       // Flush batch
       let batch = new Batch();
 
-      // Run validation reducers on appConfig with new on minimal batch
+      // Run validation reducers
       let errors = Util.filterEmptyValues(
         batch.reduce(validationReducers, appConfig)
       );
 
-      // Add additional events after verification
+      // Translate appConfig to batch transactions
       jsonParserReducers(appConfig).forEach((item) => {
         batch.add(item);
       });
@@ -109,7 +109,6 @@ class NewCreateServiceModalForm extends React.Component {
   }
 
   handleFormBlur() {
-
     // Create temporary finalized appConfig
     let appConfig = this.getAppConfig();
 
