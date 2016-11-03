@@ -57,14 +57,9 @@ class StylesPage extends mixin(TabsMixin) {
   }
 
   updateCurrentTab() {
-    let routes = this.props.routes;
-    let currentTab = routes[routes.length - 1].path;
     // Get top level Tab
-    let topLevelTab = currentTab.split('/').slice(0, 3).join('/');
-
+    let topLevelTab = this.props.location.pathname.split('/').slice(0, 3).join('/');
     this.tabs_tabs = STYLES_SUB_TABS[topLevelTab];
-
-    this.setState({currentTab});
   }
 
   getRoutedItem(tab) {

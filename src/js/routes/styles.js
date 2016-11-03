@@ -1,5 +1,7 @@
 import {Route, Redirect} from 'react-router';
 
+import PluginSDK from 'PluginSDK';
+
 import ButtonCollectionsTabContent from '../pages/styles/components/ButtonCollectionsTabContent';
 import ButtonGroupsTabContent from '../pages/styles/components/ButtonGroupsTabContent';
 import ButtonsTabContent from '../pages/styles/components/ButtonsTabContent';
@@ -23,6 +25,14 @@ import CodeTabContent from '../pages/styles/content/CodeTabContent';
 import ImagesTabContent from '../pages/styles/content/ImagesTabContent';
 
 import StylesPage from '../pages/StylesPage';
+
+const stylesPage = PluginSDK.routingService.registerPage('/styles', StylesPage);
+stylesPage.addTab('layout/containers', ContainersTabContent);
+stylesPage.addTab('layout/grid', GridTabContent);
+
+const existingStylesPage = PluginSDK.routingService.findPage('/styles');
+existingStylesPage.addTab('content/typography', TypographyTabContent);
+existingStylesPage.addTab('content/tables', TablesTabContent);
 
 let stylesRoutes = [
   {
