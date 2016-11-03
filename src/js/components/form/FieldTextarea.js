@@ -1,17 +1,35 @@
+import classNames from 'classnames/dedupe';
 import React from 'react';
 
-import FieldInput from './FieldInput';
+import Util from '../../utils/Util';
 
-class FieldTextarea extends FieldInput {
-  getElement(attributes) {
-    return (
-      <textarea {...attributes} />
-    );
-  }
-}
+const FieldTextarea = (props) => {
+  let {className} = props;
+  let classes = classNames('form-control', className);
 
-FieldTextarea.defaultProps = Object.assign({}, FieldInput.defaultProps);
+  return (
+    <textarea className={classes} {...Util.omit(props, ['className'])} />
+  );
+};
 
-FieldTextarea.propTypes = Object.assign({}, FieldInput.propTypes);
+FieldTextarea.defaultProps = {
+  onChange() {},
+  value: ''
+};
+
+FieldTextarea.propTypes = {
+  onChange: React.PropTypes.func,
+  value: React.PropTypes.oneOfType([
+    React.PropTypes.number,
+    React.PropTypes.string
+  ]),
+
+  // Classes
+  className: React.PropTypes.oneOfType([
+    React.PropTypes.array,
+    React.PropTypes.object,
+    React.PropTypes.string
+  ])
+};
 
 module.exports = FieldTextarea;
