@@ -1,3 +1,5 @@
+import TransactionTypes from '../constants/TransactionTypes';
+
 /**
  * An immutable batch is an ever growing batch with a reduce capability.
  *
@@ -54,26 +56,13 @@ class Batch {
    * @param {Object} item
    */
   add(item) {
-    let batchIndex = this.length;
-
-    // As the while is faster then the Array.prototype.forEach and this
-    // function can potentially be called more often we choose while here.
-    while (--batchIndex >= 0) {
-      let {path, value} = this[batchIndex] || {};
-      let hasEqualPaths = item && Array.isArray(path) &&
-        Array.isArray(item.path) && path.join() === item.path.join();
-      if (hasEqualPaths) {
-        // Last entry with same path holds same value,
-        // do not add redundant action
-        if (value === item.value) {
-          return;
-        }
-        // Remove previous if path is the same as current to minimize
-        // number of actions
-        if (batchIndex === this.length - 1) {
-          this.pop();
-        }
-      }
+    // Remove previous if path is the same as current to minimize
+    // number of actions
+    let {path} = this[this.length - 1] || {};
+    let hasEqualPaths = item && Array.isArray(path) &&
+      Array.isArray(item.path) && path.join() === item.path.join();
+    if (item.type === TransactionTypes.SET && hasEqualPaths) {
+      this.pop();
     }
 
     this.push(item);
