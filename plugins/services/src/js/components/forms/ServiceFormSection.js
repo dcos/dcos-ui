@@ -2,6 +2,10 @@ import React, {Component} from 'react';
 import {Tooltip} from 'reactjs-components';
 
 import FieldInput from '../../../../../../src/js/components/form/FieldInput';
+import FieldLabel from '../../../../../../src/js/components/form/FieldLabel';
+import FieldHelp from '../../../../../../src/js/components/form/FieldHelp';
+import FieldError from '../../../../../../src/js/components/form/FieldError';
+import FormGroup from '../../../../../../src/js/components/form/FormGroup';
 import FieldTextarea from '../../../../../../src/js/components/form/FieldTextarea';
 import Icon from '../../../../../../src/js/components/Icon';
 import ServiceConfigReducers from '../../reducers/ServiceConfigReducers';
@@ -19,7 +23,7 @@ class ServiceFormSection extends Component {
     );
 
     return (
-      <label>
+      <FieldLabel>
         {"Command "}
         <Tooltip
           content={content}
@@ -29,7 +33,7 @@ class ServiceFormSection extends Component {
           scrollContainer=".gm-scroll-view">
             <Icon color="grey" id="ring-question" size="mini" family="mini" />
         </Tooltip>
-      </label>
+      </FieldLabel>
     );
   }
 
@@ -59,61 +63,72 @@ class ServiceFormSection extends Component {
         </div>
 
         <div className="flex row">
-          <div className="column-8">
+          <FormGroup className="column-8" hasError={Boolean(errors.id)}>
+            <FieldLabel>
+              SERVICE NAME <span className="text-danger">*</span>
+            </FieldLabel>
             <FieldInput
-              error={errors.id}
-              helpBlock={this.getIDHelpBlock()}
-              label={<label>SERVICE NAME <span className="text-danger">*</span></label>}
               name="id"
               type="text"
               value={data.id} />
-          </div>
+            <FieldHelp>{this.getIDHelpBlock()}</FieldHelp>
+            <FieldError>{errors.id}</FieldError>
+          </FormGroup>
 
-          <div className="column-4">
+          <FormGroup className="column-4" hasError={Boolean(errors.instances)}>
+            <FieldLabel>
+              INSTANCES <span className="text-danger">*</span>
+            </FieldLabel>
             <FieldInput
-              error={errors.instances}
-              label={<label>INSTANCES <span className="text-danger">*</span></label>}
               name="instances"
               min={0}
               type="number"
               value={data.instances} />
-          </div>
+            <FieldError>{errors.instances}</FieldError>
+          </FormGroup>
         </div>
 
         <div className="flex row">
-          <div className="column-4">
+          <FormGroup className="column-4" hasError={Boolean(errors.cpus)}>
+            <FieldLabel>
+              CPUs <span className="text-danger">*</span>
+            </FieldLabel>
             <FieldInput
-              error={errors.cpus}
-              label={<label>CPUs <span className="text-danger">*</span></label>}
               name="cpus"
               type="number"
               step="0.01"
               value={data.cpus} />
-          </div>
-          <div className="column-4">
+            <FieldError>{errors.cpus}</FieldError>
+          </FormGroup>
+          <FormGroup className="column-4" hasError={Boolean(errors.mem)}>
+            <FieldLabel>
+              MEMORY (MiB) <span className="text-danger">*</span>
+            </FieldLabel>
             <FieldInput
-              error={errors.mem}
-              label={<label>MEMORY (MiB) <span className="text-danger">*</span></label>}
               name="mem"
               type="number"
               value={data.mem} />
-          </div>
-          <div className="column-4">
+            <FieldError>{errors.mem}</FieldError>
+          </FormGroup>
+          <FormGroup className="column-4" hasError={Boolean(errors.disk)}>
+            <FieldLabel>DISK (MiB)</FieldLabel>
             <FieldInput
-              error={errors.disk}
-              label="DISK (MiB)"
               name="disk"
               type="number"
               value={data.disk} />
-          </div>
+            <FieldError>{errors.disk}</FieldError>
+          </FormGroup>
         </div>
 
-        <FieldTextarea
-          error={errors.cmd}
-          helpBlock="A shell command for your container to execute."
-          label={this.getCMDLabel()}
-          name="cmd"
-          value={data.cmd} />
+        <FormGroup hasError={Boolean(errors.cmd)}>
+          <FieldTextarea
+            error={errors.cmd}
+            helpBlock="A shell command for your container to execute."
+            FieldLabel={this.getCMDLabel()}
+            name="cmd"
+            value={data.cmd} />
+          <FieldError>{errors.cmd}</FieldError>
+        </FormGroup>
       </div>
     );
   }
