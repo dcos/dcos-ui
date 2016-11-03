@@ -63,9 +63,12 @@ class ServiceFormSection extends Component {
         </div>
 
         <div className="flex row">
-          <FormGroup className="column-8" hasError={Boolean(errors.id)}>
+          <FormGroup
+            className="column-8"
+            required={true}
+            showError={Boolean(errors.id)}>
             <FieldLabel>
-              Service Name <span className="text-danger">*</span>
+              Service Name
             </FieldLabel>
             <FieldInput
               name="id"
@@ -75,9 +78,12 @@ class ServiceFormSection extends Component {
             <FieldError>{errors.id}</FieldError>
           </FormGroup>
 
-          <FormGroup className="column-4" hasError={Boolean(errors.instances)}>
+          <FormGroup
+            className="column-4"
+            required={true}
+            showError={Boolean(errors.instances)}>
             <FieldLabel>
-              Instances <span className="text-danger">*</span>
+              Instances
             </FieldLabel>
             <FieldInput
               name="instances"
@@ -89,9 +95,12 @@ class ServiceFormSection extends Component {
         </div>
 
         <div className="flex row">
-          <FormGroup className="column-4" hasError={Boolean(errors.cpus)}>
+          <FormGroup
+            className="column-4"
+             required={true}
+             showError={Boolean(errors.cpus)}>
             <FieldLabel>
-              CPUs <span className="text-danger">*</span>
+              CPUs
             </FieldLabel>
             <FieldInput
               name="cpus"
@@ -100,9 +109,12 @@ class ServiceFormSection extends Component {
               value={data.cpus} />
             <FieldError>{errors.cpus}</FieldError>
           </FormGroup>
-          <FormGroup className="column-4" hasError={Boolean(errors.mem)}>
+          <FormGroup
+            className="column-4"
+            required={true}
+            showError={Boolean(errors.mem)}>
             <FieldLabel>
-              Memory (MiB) <span className="text-danger">*</span>
+              Memory (MiB)
             </FieldLabel>
             <FieldInput
               name="mem"
@@ -110,7 +122,7 @@ class ServiceFormSection extends Component {
               value={data.mem} />
             <FieldError>{errors.mem}</FieldError>
           </FormGroup>
-          <FormGroup className="column-4" hasError={Boolean(errors.disk)}>
+          <FormGroup className="column-4" showError={Boolean(errors.disk)}>
             <FieldLabel>Disk (MiB)</FieldLabel>
             <FieldInput
               name="disk"
@@ -120,7 +132,7 @@ class ServiceFormSection extends Component {
           </FormGroup>
         </div>
 
-        <FormGroup hasError={Boolean(errors.cmd)}>
+        <FormGroup showError={Boolean(errors.cmd)}>
           <FieldTextarea
             error={errors.cmd}
             FieldLabel={this.getCMDLabel()}
