@@ -1,4 +1,5 @@
 import Item from './Item';
+import ObjectUtil from '../utils/ObjectUtil';
 import StringUtil from '../utils/StringUtil';
 
 /**
@@ -63,6 +64,48 @@ module.exports = class List {
 
   last() {
     return this.list[this.list.length - 1];
+  }
+
+  /**
+   * Return a new list with the items currently present in this list and
+   * the list on the first argument, without duplicates.
+   *
+   * @param {List} list - The list to combine with this list
+   * @returns {List} Returns a new list with the combined items
+   */
+  combine(list) {
+    let actualLength = 0;
+    let currentItems = this.getItems();
+    let newItems = list.getItems();
+
+    // We pre-allocate the result array with the worst possible scenario
+    let combinedItems = new Array(currentItems.length + newItems.length);
+
+    // Instead of using the O(n²) approach of iterating over `newItems` and
+    // checking if each item exist on `currentItems`, we use a trick that brings
+    // the complexity down to O(n) (well, O(2n) to be precise).
+
+    // We first generate a unique object for the current combine operation
+    // and we mark all the objects of `currentItems` with it, declaring them as
+    // used.
+    let comparisonTag = {};
+    for (let i=0, length=currentItems.length; i<length; ++i) {
+      combinedItems[actualLength++] =
+        ObjectUtil.markObject(currentItems[i], comparisonTag);
+    }
+
+    // We then iterate over the `newItems` and skip the objects that are already
+    // marked from the previous step.
+    for (let i=0, length=newItems.length; i<length; ++i) {
+      if (!ObjectUtil.objectHasMark(newItems[i], comparisonTag)) {
+        combinedItems[actualLength++] = newItems[i];
+      }
+    }
+
+    // Finally we trim-down the `combinedItems` array with the actual length
+    // of the end result and we create the new list
+    combinedItems.length = actualLength;
+    return new this.constructor({items: combinedItems});
   }
 
   /**
