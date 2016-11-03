@@ -11,6 +11,7 @@ import NotFoundPage from '../pages/NotFoundPage';
 import Organization from './factories/organization';
 import settings from './settings';
 import styles from './styles';
+import RoutingService from '../system/RoutingService';
 import services from '../../../plugins/services/src/js/routes/services';
 import jobs from './jobs';
 import universe from './universe';
@@ -66,8 +67,16 @@ function getApplicationRoutes() {
 function getRoutes() {
   // Get application routes
   let routes = getApplicationRoutes();
+
   // Provide opportunity for plugins to inject routes
-  return Hooks.applyFilter('applicationRoutes', routes);
+  routes = Hooks.applyFilter('applicationRoutes', routes);
+
+  let indexRoute = routes[0].children.find((route) => route.id === 'index');
+
+  // Register packages
+  RoutingService.render(indexRoute.children);
+
+  return routes;
 }
 
 module.exports = {

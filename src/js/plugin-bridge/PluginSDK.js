@@ -11,6 +11,7 @@ import Hooks from './Hooks';
 import PluginSDKStruct from './PluginSDKStruct';
 import Loader from './Loader';
 import PluginModules from './PluginModules';
+import RoutingService from '../system/RoutingService';
 
 const hooks = new Hooks();
 const initialState = {};
@@ -270,7 +271,11 @@ const getSDK = function (pluginID, config) {
     Hooks: hooks,
     pluginID,
     onDispatch,
-    constants
+    constants,
+    routingService: {
+      registerPage: RoutingService.registerPage,
+      findPage: RoutingService.findPage
+    }
   });
 
   extendSDK(SDK, getActionsAPI(SDK));
