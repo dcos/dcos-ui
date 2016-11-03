@@ -74,35 +74,37 @@ module.exports = class List {
    * @returns {List} Returns a new list with the combined items
    */
   combine(list) {
-    let myItems = this.getItems();
+    let actualLength = 0;
+    let currentItems = this.getItems();
     let newItems = list.getItems();
 
     // We pre-allocate the result array with the worst possible scenario
-    let combinedItems = new Array(myItems.length + newItems.length);
+    let combinedItems = new Array(currentItems.length + newItems.length);
 
     // Instead of using the O(n²) approach of iterating over `newItems` and
-    // checking if each item exist on `myItems`, we use a trick that brings the
-    // complexity down to O(n) (well, O(2n) to be precise).
+    // checking if each item exist on `currentItems`, we use a trick that brings
+    // the complexity down to O(n) (well, O(2n) to be precise).
 
     // We first generate a unique object for the current combine operation
-    // and we mark all the objects of `myItems` with it, declaring them as used.
+    // and we mark all the objects of `currentItems` with it, declaring them as
+    // used.
     let comparisonTag = {};
-    for (let i=0, l=myItems.length; i<l; ++i) {
-      combinedItems[i] = ObjectUtil.markObject(myItems[i], comparisonTag);
+    for (let i=0, length=currentItems.length; i<length; ++i) {
+      combinedItems[actualLength++] =
+        ObjectUtil.markObject(currentItems[i], comparisonTag);
     }
 
     // We then iterate over the `newItems` and skip the objects that are already
     // marked from the previous step.
-    let j = myItems.length;
-    for (let i=0, l=newItems.length; i<l; ++i) {
+    for (let i=0, length=newItems.length; i<length; ++i) {
       if (!ObjectUtil.objectHasMark(newItems[i], comparisonTag)) {
-        combinedItems[j++] = newItems[i];
+        combinedItems[actualLength++] = newItems[i];
       }
     }
 
     // Finally we trim-down the `combinedItems` array with the actual length
     // of the end result and we create the new list
-    combinedItems.length = j;
+    combinedItems.length = actualLength;
     return new this.constructor({items: combinedItems});
   }
 
