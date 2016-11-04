@@ -14,13 +14,16 @@ import Tabs from '../../../../../../src/js/components/Tabs';
 import TabView from '../../../../../../src/js/components/TabView';
 import TabViewList from '../../../../../../src/js/components/TabViewList';
 import Transaction from '../../../../../../src/js/structs/Transaction';
+import TransactionTypes from '../../../../../../src/js/constants/TransactionTypes';
 import Util from '../../../../../../src/js/utils/Util';
 
 const METHODS_TO_BIND = [
   'handleFormChange',
   'handleFormBlur',
   'handleJSONBlur',
-  'handleJSONChange'
+  'handleJSONChange',
+  'handleAddRow',
+  'handleRemoveRow'
 ];
 
 const SECTIONS = [
@@ -146,6 +149,24 @@ class NewCreateServiceModalForm extends React.Component {
     let {appConfig, batch} = this.state;
 
     return batch.reduce(jsonConfigReducers, appConfig);
+  }
+
+  handleAddRow({value, path}) {
+    let {appConfig, batch} = this.state;
+    batch.add(new Transaction(path.split(','), value, TransactionTypes.ADD_ROW));
+
+    // Update JSON data
+    let jsonValue = JSON.stringify(batch.reduce(jsonConfigReducers, appConfig), null, 2);
+    this.setState({batch, jsonValue});
+  }
+
+  handleRemoveRow({value, path}) {
+    let {appConfig, batch} = this.state;
+    batch.add(new Transaction(path.split(','), value, TransactionTypes.REMOVE_ROW));
+
+    // Update JSON data
+    let jsonValue = JSON.stringify(batch.reduce(jsonConfigReducers, appConfig), null, 2);
+    this.setState({batch, jsonValue});
   }
 
   render() {
