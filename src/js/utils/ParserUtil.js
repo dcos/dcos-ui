@@ -1,3 +1,6 @@
+import Transaction from '../structs/Transaction';
+import Util from './Util';
+
 module.exports = {
   combineParsers(parsers = []) {
     parsers = parsers.filter(
@@ -24,6 +27,17 @@ module.exports = {
       }
 
       return transactionLog;
+    };
+  },
+
+  simpleParser(path) {
+    let searchPath = path.join('.');
+
+    return function (state) {
+      return new Transaction(path, Util.findNestedPropertyInObject(
+        state,
+        searchPath
+      ));
     };
   }
 };

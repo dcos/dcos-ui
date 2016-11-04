@@ -42,7 +42,7 @@
 
 class Batch {
   constructor() {
-    const batch = [];
+    const batch = [{action: 'INIT'}];
 
     this.add = this.add.bind(batch);
 

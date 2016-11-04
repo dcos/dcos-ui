@@ -1,3 +1,5 @@
+import TransactionTypes from '../constants/TransactionTypes';
+
 module.exports = {
   /**
    * This function is heavily inspired by the combineReducer function from
@@ -32,8 +34,9 @@ module.exports = {
     // This is creating the context for this combined reducer.
     let context = new WeakMap();
 
-    return function (state = {}, action, index = 0) {
+    return function (state, action, index = 0) {
       let reducerIndex = reducerKeys.length;
+      let localState = Object.assign({}, state);
 
       // As the while is faster then the Array.prototype.forEach and this
       // function can potentially be called more often we choose while here.
@@ -53,7 +56,47 @@ module.exports = {
         // reducer.bind(context.get(reducer))(state[key], action);
         // but it will not copy the function, which in this case is a huge
         // increase in performance.
-        state[key] = reducer.call(context.get(reducer), state[key], action);
+        localState[key] = reducer.call(context.get(reducer), localState[key], action);
+      }
+
+      return localState;
+    };
+  },
+
+  simpleReducer(needle, defaultState = '') {
+    return function (state = defaultState, {path, type, value}) {
+      if (type === TransactionTypes.SET && path.join() === needle) {
+        return value;
+      }
+
+      return state;
+    };
+  },
+
+  simpleIntReducer(needle, defaultState = '') {
+    return function (state = defaultState, {path, type, value}) {
+      let parsedValue = parseInt(value);
+      if (type === TransactionTypes.SET && path.join() === needle) {
+        if (!isNaN(parsedValue)) {
+          return parsedValue;
+        }
+
+        return value;
+      }
+
+      return state;
+    };
+  },
+
+  simpleFloatReducer(needle, defaultState = '') {
+    return function (state = defaultState, {path, type, value}) {
+      let parsedValue = parseFloat(value);
+      if (type === TransactionTypes.SET && path.join() === needle) {
+        if (!isNaN(parsedValue)) {
+          return parsedValue;
+        }
+
+        return value;
       }
 
       return state;

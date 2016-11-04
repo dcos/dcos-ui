@@ -1,13 +1,22 @@
 import classNames from 'classnames/dedupe';
 import React from 'react';
 
+import FieldError from './FieldError';
 import Util from '../../utils/Util';
 
 const FormGroup = (props) => {
-  let {className, errorClassName, hasError} = props;
+  let {children, className, errorClassName, showError, required} = props;
+
+  let clonedChildren = React.Children.map(children, (child) => {
+    if (!showError && child.type === FieldError) {
+      return null;
+    }
+
+    return React.cloneElement(child, {required});
+  });
 
   let classes = classNames(
-    {[errorClassName]: hasError},
+    {[errorClassName]: showError},
     'form-group',
     className
   );
@@ -15,7 +24,9 @@ const FormGroup = (props) => {
   return (
     <div
       className={classes}
-      {...Util.omit(props, Object.keys(FormGroup.propTypes))} />
+      {...Util.omit(props, Object.keys(FormGroup.propTypes))}>
+      {clonedChildren}
+    </div>
   );
 };
 
@@ -30,8 +41,12 @@ let classPropType = React.PropTypes.oneOfType([
 ]);
 
 FormGroup.propTypes = {
-  // Optional error messages node
-  hasError: React.PropTypes.bool,
+  children: React.PropTypes.node,
+  // Optional boolean to display error
+  showError: React.PropTypes.bool,
+
+  // Optional boolean to make field required
+  required: React.PropTypes.bool,
 
   // Classes
   className: classPropType,
