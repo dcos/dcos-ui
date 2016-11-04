@@ -69,10 +69,7 @@ const RoutingService = {
   },
 
   render(routes) {
-    const existingRoutes = routes.reduce((acc, route) => {
-      acc[route.path] = route;
-      return acc;
-    }, {});
+    const existingRoutes = new Map(routes.map((route) => [route.path, route]));
 
     queue.forEach((page, path) => {
       const component = page.getComponent();
@@ -85,7 +82,7 @@ const RoutingService = {
       });
 
       if (component) {
-        if (existingRoutes[path]) {
+        if (existingRoutes.has(path)) {
           throw new Error(`Attempt to override a page at ${path}!`);
         }
 
@@ -97,11 +94,11 @@ const RoutingService = {
         };
 
         routes.push(route);
-        existingRoutes[path] = route;
-      } else if (!existingRoutes[path]) {
+        existingRoutes.set(path, route);
+      } else if (!existingRoutes.has(path)) {
         throw new Error(`Attempt to add a Tab to a non-existing Page at ${path}!`);
       } else {
-        existingRoutes[path]
+        existingRoutes.get(path)
           .children
           .concat(tabs);
       }
