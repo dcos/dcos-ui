@@ -26,17 +26,18 @@ import ImagesTabContent from '../pages/styles/content/ImagesTabContent';
 
 import StylesPage from '../pages/StylesPage';
 
-PluginSDK.routingService.findPage('/styles')
-  .then((page) => {
-    page.addTab('content/typography', TypographyTabContent);
-    page.addTab('content/tables', TablesTabContent);
-  });
+const {routingService: {registerTab, registerPage}} = PluginSDK;
 
-PluginSDK.routingService.registerPage('/styles', StylesPage)
-  .then((page) => {
-    page.addTab('layout/containers', ContainersTabContent);
-    page.addTab('layout/grid', GridTabContent);
-  });
+// Assume the page is there, to test deferred register
+registerTab('styles', 'content/typography', TypographyTabContent);
+registerTab('styles', 'content/tables', TablesTabContent);
+
+registerPage('styles', StylesPage);
+registerTab('styles', 'layout/containers', ContainersTabContent);
+registerTab('styles', 'layout/grid', GridTabContent);
+
+// To test errors
+registerPage('dashboard', StylesPage);
 
 let stylesRoutes = [
   {

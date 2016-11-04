@@ -73,7 +73,11 @@ function getRoutes() {
   let indexRoute = routes[0].children.find((route) => route.id === 'index');
 
   // Register packages
-  RoutingService.resolve(indexRoute.children);
+  try {
+    RoutingService.resolveWith(indexRoute.children);
+  } catch (e) {
+    console.error(`Failed to register routes: ${e}`);
+  }
 
   return routes;
 }

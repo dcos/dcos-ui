@@ -1,131 +1,91 @@
 import {Route} from 'react-router';
 
-const pendingRoutes = new Map();
-const resolvedRoutes = new Map();
+let pendingRoutes = [];
 
-class TabEntry {
+class PendingPageRoute {
   constructor(path, component) {
     this.path = path;
     this.component = component;
   }
-
-  getPath() {
+  getFullPath() {
     return this.path;
   }
+  resolve(routes) {
+    if (routes.includes(this.path)) {
+      throw new Error(`Attempt to override a page at ${path}!`);
+    }
 
-  getComponent() {
-    return this.component;
+    return routes.push({
+      type: Route,
+      path: this.path,
+      component: this.component
+    });
   }
 }
 
-class PageEntry {
-  constructor(path, component) {
+class PendingTabRoute {
+  constructor(path, tabPath, component) {
     this.path = path;
-    this.component = component;
-    this.tabs = [];
-  }
-
-  getPath() {
-    return this.path;
-  }
-
-  getComponent() {
-    return this.component;
-  }
-
-  hasComponent() {
-    return !!this.component;
-  }
-
-  setComponent(component) {
+    this.tabPath = tabPath;
     this.component = component;
   }
-
-  getTabs() {
-    return this.tabs;
+  getFullPath() {
+    return `${this.path}/${this.tabPath}`;
   }
+  resolve(routes) {
+    const parent = routes.find(({path}) => path === this.path);
 
-  addTab(path, component) {
-    const tab = new TabEntry(path, component);
-    this.tabs.push(tab);
+    if (parent) {
+      if (!parent.children) {
+        parent.children = [];
+      }
+      return parent.children.push({
+        type: Route,
+        path: this.tabPath,
+        component: this.component
+      });
+    }
   }
 }
 
 const RoutingService = {
-  registerPage(path, component) {
+  registerPage(path, component, cb) {
     if (!component) {
-      return Promise.reject(`Please provide a component for the new page ${path}!`);
-    }
-    if (resolvedRoutes.has(path)) {
-      return Promise.reject(`Page with the path ${path} is already registered!`);
+      return cb(`Please provide a component for the new page ${path}!`);
     }
 
-    const page = new PageEntry(path, component);
-    resolvedRoutes.set(path, page);
-
-    // Check if there's pending findPage requests
-    if (pendingRoutes.has(path)) {
-      pendingRoutes.get(path).forEach((resolve) => resolve(page));
-      pendingRoutes.delete(path);
-    }
-
-    return Promise.resolve(page);
+    pendingRoutes.push(new PendingPageRoute(path, component));
   },
 
-  findPage(path) {
-    if (resolvedRoutes.has(path)) {
-      return Promise.resolve(resolvedRoutes.get(path));
-    } else {
-      return new Promise((resolve) => {
-        if (pendingRoutes.has(path)) {
-          const pending = pendingRoutes.get(path);
-          pendingRoutes.set(path, pending.concat(resolve));
-        } else {
-          pendingRoutes.set(path, [resolve]);
-        }
-      });
+  registerTab(path, tabPath, component, cb) {
+    if (!component) {
+      return cb(`Please provide a component for the new tab at ${pagePath}/${path}!`);
     }
+
+    pendingRoutes.push(new PendingTabRoute(path, tabPath, component));
   },
 
-  resolve(routes) {
-    const existingRoutes = new Map(routes.map((route) => [route.path, route]));
+  resolveWith(routes = []) {
+    pendingRoutes.sort((routeA, routeB) => {
+      const pathA = routeA.getFullPath();
+      const pathB = routeB.getFullPath();
 
-    resolvedRoutes.forEach((page, path) => {
-      const component = page.getComponent();
-      const tabs = page.getTabs().map((tab) => {
-        return {
-          type: Route,
-          path: tab.getPath(),
-          component: tab.getComponent()
-        };
-      });
-
-      if (component) {
-        if (existingRoutes.has(path)) {
-          throw new Error(`Attempt to override a page at ${path}!`);
-        }
-
-        const route = {
-          path,
-          component,
-          type: Route,
-          children: tabs
-        };
-
-        routes.push(route);
-        existingRoutes.set(path, route);
-      } else if (!existingRoutes.has(path)) {
-        throw new Error(`Attempt to add a Tab to a non-existing Page at ${path}!`);
-      } else {
-        existingRoutes.get(path)
-          .children
-          .concat(tabs);
+      if (pathA < pathB) {
+        return -1;
       }
+      if (pathA > pathB) {
+        return 1;
+      }
+      return 0;
     });
 
-    resolvedRoutes.clear();
+    pendingRoutes = pendingRoutes.reduce((acc, route) => {
+      if (!route.resolve(routes)) {
+        acc.push(route);
+      }
 
-    return routes;
+      return acc;
+    }, []);
   }
 
 };
