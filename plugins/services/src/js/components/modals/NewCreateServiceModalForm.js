@@ -8,6 +8,7 @@ import {combineReducers} from '../../../../../../src/js/utils/ReducerUtil';
 import JSONConfigReducers from '../../reducers/JSONConfigReducers';
 import JSONParserReducers from '../../reducers/JSONParserReducers';
 import ServiceFormSection from '../forms/ServiceFormSection';
+import EnvironmentFormSection from '../forms/EnvironmentFormSection';
 import TabButton from '../../../../../../src/js/components/TabButton';
 import TabButtonList from '../../../../../../src/js/components/TabButtonList';
 import Tabs from '../../../../../../src/js/components/Tabs';
@@ -27,7 +28,8 @@ const METHODS_TO_BIND = [
 ];
 
 const SECTIONS = [
-  ServiceFormSection
+  ServiceFormSection,
+  EnvironmentFormSection
 ];
 
 const jsonParserReducers = combineParsers(JSONParserReducers);
@@ -104,7 +106,10 @@ class NewCreateServiceModalForm extends React.Component {
 
     if (parsedData) {
       let batch = new Batch();
-      let appConfig = batch.reduce(jsonConfigReducers, parsedData);
+      let appConfig = {};
+      jsonParserReducers(parsedData).forEach((item) => {
+        batch.add(item);
+      });
       Object.assign(newState, {batch, appConfig});
     }
 
@@ -189,10 +194,16 @@ class NewCreateServiceModalForm extends React.Component {
             <Tabs vertical={true}>
               <TabButtonList>
                 <TabButton id="services" label="Services" />
+                <TabButton id="environment" label="Environment" />
               </TabButtonList>
               <TabViewList>
                 <TabView id="services">
                   <ServiceFormSection errors={errors} data={data} />
+                </TabView>
+                <TabView id="environment">
+                  <EnvironmentFormSection data={data}
+                      onRemoveRow={this.handleRemoveRow}
+                      onAddRow={this.handleAddRow} />
                 </TabView>
               </TabViewList>
             </Tabs>
