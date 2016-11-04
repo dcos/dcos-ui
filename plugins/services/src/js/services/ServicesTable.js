@@ -224,7 +224,7 @@ class ServicesTable extends React.Component {
     let isDeploying = serviceStatus === 'Deploying';
 
     let conciseOverview = ` (${tasksRunning}/${instancesCount})`;
-    let verboseOverview = ` (${tasksRunning} ${StringUtil.pluralize('Intance', tasksRunning)})`;
+    let verboseOverview = ` (${tasksRunning} ${StringUtil.pluralize('Instance', tasksRunning)})`;
     if (tasksRunning !== instancesCount) {
       verboseOverview = ` (${tasksRunning} of ${instancesCount} Instances)`;
     }
