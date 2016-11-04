@@ -164,7 +164,8 @@ class PodInstancesContainer extends React.Component {
 
     return {
       killPodInstances: (props) => set(
-        ServiceActionItem.KILL_POD_INSTANCES, props)
+        ServiceActionItem.KILL_POD_INSTANCES, props
+      )
     };
   }
 
