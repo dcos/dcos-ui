@@ -2,7 +2,7 @@ import {Route} from 'react-router';
 
 const queue = new Map();
 
-class Tab {
+class TabEntry {
   constructor(path, component) {
     this.path = path;
     this.component = component;
@@ -17,7 +17,7 @@ class Tab {
   }
 }
 
-class Page {
+class PageEntry {
   constructor(path, component) {
     this.path = path;
     this.component = component;
@@ -32,12 +32,20 @@ class Page {
     return this.component;
   }
 
+  hasComponent() {
+    return !!this.component;
+  }
+
+  setComponent(component) {
+    this.component = component;
+  }
+
   getTabs() {
     return this.tabs;
   }
 
   addTab(path, component) {
-    const tab = new Tab(path, component);
+    const tab = new TabEntry(path, component);
     this.tabs.push(tab);
   }
 }
@@ -47,13 +55,17 @@ const RoutingService = {
     if (!component) {
       throw new Error(`Please provide a component for the new page ${path}!`);
     }
-    if (queue.has(path)) {
-      throw new Error(`Page with the path ${path} is already registered in the queue!`);
+
+    let page = queue.get(path);
+
+    if (!page) {
+      page = new PageEntry(path, component);
+      queue.set(path, page);
+    } else if (!page.hasComponent()) {
+      page.setComponent(component);
+    } else {
+      throw new Error(`Page with the path ${path} is already registered!`);
     }
-
-    const page = new Page(path, component);
-
-    queue.set(path, page);
 
     return page;
   },
@@ -61,7 +73,7 @@ const RoutingService = {
   findPage(path) {
     let page = queue.get(path);
     if (!page) {
-      page = new Page(path);
+      page = new PageEntry(path);
       queue.set(path, page);
     }
 
