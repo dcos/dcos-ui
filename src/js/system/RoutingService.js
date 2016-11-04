@@ -123,6 +123,8 @@ const RoutingService = {
       }
     });
 
+    resolvedRoutes.clear();
+
     return routes;
   }
 
