@@ -26,13 +26,17 @@ import ImagesTabContent from '../pages/styles/content/ImagesTabContent';
 
 import StylesPage from '../pages/StylesPage';
 
-const existingStylesPage = PluginSDK.routingService.findPage('/styles');
-existingStylesPage.addTab('content/typography', TypographyTabContent);
-existingStylesPage.addTab('content/tables', TablesTabContent);
+PluginSDK.routingService.findPage('/styles')
+  .then((page) => {
+    page.addTab('content/typography', TypographyTabContent);
+    page.addTab('content/tables', TablesTabContent);
+  });
 
-const stylesPage = PluginSDK.routingService.registerPage('/styles', StylesPage);
-stylesPage.addTab('layout/containers', ContainersTabContent);
-stylesPage.addTab('layout/grid', GridTabContent);
+PluginSDK.routingService.registerPage('/styles', StylesPage)
+  .then((page) => {
+    page.addTab('layout/containers', ContainersTabContent);
+    page.addTab('layout/grid', GridTabContent);
+  });
 
 let stylesRoutes = [
   {

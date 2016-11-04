@@ -1,6 +1,7 @@
 import {Route} from 'react-router';
 
-const queue = new Map();
+const pendingRoutes = new Map();
+const resolvedRoutes = new Map();
 
 class TabEntry {
   constructor(path, component) {
@@ -53,37 +54,43 @@ class PageEntry {
 const RoutingService = {
   registerPage(path, component) {
     if (!component) {
-      throw new Error(`Please provide a component for the new page ${path}!`);
+      return Promise.reject(`Please provide a component for the new page ${path}!`);
+    }
+    if (resolvedRoutes.has(path)) {
+      return Promise.reject(`Page with the path ${path} is already registered!`);
     }
 
-    let page = queue.get(path);
+    const page = new PageEntry(path, component);
+    resolvedRoutes.set(path, page);
 
-    if (!page) {
-      page = new PageEntry(path, component);
-      queue.set(path, page);
-    } else if (!page.hasComponent()) {
-      page.setComponent(component);
-    } else {
-      throw new Error(`Page with the path ${path} is already registered!`);
+    // Check if there's pending findPage requests
+    if (pendingRoutes.has(path)) {
+      pendingRoutes.get(path).forEach((resolve) => resolve(page));
+      pendingRoutes.delete(path);
     }
 
-    return page;
+    return Promise.resolve(page);
   },
 
   findPage(path) {
-    let page = queue.get(path);
-    if (!page) {
-      page = new PageEntry(path);
-      queue.set(path, page);
+    if (resolvedRoutes.has(path)) {
+      return Promise.resolve(resolvedRoutes.get(path));
+    } else {
+      return new Promise((resolve) => {
+        if (pendingRoutes.has(path)) {
+          const pending = pendingRoutes.get(path);
+          pendingRoutes.set(path, pending.concat(resolve));
+        } else {
+          pendingRoutes.set(path, [resolve]);
+        }
+      });
     }
-
-    return page;
   },
 
-  render(routes) {
+  resolve(routes) {
     const existingRoutes = new Map(routes.map((route) => [route.path, route]));
 
-    queue.forEach((page, path) => {
+    resolvedRoutes.forEach((page, path) => {
       const component = page.getComponent();
       const tabs = page.getTabs().map((tab) => {
         return {
