@@ -30,8 +30,9 @@ class ServiceRestartModal extends ServiceActionModal {
     if (hasDetails) {
       this.setState({
         errorMsg: details.reduce(function (memo, error) {
-
-          return `${memo} ${error.errors.join(' ')}`;
+          if (error != null && Array.isArray(error.errors)) {
+            return `${memo} ${error.errors.join(' ')}`;
+          }
         }, '')
       });
 
