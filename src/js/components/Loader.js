@@ -45,19 +45,25 @@ let typeMap = {
 class Loader extends React.Component {
   getDivs(length) {
     return Array.from({length}).map(function (_, index) {
-      return <div key={index} />;
+      return <div className="loader-element" key={index} />;
     });
   }
 
   render() {
-    let {className, innerClassName, type} = this.props;
+    let {className, innerClassName, size, type} = this.props;
     let config = typeMap[type] || typeMap.ballScale;
     let classes = classNames(
-      'loader horizontal-center vertical-center',
+      'loader horizontal-center',
       className
     );
 
-    let innerClasses = classNames(config.className, innerClassName);
+    let innerClasses = classNames(
+      config.className,
+      {
+        'loader-small': size === 'small'
+      },
+      innerClassName
+    );
 
     return (
       <div className={classes}>
@@ -84,6 +90,7 @@ let classPropType = React.PropTypes.oneOfType([
 Loader.propTypes = {
   className: classPropType,
   innerClassName: classPropType,
+  size: React.PropTypes.oneOf(['small']),
   type: React.PropTypes.oneOf(['ballBeat', 'ballScale', 'ballSpinFadeLoader'])
 };
 

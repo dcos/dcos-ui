@@ -336,11 +336,10 @@ class MesosLogView extends mixin(StoreMixin) {
 
     // Show loader since we will start a request for more logs
     return (
-      <div className="pod flush-top">
-        <Loader
-          innerClassName="loader-small"
-          type="ballSpinFadeLoader" />
-      </div>
+      <Loader
+        className="pod pod-tall-bottom flush-right flush-left"
+        size="small"
+        type="ballSpinFadeLoader" />
     );
   }
 

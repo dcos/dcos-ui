@@ -262,11 +262,7 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
   }
 
   getLoadingScreen() {
-    return (
-      <div className="pod">
-        <Loader />
-      </div>
-    );
+    return <Loader />;
   }
 
   getNavigationTabs() {

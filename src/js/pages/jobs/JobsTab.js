@@ -178,11 +178,7 @@ class JobsTab extends mixin(StoreMixin, QueryParamsMixin, SaveStateMixin) {
   getContents(item) {
     // Render loading screen
     if (!DCOSStore.dataProcessed) {
-      return (
-        <div className="pod">
-          <Loader />
-        </div>
-      );
+      return <Loader />;
     }
 
     if (item instanceof JobTree && item.getItems().length > 0) {

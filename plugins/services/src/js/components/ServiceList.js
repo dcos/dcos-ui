@@ -70,11 +70,7 @@ let ServiceList = React.createClass({
 
       let healthLabel = HealthLabels[state.key];
       if (!healthProcessed) {
-        healthLabel = (
-          <Loader
-            innerClassName="loader-small"
-            type="ballBeat" />
-        );
+        healthLabel = <Loader size="small" type="ballBeat" />;
       }
 
       let classSet = classNames('tooltip-wrapper', state.classNames);

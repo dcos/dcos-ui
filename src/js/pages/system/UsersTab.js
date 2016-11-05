@@ -89,11 +89,7 @@ class UsersTab extends mixin(StoreMixin) {
   }
 
   getLoadingScreen() {
-    return (
-      <div className="pod">
-        <Loader />
-      </div>
-    );
+    return <Loader />;
   }
 
   getContents() {

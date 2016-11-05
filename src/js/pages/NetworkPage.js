@@ -79,11 +79,7 @@ class NetworkPage extends mixin(TabsMixin) {
   }
 
   getLoadingScreen() {
-    return (
-      <div className="pod">
-        <Loader />
-      </div>
-    );
+    return <Loader />;
   }
 
   getRoutedItem(tab) {

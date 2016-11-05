@@ -313,11 +313,7 @@ class DeploymentsTab extends mixin(StoreMixin) {
   }
 
   renderLoading() {
-    return (
-      <div className="pod">
-        <Loader />
-      </div>
-    );
+    return <Loader />;
   }
 
   renderPopulated(deploymentsItems) {

@@ -87,11 +87,7 @@ class UnitsHealthDetail extends mixin(StoreMixin) {
   }
 
   getLoadingScreen() {
-    return (
-      <div className="pod">
-        <Loader />
-      </div>
-    );
+    return <Loader />;
   }
 
   getNodesTable(unit, visibleData) {
