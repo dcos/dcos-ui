@@ -7,12 +7,21 @@ class PendingRoute {
     this.path = path;
     this.component = component;
   }
+
   getFullPath() {
     return this.path;
   }
 }
 
 class PendingPageRoute extends PendingRoute {
+
+  /**
+   * resolve - adds page route to routes if it's not there
+   *
+   * @throws an Error if the route is already registered with a different component
+   * @param  {Array} routes DCOS routes definition array
+   * @return {Object} route definition
+   */
   resolve(routes) {
     const existingRoute = routes.includes(this.path);
 
@@ -39,9 +48,18 @@ class PendingTabRoute extends PendingRoute {
     super(path, component);
     this.tabPath = tabPath;
   }
+
   getFullPath() {
     return `${this.path}/${this.tabPath}`;
   }
+
+  /**
+   * resolve - adds page route to routes if it's not there
+   *
+   * @throws an Error if tab is already registered with a different component
+   * @param  {Array} routes DCOS routes definition array
+   * @return {Null|Object} null if parent doesn't exists yet or a route definition
+   */
   resolve(routes) {
     const parent = routes.find(({path}) => path === this.path);
 
@@ -78,6 +96,14 @@ class PendingRedirect extends PendingRoute {
     super(path);
     this.to = to;
   }
+
+  /**
+   * resolve - adds redirect route to routes if it's not there
+   *
+   * @throws an Error if a redirect is already registered with a different destination
+   * @param  {Array} routes DCOS routes definition array
+   * @return {Object} a route definition
+   */
   resolve(routes) {
     const existingRedirect = routes.find(({type, path}) => {
       return type === Redirect && path === this.path;
@@ -98,26 +124,51 @@ class PendingRedirect extends PendingRoute {
 }
 
 const RoutingService = {
-  registerPage(path, component, cb) {
-    if (!component) {
-      return cb(`Please provide a component for the new page ${path}!`);
+
+  /**
+   * registerPage - adds a page route to the queue
+   *
+   * @param  {String} path a path to the page
+   * @param  {React.Component} component a React.js component of the page
+   */
+  registerPage(path, component) {
+    if (!path || !component) {
+      throw new Error('Please provide all required arguments');
     }
 
     pendingRoutes.push(new PendingPageRoute(path, component));
   },
 
-  registerTab(path, tabPath, component, cb) {
-    if (!component) {
-      return cb(`Please provide a component for the new tab at ${pagePath}/${path}!`);
+  /**
+   * registerTab - adds a tab route to the queue
+   *
+   * @param  {String} path a path to a parent page
+   * @param  {String} tabPath a path to the tab
+   * @param  {React.Component} component a React.js component of the tab
+   */
+  registerTab(path, tabPath, component) {
+    if (!path || !tabPath || !component) {
+      throw new Error('Please provide all required arguments');
     }
 
     pendingRoutes.push(new PendingTabRoute(path, tabPath, component));
   },
 
+  /**
+   * registerRedirect - adds a redirect definition to the queue
+   *
+   * @param  {String} path a path to redirect from
+   * @param  {String} to   a path to redirect to
+   */
   registerRedirect(path, to) {
     pendingRoutes.push(new PendingRedirect(path, to));
   },
 
+  /**
+   * resolveWith - resolves pending routes with existing DCOS routes definitions
+   *
+   * @param  {Array} routes DCOS routes definitions
+   */
   resolveWith(routes = []) {
     pendingRoutes.sort((routeA, routeB) => {
       const pathA = routeA.getFullPath();
