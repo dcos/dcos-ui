@@ -52,6 +52,10 @@ module.exports = {
     }, {});
   },
   JSONParser(state) {
+    if (state.env == null) {
+      return [];
+    }
+
     return Object.keys(state.env).reduce(function (memo, key, index) {
       memo.push(new Transaction(['env'], index, ADD_ITEM));
       memo.push(new Transaction([

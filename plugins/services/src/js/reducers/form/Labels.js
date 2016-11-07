@@ -52,6 +52,9 @@ module.exports = {
     }, {});
   },
   JSONParser(state) {
+    if (state.labels == null) {
+      return [];
+    }
     return Object.keys(state.labels).reduce(function (memo, key, index) {
       memo.push(new Transaction(['labels'], index, ADD_ITEM));
       memo.push(new Transaction([
