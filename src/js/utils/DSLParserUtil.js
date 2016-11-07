@@ -15,37 +15,33 @@ import {FilterNode, CombinerNode} from '../structs/DSLASTNodes';
  * which the filers have to be applied.
  *
  * @private
- * @this CombinerNode
- *
- * @param {function} [filter1] - The first child filter function (auto-bound)
- * @param {function} [filter2] - The second child filter function (auto-bound)
- * @param {Object} filters - An object containing the valid filters that can be used
- * @param {List} resultset - An instance of List or Tree containing the items to filter
- *
- * @returns {List} - Returns the filtered resultset
+ * @param {CombineNode} ast - The AST node for the combine operation
+ * @param {function} filter1 - The first child filter function (auto-bound)
+ * @param {function} filter2 - The second child filter function (auto-bound)
+ * @returns {function} - Returns the fabricated combined function
  */
-function combineTemplateFn(filter1, filter2, filters, resultset) {
-  let intermediateResultset;
-
-  switch (this.combinerType) {
+function combineFiltersFactory(ast, filter1, filter2) {
+  switch (ast.combinerType) {
     case DSLCombinerTypes.AND:
-      // We are interested in the intersection of the results of the two filters
-      intermediateResultset = filter1(filters, resultset);
-      return filter2(filters, intermediateResultset);
-      break;
+      return function (filters, resultset) {
+        // We are interested in the intersection of the results of the two filters
+        let intermediateResultset = filter1(filters, resultset);
+        return filter2(filters, intermediateResultset);
+      };
 
     case DSLCombinerTypes.OR:
-      // We are interested in the union of the results of the two filters
+      return function (filters, resultset) {
+        // We are interested in the union of the results of the two filters
 
-      // TODO: Merge the results of `filter1(filters, resultset)` and
-      //       `filter2(filters, resultset)`.
+        // TODO: Merge the results of `filter1(filters, resultset)` and
+        //       `filter2(filters, resultset)`.
 
-      // TODO: Implement a `List.merge` function that merges two lists,
-      //       discarding duplicate values.
+        // TODO: Implement a `List.merge` function that merges two lists,
+        //       discarding duplicate values.
 
-      return resultset;
-      break;
-  }
+        return resultset;
+      };
+  };
 }
 
 /**
@@ -60,22 +56,24 @@ function combineTemplateFn(filter1, filter2, filters, resultset) {
  * which the filers have to be applied.
  *
  * @private
- * @this FilterNode
- *
+ * @param {FilterNode} ast - The AST node for the filter operation
  * @param {Object} filters - An object containing the valid filters that can be used
  * @param {List} resultset - An instance of List or Tree containing the items to filter
  *
- * @returns {List} - Returns the filtered resultset
+ * @returns {function} - Returns the fabricated filter function
  */
-function filterTemplateFn(filters, resultset) {
+/* eslint-disable no-unused-vars */
+function filterFunctionFactory(ast) {
+  return function (filters, resultset) {
+    // TODO: Lookup in `filters` object one or more valid filters that can be
+    //       applied on the bound token. We can use the `this.filterType` and
+    //       `this.filterParams` for this purpose. Then apply them on the
+    //       resultset, keeping only the matched results.
 
-  // TODO: Lookup in `filters` object one or more valid filters that can be
-  //       applied on the bound token. We can use the `this.filterType` and
-  //       `this.filterParams` for this purpose. Then apply them on the
-  //       resultset, keeping only the matched results.
-
-  return resultset;
-}
+    return resultset;
+  };
+};
+/* eslint-enable no-unused-vars */
 
 /**
  * The following functions are used by the JISON parser in order to parse
@@ -104,7 +102,7 @@ module.exports = {
       let ast = new CombinerNode(DSLCombinerTypes.AND, f1.ast, f2.ast);
 
       return {
-        filter: combineTemplateFn.bind(ast, f1.filter, f2.filter),
+        filter: combineFiltersFactory(ast, f1.filter, f2.filter),
         ast
       };
     },
@@ -121,7 +119,7 @@ module.exports = {
       let ast = new CombinerNode(DSLCombinerTypes.OR, f1.ast, f2.ast);
 
       return {
-        filter: combineTemplateFn.bind(ast, f1.filter, f2.filter),
+        filter: combineFiltersFactory(ast, f1.filter, f2.filter),
         ast
       };
     }
@@ -152,7 +150,7 @@ module.exports = {
       ast.position.push([vstart, vend]);
 
       return {
-        filter: filterTemplateFn.bind(ast),
+        filter: filterFunctionFactory(ast),
         ast
       };
     },
@@ -170,7 +168,7 @@ module.exports = {
       let ast = new FilterNode(start, end, DSLFilterTypes.EXACT, {text});
 
       return {
-        filter: filterTemplateFn.bind(ast),
+        filter: filterFunctionFactory(ast),
         ast
       };
     },
@@ -188,7 +186,7 @@ module.exports = {
       let ast = new FilterNode(start, end, DSLFilterTypes.FUZZY, {text});
 
       return {
-        filter: filterTemplateFn.bind(ast),
+        filter: filterFunctionFactory(ast),
         ast
       };
     }
