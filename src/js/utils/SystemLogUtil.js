@@ -37,7 +37,7 @@ const SystemLogUtil = {
       timestamp = `&${timestamp}`;
     }
 
-    return `system/logs/v1/agent/${nodeID}/${endpoint}?${range}${paramString}${timestamp}`;
+    return `/system/logs/v1/agent/${nodeID}/${endpoint}?${range}${paramString}${timestamp}`;
   }
 };
 
