@@ -7,6 +7,7 @@ import FormGroup from '../../../../../../src/js/components/form/FormGroup';
 import TransactionTypes from '../../../../../../src/js/constants/TransactionTypes';
 import ReducerUtil from '../../../../../../src/js/utils/ReducerUtil';
 import Util from '../../../../../../src/js/utils/Util';
+import {FormReducer as env} from '../../reducers/form/EnvironmentVariables';
 
 class EnvironmentFormSection extends Component {
   constructor() {
@@ -204,51 +205,7 @@ EnvironmentFormSection.propTypes = {
 };
 
 EnvironmentFormSection.configReducers = {
-  env(state = [], {type, path, value}) {
-    // Prepare
-    // TODO: Remove when we use the parsers
-    if (Util.isObject(state) && !Array.isArray(state)) {
-      state = Object.keys(state).reduce((memo, key) => {
-        memo.push({
-          key,
-          value: state[key]
-        });
-        return memo;
-      }, []);
-    }
-
-    // ROWS
-    if (path != null && path.join('.').search('env') !== -1) {
-      if (path.join('.') === 'env') {
-        switch (type) {
-          case TransactionTypes.ADD_ROW:
-            state.push({key: null, value: null});
-            break;
-          case TransactionTypes.REMOVE_ROW:
-            state = state.filter((item, index) => {
-              return index !== value;
-            });
-            break;
-        }
-        return state;
-      }
-
-      // SET
-      let joinedPath = path.join('.');
-      let index = joinedPath.match(/\d+/)[0];
-      switch (true) {
-        case (type === TransactionTypes.SET &&
-        `env.${index}.key` === joinedPath):
-          state[index].key = value;
-          break;
-        case (type === TransactionTypes.SET &&
-        `env.${index}.value` === joinedPath):
-          state[index].value = value;
-          break;
-      }
-    }
-    return state;
-  },
+  env,
   labels(state = [], {type, path, value}) {
     // Prepare
     // TODO: Remove when we use the parsers

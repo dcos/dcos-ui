@@ -4,6 +4,8 @@ import {
   SET
 } from '../../../../../src/js/constants/TransactionTypes';
 
+import {JSONParser as environmentVariables} from './form/EnvironmentVariables';
+
 import Transaction from '../../../../../src/js/structs/Transaction';
 
 module.exports = [
@@ -13,23 +15,7 @@ module.exports = [
   simpleParser(['disk']),
   simpleParser(['instances']),
   simpleParser(['cmd']),
-  function (state) {
-    return Object.keys(state.env).reduce(function (memo, key, index) {
-      memo.push(new Transaction(['env'], index, ADD_ROW));
-      memo.push(new Transaction([
-        'env',
-        index,
-        'key'
-      ], key, SET));
-      memo.push(new Transaction([
-        'env',
-        index,
-        'value'
-      ], state.env[key], SET));
-
-      return memo;
-    }, []);
-  },
+  environmentVariables,
   function (state) {
     return Object.keys(state.labels).reduce(function (memo, key, index) {
       memo.push(new Transaction(['labels'], index, ADD_ROW));
