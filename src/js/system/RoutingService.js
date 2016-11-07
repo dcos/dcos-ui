@@ -23,7 +23,7 @@ class PendingPageRoute extends PendingRoute {
    * @return {Object} route definition
    */
   resolve(routes) {
-    const existingRoute = routes.includes(this.path);
+    const existingRoute = routes.find(({path}) => path === this.path);
 
     if (existingRoute && existingRoute.component === this.component) {
       return existingRoute;
@@ -112,14 +112,18 @@ class PendingRedirect extends PendingRoute {
     if (existingRedirect && existingRedirect.to === this.to) {
       return existingRedirect;
     } else if (existingRedirect) {
-      throw new Error(`Attempt to override Redirect of ${this.path} from ${existingRedirect.to} to ${this.to}`);
+      throw new Error(`Attempt to override Redirect of ${this.path} from ${existingRedirect.to} to ${this.to}!`);
     }
 
-    routes.push({
+    const newRedirect = {
       type: Redirect,
       path: this.path,
       to: this.to
-    });
+    };
+
+    routes.push(newRedirect);
+
+    return newRedirect;
   }
 }
 
@@ -190,6 +194,10 @@ const RoutingService = {
 
       return acc;
     }, []);
+  },
+
+  clearPending() {
+    pendingRoutes = [];
   }
 
 };
