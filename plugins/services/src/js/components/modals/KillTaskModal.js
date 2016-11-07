@@ -143,6 +143,7 @@ class KillTaskModal extends React.Component {
 
 KillTaskModal.defaultProps = {
   action: 'kill',
+  killTasks: () => {},
   selectedItems: []
 };
 
@@ -150,7 +151,7 @@ KillTaskModal.propTypes = {
   action: PropTypes.string,
   errors: PropTypes.string,
   isPending: PropTypes.bool.isRequired,
-  killTasks: PropTypes.func.isRequired,
+  killTasks: PropTypes.func,
   onClose: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired,
   selectedItems: PropTypes.array

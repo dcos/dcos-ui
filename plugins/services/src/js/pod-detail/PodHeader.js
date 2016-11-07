@@ -3,7 +3,7 @@ import {Dropdown} from 'reactjs-components';
 import React from 'react';
 
 import DetailViewHeader from '../../../../../src/js/components/DetailViewHeader';
-import HealthBar from './HealthBar';
+import HealthBar from '../components/HealthBar';
 import Pod from '../structs/Pod';
 import ServiceStatus from '../constants/ServiceStatus';
 import StatusMapping from '../constants/StatusMapping';

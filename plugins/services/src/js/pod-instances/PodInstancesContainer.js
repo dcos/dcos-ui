@@ -2,31 +2,37 @@ import React, {PropTypes} from 'react';
 
 import ActionKeys from '../constants/ActionKeys';
 import MarathonActions from '../events/MarathonActions';
+import Pod from '../structs/Pod';
+import PodInstancesView from './PodInstancesView';
+import PodUtil from '../utils/PodUtil';
 import ServiceActionItem from '../constants/ServiceActionItem';
 import TaskModals from '../components/modals/TaskModals';
-import TasksView from './TasksView';
 
 import AppDispatcher from '../../../../../src/js/events/AppDispatcher';
 import ContainerUtil from '../../../../../src/js/utils/ContainerUtil';
+import EventTypes from '../../../../../src/js/constants/EventTypes';
+import MesosStateStore from '../../../../../src/js/stores/MesosStateStore';
 
 import {
-  REQUEST_MARATHON_TASK_KILL_ERROR,
-  REQUEST_MARATHON_TASK_KILL_SUCCESS
+  REQUEST_MARATHON_POD_INSTANCE_KILL_ERROR,
+  REQUEST_MARATHON_POD_INSTANCE_KILL_SUCCESS
 } from '../constants/ActionTypes';
 
 const METHODS_TO_BIND = [
+  'handleMesosStateChange',
   'handleServerAction',
   'handleModalClose',
   'clearActionError',
-  'killTasks'
+  'killPodInstances'
 ];
 
-class TasksContainer extends React.Component {
+class PodInstancesContainer extends React.Component {
   constructor() {
     super(...arguments);
 
     this.state = {
       actionErrors: {},
+      lastUpdate: 0,
       pendingActions: {}
     };
 
@@ -36,12 +42,21 @@ class TasksContainer extends React.Component {
   }
 
   componentDidMount() {
+    MesosStateStore.addChangeListener(
+      EventTypes.MESOS_STATE_CHANGE,
+      this.handleMesosStateChange
+    );
     // Listen for server actions so we can update state immediately
     // on the completion of an API request.
     this.dispatcher = AppDispatcher.register(this.handleServerAction);
   }
 
   componentWillUnmount() {
+    MesosStateStore.removeChangeListener(
+      EventTypes.MESOS_STATE_CHANGE,
+      this.handleMesosStateChange
+    );
+
     AppDispatcher.unregister(this.dispatcher);
   }
 
@@ -51,21 +66,27 @@ class TasksContainer extends React.Component {
     };
   }
 
-  killTasks() {
-    this.setPendingAction(ActionKeys.TASK_KILL);
+  killPodInstances() {
+    this.setPendingAction(ActionKeys.POD_INSTANCES_KILL);
 
-    return MarathonActions.killTasks(...arguments);
+    return MarathonActions.killPodInstances(...arguments);
+  }
+
+  handleMesosStateChange() {
+    this.setState({
+      lastUpdate: Date.now()
+    });
   }
 
   handleServerAction(payload) {
     const {action} = payload;
 
     switch (action.type) {
-      case REQUEST_MARATHON_TASK_KILL_ERROR:
-        this.unsetPendingAction(ActionKeys.TASK_KILL, action.data);
+      case REQUEST_MARATHON_POD_INSTANCE_KILL_ERROR:
+        this.unsetPendingAction(ActionKeys.POD_INSTANCES_KILL, action.data);
         break;
-      case REQUEST_MARATHON_TASK_KILL_SUCCESS:
-        this.unsetPendingAction(ActionKeys.TASK_KILL);
+      case REQUEST_MARATHON_POD_INSTANCE_KILL_SUCCESS:
+        this.unsetPendingAction(ActionKeys.POD_INSTANCES_KILL);
         break;
     }
   }
@@ -142,13 +163,15 @@ class TasksContainer extends React.Component {
     };
 
     return {
-      killTasks: (props) => set(ServiceActionItem.KILL_TASKS, props)
+      killPodInstances: (props) => set(
+        ServiceActionItem.KILL_POD_INSTANCES, props
+      )
     };
   }
 
   getActions() {
     return {
-      killTasks: this.killTasks
+      killPodInstances: this.killPodInstances
     };
   }
 
@@ -167,9 +190,23 @@ class TasksContainer extends React.Component {
   }
 
   render() {
+    const {pod} = this.props;
+
+    const historicalInstances = MesosStateStore.getPodHistoricalInstances(pod);
+    let instances = PodUtil.mergeHistoricalInstanceList(
+      pod.getInstanceList(), historicalInstances);
+
+    instances = instances.mapItems(function (instance) {
+      instance.agent = MesosStateStore.getNodeFromHostname(instance.getAgentAddress());
+
+      return instance;
+    });
+
     return (
       <div>
-        <TasksView params={this.props.params} tasks={this.props.tasks} />
+        <PodInstancesView
+          instances={instances}
+          pod={pod} />
         {this.getModals()}
       </div>
     );
@@ -178,15 +215,14 @@ class TasksContainer extends React.Component {
 
 // Make these modal handlers available via context
 // so any child can trigger the opening of modals
-TasksContainer.childContextTypes = {
+PodInstancesContainer.childContextTypes = {
   modalHandlers: PropTypes.shape({
-    killTasks: PropTypes.func
+    killPodInstances: PropTypes.func
   })
 };
 
-TasksContainer.propTypes = {
-  tasks: PropTypes.array.isRequired,
-  params: PropTypes.object.isRequired
+PodInstancesContainer.propTypes = {
+  pod: PropTypes.instanceOf(Pod)
 };
 
-module.exports = TasksContainer;
+module.exports = PodInstancesContainer;

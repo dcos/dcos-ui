@@ -5,10 +5,8 @@ import {Link} from 'react-router';
 
 import CheckboxTable from '../../../../../src/js/components/CheckboxTable';
 import CollapsingString from '../../../../../src/js/components/CollapsingString';
-import EventTypes from '../../../../../src/js/constants/EventTypes';
 import ExpandingTable from '../../../../../src/js/components/ExpandingTable';
 import Icon from '../../../../../src/js/components/Icon';
-import MesosStateStore from '../../../../../src/js/stores/MesosStateStore';
 
 import Pod from '../structs/Pod';
 import PodInstanceList from '../structs/PodInstanceList';
@@ -21,7 +19,6 @@ import Units from '../../../../../src/js/utils/Units';
 const METHODS_TO_BIND = [
   'getColGroup',
   'handleItemCheck',
-  'handleMesosStateChange',
   'renderColumnAddress',
   'renderColumnID',
   'renderColumnLogs',
@@ -42,24 +39,6 @@ class PodInstancesTable extends React.Component {
     METHODS_TO_BIND.forEach((method) => {
       this[method] = this[method].bind(this);
     });
-  }
-
-  componentWillMount() {
-    MesosStateStore.addChangeListener(
-      EventTypes.MESOS_STATE_CHANGE,
-      this.handleMesosStateChange
-    );
-  }
-
-  componentWillUnmount() {
-    MesosStateStore.removeChangeListener(
-      EventTypes.MESOS_STATE_CHANGE,
-      this.handleMesosStateChange
-    );
-  }
-
-  handleMesosStateChange() {
-    this.forceUpdate();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -273,6 +252,7 @@ class PodInstancesTable extends React.Component {
         id: instance.getId(),
         name: instance.getName(),
         address: instance.getAgentAddress(),
+        agent: instance.agent,
         cpus,
         mem,
         updated: instance.getLastUpdated(),
@@ -364,7 +344,8 @@ class PodInstancesTable extends React.Component {
     let {address} = row;
 
     if (rowOptions.isParent) {
-      let agent = MesosStateStore.getNodeFromHostname(address);
+      let {agent} = row;
+
       if (!agent) {
         return this.renderWithClickHandler(rowOptions, (
           <CollapsingString string={address} />
