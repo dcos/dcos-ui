@@ -4,22 +4,11 @@ import {
   SET
 } from '../../../../../../src/js/constants/TransactionTypes';
 import Transaction from '../../../../../../src/js/structs/Transaction';
-import Util from '../../../../../../src/js/utils/Util';
 
 module.exports = {
   JSONReducer(state, {type, path, value}) {
     if (this.labels == null) {
       this.labels = [];
-      //
-      // if (state != null) {
-      //   this.labels = Object.keys(state).reduce((memo, key) => {
-      //     memo.push({
-      //       key: key.toUpperCase(),
-      //       value: state[key]
-      //     });
-      //     return memo;
-      //   }, []);
-      // }
     }
 
     if (path != null && path.join('.').search('labels') !== -1) {
@@ -80,19 +69,6 @@ module.exports = {
     }, []);
   },
   FormReducer(state = [], {type, path, value}) {
-    // Prepare
-    // TODO: Remove when we use the parsers
-    if (Util.isObject(state) && !Array.isArray(state)) {
-      state = Object.keys(state).reduce((memo, key) => {
-        memo.push({
-          key,
-          value: state[key]
-        });
-        return memo;
-      }, []);
-    }
-
-    // ROWS
     if (path != null && path.join('.').search('labels') !== -1) {
       if (path.join('.') === 'labels') {
         switch (type) {
@@ -108,7 +84,6 @@ module.exports = {
         return state;
       }
 
-      // SET
       let joinedPath = path.join('.');
       let index = joinedPath.match(/\d+/)[0];
       switch (true) {
