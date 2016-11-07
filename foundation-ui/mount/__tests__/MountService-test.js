@@ -77,4 +77,27 @@ describe('MountService', function () {
 
   });
 
+  describe('findComponentsWithRole', function () {
+
+    beforeEach(function () {
+      MountService.registerComponent('find-test', ReactComponent, 0);
+      MountService.registerComponent('find-test', FunctionalComponent, 0);
+    });
+
+    afterEach(function () {
+      MountService.unregisterComponent('find-test', ReactComponent);
+      MountService.unregisterComponent('find-test', FunctionalComponent);
+    });
+
+    it('should return list of matching components', function () {
+      expect(MountService.findComponentsWithRole('find-test'))
+          .toEqual([ReactComponent, FunctionalComponent]);
+    });
+
+    it('should return empty list if no match was found ', function () {
+      expect(MountService.findComponentsWithRole('unknown'))
+          .toEqual([]);
+    });
+
+  });
 });
