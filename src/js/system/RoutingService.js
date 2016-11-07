@@ -42,6 +42,11 @@ class PendingTabRoute {
     if (!parent.children) {
       parent.children = [];
     }
+
+    if (parent.children.find(({path}) => path === this.tabPath)) {
+      throw new Error(`Attempt to override a tab at ${this.path}/${this.tabPath}!`);
+    }
+
     return parent.children.push({
       type: Route,
       path: this.tabPath,
