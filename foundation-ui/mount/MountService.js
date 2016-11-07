@@ -64,6 +64,17 @@ class MountService extends EventEmitter {
 
     this.emit(CHANGE, role);
   }
+
+  /**
+   * Find components with matching role
+   *
+   * @param {String} role
+   * @returns {Array} list of matching components ordered by priority
+   */
+  findComponentsWithRole(role) {
+    return components.filter((descriptor) => descriptor.role === role)
+        .map((descriptor) => descriptor.component);
+  }
 }
 
 module.exports = new MountService();
