@@ -2,7 +2,7 @@ import {Route} from 'react-router';
 
 let pendingRoutes = [];
 
-class PendingPageRoute {
+class PendingRoute {
   constructor(path, component) {
     this.path = path;
     this.component = component;
@@ -10,6 +10,9 @@ class PendingPageRoute {
   getFullPath() {
     return this.path;
   }
+}
+
+class PendingPageRoute extends PendingRoute {
   resolve(routes) {
     if (routes.includes(this.path)) {
       throw new Error(`Attempt to override a page at ${this.path}!`);
@@ -23,11 +26,10 @@ class PendingPageRoute {
   }
 }
 
-class PendingTabRoute {
+class PendingTabRoute extends PendingRoute {
   constructor(path, tabPath, component) {
-    this.path = path;
+    super(path, component);
     this.tabPath = tabPath;
-    this.component = component;
   }
   getFullPath() {
     return `${this.path}/${this.tabPath}`;
