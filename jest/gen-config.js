@@ -10,19 +10,16 @@ if (process.env.npm_config_externalplugins) {
 }
 
 var config = {
+  'automock': true,
   'name': '', // https://github.com/facebook/jest/issues/955
-  'testDirectoryName': '__tests__',
   'testPathDirs': testPaths,
   'globals': {
     '__DEV__': true
   },
   'scriptPreprocessor': 'jest/preprocessor.js',
   'setupTestFrameworkScriptFile': 'jest/setupTestFramework.js',
-  'setupEnvScriptFile': 'jest/setupEnv.js',
-  'testFileExtensions': [
-    'es6',
-    'js'
-  ],
+  'setupFiles': ['jest/setupEnv.js'],
+  'testRegex': '/__tests__/.*\\-test\\.(es6|js)$',
   'moduleFileExtensions': [
     'js',
     'json',
@@ -33,6 +30,7 @@ var config = {
     '/node_modules/',
     '/.module-cache/'
   ],
+  'timers': 'fake',
   // We need this to override jest's default ['/node_modules/']
   'preprocessorIgnorePatterns' : [],
   'unmockedModulePathPatterns': [

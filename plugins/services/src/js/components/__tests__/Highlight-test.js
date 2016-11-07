@@ -102,14 +102,14 @@ describe('Highlight instance', function () {
   });
 
   it('should support escaping arbitrary string in search', function () {
-    var instance = ReactDOM.render(
-      <Highlight className="myHighlighter" search="Test (">
-        Test (should not throw)
-      </Highlight>,
-      this.container
-    );
-
-    expect(ReactDOM.render.bind(TestUtils, instance))
-      .not.toThrow(Error);
+    function renderInstance() {
+      ReactDOM.render(
+        <Highlight className="myHighlighter" search="Test (">
+          Test (should not throw)
+        </Highlight>,
+        this.container
+      );
+    }
+    expect(renderInstance.bind(this)).not.toThrow();
   });
 });

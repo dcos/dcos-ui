@@ -41,8 +41,6 @@ describe('MetronomeStore', function () {
       );
       // Let two intervals run
       jasmine.clock().tick(2 * Config.getRefreshRate());
-      // Finish up outstanding timers
-      jest.runOnlyPendingTimers();
       expect(MetronomeActions.fetchJobs.calls.count()).toEqual(3);
     });
 
@@ -316,8 +314,6 @@ describe('MetronomeStore', function () {
       MetronomeStore.monitorJobDetail('foo');
       // Let three intervals run
       jasmine.clock().tick(3 * Config.getRefreshRate());
-      // Finish up outstanding timers
-      jest.runOnlyPendingTimers();
       expect(MetronomeActions.fetchJobDetail.calls.count()).toEqual(4);
     });
 
@@ -327,8 +323,6 @@ describe('MetronomeStore', function () {
       MetronomeStore.monitorJobDetail('bar');
       // Let three intervals run
       jasmine.clock().tick(3 * Config.getRefreshRate());
-      // Finish up outstanding timers
-      jest.runOnlyPendingTimers();
       expect(MetronomeActions.fetchJobDetail.calls.count()).toEqual(8);
     });
 
@@ -342,14 +336,10 @@ describe('MetronomeStore', function () {
         MetronomeStore.monitorJobDetail('foo');
         // Let three intervals run
         jasmine.clock().tick(3 * Config.getRefreshRate());
-        // Finish up outstanding timers
-        jest.runOnlyPendingTimers();
         // Stop monitoring specific job's details
         MetronomeStore.stopJobDetailMonitor('foo');
         // Initiate another 1 intervals to ensure the job is no longer fetched
         jasmine.clock().tick(1 * Config.getRefreshRate());
-        // Finish up outstanding timers
-        jest.runOnlyPendingTimers();
         expect(MetronomeActions.fetchJobDetail.calls.count()).toEqual(4);
       });
 
@@ -361,14 +351,10 @@ describe('MetronomeStore', function () {
         MetronomeStore.monitorJobDetail('baz');
         // Let four intervals run
         jasmine.clock().tick(4 * Config.getRefreshRate());
-        // Finish up outstanding timers
-        jest.runOnlyPendingTimers();
         // Stop monitoring specific job's details
         MetronomeStore.stopJobDetailMonitor();
         // Initiate another 1 intervals to ensure the jobs are no longer fetched
         jasmine.clock().tick(1 * Config.getRefreshRate());
-        // Finish up outstanding timers
-        jest.runOnlyPendingTimers();
         expect(MetronomeActions.fetchJobDetail.calls.count()).toEqual(15);
       });
 

@@ -24,7 +24,8 @@ describe('DetailViewHeader', function () {
         this.container
       );
       let node = ReactDOM.findDOMNode(instance);
-      expect(node.classList).toContain('foo');
+      // node.classList causes Jest to OOM ¯\_(ツ)_/¯
+      expect(node.getAttribute('class')).toContain('foo');
     });
 
     it('allows classes to be removed', function () {
@@ -36,7 +37,7 @@ describe('DetailViewHeader', function () {
         this.container
       );
       let node = ReactDOM.findDOMNode(instance);
-      expect(node.classList).not.toContain('container');
+      expect(node.getAttribute('class')).not.toContain('container');
     });
 
   });
