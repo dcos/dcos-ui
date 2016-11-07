@@ -10,7 +10,8 @@ const ConfigurationMapHeading = (props) => {
       className: classNames(
         'configuration-map-heading short-bottom',
         {
-          'configuration-map-heading-primary': level === 1
+          'configuration-map-heading-primary': level === 1,
+          'short-top': level === 2
         },
         className
       )

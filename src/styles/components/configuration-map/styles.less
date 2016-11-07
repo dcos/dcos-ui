@@ -25,11 +25,13 @@
     }
 
     &-row {
-      border-bottom: 1px solid @configuration-map-border-color;
       display: flex;
 
-      &:last-child {
-        border-bottom: none;
+      & + .configuration-map {
+
+        &-row {
+          border-top: 1px solid @configuration-map-border-color;
+        }
       }
     }
 
@@ -39,7 +41,8 @@
     }
 
     &-label {
-      flex: 0 0 @base-spacing-unit * 8;
+      color: @neutral;
+      flex: 0 0 @configuration-map-label-width;
       font-weight: 700;
       text-transform: uppercase;
     }
@@ -63,6 +66,13 @@
         }
       }
     }
+
+    &-table {
+
+      &-label {
+        width: @configuration-map-label-width;
+      }
+    }
   }
 }
 
@@ -84,7 +94,14 @@
       }
 
       &-label {
-        flex-basis: @base-spacing-unit-screen-small * 8;
+        flex-basis: @configuration-map-label-width-screen-small;
+      }
+
+      &-table {
+
+        &-label {
+          width: @configuration-map-label-width-screen-small;
+        }
       }
     }
   }
@@ -108,7 +125,14 @@
       }
 
       &-label {
-        flex-basis: @base-spacing-unit-screen-medium * 8;
+        flex-basis: @configuration-map-label-width-screen-medium;
+      }
+
+      &-table {
+
+        &-label {
+          width: @configuration-map-label-width-screen-medium;
+        }
       }
     }
   }
@@ -132,7 +156,14 @@
       }
 
       &-label {
-        flex-basis: @base-spacing-unit-screen-large * 8;
+        flex-basis: @configuration-map-label-width-screen-large;
+      }
+
+      &-table {
+
+        &-label {
+          width: @configuration-map-label-width-screen-large;
+        }
       }
     }
   }
@@ -156,7 +187,14 @@
       }
 
       &-label {
-        flex-basis: @base-spacing-unit-screen-jumbo * 8;
+        flex-basis: @configuration-map-label-width-screen-jumbo;
+      }
+
+      &-table {
+
+        &-label {
+          width: @configuration-map-label-width-screen-jumbo;
+        }
       }
     }
   }
