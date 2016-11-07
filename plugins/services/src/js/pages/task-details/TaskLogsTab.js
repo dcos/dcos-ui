@@ -17,8 +17,10 @@ class TaskLogsTab extends mixin(StoreMixin) {
 
     this.store_listeners = [
       {
-        name: 'systemLog',
+        direction: 'append',
+        error: null,
         events: ['success', 'error'],
+        name: 'systemLog',
         suppressUpdate: true
       }
     ];
@@ -31,7 +33,7 @@ class TaskLogsTab extends mixin(StoreMixin) {
   componentWillMount() {
     let subscriptionID = SystemLogStore.startTailing(this.props.task.slave_id, {
       limit: 0,
-      skip_prev: 11,
+      skip_prev: 51,
       params: {_TRANSPORT: 'syslog'}
     });
 
@@ -47,18 +49,30 @@ class TaskLogsTab extends mixin(StoreMixin) {
     SystemLogStore.stopTailing(this.state.subscriptionID);
   }
 
+  onSystemLogStoreSuccess(subscriptionID, direction) {
+    if (subscriptionID !== this.state.subscriptionID) {
+      return;
+    }
+
+    this.setState({direction});
+  }
+
+  onSystemLogStoreError(subscriptionID, data) {
+    if (subscriptionID !== this.state.subscriptionID) {
+      return;
+    }
+
+    this.setState({error: data});
+  }
+
   handleFetchPreviousLog() {
     let {subscriptionID} = this.state;
     SystemLogStore.fetchLogRange(this.props.task.slave_id, {
-      limit: 10,
-      skip_prev: 11,
+      limit: 50,
+      skip_prev: 51,
       params: {_TRANSPORT: 'syslog'},
       subscriptionID
     });
-  }
-
-  handleHasLoadedTop() {
-    return SystemLogStore.hasLoadedTop();
   }
 
   handleAtBottomChange(isAtBottom) {
@@ -66,7 +80,7 @@ class TaskLogsTab extends mixin(StoreMixin) {
     if (isAtBottom) {
       SystemLogStore.startTailing(this.props.task.slave_id, {
         limit: 0,
-        skip_prev: 11,
+        skip_prev: 51,
         params: {_TRANSPORT: 'syslog'},
         subscriptionID
       });
@@ -78,10 +92,11 @@ class TaskLogsTab extends mixin(StoreMixin) {
   render() {
     return (
       <LogView
+        direction={this.state.direction}
         fullLog={SystemLogStore.getFullLog(this.state.subscriptionID)}
         fetchPreviousLogs={this.handleFetchPreviousLog}
         onAtBottomChange={this.handleAtBottomChange}
-        hasLoadedTop={this.handleHasLoadedTop} />
+        hasLoadedTop={SystemLogStore.hasLoadedTop(this.state.subscriptionID)} />
     );
   }
 }

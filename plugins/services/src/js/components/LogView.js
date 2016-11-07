@@ -1,15 +1,9 @@
-import mixin from 'reactjs-mixin';
 import React from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-import ReactDOM from 'react-dom';
-import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import DOMUtils from '../../../../../src/js/utils/DOMUtils';
 import Highlight from './Highlight';
 import Loader from '../../../../../src/js/components/Loader';
-import MesosLogStore from '../stores/MesosLogStore';
-import RequestErrorMsg from '../../../../../src/js/components/RequestErrorMsg';
-import TaskDirectoryStore from '../stores/TaskDirectoryStore';
 import Util from '../../../../../src/js/utils/Util';
 
 const METHODS_TO_BIND = [
@@ -149,7 +143,7 @@ class LogView extends React.Component {
     let distanceFromTop = DOMUtils.getDistanceFromTop(container);
     if (distanceFromTop < 100 && !this.state.closeToTop) {
       this.setState({closeToTop: true}, () => {
-        if (!hasLoadedTop()) {
+        if (!hasLoadedTop) {
           fetchPreviousLogs();
         }
       });
@@ -251,7 +245,7 @@ class LogView extends React.Component {
   }
 
   getLogPrepend() {
-    if (this.props.hasLoadedTop()) {
+    if (this.props.hasLoadedTop) {
       return (
         <div className="text-align-center vertical-center">
           (AT BEGINNING OF FILE)
@@ -288,15 +282,15 @@ class LogView extends React.Component {
 }
 
 LogView.defaultProps = {
-  hasLoadedTop: function () { return false; },
+  hasLoadedTop: false,
   highlightText: '',
-  fetchPreviousLogs: function () {},
-  onAtBottomChange: function () {},
-  onCountChange: function () {}
+  fetchPreviousLogs() {},
+  onAtBottomChange() {},
+  onCountChange() {}
 };
 
 LogView.propTypes = {
-  hasLoadedTop: React.PropTypes.func,
+  hasLoadedTop: React.PropTypes.bool,
   highlightText: React.PropTypes.string,
   fetchPreviousLogs: React.PropTypes.func,
   onAtBottomChange: React.PropTypes.func,
