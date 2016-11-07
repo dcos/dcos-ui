@@ -1,5 +1,3 @@
-import {Route, Redirect} from 'react-router';
-
 import PluginSDK from 'PluginSDK';
 
 import ButtonCollectionsTabContent from '../pages/styles/components/ButtonCollectionsTabContent';
@@ -26,160 +24,39 @@ import ImagesTabContent from '../pages/styles/content/ImagesTabContent';
 
 import StylesPage from '../pages/StylesPage';
 
-const {routingService: {registerTab, registerPage}} = PluginSDK;
-
-// Assume the page is there, to test deferred register
-registerTab('styles', 'content/typography', TypographyTabContent);
-registerTab('styles', 'content/tables', TablesTabContent);
+const {
+  routingService: {
+    registerTab,
+    registerPage,
+    registerRedirect
+  }
+} = PluginSDK;
 
 registerPage('styles', StylesPage);
+
+registerRedirect('/styles', '/styles/layout');
+registerRedirect('/styles/layout', '/styles/layout/containers');
+
 registerTab('styles', 'layout/containers', ContainersTabContent);
 registerTab('styles', 'layout/grid', GridTabContent);
+registerTab('styles', 'layout/pods', PodsTabContent);
+registerTab('styles', 'layout/flex', FlexTabContent);
+registerTab('styles', 'layout/dividers', DividersTabContent);
+registerTab('styles', 'layout/responsive-utilities', ResponsiveUtilitiesTabContent);
 
-// To test errors
-registerPage('dashboard', StylesPage);
+registerRedirect('/styles/content', '/styles/content/typography');
+registerTab('styles', 'content/typography', TypographyTabContent);
+registerTab('styles', 'content/tables', TablesTabContent);
+registerTab('styles', 'content/colors', ColorsTabContent);
+registerTab('styles', 'content/code', CodeTabContent);
+registerTab('styles', 'content/images', ImagesTabContent);
 
-let stylesRoutes = [
-  {
-    type: Redirect,
-    from: '/styles',
-    to: '/styles/layout'
-  },
-  {
-    type: Route,
-    path: 'styles',
-    component: StylesPage,
-    children: [
-      {
-        type: Redirect,
-        from: '/styles/layout',
-        to: '/styles/layout/containers'
-      },
-      {
-        type: Route,
-        path: 'layout',
-        children: [
-          {
-            type: Route,
-            path: 'containers',
-            component: ContainersTabContent
-          },
-          {
-            type: Route,
-            path: 'grid',
-            component: GridTabContent
-          },
-          {
-            type: Route,
-            path: 'pods',
-            component: PodsTabContent
-          },
-          {
-            type: Route,
-            path: 'flex',
-            component: FlexTabContent
-          },
-          {
-            type: Route,
-            path: 'dividers',
-            component: DividersTabContent
-          },
-          {
-            type: Route,
-            path: 'responsive-utilities',
-            component: ResponsiveUtilitiesTabContent
-          }
-        ]
-      },
-      {
-        type: Redirect,
-        from: '/styles/content',
-        to: '/styles/content/typography'
-      },
-      {
-        type: Route,
-        path: 'content',
-        children: [
-          {
-            type: Route,
-            path: 'typography',
-            component: TypographyTabContent
-          },
-          {
-            type: Route,
-            path: 'tables',
-            component: TablesTabContent
-          },
-          {
-            type: Route,
-            path: 'colors',
-            component: ColorsTabContent
-          },
-          {
-            type: Route,
-            path: 'code',
-            component: CodeTabContent
-          },
-          {
-            type: Route,
-            path: 'images',
-            component: ImagesTabContent
-          }
-        ]
-      },
-      {
-        type: Redirect,
-        from: '/styles/components',
-        to: '/styles/components/buttons'
-      },
-      {
-        type: Route,
-        path: 'components',
-        children: [
-          {
-            type: Route,
-            path: 'buttons',
-            component: ButtonsTabContent
-          },
-          {
-            type: Route,
-            path: 'button-collections',
-            component: ButtonCollectionsTabContent
-          },
-          {
-            type: Route,
-            path: 'button-groups',
-            component: ButtonGroupsTabContent
-          },
-          {
-            type: Route,
-            path: 'dropdowns',
-            component: DropdownsTabContent
-          },
-          {
-            type: Route,
-            path: 'forms',
-            component: FormsTabContent
-          },
-          {
-            type: Route,
-            path: 'icons',
-            component: IconsTabContent
-          },
-          {
-            type: Route,
-            path: 'modals',
-            component: ModalsTabContent
-          },
-          {
-            type: Route,
-            path: 'panels',
-            component: PanelsTabContent
-          }
-        ]
-      }
-    ]
-  }
-];
-
-module.exports = stylesRoutes;
+registerRedirect('/styles/components', '/styles/components/buttons');
+registerTab('styles', 'components/buttons', ButtonsTabContent);
+registerTab('styles', 'components/button-collections', ButtonCollectionsTabContent);
+registerTab('styles', 'components/button-groups', ButtonGroupsTabContent);
+registerTab('styles', 'components/dropdowns', DropdownsTabContent);
+registerTab('styles', 'components/forms', FormsTabContent);
+registerTab('styles', 'components/icons', IconsTabContent);
+registerTab('styles', 'components/modals', ModalsTabContent);
+registerTab('styles', 'components/panels', PanelsTabContent);
