@@ -1,6 +1,6 @@
 import {
-  ADD_ROW,
-  REMOVE_ROW,
+  ADD_ITEM,
+  REMOVE_ITEM,
   SET
 } from '../../../../../../src/js/constants/TransactionTypes';
 import Transaction from '../../../../../../src/js/structs/Transaction';
@@ -25,10 +25,10 @@ module.exports = {
     if (path != null && path.join('.').search('env') !== -1) {
       if (path.join('.') === 'env') {
         switch (type) {
-          case ADD_ROW:
+          case ADD_ITEM:
             this.env.push({key: null, value: null});
             break;
-          case REMOVE_ROW:
+          case REMOVE_ITEM:
             this.env = this.env.filter((item, index) => {
               return index !== value;
             });
@@ -64,7 +64,7 @@ module.exports = {
   },
   JSONParser(state) {
     return Object.keys(state.env).reduce(function (memo, key, index) {
-      memo.push(new Transaction(['env'], index, ADD_ROW));
+      memo.push(new Transaction(['env'], index, ADD_ITEM));
       memo.push(new Transaction([
         'env',
         index,
@@ -96,10 +96,10 @@ module.exports = {
     if (path != null && path.join('.').search('env') !== -1) {
       if (path.join('.') === 'env') {
         switch (type) {
-          case ADD_ROW:
+          case ADD_ITEM:
             state.push({key: null, value: null});
             break;
-          case REMOVE_ROW:
+          case REMOVE_ITEM:
             state = state.filter((item, index) => {
               return index !== value;
             });

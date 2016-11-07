@@ -69,7 +69,7 @@ class EnvironmentFormSection extends Component {
             <a className="column-3 button button-primary-link button-flush"
               onClick={(event) => {
                 event.preventDefault();
-                this.props.onRemoveRow({value: key, path: 'env'});
+                this.props.onRemoveItem({value: key, path: 'env'});
               }}>
               Delete
             </a>
@@ -129,7 +129,7 @@ class EnvironmentFormSection extends Component {
             <a className="column-3 button button-primary-link button-flush"
               onClick={(event) => {
                 event.preventDefault();
-                this.props.onRemoveRow({value: key, path: 'labels'});
+                this.props.onRemoveItem({value: key, path: 'labels'});
               }}>
               Delete
             </a>
@@ -157,7 +157,7 @@ class EnvironmentFormSection extends Component {
           <a className="button button-primary-link button-flush"
             onClick={(event) => {
               event.preventDefault();
-              this.props.onAddRow({value: data.env.length, path: 'env'});
+              this.props.onAddItem({value: data.env.length, path: 'env'});
             }}>
             + Add Environment Variable
           </a>
@@ -176,7 +176,7 @@ class EnvironmentFormSection extends Component {
             className="button button-primary-link button-flush"
             onClick={(event) => {
               event.preventDefault();
-              this.props.onAddRow({value: data.env.length, path: 'labels'});
+              this.props.onAddItem({value: data.env.length, path: 'labels'});
             }}>
             + Add Label
           </a>
@@ -192,15 +192,15 @@ EnvironmentFormSection.defaultProps = {
     env: [],
     labels: []
   },
-  onAddRow() {},
-  onRemoveRow() {}
+  onAddItem() {},
+  onRemoveItem() {}
 };
 
 EnvironmentFormSection.propTypes = {
   data: React.PropTypes.object,
   errors: React.PropTypes.object,
-  onAddRow: React.PropTypes.func,
-  onRemoveRow: React.PropTypes.func
+  onAddItem: React.PropTypes.func,
+  onRemoveItem: React.PropTypes.func
 };
 
 EnvironmentFormSection.configReducers = {

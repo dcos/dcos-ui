@@ -1,6 +1,6 @@
 import {
-  ADD_ROW,
-  REMOVE_ROW,
+  ADD_ITEM,
+  REMOVE_ITEM,
   SET
 } from '../../../../../../src/js/constants/TransactionTypes';
 import Transaction from '../../../../../../src/js/structs/Transaction';
@@ -10,25 +10,25 @@ module.exports = {
   JSONReducer(state, {type, path, value}) {
     if (this.labels == null) {
       this.labels = [];
-
-      if (state != null) {
-        this.labels = Object.keys(state).reduce((memo, key) => {
-          memo.push({
-            key: key.toUpperCase(),
-            value: state[key]
-          });
-          return memo;
-        }, []);
-      }
+      //
+      // if (state != null) {
+      //   this.labels = Object.keys(state).reduce((memo, key) => {
+      //     memo.push({
+      //       key: key.toUpperCase(),
+      //       value: state[key]
+      //     });
+      //     return memo;
+      //   }, []);
+      // }
     }
 
     if (path != null && path.join('.').search('labels') !== -1) {
       if (path.join('.') === 'labels') {
         switch (type) {
-          case ADD_ROW:
+          case ADD_ITEM:
             this.labels.push({key: null, value: null});
             break;
-          case REMOVE_ROW:
+          case REMOVE_ITEM:
             this.labels = this.labels.filter((item, index) => {
               return index !== value;
             });
@@ -64,7 +64,7 @@ module.exports = {
   },
   JSONParser(state) {
     return Object.keys(state.labels).reduce(function (memo, key, index) {
-      memo.push(new Transaction(['labels'], index, ADD_ROW));
+      memo.push(new Transaction(['labels'], index, ADD_ITEM));
       memo.push(new Transaction([
         'labels',
         index,
@@ -96,10 +96,10 @@ module.exports = {
     if (path != null && path.join('.').search('labels') !== -1) {
       if (path.join('.') === 'labels') {
         switch (type) {
-          case ADD_ROW:
+          case ADD_ITEM:
             state.push({key: null, value: null});
             break;
-          case REMOVE_ROW:
+          case REMOVE_ITEM:
             state = state.filter((item, index) => {
               return index !== value;
             });

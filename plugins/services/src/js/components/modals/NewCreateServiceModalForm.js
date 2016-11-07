@@ -23,8 +23,8 @@ const METHODS_TO_BIND = [
   'handleFormBlur',
   'handleJSONBlur',
   'handleJSONChange',
-  'handleAddRow',
-  'handleRemoveRow'
+  'handleAddItem',
+  'handleRemoveItem'
 ];
 
 const SECTIONS = [
@@ -156,18 +156,18 @@ class NewCreateServiceModalForm extends React.Component {
     return batch.reduce(jsonConfigReducers, appConfig);
   }
 
-  handleAddRow({value, path}) {
+  handleAddItem({value, path}) {
     let {appConfig, batch} = this.state;
-    batch.add(new Transaction(path.split(','), value, TransactionTypes.ADD_ROW));
+    batch.add(new Transaction(path.split(','), value, TransactionTypes.ADD_ITEM));
 
     // Update JSON data
     let jsonValue = JSON.stringify(batch.reduce(jsonConfigReducers, appConfig), null, 2);
     this.setState({batch, jsonValue});
   }
 
-  handleRemoveRow({value, path}) {
+  handleRemoveItem({value, path}) {
     let {appConfig, batch} = this.state;
-    batch.add(new Transaction(path.split(','), value, TransactionTypes.REMOVE_ROW));
+    batch.add(new Transaction(path.split(','), value, TransactionTypes.REMOVE_ITEM));
 
     // Update JSON data
     let jsonValue = JSON.stringify(batch.reduce(jsonConfigReducers, appConfig), null, 2);
@@ -202,8 +202,8 @@ class NewCreateServiceModalForm extends React.Component {
                 </TabView>
                 <TabView id="environment">
                   <EnvironmentFormSection data={data}
-                      onRemoveRow={this.handleRemoveRow}
-                      onAddRow={this.handleAddRow} />
+                      onRemoveItem={this.handleRemoveItem}
+                      onAddItem={this.handleAddItem} />
                 </TabView>
               </TabViewList>
             </Tabs>
