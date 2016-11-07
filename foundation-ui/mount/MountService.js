@@ -31,11 +31,13 @@ class MountService extends EventEmitter {
    * [-Infinity; Infinity]
    */
   registerComponent(role, component, priority) {
-    if (process.env.NODE_ENV !== 'production') {
-      if (typeof component !== 'function') {
-        throw new Error(`Provided component ${component} of type '${typeof component}' for role '${role}' is not a valid component.`);
+    if (typeof component !== 'function') {
+      if (process.env.NODE_ENV !== 'production') {
+        throw new TypeError('Provided component must be a ' +
+            'React.Component constructor or a stateless functional component.');
       }
-      // TODO: warning registered with same priority
+
+      return;
     }
 
     let components = componentStore[role];
