@@ -274,7 +274,8 @@ const getSDK = function (pluginID, config) {
     constants,
     routingService: {
       registerPage: RoutingService.registerPage,
-      registerTab: RoutingService.registerTab
+      registerTab: RoutingService.registerTab,
+      registerRedirect: RoutingService.registerRedirect
     }
   });
 

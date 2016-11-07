@@ -1,4 +1,4 @@
-import {Route} from 'react-router';
+import {Route, Redirect} from 'react-router';
 
 let pendingRoutes = [];
 
@@ -57,6 +57,20 @@ class PendingTabRoute extends PendingRoute {
   }
 }
 
+class PendingRedirect extends PendingRoute {
+  constructor(path, to) {
+    super(path);
+    this.to = to;
+  }
+  resolve(routes) {
+    routes.push({
+      type: Redirect,
+      path: this.path,
+      to: this.to
+    });
+  }
+}
+
 const RoutingService = {
   registerPage(path, component, cb) {
     if (!component) {
@@ -72,6 +86,10 @@ const RoutingService = {
     }
 
     pendingRoutes.push(new PendingTabRoute(path, tabPath, component));
+  },
+
+  registerRedirect(path, to) {
+    pendingRoutes.push(new PendingRedirect(path, to));
   },
 
   resolveWith(routes = []) {
