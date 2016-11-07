@@ -21,6 +21,11 @@ let routeFactories = [Organization, Network];
 function getApplicationRoutes() {
   // Statically defined routes
   let routes = [].concat(
+    {
+      type: Redirect,
+      path: '/',
+      to: Hooks.applyFilter('applicationRedirectRoute', '/dashboard')
+    },
     dashboard,
     services,
     jobs,
@@ -47,11 +52,6 @@ function getApplicationRoutes() {
           children: routes
         }
       ]
-    },
-    {
-      type: Redirect,
-      path: '/',
-      to: Hooks.applyFilter('applicationRedirectRoute', '/dashboard')
     },
     {
       type: Route,
