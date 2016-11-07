@@ -11,6 +11,11 @@ describe('MountService', function () {
 
   describe('registerComponent', function () {
 
+    afterEach(function () {
+      MountService.unregisterComponent('register-test', ReactComponent);
+      MountService.unregisterComponent('register-test', FunctionalComponent);
+    });
+
     it('should not throw if a valid React.Component is provided', function () {
       expect(function () {
         MountService.registerComponent('register-test', ReactComponent, 0);
@@ -31,6 +36,14 @@ describe('MountService', function () {
         MountService
             .registerComponent('register-test', FunctionalComponent, 0);
       }).not.toThrow();
+    });
+
+    it('should properly register components', function () {
+      MountService.registerComponent('register-test', ReactComponent, 0);
+      MountService.registerComponent('register-test', FunctionalComponent, 0);
+
+      expect(MountService.findComponentsWithRole('register-test'))
+          .toEqual([ReactComponent, FunctionalComponent]);
     });
 
     it('should throw if an object instead of a component was provided',
