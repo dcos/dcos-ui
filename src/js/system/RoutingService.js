@@ -35,16 +35,18 @@ class PendingTabRoute {
   resolve(routes) {
     const parent = routes.find(({path}) => path === this.path);
 
-    if (parent) {
-      if (!parent.children) {
-        parent.children = [];
-      }
-      return parent.children.push({
-        type: Route,
-        path: this.tabPath,
-        component: this.component
-      });
+    if (!parent) {
+      return;
     }
+
+    if (!parent.children) {
+      parent.children = [];
+    }
+    return parent.children.push({
+      type: Route,
+      path: this.tabPath,
+      component: this.component
+    });
   }
 }
 
