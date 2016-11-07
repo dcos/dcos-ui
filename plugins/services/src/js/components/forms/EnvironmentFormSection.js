@@ -21,78 +21,119 @@ class EnvironmentFormSection extends Component {
     const {errors} = this.props;
 
     return data.map((env, key) => {
-      return (
-      <div key={key} className="flex row">
-        <FormGroup
-            className="column-5"
-            required={false}
-            showError={Boolean(errors.env[key])}>
+      let keyLabel = null;
+      let valueLabel = null;
+      if (key === 0) {
+        keyLabel = (
           <FieldLabel>
             Key
           </FieldLabel>
-          <FieldInput
-              name={`env.${key}.key`}
-              type="text"
-              value={env.key}/>
-          <FieldError>{errors.env[key]}</FieldError>
-        </FormGroup>
-        <FormGroup
-            className="column-6"
-            required={false}
-            showError={Boolean(errors.env[key])}>
+        );
+        valueLabel = (
           <FieldLabel>
             Value
           </FieldLabel>
-          <FieldInput
+        );
+      }
+      return (
+        <div key={key} className="flex row">
+          <FormGroup
+            className="column-3"
+            required={false}
+            showError={Boolean(errors.env[key])}>
+            {keyLabel}
+            <FieldInput
+              name={`env.${key}.key`}
+              type="text"
+              value={env.key}/>
+            <FieldError>{errors.env[key]}</FieldError>
+            <span className="emphasis"
+              style={{
+                position: 'absolute',
+                left: '100%',
+                bottom: '0.8em'
+              }}>:</span>
+          </FormGroup>
+          <FormGroup
+            className="column-3"
+            required={false}
+            showError={Boolean(errors.env[key])}>
+            {valueLabel}
+            <FieldInput
               name={`env.${key}.value`}
               type="text"
               value={env.value}/>
-          <FieldError>{errors.env[key]}</FieldError>
-        </FormGroup>
-        <a className="column-1" onClick={(event) => { event.preventDefault(); this.props.onRemoveRow({value: key, path:'env'}); }}>
-          Delete
-        </a>
-      </div>
+            <FieldError>{errors.env[key]}</FieldError>
+          </FormGroup>
+          <div className="form-group flex flex-item-align-end column-4">
+            <a className="column-3 button button-primary-link button-flush"
+              onClick={(event) => {
+                event.preventDefault();
+                this.props.onRemoveRow({value: key, path: 'env'});
+              }}>
+              Delete
+            </a>
+          </div>
+        </div>
     ); });
   }
 
   getLabelsLines(data) {
     const {errors} = this.props;
     return data.map((label, key) => {
+      let keyLabel = null;
+      let valueLabel = null;
+      if (key === 0) {
+        keyLabel = (
+          <FieldLabel>
+            Key
+          </FieldLabel>
+        );
+        valueLabel = (
+          <FieldLabel>
+            Value
+          </FieldLabel>
+        );
+      }
       return (
         <div key={key} className="flex row">
           <FormGroup
-              className="column-5"
-              required={false}
-              showError={Boolean(errors.labels[key])}>
-            <FieldLabel>
-              Key
-            </FieldLabel>
+            className="column-3"
+            required={false}
+            showError={Boolean(errors.labels[key])}>
+            {keyLabel}
             <FieldInput
-                name={`labels.${key}.key`}
-                type="text"
-                value={label.key}/>
+              name={`labels.${key}.key`}
+              type="text"
+              value={label.key}/>
+            <span className="emphasis"
+              style={{
+                position: 'absolute',
+                left: '100%',
+                bottom: '0.8em'
+              }}>:</span>
             <FieldError>{errors.labels[key]}</FieldError>
           </FormGroup>
           <FormGroup
-              className="column-6"
-              required={false}
-              showError={Boolean(errors.labels[key])}>
-            <FieldLabel>
-              Value
-            </FieldLabel>
+            className="column-3"
+            required={false}
+            showError={Boolean(errors.labels[key])}>
+            {valueLabel}
             <FieldInput
-                name={`labels.${key}.value`}
-                type="text"
-                value={label.value}/>
+              name={`labels.${key}.value`}
+              type="text"
+              value={label.value}/>
             <FieldError>{errors.labels[key]}</FieldError>
           </FormGroup>
-          <a className="column-1" onClick={(event) => {
-            event.preventDefault();
-            this.props.onRemoveRow({value: key, path: 'labels'});
-          }}>
-            Delete
-          </a>
+          <div className="form-group flex flex-item-align-end column-4">
+            <a className="column-3 button button-primary-link button-flush"
+              onClick={(event) => {
+                event.preventDefault();
+                this.props.onRemoveRow({value: key, path: 'labels'});
+              }}>
+              Delete
+            </a>
+          </div>
         </div>
       );
     });
@@ -107,33 +148,36 @@ class EnvironmentFormSection extends Component {
           <h2 className="form-header flush-top short-bottom">
             Environment Variables
           </h2>
-          <p className="flush-bottom">
+          <p>
             Set up environment variables for each task your service launches.
           </p>
         </div>
         {this.getEnvironmentLines(data.env)}
         <div>
-          <a onClick={(event) => {
-            event.preventDefault();
-            this.props.onAddRow({value: data.env.length, path: 'env'});
-          }}>
+          <a className="button button-primary-link button-flush"
+            onClick={(event) => {
+              event.preventDefault();
+              this.props.onAddRow({value: data.env.length, path: 'env'});
+            }}>
             + Add Environment Variable
           </a>
         </div>
         <div className="form-row-element">
-          <h2 className="form-header flush-top short-bottom">
+          <h2 className="form-header short-bottom">
             Labels
           </h2>
-          <p className="flush-bottom">
+          <p>
             Attach metadata to expose additional information to other services.
           </p>
         </div>
         {this.getLabelsLines(data.labels)}
         <div>
-          <a onClick={(event) => {
-            event.preventDefault();
-            this.props.onAddRow({value: data.env.length, path: 'labels'});
-          }}>
+          <a
+            className="button button-primary-link button-flush"
+            onClick={(event) => {
+              event.preventDefault();
+              this.props.onAddRow({value: data.env.length, path: 'labels'});
+            }}>
             + Add Label
           </a>
         </div>
