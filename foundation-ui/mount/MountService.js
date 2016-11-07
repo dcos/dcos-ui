@@ -40,6 +40,14 @@ class MountService extends EventEmitter {
       return;
     }
 
+    if (typeof role !== 'string' || role === '') {
+      if (process.env.NODE_ENV !== 'production') {
+        throw new TypeError('Provided role must be a none empty string');
+      }
+
+      return;
+    }
+
     let components = componentStore[role];
     if (!components) {
       components = componentStore[role] = [];

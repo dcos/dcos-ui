@@ -26,6 +26,13 @@ describe('MountService', function () {
         }
     );
 
+    it('should not throw if a valid role was provided', function () {
+      expect(function () {
+        MountService
+            .registerComponent('register-test', FunctionalComponent, 0);
+      }).not.toThrow();
+    });
+
     it('should throw if an object instead of a component was provided',
         function () {
           expect(function () {
@@ -43,6 +50,28 @@ describe('MountService', function () {
     it('should throw if component is undefined', function () {
       expect(function () {
         MountService.registerComponent('register-test', undefined, 0);
+      }).toThrow();
+    });
+
+    it('should throw if an object instead of a valid role was provided',
+        function () {
+          expect(function () {
+            MountService.registerComponent({}, FunctionalComponent, 0);
+          }).toThrow();
+        }
+    );
+
+    it('should throw if null instead of a valid role was provided',
+        function () {
+          expect(function () {
+            MountService.registerComponent(null, FunctionalComponent, 0);
+          }).toThrow();
+        }
+    );
+
+    it('should throw if role is undefined', function () {
+      expect(function () {
+        MountService.registerComponent(undefined, FunctionalComponent, 0);
       }).toThrow();
     });
 
