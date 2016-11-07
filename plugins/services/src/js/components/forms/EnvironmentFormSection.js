@@ -5,8 +5,8 @@ import FieldInput from '../../../../../../src/js/components/form/FieldInput';
 import FieldLabel from '../../../../../../src/js/components/form/FieldLabel';
 import FormGroup from '../../../../../../src/js/components/form/FormGroup';
 import ReducerUtil from '../../../../../../src/js/utils/ReducerUtil';
-import {FormReducer as env} from '../../reducers/form/EnvironmentVariables';
-import {FormReducer as labels} from '../../reducers/form/Labels';
+import {FormReducer as env} from '../../reducers/serviceForm/EnvironmentVariables';
+import {FormReducer as labels} from '../../reducers/serviceForm/Labels';
 
 class EnvironmentFormSection extends Component {
   constructor() {

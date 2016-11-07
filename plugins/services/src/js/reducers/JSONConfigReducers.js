@@ -5,10 +5,10 @@ import {
 } from '../../../../../src/js/utils/ReducerUtil';
 import {
   JSONReducer as env
-} from './form/EnvironmentVariables';
+} from './serviceForm/EnvironmentVariables';
 import {
   JSONReducer as labels
-} from './form/Labels';
+} from './serviceForm/Labels';
 
 module.exports = {
   id: simpleReducer('id', '/'),
