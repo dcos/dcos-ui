@@ -14,15 +14,23 @@ class PendingRoute {
 
 class PendingPageRoute extends PendingRoute {
   resolve(routes) {
-    if (routes.includes(this.path)) {
+    const existingRoute = routes.includes(this.path);
+
+    if (existingRoute && existingRoute.component === this.component) {
+      return existingRoute;
+    } else if (existingRoute) {
       throw new Error(`Attempt to override a page at ${this.path}!`);
     }
 
-    return routes.push({
+    const newRoute = {
       type: Route,
       path: this.path,
       component: this.component
-    });
+    };
+
+    routes.push(newRoute);
+
+    return newRoute;
   }
 }
 
@@ -38,22 +46,30 @@ class PendingTabRoute extends PendingRoute {
     const parent = routes.find(({path}) => path === this.path);
 
     if (!parent) {
-      return;
+      return null;
     }
 
     if (!parent.children) {
       parent.children = [];
     }
 
-    if (parent.children.find(({path}) => path === this.tabPath)) {
+    const existingTab = parent.children.find(({path}) => path === this.tabPath);
+
+    if (existingTab && existingTab.component === this.component) {
+      return existingTab;
+    } else if (existingTab) {
       throw new Error(`Attempt to override a tab at ${this.path}/${this.tabPath}!`);
     }
 
-    return parent.children.push({
+    const newTab = {
       type: Route,
       path: this.tabPath,
       component: this.component
-    });
+    };
+
+    parent.children.push(newTab);
+
+    return newTab;
   }
 }
 
@@ -63,6 +79,16 @@ class PendingRedirect extends PendingRoute {
     this.to = to;
   }
   resolve(routes) {
+    const existingRedirect = routes.find(({type, path}) => {
+      return type === Redirect && path === this.path;
+    });
+
+    if (existingRedirect && existingRedirect.to === this.to) {
+      return existingRedirect;
+    } else if (existingRedirect) {
+      throw new Error(`Attempt to override Redirect of ${this.path} from ${existingRedirect.to} to ${this.to}`);
+    }
+
     routes.push({
       type: Redirect,
       path: this.path,
