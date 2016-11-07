@@ -90,6 +90,33 @@ describe('MountService', function () {
 
   });
 
+  describe('unregisterComponent', function () {
+
+    beforeEach(function () {
+      MountService.registerComponent('unregister-test', ReactComponent, 0);
+      MountService.registerComponent('unregister-test', FunctionalComponent, 0);
+    });
+
+    afterEach(function () {
+      MountService.unregisterComponent('unregister-test', ReactComponent);
+      MountService.unregisterComponent('unregister-test', FunctionalComponent);
+    });
+
+    it('should properly remove matching components', function () {
+      MountService.unregisterComponent('unregister-test', FunctionalComponent);
+      expect(MountService.findComponentsWithRole('unregister-test'))
+          .toEqual([ReactComponent]);
+    });
+
+    it('should do nothing if no matching components was found', function () {
+      MountService.unregisterComponent('unknown', FunctionalComponent);
+
+      expect(MountService.findComponentsWithRole('unregister-test'))
+          .toEqual([ReactComponent, FunctionalComponent]);
+    });
+
+  });
+
   describe('findComponentsWithRole', function () {
 
     beforeEach(function () {
