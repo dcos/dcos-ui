@@ -1,5 +1,4 @@
 import {EventEmitter} from 'events';
-import React from 'react';
 
 let componentStore = {};
 
@@ -27,14 +26,14 @@ class MountService extends EventEmitter {
   /**
    * Registers package for updates on this MountPoint id
    * @param  {String} role of MointPoint to register package for
-   * @param  {React.Component} component to call when content is being fetched
+   * @param  {React.Component|function} component to call when content is being fetched
    * @param  {Number} priority to register package callback with
    * [-Infinity; Infinity]
    */
   registerComponent(role, component, priority) {
     if (process.env.NODE_ENV !== 'production') {
-      if (component != null && !React.isValidElement(component)) {
-        throw new Error(`Provided component ${component} of type '${typeof component}' for role: '${role}' is not a valid element. Mount content may only be null, undefined or a valid element.`);
+      if (typeof component !== 'function') {
+        throw new Error(`Provided component ${component} of type '${typeof component}' for role '${role}' is not a valid component.`);
       }
       // TODO: warning registered with same priority
     }
