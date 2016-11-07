@@ -12,7 +12,7 @@ class PendingPageRoute {
   }
   resolve(routes) {
     if (routes.includes(this.path)) {
-      throw new Error(`Attempt to override a page at ${path}!`);
+      throw new Error(`Attempt to override a page at ${this.path}!`);
     }
 
     return routes.push({
