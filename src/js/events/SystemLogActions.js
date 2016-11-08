@@ -1,33 +1,32 @@
-import ActionTypes from '../constants/ActionTypes';
-import AppDispatcher from './AppDispatcher';
-import Config from '../config/Config';
+import {RequestUtil} from 'mesosphere-shared-reactjs';
 
+import {
+  REQUEST_SYSTEM_LOG_SUCCESS,
+  REQUEST_SYSTEM_LOG_ERROR,
+  REQUEST_PREVIOUS_SYSTEM_LOG_SUCCESS,
+  REQUEST_PREVIOUS_SYSTEM_LOG_ERROR
+} from '../constants/ActionTypes';
+import AppDispatcher from './AppDispatcher';
+import SystemLogUtil from '../utils/SystemLogUtil';
+
+/**
+ * Implementation of server sent event handling for
+ * https://github.com/dcos/dcos-log
+ */
+
+// Store of current open connections
 let sources = {};
 const SystemLogActions = {
   subscribe(nodeID, options = {}) {
     let {
-      cursor = '',
-      error,
-      limit = '',
-      params = {},
-      skip = 0, // Use stream when skip is 0
       subscriptionID,
-      success
+      withCredentials = true
     } = options;
 
-    let endpoint = 'logs';
-    if (skip === 0) {
-      endpoint = 'stream';
-    }
-    let paramString = Object.keys(params).reduce(function (memo, key) {
-      return memo + `&${key}=${params[key]}`;
-    }, '');
-
-    let encodedRange = global.btoa(`entries=${cursor}:${limit}:${skip}`);
-    let timestamp = Date.now();
-    let url = `system/logs/v1/agent/${nodeID}/${endpoint}?__range=${encodedRange}${paramString}&timestamp=${timestamp}`;
+    let url = SystemLogUtil.getUrl(nodeID, options);
     subscriptionID = subscriptionID || global.btoa(url);
-    let source = new EventSource(url, {withCredentials: true});
+    // TODO: check user for credentials?
+    let source = new EventSource(url, {withCredentials});
 
     source.addEventListener('message', function ({data, origin, target} = {}) {
       if (origin !== global.location.origin && target.readyState !== EventSource.OPEN) {
@@ -35,38 +34,21 @@ const SystemLogActions = {
         return false;
       }
       let parsedData = JSON.parse(data);
-      // Update cursor to latest received
-      if (parsedData.cursor) {
-        sources[subscriptionID].cursor = parsedData.cursor;
-      }
-      if (typeof success === 'function') {
-        success(parsedData);
-      }
+      AppDispatcher.handleServerAction({
+        type: REQUEST_SYSTEM_LOG_SUCCESS,
+        data: parsedData,
+        subscriptionID
+      });
     }, false);
 
     source.addEventListener('error', (event = {}) => {
       let {target} = event;
-
-      let nextCursor = sources[subscriptionID].cursor;
-      // Only reconnect if we have received a point to continue logging from
-      if (nextCursor) {
-        // Close current connection
-        this.unsubscribe(subscriptionID);
-        // Wait and reopen connection where we left off
-        setTimeout(() => {
-          let newOptions = Object.assign({}, options, {
-            cursor: nextCursor, // Continue logging from where we left off
-            limit: 0, // Start exactly at this point
-            subscriptionID // Reuse subscriptionID
-          });
-          this.subscribe(nodeID, newOptions);
-          // Use retry received from server as timeout, or fallback to 3 secs.
-          // This mimics standard behavior for reconnecting
-        }, target.retry || 3000);
-      }
-      if (typeof error === 'function') {
-        error(event);
-      }
+      let {cursor} = sources[subscriptionID];
+      AppDispatcher.handleServerAction({
+        type: REQUEST_SYSTEM_LOG_ERROR,
+        data: RequestUtil.getErrorFromXHR(event),
+        subscriptionID
+      });
     }, false);
 
     // Unsubscribe if any open connection exists with the same ID
@@ -81,6 +63,50 @@ const SystemLogActions = {
       sources[subscriptionID].source.close();
       delete sources[subscriptionID];
     }
+  },
+
+  fetchLogRange(nodeID, options = {}) {
+    let {
+      limit = 0,
+      subscriptionID,
+      withCredentials = true
+    } = options;
+
+    let url = SystemLogUtil.getUrl(nodeID, options, false);
+    subscriptionID = subscriptionID || global.btoa(url);
+    // TODO: check user for credentials?
+    let source = new EventSource(url, {withCredentials});
+
+    let items = [];
+
+    source.addEventListener('message', function ({data, origin, target} = {}) {
+      if (origin !== global.location.origin) {
+        // Event is not from same origin, or is not open anymore
+        return false;
+      }
+      if (target.readyState === EventSource.CLOSED) {
+        AppDispatcher.handleServerAction({
+          type: REQUEST_PREVIOUS_SYSTEM_LOG_SUCCESS,
+          data: items,
+          limit,
+          subscriptionID
+        });
+
+        source.close();
+      }
+
+      let parsedData = JSON.parse(data);
+      items.push(parsedData);
+    }, false);
+
+    source.addEventListener('error', (event = {}) => {
+      source.close();
+      AppDispatcher.handleServerAction({
+        type: REQUEST_PREVIOUS_SYSTEM_LOG_ERROR,
+        data: RequestUtil.getErrorFromXHR(event),
+        subscriptionID
+      });
+    });
   }
 };
 
