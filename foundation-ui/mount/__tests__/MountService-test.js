@@ -12,13 +12,13 @@ describe('MountService', function () {
   describe('registerComponent', function () {
 
     afterEach(function () {
-      MountService.unregisterComponent('register-test', ReactComponent);
-      MountService.unregisterComponent('register-test', FunctionalComponent);
+      MountService.unregisterComponent(ReactComponent, 'register-test');
+      MountService.unregisterComponent(FunctionalComponent, 'register-test');
     });
 
     it('should not throw if a valid React.Component is provided', function () {
       expect(function () {
-        MountService.registerComponent('register-test', ReactComponent, 0);
+        MountService.registerComponent(ReactComponent, 'register-test', 0);
       }).not.toThrow();
     });
 
@@ -26,7 +26,7 @@ describe('MountService', function () {
         function () {
           expect(function () {
             MountService
-                .registerComponent('register-test', FunctionalComponent, 0);
+                .registerComponent(FunctionalComponent, 'register-test', 0);
           }).not.toThrow();
         }
     );
@@ -34,13 +34,13 @@ describe('MountService', function () {
     it('should not throw if a valid type was provided', function () {
       expect(function () {
         MountService
-            .registerComponent('register-test', FunctionalComponent, 0);
+            .registerComponent(FunctionalComponent, 'register-test', 0);
       }).not.toThrow();
     });
 
     it('should properly register components', function () {
-      MountService.registerComponent('register-test', ReactComponent, 0);
-      MountService.registerComponent('register-test', FunctionalComponent, 0);
+      MountService.registerComponent(ReactComponent, 'register-test', 0);
+      MountService.registerComponent(FunctionalComponent, 'register-test', 0);
 
       expect(MountService.findComponentsWithType('register-test'))
           .toEqual([ReactComponent, FunctionalComponent]);
@@ -49,27 +49,27 @@ describe('MountService', function () {
     it('should throw if an object instead of a component was provided',
         function () {
           expect(function () {
-            MountService.registerComponent('register-test', {}, 0);
+            MountService.registerComponent({}, 'register-test', 0);
           }).toThrow();
         }
     );
 
     it('should throw if null instead of a component was provided', function () {
       expect(function () {
-        MountService.registerComponent('register-test', null, 0);
+        MountService.registerComponent(null, 'register-test', 0);
       }).toThrow();
     });
 
     it('should throw if component is undefined', function () {
       expect(function () {
-        MountService.registerComponent('register-test', undefined, 0);
+        MountService.registerComponent(undefined, 'register-test', 0);
       }).toThrow();
     });
 
     it('should throw if an object instead of a valid type was provided',
         function () {
           expect(function () {
-            MountService.registerComponent({}, FunctionalComponent, 0);
+            MountService.registerComponent(FunctionalComponent, {}, 0);
           }).toThrow();
         }
     );
@@ -77,14 +77,14 @@ describe('MountService', function () {
     it('should throw if null instead of a valid type was provided',
         function () {
           expect(function () {
-            MountService.registerComponent(null, FunctionalComponent, 0);
+            MountService.registerComponent(FunctionalComponent, null, 0);
           }).toThrow();
         }
     );
 
     it('should throw if type is undefined', function () {
       expect(function () {
-        MountService.registerComponent(undefined, FunctionalComponent, 0);
+        MountService.registerComponent(FunctionalComponent, undefined, 0);
       }).toThrow();
     });
 
@@ -93,23 +93,23 @@ describe('MountService', function () {
   describe('unregisterComponent', function () {
 
     beforeEach(function () {
-      MountService.registerComponent('unregister-test', ReactComponent, 0);
-      MountService.registerComponent('unregister-test', FunctionalComponent, 0);
+      MountService.registerComponent(ReactComponent, 'unregister-test', 0);
+      MountService.registerComponent(FunctionalComponent, 'unregister-test', 0);
     });
 
     afterEach(function () {
-      MountService.unregisterComponent('unregister-test', ReactComponent);
-      MountService.unregisterComponent('unregister-test', FunctionalComponent);
+      MountService.unregisterComponent(ReactComponent, 'unregister-test');
+      MountService.unregisterComponent(FunctionalComponent, 'unregister-test');
     });
 
     it('should properly remove matching components', function () {
-      MountService.unregisterComponent('unregister-test', FunctionalComponent);
+      MountService.unregisterComponent(FunctionalComponent, 'unregister-test');
       expect(MountService.findComponentsWithType('unregister-test'))
           .toEqual([ReactComponent]);
     });
 
     it('should do nothing if no matching components was found', function () {
-      MountService.unregisterComponent('unknown', FunctionalComponent);
+      MountService.unregisterComponent(FunctionalComponent, 'unknown');
 
       expect(MountService.findComponentsWithType('unregister-test'))
           .toEqual([ReactComponent, FunctionalComponent]);
@@ -120,17 +120,17 @@ describe('MountService', function () {
   describe('findComponentsWithType', function () {
 
     beforeEach(function () {
-      MountService.registerComponent('find-test', FunctionalComponent, 0);
-      MountService.registerComponent('find-test', FunctionalComponent, 0);
-      MountService.registerComponent('find-test', ReactComponent, 2);
-      MountService.registerComponent('find-test', ReactComponent, 0);
+      MountService.registerComponent(FunctionalComponent, 'find-test', 0);
+      MountService.registerComponent(FunctionalComponent, 'find-test', 0);
+      MountService.registerComponent(ReactComponent, 'find-test', 2);
+      MountService.registerComponent(ReactComponent, 'find-test', 0);
     });
 
     afterEach(function () {
-      MountService.unregisterComponent('find-test', FunctionalComponent);
-      MountService.unregisterComponent('find-test', FunctionalComponent);
-      MountService.unregisterComponent('find-test', ReactComponent);
-      MountService.unregisterComponent('find-test', ReactComponent);
+      MountService.unregisterComponent(FunctionalComponent, 'find-test');
+      MountService.unregisterComponent(FunctionalComponent, 'find-test');
+      MountService.unregisterComponent(ReactComponent, 'find-test');
+      MountService.unregisterComponent(ReactComponent, 'find-test');
     });
 
     it('should return list of matching components in proper order',

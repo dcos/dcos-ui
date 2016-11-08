@@ -15,13 +15,13 @@ class MountService extends EventEmitter {
   /**
    * Register component with type and optional priority
    *
-   * @param {String} type - String which is used to match components with the
-   * respective mounts
    * @param {function} component - React component which will be
    * mounted based on the provided type
+   * @param {String} type - String which is used to match components with the
+   * respective mounts
    * @param {Number} [priority] - Number which is used to sort the components
    */
-  registerComponent(type, component, priority = 0) {
+  registerComponent(component, type, priority = 0) {
     if (typeof component !== 'function') {
       if (process.env.NODE_ENV !== 'production') {
         throw new TypeError('Provided component must be a ' +
@@ -55,10 +55,10 @@ class MountService extends EventEmitter {
   /**
    * Unregisters component by matching type and component
    *
-   * @param  {String} type
    * @param  {function} component
+   * @param  {String} type
    */
-  unregisterComponent(type, component) {
+  unregisterComponent(component, type) {
     let i = components.length;
     while (--i >= 0) {
       if (components[i].component === component &&

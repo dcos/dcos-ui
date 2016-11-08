@@ -19,12 +19,12 @@ describe('MountPoint', function () {
   };
 
   beforeEach(function () {
-    MountService.registerComponent('mount-test', FirstTestComponent);
+    MountService.registerComponent(FirstTestComponent, 'mount-test');
   });
 
   afterEach(function () {
-    MountService.unregisterComponent('mount-test', FirstTestComponent);
-    MountService.unregisterComponent('mount-test', SecondTestComponent);
+    MountService.unregisterComponent(FirstTestComponent, 'mount-test');
+    MountService.unregisterComponent(SecondTestComponent, 'mount-test');
   });
 
   it('should render the children by default', function () {
@@ -116,7 +116,7 @@ describe('MountPoint', function () {
         </MountPoint>
     );
 
-    MountService.registerComponent('mount-test', SecondTestComponent);
+    MountService.registerComponent(SecondTestComponent, 'mount-test');
 
     const result =
         TestUtils.scryRenderedDOMComponentsWithClass(dom, 'component');
@@ -131,7 +131,7 @@ describe('MountPoint', function () {
         </MountPoint>
     );
 
-    MountService.unregisterComponent('mount-test', FirstTestComponent);
+    MountService.unregisterComponent(FirstTestComponent, 'mount-test');
 
     const result =
         TestUtils.scryRenderedDOMComponentsWithClass(dom, 'child');
