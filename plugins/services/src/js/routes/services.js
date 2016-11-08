@@ -8,10 +8,10 @@ import ServicesPage from '../pages/ServicesPage';
 import ServicesContainer from '../services/ServicesContainer';
 import ServiceVolumeContainer from '../volume-detail/ServiceVolumeContainer';
 import TaskDetail from '../pages/task-details/TaskDetail';
+import TaskDetailBreadcrumb from '../pages/nodes/breadcrumbs/TaskDetailBreadcrumb';
 import TaskDetailsTab from '../pages/task-details/TaskDetailsTab';
 import TaskFilesTab from '../pages/task-details/TaskFilesTab';
 import TaskFileViewer from '../pages/task-details/TaskFileViewer';
-import TaskDetailBreadcrumb from '../pages/nodes/breadcrumbs/TaskDetailBreadcrumb';
 import TaskVolumeContainer from '../volume-detail/TaskVolumeContainer';
 import VolumeTable from '../components/VolumeTable';
 
