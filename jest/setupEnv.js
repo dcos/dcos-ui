@@ -1,4 +1,5 @@
 require('babel-polyfill');
+var EventEmitter = require('events').EventEmitter;
 
 // jsdom doesn't have support for localStorage at the moment
 global.localStorage = require('localStorage');
@@ -40,4 +41,23 @@ RequestUtil.json = function () {};
       clearTimeout(id);
     };
   }
+}());
+
+(function () {
+  global.EventSource = function () {
+    var eventEmitter = Object.create(EventEmitter.prototype);
+
+    var fakeEventSource = {
+      addEventListener: eventEmitter.addListener,
+      close: eventEmitter.removeAllListeners,
+      dispatchEvent: eventEmitter.emit,
+      removeEventListener: eventEmitter.removeListener
+    };
+
+    return fakeEventSource;
+  };
+
+  global.EventSource.CONNECTING = 0;
+  global.EventSource.OPEN = 1;
+  global.EventSource.CLOSED = 2;
 }());

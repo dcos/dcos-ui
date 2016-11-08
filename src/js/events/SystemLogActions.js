@@ -1,5 +1,3 @@
-import {RequestUtil} from 'mesosphere-shared-reactjs';
-
 import {
   REQUEST_SYSTEM_LOG_SUCCESS,
   REQUEST_SYSTEM_LOG_ERROR,
@@ -46,7 +44,7 @@ const SystemLogActions = {
     source.addEventListener('error', (event = {}) => {
       AppDispatcher.handleServerAction({
         type: REQUEST_SYSTEM_LOG_ERROR,
-        data: RequestUtil.getErrorFromXHR(event),
+        data: event,
         subscriptionID
       });
     }, false);
@@ -99,7 +97,6 @@ const SystemLogActions = {
     source.addEventListener('error', (event = {}) => {
       let {eventPhase} = event;
       if (eventPhase === EventSource.CLOSED) {
-        source.close();
         AppDispatcher.handleServerAction({
           type: REQUEST_PREVIOUS_SYSTEM_LOG_SUCCESS,
           data: items,
@@ -107,14 +104,13 @@ const SystemLogActions = {
           hasReachedTop
         });
       } else {
-        source.close();
         AppDispatcher.handleServerAction({
           type: REQUEST_PREVIOUS_SYSTEM_LOG_ERROR,
-          data: RequestUtil.getErrorFromXHR(event),
+          data: event,
           subscriptionID
         });
       }
-
+      source.close();
     });
   }
 };
