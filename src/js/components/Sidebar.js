@@ -1,17 +1,19 @@
 import classNames from 'classnames';
 import GeminiScrollbar from 'react-gemini-scrollbar';
-import {routerShape} from 'react-router';
+import {Link, routerShape} from 'react-router';
 import React from 'react';
 import {Tooltip} from 'reactjs-components';
 import PluginSDK from 'PluginSDK';
 
+import PrimarySidebarLink from '../components/PrimarySidebarLink';
+import {keyCodes} from '../utils/KeyboardUtil';
 import ClusterHeader from './ClusterHeader';
 import EventTypes from '../constants/EventTypes';
 import Icon from './Icon';
-import {keyCodes} from '../utils/KeyboardUtil';
 import InternalStorageMixin from '../mixins/InternalStorageMixin';
 import MesosSummaryStore from '../stores/MesosSummaryStore';
 import MetadataStore from '../stores/MetadataStore';
+import NavigationStore from '../stores/NavigationStore';
 import SaveStateMixin from '../mixins/SaveStateMixin';
 import SidebarActions from '../events/SidebarActions';
 
@@ -50,6 +52,11 @@ var Sidebar = React.createClass({
   },
 
   componentDidMount() {
+    NavigationStore.addChangeListener(
+      EventTypes.NAVIGATION_CHANGE,
+      this.onNavigationChange
+    );
+
     this.internalStorage_update({
       mesosInfo: MesosSummaryStore.get('states').lastSuccessful()
     });
@@ -63,6 +70,10 @@ var Sidebar = React.createClass({
   },
 
   componentWillUnmount() {
+    NavigationStore.removeChangeListener(
+      EventTypes.NAVIGATION_CHANGE,
+      this.onNavigationChange
+    );
     MetadataStore.removeChangeListener(
       EventTypes.DCOS_METADATA_CHANGE,
       this.onDCOSMetadataChange
@@ -72,6 +83,10 @@ var Sidebar = React.createClass({
   },
 
   onDCOSMetadataChange() {
+    this.forceUpdate();
+  },
+
+  onNavigationChange() {
     this.forceUpdate();
   },
 
@@ -101,13 +116,15 @@ var Sidebar = React.createClass({
   },
 
   getNavigationSections() {
-    return this.props.data.map((group, index) => {
+    const definition = NavigationStore.get('definition');
+
+    return definition.map((group, index) => {
       let heading = null;
 
-      if (group.label !== 'root') {
+      if (group.category !== 'root') {
         heading = (
           <h6 className="sidebar-section-header">
-            {group.label}
+            {group.category}
           </h6>
         );
       }
@@ -120,6 +137,44 @@ var Sidebar = React.createClass({
         </div>
       );
     });
+  },
+
+  getNavigationGroup(group, currentPath) {
+    let groupMenuItems = group.children.map((element, index) => {
+      let hasChildren = element.children && element.children.length !== 0;
+
+      let isParentActive = currentPath.startsWith(element.path);
+      let {isChildActive, submenu} = this.getGroupSubmenu(element, {
+        currentPath,
+        isParentActive
+      });
+
+      let linkElement = element.link;
+      if (typeof linkElement === 'string') {
+        linkElement = (
+          <PrimarySidebarLink
+            to={element.path}
+            icon={element.options.icon}>
+            {linkElement}
+          </PrimarySidebarLink>
+        );
+      }
+
+      let itemClassSet = classNames({
+        'sidebar-menu-item': true,
+        selected: isParentActive && !isChildActive,
+        open: isParentActive && hasChildren
+      });
+
+      return (
+        <li className={itemClassSet} key={index}>
+          {linkElement}
+          {submenu}
+        </li>
+      );
+    });
+
+    return <ul className="sidebar-menu">{groupMenuItems}</ul>;
   },
 
   getGroupSubmenu({path, children = []}, {currentPath, isParentActive}) {
@@ -143,9 +198,14 @@ var Sidebar = React.createClass({
           isChildActive = true;
         }
 
+        let linkElement = currentChild.link;
+        if (typeof linkElement === 'string') {
+          linkElement = <Link to={currentChild.path}>{linkElement}</Link>;
+        }
+
         children.push(
           <li className={menuItemClasses} key={currentChild.label}>
-            {currentChild.link}
+            {linkElement}
           </li>
         );
 
@@ -158,40 +218,6 @@ var Sidebar = React.createClass({
     }
 
     return {submenu, isChildActive};
-  },
-
-  getNavigationGroup(group, currentPath) {
-    const menuItems = Hooks
-      .applyFilter('sidebarNavigation', defaultMenuItems)
-      .reduce((routesMap, path) => routesMap.set(path, true), new Map());
-
-    const filteredItems = group.children
-     .filter((route) => menuItems.has(route.path));
-
-    let groupMenuItems = filteredItems.map((element, index) => {
-      let hasChildren = element.children && element.children.length !== 0;
-
-      let isParentActive = currentPath.startsWith(element.path);
-      let {isChildActive, submenu} = this.getGroupSubmenu(element, {
-        currentPath,
-        isParentActive
-      });
-
-      let itemClassSet = classNames({
-        'sidebar-menu-item': true,
-        selected: isParentActive && !isChildActive,
-        open: isParentActive && hasChildren
-      });
-
-      return (
-        <li className={itemClassSet} key={index}>
-          {element.link}
-          {submenu}
-        </li>
-      );
-    });
-
-    return <ul className="sidebar-menu">{groupMenuItems}</ul>;
   },
 
   getVersion() {

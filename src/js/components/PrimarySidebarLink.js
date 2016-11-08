@@ -2,12 +2,12 @@ import React from 'react';
 import {Link} from 'react-router';
 import NotificationStore from '../stores/NotificationStore';
 
-export default ({path, label, icon}) => {
-  const notificationCount = NotificationStore.getNotificationCount(path);
+export default ({to, children, icon}) => {
+  const notificationCount = NotificationStore.getNotificationCount(to);
 
   let sidebarText = (
     <span className="sidebar-menu-item-label">
-      {label}
+      {children}
     </span>
   );
 
@@ -15,12 +15,12 @@ export default ({path, label, icon}) => {
     sidebarText = (
       <span className="sidebar-menu-item-label badge-container">
         <span className="sidebar-menu-item-label-text badge-container-text">
-          {label}
+          {children}
         </span>
         <span className="badge">{notificationCount}</span>
       </span>
     );
   }
 
-  return <Link to={path}>{icon}{sidebarText}</Link>;
+  return <Link to={to}>{icon}{sidebarText}</Link>;
 };

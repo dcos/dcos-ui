@@ -10,7 +10,7 @@ import EventTypes from '../constants/EventTypes';
 import InternalStorageMixin from '../mixins/InternalStorageMixin';
 import MetadataStore from '../stores/MetadataStore';
 import Modals from '../components/Modals';
-import NavigationService from '../system/NavigationService';
+import NavigationStore from '../stores/NavigationStore';
 import RequestErrorMsg from '../components/RequestErrorMsg';
 import ServerErrorModal from '../components/ServerErrorModal';
 import Sidebar from '../components/Sidebar';
@@ -41,6 +41,11 @@ var Index = React.createClass({
   componentWillMount() {
     MetadataStore.init();
     SidebarStore.init();
+    NavigationStore.init(this.props.routes);
+
+    NavigationStore.registerCategory('Extra');
+    NavigationStore.registerPrimary('/styles', 'Styles', { category: 'Extra' });
+    NavigationStore.registerSecondary('/styles', 'layout', 'Layout');
 
     // We want to always request the summary endpoint. This will ensure that
     // our charts always have data to render.
@@ -137,14 +142,10 @@ var Index = React.createClass({
         'canvas-sidebar-open': data.isOpen
       });
 
-    const navigationData = NavigationService.transformRoutesToData(this.props.routes);
-
     return (
       <div className={classSet}>
         {this.getScreenOverlays(showErrorScreen)}
-        <Sidebar
-          data={navigationData}
-          location={this.props.location} />
+        <Sidebar location={this.props.location} />
         {this.props.children}
         <Modals
           showErrorModal={this.state.showErrorModal}
