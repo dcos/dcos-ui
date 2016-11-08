@@ -34,4 +34,10 @@ describe('ReactUtil', function () {
     expect(TestUtils.isElementOfType(elements, 'p')).toEqual(true);
   });
 
+  it('should properly handle undefined elements', function () {
+    const elements = ReactUtil.wrapElements(undefined);
+
+    expect(elements).toEqual(null);
+  });
+
 });
