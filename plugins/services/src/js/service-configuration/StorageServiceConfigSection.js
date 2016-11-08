@@ -2,6 +2,7 @@ import React from 'react';
 import {Table} from 'reactjs-components';
 
 import ServiceConfigDisplayUtil from '../utils/ServiceConfigDisplayUtil';
+import Units from '../../../../../src/js/utils/Units';
 
 module.exports = {
   values: [

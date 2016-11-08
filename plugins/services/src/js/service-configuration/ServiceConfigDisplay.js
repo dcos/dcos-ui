@@ -27,14 +27,13 @@ const serviceConfigDisplayList = [
 const shouldExcludeItem = (row, appConfig) => {
   switch (row.key) {
     case 'gpus':
-      return appConfig.gpus === 0;
+      return !Util.findNestedPropertyInObject(appConfig, 'gpus');
     case 'container.volumes':
-      return appConfig.container == null
-        || appConfig.container.volumes == null
-        || appConfig.container.volumes.length === 0;
+      return !Util.findNestedPropertyInObject(
+        appConfig, 'container.volumes.length'
+      );
     case 'healthChecks':
-      return appConfig.healthChecks == null
-        || appConfig.healthChecks.length === 0;
+      return !Util.findNestedPropertyInObject(appConfig, 'healthChecks.length');
     case 'secrets':
       return appConfig.secrets == null
         || Object.keys(appConfig.secrets).length === 0;
