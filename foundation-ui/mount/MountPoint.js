@@ -1,153 +1,109 @@
 import React, {PropTypes} from 'react';
 
 import MountService from './MountService';
+import {CHANGE} from './MountEvent';
+import ReactUtil from '../utils/ReactUtil';
 
 const METHODS_TO_BIND = [
-  'updateState'
+  'handleMountServiceChange'
 ];
 
 /**
- * A component to use as a mount point for changing default behavior by packages
- * or events.
- * Use MountService to listen for events and return changed or new content to be
- * displayed at the mount point at a given id.
+ * A component to use as a mount point to incorporate views/components provided
+ * by packages. It renders with a/components registered to the `MountService`
+ * with a matching `type`.
+ * It provides a property to configure the wrapping component (`wrapper`) as
+ * well as a property to `limit` the number of rendered elements.
  *
  * @example
- * import {MountPoint, MountService} from 'foundation-ui/mount';
  *
- * class ServiceDetailPlugin {
- *   getContents(children, props) {
- *     return <ServiceDetail {...props} />;
- *   }
+ * <MountPoint type="widget" limit={10} wrapper={MyWidgetsWrapper}>
+ *     <span className="help-text"></span>
+ * </MountPoint>
  *
- *   initialize() {
- *     // priority order is from [-Inifinity, Inifinity]
- *     MountService.on('serviceDetail', this.getContents, 0);
- *   }
- * }
- *
- * class MyComponent extends React.Component {
- *   render() {
- *     return (
- *       <MountPoint id="serviceDetail">
- *         // What to show when serviceDetail doesn't mount
- *         <EmptyPage />
- *       </MountPoint>
- *     );
- *   }
- * };
  */
 class MountPoint extends React.Component {
   constructor() {
     super(...arguments);
+
+    // Get components and init state
+    this.state = {
+      components: MountService.findComponentsWithType(this.props.type)
+    };
 
     METHODS_TO_BIND.forEach((method) => {
       this[method] = this[method].bind(this);
     });
   }
 
-  getChildContext() {
-    // Get context passed down from parent MountPoint if one exists
-    // and add to it so we can create a render tree chain of nested IDs.
-    // This should just be an Array of string IDs. We can use the IDs
-    // to look up each MountPoint Component on the page and see debug info about it
-    // like which package inserted the component, what the priorities were for
-    // each component if multiple components were registered for a id etc.
-    const {mountChain = []} = this.context || {};
-
-    return {mountChain: [...mountChain, this.props.role]};
-  }
-
   componentWillMount() {
-    this.updateState();
-    MountService.addListener(this.props.role, this.updateState);
+
+    MountService.addListener(CHANGE, this.handleMountServiceChange);
   }
 
-  componentWillReceiveProps(nextProps) {
-    // Update mount contents when new props are received
-    this.updateState(this.state.children, nextProps);
+  componentWillReceiveProps({type}) {
+    if (this.props.type === type) {
+      return;
+    }
+
+    this.setState({components: MountService.findComponentsWithType(type)});
   }
 
   componentWillUnmount() {
-    MountService.removeListener(this.props.role, this.updateState);
+    MountService.removeListener(CHANGE, this.handleMountServiceChange);
   }
 
-  updateState(registeredChildren, props = this.props) {
-    let {limit} = props;
-    let children = React.Children.toArray(props.children);
-    let blackList = Object.keys(MountPoint.propTypes);
-    // Filter props consumed by MountPoint to create childProps
-    let childProps = Object.keys(props).filter(function (key) {
-      return !blackList.includes(key);
-    }).reduce(function (memo, key) {
-      memo[key] = props[key];
-
-      return memo;
-    }, {});
-
-    // There are no components registered
-    if (Array.isArray(registeredChildren) && registeredChildren.length) {
-      children = registeredChildren;
+  handleMountServiceChange(type) {
+    if (this.props.type !== type) {
+      return;
     }
 
-    let newChildren = children.slice(-limit).map((child, key) => {
-      return React.cloneElement(child, Object.assign({key}, childProps));
-    });
-
-    console.log(newChildren);
-
-    this.setState({children: newChildren});
+    this.setState({components: MountService.findComponentsWithType(type)});
   }
 
   render() {
-    let {alwaysWrap} = this.props;
-    let {children} = this.state;
+    const {alwaysWrap, children, limit, wrapper} = this.props;
+    const {components} = this.state;
 
-    // TODO: implement solution for debugging
+    // Filter consumed props to only pass on a "clean" set of props
+    const filteredProps = Object.keys(this.props).reduce((props, key) => {
+      if (!Object.prototype.hasOwnProperty.call(MountPoint.propTypes, key)) {
+        props[key] = this.props[key];
+      }
 
-    // Don't wrap, if not necessary
-    if (React.isValidElement(children) && !alwaysWrap) {
-      return children;
+      return props;
+    }, {});
+
+    // Limit the number of components as configured and create elements
+    const elements = components.slice(0, limit).map((Component, index) => {
+      return (<Component {...filteredProps} key={index} />);
+    });
+
+    // Don't render prop.children if elements is defined
+    if (elements.length > 0) {
+
+      // Wrap array of children in chosen wrapperComponent (default: div)
+      // e.g. for table row, this would be <tr/> and elements could be a
+      // set of  <td/>'s
+      return ReactUtil.wrapElements(elements, wrapper, alwaysWrap);
     }
 
-    // Don't wrap, if not necessary
-    if (Array.isArray(children) && children.length === 1 && !alwaysWrap) {
-      return children[0];
-    }
-
-    // Wrap array of children in chosen wrapperComponent.
-    // e.g. for table row, this would be <tr/> and children would be a set
-    // of filtered <td/>'s
-    return (
-      <this.props.wrapperComponent>
-        {children}
-      </this.props.wrapperComponent>
-    );
+    return ReactUtil.wrapElements(children, wrapper, alwaysWrap);
   }
 }
 
-// Consume mountChain from parent MountPoint(s)
-MountPoint.contextTypes = {
-  mountChain: PropTypes.array
-};
-
-// Pass down mountChain context to children MountPoint(s)
-MountPoint.childContextTypes = {
-  mountChain: PropTypes.array
-};
-
 MountPoint.defaultProps = {
   alwaysWrap: false,
-  limit: 1,
-  wrapperComponent: 'div'
+  limit: Number.MAX_SAFE_INTEGER,
+  wrapper: 'div'
 };
 
 MountPoint.propTypes = {
   alwaysWrap: PropTypes.bool,
   limit: PropTypes.number,
   children: PropTypes.element,
-  role: PropTypes.string.isRequired,
-  wrapperComponent: PropTypes.node
+  type: PropTypes.string.isRequired,
+  wrapper: PropTypes.node
 };
 
 module.exports = MountPoint;
