@@ -42,7 +42,7 @@ describe('MountService', function () {
       MountService.registerComponent('register-test', ReactComponent, 0);
       MountService.registerComponent('register-test', FunctionalComponent, 0);
 
-      expect(MountService.findComponentsWithRole('register-test'))
+      expect(MountService.findComponentsWithType('register-test'))
           .toEqual([ReactComponent, FunctionalComponent]);
     });
 
@@ -104,20 +104,20 @@ describe('MountService', function () {
 
     it('should properly remove matching components', function () {
       MountService.unregisterComponent('unregister-test', FunctionalComponent);
-      expect(MountService.findComponentsWithRole('unregister-test'))
+      expect(MountService.findComponentsWithType('unregister-test'))
           .toEqual([ReactComponent]);
     });
 
     it('should do nothing if no matching components was found', function () {
       MountService.unregisterComponent('unknown', FunctionalComponent);
 
-      expect(MountService.findComponentsWithRole('unregister-test'))
+      expect(MountService.findComponentsWithType('unregister-test'))
           .toEqual([ReactComponent, FunctionalComponent]);
     });
 
   });
 
-  describe('findComponentsWithRole', function () {
+  describe('findComponentsWithType', function () {
 
     beforeEach(function () {
       MountService.registerComponent('find-test', FunctionalComponent, 0);
@@ -135,7 +135,7 @@ describe('MountService', function () {
 
     it('should return list of matching components in proper order',
         function () {
-          expect(MountService.findComponentsWithRole('find-test'))
+          expect(MountService.findComponentsWithType('find-test'))
               .toEqual([
                 ReactComponent,
                 FunctionalComponent,
@@ -146,7 +146,7 @@ describe('MountService', function () {
     );
 
     it('should return empty list if no match was found ', function () {
-      expect(MountService.findComponentsWithRole('unknown'))
+      expect(MountService.findComponentsWithType('unknown'))
           .toEqual([]);
     });
 
