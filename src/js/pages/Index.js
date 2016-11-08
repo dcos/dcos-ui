@@ -10,6 +10,7 @@ import EventTypes from '../constants/EventTypes';
 import InternalStorageMixin from '../mixins/InternalStorageMixin';
 import MetadataStore from '../stores/MetadataStore';
 import Modals from '../components/Modals';
+import NavigationService from '../system/NavigationService';
 import RequestErrorMsg from '../components/RequestErrorMsg';
 import ServerErrorModal from '../components/ServerErrorModal';
 import Sidebar from '../components/Sidebar';
@@ -136,11 +137,13 @@ var Index = React.createClass({
         'canvas-sidebar-open': data.isOpen
       });
 
+    const navigationData = NavigationService.transformRoutesToData(this.props.routes);
+
     return (
       <div className={classSet}>
         {this.getScreenOverlays(showErrorScreen)}
         <Sidebar
-          routes={this.props.routes}
+          data={navigationData}
           location={this.props.location} />
         {this.props.children}
         <Modals
