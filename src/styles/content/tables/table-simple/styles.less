@@ -1,0 +1,37 @@
+& when (@table-simple-enabled) {
+
+  .table-simple {
+    &:extend(.table-borderless-outer all);
+    &:extend(.table-borderless-inner-columns all);
+
+    // The extra specificity is needed to override CNVS defaults.
+    thead {
+
+      th {
+        background: none;
+        color: @neutral;
+        font-size: @table-font-size;
+
+        &.active {
+          background: none;
+        }
+      }
+    }
+
+    th,
+    td {
+
+      &:first-child {
+        padding-left: 0;
+      }
+
+      &:last-child {
+        padding-right: 0;
+      }
+
+      &.active {
+        background: none;
+      }
+    }
+  }
+}
