@@ -19,9 +19,9 @@ class MountService extends EventEmitter {
    * respective mounts
    * @param {function} component - React component which will be
    * mounted based on the provided role
-   * @param {Number} priority - Number which is used to sort the components
+   * @param {Number} [priority] - Number which is used to sort the components
    */
-  registerComponent(role, component, priority) {
+  registerComponent(role, component, priority = 0) {
     if (typeof component !== 'function') {
       if (process.env.NODE_ENV !== 'production') {
         throw new TypeError('Provided component must be a ' +
