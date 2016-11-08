@@ -13,13 +13,11 @@ import {
   SYSTEM_LOG_REQUEST_ERROR
 } from '../constants/EventTypes';
 import BaseStore from './BaseStore';
-// import LogBuffer from '../structs/LogBuffer';
 import SystemLogActions from '../events/SystemLogActions';
 import Util from '../utils/Util';
 
-// Max data storage / message size
-// 250000000/2500 = 100000;
-const MAX_FILE_SIZE = 100000;
+// Max data storage
+const MAX_FILE_SIZE = 250000000;
 
 class SystemLogStore extends BaseStore {
   constructor() {
@@ -47,7 +45,7 @@ class SystemLogStore extends BaseStore {
         return false;
       }
 
-      let {data, limit, subscriptionID, type} = payload.action;
+      let {data, hasReachedTop, subscriptionID, type} = payload.action;
 
       switch (type) {
         case REQUEST_SYSTEM_LOG_SUCCESS:
@@ -57,7 +55,7 @@ class SystemLogStore extends BaseStore {
           this.processLogError(subscriptionID, data);
           break;
         case REQUEST_PREVIOUS_SYSTEM_LOG_SUCCESS:
-          this.processLogPrepend(subscriptionID, limit, data);
+          this.processLogPrepend(subscriptionID, hasReachedTop, data);
           break;
         case REQUEST_PREVIOUS_SYSTEM_LOG_ERROR:
           this.processLogPrependError(subscriptionID, data);
@@ -68,18 +66,31 @@ class SystemLogStore extends BaseStore {
     });
   }
 
-  addEntry(logData, subscriptionID, entry, eventType) {
+  addEntries(logData, subscriptionID, entries, eventType) {
     let newLogData = Object.assign({}, logData);
-    let length = Util.findNestedPropertyInObject(
-      entry,
-      'fields.MESSAGE.length'
-    ) || 0;
+    // Add new entries
+    if (eventType === 'append') {
+      newLogData.entries = logData.entries.concat(entries);
+    } else {
+      newLogData.entries = entries.concat(logData.entries);
+    }
+    let length = entries.reduce((sum, entry) => {
+      return sum + Util.findNestedPropertyInObject(
+        entry,
+        'fields.MESSAGE.length'
+      ) || 0;
+    }, 0);
+
+    // Update new size
+    newLogData.totalSize += length;
     // Remove entires until we have room for next entry
     while (newLogData.totalSize > 0 && newLogData.entries.length > 0 &&
-      newLogData.totalSize + length > MAX_FILE_SIZE) {
+      newLogData.totalSize > MAX_FILE_SIZE) {
       let removedEntry;
       if (eventType === 'append') {
         removedEntry = newLogData.entries.shift();
+        // Removing from top, let's update hasLoadedTop
+        newLogData.hasLoadedTop = false;
       } else {
         removedEntry = newLogData.entries.pop();
       }
@@ -88,14 +99,6 @@ class SystemLogStore extends BaseStore {
         'fields.MESSAGE.length'
       ) || 0;
     }
-    // Space have been freed up, let's add the new entry and update totalSize
-    let removedEntry;
-    if (eventType === 'append') {
-      newLogData.entries.push(entry);
-    } else {
-      newLogData.entries.unshift(entry);
-    }
-    newLogData.totalSize += length;
 
     return newLogData;
   }
@@ -105,7 +108,7 @@ class SystemLogStore extends BaseStore {
       this.logs[subscriptionID],
       'entries'
     ) || [];
-    console.log('getFullLog', entries.length);
+
     return entries.map(function (entry) {
       return Util.findNestedPropertyInObject(entry, 'fields.MESSAGE') || '';
     }).join('\n');
@@ -114,7 +117,7 @@ class SystemLogStore extends BaseStore {
   hasLoadedTop(subscriptionID) {
     let logs = this.logs[subscriptionID];
     if (!logs || !logs.hasLoadedTop) {
-      return false
+      return false;
     }
 
     return logs.hasLoadedTop;
@@ -148,42 +151,40 @@ class SystemLogStore extends BaseStore {
     if (!this.logs[subscriptionID]) {
       this.logs[subscriptionID] = {entries: [], totalSize: 0};
     }
-    this.logs[subscriptionID] = this.addEntry(
+
+    this.logs[subscriptionID] = this.addEntries(
       this.logs[subscriptionID],
       subscriptionID,
-      entry,
+      [entry],
       'append'
     );
-    this.emit(SYSTEM_LOG_CHANGE, subscriptionID);
+    this.emit(SYSTEM_LOG_CHANGE, subscriptionID, 'append');
   }
 
   processLogError(subscriptionID, data) {
     this.emit(SYSTEM_LOG_REQUEST_ERROR, subscriptionID, data);
   }
 
-  processLogPrepend(subscriptionID, limit, entries = []) {
+  processLogPrepend(subscriptionID, hasReachedTop, entries = []) {
     if (!this.logs[subscriptionID]) {
       this.logs[subscriptionID] = {entries: [], totalSize: 0};
     }
 
-    this.logs[subscriptionID].hasLoadedTop = limit > 0 && limit < entries;
+    this.logs[subscriptionID].hasLoadedTop = hasReachedTop;
 
-    entries.forEach(function (entry = {}) {
-      this.logs[subscriptionID] = this.addEntry(
-        this.logs[subscriptionID],
-        subscriptionID,
-        entry,
-        'prepend'
-      );
-    })
+    this.logs[subscriptionID] = this.addEntries(
+      this.logs[subscriptionID],
+      subscriptionID,
+      entries,
+      'prepend'
+    );
 
-    this.emit(SYSTEM_LOG_CHANGE, subscriptionID);
+    this.emit(SYSTEM_LOG_CHANGE, subscriptionID, 'prepend');
   }
 
   processLogPrependError(subscriptionID, data) {
     this.emit(SYSTEM_LOG_REQUEST_ERROR, subscriptionID, data);
   }
-
 
   get storeID() {
     return 'systemLog';
