@@ -10,7 +10,11 @@ const ReactUil = {
    *
    * @returns {ReactElement} wrapped react elements
    */
-  wrapElements(elements, wrapper='div', alwaysWrap = false) {
+  wrapElements(elements, wrapper = 'div', alwaysWrap = false) {
+    if (elements == null && !alwaysWrap) {
+      return null;
+    }
+
     if (React.isValidElement(elements) && !alwaysWrap) {
       return elements;
     }
