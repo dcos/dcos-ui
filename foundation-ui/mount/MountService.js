@@ -3,7 +3,7 @@ import {CHANGE} from './MountEvent';
 
 /**
  * List of component descriptors
- * @type {Array.<{component:function, priority:Number, role:String}>}
+ * @type {Array.<{component:function, priority:Number, type:String}>}
  */
 const components = [];
 
@@ -13,15 +13,15 @@ const components = [];
 class MountService extends EventEmitter {
 
   /**
-   * Register component with role and optional priority
+   * Register component with type and optional priority
    *
-   * @param {String} role - String which is used to match components with the
+   * @param {String} type - String which is used to match components with the
    * respective mounts
    * @param {function} component - React component which will be
-   * mounted based on the provided role
+   * mounted based on the provided type
    * @param {Number} [priority] - Number which is used to sort the components
    */
-  registerComponent(role, component, priority = 0) {
+  registerComponent(type, component, priority = 0) {
     if (typeof component !== 'function') {
       if (process.env.NODE_ENV !== 'production') {
         throw new TypeError('Provided component must be a ' +
@@ -31,16 +31,16 @@ class MountService extends EventEmitter {
       return;
     }
 
-    if (typeof role !== 'string' || role === '') {
+    if (typeof type !== 'string' || type === '') {
       if (process.env.NODE_ENV !== 'production') {
-        throw new TypeError('Provided role must be a none empty string');
+        throw new TypeError('Provided type must be a none empty string');
       }
 
       return;
     }
 
     // Add component descriptor and sort components list by priority and index
-    components.push({component, priority, role, index: components.length});
+    components.push({component, priority, type, index: components.length});
     components.sort((a, b) => {
       if (a.priority !== b.priority) {
         return b.priority - a.priority;
@@ -49,36 +49,36 @@ class MountService extends EventEmitter {
       return a.index - b.index;
     });
 
-    this.emit(CHANGE, role);
+    this.emit(CHANGE, type);
   }
 
   /**
-   * Unregisters component by matching role and component
+   * Unregisters component by matching type and component
    *
-   * @param  {String} role
-   * @param  {React.Component} component
+   * @param  {String} type
+   * @param  {function} component
    */
-  unregisterComponent(role, component) {
+  unregisterComponent(type, component) {
     let i = components.length;
     while (--i >= 0) {
       if (components[i].component === component &&
-          components[i].role === role) {
+          components[i].type === type) {
         components.splice(i, 1);
         break;
       }
     }
 
-    this.emit(CHANGE, role);
+    this.emit(CHANGE, type);
   }
 
   /**
-   * Find components with matching role
+   * Find components with matching type
    *
-   * @param {String} role
+   * @param {String} type
    * @returns {Array} list of matching components ordered by priority
    */
-  findComponentsWithRole(role) {
-    return components.filter((descriptor) => descriptor.role === role)
+  findComponentsWithType(type) {
+    return components.filter((descriptor) => descriptor.type === type)
         .map((descriptor) => descriptor.component);
   }
 }
