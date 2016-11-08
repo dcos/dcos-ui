@@ -39,9 +39,15 @@ class MountService extends EventEmitter {
       return;
     }
 
-    // Add component descriptor and sort list of components
-    components.push({component, priority, role});
-    components.sort((a, b) => a.priority - b.priority);
+    // Add component descriptor and sort components list by priority and index
+    components.push({component, priority, role, index: components.length});
+    components.sort((a, b) => {
+      if (a.priority !== b.priority) {
+        return b.priority - a.priority;
+      }
+
+      return a.index - b.index;
+    });
 
     this.emit(CHANGE, role);
   }
