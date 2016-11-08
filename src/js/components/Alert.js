@@ -38,7 +38,7 @@ Alert.defaultProps = {
 Alert.propTypes = {
   children: React.PropTypes.node.isRequired,
   showIcon: React.PropTypes.bool,
-  type: React.PropTypes.oneOf(['danger', 'success']).isRequired
+  type: React.PropTypes.oneOf(['danger', 'success'])
 };
 
 module.exports = Alert;
