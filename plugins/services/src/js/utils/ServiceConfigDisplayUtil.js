@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import React from 'react';
 import {Table} from 'reactjs-components';
 
+import DateUtil from '../../../../../src/js/utils/DateUtil';
 import HostUtil from './HostUtil';
 import Networking from '../../../../../src/js/constants/Networking';
 import Units from '../../../../../src/js/utils/Units';
@@ -11,7 +12,7 @@ const renderMillisecondsFromSeconds = (prop, row) => {
   let value = row[prop];
 
   if (value != null) {
-    value = `${value * 1000} ms`;
+    value = DateUtil.getDuration(value);
   }
 
   return ServiceConfigDisplayUtil.getDisplayValue(value);

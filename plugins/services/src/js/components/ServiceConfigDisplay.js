@@ -9,90 +9,80 @@ import ConfigurationMapValue from '../../../../../src/js/components/Configuratio
 import ServiceConfigDisplayUtil from '../utils/ServiceConfigDisplayUtil';
 import Util from '../../../../../src/js/utils/Util';
 
-const shouldExcludeItem = (row, appDefinition) => {
+const shouldExcludeItem = (row, appConfig) => {
   switch (row.key) {
     case 'gpus':
-      return appDefinition.gpus === 0;
+      return appConfig.gpus === 0;
     case 'container.volumes':
-      return appDefinition.container == null
-        || appDefinition.container.volumes == null
-        || appDefinition.container.volumes.length === 0;
+      return appConfig.container == null
+        || appConfig.container.volumes == null
+        || appConfig.container.volumes.length === 0;
     case 'healthChecks':
-      return appDefinition.healthChecks == null
-        || appDefinition.healthChecks.length === 0;
+      return appConfig.healthChecks == null
+        || appConfig.healthChecks.length === 0;
     case 'secrets':
-      return appDefinition.secrets == null
-        || Object.keys(appDefinition.secrets).length === 0;
+      return appConfig.secrets == null
+        || Object.keys(appConfig.secrets).length === 0;
     case 'env':
-      return appDefinition.env == null
-        || Object.keys(appDefinition.env).length === 0;
+      return appConfig.env == null
+        || Object.keys(appConfig.env).length === 0;
     case 'labels':
-      return appDefinition.labels == null
-        || Object.keys(appDefinition.labels).length === 0;
+      return appConfig.labels == null
+        || Object.keys(appConfig.labels).length === 0;
     default:
       return false;
   }
 };
 
-const ServiceConfigDisplay = ({appDefinition}) => {
+const getDisplayValue = (type, value) => {
+  // If the row's type is pre, we wrap it in a pre tag.
+  if (type === 'pre') {
+    return <pre className="flush transparent wrap">{value}</pre>;
+  }
+
+  return ServiceConfigDisplayUtil.getDisplayValue(value);
+};
+
+const ServiceConfigDisplay = ({appConfig}) => {
   const configurationMapSections = ServiceConfigDisplayUtil.displayValues.map(
     (section, sectionIndex) => {
-      let configurationMapRows = section.values.reduce(
-        (memo, row, rowIndex) => {
+      let configurationMapRows = section.values.filter((row) => {
           // Some rows must be excluded if relevant data is missing.
-          if (shouldExcludeItem(row, appDefinition)) {
-            return memo;
-          }
-
+          return !shouldExcludeItem(row, appConfig);
+        })
+        .map((row, rowIndex) => {
           let reactKey = `${sectionIndex}.${rowIndex}`;
-          let value = null;
-
-          if (row.key != null) {
-            value = Util.findNestedPropertyInObject(appDefinition, row.key);
-          }
+          let value = Util.findNestedPropertyInObject(appConfig, row.key);
 
           // If a transformValue was specified on the row, we use it.
           if (row.transformValue != null) {
-            value = row.transformValue(value, appDefinition);
+            value = row.transformValue(value, appConfig);
           }
 
           if (row.render != null) {
             // If a custom render method was specified on the row, we use that.
-            memo.push(row.render(value, appDefinition));
+            return row.render(value, appConfig);
           } else if (row.heading != null) {
             // If the row is a heading, we render the heading.
-            memo.push(
+            return (
               <ConfigurationMapHeading key={reactKey} level={row.headingLevel}>
                 {row.heading}
               </ConfigurationMapHeading>
             );
-          } else {
-            // Otherwise we treat the row as "label:value" type display.
-            let displayValue = null;
-
-            // If the row's type is pre, we wrap it in a pre tag.
-            if (row.type === 'pre') {
-              displayValue = <pre className="flush transparent wrap">{value}</pre>;
-            } else {
-              displayValue = ServiceConfigDisplayUtil.getDisplayValue(value);
-            }
-
-            memo.push(
-              <ConfigurationMapRow key={reactKey}>
-                <ConfigurationMapLabel>
-                  {row.label}
-                </ConfigurationMapLabel>
-                <ConfigurationMapValue>
-                  {displayValue}
-                </ConfigurationMapValue>
-              </ConfigurationMapRow>
-            );
           }
 
-          return memo;
-        },
-        []
-      );
+          // Otherwise we treat the row as "label:value" type display.
+          return (
+            <ConfigurationMapRow key={reactKey}>
+              <ConfigurationMapLabel>
+                {row.label}
+              </ConfigurationMapLabel>
+              <ConfigurationMapValue>
+                {getDisplayValue(row.type, value)}
+              </ConfigurationMapValue>
+            </ConfigurationMapRow>
+          );
+        });
 
       if (configurationMapRows.length === 0) {
         return null;
@@ -118,7 +108,7 @@ const ServiceConfigDisplay = ({appDefinition}) => {
 };
 
 ServiceConfigDisplay.propTypes = {
-  appDefinition: React.PropTypes.object.isRequired
+  appConfig: React.PropTypes.object.isRequired
 };
 
 module.exports = ServiceConfigDisplay;
