@@ -25,6 +25,22 @@ import RouterUtil from './utils/RouterUtil';
 
 let domElement = document.getElementById('application');
 
+// TODO: Implement loader that can concat many sprites into a single one
+setTimeout(function () {
+  var ajax = new XMLHttpRequest();
+  ajax.open('GET', 'sprite.svg', true);
+  ajax.send();
+  ajax.onload = function () {
+    var div = document.createElement('div');
+    div.innerHTML = ajax.responseText;
+    div.style.height = 0;
+    div.style.overflow = 'hidden';
+    div.style.width = 0;
+    div.style.visibility = 'hidden';
+    document.body.insertBefore(div, document.body.childNodes[0]);
+  };
+});
+
 // Patch json
 let oldJSON = RequestUtil.json;
 RequestUtil.json = function (options = {}) {

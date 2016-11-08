@@ -2,6 +2,7 @@ import CompressionPlugin from 'compression-webpack-plugin';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import StringReplacePlugin from 'string-replace-webpack-plugin';
+import SVGCompilerPlugin from './plugins/svg-compiler-plugin';
 import webpack from 'webpack';
 
 import packageInfo from '../package';
@@ -19,13 +20,20 @@ let REPLACEMENT_VARS = {
   ENV: process.env.NODE_ENV
 };
 
+let dependencies = Object.assign({}, packageInfo.dependencies);
+delete dependencies['canvas-ui'];
+delete dependencies['cnvs'];
+
 module.exports = Object.assign({}, webpackConfig, {
-  entry: './src/js/index.js',
+  entry: {
+    index: './src/js/index.js',
+    vendor: Object.keys(dependencies)
+  },
   devtool: '#source-map',
   production: true,
   output: {
     path: './dist',
-    filename: './index.[hash].js'
+    filename: './[name].[hash].js'
   },
   plugins: [
     // Important to keep React file size down
@@ -47,7 +55,10 @@ module.exports = Object.assign({}, webpackConfig, {
 
     new ExtractTextPlugin('./[name].[hash].css'),
 
+    new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.[hash].js', Infinity),
+
     new HtmlWebpackPlugin({
+      filename: 'index.html',
       template: './src/index.html',
       production: true,
     }),
@@ -56,6 +67,8 @@ module.exports = Object.assign({}, webpackConfig, {
     new webpack.IgnorePlugin(/icons\/_exports\//),
 
     new webpack.IgnorePlugin(/tests\/_fixtures\//),
+
+    new SVGCompilerPlugin({baseDir: 'src/img/components/icons'}),
 
     new CompressionPlugin({
       asset: '[path].gz[query]',

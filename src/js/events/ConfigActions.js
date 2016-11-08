@@ -6,6 +6,13 @@ import Config from '../config/Config';
 
 const ConfigActions = {
   fetchConfig() {
+    if (global.APPLICATION_CONFIGURATION) {
+      AppDispatcher.handleServerAction({
+        type: ActionTypes.REQUEST_CONFIG_SUCCESS,
+        data: JSON.parse(global.APPLICATION_CONFIGURATION)
+      });
+    }
+
     RequestUtil.json({
       url: `${Config.rootUrl}/dcos-metadata/ui-config.json`,
       success(response) {
