@@ -17,7 +17,6 @@ import TabView from '../../../../../../src/js/components/TabView';
 import TabViewList from '../../../../../../src/js/components/TabViewList';
 import Transaction from '../../../../../../src/js/structs/Transaction';
 import TransactionTypes from '../../../../../../src/js/constants/TransactionTypes';
-import Util from '../../../../../../src/js/utils/Util';
 import DataValidatorUtil from '../../../../../../src/js/utils/DataValidatorUtil';
 
 const METHODS_TO_BIND = [
@@ -38,9 +37,6 @@ const jsonParserReducers = combineParsers(JSONParserReducers);
 const jsonConfigReducers = combineReducers(JSONConfigReducers);
 const inputConfigReducers = combineReducers(
   Object.assign({}, ...SECTIONS.map((item) => item.configReducers))
-);
-const validationReducers = combineReducers(
-  Object.assign({}, ...SECTIONS.map((item) => item.validationReducers))
 );
 
 class NewCreateServiceModalForm extends React.Component {
@@ -79,10 +75,12 @@ class NewCreateServiceModalForm extends React.Component {
       // Flush batch
       let batch = new Batch();
 
-      // Run validation reducers
-      let errors = Util.filterEmptyValues(
-        batch.reduce(validationReducers, appConfig)
-      );
+      // Run data validation on the raw data
+      let errorList = DataValidatorUtil.validate(appConfig, [
+        AppValidators.App
+      ]);
+
+      let errors = DataValidatorUtil.errorArrayToMap( errorList );
 
       // Translate appConfig to batch transactions
       jsonParserReducers(appConfig).forEach((item) => {
@@ -122,14 +120,10 @@ class NewCreateServiceModalForm extends React.Component {
     // Create temporary finalized appConfig
     let appConfig = this.getAppConfig();
 
-    // Run validation reducers on appConfig
+    // Run data validation on the raw data
     let errorList = DataValidatorUtil.validate(appConfig, [
       AppValidators.App
     ]);
-
-    errorList.forEach(function (error) {
-      console.error('on /' + error.path.join('/') + ': ' + error.message);
-    });
 
     let errors = DataValidatorUtil.errorArrayToMap( errorList );
 
