@@ -32,7 +32,7 @@ class TaskDetailsTab extends React.Component {
   }
 
   getMesosTaskDetailsDescriptionList(mesosTask) {
-    if (mesosTask == null ) {
+    if (mesosTask == null) {
       return null;
     }
 
