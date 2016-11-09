@@ -8,6 +8,11 @@ import ReducerUtil from '../../../../../../src/js/utils/ReducerUtil';
 import {FormReducer as env} from '../../reducers/serviceForm/EnvironmentVariables';
 import {FormReducer as labels} from '../../reducers/serviceForm/Labels';
 
+const METHODS_TO_BIND = [
+  'handleOnRemoveItem',
+  'handleOnAddItem'
+];
+
 class EnvironmentFormSection extends Component {
   constructor() {
     super(...arguments);
@@ -15,6 +20,24 @@ class EnvironmentFormSection extends Component {
     let reducers = ReducerUtil.combineReducers(EnvironmentFormSection.configReducers);
 
     this.state = {reducers};
+
+    METHODS_TO_BIND.forEach((method) => {
+      this[method] = this[method].bind(this);
+    });
+  }
+
+  handleOnRemoveItem(event) {
+    let {path, value} = event.target.dataset;
+
+    value = parseInt(value, 10);
+    this.props.onRemoveItem({value, path});
+  }
+
+  handleOnAddItem(event) {
+    let {path, value} = event.target.dataset;
+
+    value = parseInt(value, 10);
+    this.props.onAddItem({value, path});
   }
 
   getEnvironmentLines(data) {
@@ -67,10 +90,9 @@ class EnvironmentFormSection extends Component {
           </FormGroup>
           <div className="form-group flex flex-item-align-end column-4">
             <a className="column-3 button button-primary-link button-flush"
-              onClick={(event) => {
-                event.preventDefault();
-                this.props.onRemoveItem({value: key, path: 'env'});
-              }}>
+              data-path="env"
+              data-value={key}
+              onClick={this.handleOnRemoveItem}>
               Delete
             </a>
           </div>
@@ -127,10 +149,9 @@ class EnvironmentFormSection extends Component {
           </FormGroup>
           <div className="form-group flex flex-item-align-end column-4">
             <a className="column-3 button button-primary-link button-flush"
-              onClick={(event) => {
-                event.preventDefault();
-                this.props.onRemoveItem({value: key, path: 'labels'});
-              }}>
+              data-path="labels"
+              data-value={key}
+              onClick={this.handleOnRemoveItem}>
               Delete
             </a>
           </div>
@@ -155,10 +176,9 @@ class EnvironmentFormSection extends Component {
         {this.getEnvironmentLines(data.env)}
         <div>
           <a className="button button-primary-link button-flush"
-            onClick={(event) => {
-              event.preventDefault();
-              this.props.onAddItem({value: data.env.length, path: 'env'});
-            }}>
+            data-value={data.env.length}
+            data-path="env"
+            onClick={this.handleOnAddItem}>
             + Add Environment Variable
           </a>
         </div>
@@ -174,10 +194,9 @@ class EnvironmentFormSection extends Component {
         <div>
           <a
             className="button button-primary-link button-flush"
-            onClick={(event) => {
-              event.preventDefault();
-              this.props.onAddItem({value: data.env.length, path: 'labels'});
-            }}>
+            data-value={data.env.length}
+            data-path="labels"
+            onClick={this.handleOnAddItem}>
             + Add Label
           </a>
         </div>
