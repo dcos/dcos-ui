@@ -3,6 +3,7 @@ import {Link} from 'react-router';
 import React from 'react';
 import {Table} from 'reactjs-components';
 
+import {reconstructPathFromRoutes} from '../../../../../src/js/utils/RouterUtil';
 import Volume from '../structs/Volume';
 import VolumeStatus from '../constants/VolumeStatus';
 
@@ -131,15 +132,15 @@ class VolumeTable extends React.Component {
   renderIDColumn(prop, row) {
     let id = row[prop];
     let {nodeID, taskID} = this.props.params;
-    let volumeID = global.encodeURIComponent(id);
-    let routes = this.props.routes;
-    let currentroutePath = routes[routes.length - 1].path;
+    let volumeID = encodeURIComponent(id);
+    let serviceID = encodeURIComponent(this.props.params.id);
+    let currentroutePath = reconstructPathFromRoutes(this.props.routes);
     let routePath = null;
 
     if (currentroutePath === '/services/overview/:id') {
-      routePath = `/services/overview/${this.props.params.id}/volumes/${volumeID}`;
+      routePath = `/services/overview/${serviceID}/volumes/${volumeID}`;
     } else if (currentroutePath === '/services/overview/:id/tasks/:taskID/volumes') {
-      routePath = `/services/overview/${this.props.params.id}/tasks/${taskID}/volumes/${volumeID}`;
+      routePath = `/services/overview/${serviceID}/tasks/${taskID}/volumes/${volumeID}`;
     } else if (currentroutePath === '/nodes/:nodeID/tasks/:taskID/volumes') {
       routePath = `/nodes/${nodeID}/tasks/${taskID}/volumes/${volumeID}`;
     }
