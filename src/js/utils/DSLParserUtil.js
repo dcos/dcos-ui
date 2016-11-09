@@ -3,38 +3,66 @@ import DSLCombinerTypes from '../constants/DSLCombinerTypes';
 import {FilterNode, CombinerNode} from '../structs/DSLASTNodes';
 
 /**
- * Template function for combining two filters, used by the parser
+ * Factory for filter-combining functions (operators)
  *
- * When this function is 'instantiated', the first two arguments are bound by
- * the parser to the child filter functions (see below) and the `this` context
- * to an instance of a `CombinerNode` representing the token AST node.
+ * This factory function creates the appropriate run-time function for combining
+ * two other run-time filter functions based on an operator.
  *
- * When this function is used, the user has to supply the final two arguments.
- * The `filters` object is a library with the available filters that can be used
- * in this context, while the `resultset` is an instance of `List` or `Tree` on
- * which the filers have to be applied.
+ * By the term `run-time` we refer to a function that will be called by the user
+ * in order to actually apply the filter chain on a resultset. Note that this
+ * factory function will be created by the AST parser.
+ *
+ * For example, when the expression: `string AND attrib:value` is encountered,
+ * two run-time filter functions will be produced by the `filterFunctionFactory`
+ * function (see below), and combined into one, using this function.
  *
  * @private
- * @param {CombineNode} ast - The AST node for the combine operation
- * @param {function} filter1 - The first child filter function (auto-bound)
- * @param {function} filter2 - The second child filter function (auto-bound)
- * @returns {function} - Returns the fabricated combined function
+ * @param {CombineNode} ast - The AST node for the combine operator
+ * @param {function} leftFilterFn - The filter function on the left side of the operator
+ * @param {function} rightFilterFn - The filter function on the right side of the operator
+ * @returns {function} - Returns the fabricated filter combiner
  */
-function combineFiltersFactory(ast, filter1, filter2) {
+function combineFunctionFactory(ast, leftFilterFn, rightFilterFn) {
   switch (ast.combinerType) {
     case DSLCombinerTypes.AND:
+
+      /**
+       * This function calculates the intersection of the resultsets of the two
+       * filter functions, effectively implementing the `AND` operator.
+       *
+       * The `filters` object is a library with the available filters that can
+       * be used in this context, while the `resultset` is an instance of `List`
+       * on which the filers have to be applied.
+       *
+       * @param {Object} filters - An object containing the valid filters that can be used
+       * @param {List} resultset - An instance of List or Tree containing the items to filter
+       * @returns {List} resultset - A new instance of a List, containing the results
+       */
       return function (filters, resultset) {
         // We are interested in the intersection of the results of the two filters
-        let intermediateResultset = filter1(filters, resultset);
-        return filter2(filters, intermediateResultset);
+        let intermediateResultset = leftFilterFn(filters, resultset);
+        return rightFilterFn(filters, intermediateResultset);
       };
 
     case DSLCombinerTypes.OR:
+
+      /**
+       * This function calculates the union of the resultsets of the two filter
+       * functions, effectively implementing the `OR` operator.
+       *
+       * The `filters` object is a library with the available filters that can
+       * be used in this context, while the `resultset` is an instance of `List`
+       * on which the filers have to be applied.
+       *
+       * @param {Object} filters - An object containing the valid filters that can be used
+       * @param {List} resultset - An instance of List or Tree containing the items to filter
+       * @returns {List} resultset - A new instance of a List, containing the results
+       */
       return function (filters, resultset) {
         // We are interested in the union of the results of the two filters
 
-        // TODO: Merge the results of `filter1(filters, resultset)` and
-        //       `filter2(filters, resultset)`.
+        // TODO: Merge the results of `leftFilterFn(filters, resultset)` and
+        //       `rightFilterFn(filters, resultset)`.
 
         // TODO: Implement a `List.merge` function that merges two lists,
         //       discarding duplicate values.
@@ -45,26 +73,32 @@ function combineFiltersFactory(ast, filter1, filter2) {
 }
 
 /**
- * Template function for filtering a resultset, used by the parser
+ * Factory for filter functions (operands)
  *
- * When this function is 'instantiated' by the parser, `this` context
- * is bound to an instance of a `FilterNode` representing the token AST node.
- *
- * When this function is used, the user has to supply the final two arguments.
- * The `filters` object is a library with the available filters that can be used
- * in this context, while the `resultset` is an instance of `List` or `Tree` on
- * which the filers have to be applied.
+ * This factory function creates the appropriate run-time function that filters
+ * a given resultset according to the configuration of the `ast` node provided.
  *
  * @private
  * @param {FilterNode} ast - The AST node for the filter operation
- * @param {Object} filters - An object containing the valid filters that can be used
- * @param {List} resultset - An instance of List or Tree containing the items to filter
- *
  * @returns {function} - Returns the fabricated filter function
  */
 /* eslint-disable no-unused-vars */
 function filterFunctionFactory(ast) {
+
+  /**
+   * This function is accessible directly to the user, or combined into a chain
+   * of filters using combination operators (see the `combineFunctionFactory`
+   * above).
+   *
+   * Given an input `List` resultset, it should keep only the items that passes
+   * the tests, as defined in the `ast` configuration.
+   *
+   * @param {Object} filters - An object containing the valid filters that can be used
+   * @param {List} resultset - An instance of List or Tree containing the items to filter
+   * @returns {List} resultset - A new instance of a List, containing the results
+   */
   return function (filters, resultset) {
+
     // TODO: Lookup in `filters` object one or more valid filters that can be
     //       applied on the bound token. We can use the `this.filterType` and
     //       `this.filterParams` for this purpose. Then apply them on the
@@ -102,7 +136,7 @@ module.exports = {
       let ast = new CombinerNode(DSLCombinerTypes.AND, f1.ast, f2.ast);
 
       return {
-        filter: combineFiltersFactory(ast, f1.filter, f2.filter),
+        filter: combineFunctionFactory(ast, f1.filter, f2.filter),
         ast
       };
     },
@@ -119,7 +153,7 @@ module.exports = {
       let ast = new CombinerNode(DSLCombinerTypes.OR, f1.ast, f2.ast);
 
       return {
-        filter: combineFiltersFactory(ast, f1.filter, f2.filter),
+        filter: combineFunctionFactory(ast, f1.filter, f2.filter),
         ast
       };
     }
@@ -145,7 +179,7 @@ module.exports = {
      *
      * @returns {Function} Returns a filter function
      */
-    attrib(label, text, lstart, lend, vstart, vend) {
+    attribute(label, text, lstart, lend, vstart, vend) {
       let ast = new FilterNode(lstart, lend, DSLFilterTypes.ATTRIB, {text, label});
       ast.position.push([vstart, vend]);
 

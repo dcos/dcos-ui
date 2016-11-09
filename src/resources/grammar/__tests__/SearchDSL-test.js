@@ -16,11 +16,13 @@ describe('SearchDSL', function () {
         expect(expr.ast.filterType).toEqual(DSLFilterTypes.FUZZY);
         expect(expr.ast.filterParams.text).toEqual('fuzzy');
       });
+
       it('should parse exact text', function () {
         let expr = SearchDSL.parse('"exact string"');
         expect(expr.ast.filterType).toEqual(DSLFilterTypes.EXACT);
         expect(expr.ast.filterParams.text).toEqual('exact string');
       });
+
       it('should parse attributes', function () {
         let expr = SearchDSL.parse('attrib:value');
         expect(expr.ast.filterType).toEqual(DSLFilterTypes.ATTRIB);
