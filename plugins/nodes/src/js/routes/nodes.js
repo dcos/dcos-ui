@@ -156,18 +156,18 @@ let nodesRoutes = {
               }
             },
             {
-              type: Route,
-              path: 'volumes(/:volumeID)',
+              component: VolumeTable,
               hideHeaderNavigation: true,
               isTab: true,
-              component: VolumeTable,
+              path: 'volumes',
+              title: 'Volumes',
+              type: Route,
               buildBreadCrumb() {
                 return {
                   parentCrumb: '/nodes/:nodeID/tasks/:taskID',
                   getCrumbs() { return []; }
                 };
-              },
-              title: 'Volumes'
+              }
             }
           ]
         },
