@@ -8,23 +8,28 @@ import {combineReducers} from '../../../../../../src/js/utils/ReducerUtil';
 import JSONConfigReducers from '../../reducers/JSONConfigReducers';
 import JSONParserReducers from '../../reducers/JSONParserReducers';
 import ServiceFormSection from '../forms/ServiceFormSection';
+import EnvironmentFormSection from '../forms/EnvironmentFormSection';
 import TabButton from '../../../../../../src/js/components/TabButton';
 import TabButtonList from '../../../../../../src/js/components/TabButtonList';
 import Tabs from '../../../../../../src/js/components/Tabs';
 import TabView from '../../../../../../src/js/components/TabView';
 import TabViewList from '../../../../../../src/js/components/TabViewList';
 import Transaction from '../../../../../../src/js/structs/Transaction';
+import TransactionTypes from '../../../../../../src/js/constants/TransactionTypes';
 import Util from '../../../../../../src/js/utils/Util';
 
 const METHODS_TO_BIND = [
   'handleFormChange',
   'handleFormBlur',
   'handleJSONBlur',
-  'handleJSONChange'
+  'handleJSONChange',
+  'handleAddItem',
+  'handleRemoveItem'
 ];
 
 const SECTIONS = [
-  ServiceFormSection
+  ServiceFormSection,
+  EnvironmentFormSection
 ];
 
 const jsonParserReducers = combineParsers(JSONParserReducers);
@@ -101,7 +106,10 @@ class NewCreateServiceModalForm extends React.Component {
 
     if (parsedData) {
       let batch = new Batch();
-      let appConfig = batch.reduce(jsonConfigReducers, parsedData);
+      let appConfig = {};
+      jsonParserReducers(parsedData).forEach((item) => {
+        batch.add(item);
+      });
       Object.assign(newState, {batch, appConfig});
     }
 
@@ -148,6 +156,24 @@ class NewCreateServiceModalForm extends React.Component {
     return batch.reduce(jsonConfigReducers, appConfig);
   }
 
+  handleAddItem({value, path}) {
+    let {appConfig, batch} = this.state;
+    batch.add(new Transaction(path.split(','), value, TransactionTypes.ADD_ITEM));
+
+    // Update JSON data
+    let jsonValue = JSON.stringify(batch.reduce(jsonConfigReducers, appConfig), null, 2);
+    this.setState({batch, jsonValue});
+  }
+
+  handleRemoveItem({value, path}) {
+    let {appConfig, batch} = this.state;
+    batch.add(new Transaction(path.split(','), value, TransactionTypes.REMOVE_ITEM));
+
+    // Update JSON data
+    let jsonValue = JSON.stringify(batch.reduce(jsonConfigReducers, appConfig), null, 2);
+    this.setState({batch, jsonValue});
+  }
+
   render() {
     let {appConfig, batch, errors, jsonValue} = this.state;
     let {isJSONModeActive} = this.props;
@@ -168,10 +194,17 @@ class NewCreateServiceModalForm extends React.Component {
             <Tabs vertical={true}>
               <TabButtonList>
                 <TabButton id="services" label="Services" />
+                <TabButton id="environment" label="Environment" />
               </TabButtonList>
               <TabViewList>
                 <TabView id="services">
                   <ServiceFormSection errors={errors} data={data} />
+                </TabView>
+                <TabView id="environment">
+                  <EnvironmentFormSection
+                    data={data}
+                    onRemoveItem={this.handleRemoveItem}
+                    onAddItem={this.handleAddItem} />
                 </TabView>
               </TabViewList>
             </Tabs>

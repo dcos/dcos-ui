@@ -8,7 +8,7 @@ const FormGroup = (props) => {
   let {children, className, errorClassName, showError, required} = props;
 
   let clonedChildren = React.Children.map(children, (child) => {
-    if (!showError && child.type === FieldError) {
+    if (child == null || (!showError && child.type === FieldError)) {
       return null;
     }
 
