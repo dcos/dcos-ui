@@ -8,6 +8,11 @@ import Transaction from '../../../../../../src/js/structs/Transaction';
 module.exports = {
   JSONReducer(state, {type, path, value}) {
     if (this.env == null) {
+      // `this` is a context which is givven to every reducer so it could
+      // cache information.
+      // In this case we are caching an array structure and although the
+      // output structure is a object. But this enables us to not overwrite
+      // values if there are two values with the same key temporarily.
       this.env = [];
     }
 
