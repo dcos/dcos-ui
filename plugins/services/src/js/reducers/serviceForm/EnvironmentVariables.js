@@ -12,7 +12,7 @@ module.exports = {
     }
 
     if (this.env == null) {
-      // `this` is a context which is givven to every reducer so it could
+      // `this` is a context which is given to every reducer so it could
       // cache information.
       // In this case we are caching an array structure and although the
       // output structure is a object. But this enables us to not overwrite
@@ -42,6 +42,7 @@ module.exports = {
           if (item.key != null || item.value != null) {
             memo[item.key] = item.value;
           }
+
           return memo;
         }, {});
       }
@@ -54,11 +55,14 @@ module.exports = {
         this.env[index].value = value;
       }
     }
+
     return this.env.reduce((memo, item) => {
       memo[item.key] = item.value;
+
       return memo;
     }, {});
   },
+
   JSONParser(state) {
     if (state.env == null) {
       return [];
@@ -88,6 +92,7 @@ module.exports = {
       return memo;
     }, []);
   },
+
   FormReducer(state = [], {type, path, value}) {
     if (path == null) {
       return state;
@@ -107,6 +112,7 @@ module.exports = {
             });
             break;
         }
+
         return state;
       }
 
@@ -118,6 +124,7 @@ module.exports = {
         state[index].value = value;
       }
     }
+
     return state;
   }
 };

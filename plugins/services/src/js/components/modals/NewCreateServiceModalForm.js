@@ -201,9 +201,10 @@ class NewCreateServiceModalForm extends React.Component {
                   <ServiceFormSection errors={errors} data={data} />
                 </TabView>
                 <TabView id="environment">
-                  <EnvironmentFormSection data={data}
-                      onRemoveItem={this.handleRemoveItem}
-                      onAddItem={this.handleAddItem} />
+                  <EnvironmentFormSection
+                    data={data}
+                    onRemoveItem={this.handleRemoveItem}
+                    onAddItem={this.handleAddItem} />
                 </TabView>
               </TabViewList>
             </Tabs>

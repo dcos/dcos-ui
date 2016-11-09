@@ -42,6 +42,7 @@ module.exports = {
           if (item.key != null || item.value != null) {
             memo[item.key] = item.value;
           }
+
           return memo;
         }, {});
       }
@@ -54,15 +55,19 @@ module.exports = {
         this.labels[index].value = value;
       }
     }
+
     return this.labels.reduce((memo, item) => {
       memo[item.key] = item.value;
+
       return memo;
     }, {});
   },
+
   JSONParser(state) {
     if (state.labels == null) {
       return [];
     }
+
     return Object.keys(state.labels).reduce(function (memo, key, index) {
       /**
        * For the labels which are a key => value based object we want to
@@ -87,6 +92,7 @@ module.exports = {
       return memo;
     }, []);
   },
+
   FormReducer(state = [], {type, path, value}) {
     if (path == null) {
       return state;
@@ -106,6 +112,7 @@ module.exports = {
             });
             break;
         }
+
         return state;
       }
 
@@ -117,6 +124,7 @@ module.exports = {
         state[index].value = value;
       }
     }
+
     return state;
   }
 };

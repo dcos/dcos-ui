@@ -53,7 +53,7 @@ class EnvironmentFormSection extends Component {
       return (
         <div key={key} className="flex row">
           <FormGroup
-            className="column-3"
+            className="column-5"
             required={false}
             showError={Boolean(errors.env[key])}>
             {keyLabel}
@@ -65,7 +65,7 @@ class EnvironmentFormSection extends Component {
             <span className="emphasis form-colon">:</span>
           </FormGroup>
           <FormGroup
-            className="column-3"
+            className="column-5"
             required={false}
             showError={Boolean(errors.env[key])}>
             {valueLabel}
@@ -75,20 +75,21 @@ class EnvironmentFormSection extends Component {
               value={env.value}/>
             <FieldError>{errors.env[key]}</FieldError>
           </FormGroup>
-          <div className="form-group flex flex-item-align-end column-4">
-            <a className="column-3 button button-primary-link button-flush"
+          <FormGroup className="flex flex-item-align-end column-2">
+            <a className="button button-primary-link button-flush"
               data-path="env"
               data-value={key}
               onClick={this.handleOnRemoveItem}>
               Delete
             </a>
-          </div>
+          </FormGroup>
         </div>
     ); });
   }
 
   getLabelsLines(data) {
     const {errors} = this.props;
+
     return data.map((label, key) => {
       let keyLabel = null;
       let valueLabel = null;
@@ -99,7 +100,7 @@ class EnvironmentFormSection extends Component {
       return (
         <div key={key} className="flex row">
           <FormGroup
-            className="column-3"
+            className="column-5"
             required={false}
             showError={Boolean(errors.labels[key])}>
             {keyLabel}
@@ -111,7 +112,7 @@ class EnvironmentFormSection extends Component {
             <FieldError>{errors.labels[key]}</FieldError>
           </FormGroup>
           <FormGroup
-            className="column-3"
+            className="column-5"
             required={false}
             showError={Boolean(errors.labels[key])}>
             {valueLabel}
@@ -121,14 +122,14 @@ class EnvironmentFormSection extends Component {
               value={label.value}/>
             <FieldError>{errors.labels[key]}</FieldError>
           </FormGroup>
-          <div className="form-group flex flex-item-align-end column-4">
-            <a className="column-3 button button-primary-link button-flush"
+          <FormGroup className="flex flex-item-align-end column-2">
+            <a className="button button-primary-link button-flush"
               data-path="labels"
               data-value={key}
               onClick={this.handleOnRemoveItem}>
               Delete
             </a>
-          </div>
+          </FormGroup>
         </div>
       );
     });
@@ -139,14 +140,12 @@ class EnvironmentFormSection extends Component {
 
     return (
       <div className="form flush-bottom">
-        <div className="form-row-element">
-          <h2 className="form-header flush-top short-bottom">
-            Environment Variables
-          </h2>
-          <p>
-            Set up environment variables for each task your service launches.
-          </p>
-        </div>
+        <h2 className="flush-top short-bottom">
+          Environment Variables
+        </h2>
+        <p>
+          Set up environment variables for each task your service launches.
+        </p>
         {this.getEnvironmentLines(data.env)}
         <div>
           <a className="button button-primary-link button-flush"
@@ -156,14 +155,12 @@ class EnvironmentFormSection extends Component {
             + Add Environment Variable
           </a>
         </div>
-        <div className="form-row-element">
-          <h2 className="form-header short-bottom">
-            Labels
-          </h2>
-          <p>
-            Attach metadata to expose additional information to other services.
-          </p>
-        </div>
+        <h2 className="short-bottom">
+          Labels
+        </h2>
+        <p>
+          Attach metadata to expose additional information to other services.
+        </p>
         {this.getLabelsLines(data.labels)}
         <div>
           <a
