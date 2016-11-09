@@ -47,13 +47,11 @@ module.exports = {
       }
 
       const index = joinedPath.match(/\d+/)[0];
-      switch (true) {
-        case (type === SET && `env.${index}.key` === joinedPath):
-          this.env[index].key = value;
-          break;
-        case (type === SET && `env.${index}.value` === joinedPath):
-          this.env[index].value = value;
-          break;
+      if (type === SET && `env.${index}.key` === joinedPath) {
+        this.env[index].key = value;
+      }
+      if (type === SET && `env.${index}.value` === joinedPath) {
+        this.env[index].value = value;
       }
     }
     return this.env.reduce((memo, item) => {
@@ -105,15 +103,11 @@ module.exports = {
       }
 
       let index = joinedPath.match(/\d+/)[0];
-      switch (true) {
-        case (type === SET &&
-        `env.${index}.key` === joinedPath):
-          state[index].key = value;
-          break;
-        case (type === SET &&
-        `env.${index}.value` === joinedPath):
-          state[index].value = value;
-          break;
+      if (type === SET && `env.${index}.key` === joinedPath) {
+        state[index].key = value;
+      }
+      if (type === SET && `env.${index}.value` === joinedPath) {
+        state[index].value = value;
       }
     }
     return state;

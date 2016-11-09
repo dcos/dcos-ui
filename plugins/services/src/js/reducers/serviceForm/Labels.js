@@ -47,13 +47,11 @@ module.exports = {
       }
 
       const index = joinedPath.match(/\d+/)[0];
-      switch (true) {
-        case (type === SET && `labels.${index}.key` === joinedPath):
-          this.labels[index].key = value;
-          break;
-        case (type === SET && `labels.${index}.value` === joinedPath):
-          this.labels[index].value = value;
-          break;
+      if (type === SET && `labels.${index}.key` === joinedPath) {
+        this.labels[index].key = value;
+      }
+      if (type === SET && `labels.${index}.value` === joinedPath) {
+        this.labels[index].value = value;
       }
     }
     return this.labels.reduce((memo, item) => {
@@ -104,15 +102,11 @@ module.exports = {
       }
 
       let index = joinedPath.match(/\d+/)[0];
-      switch (true) {
-        case (type === SET &&
-        `labels.${index}.key` === joinedPath):
-          state[index].key = value;
-          break;
-        case (type === SET &&
-        `labels.${index}.value` === joinedPath):
-          state[index].value = value;
-          break;
+      if (type === SET && `labels.${index}.key` === joinedPath) {
+        state[index].key = value;
+      }
+      if (type === SET && `labels.${index}.value` === joinedPath) {
+        state[index].value = value;
       }
     }
     return state;
