@@ -3,6 +3,7 @@ import React from 'react';
 import CompositeState from '../../../../../../src/js/structs/CompositeState';
 import DescriptionList from '../../../../../../src/js/components/DescriptionList';
 import Icon from '../../../../../../src/js/components/Icon';
+import Loader from '../../../../../../src/js/components/Loader';
 import MarathonTaskDetailsList from '../../components/MarathonTaskDetailsList';
 import MesosSummaryStore from '../../../../../../src/js/stores/MesosSummaryStore';
 import ResourceColors from '../../../../../../src/js/constants/ResourceColors';
@@ -14,8 +15,7 @@ import Units from '../../../../../../src/js/utils/Units';
 
 class TaskDetailsTab extends React.Component {
   getContainerInfo(task) {
-    if (task == null || !task.container ||
-      !MesosSummaryStore.get('statesProcessed')) {
+    if (task == null || !task.container) {
       return null;
     }
 
@@ -32,7 +32,7 @@ class TaskDetailsTab extends React.Component {
   }
 
   getMesosTaskDetailsDescriptionList(mesosTask) {
-    if (mesosTask == null || !MesosSummaryStore.get('statesProcessed')) {
+    if (mesosTask == null) {
       return null;
     }
 
@@ -131,6 +131,10 @@ class TaskDetailsTab extends React.Component {
 
   render() {
     let {task} = this.props;
+
+    if (!MesosSummaryStore.get('statesProcessed')) {
+      return <Loader />;
+    }
 
     return (
       <div>

@@ -18,7 +18,7 @@ import TaskDetailBreadcrumb from '../../../../services/src/js/pages/nodes/breadc
 import TaskDetailsTab from '../../../../services/src/js/pages/task-details/TaskDetailsTab';
 import TaskFileViewer from '../../../../services/src/js/pages/task-details/TaskFileViewer';
 import TaskFilesTab from '../../../../services/src/js/pages/task-details/TaskFilesTab';
-import TaskVolumeContainer from '../../../../services/src/js/volume-detail/TaskVolumeContainer';
+import TaskVolumeContainer from '../../../../services/src/js/containers/volume-detail/TaskVolumeContainer';
 import UnitsHealthDetailBreadcrumb from '../../../../../src/js/pages/system/breadcrumbs/UnitsHealthDetailBreadcrumb';
 import UnitsHealthNodeDetail from '../../../../../src/js/pages/system/UnitsHealthNodeDetail';
 import VolumeTable from '../../../../services/src/js/components/VolumeTable';

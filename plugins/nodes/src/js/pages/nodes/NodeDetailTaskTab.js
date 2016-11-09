@@ -3,7 +3,7 @@ import {routerShape} from 'react-router';
 
 import MesosStateStore from '../../../../../../src/js/stores/MesosStateStore';
 import Node from '../../../../../../src/js/structs/Node';
-import TasksContainer from '../../../../../services/src/js/tasks/TasksContainer';
+import TasksContainer from '../../../../../services/src/js/containers/tasks/TasksContainer';
 
 class NodeDetailTaskTab extends React.Component {
   render() {
