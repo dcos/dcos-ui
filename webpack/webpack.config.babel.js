@@ -145,6 +145,10 @@ module.exports = {
         loader: 'json-loader'
       },
       {
+        test: /\.jison$/,
+        loader: 'jison-loader'
+      },
+      {
         test: /\.(ico|icns)$/,
         loader: 'file?name=./[hash]-[name].[ext]',
       },
@@ -184,6 +188,10 @@ module.exports = {
         })
       }
     ]
+  },
+
+  node: {
+    fs: 'empty'
   },
 
   postcss: [autoprefixer],
