@@ -1,7 +1,7 @@
-import MountPoint from './MountPoint';
+import Mount from './Mount';
 import MountService from './MountService';
 
 module.exports = {
-  MountPoint,
+  Mount,
   MountService
 };
