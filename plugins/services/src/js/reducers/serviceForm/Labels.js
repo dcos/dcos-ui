@@ -7,6 +7,10 @@ import Transaction from '../../../../../../src/js/structs/Transaction';
 
 module.exports = {
   JSONReducer(state, {type, path, value}) {
+    if (path == null) {
+      return state;
+    }
+
     if (this.labels == null) {
       // `this` is referring to a context which is given to every reducer so
       // it can cache information.
@@ -16,8 +20,10 @@ module.exports = {
       this.labels = [];
     }
 
-    if (path != null && path.join('.').search('labels') !== -1) {
-      if (path.join('.') === 'labels') {
+    const joinedPath = path.join('.');
+
+    if (joinedPath.search('labels') !== -1) {
+      if (joinedPath === 'labels') {
         switch (type) {
           case ADD_ITEM:
             this.labels.push({key: null, value: null});
@@ -40,7 +46,6 @@ module.exports = {
         }, {});
       }
 
-      const joinedPath = path.join('.');
       const index = joinedPath.match(/\d+/)[0];
       switch (true) {
         case (type === SET && `labels.${index}.key` === joinedPath):
@@ -77,8 +82,14 @@ module.exports = {
     }, []);
   },
   FormReducer(state = [], {type, path, value}) {
-    if (path != null && path.join('.').search('labels') !== -1) {
-      if (path.join('.') === 'labels') {
+    if (path == null) {
+      return state;
+    }
+
+    let joinedPath = path.join('.');
+
+    if (joinedPath.search('labels') !== -1) {
+      if (joinedPath === 'labels') {
         switch (type) {
           case ADD_ITEM:
             state.push({key: null, value: null});
@@ -92,7 +103,6 @@ module.exports = {
         return state;
       }
 
-      let joinedPath = path.join('.');
       let index = joinedPath.match(/\d+/)[0];
       switch (true) {
         case (type === SET &&

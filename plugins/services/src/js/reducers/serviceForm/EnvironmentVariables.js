@@ -7,6 +7,10 @@ import Transaction from '../../../../../../src/js/structs/Transaction';
 
 module.exports = {
   JSONReducer(state, {type, path, value}) {
+    if (path == null) {
+      return state;
+    }
+
     if (this.env == null) {
       // `this` is a context which is givven to every reducer so it could
       // cache information.
@@ -16,8 +20,10 @@ module.exports = {
       this.env = [];
     }
 
-    if (path != null && path.join('.').search('env') !== -1) {
-      if (path.join('.') === 'env') {
+    const joinedPath = path.join('.');
+
+    if (joinedPath.search('env') !== -1) {
+      if (joinedPath === 'env') {
         switch (type) {
           case ADD_ITEM:
             this.env.push({key: null, value: null});
@@ -40,7 +46,6 @@ module.exports = {
         }, {});
       }
 
-      const joinedPath = path.join('.');
       const index = joinedPath.match(/\d+/)[0];
       switch (true) {
         case (type === SET && `env.${index}.key` === joinedPath):
@@ -78,8 +83,14 @@ module.exports = {
     }, []);
   },
   FormReducer(state = [], {type, path, value}) {
-    if (path != null && path.join('.').search('env') !== -1) {
-      if (path.join('.') === 'env') {
+    if (path == null) {
+      return state;
+    }
+
+    let joinedPath = path.join('.');
+
+    if (joinedPath.search('env') !== -1) {
+      if (joinedPath === 'env') {
         switch (type) {
           case ADD_ITEM:
             state.push({key: null, value: null});
@@ -93,7 +104,6 @@ module.exports = {
         return state;
       }
 
-      let joinedPath = path.join('.');
       let index = joinedPath.match(/\d+/)[0];
       switch (true) {
         case (type === SET &&
