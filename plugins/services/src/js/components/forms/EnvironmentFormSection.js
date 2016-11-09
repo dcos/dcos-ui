@@ -8,36 +8,15 @@ import ReducerUtil from '../../../../../../src/js/utils/ReducerUtil';
 import {FormReducer as env} from '../../reducers/serviceForm/EnvironmentVariables';
 import {FormReducer as labels} from '../../reducers/serviceForm/Labels';
 
-const METHODS_TO_BIND = [
-  'handleOnRemoveItem',
-  'handleOnAddItem'
-];
-
 class EnvironmentFormSection extends Component {
   constructor() {
     super(...arguments);
 
-    let reducers = ReducerUtil.combineReducers(EnvironmentFormSection.configReducers);
-
-    this.state = {reducers};
-
-    METHODS_TO_BIND.forEach((method) => {
-      this[method] = this[method].bind(this);
-    });
-  }
-
-  handleOnRemoveItem(event) {
-    let {path, value} = event.target.dataset;
-
-    value = parseInt(value, 10);
-    this.props.onRemoveItem({value, path});
-  }
-
-  handleOnAddItem(event) {
-    let {path, value} = event.target.dataset;
-
-    value = parseInt(value, 10);
-    this.props.onAddItem({value, path});
+    this.state = {
+      reducers: ReducerUtil.combineReducers(
+        EnvironmentFormSection.configReducers
+      )
+    };
   }
 
   getEnvironmentLines(data) {
@@ -50,6 +29,7 @@ class EnvironmentFormSection extends Component {
         keyLabel = <FieldLabel>Key</FieldLabel>;
         valueLabel = <FieldLabel>Value</FieldLabel>;
       }
+
       return (
         <div key={key} className="flex row">
           <FormGroup
@@ -76,10 +56,9 @@ class EnvironmentFormSection extends Component {
             <FieldError>{errors.env[key]}</FieldError>
           </FormGroup>
           <FormGroup className="flex flex-item-align-end column-2">
-            <a className="button button-primary-link button-flush"
-              data-path="env"
-              data-value={key}
-              onClick={this.handleOnRemoveItem}>
+            <a
+              className="button button-primary-link button-flush"
+              onClick={this.props.onRemoveItem.bind(this, {value: key, path: 'env'})}>
               Delete
             </a>
           </FormGroup>
@@ -97,6 +76,7 @@ class EnvironmentFormSection extends Component {
         keyLabel = <FieldLabel>Key</FieldLabel>;
         valueLabel = <FieldLabel>Value</FieldLabel>;
       }
+
       return (
         <div key={key} className="flex row">
           <FormGroup
@@ -123,10 +103,9 @@ class EnvironmentFormSection extends Component {
             <FieldError>{errors.labels[key]}</FieldError>
           </FormGroup>
           <FormGroup className="flex flex-item-align-end column-2">
-            <a className="button button-primary-link button-flush"
-              data-path="labels"
-              data-value={key}
-              onClick={this.handleOnRemoveItem}>
+            <a
+              className="button button-primary-link button-flush"
+              onClick={this.props.onRemoveItem.bind(this, {value: key, path: 'labels'})}>
               Delete
             </a>
           </FormGroup>
@@ -148,10 +127,9 @@ class EnvironmentFormSection extends Component {
         </p>
         {this.getEnvironmentLines(data.env)}
         <div>
-          <a className="button button-primary-link button-flush"
-            data-value={data.env.length}
-            data-path="env"
-            onClick={this.handleOnAddItem}>
+          <a
+            className="button button-primary-link button-flush"
+            onClick={this.props.onAddItem.bind(this, {value: data.env.length, path: 'env'})}>
             + Add Environment Variable
           </a>
         </div>
@@ -165,9 +143,7 @@ class EnvironmentFormSection extends Component {
         <div>
           <a
             className="button button-primary-link button-flush"
-            data-value={data.env.length}
-            data-path="labels"
-            onClick={this.handleOnAddItem}>
+            onClick={this.props.onAddItem.bind(this, {value: data.labels.length, path: 'labels'})}>
             + Add Label
           </a>
         </div>
