@@ -3,9 +3,17 @@ import {CHANGE} from './MountEvent';
 
 /**
  * List of component descriptors
+ *
  * @type {Array.<{component:function, priority:Number, type:String}>}
  */
 const components = [];
+
+/**
+ * Consecutive number used to rank components based on order of registration
+ *
+ * @type {number}
+ */
+let rank = 0;
 
 /**
  * MountService
@@ -39,14 +47,14 @@ class MountService extends EventEmitter {
       return;
     }
 
-    // Add component descriptor and sort components list by priority and index
-    components.push({component, priority, type, index: components.length});
+    // Add component descriptor and sort components list by priority and rank
+    components.push({component, priority, type, rank: rank++});
     components.sort((a, b) => {
       if (a.priority !== b.priority) {
         return b.priority - a.priority;
       }
 
-      return a.index - b.index;
+      return a.rank - b.rank;
     });
 
     this.emit(CHANGE, type);
