@@ -17,12 +17,12 @@ const METHODS_TO_BIND = [
  *
  * @example
  *
- * <MountPoint type="widget" limit={10} wrapper={MyWidgetsWrapper}>
+ * <Mount type="widget" limit={10} wrapper={MyWidgetsWrapper}>
  *     <span className="help-text"></span>
- * </MountPoint>
+ * </Mount>
  *
  */
-class MountPoint extends React.Component {
+class Mount extends React.Component {
   constructor() {
     super(...arguments);
 
@@ -66,7 +66,7 @@ class MountPoint extends React.Component {
 
     // Filter consumed props to only pass on a "clean" set of props
     const filteredProps = Object.keys(this.props).reduce((props, key) => {
-      if (!Object.prototype.hasOwnProperty.call(MountPoint.propTypes, key)) {
+      if (!Object.prototype.hasOwnProperty.call(Mount.propTypes, key)) {
         props[key] = this.props[key];
       }
 
@@ -91,13 +91,13 @@ class MountPoint extends React.Component {
   }
 }
 
-MountPoint.defaultProps = {
+Mount.defaultProps = {
   alwaysWrap: false,
   limit: Number.MAX_SAFE_INTEGER,
   wrapper: 'div'
 };
 
-MountPoint.propTypes = {
+Mount.propTypes = {
   alwaysWrap: PropTypes.bool,
   limit: PropTypes.number,
   children: PropTypes.element,
@@ -105,4 +105,4 @@ MountPoint.propTypes = {
   wrapper: PropTypes.node
 };
 
-module.exports = MountPoint;
+module.exports = Mount;

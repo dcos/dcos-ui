@@ -1,4 +1,4 @@
-jest.dontMock('../MountPoint');
+jest.dontMock('../Mount');
 jest.dontMock('../MountService');
 jest.dontMock('../../utils/ReactUtil');
 /* eslint-disable no-unused-vars */
@@ -6,10 +6,10 @@ const React = require('react');
 /* eslint-enable no-unused-vars */
 const TestUtils = require('react-addons-test-utils');
 
-const MountPoint = require('../MountPoint');
+const Mount = require('../Mount');
 const MountService = require('../MountService');
 
-describe('MountPoint', function () {
+describe('Mount', function () {
   const FirstTestComponent = function (props) {
     return (<div className="component">{props.message}</div>);
   };
@@ -29,9 +29,9 @@ describe('MountPoint', function () {
 
   it('should render the children by default', function () {
     const result = TestUtils.renderIntoDocument(
-        <MountPoint type="children-test">
+        <Mount type="children-test">
           <span>foo</span>
-        </MountPoint>
+        </Mount>
     );
 
     expect(TestUtils.findRenderedDOMComponentWithTag(result, 'span'))
@@ -41,7 +41,7 @@ describe('MountPoint', function () {
   it('should render null if no component is registered and no children defined',
       function () {
         const renderer = TestUtils.createRenderer();
-        renderer.render(<MountPoint type="children-test" />);
+        renderer.render(<Mount type="children-test" />);
 
         expect(renderer.getRenderOutput()).toBe(null);
       }
@@ -50,9 +50,9 @@ describe('MountPoint', function () {
   it('should not wrap a single child', function () {
     const renderer = TestUtils.createRenderer();
     renderer.render(
-        <MountPoint type="foo">
+        <Mount type="foo">
           <span>foo</span>
-        </MountPoint>
+        </Mount>
     );
 
     expect(TestUtils.isElementOfType(renderer.getRenderOutput(), 'span'))
@@ -62,9 +62,9 @@ describe('MountPoint', function () {
   it('should always wrap elements if configured', function () {
     const renderer = TestUtils.createRenderer();
     renderer.render(
-        <MountPoint type="foo" alwaysWrap={true}>
+        <Mount type="foo" alwaysWrap={true}>
           <span>foo</span>
-        </MountPoint>
+        </Mount>
     );
 
     expect(TestUtils.isElementOfType(renderer.getRenderOutput(), 'div'))
@@ -74,9 +74,9 @@ describe('MountPoint', function () {
   it('should wrap elements with provided wrapper', function () {
     const renderer = TestUtils.createRenderer();
     renderer.render(
-        <MountPoint type="foo" wrapper="p" alwaysWrap={true}>
+        <Mount type="foo" wrapper="p" alwaysWrap={true}>
           <span>foo</span>
-        </MountPoint>
+        </Mount>
     );
 
     expect(TestUtils.isElementOfType(renderer.getRenderOutput(), 'p'))
@@ -85,9 +85,9 @@ describe('MountPoint', function () {
 
   it('should render registered components', function () {
     const dom = TestUtils.renderIntoDocument(
-        <MountPoint type="mount-test">
+        <Mount type="mount-test">
           <span>foo</span>
-        </MountPoint>
+        </Mount>
     );
 
     const result =
@@ -98,9 +98,9 @@ describe('MountPoint', function () {
 
   it('should replace children with registered components', function () {
     const dom = TestUtils.renderIntoDocument(
-        <MountPoint type="mount-test">
+        <Mount type="mount-test">
           <span className="child">foo</span>
-        </MountPoint>
+        </Mount>
     );
 
     const result =
@@ -111,9 +111,9 @@ describe('MountPoint', function () {
 
   it('should update if new component was registered', function () {
     const dom = TestUtils.renderIntoDocument(
-        <MountPoint type="mount-test">
+        <Mount type="mount-test">
           <span className="child">foo</span>
-        </MountPoint>
+        </Mount>
     );
 
     MountService.registerComponent(SecondTestComponent, 'mount-test');
@@ -126,9 +126,9 @@ describe('MountPoint', function () {
 
   it('should update if new component was unregistered', function () {
     const dom = TestUtils.renderIntoDocument(
-        <MountPoint type="mount-test">
+        <Mount type="mount-test">
           <span className="child">foo</span>
-        </MountPoint>
+        </Mount>
     );
 
     MountService.unregisterComponent(FirstTestComponent, 'mount-test');
@@ -142,9 +142,9 @@ describe('MountPoint', function () {
   it('should pass down properties', function () {
     const renderer = TestUtils.createRenderer();
     renderer.render(
-        <MountPoint type="mount-test" message="hello world">
+        <Mount type="mount-test" message="hello world">
           <span>foo</span>
-        </MountPoint>
+        </Mount>
     );
 
     expect(renderer.getRenderOutput().props.children[0].props)
