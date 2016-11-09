@@ -6,12 +6,13 @@ import React from 'react';
 import DeploymentsTab from '../pages/services/DeploymentsTab';
 import ServicesPage from '../pages/ServicesPage';
 import ServicesContainer from '../services/ServicesContainer';
+import ServiceVolumeContainer from '../volume-detail/ServiceVolumeContainer';
 import TaskDetail from '../pages/task-details/TaskDetail';
+import TaskDetailBreadcrumb from '../pages/nodes/breadcrumbs/TaskDetailBreadcrumb';
 import TaskDetailsTab from '../pages/task-details/TaskDetailsTab';
 import TaskFilesTab from '../pages/task-details/TaskFilesTab';
 import TaskFileViewer from '../pages/task-details/TaskFileViewer';
-import TaskDetailBreadcrumb from '../pages/nodes/breadcrumbs/TaskDetailBreadcrumb';
-import VolumeDetail from '../components/VolumeDetail';
+import TaskVolumeContainer from '../volume-detail/TaskVolumeContainer';
 import VolumeTable from '../components/VolumeTable';
 
 function buildServiceCrumbs({id}) {
@@ -78,7 +79,7 @@ let serviceRoutes = [
               {
                 type: Route,
                 path: 'volumes/:volumeID',
-                component: VolumeDetail,
+                component: ServiceVolumeContainer,
                 buildBreadCrumb() {
                   return {
                     parentCrumb: '/services/overview',
@@ -185,7 +186,7 @@ let serviceRoutes = [
                         type: Route,
                         hideHeaderNavigation: true,
                         path: 'volumes/:volumeID',
-                        component: VolumeDetail,
+                        component: TaskVolumeContainer,
                         buildBreadCrumb() {
                           return {
                             parentCrumb: '/services/overview/:id/tasks/:taskID/volumes',
