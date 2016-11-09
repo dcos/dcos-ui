@@ -64,6 +64,14 @@ module.exports = {
       return [];
     }
     return Object.keys(state.labels).reduce(function (memo, key, index) {
+      /**
+       * For the labels which are a key => value based object we want to
+       * create a new item and fill it with the key and the value. So we
+       * need 3 transactions for each key value pair.
+       * 1) Add a new Item to the path with the index equal to index.
+       * 2) Set the key on the path `labels.${index}.key`
+       * 3) Set the value on the path `labels.${index}.value`
+       */
       memo.push(new Transaction(['labels'], index, ADD_ITEM));
       memo.push(new Transaction([
         'labels',
