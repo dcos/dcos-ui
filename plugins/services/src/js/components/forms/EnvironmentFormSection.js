@@ -47,16 +47,8 @@ class EnvironmentFormSection extends Component {
       let keyLabel = null;
       let valueLabel = null;
       if (key === 0) {
-        keyLabel = (
-          <FieldLabel>
-            Key
-          </FieldLabel>
-        );
-        valueLabel = (
-          <FieldLabel>
-            Value
-          </FieldLabel>
-        );
+        keyLabel = <FieldLabel>Key</FieldLabel>;
+        valueLabel = <FieldLabel>Value</FieldLabel>;
       }
       return (
         <div key={key} className="flex row">
@@ -70,12 +62,7 @@ class EnvironmentFormSection extends Component {
               type="text"
               value={env.key}/>
             <FieldError>{errors.env[key]}</FieldError>
-            <span className="emphasis"
-              style={{
-                position: 'absolute',
-                left: '100%',
-                bottom: '0.8em'
-              }}>:</span>
+            <span className="emphasis form-colon">:</span>
           </FormGroup>
           <FormGroup
             className="column-3"
@@ -106,16 +93,8 @@ class EnvironmentFormSection extends Component {
       let keyLabel = null;
       let valueLabel = null;
       if (key === 0) {
-        keyLabel = (
-          <FieldLabel>
-            Key
-          </FieldLabel>
-        );
-        valueLabel = (
-          <FieldLabel>
-            Value
-          </FieldLabel>
-        );
+        keyLabel = <FieldLabel>Key</FieldLabel>;
+        valueLabel = <FieldLabel>Value</FieldLabel>;
       }
       return (
         <div key={key} className="flex row">
@@ -128,12 +107,7 @@ class EnvironmentFormSection extends Component {
               name={`labels.${key}.key`}
               type="text"
               value={label.key}/>
-            <span className="emphasis"
-              style={{
-                position: 'absolute',
-                left: '100%',
-                bottom: '0.8em'
-              }}>:</span>
+            <span className="emphasis form-colon">:</span>
             <FieldError>{errors.labels[key]}</FieldError>
           </FormGroup>
           <FormGroup
