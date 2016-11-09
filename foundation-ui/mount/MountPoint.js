@@ -37,7 +37,6 @@ class MountPoint extends React.Component {
   }
 
   componentWillMount() {
-
     MountService.addListener(CHANGE, this.handleMountServiceChange);
   }
 
