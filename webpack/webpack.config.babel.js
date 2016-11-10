@@ -88,7 +88,7 @@ module.exports = {
           replacements: [
             {
               pattern: /<!--\sBOOTSTRAP-HTML\s-->/g,
-              replacement: function () {
+              replacement() {
                 return (
                   '<div id="canvas">' +
                     '<div class="application-loading-indicator pod ' +
@@ -101,7 +101,7 @@ module.exports = {
             },
             {
               pattern: /<!--\sICON-SVG-SPRITESHEET\s-->/g,
-              replacement: function () {
+              replacement() {
                 let content = null;
                 let baseDir = path.resolve('src/img/components/icons');
                 let files = glob.sync('**/*.svg', {cwd: baseDir});
@@ -114,7 +114,7 @@ module.exports = {
                   }));
                 });
 
-                svgSpriter.compile(function (error, result, data) {
+                svgSpriter.compile(function (error, result) {
                   content = result.symbol.sprite.contents.toString();
                 });
 
@@ -150,7 +150,7 @@ module.exports = {
       },
       {
         test: /\.(ico|icns)$/,
-        loader: 'file?name=./[hash]-[name].[ext]',
+        loader: 'file?name=./[hash]-[name].[ext]'
       },
       {
         test: /\.(ttf|woff)$/,
@@ -165,7 +165,7 @@ module.exports = {
           replacements: [
             {
               pattern: /<!--\sBOOTSTRAP-CSS\s-->/g,
-              replacement: function (match, id, htmlContents) {
+              replacement(match, id, htmlContents) {
                 // Remove requires() that were injected by webpack
                 htmlContents = htmlContents
                   .replace(/"\s+\+\s+require\(".*?"\)\s+\+\s+"/g, '');
@@ -179,7 +179,7 @@ module.exports = {
                 // Webpack doo doo's its pants with some of this CSS for
                 // some stupid reason. So this is why we encode the CSS.
                 let encoded = new Buffer(css).toString('base64');
-                let js = `var css = '${encoded}';css = atob(css);var tag = document.createElement('style');tag.innerHTML = css;document.head.appendChild(tag);`
+                let js = `var css = '${encoded}';css = atob(css);var tag = document.createElement('style');tag.innerHTML = css;document.head.appendChild(tag);`;
 
                 return `<script>${js}</script>`;
               }
@@ -209,6 +209,10 @@ module.exports = {
   },
 
   resolveLoader: {
-    root: absPath('node_modules')
-  },
+    root: absPath('node_modules'),
+    alias: {
+      'raml-validator-loader': absPath('webpack', 'modules', 'raml-validator-loader', 'lib', 'raml-validator-loader.js')
+    }
+  }
+
 };
