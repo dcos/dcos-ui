@@ -1,0 +1,90 @@
+& when (@alert-enabled) {
+
+  .alert {
+    align-items: center;
+    border-radius: @alert-border-radius;
+    display: flex;
+    margin-bottom: @alert-margin-bottom;
+    padding: @alert-padding-vertical @alert-padding-horizontal;
+
+    &-icon {
+      fill: currentColor;
+      flex: 0 0 auto;
+      margin-right: @alert-icon-margin-right;
+    }
+
+    &-content {
+      flex: 1 1 auto;
+    }
+
+    &-danger {
+      background: @alert-danger-background;
+      color: @alert-danger-foreground;
+    }
+
+    &-success {
+      background: @alert-success-background;
+      color: @alert-success-foreground;
+    }
+  }
+}
+
+& when (@alert-enabled) and (@layout-screen-small-enabled) {
+
+  @media (min-width: @layout-screen-small-min-width) {
+
+    .alert {
+      margin-bottom: @alert-margin-bottom-screen-small;
+      padding: @alert-padding-vertical-screen-small @alert-padding-horizontal-screen-small;
+
+      &-icon {
+        margin-right: @alert-icon-margin-right-screen-small;
+      }
+    }
+  }
+}
+
+& when (@alert-enabled) and (@layout-screen-medium-enabled) {
+
+  @media (min-width: @layout-screen-medium-min-width) {
+
+    .alert {
+      margin-bottom: @alert-margin-bottom-screen-medium;
+      padding: @alert-padding-vertical-screen-medium @alert-padding-horizontal-screen-medium;
+
+      &-icon {
+        margin-right: @alert-icon-margin-right-screen-medium;
+      }
+    }
+  }
+}
+
+& when (@alert-enabled) and (@layout-screen-large-enabled) {
+
+  @media (min-width: @layout-screen-large-min-width) {
+
+    .alert {
+      margin-bottom: @alert-margin-bottom-screen-large;
+      padding: @alert-padding-vertical-screen-large @alert-padding-horizontal-screen-large;
+
+      &-icon {
+        margin-right: @alert-icon-margin-right-screen-large;
+      }
+    }
+  }
+}
+
+& when (@alert-enabled) and (@layout-screen-jumbo-enabled) {
+
+  @media (min-width: @layout-screen-jumbo-min-width) {
+
+    .alert {
+      margin-bottom: @alert-margin-bottom-screen-jumbo;
+      padding: @alert-padding-vertical-screen-jumbo @alert-padding-horizontal-screen-jumbo;
+
+      &-icon {
+        margin-right: @alert-icon-margin-right-screen-jumbo;
+      }
+    }
+  }
+}
