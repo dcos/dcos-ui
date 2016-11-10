@@ -1,3 +1,4 @@
 import RoutingService from './RoutingService';
 
-export default RoutingService;
+const service = new RoutingService();
+export default service;

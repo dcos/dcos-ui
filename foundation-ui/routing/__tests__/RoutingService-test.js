@@ -5,172 +5,83 @@ const ReactRouter = require('react-router');
 describe('RoutingService', function () {
 
   beforeEach(function () {
-    this.routes = [];
+    this.instance = new RoutingService();
   });
 
-  afterEach(function () {
-    RoutingService.clearPending();
-  });
+  describe('#registerRedirect', function () {
+    it('registers Redirect', function () {
+      this.instance.registerRedirect('/test', '/stage');
 
-  describe('#resolveWith', function () {
-
-    it('does not modify provided routes if there are no routes pending', function () {
-      RoutingService.resolveWith(this.routes);
-
-      expect(this.routes).toEqual([]);
-    });
-
-    it('adds a pending Page route', function () {
-      RoutingService.registerPage('test', Object);
-      RoutingService.resolveWith(this.routes);
-
-      expect(this.routes).toEqual([{
-        type: ReactRouter.Route,
-        path: 'test',
-        component: Object
+      expect(this.instance.getDefinition()).toEqual([{
+        path: '/test',
+        to: '/stage',
+        type: ReactRouter.Redirect
       }]);
     });
+  });
 
-    it('adds a pending Tab route to a Page', function () {
-      RoutingService.registerPage('test', Object);
-      RoutingService.registerTab('test', 'tab', Object);
-      RoutingService.resolveWith(this.routes);
+  describe('#registerPage', function () {
+    it('registers Page', function () {
+      this.instance.registerPage('/test', Object);
 
-      expect(this.routes).toEqual([{
-        type: ReactRouter.Route,
-        path: 'test',
+      expect(this.instance.getDefinition()).toEqual([{
+        path: '/test',
         component: Object,
+        type: ReactRouter.Route
+      }]);
+    });
+  });
+
+  describe('#registerTab', function () {
+    it('registers Tab', function () {
+      this.instance.registerPage('/test', Object);
+      this.instance.registerTab('/test', 'path', Object);
+
+      expect(this.instance.getDefinition()).toEqual([{
+        path: '/test',
+        component: Object,
+        type: ReactRouter.Route,
         children: [{
-          type: ReactRouter.Route,
-          path: 'tab',
-          component: Object
+          path: 'path',
+          component: Object,
+          type: ReactRouter.Route
         }]
       }]);
     });
+  });
 
-    it('adds a pending Redirect route', function () {
-      RoutingService.registerRedirect('test', 'stage');
-      RoutingService.resolveWith(this.routes);
+  describe('override protection', function () {
 
-      expect(this.routes).toEqual([{
-        type: ReactRouter.Redirect,
-        path: 'test',
-        to: 'stage'
-      }]);
-    });
-
-    describe('idempotency', function () {
-
-      it('does not add a duplicate Page', function () {
-        this.routes = [{
-          type: ReactRouter.Route,
-          path: 'test',
-          component: Object
-        }];
-
-        RoutingService.registerPage('test', Object);
-        RoutingService.resolveWith(this.routes);
-
-        expect(this.routes).toEqual([{
-          type: ReactRouter.Route,
-          path: 'test',
-          component: Object
-        }]);
-      });
-
-      it('does not add a duplicate Tab', function () {
-        this.routes = [{
-          type: ReactRouter.Route,
-          path: 'test',
-          component: Object,
-          children: [{
-            type: ReactRouter.Route,
-            path: 'tab',
-            component: Object
-          }]
-        }];
-
-        RoutingService.registerTab('test', 'tab', Object);
-        RoutingService.resolveWith(this.routes);
-
-        expect(this.routes).toEqual([{
-          type: ReactRouter.Route,
-          path: 'test',
-          component: Object,
-          children: [{
-            type: ReactRouter.Route,
-            path: 'tab',
-            component: Object
-          }]
-        }]);
-      });
-
+    describe('#registerRedirect', function () {
       it('does not add a duplicate Redirect', function () {
-        this.routes = [{
-          type: ReactRouter.Redirect,
-          path: 'test',
-          to: 'stage'
-        }];
-
-        RoutingService.registerRedirect('test', 'stage');
-        RoutingService.resolveWith(this.routes);
-
-        expect(this.routes).toEqual([{
-          type: ReactRouter.Redirect,
-          path: 'test',
-          to: 'stage'
-        }]);
-
-      });
-
-    });
-
-    describe('override protection', function () {
-
-      it('throws on an attempt to override a page with a different component', function () {
-        this.routes = [{
-          type: ReactRouter.Route,
-          path: 'test'
-        }];
-
-        RoutingService.registerPage('test', Object);
+        this.instance.registerRedirect('test', 'testB');
 
         expect(() => {
-          RoutingService.resolveWith(this.routes);
-        }).toThrow(new Error('Attempt to override a page at test!'));
-      });
-
-      it('throws on an attempt to override a Tab', function () {
-        this.routes = [{
-          type: ReactRouter.Route,
-          path: 'test',
-          component: Object,
-          children: [{
-            type: ReactRouter.Route,
-            path: 'tab'
-          }]
-        }];
-
-        RoutingService.registerTab('test', 'tab', Object);
-
-        expect(() => {
-          RoutingService.resolveWith(this.routes);
-        }).toThrow(new Error('Attempt to override a tab at test/tab!'));
-      });
-
-      it('does not add a duplicate Redirect', function () {
-        this.routes = [{
-          type: ReactRouter.Redirect,
-          path: 'test',
-          to: 'testB'
-        }];
-
-        RoutingService.registerRedirect('test', 'stage');
-
-        expect(() => {
-          RoutingService.resolveWith(this.routes);
+          this.instance.registerRedirect('test', 'stage');
         }).toThrow(new Error('Attempt to override Redirect of test from testB to stage!'));
 
+      });
+    });
+
+    describe('#registerPage', function () {
+      it('throws on an attempt to override a page with a different component', function () {
+        this.instance.registerPage('test', Object);
+
+        expect(() => {
+          this.instance.registerPage('test', Array);
+        }).toThrow(new Error('Attempt to override a page at test!'));
+      });
+    });
+
+    describe('#registerTab', function () {
+      it('throws on an attempt to override a Tab', function () {
+        this.instance.registerPage('/test', Object);
+
+        this.instance.registerTab('/test', 'path', Object);
+
+        expect(() => {
+          this.instance.registerTab('/test', 'path', Array);
+        }).toThrow(new Error('Attempt to override a tab at /test/path!'));
       });
 
     });

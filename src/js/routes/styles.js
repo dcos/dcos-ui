@@ -24,39 +24,31 @@ import ImagesTabContent from '../pages/styles/content/ImagesTabContent';
 
 import StylesPage from '../pages/StylesPage';
 
-const {
-  routingService: {
-    registerTab,
-    registerPage,
-    registerRedirect
-  }
-} = PluginSDK;
+PluginSDK.routingService.registerPage('styles', StylesPage);
 
-registerPage('styles', StylesPage);
+PluginSDK.routingService.registerRedirect('/styles', '/styles/layout');
+PluginSDK.routingService.registerRedirect('/styles/layout', '/styles/layout/containers');
 
-registerRedirect('/styles', '/styles/layout');
-registerRedirect('/styles/layout', '/styles/layout/containers');
+PluginSDK.routingService.registerTab('styles', 'layout/containers', ContainersTabContent);
+PluginSDK.routingService.registerTab('styles', 'layout/grid', GridTabContent);
+PluginSDK.routingService.registerTab('styles', 'layout/pods', PodsTabContent);
+PluginSDK.routingService.registerTab('styles', 'layout/flex', FlexTabContent);
+PluginSDK.routingService.registerTab('styles', 'layout/dividers', DividersTabContent);
+PluginSDK.routingService.registerTab('styles', 'layout/responsive-utilities', ResponsiveUtilitiesTabContent);
 
-registerTab('styles', 'layout/containers', ContainersTabContent);
-registerTab('styles', 'layout/grid', GridTabContent);
-registerTab('styles', 'layout/pods', PodsTabContent);
-registerTab('styles', 'layout/flex', FlexTabContent);
-registerTab('styles', 'layout/dividers', DividersTabContent);
-registerTab('styles', 'layout/responsive-utilities', ResponsiveUtilitiesTabContent);
+PluginSDK.routingService.registerRedirect('/styles/content', '/styles/content/typography');
+PluginSDK.routingService.registerTab('styles', 'content/typography', TypographyTabContent);
+PluginSDK.routingService.registerTab('styles', 'content/tables', TablesTabContent);
+PluginSDK.routingService.registerTab('styles', 'content/colors', ColorsTabContent);
+PluginSDK.routingService.registerTab('styles', 'content/code', CodeTabContent);
+PluginSDK.routingService.registerTab('styles', 'content/images', ImagesTabContent);
 
-registerRedirect('/styles/content', '/styles/content/typography');
-registerTab('styles', 'content/typography', TypographyTabContent);
-registerTab('styles', 'content/tables', TablesTabContent);
-registerTab('styles', 'content/colors', ColorsTabContent);
-registerTab('styles', 'content/code', CodeTabContent);
-registerTab('styles', 'content/images', ImagesTabContent);
-
-registerRedirect('/styles/components', '/styles/components/buttons');
-registerTab('styles', 'components/buttons', ButtonsTabContent);
-registerTab('styles', 'components/button-collections', ButtonCollectionsTabContent);
-registerTab('styles', 'components/button-groups', ButtonGroupsTabContent);
-registerTab('styles', 'components/dropdowns', DropdownsTabContent);
-registerTab('styles', 'components/forms', FormsTabContent);
-registerTab('styles', 'components/icons', IconsTabContent);
-registerTab('styles', 'components/modals', ModalsTabContent);
-registerTab('styles', 'components/panels', PanelsTabContent);
+PluginSDK.routingService.registerRedirect('/styles/components', '/styles/components/buttons');
+PluginSDK.routingService.registerTab('styles', 'components/buttons', ButtonsTabContent);
+PluginSDK.routingService.registerTab('styles', 'components/button-collections', ButtonCollectionsTabContent);
+PluginSDK.routingService.registerTab('styles', 'components/button-groups', ButtonGroupsTabContent);
+PluginSDK.routingService.registerTab('styles', 'components/dropdowns', DropdownsTabContent);
+PluginSDK.routingService.registerTab('styles', 'components/forms', FormsTabContent);
+PluginSDK.routingService.registerTab('styles', 'components/icons', IconsTabContent);
+PluginSDK.routingService.registerTab('styles', 'components/modals', ModalsTabContent);
+PluginSDK.routingService.registerTab('styles', 'components/panels', PanelsTabContent);

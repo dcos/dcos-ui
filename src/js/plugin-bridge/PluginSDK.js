@@ -269,14 +269,10 @@ const getSDK = function (pluginID, config) {
     dispatch: createDispatcher(pluginID),
     Store: StoreAPI,
     Hooks: hooks,
+    routingService: RoutingService,
     pluginID,
     onDispatch,
-    constants,
-    routingService: {
-      registerPage: RoutingService.registerPage,
-      registerTab: RoutingService.registerTab,
-      registerRedirect: RoutingService.registerRedirect
-    }
+    constants
   });
 
   extendSDK(SDK, getActionsAPI(SDK));
