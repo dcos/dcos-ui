@@ -11,7 +11,6 @@ const FieldSelect = (props) => {
 };
 
 FieldSelect.defaultProps = {
-  name: '',
   onChange() {},
   value: ''
 };
