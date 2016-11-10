@@ -32,9 +32,6 @@ module.exports = {
             this.env = this.env.filter((item, index) => {
               return index !== value;
             });
-            if (this.env.length === 0) {
-              this.env.push({key: null, value: null});
-            }
             break;
         }
 
@@ -57,7 +54,9 @@ module.exports = {
     }
 
     return this.env.reduce((memo, item) => {
-      memo[item.key] = item.value;
+      if (item.key != null || item.value != null) {
+        memo[item.key] = item.value;
+      }
 
       return memo;
     }, {});

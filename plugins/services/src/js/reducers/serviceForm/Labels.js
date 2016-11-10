@@ -32,9 +32,6 @@ module.exports = {
             this.labels = this.labels.filter((item, index) => {
               return index !== value;
             });
-            if (this.labels.length === 0) {
-              this.labels.push({key: null, value: null});
-            }
             break;
         }
 
@@ -57,7 +54,9 @@ module.exports = {
     }
 
     return this.labels.reduce((memo, item) => {
-      memo[item.key] = item.value;
+      if (item.key != null || item.value != null) {
+        memo[item.key] = item.value;
+      }
 
       return memo;
     }, {});
