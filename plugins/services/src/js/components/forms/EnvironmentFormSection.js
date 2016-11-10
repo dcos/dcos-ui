@@ -23,7 +23,7 @@ class EnvironmentFormSection extends Component {
       return (
         <div key={key} className="flex row">
           <FormGroup
-            className="column-5"
+            className="column-3"
             required={false}
             showError={Boolean(errors.env[key])}>
             {keyLabel}
@@ -35,7 +35,7 @@ class EnvironmentFormSection extends Component {
             <span className="emphasis form-colon">:</span>
           </FormGroup>
           <FormGroup
-            className="column-5"
+            className="column-3"
             required={false}
             showError={Boolean(errors.env[key])}>
             {valueLabel}
@@ -70,7 +70,7 @@ class EnvironmentFormSection extends Component {
       return (
         <div key={key} className="flex row">
           <FormGroup
-            className="column-5"
+            className="column-3"
             required={false}
             showError={Boolean(errors.labels[key])}>
             {keyLabel}
@@ -82,7 +82,7 @@ class EnvironmentFormSection extends Component {
             <FieldError>{errors.labels[key]}</FieldError>
           </FormGroup>
           <FormGroup
-            className="column-5"
+            className="column-3"
             required={false}
             showError={Boolean(errors.labels[key])}>
             {valueLabel}
