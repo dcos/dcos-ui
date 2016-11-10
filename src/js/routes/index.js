@@ -10,7 +10,7 @@ import Network from './factories/network';
 import nodes from '../../../plugins/nodes/src/js/routes/nodes';
 import NotFoundPage from '../pages/NotFoundPage';
 import Organization from './factories/organization';
-import RoutingService from '../system/RoutingService';
+import RoutingService from '../../../foundation-ui/routing';
 import services from '../../../plugins/services/src/js/routes/services';
 import settings from './settings';
 import styles from './styles'; // eslint-disable-line
