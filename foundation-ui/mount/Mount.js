@@ -5,7 +5,7 @@ import {CHANGE} from './MountEvent';
 import ReactUtil from '../utils/ReactUtil';
 
 const METHODS_TO_BIND = [
-  'handleMountServiceChange'
+  'onMountServiceChange'
 ];
 
 /**
@@ -37,7 +37,7 @@ class Mount extends React.Component {
   }
 
   componentWillMount() {
-    MountService.addListener(CHANGE, this.handleMountServiceChange);
+    MountService.addListener(CHANGE, this.onMountServiceChange);
   }
 
   componentWillReceiveProps({type}) {
@@ -49,10 +49,10 @@ class Mount extends React.Component {
   }
 
   componentWillUnmount() {
-    MountService.removeListener(CHANGE, this.handleMountServiceChange);
+    MountService.removeListener(CHANGE, this.onMountServiceChange);
   }
 
-  handleMountServiceChange(type) {
+  onMountServiceChange(type) {
     if (this.props.type !== type) {
       return;
     }
