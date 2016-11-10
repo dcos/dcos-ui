@@ -2,7 +2,7 @@ import Ace from 'react-ace';
 import classNames from 'classnames';
 import React from 'react';
 
-import AppValidators from '../../../../../../src/resources/raml/v2/types/app.raml';
+import AppValidators from '../../../../../../src/resources/raml/marathon/v2/types/app.raml';
 import Batch from '../../../../../../src/js/structs/Batch';
 import {combineParsers} from '../../../../../../src/js/utils/ParserUtil';
 import {combineReducers} from '../../../../../../src/js/utils/ReducerUtil';

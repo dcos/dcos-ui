@@ -127,7 +127,6 @@
     "stylelint": "bash -c 'opts=$@ ; set -f; if [[ $# -lt 1 ]]; then opts=\"{src/styles,plugins,foundation-ui}/**/*.less\"; fi ; stylelint ${opts}' 0",
     "lint-plugins": "PLUGINS=$npm_config_externalplugins; npm run eslint -- \"$PLUGINS/**/*.js\" && npm run stylelint -- \"$PLUGINS/**/*.less\"",
     "prebuild": "./scripts/validate-tests",
-    "raml-update": "(TARGET=`pwd`/src/resources/raml; TMP_DIR=`mktemp -d 2>/dev/null || mktemp -d -t 'mytmpdir'`; cd $TMP_DIR; wget https://github.com/mesosphere/marathon/archive/master.tar.gz && tar -zxf master.tar.gz && cp -rv marathon-master/docs/docs/rest-api/public/api/v2 $TARGET; cd $TARGET && rm -rf $TMP_DIR)",
     "serve": "npm run build-assets && ./node_modules/.bin/gulp serve",
     "serve-notify": "export NOTIFY=true && npm run serve",
     "scaffold": "./node_modules/.bin/gulp ensureConfig && ./node_modules/.bin/gulp ensureDevProxy",
