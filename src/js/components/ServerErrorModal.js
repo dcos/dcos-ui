@@ -8,6 +8,8 @@ import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import {Hooks} from 'PluginSDK';
 
+import ModalHeading from './modals/ModalHeading';
+
 const METHODS_TO_BIND = ['handleModalClose', 'handleServerError'];
 
 function getEventsFromStoreListeners(storeListeners) {
@@ -106,9 +108,9 @@ module.exports = class ServerErrorModal extends mixin(StoreMixin) {
 
   render() {
     let header = (
-      <h5 className="modal-header-title text-align-center flush">
+      <ModalHeading level={5}>
         An error has occurred
-      </h5>
+      </ModalHeading>
     );
 
     return (

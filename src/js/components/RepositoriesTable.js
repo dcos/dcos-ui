@@ -11,6 +11,7 @@ import CollapsingString from './CollapsingString';
 import Config from '../config/Config';
 import CosmosPackagesStore from '../stores/CosmosPackagesStore';
 import List from '../structs/List';
+import ModalHeading from './modals/ModalHeading';
 import RepositoriesTableHeaderLabels from '../constants/RepositoriesTableHeaderLabels';
 import TableUtil from '../utils/TableUtil';
 
@@ -193,7 +194,6 @@ class RepositoriesTable extends mixin(StoreMixin) {
 
     return (
       <div className="text-align-center">
-        <h3 className="flush-top">Are you sure?</h3>
         <p>
           {`Repository (${repositoryLabel}) will be removed from ${Config.productName}. You will not be able to install any packages belonging to that repository anymore.`}
         </p>
@@ -204,6 +204,11 @@ class RepositoriesTable extends mixin(StoreMixin) {
 
   render() {
     let {props, state} = this;
+    let heading = (
+      <ModalHeading>
+        Are you sure?
+      </ModalHeading>
+    );
 
     return (
       <div>
@@ -216,12 +221,14 @@ class RepositoriesTable extends mixin(StoreMixin) {
         <Confirm
           closeByBackdropClick={true}
           disabled={state.pendingRequest}
+          header={heading}
           open={!!state.repositoryToRemove}
           onClose={this.handleDeleteCancel}
           leftButtonCallback={this.handleDeleteCancel}
           rightButtonCallback={this.handleDeleteRepository}
           rightButtonClassName="button button-danger"
-          rightButtonText="Remove Repository">
+          rightButtonText="Remove Repository"
+          showHeader={true}>
           {this.getRemoveModalContent()}
         </Confirm>
       </div>

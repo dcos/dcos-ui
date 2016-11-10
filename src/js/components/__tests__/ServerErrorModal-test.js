@@ -1,4 +1,5 @@
 jest.dontMock('../ServerErrorModal');
+jest.dontMock('../modals/ModalHeading');
 
 const PluginTestUtils = require('PluginTestUtils');
 

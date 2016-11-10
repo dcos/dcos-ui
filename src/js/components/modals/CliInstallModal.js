@@ -6,6 +6,7 @@ import React from 'react';
 import ClickToSelect from '../ClickToSelect';
 import Icon from '../Icon';
 import MetadataStore from '../../stores/MetadataStore';
+import ModalHeading from '../modals/ModalHeading';
 
 const METHODS_TO_BIND = ['onClose'];
 const osTypes = {
@@ -156,28 +157,19 @@ class CliInstallModal extends React.Component {
   }
 
   render() {
-    let {footer, open, showFooter, subHeaderContent, title} = this.props;
-    let isWindows = (this.state.selectedOS === 'Windows');
-    let titleClass = classNames({
-      'modal-header-title': true,
-      'text-align-center': true,
-      'flush-top': !isWindows,
-      'flush': isWindows,
-      'flush-bottom': !subHeaderContent
-    });
-
-    let header = <h5 className={titleClass}>{title}</h5>;
+    let {footer, open, showFooter, title} = this.props;
+    let header = <ModalHeading align="left" level={5}>{title}</ModalHeading>;
 
     return (
       <Modal
+        header={header}
         footer={footer}
         modalClass="modal"
         onClose={this.onClose}
         open={open}
         showHeader={true}
         showFooter={showFooter}
-        subHeader={this.getSubHeader()}
-        header={header}>
+        subHeader={this.getSubHeader()}>
         {this.getContent()}
       </Modal>
     );

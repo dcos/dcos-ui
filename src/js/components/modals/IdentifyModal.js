@@ -4,6 +4,7 @@ import React from 'react';
 
 import Config from '../../config/Config';
 import InternalStorageMixin from '../../mixins/InternalStorageMixin';
+import ModalHeading from '../modals/ModalHeading';
 import ValidatorUtil from '../../utils/ValidatorUtil';
 
 var IdentifyModal = React.createClass({
@@ -55,9 +56,9 @@ var IdentifyModal = React.createClass({
 
   getHeader() {
     return (
-      <h5 className="modal-header-title text-align-center flush-top">
+      <ModalHeading level={5}>
         {Config.productName}
-      </h5>
+      </ModalHeading>
     );
   },
 

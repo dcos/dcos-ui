@@ -6,8 +6,9 @@ import React from 'react';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import AuthStore from '../../stores/AuthStore';
-import UserStore from '../../stores/UserStore';
 import FormModal from '../FormModal';
+import ModalHeading from '../modals/ModalHeading';
+import UserStore from '../../stores/UserStore';
 
 const TELEMETRY_NOTIFICATION = 'Because telemetry is disabled you must manually notify users of ACL changes.';
 
@@ -101,9 +102,9 @@ class UserFormModal extends mixin(StoreMixin) {
 
   getHeader() {
     return Hooks.applyFilter('userFormModalHeader', (
-      <h2 className="modal-header-title text-align-center flush-top">
+      <ModalHeading>
         Add User to Cluster
-      </h2>
+      </ModalHeading>
     ));
   }
 
@@ -119,11 +120,14 @@ class UserFormModal extends mixin(StoreMixin) {
         buttonDefinition={this.getButtonDefinition()}
         definition={this.getNewUserFormDefinition()}
         disabled={this.state.disableNewUser}
+        modalProps={{
+          header: this.getHeader(),
+          showHeader: true
+        }}
         onClose={this.props.onClose}
         onSubmit={this.handleNewUserSubmit}
         open={this.props.open}
         contentFooter={this.getFooter()}>
-        {this.getHeader()}
       </FormModal>
     );
   }

@@ -3,6 +3,7 @@ import React from 'react';
 
 import ClickToSelect from '../ClickToSelect';
 import Config from '../../config/Config';
+import ModalHeading from '../modals/ModalHeading';
 
 var VersionsModal = React.createClass({
 
@@ -28,9 +29,9 @@ var VersionsModal = React.createClass({
 
   render() {
     let header = (
-      <h5 configlassName="modal-header-title text-align-center flush-top flush-bottom">
+      <ModalHeading>
         {Config.productName} Info
-      </h5>
+      </ModalHeading>
     );
 
     return (

@@ -2,6 +2,8 @@ import React from 'react';
 
 import {Modal} from 'reactjs-components';
 
+import ModalHeading from '../modals/ModalHeading';
+
 var ErrorModal = React.createClass({
 
   displayName: 'ErrorModal',
@@ -17,9 +19,9 @@ var ErrorModal = React.createClass({
 
   render() {
     let header = (
-      <h5 className="modal-header-title text-align-center flush-top flush-bottom">
+      <ModalHeading>
         Looks Like Something is Wrong
-      </h5>
+      </ModalHeading>
     );
 
     return (

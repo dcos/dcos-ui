@@ -3,6 +3,7 @@ import React, {PropTypes} from 'react';
 import PureRender from 'react-addons-pure-render-mixin';
 
 import AppLockedMessage from './AppLockedMessage';
+import ModalHeading from '../../../../../../src/js/components/modals/ModalHeading';
 import Pod from '../../structs/Pod';
 import Service from '../../structs/Service';
 import ServiceTree from '../../structs/ServiceTree';
@@ -97,17 +98,22 @@ class ServiceSuspendModal extends React.Component {
       serviceName = service.getId();
     }
 
+    let heading = (
+      <ModalHeading>
+        Suspend {itemText}
+      </ModalHeading>
+    );
+
     return (
       <Confirm
         disabled={isPending}
+        header={heading}
         open={open}
         onClose={onClose}
         leftButtonCallback={onClose}
         rightButtonText={`Suspend ${itemText}`}
-        rightButtonCallback={() => suspendItem(this.shouldForceUpdate())}>
-        <h2 className="text-align-center flush-top">
-          Suspend {itemText}
-        </h2>
+        rightButtonCallback={() => suspendItem(this.shouldForceUpdate())}
+        showHeader={true}>
         <p>
           Are you sure you want to suspend <span className="emphasize">{serviceName}</span> by scaling to 0 instances?
         </p>
