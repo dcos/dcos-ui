@@ -149,6 +149,10 @@ module.exports = {
         loader: 'jison-loader'
       },
       {
+        test: /\.raml$/,
+        loader: 'raml-validator-loader'
+      },
+      {
         test: /\.(ico|icns)$/,
         loader: 'file?name=./[hash]-[name].[ext]'
       },
