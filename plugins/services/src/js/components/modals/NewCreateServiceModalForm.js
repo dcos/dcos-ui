@@ -2,6 +2,7 @@ import Ace from 'react-ace';
 import classNames from 'classnames';
 import React from 'react';
 
+import AppValidators from '../../../../../../src/resources/raml/v2/types/app.raml';
 import Batch from '../../../../../../src/js/structs/Batch';
 import {combineParsers} from '../../../../../../src/js/utils/ParserUtil';
 import {combineReducers} from '../../../../../../src/js/utils/ReducerUtil';
@@ -17,6 +18,7 @@ import TabViewList from '../../../../../../src/js/components/TabViewList';
 import Transaction from '../../../../../../src/js/structs/Transaction';
 import TransactionTypes from '../../../../../../src/js/constants/TransactionTypes';
 import Util from '../../../../../../src/js/utils/Util';
+import DataValidatorUtil from '../../../../../../src/js/utils/DataValidatorUtil';
 
 const METHODS_TO_BIND = [
   'handleFormChange',
@@ -121,9 +123,15 @@ class NewCreateServiceModalForm extends React.Component {
     let appConfig = this.getAppConfig();
 
     // Run validation reducers on appConfig
-    let errors = Util.filterEmptyValues(
-      new Batch().reduce(validationReducers, appConfig)
-    );
+    let errorList = DataValidatorUtil.validate(appConfig, [
+      AppValidators.App
+    ]);
+
+    errorList.forEach(function (error) {
+      console.error('on /' + error.path.join('/') + ': ' + error.message);
+    });
+
+    let errors = DataValidatorUtil.errorArrayToMap( errorList );
 
     // Create new jsonValue
     let jsonValue = JSON.stringify(appConfig, null, 2);
