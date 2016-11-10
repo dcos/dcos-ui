@@ -13,7 +13,7 @@ import Icon from './Icon';
 import InternalStorageMixin from '../mixins/InternalStorageMixin';
 import MesosSummaryStore from '../stores/MesosSummaryStore';
 import MetadataStore from '../stores/MetadataStore';
-import NavigationStore from '../stores/NavigationStore';
+import NavigationService, {EventTypes as NavigationServiceEventTypes} from '../../../foundation-ui/navigation';
 import SaveStateMixin from '../mixins/SaveStateMixin';
 import SidebarActions from '../events/SidebarActions';
 
@@ -52,8 +52,8 @@ var Sidebar = React.createClass({
   },
 
   componentDidMount() {
-    NavigationStore.addChangeListener(
-      EventTypes.NAVIGATION_CHANGE,
+    NavigationService.on(
+      NavigationServiceEventTypes.NAVIGATION_CHANGE,
       this.onNavigationChange
     );
 
@@ -70,8 +70,8 @@ var Sidebar = React.createClass({
   },
 
   componentWillUnmount() {
-    NavigationStore.removeChangeListener(
-      EventTypes.NAVIGATION_CHANGE,
+    NavigationService.removeListener(
+      NavigationServiceEventTypes.NAVIGATION_CHANGE,
       this.onNavigationChange
     );
     MetadataStore.removeChangeListener(
@@ -116,7 +116,7 @@ var Sidebar = React.createClass({
   },
 
   getNavigationSections() {
-    const definition = NavigationStore.get('definition');
+    const definition = NavigationService.getDefinition();
 
     return definition.map((group, index) => {
       let heading = null;

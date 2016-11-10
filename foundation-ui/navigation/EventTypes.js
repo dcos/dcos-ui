@@ -1,0 +1,3 @@
+export default {
+  NAVIGATION_CHANGE: 'NAVIGATION_CHANGE'
+};
