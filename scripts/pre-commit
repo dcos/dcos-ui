@@ -8,13 +8,17 @@ source ${SCRIPT_PATH}/utils/message
 
 title "Run pre-commit hook..."
 
-# Get a list of staged javascript files and only lint changed files
+# Get a list of staged javascript files and only lint and test changed files
 staged_javascript_files=$(get_staged_files_with_name '*.js');
 if [ -n "${staged_javascript_files}" ]
 then
   header "Lint staged JavaScript files..."
   npm run eslint --silent -- ${staged_javascript_files} || exit $?
   info "Staged JavaScript looks good"
+
+  header "Test staged JavaScript files.."
+  npm run test --silent -- --findRelatedTests \
+    ${staged_javascript_files} || exit $?
 fi
 
 
