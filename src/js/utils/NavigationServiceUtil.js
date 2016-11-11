@@ -1,5 +1,5 @@
 import React from 'react';
-import NavigationService from '../../../foundation-ui/navigation';
+import {NavigationService} from '../../../foundation-ui/navigation';
 
 const NavigationServiceUtil = {
   /**

@@ -2,7 +2,7 @@ import React from 'react';
 import {Link} from 'react-router';
 import NotificationStore from '../stores/NotificationStore';
 
-export default ({to, children, icon}) => {
+const PrimarySidebarLink = ({to, children, icon}) => {
   const notificationCount = NotificationStore.getNotificationCount(to);
 
   let sidebarText = (
@@ -24,3 +24,5 @@ export default ({to, children, icon}) => {
 
   return <Link to={to}>{icon}{sidebarText}</Link>;
 };
+
+module.exports = PrimarySidebarLink;

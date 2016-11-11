@@ -107,5 +107,4 @@ class NavigationService extends EventEmitter {
   }
 };
 
-const service = new NavigationService();
-export default service;
+module.exports = NavigationService;
