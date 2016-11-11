@@ -1,5 +1,5 @@
 jest.dontMock('../RoutingService');
-const RoutingService = require('../RoutingService').default;
+const RoutingService = require('../RoutingService');
 const ReactRouter = require('react-router');
 
 describe('RoutingService', function () {

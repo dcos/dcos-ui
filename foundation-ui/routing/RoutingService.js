@@ -133,4 +133,4 @@ class RoutingService extends EventEmitter {
 
 }
 
-export default RoutingService;
+module.exports = RoutingService;
