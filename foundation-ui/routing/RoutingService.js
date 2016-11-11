@@ -9,13 +9,9 @@ class RoutingService extends EventEmitter {
     super();
 
     this.deferredTasks = [];
-
     this.definition = [];
 
-    this.on(
-      EventTypes.ROUTING_CHANGE,
-      this.processDeferred
-    );
+    this.on(EventTypes.ROUTING_CHANGE, this.processDeferred);
   }
 
   getDefinition() {
