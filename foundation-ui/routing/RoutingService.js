@@ -29,13 +29,13 @@ class RoutingService extends EventEmitter {
     this.deferredTasks = [];
 
     // If Task is unable to resolve at this point of time it will re-defer itself
-    tasks.forEach(({method, args}) => {
-      this[method].apply(this, args);
+    tasks.forEach((args) => {
+      this.registerTab.apply(this, args);
     });
   }
 
-  defer(method, args) {
-    this.deferredTasks.push({method, args});
+  defer(args) {
+    this.deferredTasks.push(args);
   }
 
   /**
@@ -83,7 +83,7 @@ class RoutingService extends EventEmitter {
     const page = this.definition.find((route) => route.path === pagePath);
 
     if (!page) {
-      return this.defer('registerTab', arguments);
+      return this.defer(arguments);
     }
 
     if (!page.children) {
