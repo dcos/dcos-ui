@@ -4,3 +4,5 @@
 /jest/**
 /schema/**
 /webpack/modules/**
+updateSchema.babel.js
+/graphql/**/mock-data/**
