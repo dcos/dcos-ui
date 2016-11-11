@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Tooltip} from 'reactjs-components';
 
+import ContainerServiceFormSection from './ContainerServiceFormSection';
 import FieldError from '../../../../../../src/js/components/form/FieldError';
 import FieldHelp from '../../../../../../src/js/components/form/FieldHelp';
 import FieldInput from '../../../../../../src/js/components/form/FieldInput';
@@ -200,6 +201,7 @@ class GeneralServiceFormSection extends Component {
         </p>
         {this.getContainerRuntime(data, errors.container)}
 
+        <ContainerServiceFormSection data={data} errors={errors} />
       </div>
     );
   }

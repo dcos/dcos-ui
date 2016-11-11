@@ -1,5 +1,5 @@
 import Transaction from '../structs/Transaction';
-import Util from './Util';
+import {findNestedPropertyInObject} from './Util';
 
 module.exports = {
   combineParsers(parsers = []) {
@@ -34,7 +34,7 @@ module.exports = {
     let searchPath = path.join('.');
 
     return function (state) {
-      return new Transaction(path, Util.findNestedPropertyInObject(
+      return new Transaction(path, findNestedPropertyInObject(
         state,
         searchPath
       ));

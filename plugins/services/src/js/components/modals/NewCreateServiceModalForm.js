@@ -4,6 +4,7 @@ import React from 'react';
 
 import AppValidators from '../../../../../../src/resources/raml/marathon/v2/types/app.raml';
 import Batch from '../../../../../../src/js/structs/Batch';
+import ContainerServiceFormSection from '../forms/ContainerServiceFormSection';
 import {combineParsers} from '../../../../../../src/js/utils/ParserUtil';
 import {combineReducers} from '../../../../../../src/js/utils/ReducerUtil';
 import EnvironmentFormSection from '../forms/EnvironmentFormSection';
@@ -29,6 +30,7 @@ const METHODS_TO_BIND = [
 ];
 
 const SECTIONS = [
+  ContainerServiceFormSection,
   EnvironmentFormSection,
   GeneralServiceFormSection
 ];
@@ -136,6 +138,9 @@ class NewCreateServiceModalForm extends React.Component {
     let {batch, appConfig} = this.state;
 
     let value = event.target.value;
+    if (event.target.type === 'checkbox') {
+      value = event.target.checked;
+    }
     let path = event.target.getAttribute('name');
     batch.add(new Transaction(path.split('.'), value));
     let newState = {batch};
