@@ -1,8 +1,9 @@
 jest.dontMock('../AuthService');
 jest.dontMock('../Authorizer');
 
-const AuthService = require('../AuthService');
 const Authorizer = require('../Authorizer');
+const AuthService = require('../AuthService');
+const AuthEvent = require('../AuthEvent');
 
 describe('AuthService', function () {
   class Authorized extends Authorizer {}
@@ -58,6 +59,15 @@ describe('AuthService', function () {
       expect(AuthService.authorize()).toBe(false);
     });
 
+    it('should emit change event', function () {
+      const changeHandler = jasmine.createSpy();
+
+      AuthService.addListener(AuthEvent.CHANGE, changeHandler);
+      AuthService.registerAuthorizer(unauthorized);
+
+      expect(changeHandler).toHaveBeenCalled();
+    });
+
   });
 
   describe('unregisterAuthenticator', function () {
@@ -90,6 +100,15 @@ describe('AuthService', function () {
 
       AuthService.unregisterAuthorizer(new Unknown());
       expect(AuthService.authorize()).toBe(false);
+    });
+
+    it('should emit change event', function () {
+      const changeHandler = jasmine.createSpy();
+
+      AuthService.addListener(AuthEvent.CHANGE, changeHandler);
+      AuthService.unregisterAuthorizer(unauthorized);
+
+      expect(changeHandler).toHaveBeenCalled();
     });
 
   });

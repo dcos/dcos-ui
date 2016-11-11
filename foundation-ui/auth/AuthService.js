@@ -1,5 +1,7 @@
 import {EventEmitter} from 'events';
+
 import Authorizer from './Authorizer';
+import {CHANGE} from './AuthEvent';
 
 /**
  * List of authorizers
@@ -29,6 +31,7 @@ class AuthService extends EventEmitter {
     }
 
     authorizers.push(authorizer);
+    this.emit(CHANGE);
   }
 
   /**
@@ -44,6 +47,8 @@ class AuthService extends EventEmitter {
         break;
       }
     }
+
+    this.emit(CHANGE);
   }
 
   /**
