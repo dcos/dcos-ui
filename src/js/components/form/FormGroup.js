@@ -2,7 +2,7 @@ import classNames from 'classnames/dedupe';
 import React from 'react';
 
 import FieldError from './FieldError';
-import Util from '../../utils/Util';
+import {omit} from '../../utils/Util';
 
 const FormGroup = (props) => {
   let {children, className, errorClassName, showError, required} = props;
@@ -24,7 +24,7 @@ const FormGroup = (props) => {
   return (
     <div
       className={classes}
-      {...Util.omit(props, Object.keys(FormGroup.propTypes))}>
+      {...omit(props, Object.keys(FormGroup.propTypes))}>
       {clonedChildren}
     </div>
   );
