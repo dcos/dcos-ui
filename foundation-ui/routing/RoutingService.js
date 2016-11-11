@@ -14,15 +14,18 @@ class RoutingService extends EventEmitter {
   constructor() {
     super();
 
-    this.definition = [];
-
-    const context = {
+    const privateContext = {
+      definition: [],
       deferredTasks: [],
       instance: this
     };
 
-    this.defer = this.defer.bind(context);
-    this.processDeferred = this.processDeferred.bind(context);
+    this.defer = this.defer.bind(privateContext);
+    this.processDeferred = this.processDeferred.bind(privateContext);
+    this.getDefinition = this.getDefinition.bind(privateContext);
+    this.registerPage = this.registerPage.bind(privateContext);
+    this.registerTab = this.registerTab.bind(privateContext);
+    this.registerRedirect = this.registerRedirect.bind(privateContext);
 
     this.on(ROUTING_CHANGE, this.processDeferred);
   }
@@ -71,7 +74,7 @@ class RoutingService extends EventEmitter {
       type: Route
     });
 
-    this.emit(ROUTING_CHANGE);
+    this.instance.emit(ROUTING_CHANGE);
   }
 
   /**
@@ -90,7 +93,7 @@ class RoutingService extends EventEmitter {
     const page = this.definition.find((route) => route.path === pagePath);
 
     if (!page) {
-      return this.defer(arguments);
+      return this.instance.defer(arguments);
     }
 
     if (!page.children) {
@@ -111,7 +114,7 @@ class RoutingService extends EventEmitter {
       type: Route
     });
 
-    this.emit(ROUTING_CHANGE);
+    this.instance.emit(ROUTING_CHANGE);
   }
 
   /**
@@ -137,7 +140,8 @@ class RoutingService extends EventEmitter {
       to,
       type: Redirect
     });
-    this.emit(ROUTING_CHANGE);
+
+    this.instance.emit(ROUTING_CHANGE);
   }
 
 }
