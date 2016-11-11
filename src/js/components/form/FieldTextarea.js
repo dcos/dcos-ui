@@ -1,14 +1,14 @@
 import classNames from 'classnames/dedupe';
 import React from 'react';
 
-import Util from '../../utils/Util';
+import {omit} from '../../utils/Util';
 
 const FieldTextarea = (props) => {
   let {className} = props;
   let classes = classNames('form-control', className);
 
   return (
-    <textarea className={classes} {...Util.omit(props, ['className'])} />
+    <textarea className={classes} {...omit(props, ['className'])} />
   );
 };
 

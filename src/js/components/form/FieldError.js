@@ -1,7 +1,7 @@
 import classNames from 'classnames/dedupe';
 import React from 'react';
 
-import Util from '../../utils/Util';
+import {omit} from '../../utils/Util';
 
 const FieldError = (props) => {
   let {className} = props;
@@ -10,7 +10,7 @@ const FieldError = (props) => {
   return (
     <p
       className={classes}
-      {...Util.omit(props, Object.keys(FieldError.propTypes))} />
+      {...omit(props, Object.keys(FieldError.propTypes))} />
   );
 };
 
