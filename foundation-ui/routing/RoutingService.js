@@ -50,11 +50,11 @@ class RoutingService extends EventEmitter {
       return throwError(new Error('Please provide all required arguments'));
     }
 
-    const existingRoute = this.definition.find((route) => route.path === path);
+    const existingPage = this.definition.find((route) => route.path === path);
 
-    if (existingRoute && existingRoute.component === component) {
+    if (existingPage && existingPage.component === component) {
       return;
-    } else if (existingRoute) {
+    } else if (existingPage) {
       return throwError(new Error(`Attempt to override a page at ${path}!`));
     }
 
@@ -70,35 +70,35 @@ class RoutingService extends EventEmitter {
   /**
    * registerTab - adds a tab route to the queue
    *
-   * @param  {String} path a path to a parent page
+   * @param  {String} pagePath a path to a parent page
    * @param  {String} tabPath a path to the tab
    * @param  {React.Component} component a React.js component of the tab
    * @return {undefined}
    */
-  registerTab(path, tabPath, component) {
-    if (!path || !tabPath || !component) {
+  registerTab(pagePath, tabPath, component) {
+    if (!pagePath || !tabPath || !component) {
       return throwError(new Error('Please provide all required arguments'));
     }
 
-    const parent = this.definition.find((route) => route.path === path);
+    const page = this.definition.find((route) => route.path === pagePath);
 
-    if (!parent) {
+    if (!page) {
       return this.defer('registerTab', arguments);
     }
 
-    if (!parent.children) {
-      parent.children = [];
+    if (!page.children) {
+      page.children = [];
     }
 
-    const existingTab = parent.children.find((route) => route.path === tabPath);
+    const existingTab = page.children.find((route) => route.path === tabPath);
 
     if (existingTab && existingTab.component === component) {
       return;
     } else if (existingTab) {
-      return throwError(new Error(`Attempt to override a tab at ${path}/${tabPath}!`));
+      return throwError(new Error(`Attempt to override a tab at ${pagePath}/${tabPath}!`));
     }
 
-    parent.children.push({
+    page.children.push({
       component,
       path: tabPath,
       type: Route
