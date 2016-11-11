@@ -52,13 +52,14 @@ class StylesPage extends mixin(TabsMixin) {
     this.updateCurrentTab();
   }
 
-  componentWillReceiveProps() {
-    this.updateCurrentTab();
+  componentWillReceiveProps(nextProps) {
+    this.updateCurrentTab(nextProps);
   }
 
-  updateCurrentTab() {
+  updateCurrentTab(nextProps) {
+    let {pathname} = (nextProps || this.props).location;
     // Get top level Tab
-    let topLevelTab = this.props.location.pathname.split('/').slice(0, 3).join('/');
+    let topLevelTab = pathname.split('/').slice(0, 3).join('/');
     this.tabs_tabs = STYLES_SUB_TABS[topLevelTab];
   }
 
