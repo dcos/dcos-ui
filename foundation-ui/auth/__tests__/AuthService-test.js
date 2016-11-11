@@ -21,6 +21,7 @@ describe('AuthService', function () {
 
     afterEach(function () {
       AuthService.unregisterAuthorizer(authorized);
+      AuthService.unregisterAuthorizer(unauthorized);
     });
 
     it('should not throw if a instance of Authorizer is provided',
@@ -51,16 +52,23 @@ describe('AuthService', function () {
       }).toThrow();
     });
 
+    it('should properly register authorizer', function () {
+      AuthService.registerAuthorizer(unauthorized);
+
+      expect(AuthService.authorize()).toBe(false);
+    });
+
   });
 
   describe('unregisterAuthenticator', function () {
 
     beforeEach(function () {
-      AuthService.registerAuthorizer(authorized);
+      AuthService.registerAuthorizer(unauthorized);
     });
 
     afterEach(function () {
       AuthService.unregisterAuthorizer(authorized);
+      AuthService.unregisterAuthorizer(unauthorized);
     });
 
     it('should not throw if a instance of Authorizer is provided',
@@ -70,6 +78,19 @@ describe('AuthService', function () {
           }).not.toThrow();
         }
     );
+
+    it('should properly remove mathing authorizer', function () {
+      AuthService.unregisterAuthorizer(unauthorized);
+
+      expect(AuthService.authorize()).toBe(true);
+    });
+
+    it('should do nothing if no matching authorizers was found', function () {
+      class Unknown extends Authorizer {}
+
+      AuthService.unregisterAuthorizer(new Unknown());
+      expect(AuthService.authorize()).toBe(false);
+    });
 
   });
 
