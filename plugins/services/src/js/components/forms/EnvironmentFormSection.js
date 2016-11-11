@@ -164,13 +164,4 @@ EnvironmentFormSection.configReducers = {
   labels
 };
 
-EnvironmentFormSection.validationReducers = {
-  labels() {
-    return [];
-  },
-  env() {
-    return [];
-  }
-};
-
 module.exports = EnvironmentFormSection;
