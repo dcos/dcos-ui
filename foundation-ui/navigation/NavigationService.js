@@ -6,17 +6,23 @@ class NavigationService extends EventEmitter {
   constructor() {
     super();
 
-    this.deferredTasks = [];
+    const privateContext = {
+      deferredTasks: [],
+      definition: [
+        // The only default is root, so it goes first no matter what
+        { category: 'root', children: [] }
+      ],
+      instance: this
+    };
 
-    // The only default is root, so it goes first no matter what
-    this.definition = [
-      { category: 'root', children: [] }
-    ];
+    this.getDefinition = this.getDefinition.bind(privateContext);
+    this.processDeferred = this.processDeferred.bind(privateContext);
+    this.defer = this.defer.bind(privateContext);
+    this.registerCategory = this.registerCategory.bind(privateContext);
+    this.registerPrimary = this.registerPrimary.bind(privateContext);
+    this.registerSecondary = this.registerSecondary.bind(privateContext);
 
-    this.on(
-      NAVIGATION_CHANGE,
-      this.processDeferred
-    );
+    this.on(NAVIGATION_CHANGE, this.processDeferred);
   }
 
   getDefinition() {
@@ -29,7 +35,7 @@ class NavigationService extends EventEmitter {
 
     // If Task is unable to resolve at this point of time it will re-defer itself
     tasks.forEach(({method, args}) => {
-      this[method].apply(this, args);
+      method.apply(this.instance, args);
     });
   }
 
@@ -45,7 +51,7 @@ class NavigationService extends EventEmitter {
       });
     }
 
-    this.emit(NAVIGATION_CHANGE);
+    this.instance.emit(NAVIGATION_CHANGE);
   }
 
   registerPrimary(path, link, options = {}) {
@@ -54,7 +60,7 @@ class NavigationService extends EventEmitter {
       .find((element) => element.category === category);
 
     if (!categoryElement) {
-      return this.defer('registerPrimary', arguments);
+      return this.instance.defer(this.instance.registerPrimary, arguments);
     }
 
     const existingElement = categoryElement.children.find((element) => {
@@ -72,7 +78,7 @@ class NavigationService extends EventEmitter {
       children: []
     });
 
-    this.emit(NAVIGATION_CHANGE);
+    this.instance.emit(NAVIGATION_CHANGE);
   }
 
   registerSecondary(parentPath, path, link, options = {}) {
@@ -85,7 +91,7 @@ class NavigationService extends EventEmitter {
       .find((element) => element.path === parentPath);
 
     if (!parentElement) {
-      return this.defer('registerSecondary', arguments);
+      return this.instance.defer(this.instance.registerSecondary, arguments);
     }
 
     const existingElement = parentElement.children.find((element) => {
@@ -103,7 +109,7 @@ class NavigationService extends EventEmitter {
       children: []
     });
 
-    this.emit(NAVIGATION_CHANGE);
+    this.instance.emit(NAVIGATION_CHANGE);
   }
 };
 
