@@ -133,20 +133,24 @@ var Sidebar = React.createClass({
         <div className="sidebar-section pod pod-shorter flush-top flush-left flush-right"
           key={index}>
           {heading}
-          {this.getNavigationGroup(group, this.props.location.pathname)}
+          {this.getNavigationGroup(group)}
         </div>
       );
     });
   },
 
-  getNavigationGroup(group, currentPath) {
+  getNavigationGroup(group) {
     let groupMenuItems = group.children.map((element, index) => {
+      let {pathname} = this.props.location;
+
+      let hasChildren = element.children && element.children.length !== 0;
+      let isParentActive = pathname.startsWith(element.path);
+
       let submenu;
       let isChildActive = false;
-      let hasChildren = element.children && element.children.length !== 0;
-      let isParentActive = currentPath.startsWith(element.path);
-      if (isParentActive) {
-        [submenu, isChildActive] = this.getGroupSubmenu(element, currentPath);
+      if (isParentActive && hasChildren) {
+        [submenu, isChildActive] = this.getGroupSubmenu(
+          group.path, element.children);
       }
 
       let linkElement = element.link;
@@ -177,8 +181,8 @@ var Sidebar = React.createClass({
     return <ul className="sidebar-menu">{groupMenuItems}</ul>;
   },
 
-  getGroupSubmenu({path, children = []}, currentPath) {
-    let submenu = null;
+  getGroupSubmenu(path, children) {
+    const {pathname} = this.props.location;
     let isChildActive = false;
 
     const childRoutesPaths = children.map(({path}) => path);
@@ -189,10 +193,13 @@ var Sidebar = React.createClass({
         children.filter(({path}) => childRoutesMap.has(path));
 
     let menuItems = filteredChildRoutes.reduce(function (children, currentChild) {
-      let isActive = currentPath.startsWith(currentChild.path);
+      let isActive = pathname.startsWith(currentChild.path);
 
       let menuItemClasses = classNames({selected: isActive});
 
+      // First matched active child wins,
+      // ie in /path/child and /path/child-path without this conditional /path/child-path
+      // will always overrule /path/child
       if (!isChildActive && isActive) {
         isChildActive = true;
       }
@@ -211,11 +218,7 @@ var Sidebar = React.createClass({
       return children;
     }, []);
 
-    if (menuItems.length) {
-      submenu = <ul>{menuItems}</ul>;
-    }
-
-    return [submenu, isChildActive];
+    return [<ul>{menuItems}</ul>, isChildActive];
   },
 
   getVersion() {
