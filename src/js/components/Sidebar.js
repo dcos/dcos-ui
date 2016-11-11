@@ -141,13 +141,13 @@ var Sidebar = React.createClass({
 
   getNavigationGroup(group, currentPath) {
     let groupMenuItems = group.children.map((element, index) => {
+      let submenu;
+      let isChildActive = false;
       let hasChildren = element.children && element.children.length !== 0;
-
       let isParentActive = currentPath.startsWith(element.path);
-      let {isChildActive, submenu} = this.getGroupSubmenu(element, {
-        currentPath,
-        isParentActive
-      });
+      if (isParentActive) {
+        [submenu, isChildActive] = this.getGroupSubmenu(element, currentPath);
+      }
 
       let linkElement = element.link;
       if (typeof linkElement === 'string') {
@@ -177,47 +177,45 @@ var Sidebar = React.createClass({
     return <ul className="sidebar-menu">{groupMenuItems}</ul>;
   },
 
-  getGroupSubmenu({path, children = []}, {currentPath, isParentActive}) {
+  getGroupSubmenu({path, children = []}, currentPath) {
     let submenu = null;
     let isChildActive = false;
 
-    if (isParentActive) {
-      const childRoutesPaths = children.map(({path}) => path);
-      const childRoutesMap = Hooks
+    const childRoutesPaths = children.map(({path}) => path);
+    const childRoutesMap = Hooks
         .applyFilter('secondaryNavigation', path, childRoutesPaths)
         .reduce((routesMap, path) => routesMap.set(path, true), new Map());
-      const filteredChildRoutes =
+    const filteredChildRoutes =
         children.filter(({path}) => childRoutesMap.has(path));
 
-      let menuItems = filteredChildRoutes.reduce(function (children, currentChild) {
-        let isActive = currentPath.startsWith(currentChild.path);
+    let menuItems = filteredChildRoutes.reduce(function (children, currentChild) {
+      let isActive = currentPath.startsWith(currentChild.path);
 
-        let menuItemClasses = classNames({selected: isActive});
+      let menuItemClasses = classNames({selected: isActive});
 
-        if (!isChildActive && isActive) {
-          isChildActive = true;
-        }
-
-        let linkElement = currentChild.link;
-        if (typeof linkElement === 'string') {
-          linkElement = <Link to={currentChild.path}>{linkElement}</Link>;
-        }
-
-        children.push(
-          <li className={menuItemClasses} key={currentChild.label}>
-            {linkElement}
-          </li>
-        );
-
-        return children;
-      }, []);
-
-      if (menuItems.length) {
-        submenu = <ul>{menuItems}</ul>;
+      if (!isChildActive && isActive) {
+        isChildActive = true;
       }
+
+      let linkElement = currentChild.link;
+      if (typeof linkElement === 'string') {
+        linkElement = <Link to={currentChild.path}>{linkElement}</Link>;
+      }
+
+      children.push(
+        <li className={menuItemClasses} key={currentChild.label}>
+          {linkElement}
+        </li>
+      );
+
+      return children;
+    }, []);
+
+    if (menuItems.length) {
+      submenu = <ul>{menuItems}</ul>;
     }
 
-    return {submenu, isChildActive};
+    return [submenu, isChildActive];
   },
 
   getVersion() {
