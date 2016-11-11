@@ -31,7 +31,7 @@ class MountService extends EventEmitter {
    */
   registerComponent(component, type, priority = 0) {
     if (typeof component !== 'function') {
-      if (process.env.NODE_ENV !== 'production') {
+      if (global.__DEV__) {
         throw new TypeError('Provided component must be a ' +
             'React.Component constructor or a stateless functional component.');
       }
@@ -40,7 +40,7 @@ class MountService extends EventEmitter {
     }
 
     if (typeof type !== 'string' || type === '') {
-      if (process.env.NODE_ENV !== 'production') {
+      if (global.__DEV__) {
         throw new TypeError('Provided type must be a none empty string');
       }
 
