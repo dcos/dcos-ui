@@ -46,6 +46,17 @@ class AuthService extends EventEmitter {
     }
   }
 
+  /**
+   * Authorize current user if required permission was granted
+   *
+   * @param  {string} permission
+   *
+   * @returns {boolean} authorized
+   */
+  authorize(permission = '') {
+    return authorizers.every((authorizer) => authorizer.authorize(permission));
+  }
+
 }
 
 module.exports = new AuthService();
