@@ -1,7 +1,7 @@
 import {Route, Redirect} from 'react-router';
 import {EventEmitter} from 'events';
 
-import EventTypes from './EventTypes';
+import {ROUTING_CHANGE} from './EventTypes';
 
 function throwError(error) {
   if (global.__DEV__) {
@@ -17,7 +17,7 @@ class RoutingService extends EventEmitter {
     this.deferredTasks = [];
     this.definition = [];
 
-    this.on(EventTypes.ROUTING_CHANGE, this.processDeferred);
+    this.on(ROUTING_CHANGE, this.processDeferred);
   }
 
   getDefinition() {
@@ -64,7 +64,7 @@ class RoutingService extends EventEmitter {
       type: Route
     });
 
-    this.emit(EventTypes.ROUTING_CHANGE);
+    this.emit(ROUTING_CHANGE);
   }
 
   /**
@@ -104,7 +104,7 @@ class RoutingService extends EventEmitter {
       type: Route
     });
 
-    this.emit(EventTypes.ROUTING_CHANGE);
+    this.emit(ROUTING_CHANGE);
   }
 
   /**
@@ -130,7 +130,7 @@ class RoutingService extends EventEmitter {
       to,
       type: Redirect
     });
-    this.emit(EventTypes.ROUTING_CHANGE);
+    this.emit(ROUTING_CHANGE);
   }
 
 }
