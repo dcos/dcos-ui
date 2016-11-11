@@ -1,5 +1,5 @@
 import {EventEmitter} from 'events';
-import EventTypes from './EventTypes';
+import {NAVIGATION_CHANGE} from './EventTypes';
 
 class NavigationService extends EventEmitter {
 
@@ -14,7 +14,7 @@ class NavigationService extends EventEmitter {
     ];
 
     this.on(
-      EventTypes.NAVIGATION_CHANGE,
+      NAVIGATION_CHANGE,
       this.processDeferred
     );
   }
@@ -45,7 +45,7 @@ class NavigationService extends EventEmitter {
       });
     }
 
-    this.emit(EventTypes.NAVIGATION_CHANGE);
+    this.emit(NAVIGATION_CHANGE);
   }
 
   registerPrimary(path, link, options = {}) {
@@ -72,7 +72,7 @@ class NavigationService extends EventEmitter {
       children: []
     });
 
-    this.emit(EventTypes.NAVIGATION_CHANGE);
+    this.emit(NAVIGATION_CHANGE);
   }
 
   registerSecondary(parentPath, path, link, options = {}) {
@@ -103,7 +103,7 @@ class NavigationService extends EventEmitter {
       children: []
     });
 
-    this.emit(EventTypes.NAVIGATION_CHANGE);
+    this.emit(NAVIGATION_CHANGE);
   }
 };
 
