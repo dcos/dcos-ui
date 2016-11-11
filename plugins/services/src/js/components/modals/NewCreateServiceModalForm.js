@@ -6,10 +6,10 @@ import AppValidators from '../../../../../../src/resources/raml/marathon/v2/type
 import Batch from '../../../../../../src/js/structs/Batch';
 import {combineParsers} from '../../../../../../src/js/utils/ParserUtil';
 import {combineReducers} from '../../../../../../src/js/utils/ReducerUtil';
+import EnvironmentFormSection from '../forms/EnvironmentFormSection';
+import GeneralServiceFormSection from '../forms/GeneralServiceFormSection';
 import JSONConfigReducers from '../../reducers/JSONConfigReducers';
 import JSONParserReducers from '../../reducers/JSONParserReducers';
-import ServiceFormSection from '../forms/ServiceFormSection';
-import EnvironmentFormSection from '../forms/EnvironmentFormSection';
 import TabButton from '../../../../../../src/js/components/TabButton';
 import TabButtonList from '../../../../../../src/js/components/TabButtonList';
 import Tabs from '../../../../../../src/js/components/Tabs';
@@ -29,8 +29,8 @@ const METHODS_TO_BIND = [
 ];
 
 const SECTIONS = [
-  ServiceFormSection,
-  EnvironmentFormSection
+  EnvironmentFormSection,
+  GeneralServiceFormSection
 ];
 
 const jsonParserReducers = combineParsers(JSONParserReducers);
@@ -200,7 +200,7 @@ class NewCreateServiceModalForm extends React.Component {
               </TabButtonList>
               <TabViewList>
                 <TabView id="services">
-                  <ServiceFormSection errors={errors} data={data} />
+                  <GeneralServiceFormSection errors={errors} data={data} />
                 </TabView>
                 <TabView id="environment">
                   <EnvironmentFormSection
