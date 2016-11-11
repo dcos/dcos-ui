@@ -14,14 +14,17 @@ class RoutingService extends EventEmitter {
   constructor() {
     super();
 
-    this.deferredTasks = [];
     this.definition = [];
 
-    this.on(ROUTING_CHANGE, this.processDeferred);
-  }
+    const context = {
+      deferredTasks: [],
+      instance: this
+    };
 
-  getDefinition() {
-    return this.definition.slice(0);
+    this.defer = this.defer.bind(context);
+    this.processDeferred = this.processDeferred.bind(context);
+
+    this.on(ROUTING_CHANGE, this.processDeferred);
   }
 
   processDeferred() {
@@ -30,12 +33,16 @@ class RoutingService extends EventEmitter {
 
     // If Task is unable to resolve at this point of time it will re-defer itself
     tasks.forEach((args) => {
-      this.registerTab.apply(this, args);
+      this.instance.registerTab.apply(this.instance, args);
     });
   }
 
   defer(args) {
     this.deferredTasks.push(args);
+  }
+
+  getDefinition() {
+    return this.definition.slice(0);
   }
 
   /**

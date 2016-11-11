@@ -24,8 +24,6 @@ import ImagesTabContent from '../pages/styles/content/ImagesTabContent';
 
 import StylesPage from '../pages/StylesPage';
 
-PluginSDK.routingService.registerPage('styles', StylesPage);
-
 PluginSDK.routingService.registerRedirect('/styles', '/styles/layout');
 PluginSDK.routingService.registerRedirect('/styles/layout', '/styles/layout/containers');
 
@@ -52,3 +50,4 @@ PluginSDK.routingService.registerTab('styles', 'components/forms', FormsTabConte
 PluginSDK.routingService.registerTab('styles', 'components/icons', IconsTabContent);
 PluginSDK.routingService.registerTab('styles', 'components/modals', ModalsTabContent);
 PluginSDK.routingService.registerTab('styles', 'components/panels', PanelsTabContent);
+PluginSDK.routingService.registerPage('styles', StylesPage);
