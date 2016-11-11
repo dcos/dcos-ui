@@ -5,35 +5,126 @@ import FieldError from '../../../../../../src/js/components/form/FieldError';
 import FieldHelp from '../../../../../../src/js/components/form/FieldHelp';
 import FieldInput from '../../../../../../src/js/components/form/FieldInput';
 import FieldLabel from '../../../../../../src/js/components/form/FieldLabel';
-import FieldTextarea from '../../../../../../src/js/components/form/FieldTextarea';
 import FormGroup from '../../../../../../src/js/components/form/FormGroup';
+import MetadataStore from '../../../../../../src/js/stores/MetadataStore';
 import Icon from '../../../../../../src/js/components/Icon';
-import ServiceConfigReducers from '../../reducers/ServiceConfigReducers';
-import ServiceValidationReducers from '../../reducers/ServiceValidationReducers';
+import General from '../../reducers/serviceForm/General';
+import VolumeConstants from '../../constants/VolumeConstants';
 
-class ServiceFormSection extends Component {
-  getCMDLabel() {
-    let content = (
-      <span>
-        {'The command value will be wrapped by the underlying Mesos executor via /bin/sh -c ${cmd}. '}
-        <a href="https://mesosphere.github.io/marathon/docs/application-basics.html" target="_blank">
-          More information
-        </a>.
-      </span>
-    );
+const {MESOS, DOCKER} = VolumeConstants.type;
+
+const containerRuntimes = {
+  [MESOS]: {
+    label: <span>Universal Container Runtime</span>,
+    helpText: 'Native container engine in Mesos using standard Linux features. Supports multiple containers (Pods) and GPU resources.'
+  },
+  [DOCKER]: {
+    label: <span>Docker Engine</span>,
+    helpText: 'Docker’s container runtime. No support for multiple containers (Pods) or GPU resources.'
+  }
+};
+
+const METHODS_TO_BIND = [
+  'toggleAdvancedSettings'
+];
+
+class GeneralServiceFormSection extends Component {
+  constructor() {
+    super(...arguments);
+
+    this.state = {
+      showAdvancedSettings: false
+    };
+
+    METHODS_TO_BIND.forEach((method) => {
+      this[method] = this[method].bind(this);
+    });
+  }
+
+  toggleAdvancedSettings() {
+    this.setState({showAdvancedSettings: !this.state.showAdvancedSettings});
+  }
+
+  getContainerRuntime(data = {}, containerErrors = {}) {
+    if (!this.state.showAdvancedSettings) {
+      return null;
+    }
+
+    let {container = {}, cmd, gpus} = data;
+    let isDisabled = {};
+    let disabledTooltipContent;
+    let type = container.type || MESOS;
+    let typeKey = type && type.toLowerCase();
+    let image = container[typeKey] && container[typeKey].image;
+    // Single container with command and no image, disable 'DOCKER'
+    if (cmd && !image) {
+      isDisabled[DOCKER] = true;
+      disabledTooltipContent = 'If you want to use Docker Engine you have to enter a container image, otherwise please select Universal Container Runtime.';
+    }
+
+    // TODO: Handle GPUs
+    if (gpus != null) {
+      isDisabled[DOCKER] = true;
+      disabledTooltipContent = 'Docker Engine does not support GPU resources, please select Universal Container Runtime if you want to use GPU resources.';
+    }
+
+    let selections = Object.keys(containerRuntimes).map((runtimeName, index) => {
+      let {helpText, label} = containerRuntimes[runtimeName];
+      let field = (
+        <FieldLabel className="text-align-left" key={index}>
+          <FieldInput
+            checked={Boolean(type === runtimeName)}
+            disabled={isDisabled[runtimeName]}
+            name="container.type"
+            type="radio"
+            value={runtimeName} />
+            {label}
+          <FieldHelp>{helpText}</FieldHelp>
+        </FieldLabel>
+      );
+
+      // Wrap field in tooltip if disabled and content populated
+      if (isDisabled[runtimeName] && disabledTooltipContent) {
+        field = (
+          <Tooltip
+            content={disabledTooltipContent}
+            interactive={true}
+            key={index}
+            maxWidth={300}
+            scrollContainer=".gm-scroll-view"
+            wrapText={true}>
+            {field}
+          </Tooltip>
+        );
+      }
+
+      return field;
+    });
 
     return (
-      <FieldLabel>
-        {'Command '}
-        <Tooltip
-          content={content}
-          interactive={true}
-          wrapText={true}
-          maxWidth={300}
-          scrollContainer=".gm-scroll-view">
-            <Icon color="grey" id="ring-question" size="mini" family="mini" />
-        </Tooltip>
-      </FieldLabel>
+      <div>
+        <h3 className="short-top short-bottom">
+          {'Container Runtime '}
+          <Tooltip
+            content={
+              <span>
+                {'You can run Docker containers with both container runtimes. The Universal Container Runtime is better supported in DC/OS. '}
+                <a href={MetadataStore.buildDocsURI('/usage/containerizers/')} target="_blank">More information</a>.
+              </span>
+            }
+            interactive={true}
+            maxWidth={300}
+            scrollContainer=".gm-scroll-view"
+            wrapText={true}>
+              <Icon color="grey" id="ring-question" size="mini" family="mini" />
+          </Tooltip>
+        </h3>
+        <p>The container runtime is responsible for running your service. We support the Mesos and Docker containerizers.</p>
+        <FormGroup showError={Boolean(containerErrors.type)}>
+          {selections}
+          <FieldError>{containerErrors.type}</FieldError>
+        </FormGroup>
+      </div>
     );
   }
 
@@ -50,6 +141,10 @@ class ServiceFormSection extends Component {
 
   render() {
     let {data, errors} = this.props;
+    let advancedSettingsIcon = 'triangle-right';
+    if (this.state.showAdvancedSettings) {
+      advancedSettingsIcon = 'triangle-down';
+    }
 
     return (
       <div className="form flush-bottom">
@@ -80,7 +175,6 @@ class ServiceFormSection extends Component {
 
           <FormGroup
             className="column-4"
-            required={true}
             showError={Boolean(errors.instances)}>
             <FieldLabel>
               Instances
@@ -94,72 +188,33 @@ class ServiceFormSection extends Component {
           </FormGroup>
         </div>
 
-        <div className="flex row">
-          <FormGroup
-            className="column-4"
-             required={true}
-             showError={Boolean(errors.cpus)}>
-            <FieldLabel>
-              CPUs
-            </FieldLabel>
-            <FieldInput
-              name="cpus"
-              type="number"
-              step="0.01"
-              value={data.cpus} />
-            <FieldError>{errors.cpus}</FieldError>
-          </FormGroup>
-          <FormGroup
-            className="column-4"
-            required={true}
-            showError={Boolean(errors.mem)}>
-            <FieldLabel>
-              Memory (MiB)
-            </FieldLabel>
-            <FieldInput
-              name="mem"
-              type="number"
-              value={data.mem} />
-            <FieldError>{errors.mem}</FieldError>
-          </FormGroup>
-          <FormGroup className="column-4" showError={Boolean(errors.disk)}>
-            <FieldLabel>Disk (MiB)</FieldLabel>
-            <FieldInput
-              name="disk"
-              type="number"
-              value={data.disk} />
-            <FieldError>{errors.disk}</FieldError>
-          </FormGroup>
-        </div>
+        <p>
+          <a onClick={this.toggleAdvancedSettings}>
+            <Icon
+              id={advancedSettingsIcon}
+              color="purple"
+              family="mini"
+              size="mini" />
+            Advanced Service Settings
+          </a>
+        </p>
+        {this.getContainerRuntime(data, errors.container)}
 
-        <FormGroup showError={Boolean(errors.cmd)}>
-          <FieldTextarea
-            error={errors.cmd}
-            FieldLabel={this.getCMDLabel()}
-            name="cmd"
-            value={data.cmd} />
-            <FieldHelp>
-              A shell command for your container to execute.
-            </FieldHelp>
-          <FieldError>{errors.cmd}</FieldError>
-        </FormGroup>
       </div>
     );
   }
 }
 
-ServiceFormSection.defaultProps = {
+GeneralServiceFormSection.defaultProps = {
   data: {},
   errors: {}
 };
 
-ServiceFormSection.propTypes = {
+GeneralServiceFormSection.propTypes = {
   data: React.PropTypes.object,
   errors: React.PropTypes.object
 };
 
-ServiceFormSection.configReducers = ServiceConfigReducers;
+GeneralServiceFormSection.configReducers = General;
 
-ServiceFormSection.validationReducers = ServiceValidationReducers;
-
-module.exports = ServiceFormSection;
+module.exports = GeneralServiceFormSection;
