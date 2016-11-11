@@ -31,6 +31,21 @@ class AuthService extends EventEmitter {
     authorizers.push(authorizer);
   }
 
+  /**
+   * Unregisters authorizer
+   *
+   * @param  {Authorizer} authorizer
+   */
+  unregisterAuthorizer(authorizer) {
+    let i = authorizers.length;
+    while (--i >= 0) {
+      if (authorizers[i] === authorizer) {
+        authorizers.splice(i, 1);
+        break;
+      }
+    }
+  }
+
 }
 
 module.exports = new AuthService();

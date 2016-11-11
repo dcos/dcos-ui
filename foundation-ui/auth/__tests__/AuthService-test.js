@@ -38,4 +38,24 @@ describe('AuthService', function () {
 
   });
 
+  describe('unregisterAuthenticator', function () {
+
+    beforeEach(function () {
+      AuthService.registerAuthorizer(authorizer);
+    });
+
+    afterEach(function () {
+      AuthService.unregisterAuthorizer(authorizer);
+    });
+
+    it('should not throw if a instance of Authorizer is provided',
+        function () {
+          expect(function () {
+            AuthService.unregisterAuthorizer(authorizer);
+          }).not.toThrow();
+        }
+    );
+
+  });
+
 });
