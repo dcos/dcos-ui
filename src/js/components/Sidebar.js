@@ -5,7 +5,6 @@ import React from 'react';
 import {Tooltip} from 'reactjs-components';
 import PluginSDK from 'PluginSDK';
 
-import PrimarySidebarLink from '../components/PrimarySidebarLink';
 import {keyCodes} from '../utils/KeyboardUtil';
 import ClusterHeader from './ClusterHeader';
 import EventTypes from '../constants/EventTypes';
@@ -14,6 +13,7 @@ import InternalStorageMixin from '../mixins/InternalStorageMixin';
 import MesosSummaryStore from '../stores/MesosSummaryStore';
 import MetadataStore from '../stores/MetadataStore';
 import NavigationService, {EventTypes as NavigationServiceEventTypes} from '../../../foundation-ui/navigation';
+import PrimarySidebarLink from '../components/PrimarySidebarLink';
 import SaveStateMixin from '../mixins/SaveStateMixin';
 import SidebarActions from '../events/SidebarActions';
 
