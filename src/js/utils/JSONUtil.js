@@ -9,7 +9,6 @@ const TOKENIZER_TOKENS = {
   'begin-array': /\[/g,
   'end-array': /\]/g,
   'string': /"(\\["\\/bfnrtu"]|[^"\\"])*"/g,
-  'maybe-string': /"([^"]|\\")*/g,
   'null': /null/g,
   'boolean': /(true|false)/g,
   'number': /-?\d+(\.\d+)?([eE]-?\d+)?/g,
@@ -21,32 +20,41 @@ const TOKENIZER_TOKENS = {
 };
 
 // Extract only keys
-const TOKENIZER_TYPES = Object.keys( TOKENIZER_TOKENS );
+const TOKENIZER_NAMES = Object.keys( TOKENIZER_TOKENS );
 
 /**
  * Return the next JSON token from the given string
  *
  * @param {string} chunk - The source payload
  * @param {number} offset - The offset to start searching from
- * @returns {array} - Returns an array with [ tokenType, tokenOffset ]
+ * @returns {array} - Returns an array with [ name, match, offset ]
  */
 function nextJSONToken( chunk, offset ) {
-  return TOKENIZER_TYPES.reduce(function (lastMatch, tokenName) {
-    let tokenRx = TOKENIZER_TOKENS[tokenName];
+  let i = 0;
+  let lastName = '';
+  let lastMatch = '';
+  let lastOffset = chunk.length;
+  let tokenCount = TOKENIZER_NAMES.length;
+
+  while (i < tokenCount) {
+    let tokenName = TOKENIZER_NAMES[i];
+    let tokenRegExp = TOKENIZER_TOKENS[tokenName];
 
     // Search for a token at given offset
-    tokenRx.lastIndex = offset;
-    let match = tokenRx.exec(chunk);
+    tokenRegExp.lastIndex = offset;
 
-    // If we got something closer than the previous match, use that one
-    if (match && match.index < lastMatch[2]) {
-      return [tokenName, match[0], match.index];
+    // If we got something closer to the last match, prefer this one
+    let match = tokenRegExp.exec(chunk);
+    if (match && match.index < lastOffset) {
+      lastOffset = match.index;
+      lastName = tokenName;
+      lastMatch = match[0];
     }
 
-    // Otherwise default
-    return lastMatch;
+    i++;
+  }
 
-  }, ['', '', chunk.length]);
+  return [lastName, lastMatch, lastOffset];
 }
 
 /**
@@ -123,7 +131,9 @@ module.exports = {
     JSON.parse(source);
 
     // Process tokens
-    for (let i=0, l=source.length; i<l; ) {
+    let i = 0;
+    let sourceLength = source.length;
+    while (i<sourceLength) {
       // Get next token or exit if there are no more
       let [token, match, offset] = nextJSONToken( source, i );
       if (!token) {
