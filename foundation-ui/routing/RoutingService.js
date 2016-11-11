@@ -3,6 +3,12 @@ import {EventEmitter} from 'events';
 
 import EventTypes from './EventTypes';
 
+function throwError(error) {
+  if (global.__DEV__) {
+    throw error;
+  }
+}
+
 class RoutingService extends EventEmitter {
 
   constructor() {
@@ -41,7 +47,7 @@ class RoutingService extends EventEmitter {
    */
   registerPage(path, component) {
     if (!path || !component) {
-      throw new Error('Please provide all required arguments');
+      return throwError(new Error('Please provide all required arguments'));
     }
 
     const existingRoute = this.definition.find((route) => route.path === path);
@@ -49,7 +55,7 @@ class RoutingService extends EventEmitter {
     if (existingRoute && existingRoute.component === component) {
       return;
     } else if (existingRoute) {
-      throw new Error(`Attempt to override a page at ${path}!`);
+      return throwError(new Error(`Attempt to override a page at ${path}!`));
     }
 
     this.definition.push({
@@ -71,7 +77,7 @@ class RoutingService extends EventEmitter {
    */
   registerTab(path, tabPath, component) {
     if (!path || !tabPath || !component) {
-      throw new Error('Please provide all required arguments');
+      return throwError(new Error('Please provide all required arguments'));
     }
 
     const parent = this.definition.find((route) => route.path === path);
@@ -89,7 +95,7 @@ class RoutingService extends EventEmitter {
     if (existingTab && existingTab.component === component) {
       return;
     } else if (existingTab) {
-      throw new Error(`Attempt to override a tab at ${path}/${tabPath}!`);
+      return throwError(new Error(`Attempt to override a tab at ${path}/${tabPath}!`));
     }
 
     parent.children.push({
@@ -116,7 +122,7 @@ class RoutingService extends EventEmitter {
     if (existingRedirect && existingRedirect.to === to) {
       return;
     } else if (existingRedirect) {
-      throw new Error(`Attempt to override Redirect of ${path} from ${existingRedirect.to} to ${to}!`);
+      return throwError(new Error(`Attempt to override Redirect of ${path} from ${existingRedirect.to} to ${to}!`));
     }
 
     this.definition.push({
