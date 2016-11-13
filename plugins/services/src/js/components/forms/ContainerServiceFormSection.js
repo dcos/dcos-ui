@@ -89,7 +89,6 @@ class ContainerServiceFormSection extends Component {
               value={data.disk} />
             <FieldError>{errors.disk}</FieldError>
           </FormGroup>
-          {this.getGPUSettings(data, errors)}
         </div>
       </div>
     );
@@ -117,26 +116,6 @@ class ContainerServiceFormSection extends Component {
             <Icon color="grey" id="ring-question" size="mini" family="mini" />
         </Tooltip>
       </FieldLabel>
-    );
-  }
-
-  getGPUSettings(data, errors) {
-    // TODO: Find the right way to determine GPU support
-    // findNestedPropertyInObject(data, 'resouces.gpus'); ??
-    let supportsGPUs = true;
-    if (!supportsGPUs) {
-      return null;
-    }
-
-    return (
-      <FormGroup className="column-4" showError={Boolean(errors.gpus)}>
-        <FieldLabel>GPUs</FieldLabel>
-        <FieldInput
-          name="gpus"
-          type="number"
-          value={data.gpus} />
-        <FieldError>{errors.gpus}</FieldError>
-      </FormGroup>
     );
   }
 
