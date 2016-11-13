@@ -14,6 +14,8 @@ export default class StateServerConnector {
   }
 
   get() {
-    return this.stateLoader.load('');
+    return this.stateLoader.load('').then((state) => {
+      return JSON.parse(JSON.stringify(state));
+    });
   }
 }

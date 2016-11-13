@@ -1,4 +1,4 @@
-import StateConnector from './state/state';
+import StateConnector from '../state/state';
 
 export default function MesosConnector(mockResponse) {
   const {state = {}} = mockResponse;

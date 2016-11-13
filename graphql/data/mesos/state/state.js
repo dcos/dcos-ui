@@ -1,12 +1,12 @@
-import { mockEndpoints, runInClient } from '../../../Config';
+import config from '../../../config';
 
 let path = './server';
 
-if (mockEndpoints) {
+if (config.mockEndpoints) {
   path = './mock';
 }
 
-if (runInClient) {
+if (config.runInClient) {
   path = './client';
 }
 

@@ -1,3 +1,5 @@
+import clone from 'clone';
+
 export default class MesosMockTestConnector {
   constructor(response) {
     // Pass in the resolvable response for testing
@@ -5,6 +7,6 @@ export default class MesosMockTestConnector {
   }
 
   get() {
-    return Promise.resolve(this.mockResponse);
+    return Promise.resolve(clone(this.mockResponse));
   }
 }
