@@ -13,8 +13,7 @@ import TaskDetailsTab from '../../../plugins/services/src/js/pages/task-details/
 import TaskFilesTab from '../../../plugins/services/src/js/pages/task-details/TaskFilesTab';
 import TaskFileViewer from '../../../plugins/services/src/js/pages/task-details/TaskFileViewer';
 
-function buildJobCrumbs() {
-  let {id} = params;
+function buildJobCrumbs({id}) {
   let ids = id.split('.');
   let aggregateIDs = '';
 
