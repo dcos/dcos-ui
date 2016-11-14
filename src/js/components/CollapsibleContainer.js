@@ -51,7 +51,7 @@ CollapsibleContainer.defaultProps = {
 };
 
 CollapsibleContainer.propTypes = {
-  label: React.PropTypes.string
+  label: React.PropTypes.string.isRequired
 };
 
 module.exports = CollapsibleContainer;
