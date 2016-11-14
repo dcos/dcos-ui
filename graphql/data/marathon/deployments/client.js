@@ -1,3 +1,5 @@
+import clone from 'clone';
+
 import mockResponse from './mock-data/deployments';
 
 /**
@@ -9,6 +11,6 @@ import mockResponse from './mock-data/deployments';
 
 export default class ClientDeploymentsConnector {
   get() {
-    return Promise.resolve(mockResponse);
+    return Promise.resolve(clone(mockResponse));
   }
 }
