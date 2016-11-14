@@ -12,10 +12,6 @@ const TOKENIZER_TOKENS = {
   'null': /null/g,
   'boolean': /(true|false)/g,
   'number': /-?\d+(\.\d+)?([eE]-?\d+)?/g,
-  'maybe-decimal-number': /-?\d+\./g,
-  'maybe-negative-number': /-/g,
-  'maybe-exponential-number': /-?\d+(\.\d+)?([eE])?/g,
-  'maybe-exponential-number-negative': /-?\d+(\.\d+)?([eE]-)?/g,
   'symbol': /\w+/g
 };
 
@@ -124,6 +120,9 @@ module.exports = {
     // This variable keeps track of the current object key. It's used only
     // when in an object { } and is populated only when a colon ':'' is encoutered
     let objectKey = null;
+    // Stack of block tokens, used to keep track of the last opened block
+    // token in order to update the ending position.
+    let blockTokens = [];
 
     // First validate sanity of the JSON source, in order for us
     // to safely asume that this is a legit JSON source
@@ -155,11 +154,15 @@ module.exports = {
         case 'begin-object':
           // Keep track of keyed objects
           if (objectKey) {
-            keyLines.push({
+            let blockToken = {
               path: [].concat(path, objectKey),
               line: lineNo,
-              type: 'object'
-            });
+              type: 'object',
+              pos: [offset, i]
+            };
+
+            keyLines.push(blockToken);
+            blockTokens.push(blockToken);
 
             path.push(objectKey);
             objectKey = null;
@@ -167,11 +170,15 @@ module.exports = {
 
           // Keep track of indexed objects
           if (arrayIndex !== -1) {
-            keyLines.push({
+            let blockToken = {
               path: [].concat(path, arrayIndex),
               line: lineNo,
-              type: 'object'
-            });
+              type: 'object',
+              pos: [offset, i]
+            };
+
+            keyLines.push(blockToken);
+            blockTokens.push(blockToken);
 
             path.push(arrayIndex);
           }
@@ -186,11 +193,15 @@ module.exports = {
         case 'begin-array':
           // Keep track of keyed arrays
           if (objectKey) {
-            keyLines.push({
+            let blockToken = {
               path: [].concat(path, objectKey),
               line: lineNo,
-              type: 'array'
-            });
+              type: 'array',
+              pos: [offset, i]
+            };
+
+            keyLines.push(blockToken);
+            blockTokens.push(blockToken);
 
             path.push(objectKey);
             objectKey = null;
@@ -198,11 +209,15 @@ module.exports = {
 
           // Keep track of indexed arrays
           if (arrayIndex !== -1) {
-            keyLines.push({
+            let blockToken = {
               path: [].concat(path, arrayIndex),
               line: lineNo,
-              type: 'array'
-            });
+              type: 'array',
+              pos: [offset, i]
+            };
+
+            keyLines.push(blockToken);
+            blockTokens.push(blockToken);
 
             path.push(arrayIndex);
           }
@@ -223,6 +238,12 @@ module.exports = {
             arrayIndex = lastValue;
           } else {
             arrayIndex = -1;
+          }
+
+          // Update the ending position of the last block token on stack
+          let lastBlockToken = blockTokens.pop();
+          if (lastBlockToken) {
+            lastBlockToken.pos[1] = i;
           }
           break;
 
@@ -281,7 +302,8 @@ module.exports = {
               path: [].concat(path, objectKey),
               line: lineNo,
               value: match,
-              type: 'literal'
+              type: 'literal',
+              pos: [offset, i]
             });
             objectKey = null;
           }
@@ -292,7 +314,8 @@ module.exports = {
               path: [].concat(path, arrayIndex),
               line: lineNo,
               value: match,
-              type: 'literal'
+              type: 'literal',
+              pos: [offset, i]
             });
           }
           break;
