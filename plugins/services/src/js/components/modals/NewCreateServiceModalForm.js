@@ -9,6 +9,7 @@ import {combineParsers} from '../../../../../../src/js/utils/ParserUtil';
 import {combineReducers} from '../../../../../../src/js/utils/ReducerUtil';
 import EnvironmentFormSection from '../forms/EnvironmentFormSection';
 import GeneralServiceFormSection from '../forms/GeneralServiceFormSection';
+import HealthChecksFormSection from '../forms/HealthChecksFormSection';
 import JSONConfigReducers from '../../reducers/JSONConfigReducers';
 import JSONParserReducers from '../../reducers/JSONParserReducers';
 import Service from '../../structs/Service';
@@ -33,7 +34,8 @@ const METHODS_TO_BIND = [
 const SECTIONS = [
   ContainerServiceFormSection,
   EnvironmentFormSection,
-  GeneralServiceFormSection
+  GeneralServiceFormSection,
+  HealthChecksFormSection
 ];
 
 const jsonParserReducers = combineParsers(JSONParserReducers);
@@ -210,6 +212,7 @@ class NewCreateServiceModalForm extends Component {
               <TabButtonList>
                 <TabButton id="services" label="Services" />
                 <TabButton id="environment" label="Environment" />
+                <TabButton id="healthChecks" label="Health Checks" />
               </TabButtonList>
               <TabViewList>
                 <TabView id="services">
@@ -218,6 +221,11 @@ class NewCreateServiceModalForm extends Component {
                 <TabView id="environment">
                   <EnvironmentFormSection
                     data={data}
+                    onRemoveItem={this.handleRemoveItem}
+                    onAddItem={this.handleAddItem} />
+                </TabView>
+                <TabView id="healthChecks">
+                  <HealthChecksFormSection data={data}
                     onRemoveItem={this.handleRemoveItem}
                     onAddItem={this.handleAddItem} />
                 </TabView>
