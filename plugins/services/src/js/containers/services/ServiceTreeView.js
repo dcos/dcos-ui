@@ -42,7 +42,7 @@ class ServiceTreeView extends React.Component {
     }
 
     return (
-      <Breadcrumbs />
+      <Breadcrumbs routes={this.props.routes} params={this.props.params} />
     );
   }
 
