@@ -1,0 +1,246 @@
+import React, {Component} from 'react';
+
+import CollapsibleContainer from '../../../../../../src/js/components/CollapsibleContainer';
+import FieldError from '../../../../../../src/js/components/form/FieldError';
+import FieldHelp from '../../../../../../src/js/components/form/FieldHelp';
+import FieldInput from '../../../../../../src/js/components/form/FieldInput';
+import FieldTextarea from '../../../../../../src/js/components/form/FieldTextarea';
+import FieldLabel from '../../../../../../src/js/components/form/FieldLabel';
+import FieldSelect from '../../../../../../src/js/components/form/FieldSelect';
+import FormGroup from '../../../../../../src/js/components/form/FormGroup';
+import Icon from '../../../../../../src/js/components/Icon';
+import {FormReducer as healthChecks} from '../../reducers/serviceForm/HealthChecks';
+
+class HealthChecksFormSection extends Component {
+  getAdvancedSettings(healthCheck, key) {
+    const {errors} = this.props;
+    if (healthCheck.protocol !== 'COMMAND' && healthCheck.protocol !== 'HTTP' &&
+      healthCheck.protocol !== 'HTTPS') {
+      return null;
+    }
+
+    return (
+      <CollapsibleContainer label="Advanced Settings">
+        <div className="flex row">
+          <FormGroup
+            className="column-3"
+            required={false}
+            showError={Boolean(errors.healthChecks[key])}>
+            <FieldLabel>Grace Period (s)</FieldLabel>
+            <FieldInput
+              name={`healthChecks.${key}.gracePeriodSeconds`}
+              type="number"
+              min="0"
+              value={healthCheck.gracePeriodSeconds}/>
+            <FieldError>{errors.healthChecks[key]}</FieldError>
+          </FormGroup>
+          <FormGroup
+            className="column-3"
+            required={false}
+            showError={Boolean(errors.healthChecks[key])}>
+            <FieldLabel>Interval (s)</FieldLabel>
+            <FieldInput
+              name={`healthChecks.${key}.intervalSeconds`}
+              type="number"
+              min="0"
+              value={healthCheck.intervalSeconds}/>
+            <FieldError>{errors.healthChecks[key]}</FieldError>
+          </FormGroup>
+          <FormGroup
+            className="column-3"
+            required={false}
+            showError={Boolean(errors.healthChecks[key])}>
+            <FieldLabel>Timeout (s)</FieldLabel>
+            <FieldInput
+              name={`healthChecks.${key}.timeoutSeconds`}
+              type="number"
+              min="0"
+              value={healthCheck.timeoutSeconds}/>
+            <FieldError>{errors.healthChecks[key]}</FieldError>
+          </FormGroup>
+          <FormGroup
+            className="column-3"
+            required={false}
+            showError={Boolean(errors.healthChecks[key])}>
+            <FieldLabel>Max Failures</FieldLabel>
+            <FieldInput
+              name={`healthChecks.${key}.maxConsecutiveFailures`}
+              type="number"
+              min="0"
+              value={healthCheck.maxConsecutiveFailures}/>
+            <FieldError>{errors.healthChecks[key]}</FieldError>
+          </FormGroup>
+        </div>
+      </CollapsibleContainer>);
+  }
+
+  getCommandFields(healthCheck, key) {
+    const {errors} = this.props;
+
+    if (healthCheck.protocol !== 'COMMAND') {
+      return null;
+    }
+
+    return (
+      <div className="flex row">
+        <FormGroup
+          className="column-12"
+          required={false}
+          showError={Boolean(errors.healthChecks[key])}>
+          <FieldLabel>Command</FieldLabel>
+          <FieldTextarea
+            name={`healthChecks.${key}.command`}
+            type="text"
+            value={healthCheck.command}/>
+          <FieldError>{errors.healthChecks[key]}</FieldError>
+        </FormGroup>
+      </div>
+    );
+  }
+
+  getHTTPFields(healthCheck, key) {
+    const {errors} = this.props;
+
+    if (healthCheck.protocol !== 'HTTP' && healthCheck.protocol !== 'HTTPS') {
+      return null;
+    }
+
+    return [
+      (<div className="flex row" key="path">
+        <FormGroup
+          className="column-6"
+          required={false}
+          showError={false}>
+          <FieldLabel>Service Endpoint</FieldLabel>
+          <FieldSelect name={`healthChecks.${key}.portIndex`}>
+            <option value="">Select Endpoint</option>
+          </FieldSelect>
+        </FormGroup>
+        <FormGroup
+          className="column-6"
+          required={false}
+          showError={Boolean(errors.healthChecks[key])}>
+          <FieldLabel>Path</FieldLabel>
+          <FieldInput
+            name={`healthChecks.${key}.path`}
+            type="text"
+            value={healthCheck.path}/>
+          <FieldError>{errors.healthChecks[key]}</FieldError>
+        </FormGroup>
+      </div>),
+      (<div className="row flex" key="HTTPS">
+        <FormGroup showError={false} className="column-12">
+          <FieldLabel>
+            <FieldInput
+              checked={healthCheck.protocol === 'HTTPS'}
+              name={`healthChecks.${key}.https`}
+              type="checkbox"
+              value="HTTPS"/>
+            Make HTTPS
+            <FieldHelp>Morbi leo risus</FieldHelp>
+          </FieldLabel>
+          <FieldError>{errors.healthChecks[key]}</FieldError>
+        </FormGroup>
+      </div>)
+    ];
+  }
+
+  getHealthChecksLines(data) {
+    const {errors} = this.props;
+
+    return data.map((healthCheck, key) => {
+      return (
+        <div key={key} className="panel pod-short">
+          <div className="pod-narrow pod-short">
+            <div className="flex row">
+              <FormGroup
+                className="column-6"
+                required={false}
+                showError={Boolean(errors.healthChecks[key])}>
+                <FieldLabel>Protocol</FieldLabel>
+                <FieldSelect name={`healthChecks.${key}.protocol`}
+                  value={healthCheck.protocol &&
+                  healthCheck.protocol.replace('HTTPS', 'HTTP')}>
+                  <option value="">Select Protocol</option>
+                  <option value="COMMAND">Command</option>
+                  <option value="HTTP">HTTP</option>
+                </FieldSelect>
+                <FieldError>{errors.healthChecks[key]}</FieldError>
+              </FormGroup>
+              <div className=""
+                style={{
+                  position: 'absolute',
+                  top: '0px',
+                  right: '0px'
+                }}>
+                <a className="button button-link"
+                  onClick={this.props.onRemoveItem.bind(this, {value: key, path: 'healthChecks'})}>
+                  <Icon id="close" color="grey" size="tiny"/>
+                </a>
+              </div>
+            </div>
+            {this.getCommandFields(healthCheck, key)}
+            {this.getHTTPFields(healthCheck, key)}
+            {this.getAdvancedSettings(healthCheck, key)}
+          </div>
+        </div>
+      );
+    });
+  }
+
+  render() {
+    let {data} = this.props;
+
+    // data = {healthChecks: [{}, {type: 'COMMAND'}]};
+    return (
+      <div className="form flush-bottom">
+        <div className="form-row-element">
+          <h2 className="form-header flush-top short-bottom">
+            Health Checks
+          </h2>
+          <p>
+            Health checks may be specified per application to be run against
+            the application's tasks.
+          </p>
+        </div>
+        {this.getHealthChecksLines(data.healthChecks)}
+        <div>
+          <a className="button button-primary-link button-flush"
+            onClick={this.props.onAddItem.bind(this, {value: data.healthChecks.length, path: 'healthChecks'})}>
+            + Add Health Check
+          </a>
+        </div>
+      </div>
+    );
+  }
+}
+
+HealthChecksFormSection.defaultProps = {
+  data: {},
+  errors: {
+    healthChecks: []
+  },
+  onAddItem() {
+  },
+  onRemoveItem() {
+  }
+};
+
+HealthChecksFormSection.propTypes = {
+  data: React.PropTypes.object,
+  errors: React.PropTypes.object,
+  onAddItem: React.PropTypes.func,
+  onRemoveItem: React.PropTypes.func
+};
+
+HealthChecksFormSection.configReducers = {
+  healthChecks
+};
+
+HealthChecksFormSection.validationReducers = {
+  healthChecks() {
+    return [];
+  }
+};
+
+module.exports = HealthChecksFormSection;
