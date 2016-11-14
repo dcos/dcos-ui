@@ -54,12 +54,14 @@ function __requireModule(dir, name) {
     return Mocks[name];
   }
 
-  if (dir === 'internalPlugin') {
-    return require(path.resolve(pluginsDir, name));
-  }
-
-  if (dir === 'externalPlugin') {
-    return require(path.resolve(externalPluginsDir, name));
+  switch (dir) {
+    case 'auth':
+    case 'mount':
+      return require(path.resolve('./foundation-ui', `${dir}/${name}`));
+    case 'externalPlugin':
+      return require(path.resolve(externalPluginsDir, name));
+    case 'internalPlugin':
+      return require(path.resolve(pluginsDir, name));
   }
 
   return require(path.resolve('./src/js', `${dir}/${name}`));
