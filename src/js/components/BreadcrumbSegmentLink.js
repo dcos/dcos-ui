@@ -1,4 +1,4 @@
-import {Link} from 'react-router';
+import {Link, formatPattern} from 'react-router';
 import React, {PropTypes} from 'react';
 
 class BreadcrumbSegmentLink extends React.Component {
@@ -7,10 +7,12 @@ class BreadcrumbSegmentLink extends React.Component {
     let content = props.label;
 
     if (props.route) {
+      let {to, params} = props.route;
+
       return (
         <Link
           className={props.className}
-          {...props.route}
+          to={formatPattern(to, params)}
           title={content}>
           {content}
         </Link>
