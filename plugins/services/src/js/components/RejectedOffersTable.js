@@ -85,7 +85,6 @@ const colGroup = (
     <col className="hidden-medium-down" style={{width: '10%'}} />
     <col className="hidden-medium-down" style={{width: '10%'}} />
     <col className="hidden-medium-down" style={{width: '10%'}} />
-    <col className="hidden-medium-down" style={{width: '10%'}} />
     <col style={{width: '10%'}} />
     <col className="hidden-small-down" />
   </colgroup>
@@ -119,7 +118,7 @@ const columns = [
     )
   },
   {
-    heading: getColumnHeadingFn('CPU/MEM/DSK/GPU'),
+    heading: getColumnHeadingFn('CPU/MEM/DSK'),
     prop: 'cpu',
     className: getColumnClassNameFn('text-align-center hidden-large-up'),
     render: (prop, row) => {
@@ -128,7 +127,6 @@ const columns = [
           {getMatchedOfferRenderFn('cpu')(prop, row)}
           {getMatchedOfferRenderFn('mem')(prop, row)}
           {getMatchedOfferRenderFn('disk')(prop, row)}
-          {getMatchedOfferRenderFn('gpus')(prop, row)}
         </div>
       );
     },
@@ -165,16 +163,6 @@ const columns = [
     sortable: true,
     sortFunction: TableUtil.getSortFunction(
       'timestamp', getMatchedResourcesSortFn('disk')
-    )
-  },
-  {
-    heading: getColumnHeadingFn('GPU'),
-    prop: 'gpus',
-    className: getColumnClassNameFn('text-align-center hidden-medium-down'),
-    render: getMatchedOfferRenderFn('gpus'),
-    sortable: true,
-    sortFunction: TableUtil.getSortFunction(
-      'timestamp', getMatchedResourcesSortFn('gpus')
     )
   },
   {

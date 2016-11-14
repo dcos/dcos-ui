@@ -8,8 +8,7 @@ import Util from '../../../../../src/js/utils/Util';
 const displayedResourceValues = {
   role: 'Role',
   constraint: 'Constraint',
-  resources: 'CPU/MEM/DISK',
-  resourcesWithGPUs: 'CPU/MEM/DISK/GPU',
+  resources: <span>CPU/<wbr />MEM/<wbr />DISK</span>,
   ports: 'Ports'
 };
 
@@ -37,17 +36,21 @@ const getColumnHeadingFn = (defaultHeading) => {
   };
 };
 
+const colGroup = (
+  <colgroup>
+    <col style={{width: '15%'}} />
+    <col style={{width: '25%'}} />
+    <col style={{width: '20%'}} />
+    <col style={{width: '40%'}} className="hidden-medium-down" />
+  </colgroup>
+);
+
 const columns = [
   {
     heading: getColumnHeadingFn('Resource'),
     prop: 'resource',
     render: (prop, row) => {
       let resource = row[prop];
-
-      if (resource === 'resources'
-        && (row.requested.gpus !== null && row.requested.gpus > 0)) {
-        resource = 'resourcesWithGPUs';
-      }
 
       return displayedResourceValues[resource];
     },
@@ -72,13 +75,6 @@ const columns = [
           Units.formatResource('disk', requestedResource.disk)
         ];
 
-        // Display GPUs only if they are defined and more than 0.
-        if (requestedResource.gpus != null && requestedResource.gpus !== 0) {
-          valuesToDisplay.push(
-            Units.formatResource('gpu', requestedResource.gpus)
-          );
-        }
-
         return valuesToDisplay.join(' / ');
       }
 
@@ -95,15 +91,36 @@ const columns = [
       const offeredCount = row.offers;
       const percentageMatched = Math.ceil(matchedOffers / offeredCount * 100);
 
-      return `${Units.contractNumber(matchedOffers)}/${Units.contractNumber(offeredCount)} (${percentageMatched}%)`;
+      return (
+        <span>
+          {Units.contractNumber(matchedOffers)}/{Units.contractNumber(offeredCount)}
+          <span className="hidden-large-up">
+            {` (${percentageMatched}%)`}
+          </span>
+        </span>
+      );
     },
     sortable: true
+  },
+  {
+    heading: getColumnHeadingFn(' '),
+    prop: 'matched',
+    className: getColumnClassNameFn('hidden-medium-down'),
+    render: (prop, row) => {
+      const matchedOffers = row[prop];
+      const offeredCount = row.offers;
+      const percentageMatched = Math.ceil(matchedOffers / offeredCount * 100);
+
+      return `${percentageMatched}% of offers have the correct ${row.resource}.`;
+    },
+    sortable: false
   }
 ];
 
 const RecentOffersSummary = ({data}) => {
   return (
     <Table className="table table-simple table-break-word flush-bottom"
+      colGroup={colGroup}
       columns={columns}
       data={data} />
   );
