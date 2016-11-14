@@ -1,6 +1,7 @@
 import {JSONReducer as container} from './serviceForm/Container';
 import {JSONReducer as env} from './serviceForm/EnvironmentVariables';
 import {JSONReducer as labels} from './serviceForm/Labels';
+import {JSONReducer as healthChecks} from './serviceForm/HealthChecks';
 import {
   simpleFloatReducer,
   simpleIntReducer,
@@ -16,5 +17,6 @@ module.exports = {
   disk: simpleIntReducer('disk', 0),
   cmd: simpleReducer('cmd'),
   env,
-  labels
+  labels,
+  healthChecks
 };
