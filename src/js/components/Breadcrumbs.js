@@ -1,6 +1,6 @@
 import React, {PropTypes} from 'react';
 
-// import ManualBreadcrumbs from './ManualBreadcrumbs';
+import ManualBreadcrumbs from './ManualBreadcrumbs';
 
 class Breadcrumbs extends React.Component {
   buildCrumbs(route) {
@@ -43,13 +43,11 @@ class Breadcrumbs extends React.Component {
   }
 
   render() {
-    // let crumbs = this.getCrumbsFromRoute();
-    //
-    // return (
-    //   <ManualBreadcrumbs crumbs={crumbs} />
-    // );
-    // Disable Breadcrumbs because of the new react-router not giving absolute paths for a child route
-    return null;
+    let crumbs = this.getCrumbsFromRoute();
+
+    return (
+      <ManualBreadcrumbs crumbs={crumbs} />
+    );
   }
 };
 
