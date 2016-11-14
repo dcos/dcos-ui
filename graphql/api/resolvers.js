@@ -1,9 +1,9 @@
-import AgentsResolvers from './agents/AgentResolvers';
-import ApplicationResolvers from './applications/ApplicationResolvers';
-import ClusterResolvers from './cluster/ClusterResolvers';
-import FrameworkResolvers from './frameworks/FrameworkResolvers';
-import GroupsResolvers from './groups/GroupResolvers';
-import TasksResolvers from './tasks/TaskResolvers';
+import AgentsResolvers from './agents/resolvers';
+import ApplicationResolvers from './applications/resolvers';
+import ClusterResolvers from './cluster/resolvers';
+import FrameworkResolvers from './frameworks/resolvers';
+import GroupsResolvers from './groups/resolvers';
+import TasksResolvers from './tasks/resolvers';
 
 // Merge all resolvers
 const resolvers = Object.assign(

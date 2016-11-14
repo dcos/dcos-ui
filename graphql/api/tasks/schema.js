@@ -1,4 +1,4 @@
-import Agents from '../agents/AgentSchema';
+import Agents from '../agents/schema';
 import Status from '../common/status/schema';
 import Pagination from '../common/pagination/schema';
 

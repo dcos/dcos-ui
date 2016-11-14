@@ -1,4 +1,4 @@
-import Cluster from './cluster/ClusterSchema';
+import Cluster from './cluster/schema';
 
 const RootSchema = `
   schema {

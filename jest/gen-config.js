@@ -48,6 +48,8 @@ var config = {
     'moment',
     'md5',
     'mixins/index',
+    'resolvers.js',
+    'schema.js',
     'src/js/config/',
     'src/js/constants',
     'src/js/plugin-bridge/AppReducer',

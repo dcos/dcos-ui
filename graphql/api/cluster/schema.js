@@ -1,5 +1,5 @@
-import Agents from '../agents/AgentSchema';
-import Groups from '../groups/GroupSchema';
+import Agents from '../agents/schema';
+import Groups from '../groups/schema';
 
 const Cluster = `
   type Cluster {
