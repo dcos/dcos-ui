@@ -133,7 +133,7 @@ class JSONEditor extends React.Component {
 
     // Align the order the properties appear & calculate new JSON text
     let value = JSONEditorUtil.sortObjectKeys(this.jsonValue, nextProps.value);
-    let composedText = JSON.stringify(value, null, '\t');
+    let composedText = JSON.stringify(value, null, 2);
 
     // Update local state with the new, computed text
     this.updateLocalJsonState(composedText);
@@ -214,11 +214,14 @@ class JSONEditor extends React.Component {
 
   handleEditorLoad(editor) {
     this.aceEditor = editor;
-    window.editor = editor;
 
     // Disable syntax highlighing worker, since we are responsible for feeding
     // the correct syntax error + provided error markers
-    editor.getSession().setUseWorker(false);
+    let editorSession = editor.getSession();
+    editorSession.setUseWorker(false);
+
+    // Enable soft tabs and set tab space to 2
+    editorSession.setTabSize(2);
 
     // Synchronise editor state
     this.updateEditorState();
