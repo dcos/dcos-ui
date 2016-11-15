@@ -47,7 +47,7 @@ class NewServiceFormModal extends Component {
       serviceReviewConfig
     } = this.state;
 
-    // Close if clicker is open, or if editing a service in the form
+    // Close if picker is open, or if editing a service in the form
     if (servicePickerActive || (serviceFormActive && this.props.isEdit)) {
       this.handleClose();
       return;
