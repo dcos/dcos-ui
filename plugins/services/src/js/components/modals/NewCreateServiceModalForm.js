@@ -128,7 +128,7 @@ class NewCreateServiceModalForm extends Component {
     this.setState(newState);
   }
 
-  handleFormBlur() {
+  handleFormBlur(event) {
     // Create temporary finalized appConfig
     let appConfig = this.getAppConfig();
 
@@ -137,7 +137,13 @@ class NewCreateServiceModalForm extends Component {
       AppValidators.App
     ]);
 
-    let errors = DataValidatorUtil.errorArrayToMap( errorList );
+    // [Case F2] Update errors only on the current field
+    let path = event.target.getAttribute('name').split('.');
+    let errors = DataValidatorUtil.updateOnlyMapPath(
+      this.state.errors,
+      DataValidatorUtil.errorArrayToMap( errorList ),
+      path
+    );
 
     // Create new jsonValue
     let jsonValue = JSON.stringify(appConfig, null, 2);
@@ -163,6 +169,12 @@ class NewCreateServiceModalForm extends Component {
         2
       );
     }
+
+    // [Case F1] Reset errors only on the current field
+    newState.errors = DataValidatorUtil.resetOnlyMapPath(
+      this.state.errors,
+      path
+    );
 
     this.setState(newState);
   }
