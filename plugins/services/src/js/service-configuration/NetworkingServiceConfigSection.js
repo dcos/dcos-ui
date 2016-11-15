@@ -8,31 +8,31 @@ import Util from '../../../../../src/js/utils/Util';
 
 module.exports = {
   values: [
-    {
-      heading: 'Network',
-      headingLevel: 1
-    },
-    {
-      label: 'Network Type',
-      transformValue: () => {
-        // TODO: Figure out how to determine this value.
-        return '🍾 network type';
-      }
-    },
-    {
-      label: 'Load Balancer Type',
-      transformValue: () => {
-        // TODO: Figure out how to determine this value.
-        return '🍾 load balancer type';
-      }
-    },
-    {
-      label: 'Ext. Load Balancer',
-      transformValue: () => {
-        // TODO: Figure out how to determine this value.
-        return '🍾 ext. load balancer';
-      }
-    },
+    // {
+    //   heading: 'Network',
+    //   headingLevel: 1
+    // },
+    // {
+    //   label: 'Network Type',
+    //   transformValue: () => {
+    //     // TODO: Figure out how to determine this value.
+    //     return 'network type';
+    //   }
+    // },
+    // {
+    //   label: 'Load Balancer Type',
+    //   transformValue: () => {
+    //     // TODO: Figure out how to determine this value.
+    //     return 'load balancer type';
+    //   }
+    // },
+    // {
+    //   label: 'Ext. Load Balancer',
+    //   transformValue: () => {
+    //     // TODO: Figure out how to determine this value.
+    //     return 'ext. load balancer';
+    //   }
+    // },
     {
       heading: 'Service Endpoints',
       headingLevel: 2
