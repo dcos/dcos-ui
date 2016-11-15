@@ -50,7 +50,7 @@ class BreadcrumbSegment extends React.Component {
     }
 
     let route = {
-      to: this.props.routePath,
+      to: this.props.to,
       params: this.props.params
     };
 
