@@ -1,22 +1,20 @@
+import {JSONReducer as container} from './serviceForm/Container';
+import {JSONReducer as env} from './serviceForm/EnvironmentVariables';
+import {JSONReducer as labels} from './serviceForm/Labels';
 import {
   simpleFloatReducer,
   simpleIntReducer,
   simpleReducer
 } from '../../../../../src/js/utils/ReducerUtil';
-import {
-  JSONReducer as env
-} from './serviceForm/EnvironmentVariables';
-import {
-  JSONReducer as labels
-} from './serviceForm/Labels';
 
 module.exports = {
   id: simpleReducer('id', '/'),
+  instances: simpleIntReducer('instances', 1),
+  container,
   cpus: simpleFloatReducer('cpus', 0.01),
   mem: simpleIntReducer('mem', 128),
   disk: simpleIntReducer('disk', 0),
-  instances: simpleIntReducer('instances', 1),
-  cmd: simpleReducer('cmd', ''),
+  cmd: simpleReducer('cmd'),
   env,
   labels
 };

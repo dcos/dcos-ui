@@ -4,12 +4,13 @@ import React from 'react';
 
 import AppValidators from '../../../../../../src/resources/raml/marathon/v2/types/app.raml';
 import Batch from '../../../../../../src/js/structs/Batch';
+import ContainerServiceFormSection from '../forms/ContainerServiceFormSection';
 import {combineParsers} from '../../../../../../src/js/utils/ParserUtil';
 import {combineReducers} from '../../../../../../src/js/utils/ReducerUtil';
+import EnvironmentFormSection from '../forms/EnvironmentFormSection';
+import GeneralServiceFormSection from '../forms/GeneralServiceFormSection';
 import JSONConfigReducers from '../../reducers/JSONConfigReducers';
 import JSONParserReducers from '../../reducers/JSONParserReducers';
-import ServiceFormSection from '../forms/ServiceFormSection';
-import EnvironmentFormSection from '../forms/EnvironmentFormSection';
 import TabButton from '../../../../../../src/js/components/TabButton';
 import TabButtonList from '../../../../../../src/js/components/TabButtonList';
 import Tabs from '../../../../../../src/js/components/Tabs';
@@ -29,8 +30,9 @@ const METHODS_TO_BIND = [
 ];
 
 const SECTIONS = [
-  ServiceFormSection,
-  EnvironmentFormSection
+  ContainerServiceFormSection,
+  EnvironmentFormSection,
+  GeneralServiceFormSection
 ];
 
 const jsonParserReducers = combineParsers(JSONParserReducers);
@@ -136,6 +138,9 @@ class NewCreateServiceModalForm extends React.Component {
     let {batch, appConfig} = this.state;
 
     let value = event.target.value;
+    if (event.target.type === 'checkbox') {
+      value = event.target.checked;
+    }
     let path = event.target.getAttribute('name');
     batch.add(new Transaction(path.split('.'), value));
     let newState = {batch};
@@ -200,7 +205,7 @@ class NewCreateServiceModalForm extends React.Component {
               </TabButtonList>
               <TabViewList>
                 <TabView id="services">
-                  <ServiceFormSection errors={errors} data={data} />
+                  <GeneralServiceFormSection errors={errors} data={data} />
                 </TabView>
                 <TabView id="environment">
                   <EnvironmentFormSection
