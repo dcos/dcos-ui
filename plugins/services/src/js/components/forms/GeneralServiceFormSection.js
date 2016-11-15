@@ -6,6 +6,7 @@ import FieldError from '../../../../../../src/js/components/form/FieldError';
 import FieldHelp from '../../../../../../src/js/components/form/FieldHelp';
 import FieldInput from '../../../../../../src/js/components/form/FieldInput';
 import FieldLabel from '../../../../../../src/js/components/form/FieldLabel';
+import {findNestedPropertyInObject} from '../../../../../../src/js/utils/Util';
 import FormGroup from '../../../../../../src/js/components/form/FormGroup';
 import MetadataStore from '../../../../../../src/js/stores/MetadataStore';
 import Icon from '../../../../../../src/js/components/Icon';
@@ -55,8 +56,7 @@ class GeneralServiceFormSection extends Component {
     let isDisabled = {};
     let disabledTooltipContent;
     let type = container.type || MESOS;
-    let typeKey = type && type.toLowerCase();
-    let image = container[typeKey] && container[typeKey].image;
+    let image = findNestedPropertyInObject(container, 'docker.image');
     // Single container with command and no image, disable 'DOCKER'
     if (cmd && !image) {
       isDisabled[DOCKER] = true;

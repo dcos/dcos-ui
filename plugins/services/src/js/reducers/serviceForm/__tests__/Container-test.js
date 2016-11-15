@@ -11,7 +11,7 @@ describe('Container', function () {
       let batch = new Batch();
 
       expect(batch.reduce(Container.JSONReducer.bind({}), {}))
-        .toEqual({type: 'MESOS', mesos: {}});
+        .toEqual({type: 'MESOS', docker: {}});
     });
 
     it('switches container name along with type', function () {
@@ -22,23 +22,23 @@ describe('Container', function () {
         .toEqual({type: 'DOCKER', docker: {}});
     });
 
-    it('copies container info with type switch', function () {
-      let batch = new Batch();
-      batch.add(new Transaction(['container', 'type'], 'DOCKER', SET));
-
-      expect(batch.reduce(
-        Container.JSONReducer.bind({}),
-        {type: 'MESOS', mesos: {image: 'foo'}}
-      )).toEqual({type: 'DOCKER', docker: {image: 'foo'}});
-    });
-
-    it('creates new container when container name doesn\'t match', function () {
+    it('keeps container info with type switch', function () {
       let batch = new Batch();
       batch.add(new Transaction(['container', 'type'], 'DOCKER', SET));
 
       expect(batch.reduce(
         Container.JSONReducer.bind({}),
         {type: 'MESOS', docker: {image: 'foo'}}
+      )).toEqual({type: 'DOCKER', docker: {image: 'foo'}});
+    });
+
+    it('creates new container info when there is nothing', function () {
+      let batch = new Batch();
+      batch.add(new Transaction(['container', 'type'], 'DOCKER', SET));
+
+      expect(batch.reduce(
+        Container.JSONReducer.bind({}),
+        {type: 'MESOS'}
       )).toEqual({type: 'DOCKER', docker: {}});
     });
 
@@ -49,31 +49,31 @@ describe('Container', function () {
       expect(batch.reduce(
         Container.JSONReducer.bind({}),
         {type: 'DOCKER', foo: 'bar'}
-      )).toEqual({type: 'MESOS', foo: 'bar', mesos: {}});
+      )).toEqual({type: 'MESOS', foo: 'bar', docker: {}});
     });
 
     it('sets privileged correctly', function () {
       let batch = new Batch();
       batch.add(
-        new Transaction(['container', 'mesos', 'privileged'], true, SET)
+        new Transaction(['container', 'docker', 'privileged'], true, SET)
       );
 
       expect(batch.reduce(
         Container.JSONReducer.bind({}),
         {type: 'MESOS'}
-      )).toEqual({type: 'MESOS', mesos: {privileged: true}});
+      )).toEqual({type: 'MESOS', docker: {privileged: true}});
     });
 
     it('sets privileged correctly to false', function () {
       let batch = new Batch();
       batch.add(
-        new Transaction(['container', 'mesos', 'privileged'], false, SET)
+        new Transaction(['container', 'docker', 'privileged'], false, SET)
       );
 
       expect(batch.reduce(
         Container.JSONReducer.bind({}),
-        {type: 'MESOS', mesos: {privileged: false}}
-      )).toEqual({type: 'MESOS', mesos: {privileged: false}});
+        {type: 'MESOS', docker: {privileged: true}}
+      )).toEqual({type: 'MESOS', docker: {privileged: false}});
     });
 
     it('doesn\'t set privileged if path doesn\'t match type', function () {
@@ -84,32 +84,32 @@ describe('Container', function () {
 
       expect(batch.reduce(
         Container.JSONReducer.bind({}),
-        {type: 'MESOS', mesos: {}}
-      )).toEqual({type: 'MESOS', mesos: {}});
+        {type: 'MESOS', docker: {}}
+      )).toEqual({type: 'MESOS', docker: {}});
     });
 
     it('sets forcePullImage correctly', function () {
       let batch = new Batch();
       batch.add(
-        new Transaction(['container', 'mesos', 'forcePullImage'], true, SET)
+        new Transaction(['container', 'docker', 'forcePullImage'], true, SET)
       );
 
       expect(batch.reduce(
         Container.JSONReducer.bind({}),
         {type: 'MESOS'}
-      )).toEqual({type: 'MESOS', mesos: {forcePullImage: true}});
+      )).toEqual({type: 'MESOS', docker: {forcePullImage: true}});
     });
 
     it('sets forcePullImage correctly to false', function () {
       let batch = new Batch();
       batch.add(
-        new Transaction(['container', 'mesos', 'forcePullImage'], false, SET)
+        new Transaction(['container', 'docker', 'forcePullImage'], false, SET)
       );
 
       expect(batch.reduce(
         Container.JSONReducer.bind({}),
-        {type: 'MESOS', mesos: {forcePullImage: false}}
-      )).toEqual({type: 'MESOS', mesos: {forcePullImage: false}});
+        {type: 'MESOS', docker: {forcePullImage: true}}
+      )).toEqual({type: 'MESOS', docker: {forcePullImage: false}});
     });
 
     it('doesn\'t set forcePullImage if path doesn\'t match type', function () {
@@ -120,32 +120,32 @@ describe('Container', function () {
 
       expect(batch.reduce(
         Container.JSONReducer.bind({}),
-        {type: 'MESOS', mesos: {}}
-      )).toEqual({type: 'MESOS', mesos: {}});
+        {type: 'MESOS', docker: {}}
+      )).toEqual({type: 'MESOS', docker: {}});
     });
 
     it('sets image correctly', function () {
       let batch = new Batch();
       batch.add(
-        new Transaction(['container', 'mesos', 'image'], 'foo', SET)
+        new Transaction(['container', 'docker', 'image'], 'foo', SET)
       );
 
       expect(batch.reduce(
         Container.JSONReducer.bind({}),
         {type: 'MESOS'}
-      )).toEqual({type: 'MESOS', mesos: {image: 'foo'}});
+      )).toEqual({type: 'MESOS', docker: {image: 'foo'}});
     });
 
     it('changes image value correctly', function () {
       let batch = new Batch();
       batch.add(
-        new Transaction(['container', 'mesos', 'image'], 'bar', SET)
+        new Transaction(['container', 'docker', 'image'], 'bar', SET)
       );
 
       expect(batch.reduce(
         Container.JSONReducer.bind({}),
-        {type: 'MESOS', mesos: {image: 'foo'}}
-      )).toEqual({type: 'MESOS', mesos: {image: 'bar'}});
+        {type: 'MESOS', docker: {image: 'foo'}}
+      )).toEqual({type: 'MESOS', docker: {image: 'bar'}});
     });
 
     it('doesn\'t set image if path doesn\'t match type', function () {
@@ -156,8 +156,8 @@ describe('Container', function () {
 
       expect(batch.reduce(
         Container.JSONReducer.bind({}),
-        {type: 'MESOS', mesos: {}}
-      )).toEqual({type: 'MESOS', mesos: {}});
+        {type: 'MESOS', docker: {}}
+      )).toEqual({type: 'MESOS', docker: {}});
     });
 
   });

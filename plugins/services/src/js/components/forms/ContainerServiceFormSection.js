@@ -11,9 +11,6 @@ import FormGroup from '../../../../../../src/js/components/form/FormGroup';
 import MetadataStore from '../../../../../../src/js/stores/MetadataStore';
 import Icon from '../../../../../../src/js/components/Icon';
 import {findNestedPropertyInObject} from '../../../../../../src/js/utils/Util';
-import VolumeConstants from '../../constants/VolumeConstants';
-
-const {MESOS} = VolumeConstants.type;
 
 const containerSettings = {
   privileged: {
@@ -53,18 +50,19 @@ class ContainerServiceFormSection extends Component {
     }
 
     let {container = {}} = data;
-    let type = container.type || MESOS;
-    let typeKey = type && type.toLowerCase();
     let typeErrors = errors.container && errors.container.type;
     let selections = Object.keys(containerSettings).map((settingName, index) => {
       let {helpText, label} = containerSettings[settingName];
-      let checked = container[typeKey] && container[typeKey][settingName];
+      let checked = findNestedPropertyInObject(
+        container,
+        `docker.${settingName}`
+      );
 
       return (
         <FieldLabel key={index}>
           <FieldInput
             checked={Boolean(checked)}
-            name={`container.${typeKey}.${settingName}`}
+            name={`container.docker.${settingName}`}
             type="checkbox"
             value={settingName} />
           {label}
@@ -157,13 +155,12 @@ class ContainerServiceFormSection extends Component {
     }
 
     let {container = {}} = data;
-    let type = container.type || MESOS;
-    let typeKey = type && type.toLowerCase();
-    let image = container[typeKey] && container[typeKey].image;
+    let image = findNestedPropertyInObject(container, 'docker.image');
     let imageErrors = findNestedPropertyInObject(
       errors,
-      `container.${typeKey}.image`
+      'container.docker.image'
     );
+
     return (
       <div>
         <h2 className="short-top short-bottom">
@@ -174,7 +171,7 @@ class ContainerServiceFormSection extends Component {
           <FormGroup className="column-6" showError={Boolean(imageErrors)}>
             {this.getImageLabel()}
             <FieldInput
-              name={`container.${typeKey}.image`}
+              name="container.docker.image"
               value={image} />
             <FieldHelp>
               Enter a Docker image you want to run, e.g. nginx.
