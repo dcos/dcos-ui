@@ -41,11 +41,13 @@ let componentsRoutes = {
       buildBreadCrumb() {
         return {
           parentCrumb: '/components',
-          getCrumbs(params) {
+          getCrumbs(params, routes) {
             return [
               <UnitsHealthDetailBreadcrumb
                 params={params}
-                routePath="/components/:unitID" />
+                routes={routes}
+                to="/components/:unitID"
+                routePath=":unitID" />
             ];
           }
         };
@@ -59,11 +61,13 @@ let componentsRoutes = {
       buildBreadCrumb() {
         return {
           parentCrumb: '/components/:unitID',
-          getCrumbs(params) {
+          getCrumbs(params, routes) {
             return [
               <UnitsHealthNodeDetailBreadcrumb
                 params={params}
-                routePath="/components/:unitID/nodes/:unitNodeID" />
+                routes={routes}
+                to="/components/:unitID/nodes/:unitNodeID"
+                routePath=":unitID/nodes/:unitNodeID" />
             ];
           }
         };

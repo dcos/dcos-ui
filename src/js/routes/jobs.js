@@ -81,11 +81,13 @@ let jobsRoutes = {
               buildBreadCrumb() {
                 return {
                   parentCrumb: '/jobs/:id',
-                  getCrumbs(params) {
+                  getCrumbs(params, routes) {
                     return [
                       <TaskDetailBreadcrumb
                         params={params}
-                        routePath="/jobs/:id/tasks/:taskID" />
+                        routes={routes}
+                        to="/jobs/:id/tasks/:taskID"
+                        routePath="tasks/:taskID" />
                     ];
                   }
                 };

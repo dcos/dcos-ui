@@ -118,6 +118,7 @@ let serviceRoutes = [
                             <TaskDetailBreadcrumb
                                 params={params}
                                 routes={routes}
+                                to="/services/overview/:id/tasks/:taskID"
                                 routePath=":taskID" />
                           ];
                         }
