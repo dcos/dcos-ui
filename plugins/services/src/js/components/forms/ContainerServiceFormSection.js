@@ -218,7 +218,11 @@ class ContainerServiceFormSection extends Component {
         </FormGroup>
 
         <a onClick={this.toggleAdvancedSettings}>
-          <Icon id={advancedSettingsIcon} color="purple" family="mini" size="mini" />
+          <Icon
+            id={advancedSettingsIcon}
+            color="purple"
+            family="tiny"
+            size="tiny" />
           Advanced Container Settings
         </a>
         {this.getAdvancedSettings(data, errors)}

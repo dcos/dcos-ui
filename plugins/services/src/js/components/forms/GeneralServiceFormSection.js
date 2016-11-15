@@ -193,8 +193,8 @@ class GeneralServiceFormSection extends Component {
           <Icon
             id={advancedSettingsIcon}
             color="purple"
-            family="mini"
-            size="mini" />
+            family="tiny"
+            size="tiny" />
           Advanced Service Settings
         </a>
         {this.getContainerRuntime(data, errors.container)}
