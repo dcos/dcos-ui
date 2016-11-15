@@ -1,6 +1,9 @@
 import React, {Component} from 'react';
 import {Tooltip} from 'reactjs-components';
 
+import AdvancedSection from '../../../../../../src/js/components/form/AdvancedSection';
+import AdvancedSectionContent from '../../../../../../src/js/components/form/AdvancedSectionContent';
+import AdvancedSectionLabel from '../../../../../../src/js/components/form/AdvancedSectionLabel';
 import ContainerServiceFormSection from './ContainerServiceFormSection';
 import FieldError from '../../../../../../src/js/components/form/FieldError';
 import FieldHelp from '../../../../../../src/js/components/form/FieldHelp';
@@ -26,32 +29,9 @@ const containerRuntimes = {
   }
 };
 
-const METHODS_TO_BIND = [
-  'toggleAdvancedSettings'
-];
-
 class GeneralServiceFormSection extends Component {
-  constructor() {
-    super(...arguments);
 
-    this.state = {
-      showAdvancedSettings: false
-    };
-
-    METHODS_TO_BIND.forEach((method) => {
-      this[method] = this[method].bind(this);
-    });
-  }
-
-  toggleAdvancedSettings() {
-    this.setState({showAdvancedSettings: !this.state.showAdvancedSettings});
-  }
-
-  getContainerRuntime(data = {}, containerErrors = {}) {
-    if (!this.state.showAdvancedSettings) {
-      return null;
-    }
-
+  getRuntimeSelections(data = {}) {
     let {container = {}, cmd, gpus} = data;
     let isDisabled = {};
     let disabledTooltipContent;
@@ -69,7 +49,7 @@ class GeneralServiceFormSection extends Component {
       disabledTooltipContent = 'Docker Engine does not support GPU resources, please select Universal Container Runtime if you want to use GPU resources.';
     }
 
-    let selections = Object.keys(containerRuntimes).map((runtimeName, index) => {
+    return Object.keys(containerRuntimes).map((runtimeName, index) => {
       let {helpText, label} = containerRuntimes[runtimeName];
       let field = (
         <FieldLabel className="text-align-left" key={index}>
@@ -101,32 +81,6 @@ class GeneralServiceFormSection extends Component {
 
       return field;
     });
-
-    return (
-      <div>
-        <h3 className="short-top short-bottom">
-          {'Container Runtime '}
-          <Tooltip
-            content={
-              <span>
-                {'You can run Docker containers with both container runtimes. The Universal Container Runtime is better supported in DC/OS. '}
-                <a href={MetadataStore.buildDocsURI('/usage/containerizers/')} target="_blank">More information</a>.
-              </span>
-            }
-            interactive={true}
-            maxWidth={300}
-            scrollContainer=".gm-scroll-view"
-            wrapText={true}>
-              <Icon color="grey" id="ring-question" size="mini" family="mini" />
-          </Tooltip>
-        </h3>
-        <p>The container runtime is responsible for running your service. We support the Mesos and Docker containerizers.</p>
-        <FormGroup showError={Boolean(containerErrors.type)}>
-          {selections}
-          <FieldError>{containerErrors.type}</FieldError>
-        </FormGroup>
-      </div>
-    );
   }
 
   getIDHelpBlock() {
@@ -142,10 +96,7 @@ class GeneralServiceFormSection extends Component {
 
   render() {
     let {data, errors} = this.props;
-    let advancedSettingsIcon = 'triangle-right';
-    if (this.state.showAdvancedSettings) {
-      advancedSettingsIcon = 'triangle-down';
-    }
+    let typeErrors = findNestedPropertyInObject(errors, 'container.type');
 
     return (
       <div className="form flush-bottom">
@@ -189,15 +140,34 @@ class GeneralServiceFormSection extends Component {
           </FormGroup>
         </div>
 
-        <a onClick={this.toggleAdvancedSettings}>
-          <Icon
-            id={advancedSettingsIcon}
-            color="purple"
-            family="tiny"
-            size="tiny" />
-          Advanced Service Settings
-        </a>
-        {this.getContainerRuntime(data, errors.container)}
+        <AdvancedSection>
+          <AdvancedSectionLabel>
+            Advanced Service Settings
+          </AdvancedSectionLabel>
+          <AdvancedSectionContent>
+          <h3 className="short-top short-bottom">
+            {'Container Runtime '}
+            <Tooltip
+              content={
+                <span>
+                  {'You can run Docker containers with both container runtimes. The Universal Container Runtime is better supported in DC/OS. '}
+                  <a href={MetadataStore.buildDocsURI('/usage/containerizers/')} target="_blank">More information</a>.
+                </span>
+              }
+              interactive={true}
+              maxWidth={300}
+              scrollContainer=".gm-scroll-view"
+              wrapText={true}>
+                <Icon color="grey" id="ring-question" size="mini" family="mini" />
+            </Tooltip>
+          </h3>
+          <p>The container runtime is responsible for running your service. We support the Mesos and Docker containerizers.</p>
+          <FormGroup showError={Boolean(typeErrors)}>
+            {this.getRuntimeSelections(data)}
+            <FieldError>{typeErrors}</FieldError>
+          </FormGroup>
+        </AdvancedSectionContent>
+        </AdvancedSection>
 
         <ContainerServiceFormSection data={data} errors={errors} />
       </div>

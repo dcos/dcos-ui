@@ -2,6 +2,9 @@ import React, {Component} from 'react';
 import {Tooltip} from 'reactjs-components';
 
 import {FormReducer} from '../../reducers/serviceForm/Container';
+import AdvancedSection from '../../../../../../src/js/components/form/AdvancedSection';
+import AdvancedSectionContent from '../../../../../../src/js/components/form/AdvancedSectionContent';
+import AdvancedSectionLabel from '../../../../../../src/js/components/form/AdvancedSectionLabel';
 import FieldError from '../../../../../../src/js/components/form/FieldError';
 import FieldHelp from '../../../../../../src/js/components/form/FieldHelp';
 import FieldInput from '../../../../../../src/js/components/form/FieldInput';
@@ -23,32 +26,8 @@ const containerSettings = {
   }
 };
 
-const METHODS_TO_BIND = [
-  'toggleAdvancedSettings'
-];
-
 class ContainerServiceFormSection extends Component {
-  constructor() {
-    super(...arguments);
-
-    this.state = {
-      showAdvancedSettings: false
-    };
-
-    METHODS_TO_BIND.forEach((method) => {
-      this[method] = this[method].bind(this);
-    });
-  }
-
-  toggleAdvancedSettings() {
-    this.setState({showAdvancedSettings: !this.state.showAdvancedSettings});
-  }
-
   getAdvancedSettings(data = {}, errors = {}) {
-    if (!this.state.showAdvancedSettings) {
-      return null;
-    }
-
     let {container = {}} = data;
     let typeErrors = errors.container && errors.container.type;
     let selections = Object.keys(containerSettings).map((settingName, index) => {
@@ -72,7 +51,7 @@ class ContainerServiceFormSection extends Component {
     });
 
     return (
-      <div>
+      <AdvancedSectionContent>
         <FormGroup showError={Boolean(typeErrors)}>
           {selections}
           <FieldError>{typeErrors}</FieldError>
@@ -88,7 +67,7 @@ class ContainerServiceFormSection extends Component {
             <FieldError>{errors.disk}</FieldError>
           </FormGroup>
         </div>
-      </div>
+      </AdvancedSectionContent>
     );
   }
 
@@ -148,10 +127,6 @@ class ContainerServiceFormSection extends Component {
 
   render() {
     let {data, errors} = this.props;
-    let advancedSettingsIcon = 'triangle-right';
-    if (this.state.showAdvancedSettings) {
-      advancedSettingsIcon = 'triangle-down';
-    }
 
     let {container = {}} = data;
     let image = findNestedPropertyInObject(container, 'docker.image');
@@ -216,15 +191,12 @@ class ContainerServiceFormSection extends Component {
           <FieldError>{errors.cmd}</FieldError>
         </FormGroup>
 
-        <a onClick={this.toggleAdvancedSettings}>
-          <Icon
-            id={advancedSettingsIcon}
-            color="purple"
-            family="tiny"
-            size="tiny" />
-          Advanced Container Settings
-        </a>
-        {this.getAdvancedSettings(data, errors)}
+        <AdvancedSection>
+          <AdvancedSectionLabel>
+            Advanced Container Settings
+          </AdvancedSectionLabel>
+          {this.getAdvancedSettings(data, errors)}
+        </AdvancedSection>
       </div>
     );
   }

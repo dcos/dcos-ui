@@ -1,0 +1,16 @@
+& when (@advanced-section-enabled) {
+  .advanced-section {
+    &-content {
+      margin-top: @pod-margin-top;
+    }
+
+    &-label,
+    &-label:hover {
+      text-decoration: none;
+
+      .icon {
+        margin-right: @base-spacing-unit * 1/4;
+      }
+    }
+  }
+}
