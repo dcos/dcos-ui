@@ -189,16 +189,14 @@ class GeneralServiceFormSection extends Component {
           </FormGroup>
         </div>
 
-        <p>
-          <a onClick={this.toggleAdvancedSettings}>
-            <Icon
-              id={advancedSettingsIcon}
-              color="purple"
-              family="mini"
-              size="mini" />
-            Advanced Service Settings
-          </a>
-        </p>
+        <a onClick={this.toggleAdvancedSettings}>
+          <Icon
+            id={advancedSettingsIcon}
+            color="purple"
+            family="mini"
+            size="mini" />
+          Advanced Service Settings
+        </a>
         {this.getContainerRuntime(data, errors.container)}
 
         <ContainerServiceFormSection data={data} errors={errors} />

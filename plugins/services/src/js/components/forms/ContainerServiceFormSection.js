@@ -217,12 +217,10 @@ class ContainerServiceFormSection extends Component {
           <FieldError>{errors.cmd}</FieldError>
         </FormGroup>
 
-        <p>
-          <a onClick={this.toggleAdvancedSettings}>
-            <Icon id={advancedSettingsIcon} color="purple" family="mini" size="mini" />
-            Advanced Container Settings
-          </a>
-        </p>
+        <a onClick={this.toggleAdvancedSettings}>
+          <Icon id={advancedSettingsIcon} color="purple" family="mini" size="mini" />
+          Advanced Container Settings
+        </a>
         {this.getAdvancedSettings(data, errors)}
       </div>
     );
