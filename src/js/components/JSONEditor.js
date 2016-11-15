@@ -254,7 +254,7 @@ class JSONEditor extends React.Component {
    * @param {DOMEvent} event - The event object
    */
   handleBlur(event) {
-    this.props.onBlur(event);
+    this.props.onBlur(event, this.jsonValue);
     this.isFocused = false;
   }
 
@@ -288,7 +288,7 @@ class JSONEditor extends React.Component {
     // event for every property that changed in the JSON
     let diff = JSONEditorUtil.deepObjectDiff(lastValue, this.jsonValue);
     diff.forEach((diff) => {
-      this.props.onPropertyChange(diff.path, diff.value);
+      this.props.onPropertyChange(diff.path, diff.value, this.jsonValue);
     });
 
     // Trigger change with the latest json object
@@ -301,7 +301,7 @@ class JSONEditor extends React.Component {
    * @param {DOMEvent} event - The event object
    */
   handleFocus(event) {
-    this.props.onFocus(event);
+    this.props.onFocus(event, this.jsonValue);
     this.isFocused = true;
   }
 
