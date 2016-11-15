@@ -13,6 +13,7 @@ import Util from '../../../../../../src/js/utils/Util';
 
 const METHODS_TO_BIND = [
   'handleGoBack',
+  'handleClose',
   'handleJSONToggle',
   'handleServiceSelection',
   'handleServiceReview',
@@ -23,18 +24,7 @@ class NewServiceFormModal extends Component {
   constructor() {
     super(...arguments);
 
-    this.state = {
-      isJSONModeActive: false,
-      serviceFormActive: false,
-      servicePickerActive: true,
-      serviceReviewConfig: null
-    };
-
-    // Switch directly to form if edit
-    if (this.props.isEdit) {
-      this.state.servicePickerActive = false;
-      this.state.serviceFormActive = true;
-    }
+    this.state = this.getResetState();
 
     METHODS_TO_BIND.forEach((method) => {
       this[method] = this[method].bind(this);
@@ -46,7 +36,7 @@ class NewServiceFormModal extends Component {
     const shouldClose = requestCompleted && !nextProps.errors;
 
     if (shouldClose) {
-      this.props.onClose();
+      this.handleClose();
     }
   }
 
@@ -59,7 +49,7 @@ class NewServiceFormModal extends Component {
 
     // Close if clicker is open, or if editing a service in the form
     if (servicePickerActive || (serviceFormActive && this.props.isEdit)) {
-      this.props.onClose();
+      this.handleClose();
       return;
     }
 
@@ -81,8 +71,30 @@ class NewServiceFormModal extends Component {
     }
   }
 
+  handleClose() {
+    this.props.onClose();
+    this.setState(this.getResetState());
+  }
+
   handleJSONToggle() {
     this.setState({isJSONModeActive: !this.state.isJSONModeActive});
+  }
+
+  getResetState(nextProps = this.props) {
+    let newState = {
+      isJSONModeActive: false,
+      serviceFormActive: false,
+      servicePickerActive: true,
+      serviceReviewConfig: null
+    };
+
+    // Switch directly to form if edit
+    if (nextProps.isEdit) {
+      newState.servicePickerActive = false;
+      newState.serviceFormActive = true;
+    }
+
+    return newState;
   }
 
   handleServiceSelection() {
@@ -242,6 +254,7 @@ class NewServiceFormModal extends Component {
     return (
       <FullScreenModal
         header={this.getHeader()}
+        onClose={this.handleClose}
         {...Util.omit(props, Object.keys(NewServiceFormModal.propTypes))}>
         {this.getModalContent()}
       </FullScreenModal>
