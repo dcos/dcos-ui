@@ -46,16 +46,18 @@ module.exports = {
           protocol: 'protocol'
         };
 
-        if ((portDefinitions == null || portDefinitions.length === 0)) {
-          let containerPortMappings = Util.findNestedPropertyInObject(
-            appDefinition, 'container.docker.portMappings'
-          );
+        let containerPortMappings = Util.findNestedPropertyInObject(
+          appDefinition, 'container.docker.portMappings'
+        );
+        if ((portDefinitions == null || portDefinitions.length === 0) &&
+          containerPortMappings != null && containerPortMappings.length !== 0) {
+          portDefinitions = containerPortMappings;
+          keys.port = 'containerPort';
+        }
 
-          if (containerPortMappings != null
-            && containerPortMappings.length !== 0) {
-            portDefinitions = containerPortMappings;
-            keys.port = 'containerPort';
-          }
+        // Make sure to have something to render, even if there is no data
+        if (!portDefinitions) {
+          portDefinitions = [];
         }
 
         const columns = [

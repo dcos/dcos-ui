@@ -1,6 +1,6 @@
 import Ace from 'react-ace';
 import classNames from 'classnames';
-import React from 'react';
+import React, {PropTypes, Component} from 'react';
 
 import AppValidators from '../../../../../../src/resources/raml/marathon/v2/types/app.raml';
 import Batch from '../../../../../../src/js/structs/Batch';
@@ -11,6 +11,7 @@ import EnvironmentFormSection from '../forms/EnvironmentFormSection';
 import GeneralServiceFormSection from '../forms/GeneralServiceFormSection';
 import JSONConfigReducers from '../../reducers/JSONConfigReducers';
 import JSONParserReducers from '../../reducers/JSONParserReducers';
+import Service from '../../structs/Service';
 import TabButton from '../../../../../../src/js/components/TabButton';
 import TabButtonList from '../../../../../../src/js/components/TabButtonList';
 import Tabs from '../../../../../../src/js/components/Tabs';
@@ -41,11 +42,18 @@ const inputConfigReducers = combineReducers(
   Object.assign({}, ...SECTIONS.map((item) => item.configReducers))
 );
 
-class NewCreateServiceModalForm extends React.Component {
+class NewCreateServiceModalForm extends Component {
   constructor() {
     super(...arguments);
 
     let batch = new Batch();
+
+    // Turn service configuration into Batch Transactions
+    if (this.props.service) {
+      jsonParserReducers(this.props.service.toJSON()).forEach((item) => {
+        batch.add(item);
+      });
+    }
 
     this.state = {
       appConfig: {},
@@ -241,7 +249,8 @@ NewCreateServiceModalForm.defaultProps = {
 };
 
 NewCreateServiceModalForm.propTypes = {
-  onChange: React.PropTypes.func
+  onChange: PropTypes.func,
+  service: PropTypes.instanceOf(Service)
 };
 
 module.exports = NewCreateServiceModalForm;
