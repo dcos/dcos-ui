@@ -7,7 +7,6 @@ class NodeDetailBreadCrumb extends BreadcrumbSegment {
   }
 
   componentWillReceiveProps() {
-    super.componentWillReceiveProps(...arguments);
     this.updateCrumbSatus();
   }
 
