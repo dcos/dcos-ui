@@ -28,7 +28,15 @@ class BreadcrumbSegment extends React.Component {
       return eachRoute.path === routePath;
     });
 
+    if (!route) {
+      return;
+    }
+
     let paramMatch = route.path.match(/:(\w+)/g);
+
+    if (!paramMatch) {
+      return;
+    }
 
     let lastParam = paramMatch[paramMatch.length - 1];
 
