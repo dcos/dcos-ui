@@ -1,15 +1,20 @@
+import Objektiv from 'objektiv';
+
 /**
- * Return a new array or a new object, if the key given is a number or string.
+ * Convert an object path to a lens
  *
- * @param {String} forKey - The key to create a new object/array for
- * @returns {Object|Array} Returns an object or array, according to type
+ * @param {Array} path - The array of the path components
+ * @param {function} [strategy] - The trategy to chose for missing elements
+ * @return {Objectiv.lens} Returns the lens to adress the path
  */
-function newTypeFor(forKey) {
-  if (isNaN(forKey)) {
-    return {};
-  } else {
-    return [];
-  }
+function path2lens(path, strategy=Objektiv.resolve.tryhard) {
+  return path.reduce(function (parent, segment) {
+    if (isNaN(segment)) {
+      return parent.then(Objektiv.makeAttrLens(segment, strategy));
+    } else {
+      return parent.then(Objektiv.makeAtLens(segment, strategy));
+    }
+  }, Objektiv.full);
 }
 
 module.exports = {
@@ -43,23 +48,41 @@ module.exports = {
    */
   errorArrayToMap(errors) {
     return errors.reduce(function (errorMap, error) {
-      let parent = error.path.slice(0, -1).reduce(function (object, key, i) {
-        if (object[key] === undefined) {
-          object[key] = newTypeFor(error.path[i+1]);
-        }
+      let lens = path2lens(error.path);
+      let message = error.message;
+      let prevMessage = lens.get(errorMap);
 
-        return object[key];
-      }, errorMap);
-
-      let key = error.path[error.path.length - 1];
-      if (parent[key] === undefined) {
-        parent[key] = error.message;
-      } else {
-        parent[key] += `, ${error.message}`;
+      if (prevMessage) {
+        message = `${prevMessage}, ${message}`;
       }
 
-      return errorMap;
+      return lens.set(errorMap, message);
     }, {});
+  },
+
+  /**
+   * Update only the specified path on the errors map
+   *
+   * @param {Object} errors - The current state of the errors object
+   * @param {Object} newErrors - The new state of the errors object
+   * @param {Array} path - The path to keep
+   * @returns {Object} Returns the old errors with only the path updated from the new errors
+   */
+  updateOnlyMapPath(errors, newErrors, path) {
+    let lens = path2lens(path);
+
+    return lens.set(errors, lens.get(newErrors));
+  },
+
+  /**
+   * Reset the errors only on the given path
+   *
+   * @param {Object} errors - The current state of the errors object
+   * @param {Array} path - The path to reset
+   * @returns {Object} Returns the errors, with the path missing
+   */
+  resetOnlyMapPath(errors, path) {
+    return path2lens(path).set(errors, undefined);
   }
 
 };
