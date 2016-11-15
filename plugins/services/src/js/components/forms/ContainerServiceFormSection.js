@@ -148,7 +148,6 @@ class ContainerServiceFormSection extends Component {
 
   render() {
     let {data, errors} = this.props;
-    // console.log(JSON.stringify(data));
     let advancedSettingsIcon = 'triangle-right';
     if (this.state.showAdvancedSettings) {
       advancedSettingsIcon = 'triangle-down';
