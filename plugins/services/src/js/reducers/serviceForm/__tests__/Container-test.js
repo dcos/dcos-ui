@@ -11,7 +11,7 @@ describe('Container', function () {
       let batch = new Batch();
 
       expect(batch.reduce(Container.JSONReducer.bind({}), {}))
-        .toEqual({type: 'MESOS', docker: {}});
+        .toEqual({type: 'MESOS'});
     });
 
     it('switches container name along with type', function () {
@@ -19,7 +19,7 @@ describe('Container', function () {
       batch.add(new Transaction(['container', 'type'], 'DOCKER', SET));
 
       expect(batch.reduce(Container.JSONReducer.bind({}), {}))
-        .toEqual({type: 'DOCKER', docker: {}});
+        .toEqual({type: 'DOCKER'});
     });
 
     it('keeps container info with type switch', function () {
@@ -39,7 +39,7 @@ describe('Container', function () {
       expect(batch.reduce(
         Container.JSONReducer.bind({}),
         {type: 'MESOS'}
-      )).toEqual({type: 'DOCKER', docker: {}});
+      )).toEqual({type: 'DOCKER'});
     });
 
     it('keeps top-level container info with type switch', function () {
@@ -49,7 +49,7 @@ describe('Container', function () {
       expect(batch.reduce(
         Container.JSONReducer.bind({}),
         {type: 'DOCKER', foo: 'bar'}
-      )).toEqual({type: 'MESOS', foo: 'bar', docker: {}});
+      )).toEqual({type: 'MESOS', foo: 'bar'});
     });
 
     it('sets privileged correctly', function () {

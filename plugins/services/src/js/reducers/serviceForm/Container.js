@@ -1,16 +1,14 @@
 import {SET} from '../../../../../../src/js/constants/TransactionTypes';
-import {omit} from '../../../../../../src/js/utils/Util';
 import VolumeConstants from '../../constants/VolumeConstants';
 
 let {MESOS} = VolumeConstants.type;
 
 function container(state = {}, {type, path, value}) {
   let joinedPath = path && path.join('.');
-  let newState = omit(state, ['docker']);
+  let newState = Object.assign({}, state);
   if (!newState.type) {
     newState.type = MESOS;
   }
-  let containerInfo = state.docker || {};
 
   if (type === SET && joinedPath === 'container.type') {
     // Update stored container type
@@ -18,19 +16,19 @@ function container(state = {}, {type, path, value}) {
   }
 
   if (type === SET && joinedPath === 'container.docker.privileged') {
-    Object.assign(containerInfo, {privileged: value});
+    newState.docker = Object.assign({}, state.docker, {privileged: value});
   }
 
   if (type === SET && joinedPath === 'container.docker.forcePullImage') {
-    Object.assign(containerInfo, {forcePullImage: value});
+    newState.docker = Object.assign({}, state.docker, {forcePullImage: value});
   }
 
   if (type === SET && joinedPath === 'container.docker.image') {
-    Object.assign(containerInfo, {image: value});
+    newState.docker = Object.assign({}, state.docker, {image: value});
   }
 
   // Move container to new containerKey
-  return Object.assign({}, newState, {docker: containerInfo});
+  return newState;
 };
 
 module.exports = {
