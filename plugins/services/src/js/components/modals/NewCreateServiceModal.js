@@ -140,7 +140,7 @@ class NewServiceFormModal extends Component {
 
     let title = 'Run a Service';
     let {isEdit, service} = this.props;
-    let serviceName = service.getName() || 'Service';
+    let serviceName = service.getName();
     if (serviceName) {
       serviceName = `"${serviceName}"`;
     } else {
