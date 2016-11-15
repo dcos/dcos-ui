@@ -158,7 +158,7 @@ module.exports = {
               path: [].concat(path, objectKey),
               line: lineNo,
               type: 'object',
-              pos: [offset, i]
+              position: [offset, i]
             };
 
             keyLines.push(blockToken);
@@ -174,7 +174,7 @@ module.exports = {
               path: [].concat(path, arrayIndex),
               line: lineNo,
               type: 'object',
-              pos: [offset, i]
+              position: [offset, i]
             };
 
             keyLines.push(blockToken);
@@ -197,7 +197,7 @@ module.exports = {
               path: [].concat(path, objectKey),
               line: lineNo,
               type: 'array',
-              pos: [offset, i]
+              position: [offset, i]
             };
 
             keyLines.push(blockToken);
@@ -213,7 +213,7 @@ module.exports = {
               path: [].concat(path, arrayIndex),
               line: lineNo,
               type: 'array',
-              pos: [offset, i]
+              position: [offset, i]
             };
 
             keyLines.push(blockToken);
@@ -243,7 +243,7 @@ module.exports = {
           // Update the ending position of the last block token on stack
           let lastBlockToken = blockTokens.pop();
           if (lastBlockToken) {
-            lastBlockToken.pos[1] = i;
+            lastBlockToken.position[1] = i;
           }
           break;
 
@@ -303,7 +303,7 @@ module.exports = {
               line: lineNo,
               value: match,
               type: 'literal',
-              pos: [offset, i]
+              position: [offset, i]
             });
             objectKey = null;
           }
@@ -315,7 +315,7 @@ module.exports = {
               line: lineNo,
               value: match,
               type: 'literal',
-              pos: [offset, i]
+              position: [offset, i]
             });
           }
           break;

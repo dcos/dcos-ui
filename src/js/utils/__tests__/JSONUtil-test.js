@@ -74,7 +74,7 @@ describe('JSONUtil', function () {
         var objects = JSONUtil.getObjectInformation(code);
         expect(objects).toEqual([
           {path: ['name'], line: 2, type: 'literal', value: 'value',
-            pos: [10, 17]}
+            position: [10, 17]}
         ]);
       });
 
@@ -83,7 +83,7 @@ describe('JSONUtil', function () {
         var objects = JSONUtil.getObjectInformation(code);
         expect(objects).toEqual([
           {path: ['name'], line: 2, type: 'literal', value: 1,
-            pos: [10, 11]}
+            position: [10, 11]}
         ]);
       });
 
@@ -92,7 +92,7 @@ describe('JSONUtil', function () {
         var objects = JSONUtil.getObjectInformation(code);
         expect(objects).toEqual([
           {path: ['name'], line: 2, type: 'literal', value: null,
-            pos: [10, 14]}
+            position: [10, 14]}
         ]);
       });
 
@@ -101,7 +101,7 @@ describe('JSONUtil', function () {
         var objects = JSONUtil.getObjectInformation(code);
         expect(objects).toEqual([
           {path: ['name'], line: 2, type: 'literal', value: true,
-            pos: [10, 14]}
+            position: [10, 14]}
         ]);
       });
 
@@ -110,7 +110,7 @@ describe('JSONUtil', function () {
         var objects = JSONUtil.getObjectInformation(code);
         expect(objects).toEqual([
           {path: ['name'], line: 2, type: 'literal', value: false,
-            pos: [10, 15]}
+            position: [10, 15]}
         ]);
       });
 
@@ -123,9 +123,9 @@ describe('JSONUtil', function () {
         var objects = JSONUtil.getObjectInformation(code);
         expect(objects).toEqual([
           {path: ['name'], line: 2, type: 'literal', value: 1,
-            pos: [10, 11]},
+            position: [10, 11]},
           {path: ['name'], line: 3, type: 'literal', value: 2,
-            pos: [21, 22]}
+            position: [21, 22]}
         ]);
       });
 
@@ -134,9 +134,9 @@ describe('JSONUtil', function () {
         var objects = JSONUtil.getObjectInformation(code);
         expect(objects).toEqual([
           {path: ['name'], line: 2, type: 'literal', value: 1,
-            pos: [10, 11]},
+            position: [10, 11]},
           {path: ['nome'], line: 2, type: 'literal', value: 2,
-            pos: [21, 22]}
+            position: [21, 22]}
         ]);
       });
 
@@ -145,9 +145,9 @@ describe('JSONUtil', function () {
         var objects = JSONUtil.getObjectInformation(code);
         expect(objects).toEqual([
           {path: ['name'], line: 2, type: 'literal', value: 1,
-            pos: [10, 11]},
+            position: [10, 11]},
           {path: ['name'], line: 2, type: 'literal', value: 2,
-            pos: [21, 22]}
+            position: [21, 22]}
         ]);
       });
 
@@ -160,9 +160,9 @@ describe('JSONUtil', function () {
         var objects = JSONUtil.getObjectInformation(code);
         expect(objects).toEqual([
           {path: ['name'], line: 2, type: 'object',
-            pos: [10, 26]},
+            position: [10, 26]},
           {path: ['name', 'child'], line: 3, type: 'literal', value: 1,
-            pos: [22, 23]}
+            position: [22, 23]}
         ]);
       });
 
@@ -171,11 +171,11 @@ describe('JSONUtil', function () {
         var objects = JSONUtil.getObjectInformation(code);
         expect(objects).toEqual([
           {path: ['name'], line: 2, type: 'object',
-            pos: [10, 43]},
+            position: [10, 43]},
           {path: ['name', 'child'], line: 3, type: 'object',
-            pos: [22, 40]},
+            position: [22, 40]},
           {path: ['name', 'child', 'value'], line: 4, type: 'literal', value: 1,
-            pos: [35, 36]}
+            position: [35, 36]}
         ]);
       });
 
@@ -184,11 +184,11 @@ describe('JSONUtil', function () {
         var objects = JSONUtil.getObjectInformation(code);
         expect(objects).toEqual([
           {path: ['key1'], line: 2, type: 'literal', value: 1,
-            pos: [10, 11]},
+            position: [10, 11]},
           {path: ['key2'], line: 3, type: 'literal', value: 2,
-            pos: [21, 22]},
+            position: [21, 22]},
           {path: ['key3'], line: 4, type: 'literal', value: 3,
-            pos: [32, 33]}
+            position: [32, 33]}
         ]);
       });
 
@@ -197,15 +197,15 @@ describe('JSONUtil', function () {
         var objects = JSONUtil.getObjectInformation(code);
         expect(objects).toEqual([
           {path: ['key1'], line: 2, type: 'literal', value: 'string',
-            pos: [10, 18]},
+            position: [10, 18]},
           {path: ['key2'], line: 3, type: 'literal', value: 2,
-            pos: [28, 29]},
+            position: [28, 29]},
           {path: ['key3'], line: 4, type: 'literal', value: false,
-            pos: [39, 44]},
+            position: [39, 44]},
           {path: ['key4'], line: 5, type: 'literal', value: true,
-            pos: [54, 58]},
+            position: [54, 58]},
           {path: ['key5'], line: 6, type: 'literal', value: null,
-            pos: [68, 72]}
+            position: [68, 72]}
         ]);
       });
 
@@ -214,23 +214,23 @@ describe('JSONUtil', function () {
         var objects = JSONUtil.getObjectInformation(code);
         expect(objects).toEqual([
           {path: ['obj1'], line: 2, type:'object',
-            pos: [10, 34]},
+            position: [10, 34]},
           {path: ['obj1', 'key1'], line: 3, type: 'literal', value: 1,
-            pos: [20, 21]},
+            position: [20, 21]},
           {path: ['obj1', 'key2'], line: 4, type: 'literal', value: 2,
-            pos: [31, 32]},
+            position: [31, 32]},
           {path: ['obj2'], line: 5, type:'object',
-            pos: [44, 68]},
+            position: [44, 68]},
           {path: ['obj2', 'key3'], line: 6, type: 'literal', value: 1,
-            pos: [54, 55]},
+            position: [54, 55]},
           {path: ['obj2', 'key4'], line: 7, type: 'literal', value: 2,
-            pos: [65, 66]},
+            position: [65, 66]},
           {path: ['obj3'], line: 8, type:'object',
-            pos: [78, 102]},
+            position: [78, 102]},
           {path: ['obj3', 'key5'], line: 9, type: 'literal', value: 1,
-            pos: [88, 89]},
+            position: [88, 89]},
           {path: ['obj3', 'key6'], line: 10, type: 'literal', value: 2,
-            pos: [99, 100]}
+            position: [99, 100]}
         ]);
       });
 
@@ -243,9 +243,9 @@ describe('JSONUtil', function () {
         var objects = JSONUtil.getObjectInformation(code);
         expect(objects).toEqual([
           {path: ['name'], line: 2, type: 'array',
-            pos: [10, 23]},
+            position: [10, 23]},
           {path: ['name', 0], line: 3, type: 'literal', value: 'child',
-            pos: [13, 20]}
+            position: [13, 20]}
         ]);
       });
 
@@ -254,11 +254,11 @@ describe('JSONUtil', function () {
         var objects = JSONUtil.getObjectInformation(code);
         expect(objects).toEqual([
           {path: ['name'], line: 2, type: 'array',
-            pos: [10, 28]},
+            position: [10, 28]},
           {path: ['name', 0], line: 3, type: 'object',
-            pos: [13, 25]},
+            position: [13, 25]},
           {path: ['name', 0, 'child'], line: 3, type: 'literal', value: 1,
-            pos: [23, 24]}
+            position: [23, 24]}
         ]);
       });
 
@@ -267,11 +267,11 @@ describe('JSONUtil', function () {
         var objects = JSONUtil.getObjectInformation(code);
         expect(objects).toEqual([
           {path: ['name'], line: 2, type: 'array',
-            pos: [10, 31]},
+            position: [10, 31]},
           {path: ['name', 0], line: 3, type: 'array',
-            pos: [13, 28]},
+            position: [13, 28]},
           {path: ['name', 0, 0], line: 4, type: 'literal', value: 'child',
-            pos: [17, 24]}
+            position: [17, 24]}
         ]);
       });
 
@@ -280,13 +280,13 @@ describe('JSONUtil', function () {
         var objects = JSONUtil.getObjectInformation(code);
         expect(objects).toEqual([
           {path: ['name'], line: 2, type: 'array',
-            pos: [10, 30]},
+            position: [10, 30]},
           {path: ['name', 0], line: 3, type: 'array',
-            pos: [13, 27]},
+            position: [13, 27]},
           {path: ['name', 0, 0], line: 3, type: 'object',
-            pos: [14, 26]},
+            position: [14, 26]},
           {path: ['name', 0, 0, 'child'], line: 3, type: 'literal', value: 1,
-            pos: [24, 25]}
+            position: [24, 25]}
         ]);
       });
 
@@ -295,13 +295,13 @@ describe('JSONUtil', function () {
         var objects = JSONUtil.getObjectInformation(code);
         expect(objects).toEqual([
           {path: ['name'], line: 2, type: 'array',
-            pos: [10, 33]},
+            position: [10, 33]},
           {path: ['name', 0], line: 3, type: 'array',
-            pos: [13, 30]},
+            position: [13, 30]},
           {path: ['name', 0, 0], line: 4, type: 'array',
-            pos: [17, 26]},
+            position: [17, 26]},
           {path: ['name', 0, 0, 0], line: 4, type: 'literal', value: 'child',
-            pos: [18, 25]}
+            position: [18, 25]}
         ]);
       });
 
@@ -310,15 +310,15 @@ describe('JSONUtil', function () {
         var objects = JSONUtil.getObjectInformation(code);
         expect(objects).toEqual([
           {path: ['name'], line: 2, type: 'array',
-            pos: [10, 38]},
+            position: [10, 38]},
           {path: ['name', 0], line: 3, type: 'array',
-            pos: [13, 35]},
+            position: [13, 35]},
           {path: ['name', 0, 0], line: 4, type: 'array',
-            pos: [17, 31]},
+            position: [17, 31]},
           {path: ['name', 0, 0, 0], line: 4, type: 'object',
-            pos: [18, 30]},
+            position: [18, 30]},
           {path: ['name', 0, 0, 0, 'child'], line: 4, type: 'literal', value: 1,
-            pos: [28, 29]}
+            position: [28, 29]}
         ]);
       });
 
@@ -331,15 +331,15 @@ describe('JSONUtil', function () {
         var objects = JSONUtil.getObjectInformation(code);
         expect(objects).toEqual([
           {path: ['name'], line: 2, type: 'array',
-            pos: [10, 53]},
+            position: [10, 53]},
           {path: ['name', 0], line: 3, type: 'object',
-            pos: [13, 50]},
+            position: [13, 50]},
           {path: ['name', 0, 'child'], line: 4, type: 'array',
-            pos: [26, 46]},
+            position: [26, 46]},
           {path: ['name', 0, 'child', 0], line: 5, type: 'object',
-            pos: [31, 42]},
+            position: [31, 42]},
           {path: ['name', 0, 'child', 0, 'value'], line: 5, type: 'literal', value: 1,
-            pos: [40, 41]}
+            position: [40, 41]}
         ]);
       });
 
