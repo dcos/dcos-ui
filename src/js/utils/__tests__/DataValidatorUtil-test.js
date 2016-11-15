@@ -1,3 +1,4 @@
+jest.dontMock('objektiv');
 jest.dontMock('../DataValidatorUtil');
 
 const DataValidatorUtil = require('../DataValidatorUtil');
@@ -37,6 +38,40 @@ describe('DataValidatorUtil', function () {
         {path: ['a', 'b'], message: 'Bar'}
       ]);
       expect(obj).toEqual({a: {b: 'Foo, Bar'}});
+    });
+
+  });
+
+  describe('#updateOnlyMapPath', function () {
+
+    it('should correctly update only parts of the path', function () {
+      var oldErrors = {a: {b: 'foo'}, c: 'test'};
+      var newErrors = {a: {b: 'bar'}};
+      var obj = DataValidatorUtil.updateOnlyMapPath(oldErrors, newErrors, ['a', 'b']);
+      expect(obj).toEqual({a: {b: 'bar'}, c: 'test'});
+    });
+
+    it('should not touch paths that does not exist', function () {
+      var oldErrors = {a: {b: 'foo'}, c: 'test'};
+      var newErrors = {a: {b: 'bar'}};
+      var obj = DataValidatorUtil.updateOnlyMapPath(oldErrors, newErrors, ['a', 'd']);
+      expect(obj).toEqual({a: {b: 'foo'}, c: 'test'});
+    });
+
+  });
+
+  describe('#resetOnlyMapPath', function () {
+
+    it('should remove strings only on a given path', function () {
+      var oldErrors = {a: {b: 'foo'}, c: 'test'};
+      var obj = DataValidatorUtil.resetOnlyMapPath(oldErrors, ['a', 'b']);
+      expect(obj).toEqual({a: {}, c: 'test'});
+    });
+
+    it('should not touch paths that does not exist', function () {
+      var oldErrors = {a: {b: 'foo'}, c: 'test'};
+      var obj = DataValidatorUtil.resetOnlyMapPath(oldErrors, ['a', 'd']);
+      expect(obj).toEqual({a: {b: 'foo'}, c: 'test'});
     });
 
   });
