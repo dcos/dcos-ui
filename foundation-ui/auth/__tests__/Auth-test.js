@@ -54,7 +54,11 @@ describe('Auth', function () {
   it('should render null if user is unauthorized', function () {
     const renderer = TestUtils.createRenderer();
     AuthService.registerAuthorizer(unauthorized);
-    renderer.render(<Auth permission="*"/>);
+    renderer.render(
+        <Auth permission="*">
+          <span>foo</span>
+        </Auth>
+    );
 
     expect(renderer.getRenderOutput()).toBe(null);
   });
@@ -97,7 +101,14 @@ describe('Auth', function () {
 
   it('should update if new authorizer was registered', function () {
     const renderer = TestUtils.createRenderer();
-    renderer.render(<Auth permission="*" />);
+    renderer.render(
+        <Auth permission="*">
+          <span>foo</span>
+        </Auth>
+    );
+
+    expect(renderer.getRenderOutput().type).toBe('span');
+
     AuthService.registerAuthorizer(unauthorized);
 
     expect(renderer.getRenderOutput()).toBe(null);
@@ -105,16 +116,19 @@ describe('Auth', function () {
 
   it('should update if authorizer was unregistered', function () {
     AuthService.registerAuthorizer(unauthorized);
-    const result = TestUtils.renderIntoDocument(
+
+    const renderer = TestUtils.createRenderer();
+    renderer.render(
         <Auth permission="*">
           <span>foo</span>
         </Auth>
     );
 
+    expect(renderer.getRenderOutput()).toBe(null);
+
     AuthService.unregisterAuthorizer(unauthorized);
 
-    expect(TestUtils.findRenderedDOMComponentWithTag(result, 'span'))
-        .toBeDefined();
+    expect(renderer.getRenderOutput().type).toBe('span');
   });
 
 });
