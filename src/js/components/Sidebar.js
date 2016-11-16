@@ -194,7 +194,7 @@ var Sidebar = React.createClass({
     const filteredChildRoutes =
         children.filter(({path}) => childRoutesMap.has(path));
 
-    let menuItems = filteredChildRoutes.reduce(function (children, currentChild) {
+    let menuItems = filteredChildRoutes.reduce(function (children, currentChild, index) {
       let isActive = pathname.startsWith(currentChild.path);
 
       let menuItemClasses = classNames({selected: isActive});
@@ -212,7 +212,7 @@ var Sidebar = React.createClass({
       }
 
       children.push(
-        <li className={menuItemClasses} key={currentChild.label}>
+        <li className={menuItemClasses} key={index}>
           {linkElement}
         </li>
       );
