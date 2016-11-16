@@ -30,6 +30,14 @@ class AuthService extends EventEmitter {
       return;
     }
 
+    if (authorizers.includes(authorizer)) {
+      if (global.__DEV__) {
+        throw new Error('Provided authorizer is already registered');
+      }
+
+      return;
+    }
+
     authorizers.push(authorizer);
     this.emit(CHANGE);
   }

@@ -53,6 +53,16 @@ describe('AuthService', function () {
       }).toThrow();
     });
 
+    it('should throw if the same authorizer instance is already registered',
+        function () {
+          AuthService.registerAuthorizer(authorized);
+
+          expect(function () {
+            AuthService.registerAuthorizer(authorized);
+          }).toThrow();
+        }
+    );
+
     it('should properly register authorizer', function () {
       AuthService.registerAuthorizer(unauthorized);
 
