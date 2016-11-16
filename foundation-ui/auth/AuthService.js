@@ -23,8 +23,8 @@ class AuthService extends EventEmitter {
   registerAuthorizer(authorizer) {
     if (!authorizer || !(authorizer instanceof Authorizer)) {
       if (global.__DEV__) {
-        throw new TypeError('Provided component must be a ' +
-            'React.Component constructor or a stateless functional component.');
+        throw new TypeError('Provided authorizer must be an ' +
+            'instance of Authorizer');
       }
 
       return;
