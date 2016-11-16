@@ -7,8 +7,11 @@ MARATHON_TAG="1.4.0-snap25"
 source ${SCRIPT_PATH}/utils/git
 source ${SCRIPT_PATH}/utils/marathon
 
-# Validate node and npm version and install git hooks
-${SCRIPT_PATH}/validate-engine-versions && install_hooks "pre-commit" && \
-  install_marathon_raml "$MARATHON_TAG"
+# Validate node and npm version and install git hooks.
+# Install Marathon RAML before hooks so RAML isn't skipped in CI if
+# git hooks fail to install
+${SCRIPT_PATH}/validate-engine-versions && \
+  install_marathon_raml "$MARATHON_TAG" && \
+  install_hooks "pre-commit"
 
 exit 0
