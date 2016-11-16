@@ -1,46 +1,51 @@
 import {EventEmitter} from 'events';
 import {NAVIGATION_CHANGE} from './EventTypes';
 
+function buildPrivateContext(instance) {
+  const context = {
+    instance,
+    deferredTasks: [],
+    definition: [
+       // The only default is root, so it goes first no matter what
+       { category: 'root', children: [] }
+    ],
+    processDeferred() {
+      const tasks = this.deferredTasks.slice(0);
+      this.deferredTasks = [];
+
+      // If Task is unable to resolve at this point of time it will re-defer itself
+      tasks.forEach(({method, args}) => {
+        method.apply(this.instance, args);
+      });
+    },
+    defer(method, args) {
+      this.deferredTasks.push({method, args});
+    }
+  };
+
+  instance.getDefinition = instance.getDefinition.bind(context);
+  instance.registerCategory = instance.registerCategory.bind(context);
+  instance.registerPrimary = instance.registerPrimary.bind(context);
+  instance.registerSecondary = instance.registerSecondary.bind(context);
+
+  return context;
+}
+
 class NavigationService extends EventEmitter {
 
   constructor() {
     super();
 
-    const privateContext = {
-      deferredTasks: [],
-      definition: [
-        // The only default is root, so it goes first no matter what
-        { category: 'root', children: [] }
-      ],
-      instance: this
-    };
+    const privateContext = buildPrivateContext(this);
 
-    this.getDefinition = this.getDefinition.bind(privateContext);
-    this.processDeferred = this.processDeferred.bind(privateContext);
-    this.defer = this.defer.bind(privateContext);
-    this.registerCategory = this.registerCategory.bind(privateContext);
-    this.registerPrimary = this.registerPrimary.bind(privateContext);
-    this.registerSecondary = this.registerSecondary.bind(privateContext);
-
-    this.on(NAVIGATION_CHANGE, this.processDeferred);
+    this.on(
+      NAVIGATION_CHANGE,
+      privateContext.processDeferred.bind(privateContext)
+    );
   }
 
   getDefinition() {
     return this.definition.slice(0);
-  }
-
-  processDeferred() {
-    const tasks = this.deferredTasks.slice(0);
-    this.deferredTasks = [];
-
-    // If Task is unable to resolve at this point of time it will re-defer itself
-    tasks.forEach(({method, args}) => {
-      method.apply(this.instance, args);
-    });
-  }
-
-  defer(method, args) {
-    this.deferredTasks.push({method, args});
   }
 
   registerCategory(category) {
@@ -60,7 +65,7 @@ class NavigationService extends EventEmitter {
       .find((element) => element.category === category);
 
     if (!categoryElement) {
-      return this.instance.defer(this.instance.registerPrimary, arguments);
+      return this.defer(this.instance.registerPrimary, arguments);
     }
 
     const existingElement = categoryElement.children.find((element) => {
@@ -91,7 +96,7 @@ class NavigationService extends EventEmitter {
       .find((element) => element.path === parentPath);
 
     if (!parentElement) {
-      return this.instance.defer(this.instance.registerSecondary, arguments);
+      return this.defer(this.instance.registerSecondary, arguments);
     }
 
     const existingElement = parentElement.children.find((element) => {
