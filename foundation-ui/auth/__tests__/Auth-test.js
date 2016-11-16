@@ -51,7 +51,7 @@ describe('Auth', function () {
     expect(renderer.getRenderOutput()).toBe(null);
   });
 
-  it('should render null if user in unauthorized', function () {
+  it('should render null if user is unauthorized', function () {
     const renderer = TestUtils.createRenderer();
     AuthService.registerAuthorizer(unauthorized);
     renderer.render(<Auth permission="*"/>);
