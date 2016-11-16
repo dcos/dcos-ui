@@ -1,5 +1,4 @@
 import React, {PropTypes} from 'react';
-import {Redirect} from 'react-router';
 
 import ManualBreadcrumbs from './ManualBreadcrumbs';
 
@@ -31,62 +30,56 @@ class Breadcrumbs extends React.Component {
   }
 
   findRoute(segments, routes) {
-    const segment = segments[0];
-
-    // Nothing to match
-    if (!segment) {
-      return null;
+    if (segments.length === 0) {
+      return;
     }
 
-    for (var i = 0; i < routes.length; i++) {
-      const route = routes[i];
+    // Test segments in a greedy way
+    // start with a full path and remove one segment per iteration
+    for (let j = 0; j < segments.length; j++) {
+      let subSegments;
+      if (j === 0) {
+        subSegments = segments.slice(0);
+      } else {
+        subSegments = segments.slice(0, -j);
+      }
 
-      const isRedirect = route.component === Redirect;
-      const matchesPath = route.path && route.path.startsWith(segment);
-      const hasPath = !!route.path;
-      const hasChildren = route.childRoutes && route.childRoutes.length > 0;
+      const subPath = subSegments.join('/');
+      const restPath = segments.join('/');
 
-      if (!isRedirect && matchesPath) {
-        // Can't go deeper, return current route
-        if (segments.length === 1) {
-          return route;
+      // Test all routes on that level for each subPath
+      for (let i = 0; i < routes.length; i++) {
+        const route = routes[i];
+        const isRedirect = !!route.to;
+        const hasChildren = route.childRoutes && route.childRoutes.length > 0;
+
+        if (!isRedirect && subPath === route.path) {
+          // Found the match
+          if (subPath === restPath) {
+            return route;
+          }
+
+          // There are children and we still have untested segments
+          if (hasChildren) {
+            const foundRoute = this.findRoute(segments.slice(subSegments.length), route.childRoutes);
+
+            if (foundRoute) {
+              return foundRoute;
+            }
+          }
         }
 
-        // There are children and we still have untested segments
-        if (hasChildren) {
-          let foundRoute = this.findRoute(segments.slice(1), route.childRoutes);
+        // There're route definitions without a path that are being used for aggregation
+        // i.e. nodes/NodesOverview
+        if (!route.path && hasChildren) {
+          const foundRoute = this.findRoute(segments, route.childRoutes);
 
           if (foundRoute) {
             return foundRoute;
           }
         }
-
-        // No children, still have segments.
-        // Meaning a route declared something like task/:taskID to be it's path
-        // So we need to concatinate two first segments and try again this set of routes
-        // We will be growing the segment until we exhaust all segments
-        if (segments.length > 1) {
-          const newSegment = `${segments[0]}/${segments[1]}`;
-          const newSegments = [newSegment].concat(segments.slice(2));
-
-          return this.findRoute(newSegments, routes);
-        }
-
-        return route;
-      }
-
-      // There're route definitions without a path that are being used for aggregation
-      // i.e. nodes/NodesOverview
-      if (!hasPath && hasChildren) {
-        let foundRoute = this.findRoute(segments, route.childRoutes);
-
-        if (foundRoute) {
-          return foundRoute;
-        }
       }
     }
-
-    return null;
   }
 
   getIndexRoute() {
