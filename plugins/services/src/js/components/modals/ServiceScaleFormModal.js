@@ -89,7 +89,6 @@ class ServiceScaleFormModal extends React.Component {
     return [
       {
         fieldType: 'number',
-        formGroupClass: 'column-2',
         formElementClass: 'horizontal-center',
         min: 0,
         name: 'instances',
