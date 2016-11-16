@@ -3,13 +3,13 @@ import {NavigationService} from '../../../foundation-ui/navigation';
 
 const NavigationServiceUtil = {
   /**
-   * routesToDefinition - declares Navigation Elements based on routes using
+   * registerRoutesInNavigation - declares Navigation Elements based on routes using
    * NavigationService API
    *
    * @param  {Array} routes Application routes
    * @return {undefined}
    */
-  routesToDefinition(routes) {
+  registerRoutesInNavigation(routes) {
     const indexRoute = routes.find((route) => route.id === 'index');
 
     if (!indexRoute) {

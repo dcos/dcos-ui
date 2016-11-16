@@ -42,7 +42,7 @@ var Index = React.createClass({
     MetadataStore.init();
     SidebarStore.init();
 
-    NavigationServiceUtil.routesToDefinition(this.props.routes);
+    NavigationServiceUtil.registerRoutesInNavigation(this.props.routes);
 
     // We want to always request the summary endpoint. This will ensure that
     // our charts always have data to render.
