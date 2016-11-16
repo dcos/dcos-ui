@@ -14,13 +14,31 @@ class RoutingService extends EventEmitter {
   constructor() {
     super();
 
+    /**
+     * Private context
+     *
+     * @typedef {Object} RoutingService~Context
+     * @property {object} instance - reference to public instance
+     * @property {Array} definition - routing definition
+     * @property {Array} deferredTasks - tasks to perform once all dependencies have been resolved
+     */
     const privateContext = {
       instance: this,
       definition: [],
       deferredTasks: [],
+
+      /**
+       * defer - add a task to deferredTasks
+       *
+       * @param  {Array} args arguments of a task
+       */
       defer(args) {
         this.deferredTasks.push(args);
       },
+
+      /**
+       * processDeferred - process list of deferred tasks
+       */
       processDeferred() {
         const tasks = this.deferredTasks.slice(0);
         this.deferredTasks = [];
@@ -50,6 +68,7 @@ class RoutingService extends EventEmitter {
   /**
    * registerPage - adds a page route to the queue
    *
+   * @this {RoutingService~Context}
    * @param  {String} path a path to the page
    * @param  {React.Component} component a React.js component of the page
    * @return {undefined}
@@ -79,6 +98,7 @@ class RoutingService extends EventEmitter {
   /**
    * registerTab - adds a tab route to the queue
    *
+   * @this {RoutingService~Context}
    * @param  {String} pagePath a path to a parent page
    * @param  {String} tabPath a path to the tab
    * @param  {React.Component} component a React.js component of the tab
@@ -119,6 +139,7 @@ class RoutingService extends EventEmitter {
   /**
    * registerRedirect
    *
+   * @this {RoutingService~Context}
    * @param  {String} path a path to redirect from
    * @param  {String} to   a path to redirect to
    * @return {undefined}
