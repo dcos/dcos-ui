@@ -64,9 +64,9 @@ class NavigationService extends EventEmitter {
         category,
         children: []
       });
-    }
 
-    this.instance.emit(NAVIGATION_CHANGE);
+      this.instance.emit(NAVIGATION_CHANGE);
+    }
   }
 
   /**
