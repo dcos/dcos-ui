@@ -97,6 +97,14 @@ class GeneralServiceFormSection extends Component {
   render() {
     let {data, errors} = this.props;
     let typeErrors = findNestedPropertyInObject(errors, 'container.type');
+    let runtimeTooltipContent = (
+      <span>
+        {'You can run Docker containers with both container runtimes. The Universal Container Runtime is better supported in DC/OS. '}
+        <a href={MetadataStore.buildDocsURI('/usage/containerizers/')} target="_blank">
+          More information
+        </a>.
+      </span>
+    );
 
     return (
       <div className="form flush-bottom">
@@ -145,28 +153,23 @@ class GeneralServiceFormSection extends Component {
             Advanced Service Settings
           </AdvancedSectionLabel>
           <AdvancedSectionContent>
-          <h3 className="short-top short-bottom">
-            {'Container Runtime '}
-            <Tooltip
-              content={
-                <span>
-                  {'You can run Docker containers with both container runtimes. The Universal Container Runtime is better supported in DC/OS. '}
-                  <a href={MetadataStore.buildDocsURI('/usage/containerizers/')} target="_blank">More information</a>.
-                </span>
-              }
-              interactive={true}
-              maxWidth={300}
-              scrollContainer=".gm-scroll-view"
-              wrapText={true}>
-                <Icon color="grey" id="ring-question" size="mini" family="mini" />
-            </Tooltip>
-          </h3>
-          <p>The container runtime is responsible for running your service. We support the Mesos and Docker containerizers.</p>
-          <FormGroup showError={Boolean(typeErrors)}>
-            {this.getRuntimeSelections(data)}
-            <FieldError>{typeErrors}</FieldError>
-          </FormGroup>
-        </AdvancedSectionContent>
+            <h3 className="short-top short-bottom">
+              {'Container Runtime '}
+              <Tooltip
+                content={runtimeTooltipContent}
+                interactive={true}
+                maxWidth={300}
+                scrollContainer=".gm-scroll-view"
+                wrapText={true}>
+                  <Icon color="grey" id="ring-question" size="mini" family="mini" />
+              </Tooltip>
+            </h3>
+            <p>The container runtime is responsible for running your service. We support the Mesos and Docker containerizers.</p>
+            <FormGroup showError={Boolean(typeErrors)}>
+              {this.getRuntimeSelections(data)}
+              <FieldError>{typeErrors}</FieldError>
+            </FormGroup>
+          </AdvancedSectionContent>
         </AdvancedSection>
 
         <ContainerServiceFormSection data={data} errors={errors} />
