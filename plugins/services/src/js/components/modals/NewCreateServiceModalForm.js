@@ -58,7 +58,7 @@ class NewCreateServiceModalForm extends Component {
     this.state = {
       appConfig: {},
       batch,
-      errors: {},
+      errorList: [],
       jsonValue: JSON.stringify(batch.reduce(jsonConfigReducers, {}), null, 2)
     };
 
@@ -68,7 +68,7 @@ class NewCreateServiceModalForm extends Component {
   }
 
   handleJSONBlur() {
-    let {errors, jsonValue} = this.state;
+    let {errorList, jsonValue} = this.state;
     let newState = {};
     let appConfig;
 
@@ -76,8 +76,8 @@ class NewCreateServiceModalForm extends Component {
       appConfig = JSON.parse(jsonValue);
     } catch (event) {
       // TODO: handle error
-      newState.errors = Object.assign(errors, {
-        jsonEditor: 'JSON value is not valid json.'
+      errorList.push({
+        path: [], message: 'JSON value is not valid json.'
       });
     }
 
@@ -90,15 +90,13 @@ class NewCreateServiceModalForm extends Component {
         AppValidators.App
       ]);
 
-      let errors = DataValidatorUtil.errorArrayToMap( errorList );
-
       // Translate appConfig to batch transactions
       jsonParserReducers(appConfig).forEach((item) => {
         batch.add(item);
       });
 
       // Update batch, errors and appConfig
-      Object.assign(newState, {batch, errors, appConfig: {}});
+      Object.assign(newState, {batch, errorList, appConfig: {}});
     }
 
     this.setState(newState);
@@ -137,15 +135,12 @@ class NewCreateServiceModalForm extends Component {
 
     // [Case F2] Update errors only on the current field
     let path = event.target.getAttribute('name').split('.');
-    let errors = DataValidatorUtil.updateOnlyMapPath(
-      this.state.errors,
-      DataValidatorUtil.errorArrayToMap( errorList ),
-      path
-    );
+    errorList =
+      DataValidatorUtil.updateOnlyOnPath(this.state.errorList, errorList, path);
 
     // Create new jsonValue
     let jsonValue = JSON.stringify(appConfig, null, 2);
-    this.setState({errors, jsonValue});
+    this.setState({errorList, jsonValue});
   }
 
   handleFormChange(event) {
@@ -155,8 +150,8 @@ class NewCreateServiceModalForm extends Component {
     if (event.target.type === 'checkbox') {
       value = event.target.checked;
     }
-    let path = event.target.getAttribute('name');
-    batch.add(new Transaction(path.split('.'), value));
+    let path = event.target.getAttribute('name').split('.');
+    batch.add(new Transaction(path, value));
     let newState = {batch};
 
     // Only update the jsonValue if we have a valid value
@@ -169,8 +164,8 @@ class NewCreateServiceModalForm extends Component {
     }
 
     // [Case F1] Reset errors only on the current field
-    newState.errors = DataValidatorUtil.resetOnlyMapPath(
-      this.state.errors,
+    newState.errorList = DataValidatorUtil.stripErrorsOnPath(
+      this.state.errorList,
       path
     );
 
@@ -202,7 +197,7 @@ class NewCreateServiceModalForm extends Component {
   }
 
   render() {
-    let {appConfig, batch, errors, jsonValue} = this.state;
+    let {appConfig, batch, errorList, jsonValue} = this.state;
     let {isJSONModeActive} = this.props;
     let data = batch.reduce(inputConfigReducers, appConfig);
 
@@ -213,6 +208,9 @@ class NewCreateServiceModalForm extends Component {
     let jsonEditorClasses = classNames('modal-full-screen-side-panel', {
       'is-visible': isJSONModeActive
     });
+
+    let errors = DataValidatorUtil.errorArrayToMap( errorList );
+    console.log(errorList);
 
     return (
       <div className="flex flex-item-grow-1">

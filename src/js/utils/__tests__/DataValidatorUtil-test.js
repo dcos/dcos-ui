@@ -42,36 +42,36 @@ describe('DataValidatorUtil', function () {
 
   });
 
-  describe('#updateOnlyMapPath', function () {
+  describe('#updateOnlyOnPath', function () {
 
-    it('should correctly update only parts of the path', function () {
-      var oldErrors = {a: {b: 'foo'}, c: 'test'};
-      var newErrors = {a: {b: 'bar'}};
-      var obj = DataValidatorUtil.updateOnlyMapPath(oldErrors, newErrors, ['a', 'b']);
-      expect(obj).toEqual({a: {b: 'bar'}, c: 'test'});
-    });
-
-    it('should not touch paths that does not exist', function () {
-      var oldErrors = {a: {b: 'foo'}, c: 'test'};
-      var newErrors = {a: {b: 'bar'}};
-      var obj = DataValidatorUtil.updateOnlyMapPath(oldErrors, newErrors, ['a', 'd']);
-      expect(obj).toEqual({a: {b: 'foo'}, c: 'test'});
+    it('should correctly update only related errors', function () {
+      var oldErrors = [
+        {path: ['a', 'b'], message: 'Error1'},
+        {path: ['a', 'c'], message: 'Error3'}
+      ];
+      var newErrors = [
+        {path: ['a', 'b'], message: 'Error2'}
+      ];
+      var obj = DataValidatorUtil.updateOnlyOnPath(oldErrors, newErrors, ['a', 'b']);
+      expect(obj).toEqual([
+        {path: ['a', 'c'], message: 'Error3'},
+        {path: ['a', 'b'], message: 'Error2'}
+      ]);
     });
 
   });
 
-  describe('#resetOnlyMapPath', function () {
+  describe('#stripErrorsOnPath', function () {
 
-    it('should remove strings only on a given path', function () {
-      var oldErrors = {a: {b: 'foo'}, c: 'test'};
-      var obj = DataValidatorUtil.resetOnlyMapPath(oldErrors, ['a', 'b']);
-      expect(obj).toEqual({a: {}, c: 'test'});
-    });
-
-    it('should not touch paths that does not exist', function () {
-      var oldErrors = {a: {b: 'foo'}, c: 'test'};
-      var obj = DataValidatorUtil.resetOnlyMapPath(oldErrors, ['a', 'd']);
-      expect(obj).toEqual({a: {b: 'foo'}, c: 'test'});
+    it('should remove only related errors', function () {
+      var oldErrors = [
+        {path: ['a', 'b'], message: 'Error1'},
+        {path: ['a', 'c'], message: 'Error3'}
+      ];
+      var obj = DataValidatorUtil.stripErrorsOnPath(oldErrors, ['a', 'b']);
+      expect(obj).toEqual([
+        {path: ['a', 'c'], message: 'Error3'}
+      ]);
     });
 
   });

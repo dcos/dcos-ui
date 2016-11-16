@@ -17,7 +17,7 @@ function path2lens(path, strategy=Objektiv.resolve.tryhard) {
   }, Objektiv.full);
 }
 
-module.exports = {
+var DataValidatorUtil = {
 
   /**
    * This is a shorthand function to collect a list of validation errors for
@@ -60,29 +60,29 @@ module.exports = {
     }, {});
   },
 
-  /**
-   * Update only the specified path on the errors map
-   *
-   * @param {Object} errors - The current state of the errors object
-   * @param {Object} newErrors - The new state of the errors object
-   * @param {Array} path - The path to keep
-   * @returns {Object} Returns the old errors with only the path updated from the new errors
-   */
-  updateOnlyMapPath(errors, newErrors, path) {
-    let lens = path2lens(path);
+  updateOnlyOnPath(oldList, newList, path) {
+    let pathStr = path.join('.');
+    let newErrors = newList.filter(function (error) {
+      return error.path.join('.') === pathStr;
+    });
 
-    return lens.set(errors, lens.get(newErrors));
+    // Check if there is nothing to add
+    if (newErrors.length === 0) {
+      return oldList;
+    }
+
+    // Strip old errors and append new errors
+    return DataValidatorUtil.stripErrorsOnPath(oldList, path)
+      .concat(newErrors);
   },
 
-  /**
-   * Reset the errors only on the given path
-   *
-   * @param {Object} errors - The current state of the errors object
-   * @param {Array} path - The path to reset
-   * @returns {Object} Returns the errors, with the path missing
-   */
-  resetOnlyMapPath(errors, path) {
-    return path2lens(path).set(errors, undefined);
+  stripErrorsOnPath(errorList, path) {
+    let pathStr = path.join('.');
+    return errorList.filter(function (error) {
+      return error.path.join('.') !== pathStr;
+    });
   }
 
 };
+
+module.exports = DataValidatorUtil;
