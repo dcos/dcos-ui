@@ -6,7 +6,7 @@ import ServiceTree from '../../structs/ServiceTree';
 
 import ServiceActionItem from '../../constants/ServiceActionItem';
 import ServiceDestroyModal from './ServiceDestroyModal';
-import ServiceFormModal from './ServiceFormModal';
+import NewCreateServiceModal from './NewCreateServiceModal';
 import ServiceGroupFormModal from './ServiceGroupFormModal';
 import ServiceRestartModal from './ServiceRestartModal';
 import ServiceScaleFormModal from './ServiceScaleFormModal';
@@ -65,7 +65,7 @@ class ServiceModals extends React.Component {
     };
 
     return (
-      <ServiceFormModal
+      <NewCreateServiceModal
         clearError={() => clearError(key)}
         errors={actionErrors[key]}
         isEdit={false}
@@ -102,10 +102,10 @@ class ServiceModals extends React.Component {
     }
 
     return (
-      <ServiceFormModal
+      <NewCreateServiceModal
         clearError={() => clearError(key)}
         errors={actionErrors[key]}
-        isEdit={false}
+        isEdit={true}
         isPending={!!pendingActions[key]}
         marathonAction={editService}
         open={modalProps.id === ServiceActionItem.EDIT}
