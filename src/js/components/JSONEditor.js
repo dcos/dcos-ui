@@ -360,7 +360,7 @@ class JSONEditor extends React.Component {
     // Try to parse and extract metadata
     try {
       this.jsonValue = JSON.parse(jsonText);
-      this.jsonMeta = JSONUtil.getObjectInformation(jsonText).reverse();
+      this.jsonMeta = JSONUtil.getObjectInformation(jsonText);
     } catch (e) {
       // Prettify the error message by resolving the line/column instead of
       // just keeping the offset in the string
