@@ -167,12 +167,7 @@ class HealthChecksFormSection extends Component {
                 </FieldSelect>
                 <FieldError>{errors.healthChecks[key]}</FieldError>
               </FormGroup>
-              <div className=""
-                style={{
-                  position: 'absolute',
-                  top: '0px',
-                  right: '0px'
-                }}>
+              <div className="form-remove">
                 <a className="button button-link"
                   onClick={this.props.onRemoveItem.bind(this, {value: key, path: 'healthChecks'})}>
                   <Icon id="close" color="grey" size="tiny"/>
@@ -200,7 +195,7 @@ class HealthChecksFormSection extends Component {
           </h2>
           <p>
             Health checks may be specified per application to be run against
-            the application's tasks.
+            the application{'\''}s tasks.
           </p>
         </div>
         {this.getHealthChecksLines(data.healthChecks)}
