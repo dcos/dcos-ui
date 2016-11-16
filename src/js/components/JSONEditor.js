@@ -236,9 +236,10 @@ class JSONEditor extends React.Component {
     // TODO: Properly solve this in CSS
     //
     let MutationObserver = window.MutationObserver
-      || window.mozMutationObserver || window.webkitMutationObserver
+      || window.mozMutationObserver
+      || window.webkitMutationObserver
       || window.msMutationObserver;
-    let observer = new MutationObserver((mutations)=> {
+    let observer = new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {
         if (!mutation.addedNodes) {
           return;
@@ -298,8 +299,8 @@ class JSONEditor extends React.Component {
     // Calculate differences in the JSON and trigger `onPropertyChange`
     // event for every property that changed in the JSON
     let diff = JSONEditorUtil.deepObjectDiff(lastValue, this.jsonValue);
-    diff.forEach((diff) => {
-      this.props.onPropertyChange(diff.path, diff.value, this.jsonValue);
+    diff.forEach(({path, value}) => {
+      this.props.onPropertyChange(path, value, this.jsonValue);
     });
 
     // Trigger change with the latest json object
@@ -366,8 +367,11 @@ class JSONEditor extends React.Component {
       let errorStr = e.toString();
       this.jsonError = errorStr.replace(/at position (\d+)/g,
         (match, offset) => {
-          let cursor =
-            JSONEditorUtil.cursorFromOffset(parseInt(offset), jsonText);
+          let cursor = JSONEditorUtil.cursorFromOffset(
+            parseInt(offset),
+            jsonText
+          );
+
           return `at line ${cursor.row}:${cursor.column}`;
         }
       );
@@ -433,7 +437,7 @@ class JSONEditor extends React.Component {
       }
 
       memo.push({
-        row: token.line-1,
+        row: token.line - 1,
         text: error.message,
         type: 'error'
       });

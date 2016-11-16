@@ -44,10 +44,10 @@ var JSONEditorUtil = {
     }
 
     // Find row
-    for (let i = 0; i <= offset; ++i) {
-      if (text[i] === '\n') {
+    for (let index = 0; index <= offset; ++index) {
+      if (text[index] === '\n') {
         row++;
-        lastRowOffset = i+1;
+        lastRowOffset = index + 1;
       }
     }
 
@@ -71,7 +71,7 @@ var JSONEditorUtil = {
    * @param {Array} [path] - The current object path
    * @returns {[{path, previous, value}]} Returns an array with the differences
    */
-  deepObjectDiff(oldObj, newObj, path=[]) {
+  deepObjectDiff(oldObj, newObj, path = []) {
     if (oldObj === newObj) {
       return [];
     }
@@ -87,8 +87,8 @@ var JSONEditorUtil = {
 
     // Process removed/changed keys
     let diff = oldKeys.reduce(function (memo, key) {
-      let i = newKeys.indexOf(key);
-      if (i === -1) {
+      let index = newKeys.indexOf(key);
+      if (index === -1) {
         memo.push(
           {path: path.concat([key]), value: undefined, previous: oldObj[key]}
         );
@@ -96,7 +96,7 @@ var JSONEditorUtil = {
         return memo;
       }
 
-      newKeys.splice(i, 1);
+      newKeys.splice(index, 1);
 
       return memo.concat(
         JSONEditorUtil.deepObjectDiff(
@@ -130,9 +130,10 @@ var JSONEditorUtil = {
    * @returns {number} Returns the offset in the string with the first difference
    */
   diffLocation(oldString, newString) {
-    for (var i=0, l=Math.min(oldString.length, newString.length); i<l; ++i) {
-      if (oldString[i] !== newString[i]) {
-        return i;
+    let length = Math.min(oldString.length, newString.length);
+    for (let index = 0; index < length; ++index) {
+      if (oldString[index] !== newString[index]) {
+        return index;
       }
     }
 
@@ -159,7 +160,7 @@ var JSONEditorUtil = {
 
         // Check if we have the same or compatible item in the `newValues` array
         // A "compatible" item is an object that has
-        let i = newValues.findIndex(function (newItem) {
+        let index = newValues.findIndex(function (newItem) {
           if (oldItem === newItem) {
             return true;
           }
@@ -173,20 +174,19 @@ var JSONEditorUtil = {
         });
 
         // If we don't have that item, don't include it in the list
-        if (i === -1) {
+        if (index === -1) {
           return memo;
         }
 
         // Push (and recursively sort if appliable) the value
-        memo.push(JSONEditorUtil.sortObjectKeys(oldItem, newValues[i]));
-        newValues.splice(i, 1);
+        memo.push(JSONEditorUtil.sortObjectKeys(oldItem, newValues[index]));
+        newValues.splice(index, 1);
 
         return memo;
       }, []);
 
       // Append new values in the order they appear at the end of the array
       return resultVal.concat(newValues);
-
     }
 
     if ((typeof oldVal === 'object') && (typeof newVal === 'object')) {
@@ -198,8 +198,8 @@ var JSONEditorUtil = {
       // `newKeys` array in order to keep only the `new` keys.
       let resultKeys = oldKeys.filter(function (key) {
         if (Object.prototype.hasOwnProperty.call(newVal, key)) {
-          let i = newKeys.indexOf(key);
-          newKeys.splice(i, 1);
+          let index = newKeys.indexOf(key);
+          newKeys.splice(index, 1);
 
           return true;
         }
@@ -212,11 +212,13 @@ var JSONEditorUtil = {
 
       // Convert keys array to an object
       return resultKeys.reduce(function (resultObj, key) {
-        resultObj[key] = JSONEditorUtil.sortObjectKeys(oldVal[key], newVal[key]);
+        resultObj[key] = JSONEditorUtil.sortObjectKeys(
+          oldVal[key],
+          newVal[key]
+        );
 
         return resultObj;
       }, {});
-
     }
 
     return newVal;
