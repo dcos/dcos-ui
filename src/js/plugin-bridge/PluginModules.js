@@ -1,5 +1,14 @@
 // Modules to paths
 module.exports = {
+  auth: {
+    Auth: 'Auth',
+    Authorizer: 'Authorizer',
+    AuthService: 'AuthService'
+  },
+  mount: {
+    Mount: 'Mount',
+    MountService: 'MountService'
+  },
   constants: {
     EventTypes: 'EventTypes',
     HTTPStatusCodes: 'HTTPStatusCodes'

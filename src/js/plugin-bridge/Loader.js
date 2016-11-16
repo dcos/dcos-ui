@@ -14,6 +14,10 @@ const requireComponents = require.context('../components', false);
 const requireCharts = require.context('../components/charts', false);
 const requireIcons = require.context('../components/icons', false);
 const requireModals = require.context('../components/modals', false);
+// Foundation
+const requireAuth = require.context('../../../foundation-ui/auth', false);
+const requireMount = require.context('../../../foundation-ui/mount', false);
+
 let requireExternalPlugin = function () {
   return {};
 };
@@ -86,6 +90,8 @@ function pluckComponent(path) {
 function requireModule(dir, name) {
   let path = './' + name;
   switch (dir) {
+    case 'auth':
+      return requireAuth(path);
     case 'config':
       return requireConfig(path);
     case 'constants':
@@ -102,6 +108,8 @@ function requireModule(dir, name) {
       return requireUtils(path);
     case 'mixins':
       return requireMixins(path);
+    case 'mount':
+      return requireMount(path);
     case 'components':
       return pluckComponent(path);
     case 'externalPlugin':
