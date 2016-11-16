@@ -12,15 +12,14 @@ describe('BreadcrumbSegment', function () {
 
   beforeEach(function () {
     this.routes = [{
-      path:'foo',
-      paramNames: ['bar']
+      path:'foo/:bar'
     }];
     this.params = {bar: 'baz'};
   });
 
   it('renders the label', function () {
     let instance = TestUtils.renderIntoDocument(
-      <BreadcrumbSegment routePath="foo" routes={this.routes} params={this.params} />
+      <BreadcrumbSegment routePath="foo/:bar" routes={this.routes} params={this.params} />
     );
 
     expect(instance.getBackupCrumbLabel()).toEqual('baz');
