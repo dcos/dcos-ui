@@ -105,7 +105,7 @@ class JSONEditor extends React.Component {
   componentWillReceiveProps(nextProps) {
     // Synchronise error updates
     if (!deepEqual(this.externalErrors, nextProps.errors)) {
-      this.externalErrors = nextProps.errors;
+      this.externalErrors = nextProps.errors || [];
       this.updateEditorState();
     }
 
@@ -297,11 +297,9 @@ class JSONEditor extends React.Component {
 
     // Calculate differences in the JSON and trigger `onPropertyChange`
     // event for every property that changed in the JSON
-    let diff = JSONEditorUtil.deepObjectDiff(lastValue,
-      this.jsonValue);
+    let diff = JSONEditorUtil.deepObjectDiff(lastValue, this.jsonValue);
     diff.forEach((diff) => {
-      this.props.onPropertyChange(diff.path, diff.value,
-        this.jsonValue);
+      this.props.onPropertyChange(diff.path, diff.value, this.jsonValue);
     });
 
     // Trigger change with the latest json object
@@ -332,54 +330,8 @@ class JSONEditor extends React.Component {
       return;
     }
 
-    // Prepare markers
-    let markers = [];
-
-    // Extract syntax errors, or other errors that refer to line
-    if (this.jsonError) {
-
-      // Strip out the 'at line xxx' message, and keep track of that line
-      let errorLine = 0;
-      let errorMsg = this.jsonError.replace(/at line ([\d:]+)/g,
-        function (m, line) {
-          errorLine = parseInt(line.split(':')[0]);
-          return '';
-        }
-      );
-
-      // Push the error marker
-      markers.push({
-        row: errorLine,
-        text: errorMsg,
-        type: 'error'
-      });
-
-    } else {
-
-      // Append annotation markers from external errors
-      markers = this.externalErrors.reduce((memo, error) => {
-        let errorPath = error.path.join('.');
-        let token = this.jsonMeta.find(function (token) {
-          return token.path.join('.') === errorPath;
-        });
-
-        if (!token) {
-          return memo;
-        }
-
-        memo.push({
-          row: token.line-1,
-          text: error.message,
-          type: 'error'
-        });
-
-        return memo;
-      }, markers);
-
-    }
-
     // Merge current annotations with the annotations we are going to show
-    this.aceEditor.getSession().setAnnotations(markers);
+    this.aceEditor.getSession().setAnnotations(this.getErrorMarkers());
   }
 
   /**
@@ -442,16 +394,62 @@ class JSONEditor extends React.Component {
   }
 
   /**
+   * Collects error markers to set on the Ace Editor
+   * @return {Array<({
+   *   row:Number,
+   *   text:String,
+   *   type:String
+   * })>} An array of errors to show in the Ace Editor
+   */
+  getErrorMarkers() {
+    // Extract syntax errors, or other errors that refer to line
+    if (this.jsonError) {
+
+      // Strip out the 'at line xxx' message, and keep track of that line
+      let errorLine = 0;
+      let errorMsg = this.jsonError.replace(/at line ([\d:]+)/g, (m, line) => {
+        errorLine = parseInt(line.split(':')[0]);
+
+        return '';
+      });
+
+      // Return error marker
+      return [{
+        row: errorLine,
+        text: errorMsg,
+        type: 'error'
+      }];
+    }
+
+    // Append annotation markers from external errors
+    return this.externalErrors.reduce((memo, error) => {
+      let errorPath = error.path.join('.');
+      let token = this.jsonMeta.find(function (token) {
+        return token.path.join('.') === errorPath;
+      });
+
+      if (!token) {
+        return memo;
+      }
+
+      memo.push({
+        row: token.line-1,
+        text: error.message,
+        type: 'error'
+      });
+
+      return memo;
+    }, []);
+  }
+
+  /**
    * @override
    */
   render() {
     let {width, height, editorProps} = this.props;
     let {initialText} = this.state;
 
-    let omitKeys = [].concat(
-      Object.keys(JSONEditor.propTypes),
-      'mode'
-    );
+    let omitKeys = [].concat(Object.keys(JSONEditor.propTypes), 'mode');
 
     return (
       <AceEditor

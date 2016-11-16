@@ -12,8 +12,7 @@ function doKeysOverlap(objectA, objectB) {
   let keysB = Object.keys(objectB);
   return keysA.every(function (value) {
     return keysB.indexOf(value) !== -1;
-  }) ||
-  keysB.every(function (value) {
+  }) || keysB.every(function (value) {
     return keysA.indexOf(value) !== -1;
   });
 }
@@ -45,7 +44,7 @@ var JSONEditorUtil = {
     }
 
     // Find row
-    for (let i=0; i<=offset; ++i) {
+    for (let i = 0; i <= offset; ++i) {
       if (text[i] === '\n') {
         row++;
         lastRowOffset = i+1;
@@ -93,6 +92,7 @@ var JSONEditorUtil = {
         memo.push(
           {path: path.concat([key]), value: undefined, previous: oldObj[key]}
         );
+
         return memo;
       }
 
@@ -110,6 +110,7 @@ var JSONEditorUtil = {
       memo.push(
         {path: path.concat([key]), value: newObj[key], previous: undefined}
       );
+
       return memo;
     }, diff);
 
@@ -134,6 +135,7 @@ var JSONEditorUtil = {
         return i;
       }
     }
+
     return -1;
   },
 
@@ -185,7 +187,9 @@ var JSONEditorUtil = {
       // Append new values in the order they appear at the end of the array
       return resultVal.concat(newValues);
 
-    } else if ((typeof oldVal === 'object') && (typeof newVal === 'object')) {
+    }
+
+    if ((typeof oldVal === 'object') && (typeof newVal === 'object')) {
       let oldKeys = Object.keys(oldVal);
       let newKeys = Object.keys(newVal);
 
@@ -213,10 +217,9 @@ var JSONEditorUtil = {
         return resultObj;
       }, {});
 
-    } else {
-      return newVal;
-
     }
+
+    return newVal;
   }
 
 };
