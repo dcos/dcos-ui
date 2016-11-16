@@ -11,7 +11,7 @@ import Hooks from './Hooks';
 import PluginSDKStruct from './PluginSDKStruct';
 import Loader from './Loader';
 import PluginModules from './PluginModules';
-import RoutingService from '../../../foundation-ui/routing';
+import {RoutingService} from '../../../foundation-ui';
 
 const hooks = new Hooks();
 const initialState = {};
