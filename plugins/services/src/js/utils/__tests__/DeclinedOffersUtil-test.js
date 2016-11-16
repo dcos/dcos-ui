@@ -100,21 +100,21 @@ describe('DeclinedOffersUtil', function () {
     });
   });
 
-  describe('#getDetailsFromQueue', function () {
+  describe('#getOffersFromQueue', function () {
 
     it('returns null when lastUnusedOffers is undefined, null, or empty array', function () {
-      expect(DeclinedOffersUtil.getDetailsFromQueue({})).toEqual(null);
-      expect(DeclinedOffersUtil.getDetailsFromQueue({
+      expect(DeclinedOffersUtil.getOffersFromQueue({})).toEqual(null);
+      expect(DeclinedOffersUtil.getOffersFromQueue({
         lastUnusedOffers: null
       })).toEqual(null);
-      expect(DeclinedOffersUtil.getDetailsFromQueue({
+      expect(DeclinedOffersUtil.getOffersFromQueue({
         lastUnusedOffers: []
       })).toEqual(null);
     });
 
     it('returns an array of offer details from API response', function () {
       const unusedOffers = DeclinedOffersUtil
-        .getDetailsFromQueue(QueueFixture.queue[1]);
+        .getOffersFromQueue(QueueFixture.queue[1]);
 
       expect(unusedOffers).toEqual(
         [

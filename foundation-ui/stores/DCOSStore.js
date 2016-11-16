@@ -223,7 +223,7 @@ class DCOSStore extends EventEmitter {
 
       entry.declinedOffers = {
         summary: DeclinedOffersUtil.getSummaryFromQueue(entry),
-        details: DeclinedOffersUtil.getDetailsFromQueue(entry)
+        offers: DeclinedOffersUtil.getOffersFromQueue(entry)
       };
 
       queuedAppIDs.push(entry.app.id);

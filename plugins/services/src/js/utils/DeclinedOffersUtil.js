@@ -59,7 +59,7 @@ const DecinedOffersUtil = {
     };
   },
 
-  getDetailsFromQueue(queue) {
+  getOffersFromQueue(queue) {
     let {lastUnusedOffers} = queue;
 
     if (lastUnusedOffers == null || lastUnusedOffers.length === 0) {
