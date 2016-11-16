@@ -80,11 +80,13 @@ class JSONEditor extends React.Component {
     // The following properties are part of the `internal`, non-react state
     // and is synchronized with the react through `componentWillReceiveProps`
     //
-    this.externalErrors = [];
-    this.jsonError = null;
-    this.jsonMeta = [];
-    this.jsonText = '{}';
-    this.jsonValue = {};
+    this.internalState = {
+      externalErrors: [],
+      jsonError: null,
+      jsonMeta: [],
+      jsonText: '{}',
+      jsonValue: {}
+    };
 
     //
     // The following properties are flags and references used for other purposes
@@ -104,8 +106,8 @@ class JSONEditor extends React.Component {
    */
   componentWillReceiveProps(nextProps) {
     // Synchronise error updates
-    if (!deepEqual(this.externalErrors, nextProps.errors)) {
-      this.externalErrors = nextProps.errors;
+    if (!deepEqual(this.internalState.externalErrors, nextProps.errors)) {
+      this.internalState.externalErrors = nextProps.errors;
       this.updateEditorState();
     }
 
@@ -122,7 +124,7 @@ class JSONEditor extends React.Component {
     // If this update originates from an onChange -> prop={value} loop, the
     // object defined in the `internalValue` property should be equal to the
     // `value` property we just received. In this case, don't update anything.
-    if (deepEqual(this.jsonValue, nextProps.value)) {
+    if (deepEqual(this.internalState.jsonValue, nextProps.value)) {
       return;
     }
 
@@ -132,7 +134,8 @@ class JSONEditor extends React.Component {
     // arrangement.
 
     // Align the order the properties appear & calculate new JSON text
-    let value = JSONEditorUtil.sortObjectKeys(this.jsonValue, nextProps.value);
+    let value = JSONEditorUtil.sortObjectKeys(this.internalState.jsonValue,
+      nextProps.value);
     let composedText = JSON.stringify(value, null, 2);
 
     // Update local state with the new, computed text
@@ -234,15 +237,25 @@ class JSONEditor extends React.Component {
     //
     // TODO: Properly solve this in CSS
     //
-    let tooltipPoller = setInterval(() => {
-      let tooltip = this.aceEditor.container
-        .getElementsByClassName('ace_tooltip');
-      if (tooltip.length === 0) return;
-
-      // When the toltip appears in DOM, stop the poller and re-align it
-      clearInterval(tooltipPoller);
-      this.handleWindowResize();
-    }, 10);
+    let MutationObserver = window.MutationObserver
+      || window.mozMutationObserver || window.webkitMutationObserver
+      || window.msMutationObserver;
+    let observer = new MutationObserver((mutations)=> {
+      mutations.forEach((mutation) => {
+        if (!mutation.addedNodes) {
+          return;
+        }
+        // Wait until we the tooltip DOM element is injected and position it
+        // accordingly
+        mutation.addedNodes.forEach((node) => {
+          if (node.classList.contains('ace_tooltip')) {
+            this.handleWindowResize();
+            observer.disconnect();
+          }
+        });
+      });
+    });
+    observer.observe(this.aceEditor.container, {childList: true});
     //
     // -- END HACK -------------------------------------------------------------
 
@@ -254,7 +267,7 @@ class JSONEditor extends React.Component {
    * @param {DOMEvent} event - The event object
    */
   handleBlur(event) {
-    this.props.onBlur(event, this.jsonValue);
+    this.props.onBlur(event, this.internalState.jsonValue);
     this.isFocused = false;
   }
 
@@ -264,15 +277,15 @@ class JSONEditor extends React.Component {
    * @param {string} jsonText - The new JSON string
    */
   handleChange(jsonText) {
-    let lastValue = this.jsonValue;
-    let lastError = this.jsonError;
+    let lastValue = this.internalState.jsonValue;
+    let lastError = this.internalState.jsonError;
 
     // Calculate what the next state is going to be
     this.updateLocalJsonState(jsonText);
 
     // Handle errors
-    if (lastError !== this.jsonError) {
-      this.props.onErrorStateChange(this.jsonError);
+    if (lastError !== this.internalState.jsonError) {
+      this.props.onErrorStateChange(this.internalState.jsonError);
     }
 
     // Update the `isTyping` flag
@@ -280,19 +293,21 @@ class JSONEditor extends React.Component {
     this.scheduleIsTypingReset(ISTYPING_TIMEOUT);
 
     // If we have errors don't continue with updating the local structures
-    if (this.jsonError) {
+    if (this.internalState.jsonError) {
       return;
     }
 
     // Calculate differences in the JSON and trigger `onPropertyChange`
     // event for every property that changed in the JSON
-    let diff = JSONEditorUtil.deepObjectDiff(lastValue, this.jsonValue);
+    let diff = JSONEditorUtil.deepObjectDiff(lastValue,
+      this.internalState.jsonValue);
     diff.forEach((diff) => {
-      this.props.onPropertyChange(diff.path, diff.value, this.jsonValue);
+      this.props.onPropertyChange(diff.path, diff.value,
+        this.internalState.jsonValue);
     });
 
     // Trigger change with the latest json object
-    this.props.onChange(this.jsonValue);
+    this.props.onChange(this.internalState.jsonValue);
   }
 
   /**
@@ -301,7 +316,7 @@ class JSONEditor extends React.Component {
    * @param {DOMEvent} event - The event object
    */
   handleFocus(event) {
-    this.props.onFocus(event, this.jsonValue);
+    this.props.onFocus(event, this.internalState.jsonValue);
     this.isFocused = true;
   }
 
@@ -323,14 +338,16 @@ class JSONEditor extends React.Component {
     let markers = [];
 
     // Extract syntax errors, or other errors that refer to line
-    if (this.jsonError) {
+    if (this.internalState.jsonError) {
 
       // Strip out the 'at line xxx' message, and keep track of that line
       let errorLine = 0;
-      let errorMsg = this.jsonError.replace(/at line ([\d:]+)/g, function (m, line) {
-        errorLine = parseInt(line.split(':')[0]);
-        return '';
-      });
+      let errorMsg = this.internalState.jsonError.replace(/at line ([\d:]+)/g,
+        function (m, line) {
+          errorLine = parseInt(line.split(':')[0]);
+          return '';
+        }
+      );
 
       // Push the error marker
       markers.push({
@@ -342,9 +359,9 @@ class JSONEditor extends React.Component {
     } else {
 
       // Append annotation markers from external errors
-      markers = this.externalErrors.reduce((memo, error) => {
+      markers = this.internalState.externalErrors.reduce((memo, error) => {
         let errorPath = error.path.join('.');
-        let token = this.jsonMeta.find(function (token) {
+        let token = this.internalState.jsonMeta.find(function (token) {
           return token.path.join('.') === errorPath;
         });
 
@@ -381,26 +398,30 @@ class JSONEditor extends React.Component {
   updateLocalJsonState(jsonText) {
     // Do not perform heavyweight calculations, such as `getObjectInformation`
     // if the json text hasn't really changed.
-    if (this.jsonText === jsonText) {
+    if (this.internalState.jsonText === jsonText) {
       return;
     }
 
     // Reset some properties
-    this.jsonText = jsonText;
-    this.jsonError = null;
+    this.internalState.jsonText = jsonText;
+    this.internalState.jsonError = null;
 
     // Try to parse and extract metadata
     try {
-      this.jsonValue = JSON.parse(jsonText);
-      this.jsonMeta = JSONUtil.getObjectInformation(jsonText).reverse();
+      this.internalState.jsonValue = JSON.parse(jsonText);
+      this.internalState.jsonMeta =
+        JSONUtil.getObjectInformation(jsonText).reverse();
     } catch (e) {
       // Prettify the error message by resolving the line/column instead of
       // just keeping the offset in the string
       let errorStr = e.toString();
-      this.jsonError = errorStr.replace(/at position (\d+)/g, (match, offset) => {
-        let cursor = JSONEditorUtil.cursorFromOffset(parseInt(offset), jsonText);
-        return `at line ${cursor.row}:${cursor.column}`;
-      });
+      this.internalState.jsonError = errorStr.replace(/at position (\d+)/g,
+        (match, offset) => {
+          let cursor =
+            JSONEditorUtil.cursorFromOffset(parseInt(offset), jsonText);
+          return `at line ${cursor.row}:${cursor.column}`;
+        }
+      );
     }
 
     // Sync editor without a render cycle
@@ -446,8 +467,7 @@ class JSONEditor extends React.Component {
         onChange={this.handleChange}
         onFocus={this.handleFocus}
         onLoad={this.handleEditorLoad}
-        value={initialText}
-        />
+        value={initialText} />
     );
   }
 };

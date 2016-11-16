@@ -7,7 +7,7 @@ import deepEqual from 'deep-equal';
  * @param {Object} objectB - The second object to compare
  * @returns {Boolean} Returns `true` if all keys of A are in B or vice versa
  */
-function haveSameKeys(objectA, objectB) {
+function doKeysOverlap(objectA, objectB) {
   let keysA = Object.keys(objectA);
   let keysB = Object.keys(objectB);
   return keysA.every(function (value) {
@@ -90,12 +90,14 @@ var JSONEditorUtil = {
     let diff = oldKeys.reduce(function (memo, key) {
       let i = newKeys.indexOf(key);
       if (i === -1) {
-        return memo.concat([
+        memo.push(
           {path: path.concat([key]), value: undefined, previous: oldObj[key]}
-        ]);
+        );
+        return memo;
       }
 
       newKeys.splice(i, 1);
+
       return memo.concat(
         JSONEditorUtil.deepObjectDiff(
           oldObj[key], newObj[key], path.concat([key])
@@ -105,9 +107,10 @@ var JSONEditorUtil = {
 
     // Process new keys
     diff = newKeys.reduce(function (memo, key) {
-      return memo.concat([
+      memo.push(
         {path: path.concat([key]), value: newObj[key], previous: undefined}
-      ]);
+      );
+      return memo;
     }, diff);
 
     // If something changed, include the current object as changed
@@ -160,7 +163,7 @@ var JSONEditorUtil = {
           }
 
           if ((typeof oldItem === 'object') && (typeof newItem === 'object') &&
-              haveSameKeys(oldItem, newItem)) {
+              doKeysOverlap(oldItem, newItem)) {
             return true;
           }
 
@@ -175,6 +178,7 @@ var JSONEditorUtil = {
         // Push (and recursively sort if appliable) the value
         memo.push(JSONEditorUtil.sortObjectKeys(oldItem, newValues[i]));
         newValues.splice(i, 1);
+
         return memo;
       }, []);
 
@@ -205,6 +209,7 @@ var JSONEditorUtil = {
       // Convert keys array to an object
       return resultKeys.reduce(function (resultObj, key) {
         resultObj[key] = JSONEditorUtil.sortObjectKeys(oldVal[key], newVal[key]);
+
         return resultObj;
       }, {});
 
