@@ -1,42 +1,36 @@
 import {EventEmitter} from 'events';
 import {NAVIGATION_CHANGE} from './EventTypes';
 
-function buildPrivateContext(instance) {
-  const context = {
-    instance,
-    deferredTasks: [],
-    definition: [
-       // The only default is root, so it goes first no matter what
-       { category: 'root', children: [] }
-    ],
-    processDeferred() {
-      const tasks = this.deferredTasks.slice(0);
-      this.deferredTasks = [];
-
-      // If Task is unable to resolve at this point of time it will re-defer itself
-      tasks.forEach(({method, args}) => {
-        method.apply(this.instance, args);
-      });
-    },
-    defer(method, args) {
-      this.deferredTasks.push({method, args});
-    }
-  };
-
-  instance.getDefinition = instance.getDefinition.bind(context);
-  instance.registerCategory = instance.registerCategory.bind(context);
-  instance.registerPrimary = instance.registerPrimary.bind(context);
-  instance.registerSecondary = instance.registerSecondary.bind(context);
-
-  return context;
-}
-
 class NavigationService extends EventEmitter {
 
   constructor() {
     super();
 
-    const privateContext = buildPrivateContext(this);
+    const privateContext = {
+      instance: this,
+      deferredTasks: [],
+      definition: [
+         // The only default is root, so it goes first no matter what
+         { category: 'root', children: [] }
+      ],
+      defer(method, args) {
+        this.deferredTasks.push({method, args});
+      },
+      processDeferred() {
+        const tasks = this.deferredTasks.slice(0);
+        this.deferredTasks = [];
+
+        // If Task is unable to resolve at this point of time it will re-defer itself
+        tasks.forEach(({method, args}) => {
+          method.apply(this.instance, args);
+        });
+      }
+    };
+
+    this.getDefinition = this.getDefinition.bind(privateContext);
+    this.registerCategory = this.registerCategory.bind(privateContext);
+    this.registerPrimary = this.registerPrimary.bind(privateContext);
+    this.registerSecondary = this.registerSecondary.bind(privateContext);
 
     this.on(
       NAVIGATION_CHANGE,
