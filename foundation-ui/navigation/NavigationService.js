@@ -44,10 +44,20 @@ class NavigationService extends EventEmitter {
     );
   }
 
+  /**
+   * getDefinition - returns navigation definition
+   *
+   * @return {Array} definition items
+   */
   getDefinition() {
     return this.definition.slice(0);
   }
 
+  /**
+   * registerCategory - register a Sidebar category
+   *
+   * @param  {String} category Category name
+   */
   registerCategory(category) {
     if (!this.definition.find((element) => element.category === category)) {
       this.definition.push({
@@ -59,6 +69,14 @@ class NavigationService extends EventEmitter {
     this.instance.emit(NAVIGATION_CHANGE);
   }
 
+  /**
+   * registerPrimary - register a primary navigation element
+   *
+   * @param  {String} path - an absolute path
+   * @param  {String|React.Component} link - link label or a custom component
+   * @param  {Object} options - additional data
+   * @return {undefined}
+   */
   registerPrimary(path, link, options = {}) {
     const {category = 'root'} = options;
     const categoryElement = this.definition
@@ -86,6 +104,15 @@ class NavigationService extends EventEmitter {
     this.instance.emit(NAVIGATION_CHANGE);
   }
 
+  /**
+   * registerSecondary - register a secondary navigation element
+   *
+   * @param  {String} parentPath - an absolute path of a parent element
+   * @param  {String} path - an absolute path of the secondary element
+   * @param  {String|React.Component} link - a string label or a custom link component
+   * @param  {Object} options - additional options
+   * @return {undefined}
+   */
   registerSecondary(parentPath, path, link, options = {}) {
     // flatten categories
     const primaryElements = this.definition.reduce((result, category) => {
