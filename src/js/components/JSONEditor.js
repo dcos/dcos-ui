@@ -80,13 +80,11 @@ class JSONEditor extends React.Component {
     // The following properties are part of the `internal`, non-react state
     // and is synchronized with the react through `componentWillReceiveProps`
     //
-    this.internalState = {
-      externalErrors: [],
-      jsonError: null,
-      jsonMeta: [],
-      jsonText: '{}',
-      jsonValue: {}
-    };
+    this.externalErrors = [];
+    this.jsonError = null;
+    this.jsonMeta = [];
+    this.jsonText = '{}';
+    this.jsonValue = {};
 
     //
     // The following properties are flags and references used for other purposes
@@ -106,8 +104,8 @@ class JSONEditor extends React.Component {
    */
   componentWillReceiveProps(nextProps) {
     // Synchronise error updates
-    if (!deepEqual(this.internalState.externalErrors, nextProps.errors)) {
-      this.internalState.externalErrors = nextProps.errors;
+    if (!deepEqual(this.externalErrors, nextProps.errors)) {
+      this.externalErrors = nextProps.errors;
       this.updateEditorState();
     }
 
@@ -124,7 +122,7 @@ class JSONEditor extends React.Component {
     // If this update originates from an onChange -> prop={value} loop, the
     // object defined in the `internalValue` property should be equal to the
     // `value` property we just received. In this case, don't update anything.
-    if (deepEqual(this.internalState.jsonValue, nextProps.value)) {
+    if (deepEqual(this.jsonValue, nextProps.value)) {
       return;
     }
 
@@ -134,7 +132,7 @@ class JSONEditor extends React.Component {
     // arrangement.
 
     // Align the order the properties appear & calculate new JSON text
-    let value = JSONEditorUtil.sortObjectKeys(this.internalState.jsonValue,
+    let value = JSONEditorUtil.sortObjectKeys(this.jsonValue,
       nextProps.value);
     let composedText = JSON.stringify(value, null, 2);
 
@@ -267,7 +265,7 @@ class JSONEditor extends React.Component {
    * @param {DOMEvent} event - The event object
    */
   handleBlur(event) {
-    this.props.onBlur(event, this.internalState.jsonValue);
+    this.props.onBlur(event, this.jsonValue);
     this.isFocused = false;
   }
 
@@ -277,15 +275,15 @@ class JSONEditor extends React.Component {
    * @param {string} jsonText - The new JSON string
    */
   handleChange(jsonText) {
-    let lastValue = this.internalState.jsonValue;
-    let lastError = this.internalState.jsonError;
+    let lastValue = this.jsonValue;
+    let lastError = this.jsonError;
 
     // Calculate what the next state is going to be
     this.updateLocalJsonState(jsonText);
 
     // Handle errors
-    if (lastError !== this.internalState.jsonError) {
-      this.props.onErrorStateChange(this.internalState.jsonError);
+    if (lastError !== this.jsonError) {
+      this.props.onErrorStateChange(this.jsonError);
     }
 
     // Update the `isTyping` flag
@@ -293,21 +291,21 @@ class JSONEditor extends React.Component {
     this.scheduleIsTypingReset(ISTYPING_TIMEOUT);
 
     // If we have errors don't continue with updating the local structures
-    if (this.internalState.jsonError) {
+    if (this.jsonError) {
       return;
     }
 
     // Calculate differences in the JSON and trigger `onPropertyChange`
     // event for every property that changed in the JSON
     let diff = JSONEditorUtil.deepObjectDiff(lastValue,
-      this.internalState.jsonValue);
+      this.jsonValue);
     diff.forEach((diff) => {
       this.props.onPropertyChange(diff.path, diff.value,
-        this.internalState.jsonValue);
+        this.jsonValue);
     });
 
     // Trigger change with the latest json object
-    this.props.onChange(this.internalState.jsonValue);
+    this.props.onChange(this.jsonValue);
   }
 
   /**
@@ -316,7 +314,7 @@ class JSONEditor extends React.Component {
    * @param {DOMEvent} event - The event object
    */
   handleFocus(event) {
-    this.props.onFocus(event, this.internalState.jsonValue);
+    this.props.onFocus(event, this.jsonValue);
     this.isFocused = true;
   }
 
@@ -338,11 +336,11 @@ class JSONEditor extends React.Component {
     let markers = [];
 
     // Extract syntax errors, or other errors that refer to line
-    if (this.internalState.jsonError) {
+    if (this.jsonError) {
 
       // Strip out the 'at line xxx' message, and keep track of that line
       let errorLine = 0;
-      let errorMsg = this.internalState.jsonError.replace(/at line ([\d:]+)/g,
+      let errorMsg = this.jsonError.replace(/at line ([\d:]+)/g,
         function (m, line) {
           errorLine = parseInt(line.split(':')[0]);
           return '';
@@ -359,9 +357,9 @@ class JSONEditor extends React.Component {
     } else {
 
       // Append annotation markers from external errors
-      markers = this.internalState.externalErrors.reduce((memo, error) => {
+      markers = this.externalErrors.reduce((memo, error) => {
         let errorPath = error.path.join('.');
-        let token = this.internalState.jsonMeta.find(function (token) {
+        let token = this.jsonMeta.find(function (token) {
           return token.path.join('.') === errorPath;
         });
 
@@ -398,24 +396,23 @@ class JSONEditor extends React.Component {
   updateLocalJsonState(jsonText) {
     // Do not perform heavyweight calculations, such as `getObjectInformation`
     // if the json text hasn't really changed.
-    if (this.internalState.jsonText === jsonText) {
+    if (this.jsonText === jsonText) {
       return;
     }
 
     // Reset some properties
-    this.internalState.jsonText = jsonText;
-    this.internalState.jsonError = null;
+    this.jsonText = jsonText;
+    this.jsonError = null;
 
     // Try to parse and extract metadata
     try {
-      this.internalState.jsonValue = JSON.parse(jsonText);
-      this.internalState.jsonMeta =
-        JSONUtil.getObjectInformation(jsonText).reverse();
+      this.jsonValue = JSON.parse(jsonText);
+      this.jsonMeta = JSONUtil.getObjectInformation(jsonText).reverse();
     } catch (e) {
       // Prettify the error message by resolving the line/column instead of
       // just keeping the offset in the string
       let errorStr = e.toString();
-      this.internalState.jsonError = errorStr.replace(/at position (\d+)/g,
+      this.jsonError = errorStr.replace(/at position (\d+)/g,
         (match, offset) => {
           let cursor =
             JSONEditorUtil.cursorFromOffset(parseInt(offset), jsonText);
