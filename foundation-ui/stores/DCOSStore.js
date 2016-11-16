@@ -14,6 +14,7 @@ import {
   MARATHON_SERVICE_VERSIONS_CHANGE
 } from '../../plugins/services/src/js/constants/EventTypes';
 
+import DeclinedOffersUtil from '../../plugins/services/src/js/utils/DeclinedOffersUtil';
 import DeploymentsList from '../../plugins/services/src/js/structs/DeploymentsList';
 import Item from '../../src/js/structs/Item';
 import Framework from '../../plugins/services/src/js/structs/Framework';
@@ -219,6 +220,11 @@ class DCOSStore extends EventEmitter {
       if (entry.app == null) {
         return;
       }
+
+      entry.declinedOffers = {
+        summary: DeclinedOffersUtil.getSummaryFromQueue(entry),
+        details: DeclinedOffersUtil.getDetailsFromQueue(entry)
+      };
 
       queuedAppIDs.push(entry.app.id);
       queue.set(entry.app.id, entry);
