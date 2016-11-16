@@ -9,39 +9,44 @@ function throwError(error) {
   }
 }
 
+function buildPrivateContext(instance) {
+  const context = {
+    instance,
+    definition: [],
+    deferredTasks: [],
+    processDeferred() {
+      const tasks = this.deferredTasks.slice(0);
+      this.deferredTasks = [];
+
+      // If Task is unable to resolve at this point of time it will re-defer itself
+      tasks.forEach((args) => {
+        this.instance.registerTab.apply(this.instance, args);
+      });
+    },
+    defer(args) {
+      this.deferredTasks.push(args);
+    }
+  };
+
+  instance.getDefinition = instance.getDefinition.bind(context);
+  instance.registerPage = instance.registerPage.bind(context);
+  instance.registerTab = instance.registerTab.bind(context);
+  instance.registerRedirect = instance.registerRedirect.bind(context);
+
+  return context;
+}
+
 class RoutingService extends EventEmitter {
 
   constructor() {
     super();
 
-    const privateContext = {
-      definition: [],
-      deferredTasks: [],
-      instance: this
-    };
+    const privateContext = buildPrivateContext(this);
 
-    this.defer = this.defer.bind(privateContext);
-    this.processDeferred = this.processDeferred.bind(privateContext);
-    this.getDefinition = this.getDefinition.bind(privateContext);
-    this.registerPage = this.registerPage.bind(privateContext);
-    this.registerTab = this.registerTab.bind(privateContext);
-    this.registerRedirect = this.registerRedirect.bind(privateContext);
-
-    this.on(ROUTING_CHANGE, this.processDeferred);
-  }
-
-  processDeferred() {
-    const tasks = this.deferredTasks.slice(0);
-    this.deferredTasks = [];
-
-    // If Task is unable to resolve at this point of time it will re-defer itself
-    tasks.forEach((args) => {
-      this.instance.registerTab.apply(this.instance, args);
-    });
-  }
-
-  defer(args) {
-    this.deferredTasks.push(args);
+    this.on(
+      ROUTING_CHANGE,
+      privateContext.processDeferred.bind(privateContext)
+    );
   }
 
   getDefinition() {
@@ -93,7 +98,7 @@ class RoutingService extends EventEmitter {
     const page = this.definition.find((route) => route.path === pagePath);
 
     if (!page) {
-      return this.instance.defer(arguments);
+      return this.defer(arguments);
     }
 
     if (!page.children) {
