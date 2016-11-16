@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import React from 'react';
 import {Table} from 'reactjs-components';
 
+import DeclinedOffersReasons from '../constants/DeclinedOffersReasons';
 import DateUtil from '../../../../../src/js/utils/DateUtil';
 import Icon from '../../../../../src/js/components/Icon';
 import TableUtil from '../../../../../src/js/utils/TableUtil';
@@ -51,9 +52,9 @@ const getMatchedResourcesSortFn = (resource) => {
       return DateUtil.strToMs(item[prop]);
     }
 
-    const {unmatchedResources = []} = item;
+    const {unmatchedResource = []} = item;
 
-    if (unmatchedResources.includes(resource)) {
+    if (unmatchedResource.includes(resource)) {
       return 1;
     }
 
@@ -63,10 +64,10 @@ const getMatchedResourcesSortFn = (resource) => {
 
 const getMatchedOfferRenderFn = (resource) => {
   return (prop, row) => {
-    const {unmatchedResources = []} = row;
+    const {unmatchedResource = []} = row;
     let icon = null;
 
-    if (unmatchedResources.includes(resource)) {
+    if (unmatchedResource.includes(resource)) {
       icon = <Icon color="red" family="mini" id="close" size="mini" />;
     } else {
       icon = <Icon color="neutral" family="mini" id="check" size="mini" />;
@@ -101,20 +102,23 @@ const columns = [
     heading: getColumnHeadingFn('Role', 'RLE'),
     prop: 'role',
     className: getColumnClassNameFn('text-align-center'),
-    render: getMatchedOfferRenderFn('role'),
+    render: getMatchedOfferRenderFn(DeclinedOffersReasons.UNFULFILLED_ROLE),
     sortable: true,
     sortFunction: TableUtil.getSortFunction(
-      'timestamp', getMatchedResourcesSortFn('role')
+      'timestamp',
+      getMatchedResourcesSortFn(DeclinedOffersReasons.UNFULFILLED_ROLE)
     )
   },
   {
     heading: getColumnHeadingFn('Constraint', 'CSTR'),
     prop: 'constraint',
     className: getColumnClassNameFn('text-align-center'),
-    render: getMatchedOfferRenderFn('constraint'),
+    render:
+      getMatchedOfferRenderFn(DeclinedOffersReasons.UNFULFILLED_CONSTRAINT),
     sortable: true,
     sortFunction: TableUtil.getSortFunction(
-      'timestamp', getMatchedResourcesSortFn('constraint')
+      'timestamp',
+      getMatchedResourcesSortFn(DeclinedOffersReasons.UNFULFILLED_CONSTRAINT)
     )
   },
   {
@@ -124,55 +128,66 @@ const columns = [
     render: (prop, row) => {
       return (
         <div className="flex flex-justify-items-space-around">
-          {getMatchedOfferRenderFn('cpu')(prop, row)}
-          {getMatchedOfferRenderFn('mem')(prop, row)}
-          {getMatchedOfferRenderFn('disk')(prop, row)}
+          {getMatchedOfferRenderFn(
+              DeclinedOffersReasons.INSUFFICIENT_CPU
+            )(prop, row)}
+          {getMatchedOfferRenderFn(
+              DeclinedOffersReasons.INSUFFICIENT_MEM
+            )(prop, row)}
+          {getMatchedOfferRenderFn(
+              DeclinedOffersReasons.INSUFFICIENT_DISK
+            )(prop, row)}
         </div>
       );
     },
     sortable: true,
     sortFunction: TableUtil.getSortFunction(
-      'timestamp', getMatchedResourcesSortFn('cpu')
+      'timestamp',
+      getMatchedResourcesSortFn(DeclinedOffersReasons.INSUFFICIENT_CPU)
     )
   },
   {
     heading: getColumnHeadingFn('CPU'),
     prop: 'cpu',
     className: getColumnClassNameFn('text-align-center hidden-medium-down'),
-    render: getMatchedOfferRenderFn('cpu'),
+    render: getMatchedOfferRenderFn(DeclinedOffersReasons.INSUFFICIENT_CPU),
     sortable: true,
     sortFunction: TableUtil.getSortFunction(
-      'timestamp', getMatchedResourcesSortFn('cpu')
+      'timestamp',
+      getMatchedResourcesSortFn(DeclinedOffersReasons.INSUFFICIENT_CPU)
     )
   },
   {
     heading: getColumnHeadingFn('Mem'),
     prop: 'mem',
     className: getColumnClassNameFn('text-align-center hidden-medium-down'),
-    render: getMatchedOfferRenderFn('mem'),
+    render: getMatchedOfferRenderFn(DeclinedOffersReasons.INSUFFICIENT_MEM),
     sortable: true,
     sortFunction: TableUtil.getSortFunction(
-      'timestamp', getMatchedResourcesSortFn('mem')
+      'timestamp',
+      getMatchedResourcesSortFn(DeclinedOffersReasons.INSUFFICIENT_MEM)
     )
   },
   {
     heading: getColumnHeadingFn('Disk', 'DSK'),
     prop: 'disk',
     className: getColumnClassNameFn('text-align-center hidden-medium-down'),
-    render: getMatchedOfferRenderFn('disk'),
+    render: getMatchedOfferRenderFn(DeclinedOffersReasons.INSUFFICIENT_DISK),
     sortable: true,
     sortFunction: TableUtil.getSortFunction(
-      'timestamp', getMatchedResourcesSortFn('disk')
+      'timestamp',
+      getMatchedResourcesSortFn(DeclinedOffersReasons.INSUFFICIENT_DISK)
     )
   },
   {
     heading: getColumnHeadingFn('Port', 'PRT'),
     prop: 'port',
     className: getColumnClassNameFn('text-align-center'),
-    render: getMatchedOfferRenderFn('port'),
+    render: getMatchedOfferRenderFn(DeclinedOffersReasons.INSUFFICIENT_PORTS),
     sortable: true,
     sortFunction: TableUtil.getSortFunction(
-      'timestamp', getMatchedResourcesSortFn('port')
+      'timestamp',
+      getMatchedResourcesSortFn(DeclinedOffersReasons.INSUFFICIENT_PORTS)
     )
   },
   {

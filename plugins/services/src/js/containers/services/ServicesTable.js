@@ -229,24 +229,33 @@ class ServicesTable extends React.Component {
       verboseOverview = ` (${tasksRunning} of ${instancesCount} Instances)`;
     }
 
-    // TODO: Determine when a service is waiting for resources.
-    if (true || serviceStatus === 'Waiting') {
-      // TODO: Determine for how long a service has been waiting for resources.
-      let timeWaiting = DateUtil.getDuration(Math.random() * 1000);
+    let queue = null;
 
-      tooltip = (
-        <Tooltip
-          content={`This service has been stuck waiting for resources for ${timeWaiting}.`}
-          maxWidth={250}
-          wrapText={true}
-          wrapperClassName="tooltip-wrapper status-waiting-indicator">
-          <Icon
-            color="red"
-            family="mini"
-            id="ring-exclamation"
-            size="mini" />
-        </Tooltip>
-      );
+    if (!!service.getQueue) {
+      queue = service.getQueue();
+    }
+
+    if (queue != null) {
+      const waitingSince = DateUtil.strToMs(queue.since);
+      const timeWaiting = Date.now() - waitingSince;
+
+      // If the service has been waiting for less than five minutes, we don't
+      // display the warning.
+      if (timeWaiting >= 1000 * 60 * 5) {
+        tooltip = (
+          <Tooltip
+            content={`This service has been stuck waiting for resources for ${DateUtil.getDuration(timeWaiting, null)}.`}
+            maxWidth={250}
+            wrapText={true}
+            wrapperClassName="tooltip-wrapper status-waiting-indicator">
+            <Icon
+              color="red"
+              family="mini"
+              id="ring-exclamation"
+              size="mini" />
+          </Tooltip>
+        );
+      }
     }
 
     return (

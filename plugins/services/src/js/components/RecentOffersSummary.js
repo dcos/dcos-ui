@@ -3,12 +3,13 @@ import React from 'react';
 import {Table} from 'reactjs-components';
 
 import Units from '../../../../../src/js/utils/Units';
-import Util from '../../../../../src/js/utils/Util';
 
 const displayedResourceValues = {
   role: 'Role',
   constraint: 'Constraint',
-  resources: <span>CPU/<wbr />MEM/<wbr />DISK</span>,
+  cpu: 'CPU',
+  mem: 'Mem',
+  disk: 'Disk',
   ports: 'Ports'
 };
 
@@ -64,18 +65,28 @@ const columns = [
     render: (prop, row) => {
       const requestedResource = row[prop];
 
-      if (Array.isArray(requestedResource)) {
-        return requestedResource.join(', ');
+      // Constraints are nested arrays, so we return them as follows:
+      // [[a, b, c], [d, e]] displays a:b:c, d:e
+      if (row.resource === 'constraint') {
+        return requestedResource.map((constraint) => {
+          return constraint.join(':');
+        }).join(', ');
       }
 
-      if (Util.isObject(requestedResource) && row.resource === 'resources') {
-        const valuesToDisplay = [
-          Units.formatResource('cpu', requestedResource.cpu),
-          Units.formatResource('mem', requestedResource.mem),
-          Units.formatResource('disk', requestedResource.disk)
-        ];
+      if (row.resource === 'cpu') {
+        return Units.formatResource('cpu', requestedResource.cpu);
+      }
 
-        return valuesToDisplay.join(' / ');
+      if (row.resource === 'mem') {
+        return Units.formatResource('mem', requestedResource.mem);
+      }
+
+      if (row.resource === 'disk') {
+        return Units.formatResource('disk', requestedResource.disk);
+      }
+
+      if (Array.isArray(requestedResource)) {
+        return requestedResource.join(', ');
       }
 
       return requestedResource;
@@ -118,11 +129,21 @@ const columns = [
 ];
 
 const RecentOffersSummary = ({data}) => {
+  const tableRows = ['role', 'constraint', 'cpu', 'mem', 'disk', 'ports'];
+  const summaryData = tableRows.map((resource) => {
+    return {
+      resource,
+      requested: data[resource].requested,
+      offers: data[resource].offers,
+      matched: data[resource].matched
+    };
+  });
+
   return (
     <Table className="table table-simple table-break-word flush-bottom"
       colGroup={colGroup}
       columns={columns}
-      data={data} />
+      data={summaryData} />
   );
 };
 
