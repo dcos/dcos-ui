@@ -7,7 +7,8 @@ import FieldTextarea from '../../../../../../src/js/components/form/FieldTextare
 import FieldLabel from '../../../../../../src/js/components/form/FieldLabel';
 import FieldSelect from '../../../../../../src/js/components/form/FieldSelect';
 import FormGroup from '../../../../../../src/js/components/form/FormGroup';
-import Icon from '../../../../../../src/js/components/Icon';
+import FormGroupContainer from '../../../../../../src/js/components/form/FormGroupContainer';
+
 import {FormReducer as healthChecks} from '../../reducers/serviceForm/HealthChecks';
 
 class HealthChecksFormSection extends Component {
@@ -144,34 +145,28 @@ class HealthChecksFormSection extends Component {
 
     return data.map((healthCheck, key) => {
       return (
-        <div key={key} className="panel pod-short">
-          <div className="pod-narrow pod-short">
-            <div className="flex row">
-              <FormGroup
-                className="column-6"
-                showError={Boolean(healthChecks[key])}>
-                <FieldLabel>Protocol</FieldLabel>
-                <FieldSelect name={`healthChecks.${key}.protocol`}
-                  value={healthCheck.protocol &&
-                  healthCheck.protocol.replace('HTTPS', 'HTTP')}>
-                  <option value="">Select Protocol</option>
-                  <option value="COMMAND">Command</option>
-                  <option value="HTTP">HTTP</option>
-                </FieldSelect>
-                <FieldError>{healthChecks[key]}</FieldError>
-              </FormGroup>
-              <div className="form-remove">
-                <a className="button button-link"
-                  onClick={this.props.onRemoveItem.bind(this, {value: key, path: 'healthChecks'})}>
-                  <Icon id="close" color="grey" size="tiny"/>
-                </a>
-              </div>
-            </div>
-            {this.getCommandFields(healthCheck, key)}
-            {this.getHTTPFields(healthCheck, key)}
-            {this.getAdvancedSettings(healthCheck, key)}
+        <FormGroupContainer key={key}
+          onRemove={this.props.onRemoveItem.bind(this,
+            {value: key, path: 'healthChecks'})}>
+          <div className="flex row">
+            <FormGroup
+              className="column-6"
+              showError={Boolean(healthChecks[key])}>
+              <FieldLabel>Protocol</FieldLabel>
+              <FieldSelect name={`healthChecks.${key}.protocol`}
+                value={healthCheck.protocol &&
+                healthCheck.protocol.replace('HTTPS', 'HTTP')}>
+                <option value="">Select Protocol</option>
+                <option value="COMMAND">Command</option>
+                <option value="HTTP">HTTP</option>
+              </FieldSelect>
+              <FieldError>{healthChecks[key]}</FieldError>
+            </FormGroup>
           </div>
-        </div>
+          {this.getCommandFields(healthCheck, key)}
+          {this.getHTTPFields(healthCheck, key)}
+          {this.getAdvancedSettings(healthCheck, key)}
+        </FormGroupContainer>
       );
     });
   }
