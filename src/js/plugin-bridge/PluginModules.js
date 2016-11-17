@@ -84,5 +84,8 @@ module.exports = {
   },
   routing: {
     routing: 'index'
+  },
+  navigation: {
+    navigation: 'index'
   }
 };

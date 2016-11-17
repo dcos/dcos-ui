@@ -12,12 +12,13 @@ import Icon from './Icon';
 import InternalStorageMixin from '../mixins/InternalStorageMixin';
 import MesosSummaryStore from '../stores/MesosSummaryStore';
 import MetadataStore from '../stores/MetadataStore';
-import {
-  NavigationService,
-  EventTypes as NavigationServiceEventTypes} from '../../../foundation-ui/navigation';
 import PrimarySidebarLink from '../components/PrimarySidebarLink';
 import SaveStateMixin from '../mixins/SaveStateMixin';
 import SidebarActions from '../events/SidebarActions';
+
+const {
+  NavigationService,
+  EventTypes: {NAVIGATION_CHANGE}} = PluginSDK.get('navigation');
 
 let defaultMenuItems = [
   '/dashboard',
@@ -54,10 +55,7 @@ var Sidebar = React.createClass({
   },
 
   componentDidMount() {
-    NavigationService.on(
-      NavigationServiceEventTypes.NAVIGATION_CHANGE,
-      this.onNavigationChange
-    );
+    NavigationService.on(NAVIGATION_CHANGE, this.onNavigationChange);
 
     this.internalStorage_update({
       mesosInfo: MesosSummaryStore.get('states').lastSuccessful()
@@ -73,7 +71,7 @@ var Sidebar = React.createClass({
 
   componentWillUnmount() {
     NavigationService.removeListener(
-      NavigationServiceEventTypes.NAVIGATION_CHANGE,
+      NAVIGATION_CHANGE,
       this.onNavigationChange
     );
     MetadataStore.removeChangeListener(
