@@ -3,10 +3,10 @@ import {routerShape} from 'react-router';
 
 import Alert from '../../../../../../src/js/components/Alert';
 import DateUtil from '../../../../../../src/js/utils/DateUtil';
+import DeclinedOffersTable from '../../components/DeclinedOffersTable';
 import DescriptionList from '../../../../../../src/js/components/DescriptionList';
 import MarathonStore from '../../stores/MarathonStore';
 import RecentOffersSummary from '../../components/RecentOffersSummary';
-import RejectedOffersTable from '../../components/RejectedOffersTable';
 import Service from '../../structs/Service';
 import TaskStatsTable from './TaskStatsTable';
 import TimeAgo from '../../../../../../src/js/components/TimeAgo';
@@ -110,7 +110,7 @@ class ServiceDebugContainer extends React.Component {
     );
   }
 
-  getRejectedOffersTable() {
+  getDeclinedOffersTable() {
     const queue = this.props.service.getQueue();
 
     if (queue == null || queue.declinedOffers.offers == null) {
@@ -122,7 +122,7 @@ class ServiceDebugContainer extends React.Component {
     return (
       <div>
         <h5>Last {offerCount} Declined Offers</h5>
-        <RejectedOffersTable data={queue.declinedOffers.offers} />
+        <DeclinedOffersTable data={queue.declinedOffers.offers} />
       </div>
     );
   }
@@ -179,7 +179,7 @@ class ServiceDebugContainer extends React.Component {
         </h5>
         {this.getTaskStats()}
         {this.getRecentOfferSummary()}
-        {this.getRejectedOffersTable()}
+        {this.getDeclinedOffersTable()}
       </div>
     );
   }
