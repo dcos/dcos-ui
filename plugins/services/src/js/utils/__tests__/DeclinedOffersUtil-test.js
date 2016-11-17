@@ -18,16 +18,6 @@ describe('DeclinedOffersUtil', function () {
       })).toEqual(null);
     });
 
-    it('returns null when lastUnusedOffers is undefined, null, or an empty array', function () {
-      expect(DeclinedOffersUtil.getSummaryFromQueue({})).toEqual(null);
-      expect(DeclinedOffersUtil.getSummaryFromQueue({
-        lastUnusedOffers: null
-      })).toEqual(null);
-      expect(DeclinedOffersUtil.getSummaryFromQueue({
-        lastUnusedOffers: []
-      })).toEqual(null);
-    });
-
     it('transforms the API response into the expected format for a service', function () {
       const summary = DeclinedOffersUtil.getSummaryFromQueue({
         app: {
