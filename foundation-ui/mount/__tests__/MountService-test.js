@@ -117,29 +117,33 @@ describe('MountService', function () {
   });
 
   describe('findComponentsWithType', function () {
+    const FirstComponent = function () {};
+    const SecondComponent = function () {};
+    const ThirdComponent = function () {};
+    const FourthComponent = function () {};
 
     beforeEach(function () {
-      MountService.registerComponent(FunctionalComponent, 'find-test', 0);
-      MountService.registerComponent(FunctionalComponent, 'find-test', 0);
-      MountService.registerComponent(ReactComponent, 'find-test', 2);
-      MountService.registerComponent(ReactComponent, 'find-test', 0);
+      MountService.registerComponent(SecondComponent, 'find-test', 0);
+      MountService.registerComponent(ThirdComponent, 'find-test', 0);
+      MountService.registerComponent(FirstComponent, 'find-test', 2);
+      MountService.registerComponent(FourthComponent, 'find-test', 0);
     });
 
     afterEach(function () {
-      MountService.unregisterComponent(FunctionalComponent, 'find-test');
-      MountService.unregisterComponent(FunctionalComponent, 'find-test');
-      MountService.unregisterComponent(ReactComponent, 'find-test');
-      MountService.unregisterComponent(ReactComponent, 'find-test');
+      MountService.unregisterComponent(FirstComponent, 'find-test');
+      MountService.unregisterComponent(SecondComponent, 'find-test');
+      MountService.unregisterComponent(ThirdComponent, 'find-test');
+      MountService.unregisterComponent(FourthComponent, 'find-test');
     });
 
     it('should return list of matching components in proper order',
         function () {
           expect(MountService.findComponentsWithType('find-test'))
               .toEqual([
-                ReactComponent,
-                FunctionalComponent,
-                FunctionalComponent,
-                ReactComponent
+                FirstComponent,
+                SecondComponent,
+                ThirdComponent,
+                FourthComponent
               ]);
         }
     );
