@@ -48,7 +48,6 @@ module.exports = Object.assign({}, StoreMixin, {
     'delayApplicationLoad',
     'organizationRoutes',
     'sidebarFooter',
-    'system-organization-tabs',
     'serverErrorModalListeners'
   ],
 
@@ -189,15 +188,6 @@ module.exports = Object.assign({}, StoreMixin, {
     };
 
     return routeDefinition;
-  },
-
-  'system-organization-tabs': function (tabs) {
-    return Object.assign({}, tabs, {
-      '/organization/users': {
-        content: 'Users',
-        priority: 50
-      }
-    });
   },
 
   userLoginSuccess() {
