@@ -81,5 +81,8 @@ module.exports = {
   },
   systemPages: {
     UsersTab: 'UsersTab'
+  },
+  routing: {
+    routing: 'index'
   }
 };

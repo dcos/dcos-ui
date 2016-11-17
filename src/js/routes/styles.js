@@ -1,4 +1,4 @@
-import {Route, Redirect} from 'react-router';
+import PluginSDK from 'PluginSDK';
 
 import ButtonCollectionsTabContent from '../pages/styles/components/ButtonCollectionsTabContent';
 import ButtonGroupsTabContent from '../pages/styles/components/ButtonGroupsTabContent';
@@ -24,147 +24,32 @@ import ImagesTabContent from '../pages/styles/content/ImagesTabContent';
 
 import StylesPage from '../pages/StylesPage';
 
-let stylesRoutes = [
-  {
-    type: Redirect,
-    from: '/styles',
-    to: '/styles/layout'
-  },
-  {
-    type: Route,
-    path: 'styles',
-    component: StylesPage,
-    children: [
-      {
-        type: Redirect,
-        from: '/styles/layout',
-        to: '/styles/layout/containers'
-      },
-      {
-        type: Route,
-        path: 'layout',
-        children: [
-          {
-            type: Route,
-            path: 'containers',
-            component: ContainersTabContent
-          },
-          {
-            type: Route,
-            path: 'grid',
-            component: GridTabContent
-          },
-          {
-            type: Route,
-            path: 'pods',
-            component: PodsTabContent
-          },
-          {
-            type: Route,
-            path: 'flex',
-            component: FlexTabContent
-          },
-          {
-            type: Route,
-            path: 'dividers',
-            component: DividersTabContent
-          },
-          {
-            type: Route,
-            path: 'responsive-utilities',
-            component: ResponsiveUtilitiesTabContent
-          }
-        ]
-      },
-      {
-        type: Redirect,
-        from: '/styles/content',
-        to: '/styles/content/typography'
-      },
-      {
-        type: Route,
-        path: 'content',
-        children: [
-          {
-            type: Route,
-            path: 'typography',
-            component: TypographyTabContent
-          },
-          {
-            type: Route,
-            path: 'tables',
-            component: TablesTabContent
-          },
-          {
-            type: Route,
-            path: 'colors',
-            component: ColorsTabContent
-          },
-          {
-            type: Route,
-            path: 'code',
-            component: CodeTabContent
-          },
-          {
-            type: Route,
-            path: 'images',
-            component: ImagesTabContent
-          }
-        ]
-      },
-      {
-        type: Redirect,
-        from: '/styles/components',
-        to: '/styles/components/buttons'
-      },
-      {
-        type: Route,
-        path: 'components',
-        children: [
-          {
-            type: Route,
-            path: 'buttons',
-            component: ButtonsTabContent
-          },
-          {
-            type: Route,
-            path: 'button-collections',
-            component: ButtonCollectionsTabContent
-          },
-          {
-            type: Route,
-            path: 'button-groups',
-            component: ButtonGroupsTabContent
-          },
-          {
-            type: Route,
-            path: 'dropdowns',
-            component: DropdownsTabContent
-          },
-          {
-            type: Route,
-            path: 'forms',
-            component: FormsTabContent
-          },
-          {
-            type: Route,
-            path: 'icons',
-            component: IconsTabContent
-          },
-          {
-            type: Route,
-            path: 'modals',
-            component: ModalsTabContent
-          },
-          {
-            type: Route,
-            path: 'panels',
-            component: PanelsTabContent
-          }
-        ]
-      }
-    ]
-  }
-];
+const {RoutingService} = PluginSDK.get('routing');
 
-module.exports = stylesRoutes;
+RoutingService.registerRedirect('/styles', '/styles/layout');
+RoutingService.registerRedirect('/styles/layout', '/styles/layout/containers');
+
+RoutingService.registerTab('styles', 'layout/containers', ContainersTabContent);
+RoutingService.registerTab('styles', 'layout/grid', GridTabContent);
+RoutingService.registerTab('styles', 'layout/pods', PodsTabContent);
+RoutingService.registerTab('styles', 'layout/flex', FlexTabContent);
+RoutingService.registerTab('styles', 'layout/dividers', DividersTabContent);
+RoutingService.registerTab('styles', 'layout/responsive-utilities', ResponsiveUtilitiesTabContent);
+
+RoutingService.registerRedirect('/styles/content', '/styles/content/typography');
+RoutingService.registerTab('styles', 'content/typography', TypographyTabContent);
+RoutingService.registerTab('styles', 'content/tables', TablesTabContent);
+RoutingService.registerTab('styles', 'content/colors', ColorsTabContent);
+RoutingService.registerTab('styles', 'content/code', CodeTabContent);
+RoutingService.registerTab('styles', 'content/images', ImagesTabContent);
+
+RoutingService.registerRedirect('/styles/components', '/styles/components/buttons');
+RoutingService.registerTab('styles', 'components/buttons', ButtonsTabContent);
+RoutingService.registerTab('styles', 'components/button-collections', ButtonCollectionsTabContent);
+RoutingService.registerTab('styles', 'components/button-groups', ButtonGroupsTabContent);
+RoutingService.registerTab('styles', 'components/dropdowns', DropdownsTabContent);
+RoutingService.registerTab('styles', 'components/forms', FormsTabContent);
+RoutingService.registerTab('styles', 'components/icons', IconsTabContent);
+RoutingService.registerTab('styles', 'components/modals', ModalsTabContent);
+RoutingService.registerTab('styles', 'components/panels', PanelsTabContent);
+RoutingService.registerPage('styles', StylesPage);

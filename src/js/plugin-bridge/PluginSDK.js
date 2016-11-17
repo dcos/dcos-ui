@@ -263,14 +263,14 @@ const getSDK = function (pluginID, config) {
   }
 
   let SDK = new PluginSDKStruct({
-    config: config || {},
     addStoreConfig,
-    dispatch: createDispatcher(pluginID),
-    Store: StoreAPI,
-    Hooks: hooks,
-    pluginID,
+    constants,
     onDispatch,
-    constants
+    pluginID,
+    config: config || {},
+    dispatch: createDispatcher(pluginID),
+    Hooks: hooks,
+    Store: StoreAPI
   });
 
   extendSDK(SDK, getActionsAPI(SDK));

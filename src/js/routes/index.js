@@ -5,14 +5,15 @@ import cluster from './cluster';
 import components from './components';
 import dashboard from './dashboard';
 import Index from '../pages/Index';
+import jobs from './jobs';
 import Network from './factories/network';
 import nodes from '../../../plugins/nodes/src/js/routes/nodes';
 import NotFoundPage from '../pages/NotFoundPage';
 import Organization from './factories/organization';
-import settings from './settings';
-import styles from './styles';
+import {RoutingService} from '../../../foundation-ui/routing';
 import services from '../../../plugins/services/src/js/routes/services';
-import jobs from './jobs';
+import settings from './settings';
+import styles from './styles'; // eslint-disable-line
 import universe from './universe';
 
 // Modules that produce routes
@@ -33,8 +34,7 @@ function getApplicationRoutes() {
     universe,
     cluster,
     components,
-    settings,
-    styles
+    settings
   );
 
   routeFactories.forEach(function (routeFactory) {
@@ -66,8 +66,18 @@ function getApplicationRoutes() {
 function getRoutes() {
   // Get application routes
   let routes = getApplicationRoutes();
+
   // Provide opportunity for plugins to inject routes
-  return Hooks.applyFilter('applicationRoutes', routes);
+  routes = Hooks.applyFilter('applicationRoutes', routes);
+
+  let indexRoute = routes[0].children.find((route) => route.id === 'index');
+
+  // Register packages
+  indexRoute.children = indexRoute.children.concat(
+    RoutingService.getDefinition()
+  );
+
+  return routes;
 }
 
 module.exports = {
