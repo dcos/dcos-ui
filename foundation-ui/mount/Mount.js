@@ -1,6 +1,6 @@
 import React, {PropTypes} from 'react';
 
-import MountService from './MountService';
+import {MountService} from './index';
 import {CHANGE} from './MountEvent';
 import ReactUtil from '../utils/ReactUtil';
 

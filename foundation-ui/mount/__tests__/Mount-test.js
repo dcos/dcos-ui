@@ -1,5 +1,6 @@
 jest.dontMock('../Mount');
 jest.dontMock('../MountService');
+jest.dontMock('../index');
 jest.dontMock('../../utils/ReactUtil');
 /* eslint-disable no-unused-vars */
 const React = require('react');
@@ -7,7 +8,7 @@ const React = require('react');
 const TestUtils = require('react-addons-test-utils');
 
 const Mount = require('../Mount');
-const MountService = require('../MountService');
+const {MountService} = require('../index');
 
 describe('Mount', function () {
   const FirstTestComponent = function (props) {

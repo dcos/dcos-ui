@@ -3,5 +3,5 @@ import MountService from './MountService';
 
 module.exports = {
   Mount,
-  MountService
+  MountService: new MountService()
 };
