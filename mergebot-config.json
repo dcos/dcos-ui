@@ -1,5 +1,5 @@
 {
-    "ship-it": false,
+    "ship-it": true,
     "integrate-it": true,
-    "test-it": false
+    "test-it": true
 }
