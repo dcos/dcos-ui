@@ -116,3 +116,7 @@ this.state = {
 ## API Requests
 
 API Requests should go into an Action file like [this](https://github.com/dcos/dcos-ui/blob/master/src/js/events/CosmosPackagesActions.js)
+
+## CSS
+
+Please review our [CSS styleguide](https://github.com/dcos/dcos-ui-common/tree/master/stylelint-config-dcos).
