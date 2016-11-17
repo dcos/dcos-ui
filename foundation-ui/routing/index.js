@@ -1,4 +1,7 @@
 import RoutingService from './RoutingService';
+import EventTypes from './EventTypes';
 
-const service = new RoutingService();
-export default service;
+module.exports = {
+  EventTypes,
+  RoutingService: new RoutingService()
+};

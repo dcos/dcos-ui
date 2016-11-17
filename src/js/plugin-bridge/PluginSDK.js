@@ -11,7 +11,6 @@ import Hooks from './Hooks';
 import PluginSDKStruct from './PluginSDKStruct';
 import Loader from './Loader';
 import PluginModules from './PluginModules';
-import {RoutingService} from '../../../foundation-ui';
 
 const hooks = new Hooks();
 const initialState = {};
@@ -271,7 +270,6 @@ const getSDK = function (pluginID, config) {
     config: config || {},
     dispatch: createDispatcher(pluginID),
     Hooks: hooks,
-    routingService: RoutingService,
     Store: StoreAPI
   });
 

@@ -14,6 +14,8 @@ const requireComponents = require.context('../components', false);
 const requireCharts = require.context('../components/charts', false);
 const requireIcons = require.context('../components/icons', false);
 const requireModals = require.context('../components/modals', false);
+// Foundation
+const requireRouting = require.context('../../../foundation-ui/routing', false);
 let requireExternalPlugin = function () {
   return {};
 };
@@ -92,6 +94,8 @@ function requireModule(dir, name) {
       return requireConstants(path);
     case 'events':
       return requireEvents(path);
+    case 'routing':
+      return requireRouting(path);
     case 'systemPages':
       return requireSystemPages(path);
     case 'stores':
