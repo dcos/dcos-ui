@@ -2,27 +2,37 @@ import {EventEmitter} from 'events';
 import {CHANGE} from './MountEvent';
 
 /**
- * List of component descriptors
- *
- * @type {Array.<{component:function, priority:Number, type:String}>}
- */
-const components = [];
-
-/**
- * Consecutive number used to rank components based on order of registration
- *
- * @type {number}
- */
-let rank = 0;
-
-/**
  * MountService
  */
 class MountService extends EventEmitter {
+  constructor() {
+    super(...arguments);
+
+    /**
+     * Private Context
+     *
+     * @typedef {Object} MountService~Context
+     * @property {MountService} instance - Current mount service instance
+     * @property {Array.<{component:function, priority:Number, type:String}>}
+     *     components -  List of component descriptors
+     * @property {number} rank - Consecutive number used to rank components
+     *     based on order of registration
+     */
+    const context = {
+      components: [],
+      instance: this,
+      rank: 0
+    };
+
+    this.registerComponent = this.registerComponent.bind(context);
+    this.unregisterComponent = this.unregisterComponent.bind(context);
+    this.findComponentsWithType = this.findComponentsWithType.bind(context);
+  }
 
   /**
    * Register component with type and optional priority
    *
+   * @this MountService~Context
    * @param {function} component - React component which will be
    * mounted based on the provided type
    * @param {String} type - String which is used to match components with the
@@ -30,6 +40,8 @@ class MountService extends EventEmitter {
    * @param {Number} [priority] - Number which is used to sort the components
    */
   registerComponent(component, type, priority = 0) {
+    let {components, instance, rank} = this;
+
     if (typeof component !== 'function') {
       if (global.__DEV__) {
         throw new TypeError('Provided component must be a ' +
@@ -57,6 +69,7 @@ class MountService extends EventEmitter {
 
       return;
     }
+
     // Add component descriptor and sort components list by priority and rank
     components.push({component, priority, type, rank: rank++});
     components.sort((a, b) => {
@@ -67,16 +80,19 @@ class MountService extends EventEmitter {
       return a.rank - b.rank;
     });
 
-    this.emit(CHANGE, type);
+    instance.emit(CHANGE, type);
   }
 
   /**
    * Unregisters component by matching type and component
    *
+   * @this MountService~Context
    * @param  {function} component
    * @param  {String} type
    */
   unregisterComponent(component, type) {
+    let {components, instance} = this;
+
     let i = components.length;
     while (--i >= 0) {
       if (components[i].component === component &&
@@ -86,16 +102,19 @@ class MountService extends EventEmitter {
       }
     }
 
-    this.emit(CHANGE, type);
+    instance.emit(CHANGE, type);
   }
 
   /**
    * Find components with matching type
    *
+   * @this MountService~Context
    * @param {String} type
    * @returns {Array} list of matching components ordered by priority
    */
   findComponentsWithType(type) {
+    let {components} = this;
+
     return components.filter((descriptor) => descriptor.type === type)
         .map((descriptor) => descriptor.component);
   }
