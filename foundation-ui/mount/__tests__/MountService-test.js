@@ -87,6 +87,16 @@ describe('MountService', function () {
       }).toThrow();
     });
 
+    it('should throw if the component/type combination is already registered',
+        function () {
+          MountService.registerComponent(ReactComponent, 'register-test');
+
+          expect(function () {
+            MountService.registerComponent(ReactComponent, 'register-test');
+          }).toThrow();
+        }
+    );
+
   });
 
   describe('unregisterComponent', function () {

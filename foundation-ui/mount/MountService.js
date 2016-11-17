@@ -47,6 +47,16 @@ class MountService extends EventEmitter {
       return;
     }
 
+    if (components.find((descriptor) =>
+        descriptor.component === component &&
+        descriptor.type === type)) {
+      if (global.__DEV__) {
+        throw new Error('Provided component/type combination ' +
+            'is already registered');
+      }
+
+      return;
+    }
     // Add component descriptor and sort components list by priority and rank
     components.push({component, priority, type, rank: rank++});
     components.sort((a, b) => {
