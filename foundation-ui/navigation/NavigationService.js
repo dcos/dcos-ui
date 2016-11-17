@@ -6,6 +6,9 @@ class NavigationService extends EventEmitter {
   constructor() {
     super();
 
+    /**
+     * @typedef NavigationService~Context
+     */
     const privateContext = {
       instance: this,
       deferredTasks: [],
@@ -41,6 +44,7 @@ class NavigationService extends EventEmitter {
   /**
    * getDefinition - returns navigation definition
    *
+   * @this {NavigationService~Context}
    * @return {Array} definition items
    */
   getDefinition() {
@@ -50,6 +54,7 @@ class NavigationService extends EventEmitter {
   /**
    * registerCategory - register a Sidebar category
    *
+   * @this {NavigationService~Context}
    * @param  {String} category Category name
    */
   registerCategory(category) {
@@ -66,6 +71,7 @@ class NavigationService extends EventEmitter {
   /**
    * registerPrimary - register a primary navigation element
    *
+   * @this {NavigationService~Context}
    * @param  {String} path - an absolute path
    * @param  {String|React.Component} link - link label or a custom component
    * @param  {Object} options - additional data
@@ -101,6 +107,7 @@ class NavigationService extends EventEmitter {
   /**
    * registerSecondary - register a secondary navigation element
    *
+   * @this {NavigationService~Context}
    * @param  {String} parentPath - an absolute path of a parent element
    * @param  {String} path - an absolute path of the secondary element
    * @param  {String|React.Component} link - a string label or a custom link component
