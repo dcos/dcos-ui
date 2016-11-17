@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 
 import CollapsibleContainer from '../../../../../../src/js/components/CollapsibleContainer';
 import FieldError from '../../../../../../src/js/components/form/FieldError';
-import FieldHelp from '../../../../../../src/js/components/form/FieldHelp';
 import FieldInput from '../../../../../../src/js/components/form/FieldInput';
 import FieldTextarea from '../../../../../../src/js/components/form/FieldTextarea';
 import FieldLabel from '../../../../../../src/js/components/form/FieldLabel';
@@ -133,7 +132,6 @@ class HealthChecksFormSection extends Component {
               type="checkbox"
               value="HTTPS"/>
             Make HTTPS
-            <FieldHelp>Morbi leo risus</FieldHelp>
           </FieldLabel>
           <FieldError>{healthChecks[key]}</FieldError>
         </FormGroup>
