@@ -23,8 +23,6 @@ import AppDispatcher from './AppDispatcher';
 import Config from '../config/Config';
 import Util from '../utils/Util';
 
-const REQUEST_TIMEOUT = 10000;
-
 function getContentType(action, actionType, version = 'v2') {
   return `application/vnd.dcos.package.${action}-${actionType}+json;charset=utf-8;version=${version}`;
 }
@@ -38,7 +36,6 @@ const CosmosPackagesActions = {
       method: 'POST',
       url: `${Config.rootUrl}${Config.cosmosAPIPrefix}/search`,
       data: JSON.stringify({query}),
-      timeout: REQUEST_TIMEOUT,
       success(response) {
         let packages = response.packages || [];
         let data = packages.map(function (cosmosPackage) {
@@ -76,7 +73,6 @@ const CosmosPackagesActions = {
       method: 'POST',
       url: `${Config.rootUrl}${Config.cosmosAPIPrefix}/list`,
       data: JSON.stringify({packageName, appId}),
-      timeout: REQUEST_TIMEOUT,
       success(response) {
         let packages = response.packages || [];
         // Map list data to match other endpoint structures
@@ -129,7 +125,6 @@ const CosmosPackagesActions = {
       method: 'POST',
       url: `${Config.rootUrl}${Config.cosmosAPIPrefix}/describe`,
       data: JSON.stringify({packageName, packageVersion}),
-      timeout: REQUEST_TIMEOUT,
       success(cosmosPackage) {
         if (!cosmosPackage.currentVersion && cosmosPackage.version) {
           cosmosPackage.currentVersion = cosmosPackage.version;
@@ -160,7 +155,6 @@ const CosmosPackagesActions = {
       method: 'POST',
       url: `${Config.rootUrl}${Config.cosmosAPIPrefix}/install`,
       data: JSON.stringify({packageName, packageVersion, options}),
-      timeout: REQUEST_TIMEOUT,
       success(response) {
         AppDispatcher.handleServerAction({
           type: REQUEST_COSMOS_PACKAGE_INSTALL_SUCCESS,
@@ -187,7 +181,6 @@ const CosmosPackagesActions = {
       method: 'POST',
       url: `${Config.rootUrl}${Config.cosmosAPIPrefix}/uninstall`,
       data: JSON.stringify({packageName, packageVersion, appId, all}),
-      timeout: REQUEST_TIMEOUT,
       success(response) {
         AppDispatcher.handleServerAction({
           type: REQUEST_COSMOS_PACKAGE_UNINSTALL_SUCCESS,
@@ -216,7 +209,6 @@ const CosmosPackagesActions = {
       method: 'POST',
       url: `${Config.rootUrl}${Config.cosmosAPIPrefix}/repository/list`,
       data: JSON.stringify({type}),
-      timeout: REQUEST_TIMEOUT,
       success(response) {
         AppDispatcher.handleServerAction({
           type: REQUEST_COSMOS_REPOSITORIES_LIST_SUCCESS,
@@ -239,7 +231,6 @@ const CosmosPackagesActions = {
       method: 'POST',
       url: `${Config.rootUrl}${Config.cosmosAPIPrefix}/repository/add`,
       data: JSON.stringify({name, uri, index}),
-      timeout: REQUEST_TIMEOUT,
       success(response) {
         AppDispatcher.handleServerAction({
           type: REQUEST_COSMOS_REPOSITORY_ADD_SUCCESS,
@@ -266,7 +257,6 @@ const CosmosPackagesActions = {
       method: 'POST',
       url: `${Config.rootUrl}${Config.cosmosAPIPrefix}/repository/delete`,
       data: JSON.stringify({name, uri}),
-      timeout: REQUEST_TIMEOUT,
       success(response) {
         AppDispatcher.handleServerAction({
           type: REQUEST_COSMOS_REPOSITORY_DELETE_SUCCESS,
