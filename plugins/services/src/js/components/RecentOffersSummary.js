@@ -74,15 +74,15 @@ const columns = [
       }
 
       if (row.resource === 'cpu') {
-        return Units.formatResource('cpu', requestedResource.cpu);
+        return Units.formatResource('cpus', requestedResource);
       }
 
       if (row.resource === 'mem') {
-        return Units.formatResource('mem', requestedResource.mem);
+        return Units.formatResource('mem', requestedResource);
       }
 
       if (row.resource === 'disk') {
-        return Units.formatResource('disk', requestedResource.disk);
+        return Units.formatResource('disk', requestedResource);
       }
 
       if (Array.isArray(requestedResource)) {
