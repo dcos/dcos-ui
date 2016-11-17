@@ -142,7 +142,14 @@ var Sidebar = React.createClass({
   },
 
   getNavigationGroup(group) {
-    let groupMenuItems = group.children.map((element, index) => {
+    const menuItems = Hooks
+      .applyFilter('sidebarNavigation', defaultMenuItems)
+      .reduce((routesMap, path) => routesMap.set(path, true), new Map());
+
+    const filteredItems = group.children
+     .filter((route) => menuItems.has(route.path));
+
+    let groupMenuItems = filteredItems.map((element, index) => {
       let {pathname} = this.props.location;
 
       let hasChildren = element.children && element.children.length !== 0;
