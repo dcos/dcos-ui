@@ -13,7 +13,7 @@ import {FormReducer as healthChecks} from '../../reducers/serviceForm/HealthChec
 
 class HealthChecksFormSection extends Component {
   getAdvancedSettings(healthCheck, key) {
-    const {errors} = this.props;
+    const {healthChecks} = this.props.errors;
     if (healthCheck.protocol !== 'COMMAND' && healthCheck.protocol !== 'HTTP' &&
       healthCheck.protocol !== 'HTTPS') {
       return null;
@@ -25,57 +25,57 @@ class HealthChecksFormSection extends Component {
           <FormGroup
             className="column-3"
             required={false}
-            showError={Boolean(errors.healthChecks[key])}>
+            showError={Boolean(healthChecks[key])}>
             <FieldLabel>Grace Period (s)</FieldLabel>
             <FieldInput
               name={`healthChecks.${key}.gracePeriodSeconds`}
               type="number"
               min="0"
               value={healthCheck.gracePeriodSeconds}/>
-            <FieldError>{errors.healthChecks[key]}</FieldError>
+            <FieldError>{healthChecks[key]}</FieldError>
           </FormGroup>
           <FormGroup
             className="column-3"
             required={false}
-            showError={Boolean(errors.healthChecks[key])}>
+            showError={Boolean(healthChecks[key])}>
             <FieldLabel>Interval (s)</FieldLabel>
             <FieldInput
               name={`healthChecks.${key}.intervalSeconds`}
               type="number"
               min="0"
               value={healthCheck.intervalSeconds}/>
-            <FieldError>{errors.healthChecks[key]}</FieldError>
+            <FieldError>{healthChecks[key]}</FieldError>
           </FormGroup>
           <FormGroup
             className="column-3"
             required={false}
-            showError={Boolean(errors.healthChecks[key])}>
+            showError={Boolean(healthChecks[key])}>
             <FieldLabel>Timeout (s)</FieldLabel>
             <FieldInput
               name={`healthChecks.${key}.timeoutSeconds`}
               type="number"
               min="0"
               value={healthCheck.timeoutSeconds}/>
-            <FieldError>{errors.healthChecks[key]}</FieldError>
+            <FieldError>{healthChecks[key]}</FieldError>
           </FormGroup>
           <FormGroup
             className="column-3"
             required={false}
-            showError={Boolean(errors.healthChecks[key])}>
+            showError={Boolean(healthChecks[key])}>
             <FieldLabel>Max Failures</FieldLabel>
             <FieldInput
               name={`healthChecks.${key}.maxConsecutiveFailures`}
               type="number"
               min="0"
               value={healthCheck.maxConsecutiveFailures}/>
-            <FieldError>{errors.healthChecks[key]}</FieldError>
+            <FieldError>{healthChecks[key]}</FieldError>
           </FormGroup>
         </div>
       </CollapsibleContainer>);
   }
 
   getCommandFields(healthCheck, key) {
-    const {errors} = this.props;
+    const {healthChecks} = this.props.errors;
 
     if (healthCheck.protocol !== 'COMMAND') {
       return null;
@@ -86,20 +86,20 @@ class HealthChecksFormSection extends Component {
         <FormGroup
           className="column-12"
           required={false}
-          showError={Boolean(errors.healthChecks[key])}>
+          showError={Boolean(healthChecks[key])}>
           <FieldLabel>Command</FieldLabel>
           <FieldTextarea
             name={`healthChecks.${key}.command`}
             type="text"
             value={healthCheck.command}/>
-          <FieldError>{errors.healthChecks[key]}</FieldError>
+          <FieldError>{healthChecks[key]}</FieldError>
         </FormGroup>
       </div>
     );
   }
 
   getHTTPFields(healthCheck, key) {
-    const {errors} = this.props;
+    const {healthChecks} = this.props.errors;
 
     if (healthCheck.protocol !== 'HTTP' && healthCheck.protocol !== 'HTTPS') {
       return null;
@@ -119,13 +119,13 @@ class HealthChecksFormSection extends Component {
         <FormGroup
           className="column-6"
           required={false}
-          showError={Boolean(errors.healthChecks[key])}>
+          showError={Boolean(healthChecks[key])}>
           <FieldLabel>Path</FieldLabel>
           <FieldInput
             name={`healthChecks.${key}.path`}
             type="text"
             value={healthCheck.path}/>
-          <FieldError>{errors.healthChecks[key]}</FieldError>
+          <FieldError>{healthChecks[key]}</FieldError>
         </FormGroup>
       </div>),
       (<div className="row flex" key="HTTPS">
@@ -139,14 +139,14 @@ class HealthChecksFormSection extends Component {
             Make HTTPS
             <FieldHelp>Morbi leo risus</FieldHelp>
           </FieldLabel>
-          <FieldError>{errors.healthChecks[key]}</FieldError>
+          <FieldError>{healthChecks[key]}</FieldError>
         </FormGroup>
       </div>)
     ];
   }
 
   getHealthChecksLines(data) {
-    const {errors} = this.props;
+    const {healthChecks} = this.props.errors;
 
     return data.map((healthCheck, key) => {
       return (
@@ -156,7 +156,7 @@ class HealthChecksFormSection extends Component {
               <FormGroup
                 className="column-6"
                 required={false}
-                showError={Boolean(errors.healthChecks[key])}>
+                showError={Boolean(healthChecks[key])}>
                 <FieldLabel>Protocol</FieldLabel>
                 <FieldSelect name={`healthChecks.${key}.protocol`}
                   value={healthCheck.protocol &&
@@ -165,7 +165,7 @@ class HealthChecksFormSection extends Component {
                   <option value="COMMAND">Command</option>
                   <option value="HTTP">HTTP</option>
                 </FieldSelect>
-                <FieldError>{errors.healthChecks[key]}</FieldError>
+                <FieldError>{healthChecks[key]}</FieldError>
               </FormGroup>
               <div className="form-remove">
                 <a className="button button-link"
