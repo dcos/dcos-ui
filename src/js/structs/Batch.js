@@ -44,28 +44,35 @@ import TransactionTypes from '../constants/TransactionTypes';
 
 class Batch {
   constructor() {
-    const batch = [];
-
-    this.add = this.add.bind(batch);
-    this.reduce = this.reduce.bind(batch);
+    concealContext(this, []);
   }
 
   /**
    * Add an action to the batch.
    *
+   * @this Array
    * @param {Object} item
+   * @returns {Batch} Returns the new batch
    */
   add(item) {
+    // Operate on a new array
+    let batch = this.slice();
+
     // Remove previous if path is the same as current to minimize
     // number of actions
-    let {path} = this[this.length - 1] || {};
+    let {path} = batch[batch.length - 1] || {};
     let hasEqualPaths = item && Array.isArray(path) &&
       Array.isArray(item.path) && path.join() === item.path.join();
     if (item.type === TransactionTypes.SET && hasEqualPaths) {
-      this.pop();
+      batch.pop();
     }
 
-    this.push(item);
+    batch.push(item);
+
+    // Create a new batch, without calling the constructor
+    let newInst = Object.create(Batch.prototype);
+    concealContext(newInst, batch);
+    return newInst;
   };
 
   /**
@@ -73,6 +80,7 @@ class Batch {
    *
    * This interface is exactly the same as the native Array.reduce function.
    *
+   * @this Array
    * @param {function(state, item)} callback - The callback function to use
    * @param {*} data - The initial state of the reduce function
    * @returns {any} - The resulting state of the reduce function
@@ -86,6 +94,11 @@ class Batch {
     return this.reduce(callback, data);
   };
 
+}
+
+function concealContext(instance, batch) {
+  instance.add = instance.add.bind(batch);
+  instance.reduce = instance.reduce.bind(batch);
 }
 
 module.exports = Batch;
