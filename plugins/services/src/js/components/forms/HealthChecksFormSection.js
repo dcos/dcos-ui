@@ -24,7 +24,6 @@ class HealthChecksFormSection extends Component {
         <div className="flex row">
           <FormGroup
             className="column-3"
-            required={false}
             showError={Boolean(healthChecks[key])}>
             <FieldLabel>Grace Period (s)</FieldLabel>
             <FieldInput
@@ -36,7 +35,6 @@ class HealthChecksFormSection extends Component {
           </FormGroup>
           <FormGroup
             className="column-3"
-            required={false}
             showError={Boolean(healthChecks[key])}>
             <FieldLabel>Interval (s)</FieldLabel>
             <FieldInput
@@ -48,7 +46,6 @@ class HealthChecksFormSection extends Component {
           </FormGroup>
           <FormGroup
             className="column-3"
-            required={false}
             showError={Boolean(healthChecks[key])}>
             <FieldLabel>Timeout (s)</FieldLabel>
             <FieldInput
@@ -60,7 +57,6 @@ class HealthChecksFormSection extends Component {
           </FormGroup>
           <FormGroup
             className="column-3"
-            required={false}
             showError={Boolean(healthChecks[key])}>
             <FieldLabel>Max Failures</FieldLabel>
             <FieldInput
@@ -71,7 +67,8 @@ class HealthChecksFormSection extends Component {
             <FieldError>{healthChecks[key]}</FieldError>
           </FormGroup>
         </div>
-      </CollapsibleContainer>);
+      </CollapsibleContainer>
+    );
   }
 
   getCommandFields(healthCheck, key) {
@@ -85,7 +82,6 @@ class HealthChecksFormSection extends Component {
       <div className="flex row">
         <FormGroup
           className="column-12"
-          required={false}
           showError={Boolean(healthChecks[key])}>
           <FieldLabel>Command</FieldLabel>
           <FieldTextarea
@@ -105,11 +101,10 @@ class HealthChecksFormSection extends Component {
       return null;
     }
 
-    return [
-      (<div className="flex row" key="path">
+    return [(
+      <div className="flex row" key="path">
         <FormGroup
           className="column-6"
-          required={false}
           showError={false}>
           <FieldLabel>Service Endpoint</FieldLabel>
           <FieldSelect name={`healthChecks.${key}.portIndex`}>
@@ -118,7 +113,6 @@ class HealthChecksFormSection extends Component {
         </FormGroup>
         <FormGroup
           className="column-6"
-          required={false}
           showError={Boolean(healthChecks[key])}>
           <FieldLabel>Path</FieldLabel>
           <FieldInput
@@ -127,8 +121,10 @@ class HealthChecksFormSection extends Component {
             value={healthCheck.path}/>
           <FieldError>{healthChecks[key]}</FieldError>
         </FormGroup>
-      </div>),
-      (<div className="row flex" key="HTTPS">
+      </div>
+    ),
+    (
+      <div className="row flex" key="HTTPS">
         <FormGroup showError={false} className="column-12">
           <FieldLabel>
             <FieldInput
@@ -141,8 +137,8 @@ class HealthChecksFormSection extends Component {
           </FieldLabel>
           <FieldError>{healthChecks[key]}</FieldError>
         </FormGroup>
-      </div>)
-    ];
+      </div>
+    )];
   }
 
   getHealthChecksLines(data) {
@@ -155,7 +151,6 @@ class HealthChecksFormSection extends Component {
             <div className="flex row">
               <FormGroup
                 className="column-6"
-                required={false}
                 showError={Boolean(healthChecks[key])}>
                 <FieldLabel>Protocol</FieldLabel>
                 <FieldSelect name={`healthChecks.${key}.protocol`}
