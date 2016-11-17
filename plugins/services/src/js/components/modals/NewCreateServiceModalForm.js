@@ -50,9 +50,9 @@ class NewCreateServiceModalForm extends Component {
 
     // Turn service configuration into Batch Transactions
     if (this.props.service) {
-      jsonParserReducers(this.props.service.toJSON()).forEach((item) => {
-        batch.add(item);
-      });
+      batch = jsonParserReducers(this.props.service.toJSON()).reduce((memo, item) => {
+        return memo.add(item);
+      }, batch);
     }
 
     this.state = {
@@ -93,9 +93,9 @@ class NewCreateServiceModalForm extends Component {
       let errors = DataValidatorUtil.errorArrayToMap( errorList );
 
       // Translate appConfig to batch transactions
-      jsonParserReducers(appConfig).forEach((item) => {
-        batch.add(item);
-      });
+      batch = jsonParserReducers(appConfig).forEach((memo, item) => {
+        return memo.add(item);
+      }, batch);
 
       // Update batch, errors and appConfig
       Object.assign(newState, {batch, errors, appConfig: {}});
@@ -117,9 +117,9 @@ class NewCreateServiceModalForm extends Component {
     if (parsedData) {
       let batch = new Batch();
       let appConfig = {};
-      jsonParserReducers(parsedData).forEach((item) => {
-        batch.add(item);
-      });
+      batch = jsonParserReducers(parsedData).forEach((memo, item) => {
+        return memo.add(item);
+      }, batch);
       Object.assign(newState, {batch, appConfig});
     }
 
@@ -150,7 +150,7 @@ class NewCreateServiceModalForm extends Component {
       value = event.target.checked;
     }
     let path = event.target.getAttribute('name');
-    batch.add(new Transaction(path.split('.'), value));
+    batch = batch.add(new Transaction(path.split('.'), value));
     let newState = {batch};
 
     // Only update the jsonValue if we have a valid value
@@ -173,7 +173,7 @@ class NewCreateServiceModalForm extends Component {
 
   handleAddItem({value, path}) {
     let {appConfig, batch} = this.state;
-    batch.add(new Transaction(path.split(','), value, TransactionTypes.ADD_ITEM));
+    batch = batch.add(new Transaction(path.split(','), value, TransactionTypes.ADD_ITEM));
 
     // Update JSON data
     let jsonValue = JSON.stringify(batch.reduce(jsonConfigReducers, appConfig), null, 2);
@@ -182,7 +182,7 @@ class NewCreateServiceModalForm extends Component {
 
   handleRemoveItem({value, path}) {
     let {appConfig, batch} = this.state;
-    batch.add(new Transaction(path.split(','), value, TransactionTypes.REMOVE_ITEM));
+    batch = batch.add(new Transaction(path.split(','), value, TransactionTypes.REMOVE_ITEM));
 
     // Update JSON data
     let jsonValue = JSON.stringify(batch.reduce(jsonConfigReducers, appConfig), null, 2);
