@@ -15,7 +15,7 @@ describe('ServicesTab', function () {
     });
   });
 
-  context('Tab highlighting', function () {
+  xcontext('Tab highlighting', function () {
     beforeEach(function () {
       cy.configureCluster({
         mesos: '1-for-each-health',

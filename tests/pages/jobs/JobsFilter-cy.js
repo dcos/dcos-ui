@@ -14,7 +14,7 @@ describe('Job Search Filters', function () {
       cy.get('tbody tr:visible').should('to.have.length', 1);
     });
 
-    it('sets the correct search string filter query params', function () {
+    xit('sets the correct search string filter query params', function () {
       cy.get('.filter-input-text').type('foo');
       cy.location().its('href').should(function (href) {
         var queries = href.split('?')[1];
@@ -23,7 +23,7 @@ describe('Job Search Filters', function () {
       });
     });
 
-    it('will clear filters by clear all link click', function () {
+    xit('will clear filters by clear all link click', function () {
       cy.get('.filter-input-text').type('foo');
       cy.get('.form-control-group-add-on').last().click();
       cy.location().its('href').should(function (href) {

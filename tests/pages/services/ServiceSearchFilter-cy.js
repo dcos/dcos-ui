@@ -15,7 +15,7 @@ describe('Service Search Filters', function () {
       cy.get('tbody tr').should('to.have.length', 3);
     });
 
-    it('sets the correct search string filter query params', function () {
+    xit('sets the correct search string filter query params', function () {
       cy.get('.filter-input-text').as('filterInputText');
       cy.get('@filterInputText').type('cassandra-healthy');
       cy.location().its('href').should(function (href) {
@@ -25,7 +25,7 @@ describe('Service Search Filters', function () {
       });
     });
 
-    it('will clear filters by clear all link click', function () {
+    xit('will clear filters by clear all link click', function () {
       cy.get('.filter-input-text').as('filterInputText');
       cy.get('@filterInputText').type('cassandra-healthy');
       cy.get('.h4.clickable .small').click();

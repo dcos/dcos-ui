@@ -73,7 +73,7 @@ describe('Service Versions', function () {
         .contains('Apply').click();
     });
 
-    it('opens correct edit modal of the selected service version', function () {
+    xit('opens correct edit modal of the selected service version', function () {
       cy.get('@dropdown').get('.button span')
         .contains(new Date('2015-08-28T01:26:14.620Z').toLocaleString())
         .parent()

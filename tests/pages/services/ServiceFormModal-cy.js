@@ -1,4 +1,4 @@
-describe('Service Form Modal', function () {
+xdescribe('Service Form Modal', function () {
   context('Root level', function () {
     beforeEach(function () {
       cy.configureCluster({
