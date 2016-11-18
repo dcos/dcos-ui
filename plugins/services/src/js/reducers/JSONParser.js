@@ -11,6 +11,7 @@ import {JSONParser as portMappings} from './serviceForm/PortMappings';
 import {JSONParser as residency} from './serviceForm/Residency';
 import {JSONParser as network} from './serviceForm/Network';
 import {simpleParser} from '../../../../../src/js/utils/ParserUtil';
+import {JSONParser as containers} from './serviceForm/Containers';
 
 module.exports = [
   simpleParser(['id']),
@@ -21,6 +22,7 @@ module.exports = [
   simpleParser(['gpus']),
   simpleParser(['cmd']),
   container,
+  containers,
   network,
   portDefinitions,
   portMappings, // Note: must come after portDefinitions, as it uses its information!
