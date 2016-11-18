@@ -93,7 +93,7 @@ class NewCreateServiceModalForm extends Component {
       let errors = DataValidatorUtil.errorArrayToMap( errorList );
 
       // Translate appConfig to batch transactions
-      batch = jsonParserReducers(appConfig).forEach((memo, item) => {
+      batch = jsonParserReducers(appConfig).reduce((memo, item) => {
         return memo.add(item);
       }, batch);
 
@@ -117,7 +117,7 @@ class NewCreateServiceModalForm extends Component {
     if (parsedData) {
       let batch = new Batch();
       let appConfig = {};
-      batch = jsonParserReducers(parsedData).forEach((memo, item) => {
+      batch = jsonParserReducers(parsedData).reduce((memo, item) => {
         return memo.add(item);
       }, batch);
       Object.assign(newState, {batch, appConfig});

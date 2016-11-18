@@ -56,7 +56,7 @@ class Batch {
    */
   add(item) {
     // Operate on a new array
-    let batch = this.slice();
+    const batch = this.slice();
 
     // Remove previous if path is the same as current to minimize
     // number of actions
@@ -72,6 +72,7 @@ class Batch {
     // Create a new batch, without calling the constructor
     let newInst = Object.create(Batch.prototype);
     concealContext(newInst, batch);
+
     return newInst;
   };
 
