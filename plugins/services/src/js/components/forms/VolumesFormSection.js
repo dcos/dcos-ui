@@ -6,8 +6,8 @@ import FieldLabel from '../../../../../../src/js/components/form/FieldLabel';
 import FieldSelect from '../../../../../../src/js/components/form/FieldSelect';
 import FormGroup from '../../../../../../src/js/components/form/FormGroup';
 import Icon from '../../../../../../src/js/components/Icon';
-// import {FormReducer as localVolumes} from '../../reducers/serviceForm/LocalVolumes';
-// import {FormReducer as externalVolumes} from '../../reducers/serviceForm/ExternalVolumes';
+import {FormReducer as localVolumes} from '../../reducers/serviceForm/LocalVolumes';
+import {FormReducer as externalVolumes} from '../../reducers/serviceForm/ExternalVolumes';
 
 class VolumesFormSection extends Component {
 
@@ -177,8 +177,8 @@ VolumesFormSection.propTypes = {
 };
 
 VolumesFormSection.configReducers = {
-  // localVolumes,
-  // externalVolumes
+  localVolumes,
+  externalVolumes
 };
 
 VolumesFormSection.validationReducers = {
