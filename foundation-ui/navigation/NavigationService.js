@@ -1,5 +1,6 @@
 import {EventEmitter} from 'events';
 import {NAVIGATION_CHANGE} from './EventTypes';
+import Config from '../../src/js/config/Config';
 
 class NavigationService extends EventEmitter {
 
@@ -91,6 +92,10 @@ class NavigationService extends EventEmitter {
     });
 
     if (existingElement) {
+      if (Config.environment === 'development') {
+        console.warn(`Primary nav with the path ${path} already exists!`);
+      }
+
       return;
     }
 
@@ -132,6 +137,12 @@ class NavigationService extends EventEmitter {
     });
 
     if (existingElement) {
+      if (Config.environment === 'development') {
+        console.warn(`
+          Secondary nav with the path ${parentPath}/${path} already exists!
+        `);
+      }
+
       return;
     }
 
