@@ -5,6 +5,12 @@ const React = require('react');
 const MountService = require('../MountService');
 
 describe('MountService', function () {
+  const COMPONENT_ERROR_MESSAGE = 'Provided component must be a ' +
+      'React.Component constructor or a stateless functional component';
+  const TYPE_ERROR_MESSAGE = 'Provided type must be a none empty string';
+  const REGISTRATION_ERROR_MESSAGE = 'Provided component/type combination ' +
+      'is already registered';
+
   class ReactComponent extends React.Component {};
   const FunctionalComponent = function () {};
 
@@ -47,27 +53,27 @@ describe('MountService', function () {
         function () {
           expect(() => {
             this.instance.registerComponent({}, 'type', 0);
-          }).toThrow();
+          }).toThrowError(COMPONENT_ERROR_MESSAGE);
         }
     );
 
     it('should throw if null instead of a component was provided', function () {
       expect(() => {
         this.instance.registerComponent(null, 'type', 0);
-      }).toThrow();
+      }).toThrowError(COMPONENT_ERROR_MESSAGE);
     });
 
     it('should throw if component is undefined', function () {
       expect(() => {
         this.instance.registerComponent(undefined, 'type', 0);
-      }).toThrow();
+      }).toThrowError(COMPONENT_ERROR_MESSAGE);
     });
 
     it('should throw if an object instead of a valid type was provided',
         function () {
           expect(() => {
             this.instance.registerComponent(FunctionalComponent, {}, 0);
-          }).toThrow();
+          }).toThrowError(TYPE_ERROR_MESSAGE);
         }
     );
 
@@ -75,14 +81,14 @@ describe('MountService', function () {
         function () {
           expect(() => {
             this.instance.registerComponent(FunctionalComponent, null, 0);
-          }).toThrow();
+          }).toThrowError(TYPE_ERROR_MESSAGE);
         }
     );
 
     it('should throw if type is undefined', function () {
       expect(() => {
         this.instance.registerComponent(FunctionalComponent, undefined, 0);
-      }).toThrow();
+      }).toThrowError(TYPE_ERROR_MESSAGE);
     });
 
     it('should throw if the component/type combination is already registered',
@@ -91,7 +97,7 @@ describe('MountService', function () {
 
           expect(() => {
             this.instance.registerComponent(ReactComponent, 'type');
-          }).toThrow();
+          }).toThrowError(REGISTRATION_ERROR_MESSAGE);
         }
     );
 
