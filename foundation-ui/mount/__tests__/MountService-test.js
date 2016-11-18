@@ -144,7 +144,7 @@ describe('MountService', function () {
       this.instance.registerComponent(FourthComponent, 'type', 0);
     });
 
-    it('should return list of matching components in proper order',
+    it('should return array of matching components in proper order',
         function () {
           expect(this.instance.findComponentsWithType('type'))
               .toEqual([
