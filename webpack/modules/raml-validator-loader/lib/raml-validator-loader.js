@@ -982,7 +982,13 @@ module.exports =
 	      if (!keyRegex) {
 	        stringMatchers.push([key, prop.isRequired(), typeValidatorFn]);
 	      } else {
-	        regexMatchers.push([keyRegex, prop.isRequired(), typeValidatorFn]);
+	        var isRequired = false;
+
+	        if (!context.options.patternPropertiesAreOptional) {
+	          isRequired = prop.isRequired();
+	        }
+
+	        regexMatchers.push([keyRegex, isRequired, typeValidatorFn]);
 	      }
 	    });
 
@@ -1250,11 +1256,29 @@ module.exports =
 
 	var GeneratorContext = function () {
 	  function GeneratorContext() {
+	    var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
 	    _classCallCheck(this, GeneratorContext);
+
+	    // Configuration parameters that define the behaviour of the parser in some
+	    // corner cases
+	    this.options = {
+
+	      /**
+	       * If this flag is set to `true` all pattern properties are considered
+	       * optional. By default the parser will query the `raml-1-parser` library,
+	       * and it always return `isRequired() = true`.
+	       *
+	       * @property {boolean}
+	       */
+	      patternPropertiesAreOptional: true
+
+	    };
 
 	    this.constantTables = {};
 	    this.typesProcessed = {};
 	    this.typesQueue = [];
+	    this.options = Object.assign(this.options, options);
 	  }
 
 	  /**
