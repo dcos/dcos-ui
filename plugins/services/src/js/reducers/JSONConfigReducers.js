@@ -9,12 +9,12 @@ import {
 } from '../../../../../src/js/utils/ReducerUtil';
 
 module.exports = {
-  id: simpleReducer('id', '/'),
-  instances: simpleIntReducer('instances', 1),
+  id: simpleReducer('id'),
+  instances: simpleIntReducer('instances'),
   container,
-  cpus: simpleFloatReducer('cpus', 0.01),
-  mem: simpleIntReducer('mem', 128),
-  disk: simpleIntReducer('disk', 0),
+  cpus: simpleFloatReducer('cpus'),
+  mem: simpleIntReducer('mem'),
+  disk: simpleIntReducer('disk'),
   cmd: simpleReducer('cmd'),
   env,
   labels,
