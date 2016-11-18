@@ -110,10 +110,8 @@ class JSONEditor extends React.Component {
    */
   componentWillReceiveProps(nextProps) {
     // Synchronise error updates
-    console.log('[JSONEditor] componentWillReceiveProps', nextProps, this.externalErrors);
     if (!deepEqual(this.externalErrors, nextProps.errors)) {
       this.externalErrors = (nextProps.errors || []).slice();
-      console.log('[JSONEditor] newErrors=', this.externalErrors);
       this.updateEditorState();
     }
 
