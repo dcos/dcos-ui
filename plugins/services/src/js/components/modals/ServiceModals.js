@@ -7,15 +7,14 @@ import ServiceTree from '../../structs/ServiceTree';
 import ServiceActionItem from '../../constants/ServiceActionItem';
 import ServiceDestroyModal from './ServiceDestroyModal';
 import NewCreateServiceModal from './NewCreateServiceModal';
-import {NEW_APP_DEFAULTS} from '../../constants/NewApplicationDefaults';
 import ServiceGroupFormModal from './ServiceGroupFormModal';
 import ServiceRestartModal from './ServiceRestartModal';
 import ServiceScaleFormModal from './ServiceScaleFormModal';
 import ServiceSpecUtil from '../../utils/ServiceSpecUtil';
 import ServiceSuspendModal from './ServiceSuspendModal';
+import {NEW_APP_DEFAULTS} from '../../constants/NewApplicationDefaults';
 
 class ServiceModals extends React.Component {
-
   getGroupModal() {
     const {
       actions,
@@ -66,10 +65,10 @@ class ServiceModals extends React.Component {
     };
 
     const newApp = new Application(
-      Object.assign(
-        {id: baseId},
-        NEW_APP_DEFAULTS
-      )
+        Object.assign(
+            {id: baseId},
+            NEW_APP_DEFAULTS
+        )
     );
 
     return (
@@ -81,7 +80,7 @@ class ServiceModals extends React.Component {
         marathonAction={createService}
         open={modalProps.id === ServiceActionItem.CREATE}
         service={newApp}
-        onClose={() => onClose(key)} />
+        onClose={() => onClose(key)}/>
     );
   }
 

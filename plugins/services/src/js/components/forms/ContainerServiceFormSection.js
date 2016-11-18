@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
 import {Tooltip} from 'reactjs-components';
 
+import {FormReducer as ContainerReducer} from '../../reducers/serviceForm/Container';
+import {FormReducer as ContainersReducer} from '../../reducers/serviceForm/Containers';
 import {findNestedPropertyInObject} from '../../../../../../src/js/utils/Util';
-import {FormReducer} from '../../reducers/serviceForm/Container';
 import AdvancedSection from '../../../../../../src/js/components/form/AdvancedSection';
 import AdvancedSectionContent from '../../../../../../src/js/components/form/AdvancedSectionContent';
 import AdvancedSectionLabel from '../../../../../../src/js/components/form/AdvancedSectionLabel';
@@ -394,7 +395,8 @@ ContainerServiceFormSection.propTypes = {
 };
 
 ContainerServiceFormSection.configReducers = {
-  container: FormReducer
+  container: ContainerReducer,
+  containers: ContainersReducer
 };
 
 module.exports = ContainerServiceFormSection;

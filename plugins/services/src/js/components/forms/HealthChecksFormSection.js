@@ -235,7 +235,7 @@ HealthChecksFormSection.propTypes = {
   onRemoveItem: React.PropTypes.func
 };
 
-HealthChecksFormSection.configReducers = {
+HealthChecksFormSection.reducers = {
   healthChecks
 };
 
