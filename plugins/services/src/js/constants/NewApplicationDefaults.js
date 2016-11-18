@@ -1,5 +1,5 @@
 const NEW_APP_DEFAULTS = {
-  cpu: 0.001,
+  cpus: 0.001,
   instances: 1,
   mem: 128
 };
