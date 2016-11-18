@@ -86,6 +86,62 @@ describe('ReducerUtil', function () {
         .toEqual([{id: 'foo', vip: 'foo:8080'}, {id: 'bar', vip: undefined}]);
     });
 
+    it('should use context in nested combineReducers', function () {
+      const reducers = ReducerUtil.combineReducers({
+        id: idReducer,
+        container: ReducerUtil.combineReducers({
+          vip(state = undefined, action) {
+            if (action.path.join('') === 'id') {
+              this.id = action.value;
+            }
+
+            if (action.path.join('') === 'port') {
+              this.port = action.value;
+            }
+
+            if (this.id && this.port) {
+              return `${this.id}:${this.port}`;
+            }
+            return state;
+          }
+
+        })
+      });
+      let array = [
+        {
+          path: ['id'],
+          value: 'foo'
+        },
+        {
+          path: ['port'],
+          value: '8080'
+        }
+      ];
+
+      const state = array.reduce(reducers, {});
+
+      array = [
+        {
+          path: ['id'],
+          value: 'bar'
+        }
+      ];
+
+      const secondState = array.reduce(reducers, {});
+
+      expect([state, secondState])
+      .toEqual([
+        {
+          id: 'foo',
+          container: {vip: 'foo:8080'}
+        },
+        {
+          id: 'bar',
+          container: {vip: undefined}
+        }
+      ]);
+    });
+
     it('should properly apply a set of user actions', function () {
       let dockerReduce = ReducerUtil.combineReducers({
         id(state = undefined, action) {
