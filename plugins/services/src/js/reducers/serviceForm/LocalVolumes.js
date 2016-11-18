@@ -30,7 +30,7 @@ module.exports = {
          */
         memo.push(new Transaction(['localVolumes'], index, ADD_ITEM));
 
-        if (item.persistent != null && item.persistent.size != null) {
+        if (item.persistent.size != null) {
           memo.push(new Transaction([
             'localVolumes',
             index,
