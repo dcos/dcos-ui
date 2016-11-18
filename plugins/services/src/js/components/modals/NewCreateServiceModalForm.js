@@ -7,6 +7,7 @@ import AppValidators from '../../../../../../src/resources/raml/marathon/v2/type
 import Batch from '../../../../../../src/js/structs/Batch';
 import CreateServiceModalFormUtil from '../../utils/CreateServiceModalFormUtil';
 import DataValidatorUtil from '../../../../../../src/js/utils/DataValidatorUtil';
+import PodContainerServiceFormSection from '../forms/PodContainerServiceFormSection';
 import EnvironmentFormSection from '../forms/EnvironmentFormSection';
 import FluidGeminiScrollbar from '../../../../../../src/js/components/FluidGeminiScrollbar';
 import GeneralServiceFormSection from '../forms/GeneralServiceFormSection';
@@ -14,6 +15,7 @@ import HealthChecksFormSection from '../forms/HealthChecksFormSection';
 import JSONEditor from '../../../../../../src/js/components/JSONEditor';
 import NetworkingFormSection from '../forms/NetworkingFormSection';
 import ServiceUtil from '../../utils/ServiceUtil';
+import Pod from '../../structs/Pod';
 import MarathonAppValidators from '../../validators/MarathonAppValidators';
 import TabButton from '../../../../../../src/js/components/TabButton';
 import TabButtonList from '../../../../../../src/js/components/TabButtonList';
@@ -25,11 +27,13 @@ import TransactionTypes from '../../../../../../src/js/constants/TransactionType
 import VolumesFormSection from '../forms/VolumesFormSection';
 
 const METHODS_TO_BIND = [
+  'handleConvertToPod',
   'handleFormChange',
   'handleFormBlur',
   'handleJSONChange',
   'handleAddItem',
-  'handleRemoveItem'
+  'handleRemoveItem',
+  'getNewStateForJSON'
 ];
 
 const KEY_VALUE_FIELDS = [
@@ -50,16 +54,20 @@ class NewCreateServiceModalForm extends Component {
 
     this.state = Object.assign(
       {
+        appConfig: null,
         batch: new Batch(),
         baseConfig: {},
-        appConfig: null,
-        errorList: []
+        errorList: [],
+        isPod: false,
+        jsonReducer() {},
+        jsonParser() {}
       },
       this.getNewStateForJSON(
         CreateServiceModalFormUtil.stripEmptyProperties(
           ServiceUtil.getServiceJSON(this.props.service)
         ),
-        false
+        false,
+        this.props.service instanceof Pod
       )
     );
 
@@ -74,21 +82,26 @@ class NewCreateServiceModalForm extends Component {
   componentWillReceiveProps(nextProps) {
     let prevJSON = ServiceUtil.getServiceJSON(this.props.service);
     let nextJSON = ServiceUtil.getServiceJSON(nextProps.service);
+    let isPod = nextProps.service instanceof Pod;
 
     // Note: We ignore changes that might derrive from the `onChange` event
-    // handler. In that case the contents of nextJSON would be the same
-    // as the contents of the last rendered appConfig in the state.
-    if (!deepEqual(prevJSON, nextJSON) &&
-      !deepEqual(this.state.appConfig, nextJSON)) {
-      this.setState(this.getNewStateForJSON(nextJSON));
+    //       handler. In that case the contents of nextJSON would be the same
+    //       as the contents of the last rendered appConfig in the state.
+    if ((this.state.isPod !== isPod) || (!deepEqual(prevJSON, nextJSON) &&
+        !deepEqual(this.state.appConfig, nextJSON))) {
+      this.setState(this.getNewStateForJSON(nextJSON, true, isPod));
     }
+  }
+
+  handleConvertToPod() {
+    this.props.onConvertToPod(this.getAppConfig());
   }
 
   /**
    * @override
    */
   componentDidUpdate() {
-    this.props.onChange(this.state.appConfig);
+    this.props.onChange(new this.props.service.constructor(this.state.appConfig));
     this.props.onErrorStateChange(this.state.errorList.length !== 0);
   }
 
@@ -98,6 +111,11 @@ class NewCreateServiceModalForm extends Component {
   shouldComponentUpdate(nextProps, nextState) {
     // Update if json state changed
     if (this.props.isJSONModeActive !== nextProps.isJSONModeActive) {
+      return true;
+    }
+
+    // Update if pod type changed
+    if (this.state.isPod !== (nextProps.service instanceof Pod)) {
       return true;
     }
 
@@ -112,7 +130,7 @@ class NewCreateServiceModalForm extends Component {
     if (!deepEqual(prevJSON, nextJSON) &&
       !deepEqual(this.state.appConfig, nextJSON)) {
       return true;
-    };
+    }
 
     // Otherwise update if the state has changed
     return (this.state.errorList !== nextState.errorList) ||
@@ -120,9 +138,10 @@ class NewCreateServiceModalForm extends Component {
       (this.state.batch !== nextState.batch);
   }
 
-  getNewStateForJSON(baseConfig = {}, shouldValidate = true) {
+  getNewStateForJSON(baseConfig = {}, shouldValidate = true, isPod = this.state.isPod) {
     let newState = {
-      baseConfig
+      baseConfig,
+      isPod
     };
 
     // Regenerate batch
@@ -220,7 +239,7 @@ class NewCreateServiceModalForm extends Component {
     });
     let patch = batch.reduce(this.props.jsonConfigReducers, {});
 
-    return CreateServiceModalFormUtil.applyPatch(baseConfig, patch);
+    return new CreateServiceModalFormUtil.applyPatch(baseConfig, patch);
   }
 
   getRootErrorMessage() {
@@ -241,9 +260,119 @@ class NewCreateServiceModalForm extends Component {
     return rootErrors;
   }
 
+  getContainerList(data) {
+    if (data.containers && data.containers.length !== 0) {
+      return data.containers.map((item, index) => {
+        return (
+            <TabButton key={index} id={`container${index}`}
+                label={item.name || `container ${index + 1}`}/>
+        );
+      });
+    }
+
+    return null;
+  }
+
+  getContainerContent(data, errors) {
+    let {containers = []} = data;
+    return containers.map((item, index) => {
+      let itemErrors = errors && errors.containers && errors.containers[item];
+
+      return (
+          <TabView key={index} id={`container${index}`}>
+            <PodContainerServiceFormSection
+                path={`containers.${index}`}
+                data={data}
+                errors={itemErrors}
+                onRemoveItem={this.handleRemoveItem}
+                onAddItem={this.handleAddItem} />
+          </TabView>
+      );
+    });
+  }
+
+  getSectionList() {
+    if (this.state.isPod) {
+      return [
+        <TabButton id="networking" label="Networking" key="networking" />,
+        <TabButton id="environment" label="Environment" key="environment"/>,
+        <TabButton id="healthChecks" label="Health Checks" key="healthChecks"/>
+      ];
+    }
+    return [
+      <TabButton id="networking" label="Networking" key="networking" />,
+      <TabButton id="environment" label="Environment" key="environment"/>,
+      <TabButton id="healthChecks" label="Health Checks" key="healthChecks"/>,
+      <TabButton id="volumes" label="Volumes" key="volumes"/>
+    ];
+  }
+
+  getSectionContent(data, errorMap) {
+    let rootErrorComponent = this.getRootErrorMessage();
+
+    if (this.state.isPod) {
+      return [
+        <TabView id="environment" key="environment">
+          {rootErrorComponent}
+          <EnvironmentFormSection
+              data={data}
+              errors={errorMap}
+              onRemoveItem={this.handleRemoveItem}
+              onAddItem={this.handleAddItem} />
+        </TabView>,
+        <TabView id="healthChecks" key="healthChecks">
+          <HealthChecksFormSection
+              data={data}
+              errors={errorMap}
+              onRemoveItem={this.handleRemoveItem}
+              onAddItem={this.handleAddItem} />
+        </TabView>,
+        <TabView id="networking" key="networking">
+          <NetworkingFormSection
+              data={data}
+              errors={errorMap}
+              onRemoveItem={this.handleRemoveItem}
+              onAddItem={this.handleAddItem} />
+        </TabView>
+      ];
+    }
+
+    return [
+      <TabView id="environment" key="environment">
+        {rootErrorComponent}
+        <EnvironmentFormSection
+            data={data}
+            errors={errorMap}
+            onRemoveItem={this.handleRemoveItem}
+            onAddItem={this.handleAddItem} />
+      </TabView>,
+      <TabView id="volumes" key="volumes">
+        <VolumesFormSection
+          data={data}
+          errors={errorMap}
+          onRemoveItem={this.handleRemoveItem}
+          onAddItem={this.handleAddItem} />
+      </TabView>,
+      <TabView id="healthChecks" key="healthChecks">
+        <HealthChecksFormSection
+          data={data}
+          errors={errorMap}
+          onRemoveItem={this.handleRemoveItem}
+          onAddItem={this.handleAddItem} />
+      </TabView>,
+      <TabView id="networking" key="networking">
+        <NetworkingFormSection
+          data={data}
+          errors={errorMap}
+          onRemoveItem={this.handleRemoveItem}
+          onAddItem={this.handleAddItem} />
+      </TabView>
+    ];
+  }
+
   render() {
     let {appConfig, batch, errorList} = this.state;
-    let {isJSONModeActive} = this.props;
+    let {isJSONModeActive, isEdit, onConvertToPod, service} = this.props;
     let data = batch.reduce(this.props.inputConfigReducers, {});
 
     let jsonEditorPlaceholderClasses = classNames(
@@ -262,53 +391,28 @@ class NewCreateServiceModalForm extends Component {
         <div className="flex flex-item-grow-1 modal-body-offset gm-scrollbar-container-flex">
           <FluidGeminiScrollbar>
             <div className="container flex flex-direction-top-to-bottom modal-body-padding-surrogate">
-              <form onChange={this.handleFormChange} onBlur={this.handleFormBlur}>
+              <form onChange={this.handleFormChange}
+                onBlur={this.handleFormBlur}>
                 <Tabs vertical={true}>
                   <TabButtonList>
                     <TabButton id="services" label="Services" />
-                    <TabButton id="networking" label="Networking" />
-                    <TabButton id="environment" label="Environment" />
-                    <TabButton id="healthChecks" label="Health Checks" />
-                    <TabButton id="volumes" label="Volumes" />
+                    {this.getContainerList(data)}
+                    {this.getSectionList()}
                   </TabButtonList>
                   <TabViewList>
                     <TabView id="services">
                       {rootErrorComponent}
                       <GeneralServiceFormSection
-                        data={data}
                         errors={errorMap}
+                        data={data}
+                        isEdit={isEdit}
+                        onConvertToPod={onConvertToPod}
+                        service={service}
                         onRemoveItem={this.handleRemoveItem}
                         onAddItem={this.handleAddItem} />
                     </TabView>
-                    <TabView id="networking">
-                      <NetworkingFormSection
-                        data={data}
-                        errors={errorMap}
-                        onRemoveItem={this.handleRemoveItem}
-                        onAddItem={this.handleAddItem} />
-                    </TabView>
-                    <TabView id="environment">
-                      {rootErrorComponent}
-                      <EnvironmentFormSection
-                        data={data}
-                        errors={errorMap}
-                        onRemoveItem={this.handleRemoveItem}
-                        onAddItem={this.handleAddItem} />
-                    </TabView>
-                    <TabView id="volumes">
-                      <VolumesFormSection
-                        data={data}
-                        errors={errorMap}
-                        onRemoveItem={this.handleRemoveItem}
-                        onAddItem={this.handleAddItem} />
-                    </TabView>
-                    <TabView id="healthChecks">
-                      <HealthChecksFormSection
-                        data={data}
-                        errors={errorMap}
-                        onRemoveItem={this.handleRemoveItem}
-                        onAddItem={this.handleAddItem} />
-                    </TabView>
+                    {this.getContainerContent(data, errorMap)}
+                    {this.getSectionContent(data, errorMap)}
                   </TabViewList>
                 </Tabs>
               </form>

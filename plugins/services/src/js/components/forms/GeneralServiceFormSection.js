@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Tooltip} from 'reactjs-components';
+import {Confirm, Tooltip} from 'reactjs-components';
 
 import {findNestedPropertyInObject} from '../../../../../../src/js/utils/Util';
 import AdvancedSection from '../../../../../../src/js/components/form/AdvancedSection';
@@ -13,12 +13,19 @@ import FieldHelp from '../../../../../../src/js/components/form/FieldHelp';
 import FieldInput from '../../../../../../src/js/components/form/FieldInput';
 import FieldLabel from '../../../../../../src/js/components/form/FieldLabel';
 import FormGroup from '../../../../../../src/js/components/form/FormGroup';
-import General from '../../reducers/serviceForm/General';
+import Pod from '../../structs/Pod';
 import Icon from '../../../../../../src/js/components/Icon';
+import General from '../../reducers/serviceForm/General';
 import MetadataStore from '../../../../../../src/js/stores/MetadataStore';
 import ValidatorUtil from '../../../../../../src/js/utils/ValidatorUtil';
 
 const {type: {MESOS, DOCKER, NONE}, labelMap} = ContainerConstants;
+
+const METHODS_TO_BIND = [
+  'handleConvertToPod',
+  'handleCloseConvertToPodModal',
+  'handleOpenConvertToPodModal'
+];
 
 const containerRuntimes = {
   [NONE]: {
@@ -36,6 +43,89 @@ const containerRuntimes = {
 };
 
 class GeneralServiceFormSection extends Component {
+  constructor() {
+    super(...arguments);
+
+    this.state = {convertToPodModalOpen: false};
+
+    METHODS_TO_BIND.forEach((method) => {
+      this[method] = this[method].bind(this);
+    });
+  }
+
+  handleConvertToPod() {
+    this.props.onConvertToPod();
+    this.handleCloseConvertToPodModal();
+  }
+
+  handleCloseConvertToPodModal() {
+    this.setState({convertToPodModalOpen: false});
+  }
+
+  handleOpenConvertToPodModal() {
+    this.setState({convertToPodModalOpen: true});
+  }
+
+  getContainerSection() {
+    let {data = {}, errors} = this.props;
+
+    if (!(this.props.service instanceof Pod)) {
+      return (
+        <ContainerServiceFormSection
+          data={data}
+          errors={errors.container}
+          onAddItem={this.props.onAddItem}
+          onRemoveItem={this.props.onRemoveItem} />
+      );
+    }
+
+    let {containers = []} = data;
+    return containers.map((item, index) => {
+      return (
+        <div key={index}>
+          {item.name || `container ${index + 1}`}
+          <a className="button button-primary-link"
+            onClick={this.props.onRemoveItem.bind(this, {value: index, path: 'containers'})}>
+            Delete
+          </a>
+        </div>
+      );
+    });
+  }
+
+  getConvertToPodAction() {
+    let {service, isEdit} = this.props;
+
+    if (isEdit || service instanceof Pod) {
+      return null;
+    }
+
+    return (
+      <p>
+        Need to run a service with multiple containers?
+        <a onClick={this.handleOpenConvertToPodModal}>
+          Add another container
+        </a>.
+      </p>
+    );
+  }
+  getMultiContainerSection() {
+    let {service} = this.props;
+    if (!(service instanceof Pod)) {
+      return null;
+    }
+
+    return (
+        <div>
+          <a
+            className="button button-primary-link button-flush"
+            onClick={this.props.onAddItem.bind(this, {value: 0, path: 'containers'})}>
+            + Add Container
+          </a>
+        </div>
+    );
+  }
+
   getPlacementConstraints(data = []) {
     const errors = this.props.errors || [];
 
@@ -50,39 +140,39 @@ class GeneralServiceFormSection extends Component {
       }
 
       return (
-        <div key={index} className="flex row">
-          <FormGroup
-            className="column-3"
-            required={true}
-            showError={Boolean(errors[index])}>
-            {fieldLabel}
-            <FieldInput
-              name={`constraints.${index}.field`}
-              type="text"
-              value={constraint.field}/>
-            <FieldError>{errors[index]}</FieldError>
-          </FormGroup>
-          <FormGroup
-            className="column-3"
-            required={true}
-            showError={Boolean(errors[index])}>
-            {operatorLabel}
-            <FieldInput
-              name={`constraints.${index}.operator`}
-              type="text"
-              value={constraint.operator}/>
-            <FieldError>{errors[index]}</FieldError>
-          </FormGroup>
-          <FormGroup
-            className="column-3"
-            showError={Boolean(errors[index])}>
-            {parameterLabel}
-            <FieldInput
-              name={`constraints.${index}.value`}
-              type="text"
-              value={constraint.value}/>
-            <FieldError>{errors[index]}</FieldError>
-          </FormGroup>
+          <div key={index} className="flex row">
+            <FormGroup
+                className="column-3"
+                required={true}
+                showError={Boolean(errors[index])}>
+              {fieldLabel}
+              <FieldInput
+                  name={`constraints.${index}.field`}
+                  type="text"
+                  value={constraint.field}/>
+              <FieldError>{errors[index]}</FieldError>
+            </FormGroup>
+            <FormGroup
+                className="column-3"
+                required={true}
+                showError={Boolean(errors[index])}>
+              {operatorLabel}
+              <FieldInput
+                  name={`constraints.${index}.operator`}
+                  type="text"
+                  value={constraint.operator}/>
+              <FieldError>{errors[index]}</FieldError>
+            </FormGroup>
+            <FormGroup
+                className="column-3"
+                showError={Boolean(errors[index])}>
+              {parameterLabel}
+              <FieldInput
+                  name={`constraints.${index}.value`}
+                  type="text"
+                  value={constraint.value}/>
+              <FieldError>{errors[index]}</FieldError>
+            </FormGroup>
 
           <FormGroup className="flex flex-item-align-end column-2 flush-left">
             <DeleteRowButton
@@ -92,7 +182,47 @@ class GeneralServiceFormSection extends Component {
       );
     });
   }
-  getRuntimeSelections(data = {}) {
+
+  getRuntimeSection() {
+    let {errors, service, data} = this.props;
+    if (service instanceof Pod) {
+      return null;
+    }
+
+    let typeErrors = findNestedPropertyInObject(errors, 'container.type');
+    let runtimeTooltipContent = (
+        <span>
+        {'You can run Docker containers with both container runtimes. The Universal Container Runtime is better supported in DC/OS. '}
+          <a href={MetadataStore.buildDocsURI('/usage/containerizers/')} target="_blank">
+          More information
+        </a>.
+      </span>
+    );
+
+    return (
+        <div>
+      <h3 className="short-top short-bottom">
+        {'Container Runtime '}
+        <Tooltip
+            content={runtimeTooltipContent}
+            interactive={true}
+            maxWidth={300}
+            scrollContainer=".gm-scroll-view"
+            wrapText={true}>
+          <Icon color="grey" id="circle-question" size="mini" />
+        </Tooltip>
+      </h3>
+      <p>The container runtime is responsible for running your service. We support the Mesos and Docker containerizers.</p>
+      <FormGroup showError={Boolean(typeErrors)}>
+          {this.getRuntimeSelections(data)}
+      <FieldError>{typeErrors}</FieldError>
+      </FormGroup>
+    </div>
+    );
+  }
+
+  getRuntimeSelections() {
+    let {data = {}} = this.props;
     let {container = {}, gpus} = data;
     let isDisabled = {};
     let disabledTooltipContent;
@@ -154,109 +284,101 @@ class GeneralServiceFormSection extends Component {
 
   render() {
     let {data, errors} = this.props;
-    let typeErrors = findNestedPropertyInObject(errors, 'container.type');
-    let runtimeTooltipContent = (
-      <span>
-        {'You can run Docker containers with both container runtimes. The Universal Container Runtime is better supported in DC/OS. '}
-        <a href={MetadataStore.buildDocsURI('/usage/containerizers/')} target="_blank">
-          More information
-        </a>.
-      </span>
-    );
 
     return (
-      <div className="form flush-bottom">
-        <div className="form-row-element">
-          <h2 className="form-header flush-top short-bottom">
-            Services
-          </h2>
-          <p>
-            Configure your service below. Start by giving your service a name.
-          </p>
-        </div>
+        <div className="form flush-bottom">
+          <div className="form-row-element">
+            <h2 className="form-header flush-top short-bottom">
+              Services
+            </h2>
+            <p>
+              Configure your service below. Start by giving your service a name.
+            </p>
+          </div>
 
-        <div className="flex row">
-          <FormGroup
-            className="column-8"
-            required={true}
-            showError={Boolean(errors.id)}>
-            <FieldLabel>
-              Service Name
-            </FieldLabel>
-            <FieldInput
-              name="id"
-              type="text"
-              value={data.id} />
-            <FieldHelp>{this.getIDHelpBlock()}</FieldHelp>
-            <FieldError>{errors.id}</FieldError>
-          </FormGroup>
+          <div className="flex row">
+            <FormGroup
+                className="column-8"
+                required={true}
+                showError={Boolean(errors.id)}>
+              <FieldLabel>
+                Service Name
+              </FieldLabel>
+              <FieldInput
+                  name="id"
+                  type="text"
+                  value={data.id} />
+              <FieldHelp>{this.getIDHelpBlock()}</FieldHelp>
+              <FieldError>{errors.id}</FieldError>
+            </FormGroup>
 
-          <FormGroup
-            className="column-4"
-            showError={Boolean(errors.instances)}>
-            <FieldLabel>
-              Instances
-            </FieldLabel>
-            <FieldInput
-              name="instances"
-              min={0}
-              type="number"
-              value={data.instances} />
-            <FieldError>{errors.instances}</FieldError>
-          </FormGroup>
-        </div>
+            <FormGroup
+                className="column-4"
+                showError={Boolean(errors.instances)}>
+              <FieldLabel>
+                Instances
+              </FieldLabel>
+              <FieldInput
+                  name="instances"
+                  min={0}
+                  type="number"
+                  value={data.instances} />
+              <FieldError>{errors.instances}</FieldError>
+            </FormGroup>
+          </div>
 
-        <h3 className="short-top short-bottom">
-          {'Container Runtime '}
-          <Tooltip
-            content={runtimeTooltipContent}
-            interactive={true}
-            maxWidth={300}
-            scrollContainer=".gm-scroll-view"
-            wrapText={true}>
-              <Icon color="grey" id="circle-question" size="mini" />
-          </Tooltip>
-        </h3>
-        <p>The container runtime is responsible for running your service. We support the Mesos and Docker containerizers.</p>
-        <FormGroup showError={Boolean(typeErrors)}>
-          {this.getRuntimeSelections(data)}
-          <FieldError>{typeErrors}</FieldError>
-        </FormGroup>
+          {this.getRuntimeSection()}
 
-        <AdvancedSection>
-          <AdvancedSectionLabel>
-            Advanced Service Settings
-          </AdvancedSectionLabel>
-          <AdvancedSectionContent>
-            <h3 className="short-top short-bottom">
-              {'Placement Constraints '}
-              <Tooltip
-                content="Constraints have three parts: a field name, an operator, and an optional parameter. The field can be the hostname of the agent node or any attribute of the agent node."
-                interactive={true}
-                maxWidth={300}
-                scrollContainer=".gm-scroll-view"
-                wrapText={true}>
+          <AdvancedSection>
+            <AdvancedSectionLabel>
+              Advanced Service Settings
+            </AdvancedSectionLabel>
+            <AdvancedSectionContent>
+              <h3 className="short-top short-bottom">
+                {'Placement Constraints '}
+                <Tooltip
+                    content="Constraints have three parts: a field name, an operator, and an optional parameter. The field can be the hostname of the agent node or any attribute of the agent node."
+                    interactive={true}
+                    maxWidth={300}
+                    scrollContainer=".gm-scroll-view"
+                    wrapText={true}>
                   <Icon color="grey" id="circle-question" size="mini" />
-              </Tooltip>
-            </h3>
-            <p>Constraints control where apps run to allow optimization for either fault tolerance or locality.</p>
-            {this.getPlacementConstraints(data.constraints)}
-            <div>
-              <a
-                className="button button-primary-link button-flush"
-                onClick={this.props.onAddItem.bind(this, {value: data.constraints.length, path: 'constraints'})}>
-                + Add Placement Constraint
-              </a>
-            </div>
-          </AdvancedSectionContent>
-        </AdvancedSection>
+                </Tooltip>
+              </h3>
+              <p>Constraints control where apps run to allow optimization for either fault tolerance or locality.</p>
+              {this.getPlacementConstraints(data.constraints)}
+              <div>
+                <a
+                    className="button button-primary-link button-flush"
+                    onClick={this.props.onAddItem.bind(this, {value: data.constraints.length, path: 'constraints'})}>
+                  + Add Placement Constraint
+                </a>
+              </div>
+            </AdvancedSectionContent>
+          </AdvancedSection>
 
-        <ContainerServiceFormSection
-          data={data}
-          errors={errors}
-          onAddItem={this.props.onAddItem}
-          onRemoveItem={this.props.onRemoveItem} />
-      </div>
+          {this.getContainerSection()}
+          {this.getMultiContainerSection()}
+          {this.getConvertToPodAction()}
+
+          <Confirm
+              closeByBackdropClick={true}
+              header="Switching to a pod service"
+              open={this.state.convertToPodModalOpen}
+              onClose={this.handleCloseConvertToPodModal}
+              leftButtonText="Close"
+              leftButtonCallback={this.handleCloseConvertToPodModal}
+              rightButtonText="Continue"
+              rightButtonClassName="button button-success"
+              rightButtonCallback={this.handleConvertToPod}
+              showHeader={true}>
+            <p>
+              {'Adding another container will automatically put multiple containers into a Pod definition. Your containers will be co-located on the same node and scale together. '}
+              <a href={MetadataStore.buildDocsURI('/usage/pods/')} target="_blank">More information</a>.
+            </p>
+            <p>Are you sure you would like to continue and create a Pod? Any data you have already entered will be lost.</p>
+          </Confirm>
+        </div>
     );
   }
 }
