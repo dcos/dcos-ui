@@ -27,12 +27,13 @@ import NetworkingFormSection from '../forms/NetworkingFormSection';
 import VolumesFormSection from '../forms/VolumesFormSection';
 import {combineParsers} from '../../../../../../src/js/utils/ParserUtil';
 import {combineReducers} from '../../../../../../src/js/utils/ReducerUtil';
-import JSONConfigReducers from '../../reducers/JSONConfigReducers';
-import JSONParserReducers from '../../reducers/JSONParserReducers';
+import JSONConfigReducers from '../../reducers/JSONReducers';
+import JSONParserReducers from '../../reducers/JSONParser';
 
 const METHODS_TO_BIND = [
   'handleGoBack',
   'handleClose',
+  'handleConvertToPod',
   'handleJSONToggle',
   'handleServiceChange',
   'handleServiceErrorChange',
@@ -131,6 +132,10 @@ class NewServiceFormModal extends Component {
   handleClose() {
     this.props.onClose();
     this.setState(this.getResetState());
+  }
+
+  handleConvertToPod() {
+    this.handleServiceSelection({type:'pod'});
   }
 
   handleJSONToggle() {
@@ -251,6 +256,15 @@ class NewServiceFormModal extends Component {
   }
 
   getModalContent() {
+    let {
+      isJSONModeActive,
+      serviceConfig,
+      serviceFormActive,
+      serviceJsonActive,
+      servicePickerActive,
+      serviceReviewActive
+    } = this.state;
+
     let errorsMap = new Map();
     if (this.props.errors) {
       errorsMap.set('/', [this.props.errors.message]);
@@ -271,12 +285,12 @@ class NewServiceFormModal extends Component {
     }
 
     // NOTE: Always prioritize review screen check
-    if (this.state.serviceReviewActive) {
+    if (serviceReviewActive) {
       return (
         <div className="flex-item-grow-1">
           <div className="container">
             <ServiceConfigDisplay
-              appConfig={this.state.serviceConfig}
+              appConfig={serviceConfig}
               clearError={this.props.clearError}
               errors={errorsMap} />
           </div>
@@ -284,14 +298,16 @@ class NewServiceFormModal extends Component {
       );
     }
 
-    if (this.state.servicePickerActive) {
+    if (servicePickerActive) {
       return (
         <NewCreateServiceModalServicePicker
           onServiceSelect={this.handleServiceSelection} />
       );
     }
 
-    if (this.state.serviceFormActive) {
+    if (serviceFormActive) {
+      let {isEdit} = this.props;
+
       const SECTIONS = [
         ContainerServiceFormSection,
         EnvironmentFormSection,
@@ -304,8 +320,15 @@ class NewServiceFormModal extends Component {
       const jsonParserReducers = combineParsers(
         Hooks.applyFilter('serviceCreateJsonParserReducers', JSONParserReducers)
       );
+
+      let isPod = serviceConfig instanceof Pod;
       const jsonConfigReducers = combineReducers(
-        Hooks.applyFilter('serviceJsonConfigReducers', JSONConfigReducers)
+        Hooks.applyFilter('serviceJsonConfigReducers', JSONConfigReducers),
+        {
+          cmd: !isPod,
+          container: !isPod,
+          containers: isPod
+        }
       );
       const inputConfigReducers = combineReducers(
         Hooks.applyFilter('serviceInputConfigReducers',
@@ -318,17 +341,19 @@ class NewServiceFormModal extends Component {
           jsonParserReducers={jsonParserReducers}
           jsonConfigReducers={jsonConfigReducers}
           inputConfigReducers={inputConfigReducers}
-          isJSONModeActive={this.state.isJSONModeActive}
-          service={this.state.serviceConfig}
+          isJSONModeActive={isJSONModeActive}
+          service={serviceConfig}
           onChange={this.handleServiceChange}
-          onErrorStateChange={this.handleServiceErrorChange} />
+          onConvertToPod={this.handleConvertToPod}
+          onErrorStateChange={this.handleServiceErrorChange}
+          isEdit={isEdit}/>
       );
     }
 
-    if (this.state.serviceJsonActive) {
+    if (serviceJsonActive) {
       return (
         <CreateServiceJsonOnly
-          service={this.state.serviceConfig}
+          service={serviceConfig}
           onChange={this.handleServiceChange}
           onErrorStateChange={this.handleServiceErrorChange} />
       );

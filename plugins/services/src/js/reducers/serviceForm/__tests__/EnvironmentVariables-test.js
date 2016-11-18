@@ -4,7 +4,7 @@ const Transaction = require('../../../../../../../src/js/structs/Transaction');
 const {ADD_ITEM, REMOVE_ITEM, SET} =
   require('../../../../../../../src/js/constants/TransactionTypes');
 
-describe('Labels', function () {
+describe('Environment Variables', function () {
   describe('#JSONReducer', function () {
     it('should return a key value object', function () {
       let batch = new Batch();

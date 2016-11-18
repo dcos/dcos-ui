@@ -6,6 +6,9 @@ class TabButtonList extends React.Component {
     let {activeTab, children, onChange} = this.props;
 
     return React.Children.map(children, (tab, index) => {
+      if (tab === null) {
+        return tab;
+      }
       let tabProps = {activeTab, onClick: onChange};
 
       if (tab.props.id === activeTab || (!activeTab && index === 0)) {

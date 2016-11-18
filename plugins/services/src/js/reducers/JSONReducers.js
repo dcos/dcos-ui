@@ -1,5 +1,6 @@
 import {JSONReducer as constraints} from './serviceForm/Constraints';
 import {JSONReducer as container} from './serviceForm/Container';
+import {JSONReducer as containers} from './serviceForm/Containers';
 import {JSONReducer as env} from './serviceForm/EnvironmentVariables';
 import {JSONReducer as fetch} from './serviceForm/Artifacts';
 import {JSONReducer as healthChecks} from './serviceForm/HealthChecks';
@@ -25,6 +26,7 @@ module.exports = {
     }
     return newState;
   },
+  containers,
   cpus: simpleFloatReducer('cpus'),
   mem: simpleIntReducer('mem'),
   disk: simpleIntReducer('disk'),
