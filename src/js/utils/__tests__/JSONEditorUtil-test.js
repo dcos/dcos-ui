@@ -184,6 +184,26 @@ describe('JSONEditorUtil', function () {
         {path: [], value: {a: {b: 'foo'}}, previous: {a: 'bar'}}
       ]);
     });
+
+    it('should handle null-to-object mutations', function () {
+      let a = {a: null};
+      let b = {a: {b: 'foo'}};
+
+      expect(JSONEditorUtil.deepObjectDiff(a, b)).toEqual([
+        {path: ['a'], value: {b: 'foo'}, previous: null},
+        {path: [], value: {a: {b: 'foo'}}, previous: {a: null}}
+      ]);
+    });
+
+    it('should handle object-to-null mutations', function () {
+      let a = {a: {b: 'foo'}};
+      let b = {a: null};
+
+      expect(JSONEditorUtil.deepObjectDiff(a, b)).toEqual([
+        {path: ['a'], value: null, previous: {b: 'foo'}},
+        {path: [], value: {a: null}, previous: {a: {b: 'foo'}}}
+      ]);
+    });
   });
 
   describe('#sortObjectKeys', function () {
@@ -294,6 +314,22 @@ describe('JSONEditorUtil', function () {
         {a:4, b:5, c:3, d:6},
         {b:4, a:5, c:8, d:6}
       ]});
+    });
+
+    it('should properly handle null-to-object comparisions', function () {
+      let a = {a: {b: 'foo', c: 'bar'}};
+      let b = {a: null};
+
+      let value = JSONEditorUtil.sortObjectKeys(a, b);
+      expect(value).toEqual({a: null});
+    });
+
+    it('should place object values in keys that were null before', function () {
+      let a = {a: null};
+      let b = {a: {b: 'foo', c: 'bar'}};
+
+      let value = JSONEditorUtil.sortObjectKeys(a, b);
+      expect(value).toEqual({a: {b: 'foo', c: 'bar'}});
     });
 
   });

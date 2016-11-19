@@ -65,6 +65,9 @@ const ISTYPING_TIMEOUT = 2000;
 class JSONEditor extends React.Component {
   constructor() {
     super(...arguments);
+    // Clone the given initial value
+    let initialText = JSON.stringify(this.props.value || {}, null, 2);
+    let initialValue = JSON.parse(initialText);
 
     // We are using the react-way of updating the component **only** when we
     // need to define a new text to work upon (ex. when the owner component has
@@ -73,14 +76,14 @@ class JSONEditor extends React.Component {
     // Updating the AceEditor on every render cycle seems to cause some trouble
     // to it's internals, that I couldn't pinpoint yet.
     this.state = {
-      initialText: ''
+      initialText
     };
 
     //
     // The following properties are part of the `internal`, non-react state
     // and is synchronized with the react through `componentWillReceiveProps`
     //
-    this.externalErrors = [];
+    this.externalErrors = (this.props.errors || []).slice();
     this.jsonError = null;
     this.jsonMeta = [];
     this.jsonText = '{}';
@@ -94,6 +97,9 @@ class JSONEditor extends React.Component {
     this.isTyping = false;
     this.timerIsTyping = null;
 
+    // Initial state synchronisation
+    this.updateLocalJsonState(initialValue);
+
     METHODS_TO_BIND.forEach((method) => {
       this[method] = this[method].bind(this);
     });
@@ -105,7 +111,7 @@ class JSONEditor extends React.Component {
   componentWillReceiveProps(nextProps) {
     // Synchronise error updates
     if (!deepEqual(this.externalErrors, nextProps.errors)) {
-      this.externalErrors = nextProps.errors || [];
+      this.externalErrors = (nextProps.errors || []).slice();
       this.updateEditorState();
     }
 
@@ -432,10 +438,28 @@ class JSONEditor extends React.Component {
         return token.path.join('.') === errorPath;
       });
 
-      if (!token) {
+      // Root errors go to line 0
+      if (errorPath === '') {
+        memo.push({
+          row: 0,
+          text: error.message,
+          type: 'error'
+        });
         return memo;
       }
 
+      // Errors with invalid path also go to root, but gets
+      // prefixed with their path
+      if (!token) {
+        memo.push({
+          row: 0,
+          text: `${errorPath}: ${error.message}`,
+          type: 'error'
+        });
+        return memo;
+      }
+
+      // Otherwise errors get to the appropriate line
       memo.push({
         row: token.line - 1,
         text: error.message,

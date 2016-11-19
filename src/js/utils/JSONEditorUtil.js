@@ -75,7 +75,9 @@ var JSONEditorUtil = {
     if (oldObj === newObj) {
       return [];
     }
-    if (typeof oldObj !== typeof newObj) {
+    if ((typeof oldObj !== typeof newObj) ||
+       ((oldObj !== null) && (newObj === null)) ||
+       ((oldObj === null) && (newObj !== null))) {
       return [{path, value: newObj, previous: oldObj}];
     }
     if (typeof oldObj !== 'object') {
@@ -187,6 +189,12 @@ var JSONEditorUtil = {
 
       // Append new values in the order they appear at the end of the array
       return resultVal.concat(newValues);
+    }
+
+    // Since `null` is also considered an object, handle it before we reach
+    // the next statement where Object.keys will fail.
+    if ((oldVal == null) || (newVal == null)) {
+      return newVal;
     }
 
     if ((typeof oldVal === 'object') && (typeof newVal === 'object')) {
