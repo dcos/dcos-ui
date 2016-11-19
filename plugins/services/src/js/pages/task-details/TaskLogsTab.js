@@ -34,7 +34,7 @@ class TaskLogsTab extends mixin(StoreMixin) {
     let subscriptionID = SystemLogStore.startTailing(this.props.task.slave_id, {
       limit: 0,
       skip_prev: 51,
-      params: {_TRANSPORT: 'syslog'}
+      filter: {_TRANSPORT: 'syslog'}
     });
 
     this.setState({subscriptionID});
@@ -70,7 +70,7 @@ class TaskLogsTab extends mixin(StoreMixin) {
     SystemLogStore.fetchLogRange(this.props.task.slave_id, {
       limit: 50,
       skip_prev: 51,
-      params: {_TRANSPORT: 'syslog'},
+      filter: {_TRANSPORT: 'syslog'},
       subscriptionID
     });
   }
@@ -81,7 +81,7 @@ class TaskLogsTab extends mixin(StoreMixin) {
       SystemLogStore.startTailing(this.props.task.slave_id, {
         limit: 0,
         skip_prev: 51,
-        params: {_TRANSPORT: 'syslog'},
+        filter: {_TRANSPORT: 'syslog'},
         subscriptionID
       });
     } else {
