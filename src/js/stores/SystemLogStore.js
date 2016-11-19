@@ -45,7 +45,7 @@ class SystemLogStore extends BaseStore {
         return false;
       }
 
-      let {data, hasReachedTop, subscriptionID, type} = payload.action;
+      let {data, firstEntry, subscriptionID, type} = payload.action;
 
       switch (type) {
         case REQUEST_SYSTEM_LOG_SUCCESS:
@@ -55,7 +55,7 @@ class SystemLogStore extends BaseStore {
           this.processLogError(subscriptionID, data);
           break;
         case REQUEST_PREVIOUS_SYSTEM_LOG_SUCCESS:
-          this.processLogPrepend(subscriptionID, hasReachedTop, data);
+          this.processLogPrepend(subscriptionID, firstEntry, data);
           break;
         case REQUEST_PREVIOUS_SYSTEM_LOG_ERROR:
           this.processLogPrependError(subscriptionID, data);
@@ -165,12 +165,12 @@ class SystemLogStore extends BaseStore {
     this.emit(SYSTEM_LOG_REQUEST_ERROR, subscriptionID, data);
   }
 
-  processLogPrepend(subscriptionID, hasReachedTop, entries = []) {
+  processLogPrepend(subscriptionID, firstEntry, entries = []) {
     if (!this.logs[subscriptionID]) {
       this.logs[subscriptionID] = {entries: [], totalSize: 0};
     }
 
-    this.logs[subscriptionID].hasLoadedTop = hasReachedTop;
+    this.logs[subscriptionID].hasLoadedTop = firstEntry;
 
     this.logs[subscriptionID] = this.addEntries(
       this.logs[subscriptionID],
