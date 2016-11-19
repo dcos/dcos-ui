@@ -9,13 +9,17 @@ describe('SystemLogUtil', function () {
     it('should include range element first in the url', function () {
       var result = SystemLogUtil.getUrl('foo', {cursor: 'cursor'});
 
-      expect(result.indexOf('/foo/stream?cursor=cursor')).toBeGreaterThan(-1);
+      expect(result).toEqual(
+        '/system/v1/agent/foo/logs/v1/stream/?cursor=cursor'
+      );
     });
 
     it('should encode value of range element', function () {
       var result = SystemLogUtil.getUrl('foo', {limit: 'lim&it'});
 
-      expect(result.indexOf('?limit=lim%26it')).toBeGreaterThan(-1);
+      expect(result).toEqual(
+        '/system/v1/agent/foo/logs/v1/stream/?limit=lim%26it'
+      );
     });
 
     it('should concatenate range elements nicely together', function () {
@@ -24,39 +28,43 @@ describe('SystemLogUtil', function () {
         limit: 'lim&it'
       });
 
-      expect(result.indexOf('?cursor=cursor&limit=lim%26it')).toBeGreaterThan(-1);
+      expect(result).toEqual(
+        '/system/v1/agent/foo/logs/v1/stream/?cursor=cursor&limit=lim%26it'
+        );
     });
 
     it('should include filter after range element in the url', function () {
       var result = SystemLogUtil.getUrl('foo', {
         cursor: 'cursor',
-        params: {param1: 'param1'}
+        filter: {param1: 'param1'}
       });
 
-      expect(result.indexOf('/foo/stream?cursor=cursor&filter=param1:param1'))
-        .toBeGreaterThan(-1);
+      expect(result).toEqual(
+        '/system/v1/agent/foo/logs/v1/stream/?cursor=cursor&filter=param1:param1'
+      );
     });
 
     it('should encode filter element', function () {
       var result = SystemLogUtil.getUrl(
         'foo',
-        {params: {'param/1': 'param/1'}}
+        {filter: {'param/1': 'param/1'}}
       );
 
-      expect(result.indexOf('/foo/stream?filter=param%2F1:param%2F1'))
-        .toBeGreaterThan(-1);
+      expect(result).toEqual(
+          '/system/v1/agent/foo/logs/v1/stream/?filter=param%2F1:param%2F1'
+        );
     });
 
     it('should concatenate range elements nicely together', function () {
       var result = SystemLogUtil.getUrl('foo', {
         cursor: 'cursor',
         limit: 'lim&it',
-        params: {'param/1': 'param/1', 'param\\2': 'param\\2'}
+        filter: {'param/1': 'param/1', 'param\\2': 'param\\2'}
       });
 
-      expect(
-        result.indexOf('?cursor=cursor&limit=lim%26it&filter=param%2F1:param%2F1&filter=param%5C2:param%5C2')
-      ).toBeGreaterThan(-1);
+      expect(result).toEqual(
+        '/system/v1/agent/foo/logs/v1/stream/?cursor=cursor&limit=lim%26it&filter=param%2F1:param%2F1&filter=param%5C2:param%5C2'
+      );
     });
 
     it('ignores anything that is not a param or filter', function () {
@@ -64,25 +72,29 @@ describe('SystemLogUtil', function () {
         bar: 'bar'
       });
 
-      expect(result.indexOf('bar')).toBe(-1);
+      expect(result.includes('bar')).toBe(false);
     });
 
     it('should use stream by default', function () {
       var result = SystemLogUtil.getUrl('foo', {
         cursor: 'cursor',
-        params: {'param/1': 'param/1'}
+        filter: {'param/1': 'param/1'}
       });
 
-      expect(result.indexOf('/stream')).toBeGreaterThan(-1);
+      expect(result).toEqual(
+        '/system/v1/agent/foo/logs/v1/stream/?cursor=cursor&filter=param%2F1:param%2F1'
+      );
     });
 
-    it('should use logs', function () {
+    it('should use range', function () {
       var result = SystemLogUtil.getUrl('foo', {
         cursor: 'cursor',
-        params: {'param/1': 'param/1'}
+        filter: {'param/1': 'param/1'}
       }, false);
 
-      expect(result.indexOf('/logs')).toBeGreaterThan(-1);
+      expect(result).toEqual(
+        '/system/v1/agent/foo/logs/v1/range/?cursor=cursor&filter=param%2F1:param%2F1'
+      );
     });
 
   });

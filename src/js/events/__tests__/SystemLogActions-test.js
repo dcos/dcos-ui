@@ -47,8 +47,8 @@ describe('SystemLogActions', function () {
 
     it('fetches data from the correct URL', function () {
       let mostRecent = global.EventSource.calls.mostRecent();
-      expect(mostRecent.args[0].indexOf('/system/logs/v1/agent/foo/stream?cursor=bar'))
-        .toBeGreaterThan(-1);
+      expect(mostRecent.args[0])
+        .toEqual('/system/v1/agent/foo/logs/v1/stream/?cursor=bar');
       expect(mostRecent.args[1]).toEqual({withCredentials: true});
     });
 
@@ -163,8 +163,8 @@ describe('SystemLogActions', function () {
 
     it('fetches data from the correct URL', function () {
       let mostRecent = global.EventSource.calls.mostRecent();
-      expect(mostRecent.args[0].indexOf('/system/logs/v1/agent/foo/logs?cursor=bar'))
-        .toBeGreaterThan(-1);
+      expect(mostRecent.args[0])
+        .toEqual('/system/v1/agent/foo/logs/v1/range/?cursor=bar&skip_prev=10');
       expect(mostRecent.args[1]).toEqual({withCredentials: true});
     });
 
@@ -203,7 +203,7 @@ describe('SystemLogActions', function () {
         AppDispatcher.unregister(id);
         expect(action.data.length).toEqual(3);
         expect(action.subscriptionID).toEqual('subscriptionID');
-        expect(action.hasReachedTop).toEqual(false);
+        expect(action.firstEntry).toEqual(false);
       });
 
       let messageEvent = {
@@ -228,7 +228,7 @@ describe('SystemLogActions', function () {
         AppDispatcher.unregister(id);
         expect(action.data.length).toEqual(2);
         expect(action.subscriptionID).toEqual('subscriptionID');
-        expect(action.hasReachedTop).toEqual(true);
+        expect(action.firstEntry).toEqual(true);
       });
 
       let messageEvent = {
