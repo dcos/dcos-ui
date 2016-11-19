@@ -43,10 +43,17 @@ RequestUtil.json = function () {};
   }
 }());
 
+/*
+ * Mock the EventSource using the functionality of EventEmitter,
+ * which mimics the functionality of the EventTarget interface.
+ * We are in this case mocking the EventSource, since it is not supported in
+ * Jest.
+ */
 (function () {
   global.EventSource = function () {
     var eventEmitter = Object.create(EventEmitter.prototype);
 
+    // Transfer functionality from EventEmitter to our fake EventSource object
     var fakeEventSource = {
       addEventListener: eventEmitter.addListener,
       close: eventEmitter.removeAllListeners,
@@ -57,6 +64,7 @@ RequestUtil.json = function () {};
     return fakeEventSource;
   };
 
+  // Constants available on EventSource
   global.EventSource.CONNECTING = 0;
   global.EventSource.OPEN = 1;
   global.EventSource.CLOSED = 2;
