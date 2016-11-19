@@ -29,6 +29,7 @@ var Config = {
   supportEmail: 'help@dcos.io',
   tailRefresh: 10000,
   unitHealthAPIPrefix: '/system/health/v1',
+  logsAPIPrefix: '/system/v1/agent',
   version: '@@VERSION',
   virtualNetworksApi: '/mesos/overlay-master'
 };
