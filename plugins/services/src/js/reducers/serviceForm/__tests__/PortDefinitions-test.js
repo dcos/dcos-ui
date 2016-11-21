@@ -7,7 +7,7 @@ describe('PortDefinitions', function () {
   describe('#JSONReducer', function () {
     it('should create default portDefinition configurations', function () {
       let batch = new Batch();
-      batch.add(new Transaction(['portDefinitions'], 0, ADD_ITEM));
+      batch = batch.add(new Transaction(['portDefinitions'], 0, ADD_ITEM));
 
       expect(batch.reduce(PortDefinitions.JSONReducer.bind({}), {}))
         .toEqual([{name: null, port: 0, protocol: 'tcp'}]);
@@ -15,8 +15,8 @@ describe('PortDefinitions', function () {
 
     it('should create two default portDefinition configurations', function () {
       let batch = new Batch();
-      batch.add(new Transaction(['portDefinitions'], 0, ADD_ITEM));
-      batch.add(new Transaction(['portDefinitions'], 0, ADD_ITEM));
+      batch = batch.add(new Transaction(['portDefinitions'], 0, ADD_ITEM));
+      batch = batch.add(new Transaction(['portDefinitions'], 0, ADD_ITEM));
 
       expect(batch.reduce(PortDefinitions.JSONReducer.bind({}), {}))
         .toEqual([
@@ -27,8 +27,8 @@ describe('PortDefinitions', function () {
 
     it('should set the name value', function () {
       let batch = new Batch();
-      batch.add(new Transaction(['portDefinitions'], 0, ADD_ITEM));
-      batch.add(new Transaction(['portDefinitions', 0, 'name'], 'foo'));
+      batch = batch.add(new Transaction(['portDefinitions'], 0, ADD_ITEM));
+      batch = batch.add(new Transaction(['portDefinitions', 0, 'name'], 'foo'));
 
       expect(batch.reduce(PortDefinitions.JSONReducer.bind({}), {}))
         .toEqual([
@@ -38,8 +38,8 @@ describe('PortDefinitions', function () {
 
     it('should set the port value', function () {
       let batch = new Batch();
-      batch.add(new Transaction(['portDefinitions'], 0, ADD_ITEM));
-      batch.add(new Transaction(['portDefinitions', 0, 'hostPort'], 100));
+      batch = batch.add(new Transaction(['portDefinitions'], 0, ADD_ITEM));
+      batch = batch.add(new Transaction(['portDefinitions', 0, 'hostPort'], 100));
 
       expect(batch.reduce(PortDefinitions.JSONReducer.bind({}), {}))
         .toEqual([
@@ -49,8 +49,8 @@ describe('PortDefinitions', function () {
 
     it('should set the protocol value', function () {
       let batch = new Batch();
-      batch.add(new Transaction(['portDefinitions'], 0, ADD_ITEM));
-      batch.add(new Transaction(['portDefinitions', 0, 'protocol'], 'udp'));
+      batch = batch.add(new Transaction(['portDefinitions'], 0, ADD_ITEM));
+      batch = batch.add(new Transaction(['portDefinitions', 0, 'protocol'], 'udp'));
 
       expect(batch.reduce(PortDefinitions.JSONReducer.bind({}), {}))
         .toEqual([
@@ -60,9 +60,9 @@ describe('PortDefinitions', function () {
 
     it('should add the labels key if the portDefinition is load balanced', function () {
       let batch = new Batch();
-      batch.add(new Transaction(['portDefinitions'], 0, ADD_ITEM));
-      batch.add(new Transaction(['portDefinitions'], 0, ADD_ITEM));
-      batch.add(new Transaction(['portDefinitions', 1, 'loadBalanced'], true));
+      batch = batch.add(new Transaction(['portDefinitions'], 0, ADD_ITEM));
+      batch = batch.add(new Transaction(['portDefinitions'], 0, ADD_ITEM));
+      batch = batch.add(new Transaction(['portDefinitions', 1, 'loadBalanced'], true));
 
       expect(batch.reduce(PortDefinitions.JSONReducer.bind({}), {}))
         .toEqual([
@@ -73,10 +73,10 @@ describe('PortDefinitions', function () {
 
     it('should add the index of the portDefinition to the VIP keys', function () {
       let batch = new Batch();
-      batch.add(new Transaction(['portDefinitions'], 0, ADD_ITEM));
-      batch.add(new Transaction(['portDefinitions'], 0, ADD_ITEM));
-      batch.add(new Transaction(['portDefinitions', 0, 'loadBalanced'], true));
-      batch.add(new Transaction(['portDefinitions', 1, 'loadBalanced'], true));
+      batch = batch.add(new Transaction(['portDefinitions'], 0, ADD_ITEM));
+      batch = batch.add(new Transaction(['portDefinitions'], 0, ADD_ITEM));
+      batch = batch.add(new Transaction(['portDefinitions', 0, 'loadBalanced'], true));
+      batch = batch.add(new Transaction(['portDefinitions', 1, 'loadBalanced'], true));
 
       expect(batch.reduce(PortDefinitions.JSONReducer.bind({}), {}))
         .toEqual([
@@ -87,10 +87,10 @@ describe('PortDefinitions', function () {
 
     it('should add the port to the VIP string', function () {
       let batch = new Batch();
-      batch.add(new Transaction(['portDefinitions'], 0, ADD_ITEM));
-      batch.add(new Transaction(['portDefinitions'], 0, ADD_ITEM));
-      batch.add(new Transaction(['portDefinitions', 0, 'hostPort'], 300));
-      batch.add(new Transaction(['portDefinitions', 0, 'loadBalanced'], true));
+      batch = batch.add(new Transaction(['portDefinitions'], 0, ADD_ITEM));
+      batch = batch.add(new Transaction(['portDefinitions'], 0, ADD_ITEM));
+      batch = batch.add(new Transaction(['portDefinitions', 0, 'hostPort'], 300));
+      batch = batch.add(new Transaction(['portDefinitions', 0, 'loadBalanced'], true));
 
       expect(batch.reduce(PortDefinitions.JSONReducer.bind({}), {}))
         .toEqual([
@@ -101,10 +101,10 @@ describe('PortDefinitions', function () {
 
     it('should add the app ID to the VIP string when it is defined', function () {
       let batch = new Batch();
-      batch.add(new Transaction(['portDefinitions'], 0, ADD_ITEM));
-      batch.add(new Transaction(['portDefinitions'], 0, ADD_ITEM));
-      batch.add(new Transaction(['portDefinitions', 1, 'loadBalanced'], true));
-      batch.add(new Transaction(['id'], 'foo'));
+      batch = batch.add(new Transaction(['portDefinitions'], 0, ADD_ITEM));
+      batch = batch.add(new Transaction(['portDefinitions'], 0, ADD_ITEM));
+      batch = batch.add(new Transaction(['portDefinitions', 1, 'loadBalanced'], true));
+      batch = batch.add(new Transaction(['id'], 'foo'));
 
       expect(batch.reduce(PortDefinitions.JSONReducer.bind({}), {}))
         .toEqual([
