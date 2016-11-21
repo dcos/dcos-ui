@@ -4,17 +4,24 @@ import React from 'react';
 import {omit} from '../../utils/Util';
 
 const FieldInput = (props) => {
-  let {className, type} = props;
+  let {className, type, value} = props;
+  let additionalProps = {};
   let classes = classNames('form-control', className);
 
   let toggleIndicator;
   if (['radio', 'checkbox'].includes(type)) {
     toggleIndicator = <span className="form-control-toggle-indicator"></span>;
+
+    if (type === 'checkbox') {
+      additionalProps.checked = value;
+    }
   }
 
   return (
     <span>
-      <input className={classes} {...omit(props, ['className'])} />
+      <input className={classes}
+        {...omit(props, ['className'])}
+        {...additionalProps} />
       {toggleIndicator}
     </span>
   );
