@@ -5,12 +5,17 @@ import deepEqual from 'deep-equal';
 import Alert from '../../../../../../src/js/components/Alert';
 import AppValidators from '../../../../../../src/resources/raml/marathon/v2/types/app.raml';
 import Batch from '../../../../../../src/js/structs/Batch';
+import ContainerServiceFormSection from '../forms/ContainerServiceFormSection';
 import CreateServiceModalFormUtil from '../../utils/CreateServiceModalFormUtil';
+import DataValidatorUtil from '../../../../../../src/js/utils/DataValidatorUtil';
 import EnvironmentFormSection from '../forms/EnvironmentFormSection';
 import GeneralServiceFormSection from '../forms/GeneralServiceFormSection';
 import HealthChecksFormSection from '../forms/HealthChecksFormSection';
-import VolumesFormSection from '../forms/VolumesFormSection';
+import JSONConfigReducers from '../../reducers/JSONConfigReducers';
 import JSONEditor from '../../../../../../src/js/components/JSONEditor';
+import JSONParserReducers from '../../reducers/JSONParserReducers';
+import NetworkingFormSection from '../forms/NetworkingFormSection';
+import Service from '../../structs/Service';
 import ServiceUtil from '../../utils/ServiceUtil';
 import TabButton from '../../../../../../src/js/components/TabButton';
 import TabButtonList from '../../../../../../src/js/components/TabButtonList';
@@ -19,7 +24,9 @@ import TabView from '../../../../../../src/js/components/TabView';
 import TabViewList from '../../../../../../src/js/components/TabViewList';
 import Transaction from '../../../../../../src/js/structs/Transaction';
 import TransactionTypes from '../../../../../../src/js/constants/TransactionTypes';
-import DataValidatorUtil from '../../../../../../src/js/utils/DataValidatorUtil';
+import VolumesFormSection from '../forms/VolumesFormSection';
+import {combineParsers} from '../../../../../../src/js/utils/ParserUtil';
+import {combineReducers} from '../../../../../../src/js/utils/ReducerUtil';
 
 const METHODS_TO_BIND = [
   'handleFormChange',
@@ -256,6 +263,7 @@ class NewCreateServiceModalForm extends Component {
             <Tabs vertical={true}>
               <TabButtonList>
                 <TabButton id="services" label="Services" />
+                <TabButton id="networking" label="Networking" />
                 <TabButton id="environment" label="Environment" />
                 <TabButton id="healthChecks" label="Health Checks" />
                 <TabButton id="volumes" label="Volumes" />
@@ -266,6 +274,12 @@ class NewCreateServiceModalForm extends Component {
                   <GeneralServiceFormSection
                     data={data}
                     errors={errorMap}
+                    onRemoveItem={this.handleRemoveItem}
+                    onAddItem={this.handleAddItem} />
+                </TabView>
+                <TabView id="networking">
+                  <NetworkingFormSection
+                    data={data}
                     onRemoveItem={this.handleRemoveItem}
                     onAddItem={this.handleAddItem} />
                 </TabView>

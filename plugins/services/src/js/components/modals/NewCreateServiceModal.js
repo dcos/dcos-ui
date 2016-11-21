@@ -24,6 +24,7 @@ import ContainerServiceFormSection from '../forms/ContainerServiceFormSection';
 import EnvironmentFormSection from '../forms/EnvironmentFormSection';
 import GeneralServiceFormSection from '../forms/GeneralServiceFormSection';
 import HealthChecksFormSection from '../forms/HealthChecksFormSection';
+import NetworkingFormSection from '../forms/NetworkingFormSection';
 import VolumesFormSection from '../forms/VolumesFormSection';
 import {combineParsers} from '../../../../../../src/js/utils/ParserUtil';
 import {combineReducers} from '../../../../../../src/js/utils/ReducerUtil';
@@ -275,6 +276,7 @@ class NewServiceFormModal extends Component {
         EnvironmentFormSection,
         GeneralServiceFormSection,
         HealthChecksFormSection,
+        NetworkingFormSection,
         VolumesFormSection
       ];
 
