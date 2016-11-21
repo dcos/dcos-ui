@@ -1,10 +1,12 @@
 import classNames from 'classnames';
+import {Link} from 'react-router';
 import React from 'react';
 import {Table} from 'reactjs-components';
 
 import DeclinedOffersReasons from '../constants/DeclinedOffersReasons';
 import DateUtil from '../../../../../src/js/utils/DateUtil';
 import Icon from '../../../../../src/js/components/Icon';
+import MesosStateStore from '../../../../../src/js/stores/MesosStateStore';
 import TableUtil from '../../../../../src/js/utils/TableUtil';
 
 const getColumnClassNameFn = (classes) => {
@@ -96,6 +98,16 @@ const columns = [
     heading: getColumnHeadingFn('Host'),
     prop: 'hostname',
     className: getColumnClassNameFn(),
+    render: (prop, row) => {
+      const hostname = row[prop];
+      const node = MesosStateStore.getNodeFromHostname(hostname);
+
+      return (
+        <Link className="table-cell-link-primary" to={`/nodes/${node.id}`}>
+          {hostname}
+        </Link>
+      );
+    },
     sortable: true
   },
   {
