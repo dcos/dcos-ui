@@ -4,4 +4,6 @@ const NEW_APP_DEFAULTS = {
   mem: 128
 };
 
-module.exports = NEW_APP_DEFAULTS;
+module.exports = {
+  NEW_APP_DEFAULTS
+};

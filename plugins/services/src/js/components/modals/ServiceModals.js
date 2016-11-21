@@ -7,7 +7,7 @@ import ServiceTree from '../../structs/ServiceTree';
 import ServiceActionItem from '../../constants/ServiceActionItem';
 import ServiceDestroyModal from './ServiceDestroyModal';
 import NewCreateServiceModal from './NewCreateServiceModal';
-import NewApplicationDefaults from '../../constants/NewApplicationDefaults';
+import {NEW_APP_DEFAULTS} from '../../constants/NewApplicationDefaults';
 import ServiceGroupFormModal from './ServiceGroupFormModal';
 import ServiceRestartModal from './ServiceRestartModal';
 import ServiceScaleFormModal from './ServiceScaleFormModal';
@@ -68,7 +68,7 @@ class ServiceModals extends React.Component {
     const newApp = new Application(
       Object.assign(
         {id: baseId},
-        NewApplicationDefaults
+        NEW_APP_DEFAULTS
       )
     );
 
