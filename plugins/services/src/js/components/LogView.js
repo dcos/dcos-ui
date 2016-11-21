@@ -5,6 +5,7 @@ import DOMUtils from '../../../../../src/js/utils/DOMUtils';
 import Highlight from './Highlight';
 import Loader from '../../../../../src/js/components/Loader';
 import Util from '../../../../../src/js/utils/Util';
+import {PREPEND} from '../../../../../src/js/constants/SystemLogTypes';
 
 const METHODS_TO_BIND = [
   'handleGoToBottom',
@@ -50,7 +51,7 @@ class LogView extends React.Component {
 
     // This allows the user to stay at the place of the log they were at
     // before the prepend.
-    if (nextProps.direction === 'prepend' && previousScrollHeight) {
+    if (nextProps.direction === PREPEND && previousScrollHeight) {
       let currentScrollHeight = logContainer.scrollHeight;
       let heightDifference = currentScrollHeight - previousScrollHeight;
       this.setScrollTop(previousScrollTop + heightDifference);
