@@ -18,7 +18,7 @@ const CreateServiceModalFormUtil = {
    * @returns {Object} The patched data response
    */
   applyPatch(data, patch) {
-    // If we don't have this in data, prefer patch
+    // If we don't have data, prefer patch
     if (data == null) {
       return patch;
     }
@@ -34,8 +34,7 @@ const CreateServiceModalFormUtil = {
     }
 
     // Walk object types
-    let keys = Object.keys(patch);
-    return keys.reduce(function (memo, key) {
+    return Object.keys(patch).reduce(function (memo, key) {
 
       // If the patch contains an empty value we have to remove the item,
       // with the only exception of the source value having already an empty
