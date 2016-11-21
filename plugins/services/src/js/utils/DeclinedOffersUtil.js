@@ -2,59 +2,71 @@ import DeclinedOffersReasons from '../constants/DeclinedOffersReasons';
 
 const DecinedOffersUtil = {
   getSummaryFromQueue(queue) {
-    const {app, lastUnusedOffers, processedOffersSummary} = queue;
+    const {app, processedOffersSummary} = queue;
 
     if (processedOffersSummary == null
-      || processedOffersSummary.unusedOffersCount === 0
-      || lastUnusedOffers == null
-      || lastUnusedOffers.length === 0) {
+      || processedOffersSummary.unusedOffersCount === 0) {
       return null;
     }
 
-    const {processedOffersCount = 0, rejectReason = {}} = processedOffersSummary;
-    const matchedRoleOffers = processedOffersCount -
-      (rejectReason[DeclinedOffersReasons.UNFULFILLED_ROLE] || 0);
-    const matchedConstraintOffers = matchedRoleOffers -
-      (rejectReason[DeclinedOffersReasons.UNFULFILLED_CONSTRAINT] || 0);
-    const matchedCPUOffers = matchedConstraintOffers -
-      (rejectReason[DeclinedOffersReasons.INSUFFICIENT_CPU] || 0);
-    const matchedMemOfffers = matchedConstraintOffers -
-      (rejectReason[DeclinedOffersReasons.INSUFFICIENT_MEM] || 0);
-    const matchedDiskOffers = matchedConstraintOffers -
-      (rejectReason[DeclinedOffersReasons.INSUFFICIENT_DISK] || 0);
-    const matchedPortOffers = matchedConstraintOffers -
-      (rejectReason[DeclinedOffersReasons.INSUFFICIENT_PORTS] || 0);
+    const {rejectSummaryLastOffers = []} = processedOffersSummary;
+    const declinedOffersMap = {};
+
+    // Construct map of summary.
+    rejectSummaryLastOffers.forEach(({reason, declined, processed}) => {
+      declinedOffersMap[reason] = {declined, processed};
+    });
+
+    const roleOfferSummary = declinedOffersMap[
+      DeclinedOffersReasons.UNFULFILLED_ROLE
+    ];
+    const constraintOfferSummary = declinedOffersMap[
+      DeclinedOffersReasons.UNFULFILLED_CONSTRAINT
+    ];
+    const cpuOfferSummary = declinedOffersMap[
+      DeclinedOffersReasons.INSUFFICIENT_CPU
+    ];
+    const memOfferSummary = declinedOffersMap[
+      DeclinedOffersReasons.INSUFFICIENT_MEM
+    ];
+    const diskOfferSummary = declinedOffersMap[
+      DeclinedOffersReasons.INSUFFICIENT_DISK
+    ];
+    const portOfferSummary = declinedOffersMap[
+      DeclinedOffersReasons.INSUFFICIENT_PORTS
+    ];
 
     return {
       role: {
         requested: app.acceptedRole || ['*'],
-        offers: processedOffersCount,
-        matched: matchedRoleOffers
+        offers: roleOfferSummary.processed,
+        matched: roleOfferSummary.processed - roleOfferSummary.declined
       },
       constraint: {
         requested: app.constraints,
-        offers: matchedRoleOffers,
-        matched: matchedConstraintOffers
+        offers: constraintOfferSummary.processed,
+        matched: constraintOfferSummary.processed
+          - constraintOfferSummary.declined
       },
       cpu: {
         requested: app.cpus || 0,
-        offers: matchedConstraintOffers,
-        matched: matchedCPUOffers
+        offers: cpuOfferSummary.processed,
+        matched: cpuOfferSummary.processed - cpuOfferSummary.declined
       },
       mem: {
         requested: app.mem || 0,
-        offers: matchedConstraintOffers,
-        matched: matchedMemOfffers
+        offers: memOfferSummary.processed,
+        matched: memOfferSummary.processed - memOfferSummary.declined
       },
       disk: {
         requested: app.disk || 0,
-        offers: matchedConstraintOffers,
-        matched: matchedDiskOffers
+        offers: diskOfferSummary.processed,
+        matched: diskOfferSummary.processed - diskOfferSummary.declined
       },
       ports: {
         requested: app.ports,
-        offers: matchedConstraintOffers,
-        matched: matchedPortOffers
+        offers: portOfferSummary.processed,
+        matched: portOfferSummary.processed - portOfferSummary.declined
       }
     };
   },
