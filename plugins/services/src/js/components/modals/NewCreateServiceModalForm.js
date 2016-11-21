@@ -13,6 +13,7 @@ import HealthChecksFormSection from '../forms/HealthChecksFormSection';
 import JSONEditor from '../../../../../../src/js/components/JSONEditor';
 import NetworkingFormSection from '../forms/NetworkingFormSection';
 import ServiceUtil from '../../utils/ServiceUtil';
+import MarathonAppValidators from '../../validators/MarathonAppValidators';
 import TabButton from '../../../../../../src/js/components/TabButton';
 import TabButtonList from '../../../../../../src/js/components/TabButtonList';
 import Tabs from '../../../../../../src/js/components/Tabs';
@@ -36,7 +37,8 @@ const KEY_VALUE_FIELDS = [
 ];
 
 const ERROR_VALIDATORS = [
-  AppValidators.App
+  AppValidators.App,
+  MarathonAppValidators.CmdOrDockerImage
 ];
 
 class NewCreateServiceModalForm extends Component {
