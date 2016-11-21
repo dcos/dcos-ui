@@ -1,20 +1,24 @@
 import classNames from 'classnames';
 import GeminiScrollbar from 'react-gemini-scrollbar';
-import {routerShape, Link} from 'react-router';
+import {Link, routerShape} from 'react-router';
 import React from 'react';
 import {Tooltip} from 'reactjs-components';
 import PluginSDK from 'PluginSDK';
 
+import {keyCodes} from '../utils/KeyboardUtil';
 import ClusterHeader from './ClusterHeader';
 import EventTypes from '../constants/EventTypes';
 import Icon from './Icon';
-import {keyCodes} from '../utils/KeyboardUtil';
 import InternalStorageMixin from '../mixins/InternalStorageMixin';
 import MesosSummaryStore from '../stores/MesosSummaryStore';
 import MetadataStore from '../stores/MetadataStore';
-import NotificationStore from '../stores/NotificationStore';
+import PrimarySidebarLink from '../components/PrimarySidebarLink';
 import SaveStateMixin from '../mixins/SaveStateMixin';
 import SidebarActions from '../events/SidebarActions';
+
+const {
+  NavigationService,
+  EventTypes: {NAVIGATION_CHANGE}} = PluginSDK.get('navigation');
 
 let defaultMenuItems = [
   '/dashboard',
@@ -51,6 +55,8 @@ var Sidebar = React.createClass({
   },
 
   componentDidMount() {
+    NavigationService.on(NAVIGATION_CHANGE, this.onNavigationChange);
+
     this.internalStorage_update({
       mesosInfo: MesosSummaryStore.get('states').lastSuccessful()
     });
@@ -64,6 +70,10 @@ var Sidebar = React.createClass({
   },
 
   componentWillUnmount() {
+    NavigationService.removeListener(
+      NAVIGATION_CHANGE,
+      this.onNavigationChange
+    );
     MetadataStore.removeChangeListener(
       EventTypes.DCOS_METADATA_CHANGE,
       this.onDCOSMetadataChange
@@ -73,6 +83,10 @@ var Sidebar = React.createClass({
   },
 
   onDCOSMetadataChange() {
+    this.forceUpdate();
+  },
+
+  onNavigationChange() {
     this.forceUpdate();
   },
 
@@ -102,137 +116,58 @@ var Sidebar = React.createClass({
   },
 
   getNavigationSections() {
+    const definition = NavigationService.getDefinition();
+
+    return definition.map((group, index) => {
+      let heading = null;
+
+      if (group.category !== 'root') {
+        heading = (
+          <h6 className="sidebar-section-header">
+            {group.category}
+          </h6>
+        );
+      }
+
+      return (
+        <div className="sidebar-section pod pod-shorter flush-top flush-left flush-right"
+          key={index}>
+          {heading}
+          {this.getNavigationGroup(group)}
+        </div>
+      );
+    });
+  },
+
+  getNavigationGroup(group) {
     const menuItems = Hooks
       .applyFilter('sidebarNavigation', defaultMenuItems)
       .reduce((routesMap, path) => routesMap.set(path, true), new Map());
 
-    let indexRoute = this.props.routes.find(({id}) => id === 'index');
+    const filteredItems = group.children
+     .filter((route) => menuItems.has(route.path));
 
-    const routes = indexRoute.childRoutes
-      .filter((route) => menuItems.has(`/${route.path}`));
+    let groupMenuItems = filteredItems.map((element, index) => {
+      let {pathname} = this.props.location;
 
-    return this.getMenuGroupsFromChildren(routes)
-      .map((group, index) => {
-        let heading = null;
+      let hasChildren = element.children && element.children.length !== 0;
+      let isParentActive = pathname.startsWith(element.path);
 
-        if (group.category !== 'root') {
-          heading = (
-            <h6 className="sidebar-section-header">
-              {group.category}
-            </h6>
-          );
-        }
-
-        return (
-          <div className="sidebar-section pod pod-shorter flush-top flush-left flush-right"
-            key={index}>
-            {heading}
-            {this.getNavigationGroup(group, this.props.location.pathname)}
-          </div>
-        );
-      });
-  },
-
-  getGroupSubmenu({path, childRoutes = []}, {currentPath, isParentActive}) {
-    let submenu = null;
-    let isChildActive = false;
-
-    if (isParentActive) {
-      const childRoutesPaths = childRoutes.map(({path}) => path);
-      const childRoutesMap = Hooks
-        .applyFilter('secondaryNavigation', path, childRoutesPaths)
-        .reduce((routesMap, path) => routesMap.set(path, true), new Map());
-      const filteredChildRoutes =
-        childRoutes.filter(({path}) => childRoutesMap.has(path));
-
-      let menuItems = filteredChildRoutes.reduce(function (childRoutes, currentChild) {
-        if (currentChild.isInSidebar) {
-          let routeLabel = currentChild.path;
-          let isActive = false;
-
-          // Get the route label defined on the route's component.
-          if (currentChild.component && currentChild.component.routeConfig) {
-            routeLabel = currentChild.component.routeConfig.label;
-            isActive = currentChild.component.routeConfig.matches
-              .test(currentPath);
-          }
-
-          let menuItemClasses = classNames({selected: isActive});
-
-          if (!isChildActive && isActive) {
-            isChildActive = true;
-          }
-
-          childRoutes.push(
-            <li className={menuItemClasses} key={routeLabel}>
-              <Link to={`/${path}/${currentChild.path}`}>{routeLabel}</Link>
-            </li>
-          );
-        }
-
-        return childRoutes;
-      }, []);
-
-      if (menuItems.length) {
-        submenu = <ul>{menuItems}</ul>;
-      }
-    }
-
-    return {submenu, isChildActive};
-  },
-
-  getMenuGroupsFromChildren(appRoutes) {
-    let groupIndexMap = {};
-
-    // Loop over each top-level route and place into categories.
-    return appRoutes.reduce(function (topLevelRoutes, route) {
-      if (route.isInSidebar) {
-        let {category} = route;
-
-        // Assign an unused index to the new route category if we don't already
-        // have an index assigned to that category.
-        if (groupIndexMap[category] == null) {
-          let newGroupIndex = topLevelRoutes.length;
-
-          groupIndexMap[category] = newGroupIndex;
-          topLevelRoutes[newGroupIndex] = {category, routes: []};
-        }
-
-        // Append the route to the corresponding category's list of routes.
-        topLevelRoutes[groupIndexMap[category]].routes.push(route);
+      let submenu;
+      let isChildActive = false;
+      if (isParentActive && hasChildren) {
+        [submenu, isChildActive] = this.getGroupSubmenu(
+          group.path, element.children);
       }
 
-      return topLevelRoutes;
-    }, []);
-  },
-
-  getNavigationGroup(group, currentPath) {
-    let groupMenuItems = group.routes.map((route, index) => {
-      let icon = React.cloneElement(
-        route.component.routeConfig.icon,
-        {className: 'sidebar-menu-item-icon icon icon-small'}
-      );
-      let hasChildren = route.childRoutes && route.childRoutes.length !== 0;
-      let notificationCount = NotificationStore.getNotificationCount(route.path);
-      let isParentActive = route.component.routeConfig.matches.test(currentPath);
-      let {isChildActive, submenu} = this.getGroupSubmenu(route, {
-        currentPath,
-        isParentActive
-      });
-      let sidebarText = (
-        <span className="sidebar-menu-item-label">
-          {route.component.routeConfig.label}
-        </span>
-      );
-
-      if (notificationCount > 0) {
-        sidebarText = (
-          <span className="sidebar-menu-item-label badge-container">
-            <span className="sidebar-menu-item-label-text badge-container-text">
-              {route.component.routeConfig.label}
-            </span>
-            <span className="badge">{notificationCount}</span>
-          </span>
+      let linkElement = element.link;
+      if (typeof linkElement === 'string') {
+        linkElement = (
+          <PrimarySidebarLink
+            to={element.path}
+            icon={element.options.icon}>
+            {linkElement}
+          </PrimarySidebarLink>
         );
       }
 
@@ -244,13 +179,53 @@ var Sidebar = React.createClass({
 
       return (
         <li className={itemClassSet} key={index}>
-          <Link to={route.path}>{icon}{sidebarText}</Link>
+          {linkElement}
           {submenu}
         </li>
       );
     });
 
     return <ul className="sidebar-menu">{groupMenuItems}</ul>;
+  },
+
+  getGroupSubmenu(path, children) {
+    const {pathname} = this.props.location;
+    let isChildActive = false;
+
+    const childRoutesPaths = children.map(({path}) => path);
+    const childRoutesMap = Hooks
+        .applyFilter('secondaryNavigation', path, childRoutesPaths)
+        .reduce((routesMap, path) => routesMap.set(path, true), new Map());
+    const filteredChildRoutes =
+        children.filter(({path}) => childRoutesMap.has(path));
+
+    let menuItems = filteredChildRoutes.reduce(function (children, currentChild, index) {
+      let isActive = pathname.startsWith(currentChild.path);
+
+      let menuItemClasses = classNames({selected: isActive});
+
+      // First matched active child wins,
+      // ie in /path/child and /path/child-path without this conditional /path/child-path
+      // will always overrule /path/child
+      if (!isChildActive && isActive) {
+        isChildActive = true;
+      }
+
+      let linkElement = currentChild.link;
+      if (typeof linkElement === 'string') {
+        linkElement = <Link to={currentChild.path}>{linkElement}</Link>;
+      }
+
+      children.push(
+        <li className={menuItemClasses} key={index}>
+          {linkElement}
+        </li>
+      );
+
+      return children;
+    }, []);
+
+    return [<ul>{menuItems}</ul>, isChildActive];
   },
 
   getVersion() {
