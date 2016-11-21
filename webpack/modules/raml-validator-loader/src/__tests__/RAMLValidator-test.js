@@ -6,7 +6,7 @@ const GeneratorContext = require('../GeneratorContext');
  * Utility function that parses RAML on-the-fly, generates a validator object
  * and returns the validation function
  */
-function createValidator(ramlDocument, typeName='TestType') {
+function createValidator(ramlDocument, options={}, typeName='TestType') {
   var raml = RAML.parseRAMLSync(ramlDocument);
   var types = raml.types().reduce(function(types, type) {
     types[type.name()] = type;
@@ -14,7 +14,7 @@ function createValidator(ramlDocument, typeName='TestType') {
   }, {});
 
   // Generate code with the given type
-  var ctx = new GeneratorContext();
+  var ctx = new GeneratorContext(options);
   ctx.uses( types[typeName].runtimeType() );
 
   // Generate code
@@ -1464,6 +1464,7 @@ describe('RAMLValidator', function () {
     describe('Proper RegExp', function () {
 
       beforeEach(function() {
+        let strictConfig = {patternPropertiesAreOptional: false};
         this.validator = createValidator([
           '#%RAML 1.0',
           'types:',
@@ -1471,7 +1472,7 @@ describe('RAMLValidator', function () {
           '    type: object',
           '    properties:',
           '      /^[a-z0-9]+$/: string',
-        ].join('\n'));
+        ].join('\n'), strictConfig);
       });
 
       it('should validate if object has only one key that matches the regex', function () {
@@ -1499,6 +1500,7 @@ describe('RAMLValidator', function () {
     describe('Multiple RegExp', function () {
 
       beforeEach(function() {
+        let strictConfig = {patternPropertiesAreOptional: false};
         this.validator = createValidator([
           '#%RAML 1.0',
           'types:',
@@ -1507,7 +1509,7 @@ describe('RAMLValidator', function () {
           '    properties:',
           '      /^[ab]+$/: string',
           '      /^[cd]+$/: number',
-        ].join('\n'));
+        ].join('\n'), strictConfig);
       });
 
       it('should validate if object contains both types', function () {
@@ -1535,6 +1537,7 @@ describe('RAMLValidator', function () {
     describe('Assumed RegExp', function () {
 
       beforeEach(function() {
+        let strictConfig = {patternPropertiesAreOptional: false};
         this.validator = createValidator([
           '#%RAML 1.0',
           'types:',
@@ -1542,7 +1545,7 @@ describe('RAMLValidator', function () {
           '    type: object',
           '    properties:',
           '      a+: string',
-        ].join('\n'));
+        ].join('\n'), strictConfig);
       });
 
       it('should validate if object has only one key that matches the regex', function () {
@@ -1565,6 +1568,7 @@ describe('RAMLValidator', function () {
     describe('Mixed RegExp and Props', function () {
 
       beforeEach(function() {
+        let strictConfig = {patternPropertiesAreOptional: false};
         this.validator = createValidator([
           '#%RAML 1.0',
           'types:',
@@ -1573,7 +1577,7 @@ describe('RAMLValidator', function () {
           '    properties:',
           '      /^[ab]+$/: string',
           '      baba?: number',
-        ].join('\n'));
+        ].join('\n'), strictConfig);
       });
 
       it('should validate if object contains both optional and regex', function () {
@@ -1594,6 +1598,42 @@ describe('RAMLValidator', function () {
       it('should return error if all properties missing', function () {
         var errors = this.validator({})
         expect(errors.length).toEqual(1);
+      });
+
+    });
+
+    describe('Missing RegExp props in permissive mode', function () {
+
+      beforeEach(function() {
+        let permissiveConfig = {patternPropertiesAreOptional: true};
+        this.validator = createValidator([
+          '#%RAML 1.0',
+          'types:',
+          '  TestType:',
+          '    type: object',
+          '    properties:',
+          '      /^[a-z0-9]+$/: string',
+        ].join('\n'), permissiveConfig);
+      });
+
+      it('should validate if object has only one key that matches the regex', function () {
+        var errors = this.validator({key: 'string'});
+        expect(errors.length).toEqual(0);
+      });
+
+      it('should validate if object at least one key validates the regex', function () {
+        var errors = this.validator({wrong_key: 'value1', WRONG: 'value2', key: 'string'});
+        expect(errors.length).toEqual(0);
+      });
+
+      it('should return error if key matches, but type is invalid', function () {
+        var errors = this.validator({key: 1234});
+        expect(errors.length).toEqual(1);
+      });
+
+      it('should not return error if all properties missing', function () {
+        var errors = this.validator({});
+        expect(errors.length).toEqual(0);
       });
 
     });

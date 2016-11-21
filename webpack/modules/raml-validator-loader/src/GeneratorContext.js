@@ -2,10 +2,26 @@ import RAMLUtil from './utils/RAMLUtil';
 
 class GeneratorContext {
 
-  constructor() {
+  constructor(options={}) {
+    // Configuration parameters that define the behaviour of the parser in some
+    // corner cases
+    this.options = {
+
+      /**
+       * If this flag is set to `true` all pattern properties are considered
+       * optional. By default the parser will query the `raml-1-parser` library,
+       * and it always return `isRequired() = true`.
+       *
+       * @property {boolean}
+       */
+      patternPropertiesAreOptional: true
+
+    };
+
     this.constantTables = {};
     this.typesProcessed = {};
     this.typesQueue = [];
+    this.options = Object.assign(this.options, options);
   }
 
   /**

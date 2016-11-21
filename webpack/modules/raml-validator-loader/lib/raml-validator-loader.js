@@ -152,7 +152,10 @@ module.exports =
 	module.exports = {
 
 	  /**
-	   * Generate a comment
+	   * Generate a comment as an array of lines from the given string
+	   *
+	   * @param {String} desc - The comment string
+	   * @returns {Array} Returns an array of lines for the comment block
 	   */
 	  commentBlock: function commentBlock(desc) {
 	    return [].concat(['/**'], desc.split('\n').map(function (line) {
@@ -162,46 +165,77 @@ module.exports =
 
 	  /**
 	   * Generate a full source using the given generator context
+	   *
+	   * @param {GeneratorContext} ctx - The generator context to use
+	   * @returns {String} The generated module source code
 	   */
 	  generate: function generate(ctx) {
-
-	    // First build the validator fragments
 	    var itype = void 0;
+	    var privateValidatorFragments = ['var PrivateValidators = {'];
 	    var validatorFragments = ['var Validators = {'];
+
+	    //
+	    // The following loop generates the validators for every type in the context
+	    // A validator generator might push more types while it's being processed.
+	    //
 	    while (itype = ctx.nextTypeInQueue()) {
 	      var typeName = _RAMLUtil2.default.getTypeName(itype);
+	      var fragments = [];
 
+	      // 'Any' is a special case, since it always validates. Therefore we use
+	      // a shorter alternative that just returns an empty array
 	      if (typeName === 'any') {
-	        validatorFragments = validatorFragments.concat('\t' + typeName + ': function(value, _path) { return [] },');
+	        validatorFragments.push('/**', ' * (anything)', ' */', '\t' + typeName + ': function(value, _path) { return [] },', '');
 	        continue;
 	      }
 
+	      // Generate a comment block for this function, using the example provided
+	      // by the raml parser.
 	      var comment = itype.examples()[0].expandAsString();
 	      if (_RAMLUtil2.default.isInlineType(itype)) {
+	        // For inline types we also include a more descriptive comment block,
+	        // since the function name doesn't really describe their purpose
 	        comment += '\n\n' + _RAMLUtil2.default.getInlineTypeComment(itype);
 	      }
 
-	      validatorFragments = validatorFragments.concat(_GeneratorUtil2.default.indentFragments(this.commentBlock(comment)), ['\t' + typeName + ': function(value, _path) {', '\t\tvar path = _path || [];', '\t\tvar errors = [];'], _GeneratorUtil2.default.indentFragments(_TypeValidator2.default.generateTypeValidator(itype, ctx), '\t\t'), ['\t\treturn errors;', '\t},', '']);
-	    }
-	    validatorFragments.push('};');
-	    validatorFragments.push('return Validators;');
+	      // Compose the validator function
+	      fragments = fragments.concat(_GeneratorUtil2.default.indentFragments(this.commentBlock(comment)), ['\t' + typeName + ': function(value, path) {', '\t\tvar errors = [];', '\t\tpath = path || [];'], _GeneratorUtil2.default.indentFragments(_TypeValidator2.default.generateTypeValidator(itype, ctx), '\t\t'), ['\t\treturn errors;', '\t},', '']);
 
-	    // THEN build the constants table fragments
+	      // Inline types are stored in a different object, not exposed to the user
+	      if (_RAMLUtil2.default.isInlineType(itype)) {
+	        privateValidatorFragments = privateValidatorFragments.concat(fragments);
+	      } else {
+	        validatorFragments = validatorFragments.concat(fragments);
+	      }
+	    }
+
+	    // Finalize the private and public validator fragments
+	    privateValidatorFragments.push('};');
+	    validatorFragments.push('};');
+
+	    //
+	    // While processing the types, the validator generators will populate
+	    // constants in the global constants table(s).
+	    //
 	    var globalTableFragments = Object.keys(ctx.constantTables).reduce(function (lines, tableName) {
 	      var table = ctx.constantTables[tableName];
 	      if (Array.isArray(table)) {
+	        // Array of anonymous expressions
 	        return lines.concat(['var ' + tableName + ' = ['], _GeneratorUtil2.default.indentFragments(table).map(function (line) {
 	          return line + ',';
 	        }), ['];']);
 	      } else {
+	        // Object of named expressions
 	        return lines.concat(['var ' + tableName + ' = {'], _GeneratorUtil2.default.indentFragments(Object.keys(table).map(function (key) {
 	          return key + ': ' + table[key] + ',';
 	        })), ['};', '']);
 	      }
 	    }, []);
 
-	    // Compose result
-	    return [].concat('module.exports = (function() {', [_RAMLError2.default], globalTableFragments, '', validatorFragments, '', '})();').join('\n');
+	    //
+	    // Compose the individual fragments into the full module source
+	    //
+	    return [].concat('module.exports = (function() {', _RAMLError2.default, globalTableFragments, '', privateValidatorFragments, '', validatorFragments, '', 'return Validators;', '})();').join('\n');
 	  }
 
 	};
@@ -239,7 +273,7 @@ module.exports =
 	   *
 	   * Since the latter is defining an 'anonymous' type in-place
 	   *
-	   * @param {ITypeDefinition} itype - The runtime type of a RAML type to check
+	   * @param {ITypeDefinition} itype - The runtime type of a RAML definition to check
 	   * @returns {Boolean} Returns true if this type is an in-line definition
 	   */
 	  isInlineType: function isInlineType(itype) {
@@ -250,9 +284,30 @@ module.exports =
 
 
 	  /**
+	   * This function checks if the given internal type is an inline array
+	   * definition of a known type. Such definitions need a different name, yet
+	   * they remain exposed on the `Validators` object.
+	   *
+	   * For example:
+	   *
+	   * properties:
+	   *   arrayProp: SomeType[]
+	   *
+	   * Should generate a validator named `SomeTypeAsArray` instead of an anomyous
+	   * validator like inline.
+	   *
+	   * @param {ITypeDefinition} itype - The runtime type of a RAML definition to check
+	   * @returns {Boolean} Returns true if this type is an in-line array
+	   */
+	  isArrayOfType: function isArrayOfType(itype) {
+	    return itype.nameId() === '' && itype.isArray();
+	  },
+
+
+	  /**
 	   * Return a comment that describes this inline type
 	   *
-	   * @param {ITypeDefinition} itype - The runtime type of a RAML type
+	   * @param {ITypeDefinition} itype - The runtime type of a RAML definition
 	   * @returns {String} The comment to the specialised inline type
 	   */
 	  getInlineTypeComment: function getInlineTypeComment(itype) {
@@ -269,28 +324,9 @@ module.exports =
 
 
 	  /**
-	   * Walk up the type and find out the built-in type
-	   *
-	   * @param {ITypeDefinition} itype - The runtime type of a RAML type
-	   * @returns {ITypeDefinition|null} The builtin type or null if not found
-	   */
-	  getBuiltinTypeName: function getBuiltinTypeName(itype) {
-	    if (itype.isBuiltIn()) {
-	      return itype.nameId();
-	    }
-
-	    return itype.allSuperTypes().find(function (type) {
-	      return type.isBuiltIn().nameId();
-	    });
-
-	    return null;
-	  },
-
-
-	  /**
 	   * Returns the base type of the given in-line type definition
 	   *
-	   * @param {ITypeDefinition} itype - The runtime type of a RAML type
+	   * @param {ITypeDefinition} itype - The runtime type of a RAML definition
 	   * @returns {String} The string name of the base type
 	   */
 	  getInlineTypeBase: function getInlineTypeBase(itype) {
@@ -313,7 +349,7 @@ module.exports =
 	   * Returns a unique name for this inline type, by calculating a checksum
 	   * of the values of it's facets.
 	   *
-	   * @param {ITypeDefinition} itype - The runtime type of a RAML type
+	   * @param {ITypeDefinition} itype - The runtime type of a RAML definition
 	   * @returns {String} A unique name for this type, based on it's facets values
 	   */
 	  getInlineTypeName: function getInlineTypeName(itype) {
@@ -331,58 +367,91 @@ module.exports =
 
 
 	  /**
-	   * This function tries to put a name on the given run-time RAML type.
+	   * The name of the in-line array type.
 	   *
-	   * @param {ITypeDefinition} itype - The runtime type of a RAML type
+	   * @param {ITypeDefinition} itype - The runtime type of a RAML definition
+	   * @returns {String} Returns a string with the name of the given type
+	   */
+	  getArrayOfTypeName: function getArrayOfTypeName(itype) {
+	    return this.getTypeName(itype.componentType()) + 'AsArray';
+	  },
+
+
+	  /**
+	   * This function tries to put a name on the given run-time RAML definition.
+	   *
+	   * @param {ITypeDefinition} itype - The runtime type of a RAML definition
 	   * @returns {String} Returns a string with the name of the given type
 	   */
 	  getTypeName: function getTypeName(itype) {
 
-	    // Inline types are processed first
+	    //
+	    // Inline types are processed first. These are:
+	    //
+	    //   TypeA:
+	    //     properties:
+	    //       # An anonymous array type
+	    //       case1:
+	    //         type: array
+	    //         items: string
+	    //       # An anonymous primitive type
+	    //       case2:
+	    //         type: number
+	    //         minValue: 0
+	    //
 	    if (this.isInlineType(itype)) {
 	      return this.getInlineTypeName(itype);
 	    }
 
-	    // The moment we have found a named type we are good
-	    if (itype.nameId() != null) {
-
-	      // There are cases with anonymous arrays
-	      if (!itype.nameId() && itype.isArray()) {
-	        return this.getTypeName(itype.componentType()) + 'AsArray';
-	      }
-
-	      return itype.nameId();
-	    }
-
-	    // If this is a value type, walk the tree upwards
-	    if (itype.isValueType()) {
-	      return this.getTypeName(itype.superTypes()[0]);
-	    }
-
-	    // A special case, where we have a structured item, but without an id
-	    // or properties, that's an empty field definition. For example:
 	    //
-	    // labels?:
-	    //   type: labels.KVLabels
-	    //   description: some text
+	    // Check if this is an array of a known type. This is:
 	    //
-	    if (itype.hasStructure() && itype.superTypes().length) {
-	      return this.getTypeName(itype.superTypes()[0]);
+	    //   TypeA:
+	    //     properties:
+	    //       # In-line array definition of known type
+	    //       case1: string[]
+	    //
+	    if (this.isArrayOfType(itype)) {
+	      return this.getArrayOfTypeName(itype);
 	    }
 
-	    // This looks like an anonymous inline array type
-	    if (itype.isArray()) {
-	      return this.getTypeName(itype.componentType()) + 'AsArray';
-	    }
+	    // Return type name
+	    return itype.nameId();
+	  },
 
-	    // That looks like an unnamed type :/
-	    throw new Error('Don\'t know how to handle anonymous, structured types');
+
+	  /**
+	   * Get the group where this type should be registered
+	   *
+	   * This is either `Validators`, exposed to the user, or `PrivateValidators`,
+	   * internally maintained.
+	   *
+	   * @param {ITypeDefinition} itype - The runtime type of the RAML definition
+	   * @returns {string} Returns the name of the group where this type should be added
+	   */
+	  getTypeGroup: function getTypeGroup(itype) {
+	    if (this.isInlineType(itype)) {
+	      return 'PrivateValidators';
+	    } else {
+	      return 'Validators';
+	    }
+	  },
+
+
+	  /**
+	   * Return the reference to the given type
+	   */
+	  getTypeRef: function getTypeRef(itype) {
+	    return this.getTypeGroup(itype) + '.' + this.getTypeName(itype);
 	  },
 
 
 	  /**
 	   * This function walks up the type tree until it reaches a native type
 	   * and then returns it's type.
+	   *
+	   * @param {ITypeDefinition} itype - The runtime type of the RAML definition
+	   * @returns {ITypeDefinition|null} The builtin type or null if not found
 	   */
 	  getBuiltinType: function getBuiltinType(itype) {
 	    if (itype.isBuiltIn()) {
@@ -392,6 +461,22 @@ module.exports =
 	    return itype.allSuperTypes().find(function (type) {
 	      return type.isBuiltIn();
 	    });
+	  },
+
+
+	  /**
+	   * Return the name of a builtin type
+	   *
+	   * @param {ITypeDefinition} itype - The runtime type of a RAML definition
+	   * @returns {string|null} The builtin type name or null if not found
+	   */
+	  getBuiltinTypeName: function getBuiltinTypeName(itype) {
+	    var builtinType = this.getBuiltinType(itype);
+	    if (builtinType == null) {
+	      return null;
+	    }
+
+	    return builtinType.nameId();
 	  }
 	};
 
@@ -449,6 +534,20 @@ module.exports =
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	/**
+	 * Collect union types, from possibly nested unions
+	 *
+	 * @param {IUnionType} itype - The Union run-time RAML type to collect union types for
+	 * @returns {Array} Returns an array of union types that compose this union
+	 */
+	function collectUnionTypes(itype) {
+	  if (!itype.isUnion()) {
+	    return [itype];
+	  } else {
+	    return [].concat(collectUnionTypes(itype.leftType()), collectUnionTypes(itype.rightType()));
+	  }
+	}
+
 	module.exports = {
 
 	  /**
@@ -466,9 +565,11 @@ module.exports =
 	    // We first use the high-order composers to generate the base code
 	    // depending on the major classifications of the validators
 	    if (itype.isUnion()) {
-	      var leftTypeValidatorFn = context.uses(itype.leftType());
-	      var rightTypeValidatorFn = context.uses(itype.rightType());
-	      fragments = _HighOrderComposers2.default.composeUnion(itype.getFixedFacets(), leftTypeValidatorFn, rightTypeValidatorFn, context);
+	      var unionTypes = collectUnionTypes(itype);
+	      var unionValidators = unionTypes.map(function (itype) {
+	        return context.uses(itype);
+	      });
+	      fragments = _HighOrderComposers2.default.composeUnion(itype.getFixedFacets(), unionValidators, context);
 	    } else {
 	      fragments = _HighOrderComposers2.default.composeFacets(itype.getFixedFacets(), context);
 	    }
@@ -476,7 +577,7 @@ module.exports =
 	    // If we have an object, iterate over it's properties and create
 	    // validation constraints
 	    if (itype.isObject()) {
-	      fragments = fragments.concat(_HighOrderComposers2.default.composeObjectProperties(itype.allProperties(), itype.facets(), context));
+	      fragments = fragments.concat(_HighOrderComposers2.default.composeObjectProperties(itype.allProperties(), itype, context));
 	    }
 
 	    // Wrap everything in type validation
@@ -507,7 +608,7 @@ module.exports =
 	   * [Number]  `maximum`: Maximum numeric value
 	   */
 	  maximum: function maximum(value, context) {
-	    var ERROR_MESSAGE = context.getConstantString('ERROR_MESSAGES', 'NUMBER_MAX', 'Must be smaller than {value}');
+	    var ERROR_MESSAGE = context.getConstantString('ERROR_MESSAGES', 'NUMBER_MAX', 'Must be smaller than or equal to {value}');
 
 	    return _FragmentFactory2.default.testAndPushError('value > ' + value, ERROR_MESSAGE, { value: value });
 	  },
@@ -516,7 +617,7 @@ module.exports =
 	   * [Number] `minimum`: Minimum numeric value
 	   */
 	  minimum: function minimum(value, context) {
-	    var ERROR_MESSAGE = context.getConstantString('ERROR_MESSAGES', 'NUMBER_MIN', 'Must be bigger than {value}');
+	    var ERROR_MESSAGE = context.getConstantString('ERROR_MESSAGES', 'NUMBER_MIN', 'Must be bigger than or equal to {value}');
 
 	    return _FragmentFactory2.default.testAndPushError('value < ' + value, ERROR_MESSAGE, { value: value });
 	  },
@@ -756,29 +857,6 @@ module.exports =
 	    var variablesExpr = JSON.stringify(errorMessageVariables);
 
 	    return ['if (' + testExpr + ') {', '\terrors.push(new RAMLError(path, ' + errorConstant + ', ' + variablesExpr + '));', '}'];
-	  },
-
-
-	  /**
-	   * Delegate the property validation to the given delegate function.
-	   * Such functions can be any other validation function generated so far or
-	   * will be generated in the future.
-	   *
-	   * @param {String} property - The property whose check you want to delegate
-	   * @param {}
-	   */
-	  delegatePropertyValidation: function delegatePropertyValidation(property, delegateFn) {
-	    return ['errors = errors.concat(RAMLValidators.' + delegateFn + '(value.' + property + ', path.concat[\'' + property + '\']));'];
-	  },
-
-
-	  /**
-	   * Run the given expression only if the given property is not missing
-	   */
-	  runIfPropNotMissing: function runIfPropNotMissing(property, expression) {
-	    var indentedExpression = '\t' + expression.replace(/\n/g, '\n\t');
-
-	    return ['if (value.' + property + ' != null) {', indentedExpression, '}'];
 	  }
 	};
 
@@ -790,8 +868,6 @@ module.exports =
 
 	var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
-	var _templateObject = _taggedTemplateLiteral(['});'], ['});']);
-
 	var _FacetValidators = __webpack_require__(9);
 
 	var _FacetValidators2 = _interopRequireDefault(_FacetValidators);
@@ -800,19 +876,69 @@ module.exports =
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+	/**
+	 * This is a hackish way to read the contents of the `additionalProperties`
+	 * facet value. That's because the ITypeDefinition API is not populating that
+	 * facet in the `getFixedFacets()` function.
+	 *
+	 * So, we are looking up the type adapter (that RAML uses for type validation
+	 * internally), and we are looking up on it's metadata for the
+	 * `KnownPropertyRestriction`. The value of this restriction is the value of
+	 * the `additionalProperties` facet.
+	 *
+	 * @param {ITypeDefinition} itype - The type to extract the value from
+	 * @param {boolean} defaultValue - The default value if the facet is not found
+	 * @returns {boolean} Returns the value of the additionalProperties facet
+	 */
+	function getAdditionalPropertiesValue(itype) {
+	  var defaultValue = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
 
-	var REGEX_MATCHING_REGEX = /[\[\]\(\)\{\}\\\^\$\.\|\?\*\+/]/g;
+
+	  // Locate the type adapter
+	  var typeAdapter = itype.getAdapters().find(function (adapter) {
+	    return adapter.constructor.name === 'InheritedType';
+	  });
+	  if (!typeAdapter) {
+	    return defaultValue;
+	  }
+
+	  // The metadata KnownPropertyRestriction is defined when the
+	  // additionalProperties facet is defiend and it's value contains
+	  // the facet's value
+	  var knownProperty = typeAdapter.meta().find(function (meta) {
+	    return meta.constructor.name === 'KnownPropertyRestriction';
+	  });
+	  if (!knownProperty) {
+	    return defaultValue;
+	  }
+
+	  return knownProperty.value();
+	}
 
 	var HighOrderComposers = {
 
 	  /**
 	   * Compose a union validator
 	   */
-	  composeUnion: function composeUnion(facets, leftValidatorFn, rightValidatorFn, context) {
-	    var fragments = [
-	    // First perform some type validations
-	    'var lErr = ' + leftValidatorFn + '(value, path);', 'var rErr = ' + rightValidatorFn + '(value, path);', 'if (lErr.length === 0) { return []; }', 'if (rErr.length === 0) { return []; }', 'if (lErr.length < rErr.length) {', '\treturn lErr;', '} else {', '\treturn rErr;', '}'];
+	  composeUnion: function composeUnion(facets, unionValidatorFns, context) {
+	    var fragments = [].concat('errors = errors.concat([',
+
+	    // Run the union validation type for every possible union type
+	    unionValidatorFns.map(function (typeValidatorFn) {
+	      return '\t' + typeValidatorFn + '(value, path),';
+	    }),
+
+	    // Sort the validator responses by the number of errors, ascending
+	    '].sort(function(a, b) {', '\treturn a.length - b.length;',
+
+	    //
+	    // Pick the validation with the fewest possible errors
+	    //
+	    // If == 0 : The union type validation succeeded
+	    // If  > 0 : The union with the fewest errors, and therfore the most
+	    //           probabel match.
+	    //
+	    '})[0]);');
 
 	    return fragments;
 	  },
@@ -829,7 +955,8 @@ module.exports =
 	  /**
 	   * Compose object properties fragments
 	   */
-	  composeObjectProperties: function composeObjectProperties(properties, facets, context) {
+	  composeObjectProperties: function composeObjectProperties(properties, itype, context) {
+	    var REGEX_MATCHING_REGEX = /[\[\]\(\)\{\}\\\^\$\.\|\?\*\+/]/g;
 	    var hasPropsDefined = false;
 	    var stringMatchers = [];
 	    var regexMatchers = [];
@@ -855,7 +982,13 @@ module.exports =
 	      if (!keyRegex) {
 	        stringMatchers.push([key, prop.isRequired(), typeValidatorFn]);
 	      } else {
-	        regexMatchers.push([keyRegex, prop.isRequired(), typeValidatorFn]);
+	        var isRequired = false;
+
+	        if (!context.options.patternPropertiesAreOptional) {
+	          isRequired = prop.isRequired();
+	        }
+
+	        regexMatchers.push([keyRegex, isRequired, typeValidatorFn]);
 	      }
 	    });
 
@@ -867,6 +1000,17 @@ module.exports =
 	      hasPropsDefined = true;
 	      fragments.push('var matched = [];', 'var props = Object.keys(value);');
 
+	      // If we are mixing regex properties and regular ones, exclude regular
+	      // properties from being processed as regex
+	      var outliers = stringMatchers.map(function (match) {
+	        return match[0];
+	      });
+	      if (outliers.length) {
+	        fragments.push('var regexProps = props.filter(function(key) {', '\treturn ' + JSON.stringify(outliers) + '.indexOf(key) === -1;', '});');
+	      } else {
+	        fragments.push('var regexProps = props;');
+	      }
+
 	      fragments = regexMatchers.reduce(function (fragments, _ref) {
 	        var _ref2 = _slicedToArray(_ref, 3),
 	            regex = _ref2[0],
@@ -876,7 +1020,7 @@ module.exports =
 	        var REGEX = context.getConstantExpression('REGEX', '/' + regex + '/');
 	        var ERROR_MESSAGE = context.getConstantString('ERROR_MESSAGES', 'PROP_MISSING_MATCH', 'Missing a property that matches `{name}`');
 
-	        fragments.push('matched = props.filter(function(key) {', '\treturn ' + REGEX + '.exec(key);', '});');
+	        fragments.push('matched = regexProps.filter(function(key) {', '\treturn ' + REGEX + '.exec(key);', '});');
 
 	        // Check for required props
 	        if (required) {
@@ -906,7 +1050,7 @@ module.exports =
 
 	    // The `additionalProperties` facet is a bit more complicated, since it
 	    // requires traversal thorugh it's keys
-	    if (facets.additionalProperties) {
+	    if (getAdditionalPropertiesValue(itype) === false) {
 	      var ERROR_MESSAGE = context.getConstantString('ERROR_MESSAGES', 'PROP_ADDITIONAL_PROPS', 'Unexpected extraneous property `{name}`');
 
 	      // Don't re-define props if we already have them
@@ -915,13 +1059,13 @@ module.exports =
 	      }
 
 	      // Iterate over properties and check if the validators match
-	      fragments = fragments.concat('props.forEach(function(key) {', '\tvar found = false;', stringMatchers.reduce(function (fragments, _ref5) {
+	      fragments = fragments.concat('props.forEach(function(key) {', stringMatchers.reduce(function (fragments, _ref5) {
 	        var _ref6 = _slicedToArray(_ref5, 3),
 	            name = _ref6[0],
 	            unused1 = _ref6[1],
 	            unused2 = _ref6[2];
 
-	        return fragments.concat(['if (key === "' + name + '") found=true;']);
+	        return fragments.concat(['\tif (key === "' + name + '") return;']);
 	      }, []), regexMatchers.reduce(function (fragments, _ref7) {
 	        var _ref8 = _slicedToArray(_ref7, 3),
 	            regex = _ref8[0],
@@ -929,8 +1073,8 @@ module.exports =
 	            unused2 = _ref8[2];
 
 	        var REGEX = context.getConstantExpression('REGEX', '/' + regex + '/');
-	        return fragments.concat(['if (' + REGEX + '.exec(key)) found=true;']);
-	      }, []), '\tif (!found) {', '\t\terrors.push(new RAMLError(path, ' + ERROR_MESSAGE + ', {name: key}));', '\t}'(_templateObject));
+	        return fragments.concat(['if (' + REGEX + '.exec(key)) return;']);
+	      }, []), '\terrors.push(new RAMLError(path, ' + ERROR_MESSAGE + ', {name: key}));', '});');
 	    }
 
 	    return fragments;
@@ -978,6 +1122,23 @@ module.exports =
 	var NATIVE_TYPE_VALIDATORS = {
 
 	  /**
+	   * Any
+	   */
+	  any: function any(fragments, context) {
+	    // Everything passes
+	    return [];
+	  },
+
+	  /**
+	   * Nil
+	   */
+	  nil: function nil(fragments, context) {
+	    var ERROR_MESSAGE = context.getConstantString('ERROR_MESSAGES', 'TYPE_NOT_NULL', 'Expecting null');
+
+	    return [].concat('if (value !== null) {', '\terrors.push(new RAMLError(path, ' + ERROR_MESSAGE + '));', '} else {', (0, _GeneratorUtil.indentFragments)(fragments), '}');
+	  },
+
+	  /**
 	   * Number type
 	   */
 	  NumberType: function NumberType(fragments, context) {
@@ -1019,7 +1180,7 @@ module.exports =
 	  DateTimeType: function DateTimeType(fragments, context) {
 	    var ERROR_MESSAGE = context.getConstantString('ERROR_MESSAGES', 'TYPE_NOT_DATETIME', 'Expecting a date/time string');
 
-	    return [].concat('if (typeof value != "string") {', '\terrors.push(new RAMLError(path, ' + ERROR_MESSAGE + '));', '} else {', (0, _GeneratorUtil.indentFragments)(fragments), '}');
+	    return [].concat('if (isNaN(new Date(value).getTime())) {', '\terrors.push(new RAMLError(path, ' + ERROR_MESSAGE + '));', '} else {', (0, _GeneratorUtil.indentFragments)(fragments), '}');
 	  },
 
 	  /**
@@ -1075,7 +1236,7 @@ module.exports =
 	 * The following string defines the RAMLError class, instantiated by the
 	 * validator when an error occurs.
 	 */
-	module.exports = "\nconst REPLACE_MESSAGE_TEMPLATE = /\\{([^\\}]+)}/g;\n\nfunction RAMLError(path, message, _messageVariables) {\n  var messageVariables = _messageVariables || {};\n\n  Object.defineProperty(this, 'path', {\n    get: function() {\n      return path;\n    },\n  });\n\n  Object.defineProperty(this, 'message', {\n    get: function() {\n      return message.replace(REPLACE_MESSAGE_TEMPLATE, function(match) {\n        return ''+messageVariables[match.slice(1,-1)] || '';\n      });\n    },\n  });\n}\n";
+	module.exports = "\nconst REPLACE_MESSAGE_TEMPLATE = /\\{([^\\}]+)}/g;\n\nfunction RAMLError(path, message, _messageVariables) {\n  var messageVariables = _messageVariables || {};\n\n  Object.defineProperty(this, 'path', {\n    enumerable: true,\n    get: function() {\n      return path;\n    },\n  });\n\n  Object.defineProperty(this, 'message', {\n    enumerable: true,\n    get: function() {\n      return message.replace(REPLACE_MESSAGE_TEMPLATE, function(match) {\n        return ''+messageVariables[match.slice(1,-1)] || '';\n      });\n    },\n  });\n}\n";
 
 /***/ },
 /* 14 */
@@ -1095,11 +1256,29 @@ module.exports =
 
 	var GeneratorContext = function () {
 	  function GeneratorContext() {
+	    var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
 	    _classCallCheck(this, GeneratorContext);
+
+	    // Configuration parameters that define the behaviour of the parser in some
+	    // corner cases
+	    this.options = {
+
+	      /**
+	       * If this flag is set to `true` all pattern properties are considered
+	       * optional. By default the parser will query the `raml-1-parser` library,
+	       * and it always return `isRequired() = true`.
+	       *
+	       * @property {boolean}
+	       */
+	      patternPropertiesAreOptional: true
+
+	    };
 
 	    this.constantTables = {};
 	    this.typesProcessed = {};
 	    this.typesQueue = [];
+	    this.options = Object.assign(this.options, options);
 	  }
 
 	  /**
@@ -1117,15 +1296,14 @@ module.exports =
 	  _createClass(GeneratorContext, [{
 	    key: 'uses',
 	    value: function uses(itype) {
-	      var name = _RAMLUtil2.default.getTypeName(itype);
-	      var callExpr = 'Validators.' + name;
+	      var ref = _RAMLUtil2.default.getTypeRef(itype);
 
-	      if (!this.typesProcessed[name]) {
+	      if (!this.typesProcessed[ref]) {
 	        this.typesQueue.push(itype);
-	        this.typesProcessed[name] = true;
+	        this.typesProcessed[ref] = true;
 	      }
 
-	      return callExpr;
+	      return ref;
 	    }
 
 	    /**

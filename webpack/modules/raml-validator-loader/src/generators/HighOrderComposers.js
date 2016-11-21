@@ -106,7 +106,13 @@ const HighOrderComposers = {
       if (!keyRegex) {
         stringMatchers.push([key, prop.isRequired(), typeValidatorFn]);
       } else {
-        regexMatchers.push([keyRegex, prop.isRequired(), typeValidatorFn]);
+        let isRequired = false;
+
+        if (!context.options.patternPropertiesAreOptional) {
+          isRequired = prop.isRequired();
+        }
+
+        regexMatchers.push([keyRegex, isRequired, typeValidatorFn]);
       }
 
     });
