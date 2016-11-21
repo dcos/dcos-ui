@@ -4,6 +4,8 @@ import {JSONReducer as env} from './serviceForm/EnvironmentVariables';
 import {JSONReducer as fetch} from './serviceForm/Artifacts';
 import {JSONReducer as healthChecks} from './serviceForm/HealthChecks';
 import {JSONReducer as labels} from './serviceForm/Labels';
+import {JSONReducer as networking} from './serviceForm/Networking';
+import {JSONReducer as volumes} from './serviceForm/Volumes';
 import {
   simpleFloatReducer,
   simpleIntReducer,
@@ -31,5 +33,7 @@ module.exports = {
   labels,
   healthChecks,
   constraints,
-  fetch
+  fetch,
+  networking,
+  volumes
 };
