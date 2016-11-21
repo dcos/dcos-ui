@@ -43,8 +43,9 @@ import TransactionTypes from '../constants/TransactionTypes';
  */
 
 class Batch {
-  constructor() {
-    concealContext(this, []);
+  constructor(batch=[]) {
+    this.add = this.add.bind(batch);
+    this.reduce = this.reduce.bind(batch);
   }
 
   /**
@@ -69,11 +70,8 @@ class Batch {
 
     batch.push(item);
 
-    // Create a new batch, without calling the constructor
-    let newInst = Object.create(Batch.prototype);
-    concealContext(newInst, batch);
-
-    return newInst;
+    // Create new batch
+    return new Batch(batch);
   };
 
   /**
@@ -95,11 +93,6 @@ class Batch {
     return this.reduce(callback, data);
   };
 
-}
-
-function concealContext(instance, batch) {
-  instance.add = instance.add.bind(batch);
-  instance.reduce = instance.reduce.bind(batch);
 }
 
 module.exports = Batch;
