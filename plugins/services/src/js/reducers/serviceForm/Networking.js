@@ -1,53 +1,48 @@
-import {
-  ADD_ITEM,
-  SET
-} from '../../../../../../src/js/constants/TransactionTypes';
-import Transaction from '../../../../../../src/js/structs/Transaction';
+import {SET} from '../../../../../../src/js/constants/TransactionTypes';
+import Networking from '../../../../../../src/js/constants/Networking';
 
-let reducer = (state, {type, path, value}) => {
+const defaultState = {
+  type: Networking.type.HOST
+};
+
+// TODO: This is taking place of the reducer's context since this reducer does
+// not make use of the combinedReducer method.
+let appState = {
+  hasContainer: false
+};
+
+let reducer = (state = defaultState, {type, path, value}) => {
   let joinedPath = path && path.join('.');
+  let newState = Object.assign({}, state);
 
-  if (type === SET && joinedPath === 'networking.type') {
-    let newState = Object.assign({}, state);
-    newState.type = value;
-
-    return newState;
+  if (joinedPath === 'container.docker.image' && !!value) {
+    appState.hasContainer = true;
   }
 
-  return state;
+  if (type === SET && joinedPath === 'networking.type') {
+    newState.type = value;
+  }
+
+  if (joinedPath === 'networking.type' && !appState.hasContainer) {
+    newState.type = Networking.type.HOST;
+  }
+
+  return newState;
 };
 
 module.exports = {
-  JSONReducer: reducer,
+  JSONReducer: () => {
+    // We don't want the `networking` key in the app config; it is only used
+    // to influence other aspects of the configuration.
+    return null;
+  },
 
   JSONParser(state) {
     if (state.env == null) {
       return [];
     }
 
-    return Object.keys(state.env).reduce(function (memo, key, index) {
-      /**
-       * For the environment variables which are a key => value based object
-       * we want to create a new item and fill it with the key and the
-       * value. So we need 3 transactions for each key value pair.
-       * 1) Add a new Item to the path with the index equal to index.
-       * 2) Set the key on the path `env.${index}.key`
-       * 3) Set the value on the path `env.${index}.value`
-       */
-      memo.push(new Transaction(['env'], index, ADD_ITEM));
-      memo.push(new Transaction([
-        'env',
-        index,
-        'key'
-      ], key, SET));
-      memo.push(new Transaction([
-        'env',
-        index,
-        'value'
-      ], state.env[key], SET));
-
-      return memo;
-    }, []);
+    return state;
   },
 
   FormReducer: reducer

@@ -1,103 +1,266 @@
 import React, {Component} from 'react';
 
+import FieldHelp from '../../../../../../src/js/components/form/FieldHelp';
 import FieldInput from '../../../../../../src/js/components/form/FieldInput';
 import FieldLabel from '../../../../../../src/js/components/form/FieldLabel';
 import FieldSelect from '../../../../../../src/js/components/form/FieldSelect';
 import FormGroup from '../../../../../../src/js/components/form/FormGroup';
+import FormGroupContainer from '../../../../../../src/js/components/form/FormGroupContainer';
 import {FormReducer as networking} from '../../reducers/serviceForm/Networking';
-import {FormReducer as serviceEndpoints} from '../../reducers/serviceForm/ServiceEndpoints';
+import {FormReducer as portDefinitions} from '../../reducers/serviceForm/PortDefinitions';
+import HostUtil from '../../utils/HostUtil';
 import Icon from '../../../../../../src/js/components/Icon';
+import Networking from '../../../../../../src/js/constants/Networking';
 
 class NetworkingFormSection extends Component {
-  getVirtualNetworkServiceEndpoints(serviceEndpoints) {
-    return serviceEndpoints.map((serviceEndpoint, index) => {
-      let portMappingFields = null;
+  getHostPortFields(portDefinition, index) {
+    return [
+      <FormGroup className="column-3" key="host-port">
+        <FieldLabel>
+          Host Port
+        </FieldLabel>
+        <FieldInput name={`portDefinitions.${index}.hostPort`}
+          type="number"
+          value={portDefinition.hostPort} />
+      </FormGroup>,
+      <FormGroup className="column-auto flush-left" key="assign-automatically">
+        <FieldLabel>
+          &nbsp;
+        </FieldLabel>
+        <FieldLabel matchInputHeight={true}>
+          <FieldInput name={`portDefinitions.${index}.automaticPort`}
+            type="checkbox"
+            value={portDefinition.automaticPort} />
+          Assign Automatically
+        </FieldLabel>
+      </FormGroup>
+    ];
+  }
 
-      if (serviceEndpoint.portMapping) {
-        portMappingFields = (
+  getLoadBalancedServiceAddressField({checkboxName, checkboxValue, port}) {
+    let hostname = HostUtil.stringToHostname(this.props.data.id);
+
+    return [
+      <div className="flex row" key="title">
+        <FormGroup className="column-9">
+          <FieldLabel>
+            Load Balanced Service Address
+            <FieldHelp>
+              Load balances the service internally (layer 4), and creates a service address. For external (layer 7) load balancing, create an external load balancer and attach this service.
+            </FieldHelp>
+          </FieldLabel>
+        </FormGroup>
+      </div>,
+      <div className="flex flex-align-items-center row" key="toggle">
+        <FormGroup className="column-auto">
+          <FieldLabel>
+            <FieldInput name={checkboxName}
+              type="checkbox"
+              value={checkboxValue} />
+            Enabled
+          </FieldLabel>
+        </FormGroup>
+        <FormGroup className="column-auto flush-left">
+          <span>
+            {hostname}{Networking.L4LB_ADDRESS}:{port}
+          </span>
+        </FormGroup>
+      </div>
+    ];
+  }
+
+  getProtocolField(portDefinition, index) {
+    return (
+      <FormGroup className="column-3">
+        <FieldLabel>
+          Protocol
+        </FieldLabel>
+        <div className="flex row">
+          <FormGroup className="column-auto">
+            <FieldLabel matchInputHeight={true}>
+              <FieldInput checked={portDefinition.protocol === 'tcp'}
+                name={`portDefinitions.${index}.protocol`}
+                type="radio"
+                value="tcp" />
+              TCP
+            </FieldLabel>
+          </FormGroup>
+          <FormGroup className="column-auto">
+            <FieldLabel matchInputHeight={true}>
+              <FieldInput checked={portDefinition.protocol === 'udp'}
+                name={`portDefinitions.${index}.protocol`}
+                type="radio"
+                value="udp" />
+              UDP
+            </FieldLabel>
+          </FormGroup>
+        </div>
+      </FormGroup>
+    );
+  }
+
+  getBridgeServiceEndpoints(portDefinitions) {
+    return portDefinitions.map((portDefinition, index) => {
+
+      let portMappingFields = (
+        <div className="flex row">
+          {this.getHostPortFields(portDefinition, index)}
+          {this.getProtocolField(portDefinition, index)}
+        </div>
+      );
+
+      return (
+        <FormGroupContainer key={index}
+          onRemove={this.props.onRemoveItem.bind(
+            this,
+            {value: index, path: 'portDefinitions'}
+          )}>
           <div className="flex row">
             <FormGroup className="column-3">
               <FieldLabel>
-                Host Port
+                Container Port
               </FieldLabel>
-              <FieldInput name={`serviceEndpoints.${index}.hostPort`}
+              <FieldInput name={`portDefinitions.${index}.containerPort`}
                 type="number"
-                value={serviceEndpoint.hostPort} />
+                value={portDefinition.containerPort} />
             </FormGroup>
-            <FormGroup className="column-3 flush-left">
+            <FormGroup className="column-6">
               <FieldLabel>
-                &nbsp;
+                Service Endpoint Name
               </FieldLabel>
-              <label>
-                <FieldInput name={`serviceEndpoints.${index}.hostPort`}
-                  type="checkbox"
-                  value={serviceEndpoint.hostPort} />
-                Assign Automatically
-              </label>
-            </FormGroup>
-            <FormGroup className="column-3">
-              <FieldLabel>
-                Protocol
-              </FieldLabel>
-              <FieldLabel>
-                <FieldInput name={`serviceEndpoints.${index}.protocol`}
-                  type="radio"
-                  value={serviceEndpoint.hostPort} />
-                TCP
-              </FieldLabel>
-              <FieldLabel>
-                <FieldInput name={`serviceEndpoints.${index}.protocol`}
-                  type="radio"
-                  value={serviceEndpoint.hostPort} />
-                UDP
-              </FieldLabel>
+              <FieldInput name={`portDefinitions.${index}.name`}
+                type="text"
+                value={portDefinition.name} />
             </FormGroup>
           </div>
-        );
-      }
-
-      return (
-        <div className="panel pod flush-top flush-right flush-left" key={index}>
-          <div className="pod pod-narrow pod-short">
-            <div className="flex row">
-              <FormGroup className="column-3">
-                <FieldLabel>
-                  Container Port
-                </FieldLabel>
-                <FieldInput name={`serviceEndpoints.${index}.containerPort`}
-                  type="number"
-                  value={serviceEndpoint.containerPort} />
-              </FormGroup>
-              <FormGroup className="column-6">
-                <FieldLabel>
-                  Service Endpoint Name
-                </FieldLabel>
-                <FieldInput name={`serviceEndpoints.${index}.name`}
-                  type="text"
-                  value={serviceEndpoint.name} />
-              </FormGroup>
-              <FormGroup className="column-3">
-                <FieldLabel>
-                  Port Mapping
-                </FieldLabel>
-                <FieldInput name={`serviceEndpoints.${index}.portMapping`}
-                  type="toggle"
-                  value={serviceEndpoint.portMapping} />
-              </FormGroup>
-            </div>
-            {portMappingFields}
-          </div>
-        </div>
+          {portMappingFields}
+          {this.getLoadBalancedServiceAddressField({
+            checkboxName: `portDefinitions.${index}.loadBalanced`,
+            checkboxValue: portDefinition.loadBalanced,
+            port: portDefinition.hostPort
+          })}
+        </FormGroupContainer>
       );
     });
   }
 
-  getServiceEndpoints(serviceEndpoints) {
-    return this.getVirtualNetworkServiceEndpoints(serviceEndpoints);
+  getHostServiceEndpoints(portDefinitions) {
+    return portDefinitions.map((portDefinition, index) => {
+      return (
+        <FormGroupContainer key={index}
+          onRemove={this.props.onRemoveItem.bind(
+            this,
+            {value: index, path: 'portDefinitions'}
+          )}>
+          <div className="flex row">
+            <FormGroup className="column-6">
+              <FieldLabel>
+                Service Endpoint Name
+              </FieldLabel>
+              <FieldInput name={`portDefinitions.${index}.name`}
+                type="text"
+                value={portDefinition.name} />
+            </FormGroup>
+          </div>
+          <div className="flex row">
+            {this.getHostPortFields(portDefinition, index)}
+            {this.getProtocolField(portDefinition, index)}
+          </div>
+          {this.getLoadBalancedServiceAddressField({
+            checkboxName: `portDefinitions.${index}.loadBalanced`,
+            checkboxValue: portDefinition.loadBalanced,
+            port: portDefinition.hostPort
+          })}
+        </FormGroupContainer>
+      );
+    });
+  }
+
+  getVirtualNetworkServiceEndpoints(portDefinitions) {
+    return portDefinitions.map((portDefinition, index) => {
+      let portMappingFields = null;
+
+      if (portDefinition.portMapping) {
+        portMappingFields = (
+          <div className="flex row">
+            {this.getHostPortFields(portDefinition, index)}
+            {this.getProtocolField(portDefinition, index)}
+          </div>
+        );
+      }
+
+      let portMappingLabel = 'Disabled';
+
+      if (portDefinition.portMapping) {
+        portMappingLabel = 'Enabled';
+      }
+
+      return (
+        <FormGroupContainer key={index}
+          onRemove={this.props.onRemoveItem.bind(
+            this,
+            {value: index, path: 'portDefinitions'}
+          )}>
+          <div className="flex row">
+            <FormGroup className="column-3">
+              <FieldLabel>
+                Container Port
+              </FieldLabel>
+              <FieldInput name={`portDefinitions.${index}.containerPort`}
+                type="number"
+                value={portDefinition.containerPort} />
+            </FormGroup>
+            <FormGroup className="column-6">
+              <FieldLabel>
+                Service Endpoint Name
+              </FieldLabel>
+              <FieldInput name={`portDefinitions.${index}.name`}
+                type="text"
+                value={portDefinition.name} />
+            </FormGroup>
+            <FormGroup className="column-3">
+              <FieldLabel>
+                Port Mapping
+              </FieldLabel>
+              <FieldLabel matchInputHeight={true}>
+                <FieldInput name={`portDefinitions.${index}.portMapping`}
+                  type="checkbox"
+                  value={portDefinition.portMapping} />
+                  {portMappingLabel}
+              </FieldLabel>
+            </FormGroup>
+          </div>
+          {portMappingFields}
+          {this.getLoadBalancedServiceAddressField({
+            checkboxName: `portDefinitions.${index}.loadBalanced`,
+            checkboxValue: portDefinition.loadBalanced,
+            port: portDefinition.hostPort
+          })}
+        </FormGroupContainer>
+      );
+    });
+  }
+
+  getServiceEndpoints() {
+    let {networking, portDefinitions} = this.props.data;
+
+    if (networking.type === Networking.type.BRIDGE) {
+      return this.getBridgeServiceEndpoints(portDefinitions);
+    }
+
+    if (networking.type === Networking.type.USER) {
+      return this.getVirtualNetworkServiceEndpoints(portDefinitions);
+    }
+
+    // Default to network type host.
+    return this.getHostServiceEndpoints(portDefinitions);
   }
 
   render() {
-    let {networking = {}, serviceEndpoints} = this.props.data;
+    let {container, networking = {}} = this.props.data;
+
+    let isNetworkTypeDisabled = container == null
+      || container.docker.image == null;
 
     return (
       <div className="form flush-bottom">
@@ -112,10 +275,12 @@ class NetworkingFormSection extends Component {
             <FieldLabel>
               Network Type
             </FieldLabel>
-            <FieldSelect name="networking.type" value={networking.type}>
-              <option value="host">Host</option>
-              <option value="bridge">Bridge</option>
-              <option value="virtual-network">Virtual Network</option>
+            <FieldSelect disabled={isNetworkTypeDisabled}
+              name="networking.type"
+              value={networking.type}>
+              <option value={Networking.type.HOST}>Host</option>
+              <option value={Networking.type.BRIDGE}>Bridge</option>
+              <option value={Networking.type.USER}>Virtual Network</option>
             </FieldSelect>
           </FormGroup>
         </div>
@@ -125,7 +290,7 @@ class NetworkingFormSection extends Component {
         <p>
           DC/OS can automatically generate a Service Address to connect to each of your load balanced endpoints.
         </p>
-        {this.getServiceEndpoints(serviceEndpoints)}
+        {this.getServiceEndpoints()}
         <div>
           <button
             className="button button-primary-link button-flush"
@@ -162,7 +327,7 @@ NetworkingFormSection.propTypes = {
 
 NetworkingFormSection.configReducers = {
   networking,
-  serviceEndpoints
+  portDefinitions
 };
 
 module.exports = NetworkingFormSection;
