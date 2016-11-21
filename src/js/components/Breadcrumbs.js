@@ -1,6 +1,6 @@
 import React, {PropTypes} from 'react';
 
-// import ManualBreadcrumbs from './ManualBreadcrumbs';
+import ManualBreadcrumbs from './ManualBreadcrumbs';
 
 class Breadcrumbs extends React.Component {
   buildCrumbs(route) {
@@ -10,15 +10,81 @@ class Breadcrumbs extends React.Component {
     let crumbs = crumbConfiguration.getCrumbs(params, routes);
 
     if (crumbConfiguration.parentCrumb) {
-      let parentCrumb = routes.find(function (eachRoute) {
-        return eachRoute.path === crumbConfiguration.parentCrumb;
-      });
-      if (parentCrumb && parentCrumb.buildBreadCrumb) {
-        crumbs = this.buildCrumbs(parentCrumb).concat(crumbs);
+      let parentRoute = this.findParentRoute(crumbConfiguration.parentCrumb);
+
+      if (parentRoute && parentRoute.buildBreadCrumb) {
+        crumbs = this.buildCrumbs(parentRoute).concat(crumbs);
       }
     }
 
     return crumbs;
+  }
+
+  findParentRoute(parentCrumbPath) {
+    let segments = parentCrumbPath.split('/');
+
+    // remove the split('/') artifact - an empty string
+    segments.shift(0, 1);
+
+    return this.findRoute(segments, this.getIndexRoute().childRoutes);
+  }
+
+  findRoute(segments, routes) {
+    if (segments.length === 0) {
+      return;
+    }
+
+    // Test segments in a greedy way
+    // start with a full path and remove one segment per iteration
+    for (let j = 0; j < segments.length; j++) {
+      let subSegments;
+      if (j === 0) {
+        subSegments = segments.slice(0);
+      } else {
+        subSegments = segments.slice(0, -j);
+      }
+
+      const subPath = subSegments.join('/');
+      const restPath = segments.join('/');
+
+      // Test all routes on that level for each subPath
+      for (let i = 0; i < routes.length; i++) {
+        const route = routes[i];
+        const isRedirect = !!route.to;
+        const hasChildren = route.childRoutes && route.childRoutes.length > 0;
+
+        if (!isRedirect && subPath === route.path) {
+          // Found the match
+          if (subPath === restPath) {
+            return route;
+          }
+
+          // There are children and we still have untested segments
+          if (hasChildren) {
+            const foundRoute = this.findRoute(segments.slice(subSegments.length), route.childRoutes);
+
+            if (foundRoute) {
+              return foundRoute;
+            }
+          }
+        }
+
+        // There're route definitions without a path that are being used for aggregation
+        // i.e. nodes/NodesOverview
+        if (!route.path && hasChildren) {
+          const foundRoute = this.findRoute(segments, route.childRoutes);
+
+          if (foundRoute) {
+            return foundRoute;
+          }
+        }
+      }
+    }
+  }
+
+  getIndexRoute() {
+    // In our routing structure the route with id='index' always goes 2
+    return this.props.routes[1];
   }
 
   getCrumbsFromRoute() {
@@ -43,13 +109,11 @@ class Breadcrumbs extends React.Component {
   }
 
   render() {
-    // let crumbs = this.getCrumbsFromRoute();
-    //
-    // return (
-    //   <ManualBreadcrumbs crumbs={crumbs} />
-    // );
-    // Disable Breadcrumbs because of the new react-router not giving absolute paths for a child route
-    return null;
+    let crumbs = this.getCrumbsFromRoute();
+
+    return (
+      <ManualBreadcrumbs crumbs={crumbs} />
+    );
   }
 };
 

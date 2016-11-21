@@ -33,7 +33,7 @@ class VolumeDetail extends React.Component {
 
     return (
       <div>
-        <Breadcrumbs />
+        <Breadcrumbs routes={this.props.routes} params={this.props.params} />
         <DetailViewHeader
           subTitle={this.renderSubHeader()}
           title={volume.getId()} />

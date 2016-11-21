@@ -89,6 +89,8 @@ class UnitsHealthNodeDetail extends mixin(StoreMixin) {
 
     return (
       <UnitsHealthNodeDetailPanel
+        routes={this.props.routes}
+        params={this.props.params}
         docsURL={unitDocsURL}
         healthStatus={healthStatus.title}
         healthStatusClassNames={healthStatus.classNames}

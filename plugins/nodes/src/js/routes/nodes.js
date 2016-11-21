@@ -74,6 +74,7 @@ let nodesRoutes = {
               <NodeDetailBreadcrumb
                 params={params}
                 routes={routes}
+                to="/nodes/:nodeID"
                 routePath=":nodeID" />
             ];
           }
@@ -104,7 +105,8 @@ let nodesRoutes = {
                   <TaskDetailBreadcrumb
                     params={params}
                     routes={routes}
-                    routePath=":taskID" />
+                    to="/nodes/:nodeID/tasks/:taskID"
+                    routePath="tasks/:taskID" />
                 ];
               }
             };
@@ -179,7 +181,7 @@ let nodesRoutes = {
           component: TaskVolumeContainer,
           buildBreadCrumb() {
             return {
-              parentCrumb: '/nodes/:nodeID',
+              parentCrumb: '/nodes/:nodeID/tasks/:taskID',
               getCrumbs(params) {
                 return [
                   {
@@ -210,7 +212,8 @@ let nodesRoutes = {
                   <NodeDetailBreadcrumb
                     params={params}
                     routes={routes}
-                    routePath=":nodeID" />
+                    to="/nodes/:nodeID"
+                    routePath="health" />
                 ];
               }
             };
@@ -222,13 +225,14 @@ let nodesRoutes = {
           component: UnitsHealthNodeDetail,
           buildBreadCrumb() {
             return {
-              parentCrumb: '/nodes/health',
+              parentCrumb: '/nodes/:nodeID/health',
               getCrumbs(params, routes) {
                 return [
                   <UnitsHealthDetailBreadcrumb
                     params={params}
                     routes={routes}
-                    routePath=":unitID" />
+                    to="/nodes/:nodeID/health/:unitNodeID/:unitID"
+                    routePath="health/:unitNodeID/:unitID" />
                 ];
               }
             };
@@ -247,7 +251,8 @@ let nodesRoutes = {
                   <NodeDetailBreadcrumb
                     params={params}
                     routes={routes}
-                    routePath=":nodeID" />
+                    to="/nodes/:nodeID"
+                    routePath="details" />
                 ];
               }
             };

@@ -13,8 +13,7 @@ import TaskDetailsTab from '../../../plugins/services/src/js/pages/task-details/
 import TaskFilesTab from '../../../plugins/services/src/js/pages/task-details/TaskFilesTab';
 import TaskFileViewer from '../../../plugins/services/src/js/pages/task-details/TaskFileViewer';
 
-function buildJobCrumbs() {
-  let {id} = params;
+function buildJobCrumbs({id}) {
   let ids = id.split('.');
   let aggregateIDs = '';
 
@@ -82,11 +81,13 @@ let jobsRoutes = {
               buildBreadCrumb() {
                 return {
                   parentCrumb: '/jobs/:id',
-                  getCrumbs(params) {
+                  getCrumbs(params, routes) {
                     return [
                       <TaskDetailBreadcrumb
                         params={params}
-                        routePath="/jobs/:id/tasks/:taskID" />
+                        routes={routes}
+                        to="/jobs/:id/tasks/:taskID"
+                        routePath="tasks/:taskID" />
                     ];
                   }
                 };

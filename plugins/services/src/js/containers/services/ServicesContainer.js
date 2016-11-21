@@ -610,8 +610,10 @@ class ServicesContainer extends React.Component {
           <ServiceTreeView
             clearFilters={this.clearFilters}
             handleFilterChange={this.handleFilterChange}
-            serviceTree={item}
-            services={services} />
+            params={this.props.params}
+            routes={this.props.routes}
+            services={services}
+            serviceTree={item} />
           {this.getModals(item)}
         </div>
       );
