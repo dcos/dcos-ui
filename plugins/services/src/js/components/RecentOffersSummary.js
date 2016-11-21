@@ -120,7 +120,14 @@ const columns = [
     render: (prop, row) => {
       const matchedOffers = row[prop];
       const offeredCount = row.offers;
-      const percentageMatched = Math.ceil(matchedOffers / offeredCount * 100);
+      let percentageMatched = null;
+
+      // Avoid NaN and inifinite values from division by zero.
+      if (offeredCount === 0) {
+        percentageMatched = 0;
+      } else {
+        percentageMatched = Math.ceil(matchedOffers / offeredCount * 100);
+      }
 
       return `${percentageMatched}% of offers have the correct ${row.resource}.`;
     },
