@@ -57,7 +57,8 @@ describe('Labels', function () {
 
       expect(batch.reduce(Volumes.JSONReducer.bind({}), [])).toEqual([
         {
-          containerPath: null, external: {
+          containerPath: null,
+          external: {
             name: null,
             provider: 'dvdi',
             options: {
@@ -107,7 +108,8 @@ describe('Labels', function () {
 
       expect(batch.reduce(Volumes.JSONReducer.bind({}), [])).toEqual([
         {
-          containerPath: '/dev/null', external: {
+          containerPath: '/dev/null',
+          external: {
             name: 'null',
             provider: 'provider',
             options: {
@@ -157,7 +159,8 @@ describe('Labels', function () {
 
       expect(batch.reduce(Volumes.JSONReducer.bind({}), [])).toEqual([
         {
-          containerPath: '/dev/one', external: {
+          containerPath: '/dev/one',
+          external: {
             name: 'one',
             provider: 'dvdi',
             options: {
@@ -195,7 +198,8 @@ describe('Labels', function () {
 
       expect(batch.reduce(Volumes.JSONReducer.bind({}), [])).toEqual([
         {
-          containerPath: '/dev/null', external: {
+          containerPath: '/dev/null',
+          external: {
             name: 'null',
             provider: 'provider',
             options: {
@@ -205,7 +209,8 @@ describe('Labels', function () {
           mode: 'RW'
         },
         {
-          containerPath: '/dev/one', external: {
+          containerPath: '/dev/one',
+          external: {
             name: 'one',
             provider: 'dvdi',
             options: {
