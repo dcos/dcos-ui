@@ -84,7 +84,7 @@ module.exports = {
 
     let joinedPath = path.join('.');
 
-    if (joinedPath.search('externalVolumes') !== -1) {
+    if (path[0] === 'externalVolumes') {
       if (joinedPath === 'externalVolumes') {
         switch (type) {
           case ADD_ITEM:
@@ -106,7 +106,7 @@ module.exports = {
         return state;
       }
 
-      let index = joinedPath.match(/\d+/)[0];
+      let index = path[1];
       if (type === SET && `externalVolumes.${index}.provider` === joinedPath) {
         state[index].provider = value;
       }
