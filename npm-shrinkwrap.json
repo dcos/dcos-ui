@@ -5484,9 +5484,9 @@
       }
     },
     "mesosphere-shared-reactjs": {
-      "version": "0.0.23",
-      "from": "mesosphere-shared-reactjs@0.0.23",
-      "resolved": "https://registry.npmjs.org/mesosphere-shared-reactjs/-/mesosphere-shared-reactjs-0.0.23.tgz"
+      "version": "0.0.24",
+      "from": "mesosphere-shared-reactjs@0.0.24",
+      "resolved": "https://registry.npmjs.org/mesosphere-shared-reactjs/-/mesosphere-shared-reactjs-0.0.24.tgz"
     },
     "method-override": {
       "version": "2.3.5",
