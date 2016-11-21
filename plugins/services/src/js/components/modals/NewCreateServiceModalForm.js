@@ -119,10 +119,6 @@ class NewCreateServiceModalForm extends Component {
     return {batch, errorList, appConfig};
   }
 
-  regenerateFromJson(appConfig={}) {
-    this.setState({batch, errorList, appConfig});
-  }
-
   handleJSONChange(jsonObject) {
     this.setState(this.getNewStateForJSON(jsonObject));
   }
@@ -167,7 +163,7 @@ class NewCreateServiceModalForm extends Component {
     let {batch} = this.state;
     this.setState({
       batch: batch.add(
-        new Transaction(path.split(','), value, TransactionTypes.ADD_ITEM)
+        new Transaction(path.split('.'), value, TransactionTypes.ADD_ITEM)
       )
     });
   }
@@ -176,7 +172,7 @@ class NewCreateServiceModalForm extends Component {
     let {batch} = this.state;
     this.setState({
       batch: batch.add(
-        new Transaction(path.split(','), value, TransactionTypes.REMOVE_ITEM)
+        new Transaction(path.split('.'), value, TransactionTypes.REMOVE_ITEM)
       )
     });
   }
@@ -187,9 +183,7 @@ class NewCreateServiceModalForm extends Component {
         return errors;
       }
 
-      errors.push((
-          <Alert>{error.message}</Alert>
-        ));
+      errors.push(<Alert>{error.message}</Alert>);
 
       return errors;
     }, []);
@@ -214,8 +208,8 @@ class NewCreateServiceModalForm extends Component {
       'is-visible': isJSONModeActive
     });
 
-    let errors = DataValidatorUtil.errorArrayToMap( errorList );
-    let rootErrors = this.getRootErrorMessage();
+    let errorMap = DataValidatorUtil.errorArrayToMap( errorList );
+    let rootErrorComponent = this.getRootErrorMessage();
 
     return (
       <div className="flex flex-item-grow-1">
@@ -229,11 +223,11 @@ class NewCreateServiceModalForm extends Component {
               </TabButtonList>
               <TabViewList>
                 <TabView id="services">
-                  {rootErrors}
-                  <GeneralServiceFormSection errors={errors} data={data} />
+                  {rootErrorComponent}
+                  <GeneralServiceFormSection errors={errorMap} data={data} />
                 </TabView>
                 <TabView id="environment">
-                  {rootErrors}
+                  {rootErrorComponent}
                   <EnvironmentFormSection
                     data={data}
                     onRemoveItem={this.handleRemoveItem}

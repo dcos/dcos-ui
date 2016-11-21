@@ -17,7 +17,7 @@ function path2lens(path, strategy=Objektiv.resolve.tryhard) {
   }, Objektiv.full);
 }
 
-var DataValidatorUtil = {
+const DataValidatorUtil = {
 
   /**
    * This is a shorthand function to collect a list of validation errors for
