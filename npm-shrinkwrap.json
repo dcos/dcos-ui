@@ -5782,6 +5782,11 @@
       "from": "object.omit@>=2.0.0 <3.0.0",
       "resolved": "https://registry.npmjs.org/object.omit/-/object.omit-2.0.0.tgz"
     },
+    "objektiv": {
+      "version": "0.3.0",
+      "from": "objektiv@latest",
+      "resolved": "https://registry.npmjs.org/objektiv/-/objektiv-0.3.0.tgz"
+    },
     "on-finished": {
       "version": "2.3.0",
       "from": "on-finished@>=2.3.0 <2.4.0",
