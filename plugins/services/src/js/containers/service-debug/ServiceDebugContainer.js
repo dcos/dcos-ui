@@ -157,7 +157,7 @@ class ServiceDebugContainer extends React.Component {
 
     return (
       <Alert>
-        This service has been waiting to find suitable offers for {DateUtil.getDuration(timeWaiting, null)} minutes. There is likely an issue that requires your attention.
+        This service has been waiting to find suitable offers for {DateUtil.getDuration(timeWaiting, null)}. There is likely an issue that requires your attention.
       </Alert>
     );
   }
