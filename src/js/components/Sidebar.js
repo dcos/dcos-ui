@@ -138,7 +138,14 @@ var Sidebar = React.createClass({
     let isChildActive = false;
 
     if (isParentActive) {
-      let menuItems = childRoutes.reduce(function (childRoutes, currentChild) {
+      const childRoutesPaths = childRoutes.map(({path}) => path);
+      const childRoutesMap = Hooks
+        .applyFilter('secondaryNavigation', path, childRoutesPaths)
+        .reduce((routesMap, path) => routesMap.set(path, true), new Map());
+      const filteredChildRoutes =
+        childRoutes.filter(({path}) => childRoutesMap.has(path));
+
+      let menuItems = filteredChildRoutes.reduce(function (childRoutes, currentChild) {
         if (currentChild.isInSidebar) {
           let routeLabel = currentChild.path;
           let isActive = false;
