@@ -3,10 +3,12 @@ jest.dontMock('../../constants/EventTypes');
 jest.dontMock('../../events/AppDispatcher');
 jest.dontMock('../SystemLogStore');
 jest.dontMock('../../constants/EventTypes');
+jest.dontMock('../../constants/SystemLogTypes');
 
 const ActionTypes = require('../../constants/ActionTypes');
 const AppDispatcher = require('../../events/AppDispatcher');
 const EventTypes = require('../../constants/EventTypes');
+const SystemLogTypes = require('../../constants/SystemLogTypes');
 const SystemLogStore = require('../SystemLogStore');
 
 function resetLogData(subscriptionID, newLogData) {
@@ -40,7 +42,11 @@ describe('SystemLogStore', function () {
         ],
         totalSize: 6
       };
-      let result = SystemLogStore.addEntries(logData, entires, 'append');
+      let result = SystemLogStore.addEntries(
+        logData,
+        entires,
+        SystemLogTypes.APPEND
+      );
 
       let entries = result.entries.map((entry) => {
         return entry.fields.MESSAGE;
@@ -62,16 +68,20 @@ describe('SystemLogStore', function () {
           {fields: {MESSAGE: 'two'}}
         ],
         // Allow room for one more entry, but not the two following
-        totalSize: 250000000 - 3
+        totalSize: 500000 - 3
       };
-      let result = SystemLogStore.addEntries(logData, entires, 'append');
+      let result = SystemLogStore.addEntries(
+        logData,
+        entires,
+        SystemLogTypes.APPEND
+      );
 
       let entries = result.entries.map((entry) => {
         return entry.fields.MESSAGE;
       });
 
       expect(entries).toEqual(['foo', 'bar', 'baz']);
-      expect(result.totalSize).toEqual(250000000);
+      expect(result.totalSize).toEqual(500000);
     });
 
     it('doesn\'t remove when there is no length added', function () {
@@ -86,16 +96,20 @@ describe('SystemLogStore', function () {
           {fields: {MESSAGE: 'two'}}
         ],
         // Allow room for one more entry, but not the two following
-        totalSize: 250000000
+        totalSize: 500000
       };
-      let result = SystemLogStore.addEntries(logData, entires, 'append');
+      let result = SystemLogStore.addEntries(
+        logData,
+        entires,
+        SystemLogTypes.APPEND
+      );
 
       let entries = result.entries.map((entry) => {
         return entry.fields.MESSAGE;
       });
 
       expect(entries).toEqual(['one', 'two', '', '', '']);
-      expect(result.totalSize).toEqual(250000000);
+      expect(result.totalSize).toEqual(500000);
     });
 
     it('prepends data to existing data', function () {
@@ -111,7 +125,11 @@ describe('SystemLogStore', function () {
         ],
         totalSize: 6
       };
-      let result = SystemLogStore.addEntries(logData, entires, 'prepend');
+      let result = SystemLogStore.addEntries(
+        logData,
+        entires,
+        SystemLogTypes.PREPEND
+      );
 
       let entries = result.entries.map((entry) => {
         return entry.fields.MESSAGE;
@@ -133,16 +151,20 @@ describe('SystemLogStore', function () {
           {fields: {MESSAGE: 'two'}}
         ],
         // Allow room for two more entry, but not the last one
-        totalSize: 250000000 - 6
+        totalSize: 500000 - 6
       };
-      let result = SystemLogStore.addEntries(logData, entires, 'prepend');
+      let result = SystemLogStore.addEntries(
+        logData,
+        entires,
+        SystemLogTypes.PREPEND
+      );
 
       let entries = result.entries.map((entry) => {
         return entry.fields.MESSAGE;
       });
 
       expect(entries).toEqual(['foo', 'bar', 'baz', 'one']);
-      expect(result.totalSize).toEqual(250000000);
+      expect(result.totalSize).toEqual(500000);
     });
 
     it('doesn\'t remove when there is no length added', function () {
@@ -157,16 +179,20 @@ describe('SystemLogStore', function () {
           {fields: {MESSAGE: 'two'}}
         ],
         // Allow room for one more entry, but not the two following
-        totalSize: 250000000
+        totalSize: 500000
       };
-      let result = SystemLogStore.addEntries(logData, entires, 'prepend');
+      let result = SystemLogStore.addEntries(
+        logData,
+        entires,
+        SystemLogTypes.PREPEND
+      );
 
       let entries = result.entries.map((entry) => {
         return entry.fields.MESSAGE;
       });
 
       expect(entries).toEqual(['', '', '', 'one', 'two']);
-      expect(result.totalSize).toEqual(250000000);
+      expect(result.totalSize).toEqual(500000);
     });
 
   });
@@ -205,7 +231,7 @@ describe('SystemLogStore', function () {
           {fields: {MESSAGE: 'two'}}
         ],
         // Allow room for one more entry, but not the two following
-        totalSize: 250000000 - 3
+        totalSize: 500000 - 3
       });
       SystemLogStore.processLogEntry(
         'subscriptionID',
@@ -231,7 +257,7 @@ describe('SystemLogStore', function () {
           {fields: {MESSAGE: 'two'}}
         ],
         // Allow room for one more entry, but not the two following
-        totalSize: 250000000
+        totalSize: 500000
       });
 
       SystemLogStore.processLogEntry('subscriptionID', {fields: {MESSAGE: ''}});
@@ -272,7 +298,7 @@ describe('SystemLogStore', function () {
           {fields: {MESSAGE: 'two'}}
         ],
         // Allow room for two more entry, but not the last one
-        totalSize: 250000000 - 6
+        totalSize: 500000 - 6
       });
 
       SystemLogStore.processLogPrepend('subscriptionID', false, [
@@ -292,7 +318,7 @@ describe('SystemLogStore', function () {
           {fields: {MESSAGE: 'two'}}
         ],
         // Allow room for one more entry, but not the two following
-        totalSize: 250000000
+        totalSize: 500000
       });
 
       SystemLogStore.processLogPrepend('subscriptionID', false, [
@@ -361,7 +387,8 @@ describe('SystemLogStore', function () {
         subscriptionID: 'subscriptionID'
       });
 
-      expect(changeHandler).toHaveBeenCalledWith('subscriptionID', 'append');
+      expect(changeHandler)
+        .toHaveBeenCalledWith('subscriptionID', SystemLogTypes.APPEND);
     });
 
     it('emits event after #processLogError event is dispatched', function () {
@@ -397,7 +424,8 @@ describe('SystemLogStore', function () {
         subscriptionID: 'subscriptionID'
       });
 
-      expect(changeHandler).toHaveBeenCalledWith('subscriptionID', 'prepend');
+      expect(changeHandler)
+        .toHaveBeenCalledWith('subscriptionID', SystemLogTypes.PREPEND);
     });
 
     it('emits event after #processLogPrependError event is dispatched', function () {

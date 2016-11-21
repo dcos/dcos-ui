@@ -14,10 +14,11 @@ import {
 } from '../constants/EventTypes';
 import BaseStore from './BaseStore';
 import SystemLogActions from '../events/SystemLogActions';
+import {APPEND, PREPEND} from '../constants/SystemLogTypes';
 import Util from '../utils/Util';
 
-// Max data storage
-const MAX_FILE_SIZE = 250000000;
+// Max data storage, i.e. maximum 5MB per log stream
+const MAX_FILE_SIZE = 500000;
 
 class SystemLogStore extends BaseStore {
   constructor() {
@@ -69,7 +70,7 @@ class SystemLogStore extends BaseStore {
   addEntries(logData, entries, eventType) {
     let newLogData = Object.assign({}, logData);
     // Add new entries
-    if (eventType === 'append') {
+    if (eventType === APPEND) {
       newLogData.entries = logData.entries.concat(entries);
     } else {
       newLogData.entries = entries.concat(logData.entries);
@@ -87,7 +88,7 @@ class SystemLogStore extends BaseStore {
     while (newLogData.totalSize > 0 && newLogData.entries.length > 0 &&
       newLogData.totalSize > MAX_FILE_SIZE) {
       let removedEntry;
-      if (eventType === 'append') {
+      if (eventType === APPEND) {
         removedEntry = newLogData.entries.shift();
         // Removing from top, let's update hasLoadedTop
         newLogData.hasLoadedTop = false;
@@ -155,9 +156,9 @@ class SystemLogStore extends BaseStore {
     this.logs[subscriptionID] = this.addEntries(
       this.logs[subscriptionID],
       [entry],
-      'append'
+      APPEND
     );
-    this.emit(SYSTEM_LOG_CHANGE, subscriptionID, 'append');
+    this.emit(SYSTEM_LOG_CHANGE, subscriptionID, APPEND);
   }
 
   processLogError(subscriptionID, data) {
@@ -174,10 +175,10 @@ class SystemLogStore extends BaseStore {
     this.logs[subscriptionID] = this.addEntries(
       this.logs[subscriptionID],
       entries,
-      'prepend'
+      PREPEND
     );
 
-    this.emit(SYSTEM_LOG_CHANGE, subscriptionID, 'prepend');
+    this.emit(SYSTEM_LOG_CHANGE, subscriptionID, PREPEND);
   }
 
   processLogPrependError(subscriptionID, data) {
