@@ -66,7 +66,7 @@ class SystemLogStore extends BaseStore {
     });
   }
 
-  addEntries(logData, subscriptionID, entries, eventType) {
+  addEntries(logData, entries, eventType) {
     let newLogData = Object.assign({}, logData);
     // Add new entries
     if (eventType === 'append') {
@@ -154,7 +154,6 @@ class SystemLogStore extends BaseStore {
 
     this.logs[subscriptionID] = this.addEntries(
       this.logs[subscriptionID],
-      subscriptionID,
       [entry],
       'append'
     );
@@ -174,7 +173,6 @@ class SystemLogStore extends BaseStore {
 
     this.logs[subscriptionID] = this.addEntries(
       this.logs[subscriptionID],
-      subscriptionID,
       entries,
       'prepend'
     );
