@@ -1,5 +1,6 @@
-const CreateServiceModalFormUtil = {
+import ValidatorUtil from '../../../../../src/js/utils/ValidatorUtil';
 
+const CreateServiceModalFormUtil = {
   /**
    * Apply patch data on the given source data, following the principles:
    *
@@ -39,8 +40,8 @@ const CreateServiceModalFormUtil = {
       // If the patch contains an empty value we have to remove the item,
       // with the only exception of the source value having already an empty
       // value in place.
-      if (CreateServiceModalFormUtil.isEmptyValue(patch[key])) {
-        if (!CreateServiceModalFormUtil.isEmptyValue(memo[key])) {
+      if (ValidatorUtil.isEmpty(patch[key])) {
+        if (!ValidatorUtil.isEmpty(memo[key])) {
           delete memo[key];
         }
 
@@ -51,24 +52,7 @@ const CreateServiceModalFormUtil = {
 
       return memo;
     }, Object.assign({}, data));
-  },
-
-  /**
-   * Tests if the given value is "empty". This means:
-   *
-   * - `null` or `undefined`
-   * - Empty string
-   * - Empty object
-   * - Empty array
-   *
-   * @param {*} value - A value to test
-   * @return {Boolean} True if the value is empty
-   */
-  isEmptyValue(value) {
-    return (value == null) || (value === '') ||
-           ((typeof value === 'object') && (Object.keys(value).length === 0));
   }
-
 };
 
 module.exports = CreateServiceModalFormUtil;

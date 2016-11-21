@@ -109,51 +109,5 @@ describe('CreateServiceModalFormUtil', function () {
     });
 
   });
-
-  describe('#isEmptyValue', function () {
-    it('should consider `undefined` to be an empty value', function () {
-      expect(CreateServiceModalFormUtil.isEmptyValue(undefined)).toBeTruthy();
-    });
-
-    it('should consider `null` to be an empty value', function () {
-      expect(CreateServiceModalFormUtil.isEmptyValue(null)).toBeTruthy();
-    });
-
-    it('should consider `\'\'` to be an empty value', function () {
-      expect(CreateServiceModalFormUtil.isEmptyValue('')).toBeTruthy();
-    });
-
-    it('should consider `{}` to be an empty value', function () {
-      expect(CreateServiceModalFormUtil.isEmptyValue({})).toBeTruthy();
-    });
-
-    it('should consider `[]` to be an empty value', function () {
-      expect(CreateServiceModalFormUtil.isEmptyValue([])).toBeTruthy();
-    });
-
-    it('should consider `0` not to be an empty value', function () {
-      expect(CreateServiceModalFormUtil.isEmptyValue(0)).toBeFalsy();
-    });
-
-    it('should consider `\'a\'` not to be an empty value', function () {
-      expect(CreateServiceModalFormUtil.isEmptyValue('a')).toBeFalsy();
-    });
-
-    it('should consider `[1]` not to be an empty value', function () {
-      expect(CreateServiceModalFormUtil.isEmptyValue([1])).toBeFalsy();
-    });
-
-    it('should consider `{a: \'foo\'}` not to be an empty value', function () {
-      expect(CreateServiceModalFormUtil.isEmptyValue({a: 'foo'})).toBeFalsy();
-    });
-
-    it('should consider `NaN` not to be an empty value', function () {
-      expect(CreateServiceModalFormUtil.isEmptyValue(NaN)).toBeFalsy();
-    });
-
-    it('should consider `Infinity` not to be an empty value', function () {
-      expect(CreateServiceModalFormUtil.isEmptyValue(Infinity)).toBeFalsy();
-    });
-  });
 });
 
