@@ -1,5 +1,6 @@
 import React from 'react';
 import {NavigationService} from '../../../foundation-ui/navigation';
+import Config from '../config/Config';
 
 const NavigationServiceUtil = {
   /**
@@ -10,6 +11,11 @@ const NavigationServiceUtil = {
    * @return {undefined}
    */
   registerRoutesInNavigation(routes) {
+    if (Config.environment === 'development') {
+      console.warn('DEPRECATED: All navigation elements should register ' +
+        'with the NavigationService');
+    }
+
     const indexRoute = routes.find((route) => route.id === 'index');
 
     if (!indexRoute) {
