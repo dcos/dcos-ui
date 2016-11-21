@@ -8,34 +8,34 @@ describe('Labels', function () {
   describe('#JSONReducer', function () {
     it('should return a key value object', function () {
       let batch = new Batch();
-      batch.add(new Transaction(['env'], 0, ADD_ITEM));
-      batch.add(new Transaction(['env', 0, 'key'], 'key'));
-      batch.add(new Transaction(['env', 0, 'value'], 'value'));
+      batch = batch.add(new Transaction(['env'], 0, ADD_ITEM));
+      batch = batch.add(new Transaction(['env', 0, 'key'], 'key'));
+      batch = batch.add(new Transaction(['env', 0, 'value'], 'value'));
 
       expect(batch.reduce(EnvironmentVariables.JSONReducer.bind({}), {}))
         .toEqual({key: 'value'});
     });
     it('should keep the last value if they have the same key', function () {
       let batch = new Batch();
-      batch.add(new Transaction(['env'], 0, ADD_ITEM));
-      batch.add(new Transaction(['env', 0, 'key'], 'key'));
-      batch.add(new Transaction(['env', 0, 'value'], 'value'));
-      batch.add(new Transaction(['env'], 1, ADD_ITEM));
-      batch.add(new Transaction(['env', 1, 'key'], 'key'));
-      batch.add(new Transaction(['env', 1, 'value'], 'value2'));
+      batch = batch.add(new Transaction(['env'], 0, ADD_ITEM));
+      batch = batch.add(new Transaction(['env', 0, 'key'], 'key'));
+      batch = batch.add(new Transaction(['env', 0, 'value'], 'value'));
+      batch = batch.add(new Transaction(['env'], 1, ADD_ITEM));
+      batch = batch.add(new Transaction(['env', 1, 'key'], 'key'));
+      batch = batch.add(new Transaction(['env', 1, 'value'], 'value2'));
 
       expect(batch.reduce(EnvironmentVariables.JSONReducer.bind({}), {}))
         .toEqual({key: 'value2'});
     });
     it('should keep remove the first item', function () {
       let batch = new Batch();
-      batch.add(new Transaction(['env'], 0, ADD_ITEM));
-      batch.add(new Transaction(['env', 0, 'key'], 'first'));
-      batch.add(new Transaction(['env', 0, 'value'], 'value'));
-      batch.add(new Transaction(['env'], 1, ADD_ITEM));
-      batch.add(new Transaction(['env', 1, 'key'], 'second'));
-      batch.add(new Transaction(['env', 1, 'value'], 'value'));
-      batch.add(new Transaction(['env'], 0, REMOVE_ITEM));
+      batch = batch.add(new Transaction(['env'], 0, ADD_ITEM));
+      batch = batch.add(new Transaction(['env', 0, 'key'], 'first'));
+      batch = batch.add(new Transaction(['env', 0, 'value'], 'value'));
+      batch = batch.add(new Transaction(['env'], 1, ADD_ITEM));
+      batch = batch.add(new Transaction(['env', 1, 'key'], 'second'));
+      batch = batch.add(new Transaction(['env', 1, 'value'], 'value'));
+      batch = batch.add(new Transaction(['env'], 0, REMOVE_ITEM));
 
       expect(batch.reduce(EnvironmentVariables.JSONReducer.bind({}), {}))
         .toEqual({second: 'value'});
@@ -45,21 +45,21 @@ describe('Labels', function () {
   describe('#FormReducer', function () {
     it('should return a array containing key value objects', function () {
       let batch = new Batch();
-      batch.add(new Transaction(['env'], 0, ADD_ITEM));
-      batch.add(new Transaction(['env', 0, 'key'], 'key'));
-      batch.add(new Transaction(['env', 0, 'value'], 'value'));
+      batch = batch.add(new Transaction(['env'], 0, ADD_ITEM));
+      batch = batch.add(new Transaction(['env', 0, 'key'], 'key'));
+      batch = batch.add(new Transaction(['env', 0, 'value'], 'value'));
 
       expect(batch.reduce(EnvironmentVariables.FormReducer.bind({}), []))
         .toEqual([{key: 'key', value: 'value'}]);
     });
     it('should multiple items if they have the same key', function () {
       let batch = new Batch();
-      batch.add(new Transaction(['env'], 0, ADD_ITEM));
-      batch.add(new Transaction(['env', 0, 'key'], 'key'));
-      batch.add(new Transaction(['env', 0, 'value'], 'value'));
-      batch.add(new Transaction(['env'], 1, ADD_ITEM));
-      batch.add(new Transaction(['env', 1, 'key'], 'key'));
-      batch.add(new Transaction(['env', 1, 'value'], 'value2'));
+      batch = batch.add(new Transaction(['env'], 0, ADD_ITEM));
+      batch = batch.add(new Transaction(['env', 0, 'key'], 'key'));
+      batch = batch.add(new Transaction(['env', 0, 'value'], 'value'));
+      batch = batch.add(new Transaction(['env'], 1, ADD_ITEM));
+      batch = batch.add(new Transaction(['env', 1, 'key'], 'key'));
+      batch = batch.add(new Transaction(['env', 1, 'value'], 'value2'));
 
       expect(batch.reduce(EnvironmentVariables.FormReducer.bind({}), []))
         .toEqual([
@@ -69,13 +69,13 @@ describe('Labels', function () {
     });
     it('should keep remove the first item', function () {
       let batch = new Batch();
-      batch.add(new Transaction(['env'], 0, ADD_ITEM));
-      batch.add(new Transaction(['env', 0, 'key'], 'first'));
-      batch.add(new Transaction(['env', 0, 'value'], 'value'));
-      batch.add(new Transaction(['env'], 1, ADD_ITEM));
-      batch.add(new Transaction(['env', 1, 'key'], 'second'));
-      batch.add(new Transaction(['env', 1, 'value'], 'value'));
-      batch.add(new Transaction(['env'], 0, REMOVE_ITEM));
+      batch = batch.add(new Transaction(['env'], 0, ADD_ITEM));
+      batch = batch.add(new Transaction(['env', 0, 'key'], 'first'));
+      batch = batch.add(new Transaction(['env', 0, 'value'], 'value'));
+      batch = batch.add(new Transaction(['env'], 1, ADD_ITEM));
+      batch = batch.add(new Transaction(['env', 1, 'key'], 'second'));
+      batch = batch.add(new Transaction(['env', 1, 'value'], 'value'));
+      batch = batch.add(new Transaction(['env'], 0, REMOVE_ITEM));
 
       expect(batch.reduce(EnvironmentVariables.FormReducer.bind({}), []))
         .toEqual([{key: 'second', value: 'value'}]);
