@@ -76,9 +76,15 @@ const CreateServiceModalFormUtil = {
       let value = CreateServiceModalFormUtil.applyPatch(memo[key], patch[key]);
 
       // If a field was emptied, remove it from the object, to keep structures
-      // as clean as possible.
+      // as clean as possible. (Again, only if the base value in `data` is not
+      // empty)
       if (ValidatorUtil.isEmpty(value)) {
+        if (ValidatorUtil.isEmpty(memo[key])) {
+          return memo;
+        }
+
         delete memo[key];
+
         return memo;
       }
 

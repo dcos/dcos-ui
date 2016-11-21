@@ -115,6 +115,13 @@ describe('CreateServiceModalFormUtil', function () {
       expect(patched).toEqual({a: {d: 'foo'}});
     });
 
+    it('should keep the original empty value if patch object is empty', function () {
+      let data = {a: {}};
+      let patch = {a: {b: null, c:'', d:undefined}};
+      let patched = CreateServiceModalFormUtil.applyPatch(data, patch);
+      expect(patched).toEqual({a: {}});
+    });
+
     it('should recursively remove empty fields from patch objects', function () {
       let data = {a: {b: 'foo', c: {d: 'bar'}}};
       let patch = {a: {b: 'foo', c: {d: null}}};
@@ -128,6 +135,7 @@ describe('CreateServiceModalFormUtil', function () {
       let patched = CreateServiceModalFormUtil.applyPatch(data, patch);
       expect(patched).toEqual({a: {b: 'foo'}});
     });
+
   });
 });
 
