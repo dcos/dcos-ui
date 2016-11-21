@@ -72,7 +72,7 @@ class NewCreateServiceModalForm extends Component {
         appConfig: {},
         errorList: []
       },
-      this.getNewStateForJSON(getServiceJSON(this.props.service))
+      this.getNewStateForJSON(getServiceJSON(this.props.service), false)
     );
 
     METHODS_TO_BIND.forEach((method) => {
@@ -107,30 +107,38 @@ class NewCreateServiceModalForm extends Component {
            (this.state.batch !== nextState.batch);
   }
 
-  getNewStateForJSON(appConfig={}) {
+  getNewStateForJSON(appConfig={}, validate=true) {
+    let newState = {appConfig};
+
     // Regenerate batch
-    let batch = jsonParserReducers(appConfig).reduce((batch, item) => {
+    newState.batch = jsonParserReducers(appConfig).reduce((batch, item) => {
       return batch.add(item);
     }, new Batch());
 
     // Perform error validation
-    let errorList = DataValidatorUtil.validate(appConfig, ERROR_VALIDATORS);
+    if (validate) {
+      newState.errorList = DataValidatorUtil.validate(appConfig, ERROR_VALIDATORS);
+    }
 
-    return {batch, errorList, appConfig};
+    return newState;
   }
 
   handleJSONChange(jsonObject) {
     this.setState(this.getNewStateForJSON(jsonObject));
   }
 
-  handleFormBlur() {
+  handleFormBlur(event) {
+    let path = event.target.getAttribute('name').split('.');
+    let errorList = DataValidatorUtil.validate(
+      this.getAppConfig(),
+      ERROR_VALIDATORS
+    );
+
+    // Keep errors only for this field
+    errorList = DataValidatorUtil.updateOnlyOnPath(this.state.errorList, errorList, path);
+
     // Run data validation on the raw data
-    this.setState({
-      errorList: DataValidatorUtil.validate(
-        this.getAppConfig(),
-        ERROR_VALIDATORS
-      )
-    });
+    this.setState({errorList});
   }
 
   handleFormChange(event) {

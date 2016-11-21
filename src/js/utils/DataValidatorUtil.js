@@ -66,14 +66,21 @@ const DataValidatorUtil = {
       return error.path.join('.') === pathStr;
     });
 
-    // Check if there is nothing to add
-    if (newErrors.length === 0) {
-      return oldList;
-    }
+    // Strip from the old error list:
+    // - Errors that exist on the current path
+    // - Errors that were removed with the new list
+    let cleanOldList = oldList.filter(function (error) {
+      if (error.path.join('.') === pathStr) {
+        return false;
+      }
 
-    // Strip old errors and append new errors
-    return DataValidatorUtil.stripErrorsOnPath(oldList, path)
-      .concat(newErrors);
+      return newList.some(function (newError) {
+        return error.path.join('.') === newError.path.join('.');
+      });
+    });
+
+    // Append new errors
+    return cleanOldList.concat(newErrors);
   },
 
   stripErrorsOnPath(errorList, path) {
