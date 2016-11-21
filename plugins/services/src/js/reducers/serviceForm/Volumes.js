@@ -26,7 +26,7 @@ module.exports = {
 
     const joinedPath = path.join('.');
 
-    if (joinedPath.search('externalVolumes') !== -1) {
+    if (path[0] === 'externalVolumes') {
       if (joinedPath === 'externalVolumes') {
         switch (type) {
           case ADD_ITEM:
@@ -52,7 +52,7 @@ module.exports = {
         return [].concat(this.externalVolumes, this.localVolumes);
       }
 
-      const index = joinedPath.match(/\d+/)[0];
+      const index = path[1];
       if (type === SET && `externalVolumes.${index}.provider` === joinedPath) {
         this.externalVolumes[index].external.provider = value;
       }
