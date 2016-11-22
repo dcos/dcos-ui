@@ -6,12 +6,23 @@ import DateUtil from '../../../../../../src/js/utils/DateUtil';
 import DeclinedOffersTable from '../../components/DeclinedOffersTable';
 import DescriptionList from '../../../../../../src/js/components/DescriptionList';
 import MarathonStore from '../../stores/MarathonStore';
+import MetadataStore from '../../../../../../src/js/stores/MetadataStore';
 import RecentOffersSummary from '../../components/RecentOffersSummary';
 import Service from '../../structs/Service';
 import TaskStatsTable from './TaskStatsTable';
 import TimeAgo from '../../../../../../src/js/components/TimeAgo';
 
+const METHODS_TO_BIND = ['handleJumpToRecentOffersClick'];
+
 class ServiceDebugContainer extends React.Component {
+  constructor() {
+    super(...arguments);
+
+    METHODS_TO_BIND.forEach((method) => {
+      this[method] = this[method].bind(this);
+    });
+  }
+
   componentWillMount() {
     MarathonStore.setShouldEmbedLastUnusedOffers(true);
   }
@@ -89,40 +100,59 @@ class ServiceDebugContainer extends React.Component {
 
   getRecentOfferSummary() {
     const queue = this.props.service.getQueue();
+    let introText = null;
+    let mainContent = null;
 
     if (queue == null || queue.declinedOffers.summary == null) {
-      return null;
+      introText = 'Offers will appear here when your service is deploying or waiting for resources.';
+    } else {
+      const {processedOffersSummary, declinedOffers: {summary}} = queue;
+      const {processedOffersCount} = processedOffersSummary;
+      const docsURL = MetadataStore.buildDocsURI(
+        '/overview/concepts/#mesos-resource-offer'
+      );
+
+      introText = (
+        <span>
+          When you attempt to deploy a service, DC/OS waits for offers to match the resources your service requires. If the offer does not satisfy the requirement, it is declined and DC/OS retries. <a href={docsURL} target="_blank">Learn more</a>.
+        </span>
+      );
+
+      mainContent = (
+        <div>
+          <h2 className="short-bottom">
+            Summary of Recent Offers ({processedOffersCount})
+          </h2>
+          <RecentOffersSummary data={summary} />
+        </div>
+      );
     }
 
-    const {processedOffersSummary, declinedOffers: {summary}} = queue;
-    const {processedOffersCount} = processedOffersSummary;
-
     return (
-      <div>
-        <h5>
-          Summary of Recent Offers ({processedOffersCount})
-        </h5>
-        <p>
-          When you attempt to deploy a service, DC/OS waits for offers to match the resources that your service requires. If the offer does not satisfy the requested amount, it is declined and we retry until we find a match.
-        </p>
-        <RecentOffersSummary data={summary} />
+      <div ref={(ref) => { this.offerSummaryRef = ref; }}>
+        <h1 className="short-bottom">Latest Offers</h1>
+        <p>{introText}</p>
+        {mainContent}
       </div>
     );
   }
 
   getDeclinedOffersTable() {
     const queue = this.props.service.getQueue();
+    let content = null;
+    let offerCount = 0;
 
     if (queue == null || queue.declinedOffers.offers == null) {
-      return null;
+      content = 'Offers will appear here when your service is deploying or waiting for resources.';
+    } else {
+      offerCount = queue.declinedOffers.offers.length || 0;
+      content = <DeclinedOffersTable data={queue.declinedOffers.offers} />;
     }
-
-    const offerCount = queue.declinedOffers.offers.length;
 
     return (
       <div>
-        <h5>Last {offerCount} Declined Offers</h5>
-        <DeclinedOffersTable data={queue.declinedOffers.offers} />
+        <h2 className="short-bottom">Last {offerCount} Declined Offers</h2>
+        {content}
       </div>
     );
   }
@@ -157,9 +187,15 @@ class ServiceDebugContainer extends React.Component {
 
     return (
       <Alert>
-        This service has been waiting to find suitable offers for {DateUtil.getDuration(timeWaiting, null)}. There is likely an issue that requires your attention.
+        DC/OS has been waiting for resources and unable to complete this deployment for {DateUtil.getDuration(timeWaiting, null)}. <a className="clickable" onClick={this.handleJumpToRecentOffersClick}>See recent resource offers</a>.
       </Alert>
     );
+  }
+
+  handleJumpToRecentOffersClick() {
+    if (this.offerSummaryRef) {
+      this.offerSummaryRef.scrollIntoView();
+    }
   }
 
   render() {

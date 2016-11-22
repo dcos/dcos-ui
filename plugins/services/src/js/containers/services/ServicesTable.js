@@ -244,7 +244,7 @@ class ServicesTable extends React.Component {
       if (timeWaiting >= 1000 * 60 * 5) {
         tooltip = (
           <Tooltip
-            content={`This service has been stuck waiting for resources for ${DateUtil.getDuration(timeWaiting, null)}.`}
+            content={`DC/OS has been waiting for resources and unable to complete this deployment for ${DateUtil.getDuration(timeWaiting, null)}.`}
             maxWidth={250}
             wrapText={true}
             wrapperClassName="tooltip-wrapper status-waiting-indicator">
