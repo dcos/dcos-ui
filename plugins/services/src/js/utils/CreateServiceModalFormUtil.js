@@ -14,6 +14,12 @@ const CreateServiceModalFormUtil = {
       return object;
     }
 
+    // Pick base object according to type
+    let baseObject = {};
+    if (Array.isArray(object)) {
+      baseObject = [];
+    }
+
     return Object.keys(object).reduce(function (memo, key) {
       if (!ValidatorUtil.isEmpty(object[key])) {
         // Apply the strip function recursively and keep only non-empty values
@@ -23,7 +29,7 @@ const CreateServiceModalFormUtil = {
         }
       }
       return memo;
-    }, {});
+    }, baseObject);
   },
 
   /**
@@ -50,13 +56,20 @@ const CreateServiceModalFormUtil = {
     }
 
     // Prefer `data` type if we have a type clash
-    if (typeof data !== typeof patch) {
+    if ((typeof data !== typeof patch) ||
+        (Array.isArray(data) !== Array.isArray(patch))) {
       return data;
     }
 
     // Non-object types just pass through
     if (typeof patch !== 'object') {
       return patch;
+    }
+
+    // Pick base object according to type
+    let baseObject = Object.assign({}, data);
+    if (Array.isArray(data)) {
+      baseObject = [];
     }
 
     // Walk object types
@@ -91,7 +104,7 @@ const CreateServiceModalFormUtil = {
       memo[key] = value;
 
       return memo;
-    }, Object.assign({}, data));
+    }, baseObject);
   }
 };
 
