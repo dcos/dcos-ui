@@ -67,9 +67,10 @@ const CreateServiceModalFormUtil = {
     }
 
     // Pick base object according to type
-    let baseObject = Object.assign({}, data);
-    if (Array.isArray(data)) {
-      baseObject = [];
+    // (Note that arrays get replaced, but objects get merged)
+    let baseObject = [];
+    if (!Array.isArray(data)) {
+      baseObject = Object.assign({}, data);
     }
 
     // Walk object types
