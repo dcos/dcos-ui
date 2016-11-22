@@ -1,12 +1,54 @@
 import React from 'react';
 import {routerShape} from 'react-router';
 
+import Alert from '../../../../../../src/js/components/Alert';
+import DateUtil from '../../../../../../src/js/utils/DateUtil';
+import DeclinedOffersTable from '../../components/DeclinedOffersTable';
 import DescriptionList from '../../../../../../src/js/components/DescriptionList';
+import MarathonStore from '../../stores/MarathonStore';
+import MetadataStore from '../../../../../../src/js/stores/MetadataStore';
 import Pod from '../../structs/Pod';
 import PodContainerTerminationTable from './PodContainerTerminationTable';
+import RecentOffersSummary from '../../components/RecentOffersSummary';
 import TimeAgo from '../../../../../../src/js/components/TimeAgo';
 
+const METHODS_TO_BIND = ['handleJumpToRecentOffersClick'];
+
 class PodDebugTabView extends React.Component {
+  constructor() {
+    super(...arguments);
+
+    METHODS_TO_BIND.forEach((method) => {
+      this[method] = this[method].bind(this);
+    });
+  }
+
+  componentWillMount() {
+    MarathonStore.setShouldEmbedLastUnusedOffers(true);
+  }
+
+  componentWillUnmount() {
+    MarathonStore.setShouldEmbedLastUnusedOffers(false);
+  }
+
+  getDeclinedOffersTable() {
+    const queue = this.props.pod.getQueue();
+    let content = null;
+
+    if (queue == null || queue.declinedOffers.offers == null) {
+      content = 'Offers will appear here when your service is deploying or waiting for resources.';
+    } else {
+      content = <DeclinedOffersTable data={queue.declinedOffers.offers} />;
+    }
+
+    return (
+      <div>
+        <h2 className="short-bottom">Details</h2>
+        {content}
+      </div>
+    );
+  }
+
   getTerminationHistory() {
     let history = this.props.pod.getTerminationHistoryList().getItems();
     if (!history.length) {
@@ -81,14 +123,84 @@ class PodDebugTabView extends React.Component {
     return <DescriptionList hash={LastVersionChangeValueMapping} />;
   }
 
+  getRecentOfferSummary() {
+    const queue = this.props.pod.getQueue();
+    let introText = null;
+    let mainContent = null;
+
+    if (queue == null || queue.declinedOffers.summary == null) {
+      introText = 'Offers will appear here when your service is deploying or waiting for resources.';
+    } else {
+      const {declinedOffers: {summary}} = queue;
+      const docsURL = MetadataStore.buildDocsURI(
+        '/overview/concepts/#mesos-resource-offer'
+      );
+
+      introText = (
+        <span>
+          When you attempt to deploy a service, DC/OS waits for offers to match the resources your service requires. If the offer does not satisfy the requirement, it is declined and DC/OS retries. <a href={docsURL} target="_blank">Learn more</a>.
+        </span>
+      );
+
+      mainContent = (
+        <div>
+          <h2 className="short-bottom">
+            Summary
+          </h2>
+          <RecentOffersSummary data={summary} />
+        </div>
+      );
+    }
+
+    return (
+      <div ref={(ref) => { this.offerSummaryRef = ref; }}>
+        <h1 className="short-bottom">Latest Offers</h1>
+        <p>{introText}</p>
+        {mainContent}
+      </div>
+    );
+  }
+
+  getWaitingForResourcesNotice() {
+    const queue = this.props.pod.getQueue();
+
+    if (queue == null || queue.since == null) {
+      return null;
+    }
+
+    const waitingSince = DateUtil.strToMs(queue.since);
+    const timeWaiting = Date.now() - waitingSince;
+
+    // If the service has been waiting for less than five minutes, we don't
+    // display the warning.
+    if (timeWaiting < 1000 * 60 * 5) {
+      return null;
+    }
+
+    return (
+      <Alert>
+        DC/OS has been waiting for resources and unable to complete this deployment for {DateUtil.getDuration(timeWaiting, null)}. <a className="clickable" onClick={this.handleJumpToRecentOffersClick}>See recent resource offers</a>.
+      </Alert>
+    );
+  }
+
+  handleJumpToRecentOffersClick() {
+    if (this.offerSummaryRef) {
+      this.offerSummaryRef.scrollIntoView();
+    }
+  }
+
   render() {
     return (
       <div>
+        {this.getWaitingForResourcesNotice()}
         <h4 className="flush-top">
           Last Changes
         </h4>
         {this.getLastVersionChange()}
         {this.getTerminationHistory()}
+        {this.getRecentOfferSummary()}
+        {this.getDeclinedOffersTable()}
       </div>
     );
   }

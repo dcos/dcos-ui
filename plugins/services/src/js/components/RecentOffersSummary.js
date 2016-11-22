@@ -49,7 +49,7 @@ const colGroup = (
 
 const columns = [
   {
-    heading: null,
+    heading: '',
     prop: 'resource',
     render: (prop, row) => {
       const resource = row[prop];
@@ -113,18 +113,14 @@ const columns = [
     render: (prop, row) => {
       const requestedResource = row[prop];
 
-      // Constraints are nested arrays, so we return them as follows:
-      // [[a, b, c], [d, e]] displays a:b:c, d:e
+      // Constraints are double-nested arrays, so we return them as follows:
+      // [[[a, b, c], [d, e]], [f, g]] displays a:b:c, d:e, f:g
       if (row.resource === 'constraint') {
-        let content = requestedResource.map((constraint) => {
-          return constraint.join(':');
-        }).join(', ');
-
-        if (!content) {
-          return 'N/A';
-        }
-
-        return content;
+        return requestedResource.map((constraintArr = []) => {
+          return constraintArr.map((constraint = []) => {
+            return constraint.join(':');
+          }).join(', ');
+        }).join(', ') || 'N/A';
       }
 
       if (row.resource === 'cpu') {
@@ -139,8 +135,10 @@ const columns = [
         return Units.formatResource('disk', requestedResource);
       }
 
-      if (Array.isArray(requestedResource)) {
-        return requestedResource.join(', ');
+      if (row.resource === 'ports' || row.resource === 'role') {
+        return requestedResource.map((resourceArr = []) => {
+          return resourceArr.join(', ');
+        }).join(', ') || 'N/A';
       }
 
       return requestedResource;
