@@ -1,0 +1,16 @@
+<svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <linearGradient x1="50%" y1="3.49%" x2="50%" y2="97.401%" id="a">
+            <stop stop-color="#9351E5" stop-opacity=".2" offset="0%"/>
+            <stop stop-color="#9351E5" stop-opacity=".4" offset="100%"/>
+        </linearGradient>
+        <linearGradient x1="50%" y1="96.106%" x2="50%" y2="6.251%" id="b">
+            <stop stop-color="#9351E5" offset="0%"/>
+            <stop stop-color="#9351E5" stop-opacity=".6" offset="100%"/>
+        </linearGradient>
+    </defs>
+    <g fill="none" fill-rule="evenodd">
+        <path d="M19 17v-3h-2v3h-3v2h3v3h2v-3h3v-2h-3z" fill="url(#a)"/>
+        <path d="M2 13.998c0-.551.446-.998.998-.998h7.004c.551 0 .998.446.998.998v7.004c0 .551-.446.998-.998.998H2.998A.997.997 0 0 1 2 21.002v-7.004zm11-11c0-.551.446-.998.998-.998h7.004c.551 0 .998.446.998.998v7.004c0 .551-.446.998-.998.998h-7.004a.997.997 0 0 1-.998-.998V2.998zm-11 0C2 2.447 2.446 2 2.998 2h7.004c.551 0 .998.446.998.998v7.004c0 .551-.446.998-.998.998H2.998A.997.997 0 0 1 2 10.002V2.998z" fill="url(#b)"/>
+    </g>
+</svg>
