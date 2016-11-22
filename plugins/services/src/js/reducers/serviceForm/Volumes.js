@@ -31,12 +31,11 @@ module.exports = {
         switch (type) {
           case ADD_ITEM:
             this.externalVolumes.push({
-              containerPath: null, external: {
+              containerPath: null,
+              external: {
                 name: null,
                 provider: 'dvdi',
-                options: {
-                  'dvdi/driver': 'rexray'
-                }
+                options: {'dvdi/driver': 'rexray'}
               },
               mode: 'RW'
             });
@@ -90,7 +89,7 @@ module.exports = {
         return [].concat(this.externalVolumes, this.localVolumes);
       }
 
-      const index = joinedPath.match(/\d+/)[0];
+      const index = path[1];
       if (type === SET && `localVolumes.${index}.size` === joinedPath) {
         this.localVolumes[index].persistent.size = value;
       }
