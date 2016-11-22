@@ -10,9 +10,14 @@ import AppDispatcher from '../events/AppDispatcher';
 import Config from '../config/Config';
 
 const AuthActions = {
-  login(credentials) {
+  login(credentials, target) {
+    let query = '';
+    if (target) {
+      query = `?target=${encodeURIComponent(target)}`;
+    }
+
     RequestUtil.json({
-      url: `${Config.rootUrl}${Config.acsAPIPrefix}/auth/login`,
+      url: `${Config.rootUrl}${Config.acsAPIPrefix}/auth/login${query}`,
       method: 'POST',
       data: credentials,
       success() {
