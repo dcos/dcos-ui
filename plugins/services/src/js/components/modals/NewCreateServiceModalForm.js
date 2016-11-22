@@ -72,7 +72,12 @@ class NewCreateServiceModalForm extends Component {
         appConfig: {},
         errorList: []
       },
-      this.getNewStateForJSON(getServiceJSON(this.props.service), false)
+      this.getNewStateForJSON(
+        CreateServiceModalFormUtil.stripEmptyProperties(
+          getServiceJSON(this.props.service)
+        ),
+        false
+      )
     );
 
     METHODS_TO_BIND.forEach((method) => {
