@@ -106,8 +106,7 @@ class ServiceDebugContainer extends React.Component {
     if (queue == null || queue.declinedOffers.summary == null) {
       introText = 'Offers will appear here when your service is deploying or waiting for resources.';
     } else {
-      const {processedOffersSummary, declinedOffers: {summary}} = queue;
-      const {processedOffersCount} = processedOffersSummary;
+      const {declinedOffers: {summary}} = queue;
       const docsURL = MetadataStore.buildDocsURI(
         '/overview/concepts/#mesos-resource-offer'
       );
@@ -121,7 +120,7 @@ class ServiceDebugContainer extends React.Component {
       mainContent = (
         <div>
           <h2 className="short-bottom">
-            Summary of Recent Offers ({processedOffersCount})
+            Summary
           </h2>
           <RecentOffersSummary data={summary} />
         </div>
@@ -140,18 +139,16 @@ class ServiceDebugContainer extends React.Component {
   getDeclinedOffersTable() {
     const queue = this.props.service.getQueue();
     let content = null;
-    let offerCount = 0;
 
     if (queue == null || queue.declinedOffers.offers == null) {
       content = 'Offers will appear here when your service is deploying or waiting for resources.';
     } else {
-      offerCount = queue.declinedOffers.offers.length || 0;
       content = <DeclinedOffersTable data={queue.declinedOffers.offers} />;
     }
 
     return (
       <div>
-        <h2 className="short-bottom">Last {offerCount} Declined Offers</h2>
+        <h2 className="short-bottom">Details</h2>
         {content}
       </div>
     );
