@@ -127,6 +127,7 @@ class PodDebugTabView extends React.Component {
     const queue = this.props.pod.getQueue();
     let introText = null;
     let mainContent = null;
+    let offerCount = null;
 
     if (queue == null || queue.declinedOffers.summary == null) {
       introText = 'Offers will appear here when your service is deploying or waiting for resources.';
@@ -150,11 +151,13 @@ class PodDebugTabView extends React.Component {
           <RecentOffersSummary data={summary} />
         </div>
       );
+
+      offerCount = ` (${summary.role.offers})`;
     }
 
     return (
       <div ref={(ref) => { this.offerSummaryRef = ref; }}>
-        <h1 className="short-bottom">Latest Offers</h1>
+        <h1 className="short-bottom">Recent Resource Offers{offerCount}</h1>
         <p>{introText}</p>
         {mainContent}
       </div>

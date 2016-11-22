@@ -8,6 +8,7 @@ import DateUtil from '../../../../../src/js/utils/DateUtil';
 import Icon from '../../../../../src/js/components/Icon';
 import MesosStateStore from '../../../../../src/js/stores/MesosStateStore';
 import TableUtil from '../../../../../src/js/utils/TableUtil';
+import TimeAgo from '../../../../../src/js/components/TimeAgo';
 
 const getColumnClassNameFn = (classes) => {
   return (prop, sortBy) => {
@@ -206,7 +207,7 @@ const columns = [
     heading: getColumnHeadingFn('Received'),
     prop: 'timestamp',
     className: getColumnClassNameFn('text-align-right hidden-small-down'),
-    render: (prop, row) => DateUtil.msToRelativeTime(DateUtil.strToMs(row[prop])),
+    render: (prop, row) => <TimeAgo time={DateUtil.strToMs(row[prop])} />,
     sortable: true
   }
 ];

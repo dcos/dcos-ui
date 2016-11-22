@@ -99,11 +99,22 @@ class ServiceDebugContainer extends React.Component {
   }
 
   getRecentOfferSummary() {
-    const queue = this.props.service.getQueue();
+    const {service} = this.props;
+    const queue = service.getQueue();
     let introText = null;
     let mainContent = null;
+    let offerCount = null;
 
-    if (queue == null || queue.declinedOffers.summary == null) {
+    if (this.isFramework(service)) {
+      const {labels = {}} = service;
+      const frameworkName = labels.DCOS_PACKAGE_FRAMEWORK_NAME;
+
+      if (frameworkName != null) {
+        introText = `Rejected offer analysis is not currently supported for ${frameworkName}.`;
+      } else {
+        introText = 'Rejected offer analysis is not currently supported.';
+      }
+    } else if (queue == null || queue.declinedOffers.summary == null) {
       introText = 'Offers will appear here when your service is deploying or waiting for resources.';
     } else {
       const {declinedOffers: {summary}} = queue;
@@ -125,11 +136,13 @@ class ServiceDebugContainer extends React.Component {
           <RecentOffersSummary data={summary} />
         </div>
       );
+
+      offerCount = ` (${summary.role.offers})`;
     }
 
     return (
       <div ref={(ref) => { this.offerSummaryRef = ref; }}>
-        <h1 className="short-bottom">Latest Offers</h1>
+        <h1 className="short-bottom">Recent Resource Offers{offerCount}</h1>
         <p>{introText}</p>
         {mainContent}
       </div>
@@ -137,19 +150,22 @@ class ServiceDebugContainer extends React.Component {
   }
 
   getDeclinedOffersTable() {
-    const queue = this.props.service.getQueue();
-    let content = null;
+    const {service} = this.props;
+
+    if (this.isFramework(service)) {
+      return null;
+    }
+
+    const queue = service.getQueue();
 
     if (queue == null || queue.declinedOffers.offers == null) {
-      content = 'Offers will appear here when your service is deploying or waiting for resources.';
-    } else {
-      content = <DeclinedOffersTable data={queue.declinedOffers.offers} />;
+      return null;
     }
 
     return (
       <div>
         <h2 className="short-bottom">Details</h2>
-        {content}
+        <DeclinedOffersTable data={queue.declinedOffers.offers} />
       </div>
     );
   }
@@ -167,7 +183,13 @@ class ServiceDebugContainer extends React.Component {
   }
 
   getWaitingForResourcesNotice() {
-    const queue = this.props.service.getQueue();
+    const {service} = this.props;
+
+    if (this.isFramework(service)) {
+      return null;
+    }
+
+    const queue = service.getQueue();
 
     if (queue == null || queue.since == null) {
       return null;
@@ -193,6 +215,13 @@ class ServiceDebugContainer extends React.Component {
     if (this.offerSummaryRef) {
       this.offerSummaryRef.scrollIntoView();
     }
+  }
+
+  isFramework(service) {
+    let {labels = {}} = service;
+
+    return labels.DCOS_PACKAGE_FRAMEWORK_NAME != null
+      || labels.DCOS_PACKAGE_IS_FRAMEWORK != null;
   }
 
   render() {
