@@ -257,7 +257,7 @@ class NetworkingFormSection extends Component {
   }
 
   render() {
-    let {container, networking = {}} = this.props.data;
+    let {container, networking = {}, portDefinitions} = this.props.data;
 
     let isNetworkTypeDisabled = container == null
       || container.docker.image == null;
@@ -297,8 +297,8 @@ class NetworkingFormSection extends Component {
             onClick={this.props.onAddItem.bind(
               this,
               {
-                value: serviceEndpoints.length,
-                path: 'serviceEndpoints'
+                value: portDefinitions.length,
+                path: 'portDefinitions'
               }
             )}>
             <Icon color="purple" id="plus" family="mini" size="tiny" /> Add Service Endpoint
