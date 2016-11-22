@@ -15,7 +15,6 @@ import HealthChecksFormSection from '../forms/HealthChecksFormSection';
 import JSONConfigReducers from '../../reducers/JSONConfigReducers';
 import JSONParserReducers from '../../reducers/JSONParserReducers';
 import JSONEditor from '../../../../../../src/js/components/JSONEditor';
-import Service from '../../structs/Service';
 import TabButton from '../../../../../../src/js/components/TabButton';
 import TabButtonList from '../../../../../../src/js/components/TabButtonList';
 import Tabs from '../../../../../../src/js/components/Tabs';
@@ -69,7 +68,8 @@ class NewCreateServiceModalForm extends Component {
     this.state = Object.assign(
       {
         batch: new Batch(),
-        appConfig: {},
+        baseConfig: {},
+        appConfig: null,
         errorList: []
       },
       this.getNewStateForJSON(
@@ -79,6 +79,9 @@ class NewCreateServiceModalForm extends Component {
         false
       )
     );
+
+    // Render initial app config
+    this.state.appConfig = this.getAppConfig(this.state);
 
     METHODS_TO_BIND.forEach((method) => {
       this[method] = this[method].bind(this);
@@ -91,51 +94,84 @@ class NewCreateServiceModalForm extends Component {
   componentWillReceiveProps(nextProps) {
     let prevJSON = getServiceJSON(this.props.service);
     let nextJSON = getServiceJSON(nextProps.service);
-    if (!deepEqual(prevJSON, nextJSON)) {
+
+    // Note: We ignore changes that might derrive from the `onChange` event
+    //       handler. In that case the contents of nextJSON would be the same
+    //       as the contents of the last rendered appConfig in the state.
+    if (!deepEqual(prevJSON, nextJSON) &&
+        !deepEqual(this.state.appConfig, nextJSON)) {
+      console.log('Updating because service changed');
       this.setState(this.getNewStateForJSON(nextJSON));
     }
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
+  /**
+   * @override
+   */
+  componentDidUpdate() {
+    this.props.onChange(this.state.appConfig);
+    this.props.onErrorStateChange(this.state.errorList.length !== 0);
+  }
 
-    // Update if json state or the service has changed from outside
+  /**
+   * @override
+   */
+  shouldComponentUpdate(nextProps, nextState) {
+    // Update if json state changed
     if (this.props.isJSONModeActive !== nextProps.isJSONModeActive) {
       return true;
     }
-    if (!deepEqual(this.props.service.toJSON(), nextProps.service.toJSON())) {
+
+    // Update if service property has changed
+    //
+    // Note: We ignore changes that might derrive from the `onChange` event
+    //       handler. In that case the contents of nextJSON would be the same
+    //       as the contents of the last rendered appConfig in the state.
+    //
+    let prevJSON = getServiceJSON(this.props.service);
+    let nextJSON = getServiceJSON(nextProps.service);
+    if (!deepEqual(prevJSON, nextJSON) &&
+        !deepEqual(this.state.appConfig, nextJSON)) {
+      console.log('Will update because service changed');
       return true;
     };
 
     // Otherwise update if the state has changed
     return (this.state.errorList !== nextState.errorList) ||
-           (this.state.appConfig !== nextState.appConfig) ||
+           (this.state.baseConfig !== nextState.baseConfig) ||
            (this.state.batch !== nextState.batch);
   }
 
-  getNewStateForJSON(appConfig={}, validate=true) {
-    let newState = {appConfig};
+  getNewStateForJSON(baseConfig={}, validate=true) {
+    let newState = {
+      appConfig: {},
+      baseConfig
+    };
 
     // Regenerate batch
-    newState.batch = jsonParserReducers(appConfig).reduce((batch, item) => {
+    newState.batch = jsonParserReducers(baseConfig).reduce((batch, item) => {
       return batch.add(item);
     }, new Batch());
 
     // Perform error validation
     if (validate) {
-      newState.errorList = DataValidatorUtil.validate(appConfig, ERROR_VALIDATORS);
+      newState.errorList = DataValidatorUtil.validate(baseConfig, ERROR_VALIDATORS);
     }
 
     return newState;
   }
 
   handleJSONChange(jsonObject) {
-    this.setState(this.getNewStateForJSON(jsonObject));
+    let newState = this.getNewStateForJSON(jsonObject);
+    newState.appConfig = this.getAppConfig(newState);
+    this.setState(newState);
   }
 
   handleFormBlur(event) {
     let path = event.target.getAttribute('name').split('.');
+    let appConfig = this.getAppConfig();
     let errorList = DataValidatorUtil.validate(
-      this.getAppConfig(),
+      appConfig,
       ERROR_VALIDATORS
     );
 
@@ -143,11 +179,11 @@ class NewCreateServiceModalForm extends Component {
     errorList = DataValidatorUtil.updateOnlyOnPath(this.state.errorList, errorList, path);
 
     // Run data validation on the raw data
-    this.setState({errorList});
+    this.setState({errorList, appConfig});
   }
 
   handleFormChange(event) {
-    let {batch} = this.state;
+    let {batch, baseConfig} = this.state;
 
     let value = event.target.value;
     if (event.target.type === 'checkbox') {
@@ -163,13 +199,18 @@ class NewCreateServiceModalForm extends Component {
       path
     );
 
+    // Render the new appconfig
+    newState.appConfig = this.getAppConfig({
+      batch, baseConfig
+    });
+
     this.setState(newState);
   }
 
-  getAppConfig() {
-    let {appConfig, batch} = this.state;
+  getAppConfig(currentState = this.state) {
+    let {baseConfig, batch} = currentState;
     let patch = batch.reduce(jsonConfigReducers, {});
-    return CreateServiceModalFormUtil.applyPatch(appConfig, patch);
+    return CreateServiceModalFormUtil.applyPatch(baseConfig, patch);
   }
 
   handleAddItem({value, path}) {
@@ -209,7 +250,7 @@ class NewCreateServiceModalForm extends Component {
   }
 
   render() {
-    let {batch, errorList} = this.state;
+    let {appConfig, batch, errorList} = this.state;
     let {isJSONModeActive} = this.props;
     let data = batch.reduce(inputConfigReducers, {});
 
@@ -264,7 +305,7 @@ class NewCreateServiceModalForm extends Component {
             showPrintMargin={false}
             theme="monokai"
             height="100%"
-            value={this.getAppConfig()}
+            value={appConfig}
             width="100%" />
         </div>
       </div>
@@ -274,13 +315,15 @@ class NewCreateServiceModalForm extends Component {
 
 NewCreateServiceModalForm.defaultProps = {
   isJSONModeActive: false,
-  onChange() {}
+  onChange() {},
+  onErrorStateChange() {}
 };
 
 NewCreateServiceModalForm.propTypes = {
   isJSONModeActive: PropTypes.bool,
   onChange: PropTypes.func,
-  service: PropTypes.instanceOf(Service)
+  onErrorStateChange: PropTypes.func,
+  service: PropTypes.object
 };
 
 module.exports = NewCreateServiceModalForm;
