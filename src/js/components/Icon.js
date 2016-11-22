@@ -41,6 +41,7 @@ Icon.propTypes = {
   ]),
   color: React.PropTypes.string,
   family: React.PropTypes.oneOf([
+    'product',
     'tiny',
     'mini',
     'small',
