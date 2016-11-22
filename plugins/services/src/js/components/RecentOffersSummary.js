@@ -1,7 +1,8 @@
 import classNames from 'classnames';
 import React from 'react';
-import {Table} from 'reactjs-components';
+import {Table, Tooltip} from 'reactjs-components';
 
+import Icon from '../../../../../src/js/components/Icon';
 import Units from '../../../../../src/js/utils/Units';
 
 const displayedResourceValues = {
@@ -39,13 +40,61 @@ const getColumnHeadingFn = (defaultHeading) => {
 
 const colGroup = (
   <colgroup>
+    <col className="table-column-tooltip" />
     <col style={{width: '40%'}} />
-    <col style={{width: '30%'}} />
-    <col style={{width: '30%'}} />
+    <col />
+    <col />
   </colgroup>
 );
 
 const columns = [
+  {
+    heading: null,
+    prop: 'resource',
+    render: (prop, row) => {
+      const resource = row[prop];
+      let tooltipContent = null;
+
+      // TODO: Implement actual tooltip content.
+      if (resource === 'role') {
+        tooltipContent = 'Describe role...';
+      }
+
+      if (resource === 'constraint') {
+        tooltipContent = 'Describe constraint...';
+      }
+
+      if (resource === 'cpu') {
+        tooltipContent = 'Describe CPU...';
+      }
+
+      if (resource === 'mem') {
+        tooltipContent = 'Describe memory...';
+      }
+
+      if (resource === 'disk') {
+        tooltipContent = 'Describe disk...';
+      }
+
+      if (resource === 'ports') {
+        tooltipContent = 'Describe ports...';
+      }
+
+      if (tooltipContent != null) {
+        return (
+          <Tooltip content={tooltipContent}>
+            <Icon
+              id="ring-information"
+              size="mini"
+              family="mini"
+              color="grey" />
+          </Tooltip>
+        );
+      }
+    },
+    className: getColumnClassNameFn('table-column-tooltip'),
+    sortable: false
+  },
   {
     heading: getColumnHeadingFn('Resource'),
     prop: 'resource',
@@ -131,7 +180,7 @@ const RecentOffersSummary = ({data}) => {
   });
 
   return (
-    <Table className="table table-simple table-break-word flush-bottom"
+    <Table className="table table-simple table-break-word table-fixed-layout flush-bottom"
       colGroup={colGroup}
       columns={columns}
       data={summaryData} />
