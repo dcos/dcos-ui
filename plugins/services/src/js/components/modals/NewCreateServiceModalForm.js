@@ -15,7 +15,6 @@ import JSONConfigReducers from '../../reducers/JSONConfigReducers';
 import JSONEditor from '../../../../../../src/js/components/JSONEditor';
 import JSONParserReducers from '../../reducers/JSONParserReducers';
 import NetworkingFormSection from '../forms/NetworkingFormSection';
-import Service from '../../structs/Service';
 import ServiceUtil from '../../utils/ServiceUtil';
 import TabButton from '../../../../../../src/js/components/TabButton';
 import TabButtonList from '../../../../../../src/js/components/TabButtonList';
