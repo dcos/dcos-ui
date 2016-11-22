@@ -206,7 +206,7 @@ const columns = [
     heading: getColumnHeadingFn('Received'),
     prop: 'timestamp',
     className: getColumnClassNameFn('text-align-right hidden-small-down'),
-    render: (prop, row) => DateUtil.msToDateStr(DateUtil.strToMs(row[prop])),
+    render: (prop, row) => DateUtil.msToRelativeTime(DateUtil.strToMs(row[prop])),
     sortable: true
   }
 ];
@@ -216,7 +216,8 @@ const RejectedOffersTable = ({data}) => {
     <Table className="table table-simple table-header-nowrap table-break-word flush-bottom"
       colGroup={colGroup}
       columns={columns}
-      data={data} />
+      data={data}
+      sortBy={{prop: 'timestamp', order: 'desc'}} />
   );
 };
 
