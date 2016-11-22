@@ -41,7 +41,7 @@ const getColumnHeadingFn = (defaultHeading) => {
 const colGroup = (
   <colgroup>
     <col className="table-column-tooltip" />
-    <col style={{width: '40%'}} />
+    <col />
     <col />
     <col />
   </colgroup>
@@ -116,9 +116,15 @@ const columns = [
       // Constraints are nested arrays, so we return them as follows:
       // [[a, b, c], [d, e]] displays a:b:c, d:e
       if (row.resource === 'constraint') {
-        return requestedResource.map((constraint) => {
+        let content = requestedResource.map((constraint) => {
           return constraint.join(':');
         }).join(', ');
+
+        if (!content) {
+          return 'N/A';
+        }
+
+        return content;
       }
 
       if (row.resource === 'cpu') {
