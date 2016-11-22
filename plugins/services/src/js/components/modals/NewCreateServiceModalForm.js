@@ -38,7 +38,9 @@ const KEY_VALUE_FIELDS = [
 
 const ERROR_VALIDATORS = [
   AppValidators.App,
-  MarathonAppValidators.CmdOrDockerImage
+  MarathonAppValidators.containsCmdArgsOrContainer,
+  MarathonAppValidators.complyWithResidencyRules,
+  MarathonAppValidators.complyWithIpAddressRules
 ];
 
 class NewCreateServiceModalForm extends Component {
