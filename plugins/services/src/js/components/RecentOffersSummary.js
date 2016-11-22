@@ -39,10 +39,9 @@ const getColumnHeadingFn = (defaultHeading) => {
 
 const colGroup = (
   <colgroup>
-    <col style={{width: '15%'}} />
-    <col style={{width: '25%'}} />
-    <col style={{width: '20%'}} />
-    <col style={{width: '40%'}} className="hidden-medium-down" />
+    <col style={{width: '40%'}} />
+    <col style={{width: '30%'}} />
+    <col style={{width: '30%'}} />
   </colgroup>
 );
 
@@ -100,26 +99,6 @@ const columns = [
     render: (prop, row) => {
       const matchedOffers = row[prop];
       const offeredCount = row.offers;
-      const percentageMatched = Math.ceil(matchedOffers / offeredCount * 100);
-
-      return (
-        <span>
-          {Units.contractNumber(matchedOffers)}/{Units.contractNumber(offeredCount)}
-          <span className="hidden-large-up">
-            {` (${percentageMatched}%)`}
-          </span>
-        </span>
-      );
-    },
-    sortable: true
-  },
-  {
-    heading: getColumnHeadingFn(' '),
-    prop: 'matched',
-    className: getColumnClassNameFn('hidden-medium-down'),
-    render: (prop, row) => {
-      const matchedOffers = row[prop];
-      const offeredCount = row.offers;
       let percentageMatched = null;
 
       // Avoid NaN and inifinite values from division by zero.
@@ -129,9 +108,14 @@ const columns = [
         percentageMatched = Math.ceil(matchedOffers / offeredCount * 100);
       }
 
-      return `${percentageMatched}% of offers have the correct ${row.resource}.`;
+      return (
+        <span>
+          {Units.contractNumber(matchedOffers)}/{Units.contractNumber(offeredCount)}
+          {` (${percentageMatched}%)`}
+        </span>
+      );
     },
-    sortable: false
+    sortable: true
   }
 ];
 
