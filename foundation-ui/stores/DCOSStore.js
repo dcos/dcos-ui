@@ -217,8 +217,16 @@ class DCOSStore extends EventEmitter {
 
     let queuedAppIDs = [];
     nextQueue.forEach((entry) => {
-      if (entry.app == null) {
+      if (entry.app == null && entry.pod == null) {
         return;
+      }
+
+      let id = null;
+
+      if (entry.pod != null) {
+        id = entry.pod.id;
+      } else {
+        id = entry.app.id;
       }
 
       entry.declinedOffers = {
@@ -226,13 +234,21 @@ class DCOSStore extends EventEmitter {
         offers: DeclinedOffersUtil.getOffersFromQueue(entry)
       };
 
-      queuedAppIDs.push(entry.app.id);
-      queue.set(entry.app.id, entry);
+      queuedAppIDs.push(id);
+      queue.set(id, entry);
     });
 
     queue.forEach((entry) => {
-      if (queuedAppIDs.indexOf(entry.app.id) === -1) {
-        queue.delete(entry.app.id);
+      let id = null;
+
+      if (entry.pod != null) {
+        id = entry.pod.id;
+      } else {
+        id = entry.app.id;
+      }
+
+      if (queuedAppIDs.indexOf(id) === -1) {
+        queue.delete(id);
       }
     });
 

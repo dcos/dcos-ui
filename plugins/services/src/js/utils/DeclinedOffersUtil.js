@@ -2,7 +2,7 @@ import DeclinedOffersReasons from '../constants/DeclinedOffersReasons';
 
 const DecinedOffersUtil = {
   getSummaryFromQueue(queue) {
-    const {app, processedOffersSummary} = queue;
+    const {app, pod, processedOffersSummary} = queue;
 
     if (processedOffersSummary == null
       || processedOffersSummary.unusedOffersCount === 0) {
@@ -36,35 +36,74 @@ const DecinedOffersUtil = {
       DeclinedOffersReasons.INSUFFICIENT_PORTS
     ];
 
+    let requestedResources = {};
+
+    if (pod != null) {
+      const {containers = []} = pod;
+
+      requestedResources = containers.reduce((accumulator, container) => {
+        accumulator.role.push(container.acceptedRole || ['*']);
+        accumulator.cpu += container.resources.cpus || 0;
+        accumulator.mem += container.resources.mem || 0;
+        accumulator.disk += container.resources.disk || 0;
+
+        if (container.constraints) {
+          accumulator.constraints.push(container.constraints);
+        }
+
+        if (container.resources.ports) {
+          accumulator.ports.push(container.resources.ports);
+        }
+
+        return accumulator;
+      }, {
+        role: [],
+        constraints: [],
+        cpu: 0,
+        mem: 0,
+        disk: 0,
+        ports: []
+      });
+    } else {
+      requestedResources = {
+        role: [app.acceptedRole || ['*']],
+        constraints: [app.constraints],
+        cpu: app.cpus || 0,
+        mem: app.mem || 0,
+        disk: app.disk || 0,
+        ports: [app.ports] || [[]]
+      };
+    }
+
     return {
       role: {
-        requested: app.acceptedRole || ['*'],
+        requested: requestedResources.role,
         offers: roleOfferSummary.processed,
         matched: roleOfferSummary.processed - roleOfferSummary.declined
       },
       constraint: {
-        requested: app.constraints,
+        requested: requestedResources.constraints,
         offers: constraintOfferSummary.processed,
         matched: constraintOfferSummary.processed
           - constraintOfferSummary.declined
       },
       cpu: {
-        requested: app.cpus || 0,
+        requested: requestedResources.cpu,
         offers: cpuOfferSummary.processed,
         matched: cpuOfferSummary.processed - cpuOfferSummary.declined
       },
       mem: {
-        requested: app.mem || 0,
+        requested: requestedResources.mem,
         offers: memOfferSummary.processed,
         matched: memOfferSummary.processed - memOfferSummary.declined
       },
       disk: {
-        requested: app.disk || 0,
+        requested: requestedResources.disk,
         offers: diskOfferSummary.processed,
         matched: diskOfferSummary.processed - diskOfferSummary.declined
       },
       ports: {
-        requested: app.ports,
+        requested: requestedResources.ports,
         offers: portOfferSummary.processed,
         matched: portOfferSummary.processed - portOfferSummary.declined
       }

@@ -99,6 +99,10 @@ module.exports = class Pod extends Service {
     return new PodInstanceList({items: this.get('instances') || []});
   }
 
+  getQueue() {
+    return this.get('queue');
+  }
+
   /**
    * @override
    */
