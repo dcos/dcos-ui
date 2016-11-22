@@ -130,6 +130,9 @@ const MarathonAppValidators = {
         {path: ['container', 'docker', 'network'], message}
       ];
     }
+
+    // No errors
+    return [];
   }
 };
 
