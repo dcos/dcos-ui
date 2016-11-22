@@ -2,10 +2,9 @@ import DeclinedOffersReasons from '../constants/DeclinedOffersReasons';
 
 const DecinedOffersUtil = {
   getSummaryFromQueue(queue) {
-    const {app, pod, processedOffersSummary} = queue;
+    const {app, pod, processedOffersSummary = {}} = queue;
 
-    if (processedOffersSummary == null
-      || processedOffersSummary.unusedOffersCount === 0) {
+    if (!processedOffersSummary.unusedOffersCount) {
       return null;
     }
 
@@ -111,19 +110,17 @@ const DecinedOffersUtil = {
   },
 
   getOffersFromQueue(queue) {
-    let {lastUnusedOffers} = queue;
+    let {lastUnusedOffers = []} = queue;
 
-    if (lastUnusedOffers == null || lastUnusedOffers.length === 0) {
+    if (!lastUnusedOffers.length) {
       return null;
     }
 
-    return lastUnusedOffers.map((declinedOffer) => {
-      return {
-        hostname: declinedOffer.offer.hostname,
-        timestamp: declinedOffer.timestamp,
-        unmatchedResource: declinedOffer.reason
-      };
-    });
+    return lastUnusedOffers.map((declinedOffer) => ({
+      hostname: declinedOffer.offer.hostname,
+      timestamp: declinedOffer.timestamp,
+      unmatchedResource: declinedOffer.reason
+    }));
   }
 };
 

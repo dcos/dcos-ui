@@ -251,11 +251,8 @@ describe('DeclinedOffersUtil', function () {
 
   describe('#getOffersFromQueue', function () {
 
-    it('returns null when lastUnusedOffers is undefined, null, or empty array', function () {
+    it('returns null when lastUnusedOffers is undefined or empty array', function () {
       expect(DeclinedOffersUtil.getOffersFromQueue({})).toEqual(null);
-      expect(DeclinedOffersUtil.getOffersFromQueue({
-        lastUnusedOffers: null
-      })).toEqual(null);
       expect(DeclinedOffersUtil.getOffersFromQueue({
         lastUnusedOffers: []
       })).toEqual(null);
