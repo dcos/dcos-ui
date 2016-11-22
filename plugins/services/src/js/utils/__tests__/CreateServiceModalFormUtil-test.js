@@ -108,6 +108,75 @@ describe('CreateServiceModalFormUtil', function () {
       expect(patched).toEqual({a: null});
     });
 
+    it('should preserve [] source type if number is given', function () {
+      let data = {a: [1, 2, 3]};
+      let patch = {a: 42};
+      let patched = CreateServiceModalFormUtil.applyPatch(data, patch);
+      expect(patched).toEqual({a: [1, 2, 3]});
+    });
+
+    it('should remove empty fields from patch objects', function () {
+      let data = {a: null};
+      let patch = {a: {b: null, c:'', d:'foo'}};
+      let patched = CreateServiceModalFormUtil.applyPatch(data, patch);
+      expect(patched).toEqual({a: {d: 'foo'}});
+    });
+
+    it('should keep the original empty value if patch object is empty', function () {
+      let data = {a: {}};
+      let patch = {a: {b: null, c:'', d:undefined}};
+      let patched = CreateServiceModalFormUtil.applyPatch(data, patch);
+      expect(patched).toEqual({a: {}});
+    });
+
+    it('should recursively remove empty fields from patch objects', function () {
+      let data = {a: {b: 'foo', c: {d: 'bar'}}};
+      let patch = {a: {b: 'foo', c: {d: null}}};
+      let patched = CreateServiceModalFormUtil.applyPatch(data, patch);
+      expect(patched).toEqual({a: {b: 'foo'}});
+    });
+
+    it('should strip empty propeties from patch-only objects', function () {
+      let data = {};
+      let patch = {a: {b: 'foo', c: {d: null}}};
+      let patched = CreateServiceModalFormUtil.applyPatch(data, patch);
+      expect(patched).toEqual({a: {b: 'foo'}});
+    });
+
+    it('should properly create new array structures', function () {
+      let data = {};
+      let patch = {a: [{b: 'foo'}, {c: 'bar'}]};
+      let patched = CreateServiceModalFormUtil.applyPatch(data, patch);
+      expect(patched).toEqual({a: [{b: 'foo'}, {c: 'bar'}]});
+    });
+
+    it('should not create empty array structures', function () {
+      let data = {};
+      let patch = {a: []};
+      let patched = CreateServiceModalFormUtil.applyPatch(data, patch);
+      expect(patched).toEqual({});
+    });
+
+    it('should not create array structures that contain empty items', function () {
+      let data = {};
+      let patch = {a: [null, undefined, '', {}]};
+      let patched = CreateServiceModalFormUtil.applyPatch(data, patch);
+      expect(patched).toEqual({});
+    });
+
+    it('should replace array structures when patching', function () {
+      let data = {a: [1, 2, 3, 4]};
+      let patch = {a: [3, 4]};
+      let patched = CreateServiceModalFormUtil.applyPatch(data, patch);
+      expect(patched).toEqual({a: [3, 4]});
+    });
+
+    it('should remove array structures with empty value', function () {
+      let data = {a: [1, 2]};
+      let patch = {a: null};
+      let patched = CreateServiceModalFormUtil.applyPatch(data, patch);
+      expect(patched).toEqual({});
+    });
   });
 });
 
