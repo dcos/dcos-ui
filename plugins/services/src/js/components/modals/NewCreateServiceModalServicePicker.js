@@ -49,7 +49,7 @@ class NewCreateServiceModalServicePicker extends React.Component {
     });
 
     return (
-      <div className="panel-grid row">
+      <div className="create-service-modal-service-picker-options panel-grid row">
         {customOptions}
       </div>
     );
@@ -65,24 +65,22 @@ class NewCreateServiceModalServicePicker extends React.Component {
 
   getServiceDeployOptions() {
     return (
-      <div className="container">
-        <div className="pod pod-taller flush-top flush-right flush-left">
-          <h3 className="short flush-top">
-            Run your own Service
-          </h3>
-          <p className="lead tall">
-            Create serice from one or more containers, run a command, or run from
-            Docker Compose.
-          </p>
-          {this.getCustomServiceGrid()}
-        </div>
+      <div className="create-service-modal-service-picker container text-align-center">
+        <h3 className="short flush-top">
+          Run your own Service
+        </h3>
+        <p className="lead tall">
+          Create service from one or more containers, run a command, or run from
+          Docker Compose.
+        </p>
+        {this.getCustomServiceGrid()}
       </div>
     );
   }
 
   getServiceOption(icon, title, index, service) {
     return (
-      <div className="panel-grid-item column-6 column-small-4 column-large-3"
+      <div className="create-service-modal-service-picker-option panel-grid-item column-12 column-small-4 column-large-3"
         key={index}>
         <Panel className="panel-interactive clickable"
           contentClass={[
