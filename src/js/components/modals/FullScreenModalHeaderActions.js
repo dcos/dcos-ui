@@ -9,19 +9,24 @@ class FullScreenModalHeaderActions extends React.Component {
       return null;
     }
 
-    return actions.map(({className, clickHandler, label, node}, index) => {
-      if (node) {
-        return node;
+    return actions.map(
+      ({className, clickHandler, label, node, disabled}, index) => {
+        if (node) {
+          return node;
+        }
+
+        let classes = classNames('button', className);
+
+        return (
+          <button className={classes}
+            disabled={disabled}
+            key={index}
+            onClick={clickHandler}>
+            {label}
+          </button>
+        );
       }
-
-      let classes = classNames('button', className);
-
-      return (
-        <button className={classes} key={index} onClick={clickHandler}>
-          {label}
-        </button>
-      );
-    });
+    );
   }
 
   render() {
