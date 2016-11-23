@@ -87,7 +87,8 @@ import ServiceImages from '../constants/ServiceImages';
 import ServiceTree from '../structs/ServiceTree';
 import VisibilityStore from '../../../../../src/js/stores/VisibilityStore';
 
-var requestInterval = null;
+let requestInterval = null;
+let shouldEmbedLastUnusedOffers = false;
 
 function startPolling() {
   if (requestInterval == null) {
@@ -104,8 +105,14 @@ function stopPolling() {
 }
 
 function poll() {
+  let options = {};
+
+  if (shouldEmbedLastUnusedOffers) {
+    options.params = '?embed=lastUnusedOffers';
+  }
+
   MarathonActions.fetchGroups();
-  MarathonActions.fetchQueue();
+  MarathonActions.fetchQueue(options);
   MarathonActions.fetchDeployments();
 }
 
@@ -565,6 +572,14 @@ class MarathonStore extends GetSetBaseStore {
 
   get storeID() {
     return 'marathon';
+  }
+
+  setShouldEmbedLastUnusedOffers(value) {
+    shouldEmbedLastUnusedOffers = value;
+
+    // Restart polling to immediately use the updated embed params.
+    stopPolling();
+    startPolling();
   }
 }
 

@@ -410,9 +410,11 @@ var MarathonActions = {
   fetchQueue: RequestUtil.debounceOnError(
       Config.getRefreshRate(),
       function (resolve, reject) {
-        return function () {
+        return function (options = {}) {
+          let queryParams = options.params || '';
+
           RequestUtil.json({
-            url: buildURI('/queue'),
+            url: buildURI(`/queue${queryParams}`),
             success(response) {
               AppDispatcher.handleServerAction({
                 type: REQUEST_MARATHON_QUEUE_SUCCESS,

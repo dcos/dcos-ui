@@ -2,11 +2,20 @@ import React from 'react';
 import {routerShape} from 'react-router';
 
 import DescriptionList from '../../../../../../src/js/components/DescriptionList';
+import MarathonStore from '../../stores/MarathonStore';
 import Service from '../../structs/Service';
 import TaskStatsTable from './TaskStatsTable';
 import TimeAgo from '../../../../../../src/js/components/TimeAgo';
 
 class ServiceDebugContainer extends React.Component {
+  componentWillMount() {
+    MarathonStore.setShouldEmbedLastUnusedOffers(true);
+  }
+
+  componentWillUnmount() {
+    MarathonStore.setShouldEmbedLastUnusedOffers(false);
+  }
+
   getValueText(value) {
     if (value == null || value === '') {
       return (

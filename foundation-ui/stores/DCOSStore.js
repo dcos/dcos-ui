@@ -14,6 +14,7 @@ import {
   MARATHON_SERVICE_VERSIONS_CHANGE
 } from '../../plugins/services/src/js/constants/EventTypes';
 
+import DeclinedOffersUtil from '../../plugins/services/src/js/utils/DeclinedOffersUtil';
 import DeploymentsList from '../../plugins/services/src/js/structs/DeploymentsList';
 import Item from '../../src/js/structs/Item';
 import Framework from '../../plugins/services/src/js/structs/Framework';
@@ -216,17 +217,38 @@ class DCOSStore extends EventEmitter {
 
     let queuedAppIDs = [];
     nextQueue.forEach((entry) => {
-      if (entry.app == null) {
+      if (entry.app == null && entry.pod == null) {
         return;
       }
 
-      queuedAppIDs.push(entry.app.id);
-      queue.set(entry.app.id, entry);
+      let id = null;
+
+      if (entry.pod != null) {
+        id = entry.pod.id;
+      } else {
+        id = entry.app.id;
+      }
+
+      entry.declinedOffers = {
+        summary: DeclinedOffersUtil.getSummaryFromQueue(entry),
+        offers: DeclinedOffersUtil.getOffersFromQueue(entry)
+      };
+
+      queuedAppIDs.push(id);
+      queue.set(id, entry);
     });
 
     queue.forEach((entry) => {
-      if (queuedAppIDs.indexOf(entry.app.id) === -1) {
-        queue.delete(entry.app.id);
+      let id = null;
+
+      if (entry.pod != null) {
+        id = entry.pod.id;
+      } else {
+        id = entry.app.id;
+      }
+
+      if (queuedAppIDs.indexOf(id) === -1) {
+        queue.delete(id);
       }
     });
 
