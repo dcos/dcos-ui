@@ -2,6 +2,37 @@ import DeclinedOffersReasons from '../constants/DeclinedOffersReasons';
 import Units from '../../../../../src/js/utils/Units';
 import Util from '../../../../../src/js/utils/Util';
 
+const unavailableText = 'N/A';
+
+const rangeReducer = (accumulator, range) => {
+  accumulator.push(`${range.begin} – ${range.end}`);
+
+  return accumulator;
+};
+
+const constraintsReducer = (accumulator, constraint) => {
+  const {name, ranges, set, text, scalar} = constraint;
+  let value = null;
+
+  if (ranges) {
+    value = ranges.reduce(rangeReducer, []).join(', ');
+  } else if (set) {
+    value = set.join(', ');
+  } else if (text) {
+    value = text;
+  } else if (scalar) {
+    value = scalar;
+  }
+
+  if (!value) {
+    value = unavailableText;
+  }
+
+  accumulator.push(`${name}:${value}`);
+
+  return accumulator;
+};
+
 const DecinedOffersUtil = {
   getSummaryFromQueue(queue) {
     const {app, pod, processedOffersSummary = {}} = queue;
@@ -93,14 +124,14 @@ const DecinedOffersUtil = {
 
     return {
       roles: {
-        requested: requestedResources.roles.join(', ') || 'N/A',
+        requested: requestedResources.roles.join(', ') || unavailableText,
         offers: roleOfferSummary.processed,
         matched: roleOfferSummary.processed - roleOfferSummary.declined
       },
-      constraint: {
+      constraints: {
         requested: requestedResources.constraints.map((constraint = []) => {
           return constraint.join(':');
-        }).join(', ') || 'N/A',
+        }).join(', ') || unavailableText,
         offers: constraintOfferSummary.processed,
         matched: constraintOfferSummary.processed
           - constraintOfferSummary.declined
@@ -123,7 +154,7 @@ const DecinedOffersUtil = {
       ports: {
         requested: requestedResources.ports.map((resourceArr = []) => {
           return resourceArr.join(', ');
-        }).join(', ') || 'N/A',
+        }).join(', ') || unavailableText,
         offers: portOfferSummary.processed,
         matched: portOfferSummary.processed - portOfferSummary.declined
       }
@@ -140,6 +171,7 @@ const DecinedOffersUtil = {
     return lastUnusedOffers.map((declinedOffer) => {
       const {
         offer: {
+          attributes = [],
           hostname,
           resources = []
         },
@@ -156,11 +188,7 @@ const DecinedOffersUtil = {
           if (name === 'ports') {
             const {ranges = []} = resource;
 
-            accumulator[name] = ranges.reduce((rangeAccumulator, range) => {
-              rangeAccumulator.push(`${range.begin} – ${range.end}`);
-
-              return rangeAccumulator;
-            }, []);
+            accumulator[name] = ranges.reduce(rangeReducer, []);
           } else {
             accumulator[name] = resource.scalar;
           }
@@ -171,7 +199,10 @@ const DecinedOffersUtil = {
           }
 
           return accumulator;
-        }, {roles: []})
+        }, {
+          constraints: attributes.reduce(constraintsReducer, []).join(', '),
+          roles: []
+        })
       };
     });
   }

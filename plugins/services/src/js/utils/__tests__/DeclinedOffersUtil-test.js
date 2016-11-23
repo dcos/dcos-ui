@@ -101,7 +101,7 @@ describe('DeclinedOffersUtil', function () {
           offers: 123,
           matched: 123
         },
-        constraint: {
+        constraints: {
           requested: 'hostname:UNIQUE',
           offers: 123,
           matched: 123
@@ -224,7 +224,7 @@ describe('DeclinedOffersUtil', function () {
           offers: 123,
           matched: 123
         },
-        constraint: {
+        constraints: {
           requested: 'foo.constraint.1:foo.constraint.2:foo.constraint.3',
           offers: 123,
           matched: 123
@@ -319,6 +319,7 @@ describe('DeclinedOffersUtil', function () {
             timestamp: '2016-02-28T16:41:41.090Z',
             unmatchedResource: ['InsufficientMemory'],
             offered: {
+              constraints: 'foo:1 – 5',
               cpus: 23,
               roles: ['*']
             }
