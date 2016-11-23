@@ -72,7 +72,6 @@ class NewServiceFormModal extends Component {
       this.setState({
         serviceReviewActive: false
       });
-
       return;
     }
 
@@ -82,7 +81,6 @@ class NewServiceFormModal extends Component {
         servicePickerActive: true,
         serviceFormActive: false
       });
-
       return;
     }
 
@@ -92,7 +90,6 @@ class NewServiceFormModal extends Component {
         servicePickerActive: true,
         serviceJsonActive: false
       });
-
       return;
     }
   }
@@ -152,6 +149,7 @@ class NewServiceFormModal extends Component {
             )
           )
         });
+        console.log('Turning on form (app)', this.state);
         break;
 
       case 'pod':
@@ -165,19 +163,16 @@ class NewServiceFormModal extends Component {
             )
           )
         });
+        console.log('Turning on form (pod)', this.state);
         break;
 
       case 'json':
         this.setState({
           servicePickerActive: false,
           serviceJsonActive: true,
-          serviceConfig: new Application(
-            Object.assign(
-              {id: this.props.service.id},
-              NEW_POD_DEFAULTS
-            )
-          )
+          serviceConfig: this.props.service
         });
+        console.log('Turning on json', this.state);
         break;
 
     };
@@ -245,6 +240,10 @@ class NewServiceFormModal extends Component {
   }
 
   getModalContent() {
+    console.log('Render, review=', this.state.serviceReviewActive,
+      ', picker=', this.state.servicePickerActive,
+      ', form=', this.state.serviceFormActive,
+      ', json=', this.state.serviceJsonActive);
 
     // NOTE: Always prioritize review screen check
     if (this.state.serviceReviewActive) {

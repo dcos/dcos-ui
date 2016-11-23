@@ -4,8 +4,8 @@ import deepEqual from 'deep-equal';
 
 import Alert from '../../../../../../src/js/components/Alert';
 import AppValidators from '../../../../../../src/resources/raml/marathon/v2/types/app.raml';
-import CreateServiceModalFormUtil from '../../utils/CreateServiceModalFormUtil';
 import Batch from '../../../../../../src/js/structs/Batch';
+import CreateServiceModalFormUtil from '../../utils/CreateServiceModalFormUtil';
 import ContainerServiceFormSection from '../forms/ContainerServiceFormSection';
 import {combineParsers} from '../../../../../../src/js/utils/ParserUtil';
 import {combineReducers} from '../../../../../../src/js/utils/ReducerUtil';
@@ -15,6 +15,7 @@ import HealthChecksFormSection from '../forms/HealthChecksFormSection';
 import JSONConfigReducers from '../../reducers/JSONConfigReducers';
 import JSONParserReducers from '../../reducers/JSONParserReducers';
 import JSONEditor from '../../../../../../src/js/components/JSONEditor';
+import ServiceUtil from '../../utils/ServiceUtil';
 import TabButton from '../../../../../../src/js/components/TabButton';
 import TabButtonList from '../../../../../../src/js/components/TabButtonList';
 import Tabs from '../../../../../../src/js/components/Tabs';
@@ -49,18 +50,6 @@ const inputConfigReducers = combineReducers(
   Object.assign({}, ...SECTIONS.map((item) => item.configReducers))
 );
 
-function getServiceJSON(service) {
-  if (!service) {
-    return {};
-  }
-
-  if (service.toJSON !== undefined) {
-    return service.toJSON();
-  }
-
-  return service;
-}
-
 class NewCreateServiceModalForm extends Component {
   constructor() {
     super(...arguments);
@@ -74,7 +63,7 @@ class NewCreateServiceModalForm extends Component {
       },
       this.getNewStateForJSON(
         CreateServiceModalFormUtil.stripEmptyProperties(
-          getServiceJSON(this.props.service)
+          ServiceUtil.getServiceJSON(this.props.service)
         ),
         false
       )
@@ -92,8 +81,8 @@ class NewCreateServiceModalForm extends Component {
    * @override
    */
   componentWillReceiveProps(nextProps) {
-    let prevJSON = getServiceJSON(this.props.service);
-    let nextJSON = getServiceJSON(nextProps.service);
+    let prevJSON = ServiceUtil.getServiceJSON(this.props.service);
+    let nextJSON = ServiceUtil.getServiceJSON(nextProps.service);
 
     // Note: We ignore changes that might derrive from the `onChange` event
     //       handler. In that case the contents of nextJSON would be the same
@@ -128,8 +117,8 @@ class NewCreateServiceModalForm extends Component {
     //       handler. In that case the contents of nextJSON would be the same
     //       as the contents of the last rendered appConfig in the state.
     //
-    let prevJSON = getServiceJSON(this.props.service);
-    let nextJSON = getServiceJSON(nextProps.service);
+    let prevJSON = ServiceUtil.getServiceJSON(this.props.service);
+    let nextJSON = ServiceUtil.getServiceJSON(nextProps.service);
     if (!deepEqual(prevJSON, nextJSON) &&
         !deepEqual(this.state.appConfig, nextJSON)) {
       console.log('Will update because service changed');
