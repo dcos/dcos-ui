@@ -24,7 +24,7 @@ class HealthChecksFormSection extends Component {
     return (
         <AdvancedSection>
           <AdvancedSectionLabel>
-            Advanced Container Settings
+            Advanced Health Check Settings
           </AdvancedSectionLabel>
           <AdvancedSectionContent>
             <div className="flex row">
