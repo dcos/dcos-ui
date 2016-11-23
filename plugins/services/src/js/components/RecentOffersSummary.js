@@ -7,7 +7,7 @@ import Units from '../../../../../src/js/utils/Units';
 
 const displayedResourceValues = {
   roles: 'Role',
-  constraint: 'Constraint',
+  constraints: 'Constraints',
   cpus: 'CPU',
   mem: 'Mem',
   disk: 'Disk',
@@ -60,8 +60,8 @@ const columns = [
         tooltipContent = 'Describe roles...';
       }
 
-      if (resource === 'constraint') {
-        tooltipContent = 'Describe constraint...';
+      if (resource === 'constraints') {
+        tooltipContent = 'Describe constraints...';
       }
 
       if (resource === 'cpus') {
@@ -140,7 +140,7 @@ const columns = [
 ];
 
 const RecentOffersSummary = ({data}) => {
-  const tableRows = ['roles', 'constraint', 'cpus', 'mem', 'disk', 'ports'];
+  const tableRows = ['roles', 'constraints', 'cpus', 'mem', 'disk', 'ports'];
   const summaryData = tableRows.map((resource) => {
     return {
       resource,

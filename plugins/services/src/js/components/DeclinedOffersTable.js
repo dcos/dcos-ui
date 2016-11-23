@@ -161,7 +161,7 @@ class RejectedOffersTable extends React.Component {
       },
       {
         heading: this.getColumnHeadingFn('Constraint', 'CSTR'),
-        prop: 'constraint',
+        prop: 'constraints',
         className: this.getColumnClassNameFn('text-align-center'),
         render:
           this.getMatchedOfferRenderFn(DeclinedOffersReasons.UNFULFILLED_CONSTRAINT),
