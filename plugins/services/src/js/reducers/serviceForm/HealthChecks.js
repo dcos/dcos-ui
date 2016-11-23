@@ -7,7 +7,7 @@ import Util from '../../../../../../src/js/utils/Util';
 import Transaction from '../../../../../../src/js/structs/Transaction';
 
 function mapHealthChecks(item) {
-  const newItem = Util.omit(item, ['path', 'command', 'protocol']);
+  const newItem = Util.omit(item, ['path', 'command', 'protocol', 'https']);
 
   if (item.protocol != null) {
     newItem.protocol = item.protocol;
@@ -62,6 +62,9 @@ module.exports = {
       if (type === SET) {
         if (`healthChecks.${index}.protocol` === joinedPath) {
           this.healthChecks[index].protocol = value;
+          if (value === 'HTTP' && this.healthChecks[index].https) {
+            this.healthChecks[index].protocol = 'HTTPS';
+          }
         }
         if (`healthChecks.${index}.command` === joinedPath) {
           this.healthChecks[index].command = value;
@@ -82,6 +85,7 @@ module.exports = {
           this.healthChecks[index].maxConsecutiveFailures = value;
         }
         if (`healthChecks.${index}.https` === joinedPath) {
+          this.healthChecks[index].https = value;
           if (value === true) {
             this.healthChecks[index].protocol = 'HTTPS';
           } else {
@@ -153,6 +157,9 @@ module.exports = {
     if (path == null) {
       return state;
     }
+    if (this.cache == null) {
+      this.cache = [];
+    }
 
     let joinedPath = path.join('.');
 
@@ -175,6 +182,9 @@ module.exports = {
       if (type === SET) {
         if (`healthChecks.${index}.protocol` === joinedPath) {
           state[index].protocol = value;
+          if (value === 'HTTP' && this.cache[index]) {
+            state[index].protocol = 'HTTPS';
+          }
         }
         if (`healthChecks.${index}.command` === joinedPath) {
           state[index].command = value;
@@ -195,6 +205,7 @@ module.exports = {
           state[index].maxConsecutiveFailures = value;
         }
         if (`healthChecks.${index}.https` === joinedPath) {
+          this.cache[index] = value;
           if (value === true) {
             state[index].protocol = 'HTTPS';
           } else {

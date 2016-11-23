@@ -166,5 +166,32 @@ describe('Labels', function () {
       }]);
     });
 
+    it('should keep https after switching protocol back to HTTP', function () {
+      let batch = new Batch();
+      batch = batch.add(new Transaction(['healthChecks'], 0, ADD_ITEM));
+      batch = batch.add(new Transaction(['healthChecks', 0, 'protocol'], 'HTTP'));
+      batch = batch.add(new Transaction(['healthChecks', 0, 'https'], true));
+      batch = batch.add(new Transaction(['healthChecks', 0, 'protocol'], 'COMMAND'));
+      batch = batch.add(new Transaction(['healthChecks', 0, 'protocol'], 'HTTP'));
+
+      expect(batch.reduce(HealthChecks.FormReducer.bind({}), [])).toEqual([{
+        protocol: 'HTTPS'
+      }]);
+    });
+
+    it('should set protocol to http if https was set', function () {
+      let batch = new Batch();
+      batch = batch.add(new Transaction(['healthChecks'], 0, ADD_ITEM));
+      batch = batch.add(new Transaction(['healthChecks', 0, 'protocol'], 'HTTP'));
+      batch = batch.add(new Transaction(['healthChecks', 0, 'https'], true));
+      batch = batch.add(new Transaction(['healthChecks', 0, 'protocol'], 'COMMAND'));
+      batch = batch.add(new Transaction(['healthChecks', 0, 'protocol'], 'HTTP'));
+      batch = batch.add(new Transaction(['healthChecks', 0, 'https'], false));
+
+      expect(batch.reduce(HealthChecks.FormReducer.bind({}), [])).toEqual([{
+        protocol: 'HTTP'
+      }]);
+    });
+
   });
 });
