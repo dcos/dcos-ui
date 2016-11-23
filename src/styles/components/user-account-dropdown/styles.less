@@ -1,0 +1,55 @@
+& when (@user-dropdown-menu-enabled) {
+
+  .user-account-dropdown {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .user-account-dropdown-button {
+    height: auto;
+    padding: @pod-margin-top * @pod-short-margin-top-scale @pod-margin-right * @pod-narrow-margin-right-scale;
+
+    &,
+    &:hover,
+    &:active,
+    &:focus {
+      background: transparent;
+      border: none;
+    }
+
+    // This overrides an awful CNVS improtant tag.
+    // https://github.com/mesosphere/canvas/issues/24
+    & > * {
+      display: block !important;
+    }
+  }
+}
+
+& when (@user-dropdown-menu-enabled) and (@layout-screen-small-enabled) {
+
+  @media (min-width: @layout-screen-small-min-width) {
+
+  }
+}
+
+& when (@user-dropdown-menu-enabled) and (@layout-screen-medium-enabled) {
+
+  @media (min-width: @layout-screen-medium-min-width) {
+
+  }
+}
+
+& when (@user-dropdown-menu-enabled) and (@layout-screen-large-enabled) {
+
+  @media (min-width: @layout-screen-large-min-width) {
+
+  }
+}
+
+& when (@user-dropdown-menu-enabled) and (@layout-screen-jumbo-enabled) {
+
+  @media (min-width: @layout-screen-jumbo-min-width) {
+
+  }
+}
