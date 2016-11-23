@@ -2,19 +2,18 @@ import classNames from 'classnames';
 import GeminiScrollbar from 'react-gemini-scrollbar';
 import {Link, routerShape} from 'react-router';
 import React from 'react';
-import {Tooltip} from 'reactjs-components';
 import PluginSDK from 'PluginSDK';
 
 import {keyCodes} from '../utils/KeyboardUtil';
 import ClusterHeader from './ClusterHeader';
 import EventTypes from '../constants/EventTypes';
-import Icon from './Icon';
 import InternalStorageMixin from '../mixins/InternalStorageMixin';
 import MesosSummaryStore from '../stores/MesosSummaryStore';
 import MetadataStore from '../stores/MetadataStore';
 import PrimarySidebarLink from '../components/PrimarySidebarLink';
 import SaveStateMixin from '../mixins/SaveStateMixin';
 import SidebarActions from '../events/SidebarActions';
+import UserAccountDropdown from './UserAccountDropdown';
 
 const {
   NavigationService,
@@ -243,31 +242,37 @@ var Sidebar = React.createClass({
     );
   },
 
-  getFooter() {
-    let defaultButtonSet = [(
-      <Tooltip content="Documentation" key="button-docs" elementTag="a"
-        href={MetadataStore.buildDocsURI('/')} target="_blank"
-        wrapperClassName="button button-link tooltip-wrapper">
-        <Icon className="clickable" id="pages" />
-      </Tooltip>
-    ), (
-      <Tooltip content="Install CLI"
-        key="button-cli" elementTag="a" onClick={this.handleInstallCLI}
-        wrapperClassName="button button-link tooltip-wrapper">
-        <Icon className="clickable" id="cli" />
-      </Tooltip>
-    )];
+  getSidebarHeader() {
+    const defaultItems = [
+      {
+        className: 'hidden',
+        html: <ClusterHeader showCaret={true} useClipboard={false} />,
+        id: 'dropdown-trigger'
+      },
+      {
+        className: 'dropdown-menu-section-header flush-top',
+        html: <label>Support</label>,
+        id: 'header-a',
+        selectable: false
+      },
+      {
+        html: 'Documentation',
+        id: 'documentation',
+        onClick: () => {
+          global.open(MetadataStore.buildDocsURI('/'), '_blank');
+        }
+      },
+      {
+        html: 'Install CLI',
+        id: 'install-cli',
+        onClick: this.handleInstallCLI
+      }
+    ];
 
-    let buttonSet = Hooks.applyFilter(
-      'sidebarFooterButtonSet', defaultButtonSet
+    return (
+      <UserAccountDropdown
+        menuItems={Hooks.applyFilter('userDropdownItems', defaultItems)} />
     );
-    let footer = null;
-
-    if (buttonSet && buttonSet.length) {
-      footer = <div className="icon-buttons">{buttonSet}</div>;
-    }
-
-    return Hooks.applyFilter('sidebarFooter', footer, defaultButtonSet);
   },
 
   render() {
@@ -279,9 +284,7 @@ var Sidebar = React.createClass({
     return (
       <div className={sidebarClasses}>
         <header className="header flex-item-shrink-0">
-          <div className="header-inner pod pod-narrow pod-short">
-            <ClusterHeader />
-          </div>
+          {this.getSidebarHeader()}
         </header>
         <GeminiScrollbar autoshow={true}
           className="navigation flex-item-grow-1 flex-item-shrink-1 gm-scrollbar-container-flex">
@@ -289,13 +292,6 @@ var Sidebar = React.createClass({
             {this.getNavigationSections()}
           </div>
         </GeminiScrollbar>
-        <div className="hide footer">
-          <div className="footer-inner">
-            <div className="pod pod-narrow pod-short">
-              {this.getFooter()}
-            </div>
-          </div>
-        </div>
       </div>
     );
   }

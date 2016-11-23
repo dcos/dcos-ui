@@ -1,14 +1,17 @@
 & when (@user-dropdown-menu-enabled) {
 
   .user-account-dropdown {
-    align-items: center;
     display: flex;
-    flex-direction: column;
   }
 
   .user-account-dropdown-button {
+    align-items: center;
+    display: flex;
+    flex: 1 1 auto;
     height: auto;
-    padding: @pod-margin-top * @pod-short-margin-top-scale @pod-margin-right * @pod-narrow-margin-right-scale;
+    justify-content: flex-start;
+    min-width: 0;
+    padding: @pod-margin-top * @pod-short-margin-top-scale @pod-margin-right * @pod-narrow-margin-right-scale @pod-margin-bottom * @pod-short-margin-bottom-scale @pod-margin-left * @pod-narrow-margin-left-scale;
 
     &,
     &:hover,
@@ -18,11 +21,51 @@
       border: none;
     }
 
-    // This overrides an awful CNVS improtant tag.
-    // https://github.com/mesosphere/canvas/issues/24
-    & > * {
-      display: block !important;
+    &:hover {
+
+      .icon {
+        fill: color-lighten(@button-color, 15);
+      }
     }
+
+    .cluster-header {
+      align-items: stretch;
+      // This !important overrides an awful CNVS !important tag.
+      // https://github.com/mesosphere/canvas/issues/24
+      display: flex !important;
+      flex: 1 1 auto;
+      flex-direction: column;
+      min-width: 0;
+      text-align: left;
+    }
+
+    .cluster-header-name {
+      align-items: center;
+      display: flex;
+      flex: 1 1 auto;
+    }
+
+    .header-title {
+      flex: 0 1 auto;
+      min-width: 0;
+      overflow: hidden;
+      padding-right: @base-spacing-unit * 1/2;
+    }
+
+    .icon {
+      fill: @button-color;
+      flex: 0 0 auto;
+      transition: fill 0.2s, transform 0.2s;
+
+      .open & {
+        fill: color-lighten(@button-color, 15);
+        transform: rotate(180deg);
+      }
+    }
+  }
+
+  .user-account-dropdown-menu {
+    margin-left: @pod-margin-left * @pod-narrow-margin-left-scale;
   }
 }
 
@@ -30,6 +73,13 @@
 
   @media (min-width: @layout-screen-small-min-width) {
 
+    .user-account-dropdown-button {
+      padding: @pod-margin-top-screen-small * @pod-short-margin-top-scale @pod-margin-right-screen-small * @pod-narrow-margin-right-scale @pod-margin-bottom-screen-small * @pod-short-margin-bottom-scale @pod-margin-left-screen-small * @pod-narrow-margin-left-scale;
+    }
+
+    .user-account-dropdown-menu {
+      margin-left: @pod-margin-left-screen-small * @pod-narrow-margin-left-scale;
+    }
   }
 }
 
@@ -37,6 +87,13 @@
 
   @media (min-width: @layout-screen-medium-min-width) {
 
+    .user-account-dropdown-button {
+      padding: @pod-margin-top-screen-medium * @pod-short-margin-top-scale @pod-margin-right-screen-medium * @pod-narrow-margin-right-scale @pod-margin-bottom-screen-medium * @pod-short-margin-bottom-scale @pod-margin-left-screen-medium * @pod-narrow-margin-left-scale;
+    }
+
+    .user-account-dropdown-menu {
+      margin-left: @pod-margin-left-screen-medium * @pod-narrow-margin-left-scale;
+    }
   }
 }
 
@@ -44,6 +101,13 @@
 
   @media (min-width: @layout-screen-large-min-width) {
 
+    .user-account-dropdown-button {
+      padding: @pod-margin-top-screen-large * @pod-short-margin-top-scale @pod-margin-right-screen-large * @pod-narrow-margin-right-scale @pod-margin-bottom-screen-large * @pod-short-margin-bottom-scale @pod-margin-left-screen-large * @pod-narrow-margin-left-scale;
+    }
+
+    .user-account-dropdown-menu {
+      margin-left: @pod-margin-left-screen-large * @pod-narrow-margin-left-scale;
+    }
   }
 }
 
@@ -51,5 +115,12 @@
 
   @media (min-width: @layout-screen-jumbo-min-width) {
 
+    .user-account-dropdown-button {
+      padding: @pod-margin-top-screen-jumbo * @pod-short-margin-top-scale @pod-margin-right-screen-jumbo * @pod-narrow-margin-right-scale @pod-margin-bottom-screen-jumbo * @pod-short-margin-bottom-scale @pod-margin-left-screen-jumbo * @pod-narrow-margin-left-scale;
+    }
+
+    .user-account-dropdown-menu {
+      margin-left: @pod-margin-left-screen-jumbo * @pod-narrow-margin-left-scale;
+    }
   }
 }
