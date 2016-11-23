@@ -193,9 +193,11 @@ var Sidebar = React.createClass({
     let isChildActive = false;
 
     const childRoutesPaths = children.map(({path}) => path);
-    const childRoutesMap = Hooks
-        .applyFilter('secondaryNavigation', path, childRoutesPaths)
-        .reduce((routesMap, path) => routesMap.set(path, true), new Map());
+    const childRoutes = Hooks
+        .applyFilter('secondaryNavigation', path, childRoutesPaths) || [];
+    const childRoutesMap = childRoutes.reduce((routesMap, path) => {
+      return routesMap.set(path, true);
+    }, new Map());
     const filteredChildRoutes =
         children.filter(({path}) => childRoutesMap.has(path));
 
