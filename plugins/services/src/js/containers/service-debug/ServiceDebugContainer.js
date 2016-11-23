@@ -118,6 +118,7 @@ class ServiceDebugContainer extends React.Component {
       introText = 'Offers will appear here when your service is deploying or waiting for resources.';
     } else {
       const {declinedOffers: {summary}} = queue;
+      const {roles: {offers = 0}} = summary;
       const docsURL = MetadataStore.buildDocsURI(
         '/overview/concepts/#mesos-resource-offer'
       );
@@ -137,7 +138,7 @@ class ServiceDebugContainer extends React.Component {
         </div>
       );
 
-      offerCount = ` (${summary.role.offers})`;
+      offerCount = ` (${offers})`;
     }
 
     return (
@@ -165,7 +166,9 @@ class ServiceDebugContainer extends React.Component {
     return (
       <div>
         <h2 className="short-bottom">Details</h2>
-        <DeclinedOffersTable data={queue.declinedOffers.offers} />
+        <DeclinedOffersTable offers={queue.declinedOffers.offers}
+          service={service}
+          summary={queue.declinedOffers.summary} />
       </div>
     );
   }

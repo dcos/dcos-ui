@@ -6,9 +6,9 @@ import Icon from '../../../../../src/js/components/Icon';
 import Units from '../../../../../src/js/utils/Units';
 
 const displayedResourceValues = {
-  role: 'Role',
+  roles: 'Role',
   constraint: 'Constraint',
-  cpu: 'CPU',
+  cpus: 'CPU',
   mem: 'Mem',
   disk: 'Disk',
   ports: 'Ports'
@@ -56,15 +56,15 @@ const columns = [
       let tooltipContent = null;
 
       // TODO: Implement actual tooltip content.
-      if (resource === 'role') {
-        tooltipContent = 'Describe role...';
+      if (resource === 'roles') {
+        tooltipContent = 'Describe roles...';
       }
 
       if (resource === 'constraint') {
         tooltipContent = 'Describe constraint...';
       }
 
-      if (resource === 'cpu') {
+      if (resource === 'cpus') {
         tooltipContent = 'Describe CPU...';
       }
 
@@ -110,39 +110,6 @@ const columns = [
     heading: getColumnHeadingFn('Requested'),
     prop: 'requested',
     className: getColumnClassNameFn(),
-    render: (prop, row) => {
-      const requestedResource = row[prop];
-
-      // Constraints are double-nested arrays, so we return them as follows:
-      // [[[a, b, c], [d, e]], [f, g]] displays a:b:c, d:e, f:g
-      if (row.resource === 'constraint') {
-        return requestedResource.map((constraintArr = []) => {
-          return constraintArr.map((constraint = []) => {
-            return constraint.join(':');
-          }).join(', ');
-        }).join(', ') || 'N/A';
-      }
-
-      if (row.resource === 'cpu') {
-        return Units.formatResource('cpus', requestedResource);
-      }
-
-      if (row.resource === 'mem') {
-        return Units.formatResource('mem', requestedResource);
-      }
-
-      if (row.resource === 'disk') {
-        return Units.formatResource('disk', requestedResource);
-      }
-
-      if (row.resource === 'ports' || row.resource === 'role') {
-        return requestedResource.map((resourceArr = []) => {
-          return resourceArr.join(', ');
-        }).join(', ') || 'N/A';
-      }
-
-      return requestedResource;
-    },
     sortable: true
   },
   {
@@ -173,7 +140,7 @@ const columns = [
 ];
 
 const RecentOffersSummary = ({data}) => {
-  const tableRows = ['role', 'constraint', 'cpu', 'mem', 'disk', 'ports'];
+  const tableRows = ['roles', 'constraint', 'cpus', 'mem', 'disk', 'ports'];
   const summaryData = tableRows.map((resource) => {
     return {
       resource,

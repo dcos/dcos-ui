@@ -32,19 +32,19 @@ class PodDebugTabView extends React.Component {
   }
 
   getDeclinedOffersTable() {
-    const queue = this.props.pod.getQueue();
-    let content = null;
+    const {pod} = this.props;
+    const queue = pod.getQueue();
 
     if (queue == null || queue.declinedOffers.offers == null) {
-      content = 'Offers will appear here when your service is deploying or waiting for resources.';
-    } else {
-      content = <DeclinedOffersTable data={queue.declinedOffers.offers} />;
+      return null;
     }
 
     return (
       <div>
         <h2 className="short-bottom">Details</h2>
-        {content}
+        <DeclinedOffersTable offers={queue.declinedOffers.offers}
+          service={pod}
+          summary={queue.declinedOffers.summary} />
       </div>
     );
   }
@@ -133,6 +133,7 @@ class PodDebugTabView extends React.Component {
       introText = 'Offers will appear here when your service is deploying or waiting for resources.';
     } else {
       const {declinedOffers: {summary}} = queue;
+      const {roles: {offers = 0}} = summary;
       const docsURL = MetadataStore.buildDocsURI(
         '/overview/concepts/#mesos-resource-offer'
       );
@@ -152,7 +153,7 @@ class PodDebugTabView extends React.Component {
         </div>
       );
 
-      offerCount = ` (${summary.role.offers})`;
+      offerCount = ` (${offers})`;
     }
 
     return (
