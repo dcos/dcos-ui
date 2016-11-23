@@ -1,11 +1,18 @@
 import React, {Component, PropTypes} from 'react';
 
+import Application from '../../structs/Application';
+import Pod from '../../structs/Pod';
+
+import {NEW_APP_DEFAULTS} from '../../constants/NewApplicationDefaults';
+import {NEW_POD_DEFAULTS} from '../../constants/NewPodDefaults';
+
 import FullScreenModal from '../../../../../../src/js/components/modals/FullScreenModal';
 import FullScreenModalHeader from '../../../../../../src/js/components/modals/FullScreenModalHeader';
 import FullScreenModalHeaderActions from '../../../../../../src/js/components/modals/FullScreenModalHeaderActions';
 import FullScreenModalHeaderTitle from '../../../../../../src/js/components/modals/FullScreenModalHeaderTitle';
 import NewCreateServiceModalServicePicker from './NewCreateServiceModalServicePicker';
 import NewCreateServiceModalForm from './NewCreateServiceModalForm';
+import CreateServiceJsonOnly from './CreateServiceJsonOnly';
 import Service from '../../structs/Service';
 import ServiceConfigDisplay from '../../service-configuration/ServiceConfigDisplay';
 import ToggleButton from '../../../../../../src/js/components/ToggleButton';
@@ -15,8 +22,8 @@ const METHODS_TO_BIND = [
   'handleGoBack',
   'handleClose',
   'handleJSONToggle',
-  'handleServiceFormChange',
-  'handleServiceFormErrorStateChange',
+  'handleServiceChange',
+  'handleServiceErrorChange',
   'handleServiceReview',
   'handleServiceRun',
   'handleServiceSelection'
@@ -48,6 +55,7 @@ class NewServiceFormModal extends Component {
   handleGoBack() {
     let {
       serviceFormActive,
+      serviceJsonActive,
       servicePickerActive,
       serviceReviewActive
     } = this.state;
@@ -58,21 +66,31 @@ class NewServiceFormModal extends Component {
       return;
     }
 
-    if (serviceFormActive) {
+    if (serviceReviewActive) {
+      // Just hide review screen. Form or JSON mode will be
+      // activate dautomaticaly depending on their last state
       this.setState({
-        servicePickerActive: true,
-        serviceFormActive: false,
         serviceReviewActive: false
       });
       return;
     }
 
-    if (serviceReviewActive) {
+    if (serviceFormActive) {
+      // Switch back from form to picker
       this.setState({
-        servicePickerActive: false,
-        serviceFormActive: true,
-        serviceReviewActive: false
+        servicePickerActive: true,
+        serviceFormActive: false
       });
+      return;
+    }
+
+    if (serviceJsonActive) {
+      // Switch back from JSON to picker
+      this.setState({
+        servicePickerActive: true,
+        serviceJsonActive: false
+      });
+      return;
     }
   }
 
@@ -90,6 +108,7 @@ class NewServiceFormModal extends Component {
       isJSONModeActive: false,
       serviceConfig: nextProps.service,
       serviceFormActive: false,
+      serviceJsonActive: false,
       servicePickerActive: true,
       serviceReviewActive: false,
       serviceFormHasErrors: false
@@ -104,30 +123,65 @@ class NewServiceFormModal extends Component {
     return newState;
   }
 
-  handleServiceFormChange(newService) {
+  handleServiceChange(newService) {
     this.setState({
       serviceConfig: newService
     });
   }
 
-  handleServiceFormErrorStateChange(hasErrors) {
+  handleServiceErrorChange(hasErrors) {
     this.setState({
       serviceFormHasErrors: hasErrors
     });
   }
 
-  handleServiceSelection() {
-    this.setState({
-      servicePickerActive: false,
-      serviceFormActive: true,
-      serviceReviewActive: false
-    });
+  handleServiceSelection({type}) {
+    switch (type) {
+
+      case 'app':
+        this.setState({
+          servicePickerActive: false,
+          serviceFormActive: true,
+          serviceConfig: new Application(
+            Object.assign(
+              {id: this.props.service.id},
+              NEW_APP_DEFAULTS
+            )
+          )
+        });
+        break;
+
+      case 'pod':
+        this.setState({
+          servicePickerActive: false,
+          serviceFormActive: true,
+          serviceConfig: new Pod(
+            Object.assign(
+              {id: this.props.service.id},
+              NEW_POD_DEFAULTS
+            )
+          )
+        });
+        break;
+
+      case 'json':
+        this.setState({
+          servicePickerActive: false,
+          serviceJsonActive: true,
+          serviceConfig: new Application(
+            Object.assign(
+              {id: this.props.service.id},
+              NEW_POD_DEFAULTS
+            )
+          )
+        });
+        break;
+
+    };
   }
 
   handleServiceReview() {
     this.setState({
-      servicePickerActive: false,
-      serviceFormActive: false,
       serviceReviewActive: true
     });
   }
@@ -141,6 +195,8 @@ class NewServiceFormModal extends Component {
   }
 
   getHeader() {
+
+    // NOTE: Always prioritize review screen check
     if (this.state.serviceReviewActive) {
       return (
         <FullScreenModalHeader>
@@ -186,6 +242,14 @@ class NewServiceFormModal extends Component {
   }
 
   getModalContent() {
+
+    // NOTE: Always prioritize review screen check
+    if (this.state.serviceReviewActive) {
+      return (
+        <ServiceConfigDisplay appConfig={this.state.serviceConfig} />
+      );
+    }
+
     if (this.state.servicePickerActive) {
       return (
         <NewCreateServiceModalServicePicker
@@ -193,27 +257,46 @@ class NewServiceFormModal extends Component {
       );
     }
 
-    if (this.state.serviceReviewActive) {
+    if (this.state.serviceFormActive) {
       return (
-        <ServiceConfigDisplay appConfig={this.state.serviceConfig} />
+        <NewCreateServiceModalForm
+          isJSONModeActive={this.state.isJSONModeActive}
+          service={this.state.serviceConfig}
+          onChange={this.handleServiceChange}
+          onErrorStateChange={this.handleServiceErrorChange} />
       );
     }
 
-    return (
-      <NewCreateServiceModalForm
-        isJSONModeActive={this.state.isJSONModeActive}
-        service={this.state.serviceConfig}
-        onChange={this.handleServiceFormChange}
-        onErrorStateChange={this.handleServiceFormErrorStateChange} />
-    );
+    if (this.state.serviceJsonActive) {
+      return (
+        <CreateServiceJsonOnly
+          service={this.state.serviceConfig}
+          onChange={this.handleServiceChange}
+          onErrorStateChange={this.handleServiceErrorChange} />
+      );
+    }
+
+    return null;
   }
 
   getPrimaryActions() {
     let {
       serviceFormActive,
+      serviceJsonActive,
       servicePickerActive,
       serviceReviewActive
     } = this.state;
+
+    // NOTE: Always prioritize review screen check
+    if (serviceReviewActive) {
+      return [
+        {
+          className: 'button-primary flush-vertical',
+          clickHandler: this.handleServiceRun,
+          label: 'Run Service'
+        }
+      ];
+    }
 
     if (servicePickerActive) {
       return null;
@@ -242,15 +325,18 @@ class NewServiceFormModal extends Component {
       ];
     }
 
-    if (serviceReviewActive) {
+    if (serviceJsonActive) {
       return [
         {
           className: 'button-primary flush-vertical',
-          clickHandler: this.handleServiceRun,
-          label: 'Run Service'
+          clickHandler: this.handleServiceReview,
+          disabled: this.state.serviceFormHasErrors,
+          label: 'Review & Run'
         }
       ];
     }
+
+    return [];
   }
 
   getSecondaryActions() {
