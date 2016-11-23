@@ -1,4 +1,6 @@
 import DeclinedOffersReasons from '../constants/DeclinedOffersReasons';
+import Units from '../../../../../src/js/utils/Units';
+import Util from '../../../../../src/js/utils/Util';
 
 const DecinedOffersUtil = {
   getSummaryFromQueue(queue) {
@@ -41,33 +43,48 @@ const DecinedOffersUtil = {
       const {containers = []} = pod;
 
       requestedResources = containers.reduce((accumulator, container) => {
-        accumulator.role.push(container.acceptedRole || ['*']);
-        accumulator.cpu += container.resources.cpus || 0;
-        accumulator.mem += container.resources.mem || 0;
-        accumulator.disk += container.resources.disk || 0;
+        // Tally the total number of requested resources.
+        accumulator.cpus += (
+          Util.findNestedPropertyInObject(container, 'resources.cpus') || 0
+        );
+        accumulator.mem += (
+          Util.findNestedPropertyInObject(container, 'resources.mem') || 0
+        );
+        accumulator.disk += (
+          Util.findNestedPropertyInObject(container, 'resources.disk') || 0
+        );
 
-        if (container.constraints) {
-          accumulator.constraints.push(container.constraints);
-        }
+        // Push ports to the ports array if defined.
+        let ports = Util.findNestedPropertyInObject(
+          container, 'resources.ports'
+        );
 
-        if (container.resources.ports) {
-          accumulator.ports.push(container.resources.ports);
+        if (ports) {
+          accumulator.ports.push(ports);
         }
 
         return accumulator;
       }, {
-        role: [],
-        constraints: [],
-        cpu: 0,
+        roles: Util.findNestedPropertyInObject(
+          pod, 'scheduling.placement.acceptedResourceRoles'
+        ) || ['*'],
+        constraints: Util.findNestedPropertyInObject(
+          pod, 'scheduling.placement.constraints'
+        ) || [],
+        cpus: 0,
         mem: 0,
         disk: 0,
         ports: []
       });
     } else {
       requestedResources = {
-        role: [app.acceptedRole || ['*']],
-        constraints: [app.constraints],
-        cpu: app.cpus || 0,
+        roles: Util.findNestedPropertyInObject(
+            app, 'scheduling.placement.acceptedResourceRoles'
+          ) || ['*'],
+        constraints: Util.findNestedPropertyInObject(
+          app, 'scheduling.placement.constraints'
+        ) || [],
+        cpus: app.cpus || 0,
         mem: app.mem || 0,
         disk: app.disk || 0,
         ports: [app.ports] || [[]]
@@ -75,34 +92,38 @@ const DecinedOffersUtil = {
     }
 
     return {
-      role: {
-        requested: requestedResources.role,
+      roles: {
+        requested: requestedResources.roles.join(', ') || 'N/A',
         offers: roleOfferSummary.processed,
         matched: roleOfferSummary.processed - roleOfferSummary.declined
       },
       constraint: {
-        requested: requestedResources.constraints,
+        requested: requestedResources.constraints.map((constraint = []) => {
+          return constraint.join(':');
+        }).join(', ') || 'N/A',
         offers: constraintOfferSummary.processed,
         matched: constraintOfferSummary.processed
           - constraintOfferSummary.declined
       },
-      cpu: {
-        requested: requestedResources.cpu,
+      cpus: {
+        requested: Units.formatResource('cpus', requestedResources.cpus),
         offers: cpuOfferSummary.processed,
         matched: cpuOfferSummary.processed - cpuOfferSummary.declined
       },
       mem: {
-        requested: requestedResources.mem,
+        requested: Units.formatResource('mem', requestedResources.mem),
         offers: memOfferSummary.processed,
         matched: memOfferSummary.processed - memOfferSummary.declined
       },
       disk: {
-        requested: requestedResources.disk,
+        requested: Units.formatResource('disk', requestedResources.disk),
         offers: diskOfferSummary.processed,
         matched: diskOfferSummary.processed - diskOfferSummary.declined
       },
       ports: {
-        requested: requestedResources.ports,
+        requested: requestedResources.ports.map((resourceArr = []) => {
+          return resourceArr.join(', ');
+        }).join(', ') || 'N/A',
         offers: portOfferSummary.processed,
         matched: portOfferSummary.processed - portOfferSummary.declined
       }
@@ -110,17 +131,49 @@ const DecinedOffersUtil = {
   },
 
   getOffersFromQueue(queue) {
-    let {lastUnusedOffers = []} = queue;
+    const {lastUnusedOffers = []} = queue;
 
     if (!lastUnusedOffers.length) {
       return null;
     }
 
-    return lastUnusedOffers.map((declinedOffer) => ({
-      hostname: declinedOffer.offer.hostname,
-      timestamp: declinedOffer.timestamp,
-      unmatchedResource: declinedOffer.reason
-    }));
+    return lastUnusedOffers.map((declinedOffer) => {
+      const {
+        offer: {
+          hostname,
+          resources = []
+        },
+        timestamp
+      } = declinedOffer;
+
+      return {
+        hostname,
+        timestamp,
+        unmatchedResource: declinedOffer.reason,
+        offered: resources.reduce((accumulator, resource) => {
+          const {name, role} = resource;
+
+          if (name === 'ports') {
+            const {ranges = []} = resource;
+
+            accumulator[name] = ranges.reduce((rangeAccumulator, range) => {
+              rangeAccumulator.push(`${range.begin} – ${range.end}`);
+
+              return rangeAccumulator;
+            }, []);
+          } else {
+            accumulator[name] = resource.scalar;
+          }
+
+          // Accumulate all roles.
+          if (!accumulator.roles.includes(role) && role) {
+            accumulator.roles.push(role);
+          }
+
+          return accumulator;
+        }, {roles: []})
+      };
+    });
   }
 };
 

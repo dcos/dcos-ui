@@ -31,12 +31,16 @@ describe('DeclinedOffersUtil', function () {
     it('transforms the API response into the expected format for a service', function () {
       const summary = DeclinedOffersUtil.getSummaryFromQueue({
         app: {
-          acceptedRole: ['*'],
-          constraints: [['hostname', 'UNIQUE']],
           cpus: 0.5,
           mem: 128,
           disk: 0,
-          ports: [10010]
+          ports: [10010],
+          scheduling: {
+            placement: {
+              acceptedResourceRoles: ['*'],
+              constraints: [['hostname', 'UNIQUE']]
+            }
+          }
         },
         processedOffersSummary: {
           processedOffersCount: 10,
@@ -92,33 +96,33 @@ describe('DeclinedOffersUtil', function () {
       });
 
       expect(summary).toEqual({
-        role: {
-          requested: [['*']],
+        roles: {
+          requested: '*',
           offers: 123,
           matched: 123
         },
         constraint: {
-          requested: [[['hostname', 'UNIQUE']]],
+          requested: 'hostname:UNIQUE',
           offers: 123,
           matched: 123
         },
-        cpu: {
+        cpus: {
           requested: 0.5,
           offers: 123,
           matched: 48
         },
         mem: {
-          requested: 128,
+          requested: '128 MiB',
           offers: 48,
           matched: 33
         },
         disk: {
-          requested: 0,
+          requested: '0 B',
           offers: 33,
           matched: 23
         },
         ports: {
-          requested: [[10010]],
+          requested: '10010',
           offers: 23,
           matched: 0
         }
@@ -130,8 +134,6 @@ describe('DeclinedOffersUtil', function () {
         pod: {
           containers: [
             {
-              acceptedRole: ['foo'],
-              constraints: [['foo.constraint.1', 'foo.constraint.2']],
               resources: {
                 cpus: 1,
                 mem: 100,
@@ -140,8 +142,6 @@ describe('DeclinedOffersUtil', function () {
               }
             },
             {
-              acceptedRole: ['bar'],
-              constraints: [['bar.constraint.1', 'bar.constraint.2', 'bar.constraint.3']],
               resources: {
                 cpus: 2,
                 mem: 200,
@@ -150,8 +150,6 @@ describe('DeclinedOffersUtil', function () {
               }
             },
             {
-              acceptedRole: ['baz', 'qux'],
-              constraints: [['baz.constraint.1', 'baz.constraint.2', 'baz.constraint.3'], ['baz.constraint.4', 'baz.constraint.5', 'baz.constraint.6']],
               resources: {
                 cpus: 3,
                 mem: 300,
@@ -159,7 +157,13 @@ describe('DeclinedOffersUtil', function () {
                 ports: [400, 500]
               }
             }
-          ]
+          ],
+          scheduling: {
+            placement: {
+              acceptedResourceRoles: ['foo', 'bar'],
+              constraints: [['foo.constraint.1', 'foo.constraint.2', 'foo.constraint.3']]
+            }
+          }
         },
         processedOffersSummary: {
           processedOffersCount: 10,
@@ -215,33 +219,33 @@ describe('DeclinedOffersUtil', function () {
       });
 
       expect(summary).toEqual({
-        role: {
-          requested: [['foo'], ['bar'], ['baz', 'qux']],
+        roles: {
+          requested: 'foo, bar',
           offers: 123,
           matched: 123
         },
         constraint: {
-          requested: [[['foo.constraint.1', 'foo.constraint.2']], [['bar.constraint.1', 'bar.constraint.2', 'bar.constraint.3']], [['baz.constraint.1', 'baz.constraint.2', 'baz.constraint.3'], ['baz.constraint.4', 'baz.constraint.5', 'baz.constraint.6']]],
+          requested: 'foo.constraint.1:foo.constraint.2:foo.constraint.3',
           offers: 123,
           matched: 123
         },
-        cpu: {
+        cpus: {
           requested: 6,
           offers: 123,
           matched: 48
         },
         mem: {
-          requested: 600,
+          requested: '600 MiB',
           offers: 48,
           matched: 33
         },
         disk: {
-          requested: 1200,
+          requested: '1.2 GiB',
           offers: 33,
           matched: 23
         },
         ports: {
-          requested: [[100], [200, 300], [400, 500]],
+          requested: '100, 200, 300, 400, 500',
           offers: 23,
           matched: 0
         }
@@ -313,7 +317,11 @@ describe('DeclinedOffersUtil', function () {
           {
             hostname: '1.2.3.4',
             timestamp: '2016-02-28T16:41:41.090Z',
-            unmatchedResource: ['InsufficientMemory']
+            unmatchedResource: ['InsufficientMemory'],
+            offered: {
+              cpus: 23,
+              roles: ['*']
+            }
           }
         ]
       );
