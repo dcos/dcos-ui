@@ -3,10 +3,10 @@ import {routerShape} from 'react-router';
 
 import Alert from '../../../../../../src/js/components/Alert';
 import DateUtil from '../../../../../../src/js/utils/DateUtil';
+import DeclinedOffersHelpText from '../../constants/DeclinedOffersHelpText';
 import DeclinedOffersTable from '../../components/DeclinedOffersTable';
 import DescriptionList from '../../../../../../src/js/components/DescriptionList';
 import MarathonStore from '../../stores/MarathonStore';
-import MetadataStore from '../../../../../../src/js/stores/MetadataStore';
 import RecentOffersSummary from '../../components/RecentOffersSummary';
 import Service from '../../structs/Service';
 import TaskStatsTable from './TaskStatsTable';
@@ -119,15 +119,8 @@ class ServiceDebugContainer extends React.Component {
     } else {
       const {declinedOffers: {summary}} = queue;
       const {roles: {offers = 0}} = summary;
-      const docsURL = MetadataStore.buildDocsURI(
-        '/overview/concepts/#mesos-resource-offer'
-      );
 
-      introText = (
-        <span>
-          When you attempt to deploy a service, DC/OS waits for offers to match the resources your service requires. If the offer does not satisfy the requirement, it is declined and DC/OS retries. <a href={docsURL} target="_blank">Learn more</a>.
-        </span>
-      );
+      introText = DeclinedOffersHelpText.summaryIntro;
 
       mainContent = (
         <div>
