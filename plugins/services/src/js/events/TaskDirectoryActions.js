@@ -4,6 +4,7 @@ import ActionTypes from '../constants/ActionTypes';
 import AppDispatcher from '../../../../../src/js/events/AppDispatcher';
 import Config from '../../../../../src/js/config/Config';
 import MesosStateUtil from '../../../../../src/js/utils/MesosStateUtil';
+import MesosStateActions from '../../../../../src/js/events/MesosStateActions';
 
 var TaskDirectoryActions = {
   getDownloadURL(nodeID, path) {
@@ -11,48 +12,14 @@ var TaskDirectoryActions = {
       `path=${path}`;
   },
 
-  getNodeStateJSON(task, node) {
-    let pid, nodePID;
-
-    if (node) {
-      pid = node.pid;
-    }
-
-    if (pid) {
-      nodePID = pid.substring(0, pid.indexOf('@'));
-    }
-
-    return `${Config.rootUrl}/agent/${task.slave_id}/${nodePID}/state`;
+  fetchNodeState(task, node, callback) {
+    MesosStateActions.fetchNodeState(task, node, callback, function (xhr) {
+      AppDispatcher.handleServerAction({
+        type: ActionTypes.REQUEST_TASK_DIRECTORY_ERROR,
+        data: xhr.message
+      });
+    });
   },
-
-  fetchNodeState: RequestUtil.debounceOnError(
-    Config.getRefreshRate(),
-    function (resolve, reject) {
-      return function (task, node, cb) {
-        return RequestUtil.json({
-          url: TaskDirectoryActions.getNodeStateJSON(task, node),
-          success(response) {
-            resolve();
-            cb(response);
-          },
-          error(xhr) {
-            if (xhr.statusText === 'abort') {
-              resolve();
-              return;
-            }
-
-            AppDispatcher.handleServerAction({
-              type: ActionTypes.REQUEST_TASK_DIRECTORY_ERROR,
-              data: xhr.message
-            });
-
-            reject();
-          }
-        });
-      };
-    },
-    {delayAfterCount: Config.delayAfterErrorCount}
-  ),
 
   fetchDirectory(task, innerPath, nodeState) {
     let path = MesosStateUtil.getTaskPath(nodeState, task, innerPath);
