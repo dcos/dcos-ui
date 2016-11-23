@@ -93,11 +93,11 @@ class RejectedOffersTable extends React.Component {
 
       const tooltipContent = (
         <div>
-          <div className="">
+          <div>
             <strong>Requested</strong>{': '}
             {summary[prop].requested}
           </div>
-          <div className="">
+          <div>
             <strong>Received</strong>{': '}
             <span className={receivedResourceClasses}>{receivedResource}</span>
           </div>
