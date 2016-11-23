@@ -56,6 +56,7 @@ const columns = [
       let tooltipContent = null;
 
       // TODO: Implement actual tooltip content.
+      // https://mesosphere.atlassian.net/browse/DCOS-11708
       if (resource === 'roles') {
         tooltipContent = 'Describe roles...';
       }
