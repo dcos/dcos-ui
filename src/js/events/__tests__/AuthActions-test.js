@@ -1,3 +1,4 @@
+jest.dontMock('query-string');
 jest.dontMock('../AuthActions');
 
 const RequestUtil = require('mesosphere-shared-reactjs').RequestUtil;
@@ -8,6 +9,19 @@ const AuthActions = require('../AuthActions');
 const Config = require('../../config/Config');
 
 describe('AuthActions', function () {
+
+  describe('extra params', function () {
+
+    it('passes extra parameters down to the auth service via query string params', function () {
+      spyOn(RequestUtil, 'json');
+
+      AuthActions.login(undefined, 'boo');
+
+      expect(RequestUtil.json.calls.mostRecent().args[0].url)
+        .toEqual(Config.acsAPIPrefix + '/auth/login?target=boo');
+    });
+
+  });
 
   describe('#login', function () {
 
