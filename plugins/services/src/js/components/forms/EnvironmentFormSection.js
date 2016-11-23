@@ -53,7 +53,8 @@ class EnvironmentFormSection extends Component {
             </a>
           </FormGroup>
         </div>
-    ); });
+      );
+    });
   }
 
   getLabelsLines(data) {
