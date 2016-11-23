@@ -119,7 +119,8 @@ class Breadcrumbs extends React.Component {
 
 Breadcrumbs.defaultProps = {
   // Remove root '/' by default
-  shift: 0
+  shift: 0,
+  routes: []
 };
 
 Breadcrumbs.propTypes = {
