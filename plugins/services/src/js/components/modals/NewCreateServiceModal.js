@@ -1,4 +1,5 @@
 import React, {Component, PropTypes} from 'react';
+import {Hooks} from 'PluginSDK';
 
 import Application from '../../structs/Application';
 import Pod from '../../structs/Pod';
@@ -17,6 +18,16 @@ import Service from '../../structs/Service';
 import ServiceConfigDisplay from '../../service-configuration/ServiceConfigDisplay';
 import ToggleButton from '../../../../../../src/js/components/ToggleButton';
 import Util from '../../../../../../src/js/utils/Util';
+
+import ContainerServiceFormSection from '../forms/ContainerServiceFormSection';
+import EnvironmentFormSection from '../forms/EnvironmentFormSection';
+import GeneralServiceFormSection from '../forms/GeneralServiceFormSection';
+import HealthChecksFormSection from '../forms/HealthChecksFormSection';
+import VolumesFormSection from '../forms/VolumesFormSection';
+import {combineParsers} from '../../../../../../src/js/utils/ParserUtil';
+import {combineReducers} from '../../../../../../src/js/utils/ReducerUtil';
+import JSONConfigReducers from '../../reducers/JSONConfigReducers';
+import JSONParserReducers from '../../reducers/JSONParserReducers';
 
 const METHODS_TO_BIND = [
   'handleGoBack',
@@ -252,8 +263,31 @@ class NewServiceFormModal extends Component {
     }
 
     if (this.state.serviceFormActive) {
+      const SECTIONS = [
+        ContainerServiceFormSection,
+        EnvironmentFormSection,
+        GeneralServiceFormSection,
+        HealthChecksFormSection,
+        VolumesFormSection
+      ];
+
+      const jsonParserReducers = combineParsers(
+        Hooks.applyFilter('serviceCreateJsonParserReducers', JSONParserReducers)
+      );
+      const jsonConfigReducers = combineReducers(
+        Hooks.applyFilter('serviceJsonConfigReducers', JSONConfigReducers)
+      );
+      const inputConfigReducers = combineReducers(
+        Hooks.applyFilter('serviceInputConfigReducers',
+          Object.assign({}, ...SECTIONS.map((item) => item.configReducers))
+        )
+      );
+
       return (
         <NewCreateServiceModalForm
+          jsonParserReducers={jsonParserReducers}
+          jsonConfigReducers={jsonConfigReducers}
+          inputConfigReducers={inputConfigReducers}
           isJSONModeActive={this.state.isJSONModeActive}
           service={this.state.serviceConfig}
           onChange={this.handleServiceChange}

@@ -6,14 +6,9 @@ import Alert from '../../../../../../src/js/components/Alert';
 import AppValidators from '../../../../../../src/resources/raml/marathon/v2/types/app.raml';
 import Batch from '../../../../../../src/js/structs/Batch';
 import CreateServiceModalFormUtil from '../../utils/CreateServiceModalFormUtil';
-import ContainerServiceFormSection from '../forms/ContainerServiceFormSection';
-import {combineParsers} from '../../../../../../src/js/utils/ParserUtil';
-import {combineReducers} from '../../../../../../src/js/utils/ReducerUtil';
 import EnvironmentFormSection from '../forms/EnvironmentFormSection';
 import GeneralServiceFormSection from '../forms/GeneralServiceFormSection';
 import HealthChecksFormSection from '../forms/HealthChecksFormSection';
-import JSONConfigReducers from '../../reducers/JSONConfigReducers';
-import JSONParserReducers from '../../reducers/JSONParserReducers';
 import VolumesFormSection from '../forms/VolumesFormSection';
 import JSONEditor from '../../../../../../src/js/components/JSONEditor';
 import ServiceUtil from '../../utils/ServiceUtil';
@@ -34,23 +29,9 @@ const METHODS_TO_BIND = [
   'handleRemoveItem'
 ];
 
-const SECTIONS = [
-  ContainerServiceFormSection,
-  EnvironmentFormSection,
-  GeneralServiceFormSection,
-  HealthChecksFormSection,
-  VolumesFormSection
-];
-
 const ERROR_VALIDATORS = [
   AppValidators.App
 ];
-
-const jsonParserReducers = combineParsers(JSONParserReducers);
-const jsonConfigReducers = combineReducers(JSONConfigReducers);
-const inputConfigReducers = combineReducers(
-  Object.assign({}, ...SECTIONS.map((item) => item.configReducers))
-);
 
 class NewCreateServiceModalForm extends Component {
   constructor() {
@@ -140,7 +121,7 @@ class NewCreateServiceModalForm extends Component {
     };
 
     // Regenerate batch
-    newState.batch = jsonParserReducers(baseConfig).reduce((batch, item) => {
+    newState.batch = this.props.jsonParserReducers(baseConfig).reduce((batch, item) => {
       return batch.add(item);
     }, new Batch());
 
@@ -200,7 +181,7 @@ class NewCreateServiceModalForm extends Component {
 
   getAppConfig(currentState = this.state) {
     let {batch} = currentState;
-    return batch.reduce(jsonConfigReducers, {});
+    return batch.reduce(this.props.jsonConfigReducers, {});
     // aplying patch causes duplication of key-value structures like Lables, ENV and secrets
     // let {baseConfig, batch} = currentState;
     // let patch = batch.reduce(jsonConfigReducers, {});
@@ -246,7 +227,7 @@ class NewCreateServiceModalForm extends Component {
   render() {
     let {appConfig, batch, errorList} = this.state;
     let {isJSONModeActive} = this.props;
-    let data = batch.reduce(inputConfigReducers, {});
+    let data = batch.reduce(this.props.inputConfigReducers, {});
 
     let jsonEditorPlaceholderClasses = classNames(
       'modal-full-screen-side-panel-placeholder',
