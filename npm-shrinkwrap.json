@@ -6573,9 +6573,9 @@
       }
     },
     "react-ace": {
-      "version": "3.4.1",
-      "from": "react-ace@latest",
-      "resolved": "https://registry.npmjs.org/react-ace/-/react-ace-3.4.1.tgz"
+      "version": "3.7.0",
+      "from": "react-ace@3.7.0",
+      "resolved": "https://registry.npmjs.org/react-ace/-/react-ace-3.7.0.tgz"
     },
     "react-addons-css-transition-group": {
       "version": "0.14.7",
