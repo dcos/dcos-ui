@@ -9,7 +9,8 @@ import ServiceValidatorUtil from '../../utils/ServiceValidatorUtil';
 import ServiceUtil from '../../utils/ServiceUtil';
 
 const METHODS_TO_BIND = [
-  'handleJSONChange'
+  'handleJSONChange',
+  'handleJSONErrorStateChange'
 ];
 
 const APP_ERROR_VALIDATORS = [
@@ -27,8 +28,9 @@ class CreateServiceJsonOnly extends React.Component {
 
     this.state = Object.assign(
       {
+        appConfig: {},
         errorList: [],
-        appConfig: {}
+        jsonHasErrors: false
       },
       this.getNewStateForJSON(
         ServiceUtil.getServiceJSON(this.props.service)
@@ -44,8 +46,10 @@ class CreateServiceJsonOnly extends React.Component {
    * @override
    */
   componentDidUpdate(prevProps, prevState) {
-    let hasErrors = this.state.errorList.length !== 0;
-    let hadErrors = prevState.errorList.length !== 0;
+    window.ReactDOM = ReactDOM;
+    window.fiddle = this;
+    let hasErrors = (this.state.errorList.length !== 0) || this.state.jsonHasErrors;
+    let hadErrors = (prevState.errorList.length !== 0) || prevState.jsonHasErrors;
 
     // Notify parent component for our error state
     if (hasErrors !== hadErrors) {
@@ -66,6 +70,12 @@ class CreateServiceJsonOnly extends React.Component {
 
   handleJSONChange(jsonObject) {
     this.props.onChange(jsonObject);
+  }
+
+  handleJSONErrorStateChange(errorState) {
+    this.setState({
+      jsonHasErrors: !!errorState
+    });
   }
 
   getNewStateForJSON(appConfig) {
@@ -91,29 +101,22 @@ class CreateServiceJsonOnly extends React.Component {
     //       error message.
     let editorStyles = {
       position: 'absolute',
-      'transform': 'translateX(0)',
-      'webkitTransform': 'translateX(0)',
-      'mozTransform': 'translateX(0)',
-      'msTransform': 'translateX(0)',
-      'oTransform': 'translateX(0)'
+      'transform': 'translateX(0)'
     };
 
     return (
-      <div className="flex flex-item-grow-1">
-        <div className="container">
-          <JSONEditor
-            errors={errorList}
-            className="modal-full-screen-fill-body"
-            onChange={this.handleJSONChange}
-            showGutter={true}
-            showPrintMargin={false}
-            style={editorStyles}
-            theme="monokai"
-            height="100%"
-            value={appConfig}
-            width="100%" />
-        </div>
-      </div>
+      <JSONEditor
+        errors={errorList}
+        className="modal-full-screen-fill-body"
+        onChange={this.handleJSONChange}
+        onErrorStateChange={this.handleJSONErrorStateChange}
+        showGutter={true}
+        showPrintMargin={false}
+        style={editorStyles}
+        theme="monokai"
+        height="100%"
+        value={appConfig}
+        width="100%" />
     );
   }
 }
