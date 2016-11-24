@@ -116,7 +116,7 @@ const NATIVE_TYPE_VALIDATORS = {
       'TYPE_NOT_OBJECT', 'Expecting an object');
 
     return [].concat(
-      `if (typeof value != "object") {`,
+      `if ((typeof value != "object") || (value === null)) {`,
         `\terrors.push(new RAMLError(path, ${ERROR_MESSAGE}));`,
       `} else {`,
         indentFragments( fragments ),

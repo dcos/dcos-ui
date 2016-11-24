@@ -233,9 +233,20 @@ module.exports =
 	    }, []);
 
 	    //
+	    // Compose exports
+	    //
+	    var variableExports = [];
+	    if (ctx.constantTables['ERROR_MESSAGES'] != null) {
+	      variableExports.push('Validators.ERROR_MESSAGES = ERROR_MESSAGES;');
+	    }
+	    if (variableExports.length) {
+	      variableExports.unshift('// Expose properties that can be overriden remotely');
+	    }
+
+	    //
 	    // Compose the individual fragments into the full module source
 	    //
-	    return [].concat('module.exports = (function() {', _RAMLError2.default, globalTableFragments, '', privateValidatorFragments, '', validatorFragments, '', 'return Validators;', '})();').join('\n');
+	    return [].concat('module.exports = (function() {', _RAMLError2.default, globalTableFragments, '', privateValidatorFragments, '', validatorFragments, '', variableExports, '', 'return Validators;', '})();').join('\n');
 	  }
 
 	};
@@ -279,7 +290,7 @@ module.exports =
 	  isInlineType: function isInlineType(itype) {
 	    // So, a type that has no name, but is either an array or a value type
 	    // is considered an in-line definition, and has a dedicated specialisation
-	    return itype.nameId() == null && (itype.isArray() || itype.isValueType());
+	    return itype.nameId() == null && (itype.isArray() || itype.isValueType() || itype.isAssignableFrom());
 	  },
 
 
@@ -1189,7 +1200,7 @@ module.exports =
 	  object: function object(fragments, context) {
 	    var ERROR_MESSAGE = context.getConstantString('ERROR_MESSAGES', 'TYPE_NOT_OBJECT', 'Expecting an object');
 
-	    return [].concat('if (typeof value != "object") {', '\terrors.push(new RAMLError(path, ' + ERROR_MESSAGE + '));', '} else {', (0, _GeneratorUtil.indentFragments)(fragments), '}');
+	    return [].concat('if ((typeof value != "object") || (value === null)) {', '\terrors.push(new RAMLError(path, ' + ERROR_MESSAGE + '));', '} else {', (0, _GeneratorUtil.indentFragments)(fragments), '}');
 	  },
 
 	  /**

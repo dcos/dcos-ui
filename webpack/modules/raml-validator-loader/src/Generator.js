@@ -126,6 +126,17 @@ module.exports = {
       }, []);
 
     //
+    // Compose exports
+    //
+    let variableExports = [];
+    if (ctx.constantTables['ERROR_MESSAGES'] != null) {
+      variableExports.push('Validators.ERROR_MESSAGES = ERROR_MESSAGES;');
+    }
+    if (variableExports.length) {
+      variableExports.unshift('// Expose properties that can be overriden remotely');
+    }
+
+    //
     // Compose the individual fragments into the full module source
     //
     return [].concat(
@@ -136,6 +147,8 @@ module.exports = {
         privateValidatorFragments,
         '',
         validatorFragments,
+        '',
+        variableExports,
         '',
         'return Validators;',
       '})();'

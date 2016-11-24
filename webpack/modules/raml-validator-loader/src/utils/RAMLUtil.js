@@ -28,7 +28,7 @@ module.exports = {
     // So, a type that has no name, but is either an array or a value type
     // is considered an in-line definition, and has a dedicated specialisation
     return (itype.nameId() == null) &&
-           (itype.isArray() || itype.isValueType());
+           (itype.isArray() || itype.isValueType() || itype.isAssignableFrom());
   },
 
   /**
