@@ -87,16 +87,29 @@ class CreateServiceJsonOnly extends React.Component {
   render() {
     let {appConfig, errorList} = this.state;
 
+    // Note: The `transform` parameter is just a hack to properly align the
+    //       error message.
+    let editorStyles = {
+      position: 'absolute',
+      'transform': 'translateX(0)',
+      'webkitTransform': 'translateX(0)',
+      'mozTransform': 'translateX(0)',
+      'msTransform': 'translateX(0)',
+      'oTransform': 'translateX(0)'
+    };
+
     return (
       <div className="flex flex-item-grow-1">
         <div className="container">
           <JSONEditor
             errors={errorList}
+            className="modal-full-screen-fill-body"
             onChange={this.handleJSONChange}
             showGutter={true}
             showPrintMargin={false}
+            style={editorStyles}
             theme="monokai"
-            height="400px"
+            height="100%"
             value={appConfig}
             width="100%" />
         </div>
