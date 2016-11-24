@@ -199,9 +199,12 @@ class NewCreateServiceModalForm extends Component {
   }
 
   getAppConfig(currentState = this.state) {
-    let {baseConfig, batch} = currentState;
-    let patch = batch.reduce(jsonConfigReducers, {});
-    return CreateServiceModalFormUtil.applyPatch(baseConfig, patch);
+    let {batch} = currentState;
+    return batch.reduce(jsonConfigReducers, {});
+    // aplying patch causes duplication of key-value structures like Lables, ENV and secrets
+    // let {baseConfig, batch} = currentState;
+    // let patch = batch.reduce(jsonConfigReducers, {});
+    // return CreateServiceModalFormUtil.applyPatch(baseConfig, patch);
   }
 
   handleAddItem({value, path}) {
