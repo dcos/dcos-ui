@@ -2,7 +2,8 @@
 module.exports = {
   constants: {
     EventTypes: 'EventTypes',
-    HTTPStatusCodes: 'HTTPStatusCodes'
+    HTTPStatusCodes: 'HTTPStatusCodes',
+    TransactionTypes: 'TransactionTypes'
   },
   events: {
     SidebarActions: 'SidebarActions'
@@ -22,6 +23,7 @@ module.exports = {
     CompositeState: 'CompositeState',
     Item: 'Item',
     List: 'List',
+    Transaction: 'Transaction',
     Tree: 'Tree'
   },
   utils: {
@@ -33,6 +35,8 @@ module.exports = {
     LocalStorageUtil: 'LocalStorageUtil',
     Maths: 'Maths',
     RouterUtil: 'RouterUtil',
+    ReducerUtil: 'ReducerUtil',
+    ParserUtil: 'ParserUtil',
     StringUtil: 'StringUtil',
     TableUtil: 'TableUtil',
     TabsUtil: 'TabsUtil',
