@@ -98,7 +98,7 @@ class JSONEditor extends React.Component {
     this.timerIsTyping = null;
 
     // Initial state synchronisation
-    this.updateLocalJsonState(initialValue);
+    this.updateLocalJsonState(initialText);
 
     METHODS_TO_BIND.forEach((method) => {
       this[method] = this[method].bind(this);
