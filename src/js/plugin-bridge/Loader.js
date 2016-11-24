@@ -14,6 +14,7 @@ const requireComponents = require.context('../components', false);
 const requireCharts = require.context('../components/charts', false);
 const requireIcons = require.context('../components/icons', false);
 const requireModals = require.context('../components/modals', false);
+const requireForm = require.context('../components/form', false);
 // Foundation
 const requireRouting = require.context('../../../foundation-ui/routing', false);
 const requireNavigation = require.context('../../../foundation-ui/navigation', false);
@@ -75,6 +76,8 @@ function pluckComponent(path) {
       return requireIcons(removeDir(dirs, 1));
     case 'modals':
       return requireModals(removeDir(dirs, 1));
+    case 'form':
+      return requireForm(removeDir(dirs, 1));
     default:
       return requireComponents(path);
   }

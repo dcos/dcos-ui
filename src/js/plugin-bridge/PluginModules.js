@@ -74,7 +74,8 @@ module.exports = {
     TabForm: 'TabForm',
     ToggleButton: 'ToggleButton',
     Typeahead: 'Typeahead',
-    UserDropup: 'UserDropup'
+    UserDropup: 'UserDropup',
+    'form-elements': 'form/index'
   },
   config: {
     Config: 'Config'
