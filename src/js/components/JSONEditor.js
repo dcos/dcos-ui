@@ -67,7 +67,6 @@ class JSONEditor extends React.Component {
     super(...arguments);
     // Clone the given initial value
     let initialText = JSON.stringify(this.props.value || {}, null, 2);
-    let initialValue = JSON.parse(initialText);
 
     // We are using the react-way of updating the component **only** when we
     // need to define a new text to work upon (ex. when the owner component has
