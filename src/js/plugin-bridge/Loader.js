@@ -17,6 +17,7 @@ const requireModals = require.context('../components/modals', false);
 // Foundation
 const requireRouting = require.context('../../../foundation-ui/routing', false);
 const requireNavigation = require.context('../../../foundation-ui/navigation', false);
+const requireFoundation = require.context('../../../foundation-ui', false);
 let requireExternalPlugin = function () {
   return {};
 };
@@ -97,6 +98,8 @@ function requireModule(dir, name) {
       return requireEvents(path);
     case 'routing':
       return requireRouting(path);
+    case 'foundation-ui':
+      return requireFoundation(path);
     case 'systemPages':
       return requireSystemPages(path);
     case 'stores':
@@ -116,7 +119,7 @@ function requireModule(dir, name) {
     case 'internalPlugin':
       return requirePlugin(path);
     default:
-      throw Error('No loader for directory');
+      throw Error(`No loader for directory: ${dir}`);
   }
 }
 
