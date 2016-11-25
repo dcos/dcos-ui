@@ -95,5 +95,8 @@ module.exports = {
   },
   'foundation-ui': {
     'foundation-ui': 'index'
+  },
+  internalPlugin: {
+    services: 'services/index'
   }
 };
