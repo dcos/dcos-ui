@@ -1230,9 +1230,9 @@
       "resolved": "https://registry.npmjs.org/closest/-/closest-0.0.1.tgz"
     },
     "cnvs": {
-      "version": "1.0.7",
-      "from": "cnvs@1.0.7",
-      "resolved": "https://registry.npmjs.org/cnvs/-/cnvs-1.0.7.tgz"
+      "version": "1.0.9",
+      "from": "cnvs@1.0.9",
+      "resolved": "https://registry.npmjs.org/cnvs/-/cnvs-1.0.9.tgz"
     },
     "co": {
       "version": "3.1.0",
@@ -3223,9 +3223,9 @@
           "resolved": "https://registry.npmjs.org/asap/-/asap-1.0.0.tgz"
         },
         "graceful-fs": {
-          "version": "3.0.8",
+          "version": "3.0.11",
           "from": "graceful-fs@^3.0.5",
-          "resolved": "https://registry.npmjs.org/graceful-fs/-/graceful-fs-3.0.8.tgz"
+          "resolved": "https://registry.npmjs.org/graceful-fs/-/graceful-fs-3.0.11.tgz"
         },
         "image-size": {
           "version": "0.3.5",
@@ -5618,6 +5618,11 @@
       "version": "2.4.0",
       "from": "nan@>=2.3.0 <3.0.0",
       "resolved": "https://registry.npmjs.org/nan/-/nan-2.4.0.tgz"
+    },
+    "natives": {
+      "version": "1.1.0",
+      "from": "natives@>=1.1.0 <2.0.0",
+      "resolved": "https://registry.npmjs.org/natives/-/natives-1.1.0.tgz"
     },
     "natural-compare": {
       "version": "1.4.0",
@@ -8175,9 +8180,9 @@
           "resolved": "https://registry.npmjs.org/clone/-/clone-0.2.0.tgz"
         },
         "graceful-fs": {
-          "version": "3.0.8",
+          "version": "3.0.11",
           "from": "graceful-fs@>=3.0.2 <4.0.0",
-          "resolved": "https://registry.npmjs.org/graceful-fs/-/graceful-fs-3.0.8.tgz"
+          "resolved": "https://registry.npmjs.org/graceful-fs/-/graceful-fs-3.0.11.tgz"
         },
         "strip-bom": {
           "version": "1.0.0",
