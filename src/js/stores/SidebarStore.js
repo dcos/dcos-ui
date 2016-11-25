@@ -4,6 +4,8 @@ import {
   REQUEST_CLI_INSTRUCTIONS,
   REQUEST_SIDEBAR_CLOSE,
   REQUEST_SIDEBAR_OPEN,
+  REQUEST_SIDEBAR_DOCK,
+  REQUEST_SIDEBAR_UNDOCK,
   REQUEST_SIDEBAR_WIDTH_CHANGE,
   REQUEST_VERSIONS_ERROR,
   REQUEST_VERSIONS_SUCCESS,
@@ -44,14 +46,26 @@ class SidebarStore extends GetSetBaseStore {
       var action = payload.action;
 
       switch (action.type) {
+        case REQUEST_SIDEBAR_DOCK:
+        case REQUEST_SIDEBAR_UNDOCK:
+          var nextDockedState = action.data;
+
+          if (this.get('isDocked') !== nextDockedState) {
+            this.set({
+              isVisible: nextDockedState,
+              isDocked: nextDockedState
+            });
+            this.emitChange(SIDEBAR_CHANGE);
+          }
+          break;
         case REQUEST_SIDEBAR_CLOSE:
         case REQUEST_SIDEBAR_OPEN:
-          var oldIsOpen = this.get('isOpen');
-          var isOpen = action.data;
+          var oldisVisible = this.get('isVisible');
+          var isVisible = action.data;
 
           // only emitting on change
-          if (oldIsOpen !== isOpen) {
-            this.set({isOpen});
+          if (oldisVisible !== isVisible) {
+            this.set({isVisible});
             this.emitChange(SIDEBAR_CHANGE);
           }
           break;
@@ -76,7 +90,8 @@ class SidebarStore extends GetSetBaseStore {
 
   init() {
     this.set({
-      isOpen: false,
+      isDocked: true,
+      isVisible: false,
       versions: {}
     });
   }

@@ -7,12 +7,14 @@ import PluginSDK from 'PluginSDK';
 import {keyCodes} from '../utils/KeyboardUtil';
 import ClusterHeader from './ClusterHeader';
 import EventTypes from '../constants/EventTypes';
+import Icon from '../components/Icon';
 import InternalStorageMixin from '../mixins/InternalStorageMixin';
 import MesosSummaryStore from '../stores/MesosSummaryStore';
 import MetadataStore from '../stores/MetadataStore';
 import PrimarySidebarLink from '../components/PrimarySidebarLink';
 import SaveStateMixin from '../mixins/SaveStateMixin';
 import SidebarActions from '../events/SidebarActions';
+import SidebarStore from '../stores/SidebarStore';
 import UserAccountDropdown from './UserAccountDropdown';
 
 const {
@@ -41,16 +43,12 @@ var Sidebar = React.createClass({
 
   saveState_key: 'sidebar',
 
-  saveState_properties: ['sidebarExpanded'],
+  saveState_properties: ['sidebarVisible'],
 
   mixins: [SaveStateMixin, InternalStorageMixin],
 
   contextTypes: {
     router: routerShape
-  },
-
-  getInitialState() {
-    return {sidebarExpanded: true};
   },
 
   componentDidMount() {
@@ -64,6 +62,18 @@ var Sidebar = React.createClass({
       EventTypes.DCOS_METADATA_CHANGE,
       this.onDCOSMetadataChange
     );
+
+    SidebarStore.addChangeListener(
+      EventTypes.SIDEBAR_CHANGE,
+      this.handleSidebarStateChange
+    );
+
+    if (this.sidebarRef) {
+      this.sidebarRef.addEventListener(
+        'transitionend',
+        this.handleSidebarTransitionEnd
+      );
+    }
 
     global.window.addEventListener('keydown', this.handleKeyPress, true);
   },
@@ -89,6 +99,15 @@ var Sidebar = React.createClass({
     this.forceUpdate();
   },
 
+  handleSidebarStateChange() {
+    // Attach and remove global event listener to detect external clicks.
+    if (SidebarStore.get('isVisible')) {
+      global.addEventListener('click', this.handleExternalClick);
+    } else {
+      global.removeEventListener('click', this.handleExternalClick);
+    }
+  },
+
   handleInstallCLI() {
     SidebarActions.close();
     SidebarActions.openCliInstructions();
@@ -102,10 +121,7 @@ var Sidebar = React.createClass({
       && !(event.ctrlKey || event.metaKey || event.shiftKey)) {
       // #sidebarWidthChange is passed as a callback so that the sidebar
       // has had a chance to update before Gemini re-renders.
-      this.setState({sidebarExpanded: !this.state.sidebarExpanded}, () => {
-        SidebarActions.sidebarWidthChange();
-        this.saveState_save();
-      });
+      this.toggleSidebarDocking();
     }
   },
 
@@ -275,23 +291,59 @@ var Sidebar = React.createClass({
     );
   },
 
-  render() {
-    let sidebarClasses = classNames('sidebar flex flex-direction-top-to-bottom',
-      'flex-item-shrink-0', {
-        'is-expanded': this.state.sidebarExpanded
-      });
+  handleSidebarTransitionEnd(event) {
+    // Some elements (graphs and Gemini) need to update when the main content
+    // width canges, so we emit an event.
+    if (event.target === this.sidebarRef) {
+      SidebarActions.sidebarWidthChange();
+    }
+  },
 
+  handleExternalClick() {
+    SidebarActions.close();
+  },
+
+  handleSidebarClick(event) {
+    // Prevent clicks in the sidebar from triggering the sidebar to close.
+    event.stopPropagation();
+  },
+
+  toggleSidebarDocking() {
+    global.requestAnimationFrame(() => {
+      if (SidebarStore.get('isDocked')) {
+        SidebarActions.undock();
+      } else {
+        SidebarActions.dock();
+      }
+
+      this.saveState_save();
+    });
+  },
+
+  render() {
     return (
-      <div className={sidebarClasses}>
-        <header className="header flex-item-shrink-0">
-          {this.getSidebarHeader()}
-        </header>
-        <GeminiScrollbar autoshow={true}
-          className="navigation flex-item-grow-1 flex-item-shrink-1 gm-scrollbar-container-flex">
-          <div className="navigation-inner pod pod-short pod-narrow">
-            {this.getNavigationSections()}
-          </div>
-        </GeminiScrollbar>
+      <div className="sidebar-wrapper" onClick={this.handleSidebarClick}>
+        <div className="sidebar flex flex-direction-top-to-bottom"
+          ref={(ref) => { this.sidebarRef = ref; }}>
+          <header className="header flex-item-shrink-0">
+            {this.getSidebarHeader()}
+          </header>
+          <GeminiScrollbar autoshow={true}
+            className="flex-item-grow-1 flex-item-shrink-1 gm-scrollbar-container-flex gm-scrollbar-container-flex-view">
+            <div className="sidebar-content-wrapper">
+              <div className="sidebar-sections pod pod-short pod-narrow">
+                {this.getNavigationSections()}
+              </div>
+              <div className="sidebar-dock-container pod pod-short pod-narrow flush-top">
+                <Icon className="sidebar-dock-trigger"
+                  size="mini"
+                  family="mini"
+                  id="sidebar-collapse"
+                  onClick={this.toggleSidebarDocking} />
+              </div>
+            </div>
+          </GeminiScrollbar>
+        </div>
       </div>
     );
   }

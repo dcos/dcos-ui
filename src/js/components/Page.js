@@ -91,7 +91,7 @@ var Page = React.createClass({
     }
 
     return (
-      <div>
+      <div className="page-header-title-container">
         <SidebarToggle />
         <h1 className="page-header-title flush">
           {title}

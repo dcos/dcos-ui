@@ -19,9 +19,32 @@
     }
   }
 
-  // TODO: Remove this if we aren't going to use it.
+  .page-header-title-container {
+    align-items: center;
+    display: flex;
+  }
+
   .page-navigation-sidebar-toggle {
+    cursor: pointer;
+    display: block;
+    flex: 0 0 auto;
+    margin-left: @base-spacing-unit * -1/4;
+    margin-right: @base-spacing-unit * 1/4;
+    opacity: 0.35;
+    padding: @base-spacing-unit * 1/8;
+    transition: opacity 0.15s;
+
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+
+  .page-navigation-sidebar-toggle-label {
     display: none;
+  }
+
+  .page-header-title {
+    flex: 0 0 auto;
   }
 
   .page-header-content-section {
@@ -179,6 +202,12 @@
         }
       }
 
+      .page-navigation-sidebar-toggle {
+        margin-left: @base-spacing-unit-screen-small * -1/4;
+        margin-right: @base-spacing-unit-screen-small * 1/4;
+        padding: @base-spacing-unit-screen-small * 1/8;
+      }
+
       .page-header-breadcrumbs {
 
         &.list-inline {
@@ -217,6 +246,16 @@
         &.tall {
           margin-bottom: @page-header-title-margin-bottom * @page-header-title-margin-bottom-screen-medium * @page-header-title-tall-margin-bottom-scale;
           margin-top: @page-header-title-margin-top * @page-header-title-margin-top-screen-medium * @page-header-title-tall-margin-top-scale;
+        }
+      }
+
+      .page-navigation-sidebar-toggle {
+        margin-left: @base-spacing-unit-screen-medium * -1/4;
+        margin-right: @base-spacing-unit-screen-medium * 1/4;
+        padding: @base-spacing-unit-screen-medium * 1/8;
+
+        .sidebar-docked & {
+          display: none;
         }
       }
 
@@ -272,6 +311,12 @@
         }
       }
 
+      .page-navigation-sidebar-toggle {
+        margin-left: @base-spacing-unit-screen-large * -1/4;
+        margin-right: @base-spacing-unit-screen-large * 1/4;
+        padding: @base-spacing-unit-screen-large * 1/8;
+      }
+
       .page-header-navigation {
 
         & when not (@pod-margin-top-screen-large = null) {
@@ -318,6 +363,12 @@
         & when not (@pod-margin-bottom-screen-jumbo = null) {
           margin-bottom: -@pod-margin-bottom-screen-jumbo;
         }
+      }
+
+      .page-navigation-sidebar-toggle {
+        margin-left: @base-spacing-unit-screen-jumbo * -1/4;
+        margin-right: @base-spacing-unit-screen-jumbo * 1/4;
+        padding: @base-spacing-unit-screen-jumbo * 1/8;
       }
 
       .page-header-breadcrumbs {
