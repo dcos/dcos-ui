@@ -15,7 +15,7 @@ import NewCreateServiceModalServicePicker from './NewCreateServiceModalServicePi
 import NewCreateServiceModalForm from './NewCreateServiceModalForm';
 import CreateServiceJsonOnly from './CreateServiceJsonOnly';
 import Service from '../../structs/Service';
-import ServiceConfigDisplay from '../../service-configuration/ServiceConfigDisplay';
+import ServiceConfigDisplay from '../ServiceConfigDisplay';
 import ToggleButton from '../../../../../../src/js/components/ToggleButton';
 import Util from '../../../../../../src/js/utils/Util';
 
