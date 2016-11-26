@@ -1,0 +1,6 @@
+<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+    <g fill-rule="evenodd">
+        <path d="M14 7.759V1.966c0-.512-2.65-.93-6-.964v13.5c3.35-.232 6-3.162 6-6.743z" fill-opacity=".3"/>
+        <path d="M2 7.759V1.966c0-.512 2.65-.93 6-.964v13.5C4.65 14.27 2 11.34 2 7.76z"/>
+    </g>
+</svg>

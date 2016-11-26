@@ -1,6 +1,6 @@
 <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
     <defs>
-        <linearGradient x1="50%" y1="3.49%" x2="50%" y2="95.645%" id="a">
+        <linearGradient x1="50%" y1="3.49%" x2="50%" y2="95.642%" id="a">
             <stop stop-color="#FFF" stop-opacity=".6" offset="0%"/>
             <stop stop-color="#FFF" stop-opacity=".4" offset="100%"/>
         </linearGradient>
