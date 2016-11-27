@@ -19,7 +19,8 @@ class LogView extends React.Component {
 
     this.state = {
       isAtBottom: true,
-      userScroll: true
+      userScroll: true,
+      fullLog: null
     };
 
     METHODS_TO_BIND.forEach((method) => {
@@ -49,26 +50,39 @@ class LogView extends React.Component {
       previousScrollHeight = logContainer.scrollHeight;
     }
 
-    // This allows the user to stay at the place of the log they were at
-    // before the prepend.
-    if (nextProps.direction === PREPEND && previousScrollHeight) {
-      let currentScrollHeight = logContainer.scrollHeight;
-      let heightDifference = currentScrollHeight - previousScrollHeight;
-      this.setScrollTop(previousScrollTop + heightDifference);
+    // Prevent updates to fullLog, if it has not changed
+    if (nextProps.fullLog === this.state.fullLog) {
+      return false;
     }
+
+    let isAtBottom = this.state.isAtBottom;
+    if (!isAtBottom && this.props.logName !== nextProps.logName) {
+      isAtBottom = true;
+    }
+    this.setState({fullLog: nextProps.fullLog, isAtBottom}, () => {
+      // This allows the user to stay at the place of the log they were at
+      // before the prepend.
+      if (nextProps.direction === PREPEND && previousScrollHeight && logContainer) {
+        let currentScrollHeight = logContainer.scrollHeight;
+        let heightDifference = currentScrollHeight - previousScrollHeight;
+        logContainer.scrollTop = previousScrollTop + heightDifference;
+      }
+    });
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    let {highlightText, logName, fullLog, watching} = this.props;
-    let {isAtBottom} = this.state;
+    let {hasLoadedTop, highlightText, logName, watching} = this.props;
+    let {fullLog, isAtBottom} = this.state;
 
     return !!(
+      // Check hasLoadedTop
+      (hasLoadedTop !== nextProps.hasLoadedTop) ||
       // Check highlightText
       (highlightText !== nextProps.highlightText) ||
       // Check logName
       (logName !== nextProps.logName) ||
       // Check fullLog
-      (fullLog !== nextProps.fullLog) ||
+      (fullLog !== nextState.fullLog) ||
       // Check watching
       (watching !== nextProps.watching) ||
       // Check isAtBottom
@@ -76,13 +90,13 @@ class LogView extends React.Component {
     );
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps, prevState) {
     let {logContainer, logNode} = this;
     if (logContainer == null) {
       return;
     }
 
-    if (!prevProps.fullLog && this.props.fullLog) {
+    if (!prevState.fullLog && this.state.fullLog) {
       logContainer.scrollTop = logContainer.scrollHeight;
       return;
     }
@@ -92,6 +106,8 @@ class LogView extends React.Component {
       this.goToNewHighlightedSearch();
     }
 
+    // Make sure to scroll to bottom if there is a view to scroll,
+    // i.e. more logs than log view height
     if (DOMUtils.getComputedHeight(logContainer) < DOMUtils.getComputedHeight(logNode) && this.state.isAtBottom) {
       this.handleGoToBottom();
     }
@@ -107,6 +123,7 @@ class LogView extends React.Component {
       return;
     }
 
+    // Only update variables if user actually interacts with the view
     if (this.state.userScroll) {
       this.checkIfCloseToTop(target);
       this.checkIfAwayFromBottom(target);
@@ -119,10 +136,19 @@ class LogView extends React.Component {
       return;
     }
 
+    // Cap animation time between 500 and 3000
+    let animationTime = Math.max(
+      Math.min(
+        logContainer.scrollHeight - DOMUtils.getDistanceFromTop(logContainer),
+        3000
+      ),
+      500
+    );
+
     this.setState({userScroll: false}, () => {
       DOMUtils.scrollTo(
         logContainer,
-        3000,
+        animationTime,
         logContainer.scrollHeight - logContainer.clientHeight,
         () => {
           this.setState({userScroll: true});
@@ -133,10 +159,6 @@ class LogView extends React.Component {
 
   handleWindowResize() {
     this.checkIfAwayFromBottom(this.logContainer);
-  }
-
-  setScrollTop(scrollTop) {
-    this.logContainer.scrollTop = scrollTop;
   }
 
   checkIfCloseToTop(container) {
@@ -202,7 +224,8 @@ class LogView extends React.Component {
   }
 
   getLog() {
-    let {fullLog, highlightText, onCountChange, watching} = this.props;
+    let {highlightText, onCountChange, watching} = this.props;
+    let {fullLog} = this.state;
 
     if (fullLog === '') {
       return this.getEmptyLogScreen();
@@ -215,16 +238,16 @@ class LogView extends React.Component {
         onScroll={this.handleLogContainerScroll}
         style={{wordWrap: 'break-word', whiteSpace: 'pre-wrap'}}>
         {this.getLogPrepend()}
-        <Highlight
-          matchClass="highlight"
-          matchElement="span"
-          onCountChange={onCountChange}
-          search={highlightText}
-          watching={watching}>
-          <span ref={(ref) => { this.logNode = ref; }}>
+        <div ref={(ref) => { this.logNode = ref; }}>
+          <Highlight
+            matchClass="highlight"
+            matchElement="span"
+            onCountChange={onCountChange}
+            search={highlightText}
+            watching={watching}>
             {fullLog}
-          </span>
-        </Highlight>
+          </Highlight>
+        </div>
       </pre>
     );
   }
@@ -246,6 +269,10 @@ class LogView extends React.Component {
   }
 
   getLogPrepend() {
+    if (this.state.isAtBottom) {
+      return null;
+    }
+
     if (this.props.hasLoadedTop) {
       return (
         <div className="text-align-center vertical-center">
