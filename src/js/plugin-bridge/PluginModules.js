@@ -87,5 +87,8 @@ module.exports = {
   },
   navigation: {
     navigation: 'index'
+  },
+  'foundation-ui': {
+    'foundation-ui': 'index'
   }
 };
