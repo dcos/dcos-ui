@@ -5,10 +5,12 @@ jest.dontMock('../../utils/SystemLogUtil');
 jest.dontMock('../../utils/CookieUtils');
 
 const cookie = require('cookie');
+const RequestUtil = require('mesosphere-shared-reactjs').RequestUtil;
 
-const SystemLogActions = require('../SystemLogActions');
 const ActionTypes = require('../../constants/ActionTypes');
 const AppDispatcher = require('../../events/AppDispatcher');
+const Config = require('../../config/Config');
+const SystemLogActions = require('../SystemLogActions');
 
 const USER_COOKIE_KEY = 'dcos-acs-info-cookie';
 
@@ -274,6 +276,80 @@ describe('SystemLogActions', function () {
 
       let event = {eventPhase: global.EventSource.CONNECTING};
       this.eventSource.dispatchEvent('error', event);
+    });
+
+  });
+
+  describe('#fetchStreamTypes', function () {
+
+    beforeEach(function () {
+      spyOn(RequestUtil, 'json');
+      SystemLogActions.fetchStreamTypes('foo');
+      this.configuration = RequestUtil.json.calls.mostRecent().args[0];
+    });
+
+    it('calls #json from the RequestUtil', function () {
+      expect(RequestUtil.json).toHaveBeenCalled();
+    });
+
+    it('fetches data from the correct URL', function () {
+      expect(this.configuration.url)
+        .toEqual(Config.logsAPIPrefix + '/foo/logs/v1/fields/STREAM');
+    });
+
+    it('dispatches the correct action when successful', function () {
+      var id = AppDispatcher.register(function (payload) {
+        var action = payload.action;
+        AppDispatcher.unregister(id);
+        expect(action.type)
+          .toEqual(ActionTypes.REQUEST_SYSTEM_LOG_STREAM_TYPES_SUCCESS);
+      });
+
+      this.configuration.success(['one', 'two']);
+    });
+
+    it('dispatches the correct data when successful', function () {
+      var id = AppDispatcher.register(function (payload) {
+        var action = payload.action;
+        AppDispatcher.unregister(id);
+        expect(action.data).toEqual(['one', 'two']);
+      });
+
+      this.configuration.success(['one', 'two']);
+    });
+
+    it('dispatches the correct action when unsuccessful', function () {
+      var id = AppDispatcher.register(function (payload) {
+        var action = payload.action;
+        AppDispatcher.unregister(id);
+        expect(action.type)
+          .toEqual(ActionTypes.REQUEST_SYSTEM_LOG_STREAM_TYPES_ERROR);
+      });
+
+      this.configuration.error({responseJSON: {description: 'bar'}});
+    });
+
+    it('dispatches the correct error when unsuccessful', function () {
+      var id = AppDispatcher.register(function (payload) {
+        var action = payload.action;
+        AppDispatcher.unregister(id);
+        expect(action.data).toEqual('bar');
+      });
+
+      this.configuration.error({responseJSON: {description: 'bar'}});
+    });
+
+    it('dispatches the message when unsuccessful', function () {
+      var id = AppDispatcher.register(function (payload) {
+        var action = payload.action;
+        AppDispatcher.unregister(id);
+        expect(action.data).toEqual('baz');
+      });
+
+      this.configuration.error({
+        foo: 'bar',
+        responseJSON: {description: 'baz'}
+      });
     });
 
   });
