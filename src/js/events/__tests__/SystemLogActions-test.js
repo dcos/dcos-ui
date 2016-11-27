@@ -154,11 +154,15 @@ describe('SystemLogActions', function () {
   describe('#fetchLogRange', function () {
 
     beforeEach(function () {
-      SystemLogActions.fetchLogRange('foo', {cursor: 'bar', skip_prev: 10, subscriptionID: 'subscriptionID'});
+      SystemLogActions.fetchLogRange(
+        'foo',
+        {cursor: 'bar', skip_prev: 10, subscriptionID: 'subscriptionID'}
+      );
     });
 
     it('calls #addEventListener from the EventSource', function () {
-      this.eventSource.addEventListener = jasmine.createSpy('addEventListener').and.callThrough();
+      this.eventSource.addEventListener = jasmine.createSpy('addEventListener')
+        .and.callThrough();
       SystemLogActions.fetchLogRange('foo', {cursor: 'bar'});
       expect(this.eventSource.addEventListener).toHaveBeenCalled();
     });
@@ -270,7 +274,8 @@ describe('SystemLogActions', function () {
       var id = AppDispatcher.register(function (payload) {
         var action = payload.action;
         AppDispatcher.unregister(id);
-        expect(action.data).toEqual({eventPhase: global.EventSource.CONNECTING});
+        expect(action.data)
+          .toEqual({eventPhase: global.EventSource.CONNECTING});
         expect(action.subscriptionID).toEqual('subscriptionID');
       });
 

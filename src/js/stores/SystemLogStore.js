@@ -137,6 +137,12 @@ class SystemLogStore extends BaseStore {
   }
 
   startTailing(nodeID, options) {
+    let {subscriptionID, cursor} = options;
+    if (!cursor && subscriptionID && this.logs[subscriptionID]) {
+      let {entries} = this.logs[subscriptionID];
+      cursor = entries[entries.length - 1].cursor;
+      options = Object.assign({}, options, {cursor});
+    }
     // Return received subscriptionID
     return SystemLogActions.subscribe(nodeID, options);
   }
