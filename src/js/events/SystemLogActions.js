@@ -1,11 +1,16 @@
+import {RequestUtil} from 'mesosphere-shared-reactjs';
+
 import {
-  REQUEST_SYSTEM_LOG_SUCCESS,
   REQUEST_SYSTEM_LOG_ERROR,
-  REQUEST_PREVIOUS_SYSTEM_LOG_SUCCESS,
-  REQUEST_PREVIOUS_SYSTEM_LOG_ERROR
+  REQUEST_SYSTEM_LOG_SUCCESS,
+  REQUEST_SYSTEM_LOG_STREAM_TYPES_ERROR,
+  REQUEST_SYSTEM_LOG_STREAM_TYPES_SUCCESS,
+  REQUEST_PREVIOUS_SYSTEM_LOG_ERROR,
+  REQUEST_PREVIOUS_SYSTEM_LOG_SUCCESS
 } from '../constants/ActionTypes';
 import AppDispatcher from './AppDispatcher';
 import CookieUtils from '../utils/CookieUtils';
+import Config from '../config/Config';
 import SystemLogUtil from '../utils/SystemLogUtil';
 
 /**
@@ -175,6 +180,24 @@ const SystemLogActions = {
 
     source.addEventListener('message', messageListener, false);
     source.addEventListener('error', errorListener, false);
+  },
+
+  fetchStreamTypes(nodeID) {
+    RequestUtil.json({
+      url: `${Config.logsAPIPrefix}/${nodeID}/logs/v1/fields/STREAM`,
+      success(response) {
+        AppDispatcher.handleServerAction({
+          type: REQUEST_SYSTEM_LOG_STREAM_TYPES_SUCCESS,
+          data: response
+        });
+      },
+      error(xhr) {
+        AppDispatcher.handleServerAction({
+          type: REQUEST_SYSTEM_LOG_STREAM_TYPES_ERROR,
+          data: RequestUtil.getErrorFromXHR(xhr)
+        });
+      }
+    });
   }
 };
 
