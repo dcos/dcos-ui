@@ -57,12 +57,6 @@ class NewCreateServiceModalForm extends Component {
       )
     );
 
-    // Render initial app config
-    this.state.appConfig = this.getAppConfig(
-      this.state.batch,
-      this.state.appConfig
-    );
-
     METHODS_TO_BIND.forEach((method) => {
       this[method] = this[method].bind(this);
     });
@@ -124,7 +118,6 @@ class NewCreateServiceModalForm extends Component {
 
   getNewStateForJSON(baseConfig={}, validate=true) {
     let newState = {
-      appConfig: {},
       baseConfig
     };
 
@@ -138,13 +131,14 @@ class NewCreateServiceModalForm extends Component {
       newState.errorList = DataValidatorUtil.validate(baseConfig, ERROR_VALIDATORS);
     }
 
+    // Update appConfig
+    newState.appConfig = this.getAppConfig(newState.batch, baseConfig);
+
     return newState;
   }
 
   handleJSONChange(jsonObject) {
-    let newState = this.getNewStateForJSON(jsonObject);
-    newState.appConfig = this.getAppConfig(newState.batch, newState.baseConfig);
-    this.setState(newState);
+    this.setState(this.getNewStateForJSON(jsonObject));
   }
 
   handleFormBlur(event) {
