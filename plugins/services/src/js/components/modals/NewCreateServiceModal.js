@@ -68,10 +68,11 @@ class NewServiceFormModal extends Component {
 
     if (serviceReviewActive) {
       // Just hide review screen. Form or JSON mode will be
-      // activate dautomaticaly depending on their last state
+      // activated automaticaly depending on their last state
       this.setState({
         serviceReviewActive: false
       });
+
       return;
     }
 
@@ -81,6 +82,7 @@ class NewServiceFormModal extends Component {
         servicePickerActive: true,
         serviceFormActive: false
       });
+
       return;
     }
 
@@ -90,6 +92,7 @@ class NewServiceFormModal extends Component {
         servicePickerActive: true,
         serviceJsonActive: false
       });
+
       return;
     }
   }
