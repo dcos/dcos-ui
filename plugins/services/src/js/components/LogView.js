@@ -41,6 +41,8 @@ class LogView extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    let newState = {};
+    let onStateChange;
     let {logContainer} = this;
     let previousScrollTop;
     let previousScrollHeight;
@@ -51,23 +53,27 @@ class LogView extends React.Component {
     }
 
     // Prevent updates to fullLog, if it has not changed
-    if (nextProps.fullLog === this.state.fullLog) {
-      return false;
+    if (this.state.fullLog !== nextProps.fullLog) {
+      newState.fullLog = nextProps.fullLog;
+      onStateChange = function () {
+        // This allows the user to stay at the place of the log they were at
+        // before the prepend.
+        if (nextProps.direction === PREPEND && previousScrollHeight
+          && logContainer) {
+          let currentScrollHeight = logContainer.scrollHeight;
+          let heightDifference = currentScrollHeight - previousScrollHeight;
+          logContainer.scrollTop = previousScrollTop + heightDifference;
+        }
+      };
     }
 
-    let isAtBottom = this.state.isAtBottom;
-    if (!isAtBottom && this.props.logName !== nextProps.logName) {
-      isAtBottom = true;
+    // Log has changed, let's start out with tailing
+    if (!this.state.isAtBottom && this.props.logName !== nextProps.logName) {
+      newState.isAtBottom = true;
+      this.props.onAtBottomChange(newState.isAtBottom);
     }
-    this.setState({fullLog: nextProps.fullLog, isAtBottom}, () => {
-      // This allows the user to stay at the place of the log they were at
-      // before the prepend.
-      if (nextProps.direction === PREPEND && previousScrollHeight && logContainer) {
-        let currentScrollHeight = logContainer.scrollHeight;
-        let heightDifference = currentScrollHeight - previousScrollHeight;
-        logContainer.scrollTop = previousScrollTop + heightDifference;
-      }
-    });
+
+    this.setState(newState, onStateChange);
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -108,7 +114,8 @@ class LogView extends React.Component {
 
     // Make sure to scroll to bottom if there is a view to scroll,
     // i.e. more logs than log view height
-    if (DOMUtils.getComputedHeight(logContainer) < DOMUtils.getComputedHeight(logNode) && this.state.isAtBottom) {
+    if (DOMUtils.getComputedHeight(logContainer) <
+      DOMUtils.getComputedHeight(logNode) && this.state.isAtBottom) {
       this.handleGoToBottom();
     }
   }
@@ -131,8 +138,10 @@ class LogView extends React.Component {
   }
 
   handleGoToBottom() {
-    let {logContainer} = this;
-    if (logContainer == null || !this.state.userScroll) {
+    const {logContainer, props: {highlightText}, state: {userScroll}} = this;
+    // Do not scroll to bottom if we want to highlight a word in the log,
+    // or we are already animating scroll
+    if (logContainer == null || highlightText || !userScroll) {
       return;
     }
 
@@ -145,6 +154,7 @@ class LogView extends React.Component {
       500
     );
 
+    // Let's not handle user scroll events when animating
     this.setState({userScroll: false}, () => {
       DOMUtils.scrollTo(
         logContainer,
@@ -163,8 +173,9 @@ class LogView extends React.Component {
 
   checkIfCloseToTop(container) {
     let {hasLoadedTop, fetchPreviousLogs} = this.props;
+    let {closeToTop} = this.state;
     let distanceFromTop = DOMUtils.getDistanceFromTop(container);
-    if (distanceFromTop < 100 && !this.state.closeToTop) {
+    if (distanceFromTop < 100 && !closeToTop) {
       this.setState({closeToTop: true}, () => {
         if (!hasLoadedTop) {
           fetchPreviousLogs();
@@ -172,7 +183,7 @@ class LogView extends React.Component {
       });
     }
 
-    if (distanceFromTop > 100 && this.state.closeToTop) {
+    if (distanceFromTop > 100 && closeToTop) {
       this.setState({closeToTop: false});
     }
   }
@@ -253,9 +264,12 @@ class LogView extends React.Component {
   }
 
   getGoToBottomButton() {
+    let {highlightText} = this.props;
     let {isAtBottom} = this.state;
 
-    if (isAtBottom) {
+    // Do not show go to bottom button, if we are already at the bottom,
+    // or we are have highlighted text
+    if (isAtBottom || highlightText) {
       return null;
     }
 
@@ -293,7 +307,7 @@ class LogView extends React.Component {
 
   render() {
     return (
-      <div className="log-view pod inverse flex flex-direction-top-to-bottom flex-item-grow-1 flex-item-shrink-1">
+      <div className="log-view inverse flex flex-direction-top-to-bottom flex-item-grow-1 flex-item-shrink-1">
         {this.getLog()}
         <ReactCSSTransitionGroup
           transitionAppear={true}

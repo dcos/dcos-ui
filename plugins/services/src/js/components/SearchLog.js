@@ -143,7 +143,7 @@ class SearchLog extends React.Component {
         <FilterBar
           className="filter-bar control-group form-group flex-wrap-items-none-screen-small flex-item-shrink-0 flush-bottom"
           leftChildrenClass="filter-bar-left filter-bar-search-container flex-wrap-items-none flex-item-grow-1 flex-item-shrink-1"
-          rightAlignLastNChildren={2}>
+          rightAlignLastNChildren={React.Children.count(actions)}>
           <FilterInputText
             ref="filterInput"
             className="flex-grow flex-box flush-bottom"
