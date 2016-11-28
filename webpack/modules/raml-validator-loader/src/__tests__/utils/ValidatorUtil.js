@@ -16,11 +16,11 @@ module.exports = {
     }, {});
 
     // Generate code with the given type
-    var ctx = new GeneratorContext(options);
-    ctx.uses( types[typeName].runtimeType() );
+    var context = new GeneratorContext(options);
+    context.uses( types[typeName].runtimeType() );
 
     // Generate code
-    var code = Generator.generate(ctx);
+    var code = Generator.generate(context);
     var typeValidators = eval(code.replace('module.exports = ', ''));
 
     // Return the validator for this type

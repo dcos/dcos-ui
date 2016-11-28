@@ -22,10 +22,10 @@ module.exports = {
   /**
    * Generate a full source using the given generator context
    *
-   * @param {GeneratorContext} ctx - The generator context to use
+   * @param {GeneratorContext} context - The generator context to use
    * @returns {String} The generated module source code
    */
-  generate: function(ctx) {
+  generate: function(context) {
     let itype;
     let privateValidatorFragments = [
       'var PrivateValidators = {'
@@ -38,7 +38,7 @@ module.exports = {
     // The following loop generates the validators for every type in the context
     // A validator generator might push more types while it's being processed.
     //
-    while (itype = ctx.nextTypeInQueue()) {
+    while (itype = context.nextTypeInQueue()) {
       let typeName = RAMLUtil.getTypeName(itype);
       let fragments = [];
 
@@ -75,7 +75,7 @@ module.exports = {
           '\t\tpath = path || [];'
         ],
         GeneratorUtil.indentFragments(
-          TypeValidator.generateTypeValidator(itype, ctx),
+          TypeValidator.generateTypeValidator(itype, context),
           '\t\t'
         ),
         [ '\t\treturn errors;',
@@ -99,9 +99,9 @@ module.exports = {
     // While processing the types, the validator generators will populate
     // constants in the global constants table(s).
     //
-    let globalTableFragments = Object.keys(ctx.constantTables)
+    let globalTableFragments = Object.keys(context.constantTables)
       .reduce(function(lines, tableName) {
-        let table = ctx.constantTables[tableName];
+        let table = context.constantTables[tableName];
         if (Array.isArray(table)) {
           // Array of anonymous expressions
           return lines.concat(
@@ -129,7 +129,7 @@ module.exports = {
     // Compose exports
     //
     let variableExports = [];
-    if (ctx.constantTables['ERROR_MESSAGES'] != null) {
+    if (context.constantTables['ERROR_MESSAGES'] != null) {
       variableExports.push('Validators.ERROR_MESSAGES = ERROR_MESSAGES;');
     }
     if (variableExports.length) {
