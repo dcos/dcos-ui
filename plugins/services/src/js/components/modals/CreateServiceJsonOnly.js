@@ -1,7 +1,7 @@
 import React, {PropTypes} from 'react';
 
 import Application from '../../structs/Application';
-import Pod from '../../structs/Pod';
+import PodSpec from '../../structs/PodSpec';
 import JSONEditor from '../../../../../../src/js/components/JSONEditor';
 
 import AppValidators from '../../../../../../src/resources/raml/marathon/v2/types/app.raml';
@@ -71,7 +71,7 @@ class CreateServiceJsonOnly extends React.Component {
   handleJSONChange(jsonObject) {
     let newObject;
     if (ServiceValidatorUtil.isPodSpecDefinition(jsonObject)) {
-      newObject = new Pod(jsonObject);
+      newObject = new PodSpec(jsonObject);
     } else {
       newObject = new Application(jsonObject);
     }
