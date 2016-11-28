@@ -20,6 +20,7 @@ module.exports = {
     VisibilityStore: 'VisibilityStore'
   },
   structs: {
+    Batch: 'Batch',
     CompositeState: 'CompositeState',
     Item: 'Item',
     List: 'List',
