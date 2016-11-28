@@ -22,7 +22,7 @@ class PageHeader extends React.Component {
 
     let classes = classNames('page-header', className);
     let innerClasses = classNames(
-      'page-header-inner pod pod-short',
+      'page-header-inner pod',
       innerClassName
     );
     let primaryContentClasses = classNames(

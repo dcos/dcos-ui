@@ -3,6 +3,7 @@
 & when (@page-header-enabled) {
 
   .page-header {
+    .clearfix();
     flex: 0 1 auto;
     position: relative;
 
@@ -28,25 +29,84 @@
     display: flex;
   }
 
+  .page-header-title {
+    .element-spacing(page-header-title, null, null);
+    .element-text-size(page-header-title, null);
+    .element-text-style(page-header-title);
+    .property-variant(page-header-title, opacity, null, null);
+    display: block;
+
+    /* Layout Variants */
+
+    &.short {
+      .element-spacing(page-header-title, short, null);
+    }
+
+    &.tall {
+      .element-spacing(page-header-title, tall, null);
+    }
+
+    /* Styling Variants */
+
+    & when (@page-header-title-emphasis-enabled) {
+
+      &.emphasis,
+      .emphasis {
+        .element-text-style(page-header-title-emphasis);
+        .property-variant(page-header-title-emphasis, opacity, null, null);
+      }
+    }
+
+    & when (@page-header-title-muted-enabled) {
+
+      &.muted,
+      .muted {
+        .element-text-style(page-header-title-muted);
+        .property-variant(page-header-title-muted, opacity, null, null);
+      }
+    }
+
+    & when (@page-header-title-inverse-enabled) {
+
+      &.inverse {
+        .element-text-style(page-header-title-inverse);
+        .property-variant(page-header-title-inverse, opacity, null, null);
+
+        & when (@page-header-title-inverse-emphasis-enabled) {
+
+          &.emphasis,
+          .emphasis {
+            .element-text-style(page-header-title-inverse-emphasis);
+            .property-variant(page-header-title-inverse-emphasis, opacity, null, null);
+          }
+        }
+
+        & when (@page-header-title-inverse-muted-enabled) {
+
+          &.muted,
+          .muted {
+            .element-text-style(page-header-title-inverse-muted);
+            .property-variant(page-header-title-inverse-muted, opacity, null, null);
+          }
+        }
+      }
+    }
+  }
+
   .page-header-navigation {
     align-items: flex-start;
     display: flex;
 
-    & when not (@pod-margin-bottom = null) {
-
-      & when (@pod-short-margin-top-scale = null) {
-        margin-bottom: -@pod-margin-bottom;
-        padding-top: @pod-margin-bottom;
-      }
-
-      & when not (@pod-short-margin-top-scale = null) {
-        margin-bottom: -@pod-margin-bottom * @pod-short-margin-top-scale;
-        padding-top: @pod-margin-bottom * @pod-short-margin-top-scale;
-      }
-    }
-
     .menu-tabbed {
       margin-bottom: 0;
+    }
+
+    & when not (@pod-margin-top = null) {
+      padding-top: @pod-margin-top;
+    }
+
+    & when not (@pod-margin-bottom = null) {
+      margin-bottom: -@pod-margin-bottom;
     }
   }
 
@@ -118,157 +178,209 @@
   }
 }
 
-& when (@page-header-enabled) and (@layout-screen-small-enabled) {
+& when (@layout-screen-small-enabled) {
 
   @media (min-width: @layout-screen-small-min-width) {
 
-    .page-header-navigation {
+    & when (@page-header-enabled) and (@page-header-screen-small-enabled) {
 
-      & when not (@pod-margin-bottom-screen-small = null) {
+      .page-header-title {
+        .element-spacing(page-header-title, null, screen-small);
+        .element-text-size(page-header-title, screen-small);
 
-        & when (@pod-short-margin-top-scale = null) {
+        /* Layout Variants */
+
+        &.short {
+          .element-spacing(page-header-title, short, screen-small);
+        }
+
+        &.tall {
+          .element-spacing(page-header-title, tall, screen-small);
+        }
+      }
+
+      .page-header-navigation {
+
+        & when not (@pod-margin-top-screen-small = null) {
+          padding-top: @pod-margin-top-screen-small;
+        }
+
+        & when not (@pod-margin-bottom-screen-small = null) {
           margin-bottom: -@pod-margin-bottom-screen-small;
-          padding-top: @pod-margin-bottom-screen-small;
-        }
-
-        & when not (@pod-short-margin-top-scale = null) {
-          margin-bottom: -@pod-margin-bottom-screen-small * @pod-short-margin-top-scale;
-          padding-top: @pod-margin-bottom-screen-small * @pod-short-margin-top-scale;
         }
       }
-    }
 
-    .page-header-breadcrumbs {
+      .page-header-breadcrumbs {
 
-      &.list-inline {
+        &.list-inline {
 
-        & > li {
-          margin-right: @base-spacing-unit-screen-small * 1/4;
+          & > li {
+            margin-right: @base-spacing-unit-screen-small * 1/4;
+          }
         }
       }
-    }
 
-    .page-header-breadcrumb-primary {
+      .page-header-breadcrumb-primary {
 
-      .icon {
-        margin-right: @base-spacing-unit-screen-small * 1/8;
+        .icon {
+          margin-right: @base-spacing-unit-screen-small * 1/8;
+        }
       }
     }
   }
 }
 
-& when (@page-header-enabled) and (@layout-screen-medium-enabled) {
+& when (@layout-screen-medium-enabled) {
 
   @media (min-width: @layout-screen-medium-min-width) {
 
-    .page-header-navigation {
+    & when (@page-header-enabled) and (@page-header-screen-medium-enabled) {
 
-      & when not (@pod-margin-bottom-screen-medium = null) {
+      .page-header-title {
+        .element-spacing(page-header-title, null, screen-medium);
+        .element-text-size(page-header-title, screen-medium);
 
-        & when (@pod-short-margin-top-scale = null) {
+        /* Layout Variants */
+
+        &.short {
+          .element-spacing(page-header-title, short, screen-medium);
+        }
+
+        &.tall {
+          .element-spacing(page-header-title, tall, screen-medium);
+        }
+      }
+
+      .page-header-navigation {
+
+        & when not (@pod-margin-top-screen-medium = null) {
+          padding-top: @pod-margin-top-screen-medium;
+        }
+
+        & when not (@pod-margin-bottom-screen-medium = null) {
           margin-bottom: -@pod-margin-bottom-screen-medium;
-          padding-top: @pod-margin-bottom-screen-medium;
-        }
-
-        & when not (@pod-short-margin-top-scale = null) {
-          margin-bottom: -@pod-margin-bottom-screen-medium * @pod-short-margin-top-scale;
-          padding-top: @pod-margin-bottom-screen-medium * @pod-short-margin-top-scale;
         }
       }
-    }
 
-    .page-header-breadcrumbs {
+      .page-header-breadcrumbs {
 
-      &.list-inline {
+        &.list-inline {
 
-        & > li {
-          margin-right: @base-spacing-unit-screen-medium * 1/4;
+          & > li {
+            margin-right: @base-spacing-unit-screen-medium * 1/4;
+          }
         }
       }
-    }
 
-    .page-header-breadcrumb-primary {
+      .page-header-breadcrumb-primary {
 
-      .icon {
-        margin-right: @base-spacing-unit-screen-medium * 1/8;
+        .icon {
+          margin-right: @base-spacing-unit-screen-medium * 1/8;
+        }
       }
     }
   }
 }
 
-& when (@page-header-enabled) and (@layout-screen-large-enabled) {
+& when (@layout-screen-large-enabled) {
 
   @media (min-width: @layout-screen-large-min-width) {
 
-    .page-header-navigation {
+    & when (@page-header-enabled) and (@page-header-screen-large-enabled) {
 
-      & when not (@pod-margin-bottom-screen-large = null) {
+      .page-header-title {
+        .element-text-size(page-header-title, screen-large);
+        .element-spacing(page-header-title, null, screen-large);
 
-        & when (@pod-short-margin-top-scale = null) {
+        /* Layout Variants */
+
+        &.short {
+          .element-spacing(page-header-title, short, screen-large);
+        }
+
+        &.tall {
+          .element-spacing(page-header-title, tall, screen-large);
+        }
+      }
+
+      .page-header-navigation {
+
+        & when not (@pod-margin-top-screen-large = null) {
+          padding-top: @pod-margin-top-screen-large;
+        }
+
+        & when not (@pod-margin-bottom-screen-large = null) {
           margin-bottom: -@pod-margin-bottom-screen-large;
-          padding-top: @pod-margin-bottom-screen-large;
-        }
-
-        & when not (@pod-short-margin-top-scale = null) {
-          margin-bottom: -@pod-margin-bottom-screen-large * @pod-short-margin-top-scale;
-          padding-top: @pod-margin-bottom-screen-large * @pod-short-margin-top-scale;
         }
       }
-    }
 
-    .page-header-breadcrumbs {
+      .page-header-breadcrumbs {
 
-      &.list-inline {
+        &.list-inline {
 
-        & > li {
-          margin-right: @base-spacing-unit-screen-large * 1/4;
+          & > li {
+            margin-right: @base-spacing-unit-screen-large * 1/4;
+          }
         }
       }
-    }
 
-    .page-header-breadcrumb-primary {
+      .page-header-breadcrumb-primary {
 
-      .icon {
-        margin-right: @base-spacing-unit-screen-large * 1/8;
+        .icon {
+          margin-right: @base-spacing-unit-screen-large * 1/8;
+        }
       }
     }
   }
 }
 
-& when (@page-header-enabled) and (@layout-screen-jumbo-enabled) {
+& when (@layout-screen-jumbo-enabled) {
 
   @media (min-width: @layout-screen-jumbo-min-width) {
 
-    .page-header-navigation {
+    & when (@page-header-enabled) and (@page-header-screen-jumbo-enabled) {
 
-      & when not (@pod-margin-bottom-screen-jumbo = null) {
+      .page-header-title {
+        .element-spacing(page-header-title, null, screen-jumbo);
+        .element-text-size(page-header-title, screen-jumbo);
 
-        & when (@pod-short-margin-top-scale = null) {
+        /* Layout Variants */
+
+        &.short {
+          .element-spacing(page-header-title, short, screen-jumbo);
+        }
+
+        &.tall {
+          .element-spacing(page-header-title, tall, screen-jumbo);
+        }
+      }
+
+      .page-header-navigation {
+
+        & when not (@pod-margin-top-screen-jumbo = null) {
+          padding-top: @pod-margin-top-screen-jumbo;
+        }
+
+        & when not (@pod-margin-bottom-screen-jumbo = null) {
           margin-bottom: -@pod-margin-bottom-screen-jumbo;
-          padding-top: @pod-margin-bottom-screen-jumbo;
-        }
-
-        & when not (@pod-short-margin-top-scale = null) {
-          margin-bottom: -@pod-margin-bottom-screen-jumbo * @pod-short-margin-top-scale;
-          padding-top: @pod-margin-bottom-screen-jumbo * @pod-short-margin-top-scale;
         }
       }
-    }
 
-    .page-header-breadcrumbs {
+      .page-header-breadcrumbs {
 
-      &.list-inline {
+        &.list-inline {
 
-        & > li {
-          margin-right: @base-spacing-unit-screen-jumbo * 1/4;
+          & > li {
+            margin-right: @base-spacing-unit-screen-jumbo * 1/4;
+          }
         }
       }
-    }
 
-    .page-header-breadcrumb-primary {
+      .page-header-breadcrumb-primary {
 
-      .icon {
-        margin-right: @base-spacing-unit-screen-jumbo * 1/8;
+        .icon {
+          margin-right: @base-spacing-unit-screen-jumbo * 1/8;
+        }
       }
     }
   }
