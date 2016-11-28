@@ -110,10 +110,10 @@ const DecinedOffersUtil = {
     } else {
       requestedResources = {
         roles: Util.findNestedPropertyInObject(
-            app, 'scheduling.placement.acceptedResourceRoles'
+            app, 'acceptedResourceRoles'
           ) || ['*'],
         constraints: Util.findNestedPropertyInObject(
-          app, 'scheduling.placement.constraints'
+          app, 'constraints'
         ) || [],
         cpus: app.cpus || 0,
         mem: app.mem || 0,
