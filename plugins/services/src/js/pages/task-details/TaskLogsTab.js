@@ -6,6 +6,7 @@ import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import {APPEND} from '../../../../../../src/js/constants/SystemLogTypes';
 import LogView from '../../components/LogView';
+import Loader from '../../../../../../src/js/components/Loader';
 import MesosStateUtil from '../../../../../../src/js/utils/MesosStateUtil';
 import SearchLog from '../../components/SearchLog';
 import SystemLogStore from '../../../../../../src/js/stores/SystemLogStore';
@@ -38,7 +39,8 @@ class TaskLogsTab extends mixin(StoreMixin) {
     this.state = {
       direction: APPEND,
       error: null,
-      streams: []
+      streams: [],
+      isLoading: true
     };
 
     this.store_listeners = [{
@@ -74,7 +76,7 @@ class TaskLogsTab extends mixin(StoreMixin) {
       return;
     }
 
-    this.setState({direction});
+    this.setState({direction, isLoading: false});
   }
 
   onSystemLogStoreStreamError(error) {
@@ -142,7 +144,7 @@ class TaskLogsTab extends mixin(StoreMixin) {
       skip_prev: PAGE_ENTRY_COUNT
     });
     const subscriptionID = SystemLogStore.startTailing(task.slave_id, params);
-    this.setState({selectedStream, subscriptionID});
+    this.setState({isLoading: true, selectedStream, subscriptionID});
   }
 
   getLogSelectionAsButtons() {
@@ -213,18 +215,29 @@ class TaskLogsTab extends mixin(StoreMixin) {
       );
   }
 
-  render() {
-    let {direction, selectedStream, subscriptionID} = this.state;
+  getLogView() {
+    let {direction, isLoading, selectedStream, subscriptionID} = this.state;
+
+    if (isLoading) {
+      return <Loader />;
+    }
 
     return (
+      <LogView
+        logName={selectedStream}
+        direction={direction}
+        fullLog={SystemLogStore.getFullLog(subscriptionID)}
+        fetchPreviousLogs={this.handleFetchPreviousLog}
+        onAtBottomChange={this.handleAtBottomChange}
+        hasLoadedTop={SystemLogStore.hasLoadedTop(subscriptionID)} />
+    );
+
+  }
+
+  render() {
+    return (
       <SearchLog actions={this.getActions()}>
-        <LogView
-          logName={selectedStream}
-          direction={direction}
-          fullLog={SystemLogStore.getFullLog(subscriptionID)}
-          fetchPreviousLogs={this.handleFetchPreviousLog}
-          onAtBottomChange={this.handleAtBottomChange}
-          hasLoadedTop={SystemLogStore.hasLoadedTop(subscriptionID)} />
+        {this.getLogView()}
       </SearchLog>
     );
   }
