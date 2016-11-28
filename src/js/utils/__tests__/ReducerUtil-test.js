@@ -44,7 +44,7 @@ describe('ReducerUtil', function () {
     it('should use context', function () {
       const reducers = ReducerUtil.combineReducers({
         id: idReducer,
-        vip(state = undefined, action) {
+        vip(state, action) {
           if (action.path.join('') === 'id') {
             this.id = action.value;
           }
@@ -90,7 +90,7 @@ describe('ReducerUtil', function () {
       const reducers = ReducerUtil.combineReducers({
         id: idReducer,
         container: ReducerUtil.combineReducers({
-          vip(state = undefined, action) {
+          vip(state, action) {
             if (action.path.join('') === 'id') {
               this.id = action.value;
             }
@@ -144,7 +144,7 @@ describe('ReducerUtil', function () {
 
     it('should properly apply a set of user actions', function () {
       let dockerReduce = ReducerUtil.combineReducers({
-        id(state = undefined, action) {
+        id(state, action) {
           if (action.action === 'SET' &&
             action.path.join('.') === 'container.docker') {
             return action.value;
@@ -161,7 +161,7 @@ describe('ReducerUtil', function () {
           }
           return state;
         },
-        cmd(state = undefined, action) {
+        cmd(state, action) {
           if (action.action === 'SET' &&
             action.path.join('') === 'cmd') {
             state = action.value;
@@ -169,7 +169,7 @@ describe('ReducerUtil', function () {
           return state;
         },
         container: ReducerUtil.combineReducers({
-          docker(state = undefined, action) {
+          docker(state, action) {
             if (action.action === 'SET' &&
               action.path.join('.') === 'container.docker') {
               return dockerReduce(state, action);
