@@ -89,7 +89,7 @@ class TaskFileViewer extends React.Component {
     });
 
     return (
-      <div className="button-group">
+      <div key="button-group" className="button-group">
         {buttons}
       </div>
     );
@@ -145,6 +145,7 @@ class TaskFileViewer extends React.Component {
 
     return (
       <Dropdown
+        key="dropdown"
         buttonClassName="button dropdown-toggle"
         dropdownMenuClassName="dropdown-menu"
         dropdownMenuListClassName="dropdown-menu-list"
@@ -165,7 +166,7 @@ class TaskFileViewer extends React.Component {
 
     return [
       this.getSelectionComponent(selectedLogFile),
-      <Tooltip anchor="end" content={'Download log file'}>
+      <Tooltip key="tooltip" anchor="end" content={'Download log file'}>
         <a
           className="button button-stroke"
           disabled={!filePath}
