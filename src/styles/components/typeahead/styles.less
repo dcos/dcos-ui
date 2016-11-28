@@ -105,26 +105,10 @@
       .typeahead {
 
         .dropdown-menu {
-          margin-left: calc(-1 * (@icon-mini-width + @form-control-border-width) ~' - ' (-2 * @form-control-padding-left-screen-medium));
+          margin-left: calc(-1 * (@icon-mini-width + @form-control-border-width) ~' - ' (-2 * @form-control-padding-left));
           // We are matching the width of .filter-input-text-group
           // as defined in reactjs-components
           min-width: 200px;
-        }
-      }
-    }
-  }
-}
-
-& when (@typeahead-enabled) and (@layout-screen-large-enabled) {
-
-  @media (min-width: @layout-screen-large-min-width) {
-
-    .form-control-group.filter-input-text-group {
-
-      .typeahead {
-
-        .dropdown-menu {
-          margin-left: calc(-1 * (@icon-mini-width + @form-control-border-width) ~' - ' (-2 * @form-control-padding-left-screen-large));
         }
       }
     }
