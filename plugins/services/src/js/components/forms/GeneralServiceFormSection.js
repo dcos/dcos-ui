@@ -24,7 +24,7 @@ const containerRuntimes = {
     helpText: 'Native container engine in Mesos using standard Linux features. Supports multiple containers (Pods) and GPU resources.'
   },
   [DOCKER]: {
-    label: <span>Docker Engine</span>,
+    label: <span>Docker Engine <em>(recommended)</em></span>,
     helpText: 'Docker’s container runtime. No support for multiple containers (Pods) or GPU resources.'
   }
 };
