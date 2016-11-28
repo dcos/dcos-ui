@@ -1,44 +1,18 @@
-import mixin from 'reactjs-mixin';
 /* eslint-disable no-unused-vars */
 import React from 'react';
 /* eslint-enable no-unused-vars */
-import {StoreMixin} from 'mesosphere-shared-reactjs';
 
-import CosmosPackagesStore from '../../../../../../src/js/stores/CosmosPackagesStore';
 import defaultServiceImage from '../../../img/icon-service-default-medium@2x.png';
+import jsonServiceImage from '../../../img/service-image-json-medium@2x.png';
 import Image from '../../../../../../src/js/components/Image';
-import Loader from '../../../../../../src/js/components/Loader';
 import Panel from '../../../../../../src/js/components/Panel';
 
-class NewCreateServiceModalServicePicker extends mixin(StoreMixin) {
+class NewCreateServiceModalServicePicker extends React.Component {
   constructor() {
     super(...arguments);
 
     this.state = {
-      errorMessage: null,
-      isLoading: true
     };
-
-    this.store_listeners = [
-      {
-        name: 'cosmosPackages',
-        events: ['availableError', 'availableSuccess'],
-        suppressUpdate: true
-      }
-    ];
-  }
-
-  componentDidMount() {
-    super.componentDidMount(...arguments);
-    CosmosPackagesStore.fetchAvailablePackages();
-  }
-
-  onCosmosPackagesStoreAvailableError(errorMessage) {
-    this.setState({errorMessage});
-  }
-
-  onCosmosPackagesStoreAvailableSuccess() {
-    this.setState({errorMessage: null, isLoading: false});
   }
 
   handleServiceSelect(service) {
@@ -50,22 +24,20 @@ class NewCreateServiceModalServicePicker extends mixin(StoreMixin) {
       icon: (
         <Image fallbackSrc={defaultServiceImage} src={defaultServiceImage} />
       ),
-      label: 'Container Service'
+      label: 'Container Service',
+      type: 'app'
     }, {
       icon: (
         <Image fallbackSrc={defaultServiceImage} src={defaultServiceImage} />
       ),
-      label: 'Docker Compose'
+      label: 'Multi-Container (Pod)',
+      type: 'pod'
     }, {
       icon: (
-        <Image fallbackSrc={defaultServiceImage} src={defaultServiceImage} />
+        <Image fallbackSrc={jsonServiceImage} src={jsonServiceImage} />
       ),
-      label: 'JSON Configuration'
-    }, {
-      icon: (
-        <Image fallbackSrc={defaultServiceImage} src={defaultServiceImage} />
-      ),
-      label: 'Kubernetes YAML'
+      label: 'JSON Configuration',
+      type: 'json'
     }].map((item, index) => {
       return this.getServiceOption(
         this.getServiceOptionIconWrapper(item.icon),
@@ -76,7 +48,7 @@ class NewCreateServiceModalServicePicker extends mixin(StoreMixin) {
     });
 
     return (
-      <div className="panel-grid row">
+      <div className="create-service-modal-service-picker-options panel-grid row">
         {customOptions}
       </div>
     );
@@ -92,34 +64,22 @@ class NewCreateServiceModalServicePicker extends mixin(StoreMixin) {
 
   getServiceDeployOptions() {
     return (
-      <div className="container">
-        <div className="pod pod-taller flush-top flush-right flush-left">
-          <h3 className="short flush-top">
-            Run your own Service
-          </h3>
-          <p className="lead tall">
-            Create serice from one or more containers, run a command, or run from
-            Docker Compose.
-          </p>
-          {this.getCustomServiceGrid()}
-        </div>
-        <div>
-          <h3 className="short flush-top">
-            or, Run a DC/OS Service from Universe
-          </h3>
-          <p className="lead tall">
-            Don't see the service you were looking for? Contact your
-            administrator to make it available.
-          </p>
-          {this.getUniversePackagesGrid()}
-        </div>
+      <div className="create-service-modal-service-picker container text-align-center">
+        <h3 className="short flush-top">
+          Run your own Service
+        </h3>
+        <p className="lead tall">
+          Create service from one or more containers, run a command, or run from
+          Docker Compose.
+        </p>
+        {this.getCustomServiceGrid()}
       </div>
     );
   }
 
   getServiceOption(icon, title, index, service) {
     return (
-      <div className="panel-grid-item column-6 column-small-4 column-large-3"
+      <div className="create-service-modal-service-picker-option panel-grid-item column-12 column-small-4 column-large-3"
         key={index}>
         <Panel className="panel-interactive clickable"
           contentClass={[
@@ -172,18 +132,6 @@ class NewCreateServiceModalServicePicker extends mixin(StoreMixin) {
   }
 
   render() {
-    if (this.state.isLoading) {
-      return (
-        <div className="flex-item-grow-1">
-          <Loader className="inverse" />
-        </div>
-      );
-    }
-
-    if (this.state.errorMessage != null) {
-      return this.state.errorMessage;
-    }
-
     return this.getServiceDeployOptions();
   }
 }
