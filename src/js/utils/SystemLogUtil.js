@@ -48,7 +48,7 @@ const SystemLogUtil = {
     let idArray = ['framework', 'executor', 'container'].reduce(function (memo, key) {
       let id = `${key}ID`;
       if (options[id] !== '' && options[id] != null) {
-        memo.push(id, options[id]);
+        memo.push(key, options[id]);
       }
 
       return memo;

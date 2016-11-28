@@ -97,6 +97,53 @@ describe('SystemLogUtil', function () {
       );
     });
 
+    it('should add framework id in the URL', function () {
+      var result = SystemLogUtil.getUrl('foo', {
+        cursor: 'cursor',
+        frameworkID: 'bar'
+      }, false);
+
+      expect(result).toEqual(
+        '/system/v1/agent/foo/logs/v1/range/framework/bar?cursor=cursor'
+      );
+    });
+
+    it('should add executor id in the URL', function () {
+      var result = SystemLogUtil.getUrl('foo', {
+        cursor: 'cursor',
+        executorID: 'bar'
+      }, false);
+
+      expect(result).toEqual(
+        '/system/v1/agent/foo/logs/v1/range/executor/bar?cursor=cursor'
+      );
+    });
+
+    it('should add container id in the URL', function () {
+      var result = SystemLogUtil.getUrl('foo', {
+        cursor: 'cursor',
+        containerID: 'bar'
+      }, false);
+
+      expect(result).toEqual(
+        '/system/v1/agent/foo/logs/v1/range/container/bar?cursor=cursor'
+      );
+    });
+
+    it('should add all ids in the URL', function () {
+      var result = SystemLogUtil.getUrl('foo', {
+        cursor: 'cursor',
+        frameworkID: 'bar',
+        executorID: 'baz',
+        containerID: 'quis'
+      }, false);
+
+      expect(result).toEqual(
+        '/system/v1/agent/foo/logs/v1/range/' +
+        'framework/bar/executor/baz/container/quis?cursor=cursor'
+      );
+    });
+
   });
 
 });

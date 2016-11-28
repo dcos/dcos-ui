@@ -5,12 +5,16 @@ import {
   REQUEST_SYSTEM_LOG_SUCCESS,
   REQUEST_PREVIOUS_SYSTEM_LOG_ERROR,
   REQUEST_PREVIOUS_SYSTEM_LOG_SUCCESS,
+  REQUEST_SYSTEM_LOG_STREAM_TYPES_ERROR,
+  REQUEST_SYSTEM_LOG_STREAM_TYPES_SUCCESS,
   SERVER_ACTION
 } from '../constants/ActionTypes';
 import AppDispatcher from '../events/AppDispatcher';
 import {
   SYSTEM_LOG_CHANGE,
-  SYSTEM_LOG_REQUEST_ERROR
+  SYSTEM_LOG_REQUEST_ERROR,
+  SYSTEM_LOG_STREAM_TYPES_SUCCESS,
+  SYSTEM_LOG_STREAM_TYPES_ERROR
 } from '../constants/EventTypes';
 import BaseStore from './BaseStore';
 import SystemLogActions from '../events/SystemLogActions';
@@ -31,7 +35,9 @@ class SystemLogStore extends BaseStore {
       storeID: this.storeID,
       events: {
         success: SYSTEM_LOG_CHANGE,
-        error: SYSTEM_LOG_REQUEST_ERROR
+        error: SYSTEM_LOG_REQUEST_ERROR,
+        streamSuccess: SYSTEM_LOG_STREAM_TYPES_SUCCESS,
+        streamError: SYSTEM_LOG_STREAM_TYPES_ERROR
       },
       unmountWhen() {
         return true;
@@ -60,6 +66,12 @@ class SystemLogStore extends BaseStore {
           break;
         case REQUEST_PREVIOUS_SYSTEM_LOG_ERROR:
           this.processLogPrependError(subscriptionID, data);
+          break;
+        case REQUEST_SYSTEM_LOG_STREAM_TYPES_SUCCESS:
+          this.emit(SYSTEM_LOG_STREAM_TYPES_SUCCESS, data);
+          break;
+        case REQUEST_SYSTEM_LOG_STREAM_TYPES_ERROR:
+          this.emit(SYSTEM_LOG_STREAM_TYPES_ERROR, data);
           break;
       }
 
@@ -146,6 +158,10 @@ class SystemLogStore extends BaseStore {
       nodeID,
       Object.assign({cursor}, options)
     );
+  }
+
+  fetchStreamTypes(nodeID) {
+    SystemLogActions.fetchStreamTypes(nodeID);
   }
 
   processLogEntry(subscriptionID, entry = {}) {
