@@ -115,7 +115,7 @@ class SidebarFilter extends React.Component {
 
     if (count) {
       badge = (
-        <span className="badge">
+        <span className="badge badge-rounded">
           {count}
         </span>
       );
