@@ -160,6 +160,14 @@ module.exports = {
       return this.getArrayOfTypeName(itype);
     }
 
+    //
+    // If the type is still anonymous, try to lookup it's type by
+    // traversing the super classes
+    //
+    if (itype.nameId() == null) {
+      return this.getTypeName(itype.superTypes()[0]);
+    }
+
     // Return type name
     return itype.nameId();
   },

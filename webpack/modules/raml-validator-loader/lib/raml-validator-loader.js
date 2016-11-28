@@ -166,10 +166,10 @@ module.exports =
 	  /**
 	   * Generate a full source using the given generator context
 	   *
-	   * @param {GeneratorContext} ctx - The generator context to use
+	   * @param {GeneratorContext} context - The generator context to use
 	   * @returns {String} The generated module source code
 	   */
-	  generate: function generate(ctx) {
+	  generate: function generate(context) {
 	    var itype = void 0;
 	    var privateValidatorFragments = ['var PrivateValidators = {'];
 	    var validatorFragments = ['var Validators = {'];
@@ -178,7 +178,7 @@ module.exports =
 	    // The following loop generates the validators for every type in the context
 	    // A validator generator might push more types while it's being processed.
 	    //
-	    while (itype = ctx.nextTypeInQueue()) {
+	    while (itype = context.nextTypeInQueue()) {
 	      var typeName = _RAMLUtil2.default.getTypeName(itype);
 	      var fragments = [];
 
@@ -199,7 +199,7 @@ module.exports =
 	      }
 
 	      // Compose the validator function
-	      fragments = fragments.concat(_GeneratorUtil2.default.indentFragments(this.commentBlock(comment)), ['\t' + typeName + ': function(value, path) {', '\t\tvar errors = [];', '\t\tpath = path || [];'], _GeneratorUtil2.default.indentFragments(_TypeValidator2.default.generateTypeValidator(itype, ctx), '\t\t'), ['\t\treturn errors;', '\t},', '']);
+	      fragments = fragments.concat(_GeneratorUtil2.default.indentFragments(this.commentBlock(comment)), ['\t' + typeName + ': function(value, path) {', '\t\tvar errors = [];', '\t\tpath = path || [];'], _GeneratorUtil2.default.indentFragments(_TypeValidator2.default.generateTypeValidator(itype, context), '\t\t'), ['\t\treturn errors;', '\t},', '']);
 
 	      // Inline types are stored in a different object, not exposed to the user
 	      if (_RAMLUtil2.default.isInlineType(itype)) {
@@ -217,8 +217,8 @@ module.exports =
 	    // While processing the types, the validator generators will populate
 	    // constants in the global constants table(s).
 	    //
-	    var globalTableFragments = Object.keys(ctx.constantTables).reduce(function (lines, tableName) {
-	      var table = ctx.constantTables[tableName];
+	    var globalTableFragments = Object.keys(context.constantTables).reduce(function (lines, tableName) {
+	      var table = context.constantTables[tableName];
 	      if (Array.isArray(table)) {
 	        // Array of anonymous expressions
 	        return lines.concat(['var ' + tableName + ' = ['], _GeneratorUtil2.default.indentFragments(table).map(function (line) {
@@ -233,9 +233,20 @@ module.exports =
 	    }, []);
 
 	    //
+	    // Compose exports
+	    //
+	    var variableExports = [];
+	    if (context.constantTables['ERROR_MESSAGES'] != null) {
+	      variableExports.push('Validators.ERROR_MESSAGES = ERROR_MESSAGES;');
+	    }
+	    if (variableExports.length) {
+	      variableExports.unshift('// Expose properties that can be overriden remotely');
+	    }
+
+	    //
 	    // Compose the individual fragments into the full module source
 	    //
-	    return [].concat('module.exports = (function() {', _RAMLError2.default, globalTableFragments, '', privateValidatorFragments, '', validatorFragments, '', 'return Validators;', '})();').join('\n');
+	    return [].concat('module.exports = (function() {', _RAMLError2.default, globalTableFragments, '', privateValidatorFragments, '', validatorFragments, '', variableExports, '', 'return Validators;', '})();').join('\n');
 	  }
 
 	};
@@ -413,6 +424,14 @@ module.exports =
 	    //
 	    if (this.isArrayOfType(itype)) {
 	      return this.getArrayOfTypeName(itype);
+	    }
+
+	    //
+	    // If the type is still anonymous, try to lookup it's type by
+	    // traversing the super classes
+	    //
+	    if (itype.nameId() == null) {
+	      return this.getTypeName(itype.superTypes()[0]);
 	    }
 
 	    // Return type name
@@ -1189,7 +1208,7 @@ module.exports =
 	  object: function object(fragments, context) {
 	    var ERROR_MESSAGE = context.getConstantString('ERROR_MESSAGES', 'TYPE_NOT_OBJECT', 'Expecting an object');
 
-	    return [].concat('if (typeof value != "object") {', '\terrors.push(new RAMLError(path, ' + ERROR_MESSAGE + '));', '} else {', (0, _GeneratorUtil.indentFragments)(fragments), '}');
+	    return [].concat('if ((typeof value != "object") || (value === null)) {', '\terrors.push(new RAMLError(path, ' + ERROR_MESSAGE + '));', '} else {', (0, _GeneratorUtil.indentFragments)(fragments), '}');
 	  },
 
 	  /**
