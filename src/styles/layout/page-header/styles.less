@@ -4,6 +4,73 @@
   .clearfix();
 }
 
+& when (@page-header-title-enabled) {
+
+  .page-header-title {
+    .element-spacing(page-header-title, null, null);
+    .element-text-size(page-header-title, null);
+    .element-text-style(page-header-title);
+    .property-variant(page-header-title, opacity, null, null);
+    display: block;
+
+    /* Layout Variants */
+
+    &.short {
+      .element-spacing(page-header-title, short, null);
+    }
+
+    &.tall {
+      .element-spacing(page-header-title, tall, null);
+    }
+
+    /* Styling Variants */
+
+    & when (@page-header-title-emphasis-enabled) {
+
+      &.emphasis,
+      .emphasis {
+        .element-text-style(page-header-title-emphasis);
+        .property-variant(page-header-title-emphasis, opacity, null, null);
+      }
+    }
+
+    & when (@page-header-title-muted-enabled) {
+
+      &.muted,
+      .muted {
+        .element-text-style(page-header-title-muted);
+        .property-variant(page-header-title-muted, opacity, null, null);
+      }
+    }
+
+    & when (@page-header-title-inverse-enabled) {
+
+      &.inverse {
+        .element-text-style(page-header-title-inverse);
+        .property-variant(page-header-title-inverse, opacity, null, null);
+
+        & when (@page-header-title-inverse-emphasis-enabled) {
+
+          &.emphasis,
+          .emphasis {
+            .element-text-style(page-header-title-inverse-emphasis);
+            .property-variant(page-header-title-inverse-emphasis, opacity, null, null);
+          }
+        }
+
+        & when (@page-header-title-inverse-muted-enabled) {
+
+          &.muted,
+          .muted {
+            .element-text-style(page-header-title-inverse-muted);
+            .property-variant(page-header-title-inverse-muted, opacity, null, null);
+          }
+        }
+      }
+    }
+  }
+}
+
 .page-header-navigation {
 
   & when not (@pod-margin-bottom = null) {
@@ -23,6 +90,24 @@
 & when (@layout-screen-small-enabled) {
 
   @media (min-width: @layout-screen-small-min-width) {
+
+    & when (@page-header-title-enabled) and (@page-header-title-screen-small-enabled) {
+
+      .page-header-title {
+        .element-spacing(page-header-title, null, screen-small);
+        .element-text-size(page-header-title, screen-small);
+
+        /* Layout Variants */
+
+        &.short {
+          .element-spacing(page-header-title, short, screen-small);
+        }
+
+        &.tall {
+          .element-spacing(page-header-title, tall, screen-small);
+        }
+      }
+    }
 
     .page-header-navigation {
 
@@ -46,6 +131,24 @@
 
   @media (min-width: @layout-screen-medium-min-width) {
 
+    & when (@page-header-title-enabled) and (@page-header-title-screen-medium-enabled) {
+
+      .page-header-title {
+        .element-spacing(page-header-title, null, screen-medium);
+        .element-text-size(page-header-title, screen-medium);
+
+        /* Layout Variants */
+
+        &.short {
+          .element-spacing(page-header-title, short, screen-medium);
+        }
+
+        &.tall {
+          .element-spacing(page-header-title, tall, screen-medium);
+        }
+      }
+    }
+
     .page-header-navigation {
 
       & when not (@pod-margin-bottom-screen-medium = null) {
@@ -68,6 +171,24 @@
 
   @media (min-width: @layout-screen-large-min-width) {
 
+    & when (@page-header-title-enabled) and (@page-header-title-screen-large-enabled) {
+
+      .page-header-title {
+        .element-text-size(page-header-title, screen-large);
+        .element-spacing(page-header-title, null, screen-large);
+
+        /* Layout Variants */
+
+        &.short {
+          .element-spacing(page-header-title, short, screen-large);
+        }
+
+        &.tall {
+          .element-spacing(page-header-title, tall, screen-large);
+        }
+      }
+    }
+
     .page-header-navigation {
 
       & when not (@pod-margin-bottom-screen-large = null) {
@@ -89,6 +210,24 @@
 & when (@layout-screen-jumbo-enabled) {
 
   @media (min-width: @layout-screen-jumbo-min-width) {
+
+    & when (@page-header-title-enabled) and (@page-header-title-screen-jumbo-enabled) {
+
+      .page-header-title {
+        .element-spacing(page-header-title, null, screen-jumbo);
+        .element-text-size(page-header-title, screen-jumbo);
+
+        /* Layout Variants */
+
+        &.short {
+          .element-spacing(page-header-title, short, screen-jumbo);
+        }
+
+        &.tall {
+          .element-spacing(page-header-title, tall, screen-jumbo);
+        }
+      }
+    }
 
     .page-header-navigation {
 
