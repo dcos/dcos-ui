@@ -336,8 +336,12 @@ class JSONEditor extends React.Component {
       return;
     }
 
-    // Merge current annotations with the annotations we are going to show
-    this.aceEditor.getSession().setAnnotations(this.getErrorMarkers());
+    // Defer the annotation update, since for some reason ACE editor
+    // does not get updated if the update comes from the same stack call
+    // that set it's state.
+    setTimeout(() => {
+      this.aceEditor.getSession().setAnnotations(this.getErrorMarkers());
+    }, 1);
   }
 
   /**
