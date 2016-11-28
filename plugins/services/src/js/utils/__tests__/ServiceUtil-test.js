@@ -985,4 +985,39 @@ describe('ServiceUtil', function () {
     });
   });
 
+  describe('#isEqual', function () {
+    it('should return false if services have different type', function () {
+      let serviceA = new Application({
+        id: 'foo'
+      });
+      let serviceB = new Pod({
+        id: 'foo'
+      });
+
+      expect(ServiceUtil.isEqual(serviceA, serviceB)).toBeFalsy();
+    });
+
+    it('should return false if same type but diferent content', function () {
+      let serviceA = new Application({
+        id: 'foo'
+      });
+      let serviceB = new Application({
+        id: 'bar'
+      });
+
+      expect(ServiceUtil.isEqual(serviceA, serviceB)).toBeFalsy();
+    });
+
+    it('should return true if same type and same content', function () {
+      let serviceA = new Application({
+        id: 'foo'
+      });
+      let serviceB = new Application({
+        id: 'foo'
+      });
+
+      expect(ServiceUtil.isEqual(serviceA, serviceB)).toBeTruthy();
+    });
+  });
+
 });

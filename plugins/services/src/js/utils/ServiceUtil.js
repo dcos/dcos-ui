@@ -1,4 +1,6 @@
 import {Hooks} from 'PluginSDK';
+import deepEqual from 'deep-equal';
+
 import Application from '../structs/Application';
 import ApplicationSpec from '../structs/ApplicationSpec';
 import Framework from '../structs/Framework';
@@ -453,8 +455,18 @@ const ServiceUtil = {
   },
 
   createFormModelFromSchema(schema, service = new Application()) {
-
     return getFindPropertiesRecursive(service, schema.properties);
+  },
+
+  isEqual(serviceA, serviceB) {
+    if (serviceA.constructor !== serviceB.constructor) {
+      return false;
+    }
+
+    return deepEqual(
+        this.getServiceJSON(serviceA),
+        this.getServiceJSON(serviceB)
+      );
   },
 
   getDefinitionFromSpec(spec) {

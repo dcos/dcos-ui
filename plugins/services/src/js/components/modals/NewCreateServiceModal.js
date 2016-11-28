@@ -16,6 +16,7 @@ import NewCreateServiceModalForm from './NewCreateServiceModalForm';
 import CreateServiceJsonOnly from './CreateServiceJsonOnly';
 import Service from '../../structs/Service';
 import ServiceConfigDisplay from '../ServiceConfigDisplay';
+import ServiceUtil from '../../utils/ServiceUtil';
 import ToggleButton from '../../../../../../src/js/components/ToggleButton';
 import Util from '../../../../../../src/js/utils/Util';
 
@@ -60,6 +61,17 @@ class NewServiceFormModal extends Component {
 
     if (shouldClose) {
       this.handleClose();
+    }
+  }
+
+  /**
+   * @override
+   */
+  componentWillReceiveProps(nextProps) {
+    if (!ServiceUtil.isEqual(this.props.service, nextProps.service)) {
+      this.setState({
+        serviceConfig: this.getNormalizedServiceConfig(nextProps.service)
+      });
     }
   }
 
@@ -114,26 +126,6 @@ class NewServiceFormModal extends Component {
     this.setState({isJSONModeActive: !this.state.isJSONModeActive});
   }
 
-  getResetState(nextProps = this.props) {
-    let newState = {
-      isJSONModeActive: false,
-      serviceConfig: nextProps.service,
-      serviceFormActive: false,
-      serviceJsonActive: false,
-      servicePickerActive: true,
-      serviceReviewActive: false,
-      serviceFormHasErrors: false
-    };
-
-    // Switch directly to form if edit
-    if (nextProps.isEdit) {
-      newState.servicePickerActive = false;
-      newState.serviceFormActive = true;
-    }
-
-    return newState;
-  }
-
   handleServiceChange(newService) {
     this.setState({
       serviceConfig: newService
@@ -155,7 +147,7 @@ class NewServiceFormModal extends Component {
           serviceFormActive: true,
           serviceConfig: new Application(
             Object.assign(
-              {id: this.props.service.id},
+              {id: this.props.service.getId()},
               NEW_APP_DEFAULTS
             )
           )
@@ -168,7 +160,7 @@ class NewServiceFormModal extends Component {
           serviceFormActive: true,
           serviceConfig: new Pod(
             Object.assign(
-              {id: this.props.service.id},
+              {id: this.props.service.getId()},
               NEW_POD_DEFAULTS
             )
           )
@@ -367,6 +359,26 @@ class NewServiceFormModal extends Component {
     return [];
   }
 
+  getResetState(nextProps = this.props) {
+    let newState = {
+      isJSONModeActive: false,
+      serviceConfig: this.getNormalizedServiceConfig(nextProps.service),
+      serviceFormActive: false,
+      serviceJsonActive: false,
+      servicePickerActive: true,
+      serviceReviewActive: false,
+      serviceFormHasErrors: false
+    };
+
+    // Switch directly to form if edit
+    if (nextProps.isEdit) {
+      newState.servicePickerActive = false;
+      newState.serviceFormActive = true;
+    }
+
+    return newState;
+  }
+
   getSecondaryActions() {
     let {servicePickerActive, serviceFormActive} = this.state;
     let label = 'Back';
@@ -381,6 +393,23 @@ class NewServiceFormModal extends Component {
         label
       }
     ];
+  }
+
+  /**
+   * Normalize the given `service` instance/config in order to match the
+   * specifications required by the editing/reviewing components
+   *
+   * @param {Pod|Application|Object} service - The service to normalize
+   * @returns {Pod|Application} Returns a pod or an application
+   */
+  getNormalizedServiceConfig(service) {
+    // A Pod is defined by it's specifications, *NOT* by it's state. Therefore
+    // we must extract and operate upon the `PodSpec` from the `Pod`.
+    if (service instanceof Pod) {
+      return service.getSpec();
+    }
+
+    return service;
   }
 
   render() {
