@@ -46,8 +46,6 @@ class CreateServiceJsonOnly extends React.Component {
    * @override
    */
   componentDidUpdate(prevProps, prevState) {
-    window.ReactDOM = ReactDOM;
-    window.fiddle = this;
     let hasErrors = (this.state.errorList.length !== 0) || this.state.jsonHasErrors;
     let hadErrors = (prevState.errorList.length !== 0) || prevState.jsonHasErrors;
 
