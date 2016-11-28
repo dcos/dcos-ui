@@ -35,12 +35,8 @@ describe('DeclinedOffersUtil', function () {
           mem: 128,
           disk: 0,
           ports: [10010],
-          scheduling: {
-            placement: {
-              acceptedResourceRoles: ['*'],
-              constraints: [['hostname', 'UNIQUE']]
-            }
-          }
+          acceptedResourceRoles: ['*'],
+          constraints: [['hostname', 'UNIQUE']]
         },
         processedOffersSummary: {
           processedOffersCount: 10,
@@ -158,12 +154,8 @@ describe('DeclinedOffersUtil', function () {
               }
             }
           ],
-          scheduling: {
-            placement: {
-              acceptedResourceRoles: ['foo', 'bar'],
-              constraints: [['foo.constraint.1', 'foo.constraint.2', 'foo.constraint.3']]
-            }
-          }
+          acceptedResourceRoles: ['foo', 'bar'],
+          constraints: [['foo.constraint.1', 'foo.constraint.2', 'foo.constraint.3']]
         },
         processedOffersSummary: {
           processedOffersCount: 10,

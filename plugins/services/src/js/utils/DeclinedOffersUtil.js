@@ -96,12 +96,9 @@ const DecinedOffersUtil = {
 
         return accumulator;
       }, {
-        roles: Util.findNestedPropertyInObject(
-          pod, 'scheduling.placement.acceptedResourceRoles'
-        ) || ['*'],
-        constraints: Util.findNestedPropertyInObject(
-          pod, 'scheduling.placement.constraints'
-        ) || [],
+        roles: Util.findNestedPropertyInObject(pod, 'acceptedResourceRoles')
+          || ['*'],
+        constraints: Util.findNestedPropertyInObject(pod, 'constraints') || [],
         cpus: 0,
         mem: 0,
         disk: 0,
@@ -109,12 +106,9 @@ const DecinedOffersUtil = {
       });
     } else {
       requestedResources = {
-        roles: Util.findNestedPropertyInObject(
-            app, 'scheduling.placement.acceptedResourceRoles'
-          ) || ['*'],
-        constraints: Util.findNestedPropertyInObject(
-          app, 'scheduling.placement.constraints'
-        ) || [],
+        roles: Util.findNestedPropertyInObject(app, 'acceptedResourceRoles')
+          || ['*'],
+        constraints: Util.findNestedPropertyInObject(app, 'constraints') || [],
         cpus: app.cpus || 0,
         mem: app.mem || 0,
         disk: app.disk || 0,
