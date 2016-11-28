@@ -188,6 +188,12 @@
 @sidebar-menu-item-content-padding-horizontal-screen-jumbo: @pod-margin-left-screen-jumbo * @pod-narrower-margin-left-scale;
 
 /*
+ * Sidebar Submenu Item Icon
+ */
+
+@sidebar-menu-item-icon-margin-right: 12px;
+
+/*
  * Sidebar Menu Item Link
  */
 
@@ -251,10 +257,6 @@
  * Sidebar Submenu
  */
 
-/* Styling */
-
-@sidebar-submenu-background-color: color-lighten(@neutral, -30);
-
 /* Layout */
 
 // Margin Top
@@ -267,11 +269,11 @@
 
 // Padding Top
 
-@sidebar-submenu-padding-top: @pod-margin-top * @pod-shorter-margin-bottom-scale;
-@sidebar-submenu-padding-top-screen-small: @pod-margin-top-screen-small * @pod-shorter-margin-bottom-scale;
-@sidebar-submenu-padding-top-screen-medium: @pod-margin-top-screen-medium * @pod-shorter-margin-bottom-scale;
-@sidebar-submenu-padding-top-screen-large: @pod-margin-top-screen-large * @pod-shorter-margin-bottom-scale;
-@sidebar-submenu-padding-top-screen-jumbo: @pod-margin-top-screen-jumbo * @pod-shorter-margin-bottom-scale;
+@sidebar-submenu-padding-top: 0;
+@sidebar-submenu-padding-top-screen-small: 0;
+@sidebar-submenu-padding-top-screen-medium: 0;
+@sidebar-submenu-padding-top-screen-large: 0;
+@sidebar-submenu-padding-top-screen-jumbo: 0;
 
 // Padding Bottom
 
@@ -351,7 +353,6 @@
 // Default
 
 @sidebar-submenu-item-link-color: color-lighten(@neutral, 60);
-@sidebar-submenu-item-link-background-color: color-lighten(@neutral, -30);
 
 // Hover
 
@@ -388,11 +389,11 @@
 
 // Padding Left
 
-@sidebar-submenu-item-link-padding-left: -@sidebar-submenu-item-link-margin-left;
-@sidebar-submenu-item-link-padding-left-screen-small: -@sidebar-submenu-item-link-margin-left-screen-small;
-@sidebar-submenu-item-link-padding-left-screen-medium: -@sidebar-submenu-item-link-margin-left-screen-medium;
-@sidebar-submenu-item-link-padding-left-screen-large: -@sidebar-submenu-item-link-margin-left-screen-large;
-@sidebar-submenu-item-link-padding-left-screen-jumbo: -@sidebar-submenu-item-link-margin-left-screen-jumbo;
+@sidebar-submenu-item-link-padding-left: -@sidebar-submenu-item-link-margin-left + @icon-small-width + @sidebar-menu-item-icon-margin-right;
+@sidebar-submenu-item-link-padding-left-screen-small: -@sidebar-submenu-item-link-margin-left-screen-small + @icon-small-width + @sidebar-menu-item-icon-margin-right;
+@sidebar-submenu-item-link-padding-left-screen-medium: -@sidebar-submenu-item-link-margin-left-screen-medium + @icon-small-width + @sidebar-menu-item-icon-margin-right;
+@sidebar-submenu-item-link-padding-left-screen-large: -@sidebar-submenu-item-link-margin-left-screen-large + @icon-small-width + @sidebar-menu-item-icon-margin-right;
+@sidebar-submenu-item-link-padding-left-screen-jumbo: -@sidebar-submenu-item-link-margin-left-screen-jumbo + @icon-small-width + @sidebar-menu-item-icon-margin-right;
 
 // Padding Right
 

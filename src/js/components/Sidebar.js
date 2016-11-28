@@ -47,6 +47,10 @@ var Sidebar = React.createClass({
     router: routerShape
   },
 
+  getInitialState() {
+    return {expandedItems: []};
+  },
+
   componentDidMount() {
     NavigationService.on(NAVIGATION_CHANGE, this.onNavigationChange);
 
@@ -149,11 +153,12 @@ var Sidebar = React.createClass({
       let {pathname} = this.props.location;
 
       let hasChildren = element.children && element.children.length !== 0;
+      let isExpanded = this.state.expandedItems.includes(element.path);
       let isParentActive = pathname.startsWith(element.path);
 
       let submenu;
       let isChildActive = false;
-      if (isParentActive && hasChildren) {
+      if (isExpanded && hasChildren) {
         [submenu, isChildActive] = this.getGroupSubmenu(
           group.path, element.children);
       }
@@ -162,8 +167,11 @@ var Sidebar = React.createClass({
       if (typeof linkElement === 'string') {
         linkElement = (
           <PrimarySidebarLink
+            hasChildren={hasChildren}
+            isExpanded={isExpanded}
             to={element.path}
-            icon={element.options.icon}>
+            icon={element.options.icon}
+            onClick={this.handlePrimarySidebarLinkClick.bind(this, element)}>
             {linkElement}
           </PrimarySidebarLink>
         );
@@ -272,6 +280,20 @@ var Sidebar = React.createClass({
       <UserAccountDropdown
         menuItems={Hooks.applyFilter('userDropdownItems', defaultItems)} />
     );
+  },
+
+  handlePrimarySidebarLinkClick(element) {
+    let {expandedItems} = this.state;
+    let {path} = element;
+    let expandedItemIndex = expandedItems.indexOf(path);
+
+    if (expandedItemIndex === -1) {
+      expandedItems.push(path);
+    } else {
+      expandedItems.splice(expandedItemIndex, 1);
+    }
+
+    this.setState({expandedItems});
   },
 
   handleSidebarTransitionEnd(event) {
