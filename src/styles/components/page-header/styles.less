@@ -30,65 +30,49 @@
   }
 
   .page-header-title {
-    .element-spacing(page-header-title, null, null);
-    .element-text-size(page-header-title, null);
-    .element-text-style(page-header-title);
-    .property-variant(page-header-title, opacity, null, null);
-    display: block;
+    color: @page-header-title-color;
+    font-size: @page-header-title-font-size;
+    font-weight: @page-header-title-font-weight;
+    line-height: @page-header-title-line-height;
+    margin-bottom: @page-header-title-margin-bottom;
+    margin-top: @page-header-title-margin-top;
 
     /* Layout Variants */
 
     &.short {
-      .element-spacing(page-header-title, short, null);
+      margin-bottom: @page-header-title-margin-bottom * @page-header-title-short-margin-bottom-scale;
+      margin-top: @page-header-title-margin-top * @page-header-title-short-margin-top-scale;
     }
 
     &.tall {
-      .element-spacing(page-header-title, tall, null);
+      margin-bottom: @page-header-title-margin-bottom * @page-header-title-tall-margin-bottom-scale;
+      margin-top: @page-header-title-margin-top * @page-header-title-tall-margin-top-scale;
     }
 
     /* Styling Variants */
 
-    & when (@page-header-title-emphasis-enabled) {
+    &.emphasis,
+    .emphasis {
+      color: @page-header-title-emphasis-color;
+      font-weight: @page-header-title-emphasis-font-weight;
+    }
+
+    &.muted,
+    .muted {
+      color: @page-header-title-muted-color;
+    }
+
+    &.inverse {
+      color: @page-header-title-inverse-color;
 
       &.emphasis,
       .emphasis {
-        .element-text-style(page-header-title-emphasis);
-        .property-variant(page-header-title-emphasis, opacity, null, null);
+        color: @page-header-title-inverse-emphasis-color;
       }
-    }
-
-    & when (@page-header-title-muted-enabled) {
 
       &.muted,
       .muted {
-        .element-text-style(page-header-title-muted);
-        .property-variant(page-header-title-muted, opacity, null, null);
-      }
-    }
-
-    & when (@page-header-title-inverse-enabled) {
-
-      &.inverse {
-        .element-text-style(page-header-title-inverse);
-        .property-variant(page-header-title-inverse, opacity, null, null);
-
-        & when (@page-header-title-inverse-emphasis-enabled) {
-
-          &.emphasis,
-          .emphasis {
-            .element-text-style(page-header-title-inverse-emphasis);
-            .property-variant(page-header-title-inverse-emphasis, opacity, null, null);
-          }
-        }
-
-        & when (@page-header-title-inverse-muted-enabled) {
-
-          &.muted,
-          .muted {
-            .element-text-style(page-header-title-inverse-muted);
-            .property-variant(page-header-title-inverse-muted, opacity, null, null);
-          }
-        }
+        color: @page-header-title-inverse-muted-color;
       }
     }
   }
@@ -184,21 +168,6 @@
 
     & when (@page-header-enabled) and (@page-header-screen-small-enabled) {
 
-      .page-header-title {
-        .element-spacing(page-header-title, null, screen-small);
-        .element-text-size(page-header-title, screen-small);
-
-        /* Layout Variants */
-
-        &.short {
-          .element-spacing(page-header-title, short, screen-small);
-        }
-
-        &.tall {
-          .element-spacing(page-header-title, tall, screen-small);
-        }
-      }
-
       .page-header-navigation {
 
         & when not (@pod-margin-top-screen-small = null) {
@@ -237,17 +206,17 @@
     & when (@page-header-enabled) and (@page-header-screen-medium-enabled) {
 
       .page-header-title {
-        .element-spacing(page-header-title, null, screen-medium);
-        .element-text-size(page-header-title, screen-medium);
-
-        /* Layout Variants */
+        margin-bottom: @page-header-title-margin-bottom * @page-header-title-margin-bottom-screen-medium;
+        margin-top: @page-header-title-margin-top * @page-header-title-margin-top-screen-medium;
 
         &.short {
-          .element-spacing(page-header-title, short, screen-medium);
+          margin-bottom: @page-header-title-margin-bottom * @page-header-title-margin-bottom-screen-medium * @page-header-title-short-margin-bottom-scale;
+          margin-top: @page-header-title-margin-top * @page-header-title-margin-top-screen-medium * @page-header-title-short-margin-top-scale;
         }
 
         &.tall {
-          .element-spacing(page-header-title, tall, screen-medium);
+          margin-bottom: @page-header-title-margin-bottom * @page-header-title-margin-bottom-screen-medium * @page-header-title-tall-margin-bottom-scale;
+          margin-top: @page-header-title-margin-top * @page-header-title-margin-top-screen-medium * @page-header-title-tall-margin-top-scale;
         }
       }
 
@@ -289,17 +258,17 @@
     & when (@page-header-enabled) and (@page-header-screen-large-enabled) {
 
       .page-header-title {
-        .element-text-size(page-header-title, screen-large);
-        .element-spacing(page-header-title, null, screen-large);
-
-        /* Layout Variants */
+        margin-bottom: @page-header-title-margin-bottom * @page-header-title-margin-bottom-screen-large;
+        margin-top: @page-header-title-margin-top * @page-header-title-margin-top-screen-large;
 
         &.short {
-          .element-spacing(page-header-title, short, screen-large);
+          margin-bottom: @page-header-title-margin-bottom * @page-header-title-margin-bottom-screen-large * @page-header-title-short-margin-bottom-scale;
+          margin-top: @page-header-title-margin-top * @page-header-title-margin-top-screen-large * @page-header-title-short-margin-top-scale;
         }
 
         &.tall {
-          .element-spacing(page-header-title, tall, screen-large);
+          margin-bottom: @page-header-title-margin-bottom * @page-header-title-margin-bottom-screen-large * @page-header-title-tall-margin-bottom-scale;
+          margin-top: @page-header-title-margin-top * @page-header-title-margin-top-screen-large * @page-header-title-tall-margin-top-scale;
         }
       }
 
@@ -339,21 +308,6 @@
   @media (min-width: @layout-screen-jumbo-min-width) {
 
     & when (@page-header-enabled) and (@page-header-screen-jumbo-enabled) {
-
-      .page-header-title {
-        .element-spacing(page-header-title, null, screen-jumbo);
-        .element-text-size(page-header-title, screen-jumbo);
-
-        /* Layout Variants */
-
-        &.short {
-          .element-spacing(page-header-title, short, screen-jumbo);
-        }
-
-        &.tall {
-          .element-spacing(page-header-title, tall, screen-jumbo);
-        }
-      }
 
       .page-header-navigation {
 
