@@ -52,7 +52,7 @@ class SidebarStore extends GetSetBaseStore {
 
           if (this.get('isDocked') !== nextDockedState) {
             this.set({
-              isVisible: nextDockedState,
+              isVisible: nextDockedState ? false : nextDockedState,
               isDocked: nextDockedState
             });
             this.emitChange(SIDEBAR_CHANGE);

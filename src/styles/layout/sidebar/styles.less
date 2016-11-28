@@ -1,6 +1,14 @@
 // TODO: Reduce the specificity. DCOS-11785
 & when (@sidebar-enabled) {
 
+  // TODO: Fix this positioning. DCOS-11784
+  // Navigation
+  .navigation {
+    left: -100%;
+    position: fixed;
+    width: 100%;
+  }
+
   // Sidebar Wrapper
   .sidebar-wrapper {
     flex: 1 1 100%;
@@ -36,12 +44,26 @@
     }
   }
 
-  // TODO: Fix this positioning. DCOS-11784
-  // Navigation
-  .navigation {
-    left: -100%;
-    position: fixed;
-    width: 100%;
+  .sidebar-overlay {
+    &:extend(.modal-backdrop);
+    transition: opacity 0.25s;
+    z-index: @z-index-sidebar-overlay;
+
+    &-enter {
+      opacity: 0;
+
+      &-active {
+        opacity: 1;
+      }
+    }
+
+    &-leave {
+      opacity: 1;
+
+      &-active {
+        opacity: 0;
+      }
+    }
   }
 
   .sidebar-sections {
@@ -390,6 +412,13 @@
 
         .sidebar-docked & {
           transform: translateX(0);
+        }
+      }
+
+      .sidebar-overlay {
+
+        .sidebar-docked.sidebar-visible & {
+          display: none;
         }
       }
 

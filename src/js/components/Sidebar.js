@@ -1,4 +1,5 @@
 import classNames from 'classnames';
+import CSSTransitionGroup from 'react-addons-css-transition-group';
 import GeminiScrollbar from 'react-gemini-scrollbar';
 import {Link, routerShape} from 'react-router';
 import React from 'react';
@@ -43,7 +44,7 @@ var Sidebar = React.createClass({
 
   saveState_key: 'sidebar',
 
-  saveState_properties: ['sidebarVisible'],
+  saveState_properties: ['isDocked'],
 
   mixins: [SaveStateMixin, InternalStorageMixin],
 
@@ -63,16 +64,19 @@ var Sidebar = React.createClass({
       this.onDCOSMetadataChange
     );
 
-    SidebarStore.addChangeListener(
-      EventTypes.SIDEBAR_CHANGE,
-      this.handleSidebarStateChange
-    );
-
     if (this.sidebarRef) {
       this.sidebarRef.addEventListener(
         'transitionend',
         this.handleSidebarTransitionEnd
       );
+    }
+
+    if (this.state.isDocked !== SidebarStore.get('isDocked')) {
+      if (this.state.isDocked) {
+        SidebarActions.undock();
+      } else {
+        SidebarActions.dock();
+      }
     }
 
     global.window.addEventListener('keydown', this.handleKeyPress, true);
@@ -83,6 +87,7 @@ var Sidebar = React.createClass({
       NAVIGATION_CHANGE,
       this.onNavigationChange
     );
+
     MetadataStore.removeChangeListener(
       EventTypes.DCOS_METADATA_CHANGE,
       this.onDCOSMetadataChange
@@ -97,15 +102,6 @@ var Sidebar = React.createClass({
 
   onNavigationChange() {
     this.forceUpdate();
-  },
-
-  handleSidebarStateChange() {
-    // Attach and remove global event listener to detect external clicks.
-    if (SidebarStore.get('isVisible')) {
-      global.addEventListener('click', this.handleExternalClick);
-    } else {
-      global.removeEventListener('click', this.handleExternalClick);
-    }
   },
 
   handleInstallCLI() {
@@ -299,13 +295,8 @@ var Sidebar = React.createClass({
     }
   },
 
-  handleExternalClick() {
+  handleOverlayClick() {
     SidebarActions.close();
-  },
-
-  handleSidebarClick(event) {
-    // Prevent clicks in the sidebar from triggering the sidebar to close.
-    event.stopPropagation();
   },
 
   toggleSidebarDocking() {
@@ -321,8 +312,22 @@ var Sidebar = React.createClass({
   },
 
   render() {
+    let overlay = null;
+
+    if (SidebarStore.get('isVisible')) {
+      overlay = (
+        <div className="sidebar-overlay" onClick={this.handleOverlayClick} />
+      );
+    }
+
     return (
-      <div className="sidebar-wrapper" onClick={this.handleSidebarClick}>
+      <div className="sidebar-wrapper">
+        <CSSTransitionGroup
+          transitionName="sidebar-overlay"
+          transitionEnterTimeout={250}
+          transitionLeaveTimeout={250}>
+          {overlay}
+        </CSSTransitionGroup>
         <div className="sidebar flex flex-direction-top-to-bottom"
           ref={(ref) => { this.sidebarRef = ref; }}>
           <header className="header flex-item-shrink-0">
