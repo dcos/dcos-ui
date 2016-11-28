@@ -35,12 +35,8 @@ describe('DeclinedOffersUtil', function () {
           mem: 128,
           disk: 0,
           ports: [10010],
-          scheduling: {
-            placement: {
-              acceptedResourceRoles: ['*'],
-              constraints: [['hostname', 'UNIQUE']]
-            }
-          }
+          constraints: [['hostname', 'UNIQUE']],
+          acceptedResourceRoles: ['*']
         },
         processedOffersSummary: {
           processedOffersCount: 10,
