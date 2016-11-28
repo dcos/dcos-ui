@@ -20,7 +20,7 @@ module.exports = {
       }
       // Run our modules through Babel before running tests
       if (babel.util.canCompile(filename) || isJISON) {
-        src = babel.transform(src, {
+        var babelSettings = {
           auxiliaryCommentBefore: ' istanbul ignore next ',
           filename,
           presets: [jestPreset].concat([
@@ -28,7 +28,12 @@ module.exports = {
             'babel-preset-react'
           ].map(require.resolve)),
           retainLines: true,
-        }).code;
+        };
+
+        if (filename.indexOf('/graphql/') > -1) {
+          babelSettings.plugins = ['babel-plugin-transform-async-to-generator'].map(require.resolve)
+        }
+        src = babel.transform(src, babelSettings).code;
       }
       // Run our modules through the jest-webpack-alias plugin so we
       // can use the webpack alias in tests. By default, jest doesn't work
