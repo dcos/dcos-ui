@@ -472,6 +472,18 @@ const ServiceUtil = {
     return definition;
   },
 
+  getServiceJSON(service) {
+    if (!service) {
+      return {};
+    }
+
+    if (service.toJSON !== undefined) {
+      return service.toJSON();
+    }
+
+    return service;
+  },
+
   getServiceNameFromTaskID(taskID) {
     let serviceName = taskID.split('.')[0].split('_');
     return serviceName[serviceName.length - 1];

@@ -67,7 +67,6 @@ class JSONEditor extends React.Component {
     super(...arguments);
     // Clone the given initial value
     let initialText = JSON.stringify(this.props.value || {}, null, 2);
-    let initialValue = JSON.parse(initialText);
 
     // We are using the react-way of updating the component **only** when we
     // need to define a new text to work upon (ex. when the owner component has
@@ -98,7 +97,7 @@ class JSONEditor extends React.Component {
     this.timerIsTyping = null;
 
     // Initial state synchronisation
-    this.updateLocalJsonState(initialValue);
+    this.updateLocalJsonState(initialText);
 
     METHODS_TO_BIND.forEach((method) => {
       this[method] = this[method].bind(this);
@@ -337,8 +336,12 @@ class JSONEditor extends React.Component {
       return;
     }
 
-    // Merge current annotations with the annotations we are going to show
-    this.aceEditor.getSession().setAnnotations(this.getErrorMarkers());
+    // Defer the annotation update, since for some reason ACE editor
+    // does not get updated if the update comes from the same stack call
+    // that set it's state.
+    setTimeout(() => {
+      this.aceEditor.getSession().setAnnotations(this.getErrorMarkers());
+    }, 1);
   }
 
   /**

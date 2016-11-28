@@ -72,7 +72,6 @@ class NewServiceFormModal extends Component {
       this.setState({
         serviceReviewActive: false
       });
-
       return;
     }
 
@@ -82,7 +81,6 @@ class NewServiceFormModal extends Component {
         servicePickerActive: true,
         serviceFormActive: false
       });
-
       return;
     }
 
@@ -92,7 +90,6 @@ class NewServiceFormModal extends Component {
         servicePickerActive: true,
         serviceJsonActive: false
       });
-
       return;
     }
   }
@@ -171,12 +168,7 @@ class NewServiceFormModal extends Component {
         this.setState({
           servicePickerActive: false,
           serviceJsonActive: true,
-          serviceConfig: new Application(
-            Object.assign(
-              {id: this.props.service.id},
-              NEW_POD_DEFAULTS
-            )
-          )
+          serviceConfig: this.props.service
         });
         break;
 
@@ -245,7 +237,6 @@ class NewServiceFormModal extends Component {
   }
 
   getModalContent() {
-
     // NOTE: Always prioritize review screen check
     if (this.state.serviceReviewActive) {
       return (
