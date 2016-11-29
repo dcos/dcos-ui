@@ -165,7 +165,7 @@ class VirtualNetworkTaskTab extends mixin(StoreMixin) {
         className={classes}
         key={value}
         title={title}
-        to={`/network/virtual-networks/${overlayName}/tasks/${taskID}`}>
+        to={`/networking/networks/${overlayName}/tasks/${taskID}`}>
         {value}
       </Link>
     );

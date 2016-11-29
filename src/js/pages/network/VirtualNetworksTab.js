@@ -116,7 +116,7 @@ class VirtualNetworksTabContent extends mixin(StoreMixin) {
       <div>
         <FilterHeadline
           onReset={this.resetFilter}
-          name="Virtual Network"
+          name="Network"
           currentLength={filteredOverlayList.getItems().length}
           totalLength={overlayList.getItems().length} />
         <FilterBar>
@@ -140,8 +140,8 @@ class VirtualNetworksTabContent extends mixin(StoreMixin) {
 }
 
 VirtualNetworksTabContent.routeConfig = {
-  label: 'Virtual Networks',
-  matches: /^\/network\/virtual-networks/
+  label: 'Networks',
+  matches: /^\/networking\/networks/
 };
 
 module.exports = VirtualNetworksTabContent;

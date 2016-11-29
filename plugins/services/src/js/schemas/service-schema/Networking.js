@@ -51,7 +51,7 @@ const Networking = {
       }
     },
     ports: {
-      title: 'Service Endpoints',
+      title: 'Service Addresses',
       description: (
         <span>
           Configure the ports and endpoints you would like to use to talk to your service, or we can assign a random port for you. <a href="https://docs.mesosphere.com/overview/service-discovery/" target="_blank">Learn more about ports</a>.
