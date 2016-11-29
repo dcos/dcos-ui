@@ -9,7 +9,10 @@ import ServiceConfigEnvironmentVariablesSectionDisplay from './ServiceConfigEnvi
 import ServiceConfigLabelsSectionDisplay from './ServiceConfigLabelsSectionDisplay';
 import ServiceConfigHealthChecksSectionDisplay from './ServiceConfigHealthChecksSectionDisplay';
 
-const serviceConfigDisplayList = [
+// To pad priorities, so we can add components in between
+const PRIORITIES_PAD_NUMBER = 100;
+
+const SERVICE_CONFIG_DISPLAY_LIST = [
   ServiceConfigGeneralSectionDisplay,
   ServiceConfigNetworkingSectionDisplay,
   ServiceConfigStorageSectionDisplay,
@@ -20,11 +23,11 @@ const serviceConfigDisplayList = [
 
 class ServiceConfigDisplay extends React.Component {
   componentWillMount() {
-    serviceConfigDisplayList.forEach((component, index) => {
+    SERVICE_CONFIG_DISPLAY_LIST.forEach((component, index) => {
       MountService.MountService.registerComponent(
         component,
         'CreateService:ServiceConfigDisplay',
-        100 * index // pad priorities, so we can add components in between
+        PRIORITIES_PAD_NUMBER * index
       );
     });
   }
