@@ -70,7 +70,7 @@ class NewServiceFormModal extends Component {
   componentWillReceiveProps(nextProps) {
     if (!ServiceUtil.isEqual(this.props.service, nextProps.service)) {
       this.setState({
-        serviceConfig: this.getNormalizedServiceConfig(nextProps.service)
+        serviceConfig: nextProps.service.getSpec()
       });
     }
   }
@@ -362,7 +362,7 @@ class NewServiceFormModal extends Component {
   getResetState(nextProps = this.props) {
     let newState = {
       isJSONModeActive: false,
-      serviceConfig: this.getNormalizedServiceConfig(nextProps.service),
+      serviceConfig: nextProps.service.getSpec(),
       serviceFormActive: false,
       serviceJsonActive: false,
       servicePickerActive: true,
@@ -393,23 +393,6 @@ class NewServiceFormModal extends Component {
         label
       }
     ];
-  }
-
-  /**
-   * Normalize the given `service` instance/config in order to match the
-   * specifications required by the editing/reviewing components
-   *
-   * @param {Pod|Application|Object} service - The service to normalize
-   * @returns {Pod|Application} Returns a pod or an application
-   */
-  getNormalizedServiceConfig(service) {
-    // A Pod is defined by it's specifications, *NOT* by it's state. Therefore
-    // we must extract and operate upon the `PodSpec` from the `Pod`.
-    if (service instanceof Pod) {
-      return service.getSpec();
-    }
-
-    return service;
   }
 
   render() {
