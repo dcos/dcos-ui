@@ -1,4 +1,4 @@
-import {simpleReducer} from '../../../../../../src/js/utils/ReducerUtil';
+import {simpleReducer, simpleIntReducer} from '../../../../../../src/js/utils/ReducerUtil';
 
 module.exports = {
   id: simpleReducer('id'),
@@ -7,5 +7,6 @@ module.exports = {
   cpus: simpleReducer('cpus'),
   mem: simpleReducer('mem'),
   disk: simpleReducer('disk'),
+  gpus: simpleIntReducer('gpus'),
   cmd: simpleReducer('cmd')
 };

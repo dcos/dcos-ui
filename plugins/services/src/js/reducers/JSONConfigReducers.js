@@ -27,6 +27,7 @@ module.exports = {
   cpus: simpleFloatReducer('cpus'),
   mem: simpleIntReducer('mem'),
   disk: simpleIntReducer('disk'),
+  gpus: simpleIntReducer('gpus'),
   cmd: simpleReducer('cmd'),
   env,
   labels,

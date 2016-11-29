@@ -21,6 +21,7 @@ module.exports = [
   simpleParser(['cpus']),
   simpleParser(['mem']),
   simpleParser(['disk']),
+  simpleParser(['gpus']),
   simpleParser(['cmd']),
   environmentVariables,
   labels,
