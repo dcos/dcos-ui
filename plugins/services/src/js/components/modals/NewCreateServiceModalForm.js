@@ -57,9 +57,6 @@ class NewCreateServiceModalForm extends Component {
       )
     );
 
-    // Render initial app config
-    this.state.appConfig = this.getAppConfig(this.state);
-
     METHODS_TO_BIND.forEach((method) => {
       this[method] = this[method].bind(this);
     });
@@ -121,7 +118,6 @@ class NewCreateServiceModalForm extends Component {
 
   getNewStateForJSON(baseConfig={}, validate=true) {
     let newState = {
-      appConfig: {},
       baseConfig
     };
 
@@ -135,13 +131,14 @@ class NewCreateServiceModalForm extends Component {
       newState.errorList = DataValidatorUtil.validate(baseConfig, ERROR_VALIDATORS);
     }
 
+    // Update appConfig
+    newState.appConfig = this.getAppConfig(newState.batch, baseConfig);
+
     return newState;
   }
 
   handleJSONChange(jsonObject) {
-    let newState = this.getNewStateForJSON(jsonObject);
-    newState.appConfig = this.getAppConfig(newState);
-    this.setState(newState);
+    this.setState(this.getNewStateForJSON(jsonObject));
   }
 
   handleFormBlur(event) {
@@ -160,7 +157,7 @@ class NewCreateServiceModalForm extends Component {
   }
 
   handleFormChange(event) {
-    let {batch, baseConfig} = this.state;
+    let {batch} = this.state;
 
     let value = event.target.value;
     if (event.target.type === 'checkbox') {
@@ -177,15 +174,37 @@ class NewCreateServiceModalForm extends Component {
     );
 
     // Render the new appconfig
-    newState.appConfig = this.getAppConfig({
-      batch, baseConfig
-    });
-
+    newState.appConfig = this.getAppConfig(batch);
     this.setState(newState);
   }
 
-  getAppConfig(currentState = this.state) {
-    let {baseConfig, batch} = currentState;
+  handleAddItem({value, path}) {
+    let {batch} = this.state;
+
+    batch = batch.add(
+      new Transaction(path.split('.'), value, TransactionTypes.ADD_ITEM)
+    );
+
+    this.setState({
+      batch,
+      appConfig: this.getAppConfig(batch)
+    });
+  }
+
+  handleRemoveItem({value, path}) {
+    let {batch} = this.state;
+
+    batch = batch.add(
+      new Transaction(path.split('.'), value, TransactionTypes.REMOVE_ITEM)
+    );
+
+    this.setState({
+      batch,
+      appConfig: this.getAppConfig(batch)
+    });
+  }
+
+  getAppConfig(batch = this.state.batch, baseConfig = this.state.baseConfig) {
     // Delete all key:value fields
     // Otherwise applyPatch will duplicate keys we're changing via the form
     KEY_VALUE_FIELDS.forEach(function (field) {
@@ -193,24 +212,6 @@ class NewCreateServiceModalForm extends Component {
     });
     let patch = batch.reduce(this.props.jsonConfigReducers, {});
     return CreateServiceModalFormUtil.applyPatch(baseConfig, patch);
-  }
-
-  handleAddItem({value, path}) {
-    let {batch} = this.state;
-    this.setState({
-      batch: batch.add(
-        new Transaction(path.split('.'), value, TransactionTypes.ADD_ITEM)
-      )
-    });
-  }
-
-  handleRemoveItem({value, path}) {
-    let {batch} = this.state;
-    this.setState({
-      batch: batch.add(
-        new Transaction(path.split('.'), value, TransactionTypes.REMOVE_ITEM)
-      )
-    });
   }
 
   getRootErrorMessage() {
