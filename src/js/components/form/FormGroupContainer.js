@@ -6,7 +6,7 @@ const FormGroupContainer = (props) => {
   let removeButton = null;
   if (props.onRemove != null) {
     removeButton = (
-      <div className="form-remove">
+      <div className="form-group-container-action-button-group">
         <a className="button button-primary-link"
           onClick={props.onRemove}>
           <Icon id="close" color="grey" size="tiny"/>
