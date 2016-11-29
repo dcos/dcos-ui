@@ -35,7 +35,7 @@ describe('Labels', function () {
       .toEqual([{
         protocol: 'COMMAND',
         command: {
-          value: 'sleep 1000;'
+          command: 'sleep 1000;'
         }
       }]);
     });
