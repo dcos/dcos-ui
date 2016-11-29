@@ -29,6 +29,7 @@ FieldInput.propTypes = {
   type: React.PropTypes.string,
   onChange: React.PropTypes.func,
   value: React.PropTypes.oneOfType([
+    React.PropTypes.bool,
     React.PropTypes.number,
     React.PropTypes.string
   ]),

@@ -19,7 +19,8 @@ class NetworkingFormSection extends Component {
         <FieldLabel>
           Host Port
         </FieldLabel>
-        <FieldInput name={`portDefinitions.${index}.hostPort`}
+        <FieldInput
+          name={`portDefinitions.${index}.hostPort`}
           type="number"
           value={portDefinition.hostPort} />
       </FormGroup>,
@@ -28,9 +29,10 @@ class NetworkingFormSection extends Component {
           &nbsp;
         </FieldLabel>
         <FieldLabel matchInputHeight={true}>
-          <FieldInput name={`portDefinitions.${index}.automaticPort`}
+          <FieldInput
+            name={`portDefinitions.${index}.automaticPort`}
             type="checkbox"
-            value={portDefinition.automaticPort} />
+            value={Boolean(portDefinition.automaticPort)} />
           Assign Automatically
         </FieldLabel>
       </FormGroup>
@@ -54,9 +56,10 @@ class NetworkingFormSection extends Component {
       <div className="flex flex-align-items-center row" key="toggle">
         <FormGroup className="column-auto">
           <FieldLabel>
-            <FieldInput name={checkboxName}
+            <FieldInput
+              name={checkboxName}
               type="checkbox"
-              value={checkboxValue} />
+              value={Boolean(checkboxValue)} />
             Enabled
           </FieldLabel>
         </FormGroup>
@@ -120,7 +123,8 @@ class NetworkingFormSection extends Component {
               <FieldLabel>
                 Container Port
               </FieldLabel>
-              <FieldInput name={`portDefinitions.${index}.containerPort`}
+              <FieldInput
+                name={`portDefinitions.${index}.containerPort`}
                 type="number"
                 value={portDefinition.containerPort} />
             </FormGroup>
@@ -128,7 +132,8 @@ class NetworkingFormSection extends Component {
               <FieldLabel>
                 Service Endpoint Name
               </FieldLabel>
-              <FieldInput name={`portDefinitions.${index}.name`}
+              <FieldInput
+                name={`portDefinitions.${index}.name`}
                 type="text"
                 value={portDefinition.name} />
             </FormGroup>
@@ -157,7 +162,8 @@ class NetworkingFormSection extends Component {
               <FieldLabel>
                 Service Endpoint Name
               </FieldLabel>
-              <FieldInput name={`portDefinitions.${index}.name`}
+              <FieldInput
+                name={`portDefinitions.${index}.name`}
                 type="text"
                 value={portDefinition.name} />
             </FormGroup>
@@ -206,7 +212,8 @@ class NetworkingFormSection extends Component {
               <FieldLabel>
                 Container Port
               </FieldLabel>
-              <FieldInput name={`portDefinitions.${index}.containerPort`}
+              <FieldInput
+                name={`portDefinitions.${index}.containerPort`}
                 type="number"
                 value={portDefinition.containerPort} />
             </FormGroup>
@@ -214,7 +221,8 @@ class NetworkingFormSection extends Component {
               <FieldLabel>
                 Service Endpoint Name
               </FieldLabel>
-              <FieldInput name={`portDefinitions.${index}.name`}
+              <FieldInput
+                name={`portDefinitions.${index}.name`}
                 type="text"
                 value={portDefinition.name} />
             </FormGroup>
@@ -223,9 +231,10 @@ class NetworkingFormSection extends Component {
                 Port Mapping
               </FieldLabel>
               <FieldLabel matchInputHeight={true}>
-                <FieldInput name={`portDefinitions.${index}.portMapping`}
+                <FieldInput
+                  name={`portDefinitions.${index}.portMapping`}
                   type="checkbox"
-                  value={portDefinition.portMapping} />
+                  value={Boolean(portDefinition.portMapping)} />
                   {portMappingLabel}
               </FieldLabel>
             </FormGroup>
@@ -275,7 +284,8 @@ class NetworkingFormSection extends Component {
             <FieldLabel>
               Network Type
             </FieldLabel>
-            <FieldSelect disabled={isNetworkTypeDisabled}
+            <FieldSelect
+              disabled={isNetworkTypeDisabled}
               name="networking.type"
               value={networking.type}>
               <option value={Networking.type.HOST}>Host</option>
@@ -293,6 +303,8 @@ class NetworkingFormSection extends Component {
         {this.getServiceEndpoints()}
         <div>
           <button
+            type="button"
+            onBlur={(event) => { event.stopPropagation(); }}
             className="button button-primary-link button-flush"
             onClick={this.props.onAddItem.bind(
               this,
