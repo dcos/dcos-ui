@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Tooltip} from 'reactjs-components';
 
 import FieldHelp from '../../../../../../src/js/components/form/FieldHelp';
 import FieldInput from '../../../../../../src/js/components/form/FieldInput';
@@ -271,6 +272,15 @@ class NetworkingFormSection extends Component {
     let isNetworkTypeDisabled = container == null
       || container.docker.image == null;
 
+    let tooltipContent = (
+      <span>
+        {'Choose BRIDGE, HOST, or USER networking. Refer to the '}
+        <a href="https://mesosphere.github.io/marathon/docs/ports.html" target="_blank">
+          ports documentation
+        </a> for more information.
+      </span>
+    );
+
     return (
       <div className="form flush-bottom">
         <h2 className="flush-top short-bottom">
@@ -282,7 +292,15 @@ class NetworkingFormSection extends Component {
         <div className="flex row">
           <FormGroup className="column-6">
             <FieldLabel>
-              Network Type
+              {'Network Type '}
+              <Tooltip
+                content={tooltipContent}
+                interactive={true}
+                maxWidth={300}
+                scrollContainer=".gm-scroll-view"
+                wrapText={true}>
+                  <Icon color="grey" id="ring-question" size="mini" family="mini" />
+              </Tooltip>
             </FieldLabel>
             <FieldSelect
               disabled={isNetworkTypeDisabled}
