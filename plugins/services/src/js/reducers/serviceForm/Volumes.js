@@ -91,6 +91,12 @@ module.exports = {
 
       const index = path[1];
       if (type === SET && `localVolumes.${index}.size` === joinedPath) {
+        // Make sure to parse as integer when possible
+        let parsedValue = parseInt(value);
+        if (!isNaN(parsedValue)) {
+          value = parsedValue;
+        }
+
         this.localVolumes[index].persistent.size = value;
       }
       if (type === SET && `localVolumes.${index}.mode` === joinedPath) {

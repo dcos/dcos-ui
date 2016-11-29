@@ -45,7 +45,7 @@ class VolumesFormSection extends Component {
                 <FieldInput
                   name={`localVolumes.${key}.size`}
                   type="number"
-                  value={volume.size}/>
+                  value={volume.size} />
                 <FieldError>{errors.localVolumes[key]}</FieldError>
               </FormGroup>
               <FormGroup
