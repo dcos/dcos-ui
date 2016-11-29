@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Tooltip} from 'reactjs-components';
 
+import {findNestedPropertyInObject} from '../../../../../../src/js/utils/Util';
 import AdvancedSection from '../../../../../../src/js/components/form/AdvancedSection';
 import AdvancedSectionContent from '../../../../../../src/js/components/form/AdvancedSectionContent';
 import AdvancedSectionLabel from '../../../../../../src/js/components/form/AdvancedSectionLabel';
@@ -9,11 +10,10 @@ import FieldError from '../../../../../../src/js/components/form/FieldError';
 import FieldHelp from '../../../../../../src/js/components/form/FieldHelp';
 import FieldInput from '../../../../../../src/js/components/form/FieldInput';
 import FieldLabel from '../../../../../../src/js/components/form/FieldLabel';
-import {findNestedPropertyInObject} from '../../../../../../src/js/utils/Util';
 import FormGroup from '../../../../../../src/js/components/form/FormGroup';
-import MetadataStore from '../../../../../../src/js/stores/MetadataStore';
-import Icon from '../../../../../../src/js/components/Icon';
 import General from '../../reducers/serviceForm/General';
+import Icon from '../../../../../../src/js/components/Icon';
+import MetadataStore from '../../../../../../src/js/stores/MetadataStore';
 import VolumeConstants from '../../constants/VolumeConstants';
 
 const {MESOS, DOCKER} = VolumeConstants.type;
