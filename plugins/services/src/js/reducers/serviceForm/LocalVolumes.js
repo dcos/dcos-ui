@@ -30,7 +30,7 @@ module.exports = {
          */
         memo.push(new Transaction(['localVolumes'], index, ADD_ITEM));
 
-        if (item.persistent.size != null) {
+        if (item.persistent != null && item.persistent.size != null) {
           memo.push(new Transaction([
             'localVolumes',
             index,
@@ -100,6 +100,9 @@ module.exports = {
       }
 
       let index = joinedPath.match(/\d+/)[0];
+      if (type === SET && `localVolumes.${index}.type` === joinedPath) {
+        state[index].type = value;
+      }
       if (type === SET && `localVolumes.${index}.size` === joinedPath) {
         state[index].size = value;
       }
@@ -108,6 +111,9 @@ module.exports = {
       }
       if (type === SET && `localVolumes.${index}.containerPath` === joinedPath) {
         state[index].containerPath = value;
+      }
+      if (type === SET && `localVolumes.${index}.hostPath` === joinedPath) {
+        state[index].hostPath = value;
       }
     }
 

@@ -4,33 +4,37 @@ const Transaction = require('../../../../../../../src/js/structs/Transaction');
 const {ADD_ITEM, REMOVE_ITEM, SET} =
   require('../../../../../../../src/js/constants/TransactionTypes');
 
-describe('Labels', function () {
+describe('LocalVolumes', function () {
   describe('#FormReducer', function () {
     it('should return an Array with one item', function () {
       let batch = new Batch()
-        .add(new Transaction(['localVolumes'], 0, ADD_ITEM));
-      expect(batch.reduce(LocalVolumes.FormReducer, [])).toEqual([{size: null, containerPath: null, mode: 'RW'}]);
+        .add(new Transaction(['localVolumes'], 0, ADD_ITEM))
+        .add(new Transaction(['localVolumes', 0, 'type'], 'PERSISTENT'));
+      expect(batch.reduce(LocalVolumes.FormReducer, [])).toEqual([{size: null, containerPath: null, mode: 'RW', type: 'PERSISTENT'}]);
     });
 
     it('should contain one full local Volumes item', function () {
       let batch = new Batch()
         .add(new Transaction(['localVolumes'], 0, ADD_ITEM))
+        .add(new Transaction(['localVolumes', 0, 'type'], 'PERSISTENT'))
         .add(new Transaction(['localVolumes', 0, 'size'], 1024))
         .add(new Transaction(['localVolumes', 0, 'containerPath'], '/dev/null'));
-      expect(batch.reduce(LocalVolumes.FormReducer, [])).toEqual([{size: 1024, containerPath: '/dev/null', mode: 'RW'}]);
+      expect(batch.reduce(LocalVolumes.FormReducer, [])).toEqual([{size: 1024, containerPath: '/dev/null', mode: 'RW', type: 'PERSISTENT'}]);
     });
 
     it('should contain two full local Volumes items', function () {
       let batch = new Batch()
         .add(new Transaction(['localVolumes'], 0, ADD_ITEM))
         .add(new Transaction(['localVolumes'], 1, ADD_ITEM))
+        .add(new Transaction(['localVolumes', 0, 'type'], 'PERSISTENT'))
+        .add(new Transaction(['localVolumes', 1, 'type'], 'PERSISTENT'))
         .add(new Transaction(['localVolumes', 0, 'size'], 1024))
         .add(new Transaction(['localVolumes', 0, 'containerPath'], '/dev/null'))
         .add(new Transaction(['localVolumes', 1, 'size'], 512))
         .add(new Transaction(['localVolumes', 1, 'containerPath'], '/dev/dev2'));
       expect(batch.reduce(LocalVolumes.FormReducer, [])).toEqual([
-        {size: 1024, containerPath: '/dev/null', mode: 'RW'},
-        {size: 512, containerPath: '/dev/dev2', mode: 'RW'}
+        {size: 1024, containerPath: '/dev/null', mode: 'RW', type: 'PERSISTENT'},
+        {size: 512, containerPath: '/dev/dev2', mode: 'RW', type: 'PERSISTENT'}
       ]);
     });
 
@@ -38,6 +42,8 @@ describe('Labels', function () {
       let batch = new Batch()
         .add(new Transaction(['localVolumes'], 0, ADD_ITEM))
         .add(new Transaction(['localVolumes'], 1, ADD_ITEM))
+        .add(new Transaction(['localVolumes', 0, 'type'], 'PERSISTENT'))
+        .add(new Transaction(['localVolumes', 1, 'type'], 'PERSISTENT'))
         .add(new Transaction(['localVolumes', 0, 'size'], 1024))
         .add(new Transaction(['localVolumes', 0, 'containerPath'], '/dev/null'))
         .add(new Transaction(['localVolumes', 1, 'size'], 512))
@@ -45,19 +51,20 @@ describe('Labels', function () {
         .add(new Transaction(['localVolumes'], 0, REMOVE_ITEM));
 
       expect(batch.reduce(LocalVolumes.FormReducer, [])).toEqual([
-        {size: 512, containerPath: '/dev/dev2', mode: 'RW'}
+        {size: 512, containerPath: '/dev/dev2', mode: 'RW', type: 'PERSISTENT'}
       ]);
     });
 
     it('should set the right mode.', function () {
       let batch = new Batch()
         .add(new Transaction(['localVolumes'], 0, ADD_ITEM))
+        .add(new Transaction(['localVolumes', 0, 'type'], 'PERSISTENT'))
         .add(new Transaction(['localVolumes', 0, 'size'], 1024))
         .add(new Transaction(['localVolumes', 0, 'containerPath'], '/dev/null'))
         .add(new Transaction(['localVolumes', 0, 'mode'], 'READ'));
 
       expect(batch.reduce(LocalVolumes.FormReducer, [])).toEqual([
-        {size: 1024, containerPath: '/dev/null', mode: 'READ'}
+        {size: 1024, containerPath: '/dev/null', mode: 'READ', type: 'PERSISTENT'}
       ]);
     });
   });
