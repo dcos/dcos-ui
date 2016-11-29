@@ -1,7 +1,8 @@
+import {JSONReducer as constraints} from './serviceForm/Constraints';
 import {JSONReducer as env} from './serviceForm/EnvironmentVariables';
+import {JSONReducer as healthChecks} from './serviceForm/HealthChecks';
 import {JSONReducer as labels} from './serviceForm/Labels';
 import {JSONReducer as volumes} from './serviceForm/Volumes';
-import {JSONReducer as healthChecks} from './serviceForm/HealthChecks';
 import {
   combineReducers,
   simpleFloatReducer,
@@ -31,5 +32,6 @@ module.exports = {
   cmd: simpleReducer('cmd'),
   env,
   labels,
-  healthChecks
+  healthChecks,
+  constraints
 };

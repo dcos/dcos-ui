@@ -31,7 +31,66 @@ const containerRuntimes = {
 };
 
 class GeneralServiceFormSection extends Component {
+  getPlacementConstraints(data = []) {
+    const errors = this.props.errors || [];
 
+    return data.map((constraint, index) => {
+      let fieldLabel = null;
+      let operatorLabel = null;
+      let parameterLabel = null;
+      if (index === 0) {
+        fieldLabel = <FieldLabel>Field</FieldLabel>;
+        operatorLabel = <FieldLabel>Operator</FieldLabel>;
+        parameterLabel = <FieldLabel>Parameter</FieldLabel>;
+      }
+
+      return (
+        <div key={index} className="flex row">
+          <FormGroup
+            className="column-3"
+            required={false}
+            showError={Boolean(errors[index])}>
+            {fieldLabel}
+            <FieldInput
+              name={`constraints.${index}.field`}
+              type="text"
+              value={constraint.field}/>
+            <FieldError>{errors[index]}</FieldError>
+          </FormGroup>
+          <FormGroup
+            className="column-3"
+            required={false}
+            showError={Boolean(errors[index])}>
+            {operatorLabel}
+            <FieldInput
+              name={`constraints.${index}.operator`}
+              type="text"
+              value={constraint.operator}/>
+            <FieldError>{errors[index]}</FieldError>
+          </FormGroup>
+          <FormGroup
+            className="column-3"
+            required={false}
+            showError={Boolean(errors[index])}>
+            {parameterLabel}
+            <FieldInput
+              name={`constraints.${index}.value`}
+              type="text"
+              value={constraint.value}/>
+            <FieldError>{errors[index]}</FieldError>
+          </FormGroup>
+
+          <FormGroup className="flex flex-item-align-end column-2">
+            <a
+              className="button button-primary-link button-flush"
+              onClick={this.props.onRemoveItem.bind(this, {value: index, path: 'constraints'})}>
+              Delete
+            </a>
+          </FormGroup>
+        </div>
+      );
+    });
+  }
   getRuntimeSelections(data = {}) {
     let {container = {}, cmd, gpus} = data;
     let isDisabled = {};
@@ -148,15 +207,32 @@ class GeneralServiceFormSection extends Component {
           </FormGroup>
         </div>
 
+        <h3 className="short-top short-bottom">
+          {'Container Runtime '}
+          <Tooltip
+            content={runtimeTooltipContent}
+            interactive={true}
+            maxWidth={300}
+            scrollContainer=".gm-scroll-view"
+            wrapText={true}>
+              <Icon color="grey" id="ring-question" size="mini" family="mini" />
+          </Tooltip>
+        </h3>
+        <p>The container runtime is responsible for running your service. We support the Mesos and Docker containerizers.</p>
+        <FormGroup showError={Boolean(typeErrors)}>
+          {this.getRuntimeSelections(data)}
+          <FieldError>{typeErrors}</FieldError>
+        </FormGroup>
+
         <AdvancedSection>
           <AdvancedSectionLabel>
             Advanced Service Settings
           </AdvancedSectionLabel>
           <AdvancedSectionContent>
             <h3 className="short-top short-bottom">
-              {'Container Runtime '}
+              {'Placement Constraints '}
               <Tooltip
-                content={runtimeTooltipContent}
+                content="Constraints have three parts: a field name, an operator, and an optional parameter. The field can be the hostname of the agent node or any attribute of the agent node."
                 interactive={true}
                 maxWidth={300}
                 scrollContainer=".gm-scroll-view"
@@ -164,11 +240,15 @@ class GeneralServiceFormSection extends Component {
                   <Icon color="grey" id="ring-question" size="mini" family="mini" />
               </Tooltip>
             </h3>
-            <p>The container runtime is responsible for running your service. We support the Mesos and Docker containerizers.</p>
-            <FormGroup showError={Boolean(typeErrors)}>
-              {this.getRuntimeSelections(data)}
-              <FieldError>{typeErrors}</FieldError>
-            </FormGroup>
+            <p>Constraints control where apps run to allow optimization for either fault tolerance or locality.</p>
+            {this.getPlacementConstraints(data.constraints)}
+            <div>
+              <a
+                className="button button-primary-link button-flush"
+                onClick={this.props.onAddItem.bind(this, {value: data.constraints.length, path: 'constraints'})}>
+                + Add Placement Constraint
+              </a>
+            </div>
           </AdvancedSectionContent>
         </AdvancedSection>
 
