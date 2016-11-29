@@ -210,20 +210,13 @@ const MesosStateUtil = {
    * @returns {string} task path
    */
   getTaskPath(state, task, path = '') {
-    let taskPath = '';
-
-    if (state == null || task == null) {
-      return taskPath;
-    }
-
     const {id:taskID, framework_id:frameworkID, executor_id:executorID} = task;
-    const framework =
-        MesosStateUtil.getFramework(state, frameworkID);
-
-    if (framework == null) {
-      return taskPath;
+    const framework = MesosStateUtil.getFramework(state, frameworkID);
+    if (state == null || task == null || framework == null) {
+      return '';
     }
 
+    let taskPath = '';
     // Find matching executor or task to construct the task path
     [].concat(framework.executors, framework.completed_executors)
         .every(function (executor) {
@@ -249,6 +242,25 @@ const MesosStateUtil = {
         });
 
     return taskPath;
+  },
+
+  getTaskContainerID(task) {
+    let container = Util.findNestedPropertyInObject(
+      task,
+      'statuses.0.container_status.container_id'
+    );
+
+    if (!container || !container.value) {
+      return null;
+    }
+
+    let containerIDs = [];
+    while (container) {
+      containerIDs.push(container.value);
+      container = container.parent;
+    }
+
+    return containerIDs.reverse().join('.');
   },
 
   /**

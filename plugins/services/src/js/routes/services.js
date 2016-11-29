@@ -1,4 +1,4 @@
-import {Redirect, Route} from 'react-router';
+import {Redirect, Route, IndexRoute} from 'react-router';
 /* eslint-disable no-unused-vars */
 import React from 'react';
 /* eslint-enable no-unused-vars */
@@ -10,7 +10,9 @@ import ServiceVolumeContainer from '../containers/volume-detail/ServiceVolumeCon
 import TaskDetail from '../pages/task-details/TaskDetail';
 import TaskDetailBreadcrumb from '../pages/nodes/breadcrumbs/TaskDetailBreadcrumb';
 import TaskDetailsTab from '../pages/task-details/TaskDetailsTab';
+import TaskFileBrowser from '../pages/task-details/TaskFileBrowser';
 import TaskFilesTab from '../pages/task-details/TaskFilesTab';
+import TaskLogsTab from '../pages/task-details/TaskLogsTab';
 import TaskFileViewer from '../pages/task-details/TaskFileViewer';
 import TaskVolumeContainer from '../containers/volume-detail/TaskVolumeContainer';
 import VolumeTable from '../components/VolumeTable';
@@ -140,26 +142,46 @@ let serviceRoutes = [
                         }
                       },
                       {
-                        component: TaskFilesTab,
-                        fileViewerRoutePath: '/services/overview/:id/tasks/:taskID/view(/:filePath(/:innerPath))',
                         hideHeaderNavigation: true,
+                        component: TaskFilesTab,
                         isTab: true,
                         path: 'files',
                         title: 'Files',
                         type: Route,
-                        buildBreadCrumb() {
-                          return {
-                            parentCrumb: '/services/overview/:id/tasks/:taskID',
-                            getCrumbs() { return []; }
-                          };
-                        }
+                        children: [
+                          {
+                            component: TaskFileBrowser,
+                            fileViewerRoutePath: '/services/overview/:id/tasks/:taskID/files/view(/:filePath(/:innerPath))',
+                            hideHeaderNavigation: true,
+                            type: IndexRoute,
+                            buildBreadCrumb() {
+                              return {
+                                parentCrumb: '/services/overview/:id/tasks/:taskID',
+                                getCrumbs() { return []; }
+                              };
+                            }
+                          },
+                          {
+                            component: TaskFileViewer,
+                            hideHeaderNavigation: true,
+                            dontScroll: true,
+                            path: 'view(/:filePath(/:innerPath))',
+                            type: Route,
+                            buildBreadCrumb() {
+                              return {
+                                parentCrumb: '/services/overview/:id/tasks/:taskID',
+                                getCrumbs() { return []; }
+                              };
+                            }
+                          }
+                        ]
                       },
                       {
-                        component: TaskFileViewer,
+                        component: TaskLogsTab,
                         hideHeaderNavigation: true,
                         dontScroll: true,
                         isTab: true,
-                        path: 'view(/:filePath(/:innerPath))',
+                        path: 'logs(/:fileName)',
                         title: 'Logs',
                         type: Route,
                         buildBreadCrumb() {

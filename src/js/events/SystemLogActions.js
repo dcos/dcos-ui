@@ -1,12 +1,12 @@
 import {RequestUtil} from 'mesosphere-shared-reactjs';
 
 import {
+  REQUEST_PREVIOUS_SYSTEM_LOG_ERROR,
+  REQUEST_PREVIOUS_SYSTEM_LOG_SUCCESS,
   REQUEST_SYSTEM_LOG_ERROR,
   REQUEST_SYSTEM_LOG_SUCCESS,
   REQUEST_SYSTEM_LOG_STREAM_TYPES_ERROR,
-  REQUEST_SYSTEM_LOG_STREAM_TYPES_SUCCESS,
-  REQUEST_PREVIOUS_SYSTEM_LOG_ERROR,
-  REQUEST_PREVIOUS_SYSTEM_LOG_SUCCESS
+  REQUEST_SYSTEM_LOG_STREAM_TYPES_SUCCESS
 } from '../constants/ActionTypes';
 import AppDispatcher from './AppDispatcher';
 import CookieUtils from '../utils/CookieUtils';
@@ -38,7 +38,7 @@ const SystemLogActions = {
    * @return {Symbol} subscriptionID to ubsubscribe or resubscribe with
    */
   subscribe(nodeID, options = {}) {
-    let {subscriptionID} = options;
+    let {subscriptionID, cursor, skip_prev} = options;
 
     // Unsubscribe if any open connection exists with the same ID
     this.unsubscribe(subscriptionID);
@@ -49,8 +49,8 @@ const SystemLogActions = {
       withCredentials: Boolean(CookieUtils.getUserMetadata())
     });
 
-    function messageListener({data, origin, eventPhase} = {}) {
-      if (origin !== global.location.origin && eventPhase !== EventSource.OPEN) {
+    function messageListener({data, origin} = {}) {
+      if (origin !== global.location.origin) {
         // Ignore events that are not from this origin
         return false;
       }
@@ -64,6 +64,12 @@ const SystemLogActions = {
           data: error,
           subscriptionID
         });
+      }
+
+      // Skip if we are hitting the same cursor as we requested with and we are
+      // not looking backwards
+      if (parsedData.cursor === cursor && !skip_prev) {
+        return false;
       }
 
       AppDispatcher.handleServerAction({
@@ -120,7 +126,7 @@ const SystemLogActions = {
    * @param {String} [options.containerID] ID for container to retrieve logs from
    */
   fetchLogRange(nodeID, options = {}) {
-    let {cursor, subscriptionID, skip_prev} = options;
+    let {cursor, skip_prev, subscriptionID} = options;
 
     let url = SystemLogUtil.getUrl(nodeID, options, false);
     subscriptionID = subscriptionID || Symbol(url + Date.now());
@@ -131,8 +137,8 @@ const SystemLogActions = {
     let items = [];
     let firstEntry = false;
 
-    function messageListener({data, origin, eventPhase} = {}) {
-      if (origin !== global.location.origin && eventPhase !== EventSource.OPEN) {
+    function messageListener({data, origin} = {}) {
+      if (firstEntry || origin !== global.location.origin) {
         // Ignore events that are not from this origin
         return false;
       }
@@ -151,13 +157,16 @@ const SystemLogActions = {
       // we have reached the top
       if (!firstEntry && skip_prev > 0 && parsedData.cursor === cursor) {
         firstEntry = true;
-      } else {
-        items.push(parsedData);
+
+        return false;
       }
+
+      items.push(parsedData);
     }
 
     function errorListener(event = {}) {
       let {eventPhase} = event;
+
       if (eventPhase === EventSource.CLOSED) {
         AppDispatcher.handleServerAction({
           type: REQUEST_PREVIOUS_SYSTEM_LOG_SUCCESS,

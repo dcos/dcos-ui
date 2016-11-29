@@ -1,29 +1,23 @@
 import React from 'react';
 
-import TaskDirectoryTable from '../../components/TaskDirectoryTable';
-import TaskDirectoryStore from '../../stores/TaskDirectoryStore';
-
 class TaskFilesTab extends React.Component {
-  handleFileClick(path) {
-    TaskDirectoryStore.addPath(this.props.task, path);
-  }
-
   render() {
-    let {props} = this;
+    let {children, directory, onOpenLogClick, task} = this.props;
 
     return (
-      <div className="side-panel-section flex-container-col flex-grow">
-        <TaskDirectoryTable
-          files={props.directory.getItems()}
-          onFileClick={this.handleFileClick.bind(this)}
-          onOpenLogClick={props.onOpenLogClick}
-          nodeID={props.task.slave_id} />
+      <div className="flex flex-direction-top-to-bottom flex-item-grow-1 flex-item-shrink-1">
+        {children && React.cloneElement(children, {
+          directory,
+          task,
+          onOpenLogClick
+        })}
       </div>
     );
   }
 }
 
 TaskFilesTab.propTypes = {
+  children: React.PropTypes.node,
   directory: React.PropTypes.object,
   task: React.PropTypes.object
 };
