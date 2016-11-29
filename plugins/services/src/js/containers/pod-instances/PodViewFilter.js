@@ -36,7 +36,7 @@ class PodViewFilter extends React.Component {
     return (
       <span className="button-align-content badge-container">
         <span className="badge-container-text label flush">{StringUtil.capitalize(filterName)}</span>
-        <span className="badge">{count || 0}</span>
+        <span className="badge badge-rounded">{count || 0}</span>
       </span>
     );
   }
