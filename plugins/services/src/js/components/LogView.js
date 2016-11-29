@@ -34,6 +34,12 @@ class LogView extends React.Component {
     this.handleWindowResize = Util.debounce(
       this.handleWindowResize.bind(this), 100
     );
+
+    // Since we can receive a lot of updates (from a stream potentially),
+    // let's debounce this function to not call it too often
+    this.componentDidUpdate = Util.debounce(
+      this.componentDidUpdate.bind(this), 100
+    );
   }
 
   componentDidMount() {
@@ -41,8 +47,6 @@ class LogView extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    let newState = {};
-    let onStateChange;
     let {logContainer} = this;
     let previousScrollTop;
     let previousScrollHeight;
@@ -54,8 +58,7 @@ class LogView extends React.Component {
 
     // Prevent updates to fullLog, if it has not changed
     if (this.state.fullLog !== nextProps.fullLog) {
-      newState.fullLog = nextProps.fullLog;
-      onStateChange = function () {
+      this.setState({fullLog: nextProps.fullLog}, function () {
         // This allows the user to stay at the place of the log they were at
         // before the prepend.
         if (nextProps.direction === PREPEND && previousScrollHeight
@@ -64,16 +67,8 @@ class LogView extends React.Component {
           let heightDifference = currentScrollHeight - previousScrollHeight;
           logContainer.scrollTop = previousScrollTop + heightDifference;
         }
-      };
+      });
     }
-
-    // Log has changed, let's start out with tailing
-    if (!this.state.isAtBottom && this.props.logName !== nextProps.logName) {
-      newState.isAtBottom = true;
-      this.props.onAtBottomChange(newState.isAtBottom);
-    }
-
-    this.setState(newState, onStateChange);
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -138,10 +133,9 @@ class LogView extends React.Component {
   }
 
   handleGoToBottom() {
-    const {logContainer, props: {highlightText}, state: {userScroll}} = this;
-    // Do not scroll to bottom if we want to highlight a word in the log,
-    // or we are already animating scroll
-    if (logContainer == null || highlightText || !userScroll) {
+    const {logContainer, props: {highlightText}} = this;
+    // Do not scroll to bottom if we want to highlight a word in the log
+    if (logContainer == null || highlightText) {
       return;
     }
 
