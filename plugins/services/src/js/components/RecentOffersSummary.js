@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import React from 'react';
 import {Table, Tooltip} from 'reactjs-components';
 
+import Config from '../../../../../src/js/config/Config';
 import Icon from '../../../../../src/js/components/Icon';
 import Units from '../../../../../src/js/utils/Units';
 
@@ -52,46 +53,67 @@ const columns = [
     heading: '',
     prop: 'resource',
     render: (prop, row) => {
+      const {matched, offers} = row;
       const resource = row[prop];
-      let tooltipContent = null;
+      let docsURI = null;
+      let explanatoryText = null;
 
-      // TODO: Implement actual tooltip content.
-      // https://mesosphere.atlassian.net/browse/DCOS-11708
+      if (matched === 0) {
+        explanatoryText = 'did not match';
+      } else if (matched >= offers) {
+        explanatoryText = 'matched';
+      } else {
+        explanatoryText = 'partially matched';
+      }
+
       if (resource === 'roles') {
-        tooltipContent = 'Describe roles...';
+        docsURI = `${Config.mesosDocsURI}roles/`;
+        explanatoryText = `The resource offer ${explanatoryText} your service's role.`;
       }
 
       if (resource === 'constraints') {
-        tooltipContent = 'Describe constraints...';
+        docsURI = `${Config.marathonDocsURI}constraints.html`;
+        explanatoryText = `The resource offer ${explanatoryText} your service's constraints.`;
       }
 
       if (resource === 'cpus') {
-        tooltipContent = 'Describe CPU...';
+        docsURI = `${Config.mesosDocsURI}attributes-resources/`;
+        explanatoryText = `The CPUs offered ${explanatoryText} your service's constraints.`;
       }
 
       if (resource === 'mem') {
-        tooltipContent = 'Describe memory...';
+        docsURI = `${Config.mesosDocsURI}attributes-resources/`;
+        explanatoryText = `The memory offered ${explanatoryText} your service's constraints.`;
       }
 
       if (resource === 'disk') {
-        tooltipContent = 'Describe disk...';
+        explanatoryText = `The disk space offered ${explanatoryText} your service's constraints.`;
+        docsURI = `${Config.mesosDocsURI}attributes-resources/`;
       }
 
       if (resource === 'ports') {
-        tooltipContent = 'Describe ports...';
+        explanatoryText = `The port offered ${explanatoryText} your service's constraints.`;
+        docsURI = `${Config.mesosDocsURI}attributes-resources/`;
       }
 
-      if (tooltipContent != null) {
-        return (
-          <Tooltip content={tooltipContent}>
-            <Icon
-              id="ring-information"
-              size="mini"
-              family="mini"
-              color="grey" />
-          </Tooltip>
-        );
-      }
+      const tooltipContent = (
+        <span>
+          {explanatoryText} <a href={docsURI} target="_blank">Learn more</a>.
+        </span>
+      );
+
+      return (
+        <Tooltip content={tooltipContent}
+          interactive={true}
+          maxWidth={200}
+          wrapText={true}>
+          <Icon
+            id="ring-information"
+            size="mini"
+            family="mini"
+            color="grey" />
+        </Tooltip>
+      );
     },
     className: getColumnClassNameFn('table-column-tooltip'),
     sortable: false
