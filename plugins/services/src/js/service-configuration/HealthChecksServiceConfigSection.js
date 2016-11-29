@@ -21,6 +21,7 @@ module.exports = {
         let serviceEndpointHealthChecks = healthChecks.filter(
           (healthCheck) => {
             return healthCheck.protocol === 'HTTP'
+              || healthCheck.protocol === 'HTTPS'
               || healthCheck.protocol === 'TCP';
           }
         );
@@ -103,7 +104,7 @@ module.exports = {
 
               return (
                 <pre className="flush transparent wrap">
-                  {ServiceConfigDisplayUtil.getDisplayValue(command.value)}
+                  {ServiceConfigDisplayUtil.getDisplayValue(command.command)}
                 </pre>
               );
             },
