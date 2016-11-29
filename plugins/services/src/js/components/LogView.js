@@ -223,7 +223,7 @@ class LogView extends React.Component {
     logName = logName && (logName + ' ');
 
     return (
-      <div className="flex-grow vertical-center">
+      <div className="flex-grow horizontal-center vertical-center">
         <h3 className="text-align-center flush-top">
           {`${logName} Log is Currently Empty`}
         </h3>
