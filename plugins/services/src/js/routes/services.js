@@ -152,6 +152,7 @@ let serviceRoutes = [
                           {
                             component: TaskFileBrowser,
                             fileViewerRoutePath: '/services/overview/:id/tasks/:taskID/files/view(/:filePath(/:innerPath))',
+                            hideHeaderNavigation: true,
                             type: IndexRoute,
                             buildBreadCrumb() {
                               return {
