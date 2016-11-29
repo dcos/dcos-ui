@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 SCRIPT_PATH="$(dirname "$0")/$(dirname "$(readlink "$0")")"
-MARATHON_TAG="1.4.0-snap25"
+MARATHON_TAG="1.4.0-snap29"
 
 # Import utils
 source ${SCRIPT_PATH}/utils/git
