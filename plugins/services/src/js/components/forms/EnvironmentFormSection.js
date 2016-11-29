@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {MountService} from 'foundation-ui';
 
 import FieldError from '../../../../../../src/js/components/form/FieldError';
 import FieldInput from '../../../../../../src/js/components/form/FieldInput';
@@ -53,7 +54,8 @@ class EnvironmentFormSection extends Component {
             </a>
           </FormGroup>
         </div>
-    ); });
+      );
+    });
   }
 
   getLabelsLines(data) {
@@ -105,7 +107,7 @@ class EnvironmentFormSection extends Component {
   }
 
   render() {
-    let {data} = this.props;
+    let {data, errors} = this.props;
 
     return (
       <div className="form flush-bottom">
@@ -137,6 +139,12 @@ class EnvironmentFormSection extends Component {
             + Add Label
           </a>
         </div>
+        <MountService.Mount
+          type="CreateService:EnvironmentFormSection"
+          data={data}
+          errors={errors}
+          onAddItem={this.props.onAddItem.bind(this)}
+          onRemoveItem={this.props.onRemoveItem.bind(this)} />
       </div>
     );
   }

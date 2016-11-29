@@ -2,7 +2,8 @@
 module.exports = {
   constants: {
     EventTypes: 'EventTypes',
-    HTTPStatusCodes: 'HTTPStatusCodes'
+    HTTPStatusCodes: 'HTTPStatusCodes',
+    TransactionTypes: 'TransactionTypes'
   },
   events: {
     SidebarActions: 'SidebarActions'
@@ -19,9 +20,11 @@ module.exports = {
     VisibilityStore: 'VisibilityStore'
   },
   structs: {
+    Batch: 'Batch',
     CompositeState: 'CompositeState',
     Item: 'Item',
     List: 'List',
+    Transaction: 'Transaction',
     Tree: 'Tree'
   },
   utils: {
@@ -33,6 +36,8 @@ module.exports = {
     LocalStorageUtil: 'LocalStorageUtil',
     Maths: 'Maths',
     RouterUtil: 'RouterUtil',
+    ReducerUtil: 'ReducerUtil',
+    ParserUtil: 'ParserUtil',
     StringUtil: 'StringUtil',
     TableUtil: 'TableUtil',
     TabsUtil: 'TabsUtil',
@@ -91,5 +96,8 @@ module.exports = {
   },
   'foundation-ui': {
     'foundation-ui': 'index'
+  },
+  internalPlugin: {
+    services: 'services/index'
   }
 };
