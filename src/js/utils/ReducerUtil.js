@@ -56,7 +56,8 @@ module.exports = {
         // reducer.bind(context.get(reducer))(state[key], action);
         // but it will not copy the function, which in this case is a huge
         // increase in performance.
-        localState[key] = reducer.call(context.get(reducer), localState[key], action);
+        localState[key] =
+          reducer.call(context.get(reducer), localState[key], action, index);
       }
 
       return localState;
@@ -65,7 +66,7 @@ module.exports = {
 
   simpleReducer(needle, defaultState = '') {
     return function (state = defaultState, {path, type, value}) {
-      if (type === TransactionTypes.SET && path.join() === needle) {
+      if (type === TransactionTypes.SET && path.join('.') === needle) {
         return value;
       }
 
@@ -76,7 +77,7 @@ module.exports = {
   simpleIntReducer(needle, defaultState = '') {
     return function (state = defaultState, {path, type, value}) {
       let parsedValue = parseInt(value);
-      if (type === TransactionTypes.SET && path.join() === needle) {
+      if (type === TransactionTypes.SET && path.join('.') === needle) {
         if (!isNaN(parsedValue)) {
           return parsedValue;
         }
@@ -91,7 +92,7 @@ module.exports = {
   simpleFloatReducer(needle, defaultState = '') {
     return function (state = defaultState, {path, type, value}) {
       let parsedValue = parseFloat(value);
-      if (type === TransactionTypes.SET && path.join() === needle) {
+      if (type === TransactionTypes.SET && path.join('.') === needle) {
         if (!isNaN(parsedValue)) {
           return parsedValue;
         }

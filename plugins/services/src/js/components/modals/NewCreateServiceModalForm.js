@@ -14,6 +14,7 @@ import GeneralServiceFormSection from '../forms/GeneralServiceFormSection';
 import HealthChecksFormSection from '../forms/HealthChecksFormSection';
 import JSONConfigReducers from '../../reducers/JSONConfigReducers';
 import JSONParserReducers from '../../reducers/JSONParserReducers';
+import VolumesFormSection from '../forms/VolumesFormSection';
 import JSONEditor from '../../../../../../src/js/components/JSONEditor';
 import ServiceUtil from '../../utils/ServiceUtil';
 import TabButton from '../../../../../../src/js/components/TabButton';
@@ -37,7 +38,8 @@ const SECTIONS = [
   ContainerServiceFormSection,
   EnvironmentFormSection,
   GeneralServiceFormSection,
-  HealthChecksFormSection
+  HealthChecksFormSection,
+  VolumesFormSection
 ];
 
 const ERROR_VALIDATORS = [
@@ -263,6 +265,7 @@ class NewCreateServiceModalForm extends Component {
                 <TabButton id="services" label="Services" />
                 <TabButton id="environment" label="Environment" />
                 <TabButton id="healthChecks" label="Health Checks" />
+                <TabButton id="volumes" label="Volumes" />
               </TabButtonList>
               <TabViewList>
                 <TabView id="services">
@@ -272,6 +275,12 @@ class NewCreateServiceModalForm extends Component {
                 <TabView id="environment">
                   {rootErrorComponent}
                   <EnvironmentFormSection
+                    data={data}
+                    onRemoveItem={this.handleRemoveItem}
+                    onAddItem={this.handleAddItem} />
+                </TabView>
+                <TabView id="volumes">
+                  <VolumesFormSection
                     data={data}
                     onRemoveItem={this.handleRemoveItem}
                     onAddItem={this.handleAddItem} />

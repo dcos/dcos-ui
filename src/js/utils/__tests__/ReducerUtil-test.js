@@ -44,7 +44,7 @@ describe('ReducerUtil', function () {
     it('should use context', function () {
       const reducers = ReducerUtil.combineReducers({
         id: idReducer,
-        vip(state = undefined, action) {
+        vip(state, action) {
           if (action.path.join('') === 'id') {
             this.id = action.value;
           }
@@ -86,9 +86,65 @@ describe('ReducerUtil', function () {
         .toEqual([{id: 'foo', vip: 'foo:8080'}, {id: 'bar', vip: undefined}]);
     });
 
+    it('should use context in nested combineReducers', function () {
+      const reducers = ReducerUtil.combineReducers({
+        id: idReducer,
+        container: ReducerUtil.combineReducers({
+          vip(state, action) {
+            if (action.path.join('') === 'id') {
+              this.id = action.value;
+            }
+
+            if (action.path.join('') === 'port') {
+              this.port = action.value;
+            }
+
+            if (this.id && this.port) {
+              return `${this.id}:${this.port}`;
+            }
+            return state;
+          }
+
+        })
+      });
+      let array = [
+        {
+          path: ['id'],
+          value: 'foo'
+        },
+        {
+          path: ['port'],
+          value: '8080'
+        }
+      ];
+
+      const state = array.reduce(reducers, {});
+
+      array = [
+        {
+          path: ['id'],
+          value: 'bar'
+        }
+      ];
+
+      const secondState = array.reduce(reducers, {});
+
+      expect([state, secondState])
+      .toEqual([
+        {
+          id: 'foo',
+          container: {vip: 'foo:8080'}
+        },
+        {
+          id: 'bar',
+          container: {vip: undefined}
+        }
+      ]);
+    });
+
     it('should properly apply a set of user actions', function () {
       let dockerReduce = ReducerUtil.combineReducers({
-        id(state = undefined, action) {
+        id(state, action) {
           if (action.action === 'SET' &&
             action.path.join('.') === 'container.docker') {
             return action.value;
@@ -105,7 +161,7 @@ describe('ReducerUtil', function () {
           }
           return state;
         },
-        cmd(state = undefined, action) {
+        cmd(state, action) {
           if (action.action === 'SET' &&
             action.path.join('') === 'cmd') {
             state = action.value;
@@ -113,7 +169,7 @@ describe('ReducerUtil', function () {
           return state;
         },
         container: ReducerUtil.combineReducers({
-          docker(state = undefined, action) {
+          docker(state, action) {
             if (action.action === 'SET' &&
               action.path.join('.') === 'container.docker') {
               return dockerReduce(state, action);
@@ -175,6 +231,26 @@ describe('ReducerUtil', function () {
       };
       expect(simpleReducer(undefined, action)).toEqual('default');
     });
+
+    it('should return new value if path does match', function () {
+      const simpleReducer = ReducerUtil.simpleReducer('path', 'default');
+      const action = {
+        path: ['path'],
+        type: TransactionType.SET,
+        value: 'something'
+      };
+      expect(simpleReducer(undefined, action)).toEqual('something');
+    });
+
+    it('should return new value of deep nested path', function () {
+      const simpleReducer = ReducerUtil.simpleReducer('foo.bar.deep.nest', 'default');
+      const action = {
+        path: ['foo', 'bar', 'deep', 'nest'],
+        type: TransactionType.SET,
+        value: 'something'
+      };
+      expect(simpleReducer(undefined, action)).toEqual('something');
+    });
   });
 
   describe('#simpleIntReducer', function () {
@@ -193,7 +269,7 @@ describe('ReducerUtil', function () {
     });
 
     it('returns string if cannot be parsed to integer', function () {
-      const simpleIntReducer = ReducerUtil.simpleIntReducer('foo,bar', 'default');
+      const simpleIntReducer = ReducerUtil.simpleIntReducer('foo.bar', 'default');
       const action = {
         path: ['foo', 'bar'],
         type: TransactionType.SET,
@@ -203,7 +279,7 @@ describe('ReducerUtil', function () {
     });
 
     it('returns number if value can be parsed to integer', function () {
-      const simpleIntReducer = ReducerUtil.simpleIntReducer('foo,bar', 'default');
+      const simpleIntReducer = ReducerUtil.simpleIntReducer('foo.bar', 'default');
       const action = {
         path: ['foo', 'bar'],
         type: TransactionType.SET,
@@ -229,7 +305,7 @@ describe('ReducerUtil', function () {
     });
 
     it('returns string if cannot be parsed to float', function () {
-      const simpleFloatReducer = ReducerUtil.simpleFloatReducer('foo,bar', 'default');
+      const simpleFloatReducer = ReducerUtil.simpleFloatReducer('foo.bar', 'default');
       const action = {
         path: ['foo', 'bar'],
         type: TransactionType.SET,
@@ -239,7 +315,7 @@ describe('ReducerUtil', function () {
     });
 
     it('returns number if value can be parsed to float', function () {
-      const simpleFloatReducer = ReducerUtil.simpleFloatReducer('foo,bar', 'default');
+      const simpleFloatReducer = ReducerUtil.simpleFloatReducer('foo.bar', 'default');
       const action = {
         path: ['foo', 'bar'],
         type: TransactionType.SET,
