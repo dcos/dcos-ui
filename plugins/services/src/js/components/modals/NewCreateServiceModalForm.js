@@ -29,6 +29,11 @@ const METHODS_TO_BIND = [
   'handleRemoveItem'
 ];
 
+const KEY_VALUE_FIELDS = [
+  'env',
+  'labels'
+];
+
 const ERROR_VALIDATORS = [
   AppValidators.App
 ];
@@ -180,12 +185,14 @@ class NewCreateServiceModalForm extends Component {
   }
 
   getAppConfig(currentState = this.state) {
-    let {batch} = currentState;
-    return batch.reduce(this.props.jsonConfigReducers, {});
-    // aplying patch causes duplication of key-value structures like Lables, ENV and secrets
-    // let {baseConfig, batch} = currentState;
-    // let patch = batch.reduce(jsonConfigReducers, {});
-    // return CreateServiceModalFormUtil.applyPatch(baseConfig, patch);
+    let {baseConfig, batch} = currentState;
+    // Delete all key:value fields
+    // Otherwise applyPatch will duplicate keys we're changing via the form
+    KEY_VALUE_FIELDS.forEach(function (field) {
+      delete baseConfig[field];
+    });
+    let patch = batch.reduce(this.props.jsonConfigReducers, {});
+    return CreateServiceModalFormUtil.applyPatch(baseConfig, patch);
   }
 
   handleAddItem({value, path}) {
