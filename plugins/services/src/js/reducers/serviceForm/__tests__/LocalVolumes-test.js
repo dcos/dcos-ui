@@ -103,6 +103,7 @@ describe('Labels', function () {
       };
       expect(LocalVolumes.JSONParser(state)).toEqual([
         {type: ADD_ITEM, value: 0, path: ['localVolumes']},
+        {type: SET, value: 'PERSISTENT', path: ['localVolumes', 0, 'type']},
         {type: SET, value: 1024, path: ['localVolumes', 0, 'size']},
         {type: SET, value: '/dev/null', path: ['localVolumes', 0, 'containerPath']},
         {type: SET, value: 'RW', path: ['localVolumes', 0, 'mode']}
@@ -134,6 +135,7 @@ describe('Labels', function () {
       };
       expect(LocalVolumes.JSONParser(state)).toEqual([
         {type: ADD_ITEM, value: 0, path: ['localVolumes']},
+        {type: SET, value: 'PERSISTENT', path: ['localVolumes', 0, 'type']},
         {type: SET, value: 1024, path: ['localVolumes', 0, 'size']},
         {type: SET, value: '/dev/null', path: ['localVolumes', 0, 'containerPath']},
         {type: SET, value: 'RW', path: ['localVolumes', 0, 'mode']}
@@ -154,6 +156,7 @@ describe('Labels', function () {
       };
       expect(LocalVolumes.JSONParser(state)).toEqual([
         {type: ADD_ITEM, value: 0, path: ['localVolumes']},
+        {type: SET, value: 'PERSISTENT', path: ['localVolumes', 0, 'type']},
         {type: SET, value: 1024, path: ['localVolumes', 0, 'size']},
         {type: SET, value: '/dev/null', path: ['localVolumes', 0, 'containerPath']},
         {type: SET, value: 'READ', path: ['localVolumes', 0, 'mode']}
