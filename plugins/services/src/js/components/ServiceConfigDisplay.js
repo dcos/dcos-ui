@@ -3,6 +3,7 @@ import {MountService} from 'foundation-ui';
 
 import ConfigurationMap from '../../../../../src/js/components/ConfigurationMap';
 import ServiceConfigGeneralSectionDisplay from './ServiceConfigGeneralSectionDisplay';
+import ServiceConfigPlacementConstraintsSectionDisplay from './ServiceConfigPlacementConstraintsSectionDisplay';
 import ServiceConfigNetworkingSectionDisplay from './ServiceConfigNetworkingSectionDisplay';
 import ServiceConfigStorageSectionDisplay from './ServiceConfigStorageSectionDisplay';
 import ServiceConfigEnvironmentVariablesSectionDisplay from './ServiceConfigEnvironmentVariablesSectionDisplay';
@@ -14,6 +15,7 @@ const PRIORITIES_PAD_NUMBER = 100;
 
 const SERVICE_CONFIG_DISPLAY_LIST = [
   ServiceConfigGeneralSectionDisplay,
+  ServiceConfigPlacementConstraintsSectionDisplay,
   ServiceConfigNetworkingSectionDisplay,
   ServiceConfigStorageSectionDisplay,
   ServiceConfigEnvironmentVariablesSectionDisplay,
