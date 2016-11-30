@@ -1,3 +1,4 @@
+import ContainerConstants from '../constants/ContainerConstants';
 import {JSONParser as constraints} from './serviceForm/Constraints';
 import {JSONParser as fetch} from './serviceForm/Artifacts';
 import {JSONParser as environmentVariables} from './serviceForm/EnvironmentVariables';
@@ -6,9 +7,8 @@ import {JSONParser as healthChecks} from './serviceForm/HealthChecks';
 import {JSONParser as labels} from './serviceForm/Labels';
 import {JSONParser as localVolumes} from './serviceForm/LocalVolumes';
 import {simpleParser} from '../../../../../src/js/utils/ParserUtil';
-import VolumeConstants from '../constants/VolumeConstants';
 
-const {MESOS, DOCKER} = VolumeConstants.type;
+const {MESOS, DOCKER} = ContainerConstants.type;
 
 module.exports = [
   simpleParser(['id']),

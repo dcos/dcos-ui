@@ -5,6 +5,7 @@ import {FormReducer} from '../../reducers/serviceForm/Container';
 import AdvancedSection from '../../../../../../src/js/components/form/AdvancedSection';
 import AdvancedSectionContent from '../../../../../../src/js/components/form/AdvancedSectionContent';
 import AdvancedSectionLabel from '../../../../../../src/js/components/form/AdvancedSectionLabel';
+import ContainerConstants from '../../constants/ContainerConstants';
 import FieldError from '../../../../../../src/js/components/form/FieldError';
 import FieldHelp from '../../../../../../src/js/components/form/FieldHelp';
 import FieldInput from '../../../../../../src/js/components/form/FieldInput';
@@ -14,6 +15,8 @@ import FormGroup from '../../../../../../src/js/components/form/FormGroup';
 import MetadataStore from '../../../../../../src/js/stores/MetadataStore';
 import Icon from '../../../../../../src/js/components/Icon';
 import {findNestedPropertyInObject} from '../../../../../../src/js/utils/Util';
+
+const {DOCKER} = ContainerConstants.type;
 
 const containerSettings = {
   privileged: {
@@ -93,7 +96,7 @@ class ContainerServiceFormSection extends Component {
   }
 
   getGPUSInput(data) {
-    if (data.container.type === 'DOCKER') {
+    if (data.container && data.container.type === DOCKER) {
       return [
         <Tooltip
           key="gpus-input-tooltip"
