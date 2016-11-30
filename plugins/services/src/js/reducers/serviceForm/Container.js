@@ -1,37 +1,191 @@
-import {SET} from '../../../../../../src/js/constants/TransactionTypes';
+import {SET, ADD_ITEM, REMOVE_ITEM} from '../../../../../../src/js/constants/TransactionTypes';
+import {combineReducers} from '../../../../../../src/js/utils/ReducerUtil';
+import {JSONReducer as volumes} from './Volumes';
 import VolumeConstants from '../../constants/VolumeConstants';
+import ValidatorUtil from '../../../../../../src/js/utils/ValidatorUtil';
 
-let {MESOS} = VolumeConstants.type;
+import docker from './Docker';
 
-function container(state = {}, {type, path, value}) {
-  let joinedPath = path && path.join('.');
-  let newState = Object.assign({}, state);
-  if (!newState.type) {
-    newState.type = MESOS;
+const {MESOS} = VolumeConstants.type;
+
+const containerJSONReducer = combineReducers({
+  type(state, {type, path, value}) {
+    if (path == null) {
+      return state;
+    }
+
+    if (this.hasImage == null) {
+      this.hasImage = false;
+    }
+
+    if (this.noState == null) {
+      this.noState = true;
+    }
+
+    if (this.hasVolumes == null) {
+      this.hasVolumes = [];
+    }
+
+    const joinedPath = path.join('.');
+
+    if (joinedPath === 'container.docker.image') {
+      this.hasImage = !ValidatorUtil.isEmpty(value);
+    }
+
+    if (path[0] === 'localVolumes' && !this.hasImage) {
+      switch (type) {
+        case ADD_ITEM:
+          this.hasVolumes.push(true);
+          break;
+        case REMOVE_ITEM:
+          this.hasVolumes = this.hasVolumes.filter((item, index) => {
+            return index !== value;
+          });
+      }
+
+      // return this.hasVolumes.length !== 0 ? MESOS : state;
+    }
+
+    if (type === SET && joinedPath === 'container.type' && value !== 'NONE') {
+      this.noState = false;
+      return value;
+    }
+
+    if (value === 'NONE') {
+      this.noState = true;
+    }
+
+    const volumesState = this.hasVolumes.length !== 0 ? MESOS : null;
+
+    return this.noState ? volumesState : state;
+  },
+  docker() {
+    if (this.internalState == null) {
+      this.internalState = {};
+    }
+
+    arguments[0] = this.internalState;
+
+    this.internalState = docker.call(this, ...arguments);
+    if (!ValidatorUtil.isEmpty(this.internalState.image)) {
+      let newState = Object.assign({}, this.internalState);
+      Object.keys(this.internalState).forEach((key) => {
+        if (ValidatorUtil.isEmpty(this.internalState[key])) {
+          delete newState[key];
+        }
+      });
+      return newState;
+    }
+  },
+  volumes
+});
+
+const containerReducer = combineReducers({
+  type(state, {type, path, value}) {
+    if (path == null) {
+      return state;
+    }
+
+    const joinedPath = path.join('.');
+
+    if (type === SET && joinedPath === 'container.type') {
+      return value;
+    }
+
+    return state;
+  },
+  docker() {
+    if (this.internalState == null) {
+      this.internalState = {};
+    }
+
+    arguments[0] = this.internalState;
+
+    this.internalState = docker.call(this, ...arguments);
+    if (!ValidatorUtil.isEmpty(this.internalState.image)) {
+      let newState = Object.assign({}, this.internalState);
+      Object.keys(this.internalState).forEach((key) => {
+        if (ValidatorUtil.isEmpty(this.internalState[key])) {
+          delete newState[key];
+        }
+      });
+      return newState;
+    }
+  },
+  volumes
+});
+
+function container() {
+  if (this.localVolumes === null) {
+    this.localVolumes = [];
   }
 
-  if (type === SET && joinedPath === 'container.type') {
-    // Update stored container type
-    newState.type = value;
+  if (this.internalState == null) {
+    this.internalState = {};
   }
 
-  if (type === SET && joinedPath === 'container.docker.privileged') {
-    newState.docker = Object.assign({}, state.docker, {privileged: value});
+  arguments[0] = this.internalState;
+  let newState = Object.assign({}, containerReducer.call(this, ...arguments));
+  this.internalState = newState;
+
+  if (ValidatorUtil.isEmpty(newState)) {
+    return null;
   }
 
-  if (type === SET && joinedPath === 'container.docker.forcePullImage') {
-    newState.docker = Object.assign({}, state.docker, {forcePullImage: value});
+  if (ValidatorUtil.isEmpty(newState.docker)) {
+    delete newState.docker;
+  } else if (ValidatorUtil.isEmpty(newState.docker.image)) {
+    delete newState.docker;
   }
 
-  if (type === SET && joinedPath === 'container.docker.image') {
-    newState.docker = Object.assign({}, state.docker, {image: value});
+  if (ValidatorUtil.isEmpty(newState.volumes)) {
+    delete newState.volumes;
   }
 
-  // Move container to new containerKey
+  if (ValidatorUtil.isEmpty(newState.type)) {
+    delete newState.type;
+  }
+
+  if (ValidatorUtil.isEmpty(newState)) {
+    return null;
+  }
+
   return newState;
 };
 
 module.exports = {
-  JSONReducer: container,
+  JSONReducer() {
+    if (this.internalState == null) {
+      this.internalState = {};
+    }
+
+    arguments[0] = this.internalState;
+    let newState = Object.assign({}, containerJSONReducer.call(this, ...arguments));
+    this.internalState = newState;
+
+    if (ValidatorUtil.isEmpty(newState)) {
+      return null;
+    }
+
+    if (ValidatorUtil.isEmpty(newState.docker)) {
+      delete newState.docker;
+    } else if (ValidatorUtil.isEmpty(newState.docker.image)) {
+      delete newState.docker;
+    }
+
+    if (ValidatorUtil.isEmpty(newState.volumes)) {
+      delete newState.volumes;
+    }
+
+    if (ValidatorUtil.isEmpty(newState.type)) {
+      delete newState.type;
+    }
+
+    if (ValidatorUtil.isEmpty(newState)) {
+      return null;
+    }
+
+    return newState;
+  },
   FormReducer: container
 };
