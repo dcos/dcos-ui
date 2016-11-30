@@ -17,6 +17,8 @@ import CreateServiceJsonOnly from './CreateServiceJsonOnly';
 import Service from '../../structs/Service';
 import ServiceConfigDisplay from '../ServiceConfigDisplay';
 import ServiceUtil from '../../utils/ServiceUtil';
+import PodSpec from '../../structs/PodSpec';
+import PodConfigDisplay from '../../service-configuration/PodConfigDisplay';
 import ToggleButton from '../../../../../../src/js/components/ToggleButton';
 import Util from '../../../../../../src/js/utils/Util';
 
@@ -242,9 +244,11 @@ class NewServiceFormModal extends Component {
   getModalContent() {
     // NOTE: Always prioritize review screen check
     if (this.state.serviceReviewActive) {
-      return (
-        <ServiceConfigDisplay appConfig={this.state.serviceConfig} />
-      );
+      if (this.serviceConfig instanceof PodSpec) {
+        return <PodConfigDisplay appConfig={this.state.serviceConfig} />;
+      } else {
+        return <ServiceConfigDisplay appConfig={this.state.serviceConfig} />;
+      }
     }
 
     if (this.state.servicePickerActive) {
