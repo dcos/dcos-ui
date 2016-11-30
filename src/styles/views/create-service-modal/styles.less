@@ -14,4 +14,50 @@
   .create-service-modal-service-picker-option {
     flex: 0 0 auto;
   }
+
+  // TODO: Remove this custom margin and rely on the FormSection component to
+  // apply margins for us. DCOS-11803
+  .artifacts-section {
+    margin-top: @base-spacing-unit * 3/4;
+  }
+}
+
+& when (@create-services-modal-enabled) and (@layout-screen-small-enabled) {
+
+  @media (min-width: @layout-screen-small-min-width) {
+
+    .artifacts-section {
+      margin-top: @base-spacing-unit-screen-small * 3/4;
+    }
+  }
+}
+
+& when (@create-services-modal-enabled) and (@layout-screen-medium-enabled) {
+
+  @media (min-width: @layout-screen-medium-min-width) {
+
+    .artifacts-section {
+      margin-top: @base-spacing-unit-screen-medium * 3/4;
+    }
+  }
+}
+
+& when (@create-services-modal-enabled) and (@layout-screen-large-enabled) {
+
+  @media (min-width: @layout-screen-large-min-width) {
+
+    .artifacts-section {
+      margin-top: @base-spacing-unit-screen-large * 3/4;
+    }
+  }
+}
+
+& when (@create-services-modal-enabled) and (@layout-screen-jumbo-enabled) {
+
+  @media (min-width: @layout-screen-jumbo-min-width) {
+
+    .artifacts-section {
+      margin-top: @base-spacing-unit-screen-jumbo * 3/4;
+    }
+  }
 }
