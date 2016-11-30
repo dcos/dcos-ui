@@ -1,8 +1,8 @@
 import React from 'react';
 
+import ConfigurationMapTable from '../components/ConfigurationMapTable';
 import Heading from '../../../../../src/js/components/ConfigurationMapHeading';
 import Section from '../../../../../src/js/components/ConfigurationMapSection';
-import ConfigurationMapTable from '../components/ConfigurationMapTable';
 import ServiceConfigDisplayUtil from '../utils/ServiceConfigDisplayUtil';
 
 module.exports = ({appConfig}) => {
