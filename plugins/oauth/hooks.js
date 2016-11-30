@@ -16,7 +16,6 @@ let {
   ConfigStore,
   CookieUtils,
   RouterUtil,
-  UserDropup,
   UsersTab
 } = SDK.get([
   'AccessDeniedPage',
@@ -26,7 +25,6 @@ let {
   'ConfigStore',
   'CookieUtils',
   'RouterUtil',
-  'UserDropup',
   'UsersTab'
 ]);
 
@@ -47,7 +45,7 @@ module.exports = Object.assign({}, StoreMixin, {
     'applicationRoutes',
     'delayApplicationLoad',
     'organizationRoutes',
-    'sidebarFooter',
+    'userDropdownItems',
     'serverErrorModalListeners'
   ],
 
@@ -89,17 +87,6 @@ module.exports = Object.assign({}, StoreMixin, {
     }
   },
 
-  sidebarFooter(value, defaultButtonSet) {
-    let buttonSet = defaultButtonSet;
-    if (value && value.props.children) {
-      buttonSet = value.props.children;
-    }
-
-    return (
-      <UserDropup items={buttonSet} />
-    );
-  },
-
   serverErrorModalListeners(listeners) {
     listeners.push({
       name: 'auth',
@@ -107,6 +94,40 @@ module.exports = Object.assign({}, StoreMixin, {
     });
 
     return listeners;
+  },
+
+  userDropdownItems(defaultMenuItems) {
+    const menuItems = defaultMenuItems.slice();
+    const user = AuthStore.getUser();
+
+    let userLabel = null;
+
+    if (user && !user.is_remote) {
+      userLabel = user.description;
+    } else if (user && user.is_remote) {
+      userLabel = user.uid;
+    }
+
+    menuItems.push(
+      {
+        className: 'dropdown-menu-section-header',
+        html: <label>User</label>,
+        id: 'header-b',
+        selectable: false
+      },
+      {
+        html: <div className="text-overflow">{userLabel}</div>,
+        id: 'username',
+        selectable: false
+      },
+      {
+        html: 'Sign Out',
+        id: 'sign-out',
+        onClick: AuthStore.logout
+      }
+    );
+
+    return menuItems;
   },
 
   applicationRoutes(routes) {

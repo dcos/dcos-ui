@@ -4,6 +4,7 @@ import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import ClipboardTrigger from '../components/ClipboardTrigger';
 import ClusterName from './ClusterName';
+import Icon from './Icon';
 import MetadataStore from '../stores/MetadataStore';
 
 class ClusterHeader extends mixin(StoreMixin) {
@@ -28,10 +29,6 @@ class ClusterHeader extends mixin(StoreMixin) {
   }
 
   getFlashButton() {
-    if (!this.props.useClipboard) {
-      return null;
-    }
-
     return <ClipboardTrigger copyText={this.getPublicIP()} />;
   }
 
@@ -48,25 +45,40 @@ class ClusterHeader extends mixin(StoreMixin) {
   }
 
   getHostName() {
+    let flashButton = null;
     let ip = this.getPublicIP();
 
+    if (this.props.useClipboard) {
+      flashButton = (
+        <span className="header-subtitle-action">
+          {this.getFlashButton()}
+        </span>
+      );
+    }
+
     return (
-      <div className="header-subtitle"
+      <div className="cluster-header-hostname header-subtitle"
         title={ip}>
         <p className="hostname text-overflow flush">
           {ip}
         </p>
-        <span className="header-subtitle-action">
-          {this.getFlashButton()}
-        </span>
+        {flashButton}
       </div>
     );
   }
 
   render() {
+    let caret = null;
+
+    if (this.props.showCaret) {
+      caret = <Icon family="mini" id="caret-down" key="caret" size="mini" />;
+    }
+
     return (
-      <div>
-        <ClusterName />
+      <div className="cluster-header">
+        <div className="cluster-header-name">
+          <ClusterName />{caret}
+        </div>
         {this.getHostName()}
       </div>
     );
@@ -74,10 +86,12 @@ class ClusterHeader extends mixin(StoreMixin) {
 }
 
 ClusterHeader.defaultProps = {
+  showCaret: false,
   useClipboard: true
 };
 
 ClusterHeader.propTypes = {
+  showCaret: React.PropTypes.bool,
   useClipboard: React.PropTypes.bool
 };
 
