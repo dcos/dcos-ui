@@ -18,16 +18,6 @@ describe('DeclinedOffersUtil', function () {
       })).toEqual(null);
     });
 
-    it('returns null when lastUnusedOffers is undefined, null, or an empty array', function () {
-      expect(DeclinedOffersUtil.getSummaryFromQueue({})).toEqual(null);
-      expect(DeclinedOffersUtil.getSummaryFromQueue({
-        lastUnusedOffers: null
-      })).toEqual(null);
-      expect(DeclinedOffersUtil.getSummaryFromQueue({
-        lastUnusedOffers: []
-      })).toEqual(null);
-    });
-
     it('transforms the API response into the expected format for a service', function () {
       const summary = DeclinedOffersUtil.getSummaryFromQueue({
         app: {
@@ -108,12 +98,12 @@ describe('DeclinedOffersUtil', function () {
           matched: 48
         },
         mem: {
-          requested: '128 MiB',
+          requested: 128,
           offers: 48,
           matched: 33
         },
         disk: {
-          requested: '0 B',
+          requested: 0,
           offers: 33,
           matched: 23
         },
@@ -231,12 +221,12 @@ describe('DeclinedOffersUtil', function () {
           matched: 48
         },
         mem: {
-          requested: '600 MiB',
+          requested: 600,
           offers: 48,
           matched: 33
         },
         disk: {
-          requested: '1.2 GiB',
+          requested: 1200,
           offers: 33,
           matched: 23
         },

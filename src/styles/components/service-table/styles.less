@@ -10,7 +10,7 @@
     }
 
     .status-bar-column {
-      width: @base-spacing-unit * 5;
+      width: @base-spacing-unit * 6;
     }
 
     .status-bar-indicator {
@@ -21,6 +21,10 @@
       white-space: nowrap;
     }
   }
+
+  .status-waiting-indicator {
+    margin-left: @base-spacing-unit * 1/4;
+  }
 }
 
 & when (@service-table-enabled) and (@layout-screen-small-enabled) {
@@ -30,8 +34,12 @@
     .service-table {
 
       .status-bar-column {
-        width: @base-spacing-unit * 7;
+        width: @base-spacing-unit * 8;
       }
+    }
+
+    .status-waiting-indicator {
+      margin-left: @base-spacing-unit-screen-small * 1/4;
     }
   }
 }
@@ -43,12 +51,16 @@
     .service-table {
 
       .status-bar-column {
-        width: @base-spacing-unit * 9;
+        width: @base-spacing-unit * 10;
       }
 
       .status-bar-wrapper {
         white-space: nowrap;
       }
+    }
+
+    .status-waiting-indicator {
+      margin-left: @base-spacing-unit-screen-medium * 1/4;
     }
   }
 }
@@ -60,8 +72,12 @@
     .service-table {
 
       .status-bar-column {
-        width: @base-spacing-unit * 10;
+        width: @base-spacing-unit * 11;
       }
+    }
+
+    .status-waiting-indicator {
+      margin-left: @base-spacing-unit-screen-large * 1/4;
     }
   }
 }
@@ -73,8 +89,12 @@
     .service-table {
 
       .status-bar-column {
-        width: @base-spacing-unit * 10.5;
+        width: @base-spacing-unit * 13;
       }
+    }
+
+    .status-waiting-indicator {
+      margin-left: @base-spacing-unit-screen-jumbo * 1/4;
     }
   }
 }

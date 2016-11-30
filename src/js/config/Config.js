@@ -12,6 +12,7 @@ var Config = {
   delayAfterErrorCount: 5,
   documentationURI: 'https://dcos.io/docs',
   marathonDocsURI: 'https://mesosphere.github.io/marathon/docs/',
+  mesosDocsURI: 'https://mesos.apache.org/documentation/latest/',
   downloadsURI: 'https://downloads.dcos.io',
   environment: '@@ENV',
   historyLength: 31,

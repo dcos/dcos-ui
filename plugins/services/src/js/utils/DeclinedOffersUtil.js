@@ -1,5 +1,4 @@
 import DeclinedOffersReasons from '../constants/DeclinedOffersReasons';
-import Units from '../../../../../src/js/utils/Units';
 import Util from '../../../../../src/js/utils/Util';
 
 const unavailableText = 'N/A';
@@ -137,17 +136,17 @@ const DecinedOffersUtil = {
           - constraintOfferSummary.declined
       },
       cpus: {
-        requested: Units.formatResource('cpus', requestedResources.cpus),
+        requested: requestedResources.cpus,
         offers: cpuOfferSummary.processed,
         matched: cpuOfferSummary.processed - cpuOfferSummary.declined
       },
       mem: {
-        requested: Units.formatResource('mem', requestedResources.mem),
+        requested: requestedResources.mem,
         offers: memOfferSummary.processed,
         matched: memOfferSummary.processed - memOfferSummary.declined
       },
       disk: {
-        requested: Units.formatResource('disk', requestedResources.disk),
+        requested: requestedResources.disk,
         offers: diskOfferSummary.processed,
         matched: diskOfferSummary.processed - diskOfferSummary.declined
       },

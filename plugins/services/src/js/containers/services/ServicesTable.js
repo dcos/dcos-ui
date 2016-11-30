@@ -1,9 +1,10 @@
 import classNames from 'classnames';
-import {Dropdown, Table} from 'reactjs-components';
+import {Dropdown, Table, Tooltip} from 'reactjs-components';
 import {Link} from 'react-router';
 import React, {PropTypes} from 'react';
 import {ResourceTableUtil} from 'foundation-ui';
 
+import DateUtil from '../../../../../../src/js/utils/DateUtil';
 import HealthBar from '../../components/HealthBar';
 import Links from '../../../../../../src/js/constants/Links';
 import Icon from '../../../../../../src/js/components/Icon';
@@ -218,6 +219,7 @@ class ServicesTable extends React.Component {
     let serviceStatusClassSet = StatusMapping[serviceStatus] || '';
     let tasksSummary = service.getTasksSummary();
     let {tasksRunning} = tasksSummary;
+    let tooltip = null;
 
     let isDeploying = serviceStatus === 'Deploying';
 
@@ -225,6 +227,35 @@ class ServicesTable extends React.Component {
     let verboseOverview = ` (${tasksRunning} ${StringUtil.pluralize('Instance', tasksRunning)})`;
     if (tasksRunning !== instancesCount) {
       verboseOverview = ` (${tasksRunning} of ${instancesCount} Instances)`;
+    }
+
+    let queue = null;
+
+    if (!!service.getQueue) {
+      queue = service.getQueue();
+    }
+
+    if (queue != null) {
+      const waitingSince = DateUtil.strToMs(queue.since);
+      const timeWaiting = Date.now() - waitingSince;
+
+      // If the service has been waiting for less than five minutes, we don't
+      // display the warning.
+      if (timeWaiting >= 1000 * 60 * 5) {
+        tooltip = (
+          <Tooltip
+            content={`DC/OS has been waiting for resources and unable to complete this deployment for ${DateUtil.getDuration(timeWaiting, null)}.`}
+            maxWidth={250}
+            wrapText={true}
+            wrapperClassName="tooltip-wrapper status-waiting-indicator">
+            <Icon
+              color="red"
+              family="mini"
+              id="ring-exclamation"
+              size="mini" />
+          </Tooltip>
+        );
+      }
     }
 
     return (
@@ -240,6 +271,7 @@ class ServicesTable extends React.Component {
           <span className={serviceStatusClassSet}>{serviceStatus}</span>
           <span className="hidden-large-down">{verboseOverview}</span>
           <span className="hidden-jumbo-up">{conciseOverview}</span>
+          {tooltip}
         </span>
       </div>
     );
