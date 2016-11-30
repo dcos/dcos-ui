@@ -8,12 +8,11 @@ import {isEmpty} from '../../../../../../src/js/utils/ValidatorUtil';
 
 function getJson(data) {
   return data
-    .filter(({uri}) => !isEmpty(uri))
-    .map((item) => ({uri: item.uri}));
+    .filter(({uri}) => !isEmpty(uri));
 }
 
 function processTransaction(state, {type, path, value}) {
-  const [field, index] = path;
+  const [field, index, name] = path;
 
   if (field !== 'fetch') {
     return state;
@@ -24,13 +23,15 @@ function processTransaction(state, {type, path, value}) {
   if (type === ADD_ITEM) {
     newState.push({uri: null});
   }
+
   if (type === REMOVE_ITEM) {
     newState = newState.filter((item, index) => {
       return index !== value;
     });
   }
+
   if (type === SET) {
-    newState[index].uri = value;
+    newState[index][name] = value;
   }
 
   return newState;
@@ -41,6 +42,7 @@ module.exports = {
     if (path == null) {
       return state;
     }
+
     if (this.fetch == null) {
       this.fetch = [];
     }
@@ -57,7 +59,9 @@ module.exports = {
 
     return state.fetch.reduce(function (memo, item, index) {
       memo.push(new Transaction( ['fetch'], index, ADD_ITEM ));
-      memo.push(new Transaction( ['fetch', index, 'uri'], item.uri, SET));
+      Object.keys(item).forEach(function (key) {
+        memo.push(new Transaction( ['fetch', index, key], item[key], SET));
+      });
 
       return memo;
     }, []);
