@@ -26,11 +26,77 @@ const containerSettings = {
   }
 };
 
+const getArtifactsLabel = () => {
+  return (
+    <FieldLabel>
+      {'Artifact URI '}
+      <Tooltip
+        content="Provided URIs are passed to Mesos fetcher module and resolved at runtime."
+        interactive={true}
+        maxWidth={300}
+        scrollContainer=".gm-scroll-view"
+        wrapText={true}>
+          <Icon color="grey" id="ring-question" size="mini" family="mini" />
+      </Tooltip>
+    </FieldLabel>
+  );
+};
+
 class ContainerServiceFormSection extends Component {
+  getArtifactsInputs(data = []) {
+    const errors = this.props.errors.fetch || [];
+
+    let content = data.map((item, index) => {
+      let label;
+      if (index === 0) {
+        label = getArtifactsLabel();
+      }
+
+      return (
+        <div key={index} className="flex row">
+          <FormGroup
+            className="column-10"
+            showError={Boolean(errors[index])}>
+            {label}
+            <FieldInput
+              name={`fetch.${index}.uri`}
+              type="text"
+              value={item.uri}/>
+            <FieldError>{errors[index]}</FieldError>
+          </FormGroup>
+          <FormGroup className="flex flex-item-align-end column-2">
+            <a
+              className="button button-primary-link button-flush"
+              onClick={this.props.onRemoveItem.bind(this, {value: index, path: 'fetch'})}>
+              Delete
+            </a>
+          </FormGroup>
+        </div>
+      );
+    });
+
+    if (data.length === 0) {
+      content = (
+        <div className="flex row">
+          <FormGroup className="column-10">
+            {getArtifactsLabel()}
+          </FormGroup>
+        </div>
+      );
+    }
+
+    return (
+      <div className="artifacts-section">
+        {content}
+      </div>
+    );
+  }
+
   getGPUSInput(data) {
     if (data.container.type === 'DOCKER') {
       return [
         <Tooltip
+          key="gpus-input-tooltip"
           content="Docker Engine does not support GPU resources, please select Universal Container Runtime if you want to use GPU resources."
           interactive={true}
           maxWidth={300}
@@ -42,6 +108,7 @@ class ContainerServiceFormSection extends Component {
           </FieldLabel>
         </Tooltip>,
         <FieldInput
+          key="gpus-input"
           name="gpus"
           type="number"
           disabled={true}
@@ -101,6 +168,14 @@ class ContainerServiceFormSection extends Component {
               value={data.disk} />
             <FieldError>{errors.disk}</FieldError>
           </FormGroup>
+        </div>
+        {this.getArtifactsInputs(data.fetch)}
+        <div>
+          <a
+            className="button button-primary-link button-flush"
+            onClick={this.props.onAddItem.bind(this, {value: data.fetch.length, path: 'fetch'})}>
+            + Add Artifact
+          </a>
         </div>
       </AdvancedSectionContent>
     );
@@ -239,12 +314,16 @@ class ContainerServiceFormSection extends Component {
 
 ContainerServiceFormSection.defaultProps = {
   data: {},
-  errors: {}
+  errors: {},
+  onAddItem() {},
+  onRemoveItem() {}
 };
 
 ContainerServiceFormSection.propTypes = {
   data: React.PropTypes.object,
-  errors: React.PropTypes.object
+  errors: React.PropTypes.object,
+  onAddItem: React.PropTypes.func,
+  onRemoveItem: React.PropTypes.func
 };
 
 ContainerServiceFormSection.configReducers = {

@@ -251,7 +251,11 @@ class GeneralServiceFormSection extends Component {
           </AdvancedSectionContent>
         </AdvancedSection>
 
-        <ContainerServiceFormSection data={data} errors={errors} />
+        <ContainerServiceFormSection
+          data={data}
+          errors={errors}
+          onAddItem={this.props.onAddItem}
+          onRemoveItem={this.props.onRemoveItem} />
       </div>
     );
   }
@@ -259,12 +263,16 @@ class GeneralServiceFormSection extends Component {
 
 GeneralServiceFormSection.defaultProps = {
   data: {},
-  errors: {}
+  errors: {},
+  onAddItem() {},
+  onRemoveItem() {}
 };
 
 GeneralServiceFormSection.propTypes = {
   data: React.PropTypes.object,
-  errors: React.PropTypes.object
+  errors: React.PropTypes.object,
+  onAddItem: React.PropTypes.func,
+  onRemoveItem: React.PropTypes.func
 };
 
 GeneralServiceFormSection.configReducers = General;

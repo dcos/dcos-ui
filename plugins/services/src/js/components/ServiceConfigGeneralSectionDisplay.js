@@ -1,7 +1,24 @@
 import ServiceConfigBaseSectionDisplay from './ServiceConfigBaseSectionDisplay';
 import GeneralServiceConfigSection from '../service-configuration/GeneralServiceConfigSection';
+import Util from '../../../../../src/js/utils/Util';
 
 class ServiceConfigGeneralSectionDisplay extends ServiceConfigBaseSectionDisplay {
+  /**
+   * @override
+   */
+  shouldExcludeItem(row) {
+    const {appConfig} = this.props;
+
+    switch (row.key) {
+      case 'fetch':
+        return !Util.findNestedPropertyInObject(appConfig, 'fetch.length');
+      case 'gpus':
+        return !Util.findNestedPropertyInObject(appConfig, 'gpus');
+      default:
+        return false;
+    }
+  }
+
   /**
    * @override
    */
