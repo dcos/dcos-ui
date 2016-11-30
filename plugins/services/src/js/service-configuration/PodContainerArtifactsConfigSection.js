@@ -25,7 +25,7 @@ module.exports = ({artifacts}) => {
         }}
         columns={[
           {
-            heading: 'Articaft URI',
+            heading: 'Artifact URI',
             prop: 'uri'
           },
           {
