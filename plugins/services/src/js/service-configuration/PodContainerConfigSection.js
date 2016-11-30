@@ -7,9 +7,10 @@ import Section from '../../../../../src/js/components/ConfigurationMapSection';
 import Label from '../../../../../src/js/components/ConfigurationMapLabel';
 import Row from '../../../../../src/js/components/ConfigurationMapRow';
 import Value from '../../../../../src/js/components/ConfigurationMapValue';
-import SizeValue from '../components/ConfigurationMapSizeValue';
-import MultilineValue from '../components/ConfigurationMapMultilineValue';
+
 import BooleanValue from '../components/ConfigurationMapBooleanValue';
+import MultilineValue from '../components/ConfigurationMapMultilineValue';
+import SizeValue from '../components/ConfigurationMapSizeValue';
 import ValueWithDefault from '../components/ConfigurationMapValueWithDefault';
 
 import PodContainerArtifactsConfigSection from './PodContainerArtifactsConfigSection';
