@@ -34,8 +34,6 @@ module.exports = ({containerConfig, appConfig}) => {
     user: containerConfig.user || appConfig.user
   };
 
-  console.log(fields);
-
   return (
     <Section key="pod-general-section">
 

@@ -12,14 +12,15 @@ const BOOLEAN_OPTIONS = {
 };
 
 module.exports = ({appConfig}) => {
-  let volumes = (appConfig.volumes || []).reduce((memo, volume) => {
+  let {volumes=[], containers=[]} = appConfig;
+  let volumeSummary = volumes.reduce((memo, volume) => {
     let volumeInfo = {
       volume: volume.name,
       host: volume.host
     };
 
     // Fetch all mounts for this volume in the containers
-    let containerMounts = (appConfig.containers || []).reduce(
+    let containerMounts = containers.reduce(
       (cmMemo, container) => {
         let {volumeMounts=[]} = container;
         return cmMemo.concat(
@@ -51,7 +52,7 @@ module.exports = ({appConfig}) => {
     }, memo);
   }, []);
 
-  if (!volumes.length) {
+  if (!volumeSummary.length) {
     return null;
   }
 
@@ -94,7 +95,7 @@ module.exports = ({appConfig}) => {
               prop: 'container'
             }
           ]}
-          data={volumes} />
+          data={volumeSummary} />
 
       </Section>
     </div>
