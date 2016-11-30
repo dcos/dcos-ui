@@ -1,5 +1,4 @@
-// TODO: Reduce the specificity, remove the mixin declarations in favor of
-// normal styles.
+// TODO: Reduce the specificity. DCOS-11785
 & when (@sidebar-enabled) {
 
   // Sidebar
@@ -7,7 +6,7 @@
     background: @sidebar-background-color;
   }
 
-  // TODO: Fix this positioning.
+  // TODO: Fix this positioning. DCOS-11784
   // Navigation
   .navigation {
     left: -100%;
@@ -17,7 +16,6 @@
 
   // Sidebar Section
   .sidebar-section {
-    .element-spacing(sidebar-section, short, screen-medium);
 
     &:last-of-type {
       margin-bottom: 0;
@@ -26,13 +24,17 @@
 
     // Sidebar Section Header
     .sidebar-section-header {
-      .element-shape-style(sidebar-section-header);
-      .element-spacing(sidebar-section-header, null, null);
-      .element-text-size(sidebar-section-header, null);
-      .element-text-style(sidebar-section-header);
-      .property-variant(sidebar-section-header, height);
       align-items: center;
+      color: @sidebar-section-header-color;
       display: flex;
+      font-size: @sidebar-section-header-font-size;
+      font-weight: @sidebar-section-header-font-weight;
+      height: @sidebar-section-header-height;
+      line-height: @sidebar-section-header-line-height;
+      margin: @sidebar-section-header-margin-top @sidebar-section-header-margin-right @sidebar-section-header-margin-bottom @sidebar-section-header-margin-left;
+      padding-left: @sidebar-section-header-padding-left;
+      padding-right: @sidebar-section-header-padding-right;
+      text-transform: @sidebar-section-header-text-transform;
 
       &:empty {
         display: none;
@@ -43,17 +45,22 @@
   // Sidebar Menu
   .sidebar-menu {
     .clearfix();
-    .element-shape-style(sidebar-menu);
-    margin-bottom: 0;
+    margin-bottom: @sidebar-menu-margin-bottom;
 
     li {
-      .element-shape-style(sidebar-menu-item);
-      .element-spacing(sidebar-menu-item, null, null);
-      .element-text-size(sidebar-menu-item, null);
-      .element-text-style(sidebar-menu-item);
-      .property-variant(sidebar-menu-item, min-height, height, null, null);
+      background: @sidebar-menu-item-background-color;
+      color: @sidebar-menu-item-color;
       display: block;
-      transition: background-color 0.15s ease;
+      font-size: @sidebar-menu-item-font-size;
+      font-weight: @sidebar-menu-item-font-weight;
+      line-height: @sidebar-menu-item-line-height;
+      margin-bottom: @sidebar-menu-item-margin-bottom;
+      margin-left: @sidebar-menu-item-margin-left;
+      margin-right: @sidebar-menu-item-margin-right;
+      min-height: @sidebar-menu-item-height;
+      padding-left: @sidebar-menu-item-padding-left;
+      padding-right: @sidebar-menu-item-padding-right;
+      transition: background 0.15s ease;
 
       &:empty {
         display: none;
@@ -72,29 +79,34 @@
         margin-right: 12px;
       }
 
+      // TODO: Apply a class to these elements. DCOS-11785
       & > *:not(a):not(span) {
-        .property-variant(sidebar-menu-item-content, margin-right, padding-horizontal, null, null);
+        margin-right: @sidebar-menu-item-content-padding-horizontal;
 
         &:last-child {
           margin-right: 0;
         }
       }
 
-      // TODO: Give these elements classes, don't select more than one.
+      // TODO: Give these elements classes, don't select more than one,
+      // remove !important. DCOS-11785
       & > a,
       & > span {
-        .element-shape-style(sidebar-menu-item-link);
-        .element-spacing(sidebar-menu-item-link, null, null);
-        .element-text-style(sidebar-menu-item-link);
-        .property-variant(sidebar-menu-item, height);
         align-items: center;
+        background: @sidebar-menu-item-link-background-color;
+        color: @sidebar-menu-item-link-color;
         display: flex;
         flex: 1 1 auto;
+        height: @sidebar-menu-item-height;
+        margin-left: @sidebar-menu-item-link-margin-left;
+        margin-right: @sidebar-menu-item-link-margin-right;
+        padding-left: @sidebar-menu-item-link-padding-left;
+        padding-right: @sidebar-menu-item-link-padding-right;
         text-decoration: none !important;
-        transition: background-color 0.15s ease;
+        transition: background 0.15s ease;
 
         & > * {
-          .property-variant(sidebar-menu-item-content, margin-right, padding-horizontal, null, null);
+          margin-right: @sidebar-menu-item-content-padding-horizontal;
 
           &:last-child {
             margin-right: 0;
@@ -105,30 +117,30 @@
       & > a {
 
         &:hover {
-          .element-shape-style(sidebar-menu-item-link-hover);
-          .element-text-style(sidebar-menu-item-link-hover);
+          background: @sidebar-menu-item-link-hover-background-color;
+          color: @sidebar-menu-item-link-hover-color;
           cursor: pointer;
         }
 
         &:active {
-          .element-shape-style(sidebar-menu-item-link-active);
-          .element-text-style(sidebar-menu-item-link-active);
+          background: @sidebar-menu-item-link-active-background-color;
+          color: @sidebar-menu-item-link-active-color;
         }
       }
 
       &.selected:not(.open) {
-        .element-shape-style(sidebar-menu-item-selected);
+        background: @sidebar-menu-item-selected-background-color;
       }
 
       &.selected,
       &.selected.open {
-        .element-text-style(sidebar-menu-item-selected);
+        color: @sidebar-menu-item-selected-color;
 
         & > a,
         & > a:hover,
         & > a:active {
-          .element-shape-style(sidebar-menu-item-link-selected);
-          .element-text-style(sidebar-menu-item-link-selected);
+          background: @sidebar-menu-item-link-selected-background-color;
+          color: @sidebar-menu-item-link-selected-color;
         }
 
         .badge {
@@ -137,59 +149,71 @@
       }
 
       &.open {
-        .element-shape-style(sidebar-submenu);
-        .element-text-style(sidebar-menu-item-open);
+        background: @sidebar-submenu-background-color;
+        color: @sidebar-menu-item-open-color;
 
         & > span,
         & > a {
-          .element-shape-style(sidebar-menu-item-open);
-          .element-text-style(sidebar-menu-item-open);
+          background: @sidebar-menu-item-open-background-color;
+          color: @sidebar-menu-item-open-color;
         }
       }
 
       & > ul {
-        .element-spacing(sidebar-submenu, null, null);
+        margin-bottom: @sidebar-submenu-margin-bottom;
+        margin-top: @sidebar-submenu-margin-top;
+        padding-bottom: @sidebar-submenu-padding-bottom;
+        padding-top: @sidebar-submenu-padding-top;
 
         li {
-          .element-shape-style(sidebar-submenu-item);
-          .element-spacing(sidebar-submenu-item, null, null);
-          .element-text-size(sidebar-submenu-item, null);
-          .element-text-style(sidebar-submenu-item);
-          .property-variant(sidebar-submenu-item, min-height, height, null, null);
+          background-color: @sidebar-submenu-item-background-color;
+          color: @sidebar-submenu-item-color;
           display: block;
+          font-size: @sidebar-submenu-item-font-size;
+          font-weight: @sidebar-submenu-item-font-weight;
+          line-height: @sidebar-submenu-item-line-height;
+          margin-left: @sidebar-submenu-item-margin-left;
+          margin-right: @sidebar-submenu-item-margin-right;
+          min-height: @sidebar-submenu-item-height;
+          padding-left: @sidebar-submenu-item-padding-left;
+          padding-right: @sidebar-submenu-item-padding-right;
+          text-transform: @sidebar-submenu-item-text-transform;
 
           &.selected {
 
             & > a,
             & > a:hover,
             & > a:active {
-              .element-shape-style(sidebar-submenu-item-link-selected);
-              .element-text-style(sidebar-submenu-item-link-selected);
+              background: @sidebar-submenu-item-link-selected-background-color;
+              color: @sidebar-submenu-item-link-selected-color;
             }
           }
 
           & > span,
           & > a {
-            .element-shape-style(sidebar-submenu-item-link);
-            .element-spacing(sidebar-submenu-item-link, null, null);
-            .element-text-style(sidebar-submenu-item-link);
-            .property-variant(sidebar-submenu-item, height);
             align-items: center;
+            background: @sidebar-submenu-item-link-background-color;
+            color: @sidebar-submenu-item-link-color;
             display: flex;
+            height: @sidebar-submenu-item-height;
+            margin-left: @sidebar-submenu-item-link-margin-left;
+            margin-right: @sidebar-submenu-item-link-margin-right;
+            padding-left: @sidebar-submenu-item-link-padding-left;
+            padding-right: @sidebar-submenu-item-link-padding-right;
             text-decoration: none !important;
           }
 
           & > a {
 
             &:hover {
-              .element-shape-style(sidebar-submenu-item-link-hover);
-              .element-text-style(sidebar-submenu-item-link-hover);
+              background: @sidebar-submenu-item-link-hover-background-color;
+              color: @sidebar-submenu-item-link-hover-color;
               cursor: pointer;
             }
 
             &:active {
-              .element-shape-style(sidebar-submenu-item-link-active);
-              .element-text-style(sidebar-submenu-item-link-active);
+              background: @sidebar-submenu-item-link-active-background-color;
+              color: @sidebar-submenu-item-link-active-color;
             }
           }
         }
@@ -210,13 +234,13 @@
 
       // Sidebar Section
       .sidebar-section {
-        .element-spacing(sidebar-section, null, screen-small);
 
         // Sidebar Section Header
         .sidebar-section-header {
-          .element-spacing(sidebar-section-header, null, screen-small);
-          .element-text-size(sidebar-section-header, screen-small);
-          .property-variant(sidebar-section-header, height, null, screen-small);
+          margin-left: @sidebar-section-header-margin-left-screen-small;
+          margin-right: @sidebar-section-header-margin-right-screen-small;
+          padding-left: @sidebar-section-header-padding-left-screen-small;
+          padding-right: @sidebar-section-header-padding-right-screen-small;
         }
       }
 
@@ -224,36 +248,43 @@
       .sidebar-menu {
 
         li {
-          .element-spacing(sidebar-menu-item, null, screen-small);
-          .element-text-size(sidebar-submenu-item, screen-small);
-          .property-variant(sidebar-menu-item, min-height, height, null, screen-small);
+          margin-left: @sidebar-menu-item-margin-left-screen-small;
+          margin-right: @sidebar-menu-item-margin-right-screen-small;
+          padding-left: @sidebar-menu-item-padding-left-screen-small;
+          padding-right: @sidebar-menu-item-padding-right-screen-small;
 
           & > *:not(a):not(span) {
-            .property-variant(sidebar-menu-item-content, margin-right, padding-horizontal, null, screen-small);
+            margin-right: @sidebar-menu-item-content-padding-horizontal-screen-small;
           }
 
           & > span,
           & > a {
-            .element-spacing(sidebar-menu-item-link, null, screen-small);
-            .property-variant(sidebar-menu-item, height, null, screen-small);
+            margin-left: @sidebar-menu-item-link-margin-left-screen-small;
+            margin-right: @sidebar-menu-item-link-margin-right-screen-small;
+            padding-left: @sidebar-menu-item-link-padding-left-screen-small;
+            padding-right: @sidebar-menu-item-link-padding-right-screen-small;
 
             & > * {
-              .property-variant(sidebar-menu-item-content, margin-right, padding-horizontal, null, screen-small);
+              margin-right: @sidebar-menu-item-content-padding-horizontal-screen-small;
             }
           }
 
           & > ul {
-            .element-spacing(sidebar-submenu, null, screen-small);
+            padding-bottom: @sidebar-submenu-padding-bottom-screen-small;
+            padding-top: @sidebar-submenu-padding-top-screen-small;
 
             li {
-              .element-spacing(sidebar-submenu-item, null, screen-small);
-              .element-text-size(sidebar-submenu-item, screen-small);
-              .property-variant(sidebar-submenu-item, min-height, height, null, screen-small);
+              margin-left: @sidebar-submenu-item-margin-left-screen-small;
+              margin-right: @sidebar-submenu-item-margin-right-screen-small;
+              padding-left: @sidebar-submenu-item-padding-left-screen-small;
+              padding-right: @sidebar-submenu-item-padding-right-screen-small;
 
               & > span,
               & > a {
-                .element-spacing(sidebar-submenu-item-link, null, screen-small);
-                .property-variant(sidebar-submenu-item, height, null, screen-small);
+                margin-left: @sidebar-submenu-item-link-margin-left-screen-small;
+                margin-right: @sidebar-submenu-item-link-margin-right-screen-small;
+                padding-left: @sidebar-submenu-item-link-padding-left-screen-small;
+                padding-right: @sidebar-submenu-item-link-padding-right-screen-small;
               }
             }
           }
@@ -284,13 +315,13 @@
 
       // Sidebar Section
       .sidebar-section {
-        .element-spacing(sidebar-section, null, screen-medium);
 
         // Sidebar Section Header
         .sidebar-section-header {
-          .element-spacing(sidebar-section-header, null, screen-medium);
-          .element-text-size(sidebar-section-header, screen-medium);
-          .property-variant(sidebar-section-header, height, null, screen-medium);
+          margin-left: @sidebar-section-header-margin-left-screen-medium;
+          margin-right: @sidebar-section-header-margin-right-screen-medium;
+          padding-left: @sidebar-section-header-padding-left-screen-medium;
+          padding-right: @sidebar-section-header-padding-right-screen-medium;
         }
       }
 
@@ -298,36 +329,41 @@
       .sidebar-menu {
 
         li {
-          .element-spacing(sidebar-menu-item, null, screen-medium);
-          .element-text-size(sidebar-submenu-item, screen-medium);
-          .property-variant(sidebar-menu-item, min-height, height, null, screen-medium);
+          margin-left: @sidebar-menu-item-margin-left-screen-medium;
+          margin-right: @sidebar-menu-item-margin-right-screen-medium;
+          padding-left: @sidebar-menu-item-padding-left-screen-medium;
+          padding-right: @sidebar-menu-item-padding-right-screen-medium;
 
           & > *:not(a):not(span) {
-            .property-variant(sidebar-menu-item-content, margin-right, padding-horizontal, null, screen-medium);
+            margin-right: @sidebar-menu-item-content-padding-horizontal-screen-medium;
           }
 
           & > span,
           & > a {
-            .element-spacing(sidebar-menu-item-link, null, screen-medium);
-            .property-variant(sidebar-menu-item, height, null, screen-medium);
+            margin-left: @sidebar-menu-item-link-margin-left-screen-medium;
+            margin-right: @sidebar-menu-item-link-margin-right-screen-medium;
+            padding-left: @sidebar-menu-item-link-padding-left-screen-medium;
+            padding-right: @sidebar-menu-item-link-padding-right-screen-medium;
 
             & > * {
-              .property-variant(sidebar-menu-item-content, margin-right, padding-horizontal, null, screen-medium);
+              margin-right: @sidebar-menu-item-content-padding-horizontal-screen-medium;
             }
           }
 
           & > ul {
-            .element-spacing(sidebar-submenu, null, screen-medium);
 
             li {
-              .element-spacing(sidebar-submenu-item, null, screen-medium);
-              .element-text-size(sidebar-submenu-item, screen-medium);
-              .property-variant(sidebar-submenu-item, min-height, height, null, screen-medium);
+              margin-left: @sidebar-submenu-item-margin-left-screen-medium;
+              margin-right: @sidebar-submenu-item-margin-right-screen-medium;
+              padding-left: @sidebar-submenu-item-padding-left-screen-medium;
+              padding-right: @sidebar-submenu-item-padding-right-screen-medium;
 
               & > span,
               & > a {
-                .element-spacing(sidebar-submenu-item-link, null, screen-medium);
-                .property-variant(sidebar-submenu-item, height, null, screen-medium);
+                margin-left: @sidebar-submenu-item-link-margin-left-screen-medium;
+                margin-right: @sidebar-submenu-item-link-margin-right-screen-medium;
+                padding-left: @sidebar-submenu-item-link-padding-left-screen-medium;
+                padding-right: @sidebar-submenu-item-link-padding-right-screen-medium;
               }
             }
           }
@@ -351,13 +387,13 @@
 
       // Sidebar Section
       .sidebar-section {
-        .element-spacing(sidebar-section, null, screen-large);
 
         // Sidebar Section Header
         .sidebar-section-header {
-          .element-spacing(sidebar-section-header, null, screen-large);
-          .element-text-size(sidebar-section-header, screen-large);
-          .property-variant(sidebar-section-header, height, null, screen-large);
+          margin-left: @sidebar-section-header-margin-left-screen-large;
+          margin-right: @sidebar-section-header-margin-right-screen-large;
+          padding-left: @sidebar-section-header-padding-left-screen-large;
+          padding-right: @sidebar-section-header-padding-right-screen-large;
         }
       }
 
@@ -365,57 +401,44 @@
       .sidebar-menu {
 
         li {
-          .element-spacing(sidebar-menu-item, null, screen-large);
-          .element-text-size(sidebar-menu-item, screen-large);
-          .property-variant(sidebar-menu-item, min-height, height, null, screen-large);
+          margin-left: @sidebar-menu-item-margin-left-screen-large;
+          margin-right: @sidebar-menu-item-margin-right-screen-large;
+          padding-left: @sidebar-menu-item-padding-left-screen-large;
+          padding-right: @sidebar-menu-item-padding-right-screen-large;
 
           & > *:not(a):not(span) {
-            .property-variant(sidebar-menu-item-content, margin-right, padding-horizontal, null, screen-large);
+            margin-right: @sidebar-menu-item-content-padding-horizontal-screen-large;
           }
 
           & > span,
           & > a {
-            .element-spacing(sidebar-menu-item-link, null, screen-large);
-            .property-variant(sidebar-menu-item, height, null, screen-large);
+            margin-left: @sidebar-menu-item-link-margin-left-screen-large;
+            margin-right: @sidebar-menu-item-link-margin-right-screen-large;
+            padding-left: @sidebar-menu-item-link-padding-left-screen-large;
+            padding-right: @sidebar-menu-item-link-padding-right-screen-large;
 
             & > * {
-              .property-variant(sidebar-menu-item-content, margin-right, padding-horizontal, null, screen-large);
+              margin-right: @sidebar-menu-item-content-padding-horizontal-screen-large;
             }
           }
 
           & > ul {
-            .element-spacing(sidebar-submenu, null, screen-large);
+            padding-bottom: @sidebar-submenu-padding-bottom-screen-large;
+            padding-top: @sidebar-submenu-padding-top-screen-large;
 
             li {
-              .element-spacing(sidebar-submenu-item, null, screen-large);
-              .element-text-size(sidebar-submenu-item, screen-large);
-              .property-variant(sidebar-submenu-item, min-height, height, null, screen-large);
+              margin-left: @sidebar-submenu-item-margin-left-screen-large;
+              margin-right: @sidebar-submenu-item-margin-right-screen-large;
+              padding-left: @sidebar-submenu-item-padding-left-screen-large;
+              padding-right: @sidebar-submenu-item-padding-right-screen-large;
 
               & > span,
               & > a {
-                .element-spacing(sidebar-submenu-item-link, null, screen-large);
-                .property-variant(sidebar-submenu-item, height, null, screen-large);
+                margin-left: @sidebar-submenu-item-link-margin-left-screen-large;
+                margin-right: @sidebar-submenu-item-link-margin-right-screen-large;
+                padding-left: @sidebar-submenu-item-link-padding-left-screen-large;
+                padding-right: @sidebar-submenu-item-link-padding-right-screen-large;
               }
-            }
-          }
-        }
-      }
-    }
-  }
-
-  // TODO: Remove in 1.9
-  @media (min-width: @layout-screen-medium-min-height) {
-
-    & when (@sidebar-enabled) and (@sidebar-screen-medium-enabled) {
-
-      .sidebar {
-
-        &.is-expanded {
-
-          .sidebar-content {
-
-            .sidebar-logo-container {
-              display: none;
             }
           }
         }
@@ -438,13 +461,13 @@
 
       // Sidebar Section
       .sidebar-section {
-        .element-spacing(sidebar-section, null, screen-jumbo);
 
         // Sidebar Section Header
         .sidebar-section-header {
-          .element-spacing(sidebar-section-header, null, screen-jumbo);
-          .element-text-size(sidebar-section-header, screen-jumbo);
-          .property-variant(sidebar-section-header, height, null, screen-jumbo);
+          margin-left: @sidebar-section-header-margin-left-screen-jumbo;
+          margin-right: @sidebar-section-header-margin-right-screen-jumbo;
+          padding-left: @sidebar-section-header-padding-left-screen-jumbo;
+          padding-right: @sidebar-section-header-padding-right-screen-jumbo;
         }
       }
 
@@ -452,36 +475,43 @@
       .sidebar-menu {
 
         li {
-          .element-spacing(sidebar-menu-item, null, screen-jumbo);
-          .element-text-size(sidebar-menu-item, screen-jumbo);
-          .property-variant(sidebar-menu-item, min-height, height, null, screen-jumbo);
+          margin-left: @sidebar-menu-item-margin-left-screen-jumbo;
+          margin-right: @sidebar-menu-item-margin-right-screen-jumbo;
+          padding-left: @sidebar-menu-item-padding-left-screen-jumbo;
+          padding-right: @sidebar-menu-item-padding-right-screen-jumbo;
 
           & > *:not(a):not(span) {
-            .property-variant(sidebar-menu-item-content, margin-right, padding-horizontal, null, screen-jumbo);
+            margin-right: @sidebar-menu-item-content-padding-horizontal-screen-jumbo;
           }
 
           & > span,
           & > a {
-            .element-spacing(sidebar-menu-item-link, null, screen-jumbo);
-            .property-variant(sidebar-menu-item, height, null, screen-jumbo);
+            margin-left: @sidebar-menu-item-link-margin-left-screen-jumbo;
+            margin-right: @sidebar-menu-item-link-margin-right-screen-jumbo;
+            padding-left: @sidebar-menu-item-link-padding-left-screen-jumbo;
+            padding-right: @sidebar-menu-item-link-padding-right-screen-jumbo;
 
             & > * {
-              .property-variant(sidebar-menu-item-content, margin-right, padding-horizontal, null, screen-jumbo);
+              margin-right: @sidebar-menu-item-content-padding-horizontal-screen-jumbo;
             }
           }
 
           & > ul {
-            .element-spacing(sidebar-submenu, null, screen-jumbo);
+            padding-bottom: @sidebar-submenu-padding-bottom-screen-jumbo;
+            padding-top: @sidebar-submenu-padding-top-screen-jumbo;
 
             li {
-              .element-spacing(sidebar-submenu-item, null, screen-jumbo);
-              .element-text-size(sidebar-submenu-item, screen-jumbo);
-              .property-variant(sidebar-submenu-item, min-height, height, null, screen-jumbo);
+              margin-left: @sidebar-submenu-item-margin-left-screen-jumbo;
+              margin-right: @sidebar-submenu-item-margin-right-screen-jumbo;
+              padding-left: @sidebar-submenu-item-padding-left-screen-jumbo;
+              padding-right: @sidebar-submenu-item-padding-right-screen-jumbo;
 
               & > span,
               & > a {
-                .element-spacing(sidebar-submenu-item-link, null, screen-jumbo);
-                .property-variant(sidebar-submenu-item, height, null, screen-jumbo);
+                margin-left: @sidebar-submenu-item-link-margin-left-screen-jumbo;
+                margin-right: @sidebar-submenu-item-link-margin-right-screen-jumbo;
+                padding-left: @sidebar-submenu-item-link-padding-left-screen-jumbo;
+                padding-right: @sidebar-submenu-item-link-padding-right-screen-jumbo;
               }
             }
           }
