@@ -35,6 +35,20 @@ describe('ConfigurationMapDurationValue', function () {
     expect(contentText).toEqual('130 sec (2 min, 10 sec)');
   });
 
+  it('should remove redundant components', function () {
+    var instance = TestUtils.renderIntoDocument(
+      <ConfigurationMapDurationValue
+        units="sec"
+        value={30} />
+    );
+
+    var contentText = TestUtils.findRenderedDOMComponentWithClass(
+      instance, 'configuration-map-value'
+    ).textContent.trim();
+
+    expect(contentText).toEqual('30 sec');
+  });
+
   it('should correctly render `defaultValue` if empty', function () {
     var instance = TestUtils.renderIntoDocument(
       <ConfigurationMapDurationValue
