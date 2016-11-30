@@ -262,58 +262,12 @@ describe('JSONEditorUtil', function () {
       expect(value).toEqual({o: {a:4, c:3, d:5}});
     });
 
-    it('should order array values', function () {
+    it('does not reorder arrays', function () {
       let a = {a: ['a', 'b', 'c']};
       let b = {a: ['b', 'a', 'c']};
 
       let value = JSONEditorUtil.sortObjectKeys(a, b);
-      expect(value).toEqual({a: ['a', 'b', 'c']});
-    });
-
-    it('should add new array values at the end', function () {
-      let a = {a: ['a', 'b', 'c']};
-      let b = {a: ['d', 'b', 'a']};
-
-      let value = JSONEditorUtil.sortObjectKeys(a, b);
-      expect(value).toEqual({a: ['a', 'b', 'd']});
-    });
-
-    it('should order objects in array values', function () {
-      let a = {a: [
-        {a:1, b:2, c:3},
-        {b:1, a:2, c:3}
-      ]};
-      let b = {a: [
-        {a:4, c:6, b:5},
-        {c:6, b:4, a:5}
-      ]};
-
-      let value = JSONEditorUtil.sortObjectKeys(a, b);
-      expect(Object.keys(value.a[0])).toEqual(['a', 'b', 'c']);
-      expect(Object.keys(value.a[1])).toEqual(['b', 'a', 'c']);
-      expect(value).toEqual({a: [
-        {a:4, b:5, c:6},
-        {b:4, a:5, c:6}
-      ]});
-    });
-
-    it('should order new keys at the end of objects in array values', function () {
-      let a = {a: [
-        {a:1, b:2, c:3},
-        {b:1, a:2, c:3}
-      ]};
-      let b = {a: [
-        {a:4, d:6, c:3, b:5},
-        {d:6, b:4, a:5, c:8}
-      ]};
-
-      let value = JSONEditorUtil.sortObjectKeys(a, b);
-      expect(Object.keys(value.a[0])).toEqual(['a', 'b', 'c', 'd']);
-      expect(Object.keys(value.a[1])).toEqual(['b', 'a', 'c', 'd']);
-      expect(value).toEqual({a: [
-        {a:4, b:5, c:3, d:6},
-        {b:4, a:5, c:8, d:6}
-      ]});
+      expect(value).toEqual({a: ['b', 'a', 'c']});
     });
 
     it('should properly handle null-to-object comparisions', function () {

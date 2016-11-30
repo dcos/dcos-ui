@@ -1,22 +1,3 @@
-import deepEqual from 'deep-equal';
-
-/**
- * Check if all keys of `objectA` exist on `objectB` or vice-versa
- *
- * @param {Object} objectA - The first object to compare
- * @param {Object} objectB - The second object to compare
- * @returns {Boolean} Returns `true` if all keys of A are in B or vice versa
- */
-function doKeysOverlap(objectA, objectB) {
-  let keysA = Object.keys(objectA);
-  let keysB = Object.keys(objectB);
-  return keysA.every(function (value) {
-    return keysB.indexOf(value) !== -1;
-  }) || keysB.every(function (value) {
-    return keysA.indexOf(value) !== -1;
-  });
-}
-
 /**
  * This module contains the utility functions for the `JSONEditor` component,
  * separated into a different file solely for organisation purposes.
@@ -152,43 +133,7 @@ var JSONEditorUtil = {
    */
   sortObjectKeys(oldVal, newVal) {
     if (Array.isArray(oldVal) && Array.isArray(newVal)) {
-      let oldValues = oldVal.slice();
-      let newValues = newVal.slice();
-
-      // Keep values that exist in both arrays, in the order they appear in the
-      // `oldValues` array. In the same time, strip these values out of the
-      // `newValues` array in order to keep only the `new` values.
-      let resultVal = oldValues.reduce(function (memo, oldItem) {
-
-        // Check if we have the same or compatible item in the `newValues` array
-        // A "compatible" item is an object that has
-        let index = newValues.findIndex(function (newItem) {
-          if (oldItem === newItem) {
-            return true;
-          }
-
-          if ((typeof oldItem === 'object') && (typeof newItem === 'object') &&
-              doKeysOverlap(oldItem, newItem)) {
-            return true;
-          }
-
-          return deepEqual(oldItem, newItem);
-        });
-
-        // If we don't have that item, don't include it in the list
-        if (index === -1) {
-          return memo;
-        }
-
-        // Push (and recursively sort if appliable) the value
-        memo.push(JSONEditorUtil.sortObjectKeys(oldItem, newValues[index]));
-        newValues.splice(index, 1);
-
-        return memo;
-      }, []);
-
-      // Append new values in the order they appear at the end of the array
-      return resultVal.concat(newValues);
+      return newVal;
     }
 
     // Since `null` is also considered an object, handle it before we reach
