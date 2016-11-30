@@ -72,7 +72,7 @@ const containerJSONReducer = combineReducers({
 
     arguments[0] = this.internalState;
 
-    this.internalState = docker.call(this, ...arguments);
+    this.internalState = docker.apply(this, arguments);
     if (!ValidatorUtil.isEmpty(this.internalState.image)) {
       let newState = Object.assign({}, this.internalState);
       Object.keys(this.internalState).forEach((key) => {
@@ -107,7 +107,7 @@ const containerReducer = combineReducers({
 
     arguments[0] = this.internalState;
 
-    this.internalState = docker.call(this, ...arguments);
+    this.internalState = docker.apply(this, arguments);
     if (!ValidatorUtil.isEmpty(this.internalState.image)) {
       let newState = Object.assign({}, this.internalState);
       Object.keys(this.internalState).forEach((key) => {
@@ -131,7 +131,7 @@ function container() {
   }
 
   arguments[0] = this.internalState;
-  let newState = Object.assign({}, containerReducer.call(this, ...arguments));
+  let newState = Object.assign({}, containerReducer.apply(this, arguments));
   this.internalState = newState;
 
   if (ValidatorUtil.isEmpty(newState)) {
@@ -166,7 +166,7 @@ module.exports = {
     }
 
     arguments[0] = this.internalState;
-    let newState = Object.assign({}, containerJSONReducer.call(this, ...arguments));
+    let newState = Object.assign({}, containerJSONReducer.apply(this, arguments));
     this.internalState = newState;
 
     if (ValidatorUtil.isEmpty(newState)) {
