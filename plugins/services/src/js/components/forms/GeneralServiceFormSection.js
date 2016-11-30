@@ -48,7 +48,7 @@ class GeneralServiceFormSection extends Component {
         <div key={index} className="flex row">
           <FormGroup
             className="column-3"
-            required={false}
+            required={true}
             showError={Boolean(errors[index])}>
             {fieldLabel}
             <FieldInput
@@ -59,7 +59,7 @@ class GeneralServiceFormSection extends Component {
           </FormGroup>
           <FormGroup
             className="column-3"
-            required={false}
+            required={true}
             showError={Boolean(errors[index])}>
             {operatorLabel}
             <FieldInput
@@ -70,7 +70,6 @@ class GeneralServiceFormSection extends Component {
           </FormGroup>
           <FormGroup
             className="column-3"
-            required={false}
             showError={Boolean(errors[index])}>
             {parameterLabel}
             <FieldInput
