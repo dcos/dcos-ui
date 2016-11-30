@@ -51,7 +51,7 @@ ConfigurationMapDurationValue.defaultProps = {
   defaultValue: <span>&mdash;</span>,
   multiplicants: MULTIPLICANTS,
   units: 'ms',
-  value: null
+  value: 0
 };
 
 ConfigurationMapDurationValue.propTypes = {
@@ -61,7 +61,7 @@ ConfigurationMapDurationValue.propTypes = {
   ]),
   multiplicants: React.PropTypes.object,
   units: React.PropTypes.oneOf(Object.keys(MULTIPLICANTS)),
-  value: React.PropTypes.number.isRequired
+  value: React.PropTypes.number
 };
 
 module.exports = ConfigurationMapDurationValue;

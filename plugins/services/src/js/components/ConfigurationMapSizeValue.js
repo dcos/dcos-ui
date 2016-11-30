@@ -24,9 +24,9 @@ class ConfigurationMapSizeValue extends React.Component {
     return (
       <ConfigurationMapValue>
         {Units.filesize(
-        value * scale,
-        decimals, threshold, multiplier, units
-      )}
+          value * scale,
+          decimals, threshold, multiplier, units
+        )}
       </ConfigurationMapValue>
     );
   }
