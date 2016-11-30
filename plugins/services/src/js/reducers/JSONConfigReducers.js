@@ -16,7 +16,7 @@ module.exports = {
   id: simpleReducer('id'),
   instances: simpleIntReducer('instances'),
   container() {
-    const newState = container.call(this, ...arguments);
+    const newState = container.apply(this, arguments);
     if (ValidatorUtil.isEmpty(newState)) {
       return null;
     }
