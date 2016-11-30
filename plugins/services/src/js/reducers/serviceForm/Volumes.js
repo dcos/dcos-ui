@@ -4,6 +4,25 @@ import {
   SET
 } from '../../../../../../src/js/constants/TransactionTypes';
 
+const mapLocalVolumes = function (volume) {
+  if (volume.type === 'PERSISTENT') {
+    return {
+      persistent: volume.persistent,
+      mode: volume.mode,
+      containerPath: volume.containerPath
+    };
+  }
+  return {
+    containerPath: volume.containerPath,
+    hostPath: volume.hostPath,
+    mode: volume.mode
+  };
+};
+
+const filterHostVolumes = function (volume) {
+  return volume.type !== 'HOST' || this.docker;
+};
+
 module.exports = {
   JSONReducer(state, {type, path, value}) {
     if (path == null) {
@@ -24,7 +43,15 @@ module.exports = {
       this.localVolumes = [];
     }
 
+    if (this.docker == null) {
+      this.docker = false;
+    }
+
     const joinedPath = path.join('.');
+
+    if (joinedPath === 'container.docker.image') {
+      this.docker = value !== '';
+    }
 
     if (path[0] === 'externalVolumes') {
       if (joinedPath === 'externalVolumes') {
@@ -48,7 +75,8 @@ module.exports = {
             break;
         }
 
-        return [].concat(this.externalVolumes, this.localVolumes);
+        return [].concat(this.externalVolumes,
+          this.localVolumes.filter(filterHostVolumes.bind(this)).map(mapLocalVolumes));
       }
 
       const index = path[1];
@@ -86,7 +114,8 @@ module.exports = {
             break;
         }
 
-        return [].concat(this.externalVolumes, this.localVolumes);
+        return [].concat(this.externalVolumes,
+          this.localVolumes.filter(filterHostVolumes.bind(this)).map(mapLocalVolumes));
       }
 
       const index = path[1];
@@ -99,14 +128,21 @@ module.exports = {
 
         this.localVolumes[index].persistent.size = value;
       }
+      if (type === SET && `localVolumes.${index}.type` === joinedPath) {
+        this.localVolumes[index].type = value;
+      }
       if (type === SET && `localVolumes.${index}.mode` === joinedPath) {
         this.localVolumes[index].mode = value;
+      }
+      if (type === SET && `localVolumes.${index}.hostPath` === joinedPath) {
+        this.localVolumes[index].hostPath = value;
       }
       if (type === SET && `localVolumes.${index}.containerPath` === joinedPath) {
         this.localVolumes[index].containerPath = value;
       }
     }
 
-    return [].concat(this.externalVolumes, this.localVolumes);
+    return [].concat(this.externalVolumes,
+      this.localVolumes.filter(filterHostVolumes.bind(this)).map(mapLocalVolumes));
   }
 };

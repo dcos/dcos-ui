@@ -11,7 +11,7 @@ module.exports = {
       return [];
     }
 
-    return state.container.volumes.filter((item) => item.persistent != null)
+    return state.container.volumes.filter((item) => item.external == null)
       .reduce(function (memo, item, index) {
         /**
          * For the localVolumes we have a special case as all the volumes
@@ -30,12 +30,30 @@ module.exports = {
          */
         memo.push(new Transaction(['localVolumes'], index, ADD_ITEM));
 
-        if (item.persistent.size != null) {
+        if (item.persistent != null && item.persistent.size != null) {
+          memo.push(new Transaction([
+            'localVolumes',
+            index,
+            'type'
+          ], 'PERSISTENT', SET));
+
           memo.push(new Transaction([
             'localVolumes',
             index,
             'size'
           ], item.persistent.size, SET));
+        } else {
+          memo.push(new Transaction([
+            'localVolumes',
+            index,
+            'type'
+          ], 'HOST', SET));
+
+          memo.push(new Transaction([
+            'localVolumes',
+            index,
+            'hostPath'
+          ], item.hostPath, SET));
         }
 
         if (item.containerPath != null) {
@@ -82,6 +100,9 @@ module.exports = {
       }
 
       let index = joinedPath.match(/\d+/)[0];
+      if (type === SET && `localVolumes.${index}.type` === joinedPath) {
+        state[index].type = value;
+      }
       if (type === SET && `localVolumes.${index}.size` === joinedPath) {
         state[index].size = value;
       }
@@ -90,6 +111,9 @@ module.exports = {
       }
       if (type === SET && `localVolumes.${index}.containerPath` === joinedPath) {
         state[index].containerPath = value;
+      }
+      if (type === SET && `localVolumes.${index}.hostPath` === joinedPath) {
+        state[index].hostPath = value;
       }
     }
 

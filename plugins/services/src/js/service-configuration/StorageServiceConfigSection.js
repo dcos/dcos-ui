@@ -80,8 +80,10 @@ module.exports = {
           if (appVolume.persistent != null) {
             volume.size = appVolume.persistent.size;
             volume.type.push('Persistent', 'Local');
-          } else {
+          } else if (appVolume.external != null) {
             volume.type.push('External');
+          } else {
+            volume.type.push('Host', 'Volume');
           }
 
           if (appVolume.external != null) {

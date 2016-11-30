@@ -11,10 +11,103 @@ import {FormReducer as externalVolumes} from '../../reducers/serviceForm/Externa
 
 class VolumesFormSection extends Component {
 
+  getPersistentVolumeConfig(volume, key) {
+    if (volume.type !== 'PERSISTENT') {
+      return null;
+    }
+    const {errors} = this.props;
+
+    return (
+      <div className="flex row">
+        <FormGroup
+          className="column-3"
+          required={false}
+          showError={Boolean(errors.localVolumes[key])}>
+          <FieldLabel>Size (MiB)</FieldLabel>
+          <FieldInput
+            name={`localVolumes.${key}.size`}
+            type="number"
+            value={volume.size} />
+          <FieldError>{errors.localVolumes[key]}</FieldError>
+        </FormGroup>
+        <FormGroup
+          className="column-6"
+          required={false}
+          showError={Boolean(errors.localVolumes[key])}>
+          <FieldLabel>Container Path</FieldLabel>
+          <FieldInput
+            name={`localVolumes.${key}.containerPath`}
+            type="text"
+            value={volume.containerPath}/>
+          <FieldError>{errors.localVolumes[key]}</FieldError>
+        </FormGroup>
+      </div>
+    );
+  }
+
+  getHostVolumeConfig(volume, key) {
+    if (volume.type !== 'HOST') {
+      return null;
+    }
+    const {errors} = this.props;
+
+    return (
+      <div className="flex row">
+        <FormGroup
+          className="column-4"
+          required={false}
+          showError={Boolean(errors.localVolumes[key])}>
+          <FieldLabel>HostPath</FieldLabel>
+          <FieldInput
+            name={`localVolumes.${key}.hostPath`}
+            value={volume.hostPath} />
+          <FieldError>{errors.localVolumes[key]}</FieldError>
+        </FormGroup>
+        <FormGroup
+          className="column-4"
+          required={false}
+          showError={Boolean(errors.localVolumes[key])}>
+          <FieldLabel>Container Path</FieldLabel>
+          <FieldInput
+            name={`localVolumes.${key}.containerPath`}
+            type="text"
+            value={volume.containerPath}/>
+          <FieldError>{errors.localVolumes[key]}</FieldError>
+        </FormGroup>
+        <FormGroup
+          className="column-4"
+          required={false}
+          showError={Boolean(errors.localVolumes[key])}>
+          <FieldLabel>Mode</FieldLabel>
+          <FieldSelect name={`localVolumes.${key}.mode`} value={volume.mode}>
+            <option value="RW">READ and Write</option>
+            <option value="RO">READ ONLY</option>
+          </FieldSelect>
+        </FormGroup>
+      </div>
+    );
+  }
+
+  getHostOption(dockerImage) {
+    if (dockerImage == null || dockerImage === '') {
+      return null;
+    }
+    return <option value="HOST">Host Volume</option>;
+  }
+
   getLocalVolumesLines(data) {
     const {errors} = this.props;
 
+    const dockerImage = this.props.data.container &&
+      this.props.data.container.docker &&
+      this.props.data.container.docker.image;
+
     return data.map((volume, key) => {
+      if (volume.type === 'HOST' &&
+        (dockerImage == null || dockerImage === '')) {
+        return null;
+      }
+
       return (
         <div key={key} className="panel pod-short">
           <div className="pod-narrow pod-short">
@@ -24,8 +117,10 @@ class VolumesFormSection extends Component {
                 required={false}
                 showError={Boolean(errors.localVolumes[key])}>
                 <FieldLabel>Volume Type</FieldLabel>
-                <FieldSelect name={`volumes.${key}.type`}>
+                <FieldSelect name={`localVolumes.${key}.type`} value={volume.type}>
+                  <option>Select...</option>
                   <option value="PERSISTENT">Persistent Volume</option>
+                  {this.getHostOption(dockerImage)}
                 </FieldSelect>
               </FormGroup>
               <div className="form-remove">
@@ -36,30 +131,8 @@ class VolumesFormSection extends Component {
                 </a>
               </div>
             </div>
-            <div className="flex row">
-              <FormGroup
-                className="column-3"
-                required={false}
-                showError={Boolean(errors.localVolumes[key])}>
-                <FieldLabel>Size (MiB)</FieldLabel>
-                <FieldInput
-                  name={`localVolumes.${key}.size`}
-                  type="number"
-                  value={volume.size} />
-                <FieldError>{errors.localVolumes[key]}</FieldError>
-              </FormGroup>
-              <FormGroup
-                className="column-6"
-                required={false}
-                showError={Boolean(errors.localVolumes[key])}>
-                <FieldLabel>Container Path</FieldLabel>
-                <FieldInput
-                  name={`localVolumes.${key}.containerPath`}
-                  type="text"
-                  value={volume.containerPath}/>
-                <FieldError>{errors.localVolumes[key]}</FieldError>
-              </FormGroup>
-            </div>
+            {this.getPersistentVolumeConfig(volume, key)}
+            {this.getHostVolumeConfig(volume, key)}
           </div>
         </div>
       );
@@ -73,24 +146,6 @@ class VolumesFormSection extends Component {
       return (
         <div key={key} className="panel pod-short">
           <div className="pod-narrow pod-short">
-            <div className="flex row">
-              <FormGroup
-                className="column-6"
-                required={false}
-                showError={Boolean(errors.externalVolumes[key])}>
-                <FieldLabel>Volume Type</FieldLabel>
-                <FieldSelect name={`externalVolumes.${key}.type`}>
-                  <option value="NEW">New External Volume</option>
-                </FieldSelect>
-              </FormGroup>
-              <div className="form-remove">
-                <a className="button button-primary-link"
-                  onClick={this.props.onRemoveItem.bind(this,
-                    {value: key, path: 'externalVolumes'})}>
-                  <Icon id="close" color="grey" size="tiny"/>
-                </a>
-              </div>
-            </div>
             <div className="flex row">
               <FormGroup
                 className="column-6"
@@ -114,6 +169,13 @@ class VolumesFormSection extends Component {
                   value={volumes.containerPath}/>
                 <FieldError>{errors.externalVolumes[key]}</FieldError>
               </FormGroup>
+              <div className="form-remove">
+                <a className="button button-primary-link"
+                  onClick={this.props.onRemoveItem.bind(this,
+                    {value: key, path: 'externalVolumes'})}>
+                  <Icon id="close" color="grey" size="tiny"/>
+                </a>
+              </div>
             </div>
           </div>
         </div>

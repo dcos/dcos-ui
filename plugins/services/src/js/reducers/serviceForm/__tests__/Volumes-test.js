@@ -4,7 +4,7 @@ const Transaction = require('../../../../../../../src/js/structs/Transaction');
 const {ADD_ITEM, REMOVE_ITEM, SET} =
   require('../../../../../../../src/js/constants/TransactionTypes');
 
-describe('Labels', function () {
+describe('Volumes', function () {
   describe('#JSONReducer', function () {
     it('should return an empty array if no volumes are set', function () {
       let batch = new Batch();
@@ -16,6 +16,7 @@ describe('Labels', function () {
       let batch = new Batch();
 
       batch = batch.add(new Transaction(['localVolumes'], 0, ADD_ITEM));
+      batch = batch.add(new Transaction(['localVolumes', 0, 'type'], 'PERSISTENT', SET));
 
       expect(batch.reduce(Volumes.JSONReducer.bind({}), [])).toEqual([
         {
@@ -54,6 +55,7 @@ describe('Labels', function () {
 
       batch = batch.add(new Transaction(['externalVolumes'], 0, ADD_ITEM));
       batch = batch.add(new Transaction(['localVolumes'], 0, ADD_ITEM));
+      batch = batch.add(new Transaction(['localVolumes', 0, 'type'], 'PERSISTENT', SET));
 
       expect(batch.reduce(Volumes.JSONReducer.bind({}), [])).toEqual([
         {
@@ -82,6 +84,7 @@ describe('Labels', function () {
       let batch = new Batch();
 
       batch = batch.add(new Transaction(['localVolumes'], 0, ADD_ITEM));
+      batch = batch.add(new Transaction(['localVolumes', 0, 'type'], 'PERSISTENT', SET));
       batch = batch.add(new Transaction(['localVolumes', 0, 'containerPath'], '/dev/null', SET));
       batch = batch.add(new Transaction(['localVolumes', 0, 'size'], 1024, SET));
       batch = batch.add(new Transaction(['localVolumes', 0, 'mode'], 'READ', SET));
@@ -126,6 +129,8 @@ describe('Labels', function () {
 
       batch = batch.add(new Transaction(['localVolumes'], 0, ADD_ITEM));
       batch = batch.add(new Transaction(['localVolumes'], 1, ADD_ITEM));
+      batch = batch.add(new Transaction(['localVolumes', 0, 'type'], 'PERSISTENT', SET));
+      batch = batch.add(new Transaction(['localVolumes', 1, 'type'], 'PERSISTENT', SET));
       batch = batch.add(new Transaction(['localVolumes', 0, 'containerPath'], '/dev/null', SET));
       batch = batch.add(new Transaction(['localVolumes', 0, 'size'], 1024, SET));
       batch = batch.add(new Transaction(['localVolumes', 0, 'mode'], 'READ', SET));
@@ -184,6 +189,7 @@ describe('Labels', function () {
       batch = batch.add(new Transaction(['externalVolumes', 0, 'provider'], 'provider', SET));
       // Add the first local Volume
       batch = batch.add(new Transaction(['localVolumes'], 0, ADD_ITEM));
+      batch = batch.add(new Transaction(['localVolumes', 0, 'type'], 'PERSISTENT', SET));
       batch = batch.add(new Transaction(['localVolumes', 0, 'containerPath'], '/dev/null', SET));
       batch = batch.add(new Transaction(['localVolumes', 0, 'size'], 1024, SET));
       batch = batch.add(new Transaction(['localVolumes', 0, 'mode'], 'READ', SET));
@@ -193,6 +199,7 @@ describe('Labels', function () {
       batch = batch.add(new Transaction(['externalVolumes', 1, 'name'], 'one', SET));
       // Add the second local Volume
       batch = batch.add(new Transaction(['localVolumes'], 1, ADD_ITEM));
+      batch = batch.add(new Transaction(['localVolumes', 1, 'type'], 'PERSISTENT', SET));
       batch = batch.add(new Transaction(['localVolumes', 1, 'containerPath'], '/dev/one', SET));
       batch = batch.add(new Transaction(['localVolumes', 1, 'size'], 512, SET));
 
