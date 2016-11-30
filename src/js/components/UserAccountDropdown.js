@@ -10,7 +10,7 @@ class UserAccountDropdown extends React.Component {
 
   render() {
     return (
-      <Dropdown buttonClassName="user-account-dropdown-button"
+      <Dropdown buttonClassName="user-account-dropdown-button text-no-transform"
         dropdownMenuClassName="user-account-dropdown-menu dropdown-menu"
         dropdownMenuListClassName="user-account-dropdown-list dropdown-menu-list"
         items={this.props.menuItems}
