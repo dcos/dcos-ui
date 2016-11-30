@@ -28,12 +28,6 @@ class NewCreateServiceModalServicePicker extends React.Component {
       type: 'app'
     }, {
       icon: (
-        <Image fallbackSrc={defaultServiceImage} src={defaultServiceImage} />
-      ),
-      label: 'Multi-Container (Pod)',
-      type: 'pod'
-    }, {
-      icon: (
         <Image fallbackSrc={jsonServiceImage} src={jsonServiceImage} />
       ),
       label: 'JSON Configuration',

@@ -69,9 +69,21 @@ class NewServiceFormModal extends Component {
    */
   componentWillReceiveProps(nextProps) {
     if (!ServiceUtil.isEqual(this.props.service, nextProps.service)) {
-      this.setState({
-        serviceConfig: nextProps.service.getSpec()
-      });
+      let newState = {serviceConfig: nextProps.service.getSpec()};
+
+      if (nextProps.isEdit) {
+        newState.servicePickerActive = false;
+
+        if (nextProps.service instanceof Pod) {
+          newState.serviceJsonActive = true;
+          newState.serviceFormActive = false;
+        } else {
+          newState.serviceJsonActive = false;
+          newState.serviceFormActive = true;
+        }
+      }
+
+      this.setState(newState);
     }
   }
 
@@ -83,18 +95,19 @@ class NewServiceFormModal extends Component {
       serviceReviewActive
     } = this.state;
 
-    // Close if picker is open, or if editing a service in the form
-    if (servicePickerActive || (serviceFormActive && this.props.isEdit)) {
-      this.handleClose();
-      return;
-    }
-
     if (serviceReviewActive) {
       // Just hide review screen. Form or JSON mode will be
       // activated automaticaly depending on their last state
       this.setState({
         serviceReviewActive: false
       });
+      return;
+    }
+
+    // Close if picker is open, or if editing a service in the form
+    if (servicePickerActive ||
+      ((serviceFormActive || serviceJsonActive) && this.props.isEdit)) {
+      this.handleClose();
       return;
     }
 
@@ -157,7 +170,7 @@ class NewServiceFormModal extends Component {
       case 'pod':
         this.setState({
           servicePickerActive: false,
-          serviceFormActive: true,
+          serviceJsonActive: true,
           serviceConfig: new Pod(
             Object.assign(
               {id: this.props.service.getId()},
@@ -371,16 +384,28 @@ class NewServiceFormModal extends Component {
     // Switch directly to form if edit
     if (nextProps.isEdit) {
       newState.servicePickerActive = false;
-      newState.serviceFormActive = true;
+
+      if (nextProps.service instanceof Pod) {
+        newState.serviceJsonActive = true;
+      } else {
+        newState.serviceFormActive = true;
+      }
     }
 
     return newState;
   }
 
   getSecondaryActions() {
-    let {servicePickerActive, serviceFormActive} = this.state;
+    let {
+      serviceFormActive,
+      servicePickerActive,
+      serviceReviewActive,
+      serviceJsonActive
+    } = this.state;
     let label = 'Back';
-    if (servicePickerActive || (serviceFormActive && this.props.isEdit)) {
+    if (servicePickerActive ||
+      ((serviceFormActive || serviceJsonActive)
+        && this.props.isEdit && !serviceReviewActive)) {
       label = 'Cancel';
     }
 
