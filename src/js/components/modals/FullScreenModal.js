@@ -8,7 +8,8 @@ class FullScreenModal extends React.Component {
     let {props} = this;
 
     return (
-      <Modal modalClass="modal modal-full-screen"
+      <Modal modalHeight="100%"
+        modalClass="modal modal-full-screen"
         showHeader={true}
         showFooter={false}
         transitionNameModal="modal-full-screen"
