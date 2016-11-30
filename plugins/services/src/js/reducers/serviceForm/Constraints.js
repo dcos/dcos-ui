@@ -6,6 +6,8 @@ import {
 import Transaction from '../../../../../../src/js/structs/Transaction';
 import {isEmpty} from '../../../../../../src/js/utils/ValidatorUtil';
 
+const CONSTRAINT_FIELDS = ['field', 'operator', 'value'];
+
 function getJson(constraints) {
   return constraints.filter((item) => {
     return !isEmpty(item.field) && !isEmpty(item.operator);
@@ -50,12 +52,9 @@ module.exports = {
         return state;
       }
 
-      let index = joinedPath.match(/\d+/)[0];
-      let key = ['field', 'operator', 'value'].find(function (name) {
-        return `constraints.${index}.${name}` === joinedPath;
-      });
-      if (key !== -1) {
-        this.constraints[index][key] = value;
+      const [jsonField, index, name] = path;
+      if (jsonField === 'constraints' && CONSTRAINT_FIELDS.includes(name)) {
+        this.constraints[index][name] = value;
       }
     }
 
@@ -116,12 +115,9 @@ module.exports = {
         return state;
       }
 
-      let index = joinedPath.match(/\d+/)[0];
-      let key = ['field', 'operator', 'value'].find(function (name) {
-        return `constraints.${index}.${name}` === joinedPath;
-      });
-      if (key !== -1) {
-        state[index][key] = value;
+      const [jsonField, index, name] = path;
+      if (jsonField === 'constraints' && CONSTRAINT_FIELDS.includes(name)) {
+        state[index][name] = value;
       }
     }
 
