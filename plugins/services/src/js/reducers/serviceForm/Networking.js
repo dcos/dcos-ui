@@ -5,26 +5,12 @@ const defaultState = {
   type: Networking.type.HOST
 };
 
-// TODO: This is taking place of the reducer's context since this reducer does
-// not make use of the combinedReducer method.
-let appState = {
-  hasContainer: false
-};
-
 let reducer = (state = defaultState, {type, path, value}) => {
   let joinedPath = path && path.join('.');
   let newState = Object.assign({}, state);
 
-  if (joinedPath === 'container.docker.image' && !!value) {
-    appState.hasContainer = true;
-  }
-
   if (type === SET && joinedPath === 'networking.type') {
     newState.type = value;
-  }
-
-  if (joinedPath === 'networking.type' && !appState.hasContainer) {
-    newState.type = Networking.type.HOST;
   }
 
   return newState;

@@ -5,6 +5,7 @@ import FieldHelp from '../../../../../../src/js/components/form/FieldHelp';
 import FieldInput from '../../../../../../src/js/components/form/FieldInput';
 import FieldLabel from '../../../../../../src/js/components/form/FieldLabel';
 import FieldSelect from '../../../../../../src/js/components/form/FieldSelect';
+import {findNestedPropertyInObject} from '../../../../../../src/js/utils/Util';
 import FormGroup from '../../../../../../src/js/components/form/FormGroup';
 import FormGroupContainer from '../../../../../../src/js/components/form/FormGroupContainer';
 import {FormReducer as networking} from '../../reducers/serviceForm/Networking';
@@ -12,6 +13,9 @@ import {FormReducer as portDefinitions} from '../../reducers/serviceForm/PortDef
 import HostUtil from '../../utils/HostUtil';
 import Icon from '../../../../../../src/js/components/Icon';
 import Networking from '../../../../../../src/js/constants/Networking';
+import VolumeConstants from '../../constants/VolumeConstants';
+
+const {MESOS} = VolumeConstants.type;
 
 class NetworkingFormSection extends Component {
   getHostPortFields(portDefinition, index) {
@@ -268,11 +272,71 @@ class NetworkingFormSection extends Component {
     return this.getHostServiceEndpoints(portDefinitions);
   }
 
-  render() {
-    let {container, networking = {}, portDefinitions} = this.props.data;
+  getTypeSelections() {
+    let {container, networking = {}} = this.props.data;
+    let type = findNestedPropertyInObject(container, 'type');
 
-    let isNetworkTypeDisabled = container == null
-      || container.docker.image == null;
+    let disabledMap = {};
+
+    // Runtime is Mesos
+    if (!type) {
+      disabledMap[Networking.type.BRIDGE] = 'BRIDGE networking is not compatible with the Mesos runtime.';
+      disabledMap[Networking.type.USER] = 'USER networking is not compatible with the Mesos runtime.';
+    }
+
+    // Runtime is Universal Container Runtime
+    if (type === MESOS) {
+      disabledMap[Networking.type.BRIDGE] = 'BRIDGE networking is not compatible with the Universal Container Runtime.';
+    }
+
+    let tooltipContent = Object.keys(disabledMap).filter(function (key) {
+      return disabledMap[key];
+    })
+    .map(function (key) {
+      return disabledMap[key];
+    }).join(', ');
+
+    let selections = (
+      <FieldSelect
+        name="networking.type"
+        value={networking.type}>
+        <option
+          disabled={Boolean(disabledMap[Networking.type.HOST])}
+          value={Networking.type.HOST}>
+          Host
+        </option>
+        <option
+          disabled={Boolean(disabledMap[Networking.type.BRIDGE])}
+          value={Networking.type.BRIDGE}>
+          Bridge
+        </option>
+        <option
+          disabled={Boolean(disabledMap[Networking.type.USER])}
+          value={Networking.type.USER}>
+          Virtual Network
+        </option>
+      </FieldSelect>
+    );
+
+    if (!tooltipContent) {
+      return selections;
+    }
+
+    return (
+      <Tooltip
+        content={tooltipContent}
+        interactive={true}
+        maxWidth={300}
+        scrollContainer=".gm-scroll-view"
+        wrapperClassName="tooltip-wrapper tooltip-block-wrapper text-align-center"
+        wrapText={true}>
+        {selections}
+      </Tooltip>
+    );
+  }
+
+  render() {
+    let {portDefinitions} = this.props.data;
 
     let tooltipContent = (
       <span>
@@ -301,17 +365,10 @@ class NetworkingFormSection extends Component {
                 maxWidth={300}
                 scrollContainer=".gm-scroll-view"
                 wrapText={true}>
-                  <Icon color="grey" id="ring-question" size="mini" family="mini" />
+                <Icon color="grey" id="ring-question" size="mini" family="mini" />
               </Tooltip>
             </FieldLabel>
-            <FieldSelect
-              disabled={isNetworkTypeDisabled}
-              name="networking.type"
-              value={networking.type}>
-              <option value={Networking.type.HOST}>Host</option>
-              <option value={Networking.type.BRIDGE}>Bridge</option>
-              <option value={Networking.type.USER}>Virtual Network</option>
-            </FieldSelect>
+            {this.getTypeSelections()}
           </FormGroup>
         </div>
         <h3 className="flush-top short-bottom">
