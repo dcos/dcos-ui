@@ -12,11 +12,13 @@ function getJson(constraints) {
   return constraints.filter((item) => {
     return !isEmpty(item.field) && !isEmpty(item.operator);
   }).map(({field, operator, value}) => {
+    let normalisedOperator = operator.toUpperCase();
+
     if (!isEmpty(value)) {
-      return [field, operator, value];
+      return [field, normalisedOperator, value];
     }
 
-    return [field, operator];
+    return [field, normalisedOperator];
   });
 }
 
