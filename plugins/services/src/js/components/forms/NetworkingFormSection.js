@@ -31,9 +31,9 @@ class NetworkingFormSection extends Component {
         </FieldLabel>
         <FieldLabel matchInputHeight={true}>
           <FieldInput
+            checked={portDefinition.automaticPort}
             name={`portDefinitions.${index}.automaticPort`}
-            type="checkbox"
-            value={Boolean(portDefinition.automaticPort)} />
+            type="checkbox" />
           Assign Automatically
         </FieldLabel>
       </FormGroup>
@@ -58,9 +58,9 @@ class NetworkingFormSection extends Component {
         <FormGroup className="column-auto">
           <FieldLabel>
             <FieldInput
+              checked={checkboxValue}
               name={checkboxName}
-              type="checkbox"
-              value={Boolean(checkboxValue)} />
+              type="checkbox" />
             Enabled
           </FieldLabel>
         </FormGroup>
@@ -82,7 +82,8 @@ class NetworkingFormSection extends Component {
         <div className="flex row">
           <FormGroup className="column-auto">
             <FieldLabel matchInputHeight={true}>
-              <FieldInput checked={portDefinition.protocol === 'tcp'}
+              <FieldInput
+                checked={portDefinition.protocol === 'tcp'}
                 name={`portDefinitions.${index}.protocol`}
                 type="radio"
                 value="tcp" />
@@ -91,7 +92,8 @@ class NetworkingFormSection extends Component {
           </FormGroup>
           <FormGroup className="column-auto">
             <FieldLabel matchInputHeight={true}>
-              <FieldInput checked={portDefinition.protocol === 'udp'}
+              <FieldInput
+                checked={portDefinition.protocol === 'udp'}
                 name={`portDefinitions.${index}.protocol`}
                 type="radio"
                 value="udp" />
@@ -233,9 +235,9 @@ class NetworkingFormSection extends Component {
               </FieldLabel>
               <FieldLabel matchInputHeight={true}>
                 <FieldInput
+                  checked={portDefinition.portMapping}
                   name={`portDefinitions.${index}.portMapping`}
-                  type="checkbox"
-                  value={Boolean(portDefinition.portMapping)} />
+                  type="checkbox" />
                   {portMappingLabel}
               </FieldLabel>
             </FormGroup>
