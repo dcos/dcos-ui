@@ -91,4 +91,18 @@ describe('ConfigurationMapSizeValue', function () {
     expect(contentText).toEqual('1 MiA');
   });
 
+  it('should correctly render `defaultValue` if empty', function () {
+    var instance = TestUtils.renderIntoDocument(
+      <ConfigurationMapSizeValue
+        defaultValue="-"
+        value={null} />
+    );
+
+    var contentText = TestUtils.findRenderedDOMComponentWithClass(
+      instance, 'configuration-map-value'
+    ).textContent.trim();
+
+    expect(contentText).toEqual('-');
+  });
+
 });

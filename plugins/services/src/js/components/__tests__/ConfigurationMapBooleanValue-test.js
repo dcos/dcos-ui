@@ -35,7 +35,7 @@ describe('ConfigurationMapBooleanValue', function () {
 
   it('should show the custom value for `true`', function () {
     var instance = TestUtils.renderIntoDocument(
-      <ConfigurationMapBooleanValue options={['foo', 'bar']}
+      <ConfigurationMapBooleanValue options={{truthy:'foo', falsy:'bar'}}
         value={true} />
     );
 
@@ -48,7 +48,7 @@ describe('ConfigurationMapBooleanValue', function () {
 
   it('should show the custom value for `false`', function () {
     var instance = TestUtils.renderIntoDocument(
-      <ConfigurationMapBooleanValue options={['foo', 'bar']}
+      <ConfigurationMapBooleanValue options={{truthy:'foo', falsy:'bar'}}
         value={false} />
     );
 
@@ -57,6 +57,18 @@ describe('ConfigurationMapBooleanValue', function () {
     ).textContent.trim();
 
     expect(contentText).toEqual('bar');
+  });
+
+  it('should show the `defaultValue` if missing', function () {
+    var instance = TestUtils.renderIntoDocument(
+      <ConfigurationMapBooleanValue value={null} defaultValue="-" />
+    );
+
+    var contentText = TestUtils.findRenderedDOMComponentWithClass(
+      instance, 'configuration-map-value'
+    ).textContent.trim();
+
+    expect(contentText).toEqual('-');
   });
 
 });

@@ -1,6 +1,7 @@
 import React from 'react';
 
 import ConfigurationMapValue from '../../../../../src/js/components/ConfigurationMapValue';
+import ValidatorUtil from '../../../../../src/js/utils/ValidatorUtil';
 
 /**
  * Render a JSON object as a <ConfigurationMapValue>, within the
@@ -8,10 +9,17 @@ import ConfigurationMapValue from '../../../../../src/js/components/Configuratio
  */
 class ConfigurationMapJSONValue extends React.Component {
   render() {
+    let {defaultValue, value} = this.props;
+
+    // Bail early with default if empty
+    if (ValidatorUtil.isEmpty(value)) {
+      return <ConfigurationMapValue>{defaultValue}</ConfigurationMapValue>;
+    }
+
     return (
       <ConfigurationMapValue>
         <pre>
-          {JSON.stringify(this.props.value, null, 2)}
+          {JSON.stringify(value, null, 2)}
         </pre>
       </ConfigurationMapValue>
     );
@@ -19,10 +27,15 @@ class ConfigurationMapJSONValue extends React.Component {
 };
 
 ConfigurationMapJSONValue.defaultProps = {
+  defaultValue: <span>&mdash;</span>,
   value: false
 };
 
 ConfigurationMapJSONValue.propTypes = {
+  defaultValue: React.PropTypes.oneOfType([
+    React.PropTypes.string,
+    React.PropTypes.node
+  ]),
   value: React.PropTypes.any
 };
 

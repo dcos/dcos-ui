@@ -1,30 +1,30 @@
-jest.dontMock('../ConfigurationMapJSONValue');
+jest.dontMock('../ConfigurationMapMultilineValue');
 jest.dontMock('../../../../../../src/js/components/ConfigurationMapValue');
 /* eslint-disable no-unused-vars */
 const React = require('react');
 const ReactDOM = require('react-dom');
 /* eslint-enable no-unused-vars */
 const TestUtils = require('react-addons-test-utils');
-const ConfigurationMapJSONValue = require('../ConfigurationMapJSONValue');
+const ConfigurationMapMultilineValue = require('../ConfigurationMapMultilineValue');
 
-describe('ConfigurationMapJSONValue', function () {
+describe('ConfigurationMapMultilineValue', function () {
 
   it('should correctly render the text in a <pre> tag', function () {
-    var obj = {a: 'some', b: {'object': true}};
+    var text = 'Some\nmulti-line\ntext';
     var instance = TestUtils.renderIntoDocument(
-      <ConfigurationMapJSONValue value={obj} />
+      <ConfigurationMapMultilineValue value={text} />
     );
 
     var contentText = TestUtils.findRenderedDOMComponentWithTag(
       instance, 'pre'
     ).textContent.trim();
 
-    expect(contentText).toEqual(JSON.stringify(obj, null, 2));
+    expect(contentText).toEqual(text);
   });
 
   it('should render `defaultValue` if empty', function () {
     var instance = TestUtils.renderIntoDocument(
-      <ConfigurationMapJSONValue value={null} defaultValue="-" />
+      <ConfigurationMapMultilineValue value={null} defaultValue="-" />
     );
 
     var contentText = TestUtils.findRenderedDOMComponentWithClass(

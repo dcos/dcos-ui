@@ -2,7 +2,7 @@ import React from 'react';
 import {Table} from 'reactjs-components';
 
 import ValidatorUtil from '../../../../../src/js/utils/ValidatorUtil.js';
-
+import ServiceConfigDisplayUtil from '../utils/ServiceConfigDisplayUtil';
 /**
  * Optimised method to check if all row props are empty for a given column
  *
@@ -85,8 +85,19 @@ class ConfigurationMapTable extends React.Component {
 
     columns = Array.prototype.concat.apply([], columns.map((column) => {
       column = Object.assign({}, columnDefaults, column);
-      let {hideIfEmpty=false, placeholder=(<span>&mdash;</span>), prop,
+      let {className='', heading, hideIfEmpty=false,
+        placeholder=(<span>&mdash;</span>), prop,
         render=defaultRenderFunction} = column;
+
+      // Always use functions in order to display the sorting assets
+      if (typeof className !== 'function') {
+        column.className =
+          ServiceConfigDisplayUtil.getColumnClassNameFn(className);
+      }
+      if (typeof heading !== 'function') {
+        column.heading =
+          ServiceConfigDisplayUtil.getColumnHeadingFn(heading);
+      }
 
       // Don't include columns that have an `hideIfEmpty` flag and are empty
       if (hideIfEmpty && isColumnEmpty(data, prop)) {
