@@ -1,9 +1,9 @@
 import React from 'react';
 
 import BooleanValue from '../components/ConfigurationMapBooleanValue';
+import ConfigurationMapTable from '../components/ConfigurationMapTable';
 import Heading from '../../../../../src/js/components/ConfigurationMapHeading';
 import Section from '../../../../../src/js/components/ConfigurationMapSection';
-import ConfigurationMapTable from '../components/ConfigurationMapTable';
 import ServiceConfigDisplayUtil from '../utils/ServiceConfigDisplayUtil';
 
 const BOOLEAN_OPTIONS = {
@@ -23,6 +23,7 @@ module.exports = ({appConfig}) => {
     let containerMounts = containers.reduce(
       (cmMemo, container) => {
         let {volumeMounts=[]} = container;
+        
         return cmMemo.concat(
           volumeMounts
             .filter((volumeMount) => volumeMount.name === volume.name)
@@ -34,13 +35,13 @@ module.exports = ({appConfig}) => {
               };
             })
         );
-      },
-      []
+      }, []
     );
 
     // If threre are no mounts, add only one line without containers
     if (containerMounts.length === 0) {
       memo.push(volumeInfo);
+      
       return memo;
     }
 
