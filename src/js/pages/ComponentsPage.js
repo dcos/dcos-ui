@@ -15,7 +15,7 @@ class ComponentsPage extends React.Component {
 
 ComponentsPage.routeConfig = {
   label: 'Components',
-  icon: <Icon id="icon-components-inverse" size="small" family="product" />,
+  icon: <Icon id="components-inverse" size="small" family="product" />,
   matches: /^\/components/
 };
 

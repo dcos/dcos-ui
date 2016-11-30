@@ -15,7 +15,7 @@ class SettingsPage extends React.Component {
 
 SettingsPage.routeConfig = {
   label: 'Settings',
-  icon: <Icon id="icon-gear-inverse" size="small" family="product" />,
+  icon: <Icon id="gear-inverse" size="small" family="product" />,
   matches: /^\/settings/
 };
 

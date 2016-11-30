@@ -15,7 +15,7 @@ class ClusterPage extends React.Component {
 
 ClusterPage.routeConfig = {
   label: 'Cluster',
-  icon: <Icon id="icon-cluster-inverse" size="small" family="product" />,
+  icon: <Icon id="cluster-inverse" size="small" family="product" />,
   matches: /^\/cluster/
 };
 
