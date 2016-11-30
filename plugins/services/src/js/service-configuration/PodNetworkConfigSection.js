@@ -1,12 +1,12 @@
 import React from 'react';
 
+import ConfigurationMapTable from '../components/ConfigurationMapTable';
 import Heading from '../../../../../src/js/components/ConfigurationMapHeading';
 import Label from '../../../../../src/js/components/ConfigurationMapLabel';
 import Row from '../../../../../src/js/components/ConfigurationMapRow';
 import Section from '../../../../../src/js/components/ConfigurationMapSection';
-import ValueWithDefault from '../components/ConfigurationMapValueWithDefault';
-import ConfigurationMapTable from '../components/ConfigurationMapTable';
 import ServiceConfigDisplayUtil from '../utils/ServiceConfigDisplayUtil';
+import ValueWithDefault from '../components/ConfigurationMapValueWithDefault';
 
 const NETWORK_MODE_NAME = {
   'container': 'Contaienr',
