@@ -14,9 +14,9 @@ import TabsUtil from '../utils/TabsUtil';
 import TabsMixin from '../mixins/TabsMixin';
 
 let DEFAULT_NETWORK_TABS = {
-  '/network/virtual-networks': {
-    content: 'Virtual Networks',
-    priority: 10
+  '/networking/networks': {
+    content: 'Networks',
+    priority: 20
   }
 };
 
@@ -33,7 +33,7 @@ class NetworkPage extends mixin(TabsMixin) {
     );
 
     // Add filter to register default tab for Overview Tab
-    Hooks.addFilter('virtual-networks-subtabs', function (tabs) {
+    Hooks.addFilter('networks-subtabs', function (tabs) {
       return Object.assign(tabs, DEFAULT_NETWORK_SUB_TABS);
     });
 
@@ -155,7 +155,7 @@ NetworkPage.contextTypes = {
 NetworkPage.routeConfig = {
   label: 'Networking',
   icon: <Icon id="network-hierarchical-inverse" size="small" family="small" />,
-  matches: /^\/network/
+  matches: /^\/networking/
 };
 
 NetworkPage.willTransitionTo = function () {

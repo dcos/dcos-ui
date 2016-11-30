@@ -25,7 +25,7 @@ let defaultMenuItems = [
   '/jobs',
   '/universe',
   '/nodes',
-  '/network',
+  '/networking',
   '/security',
   '/cluster',
   '/components',

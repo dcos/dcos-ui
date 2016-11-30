@@ -28,7 +28,7 @@ const METHODS_TO_BIND = [
 
 const HIDE_BREADCRUMBS = [
   '/jobs/:id/tasks/:taskID/details',
-  '/network/virtual-networks/:overlayName/tasks/:taskID/details',
+  '/networking/networks/:overlayName/tasks/:taskID/details',
   '/nodes/:nodeID/tasks/:taskID/details',
   '/services/overview/:id/tasks/:taskID/details',
   '/services/overview/:id/tasks/:taskID/logs(/:fileName)'

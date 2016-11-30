@@ -6,9 +6,9 @@ import {Table} from 'reactjs-components';
 import OverlayList from '../../structs/OverlayList';
 
 const headerMapping = {
-  name: 'VIRTUAL NETWORK NAME',
-  subnet: 'SUBNET',
-  prefix: 'AGENT PREFIX LENGTH'
+  name: 'Name',
+  subnet: 'Subnet',
+  prefix: 'Agent Prefix Length'
 };
 
 class VirtualNetworksTable extends React.Component {
@@ -70,7 +70,7 @@ class VirtualNetworksTable extends React.Component {
       <Link
         className="table-cell-link-primary"
         title={overlayName}
-        to={`/network/virtual-networks/${overlayName}`}>
+        to={`/networking/networks/${overlayName}`}>
         {overlayName}
       </Link>
     );
