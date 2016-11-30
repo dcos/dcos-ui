@@ -28,6 +28,7 @@ function getContainerResourceSummary(resource, {containers=[]}) {
       );
     }
     memo.value += resources[resource] || 0;
+    
     return memo;
   }, {value: 0, parts: []});
 
@@ -62,28 +63,23 @@ function getInstances(appConfig) {
 
 module.exports = ({appConfig}) => {
   let fields = {
-
     instances: getInstances(appConfig),
-
     backoff: findNestedPropertyInObject(appConfig,
       'scheduling.backoff.backoff'),
     backoffFactor: findNestedPropertyInObject(appConfig,
       'scheduling.backoff.backoffFactor'),
     maxLaunchDelay: findNestedPropertyInObject(appConfig,
       'scheduling.backoff.maxLaunchDelay'),
-
     minimumHealthCapacity: findNestedPropertyInObject(appConfig,
       'scheduling.upgrade.minimumHealthCapacity'),
     maximumOverCapacity: findNestedPropertyInObject(appConfig,
       'scheduling.upgrade.maximumOverCapacity')
-
   };
 
   return (
     <div>
       <Heading level={1}>General</Heading>
       <Section key="pod-general-section">
-
         <Row>
           <Label>Service ID</Label>
           <Value value={appConfig.id} />
@@ -92,7 +88,6 @@ module.exports = ({appConfig}) => {
           <Label>Instances</Label>
           <ValueWithDefault value={fields.instances} />
         </Row>
-
         <Row>
           <Label>CPU</Label>
           <Value>{getContainerResourceSummary('cpus', appConfig)}</Value>
@@ -109,7 +104,6 @@ module.exports = ({appConfig}) => {
           <Label>GPU</Label>
           <Value>{getContainerResourceSummary('gpu', appConfig)}</Value>
         </Row>
-
         {fields.backoff && (
           <Row>
             <Label>Backoff</Label>
@@ -144,7 +138,6 @@ module.exports = ({appConfig}) => {
             <Value value={fields.maximumOverCapacity} />
           </Row>
         )}
-
       </Section>
     </div>
   );
