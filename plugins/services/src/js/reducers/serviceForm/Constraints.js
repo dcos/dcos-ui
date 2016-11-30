@@ -10,7 +10,11 @@ function getJson(constraints) {
   return constraints.filter((item) => {
     return !isEmpty(item.field) && !isEmpty(item.operator);
   }).map(({field, operator, value}) => {
-    return value ? [field, operator, value] : [field, operator];
+    if (!isEmpty(value)) {
+      return [field, operator, value];
+    }
+
+    return [field, operator];
   });
 }
 
