@@ -1,6 +1,6 @@
 import {cleanServiceJSON} from '../../../../../src/js/utils/CleanJSONUtil';
+import ContainerConstants from '../constants/ContainerConstants';
 import ServiceSpec from './ServiceSpec';
-import VolumeConstants from '../constants/VolumeConstants';
 
 module.exports = class ApplicationSpec extends ServiceSpec {
   constructor(spec) {
@@ -96,10 +96,10 @@ module.exports = class ApplicationSpec extends ServiceSpec {
     // Remove container.docker if we have MESOS containerizer
     if (containerSettings &&
       ((containerSettings.docker && containerSettings.docker.image) ||
-      containerSettings.type === VolumeConstants.type.MESOS)
+      containerSettings.type === ContainerConstants.type.MESOS)
     ) {
 
-      if (data.container.type === VolumeConstants.type.MESOS) {
+      if (data.container.type === ContainerConstants.type.MESOS) {
         delete(data.container.docker);
       }
     }

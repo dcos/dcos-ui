@@ -3,6 +3,7 @@ import deepEqual from 'deep-equal';
 
 import Application from '../structs/Application';
 import ApplicationSpec from '../structs/ApplicationSpec';
+import ContainerConstants from '../constants/ContainerConstants';
 import Framework from '../structs/Framework';
 import FrameworkSpec from '../structs/FrameworkSpec';
 import Pod from '../structs/Pod';
@@ -173,7 +174,7 @@ const ServiceUtil = {
       }
 
       if (volumes != null) {
-        let type = VolumeConstants.type.MESOS;
+        let type = ContainerConstants.type.MESOS;
         let volumesList = [];
 
         if (definition.container == null) {
@@ -183,7 +184,7 @@ const ServiceUtil = {
         if (definition.container.docker &&
           definition.container.docker.image) {
 
-          type = VolumeConstants.type.DOCKER;
+          type = ContainerConstants.type.DOCKER;
 
           if (volumes.dockerVolumes) {
             volumesList = volumesList.concat(

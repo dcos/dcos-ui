@@ -5,6 +5,7 @@ import {findNestedPropertyInObject} from '../../../../../../src/js/utils/Util';
 import AdvancedSection from '../../../../../../src/js/components/form/AdvancedSection';
 import AdvancedSectionContent from '../../../../../../src/js/components/form/AdvancedSectionContent';
 import AdvancedSectionLabel from '../../../../../../src/js/components/form/AdvancedSectionLabel';
+import ContainerConstants from '../../constants/ContainerConstants';
 import ContainerServiceFormSection from './ContainerServiceFormSection';
 import FieldError from '../../../../../../src/js/components/form/FieldError';
 import FieldHelp from '../../../../../../src/js/components/form/FieldHelp';
@@ -15,13 +16,11 @@ import General from '../../reducers/serviceForm/General';
 import Icon from '../../../../../../src/js/components/Icon';
 import MetadataStore from '../../../../../../src/js/stores/MetadataStore';
 import ValidatorUtil from '../../../../../../src/js/utils/ValidatorUtil';
-import VolumeConstants from '../../constants/VolumeConstants';
 
-const {MESOS, DOCKER} = VolumeConstants.type;
-const NONE = 'NONE';
+const {MESOS, DOCKER, NONE} = ContainerConstants.type;
 
 const containerRuntimes = {
-  NONE: {
+  [NONE]: {
     label: <span>Mesos Runtime</span>,
     helpText: 'Normal behaviour'
   },

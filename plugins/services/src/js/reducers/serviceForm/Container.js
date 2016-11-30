@@ -1,12 +1,12 @@
 import {SET, ADD_ITEM, REMOVE_ITEM} from '../../../../../../src/js/constants/TransactionTypes';
 import {combineReducers} from '../../../../../../src/js/utils/ReducerUtil';
+import ContainerConstants from '../../constants/ContainerConstants';
 import {JSONReducer as volumes} from './Volumes';
-import VolumeConstants from '../../constants/VolumeConstants';
 import ValidatorUtil from '../../../../../../src/js/utils/ValidatorUtil';
 
 import docker from './Docker';
 
-const {MESOS} = VolumeConstants.type;
+const {MESOS, NONE} = ContainerConstants.type;
 
 const containerJSONReducer = combineReducers({
   type(state, {type, path, value}) {
@@ -46,12 +46,12 @@ const containerJSONReducer = combineReducers({
       // return this.hasVolumes.length !== 0 ? MESOS : state;
     }
 
-    if (type === SET && joinedPath === 'container.type' && value !== 'NONE') {
+    if (type === SET && joinedPath === 'container.type' && value !== NONE) {
       this.noState = false;
       return value;
     }
 
-    if (value === 'NONE') {
+    if (value === NONE) {
       this.noState = true;
     }
 
