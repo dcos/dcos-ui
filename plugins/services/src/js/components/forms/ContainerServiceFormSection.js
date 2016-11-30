@@ -31,7 +31,7 @@ const getArtifactsLabel = () => {
     <FieldLabel>
       {'Artifact URI '}
       <Tooltip
-        content="Provided URIs are passed to Mesos fetcher module and resolved in runtime."
+        content="Provided URIs are passed to Mesos fetcher module and resolved at runtime."
         interactive={true}
         maxWidth={300}
         scrollContainer=".gm-scroll-view"
