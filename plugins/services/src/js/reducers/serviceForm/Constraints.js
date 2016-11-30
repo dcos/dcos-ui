@@ -4,6 +4,15 @@ import {
   SET
 } from '../../../../../../src/js/constants/TransactionTypes';
 import Transaction from '../../../../../../src/js/structs/Transaction';
+import {isEmpty} from '../../../../../../src/js/utils/ValidatorUtil';
+
+function getJson(constraints) {
+  return constraints.filter((item) => {
+    return !isEmpty(item.field) && !isEmpty(item.operator);
+  }).map(({field, operator, value}) => {
+    return value ? [field, operator, value] : [field, operator];
+  });
+}
 
 module.exports = {
   JSONReducer(state, {type, path, value}) {
@@ -30,11 +39,7 @@ module.exports = {
             break;
         }
 
-        return this.constraints.filter((item) => {
-          return item.field != null && item.operator != null;
-        }).map(({field, operator, value}) => {
-          return value ? [field, operator, value] : [field, operator];
-        });
+        return getJson(this.constraints);
       }
 
       if (type !== SET) {
@@ -50,11 +55,7 @@ module.exports = {
       }
     }
 
-    return this.constraints.filter((item) => {
-      return item.field != null && item.operator != null;
-    }).map(({field, operator, value}) => {
-      return value ? [field, operator, value] : [field, operator];
-    });
+    return getJson(this.constraints);
   },
 
   JSONParser(state) {
