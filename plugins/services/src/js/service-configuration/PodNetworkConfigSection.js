@@ -43,7 +43,6 @@ module.exports = ({appConfig}) => {
             let [prefix, port] = labels[label].split(':');
             memo.push(`${prefix}.marathon.lb4lb.thisdcos.directory:${port}`);
           }
-          
           return memo;
         }, []);
 
@@ -56,7 +55,6 @@ module.exports = ({appConfig}) => {
         };
       })
     );
-    
     return memo;
   }, []);
 

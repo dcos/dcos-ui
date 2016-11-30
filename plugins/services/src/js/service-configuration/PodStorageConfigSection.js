@@ -23,7 +23,6 @@ module.exports = ({appConfig}) => {
     let containerMounts = containers.reduce(
       (cmMemo, container) => {
         let {volumeMounts=[]} = container;
-        
         return cmMemo.concat(
           volumeMounts
             .filter((volumeMount) => volumeMount.name === volume.name)
@@ -41,7 +40,6 @@ module.exports = ({appConfig}) => {
     // If threre are no mounts, add only one line without containers
     if (containerMounts.length === 0) {
       memo.push(volumeInfo);
-      
       return memo;
     }
 

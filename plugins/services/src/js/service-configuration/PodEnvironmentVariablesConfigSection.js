@@ -20,7 +20,6 @@ module.exports = ({appConfig}) => {
 
   combinedEnv = containers.reduce((memo, container) => {
     let {environment={}} = container;
-    
     return Object.keys(environment).reduce((cvMemo, key) => {
       cvMemo.push({
         key: <code>{key}</code>,
