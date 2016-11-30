@@ -3,6 +3,62 @@ jest.dontMock('../DateUtil');
 const DateUtil = require('../DateUtil');
 
 describe('DateUtil', function () {
+  describe('#msToMultiplicants', function () {
+    it('should decompose milliseconds only', function () {
+      var result = DateUtil.msToMultiplicants(987);
+
+      expect(result).toEqual(['987 ms']);
+    });
+
+    it('should decompose seconds only', function () {
+      var result = DateUtil.msToMultiplicants(12000);
+
+      expect(result).toEqual(['12 sec']);
+    });
+
+    it('should decompose minutes only', function () {
+      var result = DateUtil.msToMultiplicants(720000);
+
+      expect(result).toEqual(['12 min']);
+    });
+
+    it('should decompose hours only', function () {
+      var result = DateUtil.msToMultiplicants(43200000);
+
+      expect(result).toEqual(['12 h']);
+    });
+
+    it('should decompose days only', function () {
+      var result = DateUtil.msToMultiplicants(1036800000);
+
+      expect(result).toEqual(['12 d']);
+    });
+
+    it('should decompose milliseconds and seconds', function () {
+      var result = DateUtil.msToMultiplicants(9878);
+
+      expect(result).toEqual(['9 sec', '878 ms']);
+    });
+
+    it('should decompose seconds and minutes', function () {
+      var result = DateUtil.msToMultiplicants(732000);
+
+      expect(result).toEqual(['12 min', '12 sec']);
+    });
+
+    it('should decompose minutes and hours', function () {
+      var result = DateUtil.msToMultiplicants(43920000);
+
+      expect(result).toEqual(['12 h', '12 min']);
+    });
+
+    it('should decompose hours and days', function () {
+      var result = DateUtil.msToMultiplicants(1080000000);
+
+      expect(result).toEqual(['12 d', '12 h']);
+    });
+  });
+
   describe('#msToDateStr', function () {
     it('should return the correct string for AM', function () {
       // December is 11 due to months being 0-based index.

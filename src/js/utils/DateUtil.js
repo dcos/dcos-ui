@@ -1,6 +1,40 @@
 import moment from 'moment';
 
+const DEFAULT_MULTIPLICANTS = {
+  'ms'  : 1,
+  'sec' : 1000,
+  'min' : 60000,
+  'h'   : 3600000,
+  'd'   : 86400000
+};
+
 const DateUtil = {
+
+  /*
+   * Composes a string expression by de-composing the given time in milliseconds
+   * into it's sub-multiplicants. For example:
+   *
+   * 11002 = 11002 ms (11 sec, 2 ms)
+   */
+  msToMultiplicants(ms, multiplicants=DEFAULT_MULTIPLICANTS) {
+    let expressionComponents = [];
+    let multiplicantKeys = Object.keys(multiplicants);
+
+    // Start applying biggest to smallest fit
+    for (let i=multiplicantKeys.length-1; i>=0; --i) {
+      let unitName = multiplicantKeys[i];
+      let unitSize = multiplicants[unitName];
+      let fullFits = Math.floor(ms / unitSize);
+
+      if (fullFits > 0) {
+        expressionComponents.push(`${fullFits} ${unitName}`);
+        ms = ms % unitSize;
+      }
+    }
+
+    return expressionComponents;
+  },
+
   /**
    * Creates a time string from time provided
    * @param  {Date|Number} ms number to convert to time string
@@ -19,6 +53,7 @@ const DateUtil = {
     return moment(ms).utc().format('YYYY-MM-DD[T]HH:mm:ss.SSS[Z]');
   },
 
+  /**
   /**
    * Creates relative time based on now and the time provided
    * @param  {Date|Number} ms number to convert to relative time string
