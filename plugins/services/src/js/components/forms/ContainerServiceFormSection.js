@@ -170,7 +170,6 @@ class ContainerServiceFormSection extends Component {
           </FormGroup>
         </div>
         {this.getArtifactsInputs(data.fetch)}
-        <FieldError>{errors.fetch}</FieldError>
         <div>
           <a
             className="button button-primary-link button-flush"
