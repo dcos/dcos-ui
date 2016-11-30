@@ -1,4 +1,4 @@
-// TODO: Reduce the specificity.
+// TODO: Reduce the specificity. DCOS-11785
 & when (@sidebar-enabled) {
 
   // Sidebar
@@ -6,7 +6,7 @@
     background: @sidebar-background-color;
   }
 
-  // TODO: Fix this positioning.
+  // TODO: Fix this positioning. DCOS-11784
   // Navigation
   .navigation {
     left: -100%;
@@ -79,7 +79,7 @@
         margin-right: 12px;
       }
 
-      // TODO: Apply a class to these elements.
+      // TODO: Apply a class to these elements. DCOS-11785
       & > *:not(a):not(span) {
         margin-right: @sidebar-menu-item-content-padding-horizontal;
 
@@ -89,7 +89,7 @@
       }
 
       // TODO: Give these elements classes, don't select more than one,
-      // remove !important.
+      // remove !important. DCOS-11785
       & > a,
       & > span {
         align-items: center;
