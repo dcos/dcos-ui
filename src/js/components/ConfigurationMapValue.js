@@ -8,7 +8,7 @@ const ConfigurationMapValue = (props) => {
 
   return (
     <div className={classes}>
-      {props.children}
+      {props.value || props.children}
     </div>
   );
 };
