@@ -98,12 +98,12 @@ describe('DeclinedOffersUtil', function () {
           matched: 48
         },
         mem: {
-          requested: '128 MiB',
+          requested: 128,
           offers: 48,
           matched: 33
         },
         disk: {
-          requested: '0 B',
+          requested: 0,
           offers: 33,
           matched: 23
         },
@@ -221,12 +221,12 @@ describe('DeclinedOffersUtil', function () {
           matched: 48
         },
         mem: {
-          requested: '600 MiB',
+          requested: 600,
           offers: 48,
           matched: 33
         },
         disk: {
-          requested: '1.2 GiB',
+          requested: 1200,
           offers: 33,
           matched: 23
         },

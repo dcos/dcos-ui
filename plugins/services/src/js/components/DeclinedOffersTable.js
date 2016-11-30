@@ -12,6 +12,14 @@ import TimeAgo from '../../../../../src/js/components/TimeAgo';
 import Units from '../../../../../src/js/utils/Units';
 
 class RejectedOffersTable extends React.Component {
+  areResourcesUnmatched(requestedResource, receivedResource) {
+    if (Array.isArray(receivedResource)) {
+      return receivedResource.includes(requestedResource);
+    }
+
+    return receivedResource >= requestedResource;
+  }
+
   getColumnClassNameFn(classes) {
     return (prop, sortBy) => {
       return classNames(classes, {
@@ -72,41 +80,71 @@ class RejectedOffersTable extends React.Component {
 
     return (prop, row) => {
       const {unmatchedResource = []} = row;
-      const isOfferDeclined = unmatchedResource.includes(resource);
+      const isResourceUnmatched = unmatchedResource.includes(resource);
       const receivedResourceClasses = classNames({
-        'text-danger': isOfferDeclined
+        'text-danger': isResourceUnmatched
       });
 
-      let receivedResource = row.offered[prop] || 'N/A';
-      if (Array.isArray(receivedResource)) {
-        receivedResource = receivedResource.join(', ') || 'N/A';
-      } else if (['cpus', 'mem', 'disk'].includes(prop)) {
-        receivedResource = Units.formatResource(prop, receivedResource);
-      }
+      let requestedResource = summary[prop].requested;
+      let receivedResource = row.offered[prop];
 
+      let requestedResourceSuffix = '';
+      let receivedResourceSuffix = '';
       let icon = null;
-      if (isOfferDeclined) {
+
+      if (isResourceUnmatched) {
         icon = <Icon color="red" family="mini" id="close" size="mini" />;
+
+        if (unmatchedResource.includes(DeclinedOffersReasons.UNFULFILLED_ROLE)
+          && this.areResourcesUnmatched(requestedResource, receivedResource)) {
+          requestedResourceSuffix = `(Role: ${summary.roles.requested})`;
+          receivedResourceSuffix = `(Role: ${row.offered.roles})`;
+        }
       } else {
         icon = <Icon color="neutral" family="mini" id="check" size="mini" />;
+      }
+
+      if (Array.isArray(receivedResource)) {
+        receivedResource = receivedResource.join(', ');
+      }
+
+      if (Array.isArray(requestedResource)) {
+        requestedResource = requestedResource.join(', ');
+      }
+
+      if (['cpus', 'mem', 'disk'].includes(prop)) {
+        requestedResource = Units.formatResource(prop, requestedResource);
+        receivedResource = Units.formatResource(prop, receivedResource);
+      } else {
+        if (!requestedResource) {
+          requestedResource = 'N/A';
+        }
+
+        if (!receivedResource) {
+          receivedResource = 'N/A';
+        }
       }
 
       const tooltipContent = (
         <div>
           <div>
             <strong>Requested</strong>{': '}
-            {summary[prop].requested}
+            {requestedResource}
+            {` ${requestedResourceSuffix}`}
           </div>
           <div>
             <strong>Received</strong>{': '}
             <span className={receivedResourceClasses}>{receivedResource}</span>
+            <span className="text-nowrap">
+              {` ${receivedResourceSuffix}`}
+            </span>
           </div>
         </div>
       );
 
       return (
         <Tooltip content={tooltipContent}
-          maxWidth={300}
+          maxWidth={400}
           wrapText={true}>
           {icon}
         </Tooltip>
