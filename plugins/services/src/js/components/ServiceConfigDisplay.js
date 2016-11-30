@@ -10,10 +10,9 @@ import ServiceConfigEnvironmentVariablesSectionDisplay from './ServiceConfigEnvi
 import ServiceConfigLabelsSectionDisplay from './ServiceConfigLabelsSectionDisplay';
 import ServiceConfigHealthChecksSectionDisplay from './ServiceConfigHealthChecksSectionDisplay';
 
-// To pad priorities, so we can add components in between
+const MOUNT_TYPE = 'CreateService:ServiceConfigDisplay';
 const PRIORITIES_PAD_NUMBER = 100;
-
-const SERVICE_CONFIG_DISPLAY_LIST = [
+const DEFAULT_DISPLAY_COMPONENTS = [
   ServiceConfigGeneralSectionDisplay,
   ServiceConfigPlacementConstraintsSectionDisplay,
   ServiceConfigNetworkingSectionDisplay,
@@ -21,19 +20,21 @@ const SERVICE_CONFIG_DISPLAY_LIST = [
   ServiceConfigEnvironmentVariablesSectionDisplay,
   ServiceConfigLabelsSectionDisplay,
   ServiceConfigHealthChecksSectionDisplay
-].reverse(); // MountService sorts by priority but DESC ¯\_(ツ)_/¯
+];
+
+// Register default config display components (this needs to only happen once)
+DEFAULT_DISPLAY_COMPONENTS.forEach((component, index, componentArray) => {
+  // Define  component priorities based on index (highest prio goes first)
+  // and pad priorities, so that we can add components in between.
+  let priority = (componentArray.length - index) * PRIORITIES_PAD_NUMBER;
+  MountService.MountService.registerComponent(
+      component,
+      MOUNT_TYPE,
+      priority
+  );
+});
 
 class ServiceConfigDisplay extends React.Component {
-  componentWillMount() {
-    SERVICE_CONFIG_DISPLAY_LIST.forEach((component, index) => {
-      MountService.MountService.registerComponent(
-        component,
-        'CreateService:ServiceConfigDisplay',
-        PRIORITIES_PAD_NUMBER * index
-      );
-    });
-  }
-
   render() {
     return (
       <div className="flex-item-grow-1">
