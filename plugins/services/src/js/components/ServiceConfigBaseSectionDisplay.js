@@ -10,19 +10,8 @@ import Util from '../../../../../src/js/utils/Util';
 
 class ServiceConfigBaseSectionDisplay extends React.Component {
 
-  shouldExcludeItem(row) {
-    const {appConfig} = this.props;
-
-    switch (row.key) {
-      case 'gpus':
-        return !Util.findNestedPropertyInObject(appConfig, 'gpus');
-      case 'container.volumes':
-        return !Util.findNestedPropertyInObject(
-          appConfig, 'container.volumes.length'
-        );
-      default:
-        return false;
-    }
+  shouldExcludeItem() {
+    return false;
   }
 
   getDisplayValue(type, value) {
