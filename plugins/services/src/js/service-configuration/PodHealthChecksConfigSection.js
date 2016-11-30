@@ -1,11 +1,11 @@
 import React from 'react';
 
+import ConfigurationMapTable from '../components/ConfigurationMapTable';
 import DurationValue from '../components/ConfigurationMapDurationValue';
-import ValueWithDefault from '../components/ConfigurationMapValueWithDefault';
 import Heading from '../../../../../src/js/components/ConfigurationMapHeading';
 import Section from '../../../../../src/js/components/ConfigurationMapSection';
-import ConfigurationMapTable from '../components/ConfigurationMapTable';
 import ServiceConfigDisplayUtil from '../utils/ServiceConfigDisplayUtil';
+import ValueWithDefault from '../components/ConfigurationMapValueWithDefault';
 
 const COMMON_COLUMNS = [
   {
