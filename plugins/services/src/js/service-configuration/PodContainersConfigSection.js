@@ -1,8 +1,8 @@
 import React from 'react';
 
+import Alert from '../../../../../src/js/components/Alert';
 import Heading from '../../../../../src/js/components/ConfigurationMapHeading';
 import PodContainerConfigSection from './PodContainerConfigSection';
-import Alert from '../../../../../src/js/components/Alert';
 
 function renderContainers(appConfig) {
   let {containers=[]} = appConfig;
