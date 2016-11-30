@@ -4,10 +4,12 @@ import mixin from 'reactjs-mixin';
 import React from 'react';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
+import SystemLogUtil from '../../../../../../src/js/utils/SystemLogUtil';
 import {APPEND} from '../../../../../../src/js/constants/SystemLogTypes';
 import LogView from '../../components/LogView';
 import Loader from '../../../../../../src/js/components/Loader';
 import MesosStateUtil from '../../../../../../src/js/utils/MesosStateUtil';
+import Icon from '../../../../../../src/js/components/Icon';
 import RequestErrorMsg from '../../../../../../src/js/components/RequestErrorMsg';
 import SearchLog from '../../components/SearchLog';
 import SystemLogStore from '../../../../../../src/js/stores/SystemLogStore';
@@ -169,7 +171,7 @@ class TaskLogsTab extends mixin(StoreMixin) {
     });
 
     return (
-      <div className="button-group">
+      <div key="buttons" className="button-group">
         {buttons}
       </div>
     );
@@ -202,6 +204,7 @@ class TaskLogsTab extends mixin(StoreMixin) {
 
     return (
       <Dropdown
+        key="dropdown"
         buttonClassName="button dropdown-toggle"
         dropdownMenuClassName="dropdown-menu"
         dropdownMenuListClassName="dropdown-menu-list"
@@ -215,6 +218,28 @@ class TaskLogsTab extends mixin(StoreMixin) {
         transitionName="dropdown-menu"
         wrapperClassName="dropdown form-group" />
       );
+  }
+
+  getDownloadButton() {
+    let {task} = this.props;
+    let {selectedStream} = this.state;
+    const params = getLogParameters(task, {filter: {STREAM: selectedStream}});
+
+    // This is a hacky way of interacting with the API to be able to download
+    // logs with a POST request
+
+    return (
+      <form
+        key="download"
+        action={SystemLogUtil.getUrl(task.slave_id, params, false)}
+        method="POST">
+        <button
+          className="button button-stroke"
+          disabled={!task}>
+          <Icon family="mini" id="download" size="mini" />
+        </button>
+      </form>
+    );
   }
 
   getLogView() {
@@ -246,8 +271,10 @@ class TaskLogsTab extends mixin(StoreMixin) {
   }
 
   render() {
+    let actions = [this.getActions(), this.getDownloadButton()];
+
     return (
-      <SearchLog actions={this.getActions()}>
+      <SearchLog actions={actions}>
         {this.getLogView()}
       </SearchLog>
     );
