@@ -113,7 +113,7 @@ class DeploymentsTab extends mixin(StoreMixin) {
     return serviceIds.map(function (serviceId) {
       return (
         <dd key={`stale_${serviceId}`}>
-          <span className="icon icon-small icon-image-container icon-app-container deployment-service-icon">
+          <span className="icon icon-mini icon-image-container icon-app-container deployment-service-icon">
             <img src={defaultServiceImage} />
           </span>
           {serviceId}
@@ -130,7 +130,7 @@ class DeploymentsTab extends mixin(StoreMixin) {
       return (
         <dd key={`service_${id}`}>
           <Link to={`/services/overview/${id}`} className="deployment-service-name table-cell-link-primary">
-            <span className="icon icon-small icon-image-container icon-app-container deployment-service-icon">
+            <span className="icon icon-mini icon-image-container icon-app-container deployment-service-icon">
               <img src={image} />
             </span>
             {service.getName()}

@@ -110,15 +110,15 @@ class ServicesTable extends React.Component {
           className="icon-margin-right"
           color="grey"
           id="folder"
-          size="small"
-          family="small" />
+          size="mini"
+          family="system" />
       );
     }
 
     // Get service image/icon
     return (
       <span
-        className="icon icon-small icon-image-container icon-app-container icon-margin-right">
+        className="icon icon-mini icon-image-container icon-app-container icon-margin-right">
         <img src={service.getImages()['icon-small']}/>
       </span>
     );

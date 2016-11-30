@@ -97,7 +97,7 @@ class ImageViewerModal extends React.Component {
           <Icon
             className="arrow"
             color="white"
-            family="small"
+            family="system"
             id="caret-left"
             size="small" />
         </span>
@@ -107,7 +107,7 @@ class ImageViewerModal extends React.Component {
           <Icon
             className="arrow"
             color="white"
-            family="small"
+            family="system"
             id="caret-right"
             size="small" />
         </span>
