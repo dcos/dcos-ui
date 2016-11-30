@@ -8,12 +8,15 @@ import {
   simpleIntReducer,
   simpleReducer
 } from '../../../../../src/js/utils/ReducerUtil';
+import VolumeConstants from '../constants/VolumeConstants';
+
+const {DOCKER} = VolumeConstants.type;
 
 module.exports = {
   id: simpleReducer('id'),
   instances: simpleIntReducer('instances'),
   container: combineReducers({
-    type: simpleReducer('container.type', 'DOCKER'),
+    type: simpleReducer('container.type', DOCKER),
     docker: combineReducers({
       priviliged: simpleReducer('container.docker.privileged', false),
       forecePullImage: simpleReducer('container.docker.forcePullImage', false),
@@ -24,6 +27,7 @@ module.exports = {
   cpus: simpleFloatReducer('cpus'),
   mem: simpleIntReducer('mem'),
   disk: simpleIntReducer('disk'),
+  gpus: simpleIntReducer('gpus'),
   cmd: simpleReducer('cmd'),
   env,
   labels,

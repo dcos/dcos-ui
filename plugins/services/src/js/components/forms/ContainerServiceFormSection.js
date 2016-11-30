@@ -27,6 +27,37 @@ const containerSettings = {
 };
 
 class ContainerServiceFormSection extends Component {
+  getGPUSInput(data) {
+    if (data.container.type === 'DOCKER') {
+      return [
+        <Tooltip
+          content="Docker Engine does not support GPU resources, please select Universal Container Runtime if you want to use GPU resources."
+          interactive={true}
+          maxWidth={300}
+          scrollContainer=".gm-scroll-view"
+          wrapText={true}>
+          <FieldLabel>
+            {'GPUs '}
+            <Icon color="grey" id="lock" size="mini" family="mini" />
+          </FieldLabel>
+        </Tooltip>,
+        <FieldInput
+          name="gpus"
+          type="number"
+          disabled={true}
+          value={data.gpus} />
+      ];
+    }
+
+    return [
+      <FieldLabel>GPUs</FieldLabel>,
+      <FieldInput
+        name="gpus"
+        type="number"
+        value={data.gpus} />
+    ];
+  }
+
   getAdvancedSettings(data = {}, errors = {}) {
     let {container = {}} = data;
     let typeErrors = errors.container && errors.container.type;
@@ -58,6 +89,10 @@ class ContainerServiceFormSection extends Component {
         </FormGroup>
 
         <div className="flex row">
+          <FormGroup className="column-4" showError={Boolean(errors.gpus)}>
+            {this.getGPUSInput(data)}
+            <FieldError>{errors.gpus}</FieldError>
+          </FormGroup>
           <FormGroup className="column-4" showError={Boolean(errors.disk)}>
             <FieldLabel>Disk (MiB)</FieldLabel>
             <FieldInput
