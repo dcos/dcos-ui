@@ -1,4 +1,5 @@
 import {JSONParser as constraints} from './serviceForm/Constraints';
+import {JSONParser as fetch} from './serviceForm/Artifacts';
 import {JSONParser as environmentVariables} from './serviceForm/EnvironmentVariables';
 import {JSONParser as externalVolumes} from './serviceForm/ExternalVolumes';
 import {JSONParser as healthChecks} from './serviceForm/HealthChecks';
@@ -29,5 +30,6 @@ module.exports = [
   healthChecks,
   localVolumes,
   externalVolumes,
-  constraints
+  constraints,
+  fetch
 ];

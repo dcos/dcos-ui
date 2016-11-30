@@ -1,3 +1,6 @@
+import React from 'react';
+import {Table} from 'reactjs-components';
+
 import ServiceConfigDisplayUtil from '../utils/ServiceConfigDisplayUtil';
 import Units from '../../../../../src/js/utils/Units';
 import Util from '../../../../../src/js/utils/Util';
@@ -94,8 +97,36 @@ module.exports = {
       type: 'pre'
     },
     {
-      key: 'artifacts', // TODO: Figure out how to find this
-      label: 'Artifacts'
+      key: 'fetch',
+      heading: 'Container Artifacts',
+      headingLevel: 3
+    },
+    {
+      key: 'fetch',
+      render: (data) => {
+        const columns = [
+          {
+            heading: ServiceConfigDisplayUtil.getColumnHeadingFn('Artifact Uri'),
+            prop: 'uri',
+            render: (prop, row) => {
+              let value = row[prop];
+
+              return ServiceConfigDisplayUtil.getDisplayValue(value);
+            },
+            className: ServiceConfigDisplayUtil.getColumnClassNameFn(
+              'configuration-map-table-label'
+            ),
+            sortable: true
+          }
+        ];
+
+        return (
+          <Table key="artifacts-table"
+            className="table table-simple table-break-word flush-bottom"
+            columns={columns}
+            data={data} />
+        );
+      }
     }
   ]
 };

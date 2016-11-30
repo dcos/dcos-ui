@@ -1,4 +1,5 @@
 import {JSONReducer as constraints} from './serviceForm/Constraints';
+import {JSONReducer as fetch} from './serviceForm/Artifacts';
 import {JSONReducer as env} from './serviceForm/EnvironmentVariables';
 import {JSONReducer as healthChecks} from './serviceForm/HealthChecks';
 import {JSONReducer as labels} from './serviceForm/Labels';
@@ -33,5 +34,6 @@ module.exports = {
   env,
   labels,
   healthChecks,
-  constraints
+  constraints,
+  fetch
 };

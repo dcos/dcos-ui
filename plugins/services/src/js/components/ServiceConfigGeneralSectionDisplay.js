@@ -10,6 +10,8 @@ class ServiceConfigGeneralSectionDisplay extends ServiceConfigBaseSectionDisplay
     const {appConfig} = this.props;
 
     switch (row.key) {
+      case 'fetch':
+        return !Util.findNestedPropertyInObject(appConfig, 'fetch.length');
       case 'gpus':
         return !Util.findNestedPropertyInObject(appConfig, 'gpus');
       default:
