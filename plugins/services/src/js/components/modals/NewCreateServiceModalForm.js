@@ -5,15 +5,12 @@ import deepEqual from 'deep-equal';
 import Alert from '../../../../../../src/js/components/Alert';
 import AppValidators from '../../../../../../src/resources/raml/marathon/v2/types/app.raml';
 import Batch from '../../../../../../src/js/structs/Batch';
-import ContainerServiceFormSection from '../forms/ContainerServiceFormSection';
 import CreateServiceModalFormUtil from '../../utils/CreateServiceModalFormUtil';
 import DataValidatorUtil from '../../../../../../src/js/utils/DataValidatorUtil';
 import EnvironmentFormSection from '../forms/EnvironmentFormSection';
 import GeneralServiceFormSection from '../forms/GeneralServiceFormSection';
 import HealthChecksFormSection from '../forms/HealthChecksFormSection';
-import JSONConfigReducers from '../../reducers/JSONConfigReducers';
 import JSONEditor from '../../../../../../src/js/components/JSONEditor';
-import JSONParserReducers from '../../reducers/JSONParserReducers';
 import NetworkingFormSection from '../forms/NetworkingFormSection';
 import ServiceUtil from '../../utils/ServiceUtil';
 import TabButton from '../../../../../../src/js/components/TabButton';
@@ -24,8 +21,6 @@ import TabViewList from '../../../../../../src/js/components/TabViewList';
 import Transaction from '../../../../../../src/js/structs/Transaction';
 import TransactionTypes from '../../../../../../src/js/constants/TransactionTypes';
 import VolumesFormSection from '../forms/VolumesFormSection';
-import {combineParsers} from '../../../../../../src/js/utils/ParserUtil';
-import {combineReducers} from '../../../../../../src/js/utils/ReducerUtil';
 
 const METHODS_TO_BIND = [
   'handleFormChange',
