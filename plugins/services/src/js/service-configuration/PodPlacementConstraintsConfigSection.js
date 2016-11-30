@@ -1,9 +1,9 @@
 import React from 'react';
 import {findNestedPropertyInObject} from '../../../../../src/js/utils/Util';
 
-import Section from '../../../../../src/js/components/ConfigurationMapSection';
 import ConfigurationMapTable from '../components/ConfigurationMapTable.js';
 import Heading from '../../../../../src/js/components/ConfigurationMapHeading';
+import Section from '../../../../../src/js/components/ConfigurationMapSection';
 
 module.exports = ({appConfig}) => {
   let constraints = findNestedPropertyInObject(appConfig,
@@ -19,7 +19,6 @@ module.exports = ({appConfig}) => {
     <div>
       <Heading level={3}>Placement Constraints</Heading>
       <Section>
-
         <ConfigurationMapTable
           className="table table-simple table-break-word flush-bottom"
           columns={[
@@ -41,9 +40,7 @@ module.exports = ({appConfig}) => {
             hideIfempty: true,
             placeholder: <span>&mdash;</span>
           }}
-          data={constraints}
-          />
-
+          data={constraints} />
       </Section>
     </div>
   );
