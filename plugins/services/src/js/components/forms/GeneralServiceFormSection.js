@@ -18,8 +18,13 @@ import ValidatorUtil from '../../../../../../src/js/utils/ValidatorUtil';
 import VolumeConstants from '../../constants/VolumeConstants';
 
 const {MESOS, DOCKER} = VolumeConstants.type;
+const NONE = 'NONE';
 
 const containerRuntimes = {
+  NONE: {
+    label: <span>Mesos Runtime</span>,
+    helpText: 'Normal behaviour'
+  },
   [MESOS]: {
     label: <span>Universal Container Runtime</span>,
     helpText: 'Native container engine in Mesos using standard Linux features. Supports multiple containers (Pods) and GPU resources.'
@@ -91,16 +96,12 @@ class GeneralServiceFormSection extends Component {
     });
   }
   getRuntimeSelections(data = {}) {
-    let {container = {}, cmd, gpus} = data;
+    let {container = {}, gpus} = data;
     let isDisabled = {};
     let disabledTooltipContent;
-    let type = container.type || MESOS;
-    let image = findNestedPropertyInObject(container, 'docker.image');
-    // Single container with command and no image, disable 'DOCKER'
-    if (cmd && !image) {
-      isDisabled[DOCKER] = true;
-      disabledTooltipContent = 'If you want to use Docker Engine you have to enter a container image, otherwise please select Universal Container Runtime.';
-    }
+    let type = container != null && container.type != null ?
+        container.type :
+        NONE;
 
     if (!ValidatorUtil.isEmpty(gpus)) {
       isDisabled[DOCKER] = true;

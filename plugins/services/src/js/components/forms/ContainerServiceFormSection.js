@@ -93,7 +93,7 @@ class ContainerServiceFormSection extends Component {
   }
 
   getGPUSInput(data) {
-    if (data.container.type === 'DOCKER') {
+    if (data.container && data.container.type === 'DOCKER') {
       return [
         <Tooltip
           key="gpus-input-tooltip"
