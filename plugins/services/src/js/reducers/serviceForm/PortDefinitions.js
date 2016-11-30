@@ -15,36 +15,6 @@ const defaultFieldValues = {
   loadBalanced: false
 };
 
-function getAppState(appState, path, value) {
-  if (!appState) {
-    appState = {
-      id: '',
-      hasContainer: false,
-      networkType: Networking.type.HOST
-    };
-  }
-
-  if (path == null) {
-    return appState;
-  }
-
-  let joinedPath = path.join('.');
-
-  if (joinedPath === 'networking.type') {
-    appState.networkType = value;
-  }
-
-  if (joinedPath === 'container.docker.image' && !!value) {
-    appState.hasContainer = true;
-  }
-
-  if (joinedPath === 'id' && !!value) {
-    appState.id = value;
-  }
-
-  return appState;
-}
-
 function reducer(state = [], {type, path = [], value}) {
   if (path == null) {
     return state;
@@ -52,7 +22,7 @@ function reducer(state = [], {type, path = [], value}) {
 
   let joinedPath = path.join('.');
 
-  if (joinedPath.search('portDefinitions') !== -1) {
+  if (path.includes('portDefinitions')) {
     if (joinedPath === 'portDefinitions') {
       switch (type) {
         case ADD_ITEM:
@@ -60,24 +30,22 @@ function reducer(state = [], {type, path = [], value}) {
           this.portDefinitions.push(portDefinition);
           break;
         case REMOVE_ITEM:
-          this.portDefinitions.filter((item, index) => {
-            return index !== value;
-          });
+          this.portDefinitions.splice(value, 1);
           break;
       }
     }
 
-    let indices = joinedPath.match(/\d+/);
+    let index = path[1];
+    if (index != null && type === SET) {
+      Object.keys(defaultFieldValues).forEach((fieldKey) => {
+        if (joinedPath === `portDefinitions.${index}.${fieldKey}`) {
+          this.portDefinitions[index][fieldKey] = value;
+        }
+      });
 
-    if (indices != null && indices.length > 0) {
-      let index = indices[0];
-
-      if (type === SET) {
-        Object.keys(defaultFieldValues).forEach((fieldKey) => {
-          if (joinedPath === `portDefinitions.${index}.${fieldKey}`) {
-            this.portDefinitions[index][fieldKey] = value;
-          }
-        });
+      // If port is assigned automatically, remove hostPort
+      if (this.portDefinitions[index].automaticPort) {
+        this.portDefinitions[index].hostPort = null;
       }
     }
   }
@@ -92,7 +60,27 @@ module.exports = {
     }
 
     let {path = [], value} = action;
-    this.appState = getAppState(this.appState, path, value);
+    if (!this.appState) {
+      this.appState = {
+        id: '',
+        hasContainer: false,
+        networkType: Networking.type.HOST
+      };
+    }
+
+    let joinedPath = path.join('.');
+    if (joinedPath === 'networking.type') {
+      this.appState.networkType = value;
+    }
+
+    if (joinedPath === 'container.docker.image' && !!value) {
+      this.appState.hasContainer = true;
+    }
+
+    if (joinedPath === 'id' && !!value) {
+      this.appState.id = value;
+    }
+
     let newState = Object.assign([], reducer.call(this, state, action));
 
     return newState.map((portDefinition, index) => {

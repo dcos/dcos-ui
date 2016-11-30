@@ -39,11 +39,25 @@ describe('PortDefinitions', function () {
     it('should set the port value', function () {
       let batch = new Batch();
       batch = batch.add(new Transaction(['portDefinitions'], 0, ADD_ITEM));
+      batch = batch.add(new Transaction(['portDefinitions', 0, 'automaticPort'], false));
       batch = batch.add(new Transaction(['portDefinitions', 0, 'hostPort'], 100));
 
       expect(batch.reduce(PortDefinitions.JSONReducer.bind({}), {}))
         .toEqual([
           {name: null, port: 100, protocol: 'tcp'}
+        ]);
+    });
+
+    it('should default port value to 0 if automaticPort', function () {
+      let batch = new Batch();
+      batch = batch.add(new Transaction(['portDefinitions'], 0, ADD_ITEM));
+      // This is default behavior
+      // batch = batch.add(new Transaction(['portDefinitions', 0, 'automaticPort'], true));
+      batch = batch.add(new Transaction(['portDefinitions', 0, 'hostPort'], 100));
+
+      expect(batch.reduce(PortDefinitions.JSONReducer.bind({}), {}))
+        .toEqual([
+          {name: null, port: 0, protocol: 'tcp'}
         ]);
     });
 
@@ -89,6 +103,7 @@ describe('PortDefinitions', function () {
       let batch = new Batch();
       batch = batch.add(new Transaction(['portDefinitions'], 0, ADD_ITEM));
       batch = batch.add(new Transaction(['portDefinitions'], 0, ADD_ITEM));
+      batch = batch.add(new Transaction(['portDefinitions', 0, 'automaticPort'], false));
       batch = batch.add(new Transaction(['portDefinitions', 0, 'hostPort'], 300));
       batch = batch.add(new Transaction(['portDefinitions', 0, 'loadBalanced'], true));
 
@@ -103,6 +118,7 @@ describe('PortDefinitions', function () {
       let batch = new Batch();
       batch = batch.add(new Transaction(['portDefinitions'], 0, ADD_ITEM));
       batch = batch.add(new Transaction(['portDefinitions'], 0, ADD_ITEM));
+      batch = batch.add(new Transaction(['portDefinitions', 0, 'automaticPort'], false));
       batch = batch.add(new Transaction(['portDefinitions', 1, 'loadBalanced'], true));
       batch = batch.add(new Transaction(['id'], 'foo'));
 

@@ -19,12 +19,19 @@ const {MESOS} = VolumeConstants.type;
 
 class NetworkingFormSection extends Component {
   getHostPortFields(portDefinition, index) {
+    let placeholder;
+    if (portDefinition.automaticPort) {
+      placeholder = `$PORT${index}`;
+    }
+
     return [
       <FormGroup className="column-3" key="host-port">
         <FieldLabel>
           Host Port
         </FieldLabel>
         <FieldInput
+          disabled={portDefinition.automaticPort}
+          placeholder={placeholder}
           name={`portDefinitions.${index}.hostPort`}
           type="number"
           value={portDefinition.hostPort} />
@@ -46,6 +53,9 @@ class NetworkingFormSection extends Component {
 
   getLoadBalancedServiceAddressField({checkboxName, checkboxValue, port}) {
     let hostname = HostUtil.stringToHostname(this.props.data.id);
+    if (port != null && port !== '') {
+      port = `:${port}`;
+    }
 
     return [
       <div className="flex row" key="title">
@@ -70,7 +80,7 @@ class NetworkingFormSection extends Component {
         </FormGroup>
         <FormGroup className="column-auto flush-left">
           <span>
-            {hostname}{Networking.L4LB_ADDRESS}:{port}
+            {hostname}{Networking.L4LB_ADDRESS}{port}
           </span>
         </FormGroup>
       </div>
