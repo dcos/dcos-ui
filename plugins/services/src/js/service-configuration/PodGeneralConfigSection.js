@@ -2,16 +2,13 @@ import React from 'react';
 import {findNestedPropertyInObject} from '../../../../../src/js/utils/Util';
 
 import DurationValue from '../components/ConfigurationMapDurationValue';
-import Label from '../../../../../src/js/components/ConfigurationMapLabel';
-// import OptionalRow from '../components/ConfigurationMapOptionalRow';
-import Row from '../../../../../src/js/components/ConfigurationMapRow';
-import Value from '../../../../../src/js/components/ConfigurationMapValue';
-// import SizeValue from '../components/ConfigurationMapSizeValue';
-import ValueWithDefault from '../components/ConfigurationMapValueWithDefault';
-
-import Section from '../../../../../src/js/components/ConfigurationMapSection';
 import Heading from '../../../../../src/js/components/ConfigurationMapHeading';
+import Label from '../../../../../src/js/components/ConfigurationMapLabel';
+import Row from '../../../../../src/js/components/ConfigurationMapRow';
+import Section from '../../../../../src/js/components/ConfigurationMapSection';
 import Units from '../../../../../src/js/utils/Units';
+import Value from '../../../../../src/js/components/ConfigurationMapValue';
+import ValueWithDefault from '../components/ConfigurationMapValueWithDefault';
 
 /**
  * Summarize the resources of every container, including the containers and
