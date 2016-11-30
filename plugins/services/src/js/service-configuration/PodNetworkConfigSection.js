@@ -38,12 +38,12 @@ module.exports = ({appConfig}) => {
   let endpoints = containers.reduce((memo, container) => {
     return memo.concat(
       (container.endpoints || []).map(({containerPort, labels={}, name, protocol}) => {
-        let lbAddress = null;
-        lbAddress = Object.keys(labels).reduce((memo, label) => {
+        let lbAddress = Object.keys(labels).reduce((memo, label) => {
           if (label.startsWith('VIP_')) {
             let [prefix, port] = labels[label].split(':');
             memo.push(`${prefix}.marathon.lb4lb.thisdcos.directory:${port}`);
           }
+          
           return memo;
         }, []);
 
@@ -56,6 +56,7 @@ module.exports = ({appConfig}) => {
         };
       })
     );
+    
     return memo;
   }, []);
 
