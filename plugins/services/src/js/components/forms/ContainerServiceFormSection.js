@@ -96,6 +96,7 @@ class ContainerServiceFormSection extends Component {
     if (data.container.type === 'DOCKER') {
       return [
         <Tooltip
+          key="gpus-input-tooltip"
           content="Docker Engine does not support GPU resources, please select Universal Container Runtime if you want to use GPU resources."
           interactive={true}
           maxWidth={300}
@@ -107,6 +108,7 @@ class ContainerServiceFormSection extends Component {
           </FieldLabel>
         </Tooltip>,
         <FieldInput
+          key="gpus-input"
           name="gpus"
           type="number"
           disabled={true}
