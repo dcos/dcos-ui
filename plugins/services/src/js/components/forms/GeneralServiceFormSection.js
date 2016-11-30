@@ -98,9 +98,11 @@ class GeneralServiceFormSection extends Component {
     let {container = {}, gpus} = data;
     let isDisabled = {};
     let disabledTooltipContent;
-    let type = container != null && container.type != null ?
-        container.type :
-        NONE;
+    let type = NONE;
+
+    if (container != null && container.type != null) {
+      type = container.type;
+    }
 
     if (!ValidatorUtil.isEmpty(gpus)) {
       isDisabled[DOCKER] = true;

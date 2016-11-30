@@ -55,9 +55,17 @@ const containerJSONReducer = combineReducers({
       this.noState = true;
     }
 
-    const volumesState = this.hasVolumes.length !== 0 ? MESOS : null;
+    let volumesState = null;
 
-    return this.noState ? volumesState : state;
+    if (this.hasVolumes.length !== 0) {
+      volumesState = MESOS;
+    }
+
+    if (this.noState) {
+      return volumesState;
+    }
+
+    return state;
   },
   docker() {
     if (this.internalState == null) {
