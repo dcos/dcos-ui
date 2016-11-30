@@ -25,20 +25,22 @@ function getJson(constraints) {
 function processTransaction(state, {type, path, value}) {
   const [field, index, name] = path;
 
+  if (field !== 'constraints') {
+    return state;
+  }
+
   let newState = state.slice();
 
-  if (field === 'constraints') {
-    if (type === ADD_ITEM) {
-      newState.push({field: null, operator: null, value: null});
-    }
-    if (type === REMOVE_ITEM) {
-      newState = newState.filter((item, index) => {
-        return index !== value;
-      });
-    }
-    if (type === SET && CONSTRAINT_FIELDS.includes(name)) {
-      newState[index][name] = value;
-    }
+  if (type === ADD_ITEM) {
+    newState.push({field: null, operator: null, value: null});
+  }
+  if (type === REMOVE_ITEM) {
+    newState = newState.filter((item, index) => {
+      return index !== value;
+    });
+  }
+  if (type === SET && CONSTRAINT_FIELDS.includes(name)) {
+    newState[index][name] = value;
   }
 
   return newState;
