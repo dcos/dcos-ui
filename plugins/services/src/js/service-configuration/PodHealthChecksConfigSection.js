@@ -1,6 +1,7 @@
 import React from 'react';
 
 import DurationValue from '../components/ConfigurationMapDurationValue';
+import ValueWithDefault from '../components/ConfigurationMapValueWithDefault';
 import Heading from '../../../../../src/js/components/ConfigurationMapHeading';
 import Section from '../../../../../src/js/components/ConfigurationMapSection';
 import ConfigurationMapTable from '../components/ConfigurationMapTable';
@@ -103,9 +104,15 @@ module.exports = ({appConfig}) => {
             <ConfigurationMapTable
               className="table table-simple table-break-word flush-bottom"
               columnDefaults={{
-                hideIfEmpty: true
+                hideIfEmpty: true,
+                render(prop, row) {
+                  // We use a default <Value/> renderer in order to render
+                  // all elements as <Div/>s. Otherwise the booleans look
+                  // funny.
+                  return <ValueWithDefault value={row[prop]} />;
+                }
               }}
-              columns={Object.assign([
+              columns={[
                 {
                   heading: 'Service Endpoint',
                   prop: 'endpoint'
@@ -118,7 +125,7 @@ module.exports = ({appConfig}) => {
                   heading: 'Path',
                   prop: 'path'
                 }
-              ], COMMON_COLUMNS)}
+              ].concat(COMMON_COLUMNS)}
               data={healthChecks.endpoints} />
           </Section>
         </div>
@@ -133,12 +140,12 @@ module.exports = ({appConfig}) => {
               columnDefaults={{
                 hideIfEmpty: true
               }}
-              columns={Object.assign([
+              columns={[
                 {
                   heading: 'Command',
                   prop: 'command'
                 }
-              ], COMMON_COLUMNS)}
+              ].concat(COMMON_COLUMNS)}
               data={healthChecks.command} />
           </Section>
         </div>

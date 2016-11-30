@@ -1,32 +1,37 @@
 import React from 'react';
 
+import ConfigurationMapTable from '../components/ConfigurationMapTable';
 import Heading from '../../../../../src/js/components/ConfigurationMapHeading';
 import Section from '../../../../../src/js/components/ConfigurationMapSection';
-import ConfigurationMapTable from '../components/ConfigurationMapTable';
 import ServiceConfigDisplayUtil from '../utils/ServiceConfigDisplayUtil';
 
 module.exports = ({appConfig}) => {
-  let labels = Object.keys(appConfig.labels || {}).reduce((memo, key) => {
+  let {labels={}, containers=[]} = appConfig;
+
+  let combinedLabels = Object.keys(labels).reduce((memo, key) => {
     memo.push({
       key: <code>{key}</code>,
-      value: appConfig.labels[key],
+      value: labels[key],
       container: ServiceConfigDisplayUtil.getSharedIconWithLabel()
     });
+
     return memo;
   }, []);
 
-  labels = (appConfig.containers || []).reduce((memo, container) => {
-    return Object.keys(container.labels || {}).reduce((cvMemo, key) => {
+  combinedLabels = containers.reduce((memo, container) => {
+    let {labels={}} = container;
+    return Object.keys(labels).reduce((cvMemo, key) => {
       cvMemo.push({
         key: <code>{key}</code>,
-        value: container.labels[key],
+        value: labels[key],
         container: ServiceConfigDisplayUtil.getContainerNameWithIcon(container)
       });
+
       return cvMemo;
     }, memo);
-  }, labels);
+  }, combinedLabels);
 
-  if (!labels.length) {
+  if (!combinedLabels.length) {
     return null;
   }
 
@@ -54,7 +59,7 @@ module.exports = ({appConfig}) => {
               prop: 'container'
             }
           ]}
-          data={labels} />
+          data={combinedLabels} />
 
       </Section>
     </div>

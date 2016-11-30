@@ -6,27 +6,32 @@ import ConfigurationMapTable from '../components/ConfigurationMapTable';
 import ServiceConfigDisplayUtil from '../utils/ServiceConfigDisplayUtil';
 
 module.exports = ({appConfig}) => {
-  let envVars = Object.keys(appConfig.environment || {}).reduce((memo, key) => {
+  let {environment={}, containers=[]} = appConfig;
+
+  let combinedEnv = Object.keys(environment).reduce((memo, key) => {
     memo.push({
       key: <code>{key}</code>,
-      value: appConfig.environment[key],
+      value: environment[key],
       container: ServiceConfigDisplayUtil.getSharedIconWithLabel()
     });
+
     return memo;
   }, []);
 
-  envVars = (appConfig.containers || []).reduce((memo, container) => {
-    return Object.keys(container.environment || {}).reduce((cvMemo, key) => {
+  combinedEnv = containers.reduce((memo, container) => {
+    let {environment={}} = container;
+    return Object.keys(environment).reduce((cvMemo, key) => {
       cvMemo.push({
         key: <code>{key}</code>,
-        value: container.environment[key],
+        value: environment[key],
         container: ServiceConfigDisplayUtil.getContainerNameWithIcon(container)
       });
+
       return cvMemo;
     }, memo);
-  }, envVars);
+  }, combinedEnv);
 
-  if (!envVars.length) {
+  if (!combinedEnv.length) {
     return null;
   }
 
@@ -54,7 +59,7 @@ module.exports = ({appConfig}) => {
               prop: 'container'
             }
           ]}
-          data={envVars} />
+          data={combinedEnv} />
 
       </Section>
     </div>

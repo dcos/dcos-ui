@@ -1,9 +1,15 @@
 import React from 'react';
 
+import BooleanValue from '../components/ConfigurationMapBooleanValue';
 import Heading from '../../../../../src/js/components/ConfigurationMapHeading';
 import Section from '../../../../../src/js/components/ConfigurationMapSection';
 import ConfigurationMapTable from '../components/ConfigurationMapTable';
 import ServiceConfigDisplayUtil from '../utils/ServiceConfigDisplayUtil';
+
+const BOOLEAN_OPTIONS = {
+  truthy : 'TRUE',
+  falsy  : 'FALSE'
+};
 
 module.exports = ({appConfig}) => {
   let volumes = (appConfig.volumes || []).reduce((memo, volume) => {
@@ -15,16 +21,18 @@ module.exports = ({appConfig}) => {
     // Fetch all mounts for this volume in the containers
     let containerMounts = (appConfig.containers || []).reduce(
       (cmMemo, container) => {
-        return (container.volumeMounts || []).reduce((cmMemo, volumeMount) => {
-          if (volumeMount.name === volume.name) {
-            cmMemo.push({
-              container: ServiceConfigDisplayUtil.getContainerNameWithIcon(container),
-              mountPath: volumeMount.mountPath,
-              readOnly: volumeMount.readOnly || false
-            });
-          }
-          return cmMemo;
-        }, cmMemo);
+        let {volumeMounts=[]} = container;
+        return cmMemo.concat(
+          volumeMounts
+            .filter((volumeMount) => volumeMount.name === volume.name)
+            .map((volumeMount) => {
+              return {
+                container: ServiceConfigDisplayUtil.getContainerNameWithIcon(container),
+                mountPath: volumeMount.mountPath,
+                readOnly: volumeMount.readOnly || false
+              };
+            })
+        );
       },
       []
     );
@@ -68,7 +76,14 @@ module.exports = ({appConfig}) => {
             },
             {
               heading: 'Read Only',
-              prop: 'readOnly'
+              prop: 'readOnly',
+              render(prop, row) {
+                return (
+                  <BooleanValue
+                    options={BOOLEAN_OPTIONS}
+                    value={row[prop]} />
+                );
+              }
             },
             {
               heading: 'Container Mount Path',
