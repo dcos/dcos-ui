@@ -13,7 +13,7 @@ function mapHealthChecks(item) {
     newItem.protocol = item.protocol;
     if (item.protocol.toUpperCase() === 'COMMAND' && item.command != null) {
       newItem.command = {
-        value: item.command
+        command: item.command
       };
     }
 
@@ -73,16 +73,16 @@ module.exports = {
           this.healthChecks[index].path = value;
         }
         if (`healthChecks.${index}.gracePeriodSeconds` === joinedPath) {
-          this.healthChecks[index].gracePeriodSeconds = value;
+          this.healthChecks[index].gracePeriodSeconds = parseInt(value, 10);
         }
         if (`healthChecks.${index}.intervalSeconds` === joinedPath) {
-          this.healthChecks[index].intervalSeconds = value;
+          this.healthChecks[index].intervalSeconds = parseInt(value, 10);
         }
         if (`healthChecks.${index}.timeoutSeconds` === joinedPath) {
-          this.healthChecks[index].timeoutSeconds = value;
+          this.healthChecks[index].timeoutSeconds = parseInt(value, 10);
         }
         if (`healthChecks.${index}.maxConsecutiveFailures` === joinedPath) {
-          this.healthChecks[index].maxConsecutiveFailures = value;
+          this.healthChecks[index].maxConsecutiveFailures = parseInt(value, 10);
         }
         if (`healthChecks.${index}.https` === joinedPath) {
           this.healthChecks[index].https = value;
@@ -113,12 +113,12 @@ module.exports = {
         'protocol'
       ], item.protocol.toUpperCase(), SET));
       if (item.protocol.toUpperCase() === 'COMMAND') {
-        if (item.command != null && item.command.value != null) {
+        if (item.command != null && item.command.command != null) {
           memo.push(new Transaction([
             'healthChecks',
             index,
             'command'
-          ], item.command.value, SET));
+          ], item.command.command, SET));
         }
       }
       if (item.protocol.toUpperCase().replace('HTTPS', 'HTTP') === 'HTTP') {
