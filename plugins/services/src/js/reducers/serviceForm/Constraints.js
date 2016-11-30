@@ -22,43 +22,38 @@ function getJson(constraints) {
   });
 }
 
+function processTransaction(state, {type, path, value}) {
+  const [field, index, name] = path;
+
+  let newState = state.slice();
+
+  if (field === 'constraints') {
+    if (type === ADD_ITEM) {
+      newState.push({field: null, operator: null, value: null});
+    }
+    if (type === REMOVE_ITEM) {
+      newState = newState.filter((item, index) => {
+        return index !== value;
+      });
+    }
+    if (type === SET && CONSTRAINT_FIELDS.includes(name)) {
+      newState[index][name] = value;
+    }
+  }
+
+  return newState;
+}
+
 module.exports = {
   JSONReducer(state, {type, path, value}) {
     if (path == null) {
       return state;
     }
-
     if (this.constraints == null) {
       this.constraints = [];
     }
 
-    const joinedPath = path.join('.');
-
-    if (joinedPath.search('constraints') !== -1) {
-      if (joinedPath === 'constraints') {
-        switch (type) {
-          case ADD_ITEM:
-            this.constraints.push({field: null, operator: null, value: null});
-            break;
-          case REMOVE_ITEM:
-            this.constraints = this.constraints.filter((item, index) => {
-              return index !== value;
-            });
-            break;
-        }
-
-        return getJson(this.constraints);
-      }
-
-      if (type !== SET) {
-        return state;
-      }
-
-      const [jsonField, index, name] = path;
-      if (jsonField === 'constraints' && CONSTRAINT_FIELDS.includes(name)) {
-        this.constraints[index][name] = value;
-      }
-    }
+    this.constraints = processTransaction(this.constraints, {type, path, value});
 
     return getJson(this.constraints);
   },
@@ -95,33 +90,7 @@ module.exports = {
       return state;
     }
 
-    let joinedPath = path.join('.');
-
-    if (joinedPath.search('constraints') !== -1) {
-      if (joinedPath === 'constraints') {
-        switch (type) {
-          case ADD_ITEM:
-            state.push({field: null, operator: null, value: null});
-            break;
-          case REMOVE_ITEM:
-            state = state.filter((item, index) => {
-              return index !== value;
-            });
-            break;
-        }
-
-        return state;
-      }
-
-      if (type !== SET) {
-        return state;
-      }
-
-      const [jsonField, index, name] = path;
-      if (jsonField === 'constraints' && CONSTRAINT_FIELDS.includes(name)) {
-        state[index][name] = value;
-      }
-    }
+    state = processTransaction(state, {type, path, value});
 
     return state;
   }
