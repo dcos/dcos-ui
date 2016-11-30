@@ -244,11 +244,11 @@ class NewServiceFormModal extends Component {
   getModalContent() {
     // NOTE: Always prioritize review screen check
     if (this.state.serviceReviewActive) {
-      if (this.serviceConfig instanceof PodSpec) {
+      if (this.state.serviceConfig instanceof PodSpec) {
         return <PodConfigDisplay appConfig={this.state.serviceConfig} />;
-      } else {
-        return <ServiceConfigDisplay appConfig={this.state.serviceConfig} />;
       }
+
+      return <ServiceConfigDisplay appConfig={this.state.serviceConfig} />;
     }
 
     if (this.state.servicePickerActive) {
