@@ -11,19 +11,19 @@ import ServiceConfigDisplayUtil from '../utils/ServiceConfigDisplayUtil';
  * @returns {Boolean} Returns `true` if all rows have empty value in this prop
  */
 function isColumnEmpty(data, prop) {
-  for (let i=0, length=data.length; i<length; ++i) {
-    if (!ValidatorUtil.isEmpty(data[i][prop])) {
-      return false;
-    }
-  }
-
-  return true;
+  return data.every((row) => {
+    return ValidatorUtil.isEmpty(row[prop]);
+  });
 }
 
 /**
  * Custom rendering function that takes care of replacing with default value
  * if the field is empty.
  *
+ * This function is bound into an object with a `placeholder` and `render`
+ * fields, holding the placeholder value and the reder function respectively.
+ *
+ * @this {Object}
  * @param {String} prop - The property of the cell
  * @param {Object} row - The current row
  * @returns {Node} Returns a rendered React node
@@ -85,9 +85,14 @@ class ConfigurationMapTable extends React.Component {
 
     columns = Array.prototype.concat.apply([], columns.map((column) => {
       column = Object.assign({}, columnDefaults, column);
-      let {className='', heading, hideIfEmpty=false,
-        placeholder=(<span>&mdash;</span>), prop,
-        render=defaultRenderFunction} = column;
+      let {
+        className='',
+        heading,
+        hideIfEmpty=false,
+        placeholder=(<span>&mdash;</span>),
+        prop,
+        render=defaultRenderFunction
+      } = column;
 
       // Always use functions in order to display the sorting assets
       if (typeof className !== 'function') {

@@ -36,7 +36,7 @@ ConfigurationMapSizeValue.defaultProps = {
   decimals: 2,
   defaultValue: <span>&mdash;</span>,
   multiplier: 1024,
-  scale: 1024 * 1024,
+  scale: (1024 * 1024),
   threshold: 800,
   units: ['B', 'KiB', 'MiB', 'GiB', 'TiB', 'PiB'],
   value: 0

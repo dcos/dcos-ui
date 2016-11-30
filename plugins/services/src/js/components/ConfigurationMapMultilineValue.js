@@ -26,7 +26,7 @@ class ConfigurationMapMultilineValue extends React.Component {
 
 ConfigurationMapMultilineValue.defaultProps = {
   defaultValue: <span>&mdash;</span>,
-  value: false
+  value: ''
 };
 
 ConfigurationMapMultilineValue.propTypes = {
@@ -34,7 +34,7 @@ ConfigurationMapMultilineValue.propTypes = {
     React.PropTypes.string,
     React.PropTypes.node
   ]),
-  value: React.PropTypes.any
+  value: React.PropTypes.string
 };
 
 module.exports = ConfigurationMapMultilineValue;
