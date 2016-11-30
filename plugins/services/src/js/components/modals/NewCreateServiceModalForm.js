@@ -142,7 +142,12 @@ class NewCreateServiceModalForm extends Component {
   }
 
   handleFormBlur(event) {
-    let path = event.target.getAttribute('name').split('.');
+    let fieldName = event.target.getAttribute('name');
+    if (!fieldName) {
+      return;
+    }
+
+    let path = fieldName.split('.');
     let appConfig = this.getAppConfig();
     let errorList = DataValidatorUtil.validate(
       appConfig,
@@ -157,13 +162,17 @@ class NewCreateServiceModalForm extends Component {
   }
 
   handleFormChange(event) {
-    let {batch} = this.state;
+    let fieldName = event.target.getAttribute('name');
+    if (!fieldName) {
+      return;
+    }
 
+    let {batch} = this.state;
     let value = event.target.value;
     if (event.target.type === 'checkbox') {
       value = event.target.checked;
     }
-    let path = event.target.getAttribute('name').split('.');
+    let path = fieldName.split('.');
     batch = batch.add(new Transaction(path, value));
     let newState = {batch};
 
