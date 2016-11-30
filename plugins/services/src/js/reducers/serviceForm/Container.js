@@ -65,14 +65,13 @@ const containerJSONReducer = combineReducers({
 
     return state;
   },
-  docker() {
+  docker(_, ...args) {
     if (this.internalState == null) {
       this.internalState = {};
     }
 
-    arguments[0] = this.internalState;
+    this.internalState = docker.apply(this, [this.internalState, ...args]);
 
-    this.internalState = docker.apply(this, arguments);
     if (!ValidatorUtil.isEmpty(this.internalState.image)) {
       let newState = Object.assign({}, this.internalState);
       Object.keys(this.internalState).forEach((key) => {
@@ -100,14 +99,13 @@ const containerReducer = combineReducers({
 
     return state;
   },
-  docker() {
+  docker(_, ...args) {
     if (this.internalState == null) {
       this.internalState = {};
     }
 
-    arguments[0] = this.internalState;
+    this.internalState = docker.apply(this, [this.internalState, ...args]);
 
-    this.internalState = docker.apply(this, arguments);
     if (!ValidatorUtil.isEmpty(this.internalState.image)) {
       let newState = Object.assign({}, this.internalState);
       Object.keys(this.internalState).forEach((key) => {
@@ -121,7 +119,7 @@ const containerReducer = combineReducers({
   volumes
 });
 
-function container() {
+function container(_, ...args) {
   if (this.localVolumes === null) {
     this.localVolumes = [];
   }
@@ -130,8 +128,10 @@ function container() {
     this.internalState = {};
   }
 
-  arguments[0] = this.internalState;
-  let newState = Object.assign({}, containerReducer.apply(this, arguments));
+  let newState = Object.assign(
+    {}, containerReducer.apply(this, [this.internalState, ...args])
+  );
+
   this.internalState = newState;
 
   if (ValidatorUtil.isEmpty(newState)) {
@@ -160,13 +160,15 @@ function container() {
 };
 
 module.exports = {
-  JSONReducer() {
+  JSONReducer(_, ...args) {
     if (this.internalState == null) {
       this.internalState = {};
     }
 
-    arguments[0] = this.internalState;
-    let newState = Object.assign({}, containerJSONReducer.apply(this, arguments));
+    let newState = Object.assign(
+      {}, containerJSONReducer.apply(this, [this.internalState, ...args])
+    );
+
     this.internalState = newState;
 
     if (ValidatorUtil.isEmpty(newState)) {
