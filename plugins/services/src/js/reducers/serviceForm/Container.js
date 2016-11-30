@@ -42,8 +42,6 @@ const containerJSONReducer = combineReducers({
             return index !== value;
           });
       }
-
-      // return this.hasVolumes.length !== 0 ? MESOS : state;
     }
 
     if (type === SET && joinedPath === 'container.type' && value !== NONE) {
