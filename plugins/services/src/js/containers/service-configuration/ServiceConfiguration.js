@@ -5,6 +5,7 @@ import React from 'react';
 import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import ApplicationSpec from '../../structs/ApplicationSpec';
+import Icon from '../../../../../../src/js/components/Icon';
 import Loader from '../../../../../../src/js/components/Loader';
 import ServiceConfigDisplay from '../../components/ServiceConfigDisplay';
 import Service from '../../structs/Service';
@@ -142,6 +143,16 @@ class ServiceConfiguration extends mixin(StoreMixin) {
         id: version,
         html: (
           <div className="button-split-content-wrapper">
+            <Icon className="services-version-select-icon services-version-select-icon-selected button-split-content-item"
+              id="check"
+              family="mini"
+              size="mini"
+              color="neutral" />
+            <Icon className="services-version-select-icon button-split-content-item"
+              id="commit"
+              family="mini"
+              size="mini"
+              color="neutral" />
             <span className="button-split-content-item text-overflow"
               title={itemCaption}>
               {itemCaption}
@@ -153,8 +164,8 @@ class ServiceConfiguration extends mixin(StoreMixin) {
 
     return (
       <Dropdown
-        buttonClassName="button dropdown-toggle button-transparent button-split-content"
-        dropdownMenuClassName="dropdown-menu"
+        buttonClassName="services-version-select-toggle dropdown-toggle button button-transparent button-split-content flush-left"
+        dropdownMenuClassName="services-version-select-menu dropdown-menu"
         dropdownMenuListClassName="dropdown-menu-list"
         dropdownMenuListItemClassName="clickable"
         items={versionItems}
@@ -165,7 +176,7 @@ class ServiceConfiguration extends mixin(StoreMixin) {
         scrollContainerParentSelector=".gm-prevented"
         transition={true}
         transitionName="dropdown-menu"
-        wrapperClassName="dropdown" />
+        wrapperClassName="services-version-select dropdown" />
      );
   }
 
@@ -175,13 +186,6 @@ class ServiceConfiguration extends mixin(StoreMixin) {
     const config = service.getVersions().get(selectedVersionID);
     let content = null;
 
-    const localeVersion = new Date(selectedVersionID).toLocaleString();
-    let headline = `Current Version (${localeVersion})`;
-
-    if (service.getVersion() !== selectedVersionID) {
-      headline = `Previous Version (${localeVersion})`;
-    }
-
     if (config == null) {
       content = <Loader />;
     } else {
@@ -189,12 +193,11 @@ class ServiceConfiguration extends mixin(StoreMixin) {
     }
 
     return (
-      <div className="flex-item-grow-1">
-        <div className="container">
+      <div className="container">
+        <div className="pod pod-tall flush-top flush-right flush-left">
           {this.getVersionsActions()}
-          <h4 className="flush-top" title={selectedVersionID}>{headline}</h4>
-          {content}
         </div>
+        {content}
       </div>
     );
   }
