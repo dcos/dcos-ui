@@ -9,7 +9,7 @@ module.exports = combineReducers({
   network(state, {type, path = [], value}) {
     let joinedPath = path.join('.');
 
-    if (type === SET && joinedPath === 'networking.type') {
+    if (type === SET && joinedPath === 'container.docker.network') {
       return Networking.type[value];
     }
 

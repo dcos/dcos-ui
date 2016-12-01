@@ -27,7 +27,6 @@ const containerJSONReducer = combineReducers({
     }
 
     const joinedPath = path.join('.');
-
     if (type === SET && joinedPath === 'container.docker.image') {
       this.hasImage = !ValidatorUtil.isEmpty(value);
     }
@@ -66,14 +65,19 @@ const containerJSONReducer = combineReducers({
 
     return state;
   },
-  docker(_, ...args) {
+  docker(_, {type, path, value}) {
     if (this.internalState == null) {
       this.internalState = {};
     }
 
-    this.internalState = docker.apply(this, [this.internalState, ...args]);
+    this.internalState = docker.call(this, this.internalState, {type, path, value});
 
-    if (!ValidatorUtil.isEmpty(this.internalState.image)) {
+    const joinedPath = path && path.join('.');
+    if (type === SET && joinedPath === 'container.type') {
+      this.containerType = value;
+    }
+
+    if (!ValidatorUtil.isEmpty(this.internalState) && this.containerType !== NONE) {
       let newState = Object.assign({}, this.internalState);
       Object.keys(this.internalState).forEach((key) => {
         if (ValidatorUtil.isEmpty(this.internalState[key])) {
@@ -94,21 +98,25 @@ const containerReducer = combineReducers({
     }
 
     const joinedPath = path.join('.');
-
     if (type === SET && joinedPath === 'container.type') {
       return value;
     }
 
     return state;
   },
-  docker(_, ...args) {
+  docker(_, {type, path, value}) {
     if (this.internalState == null) {
       this.internalState = {};
     }
 
-    this.internalState = docker.apply(this, [this.internalState, ...args]);
+    this.internalState = docker.call(this, this.internalState, {type, path, value});
 
-    if (!ValidatorUtil.isEmpty(this.internalState.image)) {
+    const joinedPath = path && path.join('.');
+    if (type === SET && joinedPath === 'container.type') {
+      this.containerType = value;
+    }
+
+    if (!ValidatorUtil.isEmpty(this.internalState) && this.containerType !== NONE) {
       let newState = Object.assign({}, this.internalState);
       Object.keys(this.internalState).forEach((key) => {
         if (ValidatorUtil.isEmpty(this.internalState[key])) {
@@ -146,8 +154,6 @@ module.exports = {
 
     if (ValidatorUtil.isEmpty(newState.docker)) {
       delete newState.docker;
-    } else if (ValidatorUtil.isEmpty(newState.docker.image)) {
-      delete newState.docker;
     }
 
     if (ValidatorUtil.isEmpty(newState.volumes)) {
@@ -176,8 +182,6 @@ module.exports = {
     this.internalState = newState;
 
     if (ValidatorUtil.isEmpty(newState.docker)) {
-      delete newState.docker;
-    } else if (ValidatorUtil.isEmpty(newState.docker.image)) {
       delete newState.docker;
     } else if (ValidatorUtil.isEmpty(newState.type)) {
       delete newState.docker;

@@ -8,14 +8,13 @@ import FieldSelect from '../../../../../../src/js/components/form/FieldSelect';
 import {findNestedPropertyInObject} from '../../../../../../src/js/utils/Util';
 import FormGroup from '../../../../../../src/js/components/form/FormGroup';
 import FormGroupContainer from '../../../../../../src/js/components/form/FormGroupContainer';
-import {FormReducer as networking} from '../../reducers/serviceForm/Networking';
-import {FormReducer as portDefinitions} from '../../reducers/serviceForm/PortDefinitions';
+import {FormReducer as portDefinitionsReducer} from '../../reducers/serviceForm/PortDefinitions';
 import HostUtil from '../../utils/HostUtil';
 import Icon from '../../../../../../src/js/components/Icon';
 import Networking from '../../../../../../src/js/constants/Networking';
 import ContainerConstants from '../../constants/ContainerConstants';
 
-const {MESOS} = ContainerConstants.type;
+const {MESOS, NONE} = ContainerConstants.type;
 
 class NetworkingFormSection extends Component {
   getHostPortFields(portDefinition, index) {
@@ -268,13 +267,14 @@ class NetworkingFormSection extends Component {
   }
 
   getServiceEndpoints() {
-    let {networking, portDefinitions} = this.props.data;
+    let {container, portDefinitions} = this.props.data;
+    let network = findNestedPropertyInObject(container, 'docker.network');
 
-    if (networking.type === Networking.type.BRIDGE) {
+    if (network === Networking.type.BRIDGE) {
       return this.getBridgeServiceEndpoints(portDefinitions);
     }
 
-    if (networking.type === Networking.type.USER) {
+    if (network === Networking.type.USER) {
       return this.getVirtualNetworkServiceEndpoints(portDefinitions);
     }
 
@@ -283,13 +283,14 @@ class NetworkingFormSection extends Component {
   }
 
   getTypeSelections() {
-    let {container, networking = {}} = this.props.data;
+    let {container} = this.props.data;
     let type = findNestedPropertyInObject(container, 'type');
+    let network = findNestedPropertyInObject(container, 'docker.network');
 
     let disabledMap = {};
 
     // Runtime is Mesos
-    if (!type) {
+    if (!type || type === NONE) {
       disabledMap[Networking.type.BRIDGE] = 'BRIDGE networking is not compatible with the Mesos runtime.';
       disabledMap[Networking.type.USER] = 'USER networking is not compatible with the Mesos runtime.';
     }
@@ -308,8 +309,8 @@ class NetworkingFormSection extends Component {
 
     let selections = (
       <FieldSelect
-        name="networking.type"
-        value={networking.type}>
+        name="container.docker.network"
+        value={network}>
         <option
           disabled={Boolean(disabledMap[Networking.type.HOST])}
           value={Networking.type.HOST}>
@@ -425,8 +426,7 @@ NetworkingFormSection.propTypes = {
 };
 
 NetworkingFormSection.configReducers = {
-  networking,
-  portDefinitions
+  portDefinitions: portDefinitionsReducer
 };
 
 module.exports = NetworkingFormSection;
