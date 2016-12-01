@@ -18,18 +18,27 @@ const {MESOS, NONE} = ContainerConstants.type;
 
 class NetworkingFormSection extends Component {
   getHostPortFields(portDefinition, index) {
+    let label = 'Host Port';
     let placeholder;
-    if (portDefinition.automaticPort) {
+    // When load balanced host port changes to be a VIP port
+    if (portDefinition.loadBalanced) {
+      label = 'VIP Port';
+    }
+
+    // When load balanced, we can't use automatic port
+    let automaticPortEnabled = !portDefinition.loadBalanced
+      && portDefinition.automaticPort;
+    if (automaticPortEnabled) {
       placeholder = `$PORT${index}`;
     }
 
     return [
       <FormGroup className="column-3" key="host-port">
         <FieldLabel>
-          Host Port
+          {label}
         </FieldLabel>
         <FieldInput
-          disabled={portDefinition.automaticPort}
+          disabled={automaticPortEnabled}
           placeholder={placeholder}
           name={`portDefinitions.${index}.hostPort`}
           type="number"
@@ -41,7 +50,8 @@ class NetworkingFormSection extends Component {
         </FieldLabel>
         <FieldLabel matchInputHeight={true}>
           <FieldInput
-            checked={portDefinition.automaticPort}
+            disabled={portDefinition.loadBalanced}
+            checked={automaticPortEnabled}
             name={`portDefinitions.${index}.automaticPort`}
             type="checkbox" />
           Assign Automatically
