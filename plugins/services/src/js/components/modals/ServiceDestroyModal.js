@@ -122,7 +122,7 @@ class ServiceDestroyModal extends React.Component {
         leftButtonCallback={onClose}
         rightButtonText={`Destroy ${itemText}`}
         rightButtonClassName="button button-danger"
-        rightButtonCallback={deleteItem}
+        rightButtonCallback={() => deleteItem(this.shouldForceUpdate())}
         showHeader={true}>
         <p>
           Destroying <span className="emphasize">{serviceName}</span> is irreversible. Are you sure you want to continue?
