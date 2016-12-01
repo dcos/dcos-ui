@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Pod from '../../structs/Pod';
-import PodSpecView from './PodSpecView';
+import ServiceConfigDisplay from '../../components/ServiceConfigDisplay';
 
 class PodConfigurationTabView extends React.Component {
   render() {
@@ -13,7 +13,7 @@ class PodConfigurationTabView extends React.Component {
         <h3 className="flush-top">
           Current Version ({localeVersion})
         </h3>
-        <PodSpecView spec={spec} />
+        <ServiceConfigDisplay appConfig={spec} />
       </div>
     );
   }
