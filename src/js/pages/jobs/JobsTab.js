@@ -191,12 +191,11 @@ class JobsTab extends mixin(StoreMixin, QueryParamsMixin, SaveStateMixin) {
     // Render empty panel
     return (
       <AlertPanel
-        title="No Jobs Created"
-        footer={this.getAlertPanelFooter()}>
-        <p className="flush-bottom">
-          Create both one-off or scheduled jobs to perform tasks at a
-          predefined interval.
+        title="No Jobs Created">
+        <p className="tall">
+          Create both one-off or scheduled jobs to perform tasks at a predefined interval.
         </p>
+        {this.getAlertPanelFooter()}
       </AlertPanel>
     );
   }

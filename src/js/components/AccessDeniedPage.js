@@ -24,10 +24,12 @@ module.exports = class AccessDeniedPage extends React.Component {
 
   getFooter() {
     return (
-      <button className="button button-primary"
-        onClick={this.handleUserLogout}>
-        Log out
-      </button>
+      <div className="button-collection flush-bottom">
+        <button className="button button-primary"
+          onClick={this.handleUserLogout}>
+          Log out
+        </button>
+      </div>
     );
   }
 
@@ -39,7 +41,7 @@ module.exports = class AccessDeniedPage extends React.Component {
           <AlertPanel
             footer={this.getFooter()}
             title="Access Denied">
-            <p className="flush-bottom">
+            <p className="tall">
               You do not have access to this service. Please contact your {Config.productName} administrator. See the <a href={MetadataStore.buildDocsURI('/administration/id-and-access-mgt/')} target="_blank">security documentation</a> for more information.
             </p>
           </AlertPanel>

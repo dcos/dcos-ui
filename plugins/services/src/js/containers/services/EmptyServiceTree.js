@@ -2,10 +2,10 @@ import React, {PropTypes} from 'react';
 
 import AlertPanel from '../../../../../../src/js/components/AlertPanel';
 
-const EmptyServiceTree = function ({ onCreateGroup, onCreateService }) {
+const EmptyServiceTree = function ({ onCreateService }) {
 
   const footer = (
-   <div className="button-collection flush-bottom">
+    <div className="button-collection flush-bottom">
       <button className="button button-stroke"
         onClick={onCreateGroup}>
         Create Group
@@ -20,12 +20,11 @@ const EmptyServiceTree = function ({ onCreateGroup, onCreateService }) {
   return (
     <AlertPanel
       title="No Services Deployed"
-      footer={footer}
       >
-      <p className="flush-bottom">
-        Create groups to organize your services or
-        deploy a new service.
+      <p className="tall">
+        Create groups to organize your services or deploy a new service.
       </p>
+      {footer}
     </AlertPanel>
   );
 };

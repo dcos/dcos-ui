@@ -59,10 +59,13 @@ var AlertPanel = React.createClass({
           }
         ]}
         footer={this.props.footer}
-        footerClass={{
-          'panel-cell-narrow': false,
-          'panel-cell-short': false
-        }}
+        footerClass={[
+          'panel-cell-wider panel-cell-taller',
+          {
+            'panel-cell-narrow': false,
+            'panel-cell-short': false
+          }
+        ]}
         heading={this.getIcon()}
         headingClass={[
           'panel-cell-borderless flush-bottom',
