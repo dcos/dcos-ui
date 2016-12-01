@@ -9,6 +9,7 @@ import HealthBar from '../../components/HealthBar';
 import Links from '../../../../../../src/js/constants/Links';
 import Icon from '../../../../../../src/js/components/Icon';
 import NestedServiceLinks from '../../../../../../src/js/components/NestedServiceLinks';
+import Pod from '../../structs/Pod';
 import Service from '../../structs/Service';
 import ServiceActionItem from '../../constants/ServiceActionItem';
 import ServiceTableHeaderLabels from '../../constants/ServiceTableHeaderLabels';
@@ -146,6 +147,7 @@ class ServicesTable extends React.Component {
 
   renderServiceActions(service) {
     let isGroup = service instanceof ServiceTree;
+    let isPod = service instanceof Pod;
     let instancesCount = service.getInstancesCount();
     let scaleText = 'Scale';
     if (isGroup) {
@@ -175,13 +177,6 @@ class ServicesTable extends React.Component {
       },
       {
         className: classNames({
-          hidden: isGroup || instancesCount === 0
-        }),
-        id: ServiceActionItem.RESTART,
-        html: 'Restart'
-      },
-      {
-        className: classNames({
           hidden: instancesCount === 0
         }),
         id: ServiceActionItem.SUSPEND,
@@ -192,6 +187,16 @@ class ServicesTable extends React.Component {
         html: <span className="text-danger">Destroy</span>
       }
     ];
+
+    if (!isPod) {
+      dropdownItems.splice(1, 0, {
+        className: classNames({
+          hidden: isGroup || instancesCount === 0
+        }),
+        id: ServiceActionItem.RESTART,
+        html: 'Restart'
+      });
+    }
 
     return (
       <Dropdown
