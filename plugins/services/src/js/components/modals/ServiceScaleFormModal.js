@@ -37,6 +37,12 @@ class ServiceScaleFormModal extends React.Component {
       return;
     }
 
+    if (typeof errors === 'string') {
+      this.setState({errorMsg: errors});
+
+      return;
+    }
+
     let {message: errorMsg = '', details} = errors;
     let hasDetails = details && details.length !== 0;
 
@@ -65,10 +71,20 @@ class ServiceScaleFormModal extends React.Component {
     }
 
     if (this.shouldForceUpdate()) {
+      let itemType = 'Service';
+
+      if (this.props.service instanceof Pod) {
+        itemType = 'Pod';
+      }
+
+      if (this.props.service instanceof ServiceTree) {
+        itemType = 'Group';
+      }
+
       return (
         <h4 className="text-align-center text-danger flush-top">
-            App is currently locked by one or more deployments. Press the button
-            again to forcefully change and deploy the new configuration.
+          {itemType} is currently locked by one or more deployments. Press the button
+          again to forcefully change and deploy the new configuration.
         </h4>
       );
     }

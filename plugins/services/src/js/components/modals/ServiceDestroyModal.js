@@ -11,6 +11,10 @@ class ServiceDestroyModal extends React.Component {
   constructor() {
     super(...arguments);
 
+    this.state = {
+      errorMsg: null
+    };
+
     this.shouldComponentUpdate = PureRender.shouldComponentUpdate.bind(this);
   }
 
@@ -25,15 +29,68 @@ class ServiceDestroyModal extends React.Component {
     }
   }
 
-  getErrorMessage() {
-    let {errors} = this.props;
-
+  componentWillReceiveProps(nextProps) {
+    let {errors} = nextProps;
     if (!errors) {
+      this.setState({errorMsg: null});
+
+      return;
+    }
+
+    if (typeof errors === 'string') {
+      this.setState({errorMsg: errors});
+
+      return;
+    }
+
+    let {message: errorMsg = '', details} = errors;
+    let hasDetails = details && details.length !== 0;
+
+    if (hasDetails) {
+      errorMsg = details.reduce(function (memo, error) {
+        return `${memo} ${error.errors.join(' ')}`;
+      }, '');
+    }
+
+    if (!errorMsg || !errorMsg.length) {
+      errorMsg = null;
+    }
+
+    this.setState({errorMsg});
+  }
+
+  shouldForceUpdate() {
+    return this.state.errorMsg && /force=true/.test(this.state.errorMsg);
+  }
+
+  getErrorMessage() {
+    const {errorMsg = null} = this.state;
+
+    if (!errorMsg) {
       return null;
     }
 
+    if (this.shouldForceUpdate()) {
+      let itemType = 'Service';
+
+      if (this.props.service instanceof Pod) {
+        itemType = 'Pod';
+      }
+
+      if (this.props.service instanceof ServiceTree) {
+        itemType = 'Group';
+      }
+
+      return (
+        <h4 className="text-align-center text-danger flush-top">
+          {itemType} is currently locked by one or more deployments. Press the button
+          again to forcefully change and deploy the new configuration.
+        </h4>
+      );
+    }
+
     return (
-      <p className="text-danger flush-top">{errors}</p>
+      <h4 className="text-align-center text-danger flush-top">{errorMsg}</h4>
     );
   }
 
@@ -90,7 +147,10 @@ class ServiceDestroyModal extends React.Component {
 
 ServiceDestroyModal.propTypes = {
   deleteItem: PropTypes.func.isRequired,
-  errors: PropTypes.string,
+  errors: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.string
+  ]),
   isPending: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired,

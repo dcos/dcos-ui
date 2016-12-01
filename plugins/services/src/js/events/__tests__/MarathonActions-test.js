@@ -995,7 +995,7 @@ describe('MarathonActions', function () {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.data.error)
-          .toEqual('A helpful error message.');
+          .toEqual({message: 'A helpful error message.'});
       });
 
       this.configuration.error({
@@ -1069,7 +1069,7 @@ describe('MarathonActions', function () {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.data)
-          .toEqual('A helpful error message.');
+          .toEqual({message: 'A helpful error message.'});
       });
 
       this.configuration.error({
