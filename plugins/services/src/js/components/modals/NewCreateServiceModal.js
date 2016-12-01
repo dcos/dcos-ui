@@ -73,13 +73,12 @@ class NewServiceFormModal extends Component {
 
       if (nextProps.isEdit) {
         newState.servicePickerActive = false;
+        newState.serviceJsonActive = false;
+        newState.serviceFormActive = true;
 
         if (nextProps.service instanceof Pod) {
           newState.serviceJsonActive = true;
           newState.serviceFormActive = false;
-        } else {
-          newState.serviceJsonActive = false;
-          newState.serviceFormActive = true;
         }
       }
 
@@ -381,7 +380,7 @@ class NewServiceFormModal extends Component {
       serviceFormHasErrors: false
     };
 
-    // Switch directly to form if edit
+    // Switch directly to form/json if edit
     if (nextProps.isEdit) {
       newState.servicePickerActive = false;
 
@@ -403,6 +402,7 @@ class NewServiceFormModal extends Component {
       serviceJsonActive
     } = this.state;
     let label = 'Back';
+
     if (servicePickerActive ||
       ((serviceFormActive || serviceJsonActive)
         && this.props.isEdit && !serviceReviewActive)) {
