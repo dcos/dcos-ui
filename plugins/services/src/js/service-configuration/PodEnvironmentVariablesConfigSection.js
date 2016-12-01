@@ -8,6 +8,10 @@ import ServiceConfigDisplayUtil from '../utils/ServiceConfigDisplayUtil';
 module.exports = ({appConfig}) => {
   let {environment={}, containers=[]} = appConfig;
 
+  if (!environment || !containers) {
+    return <noscript />;
+  }
+
   let combinedEnv = Object.keys(environment).reduce((memo, key) => {
     memo.push({
       key: <code>{key}</code>,
@@ -32,7 +36,7 @@ module.exports = ({appConfig}) => {
   }, combinedEnv);
 
   if (!combinedEnv.length) {
-    return null;
+    return <noscript />;
   }
 
   return (
