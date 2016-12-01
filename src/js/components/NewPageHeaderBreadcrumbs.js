@@ -13,7 +13,7 @@ class PageHeaderBreadcrumbs extends React.Component {
         id: 'default',
         selectedHtml: (
           <h3 className="flush">
-            <Icon color="purple" family="small" id={iconID} size="small" />
+            <Icon family="product" id={iconID} size="small" />
             {label}
           </h3>
         ),
@@ -28,7 +28,7 @@ class PageHeaderBreadcrumbs extends React.Component {
     return (
       <li className="page-header-breadcrumb-caret flush-top flush-left"
         key={`caret-${index}`}>
-        <Icon color="light-grey" family="mini" id="caret-right" size="mini" />
+        <Icon color="light-grey" family="system" id="caret-right" size="mini" />
       </li>
     );
   }

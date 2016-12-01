@@ -11,7 +11,7 @@ class CollapsingPanelHeader extends React.Component {
       iconID = 'caret-up';
     }
 
-    return <Icon id={iconID} color="neutral" family="small" size="mini" />;
+    return <Icon id={iconID} color="neutral" family="system" size="mini" />;
   }
 
   render() {

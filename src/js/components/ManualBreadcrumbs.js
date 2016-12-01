@@ -148,7 +148,7 @@ class ManualBreadcrumbs extends React.Component {
   getBreadcrumbDivider(key) {
     return (
       <li className="flush" key={key} >
-        <Icon family="small" id="caret-right" size="small" />
+        <Icon family="system" id="caret-right" size="mini" />
       </li>
     );
   }

@@ -54,7 +54,7 @@ class TaskDirectoryTable extends React.Component {
           <Icon
             className="icon-margin-left"
             color="grey"
-            family="mini"
+            family="system"
             id="search"
             size="mini" />
         </div>
@@ -67,7 +67,7 @@ class TaskDirectoryTable extends React.Component {
           <Icon
             className="icon-margin-right"
             color="grey"
-            family="mini"
+            family="system"
             id={iconID}
             size="mini" />
         </div>

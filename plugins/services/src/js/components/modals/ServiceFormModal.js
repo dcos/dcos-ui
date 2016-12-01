@@ -455,7 +455,7 @@ class ServiceFormModal extends React.Component {
             maxWidth={300}
             position="left"
             scrollContainer=".gm-scroll-view">
-            <Icon color="grey" id="ring-question" size="mini" family="mini" />
+            <Icon color="grey" id="circle-question" size="mini" family="system" />
           </Tooltip>
         </div>
       );

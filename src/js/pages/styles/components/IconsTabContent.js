@@ -110,7 +110,7 @@ class IconsTabContent extends React.Component {
 
                 <td>
 
-                  <Icon id="user" size="mini" family="mini" className="icon-purple" />
+                  <Icon id="user" size="mini" family="system" className="icon-purple" />
 
                 </td>
 
@@ -136,7 +136,7 @@ class IconsTabContent extends React.Component {
 
                 <td>
 
-                  <Icon id="user" size="small" family="small" className="icon-purple" />
+                  <Icon id="user" size="small" family="system" className="icon-purple" />
 
                 </td>
 

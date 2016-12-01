@@ -75,7 +75,7 @@ class CliInstallModal extends React.Component {
         <ol>
           <li>
             Download and install: <a href={downloadUrl + '.exe'}>
-              <Icon family="mini" id="download" size="mini" /> Download dcos.exe
+              <Icon family="system" id="download" size="mini" /> Download dcos.exe
             </a>.
           </li>
           <li>

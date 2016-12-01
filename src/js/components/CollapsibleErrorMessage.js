@@ -132,7 +132,7 @@ class CollapsibleErrorMessage extends React.Component {
         <Icon
           className="icon-alert icon-margin-right"
           color="red"
-          family="mini"
+          family="system"
           id="yield"
           size="mini" />
         {message}

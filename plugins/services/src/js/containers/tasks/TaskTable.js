@@ -234,7 +234,7 @@ class TaskTable extends React.Component {
       <Link
         to={linkTo}
         title={title}>
-        <Icon color="grey" id="page" size="mini" family="mini" />
+        <Icon color="grey" id="page-document" size="mini" family="system" />
       </Link>
     );
   }

@@ -44,7 +44,7 @@ var NodesTable = React.createClass({
           <Icon
             className="icon-alert icon-margin-right"
             color="neutral"
-            family="mini"
+            family="system"
             id="yield"
             size="mini" />
           {headline}

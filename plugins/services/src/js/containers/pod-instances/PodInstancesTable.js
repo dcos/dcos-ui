@@ -333,9 +333,9 @@ class PodInstancesTable extends React.Component {
         title={row.name}>
         <Icon
           color="grey"
-          id="page"
+          id="page-document"
           size="mini"
-          family="mini" />
+          family="system" />
       </Link>
     );
   }

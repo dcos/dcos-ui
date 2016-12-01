@@ -193,7 +193,7 @@ class SchemaForm extends mixin(StoreMixin, InternalStorageMixin) {
         <button
           className="button button-narrow button-link"
           onClick={this.handleRemoveRow.bind(this, generalDefinition, prop, id)}>
-          <Icon id="close" size="mini" family="mini" />
+          <Icon id="close" size="mini" family="system" />
         </button>
       </div>
     );
@@ -286,8 +286,8 @@ class SchemaForm extends mixin(StoreMixin, InternalStorageMixin) {
           maxWidth={300} scrollContainer=".gm-scroll-view">
           <Icon
             color="grey"
-            family="mini"
-            id="ring-question"
+            family="system"
+            id="circle-question"
             size="mini" />
         </Tooltip>
       );
@@ -325,8 +325,8 @@ class SchemaForm extends mixin(StoreMixin, InternalStorageMixin) {
         scrollContainer=".gm-scroll-view">
         <Icon
           color="grey"
-          family="mini"
-          id="ring-question"
+          family="system"
+          id="circle-question"
           size="mini" />
       </Tooltip>
     );

@@ -1976,7 +1976,7 @@ class ButtonTabContent extends React.Component {
 
                 <button className="button">
 
-                  <Icon id="plus" size="mini" family="mini" />
+                  <Icon id="plus" size="mini" family="system" />
 
                   <span>
 
@@ -1994,7 +1994,7 @@ class ButtonTabContent extends React.Component {
 
                   </span>
 
-                  <Icon id="arrow-right" size="mini" family="mini" />
+                  <Icon id="arrow-right" size="mini" family="system" />
 
                 </button>
 

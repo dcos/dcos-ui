@@ -182,9 +182,9 @@ module.exports = {
             className="banner-plugin-info-icon clickable hidden-medium-up"
             onClick={this.toggleFullContent}>
             <Icon
-              family="mini"
+              family="system"
               fill={this.configuration.foregroundColor}
-              id="ring-information"
+              id="circle-info"
               size="mini" />
           </span>
         </span>
@@ -209,4 +209,3 @@ module.exports = {
     );
   }
 };
-

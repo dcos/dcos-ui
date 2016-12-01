@@ -216,7 +216,7 @@ class GeneralServiceFormSection extends Component {
             maxWidth={300}
             scrollContainer=".gm-scroll-view"
             wrapText={true}>
-              <Icon color="grey" id="ring-question" size="mini" family="mini" />
+              <Icon color="grey" id="circle-question" size="mini" family="system" />
           </Tooltip>
         </h3>
         <p>The container runtime is responsible for running your service. We support the Mesos and Docker containerizers.</p>
@@ -238,7 +238,7 @@ class GeneralServiceFormSection extends Component {
                 maxWidth={300}
                 scrollContainer=".gm-scroll-view"
                 wrapText={true}>
-                  <Icon color="grey" id="ring-question" size="mini" family="mini" />
+                  <Icon color="grey" id="circle-question" size="mini" family="system" />
               </Tooltip>
             </h3>
             <p>Constraints control where apps run to allow optimization for either fault tolerance or locality.</p>

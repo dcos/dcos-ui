@@ -108,9 +108,9 @@ const columns = [
           maxWidth={200}
           wrapText={true}>
           <Icon
-            id="ring-information"
+            id="circle-info"
             size="mini"
-            family="mini"
+            family="system"
             color="grey" />
         </Tooltip>
       );

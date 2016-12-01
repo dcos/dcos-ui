@@ -71,7 +71,7 @@ class ClusterHeader extends mixin(StoreMixin) {
     let caret = null;
 
     if (this.props.showCaret) {
-      caret = <Icon family="mini" id="caret-down" key="caret" size="mini" />;
+      caret = <Icon family="tiny" id="triangle-down" key="caret" size="tiny" />;
     }
 
     return (

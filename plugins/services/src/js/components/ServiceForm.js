@@ -227,7 +227,7 @@ class ServiceForm extends SchemaForm {
               <div className="media-object-item">
                 <Icon
                   color="blue"
-                  family="mini"
+                  family="system"
                   id="circle-question"
                   size="mini" />
               </div>

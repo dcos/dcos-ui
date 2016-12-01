@@ -54,7 +54,7 @@ class ServicesTable extends React.Component {
         <Icon
           color="neutral"
           className="icon-margin-left icon-margin-left-wide"
-          family="mini"
+          family="system"
           id="open-external"
           size="mini" />
       </a>
@@ -159,7 +159,7 @@ class ServicesTable extends React.Component {
         html: '',
         selectedHtml: (
           <Icon
-            family="mini"
+            family="system"
             id="gear"
             size="mini"
             className="icon-alert icon-margin-right"
@@ -250,8 +250,8 @@ class ServicesTable extends React.Component {
             wrapperClassName="tooltip-wrapper status-waiting-indicator">
             <Icon
               color="red"
-              family="mini"
-              id="ring-exclamation"
+              family="system"
+              id="yield"
               size="mini" />
           </Tooltip>
         );

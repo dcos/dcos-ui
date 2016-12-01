@@ -117,7 +117,7 @@ class ImageViewerModal extends React.Component {
 
   render() {
     let {props, state} = this;
-    let closeIcon = <Icon family="mini" id="close" size="mini" />;
+    let closeIcon = <Icon family="system" id="close" size="mini" />;
     let modalClasses = classNames('modal modal-image-viewer', {
       hidden: state.isLoadingImage
     });

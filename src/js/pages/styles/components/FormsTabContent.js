@@ -1385,7 +1385,7 @@ class FormTabContent extends React.Component {
 
                     <span className="form-control-group-add-on form-control-group-add-on-prepend">
 
-                      <Icon id="arrow-right" size="mini" family="mini" />
+                      <Icon id="arrow-right" size="mini" family="system" />
 
                     </span>
 
@@ -1409,7 +1409,7 @@ class FormTabContent extends React.Component {
 
                     <span className="form-control-group-add-on form-control-group-add-on-append">
 
-                      <Icon id="arrow-right" size="mini" family="mini" />
+                      <Icon id="arrow-right" size="mini" family="system" />
 
                     </span>
 
@@ -1429,7 +1429,7 @@ class FormTabContent extends React.Component {
 
                     <span className="form-control-group-add-on form-control-group-add-on-prepend">
 
-                      <Icon id="arrow-right" size="mini" family="mini" />
+                      <Icon id="arrow-right" size="mini" family="system" />
 
                     </span>
 
@@ -1437,7 +1437,7 @@ class FormTabContent extends React.Component {
 
                     <span className="form-control-group-add-on form-control-group-add-on-append">
 
-                      <Icon id="arrow-right" size="mini" family="mini" />
+                      <Icon id="arrow-right" size="mini" family="system" />
 
                     </span>
 

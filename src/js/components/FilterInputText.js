@@ -96,8 +96,8 @@ class FilterInputText extends React.Component {
         {sideText}
         <a onClick={this.handleInputClear}>
           <Icon
-            family="mini"
-            id="ring-close"
+            family="system"
+            id="circle-close"
             size="mini"
             className={iconClassNames}
             color={color} />
@@ -137,7 +137,7 @@ class FilterInputText extends React.Component {
           onBlur={this.handleBlur}>
           <span className="form-control-group-add-on form-control-group-add-on-prepend">
             <Icon
-              family="mini"
+              family="system"
               id="search"
               size="mini"
               className={iconSearchClasses}

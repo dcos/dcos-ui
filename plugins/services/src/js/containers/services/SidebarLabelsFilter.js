@@ -135,7 +135,7 @@ class SidebarLabelsFilters extends React.Component {
             <span className="text-overflow">{labelText}</span>
             <a className={removeLabelClassNames}
                onClick={this.handleActionSelection.bind(this, {key, value})}>
-              <Icon family="mini" id="close" size="tiny" />
+              <Icon family="system" id="close" size="tiny" />
             </a>
           </div>
         </li>

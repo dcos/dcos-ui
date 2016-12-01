@@ -39,7 +39,7 @@ const getArtifactsLabel = () => {
         maxWidth={300}
         scrollContainer=".gm-scroll-view"
         wrapText={true}>
-          <Icon color="grey" id="ring-question" size="mini" family="mini" />
+          <Icon color="grey" id="circle-question" size="mini" family="system" />
       </Tooltip>
     </FieldLabel>
   );
@@ -107,7 +107,7 @@ class ContainerServiceFormSection extends Component {
           wrapText={true}>
           <FieldLabel>
             {'GPUs '}
-            <Icon color="grey" id="lock" size="mini" family="mini" />
+            <Icon color="grey" id="lock" size="mini" family="system" />
           </FieldLabel>
         </Tooltip>,
         <FieldInput
@@ -203,7 +203,7 @@ class ContainerServiceFormSection extends Component {
           wrapText={true}
           maxWidth={300}
           scrollContainer=".gm-scroll-view">
-            <Icon color="grey" id="ring-question" size="mini" family="mini" />
+            <Icon color="grey" id="circle-question" size="mini" family="system" />
         </Tooltip>
       </FieldLabel>
     );
@@ -232,7 +232,7 @@ class ContainerServiceFormSection extends Component {
           wrapText={true}
           maxWidth={300}
           scrollContainer=".gm-scroll-view">
-            <Icon color="grey" id="ring-question" size="mini" family="mini" />
+            <Icon color="grey" id="circle-question" size="mini" family="system" />
         </Tooltip>
       </FieldLabel>
     );
