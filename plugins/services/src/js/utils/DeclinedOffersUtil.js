@@ -67,7 +67,7 @@ const DecinedOffersUtil = {
       DeclinedOffersReasons.INSUFFICIENT_PORTS
     ];
 
-    let requestedResources = {};
+    let requestedResources = null;
 
     if (pod != null) {
       const {containers = []} = pod;
@@ -101,9 +101,15 @@ const DecinedOffersUtil = {
         constraints: Util.findNestedPropertyInObject(
           pod, 'scheduling.placement.constraints'
         ) || [],
-        cpus: 0,
-        mem: 0,
-        disk: 0,
+        cpus: Util.findNestedPropertyInObject(
+          pod, 'executorResources.cpus'
+        ) || 0,
+        mem: Util.findNestedPropertyInObject(
+          pod, 'executorResources.mem'
+        ) || 0,
+        disk: Util.findNestedPropertyInObject(
+          pod, 'executorResources.disk'
+        ) || 0,
         ports: []
       });
     } else {
