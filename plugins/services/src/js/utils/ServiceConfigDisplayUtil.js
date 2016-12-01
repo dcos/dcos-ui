@@ -2,6 +2,8 @@ import classNames from 'classnames';
 import React from 'react';
 
 import DateUtil from '../../../../../src/js/utils/DateUtil';
+import defaultServiceImage from '../../img/icon-service-default-small.png';
+import Image from '../../../../../src/js/components/Image';
 import Util from '../../../../../src/js/utils/Util';
 
 const ServiceConfigDisplayUtil = {
@@ -29,6 +31,17 @@ const ServiceConfigDisplayUtil = {
     };
   },
 
+  getContainerNameWithIcon(container) {
+    return (
+      <span>
+        <Image fallbackSrc={defaultServiceImage}
+          src={defaultServiceImage} width={24} height={24}
+          style={{verticalAlign: 'middle'}} />
+        <span>&nbsp;{container.name}</span>
+      </span>
+    );
+  },
+
   getDisplayValue(value) {
     // Return the emdash character.
     if (value == null || value === '') {
@@ -45,6 +58,17 @@ const ServiceConfigDisplayUtil = {
     }
 
     return value;
+  },
+
+  getSharedIconWithLabel() {
+    return (
+      <span>
+        <Image fallbackSrc={defaultServiceImage}
+          src={defaultServiceImage} width={24} height={24}
+          style={{verticalAlign: 'middle'}} />
+        <em>&nbsp;Shared</em>
+      </span>
+    );
   },
 
   renderMillisecondsFromSeconds(prop, row) {
