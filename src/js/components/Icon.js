@@ -42,10 +42,8 @@ Icon.propTypes = {
   color: React.PropTypes.string,
   family: React.PropTypes.oneOf([
     'product',
-    'tiny',
-    'mini',
-    'small',
-    'medium'
+    'system',
+    'tiny'
   ]),
   id: React.PropTypes.string.isRequired,
   size: React.PropTypes.oneOf([
