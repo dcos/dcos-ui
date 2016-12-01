@@ -1,11 +1,9 @@
 import React, {PropTypes} from 'react';
 
 import AlertPanel from '../../../../../../src/js/components/AlertPanel';
-import Icon from '../../../../../../src/js/components/Icon';
 
 const EmptyServiceTree = function ({ onCreateGroup, onCreateService }) {
 
-  const icon = <Icon id="services" color="neutral" size="jumbo" />;
   const footer = (
    <div className="button-collection flush-bottom">
       <button className="button button-stroke"
@@ -23,7 +21,7 @@ const EmptyServiceTree = function ({ onCreateGroup, onCreateService }) {
     <AlertPanel
       title="No Services Deployed"
       footer={footer}
-      icon={icon}>
+      >
       <p className="flush-bottom">
         Create groups to organize your services or
         deploy a new service.

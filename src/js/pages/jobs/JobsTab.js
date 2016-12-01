@@ -9,7 +9,6 @@ import AlertPanel from '../../components/AlertPanel';
 import Breadcrumbs from '../../components/Breadcrumbs';
 import FilterBar from '../../components/FilterBar';
 import FilterHeadline from '../../components/FilterHeadline';
-import Icon from '../../components/Icon';
 import JobsTable from './JobsTable';
 import JobSearchFilter from '../../components/JobSearchFilter';
 import JobTree from '../../structs/JobTree';
@@ -193,11 +192,10 @@ class JobsTab extends mixin(StoreMixin, QueryParamsMixin, SaveStateMixin) {
     return (
       <AlertPanel
         title="No Jobs Created"
-        footer={this.getAlertPanelFooter()}
-        icon={<Icon id="pages-code" color="neutral" size="jumbo" />}>
+        footer={this.getAlertPanelFooter()}>
         <p className="flush-bottom">
-          Create both one-off or scheduled jobs to perform tasks at a predefined
-          interval.
+          Create both one-off or scheduled jobs to perform tasks at a
+          predefined interval.
         </p>
       </AlertPanel>
     );

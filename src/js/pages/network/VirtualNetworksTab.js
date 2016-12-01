@@ -8,7 +8,6 @@ import AlertPanel from '../../components/AlertPanel';
 import FilterBar from '../../components/FilterBar';
 import FilterHeadline from '../../components/FilterHeadline';
 import FilterInputText from '../../components/FilterInputText';
-import Icon from '../../components/Icon';
 import Loader from '../../components/Loader';
 import RequestErrorMsg from '../../components/RequestErrorMsg';
 import VirtualNetworksStore from '../../stores/VirtualNetworksStore';
@@ -68,8 +67,7 @@ class VirtualNetworksTabContent extends mixin(StoreMixin) {
   getEmptyScreen() {
     return (
       <AlertPanel
-        title="No Networks Detected"
-        icon={<Icon id="network-hierarchical" color="neutral" size="jumbo" />}>
+        title="No Networks Detected">
         <p className="flush">
           Virtual Networks have to be configured at cluster creation time.
         </p>

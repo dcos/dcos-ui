@@ -26,9 +26,8 @@ var NotFoundPage = React.createClass({
         <AlertPanel
           title="Page Not Found">
           <p>
-            The page you’ve requested cannot be found.
-            It’s possible you copied the wrong link.
-            Check again, or jump back to your&nbsp;
+            The page you’ve requested cannot be found. It’s possible you copied
+            the wrong link. Check again, or head back to the
             <Link to="/dashboard">Dashboard</Link>.
           </p>
         </AlertPanel>

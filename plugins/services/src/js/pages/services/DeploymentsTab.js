@@ -12,7 +12,6 @@ import AlertPanel from '../../../../../../src/js/components/AlertPanel';
 import CollapsingString from '../../../../../../src/js/components/CollapsingString';
 import defaultServiceImage from '../../../img/icon-service-default-small@2x.png';
 import Loader from '../../../../../../src/js/components/Loader';
-import Icon from '../../../../../../src/js/components/Icon';
 import MarathonActions from '../../events/MarathonActions';
 import ModalHeading from '../../../../../../src/js/components/modals/ModalHeading';
 import NestedServiceLinks from '../../../../../../src/js/components/NestedServiceLinks';
@@ -307,7 +306,7 @@ class DeploymentsTab extends mixin(StoreMixin) {
     return (
       <AlertPanel
         title="No Deployments"
-        icon={<Icon id="services" color="neutral" size="jumbo" />}>
+        >
         <p className="flush">Active deployments will be shown here.</p>
       </AlertPanel>
     );
@@ -327,7 +326,8 @@ class DeploymentsTab extends mixin(StoreMixin) {
           {deploymentsCount} Active {deploymentsLabel}
         </h4>
         <Table
-          className="table table-borderless-outer table-borderless-inner-columns flush-bottom deployments-table"
+          className="table table-borderless-outer table-borderless-inner-columns
+            flush-bottom deployments-table"
           columns={this.getColumns()}
           colGroup={this.getColGroup()}
           data={deploymentsItems.slice()} />
