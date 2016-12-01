@@ -253,7 +253,13 @@ class NewServiceFormModal extends Component {
   getModalContent() {
     // NOTE: Always prioritize review screen check
     if (this.state.serviceReviewActive) {
-      return <ServiceConfigDisplay appConfig={this.state.serviceConfig} />;
+      return (
+        <div className="flex-item-grow-1">
+          <div className="container">
+            <ServiceConfigDisplay appConfig={this.state.serviceConfig} />
+          </div>
+        </div>
+      );
     }
 
     if (this.state.servicePickerActive) {
