@@ -15,7 +15,7 @@ const defaultFieldValues = {
   loadBalanced: false
 };
 
-function reducer(state = [], {type, path = [], value}) {
+function reducer(portDefinitions = [], state = [], {type, path = [], value}) {
   if (path == null) {
     return state;
   }
@@ -27,10 +27,10 @@ function reducer(state = [], {type, path = [], value}) {
       switch (type) {
         case ADD_ITEM:
           let portDefinition = Object.assign({}, defaultFieldValues);
-          this.portDefinitions.push(portDefinition);
+          portDefinitions.push(portDefinition);
           break;
         case REMOVE_ITEM:
-          this.portDefinitions.splice(value, 1);
+          portDefinitions.splice(value, 1);
           break;
       }
     }
@@ -39,26 +39,22 @@ function reducer(state = [], {type, path = [], value}) {
     if (index != null && type === SET) {
       Object.keys(defaultFieldValues).forEach((fieldKey) => {
         if (joinedPath === `portDefinitions.${index}.${fieldKey}`) {
-          this.portDefinitions[index][fieldKey] = value;
+          portDefinitions[index][fieldKey] = value;
         }
       });
 
       // If port is assigned automatically, remove hostPort
-      if (this.portDefinitions[index].automaticPort) {
-        this.portDefinitions[index].hostPort = null;
+      if (portDefinitions[index].automaticPort) {
+        portDefinitions[index].hostPort = null;
       }
     }
   }
 
-  return this.portDefinitions;
+  return portDefinitions || [];
 };
 
 module.exports = {
   JSONReducer(state = [], action) {
-    if (!this.portDefinitions) {
-      this.portDefinitions = [];
-    }
-
     let {path = [], value} = action;
     if (!this.appState) {
       this.appState = {
@@ -81,9 +77,9 @@ module.exports = {
       this.appState.id = value;
     }
 
-    let newState = Object.assign([], reducer.call(this, state, action));
+    this.portDefinitions = reducer(this.portDefinitions, state, action);
 
-    return newState.map((portDefinition, index) => {
+    return this.portDefinitions.map((portDefinition, index) => {
       if (this.appState.networkType === Networking.type.HOST) {
         let port = Number(this.portDefinitions[index].hostPort) || 0;
         let newPortDefinition = {
@@ -112,10 +108,8 @@ module.exports = {
   },
 
   FormReducer(state = [], action) {
-    if (!this.portDefinitions) {
-      this.portDefinitions = [];
-    }
+    this.portDefinitions = reducer(this.portDefinitions, state, action);
 
-    return reducer.call(this, state, action);
+    return this.portDefinitions;
   }
 };
