@@ -621,7 +621,7 @@ class ServicesContainer extends React.Component {
     // Not found
     return (
       <ServiceItemNotFound
-        message={`Service '${itemId}' was not found.`} />
+        message={`The service with the ID of "${itemId}" could not be found.`} />
     );
   }
 }

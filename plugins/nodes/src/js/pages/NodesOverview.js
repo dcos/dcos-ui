@@ -275,10 +275,9 @@ var NodesOverview = React.createClass({
   getEmptyHostsPageContent() {
     return (
       <AlertPanel
-        icon={<Icon id="servers" color="neutral" size="jumbo" />}
-        title="Empty Datacenter">
+        title="No nodes detected">
         <p className="flush-bottom">
-          Your datacenter is looking pretty empty. We don't see any nodes other than your master.
+          There a currently no other nodes in your datacenter other than your DC/OS master node.
         </p>
       </AlertPanel>
     );
