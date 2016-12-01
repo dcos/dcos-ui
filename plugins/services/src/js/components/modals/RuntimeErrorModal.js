@@ -13,7 +13,7 @@ class RuntimeErrorModal extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.errors !== nextProps.errors) {
+    if (nextProps.errors && this.props.errors !== nextProps.errors) {
       this.setState({isOpen: true});
     }
     return false;
