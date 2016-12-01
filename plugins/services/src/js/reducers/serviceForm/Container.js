@@ -6,7 +6,7 @@ import ValidatorUtil from '../../../../../../src/js/utils/ValidatorUtil';
 
 import docker from './Docker';
 
-const {MESOS, NONE} = ContainerConstants.type;
+const {DOCKER, MESOS, NONE} = ContainerConstants.type;
 
 const containerJSONReducer = combineReducers({
   type(state, {type, path, value}) {
@@ -32,7 +32,7 @@ const containerJSONReducer = combineReducers({
       this.hasImage = !ValidatorUtil.isEmpty(value);
     }
 
-    if (path[0] === 'localVolumes' && !this.hasImage) {
+    if (path[0] === 'localVolumes') {
       switch (type) {
         case ADD_ITEM:
           this.hasVolumes.push(true);
@@ -142,6 +142,8 @@ function container(_, ...args) {
     delete newState.docker;
   } else if (ValidatorUtil.isEmpty(newState.docker.image)) {
     delete newState.docker;
+  } else if (newState.docker.type === NONE) {
+    delete newState.docker;
   }
 
   if (ValidatorUtil.isEmpty(newState.volumes)) {
@@ -157,12 +159,22 @@ function container(_, ...args) {
   }
 
   return newState;
-};
+}
 
 module.exports = {
   JSONReducer(_, ...args) {
     if (this.internalState == null) {
       this.internalState = {};
+    }
+
+    if (this.isMesosRuntime == null) {
+      this.isMesosRuntime = true;
+    }
+
+    const {type, path, value} = args[0];
+
+    if (type === SET && path.join('.') === 'container.type') {
+      this.isMesosRuntime = value === NONE;
     }
 
     let newState = Object.assign(
@@ -179,6 +191,15 @@ module.exports = {
       delete newState.docker;
     } else if (ValidatorUtil.isEmpty(newState.docker.image)) {
       delete newState.docker;
+    } else if (ValidatorUtil.isEmpty(newState.type)) {
+      delete newState.docker;
+    } else if (this.isMesosRuntime && !ValidatorUtil.isEmpty(newState.docker)) {
+      delete newState.docker;
+    }
+
+    if (newState.docker && newState.type !== DOCKER) {
+      delete newState.docker.privileged;
+      delete newState.docker.forcePullImage;
     }
 
     if (ValidatorUtil.isEmpty(newState.volumes)) {

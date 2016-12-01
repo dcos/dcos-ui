@@ -27,6 +27,7 @@ describe('Container', function () {
 
     it('creates new container info when there is nothing', function () {
       let batch = new Batch();
+      batch = batch.add(new Transaction(['container', 'type'], 'DOCKER', SET));
       batch = batch.add(
           new Transaction(['container', 'docker', 'image'], 'foo', SET)
       );
@@ -53,6 +54,7 @@ describe('Container', function () {
 
     it('sets privileged correctly', function () {
       let batch = new Batch();
+      batch = batch.add(new Transaction(['container', 'type'], 'DOCKER', SET));
       batch = batch.add(
         new Transaction(['container', 'docker', 'privileged'], true, SET)
       );
@@ -63,11 +65,12 @@ describe('Container', function () {
       expect(batch.reduce(
         Container.JSONReducer.bind({}),
         {}
-      )).toEqual({docker: {image: 'foo', privileged: true}});
+      )).toEqual({type: 'DOCKER', docker: {image: 'foo', privileged: true}});
     });
 
     it('sets privileged correctly to false', function () {
       let batch = new Batch();
+      batch = batch.add(new Transaction(['container', 'type'], 'DOCKER', SET));
       batch = batch.add(
           new Transaction(['container', 'docker', 'image'], 'foo', SET)
       );
@@ -78,11 +81,12 @@ describe('Container', function () {
       expect(batch.reduce(
         Container.JSONReducer.bind({}),
         {}
-      )).toEqual({docker: {image: 'foo', privileged: false}});
+      )).toEqual({type: 'DOCKER', docker: {image: 'foo', privileged: false}});
     });
 
     it('doesn\'t set privileged if path doesn\'t match type', function () {
       let batch = new Batch();
+      batch = batch.add(new Transaction(['container', 'type'], 'DOCKER', SET));
       batch = batch.add(
           new Transaction(['container', 'docker', 'image'], 'foo', SET)
       );
@@ -93,11 +97,12 @@ describe('Container', function () {
       expect(batch.reduce(
         Container.JSONReducer.bind({}),
         {}
-      )).toEqual({docker: {image: 'foo'}});
+      )).toEqual({type: 'DOCKER', docker: {image: 'foo'}});
     });
 
     it('sets forcePullImage correctly', function () {
       let batch = new Batch();
+      batch = batch.add(new Transaction(['container', 'type'], 'DOCKER', SET));
       batch = batch.add(
           new Transaction(['container', 'docker', 'image'], 'foo', SET)
       );
@@ -108,11 +113,12 @@ describe('Container', function () {
       expect(batch.reduce(
         Container.JSONReducer.bind({}),
         {}
-      )).toEqual({docker: {image: 'foo', forcePullImage: true}});
+      )).toEqual({type: 'DOCKER', docker: {image: 'foo', forcePullImage: true}});
     });
 
     it('sets forcePullImage correctly to false', function () {
       let batch = new Batch();
+      batch = batch.add(new Transaction(['container', 'type'], 'DOCKER', SET));
       batch = batch.add(
         new Transaction(['container', 'docker', 'forcePullImage'], false, SET)
       );
@@ -123,7 +129,7 @@ describe('Container', function () {
       expect(batch.reduce(
         Container.JSONReducer.bind({}),
         {}
-      )).toEqual({docker: {image: 'foo', forcePullImage: false}});
+      )).toEqual({type: 'DOCKER', docker: {image: 'foo', forcePullImage: false}});
     });
 
     it('doesn\'t set forcePullImage if path doesn\'t match type', function () {
@@ -140,6 +146,7 @@ describe('Container', function () {
 
     it('sets image correctly', function () {
       let batch = new Batch();
+      batch = batch.add(new Transaction(['container', 'type'], 'DOCKER', SET));
       batch = batch.add(
         new Transaction(['container', 'docker', 'image'], 'foo', SET)
       );
@@ -147,11 +154,12 @@ describe('Container', function () {
       expect(batch.reduce(
         Container.JSONReducer.bind({}),
         {}
-      )).toEqual({docker: {image: 'foo'}});
+      )).toEqual({type: 'DOCKER', docker: {image: 'foo'}});
     });
 
     it('changes image value correctly', function () {
       let batch = new Batch();
+      batch = batch.add(new Transaction(['container', 'type'], 'DOCKER', SET));
       batch = batch.add(
         new Transaction(['container', 'docker', 'image'], 'bar', SET)
       );
@@ -159,7 +167,7 @@ describe('Container', function () {
       expect(batch.reduce(
         Container.JSONReducer.bind({}),
         {}
-      )).toEqual({docker: {image: 'bar'}});
+      )).toEqual({type: 'DOCKER', docker: {image: 'bar'}});
     });
 
     it('doesn\'t set image if path doesn\'t match type', function () {
