@@ -104,8 +104,7 @@ class NewServiceFormModal extends Component {
     }
 
     // Close if picker is open, or if editing a service in the form
-    if (servicePickerActive ||
-      ((serviceFormActive || serviceJsonActive) && this.props.isEdit)) {
+    if (servicePickerActive || (!serviceReviewActive && this.props.isEdit)) {
       this.handleClose();
       return;
     }
@@ -396,16 +395,12 @@ class NewServiceFormModal extends Component {
 
   getSecondaryActions() {
     let {
-      serviceFormActive,
       servicePickerActive,
-      serviceReviewActive,
-      serviceJsonActive
+      serviceReviewActive
     } = this.state;
     let label = 'Back';
 
-    if (servicePickerActive ||
-      ((serviceFormActive || serviceJsonActive)
-        && this.props.isEdit && !serviceReviewActive)) {
+    if (servicePickerActive || (this.props.isEdit && !serviceReviewActive)) {
       label = 'Cancel';
     }
 
