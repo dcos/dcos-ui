@@ -32,7 +32,7 @@ module.exports = ({appConfig}) => {
   }, combinedEnv);
 
   if (!combinedEnv.length) {
-    return null;
+    return <noscript />;
   }
 
   return (
