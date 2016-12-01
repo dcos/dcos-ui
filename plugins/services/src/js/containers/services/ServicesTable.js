@@ -172,6 +172,13 @@ class ServicesTable extends React.Component {
       },
       {
         className: classNames({
+          hidden: isPod || isGroup || instancesCount === 0
+        }),
+        id: ServiceActionItem.RESTART,
+        html: 'Restart'
+      },
+      {
+        className: classNames({
           hidden: instancesCount === 0
         }),
         id: ServiceActionItem.SUSPEND,
@@ -182,16 +189,6 @@ class ServicesTable extends React.Component {
         html: <span className="text-danger">Destroy</span>
       }
     ];
-
-    if (!isPod) {
-      dropdownItems.splice(1, 0, {
-        className: classNames({
-          hidden: isGroup || instancesCount === 0
-        }),
-        id: ServiceActionItem.RESTART,
-        html: 'Restart'
-      });
-    }
 
     return (
       <Dropdown
