@@ -36,10 +36,6 @@ module.exports = combineReducers({
 
     this.portDefinitions = networkingReducer(this.portDefinitions, state, action);
 
-    if (!this.portDefinitions.length) {
-      return state;
-    }
-
     return this.portDefinitions.map((portDefinition, index) => {
       if (this.appState.networkType === Networking.type.BRIDGE ||
         this.appState.networkType === Networking.type.USER) {

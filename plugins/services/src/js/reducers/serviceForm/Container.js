@@ -65,12 +65,12 @@ const containerJSONReducer = combineReducers({
 
     return state;
   },
-  docker(_, {type, path, value}) {
+  docker(_, {type, path, value}, index) {
     if (this.internalState == null) {
       this.internalState = {};
     }
 
-    this.internalState = docker.call(this, this.internalState, {type, path, value});
+    this.internalState = docker.call(this, this.internalState, {type, path, value}, index);
 
     const joinedPath = path && path.join('.');
     if (type === SET && joinedPath === 'container.type') {
@@ -104,12 +104,12 @@ const containerReducer = combineReducers({
 
     return state;
   },
-  docker(_, {type, path, value}) {
+  docker(_, {type, path, value}, index) {
     if (this.internalState == null) {
       this.internalState = {};
     }
 
-    this.internalState = docker.call(this, this.internalState, {type, path, value});
+    this.internalState = docker.call(this, this.internalState, {type, path, value}, index);
 
     const joinedPath = path && path.join('.');
     if (type === SET && joinedPath === 'container.type') {
