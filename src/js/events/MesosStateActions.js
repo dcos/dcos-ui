@@ -5,20 +5,6 @@ import AppDispatcher from './AppDispatcher';
 import Config from '../config/Config';
 import MesosStateUtil from '../utils/MesosStateUtil';
 
-function getNodeStateURL(task, node) {
-  let pid, nodePID;
-
-  if (node) {
-    pid = node.pid;
-  }
-
-  if (pid) {
-    nodePID = pid.substring(0, pid.indexOf('@'));
-  }
-
-  return `${Config.rootUrl}/agent/${task.slave_id}/${nodePID}/state`;
-}
-
 var MesosStateActions = {
 
   fetchState: RequestUtil.debounceOnError(
@@ -51,31 +37,8 @@ var MesosStateActions = {
       };
     },
     {delayAfterCount: Config.delayAfterErrorCount}
-  ),
-
-  fetchNodeState: RequestUtil.debounceOnError(
-    Config.getRefreshRate(),
-    function (resolve, reject) {
-      return function (task, node, success, error) {
-        return RequestUtil.json({
-          url: getNodeStateURL(task, node),
-          success(response) {
-            resolve();
-            success(response);
-          },
-          error(xhr) {
-            if (xhr.statusText === 'abort') {
-              resolve();
-              return;
-            }
-            reject();
-            error(xhr);
-          }
-        });
-      };
-    },
-    {delayAfterCount: Config.delayAfterErrorCount}
   )
+
 };
 
 module.exports = MesosStateActions;

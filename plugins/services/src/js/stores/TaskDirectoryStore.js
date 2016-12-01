@@ -1,5 +1,7 @@
 import PluginSDK from 'PluginSDK';
 import {
+  REQUEST_NODE_STATE_ERROR,
+  REQUEST_NODE_STATE_SUCCESS,
   REQUEST_TASK_DIRECTORY_ERROR,
   REQUEST_TASK_DIRECTORY_SUCCESS
 } from '../constants/ActionTypes';
@@ -7,6 +9,8 @@ import {
   SERVER_ACTION
 } from '../../../../../src/js/constants/ActionTypes';
 import {
+  NODE_STATE_ERROR,
+  NODE_STATE_SUCCESS,
   TASK_DIRECTORY_CHANGE,
   TASK_DIRECTORY_ERROR
 } from '../constants/EventTypes';
@@ -22,14 +26,7 @@ var activeXHR = null;
 
 function fetchState(task, innerPath) {
   let node = MesosStateStore.getNodeFromID(task.slave_id);
-  activeXHR = TaskDirectoryActions.fetchNodeState(
-    task,
-    node,
-    function (response) {
-      activeXHR = TaskDirectoryActions
-        .fetchDirectory(task, innerPath, response);
-    }
-  );
+  activeXHR = TaskDirectoryActions.fetchNodeState(task, node, innerPath);
 }
 
 function startPolling(task, innerPath) {
@@ -55,8 +52,10 @@ class TaskDirectoryStore extends GetSetBaseStore {
       store: this,
       storeID: this.storeID,
       events: {
+        error: TASK_DIRECTORY_ERROR,
         success: TASK_DIRECTORY_CHANGE,
-        error: TASK_DIRECTORY_ERROR
+        nodeStateError: REQUEST_NODE_STATE_ERROR,
+        nodeStateSuccess: REQUEST_NODE_STATE_SUCCESS
       },
       unmountWhen() {
         return true;
@@ -69,13 +68,21 @@ class TaskDirectoryStore extends GetSetBaseStore {
         return false;
       }
 
-      let {data, innerPath, taskID, type} = payload.action;
+      let {data, innerPath, task, type} = payload.action;
       switch (type) {
         case REQUEST_TASK_DIRECTORY_SUCCESS:
-          this.processStateSuccess(data, innerPath, taskID);
+          this.processStateSuccess(data, innerPath, task.id);
           break;
         case REQUEST_TASK_DIRECTORY_ERROR:
-          this.processStateError(taskID);
+          this.emit(TASK_DIRECTORY_ERROR, task.id);
+          break;
+        case REQUEST_NODE_STATE_ERROR:
+          this.emit(NODE_STATE_ERROR, task.id);
+          break;
+        case REQUEST_NODE_STATE_SUCCESS:
+          activeXHR = TaskDirectoryActions
+            .fetchDirectory(task, innerPath, data);
+          this.emit(NODE_STATE_SUCCESS, task.id);
           break;
       }
 
@@ -130,10 +137,6 @@ class TaskDirectoryStore extends GetSetBaseStore {
   setPath(task, path) {
     this.set({innerPath: path});
     this.fetchDirectory(task, path);
-  }
-
-  processStateError(taskID) {
-    this.emit(TASK_DIRECTORY_ERROR, taskID);
   }
 
   processStateSuccess(items, innerPath, taskID) {

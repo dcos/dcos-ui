@@ -29,6 +29,56 @@ describe('TaskDirectoryActions', function () {
     Config.useFixtures = this.configUseFixtures;
   });
 
+  describe('#fetchNodeState', function () {
+
+    beforeEach(function () {
+      spyOn(RequestUtil, 'json');
+      TaskDirectoryActions.fetchNodeState(
+        {framework_id: 'foo', id: 'bar', slave_id: 'baz'},
+        {pid: 'foobar@baz', id: 'baz'},
+        'some/path'
+      );
+      this.configuration = RequestUtil.json.calls.mostRecent().args[0];
+    });
+
+    it('calls #json from the RequestUtil', function () {
+      expect(RequestUtil.json).toHaveBeenCalled();
+    });
+
+    it('fetches data from the correct URL', function () {
+      expect(this.configuration.url)
+        .toEqual(this.configRootUrl + '/agent/baz/foobar/state');
+    });
+
+    it('dispatches the correct action when successful', function () {
+      var id = AppDispatcher.register(function (payload) {
+        var action = payload.action;
+        AppDispatcher.unregister(id);
+        expect(action.type).toEqual(ActionTypes.REQUEST_NODE_STATE_SUCCESS);
+        expect(action.task.id).toEqual('bar');
+        expect(action.node).toEqual({pid: 'foobar@baz', id: 'baz'});
+        expect(action.innerPath).toEqual('some/path');
+        expect(action.data).toEqual('some response');
+      });
+
+      this.configuration.success('some response');
+    });
+
+    it('dispatches the correct action when unsuccessful', function () {
+      var id = AppDispatcher.register(function (payload) {
+        var action = payload.action;
+        AppDispatcher.unregister(id);
+        expect(action.type).toEqual(ActionTypes.REQUEST_NODE_STATE_ERROR);
+        expect(action.data).toEqual('foo');
+        expect(action.task.id).toEqual('bar');
+        expect(action.node).toEqual({pid: 'foobar@baz', id: 'baz'});
+      });
+
+      this.configuration.error({message: 'foo'});
+    });
+
+  });
+
   describe('#fetchDirectory', function () {
 
     beforeEach(function () {
@@ -60,7 +110,7 @@ describe('TaskDirectoryActions', function () {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(ActionTypes.REQUEST_TASK_DIRECTORY_SUCCESS);
-        expect(action.taskID).toEqual('bar');
+        expect(action.task.id).toEqual('bar');
         expect(action.innerPath).toEqual('');
         expect(action.data).toEqual('directory');
       });
@@ -74,7 +124,7 @@ describe('TaskDirectoryActions', function () {
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(ActionTypes.REQUEST_TASK_DIRECTORY_ERROR);
         expect(action.data).toEqual('foo');
-        expect(action.taskID).toEqual('bar');
+        expect(action.task.id).toEqual('bar');
       });
 
       this.configuration.error({message: 'foo'});

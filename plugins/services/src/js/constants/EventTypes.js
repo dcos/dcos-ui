@@ -39,7 +39,9 @@ let EventTypes = {};
   'MARATHON_TASK_KILL_SUCCESS',
   'MARATHON_TASK_KILL_ERROR',
   'TASK_DIRECTORY_CHANGE',
-  'TASK_DIRECTORY_ERROR'
+  'TASK_DIRECTORY_ERROR',
+  'NODE_STATE_ERROR',
+  'NODE_STATE_SUCCESS'
 ].forEach(function (eventType) {
   EventTypes[eventType] = eventType;
 });
