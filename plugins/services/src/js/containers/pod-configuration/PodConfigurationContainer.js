@@ -9,7 +9,7 @@ class PodConfigurationTabView extends React.Component {
     let localeVersion = new Date(spec.getVersion()).toLocaleString();
 
     return (
-      <div>
+      <div className="container">
         <h3 className="flush-top">
           Current Version ({localeVersion})
         </h3>
