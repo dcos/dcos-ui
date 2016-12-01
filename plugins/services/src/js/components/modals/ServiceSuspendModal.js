@@ -2,6 +2,7 @@ import {Confirm} from 'reactjs-components';
 import React, {PropTypes} from 'react';
 import PureRender from 'react-addons-pure-render-mixin';
 
+import AppLockedMessage from './AppLockedMessage';
 import ModalHeading from '../../../../../../src/js/components/modals/ModalHeading';
 import Pod from '../../structs/Pod';
 import Service from '../../structs/Service';
@@ -71,21 +72,8 @@ class ServiceSuspendModal extends React.Component {
     }
 
     if (this.shouldForceUpdate()) {
-      let itemType = 'Service';
-
-      if (this.props.service instanceof Pod) {
-        itemType = 'Pod';
-      }
-
-      if (this.props.service instanceof ServiceTree) {
-        itemType = 'Group';
-      }
-
       return (
-        <h4 className="text-align-center text-danger flush-top">
-          {itemType} is currently locked by one or more deployments. Press the button
-          again to forcefully change and deploy the new configuration.
-        </h4>
+        <AppLockedMessage service={this.props.service} />
       );
     }
 
