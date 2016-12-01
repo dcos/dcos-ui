@@ -1,6 +1,7 @@
 import React from 'react';
 import {MountService} from 'foundation-ui';
 
+import Alert from '../../../../../src/js/components/Alert';
 import ConfigurationMap from '../../../../../src/js/components/ConfigurationMap';
 import PodContainersConfigSection from '../service-configuration/PodContainersConfigSection';
 import PodEnvironmentVariablesConfigSection from '../service-configuration/PodEnvironmentVariablesConfigSection';
@@ -71,19 +72,27 @@ class ServiceConfigDisplay extends React.Component {
     return 'CreateService:ServiceConfigDisplay:App';
   }
 
+  getErrors() {
+    if (this.props.errors) {
+      return <Alert>{this.props.errors.message}</Alert>;
+    }
+  }
+
   render() {
     return (
-      <ConfigurationMap>
-        <MountService.Mount
-          type={this.getMountType()}
-          appConfig={this.props.appConfig} />
-      </ConfigurationMap>
+          <ConfigurationMap>
+            {this.getErrors()}
+            <MountService.Mount
+              type={this.getMountType()}
+              appConfig={this.props.appConfig} />
+          </ConfigurationMap>
     );
   };
 }
 
 ServiceConfigDisplay.propTypes = {
-  appConfig: React.PropTypes.object.isRequired
+  appConfig: React.PropTypes.object.isRequired,
+  errors: React.PropTypes.object
 };
 
 module.exports = ServiceConfigDisplay;
