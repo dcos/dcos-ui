@@ -24,19 +24,13 @@ class NewCreateServiceModalServicePicker extends React.Component {
       icon: (
         <Image fallbackSrc={defaultServiceImage} src={defaultServiceImage} />
       ),
-      label: 'Container Service',
+      label: 'Use the Form',
       type: 'app'
-    }, {
-      icon: (
-        <Image fallbackSrc={defaultServiceImage} src={defaultServiceImage} />
-      ),
-      label: 'Multi-Container (Pod)',
-      type: 'pod'
     }, {
       icon: (
         <Image fallbackSrc={jsonServiceImage} src={jsonServiceImage} />
       ),
-      label: 'JSON Configuration',
+      label: 'Enter JSON',
       type: 'json'
     }].map((item, index) => {
       return this.getServiceOption(
@@ -63,14 +57,14 @@ class NewCreateServiceModalServicePicker extends React.Component {
   }
 
   getServiceDeployOptions() {
+    // TODO: Implement the correct copy when received. DCOS-11807
     return (
       <div className="create-service-modal-service-picker container text-align-center">
         <h4 className="short flush-top">
           Run your own Service
         </h4>
-        <p className="tall">
-          Create service from one or more containers, run a command, or run from
-          Docker Compose.
+        <p className="lead tall">
+          Create a containerized service or run a command in one of two ways: use our form to be guided through the correct configuration, or enter your JSON configuration directly.
         </p>
         {this.getCustomServiceGrid()}
       </div>
