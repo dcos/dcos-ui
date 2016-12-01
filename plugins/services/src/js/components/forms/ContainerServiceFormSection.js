@@ -151,13 +151,13 @@ class ContainerServiceFormSection extends Component {
               disabled={true}
               value={settingName}/>
             <Tooltip
-                content={dockerOnly}
-                interactive={true}
-                maxWidth={300}
-                scrollContainer=".gm-scroll-view"
-                wrapText={true}>
-              {label}
-              <Icon color="grey" id="lock" size="mini" family="mini"/>
+              content={dockerOnly}
+              interactive={true}
+              maxWidth={300}
+              scrollContainer=".gm-scroll-view"
+              wrapText={true}>
+                {label}
+                <Icon color="grey" id="lock" size="mini" family="mini"/>
             </Tooltip>
             <FieldHelp>{helpText}</FieldHelp>
           </FieldLabel>
@@ -272,22 +272,22 @@ class ContainerServiceFormSection extends Component {
         container.type === NONE) {
       return [
         <Tooltip
-            key="container-image-input-tooltip"
-            content="Mesos Runtime does not support container images, please select Docker Runtime or Universal Container Runtime if you want to use container images."
-            interactive={true}
-            maxWidth={300}
-            scrollContainer=".gm-scroll-view"
-            wrapText={true}>
-          <FieldLabel>
-            {'Container Image'}
-            <Icon color="grey" id="lock" size="mini" family="mini" />
-          </FieldLabel>
+          key="container-image-input-tooltip"
+          content="Mesos Runtime does not support container images, please select Docker Runtime or Universal Container Runtime if you want to use container images."
+          interactive={true}
+          maxWidth={300}
+          scrollContainer=".gm-scroll-view"
+          wrapText={true}>
+            <FieldLabel>
+              {'Container Image'}
+              <Icon color="grey" id="lock" size="mini" family="mini" />
+            </FieldLabel>
         </Tooltip>,
         <FieldInput
-            key="container-image-input"
-            name="container.docker.image"
-            disabled={true}
-            value={image} />
+          key="container-image-input"
+          name="container.docker.image"
+          disabled={true}
+          value={image} />
       ];
     }
 
@@ -324,8 +324,8 @@ class ContainerServiceFormSection extends Component {
 
           <FormGroup
             className="column-3"
-             required={true}
-             showError={Boolean(errors.cpus)}>
+            required={true}
+            showError={Boolean(errors.cpus)}>
             <FieldLabel>
               CPUs
             </FieldLabel>
