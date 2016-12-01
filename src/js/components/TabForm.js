@@ -117,7 +117,7 @@ class TabForm extends mixin(InternalStorageMixin) {
               wrapText={true}
               maxWidth={300}
               scrollContainer=".gm-scroll-view">
-              <Icon color="grey" id="circle-question" size="mini" family="system" />
+              <Icon color="grey" id="circle-question" size="mini" />
             </Tooltip>
           </div>
         </span>

@@ -128,8 +128,7 @@ class JobsTable extends React.Component {
           className="icon-margin-right"
           color="grey"
           id="folder"
-          size="mini"
-          family="system" />
+          size="mini" />
       );
     } else {
       itemImage = (
@@ -137,8 +136,7 @@ class JobsTable extends React.Component {
           className="icon-margin-right"
           color="grey"
           id="page-document"
-          size="mini"
-          family="system" />
+          size="mini" />
       );
     }
 
@@ -155,8 +153,7 @@ class JobsTable extends React.Component {
             <Icon
               color="grey"
               id="repeat"
-              size="mini"
-              family="system" />
+              size="mini" />
           </Tooltip>
         );
       }

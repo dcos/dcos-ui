@@ -93,7 +93,7 @@ class RejectedOffersTable extends React.Component {
       let icon = null;
 
       if (isResourceUnmatched) {
-        icon = <Icon color="red" family="system" id="close" size="mini" />;
+        icon = <Icon color="red" id="close" size="mini" />;
 
         if (unmatchedResource.includes(DeclinedOffersReasons.UNFULFILLED_ROLE)
           && this.areResourcesUnmatched(requestedResource, receivedResource)) {
@@ -101,7 +101,7 @@ class RejectedOffersTable extends React.Component {
           receivedResourceSuffix = `(Role: ${row.offered.roles})`;
         }
       } else {
-        icon = <Icon color="green" family="system" id="check" size="mini" />;
+        icon = <Icon color="green" id="check" size="mini" />;
       }
 
       if (Array.isArray(receivedResource)) {

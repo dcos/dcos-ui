@@ -309,8 +309,7 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
             key="schedule-icon"
             color="grey"
             id="repeat"
-            size="mini"
-            family="system" />
+            size="mini" />
           <span>Scheduled {StringUtil.lowercase(scheduleText)}</span>
         </p>
       );

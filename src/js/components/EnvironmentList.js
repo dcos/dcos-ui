@@ -24,7 +24,6 @@ class EnvironmentList extends React.Component {
             <Icon
               className="icon-margin-right"
               color="neutral"
-              family="system"
               id="key"
               size="mini" />
             {value.secret}

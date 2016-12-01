@@ -28,7 +28,7 @@ class PageHeaderBreadcrumbs extends React.Component {
     return (
       <li className="page-header-breadcrumb-caret flush-top flush-left"
         key={`caret-${index}`}>
-        <Icon color="light-grey" family="system" id="caret-right" size="mini" />
+        <Icon color="light-grey" id="caret-right" size="mini" />
       </li>
     );
   }

@@ -29,7 +29,7 @@ class Icon extends React.Component {
 }
 
 Icon.defaultProps = {
-  family: 'medium',
+  family: 'system',
   size: 'medium'
 };
 

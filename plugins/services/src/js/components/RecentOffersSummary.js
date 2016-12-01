@@ -107,11 +107,7 @@ const columns = [
           interactive={true}
           maxWidth={200}
           wrapText={true}>
-          <Icon
-            id="circle-information"
-            size="mini"
-            family="system"
-            color="grey" />
+          <Icon id="circle-information" size="mini" color="grey" />
         </Tooltip>
       );
     },

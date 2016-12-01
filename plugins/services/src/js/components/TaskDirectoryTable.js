@@ -51,10 +51,8 @@ class TaskDirectoryTable extends React.Component {
         <div
           className="table-cell-icon table-display-on-row-hover fade-in-on-hover clickable"
           onClick={this.props.onOpenLogClick.bind(this, directoryItem, this.props.directoryPath)}>
-          <Icon
-            className="icon-margin-left"
+          <Icon className="icon-margin-left"
             color="grey"
-            family="system"
             id="search"
             size="mini" />
         </div>
@@ -64,10 +62,8 @@ class TaskDirectoryTable extends React.Component {
     return (
       <div className="flex-box flex-box-align-vertical-center table-cell-flex-box">
         <div className="table-cell-icon">
-          <Icon
-            className="icon-margin-right"
+          <Icon className="icon-margin-right"
             color="grey"
-            family="system"
             id={iconID}
             size="mini" />
         </div>

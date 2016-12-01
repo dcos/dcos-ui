@@ -54,7 +54,6 @@ class ServicesTable extends React.Component {
         <Icon
           color="neutral"
           className="icon-margin-left icon-margin-left-wide"
-          family="system"
           id="open-external"
           size="mini" />
       </a>
@@ -106,12 +105,10 @@ class ServicesTable extends React.Component {
     if (service instanceof ServiceTree) {
       // Get serviceTree image/icon
       return (
-        <Icon
-          className="icon-margin-right"
+        <Icon className="icon-margin-right"
           color="grey"
           id="folder"
-          size="mini"
-          family="system" />
+          size="mini" />
       );
     }
 
@@ -158,12 +155,10 @@ class ServicesTable extends React.Component {
         id: ServiceActionItem.MORE,
         html: '',
         selectedHtml: (
-          <Icon
-            family="system"
+          <Icon className="icon-alert icon-margin-right"
+            color="neutral"
             id="gear"
-            size="mini"
-            className="icon-alert icon-margin-right"
-            color="neutral" />
+            size="mini" />
         )
       },
       {
@@ -248,11 +243,7 @@ class ServicesTable extends React.Component {
             maxWidth={250}
             wrapText={true}
             wrapperClassName="tooltip-wrapper status-waiting-indicator">
-            <Icon
-              color="red"
-              family="system"
-              id="yield"
-              size="mini" />
+            <Icon color="red" id="yield" size="mini" />
           </Tooltip>
         );
       }

@@ -16,7 +16,7 @@ const Alert = ({children, showIcon, type}) => {
     };
 
     icon = (
-      <Icon className="yield" family="system" id={ids[type]} size="mini" />
+      <Icon className="yield" id={ids[type]} size="mini" />
     );
   }
 

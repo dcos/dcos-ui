@@ -331,11 +331,7 @@ class PodInstancesTable extends React.Component {
       <Link
         to={`/services/overview/${id}/tasks/${taskID}/view`}
         title={row.name}>
-        <Icon
-          color="grey"
-          id="page-document"
-          size="mini"
-          family="system" />
+        <Icon color="grey" id="page-document" size="mini" />
       </Link>
     );
   }

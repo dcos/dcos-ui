@@ -115,7 +115,7 @@ class UninstallPackageModal extends mixin(StoreMixin) {
     return (
       <div className="pod pod-short flush-right flush-left text-align-center">
         <span className="text-success">
-          <Icon id="circle-check" size="large" family="system" color="green" />
+          <Icon id="circle-check" size="large" color="green" />
         </span>
         <h3 className="short-top">{`${name} Uninstalled`}</h3>
         <p className="small flush-bottom">

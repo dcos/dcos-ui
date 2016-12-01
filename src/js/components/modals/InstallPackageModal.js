@@ -459,7 +459,7 @@ class InstallPackageModal extends mixin(InternalStorageMixin, TabsMixin, StoreMi
         <div className="modal-body">
           <div className="text-align-center">
             <span className="text-success">
-              <Icon id="circle-check" size="large" family="system" color="green" />
+              <Icon id="circle-check" size="large" color="green" />
             </span>
             <h2 className="short-top short-bottom">Success!</h2>
             <div className="install-package-modal-package-notes text-overflow-break-word"

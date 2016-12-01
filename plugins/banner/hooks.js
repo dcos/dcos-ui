@@ -182,7 +182,6 @@ module.exports = {
             className="banner-plugin-info-icon clickable hidden-medium-up"
             onClick={this.toggleFullContent}>
             <Icon
-              family="system"
               fill={this.configuration.foregroundColor}
               id="circle-information"
               size="mini" />

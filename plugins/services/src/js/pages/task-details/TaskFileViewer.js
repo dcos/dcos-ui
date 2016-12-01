@@ -172,7 +172,7 @@ class TaskFileViewer extends React.Component {
           disabled={!filePath}
           href=
             {TaskDirectoryActions.getDownloadURL(task.slave_id, filePath)}>
-          <Icon family="system" id="download" size="mini" />
+          <Icon id="download" size="mini" />
         </a>
       </Tooltip>
     ];
