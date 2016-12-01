@@ -135,8 +135,12 @@ class SearchDSLInputField extends React.Component {
    */
   getDropdownButton() {
     let color = 'grey';
-    let {dropdownVisible, hasDropdown, inverseStyle,
-      onDropdownClick} = this.props;
+    let {
+      dropdownVisible,
+      hasDropdown,
+      inverseStyle,
+      onDropdownClick
+    } = this.props;
 
     if (!hasDropdown) {
       return null;
@@ -192,7 +196,13 @@ class SearchDSLInputField extends React.Component {
    * @override
    */
   render() {
-    let {className, hasErrors, inputContainerClass, inverseStyle} = this.props;
+    let {
+      className,
+      hasErrors,
+      inputContainerClass,
+      inverseStyle,
+      value
+    } = this.props;
     let {focus} = this.state;
 
     let iconColor = 'grey';
@@ -200,7 +210,7 @@ class SearchDSLInputField extends React.Component {
       'active': focus
     });
 
-    if (!inverseStyle && focus) {
+    if (!inverseStyle && (focus || value)) {
       iconColor = 'purple';
     }
 
