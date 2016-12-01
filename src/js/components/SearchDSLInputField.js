@@ -103,11 +103,15 @@ class SearchDSLInputField extends React.Component {
       return null;
     }
 
-    let {inverseStyle} = this.props;
+    let {hasErrors, inverseStyle} = this.props;
     let color = 'purple';
 
     if (inverseStyle) {
       color = 'white';
+    }
+
+    if (hasErrors) {
+      color = 'red';
     }
 
     return (
@@ -130,8 +134,13 @@ class SearchDSLInputField extends React.Component {
    * @returns {Node|null} The button contents or null if empty
    */
   getDropdownButton() {
-    let {dropdownVisible, inverseStyle, onDropdownClick} = this.props;
     let color = 'grey';
+    let {dropdownVisible, hasDropdown, inverseStyle,
+      onDropdownClick} = this.props;
+
+    if (!hasDropdown) {
+      return null;
+    }
 
     if (inverseStyle) {
       color = 'white';
@@ -183,7 +192,7 @@ class SearchDSLInputField extends React.Component {
    * @override
    */
   render() {
-    let {className, inputContainerClass, inverseStyle} = this.props;
+    let {className, hasErrors, inputContainerClass, inverseStyle} = this.props;
     let {focus} = this.state;
 
     let iconColor = 'grey';
@@ -195,16 +204,20 @@ class SearchDSLInputField extends React.Component {
       iconColor = 'purple';
     }
 
+    if (hasErrors) {
+      iconColor = 'red';
+    }
+
     let inputContainerClasses = classNames({
       'form-control form-control-group': true,
       'form-control-inverse': inverseStyle,
       'focus': focus
     }, inputContainerClass);
 
-    let formGroupClasses = classNames(
-      'form-group',
-      className
-    );
+    let formGroupClasses = classNames({
+      'form-group': true,
+      'form-group-error': hasErrors
+    }, className);
 
     return (
       <div className={formGroupClasses}>
@@ -231,6 +244,8 @@ class SearchDSLInputField extends React.Component {
 SearchDSLInputField.defaultProps = {
   className: {},
   dropdownVisible: false,
+  hasDropdown: true,
+  hasErrors: false,
   inverseStyle: false,
   onChange() {},
   onBlur() {},
@@ -245,6 +260,8 @@ SearchDSLInputField.propTypes = {
     PropTypes.object
   ]),
   dropdownVisible: PropTypes.bool,
+  hasDropdown: PropTypes.bool,
+  hasErrors: PropTypes.bool,
   inverseStyle: PropTypes.bool,
   onChange: PropTypes.func,
   onBlur: PropTypes.func,
