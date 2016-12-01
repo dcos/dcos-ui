@@ -1,17 +1,73 @@
 // TODO: Reduce the specificity. DCOS-11785
 & when (@sidebar-enabled) {
 
-  // Sidebar
-  .sidebar {
-    background: @sidebar-background-color;
-  }
-
   // TODO: Fix this positioning. DCOS-11784
   // Navigation
   .navigation {
     left: -100%;
     position: fixed;
     width: 100%;
+  }
+
+  // Sidebar Wrapper
+  .sidebar-wrapper {
+    flex: 1 1 100%;
+    max-width: 0;
+    transition: max-width 0.25s;
+
+    & + .page {
+      transition: transform 0.25s;
+    }
+
+    .sidebar-visible & {
+
+      & + .page {
+        transform: translateX(@sidebar-width);
+      }
+    }
+  }
+
+  // Sidebar
+  .sidebar {
+    background: @sidebar-background-color;
+    height: 100%;
+    left: 0;
+    position: fixed;
+    top: 0;
+    transform: translateX(-100%);
+    transition: transform 0.25s;
+    width: @sidebar-width;
+    z-index: @z-index-sidebar;
+
+    .sidebar-visible & {
+      transform: translateX(0);
+    }
+  }
+
+  .sidebar-overlay {
+    &:extend(.modal-backdrop);
+    transition: opacity 0.25s;
+    z-index: @z-index-sidebar-overlay;
+
+    &-enter {
+      opacity: 0;
+
+      &-active {
+        opacity: 1;
+      }
+    }
+
+    &-leave {
+      opacity: 1;
+
+      &-active {
+        opacity: 0;
+      }
+    }
+  }
+
+  .sidebar-sections {
+    flex: 1 0 auto;
   }
 
   // Sidebar Section
@@ -60,7 +116,7 @@
       min-height: @sidebar-menu-item-height;
       padding-left: @sidebar-menu-item-padding-left;
       padding-right: @sidebar-menu-item-padding-right;
-      transition: background 0.15s ease;
+      transition: background 0.15s, color 0.15s;
 
       &:empty {
         display: none;
@@ -103,7 +159,7 @@
         padding-left: @sidebar-menu-item-link-padding-left;
         padding-right: @sidebar-menu-item-link-padding-right;
         text-decoration: none !important;
-        transition: background 0.15s ease;
+        transition: background 0.15s, color 0.15s;
 
         & > * {
           margin-right: @sidebar-menu-item-content-padding-horizontal;
@@ -224,6 +280,29 @@
       width: 100%;
     }
   }
+
+  .sidebar-content-wrapper {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+  }
+
+  .sidebar-dock-container {
+    display: flex;
+    flex: 0 0 auto;
+    justify-content: flex-end;
+  }
+
+  .sidebar-dock-trigger {
+    cursor: pointer;
+    display: none;
+    opacity: 0.75;
+    transition: opacity 0.15s;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
 }
 
 & when (@layout-screen-small-enabled) {
@@ -231,6 +310,11 @@
   @media (min-width: @layout-screen-small-min-width) {
 
     & when (@sidebar-enabled) and (@sidebar-screen-small-enabled) {
+
+      // Sidebar
+      .sidebar {
+        width: @sidebar-width-screen-small;
+      }
 
       // Sidebar Section
       .sidebar-section {
@@ -300,17 +384,42 @@
 
     & when (@sidebar-enabled) and (@sidebar-screen-medium-enabled) {
 
-      // Sidebar
-      .sidebar {
-        flex-basis: @sidebar-width;
-        width: @sidebar-width;
+      // Sidebar Wrapper
+      .sidebar-wrapper {
+
+        .sidebar-visible & {
+
+          & + .page {
+            transform: translateX(@sidebar-width-screen-medium);
+          }
+        }
+
+        .sidebar-visible.sidebar-docked & {
+
+          & + .page {
+            transform: translateX(0);
+          }
+        }
+
+        .sidebar-docked & {
+          max-width: @sidebar-width-screen-medium;
+        }
       }
 
-      // Navigation
-      .navigation {
-        left: auto;
-        position: relative;
-        width: auto;
+      // Sidebar
+      .sidebar {
+        width: @sidebar-width-screen-medium;
+
+        .sidebar-docked & {
+          transform: translateX(0);
+        }
+      }
+
+      .sidebar-overlay {
+
+        .sidebar-docked.sidebar-visible & {
+          display: none;
+        }
       }
 
       // Sidebar Section
@@ -369,6 +478,10 @@
           }
         }
       }
+
+      .sidebar-dock-trigger {
+        display: block;
+      }
     }
   }
 }
@@ -379,9 +492,23 @@
 
     & when (@sidebar-enabled) and (@sidebar-screen-large-enabled) {
 
+      // Sidebar Wrapper
+      .sidebar-wrapper {
+
+        .sidebar-visible & {
+
+          & + .page {
+            transform: translateX(@sidebar-width-screen-large);
+          }
+        }
+
+        .sidebar-docked & {
+          max-width: @sidebar-width-screen-large;
+        }
+      }
+
       // Sidebar
       .sidebar {
-        flex-basis: @sidebar-width-screen-large;
         width: @sidebar-width-screen-large;
       }
 
@@ -453,9 +580,23 @@
 
     & when (@sidebar-enabled) and (@sidebar-screen-jumbo-enabled) {
 
+      // Sidebar Wrapper
+      .sidebar-wrapper {
+
+        .sidebar-visible & {
+
+          & + .page {
+            transform: translateX(@sidebar-width-screen-jumbo);
+          }
+        }
+
+        .sidebar-docked & {
+          max-width: @sidebar-width-screen-jumbo;
+        }
+      }
+
       // Sidebar
       .sidebar {
-        flex-basis: @sidebar-width-screen-jumbo;
         width: @sidebar-width-screen-jumbo;
       }
 

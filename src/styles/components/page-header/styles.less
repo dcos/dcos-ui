@@ -19,8 +19,32 @@
     }
   }
 
-  // TODO: Remove this if we aren't going to use it.
-  .page-navigation-sidebar-toggle {
+  .page-header-title-container {
+    align-items: center;
+    display: flex;
+    padding-left: @page-header-title-padding-left;
+    position: relative;
+    transition: padding-left 0.25s;
+  }
+
+  .page-header-sidebar-toggle {
+    cursor: pointer;
+    display: block;
+    flex: 0 0 auto;
+    left: @page-header-sidebar-toggle-left;
+    opacity: 0.35;
+    padding: @page-header-sidebar-toggle-padding;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: opacity 0.15s;
+
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+
+  .page-header-sidebar-toggle-label {
     display: none;
   }
 
@@ -31,6 +55,7 @@
 
   .page-header-title {
     color: @page-header-title-color;
+    flex: 0 0 auto;
     font-size: @page-header-title-font-size;
     font-weight: @page-header-title-font-weight;
     line-height: @page-header-title-line-height;
@@ -168,6 +193,10 @@
 
     & when (@page-header-enabled) and (@page-header-screen-small-enabled) {
 
+      .page-header-title-container {
+        padding-left: @page-header-title-padding-left-screen-small;
+      }
+
       .page-header-navigation {
 
         & when not (@pod-margin-top-screen-small = null) {
@@ -177,6 +206,11 @@
         & when not (@pod-margin-bottom-screen-small = null) {
           margin-bottom: -@pod-margin-bottom-screen-small;
         }
+      }
+
+      .page-header-sidebar-toggle {
+        left: @page-header-sidebar-toggle-left-screen-small;
+        padding: @page-header-sidebar-toggle-padding-screen-small;
       }
 
       .page-header-breadcrumbs {
@@ -205,6 +239,14 @@
 
     & when (@page-header-enabled) and (@page-header-screen-medium-enabled) {
 
+      .page-header-title-container {
+        padding-left: @page-header-title-padding-left-screen-medium;
+
+        .sidebar-docked & {
+          padding-left: 0;
+        }
+      }
+
       .page-header-title {
         margin-bottom: @page-header-title-margin-bottom * @page-header-title-margin-bottom-screen-medium;
         margin-top: @page-header-title-margin-top * @page-header-title-margin-top-screen-medium;
@@ -217,6 +259,15 @@
         &.tall {
           margin-bottom: @page-header-title-margin-bottom * @page-header-title-margin-bottom-screen-medium * @page-header-title-tall-margin-bottom-scale;
           margin-top: @page-header-title-margin-top * @page-header-title-margin-top-screen-medium * @page-header-title-tall-margin-top-scale;
+        }
+      }
+
+      .page-header-sidebar-toggle {
+        left: @page-header-sidebar-toggle-left-screen-medium;
+        padding: @page-header-sidebar-toggle-padding-screen-medium;
+
+        .sidebar-docked & {
+          display: none;
         }
       }
 
@@ -257,6 +308,10 @@
 
     & when (@page-header-enabled) and (@page-header-screen-large-enabled) {
 
+      .page-header-title-container {
+        padding-left: @page-header-title-padding-left-screen-large;
+      }
+
       .page-header-title {
         margin-bottom: @page-header-title-margin-bottom * @page-header-title-margin-bottom-screen-large;
         margin-top: @page-header-title-margin-top * @page-header-title-margin-top-screen-large;
@@ -270,6 +325,11 @@
           margin-bottom: @page-header-title-margin-bottom * @page-header-title-margin-bottom-screen-large * @page-header-title-tall-margin-bottom-scale;
           margin-top: @page-header-title-margin-top * @page-header-title-margin-top-screen-large * @page-header-title-tall-margin-top-scale;
         }
+      }
+
+      .page-header-sidebar-toggle {
+        left: @page-header-sidebar-toggle-left-screen-large;
+        padding: @page-header-sidebar-toggle-padding-screen-large;
       }
 
       .page-header-navigation {
@@ -309,6 +369,10 @@
 
     & when (@page-header-enabled) and (@page-header-screen-jumbo-enabled) {
 
+      .page-header-title-container {
+        padding-left: @page-header-title-padding-left-screen-jumbo;
+      }
+
       .page-header-navigation {
 
         & when not (@pod-margin-top-screen-jumbo = null) {
@@ -318,6 +382,11 @@
         & when not (@pod-margin-bottom-screen-jumbo = null) {
           margin-bottom: -@pod-margin-bottom-screen-jumbo;
         }
+      }
+
+      .page-header-sidebar-toggle {
+        left: @page-header-sidebar-toggle-left-screen-jumbo;
+        padding: @page-header-sidebar-toggle-padding-screen-jumbo;
       }
 
       .page-header-breadcrumbs {

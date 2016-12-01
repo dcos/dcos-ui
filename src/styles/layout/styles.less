@@ -1,21 +1,19 @@
 /* Foundation */
 
 html,
-body {
+body,
+#application {
   height: 100%;
   margin: 0;
   overflow: hidden;
   width: 100%;
 }
 
-#application > div {
-  height: 100%;
-}
-
-#application,
-.canvas {
+.application-wrapper {
+  display: flex;
   height: 100%;
   overflow: hidden;
+  width: 100%;
 }
 
 ::selection {

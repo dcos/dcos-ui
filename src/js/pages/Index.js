@@ -19,7 +19,8 @@ import SidebarStore from '../stores/SidebarStore';
 
 function getSidebarState() {
   return {
-    isOpen: SidebarStore.get('isOpen')
+    isDocked: SidebarStore.get('isDocked'),
+    isVisible: SidebarStore.get('isVisible')
   };
 }
 
@@ -130,14 +131,14 @@ var Index = React.createClass({
   },
 
   render() {
-    var data = this.internalStorage_get();
+    var {isDocked, isVisible} = this.internalStorage_get();
     let showErrorScreen =
       this.state.configErrorCount >= Config.delayAfterErrorCount;
 
-    var classSet = classNames('flex flex-direction-top-to-bottom',
-      'flex-direction-left-to-right-screen-medium', {
-        'canvas-sidebar-open': data.isOpen
-      });
+    var classSet = classNames('application-wrapper', {
+      'sidebar-visible': isVisible,
+      'sidebar-docked': isDocked
+    });
 
     return (
       <div className={classSet}>

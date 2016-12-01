@@ -3,6 +3,8 @@ import {RequestUtil} from 'mesosphere-shared-reactjs';
 import {
   REQUEST_SIDEBAR_OPEN,
   REQUEST_SIDEBAR_CLOSE,
+  REQUEST_SIDEBAR_DOCK,
+  REQUEST_SIDEBAR_UNDOCK,
   REQUEST_CLI_INSTRUCTIONS,
   REQUEST_VERSIONS_SUCCESS,
   REQUEST_VERSIONS_ERROR,
@@ -24,6 +26,20 @@ module.exports = {
   close() {
     AppDispatcher.handleSidebarAction({
       type: REQUEST_SIDEBAR_CLOSE,
+      data: false
+    });
+  },
+
+  dock() {
+    AppDispatcher.handleSidebarAction({
+      type: REQUEST_SIDEBAR_DOCK,
+      data: true
+    });
+  },
+
+  undock() {
+    AppDispatcher.handleSidebarAction({
+      type: REQUEST_SIDEBAR_UNDOCK,
       data: false
     });
   },

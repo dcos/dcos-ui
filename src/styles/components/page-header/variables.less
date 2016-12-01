@@ -10,8 +10,40 @@
 @page-header-screen-jumbo-enabled: @layout-screen-jumbo-enabled;
 
 /*
+ * Page Header Sidebar Toggle
+ */
+
+// Layout
+
+@page-header-sidebar-toggle-padding: @base-spacing-unit * 1/2;
+@page-header-sidebar-toggle-padding-screen-small: @base-spacing-unit-screen-small * 1/2;
+@page-header-sidebar-toggle-padding-screen-medium: @base-spacing-unit-screen-medium * 1/2;
+@page-header-sidebar-toggle-padding-screen-large: @base-spacing-unit-screen-large * 1/2;
+@page-header-sidebar-toggle-padding-screen-jumbo: @base-spacing-unit-screen-jumbo * 1/2;
+
+@page-header-sidebar-toggle-margin-right: @base-spacing-unit * 1/8;
+@page-header-sidebar-toggle-margin-right-screen-small: @base-spacing-unit-screen-small * 1/8;
+@page-header-sidebar-toggle-margin-right-screen-medium: @base-spacing-unit-screen-medium * 1/8;
+@page-header-sidebar-toggle-margin-right-screen-large: @base-spacing-unit-screen-large * 1/8;
+@page-header-sidebar-toggle-margin-right-screen-jumbo: @base-spacing-unit-screen-jumbo * 1/8;
+
+@page-header-sidebar-toggle-left: @page-header-sidebar-toggle-padding * -1;
+@page-header-sidebar-toggle-left-screen-small: @page-header-sidebar-toggle-padding-screen-small * -1;
+@page-header-sidebar-toggle-left-screen-medium: @page-header-sidebar-toggle-padding-screen-medium * -1;
+@page-header-sidebar-toggle-left-screen-large: @page-header-sidebar-toggle-padding-screen-large * -1;
+@page-header-sidebar-toggle-left-screen-jumbo: @page-header-sidebar-toggle-padding-screen-jumbo * -1;
+
+/*
  * Page Header Title
  */
+
+// Layout
+
+@page-header-title-padding-left: @icon-mini-width + @page-header-sidebar-toggle-padding + @page-header-sidebar-toggle-margin-right;
+@page-header-title-padding-left-screen-small: @icon-mini-width + @page-header-sidebar-toggle-padding-screen-small + @page-header-sidebar-toggle-margin-right-screen-small;
+@page-header-title-padding-left-screen-medium: @icon-mini-width + @page-header-sidebar-toggle-padding-screen-medium + @page-header-sidebar-toggle-margin-right-screen-medium;
+@page-header-title-padding-left-screen-large: @icon-mini-width + @page-header-sidebar-toggle-padding-screen-large + @page-header-sidebar-toggle-margin-right-screen-large;
+@page-header-title-padding-left-screen-jumbo: @icon-mini-width + @page-header-sidebar-toggle-padding-screen-jumbo + @page-header-sidebar-toggle-margin-right-screen-jumbo;
 
 // Text Styling
 

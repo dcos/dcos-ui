@@ -1,13 +1,15 @@
 import React from 'react';
 
 import EventTypes from '../constants/EventTypes';
+import Icon from '../components/Icon';
 import InternalStorageMixin from '../mixins/InternalStorageMixin';
 import SidebarActions from '../events/SidebarActions';
 import SidebarStore from '../stores/SidebarStore';
 
 function getSidebarState() {
   return {
-    isOpen: SidebarStore.get('isOpen')
+    isDocked: SidebarStore.get('isDocked'),
+    isVisible: SidebarStore.get('isVisible')
   };
 }
 
@@ -44,21 +46,24 @@ var SidebarToggle = React.createClass({
     var data = this.internalStorage_get();
 
     e.preventDefault();
+    e.stopPropagation();
 
-    if (data.isOpen) {
+    if (data.isVisible) {
       SidebarActions.close();
     } else {
       SidebarActions.open();
     }
-
   },
 
   render() {
     return (
-      <div className="page-navigation-sidebar-toggle" onClick={this.onClick}>
-        <span className="page-navigation-sidebar-toggle-icon icon icon-white
-          icon-margin-right icon-margin-right-wide icon-small" />
-        <span className="page-navigation-sidebar-toggle-label">
+      <div className="page-header-sidebar-toggle" onClick={this.onClick}>
+        <Icon className="page-header-sidebar-toggle-icon"
+          id="menu"
+          family="mini"
+          size="mini"
+          color="grey" />
+        <span className="page-header-sidebar-toggle-label">
           Show/Hide Sidebar
         </span>
       </div>
