@@ -464,9 +464,10 @@ const ServiceUtil = {
       return false;
     }
 
+    // Only compare the service specs as everything else is status data
     return deepEqual(
-        this.getServiceJSON(serviceA),
-        this.getServiceJSON(serviceB)
+        serviceA.getSpec(),
+        serviceB.getSpec()
       );
   },
 
