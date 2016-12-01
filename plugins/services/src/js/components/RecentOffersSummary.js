@@ -108,7 +108,7 @@ const columns = [
           maxWidth={200}
           wrapText={true}>
           <Icon
-            id="circle-info"
+            id="circle-information"
             size="mini"
             family="system"
             color="grey" />

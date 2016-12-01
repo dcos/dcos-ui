@@ -184,7 +184,7 @@ module.exports = {
             <Icon
               family="system"
               fill={this.configuration.foregroundColor}
-              id="circle-info"
+              id="circle-information"
               size="mini" />
           </span>
         </span>
