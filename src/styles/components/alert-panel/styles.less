@@ -1,0 +1,59 @@
+& when (@alert-panel-enabled) {
+
+  .alert-panel {
+    margin: 0 auto;
+    width: @alert-panel-width;
+  }
+}
+
+& when (@layout-screen-small-enabled) {
+
+  @media (min-width: @layout-screen-small-min-width) {
+
+    & when (@alert-panel-enabled) and (@alert-panel-screen-small-enabled) {
+
+      .alert-panel {
+        width: @alert-panel-width-screen-small;
+      }
+    }
+  }
+}
+
+& when (@layout-screen-medium-enabled) {
+
+  @media (min-width: @layout-screen-medium-min-width) {
+
+    & when (@alert-panel-enabled) and (@alert-panel-screen-medium-enabled) {
+
+      .alert-panel {
+        width: @alert-panel-width-screen-medium;
+      }
+    }
+  }
+}
+
+& when (@layout-screen-large-enabled) {
+
+  @media (min-width: @layout-screen-large-min-width) {
+
+    & when (@alert-panel-enabled) and (@alert-panel-screen-large-enabled) {
+
+      .alert-panel {
+        width: @alert-panel-width-screen-large;
+      }
+    }
+  }
+}
+
+& when (@layout-screen-jumbo-enabled) {
+
+  @media (min-width: @layout-screen-jumbo-min-width) {
+
+    & when (@alert-panel-enabled) and (@alert-panel-screen-jumbo-enabled) {
+
+      .alert-panel {
+        width: @alert-panel-width-screen-jumbo;
+      }
+    }
+  }
+}

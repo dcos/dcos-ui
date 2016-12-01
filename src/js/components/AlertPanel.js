@@ -51,10 +51,13 @@ var AlertPanel = React.createClass({
     return (
       <Panel ref="panel"
         className={classes}
-        contentClass={{
-          'panel-cell-narrow': false,
-          'panel-cell-short': false
-        }}
+        contentClass={[
+          'panel-cell-borderless panel-cell-wider panel-cell-taller',
+          {
+            'panel-cell-narrow': false,
+            'panel-cell-short': false
+          }
+        ]}
         footer={this.props.footer}
         footerClass={{
           'panel-cell-narrow': false,
