@@ -15,8 +15,7 @@ const ServiceItemNotFound = function ({ message }) {
 
   return (
     <AlertPanel
-      title="Service not found"
-      >
+      title="Service not found">
       <p className="tall">
         {message}
       </p>

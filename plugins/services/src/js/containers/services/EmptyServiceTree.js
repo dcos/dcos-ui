@@ -19,8 +19,7 @@ const EmptyServiceTree = function ({ onCreateService }) {
 
   return (
     <AlertPanel
-      title="No running services"
-      >
+      title="No running services">
       <p className="tall">
         Run a new service or create a new group to help organize your services.
       </p>

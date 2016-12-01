@@ -305,8 +305,7 @@ class DeploymentsTab extends mixin(StoreMixin) {
   renderEmpty() {
     return (
       <AlertPanel
-        title="No active deployments"
-        >
+        title="No active deployments">
         <p className="flush">Active deployments will be shown here.</p>
       </AlertPanel>
     );
