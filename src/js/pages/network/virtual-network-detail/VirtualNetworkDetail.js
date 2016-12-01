@@ -7,7 +7,6 @@ import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import Breadcrumbs from '../../../components/Breadcrumbs';
 import DetailViewHeader from '../../../components/DetailViewHeader';
-import Icon from '../../../components/Icon';
 import Loader from '../../../components/Loader';
 import RequestErrorMsg from '../../../components/RequestErrorMsg';
 import RouterUtil from '../../../utils/RouterUtil';
@@ -79,8 +78,6 @@ class VirtualNetworkDetail extends mixin(StoreMixin, TabsMixin) {
       return VirtualNetworkUtil.getEmptyNetworkScreen();
     }
 
-    let overlayIcon = <Icon id="network" size="large" color="neutral" />;
-
     let tabs = (
       <ul className="menu-tabbed">
         {this.tabs_getRoutedTabs({params: this.props.params})}
@@ -89,7 +86,6 @@ class VirtualNetworkDetail extends mixin(StoreMixin, TabsMixin) {
 
     return (
       <DetailViewHeader
-        icon={overlayIcon}
         subTitle={overlay.getSubnet()}
         navigationTabs={tabs}
         title={overlay.getName()} />

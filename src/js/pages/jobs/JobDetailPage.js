@@ -377,7 +377,6 @@ class JobDetailPage extends mixin(StoreMixin, TabsMixin) {
         <Breadcrumbs routes={this.props.routes} params={this.props.params} />
         <DetailViewHeader
           actionButtons={this.getActionButtons()}
-          icon={<Icon color="neutral" id="page-code" size="large" />}
           navigationTabs={this.getNavigationTabs()}
           subTitle={this.getSubTitle(job)}
           subTitleClassName={{emphasize: false}}
