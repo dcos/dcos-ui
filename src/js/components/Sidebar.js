@@ -342,7 +342,7 @@ var Sidebar = React.createClass({
               <div className="sidebar-dock-container pod pod-short pod-narrow flush-top">
                 <Icon className="sidebar-dock-trigger"
                   size="mini"
-                  family="mini"
+                  family="system"
                   id="sidebar-collapse"
                   onClick={this.toggleSidebarDocking} />
               </div>
