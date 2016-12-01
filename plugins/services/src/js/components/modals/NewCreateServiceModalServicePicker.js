@@ -65,10 +65,10 @@ class NewCreateServiceModalServicePicker extends React.Component {
   getServiceDeployOptions() {
     return (
       <div className="create-service-modal-service-picker container text-align-center">
-        <h3 className="short flush-top">
+        <h4 className="short flush-top">
           Run your own Service
-        </h3>
-        <p className="lead tall">
+        </h4>
+        <p className="tall">
           Create service from one or more containers, run a command, or run from
           Docker Compose.
         </p>
