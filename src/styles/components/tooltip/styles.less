@@ -5,9 +5,10 @@
 
     .tooltip-content {
       background: @tooltip-background-color;
-      border-radius: 2px;
+      border-radius: @tooltip-border-radius;
       color: @white;
-      padding: 0.8rem 1rem;
+      font-size: @tooltip-font-size;
+      padding: @tooltip-padding-vertical @tooltip-padding-horizontal;
 
       &:after {
         border-color: @tooltip-background-color;
