@@ -68,6 +68,26 @@ module.exports = {
       label: 'GPU'
     },
     {
+      key: 'backoffSeconds',
+      label: 'Backoff Seconds'
+    },
+    {
+      key: 'backoffFactor',
+      label: 'Backoff Factor'
+    },
+    {
+      key: 'maxLaunchDelaySeconds',
+      label: 'Backoff Max Launch Delay'
+    },
+    {
+      key: 'minHealthOpacity',
+      label: 'Upgrade Min Health Capacity'
+    },
+    {
+      key: 'maxOverCapacity',
+      label: 'Upgrade Max Overcapacity'
+    },
+    {
       key: 'container.docker.image',
       label: 'Container Image'
     },
@@ -95,6 +115,45 @@ module.exports = {
       key: 'cmd',
       label: 'Command',
       type: 'pre'
+    },
+    {
+      key: 'acceptedResourceRoles',
+      label: 'Resource Roles',
+      transformValue: (value = []) => {
+        return value.join(', ');
+      }
+    },
+    {
+      key: 'dependencies',
+      label: 'Dependencies',
+      transformValue: (value = []) => {
+        return value.join(', ');
+      }
+    },
+    {
+      key: 'executor',
+      label: 'Executor'
+    },
+    {
+      key: 'user',
+      label: 'User'
+    },
+    {
+      key: 'args',
+      label: 'Args',
+      transformValue: (value = []) => {
+        if (!value.length) {
+          return String.fromCharCode(8212);
+        }
+
+        return value.map((arg) => (
+          <pre className="flush transparent wrap">{arg}</pre>
+        ));
+      }
+    },
+    {
+      key: 'version',
+      label: 'Version'
     },
     {
       key: 'fetch',
