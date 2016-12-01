@@ -19,7 +19,7 @@ import ServiceConfigDisplay from '../ServiceConfigDisplay';
 import ServiceUtil from '../../utils/ServiceUtil';
 import ToggleButton from '../../../../../../src/js/components/ToggleButton';
 import Util from '../../../../../../src/js/utils/Util';
-
+import RuntimeErrorModal from './RuntimeErrorModal';
 import ContainerServiceFormSection from '../forms/ContainerServiceFormSection';
 import EnvironmentFormSection from '../forms/EnvironmentFormSection';
 import GeneralServiceFormSection from '../forms/GeneralServiceFormSection';
@@ -425,12 +425,15 @@ class NewServiceFormModal extends Component {
     let {props} = this;
 
     return (
-      <FullScreenModal
-        header={this.getHeader()}
-        onClose={this.handleClose}
-        {...Util.omit(props, Object.keys(NewServiceFormModal.propTypes))}>
-        {this.getModalContent()}
-      </FullScreenModal>
+      <div>
+        <FullScreenModal
+          header={this.getHeader()}
+          onClose={this.handleClose}
+          {...Util.omit(props, Object.keys(NewServiceFormModal.propTypes))}>
+          {this.getModalContent()}
+        </FullScreenModal>
+        <RuntimeErrorModal errors={this.props.errors} />
+      </div>
     );
   }
 }
