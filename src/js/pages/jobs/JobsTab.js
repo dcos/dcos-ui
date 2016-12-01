@@ -168,7 +168,7 @@ class JobsTab extends mixin(StoreMixin, QueryParamsMixin, SaveStateMixin) {
       <div className="button-collection flush-bottom">
         <button className="button button-success"
           onClick={this.handleOpenJobFormModal}>
-          Create Job
+          Create a Job
         </button>
       </div>
     );
@@ -191,7 +191,7 @@ class JobsTab extends mixin(StoreMixin, QueryParamsMixin, SaveStateMixin) {
     // Render empty panel
     return (
       <AlertPanel
-        title="No Jobs Created">
+        title="No active jobs">
         <p className="tall">
           Create both one-off or scheduled jobs to perform tasks at a predefined interval.
         </p>

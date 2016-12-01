@@ -12,17 +12,17 @@ const EmptyServiceTree = function ({ onCreateService }) {
       </button>
       <button className="button button-success"
         onClick={onCreateService}>
-        Deploy Service
+        Run a Service
       </button>
     </div>
   );
 
   return (
     <AlertPanel
-      title="No Services Deployed"
+      title="No running services"
       >
       <p className="tall">
-        Create groups to organize your services or deploy a new service.
+        Run a new service or create a new group to help organize your services.
       </p>
       {footer}
     </AlertPanel>

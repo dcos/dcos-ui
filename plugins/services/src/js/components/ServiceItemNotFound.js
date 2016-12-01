@@ -6,14 +6,16 @@ import AlertPanel from '../../../../../src/js/components/AlertPanel';
 const ServiceItemNotFound = function ({ message }) {
 
   const footer = (
-    <Link to="/services" className="button button-stroke">
-      Go back to Services Page
-    </Link>
+    <div className="button-collection flush-bottom">
+      <Link to="/services" className="button button-stroke">
+        View Services
+      </Link>
+    </div>
   );
 
   return (
     <AlertPanel
-      title="Not Found"
+      title="Service not found"
       >
       <p className="tall">
         {message}

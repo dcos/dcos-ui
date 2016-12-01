@@ -58,7 +58,7 @@ class ServiceVolumeContainer extends React.Component {
     if (!service) {
       return (
         <ServiceItemNotFound
-          message={`Service '${id}' was not found.`} />
+          message={`The service with the ID of "${id}" could not be found.`} />
       );
     }
 

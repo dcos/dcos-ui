@@ -67,9 +67,9 @@ class VirtualNetworksTabContent extends mixin(StoreMixin) {
   getEmptyScreen() {
     return (
       <AlertPanel
-        title="No Networks Detected">
+        title="No virtual networks detected">
         <p className="flush">
-          Virtual Networks have to be configured at cluster creation time.
+          There a currently no other virtual networks found on your datacenter. Virtual networks are configured during setup of your DC/OS cluster.
         </p>
       </AlertPanel>
     );
