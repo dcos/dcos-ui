@@ -39,7 +39,7 @@ let EnvironmentVariables = {
       itemShape: {
         properties: {
           key: {
-            inputClass: 'form-control upper-cased',
+            inputClass: 'form-control text-uppercase',
             title: 'Key',
             type: 'string'
           },

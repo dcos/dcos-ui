@@ -4,8 +4,15 @@ import React from 'react';
 import {omit} from '../../utils/Util';
 
 const FieldHelp = (props) => {
-  let {className} = props;
-  let classes = classNames('small flush-bottom', className);
+  let {className, textTransform} = props;
+  let classes = classNames(
+    'small flush-bottom',
+    className,
+    {
+      'text-uppercase': textTransform === 'uppercase',
+      'text-no-transform': textTransform === 'none'
+    }
+  );
 
   return (
     <p
@@ -14,13 +21,18 @@ const FieldHelp = (props) => {
   );
 };
 
+FieldHelp.defaultProps = {
+  textTransform: 'none'
+};
+
 FieldHelp.propTypes = {
   // Classes
   className: React.PropTypes.oneOfType([
     React.PropTypes.array,
     React.PropTypes.object,
     React.PropTypes.string
-  ])
+  ]),
+  textTransform: React.PropTypes.oneOf(['none', 'uppercase'])
 };
 
 module.exports = FieldHelp;
