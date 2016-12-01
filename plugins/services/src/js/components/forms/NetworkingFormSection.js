@@ -13,9 +13,9 @@ import {FormReducer as portDefinitions} from '../../reducers/serviceForm/PortDef
 import HostUtil from '../../utils/HostUtil';
 import Icon from '../../../../../../src/js/components/Icon';
 import Networking from '../../../../../../src/js/constants/Networking';
-import VolumeConstants from '../../constants/VolumeConstants';
+import ContainerConstants from '../../constants/ContainerConstants';
 
-const {MESOS} = VolumeConstants.type;
+const {MESOS} = ContainerConstants.type;
 
 class NetworkingFormSection extends Component {
   getHostPortFields(portDefinition, index) {
