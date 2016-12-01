@@ -8,7 +8,8 @@ class FullScreenModal extends React.Component {
     let {props} = this;
 
     return (
-      <Modal modalHeight="100%"
+      <Modal geminiClass="gm-scrollbar-container-flex"
+        modalHeight="100%"
         modalClass="modal modal-full-screen"
         showHeader={true}
         showFooter={false}
