@@ -51,7 +51,7 @@ Cypress.addParentCommand('configureCluster', function (configuration) {
   }
   if (configuration.mesos === '1-empty-group') {
     cy
-      .route(/marathon\/v2\/groups/, 'fx:marathon-1-group/groups')
+      .route(/marathon\/v2\/groups/, 'fx:marathon-1-group/groups');
   }
 
   if (configuration.mesos === '1-for-each-health') {
@@ -98,7 +98,7 @@ Cypress.addParentCommand('configureCluster', function (configuration) {
   if (configuration.deployments === 'one-deployment') {
     cy
       .route(/marathon\/v2\/deployments/, 'fx:deployments/one-deployment')
-      .route(/service\/marathon\/v2\/groups/, 'fx:marathon-1-group/kafka')
+      .route(/service\/marathon\/v2\/groups/, 'fx:marathon-1-group/kafka');
   }
 
   if (configuration.networkVIPSummaries) {
@@ -210,9 +210,9 @@ Cypress.addParentCommand('visitUrl', function (options) {
       identifyCallback(win);
       win.analytics = {
         initialized: true,
-        page: function () {},
-        push: function () {},
-        track: function () {}
+        page() {},
+        push() {},
+        track() {}
       };
     };
   }
