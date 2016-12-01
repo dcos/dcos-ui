@@ -1,9 +1,13 @@
+import {DCOSStore} from 'foundation-ui';
 import {Dropdown} from 'reactjs-components';
+import mixin from 'reactjs-mixin';
 import React from 'react';
+import {StoreMixin} from 'mesosphere-shared-reactjs';
 
-import ServiceSpecView from './ServiceSpecView';
-import Service from '../../structs/Service';
 import ApplicationSpec from '../../structs/ApplicationSpec';
+import Loader from '../../../../../../src/js/components/Loader';
+import ServiceConfigDisplay from '../../components/ServiceConfigDisplay';
+import Service from '../../structs/Service';
 import ServiceUtil from '../../utils/ServiceUtil';
 
 const METHODS_TO_BIND = [
@@ -12,7 +16,13 @@ const METHODS_TO_BIND = [
   'handleVersionSelection'
 ];
 
-class ServiceConfiguration extends React.Component {
+function fetchVersion(service, versionID) {
+  if (service.getVersions().get(versionID) == null) {
+    DCOSStore.fetchServiceVersion(service.getId(), versionID);
+  }
+}
+
+class ServiceConfiguration extends mixin(StoreMixin) {
   constructor() {
     super(...arguments);
 
@@ -20,25 +30,20 @@ class ServiceConfiguration extends React.Component {
       selectedVersionID: null
     };
 
+    this.store_listeners = [{name: 'dcos', events: ['change']}];
+
     METHODS_TO_BIND.forEach((method) => {
       this[method] = this[method].bind(this);
     });
   }
 
   componentWillMount() {
-    this.setState({
-      selectedVersionID: this.props.service.getVersion()
-    });
-  }
+    const {service} = this.props;
+    const versionID = service.getVersion();
 
-  componentWillReceiveProps({service:nextService}) {
-    if (nextService.getVersion() === this.props.service.getVersion()) {
-      return;
-    }
+    this.setState({selectedVersionID: versionID});
 
-    this.setState({
-      selectedVersionID: nextService.getVersion()
-    });
+    fetchVersion(service, versionID);
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -73,9 +78,9 @@ class ServiceConfiguration extends React.Component {
   }
 
   handleVersionSelection(versionItem) {
-    this.setState({
-      selectedVersionID: versionItem.id
-    });
+    fetchVersion(this.props.service, versionItem.id);
+
+    this.setState({selectedVersionID: versionItem.id});
   }
 
   getVersionsActions() {
@@ -125,7 +130,12 @@ class ServiceConfiguration extends React.Component {
       let localeVersion = new Date(version).toLocaleString();
       let itemCaption = localeVersion;
       if (version === service.getVersion()) {
-        itemCaption = `Current Version - ${localeVersion}`;
+        itemCaption = (
+          <span className="badge-container">
+            <span className="badge-container-text">{localeVersion}</span>
+            <span className="badge">Active</span>
+          </span>
+        );
       }
 
       versionItems.push({
@@ -143,7 +153,7 @@ class ServiceConfiguration extends React.Component {
 
     return (
       <Dropdown
-        buttonClassName="button dropdown-toggle button-split-content"
+        buttonClassName="button dropdown-toggle button-transparent button-split-content"
         dropdownMenuClassName="dropdown-menu"
         dropdownMenuListClassName="dropdown-menu-list"
         dropdownMenuListItemClassName="clickable"
@@ -160,23 +170,31 @@ class ServiceConfiguration extends React.Component {
   }
 
   render() {
-    let {service} = this.props;
-    let {selectedVersionID} = this.state;
+    const {service} = this.props;
+    const {selectedVersionID} = this.state;
+    const config = service.getVersions().get(selectedVersionID);
+    let content = null;
 
-    let localeVersion = new Date(selectedVersionID).toLocaleString();
+    const localeVersion = new Date(selectedVersionID).toLocaleString();
     let headline = `Current Version (${localeVersion})`;
 
     if (service.getVersion() !== selectedVersionID) {
       headline = `Previous Version (${localeVersion})`;
     }
 
+    if (config == null) {
+      content = <Loader />;
+    } else {
+      content = <ServiceConfigDisplay appConfig={config} />;
+    }
+
     return (
-      <div className="tab">
-        {this.getVersionsActions()}
-        <ServiceSpecView
-          headline={headline}
-          service={service}
-          versionID={selectedVersionID} />
+      <div className="flex-item-grow-1">
+        <div className="container">
+          {this.getVersionsActions()}
+          <h4 className="flush-top" title={selectedVersionID}>{headline}</h4>
+          {content}
+        </div>
       </div>
     );
   }
