@@ -105,7 +105,7 @@ describe('Service Actions', function () {
         .should('to.have.text', 'Not Authorized to perform this action!');
     });
 
-    it('reenables button after faulty request', function () {
+    xit('reenables button after faulty request', function () {
       cy
         .route({
           method: 'DELETE',
