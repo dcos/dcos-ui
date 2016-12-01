@@ -73,15 +73,11 @@ class ServiceConfigDisplay extends React.Component {
 
   render() {
     return (
-      <div className="flex-item-grow-1">
-        <div className="container">
-          <ConfigurationMap>
-            <MountService.Mount
-              type={this.getMountType()}
-              appConfig={this.props.appConfig} />
-          </ConfigurationMap>
-        </div>
-      </div>
+      <ConfigurationMap>
+        <MountService.Mount
+          type={this.getMountType()}
+          appConfig={this.props.appConfig} />
+      </ConfigurationMap>
     );
   };
 }
