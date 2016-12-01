@@ -24,13 +24,13 @@ class NewCreateServiceModalServicePicker extends React.Component {
       icon: (
         <Image fallbackSrc={defaultServiceImage} src={defaultServiceImage} />
       ),
-      label: 'Container Service',
+      label: 'Use the Form',
       type: 'app'
     }, {
       icon: (
         <Image fallbackSrc={jsonServiceImage} src={jsonServiceImage} />
       ),
-      label: 'JSON Configuration',
+      label: 'Enter JSON',
       type: 'json'
     }].map((item, index) => {
       return this.getServiceOption(
@@ -64,7 +64,7 @@ class NewCreateServiceModalServicePicker extends React.Component {
           Run your own Service
         </h4>
         <p className="lead tall">
-          Create a service from a container or compose a custom JSON configuration.
+          Create a containerized service or run a command in one of two ways: use our form to be guided through the correct configuration, or enter your JSON configuration directly.
         </p>
         {this.getCustomServiceGrid()}
       </div>
