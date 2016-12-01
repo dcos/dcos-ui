@@ -44,9 +44,14 @@
     }
   }
 
-  .sidebar-overlay {
-    &:extend(.modal-backdrop);
+  .sidebar-backdrop {
+    background: @modal-backdrop-background-color;
+    height: 100%;
+    left: 0;
+    position: fixed;
+    top: 0;
     transition: opacity 0.25s;
+    width: 100%;
     z-index: @z-index-sidebar-overlay;
 
     &-enter {

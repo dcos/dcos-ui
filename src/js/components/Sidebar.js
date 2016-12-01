@@ -316,14 +316,14 @@ var Sidebar = React.createClass({
 
     if (SidebarStore.get('isVisible')) {
       overlay = (
-        <div className="sidebar-overlay" onClick={this.handleOverlayClick} />
+        <div className="sidebar-backdrop" onClick={this.handleOverlayClick} />
       );
     }
 
     return (
       <div className="sidebar-wrapper">
         <CSSTransitionGroup
-          transitionName="sidebar-overlay"
+          transitionName="sidebar-backdrop"
           transitionEnterTimeout={250}
           transitionLeaveTimeout={250}>
           {overlay}
