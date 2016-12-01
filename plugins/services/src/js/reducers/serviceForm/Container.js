@@ -70,7 +70,8 @@ const containerJSONReducer = combineReducers({
       this.internalState = {};
     }
 
-    this.internalState = docker.call(this, this.internalState, {type, path, value}, index);
+    // Passing down the index as well, for reducers to use context
+    this.internalState = docker(this.internalState, {type, path, value}, index);
 
     const joinedPath = path && path.join('.');
     if (type === SET && joinedPath === 'container.type') {
@@ -109,7 +110,8 @@ const containerReducer = combineReducers({
       this.internalState = {};
     }
 
-    this.internalState = docker.call(this, this.internalState, {type, path, value}, index);
+    // Passing down the index as well, for reducers to use context
+    this.internalState = docker(this.internalState, {type, path, value}, index);
 
     const joinedPath = path && path.join('.');
     if (type === SET && joinedPath === 'container.type') {

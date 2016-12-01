@@ -26,7 +26,7 @@ module.exports = combineReducers({
     }
 
     let joinedPath = path.join('.');
-    if (joinedPath === 'networking.type') {
+    if (joinedPath === 'container.docker.network') {
       this.appState.networkType = value;
     }
 
@@ -50,7 +50,7 @@ module.exports = combineReducers({
 
         if (this.portDefinitions[index].loadBalanced) {
           newPortDefinition.labels = {
-            [`VIP_${index}`]: `${this.appState.id}:${port}`
+            [`VIP_${index}`]: `${this.appState.id}:${hostPort}`
           };
         }
 

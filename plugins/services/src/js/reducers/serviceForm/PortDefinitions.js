@@ -12,7 +12,7 @@ module.exports = {
     }
 
     let joinedPath = path.join('.');
-    if (joinedPath === 'networking.type') {
+    if (joinedPath === 'container.docker.network') {
       this.appState.networkType = value;
     }
 
@@ -23,17 +23,18 @@ module.exports = {
     this.portDefinitions = networkingReducer(this.portDefinitions, state, action);
 
     return this.portDefinitions.map((portDefinition, index) => {
-      if (this.appState.networkType === Networking.type.HOST) {
-        let port = Number(this.portDefinitions[index].hostPort) || 0;
+      if (this.appState.networkType === Networking.type.HOST ||
+        this.appState.networkType === Networking.type.BRIDGE) {
+        let hostPort = Number(this.portDefinitions[index].hostPort) || 0;
         let newPortDefinition = {
           name: portDefinition.name,
-          port,
+          port: hostPort,
           protocol: portDefinition.protocol
         };
 
         if (this.portDefinitions[index].loadBalanced) {
           newPortDefinition.labels = {
-            [`VIP_${index}`]: `${this.appState.id}:${port}`
+            [`VIP_${index}`]: `${this.appState.id}:${hostPort}`
           };
         }
 
