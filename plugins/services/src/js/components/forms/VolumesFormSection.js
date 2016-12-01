@@ -127,7 +127,7 @@ class VolumesFormSection extends Component {
                 <a className="button button-primary-link"
                   onClick={this.props.onRemoveItem.bind(this,
                     {value: key, path: 'localVolumes'})}>
-                  <Icon id="close" color="grey" size="tiny"/>
+                  <Icon id="close" color="grey" size="tiny" family="tiny"/>
                 </a>
               </div>
             </div>
@@ -173,7 +173,7 @@ class VolumesFormSection extends Component {
                 <a className="button button-primary-link"
                   onClick={this.props.onRemoveItem.bind(this,
                     {value: key, path: 'externalVolumes'})}>
-                  <Icon id="close" color="grey" size="tiny"/>
+                  <Icon id="close" color="grey" size="tiny" family="tiny"/>
                 </a>
               </div>
             </div>

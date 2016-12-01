@@ -9,7 +9,7 @@ const FormGroupContainer = (props) => {
       <div className="form-group-container-action-button-group">
         <a className="button button-primary-link"
           onClick={props.onRemove}>
-          <Icon id="close" color="grey" size="tiny"/>
+          <Icon id="close" color="grey" size="tiny" family="tiny"/>
         </a>
       </div>
     );
