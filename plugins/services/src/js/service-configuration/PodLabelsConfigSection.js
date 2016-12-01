@@ -5,63 +5,79 @@ import Heading from '../../../../../src/js/components/ConfigurationMapHeading';
 import Section from '../../../../../src/js/components/ConfigurationMapSection';
 import ServiceConfigDisplayUtil from '../utils/ServiceConfigDisplayUtil';
 
-module.exports = ({appConfig}) => {
-  let {labels={}, containers=[]} = appConfig;
-
-  let combinedLabels = Object.keys(labels).reduce((memo, key) => {
-    memo.push({
-      key: <code>{key}</code>,
-      value: labels[key],
-      container: ServiceConfigDisplayUtil.getSharedIconWithLabel()
-    });
-
-    return memo;
-  }, []);
-
-  combinedLabels = containers.reduce((memo, container) => {
-    let {labels={}} = container;
-    return Object.keys(labels).reduce((cvMemo, key) => {
-      cvMemo.push({
-        key: <code>{key}</code>,
-        value: labels[key],
-        container: ServiceConfigDisplayUtil.getContainerNameWithIcon(container)
-      });
-
-      return cvMemo;
-    }, memo);
-  }, combinedLabels);
-
-  if (!combinedLabels.length) {
-    return null;
+class PodLabelsConfigSection extends React.Component {
+  getColumns() {
+    return [
+      {
+        heading: 'Key',
+        prop: 'key'
+      },
+      {
+        heading: 'Value',
+        prop: 'value'
+      },
+      {
+        heading: 'Container',
+        prop: 'container'
+      }
+    ];
   }
 
-  return (
-    <div>
-      <Heading level={1}>Labels</Heading>
-      <Section key="pod-general-section">
+  render() {
+    let {labels={}, containers=[]} = this.props.appConfig;
 
-        <ConfigurationMapTable
-          className="table table-simple table-break-word flush-bottom"
-          columnDefaults={{
-            hideIfEmpty: true
-          }}
-          columns={[
-            {
-              heading: 'Key',
-              prop: 'key'
-            },
-            {
-              heading: 'Value',
-              prop: 'value'
-            },
-            {
-              heading: 'Container',
-              prop: 'container'
-            }
-          ]}
-          data={combinedLabels} />
+    let combinedLabels = Object.keys(labels).reduce((memo, key) => {
+      memo.push({
+        key: <code>{key}</code>,
+        value: labels[key],
+        container: ServiceConfigDisplayUtil.getSharedIconWithLabel()
+      });
 
-      </Section>
-    </div>
-  );
+      return memo;
+    }, []);
+
+    combinedLabels = containers.reduce((memo, container) => {
+      let {labels={}} = container;
+      return Object.keys(labels).reduce((cvMemo, key) => {
+        cvMemo.push({
+          key: <code>{key}</code>,
+          value: labels[key],
+          container: ServiceConfigDisplayUtil.getContainerNameWithIcon(container)
+        });
+
+        return cvMemo;
+      }, memo);
+    }, combinedLabels);
+
+    if (!combinedLabels.length) {
+      return null;
+    }
+
+    return (
+      <div>
+        <Heading level={1}>Labels</Heading>
+        <Section key="pod-general-section">
+
+          <ConfigurationMapTable
+            className="table table-simple table-break-word flush-bottom"
+            columnDefaults={{
+              hideIfEmpty: true
+            }}
+            columns={this.getColumns()}
+            data={combinedLabels} />
+
+        </Section>
+      </div>
+    );
+  }
 };
+
+PodLabelsConfigSection.defaultProps = {
+  appConfig: {}
+};
+
+PodLabelsConfigSection.propTypes = {
+  appConfig: React.PropTypes.object
+};
+
+module.exports = PodLabelsConfigSection;

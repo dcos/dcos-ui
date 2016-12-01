@@ -20,8 +20,8 @@ import ValueWithDefault from '../components/ConfigurationMapValueWithDefault';
  */
 function getContainerResourceSummary(resource, {containers=[]}) {
   let summary = containers.reduce((memo, {name, resources={}}) => {
-    if (resources[resource]) {
-      let value = resources[resource];
+    let value = resources[resource];
+    if (value) {
       memo.value += value;
       memo.parts.push(
         `${Units.formatResource(resource, value)} ${name}`
