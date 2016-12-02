@@ -478,7 +478,7 @@ class JSONEditor extends React.Component {
         }
 
         return memo;
-      }, [{path: [], line: 0}]);
+      }, [{path: [], row: 0}]);
 
       // Find the most specific token line
       let candidate = candidates
