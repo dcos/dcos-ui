@@ -192,9 +192,6 @@ class SearchDSLInputField extends React.Component {
     );
   }
 
-  /**
-   * @override
-   */
   render() {
     let {
       className,
