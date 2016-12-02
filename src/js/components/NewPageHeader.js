@@ -47,7 +47,7 @@ class PageHeader extends React.Component {
       <div className={classes}>
         <div className={innerClasses}>
           <div className={primaryContentClasses}>
-            <NewPageHeaderBreadcrumbs breadcrumbs={breadcrumbs} />
+            {breadcrumbs}
             <NewPageHeaderActions actions={actions} />
           </div>
           <div className={secondaryContentClasses}>
@@ -73,7 +73,7 @@ PageHeader.defaultProps = {
 
 PageHeader.propTypes = {
   actions: React.PropTypes.array,
-  breadcrumbs: React.PropTypes.array.isRequired,
+  breadcrumbs: React.PropTypes.node.isRequired,
   className: classProps,
   innerClassName: classProps,
   primaryContentClassName: classProps,
@@ -81,5 +81,9 @@ PageHeader.propTypes = {
   secondaryContentDetail: React.PropTypes.node,
   tabs: React.PropTypes.array
 };
+
+PageHeader.Breadcrumbs = NewPageHeaderBreadcrumbs;
+PageHeader.Actions = NewPageHeaderActions;
+PageHeader.Tabs = NewPageHeaderTabs;
 
 module.exports = PageHeader;
