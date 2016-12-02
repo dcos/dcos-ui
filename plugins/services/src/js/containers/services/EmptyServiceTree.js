@@ -2,7 +2,7 @@ import React, {PropTypes} from 'react';
 
 import AlertPanel from '../../../../../../src/js/components/AlertPanel';
 
-const EmptyServiceTree = function ({ onCreateService }) {
+const EmptyServiceTree = function ({ onCreateGroup, onCreateService }) {
 
   const footer = (
     <div className="button-collection flush-bottom">
