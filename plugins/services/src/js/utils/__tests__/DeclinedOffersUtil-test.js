@@ -237,6 +237,134 @@ describe('DeclinedOffersUtil', function () {
         }
       });
     });
+
+    it('adds executorResources to a pod\'s requestes resources', function () {
+      const summary = DeclinedOffersUtil.getSummaryFromQueue({
+        pod: {
+          containers: [
+            {
+              resources: {
+                cpus: 1,
+                mem: 100,
+                disk: 200,
+                ports: [100]
+              }
+            },
+            {
+              resources: {
+                cpus: 2,
+                mem: 200,
+                disk: 400,
+                ports: [200, 300]
+              }
+            },
+            {
+              resources: {
+                cpus: 3,
+                mem: 300,
+                disk: 600,
+                ports: [400, 500]
+              }
+            }
+          ],
+          scheduling: {
+            placement: {
+              acceptedResourceRoles: ['foo', 'bar'],
+              constraints: [['foo.constraint.1', 'foo.constraint.2', 'foo.constraint.3']]
+            }
+          },
+          executorResources: {
+            cpus: 10,
+            mem: 20,
+            disk: 30
+          }
+        },
+        processedOffersSummary: {
+          processedOffersCount: 10,
+          unusedOffersCount: 1,
+          rejectSummaryLastOffers: [
+            {
+              reason: 'UnfulfilledRole',
+              declined: 0,
+              processed: 123
+            },
+            {
+              reason: 'UnfulfilledConstraint',
+              declined: 0,
+              processed: 123
+            },
+            {
+              reason: 'NoCorrespondingReservationFound',
+              declined: 0,
+              processed: 123
+            },
+            {
+              reason: 'InsufficientCpus',
+              declined: 75,
+              processed: 123
+            },
+            {
+              reason: 'InsufficientMemory',
+              declined: 15,
+              processed: 48
+            },
+            {
+              reason: 'InsufficientDisk',
+              declined: 10,
+              processed: 33
+            },
+            {
+              reason: 'InsufficientGpus',
+              declined: 0,
+              processed: 23
+            },
+            {
+              reason: 'InsufficientPorts',
+              declined: 23,
+              processed: 23
+            }
+          ]
+        },
+        lastUnusedOffers: [
+          {
+            foo: 'bar'
+          }
+        ]
+      });
+
+      expect(summary).toEqual({
+        roles: {
+          requested: 'foo, bar',
+          offers: 123,
+          matched: 123
+        },
+        constraints: {
+          requested: 'foo.constraint.1:foo.constraint.2:foo.constraint.3',
+          offers: 123,
+          matched: 123
+        },
+        cpus: {
+          requested: 16,
+          offers: 123,
+          matched: 48
+        },
+        mem: {
+          requested: 620,
+          offers: 48,
+          matched: 33
+        },
+        disk: {
+          requested: 1230,
+          offers: 33,
+          matched: 23
+        },
+        ports: {
+          requested: '100, 200, 300, 400, 500',
+          offers: 23,
+          matched: 0
+        }
+      });
+    });
   });
 
   describe('#getOffersFromQueue', function () {
