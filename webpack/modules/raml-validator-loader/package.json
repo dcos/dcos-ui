@@ -1,6 +1,6 @@
 {
   "name": "raml-validator-loader",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "Converts RAML document to javascript validation functions",
   "main": "lib/raml-validator-loader.js",
   "scripts": {

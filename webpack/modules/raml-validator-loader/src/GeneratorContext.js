@@ -14,7 +14,22 @@ class GeneratorContext {
        *
        * @property {boolean}
        */
-      patternPropertiesAreOptional: true
+      patternPropertiesAreOptional: true,
+
+      /**
+       * If this flag is set to `true`, all missing properties will be emmited
+       * in their path. For example, if property `foo` is missing on the object
+       * `bar`, you will get an error:
+       *
+       * `bar.foo`: Missing property
+       *
+       * Instead of the default:
+       *
+       * `foo`: Missing property `bar`
+       *
+       * @property {boolean}
+       */
+      missingPropertiesOnTheirPath: true
 
     };
 
