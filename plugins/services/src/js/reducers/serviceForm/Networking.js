@@ -14,11 +14,17 @@ const defaultFieldValues = {
   loadBalanced: false
 };
 
-function reducer(portDefinitions = [], state = [], {type, path = [], value}) {
-  if (path == null) {
-    return state;
-  }
-
+/**
+ * Creates portDefinitions to be used by networking reducers,
+ * i.e. PortDefinitions and PortMappings.
+ * @param {Object[]} portDefinitions - existing PortDefinitions
+ * @param {Object} action
+ * @param {(ADD_ITEM|REMOVE_ITEM|SET)} action.type - action to perform
+ * @param {String[]} action.path - location of value
+ * @param {*} action.value - to perform action with
+ * @return {Object[]} new portDefinitions with action performed on it
+ */
+function reducer(portDefinitions = [], {type, path = [], value}) {
   let joinedPath = path.join('.');
 
   if (path.includes('portDefinitions')) {

@@ -42,8 +42,9 @@ module.exports = combineReducers({
       return null;
     }
 
-    this.portDefinitions = networkingReducer(this.portDefinitions, state, action);
+    this.portDefinitions = networkingReducer(this.portDefinitions, action);
 
+    // Convert portDefinitions to portMappings
     return this.portDefinitions.map((portDefinition, index) => {
       let hostPort = Number(this.portDefinitions[index].hostPort) || 0;
       let containerPort = Number(this.portDefinitions[index].containerPort) || 0;
@@ -54,6 +55,7 @@ module.exports = combineReducers({
         protocol: portDefinition.protocol
       };
 
+      // Only set labels if port mapping is load balaced
       if (this.portDefinitions[index].loadBalanced) {
         newPortDefinition.labels = {
           [`VIP_${index}`]: `${this.appState.id}:${hostPort}`

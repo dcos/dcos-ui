@@ -9,6 +9,15 @@ import networkingReducer from './Networking';
 const {BRIDGE, HOST} = Networking.type;
 
 module.exports = {
+  /**
+   * Creates portDefinitions for the JSON Editor
+   * @param {Object[]} state Initial state to apply action on
+   * @param {Object} action
+   * @param {(ADD_ITEM|REMOVE_ITEM|SET)} action.type - action to perform
+   * @param {String[]} action.path - location of value
+   * @param {*} action.value - value to perform action with
+   * @return {Object[]} new portDefinitions with action performed on it
+   */
   JSONReducer(state = [], action) {
     let {path, value} = action;
     if (!this.appState) {
@@ -33,8 +42,10 @@ module.exports = {
       return null;
     }
 
-    this.portDefinitions = networkingReducer(this.portDefinitions, state, action);
+    // Apply networkingReducer to retrieve updated local state
+    this.portDefinitions = networkingReducer(this.portDefinitions, action);
 
+    // Create JSON port definitions from state
     return this.portDefinitions.map((portDefinition, index) => {
       let hostPort = Number(this.portDefinitions[index].hostPort) || 0;
       let newPortDefinition = {
@@ -43,6 +54,7 @@ module.exports = {
         protocol: portDefinition.protocol
       };
 
+      // Only set labels if port mapping is load balaced
       if (this.portDefinitions[index].loadBalanced) {
         newPortDefinition.labels = {
           [`VIP_${index}`]: `${this.appState.id}:${hostPort}`
@@ -53,6 +65,13 @@ module.exports = {
     });
   },
 
+  /**
+   * Parses a configuration and produces necessary Transactions for a Batch
+   * to create an equal JSON configuration
+   * @param {Object[]} state - Initial state to apply action on
+   * @return {Transaction[]} Array of Transactions to produce
+   * given configuration
+   */
   JSONParser(state) {
     if (state.portDefinitions == null) {
       return [];
@@ -116,9 +135,22 @@ module.exports = {
     }, []);
   },
 
+  /**
+   * Creates portDefinitions for the form. This is equal to what is produced
+   * by the networkingReducer
+   * @param {Object[]} state - existing PortDefinitions
+   * @param {Object} action
+   * @param {(ADD_ITEM|REMOVE_ITEM|SET)} action.type - action to perform
+   * @param {String[]} action.path - location of value
+   * @param {*} action.value - value to perform action with
+   * @return {Object[]} new portDefinitions with action performed on it
+   */
   FormReducer(state = [], action) {
-    this.portDefinitions = networkingReducer(this.portDefinitions, state, action);
+    // Store the state locally
+    this.portDefinitions = networkingReducer(this.portDefinitions, action);
 
+    // We want the portDefinitions as it comes from networking reducer
+    // for the form
     return this.portDefinitions;
   }
 };
