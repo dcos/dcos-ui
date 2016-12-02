@@ -1,48 +1,112 @@
 & when (@pod-instances-table-enabled) {
 
   .pod-instances-table {
+    table-layout: fixed;
 
     td {
       vertical-align: top;
     }
+  }
 
-    .column-logs {
-      padding-left: 0;
+  .pod-instances-table-column {
+
+    &-host-address,
+    &-status,
+    &-logs,
+    &-cpus,
+    &-mem,
+    &-version {
+      display: none;
     }
 
-    .column-checkbox {
-      width: 40px;
+    &-checkbox {
+      width: 30px;
     }
 
-    .column-name {
-      min-width: 150px;
-      width: 100%;
+    &-primary {
+      width: auto;
     }
 
-    .column-address {
-      max-width: 300px;
-      min-width: 120px;
-    }
-
-    .column-status {
-      min-width: 120px;
+    &-host-address {
       width: 120px;
     }
 
-    .column-cpus {
-      width: 64px;
+    &-status {
+      width: 90px;
     }
 
-    .column-version {
-      max-width: 300px;
-      min-width: 160px;
+    &-logs {
+      width: 32px;
     }
 
-    // TODO: Fix the specificity of table-cell-task-dot so this isn't necessary.
-    &.table {
+    &-cpus {
+      width: 65px;
+    }
 
-      .table-cell-task-dot {
-        max-width: none;
+    &-mem {
+      width: 80px;
+    }
+
+    &-updated {
+      width: 130px;
+    }
+
+    &-version {
+      white-space: break-all;
+      width: 175px;
+    }
+  }
+}
+
+& when (@pod-instances-table-enabled) and (@layout-screen-small-enabled) {
+
+  @media (min-width: @layout-screen-small-min-width) {
+
+    .pod-instances-table-column {
+
+      &-host-address {
+        display: table-cell;
+
+        col& {
+          display: table-column;
+        }
+      }
+    }
+  }
+}
+
+& when (@pod-instances-table-enabled) and (@layout-screen-large-enabled) {
+
+  @media (min-width: @layout-screen-large-min-width) {
+
+    .pod-instances-table-column {
+
+      &-status,
+      &-logs,
+      &-cpus,
+      &-mem {
+        display: table-cell;
+
+        col& {
+          display: table-column;
+        }
+      }
+    }
+  }
+}
+
+& when (@pod-instances-table-enabled) and (@layout-screen-jumbo-enabled) {
+
+  @media (min-width: @layout-screen-jumbo-min-width) {
+
+    .pod-instances-table-column {
+
+      &-version {
+        display: table-cell;
+
+        col& {
+          display: table-column;
+        }
       }
     }
   }
