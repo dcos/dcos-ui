@@ -7,10 +7,11 @@ class PageHeaderTabs extends React.Component {
     let {props: {tabs}} = this;
 
     let tabElements = tabs.map(function (tab, index) {
-      let {isActive} = tab;
-      let classes = classNames('tab-item', {active: isActive});
-      let linkClasses = classNames('tab-item-label', {active: isActive});
+      let {isActive, callback} = tab;
+      let classes = classNames('menu-tabbed-item', {active: isActive});
+      let linkClasses = classNames('menu-tabbed-item-label', {active: isActive});
 
+      let innerLinkSpan = <span className="menu-tabbed-item-label-text">{tab.label}</span>;
       return (
         <li className={classes} key={index}>
           <Link className={linkClasses} to={tab.routePath}>
@@ -23,9 +24,11 @@ class PageHeaderTabs extends React.Component {
     });
 
     return (
-      <ul className="menu-tabbed flush-bottom">
-        {tabElements}
-      </ul>
+      <div className="page-header-navigation">
+        <ul className="menu-tabbed">
+          {tabElements}
+        </ul>
+      </div>
     );
   }
 }
