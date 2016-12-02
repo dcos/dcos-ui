@@ -22,42 +22,13 @@ let universeRoutes = [
         type: Route,
         path: 'packages',
         component: PackagesTab,
-        isInSidebar: true,
-        buildBreadCrumb() {
-          return {
-            getCrumbs() {
-              return [
-                {
-                  label: 'Packages',
-                  route: {to: '/universe/packages'}
-                }
-              ];
-            }
-          };
-        }
+        isInSidebar: true
       },
       {
         type: Route,
         path: 'packages/:packageName',
         component: PackageDetailTab,
-        hideHeaderNavigation: true,
-        buildBreadCrumb() {
-          return {
-            parentCrumb: '/universe/packages',
-            getCrumbs(params) {
-              return [
-                {
-                  label: params.packageName,
-                  route: {
-                    to: '/universe/packages/:packageName',
-                    params,
-                    query: router.getCurrentQuery()
-                  }
-                }
-              ];
-            }
-          };
-        }
+        hideHeaderNavigation: true
       },
       {
         type: Route,

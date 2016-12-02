@@ -4,6 +4,7 @@ import React from 'react';
 
 import defaultServiceImage from '../../../img/icon-service-default-medium@2x.png';
 import jsonServiceImage from '../../../img/service-image-json-medium@2x.png';
+import CosmosPackagesStore from '../../../../../../src/js/stores/CosmosPackagesStore';
 import Image from '../../../../../../src/js/components/Image';
 import Panel from '../../../../../../src/js/components/Panel';
 

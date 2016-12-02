@@ -20,7 +20,7 @@ class TabButton extends React.Component {
         return React.cloneElement(tabChild, {activeTab, onClick});
       }
 
-      return TabChild;
+      return tabChild;
     });
   }
 

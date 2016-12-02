@@ -11,11 +11,12 @@ import FilterBar from '../../components/FilterBar';
 import FilterHeadline from '../../components/FilterHeadline';
 import JobsTable from './JobsTable';
 import JobSearchFilter from '../../components/JobSearchFilter';
+import JobFormModal from '../../components/modals/JobFormModal';
 import JobTree from '../../structs/JobTree';
 import Loader from '../../components/Loader';
 import QueryParamsMixin from '../../mixins/QueryParamsMixin';
+import ServiceFilterTypes from '../../../../plugins/services/src/js/constants/ServiceFilterTypes';
 import SaveStateMixin from '../../mixins/SaveStateMixin';
-import JobFormModal from '../../components/modals/JobFormModal';
 
 const METHODS_TO_BIND = [
   'getHeadline',
