@@ -58,7 +58,7 @@ var NodesOverview = React.createClass({
   statics: {
     routeConfig: {
       label: 'Nodes',
-      icon: <Icon id="servers" />,
+      icon: <Icon family="product" id="servers-inverse" />,
       matches: /^\/nodes/
     },
     // Static life cycle method from react router, that will be called

@@ -225,11 +225,7 @@ class ServiceForm extends SchemaForm {
             style={{marginBottom: '20px'}}>
             <div className="media-object">
               <div className="media-object-item">
-                <Icon
-                  color="blue"
-                  family="small"
-                  id="ring-information"
-                  size="mini" />
+                <Icon color="blue" id="circle-question" size="mini" />
               </div>
               <div className="media-object-item media-object-item-shrink">
                 {hostNetworkingDefinition}

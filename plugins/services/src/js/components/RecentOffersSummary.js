@@ -107,11 +107,7 @@ const columns = [
           interactive={true}
           maxWidth={200}
           wrapText={true}>
-          <Icon
-            id="ring-information"
-            size="mini"
-            family="mini"
-            color="grey" />
+          <Icon id="circle-information" size="mini" color="grey" />
         </Tooltip>
       );
     },

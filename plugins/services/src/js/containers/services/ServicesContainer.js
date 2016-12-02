@@ -651,7 +651,7 @@ ServicesContainer.contextTypes = {
 
 ServicesContainer.routeConfig = {
   label: 'Services',
-  icon: <Icon id="services-inverse" size="small" family="small" />,
+  icon: <Icon id="services" size="small" family="product" />,
   matches: /^\/services\/overview/
 };
 

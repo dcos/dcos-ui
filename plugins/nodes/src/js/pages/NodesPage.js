@@ -15,7 +15,7 @@ class NodesPage extends React.Component {
 
 NodesPage.routeConfig = {
   label: 'Nodes',
-  icon: <Icon id="servers-inverse" size="small" family="small" />,
+  icon: <Icon id="servers-inverse" size="small" family="product" />,
   matches: /^\/nodes/
 };
 

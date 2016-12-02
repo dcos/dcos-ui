@@ -3,7 +3,6 @@ import React from 'react';
 
 import Breadcrumbs from '../../../components/Breadcrumbs';
 import DetailViewHeader from '../../../../../src/js/components/DetailViewHeader';
-import Icon from '../../../components/Icon';
 import NodeInfoPanel from './NodeInfoPanel';
 
 class UnitsHealthNodeDetailPanel extends React.Component {
@@ -37,7 +36,6 @@ class UnitsHealthNodeDetailPanel extends React.Component {
       <div className="flex-container-col">
         <Breadcrumbs routes={this.props.routes} params={this.props.params} />
         <DetailViewHeader
-          icon={<Icon color="neutral" id="heart-pulse" size="large" />}
           subTitle={this.renderSubTitle()}
           title={pageHeaderTitle} />
         <div className="flex-container-col flex-grow no-overflow">

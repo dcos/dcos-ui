@@ -221,9 +221,8 @@ class JobRunHistoryTable extends React.Component {
           <Icon
             className="icon-margin-right table-cell-icon"
             color="grey"
-            id="page-code"
-            size="mini"
-            family="small" />
+            id="page-document"
+            size="mini" />
           <CollapsingString
             endLength={15}
             string={row[prop]}

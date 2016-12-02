@@ -236,7 +236,7 @@ class TaskLogsTab extends mixin(StoreMixin) {
         <button
           className="button button-stroke"
           disabled={!task}>
-          <Icon family="mini" id="download" size="mini" />
+          <Icon id="download" size="mini" />
         </button>
       </form>
     );

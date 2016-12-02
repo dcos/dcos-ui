@@ -107,7 +107,7 @@ class PackagesTable extends React.Component {
 
     return (
       <div className="package-table-heading table-cell-emphasized flex-box flex-box-align-vertical-center table-cell-flex-box">
-        <span className="icon icon-margin-right icon-small icon-image-container icon-app-container">
+        <span className="icon icon-margin-right icon-mini icon-image-container icon-app-container">
           <Image
             fallbackSrc={defaultServiceImage}
             src={packageImages['icon-small']} />

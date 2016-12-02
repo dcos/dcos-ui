@@ -3,9 +3,6 @@ import React from 'react';
 import BarChart from '../../components/charts/BarChart';
 import Chart from '../../components/charts/Chart';
 import Config from '../../config/Config';
-import Icon from '../Icon';
-import ResourceColors from '../../constants/ResourceColors';
-import ResourceIcons from '../../constants/ResourceIcons';
 import ResourcesUtil from '../../utils/ResourcesUtil';
 import Units from '../../utils/Units';
 import Util from '../../utils/Util';
@@ -27,10 +24,6 @@ class ResourceChart extends React.Component {
       resource, Util.last(totalResources[resource]).value
     );
 
-    let resourceKey = resourceLabel.toLowerCase();
-    let iconID = ResourceIcons[resourceKey];
-    let iconColor = ResourceColors[resourceKey];
-
     let axisConfiguration = {
       x: {hideMatch: /^0$/},
       y: {showPercentage: false, suffix: '%'}
@@ -51,21 +44,12 @@ class ResourceChart extends React.Component {
 
     return (
       <div key={resource} className="column-12">
-        <div className="media-object-spacing-wrapper media-object-spacing-narrow media-object-offset">
-          <div className="media-object media-object-align-middle">
-            <div className="media-object-item">
-              <Icon color={iconColor} id={iconID} />
-            </div>
-            <div className="media-object-item">
-              <h4 className="flush-top flush-bottom">
-                {resourceValue}
-              </h4>
-              <span className={`side-panel-resource-label
-                  text-color-${colorIndex}`}>
-                {resourceLabel.toUpperCase()}
-              </span>
-            </div>
-          </div>
+        <h4 className="flush-top flush-bottom">
+          {resourceValue}
+        </h4>
+        <div className={`side-panel-resource-label
+            text-color-${colorIndex}`}>
+          {resourceLabel.toUpperCase()}
         </div>
 
         <Chart calcHeight={function (w) { return w / WIDTH_HEIGHT_RATIO; }}

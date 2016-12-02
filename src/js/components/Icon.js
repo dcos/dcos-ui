@@ -29,7 +29,7 @@ class Icon extends React.Component {
 }
 
 Icon.defaultProps = {
-  family: 'medium',
+  family: 'system',
   size: 'medium'
 };
 
@@ -41,10 +41,9 @@ Icon.propTypes = {
   ]),
   color: React.PropTypes.string,
   family: React.PropTypes.oneOf([
-    'tiny',
-    'mini',
-    'small',
-    'medium'
+    'product',
+    'system',
+    'tiny'
   ]),
   id: React.PropTypes.string.isRequired,
   size: React.PropTypes.oneOf([

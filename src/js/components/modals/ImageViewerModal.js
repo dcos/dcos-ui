@@ -94,22 +94,12 @@ class ImageViewerModal extends React.Component {
         <span
           onClick={this.handleClick.bind(this, 'left')}
           className="modal-image-viewer-arrow-container clickable backward">
-          <Icon
-            className="arrow"
-            color="white"
-            family="small"
-            id="caret-left"
-            size="small" />
+          <Icon className="arrow" color="white" id="caret-left" size="small" />
         </span>
         <span
           className="modal-image-viewer-arrow-container clickable forward"
           onClick={this.handleClick.bind(this, 'left')}>
-          <Icon
-            className="arrow"
-            color="white"
-            family="small"
-            id="caret-right"
-            size="small" />
+          <Icon className="arrow" color="white" id="caret-right" size="small" />
         </span>
       </div>
     );
@@ -117,7 +107,7 @@ class ImageViewerModal extends React.Component {
 
   render() {
     let {props, state} = this;
-    let closeIcon = <Icon family="mini" id="close" size="mini" />;
+    let closeIcon = <Icon id="close" size="mini" />;
     let modalClasses = classNames('modal modal-image-viewer', {
       hidden: state.isLoadingImage
     });

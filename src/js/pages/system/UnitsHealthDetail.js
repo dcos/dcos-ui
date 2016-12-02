@@ -9,7 +9,6 @@ import DetailViewHeader from '../../components/DetailViewHeader';
 import FilterBar from '../../components/FilterBar';
 import FilterHeadline from '../../components/FilterHeadline';
 import FilterInputText from '../../components/FilterInputText';
-import Icon from '../../components/Icon';
 import Loader from '../../components/Loader';
 import RequestErrorMsg from '../../components/RequestErrorMsg';
 import UnitHealthDropdown from '../../components/UnitHealthDropdown';
@@ -156,7 +155,6 @@ class UnitsHealthDetail extends mixin(StoreMixin) {
       <div className="flex-container-col">
         <Breadcrumbs routes={this.props.routes} params={this.props.params} />
         <DetailViewHeader
-          icon={<Icon color="neutral" id="shapes" size="large" />}
           subTitle={this.getSubTitle(unit)}
           title={unit.getTitle()} />
         <FilterHeadline

@@ -63,7 +63,7 @@ class ReviewConfig extends React.Component {
               onClick={ieDownloadConfig}
               download={fileName}
               href={`data:attachment/json;content-disposition=attachment;filename=${fileName};charset=utf-8,${encodeURIComponent(configString)}`}>
-              <Icon family="mini" id="download" size="mini" /> Download config.json
+              <Icon id="download" size="mini" /> Download config.json
             </a>
           </div>
         </div>
