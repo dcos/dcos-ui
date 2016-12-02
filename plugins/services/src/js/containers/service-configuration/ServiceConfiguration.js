@@ -145,12 +145,10 @@ class ServiceConfiguration extends mixin(StoreMixin) {
           <div className="button-split-content-wrapper">
             <Icon className="services-version-select-icon services-version-select-icon-selected button-split-content-item"
               id="check"
-              family="mini"
               size="mini"
               color="neutral" />
             <Icon className="services-version-select-icon button-split-content-item"
               id="commit"
-              family="mini"
               size="mini"
               color="neutral" />
             <span className="button-split-content-item text-overflow"
@@ -194,7 +192,7 @@ class ServiceConfiguration extends mixin(StoreMixin) {
 
     return (
       <div className="container">
-        <div className="pod pod-tall flush-top flush-right flush-left">
+        <div className="pod flush-top flush-right flush-left">
           {this.getVersionsActions()}
         </div>
         {content}
