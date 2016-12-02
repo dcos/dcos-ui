@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import {ResourceTableUtil} from 'foundation-ui';
 import {routerShape, Link} from 'react-router';
 import React from 'react';
+import {Tooltip} from 'reactjs-components';
 
 import CheckboxTable from '../../../../../../src/js/components/CheckboxTable';
 import Icon from '../../../../../../src/js/components/Icon';
@@ -311,6 +312,16 @@ class TaskTable extends React.Component {
     let unhealthy = (healthy === false);
     let unknown = (healthy === null);
 
+    let tooltipContent = 'Healthy';
+
+    if (unhealthy) {
+      tooltipContent = 'Unhealthy';
+    }
+
+    if (!activeState || unknown) {
+      tooltipContent = 'No health checks available';
+    }
+
     let failing = ['TASK_ERROR', 'TASK_FAILED'].includes(state);
     let running = ['TASK_RUNNING', 'TASK_STARTING'].includes(state);
 
@@ -328,7 +339,9 @@ class TaskTable extends React.Component {
         table-cell-flex-box flex-align-items-center flex-direction-top-to-bottom">
         <div className="table-cell-icon table-cell-task-dot
           task-status-indicator">
-          <span className={statusClass}></span>
+          <Tooltip anchor="center" content={tooltipContent}>
+            <span className={statusClass}></span>
+          </Tooltip>
         </div>
       </div>
     );

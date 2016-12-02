@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import deepEqual from 'deep-equal';
 import React from 'react';
 import {Link} from 'react-router';
+import {Tooltip} from 'reactjs-components';
 
 import CheckboxTable from '../../../../../../src/js/components/CheckboxTable';
 import CollapsingString from '../../../../../../src/js/components/CollapsingString';
@@ -383,13 +384,25 @@ class PodInstancesTable extends React.Component {
 
   renderColumnHealth(prop, row, rowOptions = {}) {
     let {status} = row;
+    let {healthStatus} = status;
+    let tooltipContent = 'Healthy';
+
+    if (healthStatus === 'UNHEALTHY') {
+      tooltipContent = 'Unhealthy';
+    }
+
+    if (healthStatus === 'NA') {
+      tooltipContent = 'No health checks available';
+    }
 
     return this.renderWithClickHandler(rowOptions, (
       <div className="flex-box flex-box-align-vertical-center
         table-cell-flex-box flex-align-items-center
         flex-direction-top-to-bottom">
         <div className="table-cell-icon">
-          <span className={status.dotClassName}></span>
+          <Tooltip anchor="center" content={tooltipContent}>
+            <span className={status.dotClassName}></span>
+          </Tooltip>
         </div>
       </div>
     ));
