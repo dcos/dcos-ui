@@ -12,6 +12,7 @@
 
     &-host-address,
     &-status,
+    &-health,
     &-logs,
     &-cpus,
     &-mem,
@@ -33,6 +34,10 @@
 
     &-status {
       width: 90px;
+    }
+
+    &-health {
+      width: 70px;
     }
 
     &-logs {
@@ -82,6 +87,7 @@
     .pod-instances-table-column {
 
       &-status,
+      &-health,
       &-logs,
       &-cpus,
       &-mem {

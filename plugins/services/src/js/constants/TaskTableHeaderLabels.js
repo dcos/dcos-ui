@@ -6,6 +6,7 @@ var TaskTableHeaderLabels = {
   id: 'ID',
   name: 'NAME',
   status: 'STATUS',
+  health: 'HEALTH',
   updated: 'UPDATED',
   version: 'VERSION'
 };

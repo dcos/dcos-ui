@@ -21,6 +21,7 @@ const tableColumnClasses = {
   name: 'pod-instances-table-column-primary',
   address: 'pod-instances-table-column-host-address',
   status: 'pod-instances-table-column-status',
+  health: 'pod-instances-table-column-health',
   logs: 'pod-instances-table-column-logs',
   cpus: 'pod-instances-table-column-cpus',
   mem: 'pod-instances-table-column-mem',
@@ -36,6 +37,7 @@ const METHODS_TO_BIND = [
   'renderColumnLogs',
   'renderColumnResource',
   'renderColumnStatus',
+  'renderColumnHealth',
   'renderColumnUpdated',
   'renderColumnVersion'
 ];
@@ -95,6 +97,7 @@ class PodInstancesTable extends React.Component {
         <col />
         <col className={tableColumnClasses.address} />
         <col className={tableColumnClasses.status} />
+        <col className={tableColumnClasses.health} />
         <col className={tableColumnClasses.logs} />
         <col className={tableColumnClasses.cpus} />
         <col className={tableColumnClasses.mem} />
@@ -149,6 +152,13 @@ class PodInstancesTable extends React.Component {
         heading: this.getColumnHeading,
         prop: 'status',
         render: this.renderColumnStatus,
+        sortable: true
+      },
+      {
+        className: this.getColumnClassName,
+        heading: this.getColumnHeading,
+        prop: 'health',
+        render: this.renderColumnHealth,
         sortable: true
       },
       {
@@ -363,13 +373,25 @@ class PodInstancesTable extends React.Component {
 
   renderColumnStatus(prop, row, rowOptions = {}) {
     let {status} = row;
+
     return this.renderWithClickHandler(rowOptions, (
-      <span>
-        <span className={status.dotClassName}></span>
-        <span className={`status-text ${status.textClassName}`}>
-          {status.displayName}
-        </span>
+      <span className={`status-text ${status.textClassName}`}>
+        {status.displayName}
       </span>
+    ));
+  }
+
+  renderColumnHealth(prop, row, rowOptions = {}) {
+    let {status} = row;
+
+    return this.renderWithClickHandler(rowOptions, (
+      <div className="flex-box flex-box-align-vertical-center
+        table-cell-flex-box flex-align-items-center
+        flex-direction-top-to-bottom">
+        <div className="table-cell-icon">
+          <span className={status.dotClassName}></span>
+        </div>
+      </div>
     ));
   }
 
@@ -406,6 +428,7 @@ class PodInstancesTable extends React.Component {
     if (instances == null) {
       instances = pod.getInstanceList();
     }
+    let disabledItems = this.getDisabledItemsMap(instances);
 
     return (
       <ExpandingTable
@@ -416,7 +439,8 @@ class PodInstancesTable extends React.Component {
         columns={this.getColumns()}
         colGroup={this.getColGroup()}
         data={this.getTableDataFor(instances, filterText)}
-        disabledItemsMap={this.getDisabledItemsMap(instances)}
+        disabledItemsMap={disabledItems}
+        inactiveItemsMap={disabledItems}
         expandAll={!!filterText}
         getColGroup={this.getColGroup}
         onCheckboxChange={this.handleItemCheck}
