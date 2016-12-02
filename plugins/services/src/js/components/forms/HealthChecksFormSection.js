@@ -101,6 +101,14 @@ class HealthChecksFormSection extends Component {
     );
   }
 
+  getEndpoints() {
+    const {data} = this.props;
+
+    return data.portDefinitions.map((port, index) => {
+      return (<option value={index}>{port.name || index}</option>);
+    });
+  }
+
   getHTTPFields(healthCheck, key) {
     const {healthChecks} = this.props.errors;
 
@@ -114,8 +122,10 @@ class HealthChecksFormSection extends Component {
           className="column-6"
           showError={false}>
           <FieldLabel>Service Endpoint</FieldLabel>
-          <FieldSelect name={`healthChecks.${key}.portIndex`}>
+          <FieldSelect name={`healthChecks.${key}.portIndex`}
+              value={healthCheck.portIndex}>
             <option value="">Select Endpoint</option>
+            {this.getEndpoints()}
           </FieldSelect>
         </FormGroup>
         <FormGroup
