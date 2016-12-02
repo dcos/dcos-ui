@@ -27,7 +27,8 @@
   "globals": {
     "jest": true,
     "ActiveXObject": true,
-    "Dygraph": true
+    "Dygraph": true,
+    "d3": true
   },
 
   "extends": "airbnb",
@@ -147,7 +148,7 @@
     "dot-notation": "off",
     "react/jsx-equals-spacing": "off",
     "react/no-is-mounted": "off",
-    "no-undef": "off",
+    "no-undef": "error",
     "no-floating-decimal": "off",
     "no-unreachable": "off",
 

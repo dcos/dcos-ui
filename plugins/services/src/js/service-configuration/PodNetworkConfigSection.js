@@ -60,7 +60,8 @@ class PodNetworkConfigSection extends React.Component {
   }
 
   render() {
-    let {containers=[]} = this.props.appConfig;
+    const appConfig = this.props.appConfig;
+    const {containers=[]} = appConfig;
     let endpoints = containers.reduce((memo, container) => {
       return memo.concat(
         (container.endpoints || []).map(({containerPort, labels={}, name, protocol}) => {

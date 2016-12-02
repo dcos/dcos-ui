@@ -58,7 +58,7 @@ class TaskVolumeContainer extends React.Component {
     if (!service) {
       return (
         <ServiceItemNotFound
-          message={`The service with the ID of "${id}" could not be found.`} />
+          message={`The service with the ID of "${taskID}" could not be found.`} />
       );
     }
 

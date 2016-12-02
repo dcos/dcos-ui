@@ -51,7 +51,7 @@ let universeRoutes = [
                   route: {
                     to: '/universe/packages/:packageName',
                     params,
-                    query: router.getCurrentQuery()
+                    query: {} // TODO: pass location.query here
                   }
                 }
               ];

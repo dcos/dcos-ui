@@ -16,6 +16,7 @@ import Loader from '../../components/Loader';
 import QueryParamsMixin from '../../mixins/QueryParamsMixin';
 import SaveStateMixin from '../../mixins/SaveStateMixin';
 import JobFormModal from '../../components/modals/JobFormModal';
+import ServiceFilterTypes from '../../../../plugins/services/src/js/constants/ServiceFilterTypes';
 
 const METHODS_TO_BIND = [
   'getHeadline',
