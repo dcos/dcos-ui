@@ -280,7 +280,7 @@ class ContainerServiceFormSection extends Component {
           wrapText={true}>
             <FieldLabel>
               {'Container Image'}
-              <Icon color="grey" id="lock" size="mini" family="mini" />
+              <Icon color="grey" id="lock" size="mini" />
             </FieldLabel>
         </Tooltip>,
         <FieldInput
