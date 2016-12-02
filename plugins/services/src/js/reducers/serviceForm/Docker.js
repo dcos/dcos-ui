@@ -3,6 +3,8 @@ import networkingReducer from './Networking';
 import Networking from '../../../../../../src/js/constants/Networking';
 import {SET} from '../../../../../../src/js/constants/TransactionTypes';
 
+const {BRIDGE, HOST, USER} = Networking.type;
+
 module.exports = combineReducers({
   privileged: simpleReducer('container.docker.privileged', null),
   forcePullImage: simpleReducer('container.docker.forcePullImage', null),
@@ -21,41 +23,44 @@ module.exports = combineReducers({
     if (!this.appState) {
       this.appState = {
         id: '',
-        networkType: Networking.type.HOST
+        networkType: HOST
       };
     }
 
     let joinedPath = path.join('.');
-    if (joinedPath === 'container.docker.network') {
+    if (joinedPath === 'container.docker.network' && Boolean(value)) {
       this.appState.networkType = value;
     }
 
-    if (joinedPath === 'id' && !!value) {
+    if (joinedPath === 'id' && Boolean(value)) {
       this.appState.id = value;
+    }
+
+    // We only want portMappings for networks of type BRIDGE or USER
+    if (this.appState.networkType !== BRIDGE &&
+      this.appState.networkType !== USER) {
+      return null;
     }
 
     this.portDefinitions = networkingReducer(this.portDefinitions, state, action);
 
     return this.portDefinitions.map((portDefinition, index) => {
-      if (this.appState.networkType === Networking.type.BRIDGE ||
-        this.appState.networkType === Networking.type.USER) {
-        let hostPort = Number(this.portDefinitions[index].hostPort) || 0;
-        let containerPort = Number(this.portDefinitions[index].containerPort) || 0;
-        let newPortDefinition = {
-          name: portDefinition.name,
-          hostPort,
-          containerPort,
-          protocol: portDefinition.protocol
+      let hostPort = Number(this.portDefinitions[index].hostPort) || 0;
+      let containerPort = Number(this.portDefinitions[index].containerPort) || 0;
+      let newPortDefinition = {
+        name: portDefinition.name,
+        hostPort,
+        containerPort,
+        protocol: portDefinition.protocol
+      };
+
+      if (this.portDefinitions[index].loadBalanced) {
+        newPortDefinition.labels = {
+          [`VIP_${index}`]: `${this.appState.id}:${hostPort}`
         };
-
-        if (this.portDefinitions[index].loadBalanced) {
-          newPortDefinition.labels = {
-            [`VIP_${index}`]: `${this.appState.id}:${hostPort}`
-          };
-        }
-
-        return newPortDefinition;
       }
+
+      return newPortDefinition;
     });
   }
 });

@@ -1,7 +1,8 @@
 const PortDefinitions = require('../PortDefinitions');
 const Batch = require('../../../../../../../src/js/structs/Batch');
 const Transaction = require('../../../../../../../src/js/structs/Transaction');
-const {ADD_ITEM} = require('../../../../../../../src/js/constants/TransactionTypes');
+const {ADD_ITEM, SET} = require('../../../../../../../src/js/constants/TransactionTypes');
+const {type: {BRIDGE, USER}} = require('../../../../../../../src/js/constants/Networking');
 
 describe('PortDefinitions', function () {
   describe('#JSONReducer', function () {
@@ -11,6 +12,24 @@ describe('PortDefinitions', function () {
 
       expect(batch.reduce(PortDefinitions.JSONReducer.bind({}), {}))
         .toEqual([{name: null, port: 0, protocol: 'tcp'}]);
+    });
+
+    it('should create default portDefinition configurations for BRIDGE network', function () {
+      let batch = new Batch();
+      batch = batch.add(new Transaction(['container', 'docker', 'network'], BRIDGE, SET));
+      batch = batch.add(new Transaction(['portDefinitions'], 0, ADD_ITEM));
+
+      expect(batch.reduce(PortDefinitions.JSONReducer.bind({}), {}))
+        .toEqual([{name: null, port: 0, protocol: 'tcp'}]);
+    });
+
+    it('shouldn\'t create portDefinitions for USER', function () {
+      let batch = new Batch();
+      batch = batch.add(new Transaction(['container', 'docker', 'network'], USER, SET));
+      batch = batch.add(new Transaction(['portDefinitions'], 0, ADD_ITEM));
+
+      expect(batch.reduce(PortDefinitions.JSONReducer.bind({}), {}))
+        .toEqual(null);
     });
 
     it('should create two default portDefinition configurations', function () {
