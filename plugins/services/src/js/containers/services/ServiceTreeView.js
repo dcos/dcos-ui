@@ -74,7 +74,7 @@ class ServiceTreeView extends React.Component {
               </button>
               <button className="button button-success"
                 onClick={modalHandlers.createService}>
-                Deploy Service
+                Run a Service
               </button>
             </FilterBar>
             <ServicesTable services={services.filtered}
