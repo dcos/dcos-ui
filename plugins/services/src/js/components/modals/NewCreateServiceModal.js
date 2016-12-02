@@ -79,8 +79,8 @@ class NewServiceFormModal extends Component {
         if (nextProps.service instanceof Pod) {
           newState.serviceJsonActive = true;
           newState.serviceFormActive = false;
-    }
-  }
+        }
+      }
 
       this.setState(newState);
     }
@@ -256,7 +256,7 @@ class NewServiceFormModal extends Component {
       return (
         <div className="flex-item-grow-1">
           <div className="container">
-            <ServiceConfigDisplay 
+            <ServiceConfigDisplay
               appConfig={this.state.serviceConfig}
               errors={this.props.errors} />
           </div>
@@ -395,8 +395,8 @@ class NewServiceFormModal extends Component {
       if (nextProps.service instanceof Pod) {
         newState.serviceJsonActive = true;
       } else {
-      newState.serviceFormActive = true;
-    }
+        newState.serviceFormActive = true;
+      }
     }
 
     return newState;

@@ -80,12 +80,12 @@ class ServiceConfigDisplay extends React.Component {
 
   render() {
     return (
-          <ConfigurationMap>
-            {this.getErrors()}
-            <MountService.Mount
-              type={this.getMountType()}
-              appConfig={this.props.appConfig} />
-          </ConfigurationMap>
+      <ConfigurationMap>
+        {this.getErrors()}
+        <MountService.Mount
+          type={this.getMountType()}
+          appConfig={this.props.appConfig} />
+      </ConfigurationMap>
     );
   };
 }
