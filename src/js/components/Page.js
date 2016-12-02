@@ -5,7 +5,25 @@ import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import GeminiUtil from '../utils/GeminiUtil';
 import InternalStorageMixin from '../mixins/InternalStorageMixin';
+import NewPageHeader from '../components/NewPageHeader';
 import SidebarToggle from '../components/SidebarToggle';
+
+const PageHeader = ({breadcrumbs, tabs = []}) => {
+  return <NewPageHeader breadcrumbs={breadcrumbs} tabs={tabs} />;
+};
+
+PageHeader.Breadcrumbs = NewPageHeader.Breadcrumbs;
+PageHeader.Actions = NewPageHeader.Actions;
+PageHeader.Tabs = NewPageHeader.Tabs;
+
+PageHeader.propTypes = {
+  breadcrumbs: React.PropTypes.node,
+  tabs: React.PropTypes.array
+};
+
+const PAGE_TEMPLATE_COMPONENTS = [
+  PageHeader
+];
 
 var Page = React.createClass({
 
@@ -53,7 +71,12 @@ var Page = React.createClass({
   getChildren() {
     var data = this.internalStorage_get();
     if (data.rendered === true) {
-      return this.props.children;
+      // Avoid rendering template children twice
+      // TODO move to a template utility library
+      return React.Children.toArray(this.props.children)
+        .filter(function (child) {
+          return !PAGE_TEMPLATE_COMPONENTS.includes(child.type);
+        });
     }
     return null;
   },
@@ -70,15 +93,21 @@ var Page = React.createClass({
     );
   },
 
-  getPageHeader(title, navigation) {
-    return (
-      <div className="page-header flex-item-shrink-0">
-        <div className="page-header-inner pod">
-          {this.getTitle(title)}
-          {this.getNavigation(navigation, title)}
-        </div>
-      </div>
-    );
+  // TODO move this to a template utility library
+  getPageHeader() {
+    // Allow components to be updated by subclasses
+    const {Header} = this.constructor;
+    // Allow components to be disabled by subclasses
+    if (Header == null) {
+      return null;
+    }
+
+    // Find the first child of the defined type
+    // or null, if no such component exists
+    return React.Children.toArray(this.props.children)
+      .find((child) => {
+        return child.type === Header;
+      });
   },
 
   getTitle(title) {
@@ -146,5 +175,7 @@ var Page = React.createClass({
     );
   }
 });
+
+Page.Header = PageHeader;
 
 module.exports = Page;
