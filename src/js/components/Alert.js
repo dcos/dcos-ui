@@ -11,12 +11,12 @@ const Alert = ({children, showIcon, type}) => {
 
   if (showIcon) {
     const ids = {
-      danger: 'ring-exclamation',
+      danger: 'yield',
       success: 'checkmark'
     };
 
     icon = (
-      <Icon className="yield" id={ids[type]} size="mini" />
+      <Icon className="alert-icon" id={ids[type]} size="mini" />
     );
   }
 
