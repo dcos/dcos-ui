@@ -12,13 +12,13 @@ class PageHeaderTabs extends React.Component {
       let linkClasses = classNames('menu-tabbed-item-label', {active: isActive});
 
       let innerLinkSpan = <span className="menu-tabbed-item-label-text">{tab.label}</span>;
+      let link = tab.callback == null
+          ? <Link className={linkClasses} to={tab.routePath}>{innerLinkSpan}</Link>
+          : <a className={linkClasses} onClick={callback}>{innerLinkSpan}</a>;
+
       return (
         <li className={classes} key={index}>
-          <Link className={linkClasses} to={tab.routePath}>
-            <span className="tab-item-label-text">
-              {tab.label}
-            </span>
-          </Link>
+          {link}
         </li>
       );
     });
@@ -42,7 +42,8 @@ PageHeaderTabs.propTypes = {
     React.PropTypes.shape({
       isActive: React.PropTypes.bool,
       label: React.PropTypes.node.isRequired,
-      routePath: React.PropTypes.string.isRequired
+      routePath: React.PropTypes.string,
+      callback: React.PropTypes.func
     })
   )
 };
