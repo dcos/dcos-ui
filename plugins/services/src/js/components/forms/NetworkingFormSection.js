@@ -6,6 +6,7 @@ import {StoreMixin} from 'mesosphere-shared-reactjs';
 import FieldHelp from '../../../../../../src/js/components/form/FieldHelp';
 import FieldInput from '../../../../../../src/js/components/form/FieldInput';
 import FieldLabel from '../../../../../../src/js/components/form/FieldLabel';
+import FieldError from '../../../../../../src/js/components/form/FieldError';
 import FieldSelect from '../../../../../../src/js/components/form/FieldSelect';
 import {findNestedPropertyInObject} from '../../../../../../src/js/utils/Util';
 import {SET} from '../../../../../../src/js/constants/TransactionTypes';
@@ -46,13 +47,25 @@ class NetworkingFormSection extends mixin(StoreMixin) {
 
   getHostPortFields(portDefinition, index) {
     let placeholder;
+    let {errors} = this.props;
+    let hostPortError = findNestedPropertyInObject(
+      errors,
+      `portDefinitions.${index}.hostPort`
+    );
+    let automaticPortError = findNestedPropertyInObject(
+      errors,
+      `portDefinitions.${index}.automaticPort`
+    );
 
     if (portDefinition.automaticPort) {
       placeholder = `$PORT${index}`;
     }
 
     return [
-      <FormGroup className="column-3" key="host-port">
+      <FormGroup
+        className="column-3"
+        key="host-port"
+        showError={Boolean(hostPortError)}>
         <FieldLabel>
           Host Port
         </FieldLabel>
@@ -62,8 +75,12 @@ class NetworkingFormSection extends mixin(StoreMixin) {
           name={`portDefinitions.${index}.hostPort`}
           type="number"
           value={portDefinition.hostPort} />
+        <FieldError>{hostPortError}</FieldError>
       </FormGroup>,
-      <FormGroup className="column-auto flush-left" key="assign-automatically">
+      <FormGroup
+        className="column-auto flush-left"
+        key="assign-automatically"
+        showError={Boolean(automaticPortError)}>
         <FieldLabel>
           &nbsp;
         </FieldLabel>
@@ -74,14 +91,25 @@ class NetworkingFormSection extends mixin(StoreMixin) {
             type="checkbox" />
           Assign Automatically
         </FieldLabel>
+        <FieldError>{automaticPortError}</FieldError>
       </FormGroup>
     ];
   }
 
-  getLoadBalancedServiceAddressField({checkboxName, checkboxValue, port}) {
+  getLoadBalancedServiceAddressField({containerPort, hostPort, loadBalanced}, index) {
+    let {errors} = this.props;
+    let loadBalancedError = findNestedPropertyInObject(
+      errors,
+      `portDefinitions.${index}.loadBalanced`
+    );
+
     let hostname = HostUtil.stringToHostname(this.props.data.id);
-    if (port != null && port !== '') {
-      port = `:${port}`;
+    let port = '';
+    if (hostPort != null && hostPort !== '') {
+      port = `:${hostPort}`;
+    }
+    if (containerPort != null && containerPort !== '') {
+      port = `:${containerPort}`;
     }
 
     return [
@@ -96,14 +124,17 @@ class NetworkingFormSection extends mixin(StoreMixin) {
         </FormGroup>
       </div>,
       <div className="flex flex-align-items-center row" key="toggle">
-        <FormGroup className="column-auto">
+        <FormGroup
+          className="column-auto"
+          showError={Boolean(loadBalancedError)}>
           <FieldLabel>
             <FieldInput
-              checked={checkboxValue}
-              name={checkboxName}
+              checked={loadBalanced}
+              name={`portDefinitions.${index}.loadBalanced`}
               type="checkbox" />
             Enabled
           </FieldLabel>
+          <FieldError>{loadBalancedError}</FieldError>
         </FormGroup>
         <FormGroup className="column-auto flush-left">
           <span>
@@ -115,8 +146,14 @@ class NetworkingFormSection extends mixin(StoreMixin) {
   }
 
   getProtocolField(portDefinition, index) {
+    let {errors} = this.props;
+    let protocolError = findNestedPropertyInObject(
+      errors,
+      `portDefinitions.${index}.protocol`
+    );
+
     return (
-      <FormGroup className="column-3">
+      <FormGroup className="column-3" showError={Boolean(protocolError)}>
         <FieldLabel>
           Protocol
         </FieldLabel>
@@ -142,13 +179,23 @@ class NetworkingFormSection extends mixin(StoreMixin) {
             </FieldLabel>
           </FormGroup>
         </div>
+        <FieldError>{protocolError}</FieldError>
       </FormGroup>
     );
   }
 
   getBridgeServiceEndpoints(portDefinitions) {
-    return portDefinitions.map((portDefinition, index) => {
+    let {errors} = this.props;
 
+    return portDefinitions.map((portDefinition, index) => {
+      let containerPortError = findNestedPropertyInObject(
+        errors,
+        `portDefinitions.${index}.containerPort`
+      );
+      let nameError = findNestedPropertyInObject(
+        errors,
+        `portDefinitions.${index}.name`
+      );
       let portMappingFields = (
         <div className="flex row">
           {this.getHostPortFields(portDefinition, index)}
@@ -157,13 +204,16 @@ class NetworkingFormSection extends mixin(StoreMixin) {
       );
 
       return (
-        <FormGroupContainer key={index}
+        <FormGroupContainer
+          key={index}
           onRemove={this.props.onRemoveItem.bind(
             this,
             {value: index, path: 'portDefinitions'}
           )}>
           <div className="flex row">
-            <FormGroup className="column-3">
+            <FormGroup
+              className="column-3"
+              showError={Boolean(containerPortError)}>
               <FieldLabel>
                 Container Port
               </FieldLabel>
@@ -171,8 +221,9 @@ class NetworkingFormSection extends mixin(StoreMixin) {
                 name={`portDefinitions.${index}.containerPort`}
                 type="number"
                 value={portDefinition.containerPort} />
+              <FieldError>{containerPortError}</FieldError>
             </FormGroup>
-            <FormGroup className="column-6">
+            <FormGroup className="column-6" showError={Boolean(nameError)}>
               <FieldLabel>
                 Service Endpoint Name
               </FieldLabel>
@@ -180,29 +231,34 @@ class NetworkingFormSection extends mixin(StoreMixin) {
                 name={`portDefinitions.${index}.name`}
                 type="text"
                 value={portDefinition.name} />
+              <FieldError>{nameError}</FieldError>
             </FormGroup>
           </div>
           {portMappingFields}
-          {this.getLoadBalancedServiceAddressField({
-            checkboxName: `portDefinitions.${index}.loadBalanced`,
-            checkboxValue: portDefinition.loadBalanced,
-            port: portDefinition.hostPort
-          })}
+          {this.getLoadBalancedServiceAddressField(portDefinition, index)}
         </FormGroupContainer>
       );
     });
   }
 
   getHostServiceEndpoints(portDefinitions) {
+    let {errors} = this.props;
+
     return portDefinitions.map((portDefinition, index) => {
+      let nameError = findNestedPropertyInObject(
+        errors,
+        `portDefinitions.${index}.name`
+      );
+
       return (
-        <FormGroupContainer key={index}
+        <FormGroupContainer
+          key={index}
           onRemove={this.props.onRemoveItem.bind(
             this,
             {value: index, path: 'portDefinitions'}
           )}>
           <div className="flex row">
-            <FormGroup className="column-6">
+            <FormGroup className="column-6" showError={Boolean(nameError)}>
               <FieldLabel>
                 Service Endpoint Name
               </FieldLabel>
@@ -210,25 +266,36 @@ class NetworkingFormSection extends mixin(StoreMixin) {
                 name={`portDefinitions.${index}.name`}
                 type="text"
                 value={portDefinition.name} />
+              <FieldError>{nameError}</FieldError>
             </FormGroup>
           </div>
           <div className="flex row">
             {this.getHostPortFields(portDefinition, index)}
             {this.getProtocolField(portDefinition, index)}
           </div>
-          {this.getLoadBalancedServiceAddressField({
-            checkboxName: `portDefinitions.${index}.loadBalanced`,
-            checkboxValue: portDefinition.loadBalanced,
-            port: portDefinition.hostPort
-          })}
+          {this.getLoadBalancedServiceAddressField(portDefinition, index)}
         </FormGroupContainer>
       );
     });
   }
 
   getVirtualNetworkServiceEndpoints(portDefinitions) {
+    let {errors} = this.props;
+
     return portDefinitions.map((portDefinition, index) => {
       let portMappingFields = null;
+      let containerPortError = findNestedPropertyInObject(
+        errors,
+        `portDefinitions.${index}.containerPort`
+      );
+      let nameError = findNestedPropertyInObject(
+        errors,
+        `portDefinitions.${index}.name`
+      );
+      let portMappingError = findNestedPropertyInObject(
+        errors,
+        `portDefinitions.${index}.portMapping`
+      );
 
       if (portDefinition.portMapping) {
         portMappingFields = (
@@ -246,13 +313,16 @@ class NetworkingFormSection extends mixin(StoreMixin) {
       }
 
       return (
-        <FormGroupContainer key={index}
+        <FormGroupContainer
+          key={index}
           onRemove={this.props.onRemoveItem.bind(
             this,
             {value: index, path: 'portDefinitions'}
           )}>
           <div className="flex row">
-            <FormGroup className="column-3">
+            <FormGroup
+              className="column-3"
+              showError={Boolean(containerPortError)}>
               <FieldLabel>
                 Container Port
               </FieldLabel>
@@ -260,8 +330,9 @@ class NetworkingFormSection extends mixin(StoreMixin) {
                 name={`portDefinitions.${index}.containerPort`}
                 type="number"
                 value={portDefinition.containerPort} />
+              <FieldError>{containerPortError}</FieldError>
             </FormGroup>
-            <FormGroup className="column-6">
+            <FormGroup className="column-6" showError={Boolean(nameError)}>
               <FieldLabel>
                 Service Endpoint Name
               </FieldLabel>
@@ -269,8 +340,11 @@ class NetworkingFormSection extends mixin(StoreMixin) {
                 name={`portDefinitions.${index}.name`}
                 type="text"
                 value={portDefinition.name} />
+              <FieldError>{nameError}</FieldError>
             </FormGroup>
-            <FormGroup className="column-3">
+            <FormGroup
+              className="column-3"
+              showError={Boolean(portMappingError)}>
               <FieldLabel>
                 Port Mapping
               </FieldLabel>
@@ -281,14 +355,11 @@ class NetworkingFormSection extends mixin(StoreMixin) {
                   type="checkbox" />
                   {portMappingLabel}
               </FieldLabel>
+              <FieldError>{portMappingError}</FieldError>
             </FormGroup>
           </div>
           {portMappingFields}
-          {this.getLoadBalancedServiceAddressField({
-            checkboxName: `portDefinitions.${index}.loadBalanced`,
-            checkboxValue: portDefinition.loadBalanced,
-            port: portDefinition.hostPort
-          })}
+          {this.getLoadBalancedServiceAddressField(portDefinition, index)}
         </FormGroupContainer>
       );
     });
@@ -318,9 +389,10 @@ class NetworkingFormSection extends mixin(StoreMixin) {
         text: `Virtual Network: ${name}`,
         value: `${Networking.type.USER}.${name}`
       };
-    }).getItems().map((virtualNetwork) => {
+    }).getItems().map((virtualNetwork, index) => {
       return (
         <option
+          key={index}
           disabled={Boolean(disabledMap[Networking.type.USER])}
           value={virtualNetwork.value}>
         {virtualNetwork.text}
@@ -390,6 +462,10 @@ class NetworkingFormSection extends mixin(StoreMixin) {
 
   render() {
     let {portDefinitions} = this.props.data;
+    let networkError = findNestedPropertyInObject(
+      this.props.errors,
+      'container.docker.network'
+    );
 
     let tooltipContent = (
       <span>
@@ -409,7 +485,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
           Configure the networking for your service.
         </p>
         <div className="flex row">
-          <FormGroup className="column-6">
+          <FormGroup className="column-6" showError={Boolean(networkError)}>
             <FieldLabel>
               {'Network Type '}
               <Tooltip
@@ -418,10 +494,11 @@ class NetworkingFormSection extends mixin(StoreMixin) {
                 maxWidth={300}
                 scrollContainer=".gm-scroll-view"
                 wrapText={true}>
-                <Icon color="grey" id="ring-question" size="mini" family="mini" />
+                <Icon color="grey" id="ring-question" size="mini" />
               </Tooltip>
             </FieldLabel>
             {this.getTypeSelections()}
+            <FieldError>{networkError}</FieldError>
           </FormGroup>
         </div>
         <h3 className="flush-top short-bottom">
@@ -443,7 +520,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
                 path: 'portDefinitions'
               }
             )}>
-            <Icon color="purple" id="plus" family="mini" size="tiny" /> Add Service Endpoint
+            <Icon color="purple" id="plus" size="tiny" /> Add Service Endpoint
           </button>
         </div>
       </div>
@@ -453,9 +530,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
 
 NetworkingFormSection.defaultProps = {
   data: {},
-  errors: {
-    env: []
-  },
+  errors: {},
   onAddItem() {},
   onRemoveItem() {}
 };

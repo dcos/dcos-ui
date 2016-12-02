@@ -273,6 +273,7 @@ class NewCreateServiceModalForm extends Component {
                 <TabView id="networking">
                   <NetworkingFormSection
                     data={data}
+                    errors={errorMap}
                     onRemoveItem={this.handleRemoveItem}
                     onAddItem={this.handleAddItem} />
                 </TabView>
