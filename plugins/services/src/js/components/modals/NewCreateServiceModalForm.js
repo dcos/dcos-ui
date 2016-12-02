@@ -52,8 +52,7 @@ class NewCreateServiceModalForm extends Component {
       this.getNewStateForJSON(
         CreateServiceModalFormUtil.stripEmptyProperties(
           ServiceUtil.getServiceJSON(this.props.service)
-        ),
-        false
+        )
       )
     );
 
@@ -116,7 +115,7 @@ class NewCreateServiceModalForm extends Component {
            (this.state.batch !== nextState.batch);
   }
 
-  getNewStateForJSON(baseConfig={}, validate=true) {
+  getNewStateForJSON(baseConfig={}) {
     let newState = {
       baseConfig
     };
@@ -126,10 +125,7 @@ class NewCreateServiceModalForm extends Component {
       return batch.add(item);
     }, new Batch());
 
-    // Perform error validation
-    if (validate) {
-      newState.errorList = DataValidatorUtil.validate(baseConfig, ERROR_VALIDATORS);
-    }
+    newState.errorList = DataValidatorUtil.validate(baseConfig, ERROR_VALIDATORS);
 
     // Update appConfig
     newState.appConfig = this.getAppConfig(newState.batch, baseConfig);
@@ -147,15 +143,11 @@ class NewCreateServiceModalForm extends Component {
       return;
     }
 
-    let path = fieldName.split('.');
     let appConfig = this.getAppConfig();
     let errorList = DataValidatorUtil.validate(
       appConfig,
       ERROR_VALIDATORS
     );
-
-    // Keep errors only for this field
-    errorList = DataValidatorUtil.updateOnlyOnPath(this.state.errorList, errorList, path);
 
     // Run data validation on the raw data
     this.setState({errorList, appConfig});
