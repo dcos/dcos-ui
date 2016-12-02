@@ -1104,9 +1104,19 @@ module.exports =
 	   * Compose a required property framgent
 	   */
 	  composeRequiredProperty: function composeRequiredProperty(property, validatorFn, context) {
-	    var ERROR_MESSAGE = context.getConstantString('ERROR_MESSAGES', 'PROP_MISSING', 'Missing property `{name}`');
+	    var errorPath = 'path';
+	    var ERROR_MESSAGE = void 0;
 
-	    return ['if (value.' + property + ' == null) {', '\terrors.push(new RAMLError(path, ' + ERROR_MESSAGE + ', {name: \'' + property + '\'}));', '} else {', '\terrors = errors.concat(' + validatorFn + '(value.' + property + ', path.concat([\'' + property + '\'])));', '}'];
+	    // If we are configured to show missing properties to their own path use
+	    // different error message and different error path.
+	    if (context.options.missingPropertiesOnTheirPath) {
+	      errorPath = 'path.concat([\'' + property + '\'])';
+	      ERROR_MESSAGE = context.getConstantString('ERROR_MESSAGES', 'PROP_MISSING', 'Missing property');
+	    } else {
+	      ERROR_MESSAGE = context.getConstantString('ERROR_MESSAGES', 'PROP_MISSING', 'Missing property `{name}`');
+	    }
+
+	    return ['if (value.' + property + ' == null) {', '\terrors.push(new RAMLError(' + errorPath + ', ' + ERROR_MESSAGE + ', {name: \'' + property + '\'}));', '} else {', '\terrors = errors.concat(' + validatorFn + '(value.' + property + ', path.concat([\'' + property + '\'])));', '}'];
 	  },
 
 
@@ -1290,7 +1300,22 @@ module.exports =
 	       *
 	       * @property {boolean}
 	       */
-	      patternPropertiesAreOptional: true
+	      patternPropertiesAreOptional: true,
+
+	      /**
+	       * If this flag is set to `true`, all missing properties will be emmited
+	       * in their path. For example, if property `foo` is missing on the object
+	       * `bar`, you will get an error:
+	       *
+	       * `bar.foo`: Missing property
+	       *
+	       * Instead of the default:
+	       *
+	       * `foo`: Missing property `bar`
+	       *
+	       * @property {boolean}
+	       */
+	      missingPropertiesOnTheirPath: true
 
 	    };
 
