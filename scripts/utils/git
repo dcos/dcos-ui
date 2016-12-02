@@ -26,6 +26,12 @@ install_hooks() {
     then
       header "Create symlink for ${hook} hook"
 
+      # Don't replace the same file
+      if cmp --silent scripts/${hook} .git/hooks/${hook}; then
+        info "Hook already exists"
+        continue
+      fi
+
       # Create a symlink or show  a promptif the target file exists.
       # If the response from the standard input begins with the character `y',
       # then unlink the target file so that the link may occur.
