@@ -120,8 +120,9 @@ class ContainerServiceFormSection extends Component {
     }
 
     return [
-      <FieldLabel>GPUs</FieldLabel>,
+      <FieldLabel key="gpus-label">GPUs</FieldLabel>,
       <FieldInput
+        key="gpus-input"
         name="gpus"
         type="number"
         value={data.gpus} />
