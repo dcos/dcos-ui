@@ -251,6 +251,25 @@ class NewServiceFormModal extends Component {
   }
 
   getModalContent() {
+    let errorsMap = new Map();
+    if (this.props.errors) {
+      errorsMap.set('/', [this.props.errors.message]);
+
+      if (this.props.errors.details) {
+        this.props.errors.details.forEach(function ({errors, path}) {
+          const existingMessages = errorsMap.get(path);
+
+          let messages = errors;
+
+          if (existingMessages) {
+            messages = messages.concat(existingMessages);
+          }
+
+          errorsMap.set(path, messages);
+        });
+      }
+    }
+
     // NOTE: Always prioritize review screen check
     if (this.state.serviceReviewActive) {
       return (
@@ -258,7 +277,7 @@ class NewServiceFormModal extends Component {
           <div className="container">
             <ServiceConfigDisplay
               appConfig={this.state.serviceConfig}
-              errors={this.props.errors} />
+              errors={errorsMap} />
           </div>
         </div>
       );

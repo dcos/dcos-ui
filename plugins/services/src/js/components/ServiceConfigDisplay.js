@@ -72,18 +72,23 @@ class ServiceConfigDisplay extends React.Component {
     return 'CreateService:ServiceConfigDisplay:App';
   }
 
-  getErrors() {
-    if (this.props.errors) {
-      return <Alert>{this.props.errors.message}</Alert>;
+  getRootErrors() {
+    if (this.props.errors.size !== 0 && this.props.errors.has('/')) {
+      const messages = this.props.errors.get('/').map((message, index) => {
+        return <div key={index}>{message}</div>;
+      });
+
+      return <Alert>{messages}</Alert>;
     }
   }
 
   render() {
     return (
       <ConfigurationMap>
-        {this.getErrors()}
+        {this.getRootErrors()}
         <MountService.Mount
           type={this.getMountType()}
+          errors={this.props.errors}
           appConfig={this.props.appConfig} />
       </ConfigurationMap>
     );
