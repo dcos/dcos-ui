@@ -10,8 +10,8 @@ import NodesGridView from '../../../components/NodesGridView';
 import QueryParamsMixin from '../../../../../../../src/js/mixins/QueryParamsMixin';
 
 const MAX_SERVICES_TO_SHOW = 32;
-const OTHER_SERVICES_COLOR = 32;
 const METHODS_TO_BIND=['handleShowServices'];
+const OTHER_SERVICES_COLOR = 32;
 
 class NodesGridContainer extends mixin(StoreMixin, QueryParamsMixin) {
 
