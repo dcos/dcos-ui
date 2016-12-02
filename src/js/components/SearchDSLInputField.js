@@ -118,7 +118,7 @@ class SearchDSLInputField extends React.Component {
       <span className="form-control-group-add-on">
         <a onClick={this.handleInputClear}>
           <Icon
-            family="mini"
+            family="system"
             id="close"
             size="mini"
             className="clickable"
@@ -158,7 +158,7 @@ class SearchDSLInputField extends React.Component {
       <span className="form-control-group-add-on">
         <a onClick={onDropdownClick}>
           <Icon
-            family="mini"
+            family="system"
             id="caret-down"
             size="mini"
             className="clickable"
@@ -236,7 +236,7 @@ class SearchDSLInputField extends React.Component {
           onBlur={this.handleBlur}>
           <span className="form-control-group-add-on form-control-group-add-on-prepend">
             <Icon
-              family="mini"
+              family="system"
               id="search"
               size="mini"
               className={iconSearchClasses}
