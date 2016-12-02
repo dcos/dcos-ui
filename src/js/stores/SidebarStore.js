@@ -18,8 +18,12 @@ import {
   SIDEBAR_CHANGE,
   SIDEBAR_WIDTH_CHANGE
 } from '../constants/EventTypes';
+import {SAVED_STATE_KEY} from '../constants/UserSettings';
+
 import AppDispatcher from '../events/AppDispatcher';
 import GetSetBaseStore from './GetSetBaseStore';
+import UserSettingsStore from '../stores/UserSettingsStore';
+import Util from '../utils/Util';
 
 class SidebarStore extends GetSetBaseStore {
   constructor() {
@@ -51,11 +55,17 @@ class SidebarStore extends GetSetBaseStore {
           var nextDockedState = action.data;
 
           if (this.get('isDocked') !== nextDockedState) {
+            let savedStates = UserSettingsStore.getKey(SAVED_STATE_KEY) || {};
+
             this.set({
               isVisible: nextDockedState ? false : nextDockedState,
               isDocked: nextDockedState
             });
+
             this.emitChange(SIDEBAR_CHANGE);
+
+            savedStates.sidebar = {isDocked: nextDockedState};
+            UserSettingsStore.setKey(SAVED_STATE_KEY, savedStates);
           }
           break;
         case REQUEST_SIDEBAR_CLOSE:
@@ -89,8 +99,16 @@ class SidebarStore extends GetSetBaseStore {
   }
 
   init() {
+    let isDocked = Util.findNestedPropertyInObject(
+      UserSettingsStore.getKey(SAVED_STATE_KEY), 'sidebar.isDocked'
+    );
+
+    if (isDocked == null) {
+      isDocked = true;
+    }
+
     this.set({
-      isDocked: true,
+      isDocked,
       isVisible: false,
       versions: {}
     });
