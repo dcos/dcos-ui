@@ -1,11 +1,14 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {Tooltip} from 'reactjs-components';
+import mixin from 'reactjs-mixin';
+import {StoreMixin} from 'mesosphere-shared-reactjs';
 
 import FieldHelp from '../../../../../../src/js/components/form/FieldHelp';
 import FieldInput from '../../../../../../src/js/components/form/FieldInput';
 import FieldLabel from '../../../../../../src/js/components/form/FieldLabel';
 import FieldSelect from '../../../../../../src/js/components/form/FieldSelect';
 import {findNestedPropertyInObject} from '../../../../../../src/js/utils/Util';
+import {SET} from '../../../../../../src/js/constants/TransactionTypes';
 import FormGroup from '../../../../../../src/js/components/form/FormGroup';
 import FormGroupContainer from '../../../../../../src/js/components/form/FormGroupContainer';
 import {FormReducer as portDefinitionsReducer} from '../../reducers/serviceForm/PortDefinitions';
@@ -13,10 +16,34 @@ import HostUtil from '../../utils/HostUtil';
 import Icon from '../../../../../../src/js/components/Icon';
 import Networking from '../../../../../../src/js/constants/Networking';
 import ContainerConstants from '../../constants/ContainerConstants';
+import VirtualNetworksStore from '../../../../../../src/js/stores/VirtualNetworksStore';
 
 const {MESOS, NONE} = ContainerConstants.type;
 
-class NetworkingFormSection extends Component {
+const METHODS_TO_BIND = [
+  'onVirtualNetworksStoreSuccess'
+];
+
+class NetworkingFormSection extends mixin(StoreMixin) {
+  constructor() {
+    super(...arguments);
+
+    METHODS_TO_BIND.forEach((method) => {
+      this[method] = this[method].bind(this);
+    });
+
+    this.store_listeners = [{
+      name: 'virtualNetworks',
+      events: ['success'],
+      suppressUpdate: true
+    }];
+
+  }
+
+  onVirtualNetworksStoreSuccess() {
+    this.forceUpdate();
+  }
+
   getHostPortFields(portDefinition, index) {
     let placeholder;
 
@@ -283,11 +310,29 @@ class NetworkingFormSection extends Component {
     return this.getHostServiceEndpoints(portDefinitions);
   }
 
+  getVirtualNetworks(disabledMap) {
+    return VirtualNetworksStore.getOverlays().mapItems((overlay) => {
+      let name = overlay.getName();
+
+      return {
+        text: `Virtual Network: ${name}`,
+        value: `${Networking.type.USER}.${name}`
+      };
+    }).getItems().map((virtualNetwork) => {
+      return (
+        <option
+          disabled={Boolean(disabledMap[Networking.type.USER])}
+          value={virtualNetwork.value}>
+        {virtualNetwork.text}
+        </option>
+      );
+    });
+  }
+
   getTypeSelections() {
     let {container} = this.props.data;
     let type = findNestedPropertyInObject(container, 'type');
-    let network = findNestedPropertyInObject(container, 'docker.network');
-
+    let network = findNestedPropertyInObject(this.props.data, 'networkType');
     let disabledMap = {};
 
     // Runtime is Mesos
@@ -322,11 +367,7 @@ class NetworkingFormSection extends Component {
           value={Networking.type.BRIDGE}>
           Bridge
         </option>
-        <option
-          disabled={Boolean(disabledMap[Networking.type.USER])}
-          value={Networking.type.USER}>
-          Virtual Network
-        </option>
+        {this.getVirtualNetworks(disabledMap)}
       </FieldSelect>
     );
 
@@ -427,7 +468,16 @@ NetworkingFormSection.propTypes = {
 };
 
 NetworkingFormSection.configReducers = {
-  portDefinitions: portDefinitionsReducer
+  portDefinitions: portDefinitionsReducer,
+  networkType(state, {type, path = [], value}) {
+    let joinedPath = path.join('.');
+
+    if (type === SET && joinedPath === 'container.docker.network') {
+      return value;
+    }
+
+    return state;
+  }
 };
 
 module.exports = NetworkingFormSection;

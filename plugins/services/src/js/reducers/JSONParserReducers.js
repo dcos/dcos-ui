@@ -8,6 +8,7 @@ import {JSONParser as labels} from './serviceForm/Labels';
 import {JSONParser as localVolumes} from './serviceForm/LocalVolumes';
 import {JSONParser as portDefinitions} from './serviceForm/PortDefinitions';
 import {JSONParser as portMappings} from './serviceForm/PortMappings';
+import {JSONParser as network} from './serviceForm/Network';
 import {simpleParser} from '../../../../../src/js/utils/ParserUtil';
 
 const {MESOS, DOCKER} = ContainerConstants.type;
@@ -22,8 +23,7 @@ module.exports = [
   simpleParser(['container', MESOS.toLowerCase(), 'forcePullImage']),
   simpleParser(['container', DOCKER.toLowerCase(), 'privileged']),
   simpleParser(['container', MESOS.toLowerCase(), 'privileged']),
-  simpleParser(['container', DOCKER.toLowerCase(), 'network']),
-  simpleParser(['container', MESOS.toLowerCase(), 'network']),
+  network,
   simpleParser(['cpus']),
   simpleParser(['mem']),
   simpleParser(['disk']),
