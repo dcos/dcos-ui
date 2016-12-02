@@ -434,43 +434,66 @@ class JSONEditor extends React.Component {
       }];
     }
 
-    // Append annotation markers from external errors
-    return this.externalErrors.reduce((memo, error) => {
+    return this.externalErrors.map((error) => {
+      let {path, message} = error;
+
+      // All errorrs with empty paths go to line 0
+      if (path.length === 0) {
+        return {
+          row: 0,
+          text: message,
+          type: 'error'
+        };
+      }
+
+      // Check if there is a token that matches the path completely
       let errorPath = error.path.join('.');
       let token = this.jsonMeta.find(function (token) {
         return token.path.join('.') === errorPath;
       });
 
-      // Root errors go to line 0
-      if (errorPath === '') {
-        memo.push({
-          row: 0,
-          text: error.message,
+      if (token) {
+        return {
+          row: token.line - 1,
+          text: message,
           type: 'error'
-        });
-        return memo;
+        };
       }
 
-      // Errors with invalid path also go to root, but gets
-      // prefixed with their path
-      if (!token) {
-        memo.push({
-          row: 0,
-          text: `${errorPath}: ${error.message}`,
-          type: 'error'
+      // When we are not able to find an exact match we are going to graduately
+      // increase the error scope until we find a token that exists.
+      //
+      // If nothing is found, default to root ([])
+      //
+      let candidates = this.jsonMeta.reduce((memo, token) => {
+        let isMatch = token.path.every((component, i) => {
+          return path[i] === component;
         });
-        return memo;
-      }
 
-      // Otherwise errors get to the appropriate line
-      memo.push({
-        row: token.line - 1,
-        text: error.message,
+        if (isMatch) {
+          memo.push({
+            path: token.path,
+            row: token.line - 1
+          });
+        }
+
+        return memo;
+      }, [{path: [], line: 0}]);
+
+      // Find the most specific token line
+      let candidate = candidates
+        .sort((a, b) => b.path.length - a.path.length)[0];
+
+      // Keep the difference between the original and the new path and display
+      // it as prefix in the error message:
+      let prefixPath = path.slice(candidate.path.length).join('.');
+
+      return {
+        row: candidate.row,
+        text: `${prefixPath}: ${message}`,
         type: 'error'
-      });
-
-      return memo;
-    }, []);
+      };
+    });
   }
 
   /**
