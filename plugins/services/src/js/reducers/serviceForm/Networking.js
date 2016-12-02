@@ -44,9 +44,8 @@ function reducer(portDefinitions = [], state = [], {type, path = [], value}) {
         }
       });
 
-      // If port is not loadbalanced and is assigned automatically,
-      // remove hostPort
-      if (!portDefinitions[index].loadBalanced && portDefinitions[index].automaticPort) {
+      // If port is assigned automatically, remove hostPort
+      if (portDefinitions[index].automaticPort) {
         portDefinitions[index].hostPort = null;
       }
     }

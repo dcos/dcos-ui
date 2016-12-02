@@ -74,7 +74,6 @@ class NewCreateServiceModalForm extends Component {
     //       as the contents of the last rendered appConfig in the state.
     if (!deepEqual(prevJSON, nextJSON) &&
         !deepEqual(this.state.appConfig, nextJSON)) {
-      console.log('Updating because service changed');
       this.setState(this.getNewStateForJSON(nextJSON));
     }
   }
@@ -106,7 +105,6 @@ class NewCreateServiceModalForm extends Component {
     let nextJSON = ServiceUtil.getServiceJSON(nextProps.service);
     if (!deepEqual(prevJSON, nextJSON) &&
         !deepEqual(this.state.appConfig, nextJSON)) {
-      console.log('Will update because service changed');
       return true;
     };
 
@@ -213,6 +211,7 @@ class NewCreateServiceModalForm extends Component {
       delete baseConfig[field];
     });
     let patch = batch.reduce(this.props.jsonConfigReducers, {});
+
     return CreateServiceModalFormUtil.applyPatch(baseConfig, patch);
   }
 
