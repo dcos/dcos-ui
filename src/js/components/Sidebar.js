@@ -52,6 +52,12 @@ var Sidebar = React.createClass({
     router: routerShape
   },
 
+  getInitialState() {
+    return {
+      isDocked: false
+    };
+  },
+
   componentDidMount() {
     NavigationService.on(NAVIGATION_CHANGE, this.onNavigationChange);
 
