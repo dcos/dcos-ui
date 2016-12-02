@@ -15,14 +15,14 @@ describe('Service Form Modal', function () {
 
     it('Opens the right modal on click', function () {
       cy.get('.filter-bar-right .filter-bar-item')
-        .contains('Deploy Service')
+        .contains('Run a Service')
         .click();
       cy.get('.modal-form').should('to.have.length', 1);
     });
 
     it('contains the right group id in the modal', function () {
       cy.get('.filter-bar-right .filter-bar-item')
-        .contains('Deploy Service')
+        .contains('Run a Service')
         .click();
       cy.get('.modal-form input[name="id"]').should(function (nodeList) {
         expect(nodeList[0].value).to.equal('/');
@@ -31,7 +31,7 @@ describe('Service Form Modal', function () {
 
     it('contains the right JSON in the JSON editor', function () {
       cy.get('.filter-bar-right .filter-bar-item')
-        .contains('Deploy Service')
+        .contains('Run a Service')
         .click();
       cy.get('.modal-form-title-label').click();
 
@@ -42,7 +42,7 @@ describe('Service Form Modal', function () {
 
     it('remembers the selected form tab when switching back from JSON', function () {
       cy.get('.filter-bar-right .filter-bar-item')
-        .contains('Deploy Service')
+        .contains('Run a Service')
         .click();
 
       cy.get('.sidebar-menu-item.clickable')
@@ -80,7 +80,7 @@ describe('Service Form Modal', function () {
 
     it('Opens the right modal on click', function () {
       cy.get('.filter-bar .button')
-        .contains('Deploy Service')
+        .contains('Run a Service')
         .click();
 
       cy.get('.modal-form').should('to.have.length', 1);
@@ -88,7 +88,7 @@ describe('Service Form Modal', function () {
 
     it('contains the right group id in the modal', function () {
       cy.get('.filter-bar .button')
-        .contains('Deploy Service')
+        .contains('Run a Service')
         .click();
 
       cy.get('.modal-form input[name="id"]').should(function (nodeList) {
@@ -98,7 +98,7 @@ describe('Service Form Modal', function () {
 
     it('contains the right JSON in the JSON editor', function () {
       cy.get('.filter-bar .button')
-        .contains('Deploy Service')
+        .contains('Run a Service')
         .click();
 
       cy.get('.modal-form-title-label').click();
@@ -120,7 +120,7 @@ describe('Service Form Modal', function () {
 
     it('contains right cpus default value', function () {
       cy.get('.filter-bar-right .filter-bar-item')
-        .contains('Deploy Service')
+        .contains('Run a Service')
         .click();
       cy.get('.modal-form input[name="cpus"]').should(function (nodeList) {
         expect(nodeList[0].value).to.equal('1');
@@ -129,7 +129,7 @@ describe('Service Form Modal', function () {
 
     it('contains right mem default value', function () {
       cy.get('.filter-bar-right .filter-bar-item')
-        .contains('Deploy Service')
+        .contains('Run a Service')
         .click();
       cy.get('.modal-form input[name="mem"]').should(function (nodeList) {
         expect(nodeList[0].value).to.equal('128');
@@ -138,7 +138,7 @@ describe('Service Form Modal', function () {
 
     it('contains right instances default value', function () {
       cy.get('.filter-bar-right .filter-bar-item')
-        .contains('Deploy Service')
+        .contains('Run a Service')
         .click();
       cy.get('.modal-form input[name="instances"]').should(function (nodeList) {
         expect(nodeList[0].value).to.equal('1');
@@ -147,7 +147,7 @@ describe('Service Form Modal', function () {
 
     it('contains right disk default value', function () {
       cy.get('.filter-bar-right .filter-bar-item')
-        .contains('Deploy Service')
+        .contains('Run a Service')
         .click();
       cy.get('.modal-form input[name="disk"]').should(function (nodeList) {
         expect(nodeList[0].value).to.equal('0');
@@ -156,7 +156,7 @@ describe('Service Form Modal', function () {
 
     it('contains the right JSON in the JSON editor', function () {
       cy.get('.filter-bar-right .filter-bar-item')
-        .contains('Deploy Service')
+        .contains('Run a Service')
         .click();
       cy.get('.modal-form-title-label').click();
 
