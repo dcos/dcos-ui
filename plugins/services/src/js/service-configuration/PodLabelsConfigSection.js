@@ -26,27 +26,36 @@ class PodLabelsConfigSection extends React.Component {
   render() {
     let {labels={}, containers=[]} = this.props.appConfig;
 
-    let combinedLabels = Object.keys(labels).reduce((memo, key) => {
-      memo.push({
-        key: <code>{key}</code>,
-        value: labels[key],
-        container: ServiceConfigDisplayUtil.getSharedIconWithLabel()
-      });
+    let combinedLabels = [];
 
-      return memo;
-    }, []);
+    if (labels != null) {
+      combinedLabels = Object.keys(labels).reduce((memo, key) => {
+        memo.push({
+          key: <code>{key}</code>,
+          value: labels[key],
+          container: ServiceConfigDisplayUtil.getSharedIconWithLabel()
+        });
+
+        return memo;
+      }, []);
+    }
 
     combinedLabels = containers.reduce((memo, container) => {
       let {labels={}} = container;
-      return Object.keys(labels).reduce((cvMemo, key) => {
-        cvMemo.push({
-          key: <code>{key}</code>,
-          value: labels[key],
-          container: ServiceConfigDisplayUtil.getContainerNameWithIcon(container)
-        });
 
-        return cvMemo;
-      }, memo);
+      if (labels != null) {
+        return Object.keys(labels).reduce((cvMemo, key) => {
+          cvMemo.push({
+            key: <code>{key}</code>,
+            value: labels[key],
+            container: ServiceConfigDisplayUtil.getContainerNameWithIcon(container)
+          });
+
+          return cvMemo;
+        }, memo);
+      }
+
+      return memo;
     }, combinedLabels);
 
     if (!combinedLabels.length) {
