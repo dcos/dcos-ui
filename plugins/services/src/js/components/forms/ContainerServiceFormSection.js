@@ -16,16 +16,19 @@ import MetadataStore from '../../../../../../src/js/stores/MetadataStore';
 import Icon from '../../../../../../src/js/components/Icon';
 import {findNestedPropertyInObject} from '../../../../../../src/js/utils/Util';
 
-const {DOCKER} = ContainerConstants.type;
+const {DOCKER, NONE, MESOS} = ContainerConstants.type;
 
 const containerSettings = {
   privileged: {
     label: <span>Grant Runtime Privileges</span>,
-    helpText: 'By default, containers are “unprivileged” and cannot, for example, run a Docker daemon inside a Docker container.'
+    helpText: 'By default, containers are “unprivileged” and cannot, for example, run a Docker daemon inside a Docker container.',
+    dockerOnly: 'Grant runtime privileges is only supported in Docker Runtime.'
+
   },
   forcePullImage: {
     label: <span>Force Pull Image On Launch</span>,
-    helpText: 'Force Docker to pull the image before launching each task.'
+    helpText: 'Force Docker to pull the image before launching each task.',
+    dockerOnly: 'Force pull image on launch is only supported in Docker Runtime.'
   }
 };
 
@@ -96,7 +99,7 @@ class ContainerServiceFormSection extends Component {
   }
 
   getGPUSInput(data) {
-    if (data.container && data.container.type === DOCKER) {
+    if (data.container && data.container.type !== MESOS) {
       return [
         <Tooltip
           key="gpus-input-tooltip"
@@ -133,11 +136,34 @@ class ContainerServiceFormSection extends Component {
     let {container = {}} = data;
     let typeErrors = errors.container && errors.container.type;
     let selections = Object.keys(containerSettings).map((settingName, index) => {
-      let {helpText, label} = containerSettings[settingName];
+      let {helpText, label, dockerOnly} = containerSettings[settingName];
       let checked = findNestedPropertyInObject(
         container,
         `docker.${settingName}`
       );
+
+      if (container && container.type !== DOCKER) {
+        return (
+          <FieldLabel>
+            <FieldInput
+              checked={false}
+              name={`container.docker.${settingName}`}
+              type="checkbox"
+              disabled={true}
+              value={settingName}/>
+            <Tooltip
+              content={dockerOnly}
+              interactive={true}
+              maxWidth={300}
+              scrollContainer=".gm-scroll-view"
+              wrapText={true}>
+                {label}
+                <Icon color="grey" id="lock" size="mini" family="mini"/>
+            </Tooltip>
+            <FieldHelp>{helpText}</FieldHelp>
+          </FieldLabel>
+        );
+      }
 
       return (
         <FieldLabel key={index}>
@@ -239,11 +265,47 @@ class ContainerServiceFormSection extends Component {
     );
   }
 
+  getImageInput(data) {
+    let {container = {}} = data;
+    let image = findNestedPropertyInObject(container, 'docker.image');
+
+    if (container == null || container.type == null ||
+        container.type === NONE) {
+      return [
+        <Tooltip
+          key="container-image-input-tooltip"
+          content="Mesos Runtime does not support container images, please select Docker Runtime or Universal Container Runtime if you want to use container images."
+          interactive={true}
+          maxWidth={300}
+          scrollContainer=".gm-scroll-view"
+          wrapText={true}>
+            <FieldLabel>
+              {'Container Image'}
+              <Icon color="grey" id="lock" size="mini" />
+            </FieldLabel>
+        </Tooltip>,
+        <FieldInput
+          key="container-image-input"
+          name="container.docker.image"
+          disabled={true}
+          value={image} />
+      ];
+    }
+
+    return [
+      this.getImageLabel(),
+      <FieldInput
+        name="container.docker.image"
+        value={image} />,
+      <FieldHelp>
+        Enter a Docker image you want to run, e.g. nginx.
+      </FieldHelp>
+    ];
+  }
+
   render() {
     let {data, errors} = this.props;
 
-    let {container = {}} = data;
-    let image = findNestedPropertyInObject(container, 'docker.image');
     let imageErrors = findNestedPropertyInObject(
       errors,
       'container.docker.image'
@@ -257,20 +319,14 @@ class ContainerServiceFormSection extends Component {
         <p>Configure your container below. Enter a container image or command you want to run.</p>
         <div className="flex row">
           <FormGroup className="column-6" showError={Boolean(imageErrors)}>
-            {this.getImageLabel()}
-            <FieldInput
-              name="container.docker.image"
-              value={image} />
-            <FieldHelp>
-              Enter a Docker image you want to run, e.g. nginx.
-            </FieldHelp>
+            {this.getImageInput(data)}
             <FieldError>{imageErrors}</FieldError>
           </FormGroup>
 
           <FormGroup
             className="column-3"
-             required={true}
-             showError={Boolean(errors.cpus)}>
+            required={true}
+            showError={Boolean(errors.cpus)}>
             <FieldLabel>
               CPUs
             </FieldLabel>
