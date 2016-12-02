@@ -405,6 +405,27 @@ describe('Container', function () {
           });
       });
 
+      it('should store portDefinitions even if network is HOST when recorded', function () {
+        let batch = new Batch();
+        batch = batch.add(new Transaction(['portDefinitions'], 0, ADD_ITEM));
+        batch = batch.add(new Transaction(['portDefinitions'], 0, ADD_ITEM));
+        batch = batch.add(new Transaction(['portDefinitions', 0, 'automaticPort'], false));
+        batch = batch.add(new Transaction(['portDefinitions', 1, 'loadBalanced'], true));
+        batch = batch.add(new Transaction(['id'], 'foo'));
+        batch = batch.add(new Transaction(['container', 'docker', 'network'], USER, SET));
+
+        expect(batch.reduce(Container.JSONReducer.bind({}), {}))
+          .toEqual({
+            docker: {
+              network: USER,
+              portMappings: [
+                {containerPort: 0, hostPort: 0, name: null, protocol: 'tcp'},
+                {containerPort: 0, hostPort: 0, name: null, protocol: 'tcp', labels: {'VIP_1': 'foo:0'}}
+              ]
+            }
+          });
+      });
+
     });
 
   });

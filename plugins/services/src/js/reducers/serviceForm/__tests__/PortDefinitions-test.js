@@ -2,7 +2,7 @@ const PortDefinitions = require('../PortDefinitions');
 const Batch = require('../../../../../../../src/js/structs/Batch');
 const Transaction = require('../../../../../../../src/js/structs/Transaction');
 const {ADD_ITEM, SET} = require('../../../../../../../src/js/constants/TransactionTypes');
-const {type: {BRIDGE, USER}} = require('../../../../../../../src/js/constants/Networking');
+const {type: {BRIDGE, HOST, USER}} = require('../../../../../../../src/js/constants/Networking');
 
 describe('PortDefinitions', function () {
   describe('#JSONReducer', function () {
@@ -147,7 +147,26 @@ describe('PortDefinitions', function () {
           {name: null, port: 0, protocol: 'tcp', labels: {'VIP_1': 'foo:0'}}
         ]);
     });
+
+    it('should store portDefinitions even if network is USER when recorded', function () {
+      let batch = new Batch();
+      batch = batch.add(new Transaction(['container', 'docker', 'network'], USER, SET));
+      batch = batch.add(new Transaction(['portDefinitions'], 0, ADD_ITEM));
+      batch = batch.add(new Transaction(['portDefinitions'], 0, ADD_ITEM));
+      batch = batch.add(new Transaction(['portDefinitions', 0, 'automaticPort'], false));
+      batch = batch.add(new Transaction(['portDefinitions', 1, 'loadBalanced'], true));
+      batch = batch.add(new Transaction(['id'], 'foo'));
+      batch = batch.add(new Transaction(['container', 'docker', 'network'], HOST, SET));
+
+      expect(batch.reduce(PortDefinitions.JSONReducer.bind({}), {}))
+        .toEqual([
+          {name: null, port: 0, protocol: 'tcp'},
+          {name: null, port: 0, protocol: 'tcp', labels: {'VIP_1': 'foo:0'}}
+        ]);
+    });
+
   });
+
   describe('#JSONParser', function () {
     it('should return an empty array', function () {
       expect(PortDefinitions.JSONParser({})).toEqual([]);

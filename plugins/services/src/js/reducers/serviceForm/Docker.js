@@ -36,13 +36,15 @@ module.exports = combineReducers({
       this.appState.id = value;
     }
 
+    // Apply networkingReducer to retrieve updated local state
+    // Store the change no matter what network type we have
+    this.portDefinitions = networkingReducer(this.portDefinitions, action);
+
     // We only want portMappings for networks of type BRIDGE or USER
     if (this.appState.networkType !== BRIDGE &&
       this.appState.networkType !== USER) {
       return null;
     }
-
-    this.portDefinitions = networkingReducer(this.portDefinitions, action);
 
     // Convert portDefinitions to portMappings
     return this.portDefinitions.map((portDefinition, index) => {

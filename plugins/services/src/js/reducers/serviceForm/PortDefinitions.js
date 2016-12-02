@@ -36,14 +36,15 @@ module.exports = {
       this.appState.id = value;
     }
 
+    // Apply networkingReducer to retrieve updated local state
+    // Store the change no matter what network type we have
+    this.portDefinitions = networkingReducer(this.portDefinitions, action);
+
     // We only want portMappings for networks of type HOST or BRIDGE
     if (this.appState.networkType !== HOST &&
       this.appState.networkType !== BRIDGE) {
       return null;
     }
-
-    // Apply networkingReducer to retrieve updated local state
-    this.portDefinitions = networkingReducer(this.portDefinitions, action);
 
     // Create JSON port definitions from state
     return this.portDefinitions.map((portDefinition, index) => {
