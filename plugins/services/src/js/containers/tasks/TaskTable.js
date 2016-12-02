@@ -225,7 +225,7 @@ class TaskTable extends React.Component {
     let title = task.name || task.id;
     let {id, nodeID} = this.props.params;
 
-    let linkTo = `/services/overview/${id}/tasks/${task.id}/view`;
+    let linkTo = `/services/overview/${encodeURIComponent(id)}/tasks/${task.id}/logs`;
     if (nodeID != null) {
       linkTo = `/nodes/${nodeID}/tasks/${task.id}/view`;
     }
