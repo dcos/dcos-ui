@@ -1,5 +1,6 @@
 jest.dontMock('../ServiceConfigurationContainer');
-jest.dontMock('../ServiceSpecView');
+jest.dontMock('../../../components/ServiceConfigDisplay');
+jest.dontMock('../../../../../../../src/js/components/ConfigurationMap');
 
 /* eslint-disable no-unused-vars */
 const React = require('react');
@@ -9,7 +10,7 @@ const TestUtils = require('react-addons-test-utils');
 
 const Application = require('../../../structs/Application');
 const ServiceConfigurationContainer = require('../ServiceConfigurationContainer');
-const ServiceSpecView = require('../ServiceSpecView');
+const ServiceConfigDisplay = require('../../../components/ServiceConfigDisplay');
 
 describe('ServiceConfigurationContainer', function () {
 
@@ -46,7 +47,7 @@ describe('ServiceConfigurationContainer', function () {
 
     it('renders correct id', function () {
       var serviceSpecView = TestUtils
-        .findRenderedComponentWithType(this.instance, ServiceSpecView);
+        .findRenderedComponentWithType(this.instance, ServiceConfigDisplay);
 
       expect(serviceSpecView).toBeDefined();
     });

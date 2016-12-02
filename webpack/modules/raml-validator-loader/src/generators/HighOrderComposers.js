@@ -235,12 +235,23 @@ const HighOrderComposers = {
    * Compose a required property framgent
    */
   composeRequiredProperty(property, validatorFn, context) {
-    let ERROR_MESSAGE = context.getConstantString('ERROR_MESSAGES',
-      'PROP_MISSING', 'Missing property `{name}`');
+    let errorPath = 'path';
+    let ERROR_MESSAGE;
+
+    // If we are configured to show missing properties to their own path use
+    // different error message and different error path.
+    if (context.options.missingPropertiesOnTheirPath) {
+      errorPath = `path.concat(['${property}'])`;
+      ERROR_MESSAGE = context.getConstantString('ERROR_MESSAGES',
+            'PROP_MISSING', 'Missing property');
+    } else {
+      ERROR_MESSAGE = context.getConstantString('ERROR_MESSAGES',
+            'PROP_MISSING', 'Missing property `{name}`');
+    }
 
     return [
       `if (value.${property} == null) {`,
-        `\terrors.push(new RAMLError(path, ${ERROR_MESSAGE}, {name: '${property}'}));`,
+        `\terrors.push(new RAMLError(${errorPath}, ${ERROR_MESSAGE}, {name: '${property}'}));`,
       `} else {`,
         `\terrors = errors.concat(${validatorFn}(value.${property}, path.concat(['${property}'])));`,
       `}`

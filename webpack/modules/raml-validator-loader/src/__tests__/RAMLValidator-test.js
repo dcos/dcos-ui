@@ -901,6 +901,41 @@ describe('RAMLValidator', function () {
 
     });
 
+    describe('Missing Properties', function () {
+
+      it('should include full path on missing property by default', function () {
+        let validator = createValidator([
+          '#%RAML 1.0',
+          'types:',
+          '  TestType:',
+          '    type: object',
+          '    properties:',
+          '      required: number',
+        ].join('\n'));
+        var errors = validator({})
+        expect(errors).toEqual([
+          {path: ['required'], message:'Missing property'}
+        ]);
+      });
+
+      it('should keep path of missing prop on object when configured', function () {
+        let classicConfig = {missingPropertiesOnTheirPath: false};
+        let validator = createValidator([
+          '#%RAML 1.0',
+          'types:',
+          '  TestType:',
+          '    type: object',
+          '    properties:',
+          '      required: number',
+        ].join('\n'), classicConfig);
+        var errors = validator({})
+        expect(errors).toEqual([
+          {path: [], message:'Missing property `required`'}
+        ]);
+      });
+
+    });
+
   });
 
   describe('Array Type', function () {

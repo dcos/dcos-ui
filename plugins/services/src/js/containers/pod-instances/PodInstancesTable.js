@@ -16,6 +16,18 @@ import PodUtil from '../../utils/PodUtil';
 import TimeAgo from '../../../../../../src/js/components/TimeAgo';
 import Units from '../../../../../../src/js/utils/Units';
 
+const tableColumnClasses = {
+  checkbox: 'pod-instances-table-column-checkbox',
+  name: 'pod-instances-table-column-primary',
+  address: 'pod-instances-table-column-host-address',
+  status: 'pod-instances-table-column-status',
+  logs: 'pod-instances-table-column-logs',
+  cpus: 'pod-instances-table-column-cpus',
+  mem: 'pod-instances-table-column-mem',
+  updated: 'pod-instances-table-column-updated',
+  version: 'pod-instances-table-column-version'
+};
+
 const METHODS_TO_BIND = [
   'getColGroup',
   'handleItemCheck',
@@ -79,15 +91,15 @@ class PodInstancesTable extends React.Component {
   getColGroup() {
     return (
       <colgroup>
-        <col style={{width: '40px'}} />
+        <col className={tableColumnClasses.checkbox} />
         <col />
-        <col className="hidden-mini" />
-        <col className="hidden-mini" />
-        <col className="hidden-mini" />
-        <col className="hidden-mini" />
-        <col className="hidden-mini" />
-        <col />
-        <col className="hidden-medium hidden-small hidden-mini" />
+        <col className={tableColumnClasses.address} />
+        <col className={tableColumnClasses.status} />
+        <col className={tableColumnClasses.logs} />
+        <col className={tableColumnClasses.cpus} />
+        <col className={tableColumnClasses.mem} />
+        <col className={tableColumnClasses.updated} />
+        <col className={tableColumnClasses.version} />
       </colgroup>
     );
   }
@@ -110,21 +122,9 @@ class PodInstancesTable extends React.Component {
   }
 
   getColumnClassName(prop, sortBy, row) {
-    let hiddenMiniCols = [
-      'address',
-      'status',
-      'logs',
-      'cpus',
-      'mem',
-      'version'
-    ];
-
-    return classNames(`column-${prop}`, {
+    return classNames(tableColumnClasses[prop], {
       'highlight': prop === sortBy.prop,
-      'clickable': row == null,
-      'table-cell-task-dot': prop === 'status',
-      'hidden-medium hidden-small': prop === 'version',
-      'hidden-mini': hiddenMiniCols.includes(prop)
+      'clickable': row == null
     });
   }
 
@@ -329,7 +329,7 @@ class PodInstancesTable extends React.Component {
 
     return (
       <Link
-        to={`/services/overview/${id}/tasks/${taskID}/view`}
+        to={`/services/overview/${id}/tasks/${taskID}/logs`}
         title={row.name}>
         <Icon color="grey" id="page-document" size="mini" />
       </Link>
