@@ -2,7 +2,8 @@ import mixin from 'reactjs-mixin';
 import React, {PropTypes} from 'react';
 import {routerShape} from 'react-router';
 
-import Breadcrumbs from '../../../../../../src/js/components/Breadcrumbs';
+import ServiceBreadcrumbs from '../../components/ServiceBreadcrumbs';
+import Page from '../../../../../../src/js/components/Page';
 import Pod from '../../structs/Pod';
 import PodConfigurationContainer from '../pod-configuration/PodConfigurationContainer';
 import PodDebugContainer from '../pod-debug/PodDebugContainer';
@@ -77,20 +78,30 @@ class PodDetail extends mixin(TabsMixin) {
   }
 
   render() {
-    const {pod} = this.props;
+    const {modals, pod} = this.props;
+
+    const breadcrumbs = <ServiceBreadcrumbs serviceID={pod.id} />;
+
+    const tabs = [
+      {label: 'Instances', callback: () => { this.setState({currentTab: 'instances'}); }},
+      {label: 'Configuration', callback: () => { this.setState({currentTab: 'configuration'}); }},
+      {label: 'Debug', callback: () => { this.setState({currentTab: 'debug'}); }}
+    ];
 
     return (
-      <div>
-        <Breadcrumbs routes={this.props.routes} params={this.props.params} />
-        <PodHeader
-          onDestroy={this.handleActionDestroy}
-          onEdit={this.handleActionEdit}
-          onScale={this.handleActionScale}
-          onSuspend={this.handleActionSuspend}
-          pod={pod}
-          tabs={this.tabs_getUnroutedTabs()} />
+      <Page>
+        <Page.Header breadcrumbs={breadcrumbs} tabs={tabs}>
+          <PodHeader
+            onDestroy={this.handleActionDestroy}
+            onEdit={this.handleActionEdit}
+            onScale={this.handleActionScale}
+            onSuspend={this.handleActionSuspend}
+            pod={pod}
+            tabs={this.tabs_getUnroutedTabs()} />
+        </Page.Header>
         {this.tabs_getTabView()}
-      </div>
+        {modals}
+      </Page>
     );
   }
 }
@@ -105,6 +116,7 @@ PodDetail.contextTypes = {
 };
 
 PodDetail.propTypes = {
+  modals: PropTypes.node,
   pod: React.PropTypes.instanceOf(Pod)
 };
 

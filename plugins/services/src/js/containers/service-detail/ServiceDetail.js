@@ -1,12 +1,12 @@
 import mixin from 'reactjs-mixin';
 import React, {PropTypes} from 'react';
 
-import Breadcrumbs from '../../../../../../src/js/components/Breadcrumbs';
+import Page from '../../../../../../src/js/components/Page';
+import ServiceBreadcrumbs from '../../components/ServiceBreadcrumbs';
 import Service from '../../structs/Service';
 import ServiceActionItem from '../../constants/ServiceActionItem';
 import ServiceConfigurationContainer from '../service-configuration/ServiceConfigurationContainer';
 import ServiceDebugContainer from '../service-debug/ServiceDebugContainer';
-import ServiceInfo from './ServiceInfo';
 import ServiceTasksContainer from '../tasks/ServiceTasksContainer';
 import TabsMixin from '../../../../../../src/js/mixins/TabsMixin';
 import VolumeTable from '../../components/VolumeTable';
@@ -67,11 +67,15 @@ class ServiceDetail extends mixin(TabsMixin) {
     };
   }
 
+  hasVolumes() {
+    return !!this.props.service &&
+        this.props.service.getVolumes().getItems().length > 0;
+  }
+
   checkForVolumes() {
     // Add the Volumes tab if it isn't already there and the service has
     // at least one volume.
-    if (this.tabs_tabs.volumes == null && !!this.props.service
-      && this.props.service.getVolumes().getItems().length > 0) {
+    if (this.tabs_tabs.volumes == null && this.hasVolumes()) {
       this.tabs_tabs.volumes = 'Volumes';
       this.forceUpdate();
     }
@@ -110,15 +114,34 @@ class ServiceDetail extends mixin(TabsMixin) {
   }
 
   render() {
-    const {service} = this.props;
+    const {modals, service} = this.props;
+    let {id} = service;
 
+    const breadcrumbs = <ServiceBreadcrumbs serviceID={id} />;
+
+    const routePrefix = `/services/overview/${encodeURIComponent(id)}`;
+    const tabs = [
+      {label: 'Instances', callback: () => { this.setState({currentTab: 'tasks'}); }},
+      {label: 'Configuration', callback: () => { this.setState({currentTab: 'configuration'}); }},
+      {label: 'Debug', callback: () => { this.setState({currentTab: 'debug'}); }}
+    ];
+
+    if (this.hasVolumes()) {
+      tabs.push({
+        label: 'Volumes', routePath: routePrefix + '/volumes',
+        callback: this.tabs_handleTabClick.bind('volumes')
+      });
+    }
+
+    // TODO add ServiceInfo to header actions
+    /* <ServiceInfo onActionsItemSelection={this.onActionsItemSelection}
+         service={service} tabs={this.tabs_getUnroutedTabs()} />*/
     return (
-      <div>
-        <Breadcrumbs routes={this.props.routes} params={this.props.params} />
-        <ServiceInfo onActionsItemSelection={this.onActionsItemSelection}
-          service={service} tabs={this.tabs_getUnroutedTabs()} />
+      <Page>
+        <Page.Header tabs={tabs} breadcrumbs={breadcrumbs} iconID="services" />
         {this.tabs_getTabView()}
-      </div>
+        {modals}
+      </Page>
     );
   }
 }
@@ -135,7 +158,8 @@ ServiceDetail.contextTypes = {
 ServiceDetail.propTypes = {
   actions: PropTypes.object.isRequired,
   params: PropTypes.object.isRequired,
-  service: PropTypes.instanceOf(Service)
+  service: PropTypes.instanceOf(Service),
+  modals: PropTypes.node
 };
 
 module.exports = ServiceDetail;
