@@ -6,6 +6,8 @@ import {JSONParser as externalVolumes} from './serviceForm/ExternalVolumes';
 import {JSONParser as healthChecks} from './serviceForm/HealthChecks';
 import {JSONParser as labels} from './serviceForm/Labels';
 import {JSONParser as localVolumes} from './serviceForm/LocalVolumes';
+import {JSONParser as portDefinitions} from './serviceForm/PortDefinitions';
+import {JSONParser as portMappings} from './serviceForm/PortMappings';
 import {simpleParser} from '../../../../../src/js/utils/ParserUtil';
 
 const {MESOS, DOCKER} = ContainerConstants.type;
@@ -20,11 +22,16 @@ module.exports = [
   simpleParser(['container', MESOS.toLowerCase(), 'forcePullImage']),
   simpleParser(['container', DOCKER.toLowerCase(), 'privileged']),
   simpleParser(['container', MESOS.toLowerCase(), 'privileged']),
+  simpleParser(['container', DOCKER.toLowerCase(), 'network']),
+  simpleParser(['container', MESOS.toLowerCase(), 'network']),
   simpleParser(['cpus']),
   simpleParser(['mem']),
   simpleParser(['disk']),
   simpleParser(['gpus']),
   simpleParser(['cmd']),
+  portDefinitions,
+  // Note: must come after portDefinitions, as it uses its information!
+  portMappings,
   environmentVariables,
   labels,
   healthChecks,

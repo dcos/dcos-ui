@@ -1,3 +1,8 @@
+import {
+  ADD_ITEM,
+  SET
+} from '../../../../../../src/js/constants/TransactionTypes';
+import Transaction from '../../../../../../src/js/structs/Transaction';
 import Networking from '../../../../../../src/js/constants/Networking';
 import networkingReducer from './Networking';
 
@@ -46,6 +51,69 @@ module.exports = {
 
       return newPortDefinition;
     });
+  },
+
+  JSONParser(state) {
+    if (state.portDefinitions == null) {
+      return [];
+    }
+
+    // Look at portDefinitions and add accepted fields
+    return state.portDefinitions.reduce(function (memo, item, index) {
+      memo.push(new Transaction(['portDefinitions'], index, ADD_ITEM));
+
+      if (item.name != null) {
+        memo.push(new Transaction([
+          'portDefinitions',
+          index,
+          'name'
+        ], item.name, SET));
+      }
+
+      let port = Number(item.port);
+      // If port is a number but not zero, we set automaticPort to false
+      // so we can set the port
+      if (!isNaN(port) && port !== 0) {
+        memo.push(new Transaction([
+          'portDefinitions',
+          index,
+          'automaticPort'
+        ], false, SET));
+
+        memo.push(new Transaction([
+          'portDefinitions',
+          index,
+          'hostPort'
+        ], port, SET));
+      }
+
+      // If port is zero, we set automaticPort to true
+      if (!isNaN(port) && port === 0) {
+        memo.push(new Transaction([
+          'portDefinitions',
+          index,
+          'automaticPort'
+        ], true, SET));
+      }
+
+      if (item.protocol != null) {
+        memo.push(new Transaction([
+          'portDefinitions',
+          index,
+          'protocol'
+        ], item.protocol, SET));
+      }
+
+      if (item.labels != null) {
+        memo.push(new Transaction([
+          'portDefinitions',
+          index,
+          'loadBalanced'
+        ], true, SET));
+      }
+
+      return memo;
+    }, []);
   },
 
   FormReducer(state = [], action) {
