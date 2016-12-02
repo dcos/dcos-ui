@@ -2,12 +2,9 @@ import React from 'react';
 
 import CompositeState from '../../../../../../src/js/structs/CompositeState';
 import DescriptionList from '../../../../../../src/js/components/DescriptionList';
-import Icon from '../../../../../../src/js/components/Icon';
 import Loader from '../../../../../../src/js/components/Loader';
 import MarathonTaskDetailsList from '../../components/MarathonTaskDetailsList';
 import MesosSummaryStore from '../../../../../../src/js/stores/MesosSummaryStore';
-import ResourceColors from '../../../../../../src/js/constants/ResourceColors';
-import ResourceIcons from '../../../../../../src/js/constants/ResourceIcons';
 import ResourcesUtil from '../../../../../../src/js/utils/ResourcesUtil';
 import TaskDirectoryStore from '../../stores/TaskDirectoryStore';
 import TaskEndpointsList from '../../components/TaskEndpointsList';
@@ -102,28 +99,15 @@ class TaskDetailsTab extends React.Component {
         resource, task.resources[resource]
       );
       let colorIndex = resourceColors[resource];
-      let resourceKey = resourceLabel.toLowerCase();
-      let iconID = ResourceIcons[resourceKey];
-      let iconColor = ResourceColors[resourceKey];
 
       return (
         <div key={resource} className="media-object-item">
-          <div className="media-object-spacing-wrapper media-object-spacing-narrow media-object-offset">
-            <div className="media-object media-object-align-middle">
-              <div className="media-object-item">
-                <Icon color={iconColor} id={iconID} />
-              </div>
-              <div className="media-object-item">
-                <h4 className="flush-top flush-bottom">
-                  {resourceValue}
-                </h4>
-                <span className={`side-panel-resource-label
-                    text-color-${colorIndex}`}>
-                  {resourceLabel.toUpperCase()}
-                </span>
-              </div>
-            </div>
-          </div>
+          <h4 className="flush-top flush-bottom">
+            {resourceValue}
+          </h4>
+          <span className={`side-panel-resource-label text-color-${colorIndex}`}>
+            {resourceLabel.toUpperCase()}
+          </span>
         </div>
       );
     });
@@ -138,7 +122,7 @@ class TaskDetailsTab extends React.Component {
 
     return (
       <div>
-        <div className="media-object-spacing-wrapper">
+        <div className="media-object-spacing-wrapper media-object-spacing-wide">
           <div className="media-object">
             {this.getResources(task)}
           </div>
