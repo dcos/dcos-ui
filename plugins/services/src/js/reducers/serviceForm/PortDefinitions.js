@@ -6,11 +6,13 @@ import Transaction from '../../../../../../src/js/structs/Transaction';
 import Networking from '../../../../../../src/js/constants/Networking';
 import networkingReducer from './Networking';
 
-const {BRIDGE, HOST} = Networking.type;
+const {HOST} = Networking.type;
 
 module.exports = {
   /**
-   * Creates portDefinitions for the JSON Editor
+   * Creates portDefinitions for the JSON Editor. Only returns defintions for
+   * network type HOST, but will still record changes if network is
+   * something else
    * @param {Object[]} state Initial state to apply action on
    * @param {Object} action
    * @param {(ADD_ITEM|REMOVE_ITEM|SET)} action.type - action to perform
@@ -40,9 +42,8 @@ module.exports = {
     // Store the change no matter what network type we have
     this.portDefinitions = networkingReducer(this.portDefinitions, action);
 
-    // We only want portMappings for networks of type HOST or BRIDGE
-    if (this.appState.networkType !== HOST &&
-      this.appState.networkType !== BRIDGE) {
+    // We only want portDefinitions for networks of type HOST
+    if (this.appState.networkType !== HOST) {
       return null;
     }
 
