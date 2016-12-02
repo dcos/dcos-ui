@@ -89,7 +89,7 @@ var MarathonActions = {
       error(xhr) {
         AppDispatcher.handleServerAction({
           type: REQUEST_MARATHON_GROUP_DELETE_ERROR,
-          data: RequestUtil.getErrorFromXHR(xhr),
+          data: RequestUtil.parseResponseBody(xhr),
           xhr
         });
       }
@@ -186,7 +186,7 @@ var MarathonActions = {
       error(xhr) {
         AppDispatcher.handleServerAction({
           type: REQUEST_MARATHON_SERVICE_DELETE_ERROR,
-          data: RequestUtil.getErrorFromXHR(xhr),
+          data: RequestUtil.parseResponseBody(xhr),
           xhr
         });
       }
@@ -455,7 +455,7 @@ var MarathonActions = {
           type: REQUEST_MARATHON_DEPLOYMENT_ROLLBACK_ERROR,
           data: {
             originalDeploymentID: deploymentID,
-            error: RequestUtil.getErrorFromXHR(xhr)
+            error: RequestUtil.parseResponseBody(xhr)
           }
         });
       }
@@ -487,7 +487,7 @@ var MarathonActions = {
       error(xhr) {
         AppDispatcher.handleServerAction({
           type: REQUEST_MARATHON_TASK_KILL_ERROR,
-          data: RequestUtil.getErrorFromXHR(xhr)
+          data: RequestUtil.parseResponseBody(xhr)
         });
       }
     });
@@ -513,7 +513,7 @@ var MarathonActions = {
       error(xhr) {
         AppDispatcher.handleServerAction({
           type: REQUEST_MARATHON_POD_INSTANCE_KILL_ERROR,
-          data: RequestUtil.getErrorFromXHR(xhr)
+          data: RequestUtil.parseResponseBody(xhr)
         });
       }
     });

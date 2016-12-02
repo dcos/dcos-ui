@@ -1,6 +1,7 @@
 import React, {PropTypes} from 'react';
 import PureRender from 'react-addons-pure-render-mixin';
 
+import AppLockedMessage from './AppLockedMessage';
 import FormModal from '../../../../../../src/js/components/FormModal';
 import ModalHeading from '../../../../../../src/js/components/modals/ModalHeading';
 import Pod from '../../structs/Pod';
@@ -37,6 +38,12 @@ class ServiceScaleFormModal extends React.Component {
       return;
     }
 
+    if (typeof errors === 'string') {
+      this.setState({errorMsg: errors});
+
+      return;
+    }
+
     let {message: errorMsg = '', details} = errors;
     let hasDetails = details && details.length !== 0;
 
@@ -66,10 +73,7 @@ class ServiceScaleFormModal extends React.Component {
 
     if (this.shouldForceUpdate()) {
       return (
-        <h4 className="text-align-center text-danger flush-top">
-            App is currently locked by one or more deployments. Press the button
-            again to forcefully change and deploy the new configuration.
-        </h4>
+        <AppLockedMessage service={this.props.service} />
       );
     }
 

@@ -38,6 +38,12 @@ class ServiceSuspendModal extends React.Component {
       return;
     }
 
+    if (typeof errors === 'string') {
+      this.setState({errorMsg: errors});
+
+      return;
+    }
+
     let {message: errorMsg = '', details} = errors;
     let hasDetails = details && details.length !== 0;
 
@@ -59,18 +65,20 @@ class ServiceSuspendModal extends React.Component {
   }
 
   getErrorMessage() {
-    let {errorMsg} = this.state;
+    const {errorMsg = null} = this.state;
 
     if (!errorMsg) {
       return null;
     }
 
     if (this.shouldForceUpdate()) {
-      return <AppLockedMessage />;
+      return (
+        <AppLockedMessage service={this.props.service} />
+      );
     }
 
     return (
-      <p className="text-danger flush-top">{errorMsg}</p>
+      <h4 className="text-align-center text-danger flush-top">{errorMsg}</h4>
     );
   }
 

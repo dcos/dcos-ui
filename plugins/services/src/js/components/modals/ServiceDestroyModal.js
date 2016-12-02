@@ -2,6 +2,7 @@ import {Confirm} from 'reactjs-components';
 import React, {PropTypes} from 'react';
 import PureRender from 'react-addons-pure-render-mixin';
 
+import AppLockedMessage from './AppLockedMessage';
 import ModalHeading from '../../../../../../src/js/components/modals/ModalHeading';
 import Pod from '../../structs/Pod';
 import Service from '../../structs/Service';
@@ -10,6 +11,10 @@ import ServiceTree from '../../structs/ServiceTree';
 class ServiceDestroyModal extends React.Component {
   constructor() {
     super(...arguments);
+
+    this.state = {
+      errorMsg: null
+    };
 
     this.shouldComponentUpdate = PureRender.shouldComponentUpdate.bind(this);
   }
@@ -25,15 +30,55 @@ class ServiceDestroyModal extends React.Component {
     }
   }
 
-  getErrorMessage() {
-    let {errors} = this.props;
-
+  componentWillReceiveProps(nextProps) {
+    let {errors} = nextProps;
     if (!errors) {
+      this.setState({errorMsg: null});
+
+      return;
+    }
+
+    if (typeof errors === 'string') {
+      this.setState({errorMsg: errors});
+
+      return;
+    }
+
+    let {message: errorMsg = '', details} = errors;
+    let hasDetails = details && details.length !== 0;
+
+    if (hasDetails) {
+      errorMsg = details.reduce(function (memo, error) {
+        return `${memo} ${error.errors.join(' ')}`;
+      }, '');
+    }
+
+    if (!errorMsg || !errorMsg.length) {
+      errorMsg = null;
+    }
+
+    this.setState({errorMsg});
+  }
+
+  shouldForceUpdate() {
+    return this.state.errorMsg && /force=true/.test(this.state.errorMsg);
+  }
+
+  getErrorMessage() {
+    const {errorMsg = null} = this.state;
+
+    if (!errorMsg) {
       return null;
     }
 
+    if (this.shouldForceUpdate()) {
+      return (
+        <AppLockedMessage service={this.props.service} />
+      );
+    }
+
     return (
-      <p className="text-danger flush-top">{errors}</p>
+      <h4 className="text-align-center text-danger flush-top">{errorMsg}</h4>
     );
   }
 
@@ -77,7 +122,7 @@ class ServiceDestroyModal extends React.Component {
         leftButtonCallback={onClose}
         rightButtonText={`Destroy ${itemText}`}
         rightButtonClassName="button button-danger"
-        rightButtonCallback={deleteItem}
+        rightButtonCallback={() => deleteItem(this.shouldForceUpdate())}
         showHeader={true}>
         <p>
           Destroying <span className="emphasize">{serviceName}</span> is irreversible. Are you sure you want to continue?
@@ -90,7 +135,10 @@ class ServiceDestroyModal extends React.Component {
 
 ServiceDestroyModal.propTypes = {
   deleteItem: PropTypes.func.isRequired,
-  errors: PropTypes.string,
+  errors: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.string
+  ]),
   isPending: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired,

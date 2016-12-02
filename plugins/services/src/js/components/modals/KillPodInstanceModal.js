@@ -160,7 +160,10 @@ KillPodInstanceModal.defaultProps = {
 
 KillPodInstanceModal.propTypes = {
   action: PropTypes.string,
-  errors: PropTypes.string,
+  errors: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.string
+  ]),
   isPending: PropTypes.bool.isRequired,
   killPodInstances: PropTypes.func,
   onClose: PropTypes.func.isRequired,

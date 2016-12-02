@@ -33,13 +33,7 @@ module.exports = class ServerErrorModal extends mixin(StoreMixin) {
       errors: []
     };
 
-    this.store_listeners = Hooks.applyFilter('serverErrorModalListeners', [
-      {
-        name: 'marathon',
-        events: ['serviceDeleteError'],
-        suppressUpdate: false
-      }
-    ]);
+    this.store_listeners = Hooks.applyFilter('serverErrorModalListeners', []);
 
     METHODS_TO_BIND.forEach((method) => {
       this[method] = this[method].bind(this);

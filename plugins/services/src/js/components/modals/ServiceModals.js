@@ -133,11 +133,17 @@ class ServiceModals extends React.Component {
     const {service} = modalProps;
     const isGroup = service instanceof ServiceTree;
 
-    let deleteItem = () => this.props.actions.deleteService(service);
+    let deleteItem = (force) => this.props.actions.deleteService(
+      service,
+      force
+    );
     let key = ActionKeys.SERVICE_DELETE;
 
     if (isGroup) {
-      deleteItem = () => this.props.actions.deleteGroup(service.getId());
+      deleteItem = (force) => this.props.actions.deleteGroup(
+        service.getId(),
+        force
+      );
       key = ActionKeys.GROUP_DELETE;
     }
 

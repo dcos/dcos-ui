@@ -11,6 +11,10 @@ class ServiceRestartModal extends React.Component {
   constructor() {
     super(...arguments);
 
+    this.state = {
+      errorMsg: null
+    };
+
     this.shouldComponentUpdate = PureRender.shouldComponentUpdate.bind(this);
   }
 
@@ -25,23 +29,55 @@ class ServiceRestartModal extends React.Component {
     }
   }
 
+  componentWillReceiveProps(nextProps) {
+    let {errors} = nextProps;
+    if (!errors) {
+      this.setState({errorMsg: null});
+
+      return;
+    }
+
+    if (typeof errors === 'string') {
+      this.setState({errorMsg: errors});
+
+      return;
+    }
+
+    let {message: errorMsg = '', details} = errors;
+    let hasDetails = details && details.length !== 0;
+
+    if (hasDetails) {
+      errorMsg = details.reduce(function (memo, error) {
+        return `${memo} ${error.errors.join(' ')}`;
+      }, '');
+    }
+
+    if (!errorMsg || !errorMsg.length) {
+      errorMsg = null;
+    }
+
+    this.setState({errorMsg});
+  }
+
   shouldForceUpdate() {
-    return this.props.errors && /force=true/.test(this.props.errors);
+    return this.state.errorMsg && /force=true/.test(this.state.errorMsg);
   }
 
   getErrorMessage() {
-    let {errors} = this.props;
+    const {errorMsg = null} = this.state;
 
-    if (!errors) {
+    if (!errorMsg) {
       return null;
     }
 
     if (this.shouldForceUpdate()) {
-      return <AppLockedMessage />;
+      return (
+        <AppLockedMessage service={this.props.service} />
+      );
     }
 
     return (
-      <p className="text-danger flush-top">{errors}</p>
+      <h4 className="text-align-center text-danger flush-top">{errorMsg}</h4>
     );
   }
 
@@ -86,7 +122,10 @@ class ServiceRestartModal extends React.Component {
 }
 
 ServiceRestartModal.propTypes = {
-  errors: PropTypes.string,
+  errors: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.string
+  ]),
   isPending: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired,
