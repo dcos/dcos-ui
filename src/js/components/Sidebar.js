@@ -13,7 +13,6 @@ import InternalStorageMixin from '../mixins/InternalStorageMixin';
 import MesosSummaryStore from '../stores/MesosSummaryStore';
 import MetadataStore from '../stores/MetadataStore';
 import PrimarySidebarLink from '../components/PrimarySidebarLink';
-import SaveStateMixin from '../mixins/SaveStateMixin';
 import SidebarActions from '../events/SidebarActions';
 import SidebarStore from '../stores/SidebarStore';
 import UserAccountDropdown from './UserAccountDropdown';
@@ -42,20 +41,10 @@ var Sidebar = React.createClass({
 
   displayName: 'Sidebar',
 
-  saveState_key: 'sidebar',
-
-  saveState_properties: ['isDocked'],
-
-  mixins: [SaveStateMixin, InternalStorageMixin],
+  mixins: [InternalStorageMixin],
 
   contextTypes: {
     router: routerShape
-  },
-
-  getInitialState() {
-    return {
-      isDocked: false
-    };
   },
 
   componentDidMount() {
@@ -75,14 +64,6 @@ var Sidebar = React.createClass({
         'transitionend',
         this.handleSidebarTransitionEnd
       );
-    }
-
-    if (this.state.isDocked !== SidebarStore.get('isDocked')) {
-      if (this.state.isDocked) {
-        SidebarActions.undock();
-      } else {
-        SidebarActions.dock();
-      }
     }
 
     global.window.addEventListener('keydown', this.handleKeyPress, true);
@@ -312,8 +293,6 @@ var Sidebar = React.createClass({
       } else {
         SidebarActions.dock();
       }
-
-      this.saveState_save();
     });
   },
 

@@ -1,7 +1,6 @@
 import Config from '../config/Config';
 import UserSettingsStore from '../stores/UserSettingsStore';
-
-const SAVED_STATE_KEY = 'savedStates';
+import {SAVED_STATE_KEY} from '../constants/UserSettings';
 
 const SaveStateMixin = {
   componentWillMount() {
