@@ -1,14 +1,15 @@
 import React, {PropTypes} from 'react';
 
 import EmptyServiceTree from './EmptyServiceTree';
+import ServiceBreadcrumbs from '../../components/ServiceBreadcrumbs';
 import ServiceSearchFilter from './ServiceSearchFilter';
 import ServiceSidebarFilters from './ServiceSidebarFilters';
 import ServiceTree from '../../structs/ServiceTree';
 import ServicesTable from './ServicesTable';
 
-import Breadcrumbs from '../../../../../../src/js/components/Breadcrumbs';
 import FilterBar from '../../../../../../src/js/components/FilterBar';
 import FilterHeadline from '../../../../../../src/js/components/FilterHeadline';
+import Page from '../../../../../../src/js/components/Page';
 
 class ServiceTreeView extends React.Component {
 
@@ -41,13 +42,12 @@ class ServiceTreeView extends React.Component {
       );
     }
 
-    return (
-      <Breadcrumbs routes={this.props.routes} params={this.props.params} />
-    );
+    return null;
   }
 
   render() {
     const {
+      modals,
       serviceTree,
       services
     } = this.props;
@@ -56,46 +56,54 @@ class ServiceTreeView extends React.Component {
 
     if (serviceTree.getItems().length) {
       return (
-        <div className="flex">
-          <ServiceSidebarFilters
-            countByValue={services.countByFilter}
-            filters={services.filters}
-            handleFilterChange={this.props.handleFilterChange}
-            services={services.all} />
-          <div className="flex-grow">
-            {this.getHeadline()}
-            <FilterBar rightAlignLastNChildren={2}>
-              <ServiceSearchFilter
-                handleFilterChange={this.props.handleFilterChange}
-                filters={services.filters || {}} />
-              <button className="button button-stroke"
-                onClick={modalHandlers.createGroup}>
-                Create Group
-              </button>
-              <button className="button button-success"
-                onClick={modalHandlers.createService}>
-                Run a Service
-              </button>
-            </FilterBar>
-            <ServicesTable services={services.filtered}
-              isFiltered={!!Object.keys(services.filters).length}
-              modalHandlers={modalHandlers} />
+        <Page>
+          <Page.Header breadcrumbs={<ServiceBreadcrumbs serviceID={serviceTree.id} />} />
+          <div className="flex">
+            <ServiceSidebarFilters
+              countByValue={services.countByFilter}
+              filters={services.filters}
+              handleFilterChange={this.props.handleFilterChange}
+              services={services.all} />
+            <div className="flex-grow">
+              {this.getHeadline()}
+              <FilterBar rightAlignLastNChildren={2}>
+                <ServiceSearchFilter
+                  handleFilterChange={this.props.handleFilterChange}
+                  filters={services.filters || {}} />
+                <button className="button button-stroke"
+                  onClick={modalHandlers.createGroup}>
+                  Create Group
+                </button>
+                <button className="button button-success"
+                  onClick={modalHandlers.createService}>
+                  Run a Service
+                </button>
+              </FilterBar>
+              <ServicesTable services={services.filtered}
+                isFiltered={!!Object.keys(services.filters).length}
+                modalHandlers={modalHandlers} />
+            </div>
           </div>
-        </div>
+          {modals}
+        </Page>
       );
-    };
+    }
 
     return (
-      <EmptyServiceTree
-        onCreateGroup={modalHandlers.createGroup}
-        onCreateService={modalHandlers.createService} />
+      <Page>
+        <Page.Header breadcrumbs={<ServiceBreadcrumbs serviceID={serviceTree.id} />} />
+        <EmptyServiceTree
+          onCreateGroup={modalHandlers.createGroup}
+          onCreateService={modalHandlers.createService} />
+        {modals}
+      </Page>
     );
   }
 }
 
 ServiceTreeView.contextTypes = {
   modalHandlers: PropTypes.shape({
-    creatGroup: PropTypes.func,
+    createGroup: PropTypes.func,
     createService: PropTypes.func
   }).isRequired
 };
@@ -110,6 +118,7 @@ const servicesProps = PropTypes.shape({
 ServiceTreeView.propTypes = {
   clearFilters: PropTypes.func.isRequired,
   handleFilterChange: PropTypes.func.isRequired,
+  modals: PropTypes.node,
   serviceTree: PropTypes.instanceOf(ServiceTree),
   services: servicesProps
 };
