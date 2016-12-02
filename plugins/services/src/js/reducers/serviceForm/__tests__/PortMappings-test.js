@@ -171,6 +171,45 @@ describe('#JSONParser', function () {
       ]);
     });
 
+    it('should not add more from portMappings when less than portDefinitions', function () {
+      expect(PortMappings.JSONParser({
+        type: DOCKER,
+        container: {
+          docker: {
+            network: BRIDGE,
+            portMappings: [
+              {
+                name: 'foo',
+                hostPort: 0,
+                containerPort: 80,
+                protocol: 'tcp'
+              }
+            ]
+          }
+        },
+        portDefinitions: [
+          {
+            name: 'foo',
+            port: 0,
+            protocol: 'tcp'
+          },
+          {
+            name: 'bar',
+            port: 10,
+            protocol: 'tcp',
+            labels: {
+              VIP_1: '/:0'
+            }
+          }
+        ]
+      })).toEqual([
+        new Transaction(['portDefinitions', 0, 'name'], 'foo'),
+        new Transaction(['portDefinitions', 0, 'automaticPort'], true),
+        new Transaction(['portDefinitions', 0, 'containerPort'], 80),
+        new Transaction(['portDefinitions', 0, 'protocol'], 'tcp')
+      ]);
+    });
+
   });
 
 });

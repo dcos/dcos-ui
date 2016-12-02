@@ -20,15 +20,11 @@ module.exports = {
     let portMappings = findNestedPropertyInObject(
       state,
       'container.docker.portMappings'
-    );
+    ) || [];
     let portDefinitionsLength = findNestedPropertyInObject(
       state,
       'portDefinitions.length'
     ) || 0;
-
-    if (portMappings == null) {
-      return [];
-    }
 
     // Add additional fields if we have more definitions in portMappings
     // than in portDefinitions
