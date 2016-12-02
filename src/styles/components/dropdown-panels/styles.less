@@ -20,15 +20,15 @@
       }
 
       &.dropdown-panel-animated {
-        margin-top: -10px;
         opacity: 0;
         pointer-events: none;
-        transition: margin-top @modal-animation-duration @modal-animation-easing, opacity @modal-animation-duration @modal-animation-easing;
+        transform: @dropdown-panels-animation-transform;
+        transition: transform @modal-animation-duration @modal-animation-easing, opacity @modal-animation-duration @modal-animation-easing;
 
         &.is-visible {
-          margin-top: 0;
           opacity: 1;
           pointer-events: auto;
+          transform: @dropdown-panels-rest-transform;
         }
       }
     }
