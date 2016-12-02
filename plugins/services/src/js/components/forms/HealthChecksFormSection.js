@@ -122,8 +122,9 @@ class HealthChecksFormSection extends Component {
           className="column-6"
           showError={false}>
           <FieldLabel>Service Endpoint</FieldLabel>
-          <FieldSelect name={`healthChecks.${key}.portIndex`}
-              value={healthCheck.portIndex}>
+          <FieldSelect
+            name={`healthChecks.${key}.portIndex`}
+            value={String(healthCheck.portIndex)}>
             <option value="">Select Endpoint</option>
             {this.getEndpoints()}
           </FieldSelect>

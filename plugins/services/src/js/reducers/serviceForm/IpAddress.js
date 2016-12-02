@@ -23,7 +23,7 @@ module.exports = {
       let networkName = value.split('.')[1];
       if (networkName != null) {
         return {
-          discovery: this.internalState.discovery || {test: true},
+          discovery: this.internalState.discovery || {},
           groups: this.internalState.groups || [],
           labels: this.internalState.labels || {},
           networkName: value.split('.')[1]
