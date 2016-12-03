@@ -50,11 +50,10 @@ class NetworkingFormSection extends mixin(StoreMixin) {
     let {errors} = this.props;
     let hostPortError = findNestedPropertyInObject(
       errors,
-      `portDefinitions.${index}.hostPort`
-    );
-    let automaticPortError = findNestedPropertyInObject(
+      `portDefinitions.${index}.port`
+    ) || findNestedPropertyInObject(
       errors,
-      `portDefinitions.${index}.automaticPort`
+      `container.docker.portMappings.${index}.hostPort`
     );
 
     if (portDefinition.automaticPort) {
@@ -72,6 +71,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
         <FieldInput
           disabled={portDefinition.automaticPort}
           placeholder={placeholder}
+          min="0"
           name={`portDefinitions.${index}.hostPort`}
           type="number"
           value={portDefinition.hostPort} />
@@ -79,8 +79,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
       </FormGroup>,
       <FormGroup
         className="column-auto flush-left"
-        key="assign-automatically"
-        showError={Boolean(automaticPortError)}>
+        key="assign-automatically">
         <FieldLabel>
           &nbsp;
         </FieldLabel>
@@ -91,7 +90,6 @@ class NetworkingFormSection extends mixin(StoreMixin) {
             type="checkbox" />
           Assign Automatically
         </FieldLabel>
-        <FieldError>{automaticPortError}</FieldError>
       </FormGroup>
     ];
   }
@@ -100,7 +98,10 @@ class NetworkingFormSection extends mixin(StoreMixin) {
     let {errors} = this.props;
     let loadBalancedError = findNestedPropertyInObject(
       errors,
-      `portDefinitions.${index}.loadBalanced`
+      `portDefinitions.${index}.labels`
+    ) || findNestedPropertyInObject(
+      errors,
+      `container.docker.portMappings.${index}.labels`
     );
 
     let hostname = HostUtil.stringToHostname(this.props.data.id);
@@ -110,6 +111,11 @@ class NetworkingFormSection extends mixin(StoreMixin) {
     }
     if (containerPort != null && containerPort !== '') {
       port = `:${containerPort}`;
+    }
+
+    let loadBalancedLabel = 'Disabled';
+    if (loadBalanced) {
+      loadBalancedLabel = 'Enabled';
     }
 
     return [
@@ -132,7 +138,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
               checked={loadBalanced}
               name={`portDefinitions.${index}.loadBalanced`}
               type="checkbox" />
-            Enabled
+            {loadBalancedLabel}
           </FieldLabel>
           <FieldError>{loadBalancedError}</FieldError>
         </FormGroup>
@@ -150,6 +156,9 @@ class NetworkingFormSection extends mixin(StoreMixin) {
     let protocolError = findNestedPropertyInObject(
       errors,
       `portDefinitions.${index}.protocol`
+    ) || findNestedPropertyInObject(
+      errors,
+      `container.docker.portMappings.${index}.protocol`
     );
 
     return (
@@ -190,11 +199,14 @@ class NetworkingFormSection extends mixin(StoreMixin) {
     return portDefinitions.map((portDefinition, index) => {
       let containerPortError = findNestedPropertyInObject(
         errors,
-        `portDefinitions.${index}.containerPort`
+        `container.docker.portMappings.${index}.containerPort`
       );
       let nameError = findNestedPropertyInObject(
         errors,
         `portDefinitions.${index}.name`
+      ) || findNestedPropertyInObject(
+        errors,
+        `container.docker.portMappings.${index}.name`
       );
       let portMappingFields = (
         <div className="flex row">
@@ -218,6 +230,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
                 Container Port
               </FieldLabel>
               <FieldInput
+                min="0"
                 name={`portDefinitions.${index}.containerPort`}
                 type="number"
                 value={portDefinition.containerPort} />
@@ -248,6 +261,9 @@ class NetworkingFormSection extends mixin(StoreMixin) {
       let nameError = findNestedPropertyInObject(
         errors,
         `portDefinitions.${index}.name`
+      ) || findNestedPropertyInObject(
+        errors,
+        `container.docker.portMappings.${index}.name`
       );
 
       return (
@@ -287,14 +303,16 @@ class NetworkingFormSection extends mixin(StoreMixin) {
       let containerPortError = findNestedPropertyInObject(
         errors,
         `portDefinitions.${index}.containerPort`
+      ) || findNestedPropertyInObject(
+        errors,
+        `container.docker.portMappings.${index}.containerPort`
       );
       let nameError = findNestedPropertyInObject(
         errors,
         `portDefinitions.${index}.name`
-      );
-      let portMappingError = findNestedPropertyInObject(
+      ) || findNestedPropertyInObject(
         errors,
-        `portDefinitions.${index}.portMapping`
+        `container.docker.portMappings.${index}.name`
       );
 
       if (portDefinition.portMapping) {
@@ -327,6 +345,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
                 Container Port
               </FieldLabel>
               <FieldInput
+                min="0"
                 name={`portDefinitions.${index}.containerPort`}
                 type="number"
                 value={portDefinition.containerPort} />
@@ -342,9 +361,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
                 value={portDefinition.name} />
               <FieldError>{nameError}</FieldError>
             </FormGroup>
-            <FormGroup
-              className="column-3"
-              showError={Boolean(portMappingError)}>
+            <FormGroup className="column-3">
               <FieldLabel>
                 Port Mapping
               </FieldLabel>
@@ -355,7 +372,6 @@ class NetworkingFormSection extends mixin(StoreMixin) {
                   type="checkbox" />
                   {portMappingLabel}
               </FieldLabel>
-              <FieldError>{portMappingError}</FieldError>
             </FormGroup>
           </div>
           {portMappingFields}
@@ -494,7 +510,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
                 maxWidth={300}
                 scrollContainer=".gm-scroll-view"
                 wrapText={true}>
-                <Icon color="grey" id="ring-question" size="mini" />
+                <Icon color="grey" id="circle-question" size="mini" />
               </Tooltip>
             </FieldLabel>
             {this.getTypeSelections()}
