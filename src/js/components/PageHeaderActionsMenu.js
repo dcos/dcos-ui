@@ -20,11 +20,11 @@ const handleItemSelection = (item) => {
   }
 };
 
-const getDropdownItemFromComponent = (child) => {
+const getDropdownItemFromComponent = (child, index) => {
   return {
     clickHandler: child.props.clickHandler,
     html: child,
-    id: child.key
+    id: index
   };
 };
 
@@ -53,8 +53,7 @@ PageHeaderActionsMenu.propTypes = {
     React.PropTypes.shape({
       props: React.PropTypes.shape({
         clickHandler: React.PropTypes.func
-      }),
-      key: React.PropTypes.string.isRequired
+      })
     })
   )
 };
