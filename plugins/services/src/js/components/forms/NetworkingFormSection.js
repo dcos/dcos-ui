@@ -442,13 +442,13 @@ class NetworkingFormSection extends mixin(StoreMixin) {
 
     // Runtime is Mesos
     if (!type || type === NONE) {
-      disabledMap[Networking.type.BRIDGE] = 'BRIDGE networking is not compatible with the Mesos runtime.';
-      disabledMap[Networking.type.USER] = 'USER networking is not compatible with the Mesos runtime.';
+      disabledMap[Networking.type.BRIDGE] = 'BRIDGE networking is not compatible with the Mesos runtime';
+      disabledMap[Networking.type.USER] = 'USER networking is not compatible with the Mesos runtime';
     }
 
     // Runtime is Universal Container Runtime
     if (type === MESOS) {
-      disabledMap[Networking.type.BRIDGE] = 'BRIDGE networking is not compatible with the Universal Container Runtime.';
+      disabledMap[Networking.type.BRIDGE] = 'BRIDGE networking is not compatible with the Universal Container Runtime';
     }
 
     let tooltipContent = Object.keys(disabledMap).filter(function (key) {
@@ -482,7 +482,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
 
     return (
       <Tooltip
-        content={tooltipContent}
+        content={tooltipContent + '.'}
         interactive={true}
         maxWidth={300}
         scrollContainer=".gm-scroll-view"
