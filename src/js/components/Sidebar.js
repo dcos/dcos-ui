@@ -132,7 +132,7 @@ var Sidebar = React.createClass({
       }
 
       return (
-        <div className="sidebar-section pod pod-short flush-top flush-left flush-right"
+        <div className="sidebar-section pod pod-short-bottom flush-top flush-left flush-right"
           key={index}>
           {heading}
           {this.getNavigationGroup(group)}
@@ -343,7 +343,7 @@ var Sidebar = React.createClass({
           <GeminiScrollbar autoshow={true}
             className="flex-item-grow-1 flex-item-shrink-1 gm-scrollbar-container-flex gm-scrollbar-container-flex-view">
             <div className="sidebar-content-wrapper">
-              <div className="sidebar-sections pod pod-short pod-narrow">
+              <div className="sidebar-sections pod pod-narrow">
                 {this.getNavigationSections()}
               </div>
               <div className="sidebar-dock-container pod pod-short pod-narrow flush-top">
