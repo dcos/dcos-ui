@@ -23,8 +23,14 @@
           text-decoration: none;
         }
 
-        .expanding-table-primary-cell.is-expandable:before {
-          border-left-color: @table-cell-inactive-color;
+        .expanding-table-primary-cell {
+
+          &.is-expandable {
+
+            &:before {
+              border-left-color: @table-cell-inactive-color;
+            }
+          }
         }
 
         .task-status-error,

@@ -49,7 +49,7 @@ class TaskTable extends React.Component {
     return classNames({
       'text-align-right': RIGHT_ALIGN_PROPS.includes(prop),
       'hidden-small-down': ['host', 'cpus', 'mem'].includes(prop),
-      'hidden-large-down': ['name', 'status', 'version', 'log'].includes(prop),
+      'hidden-large-down': ['name', 'status', 'health', 'version', 'log'].includes(prop),
       'highlight': prop === sortBy.prop,
       'clickable': row == null // this is a header
     });
@@ -89,7 +89,7 @@ class TaskTable extends React.Component {
         sortFunction
       },
       {
-        cacheCell: true,
+        cacheCell: false,
         className,
         getValue: this.getStatusValue,
         headerClassName: className,
@@ -100,7 +100,7 @@ class TaskTable extends React.Component {
         sortFunction
       },
       {
-        cacheCell: true,
+        cacheCell: false,
         className,
         getValue: this.getStatusValue,
         headerClassName: className,

@@ -401,7 +401,7 @@ class PodInstancesTable extends React.Component {
         flex-direction-top-to-bottom">
         <div className="table-cell-icon">
           <Tooltip anchor="center" content={tooltipContent}>
-            <span className={status.dotClassName}></span>
+            <span className={classNames('flush', status.dotClassName)} />
           </Tooltip>
         </div>
       </div>
