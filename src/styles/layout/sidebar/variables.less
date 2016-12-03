@@ -111,7 +111,7 @@
 
 // Default
 
-@sidebar-menu-item-color: color-lighten(@neutral, 80);
+@sidebar-menu-item-color: @white;
 @sidebar-menu-item-font-weight: 500;
 @sidebar-menu-item-background-color: color-lighten(@neutral, -40);
 
@@ -123,7 +123,7 @@
 // Open
 
 @sidebar-menu-item-open-color: @white;
-@sidebar-menu-item-open-background-color: color-lighten(@neutral, -20);
+@sidebar-menu-item-open-background-color: transparent;
 
 /* Text Size */
 
@@ -181,17 +181,11 @@
 
 // Padding Horizontal
 
-@sidebar-menu-item-content-padding-horizontal: @pod-margin-left * @pod-narrower-margin-left-scale;
-@sidebar-menu-item-content-padding-horizontal-screen-small: @pod-margin-left-screen-small * @pod-narrower-margin-left-scale;
-@sidebar-menu-item-content-padding-horizontal-screen-medium: @pod-margin-left-screen-medium * @pod-narrower-margin-left-scale;
-@sidebar-menu-item-content-padding-horizontal-screen-large: @pod-margin-left-screen-large * @pod-narrower-margin-left-scale;
-@sidebar-menu-item-content-padding-horizontal-screen-jumbo: @pod-margin-left-screen-jumbo * @pod-narrower-margin-left-scale;
-
-/*
- * Sidebar Submenu Item Icon
- */
-
-@sidebar-menu-item-icon-margin-right: 12px;
+@sidebar-menu-item-content-padding-horizontal: @pod-margin-left * @pod-narrow-margin-left-scale;
+@sidebar-menu-item-content-padding-horizontal-screen-small: @pod-margin-left-screen-small * @pod-narrow-margin-left-scale;
+@sidebar-menu-item-content-padding-horizontal-screen-medium: @pod-margin-left-screen-medium * @pod-narrow-margin-left-scale;
+@sidebar-menu-item-content-padding-horizontal-screen-large: @pod-margin-left-screen-large * @pod-narrow-margin-left-scale;
+@sidebar-menu-item-content-padding-horizontal-screen-jumbo: @pod-margin-left-screen-jumbo * @pod-narrow-margin-left-scale;
 
 /*
  * Sidebar Menu Item Link
@@ -201,18 +195,23 @@
 
 // Default
 
-@sidebar-menu-item-link-color: color-lighten(@neutral, 80);
+@sidebar-menu-item-link-color: @white;
 @sidebar-menu-item-link-background-color: color-lighten(@neutral, -40);
 
 // Hover
 
 @sidebar-menu-item-link-hover-color: @white;
-@sidebar-menu-item-link-hover-background-color: color-lighten(@neutral, -30);
+@sidebar-menu-item-link-hover-background-color: transparent;
 
 // Active
 
 @sidebar-menu-item-link-active-color: color-lighten(@neutral, 70);
 @sidebar-menu-item-link-active-background-color: color-lighten(@neutral, -35);
+
+// Selected
+
+@sidebar-menu-item-link-open-color: @white;
+@sidebar-menu-item-link-open-background-color: transparent;
 
 // Selected
 
@@ -294,7 +293,7 @@
 @sidebar-submenu-item-color: color-lighten(@neutral, 60);
 @sidebar-submenu-item-font-weight: 500;
 @sidebar-submenu-item-text-transform: none;
-@sidebar-submenu-item-background-color: color-lighten(@neutral, -30);
+@sidebar-submenu-item-background-color: transparent;
 
 /* Text Size */
 
@@ -310,7 +309,7 @@
 
 // Height
 
-@sidebar-submenu-item-height: 36px;
+@sidebar-submenu-item-height: 32px;
 
 // Margin Left
 
@@ -330,11 +329,11 @@
 
 // Padding Left
 
-@sidebar-submenu-item-padding-left: -@sidebar-submenu-item-margin-left;
-@sidebar-submenu-item-padding-left-screen-small: -@sidebar-submenu-item-margin-left-screen-small;
-@sidebar-submenu-item-padding-left-screen-medium: -@sidebar-submenu-item-margin-left-screen-medium;
-@sidebar-submenu-item-padding-left-screen-large: -@sidebar-submenu-item-margin-left-screen-large;
-@sidebar-submenu-item-padding-left-screen-jumbo: -@sidebar-submenu-item-margin-left-screen-jumbo;
+@sidebar-submenu-item-padding-left: -@sidebar-submenu-item-margin-left + @icon-small-width + @sidebar-menu-item-content-padding-horizontal;
+@sidebar-submenu-item-padding-left-screen-small: -@sidebar-submenu-item-margin-left-screen-small + @icon-small-width + @sidebar-menu-item-content-padding-horizontal-screen-small;
+@sidebar-submenu-item-padding-left-screen-medium: -@sidebar-submenu-item-margin-left-screen-medium + @icon-small-width + @sidebar-menu-item-content-padding-horizontal-screen-medium;
+@sidebar-submenu-item-padding-left-screen-large: -@sidebar-submenu-item-margin-left-screen-large + @icon-small-width + @sidebar-menu-item-content-padding-horizontal-screen-large;
+@sidebar-submenu-item-padding-left-screen-jumbo: -@sidebar-submenu-item-margin-left-screen-jumbo + @icon-small-width + @sidebar-menu-item-content-padding-horizontal-screen-jumbo;
 
 // Padding Right
 
@@ -352,12 +351,13 @@
 
 // Default
 
-@sidebar-submenu-item-link-color: color-lighten(@neutral, 60);
+@sidebar-submenu-item-link-color: color-lighten(@neutral, 40);
+@sidebar-submenu-item-link-background-color: transparent;
 
 // Hover
 
 @sidebar-submenu-item-link-hover-color: color-lighten(@neutral, 80);
-@sidebar-submenu-item-link-hover-background-color: color-lighten(@neutral, -10);
+@sidebar-submenu-item-link-hover-background-color: color-lighten(@neutral, -20);
 
 // Active
 
@@ -373,11 +373,11 @@
 
 // Margin Left
 
-@sidebar-submenu-item-link-margin-left: @sidebar-submenu-item-margin-left;
-@sidebar-submenu-item-link-margin-left-screen-small: @sidebar-submenu-item-margin-left-screen-small;
-@sidebar-submenu-item-link-margin-left-screen-medium: @sidebar-submenu-item-margin-left-screen-medium;
-@sidebar-submenu-item-link-margin-left-screen-large: @sidebar-submenu-item-margin-left-screen-large;
-@sidebar-submenu-item-link-margin-left-screen-jumbo: @sidebar-submenu-item-margin-left-screen-jumbo;
+@sidebar-submenu-item-link-margin-left: -@sidebar-submenu-item-padding-left;
+@sidebar-submenu-item-link-margin-left-screen-small: -@sidebar-submenu-item-padding-left-screen-small;
+@sidebar-submenu-item-link-margin-left-screen-medium: -@sidebar-submenu-item-padding-left-screen-medium;
+@sidebar-submenu-item-link-margin-left-screen-large: -@sidebar-submenu-item-padding-left-screen-large;
+@sidebar-submenu-item-link-margin-left-screen-jumbo: -@sidebar-submenu-item-padding-left-screen-jumbo;
 
 // Margin Right
 
@@ -389,11 +389,11 @@
 
 // Padding Left
 
-@sidebar-submenu-item-link-padding-left: -@sidebar-submenu-item-link-margin-left + @icon-small-width + @sidebar-menu-item-icon-margin-right;
-@sidebar-submenu-item-link-padding-left-screen-small: -@sidebar-submenu-item-link-margin-left-screen-small + @icon-small-width + @sidebar-menu-item-icon-margin-right;
-@sidebar-submenu-item-link-padding-left-screen-medium: -@sidebar-submenu-item-link-margin-left-screen-medium + @icon-small-width + @sidebar-menu-item-icon-margin-right;
-@sidebar-submenu-item-link-padding-left-screen-large: -@sidebar-submenu-item-link-margin-left-screen-large + @icon-small-width + @sidebar-menu-item-icon-margin-right;
-@sidebar-submenu-item-link-padding-left-screen-jumbo: -@sidebar-submenu-item-link-margin-left-screen-jumbo + @icon-small-width + @sidebar-menu-item-icon-margin-right;
+@sidebar-submenu-item-link-padding-left: -@sidebar-submenu-item-link-margin-left;
+@sidebar-submenu-item-link-padding-left-screen-small: -@sidebar-submenu-item-link-margin-left-screen-small;
+@sidebar-submenu-item-link-padding-left-screen-medium: -@sidebar-submenu-item-link-margin-left-screen-medium;
+@sidebar-submenu-item-link-padding-left-screen-large: -@sidebar-submenu-item-link-margin-left-screen-large;
+@sidebar-submenu-item-link-padding-left-screen-jumbo: -@sidebar-submenu-item-link-margin-left-screen-jumbo;
 
 // Padding Right
 

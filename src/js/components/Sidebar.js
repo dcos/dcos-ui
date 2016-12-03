@@ -132,7 +132,7 @@ var Sidebar = React.createClass({
       }
 
       return (
-        <div className="sidebar-section pod pod-shorter flush-top flush-left flush-right"
+        <div className="sidebar-section pod pod-short flush-top flush-left flush-right"
           key={index}>
           {heading}
           {this.getNavigationGroup(group)}

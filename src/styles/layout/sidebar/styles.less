@@ -137,7 +137,6 @@
 
       .icon {
         flex: 0 0 auto;
-        margin-right: @sidebar-menu-item-icon-margin-right;
       }
 
       // TODO: Apply a class to these elements. DCOS-11785
@@ -210,12 +209,13 @@
       }
 
       &.open {
+        background: @sidebar-menu-item-open-background-color;
         color: @sidebar-menu-item-open-color;
 
         & > span,
         & > a {
-          background: @sidebar-menu-item-open-background-color;
-          color: @sidebar-menu-item-open-color;
+          background: @sidebar-menu-item-link-open-background-color;
+          color: @sidebar-menu-item-link-open-color;
         }
       }
 
@@ -252,6 +252,7 @@
           & > span,
           & > a {
             align-items: center;
+            background-color: @sidebar-submenu-item-link-background-color;
             color: @sidebar-submenu-item-link-color;
             display: flex;
             height: @sidebar-submenu-item-height;
