@@ -60,13 +60,30 @@ class NetworkingFormSection extends mixin(StoreMixin) {
       placeholder = `$PORT${index}`;
     }
 
+    let tooltipContent = (
+      <span>
+        {'This host port will be accessible as an environment variable called `$PORT{index}0`. '}
+        <a href="https://mesosphere.github.io/marathon/docs/ports.html" about="_blank">
+          More information
+        </a>
+      </span>
+    );
+
     return [
       <FormGroup
         className="column-3"
         key="host-port"
         showError={Boolean(hostPortError)}>
         <FieldLabel>
-          Host Port
+          {'Host Port '}
+          <Tooltip
+            content={tooltipContent}
+            interactive={true}
+            maxWidth={300}
+            scrollContainer=".gm-scroll-view"
+            wrapText={true}>
+            <Icon color="grey" id="circle-question" size="mini" />
+          </Tooltip>
         </FieldLabel>
         <FieldInput
           disabled={portDefinition.automaticPort}
