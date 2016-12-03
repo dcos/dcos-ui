@@ -48,20 +48,35 @@ module.exports = combineReducers({
 
     // Convert portDefinitions to portMappings
     return this.portDefinitions.map((portDefinition, index) => {
-      let hostPort = Number(this.portDefinitions[index].hostPort) || 0;
-      let containerPort = Number(this.portDefinitions[index].containerPort) || 0;
+      let containerPort = Number(portDefinition.containerPort) || 0;
+      let hostPort = Number(portDefinition.hostPort) || 0;
+      let protocol = portDefinition.protocol;
+      let servicePort = parseInt(portDefinition.servicePort, 10) || null;
+      let labels = portDefinition.labels;
+
+      // Do not expose hostPort or protocol, when portMapping is turned off
+      if (!portDefinition.portMapping) {
+        hostPort = null;
+        protocol = null;
+      }
+
       let newPortDefinition = {
         name: portDefinition.name,
         hostPort,
         containerPort,
-        protocol: portDefinition.protocol
+        protocol,
+        servicePort,
+        labels
       };
 
       // Only set labels if port mapping is load balaced
-      if (this.portDefinitions[index].loadBalanced) {
-        newPortDefinition.labels = {
-          [`VIP_${index}`]: `${this.appState.id}:${hostPort}`
-        };
+      if (portDefinition.loadBalanced) {
+        // Prefer container port
+        let labelPort = containerPort || hostPort || 0;
+
+        newPortDefinition.labels = Object.assign({}, labels, {
+          [`VIP_${index}`]: `${this.appState.id}:${labelPort}`
+        });
       }
 
       return newPortDefinition;

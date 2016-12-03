@@ -49,7 +49,7 @@ module.exports = {
 
     // Create JSON port definitions from state
     return this.portDefinitions.map((portDefinition, index) => {
-      let hostPort = Number(this.portDefinitions[index].hostPort) || 0;
+      let hostPort = Number(portDefinition.hostPort) || 0;
       let newPortDefinition = {
         name: portDefinition.name,
         port: hostPort,
@@ -57,10 +57,10 @@ module.exports = {
       };
 
       // Only set labels if port mapping is load balaced
-      if (this.portDefinitions[index].loadBalanced) {
-        newPortDefinition.labels = {
+      if (portDefinition.loadBalanced) {
+        newPortDefinition.labels = Object.assign({}, newPortDefinition.labels, {
           [`VIP_${index}`]: `${this.appState.id}:${hostPort}`
-        };
+        });
       }
 
       return newPortDefinition;
@@ -125,12 +125,24 @@ module.exports = {
         ], item.protocol, SET));
       }
 
-      if (item.labels != null) {
+      let isLoadBalanced = Object.keys(item.labels || {}).some((label) => {
+        return label === `VIP_${index}`;
+      });
+
+      if (isLoadBalanced) {
         memo.push(new Transaction([
           'portDefinitions',
           index,
           'loadBalanced'
         ], true, SET));
+      }
+
+      if (item.labels != null) {
+        memo.push(new Transaction([
+          'portDefinitions',
+          index,
+          'labels'
+        ], item.labels, SET));
       }
 
       return memo;

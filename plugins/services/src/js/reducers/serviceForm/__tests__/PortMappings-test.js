@@ -28,6 +28,7 @@ describe('#JSONParser', function () {
         new Transaction(['portDefinitions'], 0, ADD_ITEM),
         new Transaction(['portDefinitions', 0, 'name'], 'foo'),
         new Transaction(['portDefinitions', 0, 'automaticPort'], true),
+        new Transaction(['portDefinitions', 0, 'portMapping'], true),
         new Transaction(['portDefinitions', 0, 'containerPort'], 80),
         new Transaction(['portDefinitions', 0, 'protocol'], 'tcp')
       ]);
@@ -59,6 +60,7 @@ describe('#JSONParser', function () {
       })).toEqual([
         new Transaction(['portDefinitions', 0, 'name'], 'foo'),
         new Transaction(['portDefinitions', 0, 'automaticPort'], true),
+        new Transaction(['portDefinitions', 0, 'portMapping'], true),
         new Transaction(['portDefinitions', 0, 'containerPort'], 80),
         new Transaction(['portDefinitions', 0, 'protocol'], 'tcp')
       ]);
@@ -80,11 +82,35 @@ describe('#JSONParser', function () {
       })).toEqual([
         new Transaction(['portDefinitions'], 0, ADD_ITEM),
         new Transaction(['portDefinitions', 0, 'automaticPort'], false),
+        new Transaction(['portDefinitions', 0, 'portMapping'], true),
         new Transaction(['portDefinitions', 0, 'hostPort'], 10)
       ]);
     });
 
     it('should add Transaction for loadBalanced ports', function () {
+      expect(PortMappings.JSONParser({
+        type: DOCKER,
+        container: {
+          docker: {
+            network: BRIDGE,
+            portMappings: [
+              {
+                labels: {
+                  VIP_0: '/:0'
+                }
+              }
+            ]
+          }
+        }
+      })).toEqual([
+        new Transaction(['portDefinitions'], 0, ADD_ITEM),
+        new Transaction(['portDefinitions', 0, 'portMapping'], false),
+        new Transaction(['portDefinitions', 0, 'loadBalanced'], true),
+        new Transaction(['portDefinitions', 0, 'labels'], {VIP_0: '/:0'})
+      ]);
+    });
+
+    it('shouldn\t add loadBalanced for wrong label', function () {
       expect(PortMappings.JSONParser({
         type: DOCKER,
         container: {
@@ -101,7 +127,8 @@ describe('#JSONParser', function () {
         }
       })).toEqual([
         new Transaction(['portDefinitions'], 0, ADD_ITEM),
-        new Transaction(['portDefinitions', 0, 'loadBalanced'], true)
+        new Transaction(['portDefinitions', 0, 'portMapping'], false),
+        new Transaction(['portDefinitions', 0, 'labels'], {VIP_1: '/:0'})
       ]);
     });
 
@@ -120,6 +147,7 @@ describe('#JSONParser', function () {
         }
       })).toEqual([
         new Transaction(['portDefinitions'], 0, ADD_ITEM),
+        new Transaction(['portDefinitions', 0, 'portMapping'], false),
         new Transaction(['portDefinitions', 0, 'protocol'], 'udp')
       ]);
     });
@@ -160,14 +188,17 @@ describe('#JSONParser', function () {
         new Transaction(['portDefinitions'], 1, ADD_ITEM),
         new Transaction(['portDefinitions', 0, 'name'], 'foo'),
         new Transaction(['portDefinitions', 0, 'automaticPort'], true),
+        new Transaction(['portDefinitions', 0, 'portMapping'], true),
         new Transaction(['portDefinitions', 0, 'containerPort'], 80),
         new Transaction(['portDefinitions', 0, 'protocol'], 'tcp'),
         new Transaction(['portDefinitions', 1, 'name'], 'bar'),
         new Transaction(['portDefinitions', 1, 'automaticPort'], false),
+        new Transaction(['portDefinitions', 1, 'portMapping'], true),
         new Transaction(['portDefinitions', 1, 'hostPort'], 10),
         new Transaction(['portDefinitions', 1, 'containerPort'], 81),
         new Transaction(['portDefinitions', 1, 'protocol'], 'tcp'),
-        new Transaction(['portDefinitions', 1, 'loadBalanced'], true)
+        new Transaction(['portDefinitions', 1, 'loadBalanced'], true),
+        new Transaction(['portDefinitions', 1, 'labels'], {VIP_1: '/:0'})
       ]);
     });
 
@@ -205,6 +236,7 @@ describe('#JSONParser', function () {
       })).toEqual([
         new Transaction(['portDefinitions', 0, 'name'], 'foo'),
         new Transaction(['portDefinitions', 0, 'automaticPort'], true),
+        new Transaction(['portDefinitions', 0, 'portMapping'], true),
         new Transaction(['portDefinitions', 0, 'containerPort'], 80),
         new Transaction(['portDefinitions', 0, 'protocol'], 'tcp')
       ]);

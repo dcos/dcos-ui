@@ -47,6 +47,9 @@ module.exports = {
         ], item.name, SET));
       }
 
+      // If port is a number but not zero, we set automaticPort to false
+      // so we can set the port and portMapping to true,
+      // since we have a host port
       let hostPort = Number(item.hostPort);
       if (!isNaN(hostPort) && hostPort !== 0) {
         memo.push(new Transaction([
@@ -58,15 +61,39 @@ module.exports = {
         memo.push(new Transaction([
           'portDefinitions',
           index,
+          'portMapping'
+        ], true, SET));
+
+        memo.push(new Transaction([
+          'portDefinitions',
+          index,
           'hostPort'
         ], hostPort, SET));
       }
+
+      // If port is zero, we set automaticPort to true and portMapping to true,
+      // since we have a host port
       if (!isNaN(hostPort) && hostPort === 0) {
         memo.push(new Transaction([
           'portDefinitions',
           index,
           'automaticPort'
         ], true, SET));
+
+        memo.push(new Transaction([
+          'portDefinitions',
+          index,
+          'portMapping'
+        ], true, SET));
+      }
+
+      // If port is not set, we set portMapping to false
+      if (isNaN(hostPort)) {
+        memo.push(new Transaction([
+          'portDefinitions',
+          index,
+          'portMapping'
+        ], false, SET));
       }
 
       let containerPort = Number(item.containerPort);
@@ -78,6 +105,15 @@ module.exports = {
         ], containerPort, SET));
       }
 
+      let servicePort = Number(item.servicePort);
+      if (!isNaN(servicePort)) {
+        memo.push(new Transaction([
+          'portDefinitions',
+          index,
+          'servicePort'
+        ], servicePort, SET));
+      }
+
       if (item.protocol != null) {
         memo.push(new Transaction([
           'portDefinitions',
@@ -86,12 +122,24 @@ module.exports = {
         ], item.protocol, SET));
       }
 
-      if (item.labels != null) {
+      let isLoadBalanced = Object.keys(item.labels || {}).some((label) => {
+        return label === `VIP_${index}`;
+      });
+
+      if (isLoadBalanced) {
         memo.push(new Transaction([
           'portDefinitions',
           index,
           'loadBalanced'
         ], true, SET));
+      }
+
+      if (item.labels != null) {
+        memo.push(new Transaction([
+          'portDefinitions',
+          index,
+          'labels'
+        ], item.labels, SET));
       }
 
       return memo;

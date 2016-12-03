@@ -5,13 +5,15 @@ import {
 } from '../../../../../../src/js/constants/TransactionTypes';
 
 const defaultFieldValues = {
-  containerPort: null,
-  name: null,
-  hostPort: null,
   automaticPort: true,
-  protocol: 'tcp',
+  containerPort: null,
+  hostPort: null,
+  labels: null,
+  loadBalanced: false,
+  name: null,
   portMapping: false,
-  loadBalanced: false
+  protocol: 'tcp',
+  servicePort: null
 };
 
 /**

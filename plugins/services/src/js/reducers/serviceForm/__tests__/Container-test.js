@@ -189,28 +189,49 @@ describe('Container', function () {
         let batch = new Batch();
         batch = batch.add(new Transaction(['container', 'docker', 'network'], USER, SET));
         batch = batch.add(new Transaction(['portDefinitions'], 0, ADD_ITEM));
+        batch = batch.add(new Transaction(['portDefinitions', 0, 'portMapping'], true));
 
         expect(batch.reduce(Container.JSONReducer.bind({}), {}))
           .toEqual({
             docker: {
               network: USER,
               portMappings: [
-                {containerPort: 0, hostPort: 0, name: null, protocol: 'tcp'}
+                {containerPort: 0, hostPort: 0, labels: null, name: null, protocol: 'tcp', servicePort: null}
               ]
             }
           });
       });
+
+      it('shouldn\'t include hostPort or protocol when not enabled', function () {
+        let batch = new Batch();
+        batch = batch.add(new Transaction(['container', 'docker', 'network'], USER, SET));
+        // This is default
+        // batch = batch.add(new Transaction(['portDefinitions', 0, 'portMapping'], false));
+        batch = batch.add(new Transaction(['portDefinitions'], 0, ADD_ITEM));
+
+        expect(batch.reduce(Container.JSONReducer.bind({}), {}))
+          .toEqual({
+            docker: {
+              network: USER,
+              portMappings: [
+                {containerPort: 0, hostPort: null, labels: null, name: null, protocol: null, servicePort: null}
+              ]
+            }
+          });
+      });
+
       it('should create default portDefinition configurations', function () {
         let batch = new Batch();
         batch = batch.add(new Transaction(['container', 'docker', 'network'], BRIDGE, SET));
         batch = batch.add(new Transaction(['portDefinitions'], 0, ADD_ITEM));
+        batch = batch.add(new Transaction(['portDefinitions', 0, 'portMapping'], true));
 
         expect(batch.reduce(Container.JSONReducer.bind({}), {}))
           .toEqual({
             docker: {
               network: BRIDGE,
               portMappings: [
-                {containerPort: 0, hostPort: 0, name: null, protocol: 'tcp'}
+                {containerPort: 0, hostPort: 0, labels: null, name: null, protocol: 'tcp', servicePort: null}
               ]
             }
           });
@@ -228,6 +249,7 @@ describe('Container', function () {
         let batch = new Batch();
         batch = batch.add(new Transaction(['container', 'docker', 'network'], HOST, SET));
         batch = batch.add(new Transaction(['portDefinitions'], 0, ADD_ITEM));
+        batch = batch.add(new Transaction(['portDefinitions', 0, 'portMapping'], true));
 
         expect(batch.reduce(Container.JSONReducer.bind({}), {}))
           .toEqual({docker: {network: HOST}});
@@ -237,15 +259,17 @@ describe('Container', function () {
         let batch = new Batch();
         batch = batch.add(new Transaction(['container', 'docker', 'network'], USER, SET));
         batch = batch.add(new Transaction(['portDefinitions'], 0, ADD_ITEM));
-        batch = batch.add(new Transaction(['portDefinitions'], 0, ADD_ITEM));
+        batch = batch.add(new Transaction(['portDefinitions'], 1, ADD_ITEM));
+        batch = batch.add(new Transaction(['portDefinitions', 0, 'portMapping'], true));
+        batch = batch.add(new Transaction(['portDefinitions', 1, 'portMapping'], true));
 
         expect(batch.reduce(Container.JSONReducer.bind({}), {}))
           .toEqual({
             docker: {
               network: USER,
               portMappings: [
-                {containerPort: 0, hostPort: 0, name: null, protocol: 'tcp'},
-                {containerPort: 0, hostPort: 0, name: null, protocol: 'tcp'}
+                {containerPort: 0, hostPort: 0, labels: null, name: null, protocol: 'tcp', servicePort: null},
+                {containerPort: 0, hostPort: 0, labels: null, name: null, protocol: 'tcp', servicePort: null}
               ]
             }
           });
@@ -255,16 +279,15 @@ describe('Container', function () {
         let batch = new Batch();
         batch = batch.add(new Transaction(['container', 'docker', 'network'], USER, SET));
         batch = batch.add(new Transaction(['portDefinitions'], 0, ADD_ITEM));
-        batch = batch.add(
-          new Transaction(['portDefinitions', 0, 'name'], 'foo')
-        );
+        batch = batch.add(new Transaction(['portDefinitions', 0, 'portMapping'], true));
+        batch = batch.add(new Transaction(['portDefinitions', 0, 'name'], 'foo'));
 
         expect(batch.reduce(Container.JSONReducer.bind({}), {}))
           .toEqual({
             docker: {
               network: USER,
               portMappings: [
-                {containerPort: 0, hostPort: 0, name: 'foo', protocol: 'tcp'}
+                {containerPort: 0, hostPort: 0, labels: null, name: 'foo', protocol: 'tcp', servicePort: null}
               ]
             }
           });
@@ -274,6 +297,7 @@ describe('Container', function () {
         let batch = new Batch();
         batch = batch.add(new Transaction(['container', 'docker', 'network'], USER, SET));
         batch = batch.add(new Transaction(['portDefinitions'], 0, ADD_ITEM));
+        batch = batch.add(new Transaction(['portDefinitions', 0, 'portMapping'], true));
         batch = batch.add(new Transaction(['portDefinitions', 0, 'automaticPort'], false));
         batch = batch.add(new Transaction(['portDefinitions', 0, 'hostPort'], 100));
 
@@ -282,7 +306,7 @@ describe('Container', function () {
             docker: {
               network: USER,
               portMappings: [
-                {containerPort: 0, hostPort: 100, name: null, protocol: 'tcp'}
+                {containerPort: 0, hostPort: 100, labels: null, name: null, protocol: 'tcp', servicePort: null}
               ]
             }
           });
@@ -292,6 +316,7 @@ describe('Container', function () {
         let batch = new Batch();
         batch = batch.add(new Transaction(['container', 'docker', 'network'], USER, SET));
         batch = batch.add(new Transaction(['portDefinitions'], 0, ADD_ITEM));
+        batch = batch.add(new Transaction(['portDefinitions', 0, 'portMapping'], true));
         // This is default behavior
         // batch = batch.add(new Transaction(['portDefinitions', 0, 'automaticPort'], true));
         batch = batch.add(new Transaction(['portDefinitions', 0, 'hostPort'], 100));
@@ -301,7 +326,7 @@ describe('Container', function () {
             docker: {
               network: USER,
               portMappings: [
-                {containerPort: 0, hostPort: 0, name: null, protocol: 'tcp'}
+                {containerPort: 0, hostPort: 0, labels: null, name: null, protocol: 'tcp', servicePort: null}
               ]
             }
           });
@@ -311,6 +336,7 @@ describe('Container', function () {
         let batch = new Batch();
         batch = batch.add(new Transaction(['container', 'docker', 'network'], USER, SET));
         batch = batch.add(new Transaction(['portDefinitions'], 0, ADD_ITEM));
+        batch = batch.add(new Transaction(['portDefinitions', 0, 'portMapping'], true));
         batch = batch.add(new Transaction(['portDefinitions', 0, 'protocol'], 'udp'));
 
         expect(batch.reduce(Container.JSONReducer.bind({}), {}))
@@ -318,7 +344,7 @@ describe('Container', function () {
             docker: {
               network: USER,
               portMappings: [
-                {containerPort: 0, hostPort: 0, name: null, protocol: 'udp'}
+                {containerPort: 0, hostPort: 0, labels: null, name: null, protocol: 'udp', servicePort: null}
               ]
             }
           });
@@ -328,7 +354,9 @@ describe('Container', function () {
         let batch = new Batch();
         batch = batch.add(new Transaction(['container', 'docker', 'network'], USER, SET));
         batch = batch.add(new Transaction(['portDefinitions'], 0, ADD_ITEM));
-        batch = batch.add(new Transaction(['portDefinitions'], 0, ADD_ITEM));
+        batch = batch.add(new Transaction(['portDefinitions'], 1, ADD_ITEM));
+        batch = batch.add(new Transaction(['portDefinitions', 0, 'portMapping'], true));
+        batch = batch.add(new Transaction(['portDefinitions', 1, 'portMapping'], true));
         batch = batch.add(new Transaction(['portDefinitions', 1, 'loadBalanced'], true));
 
         expect(batch.reduce(Container.JSONReducer.bind({}), {}))
@@ -336,8 +364,8 @@ describe('Container', function () {
             docker: {
               network: USER,
               portMappings: [
-                {containerPort: 0, hostPort: 0, name: null, protocol: 'tcp'},
-                {containerPort: 0, hostPort: 0, name: null, protocol: 'tcp', labels: {'VIP_1': ':0'}}
+                {containerPort: 0, hostPort: 0, labels: null, name: null, protocol: 'tcp', servicePort: null},
+                {containerPort: 0, hostPort: 0, labels: null, name: null, protocol: 'tcp', labels: {'VIP_1': ':0'}, servicePort: null}
               ]
             }
           });
@@ -347,7 +375,9 @@ describe('Container', function () {
         let batch = new Batch();
         batch = batch.add(new Transaction(['container', 'docker', 'network'], USER, SET));
         batch = batch.add(new Transaction(['portDefinitions'], 0, ADD_ITEM));
-        batch = batch.add(new Transaction(['portDefinitions'], 0, ADD_ITEM));
+        batch = batch.add(new Transaction(['portDefinitions'], 1, ADD_ITEM));
+        batch = batch.add(new Transaction(['portDefinitions', 0, 'portMapping'], true));
+        batch = batch.add(new Transaction(['portDefinitions', 1, 'portMapping'], true));
         batch = batch.add(new Transaction(['portDefinitions', 0, 'loadBalanced'], true));
         batch = batch.add(new Transaction(['portDefinitions', 1, 'loadBalanced'], true));
 
@@ -356,8 +386,8 @@ describe('Container', function () {
             docker: {
               network: USER,
               portMappings: [
-                {containerPort: 0, hostPort: 0, name: null, protocol: 'tcp', labels: {VIP_0: ':0'}},
-                {containerPort: 0, hostPort: 0, name: null, protocol: 'tcp', labels: {VIP_1: ':0'}}
+                {containerPort: 0, hostPort: 0, labels: null, name: null, protocol: 'tcp', labels: {VIP_0: ':0'}, servicePort: null},
+                {containerPort: 0, hostPort: 0, labels: null, name: null, protocol: 'tcp', labels: {VIP_1: ':0'}, servicePort: null}
               ]
             }
           });
@@ -368,6 +398,8 @@ describe('Container', function () {
         batch = batch.add(new Transaction(['container', 'docker', 'network'], USER, SET));
         batch = batch.add(new Transaction(['portDefinitions'], 0, ADD_ITEM));
         batch = batch.add(new Transaction(['portDefinitions'], 0, ADD_ITEM));
+        batch = batch.add(new Transaction(['portDefinitions', 0, 'portMapping'], true));
+        batch = batch.add(new Transaction(['portDefinitions', 1, 'portMapping'], true));
         batch = batch.add(new Transaction(['portDefinitions', 0, 'automaticPort'], false));
         batch = batch.add(new Transaction(['portDefinitions', 0, 'hostPort'], 300));
         batch = batch.add(new Transaction(['portDefinitions', 0, 'loadBalanced'], true));
@@ -377,8 +409,8 @@ describe('Container', function () {
             docker: {
               network: USER,
               portMappings: [
-                {containerPort: 0, hostPort: 300, name: null, protocol: 'tcp', labels: {VIP_0: ':300'}},
-                {containerPort: 0, hostPort: 0, name: null, protocol: 'tcp'}
+                {containerPort: 0, hostPort: 300, name: null, protocol: 'tcp', labels: {VIP_0: ':300'}, servicePort: null},
+                {containerPort: 0, hostPort: 0, labels: null, name: null, protocol: 'tcp', servicePort: null}
               ]
             }
           });
@@ -389,6 +421,8 @@ describe('Container', function () {
         batch = batch.add(new Transaction(['container', 'docker', 'network'], USER, SET));
         batch = batch.add(new Transaction(['portDefinitions'], 0, ADD_ITEM));
         batch = batch.add(new Transaction(['portDefinitions'], 0, ADD_ITEM));
+        batch = batch.add(new Transaction(['portDefinitions', 0, 'portMapping'], true));
+        batch = batch.add(new Transaction(['portDefinitions', 1, 'portMapping'], true));
         batch = batch.add(new Transaction(['portDefinitions', 0, 'automaticPort'], false));
         batch = batch.add(new Transaction(['portDefinitions', 1, 'loadBalanced'], true));
         batch = batch.add(new Transaction(['id'], 'foo'));
@@ -398,8 +432,8 @@ describe('Container', function () {
             docker: {
               network: USER,
               portMappings: [
-                {containerPort: 0, hostPort: 0, name: null, protocol: 'tcp'},
-                {containerPort: 0, hostPort: 0, name: null, protocol: 'tcp', labels: {'VIP_1': 'foo:0'}}
+                {containerPort: 0, hostPort: 0, labels: null, name: null, protocol: 'tcp', servicePort: null},
+                {containerPort: 0, hostPort: 0, labels: null, name: null, protocol: 'tcp', labels: {'VIP_1': 'foo:0'}, servicePort: null}
               ]
             }
           });
@@ -409,6 +443,8 @@ describe('Container', function () {
         let batch = new Batch();
         batch = batch.add(new Transaction(['portDefinitions'], 0, ADD_ITEM));
         batch = batch.add(new Transaction(['portDefinitions'], 0, ADD_ITEM));
+        batch = batch.add(new Transaction(['portDefinitions', 0, 'portMapping'], true));
+        batch = batch.add(new Transaction(['portDefinitions', 1, 'portMapping'], true));
         batch = batch.add(new Transaction(['portDefinitions', 0, 'automaticPort'], false));
         batch = batch.add(new Transaction(['portDefinitions', 1, 'loadBalanced'], true));
         batch = batch.add(new Transaction(['id'], 'foo'));
@@ -419,8 +455,8 @@ describe('Container', function () {
             docker: {
               network: USER,
               portMappings: [
-                {containerPort: 0, hostPort: 0, name: null, protocol: 'tcp'},
-                {containerPort: 0, hostPort: 0, name: null, protocol: 'tcp', labels: {'VIP_1': 'foo:0'}}
+                {containerPort: 0, hostPort: 0, labels: null, name: null, protocol: 'tcp', servicePort: null},
+                {containerPort: 0, hostPort: 0, labels: null, name: null, protocol: 'tcp', labels: {'VIP_1': 'foo:0'}, servicePort: null}
               ]
             }
           });
