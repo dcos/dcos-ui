@@ -48,6 +48,7 @@ PageHeaderActionsMenu.defaultProps = {
 };
 
 PageHeaderActionsMenu.propTypes = {
+  // anchorRight gets passed to Dropdown. It's truthy here unlike in the Dropdown.
   anchorRight: React.PropTypes.bool,
   children: React.PropTypes.arrayOf(
     React.PropTypes.shape({
