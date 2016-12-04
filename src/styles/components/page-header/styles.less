@@ -22,6 +22,7 @@
   .page-header-title-container {
     align-items: center;
     display: flex;
+    height: @button-height;
     padding-left: @page-header-title-padding-left;
     position: relative;
     transition: padding-left 0.25s;
@@ -309,6 +310,7 @@
     & when (@page-header-enabled) and (@page-header-screen-large-enabled) {
 
       .page-header-title-container {
+        height: @button-height-screen-large;
         padding-left: @page-header-title-padding-left-screen-large;
       }
 
