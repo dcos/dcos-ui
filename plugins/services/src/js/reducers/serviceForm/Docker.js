@@ -69,13 +69,19 @@ module.exports = combineReducers({
         labels
       };
 
-      // Only set labels if port mapping is load balaced
+      // Only set labels if port mapping is load balanced
       if (portDefinition.loadBalanced) {
-        // Prefer container port
-        let labelPort = containerPort || hostPort || 0;
+        let vip = portDefinition.vip;
+
+        if (portDefinition.vip == null) {
+          // Prefer container port
+          let labelPort = containerPort || hostPort || 0;
+
+          vip = `${this.appState.id}:${labelPort}`;
+        }
 
         newPortDefinition.labels = Object.assign({}, labels, {
-          [`VIP_${index}`]: `${this.appState.id}:${labelPort}`
+          [`VIP_${index}`]: vip
         });
       }
 

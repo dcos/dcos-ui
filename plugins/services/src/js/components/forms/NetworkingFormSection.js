@@ -111,7 +111,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
     ];
   }
 
-  getLoadBalancedServiceAddressField({containerPort, hostPort, loadBalanced}, index) {
+  getLoadBalancedServiceAddressField({containerPort, hostPort, loadBalanced, vip}, index) {
     let {errors} = this.props;
     let loadBalancedError = findNestedPropertyInObject(
       errors,
@@ -121,13 +121,18 @@ class NetworkingFormSection extends mixin(StoreMixin) {
       `container.docker.portMappings.${index}.labels`
     );
 
-    let hostname = HostUtil.stringToHostname(this.props.data.id);
-    let port = '';
-    if (hostPort != null && hostPort !== '') {
-      port = `:${hostPort}`;
-    }
-    if (containerPort != null && containerPort !== '') {
-      port = `:${containerPort}`;
+    let address = vip;
+    if (address == null) {
+      let hostname = HostUtil.stringToHostname(this.props.data.id);
+      let port = '';
+      if (hostPort != null && hostPort !== '') {
+        port = `:${hostPort}`;
+      }
+      if (containerPort != null && containerPort !== '') {
+        port = `:${containerPort}`;
+      }
+
+      address = `${hostname}${Networking.L4LB_ADDRESS}${port}`;
     }
 
     let loadBalancedLabel = 'Disabled';
@@ -161,7 +166,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
         </FormGroup>
         <FormGroup className="column-auto flush-left">
           <span>
-            {hostname}{Networking.L4LB_ADDRESS}{port}
+            {address}
           </span>
         </FormGroup>
       </div>

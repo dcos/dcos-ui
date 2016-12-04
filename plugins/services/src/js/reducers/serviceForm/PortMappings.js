@@ -122,16 +122,21 @@ module.exports = {
         ], item.protocol, SET));
       }
 
-      let isLoadBalanced = Object.keys(item.labels || {}).some((label) => {
-        return label === `VIP_${index}`;
-      });
-
-      if (isLoadBalanced) {
+      let vip = findNestedPropertyInObject(item, `labels.VIP_${index}`);
+      if (vip != null) {
         memo.push(new Transaction([
           'portDefinitions',
           index,
           'loadBalanced'
         ], true, SET));
+
+        if (!vip.startsWith(state.id)) {
+          memo.push(new Transaction([
+            'portDefinitions',
+            index,
+            'vip'
+          ], vip, SET));
+        }
       }
 
       if (item.labels != null) {

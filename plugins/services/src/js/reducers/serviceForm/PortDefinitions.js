@@ -5,6 +5,7 @@ import {
 import Transaction from '../../../../../../src/js/structs/Transaction';
 import Networking from '../../../../../../src/js/constants/Networking';
 import networkingReducer from './Networking';
+import {findNestedPropertyInObject} from '../../../../../../src/js/utils/Util';
 
 const {HOST} = Networking.type;
 
@@ -58,8 +59,14 @@ module.exports = {
 
       // Only set labels if port mapping is load balaced
       if (portDefinition.loadBalanced) {
+        let vip = portDefinition.vip;
+
+        if (portDefinition.vip == null) {
+          vip = `${this.appState.id}:${hostPort}`;
+        }
+
         newPortDefinition.labels = Object.assign({}, newPortDefinition.labels, {
-          [`VIP_${index}`]: `${this.appState.id}:${hostPort}`
+          [`VIP_${index}`]: vip
         });
       }
 
@@ -125,16 +132,21 @@ module.exports = {
         ], item.protocol, SET));
       }
 
-      let isLoadBalanced = Object.keys(item.labels || {}).some((label) => {
-        return label === `VIP_${index}`;
-      });
-
-      if (isLoadBalanced) {
+      let vip = findNestedPropertyInObject(item, `labels.VIP_${index}`);
+      if (vip != null) {
         memo.push(new Transaction([
           'portDefinitions',
           index,
           'loadBalanced'
         ], true, SET));
+
+        if (!vip.startsWith(state.id)) {
+          memo.push(new Transaction([
+            'portDefinitions',
+            index,
+            'vip'
+          ], vip, SET));
+        }
       }
 
       if (item.labels != null) {

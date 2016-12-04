@@ -13,7 +13,8 @@ const defaultFieldValues = {
   name: null,
   portMapping: false,
   protocol: 'tcp',
-  servicePort: null
+  servicePort: null,
+  vip: null
 };
 
 /**
