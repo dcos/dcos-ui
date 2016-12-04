@@ -15,8 +15,8 @@ const getMenuItems = (children) => {
 };
 
 const handleItemSelection = (item) => {
-  if (item.clickHandler) {
-    item.clickHandler();
+  if (item.onItemSelect) {
+    item.onItemSelect();
   }
 };
 
@@ -53,7 +53,7 @@ PageHeaderActionsMenu.propTypes = {
   children: React.PropTypes.arrayOf(
     React.PropTypes.shape({
       props: React.PropTypes.shape({
-        clickHandler: React.PropTypes.func
+        onItemSelect: React.PropTypes.func
       })
     })
   )
