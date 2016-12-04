@@ -28,18 +28,17 @@ const getDropdownItemFromComponent = (child, index) => {
   };
 };
 
-const PageHeaderActionsMenu = (props) => {
+const PageHeaderActionsMenu = ({children}) => {
   return (
     <Dropdown
       buttonClassName="button button-link"
-      items={getMenuItems(props.children)}
+      items={getMenuItems(children)}
       onItemSelection={handleItemSelection}
       persistentID="trigger"
       transition={true}
       dropdownMenuClassName="dropdown-menu"
       dropdownMenuListClassName="dropdown-menu-list"
-      wrapperClassName="dropdown"
-      {...props} />
+      wrapperClassName="dropdown" />
   );
 };
 
