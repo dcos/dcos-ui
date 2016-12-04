@@ -22,7 +22,7 @@ const handleItemSelection = (item) => {
 
 const getDropdownItemFromComponent = (child, index) => {
   return {
-    clickHandler: child.props.clickHandler,
+    onItemSelect: child.props.onItemSelect,
     html: child,
     id: index
   };
