@@ -11,6 +11,35 @@
         }
       }
 
+      &.inactive {
+
+        .expanding-table-primary-cell,
+        .icon-grey,
+        .status-text,
+        .table-cell-link-primary,
+        .table-cell-link-secondary,
+        .table-cell-value {
+          color: @table-cell-inactive-color;
+          text-decoration: none;
+        }
+
+        .expanding-table-primary-cell {
+
+          &.is-expandable {
+
+            &:before {
+              border-left-color: @table-cell-inactive-color;
+            }
+          }
+        }
+
+        .task-status-error,
+        .task-status-failed,
+        .text-error-state {
+          color: @danger-color;
+        }
+      }
+
       .table-display-on-row-hover {
         visibility: hidden;
       }

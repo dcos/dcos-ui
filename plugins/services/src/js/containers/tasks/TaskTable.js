@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import {ResourceTableUtil} from 'foundation-ui';
 import {routerShape, Link} from 'react-router';
 import React from 'react';
+import {Tooltip} from 'reactjs-components';
 
 import CheckboxTable from '../../../../../../src/js/components/CheckboxTable';
 import Icon from '../../../../../../src/js/components/Icon';
@@ -47,9 +48,8 @@ class TaskTable extends React.Component {
   getClassName(prop, sortBy, row) {
     return classNames({
       'text-align-right': RIGHT_ALIGN_PROPS.includes(prop),
-      'hidden-small-down': ['host', 'status', 'cpus', 'mem'].includes(prop),
-      'hidden-medium-down': prop === 'name',
-      'hidden-large-down': ['version', 'log'].includes(prop),
+      'hidden-small-down': ['host', 'cpus', 'mem'].includes(prop),
+      'hidden-large-down': ['name', 'status', 'health', 'version', 'log'].includes(prop),
       'highlight': prop === sortBy.prop,
       'clickable': row == null // this is a header
     });
@@ -89,13 +89,24 @@ class TaskTable extends React.Component {
         sortFunction
       },
       {
-        cacheCell: true,
+        cacheCell: false,
         className,
         getValue: this.getStatusValue,
         headerClassName: className,
         heading,
         prop: 'status',
         render: this.renderStatus,
+        sortable: true,
+        sortFunction
+      },
+      {
+        cacheCell: false,
+        className,
+        getValue: this.getStatusValue,
+        headerClassName: className,
+        heading,
+        prop: 'health',
+        render: this.renderHealth,
         sortable: true,
         sortFunction
       },
@@ -167,8 +178,9 @@ class TaskTable extends React.Component {
         <col style={{width: '40px'}} />
         <col />
         <col style={{width: '10%'}} className="hidden-medium-down" />
-        <col style={{width: '150px'}} className="hidden-small-down" />
-        <col style={{width: '115px'}} className="hidden-small-down" />
+        <col style={{width: '100px'}} className="hidden-small-down" />
+        <col style={{width: '80px'}} className="hidden-small-down" />
+        <col style={{width: '40px'}} className="hidden-small-down" />
         <col style={{width: '40px'}} className="hidden-large-down" />
         <col style={{width: '85px'}} className="hidden-small-down" />
         <col style={{width: '85px'}} className="hidden-small-down" />
@@ -186,6 +198,17 @@ class TaskTable extends React.Component {
       })
       .reduce(function (acc, task) {
         acc[task.id] = true;
+        return acc;
+      }, {});
+  }
+
+  getInactiveItemsMap(tasks) {
+    return tasks
+      .reduce(function (acc, task) {
+        if (TaskStates[task.state].stateTypes.includes('completed')) {
+          acc[task.id] = true;
+        }
+
         return acc;
       }, {});
   }
@@ -231,11 +254,14 @@ class TaskTable extends React.Component {
     }
 
     return (
-      <Link
-        to={linkTo}
-        title={title}>
-        <Icon color="grey" id="page-document" size="mini" />
-      </Link>
+      <div className="flex-box flex-box-align-vertical-center
+        table-cell-flex-box flex-align-items-center flex-direction-top-to-bottom">
+        <Link
+          to={linkTo}
+          title={title}>
+          <Icon color="grey" id="page-document" size="mini" />
+        </Link>
+      </div>
     );
   }
 
@@ -266,6 +292,17 @@ class TaskTable extends React.Component {
     let statusClassName = TaskUtil.getTaskStatusClassName(task);
     let statusLabelClasses = `${statusClassName} table-cell-value`;
 
+    return (
+      <div className="flex-box flex-box-align-vertical-center
+        table-cell-flex-box">
+        <span className={statusLabelClasses}>
+          {this.getStatusValue(task)}
+        </span>
+      </div>
+    );
+  }
+
+  renderHealth(prop, task) {
     let {state} = task;
 
     let dangerState = TaskStates[state].stateTypes.includes('failure');
@@ -275,11 +312,22 @@ class TaskTable extends React.Component {
     let unhealthy = (healthy === false);
     let unknown = (healthy === null);
 
+    let tooltipContent = 'Healthy';
+
+    if (unhealthy) {
+      tooltipContent = 'Unhealthy';
+    }
+
+    if (!activeState || unknown) {
+      tooltipContent = 'No health checks available';
+    }
+
     let failing = ['TASK_ERROR', 'TASK_FAILED'].includes(state);
     let running = ['TASK_RUNNING', 'TASK_STARTING'].includes(state);
 
     let statusClass = classNames({
       'dot': true,
+      'flush': true,
       'inactive': !activeState,
       'success': healthy && running,
       'running': unknown && running,
@@ -288,14 +336,13 @@ class TaskTable extends React.Component {
 
     return (
       <div className="flex-box flex-box-align-vertical-center
-        table-cell-flex-box">
+        table-cell-flex-box flex-align-items-center flex-direction-top-to-bottom">
         <div className="table-cell-icon table-cell-task-dot
           task-status-indicator">
-          <span className={statusClass}></span>
+          <Tooltip anchor="center" content={tooltipContent}>
+            <span className={statusClass}></span>
+          </Tooltip>
         </div>
-        <span className={statusLabelClasses}>
-          {this.getStatusValue(task)}
-        </span>
       </div>
     );
   }
@@ -326,6 +373,7 @@ class TaskTable extends React.Component {
         columns={this.getColumns()}
         data={tasks.slice()}
         disabledItemsMap={this.getDisabledItemsMap(tasks)}
+        inactiveItemsMap={this.getInactiveItemsMap(tasks)}
         getColGroup={this.getColGroup}
         onCheckboxChange={onCheckboxChange}
         sortBy={{prop: 'updated', order: 'desc'}}

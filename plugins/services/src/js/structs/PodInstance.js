@@ -24,8 +24,13 @@ module.exports = class PodInstance extends Item {
     return this.getId();
   }
 
+  getStatus() {
+    // API returns mix of uppercase and lowercase depending on status :(
+    return this.get('status').toLowerCase();
+  }
+
   getInstanceStatus() {
-    switch (this.get('status')) {
+    switch (this.getStatus()) {
       case PodInstanceState.PENDING:
         return PodInstanceStatus.STAGED;
 
@@ -51,7 +56,7 @@ module.exports = class PodInstance extends Item {
 
       default:
         return Object.assign(Object.create(PodInstanceStatus.NA), {
-          displayName: StringUtil.capitalize(this.get('status').toLowerCase())
+          displayName: StringUtil.capitalize(this.getStatus())
         });
     }
   }
@@ -96,7 +101,7 @@ module.exports = class PodInstance extends Item {
   }
 
   isHealthy() {
-    if (this.get('status') !== PodInstanceState.STABLE) {
+    if (this.getStatus() !== PodInstanceState.STABLE) {
       return false;
     }
     return this.getContainers().every(function (container) {
@@ -105,18 +110,18 @@ module.exports = class PodInstance extends Item {
   }
 
   isRunning() {
-    let status = this.get('status');
+    let status = this.getStatus();
     return (status === PodInstanceState.STABLE) ||
            (status === PodInstanceState.DEGRADED);
   }
 
   isStaging() {
-    let status = this.get('status');
+    let status = this.getStatus();
     return (status === PodInstanceState.PENDING) ||
            (status === PodInstanceState.STAGING);
   }
 
   isTerminating() {
-    return this.get('status') === PodInstanceState.TERMINAL;
+    return this.getStatus() === PodInstanceState.TERMINAL;
   }
 };
