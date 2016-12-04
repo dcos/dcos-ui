@@ -28,9 +28,10 @@ const getDropdownItemFromComponent = (child, index) => {
   };
 };
 
-const PageHeaderActionsMenu = ({children}) => {
+const PageHeaderActionsMenu = ({anchorRight, children}) => {
   return (
     <Dropdown
+      anchorRight={anchorRight}
       buttonClassName="button button-link"
       items={getMenuItems(children)}
       onItemSelection={handleItemSelection}
