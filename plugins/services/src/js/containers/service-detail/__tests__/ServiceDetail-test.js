@@ -60,14 +60,6 @@ describe('ServiceDetail', function () {
     ReactDOM.unmountComponentAtNode(this.container);
   });
 
-  describe('#render', function () {
-
-    it('renders service info name', function () {
-      expect(this.node.querySelector('.h1 .collapsing-string-full-string').textContent).toEqual('test');
-    });
-
-  });
-
   describe('#renderConfigurationTabView', function () {
 
     it('renders the configuration tab', function () {

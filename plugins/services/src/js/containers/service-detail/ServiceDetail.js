@@ -133,9 +133,6 @@ class ServiceDetail extends mixin(TabsMixin) {
       });
     }
 
-    // TODO add ServiceInfo to header actions
-    /* <ServiceInfo onActionsItemSelection={this.onActionsItemSelection}
-         service={service} tabs={this.tabs_getUnroutedTabs()} />*/
     return (
       <Page>
         <Page.Header tabs={tabs} breadcrumbs={breadcrumbs} iconID="services" />
